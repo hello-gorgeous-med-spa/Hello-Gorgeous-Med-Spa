@@ -1,6 +1,6 @@
 import React from 'react'
-import Section from '../components/Section'
-import Card from '../components/Card'
+import Section from '../../components/Section'
+import Card from '../../components/Card'
 
 export default function AboutPage() {
   return (
