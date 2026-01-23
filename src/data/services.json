@@ -1,0 +1,41 @@
+[
+  {
+    "slug": "botox",
+    "title": "Botox",
+    "excerpt": "Reduce fine lines and restore a youthful appearance.",
+    "content": "Botox injections are a minimally invasive treatment used to temporarily relax facial muscles and smooth dynamic wrinkles.",
+    "seo": {
+      "title": "Botox | Hello Gorgeous Med Spa",
+      "description": "Professional Botox treatments in Oswego, IL — restore a natural, refreshed appearance."
+    },
+    "faq": [
+      { "q": "What is Botox?", "a": "Botox is a neuromodulator used to treat dynamic wrinkles." }
+    ]
+  },
+  {
+    "slug": "fillers",
+    "title": "Dermal Fillers",
+    "excerpt": "Restore volume and shape with personalized filler treatments.",
+    "content": "Dermal fillers add volume to facial areas such as lips, cheeks, and nasolabial folds.",
+    "seo": {
+      "title": "Dermal Fillers | Hello Gorgeous Med Spa",
+      "description": "Custom dermal filler treatments in Oswego, IL to restore youthful contours."
+    },
+    "faq": [
+      { "q": "Are fillers safe?", "a": "When performed by experienced providers, fillers have a strong safety profile." }
+    ]
+  },
+  {
+    "slug": "hormone-therapy",
+    "title": "Hormone Therapy",
+    "excerpt": "Personalized hormone care for better balance and vitality.",
+    "content": "Hormone therapy services focus on testing and tailored treatment plans to optimize wellbeing.",
+    "seo": {
+      "title": "Hormone Therapy | Hello Gorgeous Med Spa",
+      "description": "Comprehensive hormone therapy and optimization services in Oswego, IL."
+    },
+    "faq": [
+      { "q": "Who is a candidate?", "a": "Candidates are evaluated via history and labs to determine individualized plans." }
+    ]
+  }
+]

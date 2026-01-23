@@ -1,27 +1,28 @@
 import React from 'react';
 import Link from 'next/link';
-import styles from './Header.module.css';
 
 const Header: React.FC = () => {
     return (
-        <header className={styles.header}>
-            <h1 className={styles.title}>Hello Gorgeous Med Spa</h1>
-            <nav className={styles.nav}>
-                <ul>
-                    <li>
-                        <Link href="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link href="/about">About</Link>
-                    </li>
-                    <li>
-                        <Link href="/services">Services</Link>
-                    </li>
-                    <li>
-                        <Link href="/contact">Contact</Link>
-                    </li>
-                </ul>
-            </nav>
+        <header className="bg-white border-b">
+            <div className="container flex items-center justify-between py-6">
+                <h1 className="text-xl font-semibold">Hello Gorgeous Med Spa</h1>
+                <nav>
+                    <ul className="flex gap-6 text-sm">
+                        <li>
+                            <Link href="/" className="hover:underline">Home</Link>
+                        </li>
+                        <li>
+                            <Link href="/about" className="hover:underline">About</Link>
+                        </li>
+                        <li>
+                            <Link href="/services" className="hover:underline">Services</Link>
+                        </li>
+                        <li>
+                            <Link href="/contact" className="hover:underline">Contact</Link>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </header>
     );
 };
