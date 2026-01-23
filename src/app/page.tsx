@@ -4,6 +4,12 @@ import Card from '../components/Card'
 import Section from '../components/Section'
 import Hero from '../components/Hero'
 import HomeInteractive from '../components/home/HomeInteractive'
+import ServicesGrid from '../components/ServicesGrid'
+import TrustSection from '../components/TrustSection'
+import FinancingRewards from '../components/FinancingRewards'
+import Testimonials from '../components/Testimonials'
+import CTASection from '../components/CTASection'
+import Footer from '../components/Footer'
 
 export default function Home() {
   return (
@@ -13,6 +19,18 @@ export default function Home() {
       <div className="mt-12">
         <HomeInteractive />
       </div>
+
+      <ServicesGrid />
+
+      <TrustSection />
+
+      <FinancingRewards />
+
+      <Testimonials />
+
+      <CTASection />
+
+      <Footer />
 
       <Section id="services" className="bg-neutral-50">
         <h3 className="text-2xl font-semibold mb-6">Services Overview</h3>
