@@ -1,11 +1,12 @@
 // Backward-compatible facade.
 // Ticket #006 moves locked persona behavior to `lib/personas/*`.
-import type { PersonaId } from "@/lib/personas/types";
-import { PERSONA_CONFIGS } from "@/lib/personas";
-import { PERSONA_UI } from "@/lib/personas/ui";
+import type { PersonaId } from "./personas/types";
+import { DEFAULT_PERSONA_ID, PERSONA_CONFIGS } from "./personas";
+import { PERSONA_UI } from "./personas/ui";
 
-export type { PersonaId } from "@/lib/personas/types";
-export { DEFAULT_PERSONA_ID } from "@/lib/personas";
+export type { PersonaConfig, PersonaId } from "./personas/types";
+export { DEFAULT_PERSONA_ID, PERSONA_CONFIGS, getPersonaConfig, listPersonaIds } from "./personas";
+export { PERSONA_UI } from "./personas/ui";
 
 export type Persona = {
   id: PersonaId;
