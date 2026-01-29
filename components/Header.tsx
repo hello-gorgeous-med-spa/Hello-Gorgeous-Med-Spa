@@ -9,6 +9,9 @@ import { SITE } from "@/lib/seo";
 
 const nav = [
   { href: "/", label: "Home", icon: "🏠" },
+  { href: "/your-journey", label: "Your Journey", icon: "🫶" },
+  { href: "/understand-your-body", label: "Understand", icon: "🧬" },
+  { href: "/care-and-support", label: "Support", icon: "🤍" },
   { href: "/about", label: "About", icon: "✨" },
   { href: "/services", label: "Services", icon: "💉" },
   { href: "/locations", label: "Locations", icon: "📌" },

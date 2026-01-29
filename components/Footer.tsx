@@ -21,6 +21,21 @@ export function Footer() {
             <h4 className="font-semibold text-white mb-4">Explore</h4>
             <ul className="space-y-2 text-sm text-gray-400">
               <li>
+                <Link className="hover:text-white transition" href="/your-journey">
+                  Your Journey
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-white transition" href="/understand-your-body">
+                  Understand Your Body
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-white transition" href="/care-and-support">
+                  Care & Support
+                </Link>
+              </li>
+              <li>
                 <Link className="hover:text-white transition" href="/services">
                   Services
                 </Link>
@@ -38,6 +53,11 @@ export function Footer() {
               <li>
                 <Link className="hover:text-white transition" href="/care-engine">
                   The Care Engine™
+                </Link>
+              </li>
+              <li>
+                <Link className="hover:text-white transition" href="/clinical-partners">
+                  Clinical Partners & Standards
                 </Link>
               </li>
               <li>
