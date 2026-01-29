@@ -4,6 +4,7 @@
   "description": "A beautiful medspa website",
   "main": "index.js",
   "scripts": {
+    "prebuild": "node scripts/sync-mascot-media.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

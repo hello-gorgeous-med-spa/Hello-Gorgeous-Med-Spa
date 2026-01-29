@@ -8,6 +8,8 @@ import { PERSONA_UI } from "@/lib/personas/ui";
 import { CTA } from "@/components/CTA";
 import { FadeUp } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
+import { MascotVideo } from "@/components/MascotVideo";
+import { getMascotVideoSrc, mascotImages, pickMascotVideoIntentForContext } from "@/lib/media";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -57,7 +59,9 @@ function VideoModal({
   onClose: () => void;
   personaId: PersonaId;
 }) {
-  const src = PERSONA_UI[personaId].video?.webm ?? PERSONA_UI[personaId].video?.mp4;
+  const intent = pickMascotVideoIntentForContext({ personaId, mode: "meet-team" });
+  const src = getMascotVideoSrc(personaId, intent);
+  const poster = mascotImages[personaId]?.poster ?? mascotImages[personaId]?.portrait;
   if (!open) return null;
 
   return (
@@ -79,30 +83,18 @@ function VideoModal({
         </div>
         <div className="rounded-b-2xl border-x border-b border-white/10 bg-black/60 p-4">
           {src ? (
-            // eslint-disable-next-line jsx-a11y/media-has-caption
-            <video
-              className="w-full rounded-xl bg-black"
-              controls
-              autoPlay
-              playsInline
-              preload="metadata"
-              poster={PERSONA_UI[personaId].video?.poster}
-            >
-              {PERSONA_UI[personaId].video?.webm ? (
-                <source src={PERSONA_UI[personaId].video!.webm} type="video/webm" />
-              ) : null}
-              {PERSONA_UI[personaId].video?.mp4 ? (
-                <source src={PERSONA_UI[personaId].video!.mp4} type="video/mp4" />
-              ) : null}
-            </video>
+            <MascotVideo src={src} poster={poster} title={personaBadge(personaId)} />
           ) : (
             <div className="rounded-xl border border-white/10 bg-gradient-to-b from-gray-950/60 to-black p-8 text-center">
               <p className="text-white font-semibold">Video placeholder</p>
               <p className="mt-2 text-white/70">
-                Add `mp4/webm` URLs in `lib/personas/ui.ts` to enable premium clips.
+                Register video clips in `lib/media.ts` and ensure files exist under `/public/videos/mascots/...`.
               </p>
             </div>
           )}
+          <p className="mt-3 text-xs text-white/60">
+            Educational only. No diagnosis. No medical advice. No outcome guarantees.
+          </p>
         </div>
       </div>
     </div>
