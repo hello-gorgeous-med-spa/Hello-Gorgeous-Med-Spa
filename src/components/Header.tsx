@@ -7,7 +7,7 @@ const Header: React.FC = () => {
         <header className="bg-black border-b border-white/10 px-4 py-4">
             <div className="max-w-7xl mx-auto flex items-center justify-between">
                 <Link href="/" className="flex items-center gap-2">
-                    <span className="bg-gradient-to-r from-pink-500 to-purple-500 text-white text-sm font-bold px-2 py-1 rounded">
+                    <span className="bg-gradient-to-r from-pink-500 to-pink-600 text-white text-sm font-bold px-2 py-1 rounded">
                         HG
                     </span>
                     <span className="text-white font-bold text-lg hidden sm:block">
@@ -39,7 +39,7 @@ const Header: React.FC = () => {
                     </Link>
                     <Link 
                         href="/book" 
-                        className="flex items-center gap-1.5 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-4 py-2 rounded-lg hover:from-pink-600 hover:to-purple-600 transition text-sm font-semibold ml-2"
+                        className="flex items-center gap-1.5 bg-gradient-to-r from-pink-500 to-pink-600 text-white px-4 py-2 rounded-lg hover:from-pink-600 hover:to-pink-700 transition text-sm font-semibold ml-2"
                     >
                         <FiCalendar className="w-4 h-4" />
                         <span>Book Now</span>

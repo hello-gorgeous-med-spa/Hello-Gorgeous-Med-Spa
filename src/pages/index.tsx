@@ -11,13 +11,13 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <section className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-transparent to-purple-500/10" />
+        <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-transparent to-pink-300/10" />
         
         <div className="relative max-w-6xl mx-auto">
           <div className="text-center">
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 leading-tight">
               Welcome to{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-purple-500">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 to-pink-600">
                 Hello Gorgeous
               </span>
             </h1>
@@ -27,7 +27,7 @@ const Home: React.FC = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/care-team"
-                className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-lg hover:shadow-pink-500/25 transition-all"
+                className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-pink-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-lg hover:shadow-pink-500/25 transition-all"
               >
                 <FiUsers className="w-5 h-5" />
                 Meet Your Care Team
@@ -68,8 +68,8 @@ const Home: React.FC = () => {
             </div>
 
             <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:border-pink-500/30 transition">
-              <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center mb-4">
-                <FiShield className="w-6 h-6 text-purple-400" />
+              <div className="w-12 h-12 bg-pink-500/20 rounded-xl flex items-center justify-center mb-4">
+                <FiShield className="w-6 h-6 text-pink-400" />
               </div>
               <h3 className="text-xl font-semibold mb-2">Trusted Information</h3>
               <p className="text-white/60">
@@ -101,7 +101,7 @@ const Home: React.FC = () => {
           </p>
           <Link
             href="/care-team"
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-lg hover:shadow-pink-500/25 transition-all"
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-pink-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-lg hover:shadow-pink-500/25 transition-all"
           >
             <FiPlay className="w-5 h-5" />
             Watch Expert Intros

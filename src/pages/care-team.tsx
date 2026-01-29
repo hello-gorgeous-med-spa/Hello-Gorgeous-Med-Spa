@@ -185,7 +185,7 @@ export default function CareTeamPage() {
                 <div className="relative mb-4 rounded-xl overflow-hidden bg-gray-800">
                   <div className="aspect-video relative">
                     {/* Placeholder gradient when no image */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 to-purple-500/20" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 to-pink-300/20" />
                     
                     {/* Play Button Overlay */}
                     <div className={`absolute inset-0 flex items-center justify-center transition-opacity ${playingVideo === mascot.id ? 'opacity-0' : 'opacity-100'}`}>
@@ -241,7 +241,7 @@ export default function CareTeamPage() {
 
                   {/* Personality Badge */}
                   <div className="mb-4">
-                    <span className="inline-block px-2 py-1 bg-purple-500/20 border border-purple-500/30 text-purple-300 rounded-full text-xs">
+                    <span className="inline-block px-2 py-1 bg-pink-500/20 border border-pink-500/30 text-pink-300 rounded-full text-xs">
                       {mascot.personality}
                     </span>
                   </div>
@@ -251,7 +251,7 @@ export default function CareTeamPage() {
                     <button
                       onClick={() => startChat(mascot)}
                       disabled={loadingChat === mascot.id}
-                      className="flex-1 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-4 py-2.5 rounded-xl font-semibold hover:from-pink-600 hover:to-purple-600 transition flex items-center justify-center gap-2 disabled:opacity-50 text-sm"
+                      className="flex-1 bg-gradient-to-r from-pink-500 to-pink-600 text-white px-4 py-2.5 rounded-xl font-semibold hover:from-pink-600 hover:to-pink-700 transition flex items-center justify-center gap-2 disabled:opacity-50 text-sm"
                     >
                       {loadingChat === mascot.id ? (
                         <>
@@ -289,7 +289,7 @@ export default function CareTeamPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/"
-              className="bg-gradient-to-r from-pink-500 to-purple-500 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-lg hover:shadow-pink-500/25 transition-all"
+              className="bg-gradient-to-r from-pink-500 to-pink-600 text-white px-8 py-4 rounded-full text-lg font-semibold hover:shadow-lg hover:shadow-pink-500/25 transition-all"
             >
               Back to Home
             </Link>
@@ -345,7 +345,7 @@ export default function CareTeamPage() {
                     startChat(selectedMascot);
                     setSelectedMascot(null);
                   }}
-                  className="flex-1 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-6 py-3 rounded-xl font-semibold hover:from-pink-600 hover:to-purple-600 transition"
+                  className="flex-1 bg-gradient-to-r from-pink-500 to-pink-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-pink-600 hover:to-pink-700 transition"
                 >
                   Start Chat with {selectedMascot.name}
                 </button>
