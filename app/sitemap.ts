@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: `${SITE.url}/`, lastModified: now },
     { url: `${SITE.url}/about`, lastModified: now },
+    { url: `${SITE.url}/meet-the-team`, lastModified: now },
     { url: `${SITE.url}/services`, lastModified: now },
     { url: `${SITE.url}/contact`, lastModified: now },
     { url: `${SITE.url}/book`, lastModified: now },

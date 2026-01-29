@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { FadeUp, Section } from "@/components/Section";
+import { CTA } from "@/components/CTA";
 import { SERVICES, pageMetadata, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -37,6 +38,14 @@ export default function ServicesPage() {
               Browse our core offerings and book with confidence. Serving Oswego, Naperville,
               Aurora, and Plainfield.
             </p>
+            <div className="mt-10 flex flex-col sm:flex-row gap-4">
+              <CTA href="/meet-the-team" variant="outline">
+                Meet the Experts
+              </CTA>
+              <CTA href="/book" variant="gradient">
+                Book Now
+              </CTA>
+            </div>
           </FadeUp>
         </div>
       </Section>

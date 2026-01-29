@@ -57,6 +57,9 @@ export function Hero() {
             <CTA href="/services" variant="outline">
               See Services
             </CTA>
+            <CTA href="/meet-the-team" variant="outline">
+              Meet the Experts
+            </CTA>
           </div>
 
           <div className="flex flex-wrap justify-center items-center gap-6 text-sm text-gray-400">
