@@ -30,3 +30,250 @@ a {
     padding: 20px 0;
     text-align: center;
 }
+
+/* ===== Meet Your Care Team Page ===== */
+.experts-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.experts-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.experts-header h1 {
+    font-size: 2.5rem;
+    color: #2d3748;
+    margin-bottom: 10px;
+}
+
+.experts-header p {
+    color: #718096;
+    font-size: 1.1rem;
+}
+
+.experts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* ===== Care Team Chat Box Styles ===== */
+.expert-chat-box {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.expert-chat-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.chat-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.expert-avatar {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.expert-info {
+    flex: 1;
+}
+
+.expert-info h3 {
+    color: white;
+    font-size: 1.1rem;
+    margin-bottom: 2px;
+}
+
+.expert-title {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+}
+
+.online-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: white;
+    font-size: 0.8rem;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #68d391;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.chat-content {
+    padding: 20px;
+    background: #f7fafc;
+    min-height: 200px;
+}
+
+.message-bubble {
+    background: white;
+    padding: 15px 20px;
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 15px;
+}
+
+.message-bubble p {
+    margin: 0 0 10px 0;
+    color: #4a5568;
+    font-size: 0.95rem;
+}
+
+.message-bubble p:last-child {
+    margin-bottom: 0;
+}
+
+.video-section {
+    margin-top: 15px;
+}
+
+.video-trigger {
+    width: 100%;
+    padding: 15px 20px;
+    background: linear-gradient(135deg, #ed64a6 0%, #d53f8c 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.video-trigger:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(213, 63, 140, 0.4);
+}
+
+.play-icon {
+    font-size: 1.2rem;
+}
+
+.video-container {
+    border-radius: 12px;
+    overflow: hidden;
+    background: #000;
+}
+
+.video-container video {
+    display: block;
+    border-radius: 12px 12px 0 0;
+}
+
+.close-video {
+    width: 100%;
+    padding: 10px;
+    background: #4a5568;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background 0.2s ease;
+}
+
+.close-video:hover {
+    background: #2d3748;
+}
+
+.chat-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.book-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.book-btn:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Video instructions box - remove after adding videos */
+.video-instructions {
+    background: #fffbeb;
+    border: 2px dashed #f59e0b;
+    border-radius: 12px;
+    padding: 20px 30px;
+    margin-top: 40px;
+}
+
+.video-instructions h3 {
+    color: #b45309;
+    margin-bottom: 10px;
+}
+
+.video-instructions code {
+    background: #fef3c7;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.video-instructions ul {
+    margin: 10px 0;
+    padding-left: 20px;
+}
+
+.video-instructions li {
+    font-family: monospace;
+    color: #92400e;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .experts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .experts-header h1 {
+        font-size: 2rem;
+    }
+}
