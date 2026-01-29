@@ -1,7 +1,25 @@
+import type { Metadata } from "next";
+
+import { FAQJsonLd } from "@/components/seo/FAQJsonLd";
+import { SiteJsonLd } from "@/components/seo/SiteJsonLd";
+import { FadeUp } from "@/components/ui/FadeUp";
+import { faqsHome } from "@/content/faqs";
+import { pageMetadata } from "@/lib/metadata";
+
+export const metadata: Metadata = pageMetadata({
+  title: "Home",
+  description:
+    "Hello Gorgeous Med Spa in Oswego, IL. Luxury medical aesthetics—Botox/Dysport, fillers, GLP‑1 weight loss, hormone therapy, PRF/PRP. Serving Naperville, Aurora, and Plainfield.",
+  path: "/",
+});
+
 export default function HomePage() {
   return (
     <>
-      {/* TODO: add per-page SEO + JSON-LD in next commit */}
+      {/* SEO */}
+      <SiteJsonLd />
+      <FAQJsonLd faqs={faqsHome} />
+
       <section className="relative min-h-screen flex items-center justify-center px-6 py-20">
         <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-black to-black" />
         <div className="absolute top-20 left-10 w-72 h-72 bg-pink-500/10 rounded-full blur-3xl animate-pulse" />
@@ -11,7 +29,7 @@ export default function HomePage() {
         />
 
         <div className="relative z-10 max-w-6xl mx-auto text-center">
-          <div className="fade-up is-visible">
+          <FadeUp>
             <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
               LUXURY MEDICAL AESTHETICS IN OSWEGO, IL
             </p>
@@ -74,7 +92,7 @@ export default function HomePage() {
                 <span>Luxury experience</span>
               </div>
             </div>
-          </div>
+          </FadeUp>
         </div>
       </section>
     </>

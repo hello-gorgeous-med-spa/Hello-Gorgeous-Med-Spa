@@ -1,5 +1,3 @@
-import Script from "next/script";
-
 import { site } from "@/content/site";
 
 export function SiteJsonLd() {
@@ -24,10 +22,9 @@ export function SiteJsonLd() {
   };
 
   return (
-    <Script
-      id="jsonld-site"
+    <script
       type="application/ld+json"
-      strategy="afterInteractive"
+      // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
   );

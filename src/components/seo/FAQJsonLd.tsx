@@ -1,5 +1,3 @@
-import Script from "next/script";
-
 export type FAQ = { question: string; answer: string };
 
 export function FAQJsonLd({ faqs }: { faqs: ReadonlyArray<FAQ> }) {
@@ -14,10 +12,9 @@ export function FAQJsonLd({ faqs }: { faqs: ReadonlyArray<FAQ> }) {
   };
 
   return (
-    <Script
-      id="jsonld-faq"
+    <script
       type="application/ld+json"
-      strategy="afterInteractive"
+      // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
     />
   );
