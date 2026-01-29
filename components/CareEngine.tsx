@@ -3,8 +3,9 @@
 import React from "react";
 
 import { CTA } from "@/components/CTA";
-import type { PersonaId } from "@/lib/personas";
-import { DEFAULT_PERSONA_ID, PERSONAS } from "@/lib/personas";
+import type { PersonaId } from "@/lib/personas/types";
+import { DEFAULT_PERSONA_ID, PERSONA_CONFIGS } from "@/lib/personas";
+import { PERSONA_UI } from "@/lib/personas/ui";
 import { BOOKING_URL, PRECONSULT_DEFAULTS, type CareModuleId, type PreConsultAnswer, suggestPersonaForServiceSlug, suggestServiceSlugsFromPreConsult } from "@/lib/flows";
 import { complianceFooter } from "@/lib/guardrails";
 
@@ -15,7 +16,7 @@ function cx(...classes: Array<string | undefined | null | false>) {
 }
 
 function getPersonaName(id: PersonaId) {
-  return PERSONAS.find((p) => p.id === id)?.name ?? "Expert";
+  return PERSONA_CONFIGS.find((p) => p.id === id)?.displayName ?? "Expert";
 }
 
 function moduleLabel(m: CareModuleId) {
@@ -183,11 +184,11 @@ export function CareEngine() {
 
         {/* Persona selector */}
         <div className="mt-4 flex flex-wrap gap-2">
-          {PERSONAS.map((p) => (
+          {PERSONA_CONFIGS.map((p) => (
             <button
               key={p.id}
               type="button"
-              onClick={() => setPersonaId(p.id)}
+              onClick={() => setPersonaId(p.id as PersonaId)}
               className={cx(
                 "text-xs font-semibold rounded-full px-3 py-2 border transition",
                 personaId === p.id
@@ -195,8 +196,8 @@ export function CareEngine() {
                   : "border-white/10 text-white/70 hover:bg-white/5 hover:text-white",
               )}
             >
-              <span className="mr-1">{p.emoji}</span>
-              {p.name}
+              <span className="mr-1">{PERSONA_UI[p.id as PersonaId].emoji}</span>
+              {p.displayName}
             </button>
           ))}
         </div>

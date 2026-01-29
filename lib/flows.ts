@@ -1,4 +1,4 @@
-import type { PersonaId } from "@/lib/personas";
+import type { PersonaId } from "@/lib/personas/types";
 
 export const BOOKING_URL =
   "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
@@ -27,8 +27,8 @@ export function suggestPersonaForServiceSlug(slug: string): PersonaId {
   const s = slug.toLowerCase();
   if (s.includes("botox") || s.includes("dysport") || s.includes("jeuveau")) return "beau-tox";
   if (s.includes("filler")) return "filla-grace";
-  if (s.includes("hormone") || s.includes("trt") || s.includes("peptide")) return "harmony";
-  if (s.includes("weight")) return "harmony";
+  if (s.includes("hormone") || s.includes("trt") || s.includes("peptide")) return "ryan";
+  if (s.includes("weight")) return "ryan";
   return "peppi";
 }
 

@@ -2,8 +2,9 @@
 
 import React from "react";
 
-import type { Persona, PersonaId } from "@/lib/personas";
-import { PERSONAS } from "@/lib/personas";
+import type { PersonaId } from "@/lib/personas/types";
+import { getPersonaConfig } from "@/lib/personas";
+import { PERSONA_UI } from "@/lib/personas/ui";
 import { CTA } from "@/components/CTA";
 
 type Msg = { role: "user" | "assistant"; content: string };
@@ -13,17 +14,26 @@ function cx(...classes: Array<string | undefined | null | false>) {
 }
 
 function getPersona(id: PersonaId) {
-  return PERSONAS.find((p) => p.id === id) ?? PERSONAS[0];
+  const c = getPersonaConfig(id);
+  const ui = PERSONA_UI[id];
+  return {
+    id,
+    displayName: c.displayName,
+    role: c.role,
+    disclaimer: c.disclaimer,
+    emoji: ui.emoji,
+    chatStarters: ui.chatStarters,
+  };
 }
 
-function starter(p: Persona): Msg {
+function starter(p: ReturnType<typeof getPersona>): Msg {
   return {
     role: "assistant",
     content: [
-      `You’re chatting with ${p.name} — ${p.title}.`,
+      `You’re chatting with ${p.displayName} — ${p.role}.`,
       "",
       "Educational only — no diagnosis or individualized medical advice.",
-      p.scope.safeClose,
+      p.disclaimer,
     ].join("\n"),
   };
 }
@@ -52,11 +62,8 @@ export function getRecommendedPersonaIds({
   if (s.includes("filler") || c.includes("inject")) {
     return ["filla-grace", ...base];
   }
-  if (s.includes("hormone") || s.includes("trt") || s.includes("peptide")) {
-    return ["harmony", ...base];
-  }
   if (s.includes("weight")) {
-    return ["harmony", ...base];
+    return ["ryan", ...base];
   }
 
   // Aesthetics / regenerative defaults
@@ -154,7 +161,7 @@ export function ServiceExpertWidget({
                 )}
               >
                 <span className="mr-1">{p.emoji}</span>
-                {p.name}
+                {p.displayName}
               </button>
             );
           })}

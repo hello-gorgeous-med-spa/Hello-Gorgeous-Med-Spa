@@ -2,8 +2,9 @@
 
 import React from "react";
 
-import type { Persona, PersonaId } from "@/lib/personas";
-import { DEFAULT_PERSONA_ID, PERSONAS } from "@/lib/personas";
+import type { PersonaId } from "@/lib/personas/types";
+import { DEFAULT_PERSONA_ID, PERSONA_CONFIGS, getPersonaConfig } from "@/lib/personas";
+import { PERSONA_UI } from "@/lib/personas/ui";
 import { CTA } from "@/components/CTA";
 import { FadeUp } from "@/components/Section";
 
@@ -13,27 +14,32 @@ function cx(...classes: Array<string | undefined | null | false>) {
   return classes.filter(Boolean).join(" ");
 }
 
-function personaBadge(p: Persona) {
-  return `${p.emoji} ${p.name}`;
+function personaBadge(id: PersonaId) {
+  const c = getPersonaConfig(id);
+  const ui = PERSONA_UI[id];
+  return `${ui.emoji} ${c.displayName}`;
 }
 
-function starterSystemMessage(p: Persona): Msg {
+function starterSystemMessage(id: PersonaId): Msg {
+  const c = getPersonaConfig(id);
   return {
     role: "assistant",
     content: [
-      `You’re chatting with ${p.name} — ${p.title}.`,
+      `You’re chatting with ${c.displayName} — ${c.role}.`,
       "",
-      `What I can help with: ${p.scope.specialties.join(", ")}.`,
+      `What I can help with: ${c.allowedTopics.slice(0, 6).join(", ")}.`,
       "",
-      "Educational only — no diagnosis or individualized medical advice.",
-      p.scope.safeClose,
+      c.disclaimer,
     ].join("\n"),
   };
 }
 
-function safeTopicFaqs(personas: readonly Persona[]) {
+function safeTopicFaqs(personaIds: readonly PersonaId[]) {
   const topics = new Set<string>();
-  for (const p of personas) for (const t of p.scope.specialties) topics.add(t);
+  for (const id of personaIds) {
+    const c = getPersonaConfig(id);
+    for (const t of c.allowedTopics) topics.add(t);
+  }
   return Array.from(topics).slice(0, 12).map((t) => ({
     question: `What can your team explain about ${t}?`,
     answer:
@@ -44,13 +50,13 @@ function safeTopicFaqs(personas: readonly Persona[]) {
 function VideoModal({
   open,
   onClose,
-  persona,
+  personaId,
 }: {
   open: boolean;
   onClose: () => void;
-  persona: Persona;
+  personaId: PersonaId;
 }) {
-  const src = persona.video?.webm ?? persona.video?.mp4;
+  const src = PERSONA_UI[personaId].video?.webm ?? PERSONA_UI[personaId].video?.mp4;
   if (!open) return null;
 
   return (
@@ -59,7 +65,7 @@ function VideoModal({
         <div className="flex items-center justify-between gap-4 rounded-t-2xl border border-white/10 bg-black/70 px-5 py-4">
           <div>
             <p className="text-sm text-white/70">Video</p>
-            <p className="text-lg font-semibold text-white">{personaBadge(persona)}</p>
+            <p className="text-lg font-semibold text-white">{personaBadge(personaId)}</p>
           </div>
           <button
             type="button"
@@ -79,16 +85,20 @@ function VideoModal({
               autoPlay
               playsInline
               preload="metadata"
-              poster={persona.video?.poster}
+              poster={PERSONA_UI[personaId].video?.poster}
             >
-              {persona.video?.webm ? <source src={persona.video.webm} type="video/webm" /> : null}
-              {persona.video?.mp4 ? <source src={persona.video.mp4} type="video/mp4" /> : null}
+              {PERSONA_UI[personaId].video?.webm ? (
+                <source src={PERSONA_UI[personaId].video!.webm} type="video/webm" />
+              ) : null}
+              {PERSONA_UI[personaId].video?.mp4 ? (
+                <source src={PERSONA_UI[personaId].video!.mp4} type="video/mp4" />
+              ) : null}
             </video>
           ) : (
             <div className="rounded-xl border border-white/10 bg-gradient-to-b from-gray-950/60 to-black p-8 text-center">
               <p className="text-white font-semibold">Video placeholder</p>
               <p className="mt-2 text-white/70">
-                Add `mp4/webm` URLs in `lib/personas.ts` to enable premium clips.
+                Add `mp4/webm` URLs in `lib/personas/ui.ts` to enable premium clips.
               </p>
             </div>
           )}
@@ -100,18 +110,16 @@ function VideoModal({
 
 export function PersonaHub() {
   const [personaId, setPersonaId] = React.useState<PersonaId>(DEFAULT_PERSONA_ID);
-  const persona = React.useMemo(
-    () => PERSONAS.find((p) => p.id === personaId) ?? PERSONAS[0],
-    [personaId],
-  );
+  const personaCfg = React.useMemo(() => getPersonaConfig(personaId), [personaId]);
+  const personaUi = React.useMemo(() => PERSONA_UI[personaId], [personaId]);
 
-  const [messages, setMessages] = React.useState<Msg[]>(() => [starterSystemMessage(persona)]);
+  const [messages, setMessages] = React.useState<Msg[]>(() => [starterSystemMessage(personaId)]);
   const [input, setInput] = React.useState("");
   const [sending, setSending] = React.useState(false);
   const [videoOpen, setVideoOpen] = React.useState(false);
 
   React.useEffect(() => {
-    setMessages([starterSystemMessage(persona)]);
+    setMessages([starterSystemMessage(personaId)]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [personaId]);
 
@@ -158,7 +166,7 @@ export function PersonaHub() {
 
   return (
     <div className="grid gap-10 lg:grid-cols-12">
-      <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} persona={persona} />
+      <VideoModal open={videoOpen} onClose={() => setVideoOpen(false)} personaId={personaId} />
 
       <div className="lg:col-span-7">
         <FadeUp>
@@ -178,13 +186,15 @@ export function PersonaHub() {
         </FadeUp>
 
         <div className="mt-10 grid gap-4 sm:grid-cols-2">
-          {PERSONAS.map((p, idx) => {
-            const active = p.id === personaId;
+          {PERSONA_CONFIGS.map((p, idx) => {
+            const id = p.id as PersonaId;
+            const active = id === personaId;
+            const ui = PERSONA_UI[id];
             return (
               <FadeUp key={p.id} delayMs={40 * idx}>
                 <button
                   type="button"
-                  onClick={() => setPersonaId(p.id)}
+                  onClick={() => setPersonaId(id)}
                   className={cx(
                     "text-left rounded-2xl border bg-gradient-to-b from-gray-950/60 to-black p-5 transition",
                     active ? "border-pink-500/40" : "border-gray-800 hover:border-white/20",
@@ -192,10 +202,10 @@ export function PersonaHub() {
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-sm text-white/70">{p.title}</p>
+                      <p className="text-sm text-white/70">{p.role}</p>
                       <p className="mt-1 text-xl font-bold text-white">
-                        <span className="mr-2">{p.emoji}</span>
-                        {p.name}
+                        <span className="mr-2">{ui.emoji}</span>
+                        {p.displayName}
                       </p>
                     </div>
                     {active ? (
@@ -204,9 +214,9 @@ export function PersonaHub() {
                       </span>
                     ) : null}
                   </div>
-                  <p className="mt-3 text-white/70">{p.tagline}</p>
+                  <p className="mt-3 text-white/70">{ui.tagline}</p>
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {p.scope.specialties.slice(0, 3).map((s) => (
+                    {p.allowedTopics.slice(0, 3).map((s) => (
                       <span
                         key={s}
                         className="text-xs text-white/70 border border-white/10 rounded-full px-2 py-1"
@@ -230,7 +240,7 @@ export function PersonaHub() {
                 <div>
                   <p className="text-sm text-white/70">Chat mode</p>
                   <p className="mt-1 text-lg font-semibold text-white">
-                    {personaBadge(persona)} — {persona.title}
+                    {personaBadge(personaId)} — {personaCfg.role}
                   </p>
                 </div>
                 <button
@@ -268,7 +278,7 @@ export function PersonaHub() {
 
             <div className="p-5 border-t border-white/10">
               <div className="flex flex-wrap gap-2">
-                {persona.chatStarters.slice(0, 3).map((s) => (
+                {personaUi.chatStarters.slice(0, 3).map((s) => (
                   <button
                     key={s}
                     type="button"
@@ -314,7 +324,7 @@ export function PersonaHub() {
 
         {/* SEO-friendly FAQ topics (simple, safe) */}
         <div className="sr-only">
-          {safeTopicFaqs(PERSONAS).map((f) => (
+          {safeTopicFaqs(PERSONA_CONFIGS.map((p) => p.id as PersonaId)).map((f) => (
             <div key={f.question}>
               <h2>{f.question}</h2>
               <p>{f.answer}</p>
