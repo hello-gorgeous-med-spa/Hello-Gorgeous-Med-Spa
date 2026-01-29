@@ -11,8 +11,8 @@ const nav = [
   { href: "/", label: "Home", icon: "🏠" },
   { href: "/about", label: "About", icon: "✨" },
   { href: "/services", label: "Services", icon: "💉" },
+  { href: "/locations", label: "Locations", icon: "📌" },
   { href: "/contact", label: "Contact", icon: "📍" },
-  { href: "/oswego-il", label: "Oswego, IL", icon: "📌" },
 ] as const;
 
 function cx(...classes: Array<string | undefined | null | false>) {
