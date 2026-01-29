@@ -47,5 +47,5 @@ export const PERSONAS: readonly Persona[] = PERSONA_CONFIGS.map((c) => {
     video: ui.video,
     chatStarters: ui.chatStarters,
   };
-}) as const;
+});
 
