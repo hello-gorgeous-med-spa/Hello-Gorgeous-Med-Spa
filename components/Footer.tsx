@@ -36,6 +36,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link className="hover:text-white transition" href="/care-engine">
+                  The Care Engine™
+                </Link>
+              </li>
+              <li>
                 <Link className="hover:text-white transition" href="/about">
                   About
                 </Link>

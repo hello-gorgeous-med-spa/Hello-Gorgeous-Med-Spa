@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { pageMetadata, siteJsonLd } from "@/lib/seo";
+import { BOOKING_URL } from "@/lib/flows";
 
 export const metadata: Metadata = pageMetadata({
   title: "Book Now",
@@ -34,12 +35,11 @@ export default function BookPage() {
               </span>
             </h1>
             <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">
-              This page is ready for your booking tool integration (Acuity, Vagaro, Jane,
-              etc.). For now, use the CTA below.
+              Book online in seconds. If you’re not sure what to choose, start with a consultation.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <CTA href="/contact" variant="gradient">
-                Contact to Schedule
+              <CTA href={BOOKING_URL} variant="gradient">
+                Book with Fresha
               </CTA>
               <CTA href="/services" variant="outline">
                 See Services
@@ -56,11 +56,11 @@ export default function BookPage() {
               Booking integration placeholder
             </h2>
             <p className="mt-4 text-gray-300 max-w-2xl mx-auto">
-              Embed a scheduler widget here or link to an external booking URL.
+              We use our live booking portal for availability, confirmations, and reminders.
             </p>
             <div className="mt-8">
-              <CTA href="/contact" variant="white" className="group inline-flex">
-                Start with Contact
+              <CTA href={BOOKING_URL} variant="white" className="group inline-flex">
+                Open Booking Portal
                 <svg
                   stroke="currentColor"
                   fill="none"

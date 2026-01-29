@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { PERSONAS, type PersonaId } from "@/lib/personas";
 import { SITE } from "@/lib/seo";
+import { looksLikeEmergency, postTreatmentRedFlags, ryanSafetyOverrideReply } from "@/lib/guardrails";
 
 type ChatMessage = { role: "user" | "assistant" | "system"; content: string };
 
@@ -79,6 +80,7 @@ export async function POST(req: Request) {
   const body = (await req.json().catch(() => null)) as
     | {
         personaId: PersonaId;
+        module?: "education" | "preconsult" | "postcare";
         messages: ChatMessage[];
       }
     | null;
@@ -88,8 +90,17 @@ export async function POST(req: Request) {
   }
 
   const personaId = body.personaId;
+  const moduleId = body.module ?? "education";
   const messages = body.messages.filter((m) => m.role !== "system");
   const userLast = [...messages].reverse().find((m) => m.role === "user")?.content ?? "";
+
+  // Always-on safety override: emergencies or post-treatment red flags use Ryan voice.
+  if (looksLikeEmergency(userLast) || (moduleId === "postcare" && postTreatmentRedFlags(userLast))) {
+    return NextResponse.json({
+      reply: ryanSafetyOverrideReply(userLast),
+      used: "safety_override",
+    });
+  }
 
   // If OPENAI_API_KEY exists, use OpenAI Chat Completions via fetch (no extra deps).
   const apiKey = process.env.OPENAI_API_KEY;

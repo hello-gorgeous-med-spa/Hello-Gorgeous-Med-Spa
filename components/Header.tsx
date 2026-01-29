@@ -12,6 +12,7 @@ const nav = [
   { href: "/about", label: "About", icon: "✨" },
   { href: "/services", label: "Services", icon: "💉" },
   { href: "/locations", label: "Locations", icon: "📌" },
+  { href: "/care-engine", label: "Care Engine", icon: "🧠" },
   { href: "/contact", label: "Contact", icon: "📍" },
 ] as const;
 

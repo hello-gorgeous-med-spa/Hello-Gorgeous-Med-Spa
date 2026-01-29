@@ -28,14 +28,30 @@ export function CTA({
   variant?: Variant;
   className?: string;
 }) {
+  const isExternal = /^https?:\/\//i.test(href);
+  const classes = cx(
+    "inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300",
+    variants[variant],
+    className,
+  );
+
+  if (isExternal) {
+    return (
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={classes}
+      >
+        {children}
+      </a>
+    );
+  }
+
   return (
     <Link
       href={href}
-      className={cx(
-        "inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300",
-        variants[variant],
-        className,
-      )}
+      className={classes}
     >
       {children}
     </Link>
