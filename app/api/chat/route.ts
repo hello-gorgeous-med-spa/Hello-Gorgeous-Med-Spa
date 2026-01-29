@@ -6,6 +6,7 @@ import { routePersonaId } from "@/lib/personas/router";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
 import { looksLikeEmergency, postTreatmentRedFlags, ryanSafetyOverrideReply } from "@/lib/guardrails";
+import { retrieveKnowledge, shouldEscalateToSafety } from "@/lib/knowledge/engine";
 
 type ChatMessage = { role: "user" | "assistant" | "system"; content: string };
 
@@ -25,12 +26,32 @@ function bookingCtaLine() {
   return `If you’d like, you can book online here: ${BOOKING_URL}`;
 }
 
+function dynamicLinkingRule() {
+  return [
+    "Dynamic linking rule (REQUIRED):",
+    "- Do NOT link users to static FAQ pages or say 'read more here'.",
+    "- Instead, invite follow-up questions and offer to compare options using the Care Engine.",
+    "- If user wants next steps: suggest a consult (optional) and offer the booking link.",
+  ].join("\n");
+}
+
+function knowledgeOnlyRule() {
+  return [
+    "Knowledge constraint (REQUIRED):",
+    "- You may ONLY use the provided Knowledge Entries to answer.",
+    "- If the knowledge provided is insufficient, ask a clarifying question and/or recommend an in-person consult.",
+    "- Do NOT fill gaps with outside knowledge or assumptions.",
+  ].join("\n");
+}
+
 function baseSystemPrompt({
   personaId,
   moduleId,
+  knowledgeDump,
 }: {
   personaId: PersonaId;
   moduleId: "education" | "preconsult" | "postcare";
+  knowledgeDump: string;
 }) {
   const p = getPersonaConfig(personaId);
   const moduleNote =
@@ -44,6 +65,12 @@ function baseSystemPrompt({
     `You are ${p.displayName} (${p.role}) for ${SITE.name}.`,
     moduleNote,
     `Tone: ${p.tone}`,
+    "",
+    knowledgeOnlyRule(),
+    dynamicLinkingRule(),
+    "",
+    "Knowledge Entries (structured source of truth):",
+    knowledgeDump,
     "",
     `Allowed topics (stay inside these unless escalating to consult):`,
     ...p.allowedTopics.map((t: string) => `- ${t}`),
@@ -71,45 +98,77 @@ function baseSystemPrompt({
   ].join("\n");
 }
 
-function localFallback(personaId: PersonaId, userText: string) {
-  const bullets =
-    personaId === "beau-tox"
-      ? [
-          "General timeline: effects often begin in a few days and settle in ~10–14 days.",
-          "Typical longevity: ~3–4 months (varies).",
-          "Safety: eligibility and personalized plans require an in-person consult.",
-        ]
-      : personaId === "filla-grace"
-        ? [
-            "Fillers can restore volume and refine contour—goal is facial harmony.",
-            "Swelling/bruising can happen; most people resume normal activities quickly.",
-            "Longevity varies by area/product—often 6–18 months.",
-          ]
-        : personaId === "ryan"
-          ? [
-              "We can discuss general safety principles and what-to-expect guidance.",
-              "Eligibility is individualized—final recommendations require clinician evaluation.",
-              "If something feels urgent or severe, seek urgent/emergency care.",
-            ]
-          : personaId === "founder"
-            ? [
-                "Our focus is trust, natural-looking results, and a premium experience.",
-                "We start with a consult-first approach and clear expectations.",
-                "We’ll guide you to the right service and next step.",
-              ]
-            : [
-                "I can help explain what to expect and point you to the right next step.",
-                "Start with a consultation for personalized recommendations.",
-                "Happy to suggest questions to ask your provider.",
-              ];
+function formatKnowledgeDump(matches: Awaited<ReturnType<typeof retrieveKnowledge>>["matches"]) {
+  if (!matches.length) return "(none matched)";
+  return matches
+    .map((m) => {
+      const e = m.entry;
+      return [
+        `---`,
+        `id: ${e.id}`,
+        `topic: ${e.topic}`,
+        `category: ${e.category}`,
+        `explanation: ${e.explanation}`,
+        `whatItHelpsWith: ${e.whatItHelpsWith.join(" | ")}`,
+        `whoItsFor: ${e.whoItsFor.join(" | ")}`,
+        `whoItsNotFor: ${e.whoItsNotFor.join(" | ")}`,
+        `commonQuestions: ${e.commonQuestions.join(" | ")}`,
+        `safetyNotes: ${e.safetyNotes.join(" | ")}`,
+        `escalationTriggers: ${e.escalationTriggers.join(" | ")}`,
+        `relatedTopics: ${e.relatedTopics.join(" | ")}`,
+        `updatedAt: ${e.updatedAt} v${e.version}`,
+      ].join("\n");
+    })
+    .join("\n");
+}
+
+function localKnowledgeReply({
+  personaId,
+  matches,
+  suggestedQuestions,
+}: {
+  personaId: PersonaId;
+  matches: Awaited<ReturnType<typeof retrieveKnowledge>>["matches"];
+  suggestedQuestions: string[];
+}) {
+  const p = getPersonaConfig(personaId);
+  if (!matches.length) {
+    return [
+      "I can absolutely help—quick question so I explain the right thing:",
+      "- Are you asking about injectables (Botox/Dysport/Jeuveau), fillers, skin treatments, hormones/energy, weight loss, or aftercare?",
+      "",
+      "If you tell me which area, I’ll explain it clearly (education only) and what questions to ask in a consult.",
+      "",
+      p.disclaimer,
+    ].join("\n");
+  }
+
+  const top = matches[0]!.entry;
+  const bullets = [
+    `Topic: ${top.topic}`,
+    top.explanation,
+    "",
+    "What it commonly helps with (education):",
+    ...top.whatItHelpsWith.slice(0, 4).map((x) => `- ${x}`),
+    "",
+    "Who it’s often for:",
+    ...top.whoItsFor.slice(0, 3).map((x) => `- ${x}`),
+    "",
+    "Who it may not be for (high-level):",
+    ...top.whoItsNotFor.slice(0, 3).map((x) => `- ${x}`),
+  ];
+
+  const nextQs = suggestedQuestions.length
+    ? ["", "Want me to explain one of these next?", ...suggestedQuestions.slice(0, 3).map((q) => `- ${q}`)]
+    : [];
 
   return [
-    `Here’s a helpful starting point:`,
-    ...bullets.map((b) => `- ${b}`),
+    ...bullets,
     "",
-    `You asked: "${userText}"`,
+    "If you want, you can ask me to compare options or walk through what-to-expect—right here in the Care Engine.",
+    ...nextQs,
     "",
-    getPersonaConfig(personaId).disclaimer,
+    p.disclaimer,
   ].join("\n");
 }
 
@@ -142,13 +201,25 @@ export async function POST(req: Request) {
   }
 
   const routed = routePersonaId({ requestedPersonaId: personaIdRequested, userText: userLast });
-  const personaIdUsed = routed.personaId;
+  let personaIdUsed = routed.personaId;
+
+  // Retrieve knowledge for this question (single source of truth)
+  const retrieval = await retrieveKnowledge({ query: userLast, maxMatches: 5 });
+
+  // If the knowledge indicates safety escalation, anchor to Ryan tone.
+  if (personaIdUsed !== "ryan" && shouldEscalateToSafety({ query: userLast, matches: retrieval.matches })) {
+    personaIdUsed = "ryan";
+  }
 
   // If OPENAI_API_KEY exists, use OpenAI Chat Completions via fetch (no extra deps).
   const apiKey = process.env.OPENAI_API_KEY;
   if (!apiKey) {
     const p = getPersonaConfig(personaIdUsed);
-    const base = localFallback(personaIdUsed, userLast);
+    const base = localKnowledgeReply({
+      personaId: personaIdUsed,
+      matches: retrieval.matches,
+      suggestedQuestions: retrieval.suggestedQuestions,
+    });
     const withBooking = shouldSuggestBooking(userLast, p.bookingTriggers)
       ? `${base}\n\n${bookingCtaLine()}`
       : base;
@@ -158,10 +229,15 @@ export async function POST(req: Request) {
       personaIdRequested,
       personaIdUsed,
       escalated: routed.reason ?? null,
+      knowledge: retrieval.library,
     });
   }
 
-  const system = baseSystemPrompt({ personaId: personaIdUsed, moduleId });
+  const system = baseSystemPrompt({
+    personaId: personaIdUsed,
+    moduleId,
+    knowledgeDump: formatKnowledgeDump(retrieval.matches),
+  });
 
   try {
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -179,7 +255,11 @@ export async function POST(req: Request) {
 
     if (!res.ok) {
       const p = getPersonaConfig(personaIdUsed);
-      const base = localFallback(personaIdUsed, userLast);
+      const base = localKnowledgeReply({
+        personaId: personaIdUsed,
+        matches: retrieval.matches,
+        suggestedQuestions: retrieval.suggestedQuestions,
+      });
       const withBooking = shouldSuggestBooking(userLast, p.bookingTriggers)
         ? `${base}\n\n${bookingCtaLine()}`
         : base;
@@ -189,6 +269,7 @@ export async function POST(req: Request) {
         personaIdRequested,
         personaIdUsed,
         escalated: routed.reason ?? null,
+        knowledge: retrieval.library,
       });
     }
 
@@ -196,7 +277,13 @@ export async function POST(req: Request) {
       choices?: Array<{ message?: { content?: string } }>;
     };
     const raw = data.choices?.[0]?.message?.content?.trim();
-    const replyBase = raw || localFallback(personaIdUsed, userLast);
+    const replyBase =
+      raw ||
+      localKnowledgeReply({
+        personaId: personaIdUsed,
+        matches: retrieval.matches,
+        suggestedQuestions: retrieval.suggestedQuestions,
+      });
     const p = getPersonaConfig(personaIdUsed);
     const reply = shouldSuggestBooking(userLast, p.bookingTriggers)
       ? `${replyBase}\n\n${bookingCtaLine()}`
@@ -208,10 +295,15 @@ export async function POST(req: Request) {
       personaIdRequested,
       personaIdUsed,
       escalated: routed.reason ?? null,
+      knowledge: retrieval.library,
     });
   } catch {
     const p = getPersonaConfig(personaIdUsed);
-    const base = localFallback(personaIdUsed, userLast);
+    const base = localKnowledgeReply({
+      personaId: personaIdUsed,
+      matches: retrieval.matches,
+      suggestedQuestions: retrieval.suggestedQuestions,
+    });
     const withBooking = shouldSuggestBooking(userLast, p.bookingTriggers)
       ? `${base}\n\n${bookingCtaLine()}`
       : base;
@@ -221,6 +313,7 @@ export async function POST(req: Request) {
       personaIdRequested,
       personaIdUsed,
       escalated: routed.reason ?? null,
+      knowledge: retrieval.library,
     });
   }
 }
