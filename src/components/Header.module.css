@@ -1,0 +1,60 @@
+.header {
+  @apply fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm;
+}
+
+.headerScrolled {
+  @apply shadow-md;
+}
+
+.container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.inner {
+  @apply flex items-center justify-between h-20;
+}
+
+.logo {
+  @apply flex items-center;
+}
+
+.title {
+  @apply text-2xl font-serif font-semibold text-primary-700;
+}
+
+.subtitle {
+  @apply text-xs text-secondary-500 tracking-wider uppercase;
+}
+
+.nav {
+  @apply hidden md:flex items-center space-x-8;
+}
+
+.navLink {
+  @apply text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200 relative;
+}
+
+.navLink::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-200;
+}
+
+.navLink:hover::after {
+  @apply w-full;
+}
+
+.ctaButton {
+  @apply ml-4 btn-primary;
+}
+
+.mobileMenuButton {
+  @apply md:hidden p-2 rounded-md text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500;
+}
+
+.mobileNav {
+  @apply md:hidden bg-white border-t border-gray-100 py-4;
+}
+
+.mobileNavLink {
+  @apply block px-4 py-3 text-gray-700 hover:bg-primary-50 hover:text-primary-600 font-medium transition-colors duration-200;
+}
