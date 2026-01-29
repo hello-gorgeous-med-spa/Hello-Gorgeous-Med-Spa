@@ -3,7 +3,7 @@
 import React from "react";
 
 import type { PersonaId } from "@/lib/personas/types";
-import { DEFAULT_PERSONA_ID, PERSONA_CONFIGS, getPersonaConfig } from "@/lib/personas";
+import { DEFAULT_PERSONA_ID, PERSONA_CONFIGS, getPersonaConfig } from "@/lib/personas/index";
 import { PERSONA_UI } from "@/lib/personas/ui";
 import { CTA } from "@/components/CTA";
 import { FadeUp } from "@/components/Section";

@@ -4,7 +4,7 @@ import React from "react";
 
 import { CTA } from "@/components/CTA";
 import type { PersonaId } from "@/lib/personas/types";
-import { DEFAULT_PERSONA_ID, PERSONA_CONFIGS } from "@/lib/personas";
+import { DEFAULT_PERSONA_ID, PERSONA_CONFIGS } from "@/lib/personas/index";
 import { PERSONA_UI } from "@/lib/personas/ui";
 import { BOOKING_URL, PRECONSULT_DEFAULTS, type CareModuleId, type PreConsultAnswer, suggestPersonaForServiceSlug, suggestServiceSlugsFromPreConsult } from "@/lib/flows";
 import { complianceFooter } from "@/lib/guardrails";

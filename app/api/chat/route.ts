@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
 import type { PersonaId } from "@/lib/personas/types";
-import { getPersonaConfig } from "@/lib/personas";
+import { getPersonaConfig } from "@/lib/personas/index";
 import { routePersonaId } from "@/lib/personas/router";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE } from "@/lib/seo";

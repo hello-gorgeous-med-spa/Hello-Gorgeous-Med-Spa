@@ -3,7 +3,7 @@
 import React from "react";
 
 import type { PersonaId } from "@/lib/personas/types";
-import { getPersonaConfig } from "@/lib/personas";
+import { getPersonaConfig } from "@/lib/personas/index";
 import { PERSONA_UI } from "@/lib/personas/ui";
 import { CTA } from "@/components/CTA";
 
