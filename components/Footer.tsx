@@ -31,6 +31,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link className="hover:text-white transition" href="/oswego-il">
+                  Oswego, IL
+                </Link>
+              </li>
+              <li>
                 <Link className="hover:text-white transition" href="/about">
                   About
                 </Link>

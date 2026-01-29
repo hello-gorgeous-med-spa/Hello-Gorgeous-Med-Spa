@@ -142,8 +142,8 @@ export const PERSONAS: readonly Persona[] = [
   },
   {
     id: "founder",
-    name: "Founder",
-    title: "Vision + Brand Authority",
+    name: "Danielle Alcala",
+    title: "Founder + Brand Authority",
     tagline: "Why we built Hello Gorgeous—and what we stand for.",
     emoji: "🖤",
     tone: "Warm, visionary, trust-building, concise.",
@@ -170,8 +170,8 @@ export const PERSONAS: readonly Persona[] = [
   },
   {
     id: "ryan",
-    name: "Ryan",
-    title: "Medical Director",
+    name: "Ryan Kent, FNP-BC",
+    title: "Medical Director (Oversight) + Co‑Owner",
     tagline: "Clinical authority, safety, and compliance-first education.",
     emoji: "🩺",
     tone: "Clinical, conservative, compliance-safe, calm authority.",

@@ -17,16 +17,16 @@ export const SITE = {
   url: "https://hellogorgeousmedspa.com",
   description:
     "Luxury medical aesthetics in Oswego, IL. Botox/Dysport, dermal fillers, weight loss (GLP‑1), hormone therapy, PRF/PRP, and more.",
-  // TODO: replace placeholders with real business info
-  phone: "+1-000-000-0000",
+  phone: "+1-630-636-6193",
   email: "info@hellogorgeousmedspa.com",
   address: {
-    streetAddress: "123 Main St",
+    streetAddress: "74 W. Washington St.",
     addressLocality: "Oswego",
     addressRegion: "IL",
     postalCode: "60543",
     addressCountry: "US",
   },
+  // TODO: replace with precise coordinates for the address above
   geo: { latitude: 41.6828, longitude: -88.3515 },
   serviceAreas: ["Oswego, IL", "Naperville, IL", "Aurora, IL", "Plainfield, IL"],
 } as const;

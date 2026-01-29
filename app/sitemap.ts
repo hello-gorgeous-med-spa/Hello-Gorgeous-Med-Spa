@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/`, lastModified: now },
     { url: `${SITE.url}/about`, lastModified: now },
     { url: `${SITE.url}/meet-the-team`, lastModified: now },
+    { url: `${SITE.url}/oswego-il`, lastModified: now },
     { url: `${SITE.url}/services`, lastModified: now },
     { url: `${SITE.url}/contact`, lastModified: now },
     { url: `${SITE.url}/book`, lastModified: now },
@@ -21,6 +22,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
   }));
 
-  return [...staticRoutes, ...serviceRoutes];
+  const oswegoTopRoutes: MetadataRoute.Sitemap = [
+    "botox-dysport-jeuveau",
+    "dermal-fillers",
+    "weight-loss-therapy",
+    "rf-microneedling",
+    "biote-hormone-therapy",
+    "iv-therapy",
+  ].map((slug) => ({
+    url: `${SITE.url}/oswego-il/${slug}`,
+    lastModified: now,
+  }));
+
+  return [...staticRoutes, ...serviceRoutes, ...oswegoTopRoutes];
 }
 

@@ -41,6 +41,11 @@ export function getRecommendedPersonaIds({
   // Always keep a comfort + compliance option available.
   const base: PersonaId[] = ["peppi", "ryan"];
 
+  // Generic / non-service contexts (e.g. location hub).
+  if (s.includes("oswego") || s.includes("intro")) {
+    return ["peppi", "founder", "ryan"];
+  }
+
   if (s.includes("botox") || s.includes("dysport") || s.includes("jeuveau")) {
     return ["beau-tox", ...base];
   }
