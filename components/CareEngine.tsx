@@ -239,6 +239,13 @@ export function CareEngine() {
             <p className="mt-1 text-sm text-white/90">
               Education only · No diagnosis · No prescriptions · Book a consult for personal medical advice
             </p>
+            <p className="mt-2 text-xs text-white/60">
+              Learn how we think about sourcing and standards:{" "}
+              <a className="underline" href="/clinical-partners">
+                Our Clinical Partners & Standards
+              </a>
+              .
+            </p>
           </div>
           <CTA href={BOOKING_URL} variant="gradient" className="px-4 py-2 rounded-lg text-sm">
             Book Now

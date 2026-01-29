@@ -62,51 +62,206 @@ export default function ClinicalPartnersPage() {
                 how it’s sourced, how it’s stored, and how protocols are followed. Partnerships help protect safety,
                 consistency, and integrity.
               </p>
+              <div className="mt-6 flex flex-col sm:flex-row gap-4">
+                <CTA href="/explore-care" variant="outline">
+                  Explore Care (Services Atlas™)
+                </CTA>
+                <CTA href="/meet-the-team" variant="outline">
+                  Meet Your Care Team
+                </CTA>
+              </div>
             </div>
           </FadeUp>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            {[
-              {
-                title: "Aesthetics & Injectables",
-                items: ["Allergan", "Evolus"],
-                body:
-                  "Trusted manufacturers and consistent supply standards matter for safety, predictability, and education you can trust.",
-              },
-              {
-                title: "Hormone Optimization",
-                items: ["BioTE"],
-                body:
-                  "Programs with structured education and clinician oversight support a safety-first, evaluation-driven approach.",
-              },
-              {
-                title: "Skincare",
-                items: ["Dermalogica", "EltaMD", "Fullscript"],
-                body:
-                  "Skin health is long-term. Reputable skincare systems support consistency, ingredient integrity, and education.",
-              },
-              {
-                title: "Pharmacy & Supply Chain",
-                items: ["McKesson", "High-quality compounded pharmacies (non-promotional)"],
-                body:
-                  "Responsible sourcing and traceability support safety. For compounded medications, we prioritize quality standards and clinician-led decision-making.",
-              },
-            ].map((c, idx) => (
-              <FadeUp key={c.title} delayMs={60 * idx}>
-                <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
-                  <h3 className="text-xl font-bold text-white">{c.title}</h3>
-                  <p className="mt-3 text-gray-300">{c.body}</p>
-                  <ul className="mt-5 space-y-2 text-sm text-gray-300">
-                    {c.items.map((i) => (
-                      <li key={i} className="flex gap-2">
-                        <span className="text-pink-400">•</span>
-                        <span>{i}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </FadeUp>
-            ))}
+          <div className="grid gap-6">
+            <div className="grid gap-6 md:grid-cols-2">
+              {[
+                {
+                  title: "Aesthetics & Injectable Pharmaceuticals",
+                  items: ["Allergan", "Evolus"],
+                  body: [
+                    "These brands are associated with FDA‑approved neuromodulators (where applicable).",
+                    "Why sourcing matters: authenticity, proper handling, and consistent standards support safety and predictability.",
+                    "Injectables are medical procedures—not cosmetic retail—so education, screening, and technique matter more than hype.",
+                  ],
+                  links: [
+                    { href: "/services/botox-dysport-jeuveau", label: "Injectables education" },
+                    { href: "/services/dermal-fillers", label: "Fillers overview" },
+                    { href: "/explore-care", label: "Explore Care" },
+                  ],
+                },
+                {
+                  title: "Hormone Optimization & Metabolic Care",
+                  items: ["BioTE", "ANTEAGE"],
+                  body: [
+                    "Lab‑guided hormone optimization starts with evaluation and monitoring—not guessing.",
+                    "Pellet therapy (where offered) requires protocols, informed consent, and follow‑up for safety.",
+                    "Compounded medications require pharmacy‑grade standards and clinician oversight; decisions are made in person.",
+                  ],
+                  links: [
+                    { href: "/services/biote-hormone-therapy", label: "Hormone therapy education" },
+                    { href: "/services/weight-loss-therapy", label: "Weight loss therapy education" },
+                    { href: "/services/trt-replacement-therapy", label: "TRT education" },
+                  ],
+                },
+              ].map((c, idx) => (
+                <FadeUp key={c.title} delayMs={60 * idx}>
+                  <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
+                    <h3 className="text-xl font-bold text-white">{c.title}</h3>
+                    <ul className="mt-4 space-y-2 text-sm text-gray-300">
+                      {c.items.map((i) => (
+                        <li key={i} className="flex gap-2">
+                          <span className="text-pink-400">•</span>
+                          <span>{i}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-5 space-y-2 text-sm text-gray-300">
+                      {c.body.map((p) => (
+                        <p key={p}>{p}</p>
+                      ))}
+                    </div>
+                    <div className="mt-6 flex flex-wrap gap-3">
+                      {c.links.map((l) => (
+                        <Link
+                          key={l.href}
+                          href={l.href}
+                          className="text-sm font-semibold text-white/90 underline hover:text-white"
+                        >
+                          {l.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </FadeUp>
+              ))}
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {[
+                {
+                  title: "Skincare & Dermatology‑Grade Products",
+                  items: ["SkinMedica", "Dermalogica", "EltaMD"],
+                  body: [
+                    "“Medical‑grade” is often used loosely. What matters is evidence‑informed formulation, ingredient integrity, and how products fit your skin barrier needs.",
+                    "Skin barrier science matters—over‑treating or mixing incompatible products can increase irritation and slow progress.",
+                    "Product selection can support treatment outcomes by reducing inflammation and improving consistency (without making promises).",
+                  ],
+                  links: [
+                    { href: "/services/rf-microneedling", label: "Skin health: microneedling" },
+                    { href: "/services/chemical-peels", label: "Skin health: chemical peels" },
+                    { href: "/services/hydra-facial", label: "Skin health: facials" },
+                  ],
+                },
+                {
+                  title: "IV Therapy & Peptide Standards",
+                  items: ["Olympia Pharmaceuticals"],
+                  body: [
+                    "Sterility, sourcing, storage, and formulation integrity matter for IV therapy and peptide‑adjacent protocols.",
+                    "Pharmaceutical‑grade compounding standards help reduce risk—screening and clinical oversight still matter.",
+                    "We keep this educational online; individual eligibility and protocols are handled in consultation.",
+                  ],
+                  links: [
+                    { href: "/services/iv-therapy", label: "IV therapy education" },
+                    { href: "/services/sermorelin-growth-peptide", label: "Peptide education (Sermorelin)" },
+                    { href: "/care-and-support", label: "Care & Support" },
+                  ],
+                },
+              ].map((c, idx) => (
+                <FadeUp key={c.title} delayMs={60 * idx}>
+                  <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
+                    <h3 className="text-xl font-bold text-white">{c.title}</h3>
+                    <ul className="mt-4 space-y-2 text-sm text-gray-300">
+                      {c.items.map((i) => (
+                        <li key={i} className="flex gap-2">
+                          <span className="text-pink-400">•</span>
+                          <span>{i}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-5 space-y-2 text-sm text-gray-300">
+                      {c.body.map((p) => (
+                        <p key={p}>{p}</p>
+                      ))}
+                    </div>
+                    <div className="mt-6 flex flex-wrap gap-3">
+                      {c.links.map((l) => (
+                        <Link
+                          key={l.href}
+                          href={l.href}
+                          className="text-sm font-semibold text-white/90 underline hover:text-white"
+                        >
+                          {l.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </FadeUp>
+              ))}
+            </div>
+
+            <div className="grid gap-6 md:grid-cols-2">
+              {[
+                {
+                  title: "Supplements & Continuity of Care",
+                  items: ["Fullscript"],
+                  body: [
+                    "Practitioner‑recommended supplementation can support a long‑term wellness plan when appropriate.",
+                    "The goal is personalization and safety—especially for people on medications or with medical considerations.",
+                    "We don’t recommend supplements online for you specifically; that requires context and clinician guidance.",
+                  ],
+                  links: [
+                    { href: "/understand-your-body", label: "Understand Your Body" },
+                    { href: "/care-engine", label: "Care Engine™" },
+                    { href: "/contact", label: "Ask a question" },
+                  ],
+                },
+                {
+                  title: "Supply Chain & Medical Distribution",
+                  items: ["McKesson", "High‑quality compounded pharmacies (non‑promotional)"],
+                  body: [
+                    "Medical supply chains matter for product authenticity, traceability, and proper storage.",
+                    "We avoid gray‑market sourcing because authenticity and handling standards are a safety issue.",
+                    "For compounded medications, we focus on pharmacy‑grade standards and clinician‑led decision‑making.",
+                  ],
+                  links: [
+                    { href: "/clinical-partners", label: "Back to top" },
+                    { href: "/explore-care", label: "Explore Care" },
+                    { href: "/meet-the-team", label: "Meet Your Care Team" },
+                  ],
+                },
+              ].map((c, idx) => (
+                <FadeUp key={c.title} delayMs={60 * idx}>
+                  <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
+                    <h3 className="text-xl font-bold text-white">{c.title}</h3>
+                    <ul className="mt-4 space-y-2 text-sm text-gray-300">
+                      {c.items.map((i) => (
+                        <li key={i} className="flex gap-2">
+                          <span className="text-pink-400">•</span>
+                          <span>{i}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="mt-5 space-y-2 text-sm text-gray-300">
+                      {c.body.map((p) => (
+                        <p key={p}>{p}</p>
+                      ))}
+                    </div>
+                    <div className="mt-6 flex flex-wrap gap-3">
+                      {c.links.map((l) => (
+                        <Link
+                          key={l.href}
+                          href={l.href}
+                          className="text-sm font-semibold text-white/90 underline hover:text-white"
+                        >
+                          {l.label}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </FadeUp>
+              ))}
+            </div>
           </div>
 
           <FadeUp>
@@ -148,11 +303,17 @@ export default function ClinicalPartnersPage() {
                 <Link className="underline" href="/your-journey">
                   Your Journey
                 </Link>
-                . If you already have questions, the Care Engine can help you ask them safely.
+                . If you already have questions, Explore Care and the Care Engine can help you ask them safely.
               </p>
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                <CTA href="/explore-care" variant="outline">
+                  Explore Care (Services Atlas™)
+                </CTA>
                 <CTA href="/care-engine" variant="gradient">
                   Open the Care Engine™
+                </CTA>
+                <CTA href="/meet-the-team" variant="outline">
+                  Meet Your Care Team
                 </CTA>
                 <CTA href="/contact" variant="outline">
                   Contact us

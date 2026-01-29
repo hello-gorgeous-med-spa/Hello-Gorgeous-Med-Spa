@@ -75,6 +75,13 @@ function TrustMessage() {
       <p className="mt-2 text-sm text-white/70">
         Learning is always welcome here. Booking is optional, and you can start with clarity first.
       </p>
+      <p className="mt-3 text-sm text-white/70">
+        Want to understand our sourcing and standards?{" "}
+        <Link className="underline" href="/clinical-partners">
+          Our Clinical Partners & Standards
+        </Link>
+        .
+      </p>
       <p className="mt-4 text-xs text-white/60">{complianceFooter()}</p>
     </div>
   );
