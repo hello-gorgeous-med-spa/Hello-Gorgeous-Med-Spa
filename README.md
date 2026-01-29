@@ -1,72 +1,78 @@
-# Hello Gorgeous Med Spa
+# Hello Gorgeous Med Spa (HelloGorgeousMedSpa.com)
 
-Welcome to the Hello Gorgeous Med Spa project! This is a Next.js application designed to showcase the services and offerings of the med spa.
+This repo is the **HelloGorgeousMedSpa.com** rebuild on **Next.js 14 (App Router)** + **Tailwind CSS**.
 
-## Project Structure
+## Design Parity Requirement
 
-The project is organized as follows:
+This site is a **layout clone + content swap** based on `NoPriorAuthorization.com`.
+
+- **Must match**: layout structure, spacing system, typography scale, button/card styles, animations, responsiveness, header/footer logic.
+- **Must differ**: branding (copy/images), and medical-spa-specific SEO schema.
+
+If an implementation choice isn’t specified, default to whatever `NoPriorAuthorization.com` does.
+
+## Tech Stack
+
+- Next.js 14 (App Router)
+- Tailwind CSS
+- Vercel hosting
+- GitHub PR workflow
+
+## Project Structure (high level)
 
 ```
-hellogorgeousmedspa-site
-├── src
-│   ├── pages
-│   │   ├── index.tsx          # Main entry point for the application
-│   │   ├── _app.tsx           # Custom App component for global styles and layout
-│   │   └── api
-│   │       └── hello.ts       # API route that responds with a JSON object
-│   ├── components
-│   │   └── Header.tsx         # Header component with navigation links
-│   ├── styles
-│   │   └── globals.css        # Global CSS styles
-│   └── lib
-│       └── api.ts             # Utility functions for API calls
-├── public
-│   └── robots.txt             # Instructions for web crawlers
-├── .github
-│   └── workflows
-│       └── ci.yml             # Continuous integration workflow
-├── .gitignore                  # Files and directories to ignore by Git
-├── package.json                # npm configuration file
-├── tsconfig.json              # TypeScript configuration file
-├── next.config.js             # Next.js configuration settings
-├── vercel.json                 # Vercel deployment configuration
-└── README.md                   # Project documentation
+src/
+  app/                  # App Router pages (SEO-first)
+    page.tsx            # Home
+    about/page.tsx
+    services/page.tsx
+    services/[slug]/page.tsx
+    contact/page.tsx
+    book/page.tsx
+    privacy/page.tsx
+    terms/page.tsx
+    robots.ts           # robots.txt
+    sitemap.ts          # sitemap.xml
+  components/
+    site/               # Header/Footer (NPA layout system)
+    ui/                 # Shared primitives (Button, Section, FadeUp)
+    seo/                # JSON-LD helpers
+  content/              # Service and FAQ content
+  styles/globals.css    # Tailwind + global animation utility classes
 ```
 
-## Getting Started
+## Development
 
-To get started with the project, follow these steps:
+Install dependencies:
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/hellogorgeousmedspa-site.git
-   ```
+```bash
+npm install
+```
 
-2. Navigate to the project directory:
-   ```
-   cd hellogorgeousmedspa-site
-   ```
+Run locally:
 
-3. Install the dependencies:
-   ```
-   npm install
-   ```
+```bash
+npm run dev
+```
 
-4. Run the development server:
-   ```
-   npm run dev
-   ```
+Quality gates (CI uses these):
 
-5. Open your browser and go to `http://localhost:3000` to see the application in action.
+```bash
+npm test   # runs lint
+npm run build
+```
 
-## Deployment
+## SEO Notes
 
-This project is configured to be deployed on Vercel. To deploy, simply connect your GitHub repository to Vercel and follow the prompts to set up the deployment.
+- **Per-page metadata** via App Router metadata exports (`src/lib/metadata.ts`)
+- **JSON-LD**:
+  - `MedicalBusiness` + `LocalBusiness` site schema
+  - `FAQPage` schema per service
+- **Indexing**: `robots.ts` + `sitemap.ts` are enabled and crawlable.
 
-## Contributing
+## Configuration TODOs (replace placeholders)
 
-If you would like to contribute to this project, please fork the repository and submit a pull request with your changes.
-
-## License
-
-This project is licensed under the MIT License. See the LICENSE file for more details.
+Update `src/content/site.ts` with real:
+- phone/email/address
+- geo coordinates
+- canonical site URL (production)
