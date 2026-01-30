@@ -15,16 +15,20 @@ import { BioteSection } from "@/components/BioteSection";
 import { EmailBanner } from "@/components/EmailCapture";
 import { BotoxCalculator } from "@/components/BotoxCalculator";
 import { VirtualTryOn } from "@/components/VirtualTryOn";
-import { HOME_FAQS, faqJsonLd, pageMetadata, siteJsonLd } from "@/lib/seo";
+import { HOME_FAQS, SITE, faqJsonLd, pageMetadata, siteJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Home",
+  title: "Botox, Fillers & Weight Loss Med Spa",
   description:
-    "Hello Gorgeous Med Spa in Oswego, IL. Luxury medical aesthetics—Botox/Dysport, fillers, weight loss (GLP‑1), hormone therapy, PRF/PRP. Serving Naperville, Aurora, and Plainfield.",
+    "Hello Gorgeous Med Spa in Oswego, IL offers Botox ($10/unit), dermal fillers, Semaglutide weight loss, Biote hormone therapy, IV therapy & more. ⭐ 5-Star Rated. Serving Naperville, Aurora, Plainfield. Book free consultation!",
   path: "/",
 });
 
 export default function HomePage() {
+  const homeBreadcrumbs = [
+    { name: "Home", url: SITE.url },
+  ];
+
   return (
     <>
       <script
@@ -36,6 +40,11 @@ export default function HomePage() {
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(HOME_FAQS)) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(homeBreadcrumbs)) }}
       />
       <Hero />
       <OffersSection />

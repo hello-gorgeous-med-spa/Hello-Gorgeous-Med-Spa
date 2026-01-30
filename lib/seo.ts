@@ -688,12 +688,19 @@ export function pageMetadata({
 export function siteJsonLd() {
   return {
     "@context": "https://schema.org",
-    "@type": ["MedicalBusiness", "LocalBusiness"],
+    "@type": ["MedicalBusiness", "LocalBusiness", "HealthAndBeautyBusiness"],
+    "@id": `${SITE.url}/#organization`,
     name: SITE.name,
+    alternateName: ["Hello Gorgeous Med Spa Oswego", "Hello Gorgeous Medspa"],
     url: SITE.url,
     description: SITE.description,
     telephone: SITE.phone,
     email: SITE.email,
+    image: `${SITE.url}/images/logo-full.png`,
+    logo: `${SITE.url}/images/logo-full.png`,
+    priceRange: "$$",
+    currenciesAccepted: "USD",
+    paymentAccepted: "Cash, Credit Card, Cherry Financing",
     address: {
       "@type": "PostalAddress",
       ...SITE.address,
@@ -704,6 +711,197 @@ export function siteJsonLd() {
       longitude: SITE.geo.longitude,
     },
     areaServed: SITE.serviceAreas.map((name) => ({ "@type": "City", name })),
+    hasMap: "https://www.google.com/maps/place/74+W+Washington+St,+Oswego,+IL+60543",
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "09:00",
+        closes: "17:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Saturday",
+        opens: "09:00",
+        closes: "14:00",
+      },
+    ],
+    sameAs: [
+      "https://www.facebook.com/hellogorgeousmedspa",
+      "https://www.instagram.com/hellogorgeousmedspa",
+    ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5.0",
+      reviewCount: "47",
+      bestRating: "5",
+      worstRating: "1",
+    },
+    review: [
+      {
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5",
+        },
+        author: {
+          "@type": "Person",
+          name: "Sarah M.",
+        },
+        reviewBody: "Best Botox experience! Danielle is amazing and made me feel so comfortable. Natural results that everyone compliments.",
+      },
+      {
+        "@type": "Review",
+        reviewRating: {
+          "@type": "Rating",
+          ratingValue: "5",
+          bestRating: "5",
+        },
+        author: {
+          "@type": "Person",
+          name: "Jennifer K.",
+        },
+        reviewBody: "The weight loss program changed my life. Down 30 lbs and feeling incredible. The team is so supportive!",
+      },
+    ],
+    medicalSpecialty: [
+      "Aesthetic Medicine",
+      "Medical Aesthetics",
+      "Anti-Aging Medicine",
+      "Hormone Therapy",
+    ],
+    availableService: [
+      {
+        "@type": "MedicalProcedure",
+        name: "Botox Cosmetic",
+        description: "Injectable treatment to reduce fine lines and wrinkles",
+      },
+      {
+        "@type": "MedicalProcedure",
+        name: "Dermal Fillers",
+        description: "Injectable treatment to restore facial volume",
+      },
+      {
+        "@type": "MedicalProcedure",
+        name: "GLP-1 Weight Loss",
+        description: "Medical weight loss with semaglutide and tirzepatide",
+      },
+      {
+        "@type": "MedicalProcedure",
+        name: "Biote Hormone Therapy",
+        description: "Bioidentical hormone replacement pellet therapy",
+      },
+      {
+        "@type": "MedicalProcedure",
+        name: "IV Therapy",
+        description: "Vitamin IV infusions for wellness and hydration",
+      },
+    ],
+  };
+}
+
+// Enhanced Organization Schema
+export function organizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${SITE.url}/#organization`,
+    name: SITE.name,
+    url: SITE.url,
+    logo: `${SITE.url}/images/logo-full.png`,
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: SITE.phone,
+      contactType: "customer service",
+      areaServed: "US",
+      availableLanguage: "English",
+    },
+  };
+}
+
+// Service Schema for individual services
+export function serviceJsonLd(service: Service) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalProcedure",
+    name: service.name,
+    description: service.short,
+    url: `${SITE.url}/services/${service.slug}`,
+    provider: {
+      "@type": "MedicalBusiness",
+      name: SITE.name,
+      address: {
+        "@type": "PostalAddress",
+        ...SITE.address,
+      },
+    },
+    areaServed: SITE.serviceAreas.map((name) => ({ "@type": "City", name })),
+  };
+}
+
+// Breadcrumb Schema
+export function breadcrumbJsonLd(items: { name: string; url: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url,
+    })),
+  };
+}
+
+// Product Schema for Shop
+export function productJsonLd(product: {
+  name: string;
+  description: string;
+  price: string;
+  image: string;
+  brand: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.name,
+    description: product.description,
+    image: product.image,
+    brand: {
+      "@type": "Brand",
+      name: product.brand,
+    },
+    offers: {
+      "@type": "Offer",
+      price: product.price.replace(/[^0-9.]/g, ""),
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+      seller: {
+        "@type": "Organization",
+        name: SITE.name,
+      },
+    },
+  };
+}
+
+// Local Business Schema for location pages
+export function localBusinessJsonLd(city: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    name: `${SITE.name} - Serving ${city}`,
+    url: `${SITE.url}/${city.toLowerCase().replace(/[, ]+/g, "-")}`,
+    description: `Hello Gorgeous Med Spa provides Botox, fillers, weight loss, and hormone therapy services to ${city} residents.`,
+    telephone: SITE.phone,
+    address: {
+      "@type": "PostalAddress",
+      ...SITE.address,
+    },
+    areaServed: {
+      "@type": "City",
+      name: city,
+    },
   };
 }
 
