@@ -7,6 +7,7 @@ import { Header } from "@/components/Header";
 import { StickyMobileCTA } from "@/components/StickyMobileCTA";
 import { MascotChat } from "@/components/MascotChat";
 import { EmailCapture } from "@/components/EmailCapture";
+import { VoiceConcierge } from "@/components/VoiceConcierge";
 import { SITE } from "@/lib/seo";
 
 const inter = Inter({
@@ -57,6 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <StickyMobileCTA />
         <MascotChat />
         <EmailCapture />
+        <VoiceConcierge />
       </body>
     </html>
   );
