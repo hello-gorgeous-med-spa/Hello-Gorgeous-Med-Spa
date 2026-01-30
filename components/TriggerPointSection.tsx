@@ -5,7 +5,7 @@ import { FadeUp } from "./Section";
 const BOOKING_URL = "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&eid=4566698&oiid=sv%3A24416419&share=true&pId=95245";
 
 // Replace this with your actual video URL when ready
-const VIDEO_URL = ""; // e.g., "/videos/trigger-point.mp4" or YouTube embed ID
+const VIDEO_URL: string = ""; // e.g., "/videos/trigger-point.mp4" or YouTube embed ID
 
 const benefits = [
   {
