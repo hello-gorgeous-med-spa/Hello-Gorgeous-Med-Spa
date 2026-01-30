@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import { FadeUp, Section } from "@/components/Section";
@@ -310,6 +311,66 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
           </div>
         </div>
       </Section>
+
+      {/* Before/After Results Gallery - Dermal Fillers */}
+      {s.slug === "dermal-fillers" && (
+        <Section>
+          <FadeUp>
+            <div className="text-center mb-12">
+              <p className="text-pink-400 text-lg font-medium tracking-wide">REAL RESULTS</p>
+              <h2 className="mt-4 text-3xl md:text-4xl font-bold text-white">
+                Before &{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
+                  After
+                </span>
+              </h2>
+              <p className="mt-4 text-gray-300 max-w-2xl mx-auto">
+                Natural-looking lip enhancement with Revanesse® dermal fillers. Results vary by individual.
+              </p>
+            </div>
+          </FadeUp>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            <FadeUp delayMs={60}>
+              <div className="rounded-2xl overflow-hidden border border-gray-800 bg-black">
+                <div className="relative aspect-[9/16] w-full max-w-md mx-auto">
+                  <Image
+                    src="/images/results/revanesse-1.png"
+                    alt="Revanesse lip filler before and after - Patient 1"
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={120}>
+              <div className="rounded-2xl overflow-hidden border border-gray-800 bg-black">
+                <div className="relative aspect-[9/16] w-full max-w-md mx-auto">
+                  <Image
+                    src="/images/results/revanesse-2.png"
+                    alt="Revanesse lip filler before and after - Patient 2"
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+              </div>
+            </FadeUp>
+          </div>
+
+          <FadeUp delayMs={180}>
+            <div className="mt-10 text-center">
+              <p className="text-sm text-gray-500 mb-6">
+                Results shown are from Revanesse® clinical studies. Individual results may vary.
+              </p>
+              <CTA href={BOOKING_URL} variant="gradient">
+                Book Your Consultation
+              </CTA>
+            </div>
+          </FadeUp>
+        </Section>
+      )}
 
       <Section>
         <FadeUp>
