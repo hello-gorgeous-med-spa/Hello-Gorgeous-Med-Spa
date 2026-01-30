@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { FadeUp } from "./Section";
 
 const BOOKING_URL = "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&eid=4566698&oiid=sv%3A24416419&share=true&pId=95245";
@@ -50,7 +49,8 @@ const conditions = [
 ];
 
 export function TriggerPointSection() {
-  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  // Video state - will be used when VIDEO_URL is provided
+  // const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
   return (
     <section className="py-16 px-4 bg-gradient-to-b from-black via-red-950/10 to-black">
