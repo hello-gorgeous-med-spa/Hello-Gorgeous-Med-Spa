@@ -14,12 +14,12 @@ type Message = {
 };
 
 const mascots: { id: PersonaId; name: string; avatar: string; color: string; specialty: string }[] = [
-  { id: "peppi", name: "Peppi", avatar: "/images/characters/peppi.png", color: "from-green-500 to-emerald-500", specialty: "Fullscript & Olympia" },
+  { id: "peppi", name: "Peppi", avatar: "/images/characters/peppi.png", color: "from-fuchsia-400 to-pink-400", specialty: "Fullscript & Olympia" },
   { id: "beau-tox", name: "Beau-Tox", avatar: "/images/characters/beau.png", color: "from-purple-500 to-pink-500", specialty: "Botox • Jeuveau • Dysport" },
   { id: "filla-grace", name: "Filla Grace", avatar: "/images/characters/filla-grace.png", color: "from-pink-400 to-rose-400", specialty: "Revanesse Fillers" },
-  { id: "harmony", name: "Harmony", avatar: "/images/characters/harmony.png", color: "from-amber-500 to-orange-500", specialty: "Biote Hormones" },
+  { id: "harmony", name: "Harmony", avatar: "/images/characters/harmony.png", color: "from-rose-500 to-pink-500", specialty: "Biote Hormones" },
   { id: "founder", name: "Danielle", avatar: "/images/characters/founder.png", color: "from-pink-600 to-pink-500", specialty: "Hello Gorgeous" },
-  { id: "ryan", name: "Dr. Ryan", avatar: "/images/characters/ryan.png", color: "from-blue-500 to-cyan-500", specialty: "Medical & Telehealth" },
+  { id: "ryan", name: "Dr. Ryan", avatar: "/images/characters/ryan.png", color: "from-fuchsia-500 to-purple-500", specialty: "Medical & Telehealth" },
 ];
 
 export function MascotChat() {
@@ -135,7 +135,7 @@ export function MascotChat() {
         ) : (
           <div className="relative">
             <span className="text-3xl">💬</span>
-            <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white animate-pulse" />
+            <span className="absolute -top-1 -right-1 w-4 h-4 bg-pink-500 rounded-full border-2 border-white animate-pulse" />
           </div>
         )}
       </button>

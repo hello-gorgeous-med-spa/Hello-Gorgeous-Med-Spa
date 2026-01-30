@@ -193,7 +193,7 @@ export function SubscribeContent() {
               </p>
             </form>
           ) : (
-            <div className="max-w-md mx-auto p-6 rounded-2xl bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30">
+            <div className="max-w-md mx-auto p-6 rounded-2xl bg-gradient-to-r from-pink-500/20 to-fuchsia-500/20 border border-pink-500/30">
               <span className="text-4xl mb-3 block">🎉</span>
               <h3 className="text-xl font-bold text-white mb-2">Welcome to the Family!</h3>
               <p className="text-gray-300 mb-4">
@@ -267,8 +267,8 @@ export function SubscribeContent() {
             </div>
 
             {/* The Solution */}
-            <div className="p-8 rounded-3xl bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20">
-              <h3 className="text-xl font-bold text-green-400 mb-4 flex items-center gap-2">
+            <div className="p-8 rounded-3xl bg-gradient-to-br from-pink-500/10 to-fuchsia-500/10 border border-pink-500/20">
+              <h3 className="text-xl font-bold text-pink-400 mb-4 flex items-center gap-2">
                 <span>😊</span> The NPA Way (Simple)
               </h3>
               <ul className="space-y-3">
@@ -281,7 +281,7 @@ export function SubscribeContent() {
                   "100% transparent",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-gray-400">
-                    <span className="text-green-400">✓</span>
+                    <span className="text-pink-400">✓</span>
                     {item}
                   </li>
                 ))}
@@ -346,7 +346,7 @@ export function SubscribeContent() {
                 <span className="text-3xl mb-2 block group-hover:scale-110 transition">{service.icon}</span>
                 <p className="text-white font-medium text-sm mb-1">{service.name}</p>
                 <p className="text-fuchsia-400 font-bold">{service.value}</p>
-                <p className="text-green-400 text-xs mt-1">FREE</p>
+                <p className="text-pink-400 text-xs mt-1">FREE</p>
               </div>
             ))}
           </div>
@@ -434,7 +434,7 @@ export function SubscribeContent() {
                   </div>
                   <div className="flex justify-between items-center p-3 rounded-xl bg-white/5">
                     <span className="text-gray-300">Priority Booking</span>
-                    <span className="text-green-400 font-bold">✓ Included</span>
+                    <span className="text-pink-400 font-bold">✓ Included</span>
                   </div>
                 </div>
 

@@ -122,16 +122,16 @@ export function TelehealthContent() {
       <Section className="relative py-20 bg-gradient-to-b from-blue-950/30 via-purple-950/20 to-black overflow-hidden">
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-green-500/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl" />
         </div>
         <FadeUp>
           <div className="text-center max-w-3xl mx-auto relative z-10">
-            <span className="inline-block px-4 py-1 rounded-full bg-green-500/20 text-green-400 text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-1 rounded-full bg-pink-500/20 text-pink-400 text-sm font-medium mb-4">
               🖥️ HIPAA Compliant Virtual Care
             </span>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
               Telehealth{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-blue-400">
                 Virtual Visits
               </span>
             </h1>
@@ -144,7 +144,7 @@ export function TelehealthContent() {
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 rounded-xl bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold hover:opacity-90 transition"
+                className="px-8 py-4 rounded-xl bg-gradient-to-r from-pink-500 to-blue-500 text-white font-bold hover:opacity-90 transition"
               >
                 Book Telehealth Visit →
               </a>
@@ -163,18 +163,18 @@ export function TelehealthContent() {
       <Section className="py-16 bg-black">
         <FadeUp>
           <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-blue-500/10 to-green-500/10 rounded-3xl border border-blue-500/20 overflow-hidden">
+            <div className="bg-gradient-to-br from-blue-500/10 to-pink-500/10 rounded-3xl border border-blue-500/20 overflow-hidden">
               <div className="grid md:grid-cols-2 gap-0">
                 {/* Image */}
-                <div className="relative aspect-square md:aspect-auto bg-gradient-to-br from-blue-950/50 to-green-950/50">
+                <div className="relative aspect-square md:aspect-auto bg-gradient-to-br from-blue-950/50 to-pink-950/50">
                   <div className="absolute inset-0 flex items-center justify-center">
                     <div className="text-center p-8">
-                      <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 to-green-500 flex items-center justify-center mx-auto mb-4 text-6xl">
+                      <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 to-pink-500 flex items-center justify-center mx-auto mb-4 text-6xl">
                         👨‍⚕️
                       </div>
-                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/20 border border-green-500/30">
-                        <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-                        <span className="text-green-400 text-sm font-medium">Available for Telehealth</span>
+                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/20 border border-pink-500/30">
+                        <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
+                        <span className="text-pink-400 text-sm font-medium">Available for Telehealth</span>
                       </div>
                     </div>
                   </div>
@@ -189,21 +189,21 @@ export function TelehealthContent() {
                   
                   <div className="space-y-3 mb-6">
                     <div className="flex items-start gap-3">
-                      <span className="text-green-400">✓</span>
+                      <span className="text-pink-400">✓</span>
                       <div>
                         <p className="text-white font-medium">Board Certified Family Nurse Practitioner</p>
                         <p className="text-gray-400 text-sm">FNP-BC credentialed through ANCC</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <span className="text-green-400">✓</span>
+                      <span className="text-pink-400">✓</span>
                       <div>
                         <p className="text-white font-medium">Full Practice Authority</p>
                         <p className="text-gray-400 text-sm">Independent prescriptive authority in Illinois</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <span className="text-green-400">✓</span>
+                      <span className="text-pink-400">✓</span>
                       <div>
                         <p className="text-white font-medium">Specializations</p>
                         <p className="text-gray-400 text-sm">Weight Management, Hormone Optimization, Regenerative Medicine</p>
@@ -223,7 +223,7 @@ export function TelehealthContent() {
                     href={BOOKING_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block w-full py-4 rounded-xl bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold text-center hover:opacity-90 transition"
+                    className="block w-full py-4 rounded-xl bg-gradient-to-r from-pink-500 to-blue-500 text-white font-bold text-center hover:opacity-90 transition"
                   >
                     Book with Ryan →
                   </a>
@@ -235,7 +235,7 @@ export function TelehealthContent() {
       </Section>
 
       {/* Benefits */}
-      <Section className="py-16 bg-gradient-to-b from-black to-green-950/10">
+      <Section className="py-16 bg-gradient-to-b from-black to-pink-950/10">
         <FadeUp>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">
@@ -246,7 +246,7 @@ export function TelehealthContent() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {benefits.map((benefit, i) => (
             <FadeUp key={benefit.title} delayMs={i * 60}>
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center hover:border-green-500/30 transition h-full">
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center hover:border-pink-500/30 transition h-full">
                 <span className="text-4xl mb-4 block">{benefit.icon}</span>
                 <h3 className="text-white font-semibold mb-2">{benefit.title}</h3>
                 <p className="text-gray-400 text-sm">{benefit.description}</p>
@@ -272,7 +272,7 @@ export function TelehealthContent() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {telehealthServices.map((service, i) => (
             <FadeUp key={service.id} delayMs={i * 40}>
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-green-500/30 transition h-full flex flex-col">
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-pink-500/30 transition h-full flex flex-col">
                 <div className="flex items-start gap-4 mb-4">
                   <span className="text-3xl">{service.icon}</span>
                   <div>
@@ -282,12 +282,12 @@ export function TelehealthContent() {
                 </div>
                 <p className="text-gray-400 text-sm flex-1 mb-4">{service.description}</p>
                 <div className="flex items-center justify-between mt-auto">
-                  <span className="text-green-400 font-bold">{service.price}</span>
+                  <span className="text-pink-400 font-bold">{service.price}</span>
                   <a
                     href={BOOKING_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 rounded-lg bg-green-500/20 text-green-400 text-sm font-medium hover:bg-green-500/30 transition"
+                    className="px-4 py-2 rounded-lg bg-pink-500/20 text-pink-400 text-sm font-medium hover:bg-pink-500/30 transition"
                   >
                     Book Now
                   </a>
@@ -316,10 +316,10 @@ export function TelehealthContent() {
           ].map((item, i) => (
             <FadeUp key={item.step} delayMs={i * 60}>
               <div className="text-center">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold text-2xl flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-pink-500 to-blue-500 text-white font-bold text-2xl flex items-center justify-center mx-auto mb-4">
                   {item.icon}
                 </div>
-                <div className="text-green-400 text-sm font-medium mb-1">Step {item.step}</div>
+                <div className="text-pink-400 text-sm font-medium mb-1">Step {item.step}</div>
                 <h3 className="text-white font-semibold mb-2">{item.title}</h3>
                 <p className="text-gray-400 text-sm">{item.desc}</p>
               </div>
@@ -332,13 +332,13 @@ export function TelehealthContent() {
       <Section className="py-16 bg-black">
         <FadeUp>
           <div className="max-w-3xl mx-auto">
-            <div className="p-8 rounded-3xl bg-gradient-to-br from-blue-500/10 to-green-500/10 border border-blue-500/20">
+            <div className="p-8 rounded-3xl bg-gradient-to-br from-blue-500/10 to-pink-500/10 border border-blue-500/20">
               <h2 className="text-2xl font-bold text-white mb-6 text-center">
                 📋 Prepare for Your Visit
               </h2>
               <div className="grid sm:grid-cols-2 gap-6">
                 <div>
-                  <h3 className="text-green-400 font-semibold mb-3">You&apos;ll Need:</h3>
+                  <h3 className="text-pink-400 font-semibold mb-3">You&apos;ll Need:</h3>
                   <ul className="space-y-2">
                     {[
                       "Device with camera & microphone",
@@ -348,7 +348,7 @@ export function TelehealthContent() {
                       "List of current medications",
                     ].map((item) => (
                       <li key={item} className="flex items-center gap-2 text-gray-300 text-sm">
-                        <span className="text-green-400">✓</span>
+                        <span className="text-pink-400">✓</span>
                         {item}
                       </li>
                     ))}
@@ -378,7 +378,7 @@ export function TelehealthContent() {
       </Section>
 
       {/* FAQs */}
-      <Section className="py-16 bg-gradient-to-b from-black to-green-950/10">
+      <Section className="py-16 bg-gradient-to-b from-black to-pink-950/10">
         <FadeUp>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-4">
@@ -392,7 +392,7 @@ export function TelehealthContent() {
               <button
                 type="button"
                 onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}
-                className="w-full text-left p-4 rounded-xl bg-white/5 border border-white/10 hover:border-green-500/30 transition"
+                className="w-full text-left p-4 rounded-xl bg-white/5 border border-white/10 hover:border-pink-500/30 transition"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-white font-medium pr-4">{faq.q}</span>
@@ -427,7 +427,7 @@ export function TelehealthContent() {
       </Section>
 
       {/* CTA */}
-      <Section className="py-16 bg-gradient-to-b from-black to-green-950/20">
+      <Section className="py-16 bg-gradient-to-b from-black to-pink-950/20">
         <FadeUp>
           <div className="max-w-2xl mx-auto text-center">
             <h2 className="text-3xl font-bold text-white mb-4">
@@ -442,7 +442,7 @@ export function TelehealthContent() {
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 rounded-xl bg-gradient-to-r from-green-500 to-blue-500 text-white font-bold hover:opacity-90 transition"
+                className="px-8 py-4 rounded-xl bg-gradient-to-r from-pink-500 to-blue-500 text-white font-bold hover:opacity-90 transition"
               >
                 Book Telehealth Visit →
               </a>

@@ -12,9 +12,9 @@ const tiers = [
     name: "Classic Microneedling",
     tagline: "Foundation of Beautiful Skin",
     price: "$199",
-    color: "from-emerald-500 to-teal-500",
-    bgColor: "from-emerald-500/20 to-teal-500/20",
-    borderColor: "border-emerald-500",
+    color: "from-pink-400 to-rose-400",
+    bgColor: "from-pink-400/20 to-rose-400/20",
+    borderColor: "border-pink-400",
     icon: "✨",
     serum: "Hyaluronic Acid",
     serumDesc: "Deep hydration that plumps and rejuvenates",
@@ -329,19 +329,19 @@ export function MicroneedlingShowcase() {
                 </tr>
                 <tr className="border-t border-white/10">
                   <td className="p-4 text-gray-400">Collagen Boost</td>
-                  <td className="p-4 text-center text-emerald-400">●●○</td>
+                  <td className="p-4 text-center text-pink-400">●●○</td>
                   <td className="p-4 text-center text-fuchsia-400">●●●</td>
                   <td className="p-4 text-center text-amber-400">●●●</td>
                 </tr>
                 <tr className="border-t border-white/10">
                   <td className="p-4 text-gray-400">Fine Line Reduction</td>
-                  <td className="p-4 text-center text-emerald-400">●○○</td>
+                  <td className="p-4 text-center text-pink-400">●○○</td>
                   <td className="p-4 text-center text-fuchsia-400">●●○</td>
                   <td className="p-4 text-center text-amber-400">●●●</td>
                 </tr>
                 <tr className="border-t border-white/10">
                   <td className="p-4 text-gray-400">Cellular Repair</td>
-                  <td className="p-4 text-center text-emerald-400">●○○</td>
+                  <td className="p-4 text-center text-pink-400">●○○</td>
                   <td className="p-4 text-center text-fuchsia-400">●●●</td>
                   <td className="p-4 text-center text-amber-400">●●●</td>
                 </tr>

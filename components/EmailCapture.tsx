@@ -92,7 +92,7 @@ export function EmailCapture() {
           {status === "success" ? (
             // Success State
             <div className="text-center py-6">
-              <div className="w-20 h-20 mx-auto rounded-full bg-green-500/20 flex items-center justify-center mb-6">
+              <div className="w-20 h-20 mx-auto rounded-full bg-pink-500/20 flex items-center justify-center mb-6">
                 <span className="text-5xl">✓</span>
               </div>
               <h3 className="text-2xl font-bold text-white mb-2">You&apos;re In!</h3>

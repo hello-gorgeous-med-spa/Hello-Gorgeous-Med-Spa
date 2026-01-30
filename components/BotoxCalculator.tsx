@@ -382,8 +382,8 @@ export function BotoxCalculator() {
 
               {/* Savings callout */}
               {selectedAreas.size >= 3 && (
-                <div className="mb-6 p-3 rounded-lg bg-green-500/10 border border-green-500/30">
-                  <p className="text-green-400 text-sm font-medium">
+                <div className="mb-6 p-3 rounded-lg bg-pink-500/10 border border-pink-500/30">
+                  <p className="text-pink-400 text-sm font-medium">
                     💡 Tip: Ask about our multi-area discount!
                   </p>
                 </div>

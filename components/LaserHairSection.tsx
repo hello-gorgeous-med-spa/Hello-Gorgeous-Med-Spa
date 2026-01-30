@@ -104,7 +104,7 @@ export function LaserHairSection() {
                       {pkg.originalPrice}
                     </span>
                   </div>
-                  <span className="inline-block mt-2 px-3 py-1 rounded-full bg-green-500/20 text-green-400 text-sm font-semibold">
+                  <span className="inline-block mt-2 px-3 py-1 rounded-full bg-pink-500/20 text-pink-400 text-sm font-semibold">
                     {pkg.savings}
                   </span>
                 </div>

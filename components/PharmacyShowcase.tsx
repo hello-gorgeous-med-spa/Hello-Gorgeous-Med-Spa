@@ -70,7 +70,7 @@ const slides: Slide[] = [
     tagline: "The gold standard for GH optimization",
     benefits: ["Fat loss support", "Lean muscle gains", "Improved recovery", "Better body composition"],
     icon: "💪",
-    gradient: "from-emerald-600 to-teal-500",
+    gradient: "from-fuchsia-600 to-pink-500",
   },
   {
     id: "aod9604",
@@ -116,7 +116,7 @@ const slides: Slide[] = [
     tagline: "Fat-burning vitamin cocktail",
     benefits: ["Boosts fat metabolism", "Liver support", "Energy increase", "Weight loss aid"],
     icon: "💉",
-    gradient: "from-green-500 to-emerald-500",
+    gradient: "from-fuchsia-500 to-pink-500",
   },
   {
     id: "vitaminD",

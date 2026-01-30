@@ -487,7 +487,7 @@ export function TreatmentQuiz() {
         <Section className="relative py-16 bg-gradient-to-b from-pink-950/30 via-purple-950/20 to-black">
           <FadeUp>
             <div className="text-center mb-12">
-              <span className="inline-block px-4 py-1 rounded-full bg-green-500/20 text-green-400 text-sm font-medium mb-4">
+              <span className="inline-block px-4 py-1 rounded-full bg-pink-500/20 text-pink-400 text-sm font-medium mb-4">
                 ✨ Your Personalized Results
               </span>
               <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
@@ -580,7 +580,7 @@ export function TreatmentQuiz() {
                 </a>
               </div>
               {submitted && (
-                <p className="mt-4 text-green-400 text-sm">
+                <p className="mt-4 text-pink-400 text-sm">
                   ✓ Your 10% off code has been sent to {email}
                 </p>
               )}

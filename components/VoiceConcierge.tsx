@@ -387,7 +387,7 @@ export function VoiceConcierge() {
         aria-label="Open voice assistant"
       >
         <span className="text-2xl group-hover:scale-110 transition-transform">🎤</span>
-        <span className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white animate-pulse" />
+        <span className="absolute -top-1 -right-1 w-4 h-4 bg-pink-500 rounded-full border-2 border-white animate-pulse" />
       </button>
 
       {/* Voice Assistant Modal */}

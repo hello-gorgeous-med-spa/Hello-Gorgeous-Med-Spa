@@ -53,7 +53,7 @@ export function MeetProviders() {
                     <div className="absolute top-4 right-4">
                       <a
                         href="/telehealth"
-                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/90 text-white text-xs font-medium hover:bg-green-500 transition"
+                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-fuchsia-500/90 text-white text-xs font-medium hover:bg-fuchsia-500 transition"
                       >
                         <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
                         Telehealth Available
@@ -71,7 +71,7 @@ export function MeetProviders() {
                   {provider.telehealth && (
                     <a
                       href="/telehealth"
-                      className="inline-flex items-center gap-2 mt-4 text-green-400 text-sm font-medium hover:text-green-300 transition"
+                      className="inline-flex items-center gap-2 mt-4 text-fuchsia-400 text-sm font-medium hover:text-fuchsia-300 transition"
                     >
                       🖥️ Book Virtual Visit →
                     </a>

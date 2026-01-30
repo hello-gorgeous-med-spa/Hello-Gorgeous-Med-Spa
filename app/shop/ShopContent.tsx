@@ -362,7 +362,7 @@ export function ShopContent() {
             {/* Payment badges */}
             <div className="flex flex-wrap justify-center gap-4 mb-8">
               <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
-                <span className="text-green-400">✓</span>
+                <span className="text-pink-400">✓</span>
                 <span className="text-white text-sm">Free Shipping $75+</span>
               </div>
               <a
@@ -386,11 +386,11 @@ export function ShopContent() {
             href="https://us.fullscript.com/welcome/dglazier"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center hover:bg-emerald-500/20 transition"
+            className="p-4 rounded-xl bg-fuchsia-500/10 border border-fuchsia-500/30 text-center hover:bg-fuchsia-500/20 transition"
           >
             <span className="text-2xl mb-2 block">💊</span>
             <span className="text-white font-medium text-sm">Shop Fullscript</span>
-            <span className="text-emerald-400 text-xs block">Supplements</span>
+            <span className="text-fuchsia-400 text-xs block">Supplements</span>
           </a>
           <a
             href="https://pay.withcherry.com/hellogorgeous"

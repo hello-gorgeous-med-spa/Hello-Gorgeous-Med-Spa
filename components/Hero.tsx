@@ -68,8 +68,8 @@ export function Hero() {
         </div>
       </div>
 
-      {/* CTA Bar - GREEN background with PINK text */}
-      <div className="relative bg-gradient-to-r from-green-600 via-emerald-500 to-green-600 py-4 px-4 overflow-hidden">
+      {/* CTA Bar - Pink gradient */}
+      <div className="relative bg-gradient-to-r from-fuchsia-600 via-pink-500 to-fuchsia-600 py-4 px-4 overflow-hidden">
         {/* Animated shine effect */}
         <div 
           className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent"

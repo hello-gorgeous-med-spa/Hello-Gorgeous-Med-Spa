@@ -26,7 +26,7 @@ const categories: { id: Category; name: string; icon: string; color: string }[] 
   { id: "injectables", name: "Injectables", icon: "💉", color: "pink" },
   { id: "skin", name: "Skin Rejuvenation", icon: "✨", color: "purple" },
   { id: "hormones", name: "Hormone Health", icon: "⚖️", color: "amber" },
-  { id: "wellness", name: "Wellness", icon: "💊", color: "emerald" },
+  { id: "wellness", name: "Wellness", icon: "💊", color: "fuchsia" },
   { id: "news", name: "Spa News", icon: "📰", color: "blue" },
 ];
 
