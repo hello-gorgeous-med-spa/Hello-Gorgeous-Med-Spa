@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 
 const BOOKING_URL = "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
 
@@ -133,9 +132,9 @@ export function SubscribeContent() {
   };
 
   return (
-    <main className="min-h-screen bg-black pt-24">
+    <main className="min-h-screen bg-black pt-24" itemScope itemType="https://schema.org/WebPage">
       {/* Hero Section */}
-      <section className="relative py-20 px-4 overflow-hidden">
+      <section className="relative py-20 px-4 overflow-hidden" aria-label="Subscribe for Free Service">
         {/* Animated background */}
         <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-900/30 via-black to-purple-900/30" />
         <div className="absolute top-0 left-1/4 w-96 h-96 bg-fuchsia-500/20 rounded-full blur-3xl animate-pulse" />
