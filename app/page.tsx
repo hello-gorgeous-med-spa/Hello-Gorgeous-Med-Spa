@@ -13,6 +13,8 @@ import { PharmacyShowcase } from "@/components/PharmacyShowcase";
 import { FullscriptSection } from "@/components/FullscriptSection";
 import { BioteSection } from "@/components/BioteSection";
 import { EmailBanner } from "@/components/EmailCapture";
+import { BotoxCalculator } from "@/components/BotoxCalculator";
+import { VirtualTryOn } from "@/components/VirtualTryOn";
 import { HOME_FAQS, faqJsonLd, pageMetadata, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -37,6 +39,8 @@ export default function HomePage() {
       />
       <Hero />
       <OffersSection />
+      <BotoxCalculator />
+      <VirtualTryOn />
       <HomeCareTeam />
       <PharmacyShowcase />
       <FullscriptSection />
