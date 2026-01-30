@@ -37,12 +37,12 @@ export function MeetProviders() {
           {providers.map((provider, idx) => (
             <FadeUp key={provider.name} delayMs={150 * idx}>
               <div className="bg-black/50 border border-pink-500/20 rounded-3xl overflow-hidden hover:border-pink-500/40 transition group">
-                <div className="relative aspect-[4/3] overflow-hidden">
+                <div className="relative aspect-[3/4] overflow-hidden bg-gradient-to-b from-pink-950/20 to-black">
                   <Image
                     src={provider.image}
                     alt={provider.name}
                     fill
-                    className="object-cover object-top group-hover:scale-105 transition duration-500"
+                    className="object-contain object-center group-hover:scale-105 transition duration-500"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
