@@ -19,6 +19,7 @@ import { QuizCTA } from "@/components/QuizCTA";
 import { ImmediateCareBanner } from "@/components/ImmediateCareBanner";
 import { TriggerPointSection } from "@/components/TriggerPointSection";
 import { LaserHairSection } from "@/components/LaserHairSection";
+import { MicroneedlingShowcase } from "@/components/MicroneedlingShowcase";
 import { HOME_FAQS, SITE, faqJsonLd, pageMetadata, siteJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -60,6 +61,7 @@ export default function HomePage() {
       <FullscriptSection />
       <BioteSection />
       <TriggerPointSection />
+      <MicroneedlingShowcase />
       <AnteAGEShowcase />
       <LaserHairSection />
       <Testimonials />
