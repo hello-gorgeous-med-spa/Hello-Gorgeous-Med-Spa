@@ -5,7 +5,8 @@ import Image from "next/image";
 import type { PersonaId } from "@/lib/personas/types";
 import { PERSONA_UI } from "@/lib/personas/ui";
 import { getPersonaConfig } from "@/lib/personas/index";
-import { getMascotVideoSrc, pickMascotVideoIntentForContext } from "@/lib/media";
+// Video functions available if needed
+// import { getMascotVideoSrc, pickMascotVideoIntentForContext } from "@/lib/media";
 
 type MascotFeature = {
   icon: string;
@@ -81,13 +82,11 @@ const mascotHeroData: MascotHeroData[] = [
 function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (id: PersonaId) => void }) {
   const cfg = getPersonaConfig(data.id);
   const ui = PERSONA_UI[data.id];
-  const [isPlaying, setIsPlaying] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const videoRef = React.useRef<HTMLVideoElement>(null);
 
   const handlePlayVideo = () => {
     setShowVideo(true);
-    setIsPlaying(true);
   };
 
   return (

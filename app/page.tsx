@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 
 import { Hero } from "@/components/Hero";
 import { HomeCareTeam } from "@/components/HomeCareTeam";
+import { PromoBanner } from "@/components/PromoBanner";
+import { PhotoGallery } from "@/components/PhotoGallery";
+import { MeetProviders } from "@/components/MeetProviders";
 import { HOME_FAQS, faqJsonLd, pageMetadata, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -25,7 +28,10 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(HOME_FAQS)) }}
       />
       <Hero />
+      <PromoBanner />
       <HomeCareTeam />
+      <PhotoGallery />
+      <MeetProviders />
     </>
   );
 }
