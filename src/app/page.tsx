@@ -16,7 +16,7 @@ export default function Home() {
       </main>
       <Mascot
         name="Peppi"
-        imageSrc="https://via.placeholder.com/150x150.png?text=Peppi"
+        videoSrc="/Videos/mascots/peppi.mp4"
         ctaText="Ask Peppi a Question"
       />
     </div>
