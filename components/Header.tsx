@@ -12,9 +12,9 @@ const nav = [
   { href: "/", label: "Home", icon: "🏠" },
   { href: "/services", label: "Services", icon: "✨" },
   { href: "/iv-therapy", label: "IV Therapy", icon: "💉" },
-  { href: "/shop", label: "Shop", icon: "🛍️", highlight: true },
+  { href: "/telehealth", label: "Telehealth", icon: "🖥️", highlight: true },
+  { href: "/shop", label: "Shop", icon: "🛍️" },
   { href: "/blog", label: "Blog", icon: "📚" },
-  { href: "/meet-the-team", label: "Team", icon: "👥" },
   { href: "/contact", label: "Contact", icon: "📍" },
 ] as const;
 

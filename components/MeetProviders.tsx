@@ -7,14 +7,18 @@ const providers = [
   {
     name: "Danielle Alcala",
     role: "Founder & Lead Aesthetician",
+    credentials: null,
     image: "/images/team/danielle.png",
-    bio: "Passionate about helping clients feel confident and beautiful. Patient-first care philosophy.",
+    bio: "Passionate about helping clients feel confident and beautiful. Patient-first care philosophy with a focus on personalized treatments.",
+    telehealth: false,
   },
   {
-    name: "Ryan Kent, FNP-BC",
+    name: "Ryan Kent",
     role: "Medical Director",
+    credentials: "FNP-BC | Full Practice Authority NP",
     image: "/images/team/ryan-danielle.png",
-    bio: "Board-certified Family Nurse Practitioner ensuring clinical excellence and safety.",
+    bio: "Board-Certified Family Nurse Practitioner with full prescriptive authority. Specializing in weight management, hormone optimization, and regenerative medicine.",
+    telehealth: true,
   },
 ];
 
@@ -45,11 +49,33 @@ export function MeetProviders() {
                     className="object-contain object-center group-hover:scale-105 transition duration-500"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
+                  {provider.telehealth && (
+                    <div className="absolute top-4 right-4">
+                      <a
+                        href="/telehealth"
+                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/90 text-white text-xs font-medium hover:bg-green-500 transition"
+                      >
+                        <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                        Telehealth Available
+                      </a>
+                    </div>
+                  )}
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-white">{provider.name}</h3>
+                  {provider.credentials && (
+                    <p className="text-blue-400 text-xs font-semibold mt-1">{provider.credentials}</p>
+                  )}
                   <p className="text-pink-400 text-sm mt-1">{provider.role}</p>
                   <p className="text-white/70 text-sm mt-3">{provider.bio}</p>
+                  {provider.telehealth && (
+                    <a
+                      href="/telehealth"
+                      className="inline-flex items-center gap-2 mt-4 text-green-400 text-sm font-medium hover:text-green-300 transition"
+                    >
+                      🖥️ Book Virtual Visit →
+                    </a>
+                  )}
                 </div>
               </div>
             </FadeUp>

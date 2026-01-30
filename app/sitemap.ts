@@ -12,6 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/iv-therapy`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${SITE.url}/shop`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${SITE.url}/blog`, lastModified: now, changeFrequency: "daily", priority: 0.8 },
+    { url: `${SITE.url}/telehealth`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE.url}/botox-party`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE.url}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE.url}/book`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
