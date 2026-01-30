@@ -106,40 +106,61 @@ export function VirtualTryOn() {
     setActiveEnhancements(newEnhancements);
   };
 
-  // Apply CSS filters based on enhancements
+  // Apply CSS filters based on enhancements - DRAMATIC effects
   const getFilterStyle = useCallback(() => {
     let brightness = 100;
     let contrast = 100;
     let saturate = 100;
     let blur = 0;
+    let sepia = 0;
+    let hueRotate = 0;
 
     activeEnhancements.forEach((intensity, id) => {
-      const factor = intensity / 50; // 0-2 range
+      const factor = intensity / 50; // 0-2 range (at 100% = 2x effect)
 
       switch (id) {
         case "smooth":
-          blur += 0.3 * factor;
-          brightness += 2 * factor;
+          // Soft, airbrushed skin effect
+          blur += 1.5 * factor; // More noticeable smoothing
+          brightness += 8 * factor;
+          contrast -= 5 * factor; // Softer shadows
           break;
         case "glow":
-          brightness += 8 * factor;
-          saturate += 10 * factor;
+          // Radiant, glowing skin
+          brightness += 20 * factor; // Much brighter
+          saturate += 25 * factor; // More vibrant
+          sepia += 5 * factor; // Warm golden tone
           break;
         case "contour":
-          contrast += 8 * factor;
+          // Defined, sculpted look
+          contrast += 25 * factor; // Strong definition
+          brightness += 5 * factor;
+          saturate += 10 * factor;
           break;
         case "eyes":
-          brightness += 3 * factor;
-          contrast += 3 * factor;
+          // Bright, awake eyes
+          brightness += 15 * factor;
+          contrast += 15 * factor;
+          saturate += 15 * factor;
           break;
         case "lips":
-          saturate += 15 * factor;
+          // Fuller, more vibrant lips
+          saturate += 40 * factor; // Very saturated/rosy
+          hueRotate += 5 * factor; // Slight pink shift
+          contrast += 10 * factor;
           break;
       }
     });
 
+    // Clamp values to reasonable ranges
+    brightness = Math.min(brightness, 150);
+    contrast = Math.max(80, Math.min(contrast, 150));
+    saturate = Math.min(saturate, 180);
+    blur = Math.min(blur, 3);
+
     return {
-      filter: `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturate}%) blur(${blur}px)`,
+      filter: `brightness(${brightness}%) contrast(${contrast}%) saturate(${saturate}%) blur(${blur}px) sepia(${sepia}%) hue-rotate(${hueRotate}deg)`,
+      transition: "filter 0.5s ease-out",
     };
   }, [activeEnhancements]);
 
@@ -323,16 +344,35 @@ export function VirtualTryOn() {
                     </div>
                   ) : (
                     <div className="relative flex-1 rounded-2xl overflow-hidden">
+                      {/* Glow effect behind image when enhanced */}
+                      {hasEnhancements && (
+                        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/30 via-pink-500/20 to-purple-500/30 animate-pulse" />
+                      )}
                       <Image
                         src={uploadedImage}
                         alt="Your photo"
                         fill
-                        className="object-cover transition-all duration-500"
-                        style={hasEnhancements ? getFilterStyle() : {}}
+                        className="object-cover"
+                        style={hasEnhancements ? getFilterStyle() : { transition: "filter 0.5s ease-out" }}
                       />
+                      {/* Enhancement active indicator */}
                       {hasEnhancements && (
-                        <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-purple-500/70 text-white text-sm">
-                          Enhanced Preview
+                        <>
+                          <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-medium animate-pulse shadow-lg shadow-purple-500/50">
+                            ✨ Enhanced Preview
+                          </div>
+                          <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-black/70 backdrop-blur-sm border border-purple-500/30">
+                            <p className="text-purple-300 text-xs text-center">
+                              {activeEnhancements.size} enhancement{activeEnhancements.size > 1 ? "s" : ""} applied • Adjust sliders to see changes
+                            </p>
+                          </div>
+                        </>
+                      )}
+                      {!hasEnhancements && (
+                        <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-black/70 backdrop-blur-sm border border-white/10">
+                          <p className="text-gray-400 text-xs text-center">
+                            👈 Select enhancements on the right to see your transformation
+                          </p>
                         </div>
                       )}
                     </div>
@@ -441,18 +481,31 @@ export function VirtualTryOn() {
                         <div className="mt-4 pl-16">
                           <div className="flex items-center justify-between text-sm mb-2">
                             <span className="text-gray-400">Intensity</span>
-                            <span className="text-purple-400">{intensity}%</span>
+                            <span className="text-purple-400 font-bold">{intensity}%</span>
                           </div>
-                          <input
-                            type="range"
-                            min="10"
-                            max="100"
-                            value={intensity}
-                            onChange={(e) =>
-                              updateIntensity(enhancement.id, Number(e.target.value))
-                            }
-                            className="w-full h-2 rounded-full appearance-none bg-white/10 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-gradient-to-r [&::-webkit-slider-thumb]:from-purple-500 [&::-webkit-slider-thumb]:to-pink-500 [&::-webkit-slider-thumb]:cursor-pointer"
-                          />
+                          <div className="relative">
+                            {/* Track background */}
+                            <div className="absolute inset-0 h-3 rounded-full bg-white/10" />
+                            {/* Filled track */}
+                            <div 
+                              className="absolute left-0 top-0 h-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all"
+                              style={{ width: `${intensity}%` }}
+                            />
+                            <input
+                              type="range"
+                              min="10"
+                              max="100"
+                              value={intensity}
+                              onChange={(e) =>
+                                updateIntensity(enhancement.id, Number(e.target.value))
+                              }
+                              className="relative w-full h-3 rounded-full appearance-none bg-transparent cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:shadow-purple-500/50 [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-purple-500 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-125"
+                            />
+                          </div>
+                          <div className="flex justify-between text-xs text-gray-500 mt-1">
+                            <span>Subtle</span>
+                            <span>Dramatic</span>
+                          </div>
                         </div>
                       )}
                     </div>
