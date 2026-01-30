@@ -4,6 +4,7 @@ import "./globals.css";
 
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
+import { StickyMobileCTA } from "@/components/StickyMobileCTA";
 import { SITE } from "@/lib/seo";
 
 const inter = Inter({
@@ -46,11 +47,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="bg-black text-white min-h-screen antialiased">
         <Header />
         <main className="pt-16">
-          <div className="min-h-screen bg-black text-white overflow-x-hidden">
+          <div className="min-h-screen bg-black text-white overflow-x-hidden pb-20 md:pb-0">
             {children}
             <Footer />
           </div>
         </main>
+        <StickyMobileCTA />
       </body>
     </html>
   );

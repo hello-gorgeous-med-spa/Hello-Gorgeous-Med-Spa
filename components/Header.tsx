@@ -10,11 +10,11 @@ import { BOOKING_URL } from "@/lib/flows";
 
 const nav = [
   { href: "/", label: "Home", icon: "🏠" },
+  { href: "/services", label: "Services", icon: "✨" },
+  { href: "/botox-party", label: "Botox Party", icon: "🎉", highlight: true },
+  { href: "/meet-the-team", label: "Meet the Team", icon: "👥" },
   { href: "/explore-care", label: "Explore Care", icon: "🧭" },
-  { href: "/your-journey", label: "Your Journey", icon: "🫶" },
-  { href: "/understand-your-body", label: "Understand Your Body", icon: "🧬" },
-  { href: "/care-and-support", label: "Care & Support", icon: "🤍" },
-  { href: "/meet-the-team", label: "Meet Your Care Team", icon: "👥" },
+  { href: "/contact", label: "Contact", icon: "📍" },
   { href: BOOKING_URL, label: "Book Now", icon: "📅", external: true },
 ] as const;
 
@@ -65,7 +65,9 @@ export function Header() {
                         "flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all",
                         isActive
                           ? "text-pink-400 bg-white/5"
-                          : "text-white/70 hover:text-white hover:bg-white/5",
+                          : "highlight" in item && item.highlight
+                            ? "text-pink-400 hover:text-pink-300 hover:bg-pink-500/10 border border-pink-500/30"
+                            : "text-white/70 hover:text-white hover:bg-white/5",
                       )}
                     >
                       <span className="text-base">{item.icon}</span>
