@@ -360,7 +360,7 @@ export function CareEngine() {
               <button
                 type="button"
                 disabled={sending}
-                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
+                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
                 onClick={sendEducation}
               >
                 Send
@@ -440,7 +440,7 @@ export function CareEngine() {
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <button
                 type="button"
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
+                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
                 onClick={buildPreSummary}
               >
                 Generate Summary & Next Steps
@@ -542,7 +542,7 @@ export function CareEngine() {
               <button
                 type="button"
                 disabled={sending}
-                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
+                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
                 onClick={sendPostCare}
               >
                 Send
@@ -646,7 +646,7 @@ export function CareEngine() {
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <button
                 type="button"
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
+                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
                 onClick={() => setCcSummary(buildConfidenceSummary(cc))}
               >
                 Generate Summary
@@ -776,7 +776,7 @@ export function CareEngine() {
               <button
                 type="button"
                 disabled={sending}
-                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
+                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
                 onClick={() => {
                   const q = askInput.trim();
                   if (!q) return;
@@ -877,7 +877,7 @@ export function CareEngine() {
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <button
                 type="button"
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
+                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
                 onClick={() => {
                   const res = normalCheck({ treatment: normalTreatment, symptom: normalSymptom, timeline: normalTimeline });
                   if (res.severity === "red-flag" || postTreatmentRedFlags(`${normalSymptom} ${normalTreatment}`)) {
@@ -1071,7 +1071,7 @@ export function CareEngine() {
                       <button
                         type="button"
                         disabled={sending}
-                        className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
+                        className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
                         onClick={() => {
                           const q = tlInput.trim();
                           if (!q) return;
@@ -1153,7 +1153,7 @@ export function CareEngine() {
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   type="button"
-                  className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
+                  className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
                   onClick={() => setRoadmapOut(buildBeautyRoadmap(roadmapPriorities, roadmapNotes))}
                 >
                   Generate Roadmap

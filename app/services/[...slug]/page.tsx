@@ -66,14 +66,14 @@ function CategoryPage({ categoryId }: { categoryId: ServiceAtlasClusterId }) {
       />
 
       <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/10 via-black to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
         <div className="relative z-10">
           <FadeUp>
             <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
               SERVICE CLUSTER
             </p>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
                 {cluster.title}
               </span>
             </h1>
@@ -183,14 +183,14 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
       />
 
       <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/10 via-black to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
         <div className="relative z-10">
           <FadeUp>
             <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
               {s.category.toUpperCase()}
             </p>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
                 {s.name}
               </span>
             </h1>
@@ -252,7 +252,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             <FadeUp>
               <h2 className="text-3xl md:text-4xl font-bold text-white">
                 A premium plan,{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
                   not a generic appointment
                 </span>
               </h2>
@@ -315,7 +315,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         <FadeUp>
           <h2 className="text-3xl md:text-4xl font-bold text-white">
             Frequently Asked{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
               Questions
             </span>
           </h2>

@@ -143,7 +143,7 @@ export function UnderstandYourBody() {
           </p>
           <h1 className="text-4xl md:text-6xl font-bold leading-tight">
             Education that feels{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
               human
             </span>
           </h1>
@@ -280,7 +280,7 @@ export function UnderstandYourBody() {
                 <button
                   type="button"
                   disabled={sending}
-                  className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
+                  className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
                   onClick={() => {
                     const q = input.trim();
                     if (!q) return;

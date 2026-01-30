@@ -55,7 +55,7 @@ export function HumanJourney() {
           </p>
           <h1 className="text-4xl md:text-6xl font-bold leading-tight">
             Feel clear before you{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
               commit
             </span>
           </h1>
@@ -184,7 +184,7 @@ export function HumanJourney() {
               <div className="mt-6 flex flex-col sm:flex-row gap-3">
                 <button
                   type="button"
-                  className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
+                  className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
                   onClick={() => setSummary(buildConfidenceSummary(answers))}
                 >
                   Generate Summary

@@ -34,7 +34,7 @@ export default function NotFound() {
 
             <div className="w-full max-w-md fade-up is-visible fade-delay-2">
               <div className="rounded-2xl border border-gray-800 bg-black/40 p-5">
-                <div className="h-48 rounded-xl bg-gradient-to-br from-pink-500/15 via-purple-500/10 to-black float-slow" />
+                <div className="h-48 rounded-xl bg-gradient-to-br from-pink-500/15 via-pink-500/10 to-black float-slow" />
               </div>
               <p className="mt-3 text-center text-sm text-gray-400">
                 Not sure where to go? Start with services.

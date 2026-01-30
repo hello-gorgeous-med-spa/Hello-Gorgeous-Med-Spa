@@ -10,7 +10,7 @@ type Variant = "gradient" | "outline" | "white" | "ghost";
 
 const variants: Record<Variant, string> = {
   gradient:
-    "bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white hover:shadow-2xl hover:shadow-pink-500/25 hover:scale-105",
+    "bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white hover:shadow-2xl hover:shadow-pink-500/25 hover:scale-105",
   outline: "border border-white/20 text-white hover:bg-white/5",
   white:
     "bg-white text-black hover:shadow-2xl hover:shadow-white/25 hover:scale-105",

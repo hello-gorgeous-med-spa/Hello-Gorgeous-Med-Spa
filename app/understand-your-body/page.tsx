@@ -39,7 +39,7 @@ export default function UnderstandYourBodyPage() {
       />
 
       <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/10 via-black to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
         <div className="relative z-10">
           <UnderstandYourBody />
         </div>

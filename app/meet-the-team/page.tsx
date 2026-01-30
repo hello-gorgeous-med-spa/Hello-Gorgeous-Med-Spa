@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { PersonaHub } from "@/components/PersonaHub";
+import { MascotHeroSection } from "@/components/MascotHeroSection";
 import { Section } from "@/components/Section";
 import { PERSONAS } from "@/lib/personas";
 import { FAQ, SITE, faqJsonLd, pageMetadata, siteJsonLd } from "@/lib/seo";
@@ -68,9 +68,9 @@ export default function MeetTheTeamPage() {
       />
 
       <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/10 via-black to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
         <div className="relative z-10">
-          <PersonaHub />
+          <MascotHeroSection />
         </div>
       </Section>
     </>

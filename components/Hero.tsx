@@ -9,10 +9,10 @@ import { BOOKING_URL } from "@/lib/flows";
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center px-6 py-20">
-      <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-black to-black" />
+      <div className="absolute inset-0 bg-gradient-to-b from-pink-900/20 via-black to-black" />
       <div className="absolute top-20 left-10 w-72 h-72 bg-pink-500/10 rounded-full blur-3xl animate-pulse" />
       <div
-        className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"
+        className="absolute bottom-20 right-10 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse"
         style={{ animationDelay: "1s" }}
       />
 
@@ -23,7 +23,7 @@ export function Hero() {
           </p>
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
             Look{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-pink-400 to-pink-400">
               refreshed
             </span>
             . Feel confident.

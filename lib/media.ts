@@ -14,8 +14,8 @@ export const mascotVideos: Record<PersonaId, Record<string, string>> = {
     reassurance: "/videos/mascots/peppi/peppi-reassurance.mp4",
   },
   "beau-tox": {
-    intro: "/videos/mascots/beau-tox/beau-tox-intro.mp4",
-    education: "/videos/mascots/beau-tox/beau-tox-education.mp4",
+    intro: "/videos/mascots/beau-tox/beau-tox.mp4",
+    education: "/videos/mascots/beau-tox/beau-tox.mp4",
   },
   "filla-grace": {
     intro: "/videos/mascots/filla-grace/filla-grace-intro.mp4",
@@ -25,7 +25,8 @@ export const mascotVideos: Record<PersonaId, Record<string, string>> = {
     vision: "/videos/mascots/founder/founder-vision.mp4",
   },
   ryan: {
-    oversight: "/videos/mascots/ryan/ryan-medical-oversight.mp4",
+    intro: "/videos/mascots/ryan/ryan-intro.mp4",
+    oversight: "/videos/mascots/ryan/ryan-intro.mp4",
   },
 };
 

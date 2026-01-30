@@ -62,7 +62,7 @@ export default function NapervilleHubPage() {
       />
 
       <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/10 via-black to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
         <div className="relative z-10">
           <FadeUp>
             <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
@@ -70,7 +70,7 @@ export default function NapervilleHubPage() {
             </p>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
               Premium, clinical med spa care{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
                 near Naperville
               </span>
             </h1>

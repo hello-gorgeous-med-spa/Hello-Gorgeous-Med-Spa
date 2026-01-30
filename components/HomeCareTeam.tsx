@@ -93,7 +93,7 @@ export function HomeCareTeam() {
 
   return (
     <Section className="relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-purple-950/10" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-pink-950/10" />
       <div className="relative">
         <FadeUp>
           <div className="text-center">
@@ -129,19 +129,35 @@ export function HomeCareTeam() {
                     )}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="h-14 w-14 rounded-2xl overflow-hidden border border-white/10 bg-white/5 flex items-center justify-center">
-                        {/* use <img> for a resilient fallback if the file is missing */}
-                        {portrait ? (
-                          // eslint-disable-next-line @next/next/no-img-element
-                          <img
-                            src={portrait}
-                            alt={`${p.displayName} mascot`}
-                            className="h-full w-full object-cover"
-                            loading="lazy"
-                          />
-                        ) : (
-                          <span className="text-2xl">{pUi.emoji}</span>
-                        )}
+                      <div className="h-16 w-16 rounded-full overflow-hidden border-2 border-pink-500/50 bg-black flex items-center justify-center shadow-[0_0_15px_rgba(236,72,153,0.3)]">
+                        {/* Autoplay video avatar for "alive" mascots */}
+                        {(() => {
+                          const videoIntent = pickMascotVideoIntentForContext({ personaId: id, mode: "home-spotlight" });
+                          const videoUrl = getMascotVideoSrc(id, videoIntent);
+                          if (videoUrl) {
+                            return (
+                              <video
+                                src={videoUrl}
+                                autoPlay
+                                loop
+                                muted
+                                playsInline
+                                className="h-full w-full object-cover"
+                              />
+                            );
+                          }
+                          return portrait ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={portrait}
+                              alt={`${p.displayName} mascot`}
+                              className="h-full w-full object-cover"
+                              loading="lazy"
+                            />
+                          ) : (
+                            <span className="text-2xl">{pUi.emoji}</span>
+                          );
+                        })()}
                       </div>
                       <div className="min-w-0">
                         <p className="text-xs text-white/60">{p.role}</p>
@@ -194,7 +210,7 @@ export function HomeCareTeam() {
                       setChatOpen(true);
                       memory.setPreference({ stage: "learning" });
                     }}
-                    className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
+                    className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
                   >
                     Ask a question
                   </button>
@@ -285,7 +301,7 @@ export function HomeCareTeam() {
                         <button
                           type="button"
                           disabled={sending}
-                          className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
+                          className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
                           onClick={() => void send()}
                         >
                           Send

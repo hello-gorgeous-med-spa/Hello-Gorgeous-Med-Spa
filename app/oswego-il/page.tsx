@@ -62,7 +62,7 @@ export default function OswegoHubPage() {
       />
 
       <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/10 via-black to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
         <div className="relative z-10">
           <FadeUp>
             <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
@@ -70,7 +70,7 @@ export default function OswegoHubPage() {
             </p>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
               The clinical med spa designed to feel{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
                 premium
               </span>
             </h1>
@@ -97,7 +97,7 @@ export default function OswegoHubPage() {
         <FadeUp>
           <h2 className="text-3xl md:text-4xl font-bold text-white">
             Top services in{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
               Oswego
             </span>
           </h2>
