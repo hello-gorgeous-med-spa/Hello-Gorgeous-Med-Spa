@@ -10,6 +10,7 @@ import { BOOKING_URL } from "@/lib/flows";
 
 const nav = [
   { href: "/", label: "Home", icon: "🏠" },
+  { href: "/subscribe", label: "FREE $75 Service", icon: "🎁", highlight: true, special: true },
   { href: "/quiz", label: "Find My Treatment", icon: "✨", highlight: true },
   { href: "/services", label: "Services", icon: "💉" },
   { href: "/telehealth", label: "Telehealth", icon: "🖥️" },
@@ -65,9 +66,11 @@ export function Header() {
                         "flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-all",
                         isActive
                           ? "text-pink-400 bg-white/5"
-                          : "highlight" in item && item.highlight
-                            ? "text-pink-400 hover:text-pink-300 hover:bg-pink-500/10 border border-pink-500/30"
-                            : "text-white/70 hover:text-white hover:bg-white/5",
+                          : "special" in item && item.special
+                            ? "bg-gradient-to-r from-fuchsia-500 to-purple-500 text-white hover:opacity-90 shadow-lg shadow-fuchsia-500/25 animate-pulse"
+                            : "highlight" in item && item.highlight
+                              ? "text-pink-400 hover:text-pink-300 hover:bg-pink-500/10 border border-pink-500/30"
+                              : "text-white/70 hover:text-white hover:bg-white/5",
                       )}
                     >
                       <span className="text-base">{item.icon}</span>
@@ -202,7 +205,9 @@ export function Header() {
                         "flex items-center gap-3 px-4 py-3 rounded-2xl text-lg font-semibold transition",
                         isActive
                           ? "bg-white/5 text-pink-400"
-                          : "hover:bg-white/5 text-white/80 hover:text-white",
+                          : "special" in item && item.special
+                            ? "bg-gradient-to-r from-fuchsia-500 to-purple-500 text-white shadow-lg shadow-fuchsia-500/25"
+                            : "hover:bg-white/5 text-white/80 hover:text-white",
                       )}
                     >
                       <span className="text-xl">{item.icon}</span>
