@@ -13,12 +13,13 @@ type Message = {
   personaId?: PersonaId;
 };
 
-const mascots: { id: PersonaId; name: string; avatar: string; color: string }[] = [
-  { id: "peppi", name: "Peppi", avatar: "/images/characters/peppi.png", color: "from-pink-500 to-rose-500" },
-  { id: "beau-tox", name: "Beau-Tox", avatar: "/images/characters/beau.png", color: "from-purple-500 to-pink-500" },
-  { id: "filla-grace", name: "Filla Grace", avatar: "/images/characters/filla-grace.png", color: "from-pink-400 to-rose-400" },
-  { id: "founder", name: "Danielle", avatar: "/images/characters/founder.png", color: "from-pink-600 to-pink-500" },
-  { id: "ryan", name: "Dr. Ryan", avatar: "/images/characters/ryan.png", color: "from-blue-500 to-cyan-500" },
+const mascots: { id: PersonaId; name: string; avatar: string; color: string; specialty: string }[] = [
+  { id: "peppi", name: "Peppi", avatar: "/images/characters/peppi.png", color: "from-green-500 to-emerald-500", specialty: "Fullscript & Olympia" },
+  { id: "beau-tox", name: "Beau-Tox", avatar: "/images/characters/beau.png", color: "from-purple-500 to-pink-500", specialty: "Botox • Jeuveau • Dysport" },
+  { id: "filla-grace", name: "Filla Grace", avatar: "/images/characters/filla-grace.png", color: "from-pink-400 to-rose-400", specialty: "Revanesse Fillers" },
+  { id: "harmony", name: "Harmony", avatar: "/images/characters/harmony.png", color: "from-amber-500 to-orange-500", specialty: "Biote Hormones" },
+  { id: "founder", name: "Danielle", avatar: "/images/characters/founder.png", color: "from-pink-600 to-pink-500", specialty: "Hello Gorgeous" },
+  { id: "ryan", name: "Dr. Ryan", avatar: "/images/characters/ryan.png", color: "from-blue-500 to-cyan-500", specialty: "Medical & Telehealth" },
 ];
 
 export function MascotChat() {
@@ -197,13 +198,16 @@ export function MascotChat() {
                       key={mascot.id}
                       type="button"
                       onClick={() => handleSelectMascot(mascot.id)}
-                      className="p-4 rounded-xl border border-white/10 bg-white/5 hover:border-pink-500/50 hover:bg-pink-500/10 transition text-left group"
+                      className="p-3 rounded-xl border border-white/10 bg-white/5 hover:border-pink-500/50 hover:bg-pink-500/10 transition text-left group"
                     >
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="text-2xl">{ui.emoji}</span>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xl">{ui.emoji}</span>
                         <span className="text-white font-semibold text-sm">{mascot.name}</span>
                       </div>
-                      <p className="text-white/50 text-xs line-clamp-2">{ui.tagline}</p>
+                      <p className={`text-xs font-medium mb-1 bg-gradient-to-r ${mascot.color} bg-clip-text text-transparent`}>
+                        {mascot.specialty}
+                      </p>
+                      <p className="text-white/40 text-[10px] line-clamp-2">{ui.tagline}</p>
                     </button>
                   );
                 })}

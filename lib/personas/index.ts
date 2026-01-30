@@ -3,6 +3,7 @@ import type { PersonaConfig, PersonaId } from "./types";
 import { peppi } from "./peppi";
 import { beautox } from "./beautox";
 import { fillagrace } from "./fillagrace";
+import { harmony } from "./harmony";
 import { founder } from "./founder";
 import { ryan } from "./ryan";
 
@@ -12,6 +13,7 @@ export const PERSONA_CONFIGS: readonly PersonaConfig[] = [
   peppi,
   beautox,
   fillagrace,
+  harmony,
   founder,
   ryan,
 ] as const;

@@ -15,6 +15,7 @@ export type PersonaId =
   | "peppi"
   | "beau-tox"
   | "filla-grace"
+  | "harmony"
   | "founder"
   | "ryan";
 
