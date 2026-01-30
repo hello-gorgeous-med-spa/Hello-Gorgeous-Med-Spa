@@ -11,11 +11,11 @@ import { BOOKING_URL } from "@/lib/flows";
 const nav = [
   { href: "/", label: "Home", icon: "🏠" },
   { href: "/services", label: "Services", icon: "✨" },
-  { href: "/botox-party", label: "Botox Party", icon: "🎉", highlight: true },
+  { href: "/iv-therapy", label: "IV Therapy", icon: "💉" },
+  { href: "/shop", label: "Shop", icon: "🛍️", highlight: true },
   { href: "/blog", label: "Blog", icon: "📚" },
-  { href: "/meet-the-team", label: "Meet the Team", icon: "👥" },
+  { href: "/meet-the-team", label: "Team", icon: "👥" },
   { href: "/contact", label: "Contact", icon: "📍" },
-  { href: BOOKING_URL, label: "Book Now", icon: "📅", external: true },
 ] as const;
 
 function cx(...classes: Array<string | undefined | null | false>) {
