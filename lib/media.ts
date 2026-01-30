@@ -21,6 +21,10 @@ export const mascotVideos: Record<PersonaId, Record<string, string>> = {
     intro: "/videos/mascots/filla-grace/filla-grace-intro.mp4",
     aesthetics: "/videos/mascots/filla-grace/filla-grace-aesthetics.mp4",
   },
+  harmony: {
+    intro: "/videos/mascots/harmony/harmony-intro.mp4",
+    education: "/videos/mascots/harmony/harmony-intro.mp4",
+  },
   founder: {
     vision: "/videos/mascots/founder/founder-vision.mp4",
   },
@@ -42,6 +46,10 @@ export const mascotImages: Record<PersonaId, { portrait: string; poster?: string
   "filla-grace": {
     portrait: "/media/mascots/filla-grace.png",
     poster: "/media/mascots/filla-grace-poster.jpg",
+  },
+  harmony: {
+    portrait: "/media/mascots/harmony.png",
+    poster: "/media/mascots/harmony-poster.jpg",
   },
   founder: {
     portrait: "/media/mascots/founder.png",
@@ -75,6 +83,7 @@ export function pickMascotVideoIntentForContext({
   if (personaId === "founder") return "vision";
   if (personaId === "beau-tox") return mode === "care-education" ? "education" : "intro";
   if (personaId === "filla-grace") return mode === "care-education" ? "aesthetics" : "intro";
+  if (personaId === "harmony") return mode === "care-education" ? "education" : "intro";
   if (personaId === "peppi") return mode === "care-reassurance" || mode === "care-confidence" ? "reassurance" : "intro";
   return "intro";
 }
