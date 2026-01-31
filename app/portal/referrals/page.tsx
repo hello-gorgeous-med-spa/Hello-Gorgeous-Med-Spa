@@ -99,7 +99,7 @@ export default function ReferralsPage() {
     totalReferrals: referrals.length,
     converted: referrals.filter(r => r.status === 'rewarded').length,
     pending: referrals.filter(r => r.status === 'pending' || r.status === 'signed_up').length,
-    totalEarned: referrals.filter(r => r.status === 'rewarded').length * REFERRAL_CONFIG.referrerReward,
+    totalEarned: referrals.filter(r => r.status === 'rewarded').length * REFERRAL_CONFIG.referrerReward.value,
   };
 
   const handleCopy = async (text: string) => {
@@ -146,10 +146,10 @@ export default function ReferralsPage() {
         <div className="flex items-center gap-4">
           <span className="text-5xl">🎁</span>
           <div>
-            <h2 className="text-2xl font-bold">Give ${REFERRAL_CONFIG.refereeReward}, Get ${REFERRAL_CONFIG.referrerReward}</h2>
+            <h2 className="text-2xl font-bold">Give ${REFERRAL_CONFIG.refereeReward.value}, Get ${REFERRAL_CONFIG.referrerReward.value}</h2>
             <p className="text-amber-100">
-              Share your code with friends. They get ${REFERRAL_CONFIG.refereeReward} off their first treatment, 
-              and you get ${REFERRAL_CONFIG.referrerReward} when they book!
+              Share your code with friends. They get ${REFERRAL_CONFIG.refereeReward.value} off their first treatment, 
+              and you get ${REFERRAL_CONFIG.referrerReward.value} when they book!
             </p>
           </div>
         </div>
@@ -242,7 +242,7 @@ export default function ReferralsPage() {
                 <div className="flex items-center gap-3">
                   {getStatusBadge(referral.status)}
                   {referral.status === 'rewarded' && (
-                    <span className="text-green-600 font-medium">+${REFERRAL_CONFIG.referrerReward}</span>
+                    <span className="text-green-600 font-medium">+${REFERRAL_CONFIG.referrerReward.value}</span>
                   )}
                 </div>
               </div>
@@ -266,14 +266,14 @@ export default function ReferralsPage() {
             <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
             <div>
               <p className="font-medium text-gray-900">They Book</p>
-              <p className="text-sm text-gray-500">They get ${REFERRAL_CONFIG.refereeReward} off their first visit</p>
+              <p className="text-sm text-gray-500">They get ${REFERRAL_CONFIG.refereeReward.value} off their first visit</p>
             </div>
           </div>
           <div className="flex gap-3">
             <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
             <div>
               <p className="font-medium text-gray-900">You Earn</p>
-              <p className="text-sm text-gray-500">Get ${REFERRAL_CONFIG.referrerReward} credited to your account</p>
+              <p className="text-sm text-gray-500">Get ${REFERRAL_CONFIG.referrerReward.value} credited to your account</p>
             </div>
           </div>
         </div>
