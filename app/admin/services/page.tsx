@@ -308,6 +308,36 @@ export default function AdminServicesPage() {
     }
   };
 
+  // Handle delete service
+  const handleDeleteService = async (service: Service) => {
+    if (!isSupabaseConfigured()) {
+      alert('Connect Supabase to delete services');
+      return;
+    }
+
+    const confirmed = window.confirm(
+      `Are you sure you want to delete "${service.name}"?\n\nThis action cannot be undone.`
+    );
+
+    if (!confirmed) return;
+
+    try {
+      const { error } = await supabase
+        .from('services')
+        .delete()
+        .eq('id', service.id);
+
+      if (error) throw error;
+
+      if (refetch) {
+        await refetch();
+      }
+    } catch (err: any) {
+      console.error('Error deleting service:', err);
+      alert(`Failed to delete service: ${err.message}`);
+    }
+  };
+
   // Toggle provider assignment
   const toggleProvider = (providerId: string) => {
     setEditForm(prev => ({
@@ -579,10 +609,20 @@ export default function AdminServicesPage() {
                             Edit
                           </button>
                           <button
+                            onClick={() => handleDeleteService(service)}
+                            className="px-2 py-1.5 text-sm text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                            title="Delete service"
+                          >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                            </svg>
+                          </button>
+                          <button
                             onClick={() => handleToggleActive(service.id, service.is_active)}
                             className={`w-12 h-6 rounded-full transition-colors relative ${
                               service.is_active ? 'bg-green-500' : 'bg-gray-300'
                             }`}
+                            title={service.is_active ? 'Deactivate' : 'Activate'}
                           >
                             <span
                               className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${
