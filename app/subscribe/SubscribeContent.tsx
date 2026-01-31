@@ -4,12 +4,30 @@ import { useState } from "react";
 
 const BOOKING_URL = "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
 
+// Membership pricing - update these values as needed
+const MEMBERSHIP_PRICING = {
+  monthly: {
+    price: 49,
+    interval: "month",
+    freeService: false,
+    savings: 0,
+  },
+  annual: {
+    price: 399,
+    interval: "year",
+    freeService: true,
+    savings: 189, // $49 x 12 = $588 - $399 = $189 savings + $75 free service
+    freeServiceValue: 75,
+  },
+};
+
 const benefits = [
   {
     icon: "🎁",
     title: "FREE Service Up to $75",
-    description: "New subscribers receive a complimentary service valued up to $75 at Hello Gorgeous Med Spa",
+    description: "Annual members receive a complimentary service valued up to $75 as a welcome bonus",
     highlight: true,
+    annualOnly: true,
   },
   {
     icon: "⚡",
@@ -24,7 +42,7 @@ const benefits = [
   {
     icon: "💰",
     title: "Transparent Pricing",
-    description: "Know exactly what you&apos;re paying upfront. No surprise bills or hidden fees",
+    description: "Know exactly what you're paying upfront. No surprise bills or hidden fees",
   },
   {
     icon: "🏥",
@@ -52,26 +70,26 @@ const freeServices = [
 const howItWorks = [
   {
     step: "1",
-    title: "Subscribe",
-    description: "Join No Prior Authorization with a simple subscription",
+    title: "Choose Your Plan",
+    description: "Select monthly or annual membership (annual includes FREE $75 service)",
     icon: "📝",
   },
   {
     step: "2",
-    title: "Get Verified",
-    description: "Quick verification process - no lengthy paperwork",
-    icon: "✅",
+    title: "Complete Checkout",
+    description: "Secure payment through Stripe - cancel anytime",
+    icon: "💳",
   },
   {
     step: "3",
     title: "Claim Your Free Service",
-    description: "Choose any service up to $75 at Hello Gorgeous Med Spa",
+    description: "Annual members: Choose any service up to $75 at Hello Gorgeous Med Spa",
     icon: "🎁",
   },
   {
     step: "4",
     title: "Enjoy Ongoing Benefits",
-    description: "Continue enjoying member perks, discounts, and priority booking",
+    description: "Member perks, discounts, and priority booking all year long",
     icon: "⭐",
   },
 ];
@@ -93,20 +111,24 @@ const faqs = [
     a: "No Prior Authorization is a membership program that gives you direct access to healthcare services without the traditional insurance hassles, referrals, or waiting periods. We believe everyone deserves immediate access to quality care.",
   },
   {
-    q: "How do I claim my free $75 service?",
-    a: "After subscribing, you&apos;ll receive a welcome email with your member code. Simply mention your membership when booking at Hello Gorgeous Med Spa and choose any service up to $75 value - it&apos;s completely free!",
+    q: "How do I get the free $75 service?",
+    a: "The free $75 service is exclusively available to annual members as a thank-you for your commitment. When you sign up for the annual plan, you'll receive a welcome email with your member code to claim your free service at Hello Gorgeous Med Spa.",
   },
   {
-    q: "Is this really free? What&apos;s the catch?",
-    a: "Yes, it&apos;s truly free! We want you to experience the quality of care at Hello Gorgeous Med Spa. We&apos;re confident you&apos;ll love it and become a returning client. Think of it as our way of saying &apos;welcome to the family.&apos;",
+    q: "What's the difference between monthly and annual plans?",
+    a: "Both plans give you full member benefits including 10% off all services and priority booking. The annual plan saves you $189/year compared to monthly AND includes a FREE service up to $75 value as a welcome bonus - that's $264 in total savings!",
+  },
+  {
+    q: "Can I switch from monthly to annual?",
+    a: "Yes! You can upgrade to an annual membership at any time. Once you upgrade, you'll immediately receive your free $75 service benefit. Contact us to make the switch.",
+  },
+  {
+    q: "Can I cancel my membership?",
+    a: "Yes, you can cancel anytime. Monthly members can cancel before their next billing cycle. Annual members can cancel, though we don't offer prorated refunds for the remaining term.",
   },
   {
     q: "Can I use insurance with this?",
     a: "No Prior Authorization operates independently of insurance. This gives you freedom to access services without pre-approvals, referrals, or coverage limitations. You pay transparent, upfront prices.",
-  },
-  {
-    q: "What happens after my free service?",
-    a: "You&apos;ll continue enjoying member benefits including 10% off all services, priority booking, and exclusive perks. There&apos;s no obligation to continue, but most members love the convenience!",
   },
   {
     q: "Who are the providers?",
@@ -117,18 +139,47 @@ const faqs = [
 export function SubscribeContent() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
   const [email, setEmail] = useState("");
+  const [selectedPlan, setSelectedPlan] = useState<"monthly" | "annual">("annual");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email) return;
     
     setIsSubmitting(true);
-    // Simulate submission - replace with actual API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setSubmitted(true);
-    setIsSubmitting(false);
+    setError(null);
+
+    try {
+      // Call the checkout API to create a Stripe session
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          plan: selectedPlan,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Failed to create checkout session");
+      }
+
+      // If Stripe is configured, redirect to checkout
+      if (data.checkoutUrl) {
+        window.location.href = data.checkoutUrl;
+      } else {
+        // Placeholder: Show success for now (Stripe not configured yet)
+        setSubmitted(true);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -150,7 +201,7 @@ export function SubscribeContent() {
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
-            Subscribe & Get a{" "}
+            Join Annual & Get a{" "}
             <span className="relative">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 via-pink-400 to-purple-400">
                 FREE Service
@@ -164,40 +215,110 @@ export function SubscribeContent() {
           </h1>
           
           <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-10">
-            Join No Prior Authorization and experience healthcare the way it should be — 
-            <span className="text-white font-semibold"> immediate, transparent, and hassle-free.</span>
+            Commit to the <span className="text-fuchsia-400 font-semibold">No Prior Authorization Annual Plan</span> and 
+            receive a complimentary service as our thank you —
+            <span className="text-white font-semibold"> plus save $189/year!</span>
           </p>
 
-          {/* CTA Form */}
+          {/* Plan Selection & Checkout Form */}
           {!submitted ? (
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-              <div className="flex flex-col sm:flex-row gap-3">
+            <div className="max-w-2xl mx-auto">
+              {/* Plan Toggle */}
+              <div className="flex justify-center gap-4 mb-6">
+                <button
+                  type="button"
+                  onClick={() => setSelectedPlan("monthly")}
+                  className={`px-6 py-3 rounded-xl border-2 transition-all ${
+                    selectedPlan === "monthly"
+                      ? "border-fuchsia-500 bg-fuchsia-500/20 text-white"
+                      : "border-white/20 bg-white/5 text-gray-400 hover:border-white/40"
+                  }`}
+                >
+                  <span className="block text-sm">Monthly</span>
+                  <span className="block text-2xl font-bold">${MEMBERSHIP_PRICING.monthly.price}<span className="text-sm font-normal">/mo</span></span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setSelectedPlan("annual")}
+                  className={`relative px-6 py-3 rounded-xl border-2 transition-all ${
+                    selectedPlan === "annual"
+                      ? "border-fuchsia-500 bg-fuchsia-500/20 text-white"
+                      : "border-white/20 bg-white/5 text-gray-400 hover:border-white/40"
+                  }`}
+                >
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-gradient-to-r from-fuchsia-500 to-purple-500 text-white text-xs font-bold">
+                    BEST VALUE
+                  </span>
+                  <span className="block text-sm">Annual</span>
+                  <span className="block text-2xl font-bold">${MEMBERSHIP_PRICING.annual.price}<span className="text-sm font-normal">/yr</span></span>
+                  <span className="block text-xs text-fuchsia-400 mt-1">+ FREE $75 Service!</span>
+                </button>
+              </div>
+
+              {/* Value summary for annual */}
+              {selectedPlan === "annual" && (
+                <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-pink-500/10 to-fuchsia-500/10 border border-pink-500/20">
+                  <div className="flex justify-between items-center text-sm">
+                    <span className="text-gray-400">Annual savings vs monthly:</span>
+                    <span className="text-pink-400 font-bold">$189</span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm mt-1">
+                    <span className="text-gray-400">FREE welcome service:</span>
+                    <span className="text-pink-400 font-bold">$75</span>
+                  </div>
+                  <div className="flex justify-between items-center text-sm mt-2 pt-2 border-t border-pink-500/20">
+                    <span className="text-white font-semibold">Total value:</span>
+                    <span className="text-fuchsia-400 font-bold text-lg">$264 saved!</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Checkout Form */}
+              <form onSubmit={handleCheckout} className="space-y-4">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
                   required
-                  className="flex-1 px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-fuchsia-500 focus:ring-2 focus:ring-fuchsia-500/20"
+                  className="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-fuchsia-500 focus:ring-2 focus:ring-fuchsia-500/20"
                 />
+                {error && (
+                  <p className="text-red-400 text-sm">{error}</p>
+                )}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-8 py-4 rounded-xl bg-gradient-to-r from-fuchsia-500 to-purple-500 text-white font-bold hover:opacity-90 transition disabled:opacity-50 shadow-lg shadow-fuchsia-500/25 whitespace-nowrap"
+                  className="w-full px-8 py-4 rounded-xl bg-gradient-to-r from-fuchsia-500 to-purple-500 text-white font-bold hover:opacity-90 transition disabled:opacity-50 shadow-lg shadow-fuchsia-500/25"
                 >
-                  {isSubmitting ? "Subscribing..." : "Get FREE Service →"}
+                  {isSubmitting ? (
+                    "Processing..."
+                  ) : selectedPlan === "annual" ? (
+                    <>🎁 Join Annual & Get FREE Service — ${MEMBERSHIP_PRICING.annual.price}/year</>
+                  ) : (
+                    <>Join Monthly — ${MEMBERSHIP_PRICING.monthly.price}/month</>
+                  )}
                 </button>
-              </div>
+              </form>
               <p className="text-gray-500 text-sm mt-3">
-                No credit card required • Cancel anytime • Instant access
+                Secure checkout via Stripe • Cancel anytime • Instant access
               </p>
-            </form>
+              {selectedPlan === "monthly" && (
+                <p className="text-fuchsia-400/80 text-sm mt-2">
+                  💡 Switch to Annual to get a FREE $75 service!
+                </p>
+              )}
+            </div>
           ) : (
             <div className="max-w-md mx-auto p-6 rounded-2xl bg-gradient-to-r from-pink-500/20 to-fuchsia-500/20 border border-pink-500/30">
               <span className="text-4xl mb-3 block">🎉</span>
               <h3 className="text-xl font-bold text-white mb-2">Welcome to the Family!</h3>
               <p className="text-gray-300 mb-4">
-                Check your email for your member code and instructions to claim your FREE service!
+                {selectedPlan === "annual" ? (
+                  <>Check your email for your member code and instructions to claim your FREE $75 service!</>
+                ) : (
+                  <>Check your email for your member code. Upgrade to annual anytime to get your FREE $75 service!</>
+                )}
               </p>
               <a
                 href={BOOKING_URL}
@@ -205,7 +326,7 @@ export function SubscribeContent() {
                 rel="noopener noreferrer"
                 className="inline-block px-6 py-3 rounded-xl bg-white text-black font-bold hover:bg-gray-100 transition"
               >
-                Book Your Free Service Now →
+                {selectedPlan === "annual" ? "Book Your Free Service Now →" : "Book an Appointment →"}
               </a>
             </div>
           )}
@@ -307,12 +428,17 @@ export function SubscribeContent() {
             {benefits.map((benefit) => (
               <div
                 key={benefit.title}
-                className={`p-6 rounded-2xl border transition-all hover:scale-[1.02] ${
+                className={`relative p-6 rounded-2xl border transition-all hover:scale-[1.02] ${
                   benefit.highlight
                     ? "bg-gradient-to-br from-fuchsia-500/20 to-purple-500/20 border-fuchsia-500/50"
                     : "bg-white/5 border-white/10 hover:border-fuchsia-500/30"
                 }`}
               >
+                {"annualOnly" in benefit && benefit.annualOnly && (
+                  <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-fuchsia-500/30 text-fuchsia-300 text-xs font-medium">
+                    Annual Only
+                  </span>
+                )}
                 <span className="text-4xl mb-4 block">{benefit.icon}</span>
                 <h3 className="text-xl font-bold text-white mb-2">{benefit.title}</h3>
                 <p className="text-gray-400">{benefit.description}</p>
@@ -327,13 +453,13 @@ export function SubscribeContent() {
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
             <span className="inline-block px-4 py-1 rounded-full bg-fuchsia-500/20 text-fuchsia-400 text-sm font-medium mb-4">
-              🎁 Your FREE Service
+              🎁 Annual Member Bonus
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Choose Any Service Up to $75
             </h2>
             <p className="text-gray-400 max-w-xl mx-auto">
-              As a new subscriber, pick ONE of these services completely FREE:
+              As a thank you for your annual commitment, pick ONE of these services completely FREE:
             </p>
           </div>
 
@@ -419,13 +545,17 @@ export function SubscribeContent() {
               <div className="relative p-8 rounded-3xl bg-gradient-to-br from-fuchsia-500/10 to-purple-500/10 border border-fuchsia-500/30">
                 <div className="text-center mb-6">
                   <span className="text-5xl mb-4 block">💎</span>
-                  <h3 className="text-2xl font-bold text-white mb-2">VIP Membership</h3>
-                  <p className="text-gray-400">Unlock the full experience</p>
+                  <h3 className="text-2xl font-bold text-white mb-2">Annual Membership</h3>
+                  <div className="flex items-center justify-center gap-2">
+                    <span className="text-3xl font-bold text-white">${MEMBERSHIP_PRICING.annual.price}</span>
+                    <span className="text-gray-400">/year</span>
+                  </div>
+                  <p className="text-fuchsia-400 text-sm mt-1">Best value — includes FREE service!</p>
                 </div>
                 
                 <div className="space-y-4 mb-6">
                   <div className="flex justify-between items-center p-3 rounded-xl bg-white/5">
-                    <span className="text-gray-300">Free Service Value</span>
+                    <span className="text-gray-300">Free Service (Annual Only)</span>
                     <span className="text-fuchsia-400 font-bold">Up to $75</span>
                   </div>
                   <div className="flex justify-between items-center p-3 rounded-xl bg-white/5">
@@ -436,14 +566,21 @@ export function SubscribeContent() {
                     <span className="text-gray-300">Priority Booking</span>
                     <span className="text-pink-400 font-bold">✓ Included</span>
                   </div>
+                  <div className="flex justify-between items-center p-3 rounded-xl bg-white/5">
+                    <span className="text-gray-300">Annual Savings</span>
+                    <span className="text-pink-400 font-bold">$264 total</span>
+                  </div>
                 </div>
 
                 <button
                   onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
                   className="w-full py-4 rounded-xl bg-gradient-to-r from-fuchsia-500 to-purple-500 text-white font-bold hover:opacity-90 transition"
                 >
-                  Subscribe Now — It&apos;s Free to Join
+                  🎁 Join Annual — Get FREE Service
                 </button>
+                <p className="text-center text-gray-500 text-xs mt-3">
+                  Or start with ${MEMBERSHIP_PRICING.monthly.price}/month (no free service)
+                </p>
               </div>
             </div>
           </div>
@@ -496,7 +633,7 @@ export function SubscribeContent() {
           </h2>
           <p className="text-xl text-gray-400 mb-8">
             Join thousands who&apos;ve ditched the insurance runaround. 
-            Your free $75 service is waiting.
+            Commit to annual and your free $75 service is waiting.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -504,7 +641,7 @@ export function SubscribeContent() {
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="px-10 py-5 rounded-xl bg-gradient-to-r from-fuchsia-500 to-purple-500 text-white font-bold text-lg hover:opacity-90 transition shadow-lg shadow-fuchsia-500/25 transform hover:scale-105"
             >
-              🎁 Claim Your FREE Service →
+              🎁 Join Annual — Get FREE Service →
             </button>
             <a
               href="tel:630-636-6193"
@@ -514,7 +651,11 @@ export function SubscribeContent() {
             </a>
           </div>
 
-          <p className="mt-6 text-gray-500 text-sm">
+          <p className="text-gray-400 text-sm mt-4">
+            Annual: ${MEMBERSHIP_PRICING.annual.price}/year (includes FREE $75 service) • Monthly: ${MEMBERSHIP_PRICING.monthly.price}/month
+          </p>
+
+          <p className="mt-4 text-gray-500 text-sm">
             Questions? Email us at{" "}
             <a href="mailto:hello@nopriorauthorization.com" className="text-fuchsia-400 hover:underline">
               hello@nopriorauthorization.com

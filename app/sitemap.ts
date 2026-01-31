@@ -8,7 +8,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     // High Priority Pages
     { url: `${SITE.url}/`, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
+    { url: `${SITE.url}/free-vitamin`, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
     { url: `${SITE.url}/subscribe`, lastModified: now, changeFrequency: "weekly", priority: 1.0 },
+    { url: `${SITE.url}/referral`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${SITE.url}/services`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${SITE.url}/iv-therapy`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
     { url: `${SITE.url}/shop`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },

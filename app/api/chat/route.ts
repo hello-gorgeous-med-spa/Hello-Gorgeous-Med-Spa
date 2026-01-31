@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import type { PersonaId } from "@/lib/personas/types";
 import { getPersonaConfig } from "@/lib/personas/index";
+import { PERSONA_UI } from "@/lib/personas/ui";
 import { routePersonaId } from "@/lib/personas/router";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
@@ -23,7 +24,7 @@ function shouldSuggestBooking(userText: string, triggers: string[]) {
 }
 
 function bookingCtaLine() {
-  return `If you’d like, you can book online here: ${BOOKING_URL}`;
+  return `If you'd like, you can book online here: ${BOOKING_URL}`;
 }
 
 function dynamicLinkingRule() {
@@ -56,9 +57,9 @@ function baseSystemPrompt({
   const p = getPersonaConfig(personaId);
   const moduleNote =
     moduleId === "postcare"
-      ? "Module: Post‑Treatment Care (educational guidance; identify red flags; encourage contacting provider)."
+      ? "Module: Post-Treatment Care (educational guidance; identify red flags; encourage contacting provider)."
       : moduleId === "preconsult"
-        ? "Module: Pre‑Consult (guided questions; educational only; suggest booking)."
+        ? "Module: Pre-Consult (guided questions; educational only; suggest booking)."
         : "Module: Education (general what-to-expect and high-level explanations).";
 
   return [
@@ -122,6 +123,16 @@ function formatKnowledgeDump(matches: Awaited<ReturnType<typeof retrieveKnowledg
     .join("\n");
 }
 
+// Persona-specific greetings for fallback mode
+const PERSONA_GREETINGS: Record<PersonaId, string> = {
+  "peppi": "Hey there! I'm Peppi, your guide for peptides, vitamins, and IV therapy.",
+  "beau-tox": "Hi! I'm Beau-Tox, your neuromodulator expert for Botox, Dysport & Jeuveau.",
+  "filla-grace": "Hello! I'm Filla Grace, your dermal filler specialist.",
+  "harmony": "Hi there! I'm Harmony, here to help with hormone questions.",
+  "founder": "Welcome! I'm Danielle, founder of Hello Gorgeous Med Spa.",
+  "ryan": "Hello! I'm Dr. Ryan, here to help with medical and safety questions.",
+};
+
 function localKnowledgeReply({
   personaId,
   matches,
@@ -132,12 +143,18 @@ function localKnowledgeReply({
   suggestedQuestions: string[];
 }) {
   const p = getPersonaConfig(personaId);
+  const ui = PERSONA_UI[personaId];
+  const greeting = PERSONA_GREETINGS[personaId] || `Hi! I'm ${p.displayName}.`;
+  
   if (!matches.length) {
+    const starters = ui?.chatStarters?.slice(0, 3) || [];
     return [
-      "I can absolutely help—quick question so I explain the right thing:",
-      "- Are you asking about injectables (Botox/Dysport/Jeuveau), fillers, skin treatments, hormones/energy, weight loss, or aftercare?",
+      greeting,
       "",
-      "If you tell me which area, I’ll explain it clearly (education only) and what questions to ask in a consult.",
+      "I'd love to help! Here are some things I can explain:",
+      ...starters.map((s: string) => `- ${s}`),
+      "",
+      "Just ask me anything about my specialty, and I'll give you educational info to help you feel confident before booking a consultation.",
       "",
       p.disclaimer,
     ].join("\n");
@@ -145,28 +162,34 @@ function localKnowledgeReply({
 
   const top = matches[0]!.entry;
   const bullets = [
-    `Topic: ${top.topic}`,
+    `**${top.topic}**`,
+    "",
     top.explanation,
     "",
-    "What it commonly helps with (education):",
+    "What it commonly helps with:",
     ...top.whatItHelpsWith.slice(0, 4).map((x) => `- ${x}`),
     "",
-    "Who it’s often for:",
+    "Who it's often for:",
     ...top.whoItsFor.slice(0, 3).map((x) => `- ${x}`),
-    "",
-    "Who it may not be for (high-level):",
-    ...top.whoItsNotFor.slice(0, 3).map((x) => `- ${x}`),
   ];
 
+  if (top.whoItsNotFor && top.whoItsNotFor.length > 0) {
+    bullets.push(
+      "",
+      "Who may want to discuss alternatives:",
+      ...top.whoItsNotFor.slice(0, 2).map((x) => `- ${x}`)
+    );
+  }
+
   const nextQs = suggestedQuestions.length
-    ? ["", "Want me to explain one of these next?", ...suggestedQuestions.slice(0, 3).map((q) => `- ${q}`)]
+    ? ["", "Want me to explain more?", ...suggestedQuestions.slice(0, 3).map((q) => `- ${q}`)]
     : [];
 
   return [
     ...bullets,
-    "",
-    "If you want, you can ask me to compare options or walk through what-to-expect—right here in the Care Engine.",
     ...nextQs,
+    "",
+    "Feel free to ask follow-up questions! I'm here to help you understand your options.",
     "",
     p.disclaimer,
   ].join("\n");
@@ -211,9 +234,11 @@ export async function POST(req: Request) {
     personaIdUsed = "ryan";
   }
 
-  // If OPENAI_API_KEY exists, use OpenAI Chat Completions via fetch (no extra deps).
+  // If OPENAI_API_KEY exists and is valid, use OpenAI Chat Completions
   const apiKey = process.env.OPENAI_API_KEY;
-  if (!apiKey) {
+  const isValidApiKey = apiKey && !apiKey.includes("placeholder") && apiKey.startsWith("sk-");
+  
+  if (!isValidApiKey) {
     const p = getPersonaConfig(personaIdUsed);
     const base = localKnowledgeReply({
       personaId: personaIdUsed,
@@ -317,4 +342,3 @@ export async function POST(req: Request) {
     });
   }
 }
-

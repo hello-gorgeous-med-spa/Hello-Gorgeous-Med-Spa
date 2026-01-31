@@ -151,7 +151,8 @@ export async function retrieveKnowledge({
     })
     .sort((a, b) => b.score - a.score);
 
-  const top = scored.filter((m) => m.score >= 0.14).slice(0, maxMatches);
+  // Lower threshold to 0.08 to catch more fuzzy matches in fallback mode
+  const top = scored.filter((m) => m.score >= 0.08).slice(0, maxMatches);
 
   const relatedIds = new Set<string>();
   for (const m of top) for (const id of m.entry.relatedTopics) relatedIds.add(id);

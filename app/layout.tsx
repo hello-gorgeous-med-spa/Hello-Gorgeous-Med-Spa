@@ -8,8 +8,10 @@ import { StickyMobileCTA } from "@/components/StickyMobileCTA";
 import { MascotChat } from "@/components/MascotChat";
 import { EmailCapture } from "@/components/EmailCapture";
 import { VoiceConcierge } from "@/components/VoiceConcierge";
+import { AIConcierge } from "@/components/AIConcierge";
 import { SITE, organizationJsonLd } from "@/lib/seo";
 import { ImmediateCareStrip } from "@/components/ImmediateCareBanner";
+import { AuthWrapper } from "@/components/AuthWrapper";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -104,24 +106,34 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={inter.variable}>
       <head>
+        {/* PWA Support */}
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="Hello Gorgeous" />
+        <meta name="mobile-web-app-capable" content="yes" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
         />
       </head>
       <body className="bg-black text-white min-h-screen antialiased">
-        <ImmediateCareStrip />
-        <Header />
-        <main className="pt-16">
-          <div className="min-h-screen bg-black text-white overflow-x-hidden pb-20 md:pb-0">
-            {children}
-            <Footer />
-          </div>
-        </main>
-        <StickyMobileCTA />
-        <MascotChat />
-        <EmailCapture />
-        <VoiceConcierge />
+        <AuthWrapper>
+          <ImmediateCareStrip />
+          <Header />
+          <main className="pt-16">
+            <div className="min-h-screen bg-black text-white overflow-x-hidden pb-20 md:pb-0">
+              {children}
+              <Footer />
+            </div>
+          </main>
+          <StickyMobileCTA />
+          <MascotChat />
+          <EmailCapture />
+          <VoiceConcierge />
+          <AIConcierge />
+        </AuthWrapper>
       </body>
     </html>
   );

@@ -111,7 +111,7 @@ const faqs = [
 ];
 
 const BOOKING_URL = "https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
-// Doxy.me room URL - update once created: https://doxy.me/hellogorgeousmedspa
+const DOXY_URL = "https://doxy.me/ryankent";
 
 export function TelehealthContent() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
@@ -149,12 +149,36 @@ export function TelehealthContent() {
                 Book Telehealth Visit →
               </a>
               <a
-                href="tel:630-636-6193"
-                className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition"
+                href={DOXY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 rounded-xl bg-gradient-to-r from-fuchsia-600 to-pink-500 text-white font-bold hover:opacity-90 transition animate-pulse"
               >
-                📞 Call to Schedule
+                🖥️ Join Your Appointment
               </a>
             </div>
+          </div>
+        </FadeUp>
+      </Section>
+
+      {/* Join Appointment Banner */}
+      <Section className="py-6 bg-gradient-to-r from-fuchsia-600/20 to-pink-500/20 border-y border-pink-500/30">
+        <FadeUp>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+            <div className="flex items-center gap-3">
+              <span className="w-3 h-3 rounded-full bg-pink-500 animate-pulse" />
+              <span className="text-white font-semibold">Have an Appointment?</span>
+            </div>
+            <a
+              href={DOXY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-6 py-3 rounded-xl bg-gradient-to-r from-fuchsia-500 to-pink-500 text-white font-bold hover:opacity-90 transition flex items-center gap-2"
+            >
+              <span className="text-xl">🖥️</span>
+              Join Video Visit Now →
+            </a>
+            <span className="text-gray-400 text-sm">No download required</span>
           </div>
         </FadeUp>
       </Section>
@@ -417,11 +441,20 @@ export function TelehealthContent() {
               <span className="text-2xl">🔒</span>
               <span className="text-white font-semibold">Powered by Doxy.me</span>
             </div>
-            <p className="text-gray-400 text-sm">
+            <p className="text-gray-400 text-sm mb-6">
               We use Doxy.me, a HIPAA-compliant telemedicine platform trusted by over 1 million 
               healthcare providers. Your visit is encrypted end-to-end, ensuring complete privacy 
               and security. No downloads required—just click your link and connect.
             </p>
+            <a
+              href={DOXY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-pink-500/20 border border-pink-500/30 text-pink-400 font-medium hover:bg-pink-500/30 transition"
+            >
+              <span>🖥️</span>
+              Join Ryan&apos;s Waiting Room →
+            </a>
           </div>
         </FadeUp>
       </Section>

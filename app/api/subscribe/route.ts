@@ -6,10 +6,34 @@ function isValidEmail(email: string): boolean {
   return emailRegex.test(email);
 }
 
+// Generate a promo code
+function generatePromoCode(prefix: string): string {
+  return `${prefix}-${Date.now().toString(36).toUpperCase().slice(-6)}`;
+}
+
+interface ReferralInfo {
+  name: string;
+  email: string;
+}
+
 export async function POST(req: Request) {
   try {
     const body = await req.json();
-    const { email, source = "website" } = body;
+    const { 
+      email, 
+      name,
+      phone,
+      source = "website",
+      selectedVitamin,
+      referredBy,
+    } = body as {
+      email: string;
+      name?: string;
+      phone?: string;
+      source?: string;
+      selectedVitamin?: string;
+      referredBy?: ReferralInfo;
+    };
 
     if (!email || !isValidEmail(email)) {
       return NextResponse.json(
@@ -20,9 +44,33 @@ export async function POST(req: Request) {
 
     const normalizedEmail = email.toLowerCase().trim();
     const timestamp = new Date().toISOString();
+    
+    // Generate promo code based on source
+    let promoCode: string | null = null;
+    if (source === "free-vitamin") {
+      promoCode = generatePromoCode("VITFREE");
+    } else if (source === "referral") {
+      promoCode = generatePromoCode("REF25");
+    }
 
     // Option 1: If you have Brevo (Sendinblue) API key
     if (process.env.BREVO_API_KEY) {
+      // Build attributes object with all available data
+      const attributes: Record<string, string> = {
+        SOURCE: source,
+        SIGNUP_DATE: timestamp,
+      };
+      
+      if (name) attributes.FIRSTNAME = name.split(" ")[0];
+      if (name && name.includes(" ")) attributes.LASTNAME = name.split(" ").slice(1).join(" ");
+      if (phone) attributes.SMS = phone;
+      if (selectedVitamin) attributes.SELECTED_VITAMIN = selectedVitamin;
+      if (promoCode) attributes.PROMO_CODE = promoCode;
+      if (referredBy) {
+        attributes.REFERRED_BY_NAME = referredBy.name;
+        attributes.REFERRED_BY_EMAIL = referredBy.email;
+      }
+
       const brevoRes = await fetch("https://api.brevo.com/v3/contacts", {
         method: "POST",
         headers: {
@@ -32,10 +80,7 @@ export async function POST(req: Request) {
         body: JSON.stringify({
           email: normalizedEmail,
           listIds: [parseInt(process.env.BREVO_LIST_ID || "2")],
-          attributes: {
-            SOURCE: source,
-            SIGNUP_DATE: timestamp,
-          },
+          attributes,
           updateEnabled: true,
         }),
       });
@@ -105,7 +150,17 @@ export async function POST(req: Request) {
     }
 
     // Always log to console for backup/export purposes
-    console.log(`[EMAIL SIGNUP] ${timestamp} | ${normalizedEmail} | ${source}`);
+    const logData = {
+      timestamp,
+      email: normalizedEmail,
+      name: name || null,
+      phone: phone || null,
+      source,
+      selectedVitamin: selectedVitamin || null,
+      promoCode,
+      referredBy: referredBy || null,
+    };
+    console.log(`[EMAIL SIGNUP] ${JSON.stringify(logData)}`);
 
     // Send notification email to you (optional - requires email service)
     // You can set up a simple email notification via your email provider
@@ -113,6 +168,7 @@ export async function POST(req: Request) {
     return NextResponse.json({
       success: true,
       message: "Successfully subscribed!",
+      promoCode,
     });
   } catch (error) {
     console.error("Subscribe error:", error);
