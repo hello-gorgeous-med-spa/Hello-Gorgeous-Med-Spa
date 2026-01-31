@@ -9,6 +9,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Get Admin App | Hello Gorgeous Med Spa',
   description: 'Install the Hello Gorgeous Admin app for quick access to your dashboard, appointments, and POS terminal.',
+  manifest: '/admin-manifest.json',
 };
 
 export default function AdminGetAppPage() {
