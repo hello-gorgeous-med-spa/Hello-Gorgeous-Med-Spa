@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 
 // eFax Configuration
 const EFAX_CONFIG = {
@@ -13,7 +12,6 @@ const EFAX_CONFIG = {
 };
 
 export default function FaxPage() {
-  const [sendMode, setSendMode] = useState(false);
   const [faxTo, setFaxTo] = useState('');
   const [subject, setSubject] = useState('');
   const [coverNote, setCoverNote] = useState('');

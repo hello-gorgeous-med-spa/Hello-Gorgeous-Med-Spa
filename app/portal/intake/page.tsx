@@ -2,35 +2,90 @@
 
 // ============================================================
 // CLIENT PORTAL - INTAKE FORMS LIST
-// View and complete required intake forms
+// View and complete required intake forms - Connected to Live Data
 // ============================================================
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { STANDARD_INTAKE_FORMS, getRequiredForms } from '@/lib/hgos/intake-forms';
+import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
 
-// Mock completed forms - would come from Supabase
-const MOCK_COMPLETED_FORMS = [
-  { formId: 'hipaa-consent', completedAt: new Date('2025-06-15') },
-];
-
-// Mock upcoming appointment - would come from Supabase
-const MOCK_UPCOMING_APPOINTMENT = {
-  id: 'apt-1',
-  serviceId: 'botox',
-  serviceName: 'Botox - Full Face',
-  date: '2026-02-05',
-  time: '10:00 AM',
-};
+// Skeleton component
+function Skeleton({ className = '' }: { className?: string }) {
+  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+}
 
 export default function IntakeFormsPage() {
-  const [completedForms] = useState(MOCK_COMPLETED_FORMS);
+  const [completedForms, setCompletedForms] = useState<any[]>([]);
+  const [upcomingAppointment, setUpcomingAppointment] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch forms data
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!isSupabaseConfigured()) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        
+        if (user) {
+          const { data: client } = await supabase
+            .from('clients')
+            .select('id')
+            .eq('user_id', user.id)
+            .single();
+
+          if (client) {
+            // Fetch completed consents
+            const { data: consents } = await supabase
+              .from('client_consents')
+              .select('*, consent_form:consent_forms(id, name)')
+              .eq('client_id', client.id);
+
+            setCompletedForms((consents || []).map(c => ({
+              formId: c.consent_form?.id,
+              completedAt: new Date(c.signed_at),
+            })));
+
+            // Fetch upcoming appointment
+            const { data: appointments } = await supabase
+              .from('appointments')
+              .select('*, service:services(id, name)')
+              .eq('client_id', client.id)
+              .gte('scheduled_at', new Date().toISOString())
+              .order('scheduled_at', { ascending: true })
+              .limit(1);
+
+            if (appointments && appointments.length > 0) {
+              const apt = appointments[0];
+              setUpcomingAppointment({
+                id: apt.id,
+                serviceId: apt.service?.id,
+                serviceName: apt.service?.name,
+                date: new Date(apt.scheduled_at).toLocaleDateString(),
+                time: new Date(apt.scheduled_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }),
+              });
+            }
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching intake forms data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // Get required forms for upcoming appointment
   const requiredForms = useMemo(() => {
-    if (!MOCK_UPCOMING_APPOINTMENT) return [];
-    return getRequiredForms(MOCK_UPCOMING_APPOINTMENT.serviceId, completedForms);
-  }, [completedForms]);
+    if (!upcomingAppointment) return [];
+    return getRequiredForms(upcomingAppointment.serviceId, completedForms);
+  }, [upcomingAppointment, completedForms]);
 
   // All forms status
   const allForms = useMemo(() => {
@@ -61,113 +116,151 @@ export default function IntakeFormsPage() {
     });
   }, [completedForms, requiredForms]);
 
-  const statusColors = {
-    completed: 'bg-green-100 text-green-700',
-    required: 'bg-red-100 text-red-700',
-    optional: 'bg-gray-100 text-gray-600',
-  };
-
-  const statusLabels = {
-    completed: '✓ Completed',
-    required: '⚠ Required',
-    optional: 'Optional',
-  };
+  const pendingCount = allForms.filter(f => f.status === 'required').length;
 
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <div className="mb-8">
-        <Link href="/portal" className="text-sm text-gray-500 hover:text-gray-700 mb-2 inline-block">
-          ← Back to Portal
-        </Link>
+    <div className="space-y-6">
+      {/* Header */}
+      <div>
         <h1 className="text-2xl font-bold text-gray-900">Intake Forms</h1>
         <p className="text-gray-500">Complete required forms before your appointment</p>
       </div>
 
-      {/* Upcoming Appointment Notice */}
-      {MOCK_UPCOMING_APPOINTMENT && requiredForms.length > 0 && (
-        <div className="mb-6 p-4 bg-amber-50 border border-amber-200 rounded-xl">
-          <p className="font-medium text-amber-800">
-            📋 Forms needed before your {MOCK_UPCOMING_APPOINTMENT.serviceName} appointment
-          </p>
-          <p className="text-sm text-amber-700 mt-1">
-            Please complete {requiredForms.length} form(s) before{' '}
-            {new Date(MOCK_UPCOMING_APPOINTMENT.date).toLocaleDateString('en-US', {
-              weekday: 'long',
-              month: 'long',
-              day: 'numeric',
-            })}
-          </p>
+      {/* Status Banner */}
+      {loading ? (
+        <Skeleton className="h-24" />
+      ) : pendingCount > 0 ? (
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-6">
+          <div className="flex items-center gap-4">
+            <span className="text-4xl">📋</span>
+            <div>
+              <h2 className="font-semibold text-amber-900">
+                {pendingCount} Form{pendingCount > 1 ? 's' : ''} Required
+              </h2>
+              <p className="text-amber-800 text-sm">
+                Please complete these forms before your upcoming appointment.
+              </p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="bg-green-50 border border-green-200 rounded-2xl p-6">
+          <div className="flex items-center gap-4">
+            <span className="text-4xl">✅</span>
+            <div>
+              <h2 className="font-semibold text-green-900">All Forms Complete</h2>
+              <p className="text-green-800 text-sm">
+                You're all set for your appointment!
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Upcoming Appointment */}
+      {upcomingAppointment && (
+        <div className="bg-white rounded-2xl border border-gray-100 p-6">
+          <h3 className="font-semibold text-gray-900 mb-3">Upcoming Appointment</h3>
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-pink-100 flex items-center justify-center">
+              <span className="text-2xl">💆‍♀️</span>
+            </div>
+            <div>
+              <p className="font-medium text-gray-900">{upcomingAppointment.serviceName}</p>
+              <p className="text-sm text-gray-500">{upcomingAppointment.date} at {upcomingAppointment.time}</p>
+            </div>
+          </div>
         </div>
       )}
 
       {/* Forms List */}
       <div className="space-y-4">
-        {allForms.map((form) => (
-          <div
-            key={form.id}
-            className="bg-white rounded-xl border border-gray-100 p-6 hover:shadow-md transition-shadow"
-          >
-            <div className="flex items-start justify-between">
-              <div className="flex-1">
-                <div className="flex items-center gap-3">
-                  <h3 className="font-semibold text-gray-900">{form.name}</h3>
-                  <span className={`px-2 py-1 text-xs font-medium rounded-full ${statusColors[form.status]}`}>
-                    {statusLabels[form.status]}
-                  </span>
-                </div>
-                <p className="text-gray-500 text-sm mt-1">{form.description}</p>
-                
-                {form.status === 'completed' && form.completedAt && (
-                  <p className="text-xs text-gray-400 mt-2">
-                    Completed on {new Date(form.completedAt).toLocaleDateString()}
-                    {form.expiresAt && (
-                      <> • Expires {new Date(form.expiresAt).toLocaleDateString()}</>
+        <h3 className="font-semibold text-gray-900">All Forms</h3>
+        
+        {loading ? (
+          Array.from({ length: 4 }).map((_, i) => (
+            <Skeleton key={i} className="h-20" />
+          ))
+        ) : (
+          allForms.map((form) => (
+            <div
+              key={form.id}
+              className={`bg-white rounded-xl border p-4 ${
+                form.status === 'required' ? 'border-amber-300 bg-amber-50' : 'border-gray-100'
+              }`}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+                    form.status === 'completed' ? 'bg-green-100' :
+                    form.status === 'required' ? 'bg-amber-100' :
+                    'bg-gray-100'
+                  }`}>
+                    <span className="text-xl">
+                      {form.status === 'completed' ? '✓' :
+                       form.status === 'required' ? '!' :
+                       '📄'}
+                    </span>
+                  </div>
+                  <div>
+                    <h4 className="font-medium text-gray-900">{form.name}</h4>
+                    <p className="text-sm text-gray-500">{form.description}</p>
+                    {form.completedAt && (
+                      <p className="text-xs text-gray-400 mt-1">
+                        Completed: {form.completedAt.toLocaleDateString()}
+                        {form.expiresAt && ` • Expires: ${form.expiresAt.toLocaleDateString()}`}
+                      </p>
                     )}
-                  </p>
-                )}
-              </div>
-
-              <div className="ml-4">
-                {form.status === 'completed' ? (
-                  <Link
-                    href={`/portal/intake/${form.id}`}
-                    className="px-4 py-2 text-gray-600 font-medium hover:bg-gray-100 rounded-lg inline-block"
-                  >
-                    Update
-                  </Link>
-                ) : (
-                  <Link
-                    href={`/portal/intake/${form.id}`}
-                    className={`px-4 py-2 font-medium rounded-lg inline-block ${
-                      form.status === 'required'
-                        ? 'bg-pink-500 text-white hover:bg-pink-600'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                    }`}
-                  >
-                    Complete
-                  </Link>
-                )}
+                  </div>
+                </div>
+                <div>
+                  {form.status === 'completed' ? (
+                    <span className="px-3 py-1 bg-green-100 text-green-700 text-sm rounded-full">
+                      Complete
+                    </span>
+                  ) : form.status === 'required' ? (
+                    <Link
+                      href={`/portal/intake/${form.id}`}
+                      className="px-4 py-2 bg-pink-500 text-white text-sm font-medium rounded-lg hover:bg-pink-600"
+                    >
+                      Complete Now
+                    </Link>
+                  ) : (
+                    <Link
+                      href={`/portal/intake/${form.id}`}
+                      className="px-4 py-2 border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50"
+                    >
+                      View
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
 
-      {/* Info Box */}
-      <div className="mt-8 p-4 bg-blue-50 border border-blue-100 rounded-xl">
-        <h4 className="font-medium text-blue-900">📝 Why do I need to complete these forms?</h4>
-        <p className="text-sm text-blue-700 mt-1">
-          Intake forms help us provide you with safe, effective treatments. Your medical history 
-          helps us identify any contraindications, and consent forms ensure you understand the 
-          treatment process and potential risks.
+      {/* Help Section */}
+      <div className="bg-gray-50 rounded-2xl p-6">
+        <h3 className="font-semibold text-gray-900 mb-2">Need Help?</h3>
+        <p className="text-gray-600 text-sm mb-4">
+          If you have questions about any of these forms, please contact us.
         </p>
+        <div className="flex gap-3">
+          <a
+            href="tel:+16306366193"
+            className="px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium"
+          >
+            📞 Call Us
+          </a>
+          <a
+            href="mailto:info@hellogorgeousmedspa.com"
+            className="px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium"
+          >
+            ✉️ Email Us
+          </a>
+        </div>
       </div>
-
-      {/* HIPAA Notice */}
-      <p className="text-xs text-gray-400 mt-4 text-center">
-        Your information is protected under HIPAA and stored securely. 
-        We never share your data without your explicit consent.
-      </p>
     </div>
   );
 }

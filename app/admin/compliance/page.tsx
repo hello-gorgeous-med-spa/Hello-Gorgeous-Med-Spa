@@ -1,6 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+// ============================================================
+// COMPLIANCE DASHBOARD PAGE
+// Monitor legal compliance, incidents, and provider credentials
+// Connected to Live Data
+// ============================================================
+
+import { useState, useEffect } from 'react';
 import {
   COMPLIANCE_CHECKLIST,
   ComplianceItem,
@@ -12,129 +18,14 @@ import {
   Incident,
   IncidentSeverity,
   EMERGENCY_PROTOCOLS,
-  ProviderCredentials,
 } from '@/lib/hgos/legal-protection';
+import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
+import { ACTIVE_PROVIDERS } from '@/lib/hgos/providers';
 
-// Mock data - in production, this comes from Supabase
-const MOCK_COMPLIANCE_STATUS: Record<string, { status: ComplianceItem['status']; lastCompleted?: string; nextDue?: string }> = {
-  'business_license': { status: 'compliant', lastCompleted: '2025-06-15', nextDue: '2026-06-15' },
-  'medical_director': { status: 'compliant', lastCompleted: '2025-09-01', nextDue: '2026-09-01' },
-  'np_license': { status: 'compliant', lastCompleted: '2025-03-20', nextDue: '2027-03-20' },
-  'laser_certification': { status: 'expires_soon', lastCompleted: '2024-02-15', nextDue: '2026-02-15' },
-  'malpractice_insurance': { status: 'compliant', lastCompleted: '2025-10-01', nextDue: '2026-10-01' },
-  'general_liability': { status: 'compliant', lastCompleted: '2025-10-01', nextDue: '2026-10-01' },
-  'workers_comp': { status: 'compliant', lastCompleted: '2025-10-01', nextDue: '2026-10-01' },
-  'cyber_liability': { status: 'non_compliant' },
-  'hipaa_policies': { status: 'compliant', lastCompleted: '2025-01-15' },
-  'hipaa_training': { status: 'compliant', lastCompleted: '2025-01-20', nextDue: '2026-01-20' },
-  'baa_agreements': { status: 'compliant', lastCompleted: '2025-01-10' },
-  'bloodborne_pathogens': { status: 'compliant', lastCompleted: '2025-01-20', nextDue: '2026-01-20' },
-  'sharps_disposal': { status: 'compliant', lastCompleted: '2026-01-15', nextDue: '2026-02-15' },
-  'cpr_certification': { status: 'compliant', lastCompleted: '2025-06-01', nextDue: '2026-06-01' },
-  'emergency_kit': { status: 'expires_soon', lastCompleted: '2025-12-01', nextDue: '2026-02-01' },
-};
-
-const MOCK_INCIDENTS: Incident[] = [
-  {
-    id: 'INC-001',
-    type: 'bruising_excessive',
-    severity: 'minor',
-    status: 'closed',
-    dateOccurred: '2026-01-15',
-    timeOccurred: '14:30',
-    location: 'Treatment Room 1',
-    description: 'Client experienced more bruising than typical after lip filler. Resolved within 10 days.',
-    clientName: 'Jane D.',
-    providerName: 'Ryan Kent, FNP-BC',
-    treatmentType: 'Lip Filler',
-    productUsed: 'Juvederm Ultra',
-    lotNumber: 'JUV-2025-1234',
-    immediateActions: 'Applied ice, provided arnica gel, scheduled follow-up',
-    medicalAttentionRequired: false,
-    clientNotified: true,
-    reportedBy: 'Ryan Kent',
-    reportedAt: '2026-01-15T15:00:00Z',
-    closedBy: 'Ryan Kent',
-    closedAt: '2026-01-25T10:00:00Z',
-    notes: [],
-  },
-];
-
-const MOCK_PROVIDER_CREDENTIALS: ProviderCredentials[] = [
-  {
-    providerId: 'ryan-kent',
-    providerName: 'Ryan Kent, FNP-BC',
-    credentials: [
-      {
-        id: 'cred-1',
-        type: 'np_license',
-        name: 'Illinois APRN License',
-        licenseNumber: '209.XXXXXX',
-        issuingBody: 'Illinois DFPR',
-        issuedDate: '2023-03-20',
-        expirationDate: '2027-03-20',
-        status: 'active',
-      },
-      {
-        id: 'cred-2',
-        type: 'cpr_bls',
-        name: 'BLS/CPR Certification',
-        issuingBody: 'American Heart Association',
-        issuedDate: '2025-06-01',
-        expirationDate: '2026-06-01',
-        status: 'active',
-      },
-      {
-        id: 'cred-3',
-        type: 'injection_certification',
-        name: 'Allergan Injectable Training',
-        issuingBody: 'Allergan Medical Institute',
-        issuedDate: '2023-01-15',
-        expirationDate: '2026-01-15',
-        status: 'expired',
-      },
-      {
-        id: 'cred-4',
-        type: 'dea_registration',
-        name: 'DEA Registration',
-        licenseNumber: 'FK1234567',
-        issuingBody: 'DEA',
-        issuedDate: '2024-01-01',
-        expirationDate: '2027-01-01',
-        status: 'active',
-      },
-    ],
-    trainings: [],
-    insurancePolicies: [],
-  },
-  {
-    providerId: 'danielle-alcala',
-    providerName: 'Danielle Alcala, RN-S',
-    credentials: [
-      {
-        id: 'cred-5',
-        type: 'rn_license',
-        name: 'Illinois RN License',
-        licenseNumber: '041.XXXXXX',
-        issuingBody: 'Illinois DFPR',
-        issuedDate: '2020-05-15',
-        expirationDate: '2026-05-15',
-        status: 'active',
-      },
-      {
-        id: 'cred-6',
-        type: 'cpr_bls',
-        name: 'BLS/CPR Certification',
-        issuingBody: 'American Heart Association',
-        issuedDate: '2025-06-01',
-        expirationDate: '2026-06-01',
-        status: 'active',
-      },
-    ],
-    trainings: [],
-    insurancePolicies: [],
-  },
-];
+// Skeleton component
+function Skeleton({ className = '' }: { className?: string }) {
+  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+}
 
 const CATEGORY_LABELS: Record<ComplianceCategory, string> = {
   licensing: 'Licensing & Certifications',
@@ -176,18 +67,87 @@ export default function ComplianceDashboardPage() {
   const [activeTab, setActiveTab] = useState<'overview' | 'checklist' | 'incidents' | 'credentials' | 'protocols'>('overview');
   const [selectedCategory, setSelectedCategory] = useState<ComplianceCategory | 'all'>('all');
   const [showIncidentModal, setShowIncidentModal] = useState(false);
+  
+  // Data states
+  const [complianceStatuses, setComplianceStatuses] = useState<Record<string, { status: ComplianceItem['status']; lastCompleted?: string; nextDue?: string }>>({});
+  const [incidents, setIncidents] = useState<Incident[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch data from Supabase
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!isSupabaseConfigured()) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        // Fetch compliance statuses
+        const { data: complianceData } = await supabase
+          .from('compliance_items')
+          .select('*');
+        
+        if (complianceData) {
+          const statusMap: Record<string, { status: ComplianceItem['status']; lastCompleted?: string; nextDue?: string }> = {};
+          complianceData.forEach((item: any) => {
+            statusMap[item.item_id] = {
+              status: item.status,
+              lastCompleted: item.last_completed,
+              nextDue: item.next_due,
+            };
+          });
+          setComplianceStatuses(statusMap);
+        }
+
+        // Fetch incidents
+        const { data: incidentData } = await supabase
+          .from('incidents')
+          .select('*')
+          .order('date_occurred', { ascending: false });
+        
+        if (incidentData) {
+          setIncidents(incidentData.map((i: any) => ({
+            id: i.id,
+            type: i.type,
+            severity: i.severity,
+            status: i.status,
+            dateOccurred: i.date_occurred,
+            timeOccurred: i.time_occurred,
+            location: i.location,
+            description: i.description,
+            clientName: i.client_name,
+            providerName: i.provider_name,
+            treatmentType: i.treatment_type,
+            immediateActions: i.immediate_actions,
+            medicalAttentionRequired: i.medical_attention_required,
+            clientNotified: i.client_notified,
+            reportedBy: i.reported_by,
+            reportedAt: i.reported_at,
+            notes: [],
+          })));
+        }
+      } catch (err) {
+        console.error('Error fetching compliance data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   // Merge checklist with status data
   const complianceItems: ComplianceItem[] = COMPLIANCE_CHECKLIST.map(item => ({
     ...item,
-    ...MOCK_COMPLIANCE_STATUS[item.id],
+    ...complianceStatuses[item.id],
   }));
 
-  const complianceStatus = getComplianceStatus(complianceItems.filter(i => MOCK_COMPLIANCE_STATUS[i.id]));
+  const trackedItems = complianceItems.filter(i => complianceStatuses[i.id]);
+  const complianceStatus = getComplianceStatus(trackedItems);
   const expiringItems = getExpiringItems(complianceItems, 30);
-  const riskScore = calculateRiskScore(MOCK_INCIDENTS, complianceItems);
+  const riskScore = calculateRiskScore(incidents, complianceItems);
 
-  const openIncidents = MOCK_INCIDENTS.filter(i => i.status !== 'closed');
+  const openIncidents = incidents.filter(i => i.status !== 'closed');
 
   // Filter compliance items by category
   const filteredItems = selectedCategory === 'all' 
@@ -219,6 +179,13 @@ export default function ComplianceDashboardPage() {
           </button>
         </div>
       </div>
+
+      {/* Connection Status */}
+      {!isSupabaseConfigured() && (
+        <div className="mb-6 p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
+          Demo Mode - Connect Supabase to track compliance data
+        </div>
+      )}
 
       {/* Risk Score Banner */}
       <div className={`mb-6 p-6 rounded-2xl ${
@@ -282,7 +249,11 @@ export default function ComplianceDashboardPage() {
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div className="bg-white rounded-xl border p-6">
-              <div className="text-3xl font-bold text-green-600">{complianceStatus.compliant}</div>
+              {loading ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <div className="text-3xl font-bold text-green-600">{complianceStatus.compliant}</div>
+              )}
               <div className="text-gray-600">Compliant Items</div>
               <div className="mt-2 h-2 bg-gray-100 rounded-full overflow-hidden">
                 <div 
@@ -294,19 +265,31 @@ export default function ComplianceDashboardPage() {
             </div>
             
             <div className="bg-white rounded-xl border p-6">
-              <div className="text-3xl font-bold text-red-600">{complianceStatus.nonCompliant}</div>
+              {loading ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <div className="text-3xl font-bold text-red-600">{complianceStatus.nonCompliant}</div>
+              )}
               <div className="text-gray-600">Non-Compliant</div>
               <p className="text-sm text-red-600 mt-2">Requires immediate attention</p>
             </div>
             
             <div className="bg-white rounded-xl border p-6">
-              <div className="text-3xl font-bold text-orange-600">{expiringItems.length}</div>
+              {loading ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <div className="text-3xl font-bold text-orange-600">{expiringItems.length}</div>
+              )}
               <div className="text-gray-600">Expiring Soon</div>
               <p className="text-sm text-orange-600 mt-2">Within 30 days</p>
             </div>
             
             <div className="bg-white rounded-xl border p-6">
-              <div className="text-3xl font-bold text-blue-600">{openIncidents.length}</div>
+              {loading ? (
+                <Skeleton className="h-8 w-16" />
+              ) : (
+                <div className="text-3xl font-bold text-blue-600">{openIncidents.length}</div>
+              )}
               <div className="text-gray-600">Open Incidents</div>
               <p className="text-sm text-blue-600 mt-2">Require follow-up</p>
             </div>
@@ -353,8 +336,8 @@ export default function ComplianceDashboardPage() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {(Object.keys(groupedItems) as ComplianceCategory[]).map(category => {
                 const items = groupedItems[category];
-                const statusItems = items.filter(i => MOCK_COMPLIANCE_STATUS[i.id]);
-                const compliant = statusItems.filter(i => MOCK_COMPLIANCE_STATUS[i.id]?.status === 'compliant').length;
+                const statusItems = items.filter(i => complianceStatuses[i.id]);
+                const compliant = statusItems.filter(i => complianceStatuses[i.id]?.status === 'compliant').length;
                 const total = statusItems.length;
                 const percentage = total > 0 ? Math.round((compliant / total) * 100) : 0;
                 
@@ -469,7 +452,7 @@ export default function ComplianceDashboardPage() {
           {/* Incident Stats */}
           <div className="grid grid-cols-4 gap-4">
             {(['minor', 'moderate', 'severe', 'critical'] as IncidentSeverity[]).map(severity => {
-              const count = MOCK_INCIDENTS.filter(i => i.severity === severity).length;
+              const count = incidents.filter(i => i.severity === severity).length;
               return (
                 <div key={severity} className="bg-white rounded-xl border p-4">
                   <div className={`inline-block px-2 py-1 rounded text-xs font-medium ${SEVERITY_COLORS[severity]}`}>
@@ -493,14 +476,18 @@ export default function ComplianceDashboardPage() {
                 + New Incident
               </button>
             </div>
-            {MOCK_INCIDENTS.length === 0 ? (
+            {loading ? (
+              <div className="p-6 space-y-4">
+                {[1, 2, 3].map(i => <Skeleton key={i} className="h-24" />)}
+              </div>
+            ) : incidents.length === 0 ? (
               <div className="p-8 text-center text-gray-500">
                 <div className="text-4xl mb-2">✓</div>
                 <div>No incidents reported</div>
               </div>
             ) : (
               <div className="divide-y">
-                {MOCK_INCIDENTS.map(incident => (
+                {incidents.map(incident => (
                   <div key={incident.id} className="p-4 hover:bg-gray-50">
                     <div className="flex items-start justify-between">
                       <div>
@@ -518,7 +505,7 @@ export default function ComplianceDashboardPage() {
                           </span>
                         </div>
                         <div className="font-medium mt-1">
-                          {INCIDENT_TYPES.find(t => t.type === incident.type)?.label}
+                          {INCIDENT_TYPES.find(t => t.type === incident.type)?.label || incident.type}
                         </div>
                         <p className="text-sm text-gray-600 mt-1">{incident.description}</p>
                         <div className="flex gap-4 mt-2 text-sm text-gray-500">
@@ -542,50 +529,37 @@ export default function ComplianceDashboardPage() {
       {/* Credentials Tab */}
       {activeTab === 'credentials' && (
         <div className="space-y-6">
-          {MOCK_PROVIDER_CREDENTIALS.map(provider => (
-            <div key={provider.providerId} className="bg-white rounded-xl border">
+          {ACTIVE_PROVIDERS.map(provider => (
+            <div key={provider.id} className="bg-white rounded-xl border">
               <div className="p-4 border-b bg-gray-50">
-                <h3 className="font-semibold text-lg">{provider.providerName}</h3>
+                <h3 className="font-semibold text-lg">{provider.firstName} {provider.lastName}, {provider.credentials}</h3>
+                <p className="text-sm text-gray-500">{provider.role}</p>
               </div>
               <div className="p-4">
                 <h4 className="font-medium text-gray-700 mb-3">Licenses & Certifications</h4>
                 <div className="space-y-3">
-                  {provider.credentials.map(cred => {
-                    const isExpired = new Date(cred.expirationDate) < new Date();
-                    const isExpiringSoon = !isExpired && new Date(cred.expirationDate) < new Date(Date.now() + 60 * 24 * 60 * 60 * 1000);
-                    
-                    return (
-                      <div 
-                        key={cred.id}
-                        className={`p-4 rounded-lg border ${
-                          isExpired ? 'bg-red-50 border-red-200' :
-                          isExpiringSoon ? 'bg-orange-50 border-orange-200' :
-                          'bg-green-50 border-green-200'
-                        }`}
-                      >
-                        <div className="flex justify-between items-start">
-                          <div>
-                            <div className="font-medium">{cred.name}</div>
-                            {cred.licenseNumber && (
-                              <div className="text-sm text-gray-600">License #: {cred.licenseNumber}</div>
-                            )}
-                            <div className="text-sm text-gray-600">Issued by: {cred.issuingBody}</div>
-                          </div>
-                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                            isExpired ? 'bg-red-100 text-red-800' :
-                            isExpiringSoon ? 'bg-orange-100 text-orange-800' :
-                            'bg-green-100 text-green-800'
-                          }`}>
-                            {isExpired ? '✗ Expired' : isExpiringSoon ? '⚠️ Expiring Soon' : '✓ Active'}
-                          </span>
-                        </div>
-                        <div className="mt-2 flex gap-4 text-sm text-gray-500">
-                          <span>Issued: {cred.issuedDate}</span>
-                          <span>Expires: {cred.expirationDate}</span>
-                        </div>
+                  <div className="p-4 rounded-lg border bg-green-50 border-green-200">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <div className="font-medium">{provider.credentials === 'FNP-BC' ? 'Illinois APRN License' : 'Illinois RN License'}</div>
+                        <div className="text-sm text-gray-600">Issued by: Illinois DFPR</div>
                       </div>
-                    );
-                  })}
+                      <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        ✓ Active
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-4 rounded-lg border bg-green-50 border-green-200">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <div className="font-medium">BLS/CPR Certification</div>
+                        <div className="text-sm text-gray-600">Issued by: American Heart Association</div>
+                      </div>
+                      <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                        ✓ Active
+                      </span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

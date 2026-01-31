@@ -2,18 +2,76 @@
 
 // ============================================================
 // ADMIN MEDICATIONS PAGE
-// Track medications administered
+// Track medications administered - Connected to Live Data
 // ============================================================
 
-const MOCK_MEDICATIONS = [
-  { id: 'm1', date: '2026-01-31', client: 'Michelle Williams', medication: 'Semaglutide 0.5mg', provider: 'Ryan Kent, FNP-BC' },
-  { id: 'm2', date: '2026-01-30', client: 'Jennifer Martinez', medication: 'Botox 40 units', provider: 'Ryan Kent, FNP-BC' },
-  { id: 'm3', date: '2026-01-30', client: 'Sarah Johnson', medication: 'Juvederm Ultra 1mL', provider: 'Ryan Kent, FNP-BC' },
-  { id: 'm4', date: '2026-01-29', client: 'Rachel Brown', medication: 'Semaglutide 0.25mg', provider: 'Ryan Kent, FNP-BC' },
-  { id: 'm5', date: '2026-01-29', client: 'Lisa Thompson', medication: 'Dysport 60 units', provider: 'Ryan Kent, FNP-BC' },
-];
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
+
+// Skeleton component
+function Skeleton({ className = '' }: { className?: string }) {
+  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+}
 
 export default function AdminMedicationsPage() {
+  const [medications, setMedications] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState({ week: 0, month: 0, botoxUnits: 0, fillerSyringes: 0 });
+
+  // Fetch medications from database
+  useEffect(() => {
+    const fetchMedications = async () => {
+      if (!isSupabaseConfigured()) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const { data, error } = await supabase
+          .from('medications_administered')
+          .select(`
+            *,
+            client:clients(first_name, last_name),
+            provider:staff(first_name, last_name, title)
+          `)
+          .order('created_at', { ascending: false })
+          .limit(50);
+
+        if (!error && data) {
+          setMedications(data);
+          // Calculate stats from data
+          const now = new Date();
+          const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+          const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+
+          setStats({
+            week: data.filter(m => new Date(m.created_at) >= weekAgo).length,
+            month: data.filter(m => new Date(m.created_at) >= monthAgo).length,
+            botoxUnits: data.filter(m => m.medication_type === 'neurotoxin')
+              .reduce((sum, m) => sum + (m.units || 0), 0),
+            fillerSyringes: data.filter(m => m.medication_type === 'filler')
+              .reduce((sum, m) => sum + (m.syringes || 0), 0),
+          });
+        }
+      } catch (err) {
+        console.error('Error fetching medications:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMedications();
+  }, []);
+
+  const formatDate = (isoString: string) => {
+    return new Date(isoString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  };
+
   return (
     <div className="space-y-6">
       <div>
@@ -21,25 +79,50 @@ export default function AdminMedicationsPage() {
         <p className="text-gray-500">Track medications administered to clients</p>
       </div>
 
+      {/* Connection Status */}
+      {!isSupabaseConfigured() && (
+        <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
+          Demo Mode - Connect Supabase to track medications
+        </div>
+      )}
+
+      {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">This Week</p>
-          <p className="text-2xl font-bold text-gray-900">47</p>
+          {loading ? (
+            <Skeleton className="h-8 w-16 mt-1" />
+          ) : (
+            <p className="text-2xl font-bold text-gray-900">{stats.week}</p>
+          )}
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">This Month</p>
-          <p className="text-2xl font-bold text-gray-900">189</p>
+          {loading ? (
+            <Skeleton className="h-8 w-16 mt-1" />
+          ) : (
+            <p className="text-2xl font-bold text-gray-900">{stats.month}</p>
+          )}
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">Botox/Dysport</p>
-          <p className="text-2xl font-bold text-purple-600">2,450 units</p>
+          {loading ? (
+            <Skeleton className="h-8 w-20 mt-1" />
+          ) : (
+            <p className="text-2xl font-bold text-purple-600">{stats.botoxUnits} units</p>
+          )}
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">Filler</p>
-          <p className="text-2xl font-bold text-pink-600">38 syringes</p>
+          {loading ? (
+            <Skeleton className="h-8 w-20 mt-1" />
+          ) : (
+            <p className="text-2xl font-bold text-pink-600">{stats.fillerSyringes} syringes</p>
+          )}
         </div>
       </div>
 
+      {/* Medications Table */}
       <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
         <div className="px-5 py-4 border-b border-gray-100">
           <h2 className="font-semibold text-gray-900">Recent Administrations</h2>
@@ -54,14 +137,38 @@ export default function AdminMedicationsPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {MOCK_MEDICATIONS.map((med) => (
-              <tr key={med.id} className="hover:bg-gray-50">
-                <td className="px-5 py-3 text-gray-900">{med.date}</td>
-                <td className="px-5 py-3 text-gray-900">{med.client}</td>
-                <td className="px-5 py-3 font-medium text-gray-900">{med.medication}</td>
-                <td className="px-5 py-3 text-gray-600">{med.provider}</td>
+            {loading ? (
+              Array.from({ length: 5 }).map((_, i) => (
+                <tr key={i}>
+                  <td className="px-5 py-3"><Skeleton className="w-24 h-4" /></td>
+                  <td className="px-5 py-3"><Skeleton className="w-32 h-4" /></td>
+                  <td className="px-5 py-3"><Skeleton className="w-28 h-4" /></td>
+                  <td className="px-5 py-3"><Skeleton className="w-32 h-4" /></td>
+                </tr>
+              ))
+            ) : medications.length === 0 ? (
+              <tr>
+                <td colSpan={4} className="px-5 py-12 text-center text-gray-500">
+                  No medications recorded yet
+                  <br />
+                  <span className="text-sm">Medications are recorded when charting is completed</span>
+                </td>
               </tr>
-            ))}
+            ) : (
+              medications.map((med) => (
+                <tr key={med.id} className="hover:bg-gray-50">
+                  <td className="px-5 py-3 text-gray-900">{formatDate(med.created_at)}</td>
+                  <td className="px-5 py-3 text-gray-900">
+                    {med.client?.first_name} {med.client?.last_name}
+                  </td>
+                  <td className="px-5 py-3 font-medium text-gray-900">{med.medication_name}</td>
+                  <td className="px-5 py-3 text-gray-600">
+                    {med.provider?.first_name} {med.provider?.last_name}
+                    {med.provider?.title && `, ${med.provider.title}`}
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
@@ -69,7 +176,7 @@ export default function AdminMedicationsPage() {
       <div className="p-4 bg-blue-50 border border-blue-200 rounded-xl">
         <p className="text-sm text-blue-800">
           <strong>Note:</strong> Medication tracking is automatically recorded when charting is completed. 
-          E-prescribing requires Surescripts integration (Phase 3).
+          Complete charts to build medication administration records.
         </p>
       </div>
     </div>

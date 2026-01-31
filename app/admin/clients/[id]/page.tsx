@@ -3,71 +3,129 @@
 // ============================================================
 // ADMIN CLIENT DETAIL PAGE
 // Full client profile with history and actions
+// Connected to Live Supabase Data
 // ============================================================
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useClient } from '@/lib/supabase/hooks';
+import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
 
-// Mock data
-const MOCK_CLIENT = {
-  id: 'c1',
-  firstName: 'Jennifer',
-  lastName: 'Martinez',
-  email: 'jennifer.martinez@email.com',
-  phone: '(630) 555-1234',
-  dateOfBirth: '1985-03-15',
-  gender: 'female',
-  address: '123 Main Street',
-  city: 'Oswego',
-  state: 'IL',
-  zip: '60543',
-  emergencyContact: 'Michael Martinez',
-  emergencyPhone: '(630) 555-9999',
-  createdAt: '2024-06-15',
-  referralSource: 'Instagram',
-  membershipStatus: 'active',
-  membershipType: 'Annual',
-  membershipSince: '2025-01-01',
-  freeServiceAvailable: true,
-  
-  // Medical
-  allergies: ['Lidocaine'],
-  medications: ['Synthroid 50mcg daily'],
-  medicalConditions: ['Hypothyroidism'],
-  
-  // Stats
-  totalVisits: 12,
-  totalSpent: 4250,
-  avgTicket: 354,
-  lastVisit: '2026-01-31',
-  
-  tags: ['VIP', 'Botox Regular'],
-};
-
-const MOCK_APPOINTMENTS = [
-  { id: 'a1', date: '2026-01-31', time: '9:00 AM', service: 'Botox - Full Face', provider: 'Ryan Kent, APRN', status: 'completed', amount: 450 },
-  { id: 'a2', date: '2025-12-15', time: '10:00 AM', service: 'Lip Filler', provider: 'Ryan Kent, APRN', status: 'completed', amount: 650 },
-  { id: 'a3', date: '2025-10-20', time: '2:00 PM', service: 'Botox - Full Face', provider: 'Ryan Kent, APRN', status: 'completed', amount: 400 },
-  { id: 'a4', date: '2025-08-15', time: '11:00 AM', service: 'Glass Glow Facial', provider: 'Staff', status: 'completed', amount: 175 },
-];
-
-const MOCK_PAYMENTS = [
-  { id: 'p1', date: '2026-01-31', amount: 450, method: 'Credit Card', status: 'paid', service: 'Botox - Full Face' },
-  { id: 'p2', date: '2025-12-15', amount: 650, method: 'Credit Card', status: 'paid', service: 'Lip Filler' },
-  { id: 'p3', date: '2025-10-20', amount: 400, method: 'Credit Card', status: 'paid', service: 'Botox - Full Face' },
-];
-
-const MOCK_CONSENTS = [
-  { id: 'con1', name: 'General Treatment Consent', status: 'valid', signedAt: '2025-01-01' },
-  { id: 'con2', name: 'Neurotoxin Consent', status: 'valid', signedAt: '2025-01-01' },
-  { id: 'con3', name: 'Dermal Filler Consent', status: 'valid', signedAt: '2025-12-15' },
-  { id: 'con4', name: 'HIPAA Privacy Notice', status: 'valid', signedAt: '2025-01-01' },
-];
+// Skeleton component
+function Skeleton({ className = '' }: { className?: string }) {
+  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+}
 
 export default function AdminClientDetailPage({ params }: { params: { id: string } }) {
   const [activeTab, setActiveTab] = useState<'overview' | 'appointments' | 'payments' | 'clinical' | 'documents'>('overview');
-  const client = MOCK_CLIENT;
-  const age = new Date().getFullYear() - new Date(client.dateOfBirth).getFullYear();
+  
+  // Fetch client from database
+  const { client, loading, error } = useClient(params.id);
+  
+  // Additional data states
+  const [appointments, setAppointments] = useState<any[]>([]);
+  const [payments, setPayments] = useState<any[]>([]);
+  const [consents, setConsents] = useState<any[]>([]);
+  const [loadingExtra, setLoadingExtra] = useState(true);
+
+  // Fetch additional client data
+  useEffect(() => {
+    if (!params.id || !isSupabaseConfigured()) {
+      setLoadingExtra(false);
+      return;
+    }
+
+    const fetchExtraData = async () => {
+      try {
+        // Fetch appointments
+        const { data: apptData } = await supabase
+          .from('appointments')
+          .select('*, service:services(name, price), provider:staff(first_name, last_name)')
+          .eq('client_id', params.id)
+          .order('scheduled_at', { ascending: false })
+          .limit(20);
+        setAppointments(apptData || []);
+
+        // Fetch payments
+        const { data: paymentData } = await supabase
+          .from('transactions')
+          .select('*')
+          .eq('client_id', params.id)
+          .order('created_at', { ascending: false })
+          .limit(20);
+        setPayments(paymentData || []);
+
+        // Fetch consents
+        const { data: consentData } = await supabase
+          .from('client_consents')
+          .select('*, consent_form:consent_forms(name)')
+          .eq('client_id', params.id)
+          .order('signed_at', { ascending: false });
+        setConsents(consentData || []);
+      } catch (err) {
+        console.error('Error fetching client data:', err);
+      } finally {
+        setLoadingExtra(false);
+      }
+    };
+
+    fetchExtraData();
+  }, [params.id]);
+
+  // Calculate age
+  const calculateAge = (dob: string | null) => {
+    if (!dob) return null;
+    const birthDate = new Date(dob);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+    return age;
+  };
+
+  // Format date
+  const formatDate = (isoString: string | null) => {
+    if (!isoString) return '-';
+    return new Date(isoString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  };
+
+  if (loading) {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center gap-4">
+          <Skeleton className="w-16 h-16 rounded-full" />
+          <div>
+            <Skeleton className="w-48 h-6 mb-2" />
+            <Skeleton className="w-64 h-4" />
+          </div>
+        </div>
+        <div className="grid grid-cols-4 gap-4">
+          {[1, 2, 3, 4].map(i => <Skeleton key={i} className="h-24" />)}
+        </div>
+      </div>
+    );
+  }
+
+  if (error || !client) {
+    return (
+      <div className="text-center py-12">
+        <p className="text-gray-500 mb-4">
+          {error || 'Client not found'}
+        </p>
+        <Link href="/admin/clients" className="text-pink-600 hover:text-pink-700">
+          ← Back to Clients
+        </Link>
+      </div>
+    );
+  }
+
+  const age = calculateAge(client.date_of_birth);
 
   return (
     <div className="space-y-6">
@@ -82,29 +140,32 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
           </Link>
           <div className="flex items-center gap-4">
             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white text-2xl font-bold">
-              {client.firstName[0]}{client.lastName[0]}
+              {client.first_name?.[0]}{client.last_name?.[0]}
             </div>
             <div>
               <div className="flex items-center gap-3">
                 <h1 className="text-2xl font-bold text-gray-900">
-                  {client.firstName} {client.lastName}
+                  {client.first_name} {client.last_name}
                 </h1>
-                {client.membershipStatus === 'active' && (
+                {client.is_vip && (
                   <span className="px-2 py-1 text-xs font-medium bg-purple-100 text-purple-700 rounded-full">
-                    💎 {client.membershipType} Member
+                    💎 VIP Member
                   </span>
                 )}
               </div>
               <p className="text-gray-500">
-                {age} years old • Client since {client.createdAt} • {client.totalVisits} visits
+                {age ? `${age} years old • ` : ''}
+                Client since {formatDate(client.created_at)} • {client.total_visits || 0} visits
               </p>
-              <div className="flex flex-wrap gap-1 mt-1">
-                {client.tags.map((tag) => (
-                  <span key={tag} className="px-2 py-0.5 text-xs bg-gray-100 text-gray-600 rounded">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+              {client.tags && client.tags.length > 0 && (
+                <div className="flex flex-wrap gap-1 mt-1">
+                  {client.tags.map((tag: string) => (
+                    <span key={tag} className="px-2 py-0.5 text-xs bg-gray-100 text-gray-600 rounded">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -119,22 +180,26 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
           <button className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
             Edit
           </button>
-          <button className="p-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-            📞
-          </button>
-          <button className="p-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
-            ✉️
-          </button>
+          {client.phone && (
+            <a href={`tel:${client.phone}`} className="p-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+              📞
+            </a>
+          )}
+          {client.email && (
+            <a href={`mailto:${client.email}`} className="p-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+              ✉️
+            </a>
+          )}
         </div>
       </div>
 
       {/* Alert Banner */}
-      {client.allergies.length > 0 && (
+      {client.allergies_summary && (
         <div className="p-4 bg-red-50 border border-red-200 rounded-xl">
           <div className="flex items-center gap-2 text-red-700">
             <span className="text-xl">⚠️</span>
             <span className="font-semibold">Allergies:</span>
-            <span>{client.allergies.join(', ')}</span>
+            <span>{client.allergies_summary}</span>
           </div>
         </div>
       )}
@@ -143,19 +208,21 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">Total Visits</p>
-          <p className="text-2xl font-bold text-gray-900">{client.totalVisits}</p>
+          <p className="text-2xl font-bold text-gray-900">{client.total_visits || 0}</p>
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">Total Spent</p>
-          <p className="text-2xl font-bold text-gray-900">${client.totalSpent.toLocaleString()}</p>
+          <p className="text-2xl font-bold text-gray-900">${(client.total_spent || 0).toLocaleString()}</p>
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">Avg Ticket</p>
-          <p className="text-2xl font-bold text-gray-900">${client.avgTicket}</p>
+          <p className="text-2xl font-bold text-gray-900">
+            ${client.total_visits ? Math.round((client.total_spent || 0) / client.total_visits) : 0}
+          </p>
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">Last Visit</p>
-          <p className="text-2xl font-bold text-gray-900">{client.lastVisit}</p>
+          <p className="text-2xl font-bold text-gray-900">{formatDate(client.last_visit_at)}</p>
         </div>
       </div>
 
@@ -164,10 +231,10 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
         <nav className="flex gap-4">
           {[
             { id: 'overview', label: 'Overview' },
-            { id: 'appointments', label: 'Appointments' },
-            { id: 'payments', label: 'Payments' },
+            { id: 'appointments', label: `Appointments (${appointments.length})` },
+            { id: 'payments', label: `Payments (${payments.length})` },
             { id: 'clinical', label: 'Clinical' },
-            { id: 'documents', label: 'Documents' },
+            { id: 'documents', label: `Documents (${consents.length})` },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -193,27 +260,37 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
             <div className="space-y-3 text-sm">
               <div>
                 <p className="text-gray-500">Email</p>
-                <p className="text-gray-900">{client.email}</p>
+                <p className="text-gray-900">{client.email || '-'}</p>
               </div>
               <div>
                 <p className="text-gray-500">Phone</p>
-                <p className="text-gray-900">{client.phone}</p>
+                <p className="text-gray-900">{client.phone || '-'}</p>
               </div>
               <div>
                 <p className="text-gray-500">Address</p>
                 <p className="text-gray-900">
-                  {client.address}<br />
-                  {client.city}, {client.state} {client.zip}
+                  {client.address_line1 ? (
+                    <>
+                      {client.address_line1}
+                      {client.address_line2 && <><br />{client.address_line2}</>}
+                      <br />
+                      {client.city}, {client.state} {client.postal_code}
+                    </>
+                  ) : '-'}
                 </p>
               </div>
               <div>
                 <p className="text-gray-500">Date of Birth</p>
-                <p className="text-gray-900">{client.dateOfBirth} ({age} years old)</p>
+                <p className="text-gray-900">
+                  {client.date_of_birth ? `${formatDate(client.date_of_birth)} (${age} years old)` : '-'}
+                </p>
               </div>
               <div>
                 <p className="text-gray-500">Emergency Contact</p>
-                <p className="text-gray-900">{client.emergencyContact}</p>
-                <p className="text-gray-500">{client.emergencyPhone}</p>
+                <p className="text-gray-900">{client.emergency_contact_name || '-'}</p>
+                {client.emergency_contact_phone && (
+                  <p className="text-gray-500">{client.emergency_contact_phone}</p>
+                )}
               </div>
             </div>
           </div>
@@ -229,119 +306,156 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
                 View All →
               </button>
             </div>
-            <div className="space-y-3">
-              {MOCK_APPOINTMENTS.slice(0, 3).map((apt) => (
-                <div key={apt.id} className="border-b border-gray-100 pb-3 last:border-0">
-                  <div className="flex items-center justify-between">
-                    <p className="font-medium text-gray-900">{apt.service}</p>
-                    <p className="text-sm text-gray-900">${apt.amount}</p>
-                  </div>
-                  <p className="text-sm text-gray-500">{apt.date} • {apt.provider}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Membership & Consents */}
-          <div className="space-y-6">
-            {/* Membership */}
-            {client.membershipStatus === 'active' && (
-              <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-xl p-5 text-white">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className="text-2xl">💎</span>
-                  <h3 className="font-semibold">VIP Member</h3>
-                </div>
-                <p className="text-purple-100 text-sm mb-3">
-                  {client.membershipType} since {client.membershipSince}
-                </p>
-                {client.freeServiceAvailable && (
-                  <div className="bg-white/10 rounded-lg p-3">
-                    <p className="text-sm font-medium">Free $75 Service Available</p>
-                  </div>
-                )}
+            {loadingExtra ? (
+              <div className="space-y-3">
+                {[1, 2, 3].map(i => <Skeleton key={i} className="h-16" />)}
               </div>
-            )}
-
-            {/* Consents */}
-            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-              <h3 className="font-semibold text-gray-900 mb-4">Consents</h3>
-              <div className="space-y-2">
-                {MOCK_CONSENTS.map((consent) => (
-                  <div key={consent.id} className="flex items-center justify-between py-2">
-                    <p className="text-sm text-gray-900">{consent.name}</p>
-                    <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
-                      ✓ Valid
-                    </span>
+            ) : appointments.length === 0 ? (
+              <p className="text-gray-500 text-sm py-4">No appointments yet</p>
+            ) : (
+              <div className="space-y-3">
+                {appointments.slice(0, 3).map((apt) => (
+                  <div key={apt.id} className="border-b border-gray-100 pb-3 last:border-0">
+                    <div className="flex items-center justify-between">
+                      <p className="font-medium text-gray-900">{apt.service?.name || 'Service'}</p>
+                      <p className="text-sm text-gray-900">${apt.service?.price || 0}</p>
+                    </div>
+                    <p className="text-sm text-gray-500">
+                      {formatDate(apt.scheduled_at)} • {apt.provider?.first_name} {apt.provider?.last_name}
+                    </p>
                   </div>
                 ))}
               </div>
+            )}
+          </div>
+
+          {/* Consents & Notes */}
+          <div className="space-y-6">
+            {/* Consents */}
+            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+              <h3 className="font-semibold text-gray-900 mb-4">Consents</h3>
+              {loadingExtra ? (
+                <div className="space-y-2">
+                  {[1, 2].map(i => <Skeleton key={i} className="h-10" />)}
+                </div>
+              ) : consents.length === 0 ? (
+                <p className="text-gray-500 text-sm">No consents on file</p>
+              ) : (
+                <div className="space-y-2">
+                  {consents.slice(0, 4).map((consent) => (
+                    <div key={consent.id} className="flex items-center justify-between py-2">
+                      <p className="text-sm text-gray-900">{consent.consent_form?.name || 'Consent'}</p>
+                      <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
+                        ✓ Valid
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
+
+            {/* Internal Notes */}
+            {client.internal_notes && (
+              <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+                <h3 className="font-semibold text-gray-900 mb-4">Internal Notes</h3>
+                <p className="text-sm text-gray-600">{client.internal_notes}</p>
+              </div>
+            )}
           </div>
         </div>
       )}
 
       {activeTab === 'appointments' && (
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-          <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-100">
-              <tr>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Date</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Service</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Provider</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Status</th>
-                <th className="text-right px-5 py-3 text-sm font-semibold text-gray-900">Amount</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {MOCK_APPOINTMENTS.map((apt) => (
-                <tr key={apt.id} className="hover:bg-gray-50">
-                  <td className="px-5 py-3">
-                    <p className="font-medium text-gray-900">{apt.date}</p>
-                    <p className="text-sm text-gray-500">{apt.time}</p>
-                  </td>
-                  <td className="px-5 py-3 text-gray-900">{apt.service}</td>
-                  <td className="px-5 py-3 text-gray-600">{apt.provider}</td>
-                  <td className="px-5 py-3">
-                    <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
-                      {apt.status}
-                    </span>
-                  </td>
-                  <td className="px-5 py-3 text-right font-medium text-gray-900">${apt.amount}</td>
+          {loadingExtra ? (
+            <div className="p-6">
+              {[1, 2, 3, 4].map(i => <Skeleton key={i} className="h-16 mb-2" />)}
+            </div>
+          ) : appointments.length === 0 ? (
+            <div className="p-8 text-center text-gray-500">
+              No appointments found
+              <br />
+              <Link href={`/admin/appointments/new?client=${client.id}`} className="text-pink-600 mt-2 inline-block">
+                + Book first appointment
+              </Link>
+            </div>
+          ) : (
+            <table className="w-full">
+              <thead className="bg-gray-50 border-b border-gray-100">
+                <tr>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Date</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Service</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Provider</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Status</th>
+                  <th className="text-right px-5 py-3 text-sm font-semibold text-gray-900">Amount</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {appointments.map((apt) => (
+                  <tr key={apt.id} className="hover:bg-gray-50">
+                    <td className="px-5 py-3">
+                      <p className="font-medium text-gray-900">{formatDate(apt.scheduled_at)}</p>
+                    </td>
+                    <td className="px-5 py-3 text-gray-900">{apt.service?.name || '-'}</td>
+                    <td className="px-5 py-3 text-gray-600">
+                      {apt.provider?.first_name} {apt.provider?.last_name}
+                    </td>
+                    <td className="px-5 py-3">
+                      <span className={`px-2 py-1 text-xs rounded-full ${
+                        apt.status === 'completed' ? 'bg-green-100 text-green-700' :
+                        apt.status === 'cancelled' ? 'bg-red-100 text-red-700' :
+                        'bg-blue-100 text-blue-700'
+                      }`}>
+                        {apt.status}
+                      </span>
+                    </td>
+                    <td className="px-5 py-3 text-right font-medium text-gray-900">
+                      ${apt.service?.price || 0}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       )}
 
       {activeTab === 'payments' && (
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-          <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-100">
-              <tr>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Date</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Service</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Method</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Status</th>
-                <th className="text-right px-5 py-3 text-sm font-semibold text-gray-900">Amount</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {MOCK_PAYMENTS.map((payment) => (
-                <tr key={payment.id} className="hover:bg-gray-50">
-                  <td className="px-5 py-3 font-medium text-gray-900">{payment.date}</td>
-                  <td className="px-5 py-3 text-gray-900">{payment.service}</td>
-                  <td className="px-5 py-3 text-gray-600">{payment.method}</td>
-                  <td className="px-5 py-3">
-                    <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
-                      {payment.status}
-                    </span>
-                  </td>
-                  <td className="px-5 py-3 text-right font-semibold text-green-600">+${payment.amount}</td>
+          {loadingExtra ? (
+            <div className="p-6">
+              {[1, 2, 3].map(i => <Skeleton key={i} className="h-16 mb-2" />)}
+            </div>
+          ) : payments.length === 0 ? (
+            <div className="p-8 text-center text-gray-500">No payments found</div>
+          ) : (
+            <table className="w-full">
+              <thead className="bg-gray-50 border-b border-gray-100">
+                <tr>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Date</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Method</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Status</th>
+                  <th className="text-right px-5 py-3 text-sm font-semibold text-gray-900">Amount</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {payments.map((payment) => (
+                  <tr key={payment.id} className="hover:bg-gray-50">
+                    <td className="px-5 py-3 font-medium text-gray-900">{formatDate(payment.created_at)}</td>
+                    <td className="px-5 py-3 text-gray-600">{payment.payment_method || 'Card'}</td>
+                    <td className="px-5 py-3">
+                      <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
+                        {payment.status || 'completed'}
+                      </span>
+                    </td>
+                    <td className="px-5 py-3 text-right font-semibold text-green-600">
+                      +${(payment.total_amount || 0).toLocaleString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       )}
 
@@ -353,29 +467,29 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
             <div className="space-y-4">
               <div>
                 <p className="text-sm text-gray-500 mb-1">Allergies</p>
-                <div className="flex flex-wrap gap-1">
-                  {client.allergies.map((allergy) => (
-                    <span key={allergy} className="px-2 py-1 text-sm bg-red-100 text-red-700 rounded">
-                      {allergy}
-                    </span>
-                  ))}
-                </div>
+                {client.allergies_summary ? (
+                  <p className="text-sm text-red-700 bg-red-50 px-2 py-1 rounded inline-block">
+                    {client.allergies_summary}
+                  </p>
+                ) : (
+                  <p className="text-sm text-gray-400">None on file</p>
+                )}
               </div>
               <div>
                 <p className="text-sm text-gray-500 mb-1">Medications</p>
-                <ul className="text-sm text-gray-900 space-y-1">
-                  {client.medications.map((med) => (
-                    <li key={med}>• {med}</li>
-                  ))}
-                </ul>
+                {client.medications_summary ? (
+                  <p className="text-sm text-gray-900">{client.medications_summary}</p>
+                ) : (
+                  <p className="text-sm text-gray-400">None on file</p>
+                )}
               </div>
               <div>
                 <p className="text-sm text-gray-500 mb-1">Medical Conditions</p>
-                <ul className="text-sm text-gray-900 space-y-1">
-                  {client.medicalConditions.map((condition) => (
-                    <li key={condition}>• {condition}</li>
-                  ))}
-                </ul>
+                {client.medical_conditions_summary ? (
+                  <p className="text-sm text-gray-900">{client.medical_conditions_summary}</p>
+                ) : (
+                  <p className="text-sm text-gray-400">None on file</p>
+                )}
               </div>
             </div>
           </div>
@@ -385,28 +499,33 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold text-gray-900">Chart History</h3>
               <Link
-                href={`/provider/chart/new?client=${client.id}`}
+                href={`/admin/charts?client=${client.id}`}
                 className="text-sm text-pink-600 hover:text-pink-700"
               >
                 + New Chart
               </Link>
             </div>
             <div className="space-y-3">
-              {MOCK_APPOINTMENTS.filter((a) => a.status === 'completed').slice(0, 4).map((apt) => (
+              {appointments.filter((a) => a.status === 'completed').slice(0, 4).map((apt) => (
                 <Link
                   key={apt.id}
-                  href={`/provider/charts/${apt.id}`}
+                  href={`/admin/charts/${apt.id}`}
                   className="block border-b border-gray-100 pb-3 last:border-0 hover:bg-gray-50 -mx-2 px-2 py-1 rounded transition-colors"
                 >
                   <div className="flex items-center justify-between">
-                    <p className="font-medium text-gray-900">{apt.service}</p>
+                    <p className="font-medium text-gray-900">{apt.service?.name || 'Service'}</p>
                     <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
                       ✓ Signed
                     </span>
                   </div>
-                  <p className="text-sm text-gray-500">{apt.date} • {apt.provider}</p>
+                  <p className="text-sm text-gray-500">
+                    {formatDate(apt.scheduled_at)} • {apt.provider?.first_name} {apt.provider?.last_name}
+                  </p>
                 </Link>
               ))}
+              {appointments.filter((a) => a.status === 'completed').length === 0 && (
+                <p className="text-gray-500 text-sm">No completed appointments yet</p>
+              )}
             </div>
           </div>
         </div>
@@ -421,31 +540,27 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
             </button>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {/* Signed Consents */}
-            {MOCK_CONSENTS.map((consent) => (
-              <div key={consent.id} className="p-4 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors cursor-pointer">
-                <div className="flex items-start gap-3">
-                  <span className="text-2xl">📄</span>
-                  <div>
-                    <p className="font-medium text-gray-900 text-sm">{consent.name}</p>
-                    <p className="text-xs text-gray-500">Signed {consent.signedAt}</p>
+          {loadingExtra ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {[1, 2, 3].map(i => <Skeleton key={i} className="h-20" />)}
+            </div>
+          ) : consents.length === 0 ? (
+            <p className="text-gray-500 text-center py-8">No documents on file</p>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {consents.map((consent) => (
+                <div key={consent.id} className="p-4 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors cursor-pointer">
+                  <div className="flex items-start gap-3">
+                    <span className="text-2xl">📄</span>
+                    <div>
+                      <p className="font-medium text-gray-900 text-sm">{consent.consent_form?.name || 'Document'}</p>
+                      <p className="text-xs text-gray-500">Signed {formatDate(consent.signed_at)}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-            
-            {/* Intake Form */}
-            <div className="p-4 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors cursor-pointer">
-              <div className="flex items-start gap-3">
-                <span className="text-2xl">📋</span>
-                <div>
-                  <p className="font-medium text-gray-900 text-sm">Medical Intake Form</p>
-                  <p className="text-xs text-gray-500">Completed 2025-01-01</p>
-                </div>
-              </div>
+              ))}
             </div>
-          </div>
+          )}
         </div>
       )}
     </div>

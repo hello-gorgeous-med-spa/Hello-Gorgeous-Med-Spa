@@ -2,46 +2,17 @@
 
 // ============================================================
 // APPOINTMENT DETAIL PAGE
-// View and manage individual appointment
+// View and manage individual appointment - Connected to Live Data
 // ============================================================
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
 
-// Mock data
-const MOCK_APPOINTMENT = {
-  id: 'a1',
-  date: '2026-01-31',
-  time: '9:00 AM',
-  endTime: '9:30 AM',
-  client: {
-    id: 'c1',
-    name: 'Jennifer Martinez',
-    email: 'jennifer.martinez@email.com',
-    phone: '(630) 555-1234',
-    membershipStatus: 'active',
-  },
-  service: {
-    id: 's1',
-    name: 'Botox - Full Face',
-    duration: 30,
-    price: 450,
-  },
-  provider: {
-    id: 'p1',
-    name: 'Ryan Kent, APRN',
-  },
-  status: 'confirmed',
-  notes: 'Requested glabella focus',
-  createdAt: '2026-01-25 3:45 PM',
-  confirmationSent: true,
-  reminderSent: true,
-  intakeComplete: true,
-  consentValid: true,
-  depositPaid: false,
-  depositAmount: 0,
-};
+// Skeleton component
+function Skeleton({ className = '' }: { className?: string }) {
+  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+}
 
 const STATUSES = [
   { value: 'confirmed', label: 'Confirmed', color: 'bg-gray-100 text-gray-700' },
@@ -53,28 +24,127 @@ const STATUSES = [
 ];
 
 export default function AppointmentDetailPage({ params }: { params: { id: string } }) {
-  const router = useRouter();
-  const [appointment, setAppointment] = useState(MOCK_APPOINTMENT);
+  const [appointment, setAppointment] = useState<Record<string, unknown> | null>(null);
+  const [loading, setLoading] = useState(true);
   const [showCancelModal, setShowCancelModal] = useState(false);
   const [cancelReason, setCancelReason] = useState('');
+  const [saving, setSaving] = useState(false);
 
-  const currentStatus = STATUSES.find((s) => s.value === appointment.status);
+  // Fetch appointment from database
+  useEffect(() => {
+    const fetchAppointment = async () => {
+      if (!isSupabaseConfigured()) {
+        setLoading(false);
+        return;
+      }
 
-  const handleStatusChange = (newStatus: string) => {
-    setAppointment({ ...appointment, status: newStatus });
-    // TODO: Save to Supabase
+      try {
+        const { data, error } = await supabase
+          .from('appointments')
+          .select(`
+            *,
+            client:clients(id, first_name, last_name, email, phone, is_vip),
+            service:services(id, name, duration_minutes, price),
+            provider:staff(id, first_name, last_name, title)
+          `)
+          .eq('id', params.id)
+          .single();
+
+        if (!error && data) {
+          setAppointment(data);
+        }
+      } catch (err) {
+        console.error('Error fetching appointment:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAppointment();
+  }, [params.id]);
+
+  const currentStatus = STATUSES.find((s) => s.value === appointment?.status);
+
+  const handleStatusChange = async (newStatus: string) => {
+    if (!appointment || !isSupabaseConfigured()) return;
+    setSaving(true);
+
+    try {
+      const { error } = await supabase
+        .from('appointments')
+        .update({ status: newStatus })
+        .eq('id', appointment.id);
+
+      if (!error) {
+        setAppointment({ ...appointment, status: newStatus });
+      }
+    } catch (err) {
+      console.error('Error updating status:', err);
+    } finally {
+      setSaving(false);
+    }
   };
 
-  const handleCancel = () => {
-    setAppointment({ ...appointment, status: 'cancelled' });
-    setShowCancelModal(false);
-    // TODO: Save to Supabase, send notification
+  const handleCancel = async () => {
+    if (!appointment || !isSupabaseConfigured()) return;
+    setSaving(true);
+
+    try {
+      const { error } = await supabase
+        .from('appointments')
+        .update({ status: 'cancelled', cancellation_reason: cancelReason })
+        .eq('id', appointment.id);
+
+      if (!error) {
+        setAppointment({ ...appointment, status: 'cancelled' });
+        setShowCancelModal(false);
+      }
+    } catch (err) {
+      console.error('Error cancelling appointment:', err);
+    } finally {
+      setSaving(false);
+    }
   };
 
-  const handleCheckIn = () => {
-    setAppointment({ ...appointment, status: 'checked_in' });
-    // TODO: Save to Supabase
+  const handleCheckIn = () => handleStatusChange('checked_in');
+
+  // Format date/time
+  const formatDateTime = (isoString: string | null) => {
+    if (!isoString) return { date: '-', time: '-' };
+    const d = new Date(isoString);
+    return {
+      date: d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }),
+      time: d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }),
+    };
   };
+
+  if (loading) {
+    return (
+      <div className="max-w-4xl mx-auto">
+        <Skeleton className="h-8 w-32 mb-4" />
+        <Skeleton className="h-10 w-64 mb-6" />
+        <div className="grid grid-cols-3 gap-6">
+          <Skeleton className="h-64 col-span-2" />
+          <Skeleton className="h-64" />
+        </div>
+      </div>
+    );
+  }
+
+  if (!appointment) {
+    return (
+      <div className="max-w-4xl mx-auto text-center py-12">
+        <p className="text-gray-500 mb-4">Appointment not found</p>
+        <Link href="/admin/appointments" className="text-pink-600 hover:text-pink-700">
+          ← Back to Appointments
+        </Link>
+      </div>
+    );
+  }
+
+  const { date, time } = formatDateTime(appointment.scheduled_at);
+  const clientName = `${appointment.client?.first_name || ''} ${appointment.client?.last_name || ''}`.trim() || 'Unknown Client';
+  const providerName = `${appointment.provider?.first_name || ''} ${appointment.provider?.last_name || ''}`.trim() || 'Unknown Provider';
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -89,12 +159,10 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
         <div className="flex items-start justify-between">
           <div>
             <h1 className="text-2xl font-bold text-gray-900">Appointment Details</h1>
-            <p className="text-gray-500">
-              {appointment.date} at {appointment.time}
-            </p>
+            <p className="text-gray-500">{date} at {time}</p>
           </div>
-          <span className={`px-3 py-1.5 text-sm font-medium rounded-full ${currentStatus?.color}`}>
-            {currentStatus?.label}
+          <span className={`px-3 py-1.5 text-sm font-medium rounded-full ${currentStatus?.color || 'bg-gray-100'}`}>
+            {currentStatus?.label || appointment.status}
           </span>
         </div>
       </div>
@@ -104,44 +172,47 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
         <div className="lg:col-span-2 space-y-6">
           {/* Appointment Card */}
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-            <div className="flex items-start gap-6">
+            <div className="flex items-start gap-6 flex-wrap">
               {/* Client */}
-              <div className="flex-1">
+              <div className="flex-1 min-w-[200px]">
                 <h3 className="text-sm font-medium text-gray-500 mb-2">Client</h3>
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-bold">
-                    {appointment.client.name.split(' ').map((n) => n[0]).join('')}
+                    {clientName.split(' ').map((n) => n[0]).join('')}
                   </div>
                   <div>
                     <Link
-                      href={`/admin/clients/${appointment.client.id}`}
+                      href={`/admin/clients/${appointment.client?.id}`}
                       className="font-semibold text-gray-900 hover:text-pink-600"
                     >
-                      {appointment.client.name}
+                      {clientName}
                     </Link>
-                    {appointment.client.membershipStatus === 'active' && (
+                    {appointment.client?.is_vip && (
                       <span className="ml-2 px-2 py-0.5 text-xs bg-purple-100 text-purple-700 rounded-full">
                         💎 VIP
                       </span>
                     )}
-                    <p className="text-sm text-gray-500">{appointment.client.phone}</p>
+                    <p className="text-sm text-gray-500">{appointment.client?.phone || '-'}</p>
                   </div>
                 </div>
               </div>
 
               {/* Service */}
-              <div className="flex-1">
+              <div className="flex-1 min-w-[200px]">
                 <h3 className="text-sm font-medium text-gray-500 mb-2">Service</h3>
-                <p className="font-semibold text-gray-900">{appointment.service.name}</p>
+                <p className="font-semibold text-gray-900">{appointment.service?.name || 'Service'}</p>
                 <p className="text-sm text-gray-500">
-                  {appointment.service.duration} min • ${appointment.service.price}
+                  {appointment.service?.duration_minutes || appointment.duration_minutes || 30} min • ${appointment.service?.price || 0}
                 </p>
               </div>
 
               {/* Provider */}
-              <div className="flex-1">
+              <div className="flex-1 min-w-[200px]">
                 <h3 className="text-sm font-medium text-gray-500 mb-2">Provider</h3>
-                <p className="font-semibold text-gray-900">{appointment.provider.name}</p>
+                <p className="font-semibold text-gray-900">{providerName}</p>
+                {appointment.provider?.title && (
+                  <p className="text-sm text-gray-500">{appointment.provider.title}</p>
+                )}
               </div>
             </div>
 
@@ -160,91 +231,24 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
             <div className="space-y-3">
               <div className="flex items-center justify-between py-2 border-b border-gray-100">
                 <div className="flex items-center gap-2">
-                  <span className={appointment.confirmationSent ? 'text-green-500' : 'text-gray-300'}>
-                    {appointment.confirmationSent ? '✓' : '○'}
-                  </span>
-                  <span className="text-gray-700">Confirmation sent</span>
+                  <span className="text-green-500">✓</span>
+                  <span className="text-gray-700">Appointment booked</span>
                 </div>
-                {!appointment.confirmationSent && (
-                  <button className="text-sm text-pink-600 hover:text-pink-700">Send Now</button>
-                )}
               </div>
               <div className="flex items-center justify-between py-2 border-b border-gray-100">
                 <div className="flex items-center gap-2">
-                  <span className={appointment.reminderSent ? 'text-green-500' : 'text-gray-300'}>
-                    {appointment.reminderSent ? '✓' : '○'}
+                  <span className={appointment.status !== 'confirmed' ? 'text-green-500' : 'text-gray-300'}>
+                    {appointment.status !== 'confirmed' ? '✓' : '○'}
                   </span>
-                  <span className="text-gray-700">Reminder sent</span>
+                  <span className="text-gray-700">Client checked in</span>
                 </div>
-                {!appointment.reminderSent && (
-                  <button className="text-sm text-pink-600 hover:text-pink-700">Send Now</button>
-                )}
-              </div>
-              <div className="flex items-center justify-between py-2 border-b border-gray-100">
-                <div className="flex items-center gap-2">
-                  <span className={appointment.intakeComplete ? 'text-green-500' : 'text-amber-500'}>
-                    {appointment.intakeComplete ? '✓' : '⚠'}
-                  </span>
-                  <span className="text-gray-700">Intake form complete</span>
-                </div>
-                {!appointment.intakeComplete && (
-                  <button className="text-sm text-pink-600 hover:text-pink-700">Send Form</button>
-                )}
-              </div>
-              <div className="flex items-center justify-between py-2 border-b border-gray-100">
-                <div className="flex items-center gap-2">
-                  <span className={appointment.consentValid ? 'text-green-500' : 'text-red-500'}>
-                    {appointment.consentValid ? '✓' : '✗'}
-                  </span>
-                  <span className="text-gray-700">Consent forms valid</span>
-                </div>
-                {!appointment.consentValid && (
-                  <button className="text-sm text-pink-600 hover:text-pink-700">Send Consent</button>
-                )}
               </div>
               <div className="flex items-center justify-between py-2">
                 <div className="flex items-center gap-2">
-                  <span className={appointment.depositPaid ? 'text-green-500' : 'text-gray-300'}>
-                    {appointment.depositPaid ? '✓' : '○'}
+                  <span className={appointment.status === 'completed' ? 'text-green-500' : 'text-gray-300'}>
+                    {appointment.status === 'completed' ? '✓' : '○'}
                   </span>
-                  <span className="text-gray-700">Deposit collected</span>
-                </div>
-                {!appointment.depositPaid && (
-                  <span className="text-sm text-gray-500">Not required</span>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Activity Log */}
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-            <h3 className="font-semibold text-gray-900 mb-4">Activity</h3>
-            <div className="space-y-4">
-              <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 text-sm">
-                  📅
-                </div>
-                <div>
-                  <p className="text-sm text-gray-900">Appointment created</p>
-                  <p className="text-xs text-gray-500">{appointment.createdAt}</p>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 text-sm">
-                  ✉️
-                </div>
-                <div>
-                  <p className="text-sm text-gray-900">Confirmation email sent</p>
-                  <p className="text-xs text-gray-500">{appointment.createdAt}</p>
-                </div>
-              </div>
-              <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-gray-500 text-sm">
-                  🔔
-                </div>
-                <div>
-                  <p className="text-sm text-gray-900">24-hour reminder sent</p>
-                  <p className="text-xs text-gray-500">2026-01-30 9:00 AM</p>
+                  <span className="text-gray-700">Appointment completed</span>
                 </div>
               </div>
             </div>
@@ -260,22 +264,24 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
               {appointment.status === 'confirmed' && (
                 <button
                   onClick={handleCheckIn}
-                  className="w-full px-4 py-2.5 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition-colors"
+                  disabled={saving}
+                  className="w-full px-4 py-2.5 bg-blue-500 text-white font-medium rounded-lg hover:bg-blue-600 transition-colors disabled:opacity-50"
                 >
                   ✓ Check In Client
                 </button>
               )}
               {(appointment.status === 'checked_in' || appointment.status === 'in_progress') && (
-                <Link
-                  href={`/provider/chart/new?client=${appointment.client.id}&appointment=${appointment.id}`}
-                  className="block w-full px-4 py-2.5 bg-purple-500 text-white font-medium rounded-lg hover:bg-purple-600 transition-colors text-center"
+                <button
+                  onClick={() => handleStatusChange('completed')}
+                  disabled={saving}
+                  className="w-full px-4 py-2.5 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600 transition-colors disabled:opacity-50"
                 >
-                  📝 Start Chart
-                </Link>
+                  ✓ Mark Completed
+                </button>
               )}
               {appointment.status === 'completed' && (
                 <Link
-                  href={`/admin/payments/new?appointment=${appointment.id}`}
+                  href={`/pos?appointment=${appointment.id}`}
                   className="block w-full px-4 py-2.5 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600 transition-colors text-center"
                 >
                   💳 Process Payment
@@ -306,12 +312,12 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
                 <button
                   key={status.value}
                   onClick={() => handleStatusChange(status.value)}
-                  disabled={appointment.status === status.value}
+                  disabled={appointment.status === status.value || saving}
                   className={`w-full text-left px-4 py-2 rounded-lg text-sm transition-colors ${
                     appointment.status === status.value
                       ? `${status.color} font-medium`
                       : 'hover:bg-gray-50 text-gray-700'
-                  }`}
+                  } disabled:cursor-not-allowed`}
                 >
                   {status.label}
                 </button>
@@ -323,27 +329,33 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
           <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
             <h3 className="font-semibold text-gray-900 mb-4">Contact Client</h3>
             <div className="space-y-2">
-              <a
-                href={`tel:${appointment.client.phone}`}
-                className="flex items-center gap-3 px-4 py-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-              >
-                <span>📞</span>
-                <span className="text-gray-700">Call</span>
-              </a>
-              <a
-                href={`sms:${appointment.client.phone}`}
-                className="flex items-center gap-3 px-4 py-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-              >
-                <span>💬</span>
-                <span className="text-gray-700">Text</span>
-              </a>
-              <a
-                href={`mailto:${appointment.client.email}`}
-                className="flex items-center gap-3 px-4 py-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-              >
-                <span>✉️</span>
-                <span className="text-gray-700">Email</span>
-              </a>
+              {appointment.client?.phone && (
+                <>
+                  <a
+                    href={`tel:${appointment.client.phone}`}
+                    className="flex items-center gap-3 px-4 py-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    <span>📞</span>
+                    <span className="text-gray-700">Call</span>
+                  </a>
+                  <a
+                    href={`sms:${appointment.client.phone}`}
+                    className="flex items-center gap-3 px-4 py-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                  >
+                    <span>💬</span>
+                    <span className="text-gray-700">Text</span>
+                  </a>
+                </>
+              )}
+              {appointment.client?.email && (
+                <a
+                  href={`mailto:${appointment.client.email}`}
+                  className="flex items-center gap-3 px-4 py-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                >
+                  <span>✉️</span>
+                  <span className="text-gray-700">Email</span>
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -383,9 +395,10 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
               </button>
               <button
                 onClick={handleCancel}
-                className="px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 transition-colors"
+                disabled={saving}
+                className="px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 transition-colors disabled:opacity-50"
               >
-                Cancel Appointment
+                {saving ? 'Cancelling...' : 'Cancel Appointment'}
               </button>
             </div>
           </div>

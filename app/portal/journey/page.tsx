@@ -2,11 +2,12 @@
 
 // ============================================================
 // TREATMENT JOURNEY TRACKER
-// Track progress over time with photos and notes
+// Track progress over time - Connected to Live Data
 // ============================================================
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
 
 interface TreatmentEntry {
   id: string;
@@ -15,282 +16,212 @@ interface TreatmentEntry {
   treatment?: string;
   provider?: string;
   notes?: string;
-  photoUrl?: string;
-  measurements?: { label: string; value: string }[];
 }
 
-// Mock data
-const MOCK_JOURNEY: TreatmentEntry[] = [
-  {
-    id: '1',
-    date: '2026-01-15',
-    type: 'treatment',
-    treatment: 'Botox - Full Face',
-    provider: 'Ryan Kent, APRN',
-    notes: '40 units total: 20 forehead, 12 glabella, 8 crow\'s feet',
-  },
-  {
-    id: '2',
-    date: '2026-01-15',
-    type: 'photo',
-    photoUrl: '/placeholder.jpg',
-    notes: 'Before treatment photo',
-  },
-  {
-    id: '3',
-    date: '2025-12-01',
-    type: 'treatment',
-    treatment: 'HydraFacial Signature',
-    provider: 'Danielle Glazier-Alcala',
-    notes: 'Added LED therapy. Skin is responding well.',
-  },
-  {
-    id: '4',
-    date: '2025-11-15',
-    type: 'note',
-    notes: 'Starting weight loss program with Semaglutide. Goal: 25 lbs in 6 months.',
-  },
-  {
-    id: '5',
-    date: '2025-11-15',
-    type: 'measurement',
-    measurements: [
-      { label: 'Weight', value: '185 lbs' },
-      { label: 'Waist', value: '36 inches' },
-    ],
-  },
-  {
-    id: '6',
-    date: '2025-10-20',
-    type: 'treatment',
-    treatment: 'Lip Filler - Juvederm',
-    provider: 'Ryan Kent, APRN',
-    notes: '1 syringe for subtle enhancement',
-  },
-];
-
-const MOCK_GOALS = [
-  { id: 'g1', title: 'Maintain smooth forehead', status: 'active', nextAction: 'Botox touch-up', dueDate: '2026-04-15' },
-  { id: 'g2', title: 'Lose 25 lbs', status: 'in_progress', progress: 40, nextAction: 'Weekly check-in', dueDate: '2026-05-15' },
-  { id: 'g3', title: 'Clear skin routine', status: 'active', nextAction: 'Monthly HydraFacial', dueDate: '2026-02-01' },
-];
+// Skeleton component
+function Skeleton({ className = '' }: { className?: string }) {
+  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+}
 
 export default function JourneyPage() {
-  const [journey] = useState(MOCK_JOURNEY);
-  const [goals] = useState(MOCK_GOALS);
-  const [activeTab, setActiveTab] = useState<'timeline' | 'photos' | 'goals'>('timeline');
+  const [entries, setEntries] = useState<TreatmentEntry[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const photos = useMemo(() => journey.filter(e => e.type === 'photo'), [journey]);
+  // Fetch journey data from appointments
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!isSupabaseConfigured()) {
+        setLoading(false);
+        return;
+      }
 
-  const typeIcons: Record<string, string> = {
-    treatment: '💉',
-    photo: '📸',
-    note: '📝',
-    measurement: '📊',
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        
+        if (user) {
+          const { data: client } = await supabase
+            .from('clients')
+            .select('id')
+            .eq('user_id', user.id)
+            .single();
+
+          if (client) {
+            // Fetch completed appointments as journey entries
+            const { data: appointments } = await supabase
+              .from('appointments')
+              .select('*, service:services(name), provider:staff(first_name, last_name)')
+              .eq('client_id', client.id)
+              .eq('status', 'completed')
+              .order('scheduled_at', { ascending: false });
+
+            if (appointments) {
+              setEntries(appointments.map((apt: any) => ({
+                id: apt.id,
+                date: apt.scheduled_at,
+                type: 'treatment' as const,
+                treatment: apt.service?.name,
+                provider: `${apt.provider?.first_name || ''} ${apt.provider?.last_name || ''}`.trim(),
+                notes: apt.notes,
+              })));
+            }
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching journey data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const formatDate = (isoString: string) => {
+    return new Date(isoString).toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
   };
 
-  const typeColors: Record<string, string> = {
-    treatment: 'bg-pink-100 border-pink-500',
-    photo: 'bg-blue-100 border-blue-500',
-    note: 'bg-yellow-100 border-yellow-500',
-    measurement: 'bg-green-100 border-green-500',
+  const getTypeIcon = (type: string) => {
+    switch (type) {
+      case 'treatment': return '💉';
+      case 'photo': return '📷';
+      case 'note': return '📝';
+      case 'measurement': return '📏';
+      default: return '📋';
+    }
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="mb-8">
-        <Link href="/portal" className="text-sm text-gray-500 hover:text-gray-700 mb-2 inline-block">
-          ← Back to Portal
-        </Link>
-        <h1 className="text-2xl font-bold text-gray-900">My Treatment Journey</h1>
-        <p className="text-gray-500">Track your progress and see how far you've come</p>
-      </div>
-
-      {/* Stats Summary */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="bg-white rounded-xl border border-gray-100 p-4 text-center">
-          <p className="text-2xl font-bold text-pink-500">{journey.filter(e => e.type === 'treatment').length}</p>
-          <p className="text-sm text-gray-500">Treatments</p>
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-900">My Treatment Journey</h1>
+          <p className="text-gray-500">Track your progress over time</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-4 text-center">
-          <p className="text-2xl font-bold text-blue-500">{photos.length}</p>
-          <p className="text-sm text-gray-500">Progress Photos</p>
-        </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-4 text-center">
-          <p className="text-2xl font-bold text-green-500">{goals.length}</p>
-          <p className="text-sm text-gray-500">Active Goals</p>
-        </div>
-      </div>
-
-      {/* Tabs */}
-      <div className="flex gap-2 mb-6">
-        <button
-          onClick={() => setActiveTab('timeline')}
-          className={`flex-1 py-3 rounded-lg font-medium ${
-            activeTab === 'timeline' ? 'bg-pink-500 text-white' : 'bg-gray-100 text-gray-700'
-          }`}
-        >
-          Timeline
-        </button>
-        <button
-          onClick={() => setActiveTab('photos')}
-          className={`flex-1 py-3 rounded-lg font-medium ${
-            activeTab === 'photos' ? 'bg-pink-500 text-white' : 'bg-gray-100 text-gray-700'
-          }`}
-        >
-          Photos
-        </button>
-        <button
-          onClick={() => setActiveTab('goals')}
-          className={`flex-1 py-3 rounded-lg font-medium ${
-            activeTab === 'goals' ? 'bg-pink-500 text-white' : 'bg-gray-100 text-gray-700'
-          }`}
-        >
-          Goals
+        <button className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors">
+          + Add Note
         </button>
       </div>
 
-      {/* Timeline View */}
-      {activeTab === 'timeline' && (
-        <div className="relative">
-          {/* Timeline line */}
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-200" />
+      {/* Info Card */}
+      <div className="bg-gradient-to-r from-purple-500 to-indigo-600 rounded-2xl p-6 text-white">
+        <div className="flex items-center gap-4">
+          <span className="text-4xl">✨</span>
+          <div>
+            <h2 className="text-xl font-bold">Your Beauty Journey</h2>
+            <p className="text-purple-100">
+              Track treatments, add progress photos, and see how far you've come!
+            </p>
+          </div>
+        </div>
+      </div>
 
-          <div className="space-y-6">
-            {journey.map((entry, index) => (
-              <div key={entry.id} className="relative flex gap-4">
-                {/* Timeline dot */}
-                <div className={`w-16 h-16 rounded-full flex items-center justify-center text-2xl border-4 ${typeColors[entry.type]} bg-white z-10`}>
-                  {typeIcons[entry.type]}
-                </div>
+      {/* Timeline */}
+      <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+        <div className="px-6 py-4 border-b border-gray-100">
+          <h3 className="font-semibold text-gray-900">Treatment Timeline</h3>
+        </div>
 
-                {/* Content */}
-                <div className="flex-1 bg-white rounded-xl border border-gray-100 p-4">
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      {entry.treatment && (
-                        <h3 className="font-semibold text-gray-900">{entry.treatment}</h3>
-                      )}
-                      {entry.provider && (
-                        <p className="text-sm text-gray-500">with {entry.provider}</p>
-                      )}
-                    </div>
-                    <span className="text-sm text-gray-400">
-                      {new Date(entry.date).toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric',
-                      })}
-                    </span>
-                  </div>
-
-                  {entry.notes && (
-                    <p className="text-gray-600 text-sm">{entry.notes}</p>
-                  )}
-
-                  {entry.measurements && (
-                    <div className="flex gap-4 mt-2">
-                      {entry.measurements.map((m, i) => (
-                        <div key={i} className="bg-gray-50 rounded px-3 py-1">
-                          <span className="text-gray-500 text-sm">{m.label}:</span>{' '}
-                          <span className="font-medium text-gray-900">{m.value}</span>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-
-                  {entry.photoUrl && (
-                    <div className="mt-3 w-32 h-32 bg-gradient-to-br from-pink-100 to-purple-100 rounded-lg flex items-center justify-center">
-                      <span className="text-3xl">📸</span>
-                    </div>
-                  )}
+        {loading ? (
+          <div className="p-6 space-y-4">
+            {[1, 2, 3, 4].map(i => (
+              <div key={i} className="flex gap-4">
+                <Skeleton className="w-12 h-12 rounded-full flex-shrink-0" />
+                <div className="flex-1">
+                  <Skeleton className="h-5 w-48 mb-2" />
+                  <Skeleton className="h-4 w-32" />
                 </div>
               </div>
             ))}
           </div>
-        </div>
-      )}
+        ) : entries.length === 0 ? (
+          <div className="p-12 text-center">
+            <span className="text-5xl block mb-4">🌟</span>
+            <h3 className="font-semibold text-gray-900 mb-2">Start Your Journey</h3>
+            <p className="text-gray-500 mb-4">
+              Your treatment history will appear here after your first appointment.
+            </p>
+            <Link
+              href="/portal/book"
+              className="inline-flex items-center gap-2 bg-pink-500 text-white px-6 py-2.5 rounded-full font-medium hover:bg-pink-600 transition-colors"
+            >
+              Book Your First Treatment
+            </Link>
+          </div>
+        ) : (
+          <div className="relative">
+            {/* Timeline line */}
+            <div className="absolute left-10 top-0 bottom-0 w-0.5 bg-gray-200" />
 
-      {/* Photos View */}
-      {activeTab === 'photos' && (
-        <div>
-          {photos.length === 0 ? (
-            <div className="text-center py-12 bg-white rounded-xl border border-gray-100">
-              <span className="text-5xl mb-4 block">📸</span>
-              <p className="text-gray-500 mb-4">No progress photos yet</p>
-              <p className="text-sm text-gray-400">
-                Ask your provider to take before/after photos at your next visit
-              </p>
-            </div>
-          ) : (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {photos.map((photo) => (
-                <div key={photo.id} className="aspect-square bg-gradient-to-br from-pink-100 to-purple-100 rounded-xl flex items-center justify-center">
-                  <div className="text-center">
-                    <span className="text-4xl mb-2 block">📸</span>
-                    <p className="text-sm text-pink-700">{new Date(photo.date).toLocaleDateString()}</p>
+            <div className="divide-y divide-gray-100">
+              {entries.map((entry, index) => (
+                <div key={entry.id} className="relative px-6 py-4 flex gap-4">
+                  {/* Icon */}
+                  <div className="relative z-10 w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-xl flex-shrink-0">
+                    {getTypeIcon(entry.type)}
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <h4 className="font-semibold text-gray-900">{entry.treatment || 'Entry'}</h4>
+                        <p className="text-sm text-gray-500">
+                          {entry.provider && `${entry.provider} • `}
+                          {formatDate(entry.date)}
+                        </p>
+                        {entry.notes && (
+                          <p className="text-sm text-gray-600 mt-2">{entry.notes}</p>
+                        )}
+                      </div>
+                      <span className={`px-2 py-1 text-xs rounded-full capitalize ${
+                        entry.type === 'treatment' ? 'bg-pink-100 text-pink-700' :
+                        entry.type === 'photo' ? 'bg-blue-100 text-blue-700' :
+                        entry.type === 'note' ? 'bg-purple-100 text-purple-700' :
+                        'bg-gray-100 text-gray-600'
+                      }`}>
+                        {entry.type}
+                      </span>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
-          )}
-        </div>
-      )}
+          </div>
+        )}
+      </div>
 
-      {/* Goals View */}
-      {activeTab === 'goals' && (
-        <div className="space-y-4">
-          {goals.map((goal) => (
-            <div key={goal.id} className="bg-white rounded-xl border border-gray-100 p-6">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h3 className="font-semibold text-gray-900">{goal.title}</h3>
-                  <p className="text-sm text-gray-500">Next: {goal.nextAction}</p>
-                </div>
-                <span className={`px-3 py-1 rounded-full text-xs font-medium ${
-                  goal.status === 'in_progress' ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'
-                }`}>
-                  {goal.status === 'in_progress' ? 'In Progress' : 'Active'}
-                </span>
-              </div>
-
-              {goal.progress !== undefined && (
-                <div className="mb-3">
-                  <div className="flex justify-between text-sm mb-1">
-                    <span className="text-gray-600">Progress</span>
-                    <span className="font-medium text-gray-900">{goal.progress}%</span>
-                  </div>
-                  <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-gradient-to-r from-pink-500 to-purple-500 rounded-full"
-                      style={{ width: `${goal.progress}%` }}
-                    />
-                  </div>
-                </div>
-              )}
-
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-500">
-                  Due: {new Date(goal.dueDate).toLocaleDateString()}
-                </span>
-                <Link href="/book" className="text-pink-500 hover:text-pink-600 font-medium">
-                  Book Treatment →
-                </Link>
-              </div>
+      {/* Features Coming Soon */}
+      <div className="bg-gray-50 rounded-2xl p-6">
+        <h3 className="font-semibold text-gray-900 mb-4">Coming Soon</h3>
+        <div className="grid md:grid-cols-3 gap-4">
+          <div className="flex gap-3">
+            <span className="text-2xl">📷</span>
+            <div>
+              <p className="font-medium text-gray-900">Progress Photos</p>
+              <p className="text-sm text-gray-500">Upload before/after photos</p>
             </div>
-          ))}
-
-          <button className="w-full py-4 border-2 border-dashed border-gray-200 rounded-xl text-gray-500 hover:border-pink-500 hover:text-pink-500 transition-colors">
-            + Add New Goal
-          </button>
+          </div>
+          <div className="flex gap-3">
+            <span className="text-2xl">📏</span>
+            <div>
+              <p className="font-medium text-gray-900">Measurements</p>
+              <p className="text-sm text-gray-500">Track weight loss journey</p>
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <span className="text-2xl">🎯</span>
+            <div>
+              <p className="font-medium text-gray-900">Goals</p>
+              <p className="text-sm text-gray-500">Set and track beauty goals</p>
+            </div>
+          </div>
         </div>
-      )}
-
-      {/* Add Entry Button */}
-      <div className="fixed bottom-24 right-6 lg:bottom-6">
-        <button className="w-14 h-14 bg-pink-500 text-white rounded-full shadow-lg flex items-center justify-center text-2xl hover:bg-pink-600">
-          +
-        </button>
       </div>
     </div>
   );

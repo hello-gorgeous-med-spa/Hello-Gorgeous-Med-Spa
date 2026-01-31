@@ -2,84 +2,36 @@
 
 // ============================================================
 // MEMBERSHIP MANAGEMENT PAGE
-// Admin view for managing member subscriptions
+// Admin view for managing member subscriptions - Connected to Live Data
 // ============================================================
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
 
 interface Membership {
   id: string;
-  clientId: string;
-  clientName: string;
-  clientEmail: string;
-  planId: string;
-  planName: string;
+  client_id: string;
+  client?: { first_name: string; last_name: string; email: string };
+  plan_name: string;
   status: 'active' | 'cancelled' | 'past_due' | 'paused';
-  pricePerMonth: number;
-  startDate: string;
-  nextBillingDate: string;
-  stripeSubscriptionId?: string;
+  price_per_month: number;
+  start_date: string;
+  next_billing_date: string;
   benefits: string[];
-  totalSpent: number;
-  monthsActive: number;
 }
 
-// Mock data
-const MOCK_MEMBERSHIPS: Membership[] = [
-  {
-    id: 'm1',
-    clientId: 'c1',
-    clientName: 'Jennifer Martinez',
-    clientEmail: 'jennifer@email.com',
-    planId: 'vip-annual',
-    planName: 'VIP Annual',
-    status: 'active',
-    pricePerMonth: 99,
-    startDate: '2025-06-15',
-    nextBillingDate: '2026-02-15',
-    benefits: ['10% off all services', 'Free vitamin injection monthly', 'Priority booking', 'Birthday gift'],
-    totalSpent: 891,
-    monthsActive: 9,
-  },
-  {
-    id: 'm2',
-    clientId: 'c2',
-    clientName: 'Sarah Johnson',
-    clientEmail: 'sarah@email.com',
-    planId: 'glow-monthly',
-    planName: 'Glow Monthly',
-    status: 'active',
-    pricePerMonth: 149,
-    startDate: '2025-11-01',
-    nextBillingDate: '2026-02-01',
-    benefits: ['$150 treatment credit', '15% off products', 'Free facial monthly'],
-    totalSpent: 447,
-    monthsActive: 3,
-  },
-  {
-    id: 'm3',
-    clientId: 'c3',
-    clientName: 'Michelle Williams',
-    clientEmail: 'michelle@email.com',
-    planId: 'vip-annual',
-    planName: 'VIP Annual',
-    status: 'past_due',
-    pricePerMonth: 99,
-    startDate: '2025-08-01',
-    nextBillingDate: '2026-01-01',
-    benefits: ['10% off all services', 'Free vitamin injection monthly', 'Priority booking', 'Birthday gift'],
-    totalSpent: 495,
-    monthsActive: 5,
-  },
-];
+// Skeleton component
+function Skeleton({ className = '' }: { className?: string }) {
+  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+}
 
 const MEMBERSHIP_PLANS = [
   {
     id: 'vip-annual',
     name: 'VIP Annual',
-    price: 99,
-    billingCycle: 'monthly',
+    price: 299,
+    billingCycle: 'yearly',
     commitment: '12 months',
     benefits: [
       '10% off all services',
@@ -116,9 +68,9 @@ const MEMBERSHIP_PLANS = [
 ];
 
 export default function MembershipManagePage() {
-  const [memberships, setMemberships] = useState(MOCK_MEMBERSHIPS);
+  const [memberships, setMemberships] = useState<Membership[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedMembership, setSelectedMembership] = useState<Membership | null>(null);
-  const [showAddModal, setShowAddModal] = useState(false);
 
   const statusColors: Record<string, string> = {
     active: 'bg-green-100 text-green-700',
@@ -127,9 +79,39 @@ export default function MembershipManagePage() {
     paused: 'bg-amber-100 text-amber-700',
   };
 
+  // Fetch memberships from database
+  useEffect(() => {
+    const fetchMemberships = async () => {
+      if (!isSupabaseConfigured()) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const { data, error } = await supabase
+          .from('memberships')
+          .select(`
+            *,
+            client:clients(first_name, last_name, email)
+          `)
+          .order('created_at', { ascending: false });
+
+        if (!error && data) {
+          setMemberships(data);
+        }
+      } catch (err) {
+        console.error('Error fetching memberships:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMemberships();
+  }, []);
+
   // Stats
   const totalActive = memberships.filter(m => m.status === 'active').length;
-  const totalMRR = memberships.filter(m => m.status === 'active').reduce((sum, m) => sum + m.pricePerMonth, 0);
+  const totalMRR = memberships.filter(m => m.status === 'active').reduce((sum, m) => sum + (m.price_per_month || 0), 0);
   const pastDue = memberships.filter(m => m.status === 'past_due').length;
 
   return (
@@ -143,33 +125,51 @@ export default function MembershipManagePage() {
           <h1 className="text-2xl font-bold text-gray-900">Membership Management</h1>
           <p className="text-gray-500">Manage active subscriptions and member benefits</p>
         </div>
-        <button
-          onClick={() => setShowAddModal(true)}
-          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
-        >
+        <button className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600">
           + Add Member
         </button>
       </div>
+
+      {/* Connection Status */}
+      {!isSupabaseConfigured() && (
+        <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
+          Demo Mode - Connect Supabase to manage memberships
+        </div>
+      )}
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">Active Members</p>
-          <p className="text-2xl font-bold text-green-600">{totalActive}</p>
+          {loading ? (
+            <Skeleton className="h-8 w-16 mt-1" />
+          ) : (
+            <p className="text-2xl font-bold text-green-600">{totalActive}</p>
+          )}
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">Monthly Revenue (MRR)</p>
-          <p className="text-2xl font-bold text-gray-900">${totalMRR.toLocaleString()}</p>
+          {loading ? (
+            <Skeleton className="h-8 w-24 mt-1" />
+          ) : (
+            <p className="text-2xl font-bold text-gray-900">${totalMRR.toLocaleString()}</p>
+          )}
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">Past Due</p>
-          <p className={`text-2xl font-bold ${pastDue > 0 ? 'text-red-600' : 'text-gray-900'}`}>{pastDue}</p>
+          {loading ? (
+            <Skeleton className="h-8 w-16 mt-1" />
+          ) : (
+            <p className={`text-2xl font-bold ${pastDue > 0 ? 'text-red-600' : 'text-gray-900'}`}>{pastDue}</p>
+          )}
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Avg Lifetime Value</p>
-          <p className="text-2xl font-bold text-gray-900">
-            ${Math.round(memberships.reduce((sum, m) => sum + m.totalSpent, 0) / memberships.length).toLocaleString()}
-          </p>
+          <p className="text-sm text-gray-500">Total Members</p>
+          {loading ? (
+            <Skeleton className="h-8 w-16 mt-1" />
+          ) : (
+            <p className="text-2xl font-bold text-gray-900">{memberships.length}</p>
+          )}
         </div>
       </div>
 
@@ -184,59 +184,78 @@ export default function MembershipManagePage() {
                 <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Status</th>
                 <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Price</th>
                 <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Next Billing</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Months</th>
                 <th className="px-5 py-3"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {memberships.map((membership) => (
-                <tr key={membership.id} className="hover:bg-gray-50">
-                  <td className="px-5 py-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-semibold text-sm">
-                        {membership.clientName.split(' ').map(n => n[0]).join('')}
-                      </div>
-                      <div>
-                        <Link
-                          href={`/admin/clients/${membership.clientId}`}
-                          className="font-medium text-gray-900 hover:text-pink-600"
-                        >
-                          {membership.clientName}
-                        </Link>
-                        <p className="text-sm text-gray-500">{membership.clientEmail}</p>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="px-5 py-4">
-                    <p className="font-medium text-gray-900">{membership.planName}</p>
-                    <p className="text-xs text-gray-500">Since {new Date(membership.startDate).toLocaleDateString()}</p>
-                  </td>
-                  <td className="px-5 py-4">
-                    <span className={`px-2 py-1 text-xs font-medium rounded-full ${statusColors[membership.status]}`}>
-                      {membership.status.replace('_', ' ')}
-                    </span>
-                  </td>
-                  <td className="px-5 py-4">
-                    <span className="font-medium text-gray-900">${membership.pricePerMonth}/mo</span>
-                  </td>
-                  <td className="px-5 py-4">
-                    <span className="text-gray-600">
-                      {new Date(membership.nextBillingDate).toLocaleDateString()}
-                    </span>
-                  </td>
-                  <td className="px-5 py-4">
-                    <span className="text-gray-900">{membership.monthsActive}</span>
-                  </td>
-                  <td className="px-5 py-4">
-                    <button
-                      onClick={() => setSelectedMembership(membership)}
-                      className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg"
-                    >
-                      Manage
-                    </button>
+              {loading ? (
+                Array.from({ length: 5 }).map((_, i) => (
+                  <tr key={i}>
+                    <td className="px-5 py-4"><Skeleton className="w-32 h-4" /></td>
+                    <td className="px-5 py-4"><Skeleton className="w-24 h-4" /></td>
+                    <td className="px-5 py-4"><Skeleton className="w-20 h-6 rounded-full" /></td>
+                    <td className="px-5 py-4"><Skeleton className="w-16 h-4" /></td>
+                    <td className="px-5 py-4"><Skeleton className="w-24 h-4" /></td>
+                    <td className="px-5 py-4"><Skeleton className="w-16 h-8" /></td>
+                  </tr>
+                ))
+              ) : memberships.length === 0 ? (
+                <tr>
+                  <td colSpan={6} className="px-5 py-12 text-center text-gray-500">
+                    No memberships yet
+                    <br />
+                    <span className="text-sm">Add your first member to get started</span>
                   </td>
                 </tr>
-              ))}
+              ) : (
+                memberships.map((membership) => (
+                  <tr key={membership.id} className="hover:bg-gray-50">
+                    <td className="px-5 py-4">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-semibold text-sm">
+                          {membership.client?.first_name?.[0]}{membership.client?.last_name?.[0]}
+                        </div>
+                        <div>
+                          <Link
+                            href={`/admin/clients/${membership.client_id}`}
+                            className="font-medium text-gray-900 hover:text-pink-600"
+                          >
+                            {membership.client?.first_name} {membership.client?.last_name}
+                          </Link>
+                          <p className="text-sm text-gray-500">{membership.client?.email}</p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-5 py-4">
+                      <p className="font-medium text-gray-900">{membership.plan_name}</p>
+                      <p className="text-xs text-gray-500">
+                        Since {new Date(membership.start_date).toLocaleDateString()}
+                      </p>
+                    </td>
+                    <td className="px-5 py-4">
+                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${statusColors[membership.status] || 'bg-gray-100'}`}>
+                        {membership.status?.replace('_', ' ')}
+                      </span>
+                    </td>
+                    <td className="px-5 py-4">
+                      <span className="font-medium text-gray-900">${membership.price_per_month}/mo</span>
+                    </td>
+                    <td className="px-5 py-4">
+                      <span className="text-gray-600">
+                        {membership.next_billing_date ? new Date(membership.next_billing_date).toLocaleDateString() : '-'}
+                      </span>
+                    </td>
+                    <td className="px-5 py-4">
+                      <button
+                        onClick={() => setSelectedMembership(membership)}
+                        className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg"
+                      >
+                        Manage
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
@@ -250,7 +269,7 @@ export default function MembershipManagePage() {
             <div key={plan.id} className="border border-gray-200 rounded-lg p-4">
               <h3 className="font-semibold text-gray-900">{plan.name}</h3>
               <p className="text-2xl font-bold text-pink-500 mt-1">
-                ${plan.price}<span className="text-sm text-gray-500 font-normal">/mo</span>
+                ${plan.price}<span className="text-sm text-gray-500 font-normal">/{plan.billingCycle}</span>
               </p>
               <p className="text-xs text-gray-500 mb-3">{plan.commitment}</p>
               <ul className="text-sm text-gray-600 space-y-1">
@@ -271,48 +290,35 @@ export default function MembershipManagePage() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-lg w-full">
             <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">{selectedMembership.clientName}</h2>
-              <p className="text-gray-500">{selectedMembership.planName}</p>
+              <h2 className="text-xl font-bold text-gray-900">
+                {selectedMembership.client?.first_name} {selectedMembership.client?.last_name}
+              </h2>
+              <p className="text-gray-500">{selectedMembership.plan_name}</p>
             </div>
             <div className="p-6 space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-gray-500">Status</p>
-                  <span className={`px-2 py-1 text-xs font-medium rounded-full ${statusColors[selectedMembership.status]}`}>
-                    {selectedMembership.status.replace('_', ' ')}
+                  <span className={`px-2 py-1 text-xs font-medium rounded-full ${statusColors[selectedMembership.status] || 'bg-gray-100'}`}>
+                    {selectedMembership.status?.replace('_', ' ')}
                   </span>
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Monthly Price</p>
-                  <p className="font-semibold text-gray-900">${selectedMembership.pricePerMonth}</p>
+                  <p className="font-semibold text-gray-900">${selectedMembership.price_per_month}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Member Since</p>
-                  <p className="font-medium text-gray-900">{new Date(selectedMembership.startDate).toLocaleDateString()}</p>
+                  <p className="font-medium text-gray-900">
+                    {selectedMembership.start_date ? new Date(selectedMembership.start_date).toLocaleDateString() : '-'}
+                  </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Next Billing</p>
-                  <p className="font-medium text-gray-900">{new Date(selectedMembership.nextBillingDate).toLocaleDateString()}</p>
+                  <p className="font-medium text-gray-900">
+                    {selectedMembership.next_billing_date ? new Date(selectedMembership.next_billing_date).toLocaleDateString() : '-'}
+                  </p>
                 </div>
-                <div>
-                  <p className="text-sm text-gray-500">Total Spent</p>
-                  <p className="font-semibold text-green-600">${selectedMembership.totalSpent.toLocaleString()}</p>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500">Months Active</p>
-                  <p className="font-medium text-gray-900">{selectedMembership.monthsActive}</p>
-                </div>
-              </div>
-
-              <div>
-                <p className="text-sm text-gray-500 mb-2">Benefits</p>
-                <ul className="text-sm text-gray-700 space-y-1">
-                  {selectedMembership.benefits.map((benefit, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <span className="text-green-500">✓</span> {benefit}
-                    </li>
-                  ))}
-                </ul>
               </div>
             </div>
             <div className="p-6 border-t border-gray-100 space-y-2">

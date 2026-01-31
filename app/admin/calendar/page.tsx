@@ -9,7 +9,7 @@ import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import { useAppointments, useProviders, useServices } from '@/lib/supabase/hooks';
 import { isSupabaseConfigured } from '@/lib/supabase/client';
-import type { AppointmentWithRelations, Staff } from '@/lib/supabase/types';
+import type { AppointmentWithRelations } from '@/lib/supabase/types';
 
 // Generate time slots (9 AM to 6:30 PM)
 const TIME_SLOTS = Array.from({ length: 20 }, (_, i) => {

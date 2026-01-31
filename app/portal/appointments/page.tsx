@@ -2,10 +2,10 @@
 
 // ============================================================
 // CLIENT PORTAL - MY APPOINTMENTS
-// View and manage upcoming appointments with policy enforcement
+// View and manage upcoming appointments - Connected to Live Data
 // ============================================================
 
-import { useState, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { 
   canCancelAppointment, 
@@ -13,6 +13,7 @@ import {
   formatCancellationPolicyForClient,
   DEFAULT_CANCELLATION_POLICY,
 } from '@/lib/hgos/policies';
+import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
 
 interface Appointment {
   id: string;
@@ -26,50 +27,10 @@ interface Appointment {
   price: number;
 }
 
-// Mock data - connected to Supabase in production
-const MOCK_APPOINTMENTS: Appointment[] = [
-  {
-    id: '1',
-    service: 'Botox - Full Face',
-    provider: 'Ryan Kent, RN',
-    date: '2026-02-05',
-    time: '10:00 AM',
-    datetime: new Date('2026-02-05T10:00:00'),
-    status: 'confirmed',
-    location: 'Hello Gorgeous Med Spa',
-    price: 450,
-  },
-  {
-    id: '2',
-    service: 'Lip Filler Touch-Up',
-    provider: 'Ryan Kent, RN',
-    date: '2026-02-15',
-    time: '2:30 PM',
-    datetime: new Date('2026-02-15T14:30:00'),
-    status: 'pending',
-    location: 'Hello Gorgeous Med Spa',
-    price: 650,
-  },
-];
-
-const PAST_APPOINTMENTS = [
-  {
-    id: '3',
-    service: 'Botox - Forehead',
-    provider: 'Ryan Kent, RN',
-    date: '2026-01-10',
-    time: '11:00 AM',
-    status: 'completed',
-  },
-  {
-    id: '4',
-    service: 'Initial Consultation',
-    provider: 'Danielle Glazier-Alcala',
-    date: '2025-12-15',
-    time: '9:00 AM',
-    status: 'completed',
-  },
-];
+// Skeleton component
+function Skeleton({ className = '' }: { className?: string }) {
+  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+}
 
 export default function PortalAppointmentsPage() {
   const [activeTab, setActiveTab] = useState<'upcoming' | 'past'>('upcoming');
@@ -78,15 +39,93 @@ export default function PortalAppointmentsPage() {
   const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null);
   const [cancelReason, setCancelReason] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  
+  // Data states
+  const [upcomingAppointments, setUpcomingAppointments] = useState<Appointment[]>([]);
+  const [pastAppointments, setPastAppointments] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch appointments from database
+  useEffect(() => {
+    const fetchAppointments = async () => {
+      if (!isSupabaseConfigured()) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const { data: { user } } = await supabase.auth.getUser();
+        
+        if (user) {
+          // Get client ID
+          const { data: client } = await supabase
+            .from('clients')
+            .select('id')
+            .eq('user_id', user.id)
+            .single();
+
+          if (client) {
+            const now = new Date().toISOString();
+
+            // Fetch upcoming appointments
+            const { data: upcoming } = await supabase
+              .from('appointments')
+              .select('*, service:services(name, price), provider:staff(first_name, last_name)')
+              .eq('client_id', client.id)
+              .gte('scheduled_at', now)
+              .neq('status', 'cancelled')
+              .order('scheduled_at', { ascending: true });
+
+            // Fetch past appointments
+            const { data: past } = await supabase
+              .from('appointments')
+              .select('*, service:services(name), provider:staff(first_name, last_name)')
+              .eq('client_id', client.id)
+              .lt('scheduled_at', now)
+              .order('scheduled_at', { ascending: false })
+              .limit(10);
+
+            // Transform data
+            setUpcomingAppointments((upcoming || []).map(apt => ({
+              id: apt.id,
+              service: apt.service?.name || 'Service',
+              provider: `${apt.provider?.first_name || ''} ${apt.provider?.last_name || ''}`.trim(),
+              date: new Date(apt.scheduled_at).toISOString().split('T')[0],
+              time: new Date(apt.scheduled_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }),
+              datetime: new Date(apt.scheduled_at),
+              status: apt.status,
+              location: 'Hello Gorgeous Med Spa',
+              price: apt.service?.price || 0,
+            })));
+
+            setPastAppointments((past || []).map(apt => ({
+              id: apt.id,
+              service: apt.service?.name || 'Service',
+              provider: `${apt.provider?.first_name || ''} ${apt.provider?.last_name || ''}`.trim(),
+              date: new Date(apt.scheduled_at).toISOString().split('T')[0],
+              time: new Date(apt.scheduled_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }),
+              status: apt.status,
+            })));
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching appointments:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchAppointments();
+  }, []);
 
   // Calculate cancellation/reschedule status for each appointment
   const appointmentsWithStatus = useMemo(() => {
-    return MOCK_APPOINTMENTS.map(apt => ({
+    return upcomingAppointments.map(apt => ({
       ...apt,
       cancelStatus: canCancelAppointment(apt.datetime, DEFAULT_CANCELLATION_POLICY),
       rescheduleStatus: canRescheduleAppointment(apt.datetime, DEFAULT_CANCELLATION_POLICY),
     }));
-  }, []);
+  }, [upcomingAppointments]);
 
   const handleCancelClick = (apt: Appointment) => {
     setSelectedAppointment(apt);
@@ -98,232 +137,242 @@ export default function PortalAppointmentsPage() {
     setShowRescheduleModal(true);
   };
 
-  const handleConfirmCancel = async () => {
-    if (!selectedAppointment) return;
-    
+  const confirmCancel = async () => {
+    if (!selectedAppointment || !isSupabaseConfigured()) return;
     setIsProcessing(true);
-    
-    // TODO: Call API to cancel appointment
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    setIsProcessing(false);
-    setShowCancelModal(false);
-    setSelectedAppointment(null);
-    setCancelReason('');
-    
-    // Show success message
-    alert('Your appointment has been cancelled. You will receive a confirmation email shortly.');
+
+    try {
+      await supabase
+        .from('appointments')
+        .update({ status: 'cancelled', cancellation_reason: cancelReason })
+        .eq('id', selectedAppointment.id);
+
+      // Remove from list
+      setUpcomingAppointments(prev => prev.filter(a => a.id !== selectedAppointment.id));
+      setShowCancelModal(false);
+      setSelectedAppointment(null);
+      setCancelReason('');
+    } catch (err) {
+      console.error('Error cancelling appointment:', err);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const formatDate = (dateStr: string) => {
+    return new Date(dateStr).toLocaleDateString('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+    });
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="flex items-center justify-between mb-8">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">My Appointments</h1>
-          <p className="text-gray-500">View and manage your bookings</p>
-        </div>
-        <Link
-          href="/book"
-          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
-        >
-          + Book New
-        </Link>
+    <div className="space-y-6">
+      {/* Header */}
+      <div>
+        <h1 className="text-2xl font-bold text-gray-900">My Appointments</h1>
+        <p className="text-gray-500">View and manage your upcoming treatments</p>
       </div>
 
-      {/* Cancellation Policy Notice */}
-      <div className="mb-6 p-4 bg-gray-50 rounded-xl border border-gray-100">
-        <h3 className="font-medium text-gray-900 mb-2">📋 Cancellation Policy</h3>
-        <p className="text-sm text-gray-600">
-          {formatCancellationPolicyForClient(DEFAULT_CANCELLATION_POLICY)}
-        </p>
+      {/* Policy Notice */}
+      <div className="bg-pink-50 border border-pink-200 rounded-xl p-4">
+        <h3 className="font-semibold text-pink-900 mb-2">📋 Cancellation Policy</h3>
+        <p className="text-sm text-pink-800">{formatCancellationPolicyForClient(DEFAULT_CANCELLATION_POLICY)}</p>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-2 mb-6">
+      <div className="flex gap-2">
         <button
           onClick={() => setActiveTab('upcoming')}
-          className={`px-4 py-2 rounded-lg font-medium ${
+          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
             activeTab === 'upcoming'
               ? 'bg-pink-500 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
           }`}
         >
-          Upcoming ({MOCK_APPOINTMENTS.length})
+          Upcoming ({upcomingAppointments.length})
         </button>
         <button
           onClick={() => setActiveTab('past')}
-          className={`px-4 py-2 rounded-lg font-medium ${
+          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
             activeTab === 'past'
               ? 'bg-pink-500 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
           }`}
         >
-          Past ({PAST_APPOINTMENTS.length})
+          Past ({pastAppointments.length})
         </button>
       </div>
 
-      {/* Appointments List */}
-      <div className="space-y-4">
-        {activeTab === 'upcoming' ? (
-          appointmentsWithStatus.length > 0 ? (
+      {/* Upcoming Appointments */}
+      {activeTab === 'upcoming' && (
+        <div className="space-y-4">
+          {loading ? (
+            Array.from({ length: 2 }).map((_, i) => (
+              <Skeleton key={i} className="h-40" />
+            ))
+          ) : appointmentsWithStatus.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
+              <span className="text-4xl mb-4 block">📅</span>
+              <h3 className="font-semibold text-gray-900 mb-2">No upcoming appointments</h3>
+              <p className="text-gray-500 mb-4">Ready for your next treatment?</p>
+              <Link
+                href="/portal/book"
+                className="inline-flex items-center gap-2 bg-pink-500 text-white px-6 py-2.5 rounded-full font-medium hover:bg-pink-600 transition-colors"
+              >
+                Book Now
+              </Link>
+            </div>
+          ) : (
             appointmentsWithStatus.map((apt) => (
               <div
                 key={apt.id}
-                className="bg-white rounded-xl border border-gray-100 p-6 hover:shadow-md transition-shadow"
+                className="bg-white rounded-2xl border border-gray-100 overflow-hidden"
               >
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="font-semibold text-gray-900 text-lg">{apt.service}</h3>
-                    <p className="text-gray-500">{apt.provider}</p>
-                    <div className="flex items-center gap-4 mt-3 text-sm">
-                      <span className="flex items-center gap-1">
-                        <span>📅</span> {new Date(apt.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <span>🕐</span> {apt.time}
-                      </span>
+                <div className="p-6">
+                  <div className="flex items-start justify-between mb-4">
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900">{apt.service}</h3>
+                      <p className="text-gray-500">{apt.provider}</p>
                     </div>
-                    <p className="text-sm text-gray-500 mt-1">📍 {apt.location}</p>
-                  </div>
-                  <div className="text-right">
-                    <span className={`px-3 py-1 text-sm font-medium rounded-full ${
-                      apt.status === 'confirmed' 
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-amber-100 text-amber-700'
+                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      apt.status === 'confirmed' ? 'bg-green-100 text-green-700' :
+                      apt.status === 'pending' ? 'bg-amber-100 text-amber-700' :
+                      'bg-gray-100 text-gray-600'
                     }`}>
                       {apt.status}
                     </span>
-                    <div className="mt-4 flex gap-2">
-                      {apt.rescheduleStatus.allowed ? (
-                        <button 
-                          onClick={() => handleRescheduleClick(apt)}
-                          className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded-lg"
-                        >
-                          Reschedule
-                        </button>
-                      ) : (
-                        <span className="px-3 py-1.5 text-sm text-gray-400" title={apt.rescheduleStatus.reason}>
-                          Reschedule
-                        </span>
-                      )}
-                      {apt.cancelStatus.allowed ? (
-                        <button 
-                          onClick={() => handleCancelClick(apt)}
-                          className={`px-3 py-1.5 text-sm rounded-lg ${
-                            apt.cancelStatus.fee > 0
-                              ? 'text-amber-600 hover:bg-amber-50'
-                              : 'text-red-600 hover:bg-red-50'
-                          }`}
-                        >
-                          Cancel {apt.cancelStatus.fee > 0 && `(${apt.cancelStatus.fee}% fee)`}
-                        </button>
-                      ) : (
-                        <span className="px-3 py-1.5 text-sm text-gray-400">
-                          Cannot Cancel
-                        </span>
-                      )}
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4 mb-4">
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-400">📅</span>
+                      <span className="text-gray-900">{formatDate(apt.date)}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-400">🕐</span>
+                      <span className="text-gray-900">{apt.time}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-400">📍</span>
+                      <span className="text-gray-900">{apt.location}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-gray-400">💰</span>
+                      <span className="text-gray-900">${apt.price}</span>
                     </div>
                   </div>
                 </div>
+
+                <div className="border-t border-gray-100 px-6 py-3 bg-gray-50 flex gap-3">
+                  <button
+                    onClick={() => handleRescheduleClick(apt)}
+                    disabled={!apt.rescheduleStatus.allowed}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      apt.rescheduleStatus.allowed
+                        ? 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-100'
+                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    }`}
+                  >
+                    Reschedule
+                  </button>
+                  <button
+                    onClick={() => handleCancelClick(apt)}
+                    disabled={!apt.cancelStatus.allowed}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      apt.cancelStatus.allowed
+                        ? 'bg-white border border-red-200 text-red-600 hover:bg-red-50'
+                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    }`}
+                  >
+                    Cancel
+                  </button>
+                  {(!apt.cancelStatus.allowed || !apt.rescheduleStatus.allowed) && (
+                    <span className="text-xs text-gray-500 self-center ml-auto">
+                      {apt.cancelStatus.reason || apt.rescheduleStatus.reason}
+                    </span>
+                  )}
+                </div>
               </div>
             ))
-          ) : (
-            <div className="text-center py-12 bg-gray-50 rounded-xl">
-              <p className="text-4xl mb-4">📅</p>
-              <p className="text-gray-500">No upcoming appointments</p>
-              <Link href="/book" className="text-pink-500 hover:underline mt-2 inline-block">
-                Book your next visit
-              </Link>
-            </div>
-          )
-        ) : (
-          PAST_APPOINTMENTS.map((apt) => (
-            <div
-              key={apt.id}
-              className="bg-white rounded-xl border border-gray-100 p-6 opacity-75"
-            >
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="font-semibold text-gray-900">{apt.service}</h3>
-                  <p className="text-gray-500 text-sm">{apt.provider}</p>
-                  <p className="text-sm text-gray-400 mt-2">
-                    {new Date(apt.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })} at {apt.time}
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="px-3 py-1 text-sm font-medium rounded-full bg-gray-100 text-gray-600">
-                    Completed
-                  </span>
-                  <Link
-                    href="/book"
-                    className="px-3 py-1.5 text-sm text-pink-600 hover:bg-pink-50 rounded-lg"
-                  >
-                    Book Again
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
+          )}
+        </div>
+      )}
 
-      {/* Cancel Appointment Modal */}
+      {/* Past Appointments */}
+      {activeTab === 'past' && (
+        <div className="space-y-4">
+          {loading ? (
+            Array.from({ length: 3 }).map((_, i) => (
+              <Skeleton key={i} className="h-20" />
+            ))
+          ) : pastAppointments.length === 0 ? (
+            <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
+              <p className="text-gray-500">No past appointments</p>
+            </div>
+          ) : (
+            pastAppointments.map((apt) => (
+              <div
+                key={apt.id}
+                className="bg-white rounded-xl border border-gray-100 p-4 flex items-center justify-between"
+              >
+                <div>
+                  <h3 className="font-medium text-gray-900">{apt.service}</h3>
+                  <p className="text-sm text-gray-500">{apt.provider} • {formatDate(apt.date)}</p>
+                </div>
+                <span className={`px-2 py-1 text-xs rounded-full ${
+                  apt.status === 'completed' ? 'bg-green-100 text-green-700' :
+                  apt.status === 'cancelled' ? 'bg-red-100 text-red-700' :
+                  'bg-gray-100 text-gray-600'
+                }`}>
+                  {apt.status}
+                </span>
+              </div>
+            ))
+          )}
+        </div>
+      )}
+
+      {/* Cancel Modal */}
       {showCancelModal && selectedAppointment && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-md w-full p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Cancel Appointment</h2>
+          <div className="bg-white rounded-2xl max-w-md w-full p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Cancel Appointment</h2>
             <p className="text-gray-600 mb-4">
-              Are you sure you want to cancel your {selectedAppointment.service} appointment on{' '}
-              {new Date(selectedAppointment.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}?
+              Are you sure you want to cancel your <strong>{selectedAppointment.service}</strong> appointment on{' '}
+              <strong>{formatDate(selectedAppointment.date)}</strong>?
             </p>
 
-            {/* Fee Warning */}
-            {canCancelAppointment(selectedAppointment.datetime).fee > 0 && (
-              <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                <p className="text-sm text-amber-800 font-medium">
-                  ⚠️ Late Cancellation Fee
-                </p>
-                <p className="text-sm text-amber-700">
-                  Because you are cancelling with less than 24 hours notice, a{' '}
-                  {canCancelAppointment(selectedAppointment.datetime).fee}% fee (${Math.round(selectedAppointment.price * canCancelAppointment(selectedAppointment.datetime).fee / 100)}) will be charged.
-                </p>
-              </div>
-            )}
-
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-gray-700 mb-2">
                 Reason for cancellation
               </label>
               <select
                 value={cancelReason}
                 onChange={(e) => setCancelReason(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
               >
-                <option value="">Select a reason...</option>
+                <option value="">Select reason...</option>
                 <option value="schedule_conflict">Schedule conflict</option>
-                <option value="feeling_unwell">Feeling unwell</option>
-                <option value="emergency">Personal emergency</option>
-                <option value="financial">Financial reasons</option>
+                <option value="illness">Illness</option>
+                <option value="emergency">Emergency</option>
                 <option value="other">Other</option>
               </select>
             </div>
 
-            <div className="flex justify-end gap-3">
+            <div className="flex gap-3">
               <button
-                onClick={() => {
-                  setShowCancelModal(false);
-                  setSelectedAppointment(null);
-                  setCancelReason('');
-                }}
-                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
-                disabled={isProcessing}
+                onClick={() => { setShowCancelModal(false); setSelectedAppointment(null); }}
+                className="flex-1 px-4 py-2 border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50"
               >
                 Keep Appointment
               </button>
               <button
-                onClick={handleConfirmCancel}
-                disabled={!cancelReason || isProcessing}
-                className="px-4 py-2 bg-red-500 text-white font-medium rounded-lg hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={confirmCancel}
+                disabled={isProcessing}
+                className="flex-1 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 disabled:opacity-50"
               >
                 {isProcessing ? 'Cancelling...' : 'Cancel Appointment'}
               </button>
@@ -335,59 +384,46 @@ export default function PortalAppointmentsPage() {
       {/* Reschedule Modal */}
       {showRescheduleModal && selectedAppointment && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-md w-full p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-2">Reschedule Appointment</h2>
+          <div className="bg-white rounded-2xl max-w-md w-full p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Reschedule Appointment</h2>
             <p className="text-gray-600 mb-4">
-              Choose a new date and time for your {selectedAppointment.service} appointment.
+              To reschedule your appointment, please contact us or book a new appointment and cancel this one.
             </p>
 
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">New Date</label>
-                <input
-                  type="date"
-                  min={new Date().toISOString().split('T')[0]}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Preferred Time</label>
-                <select className="w-full px-4 py-2 border border-gray-200 rounded-lg">
-                  <option>9:00 AM</option>
-                  <option>10:00 AM</option>
-                  <option>11:00 AM</option>
-                  <option>1:00 PM</option>
-                  <option>2:00 PM</option>
-                  <option>3:00 PM</option>
-                  <option>4:00 PM</option>
-                </select>
-              </div>
+            <div className="bg-gray-50 rounded-lg p-4 mb-4">
+              <p className="font-medium">{selectedAppointment.service}</p>
+              <p className="text-sm text-gray-500">{formatDate(selectedAppointment.date)} at {selectedAppointment.time}</p>
             </div>
 
-            <div className="flex justify-end gap-3 mt-6">
+            <div className="flex gap-3">
               <button
-                onClick={() => {
-                  setShowRescheduleModal(false);
-                  setSelectedAppointment(null);
-                }}
-                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                onClick={() => { setShowRescheduleModal(false); setSelectedAppointment(null); }}
+                className="flex-1 px-4 py-2 border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50"
               >
-                Cancel
+                Close
               </button>
-              <button
-                onClick={() => {
-                  alert('Reschedule request submitted! We will confirm your new time shortly.');
-                  setShowRescheduleModal(false);
-                  setSelectedAppointment(null);
-                }}
-                className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+              <Link
+                href="/portal/book"
+                className="flex-1 px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 text-center"
               >
-                Request New Time
-              </button>
+                Book New Time
+              </Link>
             </div>
           </div>
         </div>
       )}
+
+      {/* Book CTA */}
+      <div className="bg-gradient-to-r from-pink-500 to-purple-500 rounded-2xl p-6 text-white text-center">
+        <h3 className="text-xl font-bold mb-2">Need Another Appointment?</h3>
+        <p className="text-pink-100 mb-4">Book online 24/7</p>
+        <Link
+          href="/portal/book"
+          className="inline-block bg-white text-pink-600 px-6 py-2.5 rounded-full font-semibold hover:bg-pink-50 transition-colors"
+        >
+          Book Now
+        </Link>
+      </div>
     </div>
   );
 }

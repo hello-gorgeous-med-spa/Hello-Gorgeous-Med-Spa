@@ -2,35 +2,17 @@
 
 // ============================================================
 // NEW APPOINTMENT PAGE
-// Book a new appointment
+// Book a new appointment - Connected to Live Data
 // ============================================================
 
-import { useState, Suspense } from 'react';
+import { useState, Suspense, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { useServices, useProviders, useCreateAppointment } from '@/lib/supabase/hooks';
+import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
+import { ACTIVE_PROVIDERS } from '@/lib/hgos/providers';
 
-// Mock data - will be replaced with Supabase
-const MOCK_SERVICES = [
-  { id: 's1', name: 'Botox/Dysport/Jeuveau', category: 'Botox & Neurotoxins', duration: 30, price: '$10/unit' },
-  { id: 's2', name: 'Botox - New Client Special', category: 'Botox & Neurotoxins', duration: 45, price: '$199' },
-  { id: 's3', name: 'Lip Flip', category: 'Botox & Neurotoxins', duration: 15, price: '$150' },
-  { id: 's4', name: 'Dermal Filler - Per Syringe', category: 'Dermal Fillers', duration: 45, price: '$650' },
-  { id: 's5', name: 'Filler - 2 Syringe Special', category: 'Dermal Fillers', duration: 60, price: '$1,200' },
-  { id: 's6', name: 'Semaglutide', category: 'Weight Loss', duration: 30, price: '$400' },
-  { id: 's7', name: 'Tirzepatide', category: 'Weight Loss', duration: 30, price: '$500' },
-  { id: 's8', name: 'Glass Glow Facial', category: 'Facials', duration: 60, price: '$175' },
-  { id: 's9', name: 'Dermaplaning', category: 'Facials', duration: 45, price: '$75' },
-  { id: 's10', name: 'Chemical Peel', category: 'Facials', duration: 45, price: '$125' },
-  { id: 's11', name: 'Myers Cocktail IV', category: 'IV Therapy', duration: 45, price: '$175' },
-  { id: 's12', name: 'Vitamin Injection', category: 'IV Therapy', duration: 15, price: '$25' },
-  { id: 's13', name: 'Free Consultation', category: 'Consultations', duration: 30, price: 'Free' },
-];
-
-const PROVIDERS = [
-  { id: 'ryan-kent', name: 'Ryan Kent, FNP-BC', services: ['all'] },
-  { id: 'danielle-alcala', name: 'Danielle Alcala, RN-S', services: ['all'] },
-];
-
+// Time slots
 const TIME_SLOTS = [
   '9:00 AM', '9:15 AM', '9:30 AM', '9:45 AM',
   '10:00 AM', '10:15 AM', '10:30 AM', '10:45 AM',
@@ -45,44 +27,128 @@ const TIME_SLOTS = [
 function NewAppointmentContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const preselectedClient = searchParams.get('client');
+  const preselectedClientId = searchParams.get('client');
+
+  // Fetch services and providers from database
+  const { services, loading: servicesLoading } = useServices();
+  const { providers: dbProviders } = useProviders();
+
+  // Use database providers or fallback to configured providers
+  const providers = dbProviders.length > 0 ? dbProviders : ACTIVE_PROVIDERS.map(p => ({
+    id: p.id,
+    first_name: p.firstName,
+    last_name: p.lastName,
+    title: p.credentials,
+  }));
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(preselectedClientId ? 2 : 1);
   const [clientSearch, setClientSearch] = useState('');
-  const [selectedClient, setSelectedClient] = useState<any>(preselectedClient ? {
-    id: preselectedClient,
-    name: 'Pre-selected Client',
-  } : null);
+  const [clientResults, setClientResults] = useState<any[]>([]);
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [selectedClient, setSelectedClient] = useState<any>(null);
 
   const [formData, setFormData] = useState({
     serviceId: '',
-    providerId: 'ryan-kent',
+    providerId: providers[0]?.id || '',
     date: new Date().toISOString().split('T')[0],
     time: '',
     notes: '',
     sendConfirmation: true,
   });
 
-  // Mock client search results
-  const clientResults = clientSearch.length >= 2 ? [
-    { id: 'c1', name: 'Jennifer Martinez', email: 'jennifer.martinez@email.com', phone: '(630) 555-1234' },
-    { id: 'c2', name: 'Amanda Chen', email: 'amanda.chen@email.com', phone: '(630) 555-2345' },
-    { id: 'c3', name: 'Sarah Johnson', email: 'sarah.j@email.com', phone: '(630) 555-3456' },
-  ].filter((c) => c.name.toLowerCase().includes(clientSearch.toLowerCase())) : [];
+  const { createAppointment } = useCreateAppointment();
 
-  const selectedService = MOCK_SERVICES.find((s) => s.id === formData.serviceId);
-  const selectedProvider = PROVIDERS.find((p) => p.id === formData.providerId);
+  // Load preselected client
+  useEffect(() => {
+    if (preselectedClientId && isSupabaseConfigured()) {
+      supabase
+        .from('clients')
+        .select('id, first_name, last_name, email, phone')
+        .eq('id', preselectedClientId)
+        .single()
+        .then(({ data }) => {
+          if (data) {
+            setSelectedClient({
+              id: data.id,
+              name: `${data.first_name} ${data.last_name}`,
+              email: data.email,
+              phone: data.phone,
+            });
+          }
+        });
+    }
+  }, [preselectedClientId]);
+
+  // Search clients
+  useEffect(() => {
+    if (clientSearch.length < 2) {
+      setClientResults([]);
+      return;
+    }
+
+    const searchClients = async () => {
+      setSearchLoading(true);
+      if (isSupabaseConfigured()) {
+        const { data } = await supabase
+          .from('clients')
+          .select('id, first_name, last_name, email, phone')
+          .or(`first_name.ilike.%${clientSearch}%,last_name.ilike.%${clientSearch}%,email.ilike.%${clientSearch}%`)
+          .limit(10);
+        
+        setClientResults((data || []).map(c => ({
+          id: c.id,
+          name: `${c.first_name} ${c.last_name}`,
+          email: c.email,
+          phone: c.phone,
+        })));
+      } else {
+        setClientResults([]);
+      }
+      setSearchLoading(false);
+    };
+
+    const debounce = setTimeout(searchClients, 300);
+    return () => clearTimeout(debounce);
+  }, [clientSearch]);
+
+  const selectedService = services.find((s: any) => s.id === formData.serviceId);
+  const selectedProvider = providers.find((p: any) => p.id === formData.providerId);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!selectedClient || !formData.serviceId || !formData.time) return;
+
     setIsSubmitting(true);
 
-    // TODO: Save to Supabase
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      // Parse time to create ISO datetime
+      const [time, period] = formData.time.split(' ');
+      const [hours, minutes] = time.split(':');
+      let hour = parseInt(hours);
+      if (period === 'PM' && hour !== 12) hour += 12;
+      if (period === 'AM' && hour === 12) hour = 0;
+      
+      const scheduledAt = new Date(formData.date);
+      scheduledAt.setHours(hour, parseInt(minutes), 0, 0);
 
-    alert('Appointment booked successfully!');
-    router.push('/admin/appointments');
+      await createAppointment({
+        client_id: selectedClient.id,
+        provider_id: formData.providerId,
+        service_id: formData.serviceId,
+        scheduled_at: scheduledAt.toISOString(),
+        duration_minutes: selectedService?.duration_minutes || 30,
+        notes: formData.notes,
+      });
+
+      alert('Appointment booked successfully!');
+      router.push('/admin/appointments');
+    } catch (error) {
+      console.error('Failed to create appointment:', error);
+      alert('Failed to book appointment. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -98,6 +164,13 @@ function NewAppointmentContent() {
         <h1 className="text-2xl font-bold text-gray-900">Book Appointment</h1>
         <p className="text-gray-500">Schedule a new appointment</p>
       </div>
+
+      {/* Connection Status */}
+      {!isSupabaseConfigured() && (
+        <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
+          Demo Mode - Connect Supabase to enable booking
+        </div>
+      )}
 
       {/* Progress */}
       <div className="flex items-center gap-2 mb-6">
@@ -160,15 +233,20 @@ function NewAppointmentContent() {
                 <div className="relative mb-4">
                   <input
                     type="text"
-                    placeholder="Search by name, email, or phone..."
+                    placeholder="Search by name or email..."
                     value={clientSearch}
                     onChange={(e) => setClientSearch(e.target.value)}
                     className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                   />
+                  {searchLoading && (
+                    <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                      <div className="animate-spin w-5 h-5 border-2 border-pink-500 border-t-transparent rounded-full" />
+                    </div>
+                  )}
                 </div>
 
                 {clientResults.length > 0 && (
-                  <div className="border border-gray-200 rounded-lg divide-y divide-gray-100">
+                  <div className="border border-gray-200 rounded-lg divide-y divide-gray-100 max-h-60 overflow-y-auto">
                     {clientResults.map((client) => (
                       <button
                         key={client.id}
@@ -176,6 +254,7 @@ function NewAppointmentContent() {
                         onClick={() => {
                           setSelectedClient(client);
                           setClientSearch('');
+                          setClientResults([]);
                         }}
                         className="w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors"
                       >
@@ -184,6 +263,10 @@ function NewAppointmentContent() {
                       </button>
                     ))}
                   </div>
+                )}
+
+                {clientSearch.length >= 2 && clientResults.length === 0 && !searchLoading && (
+                  <p className="text-gray-500 text-sm py-4 text-center">No clients found</p>
                 )}
 
                 <div className="mt-4 text-center">
@@ -222,40 +305,53 @@ function NewAppointmentContent() {
                 onChange={(e) => setFormData({ ...formData, providerId: e.target.value })}
                 className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               >
-                {PROVIDERS.map((p) => (
-                  <option key={p.id} value={p.id}>{p.name}</option>
+                {providers.map((p: any) => (
+                  <option key={p.id} value={p.id}>
+                    {p.first_name || p.firstName} {p.last_name || p.lastName}
+                    {p.title && `, ${p.title}`}
+                  </option>
                 ))}
               </select>
             </div>
 
-            <div className="space-y-2 max-h-80 overflow-y-auto">
-              {MOCK_SERVICES.map((service) => (
-                <label
-                  key={service.id}
-                  className={`flex items-center justify-between p-4 border rounded-lg cursor-pointer transition-colors ${
-                    formData.serviceId === service.id
-                      ? 'border-pink-500 bg-pink-50'
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <input
-                      type="radio"
-                      name="service"
-                      value={service.id}
-                      checked={formData.serviceId === service.id}
-                      onChange={(e) => setFormData({ ...formData, serviceId: e.target.value })}
-                      className="sr-only"
-                    />
-                    <div>
-                      <p className="font-medium text-gray-900">{service.name}</p>
-                      <p className="text-sm text-gray-500">{service.category} • {service.duration} min</p>
+            {servicesLoading ? (
+              <div className="py-8 text-center text-gray-500">Loading services...</div>
+            ) : services.length === 0 ? (
+              <div className="py-8 text-center text-gray-500">
+                No services found. Add services in the Services section.
+              </div>
+            ) : (
+              <div className="space-y-2 max-h-80 overflow-y-auto">
+                {services.map((service: any) => (
+                  <label
+                    key={service.id}
+                    className={`flex items-center justify-between p-4 border rounded-lg cursor-pointer transition-colors ${
+                      formData.serviceId === service.id
+                        ? 'border-pink-500 bg-pink-50'
+                        : 'border-gray-200 hover:border-gray-300'
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="radio"
+                        name="service"
+                        value={service.id}
+                        checked={formData.serviceId === service.id}
+                        onChange={(e) => setFormData({ ...formData, serviceId: e.target.value })}
+                        className="sr-only"
+                      />
+                      <div>
+                        <p className="font-medium text-gray-900">{service.name}</p>
+                        <p className="text-sm text-gray-500">
+                          {service.category?.name || 'Service'} • {service.duration_minutes || 30} min
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <p className="font-semibold text-gray-900">{service.price}</p>
-                </label>
-              ))}
-            </div>
+                    <p className="font-semibold text-gray-900">${service.price || 0}</p>
+                  </label>
+                ))}
+              </div>
+            )}
 
             <div className="flex justify-between mt-6">
               <button
@@ -294,11 +390,13 @@ function NewAppointmentContent() {
               </div>
               <div className="flex items-center justify-between mb-2">
                 <span className="text-gray-600">Provider:</span>
-                <span className="font-medium">{selectedProvider?.name}</span>
+                <span className="font-medium">
+                  {selectedProvider?.first_name || selectedProvider?.firstName} {selectedProvider?.last_name || selectedProvider?.lastName}
+                </span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-gray-600">Duration:</span>
-                <span className="font-medium">{selectedService?.duration} minutes</span>
+                <span className="font-medium">{selectedService?.duration_minutes || 30} minutes</span>
               </div>
             </div>
 
@@ -364,7 +462,7 @@ function NewAppointmentContent() {
               </button>
               <button
                 type="submit"
-                disabled={!formData.time || isSubmitting}
+                disabled={!formData.time || isSubmitting || !isSupabaseConfigured()}
                 className="px-6 py-2.5 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? 'Booking...' : 'Book Appointment'}
