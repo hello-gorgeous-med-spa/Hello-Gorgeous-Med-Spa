@@ -3,9 +3,10 @@
 // ============================================================
 // PUBLIC BOOKING FORM COMPONENT
 // Collects client info and schedules appointment
+// With provider selection and schedule-based availability
 // ============================================================
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 interface Service {
@@ -19,35 +20,146 @@ interface Service {
   requires_consult: boolean;
 }
 
+interface Provider {
+  id: string;
+  name: string;
+  title: string;
+  image?: string;
+  bio?: string;
+  color: string;
+  schedule: {
+    [day: string]: { start: string; end: string } | null;
+  };
+}
+
 interface Props {
   service: Service;
 }
 
-// Generate time slots
-const TIME_SLOTS = [
-  '9:00 AM', '9:30 AM',
-  '10:00 AM', '10:30 AM',
-  '11:00 AM', '11:30 AM',
-  '12:00 PM', '12:30 PM',
-  '1:00 PM', '1:30 PM',
-  '2:00 PM', '2:30 PM',
-  '3:00 PM', '3:30 PM',
-  '4:00 PM', '4:30 PM',
+// Provider data - Danielle and Ryan with their schedules
+const PROVIDERS: Provider[] = [
+  {
+    id: 'danielle-001',
+    name: 'Danielle Glazier-Alcala',
+    title: 'Owner & Aesthetic Specialist',
+    color: '#EC4899', // pink
+    schedule: {
+      monday: { start: '09:00', end: '17:00' },
+      tuesday: { start: '09:00', end: '17:00' },
+      wednesday: { start: '09:00', end: '17:00' },
+      thursday: { start: '09:00', end: '17:00' },
+      friday: { start: '09:00', end: '15:00' },
+      saturday: null,
+      sunday: null,
+    },
+  },
+  {
+    id: 'ryan-001',
+    name: 'Ryan Kent',
+    title: 'APRN, FNP-BC',
+    color: '#8B5CF6', // purple
+    schedule: {
+      monday: { start: '10:00', end: '18:00' },
+      tuesday: { start: '10:00', end: '18:00' },
+      wednesday: null, // Off Wednesdays
+      thursday: { start: '10:00', end: '18:00' },
+      friday: { start: '09:00', end: '15:00' },
+      saturday: null,
+      sunday: null,
+    },
+  },
 ];
 
-// Generate next 30 days
-function getAvailableDates() {
+// Services that only specific providers can do
+const PROVIDER_SERVICES: { [providerId: string]: string[] } = {
+  'danielle-001': [
+    // Danielle does: Lashes, Brows, Facials, Skincare
+    'lash', 'brow', 'facial', 'dermaplanning', 'hydra', 'chemical-peel', 
+    'glow2facial', 'geneo', 'lamination', 'wax', 'extension', 'lift', 'tint',
+    'high-frequency', 'anteage-microneedling', 'salmon', 'glass-glow'
+  ],
+  'ryan-001': [
+    // Ryan does: Injectables, Medical treatments, IV therapy, Weight loss
+    'botox', 'filler', 'jeuveau', 'dysport', 'lip', 'semaglutide', 'tirzepatide',
+    'retatrutide', 'weight', 'iv', 'vitamin', 'prp', 'pellet', 'hormone', 'bhrt',
+    'medical', 'trigger', 'kybella', 'consult', 'laser', 'ipl', 'photofacial'
+  ],
+};
+
+// Check if provider can do this service
+function canProviderDoService(provider: Provider, serviceSlug: string): boolean {
+  const providerKeywords = PROVIDER_SERVICES[provider.id] || [];
+  const slug = serviceSlug.toLowerCase();
+  
+  // Check if any keyword matches
+  return providerKeywords.some(keyword => slug.includes(keyword));
+}
+
+// Get available providers for a service
+function getProvidersForService(serviceSlug: string): Provider[] {
+  const eligible = PROVIDERS.filter(p => canProviderDoService(p, serviceSlug));
+  // If no specific match, both can do it (consultations, etc)
+  return eligible.length > 0 ? eligible : PROVIDERS;
+}
+
+// Generate time slots based on provider schedule
+function getTimeSlotsForProvider(provider: Provider, date: Date, duration: number): string[] {
+  const dayName = date.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
+  const schedule = provider.schedule[dayName];
+  
+  if (!schedule) return []; // Provider doesn't work this day
+  
+  const slots: string[] = [];
+  const [startHour, startMin] = schedule.start.split(':').map(Number);
+  const [endHour, endMin] = schedule.end.split(':').map(Number);
+  
+  let currentHour = startHour;
+  let currentMin = startMin;
+  
+  while (currentHour < endHour || (currentHour === endHour && currentMin < endMin)) {
+    // Don't show slots that would extend past end time
+    const slotEndMin = currentMin + duration;
+    const slotEndHour = currentHour + Math.floor(slotEndMin / 60);
+    const actualEndMin = slotEndMin % 60;
+    
+    if (slotEndHour < endHour || (slotEndHour === endHour && actualEndMin <= endMin)) {
+      const hour12 = currentHour > 12 ? currentHour - 12 : currentHour === 0 ? 12 : currentHour;
+      const ampm = currentHour >= 12 ? 'PM' : 'AM';
+      const minStr = currentMin.toString().padStart(2, '0');
+      slots.push(`${hour12}:${minStr} ${ampm}`);
+    }
+    
+    // Move to next slot (30 min intervals)
+    currentMin += 30;
+    if (currentMin >= 60) {
+      currentHour += 1;
+      currentMin = 0;
+    }
+  }
+  
+  return slots;
+}
+
+// Generate next 30 days (excluding days provider doesn't work)
+function getAvailableDates(provider: Provider | null) {
   const dates = [];
   const today = new Date();
   
-  for (let i = 1; i <= 30; i++) {
+  for (let i = 1; i <= 45; i++) {
     const date = new Date(today);
     date.setDate(today.getDate() + i);
     
     // Skip Sundays (0) and Saturdays (6)
-    if (date.getDay() !== 0 && date.getDay() !== 6) {
-      dates.push(date);
+    if (date.getDay() === 0 || date.getDay() === 6) continue;
+    
+    // If provider selected, check their schedule
+    if (provider) {
+      const dayName = date.toLocaleDateString('en-US', { weekday: 'long' }).toLowerCase();
+      if (!provider.schedule[dayName]) continue; // Provider doesn't work this day
     }
+    
+    dates.push(date);
+    if (dates.length >= 21) break; // Show 3 weeks max
   }
   
   return dates;
@@ -55,8 +167,9 @@ function getAvailableDates() {
 
 export default function BookingForm({ service }: Props) {
   const router = useRouter();
-  const [step, setStep] = useState<'datetime' | 'info' | 'confirm'>('datetime');
+  const [step, setStep] = useState<'provider' | 'datetime' | 'info' | 'confirm'>('provider');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [selectedProvider, setSelectedProvider] = useState<Provider | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTime, setSelectedTime] = useState<string>('');
   const [formData, setFormData] = useState({
@@ -71,7 +184,30 @@ export default function BookingForm({ service }: Props) {
     agreeToSMS: true,
   });
 
-  const availableDates = getAvailableDates();
+  // Get providers who can do this service
+  const availableProviders = getProvidersForService(service.slug);
+  
+  // Get dates based on selected provider
+  const availableDates = getAvailableDates(selectedProvider);
+  
+  // Get time slots based on provider and date
+  const timeSlots = selectedProvider && selectedDate 
+    ? getTimeSlotsForProvider(selectedProvider, selectedDate, service.duration_minutes)
+    : [];
+
+  // Auto-select if only one provider
+  useEffect(() => {
+    if (availableProviders.length === 1 && !selectedProvider) {
+      setSelectedProvider(availableProviders[0]);
+      setStep('datetime');
+    }
+  }, [availableProviders, selectedProvider]);
+
+  // Reset date/time when provider changes
+  useEffect(() => {
+    setSelectedDate(null);
+    setSelectedTime('');
+  }, [selectedProvider?.id]);
 
   const updateField = (field: string, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -80,11 +216,9 @@ export default function BookingForm({ service }: Props) {
   const handleSubmit = async () => {
     setIsSubmitting(true);
 
-    // TODO: Save to Supabase
-    // For now, simulate booking
+    // TODO: Save to Supabase with provider_id
     await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    // Show confirmation
     setStep('confirm');
     setIsSubmitting(false);
   };
@@ -110,55 +244,177 @@ export default function BookingForm({ service }: Props) {
     <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
       {/* Progress Steps */}
       <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-        <div className="flex items-center justify-center gap-4">
+        <div className="flex items-center justify-center gap-2 sm:gap-4">
+          {/* Step 1: Provider */}
+          <div className={`flex items-center gap-2 ${step === 'provider' ? 'text-pink-600' : 'text-gray-400'}`}>
+            <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+              step === 'provider' ? 'bg-pink-500 text-white' : 
+              ['datetime', 'info', 'confirm'].includes(step) ? 'bg-green-500 text-white' : 'bg-gray-300'
+            }`}>
+              {['datetime', 'info', 'confirm'].includes(step) ? '✓' : '1'}
+            </span>
+            <span className="text-sm font-medium hidden sm:inline">Provider</span>
+          </div>
+          <div className="w-4 sm:w-8 h-px bg-gray-300" />
+          
+          {/* Step 2: Date & Time */}
           <div className={`flex items-center gap-2 ${step === 'datetime' ? 'text-pink-600' : 'text-gray-400'}`}>
             <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
               step === 'datetime' ? 'bg-pink-500 text-white' : 
-              step === 'info' || step === 'confirm' ? 'bg-green-500 text-white' : 'bg-gray-300'
+              ['info', 'confirm'].includes(step) ? 'bg-green-500 text-white' : 'bg-gray-300'
             }`}>
-              {step === 'info' || step === 'confirm' ? '✓' : '1'}
+              {['info', 'confirm'].includes(step) ? '✓' : '2'}
             </span>
             <span className="text-sm font-medium hidden sm:inline">Date & Time</span>
           </div>
-          <div className="w-8 h-px bg-gray-300" />
+          <div className="w-4 sm:w-8 h-px bg-gray-300" />
+          
+          {/* Step 3: Info */}
           <div className={`flex items-center gap-2 ${step === 'info' ? 'text-pink-600' : 'text-gray-400'}`}>
             <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
               step === 'info' ? 'bg-pink-500 text-white' : 
               step === 'confirm' ? 'bg-green-500 text-white' : 'bg-gray-300'
             }`}>
-              {step === 'confirm' ? '✓' : '2'}
+              {step === 'confirm' ? '✓' : '3'}
             </span>
             <span className="text-sm font-medium hidden sm:inline">Your Info</span>
           </div>
-          <div className="w-8 h-px bg-gray-300" />
+          <div className="w-4 sm:w-8 h-px bg-gray-300" />
+          
+          {/* Step 4: Confirmed */}
           <div className={`flex items-center gap-2 ${step === 'confirm' ? 'text-pink-600' : 'text-gray-400'}`}>
             <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
               step === 'confirm' ? 'bg-green-500 text-white' : 'bg-gray-300'
             }`}>
-              {step === 'confirm' ? '✓' : '3'}
+              {step === 'confirm' ? '✓' : '4'}
             </span>
-            <span className="text-sm font-medium hidden sm:inline">Confirmed</span>
+            <span className="text-sm font-medium hidden sm:inline">Done</span>
           </div>
         </div>
       </div>
 
       <div className="p-6">
-        {/* Step 1: Date & Time Selection */}
-        {step === 'datetime' && (
+        {/* Step 1: Provider Selection */}
+        {step === 'provider' && (
           <div className="space-y-6">
+            <div>
+              <h3 className="font-semibold text-gray-900 mb-2">Choose Your Provider</h3>
+              <p className="text-sm text-gray-500 mb-4">
+                Select who you'd like to see for your {service.name}
+              </p>
+              
+              <div className="grid gap-4">
+                {availableProviders.map((provider) => (
+                  <button
+                    key={provider.id}
+                    onClick={() => {
+                      setSelectedProvider(provider);
+                      setStep('datetime');
+                    }}
+                    className={`flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left hover:shadow-md ${
+                      selectedProvider?.id === provider.id
+                        ? 'border-pink-500 bg-pink-50'
+                        : 'border-gray-200 hover:border-pink-300'
+                    }`}
+                  >
+                    {/* Provider Avatar */}
+                    <div 
+                      className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold flex-shrink-0"
+                      style={{ backgroundColor: provider.color }}
+                    >
+                      {provider.name.split(' ').map(n => n[0]).join('')}
+                    </div>
+                    
+                    <div className="flex-1">
+                      <h4 className="font-semibold text-gray-900">{provider.name}</h4>
+                      <p className="text-sm text-gray-500">{provider.title}</p>
+                      <div className="flex items-center gap-2 mt-2 text-xs text-gray-400">
+                        <span className="inline-flex items-center gap-1 bg-gray-100 px-2 py-1 rounded-full">
+                          📅 {Object.entries(provider.schedule).filter(([_, v]) => v !== null).length} days/week
+                        </span>
+                      </div>
+                    </div>
+                    
+                    <div className="text-pink-500">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </div>
+                  </button>
+                ))}
+              </div>
+              
+              {availableProviders.length === 0 && (
+                <div className="text-center py-8 text-gray-500">
+                  <p>No providers available for this service.</p>
+                  <p className="text-sm mt-2">Please call us at (630) 636-6193 to book.</p>
+                </div>
+              )}
+            </div>
+            
+            {/* No preference option */}
+            {availableProviders.length > 1 && (
+              <button
+                onClick={() => {
+                  setSelectedProvider(availableProviders[0]); // Default to first
+                  setStep('datetime');
+                }}
+                className="w-full py-3 text-gray-600 text-sm hover:text-gray-900 transition-colors"
+              >
+                No preference - show me the first available
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* Step 2: Date & Time Selection */}
+        {step === 'datetime' && selectedProvider && (
+          <div className="space-y-6">
+            {/* Provider Summary */}
+            <div className="flex items-center justify-between bg-gray-50 rounded-xl p-4">
+              <div className="flex items-center gap-3">
+                <div 
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold"
+                  style={{ backgroundColor: selectedProvider.color }}
+                >
+                  {selectedProvider.name.split(' ').map(n => n[0]).join('')}
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900">{selectedProvider.name}</p>
+                  <p className="text-xs text-gray-500">{selectedProvider.title}</p>
+                </div>
+              </div>
+              <button
+                onClick={() => {
+                  setSelectedProvider(null);
+                  setStep('provider');
+                }}
+                className="text-sm text-pink-600 hover:text-pink-700 font-medium"
+              >
+                Change
+              </button>
+            </div>
+
             {/* Date Selection */}
             <div>
               <h3 className="font-semibold text-gray-900 mb-3">Select a Date</h3>
               <div className="flex gap-2 overflow-x-auto pb-2">
-                {availableDates.slice(0, 14).map((date) => (
+                {availableDates.map((date) => (
                   <button
                     key={date.toISOString()}
-                    onClick={() => setSelectedDate(date)}
+                    onClick={() => {
+                      setSelectedDate(date);
+                      setSelectedTime(''); // Reset time when date changes
+                    }}
                     className={`flex-shrink-0 px-4 py-3 rounded-xl text-center transition-all ${
                       selectedDate?.toDateString() === date.toDateString()
-                        ? 'bg-pink-500 text-white'
+                        ? 'text-white'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
+                    style={selectedDate?.toDateString() === date.toDateString() 
+                      ? { backgroundColor: selectedProvider.color } 
+                      : {}
+                    }
                   >
                     <p className="text-xs font-medium">
                       {date.toLocaleDateString('en-US', { weekday: 'short' })}
@@ -178,52 +434,91 @@ export default function BookingForm({ service }: Props) {
                 <h3 className="font-semibold text-gray-900 mb-3">
                   Select a Time for {formatDate(selectedDate)}
                 </h3>
-                <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                  {TIME_SLOTS.map((time) => (
-                    <button
-                      key={time}
-                      onClick={() => setSelectedTime(time)}
-                      className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                        selectedTime === time
-                          ? 'bg-pink-500 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                      }`}
-                    >
-                      {time}
-                    </button>
-                  ))}
-                </div>
+                {timeSlots.length > 0 ? (
+                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                    {timeSlots.map((time) => (
+                      <button
+                        key={time}
+                        onClick={() => setSelectedTime(time)}
+                        className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                          selectedTime === time
+                            ? 'text-white'
+                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        }`}
+                        style={selectedTime === time 
+                          ? { backgroundColor: selectedProvider.color } 
+                          : {}
+                        }
+                      >
+                        {time}
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="text-center py-6 bg-gray-50 rounded-xl">
+                    <p className="text-gray-500">
+                      {selectedProvider.name} is not available on this day.
+                    </p>
+                    <p className="text-sm text-gray-400 mt-1">
+                      Please select a different date.
+                    </p>
+                  </div>
+                )}
               </div>
             )}
 
             {/* Continue Button */}
-            <button
-              onClick={() => setStep('info')}
-              disabled={!selectedDate || !selectedTime}
-              className="w-full py-3 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Continue
-            </button>
+            <div className="flex gap-3">
+              <button
+                onClick={() => {
+                  setSelectedProvider(null);
+                  setStep('provider');
+                }}
+                className="px-6 py-3 text-gray-600 font-medium hover:bg-gray-100 rounded-xl transition-colors"
+              >
+                Back
+              </button>
+              <button
+                onClick={() => setStep('info')}
+                disabled={!selectedDate || !selectedTime}
+                className="flex-1 py-3 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Continue
+              </button>
+            </div>
           </div>
         )}
 
-        {/* Step 2: Client Information */}
+        {/* Step 3: Client Information */}
         {step === 'info' && (
           <div className="space-y-6">
             {/* Summary */}
-            <div className="bg-pink-50 rounded-xl p-4 flex items-center justify-between">
-              <div>
-                <p className="text-sm text-pink-600 font-medium">Your Appointment</p>
-                <p className="font-semibold text-gray-900">
-                  {selectedDate && formatDate(selectedDate)} at {selectedTime}
-                </p>
+            <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl p-4">
+              <div className="flex items-center justify-between mb-2">
+                <p className="text-sm font-medium text-gray-500">Your Appointment</p>
+                <button
+                  onClick={() => setStep('datetime')}
+                  className="text-sm text-pink-600 hover:text-pink-700 font-medium"
+                >
+                  Change
+                </button>
               </div>
-              <button
-                onClick={() => setStep('datetime')}
-                className="text-sm text-pink-600 hover:text-pink-700 font-medium"
-              >
-                Change
-              </button>
+              <div className="flex items-center gap-3">
+                {selectedProvider && (
+                  <div 
+                    className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold"
+                    style={{ backgroundColor: selectedProvider.color }}
+                  >
+                    {selectedProvider.name.split(' ').map(n => n[0]).join('')}
+                  </div>
+                )}
+                <div>
+                  <p className="font-semibold text-gray-900">
+                    {selectedDate && formatDate(selectedDate)} at {selectedTime}
+                  </p>
+                  <p className="text-sm text-gray-500">with {selectedProvider?.name}</p>
+                </div>
+              </div>
             </div>
 
             {/* Are you a new client? */}
@@ -238,7 +533,7 @@ export default function BookingForm({ service }: Props) {
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
-                  I'm New!
+                  I'm New! 🎉
                 </button>
                 <button
                   onClick={() => updateField('isNewClient', false)}
@@ -399,7 +694,7 @@ export default function BookingForm({ service }: Props) {
           </div>
         )}
 
-        {/* Step 3: Confirmation */}
+        {/* Step 4: Confirmation */}
         {step === 'confirm' && (
           <div className="text-center py-8">
             <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
@@ -419,6 +714,10 @@ export default function BookingForm({ service }: Props) {
                 <div className="flex justify-between">
                   <span className="text-gray-500">Service:</span>
                   <span className="text-gray-900 font-medium">{service.name}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-500">Provider:</span>
+                  <span className="text-gray-900 font-medium">{selectedProvider?.name}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500">Date:</span>
@@ -445,7 +744,7 @@ export default function BookingForm({ service }: Props) {
 
             <div className="space-y-3">
               <a
-                href={`https://calendar.google.com/calendar/r/eventedit?text=${encodeURIComponent(service.name + ' at Hello Gorgeous')}&dates=${selectedDate?.toISOString().split('T')[0].replace(/-/g, '')}&details=${encodeURIComponent('Your appointment at Hello Gorgeous Med Spa')}&location=${encodeURIComponent('74 W. Washington St, Oswego, IL 60543')}`}
+                href={`https://calendar.google.com/calendar/r/eventedit?text=${encodeURIComponent(service.name + ' with ' + selectedProvider?.name + ' at Hello Gorgeous')}&dates=${selectedDate?.toISOString().split('T')[0].replace(/-/g, '')}&details=${encodeURIComponent('Your appointment at Hello Gorgeous Med Spa with ' + selectedProvider?.name)}&location=${encodeURIComponent('74 W. Washington St, Oswego, IL 60543')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-colors"
