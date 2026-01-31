@@ -100,6 +100,9 @@ export * from './loyalty';
 
 // Export appointment statuses
 export * from './appointment-statuses';
+
+// Export blocked time types
+export * from './blocked-time';
 export * from './referrals';
 
 // Export reminders
