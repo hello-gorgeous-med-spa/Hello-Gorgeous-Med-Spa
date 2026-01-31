@@ -216,20 +216,43 @@ export function useClients(searchQuery?: string, limit = 50) {
 
     try {
       setLoading(true);
+      
+      // Clients table joins with users table for name/email/phone
       let query = supabase
         .from('clients')
-        .select('*', { count: 'exact' })
-        .order('last_name', { ascending: true })
+        .select(`
+          *,
+          users!inner(id, first_name, last_name, email, phone)
+        `, { count: 'exact' })
+        .order('created_at', { ascending: false })
         .limit(limit);
-
-      if (searchQuery) {
-        query = query.or(`first_name.ilike.%${searchQuery}%,last_name.ilike.%${searchQuery}%,email.ilike.%${searchQuery}%,phone.ilike.%${searchQuery}%`);
-      }
 
       const { data, error: fetchError, count } = await query;
 
       if (fetchError) throw fetchError;
-      setClients(data || []);
+      
+      // Flatten the data to include user info at top level
+      const flattenedClients = (data || []).map((client: any) => ({
+        ...client,
+        first_name: client.users?.first_name,
+        last_name: client.users?.last_name,
+        email: client.users?.email,
+        phone: client.users?.phone,
+      }));
+
+      // Filter by search query if provided (client-side for now)
+      let filteredClients = flattenedClients;
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        filteredClients = flattenedClients.filter((c: any) => 
+          c.first_name?.toLowerCase().includes(query) ||
+          c.last_name?.toLowerCase().includes(query) ||
+          c.email?.toLowerCase().includes(query) ||
+          c.phone?.includes(query)
+        );
+      }
+
+      setClients(filteredClients);
       setTotal(count || 0);
     } catch (err) {
       console.error('Error fetching clients:', err);
