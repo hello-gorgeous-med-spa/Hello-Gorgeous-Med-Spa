@@ -6,11 +6,11 @@
 // ============================================================
 
 const MOCK_MEDICATIONS = [
-  { id: 'm1', date: '2026-01-31', client: 'Michelle Williams', medication: 'Semaglutide 0.5mg', provider: 'Ryan Kent, APRN' },
-  { id: 'm2', date: '2026-01-30', client: 'Jennifer Martinez', medication: 'Botox 40 units', provider: 'Ryan Kent, APRN' },
-  { id: 'm3', date: '2026-01-30', client: 'Sarah Johnson', medication: 'Juvederm Ultra 1mL', provider: 'Ryan Kent, APRN' },
-  { id: 'm4', date: '2026-01-29', client: 'Rachel Brown', medication: 'Semaglutide 0.25mg', provider: 'Ryan Kent, APRN' },
-  { id: 'm5', date: '2026-01-29', client: 'Lisa Thompson', medication: 'Dysport 60 units', provider: 'Ryan Kent, APRN' },
+  { id: 'm1', date: '2026-01-31', client: 'Michelle Williams', medication: 'Semaglutide 0.5mg', provider: 'Ryan Kent, FNP-BC' },
+  { id: 'm2', date: '2026-01-30', client: 'Jennifer Martinez', medication: 'Botox 40 units', provider: 'Ryan Kent, FNP-BC' },
+  { id: 'm3', date: '2026-01-30', client: 'Sarah Johnson', medication: 'Juvederm Ultra 1mL', provider: 'Ryan Kent, FNP-BC' },
+  { id: 'm4', date: '2026-01-29', client: 'Rachel Brown', medication: 'Semaglutide 0.25mg', provider: 'Ryan Kent, FNP-BC' },
+  { id: 'm5', date: '2026-01-29', client: 'Lisa Thompson', medication: 'Dysport 60 units', provider: 'Ryan Kent, FNP-BC' },
 ];
 
 export default function AdminMedicationsPage() {

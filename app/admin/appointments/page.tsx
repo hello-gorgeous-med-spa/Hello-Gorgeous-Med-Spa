@@ -17,7 +17,7 @@ const MOCK_APPOINTMENTS = [
     endTime: '9:30 AM',
     client: { id: 'c1', name: 'Jennifer Martinez', phone: '(630) 555-1234', isNew: false },
     service: 'Botox - Full Face',
-    provider: { id: 'p1', name: 'Ryan Kent, APRN' },
+    provider: { id: 'ryan-kent', name: 'Ryan Kent, FNP-BC' },
     status: 'completed',
     amount: 450,
     notes: '',
@@ -30,7 +30,7 @@ const MOCK_APPOINTMENTS = [
     endTime: '10:30 AM',
     client: { id: 'c2', name: 'Amanda Chen', phone: '(630) 555-2345', isNew: true },
     service: 'New Client Consultation',
-    provider: { id: 'p1', name: 'Ryan Kent, APRN' },
+    provider: { id: 'ryan-kent', name: 'Ryan Kent, FNP-BC' },
     status: 'in_progress',
     amount: 0,
     notes: 'First visit - interested in Botox & fillers',
@@ -43,7 +43,7 @@ const MOCK_APPOINTMENTS = [
     endTime: '11:00 AM',
     client: { id: 'c3', name: 'Sarah Johnson', phone: '(630) 555-3456', isNew: false },
     service: 'Lip Filler (1 syringe)',
-    provider: { id: 'p1', name: 'Ryan Kent, APRN' },
+    provider: { id: 'ryan-kent', name: 'Ryan Kent, FNP-BC' },
     status: 'checked_in',
     amount: 650,
     notes: '',
@@ -56,7 +56,7 @@ const MOCK_APPOINTMENTS = [
     endTime: '12:15 PM',
     client: { id: 'c4', name: 'Michelle Williams', phone: '(630) 555-4567', isNew: false },
     service: 'Semaglutide Follow-up',
-    provider: { id: 'p1', name: 'Ryan Kent, APRN' },
+    provider: { id: 'ryan-kent', name: 'Ryan Kent, FNP-BC' },
     status: 'confirmed',
     amount: 400,
     notes: 'Week 8 check-in',
@@ -69,7 +69,7 @@ const MOCK_APPOINTMENTS = [
     endTime: '1:45 PM',
     client: { id: 'c5', name: 'Rachel Brown', phone: '(630) 555-5678', isNew: false },
     service: 'Dermaplaning + Chemical Peel',
-    provider: { id: 'p2', name: 'Staff' },
+    provider: { id: 'danielle-alcala', name: 'Danielle Alcala, RN-S' },
     status: 'confirmed',
     amount: 175,
     notes: '',
@@ -82,7 +82,7 @@ const MOCK_APPOINTMENTS = [
     endTime: '2:30 PM',
     client: { id: 'c6', name: 'Emily Davis', phone: '(630) 555-6789', isNew: false },
     service: 'Botox Touch-up',
-    provider: { id: 'p1', name: 'Ryan Kent, APRN' },
+    provider: { id: 'ryan-kent', name: 'Ryan Kent, FNP-BC' },
     status: 'confirmed',
     amount: 200,
     notes: 'Touch-up from 2 weeks ago',
@@ -95,7 +95,7 @@ const MOCK_APPOINTMENTS = [
     endTime: '10:30 AM',
     client: { id: 'c7', name: 'Lisa Thompson', phone: '(630) 555-7890', isNew: false },
     service: 'Botox - Full Face',
-    provider: { id: 'p1', name: 'Ryan Kent, APRN' },
+    provider: { id: 'ryan-kent', name: 'Ryan Kent, FNP-BC' },
     status: 'completed',
     amount: 400,
     notes: '',
@@ -108,7 +108,7 @@ const MOCK_APPOINTMENTS = [
     endTime: '11:45 AM',
     client: { id: 'c8', name: 'Karen White', phone: '(630) 555-8901', isNew: false },
     service: 'Filler - Cheeks',
-    provider: { id: 'p1', name: 'Ryan Kent, APRN' },
+    provider: { id: 'ryan-kent', name: 'Ryan Kent, FNP-BC' },
     status: 'completed',
     amount: 850,
     notes: '',
@@ -116,10 +116,13 @@ const MOCK_APPOINTMENTS = [
   },
 ];
 
-const PROVIDERS = [
-  { id: 'p1', name: 'Ryan Kent, APRN' },
-  { id: 'p2', name: 'Staff' },
-];
+// Use actual providers from configuration
+import { ACTIVE_PROVIDERS } from '@/lib/hgos/providers';
+
+const PROVIDERS = ACTIVE_PROVIDERS.filter(p => p.isActive).map(p => ({
+  id: p.id,
+  name: p.displayName,
+}));
 
 const STATUSES = [
   { value: 'all', label: 'All Statuses' },
@@ -156,14 +159,29 @@ function getStatusBadge(status: string) {
 }
 
 export default function AdminAppointmentsPage() {
+  const [appointments, setAppointments] = useState(MOCK_APPOINTMENTS);
   const [selectedDate, setSelectedDate] = useState('2026-01-31');
   const [selectedProvider, setSelectedProvider] = useState('all');
   const [selectedStatus, setSelectedStatus] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedAppointment, setSelectedAppointment] = useState<string | null>(null);
+  const [selectedAppointment] = useState<string | null>(null);
+
+  // Update appointment status
+  const updateStatus = (aptId: string, newStatus: string) => {
+    setAppointments(appointments.map(apt => 
+      apt.id === aptId ? { ...apt, status: newStatus } : apt
+    ));
+  };
+
+  // Cancel appointment
+  const cancelAppointment = (aptId: string) => {
+    if (confirm('Are you sure you want to cancel this appointment?')) {
+      updateStatus(aptId, 'cancelled');
+    }
+  };
 
   // Filter appointments
-  const filteredAppointments = MOCK_APPOINTMENTS.filter((apt) => {
+  const filteredAppointments = appointments.filter((apt) => {
     if (selectedDate && apt.date !== selectedDate) return false;
     if (selectedProvider !== 'all' && apt.provider.id !== selectedProvider) return false;
     if (selectedStatus !== 'all' && apt.status !== selectedStatus) return false;
@@ -340,15 +358,31 @@ export default function AdminAppointmentsPage() {
                     <div className="flex items-center justify-end gap-1">
                       {apt.status === 'confirmed' && (
                         <button
-                          onClick={() => {}}
+                          onClick={() => updateStatus(apt.id, 'checked_in')}
                           className="px-2 py-1 text-xs font-medium text-blue-600 hover:bg-blue-50 rounded transition-colors"
                         >
                           Check In
                         </button>
                       )}
+                      {apt.status === 'checked_in' && (
+                        <button
+                          onClick={() => updateStatus(apt.id, 'in_progress')}
+                          className="px-2 py-1 text-xs font-medium text-purple-600 hover:bg-purple-50 rounded transition-colors"
+                        >
+                          Start
+                        </button>
+                      )}
+                      {apt.status === 'in_progress' && (
+                        <button
+                          onClick={() => updateStatus(apt.id, 'completed')}
+                          className="px-2 py-1 text-xs font-medium text-green-600 hover:bg-green-50 rounded transition-colors"
+                        >
+                          Complete
+                        </button>
+                      )}
                       {(apt.status === 'checked_in' || apt.status === 'in_progress') && (
                         <Link
-                          href={`/provider/chart/new?client=${apt.client.id}&appointment=${apt.id}`}
+                          href={`/admin/charts?client=${apt.client.id}&appointment=${apt.id}`}
                           className="px-2 py-1 text-xs font-medium text-purple-600 hover:bg-purple-50 rounded transition-colors"
                         >
                           Chart
@@ -356,24 +390,36 @@ export default function AdminAppointmentsPage() {
                       )}
                       {apt.status === 'completed' && !apt.charted && (
                         <Link
-                          href={`/provider/chart/new?client=${apt.client.id}&appointment=${apt.id}`}
+                          href={`/admin/charts?client=${apt.client.id}&appointment=${apt.id}`}
                           className="px-2 py-1 text-xs font-medium text-amber-600 hover:bg-amber-50 rounded transition-colors"
                         >
                           Chart
                         </Link>
                       )}
-                      <button
-                        onClick={() => setSelectedAppointment(apt.id)}
+                      <Link
+                        href={`/admin/appointments/${apt.id}`}
                         className="px-2 py-1 text-xs font-medium text-gray-600 hover:bg-gray-100 rounded transition-colors"
                       >
-                        Edit
-                      </button>
-                      {apt.status !== 'completed' && apt.status !== 'cancelled' && (
+                        View
+                      </Link>
+                      {apt.status !== 'completed' && apt.status !== 'cancelled' && apt.status !== 'no_show' && (
                         <button
-                          onClick={() => {}}
+                          onClick={() => cancelAppointment(apt.id)}
                           className="px-2 py-1 text-xs font-medium text-red-600 hover:bg-red-50 rounded transition-colors"
                         >
                           Cancel
+                        </button>
+                      )}
+                      {apt.status === 'confirmed' && (
+                        <button
+                          onClick={() => {
+                            if (confirm('Mark as no-show?')) {
+                              updateStatus(apt.id, 'no_show');
+                            }
+                          }}
+                          className="px-2 py-1 text-xs font-medium text-orange-600 hover:bg-orange-50 rounded transition-colors"
+                        >
+                          No Show
                         </button>
                       )}
                     </div>

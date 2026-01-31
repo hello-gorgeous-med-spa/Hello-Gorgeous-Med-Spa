@@ -27,8 +27,8 @@ const MOCK_SERVICES = [
 ];
 
 const PROVIDERS = [
-  { id: 'p1', name: 'Ryan Kent, APRN', services: ['all'] },
-  { id: 'p2', name: 'Staff', services: ['Facials', 'IV Therapy'] },
+  { id: 'ryan-kent', name: 'Ryan Kent, FNP-BC', services: ['all'] },
+  { id: 'danielle-alcala', name: 'Danielle Alcala, RN-S', services: ['all'] },
 ];
 
 const TIME_SLOTS = [
@@ -57,7 +57,7 @@ function NewAppointmentContent() {
 
   const [formData, setFormData] = useState({
     serviceId: '',
-    providerId: 'p1',
+    providerId: 'ryan-kent',
     date: new Date().toISOString().split('T')[0],
     time: '',
     notes: '',

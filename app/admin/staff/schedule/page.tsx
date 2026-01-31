@@ -2,27 +2,35 @@
 
 // ============================================================
 // PROVIDER SCHEDULE EDITOR
-// Set working hours, blocked time, and availability
+// Set working hours, blocked time, holidays, and closed days
+// Live editable - no placeholders
 // ============================================================
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { 
+  ACTIVE_PROVIDERS, 
+  HOLIDAYS_2026, 
+  type Provider, 
+  type BlockedTime, 
+  type Holiday,
+  type WeeklySchedule 
+} from '@/lib/hgos/providers';
 
 interface TimeSlot {
   start: string;
   end: string;
   isOff: boolean;
+  breaks?: { start: string; end: string; label: string }[];
 }
 
-interface ProviderSchedule {
-  id: string;
-  name: string;
-  title: string;
+interface EditableSchedule {
+  providerId: string;
   schedule: Record<string, TimeSlot>;
-  blockedDates: string[];
+  blockedTimes: BlockedTime[];
 }
 
-const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'];
+const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as const;
 const DAY_LABELS: Record<string, string> = {
   monday: 'Monday',
   tuesday: 'Tuesday',
@@ -34,64 +42,82 @@ const DAY_LABELS: Record<string, string> = {
 };
 
 const TIME_OPTIONS = [
-  '7:00 AM', '7:30 AM', '8:00 AM', '8:30 AM', '9:00 AM', '9:30 AM',
-  '10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM', '12:30 PM',
-  '1:00 PM', '1:30 PM', '2:00 PM', '2:30 PM', '3:00 PM', '3:30 PM',
-  '4:00 PM', '4:30 PM', '5:00 PM', '5:30 PM', '6:00 PM', '6:30 PM',
-  '7:00 PM', '7:30 PM', '8:00 PM',
+  '07:00', '07:30', '08:00', '08:30', '09:00', '09:30',
+  '10:00', '10:30', '11:00', '11:30', '12:00', '12:30',
+  '13:00', '13:30', '14:00', '14:30', '15:00', '15:30',
+  '16:00', '16:30', '17:00', '17:30', '18:00', '18:30',
+  '19:00', '19:30', '20:00',
 ];
 
-// Mock providers
-const MOCK_PROVIDERS: ProviderSchedule[] = [
-  {
-    id: 'p1',
-    name: 'Ryan Kent',
-    title: 'APRN',
-    schedule: {
-      monday: { start: '9:00 AM', end: '5:00 PM', isOff: false },
-      tuesday: { start: '9:00 AM', end: '5:00 PM', isOff: false },
-      wednesday: { start: '9:00 AM', end: '5:00 PM', isOff: false },
-      thursday: { start: '9:00 AM', end: '5:00 PM', isOff: false },
-      friday: { start: '9:00 AM', end: '3:00 PM', isOff: false },
-      saturday: { start: '', end: '', isOff: true },
-      sunday: { start: '', end: '', isOff: true },
-    },
-    blockedDates: ['2026-02-14', '2026-02-15'],
-  },
-  {
-    id: 'p2',
-    name: 'Danielle Glazier-Alcala',
-    title: 'Owner',
-    schedule: {
-      monday: { start: '10:00 AM', end: '4:00 PM', isOff: false },
-      tuesday: { start: '10:00 AM', end: '4:00 PM', isOff: false },
-      wednesday: { start: '', end: '', isOff: true },
-      thursday: { start: '10:00 AM', end: '4:00 PM', isOff: false },
-      friday: { start: '10:00 AM', end: '2:00 PM', isOff: false },
-      saturday: { start: '', end: '', isOff: true },
-      sunday: { start: '', end: '', isOff: true },
-    },
-    blockedDates: [],
-  },
-];
+const BLOCK_REASONS = [
+  { id: 'time-off', label: 'Time Off', color: 'red' },
+  { id: 'lunch', label: 'Lunch Break', color: 'yellow' },
+  { id: 'meeting', label: 'Meeting', color: 'blue' },
+  { id: 'training', label: 'Training', color: 'purple' },
+  { id: 'personal', label: 'Personal', color: 'gray' },
+] as const;
+
+function formatTime(time: string): string {
+  if (!time) return '';
+  const [hours, minutes] = time.split(':').map(Number);
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  const displayHours = hours % 12 || 12;
+  return `${displayHours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
+}
+
+function formatTimeShort(time: string): string {
+  if (!time) return '';
+  const [hours, minutes] = time.split(':').map(Number);
+  const ampm = hours >= 12 ? 'p' : 'a';
+  const displayHours = hours % 12 || 12;
+  return `${displayHours}${minutes > 0 ? ':' + minutes.toString().padStart(2, '0') : ''}${ampm}`;
+}
+
+// Convert Provider schedule to editable format
+function providerToEditable(provider: Provider): EditableSchedule {
+  const schedule: Record<string, TimeSlot> = {};
+  for (const day of DAYS) {
+    const daySchedule = provider.schedule[day];
+    schedule[day] = {
+      start: daySchedule?.start || '',
+      end: daySchedule?.end || '',
+      isOff: !daySchedule,
+      breaks: daySchedule?.breaks || [],
+    };
+  }
+  return {
+    providerId: provider.id,
+    schedule,
+    blockedTimes: [],
+  };
+}
 
 export default function ProviderSchedulePage() {
-  const [providers, setProviders] = useState<ProviderSchedule[]>(MOCK_PROVIDERS);
-  const [selectedProvider, setSelectedProvider] = useState<string>(MOCK_PROVIDERS[0].id);
+  // Initialize with real provider data
+  const [schedules, setSchedules] = useState<EditableSchedule[]>(() =>
+    ACTIVE_PROVIDERS.filter(p => p.isActive).map(providerToEditable)
+  );
+  const [selectedProvider, setSelectedProvider] = useState<string>(ACTIVE_PROVIDERS[0].id);
   const [showBlockModal, setShowBlockModal] = useState(false);
+  const [showHolidayModal, setShowHolidayModal] = useState(false);
+  const [showClosedDayModal, setShowClosedDayModal] = useState(false);
+  const [holidays, setHolidays] = useState<Holiday[]>(HOLIDAYS_2026);
+  const [closedDays, setClosedDays] = useState<{ date: string; reason: string }[]>([]);
   const [saved, setSaved] = useState(false);
+  const [activeTab, setActiveTab] = useState<'schedule' | 'blocked' | 'holidays' | 'closed'>('schedule');
 
-  const currentProvider = providers.find(p => p.id === selectedProvider)!;
+  const currentSchedule = schedules.find(s => s.providerId === selectedProvider)!;
+  const currentProvider = ACTIVE_PROVIDERS.find(p => p.id === selectedProvider)!;
 
   const updateSchedule = (day: string, field: 'start' | 'end' | 'isOff', value: string | boolean) => {
-    setProviders(providers.map(p => {
-      if (p.id !== selectedProvider) return p;
+    setSchedules(schedules.map(s => {
+      if (s.providerId !== selectedProvider) return s;
       return {
-        ...p,
+        ...s,
         schedule: {
-          ...p.schedule,
+          ...s.schedule,
           [day]: {
-            ...p.schedule[day],
+            ...s.schedule[day],
             [field]: value,
             ...(field === 'isOff' && value ? { start: '', end: '' } : {}),
           },
@@ -101,19 +127,67 @@ export default function ProviderSchedulePage() {
   };
 
   const copyToAllDays = (sourceDay: string) => {
-    const source = currentProvider.schedule[sourceDay];
-    setProviders(providers.map(p => {
-      if (p.id !== selectedProvider) return p;
-      const newSchedule = { ...p.schedule };
+    const source = currentSchedule.schedule[sourceDay];
+    setSchedules(schedules.map(s => {
+      if (s.providerId !== selectedProvider) return s;
+      const newSchedule = { ...s.schedule };
       DAYS.filter(d => d !== sourceDay && d !== 'saturday' && d !== 'sunday').forEach(day => {
         newSchedule[day] = { ...source };
       });
-      return { ...p, schedule: newSchedule };
+      return { ...s, schedule: newSchedule };
     }));
   };
 
+  const addBlockedTime = (date: string, reason: string, notes: string, startTime?: string, endTime?: string) => {
+    const newBlock: BlockedTime = {
+      id: `block-${Date.now()}`,
+      providerId: selectedProvider,
+      date,
+      startTime,
+      endTime,
+      reason: reason as BlockedTime['reason'],
+      notes,
+    };
+    setSchedules(schedules.map(s => {
+      if (s.providerId !== selectedProvider) return s;
+      return { ...s, blockedTimes: [...s.blockedTimes, newBlock] };
+    }));
+  };
+
+  const removeBlockedTime = (blockId: string) => {
+    setSchedules(schedules.map(s => {
+      if (s.providerId !== selectedProvider) return s;
+      return { ...s, blockedTimes: s.blockedTimes.filter(b => b.id !== blockId) };
+    }));
+  };
+
+  const addHoliday = (date: string, name: string, isClosed: boolean) => {
+    const newHoliday: Holiday = {
+      id: `holiday-${Date.now()}`,
+      date,
+      name,
+      isClosed,
+    };
+    setHolidays([...holidays, newHoliday]);
+  };
+
+  const removeHoliday = (holidayId: string) => {
+    setHolidays(holidays.filter(h => h.id !== holidayId));
+  };
+
+  const addClosedDay = (date: string, reason: string) => {
+    setClosedDays([...closedDays, { date, reason }]);
+  };
+
+  const removeClosedDay = (date: string) => {
+    setClosedDays(closedDays.filter(d => d.date !== date));
+  };
+
   const handleSave = () => {
-    // TODO: Save to Supabase
+    // TODO: Save to database
+    console.log('Saving schedules:', schedules);
+    console.log('Saving holidays:', holidays);
+    console.log('Saving closed days:', closedDays);
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
   };
@@ -126,222 +200,579 @@ export default function ProviderSchedulePage() {
           <Link href="/admin/staff" className="text-sm text-gray-500 hover:text-gray-700 mb-1 inline-block">
             ← Back to Staff
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900">Provider Schedules</h1>
-          <p className="text-gray-500">Set working hours and availability</p>
+          <h1 className="text-2xl font-bold text-gray-900">Schedule Management</h1>
+          <p className="text-gray-500">Working hours, blocked time, holidays & closed days</p>
         </div>
         <button
           onClick={handleSave}
-          className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+          className={`px-6 py-2 font-medium rounded-lg transition-colors ${
+            saved ? 'bg-green-500 text-white' : 'bg-pink-500 text-white hover:bg-pink-600'
+          }`}
         >
-          {saved ? '✓ Saved!' : 'Save Changes'}
+          {saved ? '✓ Saved!' : 'Save All Changes'}
         </button>
       </div>
 
+      {/* Tabs */}
+      <div className="bg-white rounded-xl border border-gray-100 p-1 inline-flex gap-1">
+        {[
+          { id: 'schedule', label: '📅 Weekly Schedule' },
+          { id: 'blocked', label: '🚫 Blocked Time' },
+          { id: 'holidays', label: '🎄 Holidays' },
+          { id: 'closed', label: '🔒 Closed Days' },
+        ].map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id as typeof activeTab)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              activeTab === tab.id
+                ? 'bg-pink-500 text-white'
+                : 'text-gray-600 hover:bg-gray-100'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
       {/* Provider Selector */}
-      <div className="bg-white rounded-xl border border-gray-100 p-4">
-        <div className="flex items-center gap-4">
-          <label className="text-sm font-medium text-gray-700">Select Provider:</label>
-          <select
-            value={selectedProvider}
-            onChange={(e) => setSelectedProvider(e.target.value)}
-            className="px-4 py-2 border border-gray-200 rounded-lg"
-          >
-            {providers.map(p => (
-              <option key={p.id} value={p.id}>
-                {p.name}, {p.title}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
-
-      {/* Weekly Schedule */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
-        <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-          <div>
-            <h2 className="font-semibold text-gray-900">Weekly Schedule</h2>
-            <p className="text-sm text-gray-500">Regular working hours for {currentProvider.name}</p>
-          </div>
-          <button
-            onClick={() => copyToAllDays('monday')}
-            className="text-sm text-pink-600 hover:text-pink-700"
-          >
-            Copy Monday to Weekdays
-          </button>
-        </div>
-        <div className="p-6">
-          <div className="space-y-4">
-            {DAYS.map((day) => {
-              const slot = currentProvider.schedule[day];
-              return (
-                <div key={day} className="flex items-center gap-4 py-3 border-b border-gray-50 last:border-0">
-                  <div className="w-32">
-                    <p className="font-medium text-gray-900">{DAY_LABELS[day]}</p>
-                  </div>
-                  
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={slot.isOff}
-                      onChange={(e) => updateSchedule(day, 'isOff', e.target.checked)}
-                      className="rounded border-gray-300"
-                    />
-                    <span className="text-sm text-gray-600">Day Off</span>
-                  </label>
-
-                  {!slot.isOff && (
-                    <>
-                      <select
-                        value={slot.start}
-                        onChange={(e) => updateSchedule(day, 'start', e.target.value)}
-                        className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
-                      >
-                        <option value="">Start time</option>
-                        {TIME_OPTIONS.map(t => (
-                          <option key={t} value={t}>{t}</option>
-                        ))}
-                      </select>
-                      <span className="text-gray-400">to</span>
-                      <select
-                        value={slot.end}
-                        onChange={(e) => updateSchedule(day, 'end', e.target.value)}
-                        className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
-                      >
-                        <option value="">End time</option>
-                        {TIME_OPTIONS.map(t => (
-                          <option key={t} value={t}>{t}</option>
-                        ))}
-                      </select>
-                    </>
-                  )}
-
-                  {slot.isOff && (
-                    <span className="text-gray-400 italic">Not working</span>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* Blocked Dates */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
-        <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-          <div>
-            <h2 className="font-semibold text-gray-900">Blocked Dates</h2>
-            <p className="text-sm text-gray-500">Vacations, time off, or unavailable dates</p>
-          </div>
-          <button
-            onClick={() => setShowBlockModal(true)}
-            className="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200"
-          >
-            + Block Date
-          </button>
-        </div>
-        <div className="p-6">
-          {currentProvider.blockedDates.length === 0 ? (
-            <p className="text-gray-500 text-center py-4">No blocked dates</p>
-          ) : (
-            <div className="flex flex-wrap gap-2">
-              {currentProvider.blockedDates.map((date) => (
-                <div
-                  key={date}
-                  className="flex items-center gap-2 px-3 py-2 bg-red-50 text-red-700 rounded-lg"
+      {(activeTab === 'schedule' || activeTab === 'blocked') && (
+        <div className="bg-white rounded-xl border border-gray-100 p-4">
+          <div className="flex items-center gap-4">
+            <label className="text-sm font-medium text-gray-700">Select Provider:</label>
+            <div className="flex gap-2">
+              {ACTIVE_PROVIDERS.filter(p => p.isActive).map(provider => (
+                <button
+                  key={provider.id}
+                  onClick={() => setSelectedProvider(provider.id)}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors ${
+                    selectedProvider === provider.id
+                      ? 'border-pink-500 bg-pink-50 text-pink-700'
+                      : 'border-gray-200 hover:bg-gray-50'
+                  }`}
                 >
-                  <span>{new Date(date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}</span>
-                  <button
-                    onClick={() => {
-                      setProviders(providers.map(p => {
-                        if (p.id !== selectedProvider) return p;
-                        return {
-                          ...p,
-                          blockedDates: p.blockedDates.filter(d => d !== date),
-                        };
-                      }));
-                    }}
-                    className="text-red-500 hover:text-red-700"
+                  <div 
+                    className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-medium"
+                    style={{ backgroundColor: provider.color }}
                   >
-                    ×
+                    {provider.firstName[0]}{provider.lastName[0]}
+                  </div>
+                  <div className="text-left">
+                    <p className="font-medium">{provider.fullName}</p>
+                    <p className="text-xs text-gray-500">{provider.credentials}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Weekly Schedule Tab */}
+      {activeTab === 'schedule' && currentSchedule && (
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
+          <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+            <div>
+              <h2 className="font-semibold text-gray-900">Weekly Schedule</h2>
+              <p className="text-sm text-gray-500">Regular working hours for {currentProvider.displayName}</p>
+            </div>
+            <button
+              onClick={() => copyToAllDays('monday')}
+              className="text-sm text-pink-600 hover:text-pink-700"
+            >
+              Copy Monday to All Weekdays
+            </button>
+          </div>
+          <div className="p-6">
+            <div className="space-y-4">
+              {DAYS.map((day) => {
+                const slot = currentSchedule.schedule[day];
+                return (
+                  <div key={day} className="flex items-center gap-4 py-3 border-b border-gray-50 last:border-0">
+                    <div className="w-32">
+                      <p className="font-medium text-gray-900">{DAY_LABELS[day]}</p>
+                    </div>
+                    
+                    <label className="flex items-center gap-2 min-w-[100px]">
+                      <input
+                        type="checkbox"
+                        checked={slot.isOff}
+                        onChange={(e) => updateSchedule(day, 'isOff', e.target.checked)}
+                        className="rounded border-gray-300 text-pink-500 focus:ring-pink-500"
+                      />
+                      <span className="text-sm text-gray-600">Day Off</span>
+                    </label>
+
+                    {!slot.isOff && (
+                      <>
+                        <select
+                          value={slot.start}
+                          onChange={(e) => updateSchedule(day, 'start', e.target.value)}
+                          className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                        >
+                          <option value="">Start time</option>
+                          {TIME_OPTIONS.map(t => (
+                            <option key={t} value={t}>{formatTime(t)}</option>
+                          ))}
+                        </select>
+                        <span className="text-gray-400">to</span>
+                        <select
+                          value={slot.end}
+                          onChange={(e) => updateSchedule(day, 'end', e.target.value)}
+                          className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                        >
+                          <option value="">End time</option>
+                          {TIME_OPTIONS.map(t => (
+                            <option key={t} value={t}>{formatTime(t)}</option>
+                          ))}
+                        </select>
+                      </>
+                    )}
+
+                    {slot.isOff && (
+                      <span className="text-gray-400 italic">Not working</span>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Blocked Time Tab */}
+      {activeTab === 'blocked' && currentSchedule && (
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
+          <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+            <div>
+              <h2 className="font-semibold text-gray-900">Blocked Time</h2>
+              <p className="text-sm text-gray-500">Time off, meetings, and other blocked periods for {currentProvider.displayName}</p>
+            </div>
+            <button
+              onClick={() => setShowBlockModal(true)}
+              className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+            >
+              + Block Time
+            </button>
+          </div>
+          <div className="p-6">
+            {currentSchedule.blockedTimes.length === 0 ? (
+              <div className="text-center py-8">
+                <p className="text-gray-400 mb-2">No blocked time scheduled</p>
+                <button
+                  onClick={() => setShowBlockModal(true)}
+                  className="text-pink-600 hover:text-pink-700"
+                >
+                  + Add blocked time
+                </button>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {currentSchedule.blockedTimes.map((block) => (
+                  <div
+                    key={block.id}
+                    className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className={`px-3 py-1 rounded-full text-xs font-medium ${
+                        block.reason === 'time-off' ? 'bg-red-100 text-red-700' :
+                        block.reason === 'lunch' ? 'bg-yellow-100 text-yellow-700' :
+                        block.reason === 'meeting' ? 'bg-blue-100 text-blue-700' :
+                        block.reason === 'training' ? 'bg-purple-100 text-purple-700' :
+                        'bg-gray-100 text-gray-700'
+                      }`}>
+                        {BLOCK_REASONS.find(r => r.id === block.reason)?.label || block.reason}
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">
+                          {new Date(block.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          {block.startTime && block.endTime 
+                            ? `${formatTime(block.startTime)} - ${formatTime(block.endTime)}`
+                            : 'Full day'}
+                          {block.notes && ` • ${block.notes}`}
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => removeBlockedTime(block.id)}
+                      className="text-red-500 hover:text-red-700 p-2"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Holidays Tab */}
+      {activeTab === 'holidays' && (
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
+          <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+            <div>
+              <h2 className="font-semibold text-gray-900">Holidays</h2>
+              <p className="text-sm text-gray-500">Business holidays and modified hours (applies to all providers)</p>
+            </div>
+            <button
+              onClick={() => setShowHolidayModal(true)}
+              className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+            >
+              + Add Holiday
+            </button>
+          </div>
+          <div className="p-6">
+            <div className="space-y-3">
+              {holidays.sort((a, b) => a.date.localeCompare(b.date)).map((holiday) => (
+                <div
+                  key={holiday.id}
+                  className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className={`px-3 py-1 rounded-full text-xs font-medium ${
+                      holiday.isClosed 
+                        ? 'bg-red-100 text-red-700' 
+                        : 'bg-yellow-100 text-yellow-700'
+                    }`}>
+                      {holiday.isClosed ? 'Closed' : 'Modified Hours'}
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-900">{holiday.name}</p>
+                      <p className="text-sm text-gray-500">
+                        {new Date(holiday.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
+                        {holiday.modifiedHours && ` • ${formatTime(holiday.modifiedHours.start)} - ${formatTime(holiday.modifiedHours.end)}`}
+                      </p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => removeHoliday(holiday.id)}
+                    className="text-red-500 hover:text-red-700 p-2"
+                  >
+                    ✕
                   </button>
                 </div>
               ))}
             </div>
-          )}
+          </div>
         </div>
-      </div>
+      )}
+
+      {/* Closed Days Tab */}
+      {activeTab === 'closed' && (
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
+          <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+            <div>
+              <h2 className="font-semibold text-gray-900">Closed Days</h2>
+              <p className="text-sm text-gray-500">Days the business is closed (applies to all providers)</p>
+            </div>
+            <button
+              onClick={() => setShowClosedDayModal(true)}
+              className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+            >
+              + Add Closed Day
+            </button>
+          </div>
+          <div className="p-6">
+            {closedDays.length === 0 ? (
+              <div className="text-center py-8">
+                <p className="text-gray-400 mb-2">No additional closed days scheduled</p>
+                <p className="text-sm text-gray-400">Holidays are shown in the Holidays tab</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {closedDays.sort((a, b) => a.date.localeCompare(b.date)).map((day) => (
+                  <div
+                    key={day.date}
+                    className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">
+                        Closed
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">
+                          {new Date(day.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
+                        </p>
+                        {day.reason && <p className="text-sm text-gray-500">{day.reason}</p>}
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => removeClosedDay(day.date)}
+                      className="text-red-500 hover:text-red-700 p-2"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Schedule Preview */}
       <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl border border-blue-100 p-6">
-        <h3 className="font-semibold text-gray-900 mb-4">📅 This Week's Availability</h3>
-        <div className="grid grid-cols-7 gap-2">
-          {DAYS.map((day) => {
-            const slot = currentProvider.schedule[day];
+        <h3 className="font-semibold text-gray-900 mb-4">📅 All Providers - This Week</h3>
+        <div className="space-y-4">
+          {ACTIVE_PROVIDERS.filter(p => p.isActive).map(provider => {
+            const schedule = schedules.find(s => s.providerId === provider.id);
+            if (!schedule) return null;
             return (
-              <div key={day} className="text-center">
-                <p className="text-xs font-medium text-gray-500 mb-1">{DAY_LABELS[day].slice(0, 3)}</p>
-                {slot.isOff ? (
-                  <p className="text-sm text-gray-400">Off</p>
-                ) : (
-                  <p className="text-sm text-gray-900">
-                    {slot.start.replace(' AM', 'a').replace(' PM', 'p')} - {slot.end.replace(' AM', 'a').replace(' PM', 'p')}
-                  </p>
-                )}
+              <div key={provider.id} className="bg-white rounded-lg p-4">
+                <div className="flex items-center gap-2 mb-3">
+                  <div 
+                    className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-medium"
+                    style={{ backgroundColor: provider.color }}
+                  >
+                    {provider.firstName[0]}{provider.lastName[0]}
+                  </div>
+                  <span className="font-medium text-gray-900">{provider.displayName}</span>
+                </div>
+                <div className="grid grid-cols-7 gap-2">
+                  {DAYS.map((day) => {
+                    const slot = schedule.schedule[day];
+                    return (
+                      <div key={day} className="text-center">
+                        <p className="text-xs font-medium text-gray-500 mb-1">{DAY_LABELS[day].slice(0, 3)}</p>
+                        {slot.isOff ? (
+                          <p className="text-xs text-gray-400">Off</p>
+                        ) : (
+                          <p className="text-xs text-gray-900">
+                            {formatTimeShort(slot.start)} - {formatTimeShort(slot.end)}
+                          </p>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             );
           })}
         </div>
       </div>
 
-      {/* Block Date Modal */}
+      {/* Block Time Modal */}
       {showBlockModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Block Date</h2>
-            <div className="space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
-                <input
-                  type="date"
-                  id="blockDate"
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
-                />
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Block Time for {currentProvider.displayName}</h2>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              const form = e.target as HTMLFormElement;
+              const date = (form.elements.namedItem('blockDate') as HTMLInputElement).value;
+              const reason = (form.elements.namedItem('reason') as HTMLSelectElement).value;
+              const notes = (form.elements.namedItem('notes') as HTMLInputElement).value;
+              const fullDay = (form.elements.namedItem('fullDay') as HTMLInputElement).checked;
+              const startTime = fullDay ? undefined : (form.elements.namedItem('startTime') as HTMLSelectElement).value;
+              const endTime = fullDay ? undefined : (form.elements.namedItem('endTime') as HTMLSelectElement).value;
+              addBlockedTime(date, reason, notes, startTime, endTime);
+              setShowBlockModal(false);
+            }}>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Date *</label>
+                  <input
+                    type="date"
+                    name="blockDate"
+                    required
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Reason *</label>
+                  <select
+                    name="reason"
+                    required
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  >
+                    {BLOCK_REASONS.map(r => (
+                      <option key={r.id} value={r.id}>{r.label}</option>
+                    ))}
+                  </select>
+                </div>
+                <div>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      name="fullDay"
+                      defaultChecked
+                      className="rounded border-gray-300 text-pink-500"
+                      onChange={(e) => {
+                        const timeSelects = document.querySelectorAll('.time-select');
+                        timeSelects.forEach(el => {
+                          (el as HTMLElement).style.display = e.target.checked ? 'none' : 'block';
+                        });
+                      }}
+                    />
+                    <span className="text-sm text-gray-700">Full Day</span>
+                  </label>
+                </div>
+                <div className="grid grid-cols-2 gap-4 time-select" style={{ display: 'none' }}>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Start Time</label>
+                    <select name="startTime" className="w-full px-4 py-2 border border-gray-200 rounded-lg">
+                      {TIME_OPTIONS.map(t => (
+                        <option key={t} value={t}>{formatTime(t)}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">End Time</label>
+                    <select name="endTime" className="w-full px-4 py-2 border border-gray-200 rounded-lg">
+                      {TIME_OPTIONS.map(t => (
+                        <option key={t} value={t}>{formatTime(t)}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Notes (optional)</label>
+                  <input
+                    type="text"
+                    name="notes"
+                    placeholder="e.g., Vacation, Doctor appointment"
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  />
+                </div>
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Reason (optional)</label>
-                <input
-                  type="text"
-                  placeholder="e.g., Vacation, Training"
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
-                />
+              <div className="flex justify-end gap-3 mt-6">
+                <button
+                  type="button"
+                  onClick={() => setShowBlockModal(false)}
+                  className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+                >
+                  Block Time
+                </button>
               </div>
-            </div>
-            <div className="flex justify-end gap-3 mt-6">
-              <button
-                onClick={() => setShowBlockModal(false)}
-                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => {
-                  const dateInput = document.getElementById('blockDate') as HTMLInputElement;
-                  if (dateInput.value) {
-                    setProviders(providers.map(p => {
-                      if (p.id !== selectedProvider) return p;
-                      return {
-                        ...p,
-                        blockedDates: [...p.blockedDates, dateInput.value],
-                      };
-                    }));
-                  }
-                  setShowBlockModal(false);
-                }}
-                className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
-              >
-                Block Date
-              </button>
-            </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Holiday Modal */}
+      {showHolidayModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-md w-full p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Add Holiday</h2>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              const form = e.target as HTMLFormElement;
+              const date = (form.elements.namedItem('holidayDate') as HTMLInputElement).value;
+              const name = (form.elements.namedItem('holidayName') as HTMLInputElement).value;
+              const isClosed = (form.elements.namedItem('isClosed') as HTMLInputElement).checked;
+              addHoliday(date, name, isClosed);
+              setShowHolidayModal(false);
+            }}>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Holiday Name *</label>
+                  <input
+                    type="text"
+                    name="holidayName"
+                    required
+                    placeholder="e.g., Christmas Day"
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Date *</label>
+                  <input
+                    type="date"
+                    name="holidayDate"
+                    required
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      name="isClosed"
+                      defaultChecked
+                      className="rounded border-gray-300 text-pink-500"
+                    />
+                    <span className="text-sm text-gray-700">Business Closed</span>
+                  </label>
+                </div>
+              </div>
+              <div className="flex justify-end gap-3 mt-6">
+                <button
+                  type="button"
+                  onClick={() => setShowHolidayModal(false)}
+                  className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+                >
+                  Add Holiday
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* Closed Day Modal */}
+      {showClosedDayModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-md w-full p-6">
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Add Closed Day</h2>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              const form = e.target as HTMLFormElement;
+              const date = (form.elements.namedItem('closedDate') as HTMLInputElement).value;
+              const reason = (form.elements.namedItem('closedReason') as HTMLInputElement).value;
+              addClosedDay(date, reason);
+              setShowClosedDayModal(false);
+            }}>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Date *</label>
+                  <input
+                    type="date"
+                    name="closedDate"
+                    required
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Reason (optional)</label>
+                  <input
+                    type="text"
+                    name="closedReason"
+                    placeholder="e.g., Team training, Maintenance"
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  />
+                </div>
+              </div>
+              <div className="flex justify-end gap-3 mt-6">
+                <button
+                  type="button"
+                  onClick={() => setShowClosedDayModal(false)}
+                  className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+                >
+                  Add Closed Day
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}

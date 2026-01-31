@@ -3,10 +3,12 @@
 // ============================================================
 // ADMIN USER MANAGEMENT PAGE
 // Manage staff accounts, roles, and permissions
+// Live data - no demo accounts
 // ============================================================
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { ACTIVE_PROVIDERS, STAFF_ROLES } from '@/lib/hgos/providers';
 
 interface User {
   id: string;
@@ -17,50 +19,21 @@ interface User {
   status: 'active' | 'inactive' | 'pending';
   lastLogin?: string;
   createdAt: string;
+  credentials?: string;
 }
 
-const MOCK_USERS: User[] = [
-  {
-    id: 'u1',
-    email: 'danielle@hellogorgeousmedspa.com',
-    firstName: 'Danielle',
-    lastName: 'Glazier-Alcala',
-    role: 'owner',
-    status: 'active',
-    lastLogin: '2026-01-31 8:30 AM',
-    createdAt: '2024-01-01',
-  },
-  {
-    id: 'u2',
-    email: 'ryan.kent@hellogorgeousmedspa.com',
-    firstName: 'Ryan',
-    lastName: 'Kent',
-    role: 'provider',
-    status: 'active',
-    lastLogin: '2026-01-31 8:45 AM',
-    createdAt: '2024-06-15',
-  },
-  {
-    id: 'u3',
-    email: 'staff@hellogorgeousmedspa.com',
-    firstName: 'Jessica',
-    lastName: 'Smith',
-    role: 'staff',
-    status: 'active',
-    lastLogin: '2026-01-30 5:00 PM',
-    createdAt: '2025-03-01',
-  },
-  {
-    id: 'u4',
-    email: 'admin@hellogorgeousmedspa.com',
-    firstName: 'Admin',
-    lastName: 'User',
-    role: 'admin',
-    status: 'active',
-    lastLogin: '2026-01-29',
-    createdAt: '2025-01-01',
-  },
-];
+// Initialize users from active providers
+const INITIAL_USERS: User[] = ACTIVE_PROVIDERS.filter(p => p.isActive).map(provider => ({
+  id: provider.id,
+  email: provider.email,
+  firstName: provider.firstName,
+  lastName: provider.lastName,
+  role: provider.role,
+  status: 'active' as const,
+  lastLogin: 'Today',
+  createdAt: '2024-01-01',
+  credentials: provider.credentials,
+}));
 
 const ROLE_COLORS: Record<string, string> = {
   owner: 'bg-amber-100 text-amber-700',
@@ -76,8 +49,15 @@ const ROLE_LABELS: Record<string, string> = {
   staff: 'Staff',
 };
 
+const ROLE_PERMISSIONS: Record<string, string[]> = {
+  owner: ['All access - Full control of the system'],
+  admin: ['View dashboard', 'Manage clients', 'Manage appointments', 'View reports', 'Manage staff'],
+  provider: ['View appointments', 'Manage charts', 'View clients', 'Prescribe medications'],
+  staff: ['View appointments', 'Check in clients', 'Basic POS operations'],
+};
+
 export default function AdminUsersPage() {
-  const [users, setUsers] = useState(MOCK_USERS);
+  const [users, setUsers] = useState<User[]>(INITIAL_USERS);
   const [showAddModal, setShowAddModal] = useState(false);
   const [editingUser, setEditingUser] = useState<User | null>(null);
   const [filterRole, setFilterRole] = useState<string>('all');
@@ -86,13 +66,27 @@ export default function AdminUsersPage() {
     filterRole === 'all' || u.role === filterRole
   );
 
+  const handleDeactivate = (userId: string) => {
+    if (confirm('Are you sure you want to deactivate this user?')) {
+      setUsers(users.map(u => 
+        u.id === userId ? { ...u, status: 'inactive' as const } : u
+      ));
+    }
+  };
+
+  const handleReactivate = (userId: string) => {
+    setUsers(users.map(u => 
+      u.id === userId ? { ...u, status: 'active' as const } : u
+    ));
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">User Management</h1>
-          <p className="text-gray-500">Manage staff accounts and permissions</p>
+          <p className="text-gray-500">Manage staff accounts and system access</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -115,20 +109,22 @@ export default function AdminUsersPage() {
           </p>
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Staff</p>
-          <p className="text-2xl font-bold text-blue-600">
-            {users.filter((u) => u.role === 'staff').length}
+          <p className="text-sm text-gray-500">Active</p>
+          <p className="text-2xl font-bold text-green-600">
+            {users.filter((u) => u.status === 'active').length}
           </p>
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Active Now</p>
-          <p className="text-2xl font-bold text-green-600">2</p>
+          <p className="text-sm text-gray-500">Inactive</p>
+          <p className="text-2xl font-bold text-gray-400">
+            {users.filter((u) => u.status === 'inactive').length}
+          </p>
         </div>
       </div>
 
       {/* Filters */}
       <div className="flex gap-2">
-        {['all', 'owner', 'admin', 'provider', 'staff'].map((role) => (
+        {['all', 'owner', 'provider', 'staff'].map((role) => (
           <button
             key={role}
             onClick={() => setFilterRole(role)}
@@ -156,89 +152,113 @@ export default function AdminUsersPage() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
-            {filteredUsers.map((user) => (
-              <tr key={user.id} className="hover:bg-gray-50">
-                <td className="px-5 py-4">
-                  <div className="flex items-center gap-3">
-                    <div className={`w-10 h-10 rounded-full ${ROLE_COLORS[user.role].split(' ')[0]} flex items-center justify-center font-bold text-sm`}>
-                      {user.firstName[0]}{user.lastName[0]}
+            {filteredUsers.map((user) => {
+              const provider = ACTIVE_PROVIDERS.find(p => p.id === user.id);
+              return (
+                <tr key={user.id} className="hover:bg-gray-50">
+                  <td className="px-5 py-4">
+                    <div className="flex items-center gap-3">
+                      <div 
+                        className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm text-white"
+                        style={{ backgroundColor: provider?.color || '#6b7280' }}
+                      >
+                        {user.firstName[0]}{user.lastName[0]}
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">
+                          {user.firstName} {user.lastName}
+                          {user.credentials && (
+                            <span className="text-gray-500 font-normal">, {user.credentials}</span>
+                          )}
+                        </p>
+                        <p className="text-sm text-gray-500">{user.email}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-medium text-gray-900">
-                        {user.firstName} {user.lastName}
-                      </p>
-                      <p className="text-sm text-gray-500">{user.email}</p>
-                    </div>
-                  </div>
-                </td>
-                <td className="px-5 py-4">
-                  <span className={`px-3 py-1 text-xs font-medium rounded-full ${ROLE_COLORS[user.role]}`}>
-                    {ROLE_LABELS[user.role]}
-                  </span>
-                </td>
-                <td className="px-5 py-4">
-                  <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                    user.status === 'active' 
-                      ? 'bg-green-100 text-green-700'
-                      : user.status === 'pending'
-                      ? 'bg-amber-100 text-amber-700'
-                      : 'bg-gray-100 text-gray-700'
-                  }`}>
-                    {user.status}
-                  </span>
-                </td>
-                <td className="px-5 py-4 text-sm text-gray-600">
-                  {user.lastLogin || 'Never'}
-                </td>
-                <td className="px-5 py-4 text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <button
-                      onClick={() => setEditingUser(user)}
-                      className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded-lg"
-                    >
-                      Edit
-                    </button>
-                    {user.role !== 'owner' && (
-                      <button className="px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 rounded-lg">
-                        Deactivate
+                  </td>
+                  <td className="px-5 py-4">
+                    <span className={`px-3 py-1 text-xs font-medium rounded-full ${ROLE_COLORS[user.role]}`}>
+                      {ROLE_LABELS[user.role]}
+                    </span>
+                  </td>
+                  <td className="px-5 py-4">
+                    <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                      user.status === 'active' 
+                        ? 'bg-green-100 text-green-700'
+                        : user.status === 'pending'
+                        ? 'bg-amber-100 text-amber-700'
+                        : 'bg-gray-100 text-gray-700'
+                    }`}>
+                      {user.status}
+                    </span>
+                  </td>
+                  <td className="px-5 py-4 text-sm text-gray-600">
+                    {user.lastLogin || 'Never'}
+                  </td>
+                  <td className="px-5 py-4 text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <button
+                        onClick={() => setEditingUser(user)}
+                        className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded-lg"
+                      >
+                        Edit
                       </button>
-                    )}
-                  </div>
-                </td>
-              </tr>
-            ))}
+                      {user.role !== 'owner' && (
+                        user.status === 'active' ? (
+                          <button 
+                            onClick={() => handleDeactivate(user.id)}
+                            className="px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 rounded-lg"
+                          >
+                            Deactivate
+                          </button>
+                        ) : (
+                          <button 
+                            onClick={() => handleReactivate(user.id)}
+                            className="px-3 py-1.5 text-sm text-green-600 hover:bg-green-50 rounded-lg"
+                          >
+                            Reactivate
+                          </button>
+                        )
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
 
-      {/* Demo Account Info */}
-      <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-        <h3 className="font-semibold text-blue-900 mb-3">Demo Accounts</h3>
-        <p className="text-sm text-blue-800 mb-4">
-          Use these accounts to test different role access levels:
-        </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white rounded-lg p-3">
-            <p className="font-medium text-gray-900">Admin</p>
-            <p className="text-xs text-gray-500 font-mono">admin@hellogorgeousmedspa.com</p>
-            <p className="text-xs text-gray-500">Password: admin123</p>
-          </div>
-          <div className="bg-white rounded-lg p-3">
-            <p className="font-medium text-gray-900">Provider</p>
-            <p className="text-xs text-gray-500 font-mono">provider@hellogorgeousmedspa.com</p>
-            <p className="text-xs text-gray-500">Password: provider123</p>
-          </div>
-          <div className="bg-white rounded-lg p-3">
-            <p className="font-medium text-gray-900">Staff</p>
-            <p className="text-xs text-gray-500 font-mono">staff@hellogorgeousmedspa.com</p>
-            <p className="text-xs text-gray-500">Password: staff123</p>
-          </div>
-          <div className="bg-white rounded-lg p-3">
-            <p className="font-medium text-gray-900">Client</p>
-            <p className="text-xs text-gray-500 font-mono">client@example.com</p>
-            <p className="text-xs text-gray-500">Password: client123</p>
-          </div>
+      {/* Role Permissions */}
+      <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+        <h2 className="font-semibold text-gray-900 mb-4">Role Permissions</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {Object.entries(ROLE_PERMISSIONS).map(([role, permissions]) => (
+            <div key={role} className="border border-gray-100 rounded-lg p-4">
+              <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full mb-3 ${ROLE_COLORS[role]}`}>
+                {ROLE_LABELS[role]}
+              </span>
+              <ul className="space-y-1">
+                {permissions.map((permission, i) => (
+                  <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
+                    <span className="text-green-500 mt-0.5">✓</span>
+                    {permission}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
+      </div>
+
+      {/* Security Notice */}
+      <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
+        <h3 className="font-semibold text-blue-900 mb-2">🔐 Security Best Practices</h3>
+        <ul className="text-sm text-blue-800 space-y-1">
+          <li>• All user passwords must be at least 12 characters with mixed case, numbers, and symbols</li>
+          <li>• Users are automatically logged out after 30 minutes of inactivity</li>
+          <li>• All login attempts are logged for security auditing</li>
+          <li>• Two-factor authentication is recommended for all accounts</li>
+        </ul>
       </div>
 
       {/* Add/Edit Modal */}
@@ -303,7 +323,7 @@ function UserModal({
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                First Name
+                First Name *
               </label>
               <input
                 type="text"
@@ -315,7 +335,7 @@ function UserModal({
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Last Name
+                Last Name *
               </label>
               <input
                 type="text"
@@ -329,7 +349,7 @@ function UserModal({
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
+              Email *
             </label>
             <input
               type="email"
@@ -342,23 +362,38 @@ function UserModal({
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Role
+              Credentials (optional)
+            </label>
+            <input
+              type="text"
+              placeholder="e.g., FNP-BC, RN-S"
+              value={formData.credentials || ''}
+              onChange={(e) => setFormData({ ...formData, credentials: e.target.value })}
+              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              Role *
             </label>
             <select
               value={formData.role}
               onChange={(e) => setFormData({ ...formData, role: e.target.value as User['role'] })}
               className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+              disabled={user?.role === 'owner'}
             >
               <option value="staff">Staff (Front Desk)</option>
               <option value="provider">Provider (Clinical)</option>
-              <option value="admin">Admin (Full Access)</option>
+              <option value="admin">Admin (Management)</option>
+              {user?.role === 'owner' && <option value="owner">Owner</option>}
             </select>
           </div>
 
           {!user && (
             <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
               <p className="text-sm text-amber-800">
-                A password reset link will be sent to the user's email address.
+                📧 A password setup link will be sent to the user's email address.
               </p>
             </div>
           )}

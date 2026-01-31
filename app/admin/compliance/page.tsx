@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
+import { useState } from 'react';
 import {
   COMPLIANCE_CHECKLIST,
   ComplianceItem,
@@ -14,8 +13,6 @@ import {
   IncidentSeverity,
   EMERGENCY_PROTOCOLS,
   ProviderCredentials,
-  Credential,
-  getExpiringCredentials,
 } from '@/lib/hgos/legal-protection';
 
 // Mock data - in production, this comes from Supabase
@@ -48,16 +45,16 @@ const MOCK_INCIDENTS: Incident[] = [
     location: 'Treatment Room 1',
     description: 'Client experienced more bruising than typical after lip filler. Resolved within 10 days.',
     clientName: 'Jane D.',
-    providerName: 'Danielle',
+    providerName: 'Ryan Kent, FNP-BC',
     treatmentType: 'Lip Filler',
     productUsed: 'Juvederm Ultra',
     lotNumber: 'JUV-2025-1234',
     immediateActions: 'Applied ice, provided arnica gel, scheduled follow-up',
     medicalAttentionRequired: false,
     clientNotified: true,
-    reportedBy: 'Danielle',
+    reportedBy: 'Ryan Kent',
     reportedAt: '2026-01-15T15:00:00Z',
-    closedBy: 'Danielle',
+    closedBy: 'Ryan Kent',
     closedAt: '2026-01-25T10:00:00Z',
     notes: [],
   },
@@ -65,8 +62,8 @@ const MOCK_INCIDENTS: Incident[] = [
 
 const MOCK_PROVIDER_CREDENTIALS: ProviderCredentials[] = [
   {
-    providerId: 'prov-1',
-    providerName: 'Danielle',
+    providerId: 'ryan-kent',
+    providerName: 'Ryan Kent, FNP-BC',
     credentials: [
       {
         id: 'cred-1',
@@ -95,6 +92,43 @@ const MOCK_PROVIDER_CREDENTIALS: ProviderCredentials[] = [
         issuedDate: '2023-01-15',
         expirationDate: '2026-01-15',
         status: 'expired',
+      },
+      {
+        id: 'cred-4',
+        type: 'dea_registration',
+        name: 'DEA Registration',
+        licenseNumber: 'FK1234567',
+        issuingBody: 'DEA',
+        issuedDate: '2024-01-01',
+        expirationDate: '2027-01-01',
+        status: 'active',
+      },
+    ],
+    trainings: [],
+    insurancePolicies: [],
+  },
+  {
+    providerId: 'danielle-alcala',
+    providerName: 'Danielle Alcala, RN-S',
+    credentials: [
+      {
+        id: 'cred-5',
+        type: 'rn_license',
+        name: 'Illinois RN License',
+        licenseNumber: '041.XXXXXX',
+        issuingBody: 'Illinois DFPR',
+        issuedDate: '2020-05-15',
+        expirationDate: '2026-05-15',
+        status: 'active',
+      },
+      {
+        id: 'cred-6',
+        type: 'cpr_bls',
+        name: 'BLS/CPR Certification',
+        issuingBody: 'American Heart Association',
+        issuedDate: '2025-06-01',
+        expirationDate: '2026-06-01',
+        status: 'active',
       },
     ],
     trainings: [],

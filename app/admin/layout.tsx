@@ -99,11 +99,10 @@ const NAV_SECTIONS = [
   },
 ];
 
-// Public-facing links
-const PUBLIC_LINKS = [
+// Quick external links (opens in new tab for reference)
+const QUICK_LINKS = [
   { href: '/book', label: 'Online Booking', icon: '🌐' },
   { href: '/portal', label: 'Client Portal', icon: '👤' },
-  { href: '/provider', label: 'Provider View', icon: '👩‍⚕️' },
 ];
 
 export default function AdminLayout({
@@ -157,13 +156,13 @@ export default function AdminLayout({
               </div>
             ))}
 
-            {/* Quick Links */}
+            {/* External Links */}
             <div className="pt-4 border-t border-gray-100">
               <h3 className="text-[10px] font-bold text-gray-600 uppercase tracking-wider mb-1 px-3">
-                Quick Links
+                External
               </h3>
               <ul className="space-y-0.5">
-                {PUBLIC_LINKS.map((link) => (
+                {QUICK_LINKS.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
