@@ -109,6 +109,7 @@ export default function BookingForm({ service }: Props) {
   const [selectedTime, setSelectedTime] = useState<string>('');
   const [availableProviders, setAvailableProviders] = useState<Provider[]>([]);
   const [loadingProviders, setLoadingProviders] = useState(true);
+  const [userChangedProvider, setUserChangedProvider] = useState(false); // Prevents auto-select after user clicks "Change"
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -149,12 +150,13 @@ export default function BookingForm({ service }: Props) {
     : [];
 
   // Auto-select if only one provider (after loading completes)
+  // But NOT if user clicked "Change" to go back
   useEffect(() => {
-    if (!loadingProviders && availableProviders.length === 1 && !selectedProvider) {
+    if (!loadingProviders && availableProviders.length === 1 && !selectedProvider && !userChangedProvider) {
       setSelectedProvider(availableProviders[0]);
       setStep('datetime');
     }
-  }, [availableProviders, selectedProvider, loadingProviders]);
+  }, [availableProviders, selectedProvider, loadingProviders, userChangedProvider]);
 
   // Reset date/time when provider changes
   useEffect(() => {
@@ -275,6 +277,7 @@ export default function BookingForm({ service }: Props) {
                       <button
                         key={provider.id}
                         onClick={() => {
+                          setUserChangedProvider(false); // Reset flag on manual selection
                           setSelectedProvider(provider);
                           setStep('datetime');
                         }}
@@ -355,6 +358,7 @@ export default function BookingForm({ service }: Props) {
               </div>
               <button
                 onClick={() => {
+                  setUserChangedProvider(true); // Prevent auto-select
                   setSelectedProvider(null);
                   setStep('provider');
                 }}
