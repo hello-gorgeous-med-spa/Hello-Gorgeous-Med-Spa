@@ -2,19 +2,46 @@
 // ============================================================
 // FRESHA SERVICE IMPORT SCRIPT
 // Imports services from Fresha CSV export to Supabase
+//
+// Usage:
+//   1. Create .env.local with SUPABASE credentials
+//   2. Run: node scripts/import-services.mjs [csv-path]
 // ============================================================
 
 import { createClient } from '@supabase/supabase-js';
 import fs from 'fs';
+import { config } from 'dotenv';
 
-// Supabase credentials
-const SUPABASE_URL = 'https://ljixwtwxjufbwpxpxpff.supabase.co';
-const SUPABASE_SERVICE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxqaXh3dHd4anVmYndweHB4cGZmIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2ODQ1MTMyNCwiZXhwIjoyMDg0MDI3MzI0fQ.OdKeQXO63BZ96E66PWwtaA_I-jU-_lDx4syu_G7YTOU';
+// Load environment variables from .env.local
+config({ path: '.env.local' });
+
+// Supabase credentials from environment
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const SUPABASE_SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+// Validate credentials
+if (!SUPABASE_URL || !SUPABASE_SERVICE_KEY) {
+  console.error('❌ Missing Supabase credentials!');
+  console.error('   Please set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in .env.local');
+  process.exit(1);
+}
+
+if (SUPABASE_SERVICE_KEY.includes('placeholder')) {
+  console.error('❌ Supabase service key appears to be a placeholder!');
+  process.exit(1);
+}
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
 
-// CSV file path
-const csvPath = '/Users/danid/Downloads/export_service_list_2026-01-31.csv';
+// CSV file path - can be overridden via command line argument
+const csvPath = process.argv[2] || '/Users/danid/Downloads/export_service_list_2026-01-31.csv';
+
+// Verify file exists
+if (!fs.existsSync(csvPath)) {
+  console.error(`❌ CSV file not found: ${csvPath}`);
+  console.error('   Usage: node scripts/import-services.mjs [path-to-csv]');
+  process.exit(1);
+}
 
 // Parse CSV with quoted fields (handles multi-line descriptions)
 function parseCSV(text) {

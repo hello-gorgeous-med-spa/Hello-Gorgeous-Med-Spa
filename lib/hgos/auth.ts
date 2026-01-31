@@ -115,7 +115,13 @@ export async function login(credentials: LoginCredentials): Promise<{ user: Auth
   const supabase = createBrowserSupabaseClient();
   
   if (!supabase) {
-    // Mock login for development
+    // SECURITY: Never allow mock login in production
+    if (process.env.NODE_ENV === 'production') {
+      console.error('Authentication failed: Supabase not configured in production');
+      return null;
+    }
+    // Mock login for local development only
+    console.warn('⚠️ Using mock login - development mode only');
     return mockLogin(credentials);
   }
 
