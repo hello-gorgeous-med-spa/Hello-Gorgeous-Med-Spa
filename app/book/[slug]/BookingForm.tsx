@@ -36,7 +36,7 @@ interface Props {
   service: Service;
 }
 
-// Provider data - Danielle and Ryan with their schedules
+// Provider data - Danielle and Ryan with their schedules (from Fresha)
 const PROVIDERS: Provider[] = [
   {
     id: 'danielle-001',
@@ -44,11 +44,12 @@ const PROVIDERS: Provider[] = [
     title: 'Owner & Aesthetic Specialist',
     color: '#EC4899', // pink
     schedule: {
-      monday: { start: '09:00', end: '17:00' },
-      tuesday: { start: '09:00', end: '17:00' },
-      wednesday: { start: '09:00', end: '17:00' },
-      thursday: { start: '09:00', end: '17:00' },
-      friday: { start: '09:00', end: '15:00' },
+      // From Fresha: Mon-Tue 11am-4pm, Wed OFF, Thu-Fri 11am-4pm
+      monday: { start: '11:00', end: '16:00' },
+      tuesday: { start: '11:00', end: '16:00' },
+      wednesday: null, // Off Wednesdays
+      thursday: { start: '11:00', end: '16:00' },
+      friday: { start: '11:00', end: '16:00' },
       saturday: null,
       sunday: null,
     },
@@ -59,11 +60,12 @@ const PROVIDERS: Provider[] = [
     title: 'APRN, FNP-BC',
     color: '#8B5CF6', // purple
     schedule: {
-      monday: { start: '10:00', end: '18:00' },
-      tuesday: { start: '10:00', end: '18:00' },
-      wednesday: null, // Off Wednesdays
-      thursday: { start: '10:00', end: '18:00' },
-      friday: { start: '09:00', end: '15:00' },
+      // From Fresha: Mon-Tue-Wed 10am-5pm, Thu OFF, Fri 10am-3pm
+      monday: { start: '10:00', end: '17:00' },
+      tuesday: { start: '10:00', end: '17:00' },
+      wednesday: { start: '10:00', end: '17:00' },
+      thursday: null, // Off Thursdays
+      friday: { start: '10:00', end: '15:00' },
       saturday: null,
       sunday: null,
     },
