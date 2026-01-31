@@ -3,12 +3,14 @@
 // ============================================================
 // POS TERMINAL - MAIN PAGE
 // Quick checkout and appointment-based transactions
-// With Stripe Integration
+// With Stripe Integration - Connected to Live Data
 // ============================================================
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
+import { useTodaysAppointments, useRecentPayments } from '@/lib/supabase/hooks';
+import { isSupabaseConfigured } from '@/lib/supabase/client';
 
 // Dynamically import Stripe component (client-side only)
 const StripeCheckout = dynamic(() => import('@/components/StripeCheckout'), {
@@ -20,51 +22,69 @@ const StripeCheckout = dynamic(() => import('@/components/StripeCheckout'), {
   ),
 });
 
-// Mock today's appointments ready for checkout
-const TODAYS_APPOINTMENTS = [
-  { id: 'a1', time: '9:00 AM', client: 'Jennifer Martinez', clientId: 'c1', email: 'jennifer@email.com', service: 'Botox - Full Face', provider: 'Ryan Kent, FNP-BC', status: 'checked_in', amount: 450 },
-  { id: 'a2', time: '9:30 AM', client: 'Lisa Thompson', clientId: 'c2', email: 'lisa@email.com', service: 'Lip Filler', provider: 'Ryan Kent, FNP-BC', status: 'in_progress', amount: 650 },
-  { id: 'a3', time: '10:00 AM', client: 'Sarah Johnson', clientId: 'c3', email: 'sarah@email.com', service: 'Botox + Filler Package', provider: 'Ryan Kent, FNP-BC', status: 'completed', amount: 950 },
-  { id: 'a4', time: '10:30 AM', client: 'Amanda Chen', clientId: 'c4', email: 'amanda@email.com', service: 'Glass Glow Facial', provider: 'Danielle Alcala, RN-S', status: 'checked_in', amount: 175 },
-  { id: 'a5', time: '11:00 AM', client: 'Rachel Brown', clientId: 'c5', email: 'rachel@email.com', service: 'Semaglutide', provider: 'Ryan Kent, FNP-BC', status: 'scheduled', amount: 400 },
-  { id: 'a6', time: '11:30 AM', client: 'Karen White', clientId: 'c6', email: 'karen@email.com', service: 'Dermaplaning', provider: 'Danielle Alcala, RN-S', status: 'scheduled', amount: 75 },
-];
-
-// Recent transactions
-const RECENT_TRANSACTIONS = [
-  { id: 't1', time: '8:45 AM', client: 'Michelle Williams', amount: 325, method: 'Visa ••4242' },
-  { id: 't2', time: '8:30 AM', client: 'Emily Davis', amount: 175, method: 'Amex ••1001' },
-];
-
 export default function POSTerminalPage() {
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedAppointment, setSelectedAppointment] = useState<string | null>(null);
-  const [recentTransactions, setRecentTransactions] = useState(RECENT_TRANSACTIONS);
+  const [selectedAppointmentId, setSelectedAppointmentId] = useState<string | null>(null);
+  const [localTransactions, setLocalTransactions] = useState<any[]>([]);
 
-  const filteredAppointments = TODAYS_APPOINTMENTS.filter(
-    (apt) =>
-      apt.client.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      apt.service.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Fetch today's appointments from Supabase
+  const { appointments, loading: apptsLoading } = useTodaysAppointments();
+  const { payments, loading: paymentsLoading } = useRecentPayments(5);
+
+  // Transform appointments for POS display
+  const todaysAppointments = useMemo(() => {
+    return appointments.map(apt => ({
+      id: apt.id,
+      time: new Date(apt.scheduled_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }),
+      client: `${apt.client?.first_name || ''} ${apt.client?.last_name || ''}`.trim() || 'Walk-in',
+      clientId: apt.client?.id || '',
+      email: apt.client?.email || '',
+      service: apt.service?.name || 'Service',
+      provider: `${apt.provider?.first_name || ''} ${apt.provider?.last_name || ''}`.trim() || 'Provider',
+      status: apt.status,
+      amount: apt.service?.price || 0,
+    }));
+  }, [appointments]);
+
+  // Transform recent payments for display
+  const recentTransactions = useMemo(() => {
+    const fromDB = payments.map((p: any) => ({
+      id: p.id,
+      time: new Date(p.created_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }),
+      client: `${p.client?.first_name || ''} ${p.client?.last_name || ''}`.trim() || 'Client',
+      amount: p.total_amount || 0,
+      method: p.payment_method || 'Card',
+    }));
+    return [...localTransactions, ...fromDB].slice(0, 5);
+  }, [payments, localTransactions]);
+
+  const filteredAppointments = useMemo(() => {
+    if (!searchQuery) return todaysAppointments;
+    const query = searchQuery.toLowerCase();
+    return todaysAppointments.filter(
+      (apt) =>
+        apt.client.toLowerCase().includes(query) ||
+        apt.service.toLowerCase().includes(query)
+    );
+  }, [todaysAppointments, searchQuery]);
 
   const readyForCheckout = filteredAppointments.filter(
     (apt) => apt.status === 'completed' || apt.status === 'checked_in' || apt.status === 'in_progress'
   );
 
-  const scheduled = filteredAppointments.filter((apt) => apt.status === 'scheduled');
+  const scheduled = filteredAppointments.filter((apt) => apt.status === 'confirmed' || apt.status === 'pending');
+
+  const selectedAppointment = todaysAppointments.find(a => a.id === selectedAppointmentId);
 
   const handlePaymentSuccess = (paymentIntentId: string, clientName: string, amount: number) => {
-    // Add to recent transactions
-    setRecentTransactions([
-      {
-        id: paymentIntentId,
-        time: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' }),
-        client: clientName,
-        amount: amount,
-        method: 'Card ••••',
-      },
-      ...recentTransactions,
-    ]);
+    // Add to local transactions immediately
+    setLocalTransactions(prev => [{
+      id: paymentIntentId,
+      time: new Date().toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }),
+      client: clientName,
+      amount: amount,
+      method: 'Card ••••',
+    }, ...prev]);
   };
 
   return (
@@ -83,6 +103,9 @@ export default function POSTerminalPage() {
             />
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
           </div>
+          {!isSupabaseConfigured() && (
+            <p className="text-xs text-amber-400 mt-2">Demo Mode - Connect Supabase for live data</p>
+          )}
         </div>
 
         {/* Tabs */}
@@ -100,7 +123,12 @@ export default function POSTerminalPage() {
 
         {/* Appointment List */}
         <div className="flex-1 overflow-y-auto p-4 space-y-3">
-          {readyForCheckout.length === 0 ? (
+          {apptsLoading ? (
+            <div className="text-center py-12 text-slate-400">
+              <div className="animate-spin w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full mx-auto mb-4" />
+              <p>Loading appointments...</p>
+            </div>
+          ) : readyForCheckout.length === 0 ? (
             <div className="text-center py-12 text-slate-400">
               <p className="text-4xl mb-4">✓</p>
               <p>All caught up! No appointments ready for checkout.</p>
@@ -109,9 +137,9 @@ export default function POSTerminalPage() {
             readyForCheckout.map((apt) => (
               <button
                 key={apt.id}
-                onClick={() => setSelectedAppointment(apt.id)}
+                onClick={() => setSelectedAppointmentId(apt.id)}
                 className={`w-full text-left p-4 rounded-xl border transition-all ${
-                  selectedAppointment === apt.id
+                  selectedAppointmentId === apt.id
                     ? 'bg-pink-500/20 border-pink-500'
                     : 'bg-slate-800 border-slate-700 hover:border-slate-500'
                 }`}
@@ -184,8 +212,8 @@ export default function POSTerminalPage() {
       <div className="w-1/3 flex flex-col bg-slate-800">
         {selectedAppointment ? (
           <CheckoutPanel
-            appointment={TODAYS_APPOINTMENTS.find((a) => a.id === selectedAppointment)!}
-            onClose={() => setSelectedAppointment(null)}
+            appointment={selectedAppointment}
+            onClose={() => setSelectedAppointmentId(null)}
             onPaymentSuccess={handlePaymentSuccess}
           />
         ) : (
@@ -202,17 +230,23 @@ export default function POSTerminalPage() {
             {/* Recent Transactions */}
             <div className="border-t border-slate-700 p-4">
               <h3 className="text-sm font-medium text-slate-400 mb-3">Recent Transactions</h3>
-              <div className="space-y-2">
-                {recentTransactions.slice(0, 5).map((txn) => (
-                  <div key={txn.id} className="flex items-center justify-between text-sm">
-                    <div>
-                      <p className="text-white">{txn.client}</p>
-                      <p className="text-slate-500">{txn.time} • {txn.method}</p>
+              {paymentsLoading ? (
+                <div className="text-center text-slate-500 py-4">Loading...</div>
+              ) : recentTransactions.length === 0 ? (
+                <div className="text-center text-slate-500 py-4">No recent transactions</div>
+              ) : (
+                <div className="space-y-2">
+                  {recentTransactions.map((txn) => (
+                    <div key={txn.id} className="flex items-center justify-between text-sm">
+                      <div>
+                        <p className="text-white">{txn.client}</p>
+                        <p className="text-slate-500">{txn.time} • {txn.method}</p>
+                      </div>
+                      <p className="text-green-400 font-medium">${txn.amount}</p>
                     </div>
-                    <p className="text-green-400 font-medium">${txn.amount}</p>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}
