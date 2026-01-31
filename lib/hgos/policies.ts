@@ -37,25 +37,79 @@ export interface BookingPolicy {
   requireFirstTimeConsultation: boolean;
 }
 
+export interface OnlineBookingConfig {
+  // Time slot settings
+  timeSlotIntervalMinutes: 15 | 30 | 60;
+  showAllAvailableSlots: boolean;
+  
+  // Booking options
+  allowClientToChooseProvider: boolean;
+  showProviderRatingsAndProfiles: boolean;
+  allowGroupBooking: boolean;
+  showFeaturedServices: boolean;
+  displayContactNumberForHelp: boolean;
+  contactNumber: string;
+  
+  // Upselling
+  suggestRelatedServices: boolean;
+  highlightMemberships: boolean;
+  
+  // Notifications
+  notifyBookedTeamMember: boolean;
+  notificationEmails: string[];
+  
+  // Important info text displayed during booking
+  importantInfoText: string;
+}
+
 // Default Hello Gorgeous policies
 export const DEFAULT_CANCELLATION_POLICY: CancellationPolicy = {
   freeCancellationHours: 24,
   lateCancellationFeePercent: 50,
   lateCancellationFlatFee: undefined,
-  rescheduleBlockedHours: 4,
+  rescheduleBlockedHours: 24, // Matches Fresha setting
   maxNoShows: 3,
   clientMessage: `We understand that plans change. Please provide at least 24 hours notice if you need to cancel or reschedule your appointment. Late cancellations (less than 24 hours) may be subject to a 50% service fee. No-shows may be charged the full service amount.`,
 };
 
 export const DEFAULT_BOOKING_POLICY: BookingPolicy = {
-  maxAdvanceBookingDays: 90,
-  minNoticeHours: 2,
+  maxAdvanceBookingDays: 150, // 5 months as per Fresha setting
+  minNoticeHours: 0, // Can book immediately before start time
   requireDepositNewClients: false,
   depositThresholdAmount: 500,
   depositPercent: 25,
   depositRequiredServiceIds: [],
   allowNewClientOnlineBooking: true,
-  requireFirstTimeConsultation: true,
+  requireFirstTimeConsultation: false,
+};
+
+export const DEFAULT_ONLINE_BOOKING_CONFIG: OnlineBookingConfig = {
+  // Time slot settings
+  timeSlotIntervalMinutes: 15,
+  showAllAvailableSlots: true,
+  
+  // Booking options
+  allowClientToChooseProvider: true,
+  showProviderRatingsAndProfiles: true,
+  allowGroupBooking: true,
+  showFeaturedServices: true,
+  displayContactNumberForHelp: true,
+  contactNumber: '(630) 636-6193',
+  
+  // Upselling
+  suggestRelatedServices: true,
+  highlightMemberships: true,
+  
+  // Notifications
+  notifyBookedTeamMember: true,
+  notificationEmails: ['hellogorgeousskin@yahoo.com'],
+  
+  // Important info text
+  importantInfoText: `Unfortunately, for spa services & rituals we cannot accept any refund request, all services (includes spa packages) purchased, booked or completed services are final and non-refundable. You may be able to exchange for another service of equal or less value if requested to exchange before 24 Hours of booked appointment. Services cannot be refunded on because of concern or expected results. We are committed to assist our guest with all their concerns and shall advise for correction in post treatment protocol and regimen to be followed. It may require a follow-up visit at the spa for free consultation.
+
+Promotional or Special Offer Items: On Sale and Special offers items and services are non-refundable; any deposit for booking services or events is also non-refundable. Rescheduling of appointment can only be done before 24 Hours.
+
+Gift cards, Gift Certificates and Packages: Unfortunately we cannot refund on Gift Cards, Spa Gift Certificates, Spa Packages, On Sale or Special offer items.`,
 };
 
 // Policy validation helpers

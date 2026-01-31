@@ -6,6 +6,7 @@
 
 import Link from 'next/link';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { DEFAULT_ONLINE_BOOKING_CONFIG, DEFAULT_BOOKING_POLICY, DEFAULT_CANCELLATION_POLICY } from '@/lib/hgos/policies';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -28,6 +29,17 @@ const CATEGORY_ICONS: Record<string, string> = {
   'brow': '🤨',
   'laser-hair': '⚡',
   'consultations': '🩺',
+  'dermal-fillers': '💋',
+  'weight-loss-injections': '⚡',
+  'bioidentical-hormone-therapy-bhrt': '⚖️',
+  'skin-spa': '✨',
+  'lash-spa': '👁️',
+  'brow-spa': '🤨',
+  'body-spa': '💆',
+  'iv-drip-package-deals': '💧',
+  'prp-injections': '🩸',
+  'vitamin-injections': '💊',
+  'glowtox-facial-our-signature': '✨',
 };
 
 async function getServicesData() {
@@ -227,6 +239,31 @@ export default async function PublicBookingPage() {
           )}
         </section>
 
+        {/* Membership Upsell */}
+        {DEFAULT_ONLINE_BOOKING_CONFIG.highlightMemberships && (
+          <section className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-8 text-white mb-12">
+            <div className="flex flex-col md:flex-row items-center gap-6">
+              <div className="text-5xl">💎</div>
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-xl font-bold mb-2">
+                  Save 10% on Every Service with Our Membership
+                </h3>
+                <p className="text-purple-100 mb-4">
+                  Join our Hello Gorgeous membership for priority booking, exclusive discounts, and more!
+                </p>
+                <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+                  <Link
+                    href="/membership"
+                    className="inline-flex items-center gap-2 bg-white text-purple-600 px-5 py-2.5 rounded-full font-semibold hover:shadow-lg transition-all"
+                  >
+                    View Membership Plans
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+        )}
+
         {/* Not Sure Section */}
         <section className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 text-center mb-12">
           <div className="text-4xl mb-4">🤔</div>
@@ -236,12 +273,46 @@ export default async function PublicBookingPage() {
           <p className="text-gray-600 mb-6">
             Book a free consultation and our team will create a personalized plan just for you.
           </p>
-          <Link
-            href="/book/free-consultation"
-            className="inline-flex items-center gap-2 bg-white text-gray-900 px-6 py-3 rounded-full font-medium hover:shadow-lg transition-all"
-          >
-            Book Free Consultation
-          </Link>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/quiz"
+              className="inline-flex items-center gap-2 bg-pink-500 text-white px-6 py-3 rounded-full font-medium hover:bg-pink-600 transition-all"
+            >
+              ✨ Take the Quiz
+            </Link>
+            <Link
+              href="/book/consultation-free"
+              className="inline-flex items-center gap-2 bg-white text-gray-900 px-6 py-3 rounded-full font-medium hover:shadow-lg transition-all border border-gray-200"
+            >
+              Book Free Consultation
+            </Link>
+          </div>
+        </section>
+
+        {/* Booking Policy Info */}
+        <section className="bg-amber-50 border border-amber-200 rounded-2xl p-6 mb-12">
+          <h3 className="font-semibold text-amber-900 mb-3 flex items-center gap-2">
+            📋 Booking & Cancellation Policy
+          </h3>
+          <div className="text-sm text-amber-800 space-y-2">
+            <p>
+              <strong>Booking:</strong> You can book appointments up to {DEFAULT_BOOKING_POLICY.maxAdvanceBookingDays / 30} months in advance.
+            </p>
+            <p>
+              <strong>Cancellation:</strong> Please provide at least {DEFAULT_CANCELLATION_POLICY.freeCancellationHours} hours notice to cancel or reschedule your appointment.
+            </p>
+            <p className="text-xs mt-3 text-amber-700 leading-relaxed">
+              {DEFAULT_ONLINE_BOOKING_CONFIG.importantInfoText.split('\n')[0]}
+            </p>
+          </div>
+          {DEFAULT_ONLINE_BOOKING_CONFIG.displayContactNumberForHelp && (
+            <p className="text-sm text-amber-800 mt-4">
+              Need help? Call or text us at{' '}
+              <a href={`tel:${DEFAULT_ONLINE_BOOKING_CONFIG.contactNumber.replace(/\D/g, '')}`} className="font-semibold text-amber-900 underline">
+                {DEFAULT_ONLINE_BOOKING_CONFIG.contactNumber}
+              </a>
+            </p>
+          )}
         </section>
 
         {/* Contact Info */}
