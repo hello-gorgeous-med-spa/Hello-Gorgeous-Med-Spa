@@ -95,7 +95,13 @@ export default function ProviderSchedulesPage() {
           .eq('is_active', true);
 
         if (data) {
-          setProviders(data.map((p: any) => ({
+          // Filter to only show actual providers (Ryan and Danielle)
+          const actualProviders = data.filter((p: any) => {
+            const firstName = p.users.first_name?.toLowerCase() || '';
+            return firstName === 'ryan' || firstName === 'danielle';
+          });
+
+          setProviders(actualProviders.map((p: any) => ({
             id: p.id,
             name: `${p.users.first_name} ${p.users.last_name}`,
             title: p.credentials,
