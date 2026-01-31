@@ -5,11 +5,46 @@
 // Full client management - Connected to Live Data
 // ============================================================
 
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import Link from 'next/link';
 import { useClients } from '@/lib/supabase/hooks';
 import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
 import type { Client } from '@/lib/supabase/types';
+
+// Simple CSV parser
+function parseCSV(text: string): Record<string, string>[] {
+  const lines = text.split('\n').filter(line => line.trim());
+  if (lines.length < 2) return [];
+  
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+  const rows: Record<string, string>[] = [];
+  
+  for (let i = 1; i < lines.length; i++) {
+    const values: string[] = [];
+    let current = '';
+    let inQuotes = false;
+    
+    for (const char of lines[i]) {
+      if (char === '"') {
+        inQuotes = !inQuotes;
+      } else if (char === ',' && !inQuotes) {
+        values.push(current.trim());
+        current = '';
+      } else {
+        current += char;
+      }
+    }
+    values.push(current.trim());
+    
+    const row: Record<string, string> = {};
+    headers.forEach((header, index) => {
+      row[header] = values[index]?.replace(/^"|"$/g, '') || '';
+    });
+    rows.push(row);
+  }
+  
+  return rows;
+}
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -24,6 +59,13 @@ export default function AdminClientsPage() {
   const [page, setPage] = useState(1);
   const [totalStats, setTotalStats] = useState({ total: 0, vip: 0, revenue: 0, newThisMonth: 0 });
   const pageSize = 25;
+  
+  // Import modal state
+  const [showImportModal, setShowImportModal] = useState(false);
+  const [importFile, setImportFile] = useState<File | null>(null);
+  const [importing, setImporting] = useState(false);
+  const [importResult, setImportResult] = useState<{ success: boolean; message: string; details?: any } | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Debounce search
   useEffect(() => {
@@ -123,6 +165,128 @@ export default function AdminClientsPage() {
     alert('Export functionality will download all client data as CSV. (Connect to backend to enable)');
   };
 
+  // Import handler
+  const handleImport = async () => {
+    if (!importFile) return;
+    
+    setImporting(true);
+    setImportResult(null);
+    
+    try {
+      const text = await importFile.text();
+      const rows = parseCSV(text);
+      
+      if (rows.length === 0) {
+        setImportResult({ success: false, message: 'No data found in file' });
+        setImporting(false);
+        return;
+      }
+
+      // Map CSV columns to expected format
+      const clients = rows.map(row => ({
+        'Client ID': row['Client ID'] || row['ID'] || '',
+        'First Name': row['First Name'] || row['First name'] || row['FirstName'] || '',
+        'Last Name': row['Last Name'] || row['Last name'] || row['LastName'] || '',
+        'Full Name': row['Full Name'] || row['Name'] || `${row['First Name'] || ''} ${row['Last Name'] || ''}`.trim(),
+        'Blocked': row['Blocked'] || 'No',
+        'Block Reason': row['Block Reason'] || '',
+        'Gender': row['Gender'] || '',
+        'Mobile Number': row['Mobile Number'] || row['Mobile'] || row['Phone'] || row['Cell'] || '',
+        'Telephone': row['Telephone'] || row['Phone Number'] || '',
+        'Email': row['Email'] || row['E-mail'] || '',
+        'Accepts Marketing': row['Accepts Marketing'] || 'No',
+        'Accepts SMS Marketing': row['Accepts SMS Marketing'] || 'No',
+        'Address': row['Address'] || row['Street'] || '',
+        'Apartement Suite': row['Apartement Suite'] || row['Apt'] || row['Suite'] || '',
+        'Area': row['Area'] || '',
+        'City': row['City'] || '',
+        'State': row['State'] || row['Province'] || '',
+        'Post Code': row['Post Code'] || row['Postal Code'] || row['Zip'] || row['ZIP'] || '',
+        'Date of Birth': row['Date of Birth'] || row['DOB'] || row['Birthday'] || '',
+        'Added': row['Added'] || row['Created'] || '',
+        'Note': row['Note'] || row['Notes'] || '',
+        'Referral Source': row['Referral Source'] || row['Source'] || '',
+      }));
+
+      // Direct insert to Supabase (simpler approach)
+      let imported = 0;
+      let errors: string[] = [];
+
+      for (const client of clients) {
+        const firstName = client['First Name']?.trim();
+        const lastName = client['Last Name']?.trim();
+        const email = client['Email']?.trim().toLowerCase();
+        const phone = client['Mobile Number']?.trim() || client['Telephone']?.trim();
+
+        if (!firstName && !lastName && !email && !phone) continue;
+
+        try {
+          // Insert user first
+          const { data: userData, error: userError } = await supabase
+            .from('users')
+            .upsert({
+              email: email || `import_${Date.now()}_${imported}@placeholder.local`,
+              phone: phone || null,
+              first_name: firstName || 'Unknown',
+              last_name: lastName || '',
+              role: 'client',
+              is_active: client['Blocked'] !== 'Yes',
+            }, { onConflict: 'email' })
+            .select('id')
+            .single();
+
+          if (userError) {
+            errors.push(`${firstName} ${lastName}: ${userError.message}`);
+            continue;
+          }
+
+          // Insert client
+          const { error: clientError } = await supabase
+            .from('clients')
+            .upsert({
+              user_id: userData.id,
+              fresha_client_id: client['Client ID'] || null,
+              gender: client['Gender'] || null,
+              accepts_email_marketing: client['Accepts Marketing'] === 'Yes',
+              accepts_sms_marketing: client['Accepts SMS Marketing'] === 'Yes',
+              address_line1: client['Address'] || null,
+              address_line2: client['Apartement Suite'] || null,
+              city: client['City'] || null,
+              state: client['State'] || null,
+              postal_code: client['Post Code'] || null,
+              is_blocked: client['Blocked'] === 'Yes',
+              block_reason: client['Block Reason'] || null,
+              referral_source: client['Referral Source'] || null,
+              internal_notes: client['Note'] || null,
+              is_new_client: false,
+            }, { onConflict: 'user_id' });
+
+          if (clientError) {
+            errors.push(`${firstName} ${lastName}: ${clientError.message}`);
+          } else {
+            imported++;
+          }
+        } catch (err) {
+          errors.push(`${firstName} ${lastName}: ${String(err)}`);
+        }
+      }
+
+      setImportResult({
+        success: true,
+        message: `Imported ${imported} of ${clients.length} clients`,
+        details: errors.length > 0 ? { errors: errors.slice(0, 10), totalErrors: errors.length } : null
+      });
+      
+      // Refresh the client list
+      refetch();
+      
+    } catch (err) {
+      setImportResult({ success: false, message: `Error: ${String(err)}` });
+    }
+    
+    setImporting(false);
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -132,6 +296,12 @@ export default function AdminClientsPage() {
           <p className="text-gray-500">Manage client records and profiles</p>
         </div>
         <div className="flex items-center gap-3">
+          <button 
+            onClick={() => setShowImportModal(true)}
+            className="px-4 py-2 border border-green-500 text-green-600 font-medium rounded-lg hover:bg-green-50 transition-colors"
+          >
+            📥 Import
+          </button>
           <button 
             onClick={handleExport}
             className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
@@ -405,6 +575,112 @@ export default function AdminClientsPage() {
           </div>
         </div>
       </div>
+
+      {/* Import Modal */}
+      {showImportModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-lg w-full p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="text-xl font-bold text-gray-900">Import Clients</h2>
+              <button
+                onClick={() => {
+                  setShowImportModal(false);
+                  setImportFile(null);
+                  setImportResult(null);
+                }}
+                className="text-gray-400 hover:text-gray-600"
+              >
+                ✕
+              </button>
+            </div>
+
+            {!importResult ? (
+              <>
+                <p className="text-gray-600 mb-4">
+                  Upload a CSV file exported from Fresha or any spreadsheet with client data.
+                </p>
+
+                <div className="mb-4">
+                  <p className="text-sm font-medium text-gray-700 mb-2">Expected columns:</p>
+                  <p className="text-xs text-gray-500 bg-gray-50 p-2 rounded">
+                    First Name, Last Name, Email, Mobile Number, Phone, Address, City, State, Post Code, Gender, Date of Birth, Notes
+                  </p>
+                </div>
+
+                <div
+                  onClick={() => fileInputRef.current?.click()}
+                  className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center cursor-pointer hover:border-pink-400 hover:bg-pink-50 transition-colors"
+                >
+                  <input
+                    ref={fileInputRef}
+                    type="file"
+                    accept=".csv,.txt"
+                    className="hidden"
+                    onChange={(e) => setImportFile(e.target.files?.[0] || null)}
+                  />
+                  {importFile ? (
+                    <div>
+                      <p className="text-lg font-medium text-gray-900">📄 {importFile.name}</p>
+                      <p className="text-sm text-gray-500">{(importFile.size / 1024).toFixed(1)} KB</p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p className="text-4xl mb-2">📁</p>
+                      <p className="text-gray-600">Click to select a CSV file</p>
+                      <p className="text-sm text-gray-400">or drag and drop</p>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex gap-3 mt-6">
+                  <button
+                    onClick={() => {
+                      setShowImportModal(false);
+                      setImportFile(null);
+                    }}
+                    className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleImport}
+                    disabled={!importFile || importing}
+                    className="flex-1 px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {importing ? 'Importing...' : 'Import Clients'}
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div>
+                <div className={`p-4 rounded-lg mb-4 ${importResult.success ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
+                  <p className="font-medium">{importResult.success ? '✅' : '❌'} {importResult.message}</p>
+                  {importResult.details?.errors && (
+                    <div className="mt-2 text-sm">
+                      <p className="font-medium">Errors ({importResult.details.totalErrors}):</p>
+                      <ul className="list-disc list-inside mt-1 max-h-32 overflow-y-auto">
+                        {importResult.details.errors.map((err: string, i: number) => (
+                          <li key={i}>{err}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+                <button
+                  onClick={() => {
+                    setShowImportModal(false);
+                    setImportFile(null);
+                    setImportResult(null);
+                  }}
+                  className="w-full px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+                >
+                  Done
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
