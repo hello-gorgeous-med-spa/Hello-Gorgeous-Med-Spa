@@ -72,8 +72,8 @@ export function useDashboardStats() {
         const { data: todaysAppts, error: apptError } = await supabase
           .from('appointments')
           .select('*')
-          .gte('scheduled_at', `${today}T00:00:00`)
-          .lt('scheduled_at', `${today}T23:59:59`);
+          .gte('starts_at', `${today}T00:00:00`)
+          .lt('starts_at', `${today}T23:59:59`);
 
         if (apptError) throw apptError;
 
@@ -158,15 +158,15 @@ export function useAppointments(date?: string, providerId?: string) {
         .select(`
           *,
           client:clients(*),
-          provider:staff(*),
+          provider:providers(*),
           service:services(*)
         `)
-        .order('scheduled_at', { ascending: true });
+        .order('starts_at', { ascending: true });
 
       if (date) {
         query = query
-          .gte('scheduled_at', `${date}T00:00:00`)
-          .lt('scheduled_at', `${date}T23:59:59`);
+          .gte('starts_at', `${date}T00:00:00`)
+          .lt('starts_at', `${date}T23:59:59`);
       }
 
       if (providerId) {
@@ -449,62 +449,50 @@ export function useProviders() {
           return;
         }
 
-        // Fallback: try staff table
-        const { data: staffData, error: staffError } = await supabase
-          .from('staff')
-          .select('*')
-          .eq('is_provider', true)
-          .eq('is_active', true)
-          .order('last_name');
-
-        if (!staffError && staffData) {
-          setProviders(staffData);
-        } else {
-          // If both fail, use defaults
-          console.log('No providers found in database, using defaults');
-          setProviders([
-            {
-              id: 'default-1',
-              user_id: null,
-              first_name: 'Ryan',
-              last_name: 'Kent',
-              email: 'ryan@hellogorgeousmedspa.com',
-              phone: null,
-              role: 'provider',
-              title: 'APRN, FNP-BC',
-              bio: null,
-              avatar_url: null,
-              is_provider: true,
-              license_number: null,
-              license_expiration: null,
-              service_ids: null,
-              location_ids: null,
-              is_active: true,
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString(),
-            },
-            {
-              id: 'default-2',
-              user_id: null,
-              first_name: 'Danielle',
-              last_name: 'Glazier-Alcala',
-              email: 'danielle@hellogorgeousmedspa.com',
-              phone: null,
-              role: 'owner',
-              title: 'Owner, NP',
-              bio: null,
-              avatar_url: null,
-              is_provider: true,
-              license_number: null,
-              license_expiration: null,
-              service_ids: null,
-              location_ids: null,
-              is_active: true,
-              created_at: new Date().toISOString(),
-              updated_at: new Date().toISOString(),
-            },
-          ]);
-        }
+        // If providers query fails, use defaults
+        console.log('No providers found in database, using defaults');
+        setProviders([
+          {
+            id: 'default-1',
+            user_id: null,
+            first_name: 'Ryan',
+            last_name: 'Kent',
+            email: 'ryan@hellogorgeousmedspa.com',
+            phone: null,
+            role: 'provider',
+            title: 'APRN, FNP-BC',
+            bio: null,
+            avatar_url: null,
+            is_provider: true,
+            license_number: null,
+            license_expiration: null,
+            service_ids: null,
+            location_ids: null,
+            is_active: true,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          },
+          {
+            id: 'default-2',
+            user_id: null,
+            first_name: 'Danielle',
+            last_name: 'Glazier-Alcala',
+            email: 'danielle@hellogorgeousmedspa.com',
+            phone: null,
+            role: 'owner',
+            title: 'Owner, NP',
+            bio: null,
+            avatar_url: null,
+            is_provider: true,
+            license_number: null,
+            license_expiration: null,
+            service_ids: null,
+            location_ids: null,
+            is_active: true,
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString(),
+          },
+        ]);
       } catch (err) {
         console.error('Error fetching providers:', err);
         setError(err instanceof Error ? err.message : 'Failed to fetch providers');
@@ -584,7 +572,11 @@ export function useRecentPayments(limit = 10) {
           .from('transactions')
           .select(`
             *,
-            client:clients(first_name, last_name)
+            client:clients(
+              id,
+              user_id,
+              users(first_name, last_name)
+            )
           `)
           .eq('status', 'completed')
           .order('created_at', { ascending: false })
@@ -751,12 +743,12 @@ export function useRealtimeAppointments(date: string) {
         .select(`
           *,
           client:clients(*),
-          provider:staff(*),
+          provider:providers(*),
           service:services(*)
         `)
-        .gte('scheduled_at', `${date}T00:00:00`)
-        .lt('scheduled_at', `${date}T23:59:59`)
-        .order('scheduled_at');
+        .gte('starts_at', `${date}T00:00:00`)
+        .lt('starts_at', `${date}T23:59:59`)
+        .order('starts_at');
 
       if (data) setAppointments(data);
     };
@@ -844,7 +836,11 @@ export function useRealtimeTransactions() {
         .from('transactions')
         .select(`
           *,
-          client:clients(first_name, last_name)
+          client:clients(
+            id,
+            user_id,
+            users(first_name, last_name)
+          )
         `)
         .order('created_at', { ascending: false })
         .limit(20);
@@ -889,7 +885,7 @@ export function useCreateAppointment() {
     client_id: string;
     provider_id?: string;
     service_id?: string;
-    scheduled_at: string;
+    starts_at: string;
     duration_minutes?: number;
     notes?: string;
   }) => {

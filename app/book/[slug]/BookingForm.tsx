@@ -171,11 +171,41 @@ export default function BookingForm({ service }: Props) {
   const handleSubmit = async () => {
     setIsSubmitting(true);
 
-    // TODO: Save to Supabase with provider_id
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    try {
+      const response = await fetch('/api/booking/create', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          serviceSlug: service.slug,
+          serviceId: service.id,
+          providerId: selectedProvider?.id,
+          date: selectedDate?.toISOString(),
+          time: selectedTime,
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone,
+          dateOfBirth: formData.dateOfBirth || null,
+          isNewClient: formData.isNewClient,
+          notes: formData.notes,
+          agreeToTerms: formData.agreeToTerms,
+          agreeToSMS: formData.agreeToSMS,
+        }),
+      });
 
-    setStep('confirm');
-    setIsSubmitting(false);
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to book appointment');
+      }
+
+      setStep('confirm');
+    } catch (error) {
+      console.error('Booking error:', error);
+      alert(error instanceof Error ? error.message : 'Failed to book appointment. Please try again or call us.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const formatDate = (date: Date) => {
