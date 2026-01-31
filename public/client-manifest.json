@@ -1,7 +1,7 @@
 {
   "name": "Hello Gorgeous Med Spa",
   "short_name": "Hello Gorgeous",
-  "description": "Your personal med spa portal - Book appointments, track treatments, earn rewards",
+  "description": "Your personal med spa portal - Book appointments, track treatments, earn rewards. Premier Med Spa by Ryan Kent & Danielle Alcala.",
   "start_url": "/portal",
   "scope": "/",
   "display": "standalone",
@@ -85,6 +85,22 @@
     }
   ],
   "categories": ["health", "lifestyle", "medical"],
+  "screenshots": [
+    {
+      "src": "/screenshots/hero.png",
+      "sizes": "1742x614",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Hello Gorgeous Med Spa - Welcome"
+    },
+    {
+      "src": "/images/hero-banner.png",
+      "sizes": "1742x614",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Botox, Fillers & Weight Loss by Ryan Kent & Danielle Alcala"
+    }
+  ],
   "related_applications": [],
   "prefer_related_applications": false
 }

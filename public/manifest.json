@@ -1,8 +1,8 @@
 {
   "name": "Hello Gorgeous Med Spa",
   "short_name": "Hello Gorgeous",
-  "description": "Book appointments and manage your med spa experience",
-  "start_url": "/book",
+  "description": "Premier Med Spa in Oswego, IL - Botox, Fillers & Weight Loss Therapy by Ryan Kent & Danielle Alcala",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ec4899",
@@ -60,22 +60,40 @@
   "shortcuts": [
     {
       "name": "Book Appointment",
+      "short_name": "Book",
       "url": "/book",
       "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     },
     {
-      "name": "My Appointments",
-      "url": "/portal/appointments",
+      "name": "Client Portal",
+      "short_name": "Portal",
+      "url": "/portal",
+      "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Call Us",
+      "short_name": "Call",
+      "url": "tel:+16306366193",
       "icons": [{ "src": "/icons/icon-96x96.png", "sizes": "96x96" }]
     }
   ],
   "categories": ["health", "lifestyle", "medical"],
   "screenshots": [
     {
-      "src": "/screenshots/booking.png",
-      "sizes": "390x844",
+      "src": "/screenshots/hero.png",
+      "sizes": "1742x614",
       "type": "image/png",
-      "form_factor": "narrow"
+      "form_factor": "wide",
+      "label": "Hello Gorgeous Med Spa - Welcome"
+    },
+    {
+      "src": "/images/hero-banner.png",
+      "sizes": "1742x614",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Botox, Fillers & Weight Loss"
     }
-  ]
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
 }
