@@ -269,54 +269,55 @@ export default function BookingForm({ service }: Props) {
                   ))}
                 </div>
               ) : (
-              <div className="grid gap-4">
-                {availableProviders.map((provider) => (
-                  <button
-                    key={provider.id}
-                    onClick={() => {
-                      setSelectedProvider(provider);
-                      setStep('datetime');
-                    }}
-                    className={`flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left hover:shadow-md ${
-                      selectedProvider?.id === provider.id
-                        ? 'border-pink-500 bg-pink-50'
-                        : 'border-gray-200 hover:border-pink-300'
-                    }`}
-                  >
-                    {/* Provider Avatar */}
-                    <div 
-                      className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold flex-shrink-0"
-                      style={{ backgroundColor: provider.color }}
-                    >
-                      {provider.name.split(' ').map(n => n[0]).join('')}
+                <>
+                  <div className="grid gap-4">
+                    {availableProviders.map((provider) => (
+                      <button
+                        key={provider.id}
+                        onClick={() => {
+                          setSelectedProvider(provider);
+                          setStep('datetime');
+                        }}
+                        className={`flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left hover:shadow-md ${
+                          selectedProvider?.id === provider.id
+                            ? 'border-pink-500 bg-pink-50'
+                            : 'border-gray-200 hover:border-pink-300'
+                        }`}
+                      >
+                        {/* Provider Avatar */}
+                        <div 
+                          className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold flex-shrink-0"
+                          style={{ backgroundColor: provider.color }}
+                        >
+                          {provider.name.split(' ').map(n => n[0]).join('')}
+                        </div>
+                        
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-gray-900">{provider.name}</h4>
+                          <p className="text-sm text-gray-500">{provider.title}</p>
+                          <div className="flex items-center gap-2 mt-2 text-xs text-gray-400">
+                            <span className="inline-flex items-center gap-1 bg-gray-100 px-2 py-1 rounded-full">
+                              📅 {Object.entries(provider.schedule).filter(([_, v]) => v !== null).length} days/week
+                            </span>
+                          </div>
+                        </div>
+                        
+                        <div className="text-pink-500">
+                          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                  
+                  {availableProviders.length === 0 && (
+                    <div className="text-center py-8 text-gray-500">
+                      <p>No providers available for this service.</p>
+                      <p className="text-sm mt-2">Please call us at (630) 636-6193 to book.</p>
                     </div>
-                    
-                    <div className="flex-1">
-                      <h4 className="font-semibold text-gray-900">{provider.name}</h4>
-                      <p className="text-sm text-gray-500">{provider.title}</p>
-                      <div className="flex items-center gap-2 mt-2 text-xs text-gray-400">
-                        <span className="inline-flex items-center gap-1 bg-gray-100 px-2 py-1 rounded-full">
-                          📅 {Object.entries(provider.schedule).filter(([_, v]) => v !== null).length} days/week
-                        </span>
-                      </div>
-                    </div>
-                    
-                    <div className="text-pink-500">
-                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                      </svg>
-                    </div>
-                  </button>
-                ))}
-              </div>
-              
-              {availableProviders.length === 0 && (
-                <div className="text-center py-8 text-gray-500">
-                  <p>No providers available for this service.</p>
-                  <p className="text-sm mt-2">Please call us at (630) 636-6193 to book.</p>
-                </div>
-              )}
-            </div>
+                  )}
+                </>
               )}
             </div>
             
