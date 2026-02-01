@@ -66,7 +66,8 @@ const NAV_SECTIONS = [
     items: [
       { href: '/admin/charts', label: 'Charts & notes', icon: '📋', description: 'SOAP notes & clinical' },
       { href: '/admin/consents', label: 'Consent forms', icon: '📝', description: 'Sign & track consents' },
-      { href: '/admin/medications', label: 'Medications', icon: '💊', description: 'Rx & prescriptions' },
+      { href: '/admin/charm', label: 'Charm EHR', icon: '🏥', description: 'E-prescribing & records' },
+      { href: '/admin/medications', label: 'Medications', icon: '💊', description: 'Drug tracking' },
       { href: '/admin/inventory', label: 'Inventory', icon: '📦', description: 'Products & lots' },
       { href: '/admin/compliance', label: 'Compliance', icon: '🛡️', description: 'Safety & incidents' },
     ],
@@ -97,7 +98,7 @@ const NAV_SECTIONS = [
       { href: '/admin/staff', label: 'Staff & schedules', icon: '👤', description: 'Team & shifts' },
       { href: '/admin/users', label: 'Users & access', icon: '🔐', description: 'Logins & roles' },
       { href: '/admin/vendors', label: 'Vendors', icon: '🏢', description: 'Suppliers' },
-      { href: '/admin/fax', label: 'eFax', icon: '📠', description: 'Send or receive fax' },
+      { href: '/admin/efax', label: 'eFax', icon: '📠', description: 'Send or receive fax' },
       { href: '/admin/settings', label: 'Settings', icon: '⚙️', description: 'Business & hours' },
     ],
   },
