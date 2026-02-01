@@ -76,8 +76,10 @@ const NAV_SECTIONS = [
     items: [
       { href: '/admin/payments', label: 'Payments', icon: '💰', description: 'Transaction history' },
       { href: '/admin/services', label: 'Services & pricing', icon: '✨', description: 'Menu & prices' },
+      { href: '/admin/packages', label: 'Service packages', icon: '📦', description: 'Bundles & deals' },
       { href: '/admin/gift-cards', label: 'Gift cards', icon: '🎁', description: 'Sell or redeem' },
       { href: '/admin/memberships', label: 'Memberships', icon: '💎', description: 'VIP plans' },
+      { href: '/admin/promotions', label: 'Promotions', icon: '🏷️', description: 'Coupons & discounts' },
     ],
   },
   {
@@ -85,6 +87,7 @@ const NAV_SECTIONS = [
     items: [
       { href: '/admin/marketing', label: 'Marketing', icon: '📣', description: 'Campaigns & email' },
       { href: '/admin/sms', label: 'SMS / text', icon: '💬', description: 'Text campaigns' },
+      { href: '/admin/templates', label: 'Message templates', icon: '📝', description: 'Email & SMS text' },
       { href: '/admin/reports', label: 'Reports', icon: '📈', description: 'Revenue & analytics' },
     ],
   },
