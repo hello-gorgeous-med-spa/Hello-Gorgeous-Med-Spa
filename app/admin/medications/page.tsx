@@ -18,13 +18,40 @@ export default function AdminMedicationsPage() {
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({ week: 0, month: 0, botoxUnits: 0, fillerSyringes: 0 });
 
-  // Fetch medications - placeholder until medications API is built
+  // Fetch medications from API
   useEffect(() => {
-    // Medications tracking will be added when the medications_administered table and API are ready
-    // For now, show empty state
-    setMedications([]);
-    setStats({ week: 0, month: 0, botoxUnits: 0, fillerSyringes: 0 });
-    setLoading(false);
+    const fetchMedications = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch('/api/medications?limit=100');
+        if (!res.ok) throw new Error('Failed to fetch');
+        const data = await res.json();
+        
+        // Map API response to component format
+        const meds = (data.medications || []).map((med: any) => ({
+          id: med.id,
+          created_at: med.administered_at,
+          medication_name: med.medication_name,
+          client: {
+            first_name: med.client?.user?.first_name,
+            last_name: med.client?.user?.last_name,
+          },
+          provider: {
+            first_name: med.provider?.user?.first_name,
+            last_name: med.provider?.user?.last_name,
+            title: med.provider?.user?.title,
+          },
+        }));
+        
+        setMedications(meds);
+        setStats(data.stats || { week: 0, month: 0, botoxUnits: 0, fillerSyringes: 0 });
+      } catch (err) {
+        console.error('Error loading medications:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMedications();
   }, []);
 
   const formatDate = (isoString: string) => {

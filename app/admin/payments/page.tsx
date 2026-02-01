@@ -21,16 +21,14 @@ export default function AdminPaymentsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch payments from API
+  // Fetch payments from transactions API
   const fetchPayments = useCallback(async () => {
     try {
       setLoading(true);
-      // Use dashboard API which includes revenue data
-      const res = await fetch('/api/dashboard');
+      const res = await fetch('/api/transactions?limit=100');
+      if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
-      // For now, we'll show empty payments until a dedicated payments API is created
-      // The transactions table should be queried here
-      setPayments([]);
+      setPayments(data.transactions || []);
       setError(null);
     } catch (err) {
       setError('Failed to load payments');

@@ -52,16 +52,50 @@ export default function InventoryPage() {
   const [showReceiveModal, setShowReceiveModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
 
-  // State for API data (placeholder - inventory API to be implemented)
+  // State for API data
   const [inventory, setInventory] = useState<InventoryItem[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Placeholder: Inventory would be fetched from /api/inventory when implemented
+  // Fetch inventory from API
   useEffect(() => {
-    // For now, inventory is empty until the API is created
-    setLoading(false);
-  }, []);
+    const fetchInventory = async () => {
+      try {
+        setLoading(true);
+        const params = new URLSearchParams();
+        if (selectedCategory !== 'all') params.append('category', selectedCategory);
+        if (showLowStockOnly) params.append('lowStockOnly', 'true');
+        if (searchQuery) params.append('search', searchQuery);
+
+        const res = await fetch(`/api/inventory?${params}`);
+        if (!res.ok) throw new Error('Failed to fetch');
+        const data = await res.json();
+        
+        // Map API response to component format
+        const items = (data.inventory || []).map((item: any) => ({
+          id: item.id,
+          name: item.name,
+          brand: item.brand,
+          category: item.category,
+          sku: item.sku,
+          currentStock: item.currentStock || 0,
+          reorderPoint: item.reorder_point || 10,
+          price: item.price_per_unit || 0,
+          cost: item.cost_per_unit || 0,
+          lots: item.lots,
+        }));
+        
+        setInventory(items);
+        setError(null);
+      } catch (err) {
+        console.error('Error loading inventory:', err);
+        setError('Failed to load inventory');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchInventory();
+  }, [selectedCategory, showLowStockOnly, searchQuery]);
 
   // Filter and search
   const filteredInventory = useMemo(() => {

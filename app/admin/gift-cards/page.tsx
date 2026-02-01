@@ -22,13 +22,27 @@ export default function GiftCardsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState('all');
 
-  // Fetch gift cards - placeholder until gift cards API is built
+  // Fetch gift cards from API
   useEffect(() => {
-    // Gift cards will be loaded when the gift_cards table and API are ready
-    // For now, show empty state
-    setGiftCards([]);
-    setLoading(false);
-  }, []);
+    const fetchGiftCards = async () => {
+      try {
+        setLoading(true);
+        const params = new URLSearchParams();
+        if (filterStatus !== 'all') params.append('status', filterStatus);
+        if (searchQuery) params.append('search', searchQuery);
+        
+        const res = await fetch(`/api/gift-cards?${params}`);
+        if (!res.ok) throw new Error('Failed to fetch');
+        const data = await res.json();
+        setGiftCards(data.giftCards || []);
+      } catch (err) {
+        console.error('Error loading gift cards:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchGiftCards();
+  }, [filterStatus, searchQuery]);
 
   const totalLiability = giftCards
     .filter(gc => gc.status === 'active')

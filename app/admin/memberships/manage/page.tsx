@@ -79,12 +79,40 @@ export default function MembershipManagePage() {
     paused: 'bg-amber-100 text-amber-700',
   };
 
-  // Fetch memberships - placeholder until memberships API is built
+  // Fetch memberships from API
   useEffect(() => {
-    // Memberships will be loaded when the memberships table and API are ready
-    // For now, show empty state
-    setMemberships([]);
-    setLoading(false);
+    const fetchMemberships = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch('/api/memberships');
+        if (!res.ok) throw new Error('Failed to fetch');
+        const data = await res.json();
+        
+        // Map API response to component format
+        const members = (data.memberships || []).map((m: any) => ({
+          id: m.id,
+          client_id: m.client_id,
+          client: {
+            first_name: m.client?.user?.first_name,
+            last_name: m.client?.user?.last_name,
+            email: m.client?.user?.email,
+          },
+          plan_name: m.plan?.name || 'Unknown Plan',
+          status: m.status,
+          price_per_month: m.price_locked || m.plan?.price || 0,
+          start_date: m.start_date,
+          next_billing_date: m.next_billing_date,
+          benefits: m.plan?.benefits || [],
+        }));
+        
+        setMemberships(members);
+      } catch (err) {
+        console.error('Error loading memberships:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchMemberships();
   }, []);
 
   // Stats
