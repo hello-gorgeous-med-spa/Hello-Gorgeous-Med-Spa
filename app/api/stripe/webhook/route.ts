@@ -1,16 +1,46 @@
 // ============================================================
 // STRIPE WEBHOOK HANDLER
-// Handles Stripe events (payment success, refunds, etc.)
+// Handles Stripe events (payment success, refunds, disputes)
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
 import { stripe } from '@/lib/stripe';
+import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 import Stripe from 'stripe';
 
 // Disable body parsing for webhooks (we need raw body)
 export const runtime = 'nodejs';
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
+const TELNYX_API_KEY = process.env.TELNYX_API_KEY;
+const TELNYX_PHONE = process.env.TELNYX_PHONE_NUMBER;
+const OWNER_PHONE = '+16306366193'; // Alert owner directly
+
+// Send SMS alert for urgent issues like chargebacks
+async function sendUrgentSMS(message: string) {
+  if (!TELNYX_API_KEY || !TELNYX_PHONE) {
+    console.warn('SMS not configured - cannot send alert');
+    return;
+  }
+  
+  try {
+    await fetch('https://api.telnyx.com/v2/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${TELNYX_API_KEY}`,
+      },
+      body: JSON.stringify({
+        from: TELNYX_PHONE,
+        to: OWNER_PHONE,
+        text: message,
+      }),
+    });
+    console.log('Alert SMS sent to owner');
+  } catch (err) {
+    console.error('Failed to send alert SMS:', err);
+  }
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -43,6 +73,8 @@ export async function POST(request: NextRequest) {
       console.warn('⚠️ Webhook signature not verified - add STRIPE_WEBHOOK_SECRET for production');
     }
 
+    const supabase = createServerSupabaseClient();
+
     // Handle the event
     switch (event.type) {
       case 'payment_intent.succeeded': {
@@ -52,9 +84,12 @@ export async function POST(request: NextRequest) {
         console.log('   Client:', paymentIntent.metadata?.clientName);
         console.log('   Services:', paymentIntent.metadata?.services);
         
-        // TODO: Update appointment/payment record in database
-        // TODO: Send receipt email
-        // TODO: Update client's payment history
+        // Update transaction status in database
+        await supabase
+          .from('transactions')
+          .update({ status: 'completed' })
+          .eq('stripe_payment_intent_id', paymentIntent.id);
+        
         break;
       }
 
@@ -63,8 +98,15 @@ export async function POST(request: NextRequest) {
         console.error('❌ Payment failed:', paymentIntent.id);
         console.error('   Error:', paymentIntent.last_payment_error?.message);
         
-        // TODO: Log failed payment attempt
-        // TODO: Notify staff
+        // Update transaction status
+        await supabase
+          .from('transactions')
+          .update({ 
+            status: 'failed',
+            notes: `Payment failed: ${paymentIntent.last_payment_error?.message || 'Unknown error'}`
+          })
+          .eq('stripe_payment_intent_id', paymentIntent.id);
+        
         break;
       }
 
@@ -73,16 +115,61 @@ export async function POST(request: NextRequest) {
         console.log('↩️ Refund processed:', charge.id);
         console.log('   Amount refunded:', charge.amount_refunded / 100);
         
-        // TODO: Update payment record with refund
+        // Log refund
+        await supabase.from('payment_events').insert({
+          event_type: 'refund',
+          stripe_event_id: event.id,
+          stripe_charge_id: charge.id,
+          amount_cents: charge.amount_refunded,
+          details: { refund_amount: charge.amount_refunded / 100 },
+        });
+        
         break;
       }
 
       case 'charge.dispute.created': {
         const dispute = event.data.object as Stripe.Dispute;
-        console.warn('⚠️ Dispute created:', dispute.id);
+        console.warn('🚨 CHARGEBACK ALERT:', dispute.id);
         console.warn('   Amount:', dispute.amount / 100);
+        console.warn('   Reason:', dispute.reason);
         
-        // TODO: Alert owner about dispute
+        // Store dispute record
+        await supabase.from('payment_events').insert({
+          event_type: 'dispute',
+          stripe_event_id: event.id,
+          stripe_dispute_id: dispute.id,
+          stripe_charge_id: dispute.charge as string,
+          amount_cents: dispute.amount,
+          status: dispute.status,
+          details: {
+            reason: dispute.reason,
+            evidence_due_by: dispute.evidence_details?.due_by,
+          },
+        });
+        
+        // SEND URGENT SMS ALERT TO OWNER
+        const amount = (dispute.amount / 100).toFixed(2);
+        await sendUrgentSMS(
+          `🚨 CHARGEBACK ALERT\n` +
+          `Amount: $${amount}\n` +
+          `Reason: ${dispute.reason}\n` +
+          `Respond in Stripe Dashboard ASAP!\n` +
+          `dashboard.stripe.com`
+        );
+        
+        break;
+      }
+
+      case 'charge.dispute.closed': {
+        const dispute = event.data.object as Stripe.Dispute;
+        console.log('Dispute closed:', dispute.id, 'Status:', dispute.status);
+        
+        // Update dispute record
+        await supabase
+          .from('payment_events')
+          .update({ status: dispute.status })
+          .eq('stripe_dispute_id', dispute.id);
+        
         break;
       }
 

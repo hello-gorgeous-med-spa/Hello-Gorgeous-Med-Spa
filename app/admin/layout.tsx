@@ -100,6 +100,7 @@ const NAV_SECTIONS = [
       { href: '/admin/vendors', label: 'Vendors', icon: '🏢', description: 'Suppliers' },
       { href: '/admin/efax', label: 'eFax', icon: '📠', description: 'Send or receive fax' },
       { href: '/admin/settings', label: 'Settings', icon: '⚙️', description: 'Business & hours' },
+      { href: '/admin/system-health', label: 'System Health', icon: '🩺', description: 'Go-live readiness' },
     ],
   },
 ];

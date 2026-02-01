@@ -1,0 +1,238 @@
+// ============================================================
+// SYSTEM HEALTH CHECK API
+// Comprehensive verification of all system components
+// ============================================================
+
+import { NextResponse } from 'next/server';
+import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+
+interface TableCheck {
+  name: string;
+  exists: boolean;
+  count: number | null;
+  error?: string;
+}
+
+interface IntegrationCheck {
+  name: string;
+  configured: boolean;
+  details?: string;
+}
+
+export async function GET() {
+  const supabase = createServerSupabaseClient();
+  
+  // ===== CHECK DATABASE TABLES =====
+  const tablesToCheck = [
+    'users',
+    'clients', 
+    'providers',
+    'services',
+    'service_categories',
+    'appointments',
+    'transactions',
+    'transaction_items',
+    'consent_templates',
+    'signed_consents',
+    'chart_notes',
+    'inventory_items',
+    'inventory_lots',
+    'gift_cards',
+    'membership_plans',
+    'client_memberships',
+    'promotions',
+    'audit_logs',
+  ];
+
+  const tableChecks: TableCheck[] = [];
+  
+  for (const table of tablesToCheck) {
+    try {
+      const { count, error } = await supabase
+        .from(table)
+        .select('*', { count: 'exact', head: true });
+      
+      tableChecks.push({
+        name: table,
+        exists: !error,
+        count: error ? null : (count || 0),
+        error: error?.message,
+      });
+    } catch (err) {
+      tableChecks.push({
+        name: table,
+        exists: false,
+        count: null,
+        error: String(err),
+      });
+    }
+  }
+
+  // ===== CHECK INTEGRATIONS =====
+  const integrations: IntegrationCheck[] = [
+    {
+      name: 'Supabase Database',
+      configured: !!process.env.NEXT_PUBLIC_SUPABASE_URL && 
+                  !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      details: process.env.NEXT_PUBLIC_SUPABASE_URL ? 'Connected' : 'Missing URL',
+    },
+    {
+      name: 'Supabase Service Role',
+      configured: !!process.env.SUPABASE_SERVICE_ROLE_KEY &&
+                  process.env.SUPABASE_SERVICE_ROLE_KEY !== 'placeholder-service-role-key',
+      details: 'For admin operations',
+    },
+    {
+      name: 'Stripe Payments',
+      configured: !!process.env.STRIPE_SECRET_KEY && 
+                  process.env.STRIPE_SECRET_KEY.startsWith('sk_live'),
+      details: process.env.STRIPE_SECRET_KEY?.startsWith('sk_live') ? 'LIVE MODE' : 
+               process.env.STRIPE_SECRET_KEY?.startsWith('sk_test') ? 'TEST MODE' : 'Not configured',
+    },
+    {
+      name: 'Stripe Publishable Key',
+      configured: !!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY &&
+                  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY.startsWith('pk_live'),
+      details: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.startsWith('pk_live') ? 'LIVE MODE' : 'TEST MODE',
+    },
+    {
+      name: 'Stripe Webhook Secret',
+      configured: !!process.env.STRIPE_WEBHOOK_SECRET,
+      details: process.env.STRIPE_WEBHOOK_SECRET ? 'Configured' : 'Missing',
+    },
+    {
+      name: 'Telnyx SMS',
+      configured: !!process.env.TELNYX_API_KEY,
+      details: process.env.TELNYX_PHONE_NUMBER || 'No phone configured',
+    },
+    {
+      name: 'Telnyx Messaging Profile',
+      configured: !!process.env.TELNYX_MESSAGING_PROFILE_ID,
+      details: 'For 10DLC compliance',
+    },
+  ];
+
+  // ===== CALCULATE HEALTH SCORES =====
+  const tablesExisting = tableChecks.filter(t => t.exists).length;
+  const tablesTotal = tableChecks.length;
+  const tablesWithData = tableChecks.filter(t => t.count && t.count > 0).length;
+  
+  const integrationsConfigured = integrations.filter(i => i.configured).length;
+  const integrationsTotal = integrations.length;
+
+  // ===== KEY METRICS =====
+  const clientsTable = tableChecks.find(t => t.name === 'clients');
+  const usersTable = tableChecks.find(t => t.name === 'users');
+  const servicesTable = tableChecks.find(t => t.name === 'services');
+  const appointmentsTable = tableChecks.find(t => t.name === 'appointments');
+
+  // Get SMS opt-in count
+  let smsOptInCount = 0;
+  try {
+    const { count } = await supabase
+      .from('clients')
+      .select('id', { count: 'exact', head: true })
+      .eq('accepts_sms_marketing', true);
+    smsOptInCount = count || 0;
+  } catch {}
+
+  // ===== CALCULATE OVERALL SCORE =====
+  let score = 0;
+  
+  // Database tables (40 points)
+  score += (tablesExisting / tablesTotal) * 20;
+  score += (tablesWithData / tablesTotal) * 20;
+  
+  // Integrations (40 points)
+  score += (integrationsConfigured / integrationsTotal) * 40;
+  
+  // Key data (20 points)
+  if (clientsTable?.count && clientsTable.count > 0) score += 5;
+  if (servicesTable?.count && servicesTable.count > 0) score += 5;
+  if (usersTable?.count && usersTable.count > 0) score += 5;
+  if (smsOptInCount > 0) score += 5;
+
+  const overallScore = Math.round(score * 10) / 10;
+
+  // ===== GO-LIVE CHECKLIST =====
+  const checklist = [
+    {
+      item: 'Database connected',
+      ready: tablesExisting > 0,
+      critical: true,
+    },
+    {
+      item: 'Core tables exist (users, clients, services)',
+      ready: ['users', 'clients', 'services'].every(t => 
+        tableChecks.find(tc => tc.name === t)?.exists
+      ),
+      critical: true,
+    },
+    {
+      item: 'Stripe in LIVE mode',
+      ready: integrations.find(i => i.name === 'Stripe Payments')?.configured || false,
+      critical: true,
+    },
+    {
+      item: 'Telnyx SMS configured',
+      ready: integrations.find(i => i.name === 'Telnyx SMS')?.configured || false,
+      critical: true,
+    },
+    {
+      item: 'Client data imported',
+      ready: (clientsTable?.count || 0) > 0,
+      critical: true,
+    },
+    {
+      item: 'Services defined',
+      ready: (servicesTable?.count || 0) > 0,
+      critical: false,
+    },
+    {
+      item: 'Consent templates exist',
+      ready: tableChecks.find(t => t.name === 'consent_templates')?.exists || false,
+      critical: false,
+    },
+    {
+      item: 'Audit logging enabled',
+      ready: tableChecks.find(t => t.name === 'audit_logs')?.exists || false,
+      critical: false,
+    },
+  ];
+
+  const criticalReady = checklist.filter(c => c.critical && c.ready).length;
+  const criticalTotal = checklist.filter(c => c.critical).length;
+  const allReady = checklist.filter(c => c.ready).length;
+
+  return NextResponse.json({
+    timestamp: new Date().toISOString(),
+    overallScore,
+    status: overallScore >= 90 ? 'READY' : overallScore >= 70 ? 'ALMOST_READY' : 'NEEDS_WORK',
+    
+    database: {
+      tablesExisting,
+      tablesTotal,
+      tablesWithData,
+      tables: tableChecks,
+    },
+    
+    integrations,
+    
+    metrics: {
+      totalClients: clientsTable?.count || 0,
+      totalUsers: usersTable?.count || 0,
+      totalServices: servicesTable?.count || 0,
+      totalAppointments: appointmentsTable?.count || 0,
+      smsOptInCount,
+    },
+    
+    checklist,
+    checklistSummary: {
+      criticalReady,
+      criticalTotal,
+      allReady,
+      allTotal: checklist.length,
+      canGoLive: criticalReady === criticalTotal,
+    },
+  });
+}
