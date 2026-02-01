@@ -14,7 +14,23 @@ export default function SMSCampaignPage() {
   const [result, setResult] = useState<any>(null);
   const [charCount, setCharCount] = useState(0);
   const [estimatedCost, setEstimatedCost] = useState<any>(null);
-  const [clientCount, setClientCount] = useState(3000); // Default estimate
+  const [clientCount, setClientCount] = useState(0);
+
+  // Fetch actual client count with SMS opt-in
+  useEffect(() => {
+    async function fetchClientCount() {
+      try {
+        const res = await fetch('/api/sms/stats');
+        if (res.ok) {
+          const data = await res.json();
+          setClientCount(data.smsOptInCount || 0);
+        }
+      } catch (err) {
+        console.error('Error fetching SMS stats:', err);
+      }
+    }
+    fetchClientCount();
+  }, []);
 
   // Update character count
   useEffect(() => {

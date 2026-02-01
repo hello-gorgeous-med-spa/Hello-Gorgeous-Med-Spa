@@ -93,14 +93,14 @@ export async function POST(request: NextRequest) {
     if (sendToAll && isAdminConfigured()) {
       const supabase = createAdminSupabaseClient();
       
-      // Get all clients with phone numbers who haven't opted out
+      // Get all clients with phone numbers who have opted IN to SMS marketing
       const { data: clients, error } = await supabase
         .from('clients')
         .select(`
           id,
           users!inner(phone, first_name, last_name)
         `)
-        .eq('sms_opt_in', true);
+        .eq('accepts_sms_marketing', true);
 
       if (error) {
         console.error('Error fetching clients:', error);
