@@ -24,6 +24,9 @@ export default function POSTerminalPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedAppointmentId, setSelectedAppointmentId] = useState<string | null>(null);
   const [localTransactions, setLocalTransactions] = useState<any[]>([]);
+  const [activeTab, setActiveTab] = useState<'checkout' | 'scheduled' | 'walkin'>('checkout');
+  const [walkInMode, setWalkInMode] = useState(false);
+  const [services, setServices] = useState<any[]>([]);
 
   // State for API data
   const [appointments, setAppointments] = useState<any[]>([]);
@@ -71,10 +74,24 @@ export default function POSTerminalPage() {
     }
   }, []);
 
+  // Fetch services for walk-in sales
+  const fetchServices = useCallback(async () => {
+    try {
+      const res = await fetch('/api/services?active=true');
+      const data = await res.json();
+      if (data.services) {
+        setServices(data.services);
+      }
+    } catch (err) {
+      console.error('Failed to load services:', err);
+    }
+  }, []);
+
   useEffect(() => {
     fetchTodaysAppointments();
     fetchRecentPayments();
-  }, [fetchTodaysAppointments, fetchRecentPayments]);
+    fetchServices();
+  }, [fetchTodaysAppointments, fetchRecentPayments, fetchServices]);
 
   // Transform appointments for POS display
   const todaysAppointments = useMemo(() => {
@@ -152,66 +169,185 @@ export default function POSTerminalPage() {
 
         {/* Tabs */}
         <div className="flex border-b border-slate-700">
-          <button className="flex-1 px-4 py-3 text-sm font-medium text-pink-400 border-b-2 border-pink-500">
+          <button 
+            onClick={() => { setActiveTab('checkout'); setWalkInMode(false); }}
+            className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+              activeTab === 'checkout' ? 'text-pink-400 border-b-2 border-pink-500' : 'text-slate-400 hover:text-white'
+            }`}
+          >
             Ready for Checkout ({readyForCheckout.length})
           </button>
-          <button className="flex-1 px-4 py-3 text-sm font-medium text-slate-400 hover:text-white">
+          <button 
+            onClick={() => { setActiveTab('scheduled'); setWalkInMode(false); }}
+            className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+              activeTab === 'scheduled' ? 'text-pink-400 border-b-2 border-pink-500' : 'text-slate-400 hover:text-white'
+            }`}
+          >
             Scheduled ({scheduled.length})
           </button>
-          <button className="flex-1 px-4 py-3 text-sm font-medium text-slate-400 hover:text-white">
-            Walk-in Sale
+          <button 
+            onClick={() => { setActiveTab('walkin'); setWalkInMode(true); setSelectedAppointmentId(null); }}
+            className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
+              activeTab === 'walkin' ? 'text-green-400 border-b-2 border-green-500' : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            🛒 Walk-in Sale
           </button>
         </div>
 
-        {/* Appointment List */}
+        {/* Content based on active tab */}
         <div className="flex-1 overflow-y-auto p-4 space-y-3">
           {apptsLoading ? (
             <div className="text-center py-12 text-slate-400">
               <div className="animate-spin w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full mx-auto mb-4" />
-              <p>Loading appointments...</p>
+              <p>Loading...</p>
             </div>
-          ) : readyForCheckout.length === 0 ? (
-            <div className="text-center py-12 text-slate-400">
-              <p className="text-4xl mb-4">✓</p>
-              <p>All caught up! No appointments ready for checkout.</p>
+          ) : activeTab === 'walkin' ? (
+            /* Walk-in Sale - Service Selection */
+            <div className="space-y-4">
+              <div className="text-center py-4">
+                <p className="text-2xl mb-2">🛒</p>
+                <p className="text-white font-medium">Walk-in Sale</p>
+                <p className="text-slate-400 text-sm">Select services to add to cart</p>
+              </div>
+              
+              {/* Service Categories */}
+              <div className="grid grid-cols-2 gap-3">
+                {services.length === 0 ? (
+                  <p className="col-span-2 text-center text-slate-400 py-8">No services found</p>
+                ) : (
+                  services.slice(0, 12).map((service) => (
+                    <button
+                      key={service.id}
+                      onClick={() => {
+                        // Create a walk-in "appointment" object
+                        const walkInApt = {
+                          id: `walkin-${Date.now()}`,
+                          time: 'Walk-in',
+                          client: 'Walk-in Customer',
+                          clientId: '',
+                          email: '',
+                          service: service.name,
+                          provider: 'Staff',
+                          status: 'walkin',
+                          amount: service.price_cents ? service.price_cents / 100 : service.price || 0,
+                        };
+                        setSelectedAppointmentId(walkInApt.id);
+                        // Store in appointments temporarily
+                        setAppointments(prev => [...prev, { 
+                          ...walkInApt, 
+                          starts_at: new Date().toISOString(),
+                          service_name: service.name,
+                          service_price: walkInApt.amount,
+                          client_name: 'Walk-in Customer',
+                        }]);
+                      }}
+                      className="p-4 bg-slate-800 border border-slate-700 rounded-xl hover:border-green-500 hover:bg-slate-700 transition-all text-left"
+                    >
+                      <p className="text-white font-medium text-sm">{service.name}</p>
+                      <p className="text-green-400 font-bold mt-1">
+                        ${service.price_cents ? (service.price_cents / 100).toFixed(0) : service.price || 0}
+                      </p>
+                      <p className="text-slate-500 text-xs mt-1">{service.duration_minutes || 30} min</p>
+                    </button>
+                  ))
+                )}
+              </div>
+
+              {services.length > 12 && (
+                <Link href="/pos/quick-sale" className="block text-center text-pink-400 hover:text-pink-300 py-2">
+                  View all {services.length} services →
+                </Link>
+              )}
             </div>
-          ) : (
-            readyForCheckout.map((apt) => (
-              <button
-                key={apt.id}
-                onClick={() => setSelectedAppointmentId(apt.id)}
-                className={`w-full text-left p-4 rounded-xl border transition-all ${
-                  selectedAppointmentId === apt.id
-                    ? 'bg-pink-500/20 border-pink-500'
-                    : 'bg-slate-800 border-slate-700 hover:border-slate-500'
-                }`}
-              >
-                <div className="flex items-start justify-between">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-sm text-slate-400">{apt.time}</span>
-                      <span
-                        className={`px-2 py-0.5 text-xs rounded-full ${
-                          apt.status === 'completed'
-                            ? 'bg-green-500/20 text-green-400'
-                            : apt.status === 'in_progress'
-                            ? 'bg-purple-500/20 text-purple-400'
-                            : 'bg-blue-500/20 text-blue-400'
-                        }`}
-                      >
-                        {apt.status === 'completed' ? '✓ Done' : apt.status === 'in_progress' ? 'In Progress' : 'Checked In'}
-                      </span>
+          ) : activeTab === 'scheduled' ? (
+            /* Scheduled Appointments */
+            scheduled.length === 0 ? (
+              <div className="text-center py-12 text-slate-400">
+                <p className="text-4xl mb-4">📅</p>
+                <p>No scheduled appointments</p>
+              </div>
+            ) : (
+              scheduled.map((apt) => (
+                <button
+                  key={apt.id}
+                  onClick={() => setSelectedAppointmentId(apt.id)}
+                  className={`w-full text-left p-4 rounded-xl border transition-all ${
+                    selectedAppointmentId === apt.id
+                      ? 'bg-pink-500/20 border-pink-500'
+                      : 'bg-slate-800 border-slate-700 hover:border-slate-500'
+                  }`}
+                >
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-sm text-slate-400">{apt.time}</span>
+                        <span className="px-2 py-0.5 text-xs rounded-full bg-amber-500/20 text-amber-400">
+                          Scheduled
+                        </span>
+                      </div>
+                      <p className="font-semibold text-white text-lg">{apt.client}</p>
+                      <p className="text-slate-400">{apt.service}</p>
+                      <p className="text-sm text-slate-500">Provider: {apt.provider}</p>
                     </div>
-                    <p className="font-semibold text-white text-lg">{apt.client}</p>
-                    <p className="text-slate-400">{apt.service}</p>
-                    <p className="text-sm text-slate-500">Provider: {apt.provider}</p>
+                    <div className="text-right">
+                      <p className="text-2xl font-bold text-slate-400">${apt.amount}</p>
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <p className="text-2xl font-bold text-green-400">${apt.amount}</p>
+                </button>
+              ))
+            )
+          ) : (
+            /* Ready for Checkout (default) */
+            readyForCheckout.length === 0 ? (
+              <div className="text-center py-12 text-slate-400">
+                <p className="text-4xl mb-4">✓</p>
+                <p>All caught up! No appointments ready for checkout.</p>
+                <button 
+                  onClick={() => setActiveTab('walkin')}
+                  className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-500"
+                >
+                  Start Walk-in Sale
+                </button>
+              </div>
+            ) : (
+              readyForCheckout.map((apt) => (
+                <button
+                  key={apt.id}
+                  onClick={() => setSelectedAppointmentId(apt.id)}
+                  className={`w-full text-left p-4 rounded-xl border transition-all ${
+                    selectedAppointmentId === apt.id
+                      ? 'bg-pink-500/20 border-pink-500'
+                      : 'bg-slate-800 border-slate-700 hover:border-slate-500'
+                  }`}
+                >
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-sm text-slate-400">{apt.time}</span>
+                        <span
+                          className={`px-2 py-0.5 text-xs rounded-full ${
+                            apt.status === 'completed'
+                              ? 'bg-green-500/20 text-green-400'
+                              : apt.status === 'in_progress'
+                              ? 'bg-purple-500/20 text-purple-400'
+                              : 'bg-blue-500/20 text-blue-400'
+                          }`}
+                        >
+                          {apt.status === 'completed' ? '✓ Done' : apt.status === 'in_progress' ? 'In Progress' : 'Checked In'}
+                        </span>
+                      </div>
+                      <p className="font-semibold text-white text-lg">{apt.client}</p>
+                      <p className="text-slate-400">{apt.service}</p>
+                      <p className="text-sm text-slate-500">Provider: {apt.provider}</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-2xl font-bold text-green-400">${apt.amount}</p>
+                    </div>
                   </div>
-                </div>
-              </button>
-            ))
+                </button>
+              ))
+            )
           )}
         </div>
 
