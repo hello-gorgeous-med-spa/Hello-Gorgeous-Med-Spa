@@ -7,7 +7,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
