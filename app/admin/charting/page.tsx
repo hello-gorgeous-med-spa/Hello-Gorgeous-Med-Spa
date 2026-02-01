@@ -213,6 +213,40 @@ function ChartingContent() {
     );
   }
 
+  // REQUIRE appointment or client - can't chart without context
+  if (!appointmentId && !clientId) {
+    return (
+      <div className="max-w-2xl mx-auto py-12">
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-8 text-center">
+          <div className="text-6xl mb-4">📋</div>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">Select an Appointment to Chart</h1>
+          <p className="text-gray-500 mb-6">
+            Chart notes must be linked to a specific appointment or client visit.
+          </p>
+          
+          <div className="space-y-3">
+            <Link
+              href="/admin/appointments"
+              className="block w-full px-6 py-3 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 transition-colors"
+            >
+              📅 View Today's Appointments
+            </Link>
+            <Link
+              href="/admin/clients"
+              className="block w-full px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              👥 Search Clients
+            </Link>
+          </div>
+
+          <p className="text-sm text-gray-400 mt-6">
+            Tip: Click "Chart" from any appointment to start documentation
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   const clientName = appointment?.client_name || `${client?.first_name || ''} ${client?.last_name || ''}`.trim() || 'Unknown Client';
   const isLocked = existingNote?.is_locked || existingNote?.signed_at;
 
