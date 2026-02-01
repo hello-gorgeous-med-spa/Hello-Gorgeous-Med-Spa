@@ -3,11 +3,61 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+
+// Helper to safely create supabase client
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  
+  if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) {
+    return null;
+  }
+  
+  try {
+    const { createClient } = require('@supabase/supabase-js');
+    return createClient(url, key, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+  } catch {
+    return null;
+  }
+}
+
+// In-memory store for when DB is unavailable
+const clientStore: Map<string, any> = new Map();
 
 export async function GET(request: NextRequest) {
+  const supabase = getSupabase();
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get('id');
+  const search = searchParams.get('search');
+
+  // If no DB, return local clients
+  if (!supabase) {
+    const allClients = Array.from(clientStore.values());
+    
+    if (id) {
+      const client = clientStore.get(id);
+      if (client) {
+        return NextResponse.json({ client });
+      }
+      return NextResponse.json({ error: 'Client not found' }, { status: 404 });
+    }
+    
+    let filtered = allClients;
+    if (search) {
+      const searchLower = search.toLowerCase();
+      filtered = allClients.filter((c: any) =>
+        c.first_name?.toLowerCase().includes(searchLower) ||
+        c.last_name?.toLowerCase().includes(searchLower) ||
+        c.email?.toLowerCase().includes(searchLower)
+      );
+    }
+    
+    return NextResponse.json({ clients: filtered, total: filtered.length, source: 'local' });
+  }
+
   try {
-    const supabase = createServerSupabaseClient();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
     const search = searchParams.get('search');
@@ -115,15 +165,33 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const supabase = getSupabase();
+  const body = await request.json();
+
+  // Support both camelCase and snake_case field names
+  const firstName = body.first_name || body.firstName;
+  const lastName = body.last_name || body.lastName;
+  const email = (body.email || '')?.toLowerCase()?.trim();
+  const phone = body.phone;
+
+  // If no DB, store locally
+  if (!supabase) {
+    const clientId = `client-${Date.now()}`;
+    const client = {
+      id: clientId,
+      user_id: clientId,
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      phone: phone,
+      date_of_birth: body.date_of_birth || body.dateOfBirth,
+      created_at: new Date().toISOString(),
+    };
+    clientStore.set(clientId, client);
+    return NextResponse.json({ client, success: true, source: 'local' });
+  }
+
   try {
-    const supabase = createServerSupabaseClient();
-    const body = await request.json();
-    
-    // Support both camelCase and snake_case field names
-    const firstName = body.first_name || body.firstName;
-    const lastName = body.last_name || body.lastName;
-    const email = (body.email || '')?.toLowerCase()?.trim();
-    const phone = body.phone;
     const dateOfBirth = body.date_of_birth || body.dateOfBirth;
     const gender = body.gender;
     const addressLine1 = body.address_line1 || body.address;
