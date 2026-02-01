@@ -19,8 +19,9 @@ interface CartItem {
   id: string;
   name: string;
   price: number;
+  originalPrice?: number;
   quantity: number;
-  type: 'service' | 'product';
+  type: 'service' | 'product' | 'custom';
 }
 
 export default function QuickSalePage() {
@@ -36,6 +37,11 @@ export default function QuickSalePage() {
   const [services, setServices] = useState<QuickItem[]>([]);
   const [products, setProducts] = useState<QuickItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showCustomAmount, setShowCustomAmount] = useState(false);
+  const [customAmount, setCustomAmount] = useState('');
+  const [customDescription, setCustomDescription] = useState('');
+  const [editingPriceId, setEditingPriceId] = useState<string | null>(null);
+  const [editingPriceValue, setEditingPriceValue] = useState('');
 
   // Fetch real services and products
   useEffect(() => {
@@ -110,6 +116,43 @@ export default function QuickSalePage() {
 
   const removeFromCart = (id: string) => {
     setCart(cart.filter((item) => item.id !== id));
+  };
+
+  // Add custom amount to cart
+  const addCustomAmount = () => {
+    const amount = parseFloat(customAmount);
+    if (isNaN(amount) || amount <= 0) return;
+    
+    const customItem: CartItem = {
+      id: `custom-${Date.now()}`,
+      name: customDescription || 'Custom Charge',
+      price: amount,
+      quantity: 1,
+      type: 'custom',
+    };
+    setCart([...cart, customItem]);
+    setCustomAmount('');
+    setCustomDescription('');
+    setShowCustomAmount(false);
+  };
+
+  // Edit price of cart item
+  const startEditingPrice = (item: CartItem) => {
+    setEditingPriceId(item.id);
+    setEditingPriceValue(item.price.toString());
+  };
+
+  const saveEditedPrice = (id: string) => {
+    const newPrice = parseFloat(editingPriceValue);
+    if (!isNaN(newPrice) && newPrice >= 0) {
+      setCart(cart.map(item => 
+        item.id === id 
+          ? { ...item, price: newPrice, originalPrice: item.originalPrice || item.price }
+          : item
+      ));
+    }
+    setEditingPriceId(null);
+    setEditingPriceValue('');
   };
 
   const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -245,9 +288,9 @@ export default function QuickSalePage() {
         {/* Tabs */}
         <div className="flex border-b border-slate-700">
           <button
-            onClick={() => setActiveTab('services')}
+            onClick={() => { setActiveTab('services'); setShowCustomAmount(false); }}
             className={`flex-1 px-4 py-3 text-sm font-medium ${
-              activeTab === 'services'
+              activeTab === 'services' && !showCustomAmount
                 ? 'text-pink-400 border-b-2 border-pink-500'
                 : 'text-slate-400 hover:text-white'
             }`}
@@ -255,20 +298,85 @@ export default function QuickSalePage() {
             Services
           </button>
           <button
-            onClick={() => setActiveTab('products')}
+            onClick={() => { setActiveTab('products'); setShowCustomAmount(false); }}
             className={`flex-1 px-4 py-3 text-sm font-medium ${
-              activeTab === 'products'
+              activeTab === 'products' && !showCustomAmount
                 ? 'text-pink-400 border-b-2 border-pink-500'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
             Products
           </button>
+          <button
+            onClick={() => setShowCustomAmount(true)}
+            className={`flex-1 px-4 py-3 text-sm font-medium ${
+              showCustomAmount
+                ? 'text-green-400 border-b-2 border-green-500'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            💵 Custom Amount
+          </button>
         </div>
 
-        {/* Items Grid */}
+        {/* Items Grid / Custom Amount */}
         <div className="flex-1 overflow-y-auto p-4">
-          {loading ? (
+          {showCustomAmount ? (
+            <div className="max-w-md mx-auto mt-8">
+              <div className="bg-slate-800 rounded-2xl p-6 border border-slate-700">
+                <h3 className="text-xl font-bold text-white mb-6 text-center">Enter Custom Amount</h3>
+                
+                <div className="mb-4">
+                  <label className="block text-sm text-slate-400 mb-2">Description (optional)</label>
+                  <input
+                    type="text"
+                    placeholder="e.g., Tip, Custom Service, Adjustment"
+                    value={customDescription}
+                    onChange={(e) => setCustomDescription(e.target.value)}
+                    className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-500"
+                  />
+                </div>
+                
+                <div className="mb-6">
+                  <label className="block text-sm text-slate-400 mb-2">Amount</label>
+                  <div className="relative">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-2xl text-slate-400">$</span>
+                    <input
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      placeholder="0.00"
+                      value={customAmount}
+                      onChange={(e) => setCustomAmount(e.target.value)}
+                      className="w-full pl-10 pr-4 py-4 bg-slate-700 border border-slate-600 rounded-xl text-white text-3xl font-bold text-center placeholder-slate-500"
+                      autoFocus
+                    />
+                  </div>
+                </div>
+                
+                {/* Quick amount buttons */}
+                <div className="grid grid-cols-4 gap-2 mb-6">
+                  {[10, 25, 50, 100].map((amount) => (
+                    <button
+                      key={amount}
+                      onClick={() => setCustomAmount(amount.toString())}
+                      className="py-3 bg-slate-700 hover:bg-slate-600 text-white font-medium rounded-lg transition-colors"
+                    >
+                      ${amount}
+                    </button>
+                  ))}
+                </div>
+                
+                <button
+                  onClick={addCustomAmount}
+                  disabled={!customAmount || parseFloat(customAmount) <= 0}
+                  className="w-full py-4 bg-green-500 text-white text-lg font-bold rounded-xl hover:bg-green-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Add ${customAmount || '0.00'} to Cart
+                </button>
+              </div>
+            </div>
+          ) : loading ? (
             <div className="flex items-center justify-center h-full">
               <div className="w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full animate-spin" />
             </div>
@@ -318,10 +426,20 @@ export default function QuickSalePage() {
               {cart.map((item) => (
                 <div key={item.id} className="bg-slate-700 rounded-lg p-3">
                   <div className="flex items-start justify-between mb-2">
-                    <p className="font-medium text-white">{item.name}</p>
+                    <div>
+                      <p className="font-medium text-white">{item.name}</p>
+                      {item.type === 'custom' && (
+                        <span className="text-xs text-green-400">Custom</span>
+                      )}
+                      {item.originalPrice && item.originalPrice !== item.price && (
+                        <span className="text-xs text-yellow-400 ml-2">
+                          (was ${item.originalPrice})
+                        </span>
+                      )}
+                    </div>
                     <button
                       onClick={() => removeFromCart(item.id)}
-                      className="text-slate-400 hover:text-red-400"
+                      className="text-slate-400 hover:text-red-400 text-xl"
                     >
                       ×
                     </button>
@@ -342,9 +460,39 @@ export default function QuickSalePage() {
                         +
                       </button>
                     </div>
-                    <p className="font-semibold text-white">
-                      ${(item.price * item.quantity).toFixed(2)}
-                    </p>
+                    
+                    {/* Editable Price */}
+                    {editingPriceId === item.id ? (
+                      <div className="flex items-center gap-1">
+                        <span className="text-white">$</span>
+                        <input
+                          type="number"
+                          step="0.01"
+                          min="0"
+                          value={editingPriceValue}
+                          onChange={(e) => setEditingPriceValue(e.target.value)}
+                          onBlur={() => saveEditedPrice(item.id)}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') saveEditedPrice(item.id);
+                            if (e.key === 'Escape') {
+                              setEditingPriceId(null);
+                              setEditingPriceValue('');
+                            }
+                          }}
+                          className="w-20 px-2 py-1 bg-slate-600 border border-pink-500 rounded text-white text-right"
+                          autoFocus
+                        />
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => startEditingPrice(item)}
+                        className="font-semibold text-white hover:text-pink-400 transition-colors group"
+                        title="Click to edit price"
+                      >
+                        ${(item.price * item.quantity).toFixed(2)}
+                        <span className="text-xs text-slate-500 group-hover:text-pink-400 ml-1">✏️</span>
+                      </button>
+                    )}
                   </div>
                 </div>
               ))}
