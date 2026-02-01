@@ -10,17 +10,18 @@ import Link from 'next/link';
 import { UserMenu } from './UserMenu';
 import { useAuth } from '@/lib/hgos/AuthContext';
 
-// Quick access vendor links
+// Quick access vendor links - updated with actual portal URLs
 const QUICK_VENDORS = [
-  { name: 'Charm EHR', url: 'https://ehr.charmhealth.com/', icon: '🏥', color: 'text-purple-300' },
+  { name: 'Charm EHR', url: 'https://www.charmhealth.com/', icon: '🏥', color: 'text-purple-300' },
+  { name: 'eFax Portal', url: 'https://myportal.efax.com/login', icon: '📠', color: 'text-slate-300' },
   { name: 'McKesson', url: 'https://connect.mckesson.com/', icon: '📦', color: 'text-blue-300' },
   { name: 'Allergan', url: 'https://www.brilliantconnections.com/', icon: '💉', color: 'text-pink-300' },
   { name: 'Evolus', url: 'https://providers.evolus.com/', icon: '💎', color: 'text-cyan-300' },
-  { name: 'AnteAGE', url: 'https://pro.anteage.com/', icon: '✨', color: 'text-amber-300' },
-  { name: 'Skin Script', url: 'https://skinscriptrx.com/pages/professional-login', icon: '🧴', color: 'text-green-300' },
-  { name: 'Olympia', url: 'https://olympiapharmacy.com/provider-login/', icon: '💊', color: 'text-violet-300' },
-  { name: 'Formulation', url: 'https://www.formulationpharmacy.com/account/login', icon: '🧪', color: 'text-rose-300' },
-  { name: 'Amazon', url: 'https://www.amazon.com/', icon: '📦', color: 'text-orange-300' },
+  { name: 'AnteAGE', url: 'https://provider.anteage.com/login.php', icon: '✨', color: 'text-amber-300' },
+  { name: 'Skin Script', url: 'https://skinscriptrx.com/', icon: '🧴', color: 'text-green-300' },
+  { name: 'Olympia', url: 'https://olympiapharmacy.drscriptportal.com/dashboard', icon: '💊', color: 'text-violet-300' },
+  { name: 'Formulation', url: 'https://fccrxportal.com/dashboard', icon: '🧪', color: 'text-rose-300' },
+  { name: 'Amazon', url: 'https://www.amazon.com/gc/balance', icon: '📦', color: 'text-orange-300' },
   { name: 'Allē Portal', url: 'https://provider.alle.com/', icon: '⭐', color: 'text-yellow-300' },
 ];
 
