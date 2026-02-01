@@ -4,7 +4,25 @@
 // ============================================================
 
 import { NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+
+// Helper to safely create supabase client
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  
+  if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) {
+    return null;
+  }
+  
+  try {
+    const { createClient } = require('@supabase/supabase-js');
+    return createClient(url, key, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+  } catch {
+    return null;
+  }
+}
 
 interface TableCheck {
   name: string;
@@ -20,7 +38,7 @@ interface IntegrationCheck {
 }
 
 export async function GET() {
-  const supabase = createServerSupabaseClient();
+  const supabase = getSupabase();
   
   // ===== CHECK DATABASE TABLES =====
   const tablesToCheck = [
@@ -46,25 +64,37 @@ export async function GET() {
 
   const tableChecks: TableCheck[] = [];
   
-  for (const table of tablesToCheck) {
-    try {
-      const { count, error } = await supabase
-        .from(table)
-        .select('*', { count: 'exact', head: true });
-      
-      tableChecks.push({
-        name: table,
-        exists: !error,
-        count: error ? null : (count || 0),
-        error: error?.message,
-      });
-    } catch (err) {
+  // If no Supabase connection, mark all tables as not existing
+  if (!supabase) {
+    for (const table of tablesToCheck) {
       tableChecks.push({
         name: table,
         exists: false,
         count: null,
-        error: String(err),
+        error: 'Supabase not configured',
       });
+    }
+  } else {
+    for (const table of tablesToCheck) {
+      try {
+        const { count, error } = await supabase
+          .from(table)
+          .select('*', { count: 'exact', head: true });
+        
+        tableChecks.push({
+          name: table,
+          exists: !error,
+          count: error ? null : (count || 0),
+          error: error?.message,
+        });
+      } catch (err) {
+        tableChecks.push({
+          name: table,
+          exists: false,
+          count: null,
+          error: String(err),
+        });
+      }
     }
   }
 
@@ -128,13 +158,15 @@ export async function GET() {
 
   // Get SMS opt-in count
   let smsOptInCount = 0;
-  try {
-    const { count } = await supabase
-      .from('clients')
-      .select('id', { count: 'exact', head: true })
-      .eq('accepts_sms_marketing', true);
-    smsOptInCount = count || 0;
-  } catch {}
+  if (supabase) {
+    try {
+      const { count } = await supabase
+        .from('clients')
+        .select('id', { count: 'exact', head: true })
+        .eq('accepts_sms_marketing', true);
+      smsOptInCount = count || 0;
+    } catch {}
+  }
 
   // ===== CALCULATE OVERALL SCORE =====
   let score = 0;
