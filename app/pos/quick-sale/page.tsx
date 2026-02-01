@@ -2,29 +2,18 @@
 
 // ============================================================
 // QUICK SALE PAGE
-// Walk-in sales without appointment
+// Walk-in sales without appointment - Connected to Live Data
 // ============================================================
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-// Mock services and products for quick sale
-const QUICK_ITEMS = {
-  services: [
-    { id: 's1', name: 'Vitamin B12 Injection', price: 25, category: 'IV Therapy' },
-    { id: 's2', name: 'Lipo-B Injection', price: 35, category: 'IV Therapy' },
-    { id: 's3', name: 'Dermaplaning', price: 75, category: 'Facials' },
-    { id: 's4', name: 'Add-On: LED Therapy', price: 50, category: 'Facials' },
-    { id: 's5', name: 'Consultation', price: 0, category: 'Consultations' },
-  ],
-  products: [
-    { id: 'p1', name: 'SkinScript Cleanser', price: 32, category: 'Skincare' },
-    { id: 'p2', name: 'SkinScript Moisturizer', price: 45, category: 'Skincare' },
-    { id: 'p3', name: 'AnteAge Serum', price: 175, category: 'AnteAge' },
-    { id: 'p4', name: 'Lip Balm', price: 12, category: 'Retail' },
-    { id: 'p5', name: 'Sunscreen SPF 50', price: 28, category: 'Skincare' },
-  ],
-};
+interface QuickItem {
+  id: string;
+  name: string;
+  price: number;
+  category: string;
+}
 
 interface CartItem {
   id: string;
@@ -44,8 +33,60 @@ export default function QuickSalePage() {
   const [customerPhone, setCustomerPhone] = useState('');
   const [processing, setProcessing] = useState(false);
   const [completed, setCompleted] = useState(false);
+  const [services, setServices] = useState<QuickItem[]>([]);
+  const [products, setProducts] = useState<QuickItem[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const items = activeTab === 'services' ? QUICK_ITEMS.services : QUICK_ITEMS.products;
+  // Fetch real services and products
+  useEffect(() => {
+    async function fetchData() {
+      setLoading(true);
+      try {
+        // Fetch services
+        const servicesRes = await fetch('/api/services');
+        const servicesData = await servicesRes.json();
+        if (servicesData.services) {
+          setServices(
+            servicesData.services.map((s: any) => ({
+              id: s.id,
+              name: s.name,
+              price: s.price || 0,
+              category: s.category_name || 'Service',
+            }))
+          );
+        }
+
+        // Fetch products from inventory
+        const inventoryRes = await fetch('/api/inventory?category=retail');
+        const inventoryData = await inventoryRes.json();
+        if (inventoryData.items) {
+          setProducts(
+            inventoryData.items.map((p: any) => ({
+              id: p.id,
+              name: p.name,
+              price: p.retail_price || 0,
+              category: p.category || 'Product',
+            }))
+          );
+        }
+      } catch (err) {
+        console.error('Error fetching data:', err);
+        // Fallback to some default items if API fails
+        setServices([
+          { id: 's1', name: 'Vitamin B12 Injection', price: 25, category: 'IV Therapy' },
+          { id: 's2', name: 'Consultation', price: 0, category: 'Consultations' },
+        ]);
+        setProducts([
+          { id: 'p1', name: 'Retail Product', price: 25, category: 'Skincare' },
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, []);
+
+  const items = activeTab === 'services' ? services : products;
   const filteredItems = items.filter((item) =>
     item.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -227,21 +268,34 @@ export default function QuickSalePage() {
 
         {/* Items Grid */}
         <div className="flex-1 overflow-y-auto p-4">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-            {filteredItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => addToCart(item)}
-                className="p-4 bg-slate-800 rounded-xl border border-slate-700 hover:border-pink-500 transition-colors text-left"
-              >
-                <p className="font-medium text-white mb-1 line-clamp-2">{item.name}</p>
-                <p className="text-sm text-slate-400">{item.category}</p>
-                <p className="text-lg font-bold text-green-400 mt-2">
-                  {item.price === 0 ? 'Free' : `$${item.price}`}
-                </p>
-              </button>
-            ))}
-          </div>
+          {loading ? (
+            <div className="flex items-center justify-center h-full">
+              <div className="w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full animate-spin" />
+            </div>
+          ) : filteredItems.length === 0 ? (
+            <div className="flex items-center justify-center h-full text-slate-500">
+              <div className="text-center">
+                <p className="text-4xl mb-2">{activeTab === 'services' ? '💆' : '🛍️'}</p>
+                <p>No {activeTab} found</p>
+              </div>
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+              {filteredItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => addToCart(item)}
+                  className="p-4 bg-slate-800 rounded-xl border border-slate-700 hover:border-pink-500 transition-colors text-left"
+                >
+                  <p className="font-medium text-white mb-1 line-clamp-2">{item.name}</p>
+                  <p className="text-sm text-slate-400">{item.category}</p>
+                  <p className="text-lg font-bold text-green-400 mt-2">
+                    {item.price === 0 ? 'Free' : `$${item.price}`}
+                  </p>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

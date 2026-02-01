@@ -78,8 +78,9 @@ export async function GET(request: NextRequest) {
       .select(`
         id,
         starts_at,
+        scheduled_at,
         status,
-        client:clients(users(first_name, last_name)),
+        client:clients(id, first_name, last_name),
         service:services(name)
       `)
       .gte('starts_at', new Date().toISOString())
@@ -88,10 +89,10 @@ export async function GET(request: NextRequest) {
 
     const upcoming = (upcomingAppointments || []).map((apt: any) => ({
       id: apt.id,
-      time: apt.starts_at,
+      time: apt.starts_at || apt.scheduled_at,
       status: apt.status,
-      client_name: apt.client?.users ? 
-        `${apt.client.users.first_name} ${apt.client.users.last_name}` : 'Unknown',
+      client_name: apt.client ? 
+        `${apt.client.first_name || ''} ${apt.client.last_name || ''}`.trim() || 'Unknown' : 'Unknown',
       service: apt.service?.name || 'Service',
     }));
 

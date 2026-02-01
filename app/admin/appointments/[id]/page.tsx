@@ -322,12 +322,33 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
                   📋 Chart Note
                 </Link>
               {appointment.status !== 'completed' && appointment.status !== 'cancelled' && (
-                <button
-                  onClick={() => setShowCancelModal(true)}
-                  className="w-full px-4 py-2.5 border border-red-300 text-red-600 font-medium rounded-lg hover:bg-red-50 transition-colors"
-                >
-                  ✗ Cancel Appointment
-                </button>
+                <>
+                  <button
+                    onClick={() => setShowCancelModal(true)}
+                    className="w-full px-4 py-2.5 border border-red-300 text-red-600 font-medium rounded-lg hover:bg-red-50 transition-colors"
+                  >
+                    ✗ Cancel Appointment
+                  </button>
+                  <button
+                    onClick={async () => {
+                      if (confirm('Are you sure you want to permanently delete this appointment? This cannot be undone.')) {
+                        try {
+                          const res = await fetch(`/api/appointments/${appointment.id}`, { method: 'DELETE' });
+                          if (res.ok) {
+                            window.location.href = '/admin/appointments';
+                          } else {
+                            alert('Failed to delete appointment');
+                          }
+                        } catch (err) {
+                          alert('Failed to delete appointment');
+                        }
+                      }
+                    }}
+                    className="w-full px-4 py-2.5 text-red-500 text-sm font-medium hover:bg-red-50 rounded-lg transition-colors"
+                  >
+                    🗑️ Delete Permanently
+                  </button>
+                </>
               )}
             </div>
           </div>

@@ -8,8 +8,8 @@ import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 // Define the ONLY active providers for Hello Gorgeous
 // These are the real providers who should appear on calendars and booking
 const ACTIVE_PROVIDER_NAMES = [
-  { first: 'Danielle', last: 'Alcala' },
-  { first: 'Ryan', last: 'Kent' },
+  { first: 'Danielle', lastMatch: ['Alcala', 'Glazier'] },  // Matches "Alcala", "Glazier-Alcala", etc.
+  { first: 'Ryan', lastMatch: ['Kent'] },
 ];
 
 export async function GET(request: NextRequest) {
@@ -56,11 +56,17 @@ export async function GET(request: NextRequest) {
       }))
       .filter((p: any) => {
         // Only include providers whose names match our active list
-        return ACTIVE_PROVIDER_NAMES.some(
-          active => 
-            p.first_name?.toLowerCase().includes(active.first.toLowerCase()) &&
-            p.last_name?.toLowerCase().includes(active.last.toLowerCase())
-        );
+        if (!p.first_name) return false;
+        const firstName = p.first_name.toLowerCase();
+        const lastName = (p.last_name || '').toLowerCase();
+        
+        return ACTIVE_PROVIDER_NAMES.some(active => {
+          const firstMatch = firstName.includes(active.first.toLowerCase());
+          const lastMatch = active.lastMatch.some(
+            (lm: string) => lastName.includes(lm.toLowerCase())
+          );
+          return firstMatch && lastMatch;
+        });
       });
 
     // If filtering resulted in no providers, return the fallback
