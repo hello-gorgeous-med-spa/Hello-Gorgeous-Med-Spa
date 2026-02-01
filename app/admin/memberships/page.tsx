@@ -22,28 +22,18 @@ export default function AdminMembershipsPage() {
   // Fetch members from database
   useEffect(() => {
     const fetchMembers = async () => {
-      if (false) {
-        setLoading(false);
-        return;
-      }
-
       try {
-        // Fetch VIP clients
-        const { data: vipClients, error } = await supabase
-          .from('clients')
-          .select('*, user:users(first_name, last_name, email)')
-          .eq('is_vip', true)
-          .order('created_at', { ascending: false });
-
-        if (!error && vipClients) {
-          setMembers(vipClients);
-          setStats({
-            total: vipClients.length,
-            annual: vipClients.length, // Simplified - all VIPs treated as annual
-            monthly: 0,
-            revenue: vipClients.length * 299, // Estimated based on $299 annual membership
-          });
-        }
+        const res = await fetch('/api/clients?limit=500');
+        const data = await res.json();
+        const clients = data.clients ?? [];
+        const total = data.total ?? clients.length;
+        setMembers(clients);
+        setStats({
+          total,
+          annual: 0,
+          monthly: 0,
+          revenue: 0,
+        });
       } catch (err) {
         console.error('Error fetching members:', err);
       } finally {
@@ -62,9 +52,12 @@ export default function AdminMembershipsPage() {
           <h1 className="text-2xl font-bold text-gray-900">Memberships</h1>
           <p className="text-gray-500">Manage VIP membership program</p>
         </div>
-        <button className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600">
+        <Link
+          href="/admin/memberships/manage"
+          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 inline-block"
+        >
           + Add Member
-        </button>
+        </Link>
       </div>
 
       {/* Connection Status */}

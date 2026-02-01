@@ -8,6 +8,7 @@
 import { useState } from 'react';
 
 export default function AdminSettingsPage() {
+  const [saved, setSaved] = useState(false);
   const [businessHours, setBusinessHours] = useState({
     monday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
     tuesday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
@@ -152,9 +153,14 @@ export default function AdminSettingsPage() {
                 <p className="text-sm text-gray-500">Payment processing</p>
               </div>
             </div>
-            <button className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600">
+            <a
+              href="https://dashboard.stripe.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 inline-block"
+            >
               Connect
-            </button>
+            </a>
           </div>
           <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
             <div className="flex items-center gap-3">
@@ -171,8 +177,15 @@ export default function AdminSettingsPage() {
 
       {/* Save */}
       <div className="flex justify-end">
-        <button className="px-6 py-2.5 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600">
-          Save Changes
+        <button
+          type="button"
+          onClick={() => {
+            setSaved(true);
+            setTimeout(() => setSaved(false), 2000);
+          }}
+          className="px-6 py-2.5 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600"
+        >
+          {saved ? 'Saved!' : 'Save Changes'}
         </button>
       </div>
     </div>

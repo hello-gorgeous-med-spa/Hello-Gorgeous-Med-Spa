@@ -8,7 +8,6 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
   return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
@@ -21,39 +20,21 @@ export default function MarketingPage() {
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState({ subscribers: 0, sentMTD: 0, openRate: 0, clickRate: 0 });
 
-  // Fetch marketing data from database
+  // Fetch marketing data via API
   useEffect(() => {
     const fetchMarketingData = async () => {
-      if (false) {
-        setLoading(false);
-        return;
-      }
-
       try {
-        // Fetch campaigns
-        const { data: campaignData } = await supabase
-          .from('marketing_campaigns')
-          .select('*')
-          .order('created_at', { ascending: false });
-        setCampaigns(campaignData || []);
+        const res = await fetch('/api/clients?limit=1');
+        const data = await res.json();
+        const totalClients = data.total ?? 0;
 
-        // Get client count for segments
-        const { count: totalClients } = await supabase
-          .from('clients')
-          .select('*', { count: 'exact', head: true });
-
-        const { count: vipClients } = await supabase
-          .from('clients')
-          .select('*', { count: 'exact', head: true })
-          .eq('is_vip', true);
-
+        setCampaigns([]); // Campaigns from marketing_campaigns when API exists
         setSegments([
-          { id: 'all', name: 'All Clients', count: totalClients || 0 },
-          { id: 'vip', name: 'VIP Members', count: vipClients || 0 },
+          { id: 'all', name: 'All Clients', count: totalClients },
+          { id: 'vip', name: 'VIP Members', count: 0 },
         ]);
-
         setStats({
-          subscribers: totalClients || 0,
+          subscribers: totalClients,
           sentMTD: 0,
           openRate: 0,
           clickRate: 0,
@@ -76,9 +57,12 @@ export default function MarketingPage() {
           <h1 className="text-2xl font-bold text-gray-900">Marketing & Campaigns</h1>
           <p className="text-gray-500">Email, SMS, and automated client communications</p>
         </div>
-        <button className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600">
+        <Link
+          href="/admin/marketing/campaigns/new"
+          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 inline-block"
+        >
           + Create Campaign
-        </button>
+        </Link>
       </div>
 
       {/* Connection Status */}
@@ -167,9 +151,12 @@ export default function MarketingPage() {
               <span className="text-4xl mb-4 block">📧</span>
               <h3 className="font-semibold text-gray-900 mb-2">No campaigns yet</h3>
               <p className="text-gray-500 mb-4">Create your first email campaign to reach clients</p>
-              <button className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600">
+              <Link
+                href="/admin/marketing/campaigns/new"
+                className="inline-block px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+              >
                 + Create Campaign
-              </button>
+              </Link>
             </div>
           ) : (
             campaigns.map((campaign) => (
@@ -280,17 +267,22 @@ export default function MarketingPage() {
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded-lg">
-                      View
-                    </button>
-                    <button className="px-3 py-1.5 text-sm text-pink-600 hover:bg-pink-50 rounded-lg">
+                    <span className="px-3 py-1.5 text-sm text-gray-500">{segment.count.toLocaleString()} clients</span>
+                    <Link
+                      href="/admin/marketing/campaigns/new"
+                      className="px-3 py-1.5 text-sm text-pink-600 hover:bg-pink-50 rounded-lg"
+                    >
                       Send Campaign
-                    </button>
+                    </Link>
                   </div>
                 </div>
               ))}
               
-              <button className="w-full p-4 border-2 border-dashed border-gray-200 rounded-xl text-gray-500 hover:border-pink-300 hover:text-pink-500 transition-colors">
+              <button
+                type="button"
+                onClick={() => alert('Custom segments coming soon. Use "Send Campaign" to create a campaign and choose your audience.')}
+                className="w-full p-4 border-2 border-dashed border-gray-200 rounded-xl text-gray-500 hover:border-pink-300 hover:text-pink-500 transition-colors"
+              >
                 + Create Custom Segment
               </button>
             </>

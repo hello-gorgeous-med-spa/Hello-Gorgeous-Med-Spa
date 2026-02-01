@@ -128,7 +128,11 @@ export default function InventoryPage() {
           >
             + Receive Stock
           </button>
-          <button className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
+          <button
+            type="button"
+            onClick={() => window.open('/api/export?type=services&format=csv', '_blank')}
+            className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+          >
             Export
           </button>
         </div>

@@ -42,67 +42,67 @@ function useAdminManifest() {
   }, []);
 }
 
-// Complete navigation matching Aesthetics Record parity requirements
+// User- and provider-friendly navigation — clear labels, logical grouping
 const NAV_SECTIONS = [
   {
-    title: 'Daily Operations',
+    title: 'Quick access',
     items: [
-      { href: '/admin', label: 'Dashboard', icon: '📊', description: 'Overview & alerts' },
-      { href: '/admin/calendar', label: 'Schedule', icon: '📅', description: 'Booking calendar' },
-      { href: '/pos', label: 'POS Terminal', icon: '💰', description: 'Checkout & payments' },
+      { href: '/admin', label: 'Dashboard', icon: '📊', description: 'Today’s overview' },
+      { href: '/admin/calendar', label: "Today's schedule", icon: '📅', description: 'See who’s coming in' },
+      { href: '/admin/appointments/new', label: 'Book appointment', icon: '➕', description: 'Schedule a client' },
+      { href: '/pos', label: 'Check out / POS', icon: '💳', description: 'Take payment' },
     ],
   },
   {
-    title: 'Client Management',
+    title: 'Clients & bookings',
     items: [
-      { href: '/admin/clients', label: 'All Clients', icon: '👥', description: 'Patient records' },
-      { href: '/admin/clients/new', label: 'Add Client', icon: '➕', description: 'New patient' },
-      { href: '/admin/appointments', label: 'Appointments', icon: '🗓️', description: 'All bookings' },
+      { href: '/admin/clients', label: 'Client list', icon: '👥', description: 'Find or view clients' },
+      { href: '/admin/clients/new', label: 'Add new client', icon: '✨', description: 'Register a new client' },
+      { href: '/admin/appointments', label: 'All appointments', icon: '🗓️', description: 'View or edit bookings' },
     ],
   },
   {
-    title: 'Clinical',
+    title: 'Care & charting',
     items: [
-      { href: '/admin/charts', label: 'Charts & SOAP', icon: '📋', description: 'Clinical notes' },
-      { href: '/admin/consents', label: 'Consents', icon: '📝', description: 'Digital signatures' },
-      { href: '/admin/compliance', label: 'Compliance', icon: '🛡️', description: 'Legal & safety' },
-      { href: '/admin/medications', label: 'Medications', icon: '💊', description: 'Rx tracking' },
+      { href: '/admin/charts', label: 'Charts & notes', icon: '📋', description: 'SOAP notes & clinical' },
+      { href: '/admin/consents', label: 'Consent forms', icon: '📝', description: 'Sign & track consents' },
+      { href: '/admin/medications', label: 'Medications', icon: '💊', description: 'Rx & prescriptions' },
       { href: '/admin/inventory', label: 'Inventory', icon: '📦', description: 'Products & lots' },
+      { href: '/admin/compliance', label: 'Compliance', icon: '🛡️', description: 'Safety & incidents' },
     ],
   },
   {
-    title: 'Revenue',
+    title: 'Payments & menu',
     items: [
-      { href: '/admin/payments', label: 'Payments', icon: '💳', description: 'Transactions' },
-      { href: '/admin/services', label: 'Services', icon: '✨', description: 'Menu & pricing' },
+      { href: '/admin/payments', label: 'Payments', icon: '💰', description: 'Transaction history' },
+      { href: '/admin/services', label: 'Services & pricing', icon: '✨', description: 'Menu & prices' },
+      { href: '/admin/gift-cards', label: 'Gift cards', icon: '🎁', description: 'Sell or redeem' },
       { href: '/admin/memberships', label: 'Memberships', icon: '💎', description: 'VIP plans' },
-      { href: '/admin/gift-cards', label: 'Gift Cards', icon: '🎁', description: 'Sell & redeem' },
     ],
   },
   {
-    title: 'Growth',
+    title: 'Marketing & reports',
     items: [
-      { href: '/admin/marketing', label: 'Marketing', icon: '📣', description: 'Campaigns' },
-      { href: '/admin/sms', label: 'SMS Campaigns', icon: '💬', description: 'Text blasts' },
-      { href: '/admin/reports', label: 'Reports', icon: '📈', description: 'Analytics' },
+      { href: '/admin/marketing', label: 'Marketing', icon: '📣', description: 'Campaigns & email' },
+      { href: '/admin/sms', label: 'SMS / text', icon: '💬', description: 'Text campaigns' },
+      { href: '/admin/reports', label: 'Reports', icon: '📈', description: 'Revenue & analytics' },
     ],
   },
   {
-    title: 'Settings',
+    title: 'Team & settings',
     items: [
-      { href: '/admin/staff', label: 'Staff', icon: '👤', description: 'Team members' },
-      { href: '/admin/users', label: 'Users & Access', icon: '🔐', description: 'Permissions' },
+      { href: '/admin/staff', label: 'Staff & schedules', icon: '👤', description: 'Team & shifts' },
+      { href: '/admin/users', label: 'Users & access', icon: '🔐', description: 'Logins & roles' },
       { href: '/admin/vendors', label: 'Vendors', icon: '🏢', description: 'Suppliers' },
-      { href: '/admin/fax', label: 'eFax', icon: '📠', description: 'Send/receive faxes' },
-      { href: '/admin/settings', label: 'Settings', icon: '⚙️', description: 'Configuration' },
+      { href: '/admin/fax', label: 'eFax', icon: '📠', description: 'Send or receive fax' },
+      { href: '/admin/settings', label: 'Settings', icon: '⚙️', description: 'Business & hours' },
     ],
   },
 ];
 
-// Quick external links (opens in new tab for reference)
 const QUICK_LINKS = [
-  { href: '/book', label: 'Online Booking', icon: '🌐' },
-  { href: '/portal', label: 'Client Portal', icon: '👤' },
+  { href: '/book', label: 'Public booking page', icon: '🌐' },
+  { href: '/portal', label: 'Client portal', icon: '👤' },
 ];
 
 export default function AdminLayout({
@@ -126,12 +126,12 @@ export default function AdminLayout({
       <AdminHeader />
 
       <div className="flex">
-        {/* Sidebar */}
-        <aside className="w-64 bg-white border-r border-gray-200 min-h-[calc(100vh-56px)] sticky top-14 hidden lg:block overflow-y-auto">
-          <nav className="p-3 space-y-4">
+        {/* Sidebar — user- and provider-friendly */}
+        <aside className="w-72 bg-white border-r border-gray-200 min-h-[calc(100vh-56px)] sticky top-14 hidden lg:block overflow-y-auto shadow-sm">
+          <nav className="p-4 space-y-5">
             {NAV_SECTIONS.map((section) => (
-              <div key={section.title}>
-                <h3 className="text-[10px] font-bold text-gray-600 uppercase tracking-wider mb-1 px-3">
+              <div key={section.title} className="space-y-1">
+                <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 py-1.5">
                   {section.title}
                 </h3>
                 <ul className="space-y-0.5">
@@ -139,15 +139,18 @@ export default function AdminLayout({
                     <li key={item.href}>
                       <Link
                         href={item.href}
-                        className={`flex items-center gap-2.5 px-3 py-2 rounded-lg transition-all text-sm group ${
+                        className={`flex items-start gap-3 px-3 py-2.5 rounded-xl transition-all text-sm group ${
                           isActive(item.href)
-                            ? 'bg-pink-50 text-pink-700 font-medium'
-                            : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                            ? 'bg-pink-50 text-pink-700 ring-1 ring-pink-200'
+                            : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
                         }`}
                       >
-                        <span className="text-base">{item.icon}</span>
+                        <span className="text-lg shrink-0 mt-0.5" aria-hidden>{item.icon}</span>
                         <div className="flex-1 min-w-0">
-                          <span className="block">{item.label}</span>
+                          <span className="block font-medium">{item.label}</span>
+                          <span className={`block text-xs mt-0.5 ${isActive(item.href) ? 'text-pink-600' : 'text-gray-500'}`}>
+                            {item.description}
+                          </span>
                         </div>
                       </Link>
                     </li>
@@ -156,22 +159,22 @@ export default function AdminLayout({
               </div>
             ))}
 
-            {/* External Links */}
-            <div className="pt-4 border-t border-gray-100">
-              <h3 className="text-[10px] font-bold text-gray-600 uppercase tracking-wider mb-1 px-3">
-                External
+            <div className="pt-4 border-t border-gray-100 space-y-1">
+              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 py-1.5">
+                Quick links
               </h3>
               <ul className="space-y-0.5">
                 {QUICK_LINKS.map((link) => (
                   <li key={link.href}>
                     <Link
                       href={link.href}
-                      className="flex items-center gap-2.5 px-3 py-2 text-gray-500 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-all text-sm"
+                      className="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all text-sm"
                       target="_blank"
+                      rel="noopener noreferrer"
                     >
-                      <span>{link.icon}</span>
+                      <span className="text-lg">{link.icon}</span>
                       <span>{link.label}</span>
-                      <span className="ml-auto text-xs">↗</span>
+                      <span className="ml-auto text-xs text-gray-400">↗</span>
                     </Link>
                   </li>
                 ))}
@@ -179,34 +182,31 @@ export default function AdminLayout({
             </div>
           </nav>
 
-          {/* Version Footer - Dynamic */}
-          <div className="absolute bottom-0 left-0 right-0 p-3 border-t border-gray-100 bg-white">
-            <div className="text-xs text-gray-500 text-center">
-              <p className="font-medium text-gray-700">Hello Gorgeous OS</p>
-              <p>v1.4.0 • Production</p>
-            </div>
+          <div className="sticky bottom-0 left-0 right-0 p-4 border-t border-gray-100 bg-white/95 backdrop-blur">
+            <p className="text-xs text-gray-500 text-center font-medium">Hello Gorgeous OS</p>
+            <p className="text-[10px] text-gray-400 text-center mt-0.5">v1.4.0 • Production</p>
           </div>
         </aside>
 
-        {/* Mobile Bottom Nav */}
-        <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 safe-area-pb">
-          <div className="flex justify-around items-center h-16">
+        {/* Mobile Bottom Nav — most-used actions */}
+        <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 safe-area-pb shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
+          <div className="flex justify-around items-center h-16 px-2">
             {[
-              { href: '/admin', icon: '📊', label: 'Home' },
-              { href: '/admin/calendar', icon: '📅', label: 'Schedule' },
-              { href: '/pos', icon: '💰', label: 'POS' },
+              { href: '/admin', icon: '📊', label: 'Dashboard' },
+              { href: '/admin/calendar', icon: '📅', label: "Today" },
+              { href: '/admin/appointments/new', icon: '➕', label: 'Book' },
+              { href: '/pos', icon: '💳', label: 'POS' },
               { href: '/admin/clients', icon: '👥', label: 'Clients' },
-              { href: '/admin/reports', icon: '📈', label: 'Reports' },
             ].map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg ${
-                  isActive(item.href) ? 'text-pink-600' : 'text-gray-500'
+                className={`flex flex-col items-center justify-center gap-1 min-w-[56px] py-2 rounded-xl transition-colors ${
+                  isActive(item.href) ? 'text-pink-600 bg-pink-50' : 'text-gray-500 hover:text-gray-700'
                 }`}
               >
                 <span className="text-xl">{item.icon}</span>
-                <span className="text-[10px] font-medium">{item.label}</span>
+                <span className="text-[11px] font-medium">{item.label}</span>
               </Link>
             ))}
           </div>
