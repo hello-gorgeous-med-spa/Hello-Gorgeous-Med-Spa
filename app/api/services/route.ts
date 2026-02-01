@@ -3,7 +3,25 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+
+// Helper to safely create supabase client
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  
+  if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) {
+    return null;
+  }
+  
+  try {
+    const { createClient } = require('@supabase/supabase-js');
+    return createClient(url, key, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+  } catch {
+    return null;
+  }
+}
 
 // Default categories for Hello Gorgeous Med Spa (using consistent UUIDs)
 const DEFAULT_CATEGORIES = [
@@ -363,8 +381,14 @@ export async function GET(request: NextRequest) {
     categories: DEFAULT_CATEGORIES,
   });
 
+  // Check if Supabase is configured
+  const supabase = getSupabase();
+  if (!supabase) {
+    console.log('Supabase not configured - returning default services');
+    return NextResponse.json(getDefaultResponse());
+  }
+
   try {
-    const supabase = createServerSupabaseClient();
     const { searchParams } = new URL(request.url);
     const activeOnly = searchParams.get('active') === 'true';
     
@@ -410,13 +434,17 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   try {
-    const supabase = createServerSupabaseClient();
     const body = await request.json();
 
-    // Generate ID if not provided
+    // Generate UUID if not provided
     if (!body.id) {
-      body.id = `svc-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+      body.id = crypto.randomUUID();
     }
 
     const { data, error } = await supabase
@@ -438,8 +466,12 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   try {
-    const supabase = createServerSupabaseClient();
     const body = await request.json();
     const { id, ...updateData } = body;
 
@@ -467,8 +499,12 @@ export async function PUT(request: NextRequest) {
 }
 
 export async function DELETE(request: NextRequest) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   try {
-    const supabase = createServerSupabaseClient();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
 
