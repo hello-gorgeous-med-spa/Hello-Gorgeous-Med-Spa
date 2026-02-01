@@ -2,24 +2,29 @@
 
 // ============================================================
 // NEW APPOINTMENT PAGE
-// Book a new appointment - Connected to Live API Data
+// Book a new appointment - With real-time availability checking
 // ============================================================
 
 import { useState, Suspense, useEffect, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-// Time slots
-const TIME_SLOTS = [
-  '9:00 AM', '9:15 AM', '9:30 AM', '9:45 AM',
-  '10:00 AM', '10:15 AM', '10:30 AM', '10:45 AM',
-  '11:00 AM', '11:15 AM', '11:30 AM', '11:45 AM',
-  '12:00 PM', '12:15 PM', '12:30 PM', '12:45 PM',
-  '1:00 PM', '1:15 PM', '1:30 PM', '1:45 PM',
-  '2:00 PM', '2:15 PM', '2:30 PM', '2:45 PM',
-  '3:00 PM', '3:15 PM', '3:30 PM', '3:45 PM',
-  '4:00 PM', '4:15 PM', '4:30 PM', '4:45 PM',
-];
+// Generate time slots from 9am to 6pm in 15-minute increments
+const generateTimeSlots = () => {
+  const slots = [];
+  for (let hour = 9; hour <= 18; hour++) {
+    for (let min = 0; min < 60; min += 15) {
+      if (hour === 18 && min > 0) break; // Stop at 6pm
+      const period = hour >= 12 ? 'PM' : 'AM';
+      const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
+      const displayMin = min.toString().padStart(2, '0');
+      slots.push(`${displayHour}:${displayMin} ${period}`);
+    }
+  }
+  return slots;
+};
+
+const TIME_SLOTS = generateTimeSlots();
 
 function NewAppointmentContent() {
   const router = useRouter();
@@ -30,6 +35,9 @@ function NewAppointmentContent() {
   const [services, setServices] = useState<any[]>([]);
   const [providers, setProviders] = useState<any[]>([]);
   const [servicesLoading, setServicesLoading] = useState(true);
+  const [existingAppointments, setExistingAppointments] = useState<any[]>([]);
+  const [availabilityLoading, setAvailabilityLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   // Fetch services from API
   const fetchServices = useCallback(async () => {
@@ -79,6 +87,7 @@ function NewAppointmentContent() {
     time: '',
     notes: '',
     sendConfirmation: true,
+    customPrice: '', // For price adjustments
   });
 
   // Update providerId when providers load
@@ -87,6 +96,50 @@ function NewAppointmentContent() {
       setFormData(prev => ({ ...prev, providerId: providers[0].id }));
     }
   }, [providers, formData.providerId]);
+
+  // Fetch availability when date or provider changes
+  useEffect(() => {
+    if (!formData.date || !formData.providerId) return;
+
+    const fetchAvailability = async () => {
+      setAvailabilityLoading(true);
+      try {
+        const res = await fetch(`/api/appointments?date=${formData.date}&provider_id=${formData.providerId}`);
+        const data = await res.json();
+        setExistingAppointments(data.appointments || []);
+      } catch (err) {
+        console.error('Failed to load availability:', err);
+      } finally {
+        setAvailabilityLoading(false);
+      }
+    };
+
+    fetchAvailability();
+  }, [formData.date, formData.providerId]);
+
+  // Check if a time slot is booked
+  const isTimeSlotBooked = (timeSlot: string) => {
+    if (!existingAppointments.length) return false;
+
+    // Convert time slot to comparable format
+    const [time, period] = timeSlot.split(' ');
+    const [hours, minutes] = time.split(':');
+    let hour = parseInt(hours);
+    if (period === 'PM' && hour !== 12) hour += 12;
+    if (period === 'AM' && hour === 12) hour = 0;
+
+    const slotDate = new Date(formData.date);
+    slotDate.setHours(hour, parseInt(minutes), 0, 0);
+    const slotTime = slotDate.getTime();
+
+    // Check if slot overlaps with any existing appointment
+    return existingAppointments.some((apt: any) => {
+      if (apt.status === 'cancelled' || apt.status === 'no_show') return false;
+      const aptStart = new Date(apt.starts_at).getTime();
+      const aptEnd = apt.ends_at ? new Date(apt.ends_at).getTime() : aptStart + (apt.duration || 30) * 60000;
+      return slotTime >= aptStart && slotTime < aptEnd;
+    });
+  };
 
   // Load preselected client
   useEffect(() => {
@@ -141,9 +194,33 @@ function NewAppointmentContent() {
   const selectedService = services.find((s: any) => s.id === formData.serviceId);
   const selectedProvider = providers.find((p: any) => p.id === formData.providerId);
 
+  // Calculate display price
+  const getDisplayPrice = () => {
+    if (formData.customPrice) {
+      return parseFloat(formData.customPrice);
+    }
+    if (selectedService?.price_cents) {
+      return selectedService.price_cents / 100;
+    }
+    return 0;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedClient || !formData.serviceId || !formData.time) return;
+    setErrorMessage('');
+
+    if (!selectedClient) {
+      setErrorMessage('Please select a client');
+      return;
+    }
+    if (!formData.serviceId) {
+      setErrorMessage('Please select a service');
+      return;
+    }
+    if (!formData.time) {
+      setErrorMessage('Please select a time');
+      return;
+    }
 
     setIsSubmitting(true);
 
@@ -169,17 +246,26 @@ function NewAppointmentContent() {
           starts_at: scheduledAt.toISOString(),
           duration_minutes: selectedService?.duration_minutes || 30,
           notes: formData.notes,
+          custom_price_cents: formData.customPrice ? Math.round(parseFloat(formData.customPrice) * 100) : null,
         }),
       });
 
+      const result = await res.json();
+
       if (!res.ok) {
-        throw new Error('Failed to create appointment');
+        if (result.conflictType === 'double_booking') {
+          setErrorMessage('This time slot is already booked. Please select a different time.');
+        } else {
+          setErrorMessage(result.error || 'Failed to create appointment');
+        }
+        return;
       }
 
+      // Success! Redirect to appointments
       router.push('/admin/appointments');
     } catch (error) {
       console.error('Failed to create appointment:', error);
-      alert('Failed to book appointment. Please try again.');
+      setErrorMessage('Network error. Please check your connection and try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -199,6 +285,12 @@ function NewAppointmentContent() {
         <p className="text-gray-500">Schedule a new appointment</p>
       </div>
 
+      {/* Error Message */}
+      {errorMessage && (
+        <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+          <p className="text-red-700 font-medium">{errorMessage}</p>
+        </div>
+      )}
 
       {/* Progress */}
       <div className="flex items-center gap-2 mb-6">
@@ -365,7 +457,7 @@ function NewAppointmentContent() {
                         name="service"
                         value={service.id}
                         checked={formData.serviceId === service.id}
-                        onChange={(e) => setFormData({ ...formData, serviceId: e.target.value })}
+                        onChange={(e) => setFormData({ ...formData, serviceId: e.target.value, customPrice: '' })}
                         className="sr-only"
                       />
                       <div>
@@ -378,6 +470,42 @@ function NewAppointmentContent() {
                     <p className="font-semibold text-gray-900">{service.price_display || `$${(service.price_cents || 0) / 100}`}</p>
                   </label>
                 ))}
+              </div>
+            )}
+
+            {/* Price Adjustment Section */}
+            {formData.serviceId && (
+              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700">
+                      Price Adjustment
+                    </label>
+                    <p className="text-xs text-gray-500">
+                      Standard: ${selectedService?.price_cents ? (selectedService.price_cents / 100).toFixed(2) : '0.00'}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-500">$</span>
+                    <input
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      placeholder={selectedService?.price_cents ? (selectedService.price_cents / 100).toFixed(2) : '0.00'}
+                      value={formData.customPrice}
+                      onChange={(e) => setFormData({ ...formData, customPrice: e.target.value })}
+                      className="w-28 px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-right"
+                    />
+                  </div>
+                </div>
+                {formData.customPrice && parseFloat(formData.customPrice) !== (selectedService?.price_cents || 0) / 100 && (
+                  <p className="text-sm text-pink-600 mt-2">
+                    {parseFloat(formData.customPrice) < (selectedService?.price_cents || 0) / 100
+                      ? `💰 Discount: $${((selectedService?.price_cents || 0) / 100 - parseFloat(formData.customPrice)).toFixed(2)} off`
+                      : `⬆️ Premium: +$${(parseFloat(formData.customPrice) - (selectedService?.price_cents || 0) / 100).toFixed(2)}`
+                    }
+                  </p>
+                )}
               </div>
             )}
 
@@ -422,38 +550,73 @@ function NewAppointmentContent() {
                   {selectedProvider?.first_name || selectedProvider?.firstName} {selectedProvider?.last_name || selectedProvider?.lastName}
                 </span>
               </div>
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between mb-2">
                 <span className="text-gray-600">Duration:</span>
                 <span className="font-medium">{selectedService?.duration_minutes || 30} minutes</span>
               </div>
+              <div className="flex items-center justify-between pt-2 border-t border-gray-200 mt-2">
+                <span className="text-gray-900 font-semibold">Price:</span>
+                <span className="font-bold text-pink-600 text-lg">${getDisplayPrice().toFixed(2)}</span>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div className="mb-6">
               {/* Date */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Date</label>
-                <input
-                  type="date"
-                  value={formData.date}
-                  onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-                  min={new Date().toISOString().split('T')[0]}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-                />
-              </div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Select Date</label>
+              <input
+                type="date"
+                value={formData.date}
+                onChange={(e) => setFormData({ ...formData, date: e.target.value, time: '' })}
+                min={new Date().toISOString().split('T')[0]}
+                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              />
+            </div>
 
-              {/* Time */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Time</label>
-                <select
-                  value={formData.time}
-                  onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-                >
-                  <option value="">Select time...</option>
-                  {TIME_SLOTS.map((time) => (
-                    <option key={time} value={time}>{time}</option>
-                  ))}
-                </select>
+            {/* Time Slots Grid */}
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-sm font-medium text-gray-700">Select Time</label>
+                {availabilityLoading && (
+                  <span className="text-xs text-gray-500 flex items-center gap-1">
+                    <div className="animate-spin w-3 h-3 border-2 border-pink-500 border-t-transparent rounded-full" />
+                    Checking availability...
+                  </span>
+                )}
+              </div>
+              <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 max-h-64 overflow-y-auto p-1">
+                {TIME_SLOTS.map((time) => {
+                  const isBooked = isTimeSlotBooked(time);
+                  const isSelected = formData.time === time;
+                  
+                  return (
+                    <button
+                      key={time}
+                      type="button"
+                      disabled={isBooked}
+                      onClick={() => setFormData({ ...formData, time })}
+                      className={`px-2 py-2 text-sm rounded-lg border transition-colors ${
+                        isSelected
+                          ? 'bg-pink-500 text-white border-pink-500'
+                          : isBooked
+                          ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed line-through'
+                          : 'bg-white text-gray-700 border-gray-200 hover:border-pink-300 hover:bg-pink-50'
+                      }`}
+                    >
+                      {time}
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+                <span className="flex items-center gap-1">
+                  <span className="w-3 h-3 bg-pink-500 rounded"></span> Selected
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-3 h-3 bg-gray-100 border border-gray-200 rounded"></span> Booked
+                </span>
+                <span className="flex items-center gap-1">
+                  <span className="w-3 h-3 bg-white border border-gray-200 rounded"></span> Available
+                </span>
               </div>
             </div>
 
@@ -491,9 +654,16 @@ function NewAppointmentContent() {
               <button
                 type="submit"
                 disabled={!formData.time || isSubmitting}
-                className="px-6 py-2.5 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="px-6 py-2.5 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
               >
-                {isSubmitting ? 'Booking...' : 'Book Appointment'}
+                {isSubmitting ? (
+                  <>
+                    <div className="animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full" />
+                    Booking...
+                  </>
+                ) : (
+                  'Book Appointment'
+                )}
               </button>
             </div>
           </div>
