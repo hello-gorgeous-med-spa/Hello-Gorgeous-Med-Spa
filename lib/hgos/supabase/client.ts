@@ -31,11 +31,16 @@ export function createBrowserSupabaseClient() {
 // ============================================================
 
 /**
- * Creates a Supabase client for server-side use
- * For use in API routes and server components
+ * Creates a Supabase client for server-side use with SERVICE ROLE KEY
+ * BYPASSES RLS - For use in API routes that need full database access
  */
 export function createServerSupabaseClient() {
-  return createClient<Database>(supabaseUrl, supabaseAnonKey, {
+  // Use service role key if available, otherwise fall back to anon key
+  const key = supabaseServiceKey && supabaseServiceKey !== 'placeholder-service-role-key'
+    ? supabaseServiceKey
+    : supabaseAnonKey;
+  
+  return createClient<Database>(supabaseUrl, key, {
     auth: {
       autoRefreshToken: false,
       persistSession: false,
