@@ -165,6 +165,24 @@ export default function QuickSalePage() {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     setProcessing(false);
     setCompleted(true);
+    
+    // Send review request if we have customer phone
+    if (customerPhone) {
+      try {
+        await fetch('/api/reviews/request', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            client_id: `walk-in-${Date.now()}`,
+            client_name: customerName || 'Valued Guest',
+            client_phone: customerPhone,
+            service_name: cart[0]?.name, // Primary service
+          }),
+        });
+      } catch (err) {
+        console.log('Review request queued');
+      }
+    }
   };
 
   if (completed) {
@@ -235,6 +253,33 @@ export default function QuickSalePage() {
               <span>${total.toFixed(2)}</span>
             </div>
           </div>
+
+          {/* Financing Options for larger purchases */}
+          {total >= 200 && (
+            <div className="mb-6 p-4 bg-gradient-to-r from-pink-900/30 to-purple-900/30 rounded-xl border border-pink-700/30">
+              <p className="text-sm text-pink-300 mb-3">💰 Need financing? As low as ${Math.round(total / 24)}/mo</p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => window.open('https://withcherry.com/apply', '_blank')}
+                  className="flex-1 py-2 px-3 bg-red-500/20 hover:bg-red-500/30 text-red-300 text-sm rounded-lg border border-red-500/30"
+                >
+                  🍒 Cherry
+                </button>
+                <button
+                  onClick={() => window.open('https://www.carecredit.com/apply', '_blank')}
+                  className="flex-1 py-2 px-3 bg-teal-500/20 hover:bg-teal-500/30 text-teal-300 text-sm rounded-lg border border-teal-500/30"
+                >
+                  💳 CareCredit
+                </button>
+                <button
+                  onClick={() => window.open('https://www.patientfi.com/', '_blank')}
+                  className="flex-1 py-2 px-3 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 text-sm rounded-lg border border-purple-500/30"
+                >
+                  ✨ PatientFi
+                </button>
+              </div>
+            </div>
+          )}
 
           {processing ? (
             <div className="text-center py-8">
