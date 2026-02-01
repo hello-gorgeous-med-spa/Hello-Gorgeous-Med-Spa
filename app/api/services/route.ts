@@ -353,7 +353,7 @@ const DEFAULT_SERVICES = [
 ];
 
 export async function GET(request: NextRequest) {
-  // Helper function to format defaults for response
+  // Helper function to format defaults for response - ALWAYS works
   const getDefaultResponse = () => ({
     services: DEFAULT_SERVICES.map(s => ({
       ...s,
@@ -368,7 +368,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const activeOnly = searchParams.get('active') === 'true';
     
-    // Fetch services from database
+    // Try to fetch services from database
     let servicesQuery = supabase
       .from('services')
       .select(`
@@ -389,72 +389,22 @@ export async function GET(request: NextRequest) {
       .select('id, name, slug, display_order')
       .order('display_order');
 
-    // Log errors for debugging
-    if (servicesError) {
-      console.log('Services fetch error:', servicesError.message);
-    }
-    if (categoriesError) {
-      console.log('Categories fetch error:', categoriesError.message);
-    }
-
-    // If we have data in the database, return it
-    if (services && services.length > 0) {
+    // If database has services, return them
+    if (!servicesError && services && services.length > 0) {
       return NextResponse.json({
         services: services,
-        categories: categories && categories.length > 0 ? categories : DEFAULT_CATEGORIES,
+        categories: (!categoriesError && categories && categories.length > 0) ? categories : DEFAULT_CATEGORIES,
       });
     }
 
-    // No services in DB - try to seed the database with defaults
-    console.log('No services in database, attempting to seed defaults...');
-    
-    try {
-      // Seed categories first
-      const { error: catSeedError } = await supabase
-        .from('service_categories')
-        .upsert(DEFAULT_CATEGORIES, { onConflict: 'id' });
-      
-      if (catSeedError) {
-        console.log('Could not seed categories:', catSeedError.message);
-      }
-
-      // Seed services
-      const { error: svcSeedError } = await supabase
-        .from('services')
-        .upsert(DEFAULT_SERVICES, { onConflict: 'id' });
-
-      if (svcSeedError) {
-        console.log('Could not seed services:', svcSeedError.message);
-      }
-
-      // Try fetching again after seeding
-      const { data: seededServices } = await supabase
-        .from('services')
-        .select(`*, category:service_categories(id, name, slug)`)
-        .order('name');
-
-      const { data: seededCategories } = await supabase
-        .from('service_categories')
-        .select('id, name, slug, display_order')
-        .order('display_order');
-
-      if (seededServices && seededServices.length > 0) {
-        return NextResponse.json({
-          services: seededServices,
-          categories: seededCategories && seededCategories.length > 0 ? seededCategories : DEFAULT_CATEGORIES,
-        });
-      }
-    } catch (seedError) {
-      console.log('Seeding failed:', seedError);
-    }
-
-    // Return defaults if database operations failed
-    console.log('Returning default services and categories');
+    // Database is empty or errored - return defaults immediately
+    // This ensures the page always has data to display
+    console.log('Using default services (DB empty or unavailable)');
     return NextResponse.json(getDefaultResponse());
     
   } catch (error) {
     console.error('Services API error:', error);
-    // Return defaults on any error
+    // Return defaults on any error - never fail
     return NextResponse.json(getDefaultResponse());
   }
 }
