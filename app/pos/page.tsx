@@ -331,14 +331,43 @@ function CheckoutPanel({
   const discountAmount = discountType === 'percent' ? subtotal * (discount / 100) : discount;
   const total = subtotal - discountAmount + tip;
 
-  const handleStripeSuccess = (paymentIntentId: string) => {
+  const saveTransaction = async (paymentIntentId: string, method: string) => {
+    try {
+      const res = await fetch('/api/transactions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          client_id: appointment.clientId || null,
+          appointment_id: appointment.id,
+          type: 'sale',
+          subtotal: subtotal,
+          discount_amount: discountAmount,
+          tax_amount: 0,
+          tip_amount: tip,
+          payment_method: method,
+          stripe_payment_intent_id: method === 'card' ? paymentIntentId : null,
+          notes: `POS checkout for ${appointment.service}`,
+        }),
+      });
+      
+      if (!res.ok) {
+        console.error('Failed to save transaction');
+      }
+    } catch (err) {
+      console.error('Error saving transaction:', err);
+    }
+  };
+
+  const handleStripeSuccess = async (paymentIntentId: string) => {
+    await saveTransaction(paymentIntentId, 'card');
     setPaymentId(paymentIntentId);
     setPaid(true);
     onPaymentSuccess(paymentIntentId, appointment.client, total);
   };
 
-  const handleCashPayment = () => {
+  const handleCashPayment = async () => {
     const cashId = `cash_${Date.now()}`;
+    await saveTransaction(cashId, 'cash');
     setPaymentId(cashId);
     setPaid(true);
     onPaymentSuccess(cashId, appointment.client, total);

@@ -9,9 +9,56 @@ export async function GET(request: NextRequest) {
   try {
     const supabase = createServerSupabaseClient();
     const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
     const search = searchParams.get('search');
     const limit = parseInt(searchParams.get('limit') || '100');
     const offset = parseInt(searchParams.get('offset') || '0');
+
+    // Get single client by ID
+    if (id) {
+      const { data: client, error } = await supabase
+        .from('clients')
+        .select(`
+          *,
+          users!inner(id, first_name, last_name, email, phone)
+        `)
+        .eq('id', id)
+        .single();
+
+      if (error || !client) {
+        return NextResponse.json({ error: 'Client not found' }, { status: 404 });
+      }
+
+      // Flatten the data
+      const flatClient = {
+        id: client.id,
+        user_id: client.user_id,
+        first_name: client.users?.first_name,
+        last_name: client.users?.last_name,
+        email: client.users?.email,
+        phone: client.users?.phone,
+        date_of_birth: client.date_of_birth,
+        gender: client.gender,
+        address_line1: client.address_line1,
+        address_line2: client.address_line2,
+        city: client.city,
+        state: client.state,
+        postal_code: client.postal_code,
+        emergency_contact_name: client.emergency_contact_name,
+        emergency_contact_phone: client.emergency_contact_phone,
+        referral_source: client.referral_source,
+        internal_notes: client.internal_notes,
+        allergies_summary: client.allergies_summary,
+        medications_summary: client.medications_summary,
+        medical_conditions_summary: client.medical_conditions_summary,
+        created_at: client.created_at,
+        last_visit_at: client.last_visit_at,
+        total_spent: client.lifetime_value_cents ? client.lifetime_value_cents / 100 : 0,
+        visit_count: client.visit_count || 0,
+      };
+
+      return NextResponse.json({ client: flatClient });
+    }
 
     // Get clients with user info
     let query = supabase

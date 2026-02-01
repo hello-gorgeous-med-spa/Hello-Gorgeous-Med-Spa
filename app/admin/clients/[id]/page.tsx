@@ -28,19 +28,17 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
   const [consents, setConsents] = useState<any[]>([]);
   const [loadingExtra, setLoadingExtra] = useState(true);
 
-  // Fetch client from API
+  // Fetch client from API by ID (direct lookup)
   const fetchClient = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/clients?search=${params.id}`);
+      const res = await fetch(`/api/clients?id=${params.id}`);
       const data = await res.json();
       
-      // Find client by ID in results
-      const foundClient = data.clients?.find((c: any) => c.id === params.id);
-      if (foundClient) {
-        setClient(foundClient);
+      if (data.client) {
+        setClient(data.client);
       } else {
-        setError('Client not found');
+        setError(data.error || 'Client not found');
       }
     } catch (err) {
       setError('Failed to load client');
