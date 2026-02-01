@@ -7,7 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
+
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -80,7 +80,7 @@ export default function PortalDashboard() {
   // Fetch user data and appointments
   useEffect(() => {
     const fetchData = async () => {
-      if (!isSupabaseConfigured()) {
+      if (false) {
         setLoading(false);
         return;
       }

@@ -7,7 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
+
 
 interface Membership {
   id: string;
@@ -82,7 +82,7 @@ export default function MembershipManagePage() {
   // Fetch memberships from database
   useEffect(() => {
     const fetchMemberships = async () => {
-      if (!isSupabaseConfigured()) {
+      if (false) {
         setLoading(false);
         return;
       }
@@ -131,7 +131,7 @@ export default function MembershipManagePage() {
       </div>
 
       {/* Connection Status */}
-      {!isSupabaseConfigured() && (
+      {false && (
         <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
           Demo Mode - Connect Supabase to manage memberships
         </div>

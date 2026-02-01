@@ -7,7 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
+import { useState, useEffect } from 'react';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -22,7 +22,7 @@ export default function AdminMedicationsPage() {
   // Fetch medications from database
   useEffect(() => {
     const fetchMedications = async () => {
-      if (!isSupabaseConfigured()) {
+      if (false) {
         setLoading(false);
         return;
       }
@@ -80,7 +80,7 @@ export default function AdminMedicationsPage() {
       </div>
 
       {/* Connection Status */}
-      {!isSupabaseConfigured() && (
+      {false && (
         <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
           Demo Mode - Connect Supabase to track medications
         </div>

@@ -3,14 +3,12 @@
 // ============================================================
 // POS TERMINAL - MAIN PAGE
 // Quick checkout and appointment-based transactions
-// With Stripe Integration - Connected to Live Data
+// With Stripe Integration - Connected to Live API Data
 // ============================================================
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
-import { useTodaysAppointments, useRecentPayments } from '@/lib/supabase/hooks';
-import { isSupabaseConfigured } from '@/lib/supabase/client';
 
 // Dynamically import Stripe component (client-side only)
 const StripeCheckout = dynamic(() => import('@/components/StripeCheckout'), {
@@ -27,22 +25,59 @@ export default function POSTerminalPage() {
   const [selectedAppointmentId, setSelectedAppointmentId] = useState<string | null>(null);
   const [localTransactions, setLocalTransactions] = useState<any[]>([]);
 
-  // Fetch today's appointments from Supabase
-  const { appointments, loading: apptsLoading } = useTodaysAppointments();
-  const { payments, loading: paymentsLoading } = useRecentPayments(5);
+  // State for API data
+  const [appointments, setAppointments] = useState<any[]>([]);
+  const [payments, setPayments] = useState<any[]>([]);
+  const [apptsLoading, setApptsLoading] = useState(true);
+  const [paymentsLoading, setPaymentsLoading] = useState(true);
+
+  // Fetch today's appointments from API
+  const fetchTodaysAppointments = useCallback(async () => {
+    try {
+      setApptsLoading(true);
+      const today = new Date().toISOString().split('T')[0];
+      const res = await fetch(`/api/appointments?date=${today}`);
+      const data = await res.json();
+      if (data.appointments) {
+        setAppointments(data.appointments);
+      }
+    } catch (err) {
+      console.error('Failed to load appointments:', err);
+    } finally {
+      setApptsLoading(false);
+    }
+  }, []);
+
+  // Fetch recent payments (placeholder - would need payments API)
+  const fetchRecentPayments = useCallback(async () => {
+    try {
+      setPaymentsLoading(true);
+      // For now, payments come from local state
+      setPayments([]);
+    } catch (err) {
+      console.error('Failed to load payments:', err);
+    } finally {
+      setPaymentsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchTodaysAppointments();
+    fetchRecentPayments();
+  }, [fetchTodaysAppointments, fetchRecentPayments]);
 
   // Transform appointments for POS display
   const todaysAppointments = useMemo(() => {
     return appointments.map(apt => ({
       id: apt.id,
-      time: new Date(apt.scheduled_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }),
-      client: `${apt.client?.first_name || ''} ${apt.client?.last_name || ''}`.trim() || 'Walk-in',
-      clientId: apt.client?.id || '',
-      email: apt.client?.email || '',
-      service: apt.service?.name || 'Service',
-      provider: `${apt.provider?.first_name || ''} ${apt.provider?.last_name || ''}`.trim() || 'Provider',
+      time: new Date(apt.starts_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }),
+      client: apt.client_name || 'Walk-in',
+      clientId: apt.client_id || '',
+      email: apt.client_email || '',
+      service: apt.service_name || 'Service',
+      provider: apt.provider_name || 'Provider',
       status: apt.status,
-      amount: apt.service?.price || 0,
+      amount: apt.service_price || 0,
     }));
   }, [appointments]);
 
@@ -51,7 +86,7 @@ export default function POSTerminalPage() {
     const fromDB = payments.map((p: any) => ({
       id: p.id,
       time: new Date(p.created_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true }),
-      client: `${p.client?.first_name || ''} ${p.client?.last_name || ''}`.trim() || 'Client',
+      client: p.client_name || 'Client',
       amount: p.total_amount || 0,
       method: p.payment_method || 'Card',
     }));
@@ -103,9 +138,6 @@ export default function POSTerminalPage() {
             />
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400">🔍</span>
           </div>
-          {!isSupabaseConfigured() && (
-            <p className="text-xs text-amber-400 mt-2">Demo Mode - Connect Supabase for live data</p>
-          )}
         </div>
 
         {/* Tabs */}

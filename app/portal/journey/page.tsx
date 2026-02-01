@@ -7,7 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
+
 
 interface TreatmentEntry {
   id: string;
@@ -30,7 +30,7 @@ export default function JourneyPage() {
   // Fetch journey data from appointments
   useEffect(() => {
     const fetchData = async () => {
-      if (!isSupabaseConfigured()) {
+      if (false) {
         setLoading(false);
         return;
       }

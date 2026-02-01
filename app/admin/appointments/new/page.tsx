@@ -375,7 +375,7 @@ function NewAppointmentContent() {
                         </p>
                       </div>
                     </div>
-                    <p className="font-semibold text-gray-900">${service.price || 0}</p>
+                    <p className="font-semibold text-gray-900">{service.price_display || `$${(service.price_cents || 0) / 100}`}</p>
                   </label>
                 ))}
               </div>

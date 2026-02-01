@@ -8,7 +8,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
+
 
 interface Offer {
   id: string;
@@ -90,7 +90,7 @@ export default function OffersPage() {
   // Fetch offers from database
   useEffect(() => {
     const fetchOffers = async () => {
-      if (!isSupabaseConfigured()) {
+      if (false) {
         setLoading(false);
         return;
       }
@@ -152,7 +152,7 @@ export default function OffersPage() {
         </div>
 
         {/* Connection Status */}
-        {!isSupabaseConfigured() && (
+        {false && (
           <div className="mb-8 p-4 bg-amber-50 border border-amber-200 rounded-xl text-center">
             <p className="text-amber-800">
               Connect your database to display current offers.

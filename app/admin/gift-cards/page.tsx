@@ -7,7 +7,7 @@
 // ============================================================
 
 import { useState, useEffect } from 'react';
-import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
+
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -25,7 +25,7 @@ export default function GiftCardsPage() {
   // Fetch gift cards from database
   useEffect(() => {
     const fetchGiftCards = async () => {
-      if (!isSupabaseConfigured()) {
+      if (false) {
         setLoading(false);
         return;
       }
@@ -88,7 +88,7 @@ export default function GiftCardsPage() {
       </div>
 
       {/* Connection Status */}
-      {!isSupabaseConfigured() && (
+      {false && (
         <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
           Demo Mode - Connect Supabase to manage gift cards
         </div>

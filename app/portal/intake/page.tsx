@@ -8,7 +8,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { STANDARD_INTAKE_FORMS, getRequiredForms } from '@/lib/hgos/intake-forms';
-import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
+
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -23,7 +23,7 @@ export default function IntakeFormsPage() {
   // Fetch forms data
   useEffect(() => {
     const fetchData = async () => {
-      if (!isSupabaseConfigured()) {
+      if (false) {
         setLoading(false);
         return;
       }

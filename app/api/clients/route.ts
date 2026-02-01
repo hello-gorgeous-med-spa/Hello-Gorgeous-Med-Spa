@@ -71,14 +71,58 @@ export async function POST(request: NextRequest) {
   try {
     const supabase = createServerSupabaseClient();
     const body = await request.json();
+    const email = body.email?.toLowerCase()?.trim();
 
-    // Create user first
+    // Check if user with this email already exists
+    if (email) {
+      const { data: existingUser } = await supabase
+        .from('users')
+        .select('id')
+        .eq('email', email)
+        .single();
+
+      if (existingUser) {
+        // Check if they already have a client record
+        const { data: existingClient } = await supabase
+          .from('clients')
+          .select('id')
+          .eq('user_id', existingUser.id)
+          .single();
+
+        if (existingClient) {
+          return NextResponse.json({ 
+            error: 'A client with this email already exists',
+            existingClientId: existingClient.id 
+          }, { status: 409 });
+        }
+
+        // User exists but no client record - create client
+        const { data: client, error: clientError } = await supabase
+          .from('clients')
+          .insert({
+            user_id: existingUser.id,
+            date_of_birth: body.dateOfBirth || null,
+            gender: body.gender || null,
+            referral_source: body.referralSource || null,
+          })
+          .select()
+          .single();
+
+        if (clientError) {
+          return NextResponse.json({ error: clientError.message }, { status: 500 });
+        }
+
+        return NextResponse.json({ client, user: existingUser, existed: true });
+      }
+    }
+
+    // Create new user
     const { data: user, error: userError } = await supabase
       .from('users')
       .insert({
         first_name: body.firstName,
         last_name: body.lastName,
-        email: body.email?.toLowerCase(),
+        email: email,
         phone: body.phone,
         role: 'client',
       })
@@ -86,6 +130,12 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (userError) {
+      // Handle duplicate email more gracefully
+      if (userError.message.includes('duplicate') || userError.message.includes('unique')) {
+        return NextResponse.json({ 
+          error: 'A client with this email already exists. Please use a different email or search for the existing client.' 
+        }, { status: 409 });
+      }
       return NextResponse.json({ error: userError.message }, { status: 500 });
     }
 

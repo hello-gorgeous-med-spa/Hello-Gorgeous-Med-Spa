@@ -13,7 +13,7 @@ import {
   formatCancellationPolicyForClient,
   DEFAULT_CANCELLATION_POLICY,
 } from '@/lib/hgos/policies';
-import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
+
 
 interface Appointment {
   id: string;
@@ -48,7 +48,7 @@ export default function PortalAppointmentsPage() {
   // Fetch appointments from database
   useEffect(() => {
     const fetchAppointments = async () => {
-      if (!isSupabaseConfigured()) {
+      if (false) {
         setLoading(false);
         return;
       }
@@ -138,7 +138,7 @@ export default function PortalAppointmentsPage() {
   };
 
   const confirmCancel = async () => {
-    if (!selectedAppointment || !isSupabaseConfigured()) return;
+    if (!selectedAppointment || false) return;
     setIsProcessing(true);
 
     try {

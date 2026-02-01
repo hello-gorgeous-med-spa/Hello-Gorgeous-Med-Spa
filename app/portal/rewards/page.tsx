@@ -13,7 +13,7 @@ import {
   pointsToNextTier,
   pointsToValue,
 } from '@/lib/hgos/loyalty';
-import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
+
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -40,7 +40,7 @@ export default function RewardsPage() {
   // Fetch loyalty data
   useEffect(() => {
     const fetchData = async () => {
-      if (!isSupabaseConfigured()) {
+      if (false) {
         setLoading(false);
         return;
       }

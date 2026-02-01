@@ -5,9 +5,8 @@
 // View and manage individual appointment - Connected to Live Data
 // ============================================================
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -30,28 +29,39 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
   const [cancelReason, setCancelReason] = useState('');
   const [saving, setSaving] = useState(false);
 
-  // Fetch appointment from database
+  // Fetch appointment from API
   useEffect(() => {
     const fetchAppointment = async () => {
-      if (!isSupabaseConfigured()) {
-        setLoading(false);
-        return;
-      }
-
       try {
-        const { data, error } = await supabase
-          .from('appointments')
-          .select(`
-            *,
-            client:clients(id, first_name, last_name, email, phone, is_vip),
-            service:services(id, name, duration_minutes, price),
-            provider:staff(id, first_name, last_name, title)
-          `)
-          .eq('id', params.id)
-          .single();
-
-        if (!error && data) {
-          setAppointment(data);
+        const res = await fetch('/api/appointments');
+        const data = await res.json();
+        
+        // Find the specific appointment
+        const apt = data.appointments?.find((a: any) => a.id === params.id);
+        if (apt) {
+          // Transform to expected format
+          setAppointment({
+            ...apt,
+            scheduled_at: apt.starts_at,
+            client: {
+              id: apt.client_id,
+              first_name: apt.client_name?.split(' ')[0] || '',
+              last_name: apt.client_name?.split(' ').slice(1).join(' ') || '',
+              email: apt.client_email,
+              phone: apt.client_phone,
+            },
+            service: {
+              id: apt.service_id,
+              name: apt.service_name,
+              duration_minutes: apt.duration,
+              price: apt.service_price,
+            },
+            provider: {
+              id: apt.provider_id,
+              first_name: apt.provider_name?.split(' ')[0] || '',
+              last_name: apt.provider_name?.split(' ').slice(1).join(' ') || '',
+            },
+          });
         }
       } catch (err) {
         console.error('Error fetching appointment:', err);
@@ -66,16 +76,17 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
   const currentStatus = STATUSES.find((s) => s.value === appointment?.status);
 
   const handleStatusChange = async (newStatus: string) => {
-    if (!appointment || !isSupabaseConfigured()) return;
+    if (!appointment) return;
     setSaving(true);
 
     try {
-      const { error } = await supabase
-        .from('appointments')
-        .update({ status: newStatus })
-        .eq('id', appointment.id);
+      const res = await fetch('/api/appointments', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: appointment.id, status: newStatus }),
+      });
 
-      if (!error) {
+      if (res.ok) {
         setAppointment({ ...appointment, status: newStatus });
       }
     } catch (err) {
@@ -86,16 +97,21 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
   };
 
   const handleCancel = async () => {
-    if (!appointment || !isSupabaseConfigured()) return;
+    if (!appointment) return;
     setSaving(true);
 
     try {
-      const { error } = await supabase
-        .from('appointments')
-        .update({ status: 'cancelled', cancellation_reason: cancelReason })
-        .eq('id', appointment.id);
+      const res = await fetch('/api/appointments', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          id: appointment.id, 
+          status: 'cancelled', 
+          cancel_reason: cancelReason 
+        }),
+      });
 
-      if (!error) {
+      if (res.ok) {
         setAppointment({ ...appointment, status: 'cancelled' });
         setShowCancelModal(false);
       }

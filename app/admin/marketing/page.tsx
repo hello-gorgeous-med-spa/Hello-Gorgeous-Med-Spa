@@ -7,7 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
+
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -24,7 +24,7 @@ export default function MarketingPage() {
   // Fetch marketing data from database
   useEffect(() => {
     const fetchMarketingData = async () => {
-      if (!isSupabaseConfigured()) {
+      if (false) {
         setLoading(false);
         return;
       }
@@ -82,7 +82,7 @@ export default function MarketingPage() {
       </div>
 
       {/* Connection Status */}
-      {!isSupabaseConfigured() && (
+      {false && (
         <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
           Demo Mode - Connect Supabase to manage marketing campaigns
         </div>

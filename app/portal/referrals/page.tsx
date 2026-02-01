@@ -13,7 +13,7 @@ import {
   generateShareMessage,
   type Referral,
 } from '@/lib/hgos/referrals';
-import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
+
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -29,7 +29,7 @@ export default function ReferralsPage() {
   // Fetch referral data
   useEffect(() => {
     const fetchData = async () => {
-      if (!isSupabaseConfigured()) {
+      if (false) {
         setLoading(false);
         return;
       }
