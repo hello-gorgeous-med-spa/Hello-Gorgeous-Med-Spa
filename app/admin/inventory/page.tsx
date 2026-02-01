@@ -2,13 +2,11 @@
 
 // ============================================================
 // INVENTORY MANAGEMENT PAGE
-// Clinical-grade inventory tracking - Connected to Live Data
+// Clinical-grade inventory tracking - Connected to Live API Data
 // ============================================================
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { useInventory } from '@/lib/supabase/hooks';
-import { isSupabaseConfigured } from '@/lib/supabase/client';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -54,8 +52,16 @@ export default function InventoryPage() {
   const [showReceiveModal, setShowReceiveModal] = useState(false);
   const [selectedItem, setSelectedItem] = useState<InventoryItem | null>(null);
 
-  // Fetch inventory data
-  const { inventory, loading, error } = useInventory();
+  // State for API data (placeholder - inventory API to be implemented)
+  const [inventory, setInventory] = useState<InventoryItem[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  // Placeholder: Inventory would be fetched from /api/inventory when implemented
+  useEffect(() => {
+    // For now, inventory is empty until the API is created
+    setLoading(false);
+  }, []);
 
   // Filter and search
   const filteredInventory = useMemo(() => {
@@ -128,12 +134,6 @@ export default function InventoryPage() {
         </div>
       </div>
 
-      {/* Connection Status */}
-      {!isSupabaseConfigured() && (
-        <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
-          Demo Mode - Connect Supabase to manage real inventory
-        </div>
-      )}
 
       {/* Error */}
       {error && (

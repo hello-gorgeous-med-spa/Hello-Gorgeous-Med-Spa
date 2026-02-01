@@ -3,13 +3,11 @@
 // ============================================================
 // ADMIN CLIENT DETAIL PAGE
 // Full client profile with history and actions
-// Connected to Live Supabase Data
+// Connected to Live API Data
 // ============================================================
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { useClient } from '@/lib/supabase/hooks';
-import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -19,8 +17,10 @@ function Skeleton({ className = '' }: { className?: string }) {
 export default function AdminClientDetailPage({ params }: { params: { id: string } }) {
   const [activeTab, setActiveTab] = useState<'overview' | 'appointments' | 'payments' | 'clinical' | 'documents'>('overview');
   
-  // Fetch client from database
-  const { client, loading, error } = useClient(params.id);
+  // State for API data
+  const [client, setClient] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   
   // Additional data states
   const [appointments, setAppointments] = useState<any[]>([]);
@@ -28,49 +28,51 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
   const [consents, setConsents] = useState<any[]>([]);
   const [loadingExtra, setLoadingExtra] = useState(true);
 
-  // Fetch additional client data
-  useEffect(() => {
-    if (!params.id || !isSupabaseConfigured()) {
-      setLoadingExtra(false);
-      return;
-    }
-
-    const fetchExtraData = async () => {
-      try {
-        // Fetch appointments
-        const { data: apptData } = await supabase
-          .from('appointments')
-          .select('*, service:services(name, price), provider:staff(first_name, last_name)')
-          .eq('client_id', params.id)
-          .order('scheduled_at', { ascending: false })
-          .limit(20);
-        setAppointments(apptData || []);
-
-        // Fetch payments
-        const { data: paymentData } = await supabase
-          .from('transactions')
-          .select('*')
-          .eq('client_id', params.id)
-          .order('created_at', { ascending: false })
-          .limit(20);
-        setPayments(paymentData || []);
-
-        // Fetch consents
-        const { data: consentData } = await supabase
-          .from('client_consents')
-          .select('*, consent_form:consent_forms(name)')
-          .eq('client_id', params.id)
-          .order('signed_at', { ascending: false });
-        setConsents(consentData || []);
-      } catch (err) {
-        console.error('Error fetching client data:', err);
-      } finally {
-        setLoadingExtra(false);
+  // Fetch client from API
+  const fetchClient = useCallback(async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`/api/clients?search=${params.id}`);
+      const data = await res.json();
+      
+      // Find client by ID in results
+      const foundClient = data.clients?.find((c: any) => c.id === params.id);
+      if (foundClient) {
+        setClient(foundClient);
+      } else {
+        setError('Client not found');
       }
-    };
-
-    fetchExtraData();
+    } catch (err) {
+      setError('Failed to load client');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   }, [params.id]);
+
+  // Fetch appointments for this client
+  const fetchClientAppointments = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/appointments?client_id=${params.id}`);
+      const data = await res.json();
+      if (data.appointments) {
+        setAppointments(data.appointments);
+      }
+    } catch (err) {
+      console.error('Failed to load appointments:', err);
+    }
+  }, [params.id]);
+
+  useEffect(() => {
+    fetchClient();
+  }, [fetchClient]);
+
+  useEffect(() => {
+    if (params.id) {
+      fetchClientAppointments();
+      setLoadingExtra(false);
+    }
+  }, [params.id, fetchClientAppointments]);
 
   // Calculate age
   const calculateAge = (dob: string | null) => {
@@ -317,11 +319,11 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
                 {appointments.slice(0, 3).map((apt) => (
                   <div key={apt.id} className="border-b border-gray-100 pb-3 last:border-0">
                     <div className="flex items-center justify-between">
-                      <p className="font-medium text-gray-900">{apt.service?.name || 'Service'}</p>
-                      <p className="text-sm text-gray-900">${apt.service?.price || 0}</p>
+                      <p className="font-medium text-gray-900">{apt.service_name || 'Service'}</p>
+                      <p className="text-sm text-gray-900">${apt.service_price || 0}</p>
                     </div>
                     <p className="text-sm text-gray-500">
-                      {formatDate(apt.scheduled_at)} • {apt.provider?.first_name} {apt.provider?.last_name}
+                      {formatDate(apt.starts_at)} • {apt.provider_name || 'Provider'}
                     </p>
                   </div>
                 ))}
@@ -394,11 +396,11 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
                 {appointments.map((apt) => (
                   <tr key={apt.id} className="hover:bg-gray-50">
                     <td className="px-5 py-3">
-                      <p className="font-medium text-gray-900">{formatDate(apt.scheduled_at)}</p>
+                      <p className="font-medium text-gray-900">{formatDate(apt.starts_at)}</p>
                     </td>
-                    <td className="px-5 py-3 text-gray-900">{apt.service?.name || '-'}</td>
+                    <td className="px-5 py-3 text-gray-900">{apt.service_name || '-'}</td>
                     <td className="px-5 py-3 text-gray-600">
-                      {apt.provider?.first_name} {apt.provider?.last_name}
+                      {apt.provider_name || 'Provider'}
                     </td>
                     <td className="px-5 py-3">
                       <span className={`px-2 py-1 text-xs rounded-full ${
@@ -410,7 +412,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
                       </span>
                     </td>
                     <td className="px-5 py-3 text-right font-medium text-gray-900">
-                      ${apt.service?.price || 0}
+                      ${apt.service_price || 0}
                     </td>
                   </tr>
                 ))}
@@ -513,13 +515,13 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
                   className="block border-b border-gray-100 pb-3 last:border-0 hover:bg-gray-50 -mx-2 px-2 py-1 rounded transition-colors"
                 >
                   <div className="flex items-center justify-between">
-                    <p className="font-medium text-gray-900">{apt.service?.name || 'Service'}</p>
+                    <p className="font-medium text-gray-900">{apt.service_name || 'Service'}</p>
                     <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
                       ✓ Signed
                     </span>
                   </div>
                   <p className="text-sm text-gray-500">
-                    {formatDate(apt.scheduled_at)} • {apt.provider?.first_name} {apt.provider?.last_name}
+                    {formatDate(apt.starts_at)} • {apt.provider_name || 'Provider'}
                   </p>
                 </Link>
               ))}

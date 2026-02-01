@@ -2,15 +2,12 @@
 
 // ============================================================
 // NEW APPOINTMENT PAGE
-// Book a new appointment - Connected to Live Data
+// Book a new appointment - Connected to Live API Data
 // ============================================================
 
-import { useState, Suspense, useEffect } from 'react';
+import { useState, Suspense, useEffect, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { useServices, useProviders, useCreateAppointment } from '@/lib/supabase/hooks';
-import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
-import { ACTIVE_PROVIDERS } from '@/lib/hgos/providers';
 
 // Time slots
 const TIME_SLOTS = [
@@ -29,17 +26,44 @@ function NewAppointmentContent() {
   const searchParams = useSearchParams();
   const preselectedClientId = searchParams.get('client');
 
-  // Fetch services and providers from database
-  const { services, loading: servicesLoading } = useServices();
-  const { providers: dbProviders } = useProviders();
+  // State for API data
+  const [services, setServices] = useState<any[]>([]);
+  const [providers, setProviders] = useState<any[]>([]);
+  const [servicesLoading, setServicesLoading] = useState(true);
 
-  // Use database providers or fallback to configured providers
-  const providers = dbProviders.length > 0 ? dbProviders : ACTIVE_PROVIDERS.map(p => ({
-    id: p.id,
-    first_name: p.firstName,
-    last_name: p.lastName,
-    title: p.credentials,
-  }));
+  // Fetch services from API
+  const fetchServices = useCallback(async () => {
+    try {
+      setServicesLoading(true);
+      const res = await fetch('/api/services');
+      const data = await res.json();
+      if (data.services) {
+        setServices(data.services);
+      }
+    } catch (err) {
+      console.error('Failed to load services:', err);
+    } finally {
+      setServicesLoading(false);
+    }
+  }, []);
+
+  // Fetch providers from API
+  const fetchProviders = useCallback(async () => {
+    try {
+      const res = await fetch('/api/providers');
+      const data = await res.json();
+      if (data.providers) {
+        setProviders(data.providers);
+      }
+    } catch (err) {
+      console.error('Failed to load providers:', err);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchServices();
+    fetchProviders();
+  }, [fetchServices, fetchProviders]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [step, setStep] = useState(preselectedClientId ? 2 : 1);
@@ -50,33 +74,37 @@ function NewAppointmentContent() {
 
   const [formData, setFormData] = useState({
     serviceId: '',
-    providerId: providers[0]?.id || '',
+    providerId: '',
     date: new Date().toISOString().split('T')[0],
     time: '',
     notes: '',
     sendConfirmation: true,
   });
 
-  const { createAppointment } = useCreateAppointment();
+  // Update providerId when providers load
+  useEffect(() => {
+    if (providers.length > 0 && !formData.providerId) {
+      setFormData(prev => ({ ...prev, providerId: providers[0].id }));
+    }
+  }, [providers, formData.providerId]);
 
   // Load preselected client
   useEffect(() => {
-    if (preselectedClientId && isSupabaseConfigured()) {
-      supabase
-        .from('clients')
-        .select('id, first_name, last_name, email, phone')
-        .eq('id', preselectedClientId)
-        .single()
-        .then(({ data }) => {
-          if (data) {
+    if (preselectedClientId) {
+      fetch(`/api/clients?id=${preselectedClientId}`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.clients && data.clients.length > 0) {
+            const c = data.clients[0];
             setSelectedClient({
-              id: data.id,
-              name: `${data.first_name} ${data.last_name}`,
-              email: data.email,
-              phone: data.phone,
+              id: c.id,
+              name: `${c.first_name} ${c.last_name}`,
+              email: c.email,
+              phone: c.phone,
             });
           }
-        });
+        })
+        .catch(err => console.error('Failed to load client:', err));
     }
   }, [preselectedClientId]);
 
@@ -89,20 +117,18 @@ function NewAppointmentContent() {
 
     const searchClients = async () => {
       setSearchLoading(true);
-      if (isSupabaseConfigured()) {
-        const { data } = await supabase
-          .from('clients')
-          .select('id, first_name, last_name, email, phone')
-          .or(`first_name.ilike.%${clientSearch}%,last_name.ilike.%${clientSearch}%,email.ilike.%${clientSearch}%`)
-          .limit(10);
+      try {
+        const res = await fetch(`/api/clients?search=${encodeURIComponent(clientSearch)}`);
+        const data = await res.json();
         
-        setClientResults((data || []).map(c => ({
+        setClientResults((data.clients || []).slice(0, 10).map((c: any) => ({
           id: c.id,
           name: `${c.first_name} ${c.last_name}`,
           email: c.email,
           phone: c.phone,
         })));
-      } else {
+      } catch (err) {
+        console.error('Failed to search clients:', err);
         setClientResults([]);
       }
       setSearchLoading(false);
@@ -132,14 +158,23 @@ function NewAppointmentContent() {
       const scheduledAt = new Date(formData.date);
       scheduledAt.setHours(hour, parseInt(minutes), 0, 0);
 
-      await createAppointment({
-        client_id: selectedClient.id,
-        provider_id: formData.providerId,
-        service_id: formData.serviceId,
-        starts_at: scheduledAt.toISOString(),
-        duration_minutes: selectedService?.duration_minutes || 30,
-        notes: formData.notes,
+      // Use API to create appointment
+      const res = await fetch('/api/appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          client_id: selectedClient.id,
+          provider_id: formData.providerId,
+          service_id: formData.serviceId,
+          starts_at: scheduledAt.toISOString(),
+          duration_minutes: selectedService?.duration_minutes || 30,
+          notes: formData.notes,
+        }),
       });
+
+      if (!res.ok) {
+        throw new Error('Failed to create appointment');
+      }
 
       router.push('/admin/appointments');
     } catch (error) {
@@ -164,12 +199,6 @@ function NewAppointmentContent() {
         <p className="text-gray-500">Schedule a new appointment</p>
       </div>
 
-      {/* Connection Status */}
-      {!isSupabaseConfigured() && (
-        <div className="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
-          Demo Mode - Connect Supabase to enable booking
-        </div>
-      )}
 
       {/* Progress */}
       <div className="flex items-center gap-2 mb-6">
@@ -461,7 +490,7 @@ function NewAppointmentContent() {
               </button>
               <button
                 type="submit"
-                disabled={!formData.time || isSubmitting || !isSupabaseConfigured()}
+                disabled={!formData.time || isSubmitting}
                 className="px-6 py-2.5 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? 'Booking...' : 'Book Appointment'}

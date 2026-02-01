@@ -2,14 +2,11 @@
 
 // ============================================================
 // SCHEDULE / CALENDAR PAGE
-// Interactive booking calendar - Connected to Live Data
+// Interactive booking calendar - Connected to Live API Data
 // ============================================================
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { useAppointments, useProviders, useServices } from '@/lib/supabase/hooks';
-import { isSupabaseConfigured } from '@/lib/supabase/client';
-import type { AppointmentWithRelations } from '@/lib/supabase/types';
 
 // Generate time slots (9 AM to 6:30 PM)
 const TIME_SLOTS = Array.from({ length: 20 }, (_, i) => {
@@ -46,10 +43,68 @@ export default function CalendarPage() {
   // Format date for API
   const dateString = selectedDate.toISOString().split('T')[0];
 
-  // Fetch live data
-  const { appointments, loading: apptsLoading, refetch } = useAppointments(dateString);
-  const { providers, loading: providersLoading } = useProviders();
-  const { services } = useServices();
+  // State for API data
+  const [appointments, setAppointments] = useState<any[]>([]);
+  const [providers, setProviders] = useState<any[]>([]);
+  const [services, setServices] = useState<any[]>([]);
+  const [apptsLoading, setApptsLoading] = useState(true);
+  const [providersLoading, setProvidersLoading] = useState(true);
+
+  // Fetch appointments from API
+  const fetchAppointments = useCallback(async () => {
+    try {
+      setApptsLoading(true);
+      const res = await fetch(`/api/appointments?date=${dateString}`);
+      const data = await res.json();
+      if (data.appointments) {
+        setAppointments(data.appointments);
+      }
+    } catch (err) {
+      console.error('Failed to load appointments:', err);
+    } finally {
+      setApptsLoading(false);
+    }
+  }, [dateString]);
+
+  // Fetch providers from API
+  const fetchProviders = useCallback(async () => {
+    try {
+      setProvidersLoading(true);
+      const res = await fetch('/api/providers');
+      const data = await res.json();
+      if (data.providers) {
+        setProviders(data.providers);
+      }
+    } catch (err) {
+      console.error('Failed to load providers:', err);
+    } finally {
+      setProvidersLoading(false);
+    }
+  }, []);
+
+  // Fetch services from API
+  const fetchServices = useCallback(async () => {
+    try {
+      const res = await fetch('/api/services');
+      const data = await res.json();
+      if (data.services) {
+        setServices(data.services);
+      }
+    } catch (err) {
+      console.error('Failed to load services:', err);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchAppointments();
+  }, [fetchAppointments]);
+
+  useEffect(() => {
+    fetchProviders();
+    fetchServices();
+  }, [fetchProviders, fetchServices]);
+
+  const refetch = fetchAppointments;
 
   // Filter appointments by provider
   const filteredAppointments = useMemo(() => {
@@ -100,8 +155,8 @@ export default function CalendarPage() {
   // Get appointments for a time slot and provider
   const getAppointmentsForSlot = (time: string, providerId: string) => {
     return filteredAppointments.filter(appt => {
-      const apptTime = getTime(appt.scheduled_at);
-      const apptEndTime = getEndTime(appt.scheduled_at, appt.duration_minutes || 30);
+      const apptTime = getTime(appt.starts_at);
+      const apptEndTime = getEndTime(appt.starts_at, appt.duration || 30);
       const matchesTime = apptTime <= time && apptEndTime > time;
       const matchesProvider = appt.provider_id === providerId;
       return matchesTime && matchesProvider;
@@ -109,11 +164,11 @@ export default function CalendarPage() {
   };
 
   // Calculate appointment position and height for provider view
-  const getAppointmentStyle = (appt: AppointmentWithRelations) => {
-    const startTime = getTime(appt.scheduled_at);
+  const getAppointmentStyle = (appt: any) => {
+    const startTime = getTime(appt.starts_at);
     const startParts = startTime.split(':').map(Number);
     const startMinutes = (startParts[0] - 9) * 60 + startParts[1];
-    const duration = appt.duration_minutes || 30;
+    const duration = appt.duration || 30;
     
     return {
       top: `${(startMinutes / 30) * 48}px`,
@@ -164,12 +219,6 @@ export default function CalendarPage() {
         </div>
       </div>
 
-      {/* Demo Mode Notice */}
-      {!isSupabaseConfigured() && (
-        <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
-          Demo Mode - Connect Supabase to see live appointments
-        </div>
-      )}
 
       {/* Controls */}
       <div className="bg-white rounded-xl border border-gray-100 p-4">
@@ -349,7 +398,7 @@ export default function CalendarPage() {
                     >
                       {/* Render appointments that START at this time */}
                       {filteredAppointments
-                        .filter(appt => getTime(appt.scheduled_at) === time && appt.provider_id === provider.id)
+                        .filter(appt => getTime(appt.starts_at) === time && appt.provider_id === provider.id)
                         .map((appt) => (
                           <Link
                             key={appt.id}
@@ -359,10 +408,10 @@ export default function CalendarPage() {
                             onClick={(e) => e.stopPropagation()}
                           >
                             <p className="font-medium text-sm truncate">
-                              {appt.client?.first_name} {appt.client?.last_name}
+                              {appt.client_name || 'Client'}
                             </p>
                             <p className="text-xs truncate opacity-75">
-                              {appt.service?.name || 'Appointment'}
+                              {appt.service_name || 'Appointment'}
                             </p>
                           </Link>
                         ))}
@@ -392,7 +441,7 @@ export default function CalendarPage() {
             <div className="divide-y divide-gray-100">
               {TIME_SLOTS.filter(t => t.endsWith(':00')).map((hour) => {
                 const hourAppts = filteredAppointments.filter(appt => {
-                  const apptHour = getTime(appt.scheduled_at).split(':')[0];
+                  const apptHour = getTime(appt.starts_at).split(':')[0];
                   return apptHour === hour.split(':')[0];
                 });
 
@@ -413,14 +462,14 @@ export default function CalendarPage() {
                               <div className="flex items-center justify-between">
                                 <div>
                                   <p className="font-medium">
-                                    {appt.client?.first_name} {appt.client?.last_name}
+                                    {appt.client_name || 'Client'}
                                   </p>
-                                  <p className="text-sm">{appt.service?.name || 'Appointment'}</p>
+                                  <p className="text-sm">{appt.service_name || 'Appointment'}</p>
                                 </div>
                                 <div className="text-right text-sm">
-                                  <p>{getTime(appt.scheduled_at)} - {getEndTime(appt.scheduled_at, appt.duration_minutes || 30)}</p>
+                                  <p>{getTime(appt.starts_at)} - {getEndTime(appt.starts_at, appt.duration || 30)}</p>
                                   <p className="opacity-75">
-                                    {appt.provider?.first_name} {appt.provider?.last_name}
+                                    {appt.provider_name || 'Provider'}
                                   </p>
                                 </div>
                               </div>

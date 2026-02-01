@@ -11,6 +11,7 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const date = searchParams.get('date');
     const providerId = searchParams.get('provider_id');
+    const clientId = searchParams.get('client_id');
 
     let query = supabase
       .from('appointments')
@@ -29,16 +30,21 @@ export async function GET(request: NextRequest) {
         ),
         service:services(id, name, price_cents, duration_minutes)
       `)
-      .order('starts_at', { ascending: true });
+      .order('starts_at', { ascending: false });
 
     if (date) {
       query = query
         .gte('starts_at', `${date}T00:00:00`)
-        .lt('starts_at', `${date}T23:59:59`);
+        .lt('starts_at', `${date}T23:59:59`)
+        .order('starts_at', { ascending: true });
     }
 
     if (providerId) {
       query = query.eq('provider_id', providerId);
+    }
+
+    if (clientId) {
+      query = query.eq('client_id', clientId);
     }
 
     const { data, error } = await query;

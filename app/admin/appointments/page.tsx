@@ -3,14 +3,11 @@
 // ============================================================
 // ADMIN APPOINTMENTS PAGE
 // View, filter, edit, and manage all appointments
-// Connected to Live Supabase Data
+// Connected to Live API Data
 // ============================================================
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { useAppointments, useProviders } from '@/lib/supabase/hooks';
-import { isSupabaseConfigured } from '@/lib/supabase/client';
-import { ACTIVE_PROVIDERS } from '@/lib/hgos/providers';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -37,16 +34,52 @@ export default function AdminAppointmentsPage() {
   const [filterProvider, setFilterProvider] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Fetch appointments from Supabase
-  const { appointments, loading, error, refetch } = useAppointments(selectedDate);
-  const { providers: dbProviders } = useProviders();
+  // State for API data
+  const [appointments, setAppointments] = useState<any[]>([]);
+  const [providers, setProviders] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Use database providers or fallback to configured providers
-  const providers = dbProviders.length > 0 ? dbProviders : ACTIVE_PROVIDERS.map(p => ({
-    id: p.id,
-    first_name: p.firstName,
-    last_name: p.lastName,
-  }));
+  // Fetch appointments from API
+  const fetchAppointments = useCallback(async () => {
+    try {
+      setLoading(true);
+      const res = await fetch(`/api/appointments?date=${selectedDate}`);
+      const data = await res.json();
+      if (data.appointments) {
+        setAppointments(data.appointments);
+      }
+      setError(null);
+    } catch (err) {
+      setError('Failed to load appointments');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  }, [selectedDate]);
+
+  // Fetch providers from API
+  const fetchProviders = useCallback(async () => {
+    try {
+      const res = await fetch('/api/providers');
+      const data = await res.json();
+      if (data.providers) {
+        setProviders(data.providers);
+      }
+    } catch (err) {
+      console.error('Failed to load providers:', err);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchAppointments();
+  }, [fetchAppointments]);
+
+  useEffect(() => {
+    fetchProviders();
+  }, [fetchProviders]);
+
+  const refetch = fetchAppointments;
 
   // Filter and search appointments
   const filteredAppointments = useMemo(() => {
@@ -71,8 +104,8 @@ export default function AdminAppointmentsPage() {
       );
     }
 
-    // Sort by time
-    filtered.sort((a, b) => new Date(a.scheduled_at).getTime() - new Date(b.scheduled_at).getTime());
+    // Sort by time (use starts_at from API)
+    filtered.sort((a, b) => new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime());
 
     return filtered;
   }, [appointments, filterStatus, filterProvider, searchQuery]);
@@ -135,12 +168,6 @@ export default function AdminAppointmentsPage() {
         </div>
       </div>
 
-      {/* Connection Status */}
-      {!isSupabaseConfigured() && (
-        <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-sm text-amber-800">
-          Demo Mode - Connect Supabase to see real appointment data
-        </div>
-      )}
 
       {/* Error State */}
       {error && (
@@ -306,27 +333,27 @@ export default function AdminAppointmentsPage() {
                     <tr key={apt.id} className="hover:bg-gray-50 transition-colors">
                       <td className="px-4 py-3">
                         <span className="font-medium text-gray-900">
-                          {formatTime(apt.scheduled_at)}
+                          {formatTime(apt.starts_at)}
                         </span>
-                        <p className="text-xs text-gray-500">{apt.duration_minutes || 30} min</p>
+                        <p className="text-xs text-gray-500">{apt.duration || 30} min</p>
                       </td>
                       <td className="px-4 py-3">
                         <Link
-                          href={`/admin/clients/${apt.client?.id}`}
+                          href={`/admin/clients/${apt.client_id}`}
                           className="font-medium text-gray-900 hover:text-pink-600"
                         >
-                          {apt.client?.first_name} {apt.client?.last_name}
+                          {apt.client_name || 'Unknown'}
                         </Link>
-                        {apt.client?.phone && (
-                          <p className="text-sm text-gray-500">{apt.client.phone}</p>
+                        {apt.client_phone && (
+                          <p className="text-sm text-gray-500">{apt.client_phone}</p>
                         )}
                       </td>
                       <td className="px-4 py-3">
-                        <span className="text-gray-900">{apt.service?.name || 'Service'}</span>
+                        <span className="text-gray-900">{apt.service_name || 'Service'}</span>
                       </td>
                       <td className="px-4 py-3">
                         <span className="text-gray-600">
-                          {apt.provider?.first_name} {apt.provider?.last_name}
+                          {apt.provider_name || 'Provider'}
                         </span>
                       </td>
                       <td className="px-4 py-3">
@@ -336,7 +363,7 @@ export default function AdminAppointmentsPage() {
                       </td>
                       <td className="px-4 py-3">
                         <span className="font-medium text-gray-900">
-                          ${apt.service?.price || 0}
+                          ${apt.service_price || 0}
                         </span>
                       </td>
                       <td className="px-4 py-3">
