@@ -1,12 +1,44 @@
 // ============================================================
 // API: PROVIDERS - Full CRUD
 // Manage bookable providers/staff
+// ONLY Ryan Kent and Danielle Alcala are allowed
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 
-// GET /api/providers - List all providers
+// ONLY THESE TWO PROVIDERS - HARDCODED
+const ALLOWED_PROVIDERS = [
+  {
+    id: 'ryan-kent',
+    first_name: 'Ryan',
+    last_name: 'Kent',
+    email: 'ryan@hellogorgeousmedspa.com',
+    credentials: 'FNP-BC',
+    color_hex: '#3b82f6',
+    is_active: true,
+  },
+  {
+    id: 'danielle-alcala',
+    first_name: 'Danielle',
+    last_name: 'Alcala',
+    email: 'hello.gorgeous@hellogorgeousmedspa.com',
+    credentials: 'RN-S',
+    color_hex: '#ec4899',
+    is_active: true,
+  },
+];
+
+// Helper to check if a name matches allowed providers
+function isAllowedProvider(firstName: string, lastName: string): boolean {
+  const fullName = `${firstName} ${lastName}`.toLowerCase();
+  return (
+    fullName.includes('ryan') && fullName.includes('kent') ||
+    fullName.includes('danielle') && (fullName.includes('alcala') || fullName.includes('glazier'))
+  );
+}
+
+// GET /api/providers - List ONLY Ryan and Danielle
 export async function GET() {
   try {
     const supabase = createServerSupabaseClient();
@@ -21,30 +53,40 @@ export async function GET() {
         is_active,
         users!inner(id, first_name, last_name, email)
       `)
-      .order('is_active', { ascending: false })
+      .eq('is_active', true)
       .order('created_at', { ascending: true });
 
     if (error) {
       console.error('Providers fetch error:', error);
-      return NextResponse.json({ providers: [] });
+      // Return hardcoded fallback
+      return NextResponse.json({ providers: ALLOWED_PROVIDERS });
     }
 
-    // Flatten the data
-    const formatted = (providers || []).map(p => ({
-      id: p.id,
-      user_id: p.user_id,
-      first_name: p.users?.first_name,
-      last_name: p.users?.last_name,
-      email: p.users?.email,
-      credentials: p.credentials,
-      color_hex: p.color_hex || '#EC4899',
-      is_active: p.is_active,
-    }));
+    // Filter to ONLY allowed providers
+    const filtered = (providers || []).filter(p => 
+      isAllowedProvider(p.users?.first_name || '', p.users?.last_name || '')
+    );
 
-    return NextResponse.json({ providers: formatted });
+    // If database has our providers, use them
+    if (filtered.length > 0) {
+      const formatted = filtered.map(p => ({
+        id: p.id,
+        user_id: p.user_id,
+        first_name: p.users?.first_name,
+        last_name: p.users?.last_name,
+        email: p.users?.email,
+        credentials: p.credentials,
+        color_hex: p.color_hex || '#EC4899',
+        is_active: p.is_active,
+      }));
+      return NextResponse.json({ providers: formatted });
+    }
+
+    // Return hardcoded fallback
+    return NextResponse.json({ providers: ALLOWED_PROVIDERS });
   } catch (error) {
     console.error('Providers GET error:', error);
-    return NextResponse.json({ providers: [] });
+    return NextResponse.json({ providers: ALLOWED_PROVIDERS });
   }
 }
 

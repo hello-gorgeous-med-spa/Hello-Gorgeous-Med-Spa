@@ -7,42 +7,52 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 
-// Fallback provider data (used when database isn't populated)
-// Schedules match what's in Fresha
+// ============================================================
+// ONLY THESE TWO PROVIDERS - Ryan Kent and Danielle Alcala
+// ============================================================
 const FALLBACK_PROVIDERS = [
   {
-    id: 'danielle-001',
-    name: 'Danielle Glazier-Alcala',
-    title: 'Owner & Aesthetic Specialist',
-    color: '#EC4899',
+    id: 'ryan-kent',
+    name: 'Ryan Kent',
+    title: 'FNP-BC',
+    color: '#3b82f6',
     schedule: {
       0: null, // Sunday - OFF
-      1: { start: '11:00', end: '16:00' }, // Monday 11am-4pm
-      2: { start: '11:00', end: '16:00' }, // Tuesday 11am-4pm
-      3: null, // Wednesday - OFF
-      4: { start: '11:00', end: '16:00' }, // Thursday 11am-4pm
-      5: { start: '11:00', end: '16:00' }, // Friday 11am-4pm
+      1: { start: '09:00', end: '17:00' }, // Monday
+      2: { start: '09:00', end: '17:00' }, // Tuesday
+      3: { start: '09:00', end: '17:00' }, // Wednesday
+      4: { start: '09:00', end: '17:00' }, // Thursday
+      5: { start: '09:00', end: '15:00' }, // Friday
       6: null, // Saturday - OFF
     },
-    serviceKeywords: ['lash', 'brow', 'facial', 'dermaplanning', 'hydra', 'peel', 'lamination', 'wax', 'extension', 'lift', 'tint', 'glow', 'geneo', 'frequency'],
+    serviceKeywords: ['botox', 'filler', 'jeuveau', 'dysport', 'lip', 'semaglutide', 'tirzepatide', 'retatrutide', 'weight', 'iv', 'vitamin', 'prp', 'pellet', 'hormone', 'bhrt', 'medical', 'trigger', 'kybella', 'consult', 'laser', 'ipl', 'photofacial', 'anteage', 'hydra', 'peel', 'facial', 'skin'],
   },
   {
-    id: 'ryan-001',
-    name: 'Ryan Kent',
-    title: 'APRN, FNP-BC',
-    color: '#8B5CF6',
+    id: 'danielle-alcala',
+    name: 'Danielle Alcala',
+    title: 'RN-S, Owner',
+    color: '#ec4899',
     schedule: {
       0: null, // Sunday - OFF
-      1: { start: '10:00', end: '17:00' }, // Monday 10am-5pm
-      2: { start: '10:00', end: '17:00' }, // Tuesday 10am-5pm
-      3: { start: '10:00', end: '17:00' }, // Wednesday 10am-5pm
-      4: null, // Thursday - OFF
-      5: { start: '10:00', end: '15:00' }, // Friday 10am-3pm
+      1: { start: '09:00', end: '17:00' }, // Monday
+      2: { start: '09:00', end: '17:00' }, // Tuesday
+      3: { start: '09:00', end: '17:00' }, // Wednesday
+      4: { start: '09:00', end: '17:00' }, // Thursday
+      5: { start: '09:00', end: '15:00' }, // Friday
       6: null, // Saturday - OFF
     },
-    serviceKeywords: ['botox', 'filler', 'jeuveau', 'dysport', 'lip', 'semaglutide', 'tirzepatide', 'retatrutide', 'weight', 'iv', 'vitamin', 'prp', 'pellet', 'hormone', 'bhrt', 'medical', 'trigger', 'kybella', 'consult', 'laser', 'ipl', 'photofacial', 'anteage'],
+    serviceKeywords: ['lash', 'brow', 'facial', 'dermaplanning', 'hydra', 'peel', 'lamination', 'wax', 'extension', 'lift', 'tint', 'glow', 'geneo', 'frequency', 'botox', 'filler', 'lip', 'consult'],
   },
 ];
+
+// Helper to check if a provider name is allowed
+function isAllowedProvider(name: string): boolean {
+  const n = name.toLowerCase();
+  return (
+    (n.includes('ryan') && n.includes('kent')) ||
+    (n.includes('danielle') && (n.includes('alcala') || n.includes('glazier')))
+  );
+}
 
 // Helper to fetch schedules from database for a provider
 async function getProviderScheduleFromDB(supabase: any, providerId: string): Promise<{ [day: number]: { start: string; end: string } | null }> {
@@ -121,32 +131,37 @@ export async function GET(request: NextRequest) {
         .in('provider_id', service.provider_ids);
 
       if (providers && providers.length > 0) {
-        const formattedProviders = providers.map((p: any) => {
-          // Build schedule object
-          const providerSchedules = schedules?.filter((s: any) => s.provider_id === p.id) || [];
-          const schedule: any = {};
-          for (let day = 0; day <= 6; day++) {
-            const daySchedule = providerSchedules.find((s: any) => s.day_of_week === day);
-            if (daySchedule && daySchedule.is_working) {
-              schedule[day] = {
-                start: daySchedule.start_time?.slice(0, 5),
-                end: daySchedule.end_time?.slice(0, 5),
-              };
-            } else {
-              schedule[day] = null;
+        const formattedProviders = providers
+          .filter((p: any) => isAllowedProvider(`${p.users.first_name} ${p.users.last_name}`))
+          .map((p: any) => {
+            // Build schedule object
+            const providerSchedules = schedules?.filter((s: any) => s.provider_id === p.id) || [];
+            const schedule: any = {};
+            for (let day = 0; day <= 6; day++) {
+              const daySchedule = providerSchedules.find((s: any) => s.day_of_week === day);
+              if (daySchedule && daySchedule.is_working) {
+                schedule[day] = {
+                  start: daySchedule.start_time?.slice(0, 5),
+                  end: daySchedule.end_time?.slice(0, 5),
+                };
+              } else {
+                schedule[day] = null;
+              }
             }
-          }
 
-          return {
-            id: p.id,
-            name: `${p.users.first_name} ${p.users.last_name}`,
-            title: p.credentials || 'Provider',
-            color: p.color_hex || '#EC4899',
-            schedule,
-          };
-        });
+            return {
+              id: p.id,
+              name: `${p.users.first_name} ${p.users.last_name}`,
+              title: p.credentials || 'Provider',
+              color: p.color_hex || '#EC4899',
+              schedule,
+            };
+          });
 
-        return NextResponse.json({ providers: formattedProviders, source: 'database' });
+        // If we have allowed providers from DB, return them
+        if (formattedProviders.length > 0) {
+          return NextResponse.json({ providers: formattedProviders, source: 'database' });
+        }
       }
     }
 
