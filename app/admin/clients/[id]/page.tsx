@@ -27,6 +27,25 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
   const [payments, setPayments] = useState<any[]>([]);
   const [consents, setConsents] = useState<any[]>([]);
   const [loadingExtra, setLoadingExtra] = useState(true);
+  
+  // Edit modal state
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editSaving, setEditSaving] = useState(false);
+  const [editForm, setEditForm] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+    date_of_birth: '',
+    address_line1: '',
+    city: '',
+    state: '',
+    postal_code: '',
+    emergency_contact_name: '',
+    emergency_contact_phone: '',
+    allergies_summary: '',
+    internal_notes: '',
+  });
 
   // Fetch client from API by ID (direct lookup)
   const fetchClient = useCallback(async () => {
@@ -177,7 +196,27 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
           >
             Book Appointment
           </Link>
-          <button className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors">
+          <button 
+            onClick={() => {
+              setEditForm({
+                first_name: client.first_name || '',
+                last_name: client.last_name || '',
+                email: client.email || '',
+                phone: client.phone || '',
+                date_of_birth: client.date_of_birth || '',
+                address_line1: client.address_line1 || '',
+                city: client.city || '',
+                state: client.state || '',
+                postal_code: client.postal_code || '',
+                emergency_contact_name: client.emergency_contact_name || '',
+                emergency_contact_phone: client.emergency_contact_phone || '',
+                allergies_summary: client.allergies_summary || '',
+                internal_notes: client.internal_notes || '',
+              });
+              setShowEditModal(true);
+            }}
+            className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+          >
             Edit
           </button>
           {client.phone && (
@@ -561,6 +600,199 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
               ))}
             </div>
           )}
+        </div>
+      )}
+
+      {/* Edit Client Modal */}
+      {showEditModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-100">
+              <div className="flex items-center justify-between">
+                <h2 className="text-xl font-bold text-gray-900">Edit Client</h2>
+                <button onClick={() => setShowEditModal(false)} className="text-gray-400 hover:text-gray-600 text-2xl">×</button>
+              </div>
+            </div>
+            
+            <div className="p-6 space-y-4">
+              {/* Basic Info */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                  <input
+                    type="text"
+                    value={editForm.first_name}
+                    onChange={(e) => setEditForm({...editForm, first_name: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                  <input
+                    type="text"
+                    value={editForm.last_name}
+                    onChange={(e) => setEditForm({...editForm, last_name: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  />
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <input
+                    type="email"
+                    value={editForm.email}
+                    onChange={(e) => setEditForm({...editForm, email: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                  <input
+                    type="tel"
+                    value={editForm.phone}
+                    onChange={(e) => setEditForm({...editForm, phone: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  />
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+                <input
+                  type="date"
+                  value={editForm.date_of_birth}
+                  onChange={(e) => setEditForm({...editForm, date_of_birth: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                />
+              </div>
+              
+              {/* Address */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                <input
+                  type="text"
+                  value={editForm.address_line1}
+                  onChange={(e) => setEditForm({...editForm, address_line1: e.target.value})}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                />
+              </div>
+              
+              <div className="grid grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
+                  <input
+                    type="text"
+                    value={editForm.city}
+                    onChange={(e) => setEditForm({...editForm, city: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
+                  <input
+                    type="text"
+                    value={editForm.state}
+                    onChange={(e) => setEditForm({...editForm, state: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">ZIP</label>
+                  <input
+                    type="text"
+                    value={editForm.postal_code}
+                    onChange={(e) => setEditForm({...editForm, postal_code: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  />
+                </div>
+              </div>
+              
+              {/* Emergency Contact */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Emergency Contact Name</label>
+                  <input
+                    type="text"
+                    value={editForm.emergency_contact_name}
+                    onChange={(e) => setEditForm({...editForm, emergency_contact_name: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Emergency Contact Phone</label>
+                  <input
+                    type="tel"
+                    value={editForm.emergency_contact_phone}
+                    onChange={(e) => setEditForm({...editForm, emergency_contact_phone: e.target.value})}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  />
+                </div>
+              </div>
+              
+              {/* Medical */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Allergies</label>
+                <input
+                  type="text"
+                  value={editForm.allergies_summary}
+                  onChange={(e) => setEditForm({...editForm, allergies_summary: e.target.value})}
+                  placeholder="e.g., Penicillin, latex"
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                />
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Internal Notes</label>
+                <textarea
+                  value={editForm.internal_notes}
+                  onChange={(e) => setEditForm({...editForm, internal_notes: e.target.value})}
+                  rows={3}
+                  placeholder="Notes only visible to staff..."
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                />
+              </div>
+            </div>
+            
+            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
+              <button
+                onClick={() => setShowEditModal(false)}
+                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={async () => {
+                  setEditSaving(true);
+                  try {
+                    const res = await fetch(`/api/clients/${params.id}`, {
+                      method: 'PUT',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify(editForm),
+                    });
+                    if (res.ok) {
+                      // Update local state
+                      setClient({ ...client, ...editForm });
+                      setShowEditModal(false);
+                      alert('Client updated successfully!');
+                    } else {
+                      const data = await res.json();
+                      alert('Error: ' + (data.error || 'Failed to update'));
+                    }
+                  } catch (err) {
+                    alert('Failed to save changes');
+                  } finally {
+                    setEditSaving(false);
+                  }
+                }}
+                disabled={editSaving}
+                className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+              >
+                {editSaving ? 'Saving...' : 'Save Changes'}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
