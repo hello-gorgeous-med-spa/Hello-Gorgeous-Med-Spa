@@ -3,11 +3,39 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+
+// Helper to safely create supabase client
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  
+  if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) {
+    return null;
+  }
+  
+  try {
+    const { createClient } = require('@supabase/supabase-js');
+    return createClient(url, key, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+  } catch {
+    return null;
+  }
+}
+
+// In-memory store for when DB is unavailable
+const appointmentStore: Map<string, any> = new Map();
 
 export async function GET(request: NextRequest) {
+  const supabase = getSupabase();
+  
+  // If no DB, return empty or in-memory appointments
+  if (!supabase) {
+    const appointments = Array.from(appointmentStore.values());
+    return NextResponse.json({ appointments, source: 'local' });
+  }
+
   try {
-    const supabase = createServerSupabaseClient();
     const { searchParams } = new URL(request.url);
     const date = searchParams.get('date');
     const providerId = searchParams.get('provider_id');
@@ -77,9 +105,22 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const supabase = getSupabase();
+  const body = await request.json();
+
+  // If no DB, store locally and return success
+  if (!supabase) {
+    const appointment = {
+      id: `apt-${Date.now()}`,
+      ...body,
+      status: 'scheduled',
+      created_at: new Date().toISOString(),
+    };
+    appointmentStore.set(appointment.id, appointment);
+    return NextResponse.json({ appointment, source: 'local' });
+  }
+
   try {
-    const supabase = createServerSupabaseClient();
-    const body = await request.json();
 
     // Calculate ends_at from starts_at and duration
     const startsAt = new Date(body.starts_at);
@@ -134,15 +175,26 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
-  try {
-    const supabase = createServerSupabaseClient();
-    const body = await request.json();
-    const { id, ...updateData } = body;
+  const supabase = getSupabase();
+  const body = await request.json();
+  const { id, ...updateData } = body;
 
-    if (!id) {
-      return NextResponse.json({ error: 'Appointment ID required' }, { status: 400 });
+  if (!id) {
+    return NextResponse.json({ error: 'Appointment ID required' }, { status: 400 });
+  }
+
+  // If no DB, update local store
+  if (!supabase) {
+    const existing = appointmentStore.get(id);
+    if (existing) {
+      const updated = { ...existing, ...updateData };
+      appointmentStore.set(id, updated);
+      return NextResponse.json({ appointment: updated, source: 'local' });
     }
+    return NextResponse.json({ error: 'Appointment not found' }, { status: 404 });
+  }
 
+  try {
     const { data, error } = await supabase
       .from('appointments')
       .update(updateData)
