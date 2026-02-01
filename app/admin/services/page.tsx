@@ -7,8 +7,7 @@
 // ============================================================
 
 import { useState, useEffect, useMemo } from 'react';
-import { useServicesWithStats } from '@/lib/supabase/hooks';
-import { isSupabaseConfigured, supabase } from '@/lib/supabase/client';
+import { supabase } from '@/lib/supabase/client';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -100,75 +99,69 @@ export default function AdminServicesPage() {
     provider_ids: [],
   });
   
-  // Fetch services with live data
-  const { services, loading, error, refetch } = useServicesWithStats();
+  // State for services loaded via API
+  const [services, setServices] = useState<Service[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
-  // Fetch categories
-  useEffect(() => {
-    async function fetchCategories() {
-      if (!isSupabaseConfigured()) {
-        setCategories([
-          { id: 'botox', name: 'Botox & Neurotoxins', slug: 'botox' },
-          { id: 'fillers', name: 'Dermal Fillers', slug: 'fillers' },
-          { id: 'weight-loss', name: 'Weight Loss', slug: 'weight-loss' },
-          { id: 'facials', name: 'Facials & Skin', slug: 'facials' },
-          { id: 'iv-therapy', name: 'IV Therapy', slug: 'iv-therapy' },
-          { id: 'lash', name: 'Lash Services', slug: 'lash' },
-          { id: 'brow', name: 'Brow Services', slug: 'brow' },
-        ]);
-        return;
+  // Fetch services and categories via API (bypasses RLS)
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await fetch('/api/services');
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to fetch services');
       }
-
-      try {
-        const { data } = await supabase
-          .from('service_categories')
-          .select('*')
-          .order('name');
-        
-        if (data) {
-          setCategories(data);
-        }
-      } catch (err) {
-        console.error('Error fetching categories:', err);
-      }
+      
+      setServices(data.services || []);
+      setCategories(data.categories || []);
+    } catch (err) {
+      console.error('Error fetching services:', err);
+      setError(err instanceof Error ? err.message : 'Failed to load services');
+    } finally {
+      setLoading(false);
     }
+  };
 
-    fetchCategories();
+  // Refetch function for after edits
+  const refetch = fetchData;
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
-  // Fetch providers
+  // Fetch providers via API
   useEffect(() => {
     async function fetchProviders() {
-      if (!isSupabaseConfigured()) {
+      try {
+        const response = await fetch('/api/providers');
+        if (response.ok) {
+          const data = await response.json();
+          if (data.providers) {
+            setProviders(data.providers.map((p: any) => ({
+              id: p.id,
+              name: p.first_name ? `${p.first_name} ${p.last_name}` : p.name,
+              title: p.credentials || p.title,
+              color: p.color_hex || p.color || '#EC4899',
+            })));
+          }
+        } else {
+          // Fallback defaults
+          setProviders([
+            { id: 'danielle-001', name: 'Danielle Glazier-Alcala', title: 'Owner & Aesthetic Specialist', color: '#EC4899' },
+            { id: 'ryan-001', name: 'Ryan Kent', title: 'APRN, FNP-BC', color: '#8B5CF6' },
+          ]);
+        }
+      } catch (err) {
+        console.error('Error fetching providers:', err);
+        // Fallback defaults
         setProviders([
           { id: 'danielle-001', name: 'Danielle Glazier-Alcala', title: 'Owner & Aesthetic Specialist', color: '#EC4899' },
           { id: 'ryan-001', name: 'Ryan Kent', title: 'APRN, FNP-BC', color: '#8B5CF6' },
         ]);
-        return;
-      }
-
-      try {
-        const { data } = await supabase
-          .from('providers')
-          .select(`
-            id,
-            color_hex,
-            credentials,
-            users!inner(first_name, last_name)
-          `)
-          .eq('is_active', true);
-        
-        if (data) {
-          // Only show active providers (managed via /admin/team/providers)
-          setProviders(data.map((p: any) => ({
-            id: p.id,
-            name: `${p.users.first_name} ${p.users.last_name}`,
-            title: p.credentials,
-            color: p.color_hex || '#EC4899',
-          })));
-        }
-      } catch (err) {
-        console.error('Error fetching providers:', err);
       }
     }
 
@@ -226,10 +219,9 @@ export default function AdminServicesPage() {
     setSaveMessage(null);
   };
 
-  // Save service changes
+  // Save service changes via API
   const handleSaveService = async () => {
-    if (!editingService || !isSupabaseConfigured()) {
-      alert('Connect Supabase to save changes');
+    if (!editingService) {
       return;
     }
 
@@ -238,6 +230,7 @@ export default function AdminServicesPage() {
 
     try {
       const updateData: any = {
+        id: editingService.id,
         name: editForm.name,
         slug: generateSlug(editForm.name),
         description: editForm.description,
@@ -258,21 +251,21 @@ export default function AdminServicesPage() {
         updated_at: new Date().toISOString(),
       };
 
-      const { error: updateError } = await supabase
-        .from('services')
-        .update(updateData)
-        .eq('id', editingService.id);
+      const response = await fetch('/api/services', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updateData),
+      });
 
-      if (updateError) {
-        throw updateError;
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to save service');
       }
 
       setSaveMessage({ type: 'success', text: 'Service updated successfully!' });
       
       // Refresh services list
-      if (refetch) {
-        await refetch();
-      }
+      await refetch();
       
       // Close modal after short delay
       setTimeout(() => {
@@ -288,20 +281,20 @@ export default function AdminServicesPage() {
     }
   };
 
-  // Handle toggle service active status
+  // Handle toggle service active status via API
   const handleToggleActive = async (serviceId: string, currentStatus: boolean) => {
-    if (!isSupabaseConfigured()) {
-      alert('Connect Supabase to update services');
-      return;
-    }
-
     try {
-      await supabase
-        .from('services')
-        .update({ is_active: !currentStatus, updated_at: new Date().toISOString() })
-        .eq('id', serviceId);
+      const response = await fetch('/api/services', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          id: serviceId,
+          is_active: !currentStatus,
+          updated_at: new Date().toISOString(),
+        }),
+      });
       
-      if (refetch) {
+      if (response.ok) {
         await refetch();
       }
     } catch (err) {
@@ -309,13 +302,8 @@ export default function AdminServicesPage() {
     }
   };
 
-  // Handle delete service
+  // Handle delete service via API
   const handleDeleteService = async (service: Service) => {
-    if (!isSupabaseConfigured()) {
-      alert('Connect Supabase to delete services');
-      return;
-    }
-
     const confirmed = window.confirm(
       `Are you sure you want to delete "${service.name}"?\n\nThis action cannot be undone.`
     );
@@ -323,16 +311,16 @@ export default function AdminServicesPage() {
     if (!confirmed) return;
 
     try {
-      const { error } = await supabase
-        .from('services')
-        .delete()
-        .eq('id', service.id);
+      const response = await fetch(`/api/services?id=${service.id}`, {
+        method: 'DELETE',
+      });
 
-      if (error) throw error;
-
-      if (refetch) {
-        await refetch();
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to delete');
       }
+
+      await refetch();
     } catch (err: any) {
       console.error('Error deleting service:', err);
       alert(`Failed to delete service: ${err.message}`);
@@ -349,13 +337,8 @@ export default function AdminServicesPage() {
     }));
   };
 
-  // Add new service
+  // Add new service via API
   const handleAddService = async () => {
-    if (!isSupabaseConfigured()) {
-      alert('Connect Supabase to add services');
-      return;
-    }
-
     setSaving(true);
     try {
       const newService = {
@@ -378,15 +361,20 @@ export default function AdminServicesPage() {
         provider_ids: editForm.provider_ids.length > 0 ? editForm.provider_ids : null,
       };
 
-      const { error: insertError } = await supabase
-        .from('services')
-        .insert(newService);
+      const response = await fetch('/api/services', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(newService),
+      });
 
-      if (insertError) throw insertError;
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || 'Failed to add service');
+      }
 
       setShowAddModal(false);
       resetForm();
-      if (refetch) await refetch();
+      await refetch();
     } catch (err: any) {
       console.error('Error adding service:', err);
       alert(`Failed to add service: ${err.message}`);

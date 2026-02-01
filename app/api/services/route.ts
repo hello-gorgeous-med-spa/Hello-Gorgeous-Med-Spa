@@ -1,48 +1,40 @@
 // ============================================================
-// SERVICES API
-// CRUD operations for services
+// API: GET ALL SERVICES (bypasses RLS with service role)
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 
-// GET /api/services - List all services
 export async function GET(request: NextRequest) {
-  const supabase = createServerSupabaseClient();
-  if (!supabase) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
-  }
-
-  const searchParams = request.nextUrl.searchParams;
-  const categoryId = searchParams.get('categoryId');
-  const isActive = searchParams.get('active');
-
   try {
-    let query = supabase
+    const supabase = createServerSupabaseClient();
+    
+    // Fetch all services with categories
+    const { data: services, error } = await supabase
       .from('services')
       .select(`
         *,
-        category:categories(id, name, slug)
+        category:service_categories(id, name, slug)
       `)
       .order('name');
 
-    if (categoryId) {
-      query = query.eq('category_id', categoryId);
+    if (error) {
+      console.error('Error fetching services:', error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    if (isActive === 'true') {
-      query = query.eq('is_active', true);
-    } else if (isActive === 'false') {
-      query = query.eq('is_active', false);
-    }
+    // Also get categories for the sidebar
+    const { data: categories } = await supabase
+      .from('service_categories')
+      .select('id, name, slug')
+      .order('display_order');
 
-    const { data, error } = await query;
-
-    if (error) throw error;
-
-    return NextResponse.json({ services: data });
+    return NextResponse.json({
+      services: services || [],
+      categories: categories || [],
+    });
   } catch (error) {
-    console.error('Error fetching services:', error);
+    console.error('Services API error:', error);
     return NextResponse.json(
       { error: 'Failed to fetch services' },
       { status: 500 }
@@ -50,62 +42,75 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST /api/services - Create new service
 export async function POST(request: NextRequest) {
-  const supabase = createServerSupabaseClient();
-  if (!supabase) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
-  }
-
   try {
+    const supabase = createServerSupabaseClient();
     const body = await request.json();
-    const {
-      name,
-      description,
-      category_id,
-      duration_minutes,
-      buffer_minutes = 0,
-      price,
-      cost,
-      requires_consultation = false,
-      requires_consent = false,
-      consent_form_ids,
-    } = body;
 
-    // Validate required fields
-    if (!name || !price) {
-      return NextResponse.json(
-        { error: 'name and price are required' },
-        { status: 400 }
-      );
+    const { data, error } = await supabase
+      .from('services')
+      .insert(body)
+      .select()
+      .single();
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ service: data });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to create service' }, { status: 500 });
+  }
+}
+
+export async function PUT(request: NextRequest) {
+  try {
+    const supabase = createServerSupabaseClient();
+    const body = await request.json();
+    const { id, ...updateData } = body;
+
+    if (!id) {
+      return NextResponse.json({ error: 'Service ID required' }, { status: 400 });
     }
 
     const { data, error } = await supabase
       .from('services')
-      .insert({
-        name,
-        description,
-        category_id,
-        duration_minutes: duration_minutes || 30,
-        buffer_minutes,
-        price,
-        cost,
-        is_active: true,
-        requires_consultation,
-        requires_consent,
-        consent_form_ids,
-      })
+      .update(updateData)
+      .eq('id', id)
       .select()
       .single();
 
-    if (error) throw error;
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 
-    return NextResponse.json({ service: data }, { status: 201 });
+    return NextResponse.json({ service: data });
   } catch (error) {
-    console.error('Error creating service:', error);
-    return NextResponse.json(
-      { error: 'Failed to create service' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to update service' }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const supabase = createServerSupabaseClient();
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+
+    if (!id) {
+      return NextResponse.json({ error: 'Service ID required' }, { status: 400 });
+    }
+
+    const { error } = await supabase
+      .from('services')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    return NextResponse.json({ error: 'Failed to delete service' }, { status: 500 });
   }
 }
