@@ -39,6 +39,25 @@ export default function CalendarPage() {
   const [selectedProvider, setSelectedProvider] = useState<string | 'all'>('all');
   const [showNewApptModal, setShowNewApptModal] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<{ time: string; provider: string } | null>(null);
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Update current time every minute
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 60000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Calculate current time position for indicator
+  const getCurrentTimePosition = () => {
+    const hours = currentTime.getHours();
+    const minutes = currentTime.getMinutes();
+    if (hours < 9 || hours >= 19) return null; // Outside business hours
+    const minutesSince9AM = (hours - 9) * 60 + minutes;
+    return (minutesSince9AM / 30) * 48; // 48px per 30-min slot
+  };
+
+  const isToday = selectedDate.toDateString() === new Date().toDateString();
+  const timePosition = getCurrentTimePosition();
 
   // Format date for API
   const dateString = selectedDate.toISOString().split('T')[0];
@@ -200,21 +219,32 @@ export default function CalendarPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Schedule</h1>
-          <p className="text-gray-500">Manage appointments and bookings</p>
+          <p className="text-gray-500">
+            {isToday ? (
+              <span className="flex items-center gap-2">
+                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                Today, {formatDate(selectedDate)}
+              </span>
+            ) : (
+              formatDate(selectedDate)
+            )}
+          </p>
         </div>
         <div className="flex gap-3">
           <Link
             href="/admin/appointments/new"
-            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 flex items-center gap-2"
           >
-            + New Appointment
+            <span>+</span>
+            <span>New Appointment</span>
           </Link>
           <Link
             href="/book"
             target="_blank"
-            className="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200"
+            className="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200 flex items-center gap-2"
           >
-            Online Booking ↗
+            <span>🌐</span>
+            <span>Online Booking</span>
           </Link>
         </div>
       </div>
@@ -372,6 +402,23 @@ export default function CalendarPage() {
 
           {/* Time Slots */}
           <div className="relative">
+            {/* Current Time Indicator */}
+            {isToday && timePosition !== null && (
+              <div 
+                className="absolute left-0 right-0 z-20 pointer-events-none"
+                style={{ top: `${timePosition}px` }}
+              >
+                <div className="flex items-center">
+                  <div className="w-20 flex items-center justify-end pr-2">
+                    <span className="text-[10px] font-bold text-red-500 bg-red-50 px-1 rounded">
+                      {currentTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}
+                    </span>
+                  </div>
+                  <div className="flex-1 h-0.5 bg-red-500 shadow-sm" />
+                  <div className="w-2 h-2 bg-red-500 rounded-full -ml-1" />
+                </div>
+              </div>
+            )}
             {TIME_SLOTS.map((time) => (
               <div 
                 key={time} 
@@ -552,57 +599,93 @@ export default function CalendarPage() {
       {/* New Appointment Quick Modal */}
       {showNewApptModal && selectedSlot && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-md w-full">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">Quick Book</h2>
-              <p className="text-gray-500">
-                {selectedSlot.time} with {providers.find(p => p.id === selectedSlot.provider)?.first_name || 'Provider'}
-              </p>
-            </div>
-            <div className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Client</label>
-                <input
-                  type="text"
-                  placeholder="Search client..."
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
-                />
+          <div className="bg-white rounded-xl max-w-md w-full shadow-2xl">
+            <div className="p-5 border-b border-gray-100 bg-gradient-to-r from-pink-50 to-purple-50 rounded-t-xl">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-xl font-bold text-gray-900">Quick Book</h2>
+                  <p className="text-gray-600 text-sm">
+                    {formatDate(selectedDate).split(',')[0]} at {selectedSlot.time}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowNewApptModal(false)}
+                  className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full"
+                >
+                  ✕
+                </button>
               </div>
+            </div>
+            
+            <div className="p-5 space-y-4">
+              {/* Provider Info */}
+              <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                <div className="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">
+                  {providers.find(p => p.id === selectedSlot.provider)?.first_name?.[0] || 'P'}
+                </div>
+                <div>
+                  <p className="font-medium text-gray-900">
+                    {providers.find(p => p.id === selectedSlot.provider)?.first_name} {providers.find(p => p.id === selectedSlot.provider)?.last_name}
+                  </p>
+                  <p className="text-xs text-gray-500">Provider</p>
+                </div>
+              </div>
+
+              {/* Quick Options */}
+              <div className="grid grid-cols-2 gap-3">
+                <Link
+                  href={`/admin/appointments/new?provider=${selectedSlot.provider}&date=${dateString}&time=${encodeURIComponent(selectedSlot.time)}`}
+                  className="flex flex-col items-center gap-2 p-4 bg-pink-50 hover:bg-pink-100 text-pink-700 rounded-xl transition-colors border-2 border-pink-200"
+                  onClick={() => setShowNewApptModal(false)}
+                >
+                  <span className="text-2xl">📅</span>
+                  <span className="text-sm font-semibold">Book Client</span>
+                  <span className="text-xs text-pink-500">Full booking flow</span>
+                </Link>
+                <Link
+                  href={`/admin/appointments/new?provider=${selectedSlot.provider}&date=${dateString}&time=${encodeURIComponent(selectedSlot.time)}&walkin=true`}
+                  className="flex flex-col items-center gap-2 p-4 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl transition-colors border-2 border-blue-200"
+                  onClick={() => setShowNewApptModal(false)}
+                >
+                  <span className="text-2xl">🚶</span>
+                  <span className="text-sm font-semibold">Walk-In</span>
+                  <span className="text-xs text-blue-500">No client needed</span>
+                </Link>
+              </div>
+
+              {/* Service Quick Select */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Service</label>
-                <select className="w-full px-4 py-2 border border-gray-200 rounded-lg">
-                  <option>Select service...</option>
-                  {services.map(service => (
-                    <option key={service.id} value={service.id}>
-                      {service.name} - ${service.price}
-                    </option>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Popular Services</label>
+                <div className="space-y-2 max-h-40 overflow-y-auto">
+                  {services.slice(0, 5).map(service => (
+                    <Link
+                      key={service.id}
+                      href={`/admin/appointments/new?provider=${selectedSlot.provider}&date=${dateString}&time=${encodeURIComponent(selectedSlot.time)}&service=${service.id}`}
+                      className="flex items-center justify-between p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors"
+                      onClick={() => setShowNewApptModal(false)}
+                    >
+                      <div>
+                        <p className="font-medium text-gray-900 text-sm">{service.name}</p>
+                        <p className="text-xs text-gray-500">{service.duration_minutes || 30} min</p>
+                      </div>
+                      <span className="text-sm font-semibold text-gray-700">
+                        ${service.price_cents ? (service.price_cents / 100).toFixed(0) : service.price || 0}
+                      </span>
+                    </Link>
                   ))}
-                </select>
+                </div>
               </div>
             </div>
-            <div className="p-6 border-t border-gray-100 flex justify-between">
-              <button
+
+            <div className="p-4 border-t border-gray-100 bg-gray-50 rounded-b-xl">
+              <Link
+                href="/admin/appointments/new"
+                className="w-full px-4 py-2.5 bg-white border border-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-50 flex items-center justify-center gap-2"
                 onClick={() => setShowNewApptModal(false)}
-                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
               >
-                Cancel
-              </button>
-              <div className="flex gap-2">
-                <Link
-                  href="/admin/appointments/new"
-                  className="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200"
-                  onClick={() => setShowNewApptModal(false)}
-                >
-                  Full Form
-                </Link>
-                <Link
-                  href={`/admin/appointments/new?provider=${selectedSlot?.provider}&date=${dateString}&time=${encodeURIComponent(selectedSlot?.time || '')}`}
-                  className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 inline-block text-center"
-                  onClick={() => setShowNewApptModal(false)}
-                >
-                  Book
-                </Link>
-              </div>
+                <span>📝</span>
+                <span>Open Full Booking Form</span>
+              </Link>
             </div>
           </div>
         </div>

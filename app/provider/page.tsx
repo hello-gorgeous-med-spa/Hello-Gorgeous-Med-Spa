@@ -454,17 +454,54 @@ export default function ProviderDashboard() {
               </Link>
               <Link
                 href="/provider/patients"
-                className="flex flex-col items-center gap-2 p-4 bg-gray-50 hover:bg-gray-100 text-gray-600 rounded-xl transition-colors"
+                className="flex flex-col items-center gap-2 p-4 bg-blue-50 hover:bg-blue-100 text-blue-600 rounded-xl transition-colors"
               >
                 <span className="text-2xl">🔍</span>
                 <span className="text-sm font-medium">Find Patient</span>
               </Link>
               <Link
-                href="/provider/inventory"
-                className="flex flex-col items-center gap-2 p-4 bg-gray-50 hover:bg-gray-100 text-gray-600 rounded-xl transition-colors"
+                href="/provider/photos"
+                className="flex flex-col items-center gap-2 p-4 bg-purple-50 hover:bg-purple-100 text-purple-600 rounded-xl transition-colors"
               >
-                <span className="text-2xl">💉</span>
-                <span className="text-sm font-medium">Products</span>
+                <span className="text-2xl">📷</span>
+                <span className="text-sm font-medium">Take Photo</span>
+              </Link>
+            </div>
+          </Card>
+
+          {/* Treatment Quick Links */}
+          <Card>
+            <SectionHeader title="Quick Treatments" />
+            <div className="space-y-2">
+              <Link
+                href="/provider/charting/new?treatment=botox"
+                className="flex items-center gap-3 p-3 bg-gradient-to-r from-pink-50 to-purple-50 hover:from-pink-100 hover:to-purple-100 rounded-xl transition-colors"
+              >
+                <span className="w-10 h-10 bg-pink-500 rounded-lg flex items-center justify-center text-white text-lg">💉</span>
+                <div>
+                  <p className="font-medium text-gray-900">Botox</p>
+                  <p className="text-xs text-gray-500">Neurotoxin injection</p>
+                </div>
+              </Link>
+              <Link
+                href="/provider/charting/new?treatment=filler"
+                className="flex items-center gap-3 p-3 bg-gradient-to-r from-blue-50 to-cyan-50 hover:from-blue-100 hover:to-cyan-100 rounded-xl transition-colors"
+              >
+                <span className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg">✨</span>
+                <div>
+                  <p className="font-medium text-gray-900">Filler</p>
+                  <p className="text-xs text-gray-500">Dermal filler injection</p>
+                </div>
+              </Link>
+              <Link
+                href="/provider/charting/new?treatment=laser"
+                className="flex items-center gap-3 p-3 bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 rounded-xl transition-colors"
+              >
+                <span className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center text-white text-lg">⚡</span>
+                <div>
+                  <p className="font-medium text-gray-900">Laser</p>
+                  <p className="text-xs text-gray-500">Laser treatment</p>
+                </div>
               </Link>
             </div>
           </Card>
