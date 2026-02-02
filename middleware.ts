@@ -71,6 +71,10 @@ const PUBLIC_ROUTES = [
   '/treatments',
   '/login',
   '/unauthorized',
+  '/api/auth',
+  '/api/auth/login',
+  '/api/auth/logout',
+  '/api/auth/session',
   '/api/public',
   '/api/webhooks',
   '/api/stripe/webhook',
@@ -87,7 +91,7 @@ function isPublicRoute(pathname: string): boolean {
   if (PUBLIC_ROUTES.includes(pathname)) return true;
   
   // Check prefix matches for public paths
-  const publicPrefixes = ['/book', '/treatments/', '/services/', '/api/public/', '/api/webhooks/'];
+  const publicPrefixes = ['/book', '/treatments/', '/services/', '/api/public/', '/api/webhooks/', '/api/auth/'];
   return publicPrefixes.some(prefix => pathname.startsWith(prefix));
 }
 
