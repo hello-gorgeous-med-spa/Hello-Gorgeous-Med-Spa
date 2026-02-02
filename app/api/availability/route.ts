@@ -24,27 +24,8 @@ function getSupabase() {
   }
 }
 
-// Default schedules for providers when not in database
-const DEFAULT_SCHEDULES: Record<string, any[]> = {
-  'ryan-kent': [
-    { day_of_week: 0, is_working: false }, // Sunday
-    { day_of_week: 1, start_time: '09:00', end_time: '17:00', is_working: true }, // Monday
-    { day_of_week: 2, start_time: '09:00', end_time: '17:00', is_working: true }, // Tuesday
-    { day_of_week: 3, start_time: '09:00', end_time: '17:00', is_working: true }, // Wednesday
-    { day_of_week: 4, start_time: '09:00', end_time: '17:00', is_working: true }, // Thursday
-    { day_of_week: 5, start_time: '09:00', end_time: '15:00', is_working: true }, // Friday
-    { day_of_week: 6, is_working: false }, // Saturday
-  ],
-  'danielle-alcala': [
-    { day_of_week: 0, is_working: false }, // Sunday
-    { day_of_week: 1, start_time: '10:00', end_time: '18:00', is_working: true }, // Monday
-    { day_of_week: 2, start_time: '10:00', end_time: '18:00', is_working: true }, // Tuesday
-    { day_of_week: 3, start_time: '10:00', end_time: '18:00', is_working: true }, // Wednesday
-    { day_of_week: 4, start_time: '10:00', end_time: '18:00', is_working: true }, // Thursday
-    { day_of_week: 5, start_time: '10:00', end_time: '16:00', is_working: true }, // Friday
-    { day_of_week: 6, start_time: '09:00', end_time: '14:00', is_working: true }, // Saturday
-  ],
-};
+// NO HARDCODED SCHEDULES - Always use database as source of truth
+// If schedule not found in database, provider is NOT available
 
 interface TimeSlot {
   time: string; // "9:00 AM"
@@ -196,27 +177,16 @@ export async function GET(request: NextRequest) {
     }
   }
 
-  // Use default schedule if not found in database
+  // NO FALLBACK SCHEDULES - If not found in database, provider is NOT working
+  // This ensures the admin schedule settings are always respected
   if (!schedule) {
-    // Check if providerId matches a known default
-    const defaultKey = Object.keys(DEFAULT_SCHEDULES).find(key => 
-      providerId.toLowerCase().includes(key.split('-')[0])
-    );
-    
-    if (defaultKey) {
-      const defaults = DEFAULT_SCHEDULES[defaultKey];
-      schedule = defaults.find(s => s.day_of_week === dayOfWeek);
-    }
-    
-    // Fallback to standard business hours if still no schedule
-    if (!schedule) {
-      schedule = {
-        day_of_week: dayOfWeek,
-        start_time: dayOfWeek === 0 || dayOfWeek === 6 ? null : '09:00',
-        end_time: dayOfWeek === 0 || dayOfWeek === 6 ? null : '17:00',
-        is_working: dayOfWeek !== 0 && dayOfWeek !== 6, // Closed weekends by default
-      };
-    }
+    console.log(`No schedule found for provider ${providerId} on day ${dayOfWeek} - marking as not working`);
+    schedule = {
+      day_of_week: dayOfWeek,
+      start_time: null,
+      end_time: null,
+      is_working: false,
+    };
   }
 
   // If provider is not working this day, return empty slots

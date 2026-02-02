@@ -9,22 +9,14 @@ import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 
 // ============================================================
 // ONLY THESE TWO PROVIDERS - Ryan Kent and Danielle Alcala
+// NO HARDCODED SCHEDULES - Always fetch from database
 // ============================================================
-const FALLBACK_PROVIDERS = [
+const PROVIDER_METADATA = [
   {
     id: 'ryan-kent',
     name: 'Ryan Kent',
     title: 'FNP-BC',
     color: '#3b82f6',
-    schedule: {
-      0: null, // Sunday - OFF
-      1: { start: '09:00', end: '17:00' }, // Monday
-      2: { start: '09:00', end: '17:00' }, // Tuesday
-      3: { start: '09:00', end: '17:00' }, // Wednesday
-      4: { start: '09:00', end: '17:00' }, // Thursday
-      5: { start: '09:00', end: '15:00' }, // Friday
-      6: null, // Saturday - OFF
-    },
     serviceKeywords: ['botox', 'filler', 'jeuveau', 'dysport', 'lip', 'semaglutide', 'tirzepatide', 'retatrutide', 'weight', 'iv', 'vitamin', 'prp', 'pellet', 'hormone', 'bhrt', 'medical', 'trigger', 'kybella', 'consult', 'laser', 'ipl', 'photofacial', 'anteage', 'hydra', 'peel', 'facial', 'skin'],
   },
   {
@@ -32,15 +24,6 @@ const FALLBACK_PROVIDERS = [
     name: 'Danielle Alcala',
     title: 'RN-S, Owner',
     color: '#ec4899',
-    schedule: {
-      0: null, // Sunday - OFF
-      1: { start: '09:00', end: '17:00' }, // Monday
-      2: { start: '09:00', end: '17:00' }, // Tuesday
-      3: { start: '09:00', end: '17:00' }, // Wednesday
-      4: { start: '09:00', end: '17:00' }, // Thursday
-      5: { start: '09:00', end: '15:00' }, // Friday
-      6: null, // Saturday - OFF
-    },
     serviceKeywords: ['lash', 'brow', 'facial', 'dermaplanning', 'hydra', 'peel', 'lamination', 'wax', 'extension', 'lift', 'tint', 'glow', 'geneo', 'frequency', 'botox', 'filler', 'lip', 'consult'],
   },
 ];
@@ -165,24 +148,78 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Fallback: Use keyword matching
+    // Fallback: Use keyword matching but ALWAYS fetch schedules from database
     const slug = service?.slug || serviceSlug || '';
-    const matchingProviders = FALLBACK_PROVIDERS.filter((provider) =>
+    const matchingProviders = PROVIDER_METADATA.filter((provider) =>
       provider.serviceKeywords.some((keyword) => slug.toLowerCase().includes(keyword))
     );
 
     // If no matches, return all providers
-    const providers = matchingProviders.length > 0 ? matchingProviders : FALLBACK_PROVIDERS;
+    const providers = matchingProviders.length > 0 ? matchingProviders : PROVIDER_METADATA;
 
-    // Remove serviceKeywords from response
-    const cleanProviders = providers.map(({ serviceKeywords, ...rest }) => rest);
+    // Fetch all providers from database to get their real IDs and schedules
+    const { data: dbProviders } = await supabase
+      .from('providers')
+      .select(`
+        id,
+        color_hex,
+        users!inner(first_name, last_name),
+        credentials
+      `);
 
-    return NextResponse.json({ providers: cleanProviders, source: 'fallback' });
+    // Fetch ALL provider schedules
+    const { data: allSchedules } = await supabase
+      .from('provider_schedules')
+      .select('*');
+
+    // Match fallback providers to database providers and get their schedules
+    const cleanProviders = providers.map((provider) => {
+      // Find matching DB provider by name
+      const dbProvider = dbProviders?.find((p: any) => {
+        const fullName = `${p.users.first_name} ${p.users.last_name}`.toLowerCase();
+        return fullName.includes(provider.name.split(' ')[0].toLowerCase());
+      });
+
+      // Build schedule from database (or empty if not found)
+      const schedule: { [day: number]: { start: string; end: string } | null } = {
+        0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null
+      };
+
+      if (dbProvider && allSchedules) {
+        const providerSchedules = allSchedules.filter((s: any) => s.provider_id === dbProvider.id);
+        for (const s of providerSchedules) {
+          if (s.is_working && s.start_time && s.end_time) {
+            schedule[s.day_of_week] = {
+              start: s.start_time.slice(0, 5),
+              end: s.end_time.slice(0, 5),
+            };
+          }
+        }
+      }
+
+      return {
+        id: dbProvider?.id || provider.id,
+        name: dbProvider ? `${dbProvider.users.first_name} ${dbProvider.users.last_name}` : provider.name,
+        title: dbProvider?.credentials || provider.title,
+        color: dbProvider?.color_hex || provider.color,
+        schedule,
+      };
+    });
+
+    return NextResponse.json({ providers: cleanProviders, source: 'database-fallback' });
   } catch (error) {
     console.error('Error fetching providers:', error);
     
-    // Return fallback on any error
-    const cleanProviders = FALLBACK_PROVIDERS.map(({ serviceKeywords, ...rest }) => rest);
-    return NextResponse.json({ providers: cleanProviders, source: 'error-fallback' });
+    // On error, return providers with EMPTY schedules (no hardcoded availability)
+    // This prevents booking on days when we can't verify the schedule
+    const cleanProviders = PROVIDER_METADATA.map(({ serviceKeywords, ...rest }) => ({
+      ...rest,
+      schedule: { 0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null }
+    }));
+    return NextResponse.json({ 
+      providers: cleanProviders, 
+      source: 'error-fallback',
+      error: 'Could not load schedules - please contact us to book'
+    });
   }
 }
