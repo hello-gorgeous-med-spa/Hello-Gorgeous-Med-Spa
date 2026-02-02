@@ -57,6 +57,18 @@ export async function GET(request: NextRequest) {
       );
     }
     
+    // Sort alphabetically by last name, then first name (A-Z)
+    filtered.sort((a: any, b: any) => {
+      const lastNameA = (a.last_name || '').toLowerCase();
+      const lastNameB = (b.last_name || '').toLowerCase();
+      if (lastNameA !== lastNameB) {
+        return lastNameA.localeCompare(lastNameB);
+      }
+      const firstNameA = (a.first_name || '').toLowerCase();
+      const firstNameB = (b.first_name || '').toLowerCase();
+      return firstNameA.localeCompare(firstNameB);
+    });
+    
     return NextResponse.json({ clients: filtered, total: filtered.length, source: 'local' });
   }
 
@@ -156,6 +168,18 @@ export async function GET(request: NextRequest) {
         c.phone?.includes(search)
       );
     }
+
+    // Sort alphabetically by last name, then first name (A-Z)
+    filteredClients.sort((a: any, b: any) => {
+      const lastNameA = (a.last_name || '').toLowerCase();
+      const lastNameB = (b.last_name || '').toLowerCase();
+      if (lastNameA !== lastNameB) {
+        return lastNameA.localeCompare(lastNameB);
+      }
+      const firstNameA = (a.first_name || '').toLowerCase();
+      const firstNameB = (b.first_name || '').toLowerCase();
+      return firstNameA.localeCompare(firstNameB);
+    });
 
     return NextResponse.json({
       clients: filteredClients,
