@@ -21,9 +21,10 @@ import {
 } from './auth';
 
 // ============================================================
-// DEV MODE - Set to true to bypass login during development
+// DEV MODE - Only bypass in local development, NEVER in production
 // ============================================================
-const DEV_BYPASS_AUTH = true;
+const DEV_BYPASS_AUTH = typeof window !== 'undefined' && 
+  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
 
 const DEV_USER: AuthUser = {
   id: 'dev-admin-001',
@@ -70,7 +71,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Check for existing session on mount
   useEffect(() => {
     const initAuth = async () => {
-      // DEV MODE: Auto-login as admin
+      // DEV MODE: Auto-login as admin (localhost only)
       if (DEV_BYPASS_AUTH) {
         setUser(DEV_USER);
         setIsLoading(false);
@@ -83,17 +84,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(storedUser);
       }
 
-      // Then verify with server/Supabase
-      const existingSession = await getSession();
-      if (existingSession) {
-        setUser(existingSession.user);
-        setSession(existingSession);
-      } else if (storedUser) {
-        // Session expired, clear stored user
-        setUser(null);
-      }
-
+      // Set loading to false quickly - don't block on session check
       setIsLoading(false);
+
+      // Then verify with server/Supabase in background (non-blocking)
+      try {
+        const existingSession = await getSession();
+        if (existingSession) {
+          setUser(existingSession.user);
+          setSession(existingSession);
+        } else if (storedUser) {
+          // Session expired, clear stored user
+          setUser(null);
+        }
+      } catch (error) {
+        console.warn('Session check failed:', error);
+        // Don't block on errors - user can still use the app
+      }
     };
 
     initAuth();
