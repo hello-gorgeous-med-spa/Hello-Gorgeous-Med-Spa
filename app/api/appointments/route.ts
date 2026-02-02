@@ -149,22 +149,43 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const { data, error } = await supabase
+    // Build insert object with only valid columns
+    const insertData: any = {
+      client_id: body.client_id || null,
+      provider_id: body.provider_id,
+      service_id: body.service_id,
+      starts_at: body.starts_at,
+      ends_at: endsAt.toISOString(),
+      status: 'scheduled',
+    };
+
+    // Try to insert - if notes column doesn't exist, retry without it
+    let data, error;
+    
+    // First try with notes
+    const result1 = await supabase
       .from('appointments')
-      .insert({
-        client_id: body.client_id,
-        provider_id: body.provider_id,
-        service_id: body.service_id,
-        starts_at: body.starts_at,
-        ends_at: endsAt.toISOString(),
-        status: 'scheduled',
-        notes: body.notes || null,
-        source: body.source || 'admin',
-      })
+      .insert({ ...insertData, notes: body.notes || null })
       .select()
       .single();
 
+    if (result1.error && result1.error.message.includes('notes')) {
+      // notes column doesn't exist, try without it
+      console.log('Notes column not found, inserting without notes');
+      const result2 = await supabase
+        .from('appointments')
+        .insert(insertData)
+        .select()
+        .single();
+      data = result2.data;
+      error = result2.error;
+    } else {
+      data = result1.data;
+      error = result1.error;
+    }
+
     if (error) {
+      console.error('Appointment insert error:', error);
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 

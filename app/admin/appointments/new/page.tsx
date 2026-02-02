@@ -600,11 +600,11 @@ function NewAppointmentContent() {
           <div className="p-4 bg-gray-50 border-b border-gray-100">
             <div className="flex items-center justify-between text-sm">
               <span className="text-gray-600">Client:</span>
-              <span className="font-medium">{isWalkIn ? 'Walk-In' : selectedClient?.name}</span>
+              <span className="font-medium text-gray-900">{isWalkIn ? 'Walk-In' : selectedClient?.name}</span>
             </div>
             <div className="flex items-center justify-between text-sm mt-1">
               <span className="text-gray-600">Service:</span>
-              <span className="font-medium">{selectedService?.name}</span>
+              <span className="font-medium text-gray-900">{selectedService?.name}</span>
             </div>
           </div>
 
@@ -701,17 +701,17 @@ function NewAppointmentContent() {
           <div className="p-4 bg-gray-50 border-b border-gray-100">
             <div className="grid grid-cols-2 gap-2 text-sm">
               <span className="text-gray-600">Client:</span>
-              <span className="font-medium text-right">{isWalkIn ? 'Walk-In' : selectedClient?.name}</span>
+              <span className="font-medium text-gray-900 text-right">{isWalkIn ? 'Walk-In' : selectedClient?.name}</span>
               <span className="text-gray-600">Service:</span>
-              <span className="font-medium text-right">{selectedService?.name}</span>
+              <span className="font-medium text-gray-900 text-right">{selectedService?.name}</span>
               <span className="text-gray-600">Provider:</span>
-              <span className="font-medium text-right">
+              <span className="font-medium text-gray-900 text-right">
                 {selectedProvider?.first_name || selectedProvider?.firstName} {selectedProvider?.last_name || selectedProvider?.lastName}
               </span>
               <span className="text-gray-600">Duration:</span>
-              <span className="font-medium text-right">{selectedService?.duration_minutes || 30} min</span>
+              <span className="font-medium text-gray-900 text-right">{selectedService?.duration_minutes || 30} min</span>
               <span className="text-gray-600">Forms:</span>
-              <span className="font-medium text-right">{formData.selectedForms.length} selected</span>
+              <span className="font-medium text-gray-900 text-right">{formData.selectedForms.length} selected</span>
               <span className="text-gray-900 font-semibold pt-2 border-t">Price:</span>
               <span className="font-bold text-pink-600 text-right text-lg pt-2 border-t">${getDisplayPrice().toFixed(2)}</span>
             </div>
@@ -822,46 +822,46 @@ function NewAppointmentContent() {
                   {isWalkIn ? '🚶' : selectedClient?.name?.split(' ').map((n: string) => n[0]).join('')}
                 </div>
                 <div>
-                  <p className="font-semibold text-lg">{isWalkIn ? 'Walk-In Client' : selectedClient?.name}</p>
+                  <p className="font-semibold text-lg text-gray-900">{isWalkIn ? 'Walk-In Client' : selectedClient?.name}</p>
                   {!isWalkIn && selectedClient?.phone && (
-                    <p className="text-gray-500">{selectedClient.phone}</p>
+                    <p className="text-gray-600">{selectedClient.phone}</p>
                   )}
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-4 space-y-2">
+              <div className="border-t border-gray-300 pt-4 space-y-3">
                 <div className="flex justify-between">
                   <span className="text-gray-600">Service</span>
-                  <span className="font-medium">{selectedService?.name}</span>
+                  <span className="font-medium text-gray-900">{selectedService?.name}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Provider</span>
-                  <span className="font-medium">
+                  <span className="font-medium text-gray-900">
                     {selectedProvider?.first_name || selectedProvider?.firstName} {selectedProvider?.last_name || selectedProvider?.lastName}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Date</span>
-                  <span className="font-medium">
+                  <span className="font-medium text-gray-900">
                     {new Date(formData.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Time</span>
-                  <span className="font-medium">{formData.time}</span>
+                  <span className="font-medium text-gray-900">{formData.time}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Duration</span>
-                  <span className="font-medium">{selectedService?.duration_minutes || 30} minutes</span>
+                  <span className="font-medium text-gray-900">{selectedService?.duration_minutes || 30} minutes</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Forms to Sign</span>
-                  <span className="font-medium">{formData.selectedForms.length}</span>
+                  <span className="font-medium text-gray-900">{formData.selectedForms.length}</span>
                 </div>
               </div>
 
-              <div className="border-t border-gray-200 pt-4 flex justify-between items-center">
-                <span className="text-lg font-semibold">Total</span>
+              <div className="border-t border-gray-300 pt-4 flex justify-between items-center">
+                <span className="text-lg font-semibold text-gray-900">Total</span>
                 <span className="text-2xl font-bold text-pink-600">${getDisplayPrice().toFixed(2)}</span>
               </div>
             </div>
