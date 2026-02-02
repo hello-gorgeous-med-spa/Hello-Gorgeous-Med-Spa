@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
+import ModeSwitcher from '@/components/ModeSwitcher';
 
 // Operating System Navigation
 const OS_NAV = [
@@ -131,12 +132,24 @@ export default function OwnerLayout({ children, title, description }: OwnerLayou
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 bg-gray-50 overflow-y-auto">
-        <div className="mb-6">
-          <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
-          {description && <p className="text-gray-500">{description}</p>}
+      <main className="flex-1 bg-gray-50 overflow-y-auto">
+        {/* Mode Switcher Header */}
+        <div className="h-12 px-6 flex items-center justify-between border-b border-gray-200 bg-white">
+          <ModeSwitcher variant="minimal" />
+          
+          <div className="flex items-center gap-2 text-sm text-amber-600">
+            <span className="text-lg">👑</span>
+            <span className="font-medium">Owner Mode</span>
+          </div>
         </div>
-        {children}
+
+        <div className="p-6">
+          <div className="mb-6">
+            <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
+            {description && <p className="text-gray-500">{description}</p>}
+          </div>
+          {children}
+        </div>
       </main>
     </div>
   );

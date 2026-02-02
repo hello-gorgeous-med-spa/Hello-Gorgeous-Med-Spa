@@ -9,6 +9,7 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import ModeSwitcher, { ModeSwitcherMobile } from '@/components/ModeSwitcher';
 
 // Switch to admin manifest for PWA install
 function useAdminManifest() {
@@ -134,8 +135,9 @@ export default function AdminLayout({
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Top Header Bar - Black */}
-      <header className="h-14 bg-[#0a0a0a] border-b border-gray-800 sticky top-0 z-50">
-        <div className="h-full flex items-center justify-between px-4">
+      <header className="bg-[#0a0a0a] border-b border-gray-800 sticky top-0 z-50">
+        {/* Main Header Row */}
+        <div className="h-14 flex items-center justify-between px-4">
           {/* Logo & Brand */}
           <div className="flex items-center gap-4">
             <Link href="/admin" className="flex items-center gap-3">
@@ -144,56 +146,46 @@ export default function AdminLayout({
               </div>
               <div className="hidden sm:block">
                 <h1 className="text-white font-bold text-sm tracking-tight">Hello Gorgeous</h1>
-                <p className="text-gray-400 text-[10px]">Admin Console</p>
+                <p className="text-gray-400 text-[10px]">Med Spa OS</p>
               </div>
             </Link>
           </div>
 
-          {/* Center - Time & Date */}
-          <div className="hidden md:flex items-center gap-6">
-            <div className="text-center">
-              <p className="text-white font-semibold text-lg">{formatTime(currentTime)}</p>
-              <p className="text-gray-400 text-xs">{formatDate(currentTime)}</p>
-            </div>
+          {/* Center - Mode Tabs (Desktop) */}
+          <div className="hidden md:block">
+            <ModeSwitcher variant="tabs" />
           </div>
 
-          {/* Right Actions */}
-          <div className="flex items-center gap-3">
+          {/* Right - Time & Quick Actions */}
+          <div className="flex items-center gap-4">
+            {/* Time Display */}
+            <div className="hidden lg:block text-right">
+              <p className="text-white font-semibold text-sm">{formatTime(currentTime)}</p>
+              <p className="text-gray-500 text-[10px]">{formatDate(currentTime)}</p>
+            </div>
+
             {/* Quick Actions */}
             <Link
               href="/admin/appointments/new"
               className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-pink-500 hover:bg-pink-600 text-white text-sm font-medium rounded-lg transition-colors"
             >
               <span>+</span>
-              <span>New Booking</span>
+              <span className="hidden lg:inline">New Booking</span>
             </Link>
             
             <Link
               href="/pos"
-              className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-lg transition-colors"
+              className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-lg transition-colors"
             >
               <span>💳</span>
-              <span>POS</span>
-            </Link>
-
-            {/* Owner Mode */}
-            <Link
-              href="/admin/owner"
-              className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white text-sm font-medium rounded-lg transition-all"
-            >
-              <span>👑</span>
-              <span className="hidden sm:inline">Owner</span>
-            </Link>
-
-            {/* Provider Mode */}
-            <Link
-              href="/provider"
-              className="flex items-center gap-2 px-3 py-1.5 border border-gray-600 hover:border-gray-500 text-gray-300 hover:text-white text-sm font-medium rounded-lg transition-colors"
-            >
-              <span>🩺</span>
-              <span className="hidden sm:inline">Provider</span>
+              <span className="hidden sm:inline">POS</span>
             </Link>
           </div>
+        </div>
+
+        {/* Mobile Mode Tabs */}
+        <div className="md:hidden">
+          <ModeSwitcherMobile />
         </div>
       </header>
 

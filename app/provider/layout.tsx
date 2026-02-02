@@ -9,6 +9,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import ModeSwitcher from '@/components/ModeSwitcher';
 
 const NAV_ITEMS = [
   { 
@@ -244,25 +245,26 @@ export default function ProviderLayout({
             <span className="text-lg">{sidebarCollapsed ? '→' : '←'}</span>
             {!sidebarCollapsed && <span className="text-sm">Collapse</span>}
           </button>
-          
-          {!sidebarCollapsed && (
-            <Link
-              href="/admin"
-              className="mt-2 w-full flex items-center justify-center gap-2 px-3 py-2 text-gray-500 hover:text-white border border-gray-800 hover:border-gray-700 rounded-xl transition-colors text-sm"
-            >
-              <span>📊</span>
-              <span>Admin Dashboard</span>
-            </Link>
-          )}
         </div>
       </aside>
 
       {/* Main Content Area */}
       <div className={`flex-1 ${sidebarCollapsed ? 'ml-20' : 'ml-64'} transition-all duration-300`}>
         {/* Top Header Bar */}
-        <header className="h-16 bg-white border-b border-gray-200 sticky top-0 z-30 shadow-sm">
-          <div className="h-full px-6 flex items-center justify-between">
-            {/* Left - Page Context */}
+        <header className="bg-white border-b border-gray-200 sticky top-0 z-30 shadow-sm">
+          {/* Mode Tabs Row */}
+          <div className="h-12 px-6 flex items-center justify-between border-b border-gray-100 bg-gray-50">
+            <ModeSwitcher variant="minimal" />
+            
+            <div className="flex items-center gap-2 text-sm text-gray-500">
+              <span className="w-2 h-2 bg-emerald-500 rounded-full" />
+              <span>Provider Mode</span>
+            </div>
+          </div>
+
+          {/* Actions Row */}
+          <div className="h-14 px-6 flex items-center justify-between">
+            {/* Left - Queue Alert */}
             <div className="flex items-center gap-4">
               {queueCount > 0 && (
                 <Link
@@ -283,7 +285,7 @@ export default function ProviderLayout({
                 className="flex items-center gap-2 px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white font-medium rounded-xl transition-colors shadow-lg shadow-pink-500/20"
               >
                 <span>📝</span>
-                <span>New Chart</span>
+                <span className="hidden sm:inline">New Chart</span>
               </Link>
 
               {/* Quick POS */}
@@ -292,7 +294,7 @@ export default function ProviderLayout({
                 className="flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-xl transition-colors"
               >
                 <span>💳</span>
-                <span>Quick Sale</span>
+                <span className="hidden sm:inline">POS</span>
               </Link>
 
               {/* User Avatar */}
