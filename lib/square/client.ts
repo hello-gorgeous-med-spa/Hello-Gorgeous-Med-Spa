@@ -3,27 +3,53 @@
 // Full integration for payments and gift cards
 // ============================================================
 
-import { Client, Environment } from 'square';
+// Lazy-load Square to prevent build-time crashes when env vars are missing
+let _squareClient: ReturnType<typeof initSquareClient> = null;
+let _initialized = false;
 
-// Initialize Square client
-const accessToken = process.env.SQUARE_ACCESS_TOKEN;
-const environment = process.env.SQUARE_ENVIRONMENT === 'production' 
-  ? Environment.Production 
-  : Environment.Sandbox;
-
-export const squareClient = accessToken 
-  ? new Client({
+function initSquareClient() {
+  const accessToken = process.env.SQUARE_ACCESS_TOKEN;
+  if (!accessToken) return null;
+  
+  try {
+    // Dynamic import to prevent build-time access to Environment enum
+    const { Client, Environment } = require('square');
+    const environment = process.env.SQUARE_ENVIRONMENT === 'production' 
+      ? Environment.Production 
+      : Environment.Sandbox;
+    
+    return new Client({
       accessToken,
       environment,
-    })
-  : null;
+    });
+  } catch (error) {
+    console.warn('Square SDK not available:', error);
+    return null;
+  }
+}
 
-// Export individual APIs for convenience
-export const giftCardsApi = squareClient?.giftCardsApi;
-export const giftCardActivitiesApi = squareClient?.giftCardActivitiesApi;
-export const paymentsApi = squareClient?.paymentsApi;
-export const customersApi = squareClient?.customersApi;
-export const ordersApi = squareClient?.ordersApi;
+function getSquareClient() {
+  if (!_initialized) {
+    _squareClient = initSquareClient();
+    _initialized = true;
+  }
+  return _squareClient;
+}
+
+// Export getter functions for APIs (lazy initialization)
+export const getGiftCardsApi = () => getSquareClient()?.giftCardsApi ?? null;
+export const getGiftCardActivitiesApi = () => getSquareClient()?.giftCardActivitiesApi ?? null;
+export const getPaymentsApi = () => getSquareClient()?.paymentsApi ?? null;
+export const getCustomersApi = () => getSquareClient()?.customersApi ?? null;
+export const getOrdersApi = () => getSquareClient()?.ordersApi ?? null;
+
+// Legacy exports for backwards compatibility (use getters above for new code)
+export const squareClient = null as ReturnType<typeof initSquareClient>; // Deprecated
+export const giftCardsApi = null; // Deprecated - use getGiftCardsApi()
+export const giftCardActivitiesApi = null; // Deprecated - use getGiftCardActivitiesApi()
+export const paymentsApi = null; // Deprecated - use getPaymentsApi()
+export const customersApi = null; // Deprecated - use getCustomersApi()
+export const ordersApi = null; // Deprecated - use getOrdersApi()
 
 // ============================================================
 // TYPES
@@ -102,13 +128,14 @@ export async function createSquareGiftCard(
   locationId: string,
   type: 'DIGITAL' | 'PHYSICAL' = 'DIGITAL'
 ): Promise<SquareGiftCard | null> {
-  if (!giftCardsApi) {
+  const api = getGiftCardsApi();
+  if (!api) {
     console.warn('Square not configured');
     return null;
   }
 
   try {
-    const response = await giftCardsApi.createGiftCard({
+    const response = await api.createGiftCard({
       idempotencyKey: crypto.randomUUID(),
       locationId,
       giftCard: { type },
@@ -145,13 +172,14 @@ export async function activateSquareGiftCard(
   locationId: string,
   orderId?: string
 ): Promise<GiftCardActivity | null> {
-  if (!giftCardActivitiesApi) {
+  const api = getGiftCardActivitiesApi();
+  if (!api) {
     console.warn('Square not configured');
     return null;
   }
 
   try {
-    const response = await giftCardActivitiesApi.createGiftCardActivity({
+    const response = await api.createGiftCardActivity({
       idempotencyKey: crypto.randomUUID(),
       giftCardActivity: {
         type: 'ACTIVATE',
@@ -198,13 +226,14 @@ export async function loadSquareGiftCard(
   locationId: string,
   orderId?: string
 ): Promise<GiftCardActivity | null> {
-  if (!giftCardActivitiesApi) {
+  const api = getGiftCardActivitiesApi();
+  if (!api) {
     console.warn('Square not configured');
     return null;
   }
 
   try {
-    const response = await giftCardActivitiesApi.createGiftCardActivity({
+    const response = await api.createGiftCardActivity({
       idempotencyKey: crypto.randomUUID(),
       giftCardActivity: {
         type: 'LOAD',
@@ -252,13 +281,14 @@ export async function redeemSquareGiftCard(
   paymentId?: string,
   referenceId?: string
 ): Promise<GiftCardActivity | null> {
-  if (!giftCardActivitiesApi) {
+  const api = getGiftCardActivitiesApi();
+  if (!api) {
     console.warn('Square not configured');
     return null;
   }
 
   try {
-    const response = await giftCardActivitiesApi.createGiftCardActivity({
+    const response = await api.createGiftCardActivity({
       idempotencyKey: crypto.randomUUID(),
       giftCardActivity: {
         type: 'REDEEM',
@@ -301,13 +331,14 @@ export async function redeemSquareGiftCard(
  * Get gift card by ID
  */
 export async function getSquareGiftCard(giftCardId: string): Promise<SquareGiftCard | null> {
-  if (!giftCardsApi) {
+  const api = getGiftCardsApi();
+  if (!api) {
     console.warn('Square not configured');
     return null;
   }
 
   try {
-    const response = await giftCardsApi.retrieveGiftCard(giftCardId);
+    const response = await api.retrieveGiftCard(giftCardId);
 
     if (response.result.giftCard) {
       const gc = response.result.giftCard;
@@ -335,13 +366,14 @@ export async function getSquareGiftCard(giftCardId: string): Promise<SquareGiftC
  * Get gift card by GAN (Gift card Account Number)
  */
 export async function getSquareGiftCardByGan(gan: string): Promise<SquareGiftCard | null> {
-  if (!giftCardsApi) {
+  const api = getGiftCardsApi();
+  if (!api) {
     console.warn('Square not configured');
     return null;
   }
 
   try {
-    const response = await giftCardsApi.retrieveGiftCardFromGAN({
+    const response = await api.retrieveGiftCardFromGAN({
       gan,
     });
 
@@ -374,13 +406,14 @@ export async function linkGiftCardToCustomer(
   giftCardId: string,
   customerId: string
 ): Promise<boolean> {
-  if (!giftCardsApi) {
+  const api = getGiftCardsApi();
+  if (!api) {
     console.warn('Square not configured');
     return false;
   }
 
   try {
-    await giftCardsApi.linkCustomerToGiftCard(giftCardId, {
+    await api.linkCustomerToGiftCard(giftCardId, {
       customerId,
     });
     return true;
@@ -397,13 +430,14 @@ export async function unlinkGiftCardFromCustomer(
   giftCardId: string,
   customerId: string
 ): Promise<boolean> {
-  if (!giftCardsApi) {
+  const api = getGiftCardsApi();
+  if (!api) {
     console.warn('Square not configured');
     return false;
   }
 
   try {
-    await giftCardsApi.unlinkCustomerFromGiftCard(giftCardId, {
+    await api.unlinkCustomerFromGiftCard(giftCardId, {
       customerId,
     });
     return true;
@@ -421,13 +455,14 @@ export async function listGiftCardActivities(
   locationId?: string,
   limit: number = 50
 ): Promise<GiftCardActivity[]> {
-  if (!giftCardActivitiesApi) {
+  const api = getGiftCardActivitiesApi();
+  if (!api) {
     console.warn('Square not configured');
     return [];
   }
 
   try {
-    const response = await giftCardActivitiesApi.listGiftCardActivities(
+    const response = await api.listGiftCardActivities(
       giftCardId,
       undefined, // type filter
       locationId,
@@ -462,13 +497,14 @@ export async function deactivateSquareGiftCard(
   locationId: string,
   reason?: string
 ): Promise<GiftCardActivity | null> {
-  if (!giftCardActivitiesApi) {
+  const api = getGiftCardActivitiesApi();
+  if (!api) {
     console.warn('Square not configured');
     return null;
   }
 
   try {
-    const response = await giftCardActivitiesApi.createGiftCardActivity({
+    const response = await api.createGiftCardActivity({
       idempotencyKey: crypto.randomUUID(),
       giftCardActivity: {
         type: 'DEACTIVATE',
@@ -512,7 +548,8 @@ export async function adjustSquareGiftCardBalance(
   reason?: string,
   increment: boolean = true
 ): Promise<GiftCardActivity | null> {
-  if (!giftCardActivitiesApi) {
+  const api = getGiftCardActivitiesApi();
+  if (!api) {
     console.warn('Square not configured');
     return null;
   }
@@ -522,7 +559,7 @@ export async function adjustSquareGiftCardBalance(
       ? { adjustIncrementActivityDetails: { amountMoney: { amount: BigInt(amountCents), currency: 'USD' }, reason: reason || 'SUPPORT_ISSUE' } }
       : { adjustDecrementActivityDetails: { amountMoney: { amount: BigInt(amountCents), currency: 'USD' }, reason: reason || 'SUPPORT_ISSUE' } };
 
-    const response = await giftCardActivitiesApi.createGiftCardActivity({
+    const response = await api.createGiftCardActivity({
       idempotencyKey: crypto.randomUUID(),
       giftCardActivity: {
         type: increment ? 'ADJUST_INCREMENT' : 'ADJUST_DECREMENT',
@@ -562,7 +599,7 @@ export async function adjustSquareGiftCardBalance(
  * Check if Square is configured
  */
 export function isSquareConfigured(): boolean {
-  return !!squareClient;
+  return !!getSquareClient();
 }
 
 /**
