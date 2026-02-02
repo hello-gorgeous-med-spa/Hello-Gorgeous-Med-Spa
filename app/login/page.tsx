@@ -5,15 +5,13 @@
 // Branded authentication for Hello Gorgeous Med Spa
 // ============================================================
 
-import { useState, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-function LoginForm() {
+export default function LoginPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const returnTo = searchParams.get('returnTo');
-  
+  const [returnTo, setReturnTo] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
@@ -21,6 +19,12 @@ function LoginForm() {
     password: '',
     remember: false,
   });
+
+  // Get returnTo from URL on client side
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    setReturnTo(params.get('returnTo'));
+  }, []);
 
   // Check if we're in production (hide demo buttons)
   const isProduction = typeof window !== 'undefined' && 
@@ -258,20 +262,5 @@ function LoginForm() {
         </div>
       </div>
     </div>
-  );
-}
-
-export default function LoginPage() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin text-4xl mb-4">💗</div>
-          <p className="text-pink-200/70">Loading...</p>
-        </div>
-      </div>
-    }>
-      <LoginForm />
-    </Suspense>
   );
 }
