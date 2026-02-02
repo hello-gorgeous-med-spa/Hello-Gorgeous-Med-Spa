@@ -5,11 +5,11 @@
 // Redirects to admin charting with provider-friendly context
 // ============================================================
 
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-export default function ProviderChartingPage() {
+function ChartingContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const appointmentId = searchParams.get('appointment');
@@ -112,5 +112,13 @@ export default function ProviderChartingPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ProviderChartingPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center">Loading...</div>}>
+      <ChartingContent />
+    </Suspense>
   );
 }

@@ -5,7 +5,7 @@
 // HIPAA-compliant photo capture and storage
 // ============================================================
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
@@ -28,7 +28,7 @@ interface Client {
   last_name: string;
 }
 
-export default function ProviderPhotosPage() {
+function PhotosContent() {
   const searchParams = useSearchParams();
   const clientId = searchParams.get('client');
   const appointmentId = searchParams.get('appointment');
@@ -533,5 +533,13 @@ export default function ProviderPhotosPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function ProviderPhotosPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center">Loading...</div>}>
+      <PhotosContent />
+    </Suspense>
   );
 }

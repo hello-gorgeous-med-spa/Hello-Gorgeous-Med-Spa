@@ -5,7 +5,7 @@
 // Essential for pre-treatment verification
 // ============================================================
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
@@ -39,7 +39,7 @@ interface Visit {
   notes?: string;
 }
 
-export default function PatientLookupPage() {
+function PatientLookupContent() {
   const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [searching, setSearching] = useState(false);
@@ -768,5 +768,13 @@ export default function PatientLookupPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function PatientLookupPage() {
+  return (
+    <Suspense fallback={<div className="p-8 text-center">Loading...</div>}>
+      <PatientLookupContent />
+    </Suspense>
   );
 }
