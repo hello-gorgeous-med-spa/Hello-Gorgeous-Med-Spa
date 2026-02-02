@@ -6,6 +6,9 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 
+// Force dynamic rendering - this route uses request.url
+export const dynamic = 'force-dynamic';
+
 // Required consents for treatment
 const REQUIRED_CONSENTS = ['hipaa', 'treatment_consent'];
 

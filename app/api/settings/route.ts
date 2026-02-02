@@ -6,20 +6,27 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 // GET /api/settings - Get business settings
 export async function GET() {
   try {
     const supabase = createServerSupabaseClient();
 
-    // Try to get settings from database
+    // Try to get settings from cms_site_settings (the table that exists)
     const { data: settingsData, error } = await supabase
-      .from('business_settings')
+      .from('cms_site_settings')
       .select('*')
+      .limit(1)
       .single();
 
-    if (error && error.code !== 'PGRST116') {
-      // PGRST116 is "no rows returned" which is fine for first load
-      console.error('Settings fetch error:', error);
+    if (error && error.code !== 'PGRST116' && error.code !== 'PGRST205') {
+      // PGRST116 is "no rows returned", PGRST205 is "table not found" - both fine for first load
+      // Only log unexpected errors, not during build
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('Settings fetch error:', error);
+      }
     }
 
     // Return settings or defaults

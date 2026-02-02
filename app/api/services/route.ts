@@ -4,6 +4,9 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 
+// Force dynamic rendering - this route uses request.url
+export const dynamic = 'force-dynamic';
+
 // Helper to safely create supabase client
 function getSupabase() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;

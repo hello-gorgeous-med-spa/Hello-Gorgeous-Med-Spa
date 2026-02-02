@@ -5,6 +5,9 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 
+// Force dynamic rendering - this route uses request.url
+export const dynamic = 'force-dynamic';
+
 // In-memory store (would be Supabase Storage in production)
 const photoStore: Map<string, any[]> = new Map();
 

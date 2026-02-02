@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
+
+// Force dynamic rendering - this route uses request.url
+export const dynamic = 'force-dynamic';
 import { createAdminSupabaseClient, isAdminConfigured } from '@/lib/hgos/supabase';
 import { toCSV, toJSON, DATA_TYPES } from '@/lib/hgos/data-export';
 
