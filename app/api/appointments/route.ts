@@ -1,5 +1,6 @@
 // ============================================================
 // API: APPOINTMENTS - Full CRUD with service role (bypasses RLS)
+// INCLUDES: Consent enforcement, audit logging
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -20,6 +21,124 @@ function getSupabase() {
     });
   } catch {
     return null;
+  }
+}
+
+// ============================================================
+// CONSENT ENFORCEMENT HELPER
+// Checks if client has required consents before treatment completion
+// ============================================================
+async function checkConsentRequirements(
+  supabase: any, 
+  clientId: string, 
+  serviceId?: string
+): Promise<{ valid: boolean; missing: string[]; details: any[] }> {
+  // Required consent types for any treatment
+  const REQUIRED_CONSENTS = [
+    'hipaa_authorization',
+    'general_treatment',
+  ];
+  
+  // Service-specific consents (would be configurable per service)
+  const SERVICE_CONSENTS: Record<string, string[]> = {
+    // Injectable services require additional consent
+    injectable: ['injectable_consent'],
+    botox: ['injectable_consent'],
+    filler: ['injectable_consent', 'filler_consent'],
+    // Add more service types as needed
+  };
+  
+  try {
+    // Get all signed (active) consents for this client
+    const { data: signedConsents, error } = await supabase
+      .from('signed_consents')
+      .select('form_type, signed_at, expires_at, status')
+      .eq('client_id', clientId)
+      .eq('status', 'signed');
+    
+    if (error) {
+      console.error('Error checking consents:', error);
+      // Don't block on error - but log it
+      return { valid: true, missing: [], details: [] };
+    }
+    
+    const signedTypes = new Set((signedConsents || []).map((c: any) => c.form_type));
+    const missing: string[] = [];
+    
+    // Check required consents
+    for (const required of REQUIRED_CONSENTS) {
+      if (!signedTypes.has(required)) {
+        missing.push(required);
+      }
+    }
+    
+    // Check service-specific consents if service provided
+    if (serviceId) {
+      // Get service name to determine type
+      const { data: service } = await supabase
+        .from('services')
+        .select('name, category')
+        .eq('id', serviceId)
+        .single();
+      
+      if (service) {
+        const serviceName = service.name?.toLowerCase() || '';
+        const category = service.category?.toLowerCase() || '';
+        
+        // Check if service requires specific consents
+        for (const [keyword, consents] of Object.entries(SERVICE_CONSENTS)) {
+          if (serviceName.includes(keyword) || category.includes(keyword)) {
+            for (const consent of consents) {
+              if (!signedTypes.has(consent)) {
+                missing.push(consent);
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    return {
+      valid: missing.length === 0,
+      missing,
+      details: signedConsents || [],
+    };
+  } catch (err) {
+    console.error('Consent check error:', err);
+    return { valid: true, missing: [], details: [] };
+  }
+}
+
+// ============================================================
+// AUDIT LOGGING HELPER
+// ============================================================
+async function logAppointmentAction(
+  supabase: any,
+  action: string,
+  appointmentId: string,
+  userId?: string,
+  details?: any,
+  request?: NextRequest
+) {
+  try {
+    const ipAddress = request?.headers.get('x-forwarded-for')?.split(',')[0] || 
+                      request?.headers.get('x-real-ip') || 'unknown';
+    const userAgent = request?.headers.get('user-agent') || 'unknown';
+    
+    await supabase
+      .from('audit_logs')
+      .insert({
+        user_id: userId,
+        action,
+        resource_type: 'appointment',
+        resource_id: appointmentId,
+        description: `Appointment ${action}`,
+        new_values: details,
+        ip_address: ipAddress,
+        user_agent: userAgent,
+      });
+  } catch (err) {
+    console.error('Audit log error:', err);
   }
 }
 
@@ -217,6 +336,53 @@ export async function PUT(request: NextRequest) {
   }
 
   try {
+    // ============================================================
+    // CONSENT ENFORCEMENT - Cannot complete without valid consents
+    // ============================================================
+    if (updateData.status === 'completed') {
+      // First get the appointment to find client and service
+      const { data: existingApt, error: fetchError } = await supabase
+        .from('appointments')
+        .select('client_id, service_id, provider_id')
+        .eq('id', id)
+        .single();
+      
+      if (fetchError) {
+        return NextResponse.json({ error: 'Appointment not found' }, { status: 404 });
+      }
+      
+      if (existingApt?.client_id) {
+        const consentCheck = await checkConsentRequirements(
+          supabase, 
+          existingApt.client_id, 
+          existingApt.service_id
+        );
+        
+        if (!consentCheck.valid) {
+          // Log the blocked attempt
+          await logAppointmentAction(
+            supabase,
+            'completion_blocked_missing_consent',
+            id,
+            undefined,
+            { missing_consents: consentCheck.missing },
+            request
+          );
+          
+          return NextResponse.json({
+            error: 'Cannot complete appointment - missing required consents',
+            code: 'CONSENT_REQUIRED',
+            missingConsents: consentCheck.missing,
+            message: `Please ensure the following consents are signed: ${consentCheck.missing.join(', ').replace(/_/g, ' ')}`,
+          }, { status: 403 });
+        }
+      }
+      
+      // Add completion timestamp
+      updateData.completed_at = new Date().toISOString();
+    }
+
+    // Perform the update
     const { data, error } = await supabase
       .from('appointments')
       .update(updateData)
@@ -226,6 +392,18 @@ export async function PUT(request: NextRequest) {
 
     if (error) {
       return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    // Audit log the status change
+    if (updateData.status) {
+      await logAppointmentAction(
+        supabase,
+        `status_changed_to_${updateData.status}`,
+        id,
+        body.updated_by,
+        { new_status: updateData.status },
+        request
+      );
     }
 
     return NextResponse.json({ appointment: data });

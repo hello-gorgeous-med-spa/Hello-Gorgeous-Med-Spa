@@ -42,6 +42,18 @@ const NAV_ITEMS = [
     description: 'Search patients & history'
   },
   { 
+    name: 'Photos', 
+    href: '/provider/photos', 
+    icon: '📷',
+    description: 'Before/after documentation'
+  },
+  { 
+    name: 'Tasks', 
+    href: '/provider/tasks', 
+    icon: '✅',
+    description: 'Follow-ups & reminders'
+  },
+  { 
     name: 'Products', 
     href: '/provider/inventory', 
     icon: '💉',

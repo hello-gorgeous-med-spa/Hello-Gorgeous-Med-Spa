@@ -46,7 +46,11 @@ export default function PatientLookupPage() {
   const [searchResults, setSearchResults] = useState<Patient[]>([]);
   const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
   const [visitHistory, setVisitHistory] = useState<Visit[]>([]);
-  const [activeTab, setActiveTab] = useState<'overview' | 'history' | 'consents' | 'notes'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'history' | 'consents' | 'photos' | 'payments' | 'documents' | 'membership' | 'notes'>('overview');
+  const [photos, setPhotos] = useState<any[]>([]);
+  const [payments, setPayments] = useState<any[]>([]);
+  const [documents, setDocuments] = useState<any[]>([]);
+  const [membership, setMembership] = useState<any>(null);
 
   // Search patients
   const handleSearch = async (query: string) => {
@@ -118,6 +122,34 @@ export default function PatientLookupPage() {
           notes: a.notes,
         })));
       }
+
+      // Load photos
+      try {
+        const photosRes = await fetch(`/api/photos?clientId=${patientId}`);
+        const photosData = await photosRes.json();
+        setPhotos(photosData.photos || []);
+      } catch (e) {
+        setPhotos([]);
+      }
+
+      // Load payments/transactions
+      try {
+        const paymentsRes = await fetch(`/api/transactions?clientId=${patientId}`);
+        const paymentsData = await paymentsRes.json();
+        setPayments(paymentsData.transactions || []);
+      } catch (e) {
+        setPayments([]);
+      }
+
+      // Load membership info
+      try {
+        const membershipRes = await fetch(`/api/memberships?clientId=${patientId}`);
+        const membershipData = await membershipRes.json();
+        setMembership(membershipData.membership || null);
+      } catch (e) {
+        setMembership(null);
+      }
+
     } catch (error) {
       console.error('Error loading patient:', error);
     }
@@ -331,17 +363,21 @@ export default function PatientLookupPage() {
           {/* Right Column - Tabs Content */}
           <div className="lg:col-span-2 bg-white rounded-xl border border-gray-100 overflow-hidden">
             {/* Tabs */}
-            <div className="flex border-b border-gray-200">
+            <div className="flex border-b border-gray-200 overflow-x-auto">
               {[
                 { id: 'overview', label: 'Overview', icon: '📋' },
-                { id: 'history', label: 'Visit History', icon: '📅' },
+                { id: 'history', label: 'Visits', icon: '📅' },
                 { id: 'consents', label: 'Consents', icon: '✍️' },
+                { id: 'photos', label: 'Photos', icon: '📷' },
+                { id: 'payments', label: 'Payments', icon: '💳' },
+                { id: 'membership', label: 'Membership', icon: '⭐' },
+                { id: 'documents', label: 'Documents', icon: '📁' },
                 { id: 'notes', label: 'Notes', icon: '📝' },
               ].map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id as any)}
-                  className={`flex-1 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+                  className={`flex-shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
                     activeTab === tab.id
                       ? 'border-pink-500 text-pink-600'
                       : 'border-transparent text-gray-500 hover:text-gray-700'
@@ -497,10 +533,226 @@ export default function PatientLookupPage() {
                 </div>
               )}
 
+              {/* Photos Tab */}
+              {activeTab === 'photos' && (
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-900">Before/After Photos</h3>
+                    <Link
+                      href={`/provider/photos?client=${selectedPatient.id}`}
+                      className="px-3 py-1.5 bg-pink-500 text-white text-sm rounded-lg hover:bg-pink-600"
+                    >
+                      + Add Photo
+                    </Link>
+                  </div>
+                  
+                  {photos.length === 0 ? (
+                    <div className="text-center py-8">
+                      <span className="text-4xl block mb-2">📷</span>
+                      <p className="text-gray-500 mb-3">No photos on file</p>
+                      <Link
+                        href={`/provider/photos?client=${selectedPatient.id}`}
+                        className="text-pink-600 hover:underline"
+                      >
+                        Take first photo →
+                      </Link>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-3 gap-3">
+                      {photos.map((photo: any) => (
+                        <div key={photo.id} className="relative group rounded-lg overflow-hidden border">
+                          <img 
+                            src={photo.url || photo.thumbnail_url} 
+                            alt={photo.type}
+                            className="w-full aspect-square object-cover"
+                          />
+                          <div className="absolute top-1 left-1">
+                            <span className={`px-2 py-0.5 text-xs font-bold rounded ${
+                              photo.type === 'before' ? 'bg-green-500 text-white' : 'bg-blue-500 text-white'
+                            }`}>
+                              {photo.type?.toUpperCase()}
+                            </span>
+                          </div>
+                          <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-xs p-1 opacity-0 group-hover:opacity-100">
+                            {photo.treatment_area || 'General'} • {new Date(photo.taken_at).toLocaleDateString()}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Payments Tab */}
+              {activeTab === 'payments' && (
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-4">Payment History</h3>
+                  
+                  {payments.length === 0 ? (
+                    <div className="text-center py-8">
+                      <span className="text-4xl block mb-2">💳</span>
+                      <p className="text-gray-500">No payment records</p>
+                    </div>
+                  ) : (
+                    <div className="space-y-3">
+                      {payments.map((payment: any) => (
+                        <div key={payment.id} className="p-4 border border-gray-200 rounded-lg">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <p className="font-medium text-gray-900">
+                                ${(payment.amount_cents / 100).toFixed(2)}
+                              </p>
+                              <p className="text-sm text-gray-500">
+                                {formatDate(payment.created_at)} • {payment.payment_method || 'Card'}
+                              </p>
+                            </div>
+                            <span className={`px-2 py-1 text-xs rounded-full ${
+                              payment.status === 'succeeded' ? 'bg-green-100 text-green-700' :
+                              payment.status === 'refunded' ? 'bg-amber-100 text-amber-700' :
+                              'bg-gray-100 text-gray-600'
+                            }`}>
+                              {payment.status}
+                            </span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Outstanding Balance */}
+                  <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+                    <div className="flex justify-between items-center">
+                      <span className="text-gray-600">Outstanding Balance</span>
+                      <span className="text-xl font-bold text-gray-900">$0.00</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Membership Tab */}
+              {activeTab === 'membership' && (
+                <div>
+                  <h3 className="font-semibold text-gray-900 mb-4">Membership & Packages</h3>
+                  
+                  {membership ? (
+                    <div className="space-y-4">
+                      <div className="p-4 bg-purple-50 border border-purple-200 rounded-xl">
+                        <div className="flex items-center justify-between mb-3">
+                          <div>
+                            <p className="font-bold text-purple-900">{membership.name}</p>
+                            <p className="text-sm text-purple-700">{membership.type}</p>
+                          </div>
+                          <span className="px-3 py-1 bg-purple-500 text-white text-sm rounded-full font-medium">
+                            Active
+                          </span>
+                        </div>
+                        
+                        {membership.units_remaining !== undefined && (
+                          <div className="mb-3">
+                            <div className="flex justify-between text-sm mb-1">
+                              <span className="text-purple-700">Units Remaining</span>
+                              <span className="font-bold text-purple-900">
+                                {membership.units_remaining} / {membership.units_total}
+                              </span>
+                            </div>
+                            <div className="w-full h-2 bg-purple-200 rounded-full">
+                              <div 
+                                className="h-full bg-purple-500 rounded-full"
+                                style={{ width: `${(membership.units_remaining / membership.units_total) * 100}%` }}
+                              />
+                            </div>
+                          </div>
+                        )}
+                        
+                        {membership.expires_at && (
+                          <p className="text-sm text-purple-600">
+                            Expires: {formatDate(membership.expires_at)}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="text-center py-8">
+                      <span className="text-4xl block mb-2">⭐</span>
+                      <p className="text-gray-500 mb-3">No active membership</p>
+                      <button className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600">
+                        Enroll in Membership
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Loyalty Points */}
+                  <div className="mt-6">
+                    <h4 className="font-medium text-gray-900 mb-3">Loyalty Rewards</h4>
+                    <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl">
+                      <div className="flex items-center gap-3">
+                        <span className="text-3xl">🏆</span>
+                        <div>
+                          <p className="font-bold text-amber-900">
+                            {selectedPatient.loyalty_points || 0} Points
+                          </p>
+                          <p className="text-sm text-amber-700">
+                            ${Math.floor((selectedPatient.loyalty_points || 0) / 100)} in rewards available
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Documents Tab */}
+              {activeTab === 'documents' && (
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-semibold text-gray-900">Medical Documents</h3>
+                    <button className="px-3 py-1.5 bg-gray-100 text-gray-700 text-sm rounded-lg hover:bg-gray-200">
+                      + Upload
+                    </button>
+                  </div>
+                  
+                  {documents.length === 0 ? (
+                    <div className="text-center py-8">
+                      <span className="text-4xl block mb-2">📁</span>
+                      <p className="text-gray-500">No documents on file</p>
+                      <p className="text-sm text-gray-400 mt-1">
+                        Labs, clearances, referrals, etc.
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="space-y-2">
+                      {documents.map((doc: any) => (
+                        <div key={doc.id} className="p-3 border border-gray-200 rounded-lg flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <span className="text-2xl">
+                              {doc.type === 'lab' ? '🧪' : 
+                               doc.type === 'clearance' ? '✅' :
+                               doc.type === 'referral' ? '📋' : '📄'}
+                            </span>
+                            <div>
+                              <p className="font-medium text-gray-900">{doc.name}</p>
+                              <p className="text-sm text-gray-500">{formatDate(doc.uploaded_at)}</p>
+                            </div>
+                          </div>
+                          <button className="text-pink-600 hover:text-pink-700 text-sm">
+                            View
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* Notes Tab */}
               {activeTab === 'notes' && (
                 <div>
                   <h3 className="font-semibold text-gray-900 mb-3">Patient Notes</h3>
+                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4">
+                    <p className="text-sm text-amber-800">
+                      ⚠️ Internal notes only - not visible to patient
+                    </p>
+                  </div>
                   <textarea
                     placeholder="Add notes about this patient..."
                     className="w-full h-40 p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"

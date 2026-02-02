@@ -1,10 +1,43 @@
 // ============================================================
 // CHART NOTES API
 // CRUD operations for SOAP clinical notes
+// INCLUDES: Full audit logging for HIPAA compliance
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
+
+// Audit logging helper for clinical notes
+async function auditChartAction(
+  supabase: any,
+  action: string,
+  noteId: string,
+  userId?: string,
+  clientId?: string,
+  details?: any,
+  request?: NextRequest
+) {
+  try {
+    const ipAddress = request?.headers.get('x-forwarded-for')?.split(',')[0] || 
+                      request?.headers.get('x-real-ip') || 'unknown';
+    const userAgent = request?.headers.get('user-agent') || 'unknown';
+    
+    await supabase
+      .from('audit_logs')
+      .insert({
+        user_id: userId,
+        action,
+        resource_type: 'clinical_note',
+        resource_id: noteId,
+        description: `Clinical note ${action}${clientId ? ` for client ${clientId}` : ''}`,
+        new_values: details,
+        ip_address: ipAddress,
+        user_agent: userAgent,
+      });
+  } catch (err) {
+    console.error('Chart audit log error:', err);
+  }
+}
 
 // GET /api/chart-notes - List chart notes
 export async function GET(request: NextRequest) {
@@ -118,6 +151,17 @@ export async function POST(request: NextRequest) {
 
     if (error) throw error;
 
+    // AUDIT LOG: Chart note created
+    await auditChartAction(
+      supabase,
+      'create',
+      data.id,
+      provider_id || created_by,
+      client_id,
+      { appointment_id, service_performed: treatment_performed },
+      request
+    );
+
     return NextResponse.json({ note: data }, { status: 201 });
   } catch (error) {
     console.error('Error creating chart note:', error);
@@ -216,6 +260,17 @@ export async function PATCH(request: NextRequest) {
           changed_by: signed_by,
           change_reason: 'Initial signature',
         });
+
+      // AUDIT LOG: Chart note signed and locked
+      await auditChartAction(
+        supabase,
+        'sign',
+        id,
+        signed_by,
+        data.client_id,
+        { signed_at: data.signed_at, is_locked: true },
+        request
+      );
 
       return NextResponse.json({ note: data, message: 'Chart note signed and locked' });
     }
