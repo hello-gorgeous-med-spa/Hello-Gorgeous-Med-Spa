@@ -146,8 +146,8 @@ export default function SchedulingEnginePage() {
                   <button
                     key={ps.providerId}
                     onClick={() => setSelectedProvider(ps.providerId)}
-                    className={`px-4 py-2 rounded-lg text-sm font-medium ${
-                      selectedProvider === ps.providerId ? 'bg-purple-600 text-white' : 'bg-gray-100 hover:bg-gray-200'
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                      selectedProvider === ps.providerId ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/30' : 'bg-pink-100 text-pink-700 hover:bg-pink-200 border border-pink-200'
                     }`}
                   >
                     {ps.providerName}

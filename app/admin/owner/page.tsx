@@ -172,8 +172,8 @@ export default function FounderOverviewPage() {
                 onClick={() => setDateRange(range)}
                 className={`px-4 py-2 rounded-lg text-sm capitalize ${
                   dateRange === range 
-                    ? 'bg-purple-600 text-white' 
-                    : 'bg-white border hover:bg-gray-50'
+                    ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/30' 
+                    : 'bg-pink-100 text-pink-700 hover:bg-pink-200 border border-pink-200'
                 }`}
               >
                 {range}

@@ -80,12 +80,16 @@ export default function FeatureFlagsPage() {
       </div>
 
       {/* Category Filter */}
-      <div className="flex gap-2 mb-6">
+      <div className="flex gap-2 mb-6 flex-wrap">
         {categories.map(cat => (
           <button
             key={cat}
             onClick={() => setFilterCategory(cat)}
-            className={`px-4 py-2 rounded-lg text-sm ${filterCategory === cat ? 'bg-purple-600 text-white' : 'bg-gray-100 hover:bg-gray-200'}`}
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+              filterCategory === cat 
+                ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/30' 
+                : 'bg-pink-100 text-pink-700 hover:bg-pink-200 border border-pink-200'
+            }`}
           >
             {cat === 'all' ? 'All Features' : cat}
           </button>

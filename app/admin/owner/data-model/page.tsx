@@ -114,8 +114,8 @@ export default function DataModelPage() {
             <button
               key={entity}
               onClick={() => setFilterEntity(entity)}
-              className={`px-4 py-2 rounded-lg text-sm capitalize ${
-                filterEntity === entity ? 'bg-purple-600 text-white' : 'bg-white border hover:bg-gray-50'
+              className={`px-4 py-2 rounded-lg text-sm capitalize font-medium transition-colors ${
+                filterEntity === entity ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/30' : 'bg-pink-100 text-pink-700 hover:bg-pink-200 border border-pink-200'
               }`}
             >
               {entity === 'all' ? 'All Entities' : entity}
