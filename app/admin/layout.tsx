@@ -103,6 +103,17 @@ const NAV_SECTIONS = [
       { href: '/admin/system-health', label: 'System Health', icon: '🩺', description: 'Go-live readiness' },
     ],
   },
+  {
+    title: '👑 Owner Mode',
+    items: [
+      { href: '/admin/owner', label: 'Owner Dashboard', icon: '👑', description: 'Full system control' },
+      { href: '/admin/owner/services', label: 'Service Manager', icon: '💉', description: 'Create & edit services' },
+      { href: '/admin/owner/users', label: 'User & RBAC', icon: '👥', description: 'Roles & kill switch' },
+      { href: '/admin/owner/features', label: 'Feature Flags', icon: '🎚️', description: 'Enable/disable features' },
+      { href: '/admin/owner/exports', label: 'Data Exports', icon: '📤', description: 'Export all data' },
+      { href: '/admin/owner/changelog', label: 'Change Log', icon: '📜', description: 'Audit & rollback' },
+    ],
+  },
 ];
 
 const QUICK_LINKS = [
