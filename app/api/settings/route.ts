@@ -9,76 +9,60 @@ import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
 
+// Default settings
+const DEFAULT_SETTINGS = {
+  business_name: 'Hello Gorgeous Med Spa',
+  phone: '(630) 636-6193',
+  email: 'hello@hellogorgeousmedspa.com',
+  address: '74 W. Washington St, Oswego, IL 60543',
+  timezone: 'America/Chicago',
+  online_booking_enabled: true,
+  require_deposit: false,
+  send_reminders: true,
+  cancellation_hours: 24,
+  cancellation_fee_percent: 50,
+};
+
+const DEFAULT_HOURS = {
+  monday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
+  tuesday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
+  wednesday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
+  thursday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
+  friday: { open: '9:00 AM', close: '3:00 PM', enabled: true },
+  saturday: { open: '10:00 AM', close: '2:00 PM', enabled: false },
+  sunday: { open: '', close: '', enabled: false },
+};
+
 // GET /api/settings - Get business settings
 export async function GET() {
   try {
     const supabase = createServerSupabaseClient();
 
-    // Try to get settings from cms_site_settings (the table that exists)
+    // Try business_settings table first (new table from migration)
     const { data: settingsData, error } = await supabase
-      .from('cms_site_settings')
+      .from('business_settings')
       .select('*')
       .limit(1)
       .single();
 
-    if (error && error.code !== 'PGRST116' && error.code !== 'PGRST205') {
-      // PGRST116 is "no rows returned", PGRST205 is "table not found" - both fine for first load
-      // Only log unexpected errors, not during build
-      if (process.env.NODE_ENV !== 'production') {
-        console.error('Settings fetch error:', error);
-      }
+    // If table doesn't exist or no data, return defaults silently
+    if (error) {
+      return NextResponse.json({ 
+        settings: DEFAULT_SETTINGS, 
+        businessHours: DEFAULT_HOURS 
+      });
     }
 
     // Return settings or defaults
-    const settings = settingsData?.settings || {
-      business_name: 'Hello Gorgeous Med Spa',
-      phone: '(630) 636-6193',
-      email: 'hello@hellogorgeousmedspa.com',
-      address: '74 W. Washington St, Oswego, IL 60543',
-      timezone: 'America/Chicago',
-      online_booking_enabled: true,
-      require_deposit: false,
-      send_reminders: true,
-      cancellation_hours: 24,
-      cancellation_fee_percent: 50,
-    };
-
-    const businessHours = settingsData?.business_hours || {
-      monday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
-      tuesday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
-      wednesday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
-      thursday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
-      friday: { open: '9:00 AM', close: '3:00 PM', enabled: true },
-      saturday: { open: '10:00 AM', close: '2:00 PM', enabled: false },
-      sunday: { open: '', close: '', enabled: false },
-    };
+    const settings = settingsData?.settings || DEFAULT_SETTINGS;
+    const businessHours = settingsData?.business_hours || DEFAULT_HOURS;
 
     return NextResponse.json({ settings, businessHours });
   } catch (error) {
-    console.error('Settings GET error:', error);
-    // Return defaults if anything fails
+    // Return defaults silently if anything fails
     return NextResponse.json({
-      settings: {
-        business_name: 'Hello Gorgeous Med Spa',
-        phone: '(630) 636-6193',
-        email: 'hello@hellogorgeousmedspa.com',
-        address: '74 W. Washington St, Oswego, IL 60543',
-        timezone: 'America/Chicago',
-        online_booking_enabled: true,
-        require_deposit: false,
-        send_reminders: true,
-        cancellation_hours: 24,
-        cancellation_fee_percent: 50,
-      },
-      businessHours: {
-        monday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
-        tuesday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
-        wednesday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
-        thursday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
-        friday: { open: '9:00 AM', close: '3:00 PM', enabled: true },
-        saturday: { open: '10:00 AM', close: '2:00 PM', enabled: false },
-        sunday: { open: '', close: '', enabled: false },
-      },
+      settings: DEFAULT_SETTINGS,
+      businessHours: DEFAULT_HOURS,
     });
   }
 }

@@ -184,6 +184,108 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ success: true, message: 'Stock received', newStock });
     }
 
+    // USE STOCK action (with expiration check)
+    if (action === 'use_stock') {
+      const { quantity, lot_id, client_id, appointment_id, provider_id, notes } = data;
+
+      if (!quantity || quantity <= 0) {
+        return NextResponse.json({ error: 'Valid quantity is required' }, { status: 400 });
+      }
+
+      // If lot_id provided, check that specific lot
+      if (lot_id) {
+        const { data: lot, error: lotError } = await supabase
+          .from('inventory_lots')
+          .select('*')
+          .eq('id', lot_id)
+          .single();
+
+        if (lotError || !lot) {
+          return NextResponse.json({ error: 'Lot not found' }, { status: 404 });
+        }
+
+        // Check expiration
+        if (new Date(lot.expiration_date) < new Date()) {
+          return NextResponse.json({ 
+            error: 'Cannot use expired inventory', 
+            expired: true,
+            expiration_date: lot.expiration_date 
+          }, { status: 400 });
+        }
+
+        // Check quantity
+        if (lot.quantity_remaining < quantity) {
+          return NextResponse.json({ 
+            error: 'Insufficient quantity in lot',
+            available: lot.quantity_remaining,
+            requested: quantity
+          }, { status: 400 });
+        }
+
+        // Update lot quantity
+        await supabase
+          .from('inventory_lots')
+          .update({ 
+            quantity_remaining: lot.quantity_remaining - quantity,
+            quantity_used: (lot.quantity_used || 0) + quantity,
+          })
+          .eq('id', lot_id);
+      }
+
+      // Update product stock level
+      const { data: current } = await supabase
+        .from('inventory_products')
+        .select('current_stock')
+        .eq('id', id)
+        .single();
+
+      const newStock = Math.max(0, (current?.current_stock || 0) - quantity);
+
+      await supabase
+        .from('inventory_products')
+        .update({ 
+          current_stock: newStock,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', id);
+
+      // Log the transaction
+      await supabase
+        .from('inventory_transactions')
+        .insert({
+          product_id: id,
+          inventory_lot_id: lot_id || null,
+          transaction_type: 'use',
+          quantity: -quantity,
+          client_id: client_id || null,
+          appointment_id: appointment_id || null,
+          provider_id: provider_id || null,
+          notes: notes || null,
+        });
+
+      return NextResponse.json({ success: true, message: 'Stock used', newStock });
+    }
+
+    // GET AVAILABLE LOTS action
+    if (action === 'get_available_lots') {
+      const { data: lots, error: lotsError } = await supabase
+        .from('inventory_lots')
+        .select('*')
+        .eq('product_id', id)
+        .gt('quantity_remaining', 0)
+        .gte('expiration_date', new Date().toISOString().split('T')[0])
+        .order('expiration_date', { ascending: true }); // FEFO
+
+      if (lotsError) {
+        return NextResponse.json({ error: 'Failed to fetch lots' }, { status: 500 });
+      }
+
+      return NextResponse.json({ 
+        lots: lots || [],
+        total_available: lots?.reduce((sum, lot) => sum + (lot.quantity_remaining || 0), 0) || 0
+      });
+    }
+
     // Regular UPDATE
     const update: any = {};
     if (data.name !== undefined) update.name = data.name;
