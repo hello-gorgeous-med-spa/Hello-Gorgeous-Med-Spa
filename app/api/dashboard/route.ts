@@ -115,7 +115,7 @@ export async function GET(request: NextRequest) {
       .select('*', { count: 'exact', head: true })
       .gte('created_at', monthStart.toISOString());
 
-    // Get upcoming appointments (next 5)
+    // Get upcoming appointments (next 5) - join through clients to users for names
     const { data: upcomingAppointments } = await supabase
       .from('appointments')
       .select(`
@@ -123,20 +123,40 @@ export async function GET(request: NextRequest) {
         starts_at,
         scheduled_at,
         status,
-        client:clients(id, first_name, last_name),
-        service:services(name)
+        client_id,
+        service:services(name),
+        provider:providers(
+          id,
+          user:users(first_name, last_name)
+        )
       `)
       .gte('starts_at', new Date().toISOString())
       .order('starts_at')
       .limit(5);
 
+    // Get client names separately (clients -> users join)
+    const clientIds = (upcomingAppointments || []).map((a: any) => a.client_id).filter(Boolean);
+    const { data: clientsData } = clientIds.length > 0 
+      ? await supabase
+          .from('clients')
+          .select('id, users!inner(first_name, last_name)')
+          .in('id', clientIds)
+      : { data: [] };
+    
+    const clientMap = new Map((clientsData || []).map((c: any) => [
+      c.id, 
+      `${c.users?.first_name || ''} ${c.users?.last_name || ''}`.trim() || 'Unknown'
+    ]));
+
     const upcoming = (upcomingAppointments || []).map((apt: any) => ({
       id: apt.id,
       time: apt.starts_at || apt.scheduled_at,
       status: apt.status,
-      client_name: apt.client ? 
-        `${apt.client.first_name || ''} ${apt.client.last_name || ''}`.trim() || 'Unknown' : 'Unknown',
+      client_name: clientMap.get(apt.client_id) || 'Unknown',
       service: apt.service?.name || 'Service',
+      provider_name: apt.provider?.user 
+        ? `${apt.provider.user.first_name || ''} ${apt.provider.user.last_name || ''}`.trim() 
+        : 'Provider',
     }));
 
     return NextResponse.json({
