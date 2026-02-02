@@ -113,7 +113,7 @@ export async function POST(request: NextRequest) {
     const appointment = {
       id: `apt-${Date.now()}`,
       ...body,
-      status: 'scheduled',
+      status: 'confirmed',
       created_at: new Date().toISOString(),
     };
     appointmentStore.set(appointment.id, appointment);
@@ -150,13 +150,14 @@ export async function POST(request: NextRequest) {
     }
 
     // Build insert object with only valid columns
+    // Valid status values: pending, confirmed, checked_in, in_progress, completed, cancelled, no_show
     const insertData: any = {
       client_id: body.client_id || null,
       provider_id: body.provider_id,
       service_id: body.service_id,
       starts_at: body.starts_at,
       ends_at: endsAt.toISOString(),
-      status: 'scheduled',
+      status: 'confirmed',
     };
 
     // Try to insert - if notes column doesn't exist, retry without it
