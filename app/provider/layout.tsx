@@ -142,8 +142,8 @@ export default function ProviderLayout({
             </div>
             {!sidebarCollapsed && (
               <div>
-                <span className="font-bold text-white block tracking-tight">Provider Portal</span>
-                <span className="text-xs text-gray-500">Clinical Workspace</span>
+                <span className="font-bold text-pink-400 block tracking-tight">Provider Portal</span>
+                <span className="text-xs text-pink-300/60">Clinical Workspace</span>
               </div>
             )}
           </Link>
@@ -152,10 +152,10 @@ export default function ProviderLayout({
         {/* Live Clock */}
         {!sidebarCollapsed && (
           <div className="px-4 py-3 border-b border-gray-800 bg-gray-900/50">
-            <p className="text-2xl font-bold text-white tracking-tight">
+            <p className="text-2xl font-bold text-pink-400 tracking-tight">
               {formatTime(currentTime)}
             </p>
-            <p className="text-xs text-gray-500">{formatDate(currentTime)}</p>
+            <p className="text-xs text-pink-300/60">{formatDate(currentTime)}</p>
           </div>
         )}
 
@@ -173,7 +173,7 @@ export default function ProviderLayout({
                       flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200
                       ${active 
                         ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/20' 
-                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                        : 'text-gray-400 hover:text-pink-400 hover:bg-pink-500/10'
                       }
                     `}
                     title={sidebarCollapsed ? item.name : undefined}
@@ -240,7 +240,7 @@ export default function ProviderLayout({
         <div className="p-3 border-t border-gray-800">
           <button
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 text-gray-500 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
+            className="w-full flex items-center justify-center gap-2 px-3 py-2 text-gray-500 hover:text-pink-400 hover:bg-pink-500/10 rounded-xl transition-colors"
           >
             <span className="text-lg">{sidebarCollapsed ? '→' : '←'}</span>
             {!sidebarCollapsed && <span className="text-sm">Collapse</span>}

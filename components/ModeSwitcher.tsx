@@ -67,7 +67,7 @@ export default function ModeSwitcher({ variant = 'tabs', showDescription = false
                   ? mode.color === 'pink' ? 'bg-pink-500 text-white' :
                     mode.color === 'amber' ? 'bg-amber-500 text-white' :
                     'bg-emerald-500 text-white'
-                  : 'text-gray-400 hover:text-white hover:bg-white/10'
+                  : 'text-gray-400 hover:text-pink-400 hover:bg-pink-500/10'
                 }
               `}
             >
@@ -92,8 +92,8 @@ export default function ModeSwitcher({ variant = 'tabs', showDescription = false
               className={`
                 flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all
                 ${isActive 
-                  ? 'bg-white text-gray-900 shadow-lg' 
-                  : 'text-gray-400 hover:text-white'
+                  ? 'bg-pink-500 text-white shadow-lg' 
+                  : 'text-gray-400 hover:text-pink-400'
                 }
               `}
             >

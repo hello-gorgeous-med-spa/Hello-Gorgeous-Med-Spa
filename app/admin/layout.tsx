@@ -145,8 +145,8 @@ export default function AdminLayout({
                 <span className="text-white text-lg font-bold">H</span>
               </div>
               <div className="hidden sm:block">
-                <h1 className="text-white font-bold text-sm tracking-tight">Hello Gorgeous</h1>
-                <p className="text-gray-400 text-[10px]">Med Spa OS</p>
+                <h1 className="text-pink-400 font-bold text-sm tracking-tight">Hello Gorgeous</h1>
+                <p className="text-pink-300/70 text-[10px]">Med Spa OS</p>
               </div>
             </Link>
           </div>
@@ -160,8 +160,8 @@ export default function AdminLayout({
           <div className="flex items-center gap-4">
             {/* Time Display */}
             <div className="hidden lg:block text-right">
-              <p className="text-white font-semibold text-sm">{formatTime(currentTime)}</p>
-              <p className="text-gray-500 text-[10px]">{formatDate(currentTime)}</p>
+              <p className="text-pink-400 font-semibold text-sm">{formatTime(currentTime)}</p>
+              <p className="text-pink-300/60 text-[10px]">{formatDate(currentTime)}</p>
             </div>
 
             {/* Quick Actions */}
@@ -221,7 +221,7 @@ export default function AdminLayout({
                           flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-sm
                           ${isActive(item.href)
                             ? 'bg-pink-500/20 text-pink-400 border-l-2 border-pink-500'
-                            : 'text-gray-400 hover:text-white hover:bg-white/5'
+                            : 'text-gray-400 hover:text-pink-400 hover:bg-pink-500/10'
                           }
                         `}
                         title={sidebarCollapsed ? item.label : undefined}
@@ -249,11 +249,11 @@ export default function AdminLayout({
                   A
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-white text-sm font-medium truncate">Admin</p>
-                  <p className="text-gray-500 text-xs">Full Access</p>
+                  <p className="text-pink-400 text-sm font-medium truncate">Admin</p>
+                  <p className="text-pink-300/50 text-xs">Full Access</p>
                 </div>
               </div>
-              <p className="text-[10px] text-gray-600 text-center mt-4">
+              <p className="text-[10px] text-pink-300/40 text-center mt-4">
                 Hello Gorgeous OS v1.5
               </p>
             </div>
