@@ -5,7 +5,25 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+
+// Safe Supabase helper - returns null if not configured
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  
+  if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) {
+    return null;
+  }
+  
+  try {
+    const { createClient } = require('@supabase/supabase-js');
+    return createClient(url, key, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+  } catch {
+    return null;
+  }
+}
 
 // ONLY THESE TWO PROVIDERS - HARDCODED
 const ALLOWED_PROVIDERS = [
@@ -40,9 +58,13 @@ function isAllowedProvider(firstName: string, lastName: string): boolean {
 
 // GET /api/providers - List ONLY Ryan and Danielle
 export async function GET() {
-  try {
-    const supabase = createServerSupabaseClient();
+  // Always return fallback if Supabase not configured
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ providers: ALLOWED_PROVIDERS });
+  }
 
+  try {
     const { data: providers, error } = await supabase
       .from('providers')
       .select(`
@@ -92,8 +114,12 @@ export async function GET() {
 
 // POST /api/providers - Create new provider
 export async function POST(request: NextRequest) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   try {
-    const supabase = createServerSupabaseClient();
     const body = await request.json();
 
     const { user_id, credentials, color_hex } = body;
@@ -146,8 +172,12 @@ export async function POST(request: NextRequest) {
 
 // PUT /api/providers - Update provider
 export async function PUT(request: NextRequest) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   try {
-    const supabase = createServerSupabaseClient();
     const body = await request.json();
 
     const { id, credentials, color_hex, is_active } = body;
@@ -181,8 +211,12 @@ export async function PUT(request: NextRequest) {
 
 // DELETE /api/providers - Soft delete (deactivate) provider
 export async function DELETE(request: NextRequest) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
   try {
-    const supabase = createServerSupabaseClient();
     const { searchParams } = new URL(request.url);
     const id = searchParams.get('id');
 
