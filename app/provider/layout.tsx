@@ -2,10 +2,11 @@
 
 // ============================================================
 // PROVIDER PORTAL LAYOUT
-// Professional clinical operations hub with full navigation
+// Fresha-Level UX - Calm, focused, confidence-boosting
+// Black/White/Pink theme - Clinical workspace
 // ============================================================
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -14,69 +15,53 @@ const NAV_ITEMS = [
     name: 'Dashboard', 
     href: '/provider', 
     icon: '🏠',
-    description: 'Overview & today\'s schedule'
+    shortcut: 'D'
   },
   { 
     name: 'Patient Queue', 
     href: '/provider/queue', 
     icon: '👥',
-    description: 'Waiting room & check-ins',
-    badge: 'live'
+    badge: 'live',
+    shortcut: 'Q'
   },
   { 
     name: 'My Schedule', 
     href: '/provider/schedule', 
     icon: '📅',
-    description: 'View & manage availability'
+    shortcut: 'S'
   },
   { 
     name: 'Charting', 
     href: '/provider/charting', 
     icon: '📝',
-    description: 'Clinical notes & documentation'
+    shortcut: 'C'
   },
   { 
     name: 'Patient Lookup', 
     href: '/provider/patients', 
     icon: '🔍',
-    description: 'Search patients & history'
+    shortcut: 'P'
   },
   { 
     name: 'Photos', 
     href: '/provider/photos', 
     icon: '📷',
-    description: 'Before/after documentation'
   },
   { 
     name: 'Tasks', 
     href: '/provider/tasks', 
     icon: '✅',
-    description: 'Follow-ups & reminders'
   },
   { 
     name: 'Products', 
     href: '/provider/inventory', 
     icon: '💉',
-    description: 'Inventory & lot tracking'
   },
   { 
-    name: 'My Performance', 
+    name: 'Performance', 
     href: '/provider/performance', 
     icon: '📊',
-    description: 'Stats & analytics'
   },
-  { 
-    name: 'Messages', 
-    href: '/provider/messages', 
-    icon: '💬',
-    description: 'Patient communications'
-  },
-];
-
-const QUICK_ACTIONS = [
-  { name: 'New Chart', href: '/provider/charting/new', icon: '📝' },
-  { name: 'Quick Sale', href: '/pos/quick-sale', icon: '💳' },
-  { name: 'Photo', href: '/provider/photos', icon: '📷' },
 ];
 
 export default function ProviderLayout({
@@ -85,177 +70,239 @@ export default function ProviderLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [alerts, setAlerts] = useState<any[]>([]);
+  const [queueCount, setQueueCount] = useState(0);
 
-  // Update time every minute
+  // Update time every second for a live feel
   useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 60000);
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  // Fetch alerts (expiring products, pending consents, etc.)
-  useEffect(() => {
-    async function fetchAlerts() {
-      try {
-        // This would fetch real alerts from API
-        // For now, we'll show example alerts
-        setAlerts([
-          // Example alerts - replace with real API calls
-        ]);
-      } catch (error) {
-        console.error('Error fetching alerts:', error);
+  // Fetch queue count
+  const fetchQueueCount = useCallback(async () => {
+    try {
+      const today = new Date().toISOString().split('T')[0];
+      const res = await fetch(`/api/appointments?date=${today}`);
+      if (res.ok) {
+        const data = await res.json();
+        const checkedIn = (data.appointments || []).filter(
+          (a: any) => a.status === 'checked_in'
+        ).length;
+        setQueueCount(checkedIn);
       }
+    } catch (error) {
+      console.error('Error fetching queue:', error);
     }
-    fetchAlerts();
   }, []);
+
+  useEffect(() => {
+    fetchQueueCount();
+    const interval = setInterval(fetchQueueCount, 30000);
+    return () => clearInterval(interval);
+  }, [fetchQueueCount]);
+
+  const isActive = (href: string) => {
+    if (href === '/provider') return pathname === '/provider';
+    return pathname?.startsWith(href);
+  };
+
+  const formatTime = (date: Date) => {
+    return date.toLocaleTimeString('en-US', { 
+      hour: 'numeric', 
+      minute: '2-digit',
+      second: '2-digit',
+      hour12: true 
+    });
+  };
+
+  const formatDate = (date: Date) => {
+    return date.toLocaleDateString('en-US', { 
+      weekday: 'long',
+      month: 'long', 
+      day: 'numeric'
+    });
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar */}
-      <aside className={`${sidebarOpen ? 'w-64' : 'w-20'} bg-slate-900 text-white flex flex-col transition-all duration-300 fixed h-full z-40`}>
-        {/* Logo */}
-        <div className="p-4 border-b border-slate-700">
+      {/* Sidebar - Jet Black */}
+      <aside className={`
+        ${sidebarCollapsed ? 'w-20' : 'w-64'} 
+        bg-[#0a0a0a] text-white flex flex-col transition-all duration-300 
+        fixed h-full z-40
+      `}>
+        {/* Logo & Brand */}
+        <div className="p-4 border-b border-gray-800">
           <Link href="/provider" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-pink-400 to-rose-500 rounded-xl flex items-center justify-center flex-shrink-0">
+            <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-pink-500/20">
               <span className="text-white font-bold text-sm">HG</span>
             </div>
-            {sidebarOpen && (
+            {!sidebarCollapsed && (
               <div>
-                <span className="font-bold text-white block">Provider Portal</span>
-                <span className="text-xs text-slate-400">Hello Gorgeous Med Spa</span>
+                <span className="font-bold text-white block tracking-tight">Provider Portal</span>
+                <span className="text-xs text-gray-500">Clinical Workspace</span>
               </div>
             )}
           </Link>
         </div>
 
+        {/* Live Clock */}
+        {!sidebarCollapsed && (
+          <div className="px-4 py-3 border-b border-gray-800 bg-gray-900/50">
+            <p className="text-2xl font-bold text-white tracking-tight">
+              {formatTime(currentTime)}
+            </p>
+            <p className="text-xs text-gray-500">{formatDate(currentTime)}</p>
+          </div>
+        )}
+
         {/* Navigation */}
         <nav className="flex-1 py-4 overflow-y-auto">
-          <ul className="space-y-1 px-3">
+          <ul className="space-y-1 px-2">
             {NAV_ITEMS.map((item) => {
-              const isActive = pathname === item.href || 
-                (item.href !== '/provider' && pathname?.startsWith(item.href));
+              const active = isActive(item.href);
               
               return (
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${
-                      isActive 
-                        ? 'bg-pink-500 text-white' 
-                        : 'text-slate-300 hover:bg-slate-800 hover:text-white'
-                    }`}
+                    className={`
+                      flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200
+                      ${active 
+                        ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/20' 
+                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      }
+                    `}
+                    title={sidebarCollapsed ? item.name : undefined}
                   >
                     <span className="text-xl flex-shrink-0">{item.icon}</span>
-                    {sidebarOpen && (
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between">
-                          <span className="font-medium">{item.name}</span>
-                          {item.badge && (
-                            <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                          )}
-                        </div>
-                        <span className="text-xs text-slate-400 block truncate">
-                          {item.description}
-                        </span>
-                      </div>
+                    {!sidebarCollapsed && (
+                      <>
+                        <span className="font-medium flex-1">{item.name}</span>
+                        {item.badge === 'live' && queueCount > 0 && (
+                          <span className="flex items-center gap-1.5 px-2 py-0.5 bg-emerald-500 text-white text-xs font-bold rounded-full">
+                            <span className="w-1.5 h-1.5 bg-white rounded-full animate-pulse" />
+                            {queueCount}
+                          </span>
+                        )}
+                        {item.shortcut && (
+                          <kbd className="hidden lg:inline-block px-1.5 py-0.5 text-[10px] text-gray-500 bg-gray-800 rounded">
+                            {item.shortcut}
+                          </kbd>
+                        )}
+                      </>
+                    )}
+                    {sidebarCollapsed && item.badge === 'live' && queueCount > 0 && (
+                      <span className="absolute right-2 top-1/2 -translate-y-1/2 w-5 h-5 bg-emerald-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                        {queueCount}
+                      </span>
                     )}
                   </Link>
                 </li>
               );
             })}
           </ul>
-
-          {/* Quick Actions */}
-          {sidebarOpen && (
-            <div className="mt-6 px-3">
-              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider px-3 mb-2">
-                Quick Actions
-              </p>
-              <div className="flex gap-2">
-                {QUICK_ACTIONS.map((action) => (
-                  <Link
-                    key={action.href}
-                    href={action.href}
-                    className="flex-1 flex flex-col items-center gap-1 p-2 bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors"
-                  >
-                    <span className="text-lg">{action.icon}</span>
-                    <span className="text-xs text-slate-400">{action.name}</span>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
         </nav>
 
-        {/* Sidebar Toggle & Links */}
-        <div className="p-4 border-t border-slate-700 space-y-2">
+        {/* Quick Actions */}
+        {!sidebarCollapsed && (
+          <div className="px-3 pb-4">
+            <div className="grid grid-cols-3 gap-2">
+              <Link
+                href="/provider/charting/new"
+                className="flex flex-col items-center gap-1 p-2 bg-gray-800/50 hover:bg-gray-800 rounded-xl transition-colors"
+              >
+                <span className="text-lg">📝</span>
+                <span className="text-[10px] text-gray-400">Chart</span>
+              </Link>
+              <Link
+                href="/pos/quick-sale"
+                className="flex flex-col items-center gap-1 p-2 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 rounded-xl transition-colors"
+              >
+                <span className="text-lg">💳</span>
+                <span className="text-[10px]">POS</span>
+              </Link>
+              <Link
+                href="/provider/photos"
+                className="flex flex-col items-center gap-1 p-2 bg-gray-800/50 hover:bg-gray-800 rounded-xl transition-colors"
+              >
+                <span className="text-lg">📷</span>
+                <span className="text-[10px] text-gray-400">Photo</span>
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* Footer */}
+        <div className="p-3 border-t border-gray-800">
           <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors"
+            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
+            className="w-full flex items-center justify-center gap-2 px-3 py-2 text-gray-500 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
           >
-            <span>{sidebarOpen ? '◀' : '▶'}</span>
-            {sidebarOpen && <span className="text-sm">Collapse</span>}
+            <span className="text-lg">{sidebarCollapsed ? '→' : '←'}</span>
+            {!sidebarCollapsed && <span className="text-sm">Collapse</span>}
           </button>
           
-          {sidebarOpen && (
+          {!sidebarCollapsed && (
             <Link
               href="/admin"
-              className="w-full flex items-center justify-center gap-2 px-3 py-2 text-slate-400 hover:text-white hover:bg-slate-800 rounded-lg transition-colors text-sm"
+              className="mt-2 w-full flex items-center justify-center gap-2 px-3 py-2 text-gray-500 hover:text-white border border-gray-800 hover:border-gray-700 rounded-xl transition-colors text-sm"
             >
-              Full Admin Dashboard →
+              <span>📊</span>
+              <span>Admin Dashboard</span>
             </Link>
           )}
         </div>
       </aside>
 
       {/* Main Content Area */}
-      <div className={`flex-1 ${sidebarOpen ? 'ml-64' : 'ml-20'} transition-all duration-300`}>
+      <div className={`flex-1 ${sidebarCollapsed ? 'ml-20' : 'ml-64'} transition-all duration-300`}>
         {/* Top Header Bar */}
-        <header className="bg-white border-b border-gray-200 sticky top-0 z-30">
-          <div className="px-6 py-3 flex items-center justify-between">
-            {/* Time & Date */}
-            <div className="flex items-center gap-6">
-              <div>
-                <p className="text-2xl font-bold text-gray-900">
-                  {currentTime.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
-                </p>
-                <p className="text-sm text-gray-500">
-                  {currentTime.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
-                </p>
-              </div>
+        <header className="h-16 bg-white border-b border-gray-200 sticky top-0 z-30 shadow-sm">
+          <div className="h-full px-6 flex items-center justify-between">
+            {/* Left - Page Context */}
+            <div className="flex items-center gap-4">
+              {queueCount > 0 && (
+                <Link
+                  href="/provider/queue"
+                  className="flex items-center gap-2 px-4 py-2 bg-emerald-50 border border-emerald-200 text-emerald-700 rounded-xl hover:bg-emerald-100 transition-colors"
+                >
+                  <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
+                  <span className="font-semibold">{queueCount} Waiting</span>
+                </Link>
+              )}
             </div>
 
             {/* Right Side Actions */}
-            <div className="flex items-center gap-4">
-              {/* Alerts */}
-              {alerts.length > 0 && (
-                <div className="relative">
-                  <button className="p-2 text-gray-400 hover:text-gray-600 relative">
-                    <span className="text-xl">🔔</span>
-                    <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
-                  </button>
-                </div>
-              )}
-              
+            <div className="flex items-center gap-3">
+              {/* New Chart Button */}
+              <Link
+                href="/provider/charting/new"
+                className="flex items-center gap-2 px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white font-medium rounded-xl transition-colors shadow-lg shadow-pink-500/20"
+              >
+                <span>📝</span>
+                <span>New Chart</span>
+              </Link>
+
               {/* Quick POS */}
               <Link
                 href="/pos/quick-sale"
-                className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 font-medium"
+                className="flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-600 text-white font-medium rounded-xl transition-colors"
               >
                 <span>💳</span>
                 <span>Quick Sale</span>
               </Link>
 
-              {/* User Menu */}
-              <div className="flex items-center gap-3 pl-4 border-l border-gray-200">
-                <div className="text-right">
-                  <p className="text-sm font-medium text-gray-900">Provider</p>
-                  <p className="text-xs text-gray-500">On Duty</p>
+              {/* User Avatar */}
+              <div className="flex items-center gap-3 pl-4 ml-2 border-l border-gray-200">
+                <div className="text-right hidden sm:block">
+                  <p className="text-sm font-semibold text-gray-900">Provider</p>
+                  <p className="text-xs text-emerald-600 font-medium">On Duty</p>
                 </div>
-                <div className="w-10 h-10 bg-gradient-to-br from-pink-400 to-rose-500 rounded-full flex items-center justify-center text-white font-bold">
-                  RK
+                <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
+                  P
                 </div>
               </div>
             </div>
@@ -263,10 +310,45 @@ export default function ProviderLayout({
         </header>
 
         {/* Page Content */}
-        <main className="p-6">
+        <main className="p-6 min-h-[calc(100vh-64px)]">
           {children}
         </main>
       </div>
+
+      {/* Mobile Bottom Nav */}
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#0a0a0a] border-t border-gray-800 z-50 safe-area-pb">
+        <div className="flex justify-around items-center h-16 px-2">
+          {[
+            { href: '/provider', icon: '🏠', label: 'Home' },
+            { href: '/provider/queue', icon: '👥', label: 'Queue', badge: queueCount },
+            { href: '/provider/charting', icon: '📝', label: 'Chart', highlight: true },
+            { href: '/provider/schedule', icon: '📅', label: 'Schedule' },
+            { href: '/pos/quick-sale', icon: '💳', label: 'POS' },
+          ].map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`
+                relative flex flex-col items-center justify-center gap-1 min-w-[56px] py-2 rounded-xl transition-all
+                ${item.highlight 
+                  ? 'bg-pink-500 text-white -mt-4 shadow-lg shadow-pink-500/30' 
+                  : isActive(item.href) 
+                    ? 'text-pink-400' 
+                    : 'text-gray-500'
+                }
+              `}
+            >
+              <span className={item.highlight ? 'text-2xl' : 'text-xl'}>{item.icon}</span>
+              <span className="text-[10px] font-medium">{item.label}</span>
+              {item.badge && item.badge > 0 && (
+                <span className="absolute -top-1 -right-1 w-5 h-5 bg-emerald-500 text-white text-[10px] font-bold rounded-full flex items-center justify-center">
+                  {item.badge}
+                </span>
+              )}
+            </Link>
+          ))}
+        </div>
+      </nav>
     </div>
   );
 }
