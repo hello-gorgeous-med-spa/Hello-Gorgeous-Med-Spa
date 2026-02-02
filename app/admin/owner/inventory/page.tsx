@@ -2,44 +2,88 @@
 
 // ============================================================
 // INVENTORY & INJECTABLES - OWNER CONTROLLED
-// Inventory table with lot tracking and expiration
+// ALL DATA FROM DATABASE - NO STATIC VALUES
 // ============================================================
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import OwnerLayout from '../layout-wrapper';
+import {
+  CardSkeleton,
+  TableSkeleton,
+  EmptyState,
+  ErrorState,
+  formatDate,
+} from '@/lib/hooks/useOwnerMetrics';
 
 interface Product {
   id: string;
   name: string;
   category: string;
-  lot: string;
-  expiration: string;
+  lot_number: string;
+  expiration_date: string | null;
   quantity: number;
-  reorderLevel: number;
+  reorder_level: number;
+  unit_cost: number;
   status: 'in_stock' | 'low' | 'expired' | 'out';
 }
 
 export default function InventoryPage() {
-  const [products, setProducts] = useState<Product[]>([
-    { id: '1', name: 'Botox 100u', category: 'Neurotoxin', lot: 'BTX-2024-A123', expiration: '2025-06-15', quantity: 45, reorderLevel: 20, status: 'in_stock' },
-    { id: '2', name: 'Botox 100u', category: 'Neurotoxin', lot: 'BTX-2024-B456', expiration: '2025-03-01', quantity: 12, reorderLevel: 20, status: 'low' },
-    { id: '3', name: 'Juvederm Ultra', category: 'Filler', lot: 'JUV-2024-C789', expiration: '2025-08-20', quantity: 30, reorderLevel: 10, status: 'in_stock' },
-    { id: '4', name: 'Juvederm Voluma', category: 'Filler', lot: 'JUV-2024-D012', expiration: '2025-02-15', quantity: 8, reorderLevel: 10, status: 'low' },
-    { id: '5', name: 'Restylane Lyft', category: 'Filler', lot: 'RST-2024-E345', expiration: '2024-12-01', quantity: 5, reorderLevel: 5, status: 'expired' },
-    { id: '6', name: 'Dysport 300u', category: 'Neurotoxin', lot: 'DYS-2024-F678', expiration: '2025-09-30', quantity: 20, reorderLevel: 10, status: 'in_stock' },
-    { id: '7', name: 'Sculptra', category: 'Biostimulator', lot: 'SCP-2024-G901', expiration: '2025-12-01', quantity: 15, reorderLevel: 5, status: 'in_stock' },
-  ]);
-
-  const [settings, setSettings] = useState({
-    blockExpired: true,
-    lowStockThreshold: 30,
-    requireLotSelection: true,
-    expirationWarningDays: 30,
-  });
-
+  const [products, setProducts] = useState<Product[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [filterCategory, setFilterCategory] = useState('all');
   const [filterStatus, setFilterStatus] = useState('all');
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  useEffect(() => {
+    async function fetchInventory() {
+      setIsLoading(true);
+      setError(null);
+      
+      try {
+        const response = await fetch('/api/inventory');
+        const data = await response.json();
+        
+        if (!response.ok) {
+          throw new Error(data.error || 'Failed to fetch inventory');
+        }
+        
+        // Process products to determine status
+        const now = new Date();
+        const processedProducts = (data.items || data || []).map((item: any) => {
+          let status: 'in_stock' | 'low' | 'expired' | 'out' = 'in_stock';
+          
+          if (item.quantity <= 0) {
+            status = 'out';
+          } else if (item.expiration_date && new Date(item.expiration_date) < now) {
+            status = 'expired';
+          } else if (item.quantity <= (item.reorder_level || 10)) {
+            status = 'low';
+          }
+          
+          return {
+            id: item.id,
+            name: item.name || item.product_name || 'Unknown Product',
+            category: item.category || 'Uncategorized',
+            lot_number: item.lot_number || item.lot || '—',
+            expiration_date: item.expiration_date,
+            quantity: item.quantity || 0,
+            reorder_level: item.reorder_level || 10,
+            unit_cost: item.unit_cost || 0,
+            status,
+          };
+        });
+        
+        setProducts(processedProducts);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Failed to fetch inventory');
+      } finally {
+        setIsLoading(false);
+      }
+    }
+    
+    fetchInventory();
+  }, []);
 
   const categories = ['all', ...new Set(products.map(p => p.category))];
   const statuses = ['all', 'in_stock', 'low', 'expired', 'out'];
@@ -50,19 +94,16 @@ export default function InventoryPage() {
     return true;
   });
 
+  // Calculate stats from REAL data
   const lowStockCount = products.filter(p => p.status === 'low').length;
   const expiredCount = products.filter(p => p.status === 'expired').length;
   const expiringCount = products.filter(p => {
-    const expDate = new Date(p.expiration);
-    const warningDate = new Date();
-    warningDate.setDate(warningDate.getDate() + settings.expirationWarningDays);
-    return expDate <= warningDate && p.status !== 'expired';
+    if (!p.expiration_date) return false;
+    const expDate = new Date(p.expiration_date);
+    const thirtyDaysFromNow = new Date();
+    thirtyDaysFromNow.setDate(thirtyDaysFromNow.getDate() + 30);
+    return expDate <= thirtyDaysFromNow && expDate > new Date() && p.status !== 'expired';
   }).length;
-
-  const saveSettings = () => {
-    setMessage({ type: 'success', text: 'Inventory settings saved!' });
-    setTimeout(() => setMessage(null), 3000);
-  };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -82,187 +123,175 @@ export default function InventoryPage() {
         </div>
       )}
 
-      {/* Alerts */}
-      {(lowStockCount > 0 || expiredCount > 0 || expiringCount > 0) && (
-        <div className="grid grid-cols-3 gap-4 mb-6">
-          {lowStockCount > 0 && (
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-              <div className="flex items-center gap-2">
-                <span className="text-amber-500">⚠️</span>
-                <span className="font-medium text-amber-800">{lowStockCount} products low on stock</span>
-              </div>
-            </div>
-          )}
-          {expiringCount > 0 && (
-            <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
-              <div className="flex items-center gap-2">
-                <span className="text-orange-500">⏰</span>
-                <span className="font-medium text-orange-800">{expiringCount} products expiring soon</span>
-              </div>
-            </div>
-          )}
-          {expiredCount > 0 && (
-            <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-              <div className="flex items-center gap-2">
-                <span className="text-red-500">🛑</span>
-                <span className="font-medium text-red-800">{expiredCount} products expired</span>
-              </div>
-            </div>
-          )}
+      {/* Error State */}
+      {error && !isLoading && (
+        <ErrorState error={error} onRetry={() => window.location.reload()} />
+      )}
+
+      {/* Loading State */}
+      {isLoading && (
+        <div className="space-y-6">
+          <div className="grid grid-cols-3 gap-4">
+            {Array.from({ length: 3 }).map((_, i) => (
+              <CardSkeleton key={i} />
+            ))}
+          </div>
+          <div className="bg-white rounded-xl border p-4">
+            <TableSkeleton rows={5} />
+          </div>
         </div>
       )}
 
-      <div className="grid grid-cols-3 gap-6">
-        {/* Inventory Table */}
-        <div className="col-span-2">
-          <div className="bg-white rounded-xl border">
-            <div className="p-4 border-b flex items-center justify-between">
-              <h2 className="font-semibold">Inventory Table</h2>
-              <button className="px-4 py-2 bg-purple-600 text-white rounded-lg text-sm hover:bg-purple-700">
-                + Add Product
-              </button>
-            </div>
-
-            {/* Filters */}
-            <div className="p-4 border-b flex gap-4">
-              <select
-                value={filterCategory}
-                onChange={(e) => setFilterCategory(e.target.value)}
-                className="px-3 py-2 border rounded-lg text-sm"
-              >
-                {categories.map(cat => (
-                  <option key={cat} value={cat}>{cat === 'all' ? 'All Categories' : cat}</option>
-                ))}
-              </select>
-              <select
-                value={filterStatus}
-                onChange={(e) => setFilterStatus(e.target.value)}
-                className="px-3 py-2 border rounded-lg text-sm"
-              >
-                {statuses.map(st => (
-                  <option key={st} value={st}>{st === 'all' ? 'All Status' : st.replace('_', ' ')}</option>
-                ))}
-              </select>
-            </div>
-
-            <table className="w-full">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">PRODUCT</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">LOT</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">EXP</th>
-                  <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">QTY</th>
-                  <th className="px-4 py-3 text-xs font-semibold text-gray-500">STATUS</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y">
-                {filteredProducts.map(product => (
-                  <tr key={product.id} className={`hover:bg-gray-50 ${product.status === 'expired' ? 'bg-red-50/50' : ''}`}>
-                    <td className="px-4 py-3">
-                      <div>
-                        <p className="font-medium text-sm">{product.name}</p>
-                        <p className="text-xs text-gray-500">{product.category}</p>
-                      </div>
-                    </td>
-                    <td className="px-4 py-3 text-sm font-mono text-gray-600">{product.lot}</td>
-                    <td className="px-4 py-3 text-sm">{product.expiration}</td>
-                    <td className="px-4 py-3 text-sm text-right font-medium">{product.quantity}</td>
-                    <td className="px-4 py-3">
-                      <span className={`text-xs px-2 py-1 rounded ${getStatusBadge(product.status)}`}>
-                        {product.status.replace('_', ' ')}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        {/* Controls */}
-        <div className="space-y-6">
-          <div className="bg-white rounded-xl border p-4">
-            <h3 className="font-semibold mb-4">⚙️ Controls</h3>
-            <div className="space-y-4">
-              <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={settings.blockExpired}
-                  onChange={(e) => setSettings(prev => ({ ...prev, blockExpired: e.target.checked }))}
-                  className="w-5 h-5 text-purple-600"
-                />
-                <div>
-                  <span className="font-medium text-sm">Block Expired Usage</span>
-                  <p className="text-xs text-gray-500">Prevent expired products from being used</p>
+      {/* Data Display */}
+      {!isLoading && !error && (
+        <>
+          {/* Alerts - REAL DATA */}
+          {(lowStockCount > 0 || expiredCount > 0 || expiringCount > 0) && (
+            <div className="grid grid-cols-3 gap-4 mb-6">
+              {lowStockCount > 0 && (
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-amber-500">⚠️</span>
+                    <span className="font-medium text-amber-800">{lowStockCount} product{lowStockCount > 1 ? 's' : ''} low on stock</span>
+                  </div>
                 </div>
-              </label>
-
-              <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={settings.requireLotSelection}
-                  onChange={(e) => setSettings(prev => ({ ...prev, requireLotSelection: e.target.checked }))}
-                  className="w-5 h-5 text-purple-600"
-                />
-                <div>
-                  <span className="font-medium text-sm">Require Lot Selection</span>
-                  <p className="text-xs text-gray-500">Must select lot when charting</p>
+              )}
+              {expiringCount > 0 && (
+                <div className="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-orange-500">⏰</span>
+                    <span className="font-medium text-orange-800">{expiringCount} product{expiringCount > 1 ? 's' : ''} expiring soon</span>
+                  </div>
                 </div>
-              </label>
+              )}
+              {expiredCount > 0 && (
+                <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+                  <div className="flex items-center gap-2">
+                    <span className="text-red-500">🛑</span>
+                    <span className="font-medium text-red-800">{expiredCount} product{expiredCount > 1 ? 's' : ''} expired</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Low Stock Threshold</label>
-                <input
-                  type="number"
-                  value={settings.lowStockThreshold}
-                  onChange={(e) => setSettings(prev => ({ ...prev, lowStockThreshold: parseInt(e.target.value) || 0 }))}
-                  className="w-full px-3 py-2 border rounded-lg"
-                  min="0"
-                />
-                <p className="text-xs text-gray-500 mt-1">Percentage below reorder level</p>
+          <div className="grid grid-cols-3 gap-6">
+            {/* Inventory Table - REAL DATA */}
+            <div className="col-span-2">
+              <div className="bg-white rounded-xl border">
+                <div className="p-4 border-b flex items-center justify-between">
+                  <h2 className="font-semibold">Inventory ({products.length} items)</h2>
+                  <button className="px-4 py-2 bg-purple-600 text-white rounded-lg text-sm hover:bg-purple-700">
+                    + Add Product
+                  </button>
+                </div>
+
+                {/* Filters */}
+                <div className="p-4 border-b flex gap-4">
+                  <select
+                    value={filterCategory}
+                    onChange={(e) => setFilterCategory(e.target.value)}
+                    className="px-3 py-2 border rounded-lg text-sm"
+                  >
+                    {categories.map(cat => (
+                      <option key={cat} value={cat}>{cat === 'all' ? 'All Categories' : cat}</option>
+                    ))}
+                  </select>
+                  <select
+                    value={filterStatus}
+                    onChange={(e) => setFilterStatus(e.target.value)}
+                    className="px-3 py-2 border rounded-lg text-sm"
+                  >
+                    {statuses.map(st => (
+                      <option key={st} value={st}>{st === 'all' ? 'All Status' : st.replace('_', ' ')}</option>
+                    ))}
+                  </select>
+                </div>
+
+                {filteredProducts.length > 0 ? (
+                  <table className="w-full">
+                    <thead className="bg-gray-50">
+                      <tr>
+                        <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">PRODUCT</th>
+                        <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">LOT</th>
+                        <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">EXP</th>
+                        <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">QTY</th>
+                        <th className="px-4 py-3 text-xs font-semibold text-gray-500">STATUS</th>
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y">
+                      {filteredProducts.map(product => (
+                        <tr key={product.id} className={`hover:bg-gray-50 ${product.status === 'expired' ? 'bg-red-50/50' : ''}`}>
+                          <td className="px-4 py-3">
+                            <div>
+                              <p className="font-medium text-sm">{product.name}</p>
+                              <p className="text-xs text-gray-500">{product.category}</p>
+                            </div>
+                          </td>
+                          <td className="px-4 py-3 text-sm font-mono text-gray-600">{product.lot_number}</td>
+                          <td className="px-4 py-3 text-sm">
+                            {product.expiration_date ? formatDate(product.expiration_date) : '—'}
+                          </td>
+                          <td className="px-4 py-3 text-sm text-right font-medium">{product.quantity}</td>
+                          <td className="px-4 py-3">
+                            <span className={`text-xs px-2 py-1 rounded ${getStatusBadge(product.status)}`}>
+                              {product.status.replace('_', ' ')}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <EmptyState 
+                    icon="📦"
+                    title="No inventory items"
+                    description={products.length > 0 ? "No items match your filter" : "Add products to track inventory"}
+                  />
+                )}
+              </div>
+            </div>
+
+            {/* Stats Sidebar - REAL DATA */}
+            <div className="space-y-6">
+              <div className="bg-white rounded-xl border p-4">
+                <h3 className="font-semibold mb-3">📊 Inventory Stats</h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-500">Total Products</span>
+                    <span className="font-medium">{products.length}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-500">In Stock</span>
+                    <span className="font-medium text-green-600">{products.filter(p => p.status === 'in_stock').length}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-500">Low Stock</span>
+                    <span className="font-medium text-amber-600">{lowStockCount}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-500">Expiring Soon</span>
+                    <span className="font-medium text-orange-600">{expiringCount}</span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-500">Expired</span>
+                    <span className="font-medium text-red-600">{expiredCount}</span>
+                  </div>
+                </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Expiration Warning (days)</label>
-                <input
-                  type="number"
-                  value={settings.expirationWarningDays}
-                  onChange={(e) => setSettings(prev => ({ ...prev, expirationWarningDays: parseInt(e.target.value) || 30 }))}
-                  className="w-full px-3 py-2 border rounded-lg"
-                  min="1"
-                />
-              </div>
-
-              <button onClick={saveSettings} className="w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
-                Save Settings
-              </button>
+              {products.length === 0 && (
+                <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+                  <h3 className="font-medium text-blue-800">Getting Started</h3>
+                  <p className="text-sm text-blue-600 mt-1">
+                    Add your first inventory item to start tracking products, lots, and expiration dates.
+                  </p>
+                </div>
+              )}
             </div>
           </div>
-
-          {/* Quick Stats */}
-          <div className="bg-white rounded-xl border p-4">
-            <h3 className="font-semibold mb-3">📊 Quick Stats</h3>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Total Products</span>
-                <span className="font-medium">{products.length}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-500">In Stock</span>
-                <span className="font-medium text-green-600">{products.filter(p => p.status === 'in_stock').length}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Low Stock</span>
-                <span className="font-medium text-amber-600">{lowStockCount}</span>
-              </div>
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Expired</span>
-                <span className="font-medium text-red-600">{expiredCount}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+        </>
+      )}
     </OwnerLayout>
   );
 }
