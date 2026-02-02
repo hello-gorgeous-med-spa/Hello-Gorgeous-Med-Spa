@@ -5,7 +5,7 @@
 // Create, edit, publish pages - NO DEV REQUIRED
 // ============================================================
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import OwnerLayout from '../../layout-wrapper';
@@ -29,7 +29,23 @@ const TEMPLATES = [
   { id: 'blog', name: 'Blog Post', description: 'Article layout with sidebar' },
 ];
 
+// Wrapper component for Suspense boundary
 export default function PagesManagerPage() {
+  return (
+    <Suspense fallback={
+      <OwnerLayout title="Pages" description="Create and manage website pages">
+        <div className="p-8 text-center">
+          <div className="animate-spin text-4xl mb-4">📄</div>
+          <p className="text-gray-500">Loading...</p>
+        </div>
+      </OwnerLayout>
+    }>
+      <PagesManagerContent />
+    </Suspense>
+  );
+}
+
+function PagesManagerContent() {
   const searchParams = useSearchParams();
   const showNew = searchParams.get('new') === 'true';
   
