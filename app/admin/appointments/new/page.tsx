@@ -3,28 +3,20 @@
 // ============================================================
 // NEW APPOINTMENT PAGE - Fresha-Style Booking Flow
 // Client → Service (categorized + search) → Forms → Date/Time → Confirm
+// TIME SLOTS ARE DYNAMICALLY GENERATED FROM PROVIDER SCHEDULES
 // ============================================================
 
 import { useState, Suspense, useEffect, useCallback } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-// Generate time slots from 9am to 6pm in 15-minute increments
-const generateTimeSlots = () => {
-  const slots = [];
-  for (let hour = 9; hour <= 18; hour++) {
-    for (let min = 0; min < 60; min += 15) {
-      if (hour === 18 && min > 0) break;
-      const period = hour >= 12 ? 'PM' : 'AM';
-      const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
-      const displayMin = min.toString().padStart(2, '0');
-      slots.push(`${displayHour}:${displayMin} ${period}`);
-    }
-  }
-  return slots;
-};
-
-const TIME_SLOTS = generateTimeSlots();
+// TimeSlot interface from availability API
+interface TimeSlot {
+  time: string;
+  datetime: string;
+  available: boolean;
+  reason?: string;
+}
 
 // Default consent forms
 const DEFAULT_CONSENT_FORMS = [
@@ -45,10 +37,14 @@ function NewAppointmentContent() {
   const [providers, setProviders] = useState<any[]>([]);
   const [consentForms, setConsentForms] = useState<any[]>(DEFAULT_CONSENT_FORMS);
   const [loading, setLoading] = useState(true);
-  const [existingAppointments, setExistingAppointments] = useState<any[]>([]);
   const [availabilityLoading, setAvailabilityLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
+  
+  // Dynamic availability from provider schedules
+  const [availableSlots, setAvailableSlots] = useState<TimeSlot[]>([]);
+  const [isProviderWorking, setIsProviderWorking] = useState(true);
+  const [workingHours, setWorkingHours] = useState<{ start: string; end: string } | null>(null);
 
   // Search and filter state
   const [serviceSearch, setServiceSearch] = useState('');
@@ -169,25 +165,43 @@ function NewAppointmentContent() {
     setClientResults(filtered);
   }, [clientSearch, allClients]);
 
-  // Fetch availability when date or provider changes
+  // Fetch DYNAMIC availability from provider schedules
   useEffect(() => {
     if (!formData.date || !formData.providerId) return;
 
     const fetchAvailability = async () => {
       setAvailabilityLoading(true);
+      setFormData(prev => ({ ...prev, time: '' })); // Reset time when date/provider changes
+      
       try {
-        const res = await fetch(`/api/appointments?date=${formData.date}&provider_id=${formData.providerId}`);
+        // Get service duration
+        const service = services.find(s => s.id === formData.serviceId);
+        const duration = service?.duration_minutes || 30;
+        
+        // Fetch dynamic availability from provider schedule
+        const res = await fetch(
+          `/api/availability?provider_id=${formData.providerId}&date=${formData.date}&duration=${duration}`
+        );
         const data = await res.json();
-        setExistingAppointments(data.appointments || []);
+        
+        setIsProviderWorking(data.is_working);
+        setWorkingHours(data.working_hours || null);
+        setAvailableSlots(data.slots || []);
+        
+        if (!data.is_working) {
+          console.log(`Provider not working on ${formData.date}`);
+        }
       } catch (err) {
         console.error('Failed to load availability:', err);
+        setAvailableSlots([]);
+        setIsProviderWorking(false);
       } finally {
         setAvailabilityLoading(false);
       }
     };
 
     fetchAvailability();
-  }, [formData.date, formData.providerId]);
+  }, [formData.date, formData.providerId, formData.serviceId, services]);
 
   // Group services by category
   const groupedServices = categories.map(cat => ({
@@ -223,27 +237,8 @@ function NewAppointmentContent() {
     setExpandedCategories(newExpanded);
   };
 
-  // Check if a time slot is booked
-  const isTimeSlotBooked = (timeSlot: string) => {
-    if (!existingAppointments.length) return false;
-
-    const [time, period] = timeSlot.split(' ');
-    const [hours, minutes] = time.split(':');
-    let hour = parseInt(hours);
-    if (period === 'PM' && hour !== 12) hour += 12;
-    if (period === 'AM' && hour === 12) hour = 0;
-
-    const slotDate = new Date(formData.date);
-    slotDate.setHours(hour, parseInt(minutes), 0, 0);
-    const slotTime = slotDate.getTime();
-
-    return existingAppointments.some((apt: any) => {
-      if (apt.status === 'cancelled' || apt.status === 'no_show') return false;
-      const aptStart = new Date(apt.starts_at).getTime();
-      const aptEnd = apt.ends_at ? new Date(apt.ends_at).getTime() : aptStart + (apt.duration || 30) * 60000;
-      return slotTime >= aptStart && slotTime < aptEnd;
-    });
-  };
+  // Get selected time slot data
+  const selectedTimeSlot = availableSlots.find(s => s.time === formData.time);
 
   const selectedService = services.find((s: any) => s.id === formData.serviceId);
   const selectedProvider = providers.find((p: any) => p.id === formData.providerId);
@@ -729,49 +724,85 @@ function NewAppointmentContent() {
             />
           </div>
 
-          {/* Time Grid */}
+          {/* Time Grid - DYNAMIC from Provider Schedule */}
           <div className="p-4">
             <div className="flex items-center justify-between mb-2">
-              <label className="block text-sm font-medium text-gray-700">Select Time</label>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">Select Time</label>
+                {workingHours && isProviderWorking && (
+                  <p className="text-xs text-gray-500">
+                    Working hours: {workingHours.start} - {workingHours.end}
+                  </p>
+                )}
+              </div>
               {availabilityLoading && (
                 <span className="text-xs text-gray-500 flex items-center gap-1">
                   <div className="animate-spin w-3 h-3 border-2 border-pink-500 border-t-transparent rounded-full" />
-                  Loading...
+                  Checking schedule...
                 </span>
               )}
             </div>
-            <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 max-h-64 overflow-y-auto">
-              {TIME_SLOTS.map((time) => {
-                const isBooked = isTimeSlotBooked(time);
-                const isSelected = formData.time === time;
-                
-                return (
-                  <button
-                    key={time}
-                    type="button"
-                    disabled={isBooked}
-                    onClick={() => setFormData({ ...formData, time })}
-                    className={`px-2 py-2 text-sm rounded-lg border transition-colors ${
-                      isSelected
-                        ? 'bg-pink-500 text-white border-pink-500'
-                        : isBooked
-                        ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed line-through'
-                        : 'bg-white text-gray-700 border-gray-200 hover:border-pink-300'
-                    }`}
-                  >
-                    {time}
-                  </button>
-                );
-              })}
-            </div>
-            <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
-              <span className="flex items-center gap-1">
-                <span className="w-3 h-3 bg-pink-500 rounded"></span> Selected
-              </span>
-              <span className="flex items-center gap-1">
-                <span className="w-3 h-3 bg-gray-200 rounded"></span> Booked
-              </span>
-            </div>
+
+            {/* Provider not working message */}
+            {!availabilityLoading && !isProviderWorking && (
+              <div className="p-6 bg-yellow-50 border border-yellow-200 rounded-lg text-center">
+                <p className="text-yellow-800 font-medium">Provider not available on this date</p>
+                <p className="text-yellow-600 text-sm mt-1">
+                  Please select a different date or provider
+                </p>
+              </div>
+            )}
+
+            {/* Available slots grid */}
+            {!availabilityLoading && isProviderWorking && availableSlots.length > 0 && (
+              <>
+                <div className="grid grid-cols-4 sm:grid-cols-6 gap-2 max-h-64 overflow-y-auto">
+                  {availableSlots.map((slot) => {
+                    const isSelected = formData.time === slot.time;
+                    
+                    return (
+                      <button
+                        key={slot.time}
+                        type="button"
+                        disabled={!slot.available}
+                        onClick={() => setFormData({ ...formData, time: slot.time })}
+                        className={`px-2 py-2 text-sm rounded-lg border transition-colors ${
+                          isSelected
+                            ? 'bg-pink-500 text-white border-pink-500'
+                            : !slot.available
+                            ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed line-through'
+                            : 'bg-white text-gray-700 border-gray-200 hover:border-pink-300 hover:bg-pink-50'
+                        }`}
+                        title={!slot.available ? (slot.reason === 'booked' ? 'Already booked' : 'Not available') : 'Available'}
+                      >
+                        {slot.time}
+                      </button>
+                    );
+                  })}
+                </div>
+                <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+                  <span className="flex items-center gap-1">
+                    <span className="w-3 h-3 bg-pink-500 rounded"></span> Selected
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <span className="w-3 h-3 bg-gray-200 rounded"></span> Unavailable
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <span className="w-3 h-3 bg-white border border-gray-200 rounded"></span> Available
+                  </span>
+                </div>
+              </>
+            )}
+
+            {/* No slots available */}
+            {!availabilityLoading && isProviderWorking && availableSlots.length === 0 && (
+              <div className="p-6 bg-gray-50 border border-gray-200 rounded-lg text-center">
+                <p className="text-gray-600">No available slots for this date</p>
+                <p className="text-gray-500 text-sm mt-1">
+                  Try selecting a different date
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Notes */}
