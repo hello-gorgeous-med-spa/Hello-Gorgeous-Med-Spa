@@ -1,15 +1,35 @@
 // ============================================================
 // STRIPE CONFIGURATION
-// Server-side Stripe instance
+// Server-side Stripe instance with lazy initialization
 // ============================================================
 
 import Stripe from 'stripe';
 
-// Server-side Stripe instance
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2024-12-18.acacia',
-  typescript: true,
-});
+// Lazy-initialized Stripe instance to avoid build-time errors
+let _stripe: Stripe | null = null;
+
+// Get Stripe instance (lazy initialization)
+export function getStripe(): Stripe {
+  if (!_stripe) {
+    if (!process.env.STRIPE_SECRET_KEY) {
+      throw new Error('STRIPE_SECRET_KEY is not configured');
+    }
+    _stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2024-12-18.acacia',
+      typescript: true,
+    });
+  }
+  return _stripe;
+}
+
+// Legacy export for backward compatibility (use getStripe() instead)
+export const stripe = {
+  get paymentIntents() { return getStripe().paymentIntents; },
+  get refunds() { return getStripe().refunds; },
+  get customers() { return getStripe().customers; },
+  get checkout() { return getStripe().checkout; },
+  get webhooks() { return getStripe().webhooks; },
+} as unknown as Stripe;
 
 // Check if Stripe is configured
 export function isStripeConfigured(): boolean {
