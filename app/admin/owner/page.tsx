@@ -1,318 +1,194 @@
 'use client';
 
 // ============================================================
-// OWNER MODE DASHBOARD - EHR-GRADE SYSTEM CONTROL CENTER
-// Non-removable, non-downgradable, full system authority
+// OWNER MODE - EHR-GRADE SYSTEM CONTROL CENTER
+// Complete administrative control without developer
 // ============================================================
 
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-interface SystemStatus {
-  database: 'connected' | 'error';
-  payments: 'live' | 'test' | 'error';
-  sms: 'active' | 'inactive' | 'error';
-  email: 'active' | 'inactive' | 'error';
-  storage: 'active' | 'error';
-  lastBackup: string;
-  uptime: string;
-}
+const OWNER_NAV = [
+  { href: '/admin/owner', label: 'Dashboard', icon: '📊' },
+  { href: '/admin/owner/system-settings', label: 'System Settings', icon: '⚙️' },
+  { href: '/admin/owner/services', label: 'Services & Workflows', icon: '💉' },
+  { href: '/admin/owner/users', label: 'Providers & Staff', icon: '👥' },
+  { href: '/admin/owner/scheduling', label: 'Scheduling Engine', icon: '📅' },
+  { href: '/admin/owner/booking-rules', label: 'Booking Rules & Policies', icon: '📋' },
+  { href: '/admin/owner/clinical', label: 'Clinical / EHR Rules', icon: '🩺' },
+  { href: '/admin/owner/consents', label: 'Consents & Legal', icon: '📝' },
+  { href: '/admin/owner/inventory', label: 'Inventory & Injectables', icon: '📦' },
+  { href: '/admin/owner/payments', label: 'Payments & Financials', icon: '💳' },
+  { href: '/admin/owner/memberships', label: 'Memberships & Packages', icon: '💎' },
+  { href: '/admin/owner/automations', label: 'Automations & Messaging', icon: '⚡' },
+  { href: '/admin/owner/features', label: 'Feature Flags', icon: '🎚️' },
+  { href: '/admin/owner/sandbox', label: 'Sandbox / Preview', icon: '🧪' },
+  { href: '/admin/owner/versions', label: 'Version History', icon: '📜' },
+  { href: '/admin/owner/exports', label: 'Data Exports', icon: '📤' },
+  { href: '/admin/owner/audit', label: 'Audit Logs', icon: '🔍' },
+  { href: '/admin/owner/access', label: 'System Access', icon: '🔑' },
+];
 
-interface QuickStat {
+interface SystemMetric {
   label: string;
   value: string | number;
-  change?: string;
+  status: 'good' | 'warning' | 'error';
 }
 
 export default function OwnerDashboardPage() {
-  const [systemStatus, setSystemStatus] = useState<SystemStatus>({
-    database: 'connected',
-    payments: 'live',
-    sms: 'active',
-    email: 'active',
-    storage: 'active',
-    lastBackup: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(),
-    uptime: '99.9%',
-  });
+  const pathname = usePathname();
 
-  const [stats, setStats] = useState<QuickStat[]>([
-    { label: 'Total Clients', value: '3,425', change: '+12 this week' },
-    { label: 'Active Services', value: '76', change: '' },
-    { label: 'Active Providers', value: '2', change: '' },
-    { label: 'Pending Consents', value: '0', change: '' },
-  ]);
-
-  const controlModules = [
-    {
-      title: 'Business & Clinic',
-      icon: '🏢',
-      description: 'Name, locations, hours, closures',
-      link: '/admin/owner/business',
-      status: 'configured',
-    },
-    {
-      title: 'Services & Treatments',
-      icon: '💉',
-      description: 'Create, edit, configure all services',
-      link: '/admin/owner/services',
-      status: 'configured',
-    },
-    {
-      title: 'Providers & Staff',
-      icon: '👥',
-      description: 'Users, roles, capabilities, kill switch',
-      link: '/admin/owner/users',
-      status: 'configured',
-    },
-    {
-      title: 'Scheduling Engine',
-      icon: '📅',
-      description: 'Availability, buffers, overbooking',
-      link: '/admin/settings/schedules',
-      status: 'configured',
-    },
-    {
-      title: 'Booking Rules',
-      icon: '📋',
-      description: 'Cancellation, no-show, deposits',
-      link: '/admin/owner/booking-rules',
-      status: 'configured',
-    },
-    {
-      title: 'Consents & Legal',
-      icon: '📝',
-      description: 'Forms, versioning, enforcement',
-      link: '/admin/settings/consent-forms',
-      status: 'configured',
-    },
-    {
-      title: 'Clinical Charting',
-      icon: '🩺',
-      description: 'SOAP templates, requirements',
-      link: '/admin/settings/chart-templates',
-      status: 'configured',
-    },
-    {
-      title: 'Inventory & Supplies',
-      icon: '📦',
-      description: 'Products, lots, expiration',
-      link: '/admin/owner/inventory',
-      status: 'configured',
-    },
-    {
-      title: 'Payments & Pricing',
-      icon: '💳',
-      description: 'Prices, taxes, refund rules',
-      link: '/admin/settings/prices',
-      status: 'configured',
-    },
-    {
-      title: 'Memberships & Packages',
-      icon: '💎',
-      description: 'Plans, billing, benefits',
-      link: '/admin/settings/memberships',
-      status: 'configured',
-    },
-    {
-      title: 'Automations',
-      icon: '⚡',
-      description: 'Triggers, SMS/email, follow-ups',
-      link: '/admin/settings/automations',
-      status: 'configured',
-    },
-    {
-      title: 'Feature Flags',
-      icon: '🎚️',
-      description: 'Enable/disable features instantly',
-      link: '/admin/owner/features',
-      status: 'configured',
-    },
-    {
-      title: 'Sandbox Mode',
-      icon: '🧪',
-      description: 'Test changes before publishing',
-      link: '/admin/owner/sandbox',
-      status: 'ready',
-    },
-    {
-      title: 'Change Log & Rollback',
-      icon: '📜',
-      description: 'History, before/after, undo',
-      link: '/admin/owner/changelog',
-      status: 'configured',
-    },
-    {
-      title: 'Data Exports',
-      icon: '📤',
-      description: 'Export all data (CSV/PDF/JSON)',
-      link: '/admin/owner/exports',
-      status: 'ready',
-    },
-    {
-      title: 'System Access & Keys',
-      icon: '🔑',
-      description: 'All credentials you control',
-      link: '/admin/owner/access',
-      status: 'critical',
-    },
+  const systemMetrics: SystemMetric[] = [
+    { label: 'Database', value: 'Connected', status: 'good' },
+    { label: 'Payments', value: 'Live Mode', status: 'good' },
+    { label: 'SMS', value: 'Active', status: 'good' },
+    { label: 'Email', value: 'Active', status: 'good' },
+    { label: 'Uptime', value: '99.9%', status: 'good' },
+    { label: 'Last Backup', value: '2 hrs ago', status: 'good' },
   ];
 
-  const formatDate = (iso: string) => {
-    const d = new Date(iso);
-    return d.toLocaleString();
-  };
+  const quickStats = [
+    { label: 'Total Clients', value: '3,425' },
+    { label: 'Active Services', value: '76' },
+    { label: 'Providers', value: '2' },
+    { label: 'Pending Tasks', value: '0' },
+  ];
 
   return (
-    <div className="space-y-6">
-      {/* Owner Mode Header */}
-      <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl p-6 text-white">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="flex items-center gap-3">
-              <span className="text-3xl">👑</span>
-              <div>
-                <h1 className="text-2xl font-bold">OWNER MODE</h1>
-                <p className="text-purple-100">Full System Control • EHR-Grade • No Developer Required</p>
-              </div>
+    <div className="flex min-h-[calc(100vh-100px)]">
+      {/* Owner Mode Sidebar */}
+      <aside className="w-64 bg-gradient-to-b from-purple-900 to-purple-800 text-white flex-shrink-0">
+        <div className="p-4 border-b border-purple-700">
+          <div className="flex items-center gap-2">
+            <span className="text-2xl">👑</span>
+            <div>
+              <h1 className="font-bold text-lg">OWNER MODE</h1>
+              <p className="text-xs text-purple-300">Full System Control</p>
             </div>
           </div>
-          <div className="text-right">
-            <p className="text-sm text-purple-200">Logged in as</p>
-            <p className="font-semibold">Danielle (System Owner)</p>
-            <p className="text-xs text-purple-200 mt-1">Non-removable • Non-downgradable</p>
-          </div>
         </div>
-      </div>
-
-      {/* System Status */}
-      <div className="grid grid-cols-6 gap-4">
-        <div className="bg-white rounded-lg border p-4">
-          <div className="flex items-center gap-2">
-            <span className={`w-2 h-2 rounded-full ${systemStatus.database === 'connected' ? 'bg-green-500' : 'bg-red-500'}`} />
-            <span className="text-sm text-gray-600">Database</span>
-          </div>
-          <p className="font-semibold mt-1 capitalize">{systemStatus.database}</p>
-        </div>
-        <div className="bg-white rounded-lg border p-4">
-          <div className="flex items-center gap-2">
-            <span className={`w-2 h-2 rounded-full ${systemStatus.payments === 'live' ? 'bg-green-500' : systemStatus.payments === 'test' ? 'bg-yellow-500' : 'bg-red-500'}`} />
-            <span className="text-sm text-gray-600">Payments</span>
-          </div>
-          <p className="font-semibold mt-1 capitalize">{systemStatus.payments}</p>
-        </div>
-        <div className="bg-white rounded-lg border p-4">
-          <div className="flex items-center gap-2">
-            <span className={`w-2 h-2 rounded-full ${systemStatus.sms === 'active' ? 'bg-green-500' : 'bg-red-500'}`} />
-            <span className="text-sm text-gray-600">SMS</span>
-          </div>
-          <p className="font-semibold mt-1 capitalize">{systemStatus.sms}</p>
-        </div>
-        <div className="bg-white rounded-lg border p-4">
-          <div className="flex items-center gap-2">
-            <span className={`w-2 h-2 rounded-full ${systemStatus.email === 'active' ? 'bg-green-500' : 'bg-red-500'}`} />
-            <span className="text-sm text-gray-600">Email</span>
-          </div>
-          <p className="font-semibold mt-1 capitalize">{systemStatus.email}</p>
-        </div>
-        <div className="bg-white rounded-lg border p-4">
-          <div className="flex items-center gap-2">
-            <span className={`w-2 h-2 rounded-full ${systemStatus.storage === 'active' ? 'bg-green-500' : 'bg-red-500'}`} />
-            <span className="text-sm text-gray-600">Storage</span>
-          </div>
-          <p className="font-semibold mt-1 capitalize">{systemStatus.storage}</p>
-        </div>
-        <div className="bg-white rounded-lg border p-4">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-green-500" />
-            <span className="text-sm text-gray-600">Uptime</span>
-          </div>
-          <p className="font-semibold mt-1">{systemStatus.uptime}</p>
-        </div>
-      </div>
-
-      {/* Quick Stats */}
-      <div className="grid grid-cols-4 gap-4">
-        {stats.map((stat, idx) => (
-          <div key={idx} className="bg-white rounded-lg border p-4">
-            <p className="text-sm text-gray-500">{stat.label}</p>
-            <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
-            {stat.change && <p className="text-xs text-green-600 mt-1">{stat.change}</p>}
-          </div>
-        ))}
-      </div>
-
-      {/* Control Modules Grid */}
-      <div>
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">System Control Modules</h2>
-        <div className="grid grid-cols-4 gap-4">
-          {controlModules.map((module, idx) => (
-            <Link
-              key={idx}
-              href={module.link}
-              className="bg-white rounded-xl border p-4 hover:border-pink-300 hover:shadow-md transition-all group"
-            >
-              <div className="flex items-start justify-between">
-                <span className="text-2xl">{module.icon}</span>
-                <span className={`text-xs px-2 py-0.5 rounded ${
-                  module.status === 'configured' ? 'bg-green-100 text-green-700' :
-                  module.status === 'critical' ? 'bg-red-100 text-red-700' :
-                  'bg-blue-100 text-blue-700'
-                }`}>
-                  {module.status}
-                </span>
-              </div>
-              <h3 className="font-semibold text-gray-900 mt-3 group-hover:text-pink-600">{module.title}</h3>
-              <p className="text-sm text-gray-500 mt-1">{module.description}</p>
-            </Link>
-          ))}
-        </div>
-      </div>
-
-      {/* Owner Checklist */}
-      <div className="bg-white rounded-xl border p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Owner Control Verification</h2>
-        <p className="text-sm text-gray-500 mb-4">Confirm you can perform all these actions WITHOUT developer help:</p>
         
-        <div className="grid grid-cols-3 gap-4">
-          {[
-            { task: 'Create a new service', link: '/admin/owner/services' },
-            { task: 'Change a service buffer', link: '/admin/owner/services' },
-            { task: 'Modify consent requirements', link: '/admin/settings/consent-forms' },
-            { task: 'Edit provider schedule', link: '/admin/settings/schedules' },
-            { task: 'Adjust cancellation policy', link: '/admin/owner/booking-rules' },
-            { task: 'Disable a feature', link: '/admin/owner/features' },
-            { task: 'Roll back a change', link: '/admin/owner/changelog' },
-            { task: 'Test in sandbox', link: '/admin/owner/sandbox' },
-            { task: 'Export all data', link: '/admin/owner/exports' },
-          ].map((item, idx) => (
+        <nav className="p-2 space-y-0.5 overflow-y-auto max-h-[calc(100vh-180px)]">
+          {OWNER_NAV.map(item => (
             <Link
-              key={idx}
-              href={item.link}
-              className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-pink-50 transition-colors"
+              key={item.href}
+              href={item.href}
+              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
+                pathname === item.href
+                  ? 'bg-white/20 text-white'
+                  : 'text-purple-200 hover:bg-white/10 hover:text-white'
+              }`}
             >
-              <span className="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm">✓</span>
-              <span className="text-sm text-gray-700">{item.task}</span>
+              <span className="text-base">{item.icon}</span>
+              <span>{item.label}</span>
+            </Link>
+          ))}
+        </nav>
+
+        <div className="p-4 border-t border-purple-700">
+          <p className="text-xs text-purple-300 text-center">Logged in as Owner</p>
+          <p className="text-xs text-purple-400 text-center">Non-removable • Non-downgradable</p>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <main className="flex-1 p-6 bg-gray-50 overflow-y-auto">
+        {/* Header */}
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold text-gray-900">Owner Dashboard</h1>
+          <p className="text-gray-500">Complete system overview and control</p>
+        </div>
+
+        {/* System Status */}
+        <div className="grid grid-cols-6 gap-3 mb-6">
+          {systemMetrics.map(metric => (
+            <div key={metric.label} className="bg-white rounded-lg border p-3">
+              <div className="flex items-center gap-2">
+                <span className={`w-2 h-2 rounded-full ${
+                  metric.status === 'good' ? 'bg-green-500' :
+                  metric.status === 'warning' ? 'bg-amber-500' : 'bg-red-500'
+                }`} />
+                <span className="text-xs text-gray-500">{metric.label}</span>
+              </div>
+              <p className="font-semibold text-gray-900 mt-1">{metric.value}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Quick Stats */}
+        <div className="grid grid-cols-4 gap-4 mb-6">
+          {quickStats.map(stat => (
+            <div key={stat.label} className="bg-white rounded-xl border p-4">
+              <p className="text-sm text-gray-500">{stat.label}</p>
+              <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Control Modules Grid */}
+        <div className="grid grid-cols-3 gap-4 mb-6">
+          {OWNER_NAV.slice(1).map(item => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="bg-white rounded-xl border p-4 hover:border-purple-300 hover:shadow-md transition-all group"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">{item.icon}</span>
+                <div>
+                  <h3 className="font-semibold text-gray-900 group-hover:text-purple-600">{item.label}</h3>
+                </div>
+              </div>
             </Link>
           ))}
         </div>
-      </div>
 
-      {/* Emergency Controls */}
-      <div className="bg-red-50 border border-red-200 rounded-xl p-6">
-        <h2 className="text-lg font-semibold text-red-800 mb-2">Emergency Controls</h2>
-        <p className="text-sm text-red-600 mb-4">Use these only when necessary. All actions are logged.</p>
-        <div className="flex gap-4">
-          <Link href="/admin/owner/users" className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
-            🚨 Revoke User Access
-          </Link>
-          <Link href="/admin/owner/features" className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700">
-            ⚠️ Disable Feature
-          </Link>
-          <Link href="/admin/owner/changelog" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-            ↩️ Rollback Change
-          </Link>
+        {/* Owner Verification Checklist */}
+        <div className="bg-white rounded-xl border p-6">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Owner Control Verification</h2>
+          <p className="text-sm text-gray-500 mb-4">Confirm you can perform these actions WITHOUT developer help:</p>
+          
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { task: 'Create a new service', link: '/admin/owner/services' },
+              { task: 'Change service buffer', link: '/admin/owner/services' },
+              { task: 'Modify consent requirements', link: '/admin/owner/consents' },
+              { task: 'Edit provider schedule', link: '/admin/owner/scheduling' },
+              { task: 'Adjust cancellation policy', link: '/admin/owner/booking-rules' },
+              { task: 'Disable a feature', link: '/admin/owner/features' },
+              { task: 'Roll back a change', link: '/admin/owner/versions' },
+              { task: 'Test in sandbox', link: '/admin/owner/sandbox' },
+              { task: 'Export all data', link: '/admin/owner/exports' },
+            ].map((item, idx) => (
+              <Link
+                key={idx}
+                href={item.link}
+                className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-purple-50 transition-colors"
+              >
+                <span className="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm">✓</span>
+                <span className="text-sm text-gray-700">{item.task}</span>
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+
+        {/* Emergency Controls */}
+        <div className="bg-red-50 border border-red-200 rounded-xl p-6 mt-6">
+          <h2 className="text-lg font-semibold text-red-800 mb-2">Emergency Controls</h2>
+          <p className="text-sm text-red-600 mb-4">Use only when necessary. All actions are logged.</p>
+          <div className="flex gap-4">
+            <Link href="/admin/owner/users" className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm">
+              🚨 Revoke User Access
+            </Link>
+            <Link href="/admin/owner/features" className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-sm">
+              ⚠️ Disable Feature
+            </Link>
+            <Link href="/admin/owner/versions" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
+              ↩️ Rollback Change
+            </Link>
+          </div>
+        </div>
+      </main>
     </div>
   );
 }
