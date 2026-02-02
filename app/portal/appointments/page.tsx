@@ -44,13 +44,86 @@ export default function PortalAppointmentsPage() {
   const [upcomingAppointments, setUpcomingAppointments] = useState<Appointment[]>([]);
   const [pastAppointments, setPastAppointments] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  
+  // Lookup states (for guests to find their appointments)
+  const [showLookup, setShowLookup] = useState(false);
+  const [lookupEmail, setLookupEmail] = useState('');
+  const [lookupPhone, setLookupPhone] = useState('');
+  const [lookupLoading, setLookupLoading] = useState(false);
+  const [lookupError, setLookupError] = useState('');
 
-  // Fetch appointments - placeholder until client auth is implemented
+  // Fetch client's appointments from API
   useEffect(() => {
-    // Client appointments will load when logged in
-    setUpcomingAppointments([]);
-    setPastAppointments([]);
-    setLoading(false);
+    async function fetchAppointments() {
+      try {
+        setLoading(true);
+        
+        // Get client ID from session storage (set during login)
+        const clientId = sessionStorage.getItem('client_id');
+        const clientEmail = sessionStorage.getItem('client_email');
+        
+        if (!clientId && !clientEmail) {
+          // No client session - show empty state
+          setUpcomingAppointments([]);
+          setPastAppointments([]);
+          setLoading(false);
+          return;
+        }
+
+        // Fetch appointments for this client
+        const params = new URLSearchParams();
+        if (clientId) params.set('client_id', clientId);
+        
+        const response = await fetch(`/api/appointments?${params.toString()}`);
+        const data = await response.json();
+        
+        if (data.appointments) {
+          const now = new Date();
+          
+          // Transform and split into upcoming/past
+          const upcoming: Appointment[] = [];
+          const past: Appointment[] = [];
+          
+          for (const apt of data.appointments) {
+            const aptDate = new Date(apt.starts_at);
+            const formatted: Appointment = {
+              id: apt.id,
+              service: apt.service_name || apt.service?.name || 'Service',
+              provider: apt.provider_name || 'Provider',
+              date: apt.starts_at.split('T')[0],
+              time: aptDate.toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit',
+                hour12: true 
+              }),
+              datetime: aptDate,
+              status: apt.status,
+              location: '74 W. Washington St, Oswego, IL',
+              price: apt.service_price || (apt.service?.price_cents ? apt.service.price_cents / 100 : 0),
+            };
+            
+            if (apt.status === 'cancelled' || apt.status === 'completed' || apt.status === 'no_show' || aptDate < now) {
+              past.push(formatted);
+            } else {
+              upcoming.push(formatted);
+            }
+          }
+          
+          // Sort: upcoming by date ascending, past by date descending
+          upcoming.sort((a, b) => a.datetime.getTime() - b.datetime.getTime());
+          past.sort((a, b) => b.datetime.getTime() - a.datetime.getTime());
+          
+          setUpcomingAppointments(upcoming);
+          setPastAppointments(past);
+        }
+      } catch (error) {
+        console.error('Error fetching appointments:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    
+    fetchAppointments();
   }, []);
 
 
@@ -110,6 +183,83 @@ export default function PortalAppointmentsPage() {
     });
   };
 
+  // Lookup appointments by email/phone
+  const handleLookup = async () => {
+    if (!lookupEmail && !lookupPhone) {
+      setLookupError('Please enter your email or phone number');
+      return;
+    }
+    
+    setLookupLoading(true);
+    setLookupError('');
+    
+    try {
+      // First lookup client by email/phone
+      const searchParam = lookupEmail || lookupPhone;
+      const clientRes = await fetch(`/api/clients?search=${encodeURIComponent(searchParam)}`);
+      const clientData = await clientRes.json();
+      
+      if (clientData.clients && clientData.clients.length > 0) {
+        const client = clientData.clients[0];
+        
+        // Store in session for future use
+        sessionStorage.setItem('client_id', client.id);
+        sessionStorage.setItem('client_email', client.email || '');
+        
+        // Fetch their appointments
+        const aptRes = await fetch(`/api/appointments?client_id=${client.id}`);
+        const aptData = await aptRes.json();
+        
+        if (aptData.appointments) {
+          const now = new Date();
+          const upcoming: Appointment[] = [];
+          const past: Appointment[] = [];
+          
+          for (const apt of aptData.appointments) {
+            const aptDate = new Date(apt.starts_at);
+            const formatted: Appointment = {
+              id: apt.id,
+              service: apt.service_name || apt.service?.name || 'Service',
+              provider: apt.provider_name || 'Provider',
+              date: apt.starts_at.split('T')[0],
+              time: aptDate.toLocaleTimeString('en-US', { 
+                hour: 'numeric', 
+                minute: '2-digit',
+                hour12: true 
+              }),
+              datetime: aptDate,
+              status: apt.status,
+              location: '74 W. Washington St, Oswego, IL',
+              price: apt.service_price || 0,
+            };
+            
+            if (apt.status === 'cancelled' || apt.status === 'completed' || apt.status === 'no_show' || aptDate < now) {
+              past.push(formatted);
+            } else {
+              upcoming.push(formatted);
+            }
+          }
+          
+          upcoming.sort((a, b) => a.datetime.getTime() - b.datetime.getTime());
+          past.sort((a, b) => b.datetime.getTime() - a.datetime.getTime());
+          
+          setUpcomingAppointments(upcoming);
+          setPastAppointments(past);
+          setShowLookup(false);
+        }
+      } else {
+        setLookupError('No appointments found for this email/phone. Try booking a new appointment!');
+      }
+    } catch (error) {
+      setLookupError('Error looking up appointments. Please try again.');
+    } finally {
+      setLookupLoading(false);
+    }
+  };
+
+  // Check if we have any appointments loaded
+  const hasAppointments = upcomingAppointments.length > 0 || pastAppointments.length > 0;
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -118,35 +268,85 @@ export default function PortalAppointmentsPage() {
         <p className="text-gray-500">View and manage your upcoming treatments</p>
       </div>
 
-      {/* Policy Notice */}
-      <div className="bg-pink-50 border border-pink-200 rounded-xl p-4">
-        <h3 className="font-semibold text-pink-900 mb-2">📋 Cancellation Policy</h3>
-        <p className="text-sm text-pink-800">{formatCancellationPolicyForClient(DEFAULT_CANCELLATION_POLICY)}</p>
-      </div>
+      {/* Appointment Lookup (shown when no appointments loaded) */}
+      {!loading && !hasAppointments && (
+        <div className="bg-white rounded-2xl border border-gray-100 p-6">
+          <h3 className="font-semibold text-gray-900 mb-4">Find Your Appointments</h3>
+          <p className="text-gray-600 text-sm mb-4">
+            Enter your email or phone number to view and manage your appointments.
+          </p>
+          <div className="space-y-3">
+            <input
+              type="email"
+              placeholder="Email address"
+              value={lookupEmail}
+              onChange={(e) => setLookupEmail(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+            />
+            <div className="text-center text-gray-400 text-sm">or</div>
+            <input
+              type="tel"
+              placeholder="Phone number"
+              value={lookupPhone}
+              onChange={(e) => setLookupPhone(e.target.value)}
+              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+            />
+            {lookupError && (
+              <p className="text-red-600 text-sm">{lookupError}</p>
+            )}
+            <button
+              onClick={handleLookup}
+              disabled={lookupLoading}
+              className="w-full py-3 bg-pink-500 text-white rounded-xl font-medium hover:bg-pink-600 disabled:opacity-50"
+            >
+              {lookupLoading ? 'Looking up...' : 'Find My Appointments'}
+            </button>
+          </div>
+          <div className="mt-4 pt-4 border-t border-gray-100 text-center">
+            <p className="text-sm text-gray-500 mb-2">Don't have an appointment yet?</p>
+            <Link
+              href="/book"
+              className="text-pink-600 font-medium hover:text-pink-700"
+            >
+              Book Now →
+            </Link>
+          </div>
+        </div>
+      )}
 
-      {/* Tabs */}
-      <div className="flex gap-2">
-        <button
-          onClick={() => setActiveTab('upcoming')}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-            activeTab === 'upcoming'
-              ? 'bg-pink-500 text-white'
-              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-          }`}
-        >
-          Upcoming ({upcomingAppointments.length})
-        </button>
-        <button
-          onClick={() => setActiveTab('past')}
-          className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-            activeTab === 'past'
-              ? 'bg-pink-500 text-white'
-              : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-          }`}
-        >
-          Past ({pastAppointments.length})
-        </button>
-      </div>
+      {/* Policy Notice */}
+      {hasAppointments && (
+        <div className="bg-pink-50 border border-pink-200 rounded-xl p-4">
+          <h3 className="font-semibold text-pink-900 mb-2">📋 Cancellation Policy</h3>
+          <p className="text-sm text-pink-800">{formatCancellationPolicyForClient(DEFAULT_CANCELLATION_POLICY)}</p>
+        </div>
+      )}
+
+      {/* Tabs - only show when appointments exist */}
+      {hasAppointments && (
+        <div className="flex gap-2">
+          <button
+            onClick={() => setActiveTab('upcoming')}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              activeTab === 'upcoming'
+                ? 'bg-pink-500 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            Upcoming ({upcomingAppointments.length})
+          </button>
+          <button
+            onClick={() => setActiveTab('past')}
+            className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+              activeTab === 'past'
+                ? 'bg-pink-500 text-white'
+                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            }`}
+          >
+            Past ({pastAppointments.length})
+          </button>
+        </div>
+      )}
 
       {/* Upcoming Appointments */}
       {activeTab === 'upcoming' && (
@@ -328,29 +528,49 @@ export default function PortalAppointmentsPage() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
             <h2 className="text-xl font-bold text-gray-900 mb-4">Reschedule Appointment</h2>
-            <p className="text-gray-600 mb-4">
-              To reschedule your appointment, please contact us or book a new appointment and cancel this one.
-            </p>
-
+            
             <div className="bg-gray-50 rounded-lg p-4 mb-4">
               <p className="font-medium">{selectedAppointment.service}</p>
               <p className="text-sm text-gray-500">{formatDate(selectedAppointment.date)} at {selectedAppointment.time}</p>
             </div>
 
-            <div className="flex gap-3">
-              <button
-                onClick={() => { setShowRescheduleModal(false); setSelectedAppointment(null); }}
-                className="flex-1 px-4 py-2 border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50"
-              >
-                Close
-              </button>
+            <div className="space-y-3 mb-4">
+              <p className="text-gray-600 text-sm">
+                Choose how you'd like to reschedule:
+              </p>
+              
               <Link
-                href="/portal/book"
-                className="flex-1 px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 text-center"
+                href="/book"
+                className="block w-full px-4 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 text-center font-medium"
               >
-                Book New Time
+                Book New Time Online
               </Link>
+              
+              <a
+                href="tel:6306366193"
+                className="block w-full px-4 py-3 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 text-center"
+              >
+                📞 Call (630) 636-6193
+              </a>
+              
+              <a
+                href="sms:6306366193?body=Hi, I'd like to reschedule my appointment"
+                className="block w-full px-4 py-3 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 text-center"
+              >
+                💬 Text Us
+              </a>
             </div>
+
+            <p className="text-xs text-gray-500 text-center mb-4">
+              After booking your new time, you can cancel this appointment.
+            </p>
+
+            <button
+              onClick={() => { setShowRescheduleModal(false); setSelectedAppointment(null); }}
+              className="w-full px-4 py-2 border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50"
+            >
+              Close
+            </button>
           </div>
         </div>
       )}
