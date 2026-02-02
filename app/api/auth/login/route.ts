@@ -1,13 +1,21 @@
 // ============================================================
 // LOGIN API ROUTE
 // Handle authentication requests
+// SECURITY: Demo accounts disabled in production
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { createClient } from '@supabase/supabase-js';
 import { ROLE_PERMISSIONS, type AuthUser, type UserRole } from '@/lib/hgos/auth';
 
-// Demo accounts for development
+// Force dynamic for this route
+export const dynamic = 'force-dynamic';
+
+// Check if running in production
+const isProduction = process.env.NODE_ENV === 'production' || 
+  process.env.VERCEL_ENV === 'production';
+
+// Demo accounts for development ONLY
 const DEMO_ACCOUNTS: Record<string, { password: string; role: UserRole; firstName: string; lastName: string }> = {
   'admin@hellogorgeousmedspa.com': {
     password: 'admin123',
@@ -55,55 +63,88 @@ export async function POST(request: NextRequest) {
 
     const normalizedEmail = email.toLowerCase().trim();
 
-    // Try Supabase auth first
-    const supabase = createServerSupabaseClient();
+    // ============================================================
+    // TRY SUPABASE AUTH (REQUIRED IN PRODUCTION)
+    // ============================================================
     
-    if (supabase) {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    
+    if (supabaseUrl && supabaseAnonKey) {
+      const supabase = createClient(supabaseUrl, supabaseAnonKey);
+      
       try {
         const { data, error } = await supabase.auth.signInWithPassword({
           email: normalizedEmail,
           password,
         });
 
-        if (!error && data.user) {
-          // Get user profile
+        if (!error && data.user && data.session) {
+          // Get user profile with role
           const { data: profile } = await supabase
             .from('user_profiles')
             .select('*')
             .eq('user_id', data.user.id)
             .single();
 
+          const userRole = (profile?.role as UserRole) || 'client';
+          
           const user: AuthUser = {
             id: data.user.id,
             email: data.user.email || normalizedEmail,
-            role: profile?.role || 'client',
+            role: userRole,
             firstName: profile?.first_name || '',
             lastName: profile?.last_name || '',
             avatarUrl: profile?.avatar_url,
             staffId: profile?.staff_id,
             clientId: profile?.client_id,
             providerId: profile?.provider_id,
-            permissions: ROLE_PERMISSIONS[profile?.role || 'client'],
+            permissions: ROLE_PERMISSIONS[userRole],
             createdAt: data.user.created_at,
             lastLoginAt: new Date().toISOString(),
           };
 
-          return NextResponse.json({
+          // Create response with session cookie
+          const response = NextResponse.json({
             success: true,
             user,
             session: {
-              access_token: data.session?.access_token,
-              refresh_token: data.session?.refresh_token,
-              expires_at: data.session?.expires_at,
+              access_token: data.session.access_token,
+              refresh_token: data.session.refresh_token,
+              expires_at: data.session.expires_at,
             },
           });
+
+          return response;
+        }
+        
+        // Supabase auth failed
+        if (error) {
+          console.log('Supabase auth error:', error.message);
         }
       } catch (supabaseError) {
-        console.log('Supabase auth failed, falling back to demo accounts');
+        console.error('Supabase auth exception:', supabaseError);
       }
     }
 
-    // Fall back to demo accounts
+    // ============================================================
+    // PRODUCTION: REJECT IF SUPABASE AUTH FAILED
+    // ============================================================
+    
+    if (isProduction) {
+      // In production, NO DEMO ACCOUNTS - require real Supabase auth
+      return NextResponse.json(
+        { error: 'Invalid email or password' },
+        { status: 401 }
+      );
+    }
+
+    // ============================================================
+    // DEVELOPMENT ONLY: Demo accounts fallback
+    // ============================================================
+    
+    console.warn('⚠️ DEVELOPMENT MODE: Using demo account fallback');
+    
     const demoAccount = DEMO_ACCOUNTS[normalizedEmail];
     
     if (!demoAccount || demoAccount.password !== password) {
@@ -131,6 +172,7 @@ export async function POST(request: NextRequest) {
         access_token: `demo_token_${Date.now()}`,
         expires_at: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60, // 7 days
       },
+      _warning: 'Demo mode - not for production use',
     });
 
   } catch (error) {

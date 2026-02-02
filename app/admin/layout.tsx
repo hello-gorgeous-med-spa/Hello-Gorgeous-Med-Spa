@@ -11,9 +11,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ModeSwitcher, { ModeSwitcherMobile } from '@/components/ModeSwitcher';
 
-// Switch to admin manifest for PWA install
+// Switch to admin manifest for PWA install + add noindex for security
 function useAdminManifest() {
   useEffect(() => {
+    // Set admin manifest
     let manifestLink = document.querySelector('link[rel="manifest"]') as HTMLLinkElement;
     const originalHref = manifestLink?.href;
     
@@ -26,10 +27,20 @@ function useAdminManifest() {
       document.head.appendChild(manifestLink);
     }
 
+    // Set theme color
     let themeColor = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement;
     if (themeColor) {
       themeColor.content = '#0a0a0a';
     }
+
+    // SECURITY: Add noindex meta tag to prevent search engine indexing
+    let robotsMeta = document.querySelector('meta[name="robots"]') as HTMLMetaElement;
+    if (!robotsMeta) {
+      robotsMeta = document.createElement('meta');
+      robotsMeta.name = 'robots';
+      document.head.appendChild(robotsMeta);
+    }
+    robotsMeta.content = 'noindex, nofollow';
 
     return () => {
       if (manifestLink && originalHref) {

@@ -5,12 +5,15 @@
 // Branded authentication for Hello Gorgeous Med Spa
 // ============================================================
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const returnTo = searchParams.get('returnTo');
+  
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [formData, setFormData] = useState({
@@ -18,6 +21,10 @@ export default function LoginPage() {
     password: '',
     remember: false,
   });
+
+  // Check if we're in production (hide demo buttons)
+  const isProduction = typeof window !== 'undefined' && 
+    window.location.hostname === 'hellogorgeousmedspa.com';
 
   const doLogin = async (email: string, password: string) => {
     setIsLoading(true);
@@ -28,6 +35,7 @@ export default function LoginPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
+        credentials: 'include', // Important for cookies
       });
 
       const data = await response.json();
@@ -46,11 +54,19 @@ export default function LoginPage() {
         }));
       }
 
+      // If there's a returnTo URL, redirect there (if allowed)
+      if (returnTo && !returnTo.includes('://')) {
+        router.push(returnTo);
+        return;
+      }
+
       // Redirect based on role
       const role = data.user?.role || 'client';
       switch (role) {
-        case 'admin':
         case 'owner':
+          router.push('/admin/owner');
+          break;
+        case 'admin':
           router.push('/admin');
           break;
         case 'provider':
@@ -178,51 +194,54 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Divider */}
-          <div className="relative my-6">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-white/20" />
-            </div>
-            <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-transparent text-white/50">Quick Access</span>
-            </div>
-          </div>
+          {/* Development Only - Demo Logins */}
+          {!isProduction && (
+            <>
+              <div className="relative my-6">
+                <div className="absolute inset-0 flex items-center">
+                  <div className="w-full border-t border-white/20" />
+                </div>
+                <div className="relative flex justify-center text-sm">
+                  <span className="px-4 bg-transparent text-white/50">Development Only</span>
+                </div>
+              </div>
 
-          {/* Role Quick Links (Development Only) */}
-          <div className="grid grid-cols-2 gap-3">
-            <button
-              type="button"
-              onClick={() => quickLogin('admin@hellogorgeousmedspa.com', 'admin123')}
-              disabled={isLoading}
-              className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-white/70 hover:bg-white/10 transition-colors disabled:opacity-50"
-            >
-              Demo: Admin
-            </button>
-            <button
-              type="button"
-              onClick={() => quickLogin('provider@hellogorgeousmedspa.com', 'provider123')}
-              disabled={isLoading}
-              className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-white/70 hover:bg-white/10 transition-colors disabled:opacity-50"
-            >
-              Demo: Provider
-            </button>
-            <button
-              type="button"
-              onClick={() => quickLogin('staff@hellogorgeousmedspa.com', 'staff123')}
-              disabled={isLoading}
-              className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-white/70 hover:bg-white/10 transition-colors disabled:opacity-50"
-            >
-              Demo: Staff
-            </button>
-            <button
-              type="button"
-              onClick={() => quickLogin('client@example.com', 'client123')}
-              disabled={isLoading}
-              className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-white/70 hover:bg-white/10 transition-colors disabled:opacity-50"
-            >
-              Demo: Client
-            </button>
-          </div>
+              <div className="grid grid-cols-2 gap-3">
+                <button
+                  type="button"
+                  onClick={() => quickLogin('owner@hellogorgeousmedspa.com', 'owner123')}
+                  disabled={isLoading}
+                  className="px-4 py-2 bg-amber-500/20 border border-amber-500/30 rounded-lg text-sm text-amber-300 hover:bg-amber-500/30 transition-colors disabled:opacity-50"
+                >
+                  Demo: Owner
+                </button>
+                <button
+                  type="button"
+                  onClick={() => quickLogin('admin@hellogorgeousmedspa.com', 'admin123')}
+                  disabled={isLoading}
+                  className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-white/70 hover:bg-white/10 transition-colors disabled:opacity-50"
+                >
+                  Demo: Admin
+                </button>
+                <button
+                  type="button"
+                  onClick={() => quickLogin('provider@hellogorgeousmedspa.com', 'provider123')}
+                  disabled={isLoading}
+                  className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-white/70 hover:bg-white/10 transition-colors disabled:opacity-50"
+                >
+                  Demo: Provider
+                </button>
+                <button
+                  type="button"
+                  onClick={() => quickLogin('staff@hellogorgeousmedspa.com', 'staff123')}
+                  disabled={isLoading}
+                  className="px-4 py-2 bg-white/5 border border-white/10 rounded-lg text-sm text-white/70 hover:bg-white/10 transition-colors disabled:opacity-50"
+                >
+                  Demo: Staff
+                </button>
+              </div>
+            </>
+          )}
         </div>
 
         {/* Footer */}
@@ -239,5 +258,20 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin text-4xl mb-4">💗</div>
+          <p className="text-pink-200/70">Loading...</p>
+        </div>
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   );
 }

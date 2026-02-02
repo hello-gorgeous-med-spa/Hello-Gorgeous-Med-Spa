@@ -81,6 +81,17 @@ export default function ProviderLayout({
     return () => clearInterval(timer);
   }, []);
 
+  // SECURITY: Add noindex meta tag to prevent search engine indexing
+  useEffect(() => {
+    let robotsMeta = document.querySelector('meta[name="robots"]') as HTMLMetaElement;
+    if (!robotsMeta) {
+      robotsMeta = document.createElement('meta');
+      robotsMeta.name = 'robots';
+      document.head.appendChild(robotsMeta);
+    }
+    robotsMeta.content = 'noindex, nofollow';
+  }, []);
+
   // Fetch queue count
   const fetchQueueCount = useCallback(async () => {
     try {

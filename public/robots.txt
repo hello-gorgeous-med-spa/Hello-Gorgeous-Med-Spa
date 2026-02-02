@@ -1,4 +1,35 @@
+# Hello Gorgeous Med Spa - robots.txt
+# Block all internal/admin routes from crawlers
+
 User-agent: *
-Disallow: /api/
-Disallow: /private/
 Allow: /
+Allow: /about
+Allow: /services
+Allow: /treatments
+Allow: /contact
+Allow: /book
+
+# SECURITY: Block all admin, provider, and internal routes
+Disallow: /admin
+Disallow: /admin/
+Disallow: /owner
+Disallow: /owner/
+Disallow: /provider
+Disallow: /provider/
+Disallow: /dashboard
+Disallow: /dashboard/
+Disallow: /pos
+Disallow: /pos/
+Disallow: /api/
+Disallow: /login
+Disallow: /unauthorized
+Disallow: /settings
+Disallow: /settings/
+
+# Block query strings that might expose internal data
+Disallow: /*?*token=
+Disallow: /*?*session=
+Disallow: /*?*auth=
+
+# Sitemap location
+Sitemap: https://hellogorgeousmedspa.com/sitemap.xml
