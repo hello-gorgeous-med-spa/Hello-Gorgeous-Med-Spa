@@ -231,7 +231,7 @@ export default function FounderOverviewPage() {
               </div>
               <div className="bg-white rounded-xl border p-4">
                 <span className="text-xs text-gray-500">Active Rules</span>
-                <p className="text-lg font-bold text-purple-600 mt-1">{data.system.activeRules}</p>
+                <p className="text-lg font-bold text-pink-600 mt-1">{data.system.activeRules}</p>
               </div>
               <div className="bg-white rounded-xl border p-4">
                 <span className="text-xs text-gray-500">Features Enabled</span>
@@ -270,7 +270,7 @@ export default function FounderOverviewPage() {
               </div>
               <div className="bg-white rounded-xl border p-4">
                 <span className="text-xs text-gray-500">Active Memberships</span>
-                <p className="text-2xl font-bold text-purple-600">{data.memberships.active}</p>
+                <p className="text-2xl font-bold text-pink-600">{data.memberships.active}</p>
               </div>
             </div>
 
@@ -397,7 +397,7 @@ export default function FounderOverviewPage() {
               )}
               {data.recentChanges.length > 0 && (
                 <div className="p-4 border-t">
-                  <Link href="/admin/owner/audit" className="text-sm text-purple-600 hover:text-purple-700">
+                  <Link href="/admin/owner/audit" className="text-sm text-pink-600 hover:text-pink-700">
                     View full audit log →
                   </Link>
                 </div>
@@ -443,7 +443,7 @@ export default function FounderOverviewPage() {
                   {data.providers.stats.map(provider => (
                     <div key={provider.id} className="p-4 bg-gray-50 rounded-lg">
                       <p className="font-medium">{provider.name}</p>
-                      <p className="text-2xl font-bold text-purple-600">{provider.appointments}</p>
+                      <p className="text-2xl font-bold text-pink-600">{provider.appointments}</p>
                       <p className="text-xs text-gray-500">appointments</p>
                     </div>
                   ))}

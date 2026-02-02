@@ -273,7 +273,7 @@ export default function AdminConsentsPage() {
                       </span>
                     )}
                     {template.requires_witness && (
-                      <span className="px-2 py-0.5 text-xs bg-purple-100 text-purple-700 rounded-full">
+                      <span className="px-2 py-0.5 text-xs bg-pink-100 text-pink-700 rounded-full">
                         Witness Required
                       </span>
                     )}

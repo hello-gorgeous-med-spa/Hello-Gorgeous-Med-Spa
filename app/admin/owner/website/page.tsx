@@ -130,7 +130,7 @@ export default function WebsiteControlPage() {
           <div className="flex gap-4">
             <Link
               href="/admin/owner/website/pages?new=true"
-              className="px-4 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+              className="px-4 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
             >
               + Create New Page
             </Link>
@@ -181,7 +181,7 @@ export default function WebsiteControlPage() {
             ) : (
               <p className="text-sm text-gray-500">No pages yet</p>
             )}
-            <Link href="/admin/owner/website/pages" className="text-sm text-purple-600 block mt-3">
+            <Link href="/admin/owner/website/pages" className="text-sm text-pink-600 block mt-3">
               View all pages →
             </Link>
           </div>
@@ -205,7 +205,7 @@ export default function WebsiteControlPage() {
             ) : (
               <p className="text-sm text-gray-500">No active promotions</p>
             )}
-            <Link href="/admin/owner/website/promotions" className="text-sm text-purple-600 block mt-3">
+            <Link href="/admin/owner/website/promotions" className="text-sm text-pink-600 block mt-3">
               Manage promotions →
             </Link>
           </div>

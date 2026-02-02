@@ -61,7 +61,7 @@ export default function AutomationsPage() {
         <div className="bg-white rounded-xl border">
           <div className="p-4 border-b flex items-center justify-between">
             <h2 className="text-lg font-semibold">Active Automations</h2>
-            <button className="px-4 py-2 bg-purple-600 text-white rounded-lg text-sm hover:bg-purple-700">
+            <button className="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600">
               + Create Automation
             </button>
           </div>
@@ -129,19 +129,19 @@ export default function AutomationsPage() {
         </div>
 
         {/* Message Templates Link */}
-        <div className="bg-purple-50 border border-purple-200 rounded-xl p-4">
+        <div className="bg-purple-50 border border-pink-200 rounded-xl p-4">
           <h3 className="font-medium text-purple-800">Message Templates</h3>
-          <p className="text-sm text-purple-600 mt-1">
+          <p className="text-sm text-pink-600 mt-1">
             Edit the actual text content of all SMS and email messages in the Message Templates section.
           </p>
-          <a href="/admin/settings/templates" className="inline-block mt-2 text-sm text-purple-700 hover:text-purple-800 font-medium">
+          <a href="/admin/settings/templates" className="inline-block mt-2 text-sm text-pink-700 hover:text-purple-800 font-medium">
             Go to Message Templates →
           </a>
         </div>
 
         {/* Save */}
         <div className="flex justify-end">
-          <button onClick={saveSettings} className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium">
+          <button onClick={saveSettings} className="px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
             Save Automation Settings
           </button>
         </div>

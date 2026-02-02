@@ -232,7 +232,7 @@ export default function SchedulingEnginePage() {
           <div className="bg-white rounded-xl border">
             <div className="p-4 border-b bg-gray-50 flex items-center justify-between">
               <h2 className="font-semibold">📅 Blackout Dates / Holidays</h2>
-              <button className="text-sm text-purple-600 hover:text-purple-700">+ Add Date</button>
+              <button className="text-sm text-pink-600 hover:text-pink-700">+ Add Date</button>
             </div>
             <div className="p-4">
               {blackoutDates.map(bd => (
@@ -292,9 +292,9 @@ export default function SchedulingEnginePage() {
           </div>
 
           {/* Preview Panel */}
-          <div className="bg-purple-50 border border-purple-200 rounded-xl p-4">
+          <div className="bg-purple-50 border border-pink-200 rounded-xl p-4">
             <h3 className="font-semibold text-purple-800 mb-3">👁️ Preview Panel</h3>
-            <p className="text-sm text-purple-600 mb-3">"This is what clients will see."</p>
+            <p className="text-sm text-pink-600 mb-3">"This is what clients will see."</p>
             <div className="bg-white rounded-lg p-3 text-sm">
               <p className="font-medium mb-2">Available Hours</p>
               {businessHours.filter(d => d.isOpen).map(d => (
@@ -321,7 +321,7 @@ export default function SchedulingEnginePage() {
                 <span className="font-medium">18 / {capacitySettings.maxDailyAppointments}</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2">
-                <div className="bg-purple-600 rounded-full h-2" style={{ width: `${(18 / capacitySettings.maxDailyAppointments) * 100}%` }} />
+                <div className="bg-pink-500 rounded-full h-2" style={{ width: `${(18 / capacitySettings.maxDailyAppointments) * 100}%` }} />
               </div>
               <p className="text-xs text-gray-500">{capacitySettings.maxDailyAppointments - 18} slots remaining</p>
             </div>
@@ -330,7 +330,7 @@ export default function SchedulingEnginePage() {
           {/* Save Button */}
           <button
             onClick={saveSettings}
-            className="w-full px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium"
+            className="w-full px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium"
           >
             Save All Scheduling Settings
           </button>

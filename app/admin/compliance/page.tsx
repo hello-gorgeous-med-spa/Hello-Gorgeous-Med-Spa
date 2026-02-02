@@ -538,7 +538,7 @@ export default function ComplianceDashboard() {
             </div>
             <div className="bg-white rounded-xl border p-4">
               <p className="text-sm text-gray-500">Photo Release</p>
-              <p className="text-2xl font-bold text-purple-600">{consentStats?.photoConsent || 0}</p>
+              <p className="text-2xl font-bold text-pink-600">{consentStats?.photoConsent || 0}</p>
             </div>
           </div>
 

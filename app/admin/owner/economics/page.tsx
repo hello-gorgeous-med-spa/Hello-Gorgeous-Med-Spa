@@ -125,7 +125,7 @@ export default function EconomicsPage() {
             onClick={() => setActiveTab(tab.id as any)}
             className={`px-4 py-3 text-sm font-medium border-b-2 -mb-px ${
               activeTab === tab.id
-                ? 'border-purple-500 text-purple-600'
+                ? 'border-purple-500 text-pink-600'
                 : 'border-transparent text-gray-500 hover:text-gray-700'
             }`}
           >
@@ -141,7 +141,7 @@ export default function EconomicsPage() {
           <div className="bg-white rounded-xl border">
             <div className="p-4 border-b flex items-center justify-between">
               <h2 className="font-semibold">📅 Pricing Versions (Future-Dated)</h2>
-              <button className="px-4 py-2 bg-purple-600 text-white rounded-lg text-sm hover:bg-purple-700">
+              <button className="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600">
                 + Create Version
               </button>
             </div>
@@ -160,7 +160,7 @@ export default function EconomicsPage() {
                     }`}>
                       {version.status}
                     </span>
-                    <button className="text-sm text-purple-600 hover:text-purple-700">Edit</button>
+                    <button className="text-sm text-pink-600 hover:text-pink-700">Edit</button>
                   </div>
                 </div>
               ))}
@@ -348,8 +348,8 @@ export default function EconomicsPage() {
                 <p className="text-2xl font-bold text-blue-700">$97,000</p>
               </div>
               <div className="p-4 bg-purple-50 rounded-lg text-center">
-                <p className="text-sm text-purple-600">Net Profit (MTD)</p>
-                <p className="text-2xl font-bold text-purple-700">$67,900</p>
+                <p className="text-sm text-pink-600">Net Profit (MTD)</p>
+                <p className="text-2xl font-bold text-pink-700">$67,900</p>
               </div>
             </div>
           </div>
@@ -358,7 +358,7 @@ export default function EconomicsPage() {
 
       {/* Save Button */}
       <div className="mt-6 flex justify-end">
-        <button onClick={saveSettings} className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium">
+        <button onClick={saveSettings} className="px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
           Save Economics Settings
         </button>
       </div>

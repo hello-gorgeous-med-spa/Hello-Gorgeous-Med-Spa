@@ -250,7 +250,7 @@ export default function EFaxPage() {
             href="https://myportal.efax.com/login"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 font-medium text-sm"
+            className="px-4 py-2 bg-pink-100 text-pink-700 rounded-lg hover:bg-pink-200 font-medium text-sm"
           >
             ⚙️ Account Settings
           </a>
@@ -473,7 +473,7 @@ export default function EFaxPage() {
               Embeddable e-prescribing widget. EPCS certified for controlled substances. 
               Integrates with Surescripts network.
             </p>
-            <p className="text-xs text-purple-600 mt-2 font-medium">Recommended for med spas</p>
+            <p className="text-xs text-pink-600 mt-2 font-medium">Recommended for med spas</p>
           </div>
           <div className="bg-white rounded-lg p-4 border border-purple-200">
             <h4 className="font-semibold text-gray-900">DrFirst (Rcopia)</h4>

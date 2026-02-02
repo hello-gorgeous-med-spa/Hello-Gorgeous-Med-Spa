@@ -410,7 +410,7 @@ function NewAppointmentContent() {
           <div className="p-4 border-b border-gray-100 flex gap-4">
             <Link
               href="/admin/clients/new"
-              className="flex items-center gap-3 px-4 py-3 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition-colors"
+              className="flex items-center gap-3 px-4 py-3 bg-pink-100 text-pink-700 rounded-lg hover:bg-pink-200 transition-colors"
             >
               <span className="w-10 h-10 bg-purple-200 rounded-full flex items-center justify-center text-xl">+</span>
               <span className="font-medium">Add new client</span>

@@ -136,7 +136,7 @@ export default function SandboxPage() {
             <div className="bg-white rounded-xl border">
               <div className="p-4 border-b bg-gray-50 flex items-center justify-between">
                 <h2 className="font-semibold">📝 Pending Changes</h2>
-                <span className="bg-purple-100 text-purple-700 px-2 py-0.5 rounded text-sm">
+                <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-sm">
                   {changes.length} changes
                 </span>
               </div>
@@ -172,7 +172,7 @@ export default function SandboxPage() {
                 <div className="bg-gray-100 rounded-lg p-4 text-center">
                   <span className="text-4xl block mb-3">📱</span>
                   <p className="text-sm text-gray-600 mb-4">Preview how changes will appear to clients</p>
-                  <button className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 text-sm">
+                  <button className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 text-sm">
                     Open Preview
                   </button>
                 </div>
@@ -217,7 +217,7 @@ export default function SandboxPage() {
           </p>
           <button
             onClick={activateSandbox}
-            className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium"
+            className="px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium"
           >
             Activate Sandbox Mode
           </button>

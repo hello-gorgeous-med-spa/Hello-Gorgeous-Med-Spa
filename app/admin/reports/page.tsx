@@ -221,7 +221,7 @@ export default function ReportsPage() {
                   {report?.clients?.new || 0}
                 </p>
               )}
-              <p className="text-sm text-purple-600 mt-1">this period</p>
+              <p className="text-sm text-pink-600 mt-1">this period</p>
             </div>
           </div>
 

@@ -77,7 +77,7 @@ function StatCard({ label, value, subValue, icon, color = 'gray' }: {
     green: 'text-green-600',
     red: 'text-red-600',
     blue: 'text-blue-600',
-    purple: 'text-purple-600',
+    purple: 'text-pink-600',
   };
 
   return (
@@ -406,7 +406,7 @@ export default function FinancialCommandCenter() {
                 <div className="flex items-center justify-between p-3 bg-purple-50 rounded-lg">
                   <div>
                     <p className="font-medium text-purple-800">Gift Card Liability</p>
-                    <p className="text-sm text-purple-600">Unredeemed balance</p>
+                    <p className="text-sm text-pink-600">Unredeemed balance</p>
                   </div>
                   <span className="text-xl font-bold text-purple-700">
                     ${(summary?.giftCardLiability || 0).toLocaleString()}

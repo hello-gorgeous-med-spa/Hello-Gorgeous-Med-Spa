@@ -250,7 +250,7 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
       <OwnerLayout title="Page Not Found" description="">
         <div className="text-center py-12">
           <p className="text-gray-500 mb-4">This page could not be found.</p>
-          <Link href="/admin/owner/website/pages" className="text-purple-600">
+          <Link href="/admin/owner/website/pages" className="text-pink-600">
             ← Back to Pages
           </Link>
         </div>
@@ -308,7 +308,7 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
           </button>
           <button
             onClick={publishPage}
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+            className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
           >
             {page.status === 'published' ? 'Update Live' : 'Publish'}
           </button>
@@ -323,7 +323,7 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
             onClick={() => setActiveTab(tab)}
             className={`px-4 py-2 text-sm capitalize ${
               activeTab === tab 
-                ? 'border-b-2 border-purple-500 text-purple-600 font-medium' 
+                ? 'border-b-2 border-purple-500 text-pink-600 font-medium' 
                 : 'text-gray-500 hover:text-gray-700'
             }`}
           >
@@ -374,7 +374,7 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
                   </button>
                   <button
                     onClick={() => setEditingSection(editingSection === section.id ? null : section.id)}
-                    className="p-1 text-gray-400 hover:text-purple-600"
+                    className="p-1 text-gray-400 hover:text-pink-600"
                   >
                     ✏️
                   </button>
@@ -403,7 +403,7 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
           {/* Add Section Button */}
           <button
             onClick={() => setShowAddSection(true)}
-            className="w-full p-4 border-2 border-dashed rounded-xl text-gray-400 hover:text-purple-600 hover:border-purple-300"
+            className="w-full p-4 border-2 border-dashed rounded-xl text-gray-400 hover:text-pink-600 hover:border-purple-300"
           >
             + Add Section
           </button>

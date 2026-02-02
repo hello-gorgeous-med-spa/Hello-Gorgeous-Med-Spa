@@ -378,7 +378,7 @@ export default function ProviderSchedulePage() {
                         block.reason === 'time-off' ? 'bg-red-100 text-red-700' :
                         block.reason === 'lunch' ? 'bg-yellow-100 text-yellow-700' :
                         block.reason === 'meeting' ? 'bg-blue-100 text-blue-700' :
-                        block.reason === 'training' ? 'bg-purple-100 text-purple-700' :
+                        block.reason === 'training' ? 'bg-pink-100 text-pink-700' :
                         'bg-gray-100 text-gray-700'
                       }`}>
                         {BLOCK_REASONS.find(r => r.id === block.reason)?.label || block.reason}

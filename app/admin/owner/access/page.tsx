@@ -75,7 +75,7 @@ export default function SystemAccessPage() {
             <div key={system.id} className="p-4 hover:bg-gray-50">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center text-lg">
+                  <div className="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center text-lg">
                     {system.category === 'Hosting' && '🖥️'}
                     {system.category === 'Database' && '🗄️'}
                     {system.category === 'Code Repository' && '📂'}
@@ -100,7 +100,7 @@ export default function SystemAccessPage() {
                     href={system.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg text-sm hover:bg-purple-200"
+                    className="px-4 py-2 bg-pink-100 text-pink-700 rounded-lg text-sm hover:bg-purple-200"
                   >
                     Open Dashboard →
                   </a>
@@ -121,7 +121,7 @@ export default function SystemAccessPage() {
                     </div>
                     <div>
                       <span className="text-gray-500">Dashboard URL</span>
-                      <p className="font-medium text-purple-600">{system.url}</p>
+                      <p className="font-medium text-pink-600">{system.url}</p>
                     </div>
                     <div>
                       <span className="text-gray-500">Last Verified</span>
@@ -144,9 +144,9 @@ export default function SystemAccessPage() {
       </div>
 
       {/* Owner Verification Checklist */}
-      <div className="mt-6 bg-purple-50 border border-purple-200 rounded-xl p-6">
+      <div className="mt-6 bg-purple-50 border border-pink-200 rounded-xl p-6">
         <h3 className="font-semibold text-purple-800 mb-4">✅ Owner Verification Checklist</h3>
-        <p className="text-sm text-purple-600 mb-4">
+        <p className="text-sm text-pink-600 mb-4">
           As the system owner, you should have direct login access to all of the following.
           <strong> Nothing should be under a developer's email.</strong>
         </p>

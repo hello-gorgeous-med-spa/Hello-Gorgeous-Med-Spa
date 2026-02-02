@@ -223,7 +223,7 @@ export default function EmailMarketingPage() {
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">Campaigns Sent</p>
-          <p className="text-2xl font-bold text-purple-600">{stats.campaignsSent}</p>
+          <p className="text-2xl font-bold text-pink-600">{stats.campaignsSent}</p>
         </div>
       </div>
 

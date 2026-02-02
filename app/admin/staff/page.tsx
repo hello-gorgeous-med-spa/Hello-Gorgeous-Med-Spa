@@ -13,7 +13,7 @@ import { ACTIVE_PROVIDERS, STAFF_ROLES, type Provider } from '@/lib/hgos/provide
 function getRoleBadge(role: string) {
   const styles: Record<string, string> = {
     owner: 'bg-pink-100 text-pink-700',
-    provider: 'bg-purple-100 text-purple-700',
+    provider: 'bg-pink-100 text-pink-700',
     staff: 'bg-blue-100 text-blue-700',
   };
   const labels: Record<string, string> = {
@@ -77,7 +77,7 @@ export default function AdminStaffPage() {
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">Providers</p>
-          <p className="text-2xl font-bold text-purple-600">{providers.length}</p>
+          <p className="text-2xl font-bold text-pink-600">{providers.length}</p>
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">Active Today</p>
@@ -155,7 +155,7 @@ export default function AdminStaffPage() {
                         </span>
                       )}
                       {member.canPrescribe && (
-                        <span className="px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded">
+                        <span className="px-2 py-1 text-xs bg-pink-100 text-pink-700 rounded">
                           Prescribe
                         </span>
                       )}

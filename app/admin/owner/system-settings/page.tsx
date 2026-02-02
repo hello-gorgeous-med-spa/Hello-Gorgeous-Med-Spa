@@ -97,7 +97,7 @@ export default function SystemSettingsPage() {
                   />
                 </div>
               ))}
-              <button className="text-sm text-purple-600 hover:text-purple-700">+ Add Location</button>
+              <button className="text-sm text-pink-600 hover:text-pink-700">+ Add Location</button>
             </div>
 
             {/* Time Zone */}
@@ -244,7 +244,7 @@ export default function SystemSettingsPage() {
                       type="checkbox"
                       checked={defaults.chartingRules[item.key as keyof typeof defaults.chartingRules] as boolean}
                       onChange={(e) => setDefaults(prev => ({ ...prev, chartingRules: { ...prev.chartingRules, [item.key]: e.target.checked }}))}
-                      className="w-5 h-5 text-purple-600"
+                      className="w-5 h-5 text-pink-600"
                     />
                     <span>{item.label}</span>
                   </label>
@@ -268,7 +268,7 @@ export default function SystemSettingsPage() {
         <div className="flex justify-end">
           <button
             onClick={saveSettings}
-            className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium"
+            className="px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium"
           >
             Save All Settings
           </button>

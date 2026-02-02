@@ -52,7 +52,7 @@ export default function RulesPrecedencePage() {
     automation: 'Automation',
   };
   const categoryColors: Record<string, string> = {
-    founder: 'bg-purple-100 text-purple-700 border-purple-200',
+    founder: 'bg-pink-100 text-pink-700 border-pink-200',
     legal: 'bg-red-100 text-red-700 border-red-200',
     clinical: 'bg-blue-100 text-blue-700 border-blue-200',
     booking: 'bg-green-100 text-green-700 border-green-200',
@@ -253,7 +253,7 @@ export default function RulesPrecedencePage() {
                   {selectedRule.category !== 'founder' && (
                     <button
                       onClick={() => overrideRule(selectedRule.id)}
-                      className="w-full px-4 py-2 bg-purple-100 text-purple-700 rounded-lg text-sm font-medium hover:bg-purple-200"
+                      className="w-full px-4 py-2 bg-pink-100 text-pink-700 rounded-lg text-sm font-medium hover:bg-purple-200"
                     >
                       Apply Founder Override
                     </button>

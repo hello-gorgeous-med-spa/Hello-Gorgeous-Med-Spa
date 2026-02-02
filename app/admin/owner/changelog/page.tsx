@@ -148,7 +148,7 @@ export default function ChangeLogPage() {
       case 'enabled': return 'bg-green-100 text-green-700';
       case 'disabled': return 'bg-amber-100 text-amber-700';
       case 'locked': return 'bg-red-100 text-red-700';
-      case 'signed': return 'bg-purple-100 text-purple-700';
+      case 'signed': return 'bg-pink-100 text-pink-700';
       default: return 'bg-gray-100 text-gray-700';
     }
   };

@@ -80,7 +80,7 @@ export default function PaymentsPage() {
               />
             </div>
           </div>
-          <a href="https://dashboard.stripe.com" target="_blank" rel="noopener" className="inline-block mt-4 text-sm text-purple-600 hover:text-purple-700">
+          <a href="https://dashboard.stripe.com" target="_blank" rel="noopener" className="inline-block mt-4 text-sm text-pink-600 hover:text-pink-700">
             Open Stripe Dashboard →
           </a>
         </div>
@@ -132,7 +132,7 @@ export default function PaymentsPage() {
                   type="checkbox"
                   checked={paymentMethods[item.key as keyof typeof paymentMethods]}
                   onChange={(e) => setPaymentMethods(prev => ({ ...prev, [item.key]: e.target.checked }))}
-                  className="w-5 h-5 text-purple-600"
+                  className="w-5 h-5 text-pink-600"
                 />
                 <span>{item.label}</span>
               </label>
@@ -188,7 +188,7 @@ export default function PaymentsPage() {
 
         {/* Save */}
         <div className="flex justify-end">
-          <button onClick={saveSettings} className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium">
+          <button onClick={saveSettings} className="px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
             Save Payment Settings
           </button>
         </div>

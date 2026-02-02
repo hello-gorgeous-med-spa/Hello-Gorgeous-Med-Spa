@@ -76,7 +76,7 @@ export default function ClinicalRulesPage() {
                   type="checkbox"
                   checked={chartRequirements[item.key as keyof typeof chartRequirements] as boolean}
                   onChange={(e) => setChartRequirements(prev => ({ ...prev, [item.key]: e.target.checked }))}
-                  className="w-5 h-5 text-purple-600"
+                  className="w-5 h-5 text-pink-600"
                 />
                 <span>{item.label}</span>
               </label>
@@ -110,7 +110,7 @@ export default function ClinicalRulesPage() {
                   type="checkbox"
                   checked={photoRequirements[item.key as keyof typeof photoRequirements] as boolean}
                   onChange={(e) => setPhotoRequirements(prev => ({ ...prev, [item.key]: e.target.checked }))}
-                  className="w-5 h-5 text-purple-600"
+                  className="w-5 h-5 text-pink-600"
                 />
                 <span>{item.label}</span>
               </label>
@@ -132,7 +132,7 @@ export default function ClinicalRulesPage() {
                   type="checkbox"
                   checked={lotTracking[item.key as keyof typeof lotTracking] as boolean}
                   onChange={(e) => setLotTracking(prev => ({ ...prev, [item.key]: e.target.checked }))}
-                  className="w-5 h-5 text-purple-600"
+                  className="w-5 h-5 text-pink-600"
                 />
                 <span>{item.label}</span>
               </label>
@@ -163,7 +163,7 @@ export default function ClinicalRulesPage() {
                   type="checkbox"
                   checked={auditSettings[item.key as keyof typeof auditSettings] as boolean}
                   onChange={(e) => setAuditSettings(prev => ({ ...prev, [item.key]: e.target.checked }))}
-                  className="w-5 h-5 text-purple-600"
+                  className="w-5 h-5 text-pink-600"
                 />
                 <span>{item.label}</span>
               </label>
@@ -184,7 +184,7 @@ export default function ClinicalRulesPage() {
 
         {/* Save */}
         <div className="flex justify-end">
-          <button onClick={saveSettings} className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium">
+          <button onClick={saveSettings} className="px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
             Save Clinical Rules
           </button>
         </div>

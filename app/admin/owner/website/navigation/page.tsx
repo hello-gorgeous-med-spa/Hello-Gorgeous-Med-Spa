@@ -195,7 +195,7 @@ export default function NavigationPage() {
               <h2 className="font-semibold capitalize">{activeLocation} Navigation</h2>
               <button
                 onClick={() => setShowAddItem(true)}
-                className="px-3 py-1 bg-purple-100 text-purple-700 rounded-lg text-sm"
+                className="px-3 py-1 bg-pink-100 text-pink-700 rounded-lg text-sm"
               >
                 + Add Item
               </button>
@@ -232,7 +232,7 @@ export default function NavigationPage() {
                         <div className="flex items-center gap-2">
                           <span className="font-medium">{item.label}</span>
                           {item.type === 'button' && (
-                            <span className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded">Button</span>
+                            <span className="text-xs bg-pink-100 text-pink-600 px-2 py-0.5 rounded">Button</span>
                           )}
                           {item.type === 'dropdown' && (
                             <span className="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded">Dropdown</span>
@@ -270,7 +270,7 @@ export default function NavigationPage() {
                         </button>
                         <button
                           onClick={() => setEditingItem(item)}
-                          className="p-1 text-gray-400 hover:text-purple-600"
+                          className="p-1 text-gray-400 hover:text-pink-600"
                         >
                           ✏️
                         </button>
@@ -296,7 +296,7 @@ export default function NavigationPage() {
               <button
                 onClick={() => saveNavigation(activeLocation)}
                 disabled={saving}
-                className="w-full py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50"
+                className="w-full py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 disabled:opacity-50"
               >
                 {saving ? 'Saving...' : `Save ${activeLocation} Navigation`}
               </button>
@@ -404,7 +404,7 @@ export default function NavigationPage() {
               </button>
               <button
                 onClick={addItem}
-                className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg"
+                className="flex-1 px-4 py-2 bg-pink-500 text-white rounded-lg"
               >
                 Add Item
               </button>
@@ -468,7 +468,7 @@ export default function NavigationPage() {
                   updateItem(editingItem.id, editingItem);
                   setEditingItem(null);
                 }}
-                className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg"
+                className="flex-1 px-4 py-2 bg-pink-500 text-white rounded-lg"
               >
                 Save Changes
               </button>

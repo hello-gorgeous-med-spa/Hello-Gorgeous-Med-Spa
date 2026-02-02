@@ -16,7 +16,7 @@ function Skeleton({ className = '' }: { className?: string }) {
 const STATUSES = [
   { value: 'confirmed', label: 'Confirmed', color: 'bg-gray-100 text-gray-700' },
   { value: 'checked_in', label: 'Checked In', color: 'bg-blue-100 text-blue-700' },
-  { value: 'in_progress', label: 'In Progress', color: 'bg-purple-100 text-purple-700' },
+  { value: 'in_progress', label: 'In Progress', color: 'bg-pink-100 text-pink-700' },
   { value: 'completed', label: 'Completed', color: 'bg-green-100 text-green-700' },
   { value: 'cancelled', label: 'Cancelled', color: 'bg-red-100 text-red-700' },
   { value: 'no_show', label: 'No Show', color: 'bg-red-100 text-red-700' },
@@ -255,7 +255,7 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
                       {clientName}
                     </Link>
                     {appointment.client?.is_vip && (
-                      <span className="ml-2 px-2 py-0.5 text-xs bg-purple-100 text-purple-700 rounded-full">
+                      <span className="ml-2 px-2 py-0.5 text-xs bg-pink-100 text-pink-700 rounded-full">
                         💎 VIP
                       </span>
                     )}

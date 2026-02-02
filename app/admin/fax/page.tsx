@@ -92,7 +92,7 @@ export default function FaxPage() {
             href={EFAX_CONFIG.loginUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="px-6 py-3 bg-purple-600 text-white font-semibold rounded-xl hover:bg-purple-700 transition-colors"
+            className="px-6 py-3 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 transition-colors"
           >
             Open eFax Portal →
           </a>
@@ -107,7 +107,7 @@ export default function FaxPage() {
             </div>
             <div>
               <span className="text-gray-500">Login URL:</span>
-              <a href={EFAX_CONFIG.loginUrl} target="_blank" rel="noopener noreferrer" className="ml-2 text-purple-600 hover:underline">
+              <a href={EFAX_CONFIG.loginUrl} target="_blank" rel="noopener noreferrer" className="ml-2 text-pink-600 hover:underline">
                 efax.com/login
               </a>
             </div>
@@ -176,7 +176,7 @@ export default function FaxPage() {
             href={EFAX_CONFIG.inboxUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-purple-600 hover:text-purple-700 text-sm font-medium"
+            className="text-pink-600 hover:text-purple-700 text-sm font-medium"
           >
             View All in eFax →
           </a>
@@ -191,7 +191,7 @@ export default function FaxPage() {
             href={EFAX_CONFIG.loginUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block mt-4 px-6 py-2 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700"
+            className="inline-block mt-4 px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
           >
             Log in to eFax
           </a>

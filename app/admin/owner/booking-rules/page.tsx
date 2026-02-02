@@ -130,7 +130,7 @@ export default function BookingRulesPage() {
       <div className="bg-white rounded-xl border">
         <div className="p-4 border-b flex items-center justify-between">
           <h2 className="font-semibold">Rules Table</h2>
-          <button onClick={openNewRule} className="px-4 py-2 bg-purple-600 text-white rounded-lg text-sm hover:bg-purple-700">
+          <button onClick={openNewRule} className="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600">
             + Create Rule
           </button>
         </div>
@@ -153,13 +153,13 @@ export default function BookingRulesPage() {
                 <td className="px-4 py-3 text-sm text-gray-600">
                   {rule.conditions.map((c, i) => (
                     <span key={i}>
-                      {i > 0 && <span className="text-purple-600"> AND </span>}
+                      {i > 0 && <span className="text-pink-600"> AND </span>}
                       {c.field} {c.operator} "{c.value}"
                     </span>
                   ))}
                 </td>
                 <td className="px-4 py-3 text-sm">
-                  <span className="bg-purple-100 text-purple-700 px-2 py-0.5 rounded text-xs">
+                  <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">
                     {rule.action.replace(/_/g, ' ')}
                   </span>
                   <span className="ml-2 text-gray-500">{rule.actionValue}</span>
@@ -173,7 +173,7 @@ export default function BookingRulesPage() {
                   </button>
                 </td>
                 <td className="px-4 py-3">
-                  <button onClick={() => editRule(rule)} className="text-purple-600 hover:text-purple-700 text-sm">
+                  <button onClick={() => editRule(rule)} className="text-pink-600 hover:text-pink-700 text-sm">
                     Edit
                   </button>
                 </td>
@@ -221,7 +221,7 @@ export default function BookingRulesPage() {
                 <div className="space-y-3">
                   {editingRule.conditions.map((condition, idx) => (
                     <div key={idx} className="p-3 bg-gray-50 rounded-lg">
-                      {idx > 0 && <p className="text-xs text-purple-600 font-medium mb-2">AND</p>}
+                      {idx > 0 && <p className="text-xs text-pink-600 font-medium mb-2">AND</p>}
                       <div className="flex gap-2">
                         <select
                           value={condition.field}
@@ -259,7 +259,7 @@ export default function BookingRulesPage() {
                     </div>
                   ))}
                 </div>
-                <button onClick={addCondition} className="mt-2 text-sm text-purple-600 hover:text-purple-700">
+                <button onClick={addCondition} className="mt-2 text-sm text-pink-600 hover:text-pink-700">
                   + Add Condition (AND)
                 </button>
               </div>
@@ -303,7 +303,7 @@ export default function BookingRulesPage() {
                   type="checkbox"
                   checked={editingRule.enabled}
                   onChange={(e) => setEditingRule({ ...editingRule, enabled: e.target.checked })}
-                  className="w-5 h-5 text-purple-600"
+                  className="w-5 h-5 text-pink-600"
                 />
                 <span className="font-medium">Enable this rule</span>
               </label>
@@ -314,7 +314,7 @@ export default function BookingRulesPage() {
               <button onClick={() => { setShowDrawer(false); setEditingRule(null); }} className="px-4 py-2 text-gray-600 hover:text-gray-800">
                 Cancel
               </button>
-              <button onClick={saveRule} className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium">
+              <button onClick={saveRule} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
                 Save Rule
               </button>
             </div>

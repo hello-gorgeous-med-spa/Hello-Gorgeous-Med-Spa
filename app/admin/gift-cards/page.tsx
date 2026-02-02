@@ -257,13 +257,13 @@ export default function GiftCardsPage() {
           </button>
           <button
             onClick={() => setShowRedeem(true)}
-            className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200"
+            className="px-4 py-2 bg-pink-100 text-pink-700 rounded-lg hover:bg-pink-200"
           >
             💳 Redeem
           </button>
           <button
             onClick={() => setShowCreate(true)}
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+            className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
           >
             + Sell Gift Card
           </button>
@@ -295,7 +295,7 @@ export default function GiftCardsPage() {
           </div>
           <div className="bg-white rounded-xl border p-4">
             <p className="text-sm text-gray-500">Total Redeemed</p>
-            <p className="text-2xl font-bold text-purple-600">{formatCurrency(stats.totalRedeemed)}</p>
+            <p className="text-2xl font-bold text-pink-600">{formatCurrency(stats.totalRedeemed)}</p>
           </div>
           <div className="bg-amber-50 rounded-xl border border-amber-200 p-4">
             <p className="text-sm text-amber-700">Outstanding Liability</p>
@@ -426,7 +426,7 @@ export default function GiftCardsPage() {
               <span className="text-4xl block mb-3">🎁</span>
               <h3 className="font-medium text-gray-700 mb-1">No gift cards yet</h3>
               <p className="text-sm text-gray-500 mb-4">Sell your first gift card to get started</p>
-              <button onClick={() => setShowCreate(true)} className="px-4 py-2 bg-purple-600 text-white rounded-lg">
+              <button onClick={() => setShowCreate(true)} className="px-4 py-2 bg-pink-500 text-white rounded-lg">
                 + Sell Gift Card
               </button>
             </div>
@@ -507,7 +507,7 @@ export default function GiftCardsPage() {
               <button
                 onClick={handleCreate}
                 disabled={saving || !createForm.initial_amount}
-                className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-pink-500 text-white rounded-lg disabled:opacity-50"
               >
                 {saving ? 'Creating...' : `Create $${createForm.initial_amount} Card`}
               </button>
@@ -558,7 +558,7 @@ export default function GiftCardsPage() {
               <button
                 onClick={handleRedeem}
                 disabled={saving || !redeemForm.code || !redeemForm.amount}
-                className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-pink-500 text-white rounded-lg disabled:opacity-50"
               >
                 {saving ? 'Redeeming...' : `Redeem $${redeemForm.amount || 0}`}
               </button>
@@ -583,7 +583,7 @@ export default function GiftCardsPage() {
                   {showDetails.gan_last_4 && <p className="text-sm text-gray-500">•••• {showDetails.gan_last_4}</p>}
                 </div>
                 <div className="text-right">
-                  <p className="text-2xl font-bold text-purple-600">${showDetails.current_balance.toFixed(2)}</p>
+                  <p className="text-2xl font-bold text-pink-600">${showDetails.current_balance.toFixed(2)}</p>
                   <p className="text-xs text-gray-500">of ${showDetails.initial_value.toFixed(2)}</p>
                 </div>
               </div>

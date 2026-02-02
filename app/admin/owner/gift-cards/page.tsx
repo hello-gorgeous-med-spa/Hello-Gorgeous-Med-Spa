@@ -168,7 +168,7 @@ export default function GiftCardSettingsPage() {
                 </div>
                 <button
                   onClick={() => handleToggle('allow_online_purchase')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_online_purchase ? 'bg-purple-500' : 'bg-gray-300'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_online_purchase ? 'bg-pink-500' : 'bg-gray-300'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.allow_online_purchase ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -180,7 +180,7 @@ export default function GiftCardSettingsPage() {
                 </div>
                 <button
                   onClick={() => handleToggle('allow_pos_purchase')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_pos_purchase ? 'bg-purple-500' : 'bg-gray-300'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_pos_purchase ? 'bg-pink-500' : 'bg-gray-300'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.allow_pos_purchase ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -218,9 +218,9 @@ export default function GiftCardSettingsPage() {
               <label className="block text-sm text-gray-500 mb-2">Preset Amounts</label>
               <div className="flex flex-wrap gap-2 mb-2">
                 {settings.preset_amounts.map(amount => (
-                  <span key={amount} className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-sm flex items-center gap-2">
+                  <span key={amount} className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm flex items-center gap-2">
                     ${amount}
-                    <button onClick={() => removePresetAmount(amount)} className="text-purple-400 hover:text-purple-600">×</button>
+                    <button onClick={() => removePresetAmount(amount)} className="text-pink-400 hover:text-pink-600">×</button>
                   </span>
                 ))}
               </div>
@@ -232,7 +232,7 @@ export default function GiftCardSettingsPage() {
                   placeholder="Add preset..."
                   className="px-3 py-2 border rounded-lg w-32"
                 />
-                <button onClick={addPresetAmount} className="px-3 py-2 bg-purple-100 text-purple-700 rounded-lg">
+                <button onClick={addPresetAmount} className="px-3 py-2 bg-pink-100 text-pink-700 rounded-lg">
                   Add
                 </button>
               </div>
@@ -245,7 +245,7 @@ export default function GiftCardSettingsPage() {
               </div>
               <button
                 onClick={() => handleToggle('allow_custom_amount')}
-                className={`w-12 h-6 rounded-full transition-colors ${settings.allow_custom_amount ? 'bg-purple-500' : 'bg-gray-300'}`}
+                className={`w-12 h-6 rounded-full transition-colors ${settings.allow_custom_amount ? 'bg-pink-500' : 'bg-gray-300'}`}
               >
                 <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.allow_custom_amount ? 'translate-x-6' : 'translate-x-0.5'}`} />
               </button>
@@ -263,7 +263,7 @@ export default function GiftCardSettingsPage() {
                 </div>
                 <button
                   onClick={() => handleToggle('allow_partial_redemption')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_partial_redemption ? 'bg-purple-500' : 'bg-gray-300'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_partial_redemption ? 'bg-pink-500' : 'bg-gray-300'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.allow_partial_redemption ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -275,7 +275,7 @@ export default function GiftCardSettingsPage() {
                 </div>
                 <button
                   onClick={() => handleToggle('allow_split_tender')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_split_tender ? 'bg-purple-500' : 'bg-gray-300'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_split_tender ? 'bg-pink-500' : 'bg-gray-300'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.allow_split_tender ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -287,7 +287,7 @@ export default function GiftCardSettingsPage() {
                 </div>
                 <button
                   onClick={() => handleToggle('prompt_before_checkout')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.prompt_before_checkout ? 'bg-purple-500' : 'bg-gray-300'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.prompt_before_checkout ? 'bg-pink-500' : 'bg-gray-300'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.prompt_before_checkout ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -299,7 +299,7 @@ export default function GiftCardSettingsPage() {
                 </div>
                 <button
                   onClick={() => handleToggle('auto_apply_to_appointments')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.auto_apply_to_appointments ? 'bg-purple-500' : 'bg-gray-300'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.auto_apply_to_appointments ? 'bg-pink-500' : 'bg-gray-300'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.auto_apply_to_appointments ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -317,7 +317,7 @@ export default function GiftCardSettingsPage() {
               </div>
               <button
                 onClick={() => handleToggle('cards_expire')}
-                className={`w-12 h-6 rounded-full transition-colors ${settings.cards_expire ? 'bg-purple-500' : 'bg-gray-300'}`}
+                className={`w-12 h-6 rounded-full transition-colors ${settings.cards_expire ? 'bg-pink-500' : 'bg-gray-300'}`}
               >
                 <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.cards_expire ? 'translate-x-6' : 'translate-x-0.5'}`} />
               </button>
@@ -344,7 +344,7 @@ export default function GiftCardSettingsPage() {
             <button
               onClick={saveSettings}
               disabled={saving}
-              className="px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 disabled:opacity-50"
+              className="px-6 py-3 bg-pink-500 text-white rounded-lg font-medium hover:bg-pink-600 disabled:opacity-50"
             >
               {saving ? 'Saving...' : 'Save Settings'}
             </button>
@@ -396,7 +396,7 @@ export default function GiftCardSettingsPage() {
               </div>
               <button
                 onClick={fetchSyncStats}
-                className="w-full mt-3 px-3 py-2 bg-gray-100 rounded-lg text-sm hover:bg-gray-200"
+                className="w-full mt-3 px-3 py-2 bg-pink-100 text-pink-700 rounded-lg text-sm hover:bg-pink-200"
               >
                 Refresh Status
               </button>
@@ -407,10 +407,10 @@ export default function GiftCardSettingsPage() {
           <div className="bg-white rounded-xl border p-4">
             <h3 className="font-semibold mb-3">Quick Links</h3>
             <div className="space-y-2">
-              <a href="/admin/gift-cards" className="block px-3 py-2 bg-gray-50 rounded-lg text-sm hover:bg-gray-100">
+              <a href="/admin/gift-cards" className="block px-3 py-2 bg-pink-50 text-pink-700 rounded-lg text-sm hover:bg-pink-100">
                 → View All Gift Cards
               </a>
-              <a href="/admin/finance" className="block px-3 py-2 bg-gray-50 rounded-lg text-sm hover:bg-gray-100">
+              <a href="/admin/finance" className="block px-3 py-2 bg-pink-50 text-pink-700 rounded-lg text-sm hover:bg-pink-100">
                 → Gift Card Liability Report
               </a>
             </div>

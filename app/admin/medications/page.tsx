@@ -307,7 +307,7 @@ export default function AdminMedicationsPage() {
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">Total Products</p>
-          <p className="text-2xl font-bold text-purple-600">{allMedications.length}</p>
+          <p className="text-2xl font-bold text-pink-600">{allMedications.length}</p>
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">Suppliers</p>
@@ -365,7 +365,7 @@ export default function AdminMedicationsPage() {
               className={`px-3 py-1.5 text-sm rounded-full transition-colors ${
                 selectedSupplier === s.id
                   ? s.id === 'McKesson' ? 'bg-blue-100 text-blue-700 ring-2 ring-blue-300'
-                  : s.id === 'Olympia' ? 'bg-purple-100 text-purple-700 ring-2 ring-purple-300'
+                  : s.id === 'Olympia' ? 'bg-pink-100 text-pink-700 ring-2 ring-purple-300'
                   : s.id === 'Formulation' ? 'bg-green-100 text-green-700 ring-2 ring-green-300'
                   : 'bg-pink-100 text-pink-700 ring-2 ring-pink-300'
                   : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
@@ -408,7 +408,7 @@ export default function AdminMedicationsPage() {
                     <div className="flex items-center gap-2 mt-2">
                       <span className={`px-2 py-0.5 text-xs rounded-full ${
                         med.supplier === 'McKesson' ? 'bg-blue-100 text-blue-700' :
-                        med.supplier === 'Olympia' ? 'bg-purple-100 text-purple-700' :
+                        med.supplier === 'Olympia' ? 'bg-pink-100 text-pink-700' :
                         'bg-green-100 text-green-700'
                       }`}>
                         {med.supplier}

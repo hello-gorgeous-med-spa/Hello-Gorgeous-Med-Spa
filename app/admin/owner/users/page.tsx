@@ -73,7 +73,7 @@ export default function ProvidersStaffPage() {
           <div className="bg-white rounded-xl border">
             <div className="p-4 border-b flex items-center justify-between">
               <h2 className="font-semibold">Provider List</h2>
-              <button className="px-3 py-1.5 bg-purple-600 text-white rounded-lg text-sm hover:bg-purple-700">
+              <button className="px-3 py-1.5 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600">
                 + Add Staff
               </button>
             </div>
@@ -142,7 +142,7 @@ export default function ProvidersStaffPage() {
                     onClick={() => setActiveTab(tab.id)}
                     className={`px-4 py-3 text-sm font-medium border-b-2 -mb-px ${
                       activeTab === tab.id
-                        ? 'border-purple-500 text-purple-600'
+                        ? 'border-purple-500 text-pink-600'
                         : 'border-transparent text-gray-500 hover:text-gray-700'
                     }`}
                   >
@@ -217,7 +217,7 @@ export default function ProvidersStaffPage() {
                                   : selectedProvider.servicesAllowed.filter(s => s !== service);
                                 updateProvider({ servicesAllowed: newServices });
                               }}
-                              className="w-4 h-4 text-purple-600"
+                              className="w-4 h-4 text-pink-600"
                             />
                             <span className="text-sm">{service}</span>
                           </label>
@@ -255,7 +255,7 @@ export default function ProvidersStaffPage() {
                         type="checkbox"
                         checked={selectedProvider.salesPermissions}
                         onChange={(e) => updateProvider({ salesPermissions: e.target.checked })}
-                        className="w-5 h-5 text-purple-600"
+                        className="w-5 h-5 text-pink-600"
                       />
                       <div>
                         <span className="font-medium">Sales Permissions</span>
@@ -273,7 +273,7 @@ export default function ProvidersStaffPage() {
                         type="checkbox"
                         checked={selectedProvider.canEditSchedule}
                         onChange={(e) => updateProvider({ canEditSchedule: e.target.checked })}
-                        className="w-5 h-5 text-purple-600"
+                        className="w-5 h-5 text-pink-600"
                       />
                       <div>
                         <span className="font-medium">Can Edit Own Schedule</span>
@@ -285,7 +285,7 @@ export default function ProvidersStaffPage() {
                         type="checkbox"
                         checked={selectedProvider.canOverride}
                         onChange={(e) => updateProvider({ canOverride: e.target.checked })}
-                        className="w-5 h-5 text-purple-600"
+                        className="w-5 h-5 text-pink-600"
                       />
                       <div>
                         <span className="font-medium">Can Override Booking Rules</span>
@@ -335,7 +335,7 @@ export default function ProvidersStaffPage() {
 
               {/* Save Button */}
               <div className="p-4 border-t bg-gray-50 flex justify-end">
-                <button className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium">
+                <button className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
                   Save Changes
                 </button>
               </div>

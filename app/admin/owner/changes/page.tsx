@@ -190,7 +190,7 @@ export default function ChangeManagementPage() {
               </div>
               <button
                 onClick={() => setShowScheduleModal(true)}
-                className="px-4 py-2 bg-purple-600 text-white rounded-lg text-sm hover:bg-purple-700"
+                className="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600"
               >
                 + Schedule Change
               </button>
@@ -296,7 +296,7 @@ export default function ChangeManagementPage() {
               <button onClick={() => setShowScheduleModal(false)} className="px-4 py-2 text-gray-600 hover:text-gray-800">
                 Cancel
               </button>
-              <button onClick={() => setShowScheduleModal(false)} className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+              <button onClick={() => setShowScheduleModal(false)} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
                 Schedule
               </button>
             </div>

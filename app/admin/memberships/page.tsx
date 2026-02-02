@@ -74,7 +74,7 @@ export default function AdminMembershipsPage() {
           {loading ? (
             <Skeleton className="h-8 w-16 mt-1" />
           ) : (
-            <p className="text-2xl font-bold text-purple-600">{stats.total}</p>
+            <p className="text-2xl font-bold text-pink-600">{stats.total}</p>
           )}
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">

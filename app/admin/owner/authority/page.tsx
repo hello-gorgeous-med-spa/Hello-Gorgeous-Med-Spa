@@ -144,7 +144,7 @@ export default function AuthorityPage() {
                     </td>
                     <td className="px-4 py-3">
                       <span className={`text-xs px-2 py-1 rounded ${
-                        user.role === 'Founder' ? 'bg-purple-100 text-purple-700' :
+                        user.role === 'Founder' ? 'bg-pink-100 text-pink-700' :
                         user.role === 'Provider' ? 'bg-blue-100 text-blue-700' :
                         'bg-gray-100 text-gray-700'
                       }`}>
@@ -232,9 +232,9 @@ export default function AuthorityPage() {
           </div>
 
           {/* Founder Protection */}
-          <div className="bg-purple-50 border border-purple-200 rounded-xl p-4">
+          <div className="bg-purple-50 border border-pink-200 rounded-xl p-4">
             <h3 className="font-semibold text-purple-800 mb-2">👑 Founder Protection</h3>
-            <ul className="text-xs text-purple-700 space-y-1">
+            <ul className="text-xs text-pink-700 space-y-1">
               <li>✓ Founder cannot be overridden</li>
               <li>✓ Devs cannot lock Founder out</li>
               <li>✓ All actions logged</li>
@@ -248,7 +248,7 @@ export default function AuthorityPage() {
             <p className="text-xs text-gray-600">
               Every access control action is recorded in the audit log with user, timestamp, IP, and action details.
             </p>
-            <a href="/admin/owner/audit" className="text-xs text-purple-600 hover:text-purple-700 mt-2 inline-block">
+            <a href="/admin/owner/audit" className="text-xs text-pink-600 hover:text-pink-700 mt-2 inline-block">
               View Audit Log →
             </a>
           </div>
@@ -294,7 +294,7 @@ export default function AuthorityPage() {
               <button onClick={() => setShowRotateSecrets(false)} className="px-4 py-2 text-gray-600 hover:text-gray-800">
                 Cancel
               </button>
-              <button onClick={rotateSecrets} className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+              <button onClick={rotateSecrets} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
                 Rotate Secrets
               </button>
             </div>

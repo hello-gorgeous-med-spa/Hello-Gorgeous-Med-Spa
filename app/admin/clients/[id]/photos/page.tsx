@@ -256,10 +256,10 @@ export default function ClientPhotosPage() {
           </p>
           {comparePhotos[0] && (
             <div className="mt-2 flex items-center gap-2">
-              <span className="text-sm text-purple-600">Selected: {comparePhotos[0].type} - {comparePhotos[0].area}</span>
+              <span className="text-sm text-pink-600">Selected: {comparePhotos[0].type} - {comparePhotos[0].area}</span>
               <button
                 onClick={() => setComparePhotos([null, null])}
-                className="text-xs text-purple-600 hover:text-purple-800"
+                className="text-xs text-pink-600 hover:text-purple-800"
               >
                 Clear
               </button>

@@ -326,7 +326,7 @@ function PatientLookupContent() {
                 {selectedPatient.membership_status && (
                   <div className="col-span-2">
                     <p className="text-sm text-gray-500">Membership</p>
-                    <p className="text-lg font-semibold text-purple-600">
+                    <p className="text-lg font-semibold text-pink-600">
                       {selectedPatient.membership_status}
                     </p>
                   </div>
@@ -352,7 +352,7 @@ function PatientLookupContent() {
                 </Link>
                 <Link
                   href={`/admin/clients/${selectedPatient.id}/photos`}
-                  className="block w-full px-4 py-3 bg-purple-500 text-white font-medium rounded-lg hover:bg-purple-600 text-center"
+                  className="block w-full px-4 py-3 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-500 text-center"
                 >
                   📷 View Photos
                 </Link>
@@ -642,7 +642,7 @@ function PatientLookupContent() {
                             <p className="font-bold text-purple-900">{membership.name}</p>
                             <p className="text-sm text-purple-700">{membership.type}</p>
                           </div>
-                          <span className="px-3 py-1 bg-purple-500 text-white text-sm rounded-full font-medium">
+                          <span className="px-3 py-1 bg-pink-500 text-white text-sm rounded-full font-medium">
                             Active
                           </span>
                         </div>
@@ -657,7 +657,7 @@ function PatientLookupContent() {
                             </div>
                             <div className="w-full h-2 bg-purple-200 rounded-full">
                               <div 
-                                className="h-full bg-purple-500 rounded-full"
+                                className="h-full bg-pink-500 rounded-full"
                                 style={{ width: `${(membership.units_remaining / membership.units_total) * 100}%` }}
                               />
                             </div>
@@ -665,7 +665,7 @@ function PatientLookupContent() {
                         )}
                         
                         {membership.expires_at && (
-                          <p className="text-sm text-purple-600">
+                          <p className="text-sm text-pink-600">
                             Expires: {formatDate(membership.expires_at)}
                           </p>
                         )}
@@ -675,7 +675,7 @@ function PatientLookupContent() {
                     <div className="text-center py-8">
                       <span className="text-4xl block mb-2">⭐</span>
                       <p className="text-gray-500 mb-3">No active membership</p>
-                      <button className="px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600">
+                      <button className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-500">
                         Enroll in Membership
                       </button>
                     </div>

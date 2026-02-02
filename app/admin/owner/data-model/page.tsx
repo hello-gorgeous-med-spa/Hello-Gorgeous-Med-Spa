@@ -124,7 +124,7 @@ export default function DataModelPage() {
         </div>
         <button
           onClick={() => setShowAddField(true)}
-          className="px-4 py-2 bg-purple-600 text-white rounded-lg text-sm hover:bg-purple-700"
+          className="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600"
         >
           + Add Custom Field
         </button>
@@ -155,7 +155,7 @@ export default function DataModelPage() {
                   <span className={`text-xs px-2 py-1 rounded capitalize ${
                     field.entity === 'client' ? 'bg-blue-100 text-blue-700' :
                     field.entity === 'chart' ? 'bg-green-100 text-green-700' :
-                    field.entity === 'appointment' ? 'bg-purple-100 text-purple-700' :
+                    field.entity === 'appointment' ? 'bg-pink-100 text-pink-700' :
                     'bg-amber-100 text-amber-700'
                   }`}>
                     {field.entity}
@@ -299,7 +299,7 @@ export default function DataModelPage() {
               <button onClick={() => setShowAddField(false)} className="px-4 py-2 text-gray-600 hover:text-gray-800">
                 Cancel
               </button>
-              <button onClick={addField} className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+              <button onClick={addField} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
                 Add Field
               </button>
             </div>

@@ -172,7 +172,7 @@ export default function ProviderDashboard() {
     switch (status) {
       case 'confirmed': return 'bg-blue-100 text-blue-700 border-blue-200';
       case 'checked_in': return 'bg-emerald-100 text-emerald-700 border-emerald-200';
-      case 'in_progress': return 'bg-purple-100 text-purple-700 border-purple-200';
+      case 'in_progress': return 'bg-pink-100 text-pink-700 border-purple-200';
       case 'completed': return 'bg-gray-100 text-gray-500 border-gray-200';
       case 'no_show': return 'bg-amber-100 text-amber-700 border-amber-200';
       default: return 'bg-gray-100 text-gray-600 border-gray-200';
@@ -228,7 +228,7 @@ export default function ProviderDashboard() {
             <div className="flex flex-col gap-2">
               <Link
                 href={`/provider/charting?appointment=${currentAppointment.id}`}
-                className="px-6 py-3 bg-white text-purple-600 rounded-xl font-semibold hover:bg-white/90 transition-colors text-center shadow-lg"
+                className="px-6 py-3 bg-white text-pink-600 rounded-xl font-semibold hover:bg-white/90 transition-colors text-center shadow-lg"
               >
                 📝 Open Chart
               </Link>
@@ -461,7 +461,7 @@ export default function ProviderDashboard() {
               </Link>
               <Link
                 href="/provider/photos"
-                className="flex flex-col items-center gap-2 p-4 bg-purple-50 hover:bg-purple-100 text-purple-600 rounded-xl transition-colors"
+                className="flex flex-col items-center gap-2 p-4 bg-purple-50 hover:bg-purple-100 text-pink-600 rounded-xl transition-colors"
               >
                 <span className="text-2xl">📷</span>
                 <span className="text-sm font-medium">Take Photo</span>

@@ -127,7 +127,7 @@ export default function ServicesPage() {
             <div className="p-4 border-b">
               <div className="flex items-center justify-between mb-3">
                 <h2 className="font-semibold">Service List</h2>
-                <button onClick={createNewService} className="px-3 py-1.5 bg-purple-600 text-white rounded-lg text-sm hover:bg-purple-700">
+                <button onClick={createNewService} className="px-3 py-1.5 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600">
                   + New Service
                 </button>
               </div>
@@ -208,7 +208,7 @@ export default function ServicesPage() {
                     onClick={() => setActiveTab(tab.id)}
                     className={`px-4 py-3 text-sm font-medium border-b-2 -mb-px ${
                       activeTab === tab.id
-                        ? 'border-purple-500 text-purple-600'
+                        ? 'border-purple-500 text-pink-600'
                         : 'border-transparent text-gray-500 hover:text-gray-700'
                     }`}
                   >
@@ -344,7 +344,7 @@ export default function ServicesPage() {
                                   : selectedService.requiredConsents.filter(c => c !== consent);
                                 updateService({ requiredConsents: newConsents });
                               }}
-                              className="w-4 h-4 text-purple-600"
+                              className="w-4 h-4 text-pink-600"
                             />
                             <span className="text-sm">{consent}</span>
                           </label>
@@ -365,7 +365,7 @@ export default function ServicesPage() {
                                   : selectedService.requiredChartSections.filter(s => s !== section);
                                 updateService({ requiredChartSections: newSections });
                               }}
-                              className="w-4 h-4 text-purple-600"
+                              className="w-4 h-4 text-pink-600"
                             />
                             <span className="text-sm">{section}</span>
                           </label>
@@ -376,18 +376,18 @@ export default function ServicesPage() {
                       <label className="block text-sm font-medium text-gray-700 mb-2">Required Photos</label>
                       <div className="space-y-2">
                         <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
-                          <input type="checkbox" checked={selectedService.requireBeforePhoto} onChange={(e) => updateService({ requireBeforePhoto: e.target.checked })} className="w-5 h-5 text-purple-600" />
+                          <input type="checkbox" checked={selectedService.requireBeforePhoto} onChange={(e) => updateService({ requireBeforePhoto: e.target.checked })} className="w-5 h-5 text-pink-600" />
                           <span>Before Photo (Pre-treatment)</span>
                         </label>
                         <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
-                          <input type="checkbox" checked={selectedService.requireAfterPhoto} onChange={(e) => updateService({ requireAfterPhoto: e.target.checked })} className="w-5 h-5 text-purple-600" />
+                          <input type="checkbox" checked={selectedService.requireAfterPhoto} onChange={(e) => updateService({ requireAfterPhoto: e.target.checked })} className="w-5 h-5 text-pink-600" />
                           <span>After Photo (Post-treatment)</span>
                         </label>
                       </div>
                     </div>
                     <div>
                       <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
-                        <input type="checkbox" checked={selectedService.requireInventory} onChange={(e) => updateService({ requireInventory: e.target.checked })} className="w-5 h-5 text-purple-600" />
+                        <input type="checkbox" checked={selectedService.requireInventory} onChange={(e) => updateService({ requireInventory: e.target.checked })} className="w-5 h-5 text-pink-600" />
                         <div>
                           <span className="font-medium">Require Inventory / Lot Tracking</span>
                           <p className="text-xs text-gray-500">Must select product lot when charting</p>
@@ -414,7 +414,7 @@ export default function ServicesPage() {
                                   : selectedService.eligibleProviders.filter(p => p !== provider.id);
                                 updateService({ eligibleProviders: newProviders });
                               }}
-                              className="w-5 h-5 text-purple-600"
+                              className="w-5 h-5 text-pink-600"
                             />
                             <span>{provider.name}</span>
                           </label>
@@ -508,7 +508,7 @@ export default function ServicesPage() {
                         type="checkbox"
                         checked={selectedService.applyToFutureOnly}
                         onChange={(e) => updateService({ applyToFutureOnly: e.target.checked })}
-                        className="w-5 h-5 text-purple-600"
+                        className="w-5 h-5 text-pink-600"
                       />
                       <div>
                         <span className="font-medium">Apply to future bookings only</span>
@@ -536,7 +536,7 @@ export default function ServicesPage() {
                 </button>
                 <button
                   onClick={saveService}
-                  className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium"
+                  className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium"
                 >
                   Save Service
                 </button>
@@ -547,7 +547,7 @@ export default function ServicesPage() {
               <span className="text-4xl mb-4 block">💉</span>
               <h3 className="text-lg font-semibold text-gray-900 mb-2">Select a Service</h3>
               <p className="text-gray-500 mb-4">Click a service from the list to configure it, or create a new one.</p>
-              <button onClick={createNewService} className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700">
+              <button onClick={createNewService} className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
                 + Create New Service
               </button>
             </div>

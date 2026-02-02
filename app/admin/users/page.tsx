@@ -527,7 +527,7 @@ export default function UserAccessManagement() {
                       </td>
                       <td className="px-4 py-3">
                         <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                          user.role === 'owner' ? 'bg-purple-100 text-purple-700' :
+                          user.role === 'owner' ? 'bg-pink-100 text-pink-700' :
                           user.role === 'admin' ? 'bg-blue-100 text-blue-700' :
                           user.role === 'provider' ? 'bg-pink-100 text-pink-700' :
                           'bg-gray-100 text-gray-700'

@@ -59,14 +59,14 @@ export default function MembershipsPage() {
         <div className="bg-white rounded-xl border">
           <div className="p-4 border-b flex items-center justify-between">
             <h2 className="text-lg font-semibold">Membership Plans</h2>
-            <button className="px-4 py-2 bg-purple-600 text-white rounded-lg text-sm hover:bg-purple-700">
+            <button className="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600">
               + Create Plan
             </button>
           </div>
           <div className="grid grid-cols-3 gap-4 p-4">
             {plans.map(plan => (
               <div key={plan.id} className={`border rounded-xl overflow-hidden ${!plan.is_active ? 'opacity-60' : ''}`}>
-                <div className="h-2 bg-purple-500" />
+                <div className="h-2 bg-pink-500" />
                 <div className="p-4">
                   <div className="flex items-start justify-between">
                     <h3 className="text-lg font-semibold">{plan.name}</h3>
@@ -87,7 +87,7 @@ export default function MembershipsPage() {
                   </ul>
                   <p className="text-xs text-gray-400 mt-3">{plan.member_count} active members</p>
                   <div className="mt-4 flex items-center justify-between">
-                    <button className="text-sm text-purple-600 hover:text-purple-700">Edit</button>
+                    <button className="text-sm text-pink-600 hover:text-pink-700">Edit</button>
                     <button
                       onClick={() => toggleActive(plan.id)}
                       className={`w-10 h-5 rounded-full transition-colors relative ${plan.is_active ? 'bg-green-500' : 'bg-gray-300'}`}
@@ -163,7 +163,7 @@ export default function MembershipsPage() {
 
         {/* Save */}
         <div className="flex justify-end">
-          <button onClick={saveSettings} className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium">
+          <button onClick={saveSettings} className="px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
             Save Membership Settings
           </button>
         </div>

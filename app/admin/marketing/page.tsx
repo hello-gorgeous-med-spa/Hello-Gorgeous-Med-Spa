@@ -486,7 +486,7 @@ export default function MarketingAutomation() {
                     <td className="px-4 py-3">
                       <span className={`px-2 py-1 text-xs rounded-full ${
                         campaign.type === 'sms' ? 'bg-blue-100 text-blue-700' :
-                        campaign.type === 'email' ? 'bg-purple-100 text-purple-700' :
+                        campaign.type === 'email' ? 'bg-pink-100 text-pink-700' :
                         'bg-gray-100 text-gray-700'
                       }`}>
                         {campaign.type.toUpperCase()}
@@ -603,7 +603,7 @@ export default function MarketingAutomation() {
                       <h3 className="font-semibold text-gray-900">{template.name}</h3>
                       <div className="flex gap-2 mt-1">
                         <span className={`px-2 py-0.5 text-xs rounded-full ${
-                          template.type === 'sms' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700'
+                          template.type === 'sms' ? 'bg-blue-100 text-blue-700' : 'bg-pink-100 text-pink-700'
                         }`}>
                           {template.type.toUpperCase()}
                         </span>

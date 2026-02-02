@@ -235,7 +235,7 @@ function PagesManagerContent() {
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+          className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
         >
           + Create Page
         </button>
@@ -264,7 +264,7 @@ function PagesManagerContent() {
               {filteredPages.map(page => (
                 <tr key={page.id} className="hover:bg-gray-50">
                   <td className="px-4 py-3">
-                    <Link href={`/admin/owner/website/pages/${page.id}`} className="font-medium hover:text-purple-600">
+                    <Link href={`/admin/owner/website/pages/${page.id}`} className="font-medium hover:text-pink-600">
                       {page.title}
                     </Link>
                   </td>
@@ -331,7 +331,7 @@ function PagesManagerContent() {
             <p className="text-sm text-gray-500 mb-4">Create your first page to get started</p>
             <button
               onClick={() => setShowCreateModal(true)}
-              className="px-4 py-2 bg-purple-600 text-white rounded-lg"
+              className="px-4 py-2 bg-pink-500 text-white rounded-lg"
             >
               + Create Page
             </button>
@@ -404,7 +404,7 @@ function PagesManagerContent() {
               <button
                 onClick={handleCreate}
                 disabled={saving || !createForm.title}
-                className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-pink-500 text-white rounded-lg disabled:opacity-50"
               >
                 {saving ? 'Creating...' : 'Create Page'}
               </button>

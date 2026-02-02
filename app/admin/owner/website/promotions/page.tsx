@@ -197,7 +197,7 @@ export default function PromotionsPage() {
         </div>
         <button
           onClick={() => { resetForm(); setEditingPromo(null); setShowCreate(true); }}
-          className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+          className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
         >
           + Create Promotion
         </button>
@@ -232,7 +232,7 @@ export default function PromotionsPage() {
                 )}
                 <div className="flex flex-wrap gap-1 mb-3">
                   {promo.display_locations?.map((loc: string) => (
-                    <span key={loc} className="text-xs bg-purple-100 text-purple-600 px-2 py-0.5 rounded">{loc}</span>
+                    <span key={loc} className="text-xs bg-pink-100 text-pink-600 px-2 py-0.5 rounded">{loc}</span>
                   ))}
                 </div>
                 <div className="flex items-center justify-between text-xs text-gray-400">
@@ -272,7 +272,7 @@ export default function PromotionsPage() {
           <p className="text-sm text-gray-500 mb-4">Create your first promotion to drive engagement</p>
           <button
             onClick={() => { resetForm(); setShowCreate(true); }}
-            className="px-4 py-2 bg-purple-600 text-white rounded-lg"
+            className="px-4 py-2 bg-pink-500 text-white rounded-lg"
           >
             + Create Promotion
           </button>
@@ -412,7 +412,7 @@ export default function PromotionsPage() {
                       }}
                       className={`px-3 py-1 rounded-full text-sm ${
                         form.display_locations.includes(loc)
-                          ? 'bg-purple-100 text-purple-700'
+                          ? 'bg-pink-100 text-pink-700'
                           : 'bg-gray-100 text-gray-600'
                       }`}
                     >
@@ -440,7 +440,7 @@ export default function PromotionsPage() {
               <button
                 onClick={handleSave}
                 disabled={saving || !form.name}
-                className="flex-1 px-4 py-2 bg-purple-600 text-white rounded-lg disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-pink-500 text-white rounded-lg disabled:opacity-50"
               >
                 {saving ? 'Saving...' : editingPromo ? 'Update Promotion' : 'Create Promotion'}
               </button>

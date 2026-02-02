@@ -201,7 +201,7 @@ export default function CharmEHRPage() {
                   <h4 className="font-semibold text-gray-900">E-Prescribing (eRx)</h4>
                   <p className="text-sm text-gray-600 mt-1">Send prescriptions to pharmacies electronically</p>
                 </div>
-                <span className="text-purple-600 font-medium">Required</span>
+                <span className="text-pink-600 font-medium">Required</span>
               </div>
               <ul className="mt-3 space-y-1 text-sm text-gray-600">
                 <li>• 70,000+ connected pharmacies</li>
@@ -216,7 +216,7 @@ export default function CharmEHRPage() {
                   <h4 className="font-semibold text-gray-900">EPCS (Controlled Substances)</h4>
                   <p className="text-sm text-gray-600 mt-1">Prescribe Schedule II-V medications</p>
                 </div>
-                <span className="text-purple-600 font-medium">Required</span>
+                <span className="text-pink-600 font-medium">Required</span>
               </div>
               <ul className="mt-3 space-y-1 text-sm text-gray-600">
                 <li>• Semaglutide, Tirzepatide, etc.</li>
@@ -240,7 +240,7 @@ export default function CharmEHRPage() {
               href={CHARM_URLS.pricing}
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-full text-center py-2 text-purple-600 font-medium hover:text-purple-700"
+              className="block w-full text-center py-2 text-pink-600 font-medium hover:text-purple-700"
             >
               View Full Pricing →
             </a>
@@ -274,7 +274,7 @@ export default function CharmEHRPage() {
                 <li>• Latisse</li>
                 <li>• Custom compounds</li>
               </ul>
-              <p className="text-xs text-purple-600 mt-2">✓ Basic eRx</p>
+              <p className="text-xs text-pink-600 mt-2">✓ Basic eRx</p>
             </div>
             <div className="p-4 bg-blue-50 rounded-lg">
               <h4 className="font-semibold text-blue-900">Other</h4>

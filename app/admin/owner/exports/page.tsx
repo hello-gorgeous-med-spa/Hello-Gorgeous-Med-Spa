@@ -87,7 +87,7 @@ export default function DataExportsPage() {
             <div className="p-4 border-b flex items-center justify-between">
               <h2 className="font-semibold">Export Options</h2>
               <div className="flex gap-2">
-                <button onClick={selectAll} className="text-sm text-purple-600 hover:text-purple-700">Select All</button>
+                <button onClick={selectAll} className="text-sm text-pink-600 hover:text-pink-700">Select All</button>
                 <span className="text-gray-300">|</span>
                 <button onClick={clearAll} className="text-sm text-gray-500 hover:text-gray-700">Clear All</button>
               </div>
@@ -104,7 +104,7 @@ export default function DataExportsPage() {
                     type="checkbox"
                     checked={selectedExports.includes(exp.id)}
                     onChange={() => toggleExport(exp.id)}
-                    className="mt-1 w-5 h-5 text-purple-600"
+                    className="mt-1 w-5 h-5 text-pink-600"
                   />
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
@@ -148,7 +148,7 @@ export default function DataExportsPage() {
                     value={fmt.value}
                     checked={selectedFormat === fmt.value}
                     onChange={() => setSelectedFormat(fmt.value as any)}
-                    className="w-4 h-4 text-purple-600"
+                    className="w-4 h-4 text-pink-600"
                   />
                   <div>
                     <span className="font-medium">{fmt.label}</span>
@@ -190,7 +190,7 @@ export default function DataExportsPage() {
             className={`w-full px-6 py-4 rounded-xl font-medium text-white ${
               exporting || selectedExports.length === 0
                 ? 'bg-gray-300 cursor-not-allowed'
-                : 'bg-purple-600 hover:bg-purple-700'
+                : 'bg-pink-500 hover:bg-pink-600'
             }`}
           >
             {exporting ? '⏳ Exporting...' : `📥 Export ${selectedExports.length} Data Types`}

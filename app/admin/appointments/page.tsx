@@ -268,7 +268,7 @@ export default function AdminAppointmentsPage() {
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">In Progress</p>
-          <p className="text-2xl font-bold text-purple-600">{stats.inProgress}</p>
+          <p className="text-2xl font-bold text-pink-600">{stats.inProgress}</p>
         </div>
         <div className="bg-white rounded-lg border border-gray-100 p-4">
           <p className="text-sm text-gray-500">Completed</p>

@@ -236,7 +236,7 @@ export default function PatientQueuePage() {
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-3">
                         <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${
-                          patient.status === 'in_progress' ? 'bg-purple-500' : 'bg-green-500'
+                          patient.status === 'in_progress' ? 'bg-pink-500' : 'bg-green-500'
                         }`}>
                           {idx + 1}
                         </div>
@@ -247,7 +247,7 @@ export default function PatientQueuePage() {
                       </div>
                       <div className="text-right">
                         <p className={`text-sm font-medium ${
-                          patient.status === 'in_progress' ? 'text-purple-600' :
+                          patient.status === 'in_progress' ? 'text-pink-600' :
                           isWaitingLong ? 'text-amber-600' : 'text-green-600'
                         }`}>
                           {patient.status === 'in_progress' ? 'In Treatment' : `Waiting ${waitTime}m`}
@@ -264,7 +264,7 @@ export default function PatientQueuePage() {
                           <Link
                             href={`/provider/charting?appointment=${patient.id}`}
                             onClick={() => handleStartVisit(patient.id)}
-                            className="flex-1 px-3 py-2 bg-purple-500 text-white text-sm font-medium rounded-lg hover:bg-purple-600 text-center"
+                            className="flex-1 px-3 py-2 bg-pink-500 text-white text-sm font-medium rounded-lg hover:bg-pink-500 text-center"
                           >
                             Start Visit
                           </Link>
@@ -280,7 +280,7 @@ export default function PatientQueuePage() {
                         <>
                           <Link
                             href={`/provider/charting?appointment=${patient.id}`}
-                            className="flex-1 px-3 py-2 bg-purple-500 text-white text-sm font-medium rounded-lg hover:bg-purple-600 text-center"
+                            className="flex-1 px-3 py-2 bg-pink-500 text-white text-sm font-medium rounded-lg hover:bg-pink-500 text-center"
                           >
                             Continue Chart
                           </Link>
@@ -400,7 +400,7 @@ export default function PatientQueuePage() {
                   <span className="text-2xl">{room.icon}</span>
                   <div>
                     <p className="font-semibold text-gray-900">{room.name}</p>
-                    <p className={`text-sm ${occupant ? 'text-purple-600' : 'text-green-600'}`}>
+                    <p className={`text-sm ${occupant ? 'text-pink-600' : 'text-green-600'}`}>
                       {occupant ? 'Occupied' : 'Available'}
                     </p>
                   </div>
