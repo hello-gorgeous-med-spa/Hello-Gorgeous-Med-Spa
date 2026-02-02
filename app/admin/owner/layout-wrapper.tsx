@@ -4,13 +4,29 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ReactNode } from 'react';
 
-const OWNER_NAV = [
+// Operating System Navigation
+const OS_NAV = [
   { href: '/admin/owner', label: 'Overview', icon: '🏠' },
   { href: '/admin/owner/live-state', label: 'Live System State', icon: '📡' },
   { href: '/admin/owner/rules', label: 'Rules & Precedence', icon: '⚖️' },
   { href: '/admin/owner/features', label: 'Modules & Features', icon: '🎚️' },
   { href: '/admin/owner/clinical', label: 'Clinical Governance', icon: '🩺' },
   { href: '/admin/owner/economics', label: 'Revenue & Economics', icon: '💰' },
+  { href: '/admin/owner/inventory', label: 'Inventory', icon: '📦' },
+  { href: '/admin/owner/gift-cards', label: 'Gift Cards', icon: '🎁' },
+];
+
+// Website CMS Navigation
+const WEBSITE_NAV = [
+  { href: '/admin/owner/website', label: 'Website Control', icon: '🌐' },
+  { href: '/admin/owner/website/pages', label: 'Pages', icon: '📄' },
+  { href: '/admin/owner/website/navigation', label: 'Navigation', icon: '🧭' },
+  { href: '/admin/owner/website/promotions', label: 'Promotions', icon: '🎉' },
+  { href: '/admin/owner/website/media', label: 'Media Library', icon: '🖼️' },
+];
+
+// Governance Navigation
+const GOVERNANCE_NAV = [
   { href: '/admin/owner/data-model', label: 'Data Model Control', icon: '🗃️' },
   { href: '/admin/owner/changes', label: 'Change Management', icon: '📝' },
   { href: '/admin/owner/risk', label: 'Risk & Compliance', icon: '⚠️' },
@@ -42,21 +58,69 @@ export default function OwnerLayout({ children, title, description }: OwnerLayou
           </Link>
         </div>
         
-        <nav className="p-2 space-y-0.5 overflow-y-auto max-h-[calc(100vh-180px)]">
-          {OWNER_NAV.map(item => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                pathname === item.href
-                  ? 'bg-white/20 text-white'
-                  : 'text-slate-300 hover:bg-white/10 hover:text-white'
-              }`}
-            >
-              <span className="text-base">{item.icon}</span>
-              <span>{item.label}</span>
-            </Link>
-          ))}
+        <nav className="p-2 overflow-y-auto max-h-[calc(100vh-180px)]">
+          {/* Operating System */}
+          <div className="mb-4">
+            <p className="px-3 py-1 text-xs text-slate-500 font-semibold uppercase">Operating System</p>
+            <div className="space-y-0.5">
+              {OS_NAV.map(item => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
+                    pathname === item.href
+                      ? 'bg-white/20 text-white'
+                      : 'text-slate-300 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  <span className="text-base">{item.icon}</span>
+                  <span>{item.label}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Website */}
+          <div className="mb-4">
+            <p className="px-3 py-1 text-xs text-slate-500 font-semibold uppercase">Website</p>
+            <div className="space-y-0.5">
+              {WEBSITE_NAV.map(item => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
+                    pathname === item.href || pathname.startsWith(item.href + '/')
+                      ? 'bg-white/20 text-white'
+                      : 'text-slate-300 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  <span className="text-base">{item.icon}</span>
+                  <span>{item.label}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Governance */}
+          <div className="mb-4">
+            <p className="px-3 py-1 text-xs text-slate-500 font-semibold uppercase">Governance</p>
+            <div className="space-y-0.5">
+              {GOVERNANCE_NAV.map(item => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
+                    pathname === item.href
+                      ? 'bg-white/20 text-white'
+                      : 'text-slate-300 hover:bg-white/10 hover:text-white'
+                  }`}
+                >
+                  <span className="text-base">{item.icon}</span>
+                  <span>{item.label}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
         </nav>
 
         <div className="p-4 border-t border-slate-700">
