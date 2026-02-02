@@ -2,201 +2,274 @@
 
 // ============================================================
 // SYSTEM SETTINGS - OWNER CONTROLLED
-// Global business configuration
+// Business settings + Global defaults with warning banners
 // ============================================================
 
 import { useState } from 'react';
 import OwnerLayout from '../layout-wrapper';
 
 export default function SystemSettingsPage() {
-  const [businessName, setBusinessName] = useState('Hello Gorgeous Med Spa');
-  const [timezone, setTimezone] = useState('America/Chicago');
-  const [currency, setCurrency] = useState('USD');
-  const [dateFormat, setDateFormat] = useState('MM/DD/YYYY');
-  const [timeFormat, setTimeFormat] = useState('12h');
-  const [defaultBuffer, setDefaultBuffer] = useState(15);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  const [locations, setLocations] = useState([
-    { id: '1', name: 'Main Location', address: '123 Main St', city: 'Chicago', state: 'IL', zip: '60601', phone: '(312) 555-0100', is_primary: true, is_active: true },
-  ]);
+  // Business Section
+  const [business, setBusiness] = useState({
+    name: 'Hello Gorgeous Med Spa',
+    locations: [{ id: '1', name: 'Main Location', address: '123 Main St, Chicago, IL 60601' }],
+    timezone: 'America/Chicago',
+    launchDate: '2024-01-15',
+    legalDisclaimers: {
+      booking: 'By booking, you agree to our cancellation policy.',
+      consent: 'All treatments require signed consent forms.',
+      payment: 'Payment is due at time of service.',
+    },
+  });
 
-  const [hours, setHours] = useState([
-    { day: 'Monday', is_open: true, open: '09:00', close: '18:00' },
-    { day: 'Tuesday', is_open: true, open: '09:00', close: '18:00' },
-    { day: 'Wednesday', is_open: true, open: '09:00', close: '18:00' },
-    { day: 'Thursday', is_open: true, open: '09:00', close: '20:00' },
-    { day: 'Friday', is_open: true, open: '09:00', close: '18:00' },
-    { day: 'Saturday', is_open: true, open: '10:00', close: '16:00' },
-    { day: 'Sunday', is_open: false, open: '', close: '' },
-  ]);
-
-  const [holidays, setHolidays] = useState([
-    { id: '1', name: "New Year's Day", date: '2025-01-01', is_closed: true },
-    { id: '2', name: 'Memorial Day', date: '2025-05-26', is_closed: true },
-    { id: '3', name: 'Independence Day', date: '2025-07-04', is_closed: true },
-    { id: '4', name: 'Labor Day', date: '2025-09-01', is_closed: true },
-    { id: '5', name: 'Thanksgiving', date: '2025-11-27', is_closed: true },
-    { id: '6', name: 'Christmas', date: '2025-12-25', is_closed: true },
-  ]);
+  // Global Defaults Section
+  const [defaults, setDefaults] = useState({
+    bufferBefore: 15,
+    bufferAfter: 15,
+    cancellationWindow: 24,
+    noShowFee: 50,
+    consentEnforcement: 'strict' as 'strict' | 'warn' | 'none',
+    chartingRules: {
+      requireSOAP: true,
+      requireSignature: true,
+      lockAfterSign: true,
+      autoSaveInterval: 30,
+    },
+  });
 
   const saveSettings = () => {
-    setMessage({ type: 'success', text: 'System settings saved!' });
+    setMessage({ type: 'success', text: 'System settings saved successfully!' });
     setTimeout(() => setMessage(null), 3000);
   };
 
   return (
-    <OwnerLayout title="System Settings" description="Global business configuration">
+    <OwnerLayout title="System Settings" description="Business configuration and global defaults">
+      {/* Warning Banner */}
+      <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-6">
+        <div className="flex items-center gap-2">
+          <span className="text-red-500 text-xl">🛑</span>
+          <p className="text-red-800 font-medium">Changes here affect the entire system.</p>
+        </div>
+      </div>
+
       {message && (
-        <div className={`mb-6 p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+        <div className={`mb-6 p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
           {message.text}
         </div>
       )}
 
       <div className="space-y-6">
-        {/* Basic Settings */}
-        <div className="bg-white rounded-xl border p-6">
-          <h2 className="text-lg font-semibold mb-4">Basic Information</h2>
-          <div className="grid grid-cols-2 gap-4">
+        {/* BUSINESS SECTION */}
+        <div className="bg-white rounded-xl border">
+          <div className="p-4 border-b bg-gray-50">
+            <h2 className="font-semibold text-gray-900">🏢 Business</h2>
+          </div>
+          <div className="p-6 space-y-4">
+            {/* Business Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Business Name</label>
               <input
                 type="text"
-                value={businessName}
-                onChange={(e) => setBusinessName(e.target.value)}
-                className="w-full px-4 py-2 border rounded-lg"
+                value={business.name}
+                onChange={(e) => setBusiness(prev => ({ ...prev, name: e.target.value }))}
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
               />
             </div>
+
+            {/* Locations */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Locations</label>
+              {business.locations.map(loc => (
+                <div key={loc.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg mb-2">
+                  <input
+                    type="text"
+                    value={loc.name}
+                    className="flex-1 px-3 py-2 border rounded"
+                    placeholder="Location name"
+                  />
+                  <input
+                    type="text"
+                    value={loc.address}
+                    className="flex-2 px-3 py-2 border rounded"
+                    placeholder="Address"
+                  />
+                </div>
+              ))}
+              <button className="text-sm text-purple-600 hover:text-purple-700">+ Add Location</button>
+            </div>
+
+            {/* Time Zone */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Time Zone</label>
-              <select value={timezone} onChange={(e) => setTimezone(e.target.value)} className="w-full px-4 py-2 border rounded-lg">
-                <option value="America/New_York">Eastern Time</option>
-                <option value="America/Chicago">Central Time</option>
-                <option value="America/Denver">Mountain Time</option>
-                <option value="America/Los_Angeles">Pacific Time</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Currency</label>
-              <select value={currency} onChange={(e) => setCurrency(e.target.value)} className="w-full px-4 py-2 border rounded-lg">
-                <option value="USD">USD ($)</option>
-                <option value="EUR">EUR (€)</option>
-                <option value="GBP">GBP (£)</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Date Format</label>
-              <select value={dateFormat} onChange={(e) => setDateFormat(e.target.value)} className="w-full px-4 py-2 border rounded-lg">
-                <option value="MM/DD/YYYY">MM/DD/YYYY</option>
-                <option value="DD/MM/YYYY">DD/MM/YYYY</option>
-                <option value="YYYY-MM-DD">YYYY-MM-DD</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Time Format</label>
-              <select value={timeFormat} onChange={(e) => setTimeFormat(e.target.value)} className="w-full px-4 py-2 border rounded-lg">
-                <option value="12h">12-hour (1:00 PM)</option>
-                <option value="24h">24-hour (13:00)</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Default Buffer (min)</label>
-              <input
-                type="number"
-                value={defaultBuffer}
-                onChange={(e) => setDefaultBuffer(parseInt(e.target.value) || 0)}
+              <select
+                value={business.timezone}
+                onChange={(e) => setBusiness(prev => ({ ...prev, timezone: e.target.value }))}
                 className="w-full px-4 py-2 border rounded-lg"
-                min="0"
+              >
+                <option value="America/New_York">Eastern Time (ET)</option>
+                <option value="America/Chicago">Central Time (CT)</option>
+                <option value="America/Denver">Mountain Time (MT)</option>
+                <option value="America/Los_Angeles">Pacific Time (PT)</option>
+              </select>
+            </div>
+
+            {/* Launch Date */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Launch Date</label>
+              <input
+                type="date"
+                value={business.launchDate}
+                onChange={(e) => setBusiness(prev => ({ ...prev, launchDate: e.target.value }))}
+                className="w-full px-4 py-2 border rounded-lg"
               />
             </div>
-          </div>
-        </div>
 
-        {/* Locations */}
-        <div className="bg-white rounded-xl border p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold">Locations</h2>
-            <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">Multi-location Ready</span>
-          </div>
-          {locations.map(loc => (
-            <div key={loc.id} className="p-4 border rounded-lg">
-              <div className="grid grid-cols-3 gap-4">
+            {/* Legal Disclaimers */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Legal Disclaimers</label>
+              <div className="space-y-3">
                 <div>
-                  <label className="block text-xs text-gray-500 mb-1">Location Name</label>
-                  <input type="text" value={loc.name} className="w-full px-3 py-2 border rounded text-sm" readOnly />
+                  <span className="text-xs text-gray-500">Booking Disclaimer</span>
+                  <textarea
+                    value={business.legalDisclaimers.booking}
+                    onChange={(e) => setBusiness(prev => ({ ...prev, legalDisclaimers: { ...prev.legalDisclaimers, booking: e.target.value }}))}
+                    className="w-full px-3 py-2 border rounded-lg text-sm"
+                    rows={2}
+                  />
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-500 mb-1">Address</label>
-                  <input type="text" value={loc.address} className="w-full px-3 py-2 border rounded text-sm" readOnly />
+                  <span className="text-xs text-gray-500">Consent Disclaimer</span>
+                  <textarea
+                    value={business.legalDisclaimers.consent}
+                    onChange={(e) => setBusiness(prev => ({ ...prev, legalDisclaimers: { ...prev.legalDisclaimers, consent: e.target.value }}))}
+                    className="w-full px-3 py-2 border rounded-lg text-sm"
+                    rows={2}
+                  />
                 </div>
                 <div>
-                  <label className="block text-xs text-gray-500 mb-1">Phone</label>
-                  <input type="text" value={loc.phone} className="w-full px-3 py-2 border rounded text-sm" readOnly />
+                  <span className="text-xs text-gray-500">Payment Disclaimer</span>
+                  <textarea
+                    value={business.legalDisclaimers.payment}
+                    onChange={(e) => setBusiness(prev => ({ ...prev, legalDisclaimers: { ...prev.legalDisclaimers, payment: e.target.value }}))}
+                    className="w-full px-3 py-2 border rounded-lg text-sm"
+                    rows={2}
+                  />
                 </div>
               </div>
             </div>
-          ))}
+          </div>
         </div>
 
-        {/* Business Hours */}
-        <div className="bg-white rounded-xl border p-6">
-          <h2 className="text-lg font-semibold mb-4">Business Hours</h2>
-          <div className="space-y-2">
-            {hours.map((h, idx) => (
-              <div key={h.day} className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
-                <div className="w-28">
-                  <label className="flex items-center gap-2">
+        {/* GLOBAL DEFAULTS SECTION */}
+        <div className="bg-white rounded-xl border">
+          <div className="p-4 border-b bg-gray-50">
+            <h2 className="font-semibold text-gray-900">⚙️ Global Defaults</h2>
+          </div>
+          <div className="p-6 space-y-4">
+            {/* Buffers */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Default Buffer Before (min)</label>
+                <input
+                  type="number"
+                  value={defaults.bufferBefore}
+                  onChange={(e) => setDefaults(prev => ({ ...prev, bufferBefore: parseInt(e.target.value) || 0 }))}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  min="0"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Default Buffer After (min)</label>
+                <input
+                  type="number"
+                  value={defaults.bufferAfter}
+                  onChange={(e) => setDefaults(prev => ({ ...prev, bufferAfter: parseInt(e.target.value) || 0 }))}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  min="0"
+                />
+              </div>
+            </div>
+
+            {/* Cancellation & No-Show */}
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Default Cancellation Window (hours)</label>
+                <input
+                  type="number"
+                  value={defaults.cancellationWindow}
+                  onChange={(e) => setDefaults(prev => ({ ...prev, cancellationWindow: parseInt(e.target.value) || 0 }))}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  min="0"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Default No-Show Fee ($)</label>
+                <input
+                  type="number"
+                  value={defaults.noShowFee}
+                  onChange={(e) => setDefaults(prev => ({ ...prev, noShowFee: parseInt(e.target.value) || 0 }))}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  min="0"
+                />
+              </div>
+            </div>
+
+            {/* Consent Enforcement */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Default Consent Enforcement</label>
+              <select
+                value={defaults.consentEnforcement}
+                onChange={(e) => setDefaults(prev => ({ ...prev, consentEnforcement: e.target.value as any }))}
+                className="w-full px-4 py-2 border rounded-lg"
+              >
+                <option value="strict">Strict - Block booking/checkout without consent</option>
+                <option value="warn">Warn - Allow with warning</option>
+                <option value="none">None - No enforcement</option>
+              </select>
+            </div>
+
+            {/* Charting Rules */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Default Charting Rules</label>
+              <div className="space-y-2">
+                {[
+                  { key: 'requireSOAP', label: 'Require SOAP format' },
+                  { key: 'requireSignature', label: 'Require provider signature' },
+                  { key: 'lockAfterSign', label: 'Lock chart after signature' },
+                ].map(item => (
+                  <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
                     <input
                       type="checkbox"
-                      checked={h.is_open}
-                      onChange={(e) => {
-                        const newHours = [...hours];
-                        newHours[idx].is_open = e.target.checked;
-                        setHours(newHours);
-                      }}
-                      className="w-4 h-4"
+                      checked={defaults.chartingRules[item.key as keyof typeof defaults.chartingRules] as boolean}
+                      onChange={(e) => setDefaults(prev => ({ ...prev, chartingRules: { ...prev.chartingRules, [item.key]: e.target.checked }}))}
+                      className="w-5 h-5 text-purple-600"
                     />
-                    <span className={h.is_open ? 'text-gray-900' : 'text-gray-400'}>{h.day}</span>
+                    <span>{item.label}</span>
                   </label>
+                ))}
+                <div className="mt-2">
+                  <label className="block text-sm text-gray-600 mb-1">Auto-save interval (seconds)</label>
+                  <input
+                    type="number"
+                    value={defaults.chartingRules.autoSaveInterval}
+                    onChange={(e) => setDefaults(prev => ({ ...prev, chartingRules: { ...prev.chartingRules, autoSaveInterval: parseInt(e.target.value) || 30 }}))}
+                    className="w-32 px-3 py-2 border rounded-lg"
+                    min="10"
+                  />
                 </div>
-                {h.is_open ? (
-                  <>
-                    <input type="time" value={h.open} onChange={(e) => { const n = [...hours]; n[idx].open = e.target.value; setHours(n); }} className="px-3 py-2 border rounded" />
-                    <span>to</span>
-                    <input type="time" value={h.close} onChange={(e) => { const n = [...hours]; n[idx].close = e.target.value; setHours(n); }} className="px-3 py-2 border rounded" />
-                  </>
-                ) : (
-                  <span className="text-gray-400">Closed</span>
-                )}
               </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Holidays */}
-        <div className="bg-white rounded-xl border p-6">
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold">Holidays & Closures</h2>
-            <button className="text-sm text-purple-600 hover:text-purple-700">+ Add Holiday</button>
-          </div>
-          <div className="space-y-2">
-            {holidays.map(h => (
-              <div key={h.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                <div className="flex items-center gap-4">
-                  <span>{h.name}</span>
-                  <span className="text-sm text-gray-500">{h.date}</span>
-                </div>
-                <span className={`text-xs px-2 py-1 rounded ${h.is_closed ? 'bg-red-100 text-red-700' : 'bg-green-100 text-green-700'}`}>
-                  {h.is_closed ? 'Closed' : 'Open'}
-                </span>
-              </div>
-            ))}
+            </div>
           </div>
         </div>
 
         {/* Save Button */}
         <div className="flex justify-end">
-          <button onClick={saveSettings} className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium">
+          <button
+            onClick={saveSettings}
+            className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium"
+          >
             Save All Settings
           </button>
         </div>

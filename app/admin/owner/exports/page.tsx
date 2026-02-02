@@ -1,327 +1,228 @@
 'use client';
 
 // ============================================================
-// DATA EXPORTS CENTER - OWNER CONTROLLED
-// Export all data in CSV/PDF/JSON formats
+// DATA EXPORTS - OWNER CONTROLLED
+// Export all data in multiple formats
 // ============================================================
 
 import { useState } from 'react';
-import Link from 'next/link';
+import OwnerLayout from '../layout-wrapper';
 
 interface ExportOption {
   id: string;
   name: string;
   description: string;
   icon: string;
-  formats: string[];
-  estimated_records?: number;
-  last_export?: string;
+  recordCount: number;
+  lastExport: string | null;
 }
 
 export default function DataExportsPage() {
   const [exports] = useState<ExportOption[]>([
-    {
-      id: 'clients',
-      name: 'Clients',
-      description: 'All client records including contact info, preferences, and notes',
-      icon: '👥',
-      formats: ['CSV', 'JSON'],
-      estimated_records: 3425,
-      last_export: '2024-01-15T10:30:00Z',
-    },
-    {
-      id: 'appointments',
-      name: 'Appointments',
-      description: 'All appointments history with status, provider, and service details',
-      icon: '📅',
-      formats: ['CSV', 'JSON'],
-      estimated_records: 1013,
-      last_export: '2024-01-10T14:00:00Z',
-    },
-    {
-      id: 'charts',
-      name: 'Clinical Charts',
-      description: 'SOAP notes and clinical documentation (HIPAA-compliant export)',
-      icon: '🩺',
-      formats: ['PDF', 'JSON'],
-      estimated_records: 850,
-    },
-    {
-      id: 'consents',
-      name: 'Signed Consents',
-      description: 'All signed consent forms with signatures and timestamps',
-      icon: '📝',
-      formats: ['PDF', 'JSON'],
-      estimated_records: 2100,
-    },
-    {
-      id: 'photos',
-      name: 'Clinical Photos',
-      description: 'Before/after photos organized by client and date',
-      icon: '📸',
-      formats: ['ZIP'],
-      estimated_records: 450,
-    },
-    {
-      id: 'transactions',
-      name: 'Financial Transactions',
-      description: 'All payments, refunds, and transaction history',
-      icon: '💰',
-      formats: ['CSV', 'PDF', 'JSON'],
-      estimated_records: 2800,
-      last_export: '2024-01-20T09:15:00Z',
-    },
-    {
-      id: 'invoices',
-      name: 'Invoices',
-      description: 'All invoices and receipts',
-      icon: '🧾',
-      formats: ['PDF', 'CSV'],
-      estimated_records: 2500,
-    },
-    {
-      id: 'inventory',
-      name: 'Inventory',
-      description: 'Product catalog, lot tracking, and stock levels',
-      icon: '📦',
-      formats: ['CSV', 'JSON'],
-      estimated_records: 45,
-    },
-    {
-      id: 'audit_logs',
-      name: 'Audit Logs',
-      description: 'Complete system activity logs for compliance',
-      icon: '📜',
-      formats: ['CSV', 'JSON'],
-      estimated_records: 15000,
-    },
-    {
-      id: 'configuration',
-      name: 'System Configuration',
-      description: 'All settings, rules, and configuration data',
-      icon: '⚙️',
-      formats: ['JSON'],
-    },
-    {
-      id: 'memberships',
-      name: 'Memberships',
-      description: 'Member data, billing history, and plan details',
-      icon: '💎',
-      formats: ['CSV', 'JSON'],
-      estimated_records: 207,
-    },
-    {
-      id: 'services',
-      name: 'Services & Pricing',
-      description: 'Service catalog with pricing and configuration',
-      icon: '💉',
-      formats: ['CSV', 'JSON'],
-      estimated_records: 76,
-    },
+    { id: 'clients', name: 'Clients', description: 'All client records with contact info', icon: '👥', recordCount: 3425, lastExport: '2025-01-28' },
+    { id: 'appointments', name: 'Appointments', description: 'All bookings and visit history', icon: '📅', recordCount: 12450, lastExport: '2025-01-25' },
+    { id: 'charts', name: 'Charts', description: 'Clinical notes and documentation', icon: '📋', recordCount: 8920, lastExport: null },
+    { id: 'consents', name: 'Consents', description: 'Signed consent forms', icon: '📝', recordCount: 6780, lastExport: '2025-01-20' },
+    { id: 'photos', name: 'Photos', description: 'Before/after treatment images', icon: '📸', recordCount: 4500, lastExport: null },
+    { id: 'financials', name: 'Financials', description: 'Transactions and payment records', icon: '💰', recordCount: 9870, lastExport: '2025-01-30' },
+    { id: 'rules', name: 'Rules', description: 'Booking rules and policies', icon: '📜', recordCount: 25, lastExport: null },
+    { id: 'config', name: 'Configuration', description: 'System settings and preferences', icon: '⚙️', recordCount: 150, lastExport: '2025-01-15' },
+    { id: 'inventory', name: 'Inventory', description: 'Products, lots, and stock levels', icon: '📦', recordCount: 85, lastExport: null },
+    { id: 'memberships', name: 'Memberships', description: 'Member records and subscriptions', icon: '💎', recordCount: 207, lastExport: null },
   ]);
 
-  const [selectedExport, setSelectedExport] = useState<string | null>(null);
-  const [selectedFormat, setSelectedFormat] = useState<string>('CSV');
-  const [dateRange, setDateRange] = useState({ from: '', to: '' });
-  const [isExporting, setIsExporting] = useState(false);
+  const [selectedExports, setSelectedExports] = useState<string[]>([]);
+  const [selectedFormat, setSelectedFormat] = useState<'csv' | 'pdf' | 'json'>('csv');
+  const [exporting, setExporting] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  const handleExport = async () => {
-    if (!selectedExport) {
-      setMessage({ type: 'error', text: 'Please select a data type to export' });
+  const toggleExport = (id: string) => {
+    setSelectedExports(prev => 
+      prev.includes(id) ? prev.filter(e => e !== id) : [...prev, id]
+    );
+  };
+
+  const selectAll = () => {
+    setSelectedExports(exports.map(e => e.id));
+  };
+
+  const clearAll = () => {
+    setSelectedExports([]);
+  };
+
+  const startExport = () => {
+    if (selectedExports.length === 0) {
+      setMessage({ type: 'error', text: 'Please select at least one data type to export' });
       return;
     }
-
-    setIsExporting(true);
-    
-    // Simulate export
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsExporting(false);
-    setMessage({ type: 'success', text: `${selectedExport} data exported successfully as ${selectedFormat}!` });
-    setTimeout(() => setMessage(null), 3000);
+    setExporting(true);
+    setTimeout(() => {
+      setExporting(false);
+      setMessage({ type: 'success', text: `Exported ${selectedExports.length} data types as ${selectedFormat.toUpperCase()}` });
+      setTimeout(() => setMessage(null), 3000);
+    }, 2000);
   };
 
-  const exportAll = async () => {
-    if (!confirm('Export ALL data? This may take several minutes.')) return;
-    
-    setIsExporting(true);
-    await new Promise(resolve => setTimeout(resolve, 5000));
-    setIsExporting(false);
-    setMessage({ type: 'success', text: 'Complete data backup exported successfully!' });
-    setTimeout(() => setMessage(null), 3000);
+  const fullBackup = () => {
+    setExporting(true);
+    setTimeout(() => {
+      setExporting(false);
+      setMessage({ type: 'success', text: 'Full system backup created successfully!' });
+      setTimeout(() => setMessage(null), 3000);
+    }, 3000);
   };
-
-  const selectedOption = exports.find(e => e.id === selectedExport);
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
-            <Link href="/admin/owner" className="hover:text-pink-600">Owner Mode</Link>
-            <span>/</span>
-            <span>Data Exports</span>
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900">Data Export Center</h1>
-          <p className="text-gray-500">Export your data anytime • No permission required</p>
-        </div>
-        <button
-          onClick={exportAll}
-          disabled={isExporting}
-          className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:opacity-50"
-        >
-          📦 Export Everything
-        </button>
-      </div>
-
+    <OwnerLayout title="Data Exports" description="Export all your data in multiple formats">
       {message && (
-        <div className={`p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+        <div className={`mb-4 p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
           {message.text}
         </div>
       )}
 
-      {/* Data Ownership Notice */}
-      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-        <div className="flex items-start gap-3">
-          <span className="text-xl">ℹ️</span>
-          <div>
-            <p className="font-medium text-blue-800">Your Data, Your Control</p>
-            <p className="text-sm text-blue-600">
-              As the system owner, you have unrestricted access to export all business data at any time.
-              No approval or developer permission required.
-            </p>
-          </div>
-        </div>
-      </div>
-
       <div className="grid grid-cols-3 gap-6">
-        {/* Data Types */}
+        {/* Export Options */}
         <div className="col-span-2">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Select Data to Export</h2>
-          <div className="grid grid-cols-2 gap-3">
-            {exports.map(exp => (
-              <button
-                key={exp.id}
-                onClick={() => {
-                  setSelectedExport(exp.id);
-                  setSelectedFormat(exp.formats[0]);
-                }}
-                className={`p-4 rounded-lg border-2 text-left transition-all ${
-                  selectedExport === exp.id
-                    ? 'border-pink-500 bg-pink-50'
-                    : 'border-gray-200 hover:border-gray-300'
-                }`}
-              >
-                <div className="flex items-start justify-between">
-                  <span className="text-2xl">{exp.icon}</span>
-                  {exp.estimated_records && (
-                    <span className="text-xs text-gray-500">{exp.estimated_records.toLocaleString()} records</span>
-                  )}
-                </div>
-                <h3 className="font-medium text-gray-900 mt-2">{exp.name}</h3>
-                <p className="text-xs text-gray-500 mt-1">{exp.description}</p>
-                <div className="flex gap-1 mt-2">
-                  {exp.formats.map(fmt => (
-                    <span key={fmt} className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
-                      {fmt}
-                    </span>
-                  ))}
-                </div>
-              </button>
-            ))}
+          <div className="bg-white rounded-xl border">
+            <div className="p-4 border-b flex items-center justify-between">
+              <h2 className="font-semibold">Export Options</h2>
+              <div className="flex gap-2">
+                <button onClick={selectAll} className="text-sm text-purple-600 hover:text-purple-700">Select All</button>
+                <span className="text-gray-300">|</span>
+                <button onClick={clearAll} className="text-sm text-gray-500 hover:text-gray-700">Clear All</button>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-3 p-4">
+              {exports.map(exp => (
+                <label
+                  key={exp.id}
+                  className={`flex items-start gap-3 p-4 border rounded-lg cursor-pointer transition-colors ${
+                    selectedExports.includes(exp.id) ? 'border-purple-500 bg-purple-50' : 'hover:bg-gray-50'
+                  }`}
+                >
+                  <input
+                    type="checkbox"
+                    checked={selectedExports.includes(exp.id)}
+                    onChange={() => toggleExport(exp.id)}
+                    className="mt-1 w-5 h-5 text-purple-600"
+                  />
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <span>{exp.icon}</span>
+                      <span className="font-medium">{exp.name}</span>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-1">{exp.description}</p>
+                    <div className="flex justify-between mt-2">
+                      <span className="text-xs text-gray-400">{exp.recordCount.toLocaleString()} records</span>
+                      {exp.lastExport && (
+                        <span className="text-xs text-gray-400">Last: {exp.lastExport}</span>
+                      )}
+                    </div>
+                  </div>
+                </label>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Export Options */}
-        <div className="space-y-4">
+        {/* Export Settings */}
+        <div className="space-y-6">
+          {/* Format Selection */}
           <div className="bg-white rounded-xl border p-4">
-            <h3 className="font-semibold text-gray-900 mb-4">Export Options</h3>
-            
-            {selectedOption ? (
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Selected</label>
-                  <p className="text-sm text-pink-600 font-medium">{selectedOption.icon} {selectedOption.name}</p>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Format</label>
-                  <div className="flex gap-2">
-                    {selectedOption.formats.map(fmt => (
-                      <button
-                        key={fmt}
-                        onClick={() => setSelectedFormat(fmt)}
-                        className={`px-3 py-1.5 rounded text-sm ${
-                          selectedFormat === fmt
-                            ? 'bg-pink-500 text-white'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                        }`}
-                      >
-                        {fmt}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Date Range (optional)</label>
-                  <div className="grid grid-cols-2 gap-2">
-                    <input
-                      type="date"
-                      value={dateRange.from}
-                      onChange={(e) => setDateRange(prev => ({ ...prev, from: e.target.value }))}
-                      className="px-3 py-2 border rounded text-sm"
-                    />
-                    <input
-                      type="date"
-                      value={dateRange.to}
-                      onChange={(e) => setDateRange(prev => ({ ...prev, to: e.target.value }))}
-                      className="px-3 py-2 border rounded text-sm"
-                    />
-                  </div>
-                </div>
-
-                <button
-                  onClick={handleExport}
-                  disabled={isExporting}
-                  className="w-full px-4 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 disabled:opacity-50 font-medium"
+            <h3 className="font-semibold mb-3">Export Format</h3>
+            <div className="space-y-2">
+              {[
+                { value: 'csv', label: 'CSV', desc: 'Spreadsheet compatible' },
+                { value: 'pdf', label: 'PDF', desc: 'Print-ready documents' },
+                { value: 'json', label: 'JSON', desc: 'Developer/API format' },
+              ].map(fmt => (
+                <label
+                  key={fmt.value}
+                  className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer ${
+                    selectedFormat === fmt.value ? 'border-purple-500 bg-purple-50' : 'hover:bg-gray-50'
+                  }`}
                 >
-                  {isExporting ? 'Exporting...' : `Export ${selectedOption.name}`}
-                </button>
-              </div>
-            ) : (
-              <p className="text-sm text-gray-500 text-center py-8">
-                Select a data type to export
-              </p>
-            )}
-          </div>
-
-          {/* Recent Exports */}
-          <div className="bg-white rounded-xl border p-4">
-            <h3 className="font-semibold text-gray-900 mb-3">Recent Exports</h3>
-            <div className="space-y-2 text-sm">
-              {exports.filter(e => e.last_export).slice(0, 3).map(exp => (
-                <div key={exp.id} className="flex items-center justify-between py-2 border-b">
-                  <span>{exp.icon} {exp.name}</span>
-                  <span className="text-xs text-gray-500">
-                    {new Date(exp.last_export!).toLocaleDateString()}
-                  </span>
-                </div>
+                  <input
+                    type="radio"
+                    name="format"
+                    value={fmt.value}
+                    checked={selectedFormat === fmt.value}
+                    onChange={() => setSelectedFormat(fmt.value as any)}
+                    className="w-4 h-4 text-purple-600"
+                  />
+                  <div>
+                    <span className="font-medium">{fmt.label}</span>
+                    <p className="text-xs text-gray-500">{fmt.desc}</p>
+                  </div>
+                </label>
               ))}
             </div>
           </div>
 
-          {/* Compliance Note */}
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
-            <p className="text-xs text-amber-700">
-              <strong>HIPAA Note:</strong> Clinical data exports are logged for compliance.
-              Handle exported PHI according to your privacy policies.
+          {/* Export Summary */}
+          <div className="bg-white rounded-xl border p-4">
+            <h3 className="font-semibold mb-3">Export Summary</h3>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-gray-500">Selected Types</span>
+                <span className="font-medium">{selectedExports.length}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-500">Total Records</span>
+                <span className="font-medium">
+                  {exports
+                    .filter(e => selectedExports.includes(e.id))
+                    .reduce((sum, e) => sum + e.recordCount, 0)
+                    .toLocaleString()}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-500">Format</span>
+                <span className="font-medium">{selectedFormat.toUpperCase()}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Export Button */}
+          <button
+            onClick={startExport}
+            disabled={exporting || selectedExports.length === 0}
+            className={`w-full px-6 py-4 rounded-xl font-medium text-white ${
+              exporting || selectedExports.length === 0
+                ? 'bg-gray-300 cursor-not-allowed'
+                : 'bg-purple-600 hover:bg-purple-700'
+            }`}
+          >
+            {exporting ? '⏳ Exporting...' : `📥 Export ${selectedExports.length} Data Types`}
+          </button>
+
+          {/* Full Backup */}
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+            <h3 className="font-medium text-blue-800 mb-2">📦 Full System Backup</h3>
+            <p className="text-sm text-blue-600 mb-3">
+              Export everything including config, rules, templates, and all data as a single ZIP archive.
             </p>
+            <button
+              onClick={fullBackup}
+              disabled={exporting}
+              className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm"
+            >
+              Create Full Backup
+            </button>
           </div>
         </div>
       </div>
-    </div>
+
+      {/* Compliance Note */}
+      <div className="mt-6 bg-gray-50 border border-gray-200 rounded-lg p-4">
+        <h3 className="font-medium text-gray-700 mb-1">📋 Compliance Notes</h3>
+        <ul className="text-sm text-gray-600 space-y-1">
+          <li>• All exports are logged in the audit trail</li>
+          <li>• PHI exports require Owner-level access</li>
+          <li>• Data retention complies with HIPAA guidelines (7 years)</li>
+          <li>• No permission required - you own your data</li>
+        </ul>
+      </div>
+    </OwnerLayout>
   );
 }

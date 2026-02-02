@@ -2,193 +2,337 @@
 
 // ============================================================
 // SCHEDULING ENGINE - OWNER CONTROLLED
-// Provider availability, buffers, capacity
+// Calendar view, global hours, provider schedules, capacity
 // ============================================================
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import OwnerLayout from '../layout-wrapper';
 
+interface DaySchedule {
+  day: string;
+  isOpen: boolean;
+  open: string;
+  close: string;
+}
+
 interface ProviderSchedule {
-  provider_id: string;
-  provider_name: string;
-  schedule: { day: string; is_working: boolean; start: string; end: string }[];
-  time_off: { id: string; start: string; end: string; reason: string }[];
+  providerId: string;
+  providerName: string;
+  schedule: DaySchedule[];
 }
 
 export default function SchedulingEnginePage() {
-  const [providers, setProviders] = useState<ProviderSchedule[]>([
-    {
-      provider_id: 'p1',
-      provider_name: 'Ryan Kent',
-      schedule: [
-        { day: 'Monday', is_working: true, start: '09:00', end: '17:00' },
-        { day: 'Tuesday', is_working: true, start: '09:00', end: '17:00' },
-        { day: 'Wednesday', is_working: true, start: '09:00', end: '17:00' },
-        { day: 'Thursday', is_working: true, start: '09:00', end: '19:00' },
-        { day: 'Friday', is_working: true, start: '09:00', end: '17:00' },
-        { day: 'Saturday', is_working: false, start: '', end: '' },
-        { day: 'Sunday', is_working: false, start: '', end: '' },
-      ],
-      time_off: [],
-    },
-    {
-      provider_id: 'p2',
-      provider_name: 'Danielle Alcala',
-      schedule: [
-        { day: 'Monday', is_working: true, start: '10:00', end: '18:00' },
-        { day: 'Tuesday', is_working: true, start: '10:00', end: '18:00' },
-        { day: 'Wednesday', is_working: true, start: '10:00', end: '18:00' },
-        { day: 'Thursday', is_working: true, start: '10:00', end: '20:00' },
-        { day: 'Friday', is_working: true, start: '10:00', end: '18:00' },
-        { day: 'Saturday', is_working: true, start: '10:00', end: '16:00' },
-        { day: 'Sunday', is_working: false, start: '', end: '' },
-      ],
-      time_off: [],
-    },
+  const [businessHours, setBusinessHours] = useState<DaySchedule[]>([
+    { day: 'Monday', isOpen: true, open: '09:00', close: '18:00' },
+    { day: 'Tuesday', isOpen: true, open: '09:00', close: '18:00' },
+    { day: 'Wednesday', isOpen: true, open: '09:00', close: '18:00' },
+    { day: 'Thursday', isOpen: true, open: '09:00', close: '20:00' },
+    { day: 'Friday', isOpen: true, open: '09:00', close: '18:00' },
+    { day: 'Saturday', isOpen: true, open: '10:00', close: '16:00' },
+    { day: 'Sunday', isOpen: false, open: '', close: '' },
   ]);
 
-  const [selectedProvider, setSelectedProvider] = useState(providers[0].provider_id);
-  const [bookingWindow, setBookingWindow] = useState({ min_hours: 2, max_days: 60 });
-  const [capacitySettings, setCapacitySettings] = useState({ allow_overbooking: false, max_daily_appointments: 20 });
+  const [providerSchedules, setProviderSchedules] = useState<ProviderSchedule[]>([
+    { providerId: 'p1', providerName: 'Ryan Kent', schedule: [
+      { day: 'Monday', isOpen: true, open: '09:00', close: '17:00' },
+      { day: 'Tuesday', isOpen: true, open: '09:00', close: '17:00' },
+      { day: 'Wednesday', isOpen: true, open: '09:00', close: '17:00' },
+      { day: 'Thursday', isOpen: true, open: '09:00', close: '19:00' },
+      { day: 'Friday', isOpen: true, open: '09:00', close: '17:00' },
+      { day: 'Saturday', isOpen: false, open: '', close: '' },
+      { day: 'Sunday', isOpen: false, open: '', close: '' },
+    ]},
+    { providerId: 'p2', providerName: 'Danielle Alcala', schedule: [
+      { day: 'Monday', isOpen: true, open: '10:00', close: '18:00' },
+      { day: 'Tuesday', isOpen: true, open: '10:00', close: '18:00' },
+      { day: 'Wednesday', isOpen: true, open: '10:00', close: '18:00' },
+      { day: 'Thursday', isOpen: true, open: '10:00', close: '20:00' },
+      { day: 'Friday', isOpen: true, open: '10:00', close: '18:00' },
+      { day: 'Saturday', isOpen: true, open: '10:00', close: '16:00' },
+      { day: 'Sunday', isOpen: false, open: '', close: '' },
+    ]},
+  ]);
+
+  const [blackoutDates, setBlackoutDates] = useState([
+    { id: '1', date: '2025-02-14', reason: "Valentine's Day - Limited Hours" },
+    { id: '2', date: '2025-05-26', reason: 'Memorial Day - Closed' },
+    { id: '3', date: '2025-07-04', reason: 'Independence Day - Closed' },
+  ]);
+
+  const [capacitySettings, setCapacitySettings] = useState({
+    maxDailyAppointments: 25,
+    maxConcurrent: 2,
+    allowOverbooking: false,
+    overbookingLimit: 0,
+  });
+
+  const [selectedProvider, setSelectedProvider] = useState<string | null>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  const selectedProviderData = providers.find(p => p.provider_id === selectedProvider);
-
-  const updateSchedule = (dayIndex: number, field: string, value: any) => {
-    setProviders(prev => prev.map(p => {
-      if (p.provider_id === selectedProvider) {
-        const newSchedule = [...p.schedule];
-        newSchedule[dayIndex] = { ...newSchedule[dayIndex], [field]: value };
-        return { ...p, schedule: newSchedule };
-      }
-      return p;
-    }));
-  };
-
   const saveSettings = () => {
-    setMessage({ type: 'success', text: 'Scheduling settings saved!' });
+    setMessage({ type: 'success', text: 'Scheduling settings saved successfully!' });
     setTimeout(() => setMessage(null), 3000);
   };
 
+  const DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
   return (
-    <OwnerLayout title="Scheduling Engine" description="Provider availability and booking rules">
+    <OwnerLayout title="Scheduling Engine" description="Calendar configuration, hours, and capacity">
       {message && (
-        <div className={`mb-6 p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+        <div className={`mb-4 p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
           {message.text}
         </div>
       )}
 
-      <div className="space-y-6">
-        {/* Provider Selector */}
-        <div className="flex gap-3">
-          {providers.map(p => (
-            <button
-              key={p.provider_id}
-              onClick={() => setSelectedProvider(p.provider_id)}
-              className={`px-4 py-2 rounded-lg border-2 ${
-                selectedProvider === p.provider_id ? 'border-purple-500 bg-purple-50' : 'border-gray-200 hover:border-gray-300'
-              }`}
-            >
-              {p.provider_name}
-            </button>
-          ))}
-        </div>
-
-        {/* Weekly Schedule */}
-        {selectedProviderData && (
-          <div className="bg-white rounded-xl border p-6">
-            <h2 className="text-lg font-semibold mb-4">Weekly Schedule - {selectedProviderData.provider_name}</h2>
-            <div className="space-y-2">
-              {selectedProviderData.schedule.map((day, idx) => (
-                <div key={day.day} className={`flex items-center gap-4 p-3 rounded-lg ${day.is_working ? 'bg-gray-50' : 'bg-gray-100'}`}>
+      <div className="grid grid-cols-3 gap-6">
+        {/* Left Column - Business Hours & Provider Schedules */}
+        <div className="col-span-2 space-y-6">
+          {/* Global Business Hours */}
+          <div className="bg-white rounded-xl border">
+            <div className="p-4 border-b bg-gray-50">
+              <h2 className="font-semibold">🏢 Global Business Hours</h2>
+            </div>
+            <div className="p-4">
+              {businessHours.map((day, idx) => (
+                <div key={day.day} className={`flex items-center gap-4 p-3 ${idx % 2 === 0 ? 'bg-gray-50' : ''} rounded-lg`}>
                   <div className="w-28">
                     <label className="flex items-center gap-2">
                       <input
                         type="checkbox"
-                        checked={day.is_working}
-                        onChange={(e) => updateSchedule(idx, 'is_working', e.target.checked)}
+                        checked={day.isOpen}
+                        onChange={(e) => {
+                          const updated = [...businessHours];
+                          updated[idx].isOpen = e.target.checked;
+                          setBusinessHours(updated);
+                        }}
                         className="w-4 h-4"
                       />
-                      <span className={day.is_working ? 'font-medium' : 'text-gray-400'}>{day.day}</span>
+                      <span className={day.isOpen ? 'font-medium' : 'text-gray-400'}>{day.day}</span>
                     </label>
                   </div>
-                  {day.is_working ? (
+                  {day.isOpen ? (
                     <>
-                      <input type="time" value={day.start} onChange={(e) => updateSchedule(idx, 'start', e.target.value)} className="px-3 py-2 border rounded" />
+                      <input
+                        type="time"
+                        value={day.open}
+                        onChange={(e) => { const u = [...businessHours]; u[idx].open = e.target.value; setBusinessHours(u); }}
+                        className="px-3 py-2 border rounded text-sm"
+                      />
                       <span>to</span>
-                      <input type="time" value={day.end} onChange={(e) => updateSchedule(idx, 'end', e.target.value)} className="px-3 py-2 border rounded" />
+                      <input
+                        type="time"
+                        value={day.close}
+                        onChange={(e) => { const u = [...businessHours]; u[idx].close = e.target.value; setBusinessHours(u); }}
+                        className="px-3 py-2 border rounded text-sm"
+                      />
                     </>
                   ) : (
-                    <span className="text-gray-400">Not working</span>
+                    <span className="text-gray-400 text-sm">Closed</span>
                   )}
                 </div>
               ))}
             </div>
           </div>
-        )}
 
-        {/* Booking Window */}
-        <div className="bg-white rounded-xl border p-6">
-          <h2 className="text-lg font-semibold mb-4">Booking Window</h2>
-          <div className="grid grid-cols-2 gap-6">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Minimum Notice (hours)</label>
-              <input
-                type="number"
-                value={bookingWindow.min_hours}
-                onChange={(e) => setBookingWindow(prev => ({ ...prev, min_hours: parseInt(e.target.value) || 0 }))}
-                className="w-full px-4 py-2 border rounded-lg"
-                min="0"
-              />
-              <p className="text-xs text-gray-500 mt-1">How far in advance clients must book</p>
+          {/* Provider Schedules */}
+          <div className="bg-white rounded-xl border">
+            <div className="p-4 border-b bg-gray-50">
+              <h2 className="font-semibold">👤 Provider Schedules</h2>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Maximum Advance (days)</label>
-              <input
-                type="number"
-                value={bookingWindow.max_days}
-                onChange={(e) => setBookingWindow(prev => ({ ...prev, max_days: parseInt(e.target.value) || 0 }))}
-                className="w-full px-4 py-2 border rounded-lg"
-                min="1"
-              />
-              <p className="text-xs text-gray-500 mt-1">How far ahead clients can book</p>
-            </div>
-          </div>
-        </div>
-
-        {/* Capacity Settings */}
-        <div className="bg-white rounded-xl border p-6">
-          <h2 className="text-lg font-semibold mb-4">Capacity Settings</h2>
-          <div className="space-y-4">
-            <label className="flex items-center gap-3 p-4 border rounded-lg cursor-pointer">
-              <input
-                type="checkbox"
-                checked={capacitySettings.allow_overbooking}
-                onChange={(e) => setCapacitySettings(prev => ({ ...prev, allow_overbooking: e.target.checked }))}
-                className="w-5 h-5"
-              />
-              <div>
-                <p className="font-medium">Allow Overbooking</p>
-                <p className="text-sm text-gray-500">Permit bookings beyond capacity (requires manual approval)</p>
+            <div className="p-4">
+              {/* Provider Tabs */}
+              <div className="flex gap-2 mb-4">
+                {providerSchedules.map(ps => (
+                  <button
+                    key={ps.providerId}
+                    onClick={() => setSelectedProvider(ps.providerId)}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium ${
+                      selectedProvider === ps.providerId ? 'bg-purple-600 text-white' : 'bg-gray-100 hover:bg-gray-200'
+                    }`}
+                  >
+                    {ps.providerName}
+                  </button>
+                ))}
               </div>
-            </label>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Max Daily Appointments per Provider</label>
-              <input
-                type="number"
-                value={capacitySettings.max_daily_appointments}
-                onChange={(e) => setCapacitySettings(prev => ({ ...prev, max_daily_appointments: parseInt(e.target.value) || 0 }))}
-                className="w-full px-4 py-2 border rounded-lg"
-                min="1"
-              />
+
+              {/* Selected Provider Schedule */}
+              {selectedProvider && (
+                <div>
+                  {providerSchedules.find(ps => ps.providerId === selectedProvider)?.schedule.map((day, idx) => (
+                    <div key={day.day} className={`flex items-center gap-4 p-3 ${idx % 2 === 0 ? 'bg-gray-50' : ''} rounded-lg`}>
+                      <div className="w-28">
+                        <label className="flex items-center gap-2">
+                          <input
+                            type="checkbox"
+                            checked={day.isOpen}
+                            onChange={(e) => {
+                              setProviderSchedules(prev => prev.map(ps => {
+                                if (ps.providerId === selectedProvider) {
+                                  const updated = [...ps.schedule];
+                                  updated[idx].isOpen = e.target.checked;
+                                  return { ...ps, schedule: updated };
+                                }
+                                return ps;
+                              }));
+                            }}
+                            className="w-4 h-4"
+                          />
+                          <span className={day.isOpen ? 'font-medium' : 'text-gray-400'}>{day.day}</span>
+                        </label>
+                      </div>
+                      {day.isOpen ? (
+                        <>
+                          <input
+                            type="time"
+                            value={day.open}
+                            onChange={(e) => {
+                              setProviderSchedules(prev => prev.map(ps => {
+                                if (ps.providerId === selectedProvider) {
+                                  const updated = [...ps.schedule];
+                                  updated[idx].open = e.target.value;
+                                  return { ...ps, schedule: updated };
+                                }
+                                return ps;
+                              }));
+                            }}
+                            className="px-3 py-2 border rounded text-sm"
+                          />
+                          <span>to</span>
+                          <input
+                            type="time"
+                            value={day.close}
+                            onChange={(e) => {
+                              setProviderSchedules(prev => prev.map(ps => {
+                                if (ps.providerId === selectedProvider) {
+                                  const updated = [...ps.schedule];
+                                  updated[idx].close = e.target.value;
+                                  return { ...ps, schedule: updated };
+                                }
+                                return ps;
+                              }));
+                            }}
+                            className="px-3 py-2 border rounded text-sm"
+                          />
+                        </>
+                      ) : (
+                        <span className="text-gray-400 text-sm">Not working</span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {!selectedProvider && (
+                <p className="text-gray-500 text-center py-4">Select a provider to edit their schedule</p>
+              )}
+            </div>
+          </div>
+
+          {/* Blackout Dates */}
+          <div className="bg-white rounded-xl border">
+            <div className="p-4 border-b bg-gray-50 flex items-center justify-between">
+              <h2 className="font-semibold">📅 Blackout Dates / Holidays</h2>
+              <button className="text-sm text-purple-600 hover:text-purple-700">+ Add Date</button>
+            </div>
+            <div className="p-4">
+              {blackoutDates.map(bd => (
+                <div key={bd.id} className="flex items-center justify-between p-3 border-b last:border-0">
+                  <div>
+                    <p className="font-medium text-sm">{bd.reason}</p>
+                    <p className="text-xs text-gray-500">{bd.date}</p>
+                  </div>
+                  <button className="text-red-500 hover:text-red-700 text-sm">Remove</button>
+                </div>
+              ))}
             </div>
           </div>
         </div>
 
-        {/* Save */}
-        <div className="flex justify-end">
-          <button onClick={saveSettings} className="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium">
-            Save Scheduling Settings
+        {/* Right Column - Controls & Preview */}
+        <div className="space-y-6">
+          {/* Capacity Settings */}
+          <div className="bg-white rounded-xl border">
+            <div className="p-4 border-b bg-gray-50">
+              <h2 className="font-semibold">⚙️ Capacity Controls</h2>
+            </div>
+            <div className="p-4 space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Max Daily Appointments</label>
+                <input
+                  type="number"
+                  value={capacitySettings.maxDailyAppointments}
+                  onChange={(e) => setCapacitySettings(prev => ({ ...prev, maxDailyAppointments: parseInt(e.target.value) || 0 }))}
+                  className="w-full px-3 py-2 border rounded-lg"
+                  min="1"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Max Concurrent Bookings</label>
+                <input
+                  type="number"
+                  value={capacitySettings.maxConcurrent}
+                  onChange={(e) => setCapacitySettings(prev => ({ ...prev, maxConcurrent: parseInt(e.target.value) || 1 }))}
+                  className="w-full px-3 py-2 border rounded-lg"
+                  min="1"
+                />
+              </div>
+              <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={capacitySettings.allowOverbooking}
+                  onChange={(e) => setCapacitySettings(prev => ({ ...prev, allowOverbooking: e.target.checked }))}
+                  className="w-5 h-5"
+                />
+                <div>
+                  <span className="font-medium text-sm">Allow Overbooking</span>
+                  <p className="text-xs text-gray-500">Requires manual approval</p>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          {/* Preview Panel */}
+          <div className="bg-purple-50 border border-purple-200 rounded-xl p-4">
+            <h3 className="font-semibold text-purple-800 mb-3">👁️ Preview Panel</h3>
+            <p className="text-sm text-purple-600 mb-3">"This is what clients will see."</p>
+            <div className="bg-white rounded-lg p-3 text-sm">
+              <p className="font-medium mb-2">Available Hours</p>
+              {businessHours.filter(d => d.isOpen).map(d => (
+                <div key={d.day} className="flex justify-between text-xs text-gray-600 py-1">
+                  <span>{d.day}</span>
+                  <span>{d.open} - {d.close}</span>
+                </div>
+              ))}
+              {businessHours.filter(d => !d.isOpen).map(d => (
+                <div key={d.day} className="flex justify-between text-xs text-gray-400 py-1">
+                  <span>{d.day}</span>
+                  <span>Closed</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Capacity Indicator */}
+          <div className="bg-white rounded-xl border p-4">
+            <h3 className="font-semibold text-gray-800 mb-3">📊 Today's Capacity</h3>
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm">
+                <span>Booked</span>
+                <span className="font-medium">18 / {capacitySettings.maxDailyAppointments}</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2">
+                <div className="bg-purple-600 rounded-full h-2" style={{ width: `${(18 / capacitySettings.maxDailyAppointments) * 100}%` }} />
+              </div>
+              <p className="text-xs text-gray-500">{capacitySettings.maxDailyAppointments - 18} slots remaining</p>
+            </div>
+          </div>
+
+          {/* Save Button */}
+          <button
+            onClick={saveSettings}
+            className="w-full px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium"
+          >
+            Save All Scheduling Settings
           </button>
         </div>
       </div>

@@ -1,226 +1,187 @@
 'use client';
 
 // ============================================================
-// FEATURE FLAGS & KILL SWITCHES - OWNER CONTROLLED
-// Enable/disable features instantly without deploy
+// FEATURE FLAGS - SAFETY PANEL
+// Toggle features ON/OFF with environment selector
 // ============================================================
 
 import { useState } from 'react';
-import Link from 'next/link';
+import OwnerLayout from '../layout-wrapper';
 
-interface FeatureFlag {
+interface Feature {
   id: string;
   name: string;
   description: string;
   category: string;
-  is_enabled: boolean;
-  is_critical: boolean;
-  last_changed?: string;
-  changed_by?: string;
+  status: boolean;
+  environment: 'live' | 'sandbox' | 'both';
+  isCritical: boolean;
 }
 
 export default function FeatureFlagsPage() {
-  const [features, setFeatures] = useState<FeatureFlag[]>([
-    // Booking
-    { id: 'online_booking', name: 'Online Booking', description: 'Allow clients to book appointments online', category: 'Booking', is_enabled: true, is_critical: true },
-    { id: 'same_day_booking', name: 'Same-Day Booking', description: 'Allow appointments to be booked for today', category: 'Booking', is_enabled: true, is_critical: false },
-    { id: 'waitlist', name: 'Waitlist', description: 'Enable waitlist for fully booked slots', category: 'Booking', is_enabled: true, is_critical: false },
-    
-    // Payments
-    { id: 'online_payments', name: 'Online Payments', description: 'Accept payments via Stripe', category: 'Payments', is_enabled: true, is_critical: true },
-    { id: 'deposits', name: 'Deposit Collection', description: 'Require deposits for bookings', category: 'Payments', is_enabled: true, is_critical: false },
-    { id: 'memberships', name: 'Membership Billing', description: 'Recurring membership payments', category: 'Payments', is_enabled: true, is_critical: false },
-    { id: 'gift_cards', name: 'Gift Cards', description: 'Sell and redeem gift cards', category: 'Payments', is_enabled: true, is_critical: false },
-    
-    // Communications
-    { id: 'sms_notifications', name: 'SMS Notifications', description: 'Send SMS reminders and updates', category: 'Communications', is_enabled: true, is_critical: true },
-    { id: 'email_notifications', name: 'Email Notifications', description: 'Send email confirmations', category: 'Communications', is_enabled: true, is_critical: false },
-    { id: 'review_requests', name: 'Review Requests', description: 'Auto-request reviews after visits', category: 'Communications', is_enabled: true, is_critical: false },
-    { id: 'marketing_sms', name: 'Marketing SMS', description: 'Send promotional SMS campaigns', category: 'Communications', is_enabled: true, is_critical: false },
-    
-    // Clinical
-    { id: 'charting', name: 'Clinical Charting', description: 'SOAP notes and clinical documentation', category: 'Clinical', is_enabled: true, is_critical: true },
-    { id: 'photo_capture', name: 'Before/After Photos', description: 'Capture and store clinical photos', category: 'Clinical', is_enabled: true, is_critical: false },
-    { id: 'consent_collection', name: 'Digital Consents', description: 'Collect digital signatures', category: 'Clinical', is_enabled: true, is_critical: true },
-    { id: 'lot_tracking', name: 'Lot Tracking', description: 'Track product lot numbers', category: 'Clinical', is_enabled: true, is_critical: false },
-    
-    // Client Portal
-    { id: 'client_portal', name: 'Client Portal', description: 'Client self-service portal', category: 'Client Portal', is_enabled: true, is_critical: false },
-    { id: 'self_booking', name: 'Self-Rescheduling', description: 'Clients can reschedule themselves', category: 'Client Portal', is_enabled: true, is_critical: false },
-    { id: 'document_access', name: 'Document Access', description: 'Clients can view their documents', category: 'Client Portal', is_enabled: true, is_critical: false },
-    
-    // Admin
-    { id: 'reporting', name: 'Advanced Reporting', description: 'Financial and operational reports', category: 'Admin', is_enabled: true, is_critical: false },
-    { id: 'audit_logging', name: 'Audit Logging', description: 'Log all system actions', category: 'Admin', is_enabled: true, is_critical: true },
-    { id: 'sandbox_mode', name: 'Sandbox Mode', description: 'Test features without affecting production', category: 'Admin', is_enabled: true, is_critical: false },
+  const [features, setFeatures] = useState<Feature[]>([
+    { id: 'online_booking', name: 'Online Booking', description: 'Allow clients to book appointments online', category: 'Booking', status: true, environment: 'both', isCritical: true },
+    { id: 'payments', name: 'Payment Processing', description: 'Process credit card payments via Stripe', category: 'Payments', status: true, environment: 'live', isCritical: true },
+    { id: 'sms_reminders', name: 'SMS Reminders', description: 'Send appointment reminders via text', category: 'Communications', status: true, environment: 'both', isCritical: false },
+    { id: 'email_notifications', name: 'Email Notifications', description: 'Send email confirmations and receipts', category: 'Communications', status: true, environment: 'both', isCritical: false },
+    { id: 'review_requests', name: 'Review Requests', description: 'Automatically request reviews after visits', category: 'Marketing', status: true, environment: 'both', isCritical: false },
+    { id: 'charting', name: 'Clinical Charting', description: 'SOAP notes and clinical documentation', category: 'Clinical', status: true, environment: 'both', isCritical: true },
+    { id: 'client_portal', name: 'Client Portal', description: 'Allow clients to view their history', category: 'Client', status: true, environment: 'both', isCritical: false },
+    { id: 'memberships', name: 'Membership Billing', description: 'Recurring membership payments', category: 'Payments', status: true, environment: 'live', isCritical: false },
+    { id: 'gift_cards', name: 'Gift Cards', description: 'Sell and redeem gift cards', category: 'Payments', status: true, environment: 'both', isCritical: false },
+    { id: 'inventory_tracking', name: 'Inventory Tracking', description: 'Track product lots and expiration', category: 'Clinical', status: true, environment: 'both', isCritical: false },
+    { id: 'photo_capture', name: 'Before/After Photos', description: 'Capture treatment photos', category: 'Clinical', status: true, environment: 'both', isCritical: false },
+    { id: 'waitlist', name: 'Waitlist', description: 'Allow clients to join waitlist', category: 'Booking', status: false, environment: 'both', isCritical: false },
+    { id: 'telehealth', name: 'Telehealth', description: 'Video consultations', category: 'Clinical', status: false, environment: 'sandbox', isCritical: false },
+    { id: 'marketing_sms', name: 'Marketing SMS', description: 'Promotional text campaigns', category: 'Marketing', status: true, environment: 'both', isCritical: false },
   ]);
 
+  const [showConfirm, setShowConfirm] = useState<{ feature: Feature; action: boolean } | null>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-  const [confirmDisable, setConfirmDisable] = useState<string | null>(null);
+  const [filterCategory, setFilterCategory] = useState('all');
 
-  const toggleFeature = (id: string) => {
-    const feature = features.find(f => f.id === id);
-    
-    if (feature?.is_critical && feature.is_enabled) {
-      setConfirmDisable(id);
-      return;
+  const categories = ['all', ...new Set(features.map(f => f.category))];
+  const filteredFeatures = filterCategory === 'all' ? features : features.filter(f => f.category === filterCategory);
+
+  const toggleFeature = (feature: Feature) => {
+    if (feature.isCritical && feature.status) {
+      setShowConfirm({ feature, action: false });
+    } else {
+      confirmToggle(feature.id, !feature.status);
     }
-    
-    executeToggle(id);
   };
 
-  const executeToggle = (id: string) => {
-    setFeatures(prev => prev.map(f => f.id === id ? {
-      ...f,
-      is_enabled: !f.is_enabled,
-      last_changed: new Date().toISOString(),
-      changed_by: 'Danielle (Owner)',
-    } : f));
-    
-    const feature = features.find(f => f.id === id);
-    setMessage({
-      type: 'success',
-      text: `${feature?.name} ${feature?.is_enabled ? 'disabled' : 'enabled'} successfully`,
-    });
-    setConfirmDisable(null);
+  const confirmToggle = (featureId: string, newStatus: boolean) => {
+    setFeatures(prev => prev.map(f => f.id === featureId ? { ...f, status: newStatus } : f));
+    const feature = features.find(f => f.id === featureId);
+    setMessage({ type: 'success', text: `${feature?.name} has been ${newStatus ? 'enabled' : 'disabled'}` });
+    setShowConfirm(null);
     setTimeout(() => setMessage(null), 3000);
   };
 
-  const categories = [...new Set(features.map(f => f.category))];
+  const changeEnvironment = (featureId: string, env: 'live' | 'sandbox' | 'both') => {
+    setFeatures(prev => prev.map(f => f.id === featureId ? { ...f, environment: env } : f));
+  };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
-            <Link href="/admin/owner" className="hover:text-pink-600">Owner Mode</Link>
-            <span>/</span>
-            <span>Feature Flags</span>
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900">Feature Flags & Kill Switches</h1>
-          <p className="text-gray-500">Enable or disable features instantly • No deploy required</p>
-        </div>
-      </div>
-
+    <OwnerLayout title="Feature Flags" description="Safety panel - Toggle features ON/OFF">
       {message && (
-        <div className={`p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+        <div className={`mb-4 p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
           {message.text}
         </div>
       )}
 
+      {/* Warning Banner */}
+      <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
+        <div className="flex items-center gap-2">
+          <span className="text-amber-500 text-xl">⚠️</span>
+          <p className="text-amber-800 font-medium">Disabling features may affect active users.</p>
+        </div>
+      </div>
+
+      {/* Category Filter */}
+      <div className="flex gap-2 mb-6">
+        {categories.map(cat => (
+          <button
+            key={cat}
+            onClick={() => setFilterCategory(cat)}
+            className={`px-4 py-2 rounded-lg text-sm ${filterCategory === cat ? 'bg-purple-600 text-white' : 'bg-gray-100 hover:bg-gray-200'}`}
+          >
+            {cat === 'all' ? 'All Features' : cat}
+          </button>
+        ))}
+      </div>
+
+      {/* Feature List */}
+      <div className="bg-white rounded-xl border">
+        <table className="w-full">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">FEATURE</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">DESCRIPTION</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">ENVIRONMENT</th>
+              <th className="px-4 py-3 text-xs font-semibold text-gray-500">STATUS</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y">
+            {filteredFeatures.map(feature => (
+              <tr key={feature.id} className={`hover:bg-gray-50 ${!feature.status ? 'bg-gray-50' : ''}`}>
+                <td className="px-4 py-4">
+                  <div className="flex items-center gap-2">
+                    {feature.isCritical && <span className="text-red-500" title="Critical Feature">🔴</span>}
+                    <span className="font-medium text-sm">{feature.name}</span>
+                  </div>
+                </td>
+                <td className="px-4 py-4 text-sm text-gray-600">{feature.description}</td>
+                <td className="px-4 py-4">
+                  <select
+                    value={feature.environment}
+                    onChange={(e) => changeEnvironment(feature.id, e.target.value as any)}
+                    className="px-3 py-1.5 border rounded text-sm"
+                  >
+                    <option value="live">Live Only</option>
+                    <option value="sandbox">Sandbox Only</option>
+                    <option value="both">Both</option>
+                  </select>
+                </td>
+                <td className="px-4 py-4 text-center">
+                  <button
+                    onClick={() => toggleFeature(feature)}
+                    className={`w-14 h-7 rounded-full transition-colors relative ${feature.status ? 'bg-green-500' : 'bg-gray-300'}`}
+                  >
+                    <span className={`absolute top-1 w-5 h-5 bg-white rounded-full transition-transform shadow ${feature.status ? 'right-1' : 'left-1'}`} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Stats */}
+      <div className="mt-6 grid grid-cols-3 gap-4">
+        <div className="bg-white rounded-xl border p-4">
+          <p className="text-sm text-gray-500">Enabled Features</p>
+          <p className="text-2xl font-bold text-green-600">{features.filter(f => f.status).length}</p>
+        </div>
+        <div className="bg-white rounded-xl border p-4">
+          <p className="text-sm text-gray-500">Disabled Features</p>
+          <p className="text-2xl font-bold text-gray-400">{features.filter(f => !f.status).length}</p>
+        </div>
+        <div className="bg-white rounded-xl border p-4">
+          <p className="text-sm text-gray-500">Critical Features</p>
+          <p className="text-2xl font-bold text-red-600">{features.filter(f => f.isCritical && f.status).length}</p>
+        </div>
+      </div>
+
       {/* Confirmation Modal */}
-      {confirmDisable && (
+      {showConfirm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
-            <h2 className="text-lg font-bold text-red-700 mb-2">⚠️ Critical Feature Warning</h2>
-            <p className="text-gray-600 mb-4">
-              You are about to disable a critical system feature. This may significantly impact operations.
+            <div className="flex items-center gap-2 mb-4">
+              <span className="text-2xl">🛑</span>
+              <h3 className="text-lg font-semibold text-red-600">Disable Critical Feature?</h3>
+            </div>
+            <p className="text-gray-600 mb-2">
+              You are about to disable <strong>{showConfirm.feature.name}</strong>.
             </p>
-            <p className="text-sm text-gray-500 mb-6">
-              Feature: <strong>{features.find(f => f.id === confirmDisable)?.name}</strong>
+            <p className="text-red-600 text-sm mb-4">
+              This is a critical feature and disabling it may affect active users and system functionality.
             </p>
-            <div className="flex justify-end gap-3">
-              <button onClick={() => setConfirmDisable(null)} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+            <div className="flex gap-3 justify-end">
+              <button onClick={() => setShowConfirm(null)} className="px-4 py-2 text-gray-600 hover:text-gray-800">
                 Cancel
               </button>
-              <button onClick={() => executeToggle(confirmDisable)} className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
-                Disable Anyway
+              <button
+                onClick={() => confirmToggle(showConfirm.feature.id, false)}
+                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+              >
+                Yes, Disable Feature
               </button>
             </div>
           </div>
         </div>
       )}
-
-      {/* Stats */}
-      <div className="grid grid-cols-3 gap-4">
-        <div className="bg-white rounded-lg border p-4">
-          <p className="text-sm text-gray-500">Total Features</p>
-          <p className="text-2xl font-bold text-gray-900">{features.length}</p>
-        </div>
-        <div className="bg-white rounded-lg border p-4">
-          <p className="text-sm text-gray-500">Enabled</p>
-          <p className="text-2xl font-bold text-green-600">{features.filter(f => f.is_enabled).length}</p>
-        </div>
-        <div className="bg-white rounded-lg border p-4">
-          <p className="text-sm text-gray-500">Disabled</p>
-          <p className="text-2xl font-bold text-red-600">{features.filter(f => !f.is_enabled).length}</p>
-        </div>
-      </div>
-
-      {/* Features by Category */}
-      {categories.map(category => (
-        <div key={category} className="bg-white rounded-xl border overflow-hidden">
-          <div className="bg-gray-50 px-4 py-3 border-b">
-            <h2 className="font-semibold text-gray-900">{category}</h2>
-          </div>
-          <div className="divide-y">
-            {features.filter(f => f.category === category).map(feature => (
-              <div key={feature.id} className={`p-4 flex items-center justify-between ${!feature.is_enabled ? 'bg-gray-50' : ''}`}>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2">
-                    <h3 className={`font-medium ${feature.is_enabled ? 'text-gray-900' : 'text-gray-500'}`}>
-                      {feature.name}
-                    </h3>
-                    {feature.is_critical && (
-                      <span className="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded">Critical</span>
-                    )}
-                  </div>
-                  <p className="text-sm text-gray-500">{feature.description}</p>
-                  {feature.last_changed && (
-                    <p className="text-xs text-gray-400 mt-1">
-                      Last changed: {new Date(feature.last_changed).toLocaleString()} by {feature.changed_by}
-                    </p>
-                  )}
-                </div>
-                <button
-                  onClick={() => toggleFeature(feature.id)}
-                  className={`w-14 h-7 rounded-full transition-colors relative ${feature.is_enabled ? 'bg-green-500' : 'bg-gray-300'}`}
-                >
-                  <span className={`absolute top-1 w-5 h-5 bg-white rounded-full transition-transform shadow ${feature.is_enabled ? 'right-1' : 'left-1'}`} />
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-      ))}
-
-      {/* Emergency Section */}
-      <div className="bg-red-50 border border-red-200 rounded-xl p-6">
-        <h2 className="text-lg font-semibold text-red-800 mb-2">🚨 Emergency Shutdown</h2>
-        <p className="text-sm text-red-600 mb-4">
-          Use only in emergencies. These actions will immediately affect all users.
-        </p>
-        <div className="flex gap-4">
-          <button
-            onClick={() => {
-              setFeatures(prev => prev.map(f => f.id === 'online_booking' ? { ...f, is_enabled: false, last_changed: new Date().toISOString(), changed_by: 'Danielle (Owner)' } : f));
-              setMessage({ type: 'success', text: 'Online booking disabled!' });
-            }}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
-          >
-            Stop All Bookings
-          </button>
-          <button
-            onClick={() => {
-              setFeatures(prev => prev.map(f => f.id === 'online_payments' ? { ...f, is_enabled: false, last_changed: new Date().toISOString(), changed_by: 'Danielle (Owner)' } : f));
-              setMessage({ type: 'success', text: 'Online payments disabled!' });
-            }}
-            className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
-          >
-            Stop All Payments
-          </button>
-          <button
-            onClick={() => {
-              setFeatures(prev => prev.map(f => f.id === 'sms_notifications' ? { ...f, is_enabled: false, last_changed: new Date().toISOString(), changed_by: 'Danielle (Owner)' } : f));
-              setMessage({ type: 'success', text: 'SMS notifications disabled!' });
-            }}
-            className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700"
-          >
-            Stop All SMS
-          </button>
-        </div>
-      </div>
-    </div>
+    </OwnerLayout>
   );
 }

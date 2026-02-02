@@ -1,12 +1,13 @@
 'use client';
 
 // ============================================================
-// OWNER MODE - EHR-GRADE SYSTEM CONTROL CENTER
-// Complete administrative control without developer
+// OWNER DASHBOARD - CONTROL CENTER
+// Complete system oversight with widgets, alerts, quick actions
 // ============================================================
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
 const OWNER_NAV = [
   { href: '/admin/owner', label: 'Dashboard', icon: '📊' },
@@ -29,43 +30,57 @@ const OWNER_NAV = [
   { href: '/admin/owner/access', label: 'System Access', icon: '🔑' },
 ];
 
-interface SystemMetric {
-  label: string;
-  value: string | number;
-  status: 'good' | 'warning' | 'error';
-}
-
 export default function OwnerDashboardPage() {
   const pathname = usePathname();
+  const [sandboxActive] = useState(false);
 
-  const systemMetrics: SystemMetric[] = [
-    { label: 'Database', value: 'Connected', status: 'good' },
-    { label: 'Payments', value: 'Live Mode', status: 'good' },
-    { label: 'SMS', value: 'Active', status: 'good' },
-    { label: 'Email', value: 'Active', status: 'good' },
-    { label: 'Uptime', value: '99.9%', status: 'good' },
-    { label: 'Last Backup', value: '2 hrs ago', status: 'good' },
+  // System status data
+  const systemStatus = {
+    status: 'stable' as 'stable' | 'issues',
+    configVersion: 'v2.4',
+    sandboxActive: false,
+    featuresEnabled: 23,
+    featuresTotal: 25,
+  };
+
+  // Alerts
+  const alerts = [
+    { id: 1, type: 'warning', message: 'Missing required consents for 3 clients', link: '/admin/owner/consents' },
+    { id: 2, type: 'warning', message: 'Booking rule conflict detected', link: '/admin/owner/booking-rules' },
+    { id: 3, type: 'warning', message: '2 products expiring within 30 days', link: '/admin/owner/inventory' },
+    { id: 4, type: 'info', message: 'Provider Ryan Kent approaching unit limit (45/50)', link: '/admin/owner/users' },
   ];
 
-  const quickStats = [
-    { label: 'Total Clients', value: '3,425' },
-    { label: 'Active Services', value: '76' },
-    { label: 'Providers', value: '2' },
-    { label: 'Pending Tasks', value: '0' },
+  // Quick actions
+  const quickActions = [
+    { label: 'Create New Service', icon: '➕', href: '/admin/owner/services?action=create', color: 'bg-purple-600' },
+    { label: 'Open Sandbox', icon: '🧪', href: '/admin/owner/sandbox', color: 'bg-blue-600' },
+    { label: 'Roll Back Last Change', icon: '↩️', href: '/admin/owner/versions', color: 'bg-amber-600' },
+    { label: 'Disable Feature', icon: '🔴', href: '/admin/owner/features', color: 'bg-red-600' },
+  ];
+
+  // Owner checklist
+  const ownerChecklist = [
+    { label: 'You can change any rule without dev', checked: true },
+    { label: 'You can undo any mistake instantly', checked: true },
+    { label: 'You can disable any feature immediately', checked: true },
+    { label: 'You control every system behavior', checked: true },
+    { label: 'Developers cannot gatekeep', checked: true },
+    { label: 'System behaves like Fresha / EHR', checked: true },
   ];
 
   return (
-    <div className="flex min-h-[calc(100vh-100px)]">
+    <div className="flex min-h-[calc(100vh-56px)]">
       {/* Owner Mode Sidebar */}
       <aside className="w-64 bg-gradient-to-b from-purple-900 to-purple-800 text-white flex-shrink-0">
         <div className="p-4 border-b border-purple-700">
-          <div className="flex items-center gap-2">
+          <Link href="/admin/owner" className="flex items-center gap-2">
             <span className="text-2xl">👑</span>
             <div>
               <h1 className="font-bold text-lg">OWNER MODE</h1>
               <p className="text-xs text-purple-300">Full System Control</p>
             </div>
-          </div>
+          </Link>
         </div>
         
         <nav className="p-2 space-y-0.5 overflow-y-auto max-h-[calc(100vh-180px)]">
@@ -96,96 +111,123 @@ export default function OwnerDashboardPage() {
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900">Owner Dashboard</h1>
-          <p className="text-gray-500">Complete system overview and control</p>
+          <p className="text-gray-500">Control Center - Complete system oversight</p>
         </div>
 
-        {/* System Status */}
-        <div className="grid grid-cols-6 gap-3 mb-6">
-          {systemMetrics.map(metric => (
-            <div key={metric.label} className="bg-white rounded-lg border p-3">
-              <div className="flex items-center gap-2">
-                <span className={`w-2 h-2 rounded-full ${
-                  metric.status === 'good' ? 'bg-green-500' :
-                  metric.status === 'warning' ? 'bg-amber-500' : 'bg-red-500'
-                }`} />
-                <span className="text-xs text-gray-500">{metric.label}</span>
-              </div>
-              <p className="font-semibold text-gray-900 mt-1">{metric.value}</p>
-            </div>
-          ))}
-        </div>
-
-        {/* Quick Stats */}
+        {/* Widgets Row */}
         <div className="grid grid-cols-4 gap-4 mb-6">
-          {quickStats.map(stat => (
-            <div key={stat.label} className="bg-white rounded-xl border p-4">
-              <p className="text-sm text-gray-500">{stat.label}</p>
-              <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+          {/* System Status */}
+          <div className="bg-white rounded-xl border p-4">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm text-gray-500">System Status</span>
+              <span className={`w-3 h-3 rounded-full ${systemStatus.status === 'stable' ? 'bg-green-500' : 'bg-red-500'} animate-pulse`} />
             </div>
-          ))}
+            <p className={`text-lg font-bold ${systemStatus.status === 'stable' ? 'text-green-600' : 'text-red-600'}`}>
+              {systemStatus.status === 'stable' ? '🟢 Stable' : '🔴 Issues Detected'}
+            </p>
+          </div>
+
+          {/* Config Version */}
+          <div className="bg-white rounded-xl border p-4">
+            <span className="text-sm text-gray-500">Live Config Version</span>
+            <p className="text-lg font-bold text-gray-900">{systemStatus.configVersion}</p>
+          </div>
+
+          {/* Sandbox Status */}
+          <div className="bg-white rounded-xl border p-4">
+            <span className="text-sm text-gray-500">Sandbox Active?</span>
+            <p className={`text-lg font-bold ${systemStatus.sandboxActive ? 'text-amber-600' : 'text-gray-400'}`}>
+              {systemStatus.sandboxActive ? 'YES' : 'NO'}
+            </p>
+          </div>
+
+          {/* Features Enabled */}
+          <div className="bg-white rounded-xl border p-4">
+            <span className="text-sm text-gray-500">Features Enabled</span>
+            <p className="text-lg font-bold text-purple-600">
+              {systemStatus.featuresEnabled} / {systemStatus.featuresTotal}
+            </p>
+          </div>
         </div>
 
-        {/* Control Modules Grid */}
-        <div className="grid grid-cols-3 gap-4 mb-6">
-          {OWNER_NAV.slice(1).map(item => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="bg-white rounded-xl border p-4 hover:border-purple-300 hover:shadow-md transition-all group"
-            >
-              <div className="flex items-center gap-3">
-                <span className="text-2xl">{item.icon}</span>
-                <div>
-                  <h3 className="font-semibold text-gray-900 group-hover:text-purple-600">{item.label}</h3>
-                </div>
-              </div>
-            </Link>
-          ))}
+        {/* Two Column Layout */}
+        <div className="grid grid-cols-3 gap-6 mb-6">
+          {/* Alerts Panel */}
+          <div className="col-span-2 bg-white rounded-xl border">
+            <div className="p-4 border-b">
+              <h2 className="font-semibold text-gray-900">⚠️ Alerts Panel</h2>
+            </div>
+            <div className="divide-y">
+              {alerts.length === 0 ? (
+                <div className="p-4 text-center text-gray-500">No active alerts</div>
+              ) : (
+                alerts.map(alert => (
+                  <Link key={alert.id} href={alert.link} className="flex items-center gap-3 p-4 hover:bg-gray-50 transition-colors">
+                    <span className={`w-2 h-2 rounded-full ${alert.type === 'warning' ? 'bg-amber-500' : 'bg-blue-500'}`} />
+                    <span className={alert.type === 'warning' ? 'text-amber-700' : 'text-blue-700'}>{alert.message}</span>
+                    <span className="ml-auto text-gray-400">→</span>
+                  </Link>
+                ))
+              )}
+            </div>
+          </div>
+
+          {/* Quick Actions */}
+          <div className="bg-white rounded-xl border">
+            <div className="p-4 border-b">
+              <h2 className="font-semibold text-gray-900">⚡ Quick Actions</h2>
+            </div>
+            <div className="p-4 space-y-2">
+              {quickActions.map(action => (
+                <Link
+                  key={action.label}
+                  href={action.href}
+                  className={`flex items-center gap-3 px-4 py-3 rounded-lg text-white ${action.color} hover:opacity-90 transition-opacity`}
+                >
+                  <span>{action.icon}</span>
+                  <span className="font-medium">{action.label}</span>
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Owner Verification Checklist */}
-        <div className="bg-white rounded-xl border p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Owner Control Verification</h2>
-          <p className="text-sm text-gray-500 mb-4">Confirm you can perform these actions WITHOUT developer help:</p>
-          
-          <div className="grid grid-cols-3 gap-3">
-            {[
-              { task: 'Create a new service', link: '/admin/owner/services' },
-              { task: 'Change service buffer', link: '/admin/owner/services' },
-              { task: 'Modify consent requirements', link: '/admin/owner/consents' },
-              { task: 'Edit provider schedule', link: '/admin/owner/scheduling' },
-              { task: 'Adjust cancellation policy', link: '/admin/owner/booking-rules' },
-              { task: 'Disable a feature', link: '/admin/owner/features' },
-              { task: 'Roll back a change', link: '/admin/owner/versions' },
-              { task: 'Test in sandbox', link: '/admin/owner/sandbox' },
-              { task: 'Export all data', link: '/admin/owner/exports' },
-            ].map((item, idx) => (
+        {/* Module Quick Access */}
+        <div className="bg-white rounded-xl border mb-6">
+          <div className="p-4 border-b">
+            <h2 className="font-semibold text-gray-900">📱 Module Quick Access</h2>
+          </div>
+          <div className="grid grid-cols-6 gap-3 p-4">
+            {OWNER_NAV.slice(1).map(item => (
               <Link
-                key={idx}
-                href={item.link}
-                className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-purple-50 transition-colors"
+                key={item.href}
+                href={item.href}
+                className="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-purple-50 transition-colors group"
               >
-                <span className="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm">✓</span>
-                <span className="text-sm text-gray-700">{item.task}</span>
+                <span className="text-2xl">{item.icon}</span>
+                <span className="text-xs text-gray-600 text-center group-hover:text-purple-600">{item.label}</span>
               </Link>
             ))}
           </div>
         </div>
 
-        {/* Emergency Controls */}
-        <div className="bg-red-50 border border-red-200 rounded-xl p-6 mt-6">
-          <h2 className="text-lg font-semibold text-red-800 mb-2">Emergency Controls</h2>
-          <p className="text-sm text-red-600 mb-4">Use only when necessary. All actions are logged.</p>
-          <div className="flex gap-4">
-            <Link href="/admin/owner/users" className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 text-sm">
-              🚨 Revoke User Access
-            </Link>
-            <Link href="/admin/owner/features" className="px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 text-sm">
-              ⚠️ Disable Feature
-            </Link>
-            <Link href="/admin/owner/versions" className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 text-sm">
-              ↩️ Rollback Change
-            </Link>
+        {/* Owner Mode Done Checklist */}
+        <div className="bg-gradient-to-r from-purple-50 to-purple-100 border border-purple-200 rounded-xl p-6">
+          <h2 className="font-semibold text-purple-900 mb-4">✅ OWNER MODE DONE = ALL TRUE</h2>
+          <div className="grid grid-cols-2 gap-3">
+            {ownerChecklist.map((item, idx) => (
+              <div key={idx} className="flex items-center gap-3 bg-white p-3 rounded-lg">
+                <span className={`w-6 h-6 rounded-full flex items-center justify-center text-sm ${item.checked ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-500'}`}>
+                  {item.checked ? '✓' : '○'}
+                </span>
+                <span className={item.checked ? 'text-gray-900' : 'text-gray-500'}>{item.label}</span>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 p-3 bg-white rounded-lg border border-purple-200">
+            <p className="text-sm text-purple-800">
+              <strong>FINAL NOTE:</strong> This UI is not optional polish. This is the operating system.
+            </p>
           </div>
         </div>
       </main>

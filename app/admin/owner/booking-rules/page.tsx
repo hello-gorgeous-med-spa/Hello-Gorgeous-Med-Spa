@@ -1,373 +1,326 @@
 'use client';
 
 // ============================================================
-// BOOKING RULES ENGINE - OWNER CONTROLLED
-// Cancellation, no-show, deposits, prerequisites
+// BOOKING RULES & POLICIES - OWNER CONTROLLED
+// Rules table with rule builder drawer
 // ============================================================
 
 import { useState } from 'react';
-import Link from 'next/link';
+import OwnerLayout from '../layout-wrapper';
 
-interface BookingRule {
+interface Rule {
   id: string;
+  priority: number;
   name: string;
-  type: 'cancellation' | 'no_show' | 'deposit' | 'prerequisite' | 'eligibility' | 'rebook';
-  conditions: { field: string; operator: string; value: any }[];
+  conditions: { field: string; operator: string; value: string }[];
   action: string;
-  value: any;
-  is_active: boolean;
-  applies_to: 'all' | string[];
+  actionValue: string;
+  enabled: boolean;
 }
 
+const CONDITION_FIELDS = [
+  { value: 'service', label: 'Service' },
+  { value: 'service_category', label: 'Service Category' },
+  { value: 'client_type', label: 'Client Type' },
+  { value: 'client_visits', label: 'Client Total Visits' },
+  { value: 'booking_time', label: 'Booking Notice Time' },
+  { value: 'day_of_week', label: 'Day of Week' },
+  { value: 'provider', label: 'Provider' },
+];
+
+const OPERATORS = [
+  { value: 'equals', label: 'equals' },
+  { value: 'not_equals', label: 'does not equal' },
+  { value: 'contains', label: 'contains' },
+  { value: 'greater_than', label: 'is greater than' },
+  { value: 'less_than', label: 'is less than' },
+];
+
+const ACTIONS = [
+  { value: 'require_consent', label: 'Require Consent' },
+  { value: 'require_deposit', label: 'Require Deposit' },
+  { value: 'require_chart', label: 'Require Chart Section' },
+  { value: 'block_booking', label: 'Block Booking' },
+  { value: 'require_approval', label: 'Require Approval' },
+  { value: 'apply_fee', label: 'Apply Fee' },
+  { value: 'send_notification', label: 'Send Notification' },
+];
+
 export default function BookingRulesPage() {
-  const [rules, setRules] = useState<BookingRule[]>([
-    {
-      id: 'rule-1',
-      name: '24-Hour Cancellation Policy',
-      type: 'cancellation',
-      conditions: [{ field: 'hours_before', operator: '<', value: 24 }],
-      action: 'charge_fee',
-      value: { type: 'percentage', amount: 50 },
-      is_active: true,
-      applies_to: 'all',
-    },
-    {
-      id: 'rule-2',
-      name: 'No-Show Fee',
-      type: 'no_show',
-      conditions: [],
-      action: 'charge_fee',
-      value: { type: 'percentage', amount: 100 },
-      is_active: true,
-      applies_to: 'all',
-    },
-    {
-      id: 'rule-3',
-      name: 'Deposit Required for New Clients',
-      type: 'deposit',
-      conditions: [{ field: 'client_type', operator: '=', value: 'new' }],
-      action: 'require_deposit',
-      value: { type: 'fixed', amount: 50 },
-      is_active: true,
-      applies_to: 'all',
-    },
-    {
-      id: 'rule-4',
-      name: 'Injectable Consultation Required',
-      type: 'prerequisite',
-      conditions: [{ field: 'service_category', operator: '=', value: 'Injectables' }],
-      action: 'require_service',
-      value: { service: 'Consultation', within_days: 365 },
-      is_active: false,
-      applies_to: ['Injectables'],
-    },
-    {
-      id: 'rule-5',
-      name: 'No Same-Day Rebooking After No-Show',
-      type: 'rebook',
-      conditions: [{ field: 'last_status', operator: '=', value: 'no_show' }],
-      action: 'block_booking',
-      value: { days: 1 },
-      is_active: true,
-      applies_to: 'all',
-    },
+  const [rules, setRules] = useState<Rule[]>([
+    { id: '1', priority: 1, name: 'Injectable Consent Required', conditions: [{ field: 'service_category', operator: 'equals', value: 'Injectables' }], action: 'require_consent', actionValue: 'Neurotoxin Consent v3', enabled: true },
+    { id: '2', priority: 2, name: 'Filler Consent Required', conditions: [{ field: 'service_category', operator: 'equals', value: 'Fillers' }], action: 'require_consent', actionValue: 'Filler Consent', enabled: true },
+    { id: '3', priority: 3, name: 'New Client Deposit', conditions: [{ field: 'client_visits', operator: 'equals', value: '0' }], action: 'require_deposit', actionValue: '$50', enabled: true },
+    { id: '4', priority: 4, name: 'Laser Consent', conditions: [{ field: 'service_category', operator: 'equals', value: 'Laser' }], action: 'require_consent', actionValue: 'Laser Consent', enabled: true },
+    { id: '5', priority: 5, name: 'Late Booking Block', conditions: [{ field: 'booking_time', operator: 'less_than', value: '2 hours' }], action: 'block_booking', actionValue: 'Minimum 2 hour notice required', enabled: false },
   ]);
 
-  const [editingRule, setEditingRule] = useState<BookingRule | null>(null);
-  const [isCreating, setIsCreating] = useState(false);
+  const [showDrawer, setShowDrawer] = useState(false);
+  const [editingRule, setEditingRule] = useState<Rule | null>(null);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
-  const RULE_TYPES = [
-    { value: 'cancellation', label: 'Cancellation Policy', icon: '❌', description: 'Fees for late cancellations' },
-    { value: 'no_show', label: 'No-Show Policy', icon: '👻', description: 'Fees for missed appointments' },
-    { value: 'deposit', label: 'Deposit Requirement', icon: '💰', description: 'Upfront payment rules' },
-    { value: 'prerequisite', label: 'Service Prerequisite', icon: '📋', description: 'Required services before booking' },
-    { value: 'eligibility', label: 'Booking Eligibility', icon: '✅', description: 'Who can book what' },
-    { value: 'rebook', label: 'Rebooking Restriction', icon: '🔄', description: 'Restrictions on rebooking' },
-  ];
-
-  const createNewRule = () => {
-    const newRule: BookingRule = {
-      id: `rule-${Date.now()}`,
+  const openNewRule = () => {
+    setEditingRule({
+      id: `new-${Date.now()}`,
+      priority: rules.length + 1,
       name: '',
-      type: 'cancellation',
-      conditions: [],
-      action: '',
-      value: {},
-      is_active: true,
-      applies_to: 'all',
-    };
-    setEditingRule(newRule);
-    setIsCreating(true);
+      conditions: [{ field: 'service', operator: 'equals', value: '' }],
+      action: 'require_consent',
+      actionValue: '',
+      enabled: true,
+    });
+    setShowDrawer(true);
+  };
+
+  const editRule = (rule: Rule) => {
+    setEditingRule({ ...rule });
+    setShowDrawer(true);
   };
 
   const saveRule = () => {
-    if (!editingRule?.name) {
-      setMessage({ type: 'error', text: 'Rule name is required' });
-      return;
-    }
-
-    if (isCreating) {
+    if (!editingRule) return;
+    const isNew = !rules.find(r => r.id === editingRule.id);
+    if (isNew) {
       setRules(prev => [...prev, editingRule]);
-      setMessage({ type: 'success', text: 'Booking rule created!' });
     } else {
       setRules(prev => prev.map(r => r.id === editingRule.id ? editingRule : r));
-      setMessage({ type: 'success', text: 'Booking rule updated!' });
     }
-
+    setShowDrawer(false);
     setEditingRule(null);
-    setIsCreating(false);
+    setMessage({ type: 'success', text: `Rule "${editingRule.name}" saved!` });
     setTimeout(() => setMessage(null), 3000);
   };
 
-  const toggleActive = (id: string) => {
-    setRules(prev => prev.map(r => r.id === id ? { ...r, is_active: !r.is_active } : r));
+  const toggleRule = (id: string) => {
+    setRules(prev => prev.map(r => r.id === id ? { ...r, enabled: !r.enabled } : r));
   };
 
-  const deleteRule = (id: string) => {
-    if (confirm('Delete this rule?')) {
-      setRules(prev => prev.filter(r => r.id !== id));
-    }
+  const addCondition = () => {
+    if (!editingRule) return;
+    setEditingRule({
+      ...editingRule,
+      conditions: [...editingRule.conditions, { field: 'service', operator: 'equals', value: '' }],
+    });
   };
 
-  const getRuleIcon = (type: string) => RULE_TYPES.find(t => t.value === type)?.icon || '📋';
+  const updateCondition = (index: number, updates: Partial<{ field: string; operator: string; value: string }>) => {
+    if (!editingRule) return;
+    const newConditions = [...editingRule.conditions];
+    newConditions[index] = { ...newConditions[index], ...updates };
+    setEditingRule({ ...editingRule, conditions: newConditions });
+  };
+
+  const removeCondition = (index: number) => {
+    if (!editingRule || editingRule.conditions.length <= 1) return;
+    setEditingRule({
+      ...editingRule,
+      conditions: editingRule.conditions.filter((_, i) => i !== index),
+    });
+  };
 
   return (
-    <div className="space-y-6">
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
-            <Link href="/admin/owner" className="hover:text-pink-600">Owner Mode</Link>
-            <span>/</span>
-            <span>Booking Rules</span>
-          </div>
-          <h1 className="text-2xl font-bold text-gray-900">Booking Rules Engine</h1>
-          <p className="text-gray-500">Configure cancellation, deposits, prerequisites</p>
-        </div>
-        {!editingRule && (
-          <button onClick={createNewRule} className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
-            + Create Rule
-          </button>
-        )}
-      </div>
-
+    <OwnerLayout title="Booking Rules & Policies" description="Configure booking rules with IF/THEN logic">
       {message && (
-        <div className={`p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+        <div className={`mb-4 p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
           {message.text}
         </div>
       )}
 
-      {/* Policy Summary */}
-      <div className="bg-white rounded-xl border p-6">
-        <h2 className="text-lg font-semibold mb-4">Active Policy Summary</h2>
-        <div className="grid grid-cols-3 gap-4">
-          <div className="p-4 bg-red-50 rounded-lg">
-            <p className="text-sm text-red-600 font-medium">Cancellation</p>
-            <p className="text-lg font-bold text-red-800">50% fee if &lt; 24h</p>
-          </div>
-          <div className="p-4 bg-amber-50 rounded-lg">
-            <p className="text-sm text-amber-600 font-medium">No-Show</p>
-            <p className="text-lg font-bold text-amber-800">100% fee charged</p>
-          </div>
-          <div className="p-4 bg-blue-50 rounded-lg">
-            <p className="text-sm text-blue-600 font-medium">Deposits</p>
-            <p className="text-lg font-bold text-blue-800">$50 for new clients</p>
-          </div>
+      {/* Rules Table */}
+      <div className="bg-white rounded-xl border">
+        <div className="p-4 border-b flex items-center justify-between">
+          <h2 className="font-semibold">Rules Table</h2>
+          <button onClick={openNewRule} className="px-4 py-2 bg-purple-600 text-white rounded-lg text-sm hover:bg-purple-700">
+            + Create Rule
+          </button>
         </div>
-      </div>
-
-      {editingRule ? (
-        /* Rule Editor */
-        <div className="bg-white rounded-xl border p-6 space-y-6">
-          <div className="flex items-center justify-between border-b pb-4">
-            <h2 className="text-lg font-semibold">{isCreating ? 'Create Rule' : 'Edit Rule'}</h2>
-            <button onClick={() => { setEditingRule(null); setIsCreating(false); }} className="text-gray-500">✕</button>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Rule Name *</label>
-            <input
-              type="text"
-              value={editingRule.name}
-              onChange={(e) => setEditingRule({ ...editingRule, name: e.target.value })}
-              className="w-full px-4 py-2 border rounded-lg"
-              placeholder="e.g., 24-Hour Cancellation Policy"
-            />
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Rule Type</label>
-            <div className="grid grid-cols-3 gap-3">
-              {RULE_TYPES.map(type => (
-                <button
-                  key={type.value}
-                  onClick={() => setEditingRule({ ...editingRule, type: type.value as any })}
-                  className={`p-3 rounded-lg border-2 text-left ${
-                    editingRule.type === type.value ? 'border-pink-500 bg-pink-50' : 'border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <span className="text-xl">{type.icon}</span>
-                  <p className="font-medium text-sm mt-1">{type.label}</p>
-                  <p className="text-xs text-gray-500">{type.description}</p>
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Type-specific config */}
-          {editingRule.type === 'cancellation' && (
-            <div className="p-4 bg-gray-50 rounded-lg space-y-4">
-              <h3 className="font-medium">Cancellation Configuration</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm text-gray-700 mb-1">Window (hours before)</label>
-                  <input
-                    type="number"
-                    value={editingRule.conditions[0]?.value || 24}
-                    onChange={(e) => setEditingRule({
-                      ...editingRule,
-                      conditions: [{ field: 'hours_before', operator: '<', value: parseInt(e.target.value) }]
-                    })}
-                    className="w-full px-3 py-2 border rounded"
-                    min="1"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm text-gray-700 mb-1">Fee (%)</label>
-                  <input
-                    type="number"
-                    value={editingRule.value?.amount || 50}
-                    onChange={(e) => setEditingRule({
-                      ...editingRule,
-                      action: 'charge_fee',
-                      value: { type: 'percentage', amount: parseInt(e.target.value) }
-                    })}
-                    className="w-full px-3 py-2 border rounded"
-                    min="0"
-                    max="100"
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-
-          {editingRule.type === 'no_show' && (
-            <div className="p-4 bg-gray-50 rounded-lg space-y-4">
-              <h3 className="font-medium">No-Show Configuration</h3>
-              <div>
-                <label className="block text-sm text-gray-700 mb-1">Fee (%)</label>
-                <input
-                  type="number"
-                  value={editingRule.value?.amount || 100}
-                  onChange={(e) => setEditingRule({
-                    ...editingRule,
-                    action: 'charge_fee',
-                    value: { type: 'percentage', amount: parseInt(e.target.value) }
-                  })}
-                  className="w-full px-3 py-2 border rounded"
-                  min="0"
-                  max="100"
-                />
-              </div>
-            </div>
-          )}
-
-          {editingRule.type === 'deposit' && (
-            <div className="p-4 bg-gray-50 rounded-lg space-y-4">
-              <h3 className="font-medium">Deposit Configuration</h3>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label className="block text-sm text-gray-700 mb-1">Applies to</label>
-                  <select
-                    value={editingRule.conditions[0]?.value || 'all'}
-                    onChange={(e) => setEditingRule({
-                      ...editingRule,
-                      conditions: e.target.value === 'all' ? [] : [{ field: 'client_type', operator: '=', value: e.target.value }]
-                    })}
-                    className="w-full px-3 py-2 border rounded"
+        <table className="w-full">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">PRIORITY</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">RULE NAME</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">CONDITION</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">ACTION</th>
+              <th className="px-4 py-3 text-xs font-semibold text-gray-500">ENABLED</th>
+              <th className="px-4 py-3"></th>
+            </tr>
+          </thead>
+          <tbody className="divide-y">
+            {rules.sort((a, b) => a.priority - b.priority).map(rule => (
+              <tr key={rule.id} className={`hover:bg-gray-50 ${!rule.enabled ? 'opacity-50' : ''}`}>
+                <td className="px-4 py-3 text-sm font-mono text-gray-500">#{rule.priority}</td>
+                <td className="px-4 py-3 font-medium text-sm">{rule.name}</td>
+                <td className="px-4 py-3 text-sm text-gray-600">
+                  {rule.conditions.map((c, i) => (
+                    <span key={i}>
+                      {i > 0 && <span className="text-purple-600"> AND </span>}
+                      {c.field} {c.operator} "{c.value}"
+                    </span>
+                  ))}
+                </td>
+                <td className="px-4 py-3 text-sm">
+                  <span className="bg-purple-100 text-purple-700 px-2 py-0.5 rounded text-xs">
+                    {rule.action.replace(/_/g, ' ')}
+                  </span>
+                  <span className="ml-2 text-gray-500">{rule.actionValue}</span>
+                </td>
+                <td className="px-4 py-3 text-center">
+                  <button
+                    onClick={() => toggleRule(rule.id)}
+                    className={`w-10 h-5 rounded-full transition-colors relative ${rule.enabled ? 'bg-green-500' : 'bg-gray-300'}`}
                   >
-                    <option value="all">All Clients</option>
-                    <option value="new">New Clients Only</option>
-                    <option value="no_show_history">Clients with No-Show History</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-sm text-gray-700 mb-1">Amount ($)</label>
-                  <input
-                    type="number"
-                    value={editingRule.value?.amount || 50}
-                    onChange={(e) => setEditingRule({
-                      ...editingRule,
-                      action: 'require_deposit',
-                      value: { type: 'fixed', amount: parseInt(e.target.value) }
-                    })}
-                    className="w-full px-3 py-2 border rounded"
-                    min="0"
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-
-          <label className="flex items-center gap-2">
-            <input
-              type="checkbox"
-              checked={editingRule.is_active}
-              onChange={(e) => setEditingRule({ ...editingRule, is_active: e.target.checked })}
-            />
-            <span>Rule is active</span>
-          </label>
-
-          <div className="flex justify-end gap-3 pt-4 border-t">
-            <button onClick={() => { setEditingRule(null); setIsCreating(false); }} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">
-              Cancel
-            </button>
-            <button onClick={saveRule} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
-              {isCreating ? 'Create Rule' : 'Save Rule'}
-            </button>
-          </div>
-        </div>
-      ) : (
-        /* Rules List */
-        <div className="bg-white rounded-xl border divide-y">
-          {rules.map(rule => (
-            <div key={rule.id} className={`p-4 ${!rule.is_active ? 'bg-gray-50 opacity-75' : ''}`}>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">{getRuleIcon(rule.type)}</span>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-medium text-gray-900">{rule.name}</h3>
-                      <span className={`text-xs px-2 py-0.5 rounded ${rule.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
-                        {rule.is_active ? 'Active' : 'Inactive'}
-                      </span>
-                    </div>
-                    <p className="text-sm text-gray-500">
-                      {rule.type.replace('_', ' ')} • 
-                      {rule.applies_to === 'all' ? ' All services' : ` ${(rule.applies_to as string[]).join(', ')}`}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button onClick={() => setEditingRule(rule)} className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded">
+                    <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform ${rule.enabled ? 'right-0.5' : 'left-0.5'}`} />
+                  </button>
+                </td>
+                <td className="px-4 py-3">
+                  <button onClick={() => editRule(rule)} className="text-purple-600 hover:text-purple-700 text-sm">
                     Edit
                   </button>
-                  <button onClick={() => deleteRule(rule.id)} className="px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 rounded">
-                    Delete
-                  </button>
-                  <button
-                    onClick={() => toggleActive(rule.id)}
-                    className={`w-12 h-6 rounded-full transition-colors relative ${rule.is_active ? 'bg-green-500' : 'bg-gray-300'}`}
-                  >
-                    <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${rule.is_active ? 'right-1' : 'left-1'}`} />
-                  </button>
-                </div>
-              </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Example Box */}
+      <div className="mt-6 bg-blue-50 border border-blue-200 rounded-lg p-4">
+        <h3 className="font-medium text-blue-800">Example Rule</h3>
+        <p className="text-sm text-blue-600 mt-1 font-mono">
+          IF service = Injectable<br />
+          THEN require Consent v3
+        </p>
+      </div>
+
+      {/* Rule Builder Drawer */}
+      {showDrawer && editingRule && (
+        <div className="fixed inset-0 bg-black/50 z-50 flex justify-end">
+          <div className="bg-white w-[500px] h-full overflow-y-auto shadow-xl">
+            <div className="p-4 border-b bg-gray-50 flex items-center justify-between sticky top-0">
+              <h2 className="font-semibold text-lg">Rule Builder</h2>
+              <button onClick={() => { setShowDrawer(false); setEditingRule(null); }} className="text-gray-400 hover:text-gray-600">
+                ✕
+              </button>
             </div>
-          ))}
+            <div className="p-6 space-y-6">
+              {/* Rule Name */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Rule Name</label>
+                <input
+                  type="text"
+                  value={editingRule.name}
+                  onChange={(e) => setEditingRule({ ...editingRule, name: e.target.value })}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="e.g., Injectable Consent Required"
+                />
+              </div>
+
+              {/* Conditions */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">IF (Conditions)</label>
+                <div className="space-y-3">
+                  {editingRule.conditions.map((condition, idx) => (
+                    <div key={idx} className="p-3 bg-gray-50 rounded-lg">
+                      {idx > 0 && <p className="text-xs text-purple-600 font-medium mb-2">AND</p>}
+                      <div className="flex gap-2">
+                        <select
+                          value={condition.field}
+                          onChange={(e) => updateCondition(idx, { field: e.target.value })}
+                          className="flex-1 px-3 py-2 border rounded text-sm"
+                        >
+                          {CONDITION_FIELDS.map(f => (
+                            <option key={f.value} value={f.value}>{f.label}</option>
+                          ))}
+                        </select>
+                        <select
+                          value={condition.operator}
+                          onChange={(e) => updateCondition(idx, { operator: e.target.value })}
+                          className="px-3 py-2 border rounded text-sm"
+                        >
+                          {OPERATORS.map(o => (
+                            <option key={o.value} value={o.value}>{o.label}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="flex gap-2 mt-2">
+                        <input
+                          type="text"
+                          value={condition.value}
+                          onChange={(e) => updateCondition(idx, { value: e.target.value })}
+                          className="flex-1 px-3 py-2 border rounded text-sm"
+                          placeholder="Value..."
+                        />
+                        {editingRule.conditions.length > 1 && (
+                          <button onClick={() => removeCondition(idx)} className="px-3 py-2 text-red-500 hover:text-red-700">
+                            ✕
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <button onClick={addCondition} className="mt-2 text-sm text-purple-600 hover:text-purple-700">
+                  + Add Condition (AND)
+                </button>
+              </div>
+
+              {/* Action */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">THEN (Action)</label>
+                <select
+                  value={editingRule.action}
+                  onChange={(e) => setEditingRule({ ...editingRule, action: e.target.value })}
+                  className="w-full px-4 py-2 border rounded-lg mb-2"
+                >
+                  {ACTIONS.map(a => (
+                    <option key={a.value} value={a.value}>{a.label}</option>
+                  ))}
+                </select>
+                <input
+                  type="text"
+                  value={editingRule.actionValue}
+                  onChange={(e) => setEditingRule({ ...editingRule, actionValue: e.target.value })}
+                  className="w-full px-4 py-2 border rounded-lg"
+                  placeholder="Action value (e.g., consent name, fee amount)..."
+                />
+              </div>
+
+              {/* Priority */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Priority (1 = highest)</label>
+                <input
+                  type="number"
+                  value={editingRule.priority}
+                  onChange={(e) => setEditingRule({ ...editingRule, priority: parseInt(e.target.value) || 1 })}
+                  className="w-24 px-4 py-2 border rounded-lg"
+                  min="1"
+                />
+              </div>
+
+              {/* Enable Toggle */}
+              <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={editingRule.enabled}
+                  onChange={(e) => setEditingRule({ ...editingRule, enabled: e.target.checked })}
+                  className="w-5 h-5 text-purple-600"
+                />
+                <span className="font-medium">Enable this rule</span>
+              </label>
+            </div>
+
+            {/* Save Button */}
+            <div className="p-4 border-t bg-gray-50 flex gap-3 justify-end sticky bottom-0">
+              <button onClick={() => { setShowDrawer(false); setEditingRule(null); }} className="px-4 py-2 text-gray-600 hover:text-gray-800">
+                Cancel
+              </button>
+              <button onClick={saveRule} className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 font-medium">
+                Save Rule
+              </button>
+            </div>
+          </div>
         </div>
       )}
-    </div>
+    </OwnerLayout>
   );
 }
