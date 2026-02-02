@@ -3,11 +3,48 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+
+// Safe Supabase helper
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  
+  if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) {
+    return null;
+  }
+  
+  try {
+    const { createClient } = require('@supabase/supabase-js');
+    return createClient(url, key, {
+      auth: { autoRefreshToken: false, persistSession: false },
+    });
+  } catch {
+    return null;
+  }
+}
+
+// Default empty response
+const EMPTY_STATS = {
+  stats: {
+    todayAppointments: 0,
+    totalClients: 0,
+    totalAppointments: 0,
+    todayRevenue: 0,
+    weekRevenue: 0,
+    monthRevenue: 0,
+    newClientsMonth: 0,
+  },
+  upcomingAppointments: [],
+};
 
 export async function GET(request: NextRequest) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    console.log('Dashboard: Supabase not configured, returning empty stats');
+    return NextResponse.json(EMPTY_STATS);
+  }
+
   try {
-    const supabase = createServerSupabaseClient();
     const today = new Date().toISOString().split('T')[0];
 
     // Get today's appointments count
@@ -72,6 +109,12 @@ export async function GET(request: NextRequest) {
       return sum;
     }, 0);
 
+    // Get new clients this month
+    const { count: newClientsMonth } = await supabase
+      .from('clients')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', monthStart.toISOString());
+
     // Get upcoming appointments (next 5)
     const { data: upcomingAppointments } = await supabase
       .from('appointments')
@@ -104,22 +147,12 @@ export async function GET(request: NextRequest) {
         todayRevenue,
         weekRevenue,
         monthRevenue,
+        newClientsMonth: newClientsMonth || 0,
       },
       upcomingAppointments: upcoming,
     });
   } catch (error) {
     console.error('Dashboard API error:', error);
-    return NextResponse.json({
-      stats: {
-        todayAppointments: 0,
-        totalClients: 0,
-        totalAppointments: 0,
-        todayRevenue: 0,
-        weekRevenue: 0,
-        monthRevenue: 0,
-      },
-      upcomingAppointments: [],
-      error: 'Some stats may be unavailable',
-    });
+    return NextResponse.json(EMPTY_STATS);
   }
 }
