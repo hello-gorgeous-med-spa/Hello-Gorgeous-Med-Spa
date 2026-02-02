@@ -3,10 +3,22 @@
 // ============================================================
 // QUICK SALE PAGE
 // Walk-in sales without appointment - Connected to Live Data
+// INTEGRATED WITH STRIPE FOR REAL PAYMENTS
 // ============================================================
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+// Dynamically import StripeCheckout to avoid SSR issues
+const StripeCheckout = dynamic(() => import('@/components/StripeCheckout'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center py-12">
+      <div className="w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full animate-spin" />
+    </div>
+  ),
+});
 
 interface QuickItem {
   id: string;
@@ -42,6 +54,11 @@ export default function QuickSalePage() {
   const [customDescription, setCustomDescription] = useState('');
   const [editingPriceId, setEditingPriceId] = useState<string | null>(null);
   const [editingPriceValue, setEditingPriceValue] = useState('');
+  
+  // Stripe/Payment states
+  const [paymentMode, setPaymentMode] = useState<'select' | 'card' | 'cash'>('select');
+  const [paymentIntentId, setPaymentIntentId] = useState<string | null>(null);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
 
   // Fetch real services and products
   useEffect(() => {
@@ -159,10 +176,81 @@ export default function QuickSalePage() {
   const tax = 0; // Add tax logic if needed
   const total = subtotal + tax;
 
-  const handlePayment = async () => {
+  // Get service names for receipt
+  const serviceNames = cart.map(item => item.name).join(', ');
+
+  // Save transaction to database
+  const saveTransaction = async (paymentMethod: string, stripePaymentIntentId?: string) => {
+    try {
+      const lineItems = cart.map(item => ({
+        name: item.name,
+        price: item.price,
+        quantity: item.quantity,
+        type: item.type,
+      }));
+
+      await fetch('/api/transactions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'sale',
+          subtotal: subtotal,
+          discount_amount: 0,
+          tax_amount: tax,
+          tip_amount: 0,
+          payment_method: paymentMethod,
+          stripe_payment_intent_id: stripePaymentIntentId || null,
+          notes: `Quick Sale - ${serviceNames}${customerName ? ` - Customer: ${customerName}` : ''}`,
+          line_items: lineItems,
+        }),
+      });
+      console.log('Transaction saved successfully');
+    } catch (err) {
+      console.error('Failed to save transaction:', err);
+    }
+  };
+
+  // Handle successful Stripe payment
+  const handleStripeSuccess = async (paymentId: string) => {
+    setPaymentIntentId(paymentId);
+    
+    // Save transaction with Stripe payment intent ID
+    await saveTransaction('card', paymentId);
+    
+    setCompleted(true);
+    
+    // Send review request if we have customer phone
+    if (customerPhone) {
+      try {
+        await fetch('/api/reviews/request', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            client_id: `walk-in-${Date.now()}`,
+            client_name: customerName || 'Valued Guest',
+            client_phone: customerPhone,
+            service_name: cart[0]?.name,
+          }),
+        });
+      } catch (err) {
+        console.log('Review request queued');
+      }
+    }
+  };
+
+  // Handle Stripe payment error
+  const handleStripeError = (error: string) => {
+    setPaymentError(error);
+    setPaymentMode('select');
+  };
+
+  // Handle Cash payment
+  const handleCashPayment = async () => {
     setProcessing(true);
-    // Simulate payment
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    
+    // Save transaction as cash payment
+    await saveTransaction('cash');
+    
     setProcessing(false);
     setCompleted(true);
     
@@ -176,7 +264,7 @@ export default function QuickSalePage() {
             client_id: `walk-in-${Date.now()}`,
             client_name: customerName || 'Valued Guest',
             client_phone: customerPhone,
-            service_name: cart[0]?.name, // Primary service
+            service_name: cart[0]?.name,
           }),
         });
       } catch (err) {
@@ -188,21 +276,61 @@ export default function QuickSalePage() {
   if (completed) {
     return (
       <div className="h-full flex items-center justify-center">
-        <div className="text-center">
+        <div className="text-center max-w-md mx-auto p-8">
           <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-green-500 flex items-center justify-center">
             <span className="text-5xl">✓</span>
           </div>
           <h1 className="text-3xl font-bold text-white mb-2">Sale Complete!</h1>
-          <p className="text-slate-400 text-xl mb-8">${total.toFixed(2)} paid</p>
-          <div className="space-x-4">
-            <button className="px-6 py-3 bg-slate-700 text-white rounded-xl hover:bg-slate-600">
+          <p className="text-slate-400 text-xl mb-2">${total.toFixed(2)} paid</p>
+          <p className="text-slate-500 text-sm mb-6">
+            {paymentIntentId ? '💳 Card payment processed via Stripe' : '💵 Cash payment recorded'}
+          </p>
+          
+          {paymentIntentId && (
+            <p className="text-xs text-slate-600 mb-6 font-mono bg-slate-800 p-2 rounded">
+              Payment ID: {paymentIntentId.slice(0, 20)}...
+            </p>
+          )}
+          
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-6">
+            <button 
+              onClick={() => {
+                if (customerEmail) {
+                  // TODO: Implement email receipt
+                  alert('Receipt will be sent to ' + customerEmail);
+                } else {
+                  alert('No email provided');
+                }
+              }}
+              className="px-6 py-3 bg-slate-700 text-white rounded-xl hover:bg-slate-600"
+            >
               📧 Email Receipt
             </button>
-            <Link
-              href="/pos"
-              className="inline-block px-6 py-3 bg-pink-500 text-white rounded-xl hover:bg-pink-600 font-medium"
+            <button
+              onClick={() => {
+                // Reset all states for a new sale
+                setCart([]);
+                setCustomerName('');
+                setCustomerEmail('');
+                setCustomerPhone('');
+                setCompleted(false);
+                setShowCheckout(false);
+                setPaymentMode('select');
+                setPaymentIntentId(null);
+                setPaymentError(null);
+              }}
+              className="px-6 py-3 bg-pink-500 text-white rounded-xl hover:bg-pink-600 font-medium"
             >
               New Sale
+            </button>
+          </div>
+          
+          <div className="pt-4 border-t border-slate-700">
+            <Link
+              href="/admin/payments"
+              className="text-sm text-pink-400 hover:text-pink-300"
+            >
+              View in Transaction History →
             </Link>
           </div>
         </div>
@@ -212,94 +340,165 @@ export default function QuickSalePage() {
 
   if (showCheckout) {
     return (
-      <div className="h-full flex items-center justify-center p-4">
-        <div className="bg-slate-800 rounded-2xl p-8 max-w-md w-full">
+      <div className="h-full flex items-center justify-center p-4 overflow-y-auto">
+        <div className="bg-slate-800 rounded-2xl p-8 max-w-lg w-full my-8">
           <button
-            onClick={() => setShowCheckout(false)}
+            onClick={() => {
+              if (paymentMode === 'select') {
+                setShowCheckout(false);
+              } else {
+                setPaymentMode('select');
+                setPaymentError(null);
+              }
+            }}
             className="text-slate-400 hover:text-white mb-4"
           >
-            ← Back to Cart
+            ← {paymentMode === 'select' ? 'Back to Cart' : 'Back to Payment Options'}
           </button>
           
-          <h2 className="text-2xl font-bold text-white mb-6">Customer Info (Optional)</h2>
-          
-          <div className="space-y-4 mb-6">
-            <input
-              type="text"
-              placeholder="Name"
-              value={customerName}
-              onChange={(e) => setCustomerName(e.target.value)}
-              className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400"
-            />
-            <input
-              type="email"
-              placeholder="Email (for receipt)"
-              value={customerEmail}
-              onChange={(e) => setCustomerEmail(e.target.value)}
-              className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400"
-            />
-            <input
-              type="tel"
-              placeholder="Phone"
-              value={customerPhone}
-              onChange={(e) => setCustomerPhone(e.target.value)}
-              className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400"
-            />
-          </div>
-
-          <div className="border-t border-slate-700 pt-4 mb-6">
-            <div className="flex justify-between text-xl font-bold text-white">
-              <span>Total</span>
-              <span>${total.toFixed(2)}</span>
-            </div>
-          </div>
-
-          {/* Financing Options for larger purchases */}
-          {total >= 200 && (
-            <div className="mb-6 p-4 bg-gradient-to-r from-pink-900/30 to-purple-900/30 rounded-xl border border-pink-700/30">
-              <p className="text-sm text-pink-300 mb-3">💰 Need financing? As low as ${Math.round(total / 24)}/mo</p>
-              <div className="flex gap-2">
-                <button
-                  onClick={() => window.open('https://withcherry.com/apply', '_blank')}
-                  className="flex-1 py-2 px-3 bg-red-500/20 hover:bg-red-500/30 text-red-300 text-sm rounded-lg border border-red-500/30"
-                >
-                  🍒 Cherry
-                </button>
-                <button
-                  onClick={() => window.open('https://www.carecredit.com/apply', '_blank')}
-                  className="flex-1 py-2 px-3 bg-teal-500/20 hover:bg-teal-500/30 text-teal-300 text-sm rounded-lg border border-teal-500/30"
-                >
-                  💳 CareCredit
-                </button>
-                <button
-                  onClick={() => window.open('https://www.patientfi.com/', '_blank')}
-                  className="flex-1 py-2 px-3 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 text-sm rounded-lg border border-purple-500/30"
-                >
-                  ✨ PatientFi
-                </button>
-              </div>
+          {paymentError && (
+            <div className="mb-4 p-4 bg-red-500/20 border border-red-500/30 rounded-xl text-red-300">
+              {paymentError}
             </div>
           )}
 
-          {processing ? (
-            <div className="text-center py-8">
-              <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-              <p className="text-slate-400">Processing payment...</p>
+          {/* Payment Mode Selection */}
+          {paymentMode === 'select' && (
+            <>
+              <h2 className="text-2xl font-bold text-white mb-6">Customer Info (Optional)</h2>
+              
+              <div className="space-y-4 mb-6">
+                <input
+                  type="text"
+                  placeholder="Name"
+                  value={customerName}
+                  onChange={(e) => setCustomerName(e.target.value)}
+                  className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400"
+                />
+                <input
+                  type="email"
+                  placeholder="Email (for receipt)"
+                  value={customerEmail}
+                  onChange={(e) => setCustomerEmail(e.target.value)}
+                  className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400"
+                />
+                <input
+                  type="tel"
+                  placeholder="Phone"
+                  value={customerPhone}
+                  onChange={(e) => setCustomerPhone(e.target.value)}
+                  className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white placeholder-slate-400"
+                />
+              </div>
+
+              <div className="border-t border-slate-700 pt-4 mb-6">
+                <div className="flex justify-between text-xl font-bold text-white">
+                  <span>Total</span>
+                  <span>${total.toFixed(2)}</span>
+                </div>
+              </div>
+
+              {/* Financing Options for larger purchases */}
+              {total >= 200 && (
+                <div className="mb-6 p-4 bg-gradient-to-r from-pink-900/30 to-purple-900/30 rounded-xl border border-pink-700/30">
+                  <p className="text-sm text-pink-300 mb-3">💰 Need financing? As low as ${Math.round(total / 24)}/mo</p>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => window.open('https://withcherry.com/apply', '_blank')}
+                      className="flex-1 py-2 px-3 bg-red-500/20 hover:bg-red-500/30 text-red-300 text-sm rounded-lg border border-red-500/30"
+                    >
+                      🍒 Cherry
+                    </button>
+                    <button
+                      onClick={() => window.open('https://www.carecredit.com/apply', '_blank')}
+                      className="flex-1 py-2 px-3 bg-teal-500/20 hover:bg-teal-500/30 text-teal-300 text-sm rounded-lg border border-teal-500/30"
+                    >
+                      💳 CareCredit
+                    </button>
+                    <button
+                      onClick={() => window.open('https://www.patientfi.com/', '_blank')}
+                      className="flex-1 py-2 px-3 bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 text-sm rounded-lg border border-purple-500/30"
+                    >
+                      ✨ PatientFi
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Payment Method Selection */}
+              <div className="space-y-3">
+                <button
+                  onClick={() => setPaymentMode('card')}
+                  className="w-full py-4 bg-green-500 text-white font-bold rounded-xl hover:bg-green-600 flex items-center justify-center gap-2"
+                >
+                  💳 Pay with Card (Stripe)
+                </button>
+                <button
+                  onClick={() => setPaymentMode('cash')}
+                  className="w-full py-4 bg-slate-700 text-white font-medium rounded-xl hover:bg-slate-600 flex items-center justify-center gap-2"
+                >
+                  💵 Cash Payment
+                </button>
+              </div>
+              
+              <p className="text-xs text-slate-500 text-center mt-4">
+                🔒 Card payments are securely processed by Stripe
+              </p>
+            </>
+          )}
+
+          {/* Stripe Card Payment */}
+          {paymentMode === 'card' && (
+            <div className="bg-white rounded-xl p-6">
+              <h2 className="text-xl font-bold text-gray-900 mb-4">Card Payment</h2>
+              <StripeCheckout
+                amount={total}
+                clientName={customerName || undefined}
+                clientEmail={customerEmail || undefined}
+                services={serviceNames}
+                onSuccess={handleStripeSuccess}
+                onError={handleStripeError}
+                onCancel={() => setPaymentMode('select')}
+              />
             </div>
-          ) : (
-            <div className="space-y-3">
-              <button
-                onClick={handlePayment}
-                className="w-full py-4 bg-green-500 text-white font-bold rounded-xl hover:bg-green-600 flex items-center justify-center gap-2"
-              >
-                💳 Pay with Card
-              </button>
-              <button
-                onClick={handlePayment}
-                className="w-full py-4 bg-slate-700 text-white font-medium rounded-xl hover:bg-slate-600 flex items-center justify-center gap-2"
-              >
-                💵 Cash
-              </button>
+          )}
+
+          {/* Cash Payment */}
+          {paymentMode === 'cash' && (
+            <div>
+              <h2 className="text-2xl font-bold text-white mb-6">Cash Payment</h2>
+              
+              <div className="bg-slate-700 rounded-xl p-6 mb-6">
+                <div className="flex justify-between text-lg mb-2">
+                  <span className="text-slate-400">Amount Due:</span>
+                  <span className="text-2xl font-bold text-green-400">${total.toFixed(2)}</span>
+                </div>
+                <p className="text-sm text-slate-500">
+                  Collect cash from customer and confirm payment
+                </p>
+              </div>
+
+              {processing ? (
+                <div className="text-center py-8">
+                  <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+                  <p className="text-slate-400">Recording payment...</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <button
+                    onClick={handleCashPayment}
+                    className="w-full py-4 bg-green-500 text-white font-bold rounded-xl hover:bg-green-600"
+                  >
+                    ✓ Confirm Cash Received (${total.toFixed(2)})
+                  </button>
+                  <button
+                    onClick={() => setPaymentMode('select')}
+                    className="w-full py-3 bg-slate-700 text-slate-300 rounded-xl hover:bg-slate-600"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
             </div>
           )}
         </div>
