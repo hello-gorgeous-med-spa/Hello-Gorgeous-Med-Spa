@@ -204,7 +204,7 @@ export default function AdminLayout({
             {sidebarCollapsed ? '→' : '←'}
           </button>
 
-          <nav className="flex-1 py-4 overflow-y-auto">
+          <nav className="flex-1 py-4 overflow-y-auto min-h-0">
             {NAV_SECTIONS.map((section) => (
               <div key={section.title} className="mb-6">
                 {!sidebarCollapsed && (

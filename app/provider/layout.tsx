@@ -132,7 +132,7 @@ export default function ProviderLayout({
       <aside className={`
         ${sidebarCollapsed ? 'w-20' : 'w-64'} 
         bg-[#0a0a0a] text-white flex flex-col transition-all duration-300 
-        fixed h-full z-40
+        fixed top-0 left-0 h-screen z-40
       `}>
         {/* Logo & Brand */}
         <div className="p-4 border-b border-gray-800">
@@ -159,8 +159,8 @@ export default function ProviderLayout({
           </div>
         )}
 
-        {/* Navigation */}
-        <nav className="flex-1 py-4 overflow-y-auto">
+        {/* Navigation - Scrollable */}
+        <nav className="flex-1 py-4 overflow-y-auto min-h-0 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
           <ul className="space-y-1 px-2">
             {NAV_ITEMS.map((item) => {
               const active = isActive(item.href);
