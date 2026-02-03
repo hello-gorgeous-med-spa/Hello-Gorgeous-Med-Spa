@@ -44,7 +44,9 @@ const NAV_SECTIONS: NavSection[] = [
     items: [
       { href: '/admin/charts', label: 'Charts & notes', icon: '📋' },
       { href: '/admin/consents', label: 'Consent forms', icon: '📝' },
+      { href: '/admin/medications', label: 'Medications', icon: '💊' },
       { href: '/admin/inventory', label: 'Inventory', icon: '📦' },
+      { href: '/admin/compliance', label: 'Compliance', icon: '🛡️' },
     ],
   },
   {
@@ -66,11 +68,13 @@ const NAV_SECTIONS: NavSection[] = [
     ],
   },
   {
-    title: 'Settings',
+    title: 'Team & settings',
     items: [
       { href: '/admin/staff', label: 'Staff & schedules', icon: '👤' },
-      { href: '/admin/services', label: 'Services', icon: '✨' },
+      { href: '/admin/services', label: 'Services & pricing', icon: '✨' },
+      { href: '/admin/users', label: 'Users & access', icon: '🔐' },
       { href: '/admin/settings', label: 'Settings', icon: '⚙️' },
+      { href: '/admin/system-health', label: 'System Health', icon: '🩺' },
     ],
   },
 ];

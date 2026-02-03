@@ -69,7 +69,6 @@ const NAV_SECTIONS = [
     items: [
       { href: '/admin/charts', label: 'Charts & notes', icon: '📋', description: 'SOAP notes & clinical' },
       { href: '/admin/consents', label: 'Consent forms', icon: '📝', description: 'Sign & track consents' },
-      { href: '/admin/charm', label: 'Charm EHR', icon: '🏥', description: 'E-prescribing & records' },
       { href: '/admin/medications', label: 'Medications', icon: '💊', description: 'Drug tracking' },
       { href: '/admin/inventory', label: 'Inventory', icon: '📦', description: 'Products & lots' },
       { href: '/admin/compliance', label: 'Compliance', icon: '🛡️', description: 'Safety & incidents' },
@@ -202,8 +201,11 @@ export default function AdminLayout({
           </nav>
 
           <div className="sticky bottom-0 left-0 right-0 p-4 border-t border-gray-100 bg-white/95 backdrop-blur">
-            <p className="text-xs text-gray-500 text-center font-medium">Hello Gorgeous OS</p>
-            <p className="text-[10px] text-gray-400 text-center mt-0.5">v1.4.0 • Production</p>
+            <div className="flex items-center justify-center gap-2 mb-1">
+              <span className="text-pink-500 text-sm">💗</span>
+              <p className="text-xs text-gray-600 font-semibold">Hello Gorgeous OS</p>
+            </div>
+            <p className="text-[10px] text-gray-400 text-center">v1.4.0 • Press <kbd className="px-1 py-0.5 bg-gray-100 rounded text-[9px]">⌘/</kbd> for shortcuts</p>
           </div>
         </aside>
 
