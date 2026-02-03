@@ -51,7 +51,9 @@ export async function GET(request: NextRequest) {
 
     // Apply filters
     if (search) {
-      query = query.or(`sale_number.ilike.%${search}%,clients.first_name.ilike.%${search}%,clients.last_name.ilike.%${search}%`);
+      // Search in sale_number and internal_notes (which contains client name from imports)
+      // Note: Can't search across joined tables with .or() in PostgREST
+      query = query.or(`sale_number.ilike.%${search}%,internal_notes.ilike.%${search}%`);
     }
 
     if (status && status !== 'all') {
