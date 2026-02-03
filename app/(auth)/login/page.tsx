@@ -29,33 +29,23 @@ export default function LoginPage() {
 
       const data = await response.json();
       
-      console.log('Login response:', { ok: response.ok, data });
-
       if (!response.ok) {
         throw new Error(data.error || 'Login failed');
       }
 
-      // Show success message
-      setError(''); // Clear any error
-      
-      // Save session
-      try {
-        localStorage.setItem('hgos_user', JSON.stringify(data.user));
-        localStorage.setItem('hgos_session', JSON.stringify({
-          user: data.user,
-          accessToken: data.session?.access_token,
-          expiresAt: (data.session?.expires_at || 0) * 1000,
-        }));
-        console.log('Session saved to localStorage');
-      } catch (storageErr) {
-        console.error('localStorage error:', storageErr);
-      }
+      // Save session to localStorage
+      localStorage.setItem('hgos_user', JSON.stringify(data.user));
+      localStorage.setItem('hgos_session', JSON.stringify({
+        user: data.user,
+        accessToken: data.session?.access_token,
+        expiresAt: (data.session?.expires_at || 0) * 1000,
+      }));
 
-      // Determine redirect URL
+      // Determine redirect URL based on role
       const params = new URLSearchParams(window.location.search);
       const returnTo = params.get('returnTo');
       
-      let redirectUrl = '/admin'; // Default
+      let redirectUrl = '/admin';
       
       if (returnTo && !returnTo.includes('://')) {
         redirectUrl = returnTo;
@@ -66,12 +56,7 @@ export default function LoginPage() {
         else if (role === 'provider') redirectUrl = '/provider';
       }
       
-      console.log('Redirecting to:', redirectUrl, 'Role:', data.user?.role);
-      
-      // Show success before redirect
-      alert(`Login successful! Role: ${data.user?.role}. Redirecting to ${redirectUrl}`);
-      
-      // Hard redirect
+      // Redirect to dashboard
       window.location.href = redirectUrl;
       
     } catch (err: any) {
