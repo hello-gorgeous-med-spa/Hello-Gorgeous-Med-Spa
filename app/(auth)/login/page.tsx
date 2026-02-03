@@ -28,28 +28,34 @@ export default function LoginPage() {
       });
 
       const data = await response.json();
+      
+      console.log('Login response:', { ok: response.ok, data });
 
       if (!response.ok) {
         throw new Error(data.error || 'Login failed');
       }
 
+      // Show success message
+      setError(''); // Clear any error
+      
       // Save session
-      if (typeof window !== 'undefined') {
+      try {
         localStorage.setItem('hgos_user', JSON.stringify(data.user));
         localStorage.setItem('hgos_session', JSON.stringify({
           user: data.user,
           accessToken: data.session?.access_token,
           expiresAt: (data.session?.expires_at || 0) * 1000,
         }));
+        console.log('Session saved to localStorage');
+      } catch (storageErr) {
+        console.error('localStorage error:', storageErr);
       }
 
-      // Get returnTo from URL
+      // Determine redirect URL
       const params = new URLSearchParams(window.location.search);
       const returnTo = params.get('returnTo');
-
-      // Use hard redirect (window.location) instead of router.push
-      // This ensures a full page load which works better with auth
-      let redirectUrl = '/';
+      
+      let redirectUrl = '/admin'; // Default
       
       if (returnTo && !returnTo.includes('://')) {
         redirectUrl = returnTo;
@@ -60,11 +66,16 @@ export default function LoginPage() {
         else if (role === 'provider') redirectUrl = '/provider';
       }
       
+      console.log('Redirecting to:', redirectUrl, 'Role:', data.user?.role);
+      
+      // Show success before redirect
+      alert(`Login successful! Role: ${data.user?.role}. Redirecting to ${redirectUrl}`);
+      
       // Hard redirect
       window.location.href = redirectUrl;
-      return; // Don't continue
       
     } catch (err: any) {
+      console.error('Login error:', err);
       setError(err.message || 'Invalid email or password');
       setIsLoading(false);
     }
