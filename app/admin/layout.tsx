@@ -94,6 +94,7 @@ const NAV_SECTIONS = [
   {
     title: 'Marketing & reports',
     items: [
+      { href: '/admin/link-builder', label: 'Link Builder', icon: '🔗', description: 'Booking links & QR codes' },
       { href: '/admin/marketing', label: 'Marketing', icon: '📣', description: 'Campaigns & email' },
       { href: '/admin/sms', label: 'SMS / text', icon: '💬', description: 'Text campaigns' },
       { href: '/admin/templates', label: 'Message templates', icon: '📝', description: 'Email & SMS text' },
