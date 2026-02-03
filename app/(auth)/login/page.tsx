@@ -1,19 +1,39 @@
 'use client';
 
 // ============================================================
-// LOGIN PAGE - SIMPLIFIED FOR DEBUGGING
+// LOGIN PAGE
+// Uses AuthContext for proper session management
 // ============================================================
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { Suspense, useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { useAuth } from '@/lib/hgos/AuthContext';
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const { login, isAuthenticated, user, isLoading: authLoading } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (!authLoading && isAuthenticated && user) {
+      const returnTo = searchParams.get('returnTo') || searchParams.get('redirect');
+      if (returnTo && !returnTo.includes('://')) {
+        router.push(returnTo);
+      } else {
+        // Redirect based on role
+        if (user.role === 'owner') router.push('/admin/owner');
+        else if (user.role === 'admin' || user.role === 'staff') router.push('/admin');
+        else if (user.role === 'provider') router.push('/provider');
+        else router.push('/portal');
+      }
+    }
+  }, [authLoading, isAuthenticated, user, router, searchParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,53 +41,33 @@ export default function LoginPage() {
     setError('');
 
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
+      const result = await login(email, password);
 
-      const data = await response.json();
-      
-      if (!response.ok) {
-        throw new Error(data.error || 'Login failed');
+      if (!result.success) {
+        throw new Error(result.error || 'Invalid email or password');
       }
 
-      // Save session to localStorage
-      localStorage.setItem('hgos_user', JSON.stringify(data.user));
-      localStorage.setItem('hgos_session', JSON.stringify({
-        user: data.user,
-        accessToken: data.session?.access_token,
-        expiresAt: (data.session?.expires_at || 0) * 1000,
-      }));
-
-      // Determine redirect URL based on role
-      const params = new URLSearchParams(window.location.search);
-      const returnTo = params.get('returnTo');
-      
-      let redirectUrl = '/admin';
-      
-      if (returnTo && !returnTo.includes('://')) {
-        redirectUrl = returnTo;
-      } else {
-        const role = data.user?.role || 'client';
-        if (role === 'owner') redirectUrl = '/admin/owner';
-        else if (role === 'admin' || role === 'staff') redirectUrl = '/admin';
-        else if (role === 'provider') redirectUrl = '/provider';
-      }
-      
-      // Redirect to dashboard
-      window.location.href = redirectUrl;
-      
+      // The useEffect above will handle the redirect once isAuthenticated updates
     } catch (err: any) {
-      console.error('Login error:', err);
       setError(err.message || 'Invalid email or password');
       setIsLoading(false);
     }
   };
 
+  // Show loading while checking auth state
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-white/70">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">
@@ -135,5 +135,24 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+function LoginLoading() {
+  return (
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+        <p className="text-white/70">Loading...</p>
+      </div>
+    </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<LoginLoading />}>
+      <LoginForm />
+    </Suspense>
   );
 }

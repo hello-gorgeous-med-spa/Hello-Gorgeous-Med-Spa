@@ -1,14 +1,18 @@
 // ============================================================
 // POS PAYMENT API
-// Process payments through Stripe
+// Process payments through SQUARE (Primary Processor)
+// ============================================================
+// 
+// IMPORTANT: Stripe is DEPRECATED for Hello Gorgeous Med Spa
+// All payments must route through Square.
+// 
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-
-// Force dynamic rendering - this route uses request.url
-export const dynamic = 'force-dynamic';
-import { createPaymentIntent, dollarsToCents, getOrCreateCustomer } from '@/lib/hgos/stripe';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { getPaymentsApi, getSquareLocationId, dollarsToCents } from '@/lib/square/client';
+
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   try {
@@ -16,11 +20,10 @@ export async function POST(request: NextRequest) {
     const {
       amount,
       client_id,
-      client_email,
-      client_name,
       appointment_id,
       items,
-      payment_method,
+      payment_method = 'card',
+      source_id, // Square payment source (nonce from Web Payments SDK)
       discount_amount = 0,
       discount_type,
       discount_reason,
@@ -37,89 +40,123 @@ export async function POST(request: NextRequest) {
     }
 
     const supabase = createServerSupabaseClient();
+    const locationId = getSquareLocationId();
 
-    // Get or create Stripe customer if email provided
-    let stripeCustomerId: string | null = null;
-    if (client_email && client_name) {
-      stripeCustomerId = await getOrCreateCustomer({
-        email: client_email,
-        name: client_name,
-      });
-    }
-
-    // Create payment intent
+    // Generate sale number
+    const saleNumber = `HG-${new Date().getFullYear()}-${Date.now().toString(36).toUpperCase()}`;
     const amountInCents = dollarsToCents(amount);
-    const paymentIntent = await createPaymentIntent({
-      amount: amountInCents,
-      customerId: stripeCustomerId || undefined,
-      description: `Hello Gorgeous Med Spa - ${items?.[0]?.name || 'Sale'}`,
-      metadata: {
-        client_id: client_id || '',
-        appointment_id: appointment_id || '',
-      },
-      receiptEmail: client_email,
-    });
+    const tipInCents = dollarsToCents(tip_amount);
 
-    if (!paymentIntent) {
-      return NextResponse.json(
-        { error: 'Failed to create payment' },
-        { status: 500 }
-      );
+    // For card payments, process through Square
+    let squarePaymentId: string | null = null;
+    let paymentStatus = 'completed';
+
+    if (payment_method === 'card' && source_id) {
+      const paymentsApi = getPaymentsApi();
+      
+      if (paymentsApi && locationId) {
+        try {
+          const { result } = await paymentsApi.createPayment({
+            sourceId: source_id,
+            idempotencyKey: crypto.randomUUID(),
+            amountMoney: {
+              amount: BigInt(amountInCents + tipInCents),
+              currency: 'USD',
+            },
+            tipMoney: tipInCents > 0 ? {
+              amount: BigInt(tipInCents),
+              currency: 'USD',
+            } : undefined,
+            locationId,
+            referenceId: saleNumber,
+            note: `Hello Gorgeous Med Spa - ${items?.[0]?.name || 'Sale'}`,
+          });
+
+          squarePaymentId = result.payment?.id || null;
+          paymentStatus = result.payment?.status === 'COMPLETED' ? 'completed' : 'pending';
+        } catch (squareError: any) {
+          console.error('Square payment error:', squareError);
+          return NextResponse.json(
+            { error: 'Payment processing failed', details: squareError.message },
+            { status: 500 }
+          );
+        }
+      } else {
+        // Square not configured - allow cash/other payments
+        if (payment_method === 'card') {
+          return NextResponse.json(
+            { error: 'Card processing not configured. Use cash or gift card.' },
+            { status: 400 }
+          );
+        }
+      }
     }
-
-    // Generate transaction number
-    const transactionNumber = `HG-${Date.now().toString(36).toUpperCase()}`;
 
     // Calculate totals
     const subtotal = items?.reduce((sum: number, item: any) => 
       sum + (item.unit_price * item.quantity), 0) || amount;
 
-    // Create transaction record
-    const { data: transaction, error: txnError } = await supabase
-      .from('transactions')
+    // Create sale record in sales ledger
+    const { data: sale, error: saleError } = await supabase
+      .from('sales')
       .insert({
-        transaction_number: transactionNumber,
-        type: 'sale',
-        status: paymentIntent.status === 'succeeded' ? 'completed' : 'pending',
-        subtotal,
-        discount_amount,
-        discount_type,
-        discount_reason,
-        tax_amount: 0,
-        tip_amount,
-        total: amount,
-        payment_method,
-        stripe_payment_intent_id: paymentIntent.id,
         client_id,
         appointment_id,
-        staff_id: '00000000-0000-0000-0000-000000000001', // TODO: Get from session
-        location_id: '00000000-0000-0000-0000-000000000001',
-        notes,
+        sale_type: 'service',
+        status: paymentStatus,
+        subtotal: dollarsToCents(subtotal),
+        discount_total: dollarsToCents(discount_amount),
+        discount_type,
+        discount_reason,
+        tax_total: 0,
+        tip_total: tipInCents,
+        gross_total: amountInCents,
+        net_total: amountInCents,
+        amount_paid: paymentStatus === 'completed' ? amountInCents : 0,
+        balance_due: paymentStatus === 'completed' ? 0 : amountInCents,
+        internal_notes: notes,
+        completed_at: paymentStatus === 'completed' ? new Date().toISOString() : null,
       })
       .select()
       .single();
 
-    // If transaction table doesn't exist, just return success with payment info
-    if (txnError) {
-      console.warn('Transaction table not ready:', txnError.message);
+    if (saleError) {
+      console.warn('Sale creation warning:', saleError.message);
     }
 
-    // Create transaction items
-    if (items && items.length > 0 && transaction) {
-      const itemsToInsert = items.map((item: any) => ({
-        transaction_id: transaction.id,
+    // Create sale items
+    if (items && items.length > 0 && sale) {
+      const saleItems = items.map((item: any) => ({
+        sale_id: sale.id,
         item_type: item.item_type || 'service',
         item_id: item.item_id,
-        name: item.name,
-        description: item.description,
-        quantity: item.quantity,
-        unit_price: item.unit_price,
-        discount_amount: item.discount_amount || 0,
-        total: item.unit_price * item.quantity - (item.discount_amount || 0),
+        item_name: item.name || item.item_name,
+        item_description: item.description,
+        quantity: item.quantity || 1,
+        unit_price: dollarsToCents(item.unit_price),
+        discount_amount: dollarsToCents(item.discount_amount || 0),
+        tax_amount: 0,
+        total_price: dollarsToCents((item.unit_price * (item.quantity || 1)) - (item.discount_amount || 0)),
         provider_id: item.provider_id,
       }));
 
-      await supabase.from('transaction_items').insert(itemsToInsert);
+      await supabase.from('sale_items').insert(saleItems);
+    }
+
+    // Create payment record
+    if (sale) {
+      await supabase.from('sale_payments').insert({
+        sale_id: sale.id,
+        payment_method,
+        payment_processor: payment_method === 'card' ? 'square' : payment_method,
+        amount: amountInCents,
+        tip_amount: tipInCents,
+        processing_fee: payment_method === 'card' ? Math.round(amountInCents * 0.026 + 10) : 0, // ~2.6% + $0.10
+        net_amount: amountInCents - (payment_method === 'card' ? Math.round(amountInCents * 0.026 + 10) : 0),
+        status: paymentStatus,
+        processor_transaction_id: squarePaymentId,
+        processed_at: new Date().toISOString(),
+      });
     }
 
     // Update appointment status if linked
@@ -135,11 +172,13 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      payment_intent_id: paymentIntent.id,
-      client_secret: paymentIntent.clientSecret,
-      transaction_number: transactionNumber,
-      transaction_id: transaction?.id,
-      status: paymentIntent.status,
+      sale_id: sale?.id,
+      sale_number: sale?.sale_number || saleNumber,
+      processor: 'square',
+      payment_id: squarePaymentId,
+      status: paymentStatus,
+      amount: amount,
+      tip: tip_amount,
     });
 
   } catch (error) {
@@ -151,15 +190,15 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// GET endpoint to retrieve transaction details
+// GET endpoint to retrieve sale details
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const transactionId = searchParams.get('id');
-  const transactionNumber = searchParams.get('number');
+  const saleId = searchParams.get('id');
+  const saleNumber = searchParams.get('number');
 
-  if (!transactionId && !transactionNumber) {
+  if (!saleId && !saleNumber) {
     return NextResponse.json(
-      { error: 'Transaction ID or number required' },
+      { error: 'Sale ID or number required' },
       { status: 400 }
     );
   }
@@ -168,34 +207,34 @@ export async function GET(request: NextRequest) {
     const supabase = createServerSupabaseClient();
     
     let query = supabase
-      .from('transactions')
+      .from('sales')
       .select(`
         *,
-        client:clients(*),
-        items:transaction_items(*)
+        sale_items (*),
+        sale_payments (*)
       `);
 
-    if (transactionId) {
-      query = query.eq('id', transactionId);
+    if (saleId) {
+      query = query.eq('id', saleId);
     } else {
-      query = query.eq('transaction_number', transactionNumber);
+      query = query.eq('sale_number', saleNumber);
     }
 
-    const { data: transaction, error } = await query.single();
+    const { data: sale, error } = await query.single();
 
     if (error) {
       return NextResponse.json(
-        { error: 'Transaction not found' },
+        { error: 'Sale not found' },
         { status: 404 }
       );
     }
 
-    return NextResponse.json({ transaction });
+    return NextResponse.json({ sale });
 
   } catch (error) {
-    console.error('Error fetching transaction:', error);
+    console.error('Error fetching sale:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch transaction' },
+      { error: 'Failed to fetch sale' },
       { status: 500 }
     );
   }

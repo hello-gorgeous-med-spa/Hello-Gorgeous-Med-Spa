@@ -1,12 +1,4 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "../globals.css";
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "Sign In | Hello Gorgeous Med Spa",
@@ -17,13 +9,11 @@ export const metadata: Metadata = {
   },
 };
 
-// Minimal layout for auth pages - NO Header, Footer, AuthWrapper, etc.
+// Auth layout - full screen overlay that covers the root layout chrome
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={inter.variable}>
-      <body className="min-h-screen antialiased">
-        {children}
-      </body>
-    </html>
+    <div className="fixed inset-0 z-[9999] bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {children}
+    </div>
   );
 }

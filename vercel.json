@@ -2,6 +2,16 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "regions": ["iad1"],
+  "crons": [
+    {
+      "path": "/api/gift-cards/sync?full=true",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/sales/reconcile",
+      "schedule": "0 7 * * *"
+    }
+  ],
   "headers": [
     {
       "source": "/api/(.*)",

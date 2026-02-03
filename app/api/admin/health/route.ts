@@ -42,23 +42,39 @@ export async function GET() {
   
   // ===== CHECK DATABASE TABLES =====
   const tablesToCheck = [
+    // Core
     'users',
+    'user_profiles',
     'clients', 
     'providers',
     'services',
     'service_categories',
     'appointments',
+    // Sales Ledger (Square-primary)
+    'sales',
+    'sale_items',
+    'sale_payments',
+    'daily_sales_summary',
+    'business_wallet',
+    // Legacy transactions
     'transactions',
     'transaction_items',
+    // Clinical
     'consent_templates',
     'signed_consents',
     'chart_notes',
+    // Inventory
     'inventory_items',
     'inventory_lots',
+    // Gift Cards (Square-native)
     'gift_cards',
+    'gift_card_transactions',
+    // Memberships
     'membership_plans',
     'client_memberships',
+    // Marketing
     'promotions',
+    // Audit
     'audit_logs',
   ];
 
@@ -113,22 +129,25 @@ export async function GET() {
       details: 'For admin operations',
     },
     {
-      name: 'Stripe Payments',
-      configured: !!process.env.STRIPE_SECRET_KEY && 
-                  process.env.STRIPE_SECRET_KEY.startsWith('sk_live'),
-      details: process.env.STRIPE_SECRET_KEY?.startsWith('sk_live') ? 'LIVE MODE' : 
-               process.env.STRIPE_SECRET_KEY?.startsWith('sk_test') ? 'TEST MODE' : 'Not configured',
+      name: 'Square Payments (PRIMARY)',
+      configured: !!process.env.SQUARE_ACCESS_TOKEN,
+      details: process.env.SQUARE_ENVIRONMENT === 'production' ? 'PRODUCTION' : 
+               process.env.SQUARE_ACCESS_TOKEN ? 'SANDBOX' : 'Not configured',
     },
     {
-      name: 'Stripe Publishable Key',
-      configured: !!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY &&
-                  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY.startsWith('pk_live'),
-      details: process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY?.startsWith('pk_live') ? 'LIVE MODE' : 'TEST MODE',
+      name: 'Square Location',
+      configured: !!process.env.SQUARE_LOCATION_ID,
+      details: process.env.SQUARE_LOCATION_ID ? 'Configured' : 'Missing',
     },
     {
-      name: 'Stripe Webhook Secret',
-      configured: !!process.env.STRIPE_WEBHOOK_SECRET,
-      details: process.env.STRIPE_WEBHOOK_SECRET ? 'Configured' : 'Missing',
+      name: 'Square Webhooks',
+      configured: !!process.env.SQUARE_WEBHOOK_SIGNATURE_KEY,
+      details: process.env.SQUARE_WEBHOOK_SIGNATURE_KEY ? 'Configured' : 'Missing',
+    },
+    {
+      name: 'Stripe (DEPRECATED)',
+      configured: false, // Always false - Stripe is deprecated
+      details: '⚠️ DEPRECATED - Use Square instead',
     },
     {
       name: 'Telnyx SMS',
@@ -201,8 +220,20 @@ export async function GET() {
       critical: true,
     },
     {
-      item: 'Stripe in LIVE mode',
-      ready: integrations.find(i => i.name === 'Stripe Payments')?.configured || false,
+      item: 'Sales Ledger tables exist',
+      ready: ['sales', 'sale_items', 'sale_payments'].every(t => 
+        tableChecks.find(tc => tc.name === t)?.exists
+      ),
+      critical: true,
+    },
+    {
+      item: 'Square Payments configured (PRIMARY)',
+      ready: integrations.find(i => i.name === 'Square Payments (PRIMARY)')?.configured || false,
+      critical: true,
+    },
+    {
+      item: 'Square Location configured',
+      ready: integrations.find(i => i.name === 'Square Location')?.configured || false,
       critical: true,
     },
     {
@@ -218,6 +249,11 @@ export async function GET() {
     {
       item: 'Services defined',
       ready: (servicesTable?.count || 0) > 0,
+      critical: false,
+    },
+    {
+      item: 'Gift cards (Square native)',
+      ready: tableChecks.find(t => t.name === 'gift_cards')?.exists || false,
       critical: false,
     },
     {

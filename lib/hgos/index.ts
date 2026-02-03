@@ -92,6 +92,9 @@ export * from './types-clinical';
 // Export POS types
 export * from './types-pos';
 
+// Export payment processor config (Square primary, Stripe deprecated)
+export * from './payment-processor';
+
 // Export inventory types
 export * from './types-inventory';
 

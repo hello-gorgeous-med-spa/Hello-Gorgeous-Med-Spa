@@ -1,22 +1,27 @@
 // ============================================================
-// STRIPE CLIENT CONFIGURATION
-// Client-side Stripe instance for React components
+// STRIPE CLIENT - DEPRECATED
+// ============================================================
+// 
+// ⚠️  STRIPE IS NO LONGER USED FOR HELLO GORGEOUS MED SPA
+// 
+// Decision: FINAL (Owner Decision)
+// Primary Processor: SQUARE
+// 
+// This file returns null. Do not use Stripe.
 // ============================================================
 
-import { loadStripe, Stripe } from '@stripe/stripe-js';
+const STRIPE_DEPRECATED_ERROR = 'STRIPE_DEPRECATED: Hello Gorgeous uses Square as the sole payment processor.';
 
-let stripePromise: Promise<Stripe | null>;
+// Feature flag - MUST remain false
+export const STRIPE_ENABLED = false;
 
-export function getStripe(): Promise<Stripe | null> {
-  if (!stripePromise) {
-    stripePromise = loadStripe(
-      process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-    );
-  }
-  return stripePromise;
+// Return null instead of Stripe instance
+export function getStripe() {
+  console.warn(STRIPE_DEPRECATED_ERROR);
+  return null;
 }
 
-// Check if Stripe is configured on client
-export function isStripeClientConfigured(): boolean {
-  return !!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY;
+// Log deprecation on load
+if (typeof window !== 'undefined') {
+  console.warn('⚠️  Stripe client loaded but STRIPE IS DEPRECATED. Use Square instead.');
 }

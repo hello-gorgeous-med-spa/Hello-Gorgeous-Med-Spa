@@ -1,20 +1,20 @@
 // ============================================================
 // ADMIN DASHBOARD LAYOUT
-// Fresha-Level UX - Black/White/Pink Theme
 // Command Center for Hello Gorgeous Med Spa
+// Clean Blueprint - No Static Data
 // ============================================================
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import ModeSwitcher, { ModeSwitcherMobile } from '@/components/ModeSwitcher';
+import { AdminHeader } from '@/components/AdminHeader';
 
-// Switch to admin manifest for PWA install + add noindex for security
+// Switch to admin manifest for PWA install
 function useAdminManifest() {
   useEffect(() => {
-    // Set admin manifest
+    // Find existing manifest link or create one
     let manifestLink = document.querySelector('link[rel="manifest"]') as HTMLLinkElement;
     const originalHref = manifestLink?.href;
     
@@ -27,21 +27,13 @@ function useAdminManifest() {
       document.head.appendChild(manifestLink);
     }
 
-    // Set theme color
+    // Set theme color for admin
     let themeColor = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement;
     if (themeColor) {
-      themeColor.content = '#0a0a0a';
+      themeColor.content = '#0f172a';
     }
 
-    // SECURITY: Add noindex meta tag to prevent search engine indexing
-    let robotsMeta = document.querySelector('meta[name="robots"]') as HTMLMetaElement;
-    if (!robotsMeta) {
-      robotsMeta = document.createElement('meta');
-      robotsMeta.name = 'robots';
-      document.head.appendChild(robotsMeta);
-    }
-    robotsMeta.content = 'noindex, nofollow';
-
+    // Cleanup: restore original on unmount
     return () => {
       if (manifestLink && originalHref) {
         manifestLink.href = originalHref;
@@ -50,59 +42,80 @@ function useAdminManifest() {
   }, []);
 }
 
-// Navigation with clear grouping and icons
+// User- and provider-friendly navigation — clear labels, logical grouping
 const NAV_SECTIONS = [
   {
-    title: 'Operations',
+    title: 'Quick access',
     items: [
-      { href: '/admin', label: 'Dashboard', icon: '📊' },
-      { href: '/admin/calendar', label: 'Calendar', icon: '📅' },
-      { href: '/admin/appointments', label: 'Appointments', icon: '🗓️' },
-      { href: '/pos', label: 'POS / Checkout', icon: '💳' },
+      { href: '/admin', label: 'Dashboard', icon: '📊', description: 'Today’s overview' },
+      { href: '/admin/calendar', label: "Today's schedule", icon: '📅', description: 'See who’s coming in' },
+      { href: '/admin/appointments/new', label: 'Book appointment', icon: '➕', description: 'Schedule a client' },
+      { href: '/pos', label: 'Check out / POS', icon: '💳', description: 'Take payment' },
     ],
   },
   {
-    title: 'Clients',
+    title: 'Clients & bookings',
     items: [
-      { href: '/admin/clients', label: 'Client List', icon: '👥' },
-      { href: '/admin/clients/new', label: 'Add Client', icon: '✨' },
-      { href: '/admin/memberships', label: 'Memberships', icon: '💎' },
-      { href: '/admin/gift-cards', label: 'Gift Cards', icon: '🎁' },
+      { href: '/admin/clients', label: 'Client list', icon: '👥', description: 'Find or view clients' },
+      { href: '/admin/clients/new', label: 'Add new client', icon: '✨', description: 'Register a new client' },
+      { href: '/admin/appointments', label: 'All appointments', icon: '🗓️', description: 'View or edit bookings' },
     ],
   },
   {
-    title: 'Clinical',
+    title: 'Care & charting',
     items: [
-      { href: '/admin/charts', label: 'Charts & SOAP', icon: '📋' },
-      { href: '/admin/consents', label: 'Consents', icon: '📝' },
-      { href: '/admin/inventory', label: 'Inventory', icon: '📦' },
-      { href: '/admin/charm', label: 'Charm EHR', icon: '🏥' },
+      { href: '/admin/charts', label: 'Charts & notes', icon: '📋', description: 'SOAP notes & clinical' },
+      { href: '/admin/consents', label: 'Consent forms', icon: '📝', description: 'Sign & track consents' },
+      { href: '/admin/charm', label: 'Charm EHR', icon: '🏥', description: 'E-prescribing & records' },
+      { href: '/admin/medications', label: 'Medications', icon: '💊', description: 'Drug tracking' },
+      { href: '/admin/inventory', label: 'Inventory', icon: '📦', description: 'Products & lots' },
+      { href: '/admin/compliance', label: 'Compliance', icon: '🛡️', description: 'Safety & incidents' },
     ],
   },
   {
-    title: 'Finance',
+    title: 'Sales & payments',
     items: [
-      { href: '/admin/payments', label: 'Payments', icon: '💰' },
-      { href: '/admin/services', label: 'Services', icon: '✨' },
-      { href: '/admin/reports', label: 'Reports', icon: '📈' },
+      { href: '/admin/sales', label: 'Sales Ledger', icon: '📊', description: 'All transactions' },
+      { href: '/admin/sales/wallet', label: 'Business Wallet', icon: '💼', description: 'Cash & deposits' },
+      { href: '/admin/sales/daily-summary', label: 'Daily Summary', icon: '📅', description: 'End of day' },
+      { href: '/admin/payments', label: 'Payment History', icon: '💰', description: 'Transaction log' },
+      { href: '/admin/gift-cards', label: 'Gift cards', icon: '🎁', description: 'Sell or redeem' },
+      { href: '/admin/memberships', label: 'Memberships', icon: '💎', description: 'VIP plans' },
+      { href: '/admin/promotions', label: 'Promotions', icon: '🏷️', description: 'Coupons & discounts' },
     ],
   },
   {
-    title: 'Marketing',
+    title: 'Services & menu',
     items: [
-      { href: '/admin/marketing', label: 'Campaigns', icon: '📣' },
-      { href: '/admin/sms', label: 'SMS', icon: '💬' },
-      { href: '/admin/promotions', label: 'Promotions', icon: '🏷️' },
+      { href: '/admin/services', label: 'Services & pricing', icon: '✨', description: 'Menu & prices' },
+      { href: '/admin/packages', label: 'Service packages', icon: '📦', description: 'Bundles & deals' },
     ],
   },
   {
-    title: 'Settings',
+    title: 'Marketing & reports',
     items: [
-      { href: '/admin/staff', label: 'Team', icon: '👤' },
-      { href: '/admin/users', label: 'Users', icon: '🔐' },
-      { href: '/admin/settings', label: 'Settings', icon: '⚙️' },
+      { href: '/admin/marketing', label: 'Marketing', icon: '📣', description: 'Campaigns & email' },
+      { href: '/admin/sms', label: 'SMS / text', icon: '💬', description: 'Text campaigns' },
+      { href: '/admin/templates', label: 'Message templates', icon: '📝', description: 'Email & SMS text' },
+      { href: '/admin/reports', label: 'Reports', icon: '📈', description: 'Revenue & analytics' },
     ],
   },
+  {
+    title: 'Team & settings',
+    items: [
+      { href: '/admin/staff', label: 'Staff & schedules', icon: '👤', description: 'Team & shifts' },
+      { href: '/admin/users', label: 'Users & access', icon: '🔐', description: 'Logins & roles' },
+      { href: '/admin/vendors', label: 'Vendors', icon: '🏢', description: 'Suppliers' },
+      { href: '/admin/efax', label: 'eFax', icon: '📠', description: 'Send or receive fax' },
+      { href: '/admin/settings', label: 'Settings', icon: '⚙️', description: 'Business & hours' },
+      { href: '/admin/system-health', label: 'System Health', icon: '🩺', description: 'Go-live readiness' },
+    ],
+  },
+];
+
+const QUICK_LINKS = [
+  { href: '/book', label: 'Public booking page', icon: '🌐' },
+  { href: '/portal', label: 'Client portal', icon: '👤' },
 ];
 
 export default function AdminLayout({
@@ -111,201 +124,110 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const [currentTime, setCurrentTime] = useState(new Date());
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   
+  // Use admin manifest for PWA installation
   useAdminManifest();
-
-  // Update time every minute
-  useEffect(() => {
-    const timer = setInterval(() => setCurrentTime(new Date()), 60000);
-    return () => clearInterval(timer);
-  }, []);
 
   const isActive = (href: string) => {
     if (href === '/admin') return pathname === '/admin';
     return pathname.startsWith(href);
   };
 
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString('en-US', { 
-      hour: 'numeric', 
-      minute: '2-digit',
-      hour12: true 
-    });
-  };
-
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-US', { 
-      weekday: 'short',
-      month: 'short', 
-      day: 'numeric'
-    });
-  };
-
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Top Header Bar - Black */}
-      <header className="bg-[#0a0a0a] border-b border-gray-800 sticky top-0 z-50">
-        {/* Main Header Row */}
-        <div className="h-14 flex items-center justify-between px-4">
-          {/* Logo & Brand */}
-          <div className="flex items-center gap-4">
-            <Link href="/admin" className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-pink-600 rounded-lg flex items-center justify-center">
-                <span className="text-white text-lg font-bold">H</span>
-              </div>
-              <div className="hidden sm:block">
-                <h1 className="text-pink-400 font-bold text-sm tracking-tight">Hello Gorgeous</h1>
-                <p className="text-pink-300/70 text-[10px]">Med Spa OS</p>
-              </div>
-            </Link>
-          </div>
-
-          {/* Center - Mode Tabs (Desktop) */}
-          <div className="hidden md:block">
-            <ModeSwitcher variant="tabs" />
-          </div>
-
-          {/* Right - Time & Quick Actions */}
-          <div className="flex items-center gap-4">
-            {/* Time Display */}
-            <div className="hidden lg:block text-right">
-              <p className="text-pink-400 font-semibold text-sm">{formatTime(currentTime)}</p>
-              <p className="text-pink-300/60 text-[10px]">{formatDate(currentTime)}</p>
-            </div>
-
-            {/* Quick Actions */}
-            <Link
-              href="/admin/appointments/new"
-              className="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-pink-500 hover:bg-pink-600 text-white text-sm font-medium rounded-lg transition-colors"
-            >
-              <span>+</span>
-              <span className="hidden lg:inline">New Booking</span>
-            </Link>
-            
-            <Link
-              href="/pos"
-              className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500 hover:bg-emerald-600 text-white text-sm font-medium rounded-lg transition-colors"
-            >
-              <span>💳</span>
-              <span className="hidden sm:inline">POS</span>
-            </Link>
-          </div>
-        </div>
-
-        {/* Mobile Mode Tabs */}
-        <div className="md:hidden">
-          <ModeSwitcherMobile />
-        </div>
-      </header>
+    <div className="min-h-screen bg-gray-50 admin-panel">
+      {/* Top Header */}
+      <AdminHeader />
 
       <div className="flex">
-        {/* Sidebar - Jet Black */}
-        <aside className={`
-          ${sidebarCollapsed ? 'w-16' : 'w-64'} 
-          bg-[#0a0a0a] min-h-[calc(100vh-56px)] sticky top-14 
-          hidden lg:flex flex-col transition-all duration-300
-        `}>
-          {/* Toggle Button */}
-          <button
-            onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className="absolute -right-3 top-6 w-6 h-6 bg-gray-800 hover:bg-gray-700 text-gray-400 rounded-full flex items-center justify-center text-xs z-10 border border-gray-700"
-          >
-            {sidebarCollapsed ? '→' : '←'}
-          </button>
-
-          <nav className="flex-1 py-4 overflow-y-auto min-h-0">
+        {/* Sidebar — user- and provider-friendly */}
+        <aside className="w-72 bg-white border-r border-gray-200 min-h-[calc(100vh-56px)] sticky top-14 hidden lg:block overflow-y-auto shadow-sm">
+          <nav className="p-4 space-y-5">
             {NAV_SECTIONS.map((section) => (
-              <div key={section.title} className="mb-6">
-                {!sidebarCollapsed && (
-                  <h3 className="px-4 mb-2 text-[10px] font-semibold text-gray-500 uppercase tracking-wider">
-                    {section.title}
-                  </h3>
-                )}
-                <ul className="space-y-0.5 px-2">
+              <div key={section.title} className="space-y-1">
+                <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 py-1.5">
+                  {section.title}
+                </h3>
+                <ul className="space-y-0.5">
                   {section.items.map((item) => (
                     <li key={item.href}>
                       <Link
                         href={item.href}
-                        className={`
-                          flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all text-sm
-                          ${isActive(item.href)
-                            ? 'bg-pink-500/20 text-pink-400 border-l-2 border-pink-500'
-                            : 'text-gray-400 hover:text-pink-400 hover:bg-pink-500/10'
-                          }
-                        `}
-                        title={sidebarCollapsed ? item.label : undefined}
+                        className={`flex items-start gap-3 px-3 py-2.5 rounded-xl transition-all text-sm group ${
+                          isActive(item.href)
+                            ? 'bg-pink-50 text-pink-700 ring-1 ring-pink-200'
+                            : 'text-gray-700 hover:bg-gray-50 hover:text-gray-900'
+                        }`}
                       >
-                        <span className="text-lg flex-shrink-0">{item.icon}</span>
-                        {!sidebarCollapsed && (
-                          <span className="font-medium truncate">{item.label}</span>
-                        )}
-                        {isActive(item.href) && !sidebarCollapsed && (
-                          <span className="ml-auto w-1.5 h-1.5 bg-pink-500 rounded-full" />
-                        )}
+                        <span className="text-lg shrink-0 mt-0.5" aria-hidden>{item.icon}</span>
+                        <div className="flex-1 min-w-0">
+                          <span className="block font-medium">{item.label}</span>
+                          <span className={`block text-xs mt-0.5 ${isActive(item.href) ? 'text-pink-600' : 'text-gray-500'}`}>
+                            {item.description}
+                          </span>
+                        </div>
                       </Link>
                     </li>
                   ))}
                 </ul>
               </div>
             ))}
+
+            <div className="pt-4 border-t border-gray-100 space-y-1">
+              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider px-3 py-1.5">
+                Quick links
+              </h3>
+              <ul className="space-y-0.5">
+                {QUICK_LINKS.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="flex items-center gap-3 px-3 py-2.5 text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-xl transition-all text-sm"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span className="text-lg">{link.icon}</span>
+                      <span>{link.label}</span>
+                      <span className="ml-auto text-xs text-gray-400">↗</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </nav>
 
-          {/* Footer */}
-          {!sidebarCollapsed && (
-            <div className="p-4 border-t border-gray-800">
-              <div className="flex items-center gap-3 px-2">
-                <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">
-                  A
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="text-pink-400 text-sm font-medium truncate">Admin</p>
-                  <p className="text-pink-300/50 text-xs">Full Access</p>
-                </div>
-              </div>
-              <p className="text-[10px] text-pink-300/40 text-center mt-4">
-                Hello Gorgeous OS v1.5
-              </p>
-            </div>
-          )}
+          <div className="sticky bottom-0 left-0 right-0 p-4 border-t border-gray-100 bg-white/95 backdrop-blur">
+            <p className="text-xs text-gray-500 text-center font-medium">Hello Gorgeous OS</p>
+            <p className="text-[10px] text-gray-400 text-center mt-0.5">v1.4.0 • Production</p>
+          </div>
         </aside>
 
-        {/* Mobile Bottom Nav */}
-        <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#0a0a0a] border-t border-gray-800 z-50 safe-area-pb">
+        {/* Mobile Bottom Nav — most-used actions */}
+        <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 safe-area-pb shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
           <div className="flex justify-around items-center h-16 px-2">
             {[
-              { href: '/admin', icon: '📊', label: 'Home' },
-              { href: '/admin/calendar', icon: '📅', label: 'Calendar' },
-              { href: '/admin/appointments/new', icon: '➕', label: 'Book', highlight: true },
+              { href: '/admin', icon: '📊', label: 'Dashboard' },
+              { href: '/admin/calendar', icon: '📅', label: "Today" },
+              { href: '/admin/appointments/new', icon: '➕', label: 'Book' },
               { href: '/pos', icon: '💳', label: 'POS' },
               { href: '/admin/clients', icon: '👥', label: 'Clients' },
             ].map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`
-                  flex flex-col items-center justify-center gap-1 min-w-[56px] py-2 rounded-xl transition-all
-                  ${item.highlight 
-                    ? 'bg-pink-500 text-white -mt-4 shadow-lg shadow-pink-500/30' 
-                    : isActive(item.href) 
-                      ? 'text-pink-400' 
-                      : 'text-gray-500'
-                  }
-                `}
+                className={`flex flex-col items-center justify-center gap-1 min-w-[56px] py-2 rounded-xl transition-colors ${
+                  isActive(item.href) ? 'text-pink-600 bg-pink-50' : 'text-gray-500 hover:text-gray-700'
+                }`}
               >
-                <span className={item.highlight ? 'text-2xl' : 'text-xl'}>{item.icon}</span>
-                <span className="text-[10px] font-medium">{item.label}</span>
+                <span className="text-xl">{item.icon}</span>
+                <span className="text-[11px] font-medium">{item.label}</span>
               </Link>
             ))}
           </div>
         </nav>
 
         {/* Main Content */}
-        <main className="flex-1 pb-24 lg:pb-6 min-h-[calc(100vh-56px)]">
-          <div className="p-6">
-            {children}
-          </div>
+        <main className="flex-1 p-6 pb-24 lg:pb-6 min-h-[calc(100vh-56px)]">
+          {children}
         </main>
       </div>
     </div>

@@ -21,10 +21,9 @@ import {
 } from './auth';
 
 // ============================================================
-// DEV MODE - Only bypass in local development, NEVER in production
+// DEV MODE - Only bypass auth in local development
 // ============================================================
-const DEV_BYPASS_AUTH = typeof window !== 'undefined' && 
-  (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1');
+const DEV_BYPASS_AUTH = process.env.NODE_ENV === 'development' && process.env.NEXT_PUBLIC_BYPASS_AUTH === 'true';
 
 const DEV_USER: AuthUser = {
   id: 'dev-admin-001',
@@ -71,7 +70,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Check for existing session on mount
   useEffect(() => {
     const initAuth = async () => {
-      // DEV MODE: Auto-login as admin (localhost only)
+      // DEV MODE: Auto-login as admin
       if (DEV_BYPASS_AUTH) {
         setUser(DEV_USER);
         setIsLoading(false);
@@ -84,23 +83,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(storedUser);
       }
 
-      // Set loading to false quickly - don't block on session check
-      setIsLoading(false);
-
-      // Then verify with server/Supabase in background (non-blocking)
-      try {
-        const existingSession = await getSession();
-        if (existingSession) {
-          setUser(existingSession.user);
-          setSession(existingSession);
-        } else if (storedUser) {
-          // Session expired, clear stored user
-          setUser(null);
-        }
-      } catch (error) {
-        console.warn('Session check failed:', error);
-        // Don't block on errors - user can still use the app
+      // Then verify with server/Supabase
+      const existingSession = await getSession();
+      if (existingSession) {
+        setUser(existingSession.user);
+        setSession(existingSession);
+      } else if (storedUser) {
+        // Session expired, clear stored user
+        setUser(null);
       }
+
+      setIsLoading(false);
     };
 
     initAuth();

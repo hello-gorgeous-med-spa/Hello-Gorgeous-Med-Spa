@@ -10,9 +10,9 @@ import type { Database } from './database.types';
 // ENVIRONMENT VARIABLES
 // ============================================================
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 
 // ============================================================
 // CLIENT-SIDE SUPABASE (Browser)
@@ -21,8 +21,12 @@ const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
 /**
  * Creates a Supabase client for use in browser/client components
  * Uses the anon key - respects RLS policies
+ * Returns null if Supabase is not configured
  */
 export function createBrowserSupabaseClient() {
+  if (!isSupabaseConfigured()) {
+    return null;
+  }
   return createBrowserClient<Database>(supabaseUrl, supabaseAnonKey);
 }
 
@@ -33,8 +37,13 @@ export function createBrowserSupabaseClient() {
 /**
  * Creates a Supabase client for server-side use with SERVICE ROLE KEY
  * BYPASSES RLS - For use in API routes that need full database access
+ * Returns null if Supabase is not configured
  */
 export function createServerSupabaseClient() {
+  if (!isSupabaseConfigured()) {
+    return null;
+  }
+  
   // Use service role key if available, otherwise fall back to anon key
   const key = supabaseServiceKey && supabaseServiceKey !== 'placeholder-service-role-key'
     ? supabaseServiceKey
@@ -70,9 +79,11 @@ export function createAdminSupabaseClient() {
 // ============================================================
 
 let browserClient: ReturnType<typeof createBrowserSupabaseClient> | null = null;
+let browserClientInitialized = false;
 
 /**
  * Get or create a singleton Supabase client for browser use
+ * Returns null if Supabase is not configured
  */
 export function getSupabaseClient() {
   if (typeof window === 'undefined') {
@@ -81,8 +92,9 @@ export function getSupabaseClient() {
   }
   
   // Client-side - use singleton
-  if (!browserClient) {
+  if (!browserClientInitialized) {
     browserClient = createBrowserSupabaseClient();
+    browserClientInitialized = true;
   }
   return browserClient;
 }
