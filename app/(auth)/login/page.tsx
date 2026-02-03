@@ -47,16 +47,23 @@ export default function LoginPage() {
       const params = new URLSearchParams(window.location.search);
       const returnTo = params.get('returnTo');
 
-      // Redirect
+      // Use hard redirect (window.location) instead of router.push
+      // This ensures a full page load which works better with auth
+      let redirectUrl = '/';
+      
       if (returnTo && !returnTo.includes('://')) {
-        router.push(returnTo);
+        redirectUrl = returnTo;
       } else {
         const role = data.user?.role || 'client';
-        if (role === 'owner') router.push('/admin/owner');
-        else if (role === 'admin' || role === 'staff') router.push('/admin');
-        else if (role === 'provider') router.push('/provider');
-        else router.push('/');
+        if (role === 'owner') redirectUrl = '/admin/owner';
+        else if (role === 'admin' || role === 'staff') redirectUrl = '/admin';
+        else if (role === 'provider') redirectUrl = '/provider';
       }
+      
+      // Hard redirect
+      window.location.href = redirectUrl;
+      return; // Don't continue
+      
     } catch (err: any) {
       setError(err.message || 'Invalid email or password');
       setIsLoading(false);
