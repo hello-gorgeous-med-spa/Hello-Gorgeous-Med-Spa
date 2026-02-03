@@ -10,6 +10,9 @@ import { useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AdminHeader } from '@/components/AdminHeader';
+import { ToastProvider } from '@/components/ui/Toast';
+import { KeyboardShortcutsProvider } from '@/components/ui/KeyboardShortcuts';
+import { MobileNav } from '@/components/ui/MobileNav';
 
 // Switch to admin manifest for PWA install
 function useAdminManifest() {
@@ -135,9 +138,11 @@ export default function AdminLayout({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 admin-panel">
-      {/* Top Header */}
-      <AdminHeader />
+    <ToastProvider>
+      <KeyboardShortcutsProvider>
+        <div className="min-h-screen bg-gray-50 admin-panel">
+          {/* Top Header */}
+          <AdminHeader />
 
       <div className="flex">
         {/* Sidebar — user- and provider-friendly */}
@@ -202,15 +207,16 @@ export default function AdminLayout({
           </div>
         </aside>
 
-        {/* Mobile Bottom Nav — most-used actions */}
+        {/* Mobile Bottom Nav — most-used actions with hamburger */}
         <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 safe-area-pb shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
           <div className="flex justify-around items-center h-16 px-2">
+            {/* Menu button */}
+            <MobileNav />
             {[
-              { href: '/admin', icon: '📊', label: 'Dashboard' },
+              { href: '/admin', icon: '📊', label: 'Home' },
               { href: '/admin/calendar', icon: '📅', label: "Today" },
               { href: '/admin/appointments/new', icon: '➕', label: 'Book' },
               { href: '/pos', icon: '💳', label: 'POS' },
-              { href: '/admin/clients', icon: '👥', label: 'Clients' },
             ].map((item) => (
               <Link
                 key={item.href}
@@ -232,5 +238,7 @@ export default function AdminLayout({
         </main>
       </div>
     </div>
+      </KeyboardShortcutsProvider>
+    </ToastProvider>
   );
 }

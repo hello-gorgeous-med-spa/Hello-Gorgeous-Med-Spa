@@ -7,7 +7,8 @@
 // ============================================================
 
 import { useState, useEffect } from 'react';
-
+import { Breadcrumb, ExportButton, NoDataEmptyState } from '@/components/ui';
+import { useToast } from '@/components/ui/Toast';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -15,6 +16,7 @@ function Skeleton({ className = '' }: { className?: string }) {
 }
 
 export default function GiftCardsPage() {
+  const toast = useToast();
   const [giftCards, setGiftCards] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [showSellModal, setShowSellModal] = useState(false);
@@ -158,8 +160,21 @@ export default function GiftCardsPage() {
     setTimeout(() => setMessage(null), 3000);
   };
 
+  // Export columns
+  const exportColumns = [
+    { key: 'code', label: 'Code' },
+    { key: 'recipient_name', label: 'Recipient' },
+    { key: 'initial_amount', label: 'Initial Value', format: (v: number) => `$${v}` },
+    { key: 'current_balance', label: 'Balance', format: (v: number) => `$${v}` },
+    { key: 'status', label: 'Status' },
+    { key: 'expires_at', label: 'Expires', format: (v: string) => v ? new Date(v).toLocaleDateString() : 'Never' },
+  ];
+
   return (
     <div className="space-y-6">
+      {/* Breadcrumb */}
+      <Breadcrumb />
+      
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -167,6 +182,11 @@ export default function GiftCardsPage() {
           <p className="text-gray-500">Sell, track, and redeem gift cards</p>
         </div>
         <div className="flex items-center gap-3">
+          <ExportButton
+            data={giftCards}
+            filename="gift-cards"
+            columns={exportColumns}
+          />
           <button
             onClick={() => setShowRedeemModal(true)}
             className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
@@ -282,15 +302,21 @@ export default function GiftCardsPage() {
                 ))
               ) : filteredCards.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-5 py-12 text-center text-gray-500">
-                    {giftCards.length === 0 ? 'No gift cards yet' : 'No gift cards match your search'}
-                    <br />
-                    <button
-                      onClick={() => setShowSellModal(true)}
-                      className="text-pink-600 mt-2"
-                    >
-                      + Sell first gift card
-                    </button>
+                  <td colSpan={7} className="px-5 py-4">
+                    {giftCards.length === 0 ? (
+                      <NoDataEmptyState type="gift cards" />
+                    ) : (
+                      <div className="text-center py-8 text-gray-500">
+                        No gift cards match your search
+                        <br />
+                        <button
+                          onClick={() => setSearchQuery('')}
+                          className="text-pink-600 mt-2"
+                        >
+                          Clear search
+                        </button>
+                      </div>
+                    )}
                   </td>
                 </tr>
               ) : (

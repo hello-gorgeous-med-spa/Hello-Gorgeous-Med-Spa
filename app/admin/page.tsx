@@ -297,13 +297,25 @@ export default function ExecutiveDashboard() {
       setServiceStats(Array.from(serviceStatsMap.values()).sort((a, b) => b.revenue - a.revenue).slice(0, 10));
 
       // Set stats
+      // Calculate rebook rate - clients who booked again within 90 days
+      // This is a simplified calculation - count clients with 2+ appointments in period
+      const clientAppointments = new Map<string, number>();
+      allAppointments.forEach((apt: any) => {
+        if (apt.client_id) {
+          clientAppointments.set(apt.client_id, (clientAppointments.get(apt.client_id) || 0) + 1);
+        }
+      });
+      const totalClientsWithAppts = clientAppointments.size;
+      const rebookedClients = Array.from(clientAppointments.values()).filter(count => count >= 2).length;
+      const calculatedRebookRate = totalClientsWithAppts > 0 ? Math.round((rebookedClients / totalClientsWithAppts) * 100) : 0;
+
       setStats({
         todayRevenue,
         weekRevenue,
         monthRevenue,
-        yearRevenue: dashData.stats?.yearRevenue || monthRevenue * 12, // Estimate
-        membershipMRR: 0, // Would come from memberships
-        retailRevenue: 0,
+        yearRevenue: dashData.stats?.yearRevenue || monthRevenue * 12, // Estimate from month
+        membershipMRR: dashData.stats?.membershipMRR || 0,
+        retailRevenue: dashData.stats?.retailRevenue || 0,
         serviceRevenue: monthRevenue,
         todayAppointments: todayAppts.length,
         weekAppointments: weekAppts.length,
@@ -312,11 +324,11 @@ export default function ExecutiveDashboard() {
         utilizationRate: totalAppts > 0 ? Math.round(((totalAppts - noShows - cancelled) / totalAppts) * 100) : 0,
         noShowRate: totalAppts > 0 ? Math.round((noShows / totalAppts) * 100) : 0,
         cancellationRate: totalAppts > 0 ? Math.round((cancelled / totalAppts) * 100) : 0,
-        rebookRate: 68, // Would come from actual rebooking data
+        rebookRate: calculatedRebookRate,
         avgTicket: monthAppts.length > 0 ? Math.round(monthRevenue / monthAppts.length) : 0,
         totalClients: dashData.stats?.totalClients || 0,
         newClientsMonth: dashData.stats?.newClientsMonth || 0,
-        activeMembers: 0, // Would come from memberships
+        activeMembers: dashData.stats?.activeMembers || 0,
       });
 
       // Set upcoming appointments

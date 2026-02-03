@@ -7,6 +7,7 @@
 
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { Breadcrumb, ExportButton, NoDataEmptyState } from '@/components/ui';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -292,8 +293,23 @@ export default function InventoryPage() {
     setTimeout(() => setMessage(null), 3000);
   };
 
+  // Export columns
+  const exportColumns = [
+    { key: 'name', label: 'Product Name' },
+    { key: 'brand', label: 'Brand' },
+    { key: 'category', label: 'Category' },
+    { key: 'sku', label: 'SKU' },
+    { key: 'currentStock', label: 'Current Stock' },
+    { key: 'reorderPoint', label: 'Reorder At' },
+    { key: 'cost', label: 'Cost/Unit', format: (v: number) => `$${v}` },
+    { key: 'price', label: 'Price/Unit', format: (v: number) => `$${v}` },
+  ];
+
   return (
     <div className="space-y-6">
+      {/* Breadcrumb */}
+      <Breadcrumb />
+      
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -301,6 +317,11 @@ export default function InventoryPage() {
           <p className="text-gray-500">Track products, lots, and stock levels</p>
         </div>
         <div className="flex items-center gap-3">
+          <ExportButton
+            data={inventory}
+            filename="inventory"
+            columns={exportColumns}
+          />
           <button
             onClick={() => {
               setProductForm({ name: '', brand: '', category: 'supplies', sku: '', reorder_point: 10, price_per_unit: 0, cost_per_unit: 0 });
@@ -470,8 +491,8 @@ export default function InventoryPage() {
                 ))
               ) : filteredInventory.length === 0 ? (
                 <tr>
-                  <td colSpan={8} className="px-4 py-12 text-center text-gray-500">
-                    No products found
+                  <td colSpan={8} className="px-4 py-4">
+                    <NoDataEmptyState type="products" />
                   </td>
                 </tr>
               ) : (

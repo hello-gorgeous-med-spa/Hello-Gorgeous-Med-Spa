@@ -113,17 +113,72 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ client: flatClient });
     }
 
-    // Get clients with user info
-    let query = supabase
+    // If search is provided, we need to search in user_profiles, not join
+    // This is because PostgREST doesn't support filtering on joined tables easily
+    if (search) {
+      // First search user_profiles for matching users
+      const { data: matchingProfiles, error: searchError } = await supabase
+        .from('user_profiles')
+        .select('user_id')
+        .or(`first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%`)
+        .limit(1000);
+
+      if (searchError) {
+        console.error('Search error:', searchError);
+        return NextResponse.json({ error: searchError.message }, { status: 500 });
+      }
+
+      const matchingUserIds = (matchingProfiles || []).map((p: any) => p.user_id);
+      
+      if (matchingUserIds.length === 0) {
+        return NextResponse.json({ clients: [], total: 0 });
+      }
+
+      // Then get clients that match those user IDs
+      const { data, error, count } = await supabase
+        .from('clients')
+        .select(`
+          *,
+          user_profiles!inner(user_id, first_name, last_name, email, phone)
+        `, { count: 'exact' })
+        .in('user_id', matchingUserIds)
+        .order('created_at', { ascending: false })
+        .range(offset, offset + limit - 1);
+
+      if (error) {
+        console.error('Error fetching clients:', error);
+        return NextResponse.json({ error: error.message }, { status: 500 });
+      }
+
+      const clients = (data || []).map((c: any) => ({
+        id: c.id,
+        user_id: c.user_id,
+        first_name: c.user_profiles?.first_name,
+        last_name: c.user_profiles?.last_name,
+        email: c.user_profiles?.email,
+        phone: c.user_profiles?.phone,
+        date_of_birth: c.date_of_birth,
+        created_at: c.created_at,
+        last_visit: c.last_visit_at,
+        total_spent: c.lifetime_value_cents ? c.lifetime_value_cents / 100 : 0,
+        visit_count: c.visit_count || 0,
+      }));
+
+      return NextResponse.json({
+        clients,
+        total: count || clients.length,
+      });
+    }
+
+    // No search - get all clients with pagination
+    const { data, error, count } = await supabase
       .from('clients')
       .select(`
         *,
-        users!inner(id, first_name, last_name, email, phone)
+        user_profiles!inner(user_id, first_name, last_name, email, phone)
       `, { count: 'exact' })
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
-
-    const { data, error, count } = await query;
 
     if (error) {
       console.error('Error fetching clients:', error);
@@ -134,10 +189,10 @@ export async function GET(request: NextRequest) {
     const clients = (data || []).map((c: any) => ({
       id: c.id,
       user_id: c.user_id,
-      first_name: c.users?.first_name,
-      last_name: c.users?.last_name,
-      email: c.users?.email,
-      phone: c.users?.phone,
+      first_name: c.user_profiles?.first_name,
+      last_name: c.user_profiles?.last_name,
+      email: c.user_profiles?.email,
+      phone: c.user_profiles?.phone,
       date_of_birth: c.date_of_birth,
       created_at: c.created_at,
       last_visit: c.last_visit_at,
@@ -145,20 +200,8 @@ export async function GET(request: NextRequest) {
       visit_count: c.visit_count || 0,
     }));
 
-    // Filter by search if provided
-    let filteredClients = clients;
-    if (search) {
-      const searchLower = search.toLowerCase();
-      filteredClients = clients.filter((c: any) => 
-        c.first_name?.toLowerCase().includes(searchLower) ||
-        c.last_name?.toLowerCase().includes(searchLower) ||
-        c.email?.toLowerCase().includes(searchLower) ||
-        c.phone?.includes(search)
-      );
-    }
-
     return NextResponse.json({
-      clients: filteredClients,
+      clients,
       total: count || 0,
     });
   } catch (error) {

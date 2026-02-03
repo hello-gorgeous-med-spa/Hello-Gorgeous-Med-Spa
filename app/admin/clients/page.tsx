@@ -5,8 +5,9 @@
 // Full client management - Uses API to bypass RLS
 // ============================================================
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { Breadcrumb, Pagination, ExportButton, NoClientsEmptyState } from '@/components/ui';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -34,24 +35,31 @@ export default function AdminClientsPage() {
   const [total, setTotal] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
+  
+  // Pagination state
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(25);
 
   // Debounce search
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(searchQuery);
+      setCurrentPage(1); // Reset to first page on search
     }, 300);
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  // Fetch clients via API
-  const fetchClients = async (search?: string) => {
+  // Fetch clients via API with pagination
+  const fetchClients = async (search?: string, page = 1, limit = 25) => {
     setLoading(true);
     setError(null);
     try {
-      const url = search 
-        ? `/api/clients?search=${encodeURIComponent(search)}`
-        : '/api/clients';
-      const response = await fetch(url);
+      const params = new URLSearchParams();
+      if (search) params.set('search', search);
+      params.set('limit', limit.toString());
+      params.set('offset', ((page - 1) * limit).toString());
+      
+      const response = await fetch(`/api/clients?${params}`);
       const data = await response.json();
 
       if (!response.ok) {
@@ -69,32 +77,27 @@ export default function AdminClientsPage() {
   };
 
   useEffect(() => {
-    fetchClients(debouncedSearch);
-  }, [debouncedSearch]);
+    fetchClients(debouncedSearch, currentPage, pageSize);
+  }, [debouncedSearch, currentPage, pageSize]);
 
-  // Export function
-  const handleExport = () => {
-    const csvContent = [
-      ['First Name', 'Last Name', 'Email', 'Phone', 'Created'].join(','),
-      ...clients.map(c => [
-        c.first_name,
-        c.last_name,
-        c.email,
-        c.phone,
-        new Date(c.created_at).toLocaleDateString(),
-      ].join(','))
-    ].join('\n');
+  const totalPages = Math.ceil(total / pageSize);
 
-    const blob = new Blob([csvContent], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `clients-${new Date().toISOString().split('T')[0]}.csv`;
-    a.click();
-  };
+  // Export columns configuration
+  const exportColumns = [
+    { key: 'first_name', label: 'First Name' },
+    { key: 'last_name', label: 'Last Name' },
+    { key: 'email', label: 'Email' },
+    { key: 'phone', label: 'Phone' },
+    { key: 'visit_count', label: 'Visits' },
+    { key: 'total_spent', label: 'Total Spent', format: (v: number) => `$${v || 0}` },
+    { key: 'created_at', label: 'Joined', format: (v: string) => new Date(v).toLocaleDateString() },
+  ];
 
   return (
     <div className="space-y-6">
+      {/* Breadcrumb */}
+      <Breadcrumb />
+      
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -102,12 +105,11 @@ export default function AdminClientsPage() {
           <p className="text-gray-500">{total.toLocaleString()} total clients</p>
         </div>
         <div className="flex gap-2">
-          <button
-            onClick={handleExport}
-            className="px-4 py-2 bg-white border border-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-50"
-          >
-            Export CSV
-          </button>
+          <ExportButton
+            data={clients}
+            filename="clients"
+            columns={exportColumns}
+          />
           <Link
             href="/admin/clients/new"
             className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
@@ -171,8 +173,21 @@ export default function AdminClientsPage() {
                 ))
               ) : clients.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-5 py-12 text-center text-gray-500">
-                    {searchQuery ? 'No clients match your search' : 'No clients found'}
+                  <td colSpan={6} className="px-5 py-12">
+                    {searchQuery ? (
+                      <div className="text-center text-gray-500">
+                        No clients match your search
+                        <br />
+                        <button 
+                          onClick={() => setSearchQuery('')}
+                          className="text-pink-600 hover:text-pink-700 mt-2"
+                        >
+                          Clear search
+                        </button>
+                      </div>
+                    ) : (
+                      <NoClientsEmptyState />
+                    )}
                   </td>
                 </tr>
               ) : (
@@ -232,6 +247,21 @@ export default function AdminClientsPage() {
             </tbody>
           </table>
         </div>
+        
+        {/* Pagination */}
+        {total > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            totalItems={total}
+            pageSize={pageSize}
+            onPageChange={setCurrentPage}
+            onPageSizeChange={(size) => {
+              setPageSize(size);
+              setCurrentPage(1);
+            }}
+          />
+        )}
       </div>
     </div>
   );

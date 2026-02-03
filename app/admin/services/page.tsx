@@ -6,6 +6,8 @@
 // ============================================================
 
 import { useState, useEffect } from 'react';
+import { Breadcrumb, NoDataEmptyState } from '@/components/ui';
+import { useToast } from '@/components/ui/Toast';
 
 interface Category {
   id: string;
@@ -353,6 +355,7 @@ export default function AdminServicesPage() {
   if (loading) {
     return (
       <div className="space-y-6">
+        <Breadcrumb />
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Services</h1>
           <p className="text-gray-500">Loading your service menu...</p>
@@ -370,6 +373,9 @@ export default function AdminServicesPage() {
 
   return (
     <div className="space-y-6">
+      {/* Breadcrumb */}
+      <Breadcrumb />
+      
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>

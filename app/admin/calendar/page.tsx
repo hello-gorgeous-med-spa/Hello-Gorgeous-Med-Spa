@@ -7,6 +7,9 @@
 
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { Breadcrumb } from '@/components/ui';
+import { useToast } from '@/components/ui/Toast';
 
 // Generate time slots (9 AM to 6:30 PM)
 const TIME_SLOTS = Array.from({ length: 20 }, (_, i) => {
@@ -34,11 +37,19 @@ const PROVIDER_COLORS = [
 ];
 
 export default function CalendarPage() {
+  const router = useRouter();
+  const toast = useToast();
   const [viewMode, setViewMode] = useState<'day' | 'week' | 'provider'>('provider');
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [selectedProvider, setSelectedProvider] = useState<string | 'all'>('all');
   const [showNewApptModal, setShowNewApptModal] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<{ time: string; provider: string } | null>(null);
+  
+  // Quick book form state
+  const [quickBookClient, setQuickBookClient] = useState('');
+  const [quickBookService, setQuickBookService] = useState('');
+  const [quickBookSaving, setQuickBookSaving] = useState(false);
+  const [clientSearchResults, setClientSearchResults] = useState<any[]>([]);
 
   // Format date for API
   const dateString = selectedDate.toISOString().split('T')[0];
@@ -179,7 +190,66 @@ export default function CalendarPage() {
   // Handle slot click
   const handleSlotClick = (time: string, providerId: string) => {
     setSelectedSlot({ time, provider: providerId });
+    setQuickBookClient('');
+    setQuickBookService('');
+    setClientSearchResults([]);
     setShowNewApptModal(true);
+  };
+
+  // Search clients for quick book
+  const searchClients = useCallback(async (query: string) => {
+    if (query.length < 2) {
+      setClientSearchResults([]);
+      return;
+    }
+    try {
+      const res = await fetch(`/api/clients?search=${encodeURIComponent(query)}&limit=5`);
+      const data = await res.json();
+      setClientSearchResults(data.clients || []);
+    } catch (err) {
+      console.error('Failed to search clients:', err);
+    }
+  }, []);
+
+  // Create quick appointment
+  const handleQuickBook = async () => {
+    if (!quickBookClient || !quickBookService || !selectedSlot) {
+      toast.error('Please select a client and service');
+      return;
+    }
+
+    setQuickBookSaving(true);
+    try {
+      // Parse time and create appointment datetime
+      const [hours, minutes] = selectedSlot.time.split(':').map(Number);
+      const appointmentDate = new Date(selectedDate);
+      appointmentDate.setHours(hours, minutes, 0, 0);
+
+      const res = await fetch('/api/appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          client_id: quickBookClient,
+          service_id: quickBookService,
+          provider_id: selectedSlot.provider,
+          starts_at: appointmentDate.toISOString(),
+          status: 'confirmed',
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Failed to create appointment');
+      }
+
+      toast.success('Appointment booked successfully!');
+      setShowNewApptModal(false);
+      fetchAppointments();
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to book appointment');
+    } finally {
+      setQuickBookSaving(false);
+    }
   };
 
   // Calculate stats
@@ -196,6 +266,9 @@ export default function CalendarPage() {
 
   return (
     <div className="space-y-4">
+      {/* Breadcrumb */}
+      <Breadcrumb />
+      
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
@@ -561,20 +634,55 @@ export default function CalendarPage() {
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Client</label>
-                <input
-                  type="text"
-                  placeholder="Search client..."
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
-                />
+                <label className="block text-sm font-medium text-gray-700 mb-1">Client *</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search client by name..."
+                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    onChange={(e) => {
+                      searchClients(e.target.value);
+                    }}
+                  />
+                  {clientSearchResults.length > 0 && (
+                    <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
+                      {clientSearchResults.map((client) => (
+                        <button
+                          key={client.id}
+                          type="button"
+                          onClick={() => {
+                            setQuickBookClient(client.id);
+                            setClientSearchResults([]);
+                          }}
+                          className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-center gap-3"
+                        >
+                          <div className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-medium text-sm">
+                            {client.first_name?.[0]}{client.last_name?.[0]}
+                          </div>
+                          <div>
+                            <p className="font-medium text-gray-900">{client.first_name} {client.last_name}</p>
+                            <p className="text-xs text-gray-500">{client.email}</p>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                {quickBookClient && (
+                  <p className="text-sm text-green-600 mt-1">✓ Client selected</p>
+                )}
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Service</label>
-                <select className="w-full px-4 py-2 border border-gray-200 rounded-lg">
-                  <option>Select service...</option>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Service *</label>
+                <select 
+                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  value={quickBookService}
+                  onChange={(e) => setQuickBookService(e.target.value)}
+                >
+                  <option value="">Select service...</option>
                   {services.map(service => (
                     <option key={service.id} value={service.id}>
-                      {service.name} - ${service.price}
+                      {service.name} - ${service.price || service.price_cents ? (service.price_cents / 100).toFixed(0) : 0}
                     </option>
                   ))}
                 </select>
@@ -589,19 +697,19 @@ export default function CalendarPage() {
               </button>
               <div className="flex gap-2">
                 <Link
-                  href="/admin/appointments/new"
+                  href={`/admin/appointments/new?provider=${selectedSlot?.provider}&date=${dateString}&time=${encodeURIComponent(selectedSlot?.time || '')}`}
                   className="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200"
                   onClick={() => setShowNewApptModal(false)}
                 >
                   Full Form
                 </Link>
-                <Link
-                  href={`/admin/appointments/new?provider=${selectedSlot?.provider}&date=${dateString}&time=${encodeURIComponent(selectedSlot?.time || '')}`}
-                  className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 inline-block text-center"
-                  onClick={() => setShowNewApptModal(false)}
+                <button
+                  onClick={handleQuickBook}
+                  disabled={quickBookSaving || !quickBookClient || !quickBookService}
+                  className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Book
-                </Link>
+                  {quickBookSaving ? 'Booking...' : 'Book Now'}
+                </button>
               </div>
             </div>
           </div>

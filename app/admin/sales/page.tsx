@@ -7,6 +7,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { Breadcrumb, ExportButton, NoSalesEmptyState } from '@/components/ui';
 
 interface Sale {
   id: string;
@@ -149,20 +150,41 @@ export default function SalesLedgerPage() {
     fetchSales();
   }, [fetchSales]);
 
+  // Export columns
+  const exportColumns = [
+    { key: 'sale_number', label: 'Sale #' },
+    { key: 'created_at', label: 'Date', format: (v: string) => new Date(v).toLocaleDateString() },
+    { key: 'status', label: 'Status' },
+    { key: 'gross_total', label: 'Gross Total', format: (v: number) => `$${(v / 100).toFixed(2)}` },
+    { key: 'net_total', label: 'Net Total', format: (v: number) => `$${(v / 100).toFixed(2)}` },
+    { key: 'tip_total', label: 'Tips', format: (v: number) => `$${(v / 100).toFixed(2)}` },
+    { key: 'balance_due', label: 'Balance Due', format: (v: number) => `$${(v / 100).toFixed(2)}` },
+  ];
+
   return (
     <div className="p-6 max-w-[1600px] mx-auto">
+      {/* Breadcrumb */}
+      <Breadcrumb />
+      
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Sales</h1>
           <p className="text-gray-500 text-sm">Every transaction with a unique Sale ID</p>
         </div>
-        <Link
-          href="/pos"
-          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
-        >
-          + New Sale
-        </Link>
+        <div className="flex gap-2">
+          <ExportButton
+            data={sales}
+            filename="sales"
+            columns={exportColumns}
+          />
+          <Link
+            href="/pos"
+            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+          >
+            + New Sale
+          </Link>
+        </div>
       </div>
 
       {/* Stats Cards */}
@@ -198,7 +220,7 @@ export default function SalesLedgerPage() {
           <div className="flex-1 min-w-[200px]">
             <input
               type="text"
-              placeholder="Search by Sale # or client name..."
+              placeholder="Search by Sale # or notes..."
               value={search}
               onChange={(e) => { setSearch(e.target.value); setPage(0); }}
               className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
@@ -274,10 +296,7 @@ export default function SalesLedgerPage() {
             <p className="text-gray-500">Loading sales...</p>
           </div>
         ) : sales.length === 0 ? (
-          <div className="p-8 text-center">
-            <span className="text-4xl">📊</span>
-            <p className="text-gray-500 mt-2">No sales found</p>
-          </div>
+          <NoSalesEmptyState />
         ) : (
           <table className="w-full">
             <thead className="bg-gray-50 border-b">

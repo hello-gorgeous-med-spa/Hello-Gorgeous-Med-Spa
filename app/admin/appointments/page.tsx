@@ -8,6 +8,7 @@
 
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { Breadcrumb, ExportButton, NoAppointmentsEmptyState } from '@/components/ui';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -144,8 +145,22 @@ export default function AdminAppointmentsPage() {
     setSelectedDate(new Date().toISOString().split('T')[0]);
   };
 
+  // Export columns
+  const exportColumns = [
+    { key: 'starts_at', label: 'Date', format: (v: string) => new Date(v).toLocaleDateString() },
+    { key: 'starts_at', label: 'Time', format: (v: string) => formatTime(v) },
+    { key: 'client_name', label: 'Client' },
+    { key: 'service_name', label: 'Service' },
+    { key: 'provider_name', label: 'Provider' },
+    { key: 'status', label: 'Status' },
+    { key: 'service_price', label: 'Price', format: (v: number) => `$${v || 0}` },
+  ];
+
   return (
     <div className="space-y-6">
+      {/* Breadcrumb */}
+      <Breadcrumb />
+      
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -153,6 +168,11 @@ export default function AdminAppointmentsPage() {
           <p className="text-gray-500">View and manage all appointments</p>
         </div>
         <div className="flex items-center gap-3">
+          <ExportButton
+            data={filteredAppointments}
+            filename="appointments"
+            columns={exportColumns}
+          />
           <Link
             href="/admin/calendar"
             className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
@@ -314,16 +334,8 @@ export default function AdminAppointmentsPage() {
                 ))
               ) : filteredAppointments.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-4 py-12 text-center">
-                    <p className="text-gray-500 mb-2">
-                      {appointments.length === 0
-                        ? 'No appointments scheduled for this date'
-                        : 'No appointments match your filters'
-                      }
-                    </p>
-                    <Link href="/admin/appointments/new" className="text-pink-600 hover:text-pink-700 font-medium">
-                      + Book an appointment
-                    </Link>
+                  <td colSpan={7} className="px-4 py-4">
+                    <NoAppointmentsEmptyState date={selectedDate} />
                   </td>
                 </tr>
               ) : (
