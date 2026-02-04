@@ -45,10 +45,32 @@ export default function AdminConsentsPage() {
     requires_witness: false,
     required_for_services: [] as string[],
   });
+  const [seeding, setSeeding] = useState(false);
 
   useEffect(() => {
     fetchTemplates();
   }, []);
+
+  // Seed default templates
+  const handleSeedTemplates = async () => {
+    setSeeding(true);
+    try {
+      const response = await fetch('/api/consents/seed', { method: 'POST' });
+      const data = await response.json();
+      
+      if (data.success) {
+        alert(`Loaded ${data.templates?.length || 0} consent templates!`);
+        fetchTemplates();
+      } else {
+        throw new Error(data.error || 'Failed to load templates');
+      }
+    } catch (err) {
+      console.error('Seed error:', err);
+      alert('Failed to load default templates. The database table may need to be created first.');
+    } finally {
+      setSeeding(false);
+    }
+  };
 
   // Fetch via API (bypasses RLS)
   const fetchTemplates = async () => {
@@ -253,12 +275,24 @@ export default function AdminConsentsPage() {
         {templates.length === 0 ? (
           <div className="px-5 py-12 text-center">
             <p className="text-gray-500 mb-4">No consent templates found</p>
-            <button
-              onClick={() => openEditModal()}
-              className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
-            >
-              Create Your First Template
-            </button>
+            <div className="flex justify-center gap-3">
+              <button
+                onClick={handleSeedTemplates}
+                disabled={seeding}
+                className="px-4 py-2 bg-purple-500 text-white font-medium rounded-lg hover:bg-purple-600 disabled:opacity-50"
+              >
+                {seeding ? 'Loading...' : '✨ Load Default Templates'}
+              </button>
+              <button
+                onClick={() => openEditModal()}
+                className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+              >
+                Create Custom Template
+              </button>
+            </div>
+            <p className="text-xs text-gray-400 mt-3">
+              Default templates include: HIPAA, Neurotoxin, Filler, Weight Loss, Photo Release, and more
+            </p>
           </div>
         ) : (
           <div className="divide-y divide-gray-100">
