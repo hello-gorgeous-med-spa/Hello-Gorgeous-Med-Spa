@@ -99,44 +99,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     initAuth();
   }, []);
 
-  // Route protection
+  // Route protection - DISABLED, letting middleware handle this
+  // The middleware checks cookies and redirects to /login if needed
+  // This prevents client-side redirect loops
   useEffect(() => {
-    // Skip protection in dev mode
+    // Skip all client-side route protection - middleware handles it
     if (DEV_BYPASS_AUTH) return;
-    if (isLoading) return;
-
-    const protectedPrefixes = ['/admin', '/provider', '/pos', '/portal'];
-    const isProtectedRoute = protectedPrefixes.some((prefix) => pathname.startsWith(prefix));
-
-    // Check if user has a valid role
-    const validRoles = ['owner', 'admin', 'staff', 'provider', 'client'];
-    const hasValidRole = user && user.role && validRoles.includes(user.role);
-
-    if (isProtectedRoute && (!user || !hasValidRole)) {
-      // Not logged in or invalid session, redirect to login
-      console.log('Auth: No valid user, redirecting to login', { user, hasValidRole });
-      router.push(`/login?redirect=${encodeURIComponent(pathname)}`);
-      return;
+    // Just log for debugging
+    if (!isLoading) {
+      console.log('Auth state:', { user: user?.email, role: user?.role, pathname });
     }
-
-    // Only redirect if user exists, has valid role, but can't access this specific route
-    if (user && hasValidRole && isProtectedRoute && !canAccessRoute(user, pathname)) {
-      // Logged in but no permission for this specific route
-      console.log('Auth: User cannot access route, redirecting based on role', { role: user.role, pathname });
-      switch (user.role) {
-        case 'owner':
-        case 'admin':
-        case 'staff':
-          router.push('/admin');
-          break;
-        case 'provider':
-          router.push('/provider');
-          break;
-        default:
-          router.push('/portal');
-      }
-    }
-  }, [user, isLoading, pathname, router]);
+  }, [user, isLoading, pathname]);
 
   // Login function
   const login = useCallback(async (email: string, password: string) => {
