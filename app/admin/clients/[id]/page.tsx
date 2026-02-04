@@ -75,7 +75,7 @@ function MedicationsSection({ clientId, clientName }: { clientId: string; client
             + Add Record
           </button>
           <a
-            href={`https://ehr.charmhealth.com/erx?patient=${encodeURIComponent(clientName)}`}
+            href="https://www.charmhealth.com/login"
             target="_blank"
             rel="noopener noreferrer"
             className="px-3 py-1 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 flex items-center gap-1"
@@ -177,7 +177,7 @@ function MedicationsSection({ clientId, clientName }: { clientId: string; client
       {/* Charm Link */}
       <div className="mt-4 pt-4 border-t border-gray-100">
         <p className="text-xs text-gray-400 text-center">
-          Use <a href="https://ehr.charmhealth.com/erx" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Charm EHR</a> for official prescriptions (EPCS certified)
+          Use <a href="https://www.charmhealth.com/login" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Charm EHR</a> for official prescriptions (EPCS certified)
         </p>
       </div>
     </div>
@@ -446,20 +446,20 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
             💬 Inbox
           </button>
           <a
-            href={`https://ehr.charmhealth.com/allpatients/list?search=${encodeURIComponent(client.first_name + ' ' + client.last_name)}`}
+            href="https://www.charmhealth.com/login"
             target="_blank"
             rel="noopener noreferrer"
             className="px-4 py-2 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-500 transition-colors flex items-center gap-2"
-            title="Open in Charm EHR"
+            title="Open Charm EHR"
           >
             🏥 Charm EHR
           </a>
           <a
-            href="https://ehr.charmhealth.com/erx"
+            href="https://www.charmhealth.com/login"
             target="_blank"
             rel="noopener noreferrer"
             className="px-4 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-500 transition-colors flex items-center gap-2"
-            title="E-Prescribe"
+            title="E-Prescribe in Charm"
           >
             💊 Prescribe
           </a>
