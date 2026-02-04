@@ -1,176 +1,216 @@
 'use client';
 
 // ============================================================
-// INJECTION MAPPING PAGE
-// Visual face diagram for documenting injection sites
-// A-Z client navigation, saves to client profile
+// INJECTION MAPPING PAGE - Aesthetic Record Style
+// Professional face mapping for clinical documentation
 // ============================================================
 
-import { useState, useEffect, Suspense } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Breadcrumb } from '@/components/ui';
 import { useToast } from '@/components/ui/Toast';
-import InjectionMapper, { InjectionPoint } from '@/components/clinical/InjectionMapper';
 
 interface Client {
   id: string;
   first_name: string;
   last_name: string;
   email?: string;
-  phone?: string;
+}
+
+interface InjectionPoint {
+  id: string;
+  x: number;
+  y: number;
+  product: string;
+  units?: number;
+  ml?: number;
+  area: string;
+  depth?: string;
+  technique?: string;
+  lot?: string;
 }
 
 interface InjectionMap {
   id: string;
   client_id: string;
-  client_name: string;
-  provider_name: string;
-  diagram_type: string;
   notes: string;
   points: InjectionPoint[];
   created_at: string;
 }
 
-const ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+// Products with colors
+const PRODUCTS = {
+  neurotoxins: [
+    { name: 'Botox', color: '#3B82F6', unit: 'units' },
+    { name: 'Dysport', color: '#60A5FA', unit: 'units' },
+    { name: 'Xeomin', color: '#2563EB', unit: 'units' },
+    { name: 'Jeuveau', color: '#1D4ED8', unit: 'units' },
+  ],
+  fillers: [
+    { name: 'Juvederm Ultra', color: '#EC4899', unit: 'ml' },
+    { name: 'Juvederm Voluma', color: '#DB2777', unit: 'ml' },
+    { name: 'Juvederm Vollure', color: '#BE185D', unit: 'ml' },
+    { name: 'Juvederm Volbella', color: '#F472B6', unit: 'ml' },
+    { name: 'Restylane', color: '#A855F7', unit: 'ml' },
+    { name: 'Restylane Lyft', color: '#9333EA', unit: 'ml' },
+    { name: 'Restylane Defyne', color: '#7C3AED', unit: 'ml' },
+    { name: 'Sculptra', color: '#C084FC', unit: 'ml' },
+    { name: 'Radiesse', color: '#E879F9', unit: 'ml' },
+    { name: 'RHA Collection', color: '#D946EF', unit: 'ml' },
+    { name: 'Versa', color: '#F0ABFC', unit: 'ml' },
+  ],
+  other: [
+    { name: 'Kybella', color: '#F59E0B', unit: 'ml' },
+    { name: 'PRP', color: '#EF4444', unit: 'ml' },
+  ],
+};
 
-function InjectionMapPageContent() {
+const FACE_AREAS = [
+  'Forehead', 'Glabella', "Crow's Feet L", "Crow's Feet R", 
+  'Temple L', 'Temple R', 'Brow L', 'Brow R',
+  'Under Eye L', 'Under Eye R', 'Cheek L', 'Cheek R',
+  'Nasolabial L', 'Nasolabial R', 'Lips Upper', 'Lips Lower',
+  'Marionette L', 'Marionette R', 'Chin', 'Jawline L', 'Jawline R',
+  'Bunny Lines', 'Nose', 'Neck'
+];
+
+const DEPTHS = ['Intradermal', 'Subdermal', 'Subcutaneous', 'Periosteal', 'Intramuscular'];
+const TECHNIQUES = ['Bolus', 'Linear Threading', 'Fanning', 'Cross-hatching', 'Serial Puncture', 'Microdroplet'];
+
+function InjectionMapContent() {
   const toast = useToast();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const clientId = searchParams.get('client');
-  const appointmentId = searchParams.get('appointment');
-  const mapId = searchParams.get('map');
+  const canvasRef = useRef<HTMLDivElement>(null);
+  
+  const clientIdParam = searchParams.get('client');
 
-  const [loading, setLoading] = useState(true);
-  const [saving, setSaving] = useState(false);
+  // State
   const [clients, setClients] = useState<Client[]>([]);
-  const [allClients, setAllClients] = useState<Client[]>([]);
-  const [selectedLetter, setSelectedLetter] = useState<string>('');
-  const [selectedClient, setSelectedClient] = useState<string>(clientId || '');
+  const [selectedClientId, setSelectedClientId] = useState<string>(clientIdParam || '');
   const [clientSearch, setClientSearch] = useState('');
-  const [existingMaps, setExistingMaps] = useState<InjectionMap[]>([]);
-  const [currentMap, setCurrentMap] = useState<InjectionMap | null>(null);
+  const [showClientPicker, setShowClientPicker] = useState(false);
+  
+  const [selectedProduct, setSelectedProduct] = useState(PRODUCTS.neurotoxins[0]);
   const [points, setPoints] = useState<InjectionPoint[]>([]);
+  const [selectedPoint, setSelectedPoint] = useState<string | null>(null);
+  const [existingMaps, setExistingMaps] = useState<InjectionMap[]>([]);
+  
+  const [quickUnits, setQuickUnits] = useState<number>(5);
   const [notes, setNotes] = useState('');
-  const [searchLoading, setSearchLoading] = useState(false);
+  const [saving, setSaving] = useState(false);
+  const [showPointEditor, setShowPointEditor] = useState(false);
+  const [editingPoint, setEditingPoint] = useState<InjectionPoint | null>(null);
 
-  // Fetch all clients on mount
+  // Fetch clients
   useEffect(() => {
-    fetchAllClients();
+    fetch('/api/clients?limit=200')
+      .then(res => res.json())
+      .then(data => {
+        const sorted = (data.clients || []).sort((a: Client, b: Client) => 
+          (a.last_name || '').localeCompare(b.last_name || '')
+        );
+        setClients(sorted);
+      })
+      .catch(console.error);
   }, []);
 
-  // Handle initial client from URL
+  // Fetch client's maps when selected
   useEffect(() => {
-    if (mapId) {
-      fetchMap(mapId);
-    } else if (clientId) {
-      setSelectedClient(clientId);
-      fetchClientHistory(clientId);
-      setLoading(false);
-    } else {
-      setLoading(false);
+    if (selectedClientId) {
+      fetch(`/api/injection-maps?client_id=${selectedClientId}`)
+        .then(res => res.json())
+        .then(data => setExistingMaps(data.maps || []))
+        .catch(console.error);
     }
-  }, [clientId, mapId]);
+  }, [selectedClientId]);
 
-  // Filter clients when letter or search changes
-  useEffect(() => {
-    filterClients();
-  }, [selectedLetter, clientSearch, allClients]);
+  const selectedClient = clients.find(c => c.id === selectedClientId);
+  const filteredClients = clients.filter(c => 
+    `${c.first_name} ${c.last_name}`.toLowerCase().includes(clientSearch.toLowerCase())
+  );
 
-  const fetchAllClients = async () => {
-    setSearchLoading(true);
-    try {
-      const res = await fetch('/api/clients?limit=500');
-      const data = await res.json();
-      const fetchedClients = data.clients || [];
-      // Sort alphabetically by last name
-      fetchedClients.sort((a: Client, b: Client) => 
-        (a.last_name || '').localeCompare(b.last_name || '')
-      );
-      setAllClients(fetchedClients);
-      setClients(fetchedClients);
-    } catch (err) {
-      console.error('Failed to fetch clients:', err);
-    } finally {
-      setSearchLoading(false);
-    }
-  };
-
-  const filterClients = () => {
-    let filtered = [...allClients];
+  // Handle click on face
+  const handleFaceClick = (e: React.MouseEvent) => {
+    if (!canvasRef.current) return;
     
-    // Filter by letter
-    if (selectedLetter) {
-      filtered = filtered.filter(c => 
-        (c.last_name || '').toUpperCase().startsWith(selectedLetter)
-      );
-    }
-    
-    // Filter by search
-    if (clientSearch) {
-      const search = clientSearch.toLowerCase();
-      filtered = filtered.filter(c => 
-        `${c.first_name} ${c.last_name}`.toLowerCase().includes(search) ||
-        (c.email || '').toLowerCase().includes(search)
-      );
-    }
-    
-    setClients(filtered);
+    const rect = canvasRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+
+    // Determine closest area based on position
+    let area = 'Face';
+    if (y < 25) area = 'Forehead';
+    else if (y < 30 && x > 40 && x < 60) area = 'Glabella';
+    else if (y < 35 && x < 30) area = 'Temple L';
+    else if (y < 35 && x > 70) area = 'Temple R';
+    else if (y >= 35 && y < 45 && x < 30) area = "Crow's Feet L";
+    else if (y >= 35 && y < 45 && x > 70) area = "Crow's Feet R";
+    else if (y >= 38 && y < 48 && x >= 25 && x < 42) area = 'Under Eye L';
+    else if (y >= 38 && y < 48 && x > 58 && x <= 75) area = 'Under Eye R';
+    else if (y >= 45 && y < 58 && x < 40) area = 'Cheek L';
+    else if (y >= 45 && y < 58 && x > 60) area = 'Cheek R';
+    else if (y >= 55 && y < 68 && x < 45) area = 'Nasolabial L';
+    else if (y >= 55 && y < 68 && x > 55) area = 'Nasolabial R';
+    else if (y >= 60 && y < 68 && x >= 45 && x <= 55) area = 'Lips Upper';
+    else if (y >= 68 && y < 75 && x >= 40 && x <= 60) area = 'Lips Lower';
+    else if (y >= 72 && y < 82 && x < 38) area = 'Marionette L';
+    else if (y >= 72 && y < 82 && x > 62) area = 'Marionette R';
+    else if (y >= 75 && y < 85 && x >= 40 && x <= 60) area = 'Chin';
+    else if (y >= 78 && x < 35) area = 'Jawline L';
+    else if (y >= 78 && x > 65) area = 'Jawline R';
+
+    const newPoint: InjectionPoint = {
+      id: `p-${Date.now()}`,
+      x,
+      y,
+      product: selectedProduct.name,
+      units: selectedProduct.unit === 'units' ? quickUnits : undefined,
+      ml: selectedProduct.unit === 'ml' ? 0.1 : undefined,
+      area,
+    };
+
+    setPoints([...points, newPoint]);
+    setEditingPoint(newPoint);
+    setShowPointEditor(true);
   };
 
-  const fetchMap = async (id: string) => {
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/injection-maps/${id}`);
-      const data = await res.json();
-      
-      if (data.map) {
-        setCurrentMap(data.map);
-        setPoints(data.map.points || []);
-        setNotes(data.map.notes || '');
-        setSelectedClient(data.map.client_id);
-      }
-    } catch (err) {
-      console.error('Failed to fetch map:', err);
-      toast.error('Failed to load injection map');
-    } finally {
-      setLoading(false);
-    }
+  // Update point
+  const updatePoint = (updates: Partial<InjectionPoint>) => {
+    if (!editingPoint) return;
+    setPoints(points.map(p => 
+      p.id === editingPoint.id ? { ...p, ...updates } : p
+    ));
+    setEditingPoint({ ...editingPoint, ...updates });
   };
 
-  const fetchClientHistory = async (id: string) => {
-    try {
-      const res = await fetch(`/api/injection-maps?client_id=${id}`);
-      const data = await res.json();
-      setExistingMaps(data.maps || []);
-    } catch (err) {
-      console.error('Failed to fetch history:', err);
-    }
+  // Delete point
+  const deletePoint = (id: string) => {
+    setPoints(points.filter(p => p.id !== id));
+    setShowPointEditor(false);
+    setEditingPoint(null);
   };
 
-  const handleLetterClick = (letter: string) => {
-    setSelectedLetter(selectedLetter === letter ? '' : letter);
-    setClientSearch('');
+  // Get product color
+  const getProductColor = (name: string) => {
+    const all = [...PRODUCTS.neurotoxins, ...PRODUCTS.fillers, ...PRODUCTS.other];
+    return all.find(p => p.name === name)?.color || '#9CA3AF';
   };
 
-  const handleClientSelect = (id: string) => {
-    setSelectedClient(id);
-    setPoints([]);
-    setNotes('');
-    setCurrentMap(null);
-    if (id) {
-      fetchClientHistory(id);
-      router.push(`/admin/charting/injection-map?client=${id}`);
-    }
-  };
+  // Calculate totals
+  const totals = points.reduce((acc, p) => {
+    if (!acc[p.product]) acc[p.product] = { units: 0, ml: 0 };
+    if (p.units) acc[p.product].units += p.units;
+    if (p.ml) acc[p.product].ml += p.ml;
+    return acc;
+  }, {} as Record<string, { units: number; ml: number }>);
 
+  // Save map
   const handleSave = async () => {
-    if (!selectedClient) {
-      toast.error('Please select a client');
+    if (!selectedClientId) {
+      toast.error('Please select a client first');
       return;
     }
-
     if (points.length === 0) {
       toast.error('Add at least one injection point');
       return;
@@ -178,312 +218,573 @@ function InjectionMapPageContent() {
 
     setSaving(true);
     try {
-      const url = currentMap 
-        ? `/api/injection-maps/${currentMap.id}`
-        : '/api/injection-maps';
-      
-      const res = await fetch(url, {
-        method: currentMap ? 'PUT' : 'POST',
+      const res = await fetch('/api/injection-maps', {
+        method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          client_id: selectedClient,
-          appointment_id: appointmentId || null,
+          client_id: selectedClientId,
           notes,
           points: points.map(p => ({
-            x_position: p.x_position,
-            y_position: p.y_position,
-            product_name: p.product_name,
-            lot_number: p.lot_number,
-            expiration_date: p.expiration_date,
+            x_position: p.x,
+            y_position: p.y,
+            product_name: p.product,
             units: p.units,
-            volume_ml: p.volume_ml,
-            injection_depth: p.injection_depth,
+            volume_ml: p.ml,
+            area_label: p.area,
+            injection_depth: p.depth,
             technique: p.technique,
-            area_label: p.area_label,
+            lot_number: p.lot,
           })),
         }),
       });
 
-      if (!res.ok) throw new Error('Failed to save');
-
-      const data = await res.json();
-      toast.success(currentMap ? 'Map updated!' : 'Map saved to client profile!');
+      if (!res.ok) throw new Error('Save failed');
       
-      if (!currentMap && data.map?.id) {
-        setCurrentMap(data.map);
-        fetchClientHistory(selectedClient);
-      }
+      toast.success('Injection map saved!');
+      setPoints([]);
+      setNotes('');
+      
+      // Refresh maps
+      const mapsRes = await fetch(`/api/injection-maps?client_id=${selectedClientId}`);
+      const mapsData = await mapsRes.json();
+      setExistingMaps(mapsData.maps || []);
     } catch (err) {
-      toast.error('Failed to save injection map');
+      toast.error('Failed to save');
     } finally {
       setSaving(false);
     }
   };
 
-  const handleViewMap = (map: InjectionMap) => {
-    setCurrentMap(map);
-    setPoints(map.points || []);
-    setNotes(map.notes || '');
-  };
-
-  const handleNewMap = () => {
-    setCurrentMap(null);
-    setPoints([]);
-    setNotes('');
-  };
-
-  const selectedClientData = allClients.find(c => c.id === selectedClient);
-
-  // Group clients by first letter of last name
-  const clientsByLetter: Record<string, Client[]> = {};
-  clients.forEach(c => {
-    const letter = (c.last_name || 'Z')[0].toUpperCase();
-    if (!clientsByLetter[letter]) clientsByLetter[letter] = [];
-    clientsByLetter[letter].push(c);
-  });
-
-  // Count clients per letter for the alphabet bar
-  const letterCounts: Record<string, number> = {};
-  allClients.forEach(c => {
-    const letter = (c.last_name || 'Z')[0].toUpperCase();
-    letterCounts[letter] = (letterCounts[letter] || 0) + 1;
-  });
-
   return (
-    <div className="space-y-4">
-      <Breadcrumb />
+    <div className="h-[calc(100vh-80px)] flex flex-col bg-gray-100">
+      {/* Top Toolbar */}
+      <div className="bg-white border-b border-gray-200 px-4 py-2 flex items-center justify-between gap-4">
+        {/* Client Selector */}
+        <div className="relative">
+          <button
+            onClick={() => setShowClientPicker(!showClientPicker)}
+            className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+          >
+            {selectedClient ? (
+              <>
+                <div className="w-8 h-8 rounded-full bg-pink-500 text-white flex items-center justify-center font-semibold text-sm">
+                  {selectedClient.first_name[0]}{selectedClient.last_name[0]}
+                </div>
+                <span className="font-medium">{selectedClient.first_name} {selectedClient.last_name}</span>
+              </>
+            ) : (
+              <>
+                <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
+                  <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </div>
+                <span className="text-gray-500">Select Client</span>
+              </>
+            )}
+            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
 
-      {/* Compact Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-xl font-bold text-gray-900">Injection Mapping</h1>
-          <p className="text-sm text-gray-500">Document injection sites for client records</p>
+          {/* Client Dropdown */}
+          {showClientPicker && (
+            <div className="absolute top-full left-0 mt-1 w-72 bg-white rounded-xl shadow-xl border border-gray-200 z-50 overflow-hidden">
+              <div className="p-2 border-b border-gray-100">
+                <input
+                  type="text"
+                  value={clientSearch}
+                  onChange={(e) => setClientSearch(e.target.value)}
+                  placeholder="Search clients..."
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  autoFocus
+                />
+              </div>
+              <div className="max-h-64 overflow-y-auto">
+                {filteredClients.length === 0 ? (
+                  <p className="p-4 text-gray-500 text-sm text-center">No clients found</p>
+                ) : (
+                  filteredClients.map(client => (
+                    <button
+                      key={client.id}
+                      onClick={() => {
+                        setSelectedClientId(client.id);
+                        setShowClientPicker(false);
+                        setClientSearch('');
+                        router.push(`/admin/charting/injection-map?client=${client.id}`);
+                      }}
+                      className={`w-full text-left px-4 py-2 hover:bg-gray-50 flex items-center gap-3 ${
+                        selectedClientId === client.id ? 'bg-pink-50' : ''
+                      }`}
+                    >
+                      <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm font-medium">
+                        {client.first_name[0]}{client.last_name[0]}
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">{client.first_name} {client.last_name}</p>
+                        {client.email && <p className="text-xs text-gray-500">{client.email}</p>}
+                      </div>
+                    </button>
+                  ))
+                )}
+              </div>
+            </div>
+          )}
         </div>
-        {selectedClient && points.length > 0 && (
+
+        {/* Quick Units Adjuster */}
+        <div className="flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-1">
+          <span className="text-sm text-gray-600">Quick Add:</span>
+          <button 
+            onClick={() => setQuickUnits(Math.max(1, quickUnits - 1))}
+            className="w-7 h-7 rounded bg-white border border-gray-200 hover:bg-gray-50 font-bold text-gray-600"
+          >
+            -
+          </button>
+          <span className="w-8 text-center font-semibold">{quickUnits}</span>
+          <button 
+            onClick={() => setQuickUnits(quickUnits + 1)}
+            className="w-7 h-7 rounded bg-white border border-gray-200 hover:bg-gray-50 font-bold text-gray-600"
+          >
+            +
+          </button>
+          <span className="text-sm text-gray-500">{selectedProduct.unit}</span>
+        </div>
+
+        {/* Actions */}
+        <div className="flex items-center gap-2">
+          {points.length > 0 && (
+            <button
+              onClick={() => setPoints([])}
+              className="px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm"
+            >
+              Clear All
+            </button>
+          )}
           <button
             onClick={handleSave}
-            disabled={saving}
-            className="px-5 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50 text-sm"
+            disabled={saving || !selectedClientId || points.length === 0}
+            className="px-5 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
           >
-            {saving ? 'Saving...' : 'Save to Profile'}
+            {saving ? 'Saving...' : 'Save Map'}
           </button>
-        )}
+        </div>
       </div>
 
-      {/* Main Layout - Side by side */}
-      <div className="flex gap-4 h-[calc(100vh-180px)]">
-        {/* Left Panel - Client Selection */}
-        <div className="w-72 flex-shrink-0 bg-white rounded-xl border border-gray-200 flex flex-col overflow-hidden">
-          {/* Search */}
+      {/* Main Content */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Product Toolbar - Left */}
+        <div className="w-48 bg-white border-r border-gray-200 overflow-y-auto">
           <div className="p-3 border-b border-gray-100">
-            <input
-              type="text"
-              value={clientSearch}
-              onChange={(e) => {
-                setClientSearch(e.target.value);
-                setSelectedLetter('');
-              }}
-              placeholder="Search clients..."
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+            <h3 className="font-semibold text-gray-700 text-xs uppercase tracking-wide">Neurotoxins</h3>
+          </div>
+          <div className="p-2 space-y-1">
+            {PRODUCTS.neurotoxins.map(product => (
+              <button
+                key={product.name}
+                onClick={() => setSelectedProduct(product)}
+                className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-left transition-colors ${
+                  selectedProduct.name === product.name 
+                    ? 'bg-blue-50 text-blue-700 ring-1 ring-blue-200' 
+                    : 'hover:bg-gray-50 text-gray-700'
+                }`}
+              >
+                <span 
+                  className="w-3 h-3 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: product.color }}
+                />
+                <span className="truncate">{product.name}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="p-3 border-b border-t border-gray-100 mt-2">
+            <h3 className="font-semibold text-gray-700 text-xs uppercase tracking-wide">Fillers</h3>
+          </div>
+          <div className="p-2 space-y-1">
+            {PRODUCTS.fillers.map(product => (
+              <button
+                key={product.name}
+                onClick={() => setSelectedProduct(product)}
+                className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-left transition-colors ${
+                  selectedProduct.name === product.name 
+                    ? 'bg-pink-50 text-pink-700 ring-1 ring-pink-200' 
+                    : 'hover:bg-gray-50 text-gray-700'
+                }`}
+              >
+                <span 
+                  className="w-3 h-3 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: product.color }}
+                />
+                <span className="truncate">{product.name}</span>
+              </button>
+            ))}
+          </div>
+
+          <div className="p-3 border-b border-t border-gray-100 mt-2">
+            <h3 className="font-semibold text-gray-700 text-xs uppercase tracking-wide">Other</h3>
+          </div>
+          <div className="p-2 space-y-1">
+            {PRODUCTS.other.map(product => (
+              <button
+                key={product.name}
+                onClick={() => setSelectedProduct(product)}
+                className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-left transition-colors ${
+                  selectedProduct.name === product.name 
+                    ? 'bg-amber-50 text-amber-700 ring-1 ring-amber-200' 
+                    : 'hover:bg-gray-50 text-gray-700'
+                }`}
+              >
+                <span 
+                  className="w-3 h-3 rounded-full flex-shrink-0"
+                  style={{ backgroundColor: product.color }}
+                />
+                <span className="truncate">{product.name}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Face Canvas - Center */}
+        <div className="flex-1 flex items-center justify-center p-6 bg-gradient-to-b from-gray-50 to-gray-100">
+          <div 
+            ref={canvasRef}
+            onClick={handleFaceClick}
+            className="relative bg-white rounded-3xl shadow-lg cursor-crosshair overflow-hidden"
+            style={{ width: '400px', height: '520px' }}
+          >
+            {/* Face SVG */}
+            <svg viewBox="0 0 100 130" className="absolute inset-0 w-full h-full pointer-events-none">
+              {/* Background */}
+              <rect width="100" height="130" fill="#fef7f7" />
+              
+              {/* Face outline */}
+              <ellipse cx="50" cy="55" rx="38" ry="48" fill="#fff5f5" stroke="#fecaca" strokeWidth="0.5" />
+              
+              {/* Hairline */}
+              <path d="M 15 30 Q 50 0 85 30" fill="none" stroke="#e7e5e4" strokeWidth="0.8" />
+              
+              {/* Forehead lines */}
+              <path d="M 30 20 Q 50 18 70 20" fill="none" stroke="#fde2e2" strokeWidth="0.3" strokeDasharray="1,1" />
+              <path d="M 32 24 Q 50 22 68 24" fill="none" stroke="#fde2e2" strokeWidth="0.3" strokeDasharray="1,1" />
+              
+              {/* Eyebrows */}
+              <path d="M 26 35 Q 35 31 44 34" fill="none" stroke="#d4d4d8" strokeWidth="0.8" />
+              <path d="M 56 34 Q 65 31 74 35" fill="none" stroke="#d4d4d8" strokeWidth="0.8" />
+              
+              {/* Eyes */}
+              <ellipse cx="35" cy="42" rx="8" ry="4.5" fill="#fff" stroke="#d4d4d8" strokeWidth="0.5" />
+              <ellipse cx="65" cy="42" rx="8" ry="4.5" fill="#fff" stroke="#d4d4d8" strokeWidth="0.5" />
+              <circle cx="35" cy="42" r="2.5" fill="#a8a29e" />
+              <circle cx="65" cy="42" r="2.5" fill="#a8a29e" />
+              
+              {/* Under eyes / tear troughs */}
+              <path d="M 28 47 Q 35 49 42 47" fill="none" stroke="#fde2e2" strokeWidth="0.4" />
+              <path d="M 58 47 Q 65 49 72 47" fill="none" stroke="#fde2e2" strokeWidth="0.4" />
+              
+              {/* Nose */}
+              <path d="M 50 38 L 50 58" fill="none" stroke="#e7e5e4" strokeWidth="0.4" />
+              <path d="M 44 60 Q 47 63 50 62 Q 53 63 56 60" fill="none" stroke="#d4d4d8" strokeWidth="0.5" />
+              
+              {/* Nasolabial folds */}
+              <path d="M 38 55 Q 36 65 40 78" fill="none" stroke="#fde2e2" strokeWidth="0.4" strokeDasharray="2,1" />
+              <path d="M 62 55 Q 64 65 60 78" fill="none" stroke="#fde2e2" strokeWidth="0.4" strokeDasharray="2,1" />
+              
+              {/* Lips */}
+              <path d="M 40 72 Q 50 68 60 72" fill="none" stroke="#f9a8d4" strokeWidth="0.8" />
+              <ellipse cx="50" cy="74" rx="10" ry="4" fill="#fce7f3" stroke="#f9a8d4" strokeWidth="0.5" />
+              
+              {/* Marionette lines */}
+              <path d="M 38 78 Q 36 85 38 92" fill="none" stroke="#fde2e2" strokeWidth="0.3" strokeDasharray="1,1" />
+              <path d="M 62 78 Q 64 85 62 92" fill="none" stroke="#fde2e2" strokeWidth="0.3" strokeDasharray="1,1" />
+              
+              {/* Chin */}
+              <ellipse cx="50" cy="92" rx="12" ry="6" fill="none" stroke="#fde2e2" strokeWidth="0.4" />
+              
+              {/* Jawline */}
+              <path d="M 12 55 Q 12 85 50 105 Q 88 85 88 55" fill="none" stroke="#e7e5e4" strokeWidth="0.5" />
+              
+              {/* Cheekbones */}
+              <ellipse cx="28" cy="55" rx="8" ry="5" fill="none" stroke="#fde2e2" strokeWidth="0.3" strokeDasharray="1,1" />
+              <ellipse cx="72" cy="55" rx="8" ry="5" fill="none" stroke="#fde2e2" strokeWidth="0.3" strokeDasharray="1,1" />
+              
+              {/* Temple areas */}
+              <circle cx="18" cy="38" r="6" fill="none" stroke="#fde2e2" strokeWidth="0.3" strokeDasharray="1,1" />
+              <circle cx="82" cy="38" r="6" fill="none" stroke="#fde2e2" strokeWidth="0.3" strokeDasharray="1,1" />
+              
+              {/* Grid dots for reference */}
+              {[20, 35, 50, 65, 80].map(x => 
+                [20, 35, 50, 65, 80, 95].map(y => (
+                  <circle key={`${x}-${y}`} cx={x} cy={y} r="0.5" fill="#e5e7eb" opacity="0.5" />
+                ))
+              )}
+            </svg>
+
+            {/* Injection Points */}
+            {points.map((point) => (
+              <div
+                key={point.id}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setEditingPoint(point);
+                  setShowPointEditor(true);
+                }}
+                style={{
+                  left: `${point.x}%`,
+                  top: `${point.y}%`,
+                  backgroundColor: getProductColor(point.product),
+                }}
+                className={`absolute -translate-x-1/2 -translate-y-1/2 w-7 h-7 rounded-full flex items-center justify-center text-white text-[10px] font-bold cursor-pointer shadow-md border-2 border-white transition-transform hover:scale-110 ${
+                  editingPoint?.id === point.id ? 'ring-2 ring-offset-2 ring-pink-400 scale-125' : ''
+                }`}
+              >
+                {point.units || (point.ml ? point.ml.toFixed(1) : '•')}
+              </div>
+            ))}
+
+            {/* Click hint */}
+            {points.length === 0 && (
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div className="text-center text-gray-400">
+                  <p className="text-sm">Click anywhere to add injection points</p>
+                  <p className="text-xs mt-1">Selected: {selectedProduct.name}</p>
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+
+        {/* Right Panel - Details & History */}
+        <div className="w-72 bg-white border-l border-gray-200 overflow-y-auto flex flex-col">
+          {/* Product Totals */}
+          {Object.keys(totals).length > 0 && (
+            <div className="p-4 border-b border-gray-100">
+              <h3 className="font-semibold text-gray-900 text-sm mb-3">Treatment Summary</h3>
+              <div className="space-y-2">
+                {Object.entries(totals).map(([product, amounts]) => (
+                  <div key={product} className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span 
+                        className="w-3 h-3 rounded-full"
+                        style={{ backgroundColor: getProductColor(product) }}
+                      />
+                      <span className="text-sm text-gray-700">{product}</span>
+                    </div>
+                    <span className="text-sm font-medium text-gray-900">
+                      {amounts.units > 0 ? `${amounts.units}u` : ''}
+                      {amounts.ml > 0 ? `${amounts.ml.toFixed(1)}ml` : ''}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Points List */}
+          <div className="flex-1 p-4 border-b border-gray-100">
+            <h3 className="font-semibold text-gray-900 text-sm mb-3">
+              Injection Points ({points.length})
+            </h3>
+            {points.length === 0 ? (
+              <p className="text-gray-400 text-sm text-center py-4">No points added yet</p>
+            ) : (
+              <div className="space-y-2">
+                {points.map((point) => (
+                  <div
+                    key={point.id}
+                    onClick={() => {
+                      setEditingPoint(point);
+                      setShowPointEditor(true);
+                    }}
+                    className={`p-2 rounded-lg cursor-pointer transition-colors ${
+                      editingPoint?.id === point.id ? 'bg-pink-50 ring-1 ring-pink-200' : 'hover:bg-gray-50'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span 
+                        className="w-3 h-3 rounded-full flex-shrink-0"
+                        style={{ backgroundColor: getProductColor(point.product) }}
+                      />
+                      <span className="text-sm font-medium text-gray-900">{point.area}</span>
+                    </div>
+                    <p className="text-xs text-gray-500 ml-5">
+                      {point.product} • {point.units ? `${point.units}u` : ''}{point.ml ? `${point.ml}ml` : ''}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Notes */}
+          <div className="p-4 border-b border-gray-100">
+            <h3 className="font-semibold text-gray-900 text-sm mb-2">Notes</h3>
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Treatment notes..."
+              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none"
+              rows={3}
             />
           </div>
 
-          {/* A-Z Bar */}
-          <div className="px-2 py-2 border-b border-gray-100 bg-gray-50">
-            <div className="flex flex-wrap gap-0.5 justify-center">
-              {ALPHABET.map(letter => {
-                const count = letterCounts[letter] || 0;
-                const isActive = selectedLetter === letter;
-                return (
-                  <button
-                    key={letter}
-                    onClick={() => handleLetterClick(letter)}
-                    disabled={count === 0}
-                    className={`w-6 h-6 text-xs font-medium rounded transition-colors ${
-                      isActive 
-                        ? 'bg-pink-500 text-white' 
-                        : count > 0 
-                          ? 'bg-white text-gray-700 hover:bg-pink-100 border border-gray-200' 
-                          : 'bg-gray-100 text-gray-300 cursor-not-allowed'
-                    }`}
-                  >
-                    {letter}
-                  </button>
-                );
-              })}
-            </div>
-            {selectedLetter && (
-              <p className="text-xs text-center text-gray-500 mt-1">
-                Showing {letterCounts[selectedLetter] || 0} clients
-                <button 
-                  onClick={() => setSelectedLetter('')}
-                  className="ml-2 text-pink-500 hover:underline"
-                >
-                  Clear
-                </button>
-              </p>
-            )}
-          </div>
-
-          {/* Client List */}
-          <div className="flex-1 overflow-y-auto">
-            {searchLoading ? (
-              <div className="p-4 text-center text-gray-500">Loading clients...</div>
-            ) : clients.length === 0 ? (
-              <div className="p-4 text-center text-gray-500 text-sm">
-                {clientSearch ? 'No clients found' : 'No clients to display'}
-              </div>
-            ) : selectedLetter || clientSearch ? (
-              // Flat list when filtering
-              <div className="p-2 space-y-0.5">
-                {clients.map(client => (
-                  <button
-                    key={client.id}
-                    onClick={() => handleClientSelect(client.id)}
-                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
-                      selectedClient === client.id 
-                        ? 'bg-pink-100 text-pink-700' 
-                        : 'hover:bg-gray-50'
-                    }`}
-                  >
-                    <span className="font-medium">{client.last_name}</span>
-                    <span className="text-gray-500">, {client.first_name}</span>
-                  </button>
-                ))}
-              </div>
-            ) : (
-              // Grouped A-Z list
-              <div className="py-1">
-                {Object.keys(clientsByLetter).sort().map(letter => (
-                  <div key={letter}>
-                    <div className="px-3 py-1 bg-gray-50 text-xs font-semibold text-gray-500 sticky top-0">
-                      {letter}
-                    </div>
-                    {clientsByLetter[letter].map(client => (
-                      <button
-                        key={client.id}
-                        onClick={() => handleClientSelect(client.id)}
-                        className={`w-full text-left px-3 py-2 text-sm transition-colors border-b border-gray-50 ${
-                          selectedClient === client.id 
-                            ? 'bg-pink-100 text-pink-700' 
-                            : 'hover:bg-gray-50'
-                        }`}
-                      >
-                        <span className="font-medium">{client.last_name}</span>
-                        <span className="text-gray-500">, {client.first_name}</span>
-                      </button>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Selected client link */}
-          {selectedClient && (
-            <div className="p-3 border-t border-gray-100 bg-gray-50">
-              <Link
-                href={`/admin/clients/${selectedClient}`}
-                className="text-sm text-pink-600 hover:text-pink-700 flex items-center gap-1"
-              >
-                <span>View {selectedClientData?.first_name}'s full profile</span>
-                <span>→</span>
-              </Link>
-            </div>
-          )}
-        </div>
-
-        {/* Right Panel - Map Editor */}
-        <div className="flex-1 bg-white rounded-xl border border-gray-200 flex flex-col overflow-hidden">
-          {!selectedClient ? (
-            <div className="flex-1 flex items-center justify-center">
-              <div className="text-center">
-                <span className="text-5xl mb-4 block">💉</span>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">Select a Client</h3>
-                <p className="text-gray-500 text-sm">Choose from A-Z list or search by name</p>
-              </div>
-            </div>
-          ) : loading ? (
-            <div className="flex-1 flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-8 h-8 border-2 border-pink-500 border-t-transparent rounded-full animate-spin mx-auto mb-2" />
-                <p className="text-gray-500">Loading...</p>
-              </div>
-            </div>
-          ) : (
-            <>
-              {/* Client header bar */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 bg-gray-50">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-semibold">
-                    {selectedClientData?.first_name?.[0]}{selectedClientData?.last_name?.[0]}
-                  </div>
-                  <div>
-                    <h2 className="font-semibold text-gray-900">
-                      {selectedClientData?.first_name} {selectedClientData?.last_name}
-                    </h2>
-                    <p className="text-xs text-gray-500">
-                      {currentMap 
-                        ? `Viewing map from ${new Date(currentMap.created_at).toLocaleDateString()}` 
-                        : 'New injection map'
-                      }
-                    </p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  {existingMaps.length > 0 && (
-                    <select
-                      value={currentMap?.id || 'new'}
-                      onChange={(e) => {
-                        if (e.target.value === 'new') {
-                          handleNewMap();
-                        } else {
-                          const map = existingMaps.find(m => m.id === e.target.value);
-                          if (map) handleViewMap(map);
-                        }
-                      }}
-                      className="px-3 py-1.5 border border-gray-200 rounded-lg text-sm bg-white"
-                    >
-                      <option value="new">+ New Map</option>
-                      {existingMaps.map(map => (
-                        <option key={map.id} value={map.id}>
-                          {new Date(map.created_at).toLocaleDateString()} ({map.points?.length || 0} points)
-                        </option>
-                      ))}
-                    </select>
-                  )}
+          {/* History */}
+          {selectedClientId && existingMaps.length > 0 && (
+            <div className="p-4">
+              <h3 className="font-semibold text-gray-900 text-sm mb-3">Previous Maps</h3>
+              <div className="space-y-2">
+                {existingMaps.slice(0, 5).map((map) => (
                   <Link
-                    href={`/admin/clients/${selectedClient}?tab=clinical`}
-                    className="px-3 py-1.5 text-sm text-gray-600 bg-white border border-gray-200 rounded-lg hover:bg-gray-50"
+                    key={map.id}
+                    href={`/admin/charting/injection-map?map=${map.id}`}
+                    className="block p-2 rounded-lg hover:bg-gray-50 text-sm"
                   >
-                    Clinical Records
+                    <p className="font-medium text-gray-900">
+                      {new Date(map.created_at).toLocaleDateString()}
+                    </p>
+                    <p className="text-xs text-gray-500">
+                      {map.points?.length || 0} points
+                    </p>
                   </Link>
-                </div>
+                ))}
               </div>
-
-              {/* Map Area */}
-              <div className="flex-1 p-4 overflow-auto">
-                <InjectionMapper
-                  points={points}
-                  onPointsChange={setPoints}
-                  readOnly={false}
-                />
-              </div>
-
-              {/* Notes Footer */}
-              <div className="px-4 py-3 border-t border-gray-100 bg-gray-50">
-                <textarea
-                  value={notes}
-                  onChange={(e) => setNotes(e.target.value)}
-                  placeholder="Treatment notes (optional)..."
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none"
-                  rows={2}
-                />
-              </div>
-            </>
+            </div>
           )}
         </div>
       </div>
+
+      {/* Point Editor Modal */}
+      {showPointEditor && editingPoint && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl w-full max-w-sm shadow-xl">
+            <div className="p-4 border-b border-gray-100 flex items-center justify-between">
+              <h3 className="font-semibold text-gray-900">Edit Injection Point</h3>
+              <button
+                onClick={() => {
+                  setShowPointEditor(false);
+                  setEditingPoint(null);
+                }}
+                className="p-1 hover:bg-gray-100 rounded"
+              >
+                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
+
+            <div className="p-4 space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Area</label>
+                <select
+                  value={editingPoint.area}
+                  onChange={(e) => updatePoint({ area: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                >
+                  {FACE_AREAS.map(area => (
+                    <option key={area} value={area}>{area}</option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Product</label>
+                <select
+                  value={editingPoint.product}
+                  onChange={(e) => updatePoint({ product: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                >
+                  <optgroup label="Neurotoxins">
+                    {PRODUCTS.neurotoxins.map(p => <option key={p.name} value={p.name}>{p.name}</option>)}
+                  </optgroup>
+                  <optgroup label="Fillers">
+                    {PRODUCTS.fillers.map(p => <option key={p.name} value={p.name}>{p.name}</option>)}
+                  </optgroup>
+                  <optgroup label="Other">
+                    {PRODUCTS.other.map(p => <option key={p.name} value={p.name}>{p.name}</option>)}
+                  </optgroup>
+                </select>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Units</label>
+                  <input
+                    type="number"
+                    value={editingPoint.units || ''}
+                    onChange={(e) => updatePoint({ units: e.target.value ? parseFloat(e.target.value) : undefined })}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                    placeholder="0"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Volume (ml)</label>
+                  <input
+                    type="number"
+                    step="0.1"
+                    value={editingPoint.ml || ''}
+                    onChange={(e) => updatePoint({ ml: e.target.value ? parseFloat(e.target.value) : undefined })}
+                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                    placeholder="0.0"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Depth</label>
+                <select
+                  value={editingPoint.depth || ''}
+                  onChange={(e) => updatePoint({ depth: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                >
+                  <option value="">Select...</option>
+                  {DEPTHS.map(d => <option key={d} value={d}>{d}</option>)}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Technique</label>
+                <select
+                  value={editingPoint.technique || ''}
+                  onChange={(e) => updatePoint({ technique: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                >
+                  <option value="">Select...</option>
+                  {TECHNIQUES.map(t => <option key={t} value={t}>{t}</option>)}
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Lot Number</label>
+                <input
+                  type="text"
+                  value={editingPoint.lot || ''}
+                  onChange={(e) => updatePoint({ lot: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  placeholder="e.g., AB12345"
+                />
+              </div>
+            </div>
+
+            <div className="p-4 border-t border-gray-100 flex justify-between">
+              <button
+                onClick={() => deletePoint(editingPoint.id)}
+                className="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg text-sm font-medium"
+              >
+                Delete Point
+              </button>
+              <button
+                onClick={() => {
+                  setShowPointEditor(false);
+                  setEditingPoint(null);
+                }}
+                className="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm font-medium hover:bg-pink-600"
+              >
+                Done
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
@@ -491,12 +792,14 @@ function InjectionMapPageContent() {
 export default function InjectionMapPage() {
   return (
     <Suspense fallback={
-      <div className="space-y-4">
-        <div className="h-8 w-48 bg-gray-200 rounded animate-pulse" />
-        <div className="h-96 bg-gray-100 rounded-xl animate-pulse" />
+      <div className="h-screen flex items-center justify-center bg-gray-100">
+        <div className="text-center">
+          <div className="w-10 h-10 border-2 border-pink-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-gray-500">Loading...</p>
+        </div>
       </div>
     }>
-      <InjectionMapPageContent />
+      <InjectionMapContent />
     </Suspense>
   );
 }
