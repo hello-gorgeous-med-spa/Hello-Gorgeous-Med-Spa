@@ -15,6 +15,175 @@ function Skeleton({ className = '' }: { className?: string }) {
   return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
 }
 
+// Medications section component
+function MedicationsSection({ clientId, clientName }: { clientId: string; clientName: string }) {
+  const [medications, setMedications] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [newMed, setNewMed] = useState({
+    name: '',
+    dosage: '',
+    frequency: '',
+    prescriber: '',
+    start_date: '',
+    notes: '',
+  });
+
+  useEffect(() => {
+    // Fetch medications from localStorage for now (can be moved to DB later)
+    const stored = localStorage.getItem(`medications_${clientId}`);
+    if (stored) {
+      setMedications(JSON.parse(stored));
+    }
+    setLoading(false);
+  }, [clientId]);
+
+  const saveMedications = (meds: any[]) => {
+    localStorage.setItem(`medications_${clientId}`, JSON.stringify(meds));
+    setMedications(meds);
+  };
+
+  const addMedication = () => {
+    if (!newMed.name) return;
+    const med = {
+      id: `med-${Date.now()}`,
+      ...newMed,
+      created_at: new Date().toISOString(),
+    };
+    saveMedications([med, ...medications]);
+    setNewMed({ name: '', dosage: '', frequency: '', prescriber: '', start_date: '', notes: '' });
+    setShowAddForm(false);
+  };
+
+  const removeMedication = (id: string) => {
+    saveMedications(medications.filter(m => m.id !== id));
+  };
+
+  if (loading) {
+    return <Skeleton className="h-32" />;
+  }
+
+  return (
+    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-semibold text-gray-900">Medications</h3>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setShowAddForm(!showAddForm)}
+            className="text-sm text-pink-600 hover:text-pink-700"
+          >
+            + Add Record
+          </button>
+          <a
+            href={`https://ehr.charmhealth.com/erx?patient=${encodeURIComponent(clientName)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3 py-1 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 flex items-center gap-1"
+          >
+            💊 Prescribe in Charm
+          </a>
+        </div>
+      </div>
+
+      {/* Add Form */}
+      {showAddForm && (
+        <div className="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+          <div className="grid grid-cols-2 gap-3 mb-3">
+            <input
+              type="text"
+              value={newMed.name}
+              onChange={(e) => setNewMed({ ...newMed, name: e.target.value })}
+              placeholder="Medication name *"
+              className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+            />
+            <input
+              type="text"
+              value={newMed.dosage}
+              onChange={(e) => setNewMed({ ...newMed, dosage: e.target.value })}
+              placeholder="Dosage (e.g., 10mg)"
+              className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+            />
+            <input
+              type="text"
+              value={newMed.frequency}
+              onChange={(e) => setNewMed({ ...newMed, frequency: e.target.value })}
+              placeholder="Frequency (e.g., Once daily)"
+              className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+            />
+            <input
+              type="text"
+              value={newMed.prescriber}
+              onChange={(e) => setNewMed({ ...newMed, prescriber: e.target.value })}
+              placeholder="Prescriber"
+              className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+            />
+          </div>
+          <input
+            type="text"
+            value={newMed.notes}
+            onChange={(e) => setNewMed({ ...newMed, notes: e.target.value })}
+            placeholder="Notes (optional)"
+            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm mb-3"
+          />
+          <div className="flex justify-end gap-2">
+            <button
+              onClick={() => setShowAddForm(false)}
+              className="px-3 py-1.5 text-gray-600 text-sm hover:bg-gray-100 rounded-lg"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={addMedication}
+              disabled={!newMed.name}
+              className="px-4 py-1.5 bg-pink-500 text-white text-sm rounded-lg hover:bg-pink-600 disabled:opacity-50"
+            >
+              Add Medication
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Medications List */}
+      {medications.length === 0 ? (
+        <div className="text-center py-6">
+          <span className="text-3xl mb-2 block">💊</span>
+          <p className="text-gray-500 text-sm">No medications on record</p>
+          <p className="text-gray-400 text-xs mt-1">Add records here after prescribing in Charm</p>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {medications.map((med) => (
+            <div key={med.id} className="flex items-start justify-between p-3 bg-gray-50 rounded-lg">
+              <div>
+                <p className="font-medium text-gray-900">{med.name}</p>
+                <p className="text-sm text-gray-600">
+                  {med.dosage && `${med.dosage} • `}
+                  {med.frequency && `${med.frequency} • `}
+                  {med.prescriber && `by ${med.prescriber}`}
+                </p>
+                {med.notes && <p className="text-xs text-gray-500 mt-1">{med.notes}</p>}
+              </div>
+              <button
+                onClick={() => removeMedication(med.id)}
+                className="text-red-400 hover:text-red-600 p-1"
+              >
+                ×
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Charm Link */}
+      <div className="mt-4 pt-4 border-t border-gray-100">
+        <p className="text-xs text-gray-400 text-center">
+          Use <a href="https://ehr.charmhealth.com/erx" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Charm EHR</a> for official prescriptions (EPCS certified)
+        </p>
+      </div>
+    </div>
+  );
+}
+
 // Injection Maps Preview component
 function InjectionMapsPreview({ clientId }: { clientId: string }) {
   const [maps, setMaps] = useState<any[]>([]);
@@ -633,6 +802,12 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Medications */}
+            <MedicationsSection 
+              clientId={client.id} 
+              clientName={`${client.first_name} ${client.last_name}`} 
+            />
+
             {/* Medical Summary */}
             <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
               <h3 className="font-semibold text-gray-900 mb-4">Medical Summary</h3>
