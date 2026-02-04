@@ -2,17 +2,76 @@
 // ADMIN DASHBOARD LAYOUT
 // Command Center for Hello Gorgeous Med Spa
 // Clean Blueprint - No Static Data
+// WITH BACKUP AUTH PROTECTION
 // ============================================================
 
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AdminHeader } from '@/components/AdminHeader';
 import { ToastProvider } from '@/components/ui/Toast';
 import { KeyboardShortcutsProvider } from '@/components/ui/KeyboardShortcuts';
 import { MobileNav } from '@/components/ui/MobileNav';
+
+// ============================================================
+// BACKUP AUTH CHECK - In case middleware fails
+// ============================================================
+function useAuthGuard() {
+  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    // Check for session cookie
+    const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+      const [key, value] = cookie.trim().split('=');
+      acc[key] = value;
+      return acc;
+    }, {} as Record<string, string>);
+
+    const sessionCookie = cookies['hgos_session'];
+    
+    if (sessionCookie) {
+      try {
+        const sessionData = JSON.parse(decodeURIComponent(sessionCookie));
+        const validRoles = ['owner', 'admin', 'staff', 'provider'];
+        
+        if (sessionData.userId && sessionData.role && validRoles.includes(sessionData.role)) {
+          setIsAuthorized(true);
+          return;
+        }
+      } catch (e) {
+        console.error('Invalid session cookie');
+      }
+    }
+
+    // Also check localStorage as fallback
+    try {
+      const storedUser = localStorage.getItem('hgos_user');
+      if (storedUser) {
+        const user = JSON.parse(storedUser);
+        const validRoles = ['owner', 'admin', 'staff', 'provider'];
+        if (user.id && user.role && validRoles.includes(user.role)) {
+          // Restore the cookie from localStorage
+          const sessionData = { userId: user.id, email: user.email, role: user.role };
+          document.cookie = `hgos_session=${encodeURIComponent(JSON.stringify(sessionData))}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
+          setIsAuthorized(true);
+          return;
+        }
+      }
+    } catch (e) {
+      console.error('Failed to check localStorage');
+    }
+
+    // Not authorized - redirect to login
+    setIsAuthorized(false);
+    const returnTo = encodeURIComponent(pathname);
+    window.location.href = `/login?returnTo=${returnTo}`;
+  }, [pathname]);
+
+  return isAuthorized;
+}
 
 // Switch to admin manifest for PWA install
 function useAdminManifest() {
@@ -132,6 +191,9 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname();
   
+  // CRITICAL: Backup auth check in case middleware fails
+  const isAuthorized = useAuthGuard();
+  
   // Use admin manifest for PWA installation
   useAdminManifest();
 
@@ -139,6 +201,29 @@ export default function AdminLayout({
     if (href === '/admin') return pathname === '/admin';
     return pathname.startsWith(href);
   };
+
+  // Show loading while checking auth
+  if (isAuthorized === null) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-gray-500">Verifying access...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // If not authorized, the useAuthGuard will redirect - show nothing
+  if (isAuthorized === false) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-500">Redirecting to login...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <ToastProvider>
