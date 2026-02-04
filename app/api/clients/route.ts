@@ -1,5 +1,6 @@
 // ============================================================
 // API: CLIENTS - Full CRUD with service role (bypasses RLS)
+// Fixed: No foreign key joins - uses separate queries
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -61,35 +62,41 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
-    const search = searchParams.get('search');
     const limit = parseInt(searchParams.get('limit') || '100');
     const offset = parseInt(searchParams.get('offset') || '0');
 
     // Get single client by ID
     if (id) {
-      const { data: client, error } = await supabase
+      // Get client record
+      const { data: client, error: clientError } = await supabase
         .from('clients')
-        .select(`
-          *,
-          users!inner(id, first_name, last_name, email, phone)
-        `)
+        .select('*')
         .eq('id', id)
         .single();
 
-      if (error || !client) {
+      if (clientError || !client) {
         return NextResponse.json({ error: 'Client not found' }, { status: 404 });
+      }
+
+      // Get user data separately
+      let userData = null;
+      if (client.user_id) {
+        const { data: user } = await supabase
+          .from('users')
+          .select('id, first_name, last_name, email, phone')
+          .eq('id', client.user_id)
+          .single();
+        userData = user;
       }
 
       // Flatten the data
       const flatClient = {
         id: client.id,
         user_id: client.user_id,
-        first_name: client.users?.first_name,
-        last_name: client.users?.last_name,
-        email: client.users?.email,
-        phone: client.users?.phone,
+        first_name: userData?.first_name || client.first_name,
+        last_name: userData?.last_name || client.last_name,
+        email: userData?.email || client.email,
+        phone: userData?.phone || client.phone,
         date_of_birth: client.date_of_birth,
         gender: client.gender,
         address_line1: client.address_line1,
@@ -107,102 +114,81 @@ export async function GET(request: NextRequest) {
         created_at: client.created_at,
         last_visit_at: client.last_visit_at,
         total_spent: client.lifetime_value_cents ? client.lifetime_value_cents / 100 : 0,
+        total_visits: client.visit_count || 0,
         visit_count: client.visit_count || 0,
+        is_vip: client.is_vip || false,
+        tags: client.tags || [],
       };
 
       return NextResponse.json({ client: flatClient });
     }
 
-    // If search is provided, we need to search in user_profiles, not join
-    // This is because PostgREST doesn't support filtering on joined tables easily
-    if (search) {
-      // First search user_profiles for matching users
-      const { data: matchingProfiles, error: searchError } = await supabase
-        .from('user_profiles')
-        .select('user_id')
-        .or(`first_name.ilike.%${search}%,last_name.ilike.%${search}%,email.ilike.%${search}%,phone.ilike.%${search}%`)
-        .limit(1000);
+    // Get all clients - simple query without joins
+    const { data: clientsData, error: clientsError, count } = await supabase
+      .from('clients')
+      .select('*', { count: 'exact' })
+      .order('created_at', { ascending: false })
+      .range(offset, offset + limit - 1);
 
-      if (searchError) {
-        console.error('Search error:', searchError);
-        return NextResponse.json({ error: searchError.message }, { status: 500 });
-      }
+    if (clientsError) {
+      console.error('Error fetching clients:', clientsError);
+      return NextResponse.json({ error: clientsError.message }, { status: 500 });
+    }
 
-      const matchingUserIds = (matchingProfiles || []).map((p: any) => p.user_id);
+    // Get user IDs from clients
+    const userIds = (clientsData || [])
+      .map((c: any) => c.user_id)
+      .filter((id: any) => id);
+
+    // Fetch user data in bulk if we have user IDs
+    let usersMap: Record<string, any> = {};
+    if (userIds.length > 0) {
+      const { data: usersData } = await supabase
+        .from('users')
+        .select('id, first_name, last_name, email, phone')
+        .in('id', userIds);
       
-      if (matchingUserIds.length === 0) {
-        return NextResponse.json({ clients: [], total: 0 });
+      if (usersData) {
+        usersData.forEach((u: any) => {
+          usersMap[u.id] = u;
+        });
       }
+    }
 
-      // Then get clients that match those user IDs
-      const { data, error, count } = await supabase
-        .from('clients')
-        .select(`
-          *,
-          user_profiles!inner(user_id, first_name, last_name, email, phone)
-        `, { count: 'exact' })
-        .in('user_id', matchingUserIds)
-        .order('created_at', { ascending: false })
-        .range(offset, offset + limit - 1);
-
-      if (error) {
-        console.error('Error fetching clients:', error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
-      }
-
-      const clients = (data || []).map((c: any) => ({
+    // Combine client and user data
+    const clients = (clientsData || []).map((c: any) => {
+      const user = usersMap[c.user_id] || {};
+      return {
         id: c.id,
         user_id: c.user_id,
-        first_name: c.user_profiles?.first_name,
-        last_name: c.user_profiles?.last_name,
-        email: c.user_profiles?.email,
-        phone: c.user_profiles?.phone,
+        first_name: user.first_name || c.first_name,
+        last_name: user.last_name || c.last_name,
+        email: user.email || c.email,
+        phone: user.phone || c.phone,
         date_of_birth: c.date_of_birth,
         created_at: c.created_at,
         last_visit: c.last_visit_at,
         total_spent: c.lifetime_value_cents ? c.lifetime_value_cents / 100 : 0,
         visit_count: c.visit_count || 0,
-      }));
+        is_vip: c.is_vip || false,
+      };
+    });
 
-      return NextResponse.json({
-        clients,
-        total: count || clients.length,
-      });
+    // Filter by search if provided (client-side since we're not using joins)
+    let filteredClients = clients;
+    if (search) {
+      const searchLower = search.toLowerCase();
+      filteredClients = clients.filter((c: any) =>
+        c.first_name?.toLowerCase().includes(searchLower) ||
+        c.last_name?.toLowerCase().includes(searchLower) ||
+        c.email?.toLowerCase().includes(searchLower) ||
+        c.phone?.includes(search)
+      );
     }
-
-    // No search - get all clients with pagination
-    const { data, error, count } = await supabase
-      .from('clients')
-      .select(`
-        *,
-        user_profiles!inner(user_id, first_name, last_name, email, phone)
-      `, { count: 'exact' })
-      .order('created_at', { ascending: false })
-      .range(offset, offset + limit - 1);
-
-    if (error) {
-      console.error('Error fetching clients:', error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-
-    // Flatten the data
-    const clients = (data || []).map((c: any) => ({
-      id: c.id,
-      user_id: c.user_id,
-      first_name: c.user_profiles?.first_name,
-      last_name: c.user_profiles?.last_name,
-      email: c.user_profiles?.email,
-      phone: c.user_profiles?.phone,
-      date_of_birth: c.date_of_birth,
-      created_at: c.created_at,
-      last_visit: c.last_visit_at,
-      total_spent: c.lifetime_value_cents ? c.lifetime_value_cents / 100 : 0,
-      visit_count: c.visit_count || 0,
-    }));
 
     return NextResponse.json({
-      clients,
-      total: count || 0,
+      clients: filteredClients,
+      total: search ? filteredClients.length : (count || 0),
     });
   } catch (error) {
     console.error('Clients API error:', error);
