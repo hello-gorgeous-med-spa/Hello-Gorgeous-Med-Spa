@@ -15,6 +15,80 @@ function Skeleton({ className = '' }: { className?: string }) {
   return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
 }
 
+// Injection Maps Preview component
+function InjectionMapsPreview({ clientId }: { clientId: string }) {
+  const [maps, setMaps] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchMaps() {
+      try {
+        const res = await fetch(`/api/injection-maps?client_id=${clientId}`);
+        const data = await res.json();
+        setMaps(data.maps || []);
+      } catch (err) {
+        console.error('Failed to load injection maps:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchMaps();
+  }, [clientId]);
+
+  if (loading) {
+    return <Skeleton className="h-16" />;
+  }
+
+  if (maps.length === 0) {
+    return (
+      <div className="text-center py-4">
+        <span className="text-3xl mb-2 block">💉</span>
+        <p className="text-gray-500 text-sm">No injection maps yet</p>
+        <Link
+          href={`/admin/charting/injection-map?client=${clientId}`}
+          className="text-pink-600 text-sm hover:text-pink-700 mt-1 inline-block"
+        >
+          Create first map →
+        </Link>
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-2">
+      {maps.slice(0, 3).map((map) => (
+        <Link
+          key={map.id}
+          href={`/admin/charting/injection-map?map=${map.id}&client=${clientId}`}
+          className="block p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
+        >
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="font-medium text-gray-900 text-sm">
+                {new Date(map.created_at).toLocaleDateString('en-US', { 
+                  month: 'short', day: 'numeric', year: 'numeric' 
+                })}
+              </p>
+              <p className="text-xs text-gray-500">
+                {map.points?.length || 0} injection points
+              </p>
+            </div>
+            <span className="text-gray-400">→</span>
+          </div>
+        </Link>
+      ))}
+      {maps.length > 3 && (
+        <Link
+          href={`/admin/charting/injection-map?client=${clientId}`}
+          className="block text-center text-sm text-pink-600 hover:text-pink-700 pt-2"
+        >
+          View all {maps.length} maps →
+        </Link>
+      )}
+    </div>
+  );
+}
+
 export default function AdminClientDetailPage({ params }: { params: { id: string } }) {
   const [activeTab, setActiveTab] = useState<'overview' | 'appointments' | 'payments' | 'clinical' | 'documents'>('overview');
   
@@ -529,71 +603,141 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
       )}
 
       {activeTab === 'clinical' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Medical Summary */}
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-            <h3 className="font-semibold text-gray-900 mb-4">Medical Summary</h3>
-            <div className="space-y-4">
-              <div>
-                <p className="text-sm text-gray-500 mb-1">Allergies</p>
-                {client.allergies_summary ? (
-                  <p className="text-sm text-red-700 bg-red-50 px-2 py-1 rounded inline-block">
-                    {client.allergies_summary}
-                  </p>
-                ) : (
-                  <p className="text-sm text-gray-400">None on file</p>
-                )}
-              </div>
-              <div>
-                <p className="text-sm text-gray-500 mb-1">Medications</p>
-                {client.medications_summary ? (
-                  <p className="text-sm text-gray-900">{client.medications_summary}</p>
-                ) : (
-                  <p className="text-sm text-gray-400">None on file</p>
-                )}
-              </div>
-              <div>
-                <p className="text-sm text-gray-500 mb-1">Medical Conditions</p>
-                {client.medical_conditions_summary ? (
-                  <p className="text-sm text-gray-900">{client.medical_conditions_summary}</p>
-                ) : (
-                  <p className="text-sm text-gray-400">None on file</p>
-                )}
-              </div>
+        <div className="space-y-6">
+          {/* Quick Actions */}
+          <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-100 p-5">
+            <h3 className="font-semibold text-gray-900 mb-3">Quick Clinical Actions</h3>
+            <div className="flex flex-wrap gap-3">
+              <Link
+                href={`/admin/charting/injection-map?client=${client.id}`}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-pink-200 rounded-lg hover:bg-pink-50 transition-colors"
+              >
+                <span>💉</span>
+                <span className="font-medium text-gray-700">New Injection Map</span>
+              </Link>
+              <Link
+                href={`/admin/charts?client=${client.id}`}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-purple-200 rounded-lg hover:bg-purple-50 transition-colors"
+              >
+                <span>📋</span>
+                <span className="font-medium text-gray-700">New Chart Note</span>
+              </Link>
+              <Link
+                href={`/admin/consents?client=${client.id}`}
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-blue-200 rounded-lg hover:bg-blue-50 transition-colors"
+              >
+                <span>📝</span>
+                <span className="font-medium text-gray-700">Sign Consent</span>
+              </Link>
             </div>
           </div>
 
-          {/* Chart History */}
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-gray-900">Chart History</h3>
-              <Link
-                href={`/admin/charts?client=${client.id}`}
-                className="text-sm text-pink-600 hover:text-pink-700"
-              >
-                + New Chart
-              </Link>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Medical Summary */}
+            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+              <h3 className="font-semibold text-gray-900 mb-4">Medical Summary</h3>
+              <div className="space-y-4">
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">Allergies</p>
+                  {client.allergies_summary ? (
+                    <p className="text-sm text-red-700 bg-red-50 px-2 py-1 rounded inline-block">
+                      {client.allergies_summary}
+                    </p>
+                  ) : (
+                    <p className="text-sm text-gray-400">None on file</p>
+                  )}
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">Medications</p>
+                  {client.medications_summary ? (
+                    <p className="text-sm text-gray-900">{client.medications_summary}</p>
+                  ) : (
+                    <p className="text-sm text-gray-400">None on file</p>
+                  )}
+                </div>
+                <div>
+                  <p className="text-sm text-gray-500 mb-1">Medical Conditions</p>
+                  {client.medical_conditions_summary ? (
+                    <p className="text-sm text-gray-900">{client.medical_conditions_summary}</p>
+                  ) : (
+                    <p className="text-sm text-gray-400">None on file</p>
+                  )}
+                </div>
+              </div>
             </div>
-            <div className="space-y-3">
-              {appointments.filter((a) => a.status === 'completed').slice(0, 4).map((apt) => (
+
+            {/* Chart History */}
+            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-semibold text-gray-900">Chart History</h3>
                 <Link
-                  key={apt.id}
-                  href={`/admin/charts/${apt.id}`}
-                  className="block border-b border-gray-100 pb-3 last:border-0 hover:bg-gray-50 -mx-2 px-2 py-1 rounded transition-colors"
+                  href={`/admin/charts?client=${client.id}`}
+                  className="text-sm text-pink-600 hover:text-pink-700"
                 >
-                  <div className="flex items-center justify-between">
-                    <p className="font-medium text-gray-900">{apt.service_name || 'Service'}</p>
-                    <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
-                      ✓ Signed
-                    </span>
-                  </div>
-                  <p className="text-sm text-gray-500">
-                    {formatDate(apt.starts_at)} • {apt.provider_name || 'Provider'}
-                  </p>
+                  View All →
                 </Link>
-              ))}
-              {appointments.filter((a) => a.status === 'completed').length === 0 && (
-                <p className="text-gray-500 text-sm">No completed appointments yet</p>
+              </div>
+              <div className="space-y-3">
+                {appointments.filter((a) => a.status === 'completed').slice(0, 4).map((apt) => (
+                  <Link
+                    key={apt.id}
+                    href={`/admin/charts/${apt.id}`}
+                    className="block border-b border-gray-100 pb-3 last:border-0 hover:bg-gray-50 -mx-2 px-2 py-1 rounded transition-colors"
+                  >
+                    <div className="flex items-center justify-between">
+                      <p className="font-medium text-gray-900">{apt.service_name || 'Service'}</p>
+                      <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
+                        ✓ Signed
+                      </span>
+                    </div>
+                    <p className="text-sm text-gray-500">
+                      {formatDate(apt.starts_at)} • {apt.provider_name || 'Provider'}
+                    </p>
+                  </Link>
+                ))}
+                {appointments.filter((a) => a.status === 'completed').length === 0 && (
+                  <p className="text-gray-500 text-sm">No completed appointments yet</p>
+                )}
+              </div>
+            </div>
+
+            {/* Injection Maps */}
+            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-semibold text-gray-900">Injection Maps</h3>
+                <Link
+                  href={`/admin/charting/injection-map?client=${client.id}`}
+                  className="text-sm text-pink-600 hover:text-pink-700"
+                >
+                  + New Map
+                </Link>
+              </div>
+              <InjectionMapsPreview clientId={client.id} />
+            </div>
+
+            {/* Consents & Forms */}
+            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="font-semibold text-gray-900">Consents & Forms</h3>
+                <Link
+                  href={`/admin/consents?client=${client.id}`}
+                  className="text-sm text-pink-600 hover:text-pink-700"
+                >
+                  View All →
+                </Link>
+              </div>
+              {consents.length === 0 ? (
+                <p className="text-gray-500 text-sm">No signed consents yet</p>
+              ) : (
+                <div className="space-y-2">
+                  {consents.slice(0, 3).map((consent) => (
+                    <div key={consent.id} className="flex items-center gap-2 text-sm">
+                      <span className="text-green-500">✓</span>
+                      <span className="text-gray-700">{consent.consent_form?.name || 'Consent Form'}</span>
+                      <span className="text-gray-400 text-xs">• {formatDate(consent.signed_at)}</span>
+                    </div>
+                  ))}
+                </div>
               )}
             </div>
           </div>

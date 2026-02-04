@@ -7,6 +7,7 @@
 
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { Breadcrumb } from '@/components/ui';
 import { useToast } from '@/components/ui/Toast';
 import InjectionMapper, { InjectionPoint } from '@/components/clinical/InjectionMapper';
@@ -15,7 +16,18 @@ interface Client {
   id: string;
   first_name: string;
   last_name: string;
+  email?: string;
+  phone?: string;
 }
+
+// Demo clients for when API returns empty
+const DEMO_CLIENTS: Client[] = [
+  { id: 'demo-1', first_name: 'Sarah', last_name: 'Johnson', email: 'sarah@example.com' },
+  { id: 'demo-2', first_name: 'Emily', last_name: 'Williams', email: 'emily@example.com' },
+  { id: 'demo-3', first_name: 'Jessica', last_name: 'Brown', email: 'jessica@example.com' },
+  { id: 'demo-4', first_name: 'Ashley', last_name: 'Davis', email: 'ashley@example.com' },
+  { id: 'demo-5', first_name: 'Amanda', last_name: 'Miller', email: 'amanda@example.com' },
+];
 
 interface InjectionMap {
   id: string;
@@ -47,22 +59,56 @@ function InjectionMapPageContent() {
   const [notes, setNotes] = useState('');
   const [view, setView] = useState<'new' | 'history'>('new');
 
+  const [searchLoading, setSearchLoading] = useState(false);
+  const [debouncedSearch, setDebouncedSearch] = useState('');
+
+  // Debounce search input
   useEffect(() => {
-    fetchClients();
+    const timer = setTimeout(() => {
+      setDebouncedSearch(clientSearch);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [clientSearch]);
+
+  // Fetch clients when search changes
+  useEffect(() => {
+    fetchClients(debouncedSearch);
+  }, [debouncedSearch]);
+
+  useEffect(() => {
     if (mapId) {
       fetchMap(mapId);
     } else if (clientId) {
+      setSelectedClient(clientId);
       fetchClientHistory(clientId);
+      setLoading(false);
+    } else {
+      setLoading(false);
     }
   }, [clientId, mapId]);
 
-  const fetchClients = async () => {
+  const fetchClients = async (search: string = '') => {
+    setSearchLoading(true);
     try {
-      const res = await fetch('/api/clients?limit=100');
+      const url = search 
+        ? `/api/clients?search=${encodeURIComponent(search)}&limit=20`
+        : '/api/clients?limit=20';
+      const res = await fetch(url);
       const data = await res.json();
-      setClients(data.clients || []);
+      const fetchedClients = data.clients || [];
+      
+      // Use demo clients if no results and no search term
+      if (fetchedClients.length === 0 && !search) {
+        setClients(DEMO_CLIENTS);
+      } else {
+        setClients(fetchedClients);
+      }
     } catch (err) {
       console.error('Failed to fetch clients:', err);
+      // Fall back to demo clients on error
+      setClients(DEMO_CLIENTS);
+    } finally {
+      setSearchLoading(false);
     }
   };
 
@@ -182,11 +228,7 @@ function InjectionMapPageContent() {
     setView('new');
   };
 
-  const filteredClients = clients.filter(c => 
-    `${c.first_name} ${c.last_name}`.toLowerCase().includes(clientSearch.toLowerCase())
-  );
-
-  const selectedClientName = clients.find(c => c.id === selectedClient);
+  const selectedClientData = clients.find(c => c.id === selectedClient);
 
   return (
     <div className="space-y-6">
@@ -215,28 +257,54 @@ function InjectionMapPageContent() {
           {/* Client Search */}
           <div className="bg-white rounded-xl border border-gray-200 p-4">
             <h3 className="font-semibold text-gray-900 mb-3">Select Client</h3>
-            <input
-              type="text"
-              value={clientSearch}
-              onChange={(e) => setClientSearch(e.target.value)}
-              placeholder="Search clients..."
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm mb-3"
-            />
-            <div className="max-h-60 overflow-y-auto space-y-1">
-              {filteredClients.slice(0, 20).map((client) => (
-                <button
-                  key={client.id}
-                  onClick={() => handleClientSelect(client.id)}
-                  className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
-                    selectedClient === client.id 
-                      ? 'bg-pink-100 text-pink-700' 
-                      : 'hover:bg-gray-50 text-gray-700'
-                  }`}
-                >
-                  {client.first_name} {client.last_name}
-                </button>
-              ))}
+            <div className="relative mb-3">
+              <input
+                type="text"
+                value={clientSearch}
+                onChange={(e) => setClientSearch(e.target.value)}
+                placeholder="Search by name..."
+                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm pr-8"
+              />
+              {searchLoading && (
+                <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                  <div className="w-4 h-4 border-2 border-pink-500 border-t-transparent rounded-full animate-spin" />
+                </div>
+              )}
             </div>
+            <div className="max-h-60 overflow-y-auto space-y-1">
+              {clients.length === 0 && !searchLoading ? (
+                <p className="text-gray-500 text-sm text-center py-4">
+                  {clientSearch ? 'No clients found' : 'Start typing to search...'}
+                </p>
+              ) : (
+                clients.map((client) => (
+                  <button
+                    key={client.id}
+                    onClick={() => handleClientSelect(client.id)}
+                    className={`w-full text-left px-3 py-2 rounded-lg text-sm transition-colors ${
+                      selectedClient === client.id 
+                        ? 'bg-pink-100 text-pink-700 font-medium' 
+                        : 'hover:bg-gray-50 text-gray-700'
+                    }`}
+                  >
+                    <p className="font-medium">{client.first_name} {client.last_name}</p>
+                    {client.email && (
+                      <p className="text-xs text-gray-400 truncate">{client.email}</p>
+                    )}
+                  </button>
+                ))
+              )}
+            </div>
+            {selectedClient && (
+              <div className="mt-3 pt-3 border-t border-gray-100">
+                <Link
+                  href={`/admin/clients/${selectedClient}`}
+                  className="text-sm text-pink-600 hover:text-pink-700 flex items-center gap-1"
+                >
+                  ← Back to client profile
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* History */}
@@ -293,7 +361,7 @@ function InjectionMapPageContent() {
               <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-100">
                 <div>
                   <h2 className="text-lg font-semibold text-gray-900">
-                    {selectedClientName?.first_name} {selectedClientName?.last_name}
+                    {selectedClientData?.first_name} {selectedClientData?.last_name}
                   </h2>
                   <p className="text-sm text-gray-500">
                     {currentMap 
@@ -304,10 +372,16 @@ function InjectionMapPageContent() {
                 </div>
                 <div className="flex gap-2">
                   {currentMap && (
-                    <span className="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-lg">
+                    <span className="px-3 py-1 bg-blue-100 text-blue-700 text-sm rounded-lg">
                       Viewing saved map
                     </span>
                   )}
+                  <Link
+                    href={`/admin/clients/${selectedClient}`}
+                    className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-lg hover:bg-gray-200"
+                  >
+                    View Profile
+                  </Link>
                 </div>
               </div>
 
