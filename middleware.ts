@@ -15,9 +15,21 @@ export function middleware(request: NextRequest) {
   const url = request.nextUrl;
   const hostname = request.headers.get('host') || '';
   
-  // Check for auth session cookie
+  // Check for auth session cookie and validate it has required data
   const sessionCookie = request.cookies.get('hgos_session');
-  const isAuthenticated = !!sessionCookie?.value;
+  let isAuthenticated = false;
+  
+  if (sessionCookie?.value) {
+    try {
+      const sessionData = JSON.parse(decodeURIComponent(sessionCookie.value));
+      // Must have userId and a valid role
+      const validRoles = ['owner', 'admin', 'staff', 'provider', 'client'];
+      isAuthenticated = !!(sessionData.userId && sessionData.role && validRoles.includes(sessionData.role));
+    } catch {
+      // Invalid cookie, treat as not authenticated
+      isAuthenticated = false;
+    }
+  }
   
   // Check if accessing from book.hellogorgeousmedspa.com subdomain
   if (hostname.startsWith('book.')) {

@@ -1,22 +1,32 @@
 // ============================================================
 // LOGOUT API ROUTE
-// Handle logout requests
+// Clears session cookie
 // ============================================================
 
-import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { NextResponse } from 'next/server';
 
-export async function POST(request: NextRequest) {
-  try {
-    const supabase = createServerSupabaseClient();
-    
-    if (supabase) {
-      await supabase.auth.signOut();
-    }
+export async function POST() {
+  const response = NextResponse.json({ success: true });
+  
+  // Clear the session cookie
+  response.cookies.set('hgos_session', '', {
+    path: '/',
+    expires: new Date(0),
+    sameSite: 'lax',
+  });
+  
+  return response;
+}
 
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('Logout error:', error);
-    return NextResponse.json({ success: true }); // Still return success
-  }
+export async function GET() {
+  const response = NextResponse.redirect(new URL('/login', process.env.NEXT_PUBLIC_BASE_URL || 'https://www.hellogorgeousmedspa.com'));
+  
+  // Clear the session cookie
+  response.cookies.set('hgos_session', '', {
+    path: '/',
+    expires: new Date(0),
+    sameSite: 'lax',
+  });
+  
+  return response;
 }

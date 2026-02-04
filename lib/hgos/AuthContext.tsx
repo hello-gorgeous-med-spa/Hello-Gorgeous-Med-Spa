@@ -108,15 +108,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const protectedPrefixes = ['/admin', '/provider', '/pos', '/portal'];
     const isProtectedRoute = protectedPrefixes.some((prefix) => pathname.startsWith(prefix));
 
-    if (isProtectedRoute && !user) {
-      // Not logged in, redirect to login
+    // Check if user has a valid role
+    const validRoles = ['owner', 'admin', 'staff', 'provider', 'client'];
+    const hasValidRole = user && user.role && validRoles.includes(user.role);
+
+    if (isProtectedRoute && (!user || !hasValidRole)) {
+      // Not logged in or invalid session, redirect to login
+      console.log('Auth: No valid user, redirecting to login', { user, hasValidRole });
       router.push(`/login?redirect=${encodeURIComponent(pathname)}`);
       return;
     }
 
-    if (user && isProtectedRoute && !canAccessRoute(user, pathname)) {
-      // Logged in but no permission
-      // Redirect to appropriate dashboard based on role
+    // Only redirect if user exists, has valid role, but can't access this specific route
+    if (user && hasValidRole && isProtectedRoute && !canAccessRoute(user, pathname)) {
+      // Logged in but no permission for this specific route
+      console.log('Auth: User cannot access route, redirecting based on role', { role: user.role, pathname });
       switch (user.role) {
         case 'owner':
         case 'admin':
