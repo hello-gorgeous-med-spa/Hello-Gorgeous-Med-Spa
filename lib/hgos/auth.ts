@@ -109,32 +109,51 @@ export const ROUTE_PERMISSIONS: Record<string, UserRole[]> = {
 // ============================================================
 
 /**
+ * Create an owner/admin session (for env-based auth)
+ */
+function createOwnerSession(email: string): { user: AuthUser; session: any } {
+  return {
+    user: {
+      id: 'owner-001',
+      email: email,
+      role: 'owner',
+      firstName: 'Danielle',
+      lastName: 'Glazier-Alcala',
+      permissions: ROLE_PERMISSIONS.owner,
+      createdAt: '2024-01-01',
+    },
+    session: {
+      access_token: `owner_token_${Date.now()}`,
+      expires_at: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60, // 7 days
+    },
+  };
+}
+
+/**
  * Login with email and password
  */
 export async function login(credentials: LoginCredentials): Promise<{ user: AuthUser; session: any } | null> {
   const supabase = createBrowserSupabaseClient();
   
-  // Allow owner login with env secret (temporary until Supabase Auth is fully set up)
+  // Check for admin credentials in various env formats
+  // Supports: AUTH_CREDENTIALS (email:password), ADMIN_ACCESS_KEY, OWNER_LOGIN_SECRET
+  const authCredentials = process.env.NEXT_PUBLIC_AUTH_CREDENTIALS || process.env.AUTH_CREDENTIALS;
+  const adminKey = process.env.ADMIN_ACCESS_KEY || process.env.OWNER_LOGIN_SECRET;
   const ownerEmail = process.env.NEXT_PUBLIC_OWNER_EMAIL || 'danielle@hellogorgeousmedspa.com';
-  const ownerSecret = process.env.OWNER_LOGIN_SECRET;
   
-  if (ownerSecret && credentials.email.toLowerCase() === ownerEmail.toLowerCase() && credentials.password === ownerSecret) {
-    console.log('✓ Owner login via secret');
-    return {
-      user: {
-        id: 'owner-001',
-        email: ownerEmail,
-        role: 'owner',
-        firstName: 'Danielle',
-        lastName: 'Glazier-Alcala',
-        permissions: ROLE_PERMISSIONS.owner,
-        createdAt: '2024-01-01',
-      },
-      session: {
-        access_token: `owner_token_${Date.now()}`,
-        expires_at: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60, // 7 days
-      },
-    };
+  // Try AUTH_CREDENTIALS format (email:password)
+  if (authCredentials && authCredentials.includes(':')) {
+    const [envEmail, envPassword] = authCredentials.split(':');
+    if (credentials.email.toLowerCase() === envEmail.toLowerCase() && credentials.password === envPassword) {
+      console.log('✓ Admin login via AUTH_CREDENTIALS');
+      return createOwnerSession(envEmail);
+    }
+  }
+  
+  // Try ADMIN_ACCESS_KEY or OWNER_LOGIN_SECRET (just password, uses default email)
+  if (adminKey && credentials.email.toLowerCase() === ownerEmail.toLowerCase() && credentials.password === adminKey) {
+    console.log('✓ Owner login via admin key');
+    return createOwnerSession(ownerEmail);
   }
   
   if (!supabase) {
