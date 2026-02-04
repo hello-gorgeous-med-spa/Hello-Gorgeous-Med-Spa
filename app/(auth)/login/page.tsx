@@ -47,9 +47,15 @@ function LoginForm() {
         throw new Error(result.error || 'Invalid email or password');
       }
 
-      // The useEffect above will handle the redirect once isAuthenticated updates
+      // Small delay to ensure cookie is set before redirect
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      // Manual redirect after successful login
+      const returnTo = searchParams.get('returnTo') || searchParams.get('redirect') || '/admin';
+      router.push(returnTo);
     } catch (err: any) {
       setError(err.message || 'Invalid email or password');
+    } finally {
       setIsLoading(false);
     }
   };
