@@ -133,37 +133,31 @@ function createOwnerSession(email: string): { user: AuthUser; session: any } {
  * Login with email and password
  */
 export async function login(credentials: LoginCredentials): Promise<{ user: AuthUser; session: any } | null> {
-  const supabase = createBrowserSupabaseClient();
-  
-  // Check for admin credentials in various env formats
-  // Supports: AUTH_CREDENTIALS (email:password), ADMIN_ACCESS_KEY, OWNER_LOGIN_SECRET
-  const authCredentials = process.env.NEXT_PUBLIC_AUTH_CREDENTIALS || process.env.AUTH_CREDENTIALS;
-  const adminKey = process.env.ADMIN_ACCESS_KEY || process.env.OWNER_LOGIN_SECRET;
-  const ownerEmail = process.env.NEXT_PUBLIC_OWNER_EMAIL || 'danielle@hellogorgeousmedspa.com';
-  
-  // Try AUTH_CREDENTIALS format (email:password) - split only on FIRST colon
-  if (authCredentials) {
-    let creds = authCredentials.trim();
-    // Remove leading = if present
-    if (creds.startsWith('=')) creds = creds.slice(1);
+  // First, try the server-side API route (can access non-public env vars)
+  try {
+    const response = await fetch('/api/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(credentials),
+    });
     
-    const colonIndex = creds.indexOf(':');
-    if (colonIndex > 0) {
-      const envEmail = creds.slice(0, colonIndex).trim();
-      const envPassword = creds.slice(colonIndex + 1).trim();
-      
-      if (credentials.email.toLowerCase() === envEmail.toLowerCase() && credentials.password === envPassword) {
-        console.log('✓ Admin login via AUTH_CREDENTIALS');
-        return createOwnerSession(envEmail);
-      }
+    const data = await response.json();
+    
+    if (response.ok && data.success) {
+      console.log('✓ Login via API route');
+      return { user: data.user, session: data.session };
     }
+    
+    // If API explicitly rejected (401), don't try other methods
+    if (response.status === 401) {
+      console.log('✗ API rejected credentials');
+      // Fall through to try Supabase
+    }
+  } catch (err) {
+    console.log('API login route not available, trying local auth');
   }
   
-  // Try ADMIN_ACCESS_KEY or OWNER_LOGIN_SECRET (just password, uses default email)
-  if (adminKey && credentials.email.toLowerCase() === ownerEmail.toLowerCase() && credentials.password === adminKey) {
-    console.log('✓ Owner login via admin key');
-    return createOwnerSession(ownerEmail);
-  }
+  const supabase = createBrowserSupabaseClient();
   
   if (!supabase) {
     // SECURITY: Never allow mock login in production
