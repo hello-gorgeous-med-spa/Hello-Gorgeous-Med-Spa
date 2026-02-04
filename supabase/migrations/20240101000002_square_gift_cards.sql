@@ -247,6 +247,18 @@ ALTER TABLE gift_cards ENABLE ROW LEVEL SECURITY;
 ALTER TABLE gift_card_transactions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE gift_card_settings ENABLE ROW LEVEL SECURITY;
 
+-- Drop existing policies first (idempotent)
+DROP POLICY IF EXISTS "Authenticated users can view gift cards" ON gift_cards;
+DROP POLICY IF EXISTS "Authenticated users can insert gift cards" ON gift_cards;
+DROP POLICY IF EXISTS "Authenticated users can update gift cards" ON gift_cards;
+DROP POLICY IF EXISTS "Authenticated users can view transactions" ON gift_card_transactions;
+DROP POLICY IF EXISTS "Authenticated users can insert transactions" ON gift_card_transactions;
+DROP POLICY IF EXISTS "Authenticated users can view settings" ON gift_card_settings;
+DROP POLICY IF EXISTS "Authenticated users can update settings" ON gift_card_settings;
+DROP POLICY IF EXISTS "Service role full access to gift cards" ON gift_cards;
+DROP POLICY IF EXISTS "Service role full access to transactions" ON gift_card_transactions;
+DROP POLICY IF EXISTS "Service role full access to settings" ON gift_card_settings;
+
 -- Policies for authenticated users
 CREATE POLICY "Authenticated users can view gift cards" ON gift_cards
   FOR SELECT TO authenticated USING (true);

@@ -1,14 +1,23 @@
 // ============================================================
 // MIDDLEWARE
-// Handle subdomain routing for book.hellogorgeousmedspa.com
+// Handle subdomain routing and authentication
 // ============================================================
 
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
+// Routes that require authentication
+const PROTECTED_ROUTES = ['/admin', '/provider', '/portal', '/pos'];
+// Routes that should redirect to dashboard if already authenticated
+const AUTH_ROUTES = ['/login'];
+
 export function middleware(request: NextRequest) {
   const url = request.nextUrl;
   const hostname = request.headers.get('host') || '';
+  
+  // Check for auth session cookie
+  const sessionCookie = request.cookies.get('hgos_session');
+  const isAuthenticated = !!sessionCookie?.value;
   
   // Check if accessing from book.hellogorgeousmedspa.com subdomain
   if (hostname.startsWith('book.')) {
@@ -29,6 +38,28 @@ export function middleware(request: NextRequest) {
       const mainDomain = hostname.replace('book.', '');
       return NextResponse.redirect(`https://${mainDomain}${url.pathname}`);
     }
+  }
+  
+  // Check if this is a protected route
+  const isProtectedRoute = PROTECTED_ROUTES.some(route => 
+    url.pathname === route || url.pathname.startsWith(`${route}/`)
+  );
+  
+  // Check if this is an auth route (login page)
+  const isAuthRoute = AUTH_ROUTES.some(route => 
+    url.pathname === route || url.pathname.startsWith(`${route}/`)
+  );
+  
+  // Redirect to login if accessing protected route without authentication
+  if (isProtectedRoute && !isAuthenticated) {
+    const loginUrl = new URL('/login', request.url);
+    loginUrl.searchParams.set('returnTo', url.pathname);
+    return NextResponse.redirect(loginUrl);
+  }
+  
+  // Redirect to admin if accessing login page while already authenticated
+  if (isAuthRoute && isAuthenticated) {
+    return NextResponse.redirect(new URL('/admin', request.url));
   }
 
   return NextResponse.next();

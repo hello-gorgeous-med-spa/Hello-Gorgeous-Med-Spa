@@ -8,6 +8,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { ClientInbox } from '@/components/clinical/ClientInbox';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
@@ -31,6 +32,9 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
   // Edit modal state
   const [showEditModal, setShowEditModal] = useState(false);
   const [editSaving, setEditSaving] = useState(false);
+  
+  // Inbox state
+  const [showInbox, setShowInbox] = useState(false);
   const [editForm, setEditForm] = useState({
     first_name: '',
     last_name: '',
@@ -190,6 +194,14 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
         </div>
 
         <div className="flex items-center gap-2 flex-wrap">
+          {/* 2-Way Inbox Button */}
+          <button
+            onClick={() => setShowInbox(true)}
+            className="px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-500 transition-colors flex items-center gap-2"
+            title="Send SMS"
+          >
+            💬 Inbox
+          </button>
           <a
             href={`https://ehr.charmhealth.com/allpatients/list?search=${encodeURIComponent(client.first_name + ' ' + client.last_name)}`}
             target="_blank"
@@ -618,6 +630,21 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
               ))}
             </div>
           )}
+        </div>
+      )}
+
+      {/* 2-Way Inbox Modal */}
+      {showInbox && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md h-[600px] overflow-hidden flex flex-col">
+            <ClientInbox
+              clientId={client.id}
+              clientName={`${client.first_name} ${client.last_name}`}
+              clientPhone={client.phone}
+              onClose={() => setShowInbox(false)}
+              isModal={true}
+            />
+          </div>
         </div>
       )}
 

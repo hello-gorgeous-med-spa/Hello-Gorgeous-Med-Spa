@@ -249,10 +249,12 @@ export async function logout(): Promise<void> {
     await supabase.auth.signOut();
   }
   
-  // Clear local storage
+  // Clear local storage and cookie
   if (typeof window !== 'undefined') {
     localStorage.removeItem('hgos_session');
     localStorage.removeItem('hgos_user');
+    // Clear the session cookie (for middleware auth checks)
+    document.cookie = 'hgos_session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT; SameSite=Lax';
   }
 }
 
@@ -354,20 +356,27 @@ export function canAccessRoute(user: AuthUser | null, path: string): boolean {
 }
 
 /**
- * Save session to local storage
+ * Save session to local storage and cookie
  */
 export function saveSession(user: AuthUser, session: any): void {
   if (typeof window === 'undefined') return;
 
+  const expiresAt = session.expires_at ? session.expires_at * 1000 : Date.now() + 7 * 24 * 60 * 60 * 1000;
+  
   const authSession: AuthSession = {
     user,
     accessToken: session.access_token,
     refreshToken: session.refresh_token,
-    expiresAt: session.expires_at ? session.expires_at * 1000 : Date.now() + 7 * 24 * 60 * 60 * 1000,
+    expiresAt,
   };
 
   localStorage.setItem('hgos_session', JSON.stringify(authSession));
   localStorage.setItem('hgos_user', JSON.stringify(user));
+  
+  // Also set a cookie for middleware auth checks (stores minimal info)
+  const cookieExpires = new Date(expiresAt).toUTCString();
+  const cookieValue = JSON.stringify({ userId: user.id, role: user.role });
+  document.cookie = `hgos_session=${encodeURIComponent(cookieValue)}; path=/; expires=${cookieExpires}; SameSite=Lax`;
 }
 
 /**

@@ -245,9 +245,25 @@ CREATE POLICY "Allow all for daily_sales_summary" ON daily_sales_summary FOR ALL
 CREATE POLICY "Allow all for business_wallet" ON business_wallet FOR ALL USING (true);
 
 -- 14. VIEWS
+DROP VIEW IF EXISTS sales_detailed CASCADE;
 CREATE OR REPLACE VIEW sales_detailed AS
 SELECT 
-  s.*,
+  s.id,
+  s.sale_number,
+  s.client_id,
+  s.provider_id,
+  s.appointment_id,
+  s.status,
+  s.gross_total,
+  s.discount_total,
+  s.tax_total,
+  s.tip_total,
+  s.net_total,
+  s.amount_paid,
+  s.balance_due,
+  s.created_at,
+  s.updated_at,
+  s.created_by,
   COALESCE(cup.first_name || ' ' || cup.last_name, 'Walk-in') AS client_name,
   cup.email AS client_email,
   cup.phone AS client_phone,
@@ -260,6 +276,7 @@ LEFT JOIN user_profiles cup ON c.user_id = cup.user_id
 LEFT JOIN providers p ON s.provider_id = p.id
 LEFT JOIN user_profiles pup ON p.user_id = pup.user_id;
 
+DROP VIEW IF EXISTS today_sales_summary CASCADE;
 CREATE OR REPLACE VIEW today_sales_summary AS
 SELECT
   COUNT(*) AS total_sales,

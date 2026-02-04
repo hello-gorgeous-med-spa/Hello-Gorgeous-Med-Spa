@@ -68,6 +68,7 @@ const NAV_SECTIONS = [
     title: 'Care & charting',
     items: [
       { href: '/admin/charts', label: 'Charts & notes', icon: '📋', description: 'SOAP notes & clinical' },
+      { href: '/admin/charting/injection-map', label: 'Injection mapping', icon: '💉', description: 'Visual injection sites' },
       { href: '/admin/consents', label: 'Consent forms', icon: '📝', description: 'Sign & track consents' },
       { href: '/admin/medications', label: 'Medications', icon: '💊', description: 'Drug tracking' },
       { href: '/admin/inventory', label: 'Inventory', icon: '📦', description: 'Products & lots' },
@@ -112,6 +113,8 @@ const NAV_SECTIONS = [
       { href: '/admin/vendors', label: 'Vendors', icon: '🏢', description: 'Suppliers' },
       { href: '/admin/efax', label: 'eFax', icon: '📠', description: 'Send or receive fax' },
       { href: '/admin/settings', label: 'Settings', icon: '⚙️', description: 'Business & hours' },
+      { href: '/admin/settings/pretreatment', label: 'Pre-treatment', icon: '📋', description: 'Appointment prep' },
+      { href: '/admin/settings/aftercare', label: 'Aftercare', icon: '📄', description: 'Post-treatment care' },
       { href: '/admin/system-health', label: 'System Health', icon: '🩺', description: 'Go-live readiness' },
     ],
   },

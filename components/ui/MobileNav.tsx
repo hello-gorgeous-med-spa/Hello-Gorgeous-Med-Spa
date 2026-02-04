@@ -43,6 +43,7 @@ const NAV_SECTIONS: NavSection[] = [
     title: 'Care & charting',
     items: [
       { href: '/admin/charts', label: 'Charts & notes', icon: '📋' },
+      { href: '/admin/charting/injection-map', label: 'Injection mapping', icon: '💉' },
       { href: '/admin/consents', label: 'Consent forms', icon: '📝' },
       { href: '/admin/medications', label: 'Medications', icon: '💊' },
       { href: '/admin/inventory', label: 'Inventory', icon: '📦' },
@@ -75,6 +76,8 @@ const NAV_SECTIONS: NavSection[] = [
       { href: '/admin/services', label: 'Services & pricing', icon: '✨' },
       { href: '/admin/users', label: 'Users & access', icon: '🔐' },
       { href: '/admin/settings', label: 'Settings', icon: '⚙️' },
+      { href: '/admin/settings/pretreatment', label: 'Pre-treatment', icon: '📋' },
+      { href: '/admin/settings/aftercare', label: 'Aftercare', icon: '📄' },
       { href: '/admin/system-health', label: 'System Health', icon: '🩺' },
     ],
   },

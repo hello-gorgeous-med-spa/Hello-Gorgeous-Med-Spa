@@ -312,6 +312,27 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
+    // TRIGGER PRE-TREATMENT INSTRUCTIONS
+    if (data && body.client_id) {
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+        fetch(`${baseUrl}/api/pretreatment/send`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            appointment_id: data.id,
+            client_id: body.client_id,
+            service_id: body.service_id,
+            scheduled_at: body.starts_at,
+          }),
+        }).catch(err => {
+          console.error('Pre-treatment send error (non-blocking):', err);
+        });
+      } catch (pretreatmentError) {
+        console.error('Pre-treatment trigger error:', pretreatmentError);
+      }
+    }
+
     return NextResponse.json({ appointment: data });
   } catch (error) {
     return NextResponse.json({ error: 'Failed to create appointment' }, { status: 500 });

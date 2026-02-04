@@ -75,6 +75,13 @@ export async function PUT(
       no_show_reason,
     } = body;
 
+    // Get current appointment to check status change
+    const { data: currentAppointment } = await supabase
+      .from('appointments')
+      .select('status, client_id, service_id')
+      .eq('id', id)
+      .single();
+
     // Build update object
     const updates: Record<string, any> = { updated_at: new Date().toISOString() };
     
@@ -107,6 +114,34 @@ export async function PUT(
         return NextResponse.json({ error: 'Appointment not found' }, { status: 404 });
       }
       throw error;
+    }
+
+    // AFTERCARE AUTO-SEND: Trigger when status changes to 'completed'
+    if (
+      status === 'completed' && 
+      currentAppointment?.status !== 'completed' &&
+      currentAppointment?.client_id
+    ) {
+      try {
+        // Get base URL for internal API call
+        const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+        
+        // Fire and forget - don't block the response
+        fetch(`${baseUrl}/api/aftercare/send`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            appointment_id: id,
+            client_id: currentAppointment.client_id,
+            service_id: service_id || currentAppointment.service_id,
+          }),
+        }).catch(err => {
+          console.error('Aftercare send error (non-blocking):', err);
+        });
+      } catch (aftercareError) {
+        // Don't fail the appointment update if aftercare fails
+        console.error('Aftercare trigger error:', aftercareError);
+      }
     }
 
     return NextResponse.json({ appointment: data });
