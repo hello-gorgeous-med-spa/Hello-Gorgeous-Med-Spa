@@ -16,55 +16,59 @@ import { KeyboardShortcutsProvider } from '@/components/ui/KeyboardShortcuts';
 import { MobileNav } from '@/components/ui/MobileNav';
 
 // ============================================================
-// BACKUP AUTH CHECK - In case middleware fails
+// STRICT AUTH CHECK - Cookie-based only, no localStorage fallback
 // ============================================================
 function useAuthGuard() {
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
-    // Check for session cookie
-    const cookies = document.cookie.split(';').reduce((acc, cookie) => {
-      const [key, value] = cookie.trim().split('=');
-      acc[key] = value;
-      return acc;
-    }, {} as Record<string, string>);
+    // ONLY check for session cookie - no localStorage fallback
+    const getCookie = (name: string) => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop()?.split(';').shift();
+      return undefined;
+    };
 
-    const sessionCookie = cookies['hgos_session'];
+    const sessionCookie = getCookie('hgos_session');
     
     if (sessionCookie) {
       try {
         const sessionData = JSON.parse(decodeURIComponent(sessionCookie));
         const validRoles = ['owner', 'admin', 'staff', 'provider'];
         
-        if (sessionData.userId && sessionData.role && validRoles.includes(sessionData.role)) {
+        // STRICT validation - must have ALL required fields
+        if (
+          sessionData && 
+          typeof sessionData.userId === 'string' && 
+          sessionData.userId.length > 0 &&
+          typeof sessionData.role === 'string' && 
+          validRoles.includes(sessionData.role)
+        ) {
+          console.log('✓ Valid session found:', sessionData.role);
           setIsAuthorized(true);
           return;
+        } else {
+          console.warn('✗ Invalid session data structure');
         }
       } catch (e) {
-        console.error('Invalid session cookie');
+        console.error('✗ Failed to parse session cookie:', e);
       }
+    } else {
+      console.log('✗ No session cookie found');
     }
 
-    // Also check localStorage as fallback
+    // CLEAR any stale localStorage data that might cause confusion
     try {
-      const storedUser = localStorage.getItem('hgos_user');
-      if (storedUser) {
-        const user = JSON.parse(storedUser);
-        const validRoles = ['owner', 'admin', 'staff', 'provider'];
-        if (user.id && user.role && validRoles.includes(user.role)) {
-          // Restore the cookie from localStorage
-          const sessionData = { userId: user.id, email: user.email, role: user.role };
-          document.cookie = `hgos_session=${encodeURIComponent(JSON.stringify(sessionData))}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
-          setIsAuthorized(true);
-          return;
-        }
-      }
+      localStorage.removeItem('hgos_user');
+      localStorage.removeItem('hgos_session');
     } catch (e) {
-      console.error('Failed to check localStorage');
+      // Ignore localStorage errors
     }
 
     // Not authorized - redirect to login
+    console.log('→ Redirecting to login');
     setIsAuthorized(false);
     const returnTo = encodeURIComponent(pathname);
     window.location.href = `/login?returnTo=${returnTo}`;

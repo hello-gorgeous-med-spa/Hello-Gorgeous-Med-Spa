@@ -13,27 +13,34 @@ import { usePathname } from 'next/navigation';
 import ModeSwitcher from '@/components/ModeSwitcher';
 
 // ============================================================
-// AUTH CHECK - Protect provider routes
+// STRICT AUTH CHECK - Cookie-based only
 // ============================================================
 function useProviderAuthGuard() {
   const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
-    const cookies = document.cookie.split(';').reduce((acc, cookie) => {
-      const [key, value] = cookie.trim().split('=');
-      acc[key] = value;
-      return acc;
-    }, {} as Record<string, string>);
+    const getCookie = (name: string) => {
+      const value = `; ${document.cookie}`;
+      const parts = value.split(`; ${name}=`);
+      if (parts.length === 2) return parts.pop()?.split(';').shift();
+      return undefined;
+    };
 
-    const sessionCookie = cookies['hgos_session'];
+    const sessionCookie = getCookie('hgos_session');
     
     if (sessionCookie) {
       try {
         const sessionData = JSON.parse(decodeURIComponent(sessionCookie));
         const validRoles = ['owner', 'admin', 'provider'];
         
-        if (sessionData.userId && sessionData.role && validRoles.includes(sessionData.role)) {
+        if (
+          sessionData && 
+          typeof sessionData.userId === 'string' && 
+          sessionData.userId.length > 0 &&
+          typeof sessionData.role === 'string' && 
+          validRoles.includes(sessionData.role)
+        ) {
           setIsAuthorized(true);
           return;
         }
@@ -42,22 +49,11 @@ function useProviderAuthGuard() {
       }
     }
 
-    // Check localStorage fallback
+    // Clear stale localStorage
     try {
-      const storedUser = localStorage.getItem('hgos_user');
-      if (storedUser) {
-        const user = JSON.parse(storedUser);
-        const validRoles = ['owner', 'admin', 'provider'];
-        if (user.id && user.role && validRoles.includes(user.role)) {
-          const sessionData = { userId: user.id, email: user.email, role: user.role };
-          document.cookie = `hgos_session=${encodeURIComponent(JSON.stringify(sessionData))}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
-          setIsAuthorized(true);
-          return;
-        }
-      }
-    } catch (e) {
-      console.error('Failed to check localStorage');
-    }
+      localStorage.removeItem('hgos_user');
+      localStorage.removeItem('hgos_session');
+    } catch (e) {}
 
     setIsAuthorized(false);
     window.location.href = `/login?returnTo=${encodeURIComponent(pathname)}`;
