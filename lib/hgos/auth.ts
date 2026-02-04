@@ -141,12 +141,21 @@ export async function login(credentials: LoginCredentials): Promise<{ user: Auth
   const adminKey = process.env.ADMIN_ACCESS_KEY || process.env.OWNER_LOGIN_SECRET;
   const ownerEmail = process.env.NEXT_PUBLIC_OWNER_EMAIL || 'danielle@hellogorgeousmedspa.com';
   
-  // Try AUTH_CREDENTIALS format (email:password)
-  if (authCredentials && authCredentials.includes(':')) {
-    const [envEmail, envPassword] = authCredentials.split(':');
-    if (credentials.email.toLowerCase() === envEmail.toLowerCase() && credentials.password === envPassword) {
-      console.log('✓ Admin login via AUTH_CREDENTIALS');
-      return createOwnerSession(envEmail);
+  // Try AUTH_CREDENTIALS format (email:password) - split only on FIRST colon
+  if (authCredentials) {
+    let creds = authCredentials.trim();
+    // Remove leading = if present
+    if (creds.startsWith('=')) creds = creds.slice(1);
+    
+    const colonIndex = creds.indexOf(':');
+    if (colonIndex > 0) {
+      const envEmail = creds.slice(0, colonIndex).trim();
+      const envPassword = creds.slice(colonIndex + 1).trim();
+      
+      if (credentials.email.toLowerCase() === envEmail.toLowerCase() && credentials.password === envPassword) {
+        console.log('✓ Admin login via AUTH_CREDENTIALS');
+        return createOwnerSession(envEmail);
+      }
     }
   }
   
