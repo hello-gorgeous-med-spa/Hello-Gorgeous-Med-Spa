@@ -59,12 +59,13 @@ const NAV_SECTIONS: NavSection[] = [
     ],
   },
   {
-    title: 'Marketing',
+    title: 'Marketing & reports',
     items: [
+      { href: '/admin/insights', label: 'AI Insights', icon: '✨' },
+      { href: '/admin/reports', label: 'Reports', icon: '📈' },
       { href: '/admin/link-builder', label: 'Link Builder', icon: '🔗' },
       { href: '/admin/marketing', label: 'Marketing', icon: '📣' },
       { href: '/admin/sms', label: 'SMS / text', icon: '💬' },
-      { href: '/admin/reports', label: 'Reports', icon: '📈' },
     ],
   },
   {
