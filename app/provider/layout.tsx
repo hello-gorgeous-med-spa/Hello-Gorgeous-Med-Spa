@@ -4,63 +4,13 @@
 // PROVIDER PORTAL LAYOUT
 // Fresha-Level UX - Calm, focused, confidence-boosting
 // Black/White/Pink theme - Clinical workspace
-// WITH AUTH PROTECTION
+// Auth handled by middleware
 // ============================================================
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ModeSwitcher from '@/components/ModeSwitcher';
-
-// ============================================================
-// STRICT AUTH CHECK - Cookie-based only
-// ============================================================
-function useProviderAuthGuard() {
-  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
-  const pathname = usePathname();
-
-  useEffect(() => {
-    const getCookie = (name: string) => {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop()?.split(';').shift();
-      return undefined;
-    };
-
-    const sessionCookie = getCookie('hgos_session');
-    
-    if (sessionCookie) {
-      try {
-        const sessionData = JSON.parse(decodeURIComponent(sessionCookie));
-        const validRoles = ['owner', 'admin', 'provider'];
-        
-        if (
-          sessionData && 
-          typeof sessionData.userId === 'string' && 
-          sessionData.userId.length > 0 &&
-          typeof sessionData.role === 'string' && 
-          validRoles.includes(sessionData.role)
-        ) {
-          setIsAuthorized(true);
-          return;
-        }
-      } catch (e) {
-        console.error('Invalid session cookie');
-      }
-    }
-
-    // Clear stale localStorage
-    try {
-      localStorage.removeItem('hgos_user');
-      localStorage.removeItem('hgos_session');
-    } catch (e) {}
-
-    setIsAuthorized(false);
-    window.location.href = `/login?returnTo=${encodeURIComponent(pathname)}`;
-  }, [pathname]);
-
-  return isAuthorized;
-}
 
 const NAV_ITEMS = [
   { 
@@ -125,35 +75,12 @@ export default function ProviderLayout({
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [queueCount, setQueueCount] = useState(0);
-  
-  // CRITICAL: Auth check
-  const isAuthorized = useProviderAuthGuard();
 
   // Update time every second for a live feel
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
-  
-  // Show loading/redirect while checking auth
-  if (isAuthorized === null) {
-    return (
-      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-white/70">Verifying access...</p>
-        </div>
-      </div>
-    );
-  }
-  
-  if (isAuthorized === false) {
-    return (
-      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
-        <p className="text-white/70">Redirecting to login...</p>
-      </div>
-    );
-  }
 
   // SECURITY: Add noindex meta tag to prevent search engine indexing
   useEffect(() => {

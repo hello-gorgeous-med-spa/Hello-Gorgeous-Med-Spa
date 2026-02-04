@@ -2,80 +2,18 @@
 // ADMIN DASHBOARD LAYOUT
 // Command Center for Hello Gorgeous Med Spa
 // Clean Blueprint - No Static Data
-// WITH BACKUP AUTH PROTECTION
+// Auth handled by middleware
 // ============================================================
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AdminHeader } from '@/components/AdminHeader';
 import { ToastProvider } from '@/components/ui/Toast';
 import { KeyboardShortcutsProvider } from '@/components/ui/KeyboardShortcuts';
 import { MobileNav } from '@/components/ui/MobileNav';
-
-// ============================================================
-// STRICT AUTH CHECK - Cookie-based only, no localStorage fallback
-// ============================================================
-function useAuthGuard() {
-  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
-  const pathname = usePathname();
-
-  useEffect(() => {
-    // ONLY check for session cookie - no localStorage fallback
-    const getCookie = (name: string) => {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop()?.split(';').shift();
-      return undefined;
-    };
-
-    const sessionCookie = getCookie('hgos_session');
-    
-    if (sessionCookie) {
-      try {
-        const sessionData = JSON.parse(decodeURIComponent(sessionCookie));
-        const validRoles = ['owner', 'admin', 'staff', 'provider'];
-        
-        // STRICT validation - must have ALL required fields
-        if (
-          sessionData && 
-          typeof sessionData.userId === 'string' && 
-          sessionData.userId.length > 0 &&
-          typeof sessionData.role === 'string' && 
-          validRoles.includes(sessionData.role)
-        ) {
-          console.log('✓ Valid session found:', sessionData.role);
-          setIsAuthorized(true);
-          return;
-        } else {
-          console.warn('✗ Invalid session data structure');
-        }
-      } catch (e) {
-        console.error('✗ Failed to parse session cookie:', e);
-      }
-    } else {
-      console.log('✗ No session cookie found');
-    }
-
-    // CLEAR any stale localStorage data that might cause confusion
-    try {
-      localStorage.removeItem('hgos_user');
-      localStorage.removeItem('hgos_session');
-    } catch (e) {
-      // Ignore localStorage errors
-    }
-
-    // Not authorized - redirect to login
-    console.log('→ Redirecting to login');
-    setIsAuthorized(false);
-    const returnTo = encodeURIComponent(pathname);
-    window.location.href = `/login?returnTo=${returnTo}`;
-  }, [pathname]);
-
-  return isAuthorized;
-}
 
 // Switch to admin manifest for PWA install
 function useAdminManifest() {
@@ -195,9 +133,6 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname();
   
-  // CRITICAL: Backup auth check in case middleware fails
-  const isAuthorized = useAuthGuard();
-  
   // Use admin manifest for PWA installation
   useAdminManifest();
 
@@ -205,29 +140,6 @@ export default function AdminLayout({
     if (href === '/admin') return pathname === '/admin';
     return pathname.startsWith(href);
   };
-
-  // Show loading while checking auth
-  if (isAuthorized === null) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-500">Verifying access...</p>
-        </div>
-      </div>
-    );
-  }
-
-  // If not authorized, the useAuthGuard will redirect - show nothing
-  if (isAuthorized === false) {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-gray-500">Redirecting to login...</p>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <ToastProvider>

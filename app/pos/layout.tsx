@@ -3,62 +3,11 @@
 // ============================================================
 // POS TERMINAL LAYOUT
 // Full-screen point of sale interface
-// WITH AUTH PROTECTION
+// Auth handled by middleware
 // ============================================================
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-
-// ============================================================
-// STRICT AUTH CHECK - Cookie-based only
-// ============================================================
-function usePOSAuthGuard() {
-  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
-  const pathname = usePathname();
-
-  useEffect(() => {
-    const getCookie = (name: string) => {
-      const value = `; ${document.cookie}`;
-      const parts = value.split(`; ${name}=`);
-      if (parts.length === 2) return parts.pop()?.split(';').shift();
-      return undefined;
-    };
-
-    const sessionCookie = getCookie('hgos_session');
-    
-    if (sessionCookie) {
-      try {
-        const sessionData = JSON.parse(decodeURIComponent(sessionCookie));
-        const validRoles = ['owner', 'admin', 'staff', 'provider'];
-        
-        if (
-          sessionData && 
-          typeof sessionData.userId === 'string' && 
-          sessionData.userId.length > 0 &&
-          typeof sessionData.role === 'string' && 
-          validRoles.includes(sessionData.role)
-        ) {
-          setIsAuthorized(true);
-          return;
-        }
-      } catch (e) {
-        console.error('Invalid session cookie');
-      }
-    }
-
-    // Clear stale localStorage
-    try {
-      localStorage.removeItem('hgos_user');
-      localStorage.removeItem('hgos_session');
-    } catch (e) {}
-
-    setIsAuthorized(false);
-    window.location.href = `/login?returnTo=${encodeURIComponent(pathname)}`;
-  }, [pathname]);
-
-  return isAuthorized;
-}
 
 export default function POSLayout({
   children,
@@ -67,9 +16,6 @@ export default function POSLayout({
 }) {
   const [currentDate, setCurrentDate] = useState('');
   
-  // CRITICAL: Auth check
-  const isAuthorized = usePOSAuthGuard();
-  
   useEffect(() => {
     setCurrentDate(new Date().toLocaleDateString('en-US', { 
       weekday: 'short', 
@@ -77,26 +23,6 @@ export default function POSLayout({
       day: 'numeric' 
     }));
   }, []);
-  
-  // Show loading/redirect while checking auth
-  if (isAuthorized === null) {
-    return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-12 h-12 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-white/70">Verifying access...</p>
-        </div>
-      </div>
-    );
-  }
-  
-  if (isAuthorized === false) {
-    return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
-        <p className="text-white/70">Redirecting to login...</p>
-      </div>
-    );
-  }
   
   return (
     <div className="min-h-screen bg-slate-900 text-white">
