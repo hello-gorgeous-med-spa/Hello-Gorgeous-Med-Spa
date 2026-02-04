@@ -97,11 +97,11 @@ const NAV_SECTIONS = [
     title: 'Marketing & reports',
     items: [
       { href: '/admin/insights', label: 'AI Insights', icon: '✨', description: 'Ask anything about your business' },
+      { href: '/admin/marketing/assistant', label: 'Marketing Assistant', icon: '🤖', description: 'AI campaign suggestions' },
+      { href: '/admin/marketing/contacts', label: 'Contact Collection', icon: '📋', description: 'Sign-up links & QR codes' },
       { href: '/admin/reports', label: 'Reports', icon: '📈', description: 'Revenue & analytics' },
-      { href: '/admin/link-builder', label: 'Link Builder', icon: '🔗', description: 'Booking links & QR codes' },
-      { href: '/admin/marketing', label: 'Marketing', icon: '📣', description: 'Campaigns & email' },
       { href: '/admin/sms', label: 'SMS / text', icon: '💬', description: 'Text campaigns' },
-      { href: '/admin/templates', label: 'Message templates', icon: '📝', description: 'Email & SMS text' },
+      { href: '/admin/marketing', label: 'All Marketing', icon: '📣', description: 'Campaigns & email' },
     ],
   },
   {
