@@ -4,12 +4,67 @@
 // PROVIDER PORTAL LAYOUT
 // Fresha-Level UX - Calm, focused, confidence-boosting
 // Black/White/Pink theme - Clinical workspace
+// WITH AUTH PROTECTION
 // ============================================================
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ModeSwitcher from '@/components/ModeSwitcher';
+
+// ============================================================
+// AUTH CHECK - Protect provider routes
+// ============================================================
+function useProviderAuthGuard() {
+  const [isAuthorized, setIsAuthorized] = useState<boolean | null>(null);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const cookies = document.cookie.split(';').reduce((acc, cookie) => {
+      const [key, value] = cookie.trim().split('=');
+      acc[key] = value;
+      return acc;
+    }, {} as Record<string, string>);
+
+    const sessionCookie = cookies['hgos_session'];
+    
+    if (sessionCookie) {
+      try {
+        const sessionData = JSON.parse(decodeURIComponent(sessionCookie));
+        const validRoles = ['owner', 'admin', 'provider'];
+        
+        if (sessionData.userId && sessionData.role && validRoles.includes(sessionData.role)) {
+          setIsAuthorized(true);
+          return;
+        }
+      } catch (e) {
+        console.error('Invalid session cookie');
+      }
+    }
+
+    // Check localStorage fallback
+    try {
+      const storedUser = localStorage.getItem('hgos_user');
+      if (storedUser) {
+        const user = JSON.parse(storedUser);
+        const validRoles = ['owner', 'admin', 'provider'];
+        if (user.id && user.role && validRoles.includes(user.role)) {
+          const sessionData = { userId: user.id, email: user.email, role: user.role };
+          document.cookie = `hgos_session=${encodeURIComponent(JSON.stringify(sessionData))}; path=/; max-age=${7 * 24 * 60 * 60}; SameSite=Lax`;
+          setIsAuthorized(true);
+          return;
+        }
+      }
+    } catch (e) {
+      console.error('Failed to check localStorage');
+    }
+
+    setIsAuthorized(false);
+    window.location.href = `/login?returnTo=${encodeURIComponent(pathname)}`;
+  }, [pathname]);
+
+  return isAuthorized;
+}
 
 const NAV_ITEMS = [
   { 
@@ -74,12 +129,35 @@ export default function ProviderLayout({
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [queueCount, setQueueCount] = useState(0);
+  
+  // CRITICAL: Auth check
+  const isAuthorized = useProviderAuthGuard();
 
   // Update time every second for a live feel
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
+  
+  // Show loading/redirect while checking auth
+  if (isAuthorized === null) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-white/70">Verifying access...</p>
+        </div>
+      </div>
+    );
+  }
+  
+  if (isAuthorized === false) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
+        <p className="text-white/70">Redirecting to login...</p>
+      </div>
+    );
+  }
 
   // SECURITY: Add noindex meta tag to prevent search engine indexing
   useEffect(() => {
