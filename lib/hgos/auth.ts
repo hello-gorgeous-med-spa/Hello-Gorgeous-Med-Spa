@@ -114,6 +114,29 @@ export const ROUTE_PERMISSIONS: Record<string, UserRole[]> = {
 export async function login(credentials: LoginCredentials): Promise<{ user: AuthUser; session: any } | null> {
   const supabase = createBrowserSupabaseClient();
   
+  // Allow owner login with env secret (temporary until Supabase Auth is fully set up)
+  const ownerEmail = process.env.NEXT_PUBLIC_OWNER_EMAIL || 'danielle@hellogorgeousmedspa.com';
+  const ownerSecret = process.env.OWNER_LOGIN_SECRET;
+  
+  if (ownerSecret && credentials.email.toLowerCase() === ownerEmail.toLowerCase() && credentials.password === ownerSecret) {
+    console.log('✓ Owner login via secret');
+    return {
+      user: {
+        id: 'owner-001',
+        email: ownerEmail,
+        role: 'owner',
+        firstName: 'Danielle',
+        lastName: 'Glazier-Alcala',
+        permissions: ROLE_PERMISSIONS.owner,
+        createdAt: '2024-01-01',
+      },
+      session: {
+        access_token: `owner_token_${Date.now()}`,
+        expires_at: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60, // 7 days
+      },
+    };
+  }
+  
   if (!supabase) {
     // SECURITY: Never allow mock login in production
     if (process.env.NODE_ENV === 'production') {
