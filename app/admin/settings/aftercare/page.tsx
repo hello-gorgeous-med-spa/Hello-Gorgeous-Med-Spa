@@ -174,6 +174,27 @@ We look forward to seeing you again!`,
     }
   };
 
+  const [seeding, setSeeding] = useState(false);
+
+  const handleSeedTemplates = async () => {
+    if (!confirm('This will add professional aftercare templates for common services. Continue?')) return;
+    
+    setSeeding(true);
+    try {
+      const res = await fetch('/api/aftercare/templates/seed', { method: 'POST' });
+      const data = await res.json();
+      
+      if (!res.ok) throw new Error(data.error);
+      
+      toast.success(`Added ${data.count} aftercare templates!`);
+      fetchData();
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to seed templates');
+    } finally {
+      setSeeding(false);
+    }
+  };
+
   return (
     <div className="space-y-6 max-w-5xl">
       <Breadcrumb />
@@ -184,12 +205,23 @@ We look forward to seeing you again!`,
           <h1 className="text-2xl font-bold text-gray-900">Aftercare Instructions</h1>
           <p className="text-gray-500">Auto-send post-treatment care instructions to clients</p>
         </div>
-        <button
-          onClick={handleNew}
-          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
-        >
-          + New Template
-        </button>
+        <div className="flex items-center gap-3">
+          {templates.length < 5 && (
+            <button
+              onClick={handleSeedTemplates}
+              disabled={seeding}
+              className="px-4 py-2 bg-purple-100 text-purple-700 font-medium rounded-lg hover:bg-purple-200 transition-colors disabled:opacity-50"
+            >
+              {seeding ? 'Loading...' : '✨ Load Default Templates'}
+            </button>
+          )}
+          <button
+            onClick={handleNew}
+            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+          >
+            + New Template
+          </button>
+        </div>
       </div>
 
       {/* Info Card */}
