@@ -50,9 +50,9 @@ function LoginForm() {
       // Small delay to ensure cookie is set before redirect
       await new Promise(resolve => setTimeout(resolve, 100));
       
-      // Manual redirect after successful login
+      // Use window.location for hard redirect (ensures cookie is sent with request)
       const returnTo = searchParams.get('returnTo') || searchParams.get('redirect') || '/admin';
-      router.push(returnTo);
+      window.location.href = returnTo;
     } catch (err: any) {
       setError(err.message || 'Invalid email or password');
     } finally {
