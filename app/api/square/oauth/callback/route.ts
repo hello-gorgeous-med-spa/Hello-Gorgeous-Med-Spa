@@ -120,11 +120,17 @@ export async function GET(request: NextRequest) {
     
   } catch (err) {
     console.error('Square OAuth callback error:', err);
+    console.error('Error details:', JSON.stringify(err, Object.getOwnPropertyNames(err)));
+    
+    // Include more detail in the error message for debugging
+    const errorMessage = err instanceof Error 
+      ? `${err.message}${err.cause ? ` (${err.cause})` : ''}`
+      : 'Failed to complete authorization';
     
     return NextResponse.redirect(
       buildRedirectUrl(returnUrl, {
         error: 'oauth_failed',
-        message: err instanceof Error ? err.message : 'Failed to complete authorization',
+        message: errorMessage,
       })
     );
   }
