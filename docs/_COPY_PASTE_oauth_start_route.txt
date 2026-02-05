@@ -38,6 +38,7 @@ function logOAuthUrl(url: string): void {
     redirect_uri: parsed.searchParams.get('redirect_uri'),
     scope: parsed.searchParams.get('scope'),
     state: parsed.searchParams.get('state')?.slice(0, 8) + '...',
+    session: parsed.searchParams.get('session'),
   });
 }
 
@@ -62,16 +63,7 @@ export async function GET(request: NextRequest) {
     });
     
     // Get the return URL from query params (where to redirect after OAuth)
-    // SECURITY: Whitelist to prevent open-redirect attacks
-    const rawReturnUrl = request.nextUrl.searchParams.get('returnUrl') || '/admin/settings/payments';
-    const returnUrl =
-      rawReturnUrl.startsWith('/') &&
-      !rawReturnUrl.startsWith('//') &&
-      !rawReturnUrl.toLowerCase().includes('http') &&
-      !rawReturnUrl.includes('\n') &&
-      !rawReturnUrl.includes('\r')
-        ? rawReturnUrl
-        : '/admin/settings/payments';
+    const returnUrl = request.nextUrl.searchParams.get('returnUrl') || '/admin/settings/payments';
     cookieStore.set('square_oauth_return_url', returnUrl, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
@@ -93,10 +85,7 @@ export async function GET(request: NextRequest) {
     // Log for debugging (no secrets)
     logOAuthUrl(authUrl);
     
-    // SECURITY: Never cache OAuth redirects
-    const res = NextResponse.redirect(authUrl);
-    res.headers.set('Cache-Control', 'no-store');
-    return res;
+    return NextResponse.redirect(authUrl);
   } catch (error) {
     console.error('[Square OAuth] Start error:', error);
     
@@ -105,9 +94,6 @@ export async function GET(request: NextRequest) {
     errorUrl.searchParams.set('error', 'oauth_start_failed');
     errorUrl.searchParams.set('message', error instanceof Error ? error.message : 'Failed to start OAuth');
     
-    // SECURITY: Never cache OAuth redirects
-    const res = NextResponse.redirect(errorUrl);
-    res.headers.set('Cache-Control', 'no-store');
-    return res;
+    return NextResponse.redirect(errorUrl);
   }
 }
