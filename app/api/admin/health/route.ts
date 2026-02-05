@@ -1,4 +1,5 @@
 // ============================================================
+import { createClient } from '@supabase/supabase-js';
 // SYSTEM HEALTH CHECK API
 // Comprehensive verification of all system components
 // ============================================================
@@ -15,7 +16,7 @@ function getSupabase() {
   }
   
   try {
-    const { createClient } = require('@supabase/supabase-js');
+    // createClient imported at top
     return createClient(url, key, {
       auth: { autoRefreshToken: false, persistSession: false },
     });

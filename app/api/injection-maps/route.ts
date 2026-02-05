@@ -1,4 +1,5 @@
 // ============================================================
+import { createClient } from '@supabase/supabase-js';
 // INJECTION MAPS API
 // Create and retrieve injection mapping records
 // ============================================================
@@ -14,7 +15,7 @@ function getSupabase() {
   if (!url || !key || url.includes('placeholder')) return null;
   
   try {
-    const { createClient } = require('@supabase/supabase-js');
+    // createClient imported at top
     return createClient(url, key, {
       auth: { autoRefreshToken: false, persistSession: false },
     });

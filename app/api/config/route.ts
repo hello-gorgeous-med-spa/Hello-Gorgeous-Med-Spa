@@ -1,4 +1,5 @@
 // ============================================================
+import { createClient } from '@supabase/supabase-js';
 // API: SYSTEM CONFIGURATION - Owner-Controlled Settings
 // ALL business logic reads from here - NO HARDCODING
 // ============================================================
@@ -16,7 +17,7 @@ function getSupabase() {
   if (!url || !key || url.includes('placeholder')) return null;
   
   try {
-    const { createClient } = require('@supabase/supabase-js');
+    // createClient imported at top
     return createClient(url, key, {
       auth: { autoRefreshToken: false, persistSession: false },
     });

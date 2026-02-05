@@ -1,4 +1,5 @@
 // ============================================================
+import { createClient } from '@supabase/supabase-js';
 // API: AVAILABILITY - Dynamic slot generation based on provider schedules
 // This is the SOURCE OF TRUTH for bookable time slots
 // ============================================================
@@ -18,7 +19,7 @@ function getSupabase() {
   }
   
   try {
-    const { createClient } = require('@supabase/supabase-js');
+    // createClient imported at top
     return createClient(url, key, {
       auth: { autoRefreshToken: false, persistSession: false },
     });

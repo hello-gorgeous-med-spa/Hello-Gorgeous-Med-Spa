@@ -8,6 +8,8 @@ import { NextRequest, NextResponse } from 'next/server';
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
 
+import { createClient } from '@supabase/supabase-js';
+
 function getSupabase() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -17,7 +19,6 @@ function getSupabase() {
   }
   
   try {
-    const { createClient } = require('@supabase/supabase-js');
     return createClient(url, key, {
       auth: { autoRefreshToken: false, persistSession: false },
     });

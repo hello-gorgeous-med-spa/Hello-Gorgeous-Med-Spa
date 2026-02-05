@@ -1,18 +1,31 @@
 // ============================================================
 // SQUARE SDK CLIENT
-// Full integration for payments and gift cards
+// Full integration for payments, gift cards, terminal, and devices
+// Supports both OAuth tokens and static environment tokens
+// ============================================================
+
+import { getAccessToken } from './oauth';
+
+// Square SDK types
+type SquareClient = any;
+
+// ============================================================
+// CLIENT INITIALIZATION
 // ============================================================
 
 // Lazy-load Square to prevent build-time crashes when env vars are missing
-let _squareClient: ReturnType<typeof initSquareClient> = null;
-let _initialized = false;
+let _staticClient: SquareClient = null;
+let _staticInitialized = false;
 
-function initSquareClient() {
+/**
+ * Initialize Square client with static environment token (legacy)
+ */
+function initStaticClient(): SquareClient {
   const accessToken = process.env.SQUARE_ACCESS_TOKEN;
   if (!accessToken) return null;
   
   try {
-    // Dynamic import to prevent build-time access to Environment enum
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { Client, Environment } = require('square');
     const environment = process.env.SQUARE_ENVIRONMENT === 'production' 
       ? Environment.Production 
@@ -28,28 +41,155 @@ function initSquareClient() {
   }
 }
 
-function getSquareClient() {
-  if (!_initialized) {
-    _squareClient = initSquareClient();
-    _initialized = true;
+/**
+ * Get static Square client (for legacy code)
+ */
+function getStaticClient(): SquareClient {
+  if (!_staticInitialized) {
+    _staticClient = initStaticClient();
+    _staticInitialized = true;
   }
-  return _squareClient;
+  return _staticClient;
 }
 
-// Export getter functions for APIs (lazy initialization)
-export const getGiftCardsApi = () => getSquareClient()?.giftCardsApi ?? null;
-export const getGiftCardActivitiesApi = () => getSquareClient()?.giftCardActivitiesApi ?? null;
-export const getPaymentsApi = () => getSquareClient()?.paymentsApi ?? null;
-export const getCustomersApi = () => getSquareClient()?.customersApi ?? null;
-export const getOrdersApi = () => getSquareClient()?.ordersApi ?? null;
+/**
+ * Create Square client with a specific access token
+ */
+export function createSquareClientWithToken(accessToken: string): SquareClient {
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { Client, Environment } = require('square');
+    const environment = process.env.SQUARE_ENVIRONMENT === 'production' 
+      ? Environment.Production 
+      : Environment.Sandbox;
+    
+    return new Client({
+      accessToken,
+      environment,
+    });
+  } catch (error) {
+    console.warn('Square SDK not available:', error);
+    return null;
+  }
+}
+
+/**
+ * Get Square client with OAuth token from database
+ * Falls back to static token if OAuth not available
+ */
+export async function getSquareClientAsync(): Promise<SquareClient> {
+  // Try OAuth token first
+  const oauthToken = await getAccessToken();
+  if (oauthToken) {
+    return createSquareClientWithToken(oauthToken);
+  }
+  
+  // Fall back to static token
+  return getStaticClient();
+}
+
+// ============================================================
+// LEGACY SYNC GETTERS (for backward compatibility)
+// ============================================================
+
+// Export getter functions for APIs (lazy initialization with static token)
+export const getGiftCardsApi = () => getStaticClient()?.giftCardsApi ?? null;
+export const getGiftCardActivitiesApi = () => getStaticClient()?.giftCardActivitiesApi ?? null;
+export const getPaymentsApi = () => getStaticClient()?.paymentsApi ?? null;
+export const getCustomersApi = () => getStaticClient()?.customersApi ?? null;
+export const getOrdersApi = () => getStaticClient()?.ordersApi ?? null;
 
 // Legacy exports for backwards compatibility (use getters above for new code)
-export const squareClient = null as ReturnType<typeof initSquareClient>; // Deprecated
+export const squareClient = null as SquareClient; // Deprecated
 export const giftCardsApi = null; // Deprecated - use getGiftCardsApi()
 export const giftCardActivitiesApi = null; // Deprecated - use getGiftCardActivitiesApi()
 export const paymentsApi = null; // Deprecated - use getPaymentsApi()
 export const customersApi = null; // Deprecated - use getCustomersApi()
 export const ordersApi = null; // Deprecated - use getOrdersApi()
+
+// ============================================================
+// ASYNC API GETTERS (use OAuth token from database)
+// ============================================================
+
+/**
+ * Get Payments API with OAuth token
+ */
+export async function getPaymentsApiAsync() {
+  const client = await getSquareClientAsync();
+  return client?.paymentsApi ?? null;
+}
+
+/**
+ * Get Orders API with OAuth token
+ */
+export async function getOrdersApiAsync() {
+  const client = await getSquareClientAsync();
+  return client?.ordersApi ?? null;
+}
+
+/**
+ * Get Terminal API with OAuth token
+ */
+export async function getTerminalApiAsync() {
+  const client = await getSquareClientAsync();
+  return client?.terminalApi ?? null;
+}
+
+/**
+ * Get Devices API with OAuth token
+ */
+export async function getDevicesApiAsync() {
+  const client = await getSquareClientAsync();
+  return client?.devicesApi ?? null;
+}
+
+/**
+ * Get Locations API with OAuth token
+ */
+export async function getLocationsApiAsync() {
+  const client = await getSquareClientAsync();
+  return client?.locationsApi ?? null;
+}
+
+/**
+ * Get Merchants API with OAuth token
+ */
+export async function getMerchantsApiAsync() {
+  const client = await getSquareClientAsync();
+  return client?.merchantsApi ?? null;
+}
+
+/**
+ * Get Refunds API with OAuth token
+ */
+export async function getRefundsApiAsync() {
+  const client = await getSquareClientAsync();
+  return client?.refundsApi ?? null;
+}
+
+/**
+ * Get Customers API with OAuth token
+ */
+export async function getCustomersApiAsync() {
+  const client = await getSquareClientAsync();
+  return client?.customersApi ?? null;
+}
+
+/**
+ * Get Gift Cards API with OAuth token
+ */
+export async function getGiftCardsApiAsync() {
+  const client = await getSquareClientAsync();
+  return client?.giftCardsApi ?? null;
+}
+
+/**
+ * Get Gift Card Activities API with OAuth token
+ */
+export async function getGiftCardActivitiesApiAsync() {
+  const client = await getSquareClientAsync();
+  return client?.giftCardActivitiesApi ?? null;
+}
 
 // ============================================================
 // TYPES
@@ -596,17 +736,43 @@ export async function adjustSquareGiftCardBalance(
 // ============================================================
 
 /**
- * Check if Square is configured
+ * Check if Square is configured (sync, uses static token)
  */
 export function isSquareConfigured(): boolean {
-  return !!getSquareClient();
+  return !!getStaticClient();
 }
 
 /**
- * Get Square location ID from environment
+ * Check if Square is configured (async, checks OAuth connection)
+ */
+export async function isSquareConfiguredAsync(): Promise<boolean> {
+  const client = await getSquareClientAsync();
+  return !!client;
+}
+
+/**
+ * Get Square location ID from environment (legacy)
  */
 export function getSquareLocationId(): string {
   return process.env.SQUARE_LOCATION_ID || '';
+}
+
+/**
+ * Get Square location ID from database connection
+ */
+export async function getSquareLocationIdAsync(): Promise<string | null> {
+  const { getActiveConnection } = await import('./oauth');
+  const connection = await getActiveConnection();
+  return connection?.location_id || process.env.SQUARE_LOCATION_ID || null;
+}
+
+/**
+ * Get default device ID from database connection
+ */
+export async function getDefaultDeviceIdAsync(): Promise<string | null> {
+  const { getActiveConnection } = await import('./oauth');
+  const connection = await getActiveConnection();
+  return connection?.default_device_id || null;
 }
 
 /**
