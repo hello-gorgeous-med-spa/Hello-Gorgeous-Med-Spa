@@ -36,7 +36,8 @@ const REQUIRED_SCOPES = [
   'PAYMENTS_READ',            // Fetch payment details (tips, status)
   'ORDERS_WRITE',             // Create orders for Terminal checkout
   'ORDERS_READ',              // Read order details for reconciliation
-  'DEVICE_CREDENTIAL_MANAGEMENT', // Terminal/Devices access (list devices + create checkout)
+  // Note: DEVICE_CREDENTIAL_MANAGEMENT removed - use DEVICES_READ for listing terminals
+  // Add back specific Terminal scopes once base OAuth works
   // ----------------------------------------------------------------
   // EXPLICITLY NOT REQUESTED (PHI compliance + least privilege):
   // - CUSTOMERS_* - we don't send customer data to Square
@@ -110,6 +111,13 @@ export function getOAuthConfig(): SquareOAuthConfig {
 
 /**
  * Generate Square OAuth authorization URL
+ * 
+ * Required params per Square docs:
+ * - client_id: Application ID
+ * - response_type: Must be "code" for authorization code flow
+ * - redirect_uri: Where Square sends user after authorization
+ * - scope: Space-separated list of permissions
+ * - state: CSRF protection token
  */
 export function getOAuthUrl(state: string): string {
   const config = getOAuthConfig();
@@ -117,6 +125,8 @@ export function getOAuthUrl(state: string): string {
   
   const params = new URLSearchParams({
     client_id: config.appId,
+    response_type: 'code',
+    redirect_uri: config.redirectUri,
     scope: REQUIRED_SCOPES,
     session: 'false',
     state,
