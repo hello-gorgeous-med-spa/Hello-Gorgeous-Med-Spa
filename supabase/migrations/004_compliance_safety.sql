@@ -345,27 +345,33 @@ WHERE NOT EXISTS (SELECT 1 FROM business_settings LIMIT 1);
 -- SMS Messages RLS
 ALTER TABLE sms_messages ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Staff can view all SMS messages" ON sms_messages;
 CREATE POLICY "Staff can view all SMS messages" ON sms_messages
   FOR SELECT TO authenticated USING (true);
 
+DROP POLICY IF EXISTS "Staff can insert SMS messages" ON sms_messages;
 CREATE POLICY "Staff can insert SMS messages" ON sms_messages
   FOR INSERT TO authenticated WITH CHECK (true);
 
 -- SMS Opt-outs RLS
 ALTER TABLE sms_opt_outs ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Staff can view opt-outs" ON sms_opt_outs;
 CREATE POLICY "Staff can view opt-outs" ON sms_opt_outs
   FOR SELECT TO authenticated USING (true);
 
+DROP POLICY IF EXISTS "Staff can manage opt-outs" ON sms_opt_outs;
 CREATE POLICY "Staff can manage opt-outs" ON sms_opt_outs
   FOR ALL TO authenticated USING (true);
 
 -- Business Settings RLS
 ALTER TABLE business_settings ENABLE ROW LEVEL SECURITY;
 
+DROP POLICY IF EXISTS "Anyone can read settings" ON business_settings;
 CREATE POLICY "Anyone can read settings" ON business_settings
   FOR SELECT USING (true);
 
+DROP POLICY IF EXISTS "Admins can update settings" ON business_settings;
 CREATE POLICY "Admins can update settings" ON business_settings
   FOR UPDATE TO authenticated USING (true);
 
