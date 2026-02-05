@@ -1,0 +1,312 @@
+// ============================================================
+// CHART-TO-CART - Session History
+// View past treatment sessions and sales
+// ============================================================
+
+'use client';
+
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+
+interface Session {
+  id: string;
+  client_name: string;
+  provider: string;
+  date: string;
+  treatment_summary: string;
+  products_count: number;
+  total: number;
+  payment_method: string;
+  status: 'completed' | 'refunded' | 'partial_refund';
+}
+
+export default function SessionHistoryPage() {
+  const [sessions, setSessions] = useState<Session[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [dateRange, setDateRange] = useState('today');
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    // Mock data - in production would fetch from API
+    const mockSessions: Session[] = [
+      {
+        id: '1',
+        client_name: 'Sydney Marie',
+        provider: 'Olivia Richardson',
+        date: new Date().toISOString(),
+        treatment_summary: 'Lips & Cheeks - Revanesse Versa + Restylane',
+        products_count: 3,
+        total: 2846.48,
+        payment_method: 'Card',
+        status: 'completed',
+      },
+      {
+        id: '2',
+        client_name: 'Danielle McVea',
+        provider: 'Staff',
+        date: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+        treatment_summary: 'Botox - Forehead & Glabella',
+        products_count: 3,
+        total: 1944,
+        payment_method: 'Card',
+        status: 'completed',
+      },
+      {
+        id: '3',
+        client_name: 'Jessica Chen',
+        provider: 'Olivia Richardson',
+        date: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+        treatment_summary: 'IV Therapy - Beauty Glow + Hydration',
+        products_count: 2,
+        total: 375,
+        payment_method: 'Cash',
+        status: 'completed',
+      },
+      {
+        id: '4',
+        client_name: 'Amanda Wilson',
+        provider: 'Staff',
+        date: new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString(),
+        treatment_summary: 'Lip Filler - Juvederm Volbella',
+        products_count: 1,
+        total: 650,
+        payment_method: 'Gift Card',
+        status: 'completed',
+      },
+      {
+        id: '5',
+        client_name: 'Maria Santos',
+        provider: 'Olivia Richardson',
+        date: new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString(),
+        treatment_summary: 'Full Face Rejuvenation',
+        products_count: 5,
+        total: 3250,
+        payment_method: 'Card',
+        status: 'partial_refund',
+      },
+    ];
+
+    setTimeout(() => {
+      setSessions(mockSessions);
+      setLoading(false);
+    }, 500);
+  }, []);
+
+  const filteredSessions = sessions.filter(s => {
+    const matchesSearch = !searchQuery || 
+      s.client_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      s.treatment_summary.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    if (dateRange === 'today') {
+      return matchesSearch && new Date(s.date).toDateString() === new Date().toDateString();
+    } else if (dateRange === 'week') {
+      const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+      return matchesSearch && new Date(s.date) >= weekAgo;
+    }
+    return matchesSearch;
+  });
+
+  const totalRevenue = filteredSessions.reduce((sum, s) => sum + s.total, 0);
+  const totalSessions = filteredSessions.length;
+
+  const formatDate = (dateStr: string) => {
+    const date = new Date(dateStr);
+    return date.toLocaleDateString('en-US', { 
+      month: 'short', 
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    });
+  };
+
+  return (
+    <div className="p-6 max-w-7xl mx-auto">
+      {/* Header */}
+      <div className="flex items-center justify-between mb-8">
+        <div>
+          <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+            <Link href="/admin/chart-to-cart" className="hover:text-pink-600">Chart-to-Cart</Link>
+            <span>→</span>
+            <span>Session History</span>
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+            <span className="text-3xl">📜</span>
+            Session History
+          </h1>
+          <p className="text-gray-500 mt-1">View past treatment sessions and transactions</p>
+        </div>
+        <Link
+          href="/admin/chart-to-cart/new"
+          className="px-5 py-2.5 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors font-medium flex items-center gap-2"
+        >
+          <span>➕</span> New Session
+        </Link>
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-500">Total Sessions</p>
+              <p className="text-3xl font-bold text-gray-900 mt-1">{totalSessions}</p>
+            </div>
+            <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+              <span className="text-2xl">📋</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-500">Total Revenue</p>
+              <p className="text-3xl font-bold text-green-600 mt-1">
+                ${totalRevenue.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+              </p>
+            </div>
+            <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
+              <span className="text-2xl">💰</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-gray-500">Average Sale</p>
+              <p className="text-3xl font-bold text-gray-900 mt-1">
+                ${totalSessions > 0 ? (totalRevenue / totalSessions).toLocaleString('en-US', { minimumFractionDigits: 2 }) : '0.00'}
+              </p>
+            </div>
+            <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
+              <span className="text-2xl">📊</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Filters */}
+      <div className="bg-white rounded-xl border border-gray-100 shadow-sm mb-6">
+        <div className="p-4 flex flex-wrap items-center gap-4">
+          <div className="flex-1 min-w-64">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search by client or treatment..."
+              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+            />
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setDateRange('today')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                dateRange === 'today' ? 'bg-pink-100 text-pink-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              Today
+            </button>
+            <button
+              onClick={() => setDateRange('week')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                dateRange === 'week' ? 'bg-pink-100 text-pink-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              This Week
+            </button>
+            <button
+              onClick={() => setDateRange('all')}
+              className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                dateRange === 'all' ? 'bg-pink-100 text-pink-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+              }`}
+            >
+              All Time
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Sessions List */}
+      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+        {loading ? (
+          <div className="p-8 text-center text-gray-400">Loading...</div>
+        ) : filteredSessions.length === 0 ? (
+          <div className="p-12 text-center">
+            <span className="text-5xl">📭</span>
+            <h3 className="text-lg font-semibold text-gray-900 mt-4">No sessions found</h3>
+            <p className="text-gray-500 mt-1">Try adjusting your filters</p>
+          </div>
+        ) : (
+          <table className="w-full">
+            <thead className="bg-gray-50 border-b border-gray-100">
+              <tr>
+                <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Date & Time</th>
+                <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Client</th>
+                <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Treatment</th>
+                <th className="text-center px-6 py-4 text-sm font-semibold text-gray-900">Products</th>
+                <th className="text-center px-6 py-4 text-sm font-semibold text-gray-900">Payment</th>
+                <th className="text-right px-6 py-4 text-sm font-semibold text-gray-900">Total</th>
+                <th className="text-center px-6 py-4 text-sm font-semibold text-gray-900">Status</th>
+                <th className="text-right px-6 py-4 text-sm font-semibold text-gray-900">Actions</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-gray-100">
+              {filteredSessions.map((session) => (
+                <tr key={session.id} className="hover:bg-gray-50">
+                  <td className="px-6 py-4">
+                    <p className="font-medium text-gray-900">{formatDate(session.date)}</p>
+                  </td>
+                  <td className="px-6 py-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-pink-400 to-pink-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                        {session.client_name.split(' ').map(n => n[0]).join('')}
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">{session.client_name}</p>
+                        <p className="text-xs text-gray-500">{session.provider}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">
+                    <p className="text-gray-700 text-sm max-w-xs truncate">{session.treatment_summary}</p>
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <span className="px-2 py-1 bg-gray-100 rounded-full text-xs font-medium text-gray-700">
+                      {session.products_count} items
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <span className="text-sm text-gray-600">{session.payment_method}</span>
+                  </td>
+                  <td className="px-6 py-4 text-right">
+                    <p className="font-bold text-gray-900">
+                      ${session.total.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+                    </p>
+                  </td>
+                  <td className="px-6 py-4 text-center">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      session.status === 'completed' 
+                        ? 'bg-green-100 text-green-700' 
+                        : session.status === 'refunded'
+                        ? 'bg-red-100 text-red-700'
+                        : 'bg-yellow-100 text-yellow-700'
+                    }`}>
+                      {session.status.replace('_', ' ')}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 text-right">
+                    <button className="text-pink-600 hover:text-pink-700 font-medium text-sm">
+                      View
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </div>
+    </div>
+  );
+}

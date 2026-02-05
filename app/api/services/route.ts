@@ -416,10 +416,14 @@ export async function GET(request: NextRequest) {
       .select('id, name, slug, display_order')
       .order('display_order');
 
-    // If database has services, return them
+    // If database has services, return them with computed price
     if (!servicesError && services && services.length > 0) {
       return NextResponse.json({
-        services: services,
+        services: services.map(s => ({
+          ...s,
+          // Ensure price is always computed from price_cents for consistency
+          price: s.price_cents ? s.price_cents / 100 : (s.price || 0),
+        })),
         categories: (!categoriesError && categories && categories.length > 0) ? categories : DEFAULT_CATEGORIES,
       });
     }

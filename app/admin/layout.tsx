@@ -135,6 +135,16 @@ const NAV_SECTIONS = [
     ],
   },
   {
+    title: 'Chart-to-Cart',
+    icon: '🛒',
+    items: [
+      { href: '/admin/chart-to-cart', label: 'Active Sessions', icon: '⚡' },
+      { href: '/admin/chart-to-cart/new', label: 'New Session', icon: '➕' },
+      { href: '/admin/chart-to-cart/history', label: 'Session History', icon: '📜' },
+      { href: '/admin/chart-to-cart/products', label: 'Products & Pricing', icon: '💊' },
+    ],
+  },
+  {
     title: 'Sales',
     icon: '💰',
     items: [

@@ -221,6 +221,7 @@ export default function POSTerminalPage() {
                       key={service.id}
                       onClick={() => {
                         // Create a walk-in "appointment" object
+                        const servicePrice = service.price_cents ? service.price_cents / 100 : (service.price || 0);
                         const walkInApt = {
                           id: `walkin-${Date.now()}`,
                           time: 'Walk-in',
@@ -230,7 +231,7 @@ export default function POSTerminalPage() {
                           service: service.name,
                           provider: 'Staff',
                           status: 'walkin',
-                          amount: service.price_cents ? service.price_cents / 100 : service.price || 0,
+                          amount: servicePrice,
                         };
                         setSelectedAppointmentId(walkInApt.id);
                         // Store in appointments temporarily
@@ -238,7 +239,7 @@ export default function POSTerminalPage() {
                           ...walkInApt, 
                           starts_at: new Date().toISOString(),
                           service_name: service.name,
-                          service_price: walkInApt.amount,
+                          service_price: servicePrice,
                           client_name: 'Walk-in Customer',
                         }]);
                       }}
@@ -246,7 +247,11 @@ export default function POSTerminalPage() {
                     >
                       <p className="text-white font-medium text-sm">{service.name}</p>
                       <p className="text-green-400 font-bold mt-1">
-                        ${service.price_cents ? (service.price_cents / 100).toFixed(0) : service.price || 0}
+                        {service.price_display || (service.price_cents 
+                          ? `$${(service.price_cents / 100).toLocaleString()}` 
+                          : service.price 
+                            ? `$${service.price.toLocaleString()}`
+                            : 'Free')}
                       </p>
                       <p className="text-slate-500 text-xs mt-1">{service.duration_minutes || 30} min</p>
                     </button>
@@ -459,7 +464,11 @@ function CheckoutPanel({
   const [discountType, setDiscountType] = useState<'percent' | 'fixed'>('percent');
   const [tip, setTip] = useState(0);
   const [showPayment, setShowPayment] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'cash' | null>(null);
+  const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'cash' | 'giftcard' | null>(null);
+  const [giftCardCode, setGiftCardCode] = useState('');
+  const [giftCardError, setGiftCardError] = useState('');
+  const [giftCardBalance, setGiftCardBalance] = useState<number | null>(null);
+  const [applyingGiftCard, setApplyingGiftCard] = useState(false);
   const [paid, setPaid] = useState(false);
   const [paymentId, setPaymentId] = useState<string | null>(null);
 
@@ -507,6 +516,84 @@ function CheckoutPanel({
     setPaymentId(cashId);
     setPaid(true);
     onPaymentSuccess(cashId, appointment.client, total);
+  };
+
+  // Gift card lookup
+  const lookupGiftCard = async () => {
+    if (!giftCardCode.trim()) {
+      setGiftCardError('Please enter a gift card code');
+      return;
+    }
+    setApplyingGiftCard(true);
+    setGiftCardError('');
+    setGiftCardBalance(null);
+    
+    try {
+      const res = await fetch(`/api/gift-cards?code=${encodeURIComponent(giftCardCode.trim().toUpperCase())}`);
+      const data = await res.json();
+      
+      if (!res.ok || !data.giftCard) {
+        setGiftCardError('Gift card not found');
+        return;
+      }
+      
+      const gc = data.giftCard;
+      if (gc.status !== 'active') {
+        setGiftCardError(`Gift card is ${gc.status}`);
+        return;
+      }
+      
+      if (!gc.current_balance || gc.current_balance <= 0) {
+        setGiftCardError('Gift card has no balance remaining');
+        return;
+      }
+      
+      setGiftCardBalance(gc.current_balance);
+    } catch (err) {
+      setGiftCardError('Failed to lookup gift card');
+      console.error(err);
+    } finally {
+      setApplyingGiftCard(false);
+    }
+  };
+
+  // Gift card payment
+  const handleGiftCardPayment = async () => {
+    if (!giftCardBalance || giftCardBalance <= 0) return;
+    
+    setApplyingGiftCard(true);
+    try {
+      // Redeem the gift card using PUT endpoint with action
+      const res = await fetch('/api/gift-cards', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          code: giftCardCode.trim().toUpperCase(),
+          action: 'redeem',
+          amount: Math.min(total, giftCardBalance),
+          transaction_reference: `POS-${Date.now()}`,
+        }),
+      });
+      
+      const data = await res.json();
+      
+      if (!res.ok) {
+        setGiftCardError(data.error || 'Failed to redeem gift card');
+        return;
+      }
+      
+      // Record the transaction
+      const gcId = `gc_${Date.now()}`;
+      await saveTransaction(gcId, 'gift_card');
+      setPaymentId(gcId);
+      setPaid(true);
+      onPaymentSuccess(gcId, appointment.client, total);
+    } catch (err) {
+      setGiftCardError('Failed to process gift card payment');
+      console.error(err);
+    } finally {
+      setApplyingGiftCard(false);
+    }
   };
 
   if (paid) {
@@ -603,6 +690,75 @@ function CheckoutPanel({
     );
   }
 
+  if (showPayment && paymentMethod === 'giftcard') {
+    return (
+      <div className="flex-1 flex flex-col">
+        <div className="p-4 border-b border-slate-700 flex items-center justify-between">
+          <button onClick={() => { setShowPayment(false); setPaymentMethod(null); setGiftCardCode(''); setGiftCardBalance(null); setGiftCardError(''); }} className="text-slate-400 hover:text-white">
+            ← Back
+          </button>
+          <h2 className="font-semibold text-white">Gift Card Payment</h2>
+          <div className="w-8" />
+        </div>
+
+        <div className="flex-1 p-6 flex flex-col items-center justify-center">
+          <p className="text-slate-400 mb-2">Amount Due</p>
+          <p className="text-5xl font-bold text-white mb-8">${total.toFixed(2)}</p>
+          
+          <div className="w-full max-w-xs space-y-4">
+            <div>
+              <label className="text-sm text-slate-400 block mb-2">Gift Card Code</label>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={giftCardCode}
+                  onChange={(e) => setGiftCardCode(e.target.value.toUpperCase())}
+                  placeholder="HGXX-XXXX-XXXX"
+                  className="flex-1 px-4 py-3 bg-slate-700 border border-slate-600 rounded-xl text-white text-lg tracking-wider uppercase"
+                />
+                <button
+                  onClick={lookupGiftCard}
+                  disabled={applyingGiftCard}
+                  className="px-4 py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700 disabled:opacity-50"
+                >
+                  {applyingGiftCard ? '...' : '🔍'}
+                </button>
+              </div>
+            </div>
+
+            {giftCardError && (
+              <div className="p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-sm text-center">
+                {giftCardError}
+              </div>
+            )}
+
+            {giftCardBalance !== null && (
+              <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-xl">
+                <p className="text-green-400 text-sm text-center mb-1">Available Balance</p>
+                <p className="text-3xl font-bold text-green-400 text-center">${giftCardBalance.toFixed(2)}</p>
+                {giftCardBalance < total && (
+                  <p className="text-yellow-400 text-xs text-center mt-2">
+                    ⚠️ Partial payment - ${(total - giftCardBalance).toFixed(2)} remaining due
+                  </p>
+                )}
+              </div>
+            )}
+
+            <button
+              onClick={handleGiftCardPayment}
+              disabled={giftCardBalance === null || giftCardBalance <= 0 || applyingGiftCard}
+              className="w-full py-4 bg-purple-500 text-white rounded-xl hover:bg-purple-600 font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {applyingGiftCard ? 'Processing...' : giftCardBalance !== null 
+                ? `Apply $${Math.min(total, giftCardBalance).toFixed(2)} from Gift Card`
+                : 'Enter Gift Card Code'}
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   if (showPayment) {
     return (
       <div className="flex-1 flex flex-col">
@@ -624,6 +780,12 @@ function CheckoutPanel({
               className="w-full py-4 bg-blue-500 text-white rounded-xl hover:bg-blue-600 font-medium flex items-center justify-center gap-2"
             >
               💳 Credit/Debit Card
+            </button>
+            <button
+              onClick={() => setPaymentMethod('giftcard')}
+              className="w-full py-4 bg-purple-600 text-white rounded-xl hover:bg-purple-700 font-medium flex items-center justify-center gap-2"
+            >
+              🎁 Gift Card
             </button>
             <button
               onClick={() => setPaymentMethod('cash')}
