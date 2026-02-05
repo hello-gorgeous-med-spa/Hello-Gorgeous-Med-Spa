@@ -257,6 +257,7 @@ export async function storeConnection(
   
   if (existing) {
     // Update existing connection
+    console.log('[Square OAuth] Updating existing connection:', existing.id);
     const { error } = await supabase
       .from('square_connections')
       .update({
@@ -272,10 +273,14 @@ export async function storeConnection(
       })
       .eq('id', existing.id);
     
-    if (error) throw error;
+    if (error) {
+      console.error('[Square OAuth] Update error:', error.message, error.code, error.details);
+      throw new Error(`Database update failed: ${error.message}`);
+    }
     return existing.id;
   } else {
     // Create new connection
+    console.log('[Square OAuth] Creating new connection for merchant:', tokens.merchant_id);
     const { data, error } = await supabase
       .from('square_connections')
       .insert({
@@ -292,7 +297,10 @@ export async function storeConnection(
       .select('id')
       .single();
     
-    if (error) throw error;
+    if (error) {
+      console.error('[Square OAuth] Insert error:', error.message, error.code, error.details);
+      throw new Error(`Database insert failed: ${error.message}`);
+    }
     return data.id;
   }
 }
