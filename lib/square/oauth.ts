@@ -84,7 +84,10 @@ export function getOAuthConfig(): SquareOAuthConfig {
   // Server-only secrets - NEVER prefix with NEXT_PUBLIC_
   const appId = process.env.SQUARE_OAUTH_CLIENT_ID;
   const appSecret = process.env.SQUARE_OAUTH_CLIENT_SECRET;
-  const environment = (process.env.SQUARE_ENVIRONMENT || 'sandbox') as 'sandbox' | 'production';
+  
+  // Normalize environment (case-insensitive)
+  const envValue = (process.env.SQUARE_ENVIRONMENT || 'sandbox').toLowerCase();
+  const environment: 'sandbox' | 'production' = envValue === 'production' ? 'production' : 'sandbox';
   
   // Prefer server BASE_URL for OAuth redirects (prevents client tampering)
   // Fall back to NEXT_PUBLIC_BASE_URL only if BASE_URL not set
