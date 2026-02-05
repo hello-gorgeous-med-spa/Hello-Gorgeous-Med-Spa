@@ -194,8 +194,9 @@ export async function POST(request: NextRequest) {
         
         // Values
         initial_value: initial_amount,
+        initial_amount: initial_amount,
         current_balance: initial_amount,
-        status: squareGiftCard ? 'active' : 'pending',
+        status: 'active', // Always active when sold (payment collected at time of sale)
         
         // Client links
         purchaser_client_id,
@@ -221,7 +222,7 @@ export async function POST(request: NextRequest) {
         purchase_order_id: order_id,
         
         // Timestamps
-        activated_at: squareGiftCard ? new Date().toISOString() : null,
+        activated_at: new Date().toISOString(),
         last_synced_at: squareGiftCard ? new Date().toISOString() : null,
       })
       .select()
