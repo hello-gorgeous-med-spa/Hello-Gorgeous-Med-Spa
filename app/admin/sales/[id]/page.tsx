@@ -1,19 +1,21 @@
 'use client';
 
 // ============================================================
-// SALE DETAIL PAGE
-// Full view of a single sale with items, payments, history
+// INVOICE DETAIL PAGE
+// View sale details, payment info, and process refunds
 // ============================================================
 
-import { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useState, useEffect, use } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface Sale {
   id: string;
   sale_number: string;
+  client_id: string | null;
+  appointment_id: string | null;
+  provider_id: string | null;
   status: string;
-  sale_type: string;
   subtotal: number;
   discount_total: number;
   tax_total: number;
@@ -22,405 +24,557 @@ interface Sale {
   net_total: number;
   amount_paid: number;
   balance_due: number;
-  discount_type: string;
-  discount_code: string;
-  discount_reason: string;
-  tax_rate: number;
-  internal_notes: string;
-  client_notes: string;
   created_at: string;
-  completed_at: string;
-  voided_at: string;
-  void_reason: string;
-  clients?: any;
-  providers?: any;
-  appointments?: any;
-  sale_items?: any[];
-  sale_payments?: any[];
+  completed_at: string | null;
+  sale_items: SaleItem[];
+  sale_payments: SalePayment[];
 }
 
-const STATUS_COLORS: Record<string, string> = {
-  draft: 'bg-gray-100 text-gray-700 border-gray-200',
-  pending: 'bg-yellow-100 text-yellow-700 border-yellow-200',
-  completed: 'bg-green-100 text-green-700 border-green-200',
-  unpaid: 'bg-red-100 text-red-700 border-red-200',
-  partially_paid: 'bg-orange-100 text-orange-700 border-orange-200',
-  refunded: 'bg-purple-100 text-purple-700 border-purple-200',
-  voided: 'bg-gray-200 text-gray-500 border-gray-300',
-};
+interface SaleItem {
+  id: string;
+  item_type: string;
+  item_name: string;
+  quantity: number;
+  unit_price: number;
+  discount_amount: number;
+  total_price: number;
+}
 
-export default function SaleDetailPage() {
-  const params = useParams();
+interface SalePayment {
+  id: string;
+  payment_number: string;
+  payment_method: string;
+  payment_processor: string | null;
+  amount: number;
+  tip_amount: number;
+  processing_fee: number;
+  net_amount: number;
+  status: string;
+  square_payment_id: string | null;
+  square_order_id: string | null;
+  square_terminal_checkout_id: string | null;
+  terminal_status: string | null;
+  card_brand: string | null;
+  card_last_four: string | null;
+  processor_receipt_url: string | null;
+  refund_amount: number;
+  created_at: string;
+  processed_at: string | null;
+}
+
+interface Refund {
+  id: string;
+  square_refund_id: string | null;
+  amount: number;
+  reason: string;
+  refund_type: string;
+  status: string;
+  created_at: string;
+  processed_at: string | null;
+}
+
+export default function SaleDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = use(params);
   const router = useRouter();
+  
   const [sale, setSale] = useState<Sale | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState('');
-  const [showVoidModal, setShowVoidModal] = useState(false);
-  const [voidReason, setVoidReason] = useState('');
+  const [refunds, setRefunds] = useState<Refund[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
+  // Refund modal state
+  const [showRefundModal, setShowRefundModal] = useState(false);
+  const [refundType, setRefundType] = useState<'full' | 'partial'>('full');
+  const [refundAmount, setRefundAmount] = useState('');
+  const [refundReason, setRefundReason] = useState('');
+  const [processingRefund, setProcessingRefund] = useState(false);
+  const [refundError, setRefundError] = useState<string | null>(null);
+  const [refundSuccess, setRefundSuccess] = useState<string | null>(null);
 
-  const formatCurrency = (cents: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(cents / 100);
+  // Fetch sale data
+  const fetchSale = async () => {
+    try {
+      const res = await fetch(`/api/pos/invoices?id=${id}`);
+      const data = await res.json();
+      
+      if (res.status === 404) {
+        setError('Sale not found');
+        return;
+      }
+      
+      if (data.invoice) {
+        setSale(data.invoice);
+      } else {
+        setError('Failed to load sale');
+      }
+    } catch (err) {
+      console.error('Error fetching sale:', err);
+      setError('Failed to load sale details');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const formatDateTime = (dateStr: string) => {
-    if (!dateStr) return '—';
-    return new Date(dateStr).toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-    });
+  // Fetch refunds
+  const fetchRefunds = async () => {
+    try {
+      const res = await fetch(`/api/pos/invoices/${id}/square/refund`);
+      const data = await res.json();
+      
+      if (data.refunds) {
+        setRefunds(data.refunds);
+      }
+    } catch (err) {
+      console.error('Error fetching refunds:', err);
+    }
   };
 
   useEffect(() => {
-    const fetchSale = async () => {
-      setIsLoading(true);
-      try {
-        const res = await fetch(`/api/sales/${params.id}`);
-        const data = await res.json();
+    fetchSale();
+    fetchRefunds();
+  }, [id]);
 
-        if (!res.ok) {
-          throw new Error(data.error || 'Sale not found');
-        }
-
-        setSale(data.sale);
-      } catch (err: any) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (params.id) {
-      fetchSale();
+  // Process refund
+  const handleRefund = async () => {
+    setProcessingRefund(true);
+    setRefundError(null);
+    setRefundSuccess(null);
+    
+    if (!refundReason.trim() || refundReason.trim().length < 3) {
+      setRefundError('Please enter a reason for the refund (at least 3 characters)');
+      setProcessingRefund(false);
+      return;
     }
-  }, [params.id]);
-
-  const handleVoid = async () => {
-    if (!sale) return;
-
+    
     try {
-      const res = await fetch(`/api/sales/${sale.id}`, {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reason: voidReason }),
-      });
-
-      if (res.ok) {
-        router.push('/admin/sales');
-      } else {
-        const data = await res.json();
-        alert(data.error || 'Failed to void sale');
+      const body: any = {
+        reason: refundReason.trim(),
+      };
+      
+      if (refundType === 'partial' && refundAmount) {
+        body.amount = Math.round(parseFloat(refundAmount) * 100); // Convert to cents
       }
-    } catch {
-      alert('Failed to void sale');
+      
+      const res = await fetch(`/api/pos/invoices/${id}/square/refund`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      
+      const data = await res.json();
+      
+      if (res.ok) {
+        setRefundSuccess(`Refund of $${(data.refund.amount / 100).toFixed(2)} processed successfully`);
+        setShowRefundModal(false);
+        setRefundReason('');
+        setRefundAmount('');
+        
+        // Refresh data
+        fetchSale();
+        fetchRefunds();
+      } else {
+        setRefundError(data.error || 'Failed to process refund');
+      }
+    } catch (err) {
+      setRefundError('Failed to process refund');
+      console.error(err);
+    } finally {
+      setProcessingRefund(false);
     }
   };
 
-  if (isLoading) {
+  // Get status badge color
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'completed':
+      case 'COMPLETED':
+        return 'bg-green-100 text-green-700';
+      case 'pending':
+      case 'PENDING':
+        return 'bg-yellow-100 text-yellow-700';
+      case 'refunded':
+      case 'REFUNDED':
+        return 'bg-purple-100 text-purple-700';
+      case 'partially_paid':
+        return 'bg-blue-100 text-blue-700';
+      case 'voided':
+      case 'failed':
+      case 'FAILED':
+        return 'bg-red-100 text-red-700';
+      default:
+        return 'bg-gray-100 text-gray-700';
+    }
+  };
+
+  // Calculate refundable amount
+  const getRefundableAmount = () => {
+    if (!sale) return 0;
+    const completedPayments = sale.sale_payments?.filter(p => p.status === 'completed') || [];
+    const totalPaid = completedPayments.reduce((sum, p) => sum + p.amount, 0);
+    const totalRefunded = completedPayments.reduce((sum, p) => sum + (p.refund_amount || 0), 0);
+    return (totalPaid - totalRefunded) / 100;
+  };
+
+  if (loading) {
     return (
-      <div className="p-6 flex items-center justify-center min-h-[400px]">
-        <div className="text-center">
-          <div className="animate-spin text-4xl mb-4">💰</div>
-          <p className="text-gray-500">Loading sale...</p>
-        </div>
+      <div className="flex items-center justify-center py-12">
+        <div className="animate-spin h-8 w-8 border-4 border-pink-500 border-t-transparent rounded-full" />
       </div>
     );
   }
 
   if (error || !sale) {
     return (
-      <div className="p-6">
+      <div className="max-w-4xl mx-auto py-8">
         <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
-          <span className="text-4xl">❌</span>
-          <h2 className="text-lg font-semibold text-red-800 mt-2">Sale Not Found</h2>
-          <p className="text-red-600 text-sm">{error}</p>
-          <Link href="/admin/sales" className="mt-4 inline-block text-pink-600 hover:underline">
-            ← Back to Sales
+          <h2 className="text-lg font-semibold text-red-700 mb-2">Error</h2>
+          <p className="text-red-600">{error || 'Sale not found'}</p>
+          <Link 
+            href="/admin/sales"
+            className="mt-4 inline-block px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200"
+          >
+            Back to Sales
           </Link>
         </div>
       </div>
     );
   }
 
+  const refundableAmount = getRefundableAmount();
+  const hasSquarePayment = sale.sale_payments?.some(p => 
+    p.payment_processor === 'square' && p.status === 'completed' && p.square_payment_id
+  );
+
   return (
-    <div className="p-6 max-w-5xl mx-auto">
+    <div className="max-w-4xl space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex items-center justify-between">
         <div>
-          <Link href="/admin/sales" className="text-sm text-gray-500 hover:text-gray-700">
-            ← Back to Sales
-          </Link>
-          <h1 className="text-2xl font-bold text-gray-900 mt-1">
-            Sale {sale.sale_number}
+          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+            <Link href="/admin/sales" className="hover:text-pink-500">Sales</Link>
+            <span>/</span>
+            <span>{sale.sale_number}</span>
+          </div>
+          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+            {sale.sale_number}
+            <span className={`px-3 py-1 text-sm rounded-full ${getStatusColor(sale.status)}`}>
+              {sale.status}
+            </span>
           </h1>
         </div>
-        <div className="flex items-center gap-3">
-          <span className={`px-3 py-1.5 rounded-lg text-sm font-medium border ${STATUS_COLORS[sale.status]}`}>
-            {sale.status.replace('_', ' ').toUpperCase()}
+        
+        {refundSuccess && (
+          <span className="px-4 py-2 bg-green-100 text-green-700 rounded-lg font-medium">
+            {refundSuccess}
           </span>
-          {sale.status !== 'voided' && sale.status !== 'completed' && (
-            <button
-              onClick={() => setShowVoidModal(true)}
-              className="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg text-sm"
-            >
-              Void Sale
-            </button>
-          )}
-          {sale.balance_due > 0 && (
-            <Link
-              href={`/pos?sale=${sale.id}`}
-              className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 text-sm"
-            >
-              Collect Payment
-            </Link>
-          )}
-        </div>
+        )}
       </div>
 
-      <div className="grid grid-cols-3 gap-6">
-        {/* Main Content */}
-        <div className="col-span-2 space-y-6">
-          {/* Client Info */}
-          <div className="bg-white rounded-xl border p-6">
-            <h2 className="font-semibold mb-4">Client</h2>
-            {sale.clients?.user_profiles ? (
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-bold">
-                  {sale.clients.user_profiles.first_name?.[0]}{sale.clients.user_profiles.last_name?.[0]}
-                </div>
-                <div>
-                  <p className="font-medium">{sale.clients.user_profiles.first_name} {sale.clients.user_profiles.last_name}</p>
-                  <p className="text-sm text-gray-500">{sale.clients.user_profiles.email}</p>
-                  <p className="text-sm text-gray-500">{sale.clients.user_profiles.phone}</p>
-                </div>
-                <Link
-                  href={`/admin/clients/${sale.clients.id}`}
-                  className="ml-auto text-pink-600 hover:underline text-sm"
-                >
-                  View Profile →
-                </Link>
-              </div>
-            ) : (
-              <p className="text-gray-500">Walk-in Client</p>
-            )}
+      {/* Sale Info */}
+      <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+        <h2 className="font-semibold text-gray-900 mb-4">Sale Details</h2>
+        
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div>
+            <p className="text-sm text-gray-500">Created</p>
+            <p className="font-medium text-gray-900">
+              {new Date(sale.created_at).toLocaleString()}
+            </p>
           </div>
-
-          {/* Line Items */}
-          <div className="bg-white rounded-xl border overflow-hidden">
-            <div className="px-6 py-4 border-b">
-              <h2 className="font-semibold">Items</h2>
+          {sale.completed_at && (
+            <div>
+              <p className="text-sm text-gray-500">Completed</p>
+              <p className="font-medium text-gray-900">
+                {new Date(sale.completed_at).toLocaleString()}
+              </p>
             </div>
-            <table className="w-full">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="text-left px-6 py-3 text-xs font-semibold text-gray-500">Item</th>
-                  <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500">Qty</th>
-                  <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">Unit Price</th>
-                  <th className="text-right px-6 py-3 text-xs font-semibold text-gray-500">Total</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y">
-                {(sale.sale_items || []).map((item: any) => (
-                  <tr key={item.id}>
-                    <td className="px-6 py-4">
-                      <p className="font-medium">{item.item_name}</p>
-                      <p className="text-xs text-gray-500">{item.item_type}</p>
-                    </td>
-                    <td className="px-4 py-4 text-center">{item.quantity}</td>
-                    <td className="px-4 py-4 text-right">{formatCurrency(item.unit_price)}</td>
-                    <td className="px-6 py-4 text-right font-medium">{formatCurrency(item.total_price)}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          )}
+          <div>
+            <p className="text-sm text-gray-500">Subtotal</p>
+            <p className="font-medium text-gray-900">${(sale.subtotal / 100).toFixed(2)}</p>
           </div>
-
-          {/* Payments */}
-          <div className="bg-white rounded-xl border overflow-hidden">
-            <div className="px-6 py-4 border-b flex items-center justify-between">
-              <h2 className="font-semibold">Payments</h2>
-              {sale.balance_due > 0 && (
-                <span className="text-sm text-red-600">
-                  {formatCurrency(sale.balance_due)} remaining
-                </span>
-              )}
+          {sale.discount_total > 0 && (
+            <div>
+              <p className="text-sm text-gray-500">Discount</p>
+              <p className="font-medium text-green-600">-${(sale.discount_total / 100).toFixed(2)}</p>
             </div>
-            {(sale.sale_payments || []).length > 0 ? (
-              <table className="w-full">
+          )}
+          {sale.tip_total > 0 && (
+            <div>
+              <p className="text-sm text-gray-500">Tip</p>
+              <p className="font-medium text-gray-900">${(sale.tip_total / 100).toFixed(2)}</p>
+            </div>
+          )}
+          <div>
+            <p className="text-sm text-gray-500">Total</p>
+            <p className="font-bold text-lg text-gray-900">${(sale.gross_total / 100).toFixed(2)}</p>
+          </div>
+          <div>
+            <p className="text-sm text-gray-500">Paid</p>
+            <p className="font-medium text-gray-900">${(sale.amount_paid / 100).toFixed(2)}</p>
+          </div>
+          {sale.balance_due > 0 && (
+            <div>
+              <p className="text-sm text-gray-500">Balance Due</p>
+              <p className="font-medium text-red-600">${(sale.balance_due / 100).toFixed(2)}</p>
+            </div>
+          )}
+        </div>
+
+        {/* Line Items */}
+        {sale.sale_items && sale.sale_items.length > 0 && (
+          <div>
+            <h3 className="text-sm font-medium text-gray-700 mb-2">Items</h3>
+            <div className="border border-gray-200 rounded-lg overflow-hidden">
+              <table className="w-full text-sm">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th className="text-left px-6 py-3 text-xs font-semibold text-gray-500">Payment #</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">Method</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">Date</th>
-                    <th className="text-right px-6 py-3 text-xs font-semibold text-gray-500">Amount</th>
+                    <th className="text-left px-4 py-2 text-gray-600">Item</th>
+                    <th className="text-center px-4 py-2 text-gray-600">Qty</th>
+                    <th className="text-right px-4 py-2 text-gray-600">Price</th>
+                    <th className="text-right px-4 py-2 text-gray-600">Total</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y">
-                  {sale.sale_payments.map((payment: any) => (
-                    <tr key={payment.id}>
-                      <td className="px-6 py-4 font-mono text-sm">{payment.payment_number}</td>
-                      <td className="px-4 py-4">
-                        <span className="capitalize">{payment.payment_method.replace('_', ' ')}</span>
-                        {payment.card_last_four && (
-                          <span className="text-gray-400 ml-1">•••• {payment.card_last_four}</span>
-                        )}
-                      </td>
-                      <td className="px-4 py-4 text-sm text-gray-500">
-                        {formatDateTime(payment.processed_at || payment.created_at)}
-                      </td>
-                      <td className="px-6 py-4 text-right font-medium">
-                        {payment.amount < 0 ? (
-                          <span className="text-red-600">{formatCurrency(payment.amount)}</span>
-                        ) : (
-                          formatCurrency(payment.amount)
-                        )}
-                      </td>
+                <tbody className="divide-y divide-gray-200">
+                  {sale.sale_items.map((item) => (
+                    <tr key={item.id}>
+                      <td className="px-4 py-2 text-gray-900">{item.item_name}</td>
+                      <td className="px-4 py-2 text-center text-gray-600">{item.quantity}</td>
+                      <td className="px-4 py-2 text-right text-gray-600">${(item.unit_price / 100).toFixed(2)}</td>
+                      <td className="px-4 py-2 text-right text-gray-900">${(item.total_price / 100).toFixed(2)}</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-            ) : (
-              <div className="p-6 text-center text-gray-500">
-                No payments recorded
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Sidebar */}
-        <div className="space-y-6">
-          {/* Totals */}
-          <div className="bg-white rounded-xl border p-6">
-            <h2 className="font-semibold mb-4">Summary</h2>
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-500">Subtotal</span>
-                <span>{formatCurrency(sale.subtotal)}</span>
-              </div>
-              {sale.discount_total > 0 && (
-                <div className="flex justify-between text-green-600">
-                  <span>Discount</span>
-                  <span>-{formatCurrency(sale.discount_total)}</span>
-                </div>
-              )}
-              <div className="flex justify-between">
-                <span className="text-gray-500">Tax</span>
-                <span>{formatCurrency(sale.tax_total)}</span>
-              </div>
-              <div className="border-t pt-3 flex justify-between font-semibold">
-                <span>Gross Total</span>
-                <span>{formatCurrency(sale.gross_total)}</span>
-              </div>
-              {sale.tip_total > 0 && (
-                <div className="flex justify-between text-blue-600">
-                  <span>Tips</span>
-                  <span>{formatCurrency(sale.tip_total)}</span>
-                </div>
-              )}
-              <div className="border-t pt-3 flex justify-between">
-                <span className="text-gray-500">Amount Paid</span>
-                <span className="text-green-600">{formatCurrency(sale.amount_paid)}</span>
-              </div>
-              <div className="flex justify-between font-semibold text-lg">
-                <span>Balance Due</span>
-                <span className={sale.balance_due > 0 ? 'text-red-600' : 'text-green-600'}>
-                  {formatCurrency(sale.balance_due)}
-                </span>
-              </div>
             </div>
           </div>
-
-          {/* Details */}
-          <div className="bg-white rounded-xl border p-6">
-            <h2 className="font-semibold mb-4">Details</h2>
-            <div className="space-y-3 text-sm">
-              <div className="flex justify-between">
-                <span className="text-gray-500">Sale ID</span>
-                <span className="font-mono">{sale.sale_number}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-500">Type</span>
-                <span className="capitalize">{sale.sale_type}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-500">Provider</span>
-                <span>{sale.providers?.user_profiles 
-                  ? `${sale.providers.user_profiles.first_name} ${sale.providers.user_profiles.last_name}`
-                  : '—'}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-500">Created</span>
-                <span>{formatDateTime(sale.created_at)}</span>
-              </div>
-              {sale.completed_at && (
-                <div className="flex justify-between">
-                  <span className="text-gray-500">Completed</span>
-                  <span>{formatDateTime(sale.completed_at)}</span>
-                </div>
-              )}
-              {sale.voided_at && (
-                <div className="flex justify-between text-red-600">
-                  <span>Voided</span>
-                  <span>{formatDateTime(sale.voided_at)}</span>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Notes */}
-          {(sale.internal_notes || sale.client_notes) && (
-            <div className="bg-white rounded-xl border p-6">
-              <h2 className="font-semibold mb-4">Notes</h2>
-              {sale.internal_notes && (
-                <div className="mb-3">
-                  <p className="text-xs text-gray-500 mb-1">Internal</p>
-                  <p className="text-sm">{sale.internal_notes}</p>
-                </div>
-              )}
-              {sale.client_notes && (
-                <div>
-                  <p className="text-xs text-gray-500 mb-1">Client</p>
-                  <p className="text-sm">{sale.client_notes}</p>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
+        )}
       </div>
 
-      {/* Void Modal */}
-      {showVoidModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
-            <h3 className="text-lg font-semibold text-red-600 mb-4">Void Sale</h3>
-            <p className="text-gray-600 mb-4">
-              Are you sure you want to void sale <strong>{sale.sale_number}</strong>?
-              This cannot be undone.
-            </p>
-            <textarea
-              value={voidReason}
-              onChange={(e) => setVoidReason(e.target.value)}
-              placeholder="Reason for voiding..."
-              className="w-full px-4 py-2 border rounded-lg mb-4"
-              rows={3}
-            />
-            <div className="flex gap-3 justify-end">
+      {/* Payments */}
+      {sale.sale_payments && sale.sale_payments.length > 0 && (
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+          <h2 className="font-semibold text-gray-900 mb-4">Payments</h2>
+          
+          <div className="space-y-4">
+            {sale.sale_payments.map((payment) => (
+              <div 
+                key={payment.id}
+                className="border border-gray-200 rounded-lg p-4"
+              >
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <span className="text-lg">
+                      {payment.payment_method === 'card' ? '💳' : 
+                       payment.payment_method === 'cash' ? '💵' : 
+                       payment.payment_method === 'gift_card' ? '🎁' : '💳'}
+                    </span>
+                    <div>
+                      <p className="font-medium text-gray-900">
+                        {payment.payment_method === 'card' ? 'Card Payment' : 
+                         payment.payment_method === 'cash' ? 'Cash Payment' : 
+                         payment.payment_method === 'gift_card' ? 'Gift Card' : payment.payment_method}
+                        {payment.card_brand && payment.card_last_four && (
+                          <span className="text-gray-500 ml-2">
+                            {payment.card_brand} ****{payment.card_last_four}
+                          </span>
+                        )}
+                      </p>
+                      <p className="text-sm text-gray-500">{payment.payment_number}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-bold text-gray-900">${(payment.amount / 100).toFixed(2)}</p>
+                    <span className={`px-2 py-0.5 text-xs rounded-full ${getStatusColor(payment.status)}`}>
+                      {payment.status}
+                    </span>
+                  </div>
+                </div>
+                
+                {/* Payment Details */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
+                  {payment.tip_amount > 0 && (
+                    <div>
+                      <span className="text-gray-500">Tip: </span>
+                      <span className="text-gray-900">${(payment.tip_amount / 100).toFixed(2)}</span>
+                    </div>
+                  )}
+                  {payment.processing_fee > 0 && (
+                    <div>
+                      <span className="text-gray-500">Fee: </span>
+                      <span className="text-gray-900">${(payment.processing_fee / 100).toFixed(2)}</span>
+                    </div>
+                  )}
+                  {payment.refund_amount > 0 && (
+                    <div>
+                      <span className="text-gray-500">Refunded: </span>
+                      <span className="text-purple-600">${(payment.refund_amount / 100).toFixed(2)}</span>
+                    </div>
+                  )}
+                  {payment.processed_at && (
+                    <div>
+                      <span className="text-gray-500">Processed: </span>
+                      <span className="text-gray-900">{new Date(payment.processed_at).toLocaleString()}</span>
+                    </div>
+                  )}
+                </div>
+
+                {/* Square IDs */}
+                {(payment.square_payment_id || payment.square_order_id) && (
+                  <div className="mt-3 pt-3 border-t border-gray-100 text-xs font-mono text-gray-500">
+                    {payment.square_payment_id && (
+                      <p>Payment ID: {payment.square_payment_id}</p>
+                    )}
+                    {payment.square_order_id && (
+                      <p>Order ID: {payment.square_order_id}</p>
+                    )}
+                    {payment.square_terminal_checkout_id && (
+                      <p>Checkout ID: {payment.square_terminal_checkout_id}</p>
+                    )}
+                  </div>
+                )}
+
+                {/* Receipt Link */}
+                {payment.processor_receipt_url && (
+                  <a
+                    href={payment.processor_receipt_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-3 text-sm text-pink-600 hover:text-pink-700"
+                  >
+                    View Receipt →
+                  </a>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Refunds */}
+      {refunds.length > 0 && (
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+          <h2 className="font-semibold text-gray-900 mb-4">Refunds</h2>
+          
+          <div className="space-y-3">
+            {refunds.map((refund) => (
+              <div 
+                key={refund.id}
+                className="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
+              >
+                <div>
+                  <p className="font-medium text-gray-900">
+                    {refund.refund_type === 'full' ? 'Full Refund' : 'Partial Refund'}
+                  </p>
+                  <p className="text-sm text-gray-500">{refund.reason}</p>
+                  <p className="text-xs text-gray-400 mt-1">
+                    {new Date(refund.created_at).toLocaleString()}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="font-bold text-purple-600">-${(refund.amount / 100).toFixed(2)}</p>
+                  <span className={`px-2 py-0.5 text-xs rounded-full ${getStatusColor(refund.status)}`}>
+                    {refund.status}
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Actions */}
+      {hasSquarePayment && refundableAmount > 0 && (
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+          <h2 className="font-semibold text-gray-900 mb-4">Actions</h2>
+          
+          <div className="flex gap-3">
+            <button
+              onClick={() => {
+                setRefundType('full');
+                setShowRefundModal(true);
+              }}
+              className="px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 font-medium"
+            >
+              Full Refund (${refundableAmount.toFixed(2)})
+            </button>
+            <button
+              onClick={() => {
+                setRefundType('partial');
+                setShowRefundModal(true);
+              }}
+              className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 font-medium"
+            >
+              Partial Refund
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Refund Modal */}
+      {showRefundModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div 
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setShowRefundModal(false)}
+          />
+          <div className="relative bg-white rounded-xl shadow-xl w-full max-w-md mx-4 p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+              {refundType === 'full' ? 'Full Refund' : 'Partial Refund'}
+            </h2>
+            
+            {refundType === 'partial' && (
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Refund Amount (max ${refundableAmount.toFixed(2)})
+                </label>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+                  <input
+                    type="number"
+                    step="0.01"
+                    max={refundableAmount}
+                    value={refundAmount}
+                    onChange={(e) => setRefundAmount(e.target.value)}
+                    placeholder="0.00"
+                    className="w-full pl-7 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  />
+                </div>
+              </div>
+            )}
+            
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Reason for Refund *
+              </label>
+              <textarea
+                value={refundReason}
+                onChange={(e) => setRefundReason(e.target.value)}
+                placeholder="Customer requested refund..."
+                rows={3}
+                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+              />
+            </div>
+            
+            {refundError && (
+              <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+                {refundError}
+              </div>
+            )}
+            
+            <div className="flex gap-3">
               <button
-                onClick={() => setShowVoidModal(false)}
-                className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                onClick={() => setShowRefundModal(false)}
+                className="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
               >
                 Cancel
               </button>
               <button
-                onClick={handleVoid}
-                className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700"
+                onClick={handleRefund}
+                disabled={processingRefund}
+                className="flex-1 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 disabled:opacity-50 font-medium"
               >
-                Void Sale
+                {processingRefund ? 'Processing...' : 'Process Refund'}
               </button>
             </div>
           </div>

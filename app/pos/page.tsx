@@ -3,21 +3,16 @@
 // ============================================================
 // POS TERMINAL - MAIN PAGE
 // Quick checkout and appointment-based transactions
-// With Stripe Integration - Connected to Live API Data
+// With Square Terminal Integration
 // ============================================================
 
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 
-// Dynamically import Stripe component (client-side only)
-const StripeCheckout = dynamic(() => import('@/components/StripeCheckout'), {
+// Dynamically import Terminal Status Modal (client-side only)
+const TerminalStatusModal = dynamic(() => import('@/components/TerminalStatusModal'), {
   ssr: false,
-  loading: () => (
-    <div className="flex items-center justify-center py-12">
-      <div className="animate-spin h-8 w-8 border-4 border-pink-500 border-t-transparent rounded-full" />
-    </div>
-  ),
 });
 
 export default function POSTerminalPage() {
@@ -438,7 +433,7 @@ export default function POSTerminalPage() {
   );
 }
 
-// Checkout Panel Component
+// Checkout Panel Component with Square Terminal Integration
 function CheckoutPanel({
   appointment,
   onClose,
@@ -462,58 +457,145 @@ function CheckoutPanel({
   ]);
   const [discount, setDiscount] = useState(0);
   const [discountType, setDiscountType] = useState<'percent' | 'fixed'>('percent');
-  const [tip, setTip] = useState(0);
   const [showPayment, setShowPayment] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState<'stripe' | 'cash' | 'giftcard' | null>(null);
+  const [paymentMethod, setPaymentMethod] = useState<'terminal' | 'cash' | 'giftcard' | null>(null);
   const [giftCardCode, setGiftCardCode] = useState('');
   const [giftCardError, setGiftCardError] = useState('');
   const [giftCardBalance, setGiftCardBalance] = useState<number | null>(null);
   const [applyingGiftCard, setApplyingGiftCard] = useState(false);
   const [paid, setPaid] = useState(false);
   const [paymentId, setPaymentId] = useState<string | null>(null);
+  const [finalTip, setFinalTip] = useState(0);
+  const [finalTotal, setFinalTotal] = useState(0);
+  
+  // Terminal checkout state
+  const [saleId, setSaleId] = useState<string | null>(null);
+  const [showTerminalModal, setShowTerminalModal] = useState(false);
+  const [terminalError, setTerminalError] = useState<string | null>(null);
+  const [startingTerminal, setStartingTerminal] = useState(false);
 
   const subtotal = lineItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const discountAmount = discountType === 'percent' ? subtotal * (discount / 100) : discount;
-  const total = subtotal - discountAmount + tip;
+  const total = subtotal - discountAmount; // Tip will be added on terminal
 
-  const saveTransaction = async (paymentIntentId: string, method: string) => {
+  // Start terminal checkout
+  const handleTerminalCheckout = async () => {
+    setStartingTerminal(true);
+    setTerminalError(null);
+    
     try {
-      const res = await fetch('/api/transactions', {
+      // First, create an invoice/sale
+      const invoiceRes = await fetch('/api/pos/invoices', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           client_id: appointment.clientId || null,
-          appointment_id: appointment.id,
-          type: 'sale',
-          subtotal: subtotal,
+          appointment_id: appointment.id.startsWith('walkin-') ? null : appointment.id,
+          items: lineItems.map(item => ({
+            type: 'service',
+            name: item.name,
+            quantity: item.quantity,
+            unit_price: item.price,
+          })),
           discount_amount: discountAmount,
-          tax_amount: 0,
-          tip_amount: tip,
-          payment_method: method,
-          stripe_payment_intent_id: method === 'card' ? paymentIntentId : null,
+          discount_type: discountType,
           notes: `POS checkout for ${appointment.service}`,
         }),
       });
       
-      if (!res.ok) {
-        console.error('Failed to save transaction');
+      const invoiceData = await invoiceRes.json();
+      
+      if (!invoiceRes.ok) {
+        throw new Error(invoiceData.error || 'Failed to create invoice');
       }
-    } catch (err) {
-      console.error('Error saving transaction:', err);
+      
+      const newSaleId = invoiceData.sale_id;
+      setSaleId(newSaleId);
+      
+      // Start terminal charge
+      const terminalRes = await fetch(`/api/pos/invoices/${newSaleId}/square/start-terminal-charge`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tip_settings: {
+            allowTipping: true,
+            separateTipScreen: true,
+            customTipField: true,
+            tipPercentages: [15, 20, 25],
+          },
+        }),
+      });
+      
+      const terminalData = await terminalRes.json();
+      
+      if (!terminalRes.ok) {
+        throw new Error(terminalData.error || 'Failed to start terminal checkout');
+      }
+      
+      // Show terminal modal
+      setShowTerminalModal(true);
+      
+    } catch (err: any) {
+      console.error('Terminal checkout error:', err);
+      setTerminalError(err.message || 'Failed to start terminal checkout');
+    } finally {
+      setStartingTerminal(false);
     }
   };
 
-  const handleStripeSuccess = async (paymentIntentId: string) => {
-    await saveTransaction(paymentIntentId, 'card');
-    setPaymentId(paymentIntentId);
+  // Handle terminal completion
+  const handleTerminalComplete = (data: {
+    paymentId: string;
+    tipAmount: number;
+    totalAmount: number;
+    cardBrand?: string;
+    cardLast4?: string;
+  }) => {
+    setFinalTip(data.tipAmount / 100); // Convert cents to dollars
+    setFinalTotal(data.totalAmount / 100);
+    setPaymentId(data.paymentId);
     setPaid(true);
-    onPaymentSuccess(paymentIntentId, appointment.client, total);
+    setShowTerminalModal(false);
+    onPaymentSuccess(data.paymentId, appointment.client, data.totalAmount / 100);
+  };
+
+  // Handle terminal cancel
+  const handleTerminalCancel = () => {
+    setShowTerminalModal(false);
+    setSaleId(null);
+  };
+
+  // Handle terminal retry
+  const handleTerminalRetry = () => {
+    if (saleId) {
+      // Restart the terminal charge for the existing sale
+      handleTerminalCheckout();
+    }
   };
 
   const handleCashPayment = async () => {
+    // Create invoice first
+    const invoiceRes = await fetch('/api/pos/invoices', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        client_id: appointment.clientId || null,
+        appointment_id: appointment.id.startsWith('walkin-') ? null : appointment.id,
+        items: lineItems.map(item => ({
+          type: 'service',
+          name: item.name,
+          quantity: item.quantity,
+          unit_price: item.price,
+        })),
+        discount_amount: discountAmount,
+        discount_type: discountType,
+      }),
+    });
+    
+    const invoiceData = await invoiceRes.json();
     const cashId = `cash_${Date.now()}`;
-    await saveTransaction(cashId, 'cash');
     setPaymentId(cashId);
+    setFinalTotal(total);
     setPaid(true);
     onPaymentSuccess(cashId, appointment.client, total);
   };
@@ -563,7 +645,6 @@ function CheckoutPanel({
     
     setApplyingGiftCard(true);
     try {
-      // Redeem the gift card using PUT endpoint with action
       const res = await fetch('/api/gift-cards', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
@@ -582,10 +663,9 @@ function CheckoutPanel({
         return;
       }
       
-      // Record the transaction
       const gcId = `gc_${Date.now()}`;
-      await saveTransaction(gcId, 'gift_card');
       setPaymentId(gcId);
+      setFinalTotal(total);
       setPaid(true);
       onPaymentSuccess(gcId, appointment.client, total);
     } catch (err) {
@@ -596,6 +676,7 @@ function CheckoutPanel({
     }
   };
 
+  // Paid state
   if (paid) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-8 text-center">
@@ -603,7 +684,10 @@ function CheckoutPanel({
           <span className="text-4xl">✓</span>
         </div>
         <h2 className="text-2xl font-bold text-white mb-2">Payment Complete!</h2>
-        <p className="text-slate-400 mb-2">${total.toFixed(2)} paid successfully</p>
+        <p className="text-slate-400 mb-1">${(finalTotal || total).toFixed(2)} paid</p>
+        {finalTip > 0 && (
+          <p className="text-green-400 text-sm mb-2">Includes ${finalTip.toFixed(2)} tip</p>
+        )}
         <p className="text-slate-500 text-sm mb-6">ID: {paymentId?.slice(0, 20)}...</p>
         <div className="space-y-3 w-full max-w-xs">
           <button className="w-full py-3 bg-slate-700 text-white rounded-xl hover:bg-slate-600">
@@ -623,37 +707,7 @@ function CheckoutPanel({
     );
   }
 
-  if (showPayment && paymentMethod === 'stripe') {
-    return (
-      <div className="flex-1 flex flex-col">
-        <div className="p-4 border-b border-slate-700 flex items-center justify-between">
-          <button onClick={() => { setShowPayment(false); setPaymentMethod(null); }} className="text-slate-400 hover:text-white">
-            ← Back
-          </button>
-          <h2 className="font-semibold text-white">Card Payment</h2>
-          <div className="w-8" />
-        </div>
-
-        <div className="flex-1 p-4 overflow-y-auto">
-          <div className="bg-slate-900 rounded-xl p-4">
-            <StripeCheckout
-              amount={subtotal - discountAmount}
-              tipAmount={tip}
-              clientId={appointment.clientId}
-              clientName={appointment.client}
-              clientEmail={appointment.email}
-              appointmentId={appointment.id}
-              services={appointment.service}
-              onSuccess={handleStripeSuccess}
-              onError={(error) => console.error('Payment error:', error)}
-              onCancel={() => { setShowPayment(false); setPaymentMethod(null); }}
-            />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
+  // Cash payment view
   if (showPayment && paymentMethod === 'cash') {
     return (
       <div className="flex-1 flex flex-col">
@@ -682,7 +736,7 @@ function CheckoutPanel({
               onClick={handleCashPayment}
               className="w-full py-4 bg-green-500 text-white rounded-xl hover:bg-green-600 font-bold text-lg"
             >
-              ✓ Mark as Paid
+              Mark as Paid
             </button>
           </div>
         </div>
@@ -690,6 +744,7 @@ function CheckoutPanel({
     );
   }
 
+  // Gift card payment view
   if (showPayment && paymentMethod === 'giftcard') {
     return (
       <div className="flex-1 flex flex-col">
@@ -721,7 +776,7 @@ function CheckoutPanel({
                   disabled={applyingGiftCard}
                   className="px-4 py-3 bg-purple-600 text-white rounded-xl hover:bg-purple-700 disabled:opacity-50"
                 >
-                  {applyingGiftCard ? '...' : '🔍'}
+                  {applyingGiftCard ? '...' : 'Lookup'}
                 </button>
               </div>
             </div>
@@ -736,11 +791,6 @@ function CheckoutPanel({
               <div className="p-4 bg-green-500/20 border border-green-500/50 rounded-xl">
                 <p className="text-green-400 text-sm text-center mb-1">Available Balance</p>
                 <p className="text-3xl font-bold text-green-400 text-center">${giftCardBalance.toFixed(2)}</p>
-                {giftCardBalance < total && (
-                  <p className="text-yellow-400 text-xs text-center mt-2">
-                    ⚠️ Partial payment - ${(total - giftCardBalance).toFixed(2)} remaining due
-                  </p>
-                )}
               </div>
             )}
 
@@ -750,7 +800,7 @@ function CheckoutPanel({
               className="w-full py-4 bg-purple-500 text-white rounded-xl hover:bg-purple-600 font-bold text-lg disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {applyingGiftCard ? 'Processing...' : giftCardBalance !== null 
-                ? `Apply $${Math.min(total, giftCardBalance).toFixed(2)} from Gift Card`
+                ? `Apply $${Math.min(total, giftCardBalance).toFixed(2)}`
                 : 'Enter Gift Card Code'}
             </button>
           </div>
@@ -759,6 +809,7 @@ function CheckoutPanel({
     );
   }
 
+  // Payment method selection
   if (showPayment) {
     return (
       <div className="flex-1 flex flex-col">
@@ -772,14 +823,28 @@ function CheckoutPanel({
 
         <div className="flex-1 p-6 flex flex-col items-center justify-center">
           <p className="text-slate-400 mb-2">Total Due</p>
-          <p className="text-5xl font-bold text-white mb-8">${total.toFixed(2)}</p>
+          <p className="text-5xl font-bold text-white mb-2">${total.toFixed(2)}</p>
+          <p className="text-slate-500 text-sm mb-8">Tip will be added on terminal</p>
 
           <div className="w-full max-w-xs space-y-3">
             <button
-              onClick={() => setPaymentMethod('stripe')}
-              className="w-full py-4 bg-blue-500 text-white rounded-xl hover:bg-blue-600 font-medium flex items-center justify-center gap-2"
+              onClick={handleTerminalCheckout}
+              disabled={startingTerminal}
+              className="w-full py-4 bg-blue-500 text-white rounded-xl hover:bg-blue-600 font-medium flex items-center justify-center gap-2 disabled:opacity-50"
             >
-              💳 Credit/Debit Card
+              {startingTerminal ? (
+                <>
+                  <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full" />
+                  Starting...
+                </>
+              ) : (
+                <>
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                  </svg>
+                  Charge on Terminal
+                </>
+              )}
             </button>
             <button
               onClick={() => setPaymentMethod('giftcard')}
@@ -795,14 +860,21 @@ function CheckoutPanel({
             </button>
           </div>
 
+          {terminalError && (
+            <div className="mt-4 p-3 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-sm text-center max-w-xs">
+              {terminalError}
+            </div>
+          )}
+
           <p className="text-slate-500 text-sm mt-6">
-            🔒 Card payments processed securely by Stripe
+            Card payments processed securely by Square Terminal
           </p>
         </div>
       </div>
     );
   }
 
+  // Main checkout view
   return (
     <div className="flex-1 flex flex-col">
       {/* Header */}
@@ -859,24 +931,11 @@ function CheckoutPanel({
           </div>
         </div>
 
-        {/* Tip */}
-        <div className="mt-4">
-          <label className="text-sm text-slate-400 block mb-2">Tip</label>
-          <div className="flex gap-2">
-            {[0, 15, 20, 25].map((pct) => (
-              <button
-                key={pct}
-                onClick={() => setTip(pct === 0 ? 0 : subtotal * (pct / 100))}
-                className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  tip === (pct === 0 ? 0 : subtotal * (pct / 100))
-                    ? 'bg-pink-500 text-white'
-                    : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
-                }`}
-              >
-                {pct === 0 ? 'None' : `${pct}%`}
-              </button>
-            ))}
-          </div>
+        {/* Tip Note */}
+        <div className="mt-4 p-3 bg-blue-500/10 border border-blue-500/30 rounded-lg">
+          <p className="text-blue-400 text-sm text-center">
+            Tip will be added at the terminal during payment
+          </p>
         </div>
       </div>
 
@@ -892,12 +951,6 @@ function CheckoutPanel({
             <span>-${discountAmount.toFixed(2)}</span>
           </div>
         )}
-        {tip > 0 && (
-          <div className="flex justify-between text-slate-400">
-            <span>Tip</span>
-            <span>${tip.toFixed(2)}</span>
-          </div>
-        )}
         <div className="flex justify-between text-xl font-bold text-white pt-2 border-t border-slate-600">
           <span>Total</span>
           <span>${total.toFixed(2)}</span>
@@ -910,9 +963,27 @@ function CheckoutPanel({
           onClick={() => setShowPayment(true)}
           className="w-full py-4 bg-green-500 text-white text-xl font-bold rounded-xl hover:bg-green-600 transition-colors"
         >
-          Pay ${total.toFixed(2)}
+          Charge ${total.toFixed(2)}
         </button>
       </div>
+
+      {/* Terminal Status Modal */}
+      {showTerminalModal && saleId && (
+        <TerminalStatusModal
+          isOpen={showTerminalModal}
+          saleId={saleId}
+          amount={Math.round(total * 100)} // Convert to cents
+          onComplete={handleTerminalComplete}
+          onCancel={handleTerminalCancel}
+          onRetry={handleTerminalRetry}
+          onClose={() => {
+            setShowTerminalModal(false);
+            if (paid) {
+              onClose();
+            }
+          }}
+        />
+      )}
     </div>
   );
 }
