@@ -21,7 +21,7 @@ const DASHBOARD_VIEWS = [
 
 // Quick access vendor links - updated with actual portal URLs
 const QUICK_VENDORS = [
-  { name: 'Charm EHR', url: 'https://www.charmhealth.com/', icon: '🏥', color: 'text-purple-300' },
+  { name: 'Charm EHR', url: 'https://accounts.charmtracker.com/signin', icon: '🏥', color: 'text-purple-300' },
   { name: 'eFax Portal', url: 'https://myportal.efax.com/login', icon: '📠', color: 'text-slate-300' },
   { name: 'McKesson', url: 'https://connect.mckesson.com/', icon: '📦', color: 'text-blue-300' },
   { name: 'Allergan', url: 'https://www.brilliantconnections.com/', icon: '💉', color: 'text-pink-300' },
@@ -176,7 +176,7 @@ export function AdminHeader() {
           </div>
 
           <a
-            href="https://ehr.charmhealth.com/"
+            href="https://accounts.charmtracker.com/signin"
             target="_blank"
             rel="noopener noreferrer"
             className="hidden lg:inline-flex items-center gap-1.5 px-3 py-2 bg-purple-600 hover:bg-purple-500 rounded-lg text-sm font-medium transition-colors"

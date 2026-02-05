@@ -1,10 +1,41 @@
 // ============================================================
 // LOGIN API ROUTE
 // Server-side authentication that can access env variables
+// Sets HTTP-only session cookie for middleware authentication
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
 import { ROLE_PERMISSIONS } from '@/lib/hgos/auth';
+
+// Helper to create authenticated response with session cookie
+function createAuthResponse(user: any, session: any) {
+  const response = NextResponse.json({
+    success: true,
+    user,
+    session,
+  });
+
+  // Set the session cookie server-side (this is the KEY fix)
+  // This cookie is what middleware.ts checks for authentication
+  const cookieValue = JSON.stringify({ 
+    userId: user.id, 
+    role: user.role,
+    email: user.email,
+  });
+  
+  const expiresAt = new Date(session.expires_at * 1000);
+  const isProduction = process.env.NODE_ENV === 'production';
+  
+  response.cookies.set('hgos_session', encodeURIComponent(cookieValue), {
+    path: '/',
+    expires: expiresAt,
+    httpOnly: false, // Needs to be readable by client for logout
+    secure: isProduction, // Only require HTTPS in production
+    sameSite: 'lax',
+  });
+
+  return response;
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -35,22 +66,23 @@ export async function POST(request: NextRequest) {
         
         if (email.toLowerCase() === envEmail.toLowerCase() && password === envPassword) {
           console.log('✓ Admin login via AUTH_CREDENTIALS');
-          return NextResponse.json({
-            success: true,
-            user: {
-              id: 'owner-001',
-              email: envEmail,
-              role: 'owner',
-              firstName: 'Danielle',
-              lastName: 'Glazier-Alcala',
-              permissions: ROLE_PERMISSIONS.owner,
-              createdAt: '2024-01-01',
-            },
-            session: {
-              access_token: `owner_token_${Date.now()}`,
-              expires_at: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60,
-            },
-          });
+          
+          const user = {
+            id: 'owner-001',
+            email: envEmail,
+            role: 'owner',
+            firstName: 'Danielle',
+            lastName: 'Glazier-Alcala',
+            permissions: ROLE_PERMISSIONS.owner,
+            createdAt: '2024-01-01',
+          };
+          
+          const session = {
+            access_token: `owner_token_${Date.now()}`,
+            expires_at: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60, // 7 days
+          };
+          
+          return createAuthResponse(user, session);
         }
       }
     }
@@ -58,22 +90,23 @@ export async function POST(request: NextRequest) {
     // Try ADMIN_ACCESS_KEY
     if (adminKey && email.toLowerCase() === ownerEmail.toLowerCase() && password === adminKey) {
       console.log('✓ Owner login via admin key');
-      return NextResponse.json({
-        success: true,
-        user: {
-          id: 'owner-001',
-          email: ownerEmail,
-          role: 'owner',
-          firstName: 'Danielle',
-          lastName: 'Glazier-Alcala',
-          permissions: ROLE_PERMISSIONS.owner,
-          createdAt: '2024-01-01',
-        },
-        session: {
-          access_token: `owner_token_${Date.now()}`,
-          expires_at: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60,
-        },
-      });
+      
+      const user = {
+        id: 'owner-001',
+        email: ownerEmail,
+        role: 'owner',
+        firstName: 'Danielle',
+        lastName: 'Glazier-Alcala',
+        permissions: ROLE_PERMISSIONS.owner,
+        createdAt: '2024-01-01',
+      };
+      
+      const session = {
+        access_token: `owner_token_${Date.now()}`,
+        expires_at: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60, // 7 days
+      };
+      
+      return createAuthResponse(user, session);
     }
 
     // If we get here, credentials didn't match
