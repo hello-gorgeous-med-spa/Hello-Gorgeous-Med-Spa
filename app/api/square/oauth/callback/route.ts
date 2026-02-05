@@ -78,7 +78,15 @@ export async function GET(request: NextRequest) {
     }
     
     // Exchange code for tokens
-    const tokens = await exchangeCodeForTokens(code);
+    console.log('[Square OAuth] Exchanging code for tokens...');
+    let tokens;
+    try {
+      tokens = await exchangeCodeForTokens(code);
+      console.log('[Square OAuth] Token exchange successful, merchant_id:', tokens.merchant_id);
+    } catch (tokenError) {
+      console.error('[Square OAuth] Token exchange FAILED:', tokenError);
+      throw new Error(`Token exchange failed: ${tokenError instanceof Error ? tokenError.message : 'Unknown error'}`);
+    }
     
     // Fetch merchant info to get business name
     let businessName: string | undefined;
@@ -104,7 +112,15 @@ export async function GET(request: NextRequest) {
     }
     
     // Store connection in database
-    const connectionId = await storeConnection(tokens, businessName);
+    console.log('[Square OAuth] Storing connection...');
+    let connectionId;
+    try {
+      connectionId = await storeConnection(tokens, businessName);
+      console.log('[Square OAuth] Connection stored, id:', connectionId);
+    } catch (storeError) {
+      console.error('[Square OAuth] Store connection FAILED:', storeError);
+      throw new Error(`Store connection failed: ${storeError instanceof Error ? storeError.message : 'Unknown error'}`);
+    }
     
     // Log to audit
     const supabase = createServerSupabaseClient();
