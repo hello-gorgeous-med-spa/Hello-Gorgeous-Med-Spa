@@ -1,60 +1,82 @@
 // ============================================================
 // SQUARE WEBHOOK HANDLER
-// Real-time sync for gift cards and payments
+// Real-time sync for terminal checkouts, payments, gift cards, refunds
+// ============================================================
+// SECURITY:
+// - Signature verification with SQUARE_WEBHOOK_SIGNATURE_KEY
+// - Event deduplication via event_id in square_webhook_events table
+// - Secondary idempotency guards for checkout/payment/refund IDs
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
-import crypto from 'crypto';
-
-// Verify Square webhook signature
-function verifySignature(
-  body: string,
-  signature: string,
-  webhookSignatureKey: string,
-  notificationUrl: string
-): boolean {
-  const payload = notificationUrl + body;
-  const hmac = crypto.createHmac('sha256', webhookSignatureKey);
-  hmac.update(payload, 'utf8');
-  const expectedSignature = 'sha256=' + hmac.digest('base64');
-  
-  return crypto.timingSafeEqual(
-    Buffer.from(signature),
-    Buffer.from(expectedSignature)
-  );
-}
+import { fetchPaymentDetails } from '@/lib/square/terminal';
+import {
+  verifyWebhookSignature,
+  claimWebhookEvent,
+  updateWebhookEventStatus,
+  checkTerminalCheckoutProcessed,
+  checkPaymentProcessed,
+  checkRefundProcessed,
+  getWebhookUrl,
+  type SquareWebhookEvent,
+} from '@/lib/square/webhook';
 
 export async function POST(request: NextRequest) {
+  // ============================================================
+  // CRITICAL: Read raw body FIRST, before any JSON parsing!
+  // Signature verification requires the exact raw request body.
+  // DO NOT use request.json() before signature check.
+  // ============================================================
+  const body = await request.text();
+  let event: SquareWebhookEvent;
+  
   try {
-    const body = await request.text();
+    // ============================================================
+    // 1. SIGNATURE VERIFICATION (uses raw body + BASE_URL)
+    // ============================================================
     const signature = request.headers.get('x-square-hmacsha256-signature');
-    const webhookSignatureKey = process.env.SQUARE_WEBHOOK_SIGNATURE_KEY;
-    const webhookUrl = process.env.SQUARE_WEBHOOK_URL || `${process.env.NEXT_PUBLIC_APP_URL}/api/square/webhook`;
+    const webhookUrl = getWebhookUrl(); // Uses server BASE_URL, not NEXT_PUBLIC_*
 
-    // Verify signature in production
-    if (webhookSignatureKey && signature) {
-      const isValid = verifySignature(body, signature, webhookSignatureKey, webhookUrl);
-      if (!isValid) {
-        console.error('Invalid Square webhook signature');
+    if (process.env.SQUARE_WEBHOOK_SIGNATURE_KEY && signature) {
+      const verification = verifyWebhookSignature(signature, body, webhookUrl);
+      if (!verification.valid) {
+        console.error('Invalid Square webhook signature:', verification.error);
         return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
       }
     }
 
-    const event = JSON.parse(body);
-    const supabase = createServerSupabaseClient();
+    event = JSON.parse(body);
+    
+    // ============================================================
+    // 2. PRIMARY IDEMPOTENCY: CLAIM EVENT_ID FIRST
+    // Insert event_id atomically before processing
+    // If insert fails (duplicate), short-circuit with 200
+    // ============================================================
+    const eventId = event.event_id;
+    if (!eventId) {
+      console.error('Webhook missing event_id');
+      return NextResponse.json({ error: 'Missing event_id' }, { status: 400 });
+    }
 
-    console.log('Square webhook received:', event.type);
+    // Atomic claim: insert event_id, if conflict → another worker has it
+    const { isNew, existingEvent } = await claimWebhookEvent(event);
+    if (!isNew) {
+      console.log('Duplicate webhook event ignored:', eventId, 'First received:', existingEvent?.received_at);
+      return NextResponse.json({ received: true, duplicate: true });
+    }
+
+    console.log('Square webhook claimed:', event.type, 'Event ID:', eventId);
+
+    const supabase = createServerSupabaseClient();
 
     // ============================================================
     // GIFT CARD EVENTS
     // ============================================================
     
-    // Gift card created (online purchase)
     if (event.type === 'gift_card.created') {
       const giftCard = event.data.object.gift_card;
       
-      // Check if we already have this card
       const { data: existing } = await supabase
         .from('gift_cards')
         .select('id')
@@ -62,7 +84,6 @@ export async function POST(request: NextRequest) {
         .single();
 
       if (!existing) {
-        // Create new record for card created outside our system (online)
         await supabase.from('gift_cards').insert({
           square_gift_card_id: giftCard.id,
           square_gan: giftCard.gan,
@@ -74,16 +95,15 @@ export async function POST(request: NextRequest) {
           source: 'online',
           last_synced_at: new Date().toISOString(),
         });
-
         console.log('Gift card created from webhook:', giftCard.id);
       }
+      
+      await updateWebhookEventStatus(eventId, 'processed');
     }
 
-    // Gift card updated (balance change, status change)
-    if (event.type === 'gift_card.updated') {
+    else if (event.type === 'gift_card.updated') {
       const giftCard = event.data.object.gift_card;
       
-      // Update our record
       const { data: existing } = await supabase
         .from('gift_cards')
         .select('id, current_balance')
@@ -103,7 +123,6 @@ export async function POST(request: NextRequest) {
           })
           .eq('square_gift_card_id', giftCard.id);
 
-        // If balance changed and we didn't initiate it, log the sync
         if (existing.current_balance !== newBalance) {
           await supabase.from('gift_card_transactions').insert({
             gift_card_id: existing.id,
@@ -114,19 +133,15 @@ export async function POST(request: NextRequest) {
             notes: 'Synced from Square webhook',
           });
         }
-
         console.log('Gift card updated from webhook:', giftCard.id);
       }
+      
+      await updateWebhookEventStatus(eventId, 'processed');
     }
 
-    // ============================================================
-    // GIFT CARD ACTIVITY EVENTS
-    // ============================================================
-
-    if (event.type === 'gift_card.activity.created') {
+    else if (event.type === 'gift_card.activity.created') {
       const activity = event.data.object.gift_card_activity;
       
-      // Find our gift card
       const { data: giftCard } = await supabase
         .from('gift_cards')
         .select('id, current_balance')
@@ -134,7 +149,6 @@ export async function POST(request: NextRequest) {
         .single();
 
       if (giftCard) {
-        // Check if we already logged this activity
         const { data: existingTxn } = await supabase
           .from('gift_card_transactions')
           .select('id')
@@ -157,7 +171,6 @@ export async function POST(request: NextRequest) {
             notes: `Synced from Square: ${activity.type}`,
           });
 
-          // Update balance
           await supabase
             .from('gift_cards')
             .update({
@@ -171,26 +184,348 @@ export async function POST(request: NextRequest) {
           console.log('Gift card activity logged:', activity.type);
         }
       }
+      
+      await updateWebhookEventStatus(eventId, 'processed');
     }
 
     // ============================================================
-    // PAYMENT EVENTS (for gift card purchases/redemptions)
+    // TERMINAL CHECKOUT EVENTS
     // ============================================================
 
-    if (event.type === 'payment.completed') {
+    else if (event.type === 'terminal.checkout.created') {
+      const checkout = event.data.object.checkout;
+      console.log('Terminal checkout created:', checkout.id, 'Status:', checkout.status);
+      
+      await supabase
+        .from('terminal_checkouts')
+        .update({ 
+          status: checkout.status,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('square_checkout_id', checkout.id);
+      
+      await updateWebhookEventStatus(eventId, 'processed');
+    }
+
+    else if (event.type === 'terminal.checkout.updated') {
+      const checkout = event.data.object.checkout;
+      const status = checkout.status;
+      const checkoutId = checkout.id;
+      
+      console.log('Terminal checkout updated:', checkoutId, 'Status:', status);
+      
+      // Secondary idempotency check
+      const alreadyProcessed = await checkTerminalCheckoutProcessed(checkoutId, status);
+      if (alreadyProcessed) {
+        console.log('Terminal checkout already in final state, skipping:', checkoutId);
+        await updateWebhookEventStatus(eventId, 'skipped', 'Already in final state');
+        return NextResponse.json({ received: true, skipped: true });
+      }
+      
+      const { data: terminalCheckout } = await supabase
+        .from('terminal_checkouts')
+        .select('*, sale_id, payment_id')
+        .eq('square_checkout_id', checkoutId)
+        .single();
+      
+      if (terminalCheckout) {
+        const checkoutUpdate: Record<string, any> = {
+          status,
+          updated_at: new Date().toISOString(),
+        };
+        
+        if (status === 'COMPLETED') {
+          checkoutUpdate.completed_at = new Date().toISOString();
+          
+          // ============================================================
+          // FINALIZE TOTALS FROM PAYMENT
+          // tip-on-device means we must fetch Payment to get final amounts
+          // ============================================================
+          const paymentIds = checkout.payment_ids || [];
+          if (paymentIds.length > 0) {
+            // If multiple payment_ids, log anomaly and use the last (newest) one
+            if (paymentIds.length > 1) {
+              console.warn(
+                'Multiple payment_ids on checkout:', checkoutId,
+                'Count:', paymentIds.length,
+                'IDs:', paymentIds
+              );
+            }
+            
+            // Select the last (newest) payment_id
+            const selectedPaymentId = paymentIds[paymentIds.length - 1];
+            checkoutUpdate.square_payment_id = selectedPaymentId;
+            
+            const paymentDetails = await fetchPaymentDetails(selectedPaymentId);
+            
+            if (paymentDetails) {
+              checkoutUpdate.tip_money = paymentDetails.tipMoney;
+              
+              // Final amounts come from Payment, NOT checkout
+              const totalCollected = paymentDetails.totalMoney;
+              const tipAmount = paymentDetails.tipMoney;
+              
+              await supabase
+                .from('sales')
+                .update({
+                  status: 'completed',
+                  tip_total: tipAmount,
+                  gross_total: terminalCheckout.amount_money + tipAmount,
+                  net_total: terminalCheckout.amount_money + tipAmount,
+                  amount_paid: totalCollected,
+                  balance_due: 0,
+                  completed_at: new Date().toISOString(),
+                })
+                .eq('id', terminalCheckout.sale_id);
+              
+              // Estimate Square processing fee: 2.6% + $0.10
+              const processingFee = Math.round(totalCollected * 0.026 + 10);
+              
+              await supabase
+                .from('sale_payments')
+                .update({
+                  status: 'completed',
+                  tip_amount: tipAmount,
+                  amount: totalCollected,
+                  net_amount: totalCollected - processingFee,
+                  processing_fee: processingFee,
+                  square_payment_id: paymentDetails.paymentId,
+                  processor_transaction_id: paymentDetails.paymentId,
+                  processor_receipt_url: paymentDetails.receiptUrl,
+                  card_brand: paymentDetails.cardBrand,
+                  card_last_four: paymentDetails.cardLast4,
+                  terminal_status: 'COMPLETED',
+                  raw_square_response: paymentDetails.rawPayment,
+                  processed_at: new Date().toISOString(),
+                })
+                .eq('square_terminal_checkout_id', checkoutId);
+              
+              console.log('Terminal payment finalized:', paymentDetails.paymentId, 'Total:', totalCollected, 'Tip:', tipAmount);
+            }
+          }
+        } else if (status === 'CANCELED') {
+          checkoutUpdate.canceled_at = new Date().toISOString();
+          checkoutUpdate.error_code = checkout.cancel_reason;
+          
+          await supabase
+            .from('sales')
+            .update({ status: 'unpaid' })
+            .eq('id', terminalCheckout.sale_id);
+          
+          await supabase
+            .from('sale_payments')
+            .update({
+              status: 'voided',
+              terminal_status: 'CANCELED',
+            })
+            .eq('square_terminal_checkout_id', checkoutId);
+          
+          console.log('Terminal checkout canceled:', checkoutId, 'Reason:', checkout.cancel_reason);
+        } else if (status === 'FAILED') {
+          checkoutUpdate.error_code = checkout.cancel_reason;
+          checkoutUpdate.error_message = 'Payment failed';
+          
+          await supabase
+            .from('sales')
+            .update({ status: 'unpaid' })
+            .eq('id', terminalCheckout.sale_id);
+          
+          await supabase
+            .from('sale_payments')
+            .update({
+              status: 'failed',
+              terminal_status: 'FAILED',
+            })
+            .eq('square_terminal_checkout_id', checkoutId);
+          
+          console.log('Terminal checkout failed:', checkoutId);
+        }
+        
+        await supabase
+          .from('terminal_checkouts')
+          .update(checkoutUpdate)
+          .eq('square_checkout_id', checkoutId);
+      }
+      
+      // Update last_webhook_at on connection
+      await supabase
+        .from('square_connections')
+        .update({ last_webhook_at: new Date().toISOString() })
+        .eq('status', 'active');
+      
+      await updateWebhookEventStatus(eventId, 'processed');
+    }
+
+    // ============================================================
+    // PAYMENT EVENTS
+    // ============================================================
+
+    else if (event.type === 'payment.updated' || event.type === 'payment.completed') {
       const payment = event.data.object.payment;
       
-      // Check if payment involves gift cards
+      console.log('Payment event:', event.type, payment.id, 'Status:', payment.status);
+      
+      // Secondary idempotency check
+      const alreadyProcessed = await checkPaymentProcessed(payment.id);
+      if (alreadyProcessed) {
+        console.log('Payment already processed, skipping:', payment.id);
+        await updateWebhookEventStatus(eventId, 'skipped', 'Already processed');
+        return NextResponse.json({ received: true, skipped: true });
+      }
+      
+      // Only process completed payments
+      if (payment.status === 'COMPLETED' && payment.terminal_checkout_id) {
+        const { data: existingPayment } = await supabase
+          .from('sale_payments')
+          .select('id, status')
+          .eq('square_terminal_checkout_id', payment.terminal_checkout_id)
+          .single();
+        
+        if (existingPayment && existingPayment.status !== 'completed') {
+          const tipAmount = Number(payment.tip_money?.amount || 0);
+          const totalAmount = Number(payment.total_money?.amount || 0);
+          
+          await supabase
+            .from('sale_payments')
+            .update({
+              status: 'completed',
+              tip_amount: tipAmount,
+              amount: totalAmount,
+              square_payment_id: payment.id,
+              processor_transaction_id: payment.id,
+              processor_receipt_url: payment.receipt_url,
+              card_brand: payment.card_details?.card?.card_brand,
+              card_last_four: payment.card_details?.card?.last_4,
+              terminal_status: 'COMPLETED',
+              processed_at: new Date().toISOString(),
+            })
+            .eq('id', existingPayment.id);
+          
+          console.log('Payment updated from payment.updated webhook');
+        }
+      }
+      
+      // Handle gift card payments
       if (payment.source_type === 'GIFT_CARD') {
-        // This is a payment made WITH a gift card - we likely already handled this
-        // via our redemption flow, but double-check sync
         console.log('Payment with gift card:', payment.id);
       }
+      
+      await updateWebhookEventStatus(eventId, 'processed');
+    }
+
+    // ============================================================
+    // REFUND EVENTS
+    // ============================================================
+
+    else if (event.type === 'refund.created' || event.type === 'refund.updated') {
+      const refund = event.data.object.refund;
+      
+      console.log('Refund event:', event.type, refund.id, 'Status:', refund.status);
+      
+      // Secondary idempotency check
+      const alreadyProcessed = await checkRefundProcessed(refund.id);
+      if (alreadyProcessed) {
+        console.log('Refund already processed, skipping:', refund.id);
+        await updateWebhookEventStatus(eventId, 'skipped', 'Already processed');
+        return NextResponse.json({ received: true, skipped: true });
+      }
+      
+      const { data: existingRefund } = await supabase
+        .from('refunds')
+        .select('id')
+        .eq('square_refund_id', refund.id)
+        .single();
+      
+      if (existingRefund) {
+        await supabase
+          .from('refunds')
+          .update({
+            status: refund.status?.toLowerCase() || 'completed',
+            processed_at: new Date().toISOString(),
+            raw_square_response: refund,
+          })
+          .eq('id', existingRefund.id);
+      } else if (refund.payment_id) {
+        // External refund - link to our payment
+        const { data: payment } = await supabase
+          .from('sale_payments')
+          .select('id, sale_id')
+          .or(`square_payment_id.eq.${refund.payment_id},processor_transaction_id.eq.${refund.payment_id}`)
+          .single();
+        
+        if (payment) {
+          const refundAmount = Number(refund.amount_money?.amount || 0);
+          
+          await supabase.from('refunds').insert({
+            sale_id: payment.sale_id,
+            payment_id: payment.id,
+            square_refund_id: refund.id,
+            square_payment_id: refund.payment_id,
+            amount: refundAmount,
+            reason: refund.reason || 'Refunded via Square Dashboard',
+            refund_type: 'partial',
+            status: refund.status?.toLowerCase() || 'completed',
+            raw_square_response: refund,
+            processed_at: new Date().toISOString(),
+          });
+          
+          const { data: sale } = await supabase
+            .from('sales')
+            .select('gross_total, amount_paid')
+            .eq('id', payment.sale_id)
+            .single();
+          
+          if (sale) {
+            const newStatus = refundAmount >= sale.amount_paid ? 'refunded' : 'partially_paid';
+            await supabase
+              .from('sales')
+              .update({ 
+                status: newStatus,
+                amount_paid: sale.amount_paid - refundAmount,
+                balance_due: sale.gross_total - (sale.amount_paid - refundAmount),
+              })
+              .eq('id', payment.sale_id);
+          }
+          
+          await supabase
+            .from('sale_payments')
+            .update({
+              status: 'refunded',
+              refund_amount: refundAmount,
+              refund_reason: refund.reason,
+              refunded_at: new Date().toISOString(),
+            })
+            .eq('id', payment.id);
+          
+          console.log('External refund recorded:', refund.id);
+        }
+      }
+      
+      await updateWebhookEventStatus(eventId, 'processed');
+    }
+
+    // ============================================================
+    // UNSUPPORTED EVENT TYPES
+    // ============================================================
+    
+    else {
+      console.log('Unsupported webhook event type:', event.type);
+      await updateWebhookEventStatus(eventId, 'skipped', `Unsupported event type: ${event.type}`);
     }
 
     return NextResponse.json({ received: true });
   } catch (error) {
     console.error('Square webhook error:', error);
+    
+    // Try to update the failed event status
+    try {
+      if (event! && event.event_id) {
+        await updateWebhookEventStatus(event.event_id, 'failed', String(error));
+      }
+    } catch (recordError) {
+      console.error('Failed to update webhook error status:', recordError);
+    }
+    
     return NextResponse.json({ error: 'Webhook processing failed' }, { status: 500 });
   }
 }
@@ -223,7 +558,6 @@ function mapActivityType(squareType: string): string {
 }
 
 function calculateActivityAmount(activity: any): number {
-  // Try to extract amount from the activity details
   const details = 
     activity.activate_activity_details ||
     activity.load_activity_details ||
@@ -233,7 +567,6 @@ function calculateActivityAmount(activity: any): number {
 
   if (details?.amount_money?.amount) {
     const amount = Number(details.amount_money.amount) / 100;
-    // Redemptions and decrements should be negative
     if (['REDEEM', 'ADJUST_DECREMENT', 'CLEAR_BALANCE', 'DEACTIVATE'].includes(activity.type)) {
       return -amount;
     }
