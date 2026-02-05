@@ -1,15 +1,29 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 export function EmailCapture() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [hasShown, setHasShown] = useState(false);
 
-  // Show popup after 5 seconds, only once per session
+  // Don't show on admin, login, portal, pos, or provider routes
+  const isAdminRoute = pathname?.startsWith('/admin') || 
+                       pathname?.startsWith('/login') || 
+                       pathname?.startsWith('/portal') ||
+                       pathname?.startsWith('/pos') ||
+                       pathname?.startsWith('/provider');
+
+  // Show popup after 5 seconds, only once per session, not on admin routes
   useEffect(() => {
+    // Never show on admin/protected routes
+    if (isAdminRoute) {
+      return;
+    }
+
     // Check if already shown or dismissed
     const dismissed = sessionStorage.getItem("email-popup-dismissed");
     const subscribed = localStorage.getItem("email-subscribed");
@@ -27,7 +41,7 @@ export function EmailCapture() {
     }, 5000);
 
     return () => clearTimeout(timer);
-  }, [hasShown]);
+  }, [hasShown, isAdminRoute]);
 
   const handleClose = () => {
     setIsOpen(false);
@@ -68,6 +82,8 @@ export function EmailCapture() {
     }
   };
 
+  // Don't render on admin routes
+  if (isAdminRoute) return null;
   if (!isOpen) return null;
 
   return (
