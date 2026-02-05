@@ -270,6 +270,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
   const [appointments, setAppointments] = useState<any[]>([]);
   const [payments, setPayments] = useState<any[]>([]);
   const [consents, setConsents] = useState<any[]>([]);
+  const [giftCards, setGiftCards] = useState<any[]>([]);
   const [loadingExtra, setLoadingExtra] = useState(true);
   
   // Edit modal state
@@ -327,6 +328,19 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
     }
   }, [params.id]);
 
+  // Fetch gift cards for this client
+  const fetchClientGiftCards = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/gift-cards?client_id=${params.id}`);
+      const data = await res.json();
+      if (data.giftCards) {
+        setGiftCards(data.giftCards);
+      }
+    } catch (err) {
+      console.error('Failed to load gift cards:', err);
+    }
+  }, [params.id]);
+
   useEffect(() => {
     fetchClient();
   }, [fetchClient]);
@@ -334,9 +348,10 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
   useEffect(() => {
     if (params.id) {
       fetchClientAppointments();
+      fetchClientGiftCards();
       setLoadingExtra(false);
     }
-  }, [params.id, fetchClientAppointments]);
+  }, [params.id, fetchClientAppointments, fetchClientGiftCards]);
 
   // Calculate age
   const calculateAge = (dob: string | null) => {
@@ -733,41 +748,114 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
       )}
 
       {activeTab === 'payments' && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-          {loadingExtra ? (
-            <div className="p-6">
-              {[1, 2, 3].map(i => <Skeleton key={i} className="h-16 mb-2" />)}
+        <div className="space-y-6">
+          {/* Gift Cards Section */}
+          <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-100 shadow-sm overflow-hidden">
+            <div className="p-5 border-b border-purple-100">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <span className="text-2xl">🎁</span>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Gift Cards</h3>
+                    <p className="text-sm text-gray-500">Cards owned by or purchased for this client</p>
+                  </div>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm text-gray-500">Total Balance</p>
+                  <p className="text-2xl font-bold text-green-600">
+                    ${giftCards.filter(gc => gc.status === 'active').reduce((sum, gc) => sum + (gc.current_balance || 0), 0).toFixed(2)}
+                  </p>
+                </div>
+              </div>
             </div>
-          ) : payments.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">No payments found</div>
-          ) : (
-            <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-100">
-                <tr>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Date</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Method</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Status</th>
-                  <th className="text-right px-5 py-3 text-sm font-semibold text-gray-900">Amount</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-100">
-                {payments.map((payment) => (
-                  <tr key={payment.id} className="hover:bg-gray-50">
-                    <td className="px-5 py-3 font-medium text-gray-900">{formatDate(payment.created_at)}</td>
-                    <td className="px-5 py-3 text-gray-600">{payment.payment_method || 'Card'}</td>
-                    <td className="px-5 py-3">
-                      <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
-                        {payment.status || 'completed'}
-                      </span>
-                    </td>
-                    <td className="px-5 py-3 text-right font-semibold text-green-600">
-                      +${(payment.total_amount || 0).toLocaleString()}
-                    </td>
-                  </tr>
+            {loadingExtra ? (
+              <div className="p-6">
+                {[1, 2].map(i => <Skeleton key={i} className="h-16 mb-2" />)}
+              </div>
+            ) : giftCards.length === 0 ? (
+              <div className="p-8 text-center">
+                <p className="text-gray-500 mb-4">No gift cards linked to this client</p>
+                <Link
+                  href="/admin/gift-cards"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+                >
+                  <span>🎁</span> Sell Gift Card
+                </Link>
+              </div>
+            ) : (
+              <div className="divide-y divide-purple-100">
+                {giftCards.map((gc) => (
+                  <div key={gc.id} className="p-4 hover:bg-white/50 transition-colors">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="flex items-center gap-3">
+                          <span className="font-mono text-lg font-bold text-purple-700 bg-purple-100 px-3 py-1 rounded-lg">
+                            {gc.code}
+                          </span>
+                          <span className={`px-2 py-1 text-xs rounded-full ${
+                            gc.status === 'active' ? 'bg-green-100 text-green-700' :
+                            gc.status === 'redeemed' ? 'bg-gray-100 text-gray-600' :
+                            'bg-red-100 text-red-700'
+                          }`}>
+                            {gc.status}
+                          </span>
+                        </div>
+                        <p className="text-sm text-gray-500 mt-1">
+                          {gc.purchaser_client_id === params.id ? 'Purchased by this client' : 'Gift for this client'}
+                          {gc.expires_at && ` • Expires ${new Date(gc.expires_at).toLocaleDateString()}`}
+                        </p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-2xl font-bold text-green-600">${(gc.current_balance || 0).toFixed(2)}</p>
+                        <p className="text-xs text-gray-400">of ${(gc.initial_value || gc.initial_amount || 0).toFixed(2)}</p>
+                      </div>
+                    </div>
+                  </div>
                 ))}
-              </tbody>
-            </table>
-          )}
+              </div>
+            )}
+          </div>
+
+          {/* Payments Table */}
+          <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+            <div className="p-5 border-b border-gray-100">
+              <h3 className="font-semibold text-gray-900">Payment History</h3>
+            </div>
+            {loadingExtra ? (
+              <div className="p-6">
+                {[1, 2, 3].map(i => <Skeleton key={i} className="h-16 mb-2" />)}
+              </div>
+            ) : payments.length === 0 ? (
+              <div className="p-8 text-center text-gray-500">No payments found</div>
+            ) : (
+              <table className="w-full">
+                <thead className="bg-gray-50 border-b border-gray-100">
+                  <tr>
+                    <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Date</th>
+                    <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Method</th>
+                    <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Status</th>
+                    <th className="text-right px-5 py-3 text-sm font-semibold text-gray-900">Amount</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-100">
+                  {payments.map((payment) => (
+                    <tr key={payment.id} className="hover:bg-gray-50">
+                      <td className="px-5 py-3 font-medium text-gray-900">{formatDate(payment.created_at)}</td>
+                      <td className="px-5 py-3 text-gray-600">{payment.payment_method || 'Card'}</td>
+                      <td className="px-5 py-3">
+                        <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
+                          {payment.status || 'completed'}
+                        </span>
+                      </td>
+                      <td className="px-5 py-3 text-right font-semibold text-green-600">
+                        +${(payment.total_amount || 0).toLocaleString()}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
+          </div>
         </div>
       )}
 
