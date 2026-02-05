@@ -189,6 +189,7 @@ const NAV_SECTIONS = [
       { href: '/admin/users', label: 'Users & Access', icon: '🔐' },
       { href: '/admin/vendors', label: 'Vendors', icon: '🏢' },
       { href: '/admin/settings', label: 'Business Settings', icon: '⚙️' },
+      { href: '/admin/settings/payments', label: 'Square Terminal', icon: '💳' },
       { href: '/admin/settings/pretreatment', label: 'Pre-treatment', icon: '📋' },
       { href: '/admin/settings/aftercare', label: 'Aftercare', icon: '📄' },
     ],
