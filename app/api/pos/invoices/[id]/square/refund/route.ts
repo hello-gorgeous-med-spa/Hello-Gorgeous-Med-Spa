@@ -127,6 +127,7 @@ export async function POST(
     
     // Find a completed Square payment to refund
     const eligiblePayment = sale.sale_payments?.find(
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (p: any) => 
         p.status === 'completed' && 
         p.payment_processor === 'square' &&
@@ -274,6 +275,7 @@ export async function POST(
         },
       });
       
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (squareError: any) {
       console.error('Square refund error:', squareError);
       
@@ -292,6 +294,7 @@ export async function POST(
       throw squareError;
     }
     
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error('Error processing refund:', error);
     return NextResponse.json(

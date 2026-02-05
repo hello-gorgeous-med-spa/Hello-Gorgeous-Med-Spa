@@ -7,7 +7,6 @@
 
 import { useState, useEffect, use } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 interface Sale {
   id: string;
@@ -75,7 +74,6 @@ interface Refund {
 
 export default function SaleDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
-  const router = useRouter();
   
   const [sale, setSale] = useState<Sale | null>(null);
   const [refunds, setRefunds] = useState<Refund[]>([]);
@@ -132,6 +130,7 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
   useEffect(() => {
     fetchSale();
     fetchRefunds();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   // Process refund
@@ -147,7 +146,7 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
     }
     
     try {
-      const body: any = {
+      const body: { reason: string; amount?: number } = {
         reason: refundReason.trim(),
       };
       

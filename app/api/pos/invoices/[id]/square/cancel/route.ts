@@ -75,6 +75,7 @@ export async function POST(
         checkout_id: checkout.square_checkout_id,
       });
       
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (cancelError: any) {
       console.error('Error canceling terminal checkout:', cancelError);
       
@@ -93,6 +94,7 @@ export async function POST(
       throw cancelError;
     }
     
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error('Error in cancel endpoint:', error);
     return NextResponse.json(

@@ -43,6 +43,7 @@ export async function GET(
   let isActive = true;
   let pollInterval: NodeJS.Timeout | null = null;
   let heartbeatInterval: NodeJS.Timeout | null = null;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   let realtimeChannel: any = null;
   
   // Create Supabase client for Realtime
@@ -53,11 +54,12 @@ export async function GET(
     async start(controller) {
       
       // Helper to send SSE data
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const sendData = (data: any) => {
         if (!isActive) return;
         try {
           controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
-        } catch (e) {
+        } catch {
           // Stream may be closed
           isActive = false;
         }
@@ -138,7 +140,7 @@ export async function GET(
             cleanup();
             try {
               controller.close();
-            } catch (e) {
+            } catch {
               // Already closed
             }
           }, 1000);
@@ -234,7 +236,7 @@ export async function GET(
         if (isActive) {
           try {
             controller.enqueue(encoder.encode(`: heartbeat\n\n`));
-          } catch (e) {
+          } catch {
             cleanup();
           }
         }
@@ -247,7 +249,7 @@ export async function GET(
         cleanup();
         try {
           controller.close();
-        } catch (e) {
+        } catch {
           // Already closed
         }
       });
@@ -264,7 +266,7 @@ export async function GET(
           cleanup();
           try {
             controller.close();
-          } catch (e) {
+          } catch {
             // Already closed
           }
         }

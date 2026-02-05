@@ -45,9 +45,9 @@ interface PhiSafeOrder {
  * - Reference: UUID-based token (non-sequential, reveals nothing)
  * - NEVER include: treatment names, SKU names, descriptions, notes
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function buildPhiSafeOrder(sale: any): PhiSafeOrder {
   // Aggregate by generic category (max 3 categories)
-  const categoryMap: Record<string, 'Service' | 'Product' | 'Deposit'> = {};
   
   // Map all item types to one of 3 categories
   const getCategory = (itemType: string): 'Service' | 'Product' | 'Deposit' => {
@@ -289,6 +289,7 @@ export async function POST(
       message: 'Checkout sent to terminal. Waiting for customer payment.',
     });
     
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     console.error('Error starting terminal charge:', error);
     

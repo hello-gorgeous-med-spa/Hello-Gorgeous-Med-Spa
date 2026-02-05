@@ -120,6 +120,7 @@ export async function POST(request: NextRequest) {
     
     // Calculate totals
     let subtotal = 0;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const processedItems = items.map((item: any) => {
       const unitPrice = typeof item.unit_price === 'number' 
         ? dollarsToCents(item.unit_price) 
@@ -188,6 +189,7 @@ export async function POST(request: NextRequest) {
     }
     
     // Create sale items
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const itemsToInsert = processedItems.map((item: any) => ({
       ...item,
       sale_id: sale.id,

@@ -185,7 +185,7 @@ export default function PaymentSettingsPage() {
       } else {
         setError(data.error || 'Failed to update location');
       }
-    } catch (err) {
+    } catch {
       setError('Failed to save settings');
     } finally {
       setSaving(false);
@@ -215,7 +215,7 @@ export default function PaymentSettingsPage() {
       } else {
         setError(data.error || 'Failed to update device');
       }
-    } catch (err) {
+    } catch {
       setError('Failed to save settings');
     } finally {
       setSaving(false);
@@ -244,7 +244,7 @@ export default function PaymentSettingsPage() {
       if (data.success) {
         fetchDevices(false);
       }
-    } catch (err) {
+    } catch {
       setPingResult({
         success: false,
         message: 'Failed to test terminal',
@@ -280,7 +280,7 @@ export default function PaymentSettingsPage() {
       } else {
         setPairingStatus('Failed: ' + (data.error || 'Unknown error'));
       }
-    } catch (err) {
+    } catch {
       setPairingStatus('Failed to create pairing code');
     }
   };
@@ -306,7 +306,7 @@ export default function PaymentSettingsPage() {
         const data = await res.json();
         setError(data.error || 'Failed to disconnect');
       }
-    } catch (err) {
+    } catch {
       setError('Failed to disconnect');
     }
   };
@@ -401,7 +401,7 @@ export default function PaymentSettingsPage() {
         ) : (
           <div className="text-center py-8">
             <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-3xl">{'{'}'{'}'}</span>
+              <span className="text-3xl">💳</span>
             </div>
             <p className="text-gray-600 mb-4">Connect your Square account to accept terminal payments</p>
             <a
@@ -536,7 +536,7 @@ export default function PaymentSettingsPage() {
           ) : devices.length === 0 ? (
             <div className="text-center py-8 text-gray-500">
               <p>No terminal devices paired</p>
-              <p className="text-sm mt-1">Click "Pair New Device" to add a Square Terminal</p>
+              <p className="text-sm mt-1">Click &quot;Pair New Device&quot; to add a Square Terminal</p>
             </div>
           ) : (
             <div className="space-y-2">
@@ -551,7 +551,7 @@ export default function PaymentSettingsPage() {
                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                       device.status === 'paired' ? 'bg-green-100' : 'bg-gray-100'
                     }`}>
-                      <span className="text-xl">{'{'}'{'}'}</span>
+                      <span className="text-xl">📱</span>
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
