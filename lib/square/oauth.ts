@@ -10,7 +10,7 @@
 // ============================================================
 
 import { encryptToken, decryptToken } from './encryption';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 
 // Square OAuth endpoints
 const SQUARE_OAUTH_BASE = {
@@ -240,7 +240,12 @@ export async function storeConnection(
   businessName?: string
 ): Promise<string> {
   const config = getOAuthConfig();
-  const supabase = createServerSupabaseClient();
+  // Use admin client to bypass RLS for storing encrypted tokens
+  const supabase = createAdminSupabaseClient();
+  
+  if (!supabase) {
+    throw new Error('Database not configured - missing SUPABASE_SERVICE_ROLE_KEY');
+  }
   
   // Encrypt tokens
   const accessTokenEncrypted = encryptToken(tokens.access_token);
@@ -309,7 +314,7 @@ export async function storeConnection(
  * Get active Square connection
  */
 export async function getActiveConnection(): Promise<SquareConnection | null> {
-  const supabase = createServerSupabaseClient();
+  const supabase = createAdminSupabaseClient();
   
   const { data, error } = await supabase
     .from('square_connections')
@@ -330,7 +335,7 @@ export async function getActiveConnection(): Promise<SquareConnection | null> {
  * Get decrypted access token for API calls
  */
 export async function getAccessToken(connectionId?: string): Promise<string | null> {
-  const supabase = createServerSupabaseClient();
+  const supabase = createAdminSupabaseClient();
   
   let query = supabase
     .from('square_connections')
@@ -376,7 +381,7 @@ export async function getAccessToken(connectionId?: string): Promise<string | nu
  * Disconnect Square account
  */
 export async function disconnectSquare(connectionId: string): Promise<boolean> {
-  const supabase = createServerSupabaseClient();
+  const supabase = createAdminSupabaseClient();
   
   // Get the connection to revoke tokens
   const { data: connection } = await supabase
