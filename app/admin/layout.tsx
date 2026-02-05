@@ -164,13 +164,21 @@ const NAV_SECTIONS = [
     ],
   },
   {
+    title: 'Communications',
+    icon: '💬',
+    items: [
+      { href: '/admin/messages', label: '2-Way Messages', icon: '📱' },
+      { href: '/admin/sms', label: 'SMS Campaigns', icon: '📣' },
+      { href: '/admin/communications/templates', label: 'Message Templates', icon: '📝' },
+    ],
+  },
+  {
     title: 'Marketing',
-    icon: '📣',
+    icon: '📈',
     items: [
       { href: '/admin/insights', label: 'AI Insights', icon: '🤖' },
-      { href: '/admin/sms', label: 'SMS Campaigns', icon: '💬' },
-      { href: '/admin/marketing', label: 'Marketing Hub', icon: '📈' },
-      { href: '/admin/reports', label: 'Reports', icon: '📊' },
+      { href: '/admin/marketing', label: 'Marketing Hub', icon: '📊' },
+      { href: '/admin/reports', label: 'Reports', icon: '📋' },
     ],
   },
   {
