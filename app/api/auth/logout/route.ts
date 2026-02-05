@@ -1,11 +1,16 @@
 // ============================================================
 // LOGOUT API ROUTE
 // Clears session cookie
+// INCLUDES: HIPAA audit logging for logout events
 // ============================================================
 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { auditAuthLogout, getSessionFromRequest } from '@/lib/audit/middleware';
 
-export async function POST() {
+export async function POST(request: NextRequest) {
+  // Get session before clearing
+  const session = await getSessionFromRequest(request);
+  
   const response = NextResponse.json({ success: true });
   
   // Clear the session cookie
@@ -14,6 +19,11 @@ export async function POST() {
     expires: new Date(0),
     sameSite: 'lax',
   });
+  
+  // AUDIT LOG: Logout event
+  if (session.userId) {
+    await auditAuthLogout(session.userId, request);
+  }
   
   return response;
 }

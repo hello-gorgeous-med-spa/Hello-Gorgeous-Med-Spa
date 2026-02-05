@@ -6,6 +6,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { logRecordView, logRecordList, logRecordUpdate } from '@/lib/audit';
+import { getSessionFromRequest } from '@/lib/audit/middleware';
 
 // Audit logging helper for clinical notes
 async function auditChartAction(
@@ -46,6 +48,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
   }
 
+  const session = await getSessionFromRequest(request);
   const searchParams = request.nextUrl.searchParams;
   const clientId = searchParams.get('clientId');
   const appointmentId = searchParams.get('appointmentId');
@@ -79,6 +82,18 @@ export async function GET(request: NextRequest) {
     const { data, error } = await query;
 
     if (error) throw error;
+
+    // AUDIT LOG: Clinical note access (PHI access - CRITICAL)
+    if (noteId && data && data.length > 0) {
+      // Single note view
+      await logRecordView('clinical_note', noteId, session.userId);
+    } else if (data && data.length > 0) {
+      // List view - log as LIST action
+      await logRecordList('clinical_note', session.userId, { 
+        count: data.length,
+        filters: { clientId, appointmentId, providerId }
+      });
+    }
 
     return NextResponse.json({ notes: data });
   } catch (error) {
@@ -176,6 +191,8 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
   }
 
+  const session = await getSessionFromRequest(request);
+
   try {
     const body = await request.json();
     const { id, ...updateData } = body;
@@ -184,10 +201,10 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Note ID is required' }, { status: 400 });
     }
 
-    // Check if note is locked
+    // Check if note is locked AND get full record for audit
     const { data: existingNote, error: fetchError } = await supabase
       .from('chart_notes')
-      .select('is_locked, signed_at')
+      .select('*')
       .eq('id', id)
       .single();
 
@@ -212,6 +229,37 @@ export async function PUT(request: NextRequest) {
       .single();
 
     if (error) throw error;
+
+    // AUDIT LOG: Clinical note updated (PHI change - CRITICAL)
+    // Track what fields changed but don't log actual clinical content
+    const changedFields: string[] = [];
+    const safeOldValues: Record<string, unknown> = {};
+    const safeNewValues: Record<string, unknown> = {};
+    
+    // Track status/metadata changes with values
+    const metadataFields = ['status', 'consent_obtained', 'follow_up_date'];
+    for (const field of metadataFields) {
+      if (updateData[field] !== undefined && existingNote[field] !== updateData[field]) {
+        changedFields.push(field);
+        safeOldValues[field] = existingNote[field];
+        safeNewValues[field] = updateData[field];
+      }
+    }
+    
+    // Track clinical content changes without logging content
+    const contentFields = ['chief_complaint', 'subjective', 'objective', 'assessment', 'plan', 
+                          'treatment_performed', 'areas_treated', 'patient_instructions', 'adverse_reactions'];
+    for (const field of contentFields) {
+      if (updateData[field] !== undefined && existingNote[field] !== updateData[field]) {
+        changedFields.push(field);
+        safeOldValues[field] = existingNote[field] ? '[modified]' : null;
+        safeNewValues[field] = updateData[field] ? '[modified]' : null;
+      }
+    }
+    
+    if (changedFields.length > 0) {
+      await logRecordUpdate('clinical_note', id, safeOldValues, safeNewValues, changedFields, session.userId);
+    }
 
     return NextResponse.json({ note: data });
   } catch (error) {

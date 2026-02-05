@@ -1,9 +1,13 @@
 // ============================================================
 // API: SINGLE CLIENT - GET, PUT, DELETE
+// INCLUDES: HIPAA audit logging for PHI access and changes
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { logRecordView, logRecordUpdate, logRecordDelete } from '@/lib/audit';
+import { computeAuditDiff } from '@/lib/audit/diff';
+import { getSessionFromRequest } from '@/lib/audit/middleware';
 
 // GET /api/clients/[id] - Get single client
 export async function GET(
@@ -13,6 +17,7 @@ export async function GET(
   try {
     const supabase = createServerSupabaseClient();
     const { id } = await params;
+    const session = await getSessionFromRequest(request);
 
     const { data: client, error } = await supabase
       .from('clients')
@@ -55,6 +60,9 @@ export async function GET(
       visit_count: client.visit_count || 0,
     };
 
+    // AUDIT LOG: Client profile viewed (PHI access)
+    await logRecordView('client', id, session.userId);
+
     return NextResponse.json({ client: flatClient });
   } catch (error) {
     console.error('Client GET error:', error);
@@ -71,11 +79,12 @@ export async function PUT(
     const supabase = createServerSupabaseClient();
     const { id } = await params;
     const body = await request.json();
+    const session = await getSessionFromRequest(request);
 
-    // Get the client to find the user_id
+    // Get the client to find the user_id AND capture old values for audit
     const { data: existingClient, error: fetchError } = await supabase
       .from('clients')
-      .select('user_id')
+      .select('*')
       .eq('id', id)
       .single();
 
@@ -83,8 +92,14 @@ export async function PUT(
       return NextResponse.json({ error: 'Client not found' }, { status: 404 });
     }
 
+    // Track changed fields for audit
+    const changedFields: string[] = [];
+    const oldValues: Record<string, unknown> = {};
+    const newValues: Record<string, unknown> = {};
+
     // Update user table (name, email, phone)
     if (body.first_name || body.last_name || body.email || body.phone) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const userUpdate: any = {};
       if (body.first_name !== undefined) userUpdate.first_name = body.first_name;
       if (body.last_name !== undefined) userUpdate.last_name = body.last_name;
@@ -103,20 +118,71 @@ export async function PUT(
     }
 
     // Update clients table
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const clientUpdate: any = {};
-    if (body.date_of_birth !== undefined) clientUpdate.date_of_birth = body.date_of_birth || null;
-    if (body.address_line1 !== undefined) clientUpdate.address_line1 = body.address_line1 || null;
-    if (body.address_line2 !== undefined) clientUpdate.address_line2 = body.address_line2 || null;
-    if (body.city !== undefined) clientUpdate.city = body.city || null;
-    if (body.state !== undefined) clientUpdate.state = body.state || null;
-    if (body.postal_code !== undefined) clientUpdate.postal_code = body.postal_code || null;
-    if (body.emergency_contact_name !== undefined) clientUpdate.emergency_contact_name = body.emergency_contact_name || null;
-    if (body.emergency_contact_phone !== undefined) clientUpdate.emergency_contact_phone = body.emergency_contact_phone || null;
-    if (body.allergies_summary !== undefined) clientUpdate.allergies_summary = body.allergies_summary || null;
-    if (body.medications_summary !== undefined) clientUpdate.medications_summary = body.medications_summary || null;
-    if (body.medical_conditions_summary !== undefined) clientUpdate.medical_conditions_summary = body.medical_conditions_summary || null;
-    if (body.internal_notes !== undefined) clientUpdate.internal_notes = body.internal_notes || null;
-    if (body.referral_source !== undefined) clientUpdate.referral_source = body.referral_source || null;
+    
+    // Helper to track changes
+    const trackChange = (field: string, newValue: unknown) => {
+      const oldValue = existingClient[field];
+      if (oldValue !== newValue) {
+        changedFields.push(field);
+        oldValues[field] = oldValue;
+        newValues[field] = newValue;
+      }
+    };
+    
+    if (body.date_of_birth !== undefined) {
+      clientUpdate.date_of_birth = body.date_of_birth || null;
+      trackChange('date_of_birth', clientUpdate.date_of_birth);
+    }
+    if (body.address_line1 !== undefined) {
+      clientUpdate.address_line1 = body.address_line1 || null;
+      trackChange('address_line1', clientUpdate.address_line1);
+    }
+    if (body.address_line2 !== undefined) {
+      clientUpdate.address_line2 = body.address_line2 || null;
+      trackChange('address_line2', clientUpdate.address_line2);
+    }
+    if (body.city !== undefined) {
+      clientUpdate.city = body.city || null;
+      trackChange('city', clientUpdate.city);
+    }
+    if (body.state !== undefined) {
+      clientUpdate.state = body.state || null;
+      trackChange('state', clientUpdate.state);
+    }
+    if (body.postal_code !== undefined) {
+      clientUpdate.postal_code = body.postal_code || null;
+      trackChange('postal_code', clientUpdate.postal_code);
+    }
+    if (body.emergency_contact_name !== undefined) {
+      clientUpdate.emergency_contact_name = body.emergency_contact_name || null;
+      trackChange('emergency_contact_name', clientUpdate.emergency_contact_name);
+    }
+    if (body.emergency_contact_phone !== undefined) {
+      clientUpdate.emergency_contact_phone = body.emergency_contact_phone || null;
+      trackChange('emergency_contact_phone', clientUpdate.emergency_contact_phone);
+    }
+    if (body.allergies_summary !== undefined) {
+      clientUpdate.allergies_summary = body.allergies_summary || null;
+      trackChange('allergies_summary', '[modified]'); // PHI - don't log content
+    }
+    if (body.medications_summary !== undefined) {
+      clientUpdate.medications_summary = body.medications_summary || null;
+      trackChange('medications_summary', '[modified]'); // PHI - don't log content
+    }
+    if (body.medical_conditions_summary !== undefined) {
+      clientUpdate.medical_conditions_summary = body.medical_conditions_summary || null;
+      trackChange('medical_conditions_summary', '[modified]'); // PHI - don't log content
+    }
+    if (body.internal_notes !== undefined) {
+      clientUpdate.internal_notes = body.internal_notes || null;
+      trackChange('internal_notes', '[modified]'); // PHI - don't log content
+    }
+    if (body.referral_source !== undefined) {
+      clientUpdate.referral_source = body.referral_source || null;
+      trackChange('referral_source', clientUpdate.referral_source);
+    }
 
     if (Object.keys(clientUpdate).length > 0) {
       clientUpdate.updated_at = new Date().toISOString();
@@ -130,6 +196,11 @@ export async function PUT(
         console.error('Client update error:', clientError);
         return NextResponse.json({ error: 'Failed to update client' }, { status: 500 });
       }
+    }
+
+    // AUDIT LOG: Client record updated (PHI change)
+    if (changedFields.length > 0) {
+      await logRecordUpdate('client', id, oldValues, newValues, changedFields, session.userId);
     }
 
     return NextResponse.json({ success: true, message: 'Client updated successfully' });
@@ -147,6 +218,7 @@ export async function DELETE(
   try {
     const supabase = createServerSupabaseClient();
     const { id } = await params;
+    const session = await getSessionFromRequest(request);
 
     // Soft delete - just mark as inactive rather than actually deleting
     // This preserves historical data for appointments, payments, etc.
@@ -162,6 +234,9 @@ export async function DELETE(
       console.error('Client delete error:', error);
       return NextResponse.json({ error: 'Failed to delete client' }, { status: 500 });
     }
+
+    // AUDIT LOG: Client record archived/deleted
+    await logRecordDelete('client', id, session.userId);
 
     return NextResponse.json({ success: true, message: 'Client deleted successfully' });
   } catch (error) {

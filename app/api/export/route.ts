@@ -1,9 +1,16 @@
+// ============================================================
+// DATA EXPORT API
+// INCLUDES: HIPAA audit logging for all data exports
+// ============================================================
+
 import { NextRequest, NextResponse } from 'next/server';
 
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
 import { createAdminSupabaseClient, isAdminConfigured } from '@/lib/hgos/supabase';
 import { toCSV, toJSON, DATA_TYPES } from '@/lib/hgos/data-export';
+import { logExport, AuditEntityType } from '@/lib/audit';
+import { getSessionFromRequest } from '@/lib/audit/middleware';
 
 // GET /api/export?type=clients&format=csv&startDate=2025-01-01&endDate=2026-01-31
 export async function GET(request: NextRequest) {
@@ -15,6 +22,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
+    const session = await getSessionFromRequest(request);
     const { searchParams } = new URL(request.url);
     const dataType = searchParams.get('type') || 'clients';
     const format = searchParams.get('format') || 'csv';
@@ -56,6 +64,17 @@ export async function GET(request: NextRequest) {
         { status: 500 }
       );
     }
+
+    // AUDIT LOG: Data export action (CRITICAL for HIPAA)
+    // Map dataType to AuditEntityType, defaulting to 'export' if not a known type
+    const entityType: AuditEntityType = ['client', 'appointment', 'payment', 'sale'].includes(dataType) 
+      ? dataType as AuditEntityType 
+      : 'export';
+    
+    await logExport(entityType, session.userId, {
+      export_format: format,
+      record_count: (data || []).length,
+    });
 
     // Format response based on requested format
     if (format === 'json') {

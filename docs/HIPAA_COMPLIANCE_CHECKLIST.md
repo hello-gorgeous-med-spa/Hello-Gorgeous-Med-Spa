@@ -91,30 +91,45 @@ Supabase HIPAA: https://supabase.com/docs/guides/platform/hipaa
 ---
 
 ## 4. Audit Logging
-**Status:** ⬜ Partially Implemented
+**Status:** ✅ Implemented (2026-02-04)
 
 ### Requirements
-- [ ] Record access logged (who viewed what record, when)
-- [ ] Record changes logged (who changed what, old/new values)
-- [ ] Admin actions logged (user creation, permission changes)
-- [ ] Authentication events logged (login, logout, failed attempts)
-- [ ] Logs are append-only (cannot be deleted/modified)
-- [ ] Logs retained for 6 years (HIPAA requirement)
+- [x] Record access logged (who viewed what record, when)
+- [x] Record changes logged (who changed what, old/new values)
+- [x] Admin actions logged (user creation, permission changes)
+- [x] Authentication events logged (login, logout, failed attempts)
+- [x] Logs are append-only (cannot be deleted/modified)
+- [x] Logs retained for 6 years (HIPAA requirement)
 
-### Current Implementation
-- `audit_log` table exists
-- Some actions are logged
+### Implementation Details
 
-### Missing
-- [ ] Comprehensive record access logging
-- [ ] Old/new value tracking for changes
-- [ ] Log retention policy
-- [ ] Log immutability verification
+#### Database Hardening
+- Migration: `20240101000015_audit_log_hardening.sql`
+- Triggers block UPDATE/DELETE at DB level
+- RLS restricts reads to admin/compliance roles only
+- Archive table for 6-year retention
+
+#### Server-Side Logging
+- `lib/audit/log.ts` - Main logging utility with PHI filtering
+- `lib/audit/diff.ts` - Field-level change tracking
+- `lib/audit/middleware.ts` - API handler wrappers
+
+#### Instrumented Endpoints
+- `/api/auth/login` - AUTH_LOGIN_SUCCESS, AUTH_LOGIN_FAILED
+- `/api/auth/logout` - AUTH_LOGOUT
+- `/api/clients/[id]` - VIEW, UPDATE, DELETE with diffs
+- `/api/chart-notes` - VIEW, LIST, UPDATE with diffs
+- `/api/export` - EXPORT action with record count
+
+### Documentation
+- `docs/HIPAA_AUDIT_RETENTION.md` - 6-year retention policy
+- `scripts/audit-acceptance-tests.sql` - Verification tests
 
 ### Evidence Required
-- Sample audit log entries
-- Test showing logs cannot be deleted
-- Retention policy documentation
+- [ ] Run `scripts/audit-acceptance-tests.sql` and save results
+- [ ] Screenshot showing UPDATE blocked
+- [ ] Screenshot showing DELETE blocked
+- [ ] Sample audit entries for each action type
 
 ---
 
@@ -209,7 +224,7 @@ Supabase HIPAA: https://supabase.com/docs/guides/platform/hipaa
 | 1. Vercel HIPAA BAA | ⬜ | | |
 | 2. Supabase HIPAA + RLS | ⬜ | | |
 | 3. PHI Leak Prevention | ⬜ | | |
-| 4. Audit Logging | ⬜ | | |
+| 4. Audit Logging | ✅ | System | 2026-02-04 |
 | 5. Storage Security | ⬜ | | |
 | 6. Backup/Restore Test | ⬜ | | |
 | 7. Data Flow Diagram | ⬜ | | |

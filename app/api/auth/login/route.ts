@@ -2,10 +2,12 @@
 // LOGIN API ROUTE
 // Server-side authentication that can access env variables
 // Sets HTTP-only session cookie for middleware authentication
+// INCLUDES: HIPAA audit logging for all login attempts
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
 import { ROLE_PERMISSIONS } from '@/lib/hgos/auth';
+import { auditAuthLogin } from '@/lib/audit/middleware';
 
 // Helper to create authenticated response with session cookie
 function createAuthResponse(user: any, session: any) {
@@ -82,6 +84,9 @@ export async function POST(request: NextRequest) {
             expires_at: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60, // 7 days
           };
           
+          // AUDIT LOG: Successful login
+          await auditAuthLogin(user.id, user.email, true, request);
+          
           return createAuthResponse(user, session);
         }
       }
@@ -106,10 +111,16 @@ export async function POST(request: NextRequest) {
         expires_at: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60, // 7 days
       };
       
+      // AUDIT LOG: Successful login
+      await auditAuthLogin(user.id, user.email, true, request);
+      
       return createAuthResponse(user, session);
     }
 
     // If we get here, credentials didn't match
+    // AUDIT LOG: Failed login attempt
+    await auditAuthLogin('unknown', email, false, request);
+    
     return NextResponse.json(
       { error: 'Invalid email or password' },
       { status: 401 }
