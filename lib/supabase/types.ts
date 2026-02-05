@@ -150,7 +150,9 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['clinical_notes']['Insert']>;
       };
     };
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     Views: {};
+    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
     Functions: {};
   };
 }

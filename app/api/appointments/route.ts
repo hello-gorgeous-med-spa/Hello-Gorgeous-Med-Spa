@@ -1,4 +1,5 @@
 // ============================================================
+import { createClient } from '@supabase/supabase-js';
 // API: APPOINTMENTS - Full CRUD with service role (bypasses RLS)
 // INCLUDES: Consent enforcement, audit logging
 // ============================================================
@@ -18,7 +19,7 @@ function getSupabase() {
   }
   
   try {
-    const { createClient } = require('@supabase/supabase-js');
+    // createClient imported at top
     return createClient(url, key, {
       auth: { autoRefreshToken: false, persistSession: false },
     });

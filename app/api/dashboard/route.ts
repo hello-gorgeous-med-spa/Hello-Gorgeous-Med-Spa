@@ -1,4 +1,5 @@
 // ============================================================
+import { createClient } from '@supabase/supabase-js';
 // API: DASHBOARD STATS - Aggregated data with service role
 // ============================================================
 
@@ -14,7 +15,7 @@ function getSupabase() {
   }
   
   try {
-    const { createClient } = require('@supabase/supabase-js');
+    // createClient imported at top
     return createClient(url, key, {
       auth: { autoRefreshToken: false, persistSession: false },
     });

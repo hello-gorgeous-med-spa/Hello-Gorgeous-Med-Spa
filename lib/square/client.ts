@@ -25,6 +25,7 @@ function initStaticClient(): SquareClient {
   if (!accessToken) return null;
   
   try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { Client, Environment } = require('square');
     const environment = process.env.SQUARE_ENVIRONMENT === 'production' 
       ? Environment.Production 
@@ -56,6 +57,7 @@ function getStaticClient(): SquareClient {
  */
 export function createSquareClientWithToken(accessToken: string): SquareClient {
   try {
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
     const { Client, Environment } = require('square');
     const environment = process.env.SQUARE_ENVIRONMENT === 'production' 
       ? Environment.Production 

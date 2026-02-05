@@ -1,4 +1,5 @@
 // ============================================================
+import { createClient } from '@supabase/supabase-js';
 // API: BUSINESS RULES - No-Code Rules Engine
 // Owner can create/modify business rules without code
 // ============================================================
@@ -13,7 +14,7 @@ function getSupabase() {
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (!url || !key || url.includes('placeholder')) return null;
   try {
-    const { createClient } = require('@supabase/supabase-js');
+    // createClient imported at top
     return createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
   } catch { return null; }
 }

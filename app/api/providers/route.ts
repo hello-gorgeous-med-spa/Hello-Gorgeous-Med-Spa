@@ -1,4 +1,5 @@
 // ============================================================
+import { createClient } from '@supabase/supabase-js';
 // API: PROVIDERS - Full CRUD
 // Manage bookable providers/staff
 // ONLY Ryan Kent and Danielle Alcala are allowed
@@ -19,7 +20,7 @@ function getSupabase() {
   }
   
   try {
-    const { createClient } = require('@supabase/supabase-js');
+    // createClient imported at top
     return createClient(url, key, {
       auth: { autoRefreshToken: false, persistSession: false },
     });
