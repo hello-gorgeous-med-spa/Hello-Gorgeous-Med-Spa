@@ -35,48 +35,35 @@ export default function ChartToCartPage() {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'in_progress' | 'ready_to_checkout'>('all');
 
-  // Mock data for demonstration
-  useEffect(() => {
-    // In production, this would fetch from API
-    const mockSessions: TreatmentSession[] = [
-      {
-        id: '1',
-        client_id: 'c1',
-        client_name: 'Sydney Marie',
-        provider: 'Olivia Richardson',
-        status: 'ready_to_checkout',
-        started_at: new Date(Date.now() - 45 * 60000).toISOString(),
-        treatment_summary: 'Lips & Cheeks',
-        products: [
-          { id: 'p1', name: 'Revanesse Versa +', quantity: 1, unit: 'Syringe', price: 725 },
-          { id: 'p2', name: 'Restylane Contour', quantity: 2, unit: 'Syringes', price: 1525 },
-        ],
-        total: 2846.48,
-        paperwork: { consents: true, questionnaires: false },
-      },
-      {
-        id: '2',
-        client_id: 'c2',
-        client_name: 'Danielle McVea',
-        provider: 'Staff',
-        status: 'in_progress',
-        started_at: new Date(Date.now() - 20 * 60000).toISOString(),
-        treatment_summary: 'Botox - Forehead & Glabella',
-        products: [
-          { id: 'p3', name: 'Botox Cosmetic', quantity: 33, unit: 'Units', price: 495 },
-          { id: 'p4', name: 'Restylane Lyft', quantity: 1, unit: 'Syringe', price: 750 },
-          { id: 'p5', name: 'Restylane Defyne', quantity: 1, unit: 'Syringe', price: 699 },
-        ],
-        total: 1944,
-        paperwork: { consents: true, questionnaires: true },
-      },
-    ];
-
-    setTimeout(() => {
-      setSessions(mockSessions);
+  const fetchSessions = useCallback(async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/chart-to-cart/sessions?limit=50');
+      const data = await res.json();
+      const list = (data.sessions || []).map((s: any) => ({
+        id: s.id,
+        client_id: s.client_id,
+        client_name: s.client_name || 'Client',
+        provider: s.provider || 'Staff',
+        status: s.status,
+        started_at: s.started_at,
+        treatment_summary: s.treatment_summary || '',
+        products: Array.isArray(s.products) ? s.products : [],
+        total: Number(s.total) || 0,
+        paperwork: s.paperwork || { consents: false, questionnaires: false },
+      }));
+      setSessions(list);
+    } catch (err) {
+      console.error('Failed to load sessions:', err);
+      setSessions([]);
+    } finally {
       setLoading(false);
-    }, 500);
+    }
   }, []);
+
+  useEffect(() => {
+    fetchSessions();
+  }, [fetchSessions]);
 
   const filteredSessions = sessions.filter(s => 
     filter === 'all' || s.status === filter

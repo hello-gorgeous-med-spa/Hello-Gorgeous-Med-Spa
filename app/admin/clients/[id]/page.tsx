@@ -184,6 +184,96 @@ function MedicationsSection({ clientId, clientName }: { clientId: string; client
   );
 }
 
+// Chart-to-Cart treatment sessions for this client (persisted; stays in client profile)
+function TreatmentSessionsSection({ clientId }: { clientId: string }) {
+  const [sessions, setSessions] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchSessions = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/chart-to-cart/sessions?client_id=${clientId}&limit=20`);
+      const data = await res.json();
+      setSessions(data.sessions || []);
+    } catch (err) {
+      console.error('Failed to load treatment sessions:', err);
+    } finally {
+      setLoading(false);
+    }
+  }, [clientId]);
+
+  useEffect(() => {
+    fetchSessions();
+  }, [fetchSessions]);
+
+  if (loading) {
+    return <Skeleton className="h-32 rounded-xl" />;
+  }
+
+  return (
+    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-semibold text-gray-900">Chart-to-Cart Sessions</h3>
+        <Link
+          href="/admin/chart-to-cart/new"
+          className="text-sm text-pink-600 hover:text-pink-700 font-medium"
+        >
+          + New Session
+        </Link>
+      </div>
+      <p className="text-xs text-gray-500 mb-4">
+        Treatment sessions created here are saved to this client&apos;s profile.
+      </p>
+      {sessions.length === 0 ? (
+        <div className="text-center py-6">
+          <span className="text-3xl mb-2 block">🛒</span>
+          <p className="text-gray-500 text-sm">No Chart-to-Cart sessions yet</p>
+          <Link
+            href="/admin/chart-to-cart/new"
+            className="inline-block mt-2 text-pink-600 hover:text-pink-700 text-sm font-medium"
+          >
+            Start a treatment session →
+          </Link>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {sessions.map((s) => (
+            <div key={s.id} className="p-3 bg-gray-50 rounded-lg border border-gray-100">
+              <div className="flex items-start justify-between gap-2">
+                <div>
+                  <p className="font-medium text-gray-900">{s.treatment_summary || 'Treatment'}</p>
+                  <p className="text-xs text-gray-500 mt-0.5">
+                    {new Date(s.started_at).toLocaleDateString()} • {s.provider || 'Staff'} •
+                    <span className={`ml-1 px-1.5 py-0.5 rounded text-xs ${
+                      s.status === 'completed' ? 'bg-gray-200 text-gray-700' :
+                      s.status === 'ready_to_checkout' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
+                    }`}>
+                      {s.status?.replace('_', ' ')}
+                    </span>
+                  </p>
+                  {Array.isArray(s.products) && s.products.length > 0 && (
+                    <p className="text-xs text-gray-600 mt-1">
+                      {s.products.map((p: any) => `${p.name} (${p.quantity})`).join(', ')}
+                    </p>
+                  )}
+                </div>
+                <div className="text-right shrink-0">
+                  <p className="font-semibold text-gray-900">${Number(s.total || 0).toFixed(2)}</p>
+                  <Link
+                    href="/admin/chart-to-cart"
+                    className="text-xs text-pink-600 hover:text-pink-700"
+                  >
+                    View in Chart-to-Cart
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 // Injection Maps Preview component
 function InjectionMapsPreview({ clientId }: { clientId: string }) {
   const [maps, setMaps] = useState<any[]>([]);
@@ -861,6 +951,9 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
 
       {activeTab === 'clinical' && (
         <div className="space-y-6">
+          {/* Chart-to-Cart sessions (stays in client profile) */}
+          <TreatmentSessionsSection clientId={client.id} />
+
           {/* Quick Actions */}
           <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-100 p-5">
             <h3 className="font-semibold text-gray-900 mb-3">Quick Clinical Actions</h3>
@@ -885,6 +978,13 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
               >
                 <span>📝</span>
                 <span className="font-medium text-gray-700">Sign Consent</span>
+              </Link>
+              <Link
+                href="/admin/chart-to-cart/new"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-green-200 rounded-lg hover:bg-green-50 transition-colors"
+              >
+                <span>🛒</span>
+                <span className="font-medium text-gray-700">Chart-to-Cart Session</span>
               </Link>
             </div>
           </div>

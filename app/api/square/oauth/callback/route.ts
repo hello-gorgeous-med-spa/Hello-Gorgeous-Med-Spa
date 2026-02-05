@@ -36,13 +36,22 @@ export async function GET(request: NextRequest) {
   };
   
   try {
+    // Log all callback params for debugging
+    console.log('[Square OAuth Callback] Params:', {
+      code: code ? `${code.slice(0, 10)}...` : null,
+      state: state?.slice(0, 8),
+      storedState: storedState?.slice(0, 8),
+      error,
+      errorDescription,
+    });
+    
     // Check for OAuth error from Square
     if (error) {
-      console.error('Square OAuth error:', error, errorDescription);
+      console.error('[Square OAuth] Error from Square:', { error, errorDescription });
       return NextResponse.redirect(
         buildRedirectUrl(returnUrl, {
           error: 'oauth_denied',
-          message: errorDescription || 'Authorization was denied',
+          message: `Square: ${error}${errorDescription ? ` - ${errorDescription}` : ''}`,
         })
       );
     }

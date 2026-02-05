@@ -85,13 +85,13 @@ export default function NewChartToCartPage() {
   const [treatmentArea, setTreatmentArea] = useState('');
   const [notes, setNotes] = useState('');
 
-  // Fetch clients
+  // Fetch clients: entire DB when no search (limit 500), search when typing
   const fetchClients = useCallback(async () => {
     setLoadingClients(true);
     try {
       const params = new URLSearchParams();
-      if (clientSearch) params.append('search', clientSearch);
-      params.append('limit', '20');
+      if (clientSearch.trim()) params.append('search', clientSearch.trim());
+      params.append('limit', clientSearch.trim() ? '100' : '500');
       
       const res = await fetch(`/api/clients?${params}`);
       const data = await res.json();
@@ -153,11 +153,53 @@ export default function NewChartToCartPage() {
   const salesTax = cartTotal * 0.0875;
   const grandTotal = cartTotal + surcharge + salesTax;
 
-  // Start session
+  // Start session: save to API (persists to client profile), then redirect
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState('');
+
   const handleStartSession = async () => {
-    // In production, save to database
-    // For now, redirect to the chart-to-cart page
-    router.push('/admin/chart-to-cart');
+    if (!selectedClient || cart.length === 0) return;
+    setSaving(true);
+    setSaveError('');
+    try {
+      const clientName = [selectedClient.first_name, selectedClient.last_name].filter(Boolean).join(' ') || selectedClient.email || 'Client';
+      const treatmentSummary = cart.map(i => `${i.name} (${i.quantity} ${i.unit}${i.quantity !== 1 ? 's' : ''})`).join(', ');
+      const productsPayload = cart.map(item => ({
+        id: item.id,
+        name: item.name,
+        quantity: item.quantity,
+        unit: item.unit,
+        price: item.price,
+      }));
+
+      const res = await fetch('/api/chart-to-cart/sessions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          client_id: selectedClient.id,
+          client_name: clientName,
+          provider: 'Staff',
+          status: 'ready_to_checkout',
+          treatment_summary: treatmentSummary,
+          products: productsPayload,
+          total: grandTotal,
+          paperwork: { consents: false, questionnaires: false },
+          notes: notes || undefined,
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) {
+        setSaveError(data.error || 'Failed to save session');
+        return;
+      }
+      router.push('/admin/chart-to-cart');
+    } catch (err) {
+      console.error(err);
+      setSaveError('Failed to save session');
+    } finally {
+      setSaving(false);
+    }
   };
 
   return (
@@ -204,32 +246,46 @@ export default function NewChartToCartPage() {
                   <span className="w-8 h-8 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-bold">1</span>
                   Select Client
                 </h2>
-                <p className="text-gray-500 text-sm mt-1">Search for an existing client or create a new one</p>
+                <p className="text-gray-500 text-sm mt-1">Search from your full client list or add a new client</p>
               </div>
 
               <div className="p-6">
-                <div className="relative">
-                  <input
-                    type="text"
-                    value={clientSearch}
-                    onChange={(e) => setClientSearch(e.target.value)}
-                    placeholder="Search by name, email, or phone..."
-                    className="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-                  />
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+                <div className="flex gap-3 mb-4">
+                  <div className="relative flex-1">
+                    <input
+                      type="text"
+                      value={clientSearch}
+                      onChange={(e) => setClientSearch(e.target.value)}
+                      placeholder="Search by name, email, or phone..."
+                      className="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                    />
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+                  </div>
+                  <Link
+                    href="/admin/clients/new?returnTo=/admin/chart-to-cart/new"
+                    className="shrink-0 px-5 py-3 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors font-medium flex items-center gap-2"
+                  >
+                    <span>➕</span> Create New Client
+                  </Link>
                 </div>
 
-                <div className="mt-4 max-h-80 overflow-y-auto">
+                <p className="text-xs text-gray-500 mb-3">
+                  {clientSearch.trim() ? `Showing matches for "${clientSearch}"` : 'Showing your full client list (A–Z). Use search to narrow.'}
+                </p>
+
+                <div className="mt-2 max-h-80 overflow-y-auto">
                   {loadingClients ? (
-                    <div className="py-8 text-center text-gray-400">Loading...</div>
+                    <div className="py-8 text-center text-gray-400">Loading clients...</div>
                   ) : clients.length === 0 ? (
                     <div className="py-8 text-center">
-                      <p className="text-gray-400 mb-4">No clients found</p>
+                      <p className="text-gray-400 mb-4">
+                        {clientSearch.trim() ? 'No clients match your search.' : 'No clients in your database yet.'}
+                      </p>
                       <Link
-                        href="/admin/clients/new"
-                        className="text-pink-600 hover:text-pink-700 font-medium"
+                        href="/admin/clients/new?returnTo=/admin/chart-to-cart/new"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-pink-500 text-white rounded-xl hover:bg-pink-600 font-medium"
                       >
-                        + Add New Client
+                        <span>➕</span> Create New Client
                       </Link>
                     </div>
                   ) : (
@@ -415,21 +471,29 @@ export default function NewChartToCartPage() {
 
                 {/* Actions */}
                 <div className="p-4 border-t border-gray-100 space-y-2">
+                  {saveError && (
+                    <p className="text-sm text-red-600 text-center">{saveError}</p>
+                  )}
                   <div className="flex items-center gap-2 text-xs text-gray-500 mb-3">
                     <span className="flex-1 flex items-center gap-1">
                       <span>^</span> Option
                     </span>
-                    <button className="flex items-center gap-1 text-red-500 hover:text-red-700">
+                    <button
+                      type="button"
+                      onClick={() => setCart([])}
+                      className="flex items-center gap-1 text-red-500 hover:text-red-700"
+                    >
                       <span>🗑</span> Remove All
                     </button>
                   </div>
                   <button
                     onClick={handleStartSession}
-                    disabled={cart.length === 0}
+                    disabled={cart.length === 0 || saving}
                     className="w-full py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    Checkout
+                    {saving ? 'Saving to client profile…' : 'Save & Checkout'}
                   </button>
+                  <p className="text-xs text-gray-500 text-center">Session is saved to this client&apos;s profile</p>
                 </div>
               </div>
             </div>
