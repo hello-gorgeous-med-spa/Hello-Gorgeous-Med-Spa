@@ -27,11 +27,18 @@ export default function GiftCardsPage() {
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [selectedCard, setSelectedCard] = useState<any>(null);
 
+  // Client selector state
+  const [clients, setClients] = useState<any[]>([]);
+  const [clientSearch, setClientSearch] = useState('');
+  const [showClientDropdown, setShowClientDropdown] = useState(false);
+  const [selectedClient, setSelectedClient] = useState<any>(null);
+
   // Form for creating gift card
   const [createForm, setCreateForm] = useState({
     initial_amount: 50,
     recipient_name: '',
     recipient_email: '',
+    recipient_client_id: '',
     purchaser_name: '',
     message: '',
   });
@@ -64,6 +71,28 @@ export default function GiftCardsPage() {
     fetchGiftCards();
   }, [filterStatus, searchQuery]);
 
+  // Fetch clients for dropdown when modal opens or search changes
+  useEffect(() => {
+    if (!showSellModal) return;
+    
+    const fetchClients = async () => {
+      try {
+        const params = new URLSearchParams();
+        if (clientSearch) params.append('search', clientSearch);
+        params.append('limit', '20');
+        
+        const res = await fetch(`/api/clients?${params}`);
+        const data = await res.json();
+        setClients(data.clients || []);
+      } catch (err) {
+        console.error('Error loading clients:', err);
+      }
+    };
+    
+    const debounce = setTimeout(fetchClients, 300);
+    return () => clearTimeout(debounce);
+  }, [showSellModal, clientSearch]);
+
   const totalLiability = giftCards
     .filter(gc => gc.status === 'active')
     .reduce((sum, gc) => sum + (gc.current_balance || 0), 0);
@@ -92,7 +121,9 @@ export default function GiftCardsPage() {
         const data = await res.json();
         setMessage({ type: 'success', text: `Gift card created! Code: ${data.giftCard?.code}` });
         setShowSellModal(false);
-        setCreateForm({ initial_amount: 50, recipient_name: '', recipient_email: '', purchaser_name: '', message: '' });
+        setCreateForm({ initial_amount: 50, recipient_name: '', recipient_email: '', recipient_client_id: '', purchaser_name: '', message: '' });
+        setSelectedClient(null);
+        setClientSearch('');
         // Refresh list
         const refreshRes = await fetch('/api/gift-cards');
         const refreshData = await refreshRes.json();
@@ -406,6 +437,87 @@ export default function GiftCardsPage() {
                   placeholder="Custom amount"
                 />
               </div>
+
+              {/* Client Selector */}
+              <div className="relative">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Link to Client Profile <span className="text-gray-400 font-normal">(optional)</span>
+                </label>
+                {selectedClient ? (
+                  <div className="flex items-center justify-between p-3 bg-purple-50 border border-purple-200 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-purple-500 text-white rounded-full flex items-center justify-center font-medium">
+                        {selectedClient.first_name?.[0]}{selectedClient.last_name?.[0]}
+                      </div>
+                      <div>
+                        <p className="font-medium text-gray-900">{selectedClient.first_name} {selectedClient.last_name}</p>
+                        <p className="text-sm text-gray-500">{selectedClient.email || selectedClient.phone}</p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedClient(null);
+                        setCreateForm({...createForm, recipient_client_id: '', recipient_name: '', recipient_email: ''});
+                      }}
+                      className="text-gray-400 hover:text-gray-600"
+                    >
+                      ✕
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <input
+                      type="text"
+                      value={clientSearch}
+                      onChange={(e) => {
+                        setClientSearch(e.target.value);
+                        setShowClientDropdown(true);
+                      }}
+                      onFocus={() => setShowClientDropdown(true)}
+                      className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                      placeholder="Search clients by name or email..."
+                    />
+                    {showClientDropdown && clients.length > 0 && (
+                      <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto">
+                        {clients.map((client) => (
+                          <button
+                            key={client.id}
+                            type="button"
+                            onClick={() => {
+                              setSelectedClient(client);
+                              setCreateForm({
+                                ...createForm,
+                                recipient_client_id: client.id,
+                                recipient_name: `${client.first_name || ''} ${client.last_name || ''}`.trim(),
+                                recipient_email: client.email || '',
+                              });
+                              setShowClientDropdown(false);
+                              setClientSearch('');
+                            }}
+                            className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3 border-b border-gray-100 last:border-0"
+                          >
+                            <div className="w-8 h-8 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-medium">
+                              {client.first_name?.[0]}{client.last_name?.[0]}
+                            </div>
+                            <div>
+                              <p className="font-medium text-gray-900">{client.first_name} {client.last_name}</p>
+                              <p className="text-sm text-gray-500">{client.email || client.phone}</p>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                    {showClientDropdown && clientSearch && clients.length === 0 && (
+                      <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg p-4 text-center text-gray-500">
+                        No clients found
+                      </div>
+                    )}
+                  </>
+                )}
+                <p className="text-xs text-gray-400 mt-1">Card will appear in their profile's Payments tab</p>
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Recipient Name</label>
                 <input
