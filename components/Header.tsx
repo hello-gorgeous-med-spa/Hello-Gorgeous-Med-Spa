@@ -98,14 +98,15 @@ function cx(...classes: Array<string | undefined | null | false>) {
 }
 
 // Dropdown component for mega menus
-function ServicesDropdown({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; onClose: () => void; onMouseEnter: () => void }) {
   const data = navigation.services;
   
   if (!isOpen) return null;
   
   return (
     <div 
-      className="absolute top-full left-0 right-0 bg-white shadow-2xl border-t border-gray-100 z-50"
+      className="fixed top-16 left-0 right-0 bg-white shadow-2xl border-t border-gray-100 z-50"
+      onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
       <div className="max-w-7xl mx-auto px-6 py-8">
@@ -296,7 +297,7 @@ export function Header() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
-              <ServicesDropdown isOpen={activeDropdown === 'services'} onClose={() => setActiveDropdown(null)} />
+              <ServicesDropdown isOpen={activeDropdown === 'services'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('services')} />
             </div>
 
             {/* About Dropdown */}
