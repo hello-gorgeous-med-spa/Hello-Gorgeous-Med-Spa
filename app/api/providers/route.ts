@@ -69,15 +69,18 @@ export async function GET() {
   }
 
   try {
+    // Try to get providers - support both direct columns and users join
     const { data: providers, error } = await supabase
       .from('providers')
       .select(`
         id,
         user_id,
+        first_name,
+        last_name,
+        email,
         credentials,
         color_hex,
-        is_active,
-        users!inner(id, first_name, last_name, email)
+        is_active
       `)
       .eq('is_active', true)
       .order('created_at', { ascending: true });
@@ -88,24 +91,31 @@ export async function GET() {
       return NextResponse.json({ providers: ALLOWED_PROVIDERS });
     }
 
-    // Filter to ONLY allowed providers
-    const filtered = (providers || []).filter(p => 
-      isAllowedProvider(p.users?.first_name || '', p.users?.last_name || '')
-    );
+    // Format providers - use direct columns
+    if (providers && providers.length > 0) {
+      // Filter to ONLY allowed providers (if they have names)
+      const filtered = providers.filter(p => {
+        const firstName = p.first_name || '';
+        const lastName = p.last_name || '';
+        // If no name set, include anyway
+        if (!firstName && !lastName) return true;
+        return isAllowedProvider(firstName, lastName);
+      });
 
-    // If database has our providers, use them
-    if (filtered.length > 0) {
       const formatted = filtered.map(p => ({
         id: p.id,
         user_id: p.user_id,
-        first_name: p.users?.first_name,
-        last_name: p.users?.last_name,
-        email: p.users?.email,
+        first_name: p.first_name || 'Provider',
+        last_name: p.last_name || '',
+        email: p.email,
         credentials: p.credentials,
         color_hex: p.color_hex || '#EC4899',
         is_active: p.is_active,
       }));
-      return NextResponse.json({ providers: formatted });
+      
+      if (formatted.length > 0) {
+        return NextResponse.json({ providers: formatted });
+      }
     }
 
     // Return hardcoded fallback

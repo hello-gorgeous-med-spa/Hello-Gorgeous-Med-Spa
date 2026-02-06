@@ -68,10 +68,15 @@ export async function POST(request: NextRequest) {
         clientId = existingClient.id;
       } else {
         // Create client record for existing user who doesn't have one
+        // Include name/contact directly on clients table for easier querying
         const { data: newClient, error: clientError } = await supabase
           .from('clients')
           .insert({
             user_id: userId,
+            first_name: firstName,
+            last_name: lastName,
+            email: email.toLowerCase(),
+            phone: phone,
             date_of_birth: dateOfBirth || null,
             accepts_sms_marketing: agreeToSMS,
           })
@@ -111,10 +116,15 @@ export async function POST(request: NextRequest) {
       userId = newUser.id;
 
       // Create client record for new user
+      // Include name/contact directly on clients table for easier querying
       const { data: newClient, error: clientError } = await supabase
         .from('clients')
         .insert({
           user_id: userId,
+          first_name: firstName,
+          last_name: lastName,
+          email: email.toLowerCase(),
+          phone: phone,
           date_of_birth: dateOfBirth || null,
           accepts_sms_marketing: agreeToSMS,
         })

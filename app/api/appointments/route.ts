@@ -171,15 +171,19 @@ export async function GET(request: NextRequest) {
         client:clients(
           id,
           user_id,
-          users(first_name, last_name, email, phone)
+          first_name,
+          last_name,
+          email,
+          phone
         ),
         provider:providers(
           id,
+          first_name,
+          last_name,
           credentials,
-          color_hex,
-          users(first_name, last_name)
+          color_hex
         ),
-        service:services(id, name, price_cents, duration_minutes)
+        service:services(id, name, slug, price_cents, price, duration_minutes)
       `)
       .order('starts_at', { ascending: false });
 
@@ -206,19 +210,40 @@ export async function GET(request: NextRequest) {
     }
 
     // Flatten nested data for easier use
-    const appointments = (data || []).map((apt: any) => ({
-      ...apt,
-      client_name: apt.client?.users ? 
-        `${apt.client.users.first_name} ${apt.client.users.last_name}` : 'Unknown',
-      client_email: apt.client?.users?.email,
-      client_phone: apt.client?.users?.phone,
-      provider_name: apt.provider?.users ?
-        `${apt.provider.users.first_name} ${apt.provider.users.last_name}` : 'Unknown',
-      provider_color: apt.provider?.color_hex || '#EC4899',
-      service_name: apt.service?.name || 'Service',
-      service_price: apt.service?.price_cents ? apt.service.price_cents / 100 : 0,
-      duration: apt.service?.duration_minutes || 30,
-    }));
+    // Handle both direct columns (first_name on clients) and nested (users.first_name)
+    const appointments = (data || []).map((apt: any) => {
+      // Client name - try direct columns first, then nested users
+      let clientName = 'Unknown Client';
+      if (apt.client) {
+        if (apt.client.first_name || apt.client.last_name) {
+          clientName = `${apt.client.first_name || ''} ${apt.client.last_name || ''}`.trim() || 'Client';
+        } else if (apt.client.users?.first_name || apt.client.users?.last_name) {
+          clientName = `${apt.client.users.first_name || ''} ${apt.client.users.last_name || ''}`.trim();
+        }
+      }
+      
+      // Provider name - try direct columns first
+      let providerName = 'Provider';
+      if (apt.provider) {
+        if (apt.provider.first_name || apt.provider.last_name) {
+          providerName = `${apt.provider.first_name || ''} ${apt.provider.last_name || ''}`.trim() || 'Provider';
+        } else if (apt.provider.users?.first_name || apt.provider.users?.last_name) {
+          providerName = `${apt.provider.users.first_name || ''} ${apt.provider.users.last_name || ''}`.trim();
+        }
+      }
+      
+      return {
+        ...apt,
+        client_name: clientName,
+        client_email: apt.client?.email || apt.client?.users?.email,
+        client_phone: apt.client?.phone || apt.client?.users?.phone,
+        provider_name: providerName,
+        provider_color: apt.provider?.color_hex || '#EC4899',
+        service_name: apt.service?.name || 'Service',
+        service_price: apt.service?.price_cents ? apt.service.price_cents / 100 : (apt.service?.price || 0),
+        duration: apt.service?.duration_minutes || 30,
+      };
+    });
 
     return NextResponse.json({ appointments });
   } catch (error) {
