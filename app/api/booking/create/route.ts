@@ -201,8 +201,8 @@ export async function POST(request: NextRequest) {
         starts_at: startDateTime.toISOString(),
         ends_at: endDateTime.toISOString(),
         status: 'confirmed',
-        notes: notes || null,
-        source: 'online_booking',
+        client_notes: notes || null,
+        booking_source: 'online_booking',
       })
       .select('id')
       .single();
