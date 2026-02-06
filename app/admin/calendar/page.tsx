@@ -244,10 +244,15 @@ export default function CalendarPage() {
       // Direct ID match
       if (apt.provider_id === providerId) return true;
       
+      // Fallback: match by provider_first_name (new field from API)
+      if (providerFirstName && apt.provider_first_name) {
+        return apt.provider_first_name.toLowerCase() === providerFirstName.toLowerCase();
+      }
+      
       // Fallback: match by provider name if we have name info
       if (providerFirstName && apt.provider_name) {
         const aptProviderFirst = apt.provider_name.split(' ')[0]?.toLowerCase();
-        return aptProviderFirst === providerFirstName.toLowerCase();
+        if (aptProviderFirst === providerFirstName.toLowerCase()) return true;
       }
       
       // Also check nested provider data

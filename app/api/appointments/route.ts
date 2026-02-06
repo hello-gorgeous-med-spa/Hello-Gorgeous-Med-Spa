@@ -181,7 +181,9 @@ export async function GET(request: NextRequest) {
           first_name,
           last_name,
           credentials,
-          color_hex
+          color_hex,
+          user_id,
+          users(first_name, last_name)
         ),
         service:services(id, name, slug, price_cents, price, duration_minutes)
       `)
@@ -222,13 +224,31 @@ export async function GET(request: NextRequest) {
         }
       }
       
-      // Provider name - try direct columns first
+      // Provider name - try direct columns first, then nested users table
       let providerName = 'Provider';
+      let providerFirstName = '';
       if (apt.provider) {
-        if (apt.provider.first_name || apt.provider.last_name) {
-          providerName = `${apt.provider.first_name || ''} ${apt.provider.last_name || ''}`.trim() || 'Provider';
-        } else if (apt.provider.users?.first_name || apt.provider.users?.last_name) {
+        // Try direct columns first
+        if (apt.provider.first_name && apt.provider.first_name !== 'Provider') {
+          providerFirstName = apt.provider.first_name;
+          providerName = `${apt.provider.first_name || ''} ${apt.provider.last_name || ''}`.trim();
+        } 
+        // Try nested users table
+        else if (apt.provider.users?.first_name) {
+          providerFirstName = apt.provider.users.first_name;
           providerName = `${apt.provider.users.first_name || ''} ${apt.provider.users.last_name || ''}`.trim();
+        }
+        // Last resort: check the provider_id to infer name
+        else if (apt.provider_id) {
+          // Known provider IDs from our database
+          const KNOWN_PROVIDERS: Record<string, string> = {
+            '47ab9361-4a68-4ab8-a860-c9c9fd64d26c': 'Ryan Kent',
+            'b7e6f872-3628-418a-aefb-aca2101f7cb2': 'Danielle Alcala',
+          };
+          if (KNOWN_PROVIDERS[apt.provider_id]) {
+            providerName = KNOWN_PROVIDERS[apt.provider_id];
+            providerFirstName = providerName.split(' ')[0];
+          }
         }
       }
       
@@ -238,6 +258,7 @@ export async function GET(request: NextRequest) {
         client_email: apt.client?.email || apt.client?.users?.email,
         client_phone: apt.client?.phone || apt.client?.users?.phone,
         provider_name: providerName,
+        provider_first_name: providerFirstName,
         provider_color: apt.provider?.color_hex || '#EC4899',
         service_name: apt.service?.name || 'Service',
         service_price: apt.service?.price_cents ? apt.service.price_cents / 100 : (apt.service?.price || 0),
