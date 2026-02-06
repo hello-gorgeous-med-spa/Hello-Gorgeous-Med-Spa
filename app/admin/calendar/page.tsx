@@ -54,6 +54,15 @@ export default function CalendarPage() {
   const [services, setServices] = useState<any[]>([]);
   const [saving, setSaving] = useState(false);
   
+  // New client form state
+  const [isNewClient, setIsNewClient] = useState(false);
+  const [newClientForm, setNewClientForm] = useState({
+    first_name: '',
+    last_name: '',
+    email: '',
+    phone: '',
+  });
+  
   // API data
   const [appointments, setAppointments] = useState<any[]>([]);
   const [providers, setProviders] = useState<any[]>([]);
@@ -183,15 +192,58 @@ export default function CalendarPage() {
     return providerId;
   };
 
-  // Create appointment
+  // Create appointment (with optional new client creation)
   const handleQuickBook = async () => {
-    if (!quickBookClient || !quickBookService || !quickBookSlot) {
-      toast.error('Please select a client and service');
+    // Validate: need either existing client OR new client form filled
+    if (isNewClient) {
+      if (!newClientForm.first_name || !newClientForm.last_name || !newClientForm.phone) {
+        toast.error('Please fill in client name and phone');
+        return;
+      }
+    } else {
+      if (!quickBookClient) {
+        toast.error('Please select a client');
+        return;
+      }
+    }
+    
+    if (!quickBookService || !quickBookSlot) {
+      toast.error('Please select a service');
       return;
     }
 
     setSaving(true);
     try {
+      let clientId = quickBookClient;
+      
+      // If creating new client, do that first
+      if (isNewClient) {
+        const clientRes = await fetch('/api/clients', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            first_name: newClientForm.first_name,
+            last_name: newClientForm.last_name,
+            email: newClientForm.email || null,
+            phone: newClientForm.phone,
+          }),
+        });
+        
+        if (!clientRes.ok) {
+          const clientData = await clientRes.json();
+          throw new Error(clientData.error || 'Failed to create client');
+        }
+        
+        const clientData = await clientRes.json();
+        clientId = clientData.client?.id;
+        
+        if (!clientId) {
+          throw new Error('Client created but no ID returned');
+        }
+        
+        toast.success(`Client ${newClientForm.first_name} created!`);
+      }
+      
       const [hours, minutes] = quickBookSlot.time.split(':').map(Number);
       
       // Build a datetime string that preserves the selected calendar date
@@ -211,7 +263,7 @@ export default function CalendarPage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          client_id: quickBookClient,
+          client_id: clientId,
           service_id: quickBookService,
           provider_id: resolvedProviderId,
           starts_at: startsAt,
@@ -226,6 +278,9 @@ export default function CalendarPage() {
 
       toast.success('Appointment booked!');
       setShowQuickBook(false);
+      setIsNewClient(false);
+      setNewClientForm({ first_name: '', last_name: '', email: '', phone: '' });
+      setQuickBookClient('');
       fetchAppointments();
     } catch (err: any) {
       toast.error(err.message || 'Failed to book appointment');
@@ -864,49 +919,131 @@ export default function CalendarPage() {
             </div>
             
             <div className="p-6 space-y-4">
-              {/* Client Search */}
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Client *</label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="Search client by name..."
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-                    onChange={(e) => searchClients(e.target.value)}
-                  />
-                  {clientSearchResults.length > 0 && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-xl z-10 max-h-48 overflow-y-auto">
-                      {clientSearchResults.map((client) => (
-                        <button
-                          key={client.id}
-                          type="button"
-                          onClick={() => {
-                            setQuickBookClient(client.id);
-                            setClientSearchResults([]);
-                          }}
-                          className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center gap-3 border-b border-gray-100 last:border-0"
-                        >
-                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-medium">
-                            {client.first_name?.[0]}{client.last_name?.[0]}
-                          </div>
-                          <div>
-                            <p className="font-medium text-slate-800">{client.first_name} {client.last_name}</p>
-                            <p className="text-sm text-gray-500">{client.email}</p>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
+              {/* Toggle: Existing vs New Client */}
+              <div className="flex gap-2 p-1 bg-gray-100 rounded-xl">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsNewClient(false);
+                    setNewClientForm({ first_name: '', last_name: '', email: '', phone: '' });
+                  }}
+                  className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+                    !isNewClient 
+                      ? 'bg-white text-slate-800 shadow-sm' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  Existing Client
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setIsNewClient(true);
+                    setQuickBookClient('');
+                    setClientSearchResults([]);
+                  }}
+                  className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+                    isNewClient 
+                      ? 'bg-white text-slate-800 shadow-sm' 
+                      : 'text-gray-500 hover:text-gray-700'
+                  }`}
+                >
+                  + New Client
+                </button>
+              </div>
+
+              {/* Existing Client Search */}
+              {!isNewClient && (
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">Search Client *</label>
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Search client by name..."
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                      onChange={(e) => searchClients(e.target.value)}
+                    />
+                    {clientSearchResults.length > 0 && (
+                      <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-xl z-10 max-h-48 overflow-y-auto">
+                        {clientSearchResults.map((client) => (
+                          <button
+                            key={client.id}
+                            type="button"
+                            onClick={() => {
+                              setQuickBookClient(client.id);
+                              setClientSearchResults([]);
+                            }}
+                            className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center gap-3 border-b border-gray-100 last:border-0"
+                          >
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-medium">
+                              {client.first_name?.[0]}{client.last_name?.[0]}
+                            </div>
+                            <div>
+                              <p className="font-medium text-slate-800">{client.first_name} {client.last_name}</p>
+                              <p className="text-sm text-gray-500">{client.email || client.phone}</p>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                  {quickBookClient && (
+                    <p className="text-sm text-emerald-600 mt-2 flex items-center gap-1">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Client selected
+                    </p>
                   )}
                 </div>
-                {quickBookClient && (
-                  <p className="text-sm text-emerald-600 mt-2 flex items-center gap-1">
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                    Client selected
+              )}
+
+              {/* New Client Form */}
+              {isNewClient && (
+                <div className="space-y-3 p-4 bg-pink-50 rounded-xl border border-pink-100">
+                  <p className="text-sm font-medium text-pink-700 flex items-center gap-2">
+                    <span>✨</span> New Client Details
                   </p>
-                )}
-              </div>
+                  <div className="grid grid-cols-2 gap-3">
+                    <input
+                      type="text"
+                      placeholder="First Name *"
+                      value={newClientForm.first_name}
+                      onChange={(e) => setNewClientForm({ ...newClientForm, first_name: e.target.value })}
+                      className="px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Last Name *"
+                      value={newClientForm.last_name}
+                      onChange={(e) => setNewClientForm({ ...newClientForm, last_name: e.target.value })}
+                      className="px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
+                    />
+                  </div>
+                  <input
+                    type="tel"
+                    placeholder="Phone Number *"
+                    value={newClientForm.phone}
+                    onChange={(e) => setNewClientForm({ ...newClientForm, phone: e.target.value })}
+                    className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email (optional)"
+                    value={newClientForm.email}
+                    onChange={(e) => setNewClientForm({ ...newClientForm, email: e.target.value })}
+                    className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
+                  />
+                  {newClientForm.first_name && newClientForm.last_name && newClientForm.phone && (
+                    <p className="text-sm text-emerald-600 flex items-center gap-1">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      Ready to create: {newClientForm.first_name} {newClientForm.last_name}
+                    </p>
+                  )}
+                </div>
+              )}
 
               {/* Service Selection */}
               <div>
@@ -943,10 +1080,10 @@ export default function CalendarPage() {
                 </Link>
                 <button
                   onClick={handleQuickBook}
-                  disabled={saving || !quickBookClient || !quickBookService}
+                  disabled={saving || !quickBookService || (isNewClient ? (!newClientForm.first_name || !newClientForm.last_name || !newClientForm.phone) : !quickBookClient)}
                   className="px-6 py-2 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium rounded-lg hover:from-pink-600 hover:to-rose-600 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
                 >
-                  {saving ? 'Booking...' : 'Book Now'}
+                  {saving ? 'Booking...' : isNewClient ? 'Create & Book' : 'Book Now'}
                 </button>
               </div>
             </div>

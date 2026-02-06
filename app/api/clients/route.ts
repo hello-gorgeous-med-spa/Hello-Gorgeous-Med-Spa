@@ -310,10 +310,15 @@ export async function POST(request: NextRequest) {
     }
 
     // Create client record with all fields
+    // Include name/email/phone directly on clients table for easier querying
     const { data: client, error: clientError } = await supabase
       .from('clients')
       .insert({
         user_id: user.id,
+        first_name: firstName,
+        last_name: lastName,
+        email: email || null,
+        phone: phone || null,
         date_of_birth: dateOfBirth || null,
         gender: gender || null,
         address_line1: addressLine1 || null,
