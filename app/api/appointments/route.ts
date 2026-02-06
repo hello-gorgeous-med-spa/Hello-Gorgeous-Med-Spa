@@ -272,7 +272,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Build insert object with correct column names
+    // Build insert object - populate BOTH column name variants for compatibility
     // Valid status values: pending, confirmed, checked_in, in_progress, completed, cancelled, no_show
     const insertData: any = {
       client_id: body.client_id || null,
@@ -281,7 +281,11 @@ export async function POST(request: NextRequest) {
       starts_at: body.starts_at,
       ends_at: endsAt.toISOString(),
       status: 'confirmed',
+      // Support both column names
+      notes: body.notes || null,
       client_notes: body.notes || null,
+      booking_source: 'admin_calendar',
+      source: 'admin_calendar',
     };
 
     const { data, error } = await supabase

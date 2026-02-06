@@ -192,6 +192,7 @@ export async function POST(request: NextRequest) {
     }
 
     // 5. Create appointment (using clientId, not userId!)
+    // Populate BOTH column name variants for compatibility
     const { data: appointment, error: appointmentError } = await supabase
       .from('appointments')
       .insert({
@@ -201,7 +202,11 @@ export async function POST(request: NextRequest) {
         starts_at: startDateTime.toISOString(),
         ends_at: endDateTime.toISOString(),
         status: 'confirmed',
+        // Support both column names for notes
+        notes: notes || null,
         client_notes: notes || null,
+        // Support both column names for source
+        source: 'online_booking',
         booking_source: 'online_booking',
       })
       .select('id')

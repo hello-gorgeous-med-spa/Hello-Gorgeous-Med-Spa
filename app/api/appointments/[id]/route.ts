@@ -4,14 +4,14 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 
 // GET /api/appointments/[id] - Get single appointment
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const supabase = createServerSupabaseClient();
+  const supabase = createAdminSupabaseClient();
   if (!supabase) {
     return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
   }
@@ -52,7 +52,7 @@ export async function PUT(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const supabase = createServerSupabaseClient();
+  const supabase = createAdminSupabaseClient();
   if (!supabase) {
     return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
   }
@@ -90,11 +90,24 @@ export async function PUT(
     if (service_id !== undefined) updates.service_id = service_id;
     if (duration_minutes !== undefined) updates.duration_minutes = duration_minutes;
     if (status !== undefined) updates.status = status;
-    if (notes !== undefined) updates.notes = notes;
-    if (internal_notes !== undefined) updates.internal_notes = internal_notes;
-    if (check_in_at !== undefined) updates.check_in_at = check_in_at;
+    // Support both 'notes' and 'client_notes' column names
+    if (notes !== undefined) {
+      updates.notes = notes;
+      updates.client_notes = notes;
+    }
+    if (internal_notes !== undefined) {
+      updates.internal_notes = internal_notes;
+      updates.provider_notes = internal_notes;
+    }
+    if (check_in_at !== undefined) {
+      updates.check_in_at = check_in_at;
+      updates.checked_in_at = check_in_at;
+    }
     if (check_out_at !== undefined) updates.check_out_at = check_out_at;
-    if (cancellation_reason !== undefined) updates.cancellation_reason = cancellation_reason;
+    if (cancellation_reason !== undefined) {
+      updates.cancellation_reason = cancellation_reason;
+      updates.cancel_reason = cancellation_reason;
+    }
     if (no_show_reason !== undefined) updates.no_show_reason = no_show_reason;
 
     const { data, error } = await supabase
@@ -159,7 +172,7 @@ export async function DELETE(
   request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const supabase = createServerSupabaseClient();
+  const supabase = createAdminSupabaseClient();
   if (!supabase) {
     return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
   }
