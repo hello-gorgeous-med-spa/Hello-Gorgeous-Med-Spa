@@ -14,7 +14,6 @@ CREATE TYPE chart_note_type AS ENUM ('soap', 'procedure', 'follow_up', 'consult'
 -- ============================================================
 CREATE TABLE IF NOT EXISTS chart_templates (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  org_id UUID REFERENCES organizations(id) ON DELETE CASCADE,
   name TEXT NOT NULL,
   description TEXT,
   note_type chart_note_type NOT NULL DEFAULT 'soap',
@@ -41,7 +40,6 @@ CREATE TABLE IF NOT EXISTS chart_templates (
 -- ============================================================
 CREATE TABLE IF NOT EXISTS chart_notes (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  org_id UUID REFERENCES organizations(id) ON DELETE CASCADE,
   
   -- Linkages (client required for final, optional for draft)
   client_id UUID REFERENCES clients(id) ON DELETE SET NULL,
