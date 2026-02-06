@@ -238,8 +238,25 @@ export default function CalendarPage() {
   };
 
   // Get appointments for a provider
-  const getProviderAppointments = (providerId: string) => {
-    return appointments.filter(apt => apt.provider_id === providerId);
+  // Match by ID first, then by provider name as fallback (handles ID mismatch between calendar and DB)
+  const getProviderAppointments = (providerId: string, providerFirstName?: string) => {
+    return appointments.filter(apt => {
+      // Direct ID match
+      if (apt.provider_id === providerId) return true;
+      
+      // Fallback: match by provider name if we have name info
+      if (providerFirstName && apt.provider_name) {
+        const aptProviderFirst = apt.provider_name.split(' ')[0]?.toLowerCase();
+        return aptProviderFirst === providerFirstName.toLowerCase();
+      }
+      
+      // Also check nested provider data
+      if (providerFirstName && apt.provider?.first_name) {
+        return apt.provider.first_name.toLowerCase() === providerFirstName.toLowerCase();
+      }
+      
+      return false;
+    });
   };
 
   // Format time for display
@@ -432,7 +449,7 @@ export default function CalendarPage() {
 
               {/* Provider columns */}
               {displayProviders.map((provider) => {
-                const providerAppts = getProviderAppointments(provider.id);
+                const providerAppts = getProviderAppointments(provider.id, provider.first_name);
                 const color = getProviderColor(provider.id);
                 const providerName = `${provider.first_name} ${provider.last_name}`;
                 
