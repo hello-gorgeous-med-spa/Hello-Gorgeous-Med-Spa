@@ -174,7 +174,8 @@ export async function GET(request: NextRequest) {
           first_name,
           last_name,
           email,
-          phone
+          phone,
+          users(first_name, last_name, email, phone)
         ),
         provider:providers(
           id,
@@ -215,17 +216,109 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
+    // For appointments without client names via join, collect client IDs for bulk lookup
+    const clientIdsNeedingLookup: string[] = [];
+    
+    // First pass - identify which clients need secondary lookup
+    (data || []).forEach((apt: any) => {
+      if (apt.client_id && (!apt.client || (!apt.client.first_name && !apt.client.users?.first_name))) {
+        clientIdsNeedingLookup.push(apt.client_id);
+      }
+    });
+    
+    // Bulk lookup client details if needed
+    let clientDetailsMap: Record<string, any> = {};
+    if (clientIdsNeedingLookup.length > 0) {
+      // Get client records
+      const { data: clientDetails } = await supabase
+        .from('clients')
+        .select('id, user_id, first_name, last_name, email, phone')
+        .in('id', clientIdsNeedingLookup);
+      
+      if (clientDetails) {
+        // Get linked user IDs
+        const userIds = clientDetails.map((c: any) => c.user_id).filter(Boolean);
+        let usersMap: Record<string, any> = {};
+        
+        if (userIds.length > 0) {
+          const { data: usersData } = await supabase
+            .from('users')
+            .select('id, first_name, last_name, email, phone')
+            .in('id', userIds);
+          
+          if (usersData) {
+            usersData.forEach((u: any) => { usersMap[u.id] = u; });
+          }
+        }
+        
+        // Build the map
+        clientDetails.forEach((c: any) => {
+          const user = usersMap[c.user_id] || {};
+          clientDetailsMap[c.id] = {
+            first_name: user.first_name || c.first_name,
+            last_name: user.last_name || c.last_name,
+            email: user.email || c.email,
+            phone: user.phone || c.phone,
+          };
+        });
+      }
+    }
+
     // Flatten nested data for easier use
     // Handle both direct columns (first_name on clients) and nested (users.first_name)
     const appointments = (data || []).map((apt: any) => {
-      // Client name - try direct columns first, then nested users
+      // Client name - try multiple sources
       let clientName = 'Unknown Client';
+      let clientEmail = '';
+      let clientPhone = '';
+      
+      // Check if we have supplemental lookup data
+      const supplementalClient = clientDetailsMap[apt.client_id];
+      
       if (apt.client) {
+        // Try direct columns on clients table first
         if (apt.client.first_name || apt.client.last_name) {
-          clientName = `${apt.client.first_name || ''} ${apt.client.last_name || ''}`.trim() || 'Client';
-        } else if (apt.client.users?.first_name || apt.client.users?.last_name) {
-          clientName = `${apt.client.users.first_name || ''} ${apt.client.users.last_name || ''}`.trim();
+          const firstName = apt.client.first_name || '';
+          const lastName = apt.client.last_name || '';
+          clientName = `${firstName} ${lastName}`.trim() || 'Client';
+        } 
+        // Try nested users table
+        else if (apt.client.users?.first_name || apt.client.users?.last_name) {
+          const firstName = apt.client.users.first_name || '';
+          const lastName = apt.client.users.last_name || '';
+          clientName = `${firstName} ${lastName}`.trim();
         }
+        // Try supplemental lookup
+        else if (supplementalClient && (supplementalClient.first_name || supplementalClient.last_name)) {
+          const firstName = supplementalClient.first_name || '';
+          const lastName = supplementalClient.last_name || '';
+          clientName = `${firstName} ${lastName}`.trim();
+        }
+        // If still unknown, try to use email as display name
+        else if (apt.client.email || apt.client.users?.email || supplementalClient?.email) {
+          const email = apt.client.email || apt.client.users?.email || supplementalClient?.email;
+          // Use part before @ as a display name
+          clientName = email.split('@')[0].replace(/[._]/g, ' ');
+          // Capitalize first letter of each word
+          clientName = clientName.split(' ').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+        }
+        
+        // Get email and phone from either location
+        clientEmail = apt.client.email || apt.client.users?.email || supplementalClient?.email || '';
+        clientPhone = apt.client.phone || apt.client.users?.phone || supplementalClient?.phone || '';
+      } else if (supplementalClient) {
+        // No client join but we have supplemental data
+        if (supplementalClient.first_name || supplementalClient.last_name) {
+          const firstName = supplementalClient.first_name || '';
+          const lastName = supplementalClient.last_name || '';
+          clientName = `${firstName} ${lastName}`.trim();
+        } else if (supplementalClient.email) {
+          // Use email as display name
+          clientName = supplementalClient.email.split('@')[0].replace(/[._]/g, ' ');
+          clientName = clientName.split(' ').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+        }
+        clientEmail = supplementalClient.email || '';
+        clientPhone = supplementalClient.phone || '';
       }
       
       // Provider name - try direct columns first, then nested users table
@@ -259,8 +352,8 @@ export async function GET(request: NextRequest) {
       return {
         ...apt,
         client_name: clientName,
-        client_email: apt.client?.email || apt.client?.users?.email,
-        client_phone: apt.client?.phone || apt.client?.users?.phone,
+        client_email: clientEmail,
+        client_phone: clientPhone,
         provider_name: providerName,
         provider_first_name: providerFirstName,
         provider_color: apt.provider?.color_hex || '#EC4899',
