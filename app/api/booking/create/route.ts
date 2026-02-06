@@ -215,69 +215,36 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 6. For NEW clients - send consent forms automatically
-    if (!existingUser) {
-      try {
-        // Send consent request with required forms (we already have clientId)
-        const consentForms = ['hipaa', 'treatment_consent', 'financial_policy'];
-        
-        // Generate unique token
-        const crypto = await import('crypto');
-        const token = crypto.randomBytes(32).toString('hex');
-        
-        // Set expiration (7 days)
-        const expiresAt = new Date();
-        expiresAt.setDate(expiresAt.getDate() + 7);
+    // 6. Trigger consent auto-send via Telnyx SMS (for ALL clients, not just new)
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+      
+      // Call the consent auto-send API
+      const consentResponse = await fetch(`${baseUrl}/api/consents/auto-send`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          appointment_id: appointment.id,
+          client_id: clientId,
+          service_id: service.id,
+        }),
+      });
 
-        // Create consent request record
-        await supabase
-          .from('consent_requests')
-          .insert({
-            client_id: clientId,
-            form_types: consentForms,
-            appointment_id: appointment.id,
-            sent_via: 'email',
-            sent_to: email.toLowerCase(),
-            token,
-            expires_at: expiresAt.toISOString(),
-          });
-
-        // Send SMS notification if phone provided and SMS agreed
-        if (phone && agreeToSMS) {
-          const consentLink = `https://www.hellogorgeousmedspa.com/consent/${token}`;
-          const smsMessage = `Hi ${firstName}! Your appointment at Hello Gorgeous Med Spa is confirmed for ${new Date(startDateTime).toLocaleDateString()}. Please complete your consent forms before your visit: ${consentLink}`;
-          
-          // Send via Telnyx API
-          try {
-            const telnyxApiKey = process.env.TELNYX_API_KEY;
-            const telnyxFromNumber = process.env.TELNYX_PHONE_NUMBER;
-            
-            if (telnyxApiKey && telnyxFromNumber) {
-              await fetch('https://api.telnyx.com/v2/messages', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/json',
-                  'Authorization': `Bearer ${telnyxApiKey}`,
-                },
-                body: JSON.stringify({
-                  from: telnyxFromNumber,
-                  to: phone,
-                  text: smsMessage,
-                }),
-              });
-              console.log('📱 Consent SMS sent to:', phone);
-            }
-          } catch (smsErr) {
-            console.error('SMS send error:', smsErr);
-            // Don't fail the booking if SMS fails
-          }
+      const consentResult = await consentResponse.json();
+      
+      if (consentResult.success) {
+        console.log(`📋 Consent packets created: ${consentResult.packets_created}`);
+        if (consentResult.sms_sent) {
+          console.log(`📱 Consent SMS sent via Telnyx`);
+        } else if (!consentResult.client_has_phone) {
+          console.log(`⚠️ No phone on file - consent SMS not sent`);
         }
-
-        console.log(`📋 Consent forms requested for new client: ${firstName} ${lastName}`);
-      } catch (consentErr) {
-        console.error('Consent request error:', consentErr);
-        // Don't fail the booking if consent request fails
+      } else {
+        console.warn('Consent auto-send warning:', consentResult.message || consentResult.error);
       }
+    } catch (consentErr) {
+      console.error('Consent auto-send error:', consentErr);
+      // Don't fail the booking if consent send fails
     }
 
     return NextResponse.json({
