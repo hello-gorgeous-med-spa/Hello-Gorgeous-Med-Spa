@@ -65,8 +65,10 @@ export default function CalendarPage() {
   const fetchAppointments = useCallback(async () => {
     try {
       setLoading(true);
+      console.log('[Calendar] Fetching appointments for date:', dateString);
       const res = await fetch(`/api/appointments?date=${dateString}`);
       const data = await res.json();
+      console.log('[Calendar] Received appointments:', data.appointments?.length || 0, data.appointments);
       if (data.appointments) {
         setAppointments(data.appointments);
       }
@@ -191,8 +193,16 @@ export default function CalendarPage() {
     setSaving(true);
     try {
       const [hours, minutes] = quickBookSlot.time.split(':').map(Number);
-      const appointmentDate = new Date(selectedDate);
-      appointmentDate.setHours(hours, minutes, 0, 0);
+      
+      // Build a datetime string that preserves the selected calendar date
+      // Format: YYYY-MM-DDTHH:MM:SS (local time, no timezone offset)
+      // This ensures the appointment shows on the correct calendar day
+      const year = selectedDate.getFullYear();
+      const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+      const day = String(selectedDate.getDate()).padStart(2, '0');
+      const hourStr = String(hours).padStart(2, '0');
+      const minStr = String(minutes).padStart(2, '0');
+      const startsAt = `${year}-${month}-${day}T${hourStr}:${minStr}:00`;
 
       // Resolve provider ID to ensure it's a valid UUID
       const resolvedProviderId = await resolveProviderId(quickBookSlot.providerId);
@@ -204,7 +214,7 @@ export default function CalendarPage() {
           client_id: quickBookClient,
           service_id: quickBookService,
           provider_id: resolvedProviderId,
-          starts_at: appointmentDate.toISOString(),
+          starts_at: startsAt,
           status: 'confirmed',
         }),
       });
