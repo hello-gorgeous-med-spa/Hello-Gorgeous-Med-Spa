@@ -1,70 +1,55 @@
 'use client';
 
 // ============================================================
-// SCHEDULE / CALENDAR PAGE
-// Interactive booking calendar - Connected to Live API Data
+// BOULEVARD-STYLE CALENDAR
+// Multi-provider schedule view with appointment detail panel
 // ============================================================
 
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Breadcrumb } from '@/components/ui';
 import { useToast } from '@/components/ui/Toast';
 
-// Generate time slots (9 AM to 6:30 PM)
-const TIME_SLOTS = Array.from({ length: 20 }, (_, i) => {
+// Provider colors - soft pastels like Boulevard
+const PROVIDER_COLORS = [
+  { bg: 'bg-pink-100', border: 'border-l-pink-400', text: 'text-pink-900', accent: 'bg-pink-400' },
+  { bg: 'bg-sky-100', border: 'border-l-sky-400', text: 'text-sky-900', accent: 'bg-sky-400' },
+  { bg: 'bg-amber-100', border: 'border-l-amber-400', text: 'text-amber-900', accent: 'bg-amber-400' },
+  { bg: 'bg-emerald-100', border: 'border-l-emerald-400', text: 'text-emerald-900', accent: 'bg-emerald-400' },
+  { bg: 'bg-violet-100', border: 'border-l-violet-400', text: 'text-violet-900', accent: 'bg-violet-400' },
+  { bg: 'bg-rose-100', border: 'border-l-rose-400', text: 'text-rose-900', accent: 'bg-rose-400' },
+];
+
+// Generate time slots (9 AM to 6 PM)
+const TIME_SLOTS = Array.from({ length: 19 }, (_, i) => {
   const hour = Math.floor(i / 2) + 9;
   const minute = i % 2 === 0 ? '00' : '30';
-  return `${hour.toString().padStart(2, '0')}:${minute}`;
+  return { time: `${hour.toString().padStart(2, '0')}:${minute}`, hour, minute: minute === '00' ? 0 : 30 };
 });
 
-const STATUS_COLORS: Record<string, string> = {
-  booked: 'bg-blue-100 border-blue-300 text-blue-800',
-  confirmed: 'bg-green-100 border-green-300 text-green-800',
-  checked_in: 'bg-amber-100 border-amber-300 text-amber-800',
-  in_progress: 'bg-purple-100 border-purple-300 text-purple-800',
-  completed: 'bg-gray-100 border-gray-300 text-gray-600',
-  no_show: 'bg-red-100 border-red-300 text-red-800',
-  cancelled: 'bg-gray-100 border-gray-300 text-gray-400 line-through',
-};
-
-const PROVIDER_COLORS = [
-  'bg-blue-500',
-  'bg-pink-500',
-  'bg-purple-500',
-  'bg-green-500',
-  'bg-amber-500',
-];
+const HOUR_LABELS = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18];
 
 export default function CalendarPage() {
   const router = useRouter();
   const toast = useToast();
-  const [viewMode, setViewMode] = useState<'day' | 'week' | 'provider'>('provider');
+  const [viewMode, setViewMode] = useState<'day' | 'week'>('day');
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedProvider, setSelectedProvider] = useState<string | 'all'>('all');
-  const [showNewApptModal, setShowNewApptModal] = useState(false);
-  const [selectedSlot, setSelectedSlot] = useState<{ time: string; provider: string } | null>(null);
+  const [selectedAppointment, setSelectedAppointment] = useState<any | null>(null);
+  const [showFilters, setShowFilters] = useState(false);
+  const [selectedProviderFilter, setSelectedProviderFilter] = useState<string[]>([]);
   
-  // Quick book form state
-  const [quickBookClient, setQuickBookClient] = useState('');
-  const [quickBookService, setQuickBookService] = useState('');
-  const [quickBookSaving, setQuickBookSaving] = useState(false);
-  const [clientSearchResults, setClientSearchResults] = useState<any[]>([]);
-
-  // Format date for API
-  const dateString = selectedDate.toISOString().split('T')[0];
-
-  // State for API data
+  // API data
   const [appointments, setAppointments] = useState<any[]>([]);
   const [providers, setProviders] = useState<any[]>([]);
-  const [services, setServices] = useState<any[]>([]);
-  const [apptsLoading, setApptsLoading] = useState(true);
-  const [providersLoading, setProvidersLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-  // Fetch appointments from API
+  const dateString = selectedDate.toISOString().split('T')[0];
+
+  // Fetch appointments
   const fetchAppointments = useCallback(async () => {
     try {
-      setApptsLoading(true);
+      setLoading(true);
       const res = await fetch(`/api/appointments?date=${dateString}`);
       const data = await res.json();
       if (data.appointments) {
@@ -73,14 +58,13 @@ export default function CalendarPage() {
     } catch (err) {
       console.error('Failed to load appointments:', err);
     } finally {
-      setApptsLoading(false);
+      setLoading(false);
     }
   }, [dateString]);
 
-  // Fetch providers from API
+  // Fetch providers
   const fetchProviders = useCallback(async () => {
     try {
-      setProvidersLoading(true);
       const res = await fetch('/api/providers');
       const data = await res.json();
       if (data.providers) {
@@ -88,21 +72,6 @@ export default function CalendarPage() {
       }
     } catch (err) {
       console.error('Failed to load providers:', err);
-    } finally {
-      setProvidersLoading(false);
-    }
-  }, []);
-
-  // Fetch services from API
-  const fetchServices = useCallback(async () => {
-    try {
-      const res = await fetch('/api/services');
-      const data = await res.json();
-      if (data.services) {
-        setServices(data.services);
-      }
-    } catch (err) {
-      console.error('Failed to load services:', err);
     }
   }, []);
 
@@ -112,22 +81,19 @@ export default function CalendarPage() {
 
   useEffect(() => {
     fetchProviders();
-    fetchServices();
-  }, [fetchProviders, fetchServices]);
+  }, [fetchProviders]);
 
-  const refetch = fetchAppointments;
-
-  // Filter appointments by provider
-  const filteredAppointments = useMemo(() => {
-    if (selectedProvider === 'all') return appointments;
-    return appointments.filter(apt => apt.provider_id === selectedProvider);
-  }, [appointments, selectedProvider]);
-
-  // Filter providers for display
+  // Filter providers
   const displayProviders = useMemo(() => {
-    if (selectedProvider === 'all') return providers;
-    return providers.filter(p => p.id === selectedProvider);
-  }, [providers, selectedProvider]);
+    if (selectedProviderFilter.length === 0) return providers;
+    return providers.filter(p => selectedProviderFilter.includes(p.id));
+  }, [providers, selectedProviderFilter]);
+
+  // Get provider color
+  const getProviderColor = (providerId: string) => {
+    const index = providers.findIndex(p => p.id === providerId);
+    return PROVIDER_COLORS[index % PROVIDER_COLORS.length];
+  };
 
   // Format date display
   const formatDate = (date: Date) => {
@@ -135,586 +101,432 @@ export default function CalendarPage() {
       weekday: 'long',
       month: 'long',
       day: 'numeric',
-      year: 'numeric',
     });
   };
 
   // Navigate dates
-  const navigateDate = (direction: 'prev' | 'next') => {
-    const newDate = new Date(selectedDate);
-    if (viewMode === 'week') {
-      newDate.setDate(newDate.getDate() + (direction === 'next' ? 7 : -7));
-    } else {
-      newDate.setDate(newDate.getDate() + (direction === 'next' ? 1 : -1));
+  const navigateDate = (direction: 'prev' | 'next' | 'today') => {
+    if (direction === 'today') {
+      setSelectedDate(new Date());
+      return;
     }
+    const newDate = new Date(selectedDate);
+    newDate.setDate(newDate.getDate() + (direction === 'next' ? 1 : -1));
     setSelectedDate(newDate);
   };
 
-  // Get time from ISO string
-  const getTime = (isoString: string) => {
-    const date = new Date(isoString);
-    return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
+  // Get time display
+  const formatTimeDisplay = (hour: number) => {
+    if (hour === 12) return '12 PM';
+    if (hour > 12) return `${hour - 12} PM`;
+    return `${hour} AM`;
   };
 
-  // Get end time based on duration
-  const getEndTime = (isoString: string, durationMinutes: number) => {
-    const date = new Date(isoString);
-    date.setMinutes(date.getMinutes() + durationMinutes);
-    return `${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
-  };
-
-  // Get appointments for a time slot and provider
-  const getAppointmentsForSlot = (time: string, providerId: string) => {
-    return filteredAppointments.filter(appt => {
-      const apptTime = getTime(appt.starts_at);
-      const apptEndTime = getEndTime(appt.starts_at, appt.duration || 30);
-      const matchesTime = apptTime <= time && apptEndTime > time;
-      const matchesProvider = appt.provider_id === providerId;
-      return matchesTime && matchesProvider;
-    });
-  };
-
-  // Calculate appointment position and height for provider view
+  // Get appointment position
   const getAppointmentStyle = (appt: any) => {
-    const startTime = getTime(appt.starts_at);
-    const startParts = startTime.split(':').map(Number);
-    const startMinutes = (startParts[0] - 9) * 60 + startParts[1];
-    const duration = appt.duration || 30;
+    const startTime = new Date(appt.starts_at);
+    const startHour = startTime.getHours();
+    const startMinute = startTime.getMinutes();
+    const startMinutes = (startHour - 9) * 60 + startMinute;
+    const duration = appt.duration_minutes || appt.duration || 60;
     
-    return {
-      top: `${(startMinutes / 30) * 48}px`,
-      height: `${(duration / 30) * 48 - 4}px`,
+    // 48px per 30 min = 96px per hour
+    const top = (startMinutes / 60) * 96;
+    const height = (duration / 60) * 96 - 2;
+    
+    return { top: `${top}px`, height: `${height}px` };
+  };
+
+  // Get appointments for a provider
+  const getProviderAppointments = (providerId: string) => {
+    return appointments.filter(apt => apt.provider_id === providerId);
+  };
+
+  // Format time for display
+  const formatApptTime = (isoString: string) => {
+    const date = new Date(isoString);
+    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  };
+
+  // Get end time
+  const getEndTime = (isoString: string, duration: number) => {
+    const date = new Date(isoString);
+    date.setMinutes(date.getMinutes() + duration);
+    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+  };
+
+  // Status display
+  const getStatusBadge = (status: string) => {
+    const styles: Record<string, { bg: string; text: string; label: string }> = {
+      confirmed: { bg: 'bg-emerald-100', text: 'text-emerald-700', label: 'Confirmed' },
+      checked_in: { bg: 'bg-amber-100', text: 'text-amber-700', label: 'Checked In' },
+      in_progress: { bg: 'bg-purple-100', text: 'text-purple-700', label: 'In Progress' },
+      completed: { bg: 'bg-gray-100', text: 'text-gray-700', label: 'Completed' },
+      cancelled: { bg: 'bg-red-100', text: 'text-red-700', label: 'Cancelled' },
+      no_show: { bg: 'bg-red-100', text: 'text-red-700', label: 'No Show' },
     };
+    const style = styles[status] || styles.confirmed;
+    return (
+      <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${style.bg} ${style.text}`}>
+        <span className={`w-1.5 h-1.5 rounded-full ${status === 'checked_in' ? 'bg-amber-500' : status === 'confirmed' ? 'bg-emerald-500' : 'bg-gray-500'}`} />
+        {style.label}
+      </span>
+    );
   };
-
-  // Handle slot click
-  const handleSlotClick = (time: string, providerId: string) => {
-    setSelectedSlot({ time, provider: providerId });
-    setQuickBookClient('');
-    setQuickBookService('');
-    setClientSearchResults([]);
-    setShowNewApptModal(true);
-  };
-
-  // Search clients for quick book
-  const searchClients = useCallback(async (query: string) => {
-    if (query.length < 2) {
-      setClientSearchResults([]);
-      return;
-    }
-    try {
-      const res = await fetch(`/api/clients?search=${encodeURIComponent(query)}&limit=5`);
-      const data = await res.json();
-      setClientSearchResults(data.clients || []);
-    } catch (err) {
-      console.error('Failed to search clients:', err);
-    }
-  }, []);
-
-  // Create quick appointment
-  const handleQuickBook = async () => {
-    if (!quickBookClient || !quickBookService || !selectedSlot) {
-      toast.error('Please select a client and service');
-      return;
-    }
-
-    setQuickBookSaving(true);
-    try {
-      // Parse time and create appointment datetime
-      const [hours, minutes] = selectedSlot.time.split(':').map(Number);
-      const appointmentDate = new Date(selectedDate);
-      appointmentDate.setHours(hours, minutes, 0, 0);
-
-      const res = await fetch('/api/appointments', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          client_id: quickBookClient,
-          service_id: quickBookService,
-          provider_id: selectedSlot.provider,
-          starts_at: appointmentDate.toISOString(),
-          status: 'confirmed',
-        }),
-      });
-
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || 'Failed to create appointment');
-      }
-
-      toast.success('Appointment booked successfully!');
-      setShowNewApptModal(false);
-      fetchAppointments();
-    } catch (err: any) {
-      toast.error(err.message || 'Failed to book appointment');
-    } finally {
-      setQuickBookSaving(false);
-    }
-  };
-
-  // Calculate stats
-  const stats = useMemo(() => {
-    const confirmed = filteredAppointments.filter(a => a.status === 'confirmed').length;
-    const pending = filteredAppointments.filter(a => a.status === 'booked').length;
-    const checkedIn = filteredAppointments.filter(a => a.status === 'checked_in').length;
-    const revenue = filteredAppointments.reduce((sum, a) => sum + (a.service?.price || 0), 0);
-    
-    return { total: filteredAppointments.length, confirmed, pending, checkedIn, revenue };
-  }, [filteredAppointments]);
-
-  const loading = apptsLoading || providersLoading;
 
   return (
-    <div className="space-y-4">
-      {/* Breadcrumb */}
-      <Breadcrumb />
-      
-      {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Schedule</h1>
-          <p className="text-gray-500">Manage appointments and bookings</p>
-        </div>
-        <div className="flex gap-3">
-          <Link
-            href="/admin/appointments/new"
-            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
-          >
-            + New Appointment
-          </Link>
-          <Link
-            href="/book"
-            target="_blank"
-            className="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200"
-          >
-            Online Booking ↗
-          </Link>
-        </div>
-      </div>
-
-
-      {/* Controls */}
-      <div className="bg-white rounded-xl border border-gray-100 p-4">
-        <div className="flex items-center justify-between flex-wrap gap-4">
-          {/* Date Navigation */}
-          <div className="flex items-center gap-3">
+    <div className="h-[calc(100vh-120px)] flex bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200">
+      {/* Main Calendar Area */}
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Header */}
+        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white">
+          <div className="flex items-center gap-4">
             <button
-              onClick={() => navigateDate('prev')}
-              className="p-2 hover:bg-gray-100 rounded-lg"
+              onClick={() => navigateDate('today')}
+              className="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
             >
-              ←
+              TODAY
             </button>
-            <div className="flex items-center gap-2">
-              <input
-                type="date"
-                value={dateString}
-                onChange={(e) => setSelectedDate(new Date(e.target.value))}
-                className="px-3 py-2 border border-gray-200 rounded-lg"
-              />
+            <div className="flex items-center gap-1">
               <button
-                onClick={() => setSelectedDate(new Date())}
-                className="px-3 py-2 text-sm text-pink-600 hover:bg-pink-50 rounded-lg font-medium"
+                onClick={() => navigateDate('prev')}
+                className="p-2 hover:bg-gray-100 rounded-lg text-gray-600"
               >
-                Today
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                onClick={() => navigateDate('next')}
+                className="p-2 hover:bg-gray-100 rounded-lg text-gray-600"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
               </button>
             </div>
-            <button
-              onClick={() => navigateDate('next')}
-              className="p-2 hover:bg-gray-100 rounded-lg"
-            >
-              →
-            </button>
-            <span className="text-gray-700 font-medium ml-2">
+            <h2 className="text-lg font-semibold text-slate-800">
               {formatDate(selectedDate)}
-            </span>
+            </h2>
           </div>
 
-          {/* View & Filter Controls */}
           <div className="flex items-center gap-3">
-            {/* Provider Filter */}
-            <select
-              value={selectedProvider}
-              onChange={(e) => setSelectedProvider(e.target.value)}
-              className="px-3 py-2 border border-gray-200 rounded-lg"
-            >
-              <option value="all">All Providers</option>
-              {providers.map((p) => (
-                <option key={p.id} value={p.id}>
-                  {p.first_name} {p.last_name}
-                </option>
-              ))}
-            </select>
-
-            {/* View Mode */}
-            <div className="flex border border-gray-200 rounded-lg overflow-hidden">
-              {(['day', 'week', 'provider'] as const).map((mode) => (
-                <button
-                  key={mode}
-                  onClick={() => setViewMode(mode)}
-                  className={`px-3 py-2 text-sm font-medium capitalize ${
-                    viewMode === mode
-                      ? 'bg-pink-500 text-white'
-                      : 'bg-white text-gray-600 hover:bg-gray-50'
-                  }`}
-                >
-                  {mode}
-                </button>
-              ))}
+            {/* Filters */}
+            <div className="relative">
+              <button
+                onClick={() => setShowFilters(!showFilters)}
+                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                </svg>
+                FILTERS
+              </button>
+              {showFilters && (
+                <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-200 z-50 p-4">
+                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Providers</p>
+                  <div className="space-y-2">
+                    {providers.map((provider, idx) => (
+                      <label key={provider.id} className="flex items-center gap-3 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={selectedProviderFilter.length === 0 || selectedProviderFilter.includes(provider.id)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              if (selectedProviderFilter.length === providers.length - 1) {
+                                setSelectedProviderFilter([]);
+                              } else {
+                                setSelectedProviderFilter([...selectedProviderFilter, provider.id]);
+                              }
+                            } else {
+                              setSelectedProviderFilter(selectedProviderFilter.filter(id => id !== provider.id));
+                            }
+                          }}
+                          className="w-4 h-4 rounded border-gray-300 text-pink-500 focus:ring-pink-500"
+                        />
+                        <div className={`w-3 h-3 rounded-full ${PROVIDER_COLORS[idx % PROVIDER_COLORS.length].accent}`} />
+                        <span className="text-sm text-gray-700">{provider.first_name} {provider.last_name}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
 
-            {/* Refresh */}
-            <button
-              onClick={() => refetch()}
-              className="p-2 hover:bg-gray-100 rounded-lg"
-              title="Refresh"
-            >
-              🔄
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Stats Bar */}
-      <div className="grid grid-cols-5 gap-4">
-        <div className="bg-white rounded-lg border border-gray-100 p-3">
-          <p className="text-sm text-gray-500">Total Today</p>
-          <p className="text-xl font-bold text-gray-900">{loading ? '-' : stats.total}</p>
-        </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-3">
-          <p className="text-sm text-gray-500">Confirmed</p>
-          <p className="text-xl font-bold text-green-600">{loading ? '-' : stats.confirmed}</p>
-        </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-3">
-          <p className="text-sm text-gray-500">Pending</p>
-          <p className="text-xl font-bold text-blue-600">{loading ? '-' : stats.pending}</p>
-        </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-3">
-          <p className="text-sm text-gray-500">Checked In</p>
-          <p className="text-xl font-bold text-amber-600">{loading ? '-' : stats.checkedIn}</p>
-        </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-3">
-          <p className="text-sm text-gray-500">Revenue Est.</p>
-          <p className="text-xl font-bold text-pink-600">{loading ? '-' : `$${stats.revenue.toLocaleString()}`}</p>
-        </div>
-      </div>
-
-      {/* Loading State */}
-      {loading && (
-        <div className="bg-white rounded-xl border border-gray-100 p-12 text-center">
-          <div className="animate-spin w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-          <p className="text-gray-500">Loading schedule...</p>
-        </div>
-      )}
-
-      {/* Calendar Grid - Provider View */}
-      {!loading && viewMode === 'provider' && displayProviders.length === 0 && (
-        <div className="bg-white rounded-xl border border-gray-100 p-12 text-center">
-          <div className="text-4xl mb-4">👩‍⚕️</div>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">No Providers Set Up</h3>
-          <p className="text-gray-500 mb-4">Add providers to see the calendar view</p>
-          <Link
-            href="/admin/staff"
-            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 inline-block"
-          >
-            Manage Staff
-          </Link>
-        </div>
-      )}
-
-      {!loading && viewMode === 'provider' && displayProviders.length > 0 && (
-        <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-          {/* Provider Headers */}
-          <div className="grid border-b border-gray-200" style={{ gridTemplateColumns: `80px repeat(${displayProviders.length}, 1fr)` }}>
-            <div className="p-3 bg-gray-50 border-r border-gray-200 text-sm font-medium text-gray-600">
-              Time
+            {/* View Toggle */}
+            <div className="flex bg-gray-100 rounded-lg p-1">
+              <button
+                onClick={() => setViewMode('day')}
+                className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${
+                  viewMode === 'day'
+                    ? 'bg-white text-slate-800 shadow-sm'
+                    : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                DAY
+              </button>
+              <button
+                onClick={() => setViewMode('week')}
+                className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${
+                  viewMode === 'week'
+                    ? 'bg-white text-slate-800 shadow-sm'
+                    : 'text-slate-500 hover:text-slate-700'
+                }`}
+              >
+                WEEK
+              </button>
             </div>
-            {displayProviders.map((provider, index) => (
-              <div key={provider.id} className="p-3 bg-gray-50 border-r border-gray-200 last:border-r-0">
-                <div className="flex items-center gap-2">
-                  <div className={`w-3 h-3 rounded-full ${PROVIDER_COLORS[index % PROVIDER_COLORS.length]}`} />
-                  <span className="font-medium text-gray-900">
-                    {provider.first_name} {provider.last_name}
-                  </span>
-                  {provider.title && (
-                    <span className="text-xs text-gray-500">, {provider.title}</span>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Time Slots */}
-          <div className="relative">
-            {TIME_SLOTS.map((time) => (
-              <div 
-                key={time} 
-                className="grid border-b border-gray-100"
-                style={{ gridTemplateColumns: `80px repeat(${displayProviders.length}, 1fr)` }}
-              >
-                {/* Time Label */}
-                <div className="p-2 border-r border-gray-200 text-xs text-gray-500 text-right pr-3 bg-gray-50">
-                  {time}
-                </div>
-                
-                {/* Provider Columns */}
-                {displayProviders.map((provider) => {
-                  const slotAppts = getAppointmentsForSlot(time, provider.id);
-                  const isHourStart = time.endsWith(':00');
-                  
-                  return (
-                    <div
-                      key={`${time}-${provider.id}`}
-                      className={`h-12 border-r border-gray-200 last:border-r-0 relative cursor-pointer hover:bg-pink-50 ${
-                        isHourStart ? 'border-t border-gray-300 bg-white' : 'bg-white'
-                      }`}
-                      onClick={() => !slotAppts.length && handleSlotClick(time, provider.id)}
-                    >
-                      {/* Render appointments that START at this time */}
-                      {filteredAppointments
-                        .filter(appt => getTime(appt.starts_at) === time && appt.provider_id === provider.id)
-                        .map((appt) => (
-                          <Link
-                            key={appt.id}
-                            href={`/admin/appointments/${appt.id}`}
-                            className={`absolute inset-x-1 rounded-lg border-l-4 p-2 z-10 ${STATUS_COLORS[appt.status] || STATUS_COLORS.booked} hover:shadow-md transition-shadow overflow-hidden`}
-                            style={getAppointmentStyle(appt)}
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <p className="font-medium text-sm truncate">
-                              {appt.client_name || 'Client'}
-                            </p>
-                            <p className="text-xs truncate opacity-75">
-                              {appt.service_name || 'Appointment'}
-                            </p>
-                          </Link>
-                        ))}
-                    </div>
-                  );
-                })}
-              </div>
-            ))}
           </div>
         </div>
-      )}
 
-      {/* Day View - List Style */}
-      {!loading && viewMode === 'day' && (
-        <div className="bg-white rounded-xl border border-gray-100">
-          {filteredAppointments.length === 0 ? (
-            <div className="p-12 text-center">
-              <p className="text-gray-500 mb-2">No appointments scheduled for this day</p>
-              <Link
-                href="/admin/appointments/new"
-                className="text-pink-600 hover:text-pink-700 font-medium"
+        {/* Provider Headers */}
+        <div className="flex border-b border-gray-200 bg-gray-50/50">
+          {/* Time column spacer */}
+          <div className="w-16 flex-shrink-0" />
+          
+          {/* Provider columns */}
+          {displayProviders.map((provider, idx) => {
+            const color = PROVIDER_COLORS[providers.findIndex(p => p.id === provider.id) % PROVIDER_COLORS.length];
+            return (
+              <div
+                key={provider.id}
+                className="flex-1 px-3 py-3 border-l border-gray-200 min-w-[180px]"
               >
-                + Book an appointment
-              </Link>
+                <div className="flex items-center gap-3">
+                  {/* Avatar */}
+                  <div className={`w-10 h-10 rounded-full ${color.accent} flex items-center justify-center text-white font-medium text-sm shadow-sm`}>
+                    {provider.first_name?.[0]}{provider.last_name?.[0]}
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-medium text-slate-800">
+                      {provider.first_name}
+                    </span>
+                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Calendar Grid */}
+        <div className="flex-1 overflow-auto">
+          {loading ? (
+            <div className="flex items-center justify-center h-full">
+              <div className="animate-spin w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full" />
             </div>
           ) : (
-            <div className="divide-y divide-gray-100">
-              {TIME_SLOTS.filter(t => t.endsWith(':00')).map((hour) => {
-                const hourAppts = filteredAppointments.filter(appt => {
-                  const apptHour = getTime(appt.starts_at).split(':')[0];
-                  return apptHour === hour.split(':')[0];
-                });
+            <div className="flex min-h-full">
+              {/* Time labels */}
+              <div className="w-16 flex-shrink-0 border-r border-gray-200">
+                {HOUR_LABELS.map((hour) => (
+                  <div key={hour} className="h-24 relative">
+                    <span className="absolute -top-2.5 right-3 text-xs text-gray-500 font-medium">
+                      {formatTimeDisplay(hour)}
+                    </span>
+                  </div>
+                ))}
+              </div>
 
+              {/* Provider columns */}
+              {displayProviders.map((provider) => {
+                const providerAppts = getProviderAppointments(provider.id);
+                const color = getProviderColor(provider.id);
+                
                 return (
-                  <div key={hour} className="flex">
-                    <div className="w-20 p-3 bg-gray-50 text-sm text-gray-500 font-medium">
-                      {parseInt(hour) > 12 ? `${parseInt(hour) - 12} PM` : parseInt(hour) === 12 ? '12 PM' : `${parseInt(hour)} AM`}
-                    </div>
-                    <div className="flex-1 p-3 min-h-[80px]">
-                      {hourAppts.length > 0 ? (
-                        <div className="space-y-2">
-                          {hourAppts.map((appt) => (
-                            <Link
-                              key={appt.id}
-                              href={`/admin/appointments/${appt.id}`}
-                              className={`block p-3 rounded-lg border ${STATUS_COLORS[appt.status] || STATUS_COLORS.booked} hover:shadow-md transition-shadow`}
-                            >
-                              <div className="flex items-center justify-between">
-                                <div>
-                                  <p className="font-medium">
-                                    {appt.client_name || 'Client'}
-                                  </p>
-                                  <p className="text-sm">{appt.service_name || 'Appointment'}</p>
-                                </div>
-                                <div className="text-right text-sm">
-                                  <p>{getTime(appt.starts_at)} - {getEndTime(appt.starts_at, appt.duration || 30)}</p>
-                                  <p className="opacity-75">
-                                    {appt.provider_name || 'Provider'}
-                                  </p>
-                                </div>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      ) : (
-                        <div 
-                          className="h-full flex items-center justify-center text-gray-400 text-sm cursor-pointer hover:bg-gray-50 rounded-lg"
-                          onClick={() => handleSlotClick(hour, displayProviders[0]?.id || '')}
+                  <div
+                    key={provider.id}
+                    className="flex-1 border-l border-gray-200 relative min-w-[180px]"
+                  >
+                    {/* Hour lines */}
+                    {HOUR_LABELS.map((hour) => (
+                      <div key={hour} className="h-24 border-b border-gray-100" />
+                    ))}
+
+                    {/* Appointments */}
+                    {providerAppts.map((appt) => {
+                      const style = getAppointmentStyle(appt);
+                      const isSelected = selectedAppointment?.id === appt.id;
+                      
+                      return (
+                        <button
+                          key={appt.id}
+                          onClick={() => setSelectedAppointment(appt)}
+                          className={`absolute left-1 right-1 rounded-lg border-l-4 p-2 text-left transition-all overflow-hidden ${color.bg} ${color.border} ${color.text} ${
+                            isSelected ? 'ring-2 ring-slate-400 shadow-lg z-20' : 'hover:shadow-md z-10'
+                          }`}
+                          style={style}
                         >
-                          Click to book
-                        </div>
-                      )}
-                    </div>
+                          <p className="font-semibold text-xs uppercase tracking-wide truncate">
+                            {appt.service_name || 'Appointment'}
+                          </p>
+                          <p className="font-medium text-sm mt-0.5 truncate">
+                            {appt.client_name || 'Client'}
+                          </p>
+                          <p className="text-xs opacity-75 mt-0.5">
+                            {formatApptTime(appt.starts_at)} - {getEndTime(appt.starts_at, appt.duration_minutes || appt.duration || 60)}
+                          </p>
+                        </button>
+                      );
+                    })}
                   </div>
                 );
               })}
             </div>
           )}
         </div>
-      )}
-
-      {/* Week View */}
-      {!loading && viewMode === 'week' && (
-        <div className="bg-white rounded-xl border border-gray-100 p-6">
-          <div className="grid grid-cols-7 gap-2">
-            {Array.from({ length: 7 }, (_, i) => {
-              const date = new Date(selectedDate);
-              date.setDate(date.getDate() - date.getDay() + i);
-              const isToday = date.toDateString() === new Date().toDateString();
-              const isSelected = date.toDateString() === selectedDate.toDateString();
-              
-              // Count appointments for the selected date (we have this data loaded)
-              const dayAppts = isSelected ? filteredAppointments.length : null;
-              
-              return (
-                <div 
-                  key={i} 
-                  className={`p-4 rounded-lg cursor-pointer transition-colors ${
-                    isSelected ? 'bg-pink-100 border-2 border-pink-300' :
-                    isToday ? 'bg-pink-50 border-2 border-pink-200' : 
-                    'bg-gray-50 hover:bg-gray-100'
-                  }`}
-                  onClick={() => {
-                    setSelectedDate(new Date(date));
-                    setViewMode('day');
-                  }}
-                >
-                  <p className="text-xs text-gray-500">
-                    {date.toLocaleDateString('en-US', { weekday: 'short' })}
-                  </p>
-                  <p className={`text-lg font-bold ${isToday || isSelected ? 'text-pink-600' : 'text-gray-900'}`}>
-                    {date.getDate()}
-                  </p>
-                  <p className="text-sm text-gray-500 mt-1">
-                    {dayAppts !== null ? `${dayAppts} appts` : 'Click to view'}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      )}
-
-      {/* Legend */}
-      <div className="bg-white rounded-xl border border-gray-100 p-4">
-        <p className="text-sm font-medium text-gray-700 mb-2">Status Legend</p>
-        <div className="flex flex-wrap gap-3">
-          {Object.entries(STATUS_COLORS).map(([status, classes]) => (
-            <div key={status} className="flex items-center gap-2">
-              <span className={`px-2 py-1 text-xs font-medium rounded ${classes}`}>
-                {status.replace('_', ' ')}
-              </span>
-            </div>
-          ))}
-        </div>
       </div>
 
-      {/* New Appointment Quick Modal */}
-      {showNewApptModal && selectedSlot && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-          <div className="bg-white rounded-xl max-w-md w-full">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">Quick Book</h2>
-              <p className="text-gray-500">
-                {selectedSlot.time} with {providers.find(p => p.id === selectedSlot.provider)?.first_name || 'Provider'}
-              </p>
-            </div>
-            <div className="p-6 space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Client *</label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="Search client by name..."
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
-                    onChange={(e) => {
-                      searchClients(e.target.value);
-                    }}
-                  />
-                  {clientSearchResults.length > 0 && (
-                    <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 max-h-48 overflow-y-auto">
-                      {clientSearchResults.map((client) => (
-                        <button
-                          key={client.id}
-                          type="button"
-                          onClick={() => {
-                            setQuickBookClient(client.id);
-                            setClientSearchResults([]);
-                          }}
-                          className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-center gap-3"
-                        >
-                          <div className="w-8 h-8 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 font-medium text-sm">
-                            {client.first_name?.[0]}{client.last_name?.[0]}
-                          </div>
-                          <div>
-                            <p className="font-medium text-gray-900">{client.first_name} {client.last_name}</p>
-                            <p className="text-xs text-gray-500">{client.email}</p>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                {quickBookClient && (
-                  <p className="text-sm text-green-600 mt-1">✓ Client selected</p>
-                )}
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Service *</label>
-                <select 
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
-                  value={quickBookService}
-                  onChange={(e) => setQuickBookService(e.target.value)}
+      {/* Right Panel - Appointment Detail */}
+      <div className="w-80 border-l border-gray-200 bg-white flex flex-col">
+        {selectedAppointment ? (
+          <>
+            {/* Panel Header */}
+            <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+              <h3 className="font-semibold text-slate-800">Appointment</h3>
+              <div className="flex items-center gap-2">
+                <button className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                  </svg>
+                </button>
+                <button 
+                  onClick={() => setSelectedAppointment(null)}
+                  className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500"
                 >
-                  <option value="">Select service...</option>
-                  {services.map(service => (
-                    <option key={service.id} value={service.id}>
-                      {service.name} - ${service.price || service.price_cents ? (service.price_cents / 100).toFixed(0) : 0}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-            <div className="p-6 border-t border-gray-100 flex justify-between">
-              <button
-                onClick={() => setShowNewApptModal(false)}
-                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
-              >
-                Cancel
-              </button>
-              <div className="flex gap-2">
-                <Link
-                  href={`/admin/appointments/new?provider=${selectedSlot?.provider}&date=${dateString}&time=${encodeURIComponent(selectedSlot?.time || '')}`}
-                  className="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200"
-                  onClick={() => setShowNewApptModal(false)}
-                >
-                  Full Form
-                </Link>
-                <button
-                  onClick={handleQuickBook}
-                  disabled={quickBookSaving || !quickBookClient || !quickBookService}
-                  className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {quickBookSaving ? 'Booking...' : 'Book Now'}
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
                 </button>
               </div>
             </div>
+
+            {/* Status & Checkout */}
+            <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+              {getStatusBadge(selectedAppointment.status)}
+              <Link
+                href={`/pos?appointment=${selectedAppointment.id}`}
+                className="px-4 py-2 bg-slate-800 text-white text-sm font-medium rounded-lg hover:bg-slate-700 transition-colors"
+              >
+                CHECKOUT
+              </Link>
+            </div>
+
+            {/* Date/Time */}
+            <div className="p-4 border-b border-gray-200">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-gray-500">On</span>
+                <span className="text-slate-800 font-medium">
+                  {new Date(selectedAppointment.starts_at).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+                </span>
+              </div>
+              <div className="flex items-center justify-between text-sm mt-2">
+                <span className="text-gray-500">At</span>
+                <span className="text-slate-800 font-medium">
+                  {formatApptTime(selectedAppointment.starts_at)}
+                </span>
+              </div>
+            </div>
+
+            {/* Client Info */}
+            <div className="p-4 border-b border-gray-200">
+              <div className="flex items-center gap-3">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-semibold text-lg">
+                  {selectedAppointment.client_name?.[0] || 'C'}
+                </div>
+                <div className="flex-1">
+                  <p className="font-semibold text-slate-800">
+                    {selectedAppointment.client_name || 'Client'}
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    Client since {new Date().getFullYear()}
+                  </p>
+                </div>
+                <button className="p-2 hover:bg-gray-100 rounded-lg text-gray-500">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Membership Badge */}
+              <div className="mt-4 p-3 bg-gray-50 rounded-xl flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-purple-500">👑</span>
+                  <div>
+                    <p className="text-sm font-medium text-slate-800">Radiance Membership</p>
+                    <p className="text-xs text-gray-500 flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                      Active
+                    </p>
+                  </div>
+                </div>
+                <button className="p-1.5 hover:bg-gray-200 rounded-lg text-gray-500">
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </button>
+              </div>
+
+              <button className="mt-3 text-sm text-pink-600 hover:text-pink-700 font-medium">
+                Show additional client info
+              </button>
+            </div>
+
+            {/* Service Details */}
+            <div className="p-4 flex-1">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="font-semibold text-slate-800">
+                    {selectedAppointment.service_name || 'Service'}
+                  </p>
+                </div>
+                <p className="text-lg font-bold text-slate-800">
+                  ${selectedAppointment.service_price || selectedAppointment.service?.price || 0}
+                </p>
+              </div>
+              
+              <div className="mt-3 text-sm text-gray-600 space-y-1">
+                <p>
+                  <span className="text-gray-500">with</span>{' '}
+                  <span className="font-medium">{selectedAppointment.provider_name || 'Provider'}</span>
+                  <span className="text-gray-500 ml-3">request: none</span>
+                </p>
+                <p>
+                  <span className="text-gray-500">at</span>{' '}
+                  <span className="font-medium">{formatApptTime(selectedAppointment.starts_at)}</span>
+                  <span className="text-gray-500 ml-3">for: {selectedAppointment.duration_minutes || selectedAppointment.duration || 60} min</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Booking Details */}
+            <div className="p-4 border-t border-gray-200">
+              <button className="text-sm text-gray-500 hover:text-gray-700 font-medium flex items-center gap-1">
+                Booking Details
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+            </div>
+          </>
+        ) : (
+          <div className="flex-1 flex items-center justify-center p-8 text-center">
+            <div>
+              <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <p className="text-gray-500 font-medium">Select an appointment</p>
+              <p className="text-sm text-gray-400 mt-1">Click on any appointment to view details</p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
