@@ -67,24 +67,24 @@ export function AdminHeader() {
   }, []);
 
   return (
-    <header className="bg-slate-800 text-white sticky top-0 z-50 border-b border-slate-700/50">
+    <header className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white sticky top-0 z-50 border-b border-slate-700/30 shadow-lg">
       <div className="flex items-center justify-between px-4 h-14 max-w-[1920px] mx-auto">
         <div className="flex items-center gap-4">
-          <Link href="/admin" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
-            <span className="text-xl" aria-hidden>💗</span>
-            <span className="font-semibold hidden sm:inline">Hello Gorgeous</span>
+          <Link href="/admin" className="flex items-center gap-2 hover:opacity-90 transition-opacity group">
+            <span className="text-xl group-hover:scale-110 transition-transform" aria-hidden>💗</span>
+            <span className="font-bold hidden sm:inline bg-gradient-to-r from-pink-400 to-rose-300 bg-clip-text text-transparent">Hello Gorgeous</span>
           </Link>
           
           {/* View Switcher Tabs - Desktop */}
-          <div className="hidden md:flex items-center bg-slate-700/50 rounded-lg p-0.5">
+          <div className="hidden md:flex items-center bg-slate-700/40 backdrop-blur-sm rounded-xl p-1">
             {DASHBOARD_VIEWS.map((view) => (
               <Link
                 key={view.id}
                 href={view.href}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                   currentView === view.id
-                    ? 'bg-slate-600 text-white shadow-sm'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
+                    ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-md'
+                    : 'text-slate-300 hover:text-white hover:bg-slate-600/50'
                 }`}
               >
                 <span aria-hidden>{view.icon}</span>
@@ -179,21 +179,21 @@ export function AdminHeader() {
             href="https://accounts.charmtracker.com/signin"
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden lg:inline-flex items-center gap-1.5 px-3 py-2 bg-purple-600 hover:bg-purple-500 rounded-lg text-sm font-medium transition-colors"
+            className="hidden lg:inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-500 hover:to-violet-500 rounded-xl text-sm font-medium transition-all shadow-md hover:shadow-lg"
           >
             <span aria-hidden>🏥</span>
             Charm EHR
           </a>
           <Link
             href="/admin/appointments/new"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 bg-pink-500 hover:bg-pink-600 rounded-lg text-sm font-medium transition-colors"
+            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-400 hover:to-rose-400 rounded-xl text-sm font-medium transition-all shadow-md hover:shadow-lg hover:shadow-pink-500/25"
           >
             <span aria-hidden>➕</span>
             Book
           </Link>
-          <button type="button" className="relative p-2 hover:bg-slate-700 rounded-lg transition-colors" aria-label="Notifications">
+          <button type="button" className="relative p-2.5 hover:bg-slate-700/50 rounded-xl transition-all" aria-label="Notifications">
             <span aria-hidden>🔔</span>
-            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full" aria-hidden />
+            <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-gradient-to-r from-red-500 to-rose-500 rounded-full animate-pulse" aria-hidden />
           </button>
 
           {isLoading ? (

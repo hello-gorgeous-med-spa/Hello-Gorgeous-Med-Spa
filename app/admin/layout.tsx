@@ -14,7 +14,7 @@ import { ToastProvider } from '@/components/ui/Toast';
 import { KeyboardShortcutsProvider } from '@/components/ui/KeyboardShortcuts';
 import { MobileNav } from '@/components/ui/MobileNav';
 
-// Collapsible nav section component
+// Collapsible nav section component - Modern dark sidebar style
 function NavSection({ 
   title, 
   icon,
@@ -39,19 +39,21 @@ function NavSection({
   }, [hasActiveItem, pathname]);
 
   return (
-    <div className="border-b border-gray-100 last:border-0">
+    <div className="border-b border-slate-700/50 last:border-0">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-colors ${
-          hasActiveItem ? 'bg-pink-50/50' : 'hover:bg-gray-50'
+        className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all ${
+          hasActiveItem 
+            ? 'bg-gradient-to-r from-pink-500/20 to-purple-500/10 border-l-2 border-pink-400' 
+            : 'hover:bg-slate-700/50'
         }`}
       >
         <span className="text-lg">{icon}</span>
-        <span className={`flex-1 font-medium text-sm ${hasActiveItem ? 'text-pink-700' : 'text-gray-700'}`}>
+        <span className={`flex-1 font-medium text-sm ${hasActiveItem ? 'text-pink-300' : 'text-slate-300'}`}>
           {title}
         </span>
         <svg 
-          className={`w-4 h-4 text-gray-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 text-slate-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
           fill="none" 
           stroke="currentColor" 
           viewBox="0 0 24 24"
@@ -66,13 +68,13 @@ function NavSection({
             <li key={item.href}>
               <Link
                 href={item.href}
-                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all ${
                   isActive(item.href)
-                    ? 'bg-pink-100 text-pink-700 font-medium'
-                    : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+                    ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium shadow-lg shadow-pink-500/20'
+                    : 'text-slate-400 hover:bg-slate-700/70 hover:text-white'
                 }`}
               >
-                <span className="text-base">{item.icon}</span>
+                <span className="text-base opacity-80">{item.icon}</span>
                 <span>{item.label}</span>
               </Link>
             </li>
@@ -213,20 +215,20 @@ export default function AdminLayout({
   return (
     <ToastProvider>
       <KeyboardShortcutsProvider>
-        <div className="min-h-screen bg-gray-50 admin-panel">
+        <div className="min-h-screen bg-slate-100 admin-panel">
           <AdminHeader />
 
           <div className="flex">
-            {/* Sidebar - Collapsible sections */}
-            <aside className="w-64 bg-white border-r border-gray-200 min-h-[calc(100vh-56px)] sticky top-14 hidden lg:block overflow-y-auto">
+            {/* Sidebar - Modern dark design */}
+            <aside className="w-64 bg-gradient-to-b from-slate-800 to-slate-900 min-h-[calc(100vh-56px)] sticky top-14 hidden lg:block overflow-y-auto shadow-xl">
               {/* Dashboard link - always visible */}
-              <div className="p-3 border-b border-gray-100">
+              <div className="p-3 border-b border-slate-700/50">
                 <Link
                   href="/admin"
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-colors ${
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                     pathname === '/admin'
-                      ? 'bg-pink-100 text-pink-700 font-medium'
-                      : 'text-gray-700 hover:bg-gray-50'
+                      ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium shadow-lg shadow-pink-500/30'
+                      : 'text-slate-300 hover:bg-slate-700/50'
                   }`}
                 >
                   <span className="text-lg">📊</span>
@@ -234,7 +236,7 @@ export default function AdminLayout({
                 </Link>
                 <Link
                   href="/pos"
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-gray-700 hover:bg-gray-50 transition-colors mt-1"
+                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-300 hover:bg-slate-700/50 transition-all mt-1"
                 >
                   <span className="text-lg">💳</span>
                   <span className="font-medium">POS / Checkout</span>
@@ -255,16 +257,16 @@ export default function AdminLayout({
               </nav>
 
               {/* Footer */}
-              <div className="sticky bottom-0 left-0 right-0 p-3 border-t border-gray-100 bg-white/95 backdrop-blur">
+              <div className="sticky bottom-0 left-0 right-0 p-4 border-t border-slate-700/50 bg-slate-900/95 backdrop-blur">
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-pink-500 text-sm">💗</span>
-                  <p className="text-xs text-gray-500 font-medium">Hello Gorgeous OS</p>
+                  <span className="text-pink-400 text-sm">💗</span>
+                  <p className="text-xs text-slate-400 font-medium">Hello Gorgeous OS</p>
                 </div>
               </div>
             </aside>
 
-            {/* Mobile Bottom Nav */}
-            <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 safe-area-pb shadow-[0_-2px_10px_rgba(0,0,0,0.05)]">
+            {/* Mobile Bottom Nav - Modern dark design */}
+            <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-800 border-t border-slate-700 z-50 safe-area-pb shadow-[0_-4px_20px_rgba(0,0,0,0.3)]">
               <div className="flex justify-around items-center h-16 px-2">
                 <MobileNav />
                 {[
@@ -276,8 +278,10 @@ export default function AdminLayout({
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`flex flex-col items-center justify-center gap-1 min-w-[56px] py-2 rounded-xl transition-colors ${
-                      isActive(item.href) ? 'text-pink-600 bg-pink-50' : 'text-gray-500 hover:text-gray-700'
+                    className={`flex flex-col items-center justify-center gap-1 min-w-[56px] py-2 rounded-xl transition-all ${
+                      isActive(item.href) 
+                        ? 'text-pink-400 bg-pink-500/20' 
+                        : 'text-slate-400 hover:text-white'
                     }`}
                   >
                     <span className="text-xl">{item.icon}</span>
@@ -287,8 +291,8 @@ export default function AdminLayout({
               </div>
             </nav>
 
-            {/* Main Content */}
-            <main className="flex-1 p-6 pb-24 lg:pb-6 min-h-[calc(100vh-56px)]">
+            {/* Main Content - Light background for contrast */}
+            <main className="flex-1 p-6 pb-24 lg:pb-6 min-h-[calc(100vh-56px)] bg-gradient-to-br from-slate-50 to-gray-100">
               {children}
             </main>
           </div>

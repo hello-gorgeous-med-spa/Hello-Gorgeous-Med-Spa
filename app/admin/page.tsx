@@ -103,38 +103,53 @@ function KPICard({
   loading,
   color = 'gray',
   icon,
+  gradient,
 }: { 
   label: string; 
   value: string | number; 
   subValue?: string;
   trend?: { value: number; positive: boolean };
   loading?: boolean;
-  color?: 'gray' | 'green' | 'red' | 'blue' | 'purple' | 'amber';
+  color?: 'gray' | 'green' | 'red' | 'blue' | 'purple' | 'amber' | 'pink' | 'teal';
   icon?: string;
+  gradient?: boolean;
 }) {
   const colorClasses = {
     gray: 'text-gray-900',
-    green: 'text-green-600',
-    red: 'text-red-600',
+    green: 'text-emerald-600',
+    red: 'text-rose-600',
     blue: 'text-blue-600',
-    purple: 'text-purple-600',
+    purple: 'text-violet-600',
     amber: 'text-amber-600',
+    pink: 'text-pink-600',
+    teal: 'text-teal-600',
   };
 
+  const gradientBg = gradient ? {
+    green: 'bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-100',
+    blue: 'bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100',
+    pink: 'bg-gradient-to-br from-pink-50 to-rose-50 border-pink-100',
+    purple: 'bg-gradient-to-br from-violet-50 to-purple-50 border-violet-100',
+    amber: 'bg-gradient-to-br from-amber-50 to-orange-50 border-amber-100',
+    teal: 'bg-gradient-to-br from-teal-50 to-cyan-50 border-teal-100',
+    red: 'bg-gradient-to-br from-rose-50 to-red-50 border-rose-100',
+    gray: 'bg-white border-gray-100',
+  }[color] : 'bg-white border-gray-100';
+
   return (
-    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+    <div className={`rounded-xl border shadow-sm p-5 transition-all hover:shadow-md ${gradientBg}`}>
       <div className="flex items-start justify-between">
-        <p className="text-sm text-gray-500 mb-1">{label}</p>
-        {icon && <span className="text-xl">{icon}</span>}
+        <p className="text-sm font-medium text-gray-600 mb-1">{label}</p>
+        {icon && <span className="text-xl opacity-80">{icon}</span>}
       </div>
       {loading ? (
         <Skeleton className="w-24 h-8" />
       ) : (
         <>
-          <p className={`text-3xl font-bold ${colorClasses[color]}`}>{value}</p>
+          <p className={`text-3xl font-bold tracking-tight ${colorClasses[color]}`}>{value}</p>
           {subValue && <p className="text-sm text-gray-500 mt-1">{subValue}</p>}
           {trend && (
-            <p className={`text-sm mt-1 ${trend.positive ? 'text-green-600' : 'text-red-600'}`}>
+            <p className={`text-sm mt-1 font-medium ${trend.positive ? 'text-emerald-600' : 'text-rose-600'}`}>
               {trend.positive ? '↑' : '↓'} {Math.abs(trend.value)}% vs last period
             </p>
           )}
@@ -412,23 +427,25 @@ export default function ExecutiveDashboard() {
 
   return (
     <div className="space-y-6 print:space-y-4">
-      {/* Header */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 print:hidden">
+      {/* Header - Modern glassmorphic style */}
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 print:hidden bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-sm border border-white/50">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Executive Dashboard</h1>
-          <p className="text-gray-500">{today}</p>
+          <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">
+            Executive Dashboard
+          </h1>
+          <p className="text-slate-500 mt-0.5">{today}</p>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          {/* Date Range Filter */}
-          <div className="flex border border-gray-200 rounded-lg overflow-hidden">
+          {/* Date Range Filter - Pill style */}
+          <div className="flex bg-slate-100 rounded-xl p-1">
             {(['today', 'week', 'month', 'year'] as const).map((range) => (
               <button
                 key={range}
                 onClick={() => setDateRange(range)}
-                className={`px-3 py-2 text-sm font-medium capitalize ${
+                className={`px-4 py-2 text-sm font-medium capitalize rounded-lg transition-all ${
                   dateRange === range
-                    ? 'bg-pink-500 text-white'
-                    : 'bg-white text-gray-600 hover:bg-gray-50'
+                    ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-md'
+                    : 'text-slate-600 hover:bg-white/70'
                 }`}
               >
                 {range === 'today' ? 'Today' : range === 'week' ? 'Week' : range === 'month' ? 'Month' : 'Year'}
@@ -440,7 +457,7 @@ export default function ExecutiveDashboard() {
           <select
             value={selectedProvider}
             onChange={(e) => setSelectedProvider(e.target.value)}
-            className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+            className="px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-700 shadow-sm focus:ring-2 focus:ring-pink-500/20 focus:border-pink-300 transition-all"
           >
             <option value="all">All Providers</option>
             {providers.map((p) => (
@@ -451,13 +468,13 @@ export default function ExecutiveDashboard() {
           {/* Export Buttons */}
           <button
             onClick={handleExportCSV}
-            className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 text-sm"
+            className="px-4 py-2.5 bg-white border border-slate-200 text-slate-700 font-medium rounded-xl hover:bg-slate-50 hover:border-slate-300 text-sm shadow-sm transition-all"
           >
             📊 Export CSV
           </button>
           <button
             onClick={handleExportPDF}
-            className="px-4 py-2 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 text-sm"
+            className="px-4 py-2.5 bg-slate-800 text-white font-medium rounded-xl hover:bg-slate-700 text-sm shadow-md transition-all"
           >
             📄 Print/PDF
           </button>
@@ -465,7 +482,7 @@ export default function ExecutiveDashboard() {
           {/* Quick Actions */}
           <Link
             href="/admin/appointments/new"
-            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 text-sm"
+            className="px-5 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium rounded-xl hover:from-pink-600 hover:to-rose-600 text-sm shadow-lg shadow-pink-500/30 transition-all"
           >
             + New Booking
           </Link>
@@ -485,7 +502,7 @@ export default function ExecutiveDashboard() {
         </div>
       )}
 
-      {/* Revenue KPIs */}
+      {/* Revenue KPIs - Modern gradient cards */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
         <KPICard
           label="Today's Revenue"
@@ -494,31 +511,41 @@ export default function ExecutiveDashboard() {
           loading={loading}
           color="green"
           icon="💰"
+          gradient
         />
         <KPICard
           label="Week Revenue"
           value={`$${(stats?.weekRevenue || 0).toLocaleString()}`}
           loading={loading}
-          color="green"
+          color="blue"
+          icon="📈"
+          gradient
         />
         <KPICard
           label="Month Revenue"
           value={`$${(stats?.monthRevenue || 0).toLocaleString()}`}
           subValue={`${stats?.monthAppointments || 0} appointments`}
           loading={loading}
-          color="green"
+          color="pink"
+          icon="🎯"
+          gradient
         />
         <KPICard
           label="Avg Ticket"
           value={`$${(stats?.avgTicket || 0).toLocaleString()}`}
           loading={loading}
+          color="purple"
+          icon="🎫"
+          gradient
         />
         <KPICard
           label="Membership MRR"
           value={`$${(stats?.membershipMRR || 0).toLocaleString()}`}
           subValue={`${stats?.activeMembers || 0} members`}
           loading={loading}
-          color="purple"
+          color="teal"
+          icon="⭐"
+          gradient
         />
       </div>
 
@@ -530,30 +557,40 @@ export default function ExecutiveDashboard() {
           subValue={`${stats?.completedToday || 0} completed`}
           loading={loading}
           icon="📅"
+          color="blue"
+          gradient
         />
         <KPICard
           label="Utilization Rate"
           value={`${stats?.utilizationRate || 0}%`}
           loading={loading}
           color={stats?.utilizationRate && stats.utilizationRate >= 80 ? 'green' : 'amber'}
+          icon="⚡"
+          gradient
         />
         <KPICard
           label="No-Show Rate"
           value={`${stats?.noShowRate || 0}%`}
           loading={loading}
           color={stats?.noShowRate && stats.noShowRate > 10 ? 'red' : 'green'}
+          icon="👻"
+          gradient
         />
         <KPICard
           label="Cancellation Rate"
           value={`${stats?.cancellationRate || 0}%`}
           loading={loading}
-          color={stats?.cancellationRate && stats.cancellationRate > 15 ? 'red' : 'green'}
+          color={stats?.cancellationRate && stats.cancellationRate > 15 ? 'red' : 'amber'}
+          icon="❌"
+          gradient
         />
         <KPICard
           label="Rebook Rate"
           value={`${stats?.rebookRate || 0}%`}
           loading={loading}
           color={stats?.rebookRate && stats.rebookRate >= 60 ? 'green' : 'amber'}
+          icon="🔄"
+          gradient
         />
       </div>
 
@@ -564,22 +601,32 @@ export default function ExecutiveDashboard() {
           value={(stats?.totalClients || 0).toLocaleString()}
           loading={loading}
           icon="👥"
+          color="purple"
+          gradient
         />
         <KPICard
           label="New This Month"
           value={stats?.newClientsMonth || 0}
           loading={loading}
           color="blue"
+          icon="✨"
+          gradient
         />
         <KPICard
           label="Service Revenue"
           value={`$${(stats?.serviceRevenue || 0).toLocaleString()}`}
           loading={loading}
+          icon="💆"
+          color="pink"
+          gradient
         />
         <KPICard
           label="Retail Revenue"
           value={`$${(stats?.retailRevenue || 0).toLocaleString()}`}
           loading={loading}
+          icon="🛍️"
+          color="amber"
+          gradient
         />
       </div>
 
