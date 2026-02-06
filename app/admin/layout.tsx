@@ -128,7 +128,7 @@ const NAV_SECTIONS = [
     icon: '💉',
     items: [
       { href: '/admin/charting/injection-map', label: 'Injection Mapping', icon: '💉' },
-      { href: '/admin/charts', label: 'Charts & Notes', icon: '📋' },
+      { href: '/charting', label: 'Charting Hub', icon: '📋' },
       { href: '/admin/consents', label: 'Consent Forms', icon: '📝' },
       { href: '/admin/medications', label: 'Medications', icon: '💊' },
       { href: '/admin/inventory', label: 'Inventory', icon: '📦' },

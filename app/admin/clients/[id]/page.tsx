@@ -348,6 +348,97 @@ function InjectionMapsPreview({ clientId }: { clientId: string }) {
   );
 }
 
+// Client Chart Notes component
+function ClientChartNotes({ clientId }: { clientId: string }) {
+  const [notes, setNotes] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchNotes() {
+      try {
+        const res = await fetch(`/api/chart-notes?client_id=${clientId}&limit=5`);
+        const data = await res.json();
+        setNotes(data.notes || []);
+      } catch (err) {
+        console.error('Failed to load chart notes:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchNotes();
+  }, [clientId]);
+
+  const formatDate = (dateStr: string) => {
+    return new Date(dateStr).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric',
+    });
+  };
+
+  const STATUS_COLORS: Record<string, string> = {
+    draft: 'bg-yellow-100 text-yellow-800',
+    final: 'bg-green-100 text-green-800',
+    locked: 'bg-blue-100 text-blue-800',
+    amended: 'bg-purple-100 text-purple-800',
+  };
+
+  if (loading) {
+    return <Skeleton className="h-32 rounded-xl" />;
+  }
+
+  return (
+    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-semibold text-gray-900">Chart Notes</h3>
+        <Link
+          href={`/charting?client_id=${clientId}`}
+          className="text-sm text-pink-600 hover:text-pink-700"
+        >
+          View All →
+        </Link>
+      </div>
+      {notes.length === 0 ? (
+        <div className="text-center py-4">
+          <span className="text-3xl mb-2 block">📋</span>
+          <p className="text-gray-500 text-sm">No chart notes yet</p>
+          <Link
+            href={`/charting?client=${clientId}`}
+            className="text-pink-600 text-sm hover:text-pink-700 mt-1 inline-block"
+          >
+            Create first note →
+          </Link>
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {notes.map((note) => (
+            <Link
+              key={note.id}
+              href={note.status === 'draft' ? `/charting/${note.id}/edit` : `/charting?note=${note.id}`}
+              className="block border-b border-gray-100 pb-3 last:border-0 hover:bg-gray-50 -mx-2 px-2 py-1 rounded transition-colors"
+            >
+              <div className="flex items-center justify-between">
+                <p className="font-medium text-gray-900 text-sm">
+                  {note.title || note.service_name || 'Chart Note'}
+                </p>
+                <span className={`px-2 py-0.5 text-xs font-medium rounded ${STATUS_COLORS[note.status] || 'bg-gray-100 text-gray-800'}`}>
+                  {note.status.toUpperCase()}
+                </span>
+              </div>
+              <p className="text-xs text-gray-500 mt-0.5">
+                {formatDate(note.created_at)} • {note.created_by_name || 'Staff'}
+              </p>
+              {note.assessment && (
+                <p className="text-xs text-gray-600 mt-1 line-clamp-1">{note.assessment}</p>
+              )}
+            </Link>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function AdminClientDetailPage({ params }: { params: { id: string } }) {
   const [activeTab, setActiveTab] = useState<'overview' | 'appointments' | 'payments' | 'clinical' | 'documents'>('overview');
   
@@ -966,7 +1057,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
                 <span className="font-medium text-gray-700">New Injection Map</span>
               </Link>
               <Link
-                href={`/admin/charts?client=${client.id}`}
+                href={`/charting?client=${client.id}`}
                 className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-purple-200 rounded-lg hover:bg-purple-50 transition-colors"
               >
                 <span>📋</span>
@@ -1029,40 +1120,8 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
               </div>
             </div>
 
-            {/* Chart History */}
-            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-gray-900">Chart History</h3>
-                <Link
-                  href={`/admin/charts?client=${client.id}`}
-                  className="text-sm text-pink-600 hover:text-pink-700"
-                >
-                  View All →
-                </Link>
-              </div>
-              <div className="space-y-3">
-                {appointments.filter((a) => a.status === 'completed').slice(0, 4).map((apt) => (
-                  <Link
-                    key={apt.id}
-                    href={`/admin/charts/${apt.id}`}
-                    className="block border-b border-gray-100 pb-3 last:border-0 hover:bg-gray-50 -mx-2 px-2 py-1 rounded transition-colors"
-                  >
-                    <div className="flex items-center justify-between">
-                      <p className="font-medium text-gray-900">{apt.service_name || 'Service'}</p>
-                      <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
-                        ✓ Signed
-                      </span>
-                    </div>
-                    <p className="text-sm text-gray-500">
-                      {formatDate(apt.starts_at)} • {apt.provider_name || 'Provider'}
-                    </p>
-                  </Link>
-                ))}
-                {appointments.filter((a) => a.status === 'completed').length === 0 && (
-                  <p className="text-gray-500 text-sm">No completed appointments yet</p>
-                )}
-              </div>
-            </div>
+            {/* Chart Notes */}
+            <ClientChartNotes clientId={client.id} />
 
             {/* Injection Maps */}
             <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">

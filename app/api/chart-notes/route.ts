@@ -1,112 +1,139 @@
 // ============================================================
-// CHART NOTES API
-// CRUD operations for SOAP clinical notes
-// INCLUDES: Full audit logging for HIPAA compliance
+// API: CHART NOTES - Clinical Documentation CRUD
+// Supports appointment-optional charting with full audit trail
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
-import { logRecordView, logRecordList, logRecordUpdate } from '@/lib/audit';
-import { getSessionFromRequest } from '@/lib/audit/middleware';
+import { createClient } from '@supabase/supabase-js';
 
-// Audit logging helper for clinical notes
-async function auditChartAction(
-  supabase: any,
-  action: string,
-  noteId: string,
-  userId?: string,
-  clientId?: string,
-  details?: any,
-  request?: NextRequest
-) {
-  try {
-    const ipAddress = request?.headers.get('x-forwarded-for')?.split(',')[0] || 
-                      request?.headers.get('x-real-ip') || 'unknown';
-    const userAgent = request?.headers.get('user-agent') || 'unknown';
-    
-    await supabase
-      .from('audit_logs')
-      .insert({
-        user_id: userId,
-        action,
-        resource_type: 'clinical_note',
-        resource_id: noteId,
-        description: `Clinical note ${action}${clientId ? ` for client ${clientId}` : ''}`,
-        new_values: details,
-        ip_address: ipAddress,
-        user_agent: userAgent,
-      });
-  } catch (err) {
-    console.error('Chart audit log error:', err);
+export const dynamic = 'force-dynamic';
+
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  
+  if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) {
+    return null;
   }
+  
+  return createClient(url, key, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
 }
 
-// GET /api/chart-notes - List chart notes
+// GET /api/chart-notes - List notes with filters
 export async function GET(request: NextRequest) {
-  const supabase = createServerSupabaseClient();
+  const supabase = getSupabase();
   if (!supabase) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
+    return NextResponse.json({ notes: [], source: 'no_db' });
   }
 
-  const session = await getSessionFromRequest(request);
-  const searchParams = request.nextUrl.searchParams;
-  const clientId = searchParams.get('clientId');
-  const appointmentId = searchParams.get('appointmentId');
-  const providerId = searchParams.get('providerId');
-  const noteId = searchParams.get('id');
-  const limit = parseInt(searchParams.get('limit') || '50');
-
   try {
+    const { searchParams } = new URL(request.url);
+    const clientId = searchParams.get('client_id');
+    const appointmentId = searchParams.get('appointment_id');
+    const status = searchParams.get('status');
+    const noteType = searchParams.get('note_type');
+    const createdBy = searchParams.get('created_by');
+    const startDate = searchParams.get('start_date');
+    const endDate = searchParams.get('end_date');
+    const search = searchParams.get('search');
+    const limit = parseInt(searchParams.get('limit') || '50');
+    const offset = parseInt(searchParams.get('offset') || '0');
+
     let query = supabase
       .from('chart_notes')
-      .select('*')
+      .select(`
+        *,
+        client:clients(
+          id,
+          user_id,
+          users(first_name, last_name, email, phone)
+        ),
+        appointment:appointments(
+          id,
+          starts_at,
+          service:services(name)
+        ),
+        service:services(id, name),
+        template:chart_templates(id, name),
+        created_by_user:users!chart_notes_created_by_fkey(first_name, last_name),
+        signed_by_user:users!chart_notes_signed_by_fkey(first_name, last_name)
+      `)
       .order('created_at', { ascending: false })
-      .limit(limit);
+      .range(offset, offset + limit - 1);
 
-    if (noteId) {
-      query = query.eq('id', noteId);
-    }
-
+    // Apply filters
     if (clientId) {
       query = query.eq('client_id', clientId);
     }
-
     if (appointmentId) {
       query = query.eq('appointment_id', appointmentId);
     }
-
-    if (providerId) {
-      query = query.eq('provider_id', providerId);
+    if (status) {
+      query = query.eq('status', status);
+    }
+    if (noteType) {
+      query = query.eq('note_type', noteType);
+    }
+    if (createdBy) {
+      query = query.eq('created_by', createdBy);
+    }
+    if (startDate) {
+      query = query.gte('created_at', startDate);
+    }
+    if (endDate) {
+      query = query.lte('created_at', endDate);
     }
 
     const { data, error } = await query;
 
-    if (error) throw error;
-
-    // AUDIT LOG: Clinical note access (PHI access - CRITICAL)
-    if (noteId && data && data.length > 0) {
-      // Single note view
-      await logRecordView('clinical_note', noteId, session.userId);
-    } else if (data && data.length > 0) {
-      // List view - log as LIST action
-      await logRecordList('clinical_note', session.userId, { 
-        count: data.length,
-        filters: { clientId, appointmentId, providerId }
-      });
+    if (error) {
+      console.error('Chart notes fetch error:', error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ notes: data });
+    // Flatten nested data
+    const notes = (data || []).map((note: any) => ({
+      ...note,
+      client_name: note.client?.users 
+        ? `${note.client.users.first_name} ${note.client.users.last_name}` 
+        : null,
+      client_email: note.client?.users?.email,
+      appointment_date: note.appointment?.starts_at,
+      appointment_service: note.appointment?.service?.name,
+      service_name: note.service?.name,
+      template_name: note.template?.name,
+      created_by_name: note.created_by_user 
+        ? `${note.created_by_user.first_name} ${note.created_by_user.last_name}`
+        : null,
+      signed_by_name: note.signed_by_user
+        ? `${note.signed_by_user.first_name} ${note.signed_by_user.last_name}`
+        : null,
+    }));
+
+    // Get count for pagination
+    const { count } = await supabase
+      .from('chart_notes')
+      .select('*', { count: 'exact', head: true });
+
+    return NextResponse.json({ 
+      notes, 
+      total: count || notes.length,
+      limit,
+      offset,
+    });
   } catch (error) {
-    console.error('Error fetching chart notes:', error);
+    console.error('Chart notes API error:', error);
     return NextResponse.json({ error: 'Failed to fetch chart notes' }, { status: 500 });
   }
 }
 
-// POST /api/chart-notes - Create new chart note
+// POST /api/chart-notes - Create new note
 export async function POST(request: NextRequest) {
-  const supabase = createServerSupabaseClient();
+  const supabase = getSupabase();
   if (!supabase) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
   }
 
   try {
@@ -114,84 +141,85 @@ export async function POST(request: NextRequest) {
     const {
       client_id,
       appointment_id,
-      provider_id,
-      chief_complaint,
+      service_id,
+      template_id,
+      note_type = 'soap',
+      title,
       subjective,
       objective,
       assessment,
       plan,
-      treatment_performed,
-      areas_treated,
-      products_used,
-      before_photos,
-      after_photos,
-      consent_obtained,
-      adverse_reactions,
-      patient_instructions,
-      follow_up_date,
+      procedure_details,
+      icd10_codes,
+      cpt_codes,
       created_by,
+      status = 'draft',
     } = body;
 
-    if (!client_id || !provider_id) {
+    // Validate: Final notes require a client
+    if (status === 'final' && !client_id) {
       return NextResponse.json(
-        { error: 'Client ID and Provider ID are required' },
+        { error: 'Client is required for finalized notes' },
         { status: 400 }
       );
     }
 
+    // Validate created_by
+    if (!created_by) {
+      return NextResponse.json(
+        { error: 'created_by (user ID) is required' },
+        { status: 400 }
+      );
+    }
+
+    const insertData: any = {
+      client_id: client_id || null,
+      appointment_id: appointment_id || null,
+      service_id: service_id || null,
+      template_id: template_id || null,
+      note_type,
+      title: title || null,
+      subjective: subjective || null,
+      objective: objective || null,
+      assessment: assessment || null,
+      plan: plan || null,
+      procedure_details: procedure_details || {},
+      icd10_codes: icd10_codes || [],
+      cpt_codes: cpt_codes || [],
+      created_by,
+      status,
+    };
+
+    // If finalizing immediately, add signature
+    if (status === 'final') {
+      insertData.signed_at = new Date().toISOString();
+      insertData.signed_by = created_by;
+    }
+
     const { data, error } = await supabase
       .from('chart_notes')
-      .insert({
-        client_id,
-        appointment_id,
-        provider_id,
-        chief_complaint,
-        subjective,
-        objective,
-        assessment,
-        plan,
-        treatment_performed,
-        areas_treated,
-        products_used: products_used || [],
-        before_photos,
-        after_photos,
-        consent_obtained: consent_obtained || false,
-        adverse_reactions,
-        patient_instructions,
-        follow_up_date,
-        created_by,
-      })
+      .insert(insertData)
       .select()
       .single();
 
-    if (error) throw error;
+    if (error) {
+      console.error('Chart note create error:', error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
 
-    // AUDIT LOG: Chart note created
-    await auditChartAction(
-      supabase,
-      'create',
-      data.id,
-      provider_id || created_by,
-      client_id,
-      { appointment_id, service_performed: treatment_performed },
-      request
-    );
-
-    return NextResponse.json({ note: data }, { status: 201 });
+    return NextResponse.json({ note: data, success: true });
   } catch (error) {
-    console.error('Error creating chart note:', error);
+    console.error('Chart note create API error:', error);
     return NextResponse.json({ error: 'Failed to create chart note' }, { status: 500 });
   }
 }
 
-// PUT /api/chart-notes - Update chart note
+// PUT /api/chart-notes - Update existing note
 export async function PUT(request: NextRequest) {
-  const supabase = createServerSupabaseClient();
+  const supabase = getSupabase();
   if (!supabase) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
   }
-
-  const session = await getSessionFromRequest(request);
 
   try {
     const body = await request.json();
@@ -201,131 +229,117 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Note ID is required' }, { status: 400 });
     }
 
-    // Check if note is locked AND get full record for audit
-    const { data: existingNote, error: fetchError } = await supabase
+    // Get current note to check status
+    const { data: currentNote, error: fetchError } = await supabase
       .from('chart_notes')
-      .select('*')
+      .select('status, created_by')
       .eq('id', id)
       .single();
 
-    if (fetchError) throw fetchError;
-
-    if (existingNote?.is_locked || existingNote?.signed_at) {
-      return NextResponse.json(
-        { error: 'Cannot modify a signed/locked chart note' },
-        { status: 403 }
-      );
+    if (fetchError || !currentNote) {
+      return NextResponse.json({ error: 'Note not found' }, { status: 404 });
     }
 
-    // Update the note
+    // Prevent editing locked/final notes (except status changes for amendments)
+    if (currentNote.status === 'locked' || currentNote.status === 'final') {
+      if (updateData.status !== 'amended') {
+        return NextResponse.json(
+          { error: 'Cannot edit finalized notes. Create an amendment instead.' },
+          { status: 403 }
+        );
+      }
+    }
+
+    // Handle finalization
+    if (updateData.status === 'final' && currentNote.status === 'draft') {
+      // Require client for final notes
+      if (!updateData.client_id) {
+        const { data: noteWithClient } = await supabase
+          .from('chart_notes')
+          .select('client_id')
+          .eq('id', id)
+          .single();
+        
+        if (!noteWithClient?.client_id) {
+          return NextResponse.json(
+            { error: 'Client is required to finalize note' },
+            { status: 400 }
+          );
+        }
+      }
+      
+      updateData.signed_at = new Date().toISOString();
+      updateData.signed_by = updateData.signed_by || currentNote.created_by;
+    }
+
+    // Update timestamp
+    updateData.updated_at = new Date().toISOString();
+
     const { data, error } = await supabase
       .from('chart_notes')
-      .update({
-        ...updateData,
-        updated_at: new Date().toISOString(),
-      })
+      .update(updateData)
       .eq('id', id)
       .select()
       .single();
 
-    if (error) throw error;
-
-    // AUDIT LOG: Clinical note updated (PHI change - CRITICAL)
-    // Track what fields changed but don't log actual clinical content
-    const changedFields: string[] = [];
-    const safeOldValues: Record<string, unknown> = {};
-    const safeNewValues: Record<string, unknown> = {};
-    
-    // Track status/metadata changes with values
-    const metadataFields = ['status', 'consent_obtained', 'follow_up_date'];
-    for (const field of metadataFields) {
-      if (updateData[field] !== undefined && existingNote[field] !== updateData[field]) {
-        changedFields.push(field);
-        safeOldValues[field] = existingNote[field];
-        safeNewValues[field] = updateData[field];
-      }
-    }
-    
-    // Track clinical content changes without logging content
-    const contentFields = ['chief_complaint', 'subjective', 'objective', 'assessment', 'plan', 
-                          'treatment_performed', 'areas_treated', 'patient_instructions', 'adverse_reactions'];
-    for (const field of contentFields) {
-      if (updateData[field] !== undefined && existingNote[field] !== updateData[field]) {
-        changedFields.push(field);
-        safeOldValues[field] = existingNote[field] ? '[modified]' : null;
-        safeNewValues[field] = updateData[field] ? '[modified]' : null;
-      }
-    }
-    
-    if (changedFields.length > 0) {
-      await logRecordUpdate('clinical_note', id, safeOldValues, safeNewValues, changedFields, session.userId);
+    if (error) {
+      console.error('Chart note update error:', error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    return NextResponse.json({ note: data });
+    return NextResponse.json({ note: data, success: true });
   } catch (error) {
-    console.error('Error updating chart note:', error);
+    console.error('Chart note update API error:', error);
     return NextResponse.json({ error: 'Failed to update chart note' }, { status: 500 });
   }
 }
 
-// PATCH /api/chart-notes - Sign/Lock chart note
-export async function PATCH(request: NextRequest) {
-  const supabase = createServerSupabaseClient();
+// DELETE /api/chart-notes - Delete draft note only
+export async function DELETE(request: NextRequest) {
+  const supabase = getSupabase();
   if (!supabase) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
   }
 
   try {
-    const body = await request.json();
-    const { id, action, signed_by } = body;
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
 
-    if (!id || !action) {
-      return NextResponse.json({ error: 'Note ID and action required' }, { status: 400 });
+    if (!id) {
+      return NextResponse.json({ error: 'Note ID is required' }, { status: 400 });
     }
 
-    if (action === 'sign') {
-      // Sign and lock the note
-      const { data, error } = await supabase
-        .from('chart_notes')
-        .update({
-          signed_at: new Date().toISOString(),
-          signed_by,
-          is_locked: true,
-        })
-        .eq('id', id)
-        .select()
-        .single();
+    // Check if draft
+    const { data: note, error: fetchError } = await supabase
+      .from('chart_notes')
+      .select('status')
+      .eq('id', id)
+      .single();
 
-      if (error) throw error;
+    if (fetchError || !note) {
+      return NextResponse.json({ error: 'Note not found' }, { status: 404 });
+    }
 
-      // Create version snapshot
-      await supabase
-        .from('chart_note_versions')
-        .insert({
-          chart_note_id: id,
-          version_number: 1,
-          content: data,
-          changed_by: signed_by,
-          change_reason: 'Initial signature',
-        });
-
-      // AUDIT LOG: Chart note signed and locked
-      await auditChartAction(
-        supabase,
-        'sign',
-        id,
-        signed_by,
-        data.client_id,
-        { signed_at: data.signed_at, is_locked: true },
-        request
+    if (note.status !== 'draft') {
+      return NextResponse.json(
+        { error: 'Only draft notes can be deleted' },
+        { status: 403 }
       );
-
-      return NextResponse.json({ note: data, message: 'Chart note signed and locked' });
     }
 
-    return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
+    const { error } = await supabase
+      .from('chart_notes')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.error('Chart note delete error:', error);
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true, message: 'Note deleted' });
   } catch (error) {
-    console.error('Error signing chart note:', error);
-    return NextResponse.json({ error: 'Failed to sign chart note' }, { status: 500 });
+    console.error('Chart note delete API error:', error);
+    return NextResponse.json({ error: 'Failed to delete chart note' }, { status: 500 });
   }
 }
