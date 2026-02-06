@@ -5,7 +5,7 @@
 // Full-page SMS messaging interface
 // ============================================================
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { ClientInbox } from '@/components/clinical/ClientInbox';
@@ -20,7 +20,8 @@ interface Client {
   unread_count?: number;
 }
 
-export default function AdminInboxPage() {
+// Inner component that uses useSearchParams
+function InboxContent() {
   const searchParams = useSearchParams();
   const clientIdParam = searchParams.get('client');
   
@@ -217,5 +218,44 @@ export default function AdminInboxPage() {
         )}
       </div>
     </div>
+  );
+}
+
+// Loading fallback for Suspense
+function InboxLoading() {
+  return (
+    <div className="flex h-[calc(100vh-120px)] bg-white rounded-xl border border-gray-200 overflow-hidden">
+      <div className="w-80 border-r border-gray-200 flex flex-col">
+        <div className="p-4 border-b border-gray-200">
+          <div className="h-6 w-32 bg-gray-200 rounded animate-pulse"></div>
+        </div>
+        <div className="p-3">
+          <div className="h-10 bg-gray-100 rounded-lg animate-pulse"></div>
+        </div>
+        <div className="flex-1 p-4 space-y-3">
+          {[1, 2, 3, 4, 5].map(i => (
+            <div key={i} className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-gray-200 animate-pulse"></div>
+              <div className="flex-1">
+                <div className="h-4 w-24 bg-gray-200 rounded animate-pulse mb-1"></div>
+                <div className="h-3 w-32 bg-gray-100 rounded animate-pulse"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="flex-1 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500"></div>
+      </div>
+    </div>
+  );
+}
+
+// Default export wrapped in Suspense
+export default function AdminInboxPage() {
+  return (
+    <Suspense fallback={<InboxLoading />}>
+      <InboxContent />
+    </Suspense>
   );
 }
