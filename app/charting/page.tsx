@@ -7,6 +7,13 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+
+// Dynamic import for voice dictation (no SSR)
+const VoiceDictation = dynamic(
+  () => import('@/components/charting/VoiceDictation'),
+  { ssr: false }
+);
 
 interface ChartNote {
   id: string;
@@ -86,6 +93,21 @@ export default function ChartingHubPage() {
   });
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  
+  // Voice dictation state
+  const [showVoice, setShowVoice] = useState(false);
+  const [activeField, setActiveField] = useState<'subjective' | 'objective' | 'assessment' | 'plan'>('subjective');
+
+  // Handle voice transcript
+  const handleVoiceTranscript = useCallback((text: string, targetField?: string) => {
+    const field = targetField || activeField;
+    if (field === 'subjective' || field === 'objective' || field === 'assessment' || field === 'plan') {
+      setNewNote(prev => ({
+        ...prev,
+        [field]: prev[field as keyof typeof prev] ? `${prev[field as keyof typeof prev]}\n${text}` : text,
+      }));
+    }
+  }, [activeField]);
 
   // Fetch notes
   const fetchNotes = useCallback(async () => {
@@ -417,12 +439,24 @@ export default function ChartingHubPage() {
             {/* Modal Header */}
             <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
               <h2 className="text-xl font-bold text-gray-900">New Chart Note</h2>
-              <button
-                onClick={() => setShowNewNote(false)}
-                className="text-gray-400 hover:text-gray-600"
-              >
-                ✕
-              </button>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setShowVoice(!showVoice)}
+                  className={`px-3 py-1.5 rounded-lg font-medium text-sm flex items-center gap-2 ${
+                    showVoice 
+                      ? 'bg-pink-100 text-pink-700' 
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  🎤 Voice
+                </button>
+                <button
+                  onClick={() => setShowNewNote(false)}
+                  className="text-gray-400 hover:text-gray-600 text-xl"
+                >
+                  ✕
+                </button>
+              </div>
             </div>
 
             {/* Modal Body */}
@@ -517,63 +551,119 @@ export default function ChartingHubPage() {
 
                 {/* Right Columns - SOAP Fields */}
                 <div className="col-span-2 space-y-4">
+                  {/* Voice Dictation Panel - shows above fields when enabled */}
+                  {showVoice && (
+                    <div className="bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-200 rounded-xl p-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg">🎤</span>
+                          <span className="font-medium text-gray-900">Voice Dictation</span>
+                          <span className="text-sm text-gray-500">→ {activeField.charAt(0).toUpperCase() + activeField.slice(1)}</span>
+                        </div>
+                        <div className="flex gap-1">
+                          {(['subjective', 'objective', 'assessment', 'plan'] as const).map((field) => (
+                            <button
+                              key={field}
+                              onClick={() => setActiveField(field)}
+                              className={`w-8 h-8 rounded-full text-white text-xs font-bold ${
+                                activeField === field ? 'ring-2 ring-offset-2 ring-pink-500' : ''
+                              } ${
+                                field === 'subjective' ? 'bg-pink-500' :
+                                field === 'objective' ? 'bg-blue-500' :
+                                field === 'assessment' ? 'bg-green-500' :
+                                'bg-purple-500'
+                              }`}
+                            >
+                              {field.charAt(0).toUpperCase()}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                      <VoiceDictation
+                        onTranscript={handleVoiceTranscript}
+                        targetField={activeField}
+                        compact={false}
+                      />
+                    </div>
+                  )}
+
                   {/* Subjective */}
-                  <div>
+                  <div 
+                    onClick={() => setActiveField('subjective')}
+                    className={`cursor-pointer transition-all ${activeField === 'subjective' && showVoice ? 'ring-2 ring-pink-300 rounded-lg' : ''}`}
+                  >
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       <span className="text-pink-600 font-bold">S</span>ubjective
                       <span className="text-gray-400 font-normal ml-2">Patient's description</span>
+                      {activeField === 'subjective' && showVoice && <span className="text-pink-500 ml-2">🎤</span>}
                     </label>
                     <textarea
                       value={newNote.subjective}
                       onChange={(e) => setNewNote(prev => ({ ...prev, subjective: e.target.value }))}
+                      onFocus={() => setActiveField('subjective')}
                       placeholder="Chief complaint, history, patient's perspective..."
                       rows={4}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none text-gray-900"
                     />
                   </div>
 
                   {/* Objective */}
-                  <div>
+                  <div 
+                    onClick={() => setActiveField('objective')}
+                    className={`cursor-pointer transition-all ${activeField === 'objective' && showVoice ? 'ring-2 ring-blue-300 rounded-lg' : ''}`}
+                  >
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       <span className="text-blue-600 font-bold">O</span>bjective
                       <span className="text-gray-400 font-normal ml-2">Clinical observations</span>
+                      {activeField === 'objective' && showVoice && <span className="text-blue-500 ml-2">🎤</span>}
                     </label>
                     <textarea
                       value={newNote.objective}
                       onChange={(e) => setNewNote(prev => ({ ...prev, objective: e.target.value }))}
+                      onFocus={() => setActiveField('objective')}
                       placeholder="Physical exam findings, measurements, observations..."
                       rows={4}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none text-gray-900"
                     />
                   </div>
 
                   {/* Assessment */}
-                  <div>
+                  <div 
+                    onClick={() => setActiveField('assessment')}
+                    className={`cursor-pointer transition-all ${activeField === 'assessment' && showVoice ? 'ring-2 ring-green-300 rounded-lg' : ''}`}
+                  >
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       <span className="text-green-600 font-bold">A</span>ssessment
                       <span className="text-gray-400 font-normal ml-2">Clinical impression</span>
+                      {activeField === 'assessment' && showVoice && <span className="text-green-500 ml-2">🎤</span>}
                     </label>
                     <textarea
                       value={newNote.assessment}
                       onChange={(e) => setNewNote(prev => ({ ...prev, assessment: e.target.value }))}
+                      onFocus={() => setActiveField('assessment')}
                       placeholder="Diagnosis, clinical impression, treatment rationale..."
                       rows={3}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none text-gray-900"
                     />
                   </div>
 
                   {/* Plan */}
-                  <div>
+                  <div 
+                    onClick={() => setActiveField('plan')}
+                    className={`cursor-pointer transition-all ${activeField === 'plan' && showVoice ? 'ring-2 ring-purple-300 rounded-lg' : ''}`}
+                  >
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       <span className="text-purple-600 font-bold">P</span>lan
                       <span className="text-gray-400 font-normal ml-2">Treatment plan</span>
+                      {activeField === 'plan' && showVoice && <span className="text-purple-500 ml-2">🎤</span>}
                     </label>
                     <textarea
                       value={newNote.plan}
                       onChange={(e) => setNewNote(prev => ({ ...prev, plan: e.target.value }))}
+                      onFocus={() => setActiveField('plan')}
                       placeholder="Treatment performed, follow-up plan, patient education..."
                       rows={4}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none"
+                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none text-gray-900"
                     />
                   </div>
                 </div>
@@ -582,9 +672,11 @@ export default function ChartingHubPage() {
 
             {/* Modal Footer */}
             <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between bg-gray-50">
-              <div className="text-sm text-gray-500">
-                {!newNote.client_id && (
-                  <span className="text-yellow-600">⚠️ No client - will save as draft only</span>
+              <div className="text-sm">
+                {newNote.client_id ? (
+                  <span className="text-green-600">✅ Client selected - ready to finalize</span>
+                ) : (
+                  <span className="text-gray-500">💡 Select a client to finalize, or save as draft</span>
                 )}
               </div>
               <div className="flex gap-3">
