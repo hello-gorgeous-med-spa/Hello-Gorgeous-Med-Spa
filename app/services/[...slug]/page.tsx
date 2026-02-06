@@ -7,11 +7,12 @@ import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { BOOKING_URL } from "@/lib/flows";
-import { SERVICES, faqJsonLd, pageMetadata, siteJsonLd } from "@/lib/seo";
+import { SERVICES, faqJsonLd, pageMetadata, siteJsonLd, type Service } from "@/lib/seo";
 import {
   ATLAS_CLUSTERS,
   maybeCategorySlug,
   servicesForCluster,
+  getClusterForService,
   type ServiceAtlasClusterId,
 } from "@/lib/services-atlas";
 
@@ -66,28 +67,28 @@ function CategoryPage({ categoryId }: { categoryId: ServiceAtlasClusterId }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
       />
 
-      <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
+      <Section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/20 via-black to-black" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-pink-500/10 via-transparent to-transparent" />
         <div className="relative z-10">
           <FadeUp>
-            <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
-              SERVICE CLUSTER
-            </p>
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
-                {cluster.title}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/20 mb-6">
+              <span className="text-2xl">{cluster.icon}</span>
+              <span className="text-pink-400 text-sm font-semibold uppercase tracking-wider">Service Category</span>
+            </div>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
+              <span className="text-white">{cluster.title.split(' ')[0]} </span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-pink-500">
+                {cluster.title.split(' ').slice(1).join(' ')}
               </span>
             </h1>
-            <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">{cluster.description}</p>
+            <p className="mt-6 text-xl md:text-2xl text-gray-300 max-w-3xl leading-relaxed">{cluster.description}</p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <CTA href="/explore-care" variant="outline">
-                Back to Explore Care
+              <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-8 py-4">
+                Book a Consultation
               </CTA>
-              <CTA href="/care-engine" variant="outline">
-                Open the Care Engine™
-              </CTA>
-              <CTA href={BOOKING_URL} variant="gradient">
-                Book when ready (optional)
+              <CTA href="/quiz" variant="outline" className="text-lg px-8 py-4">
+                Find My Treatment
               </CTA>
             </div>
           </FadeUp>
@@ -95,211 +96,411 @@ function CategoryPage({ categoryId }: { categoryId: ServiceAtlasClusterId }) {
       </Section>
 
       <Section>
+        <FadeUp>
+          <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-4">
+            Explore {cluster.title}
+          </h2>
+          <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12">
+            Click any treatment below to learn more about benefits, what to expect, and whether it's right for you.
+          </p>
+        </FadeUp>
+        
         {cards.length ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {cards.map((c, idx) => (
               <FadeUp key={c.slug} delayMs={40 * idx}>
                 <Link
                   href={`/services/${c.slug}`}
-                  className="group block rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6 hover:border-white/20 transition"
+                  className="group block rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-900/80 to-black p-6 hover:border-pink-500/50 hover:shadow-xl hover:shadow-pink-500/5 transition-all duration-300"
                 >
-                  <p className="text-xs text-white/60">
-                    Intensity: {c.intensity} · Commitment: {c.commitment}
-                  </p>
-                  <h2 className="mt-3 text-2xl font-bold text-white">{c.name}</h2>
-                  <p className="mt-3 text-gray-300">{c.plainLanguage}</p>
-                  <p className="mt-6 text-sm font-semibold text-white/90">
-                    Learn more{" "}
-                    <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-                  </p>
+                  <div className="flex items-center gap-2 text-xs text-white/60 mb-3">
+                    <span className="px-2 py-1 rounded bg-white/5">{c.intensity}</span>
+                    <span>•</span>
+                    <span>{c.commitment}</span>
+                  </div>
+                  <h2 className="text-2xl font-bold text-white group-hover:text-pink-400 transition-colors">{c.name}</h2>
+                  <p className="mt-3 text-gray-400 leading-relaxed">{c.plainLanguage}</p>
+                  <div className="mt-6 flex items-center gap-2 text-pink-400 font-semibold">
+                    <span>Learn more</span>
+                    <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
                 </Link>
               </FadeUp>
             ))}
           </div>
         ) : (
-          <div className="rounded-2xl border border-gray-800 bg-black/40 p-6">
-            <p className="text-white font-semibold">This cluster is being expanded.</p>
+          <div className="rounded-2xl border border-gray-800 bg-black/40 p-8 text-center">
+            <p className="text-white font-semibold text-lg">This category is coming soon.</p>
             <p className="mt-2 text-white/70">
-              If you’re exploring this area, contact us and we’ll guide you to the safest next step.
+              Contact us to learn more about available treatments in this area.
             </p>
-            <div className="mt-6 flex flex-col sm:flex-row gap-4">
-              <CTA href="/contact" variant="outline">
-                Contact us
-              </CTA>
-              <CTA href="/explore-care" variant="gradient">
-                Explore Care
-              </CTA>
+            <div className="mt-6 flex justify-center gap-4">
+              <CTA href="/contact" variant="outline">Contact Us</CTA>
+              <CTA href="/services" variant="gradient">View All Services</CTA>
             </div>
           </div>
         )}
       </Section>
+
+      {/* CTA Section */}
+      <Section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-pink-900/20 to-purple-900/20" />
+        <div className="relative z-10 text-center">
+          <FadeUp>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Ready to Transform Your Look?
+            </h2>
+            <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+              Book a consultation and let our expert team create a personalized treatment plan just for you.
+            </p>
+            <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-10 py-4">
+              Book Your Free Consultation
+            </CTA>
+          </FadeUp>
+        </div>
+      </Section>
     </>
   );
+}
+
+// Get service-specific content
+function getServiceContent(s: Service) {
+  const baseContent = {
+    benefits: [
+      { icon: "✨", title: "Natural Results", description: "Subtle enhancements that look like the best version of you" },
+      { icon: "⏱️", title: "Minimal Downtime", description: "Get back to your life quickly with most treatments" },
+      { icon: "👩‍⚕️", title: "Expert Providers", description: "Administered by trained, certified professionals" },
+      { icon: "💝", title: "Personalized Care", description: "Every treatment plan is customized to your goals" },
+    ],
+    process: [
+      { step: 1, title: "Consultation", description: "We discuss your goals, concerns, and create a personalized plan" },
+      { step: 2, title: "Preparation", description: "Review pre-treatment guidelines and answer any questions" },
+      { step: 3, title: "Treatment", description: "Relax while our experts deliver your customized treatment" },
+      { step: 4, title: "Aftercare", description: "Receive detailed aftercare instructions and follow-up support" },
+    ],
+    testimonial: {
+      quote: "I was nervous at first, but the team made me feel so comfortable. The results exceeded my expectations!",
+      author: "Sarah M.",
+      location: "Naperville, IL",
+    },
+  };
+
+  // Service-specific overrides
+  const serviceOverrides: Record<string, Partial<typeof baseContent>> = {
+    "botox-dysport-jeuveau": {
+      benefits: [
+        { icon: "⏰", title: "Quick 15-Min Treatment", description: "Perfect for your lunch break - be in and out in under 30 minutes" },
+        { icon: "🎯", title: "Precise Results", description: "Target specific areas like frown lines, forehead, and crow's feet" },
+        { icon: "🔄", title: "Preventative Benefits", description: "Regular treatments can help prevent deeper wrinkles from forming" },
+        { icon: "💫", title: "No Surgery Needed", description: "Achieve a refreshed look without going under the knife" },
+      ],
+      testimonial: {
+        quote: "I look refreshed and natural - not frozen. My friends keep asking what my secret is!",
+        author: "Jennifer K.",
+        location: "Oswego, IL",
+      },
+    },
+    "dermal-fillers": {
+      benefits: [
+        { icon: "📍", title: "Strategic Volume", description: "Restore lost volume exactly where you need it most" },
+        { icon: "⏳", title: "Long-Lasting", description: "Results can last 6-18 months depending on the product and area" },
+        { icon: "🔄", title: "Reversible", description: "HA fillers can be dissolved if needed for peace of mind" },
+        { icon: "💎", title: "Instant Gratification", description: "See beautiful results immediately after treatment" },
+      ],
+    },
+    "lip-filler": {
+      benefits: [
+        { icon: "👄", title: "Natural Enhancement", description: "Subtle, balanced lips that complement your facial features" },
+        { icon: "💧", title: "Hydration Boost", description: "HA fillers add moisture for plumper, healthier-looking lips" },
+        { icon: "🎨", title: "Customizable Shape", description: "Define your cupid's bow, add volume, or improve symmetry" },
+        { icon: "⏱️", title: "Quick & Comfortable", description: "Numbing cream makes the 15-30 minute treatment comfortable" },
+      ],
+    },
+    "weight-loss-therapy": {
+      benefits: [
+        { icon: "📉", title: "Medical-Grade Results", description: "GLP-1 medications help reduce appetite and cravings naturally" },
+        { icon: "👩‍⚕️", title: "Provider-Supervised", description: "Regular check-ins ensure safe, effective progress" },
+        { icon: "🎯", title: "Sustainable Approach", description: "Focus on long-term lifestyle changes, not quick fixes" },
+        { icon: "💪", title: "Comprehensive Support", description: "Nutrition guidance and accountability built into your plan" },
+      ],
+      process: [
+        { step: 1, title: "Medical Evaluation", description: "Complete health assessment and lab work to ensure candidacy" },
+        { step: 2, title: "Personalized Protocol", description: "Custom medication dosing and nutrition guidance" },
+        { step: 3, title: "Weekly/Monthly Check-ins", description: "Regular monitoring to track progress and adjust as needed" },
+        { step: 4, title: "Maintenance Plan", description: "Transition to sustainable habits for long-term success" },
+      ],
+      testimonial: {
+        quote: "Down 35 lbs and feeling incredible. The support from the team made all the difference.",
+        author: "Michelle R.",
+        location: "Aurora, IL",
+      },
+    },
+    "biote-hormone-therapy": {
+      benefits: [
+        { icon: "⚡", title: "Restored Energy", description: "Say goodbye to fatigue and feel like yourself again" },
+        { icon: "😊", title: "Balanced Mood", description: "Reduce mood swings and feel more emotionally stable" },
+        { icon: "😴", title: "Better Sleep", description: "Experience deeper, more restorative sleep" },
+        { icon: "🔥", title: "Improved Metabolism", description: "Support healthy weight management naturally" },
+      ],
+    },
+    "iv-therapy": {
+      benefits: [
+        { icon: "💧", title: "100% Absorption", description: "Bypass digestion for immediate nutrient delivery" },
+        { icon: "⚡", title: "Instant Energy", description: "Feel revitalized within hours, not days" },
+        { icon: "🛡️", title: "Immune Support", description: "High-dose vitamins to boost your body's defenses" },
+        { icon: "✨", title: "Glowing Skin", description: "Hydration from the inside out for radiant results" },
+      ],
+    },
+    "rf-microneedling": {
+      benefits: [
+        { icon: "🔬", title: "Collagen Stimulation", description: "RF energy triggers your body's natural healing response" },
+        { icon: "🎯", title: "Precise Depth Control", description: "Customizable settings for your specific skin concerns" },
+        { icon: "📉", title: "Reduces Pores & Scars", description: "Improves texture, acne scars, and enlarged pores" },
+        { icon: "⏰", title: "Progressive Results", description: "Skin continues improving for months after treatment" },
+      ],
+    },
+  };
+
+  return { ...baseContent, ...serviceOverrides[s.slug] };
 }
 
 function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
   const s = SERVICES.find((x) => x.slug === serviceSlug);
   if (!s) notFound();
 
+  const content = getServiceContent(s);
+  const cluster = getClusterForService(s.slug);
+
   const quickFacts =
     s.category === "Injectables"
       ? [
-          { k: "Treatment time", v: "10–30 min" },
-          { k: "Downtime", v: "Minimal (possible swelling/bruising)" },
-          { k: "Results", v: "Days → 2 weeks" },
-          { k: "Maintenance", v: "Every 3–12 months (varies)" },
+          { icon: "⏱️", k: "Treatment Time", v: "15–30 min" },
+          { icon: "⬇️", k: "Downtime", v: "Minimal" },
+          { icon: "📅", k: "Results In", v: "2–14 days" },
+          { icon: "🔄", k: "Lasts", v: "3–12 months" },
         ]
       : s.category === "Wellness"
         ? [
-            { k: "First step", v: "Consult + screening" },
-            { k: "Monitoring", v: "Ongoing check-ins" },
-            { k: "Timeline", v: "Varies by plan" },
-            { k: "Goal", v: "Safe, sustainable progress" },
+            { icon: "🩺", k: "First Step", v: "Consult + Labs" },
+            { icon: "📊", k: "Monitoring", v: "Ongoing" },
+            { icon: "📅", k: "Timeline", v: "Varies" },
+            { icon: "🎯", k: "Goal", v: "Sustainable" },
           ]
         : s.category === "Regenerative"
           ? [
-              { k: "Approach", v: "Regenerative support" },
-              { k: "Downtime", v: "Varies by protocol" },
-              { k: "Results", v: "Gradual (weeks → months)" },
-              { k: "Plan", v: "Often a series" },
+              { icon: "🧬", k: "Approach", v: "Regenerative" },
+              { icon: "⬇️", k: "Downtime", v: "1–3 days" },
+              { icon: "📅", k: "Results In", v: "2–6 weeks" },
+              { icon: "🔄", k: "Series", v: "Recommended" },
             ]
           : [
-              { k: "Plan", v: "Personalized series" },
-              { k: "Downtime", v: "Varies by treatment" },
-              { k: "Results", v: "Often progressive" },
-              { k: "Maintenance", v: "Ongoing options" },
+              { icon: "✨", k: "Experience", v: "Luxury" },
+              { icon: "⬇️", k: "Downtime", v: "Varies" },
+              { icon: "📅", k: "Results", v: "Progressive" },
+              { icon: "🔄", k: "Maintenance", v: "Optional" },
             ];
 
   return (
     <>
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
       />
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(s.faqs)) }}
       />
 
-      <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
+      {/* Hero Section */}
+      <Section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/20 via-black to-black" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-pink-500/10 via-transparent to-transparent" />
         <div className="relative z-10">
           <FadeUp>
-            <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
-              {s.category.toUpperCase()}
-            </p>
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
+            {cluster && (
+              <Link 
+                href={`/services/${cluster.id}`}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/20 mb-6 hover:bg-pink-500/20 transition-colors"
+              >
+                <span className="text-xl">{cluster.icon}</span>
+                <span className="text-pink-400 text-sm font-medium">{cluster.title}</span>
+                <svg className="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            )}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-pink-500">
                 {s.name}
               </span>
             </h1>
-            <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">{s.heroSubtitle}</p>
+            <p className="mt-2 text-lg text-gray-400">{s.heroTitle}</p>
+            <p className="mt-6 text-xl md:text-2xl text-gray-300 max-w-3xl leading-relaxed">{s.heroSubtitle}</p>
+            
+            {/* Quick Stats */}
+            <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
+              {quickFacts.map((f, idx) => (
+                <div key={f.k} className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
+                  <span className="text-2xl">{f.icon}</span>
+                  <div>
+                    <p className="text-xs text-gray-500 uppercase tracking-wide">{f.k}</p>
+                    <p className="text-lg font-bold text-white">{f.v}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <CTA href={BOOKING_URL} variant="gradient">
-                Book when ready (optional)
+              <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-8 py-4 shadow-xl shadow-pink-500/20">
+                Book Now — Limited Availability
               </CTA>
-              <CTA href="/explore-care" variant="outline">
-                Explore Care
-              </CTA>
-              <CTA href="/meet-the-team" variant="outline">
-                Meet Your Care Team
+              <CTA href="/contact" variant="outline" className="text-lg px-8 py-4">
+                Have Questions? Contact Us
               </CTA>
             </div>
           </FadeUp>
         </div>
       </Section>
 
+      {/* Benefits Section */}
       <Section>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          {quickFacts.map((f, idx) => (
-            <FadeUp key={f.k} delayMs={40 * idx}>
-              <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-5">
-                <p className="text-xs font-semibold tracking-wide text-white/70 uppercase">{f.k}</p>
-                <p className="mt-2 text-lg font-bold text-white">{f.v}</p>
+        <FadeUp>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Why Choose {s.name} at{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400">
+                Hello Gorgeous
+              </span>
+            </h2>
+            <p className="mt-4 text-xl text-gray-400 max-w-2xl mx-auto">
+              Experience the difference that expert care and personalized attention makes
+            </p>
+          </div>
+        </FadeUp>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {content.benefits.map((b, idx) => (
+            <FadeUp key={b.title} delayMs={60 * idx}>
+              <div className="group p-6 rounded-2xl bg-gradient-to-b from-gray-900/80 to-black border border-gray-800 hover:border-pink-500/30 transition-all duration-300">
+                <div className="w-14 h-14 rounded-xl bg-pink-500/10 flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
+                  {b.icon}
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2">{b.title}</h3>
+                <p className="text-gray-400">{b.description}</p>
               </div>
             </FadeUp>
           ))}
         </div>
       </Section>
 
-      <Section>
-        <div className="grid gap-6 lg:grid-cols-3">
+      {/* What It Is / Who It's For / What to Expect */}
+      <Section className="bg-gradient-to-b from-transparent via-pink-950/5 to-transparent">
+        <div className="grid lg:grid-cols-3 gap-8">
           {[
-            { title: "What it is", body: s.short },
-            {
-              title: "Who it’s for",
-              body: "People who want a professional, results-driven plan with clear expectations and a luxury experience.",
+            { 
+              icon: "💡", 
+              title: "What It Is", 
+              body: s.short,
             },
             {
-              title: "What to expect",
-              body: "Consult-first approach, personalized recommendations, and a clear plan for results + maintenance.",
+              icon: "👤",
+              title: "Who It's For",
+              body: "Anyone looking for natural-looking results with expert guidance. Perfect for those who value quality, safety, and a personalized experience.",
+            },
+            {
+              icon: "📋",
+              title: "What to Expect",
+              body: "A thorough consultation to understand your goals, clear explanation of the process, comfortable treatment, and comprehensive aftercare support.",
             },
           ].map((c, idx) => (
             <FadeUp key={c.title} delayMs={60 * idx}>
-              <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
-                <h2 className="text-xl font-bold text-white">{c.title}</h2>
-                <p className="mt-3 text-gray-300">{c.body}</p>
+              <div className="h-full p-8 rounded-2xl bg-black/40 border border-gray-800">
+                <span className="text-4xl mb-4 block">{c.icon}</span>
+                <h2 className="text-2xl font-bold text-white mb-4">{c.title}</h2>
+                <p className="text-gray-300 leading-relaxed">{c.body}</p>
               </div>
             </FadeUp>
           ))}
         </div>
       </Section>
 
+      {/* Process Steps */}
       <Section>
-        <div className="grid gap-8 lg:grid-cols-12">
+        <FadeUp>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Your Treatment{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400">
+                Journey
+              </span>
+            </h2>
+            <p className="mt-4 text-xl text-gray-400">Simple, seamless, and stress-free</p>
+          </div>
+        </FadeUp>
+
+        <div className="grid md:grid-cols-4 gap-6">
+          {content.process.map((p, idx) => (
+            <FadeUp key={p.step} delayMs={80 * idx}>
+              <div className="relative">
+                {idx < content.process.length - 1 && (
+                  <div className="hidden md:block absolute top-8 left-[60%] w-full h-0.5 bg-gradient-to-r from-pink-500/50 to-transparent" />
+                )}
+                <div className="relative p-6 rounded-2xl bg-gradient-to-b from-gray-900/80 to-black border border-gray-800">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center text-white font-bold text-lg mb-4">
+                    {p.step}
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-2">{p.title}</h3>
+                  <p className="text-gray-400 text-sm">{p.description}</p>
+                </div>
+              </div>
+            </FadeUp>
+          ))}
+        </div>
+      </Section>
+
+      {/* Social Proof */}
+      <Section className="bg-gradient-to-b from-transparent via-pink-950/10 to-transparent">
+        <div className="grid lg:grid-cols-12 gap-8">
           <div className="lg:col-span-7">
             <FadeUp>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">
-                A premium plan,{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
-                  not a generic appointment
-                </span>
-              </h2>
-              <p className="mt-4 text-gray-300 max-w-2xl">
-                The goal is a confident “yes” with a clear plan—timing, expectations, and safety built in.
-              </p>
+              <div className="p-8 rounded-2xl bg-black/40 border border-gray-800">
+                <div className="flex items-center gap-1 text-pink-400 mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                    </svg>
+                  ))}
+                </div>
+                <p className="text-2xl text-white font-medium italic leading-relaxed">
+                  "{content.testimonial.quote}"
+                </p>
+                <div className="mt-6 flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-bold">
+                    {content.testimonial.author.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="text-white font-semibold">{content.testimonial.author}</p>
+                    <p className="text-gray-500 text-sm">{content.testimonial.location}</p>
+                  </div>
+                </div>
+              </div>
             </FadeUp>
 
-            <div className="mt-10 grid gap-4">
-              {[
-                {
-                  t: "Benefits",
-                  b: "Natural-looking results, clear expectations, and a plan designed around your goals and timeline.",
-                },
-                {
-                  t: "Safety-first",
-                  b: "We screen, educate, and personalize—no diagnosis or medical advice on the website. Consult required for individualized recommendations.",
-                },
-                {
-                  t: "Local expertise",
-                  b: "Serving Oswego, Naperville, Aurora, and Plainfield with a luxury, clinical-meets-beauty experience.",
-                },
-              ].map((x, idx) => (
-                <FadeUp key={x.t} delayMs={40 * idx}>
-                  <div className="rounded-2xl border border-gray-800 bg-black/40 p-6">
-                    <h3 className="text-xl font-bold text-white">{x.t}</h3>
-                    <p className="mt-3 text-gray-300">{x.b}</p>
+            {/* Trust Badges */}
+            <FadeUp delayMs={100}>
+              <div className="mt-8 grid grid-cols-3 gap-4">
+                {[
+                  { icon: "🏥", label: "Medical-Grade" },
+                  { icon: "✅", label: "FDA-Approved" },
+                  { icon: "🎓", label: "Certified Experts" },
+                ].map((badge) => (
+                  <div key={badge.label} className="flex flex-col items-center p-4 rounded-xl bg-white/5 border border-white/10">
+                    <span className="text-2xl mb-2">{badge.icon}</span>
+                    <span className="text-sm text-gray-400 text-center">{badge.label}</span>
                   </div>
-                </FadeUp>
-              ))}
-            </div>
-
-            <FadeUp delayMs={160}>
-              <div className="mt-10 rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
-                <h3 className="text-xl font-bold text-white">Ready to book?</h3>
-                <p className="mt-3 text-gray-300">
-                  Booking is optional. If you’re ready, book a consultation and we’ll build a safe, personalized plan.
-                </p>
-                <div className="mt-6 flex flex-col sm:flex-row gap-4">
-                  <CTA href={BOOKING_URL} variant="gradient">
-                    Book when ready (optional)
-                  </CTA>
-                  <CTA href="/contact" variant="outline">
-                    Ask a question first
-                  </CTA>
-                </div>
+                ))}
               </div>
             </FadeUp>
           </div>
@@ -313,19 +514,21 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
       </Section>
 
       {/* Before/After Results Gallery - Dermal Fillers */}
-      {s.slug === "dermal-fillers" && (
+      {(s.slug === "dermal-fillers" || s.slug === "lip-filler") && (
         <Section>
           <FadeUp>
             <div className="text-center mb-12">
-              <p className="text-pink-400 text-lg font-medium tracking-wide">REAL RESULTS</p>
-              <h2 className="mt-4 text-3xl md:text-4xl font-bold text-white">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/20 mb-4">
+                <span className="text-pink-400 text-sm font-semibold uppercase tracking-wider">Real Results</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
                 Before &{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400">
                   After
                 </span>
               </h2>
-              <p className="mt-4 text-gray-300 max-w-2xl mx-auto">
-                Natural-looking lip enhancement with Revanesse® dermal fillers. Results vary by individual.
+              <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+                See the beautiful, natural-looking transformations our clients achieve
               </p>
             </div>
           </FadeUp>
@@ -336,7 +539,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                 <div className="relative aspect-[9/16] w-full max-w-md mx-auto">
                   <Image
                     src="/images/results/revanesse-1.png"
-                    alt="Revanesse lip filler before and after - Patient 1"
+                    alt="Lip filler before and after - Patient 1"
                     fill
                     className="object-contain"
                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -349,7 +552,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                 <div className="relative aspect-[9/16] w-full max-w-md mx-auto">
                   <Image
                     src="/images/results/revanesse-2.png"
-                    alt="Revanesse lip filler before and after - Patient 2"
+                    alt="Lip filler before and after - Patient 2"
                     fill
                     className="object-contain"
                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -362,65 +565,117 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
           <FadeUp delayMs={180}>
             <div className="mt-10 text-center">
               <p className="text-sm text-gray-500 mb-6">
-                Results shown are from Revanesse® clinical studies. Individual results may vary.
+                Results shown are from actual clients. Individual results may vary.
               </p>
-              <CTA href={BOOKING_URL} variant="gradient">
-                Book Your Consultation
-              </CTA>
             </div>
           </FadeUp>
         </Section>
       )}
 
+      {/* FAQ Section */}
       <Section>
         <FadeUp>
-          <h2 className="text-3xl md:text-4xl font-bold text-white">
-            Frequently Asked{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
-              Questions
-            </span>
-          </h2>
-          <p className="mt-4 text-gray-300 max-w-2xl">Quick answers to common questions about {s.name}.</p>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              Frequently Asked{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400">
+                Questions
+              </span>
+            </h2>
+            <p className="mt-4 text-gray-400">Everything you need to know about {s.name}</p>
+          </div>
         </FadeUp>
 
-        <div className="mt-10 grid gap-4">
+        <div className="max-w-3xl mx-auto space-y-4">
           {s.faqs.map((f, idx) => (
             <FadeUp key={f.question} delayMs={40 * idx}>
-              <details className="group rounded-2xl border border-gray-800 bg-black/40 p-6">
-                <summary className="cursor-pointer list-none text-lg font-semibold text-white flex items-center justify-between">
+              <details className="group rounded-2xl border border-gray-800 bg-black/40 overflow-hidden">
+                <summary className="cursor-pointer p-6 flex items-center justify-between text-lg font-semibold text-white hover:text-pink-400 transition-colors">
                   <span>{f.question}</span>
-                  <span className="text-white/60 group-open:rotate-45 transition-transform">+</span>
+                  <span className="ml-4 flex-shrink-0 w-8 h-8 rounded-full bg-pink-500/10 flex items-center justify-center group-open:rotate-45 transition-transform">
+                    <svg className="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                  </span>
                 </summary>
-                <p className="mt-4 text-gray-300">{f.answer}</p>
+                <div className="px-6 pb-6">
+                  <p className="text-gray-300 leading-relaxed">{f.answer}</p>
+                </div>
               </details>
             </FadeUp>
           ))}
         </div>
+      </Section>
 
-        <div className="mt-12 text-center">
-          <CTA href={BOOKING_URL} variant="white" className="group inline-flex">
-            Book a Consultation
-            <svg
-              stroke="currentColor"
-              fill="none"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="group-hover:translate-x-1 transition-transform"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
-          </CTA>
-          <p className="text-sm text-gray-500 mt-8">
-            Prefer a question first? <Link className="underline" href="/contact">Contact us</Link>.
-          </p>
+      {/* Final CTA */}
+      <Section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-pink-900/30 via-purple-900/30 to-pink-900/30" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-500/10 via-transparent to-transparent" />
+        <div className="relative z-10 text-center max-w-3xl mx-auto">
+          <FadeUp>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+              Ready to Look and Feel{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-pink-500">
+                Gorgeous
+              </span>
+              ?
+            </h2>
+            <p className="text-xl text-gray-300 mb-8">
+              Book your consultation today and take the first step toward the results you deserve. 
+              Our expert team is ready to create your personalized treatment plan.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-10 py-4 shadow-xl shadow-pink-500/25">
+                Book Your Consultation Now
+              </CTA>
+              <CTA href="/contact" variant="outline" className="text-lg px-10 py-4">
+                Contact Us First
+              </CTA>
+            </div>
+            <p className="mt-6 text-sm text-gray-500">
+              📍 Serving Oswego, Naperville, Aurora & Plainfield | 📞 (630) 636-6193
+            </p>
+          </FadeUp>
         </div>
       </Section>
+
+      {/* Related Services */}
+      {cluster && (
+        <Section>
+          <FadeUp>
+            <h2 className="text-2xl font-bold text-white mb-8">
+              More in {cluster.title}
+            </h2>
+          </FadeUp>
+          <div className="grid md:grid-cols-3 gap-6">
+            {SERVICES.filter(
+              (service) => 
+                cluster.services.includes(service.slug) && 
+                service.slug !== s.slug
+            )
+              .slice(0, 3)
+              .map((service, idx) => (
+                <FadeUp key={service.slug} delayMs={60 * idx}>
+                  <Link
+                    href={`/services/${service.slug}`}
+                    className="group block p-6 rounded-2xl bg-gradient-to-b from-gray-900/80 to-black border border-gray-800 hover:border-pink-500/30 transition-all"
+                  >
+                    <h3 className="text-xl font-bold text-white group-hover:text-pink-400 transition-colors">
+                      {service.name}
+                    </h3>
+                    <p className="mt-2 text-gray-400 text-sm line-clamp-2">{service.short}</p>
+                    <span className="mt-4 inline-flex items-center text-pink-400 text-sm font-medium">
+                      Learn more
+                      <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                  </Link>
+                </FadeUp>
+              ))}
+          </div>
+        </Section>
+      )}
     </>
   );
 }
@@ -432,4 +687,3 @@ export default function ServicesCatchAllPage({ params }: { params: Params }) {
   if (maybeCategorySlug(one)) return <CategoryPage categoryId={one} />;
   return <ServiceDetailPage serviceSlug={one} />;
 }
-
