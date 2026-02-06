@@ -3,11 +3,11 @@
 // ============================================================
 // BOULEVARD-STYLE CALENDAR
 // Multi-provider schedule view with appointment detail panel
+// Interactive - click to book appointments
 // ============================================================
 
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/Toast';
 
@@ -19,6 +19,12 @@ const PROVIDER_COLORS = [
   { bg: 'bg-emerald-100', border: 'border-l-emerald-400', text: 'text-emerald-900', accent: 'bg-emerald-400' },
   { bg: 'bg-violet-100', border: 'border-l-violet-400', text: 'text-violet-900', accent: 'bg-violet-400' },
   { bg: 'bg-rose-100', border: 'border-l-rose-400', text: 'text-rose-900', accent: 'bg-rose-400' },
+];
+
+// Fallback providers - always show these
+const FALLBACK_PROVIDERS = [
+  { id: 'ryan-kent', first_name: 'Ryan', last_name: 'Kent', credentials: 'FNP-BC', color_hex: '#3b82f6' },
+  { id: 'danielle-alcala', first_name: 'Danielle', last_name: 'Alcala', credentials: 'RN-S', color_hex: '#ec4899' },
 ];
 
 // Generate time slots (9 AM to 6 PM)
@@ -38,6 +44,15 @@ export default function CalendarPage() {
   const [selectedAppointment, setSelectedAppointment] = useState<any | null>(null);
   const [showFilters, setShowFilters] = useState(false);
   const [selectedProviderFilter, setSelectedProviderFilter] = useState<string[]>([]);
+  
+  // Quick book modal state
+  const [showQuickBook, setShowQuickBook] = useState(false);
+  const [quickBookSlot, setQuickBookSlot] = useState<{ time: string; providerId: string; providerName: string } | null>(null);
+  const [quickBookClient, setQuickBookClient] = useState('');
+  const [quickBookService, setQuickBookService] = useState('');
+  const [clientSearchResults, setClientSearchResults] = useState<any[]>([]);
+  const [services, setServices] = useState<any[]>([]);
+  const [saving, setSaving] = useState(false);
   
   // API data
   const [appointments, setAppointments] = useState<any[]>([]);
@@ -67,11 +82,31 @@ export default function CalendarPage() {
     try {
       const res = await fetch('/api/providers');
       const data = await res.json();
-      if (data.providers) {
-        setProviders(data.providers);
+      if (data.providers && data.providers.length > 0) {
+        // Filter out providers with no real names
+        const validProviders = data.providers.filter((p: any) => 
+          p.first_name && p.first_name !== 'Provider'
+        );
+        setProviders(validProviders.length > 0 ? validProviders : FALLBACK_PROVIDERS);
+      } else {
+        setProviders(FALLBACK_PROVIDERS);
       }
     } catch (err) {
       console.error('Failed to load providers:', err);
+      setProviders(FALLBACK_PROVIDERS);
+    }
+  }, []);
+
+  // Fetch services
+  const fetchServices = useCallback(async () => {
+    try {
+      const res = await fetch('/api/services?active=true');
+      const data = await res.json();
+      if (data.services) {
+        setServices(data.services);
+      }
+    } catch (err) {
+      console.error('Failed to load services:', err);
     }
   }, []);
 
@@ -81,7 +116,72 @@ export default function CalendarPage() {
 
   useEffect(() => {
     fetchProviders();
-  }, [fetchProviders]);
+    fetchServices();
+  }, [fetchProviders, fetchServices]);
+
+  // Search clients
+  const searchClients = useCallback(async (query: string) => {
+    if (query.length < 2) {
+      setClientSearchResults([]);
+      return;
+    }
+    try {
+      const res = await fetch(`/api/clients?search=${encodeURIComponent(query)}&limit=5`);
+      const data = await res.json();
+      setClientSearchResults(data.clients || []);
+    } catch (err) {
+      console.error('Failed to search clients:', err);
+    }
+  }, []);
+
+  // Handle slot click - open quick book modal
+  const handleSlotClick = (time: string, providerId: string, providerName: string) => {
+    setQuickBookSlot({ time, providerId, providerName });
+    setQuickBookClient('');
+    setQuickBookService('');
+    setClientSearchResults([]);
+    setShowQuickBook(true);
+  };
+
+  // Create appointment
+  const handleQuickBook = async () => {
+    if (!quickBookClient || !quickBookService || !quickBookSlot) {
+      toast.error('Please select a client and service');
+      return;
+    }
+
+    setSaving(true);
+    try {
+      const [hours, minutes] = quickBookSlot.time.split(':').map(Number);
+      const appointmentDate = new Date(selectedDate);
+      appointmentDate.setHours(hours, minutes, 0, 0);
+
+      const res = await fetch('/api/appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          client_id: quickBookClient,
+          service_id: quickBookService,
+          provider_id: quickBookSlot.providerId,
+          starts_at: appointmentDate.toISOString(),
+          status: 'confirmed',
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error || 'Failed to create appointment');
+      }
+
+      toast.success('Appointment booked!');
+      setShowQuickBook(false);
+      fetchAppointments();
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to book appointment');
+    } finally {
+      setSaving(false);
+    }
+  };
 
   // Filter providers
   const displayProviders = useMemo(() => {
@@ -334,18 +434,38 @@ export default function CalendarPage() {
               {displayProviders.map((provider) => {
                 const providerAppts = getProviderAppointments(provider.id);
                 const color = getProviderColor(provider.id);
+                const providerName = `${provider.first_name} ${provider.last_name}`;
                 
                 return (
                   <div
                     key={provider.id}
                     className="flex-1 border-l border-gray-200 relative min-w-[180px]"
                   >
-                    {/* Hour lines */}
+                    {/* Clickable hour slots */}
                     {HOUR_LABELS.map((hour) => (
-                      <div key={hour} className="h-24 border-b border-gray-100" />
+                      <div key={hour} className="h-24 border-b border-gray-100 relative">
+                        {/* First 30 min */}
+                        <div 
+                          className="absolute inset-x-0 top-0 h-12 cursor-pointer hover:bg-pink-50/50 transition-colors group"
+                          onClick={() => handleSlotClick(`${hour.toString().padStart(2, '0')}:00`, provider.id, providerName)}
+                        >
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span className="text-xs text-pink-500 font-medium bg-white/80 px-2 py-1 rounded">+ Book</span>
+                          </div>
+                        </div>
+                        {/* Second 30 min */}
+                        <div 
+                          className="absolute inset-x-0 bottom-0 h-12 cursor-pointer hover:bg-pink-50/50 transition-colors group"
+                          onClick={() => handleSlotClick(`${hour.toString().padStart(2, '0')}:30`, provider.id, providerName)}
+                        >
+                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span className="text-xs text-pink-500 font-medium bg-white/80 px-2 py-1 rounded">+ Book</span>
+                          </div>
+                        </div>
+                      </div>
                     ))}
 
-                    {/* Appointments */}
+                    {/* Appointments - positioned above slots */}
                     {providerAppts.map((appt) => {
                       const style = getAppointmentStyle(appt);
                       const isSelected = selectedAppointment?.id === appt.id;
@@ -353,7 +473,10 @@ export default function CalendarPage() {
                       return (
                         <button
                           key={appt.id}
-                          onClick={() => setSelectedAppointment(appt)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedAppointment(appt);
+                          }}
                           className={`absolute left-1 right-1 rounded-lg border-l-4 p-2 text-left transition-all overflow-hidden ${color.bg} ${color.border} ${color.text} ${
                             isSelected ? 'ring-2 ring-slate-400 shadow-lg z-20' : 'hover:shadow-md z-10'
                           }`}
@@ -523,10 +646,128 @@ export default function CalendarPage() {
               </div>
               <p className="text-gray-500 font-medium">Select an appointment</p>
               <p className="text-sm text-gray-400 mt-1">Click on any appointment to view details</p>
+              <p className="text-sm text-gray-400 mt-1">or click empty time slot to book</p>
             </div>
           </div>
         )}
       </div>
+
+      {/* Quick Book Modal */}
+      {showQuickBook && quickBookSlot && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl">
+            <div className="p-6 border-b border-gray-100">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-xl font-bold text-slate-800">Quick Book</h2>
+                  <p className="text-gray-500 mt-1">
+                    {quickBookSlot.time} with {quickBookSlot.providerName}
+                  </p>
+                  <p className="text-sm text-gray-400">
+                    {selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowQuickBook(false)}
+                  className="p-2 hover:bg-gray-100 rounded-lg text-gray-500"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            
+            <div className="p-6 space-y-4">
+              {/* Client Search */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Client *</label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search client by name..."
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                    onChange={(e) => searchClients(e.target.value)}
+                  />
+                  {clientSearchResults.length > 0 && (
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-xl z-10 max-h-48 overflow-y-auto">
+                      {clientSearchResults.map((client) => (
+                        <button
+                          key={client.id}
+                          type="button"
+                          onClick={() => {
+                            setQuickBookClient(client.id);
+                            setClientSearchResults([]);
+                          }}
+                          className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center gap-3 border-b border-gray-100 last:border-0"
+                        >
+                          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-medium">
+                            {client.first_name?.[0]}{client.last_name?.[0]}
+                          </div>
+                          <div>
+                            <p className="font-medium text-slate-800">{client.first_name} {client.last_name}</p>
+                            <p className="text-sm text-gray-500">{client.email}</p>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                {quickBookClient && (
+                  <p className="text-sm text-emerald-600 mt-2 flex items-center gap-1">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Client selected
+                  </p>
+                )}
+              </div>
+
+              {/* Service Selection */}
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Service *</label>
+                <select 
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 bg-white"
+                  value={quickBookService}
+                  onChange={(e) => setQuickBookService(e.target.value)}
+                >
+                  <option value="">Select service...</option>
+                  {services.map(service => (
+                    <option key={service.id} value={service.id}>
+                      {service.name} - ${service.price_cents ? (service.price_cents / 100).toFixed(0) : (service.price || 0)}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="p-6 border-t border-gray-100 flex justify-between">
+              <button
+                onClick={() => setShowQuickBook(false)}
+                className="px-4 py-2 text-gray-600 font-medium hover:bg-gray-100 rounded-lg"
+              >
+                Cancel
+              </button>
+              <div className="flex gap-2">
+                <Link
+                  href={`/admin/appointments/new?provider=${quickBookSlot?.providerId}&date=${dateString}&time=${encodeURIComponent(quickBookSlot?.time || '')}`}
+                  className="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200"
+                  onClick={() => setShowQuickBook(false)}
+                >
+                  Full Form
+                </Link>
+                <button
+                  onClick={handleQuickBook}
+                  disabled={saving || !quickBookClient || !quickBookService}
+                  className="px-6 py-2 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium rounded-lg hover:from-pink-600 hover:to-rose-600 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+                >
+                  {saving ? 'Booking...' : 'Book Now'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

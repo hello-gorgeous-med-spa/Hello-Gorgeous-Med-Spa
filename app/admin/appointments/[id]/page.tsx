@@ -37,43 +37,59 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
   } | null>(null);
   const [sendingConsent, setSendingConsent] = useState(false);
 
-  // Fetch appointment from API
+  // Fetch appointment from API - using specific endpoint
   useEffect(() => {
     const fetchAppointment = async () => {
       try {
-        const res = await fetch('/api/appointments');
-        const data = await res.json();
+        // Try specific appointment endpoint first
+        let apt = null;
         
-        // Find the specific appointment
-        const apt = data.appointments?.find((a: any) => a.id === params.id);
+        try {
+          const specificRes = await fetch(`/api/appointments/${params.id}`);
+          if (specificRes.ok) {
+            const specificData = await specificRes.json();
+            apt = specificData.appointment || specificData;
+          }
+        } catch {
+          // Fall back to list endpoint
+        }
+        
+        // Fallback: fetch from list if specific endpoint fails
+        if (!apt) {
+          const res = await fetch('/api/appointments?limit=500');
+          const data = await res.json();
+          apt = data.appointments?.find((a: any) => a.id === params.id);
+        }
+        
         if (apt) {
           // Transform to expected format
           setAppointment({
             ...apt,
             scheduled_at: apt.starts_at,
-            client: {
+            client: apt.client || {
               id: apt.client_id,
-              first_name: apt.client_name?.split(' ')[0] || '',
-              last_name: apt.client_name?.split(' ').slice(1).join(' ') || '',
-              email: apt.client_email,
-              phone: apt.client_phone,
+              first_name: apt.client_name?.split(' ')[0] || apt.client?.first_name || '',
+              last_name: apt.client_name?.split(' ').slice(1).join(' ') || apt.client?.last_name || '',
+              email: apt.client_email || apt.client?.email,
+              phone: apt.client_phone || apt.client?.phone,
             },
-            service: {
+            service: apt.service || {
               id: apt.service_id,
               name: apt.service_name,
-              duration_minutes: apt.duration,
+              duration_minutes: apt.duration_minutes || apt.duration,
               price: apt.service_price,
             },
-            provider: {
+            provider: apt.provider || {
               id: apt.provider_id,
-              first_name: apt.provider_name?.split(' ')[0] || '',
-              last_name: apt.provider_name?.split(' ').slice(1).join(' ') || '',
+              first_name: apt.provider_name?.split(' ')[0] || apt.provider?.first_name || '',
+              last_name: apt.provider_name?.split(' ').slice(1).join(' ') || apt.provider?.last_name || '',
             },
           });
           
           // Fetch consent status for this client
-          if (apt.client_id) {
-            fetch(`/api/consents/verify?clientId=${apt.client_id}`)
+          const clientId = apt.client_id || apt.client?.id;
+          if (clientId) {
+            fetch(`/api/consents/verify?clientId=${clientId}`)
               .then(res => res.json())
               .then(data => {
                 if (!data.error) {
