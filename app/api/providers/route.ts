@@ -29,10 +29,10 @@ function getSupabase() {
   }
 }
 
-// ONLY THESE TWO PROVIDERS - HARDCODED
+// ONLY THESE TWO PROVIDERS - HARDCODED with actual database UUIDs
 const ALLOWED_PROVIDERS = [
   {
-    id: 'ryan-kent',
+    id: '47ab9361-4a68-4ab8-a860-c9c9fd64d26c',
     first_name: 'Ryan',
     last_name: 'Kent',
     email: 'ryan@hellogorgeousmedspa.com',
@@ -41,7 +41,7 @@ const ALLOWED_PROVIDERS = [
     is_active: true,
   },
   {
-    id: 'danielle-alcala',
+    id: 'b7e6f872-3628-418a-aefb-aca2101f7cb2',
     first_name: 'Danielle',
     last_name: 'Alcala',
     email: 'hello.gorgeous@hellogorgeousmedspa.com',

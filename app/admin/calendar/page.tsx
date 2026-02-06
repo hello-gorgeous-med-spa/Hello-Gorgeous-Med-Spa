@@ -21,10 +21,10 @@ const PROVIDER_COLORS = [
   { bg: 'bg-rose-100', border: 'border-l-rose-400', text: 'text-rose-900', accent: 'bg-rose-400' },
 ];
 
-// Fallback providers - always show these
+// Fallback providers - use actual database UUIDs so appointments match!
 const FALLBACK_PROVIDERS = [
-  { id: 'ryan-kent', first_name: 'Ryan', last_name: 'Kent', credentials: 'FNP-BC', color_hex: '#3b82f6' },
-  { id: 'danielle-alcala', first_name: 'Danielle', last_name: 'Alcala', credentials: 'RN-S', color_hex: '#ec4899' },
+  { id: '47ab9361-4a68-4ab8-a860-c9c9fd64d26c', first_name: 'Ryan', last_name: 'Kent', credentials: 'FNP-BC', color_hex: '#3b82f6' },
+  { id: 'b7e6f872-3628-418a-aefb-aca2101f7cb2', first_name: 'Danielle', last_name: 'Alcala', credentials: 'RN-S', color_hex: '#ec4899' },
 ];
 
 // Generate time slots (9 AM to 6 PM)
