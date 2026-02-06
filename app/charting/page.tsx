@@ -196,9 +196,6 @@ export default function ChartingHubPage() {
     setMessage(null);
 
     try {
-      // TODO: Get actual user ID from auth
-      const created_by = 'system'; // Placeholder
-
       const res = await fetch('/api/chart-notes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -208,7 +205,7 @@ export default function ChartingHubPage() {
           appointment_id: newNote.appointment_id || null,
           template_id: newNote.template_id || null,
           status: asDraft ? 'draft' : 'final',
-          created_by,
+          // created_by will be set from session in a future auth update
         }),
       });
 

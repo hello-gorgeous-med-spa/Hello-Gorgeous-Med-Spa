@@ -47,8 +47,10 @@ export async function GET(request: NextRequest) {
         *,
         client:clients(
           id,
-          user_id,
-          users(first_name, last_name, email, phone)
+          first_name,
+          last_name,
+          email,
+          phone
         ),
         appointment:appointments(
           id,
@@ -56,9 +58,7 @@ export async function GET(request: NextRequest) {
           service:services(name)
         ),
         service:services(id, name),
-        template:chart_templates(id, name),
-        created_by_user:users!chart_notes_created_by_fkey(first_name, last_name),
-        signed_by_user:users!chart_notes_signed_by_fkey(first_name, last_name)
+        template:chart_templates(id, name)
       `)
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
@@ -93,24 +93,28 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
-    // Flatten nested data
-    const notes = (data || []).map((note: any) => ({
-      ...note,
-      client_name: note.client?.users 
-        ? `${note.client.users.first_name} ${note.client.users.last_name}` 
-        : null,
-      client_email: note.client?.users?.email,
-      appointment_date: note.appointment?.starts_at,
-      appointment_service: note.appointment?.service?.name,
-      service_name: note.service?.name,
-      template_name: note.template?.name,
-      created_by_name: note.created_by_user 
-        ? `${note.created_by_user.first_name} ${note.created_by_user.last_name}`
-        : null,
-      signed_by_name: note.signed_by_user
-        ? `${note.signed_by_user.first_name} ${note.signed_by_user.last_name}`
-        : null,
-    }));
+    // Flatten nested data - use direct columns on clients
+    const notes = (data || []).map((note: any) => {
+      // Client name - try direct columns
+      let clientName = null;
+      if (note.client) {
+        if (note.client.first_name || note.client.last_name) {
+          clientName = `${note.client.first_name || ''} ${note.client.last_name || ''}`.trim();
+        }
+      }
+      
+      return {
+        ...note,
+        client_name: clientName,
+        client_email: note.client?.email,
+        appointment_date: note.appointment?.starts_at,
+        appointment_service: note.appointment?.service?.name,
+        service_name: note.service?.name,
+        template_name: note.template?.name,
+        created_by_name: null, // Will be populated when auth is implemented
+        signed_by_name: null,
+      };
+    });
 
     // Get count for pagination
     const { count } = await supabase
@@ -164,13 +168,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate created_by
-    if (!created_by) {
-      return NextResponse.json(
-        { error: 'created_by (user ID) is required' },
-        { status: 400 }
-      );
-    }
+    // Validate created_by - must be a valid UUID or null
+    // Skip validation for placeholder values like 'system'
+    const isValidUuid = (str: string) => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(str);
+    const validCreatedBy = created_by && isValidUuid(created_by) ? created_by : null;
 
     const insertData: any = {
       client_id: client_id || null,
@@ -186,14 +187,18 @@ export async function POST(request: NextRequest) {
       procedure_details: procedure_details || {},
       icd10_codes: icd10_codes || [],
       cpt_codes: cpt_codes || [],
-      created_by,
       status,
     };
+    
+    // Only add created_by if it's a valid UUID
+    if (validCreatedBy) {
+      insertData.created_by = validCreatedBy;
+    }
 
     // If finalizing immediately, add signature
-    if (status === 'final') {
+    if (status === 'final' && validCreatedBy) {
       insertData.signed_at = new Date().toISOString();
-      insertData.signed_by = created_by;
+      insertData.signed_by = validCreatedBy;
     }
 
     const { data, error } = await supabase
