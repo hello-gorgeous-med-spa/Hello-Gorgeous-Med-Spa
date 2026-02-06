@@ -329,32 +329,45 @@ export default function CalendarPage() {
   };
 
   // Get appointment position
+  // IMPORTANT: Parse the time from the ISO string directly to get the "intended" time
+  // regardless of timezone, since we store times as the local appointment time
   const getAppointmentStyle = (appt: any) => {
-    const startTime = new Date(appt.starts_at);
-    const startHour = startTime.getHours();
-    const startMinute = startTime.getMinutes();
+    // Extract hour and minute directly from the ISO string (YYYY-MM-DDTHH:MM:SS)
+    // This treats the stored time as the intended display time, ignoring timezone conversion
+    const startsAtStr = appt.starts_at || '';
+    const timeMatch = startsAtStr.match(/T(\d{2}):(\d{2})/);
+    
+    let startHour = 9;
+    let startMinute = 0;
+    
+    if (timeMatch) {
+      startHour = parseInt(timeMatch[1], 10);
+      startMinute = parseInt(timeMatch[2], 10);
+    } else {
+      // Fallback to Date parsing if format doesn't match
+      const startTime = new Date(appt.starts_at);
+      startHour = startTime.getHours();
+      startMinute = startTime.getMinutes();
+    }
+    
     const startMinutes = (startHour - 9) * 60 + startMinute;
     const duration = appt.duration_minutes || appt.duration || 30;
     
     // 48px per 30 min = 96px per hour
     // Clamp to visible area (9 AM - 6 PM)
-    const clampedMinutes = Math.max(0, startMinutes);
+    const clampedMinutes = Math.max(0, Math.min(startMinutes, 9 * 60)); // Max 9 hours from 9 AM
     const top = (clampedMinutes / 60) * 96;
     const height = Math.max(24, (duration / 60) * 96 - 2); // Minimum 24px height
     
     // Debug log
     console.log('[Calendar] Appointment style:', {
-      id: appt.id,
-      starts_at: appt.starts_at,
-      parsedTime: startTime.toLocaleString(),
-      startHour,
-      startMinute,
+      id: appt.id?.slice(0, 8),
+      starts_at: startsAtStr,
+      extractedTime: `${startHour}:${startMinute.toString().padStart(2, '0')}`,
       startMinutes,
-      clampedMinutes,
       top,
       height,
       duration,
-      provider_id: appt.provider_id,
       client_name: appt.client_name,
     });
     
@@ -411,14 +424,41 @@ export default function CalendarPage() {
     return filtered;
   };
 
-  // Format time for display
+  // Format time for display - extract from ISO string to avoid timezone conversion
   const formatApptTime = (isoString: string) => {
+    const timeMatch = isoString?.match(/T(\d{2}):(\d{2})/);
+    if (timeMatch) {
+      let hour = parseInt(timeMatch[1], 10);
+      const minute = timeMatch[2];
+      const ampm = hour >= 12 ? 'PM' : 'AM';
+      if (hour > 12) hour -= 12;
+      if (hour === 0) hour = 12;
+      return `${hour}:${minute} ${ampm}`;
+    }
+    // Fallback
     const date = new Date(isoString);
     return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
   };
 
-  // Get end time
+  // Get end time - calculate from extracted time to avoid timezone issues
   const getEndTime = (isoString: string, duration: number) => {
+    const timeMatch = isoString?.match(/T(\d{2}):(\d{2})/);
+    if (timeMatch) {
+      let hour = parseInt(timeMatch[1], 10);
+      let minute = parseInt(timeMatch[2], 10);
+      // Add duration
+      minute += duration;
+      while (minute >= 60) {
+        minute -= 60;
+        hour += 1;
+      }
+      const ampm = hour >= 12 ? 'PM' : 'AM';
+      let displayHour = hour;
+      if (displayHour > 12) displayHour -= 12;
+      if (displayHour === 0) displayHour = 12;
+      return `${displayHour}:${minute.toString().padStart(2, '0')} ${ampm}`;
+    }
+    // Fallback
     const date = new Date(isoString);
     date.setMinutes(date.getMinutes() + duration);
     return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
