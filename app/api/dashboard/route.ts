@@ -65,34 +65,31 @@ export async function GET(request: NextRequest) {
       .from('appointments')
       .select('*', { count: 'exact', head: true });
 
-    // Get today's revenue from transactions
-    const { data: todayTransactions } = await supabase
-      .from('transactions')
-      .select('total, amount_cents')
+    // Get today's revenue from SALES table (not transactions - that table doesn't exist)
+    // Sales table uses gross_total in cents
+    const { data: todaySales } = await supabase
+      .from('sales')
+      .select('gross_total, net_total')
       .eq('status', 'completed')
       .gte('created_at', `${today}T00:00:00`)
       .lt('created_at', `${today}T23:59:59`);
 
-    const todayRevenue = (todayTransactions || []).reduce((sum: number, t: any) => {
-      // Handle both POS schema (total as decimal) and main schema (amount_cents)
-      if (t.total) return sum + parseFloat(t.total);
-      if (t.amount_cents) return sum + (t.amount_cents / 100);
-      return sum;
+    const todayRevenue = (todaySales || []).reduce((sum: number, s: any) => {
+      // gross_total is in cents
+      return sum + ((s.gross_total || s.net_total || 0) / 100);
     }, 0);
 
     // Get week's revenue
     const weekStart = new Date();
     weekStart.setDate(weekStart.getDate() - 7);
-    const { data: weekTransactions } = await supabase
-      .from('transactions')
-      .select('total, amount_cents')
+    const { data: weekSales } = await supabase
+      .from('sales')
+      .select('gross_total, net_total')
       .eq('status', 'completed')
       .gte('created_at', weekStart.toISOString());
 
-    const weekRevenue = (weekTransactions || []).reduce((sum: number, t: any) => {
-      if (t.total) return sum + parseFloat(t.total);
-      if (t.amount_cents) return sum + (t.amount_cents / 100);
-      return sum;
+    const weekRevenue = (weekSales || []).reduce((sum: number, s: any) => {
+      return sum + ((s.gross_total || s.net_total || 0) / 100);
     }, 0);
 
     // Get month's revenue - 1st of current month at midnight
@@ -101,20 +98,16 @@ export async function GET(request: NextRequest) {
     monthStart.setHours(0, 0, 0, 0);
     const monthStartStr = monthStart.toISOString();
     
-    console.log('[Dashboard] Month start:', monthStartStr); // Debug log
-    
-    const { data: monthTransactions } = await supabase
-      .from('transactions')
-      .select('total, amount_cents, created_at')
+    const { data: monthSales } = await supabase
+      .from('sales')
+      .select('gross_total, net_total, created_at')
       .eq('status', 'completed')
       .gte('created_at', monthStartStr);
     
-    console.log('[Dashboard] Month transactions count:', monthTransactions?.length || 0); // Debug log
+    console.log('[Dashboard] Month sales count:', monthSales?.length || 0);
 
-    const monthRevenue = (monthTransactions || []).reduce((sum: number, t: any) => {
-      if (t.total) return sum + parseFloat(t.total);
-      if (t.amount_cents) return sum + (t.amount_cents / 100);
-      return sum;
+    const monthRevenue = (monthSales || []).reduce((sum: number, s: any) => {
+      return sum + ((s.gross_total || s.net_total || 0) / 100);
     }, 0);
 
     // Get new clients this month
