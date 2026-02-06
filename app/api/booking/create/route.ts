@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
         if (clientError) {
           console.error('Error creating client record:', clientError);
           return NextResponse.json(
-            { error: 'Failed to create client record' },
+            { error: `Failed to create client record: ${clientError.message || clientError.code}` },
             { status: 500 }
           );
         }
@@ -109,7 +109,7 @@ export async function POST(request: NextRequest) {
       if (userError) {
         console.error('Error creating user:', userError);
         return NextResponse.json(
-          { error: 'Failed to create user account' },
+          { error: `Failed to create user account: ${userError.message || userError.code}` },
           { status: 500 }
         );
       }
@@ -134,7 +134,7 @@ export async function POST(request: NextRequest) {
       if (clientError) {
         console.error('Error creating client record:', clientError);
         return NextResponse.json(
-          { error: 'Failed to create client record' },
+          { error: `Failed to create client record: ${clientError.message || clientError.code}` },
           { status: 500 }
         );
       }
@@ -153,6 +153,51 @@ export async function POST(request: NextRequest) {
         { error: 'Service not found' },
         { status: 404 }
       );
+    }
+
+    // 2.5. Resolve provider ID - may be fallback string or real UUID
+    let resolvedProviderId = providerId;
+    
+    // Check if providerId is a fallback string (not a UUID)
+    const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(providerId);
+    
+    if (!isUUID) {
+      // Map fallback IDs to real provider names for lookup
+      const providerNameMap: Record<string, string> = {
+        'ryan-kent': 'Ryan',
+        'danielle-alcala': 'Danielle',
+      };
+      
+      const searchName = providerNameMap[providerId] || providerId;
+      
+      // Look up provider by name
+      const { data: providerLookup } = await supabase
+        .from('providers')
+        .select('id, users!inner(first_name)')
+        .ilike('users.first_name', `%${searchName}%`)
+        .limit(1)
+        .single();
+      
+      if (providerLookup) {
+        resolvedProviderId = providerLookup.id;
+      } else {
+        // Try to get ANY active provider as fallback
+        const { data: anyProvider } = await supabase
+          .from('providers')
+          .select('id')
+          .eq('is_active', true)
+          .limit(1)
+          .single();
+        
+        if (anyProvider) {
+          resolvedProviderId = anyProvider.id;
+        } else {
+          return NextResponse.json(
+            { error: 'No providers available' },
+            { status: 404 }
+          );
+        }
+      }
     }
 
     // 3. Parse date and time
@@ -182,7 +227,7 @@ export async function POST(request: NextRequest) {
     const { data: existingAppointments, error: conflictError } = await supabase
       .from('appointments')
       .select('id, starts_at, ends_at')
-      .eq('provider_id', providerId)
+      .eq('provider_id', resolvedProviderId)
       .neq('status', 'cancelled')
       .neq('status', 'no_show')
       .or(`and(starts_at.lt.${endDateTime.toISOString()},ends_at.gt.${startDateTime.toISOString()})`);
@@ -207,7 +252,7 @@ export async function POST(request: NextRequest) {
       .from('appointments')
       .insert({
         client_id: clientId,
-        provider_id: providerId,
+        provider_id: resolvedProviderId,
         service_id: service.id,
         starts_at: startDateTime.toISOString(),
         ends_at: endDateTime.toISOString(),
@@ -225,7 +270,7 @@ export async function POST(request: NextRequest) {
     if (appointmentError) {
       console.error('Error creating appointment:', appointmentError);
       return NextResponse.json(
-        { error: 'Failed to create appointment' },
+        { error: `Failed to create appointment: ${appointmentError.message || appointmentError.code || 'Unknown error'}` },
         { status: 500 }
       );
     }
@@ -271,8 +316,9 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Booking error:', error);
+    const message = error instanceof Error ? error.message : 'An unexpected error occurred';
     return NextResponse.json(
-      { error: 'An unexpected error occurred' },
+      { error: message },
       { status: 500 }
     );
   }
