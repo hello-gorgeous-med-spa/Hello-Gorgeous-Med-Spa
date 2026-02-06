@@ -4,7 +4,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 import { dollarsToCents } from '@/lib/square/client';
 
 export const dynamic = 'force-dynamic';
@@ -22,7 +22,14 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '50');
     const offset = parseInt(searchParams.get('offset') || '0');
     
-    const supabase = createServerSupabaseClient();
+    const supabase = createAdminSupabaseClient();
+    
+    if (!supabase) {
+      return NextResponse.json(
+        { error: 'Database not configured' },
+        { status: 500 }
+      );
+    }
     
     // If ID is provided, fetch single invoice
     if (id) {
@@ -116,7 +123,14 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    const supabase = createServerSupabaseClient();
+    const supabase = createAdminSupabaseClient();
+    
+    if (!supabase) {
+      return NextResponse.json(
+        { error: 'Database not configured' },
+        { status: 500 }
+      );
+    }
     
     // Calculate totals
     let subtotal = 0;
