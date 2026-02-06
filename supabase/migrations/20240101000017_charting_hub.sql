@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS chart_notes (
   client_id UUID REFERENCES clients(id) ON DELETE SET NULL,
   appointment_id UUID REFERENCES appointments(id) ON DELETE SET NULL,
   service_id UUID REFERENCES services(id) ON DELETE SET NULL,
-  invoice_id UUID REFERENCES invoices(id) ON DELETE SET NULL,
+  invoice_id UUID, -- Can link to invoice later
   template_id UUID REFERENCES chart_templates(id) ON DELETE SET NULL,
   
   -- Note metadata
@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS chart_notes (
   voice_capture_id UUID, -- References chart_voice_captures if used
   
   -- Audit fields
-  created_by UUID NOT NULL REFERENCES users(id),
+  created_by UUID REFERENCES users(id),
   created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
   updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
