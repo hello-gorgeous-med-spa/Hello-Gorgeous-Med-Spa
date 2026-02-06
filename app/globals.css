@@ -14,6 +14,7 @@ body {
 /* ============================================================
    ADMIN PANEL TEXT VISIBILITY FIX
    Make all admin interface text darker and more readable
+   WHITE-ON-WHITE BUG FIX
    ============================================================ */
 
 /* Force darker input text - applies to all form inputs */
@@ -34,6 +35,53 @@ textarea::placeholder {
 .admin-panel select {
   color: #111827 !important;
   font-weight: 500;
+}
+
+/* CRITICAL: Fix white text on white backgrounds in admin panel */
+.admin-panel .bg-white .text-white,
+.admin-panel .bg-gray-50 .text-white,
+.admin-panel .bg-gray-100 .text-white {
+  color: #111827 !important; /* Force dark text on light backgrounds */
+}
+
+/* Fix white text in cards/sections with white backgrounds */
+.admin-panel [class*="bg-white"] > [class*="text-white"],
+.admin-panel [class*="bg-gray"] > [class*="text-white"] {
+  color: #374151 !important; /* gray-700 */
+}
+
+/* Fix headings that might be white */
+.admin-panel h1,
+.admin-panel h2,
+.admin-panel h3,
+.admin-panel h4,
+.admin-panel h5,
+.admin-panel h6 {
+  color: #111827; /* gray-900 - default dark */
+}
+
+/* But allow colored headings */
+.admin-panel h1[class*="text-pink"],
+.admin-panel h2[class*="text-pink"],
+.admin-panel h3[class*="text-pink"] {
+  color: inherit;
+}
+
+/* Fix paragraphs and spans that are white on white */
+.admin-panel .bg-white p:not([class*="text-"]),
+.admin-panel .bg-white span:not([class*="text-"]) {
+  color: #374151; /* gray-700 default */
+}
+
+/* Table text must be readable */
+.admin-panel table td,
+.admin-panel table th {
+  color: #374151 !important; /* gray-700 minimum */
+}
+
+/* Fix labels */
+.admin-panel label {
+  color: #374151 !important; /* gray-700 */
 }
 
 /* Fix light gray labels and descriptions in admin */
@@ -62,6 +110,30 @@ aside input,
 aside textarea,
 aside select {
   color: #111827 !important;
+}
+
+/* Buttons with white text are OK if they have colored backgrounds */
+.admin-panel button[class*="bg-pink"] .text-white,
+.admin-panel button[class*="bg-blue"] .text-white,
+.admin-panel button[class*="bg-green"] .text-white,
+.admin-panel button[class*="bg-red"] .text-white,
+.admin-panel a[class*="bg-pink"] .text-white,
+.admin-panel a[class*="bg-blue"] .text-white {
+  color: white !important;
+}
+
+/* Stats and metrics should be dark */
+.admin-panel [class*="stat"] {
+  color: #111827;
+}
+
+/* Fix any remaining white text on white card backgrounds */
+.admin-panel .rounded-xl.bg-white *:not(button):not(a) {
+  color: inherit;
+}
+
+.admin-panel .rounded-xl.bg-white {
+  color: #374151; /* base dark color for cards */
 }
 
 ::selection {
