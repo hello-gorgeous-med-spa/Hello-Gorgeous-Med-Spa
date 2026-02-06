@@ -821,10 +821,39 @@ function CheckoutPanel({
           <div className="w-8" />
         </div>
 
-        <div className="flex-1 p-6 flex flex-col items-center justify-center">
+        <div className="flex-1 p-6 flex flex-col items-center justify-center overflow-y-auto">
           <p className="text-slate-400 mb-2">Total Due</p>
           <p className="text-5xl font-bold text-white mb-2">${total.toFixed(2)}</p>
-          <p className="text-slate-500 text-sm mb-8">Tip will be added on terminal</p>
+          <p className="text-slate-500 text-sm mb-6">Tip will be added on terminal</p>
+
+          {/* Financing Options - show for purchases $200+ */}
+          {total >= 200 && (
+            <div className="w-full max-w-xs mb-6 p-4 bg-gradient-to-r from-pink-900/30 to-purple-900/30 rounded-xl border border-pink-700/30">
+              <p className="text-sm text-pink-300 mb-3 text-center">
+                💰 Need financing? As low as ${Math.round(total / 24)}/mo
+              </p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => window.open('https://www.withcherry.com/', '_blank')}
+                  className="flex-1 py-2.5 px-3 bg-red-500/20 hover:bg-red-500/40 text-red-300 text-sm rounded-lg border border-red-500/30 font-medium transition-colors"
+                >
+                  🍒 Cherry
+                </button>
+                <button
+                  onClick={() => window.open('https://www.carecredit.com/', '_blank')}
+                  className="flex-1 py-2.5 px-3 bg-teal-500/20 hover:bg-teal-500/40 text-teal-300 text-sm rounded-lg border border-teal-500/30 font-medium transition-colors"
+                >
+                  💳 CareCredit
+                </button>
+                <button
+                  onClick={() => window.open('https://www.patientfi.com/', '_blank')}
+                  className="flex-1 py-2.5 px-3 bg-purple-500/20 hover:bg-purple-500/40 text-purple-300 text-sm rounded-lg border border-purple-500/30 font-medium transition-colors"
+                >
+                  ✨ PatientFi
+                </button>
+              </div>
+            </div>
+          )}
 
           <div className="w-full max-w-xs space-y-3">
             <button
