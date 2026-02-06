@@ -4,7 +4,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,10 +34,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const supabase = createServerSupabaseClient();
+    const supabase = createAdminSupabaseClient();
+    
+    if (!supabase) {
+      return NextResponse.json(
+        { error: 'Database not configured' },
+        { status: 503 }
+      );
+    }
 
-    // 1. Get or create user
+    // 1. Get or create user AND client
     let userId: string;
+    let clientId: string;
     
     // Check if user exists by email
     const { data: existingUser } = await supabase
@@ -48,6 +56,37 @@ export async function POST(request: NextRequest) {
 
     if (existingUser) {
       userId = existingUser.id;
+      
+      // Get or create client record for existing user
+      const { data: existingClient } = await supabase
+        .from('clients')
+        .select('id')
+        .eq('user_id', userId)
+        .single();
+      
+      if (existingClient) {
+        clientId = existingClient.id;
+      } else {
+        // Create client record for existing user who doesn't have one
+        const { data: newClient, error: clientError } = await supabase
+          .from('clients')
+          .insert({
+            user_id: userId,
+            date_of_birth: dateOfBirth || null,
+            accepts_sms_marketing: agreeToSMS,
+          })
+          .select('id')
+          .single();
+        
+        if (clientError) {
+          console.error('Error creating client record:', clientError);
+          return NextResponse.json(
+            { error: 'Failed to create client record' },
+            { status: 500 }
+          );
+        }
+        clientId = newClient.id;
+      }
     } else {
       // Create new user
       const { data: newUser, error: userError } = await supabase
@@ -71,14 +110,25 @@ export async function POST(request: NextRequest) {
       }
       userId = newUser.id;
 
-      // Create client record
-      await supabase
+      // Create client record for new user
+      const { data: newClient, error: clientError } = await supabase
         .from('clients')
         .insert({
           user_id: userId,
           date_of_birth: dateOfBirth || null,
           accepts_sms_marketing: agreeToSMS,
-        });
+        })
+        .select('id')
+        .single();
+      
+      if (clientError) {
+        console.error('Error creating client record:', clientError);
+        return NextResponse.json(
+          { error: 'Failed to create client record' },
+          { status: 500 }
+        );
+      }
+      clientId = newClient.id;
     }
 
     // 2. Get service details
@@ -141,16 +191,16 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // 5. Create appointment
+    // 5. Create appointment (using clientId, not userId!)
     const { data: appointment, error: appointmentError } = await supabase
       .from('appointments')
       .insert({
-        client_id: userId,
+        client_id: clientId,
         provider_id: providerId,
         service_id: service.id,
         starts_at: startDateTime.toISOString(),
         ends_at: endDateTime.toISOString(),
-        status: 'scheduled',
+        status: 'confirmed',
         notes: notes || null,
         source: 'online_booking',
       })
@@ -168,71 +218,62 @@ export async function POST(request: NextRequest) {
     // 6. For NEW clients - send consent forms automatically
     if (!existingUser) {
       try {
-        // Get the client ID (we created it above)
-        const { data: clientRecord } = await supabase
-          .from('clients')
-          .select('id')
-          .eq('user_id', userId)
-          .single();
+        // Send consent request with required forms (we already have clientId)
+        const consentForms = ['hipaa', 'treatment_consent', 'financial_policy'];
+        
+        // Generate unique token
+        const crypto = await import('crypto');
+        const token = crypto.randomBytes(32).toString('hex');
+        
+        // Set expiration (7 days)
+        const expiresAt = new Date();
+        expiresAt.setDate(expiresAt.getDate() + 7);
 
-        if (clientRecord) {
-          // Send consent request with required forms
-          const consentForms = ['hipaa', 'treatment_consent', 'financial_policy'];
+        // Create consent request record
+        await supabase
+          .from('consent_requests')
+          .insert({
+            client_id: clientId,
+            form_types: consentForms,
+            appointment_id: appointment.id,
+            sent_via: 'email',
+            sent_to: email.toLowerCase(),
+            token,
+            expires_at: expiresAt.toISOString(),
+          });
+
+        // Send SMS notification if phone provided and SMS agreed
+        if (phone && agreeToSMS) {
+          const consentLink = `https://www.hellogorgeousmedspa.com/consent/${token}`;
+          const smsMessage = `Hi ${firstName}! Your appointment at Hello Gorgeous Med Spa is confirmed for ${new Date(startDateTime).toLocaleDateString()}. Please complete your consent forms before your visit: ${consentLink}`;
           
-          // Generate unique token
-          const crypto = await import('crypto');
-          const token = crypto.randomBytes(32).toString('hex');
-          
-          // Set expiration (7 days)
-          const expiresAt = new Date();
-          expiresAt.setDate(expiresAt.getDate() + 7);
-
-          // Create consent request record
-          await supabase
-            .from('consent_requests')
-            .insert({
-              client_id: clientRecord.id,
-              form_types: consentForms,
-              appointment_id: appointment.id,
-              sent_via: 'email',
-              sent_to: email.toLowerCase(),
-              token,
-              expires_at: expiresAt.toISOString(),
-            });
-
-          // Send SMS notification if phone provided and SMS agreed
-          if (phone && agreeToSMS) {
-            const consentLink = `https://www.hellogorgeousmedspa.com/consent/${token}`;
-            const smsMessage = `Hi ${firstName}! Your appointment at Hello Gorgeous Med Spa is confirmed for ${new Date(startDateTime).toLocaleDateString()}. Please complete your consent forms before your visit: ${consentLink}`;
+          // Send via Telnyx API
+          try {
+            const telnyxApiKey = process.env.TELNYX_API_KEY;
+            const telnyxFromNumber = process.env.TELNYX_PHONE_NUMBER;
             
-            // Send via Telnyx API
-            try {
-              const telnyxApiKey = process.env.TELNYX_API_KEY;
-              const telnyxFromNumber = process.env.TELNYX_PHONE_NUMBER;
-              
-              if (telnyxApiKey && telnyxFromNumber) {
-                await fetch('https://api.telnyx.com/v2/messages', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${telnyxApiKey}`,
-                  },
-                  body: JSON.stringify({
-                    from: telnyxFromNumber,
-                    to: phone,
-                    text: smsMessage,
-                  }),
-                });
-                console.log('📱 Consent SMS sent to:', phone);
-              }
-            } catch (smsErr) {
-              console.error('SMS send error:', smsErr);
-              // Don't fail the booking if SMS fails
+            if (telnyxApiKey && telnyxFromNumber) {
+              await fetch('https://api.telnyx.com/v2/messages', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${telnyxApiKey}`,
+                },
+                body: JSON.stringify({
+                  from: telnyxFromNumber,
+                  to: phone,
+                  text: smsMessage,
+                }),
+              });
+              console.log('📱 Consent SMS sent to:', phone);
             }
+          } catch (smsErr) {
+            console.error('SMS send error:', smsErr);
+            // Don't fail the booking if SMS fails
           }
-
-          console.log(`📋 Consent forms requested for new client: ${firstName} ${lastName}`);
         }
+
+        console.log(`📋 Consent forms requested for new client: ${firstName} ${lastName}`);
       } catch (consentErr) {
         console.error('Consent request error:', consentErr);
         // Don't fail the booking if consent request fails
