@@ -583,17 +583,80 @@ export default function CalendarPage() {
             <div className="p-4 border-b border-gray-200 flex items-center justify-between">
               <h3 className="font-semibold text-slate-800">Appointment</h3>
               <div className="flex items-center gap-2">
-                <button className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500">
+                {/* More Actions Dropdown */}
+                <div className="relative group">
+                  <button className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                    </svg>
+                  </button>
+                  <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                    <button 
+                      onClick={() => {
+                        if (confirm('Cancel this appointment?')) {
+                          fetch(`/api/appointments/${selectedAppointment.id}`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ status: 'cancelled' })
+                          }).then(() => {
+                            toast.success('Appointment cancelled');
+                            fetchAppointments();
+                            setSelectedAppointment(null);
+                          });
+                        }
+                      }}
+                      className="w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50 rounded-t-lg"
+                    >
+                      Cancel Appointment
+                    </button>
+                    <button 
+                      onClick={() => {
+                        fetch(`/api/appointments/${selectedAppointment.id}`, {
+                          method: 'PUT',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ status: 'no_show' })
+                        }).then(() => {
+                          toast.success('Marked as no-show');
+                          fetchAppointments();
+                        });
+                      }}
+                      className="w-full px-4 py-2 text-left text-sm text-orange-600 hover:bg-orange-50"
+                    >
+                      Mark No-Show
+                    </button>
+                    <button 
+                      onClick={() => {
+                        fetch(`/api/appointments/${selectedAppointment.id}`, {
+                          method: 'PUT',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({ status: 'completed' })
+                        }).then(() => {
+                          toast.success('Marked as completed');
+                          fetchAppointments();
+                        });
+                      }}
+                      className="w-full px-4 py-2 text-left text-sm text-green-600 hover:bg-green-50 rounded-b-lg"
+                    >
+                      Mark Completed
+                    </button>
+                  </div>
+                </div>
+                {/* Edit Appointment */}
+                <Link 
+                  href={`/admin/appointments/${selectedAppointment.id}/edit`}
+                  className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500"
+                >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                   </svg>
-                </button>
+                </Link>
+                {/* Close */}
                 <button 
                   onClick={() => setSelectedAppointment(null)}
                   className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
               </div>
@@ -603,7 +666,7 @@ export default function CalendarPage() {
             <div className="p-4 border-b border-gray-200 flex items-center justify-between">
               {getStatusBadge(selectedAppointment.status)}
               <Link
-                href={`/pos?appointment=${selectedAppointment.id}`}
+                href={`/admin/pos?appointment=${selectedAppointment.id}&client=${selectedAppointment.client_id}`}
                 className="px-4 py-2 bg-slate-800 text-white text-sm font-medium rounded-lg hover:bg-slate-700 transition-colors"
               >
                 CHECKOUT
@@ -626,50 +689,86 @@ export default function CalendarPage() {
               </div>
             </div>
 
-            {/* Client Info */}
+            {/* Client Info - INTERACTIVE */}
             <div className="p-4 border-b border-gray-200">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-semibold text-lg">
+                <Link 
+                  href={selectedAppointment.client_id ? `/admin/clients/${selectedAppointment.client_id}` : '#'}
+                  className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-semibold text-lg hover:scale-105 transition-transform"
+                >
                   {selectedAppointment.client_name?.[0] || 'C'}
-                </div>
-                <div className="flex-1">
+                </Link>
+                <Link 
+                  href={selectedAppointment.client_id ? `/admin/clients/${selectedAppointment.client_id}` : '#'}
+                  className="flex-1 hover:bg-gray-50 -m-2 p-2 rounded-lg transition-colors"
+                >
                   <p className="font-semibold text-slate-800">
                     {selectedAppointment.client_name || 'Client'}
                   </p>
                   <p className="text-sm text-gray-500">
                     Client since {new Date().getFullYear()}
                   </p>
-                </div>
-                <button className="p-2 hover:bg-gray-100 rounded-lg text-gray-500">
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                  </svg>
-                </button>
+                </Link>
+                {/* Message Button - Opens SMS */}
+                {selectedAppointment.client_id && (
+                  <Link
+                    href={`/admin/inbox?client=${selectedAppointment.client_id}`}
+                    className="p-2 hover:bg-green-50 rounded-lg text-green-600 transition-colors"
+                    title="Send SMS"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                  </Link>
+                )}
+                {/* Call Button */}
+                {selectedAppointment.client_phone && (
+                  <a
+                    href={`tel:${selectedAppointment.client_phone}`}
+                    className="p-2 hover:bg-blue-50 rounded-lg text-blue-600 transition-colors"
+                    title="Call client"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                  </a>
+                )}
               </div>
 
-              {/* Membership Badge */}
-              <div className="mt-4 p-3 bg-gray-50 rounded-xl flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <span className="text-purple-500">👑</span>
-                  <div>
-                    <p className="text-sm font-medium text-slate-800">Radiance Membership</p>
-                    <p className="text-xs text-gray-500 flex items-center gap-1">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                      Active
+              {/* Contact Info */}
+              {(selectedAppointment.client_email || selectedAppointment.client_phone) && (
+                <div className="mt-3 text-xs text-gray-500 space-y-1">
+                  {selectedAppointment.client_email && (
+                    <p className="flex items-center gap-2">
+                      <span>✉️</span>
+                      <a href={`mailto:${selectedAppointment.client_email}`} className="hover:text-pink-600">
+                        {selectedAppointment.client_email}
+                      </a>
                     </p>
-                  </div>
+                  )}
+                  {selectedAppointment.client_phone && (
+                    <p className="flex items-center gap-2">
+                      <span>📱</span>
+                      <a href={`tel:${selectedAppointment.client_phone}`} className="hover:text-pink-600">
+                        {selectedAppointment.client_phone}
+                      </a>
+                    </p>
+                  )}
                 </div>
-                <button className="p-1.5 hover:bg-gray-200 rounded-lg text-gray-500">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </button>
-              </div>
+              )}
 
-              <button className="mt-3 text-sm text-pink-600 hover:text-pink-700 font-medium">
-                Show additional client info
-              </button>
+              {/* View Full Profile Link */}
+              {selectedAppointment.client_id && (
+                <Link
+                  href={`/admin/clients/${selectedAppointment.client_id}`}
+                  className="mt-3 text-sm text-pink-600 hover:text-pink-700 font-medium flex items-center gap-1"
+                >
+                  View Full Profile
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              )}
             </div>
 
             {/* Service Details */}
@@ -689,24 +788,37 @@ export default function CalendarPage() {
                 <p>
                   <span className="text-gray-500">with</span>{' '}
                   <span className="font-medium">{selectedAppointment.provider_name || 'Provider'}</span>
-                  <span className="text-gray-500 ml-3">request: none</span>
                 </p>
                 <p>
                   <span className="text-gray-500">at</span>{' '}
                   <span className="font-medium">{formatApptTime(selectedAppointment.starts_at)}</span>
-                  <span className="text-gray-500 ml-3">for: {selectedAppointment.duration_minutes || selectedAppointment.duration || 60} min</span>
+                  <span className="text-gray-500 ml-3">for: {selectedAppointment.duration_minutes || selectedAppointment.duration || 30} min</span>
                 </p>
               </div>
             </div>
 
-            {/* Booking Details */}
-            <div className="p-4 border-t border-gray-200">
-              <button className="text-sm text-gray-500 hover:text-gray-700 font-medium flex items-center gap-1">
-                Booking Details
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
+            {/* Quick Actions */}
+            <div className="p-4 border-t border-gray-200 space-y-2">
+              <div className="grid grid-cols-2 gap-2">
+                <Link
+                  href={`/admin/charting?client=${selectedAppointment.client_id}&appointment=${selectedAppointment.id}`}
+                  className="flex items-center justify-center gap-2 px-3 py-2 bg-purple-50 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-100 transition-colors"
+                >
+                  <span>📋</span> Chart
+                </Link>
+                <Link
+                  href={`/admin/consents?client=${selectedAppointment.client_id}`}
+                  className="flex items-center justify-center gap-2 px-3 py-2 bg-blue-50 text-blue-700 text-sm font-medium rounded-lg hover:bg-blue-100 transition-colors"
+                >
+                  <span>📝</span> Consents
+                </Link>
+              </div>
+              <Link
+                href={`/admin/clients/${selectedAppointment.client_id}/photos`}
+                className="flex items-center justify-center gap-2 w-full px-3 py-2 bg-pink-50 text-pink-700 text-sm font-medium rounded-lg hover:bg-pink-100 transition-colors"
+              >
+                <span>📸</span> Before/After Photos
+              </Link>
             </div>
           </>
         ) : (
