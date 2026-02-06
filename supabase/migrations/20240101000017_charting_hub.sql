@@ -196,7 +196,7 @@ CREATE POLICY "Staff can view chart notes"
 -- Only clinical roles can create/edit
 CREATE POLICY "Clinical staff can create chart notes"
   ON chart_notes FOR INSERT
-  USING (
+  WITH CHECK (
     EXISTS (
       SELECT 1 FROM user_profiles
       WHERE user_profiles.user_id = auth.uid()
@@ -206,8 +206,8 @@ CREATE POLICY "Clinical staff can create chart notes"
 
 CREATE POLICY "Clinical staff can update draft notes"
   ON chart_notes FOR UPDATE
-  USING (
-    status = 'draft' AND
+  USING (status = 'draft')
+  WITH CHECK (
     EXISTS (
       SELECT 1 FROM user_profiles
       WHERE user_profiles.user_id = auth.uid()
