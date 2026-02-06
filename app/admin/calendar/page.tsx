@@ -334,11 +334,29 @@ export default function CalendarPage() {
     const startHour = startTime.getHours();
     const startMinute = startTime.getMinutes();
     const startMinutes = (startHour - 9) * 60 + startMinute;
-    const duration = appt.duration_minutes || appt.duration || 60;
+    const duration = appt.duration_minutes || appt.duration || 30;
     
     // 48px per 30 min = 96px per hour
-    const top = (startMinutes / 60) * 96;
-    const height = (duration / 60) * 96 - 2;
+    // Clamp to visible area (9 AM - 6 PM)
+    const clampedMinutes = Math.max(0, startMinutes);
+    const top = (clampedMinutes / 60) * 96;
+    const height = Math.max(24, (duration / 60) * 96 - 2); // Minimum 24px height
+    
+    // Debug log
+    console.log('[Calendar] Appointment style:', {
+      id: appt.id,
+      starts_at: appt.starts_at,
+      parsedTime: startTime.toLocaleString(),
+      startHour,
+      startMinute,
+      startMinutes,
+      clampedMinutes,
+      top,
+      height,
+      duration,
+      provider_id: appt.provider_id,
+      client_name: appt.client_name,
+    });
     
     return { top: `${top}px`, height: `${height}px` };
   };
@@ -346,28 +364,51 @@ export default function CalendarPage() {
   // Get appointments for a provider
   // Match by ID first, then by provider name as fallback (handles ID mismatch between calendar and DB)
   const getProviderAppointments = (providerId: string, providerFirstName?: string) => {
-    return appointments.filter(apt => {
+    const filtered = appointments.filter(apt => {
       // Direct ID match
-      if (apt.provider_id === providerId) return true;
+      if (apt.provider_id === providerId) {
+        console.log('[Calendar] ✓ Matched by ID:', apt.id, 'provider_id:', apt.provider_id);
+        return true;
+      }
       
       // Fallback: match by provider_first_name (new field from API)
       if (providerFirstName && apt.provider_first_name) {
-        return apt.provider_first_name.toLowerCase() === providerFirstName.toLowerCase();
+        const match = apt.provider_first_name.toLowerCase() === providerFirstName.toLowerCase();
+        if (match) console.log('[Calendar] ✓ Matched by provider_first_name:', apt.id);
+        return match;
       }
       
       // Fallback: match by provider name if we have name info
       if (providerFirstName && apt.provider_name) {
         const aptProviderFirst = apt.provider_name.split(' ')[0]?.toLowerCase();
-        if (aptProviderFirst === providerFirstName.toLowerCase()) return true;
+        if (aptProviderFirst === providerFirstName.toLowerCase()) {
+          console.log('[Calendar] ✓ Matched by provider_name:', apt.id);
+          return true;
+        }
       }
       
       // Also check nested provider data
       if (providerFirstName && apt.provider?.first_name) {
-        return apt.provider.first_name.toLowerCase() === providerFirstName.toLowerCase();
+        const match = apt.provider.first_name.toLowerCase() === providerFirstName.toLowerCase();
+        if (match) console.log('[Calendar] ✓ Matched by nested provider:', apt.id);
+        return match;
       }
+      
+      // Debug: log why this appointment didn't match
+      console.log('[Calendar] ✗ No match for:', {
+        aptId: apt.id,
+        aptProviderId: apt.provider_id,
+        lookingForProviderId: providerId,
+        lookingForName: providerFirstName,
+        aptProviderName: apt.provider_name,
+        aptProviderFirstName: apt.provider_first_name,
+      });
       
       return false;
     });
+    
+    console.log(`[Calendar] getProviderAppointments(${providerId.slice(0,8)}, ${providerFirstName}): found ${filtered.length} appts`);
+    return filtered;
   };
 
   // Format time for display
@@ -540,13 +581,18 @@ export default function CalendarPage() {
         </div>
 
         {/* Calendar Grid */}
-        <div className="flex-1 overflow-auto">
+        <div className="flex-1 overflow-auto bg-slate-900">
+          {/* Debug: Show appointment count */}
+          <div className="bg-yellow-100 text-yellow-800 px-3 py-1 text-xs font-mono">
+            DEBUG: {appointments.length} appointments loaded for {dateString} | 
+            Providers: {displayProviders.map(p => `${p.first_name}(${p.id.slice(0,8)})`).join(', ')}
+          </div>
           {loading ? (
             <div className="flex items-center justify-center h-full">
               <div className="animate-spin w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full" />
             </div>
           ) : (
-            <div className="flex min-h-full">
+            <div className="flex min-h-full bg-white">
               {/* Time labels */}
               <div className="w-16 flex-shrink-0 border-r border-gray-200">
                 {HOUR_LABELS.map((hour) => (
