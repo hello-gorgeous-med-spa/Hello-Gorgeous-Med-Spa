@@ -18,7 +18,7 @@ export const SITE = {
   description:
     "Luxury medical aesthetics in Oswego, IL. Botox/Dysport, dermal fillers, weight loss (GLP‑1), hormone therapy, PRF/PRP, and more.",
   phone: "+1-630-636-6193",
-  email: "hello.gorgeous@hellogorgeousmedspa.com",
+  email: "hello@hellogorgeousmedspa.com",
   address: {
     streetAddress: "74 W. Washington St.",
     addressLocality: "Oswego",
