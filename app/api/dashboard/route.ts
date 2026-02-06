@@ -95,14 +95,21 @@ export async function GET(request: NextRequest) {
       return sum;
     }, 0);
 
-    // Get month's revenue
+    // Get month's revenue - 1st of current month at midnight
     const monthStart = new Date();
     monthStart.setDate(1);
+    monthStart.setHours(0, 0, 0, 0);
+    const monthStartStr = monthStart.toISOString();
+    
+    console.log('[Dashboard] Month start:', monthStartStr); // Debug log
+    
     const { data: monthTransactions } = await supabase
       .from('transactions')
-      .select('total, amount_cents')
+      .select('total, amount_cents, created_at')
       .eq('status', 'completed')
-      .gte('created_at', monthStart.toISOString());
+      .gte('created_at', monthStartStr);
+    
+    console.log('[Dashboard] Month transactions count:', monthTransactions?.length || 0); // Debug log
 
     const monthRevenue = (monthTransactions || []).reduce((sum: number, t: any) => {
       if (t.total) return sum + parseFloat(t.total);

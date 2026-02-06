@@ -205,10 +205,12 @@ export default function ExecutiveDashboard() {
         name: `${p.first_name || p.firstName || ''} ${p.last_name || p.lastName || ''}`.trim() || 'Provider',
       })));
 
-      // Calculate stats
+      // Calculate stats - use calendar month start, not "30 days ago"
       const now = new Date();
       const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-      const monthAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+      // Use 1st of current month, not 30 days ago
+      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+      monthStart.setHours(0, 0, 0, 0);
 
       const todayAppts = appointments.filter((a: any) => a.status !== 'cancelled');
       const completedToday = appointments.filter((a: any) => a.status === 'completed').length;
@@ -216,18 +218,30 @@ export default function ExecutiveDashboard() {
       const cancelled = allAppointments.filter((a: any) => a.status === 'cancelled').length;
       const totalAppts = allAppointments.length;
 
-      // Revenue calculations
+      // Revenue calculations - filter by current calendar month
       const monthAppts = allAppointments.filter((a: any) => 
-        a.status === 'completed' && new Date(a.starts_at) >= monthAgo
+        a.status === 'completed' && new Date(a.starts_at) >= monthStart
       );
       const weekAppts = allAppointments.filter((a: any) => 
         a.status === 'completed' && new Date(a.starts_at) >= weekAgo
       );
       const todayCompleted = appointments.filter((a: any) => a.status === 'completed');
 
-      const todayRevenue = todayCompleted.reduce((sum: number, a: any) => sum + (a.service_price || 0), 0);
-      const weekRevenue = weekAppts.reduce((sum: number, a: any) => sum + (a.service_price || 0), 0);
-      const monthRevenue = monthAppts.reduce((sum: number, a: any) => sum + (a.service_price || 0), 0);
+      // Use ACTUAL transaction revenue from dashboard API if available
+      // Only fallback to service prices if no transaction data
+      const apiTodayRevenue = dashData.stats?.todayRevenue || 0;
+      const apiWeekRevenue = dashData.stats?.weekRevenue || 0;
+      const apiMonthRevenue = dashData.stats?.monthRevenue || 0;
+      
+      // Calculate from appointments as fallback
+      const aptTodayRevenue = todayCompleted.reduce((sum: number, a: any) => sum + (a.service_price || 0), 0);
+      const aptWeekRevenue = weekAppts.reduce((sum: number, a: any) => sum + (a.service_price || 0), 0);
+      const aptMonthRevenue = monthAppts.reduce((sum: number, a: any) => sum + (a.service_price || 0), 0);
+      
+      // Prefer transaction data (actual payments) over appointment service prices
+      const todayRevenue = apiTodayRevenue > 0 ? apiTodayRevenue : aptTodayRevenue;
+      const weekRevenue = apiWeekRevenue > 0 ? apiWeekRevenue : aptWeekRevenue;
+      const monthRevenue = apiMonthRevenue > 0 ? apiMonthRevenue : aptMonthRevenue;
 
       // Provider stats
       const providerStatsMap = new Map<string, ProviderStats>();
