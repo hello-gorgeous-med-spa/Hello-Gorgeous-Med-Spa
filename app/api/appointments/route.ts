@@ -290,6 +290,39 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    // ============================================================
+    // RESOLVE PROVIDER ID - Handle both UUID and string IDs
+    // ============================================================
+    let providerId = body.provider_id;
+    const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(providerId);
+    
+    if (!isUUID && providerId) {
+      // Try to find provider by name
+      const firstName = providerId.split('-')[0]?.toLowerCase();
+      
+      if (firstName) {
+        // First try joining with users table
+        const { data: providerLookup } = await supabase
+          .from('providers')
+          .select('id, first_name, user_id, users(first_name)')
+          .eq('is_active', true);
+        
+        if (providerLookup && providerLookup.length > 0) {
+          // Find matching provider
+          const match = providerLookup.find((p: any) => {
+            const pFirstName = (p.first_name || p.users?.first_name || '').toLowerCase();
+            return pFirstName === firstName || pFirstName.includes(firstName);
+          });
+          
+          if (match) {
+            providerId = match.id;
+          } else {
+            // Use first active provider as fallback
+            providerId = providerLookup[0].id;
+          }
+        }
+      }
+    }
 
     // Calculate ends_at from starts_at and duration
     const startsAt = new Date(body.starts_at);
@@ -297,11 +330,11 @@ export async function POST(request: NextRequest) {
     const endsAt = new Date(startsAt.getTime() + duration * 60000);
 
     // CHECK FOR DOUBLE BOOKING - Critical safety check
-    if (body.provider_id) {
+    if (providerId) {
       const { data: existingAppointments, error: conflictError } = await supabase
         .from('appointments')
         .select('id, starts_at, ends_at')
-        .eq('provider_id', body.provider_id)
+        .eq('provider_id', providerId)
         .neq('status', 'cancelled')
         .neq('status', 'no_show')
         .or(`and(starts_at.lt.${endsAt.toISOString()},ends_at.gt.${startsAt.toISOString()})`);
@@ -322,7 +355,7 @@ export async function POST(request: NextRequest) {
     // Valid status values: pending, confirmed, checked_in, in_progress, completed, cancelled, no_show
     const insertData: any = {
       client_id: body.client_id || null,
-      provider_id: body.provider_id,
+      provider_id: providerId,
       service_id: body.service_id,
       starts_at: body.starts_at,
       ends_at: endsAt.toISOString(),

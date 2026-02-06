@@ -143,6 +143,44 @@ export default function CalendarPage() {
     setShowQuickBook(true);
   };
 
+  // Resolve provider ID - convert string IDs to real UUIDs via lookup
+  const resolveProviderId = async (providerId: string): Promise<string> => {
+    // Check if already a UUID format
+    const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(providerId);
+    if (isUUID) return providerId;
+    
+    // Find provider by first name from the current providers list
+    const provider = providers.find(p => 
+      p.id === providerId || 
+      `${p.first_name}-${p.last_name}`.toLowerCase().replace(/\s+/g, '-') === providerId.toLowerCase()
+    );
+    
+    // If provider found and has a UUID id, use it
+    if (provider?.id && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(provider.id)) {
+      return provider.id;
+    }
+    
+    // Try to lookup provider by name from API
+    try {
+      const firstName = providerId.split('-')[0];
+      const res = await fetch(`/api/providers?search=${encodeURIComponent(firstName)}`);
+      const data = await res.json();
+      if (data.providers && data.providers.length > 0) {
+        const match = data.providers.find((p: any) => 
+          p.first_name?.toLowerCase() === firstName?.toLowerCase()
+        );
+        if (match?.id) return match.id;
+        // Return first provider as fallback
+        return data.providers[0].id;
+      }
+    } catch (err) {
+      console.error('Provider lookup failed:', err);
+    }
+    
+    // Return original if lookup fails
+    return providerId;
+  };
+
   // Create appointment
   const handleQuickBook = async () => {
     if (!quickBookClient || !quickBookService || !quickBookSlot) {
@@ -156,13 +194,16 @@ export default function CalendarPage() {
       const appointmentDate = new Date(selectedDate);
       appointmentDate.setHours(hours, minutes, 0, 0);
 
+      // Resolve provider ID to ensure it's a valid UUID
+      const resolvedProviderId = await resolveProviderId(quickBookSlot.providerId);
+
       const res = await fetch('/api/appointments', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           client_id: quickBookClient,
           service_id: quickBookService,
-          provider_id: quickBookSlot.providerId,
+          provider_id: resolvedProviderId,
           starts_at: appointmentDate.toISOString(),
           status: 'confirmed',
         }),
