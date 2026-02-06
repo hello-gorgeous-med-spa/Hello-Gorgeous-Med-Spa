@@ -175,6 +175,17 @@ export async function GET(request: NextRequest) {
       .from('provider_schedules')
       .select('*');
 
+    // Default schedule (Mon-Thu 9-5, Fri 9-3) - used if no DB schedule exists
+    const DEFAULT_SCHEDULE: { [day: number]: { start: string; end: string } | null } = {
+      0: null, // Sunday - closed
+      1: { start: '09:00', end: '17:00' }, // Monday
+      2: { start: '09:00', end: '17:00' }, // Tuesday
+      3: { start: '09:00', end: '17:00' }, // Wednesday
+      4: { start: '09:00', end: '17:00' }, // Thursday
+      5: { start: '09:00', end: '15:00' }, // Friday (9-3)
+      6: null, // Saturday - closed
+    };
+
     // Match fallback providers to database providers and get their schedules
     const cleanProviders = providers.map((provider) => {
       // Find matching DB provider by name
@@ -183,21 +194,30 @@ export async function GET(request: NextRequest) {
         return fullName.includes(provider.name.split(' ')[0].toLowerCase());
       });
 
-      // Build schedule from database (or empty if not found)
-      const schedule: { [day: number]: { start: string; end: string } | null } = {
+      // Build schedule from database 
+      let schedule: { [day: number]: { start: string; end: string } | null } = {
         0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null
       };
+      let hasDBSchedule = false;
 
       if (dbProvider && allSchedules) {
         const providerSchedules = allSchedules.filter((s: any) => s.provider_id === dbProvider.id);
-        for (const s of providerSchedules) {
-          if (s.is_working && s.start_time && s.end_time) {
-            schedule[s.day_of_week] = {
-              start: s.start_time.slice(0, 5),
-              end: s.end_time.slice(0, 5),
-            };
+        if (providerSchedules.length > 0) {
+          hasDBSchedule = true;
+          for (const s of providerSchedules) {
+            if (s.is_working && s.start_time && s.end_time) {
+              schedule[s.day_of_week] = {
+                start: s.start_time.slice(0, 5),
+                end: s.end_time.slice(0, 5),
+              };
+            }
           }
         }
+      }
+
+      // If no DB schedule found, use default business hours
+      if (!hasDBSchedule) {
+        schedule = { ...DEFAULT_SCHEDULE };
       }
 
       return {
@@ -213,16 +233,24 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     console.error('Error fetching providers:', error);
     
-    // On error, return providers with EMPTY schedules (no hardcoded availability)
-    // This prevents booking on days when we can't verify the schedule
+    // On error, return providers with DEFAULT business hours so clients can still book
+    const DEFAULT_SCHEDULE = {
+      0: null, // Sunday
+      1: { start: '09:00', end: '17:00' }, // Monday
+      2: { start: '09:00', end: '17:00' }, // Tuesday
+      3: { start: '09:00', end: '17:00' }, // Wednesday
+      4: { start: '09:00', end: '17:00' }, // Thursday
+      5: { start: '09:00', end: '15:00' }, // Friday
+      6: null, // Saturday
+    };
+    
     const cleanProviders = PROVIDER_METADATA.map(({ serviceKeywords, ...rest }) => ({
       ...rest,
-      schedule: { 0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null }
+      schedule: DEFAULT_SCHEDULE
     }));
     return NextResponse.json({ 
       providers: cleanProviders, 
-      source: 'error-fallback',
-      error: 'Could not load schedules - please contact us to book'
+      source: 'error-fallback'
     });
   }
 }
