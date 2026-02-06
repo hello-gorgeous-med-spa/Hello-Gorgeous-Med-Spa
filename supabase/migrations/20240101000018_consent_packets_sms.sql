@@ -159,7 +159,7 @@ CREATE POLICY "Staff can view consent events"
 
 CREATE POLICY "Staff can create consent events"
   ON consent_events FOR INSERT
-  USING (true);
+  WITH CHECK (true);
 
 -- Service role bypass
 CREATE POLICY "Service role full access to consent_packets"
