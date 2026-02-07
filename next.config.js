@@ -16,6 +16,7 @@ const nextConfig = {
     ],
   },
   redirects: async () => [
+    { source: "/sitemap.website.xml", destination: "/sitemap.xml", permanent: true },
     { source: "/book-now", destination: "/book", permanent: true },
     { source: "/schedule", destination: "/book", permanent: true },
     { source: "/your-care-team", destination: "/meet-the-team", permanent: true },
