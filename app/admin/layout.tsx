@@ -178,6 +178,7 @@ const NAV_SECTIONS = [
     title: 'Marketing',
     icon: '📈',
     items: [
+      { href: '/admin/concerns', label: 'Fix What Bothers Me', icon: '💗' },
       { href: '/admin/insights', label: 'AI Insights', icon: '🤖' },
       { href: '/admin/marketing', label: 'Marketing Hub', icon: '📊' },
       { href: '/admin/reports', label: 'Reports', icon: '📋' },

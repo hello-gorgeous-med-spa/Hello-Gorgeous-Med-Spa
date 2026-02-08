@@ -85,6 +85,11 @@ export function Footer() {
             <h4 className="font-bold text-white mb-5 text-sm uppercase tracking-wider">Explore</h4>
             <ul className="space-y-3 text-sm text-gray-400">
               <li>
+                <Link className="hover:text-pink-400 transition-colors" href="/fix-what-bothers-me">
+                  Fix What Bothers Me
+                </Link>
+              </li>
+              <li>
                 <Link className="hover:text-pink-400 transition-colors" href="/explore-care">
                   Explore Care
                 </Link>
@@ -212,7 +217,7 @@ export function Footer() {
               <Link className="hover:text-gray-300 transition-colors" href="/terms">
                 Terms of Service
               </Link>
-              <Link className="hover:text-gray-300 transition-colors" href="/hipaa">
+              <Link className="hover:text-gray-300 transition-colors" href="/privacy#hipaa">
                 HIPAA Notice
               </Link>
             </div>

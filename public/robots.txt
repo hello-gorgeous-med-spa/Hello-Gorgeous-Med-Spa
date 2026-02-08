@@ -1,4 +1,6 @@
 User-agent: *
+Allow: /
 Disallow: /api/
 Disallow: /private/
-Allow: /
+
+Sitemap: https://hellogorgeousmedspa.com/sitemap.xml

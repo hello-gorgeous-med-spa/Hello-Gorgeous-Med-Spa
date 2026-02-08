@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FadeUp, Section } from "@/components/Section";
+import { BOOKING_URL } from "@/lib/flows";
 
 const telehealthServices = [
   {
@@ -110,7 +111,6 @@ const faqs = [
   },
 ];
 
-const BOOKING_URL = "https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
 const DOXY_URL = "https://doxy.me/ryankent";
 
 export function TelehealthContent() {

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { FadeUp } from "./Section";
+import { BOOKING_URL } from "@/lib/flows";
 
 type SlideCategory = "peptides" | "weightloss" | "vitamins";
 
@@ -260,7 +261,7 @@ export function PharmacyShowcase() {
 
                     <div className="flex flex-col sm:flex-row gap-3">
                       <a
-                        href="https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245"
+                        href={BOOKING_URL}
                         target="_blank"
                         rel="noopener noreferrer"
                         className={`py-3 px-6 bg-gradient-to-r ${currentItem.gradient} text-white font-bold text-center rounded-full hover:opacity-90 transition shadow-lg`}

@@ -224,7 +224,7 @@ export default function ProviderLayout({
           <div className="px-3 pb-4">
             <div className="grid grid-cols-3 gap-2">
               <Link
-                href="/provider/charting/new"
+                href="/charting"
                 className="flex flex-col items-center gap-1 p-2 bg-gray-800/50 hover:bg-gray-800 rounded-xl transition-colors"
               >
                 <span className="text-lg">📝</span>
@@ -293,7 +293,7 @@ export default function ProviderLayout({
             <div className="flex items-center gap-3">
               {/* New Chart Button */}
               <Link
-                href="/provider/charting/new"
+                href="/charting"
                 className="flex items-center gap-2 px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white font-medium rounded-xl transition-colors shadow-lg shadow-pink-500/20"
               >
                 <span>📝</span>

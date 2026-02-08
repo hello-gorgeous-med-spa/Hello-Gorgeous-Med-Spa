@@ -16,6 +16,7 @@ import { EmailBanner } from "@/components/EmailCapture";
 import { BotoxCalculator } from "@/components/BotoxCalculator";
 import { VirtualTryOn } from "@/components/VirtualTryOn";
 import { QuizCTA } from "@/components/QuizCTA";
+import { FixWhatBothersMeFeature } from "@/components/FixWhatBothersMeFeature";
 import { ImmediateCareBanner } from "@/components/ImmediateCareBanner";
 import { TriggerPointSection } from "@/components/TriggerPointSection";
 import { LaserHairSection } from "@/components/LaserHairSection";
@@ -52,6 +53,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(homeBreadcrumbs)) }}
       />
       <Hero />
+      <FixWhatBothersMeFeature />
       <QuizCTA />
       <OffersSection />
       <BotoxCalculator />

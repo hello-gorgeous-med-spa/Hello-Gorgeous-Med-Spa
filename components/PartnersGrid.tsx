@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { BOOKING_URL } from "@/lib/flows";
 
 const partners = [
   {
@@ -24,7 +25,7 @@ const partners = [
     description: "The modern alternative to Botox.",
     highlight: "#NEWTOX • FDA approved",
     image: "/images/partners/jeuveau.png",
-    link: "https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245",
+    link: BOOKING_URL,
     cta: "Book Treatment",
   },
 ];

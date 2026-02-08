@@ -28,7 +28,7 @@ export const SITE = {
   },
   // TODO: replace with precise coordinates for the address above
   geo: { latitude: 41.6828, longitude: -88.3515 },
-  serviceAreas: ["Oswego, IL", "Naperville, IL", "Aurora, IL", "Plainfield, IL"],
+  serviceAreas: ["Oswego, IL", "Naperville, IL", "Aurora, IL", "Plainfield, IL", "Yorkville, IL"],
 } as const;
 
 export const HOME_FAQS: readonly FAQ[] = [
@@ -816,6 +816,28 @@ export function organizationJsonLd() {
       contactType: "customer service",
       areaServed: "US",
       availableLanguage: "English",
+    },
+  };
+}
+
+// WebSite + SearchAction for sitelinks search box (Google)
+export function websiteJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${SITE.url}/#website`,
+    url: SITE.url,
+    name: SITE.name,
+    description: SITE.description,
+    publisher: { "@id": `${SITE.url}/#organization` },
+    inLanguage: "en-US",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE.url}/services?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
     },
   };
 }

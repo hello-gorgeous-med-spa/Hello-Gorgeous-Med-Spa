@@ -5,6 +5,7 @@ import Image from "next/image";
 import type { PersonaId } from "@/lib/personas/types";
 import { PERSONA_UI } from "@/lib/personas/ui";
 import { getPersonaConfig } from "@/lib/personas/index";
+import { BOOKING_URL } from "@/lib/flows";
 // Video functions available if needed
 // import { getMascotVideoSrc, pickMascotVideoIntentForContext } from "@/lib/media";
 
@@ -144,7 +145,7 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
               <span>💬</span> Ask {cfg.displayName.split(" ")[0]}
             </button>
             <a
-              href="https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245"
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="px-6 py-3 rounded-full bg-white text-black font-semibold text-sm hover:bg-white/90 transition"

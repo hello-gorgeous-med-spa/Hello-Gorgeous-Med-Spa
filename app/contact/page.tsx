@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { CTA } from "@/components/CTA";
+import { ContactForm } from "@/components/ContactForm";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE, pageMetadata, siteJsonLd } from "@/lib/seo";
@@ -70,36 +71,38 @@ export default function ContactPage() {
 
           <FadeUp delayMs={80}>
             <div className="rounded-2xl border border-gray-800 bg-black/40 p-6">
-              <h2 className="text-2xl font-bold text-white">Send a message</h2>
+              <h2 className="text-2xl font-bold text-white">Map & directions</h2>
               <p className="mt-3 text-gray-300">
-                Placeholder for email/SMS/CRM integration.
+                We’re at 74 W. Washington St., Oswego, IL. Get directions or call us to confirm your visit.
               </p>
-              <form className="mt-6 grid gap-4">
-                <input
-                  className="w-full rounded-lg bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
-                  placeholder="Name"
-                  name="name"
+              <div className="mt-6 rounded-xl overflow-hidden border border-gray-700 h-64">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2978.8!2d-88.3516!3d41.6828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880ef9a8f7c00001%3A0x1234567890abcdef!2s74%20W%20Washington%20St%2C%20Oswego%2C%20IL%2060543!5e0!3m2!1sen!2sus!4v1706000000000!5m2!1sen!2sus"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0, minHeight: "256px" }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title="Hello Gorgeous Med Spa - Oswego, IL"
+                  className="w-full h-full"
                 />
-                <input
-                  className="w-full rounded-lg bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
-                  placeholder="Email or phone"
-                  name="contact"
-                />
-                <textarea
-                  className="w-full min-h-[140px] rounded-lg bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
-                  placeholder="How can we help?"
-                  name="message"
-                />
-                <button
-                  className="px-8 py-4 bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 rounded-full text-lg font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition-all duration-300 hover:scale-105"
-                  type="button"
-                >
-                  Submit (integration needed)
-                </button>
-              </form>
+              </div>
             </div>
           </FadeUp>
         </div>
+      </Section>
+
+      <Section>
+        <FadeUp>
+          <div className="rounded-2xl border border-gray-800 bg-black/40 p-6">
+            <h2 className="text-2xl font-bold text-white">Send a message</h2>
+            <p className="mt-3 text-gray-300">
+              Questions about services or booking? We’ll respond as soon as we can.
+            </p>
+            <ContactForm />
+          </div>
+        </FadeUp>
       </Section>
     </>
   );

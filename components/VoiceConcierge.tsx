@@ -1,18 +1,16 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { BOOKING_URL } from "@/lib/flows";
 
 type ServiceRecommendation = {
   id: string;
   name: string;
   price: string;
   description: string;
-  freshaUrl: string;
+  bookingUrl: string;
   isUpsell?: boolean;
 };
-
-// Fresha booking URLs for different services
-const FRESHA_BASE = "https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
 
 const serviceDatabase: Record<string, ServiceRecommendation & { upsells: string[] }> = {
   botox: {
@@ -20,7 +18,7 @@ const serviceDatabase: Record<string, ServiceRecommendation & { upsells: string[
     name: "Botox",
     price: "$10/unit",
     description: "Smooth wrinkles and prevent new ones. Results in 3-7 days.",
-    freshaUrl: FRESHA_BASE,
+    bookingUrl: BOOKING_URL,
     upsells: ["lip-flip", "vitamin-b12"],
   },
   "lip-flip": {
@@ -28,7 +26,7 @@ const serviceDatabase: Record<string, ServiceRecommendation & { upsells: string[
     name: "Botox Lip Flip",
     price: "$99",
     description: "Subtle lip enhancement without filler. Quick 10-min treatment.",
-    freshaUrl: FRESHA_BASE,
+    bookingUrl: BOOKING_URL,
     upsells: ["fillers", "vitamin-b12"],
   },
   fillers: {
@@ -36,7 +34,7 @@ const serviceDatabase: Record<string, ServiceRecommendation & { upsells: string[
     name: "Dermal Fillers",
     price: "$500/syringe",
     description: "Restore volume, enhance lips, or contour your face naturally.",
-    freshaUrl: FRESHA_BASE,
+    bookingUrl: BOOKING_URL,
     upsells: ["botox", "prp"],
   },
   "weight-loss": {
@@ -44,7 +42,7 @@ const serviceDatabase: Record<string, ServiceRecommendation & { upsells: string[
     name: "GLP-1 Weight Loss",
     price: "1st Month FREE",
     description: "Semaglutide or Tirzepatide. Medical weight loss that works.",
-    freshaUrl: FRESHA_BASE,
+    bookingUrl: BOOKING_URL,
     upsells: ["vitamin-b12", "lipo-shot"],
   },
   semaglutide: {
@@ -52,7 +50,7 @@ const serviceDatabase: Record<string, ServiceRecommendation & { upsells: string[
     name: "Semaglutide",
     price: "Starting at $299/mo",
     description: "The #1 GLP-1 for weight loss. Average 15-20% body weight loss.",
-    freshaUrl: FRESHA_BASE,
+    bookingUrl: BOOKING_URL,
     upsells: ["vitamin-b12", "lipo-shot"],
   },
   tirzepatide: {
@@ -60,7 +58,7 @@ const serviceDatabase: Record<string, ServiceRecommendation & { upsells: string[
     name: "Tirzepatide",
     price: "Starting at $399/mo",
     description: "Dual-action GLP-1/GIP. Up to 25% weight loss.",
-    freshaUrl: FRESHA_BASE,
+    bookingUrl: BOOKING_URL,
     upsells: ["vitamin-b12", "lipo-shot"],
   },
   "vitamin-b12": {
@@ -68,7 +66,7 @@ const serviceDatabase: Record<string, ServiceRecommendation & { upsells: string[
     name: "Vitamin B12 Injection",
     price: "$25",
     description: "Instant energy boost. Great add-on to any treatment.",
-    freshaUrl: FRESHA_BASE,
+    bookingUrl: BOOKING_URL,
     upsells: ["glutathione", "biotin"],
   },
   "lipo-shot": {
@@ -76,7 +74,7 @@ const serviceDatabase: Record<string, ServiceRecommendation & { upsells: string[
     name: "MIC Lipo Shot",
     price: "$35",
     description: "Fat-burning vitamin cocktail. Boosts metabolism.",
-    freshaUrl: FRESHA_BASE,
+    bookingUrl: BOOKING_URL,
     upsells: ["vitamin-b12", "weight-loss"],
   },
   glutathione: {
@@ -84,7 +82,7 @@ const serviceDatabase: Record<string, ServiceRecommendation & { upsells: string[
     name: "Glutathione Injection",
     price: "$35",
     description: "Master antioxidant. Skin brightening and detox.",
-    freshaUrl: FRESHA_BASE,
+    bookingUrl: BOOKING_URL,
     upsells: ["vitamin-b12", "biotin"],
   },
   biotin: {
@@ -92,7 +90,7 @@ const serviceDatabase: Record<string, ServiceRecommendation & { upsells: string[
     name: "Biotin Injection",
     price: "$25",
     description: "Hair, skin, and nail support. See results in weeks.",
-    freshaUrl: FRESHA_BASE,
+    bookingUrl: BOOKING_URL,
     upsells: ["glutathione", "vitamin-b12"],
   },
   hormones: {
@@ -100,7 +98,7 @@ const serviceDatabase: Record<string, ServiceRecommendation & { upsells: string[
     name: "Biote Hormone Therapy",
     price: "Starting at $650",
     description: "Bio-identical pellet therapy. Feel younger and more energized.",
-    freshaUrl: FRESHA_BASE,
+    bookingUrl: BOOKING_URL,
     upsells: ["lab-panel", "vitamin-b12"],
   },
   "lab-panel": {
@@ -108,7 +106,7 @@ const serviceDatabase: Record<string, ServiceRecommendation & { upsells: string[
     name: "In-Office Lab Panel",
     price: "$199",
     description: "Comprehensive labs with results in 36 hours.",
-    freshaUrl: FRESHA_BASE,
+    bookingUrl: BOOKING_URL,
     upsells: ["hormones", "weight-loss"],
   },
   prp: {
@@ -116,7 +114,7 @@ const serviceDatabase: Record<string, ServiceRecommendation & { upsells: string[
     name: "PRP/PRF Treatment",
     price: "Starting at $600",
     description: "Regenerative therapy using your own platelets.",
-    freshaUrl: FRESHA_BASE,
+    bookingUrl: BOOKING_URL,
     upsells: ["fillers", "botox"],
   },
   consultation: {
@@ -124,7 +122,7 @@ const serviceDatabase: Record<string, ServiceRecommendation & { upsells: string[
     name: "Free Consultation",
     price: "FREE",
     description: "Meet with our team to discuss your goals. No pressure.",
-    freshaUrl: FRESHA_BASE,
+    bookingUrl: BOOKING_URL,
     upsells: [],
   },
 };
@@ -498,7 +496,7 @@ export function VoiceConcierge() {
                           <p className="text-white/60 text-sm mt-1">{rec.description}</p>
                         </div>
                         <a
-                          href={rec.freshaUrl}
+                          href={rec.bookingUrl}
                           target="_blank"
                           rel="noopener noreferrer"
                           className={`px-4 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition ${

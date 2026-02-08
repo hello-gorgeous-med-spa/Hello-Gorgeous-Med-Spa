@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-
-const BOOKING_URL = "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
+import { BOOKING_URL } from "@/lib/flows";
 
 const howItWorks = [
   {

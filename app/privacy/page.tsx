@@ -26,7 +26,7 @@ export default function PrivacyPolicyPage() {
       <main className="max-w-4xl mx-auto px-4 py-12 prose prose-pink max-w-none">
         
         {/* HIPAA Notice Banner */}
-        <div className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8 not-prose">
+        <div id="hipaa" className="bg-blue-50 border-l-4 border-blue-500 p-6 mb-8 not-prose scroll-mt-24">
           <h3 className="text-blue-900 font-bold text-lg mb-2">📋 HIPAA Notice</h3>
           <p className="text-blue-800 text-sm mb-0">
             Hello Gorgeous Med Spa is a covered entity under the Health Insurance Portability and 

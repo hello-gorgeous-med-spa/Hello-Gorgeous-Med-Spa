@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { FadeUp } from "./Section";
+import { BOOKING_URL } from "@/lib/flows";
 
 const symptoms = [
   "Lack of energy and fatigue",
@@ -199,7 +200,7 @@ export function BioteSection() {
         <FadeUp delayMs={240}>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a
-              href="https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245"
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="px-8 py-4 bg-gradient-to-r from-amber-500 to-yellow-500 text-black font-bold rounded-full hover:opacity-90 transition shadow-lg shadow-amber-500/25"

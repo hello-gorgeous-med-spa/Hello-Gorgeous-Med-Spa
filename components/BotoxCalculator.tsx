@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FadeUp } from "./Section";
+import { BOOKING_URL } from "@/lib/flows";
 
 type TreatmentArea = {
   id: string;
@@ -392,7 +393,7 @@ export function BotoxCalculator() {
               {/* CTA Buttons */}
               <div className="space-y-3">
                 <a
-                  href="https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245"
+                  href={BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block w-full py-4 px-6 rounded-xl bg-gradient-to-r from-pink-500 to-pink-600 text-white font-bold text-center hover:opacity-90 transition"

@@ -9,8 +9,11 @@ const TELNYX_API_KEY = process.env.TELNYX_API_KEY;
 const TELNYX_PHONE = process.env.TELNYX_PHONE_NUMBER;
 const TELNYX_PROFILE = process.env.TELNYX_MESSAGING_PROFILE_ID;
 
-// Google Business Profile review link
+// Review link: use HG OS / your reviews page when set (NEXT_PUBLIC_REVIEWS_URL), else fallback to Google
 const GOOGLE_REVIEW_URL = 'https://g.page/r/CRV4K5dQ4KANEAE/review';
+function getReviewUrl(): string {
+  return process.env.NEXT_PUBLIC_REVIEWS_URL || GOOGLE_REVIEW_URL;
+}
 
 // Delay before sending review request (in milliseconds)
 const REVIEW_REQUEST_DELAY = 2 * 60 * 60 * 1000; // 2 hours after checkout
@@ -65,10 +68,11 @@ export async function POST(request: NextRequest) {
     else if (!phone.startsWith('+')) phone = `+${phone}`;
 
     // Create personalized message
+    const reviewUrl = getReviewUrl();
     const firstName = client_name.split(' ')[0];
     const message = service_name
-      ? `Hi ${firstName}! 💕 Thank you for visiting Hello Gorgeous Med Spa today for your ${service_name}! We'd love to hear about your experience. Would you mind leaving us a quick review? ${GOOGLE_REVIEW_URL}\n\nReply STOP to opt out.`
-      : `Hi ${firstName}! 💕 Thank you for visiting Hello Gorgeous Med Spa today! We'd love to hear about your experience. Would you mind leaving us a quick review? ${GOOGLE_REVIEW_URL}\n\nReply STOP to opt out.`;
+      ? `Hi ${firstName}! 💕 Thank you for visiting Hello Gorgeous Med Spa today for your ${service_name}! We'd love to hear about your experience. Would you mind leaving us a quick review? ${reviewUrl}\n\nReply STOP to opt out.`
+      : `Hi ${firstName}! 💕 Thank you for visiting Hello Gorgeous Med Spa today! We'd love to hear about your experience. Would you mind leaving us a quick review? ${reviewUrl}\n\nReply STOP to opt out.`;
 
     // Send SMS via Telnyx
     const smsBody: any = {
@@ -120,6 +124,7 @@ export async function POST(request: NextRequest) {
 // GET - Check status or get review link
 export async function GET() {
   return NextResponse.json({
+    review_url: getReviewUrl(),
     google_review_url: GOOGLE_REVIEW_URL,
     configured: !!(TELNYX_API_KEY && TELNYX_PHONE),
     recent_requests: sentRequests.size,

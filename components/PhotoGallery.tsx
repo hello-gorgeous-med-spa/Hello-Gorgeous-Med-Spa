@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Section, FadeUp } from "@/components/Section";
+import { BOOKING_URL } from "@/lib/flows";
 
 const galleryImages = [
   {
@@ -64,7 +65,7 @@ export function PhotoGallery() {
         <FadeUp delayMs={400}>
           <div className="mt-12 text-center">
             <a
-              href="https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245"
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-8 py-4 bg-pink-500 text-white font-semibold rounded-full hover:bg-pink-600 transition shadow-lg shadow-pink-500/25"

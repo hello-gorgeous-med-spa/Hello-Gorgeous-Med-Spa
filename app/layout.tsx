@@ -2,9 +2,11 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import { SITE, organizationJsonLd } from "@/lib/seo";
+import { SITE, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
 import { AuthWrapper } from "@/components/AuthWrapper";
 import { ConditionalLayout } from "@/components/ConditionalLayout";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { LeadCapturePopup } from "@/components/LeadCapturePopup";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -110,8 +112,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd()) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
+        />
       </head>
       <body className="min-h-screen antialiased">
+        <GoogleAnalytics />
+        <LeadCapturePopup />
         <AuthWrapper>
           <ConditionalLayout>
             {children}

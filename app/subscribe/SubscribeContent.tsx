@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-const BOOKING_URL = "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
+import { BOOKING_URL } from "@/lib/flows";
 
 // Membership pricing - update these values as needed
 const MEMBERSHIP_PRICING = {

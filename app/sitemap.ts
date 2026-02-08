@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 
+import { GBP_SERVICE_SLUGS, MED_SPA_LOCATION_SLUGS } from "@/lib/gbp-urls";
 import { SITE, SERVICES } from "@/lib/seo";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -19,11 +20,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/quiz`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE.url}/botox-party`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE.url}/contact`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE.url}/reviews`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE.url}/vip`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE.url}/book`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     
     // About Pages
     { url: `${SITE.url}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE.url}/meet-the-team`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE.url}/fix-what-bothers-me`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE.url}/explore-care`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE.url}/your-journey`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE.url}/understand-your-body`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
@@ -106,9 +110,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
   }));
 
+  // GBP-style local landing pages (/botox-oswego-il/, /med-spa-oswego-il/, etc.)
+  const gbpRoutes: MetadataRoute.Sitemap = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS].map(
+    (slug) => ({
+      url: `${SITE.url}/${slug}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.9,
+    })
+  );
+
   return [
     ...staticRoutes,
     ...serviceRoutes,
+    ...gbpRoutes,
     ...oswegoTopRoutes,
     ...napervilleTopRoutes,
     ...auroraTopRoutes,

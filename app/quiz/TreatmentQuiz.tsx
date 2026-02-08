@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FadeUp, Section } from "@/components/Section";
+import { BOOKING_URL } from "@/lib/flows";
 
 type Answer = {
   id: string;
@@ -237,8 +238,6 @@ const treatments: Treatment[] = [
     priority: 5,
   },
 ];
-
-const BOOKING_URL = "https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
 
 export function TreatmentQuiz() {
   const [started, setStarted] = useState(false);

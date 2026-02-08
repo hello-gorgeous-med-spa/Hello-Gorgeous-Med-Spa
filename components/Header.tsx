@@ -73,6 +73,7 @@ const navigation = {
     label: "Your Journey",
     href: "/your-journey",
     links: [
+      { label: "Fix What Bothers Me", href: "/fix-what-bothers-me", description: "Share what's on your mind—we match you with options", icon: "💗" },
       { label: "Explore Care Options", href: "/explore-care", description: "Discover treatments for you", icon: "🔍" },
       { label: "Your Treatment Journey", href: "/your-journey", description: "What to expect", icon: "🗺️" },
       { label: "Understand Your Body", href: "/understand-your-body", description: "Learn about aging & skin", icon: "📚" },

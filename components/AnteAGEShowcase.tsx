@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { FadeUp } from "./Section";
+import { BOOKING_URL } from "@/lib/flows";
 
 // Add more AnteAGE images here as you get them
 const anteageImages = [
@@ -168,7 +169,7 @@ export function AnteAGEShowcase() {
 
               <div className="flex flex-col sm:flex-row gap-3 pt-4">
                 <a
-                  href="https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245"
+                  href={BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 py-4 px-6 bg-pink-500 text-white font-bold text-center rounded-full hover:bg-pink-600 transition shadow-lg shadow-pink-500/25"

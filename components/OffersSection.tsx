@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { FadeUp } from "@/components/Section";
+import { BOOKING_URL } from "@/lib/flows";
 
 export function OffersSection() {
   return (
@@ -62,7 +63,7 @@ export function OffersSection() {
           {/* Specials */}
           <FadeUp delayMs={120}>
             <a
-              href="https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245"
+              href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="group block h-full"

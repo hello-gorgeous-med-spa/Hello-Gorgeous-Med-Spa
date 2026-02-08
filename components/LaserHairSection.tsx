@@ -1,8 +1,7 @@
 "use client";
 
 import { FadeUp } from "./Section";
-
-const BOOKING_URL = "https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
+import { BOOKING_URL } from "@/lib/flows";
 
 const promoPackages = [
   {

@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prebuild": "node scripts/sync-mascot-media.mjs",
+    "export-fresha-reviews": "node scripts/export-fresha-reviews.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -31,6 +32,7 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
+    "playwright": "^1.49.0",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20.4.2",
     "@types/react": "^18.2.21",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { REVIEWS_URL } from "@/lib/flows";
 import { FadeUp } from "./Section";
 
 const testimonials = [
@@ -127,12 +128,12 @@ export function Testimonials() {
         <FadeUp delayMs={300}>
           <div className="mt-10 text-center">
             <a
-              href="https://g.page/r/hello-gorgeous-med-spa/review"
+              href={REVIEWS_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition text-sm"
             >
-              <span>📝</span> Leave us a review on Google
+              <span>📝</span> Leave us a review
             </a>
           </div>
         </FadeUp>

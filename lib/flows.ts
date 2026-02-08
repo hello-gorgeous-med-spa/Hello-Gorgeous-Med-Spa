@@ -1,7 +1,15 @@
 import type { PersonaId } from "@/lib/personas/types";
 
+/** Booking page — all "Book" / "Book Now" links. Default: first-party /book. Override with NEXT_PUBLIC_BOOKING_URL if needed (e.g. full URL). */
 export const BOOKING_URL =
-  "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
+  (typeof process !== "undefined" && process.env.NEXT_PUBLIC_BOOKING_URL) || "/book";
+
+/** Reviews page URL — "See our reviews" / "Leave a review" links and QR. Default: first-party /reviews. Set NEXT_PUBLIC_REVIEWS_URL for absolute URL (e.g. for QR codes). */
+export const REVIEWS_URL =
+  (typeof process !== "undefined" && process.env.NEXT_PUBLIC_REVIEWS_URL) || "/reviews";
+
+/** @deprecated Use REVIEWS_URL. Kept for compatibility. */
+export const FRESHA_REVIEWS_URL = REVIEWS_URL;
 
 export type CareModuleId =
   | "education"

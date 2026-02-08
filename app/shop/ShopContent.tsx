@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { FadeUp, Section } from "@/components/Section";
+import { BOOKING_URL } from "@/lib/flows";
 
 type Category = "all" | "skincare" | "supplements" | "injectables" | "wellness";
 
@@ -571,7 +572,7 @@ export function ShopContent() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245"
+                href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-8 py-4 rounded-xl bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold hover:opacity-90 transition"

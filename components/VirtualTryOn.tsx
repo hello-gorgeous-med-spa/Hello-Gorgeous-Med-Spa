@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { FadeUp } from "./Section";
+import { BOOKING_URL } from "@/lib/flows";
 
 type Enhancement = {
   id: string;
@@ -542,7 +543,7 @@ export function VirtualTryOn() {
               {/* CTA */}
               <div className="mt-6 space-y-3">
                 <a
-                  href="https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245"
+                  href={BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block w-full py-4 px-6 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-bold text-center hover:opacity-90 transition"

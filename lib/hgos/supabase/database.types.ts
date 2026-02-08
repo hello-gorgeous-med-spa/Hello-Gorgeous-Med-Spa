@@ -649,6 +649,44 @@ export type Database = {
           created_at?: string;
         };
       };
+      client_reviews: {
+        Row: {
+          id: string;
+          rating: number;
+          review_text: string;
+          client_name: string | null;
+          service_name: string | null;
+          created_at: string;
+          source: 'fresha_legacy' | 'hg_os' | 'google';
+          legacy_source_id: string | null;
+          is_verified: boolean;
+          created_at_legacy: string | null;
+        };
+        Insert: {
+          id?: string;
+          rating: number;
+          review_text: string;
+          client_name?: string | null;
+          service_name?: string | null;
+          created_at?: string;
+          source?: 'fresha_legacy' | 'hg_os' | 'google';
+          legacy_source_id?: string | null;
+          is_verified?: boolean;
+          created_at_legacy?: string | null;
+        };
+        Update: {
+          id?: string;
+          rating?: number;
+          review_text?: string;
+          client_name?: string | null;
+          service_name?: string | null;
+          created_at?: string;
+          source?: 'fresha_legacy' | 'hg_os' | 'google';
+          legacy_source_id?: string | null;
+          is_verified?: boolean;
+          created_at_legacy?: string | null;
+        };
+      };
     };
     Views: {
       [_ in never]: never;
@@ -662,6 +700,7 @@ export type Database = {
       membership_status: 'active' | 'past_due' | 'cancelled' | 'paused';
       notification_channel: 'email' | 'sms' | 'push' | 'in_app';
       transaction_type: 'payment' | 'deposit' | 'refund' | 'credit' | 'membership_charge';
+      review_source: 'fresha_legacy' | 'hg_os' | 'google';
     };
   };
 };

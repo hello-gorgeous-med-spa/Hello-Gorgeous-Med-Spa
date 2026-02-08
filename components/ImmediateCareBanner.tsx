@@ -2,7 +2,8 @@
 
 import { FadeUp } from "./Section";
 
-const IMMEDIATE_CARE_URL = "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&eid=4566698&oiid=sv%3A22845867&share=true&pId=95245";
+import { BOOKING_URL } from "@/lib/flows";
+const IMMEDIATE_CARE_URL = BOOKING_URL;
 
 const services = [
   { icon: "⚖️", name: "Weight Loss", desc: "Same-day GLP-1 starts" },

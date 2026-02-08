@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { FadeUp, Section } from "@/components/Section";
+import { BOOKING_URL } from "@/lib/flows";
 
 type IVCocktail = {
   id: string;
@@ -335,7 +336,7 @@ export function IVTherapyContent() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245"
+                href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-8 py-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold hover:opacity-90 transition"
@@ -549,7 +550,7 @@ export function IVTherapyContent() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
-                href="https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245"
+                href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-8 py-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold hover:opacity-90 transition"
@@ -632,7 +633,7 @@ export function IVTherapyContent() {
               </div>
 
               <a
-                href="https://fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245"
+                href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block w-full py-4 rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold text-center hover:opacity-90 transition"
