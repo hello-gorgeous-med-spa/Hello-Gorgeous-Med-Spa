@@ -9,6 +9,7 @@ import { createAdminSupabaseClient, isAdminConfigured } from "@/lib/hgos/supabas
 import { SITE, HOME_FAQS, SERVICES } from "@/lib/seo";
 import { BOOKING_URL, FULLSCRIPT_DISPENSARY_URL } from "@/lib/flows";
 import { getActiveCollections } from "@/lib/fullscript/collections";
+import { MASCOT_SCRIPT, isFeedbackOrOwnerIntent } from "@/lib/mascot";
 
 export const dynamic = "force-dynamic";
 
@@ -90,6 +91,12 @@ function getStaticKnowledge(): KnowledgeEntry[] {
     content: `Hello Gorgeous offers access to practitioner-grade supplements through Fullscript — quality brands, third-party tested, with proper dosing guidance. We have collections for sleep, gut health, energy, skin/hair/nails, immunity, and stress support. Browse our dispensary: ${FULLSCRIPT_DISPENSARY_URL}. This is educational only; always check with your provider before starting new supplements.`,
   });
 
+  // Who she is / mini-me script (so she answers "who are you", "what can you do")
+  entries.push({
+    title: "who are you what can you do hello gorgeous assistant mascot",
+    content: `${MASCOT_SCRIPT.whoSheIs} ${MASCOT_SCRIPT.whatSheCanDo} ${MASCOT_SCRIPT.howToUseHer}`,
+  });
+
   return entries;
 }
 
@@ -116,6 +123,17 @@ export async function POST(request: NextRequest) {
     if (matchesIntent(message, CALL_KEYWORDS)) {
       return NextResponse.json({
         reply: `You can reach us at ${phone}. We’re happy to help!`,
+        phone,
+      });
+    }
+
+    // Feedback / owner / complaint / request → offer to send to owner
+    if (isFeedbackOrOwnerIntent(message)) {
+      return NextResponse.json({
+        reply:
+          "I'll make sure Danielle gets this so she can take care of you. Use \"Send to owner\" below to send your message, and include your name and email or phone if you'd like a callback.",
+        needsFeedback: true,
+        bookingUrl,
         phone,
       });
     }

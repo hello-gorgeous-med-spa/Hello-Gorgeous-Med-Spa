@@ -40,16 +40,6 @@ interface Props {
   onSuccess?: () => void;
 }
 
-function ModalOverlay({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return <div className={className}>{children}</div>;
-}
-
 export function MascotBookingFlow({ onClose, onSuccess }: Props) {
   const [step, setStep] = useState<Step>("service");
   const [services, setServices] = useState<ServiceItem[]>([]);
@@ -182,8 +172,9 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
     (!form.isNewClient || form.dateOfBirth)
   );
 
-  return (<ModalOverlay className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50">
-      <ModalOverlay className="bg-white rounded-2xl shadow-xl max-w-md w-full max-h-[90vh] overflow-hidden flex flex-col">
+  return (
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50">
+      <div className="bg-white rounded-2xl shadow-xl max-w-md w-full max-h-[90vh] overflow-hidden flex flex-col">
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
           <h2 className="font-semibold text-gray-900">
             {step === "success" ? "You're booked!" : "Book an appointment"}
@@ -472,6 +463,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
             </div>
           )}
         </div>
-      </ModalOverlay>
-    </ModalOverlay>);
+      </div>
+    </div>
+  );
 }

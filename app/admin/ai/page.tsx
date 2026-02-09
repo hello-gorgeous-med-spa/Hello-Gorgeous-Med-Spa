@@ -124,6 +124,17 @@ export default function AIHubPage() {
           </div>
         </div>
 
+        {/* Mascot feedback for owner */}
+        <div className="max-w-4xl mx-auto mt-6">
+          <Link
+            href="/admin/ai/mascot-feedback"
+            className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-amber-400/60 text-amber-300 font-medium hover:bg-amber-400/10 transition-colors"
+          >
+            📬 Mascot feedback for owner
+          </Link>
+          <p className="text-slate-500 text-sm mt-1">Messages, complaints, and requests from the chat widget — she sends you everything so you can follow up.</p>
+        </div>
+
         {/* Why this matters */}
         <div className="max-w-4xl mx-auto mt-10 pt-8 border-t border-slate-600/50">
           <h3 className="text-lg font-semibold text-amber-300/95 mb-4">Why this matters</h3>

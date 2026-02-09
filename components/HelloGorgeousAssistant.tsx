@@ -9,6 +9,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { SITE } from "@/lib/seo";
 import { BOOKING_URL } from "@/lib/flows";
+import { MASCOT_WELCOME, MASCOT_INTRO_VIDEO_PATH } from "@/lib/mascot";
 import { MascotBookingFlow } from "@/components/MascotBookingFlow";
 
 declare global {
@@ -55,11 +56,15 @@ export function HelloGorgeousAssistant() {
     {
       id: "welcome",
       role: "assistant",
-      content: "Hi! I’m the Hello Gorgeous assistant. Ask me about services, hours, or booking — or use the buttons below to book or call us.",
+      content: MASCOT_WELCOME,
     },
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [pendingFeedback, setPendingFeedback] = useState<{ message: string } | null>(null);
+  const [feedbackName, setFeedbackName] = useState("");
+  const [feedbackContact, setFeedbackContact] = useState("");
+  const [showIntroVideo, setShowIntroVideo] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -108,6 +113,7 @@ export function HelloGorgeousAssistant() {
         { id: (Date.now() + 1).toString(), role: "assistant", content: reply },
       ]);
       if (speakReply) speak(reply);
+      if (data?.needsFeedback) setPendingFeedback({ message: trimmed });
     } catch {
       const errMsg = "Something went wrong. You can book at the link below or call us — we're here to help!";
       setMessages((prev) => [
@@ -157,6 +163,30 @@ export function HelloGorgeousAssistant() {
 
   const handleQuickQuestion = (question: string) => handleSend(question);
 
+  const sendFeedbackToOwner = useCallback(async () => {
+    if (!pendingFeedback?.message) return;
+    try {
+      const res = await fetch("/api/mascot/feedback", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: pendingFeedback.message,
+          contactName: feedbackName.trim() || undefined,
+          contactEmail: feedbackContact.trim().includes("@") ? feedbackContact.trim() : undefined,
+          contactPhone: feedbackContact.trim().includes("@") ? undefined : feedbackContact.trim(),
+        }),
+      });
+      const data = await res.json();
+      const msg = data?.message || "Done! Danielle will get this.";
+      setMessages((prev) => [...prev, { id: String(Date.now()), role: "assistant", content: msg }]);
+      setPendingFeedback(null);
+      setFeedbackName("");
+      setFeedbackContact("");
+    } catch {
+      setMessages((prev) => [...prev, { id: String(Date.now()), role: "assistant", content: "Something went wrong sending that. Please call us and we'll help you right away." }]);
+    }
+  }, [pendingFeedback, feedbackName, feedbackContact]);
+
   const bookingHref = getBookingHref();
   const phone = SITE.phone;
   const telHref = `tel:${phone.replace(/\D/g, "")}`;
@@ -197,6 +227,7 @@ export function HelloGorgeousAssistant() {
               <div>
                 <p className="text-white font-semibold">Hello Gorgeous</p>
                 <p className="text-pink-100 text-xs">Ask me anything • Book or call below</p>
+                <button type="button" onClick={() => setShowIntroVideo((v) => !v)} className="text-pink-100 hover:text-white text-xs underline ml-1">Watch intro</button>
               </div>
             </div>
             <button
@@ -238,6 +269,12 @@ export function HelloGorgeousAssistant() {
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
+            {showIntroVideo && (
+              <div className="rounded-xl overflow-hidden bg-gray-100 mb-3">
+                <video src={MASCOT_INTRO_VIDEO_PATH} controls className="w-full" playsInline />
+                <p className="text-xs text-gray-500 p-2 text-center">Meet your assistant — she’s Danielle’s mini me!</p>
+              </div>
+            )}
             {messages.map((msg) => (
               <div
                 key={msg.id}
@@ -262,6 +299,30 @@ export function HelloGorgeousAssistant() {
                     <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }} />
                     <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }} />
                   </div>
+                </div>
+              </div>
+            )}
+            {pendingFeedback && (
+              <div className="rounded-xl border-2 border-pink-200 bg-pink-50 p-3 space-y-2">
+                <p className="text-xs font-medium text-pink-800">Send to Danielle</p>
+                <p className="text-sm text-gray-700 line-clamp-2">&ldquo;{pendingFeedback.message}&rdquo;</p>
+                <input
+                  type="text"
+                  placeholder="Your name (optional)"
+                  value={feedbackName}
+                  onChange={(e) => setFeedbackName(e.target.value)}
+                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
+                />
+                <input
+                  type="text"
+                  placeholder="Email or phone for callback (optional)"
+                  value={feedbackContact}
+                  onChange={(e) => setFeedbackContact(e.target.value)}
+                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
+                />
+                <div className="flex gap-2">
+                  <button type="button" onClick={sendFeedbackToOwner} className="flex-1 py-2 rounded-lg bg-pink-500 text-white text-sm font-medium hover:bg-pink-600">Send to owner</button>
+                  <button type="button" onClick={() => { setPendingFeedback(null); setFeedbackName(""); setFeedbackContact(""); }} className="py-2 px-3 rounded-lg bg-gray-200 text-gray-700 text-sm hover:bg-gray-300">Cancel</button>
                 </div>
               </div>
             )}
