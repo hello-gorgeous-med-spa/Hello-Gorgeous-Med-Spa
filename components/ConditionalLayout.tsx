@@ -13,7 +13,6 @@ import { StickyMobileCTA } from "@/components/StickyMobileCTA";
 import { ChatOpenProvider } from "@/components/ChatOpenContext";
 import { MascotChat } from "@/components/MascotChat";
 import { EmailCapture } from "@/components/EmailCapture";
-import { VoiceConcierge } from "@/components/VoiceConcierge";
 import { HelloGorgeousAssistant } from "@/components/HelloGorgeousAssistant";
 import { ImmediateCareStrip } from "@/components/ImmediateCareBanner";
 
@@ -58,7 +57,6 @@ export function ConditionalLayout({ children }: { children: React.ReactNode }) {
         <StickyMobileCTA />
         <MascotChat />
         <EmailCapture />
-        <VoiceConcierge />
         <HelloGorgeousAssistant />
       </div>
     </ChatOpenProvider>

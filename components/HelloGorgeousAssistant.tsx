@@ -2,14 +2,34 @@
 
 // ============================================================
 // HELLO GORGEOUS MASCOT CHAT WIDGET
-// Uses Business Memory for answers; Book now (live) + Call us.
+// Chat + voice (mic → her knowledge) + Book now (live) + Call us.
 // ============================================================
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { SITE } from "@/lib/seo";
 import { BOOKING_URL } from "@/lib/flows";
 import { MascotBookingFlow } from "@/components/MascotBookingFlow";
+
+declare global {
+  interface Window {
+    SpeechRecognition?: new () => SpeechRecognition;
+    webkitSpeechRecognition?: new () => SpeechRecognition;
+  }
+}
+interface SpeechRecognition extends EventTarget {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  start(): void;
+  stop(): void;
+  onresult: ((e: SpeechRecognitionEvent) => void) | null;
+  onend: (() => void) | null;
+  onerror: ((e: { error: string }) => void) | null;
+}
+interface SpeechRecognitionEvent {
+  results: SpeechRecognitionResultList;
+}
 
 const MASCOT_SRC = "/images/characters/hello-gorgeous-mascot.png";
 
@@ -40,24 +60,46 @@ export function HelloGorgeousAssistant() {
   ]);
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [isListening, setIsListening] = useState(false);
+  const [isSpeaking, setIsSpeaking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const recognitionRef = useRef<SpeechRecognition | null>(null);
+  const synthRef = useRef<SpeechSynthesis | null>(null);
+  const voiceTranscriptRef = useRef("");
 
   const scrollToBottom = () => messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   useEffect(() => { scrollToBottom(); }, [messages]);
 
-  const handleSend = async (text: string = input) => {
-    if (!text.trim()) return;
+  const speak = useCallback((text: string) => {
+    if (typeof window === "undefined" || !window.speechSynthesis) return;
+    synthRef.current = window.speechSynthesis;
+    synthRef.current.cancel();
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 0.95;
+    utterance.volume = 1;
+    const voices = synthRef.current.getVoices();
+    const voice = voices.find((v) => v.name.includes("Samantha") || v.name.includes("Victoria") || v.name.includes("Female") || v.name.includes("Google US English"));
+    if (voice) utterance.voice = voice;
+    utterance.onstart = () => setIsSpeaking(true);
+    utterance.onend = () => setIsSpeaking(false);
+    synthRef.current.speak(utterance);
+  }, []);
 
-    const userMessage: Message = { id: Date.now().toString(), role: "user", content: text.trim() };
+  const handleSend = useCallback(async (text: string = input, options?: { speakReply?: boolean }) => {
+    const trimmed = typeof text === "string" ? text.trim() : "";
+    if (!trimmed) return;
+
+    const userMessage: Message = { id: Date.now().toString(), role: "user", content: trimmed };
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsTyping(true);
+    const speakReply = options?.speakReply ?? false;
 
     try {
       const res = await fetch("/api/chat/widget", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text.trim() }),
+        body: JSON.stringify({ message: trimmed }),
       });
       const data = await res.json();
       const reply = typeof data?.reply === "string" ? data.reply : "I’m here to help. You can book online or call us anytime.";
@@ -65,15 +107,53 @@ export function HelloGorgeousAssistant() {
         ...prev,
         { id: (Date.now() + 1).toString(), role: "assistant", content: reply },
       ]);
+      if (speakReply) speak(reply);
     } catch {
+      const errMsg = "Something went wrong. You can book at the link below or call us — we're here to help!";
       setMessages((prev) => [
         ...prev,
-        { id: (Date.now() + 1).toString(), role: "assistant", content: "Something went wrong. You can book at the link below or call us — we’re here to help!" },
+        { id: (Date.now() + 1).toString(), role: "assistant", content: errMsg },
       ]);
+      if (speakReply) speak(errMsg);
     } finally {
       setIsTyping(false);
     }
-  };
+  }, [input, speak]);
+
+  const startListening = useCallback(() => {
+    const SR = typeof window !== "undefined" && (window.SpeechRecognition || window.webkitSpeechRecognition);
+    if (!SR) return;
+    voiceTranscriptRef.current = "";
+    const recognition = new SR() as SpeechRecognition;
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = "en-US";
+    recognition.onresult = (e: SpeechRecognitionEvent) => {
+      let t = "";
+      for (let i = 0; i < e.results.length; i++) t += e.results[i][0].transcript;
+      voiceTranscriptRef.current = t;
+    };
+    recognition.onend = () => {
+      setIsListening(false);
+      const text = voiceTranscriptRef.current.trim();
+      if (text) handleSend(text, { speakReply: true });
+    };
+    recognition.onerror = () => setIsListening(false);
+    recognitionRef.current = recognition;
+    recognition.start();
+    setIsListening(true);
+  }, [handleSend]);
+
+  const stopListening = useCallback(() => {
+    if (recognitionRef.current) recognitionRef.current.stop();
+  }, []);
+
+  const stopSpeaking = useCallback(() => {
+    if (synthRef.current) {
+      synthRef.current.cancel();
+      setIsSpeaking(false);
+    }
+  }, []);
 
   const handleQuickQuestion = (question: string) => handleSend(question);
 
@@ -207,15 +287,35 @@ export function HelloGorgeousAssistant() {
             </div>
           )}
 
-          {/* Input */}
+          {/* Input + voice */}
           <div className="border-t border-gray-100 p-3 shrink-0">
+            {(isListening || isSpeaking) && (
+              <p className="text-xs text-pink-600 mb-1 text-center">
+                {isListening ? "Listening…" : "Speaking…"}
+                {isSpeaking && (
+                  <button type="button" onClick={stopSpeaking} className="ml-2 underline">Stop</button>
+                )}
+              </p>
+            )}
             <form
               onSubmit={(e) => {
                 e.preventDefault();
                 handleSend();
               }}
-              className="flex gap-2"
+              className="flex gap-2 items-center"
             >
+              <button
+                type="button"
+                onClick={isListening ? stopListening : startListening}
+                disabled={isTyping || isSpeaking}
+                className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
+                  isListening ? "bg-red-500 text-white animate-pulse" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                } disabled:opacity-50 disabled:cursor-not-allowed`}
+                aria-label={isListening ? "Stop listening" : "Talk to assistant"}
+                title={isListening ? "Stop listening" : "Tap to speak"}
+              >
+                🎤
+              </button>
               <input
                 type="text"
                 value={input}
