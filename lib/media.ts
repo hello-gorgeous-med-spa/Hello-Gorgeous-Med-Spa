@@ -18,12 +18,14 @@ export const mascotVideos: Record<PersonaId, Record<string, string>> = {
     education: "/videos/mascots/beau-tox/beau-tox.mp4",
   },
   "filla-grace": {
-    intro: "/videos/mascots/filla-grace/filla-grace-intro.mp4",
-    aesthetics: "/videos/mascots/filla-grace/filla-grace-aesthetics.mp4",
+    // TODO: add filla-grace-intro.mp4 and filla-grace-aesthetics.mp4 under public/videos/mascots/filla-grace/
+    intro: "/videos/mascots/founder/founder-vision.mp4",
+    aesthetics: "/videos/mascots/founder/founder-vision.mp4",
   },
   harmony: {
-    intro: "/videos/mascots/harmony/harmony-intro.mp4",
-    education: "/videos/mascots/harmony/harmony-intro.mp4",
+    // TODO: add harmony folder and harmony-intro.mp4 under public/videos/mascots/harmony/
+    intro: "/videos/mascots/ryan/ryan-intro.mp4",
+    education: "/videos/mascots/ryan/ryan-intro.mp4",
   },
   founder: {
     vision: "/videos/mascots/founder/founder-vision.mp4",

@@ -4,10 +4,19 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { createServerSupabaseClient, createAdminSupabaseClient, isAdminConfigured } from '@/lib/hgos/supabase';
 import { logRecordView, logRecordUpdate, logRecordDelete } from '@/lib/audit';
 import { computeAuditDiff } from '@/lib/audit/diff';
 import { getSessionFromRequest } from '@/lib/audit/middleware';
+
+// Use admin client when available so staff can read/update any client (avoids RLS blocking)
+function getClientSupabase() {
+  if (isAdminConfigured()) {
+    const admin = createAdminSupabaseClient();
+    if (admin) return admin;
+  }
+  return createServerSupabaseClient();
+}
 
 // GET /api/clients/[id] - Get single client
 export async function GET(
@@ -15,7 +24,8 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = getClientSupabase();
+    if (!supabase) return NextResponse.json({ error: 'Service unavailable' }, { status: 503 });
     const { id } = await params;
     const session = await getSessionFromRequest(request);
 
@@ -76,7 +86,8 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = getClientSupabase();
+    if (!supabase) return NextResponse.json({ error: 'Service unavailable' }, { status: 503 });
     const { id } = await params;
     const body = await request.json();
     const session = await getSessionFromRequest(request);
@@ -216,7 +227,8 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = getClientSupabase();
+    if (!supabase) return NextResponse.json({ error: 'Service unavailable' }, { status: 503 });
     const { id } = await params;
     const session = await getSessionFromRequest(request);
 
