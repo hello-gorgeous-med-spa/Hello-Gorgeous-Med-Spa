@@ -5,7 +5,7 @@
 // Service → Provider → Date → Time (from availability API) → Your info → Submit
 // ============================================================
 
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 type ServiceItem = { id: string; name: string; slug: string; duration_minutes: number };
 type ProviderItem = {
@@ -38,6 +38,16 @@ type Step = "service" | "provider" | "datetime" | "info" | "success";
 interface Props {
   onClose: () => void;
   onSuccess?: () => void;
+}
+
+function ModalOverlay({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return <div className={className}>{children}</div>;
 }
 
 export function MascotBookingFlow({ onClose, onSuccess }: Props) {
@@ -163,17 +173,17 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
     }
   };
 
-  const canSubmitInfo =
+  const canSubmitInfo = Boolean(
     form.firstName &&
     form.lastName &&
     form.email &&
     form.phone &&
     form.agreeToTerms &&
-    (!form.isNewClient || form.dateOfBirth);
+    (!form.isNewClient || form.dateOfBirth)
+  );
 
-  return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50">
-      <div className="bg-white rounded-2xl shadow-xl max-w-md w-full max-h-[90vh] overflow-hidden flex flex-col">
+  return (<ModalOverlay className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50">
+      <ModalOverlay className="bg-white rounded-2xl shadow-xl max-w-md w-full max-h-[90vh] overflow-hidden flex flex-col">
         <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
           <h2 className="font-semibold text-gray-900">
             {step === "success" ? "You're booked!" : "Book an appointment"}
@@ -331,7 +341,8 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                       ))}
                     </div>
                   )}
-              </div>
+                </>
+              )}
               <div className="flex gap-2 pt-2">
                 <button
                   type="button"
@@ -461,7 +472,6 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
             </div>
           )}
         </div>
-      </div>
-    </div>
-  );
+      </ModalOverlay>
+    </ModalOverlay>);
 }
