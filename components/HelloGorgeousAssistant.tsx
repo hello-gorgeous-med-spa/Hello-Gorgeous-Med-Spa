@@ -2,13 +2,14 @@
 
 // ============================================================
 // HELLO GORGEOUS MASCOT CHAT WIDGET
-// Uses Business Memory for answers; Book now + Call us always visible.
+// Uses Business Memory for answers; Book now (live) + Call us.
 // ============================================================
 
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { SITE } from "@/lib/seo";
 import { BOOKING_URL } from "@/lib/flows";
+import { MascotBookingFlow } from "@/components/MascotBookingFlow";
 
 const MASCOT_SRC = "/images/characters/hello-gorgeous-mascot.png";
 
@@ -29,6 +30,7 @@ function getBookingHref(): string {
 
 export function HelloGorgeousAssistant() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showBookingFlow, setShowBookingFlow] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "welcome",
@@ -127,16 +129,15 @@ export function HelloGorgeousAssistant() {
             </button>
           </div>
 
-          {/* Book now / Call us */}
+          {/* Book now (live) / Call us */}
           <div className="flex gap-2 p-3 border-b border-gray-100 shrink-0">
-            <a
-              href={bookingHref}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
+              onClick={() => setShowBookingFlow(true)}
               className="flex-1 py-2.5 rounded-xl bg-pink-500 text-white text-center text-sm font-medium hover:bg-pink-600 transition-colors"
             >
               Book now
-            </a>
+            </button>
             <a
               href={telHref}
               className="flex-1 py-2.5 rounded-xl bg-gray-800 text-white text-center text-sm font-medium hover:bg-gray-900 transition-colors"
@@ -144,6 +145,16 @@ export function HelloGorgeousAssistant() {
               Call us
             </a>
           </div>
+          <p className="px-3 pb-2 text-center">
+            <a
+              href={bookingHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-pink-600 hover:underline"
+            >
+              Or book on our full page →
+            </a>
+          </p>
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
@@ -222,6 +233,23 @@ export function HelloGorgeousAssistant() {
             </form>
           </div>
         </div>
+      )}
+
+      {/* In-chat booking flow: live appointment on schedule */}
+      {showBookingFlow && (
+        <MascotBookingFlow
+          onClose={() => setShowBookingFlow(false)}
+          onSuccess={() => {
+            setMessages((prev) => [
+              ...prev,
+              {
+                id: `booked-${Date.now()}`,
+                role: "assistant",
+                content: "You're all set! Your appointment is on the schedule. We'll send confirmation and reminders to your email and phone.",
+              },
+            ]);
+          }}
+        />
       )}
     </>
   );
