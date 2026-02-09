@@ -10,10 +10,11 @@ import { usePathname } from 'next/navigation';
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { StickyMobileCTA } from "@/components/StickyMobileCTA";
+import { ChatOpenProvider } from "@/components/ChatOpenContext";
 import { MascotChat } from "@/components/MascotChat";
 import { EmailCapture } from "@/components/EmailCapture";
 import { VoiceConcierge } from "@/components/VoiceConcierge";
-import { AIConcierge } from "@/components/AIConcierge";
+import { HelloGorgeousAssistant } from "@/components/HelloGorgeousAssistant";
 import { ImmediateCareStrip } from "@/components/ImmediateCareBanner";
 
 // Routes that should NOT show website navigation
@@ -44,20 +45,22 @@ export function ConditionalLayout({ children }: { children: React.ReactNode }) {
   
   // Public website - full chrome with header, footer, etc.
   return (
-    <div className="bg-black text-white">
-      <ImmediateCareStrip />
-      <Header />
-      <main className="pt-16">
-        <div className="min-h-screen bg-black text-white overflow-x-hidden pb-20 md:pb-0">
-          {children}
-          <Footer />
-        </div>
-      </main>
-      <StickyMobileCTA />
-      <MascotChat />
-      <EmailCapture />
-      <VoiceConcierge />
-      <AIConcierge />
-    </div>
+    <ChatOpenProvider>
+      <div className="bg-black text-white">
+        <ImmediateCareStrip />
+        <Header />
+        <main className="pt-16">
+          <div className="min-h-screen bg-black text-white overflow-x-hidden pb-20 md:pb-0">
+            {children}
+            <Footer />
+          </div>
+        </main>
+        <StickyMobileCTA />
+        <MascotChat />
+        <EmailCapture />
+        <VoiceConcierge />
+        <HelloGorgeousAssistant />
+      </div>
+    </ChatOpenProvider>
   );
 }

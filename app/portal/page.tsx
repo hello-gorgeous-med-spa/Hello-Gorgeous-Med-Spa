@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useChatOpen } from '@/components/ChatOpenContext';
 
 
 // Skeleton component
@@ -73,9 +74,14 @@ const FEATURED_SERVICES = [
 ];
 
 export default function PortalDashboard() {
+  const { openChat } = useChatOpen();
   const [user, setUser] = useState<any>(null);
   const [appointments, setAppointments] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+
+  const openPeppiSupplements = () => {
+    openChat('peppi', { source: 'client_portal', fulfillment: 'fullscript' });
+  };
 
   // Portal dashboard - shows welcome state for clients
   useEffect(() => {
@@ -207,6 +213,18 @@ export default function PortalDashboard() {
               </div>
             </Link>
           ))}
+          {/* Ask Peppi about supplements — opens Peppi with client_portal + fullscript context */}
+          <button
+            type="button"
+            onClick={openPeppiSupplements}
+            className="group text-left"
+          >
+            <div className="bg-gradient-to-br from-fuchsia-500 to-pink-500 rounded-2xl p-5 text-white h-full hover:shadow-lg transition-all hover:scale-[1.02] min-h-[120px]">
+              <span className="text-3xl mb-3 block">💬</span>
+              <h3 className="font-semibold mb-1">Ask Peppi about supplements</h3>
+              <p className="text-sm text-white/80">Get guided recommendations for sleep, gut, energy & more.</p>
+            </div>
+          </button>
         </div>
       </section>
 

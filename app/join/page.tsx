@@ -104,15 +104,16 @@ export default function JoinPage() {
             </div>
           )}
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
               <input
                 type="text"
                 required
+                autoComplete="given-name"
                 value={formData.firstName}
                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                 placeholder="Jane"
               />
             </div>
@@ -121,9 +122,10 @@ export default function JoinPage() {
               <input
                 type="text"
                 required
+                autoComplete="family-name"
                 value={formData.lastName}
                 onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                 placeholder="Doe"
               />
             </div>
@@ -134,9 +136,10 @@ export default function JoinPage() {
             <input
               type="email"
               required
+              autoComplete="email"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               placeholder="jane@example.com"
             />
           </div>
@@ -145,9 +148,10 @@ export default function JoinPage() {
             <label className="block text-sm font-medium text-gray-700 mb-1">Phone (Optional)</label>
             <input
               type="tel"
+              autoComplete="tel"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               placeholder="(555) 123-4567"
             />
           </div>
@@ -199,7 +203,7 @@ export default function JoinPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full py-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold rounded-xl hover:from-pink-600 hover:to-purple-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-pink-500/25"
+            className="w-full min-h-[44px] py-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold rounded-xl hover:from-pink-600 hover:to-purple-600 active:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-pink-500/25"
           >
             {submitting ? 'Signing up...' : 'Join Now'}
           </button>

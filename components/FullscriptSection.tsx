@@ -1,10 +1,23 @@
 "use client";
 
 import { FadeUp } from "./Section";
+import { useChatOpen } from "@/components/ChatOpenContext";
+import { FULLSCRIPT_DISPENSARY_URL } from "@/lib/flows";
+
+const SUPPLEMENT_TOPICS = [
+  "Vitamin D",
+  "Omega-3",
+  "Probiotics",
+  "Magnesium",
+  "Collagen",
+  "Multivitamins",
+  "Adaptogens",
+  "Digestive Enzymes",
+] as const;
 
 const supplements = [
-  { name: "Vitamin D3", benefit: "Immune & bone health", icon: "☀️" },
-  { name: "Omega-3 Fish Oil", benefit: "Heart & brain support", icon: "🐟" },
+  { name: "Vitamin D", benefit: "Immune & bone health", icon: "☀️" },
+  { name: "Omega-3", benefit: "Heart & brain support", icon: "🐟" },
   { name: "Probiotics", benefit: "Gut health & digestion", icon: "🦠" },
   { name: "Magnesium", benefit: "Sleep & muscle recovery", icon: "😴" },
   { name: "Collagen", benefit: "Skin, hair & joints", icon: "✨" },
@@ -14,6 +27,23 @@ const supplements = [
 ];
 
 export function FullscriptSection() {
+  const { openChat } = useChatOpen();
+
+  const openPeppiSupplements = () => {
+    openChat("peppi", {
+      source: "homepage_supplements",
+      topics: [...SUPPLEMENT_TOPICS],
+      fulfillment: "fullscript",
+    });
+  };
+
+  const openPeppiForPill = (supplementName: string) => {
+    openChat("peppi", {
+      clicked_supplement: supplementName,
+      fulfillment: "fullscript",
+    });
+  };
+
   return (
     <section className="py-16 px-4 bg-gradient-to-b from-black via-fuchsia-950/10 to-black">
       <div className="max-w-6xl mx-auto">
@@ -41,7 +71,7 @@ export function FullscriptSection() {
           {/* Shop Supplements Card */}
           <FadeUp delayMs={60}>
             <a
-              href="https://us.fullscript.com/welcome/dglazier"
+              href={FULLSCRIPT_DISPENSARY_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="group block h-full"
@@ -84,7 +114,7 @@ export function FullscriptSection() {
           {/* Patient Intake Card */}
           <FadeUp delayMs={120}>
             <a
-              href="https://us.fullscript.com/welcome/dglazier/intake?requestedPractitionerId=UHJhY3RpdGlvbmVyLTM3MjYzMw=="
+              href={`${FULLSCRIPT_DISPENSARY_URL}/intake?requestedPractitionerId=UHJhY3RpdGlvbmVyLTM3MjYzMw==`}
               target="_blank"
               rel="noopener noreferrer"
               className="group block h-full"
@@ -125,25 +155,41 @@ export function FullscriptSection() {
           </FadeUp>
         </div>
 
-        {/* Popular Supplements Scroll */}
+        {/* Popular Supplements: guided entry + clickable pills */}
         <FadeUp delayMs={180}>
           <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
             <p className="text-white/60 text-sm font-medium mb-4 text-center">
               POPULAR SUPPLEMENTS IN OUR DISPENSARY
             </p>
-            <div className="flex flex-wrap justify-center gap-3">
+            <div className="flex flex-wrap justify-center gap-3 mb-6">
               {supplements.map((supp) => (
-                <div
+                <button
                   key={supp.name}
-                  className="flex items-center gap-2 px-4 py-2 rounded-full bg-black/50 border border-white/10 hover:border-fuchsia-500/30 transition"
+                  type="button"
+                  onClick={() => openPeppiForPill(supp.name)}
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-black/50 border border-white/10 hover:border-fuchsia-500/50 hover:bg-fuchsia-500/10 transition min-h-[44px] touch-manipulation"
+                  aria-label={`Ask Peppi about ${supp.name}`}
                 >
                   <span>{supp.icon}</span>
-                  <div>
+                  <div className="text-left">
                     <span className="text-white text-sm font-medium">{supp.name}</span>
                     <span className="text-white/50 text-xs ml-2 hidden sm:inline">• {supp.benefit}</span>
                   </div>
-                </div>
+                </button>
               ))}
+            </div>
+            <div className="text-center">
+              <button
+                type="button"
+                onClick={openPeppiSupplements}
+                className="min-h-[44px] px-6 py-3 rounded-full bg-fuchsia-500 text-white font-bold hover:bg-fuchsia-600 transition shadow-lg shadow-fuchsia-500/25 border-2 border-fuchsia-400/50 touch-manipulation focus:outline-none focus:ring-2 focus:ring-fuchsia-400 focus:ring-offset-2 focus:ring-offset-black"
+                aria-label="Ask Peppi what supplements are right for me"
+              >
+                💬 Ask Peppi what supplements are right for me
+              </button>
+              <p className="text-white/50 text-sm mt-3 max-w-md mx-auto">
+                No guessing. We&apos;ll guide you to options that may support your goals — then you can order professional-grade supplements on Fullscript.
+              </p>
             </div>
           </div>
         </FadeUp>

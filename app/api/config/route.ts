@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
+import { SITE } from '@/lib/seo';
 
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
@@ -44,7 +45,7 @@ const DEFAULT_CONFIG = {
     info: {
       name: 'Hello Gorgeous Med Spa',
       phone: '(555) 123-4567',
-      email: 'hello@hellogorgeousmedspa.com',
+      email: SITE.email,
       address: '123 Main Street',
       city: 'Chicago',
       state: 'IL',

@@ -400,9 +400,9 @@ export function Header() {
               Book Now
             </CTA>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button — 44px tap target */}
             <button
-              className="lg:hidden p-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-all"
+              className="lg:hidden tap-target p-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200"
               type="button"
               aria-label="Open menu"
               aria-expanded={mobileMenuOpen}
@@ -416,7 +416,7 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu — smooth open/close */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 bg-black/98 backdrop-blur-xl lg:hidden overflow-y-auto">
           {/* Header */}
@@ -439,6 +439,16 @@ export function Header() {
 
           {/* Mobile Navigation */}
           <div className="px-4 py-6 space-y-2">
+            {/* Fix What Bothers Me — 1 tap reachable */}
+            <Link
+              href="/fix-what-bothers-me"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-400 font-semibold"
+            >
+              <span className="text-xl">💗</span>
+              Fix what bothers me
+            </Link>
+
             {/* Services Section */}
             <div className="border-b border-white/10 pb-4">
               <button

@@ -179,3 +179,43 @@ aside select {
   animation: floatSlow 6s ease-in-out infinite;
 }
 
+/* ============================================================
+   MOBILE READINESS — Consumer forms & touch
+   Tap targets ≥44px, keyboard-safe spacing, no horizontal scroll
+   ============================================================ */
+
+/* Hide scrollbar but keep scroll (carousels, horizontal lists) */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Minimum touch target (44px) for buttons and interactive elements */
+.tap-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Form field height for mobile (≥44px) — use on inputs, textareas, submit buttons */
+.input-touch {
+  min-height: 44px;
+}
+
+/* Extra bottom padding so submit button can scroll into view when keyboard is open */
+.keyboard-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+@supports (padding-bottom: max(1rem, env(safe-area-inset-bottom))) {
+  .keyboard-safe {
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
+}
+@media (max-width: 768px) {
+  .keyboard-safe {
+    padding-bottom: max(4rem, env(safe-area-inset-bottom));
+  }
+}
+

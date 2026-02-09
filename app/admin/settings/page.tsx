@@ -6,6 +6,7 @@
 // ============================================================
 
 import { useState, useEffect } from 'react';
+import { SITE } from '@/lib/seo';
 
 interface BusinessSettings {
   business_name: string;
@@ -32,7 +33,7 @@ export default function AdminSettingsPage() {
   const [settings, setSettings] = useState<BusinessSettings>({
     business_name: 'Hello Gorgeous Med Spa',
     phone: '(630) 636-6193',
-    email: 'hello@hellogorgeousmedspa.com',
+    email: SITE.email,
     address: '74 W. Washington St, Oswego, IL 60543',
     timezone: 'America/Chicago',
     online_booking_enabled: true,

@@ -8,6 +8,8 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { ChatOpenProvider } from '@/components/ChatOpenContext';
+import { MascotChat } from '@/components/MascotChat';
 
 // Switch to client manifest for PWA install
 function useClientManifest() {
@@ -75,6 +77,7 @@ export default function PortalLayout({
   };
 
   return (
+    <ChatOpenProvider>
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
       {/* HIPAA Trust Banner - Shows on first load */}
       <div className="bg-slate-900 text-white text-center py-2 text-xs">
@@ -183,5 +186,7 @@ export default function PortalLayout({
         </div>
       </footer>
     </div>
+    <MascotChat />
+    </ChatOpenProvider>
   );
 }

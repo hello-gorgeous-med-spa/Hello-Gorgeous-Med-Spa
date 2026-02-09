@@ -2,6 +2,7 @@
 
 import { FadeUp } from "./Section";
 import { BOOKING_URL } from "@/lib/flows";
+import { SITE } from "@/lib/seo";
 
 const ADDRESS = {
   street: "74 W. Washington St",
@@ -10,7 +11,7 @@ const ADDRESS = {
   zip: "60543",
   full: "74 W. Washington St, Oswego, IL 60543",
   phone: "630-636-6193",
-  email: "hello.gorgeous@hellogorgeousmedspa.com",
+  email: SITE.email,
 };
 
 // Google Maps embed URL (encoded address)

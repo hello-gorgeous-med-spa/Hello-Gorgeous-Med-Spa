@@ -260,6 +260,16 @@ export default function SMSCampaignPage() {
                 className="w-full h-32 px-4 py-3 border border-gray-200 rounded-lg resize-none"
               />
             )}
+
+            {clientCount === 0 && (
+              <p className="mt-4 text-sm text-gray-500">
+                This count is live from your database. To add clients with SMS opt-in,{' '}
+                <Link href="/admin/marketing/contacts#import" className="text-pink-600 hover:underline">
+                  import contacts with phone numbers
+                </Link>
+                {' '}in Contact Collection, or ensure existing clients have a phone and SMS marketing enabled.
+              </p>
+            )}
           </div>
         </div>
 

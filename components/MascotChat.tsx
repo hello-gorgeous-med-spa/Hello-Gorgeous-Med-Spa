@@ -5,12 +5,15 @@ import Image from "next/image";
 import type { PersonaId } from "@/lib/personas/types";
 import { PERSONA_UI } from "@/lib/personas/ui";
 import { getPersonaConfig } from "@/lib/personas/index";
+import { useChatOpen } from "@/components/ChatOpenContext";
+import { FULLSCRIPT_DISPENSARY_URL } from "@/lib/flows";
 
 type Message = {
   id: string;
   role: "user" | "assistant";
   content: string;
   personaId?: PersonaId;
+  recommendedCollection?: { id: string; title: string; fullscript_url: string };
 };
 
 const mascots: { id: PersonaId; name: string; avatar: string; color: string; specialty: string }[] = [
@@ -22,9 +25,40 @@ const mascots: { id: PersonaId; name: string; avatar: string; color: string; spe
   { id: "ryan", name: "Dr. Ryan", avatar: "/images/characters/ryan.png", color: "from-fuchsia-500 to-purple-500", specialty: "Medical & Telehealth" },
 ];
 
+function getSupplementsOpeningMessage(clickedSupplement?: string): string {
+  if (clickedSupplement) {
+    return `${clickedSupplement} is often used to support various wellness goals — like sleep, energy, gut health, or recovery.\n\nI can help you decide if it might be appropriate for you, and if so, direct you to high-quality options available through Fullscript.\n\nWhat are you hoping to improve?`;
+  }
+  return `I can help you figure out which supplements may support your goals — like sleep, energy, gut health, immunity, or stress.\n\nWhen appropriate, I'll guide you to Fullscript, where Hello Gorgeous provides access to professional-grade, practitioner-recommended supplements.\n\nWhat are you hoping to improve?`;
+}
+
+function getInitialMessages(personaId: PersonaId, initialContext: { source?: string; clicked_supplement?: string } | null): Message[] {
+  const id = "welcome";
+  const supplementsSource = initialContext?.source === "homepage_supplements" || initialContext?.source === "client_portal";
+  if (personaId === "peppi" && supplementsSource) {
+    return [
+      {
+        id,
+        role: "assistant",
+        content: getSupplementsOpeningMessage(initialContext.clicked_supplement),
+        personaId: "peppi",
+      },
+    ];
+  }
+  const cfg = getPersonaConfig(personaId);
+  const ui = PERSONA_UI[personaId];
+  return [
+    {
+      id,
+      role: "assistant",
+      content: `Hi! I'm ${cfg.displayName}. ${ui.tagline} How can I help you today?`,
+      personaId,
+    },
+  ];
+}
+
 export function MascotChat() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedMascot, setSelectedMascot] = useState<PersonaId | null>(null);
+  const { isOpen, selectedMascot, initialContext, toggleOpen, closeChat, openChat, backToPicker, clearInitialContext } = useChatOpen();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -45,20 +79,19 @@ export function MascotChat() {
     }
   }, [isOpen, selectedMascot]);
 
+  // When context selects a mascot (or we open with context), set initial messages. Only when selectedMascot changes so we don't reset after clearing initialContext on first send.
+  const initialContextRef = useRef(initialContext);
+  initialContextRef.current = initialContext;
+  useEffect(() => {
+    if (selectedMascot) {
+      setMessages(getInitialMessages(selectedMascot, initialContextRef.current));
+    } else {
+      setMessages([]);
+    }
+  }, [selectedMascot]);
+
   const handleSelectMascot = (id: PersonaId) => {
-    setSelectedMascot(id);
-    setMessages([]);
-    const ui = PERSONA_UI[id];
-    const cfg = getPersonaConfig(id);
-    // Add welcome message
-    setMessages([
-      {
-        id: "welcome",
-        role: "assistant",
-        content: `Hi! I'm ${cfg.displayName}. ${ui.tagline} How can I help you today?`,
-        personaId: id,
-      },
-    ]);
+    openChat(id);
   };
 
   const handleSendMessage = async (text: string) => {
@@ -69,6 +102,9 @@ export function MascotChat() {
       role: "user",
       content: text.trim(),
     };
+
+    const contextToSend = initialContext ?? undefined;
+    if (contextToSend) clearInitialContext();
 
     setMessages((prev) => [...prev, userMessage]);
     setInput("");
@@ -85,11 +121,12 @@ export function MascotChat() {
             role: m.role,
             content: m.content,
           })),
+          ...(contextToSend && { context: contextToSend }),
         }),
       });
 
       const data = await res.json();
-      
+
       setMessages((prev) => [
         ...prev,
         {
@@ -97,6 +134,7 @@ export function MascotChat() {
           role: "assistant",
           content: data.reply || "I apologize, I had trouble understanding. Could you rephrase that?",
           personaId: data.personaIdUsed || selectedMascot,
+          ...(data.recommendedCollection && { recommendedCollection: data.recommendedCollection }),
         },
       ]);
     } catch {
@@ -122,7 +160,7 @@ export function MascotChat() {
       {/* Floating Button */}
       <button
         type="button"
-        onClick={() => setIsOpen(!isOpen)}
+        onClick={() => toggleOpen()}
         className={`fixed bottom-24 md:bottom-6 right-4 z-40 w-16 h-16 rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center ${
           isOpen
             ? "bg-gray-800 rotate-0"
@@ -172,10 +210,7 @@ export function MascotChat() {
             {selectedMascot && (
               <button
                 type="button"
-                onClick={() => {
-                  setSelectedMascot(null);
-                  setMessages([]);
-                }}
+                onClick={() => backToPicker()}
                 className="text-white/70 hover:text-white text-sm"
               >
                 ← Back
@@ -223,7 +258,7 @@ export function MascotChat() {
                 {messages.map((message) => (
                   <div
                     key={message.id}
-                    className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                    className={`flex flex-col ${message.role === "user" ? "items-end" : "items-start"}`}
                   >
                     <div
                       className={`max-w-[85%] rounded-2xl px-4 py-3 ${
@@ -234,6 +269,28 @@ export function MascotChat() {
                     >
                       <p className="text-sm whitespace-pre-wrap">{message.content}</p>
                     </div>
+                    {message.role === "assistant" &&
+                      (message.recommendedCollection ? (
+                        <a
+                          href={message.recommendedCollection.fullscript_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="mt-2 inline-flex items-center gap-2 min-h-[44px] px-4 py-2 rounded-full bg-fuchsia-500 text-white text-sm font-semibold hover:bg-fuchsia-600 transition w-fit"
+                        >
+                          🛒 View {message.recommendedCollection.title} on Fullscript
+                        </a>
+                      ) : (
+                        message.content.toLowerCase().includes("fullscript") && (
+                          <a
+                            href={FULLSCRIPT_DISPENSARY_URL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="mt-2 inline-flex items-center gap-2 min-h-[44px] px-4 py-2 rounded-full bg-fuchsia-500 text-white text-sm font-semibold hover:bg-fuchsia-600 transition w-fit"
+                          >
+                            🛒 View recommended supplements on Fullscript
+                          </a>
+                        )
+                      ))}
                   </div>
                 ))}
                 {isLoading && (

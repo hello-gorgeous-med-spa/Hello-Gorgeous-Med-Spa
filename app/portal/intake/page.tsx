@@ -7,6 +7,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import { SITE } from '@/lib/seo';
 import { STANDARD_INTAKE_FORMS, getRequiredForms } from '@/lib/hgos/intake-forms';
 
 
@@ -201,7 +202,7 @@ export default function IntakeFormsPage() {
             📞 Call Us
           </a>
           <a
-            href="mailto:info@hellogorgeousmedspa.com"
+            href={`mailto:${SITE.email}`}
             className="px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium"
           >
             ✉️ Email Us

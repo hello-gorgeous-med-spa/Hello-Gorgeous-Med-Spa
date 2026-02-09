@@ -4,12 +4,26 @@ import type { PersonaId } from "@/lib/personas/types";
 import { getPersonaConfig } from "@/lib/personas/index";
 import { PERSONA_UI } from "@/lib/personas/ui";
 import { routePersonaId } from "@/lib/personas/router";
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, FULLSCRIPT_DISPENSARY_URL } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
 import { looksLikeEmergency, postTreatmentRedFlags, ryanSafetyOverrideReply } from "@/lib/guardrails";
 import { retrieveKnowledge, shouldEscalateToSafety } from "@/lib/knowledge/engine";
+import { getActiveCollections, getCollectionById } from "@/lib/fullscript/collections";
 
 type ChatMessage = { role: "user" | "assistant" | "system"; content: string };
+
+/** Optional context when user opened chat from a specific section (e.g. homepage supplements, client portal). */
+type ChatContext = {
+  source?: "homepage_supplements" | "client_portal";
+  topics?: string[];
+  fulfillment?: "fullscript";
+  clicked_supplement?: string;
+};
+
+const FULLSCRIPT_COLLECTION_TAG = /\[FULLSCRIPT_COLLECTION:([a-z0-9-]+)\]/gi;
+
+const SUPPLEMENT_DISCLAIMER =
+  "This information is educational and not medical advice. Always consult your provider before starting new supplements.";
 
 function normalize(text: string) {
   return (text || "").toLowerCase().trim();
@@ -97,6 +111,60 @@ function baseSystemPrompt({
     "",
     `Always include this disclaimer verbatim at the end: "${p.disclaimer}"`,
   ].join("\n");
+}
+
+function fullscriptCollectionsPrompt(): string {
+  const collections = getActiveCollections();
+  const dump = collections
+    .map(
+      (c) =>
+        `id: ${c.id} | title: ${c.title} | supported_goals: ${c.supported_goals.join(", ")} | description: ${c.description} | fullscript_url: ${c.fullscript_url} | peppi_guidance_notes: ${c.peppi_guidance_notes}`
+    )
+    .join("\n");
+  return [
+    "",
+    "--- FULLSCRIPT COLLECTIONS REGISTRY (single source of truth; use only these) ---",
+    "Recommend COLLECTIONS only, never individual products. Match user goals to 1–2 collections by supported_goals. Explain the collection purpose before linking. Do not provide dosing or treatment claims.",
+    "Collections:",
+    dump,
+    "When you recommend a collection, end your message with exactly [FULLSCRIPT_COLLECTION:<id>] e.g. [FULLSCRIPT_COLLECTION:sleep-support]. The tag will be stripped for display.",
+    "---",
+  ].join("\n");
+}
+
+function supplementsContextPrompt(context: ChatContext): string {
+  if (!context.source && !context.fulfillment) return "";
+  const fromWhere =
+    context.source === "client_portal"
+      ? "the client portal"
+      : "the Hello Gorgeous supplements section";
+  const lines: string[] = [
+    "",
+    `--- SUPPLEMENTS / FULLSCRIPT CONTEXT (user opened from ${fromWhere}) ---`,
+    `The user started this conversation from ${fromWhere}. Fulfillment is via Fullscript.`,
+    "Use educational, non-diagnostic language. Do not make medical claims about supplements.",
+    "When appropriate, explain: Fullscript provides practitioner-grade supplements, third-party tested brands, and proper dosing guidance; it is better than Amazon/retail due to quality control, trusted sourcing, and provider oversight. Hello Gorgeous curates access and can recommend based on goals (not diagnoses).",
+    "Recommend only from the Fullscript Collections Registry (injected above). End with [FULLSCRIPT_COLLECTION:id] when recommending a collection.",
+    `When discussing supplements or collections, include this disclaimer: "${SUPPLEMENT_DISCLAIMER}"`,
+  ];
+  if (context.topics?.length) {
+    lines.push(`Topics they may be interested in: ${context.topics.join(", ")}.`);
+  }
+  if (context.clicked_supplement) {
+    lines.push(`They clicked on this supplement: ${context.clicked_supplement}. Acknowledge it and guide educationally.`);
+  }
+  lines.push("---");
+  return lines.join("\n");
+}
+
+/** Parse [FULLSCRIPT_COLLECTION:id] from reply; return cleaned reply and collection if found. */
+function parseRecommendedCollection(reply: string): { reply: string; collectionId: string | null } {
+  const match = reply.match(FULLSCRIPT_COLLECTION_TAG);
+  if (!match) return { reply: reply.trim(), collectionId: null };
+  const idMatch = reply.match(/\[FULLSCRIPT_COLLECTION:([a-z0-9-]+)\]/i);
+  const collectionId = idMatch ? idMatch[1]! : null;
+  const cleaned = reply.replace(FULLSCRIPT_COLLECTION_TAG, "").replace(/\n{2,}/g, "\n\n").trim();
+  return { reply: cleaned, collectionId };
 }
 
 function formatKnowledgeDump(matches: Awaited<ReturnType<typeof retrieveKnowledge>>["matches"]) {
@@ -201,6 +269,7 @@ export async function POST(req: Request) {
         personaId: PersonaId;
         module?: "education" | "preconsult" | "postcare";
         messages: ChatMessage[];
+        context?: ChatContext;
       }
     | null;
 
@@ -210,6 +279,7 @@ export async function POST(req: Request) {
 
   const personaIdRequested = body.personaId;
   const moduleId = body.module ?? "education";
+  const chatContext = body.context ?? null;
   const messages = body.messages.filter((m) => m.role !== "system");
   const userLast = [...messages].reverse().find((m) => m.role === "user")?.content ?? "";
 
@@ -258,11 +328,17 @@ export async function POST(req: Request) {
     });
   }
 
-  const system = baseSystemPrompt({
+  let system = baseSystemPrompt({
     personaId: personaIdUsed,
     moduleId,
     knowledgeDump: formatKnowledgeDump(retrieval.matches),
   });
+  if (personaIdUsed === "peppi") {
+    system += fullscriptCollectionsPrompt();
+  }
+  if (chatContext && (chatContext.source === "homepage_supplements" || chatContext.source === "client_portal" || chatContext.fulfillment === "fullscript")) {
+    system += supplementsContextPrompt(chatContext);
+  }
 
   try {
     const res = await fetch("https://api.openai.com/v1/chat/completions", {
@@ -310,17 +386,23 @@ export async function POST(req: Request) {
         suggestedQuestions: retrieval.suggestedQuestions,
       });
     const p = getPersonaConfig(personaIdUsed);
-    const reply = shouldSuggestBooking(userLast, p.bookingTriggers)
+    const withBooking = shouldSuggestBooking(userLast, p.bookingTriggers)
       ? `${replyBase}\n\n${bookingCtaLine()}`
       : replyBase;
+    const { reply: replyClean, collectionId } = parseRecommendedCollection(withBooking);
+    const collection = collectionId ? getCollectionById(collectionId) : undefined;
+    const recommendedCollection = collection
+      ? { id: collection.id, title: collection.title, fullscript_url: collection.fullscript_url }
+      : undefined;
 
     return NextResponse.json({
-      reply,
+      reply: replyClean,
       used: "openai",
       personaIdRequested,
       personaIdUsed,
       escalated: routed.reason ?? null,
       knowledge: retrieval.library,
+      ...(recommendedCollection && { recommendedCollection }),
     });
   } catch {
     const p = getPersonaConfig(personaIdUsed);

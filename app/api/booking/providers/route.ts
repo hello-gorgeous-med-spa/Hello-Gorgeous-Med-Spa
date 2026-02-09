@@ -117,34 +117,37 @@ export async function GET(request: NextRequest) {
         .in('provider_id', service.provider_ids);
 
       if (providers && providers.length > 0) {
+        const DEFAULT_SCHEDULE_DB: { [day: number]: { start: string; end: string } | null } = {
+          0: null, 1: { start: '09:00', end: '17:00' }, 2: { start: '09:00', end: '17:00' },
+          3: { start: '09:00', end: '17:00' }, 4: { start: '09:00', end: '17:00' },
+          5: { start: '09:00', end: '15:00' }, 6: null,
+        };
         const formattedProviders = providers
           .filter((p: any) => isAllowedProvider(`${p.users.first_name} ${p.users.last_name}`))
           .map((p: any) => {
-            // Build schedule object
             const providerSchedules = schedules?.filter((s: any) => s.provider_id === p.id) || [];
-            const schedule: any = {};
+            const schedule: any = { 0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null };
             for (let day = 0; day <= 6; day++) {
               const daySchedule = providerSchedules.find((s: any) => s.day_of_week === day);
-              if (daySchedule && daySchedule.is_working) {
-                schedule[day] = {
-                  start: daySchedule.start_time?.slice(0, 5),
-                  end: daySchedule.end_time?.slice(0, 5),
-                };
-              } else {
-                schedule[day] = null;
+              if (daySchedule?.is_working && daySchedule?.start_time && daySchedule?.end_time) {
+                const start = String(daySchedule.start_time).slice(0, 5);
+                const end = String(daySchedule.end_time).slice(0, 5);
+                if (start && end) schedule[day] = { start, end };
               }
             }
+            // If no valid working days in DB, use default so booking still works
+            const hasAny = Object.values(schedule).some((v) => v !== null);
+            const finalSchedule = hasAny ? schedule : DEFAULT_SCHEDULE_DB;
 
             return {
               id: p.id,
               name: `${p.users.first_name} ${p.users.last_name}`,
               title: p.credentials || 'Provider',
               color: p.color_hex || '#EC4899',
-              schedule,
+              schedule: finalSchedule,
             };
           });
 
-        // If we have allowed providers from DB, return them
         if (formattedProviders.length > 0) {
           return NextResponse.json({ providers: formattedProviders, source: 'database' });
         }
@@ -175,7 +178,7 @@ export async function GET(request: NextRequest) {
       .from('provider_schedules')
       .select('*');
 
-    // Default schedule (Mon-Thu 9-5, Fri 9-3) - used if no DB schedule exists
+    // Default schedule (Mon-Thu 9-5, Fri 9-3) - used when no valid DB schedule exists
     const DEFAULT_SCHEDULE: { [day: number]: { start: string; end: string } | null } = {
       0: null, // Sunday - closed
       1: { start: '09:00', end: '17:00' }, // Monday
@@ -185,6 +188,10 @@ export async function GET(request: NextRequest) {
       5: { start: '09:00', end: '15:00' }, // Friday (9-3)
       6: null, // Saturday - closed
     };
+
+    function hasValidWorkingDays(schedule: { [day: number]: { start: string; end: string } | null }): boolean {
+      return Object.values(schedule).some((v) => v !== null && v.start && v.end);
+    }
 
     // Match fallback providers to database providers and get their schedules
     const cleanProviders = providers.map((provider) => {
@@ -202,21 +209,20 @@ export async function GET(request: NextRequest) {
 
       if (dbProvider && allSchedules) {
         const providerSchedules = allSchedules.filter((s: any) => s.provider_id === dbProvider.id);
-        if (providerSchedules.length > 0) {
-          hasDBSchedule = true;
-          for (const s of providerSchedules) {
-            if (s.is_working && s.start_time && s.end_time) {
-              schedule[s.day_of_week] = {
-                start: s.start_time.slice(0, 5),
-                end: s.end_time.slice(0, 5),
-              };
+        for (const s of providerSchedules) {
+          if (s.is_working && s.start_time && s.end_time) {
+            const start = String(s.start_time).slice(0, 5);
+            const end = String(s.end_time).slice(0, 5);
+            if (start && end) {
+              schedule[s.day_of_week] = { start, end };
+              hasDBSchedule = true;
             }
           }
         }
       }
 
-      // If no DB schedule found, use default business hours
-      if (!hasDBSchedule) {
+      // If no valid working days from DB, use default business hours so booking works
+      if (!hasDBSchedule || !hasValidWorkingDays(schedule)) {
         schedule = { ...DEFAULT_SCHEDULE };
       }
 

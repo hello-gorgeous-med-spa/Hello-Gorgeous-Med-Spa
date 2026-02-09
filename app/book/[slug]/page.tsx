@@ -7,6 +7,7 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { SITE } from '@/lib/seo';
 import type { Metadata } from 'next';
 import BookingForm from './BookingForm';
 
@@ -72,7 +73,7 @@ export default async function ServiceBookingPage({ params }: Props) {
         </div>
       </header>
 
-      <main className="max-w-3xl mx-auto px-4 py-8">
+      <main className="max-w-3xl mx-auto px-4 py-8 scroll-mt-20" id="main-content">
         {/* Service Info */}
         <section className="bg-white rounded-2xl border border-gray-200 p-6 mb-6">
           <div className="flex items-start justify-between mb-4">
@@ -136,7 +137,7 @@ export default async function ServiceBookingPage({ params }: Props) {
             </a>
             <span className="text-gray-300">|</span>
             <a 
-              href="mailto:hello@hellogorgeousmedspa.com" 
+              href={`mailto:${SITE.email}`} 
               className="text-pink-600 hover:text-pink-700 font-medium text-sm"
             >
               ✉️ Email Us

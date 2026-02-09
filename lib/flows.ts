@@ -11,6 +11,9 @@ export const REVIEWS_URL =
 /** @deprecated Use REVIEWS_URL. Kept for compatibility. */
 export const FRESHA_REVIEWS_URL = REVIEWS_URL;
 
+/** Hello Gorgeous Fullscript dispensary (supplements). Used by Peppi CTA and sections. */
+export const FULLSCRIPT_DISPENSARY_URL = "https://us.fullscript.com/welcome/dglazier";
+
 export type CareModuleId =
   | "education"
   | "preconsult"

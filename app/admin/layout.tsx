@@ -175,12 +175,23 @@ const NAV_SECTIONS = [
     ],
   },
   {
+    title: 'AI',
+    icon: '🤖',
+    items: [
+      { href: '/admin/ai', label: 'AI Hub', icon: '🧠' },
+      { href: '/admin/insights', label: 'AI Insights (Chat)', icon: '💬' },
+      { href: '/admin/ai/memory', label: 'Business Memory', icon: '📚' },
+      { href: '/admin/ai/watchdog', label: 'AI Watchdog', icon: '🛡️' },
+      { href: '/admin/ai/voice', label: 'Voice Receptionist', icon: '📞' },
+    ],
+  },
+  {
     title: 'Marketing',
     icon: '📈',
     items: [
       { href: '/admin/concerns', label: 'Fix What Bothers Me', icon: '💗' },
-      { href: '/admin/insights', label: 'AI Insights', icon: '🤖' },
       { href: '/admin/marketing', label: 'Marketing Hub', icon: '📊' },
+      { href: '/admin/marketing/automation', label: 'Campaigns & Automation', icon: '⚡' },
       { href: '/admin/reports', label: 'Reports', icon: '📋' },
     ],
   },

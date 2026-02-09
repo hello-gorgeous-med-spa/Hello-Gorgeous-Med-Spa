@@ -2,9 +2,11 @@
 import { createClient } from '@supabase/supabase-js';
 // AI CHAT API - Natural Language Business Intelligence
 // Processes questions and returns insights with visualizations
+// Logs to AI Watchdog for audit/compliance
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
+import { createAdminSupabaseClient, isAdminConfigured } from '@/lib/hgos/supabase';
 
 export const dynamic = 'force-dynamic';
 
@@ -387,21 +389,44 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Try to match the query to a handler
+    let result: { response: string; chart?: any };
+    let matched = false;
+
     for (const handler of QUERY_HANDLERS) {
       for (const pattern of handler.patterns) {
         const match = message.match(pattern);
         if (match) {
-          const result = await handler.handler(supabase, match);
-          return NextResponse.json(result);
+          result = await handler.handler(supabase, match);
+          matched = true;
+          break;
         }
+      }
+      if (matched) break;
+    }
+
+    if (!matched) {
+      result = {
+        response: `I'm not sure how to answer that yet. Try asking me about:\n\n• Today's appointments\n• This week's revenue\n• New vs returning clients\n• Top clients by spend\n• Busiest day of the week\n• Popular services\n• No-show rate\n• Month-over-month comparison`,
+      };
+    }
+
+    // Audit: log to AI Watchdog (in-house compliance)
+    if (isAdminConfigured() && result) {
+      const admin = createAdminSupabaseClient();
+      if (admin) {
+        const responseText = typeof result.response === 'string' ? result.response : JSON.stringify(result.response);
+        await admin.from('ai_watchdog_logs').insert({
+          source: 'ai_chat',
+          channel: 'web',
+          request_summary: message.slice(0, 200),
+          response_summary: responseText.slice(0, 150),
+          full_response_preview: responseText.slice(0, 500),
+          flagged: false,
+        }).then(() => {}).catch((err) => console.error('Watchdog log error:', err));
       }
     }
 
-    // Default response if no pattern matches
-    return NextResponse.json({
-      response: `I'm not sure how to answer that yet. Try asking me about:\n\n• Today's appointments\n• This week's revenue\n• New vs returning clients\n• Top clients by spend\n• Busiest day of the week\n• Popular services\n• No-show rate\n• Month-over-month comparison`,
-    });
+    return NextResponse.json(result);
 
   } catch (error) {
     console.error('AI Chat error:', error);

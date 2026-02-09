@@ -160,9 +160,22 @@ export async function GET(request: NextRequest) {
 
   try {
     const { searchParams } = new URL(request.url);
-    const date = searchParams.get('date');
+    let date = searchParams.get('date');
     const providerId = searchParams.get('provider_id');
-    const clientId = searchParams.get('client_id');
+    let clientId = searchParams.get('client_id');
+
+    // Portal/client: enforce own data only (HIPAA minimum necessary)
+    const sessionCookie = request.cookies.get('hgos_session');
+    if (sessionCookie?.value) {
+      try {
+        const session = JSON.parse(decodeURIComponent(sessionCookie.value));
+        if (session.role === 'client' && session.clientId) {
+          clientId = session.clientId;
+        }
+      } catch {
+        // ignore
+      }
+    }
 
     let query = supabase
       .from('appointments')

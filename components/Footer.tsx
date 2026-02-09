@@ -205,6 +205,19 @@ export function Footer() {
         </div>
       </div>
 
+      {/* Privacy & Security (HIPAA-aligned) */}
+      <div className="border-t border-white/5 bg-black/30">
+        <div className="max-w-7xl mx-auto px-6 py-5">
+          <h4 className="font-semibold text-white text-sm mb-2">Privacy & Security</h4>
+          <p className="text-sm text-gray-400 max-w-3xl">
+            We use secure, encrypted systems to protect your information. Client access is provided via secure, one-time login links — no passwords required. We never share your personal information without your consent.
+          </p>
+          <Link className="inline-block mt-2 text-pink-400 hover:text-pink-300 text-sm font-medium" href="/privacy">
+            Privacy Policy
+          </Link>
+        </div>
+      </div>
+
       {/* Bottom Bar */}
       <div className="border-t border-white/5 bg-black/50">
         <div className="max-w-7xl mx-auto px-6 py-6">

@@ -5,6 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { SITE } from '@/lib/seo';
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
@@ -13,7 +14,7 @@ export const dynamic = 'force-dynamic';
 const DEFAULT_SETTINGS = {
   business_name: 'Hello Gorgeous Med Spa',
   phone: '(630) 636-6193',
-  email: 'hello@hellogorgeousmedspa.com',
+  email: SITE.email,
   address: '74 W. Washington St, Oswego, IL 60543',
   timezone: 'America/Chicago',
   online_booking_enabled: true,

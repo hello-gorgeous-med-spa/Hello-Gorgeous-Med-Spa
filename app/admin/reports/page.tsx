@@ -47,38 +47,21 @@ export default function ReportsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch report data from dashboard API
+  // Fetch report data from reports API (live data only, no static values)
   const fetchReportData = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch('/api/dashboard');
+      const rangeParam = dateRange === 'today' ? 'today' : dateRange === 'month' ? 'month' : 'week';
+      const res = await fetch(`/api/reports?range=${rangeParam}`);
       const data = await res.json();
-      
-      // Transform dashboard data into report format
+      if (!res.ok) throw new Error(data.error || 'Failed to load');
       setReport({
-        revenue: {
-          total: data.stats?.monthRevenue || 0,
-          tips: 0,
-          transactionCount: data.stats?.totalAppointments || 0,
-          avgTicket: data.stats?.totalAppointments > 0 
-            ? Math.round((data.stats?.monthRevenue || 0) / data.stats.totalAppointments)
-            : 0,
-        },
-        appointments: {
-          total: data.stats?.totalAppointments || 0,
-          completed: data.stats?.totalAppointments || 0,
-          completionRate: 95,
-          noShows: 0,
-          cancelled: 0,
-          noShowRate: 0,
-        },
-        clients: {
-          new: 0,
-          total: data.stats?.totalClients || 0,
-        },
+        revenue: data.revenue || { total: 0, tips: 0, transactionCount: 0, avgTicket: 0 },
+        appointments: data.appointments || { total: 0, completed: 0, noShows: 0, cancelled: 0, completionRate: 0, noShowRate: 0 },
+        clients: { new: (data.clients || {}).new ?? 0 },
         services: [],
         providers: [],
-        newClients: { total: 0, bySource: {}, list: [] },
+        newClients: { total: (data.clients || {}).new ?? 0, bySource: {}, list: [] },
         topClients: [],
       });
       setError(null);
@@ -88,7 +71,7 @@ export default function ReportsPage() {
     } finally {
       setLoading(false);
     }
-  }, [startDate, endDate, activeTab]);
+  }, [dateRange, startDate, endDate, activeTab]);
 
   useEffect(() => {
     fetchReportData();
@@ -185,7 +168,7 @@ export default function ReportsPage() {
                 </p>
               )}
               <p className="text-sm text-green-600 mt-1">
-                {report?.revenue?.transactionCount || 0} transactions
+                {(report?.revenue?.transactionCount ?? 0)} transactions
               </p>
             </div>
             <div className="bg-white rounded-xl border border-gray-100 p-5">
@@ -241,25 +224,25 @@ export default function ReportsPage() {
                   <div className="flex items-center justify-between">
                     <span className="text-gray-600">Completed</span>
                     <span className="font-semibold text-green-600">
-                      {report?.appointments?.completed || 0}
+                      {report?.appointments?.completed ?? 0}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-600">No Shows</span>
                     <span className="font-semibold text-red-600">
-                      {report?.appointments?.noShows || 0}
+                      {report?.appointments?.noShows ?? 0}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-600">Cancelled</span>
                     <span className="font-semibold text-gray-600">
-                      {report?.appointments?.cancelled || 0}
+                      {report?.appointments?.cancelled ?? 0}
                     </span>
                   </div>
                   <div className="flex items-center justify-between pt-2 border-t">
                     <span className="text-gray-600">No Show Rate</span>
                     <span className="font-semibold text-amber-600">
-                      {report?.appointments?.noShowRate || 0}%
+                      {report?.appointments?.noShowRate ?? 0}%
                     </span>
                   </div>
                 </div>

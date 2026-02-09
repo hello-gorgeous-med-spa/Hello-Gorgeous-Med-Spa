@@ -37,41 +37,43 @@ interface Props {
   service: Service;
 }
 
-// Generate time slots based on provider schedule
+// Generate time slots based on provider schedule (defensive: require valid start/end)
 function getTimeSlotsForProvider(provider: Provider, date: Date, duration: number): string[] {
   const dayOfWeek = date.getDay(); // 0=Sunday, 1=Monday, etc.
-  const schedule = provider.schedule[dayOfWeek];
-  
-  if (!schedule) return []; // Provider doesn't work this day
-  
+  const schedule = provider.schedule?.[dayOfWeek] ?? provider.schedule?.[String(dayOfWeek)];
+  if (!schedule || typeof schedule.start !== 'string' || typeof schedule.end !== 'string') return [];
+
+  const startParts = schedule.start.trim().split(':').map(Number);
+  const endParts = schedule.end.trim().split(':').map(Number);
+  const startHour = startParts[0];
+  const startMin = startParts[1] ?? 0;
+  const endHour = endParts[0];
+  const endMin = endParts[1] ?? 0;
+  if (Number.isNaN(startHour) || Number.isNaN(endHour)) return [];
+
   const slots: string[] = [];
-  const [startHour, startMin] = schedule.start.split(':').map(Number);
-  const [endHour, endMin] = schedule.end.split(':').map(Number);
-  
   let currentHour = startHour;
   let currentMin = startMin;
-  
+
   while (currentHour < endHour || (currentHour === endHour && currentMin < endMin)) {
-    // Don't show slots that would extend past end time
     const slotEndMin = currentMin + duration;
     const slotEndHour = currentHour + Math.floor(slotEndMin / 60);
     const actualEndMin = slotEndMin % 60;
-    
+
     if (slotEndHour < endHour || (slotEndHour === endHour && actualEndMin <= endMin)) {
       const hour12 = currentHour > 12 ? currentHour - 12 : currentHour === 0 ? 12 : currentHour;
       const ampm = currentHour >= 12 ? 'PM' : 'AM';
       const minStr = currentMin.toString().padStart(2, '0');
       slots.push(`${hour12}:${minStr} ${ampm}`);
     }
-    
-    // Move to next slot (30 min intervals)
+
     currentMin += 30;
     if (currentMin >= 60) {
       currentHour += 1;
       currentMin = 0;
     }
   }
-  
+
   return slots;
 }
 
@@ -226,7 +228,7 @@ export default function BookingForm({ service }: Props) {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden keyboard-safe">
       {/* Progress Steps */}
       <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
         <div className="flex items-center justify-center gap-2 sm:gap-4">
@@ -398,18 +400,19 @@ export default function BookingForm({ service }: Props) {
               </button>
             </div>
 
-            {/* Date Selection */}
+            {/* Date Selection — thumb-friendly tap targets */}
             <div>
               <h3 className="font-semibold text-gray-900 mb-3">Select a Date</h3>
-              <div className="flex gap-2 overflow-x-auto pb-2">
+              <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide touch-pan-x" style={{ WebkitOverflowScrolling: 'touch' }}>
                 {availableDates.map((date) => (
                   <button
                     key={date.toISOString()}
+                    type="button"
                     onClick={() => {
                       setSelectedDate(date);
                       setSelectedTime(''); // Reset time when date changes
                     }}
-                    className={`flex-shrink-0 px-4 py-3 rounded-xl text-center transition-all ${
+                    className={`flex-shrink-0 min-h-[44px] min-w-[64px] px-4 py-3 rounded-xl text-center transition-all active:scale-[0.98] ${
                       selectedDate?.toDateString() === date.toDateString()
                         ? 'text-white'
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -442,8 +445,9 @@ export default function BookingForm({ service }: Props) {
                     {timeSlots.map((time) => (
                       <button
                         key={time}
+                        type="button"
                         onClick={() => setSelectedTime(time)}
-                        className={`px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                        className={`min-h-[44px] px-4 py-2.5 rounded-lg text-sm font-medium transition-all active:scale-[0.98] ${
                           selectedTime === time
                             ? 'text-white'
                             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
@@ -553,7 +557,7 @@ export default function BookingForm({ service }: Props) {
 
             {/* Contact Form */}
             <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
                     First Name *
@@ -561,9 +565,10 @@ export default function BookingForm({ service }: Props) {
                   <input
                     type="text"
                     required
+                    autoComplete="given-name"
                     value={formData.firstName}
                     onChange={(e) => updateField('firstName', e.target.value)}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                    className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                   />
                 </div>
                 <div>
@@ -573,9 +578,10 @@ export default function BookingForm({ service }: Props) {
                   <input
                     type="text"
                     required
+                    autoComplete="family-name"
                     value={formData.lastName}
                     onChange={(e) => updateField('lastName', e.target.value)}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                    className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                   />
                 </div>
               </div>
@@ -587,9 +593,10 @@ export default function BookingForm({ service }: Props) {
                 <input
                   type="email"
                   required
+                  autoComplete="email"
                   value={formData.email}
                   onChange={(e) => updateField('email', e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                 />
               </div>
 
@@ -600,10 +607,11 @@ export default function BookingForm({ service }: Props) {
                 <input
                   type="tel"
                   required
+                  autoComplete="tel"
                   value={formData.phone}
                   onChange={(e) => updateField('phone', e.target.value)}
                   placeholder="(630) 555-1234"
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                 />
               </div>
 
@@ -617,7 +625,7 @@ export default function BookingForm({ service }: Props) {
                     required
                     value={formData.dateOfBirth}
                     onChange={(e) => updateField('dateOfBirth', e.target.value)}
-                    className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                    className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                   />
                 </div>
               )}
@@ -631,7 +639,7 @@ export default function BookingForm({ service }: Props) {
                   onChange={(e) => updateField('notes', e.target.value)}
                   rows={2}
                   placeholder="Any special requests or concerns..."
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                 />
               </div>
 

@@ -40,132 +40,75 @@ interface Conversation {
   };
 }
 
-// Mock conversations data
-const MOCK_CONVERSATIONS: Conversation[] = [
-  {
-    id: '1',
-    client_id: 'c1',
-    client_name: 'Lindsey Carter',
-    client_initials: 'LC',
-    client_phone: '+1 (630) 555-1234',
-    client_email: 'lindsey.carter@email.com',
-    last_message: "What's the downtime for a Moxi treatment?",
-    last_message_time: new Date(Date.now() - 30 * 60000).toISOString(),
-    unread_count: 1,
-    messages: [
-      { id: 'm1', direction: 'inbound', content: "Hi Sarah! Quick question is it normal to have swelling in my chin after getting filler?", timestamp: new Date(Date.now() - 2 * 60 * 60000).toISOString(), status: 'read' },
-      { id: 'm2', direction: 'outbound', content: "Hey Lindsey! Yes it is very normal to have some swelling and tenderness, but if it persists more than a few days, please let me know.", timestamp: new Date(Date.now() - 1.5 * 60 * 60000).toISOString(), status: 'delivered' },
-      { id: 'm3', direction: 'inbound', content: "Perfect, I'll keep you updated! Is there anything I should do to help?", timestamp: new Date(Date.now() - 1 * 60 * 60000).toISOString(), status: 'read' },
-      { id: 'm4', direction: 'outbound', content: "You can take an antihistamine once a day for the swelling and an ibuprofen for the discomfort.", timestamp: new Date(Date.now() - 45 * 60000).toISOString(), status: 'delivered' },
-      { id: 'm5', direction: 'inbound', content: "What's the downtime for a Moxi treatment?", timestamp: new Date(Date.now() - 30 * 60000).toISOString(), status: 'read' },
-    ],
-    client_info: {
-      address: '123 Main Street, Ft. Worth, TX 86188',
-      birthday: 'August 05, 1990',
-      last_visit: 'July 01, 2025',
-      membership: 'Not Registered',
-      membership_savings: 120,
-      total_sales: 66727.85,
-    },
-  },
-  {
-    id: '2',
-    client_id: 'c2',
-    client_name: 'Monica Reyes',
-    client_initials: 'MR',
-    client_phone: '+1 (312) 555-9876',
-    last_message: "Do you carry SkinBetter products in office right now?",
-    last_message_time: new Date(Date.now() - 3 * 24 * 60 * 60000).toISOString(),
-    unread_count: 0,
-    messages: [
-      { id: 'm1', direction: 'inbound', content: "Do you carry SkinBetter products in office right now?", timestamp: new Date(Date.now() - 3 * 24 * 60 * 60000).toISOString(), status: 'read' },
-    ],
-    client_info: {
-      last_visit: 'Sept 01, 2025',
-      total_sales: 2450,
-    },
-  },
-  {
-    id: '3',
-    client_id: 'c3',
-    client_name: 'Janelle Thompson',
-    client_initials: 'JT',
-    client_phone: '+1 (847) 555-4321',
-    last_message: "Will I need numbing cream for lip filler, or is it quick?",
-    last_message_time: new Date(Date.now() - 4 * 24 * 60 * 60000).toISOString(),
-    unread_count: 0,
-    messages: [
-      { id: 'm1', direction: 'inbound', content: "Will I need numbing cream for lip filler, or is it quick?", timestamp: new Date(Date.now() - 4 * 24 * 60 * 60000).toISOString(), status: 'read' },
-      { id: 'm2', direction: 'outbound', content: "We always apply numbing cream before lip filler! You'll be very comfortable. The procedure takes about 20-30 minutes.", timestamp: new Date(Date.now() - 4 * 24 * 60 * 60000 + 30 * 60000).toISOString(), status: 'delivered' },
-    ],
-    client_info: {
-      last_visit: 'Aug 15, 2025',
-      total_sales: 1850,
-    },
-  },
-  {
-    id: '4',
-    client_id: 'c4',
-    client_name: 'Chloe Martinez',
-    client_initials: 'CM',
-    client_phone: '+1 (708) 555-8765',
-    last_message: "Can I add a Hydrafacial to my appointment on Friday?",
-    last_message_time: new Date(Date.now() - 5 * 24 * 60 * 60000).toISOString(),
-    unread_count: 0,
-    messages: [
-      { id: 'm1', direction: 'inbound', content: "Can I add a Hydrafacial to my appointment on Friday?", timestamp: new Date(Date.now() - 5 * 24 * 60 * 60000).toISOString(), status: 'read' },
-    ],
-    client_info: {
-      last_visit: 'Aug 10, 2025',
-      total_sales: 3200,
-    },
-  },
-  {
-    id: '5',
-    client_id: 'c5',
-    client_name: 'Tara Nguyen',
-    client_initials: 'TN',
-    client_phone: '+1 (224) 555-2468',
-    last_message: "Is it normal to feel a little swelling two days after filler?",
-    last_message_time: new Date(Date.now() - 7 * 24 * 60 * 60000).toISOString(),
-    unread_count: 0,
-    messages: [
-      { id: 'm1', direction: 'inbound', content: "Is it normal to feel a little swelling two days after filler?", timestamp: new Date(Date.now() - 7 * 24 * 60 * 60000).toISOString(), status: 'read' },
-    ],
-    client_info: {
-      last_visit: 'Aug 05, 2025',
-      total_sales: 4100,
-    },
-  },
-  {
-    id: '6',
-    client_id: 'c6',
-    client_name: 'Brooke Simmons',
-    client_initials: 'BS',
-    client_phone: '+1 (331) 555-1357',
-    last_message: "Hi Brooke, just a reminder to avoid retinol for 3 days before your peel tomorrow.",
-    last_message_time: new Date(Date.now() - 7 * 24 * 60 * 60000).toISOString(),
-    unread_count: 0,
-    messages: [
-      { id: 'm1', direction: 'outbound', content: "Hi Brooke, just a reminder to avoid retinol for 3 days before your peel tomorrow.", timestamp: new Date(Date.now() - 7 * 24 * 60 * 60000).toISOString(), status: 'delivered' },
-      { id: 'm2', direction: 'inbound', content: "Thank you for the reminder! I stopped using it 4 days ago 😊", timestamp: new Date(Date.now() - 7 * 24 * 60 * 60000 + 2 * 60 * 60000).toISOString(), status: 'read' },
-    ],
-    client_info: {
-      last_visit: 'Aug 01, 2025',
-      total_sales: 2875,
-    },
-  },
-];
-
 export default function MessagesPage() {
-  const [conversations, setConversations] = useState<Conversation[]>(MOCK_CONVERSATIONS);
+  const [conversations, setConversations] = useState<Conversation[]>([]);
   const [selectedConversation, setSelectedConversation] = useState<Conversation | null>(null);
   const [newMessage, setNewMessage] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [filter, setFilter] = useState<'all' | 'unread'>('all');
   const [sending, setSending] = useState(false);
+  const [loadingList, setLoadingList] = useState(true);
+  const [loadingMessages, setLoadingMessages] = useState(false);
   const [showClientInfo, setShowClientInfo] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  // Fetch conversations list (live)
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      setLoadingList(true);
+      try {
+        const res = await fetch('/api/sms/conversations');
+        const data = await res.json();
+        if (cancelled) return;
+        const list = (data.conversations || []).map((c: any) => ({
+          id: c.id,
+          client_id: c.client_id,
+          client_name: c.client_name || 'Unknown',
+          client_initials: c.client_initials || '?',
+          client_phone: c.client_phone || '',
+          client_email: c.client_email,
+          last_message: c.last_message || '',
+          last_message_time: c.last_message_time || new Date().toISOString(),
+          unread_count: c.unread_count || 0,
+          messages: [],
+          client_info: undefined,
+        }));
+        setConversations(list);
+      } catch (e) {
+        console.error('Fetch conversations error:', e);
+        if (!cancelled) setConversations([]);
+      } finally {
+        if (!cancelled) setLoadingList(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+  // When selecting a conversation, fetch messages (live)
+  const loadMessagesFor = useCallback(async (conv: Conversation) => {
+    setLoadingMessages(true);
+    try {
+      const res = await fetch(`/api/sms/conversations/${conv.client_id}`);
+      const data = await res.json();
+      const raw = (data.messages || []) as Array<{ id: string; direction: string; content: string; sent_at: string; status: string }>;
+      const messages: Message[] = raw.map((m) => ({
+        id: m.id,
+        direction: m.direction === 'inbound' ? 'inbound' : 'outbound',
+        content: m.content || '',
+        timestamp: m.sent_at || new Date().toISOString(),
+        status: (m.status === 'delivered' || m.status === 'sent' || m.status === 'received' ? m.status : 'sent') as Message['status'],
+      }));
+      setConversations((prev) =>
+        prev.map((c) => (c.id === conv.id ? { ...c, messages } : c))
+      );
+      setSelectedConversation((prev) => (prev?.id === conv.id ? { ...prev, messages } : prev));
+    } catch (e) {
+      console.error('Fetch messages error:', e);
+    } finally {
+      setLoadingMessages(false);
+    }
+  }, []);
 
   // Scroll to bottom of messages
   useEffect(() => {
@@ -209,56 +152,72 @@ export default function MessagesPage() {
     return date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
   };
 
-  // Send message
+  // Send message (live API)
   const handleSend = async () => {
     if (!newMessage.trim() || !selectedConversation) return;
-    
+    const content = newMessage.trim();
+    setNewMessage('');
     setSending(true);
-    
-    // Add message to conversation
+
     const newMsg: Message = {
       id: `m_${Date.now()}`,
       direction: 'outbound',
-      content: newMessage,
+      content,
       timestamp: new Date().toISOString(),
       status: 'sent',
     };
+    setConversations((prev) =>
+      prev.map((c) =>
+        c.id === selectedConversation.id
+          ? { ...c, messages: [...c.messages, newMsg], last_message: content, last_message_time: newMsg.timestamp }
+          : c
+      )
+    );
+    setSelectedConversation((prev) =>
+      prev ? { ...prev, messages: [...prev.messages, newMsg], last_message: content, last_message_time: newMsg.timestamp } : null
+    );
 
-    setConversations(prev => prev.map(conv => {
-      if (conv.id === selectedConversation.id) {
-        return {
-          ...conv,
-          messages: [...conv.messages, newMsg],
-          last_message: newMessage,
-          last_message_time: newMsg.timestamp,
-        };
+    try {
+      const res = await fetch(`/api/sms/conversations/${selectedConversation.client_id}/send`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        console.error('Send failed:', data);
+        return;
       }
-      return conv;
-    }));
-
-    setSelectedConversation(prev => prev ? {
-      ...prev,
-      messages: [...prev.messages, newMsg],
-      last_message: newMessage,
-      last_message_time: newMsg.timestamp,
-    } : null);
-
-    setNewMessage('');
-    
-    // In production, send via API
-    // await fetch('/api/sms/send', { ... })
-    
-    setTimeout(() => setSending(false), 500);
+      if (data.message?.id) {
+        setConversations((prev) =>
+          prev.map((c) =>
+            c.id === selectedConversation.id
+              ? { ...c, messages: c.messages.map((m) => (m.id === newMsg.id ? { ...m, id: data.message.id, status: (data.message.status || 'sent') as Message['status'] } : m)) }
+              : c
+          )
+        );
+        setSelectedConversation((prev) =>
+          prev
+            ? { ...prev, messages: prev.messages.map((m) => (m.id === newMsg.id ? { ...m, id: data.message.id, status: (data.message.status || 'sent') as Message['status'] } : m)) }
+            : null
+        );
+      }
+    } catch (e) {
+      console.error('Send error:', e);
+    } finally {
+      setSending(false);
+    }
   };
 
-  // Mark as read
+  // Mark as read (API marks read on GET conversation; we clear locally)
   const markAsRead = (convId: string) => {
-    setConversations(prev => prev.map(conv => {
-      if (conv.id === convId) {
-        return { ...conv, unread_count: 0 };
-      }
-      return conv;
-    }));
+    setConversations((prev) => prev.map((c) => (c.id === convId ? { ...c, unread_count: 0 } : c)));
+  };
+
+  const onSelectConversation = (conv: Conversation) => {
+    setSelectedConversation(conv);
+    markAsRead(conv.id);
+    loadMessagesFor(conv);
   };
 
   return (
@@ -314,6 +273,15 @@ export default function MessagesPage() {
 
         {/* Conversations List */}
         <div className="flex-1 overflow-y-auto">
+          {loadingList ? (
+            <div className="p-6 text-center text-gray-500">Loading conversations…</div>
+          ) : filteredConversations.length === 0 ? (
+            <div className="p-6 text-center text-gray-500">
+              <p className="font-medium text-gray-700">No conversations yet</p>
+              <p className="text-sm mt-1">When clients text your Telnyx number, threads will appear here.</p>
+              <p className="text-xs mt-4"><Link href="/admin/sms" className="text-pink-600 hover:underline">SMS Campaigns</Link> for one-time blasts.</p>
+            </div>
+          ) : (
           <table className="w-full">
             <thead className="bg-gray-50 sticky top-0">
               <tr className="text-xs text-gray-500">
@@ -326,10 +294,7 @@ export default function MessagesPage() {
               {filteredConversations.map((conv) => (
                 <tr
                   key={conv.id}
-                  onClick={() => {
-                    setSelectedConversation(conv);
-                    markAsRead(conv.id);
-                  }}
+                  onClick={() => onSelectConversation(conv)}
                   className={`cursor-pointer border-b border-gray-50 hover:bg-gray-50 transition-colors ${
                     selectedConversation?.id === conv.id ? 'bg-blue-50' : ''
                   } ${conv.unread_count > 0 ? 'bg-blue-50/50' : ''}`}
@@ -358,6 +323,7 @@ export default function MessagesPage() {
               ))}
             </tbody>
           </table>
+          )}
         </div>
       </div>
 
@@ -385,6 +351,10 @@ export default function MessagesPage() {
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-6 space-y-6">
+            {loadingMessages ? (
+              <div className="flex justify-center py-8 text-gray-500">Loading messages…</div>
+            ) : (
+            <>
             {/* Group messages by date */}
             {selectedConversation.messages.map((msg, idx) => {
               const showDate = idx === 0 || 
@@ -410,7 +380,7 @@ export default function MessagesPage() {
                     <div className={`max-w-md ${msg.direction === 'outbound' ? 'order-first' : ''}`}>
                       <div className="flex items-center gap-2 mb-1">
                         <span className="text-xs text-gray-500">
-                          {msg.direction === 'inbound' ? selectedConversation.client_name : 'Sarah Nguyen'}
+                          {msg.direction === 'inbound' ? selectedConversation.client_name : 'You'}
                         </span>
                         <span className="text-xs text-gray-400">{formatMessageTime(msg.timestamp)}</span>
                       </div>
@@ -425,7 +395,7 @@ export default function MessagesPage() {
                     
                     {msg.direction === 'outbound' && (
                       <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center overflow-hidden flex-shrink-0">
-                        <span className="text-white text-sm font-bold">SN</span>
+                        <span className="text-white text-sm font-bold">Y</span>
                       </div>
                     )}
                   </div>
@@ -433,6 +403,8 @@ export default function MessagesPage() {
               );
             })}
             <div ref={messagesEndRef} />
+            </>
+            )}
           </div>
 
           {/* Message Input */}
@@ -458,10 +430,15 @@ export default function MessagesPage() {
         </div>
       ) : (
         <div className="flex-1 flex items-center justify-center bg-gray-50">
-          <div className="text-center">
+          <div className="text-center max-w-sm px-6">
             <span className="text-6xl">💬</span>
-            <h3 className="text-xl font-semibold text-gray-900 mt-4">Select a conversation</h3>
-            <p className="text-gray-500 mt-2">Choose a conversation from the list to view messages</p>
+            <h3 className="text-xl font-semibold text-gray-900 mt-4">2-Way Messages</h3>
+            <p className="text-gray-500 mt-2">Click a client’s name in the list on the left to open your text thread with them. You can read and reply here.</p>
+            <p className="text-gray-400 text-sm mt-4 flex items-center justify-center gap-2">
+              <span className="inline-block border border-gray-300 rounded px-2 py-1">← Click a name</span>
+              <span>to open</span>
+            </p>
+            <p className="text-gray-400 text-xs mt-6">Messages use your Telnyx number. For one-time blasts to many clients, use <Link href="/admin/sms" className="text-pink-600 hover:underline">SMS Campaigns</Link>.</p>
           </div>
         </div>
       )}

@@ -307,6 +307,18 @@ export async function POST(request: NextRequest) {
       // Don't fail the booking if consent send fails
     }
 
+    // 7. Send portal magic link so client can access their space (HIPAA: no PHI in email)
+    try {
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
+      await fetch(`${baseUrl}/api/auth/send-portal-invite`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email.toLowerCase() }),
+      });
+    } catch (inviteErr) {
+      console.error('Portal invite send error:', inviteErr);
+    }
+
     return NextResponse.json({
       success: true,
       appointmentId: appointment.id,

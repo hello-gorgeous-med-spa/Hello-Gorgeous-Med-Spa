@@ -370,6 +370,66 @@ export default function FounderOverviewPage() {
               </div>
             </div>
 
+            {/* Marketing & SMS — one place to get set up */}
+            <div className="bg-white rounded-xl border mb-6">
+              <div className="p-4 border-b bg-gradient-to-r from-pink-50 to-purple-50">
+                <h2 className="font-semibold text-gray-900">📣 Marketing & SMS</h2>
+                <p className="text-sm text-gray-500">Contacts, email, and text messaging — set up in one place</p>
+              </div>
+              <div className="p-4 grid md:grid-cols-2 gap-6">
+                <div>
+                  <h3 className="font-medium text-gray-900 mb-3">Quick links</h3>
+                  <ul className="space-y-2">
+                    <li>
+                      <Link href="/admin/marketing/contacts" className="text-pink-600 hover:text-pink-700 font-medium flex items-center gap-2">
+                        📋 Contact Collection — view list, sign-up link, QR code
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/admin/marketing/contacts#import" className="text-pink-600 hover:text-pink-700 font-medium flex items-center gap-2">
+                        📤 Import contact list (CSV) — upload emails for marketing
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/admin/marketing" className="text-pink-600 hover:text-pink-700 font-medium flex items-center gap-2">
+                        📊 Marketing Hub — campaigns, templates, analytics
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/admin/sms" className="text-pink-600 hover:text-pink-700 font-medium flex items-center gap-2">
+                        💬 SMS Campaigns — send text blasts
+                      </Link>
+                    </li>
+                    <li>
+                      <Link href="/admin/settings" className="text-gray-600 hover:text-gray-800 flex items-center gap-2">
+                        ⚙️ Business Settings — integrations (Telnyx, Resend)
+                      </Link>
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="font-medium text-gray-900 mb-3">Get started checklist</h3>
+                  <ul className="space-y-2 text-sm text-gray-600">
+                    <li className="flex items-center gap-2">
+                      <span className="text-gray-400">1.</span> Add <code className="bg-gray-100 px-1 rounded">TELNYX_API_KEY</code> and <code className="bg-gray-100 px-1 rounded">TELNYX_PHONE_NUMBER</code> in your hosting env (Vercel/host).
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-gray-400">2.</span> Add <code className="bg-gray-100 px-1 rounded">RESEND_API_KEY</code> and <code className="bg-gray-100 px-1 rounded">RESEND_FROM_EMAIL</code> for marketing emails. Verify your domain in Resend (add DNS records in your DNS provider).
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-gray-400">3.</span> Upload your contact list: Marketing → Contact Collection → Import from CSV (or share the sign-up link to grow the list).
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-gray-400">4.</span> Share the sign-up link from Contact Collection (or QR code) to collect new leads.
+                    </li>
+                  </ul>
+                  <p className="mt-3 text-xs text-gray-500">
+                    Full setup guide: <code className="bg-gray-100 px-1 rounded">docs/MARKETING_SMS_SETUP.md</code>
+                  </p>
+                </div>
+              </div>
+            </div>
+
             {/* Recent Changes - REAL DATA */}
             <div className="bg-white rounded-xl border mb-6">
               <div className="p-4 border-b">

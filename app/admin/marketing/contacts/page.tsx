@@ -2,19 +2,45 @@
 
 // ============================================================
 // CONTACT COLLECTION ADMIN PAGE
-// Manage sign-up link, QR codes, and view subscribers
+// Manage sign-up link, QR codes, import CSV, and view subscribers
 // ============================================================
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Breadcrumb } from '@/components/ui';
 import { useToast } from '@/components/ui/Toast';
 
+function parseCSV(text: string): { email: string; first_name: string; last_name: string; phone: string }[] {
+  const lines = text.trim().split(/\r?\n/).filter(Boolean);
+  if (lines.length === 0) return [];
+  const header = lines[0].toLowerCase();
+  const hasHeader = header.includes('email') || header.includes('first');
+  const start = hasHeader ? 1 : 0;
+  const rows: { email: string; first_name: string; last_name: string; phone: string }[] = [];
+  for (let i = start; i < lines.length; i++) {
+    const parts = lines[i].split(',').map((p) => p.replace(/^"|"$/g, '').trim());
+    const email = (parts[0] ?? '').trim();
+    if (!email || !email.includes('@')) continue;
+    rows.push({
+      email,
+      first_name: (parts[1] ?? '').trim() || 'Subscriber',
+      last_name: (parts[2] ?? '').trim(),
+      phone: (parts[3] ?? '').trim(),
+    });
+  }
+  return rows;
+}
+
+const CSV_TEMPLATE = 'email,first_name,last_name,phone\njane@example.com,Jane,Doe,6305551234\njohn@example.com,John,Smith,';
+
 export default function ContactCollectionPage() {
   const toast = useToast();
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [baseUrl, setBaseUrl] = useState('');
   const [copied, setCopied] = useState(false);
   const [subscribers, setSubscribers] = useState<any[]>([]);
   const [loadingSubscribers, setLoadingSubscribers] = useState(true);
+  const [importing, setImporting] = useState(false);
+  const [importResult, setImportResult] = useState<{ imported: number; updated: number; skipped: number; errors: { row: number; error: string }[] } | null>(null);
   const [stats, setStats] = useState({
     total: 0,
     thisMonth: 0,
@@ -58,10 +84,7 @@ export default function ContactCollectionPage() {
   };
 
   const downloadQRCode = () => {
-    // Generate QR code using a simple API
     const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(signupUrlWithUtm)}`;
-    
-    // Create download link
     const link = document.createElement('a');
     link.href = qrUrl;
     link.download = 'hello-gorgeous-signup-qr.png';
@@ -69,8 +92,53 @@ export default function ContactCollectionPage() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    
     toast.success('QR Code downloaded!');
+  };
+
+  const downloadTemplate = () => {
+    const blob = new Blob([CSV_TEMPLATE], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'marketing-contacts-template.csv';
+    a.click();
+    URL.revokeObjectURL(url);
+    toast.success('Template downloaded');
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setImportResult(null);
+    const text = await file.text();
+    const contacts = parseCSV(text);
+    if (contacts.length === 0) {
+      toast.error('No valid rows found. Use email, first_name, last_name, phone.');
+      return;
+    }
+    setImporting(true);
+    try {
+      const res = await fetch('/api/marketing/import', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ contacts }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || 'Import failed');
+      setImportResult({
+        imported: data.imported ?? 0,
+        updated: data.updated ?? 0,
+        skipped: data.skipped ?? 0,
+        errors: (data.errors ?? []).map((x: any) => ({ row: x.row, error: x.error })),
+      });
+      toast.success(`Imported ${data.imported ?? 0} new, updated ${data.updated ?? 0}`);
+      fetchSubscribers();
+    } catch (err: any) {
+      toast.error(err.message || 'Import failed');
+    } finally {
+      setImporting(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
   };
 
   return (
@@ -174,6 +242,52 @@ export default function ContactCollectionPage() {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Import from CSV — id for owner dashboard deep link */}
+      <div id="import" className="bg-white rounded-2xl border border-gray-200 overflow-hidden scroll-mt-4">
+        <div className="p-6 border-b border-gray-100">
+          <h2 className="text-lg font-semibold text-gray-900">Import contact list (CSV)</h2>
+          <p className="text-sm text-gray-500">Upload a CSV to add contacts to your marketing list. Existing emails are updated; new ones are added.</p>
+        </div>
+        <div className="p-6 space-y-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept=".csv,.txt"
+              onChange={handleFileChange}
+              disabled={importing}
+              className="hidden"
+            />
+            <button
+              type="button"
+              onClick={() => fileInputRef.current?.click()}
+              disabled={importing}
+              className="px-4 py-2 bg-pink-500 text-white font-medium rounded-xl hover:bg-pink-600 disabled:opacity-50"
+            >
+              {importing ? 'Importing...' : '📤 Choose CSV file'}
+            </button>
+            <button
+              type="button"
+              onClick={downloadTemplate}
+              className="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200"
+            >
+              Download template
+            </button>
+          </div>
+          <p className="text-sm text-gray-500">
+            CSV format: <code className="bg-gray-100 px-1 rounded">email, first_name, last_name, phone</code>. First row can be headers (email, first_name, last_name, phone).
+          </p>
+          {importResult && (
+            <div className="bg-gray-50 rounded-xl p-4 text-sm">
+              <p className="font-medium text-gray-900">Last import: {importResult.imported} new, {importResult.updated} updated, {importResult.skipped} skipped.</p>
+              {importResult.errors.length > 0 && (
+                <p className="text-amber-700 mt-1">Errors: {importResult.errors.slice(0, 5).map((e) => `Row ${e.row}: ${e.error}`).join('; ')}{importResult.errors.length > 5 ? '…' : ''}</p>
+              )}
+            </div>
+          )}
         </div>
       </div>
 

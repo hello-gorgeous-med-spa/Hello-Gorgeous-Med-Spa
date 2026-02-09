@@ -27,69 +27,43 @@ export default function SessionHistoryPage() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    // Mock data - in production would fetch from API
-    const mockSessions: Session[] = [
-      {
-        id: '1',
-        client_name: 'Sydney Marie',
-        provider: 'Olivia Richardson',
-        date: new Date().toISOString(),
-        treatment_summary: 'Lips & Cheeks - Revanesse Versa + Restylane',
-        products_count: 3,
-        total: 2846.48,
-        payment_method: 'Card',
-        status: 'completed',
-      },
-      {
-        id: '2',
-        client_name: 'Danielle McVea',
-        provider: 'Staff',
-        date: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-        treatment_summary: 'Botox - Forehead & Glabella',
-        products_count: 3,
-        total: 1944,
-        payment_method: 'Card',
-        status: 'completed',
-      },
-      {
-        id: '3',
-        client_name: 'Jessica Chen',
-        provider: 'Olivia Richardson',
-        date: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
-        treatment_summary: 'IV Therapy - Beauty Glow + Hydration',
-        products_count: 2,
-        total: 375,
-        payment_method: 'Cash',
-        status: 'completed',
-      },
-      {
-        id: '4',
-        client_name: 'Amanda Wilson',
-        provider: 'Staff',
-        date: new Date(Date.now() - 48 * 60 * 60 * 1000).toISOString(),
-        treatment_summary: 'Lip Filler - Juvederm Volbella',
-        products_count: 1,
-        total: 650,
-        payment_method: 'Gift Card',
-        status: 'completed',
-      },
-      {
-        id: '5',
-        client_name: 'Maria Santos',
-        provider: 'Olivia Richardson',
-        date: new Date(Date.now() - 72 * 60 * 60 * 1000).toISOString(),
-        treatment_summary: 'Full Face Rejuvenation',
-        products_count: 5,
-        total: 3250,
-        payment_method: 'Card',
-        status: 'partial_refund',
-      },
-    ];
-
-    setTimeout(() => {
-      setSessions(mockSessions);
-      setLoading(false);
-    }, 500);
+    let cancelled = false;
+    (async () => {
+      setLoading(true);
+      try {
+        const res = await fetch('/api/chart-to-cart/sessions?limit=100');
+        const data = await res.json();
+        if (cancelled) return;
+        const raw = (data.sessions || []) as Array<{
+          id: string;
+          client_name: string | null;
+          provider: string | null;
+          started_at: string;
+          treatment_summary: string | null;
+          products: unknown[] | null;
+          total: number;
+          status: string;
+        }>;
+        const mapped: Session[] = raw.map((s) => ({
+          id: s.id,
+          client_name: s.client_name || 'Unknown',
+          provider: s.provider || 'Staff',
+          date: s.started_at,
+          treatment_summary: s.treatment_summary || '—',
+          products_count: Array.isArray(s.products) ? s.products.length : 0,
+          total: Number(s.total) || 0,
+          payment_method: '—',
+          status: s.status === 'completed' ? 'completed' : s.status === 'refunded' ? 'refunded' : 'completed',
+        }));
+        setSessions(mapped);
+      } catch (e) {
+        console.error('Session history fetch error:', e);
+        if (!cancelled) setSessions([]);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => { cancelled = true; };
   }, []);
 
   const filteredSessions = sessions.filter(s => {
