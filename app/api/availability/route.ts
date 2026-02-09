@@ -31,6 +31,28 @@ function getSupabase() {
 // NO HARDCODED SCHEDULES - Always use database as source of truth
 // If schedule not found in database, provider is NOT available
 
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const SLUG_TO_NAME: Record<string, string> = {
+  'ryan-kent': 'Ryan Kent',
+  'danielle-alcala': 'Danielle Alcala',
+};
+
+/** If provider_id is a slug (e.g. from booking widget), resolve to real provider UUID. */
+async function resolveProviderId(supabase: NonNullable<ReturnType<typeof getSupabase>>, providerId: string): Promise<string> {
+  if (UUID_REGEX.test(providerId)) return providerId;
+  const name = SLUG_TO_NAME[providerId.toLowerCase()];
+  if (!name) return providerId;
+  const { data: providers } = await supabase
+    .from('providers')
+    .select('id, users!inner(first_name, last_name)');
+  const match = (providers as any[])?.find((p: any) => {
+    if (!p?.users) return false;
+    const full = `${String(p.users.first_name).trim()} ${String(p.users.last_name).trim()}`;
+    return full.toLowerCase() === name.toLowerCase();
+  });
+  return match?.id ?? providerId;
+}
+
 interface TimeSlot {
   time: string; // "9:00 AM"
   datetime: string; // ISO string
@@ -136,17 +158,23 @@ export async function GET(request: NextRequest) {
   const dateObj = new Date(date + 'T00:00:00');
   const dayOfWeek = dateObj.getDay(); // 0 = Sunday, 6 = Saturday
 
+  // Resolve slug (e.g. "ryan-kent") to real provider UUID so schedule lookup works
+  let resolvedProviderId = providerId;
+  if (supabase && !UUID_REGEX.test(providerId)) {
+    resolvedProviderId = await resolveProviderId(supabase, providerId);
+  }
+
   let schedule: any = null;
   let existingAppointments: any[] = [];
   let providerName = '';
 
   if (supabase) {
     try {
-      // Fetch provider schedule for this day
+      // Fetch provider schedule for this day (use resolved UUID)
       const { data: scheduleData } = await supabase
         .from('provider_schedules')
         .select('*')
-        .eq('provider_id', providerId)
+        .eq('provider_id', resolvedProviderId)
         .eq('day_of_week', dayOfWeek)
         .single();
 
@@ -158,7 +186,7 @@ export async function GET(request: NextRequest) {
       const { data: appointments } = await supabase
         .from('appointments')
         .select('id, starts_at, ends_at, status')
-        .eq('provider_id', providerId)
+        .eq('provider_id', resolvedProviderId)
         .gte('starts_at', `${date}T00:00:00`)
         .lt('starts_at', `${date}T23:59:59`);
 
@@ -170,7 +198,7 @@ export async function GET(request: NextRequest) {
       const { data: provider } = await supabase
         .from('providers')
         .select('users(first_name, last_name)')
-        .eq('id', providerId)
+        .eq('id', resolvedProviderId)
         .single();
 
       if (provider?.users) {
@@ -184,7 +212,7 @@ export async function GET(request: NextRequest) {
   // NO FALLBACK SCHEDULES - If not found in database, provider is NOT working
   // This ensures the admin schedule settings are always respected
   if (!schedule) {
-    console.log(`No schedule found for provider ${providerId} on day ${dayOfWeek} - marking as not working`);
+    console.log(`No schedule found for provider ${resolvedProviderId} on day ${dayOfWeek} - marking as not working`);
     schedule = {
       day_of_week: dayOfWeek,
       start_time: null,
@@ -197,7 +225,7 @@ export async function GET(request: NextRequest) {
   if (!schedule.is_working || !schedule.start_time || !schedule.end_time) {
     const response: AvailabilityResponse = {
       date,
-      provider_id: providerId,
+      provider_id: resolvedProviderId,
       provider_name: providerName,
       is_working: false,
       slots: [],
@@ -218,7 +246,7 @@ export async function GET(request: NextRequest) {
 
   const response: AvailabilityResponse = {
     date,
-    provider_id: providerId,
+    provider_id: resolvedProviderId,
     provider_name: providerName,
     is_working: true,
     working_hours: {

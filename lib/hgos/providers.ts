@@ -3,6 +3,8 @@
 // Single source of truth for Hello Gorgeous Med Spa
 // ============================================================
 
+import { DANIELLE_CREDENTIALS } from '@/lib/provider-credentials';
+
 export interface Provider {
   id: string;
   firstName: string;
@@ -67,10 +69,10 @@ export const ACTIVE_PROVIDERS: Provider[] = [
     firstName: 'Danielle',
     lastName: 'Alcala',
     fullName: 'Danielle Alcala',
-    credentials: 'RN-S, CNA',
+    credentials: DANIELLE_CREDENTIALS,
     displayName: 'Danielle Alcala, RN-S',
     role: 'owner',
-    title: 'Owner / Registered Nurse',
+    title: 'Business Owner / Registered Nurse',
     email: 'hello.gorgeous@hellogorgeousmedspa.com',
     phone: '(630) 636-6193',
     color: '#ec4899', // Pink

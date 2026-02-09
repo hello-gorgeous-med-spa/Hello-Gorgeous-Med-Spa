@@ -9,6 +9,8 @@ import { logRecordView, logRecordUpdate, logRecordDelete } from '@/lib/audit';
 import { computeAuditDiff } from '@/lib/audit/diff';
 import { getSessionFromRequest } from '@/lib/audit/middleware';
 
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 // Use admin client when available so staff can read/update any client (avoids RLS blocking)
 function getClientSupabase() {
   if (isAdminConfigured()) {
@@ -16,6 +18,23 @@ function getClientSupabase() {
     if (admin) return admin;
   }
   return createServerSupabaseClient();
+}
+
+/** Resolve id (UUID or email/slug) to real client UUID so profile save works when URL uses email. */
+async function resolveClientId(supabase: ReturnType<typeof getClientSupabase>, id: string): Promise<string | null> {
+  if (UUID_REGEX.test(id)) {
+    const { data } = await supabase.from('clients').select('id').eq('id', id).single();
+    return data?.id ?? null;
+  }
+  const { data: byEmail } = await supabase.from('users').select('id').eq('email', id).limit(1);
+  let userId = byEmail?.[0]?.id ?? null;
+  if (!userId) {
+    const { data: byPrefix } = await supabase.from('users').select('id').ilike('email', `${id}@%`).limit(1);
+    userId = byPrefix?.[0]?.id ?? null;
+  }
+  if (!userId) return null;
+  const { data: client } = await supabase.from('clients').select('id').eq('user_id', userId).single();
+  return client?.id ?? null;
 }
 
 // GET /api/clients/[id] - Get single client
@@ -26,8 +45,9 @@ export async function GET(
   try {
     const supabase = getClientSupabase();
     if (!supabase) return NextResponse.json({ error: 'Service unavailable' }, { status: 503 });
-    const { id } = await params;
+    const { id: rawId } = await params;
     const session = await getSessionFromRequest(request);
+    const id = (await resolveClientId(supabase, rawId)) ?? rawId;
 
     const { data: client, error } = await supabase
       .from('clients')
@@ -88,9 +108,10 @@ export async function PUT(
   try {
     const supabase = getClientSupabase();
     if (!supabase) return NextResponse.json({ error: 'Service unavailable' }, { status: 503 });
-    const { id } = await params;
+    const { id: rawId } = await params;
     const body = await request.json();
     const session = await getSessionFromRequest(request);
+    const id = (await resolveClientId(supabase, rawId)) ?? rawId;
 
     // Get the client to find the user_id AND capture old values for audit
     const { data: existingClient, error: fetchError } = await supabase

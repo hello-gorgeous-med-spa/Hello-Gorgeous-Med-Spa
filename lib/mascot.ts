@@ -19,6 +19,8 @@ export const MASCOT_SCRIPT = {
 
 /** Path for the mascot intro video (waving + script). Put your file at public/videos/mascots/hello-gorgeous-intro.mp4 */
 export const MASCOT_INTRO_VIDEO_PATH = "/videos/mascots/hello-gorgeous-intro.mp4";
+/** Fallback when custom intro is missing — use an existing mascot video so "Watch intro" always plays something */
+export const MASCOT_INTRO_VIDEO_FALLBACK = "/videos/mascots/ryan/ryan-intro.mp4";
 
 /** Keywords that suggest the user wants to reach the owner / leave feedback / complain */
 export const FEEDBACK_OWNER_KEYWORDS = [

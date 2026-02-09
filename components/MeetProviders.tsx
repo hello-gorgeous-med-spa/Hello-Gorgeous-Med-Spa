@@ -2,12 +2,13 @@
 
 import Image from "next/image";
 import { Section, FadeUp } from "@/components/Section";
+import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from "@/lib/provider-credentials";
 
 const providers = [
   {
     name: "Danielle Alcala",
-    role: "Founder & Lead Aesthetician",
-    credentials: null,
+    role: "Founder & Business Owner",
+    credentials: DANIELLE_CREDENTIALS,
     image: "/images/team/danielle.png",
     bio: "Passionate about helping clients feel confident and beautiful. Patient-first care philosophy with a focus on personalized treatments.",
     telehealth: false,
@@ -15,7 +16,7 @@ const providers = [
   {
     name: "Ryan Kent",
     role: "Medical Director",
-    credentials: "FNP-BC | Full Practice Authority NP",
+    credentials: `${RYAN_CREDENTIALS} | Full Practice Authority NP`,
     image: "/images/team/ryan-danielle.png",
     bio: "Board-Certified Family Nurse Practitioner with full prescriptive authority. Specializing in weight management, hormone optimization, and regenerative medicine.",
     telehealth: true,

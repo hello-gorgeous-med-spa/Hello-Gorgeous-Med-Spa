@@ -6,6 +6,7 @@ import { createClient } from '@supabase/supabase-js';
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
+import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from '@/lib/provider-credentials';
 
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
@@ -36,7 +37,7 @@ const ALLOWED_PROVIDERS = [
     first_name: 'Ryan',
     last_name: 'Kent',
     email: 'ryan@hellogorgeousmedspa.com',
-    credentials: 'FNP-BC',
+    credentials: RYAN_CREDENTIALS,
     color_hex: '#3b82f6',
     is_active: true,
   },
@@ -45,7 +46,7 @@ const ALLOWED_PROVIDERS = [
     first_name: 'Danielle',
     last_name: 'Alcala',
     email: 'hello.gorgeous@hellogorgeousmedspa.com',
-    credentials: 'RN-S',
+    credentials: DANIELLE_CREDENTIALS,
     color_hex: '#ec4899',
     is_active: true,
   },

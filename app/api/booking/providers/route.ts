@@ -9,6 +9,7 @@ import { NextRequest, NextResponse } from 'next/server';
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from '@/lib/provider-credentials';
 
 // ============================================================
 // ONLY THESE TWO PROVIDERS - Ryan Kent and Danielle Alcala
@@ -18,14 +19,14 @@ const PROVIDER_METADATA = [
   {
     id: 'ryan-kent',
     name: 'Ryan Kent',
-    title: 'FNP-BC',
+    title: RYAN_CREDENTIALS,
     color: '#3b82f6',
     serviceKeywords: ['botox', 'filler', 'jeuveau', 'dysport', 'lip', 'semaglutide', 'tirzepatide', 'retatrutide', 'weight', 'iv', 'vitamin', 'prp', 'pellet', 'hormone', 'bhrt', 'medical', 'trigger', 'kybella', 'consult', 'laser', 'ipl', 'photofacial', 'anteage', 'hydra', 'peel', 'facial', 'skin'],
   },
   {
     id: 'danielle-alcala',
     name: 'Danielle Alcala',
-    title: 'RN-S, Owner',
+    title: DANIELLE_CREDENTIALS,
     color: '#ec4899',
     serviceKeywords: ['lash', 'brow', 'facial', 'dermaplanning', 'hydra', 'peel', 'lamination', 'wax', 'extension', 'lift', 'tint', 'glow', 'geneo', 'frequency', 'botox', 'filler', 'lip', 'consult'],
   },
@@ -195,10 +196,13 @@ export async function GET(request: NextRequest) {
 
     // Match fallback providers to database providers and get their schedules
     const cleanProviders = providers.map((provider) => {
-      // Find matching DB provider by name
+      // Find matching DB provider by full name (so Ryan Kent -> real UUID)
+      const wantFirst = provider.name.split(' ')[0]?.toLowerCase() || '';
+      const wantLast = provider.name.split(' ').slice(1).join(' ').toLowerCase() || '';
       const dbProvider = dbProviders?.find((p: any) => {
-        const fullName = `${p.users.first_name} ${p.users.last_name}`.toLowerCase();
-        return fullName.includes(provider.name.split(' ')[0].toLowerCase());
+        const first = String(p.users?.first_name ?? '').trim().toLowerCase();
+        const last = String(p.users?.last_name ?? '').trim().toLowerCase();
+        return first === wantFirst && last === wantLast;
       });
 
       // Build schedule from database 

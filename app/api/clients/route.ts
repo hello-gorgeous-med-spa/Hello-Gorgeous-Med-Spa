@@ -66,14 +66,33 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '100');
     const offset = parseInt(searchParams.get('offset') || '0');
 
-    // Get single client by ID
+    // Get single client by ID (or by email/slug if id is not a UUID)
     if (id) {
-      // Get client record
-      const { data: client, error: clientError } = await supabase
-        .from('clients')
-        .select('*')
-        .eq('id', id)
-        .single();
+      const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(id);
+      let client: any = null;
+      let clientError: any = null;
+
+      if (isUuid) {
+        const result = await supabase.from('clients').select('*').eq('id', id).single();
+        client = result.data;
+        clientError = result.error;
+      }
+
+      // Fallback: find by user email (e.g. id is "danielleglazi" and user email is danielleglazi@...)
+      if ((!isUuid || clientError || !client) && id) {
+        let userId: string | null = null;
+        const { data: byEmail } = await supabase.from('users').select('id').eq('email', id).limit(1);
+        userId = byEmail?.[0]?.id ?? null;
+        if (!userId) {
+          const { data: byPrefix } = await supabase.from('users').select('id').ilike('email', `${id}@%`).limit(1);
+          userId = byPrefix?.[0]?.id ?? null;
+        }
+        if (userId) {
+          const result = await supabase.from('clients').select('*').eq('user_id', userId).single();
+          client = result.data;
+          clientError = result.error;
+        }
+      }
 
       if (clientError || !client) {
         return NextResponse.json({ error: 'Client not found' }, { status: 404 });

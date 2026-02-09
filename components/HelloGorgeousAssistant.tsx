@@ -9,7 +9,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
 import { SITE } from "@/lib/seo";
 import { BOOKING_URL } from "@/lib/flows";
-import { MASCOT_WELCOME, MASCOT_INTRO_VIDEO_PATH } from "@/lib/mascot";
+import { MASCOT_WELCOME, MASCOT_INTRO_VIDEO_PATH, MASCOT_INTRO_VIDEO_FALLBACK, MASCOT_SCRIPT } from "@/lib/mascot";
 import { MascotBookingFlow } from "@/components/MascotBookingFlow";
 
 declare global {
@@ -65,6 +65,7 @@ export function HelloGorgeousAssistant() {
   const [feedbackName, setFeedbackName] = useState("");
   const [feedbackContact, setFeedbackContact] = useState("");
   const [showIntroVideo, setShowIntroVideo] = useState(false);
+  const [introVideoError, setIntroVideoError] = useState(false);
   const [isListening, setIsListening] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -227,7 +228,7 @@ export function HelloGorgeousAssistant() {
               <div>
                 <p className="text-white font-semibold">Hello Gorgeous</p>
                 <p className="text-pink-100 text-xs">Ask me anything • Book or call below</p>
-                <button type="button" onClick={() => setShowIntroVideo((v) => !v)} className="text-pink-100 hover:text-white text-xs underline ml-1">Watch intro</button>
+                <button type="button" onClick={() => { const next = !showIntroVideo; setShowIntroVideo(next); if (!next) setIntroVideoError(false); }} className="text-pink-100 hover:text-white text-xs underline ml-1">Watch intro</button>
               </div>
             </div>
             <button
@@ -270,9 +271,21 @@ export function HelloGorgeousAssistant() {
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-3">
             {showIntroVideo && (
-              <div className="rounded-xl overflow-hidden bg-gray-100 mb-3">
-                <video src={MASCOT_INTRO_VIDEO_PATH} controls className="w-full" playsInline />
-                <p className="text-xs text-gray-500 p-2 text-center">Meet your assistant — she’s Danielle’s mini me!</p>
+              <div className="rounded-xl overflow-hidden bg-pink-50 border border-pink-100 mb-3">
+                <video
+                  key={introVideoError ? "fallback" : "primary"}
+                  src={introVideoError ? MASCOT_INTRO_VIDEO_FALLBACK : MASCOT_INTRO_VIDEO_PATH}
+                  controls
+                  className="w-full"
+                  playsInline
+                  onError={() => setIntroVideoError(true)}
+                />
+                <div className="p-3 text-sm text-gray-700 space-y-2">
+                  <p className="font-medium text-pink-800">Meet your assistant — Danielle’s mini me</p>
+                  <p>{MASCOT_SCRIPT.whoSheIs}</p>
+                  <p>{MASCOT_SCRIPT.whatSheCanDo}</p>
+                  <p className="text-xs text-gray-500">{MASCOT_SCRIPT.howToUseHer}</p>
+                </div>
               </div>
             )}
             {messages.map((msg) => (

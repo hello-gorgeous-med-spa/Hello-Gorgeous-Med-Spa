@@ -204,13 +204,11 @@ export async function GET(request: NextRequest) {
       .order('starts_at', { ascending: false });
 
     if (date) {
-      // Filter appointments for the selected date
-      // Use text pattern matching on the starts_at field for the date portion
-      // This ensures we get all appointments that START on this calendar date
-      // regardless of timezone complexities
+      // Filter appointments for the selected date; exclude cancelled so calendar view stays clean
       query = query
         .gte('starts_at', `${date}T00:00:00`)
         .lt('starts_at', `${date}T23:59:59.999Z`)
+        .neq('status', 'cancelled')
         .order('starts_at', { ascending: true });
     }
 

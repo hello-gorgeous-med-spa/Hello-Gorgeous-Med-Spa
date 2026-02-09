@@ -10,6 +10,7 @@ import { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/Toast';
+import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from '@/lib/provider-credentials';
 
 // Provider colors - soft pastels like Boulevard
 const PROVIDER_COLORS = [
@@ -23,8 +24,8 @@ const PROVIDER_COLORS = [
 
 // Fallback providers - use actual database UUIDs so appointments match!
 const FALLBACK_PROVIDERS = [
-  { id: '47ab9361-4a68-4ab8-a860-c9c9fd64d26c', first_name: 'Ryan', last_name: 'Kent', credentials: 'FNP-BC', color_hex: '#3b82f6' },
-  { id: 'b7e6f872-3628-418a-aefb-aca2101f7cb2', first_name: 'Danielle', last_name: 'Alcala', credentials: 'RN-S', color_hex: '#ec4899' },
+  { id: '47ab9361-4a68-4ab8-a860-c9c9fd64d26c', first_name: 'Ryan', last_name: 'Kent', credentials: RYAN_CREDENTIALS, color_hex: '#3b82f6' },
+  { id: 'b7e6f872-3628-418a-aefb-aca2101f7cb2', first_name: 'Danielle', last_name: 'Alcala', credentials: DANIELLE_CREDENTIALS, color_hex: '#ec4899' },
 ];
 
 // Generate time slots (9 AM to 6 PM)
@@ -699,10 +700,15 @@ export default function CalendarPage() {
                             method: 'PUT',
                             headers: { 'Content-Type': 'application/json' },
                             body: JSON.stringify({ status: 'cancelled' })
-                          }).then(() => {
-                            toast.success('Appointment cancelled');
-                            fetchAppointments();
-                            setSelectedAppointment(null);
+                          }).then(async (res) => {
+                            if (res.ok) {
+                              toast.success('Appointment cancelled');
+                              fetchAppointments();
+                              setSelectedAppointment(null);
+                            } else {
+                              const d = await res.json().catch(() => ({}));
+                              toast.error(d.error || 'Failed to cancel appointment');
+                            }
                           });
                         }
                       }}

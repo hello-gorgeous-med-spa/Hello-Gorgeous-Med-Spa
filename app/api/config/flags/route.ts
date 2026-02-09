@@ -32,6 +32,9 @@ const DEFAULT_FLAGS = [
   { key: 'inventory_tracking', name: 'Inventory Tracking', description: 'Track products & lots', is_enabled: true, category: 'inventory' },
   { key: 'consent_forms', name: 'Digital Consent Forms', description: 'Electronic signing', is_enabled: true, category: 'compliance' },
   { key: 'ai_features', name: 'AI Features', description: 'AI summaries & suggestions', is_enabled: false, category: 'experimental' },
+  { key: 'ai_receptionist_booking', name: 'AI Receptionist: Booking', description: 'Allow Mini-Me to create appointments via chat/voice', is_enabled: true, category: 'ai_receptionist' },
+  { key: 'ai_receptionist_cancel', name: 'AI Receptionist: Cancel', description: 'Allow Mini-Me to cancel appointments', is_enabled: true, category: 'ai_receptionist' },
+  { key: 'ai_receptionist_reschedule', name: 'AI Receptionist: Reschedule', description: 'Allow Mini-Me to reschedule appointments', is_enabled: true, category: 'ai_receptionist' },
   { key: 'sandbox_mode', name: 'Sandbox Mode', description: 'Test changes safely', is_enabled: false, category: 'system' },
 ];
 

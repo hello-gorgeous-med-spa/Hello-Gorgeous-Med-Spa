@@ -1,5 +1,7 @@
 # Hello Gorgeous Mascot — Superpowers
 
+**Initiative (full spec):** [AI Receptionist Initiative](./AI_RECEPTIONIST_INITIATIVE.md) — Mini-Me as primary AI front desk, booking/cancel/reschedule, watchdog, admin controls.
+
 The **Hello Gorgeous mascot** (the character in the lab coat on the site) is the main face of the brand. She’s your mini version: she holds the superpowers and has the power and knowledge over every other mascot, Fullscript, the website, and services.
 
 ## Script (who she is, what she can do)
