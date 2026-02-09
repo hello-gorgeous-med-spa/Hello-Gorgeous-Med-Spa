@@ -1,13 +1,14 @@
 // ============================================================
-// PUBLIC CHAT WIDGET API — Mascot on website
-// Uses Business Memory for answers; handles book/call intents.
-// No auth; returns only public FAQ-style content.
+// PUBLIC CHAT WIDGET API — Hello Gorgeous super mascot
+// Knowledge: Business Memory + website + services + Fullscript.
+// See docs/MASCOT_SUPERPOWERS.md.
 // ============================================================
 
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabaseClient, isAdminConfigured } from "@/lib/hgos/supabase";
-import { SITE } from "@/lib/seo";
-import { BOOKING_URL } from "@/lib/flows";
+import { SITE, HOME_FAQS, SERVICES } from "@/lib/seo";
+import { BOOKING_URL, FULLSCRIPT_DISPENSARY_URL } from "@/lib/flows";
+import { getActiveCollections } from "@/lib/fullscript/collections";
 
 export const dynamic = "force-dynamic";
 
@@ -40,6 +41,58 @@ function scoreRelevance(message: string, title: string, content: string): number
   return score;
 }
 
+type KnowledgeEntry = { title: string; content: string };
+
+/** Website + services + Fullscript knowledge for the super mascot (no DB). */
+function getStaticKnowledge(): KnowledgeEntry[] {
+  const entries: KnowledgeEntry[] = [];
+
+  // Website: about, location, contact, hours
+  const addressStr = [
+    SITE.address.streetAddress,
+    SITE.address.addressLocality,
+    SITE.address.addressRegion,
+    SITE.address.postalCode,
+  ].join(", ");
+  const serviceAreasStr = SITE.serviceAreas.join(", ");
+  entries.push({
+    title: "Hello Gorgeous about location contact hours",
+    content: `${SITE.name}. ${SITE.description} Located at ${addressStr}. We serve ${serviceAreasStr}. Phone: ${SITE.phone}. Email: ${SITE.email}.`,
+  });
+  HOME_FAQS.forEach((faq) => {
+    entries.push({ title: faq.question, content: faq.answer });
+  });
+
+  // Services: each service name, category, short, and FAQs
+  SERVICES.forEach((s) => {
+    const faqBlob = s.faqs.map((f) => `${f.question} ${f.answer}`).join(" ");
+    entries.push({
+      title: `${s.name} ${s.category} ${s.slug}`,
+      content: `${s.short} ${faqBlob}`,
+    });
+    s.faqs.forEach((f) => {
+      entries.push({ title: f.question, content: f.answer });
+    });
+  });
+
+  // Fullscript: supplement collections (goals + description → reply with link)
+  const collections = getActiveCollections();
+  collections.forEach((c) => {
+    const goals = c.supported_goals.join(" ");
+    const reply = `${c.title}: ${c.description} This is educational support only, not medical advice. Hello Gorgeous offers practitioner-grade supplements through Fullscript. You can browse this collection here: ${c.fullscript_url}. For other goals (sleep, gut health, energy, skin, immunity, stress), we have more collections — just ask!`;
+    entries.push({
+      title: `supplements ${c.title} ${goals} fullscript`,
+      content: reply,
+    });
+  });
+  entries.push({
+    title: "supplements fullscript wellness",
+    content: `Hello Gorgeous offers access to practitioner-grade supplements through Fullscript — quality brands, third-party tested, with proper dosing guidance. We have collections for sleep, gut health, energy, skin/hair/nails, immunity, and stress support. Browse our dispensary: ${FULLSCRIPT_DISPENSARY_URL}. This is educational only; always check with your provider before starting new supplements.`,
+  });
+
+  return entries;
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -52,7 +105,6 @@ export async function POST(request: NextRequest) {
     const bookingUrl = BOOKING_URL.startsWith("http") ? BOOKING_URL : `${baseUrl}${BOOKING_URL.startsWith("/") ? "" : "/"}${BOOKING_URL}`;
     const phone = SITE.phone;
 
-    // Booking intent
     if (matchesIntent(message, BOOKING_KEYWORDS)) {
       return NextResponse.json({
         reply: "You can book online anytime — it’s quick and easy. Use the link below, or call us if you’d rather talk first.",
@@ -61,7 +113,6 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Call intent
     if (matchesIntent(message, CALL_KEYWORDS)) {
       return NextResponse.json({
         reply: `You can reach us at ${phone}. We’re happy to help!`,
@@ -69,8 +120,9 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // Try Business Memory
-    let fromMemory: string | null = null;
+    // Build all knowledge entries: Business Memory first, then website + services + Fullscript
+    const allEntries: { title: string; content: string }[] = [...getStaticKnowledge()];
+
     if (isAdminConfigured()) {
       const supabase = createAdminSupabaseClient();
       if (supabase) {
@@ -79,28 +131,30 @@ export async function POST(request: NextRequest) {
           .select("id, type, title, content")
           .not("content", "is", null);
         if (items?.length) {
-          const scored = items
-            .map((item) => ({
-              ...item,
-              score: scoreRelevance(message, item.title || "", item.content || ""),
-            }))
-            .filter((item) => item.score > 0)
-            .sort((a, b) => b.score - a.score);
-          const best = scored[0];
-          if (best?.content) fromMemory = best.content;
+          items.forEach((item) => {
+            allEntries.push({
+              title: item.title || "",
+              content: item.content || "",
+            });
+          });
         }
       }
     }
 
-    if (fromMemory) {
+    const scored = allEntries
+      .map((e) => ({ ...e, score: scoreRelevance(message, e.title, e.content) }))
+      .filter((e) => e.score > 0)
+      .sort((a, b) => b.score - a.score);
+    const best = scored[0];
+
+    if (best?.content) {
       return NextResponse.json({
-        reply: fromMemory,
+        reply: best.content,
         bookingUrl,
         phone,
       });
     }
 
-    // Fallback: helpful generic reply with book/call
     return NextResponse.json({
       reply: "I’m not sure about that one — but I can help you book an appointment or get in touch. Use “Book now” below or ask for our phone number.",
       bookingUrl,
