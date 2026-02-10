@@ -17,7 +17,7 @@ Implementation: `components/GoogleAnalytics.tsx` (injected in `app/layout.tsx`).
 | `phone_click` | User clicks any `tel:` link | Delegated click listener in `GoogleAnalytics.tsx` (sitewide) |
 | `email_click` | User clicks any `mailto:` link | Same delegated listener |
 | `sms_click` | User clicks an `sms:` link or element with `data-sms-click` | Same delegated listener |
-| `book_now_click` | User clicks a link whose href contains `book` or `fresha`, or element with `data-book-now` | Same delegated listener |
+| `book_now_click` | User clicks a link whose href contains `book` or element with `data-book-now` | Same delegated listener |
 
 All of the above push to `dataLayer` and to `gtag('event', eventName, params)` when GA4 is loaded.
 

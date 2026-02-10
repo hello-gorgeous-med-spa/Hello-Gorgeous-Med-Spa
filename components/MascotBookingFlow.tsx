@@ -139,7 +139,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
           serviceSlug: selectedService.slug,
           serviceId: selectedService.id,
           providerId: selectedProvider.id,
-          date: selectedDate.toISOString(),
+          date: selectedDate ? `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, "0")}-${String(selectedDate.getDate()).padStart(2, "0")}` : null,
           time: selectedTime,
           firstName: form.firstName,
           lastName: form.lastName,

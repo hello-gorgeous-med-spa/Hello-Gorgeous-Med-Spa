@@ -98,6 +98,8 @@ Sound like a generic AI; loop on “book online or call”; over-talk; guess med
 
 She (chat + future voice) calls these directly; no duplicate logic.
 
+**Single source of truth:** All booking APIs use only our Supabase appointments and provider schedules. Fresha is not live-integrated; no code path checks Fresha during booking. This prevents double booking and is required for reliable AI and voice booking. See [Booking: Single Source of Truth](./BOOKING.md).
+
 ### C. Voice Agent (Phase 2 — Planned Now)
 
 - Answer phone calls; understand intent; book/cancel/reschedule verbally; log every call to AI Watchdog.  

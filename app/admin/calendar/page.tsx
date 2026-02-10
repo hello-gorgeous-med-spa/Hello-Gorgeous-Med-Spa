@@ -67,6 +67,7 @@ export default function CalendarPage() {
   // API data
   const [appointments, setAppointments] = useState<any[]>([]);
   const [providers, setProviders] = useState<any[]>([]);
+  const [providerSchedules, setProviderSchedules] = useState<Record<string, { day_of_week: number; is_working: boolean; start_time: string | null; end_time: string | null }[]>>({});
   const [loading, setLoading] = useState(true);
 
   const dateString = selectedDate.toISOString().split('T')[0];
@@ -126,10 +127,35 @@ export default function CalendarPage() {
     fetchAppointments();
   }, [fetchAppointments]);
 
+  // Fetch provider schedules (staff working days/hours) so we can gray out off-schedule slots
+  const fetchProviderSchedules = useCallback(async (providerIds: string[]) => {
+    if (providerIds.length === 0) return;
+    try {
+      const results = await Promise.all(
+        providerIds.map(async (id) => {
+          const res = await fetch(`/api/providers/${id}/schedules`);
+          const data = await res.json();
+          return { id, schedules: data.schedules as { day_of_week: number; is_working: boolean; start_time: string | null; end_time: string | null }[] };
+        })
+      );
+      const map: Record<string, typeof results[0]['schedules']> = {};
+      results.forEach((r) => { map[r.id] = r.schedules || []; });
+      setProviderSchedules(map);
+    } catch (err) {
+      console.error('Failed to load provider schedules:', err);
+    }
+  }, []);
+
   useEffect(() => {
     fetchProviders();
     fetchServices();
   }, [fetchProviders, fetchServices]);
+
+  useEffect(() => {
+    if (providers.length > 0) {
+      fetchProviderSchedules(providers.map((p: any) => p.id));
+    }
+  }, [providers, fetchProviderSchedules]);
 
   // Search clients
   const searchClients = useCallback(async (query: string) => {
@@ -295,6 +321,39 @@ export default function CalendarPage() {
     if (selectedProviderFilter.length === 0) return providers;
     return providers.filter(p => selectedProviderFilter.includes(p.id));
   }, [providers, selectedProviderFilter]);
+
+  // Check if a time slot is within provider's working schedule for the given date (grays out off-days/hours)
+  const isSlotInSchedule = useCallback(
+    (providerId: string, date: Date, timeStr: string): boolean => {
+      const dayOfWeek = date.getDay();
+      const schedules = providerSchedules[providerId];
+      if (!schedules || schedules.length === 0) return true; // no data = show as available
+      const daySchedule = schedules.find((s) => s.day_of_week === dayOfWeek);
+      if (!daySchedule || !daySchedule.is_working || !daySchedule.start_time || !daySchedule.end_time) return false;
+      const toMins = (t: string) => {
+        const part = (t || '').slice(0, 5);
+        const [h, m] = part.split(':').map(Number);
+        return (h ?? 0) * 60 + (m ?? 0);
+      };
+      const slotMins = toMins(timeStr);
+      const startMins = toMins(daySchedule.start_time);
+      const endMins = toMins(daySchedule.end_time);
+      return slotMins >= startMins && slotMins < endMins;
+    },
+    [providerSchedules]
+  );
+
+  // Whether the whole day is off for this provider (for header label)
+  const isProviderOffDay = useCallback(
+    (providerId: string, date: Date): boolean => {
+      const dayOfWeek = date.getDay();
+      const schedules = providerSchedules[providerId];
+      if (!schedules || schedules.length === 0) return false;
+      const daySchedule = schedules.find((s) => s.day_of_week === dayOfWeek);
+      return !daySchedule || !daySchedule.is_working;
+    },
+    [providerSchedules]
+  );
 
   // Get provider color
   const getProviderColor = (providerId: string) => {
@@ -562,19 +621,21 @@ export default function CalendarPage() {
           {/* Provider columns */}
           {displayProviders.map((provider, idx) => {
             const color = PROVIDER_COLORS[providers.findIndex(p => p.id === provider.id) % PROVIDER_COLORS.length];
+            const offToday = isProviderOffDay(provider.id, selectedDate);
             return (
               <div
                 key={provider.id}
-                className="flex-1 px-3 py-3 border-l border-gray-200 min-w-[180px]"
+                className={`flex-1 px-3 py-3 border-l border-gray-200 min-w-[180px] ${offToday ? 'bg-gray-100' : ''}`}
               >
                 <div className="flex items-center gap-3">
                   {/* Avatar */}
-                  <div className={`w-10 h-10 rounded-full ${color.accent} flex items-center justify-center text-white font-medium text-sm shadow-sm`}>
+                  <div className={`w-10 h-10 rounded-full ${offToday ? 'bg-gray-300' : color.accent} flex items-center justify-center text-white font-medium text-sm shadow-sm`}>
                     {provider.first_name?.[0]}{provider.last_name?.[0]}
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="font-medium text-slate-800">
+                    <span className={`font-medium ${offToday ? 'text-gray-500' : 'text-slate-800'}`}>
                       {provider.first_name}
+                      {offToday && <span className="text-gray-400 font-normal ml-1">(off)</span>}
                     </span>
                     <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -610,35 +671,46 @@ export default function CalendarPage() {
                 const providerAppts = getProviderAppointments(provider.id, provider.first_name);
                 const color = getProviderColor(provider.id);
                 const providerName = `${provider.first_name} ${provider.last_name}`;
-                
+                const offToday = isProviderOffDay(provider.id, selectedDate);
+
                 return (
                   <div
                     key={provider.id}
-                    className="flex-1 border-l border-gray-200 relative min-w-[180px]"
+                    className={`flex-1 border-l border-gray-200 relative min-w-[180px] ${offToday ? 'bg-gray-50' : ''}`}
                   >
-                    {/* Clickable hour slots */}
-                    {HOUR_LABELS.map((hour) => (
-                      <div key={hour} className="h-24 border-b border-gray-100 relative">
-                        {/* First 30 min */}
-                        <div 
-                          className="absolute inset-x-0 top-0 h-12 cursor-pointer hover:bg-pink-50/50 transition-colors group"
-                          onClick={() => handleSlotClick(`${hour.toString().padStart(2, '0')}:00`, provider.id, providerName)}
-                        >
-                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span className="text-xs text-pink-500 font-medium bg-white/80 px-2 py-1 rounded">+ Book</span>
+                    {/* Clickable hour slots — grayed out when provider is off or outside working hours */}
+                    {HOUR_LABELS.map((hour) => {
+                      const slot00 = `${hour.toString().padStart(2, '0')}:00`;
+                      const slot30 = `${hour.toString().padStart(2, '0')}:30`;
+                      const inSchedule00 = isSlotInSchedule(provider.id, selectedDate, slot00);
+                      const inSchedule30 = isSlotInSchedule(provider.id, selectedDate, slot30);
+                      return (
+                        <div key={hour} className="h-24 border-b border-gray-100 relative">
+                          {/* First 30 min */}
+                          <div
+                            className={`absolute inset-x-0 top-0 h-12 transition-colors group ${inSchedule00 ? 'cursor-pointer hover:bg-pink-50/50' : 'bg-gray-100 cursor-not-allowed'}`}
+                            onClick={() => inSchedule00 && handleSlotClick(slot00, provider.id, providerName)}
+                          >
+                            {inSchedule00 && (
+                              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <span className="text-xs text-pink-500 font-medium bg-white/80 px-2 py-1 rounded">+ Book</span>
+                              </div>
+                            )}
+                          </div>
+                          {/* Second 30 min */}
+                          <div
+                            className={`absolute inset-x-0 bottom-0 h-12 transition-colors group ${inSchedule30 ? 'cursor-pointer hover:bg-pink-50/50' : 'bg-gray-100 cursor-not-allowed'}`}
+                            onClick={() => inSchedule30 && handleSlotClick(slot30, provider.id, providerName)}
+                          >
+                            {inSchedule30 && (
+                              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                <span className="text-xs text-pink-500 font-medium bg-white/80 px-2 py-1 rounded">+ Book</span>
+                              </div>
+                            )}
                           </div>
                         </div>
-                        {/* Second 30 min */}
-                        <div 
-                          className="absolute inset-x-0 bottom-0 h-12 cursor-pointer hover:bg-pink-50/50 transition-colors group"
-                          onClick={() => handleSlotClick(`${hour.toString().padStart(2, '0')}:30`, provider.id, providerName)}
-                        >
-                          <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span className="text-xs text-pink-500 font-medium bg-white/80 px-2 py-1 rounded">+ Book</span>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
+                      );
+                    })}
 
                     {/* Appointments - positioned above slots */}
                     {providerAppts.map((appt) => {
@@ -952,11 +1024,11 @@ export default function CalendarPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-xl font-bold text-slate-800">Quick Book</h2>
+                  <p className="text-pink-600 font-semibold mt-2">
+                    Booking for: {selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
+                  </p>
                   <p className="text-gray-500 mt-1">
                     {quickBookSlot.time} with {quickBookSlot.providerName}
-                  </p>
-                  <p className="text-sm text-gray-400">
-                    {selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
                   </p>
                 </div>
                 <button

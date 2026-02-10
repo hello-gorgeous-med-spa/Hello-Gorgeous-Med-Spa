@@ -1,7 +1,8 @@
 // ============================================================
 // API: BOOKING RESCHEDULE (for AI receptionist + voice)
 // Reschedules an appointment to a new date/time. Used by chat/voice front desk.
-// See docs/AI_RECEPTIONIST_INITIATIVE.md
+// This system is the canonical source for appointments. No Fresha lookups.
+// See docs/AI_RECEPTIONIST_INITIATIVE.md and docs/BOOKING.md
 // ============================================================
 
 import { NextRequest, NextResponse } from "next/server";
@@ -79,11 +80,14 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (error) {
+      console.error("[booking/reschedule] Error:", error);
       if (error.code === "PGRST116") {
         return NextResponse.json({ error: "Appointment not found" }, { status: 404 });
       }
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
+
+    console.log("[booking/reschedule] Success", { appointmentId, newStartsAt });
 
     return NextResponse.json({
       success: true,

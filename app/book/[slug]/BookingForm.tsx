@@ -112,6 +112,7 @@ export default function BookingForm({ service }: Props) {
   const [availableProviders, setAvailableProviders] = useState<Provider[]>([]);
   const [loadingProviders, setLoadingProviders] = useState(true);
   const [userChangedProvider, setUserChangedProvider] = useState(false); // Prevents auto-select after user clicks "Change"
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -172,6 +173,7 @@ export default function BookingForm({ service }: Props) {
 
   const handleSubmit = async () => {
     setIsSubmitting(true);
+    setSubmitError(null);
 
     try {
       const response = await fetch('/api/booking/create', {
@@ -181,7 +183,7 @@ export default function BookingForm({ service }: Props) {
           serviceSlug: service.slug,
           serviceId: service.id,
           providerId: selectedProvider?.id,
-          date: selectedDate?.toISOString(),
+          date: selectedDate ? `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}` : null,
           time: selectedTime,
           firstName: formData.firstName,
           lastName: formData.lastName,
@@ -198,13 +200,17 @@ export default function BookingForm({ service }: Props) {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to book appointment');
+        const msg = data.error || 'Failed to book appointment';
+        setSubmitError(msg);
+        throw new Error(msg);
       }
 
       setStep('confirm');
     } catch (error) {
       console.error('Booking error:', error);
-      alert(error instanceof Error ? error.message : 'Failed to book appointment. Please try again or call us.');
+      const msg = error instanceof Error ? error.message : 'Failed to book appointment. Please try again or call us.';
+      setSubmitError(msg);
+      alert(msg);
     } finally {
       setIsSubmitting(false);
     }
@@ -691,6 +697,13 @@ export default function BookingForm({ service }: Props) {
                 </label>
               </div>
             </div>
+
+            {submitError && (
+              <div className="mb-4 p-4 bg-red-50 border border-red-200 rounded-xl text-red-800 text-sm" role="alert">
+                {submitError}
+                <p className="mt-2 text-red-700">Please pick another time or call us at <a href="tel:6306366193" className="font-semibold underline">(630) 636-6193</a>.</p>
+              </div>
+            )}
 
             {/* Actions */}
             <div className="flex gap-3">

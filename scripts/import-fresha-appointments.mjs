@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 
 /**
- * FRESHA APPOINTMENTS IMPORTER
- * Imports appointment history from Fresha CSV export into HGOS
- * 
+ * FRESHA APPOINTMENTS IMPORTER (HISTORICAL / REFERENCE ONLY)
+ * Imports appointment history from Fresha CSV export into HGOS.
+ * Use for legacy data and reporting only — NOT for availability enforcement.
+ * This system is the canonical source for new appointments; Fresha is not live-integrated.
+ *
  * Usage: node scripts/import-fresha-appointments.mjs /path/to/fresha-appointments.csv
  */
 

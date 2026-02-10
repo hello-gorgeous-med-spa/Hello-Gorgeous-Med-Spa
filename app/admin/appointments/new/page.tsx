@@ -1,9 +1,10 @@
 'use client';
 
 // ============================================================
-// NEW APPOINTMENT PAGE - Fresha-Style Booking Flow
+// NEW APPOINTMENT PAGE - Admin calendar booking flow
 // Client → Service (categorized + search) → Forms → Date/Time → Confirm
 // TIME SLOTS ARE DYNAMICALLY GENERATED FROM PROVIDER SCHEDULES
+// This system is the canonical source for new appointments. External systems (e.g. Fresha) are not live-integrated.
 // ============================================================
 
 import { useState, Suspense, useEffect, useCallback } from 'react';
@@ -30,6 +31,9 @@ function NewAppointmentContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const preselectedClientId = searchParams.get('client');
+  const urlDate = searchParams.get('date'); // e.g. from calendar "Full booking form" link
+  const urlTime = searchParams.get('time');
+  const urlProvider = searchParams.get('provider');
 
   // State for API data
   const [services, setServices] = useState<any[]>([]);
@@ -56,17 +60,18 @@ function NewAppointmentContent() {
   const [searchLoading, setSearchLoading] = useState(false);
   const [allClients, setAllClients] = useState<any[]>([]);
 
-  // Form state
+  // Form state - pre-fill date/time/provider from URL when coming from calendar
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [step, setStep] = useState(preselectedClientId ? 2 : 1);
   const [selectedClient, setSelectedClient] = useState<any>(null);
   const [isWalkIn, setIsWalkIn] = useState(false);
 
+  const today = new Date().toISOString().split('T')[0];
   const [formData, setFormData] = useState({
     serviceId: '',
-    providerId: '',
-    date: new Date().toISOString().split('T')[0],
-    time: '',
+    providerId: urlProvider || '',
+    date: urlDate && /^\d{4}-\d{2}-\d{2}$/.test(urlDate) ? urlDate : today,
+    time: urlTime || '',
     notes: '',
     sendConfirmation: true,
     customPrice: '',
@@ -96,7 +101,10 @@ function NewAppointmentContent() {
         if (providersData.providers) {
           setProviders(providersData.providers);
           if (providersData.providers.length > 0) {
-            setFormData(prev => ({ ...prev, providerId: providersData.providers[0].id }));
+            setFormData(prev => ({
+              ...prev,
+              providerId: prev.providerId || providersData.providers[0].id,
+            }));
           }
         }
         if (clientsData.clients) setAllClients(clientsData.clients);
@@ -466,7 +474,7 @@ function NewAppointmentContent() {
         </div>
       )}
 
-      {/* Step 2: Select Service (Fresha-style) */}
+      {/* Step 2: Select Service */}
       {step === 2 && (
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
           <div className="p-4 border-b border-gray-100 flex items-center justify-between">

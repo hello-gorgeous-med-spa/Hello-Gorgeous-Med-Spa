@@ -1,6 +1,10 @@
 import type { PersonaId } from "@/lib/personas/types";
 
-/** Booking page — all "Book" / "Book Now" links. Default: first-party /book. Override with NEXT_PUBLIC_BOOKING_URL if needed (e.g. full URL). */
+/**
+ * Booking page — all "Book" / "Book Now" links. Default: first-party /book.
+ * Override with NEXT_PUBLIC_BOOKING_URL if needed (e.g. full URL).
+ * This system is the canonical source for new appointments. External systems (e.g. Fresha) are not live-integrated.
+ */
 export const BOOKING_URL =
   (typeof process !== "undefined" && process.env.NEXT_PUBLIC_BOOKING_URL) || "/book";
 

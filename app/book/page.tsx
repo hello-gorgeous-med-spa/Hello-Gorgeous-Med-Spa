@@ -234,16 +234,18 @@ export default async function PublicBookingPage() {
           
           {servicesByCategory.length === 0 ? (
             <div className="bg-white rounded-2xl p-8 border border-gray-200 text-center">
-              <p className="text-gray-500 mb-4">
-                Loading services...
+              <p className="text-gray-600 mb-2">
+                No services are available for online booking right now.
               </p>
-              <Link 
-                href="https://hello-gorgeous-med-spa.square.site/"
-                target="_blank"
+              <p className="text-gray-500 mb-4">
+                Please call or text us to book your appointment.
+              </p>
+              <a
+                href="tel:6306366193"
                 className="inline-flex items-center gap-2 bg-pink-500 text-white px-6 py-3 rounded-full font-medium hover:bg-pink-600"
               >
-                Book via Alternate Portal →
-              </Link>
+                📞 (630) 636-6193
+              </a>
             </div>
           ) : (
             <div className="space-y-8">

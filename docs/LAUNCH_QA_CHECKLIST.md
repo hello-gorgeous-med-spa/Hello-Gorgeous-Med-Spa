@@ -21,7 +21,7 @@
 | Check | Result | Notes |
 |-------|--------|--------|
 | GA4 + GTM load only once | **PASS** | Single `<GoogleAnalytics />` in root `layout.tsx`; one GTM script, one GA4 config when env vars set. |
-| phone_click, email_click, sms_click, book_now_click fire correctly | **PASS** | Delegated click listener in `GoogleAnalytics.tsx` (tel:, mailto:, sms:, book/fresha/data-book-now) → `trackEvent()` → dataLayer + gtag. |
+| phone_click, email_click, sms_click, book_now_click fire correctly | **PASS** | Delegated click listener in `GoogleAnalytics.tsx` (tel:, mailto:, sms:, book or data-book-now) → `trackEvent()` → dataLayer + gtag. |
 | No tracking on /admin, /portal, /login | **PASS** | **Fixed.** `GoogleAnalytics` now uses `usePathname()`; when path starts with `/admin`, `/portal`, or `/login`, component returns `null` (no scripts) and conversion listener is disabled. |
 
 ---

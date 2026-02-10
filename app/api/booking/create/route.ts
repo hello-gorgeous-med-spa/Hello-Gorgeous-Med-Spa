@@ -1,6 +1,7 @@
 // ============================================================
 // API: CREATE BOOKING
-// Saves appointment to database from public booking form
+// Saves appointment to database from public booking form.
+// This system is the canonical source for new appointments. External systems (e.g. Fresha) are not live-integrated. No Fresha lookups.
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -217,11 +218,25 @@ export async function POST(request: NextRequest) {
     if (ampm === 'PM' && hours !== 12) hours += 12;
     if (ampm === 'AM' && hours === 12) hours = 0;
 
-    const startDateTime = new Date(date);
+    // Parse date: accept YYYY-MM-DD or full ISO; use only date part for local start
+    const dateOnly = typeof date === 'string' && date.includes('T')
+      ? date.slice(0, 10)
+      : date;
+    const startDateTime = new Date(dateOnly + 'T12:00:00'); // noon to avoid TZ edge
     startDateTime.setHours(hours, minutes, 0, 0);
 
     const endDateTime = new Date(startDateTime);
     endDateTime.setMinutes(endDateTime.getMinutes() + (service.duration_minutes || 30));
+
+    // 3.5. Reject past start time (server-side guard)
+    const now = new Date();
+    if (startDateTime.getTime() < now.getTime() - 60 * 1000) {
+      console.warn('[booking/create] Rejected past start time', { date: dateOnly, time });
+      return NextResponse.json(
+        { error: 'This time slot has passed. Please select a current or future time.' },
+        { status: 400 }
+      );
+    }
 
     // 4. CHECK FOR DOUBLE BOOKING - Critical safety check
     const { data: existingAppointments, error: conflictError } = await supabase
@@ -233,15 +248,36 @@ export async function POST(request: NextRequest) {
       .or(`and(starts_at.lt.${endDateTime.toISOString()},ends_at.gt.${startDateTime.toISOString()})`);
 
     if (conflictError) {
-      console.error('Error checking conflicts:', conflictError);
-      // Continue with booking if conflict check fails - better to book than block
-    } else if (existingAppointments && existingAppointments.length > 0) {
+      console.error('[booking/create] Conflict check error:', conflictError);
+      return NextResponse.json(
+        { error: 'Unable to verify availability. Please refresh and try again, or call us.' },
+        { status: 503 }
+      );
+    }
+    if (existingAppointments && existingAppointments.length > 0) {
+      console.warn('[booking/create] Double-book blocked', { providerId: resolvedProviderId, starts_at: startDateTime.toISOString() });
       return NextResponse.json(
         { 
           error: 'This time slot is no longer available. Please select a different time.',
           conflictType: 'double_booking',
           suggestRefresh: true
         },
+        { status: 409 }
+      );
+    }
+
+    // 4.5. Re-check immediately before insert to reduce race window
+    const { data: recheckAppointments, error: recheckError } = await supabase
+      .from('appointments')
+      .select('id')
+      .eq('provider_id', resolvedProviderId)
+      .neq('status', 'cancelled')
+      .neq('status', 'no_show')
+      .or(`and(starts_at.lt.${endDateTime.toISOString()},ends_at.gt.${startDateTime.toISOString()})`);
+    if (!recheckError && recheckAppointments && recheckAppointments.length > 0) {
+      console.warn('[booking/create] Double-book blocked on re-check (race)', { providerId: resolvedProviderId, starts_at: startDateTime.toISOString() });
+      return NextResponse.json(
+        { error: 'This time slot was just taken. Please pick another time.', conflictType: 'double_booking', suggestRefresh: true },
         { status: 409 }
       );
     }
@@ -268,12 +304,14 @@ export async function POST(request: NextRequest) {
       .single();
 
     if (appointmentError) {
-      console.error('Error creating appointment:', appointmentError);
+      console.error('[booking/create] Insert error:', appointmentError);
       return NextResponse.json(
         { error: `Failed to create appointment: ${appointmentError.message || appointmentError.code || 'Unknown error'}` },
         { status: 500 }
       );
     }
+
+    console.log('[booking/create] Success', { appointmentId: appointment.id, providerId: resolvedProviderId, starts_at: startDateTime.toISOString(), source: 'online_booking' });
 
     // 6. Trigger consent auto-send via Telnyx SMS (for ALL clients, not just new)
     try {
@@ -327,7 +365,7 @@ export async function POST(request: NextRequest) {
     });
 
   } catch (error) {
-    console.error('Booking error:', error);
+    console.error('[booking/create] Unhandled error:', error);
     const message = error instanceof Error ? error.message : 'An unexpected error occurred';
     return NextResponse.json(
       { error: message },

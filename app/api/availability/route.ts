@@ -1,7 +1,8 @@
 // ============================================================
 import { createClient } from '@supabase/supabase-js';
 // API: AVAILABILITY - Dynamic slot generation based on provider schedules
-// This is the SOURCE OF TRUTH for bookable time slots
+// This is the SOURCE OF TRUTH for bookable time slots.
+// This system is the canonical source for new appointments. External systems (e.g. Fresha) are not live-integrated. No Fresha lookups.
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';

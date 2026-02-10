@@ -299,6 +299,17 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
               </div>
             </div>
 
+            {/* How booked */}
+            {(appointment.booking_source || appointment.source) && (
+              <div className="mt-4 pt-4 border-t border-gray-100">
+                <p className="text-sm text-gray-500">
+                  Booked via: <span className="font-medium text-gray-700">
+                    {(appointment.booking_source || appointment.source) === 'online_booking' ? 'Online booking' : (appointment.booking_source || appointment.source) === 'admin_calendar' ? 'Calendar / POS' : String(appointment.booking_source || appointment.source)}
+                  </span>
+                </p>
+              </div>
+            )}
+
             {/* Notes */}
             {appointment.notes && (
               <div className="mt-6 pt-6 border-t border-gray-100">

@@ -42,8 +42,8 @@ export function Hero({ headline, subheadline, ctaText = DEFAULT_CTA_TEXT, ctaUrl
       <div className="absolute -top-20 left-1/4 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl animate-pulse pointer-events-none" />
       <div className="absolute -top-20 right-1/4 w-96 h-96 bg-fuchsia-500/20 rounded-full blur-3xl animate-pulse delay-700 pointer-events-none" />
 
-      {/* Hero Banner Image - Animated Entry */}
-      <div className="relative w-full">
+      {/* Hero Banner Image - Animated Entry (fixed aspect ratio so image always looks right) */}
+      <div className="relative w-full aspect-[1920/600] min-h-[200px] overflow-hidden">
         {/* Shimmer overlay that fades out */}
         <div 
           className={`absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent z-10 transition-opacity duration-1000 ${
@@ -57,10 +57,9 @@ export function Hero({ headline, subheadline, ctaText = DEFAULT_CTA_TEXT, ctaUrl
         <Image
           src="/images/hero-banner.png"
           alt="Hello Gorgeous Med Spa - Welcome to Oswego, IL's Premier Med Spa - Botox, Fillers, and Weight Loss Therapy"
-          width={1920}
-          height={600}
+          fill
           priority
-          className={`w-full h-auto transition-all duration-1000 ease-out ${
+          className={`object-cover object-center transition-all duration-1000 ease-out ${
             isLoaded 
               ? "opacity-100 scale-100 blur-0" 
               : "opacity-0 scale-105 blur-sm"
