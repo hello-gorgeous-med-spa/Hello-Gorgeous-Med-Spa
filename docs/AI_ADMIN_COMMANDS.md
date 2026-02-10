@@ -69,13 +69,14 @@ All changes go through **Supabase CMS**. No code, schema, or config file edits.
 
 **Execution logic:** `lib/site-content-update.ts` (e.g. `applySiteContentUpdate(supabase, location, value)`).
 
-**Location strings (Phase 2 + Phase 3):**
+**Location strings (Phase 2–4):**
 
 - `homepage.hero.*` — headline, subheadline, cta_text, cta_url
 - `homepage.banner.*` — enabled, headline, subheadline, cta_text, cta_url, start_date, end_date
-- `site.tagline`, `site.booking_enabled`
+- `site.tagline`, `site.booking_enabled`, `site.default_meta_title`, `site.default_meta_description`
 - `site.hours.mon_fri`, `site.hours.sat`, `site.hours.sun`, `site.hours.add_closure`
 - `site.booking_paused_reason`, `site.booking_resume_at`
+- `section.about.content`, `section.about.title`, `section.first_time_visitor.*`, `section.what_to_expect.*` (text sections matched by name)
 
 ---
 
@@ -195,6 +196,8 @@ When the owner clicks **Approve** and the change is applied:
 
 **Phase 3:** Expands to hours, banners, and booking pauses, plus a read-only Activity view and safe Undo (revert as new proposal, approval required) — same safety model, CMS-only, fully logged.
 
+**Phase 4:** Content & optimization — default SEO meta (title/description), informational sections (about, first-time visitor, what to expect), and campaign **draft only** (SMS/email copy with copy-to-clipboard; no send). AI proposes, owner approves or copies.
+
 ---
 
 ## Phase Map (Roadmap)
@@ -202,7 +205,7 @@ When the owner clicks **Approve** and the change is applied:
 | Phase | Summary | Status |
 |-------|---------|--------|
 | **Phase 3 — Operational control** | Homepage messaging (hero, CTA), promotional banners (add/remove, schedule, toggle, copy), booking (on/off, pause with reason, resume at time), business hours & closures. *“Anything operational, visible, and reversible.”* | ✅ Shipped |
-| **Phase 4 — Content & optimization** | Informational content (about, first-time visitor, “what to expect”), **SEO proposals only** (meta titles/descriptions, headline rewrites, internal linking — never auto-publish), campaign copy **drafting** (SMS/email drafts, segment suggestions, timing — no execution). *“AI proposes, owner decides.”* | 🔜 After Phase 3 stable |
+| **Phase 4 — Content & optimization** | Informational content (about, first-time visitor, “what to expect”), **SEO** (default meta title/description — approval required), campaign copy **drafting** (SMS/email draft copy, copy-to-clipboard — no execution). *“AI proposes, owner decides.”* | ✅ Shipped |
 | **Phase 5 — Strategic intelligence** | Staleness/consistency detection (outdated copy, conflicting hours, old promos, Google profile mismatch), performance-based suggestions (banners, seasonal messaging, CTA ideas), cross-channel awareness (website vs SMS/email vs Google). *“AI becomes an advisor, not an operator.”* | Optional, after trust earned |
 
 **One-liner map:**  

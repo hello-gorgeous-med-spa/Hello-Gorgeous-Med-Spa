@@ -29,6 +29,14 @@ const COMMAND_PATTERNS = [
   /\b(?:turn off|disable)\s+(?:the\s+)?(?:promo\s+)?banner\b/i,
   /\bpause\s+booking\b/i,
   /\bresume\s+booking\b/i,
+  /\b(?:update|change|set)\s+(?:default\s+)?(?:meta\s+)?title\s+to\s+["']?([^"']+)["']?/i,
+  /\b(?:update|change|set)\s+(?:default\s+)?meta\s+description\s+to\s+["']?([^"']+)["']?/i,
+  /\b(?:update|change|edit)\s+(?:the\s+)?about\s+(?:section\s+)?(?:content\s+)?to\s+["']?([^"']+)/i,
+  /\b(?:update|change|edit)\s+(?:the\s+)?(?:first[- ]?time\s+visitor|first[- ]?time)\s+(?:info\s+)?(?:content\s+)?to\s+["']?([^"']+)/i,
+  /\b(?:update|change|edit)\s+(?:the\s+)?(?:what\s+to\s+expect)\s+(?:section\s+)?(?:content\s+)?to\s+["']?([^"']+)/i,
+  /\bdraft\s+(?:an?\s+)?(?:sms|text)\s+/i,
+  /\bdraft\s+(?:an?\s+)?email\s+/i,
+  /\bsuggest\s+(?:sms|email)\s+copy\b/i,
 ];
 
 const QUERY_PATTERNS = [
@@ -45,7 +53,7 @@ function classifyInput(message: string): 'query' | 'command' {
   for (const p of COMMAND_PATTERNS) {
     if (p.test(trimmed)) return 'command';
   }
-  const commandWords = /\b(change|update|set|add|remove|make the|replace|hours|close|open|banner|promo|pause booking|resume booking)\b/i;
+  const commandWords = /\b(change|update|set|add|remove|make the|replace|hours|close|open|banner|promo|pause booking|resume booking|meta|seo|about|draft|suggest)\b/i;
   if (commandWords.test(trimmed)) return 'command';
   return 'query';
 }
@@ -258,6 +266,95 @@ function buildProposal(message: string): {
     };
   }
 
+  // Phase 4: SEO default meta
+  const metaTitleMatch = m.match(/(?:update|change|set)\s+(?:default\s+)?(?:meta\s+)?title\s+to\s+["']?([^"']+)["']?/i);
+  if (metaTitleMatch) {
+    const newVal = metaTitleMatch[1].trim();
+    return {
+      action: 'update_site_content',
+      location: 'site.default_meta_title',
+      old: '(current default meta title)',
+      new: newVal,
+      summary: `Update default meta title (SEO) to: "${newVal}"`,
+      confidence: 'high',
+    };
+  }
+  const metaDescMatch = m.match(/(?:update|change|set)\s+(?:default\s+)?meta\s+description\s+to\s+["']?([^"']+)["']?/i);
+  if (metaDescMatch) {
+    const newVal = metaDescMatch[1].trim();
+    return {
+      action: 'update_site_content',
+      location: 'site.default_meta_description',
+      old: '(current default meta description)',
+      new: newVal,
+      summary: `Update default meta description (SEO) to: "${newVal.slice(0, 60)}${newVal.length > 60 ? '…' : ''}"`,
+      confidence: 'high',
+    };
+  }
+
+  // Phase 4: Informational content sections
+  const aboutMatch = m.match(/(?:update|change|edit)\s+(?:the\s+)?about\s+(?:section\s+)?(?:content\s+)?to\s+["']?([^"']+)/i);
+  if (aboutMatch) {
+    const newVal = aboutMatch[1].trim();
+    return {
+      action: 'update_site_content',
+      location: 'section.about.content',
+      old: '(current about content)',
+      new: newVal,
+      summary: `Update the About section content.`,
+      confidence: 'high',
+    };
+  }
+  const firstTimeMatch = m.match(/(?:update|change|edit)\s+(?:the\s+)?(?:first[- ]?time\s+visitor|first[- ]?time)\s+(?:info\s+)?(?:content\s+)?to\s+["']?([^"']+)/i);
+  if (firstTimeMatch) {
+    const newVal = firstTimeMatch[1].trim();
+    return {
+      action: 'update_site_content',
+      location: 'section.first_time_visitor.content',
+      old: '(current content)',
+      new: newVal,
+      summary: `Update the First-time visitor info content.`,
+      confidence: 'high',
+    };
+  }
+  const whatToExpectMatch = m.match(/(?:update|change|edit)\s+(?:the\s+)?(?:what\s+to\s+expect)\s+(?:section\s+)?(?:content\s+)?to\s+["']?([^"']+)/i);
+  if (whatToExpectMatch) {
+    const newVal = whatToExpectMatch[1].trim();
+    return {
+      action: 'update_site_content',
+      location: 'section.what_to_expect.content',
+      old: '(current content)',
+      new: newVal,
+      summary: `Update the What to expect section content.`,
+      confidence: 'high',
+    };
+  }
+
+  return null;
+}
+
+function buildDraftResponse(message: string): { kind: 'draft'; draftType: string; message: string; draftText: string; note: string } | null {
+  const m = message.trim().toLowerCase();
+  if (/\bdraft\s+(?:an?\s+)?(?:sms|text)\s+/.test(m) || /\bsuggest\s+sms\s+copy\b/.test(m)) {
+    const draftText = "Hi! This is Hello Gorgeous Med Spa. We're sending a quick reminder — copy and edit this in your SMS campaign, then send when ready.";
+    return {
+      kind: 'draft',
+      draftType: 'sms',
+      message: "Here's draft SMS copy. No changes are applied; use it in **Admin → Marketing → SMS** when you're ready.",
+      draftText,
+      note: 'Copy and use in your campaign. No execution from this chat.',
+    };
+  }
+  if (/\bdraft\s+(?:an?\s+)?email\s+/.test(m) || /\bsuggest\s+email\s+copy\b/.test(m)) {
+    const draftText = "Subject: A note from Hello Gorgeous\n\nHi there,\n\nWe wanted to reach out — copy and edit this in your email tool, then send when ready.\n\nBest,\nHello Gorgeous Med Spa";
+    return {
+      kind: 'draft',
+      draftType: 'email',
+      message: "Here's draft email copy. No changes are applied; use it in your email campaign when you're ready.",
+      draftText,
+      note: 'Copy and use in your campaign. No execution from this chat.',
+    };
+  }
   return null;
 }
 
@@ -279,7 +376,18 @@ export async function POST(request: NextRequest) {
     if (kind === 'query') {
       return NextResponse.json({
         kind: 'query',
-        response: 'For business questions and charts, use the **Insights** tab. Here you can only run commands to update website or business settings (e.g. "Change homepage headline to …" or "Turn off booking").',
+        response: 'For business questions and charts, use the **Insights** tab. Here you can run commands (e.g. update hero, hours, banner, booking, SEO meta, about section) or ask for draft SMS/email copy.',
+      });
+    }
+
+    const draft = buildDraftResponse(message);
+    if (draft) {
+      return NextResponse.json({
+        kind: 'draft',
+        message: draft.message,
+        draftType: draft.draftType,
+        draftText: draft.draftText,
+        note: draft.note,
       });
     }
 
@@ -287,14 +395,14 @@ export async function POST(request: NextRequest) {
     if (!proposal) {
       return NextResponse.json({
         kind: 'query',
-        response: "I couldn't turn that into a specific change. Try: \"Change homepage headline to …\", \"Update Friday hours to 9–3\", \"Add a closure for July 4th\", \"Pause booking due to staffing\", \"Turn off the promo banner\", or \"Resume booking\".",
+        response: "I couldn't turn that into a specific change. Try: \"Change homepage headline to …\", \"Update default meta title to …\", \"Update the about section content to …\", \"Update Friday hours to 9–3\", \"Draft an SMS for …\", or \"Turn off the promo banner\".",
       });
     }
 
     if (!isAllowedLocation(proposal.location)) {
       return NextResponse.json({
         kind: 'query',
-        response: `That change isn't allowed. Allowed: homepage hero/banner, site tagline, hours, closures, booking on/off and pause reason.`,
+        response: `That change isn't allowed. Allowed: hero, banner, tagline, hours, closures, booking, SEO meta (default title/description), about / first-time visitor / what-to-expect sections.`,
       });
     }
 

@@ -96,6 +96,28 @@ export async function applySiteContentUpdate(
       if (updateErr) return { ok: false, error: updateErr.message, location };
       return { ok: true, location, new: value };
     }
+    if (key === 'default_meta_title' && typeof value === 'string') {
+      const { error: updateErr } = await supabase
+        .from('cms_site_settings')
+        .update({
+          default_meta_title: value,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', row.id);
+      if (updateErr) return { ok: false, error: updateErr.message, location };
+      return { ok: true, location, new: value };
+    }
+    if (key === 'default_meta_description' && typeof value === 'string') {
+      const { error: updateErr } = await supabase
+        .from('cms_site_settings')
+        .update({
+          default_meta_description: value,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', row.id);
+      if (updateErr) return { ok: false, error: updateErr.message, location };
+      return { ok: true, location, new: value };
+    }
     // site.hours.mon_fri | site.hours.sat | site.hours.sun (value = e.g. "9-5" or "closed")
     if (key === 'hours' && parts[2] && typeof value === 'string') {
       const dayKey = parts[2]; // mon_fri, sat, sun, add_closure
@@ -181,6 +203,41 @@ export async function applySiteContentUpdate(
     return { ok: true, location, old: oldVal, new: value };
   }
 
+  // section.about.content | section.first_time_visitor.content | section.what_to_expect.content (Phase 4 – text blocks by name)
+  if (parts[0] === 'section' && parts[1] && parts[2] && typeof value === 'string') {
+    const slug = parts[1];
+    const field = parts[2];
+    const namePatterns: Record<string, string> = {
+      about: 'About',
+      first_time_visitor: 'First-time visitor',
+      what_to_expect: 'What to expect',
+    };
+    const pattern = namePatterns[slug];
+    if (!pattern || !['content', 'title'].includes(field)) {
+      return { ok: false, error: `Invalid section slug or field: ${slug}.${field}`, location };
+    }
+    const { data: sections, error: fetchErr } = await supabase
+      .from('cms_sections')
+      .select('id, content')
+      .eq('type', 'text')
+      .ilike('name', `%${pattern}%`)
+      .eq('status', 'active')
+      .limit(1);
+    if (fetchErr || !sections?.length) {
+      return { ok: false, error: fetchErr?.message || `No text section found matching "${pattern}". Add one in the CMS.`, location };
+    }
+    const section = sections[0];
+    const content = (section.content as Record<string, unknown>) || {};
+    const oldVal = content[field];
+    const newContent = { ...content, [field]: value };
+    const { error: updateErr } = await supabase
+      .from('cms_sections')
+      .update({ content: newContent, updated_at: new Date().toISOString() })
+      .eq('id', section.id);
+    if (updateErr) return { ok: false, error: updateErr.message, location };
+    return { ok: true, location, old: oldVal, new: value };
+  }
+
   return { ok: false, error: `Unknown location: ${location}`, location };
 }
 
@@ -207,6 +264,14 @@ export const ALLOWED_SITE_LOCATIONS = [
   'homepage.banner.cta_url',
   'homepage.banner.start_date',
   'homepage.banner.end_date',
+  'site.default_meta_title',
+  'site.default_meta_description',
+  'section.about.content',
+  'section.about.title',
+  'section.first_time_visitor.content',
+  'section.first_time_visitor.title',
+  'section.what_to_expect.content',
+  'section.what_to_expect.title',
 ] as const;
 
 export function isAllowedLocation(location: string): boolean {

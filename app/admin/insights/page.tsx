@@ -34,6 +34,7 @@ interface CommandMessage {
   role: 'user' | 'assistant';
   content: string;
   proposal?: CommandProposal | null;
+  draft?: { draftText: string; note: string; draftType: string } | null;
   timestamp: Date;
 }
 
@@ -68,9 +69,9 @@ const QUICK_QUESTIONS = [
 
 const COMMAND_EXAMPLES = [
   'Change homepage headline to Natural Results. Expert Care.',
-  'Update Friday hours to 9–3',
-  'Pause booking due to staffing',
-  'Turn off the promo banner',
+  'Update default meta title to Hello Gorgeous Med Spa | Oswego',
+  'Update the about section content to We are a full-service med spa…',
+  'Draft an SMS for appointment reminders',
 ];
 
 export default function AIInsightsPage() {
@@ -157,6 +158,15 @@ export default function AIInsightsPage() {
           timestamp: new Date(),
         }]);
         setPendingProposal(data.proposal || null);
+      }
+      if (data.kind === 'draft') {
+        setCmdMessages((prev) => [...prev, {
+          id: `cmd-a-${Date.now()}`,
+          role: 'assistant',
+          content: data.message || '',
+          draft: data.draftText != null ? { draftText: data.draftText, note: data.note || '', draftType: data.draftType || 'sms' } : null,
+          timestamp: new Date(),
+        }]);
       }
     } catch (err) {
       console.error(err);
@@ -555,17 +565,24 @@ export default function AIInsightsPage() {
             ) : (
               <>
                 {cmdMessages.map((msg) => (
-                  <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${msg.role === 'user' ? 'bg-violet-600 text-white' : 'bg-white border border-gray-200 text-gray-900'}`}>
-                      <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
-                      {msg.proposal && (
-                        <div className="mt-3 pt-3 border-t border-gray-100 text-xs text-gray-500">
-                          <span className="font-medium">{msg.proposal.location}</span> → {String(msg.proposal.new)}
-                        </div>
-                      )}
+                    <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                      <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${msg.role === 'user' ? 'bg-violet-600 text-white' : 'bg-white border border-gray-200 text-gray-900'}`}>
+                        <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                        {msg.proposal && (
+                          <div className="mt-3 pt-3 border-t border-gray-100 text-xs text-gray-500">
+                            <span className="font-medium">{msg.proposal.location}</span> → {String(msg.proposal.new)}
+                          </div>
+                        )}
+                        {msg.draft && (
+                          <div className="mt-3 pt-3 border-t border-gray-100">
+                            <pre className="text-xs bg-gray-50 p-3 rounded-lg whitespace-pre-wrap font-sans overflow-x-auto">{msg.draft.draftText}</pre>
+                            <p className="text-xs text-gray-500 mt-2">{msg.draft.note}</p>
+                            <button type="button" onClick={() => { navigator.clipboard.writeText(msg.draft!.draftText); }} className="mt-2 px-3 py-1.5 text-xs font-medium bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300">Copy to clipboard</button>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
                 {cmdLoading && (
                   <div className="flex justify-start">
                     <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3">
