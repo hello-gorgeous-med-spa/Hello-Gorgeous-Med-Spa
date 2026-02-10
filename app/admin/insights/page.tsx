@@ -3,16 +3,37 @@
 // ============================================================
 // AI BUSINESS INSIGHTS - Square AI Style
 // Natural language questions → instant charts & answers
+// Admin Commands (Owner): website/business changes via AI, approve before execution
 // ============================================================
 
 import { useState, useEffect, useRef } from 'react';
 import { Breadcrumb } from '@/components/ui';
+import { useAuth, RoleGate } from '@/lib/hgos/AuthContext';
+
+type Tab = 'insights' | 'commands';
 
 interface Message {
   id: string;
   role: 'user' | 'assistant';
   content: string;
   chart?: ChartData | null;
+  timestamp: Date;
+}
+
+interface CommandProposal {
+  action: string;
+  location: string;
+  old: string;
+  new: string;
+  summary: string;
+  confidence: string;
+}
+
+interface CommandMessage {
+  id: string;
+  role: 'user' | 'assistant';
+  content: string;
+  proposal?: CommandProposal | null;
   timestamp: Date;
 }
 
@@ -45,7 +66,15 @@ const QUICK_QUESTIONS = [
   "Show me no-show rate trends",
 ];
 
+const COMMAND_EXAMPLES = [
+  'Change homepage headline to Natural Results. Expert Care.',
+  'Update Friday hours to 9–3',
+  'Pause booking due to staffing',
+  'Turn off the promo banner',
+];
+
 export default function AIInsightsPage() {
+  const [tab, setTab] = useState<Tab>('insights');
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
@@ -54,15 +83,153 @@ export default function AIInsightsPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Admin Commands (owner-only)
+  const [cmdMessages, setCmdMessages] = useState<CommandMessage[]>([]);
+  const [cmdInput, setCmdInput] = useState('');
+  const [cmdLoading, setCmdLoading] = useState(false);
+  const [pendingProposal, setPendingProposal] = useState<CommandProposal | null>(null);
+  const cmdEndRef = useRef<HTMLDivElement>(null);
+  const cmdInputRef = useRef<HTMLInputElement>(null);
+  const [commandsView, setCommandsView] = useState<'chat' | 'activity'>('chat');
+  const [activityLogs, setActivityLogs] = useState<Array<{ id: string; created_at: string; metadata?: { action?: string; approved_by_owner?: boolean; proposal?: { location: string; old: unknown; new: unknown }; changes?: { location: string; old: unknown; new: unknown } } }>>([]);
+  const [loadingActivity, setLoadingActivity] = useState(false);
+
   // Scroll to bottom when new messages arrive
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
+  useEffect(() => {
+    cmdEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [cmdMessages, pendingProposal]);
 
   // Load initial insights
   useEffect(() => {
     fetchInsights();
   }, []);
+
+  const fetchActivity = async () => {
+    setLoadingActivity(true);
+    try {
+      const res = await fetch('/api/ai/watchdog?source=ai_admin_commands&limit=50');
+      const data = await res.json();
+      setActivityLogs(data.logs || []);
+    } catch {
+      setActivityLogs([]);
+    } finally {
+      setLoadingActivity(false);
+    }
+  };
+
+  useEffect(() => {
+    if (tab === 'commands' && commandsView === 'activity') fetchActivity();
+  }, [tab, commandsView]);
+
+  const handleCommandSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!cmdInput.trim() || cmdLoading) return;
+    setPendingProposal(null);
+    const userMsg: CommandMessage = { id: `cmd-u-${Date.now()}`, role: 'user', content: cmdInput.trim(), timestamp: new Date() };
+    setCmdMessages((prev) => [...prev, userMsg]);
+    const sent = cmdInput.trim();
+    setCmdInput('');
+    setCmdLoading(true);
+    try {
+      const res = await fetch('/api/ai/admin-commands', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: sent }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setCmdMessages((prev) => [...prev, { id: `cmd-a-${Date.now()}`, role: 'assistant', content: data.error || 'Request failed', timestamp: new Date() }]);
+        return;
+      }
+      if (data.kind === 'query') {
+        setCmdMessages((prev) => [...prev, { id: `cmd-a-${Date.now()}`, role: 'assistant', content: data.response || '', timestamp: new Date() }]);
+        return;
+      }
+      if (data.kind === 'command_proposal') {
+        setCmdMessages((prev) => [...prev, {
+          id: `cmd-a-${Date.now()}`,
+          role: 'assistant',
+          content: data.message || '',
+          proposal: data.proposal || null,
+          timestamp: new Date(),
+        }]);
+        setPendingProposal(data.proposal || null);
+      }
+    } catch (err) {
+      console.error(err);
+      setCmdMessages((prev) => [...prev, { id: `cmd-a-${Date.now()}`, role: 'assistant', content: 'Sorry, something went wrong. Please try again.', timestamp: new Date() }]);
+    } finally {
+      setCmdLoading(false);
+      cmdInputRef.current?.focus();
+    }
+  };
+
+  const handleApprove = async () => {
+    if (!pendingProposal) return;
+    setCmdLoading(true);
+    try {
+      const res = await fetch('/api/ai/admin-commands/execute', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ proposal: pendingProposal }),
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        setCmdMessages((prev) => [...prev, {
+          id: `cmd-sys-${Date.now()}`,
+          role: 'assistant',
+          content: `✅ Change applied. ${data.message || ''}`,
+          timestamp: new Date(),
+        }]);
+        setPendingProposal(null);
+        fetchActivity();
+      } else {
+        setCmdMessages((prev) => [...prev, {
+          id: `cmd-sys-${Date.now()}`,
+          role: 'assistant',
+          content: `❌ ${data.error || 'Failed to apply change.'}`,
+          timestamp: new Date(),
+        }]);
+      }
+    } catch (err) {
+      setCmdMessages((prev) => [...prev, {
+        id: `cmd-sys-${Date.now()}`,
+        role: 'assistant',
+        content: '❌ Something went wrong. Please try again.',
+        timestamp: new Date(),
+      }]);
+    } finally {
+      setCmdLoading(false);
+      setPendingProposal(null);
+    }
+  };
+
+  const handleEditProposal = () => {
+    if (pendingProposal) setCmdInput(pendingProposal.new);
+    setPendingProposal(null);
+    cmdInputRef.current?.focus();
+  };
+
+  const handleCancelProposal = () => {
+    setPendingProposal(null);
+  };
+
+  const lastExecution = activityLogs.find((log) => log.metadata?.approved_by_owner === true && log.metadata?.changes);
+  const handleUndoLast = () => {
+    if (!lastExecution?.metadata?.changes) return;
+    const c = lastExecution.metadata.changes;
+    setPendingProposal({
+      action: 'update_site_content',
+      location: c.location,
+      old: String(c.new),
+      new: String(c.old ?? ''),
+      summary: `Revert ${c.location} to "${c.old ?? ''}"`,
+      confidence: 'high',
+    });
+  };
 
   const fetchInsights = async () => {
     setLoadingInsights(true);
@@ -135,17 +302,41 @@ export default function AIInsightsPage() {
     <div className="space-y-6 max-w-6xl mx-auto">
       <Breadcrumb />
 
-      {/* Header */}
+      {/* Header + Tabs */}
       <div className="flex items-center gap-4">
         <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-lg">
           <span className="text-2xl">✨</span>
         </div>
-        <div>
+        <div className="flex-1">
           <h1 className="text-2xl font-bold text-gray-900">AI Insights</h1>
-          <p className="text-gray-500">Ask anything about your business</p>
+          <p className="text-gray-500">
+            {tab === 'insights' ? 'Ask anything about your business' : 'Update website and business settings with AI (owner only)'}
+          </p>
         </div>
       </div>
 
+      <div className="flex gap-2 border-b border-gray-200">
+        <button
+          type="button"
+          onClick={() => setTab('insights')}
+          className={`px-4 py-2 text-sm font-medium rounded-t-lg transition-colors ${tab === 'insights' ? 'bg-white border border-b-0 border-gray-200 text-violet-600 -mb-px' : 'text-gray-600 hover:bg-gray-50'}`}
+        >
+          Insights
+        </button>
+        <RoleGate roles={['owner']}>
+          <button
+            type="button"
+            onClick={() => setTab('commands')}
+            className={`px-4 py-2 text-sm font-medium rounded-t-lg transition-colors ${tab === 'commands' ? 'bg-white border border-b-0 border-gray-200 text-violet-600 -mb-px' : 'text-gray-600 hover:bg-gray-50'}`}
+          >
+            Admin Commands (Owner)
+          </button>
+        </RoleGate>
+      </div>
+
+      {/* Insights tab */}
+      {tab === 'insights' && (
+      <>
       {/* Quick Insight Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {loadingInsights ? (
@@ -295,6 +486,137 @@ export default function AIInsightsPage() {
         <br />
         Powered by Hello Gorgeous OS
       </p>
+      </>
+      )}
+
+      {/* Admin Commands tab (owner only) */}
+      {tab === 'commands' && (
+      <RoleGate roles={['owner']}>
+        <div className="flex gap-2 mb-3">
+          <button type="button" onClick={() => setCommandsView('chat')} className={`px-3 py-1.5 text-sm font-medium rounded-lg ${commandsView === 'chat' ? 'bg-amber-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>Chat</button>
+          <button type="button" onClick={() => setCommandsView('activity')} className={`px-3 py-1.5 text-sm font-medium rounded-lg ${commandsView === 'activity' ? 'bg-amber-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'}`}>Activity</button>
+        </div>
+        <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+          <div className="h-[420px] overflow-y-auto p-6 space-y-4 bg-gray-50/50">
+            {commandsView === 'activity' ? (
+              loadingActivity ? (
+                <p className="text-gray-500 text-sm">Loading activity…</p>
+              ) : activityLogs.length === 0 ? (
+                <p className="text-gray-500 text-sm">No admin command activity yet.</p>
+              ) : (
+                <ul className="space-y-3">
+                  {activityLogs.map((log) => {
+                    const meta = log.metadata || {};
+                    const approved = meta.approved_by_owner === true;
+                    const ch = meta.changes || meta.proposal;
+                    const location = ch?.location ?? '—';
+                    const oldVal = ch?.old != null ? String(ch.old) : '—';
+                    const newVal = ch?.new != null ? String(ch.new) : '—';
+                    const when = log.created_at ? new Date(log.created_at).toLocaleString() : '—';
+                    const isLastExecution = lastExecution?.id === log.id;
+                    return (
+                      <li key={log.id} className="flex items-start justify-between gap-3 p-3 bg-white border border-gray-200 rounded-lg">
+                        <div className="min-w-0 flex-1">
+                          <p className="text-xs text-gray-500">{when}</p>
+                          <p className="text-sm font-medium text-gray-900 mt-0.5">{approved ? 'Executed' : 'Proposed'}</p>
+                          <p className="text-xs text-gray-600 mt-1">{location}</p>
+                          <p className="text-xs text-gray-500 mt-0.5">{oldVal} → {newVal}</p>
+                        </div>
+                        {isLastExecution && (
+                          <button type="button" onClick={handleUndoLast} className="flex-shrink-0 px-2 py-1 text-xs font-medium text-amber-700 bg-amber-50 rounded hover:bg-amber-100">Undo last change</button>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )
+            ) : cmdMessages.length === 0 ? (
+              <div className="h-full flex flex-col items-center justify-center text-center">
+                <div className="w-16 h-16 rounded-full bg-amber-100 flex items-center justify-center mb-4">
+                  <span className="text-3xl">⚙️</span>
+                </div>
+                <h3 className="text-lg font-semibold text-gray-900 mb-2">Admin Commands</h3>
+                <p className="text-gray-500 text-sm max-w-md mb-6">
+                  Tell me what to change. I’ll propose the exact change for you to approve—nothing runs without your confirmation.
+                </p>
+                <div className="flex flex-wrap gap-2 justify-center max-w-lg">
+                  {COMMAND_EXAMPLES.map((ex, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => { setCmdInput(ex); cmdInputRef.current?.focus(); }}
+                      className="px-3 py-1.5 bg-white border border-gray-200 rounded-full text-sm text-gray-600 hover:bg-gray-50 hover:border-gray-300 transition-colors"
+                    >
+                      {ex}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <>
+                {cmdMessages.map((msg) => (
+                  <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+                    <div className={`max-w-[85%] rounded-2xl px-4 py-3 ${msg.role === 'user' ? 'bg-violet-600 text-white' : 'bg-white border border-gray-200 text-gray-900'}`}>
+                      <p className="text-sm whitespace-pre-wrap">{msg.content}</p>
+                      {msg.proposal && (
+                        <div className="mt-3 pt-3 border-t border-gray-100 text-xs text-gray-500">
+                          <span className="font-medium">{msg.proposal.location}</span> → {String(msg.proposal.new)}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+                {cmdLoading && (
+                  <div className="flex justify-start">
+                    <div className="bg-white border border-gray-200 rounded-2xl px-4 py-3">
+                      <div className="flex gap-2">
+                        <span className="w-2 h-2 bg-amber-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                        <span className="w-2 h-2 bg-amber-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                        <span className="w-2 h-2 bg-amber-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                      </div>
+                    </div>
+                  </div>
+                )}
+                <div ref={cmdEndRef} />
+              </>
+            )}
+            {pendingProposal && (
+              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+                <p className="text-sm font-medium text-amber-900 mb-2">Proposed change</p>
+                <p className="text-sm text-amber-800 mb-3">{pendingProposal.summary}</p>
+                <p className="text-xs text-amber-700 mb-3">Location: {pendingProposal.location} → &quot;{String(pendingProposal.new)}&quot;</p>
+                <div className="flex gap-2">
+                  <button type="button" onClick={handleApprove} disabled={cmdLoading} className="px-3 py-1.5 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 disabled:opacity-50">✅ Approve</button>
+                  <button type="button" onClick={handleEditProposal} className="px-3 py-1.5 bg-gray-200 text-gray-800 text-sm font-medium rounded-lg hover:bg-gray-300">✏️ Edit</button>
+                  <button type="button" onClick={handleCancelProposal} className="px-3 py-1.5 bg-gray-200 text-gray-800 text-sm font-medium rounded-lg hover:bg-gray-300">❌ Cancel</button>
+                </div>
+              </div>
+            )}
+          </div>
+          {commandsView === 'chat' && (
+          <form onSubmit={handleCommandSubmit} className="p-4 border-t border-gray-100 bg-white">
+            <div className="flex gap-3">
+              <input
+                ref={cmdInputRef}
+                type="text"
+                value={cmdInput}
+                onChange={(e) => setCmdInput(e.target.value)}
+                placeholder="e.g. Change homepage headline to …"
+                className="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                disabled={cmdLoading}
+              />
+              <button type="submit" disabled={!cmdInput.trim() || cmdLoading} className="px-4 py-3 bg-amber-500 text-white font-medium rounded-xl hover:bg-amber-600 disabled:opacity-50">
+                Send
+              </button>
+            </div>
+          </form>
+          )}
+        </div>
+        <p className="text-center text-xs text-gray-400 mt-4">
+          Every command is logged to AI Watchdog. Only you (owner) can see and use this tab.
+        </p>
+      </RoleGate>
+      )}
     </div>
   );
 }

@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
 
     let q = supabase
       .from('ai_watchdog_logs')
-      .select('id, source, channel, request_summary, response_summary, full_response_preview, flagged, flag_reason, created_at')
+      .select('id, source, channel, request_summary, response_summary, full_response_preview, flagged, flag_reason, metadata, created_at')
       .order('created_at', { ascending: false })
       .limit(limit);
 

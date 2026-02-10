@@ -48,6 +48,7 @@ This script lives in `lib/mascot.ts` (welcome + widget knowledge). When someone 
 
 - **Widget** (`HelloGorgeousAssistant` + `/api/chat/widget`): On the public site, she uses the full knowledge stack above (website, services, Fullscript, Business Memory) to answer questions and offer “Book now” and “Call us.”
 - **Other mascots**: Used in the persona chat (e.g. Peppi for supplements, Beau-Tox for injectables). The Hello Gorgeous mascot is the one that can “hold” all of that and still answer broadly; the others stay in their lanes.
+- **Owner-only AI Admin Commands**: In **Admin → AI Insights → Admin Commands**, the owner can issue commands (e.g. update homepage headline, toggle booking) with a proposal → approve → execute flow. This does not change mascot or client-facing AI. See [AI Admin Commands](./AI_ADMIN_COMMANDS.md).
 
 ## Giving her more power
 

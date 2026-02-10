@@ -4,6 +4,8 @@
 
 **She is not a chatbot.** She is the digital front desk, concierge, and operator for Hello Gorgeous Med Spa.
 
+**Related:** [AI Admin Commands](./AI_ADMIN_COMMANDS.md) — owner-only, approval-gated commands for website/site content (Insights → Admin Commands tab). Does not affect receptionist or client AI.
+
 ---
 
 ## Core Identity (Non-Negotiable)
