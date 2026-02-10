@@ -22,6 +22,9 @@ import { TriggerPointSection } from "@/components/TriggerPointSection";
 import { LaserHairSection } from "@/components/LaserHairSection";
 import { MicroneedlingShowcase } from "@/components/MicroneedlingShowcase";
 import { HOME_FAQS, SITE, faqJsonLd, pageMetadata, siteJsonLd, breadcrumbJsonLd } from "@/lib/seo";
+import { getHeroContent, getBannerContent } from "@/lib/cms-readers";
+import { BOOKING_URL } from "@/lib/flows";
+import { HomepageBanner } from "@/components/HomepageBanner";
 
 export const metadata: Metadata = pageMetadata({
   title: "Botox, Fillers & Weight Loss Med Spa",
@@ -30,7 +33,17 @@ export const metadata: Metadata = pageMetadata({
   path: "/",
 });
 
-export default function HomePage() {
+const HERO_FALLBACK = {
+  headline: "",
+  subheadline: "",
+  cta_text: "✨ Book Your Appointment →",
+  cta_url: BOOKING_URL,
+};
+
+export default async function HomePage() {
+  const [cmsHero, cmsBanner] = await Promise.all([getHeroContent(), getBannerContent()]);
+  const hero = cmsHero ?? HERO_FALLBACK;
+
   const homeBreadcrumbs = [
     { name: "Home", url: SITE.url },
   ];
@@ -52,7 +65,13 @@ export default function HomePage() {
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(homeBreadcrumbs)) }}
       />
-      <Hero />
+      <Hero
+        headline={hero.headline || undefined}
+        subheadline={hero.subheadline || undefined}
+        ctaText={hero.cta_text || undefined}
+        ctaUrl={hero.cta_url || undefined}
+      />
+      <HomepageBanner banner={cmsBanner} />
       <FixWhatBothersMeFeature />
       <QuizCTA />
       <OffersSection />

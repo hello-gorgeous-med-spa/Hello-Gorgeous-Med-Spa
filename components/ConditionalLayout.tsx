@@ -15,6 +15,7 @@ import { MascotChat } from "@/components/MascotChat";
 import { EmailCapture } from "@/components/EmailCapture";
 import { HelloGorgeousAssistant } from "@/components/HelloGorgeousAssistant";
 import { ImmediateCareStrip } from "@/components/ImmediateCareBanner";
+import type { SiteSettings } from "@/lib/cms-readers";
 
 // Routes that should NOT show website navigation
 const ADMIN_ROUTES = [
@@ -27,7 +28,13 @@ const ADMIN_ROUTES = [
   '/consents/kiosk',
 ];
 
-export function ConditionalLayout({ children }: { children: React.ReactNode }) {
+export function ConditionalLayout({
+  children,
+  siteSettings,
+}: {
+  children: React.ReactNode;
+  siteSettings?: SiteSettings | null;
+}) {
   const pathname = usePathname();
   
   // Check if current path is an admin/internal route
@@ -51,7 +58,7 @@ export function ConditionalLayout({ children }: { children: React.ReactNode }) {
         <main className="pt-16">
           <div className="min-h-screen bg-black text-white overflow-x-hidden pb-20 md:pb-0">
             {children}
-            <Footer />
+            <Footer siteSettings={siteSettings} />
           </div>
         </main>
         <StickyMobileCTA />

@@ -2,8 +2,15 @@ import Link from "next/link";
 
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE, SERVICES } from "@/lib/seo";
+import type { SiteSettings } from "@/lib/cms-readers";
 
-export function Footer() {
+const DEFAULT_TAGLINE = "Luxury, clinical-meets-beauty aesthetics with results you can trust. Experience personalized care that makes you feel confident and gorgeous.";
+
+export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null }) {
+  const tagline = siteSettings?.tagline?.trim() || DEFAULT_TAGLINE;
+  const hours = siteSettings?.business_hours;
+  const hasHours = hours && (hours.mon_fri || hours.sat || hours.sun);
+
   return (
     <footer className="bg-gradient-to-b from-black to-gray-950 border-t border-white/5">
       {/* Main Footer */}
@@ -21,8 +28,7 @@ export function Footer() {
               </div>
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed max-w-sm">
-              Luxury, clinical-meets-beauty aesthetics with results you can trust. 
-              Experience personalized care that makes you feel confident and gorgeous.
+              {tagline}
             </p>
             <div className="mt-6 flex items-center gap-4">
               <a
@@ -159,6 +165,21 @@ export function Footer() {
             </ul>
           </div>
         </div>
+
+        {/* Hours from CMS (optional) */}
+        {hasHours && (
+          <div className="mt-8 pt-6 border-t border-white/5">
+            <h4 className="font-bold text-white mb-3 text-sm uppercase tracking-wider">Hours</h4>
+            <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-400">
+              {hours.mon_fri && <span>Mon–Fri: {hours.mon_fri}</span>}
+              {hours.sat && <span>Sat: {hours.sat}</span>}
+              {hours.sun && <span>Sun: {hours.sun}</span>}
+              {Array.isArray(hours.special_closures) && hours.special_closures.length > 0 && (
+                <span>Closures: {hours.special_closures.join(", ")}</span>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Contact Info Bar */}
         <div className="mt-12 pt-8 border-t border-white/5">

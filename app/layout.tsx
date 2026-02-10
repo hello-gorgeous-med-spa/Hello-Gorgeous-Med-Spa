@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import { SITE, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import { getDefaultSEO, getSiteSettings } from "@/lib/cms-readers";
 import { AuthWrapper } from "@/components/AuthWrapper";
 import { ConditionalLayout } from "@/components/ConditionalLayout";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
@@ -14,14 +15,22 @@ const inter = Inter({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE.url),
-  title: {
-    default: `${SITE.name} | Botox, Fillers & Weight Loss in Oswego, IL`,
-    template: `%s | ${SITE.name} - Oswego, IL Med Spa`,
-  },
-  description: `${SITE.description} Serving Naperville, Aurora, Plainfield. Book your free consultation today!`,
-  keywords: [
+const DEFAULT_TITLE = `${SITE.name} | Botox, Fillers & Weight Loss in Oswego, IL`;
+const DEFAULT_DESCRIPTION = `${SITE.description} Serving Naperville, Aurora, Plainfield. Book your free consultation today!`;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const cmsSEO = await getDefaultSEO();
+  const title = cmsSEO?.title?.trim() || DEFAULT_TITLE;
+  const description = cmsSEO?.description?.trim() || DEFAULT_DESCRIPTION;
+
+  return {
+    metadataBase: new URL(SITE.url),
+    title: {
+      default: title,
+      template: `%s | ${SITE.name} - Oswego, IL Med Spa`,
+    },
+    description,
+    keywords: [
     "med spa oswego il",
     "botox oswego",
     "botox naperville",
@@ -53,8 +62,8 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: SITE.url,
-    title: `${SITE.name} | Premier Med Spa in Oswego, IL`,
-    description: `${SITE.description} ⭐ 5-Star Rated. Serving Naperville, Aurora, Plainfield.`,
+    title: title,
+    description,
     siteName: SITE.name,
     images: [
       {
@@ -67,8 +76,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} | Botox, Fillers & Weight Loss`,
-    description: SITE.description,
+    title,
+    description,
     images: [`${SITE.url}/images/hero-banner.png`],
   },
   alternates: {
@@ -91,13 +100,16 @@ export const metadata: Metadata = {
     // yandex: "your-yandex-verification-code",
   },
   category: "Medical Spa",
-};
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: "#000000",
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const siteSettings = await getSiteSettings();
+
   return (
     <html lang="en" className={inter.variable}>
       <head>
@@ -121,7 +133,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <GoogleAnalytics />
         <LeadCapturePopup />
         <AuthWrapper>
-          <ConditionalLayout>
+          <ConditionalLayout siteSettings={siteSettings ?? undefined}>
             {children}
           </ConditionalLayout>
         </AuthWrapper>

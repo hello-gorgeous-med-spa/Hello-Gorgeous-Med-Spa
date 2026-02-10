@@ -6,7 +6,19 @@ import Image from "next/image";
 import { CTA } from "./CTA";
 import { BOOKING_URL } from "@/lib/flows";
 
-export function Hero() {
+const DEFAULT_CTA_TEXT = "✨ Book Your Appointment →";
+
+export type HeroProps = {
+  /** From CMS or fallback; empty = do not show overlay text */
+  headline?: string;
+  subheadline?: string;
+  /** CTA button label; default: "✨ Book Your Appointment →" */
+  ctaText?: string;
+  /** CTA button URL; default: BOOKING_URL */
+  ctaUrl?: string;
+};
+
+export function Hero({ headline, subheadline, ctaText = DEFAULT_CTA_TEXT, ctaUrl = BOOKING_URL }: HeroProps = {}) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isPulsing, setIsPulsing] = useState(false);
 
@@ -66,6 +78,21 @@ export function Hero() {
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
           <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-fuchsia-500/10 to-transparent animate-pulse" />
         </div>
+        {/* Optional headline/subheadline from CMS */}
+        {(headline || subheadline) && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center px-4 text-center pointer-events-none z-10">
+            {headline && (
+              <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white drop-shadow-lg max-w-4xl">
+                {headline}
+              </h1>
+            )}
+            {subheadline && (
+              <p className="mt-2 md:mt-3 text-lg md:text-xl text-white/90 drop-shadow max-w-2xl">
+                {subheadline}
+              </p>
+            )}
+          </div>
+        )}
       </div>
 
       {/* CTA Bar - Pink gradient */}
@@ -91,11 +118,11 @@ export function Hero() {
             </span>
             
             <CTA 
-              href={BOOKING_URL} 
+              href={ctaUrl} 
               variant="white" 
               className="!bg-white !text-pink-600 font-bold hover:!bg-pink-50 shadow-lg hover:shadow-xl transition-all hover:scale-105"
             >
-              ✨ Book Your Appointment →
+              {ctaText}
             </CTA>
             <a
               href="tel:630-636-6193"

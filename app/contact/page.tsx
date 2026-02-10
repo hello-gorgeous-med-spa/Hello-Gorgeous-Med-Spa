@@ -5,6 +5,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE, pageMetadata, siteJsonLd } from "@/lib/seo";
+import { getSiteSettings } from "@/lib/cms-readers";
 
 export const metadata: Metadata = pageMetadata({
   title: "Contact",
@@ -13,7 +14,11 @@ export const metadata: Metadata = pageMetadata({
   path: "/contact",
 });
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const siteSettings = await getSiteSettings();
+  const hours = siteSettings?.business_hours;
+  const hasHours = hours && (hours.mon_fri || hours.sat || hours.sun);
+
   return (
     <>
       <script
@@ -58,6 +63,14 @@ export default function ContactPage() {
               <p className="mt-2 text-gray-300">
                 <span className="text-white font-semibold">Email:</span> {SITE.email}
               </p>
+              {hasHours && (
+                <p className="mt-4 text-gray-300">
+                  <span className="text-white font-semibold">Hours:</span>{" "}
+                  {[hours.mon_fri && `Mon–Fri ${hours.mon_fri}`, hours.sat && `Sat ${hours.sat}`, hours.sun && `Sun ${hours.sun}`]
+                    .filter(Boolean)
+                    .join(" · ")}
+                </p>
+              )}
               <div className="mt-8 flex flex-col sm:flex-row gap-4">
                 <CTA href={BOOKING_URL} variant="gradient">
                   Book Now
