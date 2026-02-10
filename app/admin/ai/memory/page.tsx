@@ -22,17 +22,22 @@ export default function AIMemoryPage() {
   const [modal, setModal] = useState<'add' | MemoryItem | null>(null);
   const [form, setForm] = useState({ type: 'faq', title: '', content: '' });
   const [saving, setSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchItems = async () => {
     setLoading(true);
+    setError(null);
     try {
       const res = await fetch('/api/ai/memory');
+      const data = await res.json().catch(() => ({}));
       if (res.ok) {
-        const data = await res.json();
         setItems(data.items || []);
+      } else {
+        setError(data.error || `Failed to load (${res.status})`);
       }
     } catch (e) {
       console.error(e);
+      setError('Network error loading entries');
     } finally {
       setLoading(false);
     }
@@ -45,40 +50,51 @@ export default function AIMemoryPage() {
   const openAdd = () => {
     setForm({ type: 'faq', title: '', content: '' });
     setModal('add');
+    setError(null);
   };
 
   const openEdit = (item: MemoryItem) => {
     setForm({ type: item.type, title: item.title, content: item.content });
     setModal(item);
+    setError(null);
   };
 
   const save = async () => {
-    if (!form.title.trim() || !form.content.trim()) return;
+    if (!form.title.trim()) return;
     setSaving(true);
+    setError(null);
     try {
+      const payload = { type: form.type, title: form.title.trim(), content: (form.content || '').trim() };
       if (modal === 'add') {
         const res = await fetch('/api/ai/memory', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(form),
+          body: JSON.stringify(payload),
         });
+        const data = await res.json().catch(() => ({}));
         if (res.ok) {
           setModal(null);
           fetchItems();
+        } else {
+          setError(data.error || `Failed to save (${res.status})`);
         }
       } else if (typeof modal === 'object' && modal.id) {
         const res = await fetch(`/api/ai/memory/${modal.id}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(form),
+          body: JSON.stringify(payload),
         });
+        const data = await res.json().catch(() => ({}));
         if (res.ok) {
           setModal(null);
           fetchItems();
+        } else {
+          setError(data.error || `Failed to save (${res.status})`);
         }
       }
     } catch (e) {
       console.error(e);
+      setError('Network error. Please try again.');
     } finally {
       setSaving(false);
     }
@@ -111,6 +127,11 @@ export default function AIMemoryPage() {
         Searchable knowledge your AI uses. You own this data. Add FAQs, policies, service info.
       </p>
 
+      {error && !modal && (
+        <p className="p-3 rounded-lg bg-red-50 text-red-700 text-sm" role="alert">
+          {error}
+        </p>
+      )}
       {loading ? (
         <p className="text-gray-500">Loading…</p>
       ) : items.length === 0 ? (
@@ -185,13 +206,18 @@ export default function AIMemoryPage() {
                 />
               </div>
             </div>
+            {error && (
+              <p className="mt-4 p-3 rounded-lg bg-red-50 text-red-700 text-sm" role="alert">
+                {error}
+              </p>
+            )}
             <div className="flex gap-3 mt-6">
               <button
                 onClick={save}
-                disabled={saving || !form.title.trim() || !form.content.trim()}
+                disabled={saving || !form.title.trim()}
                 className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 disabled:opacity-50"
               >
-                {saving ? 'Saving…' : 'Save'}
+                {saving ? 'Saving…' : form.content.trim() ? 'Save' : 'Save draft'}
               </button>
               <button onClick={() => setModal(null)} className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
                 Cancel

@@ -41,13 +41,14 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { type = 'faq', title, content } = body;
-    if (!title || !content) {
-      return NextResponse.json({ error: 'title and content required' }, { status: 400 });
+    if (!title || typeof title !== 'string' || !title.trim()) {
+      return NextResponse.json({ error: 'Title is required' }, { status: 400 });
     }
+    const contentVal = typeof content === 'string' ? content : '';
 
     const { data, error } = await supabase
       .from('ai_business_memory')
-      .insert({ type, title, content })
+      .insert({ type, title: title.trim(), content: contentVal })
       .select('id, type, title, content, created_at, updated_at')
       .single();
 
