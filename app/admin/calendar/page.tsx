@@ -10,6 +10,7 @@ import { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/Toast';
+import { CalendarNavBar } from '@/components/calendar/CalendarNavBar';
 import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from '@/lib/provider-credentials';
 
 // Provider colors - soft pastels like Boulevard
@@ -509,110 +510,62 @@ export default function CalendarPage() {
   };
 
   return (
-    <div className="h-[calc(100vh-120px)] flex bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200">
-      {/* Main Calendar Area */}
-      <div className="flex-1 flex flex-col overflow-hidden">
-        {/* Header */}
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-white">
-          <div className="flex items-center gap-4">
+    <div className="flex flex-col h-[calc(100vh-120px)]">
+      {/* Top nav bar — Fresha-style: calendar controls + notifications + Add */}
+      <CalendarNavBar
+        selectedDate={selectedDate}
+        onNavigateDate={navigateDate}
+        formatDate={formatDate}
+        viewMode={viewMode}
+        onViewModeChange={setViewMode}
+        onRefresh={fetchAppointments}
+        filtersButton={
+          <div className="relative">
             <button
-              onClick={() => navigateDate('today')}
-              className="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              onClick={() => setShowFilters(!showFilters)}
+              className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-300 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors"
             >
-              TODAY
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+              </svg>
+              Filters
             </button>
-            <div className="flex items-center gap-1">
-              <button
-                onClick={() => navigateDate('prev')}
-                className="p-2 hover:bg-gray-100 rounded-lg text-gray-600"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={() => navigateDate('next')}
-                className="p-2 hover:bg-gray-100 rounded-lg text-gray-600"
-              >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-            <h2 className="text-lg font-semibold text-slate-800">
-              {formatDate(selectedDate)}
-            </h2>
-          </div>
-
-          <div className="flex items-center gap-3">
-            {/* Filters */}
-            <div className="relative">
-              <button
-                onClick={() => setShowFilters(!showFilters)}
-                className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-                </svg>
-                FILTERS
-              </button>
-              {showFilters && (
-                <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-200 z-50 p-4">
-                  <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Providers</p>
-                  <div className="space-y-2">
-                    {providers.map((provider, idx) => (
-                      <label key={provider.id} className="flex items-center gap-3 cursor-pointer">
-                        <input
-                          type="checkbox"
-                          checked={selectedProviderFilter.length === 0 || selectedProviderFilter.includes(provider.id)}
-                          onChange={(e) => {
-                            if (e.target.checked) {
-                              if (selectedProviderFilter.length === providers.length - 1) {
-                                setSelectedProviderFilter([]);
-                              } else {
-                                setSelectedProviderFilter([...selectedProviderFilter, provider.id]);
-                              }
+            {showFilters && (
+              <div className="absolute left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-200 z-50 p-4">
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Providers</p>
+                <div className="space-y-2">
+                  {providers.map((provider, idx) => (
+                    <label key={provider.id} className="flex items-center gap-3 cursor-pointer">
+                      <input
+                        type="checkbox"
+                        checked={selectedProviderFilter.length === 0 || selectedProviderFilter.includes(provider.id)}
+                        onChange={(e) => {
+                          if (e.target.checked) {
+                            if (selectedProviderFilter.length === providers.length - 1) {
+                              setSelectedProviderFilter([]);
                             } else {
-                              setSelectedProviderFilter(selectedProviderFilter.filter(id => id !== provider.id));
+                              setSelectedProviderFilter([...selectedProviderFilter, provider.id]);
                             }
-                          }}
-                          className="w-4 h-4 rounded border-gray-300 text-pink-500 focus:ring-pink-500"
-                        />
-                        <div className={`w-3 h-3 rounded-full ${PROVIDER_COLORS[idx % PROVIDER_COLORS.length].accent}`} />
-                        <span className="text-sm text-gray-700">{provider.first_name} {provider.last_name}</span>
-                      </label>
-                    ))}
-                  </div>
+                          } else {
+                            setSelectedProviderFilter(selectedProviderFilter.filter(id => id !== provider.id));
+                          }
+                        }}
+                        className="w-4 h-4 rounded border-gray-300 text-pink-500 focus:ring-pink-500"
+                      />
+                      <div className={`w-3 h-3 rounded-full ${PROVIDER_COLORS[idx % PROVIDER_COLORS.length].accent}`} />
+                      <span className="text-sm text-gray-700">{provider.first_name} {provider.last_name}</span>
+                    </label>
+                  ))}
                 </div>
-              )}
-            </div>
-
-            {/* View Toggle */}
-            <div className="flex bg-gray-100 rounded-lg p-1">
-              <button
-                onClick={() => setViewMode('day')}
-                className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${
-                  viewMode === 'day'
-                    ? 'bg-white text-slate-800 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-700'
-                }`}
-              >
-                DAY
-              </button>
-              <button
-                onClick={() => setViewMode('week')}
-                className={`px-4 py-1.5 text-sm font-medium rounded-md transition-all ${
-                  viewMode === 'week'
-                    ? 'bg-white text-slate-800 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-700'
-                }`}
-              >
-                WEEK
-              </button>
-            </div>
+              </div>
+            )}
           </div>
-        </div>
+        }
+      />
 
+      <div className="flex flex-1 min-h-0 bg-white rounded-b-xl overflow-hidden shadow-sm border border-gray-200 border-t-0">
+        {/* Main Calendar Area */}
+        <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Provider Headers */}
         <div className="flex border-b border-gray-200 bg-gray-50/50">
           {/* Time column spacer */}
@@ -1014,6 +967,7 @@ export default function CalendarPage() {
             </div>
           </div>
         )}
+      </div>
       </div>
 
       {/* Quick Book Modal */}
