@@ -8,7 +8,7 @@ import { PROVIDER_FALLBACKS, PROVIDER_MEDIA_FALLBACK } from "@/lib/providers/fal
 export const dynamic = "force-dynamic";
 
 type RouteContext = {
-  params: { slug: string };
+  params: { param: string };
 };
 
 const providerSelect = `
@@ -53,11 +53,14 @@ const mediaSelect = `
   published_at
 `;
 
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
 export async function GET(request: NextRequest, context: RouteContext) {
-  const slug = context.params?.slug?.toLowerCase();
-  if (!slug) {
+  const param = context.params?.param?.trim();
+  if (!param) {
     return NextResponse.json({ error: "Missing provider" }, { status: 400 });
   }
+  const slug = param.toLowerCase();
 
   try {
     const supabase = createServerSupabaseClient();
@@ -65,12 +68,18 @@ export async function GET(request: NextRequest, context: RouteContext) {
       return NextResponse.json(fallbackResponse(slug));
     }
 
-    const { data: provider } = await supabase
+    const providerQuery = supabase
       .from("providers")
       .select(providerSelect)
-      .eq("slug", slug)
-      .eq("is_active", true)
-      .maybeSingle();
+      .eq("is_active", true);
+
+    if (UUID_REGEX.test(param)) {
+      providerQuery.eq("id", param);
+    } else {
+      providerQuery.eq("slug", slug);
+    }
+
+    const { data: provider } = await providerQuery.maybeSingle();
 
     if (!provider) {
       const fallback = fallbackResponse(slug);

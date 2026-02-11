@@ -10,11 +10,11 @@ import { NextRequest, NextResponse } from 'next/server';
 function getSupabase() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  
+
   if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) {
     return null;
   }
-  
+
   try {
     // createClient imported at top
     return createClient(url, key, {
@@ -38,12 +38,12 @@ const DEFAULT_SCHEDULE = [
   { day_of_week: 6, day_name: 'Saturday', is_working: false, start_time: null, end_time: null },
 ];
 
-// GET /api/providers/[id]/schedules - Get provider's weekly schedule
+// GET /api/providers/[param]/schedules - Get provider's weekly schedule (param = provider UUID)
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { param: string } }
 ) {
-  const providerId = params.id;
+  const providerId = params.param;
   const supabase = getSupabase();
 
   if (!supabase) {
@@ -110,12 +110,12 @@ export async function GET(
   }
 }
 
-// PUT /api/providers/[id]/schedules - Update provider's schedule
+// PUT /api/providers/[param]/schedules - Update provider's schedule (param = provider UUID)
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { param: string } }
 ) {
-  const providerId = params.id;
+  const providerId = params.param;
   const body = await request.json();
   const supabase = getSupabase();
 
@@ -170,12 +170,12 @@ export async function PUT(
   }
 }
 
-// POST /api/providers/[id]/schedules - Initialize default schedule for provider
+// POST /api/providers/[param]/schedules - Initialize default schedule for provider (param = provider UUID)
 export async function POST(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { param: string } }
 ) {
-  const providerId = params.id;
+  const providerId = params.param;
   const supabase = getSupabase();
 
   if (!supabase) {
