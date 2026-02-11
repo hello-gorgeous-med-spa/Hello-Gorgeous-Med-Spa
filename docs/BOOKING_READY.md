@@ -33,7 +33,7 @@ Before considering the system fully signed off, run and confirm:
 ## Known Limitations
 
 - **No DB-level unique constraint** on (provider_id, time range). Overlaps are prevented by application-level conflict checks plus a re-check before insert. A DB constraint or advisory lock would further harden against races.
-- **Timezone:** Server uses local time for slot generation and booking. All clients and providers are expected to be in the same timezone (e.g. America/Chicago). Cross-timezone use is not validated.
+- **Timezone:** Business timezone is **America/Chicago** (see [BOOKING_DATE_AND_CONFIRMATION.md](./BOOKING_DATE_AND_CONFIRMATION.md)). Date selected = date stored = date on calendar. Client and owner confirmations use the same timezone.
 - **Voice booking** and **payment processing** are out of scope for this readiness pass.
 - **Fresha:** No real-time integration. Do not create new bookings in Fresha as source of truth; double books would be possible.
 
@@ -49,6 +49,7 @@ Before considering the system fully signed off, run and confirm:
 
 ## References
 
+- [BOOKING_DATE_AND_CONFIRMATION.md](./BOOKING_DATE_AND_CONFIRMATION.md) — Date/timezone (America/Chicago), client confirmation SMS, owner notification
 - [BOOKING.md](./BOOKING.md) — Single source of truth, Fresha, double-book prevention
 - [APPOINTMENT_BOOKING_FLOWS.md](./APPOINTMENT_BOOKING_FLOWS.md) — Calendar vs New Appointment flows
 - [AI_RECEPTIONIST_INITIATIVE.md](./AI_RECEPTIONIST_INITIATIVE.md) — AI booking and APIs

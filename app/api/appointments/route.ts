@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
+import { businessDayToISOBounds } from '@/lib/business-timezone';
 
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
@@ -204,10 +205,10 @@ export async function GET(request: NextRequest) {
       .order('starts_at', { ascending: false });
 
     if (date) {
-      // Filter appointments for the selected date; exclude cancelled so calendar view stays clean
+      const { startISO, endISO } = businessDayToISOBounds(date);
       query = query
-        .gte('starts_at', `${date}T00:00:00`)
-        .lt('starts_at', `${date}T23:59:59.999Z`)
+        .gte('starts_at', startISO)
+        .lt('starts_at', endISO)
         .neq('status', 'cancelled')
         .order('starts_at', { ascending: true });
     }

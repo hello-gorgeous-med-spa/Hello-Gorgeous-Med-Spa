@@ -6,6 +6,7 @@ import { createClient } from '@supabase/supabase-js';
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
+import { businessDayToISOBounds, getBusinessDayOfWeek } from '@/lib/business-timezone';
 
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
@@ -156,8 +157,7 @@ export async function GET(request: NextRequest) {
   }
 
   const supabase = getSupabase();
-  const dateObj = new Date(date + 'T00:00:00');
-  const dayOfWeek = dateObj.getDay(); // 0 = Sunday, 6 = Saturday
+  const dayOfWeek = getBusinessDayOfWeek(date);
 
   // Resolve slug (e.g. "ryan-kent") to real provider UUID so schedule lookup works
   let resolvedProviderId = providerId;
@@ -183,13 +183,13 @@ export async function GET(request: NextRequest) {
         schedule = scheduleData;
       }
 
-      // Fetch existing appointments for this provider on this date
+      const { startISO, endISO } = businessDayToISOBounds(date);
       const { data: appointments } = await supabase
         .from('appointments')
         .select('id, starts_at, ends_at, status')
         .eq('provider_id', resolvedProviderId)
-        .gte('starts_at', `${date}T00:00:00`)
-        .lt('starts_at', `${date}T23:59:59`);
+        .gte('starts_at', startISO)
+        .lt('starts_at', endISO);
 
       if (appointments) {
         existingAppointments = appointments;

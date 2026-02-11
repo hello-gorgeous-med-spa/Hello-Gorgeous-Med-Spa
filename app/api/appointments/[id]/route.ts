@@ -24,7 +24,7 @@ export async function GET(
       .select(`
         *,
         client:clients(*),
-        provider:staff(*),
+        provider:providers(*),
         service:services(*)
       `)
       .eq('id', id)
@@ -117,7 +117,7 @@ export async function PUT(
       .select(`
         *,
         client:clients(id, first_name, last_name),
-        provider:staff(id, first_name, last_name),
+        provider:providers(id, first_name, last_name),
         service:services(id, name, price)
       `)
       .single();

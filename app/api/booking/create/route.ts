@@ -6,6 +6,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
+import { businessDateTimeToUTC, formatInBusinessTZ } from '@/lib/business-timezone';
+import { sendAppointmentConfirmationSms } from '@/lib/notifications/telnyx';
 
 export async function POST(request: NextRequest) {
   try {
@@ -201,32 +203,43 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // 3. Parse date and time
-    // Convert "10:00 AM" to 24h format
+    // 3. Parse date and time — BUSINESS TIMEZONE (America/Chicago). Single source of truth.
     const timeParts = time.match(/(\d+):(\d+)\s*(AM|PM)/i);
     if (!timeParts) {
       return NextResponse.json(
-        { error: 'Invalid time format' },
+        { error: 'Invalid time format. Use e.g. 10:00 AM' },
         { status: 400 }
       );
     }
 
-    let hours = parseInt(timeParts[1]);
-    const minutes = parseInt(timeParts[2]);
+    let hours24 = parseInt(timeParts[1], 10);
+    const minutes = parseInt(timeParts[2], 10);
     const ampm = timeParts[3].toUpperCase();
+    if (ampm === 'PM' && hours24 !== 12) hours24 += 12;
+    if (ampm === 'AM' && hours24 === 12) hours24 = 0;
 
-    if (ampm === 'PM' && hours !== 12) hours += 12;
-    if (ampm === 'AM' && hours === 12) hours = 0;
-
-    // Parse date: accept YYYY-MM-DD or full ISO; use only date part for local start
     const dateOnly = typeof date === 'string' && date.includes('T')
       ? date.slice(0, 10)
-      : date;
-    const startDateTime = new Date(dateOnly + 'T12:00:00'); // noon to avoid TZ edge
-    startDateTime.setHours(hours, minutes, 0, 0);
+      : String(date).trim();
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(dateOnly)) {
+      return NextResponse.json(
+        { error: 'Invalid date format. Use YYYY-MM-DD.' },
+        { status: 400 }
+      );
+    }
 
-    const endDateTime = new Date(startDateTime);
-    endDateTime.setMinutes(endDateTime.getMinutes() + (service.duration_minutes || 30));
+    let startDateTime: Date;
+    try {
+      startDateTime = businessDateTimeToUTC(dateOnly, hours24, minutes);
+    } catch (err) {
+      return NextResponse.json(
+        { error: err instanceof Error ? err.message : 'Invalid date.' },
+        { status: 400 }
+      );
+    }
+
+    const durationMin = service.duration_minutes || 30;
+    const endDateTime = new Date(startDateTime.getTime() + durationMin * 60 * 1000);
 
     // 3.5. Reject past start time (server-side guard)
     const now = new Date();
@@ -311,7 +324,53 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log('[booking/create] Success', { appointmentId: appointment.id, providerId: resolvedProviderId, starts_at: startDateTime.toISOString(), source: 'online_booking' });
+    const startsAtISO = startDateTime.toISOString();
+    const endsAtISO = endDateTime.toISOString();
+    console.log('[booking/create] Success', { appointmentId: appointment.id, providerId: resolvedProviderId, starts_at: startsAtISO, source: 'online_booking' });
+
+    // 5.5. Client confirmation (MANDATORY) — same date/time as calendar (business timezone)
+    const confirmationDateStr = formatInBusinessTZ(startsAtISO);
+    const clientName = `${firstName} ${lastName}`.trim() || 'there';
+    const serviceName = service.name || 'your appointment';
+    let providerName = 'your provider';
+    try {
+      const { data: prov } = await supabase.from('providers').select('users(first_name, last_name)').eq('id', resolvedProviderId).single();
+      if (prov?.users) {
+        const u = (prov as any).users;
+        providerName = [u.first_name, u.last_name].filter(Boolean).join(' ').trim() || providerName;
+      }
+    } catch (_) {}
+    const locationStr = process.env.NEXT_PUBLIC_BUSINESS_LOCATION || 'Oswego, IL';
+    try {
+      const smsResult = await sendAppointmentConfirmationSms(phone, clientName, `${confirmationDateStr} with ${providerName}`, serviceName);
+      if (!smsResult.success) {
+        console.warn('[booking/create] Client confirmation SMS failed', smsResult.error);
+      }
+    } catch (smsErr) {
+      console.error('[booking/create] Client confirmation SMS error', smsErr);
+    }
+
+    // 5.6. Owner/provider notification (MANDATORY)
+    const ownerEmails = process.env.BOOKING_NOTIFY_EMAIL || process.env.OWNER_EMAIL || 'hello.gorgeous@hellogorgeousmedspa.com';
+    if (ownerEmails) {
+      const apiKey = process.env.RESEND_API_KEY;
+      if (apiKey) {
+        try {
+          await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+            body: JSON.stringify({
+              from: process.env.RESEND_FROM_EMAIL || 'Hello Gorgeous <onboarding@resend.dev>',
+              to: ownerEmails.split(',').map((e: string) => e.trim()).filter(Boolean),
+              subject: `New booking: ${serviceName} – ${confirmationDateStr}`,
+              text: `New online booking.\n\nClient: ${firstName} ${lastName}\nService: ${serviceName}\nProvider: ${providerName}\nDate & time: ${confirmationDateStr}\nLocation: ${locationStr}\n\nView in admin calendar.`,
+            }),
+          });
+        } catch (emailErr) {
+          console.error('[booking/create] Owner notification email error', emailErr);
+        }
+      }
+    }
 
     // 6. Trigger consent auto-send via Telnyx SMS (for ALL clients, not just new)
     try {
@@ -360,8 +419,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       appointmentId: appointment.id,
+      starts_at: startsAtISO,
+      ends_at: endsAtISO,
       message: 'Appointment booked successfully',
-      consentsSent: !existingUser, // Let frontend know consents were sent
+      consentsSent: !existingUser,
     });
 
   } catch (error) {

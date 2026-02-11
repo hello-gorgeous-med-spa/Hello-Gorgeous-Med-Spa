@@ -132,9 +132,10 @@ export default function CalendarPage() {
   const fetchProviderSchedules = useCallback(async (providerIds: string[]) => {
     if (providerIds.length === 0) return;
     try {
+      const cacheBust = Date.now();
       const results = await Promise.all(
         providerIds.map(async (id) => {
-          const res = await fetch(`/api/providers/${id}/schedules`);
+          const res = await fetch(`/api/providers/${id}/schedules?t=${cacheBust}`);
           const data = await res.json();
           return { id, schedules: data.schedules as { day_of_week: number; is_working: boolean; start_time: string | null; end_time: string | null }[] };
         })
@@ -157,6 +158,25 @@ export default function CalendarPage() {
       fetchProviderSchedules(providers.map((p: any) => p.id));
     }
   }, [providers, fetchProviderSchedules]);
+
+  // Refetch schedules when user returns to this tab (e.g. after editing Team Schedules)
+  useEffect(() => {
+    const onVisible = () => {
+      if (providers.length > 0) {
+        fetchProviderSchedules(providers.map((p: any) => p.id));
+      }
+    };
+    document.addEventListener('visibilitychange', onVisible);
+    return () => document.removeEventListener('visibilitychange', onVisible);
+  }, [providers, fetchProviderSchedules]);
+
+  // Refresh button: reload both appointments and provider schedules (keeps calendar in sync with Team Schedules)
+  const handleRefresh = useCallback(() => {
+    fetchAppointments();
+    if (providers.length > 0) {
+      fetchProviderSchedules(providers.map((p: any) => p.id));
+    }
+  }, [fetchAppointments, fetchProviderSchedules, providers]);
 
   // Search clients
   const searchClients = useCallback(async (query: string) => {
@@ -389,28 +409,12 @@ export default function CalendarPage() {
     return `${hour} AM`;
   };
 
-  // Get appointment position
-  // IMPORTANT: Parse the time from the ISO string directly to get the "intended" time
-  // regardless of timezone, since we store times as the local appointment time
+  // Get appointment position — use business timezone (America/Chicago) so block appears on correct row
   const getAppointmentStyle = (appt: any) => {
-    // Extract hour and minute directly from the ISO string (YYYY-MM-DDTHH:MM:SS)
-    // This treats the stored time as the intended display time, ignoring timezone conversion
-    const startsAtStr = appt.starts_at || '';
-    const timeMatch = startsAtStr.match(/T(\d{2}):(\d{2})/);
-    
-    let startHour = 9;
-    let startMinute = 0;
-    
-    if (timeMatch) {
-      startHour = parseInt(timeMatch[1], 10);
-      startMinute = parseInt(timeMatch[2], 10);
-    } else {
-      // Fallback to Date parsing if format doesn't match
-      const startTime = new Date(appt.starts_at);
-      startHour = startTime.getHours();
-      startMinute = startTime.getMinutes();
-    }
-    
+    const d = new Date(appt.starts_at || 0);
+    const startHour = parseInt(d.toLocaleString('en-US', { timeZone: BUSINESS_TZ, hour: '2-digit', hour12: false }), 10) || 9;
+    const startMinute = parseInt(d.toLocaleString('en-US', { timeZone: BUSINESS_TZ, minute: '2-digit' }), 10) || 0;
+
     const startMinutes = (startHour - 9) * 60 + startMinute;
     const duration = appt.duration_minutes || appt.duration || 30;
     
@@ -450,44 +454,27 @@ export default function CalendarPage() {
     });
   };
 
-  // Format time for display - extract from ISO string to avoid timezone conversion
+  // Format time in business timezone (America/Chicago) — matches booking and confirmations
+  const BUSINESS_TZ = 'America/Chicago';
   const formatApptTime = (isoString: string) => {
-    const timeMatch = isoString?.match(/T(\d{2}):(\d{2})/);
-    if (timeMatch) {
-      let hour = parseInt(timeMatch[1], 10);
-      const minute = timeMatch[2];
-      const ampm = hour >= 12 ? 'PM' : 'AM';
-      if (hour > 12) hour -= 12;
-      if (hour === 0) hour = 12;
-      return `${hour}:${minute} ${ampm}`;
-    }
-    // Fallback
-    const date = new Date(isoString);
-    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    if (!isoString) return '—';
+    return new Date(isoString).toLocaleTimeString('en-US', {
+      timeZone: BUSINESS_TZ,
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    });
   };
 
-  // Get end time - calculate from extracted time to avoid timezone issues
   const getEndTime = (isoString: string, duration: number) => {
-    const timeMatch = isoString?.match(/T(\d{2}):(\d{2})/);
-    if (timeMatch) {
-      let hour = parseInt(timeMatch[1], 10);
-      let minute = parseInt(timeMatch[2], 10);
-      // Add duration
-      minute += duration;
-      while (minute >= 60) {
-        minute -= 60;
-        hour += 1;
-      }
-      const ampm = hour >= 12 ? 'PM' : 'AM';
-      let displayHour = hour;
-      if (displayHour > 12) displayHour -= 12;
-      if (displayHour === 0) displayHour = 12;
-      return `${displayHour}:${minute.toString().padStart(2, '0')} ${ampm}`;
-    }
-    // Fallback
-    const date = new Date(isoString);
-    date.setMinutes(date.getMinutes() + duration);
-    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+    if (!isoString) return '—';
+    const end = new Date(new Date(isoString).getTime() + duration * 60 * 1000);
+    return end.toLocaleTimeString('en-US', {
+      timeZone: BUSINESS_TZ,
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    });
   };
 
   // Status display
@@ -518,7 +505,7 @@ export default function CalendarPage() {
         formatDate={formatDate}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
-        onRefresh={fetchAppointments}
+        onRefresh={handleRefresh}
         filtersButton={
           <div className="relative">
             <button

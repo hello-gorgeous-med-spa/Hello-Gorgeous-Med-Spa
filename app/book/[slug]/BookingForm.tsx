@@ -111,8 +111,10 @@ export default function BookingForm({ service }: Props) {
   const [selectedTime, setSelectedTime] = useState<string>('');
   const [availableProviders, setAvailableProviders] = useState<Provider[]>([]);
   const [loadingProviders, setLoadingProviders] = useState(true);
-  const [userChangedProvider, setUserChangedProvider] = useState(false); // Prevents auto-select after user clicks "Change"
+  const [userChangedProvider, setUserChangedProvider] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [availabilitySlots, setAvailabilitySlots] = useState<{ time: string; available: boolean }[]>([]);
+  const [loadingAvailability, setLoadingAvailability] = useState(false);
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -147,10 +149,19 @@ export default function BookingForm({ service }: Props) {
   // Get dates based on selected provider
   const availableDates = getAvailableDates(selectedProvider);
   
-  // Get time slots based on provider and date
-  const timeSlots = selectedProvider && selectedDate 
+  const timeSlotsFromSchedule = selectedProvider && selectedDate
     ? getTimeSlotsForProvider(selectedProvider, selectedDate, service.duration_minutes)
     : [];
+  const hasAvailability = availabilitySlots.length > 0;
+  const timeSlots = hasAvailability
+    ? availabilitySlots.map((s) => s.time)
+    : timeSlotsFromSchedule;
+  const slotAvailable = (time: string) => {
+    if (!hasAvailability) return false;
+    const s = availabilitySlots.find((x) => x.time === time);
+    return s ? s.available : false;
+  };
+  const anySlotAvailable = hasAvailability && availabilitySlots.some((s) => s.available);
 
   // Auto-select if only one provider (after loading completes)
   // But NOT if user clicked "Change" to go back
@@ -165,7 +176,31 @@ export default function BookingForm({ service }: Props) {
   useEffect(() => {
     setSelectedDate(null);
     setSelectedTime('');
+    setAvailabilitySlots([]);
   }, [selectedProvider?.id]);
+
+  // Fetch real availability when provider + date selected (so we can gray out unavailable slots)
+  useEffect(() => {
+    if (!selectedProvider?.id || !selectedDate) {
+      setAvailabilitySlots([]);
+      return;
+    }
+    const dateStr = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth() + 1).padStart(2, '0')}-${String(selectedDate.getDate()).padStart(2, '0')}`;
+    setLoadingAvailability(true);
+    setAvailabilitySlots([]);
+    setSelectedTime('');
+    fetch(`/api/availability?provider_id=${encodeURIComponent(selectedProvider.id)}&date=${dateStr}&duration=${service.duration_minutes || 30}`)
+      .then((res) => res.json())
+      .then((data) => {
+        const slots = (data.slots || []).map((s: { time: string; available: boolean }) => ({
+          time: s.time,
+          available: !!s.available,
+        }));
+        setAvailabilitySlots(slots);
+      })
+      .catch(() => setAvailabilitySlots([]))
+      .finally(() => setLoadingAvailability(false));
+  }, [selectedProvider?.id, selectedDate, service.duration_minutes]);
 
   const updateField = (field: string, value: any) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -440,37 +475,60 @@ export default function BookingForm({ service }: Props) {
               </div>
             </div>
 
-            {/* Time Selection */}
+            {/* Time Selection — only available slots are selectable; unavailable are grayed out */}
             {selectedDate && (
               <div>
                 <h3 className="font-semibold text-gray-900 mb-3">
                   Select a Time for {formatDate(selectedDate)}
                 </h3>
-                {timeSlots.length > 0 ? (
-                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
-                    {timeSlots.map((time) => (
-                      <button
-                        key={time}
-                        type="button"
-                        onClick={() => setSelectedTime(time)}
-                        className={`min-h-[44px] px-4 py-2.5 rounded-lg text-sm font-medium transition-all active:scale-[0.98] ${
-                          selectedTime === time
-                            ? 'text-white'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                        }`}
-                        style={selectedTime === time 
-                          ? { backgroundColor: selectedProvider.color } 
-                          : {}
-                        }
-                      >
-                        {time}
-                      </button>
-                    ))}
+                {loadingAvailability ? (
+                  <div className="py-6 text-center text-gray-500 text-sm">
+                    Checking availability…
                   </div>
+                ) : timeSlots.length > 0 ? (
+                  <>
+                    {hasAvailability && !anySlotAvailable && (
+                      <p className="text-sm text-amber-700 bg-amber-50 rounded-lg px-3 py-2 mb-3">
+                        No available times left on this day. Please pick another date.
+                      </p>
+                    )}
+                    {!hasAvailability && !loadingAvailability && (
+                      <p className="text-sm text-gray-500 mb-3">
+                        Couldn&apos;t load availability. Please refresh or call (630) 636-6193.
+                      </p>
+                    )}
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                      {timeSlots.map((time) => {
+                        const available = slotAvailable(time);
+                        return (
+                          <button
+                            key={time}
+                            type="button"
+                            onClick={() => available && setSelectedTime(time)}
+                            disabled={!available}
+                            className={`min-h-[44px] px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                              !available
+                                ? 'bg-gray-100 text-gray-400 cursor-not-allowed line-through'
+                                : selectedTime === time
+                                  ? 'text-white'
+                                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 active:scale-[0.98]'
+                            }`}
+                            style={available && selectedTime === time && selectedProvider
+                              ? { backgroundColor: selectedProvider.color }
+                              : undefined
+                            }
+                            title={!available ? 'This time is not available' : undefined}
+                          >
+                            {time}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </>
                 ) : (
                   <div className="text-center py-6 bg-gray-50 rounded-xl">
                     <p className="text-gray-500">
-                      {selectedProvider.name} is not available on this day.
+                      {selectedProvider?.name} is not available on this day.
                     </p>
                     <p className="text-sm text-gray-400 mt-1">
                       Please select a different date.
@@ -493,7 +551,7 @@ export default function BookingForm({ service }: Props) {
               </button>
               <button
                 onClick={() => setStep('info')}
-                disabled={!selectedDate || !selectedTime}
+                disabled={!selectedDate || !selectedTime || !slotAvailable(selectedTime)}
                 className="flex-1 py-3 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Continue
