@@ -63,10 +63,19 @@ const navigation = {
     href: "/about",
     links: [
       { label: "About Hello Gorgeous", href: "/about", description: "Our story and mission", icon: "💗" },
-      { label: "Meet Your Care Team", href: "/meet-the-team", description: "Expert providers you can trust", icon: "👩‍⚕️" },
+      { label: "View Providers", href: "/providers", description: "Expert providers you can trust", icon: "👩‍⚕️" },
       { label: "Our Location", href: "/locations", description: "Visit us in Oswego, IL", icon: "📍" },
       { label: "Clinical Standards", href: "/clinical-partners", description: "Safety & quality commitment", icon: "🏥" },
       { label: "The Care Engine™", href: "/care-engine", description: "Our personalized approach", icon: "⚙️" },
+    ],
+  },
+  providers: {
+    label: "Providers",
+    href: "/providers",
+    links: [
+      { label: "Danielle Alcala, RN-S", href: "/providers/danielle", description: "Founder & RN-S", icon: "💗" },
+      { label: "Ryan Kent, FNP-BC", href: "/providers/ryan", description: "Medical oversight & hormone therapy", icon: "🧑‍⚕️" },
+      { label: "All Providers", href: "/providers", description: "Videos, before/after, booking links", icon: "🎥" },
     ],
   },
   journey: {
@@ -286,7 +295,7 @@ export function Header() {
             >
               <Link
                 href="/services"
-                className={cx(
+                      className={cx(
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/services')
                     ? "text-pink-400 bg-white/5"
@@ -307,12 +316,12 @@ export function Header() {
               onMouseEnter={() => handleMouseEnter('about')}
               onMouseLeave={handleMouseLeave}
             >
-              <Link
+                    <Link
                 href="/about"
-                className={cx(
+                      className={cx(
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                  pathname?.startsWith('/about') || pathname?.startsWith('/meet-the-team') || pathname?.startsWith('/locations')
-                    ? "text-pink-400 bg-white/5"
+                  pathname?.startsWith('/about') || pathname?.startsWith('/locations')
+                          ? "text-pink-400 bg-white/5"
                     : "text-white/80 hover:text-white hover:bg-white/5"
                 )}
               >
@@ -320,8 +329,31 @@ export function Header() {
                 <svg className={cx("w-4 h-4 transition-transform", activeDropdown === 'about' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
-              </Link>
+                    </Link>
               <SimpleDropdown data={navigation.about} isOpen={activeDropdown === 'about'} onClose={() => setActiveDropdown(null)} />
+            </div>
+
+            {/* Providers Dropdown */}
+            <div
+              className="relative"
+              onMouseEnter={() => handleMouseEnter('providers')}
+              onMouseLeave={handleMouseLeave}
+            >
+              <Link
+                href="/providers"
+                className={cx(
+                  "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
+                  pathname?.startsWith('/providers')
+                    ? "text-pink-400 bg-white/5"
+                    : "text-white/80 hover:text-white hover:bg-white/5"
+                )}
+              >
+                Providers
+                <svg className={cx("w-4 h-4 transition-transform", activeDropdown === 'providers' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              <SimpleDropdown data={navigation.providers} isOpen={activeDropdown === 'providers'} onClose={() => setActiveDropdown(null)} />
             </div>
 
             {/* Your Journey Dropdown */}
@@ -366,7 +398,7 @@ export function Header() {
                 </svg>
               </button>
               <SimpleDropdown data={navigation.specials} isOpen={activeDropdown === 'specials'} onClose={() => setActiveDropdown(null)} align="right" />
-            </div>
+                </div>
 
             {/* Contact */}
             <Link
@@ -397,8 +429,8 @@ export function Header() {
 
             {/* Book Now Button */}
             <CTA href={BOOKING_URL} variant="gradient" className="hidden md:flex px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg shadow-pink-500/25">
-              Book Now
-            </CTA>
+                Book Now
+              </CTA>
 
             {/* Mobile Menu Button — 44px tap target */}
             <button
@@ -440,7 +472,7 @@ export function Header() {
           {/* Mobile Navigation */}
           <div className="px-4 py-6 space-y-2">
             {/* Fix What Bothers Me — 1 tap reachable */}
-            <Link
+              <Link
               href="/fix-what-bothers-me"
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-400 font-semibold"
@@ -477,7 +509,7 @@ export function Header() {
                         >
                           <span>{link.icon}</span>
                           <span>{link.label}</span>
-                        </Link>
+              </Link>
                       ))}
                     </div>
                   ))}
@@ -502,6 +534,37 @@ export function Header() {
               {mobileSubmenu === 'about' && (
                 <div className="mt-2 ml-4">
                   {navigation.about.links.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-3 px-4 py-2.5 text-white/80 hover:text-white hover:bg-white/5 rounded-lg"
+                    >
+                      <span>{link.icon}</span>
+                      <span>{link.label}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+          </div>
+
+            {/* Providers Section */}
+            <div className="border-b border-white/10 pb-4">
+              <button
+                onClick={() => setMobileSubmenu(mobileSubmenu === 'providers' ? null : 'providers')}
+                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-white"
+              >
+                <span className="flex items-center gap-3">
+                  <span className="text-xl">🩺</span>
+                  Providers
+                </span>
+                <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'providers' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {mobileSubmenu === 'providers' && (
+                <div className="mt-2 ml-4">
+                  {navigation.providers.links.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
@@ -608,10 +671,10 @@ export function Header() {
           <div className="sticky bottom-0 bg-black/95 border-t border-white/10 px-4 py-4 space-y-3">
             <CTA href={BOOKING_URL} variant="gradient" className="w-full py-4 rounded-xl text-lg font-semibold">
               Book Your Appointment
-            </CTA>
+              </CTA>
             <CTA href="/quiz" variant="outline" className="w-full py-3 rounded-xl">
               Find My Treatment
-            </CTA>
+              </CTA>
           </div>
         </div>
       )}

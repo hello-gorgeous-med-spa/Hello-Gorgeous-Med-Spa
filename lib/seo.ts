@@ -772,32 +772,48 @@ export function siteJsonLd() {
       "Hormone Therapy",
     ],
     availableService: [
-      {
-        "@type": "MedicalProcedure",
-        name: "Botox Cosmetic",
-        description: "Injectable treatment to reduce fine lines and wrinkles",
-      },
-      {
-        "@type": "MedicalProcedure",
-        name: "Dermal Fillers",
-        description: "Injectable treatment to restore facial volume",
-      },
-      {
-        "@type": "MedicalProcedure",
-        name: "GLP-1 Weight Loss",
-        description: "Medical weight loss with semaglutide and tirzepatide",
-      },
-      {
-        "@type": "MedicalProcedure",
-        name: "Biote Hormone Therapy",
-        description: "Bioidentical hormone replacement pellet therapy",
-      },
-      {
-        "@type": "MedicalProcedure",
-        name: "IV Therapy",
-        description: "Vitamin IV infusions for wellness and hydration",
-      },
+      { "@type": "MedicalProcedure", name: "Botox", description: "Botox cosmetic injectable for fine lines and wrinkles" },
+      { "@type": "MedicalProcedure", name: "Dysport", description: "Dysport injectable for dynamic wrinkles" },
+      { "@type": "MedicalProcedure", name: "Jeuveau", description: "Jeuveau neuromodulator for aesthetic use" },
+      { "@type": "MedicalProcedure", name: "Lip Filler", description: "Lip augmentation and enhancement" },
+      { "@type": "MedicalProcedure", name: "Revanesse", description: "Revanesse dermal filler" },
+      { "@type": "MedicalProcedure", name: "Juvederm", description: "Juvederm hyaluronic acid fillers" },
+      { "@type": "MedicalProcedure", name: "PRP Facial", description: "Platelet-rich plasma facial rejuvenation" },
+      { "@type": "MedicalProcedure", name: "Vampire Facial", description: "PRP microneedling facial" },
+      { "@type": "MedicalProcedure", name: "Microneedling", description: "RF microneedling for skin rejuvenation" },
+      { "@type": "MedicalProcedure", name: "GLP-1", description: "GLP-1 weight loss therapy" },
+      { "@type": "MedicalProcedure", name: "Hormone Therapy", description: "Biote hormone pellet therapy" },
+      { "@type": "MedicalProcedure", name: "Pellet Therapy", description: "Bioidentical hormone pellets" },
+      { "@type": "MedicalProcedure", name: "Trigger Point", description: "Trigger point injections" },
+      { "@type": "MedicalProcedure", name: "IV Therapy", description: "IV vitamin and hydration therapy" },
+      { "@type": "MedicalProcedure", name: "Vitamin Injections", description: "Vitamin B12 and other injections" },
+      { "@type": "MedicalProcedure", name: "Peptide Therapy", description: "Peptide treatments" },
+      { "@type": "MedicalProcedure", name: "Lab Draw", description: "Laboratory blood draw services" },
+      { "@type": "MedicalProcedure", name: "Telehealth", description: "Virtual consultations" },
+      { "@type": "MedicalProcedure", name: "Laser Hair Removal", description: "Laser hair removal" },
+      { "@type": "MedicalProcedure", name: "IPL", description: "IPL photofacial treatment" },
+      { "@type": "MedicalProcedure", name: "Acne Facial", description: "Acne treatment facial" },
+      { "@type": "MedicalProcedure", name: "Teen Facial", description: "Teen skincare facial" },
+      { "@type": "MedicalProcedure", name: "Detox Facial", description: "Detoxifying facial" },
+      { "@type": "MedicalProcedure", name: "HydraFacial", description: "HydraFacial treatment" },
+      { "@type": "MedicalProcedure", name: "Chemical Peel", description: "Chemical peel treatments" },
+      { "@type": "MedicalProcedure", name: "Brow Lamination", description: "Brow lamination service" },
+      { "@type": "MedicalProcedure", name: "Lash Extensions", description: "Eyelash extensions" },
     ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Medical Spa Services",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Book Appointment",
+            url: `${SITE.url}/book`,
+          },
+        },
+      ],
+    },
   };
 }
 
@@ -818,6 +834,69 @@ export function organizationJsonLd() {
       availableLanguage: "English",
     },
   };
+}
+
+export function providerPersonJsonLd(provider: {
+  name: string;
+  credentials?: string | null;
+  description?: string | null;
+  image?: string | null;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": ["Person", "MedicalBusiness"],
+    name: provider.name,
+    description: provider.description,
+    jobTitle: provider.credentials,
+    image: provider.image,
+    worksFor: {
+      "@type": "MedicalBusiness",
+      name: SITE.name,
+      url: SITE.url,
+    },
+  };
+}
+
+export function providerVideoJsonLd(providerName: string, videos: Array<{ title: string; description?: string | null; video_url?: string | null; thumbnail_url?: string | null }>) {
+  return videos
+    .filter((video) => video.video_url)
+    .map((video) => ({
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      name: video.title,
+      description: video.description,
+      thumbnailUrl: video.thumbnail_url,
+      uploadDate: new Date().toISOString(),
+      contentUrl: video.video_url,
+      creator: providerName,
+    }));
+}
+
+export function providerBeforeAfterJsonLd(
+  providerName: string,
+  results: Array<{ title: string; before_image_url?: string | null; after_image_url?: string | null; service_tag?: string | null }>
+) {
+  return results
+    .filter((result) => result.before_image_url && result.after_image_url)
+    .map((result) => ({
+      "@context": "https://schema.org",
+      "@type": "MedicalEntity",
+      name: result.title,
+      provider: providerName,
+      procedureType: result.service_tag,
+      isBasedOn: [
+        {
+          "@type": "ImageObject",
+          name: `${result.title} - Before`,
+          contentUrl: result.before_image_url,
+        },
+        {
+          "@type": "ImageObject",
+          name: `${result.title} - After`,
+          contentUrl: result.after_image_url,
+        },
+      ],
+    }));
 }
 
 // WebSite + SearchAction for sitelinks search box (Google)

@@ -20,6 +20,8 @@ type MascotHeroData = {
   characterImage: string;
   videoSrc: string | null;
   features: MascotFeature[];
+  /** Use object-cover for photos so they fill the frame */
+  imageCover?: boolean;
 };
 
 const mascotHeroData: MascotHeroData[] = [
@@ -69,8 +71,9 @@ const mascotHeroData: MascotHeroData[] = [
   },
   {
     id: "ryan",
-    characterImage: "/images/characters/ryan.png",
+    characterImage: "/images/team/ryan-kent.png",
     videoSrc: "/videos/mascots/ryan/ryan-intro.mp4",
+    imageCover: true,
     features: [
       { icon: "🩺", title: "Clinical Authority", description: "Medical oversight and safety" },
       { icon: "⚠️", title: "Contraindications", description: "Who should avoid treatments" },
@@ -171,9 +174,9 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
               <>
                 <Image
                   src={data.characterImage}
-                  alt={`${cfg.displayName} character`}
+                  alt={cfg.displayName}
                   fill
-                  className="object-contain object-bottom"
+                  className={data.imageCover ? "object-cover" : "object-contain object-bottom"}
                   sizes="(max-width: 768px) 256px, 320px"
                 />
                 {data.videoSrc && (

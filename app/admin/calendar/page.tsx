@@ -246,7 +246,7 @@ export default function CalendarPage() {
     if (isNewClient) {
       if (!newClientForm.first_name || !newClientForm.last_name || !newClientForm.phone) {
         toast.error('Please fill in client name and phone');
-        return;
+      return;
       }
     } else {
       if (!quickBookClient) {
@@ -523,7 +523,7 @@ export default function CalendarPage() {
                 <div className="space-y-2">
                   {providers.map((provider, idx) => (
                     <label key={provider.id} className="flex items-center gap-3 cursor-pointer">
-                      <input
+              <input
                         type="checkbox"
                         checked={selectedProviderFilter.length === 0 || selectedProviderFilter.includes(provider.id)}
                         onChange={(e) => {
@@ -543,7 +543,7 @@ export default function CalendarPage() {
                       <span className="text-sm text-gray-700">{provider.first_name} {provider.last_name}</span>
                     </label>
                   ))}
-                </div>
+            </div>
               </div>
             )}
           </div>
@@ -576,7 +576,7 @@ export default function CalendarPage() {
                     <span className={`font-medium ${offToday ? 'text-gray-500' : 'text-slate-800'}`}>
                       {provider.first_name}
                       {offToday && <span className="text-gray-400 font-normal ml-1">(off)</span>}
-                    </span>
+            </span>
                     <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
@@ -585,7 +585,7 @@ export default function CalendarPage() {
               </div>
             );
           })}
-        </div>
+          </div>
 
         {/* Calendar Grid */}
         <div className="flex-1 overflow-auto">
@@ -634,7 +634,7 @@ export default function CalendarPage() {
                             {inSchedule00 && (
                               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                                 <span className="text-xs text-pink-500 font-medium bg-white/80 px-2 py-1 rounded">+ Book</span>
-                              </div>
+            </div>
                             )}
                           </div>
                           {/* Second 30 min */}
@@ -658,7 +658,7 @@ export default function CalendarPage() {
                       const isSelected = selectedAppointment?.id === appt.id;
                       
                       return (
-                        <button
+            <button
                           key={appt.id}
                           onClick={(e) => {
                             e.stopPropagation();
@@ -678,10 +678,10 @@ export default function CalendarPage() {
                           <p className="text-xs opacity-75 mt-0.5">
                             {formatApptTime(appt.starts_at)} - {getEndTime(appt.starts_at, appt.duration_minutes || appt.duration || 60)}
                           </p>
-                        </button>
+            </button>
                       );
                     })}
-                  </div>
+          </div>
                 );
               })}
             </div>
@@ -758,8 +758,8 @@ export default function CalendarPage() {
                     >
                       Mark Completed
                     </button>
-                  </div>
-                </div>
+        </div>
+        </div>
                 {/* Edit Appointment */}
                 <Link 
                   href={`/admin/appointments/${selectedAppointment.id}/edit`}
@@ -778,19 +778,19 @@ export default function CalendarPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
-              </div>
-            </div>
+        </div>
+      </div>
 
             {/* Status & Checkout */}
             <div className="p-4 border-b border-gray-200 flex items-center justify-between">
               {getStatusBadge(selectedAppointment.status)}
-              <Link
+          <Link
                 href={`/admin/pos?appointment=${selectedAppointment.id}&client=${selectedAppointment.client_id}`}
                 className="px-4 py-2 bg-slate-800 text-white text-sm font-medium rounded-lg hover:bg-slate-700 transition-colors"
-              >
+          >
                 CHECKOUT
-              </Link>
-            </div>
+          </Link>
+        </div>
 
             {/* Date/Time */}
             <div className="p-4 border-b border-gray-200">
@@ -799,14 +799,14 @@ export default function CalendarPage() {
                 <span className="text-slate-800 font-medium">
                   {new Date(selectedAppointment.starts_at).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
                 </span>
-              </div>
+            </div>
               <div className="flex items-center justify-between text-sm mt-2">
                 <span className="text-gray-500">At</span>
                 <span className="text-slate-800 font-medium">
                   {formatApptTime(selectedAppointment.starts_at)}
-                </span>
-              </div>
-            </div>
+                  </span>
+                </div>
+          </div>
 
             {/* Client Info - INTERACTIVE */}
             <div className="p-4 border-b border-gray-200">
@@ -817,7 +817,7 @@ export default function CalendarPage() {
                 >
                   {selectedAppointment.client_name?.[0] || 'C'}
                 </Link>
-                <Link 
+                          <Link
                   href={selectedAppointment.client_id ? `/admin/clients/${selectedAppointment.client_id}` : '#'}
                   className="flex-1 hover:bg-gray-50 -m-2 p-2 rounded-lg transition-colors"
                 >
@@ -826,8 +826,8 @@ export default function CalendarPage() {
                   </p>
                   <p className="text-sm text-gray-500">
                     Client since {new Date().getFullYear()}
-                  </p>
-                </Link>
+                            </p>
+                          </Link>
                 {/* Message Button - Opens SMS */}
                 {selectedAppointment.client_id && (
                   <Link
@@ -852,7 +852,7 @@ export default function CalendarPage() {
                     </svg>
                   </a>
                 )}
-              </div>
+                    </div>
 
               {/* Contact Info */}
               {(selectedAppointment.client_email || selectedAppointment.client_phone) && (
@@ -873,35 +873,35 @@ export default function CalendarPage() {
                       </a>
                     </p>
                   )}
-                </div>
-              )}
+        </div>
+      )}
 
               {/* View Full Profile Link */}
               {selectedAppointment.client_id && (
-                <Link
+              <Link
                   href={`/admin/clients/${selectedAppointment.client_id}`}
                   className="mt-3 text-sm text-pink-600 hover:text-pink-700 font-medium flex items-center gap-1"
-                >
+              >
                   View Full Profile
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
-                </Link>
+              </Link>
               )}
             </div>
 
             {/* Service Details */}
             <div className="p-4 flex-1">
-              <div className="flex items-center justify-between">
-                <div>
+                              <div className="flex items-center justify-between">
+                                <div>
                   <p className="font-semibold text-slate-800">
                     {selectedAppointment.service_name || 'Service'}
-                  </p>
-                </div>
+                                  </p>
+                                </div>
                 <p className="text-lg font-bold text-slate-800">
                   ${selectedAppointment.service_price || selectedAppointment.service?.price || 0}
-                </p>
-              </div>
+                                  </p>
+                                </div>
               
               <div className="mt-3 text-sm text-gray-600 space-y-1">
                 <p>
@@ -913,7 +913,7 @@ export default function CalendarPage() {
                   <span className="font-medium">{formatApptTime(selectedAppointment.starts_at)}</span>
                   <span className="text-gray-500 ml-3">for: {selectedAppointment.duration_minutes || selectedAppointment.duration || 30} min</span>
                 </p>
-              </div>
+                              </div>
             </div>
 
             {/* Quick Actions */}
@@ -924,21 +924,21 @@ export default function CalendarPage() {
                   className="flex items-center justify-center gap-2 px-3 py-2 bg-purple-50 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-100 transition-colors"
                 >
                   <span>📋</span> Chart
-                </Link>
+                            </Link>
                 <Link
                   href={`/admin/consents?client=${selectedAppointment.client_id}`}
                   className="flex items-center justify-center gap-2 px-3 py-2 bg-blue-50 text-blue-700 text-sm font-medium rounded-lg hover:bg-blue-100 transition-colors"
                 >
                   <span>📝</span> Consents
                 </Link>
-              </div>
+                        </div>
               <Link
                 href={`/admin/clients/${selectedAppointment.client_id}/photos`}
                 className="flex items-center justify-center gap-2 w-full px-3 py-2 bg-pink-50 text-pink-700 text-sm font-medium rounded-lg hover:bg-pink-100 transition-colors"
               >
                 <span>📸</span> Before/After Photos
               </Link>
-            </div>
+                        </div>
           </>
         ) : (
           <div className="flex-1 flex items-center justify-center p-8 text-center">
@@ -947,14 +947,14 @@ export default function CalendarPage() {
                 <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-              </div>
+                    </div>
               <p className="text-gray-500 font-medium">Select an appointment</p>
               <p className="text-sm text-gray-400 mt-1">Click on any appointment to view details</p>
               <p className="text-sm text-gray-400 mt-1">or click empty time slot to book</p>
+                  </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
       </div>
 
       {/* Quick Book Modal */}
@@ -980,8 +980,8 @@ export default function CalendarPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
-              </div>
-            </div>
+          </div>
+        </div>
             
             <div className="p-6 space-y-4">
               {/* Toggle: Existing vs New Client */}
@@ -1015,52 +1015,52 @@ export default function CalendarPage() {
                 >
                   + New Client
                 </button>
-              </div>
+      </div>
 
               {/* Existing Client Search */}
               {!isNewClient && (
-                <div>
+              <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Search Client *</label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      placeholder="Search client by name..."
+                <div className="relative">
+                  <input
+                    type="text"
+                    placeholder="Search client by name..."
                       className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                       onChange={(e) => searchClients(e.target.value)}
-                    />
-                    {clientSearchResults.length > 0 && (
+                  />
+                  {clientSearchResults.length > 0 && (
                       <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-xl z-10 max-h-48 overflow-y-auto">
-                        {clientSearchResults.map((client) => (
-                          <button
-                            key={client.id}
-                            type="button"
-                            onClick={() => {
-                              setQuickBookClient(client.id);
-                              setClientSearchResults([]);
-                            }}
+                      {clientSearchResults.map((client) => (
+                        <button
+                          key={client.id}
+                          type="button"
+                          onClick={() => {
+                            setQuickBookClient(client.id);
+                            setClientSearchResults([]);
+                          }}
                             className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center gap-3 border-b border-gray-100 last:border-0"
-                          >
+                        >
                             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-medium">
-                              {client.first_name?.[0]}{client.last_name?.[0]}
-                            </div>
-                            <div>
+                            {client.first_name?.[0]}{client.last_name?.[0]}
+                          </div>
+                          <div>
                               <p className="font-medium text-slate-800">{client.first_name} {client.last_name}</p>
                               <p className="text-sm text-gray-500">{client.email || client.phone}</p>
-                            </div>
-                          </button>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  {quickBookClient && (
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
+                {quickBookClient && (
                     <p className="text-sm text-emerald-600 mt-2 flex items-center gap-1">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       Client selected
                     </p>
-                  )}
-                </div>
+                )}
+              </div>
               )}
 
               {/* New Client Form */}

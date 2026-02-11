@@ -164,7 +164,7 @@ export default function AuroraServicePage({ params }: { params: { service: strin
                   <CTA href={`/services/${s.slug}`} variant="white">
                     Main service page
                   </CTA>
-                  <CTA href="/meet-the-team" variant="outline">
+                  <CTA href="/providers" variant="outline">
                     Meet the Experts
                   </CTA>
                 </div>

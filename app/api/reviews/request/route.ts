@@ -9,8 +9,8 @@ const TELNYX_API_KEY = process.env.TELNYX_API_KEY;
 const TELNYX_PHONE = process.env.TELNYX_PHONE_NUMBER;
 const TELNYX_PROFILE = process.env.TELNYX_MESSAGING_PROFILE_ID;
 
-// Review link: use HG OS / your reviews page when set (NEXT_PUBLIC_REVIEWS_URL), else fallback to Google
-const GOOGLE_REVIEW_URL = 'https://g.page/r/CRV4K5dQ4KANEAE/review';
+// Review link: direct to Google review popup (same as /reviews widget). Override with NEXT_PUBLIC_REVIEWS_URL if needed.
+const GOOGLE_REVIEW_URL = 'https://g.page/r/CYQOWmT_HcwQEBM/review';
 function getReviewUrl(): string {
   return process.env.NEXT_PUBLIC_REVIEWS_URL || GOOGLE_REVIEW_URL;
 }
@@ -71,8 +71,8 @@ export async function POST(request: NextRequest) {
     const reviewUrl = getReviewUrl();
     const firstName = client_name.split(' ')[0];
     const message = service_name
-      ? `Hi ${firstName}! 💕 Thank you for visiting Hello Gorgeous Med Spa today for your ${service_name}! We'd love to hear about your experience. Would you mind leaving us a quick review? ${reviewUrl}\n\nReply STOP to opt out.`
-      : `Hi ${firstName}! 💕 Thank you for visiting Hello Gorgeous Med Spa today! We'd love to hear about your experience. Would you mind leaving us a quick review? ${reviewUrl}\n\nReply STOP to opt out.`;
+      ? `Hi ${firstName}! Thank you for visiting Hello Gorgeous 💖 If you loved your results from ${service_name}, would you mind leaving us a quick Google review? ${reviewUrl}\n\nReply STOP to opt out.`
+      : `Hi ${firstName}! Thank you for visiting Hello Gorgeous 💖 If you loved your results, would you mind leaving us a quick Google review? ${reviewUrl}\n\nReply STOP to opt out.`;
 
     // Send SMS via Telnyx
     const smsBody: any = {

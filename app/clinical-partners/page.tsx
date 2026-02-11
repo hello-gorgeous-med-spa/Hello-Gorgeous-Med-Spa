@@ -66,7 +66,7 @@ export default function ClinicalPartnersPage() {
                 <CTA href="/explore-care" variant="outline">
                   Explore Care (Services Atlas™)
                 </CTA>
-                <CTA href="/meet-the-team" variant="outline">
+                <CTA href="/providers" variant="outline">
                   Meet Your Care Team
                 </CTA>
               </div>
@@ -227,7 +227,7 @@ export default function ClinicalPartnersPage() {
                   links: [
                     { href: "/clinical-partners", label: "Back to top" },
                     { href: "/explore-care", label: "Explore Care" },
-                    { href: "/meet-the-team", label: "Meet Your Care Team" },
+                    { href: "/providers", label: "Meet Your Care Team" },
                   ],
                 },
               ].map((c, idx) => (
@@ -312,7 +312,7 @@ export default function ClinicalPartnersPage() {
                 <CTA href="/care-engine" variant="gradient">
                   Open the Care Engine™
                 </CTA>
-                <CTA href="/meet-the-team" variant="outline">
+                <CTA href="/providers" variant="outline">
                   Meet Your Care Team
                 </CTA>
                 <CTA href="/contact" variant="outline">

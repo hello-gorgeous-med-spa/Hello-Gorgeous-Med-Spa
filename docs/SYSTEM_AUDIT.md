@@ -23,7 +23,7 @@
 
 ### Navigation (Header)
 - **Services** → `/services` and all dropdown links (e.g. `/services/botox-dysport-jeuveau`, `/services/iv-therapy`, `/services/weight-loss-therapy`) — ✅ Routes exist (from `lib/seo.ts` and `lib/services-atlas`).
-- **About** → `/about`, `/meet-the-team`, `/locations`, `/clinical-partners`, `/care-engine` — ✅.
+- **About** → `/about`, `/providers`, `/locations`, `/clinical-partners`, `/care-engine` — ✅.
 - **Your Journey** → `/explore-care`, `/your-journey`, `/understand-your-body`, `/care-and-support`, `/telehealth` — ✅.
 - **Specials** → `/free-vitamin`, `/subscribe`, `/referral`, `/book` — ✅.
 - **Book Now** → Uses `BOOKING_URL` (first-party `/book`) — ✅.

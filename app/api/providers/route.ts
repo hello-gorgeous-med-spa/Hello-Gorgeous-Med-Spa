@@ -1,72 +1,35 @@
 // ============================================================
-import { createClient } from '@supabase/supabase-js';
-// API: PROVIDERS - Full CRUD
-// Manage bookable providers/staff
-// ONLY Ryan Kent and Danielle Alcala are allowed
-// ============================================================
-
 import { NextRequest, NextResponse } from 'next/server';
-import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from '@/lib/provider-credentials';
+import { getSupabaseAdminClient } from '@/lib/hgos/supabase-admin';
+import { PROVIDER_FALLBACKS } from '@/lib/providers/fallback';
 
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
 
-// Safe Supabase helper - returns null if not configured
-function getSupabase() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  
-  if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) {
-    return null;
-  }
-  
-  try {
-    // createClient imported at top
-    return createClient(url, key, {
-      auth: { autoRefreshToken: false, persistSession: false },
-    });
-  } catch {
-    return null;
-  }
-}
+const FALLBACK_PROVIDER_LIST = Object.values(PROVIDER_FALLBACKS).map((provider) => ({
+  id: provider.id,
+  first_name: provider.first_name,
+  last_name: provider.last_name,
+  email: provider.email,
+  credentials: provider.credentials,
+  color_hex: provider.color_hex,
+  is_active: true,
+  slug: provider.slug,
+  display_name: provider.display_name,
+  headshot_url: provider.headshot_url,
+  tagline: provider.tagline,
+  booking_url: provider.booking_url,
+}));
 
-// ONLY THESE TWO PROVIDERS - HARDCODED with actual database UUIDs
-const ALLOWED_PROVIDERS = [
-  {
-    id: '47ab9361-4a68-4ab8-a860-c9c9fd64d26c',
-    first_name: 'Ryan',
-    last_name: 'Kent',
-    email: 'ryan@hellogorgeousmedspa.com',
-    credentials: RYAN_CREDENTIALS,
-    color_hex: '#3b82f6',
-    is_active: true,
-  },
-  {
-    id: 'b7e6f872-3628-418a-aefb-aca2101f7cb2',
-    first_name: 'Danielle',
-    last_name: 'Alcala',
-    email: 'hello.gorgeous@hellogorgeousmedspa.com',
-    credentials: DANIELLE_CREDENTIALS,
-    color_hex: '#ec4899',
-    is_active: true,
-  },
-];
-
-// Helper to check if a name matches allowed providers
-function isAllowedProvider(firstName: string, lastName: string): boolean {
-  const fullName = `${firstName} ${lastName}`.toLowerCase();
-  return (
-    fullName.includes('ryan') && fullName.includes('kent') ||
-    fullName.includes('danielle') && (fullName.includes('alcala') || fullName.includes('glazier'))
-  );
-}
+const ALLOWED_IDS = new Set(FALLBACK_PROVIDER_LIST.map((p) => p.id));
+const ALLOWED_SLUGS = new Set(Object.values(PROVIDER_FALLBACKS).map((p) => p.slug));
 
 // GET /api/providers - List ONLY Ryan and Danielle
 export async function GET() {
   // Always return fallback if Supabase not configured
-  const supabase = getSupabase();
+  const supabase = getSupabaseAdminClient();
   if (!supabase) {
-    return NextResponse.json({ providers: ALLOWED_PROVIDERS });
+    return NextResponse.json({ providers: FALLBACK_PROVIDER_LIST });
   }
 
   try {
@@ -76,31 +39,32 @@ export async function GET() {
       .select(`
         id,
         user_id,
+        slug,
+        display_name,
         first_name,
         last_name,
         email,
         credentials,
         color_hex,
-        is_active
+        is_active,
+        headshot_url,
+        tagline,
+        booking_url
       `)
       .eq('is_active', true)
       .order('created_at', { ascending: true });
 
     if (error) {
       console.error('Providers fetch error:', error);
-      // Return hardcoded fallback
-      return NextResponse.json({ providers: ALLOWED_PROVIDERS });
+      return NextResponse.json({ providers: FALLBACK_PROVIDER_LIST });
     }
 
     // Format providers - use direct columns
     if (providers && providers.length > 0) {
-      // Filter to ONLY allowed providers (if they have names)
       const filtered = providers.filter(p => {
-        const firstName = p.first_name || '';
-        const lastName = p.last_name || '';
-        // If no name set, include anyway
-        if (!firstName && !lastName) return true;
-        return isAllowedProvider(firstName, lastName);
+        if (p.slug && ALLOWED_SLUGS.has(p.slug)) return true;
+        if (p.id && ALLOWED_IDS.has(p.id)) return true;
+        return false;
       });
 
       const formatted = filtered.map(p => ({
@@ -112,6 +76,11 @@ export async function GET() {
         credentials: p.credentials,
         color_hex: p.color_hex || '#EC4899',
         is_active: p.is_active,
+        slug: p.slug,
+        display_name: p.display_name,
+        headshot_url: p.headshot_url,
+        tagline: p.tagline,
+        booking_url: p.booking_url,
       }));
       
       if (formatted.length > 0) {
@@ -119,17 +88,16 @@ export async function GET() {
       }
     }
 
-    // Return hardcoded fallback
-    return NextResponse.json({ providers: ALLOWED_PROVIDERS });
+    return NextResponse.json({ providers: FALLBACK_PROVIDER_LIST });
   } catch (error) {
     console.error('Providers GET error:', error);
-    return NextResponse.json({ providers: ALLOWED_PROVIDERS });
+    return NextResponse.json({ providers: FALLBACK_PROVIDER_LIST });
   }
 }
 
 // POST /api/providers - Create new provider
 export async function POST(request: NextRequest) {
-  const supabase = getSupabase();
+  const supabase = getSupabaseAdminClient();
   if (!supabase) {
     return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
   }
@@ -187,7 +155,7 @@ export async function POST(request: NextRequest) {
 
 // PUT /api/providers - Update provider
 export async function PUT(request: NextRequest) {
-  const supabase = getSupabase();
+  const supabase = getSupabaseAdminClient();
   if (!supabase) {
     return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
   }
@@ -226,7 +194,7 @@ export async function PUT(request: NextRequest) {
 
 // DELETE /api/providers - Soft delete (deactivate) provider
 export async function DELETE(request: NextRequest) {
-  const supabase = getSupabase();
+  const supabase = getSupabaseAdminClient();
   if (!supabase) {
     return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
   }

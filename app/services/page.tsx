@@ -41,7 +41,7 @@ export default function ServicesPage() {
               <CTA href="/explore-care" variant="gradient">
                 Explore Care (Services Atlas™)
               </CTA>
-              <CTA href="/meet-the-team" variant="outline">
+              <CTA href="/providers" variant="outline">
                 Meet Your Care Team
               </CTA>
             </div>

@@ -141,7 +141,7 @@ export function ServiceExpertWidget({
             <p className="text-sm text-white/70">Ask an expert about</p>
             <p className="mt-1 text-lg font-semibold text-white">{serviceName}</p>
           </div>
-          <CTA href="/meet-the-team" variant="outline" className="px-4 py-2 rounded-lg text-sm">
+          <CTA href="/providers" variant="outline" className="px-4 py-2 rounded-lg text-sm">
             Switch experts
           </CTA>
         </div>

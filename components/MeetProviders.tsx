@@ -17,7 +17,7 @@ const providers = [
     name: "Ryan Kent",
     role: "Medical Director",
     credentials: `${RYAN_CREDENTIALS} | Full Practice Authority NP`,
-    image: "/images/team/ryan-danielle.png",
+    image: "/images/team/ryan-kent.png",
     bio: "Board-Certified Family Nurse Practitioner with full prescriptive authority. Specializing in weight management, hormone optimization, and regenerative medicine.",
     telehealth: true,
   },

@@ -82,7 +82,7 @@ export default function OswegoHubPage() {
               <CTA href={BOOKING_URL} variant="gradient">
                 Book a Consultation
               </CTA>
-              <CTA href="/meet-the-team" variant="outline">
+              <CTA href="/providers" variant="outline">
                 Meet the Experts
               </CTA>
             </div>

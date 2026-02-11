@@ -26,7 +26,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     
     // About Pages
     { url: `${SITE.url}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
-    { url: `${SITE.url}/meet-the-team`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
+    { url: `${SITE.url}/providers`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE.url}/fix-what-bothers-me`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE.url}/explore-care`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE.url}/your-journey`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
-import { SITE, organizationJsonLd, websiteJsonLd } from "@/lib/seo";
+import { organizationJsonLd, siteJsonLd, SITE, websiteJsonLd } from "@/lib/seo";
 import { getDefaultSEO, getSiteSettings } from "@/lib/cms-readers";
 import { AuthWrapper } from "@/components/AuthWrapper";
 import { ConditionalLayout } from "@/components/ConditionalLayout";
@@ -127,6 +127,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
         />
       </head>
       <body className="min-h-screen antialiased">

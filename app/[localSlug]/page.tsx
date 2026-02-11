@@ -190,7 +190,7 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
                     <CTA href={`/services/${s.slug}`} variant="white">
                       View full {s.name} page
                     </CTA>
-                    <CTA href="/meet-the-team" variant="outline">
+                    <CTA href="/providers" variant="outline">
                       Meet the Experts
                     </CTA>
                   </div>

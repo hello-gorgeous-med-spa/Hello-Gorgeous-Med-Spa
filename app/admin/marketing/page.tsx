@@ -82,7 +82,7 @@ export default function MarketingHubPage() {
               className="rounded-2xl object-contain drop-shadow-lg"
               priority
             />
-          </div>
+        </div>
           <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-amber-300/95 drop-shadow-sm">
             Hello Gorgeous Marketing
           </h1>
@@ -119,17 +119,17 @@ export default function MarketingHubPage() {
                 key={tier.id}
                 className="border-b border-slate-600/50 last:border-0"
               >
-                <button
+                    <button
                   onClick={() => setExpandedTier(expandedTier === tier.id ? null : tier.id)}
                   className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left hover:bg-slate-700/40 transition-colors"
                 >
                   <span className="text-lg text-slate-100 font-medium flex items-center gap-3">
                     <span className="text-2xl opacity-90">{tier.icon}</span>
                     {tier.title}
-                  </span>
+                        </span>
                   <span className="text-slate-400 text-2xl leading-none">
                     {expandedTier === tier.id ? '−' : '+'}
-                  </span>
+                        </span>
                 </button>
                 {expandedTier === tier.id && (
                   <div className="px-5 pb-5 pt-0">
@@ -140,8 +140,8 @@ export default function MarketingHubPage() {
                     >
                       {tier.cta} →
                     </Link>
-                  </div>
-                )}
+        </div>
+      )}
               </div>
             ))}
           </div>

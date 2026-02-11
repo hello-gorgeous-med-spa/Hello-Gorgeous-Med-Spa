@@ -196,6 +196,13 @@ const NAV_SECTIONS = [
     ],
   },
   {
+    title: 'Content',
+    icon: '📰',
+    items: [
+      { href: '/admin/content/providers', label: 'Providers', icon: '👩‍⚕️' },
+    ],
+  },
+  {
     title: 'Settings',
     icon: '⚙️',
     items: [

@@ -6,7 +6,7 @@ import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { BOOKING_URL } from "@/lib/flows";
-import { SERVICES, faqJsonLd, pageMetadata, siteJsonLd } from "@/lib/seo";
+import { SERVICES, faqJsonLd, pageMetadata, serviceJsonLd, siteJsonLd } from "@/lib/seo";
 
 const oswegoServiceSlugs = [
   "botox-dysport-jeuveau",
@@ -76,6 +76,11 @@ export default function OswegoServicePage({ params }: { params: { service: strin
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd(s)) }}
       />
       <script
         type="application/ld+json"
@@ -165,7 +170,7 @@ export default function OswegoServicePage({ params }: { params: { service: strin
                   <CTA href={`/services/${s.slug}`} variant="white">
                     Main service page
                   </CTA>
-                  <CTA href="/meet-the-team" variant="outline">
+                  <CTA href="/providers" variant="outline">
                     Meet the Experts
                   </CTA>
                 </div>

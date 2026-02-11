@@ -19,7 +19,8 @@ const nextConfig = {
     { source: "/sitemap.website.xml", destination: "/sitemap.xml", permanent: true },
     { source: "/book-now", destination: "/book", permanent: true },
     { source: "/schedule", destination: "/book", permanent: true },
-    { source: "/your-care-team", destination: "/meet-the-team", permanent: true },
+    { source: "/your-care-team", destination: "/providers", permanent: true },
+    { source: "/meet-the-team", destination: "/providers", permanent: true },
     // GoDaddy legacy URLs (hellogorgeousmedspa.com)
     { source: "/home", destination: "/", permanent: true },
     { source: "/about-1", destination: "/about", permanent: true },
