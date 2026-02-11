@@ -110,7 +110,7 @@ export function ReviewsList() {
                       <span className="text-xs text-gray-500">Verified client review</span>
                     )}
                     {r.source === "fresha_legacy" && (
-                      <span className="text-xs text-gray-500">Legacy review</span>
+                      <span className="text-xs text-gray-500">Imported review</span>
                     )}
                   </div>
                   <p className="text-gray-200 leading-relaxed">{r.review_text}</p>

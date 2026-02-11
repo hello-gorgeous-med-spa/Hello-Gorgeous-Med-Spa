@@ -149,7 +149,7 @@ export default function SMSCampaignPage() {
           <div>
             <h2 className="text-xl font-bold">You're Saving BIG on SMS</h2>
             <p className="text-green-100 mt-1">
-              Fresha: $150 per blast → <strong>You: ~${estimatedCost?.smsCost || '12'}</strong>
+              Typical platforms: ~$150 per blast → <strong>You: ~${estimatedCost?.smsCost || '12'}</strong>
             </p>
           </div>
           <div className="text-right">
@@ -324,7 +324,7 @@ export default function SMSCampaignPage() {
                 </div>
                 <div className="border-t pt-3">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">vs Fresha</span>
+                    <span className="text-gray-500">vs typical platforms</span>
                     <span className="font-medium text-green-600">
                       Save ${(150 - parseFloat(estimatedCost.smsCost.replace('$', ''))).toFixed(0)}
                     </span>

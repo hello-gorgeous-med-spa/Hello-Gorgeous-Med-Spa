@@ -533,7 +533,7 @@ export default function NewCampaignPage() {
               <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200">
                 <h3 className="font-semibold text-green-800 mb-2">💰 Cost Savings</h3>
                 <p className="text-sm text-green-700">
-                  This campaign would cost ~$50-100+ on Fresha. 
+                  This campaign would cost ~$50-100+ on other platforms. 
                   <strong className="block mt-1">You pay: $0</strong>
                 </p>
               </div>

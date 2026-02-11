@@ -1,6 +1,6 @@
 # Booking System — Production Ready
 
-**Status:** Booking system verified for daily production use.  
+**Status:** Booking system verified for daily production use. **Officially separated from Fresha** — all booking and POS are first-party only.  
 **Single source of truth:** HG website + AI receptionist + provider calendar. Fresha is not used for new bookings.
 
 ---

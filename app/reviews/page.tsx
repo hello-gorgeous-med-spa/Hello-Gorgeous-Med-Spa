@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 
 import { ReviewsList } from "@/components/ReviewsList";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
-import { BOOKING_URL, REVIEWS_URL } from "@/lib/flows";
+import { BOOKING_URL } from "@/lib/flows";
 import { pageMetadata } from "@/lib/seo";
+
+const GOOGLE_REVIEW_URL = "https://g.page/r/CYQOWmT_HcwQEBM/review";
 
 export const metadata: Metadata = pageMetadata({
   title: "Reviews",
-  description: `See what clients say about Hello Gorgeous Med Spa. Read our reviews or leave one after your visit. Oswego, Naperville, Aurora & surrounding areas.`,
+  description: `See what clients say about Hello Gorgeous Med Spa. Read our reviews or leave one on Google after your visit. Oswego, Naperville, Aurora & surrounding areas.`,
   path: "/reviews",
 });
 
 export default function ReviewsPage() {
-  const absoluteReviewsUrl =
-    REVIEWS_URL.startsWith("http") ? REVIEWS_URL : `${process.env.NEXT_PUBLIC_BASE_URL || "https://www.hellogorgeousmedspa.com"}${REVIEWS_URL}`;
-  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(absoluteReviewsUrl)}`;
 
   return (
     <>
@@ -31,7 +31,7 @@ export default function ReviewsPage() {
             </h1>
             <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">
               We’re proud of what our clients say. Read their feedback below or leave one
-              after your visit—your voice helps others in Oswego, Naperville, Aurora, and
+              on Google after your visit—your voice helps others in Oswego, Naperville, Aurora, and
               the surrounding area find us.
             </p>
           </FadeUp>
@@ -41,6 +41,9 @@ export default function ReviewsPage() {
       <Section>
         <FadeUp>
           <h2 className="text-2xl font-bold text-white mb-6">Client feedback</h2>
+          <p className="text-gray-400 text-sm mb-4">
+            Reviews from our database—including past feedback we've preserved. Updated live.
+          </p>
           <ReviewsList />
         </FadeUp>
       </Section>
@@ -50,32 +53,24 @@ export default function ReviewsPage() {
           <FadeUp>
             <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-8">
               <h2 className="text-2xl font-bold text-white mb-4">
-                Our reviews
+                Leave a Google review
               </h2>
               <p className="text-gray-300 mb-6">
-                See what clients are saying and leave a review after your appointment. Your
-                feedback helps others find us and means the world to our team.
+                Love your visit? Tell the world on Google. Your review helps others find us
+                and means the world to our team.
               </p>
               <div className="mt-6 flex flex-col sm:flex-row gap-4">
                 <a
-                  href={REVIEWS_URL}
+                  href={GOOGLE_REVIEW_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-full hover:shadow-lg hover:shadow-pink-500/25 transition-all"
                 >
-                  <span>★</span> See our reviews
-                </a>
-                <a
-                  href={REVIEWS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-white/20 text-white font-semibold rounded-full hover:bg-white/5 transition-all"
-                >
-                  Leave a review
+                  <span>★</span> Leave a Google review
                 </a>
               </div>
               <p className="mt-6 text-sm text-gray-500">
-                Same link for reading and leaving reviews. Thank you for supporting our
+                Opens Google so you can rate and write your review. Thank you for supporting our
                 small business!
               </p>
             </div>
@@ -83,19 +78,24 @@ export default function ReviewsPage() {
 
           <FadeUp delayMs={80}>
             <div className="rounded-2xl border border-gray-800 bg-black/40 p-8 text-center">
-              <h3 className="text-xl font-bold text-white mb-2">Scan to open reviews</h3>
+              <h3 className="text-xl font-bold text-white mb-2">Scan to leave a Google review</h3>
               <p className="text-gray-400 text-sm mb-6">
-                Use your phone camera to scan and open our reviews page
+                Use your phone camera to scan—opens our Google review page
               </p>
-              <div className="inline-block p-4 bg-white rounded-2xl">
-                <img
-                  src={qrCodeUrl}
-                  alt="QR code to Hello Gorgeous Med Spa reviews"
+              <a
+                href={GOOGLE_REVIEW_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block p-4 bg-white rounded-2xl hover:opacity-90 transition-opacity"
+              >
+                <Image
+                  src="/images/google-review-qr.png"
+                  alt="QR code to leave a Google review for Hello Gorgeous Med Spa"
                   width={200}
                   height={200}
                   className="rounded-lg"
                 />
-              </div>
+              </a>
             </div>
           </FadeUp>
         </div>
@@ -108,8 +108,8 @@ export default function ReviewsPage() {
               After your appointment
             </h2>
             <p className="text-gray-300">
-              We may send you a follow-up with a direct link to leave a review. You can also
-              use this page or the link above anytime—we appreciate every piece of feedback.
+              We may send you a follow-up with a direct link to leave a Google review. You can also
+              use this page or the QR code above anytime—we appreciate every piece of feedback.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-4">
               <CTA href={BOOKING_URL} variant="gradient">

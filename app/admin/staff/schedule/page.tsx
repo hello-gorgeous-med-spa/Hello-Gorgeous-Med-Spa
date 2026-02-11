@@ -3,18 +3,15 @@
 // ============================================================
 // PROVIDER SCHEDULE EDITOR
 // Set working hours, blocked time, holidays, and closed days
-// Live editable - no placeholders
+// Loads from and saves to API (provider_schedules).
 // ============================================================
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { 
-  ACTIVE_PROVIDERS, 
-  HOLIDAYS_2026, 
-  type Provider, 
-  type BlockedTime, 
+import {
+  HOLIDAYS_2026,
+  type BlockedTime,
   type Holiday,
-  type WeeklySchedule 
 } from '@/lib/hgos/providers';
 
 interface TimeSlot {
@@ -39,6 +36,17 @@ const DAY_LABELS: Record<string, string> = {
   friday: 'Friday',
   saturday: 'Saturday',
   sunday: 'Sunday',
+};
+
+// API uses day_of_week: 0=Sunday, 1=Monday, ..., 6=Saturday
+const DAY_NAME_TO_API_DAY: Record<string, number> = {
+  sunday: 0,
+  monday: 1,
+  tuesday: 2,
+  wednesday: 3,
+  thursday: 4,
+  friday: 5,
+  saturday: 6,
 };
 
 const TIME_OPTIONS = [
@@ -73,41 +81,94 @@ function formatTimeShort(time: string): string {
   return `${displayHours}${minutes > 0 ? ':' + minutes.toString().padStart(2, '0') : ''}${ampm}`;
 }
 
-// Convert Provider schedule to editable format
-function providerToEditable(provider: Provider): EditableSchedule {
+// Build editable schedule from API schedule response
+function apiSchedulesToEditable(
+  providerId: string,
+  apiSchedules: { day_of_week: number; is_working: boolean; start_time: string | null; end_time: string | null }[]
+): EditableSchedule {
   const schedule: Record<string, TimeSlot> = {};
   for (const day of DAYS) {
-    const daySchedule = provider.schedule[day];
+    const apiDay = DAY_NAME_TO_API_DAY[day];
+    const row = apiSchedules?.find((s) => s.day_of_week === apiDay);
+    const isWorking = row?.is_working ?? (day !== 'saturday' && day !== 'sunday');
+    const start = (row?.is_working && row?.start_time) ? row.start_time : '';
+    const end = (row?.is_working && row?.end_time) ? row.end_time : '';
     schedule[day] = {
-      start: daySchedule?.start || '',
-      end: daySchedule?.end || '',
-      isOff: !daySchedule,
-      breaks: daySchedule?.breaks || [],
+      start: start || (isWorking ? '09:00' : ''),
+      end: end || (isWorking ? '17:00' : ''),
+      isOff: !isWorking,
+      breaks: [],
     };
   }
   return {
-    providerId: provider.id,
+    providerId,
     schedule,
     blockedTimes: [],
   };
 }
 
+interface ProviderInfo {
+  id: string;
+  fullName: string;
+  displayName: string;
+  credentials: string;
+  color: string;
+}
+
 export default function ProviderSchedulePage() {
-  // Initialize with real provider data
-  const [schedules, setSchedules] = useState<EditableSchedule[]>(() =>
-    ACTIVE_PROVIDERS.filter(p => p.isActive).map(providerToEditable)
-  );
-  const [selectedProvider, setSelectedProvider] = useState<string>(ACTIVE_PROVIDERS[0].id);
+  const [providers, setProviders] = useState<ProviderInfo[]>([]);
+  const [schedules, setSchedules] = useState<EditableSchedule[]>([]);
+  const [selectedProvider, setSelectedProvider] = useState<string>('');
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
+  const [saved, setSaved] = useState(false);
   const [showBlockModal, setShowBlockModal] = useState(false);
   const [showHolidayModal, setShowHolidayModal] = useState(false);
   const [showClosedDayModal, setShowClosedDayModal] = useState(false);
   const [holidays, setHolidays] = useState<Holiday[]>(HOLIDAYS_2026);
   const [closedDays, setClosedDays] = useState<{ date: string; reason: string }[]>([]);
-  const [saved, setSaved] = useState(false);
   const [activeTab, setActiveTab] = useState<'schedule' | 'blocked' | 'holidays' | 'closed'>('schedule');
 
-  const currentSchedule = schedules.find(s => s.providerId === selectedProvider)!;
-  const currentProvider = ACTIVE_PROVIDERS.find(p => p.id === selectedProvider)!;
+  const currentSchedule = schedules.find((s) => s.providerId === selectedProvider);
+  const currentProvider = providers.find((p) => p.id === selectedProvider);
+
+  // Load providers and their schedules from API
+  const loadSchedules = useCallback(async () => {
+    setLoading(true);
+    try {
+      const provRes = await fetch('/api/providers');
+      const provData = await provRes.json();
+      const list: ProviderInfo[] = (provData.providers || []).map((p: { id: string; first_name?: string; last_name?: string; credentials?: string; color_hex?: string }) => ({
+        id: p.id,
+        fullName: `${p.first_name || ''} ${p.last_name || ''}`.trim() || 'Provider',
+        displayName: `${p.first_name || ''} ${p.last_name || ''}`.trim() || 'Provider',
+        credentials: p.credentials || '',
+        color: p.color_hex || '#ec4899',
+      }));
+      setProviders(list);
+      if (list.length > 0 && !selectedProvider) setSelectedProvider(list[0].id);
+
+      const editable: EditableSchedule[] = [];
+      for (const provider of list) {
+        const res = await fetch(`/api/providers/${provider.id}/schedules`);
+        const data = await res.json();
+        const apiSchedules = data.schedules || [];
+        editable.push(apiSchedulesToEditable(provider.id, apiSchedules));
+      }
+      setSchedules(editable);
+      setSaveError(null);
+    } catch (err) {
+      console.error('Failed to load staff schedules:', err);
+      setSaveError('Failed to load schedules. Please refresh.');
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadSchedules();
+  }, [loadSchedules]);
 
   const updateSchedule = (day: string, field: 'start' | 'end' | 'isOff', value: string | boolean) => {
     setSchedules(schedules.map(s => {
@@ -183,14 +244,47 @@ export default function ProviderSchedulePage() {
     setClosedDays(closedDays.filter(d => d.date !== date));
   };
 
-  const handleSave = () => {
-    // TODO: Save to database
-    console.log('Saving schedules:', schedules);
-    console.log('Saving holidays:', holidays);
-    console.log('Saving closed days:', closedDays);
-    setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+  const handleSave = async () => {
+    setSaveError(null);
+    setSaving(true);
+    try {
+      for (const ed of schedules) {
+        const payload = DAYS.map((day) => {
+          const slot = ed.schedule[day];
+          const isWorking = !slot.isOff;
+          return {
+            day_of_week: DAY_NAME_TO_API_DAY[day],
+            is_working: isWorking,
+            start_time: isWorking && slot.start ? slot.start : null,
+            end_time: isWorking && slot.end ? slot.end : null,
+          };
+        });
+        const res = await fetch(`/api/providers/${ed.providerId}/schedules`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          throw new Error(data.error || `Failed to save schedule for provider ${ed.providerId}`);
+        }
+      }
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    } catch (err) {
+      setSaveError(err instanceof Error ? err.message : 'Failed to save schedules');
+    } finally {
+      setSaving(false);
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[200px]">
+        <div className="w-10 h-10 border-4 border-pink-500 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -203,14 +297,20 @@ export default function ProviderSchedulePage() {
           <h1 className="text-2xl font-bold text-gray-900">Schedule Management</h1>
           <p className="text-gray-500">Working hours, blocked time, holidays & closed days</p>
         </div>
-        <button
-          onClick={handleSave}
-          className={`px-6 py-2 font-medium rounded-lg transition-colors ${
-            saved ? 'bg-green-500 text-white' : 'bg-pink-500 text-white hover:bg-pink-600'
-          }`}
-        >
-          {saved ? '✓ Saved!' : 'Save All Changes'}
-        </button>
+        <div className="flex flex-col items-end gap-1">
+          {saveError && (
+            <p className="text-sm text-red-600">{saveError}</p>
+          )}
+          <button
+            onClick={handleSave}
+            disabled={saving || schedules.length === 0}
+            className={`px-6 py-2 font-medium rounded-lg transition-colors ${
+              saved ? 'bg-green-500 text-white' : 'bg-pink-500 text-white hover:bg-pink-600 disabled:opacity-50'
+            }`}
+          >
+            {saving ? 'Saving…' : saved ? '✓ Saved!' : 'Save All Changes'}
+          </button>
+        </div>
       </div>
 
       {/* Tabs */}
@@ -241,7 +341,7 @@ export default function ProviderSchedulePage() {
           <div className="flex items-center gap-4">
             <label className="text-sm font-medium text-gray-700">Select Provider:</label>
             <div className="flex gap-2">
-              {ACTIVE_PROVIDERS.filter(p => p.isActive).map(provider => (
+              {providers.map((provider) => (
                 <button
                   key={provider.id}
                   onClick={() => setSelectedProvider(provider.id)}
@@ -251,11 +351,11 @@ export default function ProviderSchedulePage() {
                       : 'border-gray-200 hover:bg-gray-50'
                   }`}
                 >
-                  <div 
+                  <div
                     className="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-medium"
                     style={{ backgroundColor: provider.color }}
                   >
-                    {provider.firstName[0]}{provider.lastName[0]}
+                    {provider.fullName.split(/\s+/).map((n) => n[0]).join('').slice(0, 2).toUpperCase()}
                   </div>
                   <div className="text-left">
                     <p className="font-medium">{provider.fullName}</p>
@@ -269,7 +369,7 @@ export default function ProviderSchedulePage() {
       )}
 
       {/* Weekly Schedule Tab */}
-      {activeTab === 'schedule' && currentSchedule && (
+      {activeTab === 'schedule' && currentSchedule && currentProvider && (
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
           <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
             <div>
@@ -341,7 +441,7 @@ export default function ProviderSchedulePage() {
       )}
 
       {/* Blocked Time Tab */}
-      {activeTab === 'blocked' && currentSchedule && (
+      {activeTab === 'blocked' && currentSchedule && currentProvider && (
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
           <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
             <div>
@@ -517,17 +617,18 @@ export default function ProviderSchedulePage() {
       <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl border border-blue-100 p-6">
         <h3 className="font-semibold text-gray-900 mb-4">📅 All Providers - This Week</h3>
         <div className="space-y-4">
-          {ACTIVE_PROVIDERS.filter(p => p.isActive).map(provider => {
-            const schedule = schedules.find(s => s.providerId === provider.id);
+          {providers.map((provider) => {
+            const schedule = schedules.find((s) => s.providerId === provider.id);
             if (!schedule) return null;
+            const initials = provider.fullName.split(/\s+/).map((n) => n[0]).join('').slice(0, 2).toUpperCase();
             return (
               <div key={provider.id} className="bg-white rounded-lg p-4">
                 <div className="flex items-center gap-2 mb-3">
-                  <div 
+                  <div
                     className="w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-medium"
                     style={{ backgroundColor: provider.color }}
                   >
-                    {provider.firstName[0]}{provider.lastName[0]}
+                    {initials}
                   </div>
                   <span className="font-medium text-gray-900">{provider.displayName}</span>
                 </div>
@@ -558,7 +659,7 @@ export default function ProviderSchedulePage() {
       {showBlockModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Block Time for {currentProvider.displayName}</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-4">Block Time for {currentProvider?.displayName ?? 'Provider'}</h2>
             <form onSubmit={(e) => {
               e.preventDefault();
               const form = e.target as HTMLFormElement;
