@@ -33,7 +33,7 @@ export function Hero({
     return () => clearTimeout(t);
   }, []);
 
-  // Render headline with subtle pink underline under "Trusted"
+  // Render headline with animated pink underline under "Trusted"
   const renderHeadline = () => {
     if (!headline.includes("Trusted")) {
       return <>{headline}</>;
@@ -45,7 +45,7 @@ export function Hero({
         <span className="relative inline-block">
           Trusted
           <span
-            className="absolute bottom-0.5 left-0 right-0 h-0.5 bg-pink-500/80"
+            className="hero-trusted-underline absolute -bottom-1 left-0 right-0"
             aria-hidden
           />
         </span>
@@ -54,48 +54,113 @@ export function Hero({
     );
   };
 
+  // Split slogan: "Medical Experts." white, "Real Results." pink gradient
+  const renderSlogan = () => {
+    const s = subheadline || "";
+    const idx = s.indexOf("Real Results");
+    if (idx === -1) return <span className="text-white">{s}</span>;
+    return (
+      <>
+        <span className="text-white">{s.slice(0, idx).trim()}</span>
+        <span className="hero-slogan-gradient">{s.slice(idx)}</span>
+      </>
+    );
+  };
+
   return (
-    <section
-      className={`overflow-hidden transition-opacity duration-[400ms] ${
-        mounted ? "opacity-100" : "opacity-0"
-      }`}
-    >
-      <div className="mx-auto max-w-[1440px] px-10 py-20">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          {/* Text column - second on mobile, first on desktop */}
-          <div className="order-2 flex flex-col text-center lg:order-1 lg:text-left">
-            <h1 className="text-3xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-5xl">
+    <section className="relative min-h-[85vh] w-full overflow-hidden sm:min-h-[90vh]">
+      {/* Full-width background image */}
+      <div className="absolute inset-0">
+        <Image
+          src={imageSrc}
+          alt="Hello Gorgeous Med Spa - Medical aesthetics in Oswego, IL"
+          fill
+          priority
+          className="object-cover object-[30%_center] md:object-[25%_center]"
+          sizes="100vw"
+        />
+      </div>
+
+      {/* Soft gradient overlay - left dark, fading to transparent right. NO full black wash. */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.45) 35%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0) 100%)",
+        }}
+        aria-hidden
+      />
+
+      {/* Ambient pink glow behind text block */}
+      <div
+        className="absolute left-0 top-1/2 h-[70%] w-[80%] max-w-2xl -translate-y-1/2"
+        style={{
+          background: "radial-gradient(circle at 20% 40%, rgba(255,47,146,0.15), transparent 60%)",
+          pointerEvents: "none",
+        }}
+        aria-hidden
+      />
+
+      {/* Content - left-aligned, vertical center */}
+      <div className="relative flex min-h-[85vh] items-center sm:min-h-[90vh]">
+        <div className="w-full max-w-4xl px-6 py-16 sm:px-10 md:px-12 lg:px-16">
+          <div className="max-w-2xl">
+            {/* Headline - fades in 0.4s */}
+            <h1
+              className={`font-extrabold leading-[1.1] text-white transition-all duration-[400ms] ease-out ${
+                mounted ? "opacity-100" : "opacity-0"
+              }`}
+              style={{
+                fontSize: "clamp(2rem, 5vw, 3.75rem)",
+                letterSpacing: "-0.02em",
+              }}
+            >
               {renderHeadline()}
             </h1>
-            <p className="mt-6 text-xl text-gray-600">{subheadline}</p>
-            <p className="mt-2 text-base text-gray-500 md:text-lg">{DEFAULT_SUBTEXT}</p>
-            <div className="mt-8 flex flex-wrap justify-center gap-4 lg:justify-start">
+
+            {/* Slogan - fades + slides up 8px */}
+            <p
+              className={`mt-4 text-xl font-bold transition-all duration-[400ms] ease-out sm:mt-5 sm:text-2xl md:text-3xl ${
+                mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+              }`}
+              style={{ transitionDelay: "100ms" }}
+            >
+              {renderSlogan()}
+            </p>
+
+            {/* Services line */}
+            <p
+              className={`mt-4 font-medium transition-all duration-[400ms] ease-out sm:text-lg md:text-xl ${
+                mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+              }`}
+              style={{
+                color: "rgba(255,255,255,0.85)",
+                transitionDelay: "200ms",
+              }}
+            >
+              {DEFAULT_SUBTEXT}
+            </p>
+
+            {/* CTA Buttons - fade in 0.5s */}
+            <div
+              className={`mt-8 flex flex-col gap-4 transition-all duration-[500ms] ease-out sm:mt-10 sm:flex-row sm:gap-5 ${
+                mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+              }`}
+              style={{ transitionDelay: "300ms" }}
+            >
               <Link
                 href={ctaUrl}
-                className="inline-flex items-center justify-center rounded-full bg-pink-500 px-8 py-3.5 font-semibold text-white shadow-md transition-colors hover:bg-pink-600"
+                className="inline-flex w-full items-center justify-center rounded-full px-8 py-4 font-semibold text-white shadow-lg transition-all hover:bg-[#e91e7a] hover:shadow-[0_0_24px_rgba(255,47,146,0.4)] sm:w-auto"
+                style={{ backgroundColor: "#ff2f92" }}
               >
                 {ctaText}
               </Link>
               <a
                 href="tel:630-636-6193"
-                className="inline-flex items-center justify-center rounded-full border-2 border-gray-900 px-8 py-3.5 font-semibold text-gray-900 transition-colors hover:bg-gray-50"
+                className="inline-flex w-full items-center justify-center rounded-full border-2 border-white px-8 py-4 font-semibold text-white transition-colors hover:bg-white/15 sm:w-auto"
               >
                 Call 630-636-6193
               </a>
-            </div>
-          </div>
-
-          {/* Image column - first on mobile, second on desktop */}
-          <div className="order-1 lg:order-2">
-            <div className="relative aspect-[4/3] overflow-hidden rounded-3xl shadow-xl lg:aspect-square">
-              <Image
-                src={imageSrc}
-                alt="Hello Gorgeous Med Spa - Medical aesthetics in Oswego, IL"
-                fill
-                priority
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
             </div>
           </div>
         </div>
