@@ -68,15 +68,15 @@ export function Hero({
   };
 
   return (
-    <section className="relative h-[min(100vh,900px)] w-full min-w-0 max-w-full overflow-hidden">
-      {/* Full-width background image */}
+    <section className="relative h-[min(75vh,600px)] w-full min-w-0 max-w-full overflow-hidden sm:h-[min(80vh,650px)]">
+      {/* Full-width background image - contained to fit section */}
       <div className="absolute inset-0">
         <Image
           src={imageSrc}
           alt="Hello Gorgeous Med Spa - Medical aesthetics in Oswego, IL"
           fill
           priority
-          className="object-cover object-[30%_center] md:object-[25%_center]"
+          className="object-cover object-center"
           sizes="100vw"
         />
       </div>
