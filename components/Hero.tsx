@@ -68,7 +68,7 @@ export function Hero({
   };
 
   return (
-    <section className="relative min-h-[85vh] w-full overflow-hidden sm:min-h-[90vh]">
+    <section className="relative h-[min(100vh,900px)] w-full overflow-hidden">
       {/* Full-width background image */}
       <div className="absolute inset-0">
         <Image
@@ -102,8 +102,8 @@ export function Hero({
       />
 
       {/* Content - left-aligned, vertical center */}
-      <div className="relative flex min-h-[85vh] items-center sm:min-h-[90vh]">
-        <div className="w-full max-w-4xl px-6 py-16 sm:px-10 md:px-12 lg:px-16">
+      <div className="relative flex h-full min-h-0 items-center">
+        <div className="w-full max-w-4xl px-6 py-10 sm:px-10 sm:py-12 md:px-12 lg:px-16">
           <div className="max-w-2xl">
             {/* Headline - fades in 0.4s */}
             <h1
