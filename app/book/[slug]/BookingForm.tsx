@@ -847,6 +847,16 @@ export default function BookingForm({ service }: Props) {
               >
                 📅 Add to Calendar
               </a>
+
+              <div className="bg-pink-50/80 border border-pink-200 rounded-xl p-4 text-center">
+                <p className="text-sm text-pink-900 mb-2">Add Hello Gorgeous to your home screen for 1-tap booking.</p>
+                <a
+                  href="/get-app"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 transition-colors"
+                >
+                  → Go to /get-app
+                </a>
+              </div>
             </div>
 
             {/* Reminder about policies */}

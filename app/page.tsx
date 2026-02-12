@@ -24,7 +24,6 @@ import { MicroneedlingShowcase } from "@/components/MicroneedlingShowcase";
 import { HOME_FAQS, SITE, faqJsonLd, pageMetadata, siteJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import { getBannerContent } from "@/lib/cms-readers";
 import { HomepageBanner } from "@/components/HomepageBanner";
-import { AuthorityIntro } from "@/components/AuthorityIntro";
 
 export const metadata: Metadata = pageMetadata({
   title: "Botox, Fillers & Weight Loss Med Spa",
@@ -57,7 +56,6 @@ export default async function HomePage() {
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(homeBreadcrumbs)) }}
       />
-      <AuthorityIntro />
       <Hero />
       <HomepageBanner banner={cmsBanner} />
       <FixWhatBothersMeFeature />

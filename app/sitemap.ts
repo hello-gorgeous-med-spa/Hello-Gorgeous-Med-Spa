@@ -23,10 +23,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/reviews`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE.url}/vip`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE.url}/book`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE.url}/get-app`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     
     // About Pages
     { url: `${SITE.url}/about`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE.url}/providers`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE.url}/providers/danielle`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE.url}/providers/ryan`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE.url}/fix-what-bothers-me`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
     { url: `${SITE.url}/explore-care`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE.url}/your-journey`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },

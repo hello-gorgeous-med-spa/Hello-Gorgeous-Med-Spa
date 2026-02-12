@@ -24,8 +24,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Auth not configured' }, { status: 503 });
     }
 
-    const origin = request.headers.get('origin') || request.nextUrl.origin;
-    const redirectTo = `${origin}/auth/callback`;
+    // Prefer canonical app URL for redirect (reliable when called server-side from booking API)
+    const appUrl = (process.env.NEXT_PUBLIC_APP_URL || request.headers.get('origin') || request.nextUrl?.origin || 'https://hellogorgeousmedspa.com').replace(/\/$/, '');
+    const redirectTo = `${appUrl}/auth/callback`;
 
     const { data: linkData, error: linkError } = await admin.auth.admin.generateLink({
       type: 'magiclink',
@@ -51,6 +52,8 @@ export async function POST(request: NextRequest) {
     const fromEmail = process.env.RESEND_FROM_EMAIL || 'Hello Gorgeous <onboarding@resend.dev>';
 
     if (apiKey) {
+      const appUrlBase = process.env.NEXT_PUBLIC_APP_URL || 'https://hellogorgeousmedspa.com';
+      const getAppUrl = `${appUrlBase.replace(/\/$/, '')}/get-app`;
       const res = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: {
@@ -67,14 +70,22 @@ export async function POST(request: NextRequest) {
               <a href="${actionLink}" style="display: inline-block; padding: 12px 24px; background: linear-gradient(to right, #ec4899, #f43f5e); color: white; text-decoration: none; font-weight: 600; border-radius: 9999px;">Access My Client Space</a>
             </p>
             <p style="color: #6b7280; font-size: 14px;">This link is single-use and expires soon. If you did not request it, you can ignore this email.</p>
+            <p style="margin-top: 24px; padding-top: 16px; border-top: 1px solid #e5e7eb; font-size: 14px; color: #374151;">Add Hello Gorgeous to your home screen for 1-tap booking: <a href="${getAppUrl}" style="color: #ec4899; font-weight: 600;">→ Go to get-app</a></p>
           `,
         }),
       });
 
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        console.error('Resend portal invite error:', res.status, err);
+        console.error('[send-portal-invite] Resend error:', res.status, err);
+        return NextResponse.json(
+          { error: 'Failed to send portal invite email', resendError: err },
+          { status: 502 }
+        );
       }
+      console.log('[send-portal-invite] Magic link email sent via Resend to', emailTrimmed);
+    } else {
+      console.warn('[send-portal-invite] RESEND_API_KEY not set - magic link email not sent');
     }
 
     return NextResponse.json({ success: true });

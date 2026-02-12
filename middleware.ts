@@ -84,11 +84,53 @@ export function middleware(request: NextRequest) {
     url.pathname === route || url.pathname.startsWith(`${route}/`)
   );
 
-  // Redirect to /login (client login) if accessing protected route without authentication
+  // Redirect to /login if accessing protected route without authentication
   if (isProtectedRoute && !isAuthenticated) {
     const loginUrl = new URL('/login', request.url);
     loginUrl.searchParams.set('returnTo', url.pathname);
     return NextResponse.redirect(loginUrl);
+  }
+
+  // Role-based access: /admin and /pos require admin-level roles; clients must not access
+  if (isProtectedRoute && isAuthenticated && sessionCookie?.value) {
+    try {
+      const sessionData = JSON.parse(decodeURIComponent(sessionCookie.value));
+      const role = sessionData.role;
+      const adminRoles = ['owner', 'admin', 'staff'];
+
+      // /admin/* — only owner, admin, staff. Redirect clients and providers to /
+      if (pathname === '/admin' || pathname.startsWith('/admin/')) {
+        if (!adminRoles.includes(role)) {
+          return NextResponse.redirect(new URL('/', request.url));
+        }
+      }
+
+      // /pos/* — only owner, admin, staff
+      if (pathname === '/pos' || pathname.startsWith('/pos/')) {
+        if (!adminRoles.includes(role)) {
+          return NextResponse.redirect(new URL('/', request.url));
+        }
+      }
+
+      // /provider/* — owner, admin, staff, provider. Clients cannot access.
+      if (pathname === '/provider' || pathname.startsWith('/provider/')) {
+        if (role === 'client') {
+          return NextResponse.redirect(new URL('/', request.url));
+        }
+      }
+
+      // /portal/* — clients and admin roles (for support). Providers have own area.
+      if (pathname === '/portal' || pathname.startsWith('/portal/')) {
+        if (role === 'provider') {
+          return NextResponse.redirect(new URL('/', request.url));
+        }
+      }
+    } catch {
+      // Invalid session — redirect to login
+      const loginUrl = new URL('/login', request.url);
+      loginUrl.searchParams.set('returnTo', url.pathname);
+      return NextResponse.redirect(loginUrl);
+    }
   }
 
   return NextResponse.next();

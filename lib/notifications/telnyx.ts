@@ -173,12 +173,17 @@ export async function sendAppointmentConfirmationSms(
   clientName: string,
   appointmentDate: string,
   serviceName: string,
-  consentLink?: string
+  consentLink?: string,
+  getAppUrl?: string
 ): Promise<ReturnType<typeof sendSmsTelnyx>> {
   let message = `Hello Gorgeous Med Spa: Hi ${clientName}! Your ${serviceName} appointment is confirmed for ${appointmentDate}.`;
   
   if (consentLink) {
     message += ` Please complete your consent forms: ${consentLink}`;
+  }
+  
+  if (getAppUrl) {
+    message += ` Add Hello Gorgeous to your home screen for 1-tap booking: ${getAppUrl}`;
   }
   
   return sendSmsTelnyx(phone, message);

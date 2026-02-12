@@ -342,8 +342,19 @@ export async function POST(request: NextRequest) {
     } catch (_) {}
     const locationStr = process.env.NEXT_PUBLIC_BUSINESS_LOCATION || 'Oswego, IL';
     try {
-      const smsResult = await sendAppointmentConfirmationSms(phone, clientName, `${confirmationDateStr} with ${providerName}`, serviceName);
-      if (!smsResult.success) {
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://hellogorgeousmedspa.com';
+      const getAppUrl = `${baseUrl}/get-app`;
+      const smsResult = await sendAppointmentConfirmationSms(
+        phone,
+        clientName,
+        `${confirmationDateStr} with ${providerName}`,
+        serviceName,
+        undefined,
+        getAppUrl
+      );
+      if (smsResult.success) {
+        console.log('[booking/create] Client confirmation SMS sent successfully to', phone);
+      } else {
         console.warn('[booking/create] Client confirmation SMS failed', smsResult.error);
       }
     } catch (smsErr) {
@@ -356,7 +367,7 @@ export async function POST(request: NextRequest) {
       const apiKey = process.env.RESEND_API_KEY;
       if (apiKey) {
         try {
-          await fetch('https://api.resend.com/emails', {
+          const ownerRes = await fetch('https://api.resend.com/emails', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
             body: JSON.stringify({
@@ -366,9 +377,17 @@ export async function POST(request: NextRequest) {
               text: `New online booking.\n\nClient: ${firstName} ${lastName}\nService: ${serviceName}\nProvider: ${providerName}\nDate & time: ${confirmationDateStr}\nLocation: ${locationStr}\n\nView in admin calendar.`,
             }),
           });
+          if (ownerRes.ok) {
+            console.log('[booking/create] Owner notification email sent to', ownerEmails);
+          } else {
+            const errBody = await ownerRes.json().catch(() => ({}));
+            console.warn('[booking/create] Owner notification email failed', ownerRes.status, errBody);
+          }
         } catch (emailErr) {
           console.error('[booking/create] Owner notification email error', emailErr);
         }
+      } else {
+        console.warn('[booking/create] RESEND_API_KEY not set - owner notification not sent');
       }
     }
 
@@ -406,14 +425,20 @@ export async function POST(request: NextRequest) {
 
     // 7. Send portal magic link so client can access their space (HIPAA: no PHI in email)
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-      await fetch(`${baseUrl}/api/auth/send-portal-invite`, {
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://hellogorgeousmedspa.com';
+      const inviteRes = await fetch(`${baseUrl}/api/auth/send-portal-invite`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email.toLowerCase() }),
       });
+      const inviteData = await inviteRes.json().catch(() => ({}));
+      if (inviteRes.ok && inviteData.success) {
+        console.log('[booking/create] Portal magic link invite sent to', email);
+      } else {
+        console.warn('[booking/create] Portal invite failed or not sent', inviteRes.status, inviteData);
+      }
     } catch (inviteErr) {
-      console.error('Portal invite send error:', inviteErr);
+      console.error('[booking/create] Portal invite send error:', inviteErr);
     }
 
     return NextResponse.json({
