@@ -159,3 +159,64 @@ Use this as your starting point so marketing and SMS are “set up in one place.
 - [ ] Send test SMS/email from **Marketing Hub** or **SMS Campaigns** to confirm everything works.
 
 For day-to-day use: **docs/manuals/sms-marketing.md** (SMS) and **Marketing Hub** in the app.
+
+---
+
+## 10. Telnyx Architecture & "Forward Only" Clarification
+
+### Architecture: Messaging Profiles (NOT Legacy Connections)
+
+This system uses the **Messaging Profile** architecture — the modern Telnyx approach.
+It does **not** use legacy "Messaging Connections."
+
+- **Messaging Profile Name:** Hello Gorgeous SMS
+- **Webhook URL:** `https://www.hellogorgeousmedspa.com/api/sms/webhook`
+- **Phone Number:** `+13317177545`
+- **Messaging Profile ID:** Set via `TELNYX_MESSAGING_PROFILE_ID` env var
+
+### "Forward Only" in the Numbers view is VOICE ONLY
+
+If the Telnyx Numbers page shows **"Forward only"** in the Connection/Application column,
+this is the **voice routing** status — it does **NOT** affect SMS/MMS delivery.
+
+SMS routing is controlled exclusively by the **Messaging Profile**, not the voice connection.
+This means:
+- "Forward only" label = **voice-only setting, safe to ignore for SMS**
+- SMS sends via the Messaging Profile assigned to the number
+- Webhook receives delivery events at the profile's webhook URL
+
+### Number Configuration Checklist
+
+Under **Numbers → +13317177545**:
+- **Messaging tab:** Must show `Messaging Profile: Hello Gorgeous SMS`, Domestic SMS: Enabled
+- **Voice tab:** Can say "Forward only" or anything else — irrelevant to SMS
+- **Webhook:** Configured in the Messaging Profile, not per-number
+
+### 10DLC Registration (REQUIRED for A2P marketing)
+
+Without 10DLC registration, marketing campaigns **will be filtered or blocked** by carriers.
+Even if all configuration is correct, messages won't reliably deliver without 10DLC.
+
+Steps:
+1. Register brand at `portal.telnyx.com/#/messaging-10dlc/brands`
+2. Create campaign (use case: Marketing)
+3. Assign phone number to campaign
+4. Wait for approval (24-48 hours)
+
+### Debug Test Endpoint
+
+A temporary test route is available at:
+```
+GET /api/debug/telnyx-direct-test?to=+1XXXXXXXXXX
+```
+This bypasses all campaign logic and sends directly via the Telnyx API.
+Returns the full Telnyx response including carrier error codes.
+**Delete this route after testing is complete.**
+
+### Env Vars (all in Vercel)
+
+| Variable | Value | Required |
+|----------|-------|----------|
+| `TELNYX_API_KEY` | Your API key | Yes |
+| `TELNYX_PHONE_NUMBER` | `+13317177545` | Yes |
+| `TELNYX_MESSAGING_PROFILE_ID` | Profile UUID | Yes (for 10DLC) |

@@ -119,7 +119,7 @@
 | Service | Status | Account |
 |---------|--------|---------|
 | Supabase | ✅ Connected | Database & Auth |
-| Telnyx SMS | ✅ Connected | +13317177545 |
+| Telnyx SMS | ✅ Connected | +13317177545 (Messaging Profile architecture, NOT legacy connections) |
 | eFax | ✅ Linked | 6309826014 |
 | Zoho Mail | ✅ Active | hello.gorgeous@hellogorgeousmedspa.com |
 | Stripe | ⏳ Pending | Next step |
