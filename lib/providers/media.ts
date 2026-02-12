@@ -1,5 +1,3 @@
-"use server";
-
 import { randomUUID } from "crypto";
 import { createWriteStream, promises as fs } from "fs";
 import path from "path";

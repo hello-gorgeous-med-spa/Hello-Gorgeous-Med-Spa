@@ -1,5 +1,3 @@
-"use server";
-
 import { NextRequest, NextResponse } from "next/server";
 
 import { getSupabaseAdminClient } from "@/lib/hgos/supabase-admin";

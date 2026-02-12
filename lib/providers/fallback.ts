@@ -1,5 +1,3 @@
-"use server";
-
 import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from "@/lib/provider-credentials";
 
 export type ProviderFallback = {
