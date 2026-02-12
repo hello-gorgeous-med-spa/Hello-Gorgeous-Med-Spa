@@ -217,8 +217,25 @@ export default function PrivacyPolicyPage() {
           </p>
         </section>
 
+        <section id="sms-mobile" className="mb-8 scroll-mt-24">
+          <h2>9. SMS and Mobile Messaging</h2>
+          <p>
+            When you provide your mobile number and opt in to receive text messages, we may send you
+            appointment reminders, treatment updates, and promotional offers via SMS. Message and data
+            rates may apply.
+          </p>
+          <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-pink-500">
+            <p className="font-medium text-gray-900 mb-2">Your mobile information will not be sold or shared with third parties for promotional or marketing purposes.</p>
+            <p className="text-sm text-gray-700 mb-0">
+              We use your phone number only to communicate with you about your appointments and, if you opt in,
+              to send occasional promotional offers from Hello Gorgeous Med Spa. You may opt out at any time
+              by replying STOP to any message.
+            </p>
+          </div>
+        </section>
+
         <section className="mb-8">
-          <h2>9. Third-Party Links</h2>
+          <h2>10. Third-Party Links</h2>
           <p>
             Our website may contain links to third-party websites. We are not responsible for the 
             privacy practices of these sites. We encourage you to review the privacy policies of 
@@ -227,7 +244,7 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section className="mb-8">
-          <h2>10. Children's Privacy</h2>
+          <h2>11. Children's Privacy</h2>
           <p>
             Our services are not intended for individuals under 18 years of age without parental/guardian 
             consent. We do not knowingly collect information from children under 13. If you believe we 
@@ -236,7 +253,7 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section className="mb-8">
-          <h2>11. Breach Notification</h2>
+          <h2>12. Breach Notification</h2>
           <p>
             In the event of a data breach affecting your Protected Health Information, we will notify 
             you in accordance with HIPAA requirements (within 60 days of discovery) and take appropriate 
@@ -245,7 +262,7 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section className="mb-8">
-          <h2>12. Changes to This Policy</h2>
+          <h2>13. Changes to This Policy</h2>
           <p>
             We may update this Privacy Policy from time to time. We will notify you of any material 
             changes by posting the new policy on this page and updating the "Last Updated" date. Your 
@@ -254,7 +271,7 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section className="mb-8">
-          <h2>13. How to File a Complaint</h2>
+          <h2>14. How to File a Complaint</h2>
           <p>
             If you believe your privacy rights have been violated, you may:
           </p>
@@ -268,7 +285,7 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section className="mb-8 p-6 bg-pink-50 rounded-xl">
-          <h2 className="mt-0">14. Contact Information</h2>
+          <h2 className="mt-0">15. Contact Information</h2>
           <p>For questions about this Privacy Policy or to exercise your rights, contact:</p>
           <address className="not-italic">
             <strong>Privacy Officer</strong><br />

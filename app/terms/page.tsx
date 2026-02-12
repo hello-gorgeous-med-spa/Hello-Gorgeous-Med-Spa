@@ -161,8 +161,25 @@ export default function TermsOfServicePage() {
           </p>
         </section>
 
+        <section id="sms-program" className="mb-8 scroll-mt-24">
+          <h2>11. SMS and Text Messaging Program</h2>
+          <p>
+            By opting in to receive text messages from Hello Gorgeous Med Spa, you agree to these program terms:
+          </p>
+          <ul>
+            <li><strong>Consent:</strong> You consent to receive promotional and transactional text messages at the phone number you provided.</li>
+            <li><strong>Frequency:</strong> Message frequency varies. You may receive appointment reminders, treatment updates, and occasional promotional offers.</li>
+            <li><strong>Opt-out:</strong> Reply STOP to any message to unsubscribe at any time. Message and data rates may apply.</li>
+            <li><strong>Support:</strong> Reply HELP for assistance. For questions, contact us at (630) 636-6193 or hello.gorgeous@hellogorgeousmedspa.com.</li>
+            <li><strong>Carriers:</strong> Supported carriers include AT&amp;T, T-Mobile, Verizon, and others. Delivery is not guaranteed.</li>
+          </ul>
+          <p className="mb-0">
+            Our <Link href="/privacy#sms-mobile" className="text-pink-600 underline">Privacy Policy</Link> explains how we use your mobile information. Your mobile information will not be sold or shared with third parties for promotional or marketing purposes.
+          </p>
+        </section>
+
         <section className="mb-8">
-          <h2>11. Privacy</h2>
+          <h2>12. Privacy</h2>
           <p>
             Your privacy is important to us. Please review our <Link href="/privacy" className="text-pink-600 hover:underline">Privacy Policy</Link> for 
             information on how we collect, use, and protect your personal and health information.
@@ -170,7 +187,7 @@ export default function TermsOfServicePage() {
         </section>
 
         <section className="mb-8">
-          <h2>12. Changes to Terms</h2>
+          <h2>13. Changes to Terms</h2>
           <p>
             We reserve the right to modify these terms at any time. Changes will be posted on this page 
             with an updated revision date. Your continued use of our services constitutes acceptance of 
@@ -179,7 +196,7 @@ export default function TermsOfServicePage() {
         </section>
 
         <section className="mb-8">
-          <h2>13. Contact Information</h2>
+          <h2>14. Contact Information</h2>
           <p>
             If you have questions about these Terms of Service, please contact us:
           </p>
@@ -193,7 +210,7 @@ export default function TermsOfServicePage() {
         </section>
 
         <section className="mb-8 p-6 bg-gray-100 rounded-xl">
-          <h2 className="mt-0">14. Governing Law</h2>
+          <h2 className="mt-0">15. Governing Law</h2>
           <p className="mb-0">
             These Terms of Service shall be governed by and construed in accordance with the laws of 
             the State of Illinois, without regard to its conflict of law provisions. Any legal action 

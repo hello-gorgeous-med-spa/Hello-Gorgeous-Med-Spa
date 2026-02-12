@@ -154,7 +154,17 @@ This notice describes how medical information about you may be used and disclose
 
 ---
 
-## 7. Cookies & Tracking
+## 7. SMS and Mobile Messaging
+
+When you provide your mobile number and opt in to receive text messages, we may send you appointment reminders, treatment updates, and promotional offers via SMS. Message and data rates may apply.
+
+**Your mobile information will not be sold or shared with third parties for promotional or marketing purposes.**
+
+We use your phone number only to communicate with you about your appointments and, if you opt in, to send occasional promotional offers from Hello Gorgeous Med Spa. You may opt out at any time by replying STOP to any message.
+
+---
+
+## 8. Cookies & Tracking
 
 Our website uses:
 - **Essential cookies:** Required for functionality
@@ -165,7 +175,7 @@ You can disable cookies in browser settings.
 
 ---
 
-## 8. Third-Party Services
+## 9. Third-Party Services
 
 We use HIPAA-compliant vendors:
 
@@ -179,13 +189,13 @@ We use HIPAA-compliant vendors:
 
 ---
 
-## 9. Children's Privacy
+## 10. Children's Privacy
 
 We do not knowingly collect information from children under 13. Services for minors require parental consent.
 
 ---
 
-## 10. Breach Notification
+## 11. Breach Notification
 
 In case of data breach:
 - We will investigate immediately
@@ -195,7 +205,7 @@ In case of data breach:
 
 ---
 
-## 11. Your Choices
+## 12. Your Choices
 
 ### Marketing Communications
 - Opt out anytime
@@ -211,7 +221,7 @@ In case of data breach:
 
 ---
 
-## 12. California Residents (CCPA)
+## 13. California Residents (CCPA)
 
 Additional rights:
 - Know what data is collected
@@ -223,13 +233,13 @@ We do not sell personal information.
 
 ---
 
-## 13. Changes to This Policy
+## 14. Changes to This Policy
 
 We may update this policy. Changes posted on website with new effective date. Material changes communicated directly.
 
 ---
 
-## 14. Contact Information
+## 15. Contact Information
 
 ### Privacy Officer
 Hello Gorgeous Med Spa  
