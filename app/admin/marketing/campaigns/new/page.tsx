@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   CampaignChannel,
   BlockType,
@@ -16,10 +17,14 @@ import {
 } from '@/lib/hgos/marketing-campaigns';
 
 export default function NewCampaignPage() {
+  const router = useRouter();
   const [step, setStep] = useState<'channel' | 'template' | 'audience' | 'content' | 'review'>('channel');
   const [channel, setChannel] = useState<CampaignChannel | null>(null);
   const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
   const [selectedSegment, setSelectedSegment] = useState('all-clients');
+  
+  // Campaign name
+  const [campaignName, setCampaignName] = useState('');
   
   // Email content state
   const [subject, setSubject] = useState('');
@@ -30,10 +35,91 @@ export default function NewCampaignPage() {
   // SMS content state
   const [smsContent, setSmsContent] = useState('');
   
-  // Audience estimates (mock for now)
-  const audienceEstimates = { email: 2334, sms: 1736, total: 2684 };
+  // Send state
+  const [sending, setSending] = useState(false);
+  const [sendResult, setSendResult] = useState<{
+    success: boolean;
+    message: string;
+    campaignId?: string;
+    emailRecipients?: number;
+    smsRecipients?: number;
+  } | null>(null);
+  const [scheduleDate, setScheduleDate] = useState('');
+  const [showSchedule, setShowSchedule] = useState(false);
+
+  // Real audience counts
+  const [audienceEstimates, setAudienceEstimates] = useState({ email: 0, sms: 0, total: 0 });
+  const [audienceLoading, setAudienceLoading] = useState(true);
+
+  // Fetch real audience counts on mount
+  useEffect(() => {
+    (async () => {
+      try {
+        const res = await fetch('/api/campaigns/audience');
+        if (res.ok) {
+          const data = await res.json();
+          setAudienceEstimates({ email: data.email, sms: data.sms, total: data.total });
+        }
+      } catch {
+        // Keep zeros
+      } finally {
+        setAudienceLoading(false);
+      }
+    })();
+  }, []);
   
   const smsValidation = validateSMS(smsContent);
+
+  // ---- SEND CAMPAIGN ----
+  const handleSend = useCallback(async (schedule?: string) => {
+    if (!channel) return;
+
+    // Generate email HTML from blocks
+    const emailHtml = (channel === 'email' || channel === 'multichannel')
+      ? generateEmailHTML({ theme, blocks })
+      : undefined;
+
+    const name = campaignName || `${channel} campaign - ${new Date().toLocaleDateString()}`;
+
+    setSending(true);
+    setSendResult(null);
+
+    try {
+      const res = await fetch('/api/campaigns/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name,
+          channel,
+          subject: subject || undefined,
+          previewText: previewText || undefined,
+          emailHtml,
+          smsContent: (channel === 'sms' || channel === 'multichannel') ? smsContent : undefined,
+          audienceSegment: selectedSegment,
+          schedule: schedule || undefined,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setSendResult({ success: false, message: data.error || 'Failed to send campaign' });
+        return;
+      }
+
+      setSendResult({
+        success: true,
+        message: data.message || (schedule ? `Campaign scheduled for ${new Date(schedule).toLocaleString()}` : 'Campaign is sending!'),
+        campaignId: data.campaignId,
+        emailRecipients: data.emailRecipients,
+        smsRecipients: data.smsRecipients,
+      });
+    } catch (err: any) {
+      setSendResult({ success: false, message: err.message || 'Network error' });
+    } finally {
+      setSending(false);
+    }
+  }, [channel, theme, blocks, campaignName, subject, previewText, smsContent, selectedSegment]);
 
   // Add block to email
   const addBlock = (type: BlockType) => {
@@ -562,47 +648,171 @@ export default function NewCampaignPage() {
             <h2 className="text-2xl font-bold text-gray-900 mb-2">Review & Send</h2>
             <p className="text-gray-500 mb-8">Double-check everything before sending</p>
 
+            {/* Success Result */}
+            {sendResult?.success && (
+              <div className="bg-green-50 border border-green-300 rounded-xl p-6 mb-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center text-white text-xl">✓</div>
+                  <h3 className="text-lg font-bold text-green-800">Campaign Launched!</h3>
+                </div>
+                <p className="text-green-700 mb-3">{sendResult.message}</p>
+                {sendResult.emailRecipients !== undefined && sendResult.emailRecipients > 0 && (
+                  <p className="text-sm text-green-600">Emails: Sending to {sendResult.emailRecipients.toLocaleString()} recipients</p>
+                )}
+                {sendResult.smsRecipients !== undefined && sendResult.smsRecipients > 0 && (
+                  <p className="text-sm text-green-600">SMS: Sending to {sendResult.smsRecipients.toLocaleString()} recipients (rate: ~2/min)</p>
+                )}
+                <div className="mt-4 flex gap-3">
+                  <Link
+                    href="/admin/marketing"
+                    className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 text-sm font-medium"
+                  >
+                    Back to Marketing Hub
+                  </Link>
+                  <button
+                    onClick={() => {
+                      setSendResult(null);
+                      setStep('channel');
+                      setChannel(null);
+                      setBlocks([]);
+                      setSmsContent('');
+                      setSubject('');
+                      setCampaignName('');
+                    }}
+                    className="px-4 py-2 border border-green-600 text-green-700 rounded-lg hover:bg-green-50 text-sm"
+                  >
+                    Create Another Campaign
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* Error Result */}
+            {sendResult && !sendResult.success && (
+              <div className="bg-red-50 border border-red-300 rounded-xl p-6 mb-6">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-10 h-10 bg-red-500 rounded-full flex items-center justify-center text-white text-xl">!</div>
+                  <h3 className="text-lg font-bold text-red-800">Send Failed</h3>
+                </div>
+                <p className="text-red-700">{sendResult.message}</p>
+                <button
+                  onClick={() => setSendResult(null)}
+                  className="mt-3 text-sm text-red-600 hover:text-red-800 underline"
+                >
+                  Dismiss
+                </button>
+              </div>
+            )}
+
+            {/* Campaign Name */}
+            <div className="bg-white rounded-xl p-6 mb-4">
+              <label className="block text-sm font-medium text-gray-700 mb-1">Campaign Name</label>
+              <input
+                type="text"
+                value={campaignName}
+                onChange={(e) => setCampaignName(e.target.value)}
+                placeholder={`${channel || 'email'} campaign - ${new Date().toLocaleDateString()}`}
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+              />
+              <p className="text-xs text-gray-400 mt-1">Internal name to identify this campaign in your history</p>
+            </div>
+
             <div className="bg-white rounded-xl p-6 space-y-4">
               <div className="flex justify-between py-3 border-b">
                 <span className="text-gray-500">Campaign Type</span>
                 <span className="font-medium capitalize">{channel}</span>
               </div>
-              <div className="flex justify-between py-3 border-b">
-                <span className="text-gray-500">Subject</span>
-                <span className="font-medium">{subject || 'Not set'}</span>
-              </div>
+              {(channel === 'email' || channel === 'multichannel') && (
+                <div className="flex justify-between py-3 border-b">
+                  <span className="text-gray-500">Subject</span>
+                  <span className="font-medium">{subject || 'Not set'}</span>
+                </div>
+              )}
               <div className="flex justify-between py-3 border-b">
                 <span className="text-gray-500">Audience</span>
                 <span className="font-medium">{AUDIENCE_SEGMENTS.find(s => s.id === selectedSegment)?.name}</span>
               </div>
               <div className="flex justify-between py-3 border-b">
-                <span className="text-gray-500">Recipients</span>
+                <span className="text-gray-500">Est. Recipients</span>
                 <span className="font-medium text-pink-600">
                   {channel === 'email' ? audienceEstimates.email.toLocaleString() :
                    channel === 'sms' ? audienceEstimates.sms.toLocaleString() :
                    audienceEstimates.total.toLocaleString()} clients
                 </span>
               </div>
+              {(channel === 'sms' || channel === 'multichannel') && (
+                <div className="flex justify-between py-3 border-b">
+                  <span className="text-gray-500">SMS Cost Estimate</span>
+                  <span className="font-medium text-gray-700">
+                    ~${(audienceEstimates.sms * 0.004).toFixed(2)} ({audienceEstimates.sms} texts)
+                  </span>
+                </div>
+              )}
               <div className="flex justify-between py-3">
-                <span className="text-gray-500">Estimated Cost</span>
-                <span className="font-bold text-green-600">FREE ✓</span>
+                <span className="text-gray-500">Email Cost</span>
+                <span className="font-bold text-green-600">FREE (Resend) ✓</span>
               </div>
             </div>
 
-            <div className="mt-8 flex gap-4">
-              <button 
-                onClick={() => setStep('content')}
-                className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
-              >
-                ← Edit Content
-              </button>
-              <button className="flex-1 px-6 py-3 border border-pink-500 text-pink-600 rounded-lg hover:bg-pink-50">
-                Schedule for Later
-              </button>
-              <button className="flex-1 px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-lg hover:from-pink-600 hover:to-rose-600">
-                Send Now 🚀
-              </button>
-            </div>
+            {/* Schedule option */}
+            {showSchedule && (
+              <div className="bg-white rounded-xl p-6 mt-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">Schedule Send Date & Time</label>
+                <input
+                  type="datetime-local"
+                  value={scheduleDate}
+                  onChange={(e) => setScheduleDate(e.target.value)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  min={new Date().toISOString().slice(0, 16)}
+                />
+                <div className="flex gap-3 mt-4">
+                  <button
+                    onClick={() => setShowSchedule(false)}
+                    className="px-4 py-2 text-gray-600 hover:text-gray-800 border rounded-lg text-sm"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    disabled={!scheduleDate || sending}
+                    onClick={() => handleSend(new Date(scheduleDate).toISOString())}
+                    className="flex-1 px-6 py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-semibold rounded-lg hover:from-purple-600 hover:to-indigo-600 disabled:opacity-50"
+                  >
+                    {sending ? 'Scheduling...' : 'Confirm Schedule'}
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {!sendResult?.success && (
+              <div className="mt-8 flex gap-4">
+                <button 
+                  onClick={() => setStep('content')}
+                  disabled={sending}
+                  className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 disabled:opacity-50"
+                >
+                  ← Edit Content
+                </button>
+                <button
+                  onClick={() => setShowSchedule(!showSchedule)}
+                  disabled={sending}
+                  className="flex-1 px-6 py-3 border border-pink-500 text-pink-600 rounded-lg hover:bg-pink-50 disabled:opacity-50"
+                >
+                  Schedule for Later
+                </button>
+                <button
+                  disabled={sending}
+                  onClick={() => handleSend()}
+                  className="flex-1 px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-lg hover:from-pink-600 hover:to-rose-600 disabled:opacity-50 flex items-center justify-center gap-2"
+                >
+                  {sending ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"/></svg>
+                      Sending...
+                    </>
+                  ) : 'Send Now 🚀'}
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

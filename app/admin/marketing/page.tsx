@@ -1,202 +1,224 @@
 'use client';
 
 // ============================================================
-// MARKETING HUB — In-house SMS & campaign management
-// Everything runs here; no need to hire an agency or outside partner
+// MARKETING HUB — Email & SMS Campaigns
+// Just like Fresha: pick channel, write message, hit send
 // ============================================================
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
-const TIERS = [
-  {
-    id: 'tier1',
-    title: 'Tier 1: Basic SMS Blast',
-    description: 'Send text campaigns to all clients with SMS opt-in or a custom list. Quick templates, low cost per message.',
-    href: '/admin/sms',
-    cta: 'Send SMS Campaign',
-    icon: '📱',
-  },
-  {
-    id: 'tier2',
-    title: 'Tier 2: Premium SMS + Images',
-    description: 'Same as Basic plus MMS: attach a promo image or graphic to your message for higher engagement.',
-    href: '/admin/sms',
-    cta: 'Send MMS Campaign',
-    icon: '🖼️',
-  },
-  {
-    id: 'tier3',
-    title: 'Tier 3: Full Service Campaign',
-    description: 'Automations, segments, templates, and ROI tracking. Reminders, birthdays, win-backs, and one-off blasts.',
-    href: '/admin/marketing/automation',
-    cta: 'Open Campaigns & Automation',
-    icon: '⚡',
-  },
-  {
-    id: 'tier4',
-    title: 'Tier 4: Contact Collection',
-    description: 'Build your list: import CSV, share sign-up link, manage preferences. Contacts feed into SMS and email.',
-    href: '/admin/marketing/contacts',
-    cta: 'Manage Contacts',
-    icon: '📋',
-  },
-];
+interface CampaignRow {
+  id: string;
+  name: string;
+  channel: string;
+  status: string;
+  total_recipients: number;
+  email_sent: number;
+  sms_sent: number;
+  sms_failed: number;
+  created_at: string;
+  completed_at: string | null;
+}
 
 export default function MarketingHubPage() {
-  const [expandedTier, setExpandedTier] = useState<string | null>(TIERS[0].id);
   const [stats, setStats] = useState<{
     smsOptInCount: number;
     totalWithPhone: number;
     totalClients: number;
     optInRate: string;
   } | null>(null);
+  const [audience, setAudience] = useState<{ email: number; sms: number; total: number } | null>(null);
+  const [campaigns, setCampaigns] = useState<CampaignRow[]>([]);
+  const [loadingCampaigns, setLoadingCampaigns] = useState(true);
 
   useEffect(() => {
-    async function fetchStats() {
-      try {
-        const res = await fetch('/api/sms/stats');
-        if (res.ok) {
-          const data = await res.json();
-          setStats(data);
-        }
-      } catch (err) {
-        console.error('Failed to fetch SMS stats:', err);
+    // Fetch all stats in parallel
+    Promise.allSettled([
+      fetch('/api/sms/stats').then(r => r.ok ? r.json() : null),
+      fetch('/api/campaigns/audience').then(r => r.ok ? r.json() : null),
+      fetch('/api/campaigns').then(r => r.ok ? r.json() : null),
+    ]).then(([smsResult, audienceResult, campaignsResult]) => {
+      if (smsResult.status === 'fulfilled' && smsResult.value) setStats(smsResult.value);
+      if (audienceResult.status === 'fulfilled' && audienceResult.value) setAudience(audienceResult.value);
+      if (campaignsResult.status === 'fulfilled' && campaignsResult.value) {
+        setCampaigns(campaignsResult.value.campaigns || []);
       }
-    }
-    fetchStats();
+      setLoadingCampaigns(false);
+    });
   }, []);
 
+  const statusColor = (s: string) => {
+    switch (s) {
+      case 'sent': return 'bg-green-100 text-green-700';
+      case 'sending': return 'bg-blue-100 text-blue-700';
+      case 'scheduled': return 'bg-purple-100 text-purple-700';
+      case 'draft': return 'bg-gray-100 text-gray-600';
+      case 'failed': return 'bg-red-100 text-red-700';
+      default: return 'bg-gray-100 text-gray-600';
+    }
+  };
+
+  const channelIcon = (ch: string) => {
+    switch (ch) {
+      case 'email': return '📧';
+      case 'sms': return '💬';
+      case 'multichannel': return '📣';
+      default: return '📨';
+    }
+  };
+
   return (
-    <div className="min-h-[calc(100vh-56px)] flex flex-col">
-      {/* Hero — dark navy, value prop + Hello Gorgeous mascot */}
-      <section className="bg-gradient-to-b from-slate-900 via-slate-800 to-slate-900 text-white px-4 py-12 lg:py-16">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex justify-center mb-6">
-            <Image
-              src="/images/characters/hello-gorgeous-mascot.png"
-              alt="Hello Gorgeous"
-              width={120}
-              height={120}
-              className="rounded-2xl object-contain drop-shadow-lg"
-              priority
-            />
+    <div className="min-h-[calc(100vh-56px)] bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b">
+        <div className="max-w-6xl mx-auto px-4 py-6 flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900">Marketing Campaigns</h1>
+            <p className="text-gray-500 mt-1">Email & SMS campaigns — just like Fresha, but free.</p>
+          </div>
+          <Link
+            href="/admin/marketing/campaigns/new"
+            className="px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-xl hover:from-pink-600 hover:to-rose-600 shadow-lg shadow-pink-500/25 transition-all"
+          >
+            + Create Campaign
+          </Link>
         </div>
-          <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-amber-300/95 drop-shadow-sm">
-            Hello Gorgeous Marketing
-          </h1>
-          <p className="mt-4 text-lg lg:text-xl text-slate-300 max-w-2xl mx-auto">
-            Run your entire SMS marketing here. Add contacts, write your message, and send—all in this system. No need to hire an agency or outside partner.
-          </p>
-          <p className="mt-3 text-sm text-slate-500">
-            All of this lives in your app. No Boots AI or third-party marketing agency required.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            <Link
-              href="/admin/sms"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-400 text-slate-900 font-semibold hover:bg-amber-300 transition-colors shadow-lg"
-            >
-              🚀 Send SMS Campaign
-            </Link>
-            <Link
-              href="/admin/marketing/contacts"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-amber-400/60 text-amber-300 font-medium hover:bg-amber-400/10 transition-colors"
-            >
-              📋 Contact Collection
-            </Link>
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 py-8">
+        {/* Stats cards */}
+        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+          <div className="bg-white rounded-xl p-4 border">
+            <p className="text-sm text-gray-500">Email Reach</p>
+            <p className="text-2xl font-bold text-gray-900">{audience?.email?.toLocaleString() || '—'}</p>
+            <p className="text-xs text-gray-400">opted-in clients</p>
+          </div>
+          <div className="bg-white rounded-xl p-4 border">
+            <p className="text-sm text-gray-500">SMS Reach</p>
+            <p className="text-2xl font-bold text-gray-900">{audience?.sms?.toLocaleString() || '—'}</p>
+            <p className="text-xs text-gray-400">opted-in clients</p>
+          </div>
+          <div className="bg-white rounded-xl p-4 border">
+            <p className="text-sm text-gray-500">Total Clients</p>
+            <p className="text-2xl font-bold text-gray-900">{stats?.totalClients?.toLocaleString() || '—'}</p>
+          </div>
+          <div className="bg-white rounded-xl p-4 border">
+            <p className="text-sm text-gray-500">SMS Opt-in Rate</p>
+            <p className="text-2xl font-bold text-gray-900">{stats ? `${stats.optInRate}%` : '—'}</p>
+          </div>
+          <div className="bg-white rounded-xl p-4 border">
+            <p className="text-sm text-gray-500">Campaigns Sent</p>
+            <p className="text-2xl font-bold text-gray-900">{campaigns.filter(c => c.status === 'sent' || c.status === 'sending').length}</p>
           </div>
         </div>
-      </section>
 
-      {/* Tiers — accordion on dark */}
-      <section className="flex-1 bg-slate-800 px-4 py-10">
-        <div className="max-w-3xl mx-auto">
-          <h2 className="text-xl font-semibold text-slate-200 mb-6">What you can do</h2>
-          <div className="space-y-0 rounded-xl overflow-hidden border border-slate-600/50 bg-slate-800/80">
-            {TIERS.map((tier) => (
-              <div
-                key={tier.id}
-                className="border-b border-slate-600/50 last:border-0"
+        {/* Quick actions */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <Link
+            href="/admin/marketing/campaigns/new"
+            className="bg-white rounded-xl p-6 border-2 border-dashed border-pink-300 hover:border-pink-500 hover:bg-pink-50 transition-colors text-center group"
+          >
+            <span className="text-3xl block mb-2">📣</span>
+            <h3 className="font-semibold text-gray-900 group-hover:text-pink-600">Create New Campaign</h3>
+            <p className="text-sm text-gray-500 mt-1">Email, SMS, or both</p>
+          </Link>
+          <Link
+            href="/admin/sms"
+            className="bg-white rounded-xl p-6 border hover:border-green-400 hover:bg-green-50 transition-colors text-center group"
+          >
+            <span className="text-3xl block mb-2">💬</span>
+            <h3 className="font-semibold text-gray-900 group-hover:text-green-600">SMS Inbox</h3>
+            <p className="text-sm text-gray-500 mt-1">View conversations & quick send</p>
+          </Link>
+          <Link
+            href="/admin/marketing/contacts"
+            className="bg-white rounded-xl p-6 border hover:border-blue-400 hover:bg-blue-50 transition-colors text-center group"
+          >
+            <span className="text-3xl block mb-2">📋</span>
+            <h3 className="font-semibold text-gray-900 group-hover:text-blue-600">Manage Contacts</h3>
+            <p className="text-sm text-gray-500 mt-1">Import, export, preferences</p>
+          </Link>
+        </div>
+
+        {/* Campaign History */}
+        <div className="bg-white rounded-xl border">
+          <div className="p-4 border-b flex items-center justify-between">
+            <h2 className="font-semibold text-gray-900">Campaign History</h2>
+            <span className="text-sm text-gray-400">{campaigns.length} campaign{campaigns.length !== 1 ? 's' : ''}</span>
+          </div>
+
+          {loadingCampaigns ? (
+            <div className="p-8 text-center text-gray-400">Loading campaigns...</div>
+          ) : campaigns.length === 0 ? (
+            <div className="p-12 text-center">
+              <span className="text-5xl block mb-4">📬</span>
+              <h3 className="text-lg font-semibold text-gray-700 mb-2">No campaigns yet</h3>
+              <p className="text-gray-500 mb-6">Create your first campaign to start reaching your clients.</p>
+              <Link
+                href="/admin/marketing/campaigns/new"
+                className="inline-block px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium rounded-lg hover:from-pink-600 hover:to-rose-600"
               >
-                    <button
-                  onClick={() => setExpandedTier(expandedTier === tier.id ? null : tier.id)}
-                  className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left hover:bg-slate-700/40 transition-colors"
-                >
-                  <span className="text-lg text-slate-100 font-medium flex items-center gap-3">
-                    <span className="text-2xl opacity-90">{tier.icon}</span>
-                    {tier.title}
-                        </span>
-                  <span className="text-slate-400 text-2xl leading-none">
-                    {expandedTier === tier.id ? '−' : '+'}
-                        </span>
-                </button>
-                {expandedTier === tier.id && (
-                  <div className="px-5 pb-5 pt-0">
-                    <p className="text-slate-400 text-sm mb-4">{tier.description}</p>
-                    <Link
-                      href={tier.href}
-                      className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-amber-500 text-slate-900 font-medium text-sm hover:bg-amber-400 transition-colors"
-                    >
-                      {tier.cta} →
-                    </Link>
+                Create Your First Campaign
+              </Link>
+            </div>
+          ) : (
+            <div className="divide-y">
+              {campaigns.map((c) => (
+                <div key={c.id} className="p-4 flex items-center gap-4 hover:bg-gray-50">
+                  <span className="text-2xl">{channelIcon(c.channel)}</span>
+                  <div className="flex-1 min-w-0">
+                    <p className="font-medium text-gray-900 truncate">{c.name}</p>
+                    <p className="text-sm text-gray-500">
+                      {new Date(c.created_at).toLocaleDateString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                        hour: 'numeric',
+                        minute: '2-digit',
+                      })}
+                    </p>
+                  </div>
+                  <span className={`px-2.5 py-1 rounded-full text-xs font-medium capitalize ${statusColor(c.status)}`}>
+                    {c.status}
+                  </span>
+                  <div className="text-right text-sm">
+                    <p className="text-gray-900 font-medium">{c.total_recipients.toLocaleString()} recipients</p>
+                    <p className="text-gray-400">
+                      {c.email_sent > 0 && `${c.email_sent} emails`}
+                      {c.email_sent > 0 && c.sms_sent > 0 && ' + '}
+                      {c.sms_sent > 0 && `${c.sms_sent} SMS`}
+                      {c.sms_failed > 0 && ` (${c.sms_failed} failed)`}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-      )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      {/* Campaign performance — “Client Dashboard” style */}
-      <section className="bg-slate-900 px-4 py-10 border-t border-slate-700">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-xl font-semibold text-slate-200 mb-4">SMS campaign performance</h2>
-          <p className="text-slate-400 text-sm mb-6">
-            View your reach and opt-in stats. Send blasts from SMS Campaigns; track results here.
-          </p>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-slate-800/80 border border-slate-600/50 rounded-xl p-4 text-center">
-              <p className="text-2xl font-bold text-amber-300">
-                {stats ? stats.smsOptInCount.toLocaleString() : '—'}
-              </p>
-              <p className="text-xs text-slate-400 mt-1">Clients with SMS opt-in</p>
+        {/* Cost comparison */}
+        <div className="mt-8 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 border border-green-200">
+          <h3 className="font-semibold text-green-800 mb-2">Your Savings vs Fresha</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div>
+              <p className="text-green-600 font-medium">Email Campaigns</p>
+              <p className="text-green-800">Resend: First 3,000/month FREE</p>
+              <p className="text-green-500">Then $0.001/email</p>
             </div>
-            <div className="bg-slate-800/80 border border-slate-600/50 rounded-xl p-4 text-center">
-              <p className="text-2xl font-bold text-slate-200">
-                {stats ? stats.totalWithPhone.toLocaleString() : '—'}
-              </p>
-              <p className="text-xs text-slate-400 mt-1">Clients with phone</p>
+            <div>
+              <p className="text-green-600 font-medium">SMS Campaigns</p>
+              <p className="text-green-800">Telnyx: $0.004/text</p>
+              <p className="text-green-500">~${audience?.sms ? (audience.sms * 0.004).toFixed(2) : '7'} per campaign</p>
             </div>
-            <div className="bg-slate-800/80 border border-slate-600/50 rounded-xl p-4 text-center">
-              <p className="text-2xl font-bold text-slate-200">
-                {stats ? stats.totalClients.toLocaleString() : '—'}
-              </p>
-              <p className="text-xs text-slate-400 mt-1">Total clients</p>
+            <div>
+              <p className="text-green-600 font-medium">Fresha Equivalent</p>
+              <p className="text-green-800 line-through">$50-100+ per campaign</p>
+              <p className="text-green-700 font-bold">You save ~$50-90/campaign</p>
             </div>
-            <div className="bg-slate-800/80 border border-slate-600/50 rounded-xl p-4 text-center">
-              <p className="text-2xl font-bold text-slate-200">
-                {stats ? `${stats.optInRate}%` : '—'}
-              </p>
-              <p className="text-xs text-slate-400 mt-1">SMS opt-in rate</p>
-            </div>
-          </div>
-          <div className="mt-6 flex flex-wrap gap-3">
-            <Link
-              href="/admin/sms"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-amber-500 text-slate-900 font-medium text-sm hover:bg-amber-400 transition-colors"
-            >
-              Send campaign
-            </Link>
-            <Link
-              href="/admin/marketing/automation"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl border border-slate-500 text-slate-300 text-sm hover:bg-slate-700/50 transition-colors"
-            >
-              Campaigns & automation
-            </Link>
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 }

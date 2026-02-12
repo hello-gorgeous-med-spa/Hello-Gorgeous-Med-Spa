@@ -239,7 +239,7 @@ export interface CampaignTemplate {
   channel: CampaignChannel;
   subject?: string;
   previewText?: string;
-  content: EmailContent;
+  content?: EmailContent;
   smsContent?: string;
 }
 
