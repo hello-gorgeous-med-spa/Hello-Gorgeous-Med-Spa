@@ -55,8 +55,8 @@ export function ConditionalLayout({
       <div className="bg-black text-white">
         <ImmediateCareStrip />
         <Header />
-        <main className="pt-16">
-          <div className="min-h-screen bg-black text-white overflow-x-hidden pb-20 md:pb-0">
+        <main className="pt-16 w-full min-w-0 overflow-x-hidden">
+          <div className="min-h-screen w-full max-w-full min-w-0 bg-black text-white overflow-x-hidden pb-20 md:pb-0">
             {children}
             <Footer siteSettings={siteSettings} />
           </div>
