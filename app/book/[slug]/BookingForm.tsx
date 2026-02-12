@@ -727,10 +727,14 @@ export default function BookingForm({ service }: Props) {
                     type="checkbox"
                     checked={formData.agreeToSMS}
                     onChange={(e) => updateField('agreeToSMS', e.target.checked)}
-                    className="mt-1 w-4 h-4 text-pink-500 border-gray-300 rounded focus:ring-pink-500"
+                    className="mt-1 w-4 h-4 text-pink-500 border-gray-300 rounded focus:ring-pink-500 shrink-0"
                   />
                   <span className="text-sm text-gray-600">
-                    Send me appointment reminders via text message
+                    I consent to receive recurring automated text messages (appointment reminders, confirmations, and promotional offers) at the phone number provided. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase. View our{' '}
+                    <a href="/privacy#sms-communications-policy" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:underline font-medium">
+                      SMS Communications Policy
+                    </a>
+                    .
                   </span>
                 </label>
                 <label className="flex items-start gap-3 cursor-pointer">

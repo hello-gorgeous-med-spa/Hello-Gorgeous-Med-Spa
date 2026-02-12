@@ -234,6 +234,59 @@ export default function PrivacyPolicyPage() {
           </div>
         </section>
 
+        <section id="sms-communications-policy" className="mb-8 scroll-mt-24 p-6 bg-pink-50 rounded-xl border-2 border-pink-200">
+          <h2 className="text-2xl font-bold text-gray-900 mt-0">📱 SMS Communications Policy</h2>
+          
+          <h3 className="text-lg font-semibold text-gray-900 mt-6">SMS Consent &amp; Opt-In</h3>
+          <p>
+            By providing your mobile phone number and affirmatively opting in, you consent to receive text messages from Hello Gorgeous Med Spa related to:
+          </p>
+          <ul>
+            <li>Appointment reminders</li>
+            <li>Appointment confirmations</li>
+            <li>Post-treatment follow-ups</li>
+            <li>Account notifications</li>
+            <li>Promotional offers and announcements</li>
+          </ul>
+          <p>Message frequency may vary based on your interaction with our services.</p>
+          <p><strong>Message and data rates may apply.</strong></p>
+          <p><strong>Consent to receive SMS messages is not a condition of purchase.</strong></p>
+
+          <h4 className="font-semibold text-gray-900 mt-4">You may opt in by:</h4>
+          <ul>
+            <li>Checking the SMS consent box during booking</li>
+            <li>Submitting an online intake form that includes SMS consent language</li>
+            <li>Signing a physical intake form with SMS authorization</li>
+            <li>Verbally consenting and confirming via text</li>
+          </ul>
+
+          <h3 className="text-lg font-semibold text-gray-900 mt-6">Opt-Out Instructions</h3>
+          <p>
+            You may opt out of SMS communications at any time by replying: <strong>STOP</strong> or <strong>UNSUBSCRIBE</strong>.
+          </p>
+          <p>After opting out, you will receive a final confirmation message confirming your removal from our messaging list.</p>
+
+          <h3 className="text-lg font-semibold text-gray-900 mt-6">Help Instructions</h3>
+          <p>For assistance, reply <strong>HELP</strong> or contact us directly at:</p>
+          <p className="mb-0">
+            📞 (630) 636-6193<br />
+            📧 hello.gorgeous@hellogorgeousmedspa.com
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-900 mt-6">Data Usage &amp; Privacy Commitment</h3>
+          <p>
+            We respect your privacy. <strong>Your mobile information will not be sold, rented, or shared with third parties for promotional or marketing purposes.</strong> We may share information with service providers solely for operational purposes necessary to deliver messaging services. All information is handled in accordance with our general Privacy Policy and applicable healthcare data protection regulations.
+          </p>
+
+          <h3 className="text-lg font-semibold text-gray-900 mt-6">Message Types</h3>
+          <p>Examples of messages you may receive:</p>
+          <ul>
+            <li>&ldquo;Hello Gorgeous Med Spa: Your Botox appointment is confirmed for Friday at 2:00 PM.&rdquo;</li>
+            <li>&ldquo;Reminder: Your hormone therapy consultation is tomorrow at 10:30 AM.&rdquo;</li>
+            <li>&ldquo;Special Offer: $20 off PRF this month. Reply STOP to opt out.&rdquo;</li>
+          </ul>
+        </section>
+
         <section className="mb-8">
           <h2>10. Third-Party Links</h2>
           <p>
