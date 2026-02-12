@@ -1,23 +1,11 @@
 "use client";
 
 import { FadeUp } from "./Section";
+import { GoogleMapEmbed } from "./GoogleMapEmbed";
+import { GeoInternalLinks } from "./GeoInternalLinks";
 import { BOOKING_URL } from "@/lib/flows";
+import { MAPS_DIRECTIONS_URL } from "@/lib/local-seo";
 import { SITE } from "@/lib/seo";
-
-const ADDRESS = {
-  street: "74 W. Washington St",
-  city: "Oswego",
-  state: "IL",
-  zip: "60543",
-  full: "74 W. Washington St, Oswego, IL 60543",
-  phone: "630-636-6193",
-  email: SITE.email,
-};
-
-// Google Maps embed URL (encoded address)
-const MAPS_EMBED_URL = `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2978.8!2d-88.3516!3d41.6828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880ef9a8f7c00001%3A0x1234567890abcdef!2s74%20W%20Washington%20St%2C%20Oswego%2C%20IL%2060543!5e0!3m2!1sen!2sus!4v1706000000000!5m2!1sen!2sus`;
-
-const MAPS_LINK = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS.full)}`;
 
 export function LocationMap() {
   return (
@@ -38,18 +26,8 @@ export function LocationMap() {
         <div className="grid md:grid-cols-2 gap-8 items-stretch">
           {/* Map */}
           <FadeUp delayMs={60}>
-            <div className="h-full min-h-[300px] md:min-h-[400px] rounded-2xl overflow-hidden border border-pink-500/20">
-              <iframe
-                src={MAPS_EMBED_URL}
-                width="100%"
-                height="100%"
-                style={{ border: 0, minHeight: "300px" }}
-                allowFullScreen
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-                title="Hello Gorgeous Med Spa Location"
-                className="w-full h-full"
-              />
+            <div className="h-full min-h-[300px] md:min-h-[400px]">
+              <GoogleMapEmbed height="100%" className="h-full min-h-[300px]" loading="lazy" showDirectionsButton={false} />
             </div>
           </FadeUp>
 
@@ -61,7 +39,7 @@ export function LocationMap() {
               <div className="space-y-6">
                 {/* Address */}
                 <a
-                  href={MAPS_LINK}
+                  href={MAPS_DIRECTIONS_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-start gap-4 group"
@@ -71,10 +49,10 @@ export function LocationMap() {
                   </div>
                   <div>
                     <p className="text-white font-semibold group-hover:text-pink-400 transition">
-                      {ADDRESS.street}
+                      {SITE.address.streetAddress}
                     </p>
                     <p className="text-gray-400">
-                      {ADDRESS.city}, {ADDRESS.state} {ADDRESS.zip}
+                      {SITE.address.addressLocality}, {SITE.address.addressRegion} {SITE.address.postalCode}
                     </p>
                     <p className="text-pink-400 text-sm mt-1">Get Directions →</p>
                   </div>
@@ -82,7 +60,7 @@ export function LocationMap() {
 
                 {/* Phone */}
                 <a
-                  href={`tel:${ADDRESS.phone}`}
+                  href={`tel:${SITE.phone}`}
                   className="flex items-start gap-4 group"
                 >
                   <div className="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-pink-500/30 transition">
@@ -90,7 +68,7 @@ export function LocationMap() {
                   </div>
                   <div>
                     <p className="text-white font-semibold group-hover:text-pink-400 transition">
-                      {ADDRESS.phone}
+                      {SITE.phone}
                     </p>
                     <p className="text-gray-400">Call or text us</p>
                   </div>
@@ -120,7 +98,7 @@ export function LocationMap() {
                   Book Appointment
                 </a>
                 <a
-                  href={MAPS_LINK}
+                  href={MAPS_DIRECTIONS_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-1 py-3 px-6 border border-white/20 text-white font-semibold text-center rounded-full hover:bg-white/10 transition"
@@ -132,9 +110,9 @@ export function LocationMap() {
           </FadeUp>
         </div>
 
-        {/* Serving Areas */}
+        {/* Serving Areas + Geo Internal Links */}
         <FadeUp delayMs={180}>
-          <div className="mt-10 text-center">
+          <div className="mt-10 text-center space-y-4">
             <p className="text-gray-400">
               Proudly serving{" "}
               <span className="text-white">Oswego</span>,{" "}
@@ -143,6 +121,7 @@ export function LocationMap() {
               <span className="text-white">Plainfield</span>,{" "}
               <span className="text-white">Yorkville</span>, and surrounding areas
             </p>
+            <GeoInternalLinks />
           </div>
         </FadeUp>
       </div>

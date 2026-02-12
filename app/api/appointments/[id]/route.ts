@@ -151,6 +151,17 @@ export async function PUT(
         }).catch(err => {
           console.error('Aftercare send error (non-blocking):', err);
         });
+        // Queue review request for 24h delay (processed by cron)
+        supabase.from('review_requests_pending').upsert(
+          {
+            appointment_id: id,
+            client_id: currentAppointment.client_id,
+            scheduled_for: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+          },
+          { onConflict: 'appointment_id', ignoreDuplicates: false }
+        ).then(({ error }) => {
+          if (error) console.error('Review pending insert error:', error);
+        }).catch(err => console.error('Review pending insert error:', err));
       } catch (aftercareError) {
         // Don't fail the appointment update if aftercare fails
         console.error('Aftercare trigger error:', aftercareError);

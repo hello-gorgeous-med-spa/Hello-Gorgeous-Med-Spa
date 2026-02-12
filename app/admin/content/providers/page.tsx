@@ -266,7 +266,10 @@ export default function ProvidersContentPage() {
     if (afterInputRef.current) afterInputRef.current.value = "";
   }
 
-  async function uploadAsset(file: File, options: { assetRole: string; mediaType: "video" | "before_after" }): Promise<UploadResponse | null> {
+  async function uploadAsset(
+    file: File,
+    options: { assetRole: string; mediaType: "video" | "before_after"; serviceTag?: string; treatmentName?: string }
+  ): Promise<UploadResponse | null> {
     if (!selectedProvider) return null;
     setAssetUploading(true);
     try {
@@ -275,6 +278,8 @@ export default function ProvidersContentPage() {
       formData.append("providerSlug", selectedProvider.slug || selectedProvider.display_name || "provider");
       formData.append("assetRole", options.assetRole);
       formData.append("mediaType", options.mediaType);
+      if (options.serviceTag) formData.append("serviceTag", options.serviceTag);
+      if (options.treatmentName) formData.append("treatmentName", options.treatmentName);
       const res = await fetch("/api/uploads/provider-media", {
         method: "POST",
         body: formData,
@@ -333,8 +338,18 @@ export default function ProvidersContentPage() {
             return;
           }
           const [beforeUpload, afterUpload] = await Promise.all([
-            uploadAsset(beforeFile, { assetRole: "before", mediaType: "before_after" }),
-            uploadAsset(afterFile, { assetRole: "after", mediaType: "before_after" }),
+            uploadAsset(beforeFile, {
+              assetRole: "before",
+              mediaType: "before_after",
+              serviceTag: mediaForm.service_tag,
+              treatmentName: mediaForm.title,
+            }),
+            uploadAsset(afterFile, {
+              assetRole: "after",
+              mediaType: "before_after",
+              serviceTag: mediaForm.service_tag,
+              treatmentName: mediaForm.title,
+            }),
           ]);
           if (!beforeUpload || !afterUpload) {
             error("Upload failed, please try again.");
@@ -346,6 +361,7 @@ export default function ProvidersContentPage() {
             after_image_url: afterUpload.url,
             width: afterUpload.width,
             height: afterUpload.height,
+            alt_text: beforeUpload.altText || afterUpload.altText,
           };
         }
 

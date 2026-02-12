@@ -91,24 +91,30 @@ export async function processProviderImage(buffer: Buffer, options?: { watermark
 }
 
 async function transformSingleImage(buffer: Buffer, watermarkText: string | null): Promise<ImageProcessResult> {
-  let pipeline = sharp(buffer).rotate().resize({
-    width: 2400,
-    height: 2400,
-    fit: "inside",
-    withoutEnlargement: true,
-  });
+  const basePipeline = () =>
+    sharp(buffer)
+      .rotate()
+      .resize({ width: 2400, height: 2400, fit: "inside", withoutEnlargement: true });
 
-  if (watermarkText) {
+  const pipelineWithWatermark = (p: ReturnType<typeof basePipeline>) => {
+    if (!watermarkText) return p;
     const svg = Buffer.from(
       `<svg width="600" height="200">
         <style>.title { fill: #ffffff88; font-size: 48px; font-family: 'Helvetica'; }</style>
         <text x="50%" y="50%" text-anchor="middle" class="title">${watermarkText}</text>
       </svg>`,
     );
-    pipeline = pipeline.composite([{ input: svg, gravity: "south" }]);
+    return p.composite([{ input: svg, gravity: "south" }]);
+  };
+
+  const TARGET_MAX_BYTES = 150 * 1024;
+  let optimized = await pipelineWithWatermark(basePipeline()).webp({ quality: 92 }).toBuffer();
+  if (optimized.byteLength > TARGET_MAX_BYTES) {
+    for (let q = 85; q >= 60 && optimized.byteLength > TARGET_MAX_BYTES; q -= 10) {
+      optimized = await pipelineWithWatermark(basePipeline()).webp({ quality: q }).toBuffer();
+    }
   }
 
-  const optimized = await pipeline.webp({ quality: 92 }).toBuffer();
   const metadata = await sharp(optimized).metadata();
   const blur = await sharp(optimized).resize(16).toBuffer();
 
@@ -185,10 +191,24 @@ export function createStoragePath(options: {
   providerSlug: string;
   mediaType: "video" | "before" | "after" | "thumbnail";
   extension: string;
+  /** SEO: treatment-city-brand pattern e.g. botox-oswego-hello-gorgeous */
+  seoSlug?: string;
 }) {
-  const { providerSlug, mediaType, extension } = options;
+  const { providerSlug, mediaType, extension, seoSlug } = options;
   const safeSlug = providerSlug || "provider";
-  return `${safeSlug}/${mediaType}/${randomUUID()}.${extension}`;
+  const filename = seoSlug ? `${seoSlug}.${extension}` : `${randomUUID()}.${extension}`;
+  return `${safeSlug}/${mediaType}/${filename}`;
+}
+
+/** Generate SEO-friendly alt: "Botox treatment in Oswego IL at Hello Gorgeous Med Spa" */
+export function generateImageSeoAlt(options: {
+  treatment: string;
+  city?: string;
+  brand?: string;
+}) {
+  const { treatment, city = "Oswego", brand = "Hello Gorgeous Med Spa" } = options;
+  const cityStr = city.includes("IL") ? city : `${city} IL`;
+  return `${treatment} in ${cityStr} at ${brand}`;
 }
 
 export async function saveStream(stream: NodeJS.ReadableStream, filepath: string) {

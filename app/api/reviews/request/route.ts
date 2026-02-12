@@ -1,132 +1,133 @@
 // ============================================================
 // REVIEW REQUEST API
-// Auto-send review request SMS after checkout
+// Sends Google review request via SMS + Email after completed appointment.
+// Trigger: when appointment status changes to "completed".
+// Admin toggle: REVIEW_REQUESTS_ENABLED env (default: true).
 // ============================================================
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
+import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
+import { sendSmsTelnyx } from "@/lib/notifications/telnyx";
+import { GOOGLE_REVIEW_URL, REVIEW_UTM } from "@/lib/local-seo";
 
-const TELNYX_API_KEY = process.env.TELNYX_API_KEY;
-const TELNYX_PHONE = process.env.TELNYX_PHONE_NUMBER;
-const TELNYX_PROFILE = process.env.TELNYX_MESSAGING_PROFILE_ID;
-
-// Review link: direct to Google review popup (same as /reviews widget). Override with NEXT_PUBLIC_REVIEWS_URL if needed.
-const GOOGLE_REVIEW_URL = 'https://g.page/r/CYQOWmT_HcwQEBM/review';
-function getReviewUrl(): string {
-  return process.env.NEXT_PUBLIC_REVIEWS_URL || GOOGLE_REVIEW_URL;
-}
-
-// Delay before sending review request (in milliseconds)
-const REVIEW_REQUEST_DELAY = 2 * 60 * 60 * 1000; // 2 hours after checkout
-
-interface ReviewRequest {
-  client_id: string;
-  client_name: string;
-  client_phone: string;
-  appointment_id?: string;
-  service_name?: string;
-}
-
-// Store for tracking sent requests (prevent duplicates)
-const sentRequests: Map<string, Date> = new Map();
+export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
-  try {
-    const body: ReviewRequest = await request.json();
-    const { client_id, client_name, client_phone, service_name } = body;
-
-    if (!client_phone) {
-      return NextResponse.json(
-        { error: 'Client phone number required' },
-        { status: 400 }
-      );
-    }
-
-    if (!TELNYX_API_KEY || !TELNYX_PHONE) {
-      return NextResponse.json(
-        { error: 'SMS not configured', queued: true },
-        { status: 200 }
-      );
-    }
-
-    // Check if we already sent a request to this client recently (within 7 days)
-    const lastSent = sentRequests.get(client_id);
-    if (lastSent) {
-      const daysSince = (Date.now() - lastSent.getTime()) / (1000 * 60 * 60 * 24);
-      if (daysSince < 7) {
-        return NextResponse.json({
-          success: false,
-          message: 'Review request already sent within 7 days',
-          lastSent: lastSent.toISOString(),
-        });
-      }
-    }
-
-    // Format phone number
-    let phone = client_phone.replace(/\D/g, '');
-    if (phone.length === 10) phone = `+1${phone}`;
-    else if (phone.length === 11 && phone.startsWith('1')) phone = `+${phone}`;
-    else if (!phone.startsWith('+')) phone = `+${phone}`;
-
-    // Create personalized message
-    const reviewUrl = getReviewUrl();
-    const firstName = client_name.split(' ')[0];
-    const message = service_name
-      ? `Hi ${firstName}! Thank you for visiting Hello Gorgeous 💖 If you loved your results from ${service_name}, would you mind leaving us a quick Google review? ${reviewUrl}\n\nReply STOP to opt out.`
-      : `Hi ${firstName}! Thank you for visiting Hello Gorgeous 💖 If you loved your results, would you mind leaving us a quick Google review? ${reviewUrl}\n\nReply STOP to opt out.`;
-
-    // Send SMS via Telnyx
-    const smsBody: any = {
-      from: TELNYX_PHONE,
-      to: phone,
-      text: message,
-    };
-
-    if (TELNYX_PROFILE) {
-      smsBody.messaging_profile_id = TELNYX_PROFILE;
-    }
-
-    const response = await fetch('https://api.telnyx.com/v2/messages', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${TELNYX_API_KEY}`,
-      },
-      body: JSON.stringify(smsBody),
-    });
-
-    const result = await response.json();
-
-    if (response.ok) {
-      // Track that we sent this request
-      sentRequests.set(client_id, new Date());
-
-      return NextResponse.json({
-        success: true,
-        message: 'Review request sent',
-        sms_id: result.data?.id,
-      });
-    } else {
-      console.error('SMS send failed:', result);
-      return NextResponse.json({
-        success: false,
-        error: result.errors?.[0]?.detail || 'Failed to send SMS',
-      });
-    }
-  } catch (error) {
-    console.error('Review request error:', error);
-    return NextResponse.json(
-      { error: 'Failed to send review request' },
-      { status: 500 }
-    );
+  const enabled = process.env.REVIEW_REQUESTS_ENABLED !== "false";
+  if (!enabled) {
+    return NextResponse.json({ skipped: true, reason: "Review requests disabled" });
   }
-}
 
-// GET - Check status or get review link
-export async function GET() {
-  return NextResponse.json({
-    review_url: getReviewUrl(),
-    google_review_url: GOOGLE_REVIEW_URL,
-    configured: !!(TELNYX_API_KEY && TELNYX_PHONE),
-    recent_requests: sentRequests.size,
-  });
+  const supabase = createAdminSupabaseClient();
+  if (!supabase) {
+    return NextResponse.json({ error: "Database not configured" }, { status: 503 });
+  }
+
+  try {
+    const body = await request.json();
+    const { appointment_id } = body;
+
+    if (!appointment_id) {
+      return NextResponse.json({ error: "appointment_id required" }, { status: 400 });
+    }
+
+    // Check if already sent
+    const { data: existing } = await supabase
+      .from("review_requests_sent")
+      .select("id")
+      .eq("appointment_id", appointment_id)
+      .maybeSingle();
+
+    if (existing) {
+      return NextResponse.json({ skipped: true, reason: "Already sent" });
+    }
+
+    // Get appointment to resolve client_id
+    const { data: apt, error: aptErr } = await supabase
+      .from("appointments")
+      .select("id, client_id")
+      .eq("id", appointment_id)
+      .single();
+
+    if (aptErr || !apt?.client_id) {
+      return NextResponse.json({ error: "Appointment not found" }, { status: 404 });
+    }
+
+    // Get client contact info from user_profiles (same pattern as aftercare)
+    const { data: client } = await supabase
+      .from("clients")
+      .select(`
+        id,
+        user_profiles:user_id(first_name, last_name, email, phone)
+      `)
+      .eq("id", apt.client_id)
+      .single();
+
+    const profile = client?.user_profiles
+      ? (Array.isArray(client.user_profiles) ? client.user_profiles[0] : client.user_profiles)
+      : null;
+    if (!profile) {
+      return NextResponse.json({ error: "Client contact info not found" }, { status: 404 });
+    }
+
+    const firstName = profile.first_name || "there";
+    const reviewUrl = GOOGLE_REVIEW_URL.includes("utm_source")
+      ? GOOGLE_REVIEW_URL
+      : `${GOOGLE_REVIEW_URL}&${REVIEW_UTM}`;
+
+    const results: { sms?: boolean; email?: boolean; error?: string } = {};
+
+    // Send SMS
+    if (profile.phone) {
+      const smsText = `Hello Gorgeous: Hi ${firstName}! We hope you loved your visit. Would you mind leaving us a Google review? It means the world to us: ${reviewUrl}`;
+      const smsResult = await sendSmsTelnyx(profile.phone, smsText);
+      results.sms = smsResult.success;
+      if (!smsResult.success) results.error = smsResult.error;
+    }
+
+    // Send Email (Resend)
+    const apiKey = process.env.RESEND_API_KEY;
+    if (apiKey && profile.email) {
+      const fromEmail = process.env.RESEND_FROM_EMAIL || "Hello Gorgeous <onboarding@resend.dev>";
+      const res = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify({
+          from: fromEmail,
+          to: profile.email,
+          subject: "We'd love your feedback! ⭐",
+          html: `
+            <p>Hi ${firstName},</p>
+            <p>Thank you for visiting Hello Gorgeous Med Spa. We hope you had a wonderful experience!</p>
+            <p>If you have a moment, we'd be so grateful if you could share your experience on Google. Your review helps other clients find us and means a lot to our team.</p>
+            <p style="margin: 24px 0;">
+              <a href="${reviewUrl}" style="display: inline-block; padding: 12px 24px; background: linear-gradient(to right, #ec4899, #f43f5e); color: white; text-decoration: none; font-weight: 600; border-radius: 9999px;">Leave a Google Review</a>
+            </p>
+            <p style="color: #6b7280; font-size: 14px;">Thank you for being part of the Hello Gorgeous family!</p>
+          `,
+        }),
+      });
+      results.email = res.ok;
+    }
+
+    // Record sent
+    await supabase.from("review_requests_sent").insert({
+      appointment_id,
+      client_id: apt.client_id,
+      sms_sent: results.sms ?? false,
+      email_sent: results.email ?? false,
+    }).select("id").single().catch(() => ({}));
+
+    return NextResponse.json({
+      success: true,
+      sms: results.sms,
+      email: results.email,
+    });
+  } catch (e) {
+    console.error("[reviews/request]", e);
+    return NextResponse.json({ error: "Failed to send review request" }, { status: 500 });
+  }
 }

@@ -12,30 +12,50 @@ export type Service = {
   faqs: FAQ[];
 };
 
+/** NAP (Name, Address, Phone) - single source of truth. Must match Google Business Profile exactly. */
 export const SITE = {
   name: "Hello Gorgeous Med Spa",
-  url: "https://hellogorgeousmedspa.com",
+  url: "https://www.hellogorgeousmedspa.com",
   description:
     "Luxury medical aesthetics in Oswego, IL. Botox/Dysport, dermal fillers, weight loss (GLP‑1), hormone therapy, PRF/PRP, and more.",
-  phone: "+1-630-636-6193",
+  phone: "630-636-6193",
   email: "hellogorgeousskin@yahoo.com",
   address: {
-    streetAddress: "74 W. Washington St.",
+    streetAddress: "74 W. Washington Street",
     addressLocality: "Oswego",
     addressRegion: "IL",
-    postalCode: "60543",
+    postalCode: "60503",
     addressCountry: "US",
   },
-  // TODO: replace with precise coordinates for the address above
   geo: { latitude: 41.6828, longitude: -88.3515 },
-  serviceAreas: ["Oswego, IL", "Naperville, IL", "Aurora, IL", "Plainfield, IL", "Yorkville, IL"],
+  serviceAreas: ["Oswego, IL", "Naperville, IL", "Aurora, IL", "Plainfield, IL", "Yorkville, IL", "Kendall County, IL"],
+  googleBusinessUrl: "https://www.google.com/maps/place/Hello+Gorgeous+Med+Spa/@41.6828,-88.3515,17z",
+  priceRange: "$$$" as const,
+  /** AggregateRating - only injected when both set. Update from GBP or manually. */
+  reviewRating: "4.9",
+  reviewCount: "47",
 } as const;
 
 export const HOME_FAQS: readonly FAQ[] = [
   {
     question: "Where are you located?",
     answer:
-      "Hello Gorgeous Med Spa is based in Oswego, IL and serves clients from nearby areas including Naperville, Aurora, and Plainfield.",
+      "Hello Gorgeous Med Spa is located at 74 W. Washington Street in Oswego, IL. We serve clients from Naperville, Aurora, Plainfield, Yorkville, and throughout Kendall County.",
+  },
+  {
+    question: "Do you offer Botox in Oswego, IL?",
+    answer:
+      "Yes. We offer Botox, Dysport, and Jeuveau in Oswego. Our injectable specialists provide natural-looking results with a personalized approach. Book a consultation to get started.",
+  },
+  {
+    question: "What is PRF hair restoration?",
+    answer:
+      "PRF (Platelet-Rich Fibrin) hair restoration uses your own growth factors to stimulate natural hair growth. It's a minimally invasive treatment we offer alongside other regenerative options.",
+  },
+  {
+    question: "Do you serve Naperville and Plainfield?",
+    answer:
+      "Yes. We welcome clients from Naperville, Plainfield, Aurora, Yorkville, and surrounding areas. Oswego is conveniently located with easy access from I-88 and Route 34.",
   },
   {
     question: "Do you offer consultations?",
@@ -47,6 +67,14 @@ export const HOME_FAQS: readonly FAQ[] = [
     answer:
       "You can schedule from our Book page. If you have questions first, contact us and we’ll help you choose the right service.",
   },
+] as const;
+
+/** Homepage testimonials - used for Review schema and Testimonials component */
+export const HOME_TESTIMONIALS = [
+  { name: "Sarah M.", location: "Naperville, IL", rating: 5, text: "Danielle is amazing! She took her time to explain everything and made me feel so comfortable for my first Botox experience. The results are so natural - I look refreshed, not frozen!", service: "Botox" },
+  { name: "Jennifer K.", location: "Oswego, IL", rating: 5, text: "Best med spa experience I've ever had. The team really listens to what you want. My lip filler looks incredible and I've gotten so many compliments!", service: "Dermal Fillers" },
+  { name: "Michelle R.", location: "Aurora, IL", rating: 5, text: "I hosted a Botox party with Hello Gorgeous and it was SO much fun! Great prices, professional service, and my friends are already asking when we're doing it again.", service: "Botox Party" },
+  { name: "Amanda T.", location: "Plainfield, IL", rating: 5, text: "The weight loss program has been life-changing. Down 30 lbs and feeling better than I have in years. Ryan and Danielle genuinely care about your health journey.", service: "Weight Loss" },
 ] as const;
 
 export const SERVICES: readonly Service[] = [
@@ -698,7 +726,7 @@ export function siteJsonLd() {
     email: SITE.email,
     image: `${SITE.url}/images/logo-full.png`,
     logo: `${SITE.url}/images/logo-full.png`,
-    priceRange: "$$",
+    priceRange: SITE.priceRange,
     currenciesAccepted: "USD",
     paymentAccepted: "Cash, Credit Card, Cherry Financing",
     address: {
@@ -727,16 +755,21 @@ export function siteJsonLd() {
       },
     ],
     sameAs: [
+      SITE.googleBusinessUrl,
       "https://www.facebook.com/hellogorgeousmedspa",
       "https://www.instagram.com/hellogorgeousmedspa",
     ],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "5.0",
-      reviewCount: "47",
-      bestRating: "5",
-      worstRating: "1",
-    },
+    ...(SITE.reviewRating && SITE.reviewCount
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating" as const,
+            ratingValue: SITE.reviewRating,
+            reviewCount: SITE.reviewCount,
+            bestRating: "5",
+            worstRating: "1",
+          },
+        }
+      : {}),
     review: [
       {
         "@type": "Review",
@@ -921,7 +954,7 @@ export function websiteJsonLd() {
   };
 }
 
-// Service Schema for individual services
+// Service Schema for individual services (generic)
 export function serviceJsonLd(service: Service) {
   return {
     "@context": "https://schema.org",
@@ -938,6 +971,61 @@ export function serviceJsonLd(service: Service) {
       },
     },
     areaServed: SITE.serviceAreas.map((name) => ({ "@type": "City", name })),
+  };
+}
+
+/** Service schema for location/treatment pages - includes areaServed + availableChannel per ticket */
+export function serviceLocationJsonLd(serviceName: string, cityLabel: string) {
+  const cityShort = cityLabel.replace(", IL", "").trim();
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: serviceName,
+    provider: {
+      "@type": "MedicalBusiness",
+      name: SITE.name,
+    },
+    areaServed: {
+      "@type": "AdministrativeArea",
+      name: `${cityShort} IL`,
+    },
+    availableChannel: {
+      "@type": "ServiceChannel",
+      serviceLocation: {
+        "@type": "Place",
+        name: SITE.name,
+        address: {
+          "@type": "PostalAddress",
+          addressLocality: cityShort,
+          addressRegion: "IL",
+        },
+      },
+    },
+  };
+}
+
+/** Event schema - future-proof for special events. Toggle via admin CMS. */
+export function eventJsonLd(event: {
+  name: string;
+  startDate: string;
+  endDate?: string;
+  description?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    name: event.name,
+    startDate: event.startDate,
+    ...(event.endDate && { endDate: event.endDate }),
+    ...(event.description && { description: event.description }),
+    location: {
+      "@type": "Place",
+      name: SITE.name,
+      address: {
+        "@type": "PostalAddress",
+        ...SITE.address,
+      },
+    },
   };
 }
 
@@ -1016,5 +1104,23 @@ export function faqJsonLd(faqs: ReadonlyArray<FAQ>) {
       acceptedAnswer: { "@type": "Answer", text: f.answer },
     })),
   };
+}
+
+/** Review schema for testimonials displayed on page. Only inject when testimonials exist. */
+export function testimonialsJsonLd(
+  testimonials: Array<{ name: string; rating: number; text: string }>
+) {
+  return testimonials.map((t) => ({
+    "@context": "https://schema.org",
+    "@type": "Review",
+    author: { "@type": "Person", name: t.name },
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue: String(t.rating),
+      bestRating: "5",
+      worstRating: "1",
+    },
+    reviewBody: t.text,
+  }));
 }
 

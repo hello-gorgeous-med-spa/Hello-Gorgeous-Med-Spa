@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { GoogleMapEmbed } from "@/components/GoogleMapEmbed";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE, SERVICES } from "@/lib/seo";
 import type { SiteSettings } from "@/lib/cms-readers";
@@ -148,6 +149,11 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 </Link>
               </li>
               <li>
+                <Link className="hover:text-pink-400 transition-colors" href="/community">
+                  Community
+                </Link>
+              </li>
+              <li>
                 <Link className="hover:text-pink-400 transition-colors" href="/care-engine">
                   The Care Engine™
                 </Link>
@@ -181,6 +187,22 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
           </div>
         )}
 
+        {/* Local Entity Block - serving area for local SEO */}
+        <div className="mt-8 pt-6 border-t border-white/5">
+          <h4 className="font-bold text-white mb-3 text-sm uppercase tracking-wider">Serving</h4>
+          <p className="text-sm text-gray-400">
+            Oswego, IL · Naperville, IL · Plainfield, IL · Aurora, IL · Kendall County
+          </p>
+        </div>
+
+        {/* Footer Map */}
+        <div className="mt-10 pt-8 border-t border-white/5">
+          <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-wider">Find Us</h4>
+          <div className="h-[220px] md:h-[200px] max-w-2xl">
+            <GoogleMapEmbed height={220} loading="lazy" />
+          </div>
+        </div>
+
         {/* Contact Info Bar */}
         <div className="mt-12 pt-8 border-t border-white/5">
           <div className="flex flex-wrap items-center justify-between gap-6">
@@ -192,7 +214,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
-                (630) 636-6193
+                {SITE.phone}
               </a>
               <a
                 href={`mailto:${SITE.email}`}

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { Hero } from "@/components/Hero";
+import { HomepageGeoLinks } from "@/components/HomepageGeoLinks";
 import { HomeCareTeam } from "@/components/HomeCareTeam";
 import { OffersSection } from "@/components/OffersSection";
 import { PhotoGallery } from "@/components/PhotoGallery";
@@ -21,7 +22,7 @@ import { ImmediateCareBanner } from "@/components/ImmediateCareBanner";
 import { TriggerPointSection } from "@/components/TriggerPointSection";
 import { LaserHairSection } from "@/components/LaserHairSection";
 import { MicroneedlingShowcase } from "@/components/MicroneedlingShowcase";
-import { HOME_FAQS, SITE, faqJsonLd, pageMetadata, siteJsonLd, breadcrumbJsonLd } from "@/lib/seo";
+import { HOME_FAQS, HOME_TESTIMONIALS, SITE, breadcrumbJsonLd, faqJsonLd, pageMetadata, siteJsonLd, testimonialsJsonLd } from "@/lib/seo";
 import { getBannerContent } from "@/lib/cms-readers";
 import { HomepageBanner } from "@/components/HomepageBanner";
 
@@ -56,7 +57,17 @@ export default async function HomePage() {
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(homeBreadcrumbs)) }}
       />
+      {HOME_TESTIMONIALS.length > 0 &&
+        testimonialsJsonLd(HOME_TESTIMONIALS).map((schema, i) => (
+          <script
+            key={i}
+            type="application/ld+json"
+            // eslint-disable-next-line react/no-danger
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          />
+        ))}
       <Hero />
+      <HomepageGeoLinks />
       <HomepageBanner banner={cmsBanner} />
       <FixWhatBothersMeFeature />
       <QuizCTA />

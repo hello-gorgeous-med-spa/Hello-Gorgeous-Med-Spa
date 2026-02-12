@@ -8,6 +8,7 @@ import {
   assertFileSize,
   compressProviderVideo,
   createStoragePath,
+  generateImageSeoAlt,
   processProviderImage,
   writeBufferToTempFile,
 } from "@/lib/providers/media";
@@ -25,6 +26,8 @@ type UploadResponse = {
   thumbnailUrl?: string;
   thumbnailPath?: string;
   blurDataUrl?: string;
+  /** SEO: generated alt tag for treatment + city */
+  altText?: string;
 };
 
 const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
@@ -55,6 +58,8 @@ export async function POST(request: NextRequest) {
     const providerSlug = (formData.get("providerSlug") as string) || "provider";
     const assetRole = (formData.get("assetRole") as string) || "before";
     const watermark = formData.get("watermark") !== "false";
+    const serviceTag = (formData.get("serviceTag") as string) || "";
+    const treatmentName = (formData.get("treatmentName") as string) || "medical aesthetics";
 
     const buffer = Buffer.from(await file.arrayBuffer());
     assertFileSize(buffer);
@@ -112,10 +117,15 @@ export async function POST(request: NextRequest) {
 
     const processed = await processProviderImage(buffer, { enableWatermark: watermark });
     const extension = contentType === "image/png" ? "png" : "webp";
+    const seoSlug =
+      serviceTag && treatmentName
+        ? `${(treatmentName || serviceTag).toLowerCase().replace(/\s+/g, "-")}-oswego-hello-gorgeous`
+        : undefined;
     const storagePath = createStoragePath({
       providerSlug,
       mediaType: assetRole === "after" ? "after" : "before",
       extension,
+      seoSlug,
     });
 
     const upload = await storage.upload(storagePath, processed.buffer, {
@@ -125,6 +135,11 @@ export async function POST(request: NextRequest) {
     if (upload.error) throw upload.error;
 
     const publicData = storage.getPublicUrl(storagePath);
+    const altText = generateImageSeoAlt({
+      treatment: treatmentName || (serviceTag ? serviceTag.replace(/_/g, " ") : "treatment"),
+      city: "Oswego IL",
+      brand: "Hello Gorgeous Med Spa",
+    });
 
     return NextResponse.json({
       url: publicData.data.publicUrl,
@@ -133,6 +148,7 @@ export async function POST(request: NextRequest) {
       width: processed.width,
       height: processed.height,
       blurDataUrl: processed.blurDataUrl,
+      altText,
     } satisfies UploadResponse);
   } catch (error: any) {
     console.error("Provider media upload error:", error);

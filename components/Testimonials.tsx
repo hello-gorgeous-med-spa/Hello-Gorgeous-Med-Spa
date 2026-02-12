@@ -2,38 +2,10 @@
 
 import { useState } from "react";
 import { REVIEWS_URL } from "@/lib/flows";
+import { HOME_TESTIMONIALS } from "@/lib/seo";
 import { FadeUp } from "./Section";
 
-const testimonials = [
-  {
-    name: "Sarah M.",
-    location: "Naperville, IL",
-    rating: 5,
-    text: "Danielle is amazing! She took her time to explain everything and made me feel so comfortable for my first Botox experience. The results are so natural - I look refreshed, not frozen!",
-    service: "Botox",
-  },
-  {
-    name: "Jennifer K.",
-    location: "Oswego, IL",
-    rating: 5,
-    text: "Best med spa experience I've ever had. The team really listens to what you want. My lip filler looks incredible and I've gotten so many compliments!",
-    service: "Dermal Fillers",
-  },
-  {
-    name: "Michelle R.",
-    location: "Aurora, IL",
-    rating: 5,
-    text: "I hosted a Botox party with Hello Gorgeous and it was SO much fun! Great prices, professional service, and my friends are already asking when we're doing it again.",
-    service: "Botox Party",
-  },
-  {
-    name: "Amanda T.",
-    location: "Plainfield, IL",
-    rating: 5,
-    text: "The weight loss program has been life-changing. Down 30 lbs and feeling better than I have in years. Ryan and Danielle genuinely care about your health journey.",
-    service: "Weight Loss",
-  },
-];
+const testimonials = HOME_TESTIMONIALS;
 
 function StarRating({ rating }: { rating: number }) {
   return (

@@ -84,6 +84,8 @@ CREATE TABLE IF NOT EXISTS provider_media (
   published_at TIMESTAMPTZ
 );
 
+ALTER TABLE provider_media DROP CONSTRAINT IF EXISTS chk_provider_media_video;
+ALTER TABLE provider_media DROP CONSTRAINT IF EXISTS chk_provider_media_before_after;
 ALTER TABLE provider_media
   ADD CONSTRAINT chk_provider_media_video
     CHECK (
@@ -121,14 +123,14 @@ CREATE TRIGGER trg_provider_media_timestamps
 -- ------------------------------------------------------------
 ALTER TABLE provider_media ENABLE ROW LEVEL SECURITY;
 
--- Service role full access
+DROP POLICY IF EXISTS "Service role full access to provider media" ON provider_media;
 CREATE POLICY "Service role full access to provider media"
   ON provider_media
   FOR ALL
   USING (auth.role() = 'service_role')
   WITH CHECK (auth.role() = 'service_role');
 
--- Admin / owner access
+DROP POLICY IF EXISTS "Admins manage provider media" ON provider_media;
 CREATE POLICY "Admins manage provider media"
   ON provider_media
   FOR ALL
@@ -147,7 +149,7 @@ CREATE POLICY "Admins manage provider media"
     )
   );
 
--- Public read for published media
+DROP POLICY IF EXISTS "Public can view published provider media" ON provider_media;
 CREATE POLICY "Public can view published provider media"
   ON provider_media
   FOR SELECT
@@ -160,10 +162,12 @@ INSERT INTO storage.buckets (id, name, public)
 VALUES ('provider-media', 'provider-media', true)
 ON CONFLICT (id) DO NOTHING;
 
+DROP POLICY IF EXISTS "Public read provider media bucket" ON storage.objects;
 CREATE POLICY "Public read provider media bucket"
 ON storage.objects FOR SELECT
 USING (bucket_id = 'provider-media');
 
+DROP POLICY IF EXISTS "Service role full access provider media bucket" ON storage.objects;
 CREATE POLICY "Service role full access provider media bucket"
 ON storage.objects FOR ALL
 USING (bucket_id = 'provider-media' AND auth.role() = 'service_role')

@@ -39,6 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     
     // Location Pages (Critical for Local SEO)
     { url: `${SITE.url}/locations`, lastModified: now, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${SITE.url}/community`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
     { url: `${SITE.url}/oswego-il`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE.url}/naperville-il`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE.url}/aurora-il`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },

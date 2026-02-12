@@ -11,6 +11,12 @@ import { pageMetadata, providerBeforeAfterJsonLd, providerPersonJsonLd, provider
 
 export const revalidate = 300;
 
+const KNOWN_PROVIDER_SLUGS = Object.keys(PROVIDER_FALLBACKS);
+
+export function generateStaticParams() {
+  return KNOWN_PROVIDER_SLUGS.map((slug) => ({ slug }));
+}
+
 type ProviderDetail = {
   id: string;
   slug: string;
@@ -40,53 +46,59 @@ type MediaItem = {
   consent_confirmed?: boolean;
 };
 
+function useFallback(slug: string): { provider: ProviderDetail; videos: MediaItem[]; results: MediaItem[] } | null {
+  const fallback = Object.values(PROVIDER_FALLBACKS).find((p) => p.slug === slug);
+  if (!fallback) return null;
+  const media = PROVIDER_MEDIA_FALLBACK[slug] || [];
+  return {
+    provider: applyProviderImageOverrides({
+      id: fallback.id,
+      slug: fallback.slug,
+      display_name: fallback.display_name,
+      credentials: fallback.credentials,
+      tagline: fallback.tagline,
+      short_bio: fallback.short_bio,
+      philosophy: fallback.philosophy,
+      headshot_url: fallback.headshot_url,
+      hero_image_url: fallback.hero_image_url,
+      intro_video_url: fallback.intro_video_url,
+      booking_url: fallback.booking_url,
+      color_hex: fallback.color_hex || "#ec4899",
+    }),
+    videos: media.filter((item) => item.media_type === "video"),
+    results: media.filter((item) => item.media_type === "before_after"),
+  };
+}
+
 async function fetchProvider(slug: string): Promise<{ provider: ProviderDetail; videos: MediaItem[]; results: MediaItem[] } | null> {
   const supabase = createServerSupabaseClient();
-  if (!supabase) {
-    const fallback = Object.values(PROVIDER_FALLBACKS).find((provider) => provider.slug === slug);
-    if (!fallback) return null;
-    const media = PROVIDER_MEDIA_FALLBACK[slug] || [];
-    return {
-      provider: {
-        id: fallback.id,
-        slug: fallback.slug,
-        display_name: fallback.display_name,
-        credentials: fallback.credentials,
-        tagline: fallback.tagline,
-        short_bio: fallback.short_bio,
-        philosophy: fallback.philosophy,
-        headshot_url: fallback.headshot_url,
-        hero_image_url: fallback.hero_image_url,
-        intro_video_url: fallback.intro_video_url,
-        booking_url: fallback.booking_url,
-        color_hex: "#ec4899",
-      },
-      videos: media.filter((item) => item.media_type === "video"),
-      results: media.filter((item) => item.media_type === "before_after"),
-    };
+  if (!supabase) return useFallback(slug);
+
+  try {
+    const { data: provider } = await supabase
+      .from("providers")
+      .select("id, slug, display_name, credentials, tagline, short_bio, philosophy, headshot_url, hero_image_url, intro_video_url, booking_url, color_hex, is_active")
+      .eq("slug", slug)
+      .eq("is_active", true)
+      .maybeSingle();
+
+    if (!provider) return useFallback(slug);
+
+    const { data: media } = await supabase
+      .from("provider_media")
+      .select("id, media_type, title, description, video_url, thumbnail_url, before_image_url, after_image_url, service_tag, alt_text, consent_confirmed")
+      .eq("provider_id", provider.id)
+      .eq("status", "published")
+      .order("featured", { ascending: false })
+      .order("sort_order", { ascending: true });
+
+    const videos = (media || []).filter((item) => item.media_type === "video");
+    const results = (media || []).filter((item) => item.media_type === "before_after" && item.consent_confirmed);
+
+    return { provider: applyProviderImageOverrides(provider), videos, results };
+  } catch {
+    return useFallback(slug);
   }
-
-  const { data: provider } = await supabase
-    .from("providers")
-    .select("id, slug, display_name, credentials, tagline, short_bio, philosophy, headshot_url, hero_image_url, intro_video_url, booking_url, color_hex, is_active")
-    .eq("slug", slug)
-    .eq("is_active", true)
-    .maybeSingle();
-
-  if (!provider) return null;
-
-  const { data: media } = await supabase
-    .from("provider_media")
-    .select("id, media_type, title, description, video_url, thumbnail_url, before_image_url, after_image_url, service_tag, alt_text, consent_confirmed")
-    .eq("provider_id", provider.id)
-    .eq("status", "published")
-    .order("featured", { ascending: false })
-    .order("sort_order", { ascending: true });
-
-  const videos = (media || []).filter((item) => item.media_type === "video");
-  const results = (media || []).filter((item) => item.media_type === "before_after" && item.consent_confirmed);
-
-  return { provider: applyProviderImageOverrides(provider), videos, results };
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {

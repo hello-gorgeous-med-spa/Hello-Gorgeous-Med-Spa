@@ -28,78 +28,70 @@ export const metadata: Metadata = pageMetadata({
   path: "/providers",
 });
 
-async function fetchProviders(): Promise<PublicProvider[]> {
-  const supabase = createServerSupabaseClient();
-  if (!supabase) {
-    return Object.values(PROVIDER_FALLBACKS).map((provider) => ({
-      id: provider.id,
-      slug: provider.slug,
-      display_name: provider.display_name,
-      credentials: provider.credentials,
-      tagline: provider.tagline,
-      short_bio: provider.short_bio,
-      headshot_url: provider.headshot_url,
-      intro_video_url: provider.intro_video_url,
-      booking_url: provider.booking_url,
-      media_counts: {
-        videos: (PROVIDER_MEDIA_FALLBACK[provider.slug] || []).filter((m) => m.media_type === "video").length,
-        results: (PROVIDER_MEDIA_FALLBACK[provider.slug] || []).filter((m) => m.media_type === "before_after").length,
-      },
-    }));
-  }
-
-  const { data: providers } = await supabase
-    .from("providers")
-    .select("id, slug, display_name, credentials, tagline, short_bio, headshot_url, intro_video_url, booking_url, is_active")
-    .eq("is_active", true)
-    .order("display_name", { ascending: true });
-
-  if (!providers || providers.length === 0) {
-    return Object.values(PROVIDER_FALLBACKS).map((provider) => ({
-      id: provider.id,
-      slug: provider.slug,
-      display_name: provider.display_name,
-      credentials: provider.credentials,
-      tagline: provider.tagline,
-      short_bio: provider.short_bio,
-      headshot_url: provider.headshot_url,
-      intro_video_url: provider.intro_video_url,
-      booking_url: provider.booking_url,
-      media_counts: {
-        videos: (PROVIDER_MEDIA_FALLBACK[provider.slug] || []).filter((m) => m.media_type === "video").length,
-        results: (PROVIDER_MEDIA_FALLBACK[provider.slug] || []).filter((m) => m.media_type === "before_after").length,
-      },
-    }));
-  }
-
-  const { data: media } = await supabase
-    .from("provider_media")
-    .select("provider_id, media_type")
-    .eq("status", "published");
-
-  const counts = (media || []).reduce<Record<string, { videos: number; results: number }>>((acc, item) => {
-    if (!acc[item.provider_id]) {
-      acc[item.provider_id] = { videos: 0, results: 0 };
-    }
-    if (item.media_type === "video") acc[item.provider_id].videos += 1;
-    if (item.media_type === "before_after") acc[item.provider_id].results += 1;
-    return acc;
-  }, {});
-
-  return providers.map((provider) =>
+function fallbackProviders(): PublicProvider[] {
+  return Object.values(PROVIDER_FALLBACKS).map((provider) =>
     applyProviderImageOverrides({
       id: provider.id,
-      slug: provider.slug ?? "",
-      display_name: provider.display_name || "Provider",
+      slug: provider.slug,
+      display_name: provider.display_name,
       credentials: provider.credentials,
       tagline: provider.tagline,
       short_bio: provider.short_bio,
       headshot_url: provider.headshot_url,
       intro_video_url: provider.intro_video_url,
       booking_url: provider.booking_url,
-      media_counts: counts[provider.id] || { videos: 0, results: 0 },
+      media_counts: {
+        videos: (PROVIDER_MEDIA_FALLBACK[provider.slug] || []).filter((m) => m.media_type === "video").length,
+        results: (PROVIDER_MEDIA_FALLBACK[provider.slug] || []).filter((m) => m.media_type === "before_after").length,
+      },
     })
   );
+}
+
+async function fetchProviders(): Promise<PublicProvider[]> {
+  const supabase = createServerSupabaseClient();
+  if (!supabase) return fallbackProviders();
+
+  try {
+    const { data: providers } = await supabase
+      .from("providers")
+      .select("id, slug, display_name, credentials, tagline, short_bio, headshot_url, intro_video_url, booking_url, is_active")
+      .eq("is_active", true)
+      .order("display_name", { ascending: true });
+
+    if (!providers || providers.length === 0) return fallbackProviders();
+
+    const { data: media } = await supabase
+      .from("provider_media")
+      .select("provider_id, media_type")
+      .eq("status", "published");
+
+    const counts = (media || []).reduce<Record<string, { videos: number; results: number }>>((acc, item) => {
+      if (!acc[item.provider_id]) {
+        acc[item.provider_id] = { videos: 0, results: 0 };
+      }
+      if (item.media_type === "video") acc[item.provider_id].videos += 1;
+      if (item.media_type === "before_after") acc[item.provider_id].results += 1;
+      return acc;
+    }, {});
+
+    return providers.map((provider) =>
+      applyProviderImageOverrides({
+        id: provider.id,
+        slug: provider.slug ?? "",
+        display_name: provider.display_name || "Provider",
+        credentials: provider.credentials,
+        tagline: provider.tagline,
+        short_bio: provider.short_bio,
+        headshot_url: provider.headshot_url,
+        intro_video_url: provider.intro_video_url,
+        booking_url: provider.booking_url,
+        media_counts: counts[provider.id] || { videos: 0, results: 0 },
+      })
+    );
+  } catch {
+    return fallbackProviders();
+  }
 }
 
 export default async function ProvidersPage() {
