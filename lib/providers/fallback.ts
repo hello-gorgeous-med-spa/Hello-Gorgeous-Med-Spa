@@ -68,7 +68,7 @@ export const PROVIDER_FALLBACKS: Record<string, ProviderFallback> = {
     tagline: "Full-practice authority NP | metabolic & regenerative care",
     short_bio: "Nurse Practitioner leading hormone optimization, weight loss, and regenerative protocols.",
     philosophy: "Medical weight loss and hormone therapy built around safety, labs, and data.",
-    headshot_url: "https://hellogorgeousmedspa.com/images/team/ryan-kent.png",
+    headshot_url: "https://hellogorgeousmedspa.com/images/providers/ryan-kent-clinic.jpg",
     hero_image_url: "https://hellogorgeousmedspa.com/images/gallery/treatment-2.png",
     intro_video_url: "https://hellogorgeousmedspa.com/videos/mascots/ryan/ryan-intro.mp4",
     booking_url: "/book?provider=ryan",

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import type { BannerContent } from "@/lib/cms-readers";
 
-/** Renders only when banner is enabled and has content. Used on homepage; content from CMS. */
+/** Renders only when banner is enabled and has content. Used on homepage; content from CMS. Skips welcome-style duplicates. */
 export function HomepageBanner({ banner }: { banner: BannerContent | null }) {
   if (!banner?.enabled) return null;
   const headline = banner.headline?.trim();
@@ -11,6 +11,7 @@ export function HomepageBanner({ banner }: { banner: BannerContent | null }) {
   const ctaText = banner.cta_text?.trim();
   const ctaUrl = banner.cta_url?.trim();
   if (!headline && !subheadline && !ctaText) return null;
+  if (headline?.toLowerCase().includes("welcome")) return null;
 
   return (
     <section className="relative bg-gradient-to-r from-pink-900/40 via-fuchsia-900/30 to-pink-900/40 border-y border-white/10">

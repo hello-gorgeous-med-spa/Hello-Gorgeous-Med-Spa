@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { FadeUp } from "./Section";
 import { BOOKING_URL } from "@/lib/flows";
 
@@ -14,6 +15,7 @@ interface Slide {
   benefits: string[];
   icon: string;
   gradient: string;
+  serviceLink: string;
 }
 
 const slides: Slide[] = [
@@ -26,6 +28,7 @@ const slides: Slide[] = [
     benefits: ["Reduces appetite naturally", "Avg 15-20% body weight loss", "Weekly injection", "FDA-approved molecule"],
     icon: "⚖️",
     gradient: "from-pink-600 to-rose-500",
+    serviceLink: "/services/weight-loss-therapy",
   },
   {
     id: "tirzepatide",
@@ -35,12 +38,14 @@ const slides: Slide[] = [
     benefits: ["Up to 25% weight loss", "Blood sugar control", "Weekly injection", "Newest generation"],
     icon: "🎯",
     gradient: "from-purple-600 to-pink-500",
+    serviceLink: "/services/weight-loss-therapy",
   },
   // Peptides
   {
     id: "bpc157",
     category: "peptides",
     name: "BPC-157",
+    serviceLink: "/services/sermorelin-growth-peptide",
     tagline: "Body Protection Compound for healing",
     benefits: ["Accelerates tissue repair", "Gut healing support", "Joint & tendon recovery", "Anti-inflammatory"],
     icon: "🔬",
@@ -48,6 +53,7 @@ const slides: Slide[] = [
   },
   {
     id: "pt141",
+    serviceLink: "/services/sermorelin-growth-peptide",
     category: "peptides",
     name: "PT-141 (Bremelanotide)",
     tagline: "Sexual wellness peptide",
@@ -57,6 +63,7 @@ const slides: Slide[] = [
   },
   {
     id: "sermorelin",
+    serviceLink: "/services/sermorelin-growth-peptide",
     category: "peptides",
     name: "Sermorelin",
     tagline: "Growth hormone releasing peptide",
@@ -66,6 +73,7 @@ const slides: Slide[] = [
   },
   {
     id: "ipamorelin",
+    serviceLink: "/services/sermorelin-growth-peptide",
     category: "peptides",
     name: "Ipamorelin + CJC-1295",
     tagline: "The gold standard for GH optimization",
@@ -75,6 +83,7 @@ const slides: Slide[] = [
   },
   {
     id: "aod9604",
+    serviceLink: "/services/sermorelin-growth-peptide",
     category: "peptides",
     name: "AOD-9604",
     tagline: "Fat-burning peptide fragment",
@@ -85,6 +94,7 @@ const slides: Slide[] = [
   // Vitamin Injections
   {
     id: "b12",
+    serviceLink: "/services/vitamin-injections",
     category: "vitamins",
     name: "Vitamin B12",
     tagline: "Energy & metabolism booster",
@@ -94,6 +104,7 @@ const slides: Slide[] = [
   },
   {
     id: "biotin",
+    serviceLink: "/services/vitamin-injections",
     category: "vitamins",
     name: "Biotin (B7)",
     tagline: "Hair, skin & nail support",
@@ -103,6 +114,7 @@ const slides: Slide[] = [
   },
   {
     id: "glutathione",
+    serviceLink: "/services/vitamin-injections",
     category: "vitamins",
     name: "Glutathione",
     tagline: "Master antioxidant for detox & glow",
@@ -112,6 +124,7 @@ const slides: Slide[] = [
   },
   {
     id: "mic",
+    serviceLink: "/services/vitamin-injections",
     category: "vitamins",
     name: "MIC + B12 (Lipo Shot)",
     tagline: "Fat-burning vitamin cocktail",
@@ -121,6 +134,7 @@ const slides: Slide[] = [
   },
   {
     id: "vitaminD",
+    serviceLink: "/services/vitamin-injections",
     category: "vitamins",
     name: "Vitamin D3",
     tagline: "The sunshine vitamin",
@@ -268,12 +282,12 @@ export function PharmacyShowcase() {
                       >
                         Book Consultation
                       </a>
-                      <a
-                        href="tel:630-636-6193"
-                        className="py-3 px-6 border border-white/20 text-white font-semibold text-center rounded-full hover:bg-white/10 transition"
+                      <Link
+                        href={currentItem.serviceLink}
+                        className="py-3 px-6 border border-white/20 text-white font-semibold text-center rounded-full hover:bg-white/10 transition block"
                       >
-                        📞 Learn More
-                      </a>
+                        Learn More
+                      </Link>
                     </div>
                   </div>
                 </div>
