@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 import { createServerSupabaseClient } from "@/lib/hgos/supabase";
-import { PROVIDER_FALLBACKS, PROVIDER_MEDIA_FALLBACK } from "@/lib/providers/fallback";
+import { PROVIDER_FALLBACKS, PROVIDER_MEDIA_FALLBACK, applyProviderImageOverrides } from "@/lib/providers/fallback";
 
 export const dynamic = "force-dynamic";
 
@@ -100,7 +100,7 @@ export async function GET(request: NextRequest, context: RouteContext) {
     const results = (media || []).filter((item) => item.media_type === "before_after" && item.consent_confirmed);
 
     return NextResponse.json({
-      provider,
+      provider: applyProviderImageOverrides(provider),
       videos,
       results,
     });

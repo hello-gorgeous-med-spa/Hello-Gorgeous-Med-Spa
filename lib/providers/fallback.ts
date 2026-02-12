@@ -1,5 +1,20 @@
 import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from "@/lib/provider-credentials";
 
+/** Code-controlled provider images. Override DB values so you never need to run migrations for headshot changes. */
+export const PROVIDER_HEADSHOT_OVERRIDES: Record<string, string> = {
+  ryan: "/images/providers/ryan-kent-clinic.jpg",
+};
+
+export function applyProviderImageOverrides<T extends { slug?: string | null; headshot_url?: string | null }>(
+  provider: T
+): T {
+  const override = provider.slug ? PROVIDER_HEADSHOT_OVERRIDES[provider.slug] : undefined;
+  if (override) {
+    return { ...provider, headshot_url: override };
+  }
+  return provider;
+}
+
 export type ProviderFallback = {
   id: string;
   slug: string;

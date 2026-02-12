@@ -4,7 +4,7 @@ import { ProviderCard } from "@/components/providers/ProviderCard";
 import { ResultsDisclaimer } from "@/components/providers/ResultsDisclaimer";
 import { BOOKING_URL } from "@/lib/flows";
 import { createServerSupabaseClient } from "@/lib/hgos/supabase";
-import { PROVIDER_FALLBACKS, PROVIDER_MEDIA_FALLBACK } from "@/lib/providers/fallback";
+import { PROVIDER_FALLBACKS, PROVIDER_MEDIA_FALLBACK, applyProviderImageOverrides } from "@/lib/providers/fallback";
 import { pageMetadata } from "@/lib/seo";
 
 export const revalidate = 300;
@@ -86,18 +86,20 @@ async function fetchProviders(): Promise<PublicProvider[]> {
     return acc;
   }, {});
 
-  return providers.map((provider) => ({
-    id: provider.id,
-    slug: provider.slug ?? "",
-    display_name: provider.display_name || "Provider",
-    credentials: provider.credentials,
-    tagline: provider.tagline,
-    short_bio: provider.short_bio,
-    headshot_url: provider.headshot_url,
-    intro_video_url: provider.intro_video_url,
-    booking_url: provider.booking_url,
-    media_counts: counts[provider.id] || { videos: 0, results: 0 },
-  }));
+  return providers.map((provider) =>
+    applyProviderImageOverrides({
+      id: provider.id,
+      slug: provider.slug ?? "",
+      display_name: provider.display_name || "Provider",
+      credentials: provider.credentials,
+      tagline: provider.tagline,
+      short_bio: provider.short_bio,
+      headshot_url: provider.headshot_url,
+      intro_video_url: provider.intro_video_url,
+      booking_url: provider.booking_url,
+      media_counts: counts[provider.id] || { videos: 0, results: 0 },
+    })
+  );
 }
 
 export default async function ProvidersPage() {

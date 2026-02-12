@@ -6,7 +6,7 @@ import { ResultsDisclaimer } from "@/components/providers/ResultsDisclaimer";
 import { VideoGallery } from "@/components/providers/VideoGallery";
 import { BOOKING_URL } from "@/lib/flows";
 import { createServerSupabaseClient } from "@/lib/hgos/supabase";
-import { PROVIDER_FALLBACKS, PROVIDER_MEDIA_FALLBACK } from "@/lib/providers/fallback";
+import { PROVIDER_FALLBACKS, PROVIDER_MEDIA_FALLBACK, applyProviderImageOverrides } from "@/lib/providers/fallback";
 import { pageMetadata, providerBeforeAfterJsonLd, providerPersonJsonLd, providerVideoJsonLd } from "@/lib/seo";
 
 export const revalidate = 300;
@@ -86,7 +86,7 @@ async function fetchProvider(slug: string): Promise<{ provider: ProviderDetail; 
   const videos = (media || []).filter((item) => item.media_type === "video");
   const results = (media || []).filter((item) => item.media_type === "before_after" && item.consent_confirmed);
 
-  return { provider, videos, results };
+  return { provider: applyProviderImageOverrides(provider), videos, results };
 }
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
