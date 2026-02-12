@@ -68,7 +68,7 @@ export function Hero({
   };
 
   return (
-    <section className="relative h-[min(75vh,600px)] w-full min-w-0 max-w-full overflow-hidden sm:h-[min(80vh,650px)]">
+    <section className="relative h-[min(60vh,450px)] w-full min-w-0 max-w-full overflow-hidden sm:h-[min(65vh,500px)]">
       {/* Full-width background image - contained to fit section */}
       <div className="absolute inset-0">
         <Image
@@ -103,7 +103,7 @@ export function Hero({
 
       {/* Content - left-aligned, vertical center. Single full-width hero - no split panels. */}
       <div className="relative flex h-full min-h-0 w-full items-center">
-        <div className="w-full max-w-4xl min-w-0 shrink-0 px-6 py-10 sm:px-10 sm:py-12 md:px-12 lg:px-16">
+        <div className="w-full max-w-4xl min-w-0 shrink-0 px-6 py-6 sm:px-10 sm:py-8 md:px-12 lg:px-16">
           <div className="max-w-2xl min-w-0">
             {/* Headline - fades in 0.4s */}
             <h1
