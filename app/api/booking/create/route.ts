@@ -7,7 +7,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 import { businessDateTimeToUTC, formatInBusinessTZ } from '@/lib/business-timezone';
-import { sendAppointmentConfirmationSms } from '@/lib/notifications/telnyx';
+import { sendAppointmentConfirmationSms, sendSmsOptInConfirmation } from '@/lib/notifications/telnyx';
 
 export async function POST(request: NextRequest) {
   try {
@@ -359,6 +359,20 @@ export async function POST(request: NextRequest) {
       }
     } catch (smsErr) {
       console.error('[booking/create] Client confirmation SMS error', smsErr);
+    }
+
+    // 5.5b. Opt-in confirmation SMS (10DLC compliance - when user consented to marketing)
+    if (agreeToSMS) {
+      try {
+        const optInResult = await sendSmsOptInConfirmation(phone);
+        if (optInResult.success) {
+          console.log('[booking/create] SMS opt-in confirmation sent to', phone);
+        } else {
+          console.warn('[booking/create] SMS opt-in confirmation failed', optInResult.error);
+        }
+      } catch (optInErr) {
+        console.error('[booking/create] SMS opt-in confirmation error', optInErr);
+      }
     }
 
     // 5.6. Owner/provider notification (MANDATORY)

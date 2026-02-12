@@ -189,5 +189,14 @@ export async function sendAppointmentConfirmationSms(
   return sendSmsTelnyx(phone, message);
 }
 
+/**
+ * Send SMS opt-in confirmation (10DLC compliance)
+ * Sent when user opts in via digital form or physical form
+ */
+export async function sendSmsOptInConfirmation(phone: string): Promise<ReturnType<typeof sendSmsTelnyx>> {
+  const message = `Hello Gorgeous Med Spa: You have agreed to receive SMS updates including appointment reminders and promotional offers. Msg frequency varies. Msg & data rates apply. Reply STOP to opt out, HELP for help.`;
+  return sendSmsTelnyx(phone, message);
+}
+
 // Export validation function for health checks
 export { validateEnvVars as isTelnyxConfigured };

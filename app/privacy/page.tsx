@@ -285,6 +285,12 @@ export default function PrivacyPolicyPage() {
             <li>&ldquo;Reminder: Your hormone therapy consultation is tomorrow at 10:30 AM.&rdquo;</li>
             <li>&ldquo;Special Offer: $20 off PRF this month. Reply STOP to opt out.&rdquo;</li>
           </ul>
+          <p className="text-sm text-gray-600 mb-0">
+            Full opt-in workflow documentation (digital form, physical form, confirmation script):{' '}
+            <Link href="/sms-opt-in" className="text-pink-600 underline">
+              SMS Opt-In Workflow
+            </Link>
+          </p>
         </section>
 
         <section className="mb-8">
