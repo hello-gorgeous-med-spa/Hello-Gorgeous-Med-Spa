@@ -68,7 +68,7 @@ export function Hero({
   };
 
   return (
-    <section className="relative h-[min(60vh,450px)] w-full min-w-0 max-w-full overflow-hidden sm:h-[min(65vh,500px)]">
+    <section className="relative h-[min(45vh,320px)] w-full min-w-0 max-w-full overflow-hidden sm:h-[min(50vh,380px)]">
       {/* Full-width background image - contained to fit section */}
       <div className="absolute inset-0">
         <Image
@@ -103,7 +103,7 @@ export function Hero({
 
       {/* Content - left-aligned, vertical center. Single full-width hero - no split panels. */}
       <div className="relative flex h-full min-h-0 w-full items-center">
-        <div className="w-full max-w-4xl min-w-0 shrink-0 px-6 py-6 sm:px-10 sm:py-8 md:px-12 lg:px-16">
+        <div className="w-full max-w-4xl min-w-0 shrink-0 px-6 py-4 sm:px-10 sm:py-6 md:px-12 lg:px-16">
           <div className="max-w-2xl min-w-0">
             {/* Headline - fades in 0.4s */}
             <h1
@@ -111,7 +111,7 @@ export function Hero({
                 mounted ? "opacity-100" : "opacity-0"
               }`}
               style={{
-                fontSize: "clamp(2rem, 5vw, 3.75rem)",
+                fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
                 letterSpacing: "-0.02em",
               }}
             >
@@ -120,7 +120,7 @@ export function Hero({
 
             {/* Slogan - fades + slides up 8px */}
             <p
-              className={`mt-4 text-xl font-bold transition-all duration-[400ms] ease-out sm:mt-5 sm:text-2xl md:text-3xl ${
+              className={`mt-2 text-lg font-bold transition-all duration-[400ms] ease-out sm:mt-3 sm:text-xl md:text-2xl ${
                 mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
               }`}
               style={{ transitionDelay: "100ms" }}
@@ -130,7 +130,7 @@ export function Hero({
 
             {/* Services line */}
             <p
-              className={`mt-4 font-medium transition-all duration-[400ms] ease-out sm:text-lg md:text-xl ${
+              className={`mt-1 font-medium transition-all duration-[400ms] ease-out text-sm sm:text-base md:text-lg ${
                 mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
               }`}
               style={{
@@ -143,21 +143,21 @@ export function Hero({
 
             {/* CTA Buttons - fade in 0.5s */}
             <div
-              className={`mt-8 flex flex-col gap-4 transition-all duration-[500ms] ease-out sm:mt-10 sm:flex-row sm:gap-5 ${
+              className={`mt-4 flex flex-col gap-3 transition-all duration-[500ms] ease-out sm:mt-6 sm:flex-row sm:gap-4 ${
                 mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
               }`}
               style={{ transitionDelay: "300ms" }}
             >
               <Link
                 href={ctaUrl}
-                className="inline-flex w-full items-center justify-center rounded-full px-8 py-4 font-semibold text-white shadow-lg transition-all hover:bg-[#e91e7a] hover:shadow-[0_0_24px_rgba(255,47,146,0.4)] sm:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold text-white shadow-lg transition-all hover:bg-[#e91e7a] hover:shadow-[0_0_24px_rgba(255,47,146,0.4)] sm:w-auto sm:py-3"
                 style={{ backgroundColor: "#ff2f92" }}
               >
                 {ctaText}
               </Link>
               <a
                 href="tel:630-636-6193"
-                className="inline-flex w-full items-center justify-center rounded-full border-2 border-white px-8 py-4 font-semibold text-white transition-colors hover:bg-white/15 sm:w-auto"
+                className="inline-flex w-full items-center justify-center rounded-full border-2 border-white px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/15 sm:w-auto sm:py-3"
               >
                 Call 630-636-6193
               </a>
