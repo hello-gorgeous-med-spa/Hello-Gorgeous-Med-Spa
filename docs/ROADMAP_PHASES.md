@@ -129,13 +129,13 @@ Strategic phases for conversion, trust, and growth after the Premium Medical Gla
 
 | Task | Description | Status |
 |------|-------------|--------|
-| 9.1 | Collect 3–5 short video testimonials | ⬜ |
-| 9.2 | Add video testimonial section to homepage | ⬜ |
-| 9.3 | Add review schema (Review, AggregateRating) where appropriate | ⬜ |
-| 9.4 | Link to Google Reviews / external review sites | ⬜ |
-| 9.5 | Add "Share your experience" CTA post-appointment | ⬜ |
+| 9.1 | Collect 3–5 short video testimonials | ⬜ (content) |
+| 9.2 | Add video testimonial section to homepage | ⬜ (defer) |
+| 9.3 | Add review schema (Review, AggregateRating) where appropriate | ✅ |
+| 9.4 | Link to Google Reviews / external review sites | ✅ |
+| 9.5 | Add "Share your experience" CTA post-appointment | ⬜ (defer) |
 
-**Deliverable:** Video testimonials live + schema in place.
+**Deliverable:** Review schema in place. Testimonials + footer link to Google Reviews. Video section deferred until content ready.
 
 ---
 

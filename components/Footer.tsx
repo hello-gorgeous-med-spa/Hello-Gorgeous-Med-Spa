@@ -149,6 +149,16 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 </Link>
               </li>
               <li>
+                <a
+                  href={SITE.googleReviewUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-400 hover:text-pink-400 transition-colors"
+                >
+                  Google Reviews
+                </a>
+              </li>
+              <li>
                 <Link className="hover:text-pink-400 transition-colors" href="/locations">
                   Location
                 </Link>

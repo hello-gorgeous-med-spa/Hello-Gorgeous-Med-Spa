@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { REVIEWS_URL } from "@/lib/flows";
-import { HOME_TESTIMONIALS } from "@/lib/seo";
+import { HOME_TESTIMONIALS, SITE } from "@/lib/seo";
 import { FadeUp } from "./Section";
 
 const testimonials = HOME_TESTIMONIALS;
@@ -34,11 +34,16 @@ export function Testimonials() {
                 Say
               </span>
             </h2>
-            <div className="mt-4 flex items-center justify-center gap-2">
+            <a
+              href={SITE.googleReviewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-4 inline-flex items-center justify-center gap-2 text-gray-400 hover:text-white transition"
+            >
               <span className="text-yellow-400 text-xl">★★★★★</span>
-              <span className="text-white font-semibold">5.0</span>
-              <span className="text-gray-400">on Google</span>
-            </div>
+              <span className="text-white font-semibold">{SITE.reviewRating}</span>
+              <span className="text-gray-400">on Google · Leave a review</span>
+            </a>
           </div>
         </FadeUp>
 
@@ -101,14 +106,22 @@ export function Testimonials() {
 
         {/* CTA */}
         <FadeUp delayMs={300}>
-          <div className="mt-10 text-center">
+          <div className="mt-10 text-center flex flex-wrap justify-center gap-6">
+            <a
+              href={SITE.googleReviewUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-pink-400 hover:text-pink-300 transition text-sm font-medium"
+            >
+              <span>⭐</span> Leave a Google Review
+            </a>
             <a
               href={REVIEWS_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition text-sm"
             >
-              <span>📝</span> Leave us a review
+              <span>📝</span> See all reviews
             </a>
           </div>
         </FadeUp>
