@@ -244,6 +244,17 @@ function getServiceContent(s: Service) {
         { icon: "😴", title: "Better Sleep", description: "Experience deeper, more restorative sleep" },
         { icon: "🔥", title: "Improved Metabolism", description: "Support healthy weight management naturally" },
       ],
+      process: [
+        { step: 1, title: "Consultation & Labs", description: "We review your symptoms, medical history, and run in-office labs (metabolic panel, thyroid, hormones, vitamins). Results in ~36 hours." },
+        { step: 2, title: "Lab Review & Plan", description: "We interpret your results and create a personalized protocol—pellets, compounded options, or a combination based on your needs." },
+        { step: 3, title: "Treatment", description: "BioTE pellet insertion or prescription for Olympia-compounded medications. Quick, in-office procedure for pellets." },
+        { step: 4, title: "Follow-Up & Monitoring", description: "Regular check-ins and repeat labs ensure optimal levels and adjust dosing as needed." },
+      ],
+      testimonial: {
+        quote: "I was skeptical but within a few weeks my energy came back and I started sleeping through the night. Game changer.",
+        author: "Lisa T.",
+        location: "Oswego, IL",
+      },
     },
     "iv-therapy": {
       benefits: [
@@ -398,23 +409,18 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
       {/* What It Is / Who It's For / What to Expect */}
       <Section className="bg-gradient-to-b from-transparent via-pink-950/5 to-transparent">
         <div className="grid lg:grid-cols-3 gap-8">
-          {[
-            { 
-              icon: "💡", 
-              title: "What It Is", 
-              body: s.short,
-            },
-            {
-              icon: "👤",
-              title: "Who It's For",
-              body: "Anyone looking for natural-looking results with expert guidance. Perfect for those who value quality, safety, and a personalized experience.",
-            },
-            {
-              icon: "📋",
-              title: "What to Expect",
-              body: "A thorough consultation to understand your goals, clear explanation of the process, comfortable treatment, and comprehensive aftercare support.",
-            },
-          ].map((c, idx) => (
+          {(s.slug === "biote-hormone-therapy"
+            ? [
+                { icon: "💡", title: "What It Is", body: "Bioidentical hormone optimization using BioTE pellets and, when appropriate, Olympia Pharmacy compounded formulations. We tailor delivery (pellets, creams, injectables) to your labs and goals." },
+                { icon: "👤", title: "Who It's For", body: "Adults experiencing fatigue, sleep issues, mood changes, weight gain, low libido, or other hormone-related symptoms. A full consultation and lab work determine candidacy." },
+                { icon: "📋", title: "What to Expect", body: "Consultation, in-office labs (results in ~36 hours), lab review, and personalized treatment—pellets, compounded prescriptions, or both—with ongoing monitoring." },
+              ]
+            : [
+                { icon: "💡", title: "What It Is", body: s.short },
+                { icon: "👤", title: "Who It's For", body: "Anyone looking for natural-looking results with expert guidance. Perfect for those who value quality, safety, and a personalized experience." },
+                { icon: "📋", title: "What to Expect", body: "A thorough consultation to understand your goals, clear explanation of the process, comfortable treatment, and comprehensive aftercare support." },
+              ]
+          ).map((c, idx) => (
             <FadeUp key={c.title} delayMs={60 * idx}>
               <div className="h-full p-8 rounded-2xl bg-black/40 border border-gray-800">
                 <span className="text-4xl mb-4 block">{c.icon}</span>
@@ -569,6 +575,97 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               </p>
             </div>
           </FadeUp>
+        </Section>
+      )}
+
+      {/* Hormone Clinical Info - BioTE only */}
+      {s.slug === "biote-hormone-therapy" && (
+        <Section className="bg-gradient-to-b from-transparent via-amber-950/10 to-transparent">
+          <FadeUp>
+            <div className="text-center mb-12">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 mb-4">
+                <span className="text-amber-400 text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
+                Formulations, Prescriptions &{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-400">
+                  Safety
+                </span>
+              </h2>
+              <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+                What we prescribe, how we formulate, and when we may need to pause or adjust your plan.
+              </p>
+            </div>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <FadeUp delayMs={60}>
+              <div className="p-6 rounded-2xl border border-amber-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-amber-400 mb-3 flex items-center gap-2">
+                  <span>💊</span> Olympia & Formulations
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-3">
+                  We use <strong className="text-white">BioTE bioidentical hormone pellets</strong> for sustained release, plus <strong className="text-white">Olympia Pharmacy</strong> compounded medications when appropriate. Olympia offers Biest (50/50 and 80/20 ratios), estradiol, progesterone, testosterone (creams and injectables including testosterone cypionate), and anastrozole—all customized to your dosing needs.
+                </p>
+                <p className="text-gray-400 text-xs">
+                  Your provider selects the best delivery method based on your labs and goals.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={80}>
+              <div className="p-6 rounded-2xl border border-amber-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-amber-400 mb-3 flex items-center gap-2">
+                  <span>📋</span> Most Common Prescriptions
+                </h3>
+                <ul className="text-gray-300 text-sm space-y-2">
+                  <li><strong className="text-white">Women:</strong> Biest, progesterone, testosterone pellets or cream</li>
+                  <li><strong className="text-white">Men:</strong> Testosterone pellets or testosterone cypionate</li>
+                  <li><strong className="text-white">Both:</strong> Anastrozole (when indicated for balance)</li>
+                </ul>
+                <p className="text-gray-400 text-xs mt-3">
+                  Dosing is individualized based on lab results and symptom response.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={100}>
+              <div className="p-6 rounded-2xl border border-amber-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-amber-400 mb-3 flex items-center gap-2">
+                  <span>⚠️</span> Contraindications
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                  We do not initiate hormone therapy if you have:
+                </p>
+                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                  <li>Active or history of breast, endometrial, or prostate cancer</li>
+                  <li>Untreated venous thromboembolism (VTE), stroke, or coronary event within 6 months</li>
+                  <li>Active liver disease or unexplained vaginal bleeding</li>
+                  <li>Pregnancy or breastfeeding</li>
+                </ul>
+                <p className="text-gray-400 text-xs mt-3">
+                  We screen thoroughly before treatment and discuss any concerns with you.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={120}>
+              <div className="p-6 rounded-2xl border border-amber-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-amber-400 mb-3 flex items-center gap-2">
+                  <span>🔬</span> Lab Red Flags
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                  These lab findings may delay or prevent treatment until addressed:
+                </p>
+                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                  <li><strong className="text-white">Men:</strong> Elevated PSA or uncertain PSA status</li>
+                  <li>Markedly elevated hemoglobin/hematocrit (polycythemia risk)</li>
+                  <li>Severely abnormal liver function</li>
+                  <li>Active cardiovascular concerns or clotting disorders</li>
+                </ul>
+                <p className="text-gray-400 text-xs mt-3">
+                  We review all labs and discuss next steps before initiating or continuing therapy.
+                </p>
+              </div>
+            </FadeUp>
+          </div>
         </Section>
       )}
 

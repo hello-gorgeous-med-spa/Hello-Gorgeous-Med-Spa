@@ -195,17 +195,42 @@ export const SERVICES: readonly Service[] = [
       {
         question: "What symptoms can hormone therapy help?",
         answer:
-          "Common concerns include fatigue, sleep issues, mood changes, and weight changes. We’ll assess your situation in depth.",
+          "Common concerns include fatigue, sleep issues, mood changes, weight gain around the mid-section, inability to lose weight despite diet and exercise, decreased muscle strength, joint discomfort, and reduced libido. We’ll assess your situation in depth.",
       },
       {
         question: "Is lab work required?",
         answer:
-          "Typically yes. Labs help guide safe, personalized dosing and monitoring.",
+          "Yes. In-office labs (metabolic panel, thyroid, hormones, vitamins, lipids, A1C) guide safe, personalized dosing. Results typically within 36 hours.",
       },
       {
         question: "How long until I feel results?",
         answer:
-          "Some people notice improvements within weeks, though timelines vary by individual and protocol.",
+          "Many notice improvements within 2–4 weeks. Full optimization can take several months depending on your starting levels and protocol.",
+      },
+      {
+        question: "What formulations do you offer?",
+        answer:
+          "We offer BioTE bioidentical hormone pellets (sustained release), plus Olympia compounded options when appropriate—including testosterone (creams, injectables), estradiol, progesterone, and Biest in various strengths. Your provider will recommend the best delivery method for you.",
+      },
+      {
+        question: "What are the most common prescriptions?",
+        answer:
+          "For women: Biest (estradiol/estriol blend), progesterone, testosterone pellets or cream. For men: testosterone pellets or testosterone cypionate. We also prescribe anastrozole when indicated to support hormone balance.",
+      },
+      {
+        question: "What are contraindications for hormone therapy?",
+        answer:
+          "Absolute contraindications include: active or history of breast/endometrial/prostate cancer, untreated venous thromboembolism, stroke or coronary event within 6 months, active liver disease, unexplained vaginal bleeding, and pregnancy or breastfeeding. We screen thoroughly before treatment.",
+      },
+      {
+        question: "What lab results might delay or prevent treatment?",
+        answer:
+          "Red flags include elevated PSA (men), markedly elevated hemoglobin/hematocrit (polycythemia risk), severely abnormal liver function, active cardiovascular concerns, or certain clotting disorders. We review all labs and discuss next steps before initiating therapy.",
+      },
+      {
+        question: "Do you work with Olympia Pharmacy?",
+        answer:
+          "Yes. When compounded medications are part of your plan, we work with trusted partners like Olympia for customized formulations including creams, capsules, and injectables.",
       },
     ],
   },
