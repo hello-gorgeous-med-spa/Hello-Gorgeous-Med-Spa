@@ -165,6 +165,21 @@ aside select {
   transition-delay: 450ms;
 }
 
+/* Fresha transition banner - subtle fade, respects reduced motion */
+@keyframes fade {
+  0% { opacity: 0.95; }
+  50% { opacity: 1; }
+  100% { opacity: 0.95; }
+}
+.animate-fade {
+  animation: fade 6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade {
+    animation: none;
+  }
+}
+
 @keyframes floatSlow {
   0% {
     transform: translateY(0px);
