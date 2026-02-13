@@ -92,8 +92,8 @@ export function VirtualConsultation() {
       <div className="max-w-2xl mx-auto">
         <FadeUp>
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Your Personalized Recommendations</h2>
-            <p className="text-gray-400">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#111111] mb-2">Your Personalized Recommendations</h2>
+            <p className="text-[#5E5E66]">
               {hasRecommendations
                 ? "Based on your areas of concern, here are treatments that may help:"
                 : "Book a free consultation and our team will create a personalized plan for you."}
@@ -102,36 +102,36 @@ export function VirtualConsultation() {
 
           {hasRecommendations ? (
             <div className="space-y-4 mb-12">
-              {recommendations.map((rec, i) => (
+              {recommendations.map((rec) => (
                 <Link
                   key={rec.id}
                   href={rec.href}
-                  className="block p-6 rounded-2xl border border-pink-500/20 bg-white/5 hover:bg-white/10 hover:border-pink-500/40 transition-all group"
+                  className="block p-6 rounded-2xl border border-[#E6007E]/20 bg-[#FDF7FA] hover:bg-[#FDF7FA]/80 hover:border-[#E6007E]/40 transition-all group"
                 >
                   <div className="flex items-center gap-4">
                     <span className="text-3xl">{rec.icon}</span>
                     <div className="flex-1 text-left">
-                      <h3 className="text-lg font-semibold text-white group-hover:text-pink-300">{rec.name}</h3>
-                      <p className="text-sm text-gray-400">{rec.description}</p>
+                      <h3 className="text-lg font-semibold text-[#111111] group-hover:text-[#E6007E]">{rec.name}</h3>
+                      <p className="text-sm text-[#5E5E66]">{rec.description}</p>
                     </div>
-                    <span className="text-pink-500">→</span>
+                    <span className="text-[#E6007E]">→</span>
                   </div>
                 </Link>
               ))}
             </div>
           ) : null}
 
-          <div className="rounded-2xl border border-pink-500/30 bg-gradient-to-br from-pink-950/40 to-black p-8 text-center">
-            <h3 className="text-xl font-bold text-white mb-2">Next Step: Book Your Consultation</h3>
-            <p className="text-gray-400 mb-6">
+          <div className="rounded-2xl border border-[#E6007E]/20 bg-[#FDF7FA] p-8 text-center">
+            <h3 className="text-xl font-bold text-[#111111] mb-2">Next Step: Book Your Consultation</h3>
+            <p className="text-[#5E5E66] mb-6">
               Our specialists will review your goals and create a treatment plan tailored to you. No pressure—just clarity.
             </p>
             <CTA href={BOOKING_URL}>Book Free Consultation</CTA>
-            <p className="text-gray-500 text-sm mt-6">74 W. Washington St, Oswego, IL</p>
+            <p className="text-[#5E5E66] text-sm mt-6">74 W. Washington St, Oswego, IL</p>
           </div>
 
           {submitted && (
-            <p className="text-center text-pink-400 text-sm mt-6">We&apos;ll be in touch soon with more personalized options.</p>
+            <p className="text-center text-[#E6007E] text-sm mt-6">We&apos;ll be in touch soon with more personalized options.</p>
           )}
 
           <button
@@ -139,7 +139,7 @@ export function VirtualConsultation() {
               setShowResults(false);
               setSubmitted(false);
             }}
-            className="mt-8 text-gray-500 hover:text-white text-sm"
+            className="mt-8 text-[#5E5E66] hover:text-[#111111] text-sm"
           >
             ← Start over
           </button>
@@ -150,23 +150,16 @@ export function VirtualConsultation() {
 
   return (
     <div className="max-w-3xl mx-auto">
-      {/* Hero */}
-      <div className="text-center mb-12">
-        <FadeUp>
-          <p className="text-pink-400 text-sm font-medium tracking-widest uppercase mb-4">Save time</p>
-          <h1 className="text-3xl md:text-5xl font-bold text-white mb-4 leading-tight">
-            Virtual Consultation
-          </h1>
-          <p className="text-xl text-gray-400 max-w-xl mx-auto">
-            Select your areas of concern. We&apos;ll recommend treatments tailored to you—then our team will follow up to create your personalized plan.
-          </p>
-        </FadeUp>
-      </div>
+      <FadeUp delayMs={0}>
+        <h2 className="text-2xl md:text-3xl font-serif font-bold text-[#111111] mb-2 text-center md:text-left">
+          Choose Your Areas of Concern
+        </h2>
+        <p className="text-[#5E5E66] mb-6">Select what you&apos;d like to improve—we&apos;ll recommend the best treatments for you.</p>
+      </FadeUp>
 
       {/* Zone selector */}
-      <FadeUp delayMs={100}>
+      <FadeUp delayMs={50}>
         <div className="mb-8">
-          <p className="text-sm font-medium text-gray-400 mb-4">Tap areas you&apos;d like to address:</p>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
             {ZONES.map((zone) => {
               const isSelected = selectedZones.has(zone.id);
@@ -177,8 +170,8 @@ export function VirtualConsultation() {
                   onClick={() => toggleZone(zone.id)}
                   className={`p-4 rounded-xl border text-left transition-all ${
                     isSelected
-                      ? "border-pink-500 bg-pink-500/20 text-white"
-                      : "border-white/10 bg-white/5 text-gray-400 hover:border-white/20 hover:text-white"
+                      ? "border-[#E6007E] bg-[#E6007E]/10 text-[#111111]"
+                      : "border-[#E6007E]/20 bg-[#FDF7FA] text-[#5E5E66] hover:border-[#E6007E]/40 hover:text-[#111111]"
                   }`}
                 >
                   <span className="text-2xl block mb-2">{zone.icon}</span>
@@ -191,31 +184,31 @@ export function VirtualConsultation() {
       </FadeUp>
 
       {/* Optional email */}
-      <FadeUp delayMs={150}>
+      <FadeUp delayMs={100}>
         <div className="mb-8">
-          <p className="text-sm text-gray-400 mb-3">Get your results by email (optional):</p>
+          <p className="text-sm text-[#5E5E66] mb-3">Get your results by email (optional):</p>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="your@email.com"
-            className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+            className="w-full px-4 py-3 rounded-xl bg-white border border-[#E6007E]/20 text-[#111111] placeholder:text-[#5E5E66]/60 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/50 focus:border-[#E6007E]"
           />
         </div>
       </FadeUp>
 
       {/* Finish CTA */}
-      <FadeUp delayMs={200}>
+      <FadeUp delayMs={150}>
         <button
           onClick={() => {
             if (email.trim()) setSubmitted(true);
             setShowResults(true);
           }}
-          className="w-full py-4 rounded-xl bg-gradient-to-r from-pink-500 to-pink-600 text-white font-semibold hover:shadow-lg hover:shadow-pink-500/25 transition-all"
+          className="w-full py-4 rounded-xl bg-[#E6007E] hover:bg-[#B0005F] text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
         >
           {hasRecommendations ? "See My Recommendations" : "Get Personalized Options"}
         </button>
-        <p className="text-center text-gray-500 text-xs mt-4">
+        <p className="text-center text-[#5E5E66] text-xs mt-4">
           We&apos;ll contact you quickly to discuss your options. No spam—ever.
         </p>
       </FadeUp>

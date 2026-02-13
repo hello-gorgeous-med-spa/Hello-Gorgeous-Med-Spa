@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 
 import { organizationJsonLd, siteJsonLd, SITE, websiteJsonLd } from "@/lib/seo";
@@ -12,6 +12,12 @@ import { LeadCapturePopup } from "@/components/LeadCapturePopup";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
   display: "swap",
 });
 
@@ -111,7 +117,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const siteSettings = await getSiteSettings();
 
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <head>
         {/* Preconnect to Google Maps for faster embed load */}
         <link rel="preconnect" href="https://www.google.com" />
