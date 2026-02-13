@@ -371,9 +371,9 @@ export default function QuizPage() {
             />
             <button
               type="submit"
-              className="w-full py-3 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+              className="w-full py-4 px-6 bg-hg-pink hover:bg-hg-pinkDeep text-white font-semibold uppercase tracking-widest rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
             >
-              See My Results
+              Get My Results
             </button>
           </form>
 

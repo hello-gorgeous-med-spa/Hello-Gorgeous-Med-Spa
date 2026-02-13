@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const STORAGE_KEY = "hg_lead_popup_dismissed";
-const SHOW_AFTER_MS = 3000; // Show after 3 seconds on page
+const SHOW_AFTER_MS = 4000; // Show after 4 seconds (reduced urgency, better UX)
+const SCROLL_THRESHOLD = 0.35; // Or after 35% scroll
 const COOKIE_DAYS = 7;
 
 function shouldShow(): boolean {
@@ -41,8 +42,26 @@ export function LeadCapturePopup() {
       return;
     }
     if (!shouldShow()) return;
-    const t = setTimeout(() => setVisible(true), SHOW_AFTER_MS);
-    return () => clearTimeout(t);
+
+    let shown = false;
+    const tryShow = () => {
+      if (shown) return;
+      shown = true;
+      setVisible(true);
+    };
+
+    const t = setTimeout(tryShow, SHOW_AFTER_MS);
+
+    const onScroll = () => {
+      const scrollPct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight || 1);
+      if (scrollPct >= SCROLL_THRESHOLD) tryShow();
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [mounted]);
 
   const handleClose = () => {
@@ -86,7 +105,7 @@ export function LeadCapturePopup() {
         <Link
           href="/subscribe"
           onClick={handleClose}
-          className="mt-6 block w-full rounded-full bg-gradient-to-r from-pink-500 to-rose-500 py-3 text-center font-semibold text-white hover:shadow-lg hover:shadow-pink-500/25 transition-all"
+          className="mt-6 block w-full rounded-md bg-hg-pink hover:bg-hg-pinkDeep py-4 text-center font-semibold uppercase tracking-widest text-sm text-white transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
         >
           Yes, I want in
         </Link>

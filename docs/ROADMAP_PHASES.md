@@ -40,11 +40,11 @@ Strategic phases for conversion, trust, and growth after the Premium Medical Gla
 
 | Task | Description | Status |
 |------|-------------|--------|
-| 3.1 | Review lead popup timing (scroll depth, exit intent) | ⬜ |
-| 3.2 | Add preference fields: concern, timeframe, budget (optional) | ⬜ |
-| 3.3 | Ensure email capture connects to CRM / marketing tool | ⬜ |
-| 3.4 | Add "Get my results" or similar CTA after quiz completion | ⬜ |
-| 3.5 | Add post-quiz / post-consult follow-up email flow (if not exists) | ⬜ |
+| 3.1 | Review lead popup timing (scroll depth, exit intent) | ✅ |
+| 3.2 | Add preference fields: concern, timeframe, budget (optional) | ✅ |
+| 3.3 | Ensure email capture connects to CRM / marketing tool | ✅ |
+| 3.4 | Add "Get my results" or similar CTA after quiz completion | ✅ |
+| 3.5 | Add post-quiz / post-consult follow-up email flow (if not exists) | ⬜ (defer) |
 
 **Deliverable:** Improved lead form + documented follow-up flow.
 

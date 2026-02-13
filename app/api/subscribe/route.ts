@@ -26,6 +26,8 @@ export async function POST(req: Request) {
       source = "website",
       selectedVitamin,
       referredBy,
+      concern,
+      timeframe,
     } = body as {
       email: string;
       name?: string;
@@ -33,6 +35,8 @@ export async function POST(req: Request) {
       source?: string;
       selectedVitamin?: string;
       referredBy?: ReferralInfo;
+      concern?: string;
+      timeframe?: string;
     };
 
     if (!email || !isValidEmail(email)) {
@@ -70,6 +74,8 @@ export async function POST(req: Request) {
         attributes.REFERRED_BY_NAME = referredBy.name;
         attributes.REFERRED_BY_EMAIL = referredBy.email;
       }
+      if (concern) attributes.CONCERN = concern;
+      if (timeframe) attributes.TIMEFRAME = timeframe;
 
       const brevoRes = await fetch("https://api.brevo.com/v3/contacts", {
         method: "POST",
@@ -157,6 +163,8 @@ export async function POST(req: Request) {
       phone: phone || null,
       source,
       selectedVitamin: selectedVitamin || null,
+      concern: concern || null,
+      timeframe: timeframe || null,
       promoCode,
       referredBy: referredBy || null,
     };

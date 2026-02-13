@@ -3,10 +3,28 @@
 import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 
+const CONCERN_OPTIONS = [
+  { value: "", label: "What brings you here? (optional)" },
+  { value: "botox-fillers", label: "Botox / Fillers" },
+  { value: "weight-loss", label: "Weight Loss" },
+  { value: "hormones", label: "Hormones / Energy" },
+  { value: "skin", label: "Skin / Facials" },
+  { value: "just-looking", label: "Just browsing" },
+];
+const TIMEFRAME_OPTIONS = [
+  { value: "", label: "When? (optional)" },
+  { value: "asap", label: "ASAP" },
+  { value: "2-4-weeks", label: "2-4 weeks" },
+  { value: "1-3-months", label: "1-3 months" },
+  { value: "researching", label: "Just researching" },
+];
+
 export function EmailCapture() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState("");
+  const [concern, setConcern] = useState("");
+  const [timeframe, setTimeframe] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [hasShown, setHasShown] = useState(false);
 
@@ -33,14 +51,25 @@ export function EmailCapture() {
       return;
     }
 
-    const timer = setTimeout(() => {
+    const tryShow = () => {
       if (!hasShown) {
         setIsOpen(true);
         setHasShown(true);
       }
-    }, 5000);
+    };
 
-    return () => clearTimeout(timer);
+    const timer = setTimeout(tryShow, 6000); // 6s - less intrusive than lead popup
+
+    const onScroll = () => {
+      const scrollPct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight || 1);
+      if (scrollPct >= 0.4) tryShow(); // Show after 40% scroll
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("scroll", onScroll);
+    };
   }, [hasShown, isAdminRoute]);
 
   const handleClose = () => {
@@ -60,7 +89,9 @@ export function EmailCapture() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
           email: email.trim(),
-          source: "popup-10off" 
+          source: "popup-10off",
+          concern: concern || undefined,
+          timeframe: timeframe || undefined,
         }),
       });
 
@@ -147,6 +178,26 @@ export function EmailCapture() {
                     required
                     className="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-pink-500 text-center text-lg"
                   />
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <select
+                    value={concern}
+                    onChange={(e) => setConcern(e.target.value)}
+                    className="px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-white focus:outline-none focus:border-pink-500 text-sm"
+                  >
+                    {CONCERN_OPTIONS.map((o) => (
+                      <option key={o.value} value={o.value} className="text-gray-900">{o.label}</option>
+                    ))}
+                  </select>
+                  <select
+                    value={timeframe}
+                    onChange={(e) => setTimeframe(e.target.value)}
+                    className="px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-white focus:outline-none focus:border-pink-500 text-sm"
+                  >
+                    {TIMEFRAME_OPTIONS.map((o) => (
+                      <option key={o.value} value={o.value} className="text-gray-900">{o.label}</option>
+                    ))}
+                  </select>
                 </div>
                 <button
                   type="submit"
