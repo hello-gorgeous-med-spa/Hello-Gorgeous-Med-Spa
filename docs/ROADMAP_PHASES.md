@@ -100,13 +100,13 @@ Strategic phases for conversion, trust, and growth after the Premium Medical Gla
 
 | Task | Description | Status |
 |------|-------------|--------|
-| 7.1 | Surface membership benefits on homepage or dedicated section | ⬜ |
-| 7.2 | Add membership CTA to services/footer | ⬜ |
-| 7.3 | Simplify signup flow (reduce steps, clear value prop) | ⬜ |
-| 7.4 | Add member-only perks callout (e.g., 10% off, priority booking) | ⬜ |
-| 7.5 | Consider renewal/expiry email flow | ⬜ |
+| 7.1 | Surface membership benefits on homepage or dedicated section | ✅ |
+| 7.2 | Add membership CTA to services/footer | ✅ |
+| 7.3 | Simplify signup flow (reduce steps, clear value prop) | ⬜ (defer) |
+| 7.4 | Add member-only perks callout (e.g., 10% off, priority booking) | ✅ |
+| 7.5 | Consider renewal/expiry email flow | ⬜ (defer) |
 
-**Deliverable:** Membership visible and easy to join.
+**Deliverable:** Membership visible and easy to join. MembershipSection on homepage; footer + services CTAs.
 
 ---
 

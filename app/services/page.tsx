@@ -37,13 +37,19 @@ export default function ServicesPage() {
             <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">
               Prefer a guided experience? Start with Explore Care to navigate by how you feel—no pressure, education first.
             </p>
-            <div className="mt-10 flex flex-col sm:flex-row gap-4">
+            <div className="mt-10 flex flex-col sm:flex-row gap-4 flex-wrap">
               <CTA href="/explore-care" variant="gradient">
                 Explore Care (Services Atlas™)
               </CTA>
               <CTA href="/providers" variant="outline">
                 Meet Your Care Team
               </CTA>
+              <Link
+                href="/membership"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-md border border-pink-500/30 text-pink-400 text-sm font-medium hover:bg-pink-500/10 transition"
+              >
+                💎 Save 10% with VIP Membership
+              </Link>
             </div>
           </FadeUp>
         </div>

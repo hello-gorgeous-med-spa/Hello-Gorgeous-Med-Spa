@@ -117,6 +117,11 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 </Link>
               </li>
               <li>
+                <Link className="hover:text-pink-400 transition-colors" href="/membership">
+                  VIP Membership
+                </Link>
+              </li>
+              <li>
                 <Link className="hover:text-pink-400 transition-colors" href="/quiz">
                   Find My Treatment
                 </Link>

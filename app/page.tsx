@@ -17,6 +17,7 @@ import { BioteSection } from "@/components/BioteSection";
 import { EmailBanner } from "@/components/EmailCapture";
 import { HomepageInteractiveTools } from "@/components/HomepageInteractiveTools";
 import { QuizCTA } from "@/components/QuizCTA";
+import { MembershipSection } from "@/components/MembershipSection";
 import { FixWhatBothersMeFeature } from "@/components/FixWhatBothersMeFeature";
 import { ImmediateCareBanner } from "@/components/ImmediateCareBanner";
 import { TriggerPointSection } from "@/components/TriggerPointSection";
@@ -79,6 +80,7 @@ export default async function HomePage() {
       <QuizCTA />
       <MeetProviders />
       <OffersSection />
+      <MembershipSection />
       <HomepageInteractiveTools />
       <HomeCareTeam />
       <PharmacyShowcase />
