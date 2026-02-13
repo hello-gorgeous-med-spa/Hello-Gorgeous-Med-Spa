@@ -1,7 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { X } from "lucide-react";
+
+function XIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+      <path d="M18 6L6 18M6 6l12 12" />
+    </svg>
+  );
+}
 
 const CUTOFF_DATE = new Date("2026-02-28T23:59:59");
 
@@ -70,7 +77,7 @@ export default function BookingTransitionBanner() {
         className="absolute right-3 top-1/2 -translate-y-1/2 opacity-80 hover:opacity-100 p-1"
         aria-label="Dismiss banner"
       >
-        <X size={18} />
+        <XIcon size={18} />
       </button>
     </div>
   );
