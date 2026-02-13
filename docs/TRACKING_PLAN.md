@@ -18,8 +18,14 @@ Implementation: `components/GoogleAnalytics.tsx` (injected in `app/layout.tsx`).
 | `email_click` | User clicks any `mailto:` link | Same delegated listener |
 | `sms_click` | User clicks an `sms:` link or element with `data-sms-click` | Same delegated listener |
 | `book_now_click` | User clicks a link whose href contains `book` or element with `data-book-now` | Same delegated listener |
+| `quiz_complete` | User sees quiz results (quiz or treatment-quiz) | `app/quiz/page.tsx`, `app/quiz/TreatmentQuiz.tsx` |
+| `consult_start` | User gets Body Consultation recommendations | `BodyConsultationTool.tsx` |
+| `concern_submit` | Fix What Bothers Me form submitted | `FixWhatBothersMeForm.tsx` |
+| `subscribe` | Email captured (popup, etc.) | `EmailCapture.tsx` |
 
 All of the above push to `dataLayer` and to `gtag('event', eventName, params)` when GA4 is loaded.
+
+See `docs/ANALYTICS_EVENTS.md` for full event catalog and dashboard guidance.
 
 ---
 

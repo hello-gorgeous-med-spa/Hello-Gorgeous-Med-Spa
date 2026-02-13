@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackEvent } from "@/components/GoogleAnalytics";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 
@@ -249,6 +250,7 @@ export function TreatmentQuiz() {
   const [phone, setPhone] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [showLeadCapture, setShowLeadCapture] = useState(false);
+  const [satisfactionRated, setSatisfactionRated] = useState(false);
 
   const currentQuestion = questions[currentStep];
   const progress = ((currentStep + 1) / questions.length) * 100;
@@ -306,12 +308,14 @@ export function TreatmentQuiz() {
       // Ignore errors, still show results
     }
     
+    trackEvent("quiz_complete", { source: "treatment-quiz", email_captured: "true" });
     setSubmitted(true);
     setShowResults(true);
     setShowLeadCapture(false);
   };
 
   const skipLeadCapture = () => {
+    trackEvent("quiz_complete", { source: "treatment-quiz", email_captured: "false" });
     setShowResults(true);
     setShowLeadCapture(false);
   };
@@ -586,6 +590,31 @@ export function TreatmentQuiz() {
               )}
             </div>
           </FadeUp>
+
+          {/* Post-quiz satisfaction micro-survey */}
+          {!satisfactionRated && (
+            <FadeUp delayMs={500}>
+              <div className="max-w-md mx-auto mt-8 p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
+                <p className="text-gray-400 text-sm mb-3">How helpful was this quiz?</p>
+                <div className="flex justify-center gap-2">
+                  {[1, 2, 3, 4, 5].map((n) => (
+                    <button
+                      key={n}
+                      type="button"
+                      onClick={() => {
+                        trackEvent("quiz_satisfaction", { rating: n, source: "treatment-quiz" });
+                        setSatisfactionRated(true);
+                      }}
+                      className="w-10 h-10 rounded-full bg-white/5 hover:bg-pink-500/30 text-lg transition hover:scale-110"
+                      aria-label={`Rate ${n} out of 5`}
+                    >
+                      {n === 5 ? "😍" : n === 4 ? "😊" : n === 3 ? "🙂" : n === 2 ? "😐" : "😕"}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </FadeUp>
+          )}
 
           {/* Retake */}
           <div className="text-center mt-8">

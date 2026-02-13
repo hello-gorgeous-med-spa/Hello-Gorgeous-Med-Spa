@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { trackEvent } from "@/components/GoogleAnalytics";
 import { usePathname } from "next/navigation";
 
 const CONCERN_OPTIONS = [
@@ -101,6 +102,7 @@ export function EmailCapture() {
         throw new Error(data.error || "Failed to subscribe");
       }
       
+      trackEvent("subscribe", { source: "popup-10off" });
       localStorage.setItem("email-subscribed", email);
       setStatus("success");
       

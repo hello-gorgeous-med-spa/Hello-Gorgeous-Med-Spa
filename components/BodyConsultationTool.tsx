@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { trackEvent } from "@/components/GoogleAnalytics";
 import Image from "next/image";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
@@ -184,7 +185,10 @@ export function BodyConsultationTool({
         </div>
       )}
       <button
-        onClick={() => setShowResults(true)}
+        onClick={() => {
+          trackEvent("consult_start", { zones: selectedZones.size });
+          setShowResults(true);
+        }}
         disabled={selectedZones.size === 0}
         className="w-full py-4 rounded-md bg-[#E6007E] hover:bg-[#B0005F] disabled:bg-[#5E5E66]/40 disabled:cursor-not-allowed text-white uppercase tracking-widest text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
       >

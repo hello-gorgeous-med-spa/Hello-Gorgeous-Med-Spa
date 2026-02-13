@@ -70,13 +70,13 @@ Strategic phases for conversion, trust, and growth after the Premium Medical Gla
 
 | Task | Description | Status |
 |------|-------------|--------|
-| 5.1 | Define key events: quiz complete, consult start, booking click | ⬜ |
-| 5.2 | Implement event tracking (GA4 / existing analytics) | ⬜ |
-| 5.3 | Add post-quiz satisfaction micro-survey (optional) | ⬜ |
-| 5.4 | Add post-booking "How did we do?" (optional) | ⬜ |
-| 5.5 | Document dashboard or report for monthly review | ⬜ |
+| 5.1 | Define key events: quiz complete, consult start, booking click | ✅ |
+| 5.2 | Implement event tracking (GA4 / existing analytics) | ✅ |
+| 5.3 | Add post-quiz satisfaction micro-survey (optional) | ✅ |
+| 5.4 | Add post-booking "How did we do?" (optional) | ⬜ (defer) |
+| 5.5 | Document dashboard or report for monthly review | ✅ |
 
-**Deliverable:** Event tracking + feedback hooks in place.
+**Deliverable:** Event tracking + feedback hooks in place. See `docs/ANALYTICS_EVENTS.md`.
 
 ---
 

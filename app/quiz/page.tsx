@@ -7,6 +7,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { trackEvent } from '@/components/GoogleAnalytics';
 
 interface Question {
   id: string;
@@ -246,10 +247,12 @@ export default function QuizPage() {
   const handleSubmitEmail = (e: React.FormEvent) => {
     e.preventDefault();
     // TODO: Save email to database
+    trackEvent("quiz_complete", { source: "quiz", email_captured: "true" });
     setShowResults(true);
   };
 
   const handleSkipEmail = () => {
+    trackEvent("quiz_complete", { source: "quiz", email_captured: "false" });
     setShowResults(true);
   };
 

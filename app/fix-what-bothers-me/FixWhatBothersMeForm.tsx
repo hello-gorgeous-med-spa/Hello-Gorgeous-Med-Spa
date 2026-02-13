@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { trackEvent } from "@/components/GoogleAnalytics";
 import Link from "next/link";
 import { BOOKING_URL } from "@/lib/flows";
 
@@ -61,6 +62,7 @@ export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
         return;
       }
 
+      trackEvent("concern_submit", {});
       setSuggested(data.suggested || []);
       setStatus("success");
       form.reset();
