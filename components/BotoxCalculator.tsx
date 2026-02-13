@@ -81,12 +81,12 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
       {/* Face + Neck Image */}
       <FadeUp delayMs={embedded ? 0 : 60}>
         <div className="relative rounded-xl overflow-hidden bg-[#FDF7FA]">
-          <div className="relative w-full max-w-sm mx-auto aspect-[3/4] min-h-[320px] md:min-h-[400px]">
+          <div className="relative w-full max-w-[360px] h-[400px] md:h-[480px] mx-auto">
             <Image
               src="/images/hg-botox-face-neck.png"
               alt="Select Botox treatment areas"
               fill
-              sizes="(max-width: 768px) 320px, 400px"
+              sizes="(max-width: 768px) 360px, 360px"
               className="object-contain"
             />
             {treatmentAreas.map((area) => (

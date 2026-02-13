@@ -198,13 +198,13 @@ export function BodyConsultationTool({
   );
 
   const bodySection = (
-    <div className="relative flex-1 min-h-[400px] md:min-h-[500px] flex items-center justify-center">
-      <div className="relative w-full max-w-[280px] md:max-w-[360px] aspect-[3/5]">
+    <div className="relative flex-1 min-h-[400px] md:min-h-[480px] flex items-center justify-center">
+      <div className="relative w-full max-w-[360px] h-[400px] md:h-[480px] mx-auto">
         <Image
           src="/images/hg-consult-body.png"
           alt="Select areas you'd like to improve"
           fill
-          sizes="(max-width: 768px) 280px, 360px"
+          sizes="(max-width: 768px) 360px, 360px"
           className="object-contain drop-shadow-lg"
         />
         {ZONES.map((zone) => (
