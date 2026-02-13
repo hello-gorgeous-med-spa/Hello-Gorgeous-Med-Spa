@@ -77,14 +77,14 @@ export function TriggerPointSection() {
   }, []);
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-b from-black via-red-950/10 to-black">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-12 md:py-16 px-4 md:px-6 bg-gradient-to-b from-black via-red-950/10 to-black">
+      <div className="max-w-6xl mx-auto min-w-0">
         <FadeUp>
           <div className="text-center mb-12">
             <span className="inline-block px-4 py-1 rounded-full bg-red-500/20 text-red-400 text-sm font-medium mb-4">
               🎯 Pain Relief Specialists
             </span>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-2xl md:text-5xl font-bold text-white mb-4">
               Trigger Point{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-400">
                 Injections

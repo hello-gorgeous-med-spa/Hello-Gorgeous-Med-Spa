@@ -49,13 +49,13 @@ export function FixWhatBothersMeFeature() {
         <div className="mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 flex-shrink-0">
           <Link
             href="/fix-what-bothers-me"
-            className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-full hover:shadow-lg hover:shadow-pink-500/25 active:bg-pink-600 transition-all text-center"
+            className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-full hover:shadow-lg hover:shadow-pink-500/25 active:bg-pink-600 transition-all text-center text-base"
           >
             <span>✨</span> Start here: Fix what bothers me
           </Link>
           <Link
             href={BOOKING_URL}
-            className="w-full sm:w-auto min-h-[44px] inline-flex items-center justify-center px-6 py-4 border border-white/20 text-gray-300 font-medium rounded-full hover:bg-white/5 hover:text-white active:bg-white/10 transition-colors text-center"
+            className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center px-6 py-4 border border-white/20 text-gray-300 font-medium rounded-full hover:bg-white/5 hover:text-white active:bg-white/10 transition-colors text-center text-base"
           >
             Or book directly →
           </Link>

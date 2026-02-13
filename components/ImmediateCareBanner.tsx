@@ -14,8 +14,8 @@ const services = [
 
 export function ImmediateCareBanner() {
   return (
-    <section className="py-12 px-4 bg-gradient-to-r from-fuchsia-950/40 via-pink-950/30 to-fuchsia-950/40 border-y border-pink-500/20">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-12 md:py-16 px-4 md:px-6 bg-gradient-to-r from-fuchsia-950/40 via-pink-950/30 to-fuchsia-950/40 border-y border-pink-500/20">
+      <div className="max-w-6xl mx-auto min-w-0">
         <FadeUp>
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/20 border border-pink-500/30 mb-4">
@@ -26,7 +26,7 @@ export function ImmediateCareBanner() {
               <span className="text-pink-400 font-semibold text-sm">Appointments Available NOW</span>
             </div>
             
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+            <h2 className="text-2xl md:text-4xl font-bold text-white mb-3">
               Can&apos;t Get In With Your Doctor?
             </h2>
             <p className="text-xl text-gray-300 mb-2">
@@ -60,7 +60,7 @@ export function ImmediateCareBanner() {
               href={IMMEDIATE_CARE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group px-8 py-4 rounded-xl bg-gradient-to-r from-fuchsia-500 to-pink-500 text-white font-bold text-lg hover:opacity-90 transition transform hover:scale-105 shadow-lg shadow-pink-500/25 flex items-center gap-3"
+              className="group w-full sm:w-auto min-h-[48px] px-8 py-4 rounded-xl bg-gradient-to-r from-fuchsia-500 to-pink-500 text-white font-bold text-base md:text-lg hover:opacity-90 transition transform hover:scale-105 shadow-lg shadow-pink-500/25 flex items-center justify-center gap-3"
             >
               <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
@@ -70,7 +70,7 @@ export function ImmediateCareBanner() {
             </a>
             <a
               href="tel:630-636-6193"
-              className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition flex items-center gap-2"
+              className="w-full sm:w-auto min-h-[48px] px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition flex items-center justify-center gap-2"
             >
               📞 Call Now: 630-636-6193
             </a>

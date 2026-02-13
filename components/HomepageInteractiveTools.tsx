@@ -13,14 +13,14 @@ export function HomepageInteractiveTools() {
   }, []);
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-b from-black via-pink-950/10 to-black">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-12 md:py-16 px-4 md:px-6 bg-gradient-to-b from-black via-pink-950/10 to-black">
+      <div className="max-w-6xl mx-auto min-w-0">
         <FadeUp>
           <div className="text-center mb-10">
             <span className="inline-block px-4 py-1 rounded-full bg-pink-500/20 text-pink-400 text-sm font-medium mb-4">
               ✨ Your Journey Starts Here
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+            <h2 className="text-2xl md:text-4xl font-bold text-white mb-3">
               Plan Your Perfect{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-500">
                 Treatment
@@ -36,7 +36,7 @@ export function HomepageInteractiveTools() {
           {/* Left: Interactive Consultation */}
           <FadeUp delayMs={80}>
             <div
-              className="h-full min-h-[420px] flex flex-col rounded-3xl border border-pink-500/20 bg-gradient-to-b from-gray-900 to-black p-6"
+              className="h-full min-h-[360px] md:min-h-[420px] flex flex-col rounded-2xl md:rounded-3xl border border-pink-500/20 bg-gradient-to-b from-gray-900 to-black p-4 md:p-6"
               aria-label="Virtual consultation tool"
             >
               <div className="flex items-center gap-2 mb-4">

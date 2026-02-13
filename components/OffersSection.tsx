@@ -6,11 +6,11 @@ import { BOOKING_URL } from "@/lib/flows";
 
 export function OffersSection() {
   return (
-    <section className="py-12 px-4 bg-black">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-12 md:py-16 px-4 md:px-6 bg-black">
+      <div className="max-w-6xl mx-auto min-w-0">
         <FadeUp>
           <div className="text-center mb-10">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2 className="text-2xl md:text-4xl font-bold text-white">
               Exclusive{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-500">
                 Offers
@@ -51,7 +51,7 @@ export function OffersSection() {
                     Give the gift of confidence. Instant email delivery.
                   </p>
 
-                  <span className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-pink-500 text-white font-semibold text-sm group-hover:bg-pink-600 transition">
+                  <span className="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 rounded-full bg-pink-500 text-white font-semibold text-base group-hover:bg-pink-600 transition">
                     🎁 Purchase eGift Card
                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </span>
@@ -92,7 +92,7 @@ export function OffersSection() {
                     </div>
                   </div>
 
-                  <span className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-pink-500 text-white font-semibold text-sm group-hover:bg-pink-600 transition">
+                  <span className="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 rounded-full bg-pink-500 text-white font-semibold text-base group-hover:bg-pink-600 transition">
                     Book Now
                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </span>

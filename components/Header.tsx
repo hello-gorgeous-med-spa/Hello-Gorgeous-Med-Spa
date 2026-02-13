@@ -118,12 +118,12 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
   
   return (
     <div 
-      className="fixed top-16 left-0 right-0 bg-white shadow-2xl border-t border-gray-100 z-50"
+      className="fixed top-16 left-0 right-0 bg-white shadow-2xl border-t border-gray-100 z-50 overflow-x-hidden"
       onMouseEnter={onMouseEnter}
       onMouseLeave={onClose}
     >
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="grid grid-cols-5 gap-8">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 py-6 md:py-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-8">
           {/* Service columns */}
           {data.columns.map((column) => (
             <div key={column.title}>
@@ -275,7 +275,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-black/95 backdrop-blur-xl border-b border-white/5">
-      <div className="mx-auto max-w-7xl px-4">
+      <div className="mx-auto max-w-7xl px-4 min-w-0 overflow-x-hidden">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0">
@@ -670,14 +670,14 @@ export function Header() {
             </a>
           </div>
 
-          {/* Mobile CTAs */}
-          <div className="sticky bottom-0 bg-black/95 border-t border-white/10 px-4 py-4 space-y-3">
-            <CTA href={BOOKING_URL} variant="gradient" className="w-full py-4 rounded-xl text-lg font-semibold">
+          {/* Mobile CTAs - full width, 48px min height */}
+          <div className="sticky bottom-0 bg-black/95 border-t border-white/10 px-4 py-4 space-y-3 safe-area-pb">
+            <CTA href={BOOKING_URL} variant="gradient" className="w-full min-h-[48px] py-4 rounded-xl text-base font-semibold">
               Book Your Appointment
-              </CTA>
-            <CTA href="/quiz" variant="outline" className="w-full py-3 rounded-xl">
+            </CTA>
+            <CTA href="/quiz" variant="outline" className="w-full min-h-[48px] py-3 rounded-xl">
               Find My Treatment
-              </CTA>
+            </CTA>
           </div>
         </div>
       )}

@@ -30,7 +30,7 @@ export function CTA({
 }) {
   const isExternal = /^https?:\/\//i.test(href);
   const classes = cx(
-    "inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full text-lg font-semibold transition-all duration-300",
+    "inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 rounded-full text-base font-semibold transition-all duration-300 w-full md:w-auto md:px-8 md:py-4 md:text-lg",
     variants[variant],
     className,
   );

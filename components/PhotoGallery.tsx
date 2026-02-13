@@ -35,7 +35,7 @@ export function PhotoGallery() {
         <FadeUp>
           <div className="text-center mb-12">
             <p className="text-pink-400 text-lg font-medium tracking-wide">REAL RESULTS</p>
-            <h2 className="mt-4 text-3xl md:text-5xl font-bold text-white">See the Difference</h2>
+            <h2 className="mt-4 text-2xl md:text-5xl font-bold text-white">See the Difference</h2>
             <p className="mt-4 text-base md:text-lg text-white/70 max-w-2xl mx-auto">
               Real patients, real results. See what Hello Gorgeous Med Spa can do for you.
             </p>
@@ -68,7 +68,7 @@ export function PhotoGallery() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-pink-500 text-white font-semibold rounded-full hover:bg-pink-600 transition shadow-lg shadow-pink-500/25"
+              className="inline-flex min-h-[48px] items-center justify-center gap-2 px-8 py-4 bg-pink-500 text-white font-semibold rounded-full hover:bg-pink-600 transition shadow-lg shadow-pink-500/25 w-full md:w-auto"
             >
               Book Your Transformation
             </a>

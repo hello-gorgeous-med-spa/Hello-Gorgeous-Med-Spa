@@ -98,7 +98,7 @@ export function HomeCareTeam() {
         <FadeUp>
           <div className="text-center">
             <p className="text-pink-400 text-lg md:text-xl font-medium tracking-wide">MEET YOUR CARE TEAM</p>
-            <h2 className="mt-4 text-3xl md:text-5xl font-bold text-white">Real guidance. Thoughtful education.</h2>
+            <h2 className="mt-4 text-2xl md:text-5xl font-bold text-white">Real guidance. Thoughtful education.</h2>
             <p className="mt-4 text-base md:text-lg text-white/70 max-w-3xl mx-auto">
               Support before you ever book. Choose an expert voice—get clear, calm answers powered by our Knowledge Library.
             </p>
@@ -210,7 +210,7 @@ export function HomeCareTeam() {
                       setChatOpen(true);
                       memory.setPreference({ stage: "learning" });
                     }}
-                    className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
+                    className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
                   >
                     Ask a question
                   </button>
@@ -221,18 +221,18 @@ export function HomeCareTeam() {
                       setInput(ui.chatStarters[0] ?? "Where should I start?");
                       memory.setPreference({ stage: "learning" });
                     }}
-                    className="px-6 py-3 rounded-full border border-white/20 text-white hover:bg-white/5 transition"
+                    className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full border border-white/20 text-white hover:bg-white/5 transition"
                   >
                     Just learning
                   </button>
-                  <CTA href={BOOKING_URL} variant="outline">
+                  <CTA href={BOOKING_URL} variant="outline" className="w-full sm:w-auto">
                     Book when ready
                   </CTA>
                   {videoSrc ? (
                     <button
                       type="button"
                       onClick={() => setVideoOpen((v) => !v)}
-                      className="px-6 py-3 rounded-full border border-white/20 text-white hover:bg-white/5 transition"
+                      className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full border border-white/20 text-white hover:bg-white/5 transition"
                     >
                       {videoOpen ? "Hide video" : "Watch intro"}
                     </button>

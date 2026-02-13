@@ -48,7 +48,7 @@ export function ContactForm() {
   return (
     <form className="mt-6 grid gap-4 keyboard-safe" onSubmit={handleSubmit}>
       <input
-        className="w-full min-h-[44px] rounded-lg bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50"
+        className="w-full min-h-[48px] text-base rounded-lg bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50"
         placeholder="Name"
         name="name"
         type="text"
@@ -57,7 +57,7 @@ export function ContactForm() {
         disabled={status === "sending"}
       />
       <input
-        className="w-full min-h-[44px] rounded-lg bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50"
+        className="w-full min-h-[48px] text-base rounded-lg bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50"
         placeholder="Email or phone"
         name="contact"
         type="text"
@@ -66,7 +66,7 @@ export function ContactForm() {
         disabled={status === "sending"}
       />
       <textarea
-        className="w-full min-h-[120px] rounded-lg bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50 resize-y"
+        className="w-full min-h-[120px] text-base rounded-lg bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50 resize-y"
         placeholder="How can we help?"
         name="message"
         required
@@ -79,7 +79,7 @@ export function ContactForm() {
         <p className="text-red-400 text-sm font-medium" role="alert">{errorMessage}</p>
       )}
       <button
-        className="min-h-[44px] px-8 py-4 bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 rounded-full text-lg font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition-all duration-300 hover:scale-105 active:scale-[0.98] disabled:opacity-70 disabled:pointer-events-none"
+        className="w-full min-h-[48px] px-8 py-4 bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 rounded-full text-base font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition-all duration-300 hover:scale-105 active:scale-[0.98] disabled:opacity-70 disabled:pointer-events-none md:w-auto"
         type="submit"
         disabled={status === "sending"}
       >

@@ -32,11 +32,11 @@ const partners = [
 
 export function PartnersGrid() {
   return (
-    <section className="py-16 px-4">
-      <div className="max-w-6xl mx-auto">
+    <section className="py-12 md:py-16 px-4 md:px-6">
+      <div className="max-w-6xl mx-auto min-w-0">
         <div className="text-center mb-12">
           <p className="text-pink-400 text-lg font-medium tracking-wide">EXCLUSIVE OFFERS</p>
-          <h2 className="mt-4 text-3xl md:text-4xl font-bold text-white">
+          <h2 className="mt-4 text-2xl md:text-4xl font-bold text-white">
             Financing & Rewards
           </h2>
           <p className="mt-4 text-white/70 max-w-2xl mx-auto">

@@ -23,12 +23,12 @@ export function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-b from-black via-pink-950/10 to-black">
-      <div className="max-w-5xl mx-auto">
+    <section className="py-12 md:py-16 px-4 md:px-6 bg-gradient-to-b from-black via-pink-950/10 to-black">
+      <div className="max-w-5xl mx-auto min-w-0">
         <FadeUp>
           <div className="text-center mb-12">
             <p className="text-pink-400 text-lg font-medium tracking-wide">REAL RESULTS</p>
-            <h2 className="mt-4 text-3xl md:text-4xl font-bold text-white">
+            <h2 className="mt-4 text-2xl md:text-4xl font-bold text-white">
               What Our Clients{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-500">
                 Say
@@ -80,17 +80,20 @@ export function Testimonials() {
               <p className="mt-4 text-gray-300 leading-relaxed">&ldquo;{testimonials[activeIndex].text}&rdquo;</p>
             </div>
 
-            {/* Dots */}
+            {/* Dots - 44px tap targets for thumb-friendly taps */}
             <div className="flex justify-center gap-2 mt-6">
               {testimonials.map((_, idx) => (
                 <button
                   key={idx}
                   type="button"
                   onClick={() => setActiveIndex(idx)}
-                  className={`w-2.5 h-2.5 rounded-full transition ${
+                  aria-label={`View testimonial ${idx + 1}`}
+                  className={`min-w-[44px] min-h-[44px] p-2 rounded-full flex items-center justify-center transition ${
                     idx === activeIndex ? "bg-pink-500" : "bg-gray-600"
                   }`}
-                />
+                >
+                  <span className="sr-only">Testimonial {idx + 1}</span>
+                </button>
               ))}
             </div>
           </FadeUp>

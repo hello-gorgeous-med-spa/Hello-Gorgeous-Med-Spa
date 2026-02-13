@@ -68,7 +68,7 @@ export function Hero({
   };
 
   return (
-    <section className="relative h-[min(45vh,320px)] w-full min-w-0 max-w-full overflow-hidden sm:h-[min(50vh,380px)]">
+    <section className="relative h-[min(50vh,360px)] w-full min-w-0 max-w-full overflow-hidden sm:h-[min(55vh,420px)] md:h-[min(60vh,480px)]">
       {/* Full-width background image - contained to fit section */}
       <div className="absolute inset-0">
         <Image
@@ -103,17 +103,14 @@ export function Hero({
 
       {/* Content - left-aligned, vertical center. Single full-width hero - no split panels. */}
       <div className="relative flex h-full min-h-0 w-full items-center">
-        <div className="w-full max-w-4xl min-w-0 shrink-0 px-6 py-4 sm:px-10 sm:py-6 md:px-12 lg:px-16">
+        <div className="w-full max-w-4xl min-w-0 shrink-0 px-4 py-6 sm:px-6 sm:py-8 md:px-10 md:py-10 lg:px-16 lg:py-12">
           <div className="max-w-2xl min-w-0">
             {/* Headline - fades in 0.4s */}
             <h1
-              className={`font-extrabold leading-[1.1] text-white transition-all duration-[400ms] ease-out ${
+              className={`font-extrabold leading-[1.1] text-white transition-all duration-[400ms] ease-out text-2xl sm:text-3xl md:text-4xl lg:text-5xl ${
                 mounted ? "opacity-100" : "opacity-0"
               }`}
-              style={{
-                fontSize: "clamp(1.5rem, 4vw, 2.5rem)",
-                letterSpacing: "-0.02em",
-              }}
+              style={{ letterSpacing: "-0.02em" }}
             >
               {renderHeadline()}
             </h1>
@@ -141,23 +138,23 @@ export function Hero({
               {DEFAULT_SUBTEXT}
             </p>
 
-            {/* CTA Buttons - fade in 0.5s */}
+            {/* CTA Buttons - fade in 0.5s, full-width + 48px min-height on mobile */}
             <div
-              className={`mt-4 flex flex-col gap-3 transition-all duration-[500ms] ease-out sm:mt-6 sm:flex-row sm:gap-4 ${
+              className={`mt-5 flex flex-col gap-3 transition-all duration-[500ms] ease-out sm:mt-6 sm:flex-row sm:gap-4 ${
                 mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
               }`}
               style={{ transitionDelay: "300ms" }}
             >
               <Link
                 href={ctaUrl}
-                className="inline-flex w-full items-center justify-center rounded-full px-6 py-2.5 text-sm font-semibold text-white shadow-lg transition-all hover:bg-[#e91e7a] hover:shadow-[0_0_24px_rgba(255,47,146,0.4)] sm:w-auto sm:py-3"
+                className="inline-flex w-full min-h-[48px] items-center justify-center rounded-full px-6 py-3 text-base font-semibold text-white shadow-lg transition-all hover:bg-[#e91e7a] hover:shadow-[0_0_24px_rgba(255,47,146,0.4)] sm:w-auto"
                 style={{ backgroundColor: "#ff2f92" }}
               >
                 {ctaText}
               </Link>
               <a
                 href="tel:630-636-6193"
-                className="inline-flex w-full items-center justify-center rounded-full border-2 border-white px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-white/15 sm:w-auto sm:py-3"
+                className="inline-flex w-full min-h-[48px] items-center justify-center rounded-full border-2 border-white px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-white/15 sm:w-auto"
               >
                 Call 630-636-6193
               </a>

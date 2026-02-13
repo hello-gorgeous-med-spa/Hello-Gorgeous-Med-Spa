@@ -52,8 +52,8 @@ export function Section({
   containerClassName?: string;
 }) {
   return (
-    <section className={cx("px-6 py-20", className)}>
-      <div className={cx("max-w-6xl mx-auto", containerClassName)}>{children}</div>
+    <section className={cx("px-4 py-12 md:px-6 md:py-16 lg:px-8 lg:py-20", className)}>
+      <div className={cx("max-w-6xl mx-auto min-w-0", containerClassName)}>{children}</div>
     </section>
   );
 }
