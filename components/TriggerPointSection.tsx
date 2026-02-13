@@ -1,10 +1,10 @@
 "use client";
 
-import { FadeUp } from "./Section";
-import { BOOKING_URL } from "@/lib/flows";
+import { useEffect, useState } from "react";
 
-// Set NEXT_PUBLIC_TRIGGER_POINT_VIDEO_URL in .env.local or Vercel env (YouTube: https://youtu.be/xxx, or direct .mp4 URL)
-const VIDEO_URL = process.env.NEXT_PUBLIC_TRIGGER_POINT_VIDEO_URL ?? "";
+import { FadeUp } from "./Section";
+import { StreamVideo } from "./StreamVideo";
+import { BOOKING_URL } from "@/lib/flows";
 
 function getYoutubeEmbedId(url: string): string | null {
   const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^&?/]+)/);
@@ -53,8 +53,28 @@ const conditions = [
 ];
 
 export function TriggerPointSection() {
-  // Video state - will be used when VIDEO_URL is provided
-  // const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const [streamUid, setStreamUid] = useState<string | null>(null);
+  const [videoUrl, setVideoUrl] = useState<string>("");
+
+  useEffect(() => {
+    const envUrl = process.env.NEXT_PUBLIC_TRIGGER_POINT_VIDEO_URL ?? "";
+    if (envUrl) {
+      setVideoUrl(envUrl);
+      return;
+    }
+    Promise.all([
+      fetch("/api/config?category=website").then((r) => r.json()),
+      fetch("/api/media?use_case=trigger_point").then((r) => r.json()),
+    ])
+      .then(([configRes, mediaRes]) => {
+        const uid = configRes?.config?.website?.trigger_point_stream_uid;
+        const url = configRes?.config?.website?.trigger_point_video_url;
+        const media = mediaRes?.media?.[0];
+        setStreamUid(typeof uid === "string" ? uid : media?.stream_uid ?? null);
+        setVideoUrl(typeof url === "string" ? url : "");
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <section className="py-16 px-4 bg-gradient-to-b from-black via-red-950/10 to-black">
@@ -81,21 +101,23 @@ export function TriggerPointSection() {
           {/* Video Section */}
           <FadeUp delayMs={60}>
             <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-red-500/10 to-orange-500/10 border border-red-500/20">
-              {VIDEO_URL ? (
-                // When video URL is provided
+              {streamUid ? (
                 <div className="aspect-video relative">
-                  {getYoutubeEmbedId(VIDEO_URL) ? (
+                  <StreamVideo uid={streamUid} loading="lazy" className="w-full h-full" />
+                </div>
+              ) : videoUrl ? (
+                <div className="aspect-video relative">
+                  {getYoutubeEmbedId(videoUrl) ? (
                     <iframe
-                      src={`https://www.youtube.com/embed/${getYoutubeEmbedId(VIDEO_URL)}`}
+                      src={`https://www.youtube.com/embed/${getYoutubeEmbedId(videoUrl)}`}
                       title="Trigger Point Injections"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                       className="w-full h-full"
                     />
                   ) : (
-                    // Local video file
                     <video
-                      src={VIDEO_URL}
+                      src={videoUrl}
                       controls
                       playsInline
                       preload="metadata"

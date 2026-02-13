@@ -200,6 +200,8 @@ const NAV_SECTIONS = [
     icon: '📰',
     items: [
       { href: '/admin/content/providers', label: 'Providers', icon: '👩‍⚕️' },
+      { href: '/admin/media', label: 'Media (Stream)', icon: '🎬' },
+      { href: '/admin/content/site-videos', label: 'Site Videos', icon: '📹' },
     ],
   },
   {

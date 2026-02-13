@@ -16,7 +16,6 @@ import { FullscriptSection } from "@/components/FullscriptSection";
 import { BioteSection } from "@/components/BioteSection";
 import { EmailBanner } from "@/components/EmailCapture";
 import { HomepageInteractiveTools } from "@/components/HomepageInteractiveTools";
-import { VirtualTryOn } from "@/components/VirtualTryOn";
 import { QuizCTA } from "@/components/QuizCTA";
 import { FixWhatBothersMeFeature } from "@/components/FixWhatBothersMeFeature";
 import { ImmediateCareBanner } from "@/components/ImmediateCareBanner";
@@ -80,7 +79,6 @@ export default async function HomePage() {
       <QuizCTA />
       <OffersSection />
       <HomepageInteractiveTools />
-      <VirtualTryOn />
       <HomeCareTeam />
       <PharmacyShowcase />
       <FullscriptSection />
