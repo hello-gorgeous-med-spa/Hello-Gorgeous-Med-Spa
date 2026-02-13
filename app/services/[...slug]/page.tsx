@@ -519,7 +519,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         </div>
       </Section>
 
-      {/* Before/After Results Gallery - Dermal Fillers */}
+      {/* Before/After Results Gallery - Dermal Fillers & Lip Filler */}
       {(s.slug === "dermal-fillers" || s.slug === "lip-filler") && (
         <Section>
           <FadeUp>
@@ -572,6 +572,65 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             <div className="mt-10 text-center">
               <p className="text-sm text-gray-500 mb-6">
                 Results shown are from actual clients. Individual results may vary.
+              </p>
+            </div>
+          </FadeUp>
+        </Section>
+      )}
+
+      {/* Before/After Results Gallery - RF Microneedling with AnteAge */}
+      {s.slug === "rf-microneedling" && (
+        <Section>
+          <FadeUp>
+            <div className="text-center mb-12">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/20 mb-4">
+                <span className="text-fuchsia-400 text-sm font-semibold uppercase tracking-wider">Real Results</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
+                Before &{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-pink-400">
+                  After
+                </span>
+              </h2>
+              <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+                RF microneedling with AnteAge® biosomes—improved texture, pores, and skin quality
+              </p>
+            </div>
+          </FadeUp>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            <FadeUp delayMs={60}>
+              <div className="rounded-2xl overflow-hidden border border-gray-800 bg-black">
+                <div className="relative aspect-[9/16] w-full max-w-md mx-auto">
+                  <Image
+                    src="/images/results/anteage-1.png"
+                    alt="RF microneedling with AnteAge before and after - Patient 1"
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={120}>
+              <div className="rounded-2xl overflow-hidden border border-gray-800 bg-black">
+                <div className="relative aspect-[9/16] w-full max-w-md mx-auto">
+                  <Image
+                    src="/images/results/anteage-2.png"
+                    alt="RF microneedling with AnteAge before and after - Patient 2"
+                    fill
+                    className="object-contain"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                </div>
+              </div>
+            </FadeUp>
+          </div>
+
+          <FadeUp delayMs={180}>
+            <div className="mt-10 text-center">
+              <p className="text-sm text-gray-500 mb-6">
+                Results shown are from actual clients. Individual results may vary. AnteAge® biosomes used in treatment.
               </p>
             </div>
           </FadeUp>
