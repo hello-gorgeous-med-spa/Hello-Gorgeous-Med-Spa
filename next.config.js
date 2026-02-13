@@ -11,7 +11,6 @@ const nextConfig = {
   },
   images: {
     remotePatterns: [
-      // Add real CDNs/domains here as needed
       { protocol: "https", hostname: "images.unsplash.com" },
     ],
   },

@@ -142,7 +142,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
         />
       </head>
-      <body className="min-h-screen antialiased">
+      <body className="min-h-screen antialiased font-sans">
         <GoogleAnalytics />
         <LeadCapturePopup />
         <AuthWrapper>

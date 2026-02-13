@@ -68,7 +68,7 @@ export function HumanJourney() {
           </p>
           <h1 className="text-4xl md:text-6xl font-bold leading-tight">
             Feel clear before you{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
+            <span className="text-hg-pink">
               commit
             </span>
           </h1>
@@ -79,19 +79,19 @@ export function HumanJourney() {
 
         {/* Journey hub - links to all journey pages */}
         <FadeUp delayMs={40}>
-          <div className="mt-10 rounded-2xl border border-gray-800 bg-black/40 p-6">
+          <div className="hg-card-dark mt-10">
             <p className="text-sm text-white/70 mb-4">Explore your journey</p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {JOURNEY_LINKS.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="flex items-center gap-3 p-3 rounded-xl border border-gray-800 hover:border-pink-500/40 hover:bg-pink-500/5 transition-colors group"
+                  className="flex items-center gap-3 p-3 rounded-xl border border-gray-800 hover:border-hg-pink/40 hover:bg-hg-pink/5 transition-all duration-300 ease-out hover:-translate-y-[2px] group"
                 >
                   <span className="text-xl group-hover:scale-110 transition-transform">{link.icon}</span>
                   <span className="text-sm font-medium text-white group-hover:text-pink-400 truncate">{link.label}</span>
                   {link.badge && (
-                    <span className="ml-auto px-2 py-0.5 text-[10px] font-bold bg-pink-500 text-white rounded-full shrink-0">
+                    <span className="ml-auto px-2 py-0.5 text-[10px] font-bold bg-hg-pink text-white rounded-full shrink-0">
                       {link.badge}
                     </span>
                   )}
@@ -103,7 +103,7 @@ export function HumanJourney() {
 
         <div className="mt-10 grid gap-4">
           <FadeUp delayMs={80}>
-            <div className="rounded-2xl border border-gray-800 bg-black/40 p-6">
+            <div className="hg-card-dark">
               <p className="text-sm text-white/70">Confidence Check™ (5–7 questions)</p>
               <div className="mt-6 grid gap-4">
                 <div className="grid gap-2">
@@ -221,7 +221,7 @@ export function HumanJourney() {
               <div className="mt-6 flex flex-col sm:flex-row gap-3">
                 <button
                   type="button"
-                  className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
+                  className="px-10 py-4 rounded-md bg-hg-pink hover:bg-hg-pinkDeep text-white uppercase tracking-widest text-sm font-semibold transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
                   onClick={() => setSummary(buildConfidenceSummary(answers))}
                 >
                   Generate Summary
@@ -254,7 +254,7 @@ export function HumanJourney() {
 
       <div className="lg:col-span-5">
         <FadeUp delayMs={140}>
-          <div className="rounded-2xl border border-gray-800 bg-black/40 overflow-hidden">
+          <div className="hg-card-dark overflow-hidden">
             <div className="p-5 border-b border-white/10">
               <p className="text-sm text-white/70">Your summary</p>
               <p className="mt-2 text-xs text-white/60">{complianceFooter()}</p>

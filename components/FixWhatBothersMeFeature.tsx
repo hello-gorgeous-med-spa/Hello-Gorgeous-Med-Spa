@@ -11,7 +11,7 @@ export function FixWhatBothersMeFeature() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 flex flex-col min-h-0 flex-1">
         {/* Title + subhead — mobile-first, compact on small screens */}
         <div className="text-center mb-6 md:mb-12 flex-shrink-0">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-white">
             Fix what bothers me
           </h2>
           <p className="mt-3 md:mt-4 text-base md:text-xl text-gray-300 max-w-2xl mx-auto">
@@ -30,7 +30,7 @@ export function FixWhatBothersMeFeature() {
               href={`/fix-what-bothers-me?concern=${encodeURIComponent(concern.key)}`}
               className="flex-shrink-0 w-[160px] md:w-[180px] snap-center group min-h-[44px] active:scale-[0.98] transition-transform"
             >
-              <div className="h-full min-h-[140px] rounded-2xl border border-white/10 bg-white/5 p-5 md:p-6 transition-all duration-200 hover:border-pink-500/40 hover:bg-pink-500/10 active:border-pink-500/50 active:bg-pink-500/15 focus-visible:ring-2 focus-visible:ring-pink-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+              <div className="h-full min-h-[140px] rounded-xl border border-white/10 bg-white/5 p-6 md:p-8 transition-all duration-300 ease-out hover:border-hg-pink/40 hover:bg-hg-pink/10 hover:-translate-y-[2px] hover:shadow-xl active:border-hg-pink/50 focus-visible:ring-2 focus-visible:ring-hg-pink/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
                 <div className="text-3xl md:text-4xl mb-3 transition-transform duration-200 group-hover:scale-110 group-active:scale-105">
                   {concern.icon}
                 </div>
@@ -49,7 +49,7 @@ export function FixWhatBothersMeFeature() {
         <div className="mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 flex-shrink-0">
           <Link
             href="/fix-what-bothers-me"
-            className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-full hover:shadow-lg hover:shadow-pink-500/25 active:bg-pink-600 transition-all text-center text-base"
+            className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center gap-2 px-10 py-4 bg-hg-pink hover:bg-hg-pinkDeep text-white font-semibold uppercase tracking-widest rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg text-center text-sm"
           >
             <span>✨</span> Start here: Fix what bothers me
           </Link>

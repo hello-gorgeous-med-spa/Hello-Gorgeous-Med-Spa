@@ -184,7 +184,7 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
           <Link
             href={BOOKING_URL}
             onClick={onClose}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-sm font-semibold rounded-full hover:shadow-lg hover:shadow-pink-500/25 transition-all"
+            className="inline-flex items-center gap-2 px-10 py-4 bg-hg-pink hover:bg-hg-pinkDeep text-white uppercase tracking-widest text-sm font-semibold rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
           >
             Book Now
           </Link>
@@ -438,7 +438,7 @@ export function Header() {
             </a>
 
             {/* Book Now Button */}
-            <CTA href={BOOKING_URL} variant="gradient" className="hidden md:flex px-5 py-2.5 rounded-full text-sm font-semibold shadow-lg shadow-pink-500/25">
+            <CTA href={BOOKING_URL} variant="gradient" className="hidden md:flex px-8 py-3">
                 Book Now
               </CTA>
 

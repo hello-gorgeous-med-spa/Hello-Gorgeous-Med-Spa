@@ -30,7 +30,7 @@ export function StickyMobileCTA() {
             href={BOOKING_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 min-h-[48px] py-3 px-4 bg-pink-500 text-white font-bold text-center rounded-full hover:bg-pink-600 transition shadow-lg shadow-pink-500/25 flex items-center justify-center"
+            className="flex-1 min-h-[48px] py-4 px-6 bg-hg-pink hover:bg-hg-pinkDeep text-white font-semibold uppercase tracking-widest text-sm text-center rounded-md transition-all duration-300 ease-out flex items-center justify-center"
           >
             Book Now
           </a>

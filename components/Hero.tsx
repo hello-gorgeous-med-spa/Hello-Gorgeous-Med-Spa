@@ -107,7 +107,7 @@ export function Hero({
           <div className="max-w-2xl min-w-0">
             {/* Headline - fades in 0.4s */}
             <h1
-              className={`font-extrabold leading-[1.1] text-white transition-all duration-[400ms] ease-out text-2xl sm:text-3xl md:text-4xl lg:text-5xl ${
+              className={`font-serif font-bold leading-[1.1] text-white transition-all duration-[400ms] ease-out text-4xl md:text-6xl ${
                 mounted ? "opacity-100" : "opacity-0"
               }`}
               style={{ letterSpacing: "-0.02em" }}
@@ -147,14 +147,13 @@ export function Hero({
             >
               <Link
                 href={ctaUrl}
-                className="inline-flex w-full min-h-[48px] items-center justify-center rounded-full px-6 py-3 text-base font-semibold text-white shadow-lg transition-all hover:bg-[#e91e7a] hover:shadow-[0_0_24px_rgba(255,47,146,0.4)] sm:w-auto"
-                style={{ backgroundColor: "#ff2f92" }}
+                className="inline-flex w-full min-h-[48px] items-center justify-center uppercase tracking-widest px-10 py-4 rounded-md text-sm font-semibold bg-hg-pink hover:bg-hg-pinkDeep text-white transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg sm:w-auto"
               >
                 {ctaText}
               </Link>
               <a
                 href="tel:630-636-6193"
-                className="inline-flex w-full min-h-[48px] items-center justify-center rounded-full border-2 border-white px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-white/15 sm:w-auto"
+                className="inline-flex w-full min-h-[48px] items-center justify-center uppercase tracking-widest px-10 py-4 rounded-md text-sm font-semibold border border-white text-white transition-all duration-300 ease-out hover:bg-white/15 hover:-translate-y-[2px] sm:w-auto"
               >
                 Call 630-636-6193
               </a>

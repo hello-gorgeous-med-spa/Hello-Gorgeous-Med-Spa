@@ -8,13 +8,15 @@ function cx(...classes: Array<string | undefined | null | false>) {
 
 type Variant = "gradient" | "outline" | "white" | "ghost";
 
+/* Premium Medical Glam — Button System */
 const variants: Record<Variant, string> = {
   gradient:
-    "bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white hover:shadow-2xl hover:shadow-pink-500/25 hover:scale-105",
-  outline: "border border-white/20 text-white hover:bg-white/5",
+    "bg-hg-pink hover:bg-hg-pinkDeep text-white uppercase tracking-widest px-10 py-4 rounded-md text-sm font-semibold transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg",
+  outline:
+    "border border-hg-pink text-hg-pink uppercase tracking-widest px-10 py-4 rounded-md text-sm font-semibold transition-all duration-300 ease-out hover:bg-hg-pink hover:text-white hover:-translate-y-[2px] hover:shadow-lg",
   white:
-    "bg-white text-black hover:shadow-2xl hover:shadow-white/25 hover:scale-105",
-  ghost: "text-white/70 hover:text-white hover:bg-white/5",
+    "bg-white text-hg-dark hover:bg-gray-100 uppercase tracking-widest px-10 py-4 rounded-md text-sm font-semibold transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg",
+  ghost: "text-white/70 hover:text-white hover:bg-white/5 tracking-wide",
 };
 
 export function CTA({
@@ -29,11 +31,11 @@ export function CTA({
   className?: string;
 }) {
   const isExternal = /^https?:\/\//i.test(href);
-  const classes = cx(
-    "inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 rounded-full text-base font-semibold transition-all duration-300 w-full md:w-auto md:px-8 md:py-4 md:text-lg",
-    variants[variant],
-    className,
-  );
+  const ghost = variant === "ghost";
+  const base = ghost
+    ? "inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 rounded-lg text-base font-medium transition-all duration-300 w-full md:w-auto"
+    : "inline-flex items-center justify-center gap-2 min-h-[48px] w-full md:w-auto";
+  const classes = cx(base, variants[variant], className);
 
   if (isExternal) {
     return (

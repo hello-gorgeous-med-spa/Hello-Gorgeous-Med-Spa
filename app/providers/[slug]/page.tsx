@@ -148,7 +148,7 @@ export default async function ProviderDetailPage({ params }: { params: { slug: s
             <div className="relative h-48 w-48 flex-shrink-0 overflow-hidden rounded-3xl border border-white/10 bg-black/40 shadow-2xl">
               {provider.headshot_url ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={provider.headshot_url} alt={provider.display_name} className="h-full w-full object-cover" />
+                <img src={provider.headshot_url} alt={provider.display_name} className="h-full w-full object-cover" loading="lazy" decoding="async" />
               ) : (
                 <div className="flex h-full w-full items-center justify-center text-5xl">👩‍⚕️</div>
               )}
@@ -161,7 +161,7 @@ export default async function ProviderDetailPage({ params }: { params: { slug: s
               <div className="mt-8 flex flex-wrap gap-4 text-sm">
                 <a
                   href={provider.booking_url || `${BOOKING_URL}?provider=${provider.slug}`}
-                  className="rounded-full bg-gradient-to-r from-pink-500 to-rose-500 px-6 py-3 font-semibold shadow-lg shadow-pink-500/30"
+                  className="rounded-md bg-hg-pink hover:bg-hg-pinkDeep px-10 py-4 font-semibold uppercase tracking-widest text-sm text-white transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
                 >
                   Book with {provider.display_name.split(" ")[0]}
                 </a>

@@ -5,9 +5,19 @@ export default {
   theme: {
     extend: {
       fontFamily: {
+        sans: ["var(--font-inter)", "Inter", "system-ui", "sans-serif"],
         serif: ["var(--font-playfair)", "Georgia", "serif"],
       },
       colors: {
+        // Hello Gorgeous Premium Medical Glam tokens
+        hg: {
+          pink: "#E6007E",
+          pinkDeep: "#B0005F",
+          bgSoft: "#FDF7FA",
+          dark: "#111111",
+          gray: "#5E5E66",
+          border: "#EAE4E8",
+        },
         ink: {
           950: "#07070A",
           900: "#0C0C12",

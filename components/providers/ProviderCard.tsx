@@ -18,7 +18,7 @@ type ProviderCardProps = {
 
 export function ProviderCard({ provider }: ProviderCardProps) {
   return (
-    <article className="relative rounded-3xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 p-6 backdrop-blur-lg shadow-[0_10px_60px_rgba(0,0,0,0.4)]">
+    <article className="relative rounded-xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 p-8 backdrop-blur-lg shadow-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-xl">
       <div className="flex items-center gap-4">
         <div className="relative h-20 w-20 rounded-2xl overflow-hidden border border-white/20 bg-black/40">
           {provider.headshot_url ? (
@@ -54,7 +54,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
         </Link>
         <Link
           href={provider.booking_url || `/book?provider=${provider.slug}`}
-          className="flex-1 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 px-4 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-pink-500/30"
+          className="flex-1 rounded-md bg-hg-pink hover:bg-hg-pinkDeep px-4 py-3 text-center text-sm font-semibold text-white uppercase tracking-widest transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
         >
           Book with {provider.display_name.split(" ")[0]}
         </Link>
