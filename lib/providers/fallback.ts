@@ -2,6 +2,7 @@ import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from "@/lib/provider-credentia
 
 /** Code-controlled provider images. Override DB values so you never need to run migrations for headshot changes. */
 export const PROVIDER_HEADSHOT_OVERRIDES: Record<string, string> = {
+  danielle: "/images/team/danielle.png",
   ryan: "/images/providers/ryan-kent-clinic.jpg",
 };
 
@@ -66,7 +67,7 @@ export const PROVIDER_FALLBACKS: Record<string, ProviderFallback> = {
     tagline: "Precision injectables + concierge-level care",
     short_bio: "Founder & aesthetic expert obsessed with personalized, confidence-building outcomes.",
     philosophy: "Every plan should feel luxurious, safe, and obsessed with your goals.",
-    headshot_url: "https://hellogorgeousmedspa.com/images/team/danielle.png",
+    headshot_url: "/images/team/danielle.png",
     hero_image_url: "https://hellogorgeousmedspa.com/images/gallery/treatment-1.png",
     intro_video_url: "https://hellogorgeousmedspa.com/videos/mascots/founder/founder-vision.mp4",
     booking_url: "/book?provider=danielle",
@@ -83,7 +84,7 @@ export const PROVIDER_FALLBACKS: Record<string, ProviderFallback> = {
     tagline: "Full-practice authority NP | metabolic & regenerative care",
     short_bio: "Nurse Practitioner leading hormone optimization, weight loss, and regenerative protocols.",
     philosophy: "Medical weight loss and hormone therapy built around safety, labs, and data.",
-    headshot_url: "https://hellogorgeousmedspa.com/images/providers/ryan-kent-clinic.jpg",
+    headshot_url: "/images/providers/ryan-kent-clinic.jpg",
     hero_image_url: "https://hellogorgeousmedspa.com/images/gallery/treatment-2.png",
     intro_video_url: "https://hellogorgeousmedspa.com/videos/mascots/ryan/ryan-intro.mp4",
     booking_url: "/book?provider=ryan",

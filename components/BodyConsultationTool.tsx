@@ -198,13 +198,13 @@ export function BodyConsultationTool({
   );
 
   const bodySection = (
-    <div className="relative flex-1 min-h-[400px] md:min-h-[480px] flex items-center justify-center">
-      <div className="relative w-full max-w-[360px] h-[400px] md:h-[480px] mx-auto">
+    <div className="relative flex-1 min-h-[420px] md:min-h-[560px] flex items-center justify-center">
+      <div className="relative w-full max-w-[420px] h-[420px] md:max-w-[520px] md:h-[560px] mx-auto">
         <Image
           src="/images/hg-consult-body.png"
           alt="Select areas you'd like to improve"
           fill
-          sizes="(max-width: 768px) 360px, 360px"
+          sizes="(max-width: 768px) 420px, 520px"
           className="object-contain drop-shadow-lg"
         />
         {ZONES.map((zone) => (
@@ -212,7 +212,7 @@ export function BodyConsultationTool({
             key={zone.id}
             type="button"
             onClick={() => toggleZone(zone.id)}
-            className="absolute w-[12%] h-[12%] min-w-[32px] min-h-[32px] -translate-x-1/2 -translate-y-1/2 rounded-full cursor-pointer border-0 bg-transparent"
+            className="absolute w-[14%] h-[14%] min-w-[44px] min-h-[44px] -translate-x-1/2 -translate-y-1/2 rounded-full cursor-pointer border-0 bg-transparent"
             style={{ top: zone.top, left: zone.left }}
             aria-label={`Select ${zone.label}`}
             title={zone.label}
@@ -224,8 +224,8 @@ export function BodyConsultationTool({
 
   if (embedded) {
     return (
-      <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch min-h-[420px]">
-        <FadeUp delayMs={0} className="flex-1 min-h-[400px]">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch min-h-[460px] md:min-h-[560px]">
+        <FadeUp delayMs={0} className="flex-1 min-h-[420px] md:min-h-[560px]">
           {bodySection}
         </FadeUp>
         <FadeUp delayMs={100} className="w-full lg:w-[340px] flex-shrink-0">
