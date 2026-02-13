@@ -83,6 +83,8 @@ const mascotHeroData: MascotHeroData[] = [
   },
 ];
 
+const AVATAR_SIZE = 120; // Uniform size for face and full-body (portrait-style square)
+
 function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (id: PersonaId) => void }) {
   const cfg = getPersonaConfig(data.id);
   const ui = PERSONA_UI[data.id];
@@ -91,80 +93,20 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
 
   const handlePlayVideo = () => {
     setShowVideo(true);
-    // Trigger play in next tick so video element exists; keeps user-gesture for sound
     requestAnimationFrame(() => {
       videoRef.current?.play().catch(() => {});
     });
   };
 
   return (
-    <div className="rounded-3xl border border-pink-500/30 bg-gradient-to-br from-black via-black to-pink-950/20 p-6 md:p-10">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-        {/* Left side - Content */}
-        <div>
-          <div className="flex items-center gap-3 mb-4">
-            <span className="text-3xl">{ui.emoji}</span>
-            <div>
-              <h3 className="text-2xl md:text-3xl font-bold text-white">{cfg.displayName}</h3>
-              <div className="h-1 w-16 bg-pink-500 rounded-full mt-1" />
-              <p className="text-sm text-pink-400 mt-1">{cfg.role}</p>
-            </div>
-          </div>
-
-          <p className="text-white/80 text-base md:text-lg leading-relaxed mb-6">
-            {ui.tagline}
-          </p>
-
-          {/* Feature Cards Grid */}
-          <div className="grid grid-cols-2 gap-3 mb-6">
-            {data.features.map((feature, idx) => (
-              <div
-                key={idx}
-                className="rounded-xl border border-pink-500/20 bg-pink-500/5 p-4 transition hover:scale-[1.02] hover:border-pink-500/40"
-              >
-                <div className="flex items-start gap-2">
-                  <span className="text-lg">{feature.icon}</span>
-                  <div>
-                    <p className="font-semibold text-sm text-pink-400">{feature.title}</p>
-                    <p className="text-xs text-white/60 mt-1">{feature.description}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex flex-wrap gap-3">
-            {data.videoSrc && (
-              <button
-                type="button"
-                onClick={handlePlayVideo}
-                className="px-6 py-3 rounded-full bg-pink-500/10 text-pink-400 font-semibold text-sm border border-pink-500/30 hover:bg-pink-500/20 transition flex items-center gap-2"
-              >
-                <span>▶</span> Watch Video
-              </button>
-            )}
-            <button
-              type="button"
-              onClick={() => onAskClick(data.id)}
-              className="px-6 py-3 rounded-full bg-pink-500 text-white font-semibold text-sm hover:bg-pink-600 transition flex items-center gap-2 shadow-lg shadow-pink-500/25"
-            >
-              <span>💬</span> Ask {cfg.displayName.split(" ")[0]}
-            </button>
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-6 py-3 rounded-full bg-white text-black font-semibold text-sm hover:bg-white/90 transition"
-            >
-              Book Now
-            </a>
-          </div>
-        </div>
-
-        {/* Right side - Character Image or Video */}
-        <div className="relative flex justify-center lg:justify-end">
-          <div className="relative w-64 h-80 md:w-80 md:h-96 rounded-2xl overflow-hidden shadow-2xl shadow-pink-500/20 border border-pink-500/20">
+    <div className="rounded-2xl border border-pink-500/30 bg-gradient-to-br from-black via-black to-pink-950/20 p-4 md:p-5 flex flex-col">
+      <div className="flex gap-4 items-start flex-1 min-h-0">
+        {/* Character Image - uniform portrait size (face + full-body same) */}
+        <div className="flex-shrink-0">
+          <div
+            className="relative rounded-xl overflow-hidden border border-pink-500/20 shadow-lg"
+            style={{ width: AVATAR_SIZE, height: AVATAR_SIZE }}
+          >
             {showVideo && data.videoSrc ? (
               <video
                 ref={videoRef}
@@ -181,8 +123,8 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
                   src={data.characterImage}
                   alt={cfg.displayName}
                   fill
-                  className={data.imageCover ? "object-cover" : "object-contain object-bottom"}
-                  sizes="(max-width: 768px) 256px, 320px"
+                  className={data.imageCover ? "object-cover" : "object-contain"}
+                  sizes={`${AVATAR_SIZE}px`}
                 />
                 {data.videoSrc && (
                   <button
@@ -190,16 +132,64 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
                     onClick={handlePlayVideo}
                     className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition group"
                   >
-                    <div className="w-16 h-16 rounded-full bg-pink-500 flex items-center justify-center shadow-lg shadow-pink-500/50 group-hover:scale-110 transition">
-                      <span className="text-white text-2xl ml-1">▶</span>
+                    <div className="w-10 h-10 rounded-full bg-pink-500 flex items-center justify-center shadow-lg group-hover:scale-110 transition">
+                      <span className="text-white text-sm ml-0.5">▶</span>
                     </div>
                   </button>
                 )}
               </>
             )}
           </div>
-          {/* Decorative glow */}
-          <div className="absolute -inset-4 bg-pink-500/10 rounded-3xl blur-3xl opacity-30 -z-10" />
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-xl">{ui.emoji}</span>
+            <h3 className="text-lg font-bold text-white truncate">{cfg.displayName}</h3>
+          </div>
+          <p className="text-xs text-pink-400 mb-3">{cfg.role}</p>
+          <p className="text-white/70 text-sm leading-snug line-clamp-2 mb-3">{ui.tagline}</p>
+
+          {/* Feature Pills - compact */}
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {data.features.slice(0, 2).map((feature, idx) => (
+              <span
+                key={idx}
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-pink-500/10 border border-pink-500/20 text-xs text-pink-400"
+              >
+                {feature.icon} {feature.title}
+              </span>
+            ))}
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex flex-wrap gap-2">
+            {data.videoSrc && (
+              <button
+                type="button"
+                onClick={handlePlayVideo}
+                className="px-3 py-1.5 rounded-full bg-pink-500/10 text-pink-400 font-medium text-xs border border-pink-500/30 hover:bg-pink-500/20 transition"
+              >
+                ▶ Video
+              </button>
+            )}
+            <button
+              type="button"
+              onClick={() => onAskClick(data.id)}
+              className="px-3 py-1.5 rounded-full bg-pink-500 text-white font-medium text-xs hover:bg-pink-600 transition"
+            >
+              💬 Ask
+            </button>
+            <a
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 rounded-full bg-white/10 text-white font-medium text-xs hover:bg-white/20 transition border border-white/20"
+            >
+              Book
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -221,18 +211,20 @@ export function MascotHeroSection() {
   };
 
   return (
-    <div className="space-y-8">
-      <div className="text-center mb-12">
-        <p className="text-pink-400 text-lg font-medium tracking-wide">MEET YOUR CARE TEAM</p>
-        <h2 className="mt-4 text-3xl md:text-5xl font-bold text-white">Your experts, on demand</h2>
-        <p className="mt-4 text-base md:text-lg text-white/70 max-w-3xl mx-auto">
+    <div className="space-y-6">
+      <div className="text-center mb-8">
+        <p className="text-pink-400 text-sm font-medium tracking-wide">MEET YOUR CARE TEAM</p>
+        <h2 className="mt-2 text-2xl md:text-4xl font-bold text-white">Your experts, on demand</h2>
+        <p className="mt-2 text-sm md:text-base text-white/70 max-w-2xl mx-auto">
           Pick an expert to get clear, calm answers. Education only—book a consult for medical advice.
         </p>
       </div>
 
-      {mascotHeroData.map((mascot) => (
-        <MascotHero key={mascot.id} data={mascot} onAskClick={handleAskClick} />
-      ))}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
+        {mascotHeroData.map((mascot) => (
+          <MascotHero key={mascot.id} data={mascot} onAskClick={handleAskClick} />
+        ))}
+      </div>
 
       {/* Chat Modal */}
       {chatOpen && selectedPersona && (

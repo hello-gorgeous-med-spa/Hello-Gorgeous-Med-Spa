@@ -70,7 +70,7 @@ export default async function HomePage() {
       <Hero />
       <HomepageGeoLinks />
       <HomepageBanner banner={cmsBanner} />
-      <section className="relative py-20 md:py-28 px-6 md:px-12">
+      <section className="relative py-12 md:py-16 px-6 md:px-12">
         <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-pink-950/10" />
         <div className="relative z-10 max-w-5xl mx-auto min-w-0">
           <MascotHeroSection />
