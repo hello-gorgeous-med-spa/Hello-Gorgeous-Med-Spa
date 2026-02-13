@@ -3,8 +3,13 @@
 import { FadeUp } from "./Section";
 import { BOOKING_URL } from "@/lib/flows";
 
-// Replace this with your actual video URL when ready
-const VIDEO_URL: string = ""; // e.g., "/videos/trigger-point.mp4" or YouTube embed ID
+// Set NEXT_PUBLIC_TRIGGER_POINT_VIDEO_URL in .env.local or Vercel env (YouTube: https://youtu.be/xxx, or direct .mp4 URL)
+const VIDEO_URL = process.env.NEXT_PUBLIC_TRIGGER_POINT_VIDEO_URL ?? "";
+
+function getYoutubeEmbedId(url: string): string | null {
+  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/))([^&?/]+)/);
+  return m?.[1] ?? null;
+}
 
 const benefits = [
   {
@@ -79,10 +84,9 @@ export function TriggerPointSection() {
               {VIDEO_URL ? (
                 // When video URL is provided
                 <div className="aspect-video relative">
-                  {VIDEO_URL.includes("youtube") || VIDEO_URL.includes("youtu.be") ? (
-                    // YouTube embed
+                  {getYoutubeEmbedId(VIDEO_URL) ? (
                     <iframe
-                      src={`https://www.youtube.com/embed/${VIDEO_URL.split("/").pop()?.split("v=").pop()}`}
+                      src={`https://www.youtube.com/embed/${getYoutubeEmbedId(VIDEO_URL)}`}
                       title="Trigger Point Injections"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -93,7 +97,8 @@ export function TriggerPointSection() {
                     <video
                       src={VIDEO_URL}
                       controls
-                      poster="/images/trigger-point-poster.jpg"
+                      playsInline
+                      preload="metadata"
                       className="w-full h-full object-cover"
                     >
                       Your browser does not support the video tag.
