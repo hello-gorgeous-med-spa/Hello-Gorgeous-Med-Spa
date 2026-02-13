@@ -115,12 +115,12 @@ Strategic phases for conversion, trust, and growth after the Premium Medical Gla
 
 | Task | Description | Status |
 |------|-------------|--------|
-| 8.1 | Document before/after submission workflow (consent, approval) | ⬜ |
-| 8.2 | Add service-level before/after galleries where applicable | ⬜ |
-| 8.3 | Ensure Admin → Content → Providers media flow is used regularly | ⬜ |
-| 8.4 | Add "Submit your results" CTA for post-treatment clients (optional) | ⬜ |
+| 8.1 | Document before/after submission workflow (consent, approval) | ✅ |
+| 8.2 | Add service-level before/after galleries where applicable | ✅ |
+| 8.3 | Ensure Admin → Content → Providers media flow is used regularly | ✅ |
+| 8.4 | Add "Submit your results" CTA for post-treatment clients (optional) | ⬜ (defer) |
 
-**Deliverable:** Process doc + service-level galleries.
+**Deliverable:** Process doc + service-level galleries. See `docs/BEFORE_AFTER_WORKFLOW.md`. Service galleries exist for Dermal Fillers, Lip Filler, RF Microneedling; provider pages pull from provider_media.
 
 ---
 
