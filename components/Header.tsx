@@ -37,6 +37,7 @@ const navigation = {
         links: [
           { label: "Weight Loss (GLP-1)", href: "/services/weight-loss-therapy", icon: "⚡" },
           { label: "Hormone Therapy", href: "/services/biote-hormone-therapy", icon: "⚖️" },
+          { label: "Peptide Therapy", href: "/peptides", icon: "🧬" },
           { label: "IV Therapy", href: "/services/iv-therapy", icon: "💧" },
           { label: "Laser Hair Removal", href: "/services/laser-hair-removal", icon: "✨" },
         ],
