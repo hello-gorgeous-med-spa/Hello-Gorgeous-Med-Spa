@@ -94,7 +94,7 @@ export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
                     </div>
                     <Link
                       href={s.slug === "quiz" ? "/quiz" : `/book/${s.slug}`}
-                      className="flex-shrink-0 w-full sm:w-auto inline-flex items-center justify-center min-h-[44px] px-4 py-2.5 bg-pink-500 hover:bg-pink-600 active:bg-pink-700 text-white text-sm font-semibold rounded-full transition-colors"
+                      className="flex-shrink-0 w-full sm:w-auto inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-hg-pink hover:bg-hg-pinkDeep text-white text-sm font-semibold uppercase tracking-widest rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
                     >
                       {s.slug === "quiz" ? "Start" : "Book"}
                     </Link>
@@ -105,9 +105,9 @@ export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
           )}
         </div>
         <p className="mt-8 text-gray-500 text-sm">
-          <Link href="/" className="text-pink-400 hover:text-pink-300">Back to home</Link>
+          <Link href="/" className="text-hg-pink hover:text-hg-pinkDeep">Back to home</Link>
           {" · "}
-          <Link href={BOOKING_URL} className="text-pink-400 hover:text-pink-300">See all services</Link>
+          <Link href={BOOKING_URL} className="text-hg-pink hover:text-hg-pinkDeep">See all services</Link>
         </p>
       </div>
     );
@@ -115,8 +115,11 @@ export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="rounded-2xl border border-gray-800 bg-black/40 p-6 md:p-8 keyboard-safe">
-      <p className="text-gray-400 text-sm mb-6">
+      <p className="text-gray-400 text-sm mb-4">
         Name and contact are optional. If you leave them, we can reach out personally.
+      </p>
+      <p className="text-gray-500 text-sm mb-6">
+        Prefer to talk? <a href="tel:630-636-6193" className="text-hg-pink hover:text-hg-pinkDeep font-medium">Call (630) 636-6193</a>
       </p>
 
       <div className="grid gap-4">
@@ -172,13 +175,13 @@ export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
         <button
           type="submit"
           disabled={status === "sending"}
-          className="flex-1 min-h-[44px] px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-full hover:shadow-lg hover:shadow-pink-500/25 active:bg-pink-600 transition-all disabled:opacity-70 disabled:pointer-events-none"
+          className="flex-1 min-h-[44px] px-10 py-4 bg-hg-pink hover:bg-hg-pinkDeep text-white font-semibold uppercase tracking-widest rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg disabled:opacity-70 disabled:pointer-events-none disabled:hover:translate-y-0"
         >
           {status === "sending" ? "Sending…" : "Share with us"}
         </button>
         <Link
           href="/book"
-          className="flex-1 min-h-[44px] inline-flex items-center justify-center px-8 py-4 border border-white/20 text-white font-semibold rounded-full hover:bg-white/5 active:bg-white/10 text-center transition-colors"
+          className="flex-1 min-h-[44px] inline-flex items-center justify-center px-10 py-4 border border-hg-pink text-hg-pink font-semibold uppercase tracking-widest rounded-md hover:bg-hg-pink hover:text-white transition-all duration-300 ease-out hover:-translate-y-[2px] text-center text-sm"
         >
           I know what I want — book now
         </Link>

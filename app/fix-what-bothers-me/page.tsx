@@ -38,6 +38,14 @@ export default function FixWhatBothersMePage({ searchParams }: PageProps) {
 
       <Section className="relative">
         <div className="max-w-2xl mx-auto">
+          <div className="mb-6 text-center">
+            <p className="text-gray-400 text-sm">
+              Know what you want?{" "}
+              <a href="/book" className="text-hg-pink hover:text-hg-pinkDeep font-semibold underline underline-offset-2">
+                Book directly →
+              </a>
+            </p>
+          </div>
           <FixWhatBothersMeForm initialMessage={initialMessage} />
         </div>
       </Section>

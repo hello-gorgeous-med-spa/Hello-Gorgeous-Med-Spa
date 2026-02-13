@@ -474,10 +474,20 @@ export default function QuizPage() {
           </div>
         </div>
 
-        {/* Trust indicators */}
-        <div className="mt-8 text-center">
+        {/* Trust indicators + Need help */}
+        <div className="mt-8 text-center space-y-2">
           <p className="text-gray-500 text-sm">
             🔒 Your answers are confidential and help us recommend the best treatments for you
+          </p>
+          <p className="text-gray-500 text-sm">
+            Prefer to skip?{" "}
+            <Link href="/book" className="text-pink-500 hover:text-pink-600 font-medium">
+              Book directly
+            </Link>
+            {" · "}
+            <a href="tel:630-636-6193" className="text-pink-500 hover:text-pink-600 font-medium">
+              Call (630) 636-6193
+            </a>
           </p>
         </div>
       </div>

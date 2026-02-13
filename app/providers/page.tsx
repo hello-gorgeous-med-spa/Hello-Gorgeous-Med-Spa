@@ -132,13 +132,13 @@ export default async function ProvidersPage() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <a
               href={`${BOOKING_URL}?provider=danielle`}
-              className="rounded-full bg-gradient-to-r from-pink-500 to-rose-500 px-6 py-3 text-sm font-semibold shadow-lg shadow-pink-500/30"
+              className="rounded-md bg-hg-pink hover:bg-hg-pinkDeep px-10 py-4 text-sm font-semibold uppercase tracking-widest text-white transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
             >
               Book with Danielle
             </a>
             <a
               href={`${BOOKING_URL}?provider=ryan`}
-              className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white hover:bg-white/10"
+              className="rounded-md border border-hg-pink text-hg-pink px-10 py-4 text-sm font-semibold uppercase tracking-widest transition-all duration-300 ease-out hover:bg-hg-pink hover:text-white hover:-translate-y-[2px]"
             >
               Book with Ryan
             </a>

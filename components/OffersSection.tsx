@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { FadeUp } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 
@@ -62,10 +63,8 @@ export function OffersSection() {
 
           {/* Specials */}
           <FadeUp delayMs={120}>
-            <a
+            <Link
               href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
               className="group block h-full"
             >
               <div className="h-full rounded-2xl border border-pink-500/30 bg-gradient-to-br from-black to-pink-950/20 p-6 hover:border-pink-500/60 transition-all duration-300 hover:shadow-xl hover:shadow-pink-500/10">
@@ -92,13 +91,13 @@ export function OffersSection() {
                     </div>
                   </div>
 
-                  <span className="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 rounded-full bg-pink-500 text-white font-semibold text-base group-hover:bg-pink-600 transition">
+                  <span className="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 rounded-md bg-hg-pink hover:bg-hg-pinkDeep text-white font-semibold text-sm uppercase tracking-widest transition-all duration-300 ease-out group-hover:-translate-y-[2px] group-hover:shadow-lg">
                     Book Now
                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </span>
                 </div>
               </div>
-            </a>
+            </Link>
           </FadeUp>
         </div>
 

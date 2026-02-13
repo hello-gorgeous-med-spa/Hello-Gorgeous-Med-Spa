@@ -33,18 +33,18 @@ const ZONES: Zone[] = [
   { id: "knee-right", label: "Knee (Right)", top: "82%", left: "55%", tags: ["body"] },
 ];
 
-const TREATMENTS: { id: string; name: string; description: string; href: string; icon: string; tags: string[] }[] = [
-  { id: "botox", name: "Botox, Dysport & Jeuveau", description: "Smooth lines", href: "/services/botox-dysport-jeuveau", icon: "💉", tags: ["botox", "lines", "wrinkles", "anti-aging"] },
-  { id: "fillers", name: "Dermal Fillers", description: "Volume, contour", href: "/services/dermal-fillers", icon: "💎", tags: ["filler", "volume", "contour"] },
-  { id: "lip-filler", name: "Lip Enhancement", description: "Fuller lips", href: "/services/lip-filler", icon: "💋", tags: ["filler", "lip"] },
-  { id: "kybella", name: "Kybella", description: "Reduce submental fat", href: "/services/kybella", icon: "✨", tags: ["kybella", "chin", "contour"] },
-  { id: "weight", name: "Medical Weight Loss", description: "GLP-1 support", href: "/services/weight-loss-therapy", icon: "⚡", tags: ["weight-loss", "glp-1", "body"] },
-  { id: "microneedling", name: "RF Microneedling", description: "Texture, firmness", href: "/services/rf-microneedling", icon: "🎯", tags: ["skin"] },
-  { id: "iv", name: "IV Therapy", description: "Energy, wellness", href: "/services/iv-therapy", icon: "💧", tags: ["body"] },
-  { id: "hormones", name: "Hormone Therapy", description: "Energy, vitality", href: "/services/biote-hormone-therapy", icon: "⚖️", tags: ["body"] },
+const TREATMENTS: { id: string; name: string; description: string; href: string; bookSlug: string; icon: string; tags: string[] }[] = [
+  { id: "botox", name: "Botox, Dysport & Jeuveau", description: "Smooth lines", href: "/services/botox-dysport-jeuveau", bookSlug: "botox-dysport-jeuveau", icon: "💉", tags: ["botox", "lines", "wrinkles", "anti-aging"] },
+  { id: "fillers", name: "Dermal Fillers", description: "Volume, contour", href: "/services/dermal-fillers", bookSlug: "dermal-fillers", icon: "💎", tags: ["filler", "volume", "contour"] },
+  { id: "lip-filler", name: "Lip Enhancement", description: "Fuller lips", href: "/services/lip-filler", bookSlug: "lip-filler", icon: "💋", tags: ["filler", "lip"] },
+  { id: "kybella", name: "Kybella", description: "Reduce submental fat", href: "/services/kybella", bookSlug: "kybella", icon: "✨", tags: ["kybella", "chin", "contour"] },
+  { id: "weight", name: "Medical Weight Loss", description: "GLP-1 support", href: "/services/weight-loss-therapy", bookSlug: "weight-loss-therapy", icon: "⚡", tags: ["weight-loss", "glp-1", "body"] },
+  { id: "microneedling", name: "RF Microneedling", description: "Texture, firmness", href: "/services/rf-microneedling", bookSlug: "rf-microneedling", icon: "🎯", tags: ["skin"] },
+  { id: "iv", name: "IV Therapy", description: "Energy, wellness", href: "/services/iv-therapy", bookSlug: "iv-therapy", icon: "💧", tags: ["body"] },
+  { id: "hormones", name: "Hormone Therapy", description: "Energy, vitality", href: "/services/biote-hormone-therapy", bookSlug: "biote-hormone-therapy", icon: "⚖️", tags: ["body"] },
 ];
 
-type Recommendation = { id: string; name: string; description: string; href: string; icon: string; matchCount: number };
+type Recommendation = { id: string; name: string; description: string; href: string; bookSlug: string; icon: string; matchCount: number };
 
 export function BodyConsultationTool({
   onScrollToBotox,
@@ -108,20 +108,25 @@ export function BodyConsultationTool({
           {hasRecommendations ? (
             <div className="space-y-4 mb-8">
               {recommendations.map((rec) => (
-                <Link
+                <div
                   key={rec.id}
-                  href={rec.href}
-                  className="block p-6 rounded-xl border border-[#E6007E]/20 bg-white hover:border-[#E6007E]/40 transition-all group shadow-md"
+                  className="flex flex-col sm:flex-row sm:items-center gap-4 p-6 rounded-xl border border-[#E6007E]/20 bg-white hover:border-[#E6007E]/40 transition-all group shadow-md"
                 >
-                  <div className="flex items-center gap-4">
-                    <span className="text-3xl">{rec.icon}</span>
-                    <div className="flex-1 text-left">
+                  <Link href={rec.href} className="flex flex-1 items-center gap-4 min-w-0">
+                    <span className="text-3xl flex-shrink-0">{rec.icon}</span>
+                    <div className="flex-1 text-left min-w-0">
                       <h3 className="text-lg font-semibold text-[#111111] group-hover:text-[#E6007E]">{rec.name}</h3>
                       <p className="text-sm text-[#5E5E66]">{rec.description}</p>
                     </div>
-                    <span className="text-[#E6007E]">→</span>
-                  </div>
-                </Link>
+                    <span className="text-[#E6007E] hidden sm:inline">→</span>
+                  </Link>
+                  <Link
+                    href={`/book/${rec.bookSlug}`}
+                    className="flex-shrink-0 w-full sm:w-auto inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-hg-pink hover:bg-hg-pinkDeep text-white text-sm font-semibold uppercase tracking-widest rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
+                  >
+                    Book
+                  </Link>
+                </div>
               ))}
             </div>
           ) : null}
