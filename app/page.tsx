@@ -15,7 +15,7 @@ import { PharmacyShowcase } from "@/components/PharmacyShowcase";
 import { FullscriptSection } from "@/components/FullscriptSection";
 import { BioteSection } from "@/components/BioteSection";
 import { EmailBanner } from "@/components/EmailCapture";
-import { BotoxCalculator } from "@/components/BotoxCalculator";
+import { HomepageInteractiveTools } from "@/components/HomepageInteractiveTools";
 import { VirtualTryOn } from "@/components/VirtualTryOn";
 import { QuizCTA } from "@/components/QuizCTA";
 import { FixWhatBothersMeFeature } from "@/components/FixWhatBothersMeFeature";
@@ -79,7 +79,7 @@ export default async function HomePage() {
       <FixWhatBothersMeFeature />
       <QuizCTA />
       <OffersSection />
-      <BotoxCalculator />
+      <HomepageInteractiveTools />
       <VirtualTryOn />
       <HomeCareTeam />
       <PharmacyShowcase />

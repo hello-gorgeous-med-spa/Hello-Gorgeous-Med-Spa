@@ -108,7 +108,7 @@ const treatmentAreas: TreatmentArea[] = [
   },
 ];
 
-export function BotoxCalculator() {
+export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
   const [selectedAreas, setSelectedAreas] = useState<Set<string>>(new Set());
   const [hoveredArea, setHoveredArea] = useState<string | null>(null);
 
@@ -147,31 +147,15 @@ export function BotoxCalculator() {
     ? treatmentAreas.find((a) => a.id === hoveredArea)
     : null;
 
-  return (
-    <section className="py-16 px-4 bg-gradient-to-b from-black via-pink-950/10 to-black">
-      <div className="max-w-6xl mx-auto">
-        <FadeUp>
-          <div className="text-center mb-10">
-            <span className="inline-block px-4 py-1 rounded-full bg-pink-500/20 text-pink-400 text-sm font-medium mb-4">
-              💉 Interactive Tool
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-              Botox{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-500">
-                Price Calculator
-              </span>
-            </h2>
-            <p className="text-gray-400 max-w-xl mx-auto">
-              Tap the areas you&apos;d like to treat and get an instant estimate.
-              Final pricing determined during consultation.
-            </p>
-          </div>
-        </FadeUp>
+  const gridClass = embedded ? "grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 h-full min-h-0" : "grid lg:grid-cols-2 gap-8 items-start";
+  const faceClass = embedded ? "bg-transparent" : "bg-gradient-to-b from-gray-900 to-black";
+  const summaryClass = embedded ? "bg-transparent flex-1" : "bg-gradient-to-b from-gray-900 to-black sticky top-24";
 
-        <div className="grid lg:grid-cols-2 gap-8 items-start">
+  const innerContent = (
+    <div className={gridClass}>
           {/* Face Diagram */}
-          <FadeUp delayMs={60}>
-            <div className="relative bg-gradient-to-b from-gray-900 to-black rounded-3xl p-6 border border-pink-500/20">
+          <FadeUp delayMs={embedded ? 0 : 60}>
+            <div className={`relative rounded-3xl p-6 border border-pink-500/20 ${faceClass}`}>
               <div className="relative w-full max-w-sm mx-auto aspect-[3/4]">
                 {/* Face outline SVG */}
                 <svg
@@ -303,8 +287,8 @@ export function BotoxCalculator() {
           </FadeUp>
 
           {/* Summary Panel */}
-          <FadeUp delayMs={120}>
-            <div className="bg-gradient-to-b from-gray-900 to-black rounded-3xl p-6 border border-pink-500/20 sticky top-24">
+          <FadeUp delayMs={embedded ? 0 : 120}>
+            <div className={`rounded-3xl p-6 border border-pink-500/20 ${summaryClass}`}>
               <h3 className="text-xl font-bold text-white mb-4">
                 Your Estimate
               </h3>
@@ -416,8 +400,46 @@ export function BotoxCalculator() {
             </div>
           </FadeUp>
         </div>
+  );
 
-        {/* Popular packages */}
+  if (embedded) {
+    return (
+      <div className="h-full min-h-[420px] flex flex-col rounded-3xl border border-pink-500/20 bg-gradient-to-b from-gray-900 to-black p-6 overflow-hidden">
+        <div className="flex items-center gap-2 mb-4">
+          <span className="text-2xl">💉</span>
+          <h3 className="text-xl font-bold text-white">Botox Price Calculator</h3>
+        </div>
+        <p className="text-gray-400 text-sm mb-4">
+          Tap the areas you&apos;d like to treat and get an instant estimate.
+        </p>
+        <div className="flex-1 min-h-0 overflow-auto">
+          {innerContent}
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <section className="py-16 px-4 bg-gradient-to-b from-black via-pink-950/10 to-black">
+      <div className="max-w-6xl mx-auto">
+        <FadeUp>
+          <div className="text-center mb-10">
+            <span className="inline-block px-4 py-1 rounded-full bg-pink-500/20 text-pink-400 text-sm font-medium mb-4">
+              💉 Interactive Tool
+            </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
+              Botox{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-500">
+                Price Calculator
+              </span>
+            </h2>
+            <p className="text-gray-400 max-w-xl mx-auto">
+              Tap the areas you&apos;d like to treat and get an instant estimate.
+              Final pricing determined during consultation.
+            </p>
+          </div>
+        </FadeUp>
+        {innerContent}
         <FadeUp delayMs={180}>
           <div className="mt-12">
             <h3 className="text-xl font-bold text-white text-center mb-6">
@@ -425,51 +447,25 @@ export function BotoxCalculator() {
             </h3>
             <div className="grid sm:grid-cols-3 gap-4">
               {[
-                {
-                  name: "The Refresher",
-                  areas: ["forehead", "glabella"],
-                  description: "Forehead + Frown Lines",
-                  popular: false,
-                },
-                {
-                  name: "The Full Face",
-                  areas: ["forehead", "glabella", "crows-feet-left", "crows-feet-right"],
-                  description: "Forehead + Frown + Crow's Feet",
-                  popular: true,
-                },
-                {
-                  name: "The Jaw Slimmer",
-                  areas: ["masseter-left", "masseter-right"],
-                  description: "Both Masseters for V-line",
-                  popular: false,
-                },
+                { name: "The Refresher", areas: ["forehead", "glabella"], description: "Forehead + Frown Lines", popular: false },
+                { name: "The Full Face", areas: ["forehead", "glabella", "crows-feet-left", "crows-feet-right"], description: "Forehead + Frown + Crow's Feet", popular: true },
+                { name: "The Jaw Slimmer", areas: ["masseter-left", "masseter-right"], description: "Both Masseters for V-line", popular: false },
               ].map((pkg) => {
                 const pkgTotal = pkg.areas.reduce((acc, areaId) => {
                   const area = treatmentAreas.find((a) => a.id === areaId);
                   return acc + (area ? area.units.min * PRICE_PER_UNIT : 0);
                 }, 0);
-
                 return (
                   <button
                     key={pkg.name}
                     type="button"
                     onClick={() => setSelectedAreas(new Set(pkg.areas))}
-                    className={`relative p-4 rounded-xl border text-left transition hover:scale-[1.02] ${
-                      pkg.popular
-                        ? "bg-gradient-to-br from-pink-500/20 to-purple-500/20 border-pink-500/30"
-                        : "bg-white/5 border-white/10 hover:border-pink-500/30"
-                    }`}
+                    className={`relative p-4 rounded-xl border text-left transition hover:scale-[1.02] ${pkg.popular ? "bg-gradient-to-br from-pink-500/20 to-purple-500/20 border-pink-500/30" : "bg-white/5 border-white/10 hover:border-pink-500/30"}`}
                   >
-                    {pkg.popular && (
-                      <span className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-pink-500 text-white text-xs font-medium">
-                        Popular
-                      </span>
-                    )}
+                    {pkg.popular && <span className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-pink-500 text-white text-xs font-medium">Popular</span>}
                     <h4 className="text-white font-semibold">{pkg.name}</h4>
                     <p className="text-gray-400 text-sm">{pkg.description}</p>
-                    <p className="text-pink-400 font-bold mt-2">
-                      Starting at ${pkgTotal}
-                    </p>
+                    <p className="text-pink-400 font-bold mt-2">Starting at ${pkgTotal}</p>
                   </button>
                 );
               })}
