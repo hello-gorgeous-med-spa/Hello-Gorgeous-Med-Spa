@@ -77,6 +77,7 @@ export default async function HomePage() {
       </section>
       <FixWhatBothersMeFeature />
       <QuizCTA />
+      <MeetProviders />
       <OffersSection />
       <HomepageInteractiveTools />
       <HomeCareTeam />
@@ -91,7 +92,6 @@ export default async function HomePage() {
       <ImmediateCareBanner />
       <PartnersGrid />
       <PhotoGallery />
-      <MeetProviders />
       <EmailBanner />
       <LocationMap />
     </>

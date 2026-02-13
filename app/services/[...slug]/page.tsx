@@ -371,6 +371,24 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                 Have Questions? Contact Us
               </CTA>
             </div>
+            <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-white/70">
+              <span>Or book with:</span>
+              <Link
+                href={`${BOOKING_URL}?provider=danielle`}
+                className="text-pink-400 hover:text-pink-300 font-medium underline underline-offset-2"
+              >
+                Danielle
+              </Link>
+              <Link
+                href={`${BOOKING_URL}?provider=ryan`}
+                className="text-pink-400 hover:text-pink-300 font-medium underline underline-offset-2"
+              >
+                Ryan
+              </Link>
+              <Link href="/providers" className="text-white/60 hover:text-white/90">
+                Meet the experts →
+              </Link>
+            </div>
           </FadeUp>
         </div>
       </Section>

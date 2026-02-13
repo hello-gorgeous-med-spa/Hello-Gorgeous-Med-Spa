@@ -33,18 +33,18 @@ const ZONES: Zone[] = [
   { id: "knee-right", label: "Knee (Right)", top: "82%", left: "55%", tags: ["body"] },
 ];
 
-const TREATMENTS: { id: string; name: string; description: string; href: string; bookSlug: string; icon: string; tags: string[] }[] = [
-  { id: "botox", name: "Botox, Dysport & Jeuveau", description: "Smooth lines", href: "/services/botox-dysport-jeuveau", bookSlug: "botox-dysport-jeuveau", icon: "💉", tags: ["botox", "lines", "wrinkles", "anti-aging"] },
-  { id: "fillers", name: "Dermal Fillers", description: "Volume, contour", href: "/services/dermal-fillers", bookSlug: "dermal-fillers", icon: "💎", tags: ["filler", "volume", "contour"] },
-  { id: "lip-filler", name: "Lip Enhancement", description: "Fuller lips", href: "/services/lip-filler", bookSlug: "lip-filler", icon: "💋", tags: ["filler", "lip"] },
-  { id: "kybella", name: "Kybella", description: "Reduce submental fat", href: "/services/kybella", bookSlug: "kybella", icon: "✨", tags: ["kybella", "chin", "contour"] },
-  { id: "weight", name: "Medical Weight Loss", description: "GLP-1 support", href: "/services/weight-loss-therapy", bookSlug: "weight-loss-therapy", icon: "⚡", tags: ["weight-loss", "glp-1", "body"] },
-  { id: "microneedling", name: "RF Microneedling", description: "Texture, firmness", href: "/services/rf-microneedling", bookSlug: "rf-microneedling", icon: "🎯", tags: ["skin"] },
-  { id: "iv", name: "IV Therapy", description: "Energy, wellness", href: "/services/iv-therapy", bookSlug: "iv-therapy", icon: "💧", tags: ["body"] },
-  { id: "hormones", name: "Hormone Therapy", description: "Energy, vitality", href: "/services/biote-hormone-therapy", bookSlug: "biote-hormone-therapy", icon: "⚖️", tags: ["body"] },
+const TREATMENTS: { id: string; name: string; description: string; href: string; bookSlug: string; providerSlug?: string; icon: string; tags: string[] }[] = [
+  { id: "botox", name: "Botox, Dysport & Jeuveau", description: "Smooth lines", href: "/services/botox-dysport-jeuveau", bookSlug: "botox-dysport-jeuveau", providerSlug: "danielle", icon: "💉", tags: ["botox", "lines", "wrinkles", "anti-aging"] },
+  { id: "fillers", name: "Dermal Fillers", description: "Volume, contour", href: "/services/dermal-fillers", bookSlug: "dermal-fillers", providerSlug: "danielle", icon: "💎", tags: ["filler", "volume", "contour"] },
+  { id: "lip-filler", name: "Lip Enhancement", description: "Fuller lips", href: "/services/lip-filler", bookSlug: "lip-filler", providerSlug: "danielle", icon: "💋", tags: ["filler", "lip"] },
+  { id: "kybella", name: "Kybella", description: "Reduce submental fat", href: "/services/kybella", bookSlug: "kybella", providerSlug: "danielle", icon: "✨", tags: ["kybella", "chin", "contour"] },
+  { id: "weight", name: "Medical Weight Loss", description: "GLP-1 support", href: "/services/weight-loss-therapy", bookSlug: "weight-loss-therapy", providerSlug: "ryan", icon: "⚡", tags: ["weight-loss", "glp-1", "body"] },
+  { id: "microneedling", name: "RF Microneedling", description: "Texture, firmness", href: "/services/rf-microneedling", bookSlug: "rf-microneedling", providerSlug: "danielle", icon: "🎯", tags: ["skin"] },
+  { id: "iv", name: "IV Therapy", description: "Energy, wellness", href: "/services/iv-therapy", bookSlug: "iv-therapy", providerSlug: "ryan", icon: "💧", tags: ["body"] },
+  { id: "hormones", name: "Hormone Therapy", description: "Energy, vitality", href: "/services/biote-hormone-therapy", bookSlug: "biote-hormone-therapy", providerSlug: "ryan", icon: "⚖️", tags: ["body"] },
 ];
 
-type Recommendation = { id: string; name: string; description: string; href: string; bookSlug: string; icon: string; matchCount: number };
+type Recommendation = { id: string; name: string; description: string; href: string; bookSlug: string; providerSlug?: string; icon: string; matchCount: number };
 
 export function BodyConsultationTool({
   onScrollToBotox,
@@ -121,10 +121,10 @@ export function BodyConsultationTool({
                     <span className="text-[#E6007E] hidden sm:inline">→</span>
                   </Link>
                   <Link
-                    href={`/book/${rec.bookSlug}`}
+                    href={rec.providerSlug ? `/book/${rec.bookSlug}?provider=${rec.providerSlug}` : `/book/${rec.bookSlug}`}
                     className="flex-shrink-0 w-full sm:w-auto inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-hg-pink hover:bg-hg-pinkDeep text-white text-sm font-semibold uppercase tracking-widest rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
                   >
-                    Book
+                    Book with {rec.providerSlug === "danielle" ? "Danielle" : rec.providerSlug === "ryan" ? "Ryan" : "us"}
                   </Link>
                 </div>
               ))}

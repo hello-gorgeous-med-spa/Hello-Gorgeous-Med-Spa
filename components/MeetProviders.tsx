@@ -74,8 +74,14 @@ export function MeetProviders() {
                   <p className="text-white/70 text-sm mt-3">{provider.bio}</p>
                   <div className="mt-4 flex flex-wrap gap-3">
                     <Link
+                      href={`/book?provider=${provider.slug}`}
+                      className="inline-flex items-center rounded-md bg-hg-pink hover:bg-hg-pinkDeep px-6 py-3 text-sm font-semibold uppercase tracking-widest text-white transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
+                    >
+                      Book with {provider.name.split(" ")[0]}
+                    </Link>
+                    <Link
                       href={`/providers/${provider.slug}`}
-                      className="inline-flex items-center rounded-full border border-white/30 px-4 py-2 text-sm font-medium text-white hover:bg-white/10 transition"
+                      className="inline-flex items-center rounded-md border border-white/30 px-6 py-3 text-sm font-medium text-white hover:bg-white/10 transition"
                     >
                       View Profile
                     </Link>

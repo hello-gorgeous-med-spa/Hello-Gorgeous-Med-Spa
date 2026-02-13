@@ -25,11 +25,11 @@ Strategic phases for conversion, trust, and growth after the Premium Medical Gla
 
 | Task | Description | Status |
 |------|-------------|--------|
-| 2.1 | Add "Meet Your Provider" or provider cards to homepage hero area | ⬜ |
-| 2.2 | Add provider headshots + "Book with Danielle / Ryan" to key service pages | ⬜ |
-| 2.3 | Ensure provider profiles have strong intro video + results above the fold | ⬜ |
-| 2.4 | Add provider-specific booking links to quiz/consult flows where relevant | ⬜ |
-| 2.5 | Testimonials: associate with provider when possible | ⬜ |
+| 2.1 | Add "Meet Your Provider" or provider cards to homepage hero area | ✅ |
+| 2.2 | Add provider headshots + "Book with Danielle / Ryan" to key service pages | ✅ |
+| 2.3 | Ensure provider profiles have strong intro video + results above the fold | ⬜ (defer) |
+| 2.4 | Add provider-specific booking links to quiz/consult flows where relevant | ✅ |
+| 2.5 | Testimonials: associate with provider when possible | ⬜ (defer) |
 
 **Deliverable:** Providers visibly prominent on homepage + service pages.
 

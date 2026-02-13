@@ -158,6 +158,35 @@ export function Hero({
                 Call 630-636-6193
               </a>
             </div>
+
+            {/* Meet providers strip - Phase 2 */}
+            <div
+              className={`mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 transition-all duration-[500ms] ease-out ${
+                mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+              }`}
+              style={{ transitionDelay: "400ms" }}
+            >
+              <span className="text-sm text-white/70">Care from Danielle & Ryan</span>
+              <span className="hidden sm:inline text-white/30">·</span>
+              <Link
+                href="/book?provider=danielle"
+                className="text-sm font-medium text-white/90 hover:text-white underline underline-offset-2"
+              >
+                Book with Danielle
+              </Link>
+              <Link
+                href="/book?provider=ryan"
+                className="text-sm font-medium text-white/90 hover:text-white underline underline-offset-2"
+              >
+                Book with Ryan
+              </Link>
+              <Link
+                href="/providers"
+                className="text-sm text-white/60 hover:text-white/90"
+              >
+                Meet the experts →
+              </Link>
+            </div>
           </div>
         </div>
       </div>
