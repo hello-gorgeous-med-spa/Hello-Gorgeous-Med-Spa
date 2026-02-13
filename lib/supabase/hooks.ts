@@ -232,7 +232,7 @@ export function useClients(searchQuery?: string, limit = 50) {
       if (fetchError) throw fetchError;
       
       // Flatten the data to include user info at top level
-      const flattenedClients = (data || []).map((client: any) => ({
+      const flattenedClients = (data || []).map((client: Record<string, unknown>) => ({
         ...client,
         first_name: client.users?.first_name,
         last_name: client.users?.last_name,
@@ -244,7 +244,7 @@ export function useClients(searchQuery?: string, limit = 50) {
       let filteredClients = flattenedClients;
       if (searchQuery) {
         const query = searchQuery.toLowerCase();
-        filteredClients = flattenedClients.filter((c: any) => 
+        filteredClients = flattenedClients.filter((c: Record<string, unknown>) => 
           c.first_name?.toLowerCase().includes(query) ||
           c.last_name?.toLowerCase().includes(query) ||
           c.email?.toLowerCase().includes(query) ||
@@ -424,7 +424,7 @@ export function useProviders() {
 
         if (!providerError && providerData && providerData.length > 0) {
           // Map provider data to Staff format
-          const mappedProviders: Staff[] = providerData.map((p: any) => ({
+          const mappedProviders: Staff[] = providerData.map((p: Record<string, unknown> & { users: { first_name: string; last_name: string; email: string; phone: string | null; role: string } }) => ({
             id: p.id,
             user_id: p.user_id,
             first_name: p.users.first_name,
@@ -603,7 +603,7 @@ export function useRecentPayments(limit = 10) {
 // ============================================================
 
 export function useServicesWithStats() {
-  const [services, setServices] = useState<any[]>([]);
+  const [services, setServices] = useState<(Service & { category?: { id: string; name: string } | null })[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -646,7 +646,7 @@ export function useServicesWithStats() {
 // ============================================================
 
 export function useInventory() {
-  const [inventory, setInventory] = useState<any[]>([]);
+  const [inventory, setInventory] = useState<Record<string, unknown>[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -696,7 +696,7 @@ export function useInventory() {
 // ============================================================
 
 export function useReports(type: string, startDate: string, endDate: string) {
-  const [report, setReport] = useState<any>(null);
+  const [report, setReport] = useState<Record<string, unknown> | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

@@ -68,8 +68,8 @@ export function Hero({
   };
 
   return (
-    <section className="relative h-[min(50vh,360px)] w-full min-w-0 max-w-full overflow-hidden sm:h-[min(55vh,420px)] md:h-[min(60vh,480px)]">
-      {/* Full-width background image - contained to fit section */}
+    <section className="relative h-[75vh] min-h-[400px] md:h-[85vh] w-full min-w-0 max-w-full overflow-hidden">
+      {/* Full-width background image */}
       <div className="absolute inset-0">
         <Image
           src={imageSrc}
@@ -82,30 +82,20 @@ export function Hero({
         />
       </div>
 
-      {/* Soft gradient overlay - left dark, fading to transparent right. NO full black wash. */}
+      {/* Controlled dark gradient behind text only - improves readability, no visual chaos */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.45) 35%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0) 100%)",
+            "linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0) 70%)",
         }}
         aria-hidden
       />
 
-      {/* Ambient pink glow behind text block */}
-      <div
-        className="absolute left-0 top-1/2 h-[70%] w-[80%] max-w-2xl -translate-y-1/2"
-        style={{
-          background: "radial-gradient(circle at 20% 40%, rgba(255,47,146,0.15), transparent 60%)",
-          pointerEvents: "none",
-        }}
-        aria-hidden
-      />
-
-      {/* Content - left-aligned, vertical center. Single full-width hero - no split panels. */}
+      {/* Content - left-aligned, single dominant hero */}
       <div className="relative flex h-full min-h-0 w-full items-center">
-        <div className="w-full max-w-4xl min-w-0 shrink-0 px-4 py-6 sm:px-6 sm:py-8 md:px-10 md:py-10 lg:px-16 lg:py-12">
-          <div className="max-w-2xl min-w-0">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 w-full min-w-0">
+          <div className="max-w-xl min-w-0">
             {/* Headline - fades in 0.4s */}
             <h1
               className={`font-serif font-bold leading-[1.1] text-white transition-all duration-[400ms] ease-out text-4xl md:text-6xl ${
@@ -139,7 +129,7 @@ export function Hero({
               {DEFAULT_SUBTEXT}
             </p>
 
-            {/* CTA Buttons - fade in 0.5s, full-width + 48px min-height on mobile */}
+            {/* CTA Buttons - primary + secondary only. Provider links live in MeetProviders below. */}
             <div
               className={`mt-5 flex flex-col gap-3 transition-all duration-[500ms] ease-out sm:mt-6 sm:flex-row sm:gap-4 ${
                 mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
@@ -158,35 +148,6 @@ export function Hero({
               >
                 Call 630-636-6193
               </a>
-            </div>
-
-            {/* Meet providers strip - Phase 2 */}
-            <div
-              className={`mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 transition-all duration-[500ms] ease-out ${
-                mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
-              }`}
-              style={{ transitionDelay: "400ms" }}
-            >
-              <span className="text-sm text-white/70">Care from Danielle & Ryan</span>
-              <span className="hidden sm:inline text-white/30">·</span>
-              <Link
-                href="/book?provider=danielle"
-                className="text-sm font-medium text-white/90 hover:text-white underline underline-offset-2"
-              >
-                Book with Danielle
-              </Link>
-              <Link
-                href="/book?provider=ryan"
-                className="text-sm font-medium text-white/90 hover:text-white underline underline-offset-2"
-              >
-                Book with Ryan
-              </Link>
-              <Link
-                href="/providers"
-                className="text-sm text-white/60 hover:text-white/90"
-              >
-                Meet the experts →
-              </Link>
             </div>
           </div>
         </div>

@@ -138,7 +138,7 @@ export interface Database {
           objective: string | null;
           assessment: string | null;
           plan: string | null;
-          treatment_details: any | null;
+          treatment_details: Record<string, unknown> | null;
           internal_notes: string | null;
           is_signed: boolean;
           signed_at: string | null;
@@ -150,10 +150,8 @@ export interface Database {
         Update: Partial<Database['public']['Tables']['clinical_notes']['Insert']>;
       };
     };
-    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-    Views: {};
-    // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-    Functions: {};
+    Views: Record<string, never>;
+    Functions: Record<string, never>;
   };
 }
 
