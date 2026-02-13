@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import React from "react";
 
 import { CTA } from "@/components/CTA";
@@ -11,6 +12,18 @@ import {
   type ConfidenceCheckAnswer,
 } from "@/lib/care-modules";
 import { complianceFooter } from "@/lib/guardrails";
+
+const JOURNEY_LINKS = [
+  { href: "/fix-what-bothers-me", label: "Fix What Bothers Me", icon: "💗" },
+  { href: "/virtual-consultation", label: "Virtual Consultation", icon: "🖥️", badge: "FREE" },
+  { href: "/conditions", label: "Conditions We Treat", icon: "✨" },
+  { href: "/explore-care", label: "Explore Care Options", icon: "🔍" },
+  { href: "/understand-your-body", label: "Understand Your Body", icon: "📚" },
+  { href: "/care-and-support", label: "Care & Support", icon: "💝" },
+  { href: "/telehealth", label: "Telehealth", icon: "🖥️" },
+  { href: "/lip-studio", label: "Lip Enhancement Studio", icon: "✨" },
+  { href: "/botox-calculator", label: "Botox Calculator", icon: "💉" },
+];
 
 function useSessionState<T>(key: string, initial: T) {
   const [value, setValue] = React.useState<T>(() => {
@@ -62,6 +75,30 @@ export function HumanJourney() {
           <p className="mt-6 text-xl text-gray-300 max-w-2xl leading-relaxed">
             A short, human-first flow led by Peppi tone. No medical advice. No pressure. Just clarity.
           </p>
+        </FadeUp>
+
+        {/* Journey hub - links to all journey pages */}
+        <FadeUp delayMs={40}>
+          <div className="mt-10 rounded-2xl border border-gray-800 bg-black/40 p-6">
+            <p className="text-sm text-white/70 mb-4">Explore your journey</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {JOURNEY_LINKS.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="flex items-center gap-3 p-3 rounded-xl border border-gray-800 hover:border-pink-500/40 hover:bg-pink-500/5 transition-colors group"
+                >
+                  <span className="text-xl group-hover:scale-110 transition-transform">{link.icon}</span>
+                  <span className="text-sm font-medium text-white group-hover:text-pink-400 truncate">{link.label}</span>
+                  {link.badge && (
+                    <span className="ml-auto px-2 py-0.5 text-[10px] font-bold bg-pink-500 text-white rounded-full shrink-0">
+                      {link.badge}
+                    </span>
+                  )}
+                </Link>
+              ))}
+            </div>
+          </div>
         </FadeUp>
 
         <div className="mt-10 grid gap-4">

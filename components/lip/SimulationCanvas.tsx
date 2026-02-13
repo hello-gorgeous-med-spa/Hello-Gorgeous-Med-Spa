@@ -9,6 +9,11 @@ import {
   applyLipProjection,
 } from "@/utils/lipMorph";
 
+const ANIM_DURATION = 150;
+function easeOut(t: number): number {
+  return 1 - Math.pow(1 - t, 3);
+}
+
 interface SimulationCanvasProps {
   imageSrc: string;
   level: SimulationLevel;
@@ -26,12 +31,14 @@ export function SimulationCanvas({
   const faceMeshRef = useRef<FaceMesh | null>(null);
   const lipLandmarksRef = useRef<ReturnType<typeof extractLipPoints> | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
+  const animRef = useRef<number | null>(null);
 
   const [ready, setReady] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const displayIntensityRef = useRef(0);
 
-  const render = useCallback(
-    (img: HTMLImageElement, landmarks: NonNullable<ReturnType<typeof extractLipPoints>>) => {
+  const renderFrame = useCallback(
+    (img: HTMLImageElement, landmarks: NonNullable<ReturnType<typeof extractLipPoints>>, intensity: number) => {
       const container = containerRef.current;
       const origCanvas = originalCanvasRef.current;
       const simCanvas = simulatedCanvasRef.current;
@@ -53,23 +60,57 @@ export function SimulationCanvas({
 
       origCtx.drawImage(img, 0, 0, w, h);
 
-      const intensity = getIntensity(level);
       if (intensity <= 0) {
         simCtx.drawImage(img, 0, 0, w, h);
         return;
       }
 
       const scaleY = h / img.naturalHeight;
+      const scaleX = w / img.naturalWidth;
       const centerY = landmarks.centerY * scaleY;
       const bounds = {
+        minX: landmarks.bounds.minX * scaleX,
         minY: landmarks.bounds.minY * scaleY,
+        maxX: landmarks.bounds.maxX * scaleX,
         maxY: landmarks.bounds.maxY * scaleY,
       };
+      const upperHeight = landmarks.upperHeight * scaleY;
+      const lowerHeight = landmarks.lowerHeight * scaleY;
 
-      simCtx.drawImage(img, 0, 0, w, h);
-      applyLipProjection(simCtx, w, h, centerY, intensity * scaleY, bounds);
+      // P5: Use offscreen canvas for morph, then draw to visible
+      const offscreen = document.createElement("canvas");
+      offscreen.width = w;
+      offscreen.height = h;
+      const offCtx = offscreen.getContext("2d");
+      if (!offCtx) return;
+      offCtx.drawImage(img, 0, 0, w, h);
+      applyLipProjection(offCtx, w, h, centerY, intensity * scaleY, bounds, upperHeight, lowerHeight);
+      simCtx.drawImage(offscreen, 0, 0);
     },
-    [level]
+    []
+  );
+
+  const render = useCallback(
+    (img: HTMLImageElement, landmarks: NonNullable<ReturnType<typeof extractLipPoints>>) => {
+      const targetIntensity = getIntensity(level);
+      if (animRef.current) cancelAnimationFrame(animRef.current);
+
+      const startIntensity = displayIntensityRef.current;
+      const startTime = performance.now();
+
+      const tick = (now: number) => {
+        const elapsed = now - startTime;
+        const t = Math.min(1, elapsed / ANIM_DURATION);
+        const eased = easeOut(t);
+        const current = startIntensity + (targetIntensity - startIntensity) * eased;
+        displayIntensityRef.current = current;
+        renderFrame(img, landmarks, current);
+        if (t < 1) animRef.current = requestAnimationFrame(tick);
+        else animRef.current = null;
+      };
+      animRef.current = requestAnimationFrame(tick);
+    },
+    [level, renderFrame]
   );
 
   useEffect(() => {

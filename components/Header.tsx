@@ -20,6 +20,7 @@ const navigation = {
           { label: "Botox, Dysport & Jeuveau", href: "/services/botox-dysport-jeuveau", icon: "💉" },
           { label: "Dermal Fillers", href: "/services/dermal-fillers", icon: "💋" },
           { label: "Lip Filler", href: "/services/lip-filler", icon: "👄" },
+          { label: "Lip Enhancement Studio", href: "/lip-studio", icon: "✨" },
           { label: "Kybella", href: "/services/kybella", icon: "✨" },
         ],
       },
@@ -92,6 +93,8 @@ const navigation = {
       { label: "Understand Your Body", href: "/understand-your-body", description: "Learn about aging & skin", icon: "📚" },
       { label: "Care & Support", href: "/care-and-support", description: "Resources & aftercare", icon: "💝" },
       { label: "Telehealth", href: "/telehealth", description: "Virtual consultations", icon: "🖥️" },
+      { label: "Lip Enhancement Studio", href: "/lip-studio", description: "Visualize your perfect look", icon: "✨" },
+      { label: "Botox Calculator", href: "/botox-calculator", description: "Estimate units for your areas", icon: "💉" },
     ],
   },
   specials: {
@@ -196,11 +199,13 @@ function SimpleDropdown({
   data, 
   isOpen, 
   onClose,
+  onMouseEnter: onEnter,
   align = 'left'
 }: { 
   data: typeof navigation.about;
   isOpen: boolean; 
   onClose: () => void;
+  onMouseEnter?: () => void;
   align?: 'left' | 'right';
 }) {
   if (!isOpen) return null;
@@ -211,6 +216,7 @@ function SimpleDropdown({
         "absolute top-full pt-2 z-50",
         align === 'right' ? 'right-0' : 'left-0'
       )}
+      onMouseEnter={onEnter}
       onMouseLeave={onClose}
     >
       <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden min-w-[320px]">
@@ -334,7 +340,7 @@ export function Header() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
                     </Link>
-              <SimpleDropdown data={navigation.about} isOpen={activeDropdown === 'about'} onClose={() => setActiveDropdown(null)} />
+              <SimpleDropdown data={navigation.about} isOpen={activeDropdown === 'about'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('about')} />
             </div>
 
             {/* Providers Dropdown */}
@@ -357,7 +363,7 @@ export function Header() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
-              <SimpleDropdown data={navigation.providers} isOpen={activeDropdown === 'providers'} onClose={() => setActiveDropdown(null)} />
+              <SimpleDropdown data={navigation.providers} isOpen={activeDropdown === 'providers'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('providers')} />
             </div>
 
             {/* Your Journey Dropdown */}
@@ -380,7 +386,7 @@ export function Header() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
-              <SimpleDropdown data={navigation.journey} isOpen={activeDropdown === 'journey'} onClose={() => setActiveDropdown(null)} />
+              <SimpleDropdown data={navigation.journey} isOpen={activeDropdown === 'journey'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('journey')} />
             </div>
 
             {/* Specials Dropdown - Highlighted */}
@@ -401,7 +407,7 @@ export function Header() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              <SimpleDropdown data={navigation.specials} isOpen={activeDropdown === 'specials'} onClose={() => setActiveDropdown(null)} align="right" />
+              <SimpleDropdown data={navigation.specials} isOpen={activeDropdown === 'specials'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('specials')} align="right" />
                 </div>
 
             {/* Contact */}

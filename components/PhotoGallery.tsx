@@ -4,6 +4,8 @@ import Image from "next/image";
 import { Section, FadeUp } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 
+// Add your photos to public/images/gallery/ then add an entry here.
+// Use descriptive alt text for accessibility and a short caption for the hover overlay.
 const galleryImages = [
   {
     src: "/images/gallery/before-after.png",
@@ -25,6 +27,10 @@ const galleryImages = [
     alt: "Behind the scenes at Hello Gorgeous",
     caption: "State-of-the-Art Facility",
   },
+  // To add more: 1) Put image files in public/images/gallery/ (e.g. my-photo.jpg)
+  // 2) Uncomment and edit a line below, or add new lines following the same shape.
+  // { src: "/images/gallery/treatment-4.png", alt: "Describe the photo", caption: "Caption" },
+  // { src: "/images/gallery/my-photo.jpg", alt: "Describe the photo", caption: "Caption" },
 ];
 
 export function PhotoGallery() {

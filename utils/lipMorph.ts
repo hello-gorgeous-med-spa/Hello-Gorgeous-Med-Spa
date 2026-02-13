@@ -26,6 +26,10 @@ export interface LipLandmarks {
   upperLip: LipPoint[];
   lowerLip: LipPoint[];
   centerY: number;
+  /** Upper lip height (center to top of upper lip) */
+  upperHeight: number;
+  /** Lower lip height (center to bottom of lower lip) */
+  lowerHeight: number;
   bounds: { minX: number; minY: number; maxX: number; maxY: number };
 }
 
@@ -54,10 +58,15 @@ export function extractLipPoints(
   const maxY = Math.max(...allPoints.map((p) => p.y));
   const centerY = (minY + maxY) / 2;
 
+  const upperHeight = centerY - minY;
+  const lowerHeight = maxY - centerY;
+
   return {
     upperLip,
     lowerLip,
     centerY,
+    upperHeight,
+    lowerHeight,
     bounds: { minX, minY, maxX, maxY },
   };
 }
@@ -98,11 +107,10 @@ export function getIntensity(level: SimulationLevel): number {
   }
 }
 
+const BLEND = 0.6; // Soft blend preserves texture, prevents harsh edges
+
 /**
- * Apply lip projection warp to image data
- * Vertical expansion centered on lip region for fuller look
- * @param width - canvas width
- * @param height - canvas height
+ * Apply lip projection warp with edge feathering, ratio preservation, and shadow compensation
  */
 export function applyLipProjection(
   ctx: CanvasRenderingContext2D,
@@ -110,26 +118,61 @@ export function applyLipProjection(
   height: number,
   lipCenterY: number,
   intensity: number,
-  lipBounds: { minY: number; maxY: number }
+  lipBounds: { minX: number; minY: number; maxX: number; maxY: number },
+  upperHeight: number,
+  lowerHeight: number
 ): void {
+  const totalHeight = upperHeight + lowerHeight;
+  const ratio = totalHeight > 0 ? upperHeight / totalHeight : 0.5;
+  // Upper lip cannot exceed 60% of total; lower must remain slightly dominant
+  const maxUpperRatio = 0.6;
+  const ratioScale = ratio <= maxUpperRatio ? 1 : maxUpperRatio / ratio;
+
+  const lipRegionHeight = Math.max(1, lipBounds.maxY - lipBounds.minY);
+
   const imageData = ctx.getImageData(0, 0, width, height);
   const data = imageData.data;
-  const lipRegionHeight = Math.max(1, lipBounds.maxY - lipBounds.minY);
+  const origData = new Uint8ClampedArray(data);
 
   for (let y = 0; y < height; y++) {
     const distanceFromCenter = Math.abs(y - lipCenterY);
     const falloff = Math.exp(-(distanceFromCenter / lipRegionHeight) * 3);
-    const shift = intensity * falloff;
+    let shift = intensity * falloff * ratioScale;
 
     for (let x = 0; x < width; x++) {
       const index = (y * width + x) * 4;
       const newY = Math.min(height - 1, Math.max(0, Math.floor(y - shift)));
       const newIndex = (newY * width + x) * 4;
 
-      data[index] = data[newIndex];
-      data[index + 1] = data[newIndex + 1];
-      data[index + 2] = data[newIndex + 2];
-      data[index + 3] = data[newIndex + 3];
+      // Soft blending instead of direct copy
+      data[index] = Math.round(origData[index] * (1 - BLEND) + origData[newIndex] * BLEND);
+      data[index + 1] = Math.round(origData[index + 1] * (1 - BLEND) + origData[newIndex + 1] * BLEND);
+      data[index + 2] = Math.round(origData[index + 2] * (1 - BLEND) + origData[newIndex + 2] * BLEND);
+      data[index + 3] = origData[newIndex + 3];
+    }
+  }
+
+  // Micro shadow: darken lower lip bottom edge, brighten upper lip ridge (2-4%)
+  const shadowAdj = 0.03;
+  const lipMinY = Math.max(0, Math.floor(lipBounds.minY - 2));
+  const lipMaxY = Math.min(height, Math.ceil(lipBounds.maxY + 2));
+  const upperRidgeY = Math.floor(lipCenterY - lipRegionHeight * 0.3);
+  const lowerEdgeY = Math.ceil(lipCenterY + lipRegionHeight * 0.3);
+
+  const minX = Math.max(0, Math.floor(lipBounds.minX - 5));
+  const maxX = Math.min(width, Math.ceil(lipBounds.maxX + 5));
+  for (let x = minX; x < maxX; x++) {
+    for (let y = lipMinY; y < lipMaxY; y++) {
+      const idx = (y * width + x) * 4;
+      if (y <= upperRidgeY && y >= lipMinY) {
+        data[idx] = Math.min(255, data[idx] + data[idx] * shadowAdj);
+        data[idx + 1] = Math.min(255, data[idx + 1] + data[idx + 1] * shadowAdj);
+        data[idx + 2] = Math.min(255, data[idx + 2] + data[idx + 2] * shadowAdj);
+      } else if (y >= lowerEdgeY && y <= lipMaxY) {
+        data[idx] = Math.max(0, data[idx] - data[idx] * shadowAdj);
+        data[idx + 1] = Math.max(0, data[idx + 1] - data[idx + 1] * shadowAdj);
+        data[idx + 2] = Math.max(0, data[idx + 2] - data[idx + 2] * shadowAdj);
+      }
     }
   }
 
