@@ -5,7 +5,7 @@
 
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
@@ -85,6 +85,10 @@ export default function NewChartToCartPage() {
   const [treatmentArea, setTreatmentArea] = useState('');
   const [notes, setNotes] = useState('');
 
+  // Photo upload
+  const photoInputRef = useRef<HTMLInputElement>(null);
+  const [uploadingPhoto, setUploadingPhoto] = useState(false);
+
   // Fetch clients: entire DB when no search (limit 500), search when typing
   const fetchClients = useCallback(async () => {
     setLoadingClients(true);
@@ -146,6 +150,43 @@ export default function NewChartToCartPage() {
 
   const removeFromCart = (productId: string) => {
     setCart(prev => prev.filter(item => item.id !== productId));
+  };
+
+  const handlePhotoUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file || !selectedClient) return;
+    e.target.value = '';
+
+    setUploadingPhoto(true);
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      try {
+        const imageData = reader.result as string;
+        const res = await fetch('/api/photos', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            client_id: selectedClient.id,
+            type: 'before',
+            image_data: imageData,
+            treatment_area: treatmentArea || 'Full Face',
+            notes: notes ? `Treatment session: ${notes}` : 'Chart-to-cart session',
+          }),
+        });
+        if (res.ok) {
+          alert(`Photo saved for ${selectedClient.first_name} ${selectedClient.last_name}. View in their Photos tab.`);
+        } else {
+          const err = await res.json();
+          throw new Error(err.error || 'Upload failed');
+        }
+      } catch (err) {
+        console.error(err);
+        alert(err instanceof Error ? err.message : 'Failed to upload photo');
+      } finally {
+        setUploadingPhoto(false);
+      }
+    };
+    reader.readAsDataURL(file);
   };
 
   const cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -383,9 +424,28 @@ export default function NewChartToCartPage() {
                     >
                       <span>💉</span> Open Injection Map
                     </Link>
-                    <button className="px-4 py-3 border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors">
-                      📷 Add Photo
-                    </button>
+                    <>
+                      <input
+                        ref={photoInputRef}
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handlePhotoUpload}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => photoInputRef.current?.click()}
+                        disabled={uploadingPhoto}
+                        className="px-4 py-3 border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors disabled:opacity-50 flex items-center gap-2"
+                      >
+                        {uploadingPhoto ? (
+                          <span className="animate-spin">⏳</span>
+                        ) : (
+                          <span>📷</span>
+                        )}
+                        {uploadingPhoto ? 'Uploading…' : 'Upload Photo'}
+                      </button>
+                    </>
                   </div>
                 </div>
               </div>
