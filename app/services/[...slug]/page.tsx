@@ -669,6 +669,371 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         </Section>
       )}
 
+      {/* Weight Loss GLP-1 Clinical Info */}
+      {s.slug === "weight-loss-therapy" && (
+        <Section className="bg-gradient-to-b from-transparent via-emerald-950/10 to-transparent">
+          <FadeUp>
+            <div className="text-center mb-12">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-4">
+                <span className="text-emerald-400 text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
+                GLP-1 Medications &{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">
+                  Safety
+                </span>
+              </h2>
+              <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+                What we prescribe, how we titrate, and when we may need to pause or adjust your plan.
+              </p>
+            </div>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <FadeUp delayMs={60}>
+              <div className="p-6 rounded-2xl border border-emerald-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-emerald-400 mb-3 flex items-center gap-2">
+                  <span>💊</span> Medications & Formulations
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-3">
+                  We offer <strong className="text-white">Semaglutide</strong> (similar to Wegovy®/Ozempic®) and <strong className="text-white">Tirzepatide</strong> (similar to Zepbound®/Mounjaro®)—both GLP-1 receptor agonists. Medications are compounded by a licensed pharmacy and titrated gradually to minimize side effects and maximize results.
+                </p>
+                <p className="text-gray-400 text-xs">
+                  Your provider selects the best medication and starting dose based on your health history and goals.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={80}>
+              <div className="p-6 rounded-2xl border border-emerald-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-emerald-400 mb-3 flex items-center gap-2">
+                  <span>📋</span> Most Common Prescriptions
+                </h3>
+                <ul className="text-gray-300 text-sm space-y-2">
+                  <li><strong className="text-white">Semaglutide:</strong> Weekly injection, gradual dose increase over weeks</li>
+                  <li><strong className="text-white">Tirzepatide:</strong> Weekly injection, dual GIP/GLP-1 agonist</li>
+                </ul>
+                <p className="text-gray-400 text-xs mt-3">
+                  Dosing is individualized. We start low and titrate based on tolerance and response.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={100}>
+              <div className="p-6 rounded-2xl border border-emerald-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-emerald-400 mb-3 flex items-center gap-2">
+                  <span>⚠️</span> Contraindications
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                  We do not initiate GLP-1 therapy if you have:
+                </p>
+                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                  <li>Personal or family history of medullary thyroid cancer</li>
+                  <li>Multiple Endocrine Neoplasia syndrome type 2 (MEN 2)</li>
+                  <li>Pregnancy or planning pregnancy</li>
+                  <li>History of pancreatitis</li>
+                  <li>Severe gastroparesis</li>
+                </ul>
+                <p className="text-gray-400 text-xs mt-3">
+                  We screen thoroughly before treatment and discuss any concerns with you.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={120}>
+              <div className="p-6 rounded-2xl border border-emerald-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-emerald-400 mb-3 flex items-center gap-2">
+                  <span>🔬</span> Lab & Monitoring
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                  We may check or monitor:
+                </p>
+                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                  <li>Baseline metabolic panel, A1C if diabetic</li>
+                  <li>Regular check-ins for nausea, appetite, and weight</li>
+                  <li>Dose adjustments based on tolerance and goals</li>
+                </ul>
+                <p className="text-gray-400 text-xs mt-3">
+                  Medically supervised. We review progress and adjust your plan as needed.
+                </p>
+              </div>
+            </FadeUp>
+          </div>
+        </Section>
+      )}
+
+      {/* Botox, Dysport & Jeuveau Clinical Info */}
+      {s.slug === "botox-dysport-jeuveau" && (
+        <Section className="bg-gradient-to-b from-transparent via-pink-950/10 to-transparent">
+          <FadeUp>
+            <div className="text-center mb-12">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/20 mb-4">
+                <span className="text-pink-400 text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
+                Neurotoxins, Safety &{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400">
+                  What to Expect
+                </span>
+              </h2>
+              <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+                FDA-approved neuromodulators, treatment areas, and when we may need to pause or adjust.
+              </p>
+            </div>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <FadeUp delayMs={60}>
+              <div className="p-6 rounded-2xl border border-pink-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-pink-400 mb-3 flex items-center gap-2">
+                  <span>💉</span> Products We Use
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-3">
+                  We use <strong className="text-white">Botox®</strong>, <strong className="text-white">Dysport®</strong>, and <strong className="text-white">Jeuveau®</strong>—all FDA-approved neuromodulators (botulinum toxin type A). Each works similarly to relax targeted muscles and smooth lines. Your provider selects the best product and dosing for your anatomy and goals.
+                </p>
+                <p className="text-gray-400 text-xs">
+                  All are safe, effective, and administered by trained injectors.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={80}>
+              <div className="p-6 rounded-2xl border border-pink-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-pink-400 mb-3 flex items-center gap-2">
+                  <span>🎯</span> Treatment Areas
+                </h3>
+                <ul className="text-gray-300 text-sm space-y-2">
+                  <li><strong className="text-white">Forehead:</strong> Horizontal lines</li>
+                  <li><strong className="text-white">Glabella (11s):</strong> Frown lines between brows</li>
+                  <li><strong className="text-white">Crow&apos;s feet:</strong> Lines around eyes</li>
+                  <li><strong className="text-white">Bunny lines, lip flip:</strong> Subtle enhancements</li>
+                </ul>
+                <p className="text-gray-400 text-xs mt-3">
+                  Results typically visible in 3–7 days; full effect at 2 weeks. Lasts about 3–4 months.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={100}>
+              <div className="p-6 rounded-2xl border border-pink-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-pink-400 mb-3 flex items-center gap-2">
+                  <span>⚠️</span> Contraindications
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                  We do not treat if you have:
+                </p>
+                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                  <li>Pregnancy or breastfeeding</li>
+                  <li>Neuromuscular disease (e.g., myasthenia gravis, ALS)</li>
+                  <li>Allergy to botulinum toxin or any ingredient</li>
+                  <li>Infection at the injection site</li>
+                </ul>
+                <p className="text-gray-400 text-xs mt-3">
+                  We screen before treatment and discuss any concerns with you.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={120}>
+              <div className="p-6 rounded-2xl border border-pink-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-pink-400 mb-3 flex items-center gap-2">
+                  <span>📋</span> What to Expect
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                  Quick in-office treatment:
+                </p>
+                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                  <li>No downtime; return to normal activities</li>
+                  <li>Avoid lying down 4 hours; no strenuous exercise 24 hours</li>
+                  <li>No massaging treated areas</li>
+                  <li>Results last 3–4 months; touch-ups as needed</li>
+                </ul>
+                <p className="text-gray-400 text-xs mt-3">
+                  We provide detailed aftercare instructions at your visit.
+                </p>
+              </div>
+            </FadeUp>
+          </div>
+        </Section>
+      )}
+
+      {/* Lip Filler Clinical Info - Revanesse + Salmon DNA */}
+      {s.slug === "lip-filler" && (
+        <Section className="bg-gradient-to-b from-transparent via-rose-950/10 to-transparent">
+          <FadeUp>
+            <div className="text-center mb-12">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-500/10 border border-rose-500/20 mb-4">
+                <span className="text-rose-400 text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
+                Products, Safety &{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-400">
+                  What to Expect
+                </span>
+              </h2>
+              <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+                What we use for lip enhancement, contraindications, and aftercare.
+              </p>
+            </div>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <FadeUp delayMs={60}>
+              <div className="p-6 rounded-2xl border border-rose-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-rose-400 mb-3 flex items-center gap-2">
+                  <span>💋</span> Products We Use
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-3">
+                  We use <strong className="text-white">Revanesse®</strong> for lip enhancement—a smooth, resilient hyaluronic acid (HA) filler. We also use <strong className="text-white">Revanesse® with salmon DNA</strong>, which adds polydeoxyribonucleotide (PDRN) for enhanced tissue repair and a more natural feel. Your provider selects the best formulation for your goals.
+                </p>
+                <p className="text-gray-400 text-xs">
+                  HA fillers are reversible; results are customizable and natural-looking.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={80}>
+              <div className="p-6 rounded-2xl border border-rose-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-rose-400 mb-3 flex items-center gap-2">
+                  <span>👄</span> Treatment Areas
+                </h3>
+                <ul className="text-gray-300 text-sm space-y-2">
+                  <li><strong className="text-white">Lip body:</strong> Volume and fullness</li>
+                  <li><strong className="text-white">Lip border:</strong> Definition and shape</li>
+                  <li><strong className="text-white">Cupid&apos;s bow:</strong> Balance and symmetry</li>
+                </ul>
+                <p className="text-gray-400 text-xs mt-3">
+                  Results are immediate. Some swelling for 24–48 hours. Results typically last 6–12+ months.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={100}>
+              <div className="p-6 rounded-2xl border border-rose-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-rose-400 mb-3 flex items-center gap-2">
+                  <span>⚠️</span> Contraindications
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                  We do not treat if you have:
+                </p>
+                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                  <li>Active infection or cold sore at or near the treatment site</li>
+                  <li>Allergy to hyaluronic acid, lidocaine, or bacterial proteins</li>
+                  <li>Pregnancy or breastfeeding</li>
+                  <li>History of severe scarring or keloids</li>
+                </ul>
+                <p className="text-gray-400 text-xs mt-3">
+                  We screen before treatment and discuss any concerns with you.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={120}>
+              <div className="p-6 rounded-2xl border border-rose-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-rose-400 mb-3 flex items-center gap-2">
+                  <span>📋</span> What to Expect
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                  In-office treatment with topical numbing:
+                </p>
+                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                  <li>Minimal downtime; avoid makeup, intense exercise for 24 hours</li>
+                  <li>Possible bruising or swelling for a few days</li>
+                  <li>Results settle and look natural within 1–2 weeks</li>
+                  <li>Follow aftercare instructions for best outcomes</li>
+                </ul>
+                <p className="text-gray-400 text-xs mt-3">
+                  We provide detailed aftercare at your visit.
+                </p>
+              </div>
+            </FadeUp>
+          </div>
+        </Section>
+      )}
+
+      {/* RF Microneedling Clinical Info - AnteAge + Allergan Baby Tox */}
+      {s.slug === "rf-microneedling" && (
+        <Section className="bg-gradient-to-b from-transparent via-fuchsia-950/10 to-transparent">
+          <FadeUp>
+            <div className="text-center mb-12">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/20 mb-4">
+                <span className="text-fuchsia-400 text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
+                Products, Safety &{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-pink-400">
+                  What to Expect
+                </span>
+              </h2>
+              <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+                Science-backed bioceuticals and neuromodulators we use for optimal RF microneedling results.
+              </p>
+            </div>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <FadeUp delayMs={60}>
+              <div className="p-6 rounded-2xl border border-fuchsia-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-fuchsia-400 mb-3 flex items-center gap-2">
+                  <span>✨</span> Products We Use
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-3">
+                  We partner with <strong className="text-white">AnteAge®</strong> for bioceuticals and <strong className="text-white">biosomes</strong>—stem cell–derived growth factors and peptides that support collagen, elastin, and healing. We also use <strong className="text-white">Allergan</strong> for &quot;baby tox&quot;—micro-diluted neuromodulator (Botox Cosmetic®) applied during or after treatment to refine pores and reduce sebum. Your provider selects the best combination for your skin goals.
+                </p>
+                <p className="text-gray-400 text-xs">
+                  AnteAge + RF microneedling + baby tox = a complete, science-backed approach to texture and rejuvenation.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={80}>
+              <div className="p-6 rounded-2xl border border-fuchsia-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-fuchsia-400 mb-3 flex items-center gap-2">
+                  <span>🎯</span> Treatment Areas & Benefits
+                </h3>
+                <ul className="text-gray-300 text-sm space-y-2">
+                  <li><strong className="text-white">Texture:</strong> Fine lines, pores, acne scars</li>
+                  <li><strong className="text-white">AnteAge biosomes:</strong> Support collagen and healing</li>
+                  <li><strong className="text-white">Baby tox:</strong> Refines pores, reduces oiliness</li>
+                </ul>
+                <p className="text-gray-400 text-xs mt-3">
+                  A series of 3–4 treatments is typically recommended for best results.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={100}>
+              <div className="p-6 rounded-2xl border border-fuchsia-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-fuchsia-400 mb-3 flex items-center gap-2">
+                  <span>⚠️</span> Contraindications
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                  We do not treat if you have:
+                </p>
+                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                  <li>Active breakout, infection, or cold sore in treatment area</li>
+                  <li>Keloid scarring tendency</li>
+                  <li>Pregnancy or breastfeeding</li>
+                  <li>Recent isotretinoin (Accutane) use</li>
+                  <li>Uncontrolled bleeding disorder</li>
+                </ul>
+                <p className="text-gray-400 text-xs mt-3">
+                  We screen before treatment and discuss any concerns with you.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={120}>
+              <div className="p-6 rounded-2xl border border-fuchsia-500/20 bg-black/40">
+                <h3 className="text-lg font-bold text-fuchsia-400 mb-3 flex items-center gap-2">
+                  <span>📋</span> What to Expect
+                </h3>
+                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                  RF microneedling with AnteAge and baby tox:
+                </p>
+                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                  <li>Topical numbing applied; procedure 30–45 minutes</li>
+                  <li>Mild redness and pinpoint bleeding; resolves in a few days</li>
+                  <li>Minimal downtime; avoid sun, harsh products for 24–48 hours</li>
+                  <li>Results improve over weeks as collagen remodels</li>
+                </ul>
+                <p className="text-gray-400 text-xs mt-3">
+                  We provide detailed aftercare at your visit.
+                </p>
+              </div>
+            </FadeUp>
+          </div>
+        </Section>
+      )}
+
       {/* FAQ Section */}
       <Section>
         <FadeUp>
