@@ -12,6 +12,7 @@ import { Header } from "@/components/Header";
 import { StickyMobileCTA } from "@/components/StickyMobileCTA";
 import { ChatOpenProvider } from "@/components/ChatOpenContext";
 import { MascotChat } from "@/components/MascotChat";
+import { VoiceConcierge } from "@/components/VoiceConcierge";
 import { EmailCapture } from "@/components/EmailCapture";
 import { HelloGorgeousAssistant } from "@/components/HelloGorgeousAssistant";
 import { ImmediateCareStrip } from "@/components/ImmediateCareBanner";
@@ -65,6 +66,7 @@ export function ConditionalLayout({
         </main>
         <StickyMobileCTA />
         <MascotChat />
+        <VoiceConcierge />
         <EmailCapture />
         <HelloGorgeousAssistant />
       </div>
