@@ -245,7 +245,7 @@ export function CareAndSupport() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Example: swelling day 2 after filler—normal?"
-                  className="flex-1 rounded-xl bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="flex-1 rounded-xl bg-gray-900 border border-gray-700 px-4 py-3 !text-white placeholder:text-gray-400 caret-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   onKeyDown={(e) => {
                     if (e.key !== "Enter") return;
                     const q = input.trim();
