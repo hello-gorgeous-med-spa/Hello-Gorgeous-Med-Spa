@@ -201,6 +201,17 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
           <div className="h-[220px] md:h-[200px] max-w-2xl">
             <GoogleMapEmbed height={220} loading="lazy" />
           </div>
+          <a
+            href={SITE.googleBusinessUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 mt-3 text-sm text-pink-400 hover:text-pink-300 transition-colors"
+          >
+            View on Google
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
         </div>
 
         {/* Contact Info Bar */}

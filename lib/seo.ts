@@ -24,7 +24,7 @@ export const SITE = {
     streetAddress: "74 W. Washington Street",
     addressLocality: "Oswego",
     addressRegion: "IL",
-    postalCode: "60503",
+    postalCode: "60543",
     addressCountry: "US",
   },
   geo: { latitude: 41.6828, longitude: -88.3515 },

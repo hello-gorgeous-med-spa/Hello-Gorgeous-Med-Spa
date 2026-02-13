@@ -85,13 +85,13 @@ Strategic phases for conversion, trust, and growth after the Premium Medical Gla
 
 | Task | Description | Status |
 |------|-------------|--------|
-| 6.1 | Audit NAP (Name, Address, Phone) consistency site-wide | ⬜ |
-| 6.2 | Ensure location pages (Oswego, Naperville, Aurora, Plainfield) have unique content | ⬜ |
-| 6.3 | Add LocalBusiness schema where missing | ⬜ |
-| 6.4 | Add Service schema for key treatments | ⬜ |
-| 6.5 | Ensure Google Business Profile links/mentions where relevant | ⬜ |
+| 6.1 | Audit NAP (Name, Address, Phone) consistency site-wide | ✅ |
+| 6.2 | Ensure location pages (Oswego, Naperville, Aurora, Plainfield) have unique content | ✅ |
+| 6.3 | Add LocalBusiness schema where missing | ✅ |
+| 6.4 | Add Service schema for key treatments | ✅ |
+| 6.5 | Ensure Google Business Profile links/mentions where relevant | ✅ |
 
-**Deliverable:** NAP consistency + schema + location content audit.
+**Deliverable:** NAP consistency + schema + location content audit. See `docs/NAP_CONSISTENCY.md`.
 
 ---
 
