@@ -76,6 +76,7 @@ export function Hero({
           alt="Hello Gorgeous Med Spa - Medical aesthetics in Oswego, IL"
           fill
           priority
+          quality={85}
           className="object-cover object-center"
           sizes="100vw"
         />

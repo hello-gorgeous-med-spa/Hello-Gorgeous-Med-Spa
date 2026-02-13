@@ -55,11 +55,11 @@ Strategic phases for conversion, trust, and growth after the Premium Medical Gla
 
 | Task | Description | Status |
 |------|-------------|--------|
-| 4.1 | Run Lighthouse audit; document baseline scores | ⬜ |
-| 4.2 | Optimize hero image (size, format, priority) | ⬜ |
-| 4.3 | Add/fill meta descriptions on top 20 pages | ⬜ |
-| 4.4 | Ensure service + location pages have unique H1s and meta | ⬜ |
-| 4.5 | Target Lighthouse Mobile score > 85 | ⬜ |
+| 4.1 | Run Lighthouse audit; document baseline scores | ✅ |
+| 4.2 | Optimize hero image (size, format, priority) | ✅ |
+| 4.3 | Add/fill meta descriptions on top 20 pages | ✅ |
+| 4.4 | Ensure service + location pages have unique H1s and meta | ✅ |
+| 4.5 | Target Lighthouse Mobile score > 85 | ✅ |
 
 **Deliverable:** Lighthouse report + meta/performance improvements.
 
