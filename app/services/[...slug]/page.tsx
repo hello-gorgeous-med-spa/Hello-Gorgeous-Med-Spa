@@ -844,6 +844,15 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                 <h3 className="text-lg font-bold text-pink-400 mb-3 flex items-center gap-2">
                   <span>💉</span> Products We Use
                 </h3>
+                <div className="mb-4 rounded-xl overflow-hidden bg-white/5 border border-white/10">
+                  <Image
+                    src="/images/jeuveau-product.png"
+                    alt="Jeuveau neuromodulator vial and syringe - FDA-approved botulinum toxin type A at Hello Gorgeous Med Spa"
+                    width={400}
+                    height={300}
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
                 <p className="text-gray-300 text-sm leading-relaxed mb-3">
                   We use <strong className="text-white">Botox®</strong>, <strong className="text-white">Dysport®</strong>, and <strong className="text-white">Jeuveau®</strong>—all FDA-approved neuromodulators (botulinum toxin type A). Each works similarly to relax targeted muscles and smooth lines. Your provider selects the best product and dosing for your anatomy and goals.
                 </p>
