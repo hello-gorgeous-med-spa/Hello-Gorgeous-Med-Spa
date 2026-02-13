@@ -83,6 +83,7 @@ const navigation = {
     href: "/your-journey",
     links: [
       { label: "Fix What Bothers Me", href: "/fix-what-bothers-me", description: "Share what's on your mind—we match you with options", icon: "💗" },
+      { label: "Virtual Consultation", href: "/virtual-consultation", description: "Get personalized treatment recommendations", icon: "🖥️", badge: "FREE" },
       { label: "Conditions We Treat", href: "/conditions", description: "Acne, wrinkles, hyperpigmentation & more", icon: "✨" },
       { label: "Explore Care Options", href: "/explore-care", description: "Discover treatments for you", icon: "🔍" },
       { label: "Your Treatment Journey", href: "/your-journey", description: "What to expect", icon: "🗺️" },
