@@ -15,22 +15,23 @@ type TreatmentArea = {
 
 const PRICE_PER_UNIT = 10;
 
+// Positions aligned with circles in hg-botox-face-neck.png
 const treatmentAreas: TreatmentArea[] = [
-  { id: "forehead", name: "Forehead Lines", units: { min: 10, max: 20 }, position: { top: "12%", left: "50%" }, description: "Smooth horizontal forehead lines" },
-  { id: "glabella", name: "Frown Lines (11s)", units: { min: 15, max: 25 }, position: { top: "22%", left: "50%" }, description: "Between the eyebrows" },
-  { id: "brow-lift-left", name: "Brow Lift (Left)", units: { min: 2, max: 5 }, position: { top: "18%", left: "30%" }, description: "Subtle lift to outer brow" },
-  { id: "brow-lift-right", name: "Brow Lift (Right)", units: { min: 2, max: 5 }, position: { top: "18%", left: "70%" }, description: "Subtle lift to outer brow" },
-  { id: "crows-feet-left", name: "Crow's Feet (Left)", units: { min: 8, max: 12 }, position: { top: "30%", left: "20%" }, description: "Lines around outer eye" },
-  { id: "crows-feet-right", name: "Crow's Feet (Right)", units: { min: 8, max: 12 }, position: { top: "30%", left: "80%" }, description: "Lines around outer eye" },
-  { id: "bunny-lines", name: "Bunny Lines", units: { min: 4, max: 8 }, position: { top: "38%", left: "50%" }, description: "Lines on the nose bridge" },
-  { id: "lip-flip", name: "Lip Flip", units: { min: 4, max: 6 }, position: { top: "50%", left: "50%" }, description: "Subtle upper lip enhancement" },
-  { id: "lip-lines", name: "Lip Lines (Smoker's Lines)", units: { min: 4, max: 8 }, position: { top: "54%", left: "50%" }, description: "Vertical lines around lips" },
-  { id: "dao", name: "DAO (Mouth Corners)", units: { min: 4, max: 8 }, position: { top: "52%", left: "58%" }, description: "Lift downturned mouth corners" },
-  { id: "chin", name: "Chin Dimpling", units: { min: 4, max: 8 }, position: { top: "60%", left: "50%" }, description: "Smooth orange peel texture" },
-  { id: "masseter-left", name: "Masseter (Left)", units: { min: 20, max: 30 }, position: { top: "58%", left: "25%" }, description: "Jaw slimming / TMJ relief" },
-  { id: "masseter-right", name: "Masseter (Right)", units: { min: 20, max: 30 }, position: { top: "58%", left: "75%" }, description: "Jaw slimming / TMJ relief" },
-  { id: "platysma-left", name: "Platysma Bands (Left)", units: { min: 10, max: 20 }, position: { top: "78%", left: "38%" }, description: "Neck bands left side" },
-  { id: "platysma-right", name: "Platysma Bands (Right)", units: { min: 10, max: 20 }, position: { top: "78%", left: "62%" }, description: "Neck bands right side" },
+  { id: "forehead", name: "Forehead Lines", units: { min: 10, max: 20 }, position: { top: "14%", left: "50%" }, description: "Smooth horizontal forehead lines" },
+  { id: "glabella", name: "Frown Lines (11s)", units: { min: 15, max: 25 }, position: { top: "24%", left: "50%" }, description: "Between the eyebrows" },
+  { id: "brow-lift-left", name: "Brow Lift (Left)", units: { min: 2, max: 5 }, position: { top: "20%", left: "32%" }, description: "Subtle lift to outer brow" },
+  { id: "brow-lift-right", name: "Brow Lift (Right)", units: { min: 2, max: 5 }, position: { top: "20%", left: "68%" }, description: "Subtle lift to outer brow" },
+  { id: "crows-feet-left", name: "Crow's Feet (Left)", units: { min: 8, max: 12 }, position: { top: "30%", left: "24%" }, description: "Lines around outer eye" },
+  { id: "crows-feet-right", name: "Crow's Feet (Right)", units: { min: 8, max: 12 }, position: { top: "30%", left: "76%" }, description: "Lines around outer eye" },
+  { id: "bunny-lines", name: "Bunny Lines", units: { min: 4, max: 8 }, position: { top: "40%", left: "50%" }, description: "Lines on the nose bridge" },
+  { id: "lip-flip", name: "Lip Flip", units: { min: 4, max: 6 }, position: { top: "52%", left: "50%" }, description: "Subtle upper lip enhancement" },
+  { id: "lip-lines", name: "Lip Lines (Smoker's Lines)", units: { min: 4, max: 8 }, position: { top: "56%", left: "50%" }, description: "Vertical lines around lips" },
+  { id: "dao", name: "DAO (Mouth Corners)", units: { min: 4, max: 8 }, position: { top: "54%", left: "50%" }, description: "Lift downturned mouth corners" },
+  { id: "chin", name: "Chin Dimpling", units: { min: 4, max: 8 }, position: { top: "62%", left: "50%" }, description: "Smooth orange peel texture" },
+  { id: "masseter-left", name: "Masseter (Left)", units: { min: 20, max: 30 }, position: { top: "58%", left: "28%" }, description: "Jaw slimming / TMJ relief" },
+  { id: "masseter-right", name: "Masseter (Right)", units: { min: 20, max: 30 }, position: { top: "58%", left: "72%" }, description: "Jaw slimming / TMJ relief" },
+  { id: "platysma-left", name: "Platysma Bands (Left)", units: { min: 10, max: 20 }, position: { top: "80%", left: "38%" }, description: "Neck bands left side" },
+  { id: "platysma-right", name: "Platysma Bands (Right)", units: { min: 10, max: 20 }, position: { top: "80%", left: "62%" }, description: "Neck bands right side" },
 ];
 
 export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
@@ -95,17 +96,11 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
                 onClick={() => toggleArea(area.id)}
                 onMouseEnter={() => setHoveredArea(area.id)}
                 onMouseLeave={() => setHoveredArea(null)}
-                className={`absolute w-8 h-8 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-300 ease-out hover:scale-110 shadow-md ${
-                  selectedAreas.has(area.id)
-                    ? "bg-[#E6007E] text-white"
-                    : "bg-[#E6007E]/70 hover:bg-[#E6007E] text-white/90"
-                }`}
+                className="absolute w-[14%] h-[14%] min-w-[36px] min-h-[36px] -translate-x-1/2 -translate-y-1/2 rounded-full cursor-pointer border-0 bg-transparent"
                 style={{ top: area.position.top, left: area.position.left }}
-                aria-label={area.name}
+                aria-label={`Select ${area.name}`}
                 title={area.name}
-              >
-                {selectedAreas.has(area.id) ? "✓" : "+"}
-              </button>
+              />
             ))}
           </div>
           {hoveredAreaData && (

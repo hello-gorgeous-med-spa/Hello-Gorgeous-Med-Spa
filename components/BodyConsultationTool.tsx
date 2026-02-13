@@ -17,17 +17,20 @@ type Zone = {
   tags: string[];
 };
 
+// Positions aligned with circles in hg-consult-body.png (full body)
 const ZONES: Zone[] = [
-  { id: "forehead", label: "Forehead", top: "8%", left: "48%", tags: ["botox", "lines", "wrinkles"] },
-  { id: "eyes", label: "Eyes", top: "18%", left: "48%", tags: ["botox", "lines", "anti-aging"] },
-  { id: "cheeks", label: "Cheeks", top: "26%", left: "48%", tags: ["filler", "volume", "contour"] },
-  { id: "lips", label: "Lips", top: "34%", left: "48%", tags: ["filler", "lip", "volume"] },
-  { id: "chin", label: "Chin", top: "40%", left: "48%", tags: ["kybella", "filler", "contour"] },
-  { id: "neck", label: "Neck", top: "46%", left: "48%", tags: ["kybella", "botox"] },
-  { id: "abdomen", label: "Abdomen", top: "56%", left: "48%", tags: ["weight-loss", "glp-1"] },
-  { id: "arms", label: "Arms", top: "48%", left: "20%", tags: ["skin", "body"] },
-  { id: "thighs", label: "Thighs", top: "74%", left: "48%", tags: ["weight-loss", "body"] },
-  { id: "buttocks", label: "Buttocks", top: "64%", left: "48%", tags: ["body", "contour"] },
+  { id: "forehead", label: "Forehead", top: "10%", left: "50%", tags: ["botox", "lines", "wrinkles"] },
+  { id: "temple-left", label: "Temple (Left)", top: "14%", left: "28%", tags: ["botox", "lines"] },
+  { id: "temple-right", label: "Temple (Right)", top: "14%", left: "72%", tags: ["botox", "lines"] },
+  { id: "lips", label: "Lips / Philtrum", top: "32%", left: "50%", tags: ["filler", "lip", "volume"] },
+  { id: "chest", label: "Chest", top: "42%", left: "50%", tags: ["body", "skin"] },
+  { id: "shoulder-left", label: "Shoulder (Left)", top: "38%", left: "22%", tags: ["skin", "body"] },
+  { id: "shoulder-right", label: "Shoulder (Right)", top: "38%", left: "78%", tags: ["skin", "body"] },
+  { id: "abdomen", label: "Abdomen", top: "52%", left: "50%", tags: ["weight-loss", "glp-1"] },
+  { id: "thigh-left", label: "Thigh (Left)", top: "68%", left: "42%", tags: ["weight-loss", "body"] },
+  { id: "thigh-right", label: "Thigh (Right)", top: "68%", left: "58%", tags: ["weight-loss", "body"] },
+  { id: "knee-left", label: "Knee (Left)", top: "82%", left: "45%", tags: ["body"] },
+  { id: "knee-right", label: "Knee (Right)", top: "82%", left: "55%", tags: ["body"] },
 ];
 
 const TREATMENTS: { id: string; name: string; description: string; href: string; icon: string; tags: string[] }[] = [
@@ -195,24 +198,17 @@ export function BodyConsultationTool({
           sizes="(max-width: 768px) 280px, 360px"
           className="object-contain drop-shadow-lg"
         />
-        {ZONES.map((zone) => {
-          const isSelected = selectedZones.has(zone.id);
-          return (
-            <button
-              key={zone.id}
-              type="button"
-              onClick={() => toggleZone(zone.id)}
-              className={`absolute w-8 h-8 md:w-10 md:h-10 rounded-full -translate-x-1/2 -translate-y-1/2 transition-all duration-300 hover:scale-110 ${
-                isSelected
-                  ? "bg-[#E6007E]/90 ring-2 ring-white/60 shadow-[0_0_12px_rgba(230,0,126,0.6)]"
-                  : "bg-[#E6007E]/40 hover:bg-[#E6007E]/70 hover:shadow-[0_0_10px_rgba(230,0,126,0.4)]"
-              }`}
-              style={{ top: zone.top, left: zone.left }}
-              aria-label={`Select ${zone.label}`}
-              title={zone.label}
-            />
-          );
-        })}
+        {ZONES.map((zone) => (
+          <button
+            key={zone.id}
+            type="button"
+            onClick={() => toggleZone(zone.id)}
+            className="absolute w-[12%] h-[12%] min-w-[32px] min-h-[32px] -translate-x-1/2 -translate-y-1/2 rounded-full cursor-pointer border-0 bg-transparent"
+            style={{ top: zone.top, left: zone.left }}
+            aria-label={`Select ${zone.label}`}
+            title={zone.label}
+          />
+        ))}
       </div>
     </div>
   );
