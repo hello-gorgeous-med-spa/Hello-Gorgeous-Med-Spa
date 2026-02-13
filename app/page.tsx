@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { Hero } from "@/components/Hero";
 import { HomepageGeoLinks } from "@/components/HomepageGeoLinks";
+import { MascotHeroSection } from "@/components/MascotHeroSection";
 import { HomeCareTeam } from "@/components/HomeCareTeam";
 import { OffersSection } from "@/components/OffersSection";
 import { PhotoGallery } from "@/components/PhotoGallery";
@@ -69,6 +70,12 @@ export default async function HomePage() {
       <Hero />
       <HomepageGeoLinks />
       <HomepageBanner banner={cmsBanner} />
+      <section className="relative py-16 md:py-24">
+        <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-pink-950/10" />
+        <div className="relative z-10 max-w-5xl mx-auto px-4">
+          <MascotHeroSection />
+        </div>
+      </section>
       <FixWhatBothersMeFeature />
       <QuizCTA />
       <OffersSection />

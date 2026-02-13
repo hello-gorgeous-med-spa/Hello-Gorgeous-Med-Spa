@@ -50,7 +50,7 @@ const mascotHeroData: MascotHeroData[] = [
   {
     id: "filla-grace",
     characterImage: "/images/characters/filla-grace.png",
-    videoSrc: null, // Video not available yet
+    videoSrc: "/videos/mascots/founder/founder-vision.mp4", // Placeholder until filla-grace-intro.mp4 added
     features: [
       { icon: "✨", title: "Filler Types", description: "Understanding different filler options" },
       { icon: "🎭", title: "Facial Harmony", description: "Balance and natural enhancement" },
@@ -91,6 +91,10 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
 
   const handlePlayVideo = () => {
     setShowVideo(true);
+    // Trigger play in next tick so video element exists; keeps user-gesture for sound
+    requestAnimationFrame(() => {
+      videoRef.current?.play().catch(() => {});
+    });
   };
 
   return (
@@ -168,6 +172,7 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
                 autoPlay
                 controls
                 playsInline
+                preload="auto"
                 className="w-full h-full object-cover"
               />
             ) : (
