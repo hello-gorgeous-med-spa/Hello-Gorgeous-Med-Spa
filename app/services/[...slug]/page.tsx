@@ -1093,6 +1093,39 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         </Section>
       )}
 
+      {/* Powered by Olympia - Hormone, Weight Loss */}
+      {(s.slug === "biote-hormone-therapy" || s.slug === "weight-loss-therapy") && (
+        <Section className="bg-gradient-to-b from-transparent via-violet-950/10 to-transparent">
+          <FadeUp>
+            <div className="max-w-3xl mx-auto rounded-2xl border border-violet-500/20 bg-black/40 p-6 md:p-8">
+              <div className="flex flex-col md:flex-row md:items-center gap-6">
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-violet-400 mb-2">💊 Our Compounding Partner</h3>
+                  <p className="text-gray-300 text-sm leading-relaxed">
+                    We source compounded medications from <strong className="text-white">Olympia Pharmacy</strong>—a licensed 503A/503B facility. 
+                    Browse their full medication directory for hormones, weight loss, peptides, IV therapy, vitamins, and more.
+                  </p>
+                </div>
+                <a
+                  href="https://www.olympiapharmacy.com/medication-directory/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-shrink-0 inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 rounded-full bg-violet-500/20 border border-violet-500/30 text-violet-300 font-semibold hover:bg-violet-500/30 transition"
+                >
+                  Browse Olympia Directory
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                  </svg>
+                </a>
+              </div>
+              <Link href="/pharmacy-partner" className="mt-4 inline-block text-sm text-violet-400/80 hover:text-violet-400">
+                Learn more about our pharmacy partner →
+              </Link>
+            </div>
+          </FadeUp>
+        </Section>
+      )}
+
       {/* FAQ Section */}
       <Section>
         <FadeUp>

@@ -67,6 +67,7 @@ const navigation = {
       { label: "View Providers", href: "/providers", description: "Expert providers you can trust", icon: "👩‍⚕️" },
       { label: "Our Location", href: "/locations", description: "Visit us in Oswego, IL", icon: "📍" },
       { label: "Clinical Standards", href: "/clinical-partners", description: "Safety & quality commitment", icon: "🏥" },
+      { label: "Pharmacy Partner", href: "/pharmacy-partner", description: "Olympia compounded medications", icon: "💊" },
       { label: "The Care Engine™", href: "/care-engine", description: "Our personalized approach", icon: "⚙️" },
     ],
   },

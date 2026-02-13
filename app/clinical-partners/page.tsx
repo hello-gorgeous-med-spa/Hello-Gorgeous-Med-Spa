@@ -155,15 +155,17 @@ export default function ClinicalPartnersPage() {
                 },
                 {
                   title: "IV Therapy & Peptide Standards",
-                  items: ["Olympia Pharmaceuticals"],
+                  items: ["Olympia Pharmacy"],
                   body: [
                     "Sterility, sourcing, storage, and formulation integrity matter for IV therapy and peptide‑adjacent protocols.",
-                    "Pharmaceutical‑grade compounding standards help reduce risk—screening and clinical oversight still matter.",
+                    "We source compounded medications from Olympia Pharmacy—a licensed 503A/503B facility. Browse their full medication directory for hormones, weight loss, peptides, IV therapy, and more.",
                     "We keep this educational online; individual eligibility and protocols are handled in consultation.",
                   ],
                   links: [
+                    { href: "https://www.olympiapharmacy.com/medication-directory/", label: "Browse Olympia Medication Directory" },
+                    { href: "/pharmacy-partner", label: "Our Pharmacy Partner" },
                     { href: "/services/iv-therapy", label: "IV therapy education" },
-                    { href: "/services/sermorelin-growth-peptide", label: "Peptide education (Sermorelin)" },
+                    { href: "/peptides", label: "Peptide education" },
                     { href: "/care-and-support", label: "Care & Support" },
                   ],
                 },
@@ -185,15 +187,19 @@ export default function ClinicalPartnersPage() {
                       ))}
                     </div>
                     <div className="mt-6 flex flex-wrap gap-3">
-                      {c.links.map((l) => (
-                        <Link
-                          key={l.href}
-                          href={l.href}
-                          className="text-sm font-semibold text-white/90 underline hover:text-white"
-                        >
-                          {l.label}
-                        </Link>
-                      ))}
+                      {c.links.map((l) => {
+                        const isExternal = l.href.startsWith("http");
+                        const linkClass = "text-sm font-semibold text-white/90 underline hover:text-white";
+                        return isExternal ? (
+                          <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                            {l.label}
+                          </a>
+                        ) : (
+                          <Link key={l.href} href={l.href} className={linkClass}>
+                            {l.label}
+                          </Link>
+                        );
+                      })}
                     </div>
                   </div>
                 </FadeUp>

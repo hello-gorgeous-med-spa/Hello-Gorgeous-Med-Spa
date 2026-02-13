@@ -528,11 +528,22 @@ export function IVTherapyContent() {
               <span className="text-2xl">🏥</span>
               <span className="text-white font-semibold">Powered by Olympia Pharmacy</span>
             </div>
-            <p className="text-gray-400">
+            <p className="text-gray-400 mb-6">
               All IV formulations are compounded by Olympia Pharmacy, a licensed 503A
               compounding pharmacy. We use only pharmaceutical-grade ingredients with
               rigorous quality control.
             </p>
+            <a
+              href="https://www.olympiapharmacy.com/medication-directory/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-violet-400 font-semibold hover:text-violet-300"
+            >
+              Browse Olympia Medication Directory
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
           </div>
         </FadeUp>
       </Section>
