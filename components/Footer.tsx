@@ -51,7 +51,9 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.tiktok.com/@daniellealcala12"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="w-10 h-10 rounded-full bg-black/5 hover:bg-[#E6007E]/20 flex items-center justify-center text-black hover:text-[#E6007E] transition-all"
                 aria-label="TikTok"
               >

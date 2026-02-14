@@ -23,6 +23,7 @@ import { ImmediateCareBanner } from "@/components/ImmediateCareBanner";
 import { TriggerPointSection } from "@/components/TriggerPointSection";
 import { LaserHairSection } from "@/components/LaserHairSection";
 import { MicroneedlingShowcase } from "@/components/MicroneedlingShowcase";
+import { TikTokEmbed } from "@/components/TikTokEmbed";
 import { HOME_FAQS, HOME_TESTIMONIALS, SITE, breadcrumbJsonLd, faqJsonLd, pageMetadata, siteJsonLd, testimonialsJsonLd } from "@/lib/seo";
 import { getBannerContent } from "@/lib/cms-readers";
 import { HomepageBanner } from "@/components/HomepageBanner";
@@ -89,6 +90,7 @@ export default async function HomePage() {
       <MicroneedlingShowcase />
       <AnteAGEShowcase />
       <LaserHairSection />
+      <TikTokEmbed />
       <Testimonials />
       <ImmediateCareBanner />
       <PartnersGrid />

@@ -785,6 +785,7 @@ export function siteJsonLd() {
       SITE.googleBusinessUrl,
       "https://www.facebook.com/hellogorgeousmedspa",
       "https://www.instagram.com/hellogorgeousmedspa",
+      "https://www.tiktok.com/@daniellealcala12",
     ],
     ...(SITE.reviewRating && SITE.reviewCount
       ? {
