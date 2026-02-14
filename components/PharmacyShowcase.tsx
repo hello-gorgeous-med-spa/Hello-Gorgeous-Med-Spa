@@ -113,6 +113,7 @@ const slides: Slide[] = [
     benefits: ["Stronger hair growth", "Healthier nails", "Glowing skin", "Metabolism support"],
     icon: "✨",
     gradient: "from-pink-400 to-rose-400",
+    image: "/images/olympia-biotin.png",
   },
   {
     id: "glutathione",
