@@ -1150,4 +1150,3 @@ export function testimonialsJsonLd(
     reviewBody: t.text,
   }));
 }
-

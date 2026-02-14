@@ -32,14 +32,14 @@ const partners = [
 
 export function PartnersGrid() {
   return (
-    <section className="py-12 md:py-16 px-4 md:px-6">
+    <section className="py-20 md:py-28 px-6 md:px-12 bg-white">
       <div className="max-w-6xl mx-auto min-w-0">
         <div className="text-center mb-12">
-          <p className="text-pink-400 text-lg font-medium tracking-wide">EXCLUSIVE OFFERS</p>
-          <h2 className="mt-4 text-2xl md:text-4xl font-bold text-white">
+          <p className="text-[#E6007E] text-sm font-medium tracking-wide">EXCLUSIVE OFFERS</p>
+          <h2 className="mt-4 text-2xl md:text-4xl font-serif font-bold text-[#111111]">
             Financing & Rewards
           </h2>
-          <p className="mt-4 text-white/70 max-w-2xl mx-auto">
+          <p className="mt-4 text-[#5E5E66] max-w-2xl mx-auto">
             We partner with the best to make your treatments affordable and rewarding.
           </p>
         </div>
@@ -51,7 +51,7 @@ export function PartnersGrid() {
               href={partner.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative rounded-2xl overflow-hidden border border-pink-500/20 bg-black hover:border-pink-500/50 transition-all duration-300 hover:scale-[1.02]"
+              className="group relative rounded-xl overflow-hidden border border-[#111111]/10 bg-white shadow-md hover:border-[#E6007E]/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-[2px]"
             >
               {/* Image */}
               <div className="relative h-64 md:h-72 w-full">
@@ -63,15 +63,15 @@ export function PartnersGrid() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
                 {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
               </div>
 
               {/* Content overlay */}
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <h3 className="text-xl font-bold text-white mb-1">{partner.name}</h3>
-                <p className="text-white/80 text-sm mb-2">{partner.description}</p>
-                <p className="text-pink-400 text-xs font-medium mb-4">{partner.highlight}</p>
-                <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-pink-500 text-white text-sm font-semibold group-hover:bg-pink-600 transition shadow-lg shadow-pink-500/25">
+                <p className="text-white/90 text-sm mb-2">{partner.description}</p>
+                <p className="text-[#E6007E] text-xs font-medium mb-4">{partner.highlight}</p>
+                <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#E6007E] text-white text-sm font-semibold group-hover:bg-[#B0005F] transition">
                   {partner.cta}
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </span>

@@ -92,14 +92,13 @@ export function HomeCareTeam() {
   }
 
   return (
-    <Section className="relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-pink-950/10" />
+    <Section className="relative bg-[#FDF7FA]">
       <div className="relative">
         <FadeUp>
           <div className="text-center">
-            <p className="text-pink-400 text-lg md:text-xl font-medium tracking-wide">MEET YOUR CARE TEAM</p>
-            <h2 className="mt-4 text-2xl md:text-5xl font-bold text-white">Real guidance. Thoughtful education.</h2>
-            <p className="mt-4 text-base md:text-lg text-white/70 max-w-3xl mx-auto">
+            <p className="text-[#E6007E] text-sm font-medium tracking-wide">MEET YOUR CARE TEAM</p>
+            <h2 className="mt-4 text-2xl md:text-4xl font-serif font-bold text-[#111111]">Real guidance. Thoughtful education.</h2>
+            <p className="mt-4 text-base md:text-lg text-[#5E5E66] max-w-3xl mx-auto">
               Support before you ever book. Choose an expert voice—get clear, calm answers powered by our Knowledge Library.
             </p>
           </div>
@@ -124,12 +123,12 @@ export function HomeCareTeam() {
                       memory.trackTopic(`home:persona:${id}`);
                     }}
                     className={cx(
-                      "min-w-[260px] sm:min-w-[280px] text-left rounded-2xl border bg-gradient-to-b from-gray-950/60 to-black p-5 transition",
-                      active ? "border-pink-500/40" : "border-gray-800 hover:border-white/20",
+                      "min-w-[260px] sm:min-w-[280px] text-left rounded-xl border bg-white shadow-md p-5 transition hover:shadow-xl hover:-translate-y-[2px]",
+                      active ? "border-[#E6007E]/40" : "border-[#111111]/10 hover:border-[#E6007E]/30",
                     )}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="h-16 w-16 rounded-full overflow-hidden border-2 border-pink-500/50 bg-black flex items-center justify-center shadow-[0_0_15px_rgba(236,72,153,0.3)]">
+                      <div className="h-16 w-16 rounded-full overflow-hidden border-2 border-[#E6007E]/30 bg-[#FDF7FA] flex items-center justify-center shadow-md">
                         {/* Autoplay video avatar for "alive" mascots */}
                         {(() => {
                           const videoIntent = pickMascotVideoIntentForContext({ personaId: id, mode: "home-spotlight" });
@@ -160,15 +159,15 @@ export function HomeCareTeam() {
                         })()}
                       </div>
                       <div className="min-w-0">
-                        <p className="text-xs text-white/60">{p.role}</p>
-                        <p className="mt-1 text-lg font-bold text-white truncate">
+                        <p className="text-xs text-[#5E5E66]">{p.role}</p>
+                        <p className="mt-1 text-lg font-bold text-[#111111] truncate">
                           <span className="mr-2">{pUi.emoji}</span>
                           {p.displayName}
                         </p>
                       </div>
                     </div>
-                    <p className="mt-4 text-sm text-white/70">{pUi.tagline}</p>
-                    <p className="mt-3 text-xs text-white/60">Tap to open spotlight</p>
+                    <p className="mt-4 text-sm text-[#5E5E66]">{pUi.tagline}</p>
+                    <p className="mt-3 text-xs text-[#5E5E66]">Tap to open spotlight</p>
                   </button>
                 </FadeUp>
               );
@@ -177,16 +176,16 @@ export function HomeCareTeam() {
 
           {/* Persona Spotlight Drawer (inline) */}
           {drawerOpen ? (
-            <div className="mt-8 rounded-2xl border border-white/10 bg-white/5 overflow-hidden">
-              <div className="p-5 border-b border-white/10 flex items-start justify-between gap-4">
+            <div className="mt-8 rounded-xl border border-[#111111]/10 bg-white shadow-md overflow-hidden">
+              <div className="p-5 border-b border-[#111111]/10 flex items-start justify-between gap-4">
                 <div className="min-w-0">
-                  <p className="text-sm text-white/70">Persona spotlight</p>
-                  <p className="mt-1 text-xl font-bold text-white">
+                  <p className="text-sm text-[#5E5E66]">Persona spotlight</p>
+                  <p className="mt-1 text-xl font-bold text-[#111111]">
                     <span className="mr-2">{ui.emoji}</span>
                     {cfg.displayName}
                   </p>
-                  <p className="mt-2 text-sm text-white/70">{cfg.role}</p>
-                  <p className="mt-3 text-sm text-white/70">{ui.tagline}</p>
+                  <p className="mt-2 text-sm text-[#5E5E66]">{cfg.role}</p>
+                  <p className="mt-3 text-sm text-[#5E5E66]">{ui.tagline}</p>
                 </div>
                 <button
                   type="button"
@@ -195,7 +194,7 @@ export function HomeCareTeam() {
                     setChatOpen(false);
                     setVideoOpen(false);
                   }}
-                  className="rounded-lg p-2 text-white/70 hover:text-white hover:bg-white/5 transition"
+                  className="rounded-lg p-2 text-[#5E5E66] hover:text-[#111111] hover:bg-[#111111]/5 transition"
                   aria-label="Close spotlight"
                 >
                   ✕
@@ -210,7 +209,7 @@ export function HomeCareTeam() {
                       setChatOpen(true);
                       memory.setPreference({ stage: "learning" });
                     }}
-                    className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
+                    className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full bg-[#E6007E] text-white font-semibold hover:bg-[#B0005F] hover:shadow-xl transition"
                   >
                     Ask a question
                   </button>
@@ -221,7 +220,7 @@ export function HomeCareTeam() {
                       setInput(ui.chatStarters[0] ?? "Where should I start?");
                       memory.setPreference({ stage: "learning" });
                     }}
-                    className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full border border-white/20 text-white hover:bg-white/5 transition"
+                    className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full border border-[#111111]/20 text-[#111111] hover:bg-[#111111]/5 transition"
                   >
                     Just learning
                   </button>
@@ -232,7 +231,7 @@ export function HomeCareTeam() {
                     <button
                       type="button"
                       onClick={() => setVideoOpen((v) => !v)}
-                      className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full border border-white/20 text-white hover:bg-white/5 transition"
+                      className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full border border-[#111111]/20 text-[#111111] hover:bg-[#111111]/5 transition"
                     >
                       {videoOpen ? "Hide video" : "Watch intro"}
                     </button>
@@ -242,17 +241,17 @@ export function HomeCareTeam() {
                 {videoOpen && videoSrc ? (
                   <div className="mt-6">
                     <MascotVideo src={videoSrc} poster={poster} title={`${cfg.displayName} video`} />
-                    <p className="mt-3 text-xs text-white/60">
+                    <p className="mt-3 text-xs text-[#5E5E66]">
                       Educational only. No diagnosis. No medical advice. No outcome guarantees.
                     </p>
                   </div>
                 ) : null}
 
                 {chatOpen ? (
-                  <div className="mt-6 rounded-2xl border border-gray-800 bg-black/40 overflow-hidden">
-                    <div className="p-4 border-b border-white/10">
-                      <p className="text-sm font-semibold text-white">Start a conversation</p>
-                      <p className="mt-1 text-xs text-white/60">{complianceFooter()}</p>
+                  <div className="mt-6 rounded-xl border border-[#111111]/10 bg-white shadow-md overflow-hidden">
+                    <div className="p-4 border-b border-[#111111]/10">
+                      <p className="text-sm font-semibold text-[#111111]">Start a conversation</p>
+                      <p className="mt-1 text-xs text-[#5E5E66]">{complianceFooter()}</p>
                     </div>
 
                     <div className="p-4 max-h-[320px] overflow-auto space-y-4">
@@ -262,17 +261,17 @@ export function HomeCareTeam() {
                           className={cx(
                             "whitespace-pre-wrap text-sm leading-relaxed",
                             m.role === "user"
-                              ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
-                              : "text-gray-200",
+                              ? "text-[#111111] bg-[#111111]/5 border border-[#111111]/10 rounded-xl p-4"
+                              : "text-[#5E5E66]",
                           )}
                         >
                           {m.content}
                         </div>
                       ))}
-                      {sending ? <div className="text-sm text-white/60">Thinking…</div> : null}
+                      {sending ? <div className="text-sm text-[#5E5E66]">Thinking…</div> : null}
                     </div>
 
-                    <div className="p-4 border-t border-white/10">
+                    <div className="p-4 border-t border-[#111111]/10">
                       <div className="flex flex-wrap gap-2">
                         {ui.chatStarters.slice(0, 3).map((s) => (
                           <button
@@ -281,7 +280,7 @@ export function HomeCareTeam() {
                             onClick={() => {
                               setInput(s);
                             }}
-                            className="text-left text-xs text-white/80 border border-white/10 rounded-full px-3 py-2 hover:bg-white/5 transition"
+                            className="text-left text-xs text-[#5E5E66] border border-[#111111]/10 rounded-full px-3 py-2 hover:bg-[#111111]/5 transition"
                           >
                             {s}
                           </button>
@@ -293,7 +292,7 @@ export function HomeCareTeam() {
                           value={input}
                           onChange={(e) => setInput(e.target.value)}
                           placeholder="Ask a question…"
-                          className="flex-1 rounded-xl bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                          className="flex-1 rounded-xl bg-[#111111]/5 border border-[#111111]/10 px-4 py-3 text-[#111111] placeholder:text-[#5E5E66] focus:outline-none focus:ring-2 focus:ring-[#E6007E]/50"
                           onKeyDown={(e) => {
                             if (e.key === "Enter") void send();
                           }}
@@ -301,7 +300,7 @@ export function HomeCareTeam() {
                         <button
                           type="button"
                           disabled={sending}
-                          className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
+                          className="px-4 py-3 rounded-xl bg-[#E6007E] text-white font-semibold hover:bg-[#B0005F] transition disabled:opacity-60"
                           onClick={() => void send()}
                         >
                           Send
@@ -310,7 +309,7 @@ export function HomeCareTeam() {
                     </div>
                   </div>
                 ) : (
-                  <p className="mt-6 text-sm text-white/70">
+                  <p className="mt-6 text-sm text-[#5E5E66]">
                     Choose a button above to start. This is a tool you get here—calm, educational guidance before booking.
                   </p>
                 )}

@@ -13,7 +13,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
   const hasHours = hours && (hours.mon_fri || hours.sat || hours.sun);
 
   return (
-    <footer className="bg-gradient-to-b from-black to-gray-950 border-t border-white/5">
+    <footer className="bg-[#111111] text-white border-t border-white/5">
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-16 min-w-0">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">

@@ -99,12 +99,12 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
   };
 
   return (
-    <div className="rounded-2xl border border-pink-500/30 bg-gradient-to-br from-black via-black to-pink-950/20 p-4 md:p-5 flex flex-col">
+    <div className="rounded-xl border border-[#111111]/10 bg-white shadow-md p-4 md:p-5 flex flex-col hover:shadow-xl hover:-translate-y-[2px] transition-all">
       <div className="flex gap-4 items-start flex-1 min-h-0">
         {/* Character Image - uniform portrait size (face + full-body same) */}
         <div className="flex-shrink-0">
           <div
-            className="relative rounded-xl overflow-hidden border border-pink-500/20 shadow-lg"
+            className="relative rounded-xl overflow-hidden border border-[#111111]/10 shadow-lg"
             style={{ width: AVATAR_SIZE, height: AVATAR_SIZE }}
           >
             {showVideo && data.videoSrc ? (
@@ -130,7 +130,7 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
                   <button
                     type="button"
                     onClick={handlePlayVideo}
-                    className="absolute inset-0 flex items-center justify-center bg-black/30 hover:bg-black/40 transition group"
+                    className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 transition group"
                   >
                     <div className="w-10 h-10 rounded-full bg-pink-500 flex items-center justify-center shadow-lg group-hover:scale-110 transition">
                       <span className="text-white text-sm ml-0.5">▶</span>
@@ -146,17 +146,17 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-xl">{ui.emoji}</span>
-            <h3 className="text-lg font-bold text-white truncate">{cfg.displayName}</h3>
+            <h3 className="text-lg font-bold text-[#111111] truncate">{cfg.displayName}</h3>
           </div>
-          <p className="text-xs text-pink-400 mb-3">{cfg.role}</p>
-          <p className="text-white/70 text-sm leading-snug line-clamp-2 mb-3">{ui.tagline}</p>
+          <p className="text-xs text-[#E6007E] mb-3">{cfg.role}</p>
+          <p className="text-[#5E5E66] text-sm leading-snug line-clamp-2 mb-3">{ui.tagline}</p>
 
           {/* Feature Pills - compact */}
           <div className="flex flex-wrap gap-1.5 mb-3">
             {data.features.slice(0, 2).map((feature, idx) => (
               <span
                 key={idx}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-pink-500/10 border border-pink-500/20 text-xs text-pink-400"
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#E6007E]/10 border border-[#E6007E]/20 text-xs text-[#E6007E]"
               >
                 {feature.icon} {feature.title}
               </span>
@@ -169,7 +169,7 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
               <button
                 type="button"
                 onClick={handlePlayVideo}
-                className="px-3 py-1.5 rounded-full bg-pink-500/10 text-pink-400 font-medium text-xs border border-pink-500/30 hover:bg-pink-500/20 transition"
+                className="px-3 py-1.5 rounded-full bg-[#E6007E]/10 text-[#E6007E] font-medium text-xs border border-[#E6007E]/20 hover:bg-[#E6007E]/20 transition"
               >
                 ▶ Video
               </button>
@@ -177,7 +177,7 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
             <button
               type="button"
               onClick={() => onAskClick(data.id)}
-              className="px-3 py-1.5 rounded-full bg-pink-500 text-white font-medium text-xs hover:bg-pink-600 transition"
+                className="px-3 py-1.5 rounded-full bg-[#E6007E] text-white font-medium text-xs hover:bg-[#B0005F] transition"
             >
               💬 Ask
             </button>
@@ -185,7 +185,7 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-3 py-1.5 rounded-full bg-white/10 text-white font-medium text-xs hover:bg-white/20 transition border border-white/20"
+                className="px-3 py-1.5 rounded-full bg-[#111111]/5 text-[#111111] font-medium text-xs hover:bg-[#111111]/10 transition border border-[#111111]/20"
             >
               Book
             </a>
@@ -213,9 +213,9 @@ export function MascotHeroSection() {
   return (
     <div className="space-y-6">
       <div className="text-center mb-8">
-        <p className="text-pink-400 text-sm font-medium tracking-wide">MEET YOUR CARE TEAM</p>
-        <h2 className="mt-2 text-2xl md:text-4xl font-bold text-white">Your experts, on demand</h2>
-        <p className="mt-2 text-sm md:text-base text-white/70 max-w-2xl mx-auto">
+        <p className="text-[#E6007E] text-sm font-medium tracking-wide">MEET YOUR CARE TEAM</p>
+        <h2 className="mt-2 text-2xl md:text-4xl font-bold text-[#111111]">Your experts, on demand</h2>
+        <p className="mt-2 text-sm md:text-base text-[#5E5E66] max-w-2xl mx-auto">
           Pick an expert to get clear, calm answers. Education only—book a consult for medical advice.
         </p>
       </div>
@@ -228,23 +228,23 @@ export function MascotHeroSection() {
 
       {/* Chat Modal */}
       {chatOpen && selectedPersona && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="w-full max-w-lg bg-black border border-pink-500/30 rounded-2xl overflow-hidden shadow-2xl shadow-pink-500/20">
-            <div className="p-4 border-b border-pink-500/20 flex items-center justify-between">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
+          <div className="w-full max-w-lg bg-white border border-[#111111]/10 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="p-4 border-b border-[#111111]/10 flex items-center justify-between">
               <div>
-                <p className="text-white font-bold">Chat with {getPersonaConfig(selectedPersona).displayName}</p>
-                <p className="text-xs text-white/60">Education only. No medical advice.</p>
+                <p className="text-[#111111] font-bold">Chat with {getPersonaConfig(selectedPersona).displayName}</p>
+                <p className="text-xs text-[#5E5E66]">Education only. No medical advice.</p>
               </div>
               <button
                 type="button"
                 onClick={handleCloseChat}
-                className="text-white/60 hover:text-white p-2"
+                className="text-[#5E5E66] hover:text-[#111111] p-2"
               >
                 ✕
               </button>
             </div>
             <div className="p-6">
-              <p className="text-white/70 text-sm mb-4">
+                <p className="text-[#5E5E66] text-sm mb-4">
                 Ask {getPersonaConfig(selectedPersona).displayName} about {getPersonaConfig(selectedPersona).role.toLowerCase()}.
               </p>
               <div className="space-y-3">
@@ -252,7 +252,7 @@ export function MascotHeroSection() {
                   <button
                     key={idx}
                     type="button"
-                    className="w-full text-left px-4 py-3 rounded-xl border border-pink-500/20 bg-pink-500/5 text-white/80 text-sm hover:bg-pink-500/10 hover:border-pink-500/40 transition"
+                    className="w-full text-left px-4 py-3 rounded-xl border border-[#E6007E]/20 bg-[#E6007E]/5 text-[#111111] text-sm hover:bg-[#E6007E]/10 hover:border-[#E6007E]/40 transition"
                   >
                     {starter}
                   </button>
@@ -262,11 +262,11 @@ export function MascotHeroSection() {
                 <input
                   type="text"
                   placeholder="Type your question..."
-                  className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-pink-500/50"
+                  className="flex-1 px-4 py-3 rounded-xl bg-[#111111]/5 border border-[#111111]/10 text-[#111111] placeholder:text-[#5E5E66] focus:outline-none focus:border-[#E6007E]/50"
                 />
                 <button
                   type="button"
-                  className="px-6 py-3 rounded-xl bg-pink-500 text-white font-semibold hover:bg-pink-600 transition"
+                  className="px-6 py-3 rounded-xl bg-[#E6007E] text-white font-semibold hover:bg-[#B0005F] transition"
                 >
                   Send
                 </button>

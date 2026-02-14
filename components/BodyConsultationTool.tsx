@@ -18,20 +18,20 @@ type Zone = {
   tags: string[];
 };
 
-// Positions aligned with circles in hg-consult-body.png (full body)
+// Positions aligned with hg-consult-body.png (1024×1536 full-body). Image aspect 2:3.
 const ZONES: Zone[] = [
-  { id: "forehead", label: "Forehead", top: "10%", left: "50%", tags: ["botox", "lines", "wrinkles"] },
-  { id: "temple-left", label: "Temple (Left)", top: "14%", left: "28%", tags: ["botox", "lines"] },
-  { id: "temple-right", label: "Temple (Right)", top: "14%", left: "72%", tags: ["botox", "lines"] },
-  { id: "lips", label: "Lips / Philtrum", top: "32%", left: "50%", tags: ["filler", "lip", "volume"] },
-  { id: "chest", label: "Chest", top: "42%", left: "50%", tags: ["body", "skin"] },
-  { id: "shoulder-left", label: "Shoulder (Left)", top: "38%", left: "22%", tags: ["skin", "body"] },
-  { id: "shoulder-right", label: "Shoulder (Right)", top: "38%", left: "78%", tags: ["skin", "body"] },
-  { id: "abdomen", label: "Abdomen", top: "52%", left: "50%", tags: ["weight-loss", "glp-1"] },
-  { id: "thigh-left", label: "Thigh (Left)", top: "68%", left: "42%", tags: ["weight-loss", "body"] },
-  { id: "thigh-right", label: "Thigh (Right)", top: "68%", left: "58%", tags: ["weight-loss", "body"] },
-  { id: "knee-left", label: "Knee (Left)", top: "82%", left: "45%", tags: ["body"] },
-  { id: "knee-right", label: "Knee (Right)", top: "82%", left: "55%", tags: ["body"] },
+  { id: "forehead", label: "Forehead", top: "8%", left: "50%", tags: ["botox", "lines", "wrinkles"] },
+  { id: "temple-left", label: "Temple (Left)", top: "11%", left: "28%", tags: ["botox", "lines"] },
+  { id: "temple-right", label: "Temple (Right)", top: "11%", left: "72%", tags: ["botox", "lines"] },
+  { id: "lips", label: "Lips / Philtrum", top: "14%", left: "50%", tags: ["filler", "lip", "volume"] },
+  { id: "chest", label: "Chest", top: "34%", left: "50%", tags: ["body", "skin"] },
+  { id: "shoulder-left", label: "Shoulder (Left)", top: "32%", left: "22%", tags: ["skin", "body"] },
+  { id: "shoulder-right", label: "Shoulder (Right)", top: "32%", left: "78%", tags: ["skin", "body"] },
+  { id: "abdomen", label: "Abdomen", top: "50%", left: "50%", tags: ["weight-loss", "glp-1"] },
+  { id: "thigh-left", label: "Thigh (Left)", top: "66%", left: "42%", tags: ["weight-loss", "body"] },
+  { id: "thigh-right", label: "Thigh (Right)", top: "66%", left: "58%", tags: ["weight-loss", "body"] },
+  { id: "knee-left", label: "Knee (Left)", top: "80%", left: "45%", tags: ["body"] },
+  { id: "knee-right", label: "Knee (Right)", top: "80%", left: "55%", tags: ["body"] },
 ];
 
 const TREATMENTS: { id: string; name: string; description: string; href: string; bookSlug: string; providerSlug?: string; icon: string; tags: string[] }[] = [
@@ -199,7 +199,7 @@ export function BodyConsultationTool({
 
   const bodySection = (
     <div className="relative min-h-[400px] md:min-h-[480px] flex items-center justify-center">
-      <div className="relative w-full max-w-[360px] h-[400px] md:h-[480px] mx-auto">
+      <div className="relative w-full max-w-[360px] aspect-[2/3] mx-auto">
         <Image
           src="/images/hg-consult-body.png"
           alt="Select areas you'd like to improve"

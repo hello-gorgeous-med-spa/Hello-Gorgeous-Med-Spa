@@ -28,14 +28,13 @@ const providers = [
 
 export function MeetProviders() {
   return (
-    <Section className="relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-black to-pink-950/10" />
+    <Section className="relative bg-white">
       <div className="relative">
         <FadeUp>
           <div className="text-center mb-12">
-            <p className="text-pink-400 text-lg font-medium tracking-wide">YOUR PROVIDERS</p>
-            <h2 className="mt-4 text-3xl md:text-5xl font-bold text-white">Meet the Team</h2>
-            <p className="mt-4 text-base md:text-lg text-white/70 max-w-2xl mx-auto">
+            <p className="text-[#E6007E] text-sm font-medium tracking-wide">YOUR PROVIDERS</p>
+            <h2 className="mt-4 text-3xl md:text-4xl font-serif font-bold text-[#111111]">Meet the Team</h2>
+            <p className="mt-4 text-base md:text-lg text-[#5E5E66] max-w-2xl mx-auto">
               Expert providers dedicated to your safety, comfort, and stunning results.
             </p>
           </div>
@@ -44,8 +43,8 @@ export function MeetProviders() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {providers.map((provider, idx) => (
             <FadeUp key={provider.name} delayMs={150 * idx}>
-              <div className="bg-black/50 border border-pink-500/20 rounded-2xl overflow-hidden hover:border-pink-500/40 transition group shadow-xl">
-                <div className="relative aspect-[3/4] overflow-hidden bg-gradient-to-b from-pink-950/20 to-black">
+              <div className="bg-white border border-[#111111]/10 rounded-xl overflow-hidden hover:border-[#E6007E]/30 transition group shadow-md hover:shadow-xl hover:-translate-y-[2px]">
+                <div className="relative aspect-[3/4] overflow-hidden bg-[#FDF7FA]">
                   <Image
                     src={provider.image}
                     alt={`${provider.name}, ${provider.credentials} at Hello Gorgeous Med Spa`}
@@ -66,12 +65,12 @@ export function MeetProviders() {
                   )}
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-white">{provider.name}</h3>
+                  <h3 className="text-xl font-bold text-[#111111]">{provider.name}</h3>
                   {provider.credentials && (
-                    <p className="text-blue-400 text-xs font-semibold mt-1">{provider.credentials}</p>
+                    <p className="text-[#5E5E66] text-xs font-semibold mt-1">{provider.credentials}</p>
                   )}
-                  <p className="text-pink-400 text-sm mt-1">{provider.role}</p>
-                  <p className="text-white/70 text-sm mt-3">{provider.bio}</p>
+                  <p className="text-[#E6007E] text-sm mt-1">{provider.role}</p>
+                  <p className="text-[#5E5E66] text-sm mt-3">{provider.bio}</p>
                   <div className="mt-4 flex flex-wrap gap-3">
                     <Link
                       href={`/book?provider=${provider.slug}`}
@@ -81,14 +80,14 @@ export function MeetProviders() {
                     </Link>
                     <Link
                       href={`/providers/${provider.slug}`}
-                      className="inline-flex items-center rounded-md border border-white/30 px-6 py-3 text-sm font-medium text-white hover:bg-white/10 transition"
+                      className="inline-flex items-center rounded-md border border-[#111111]/20 px-6 py-3 text-sm font-medium text-[#111111] hover:bg-[#111111]/5 transition"
                     >
                       View Profile
                     </Link>
                     {provider.telehealth && (
                       <a
                         href="/telehealth"
-                        className="inline-flex items-center gap-2 text-fuchsia-400 text-sm font-medium hover:text-fuchsia-300 transition"
+                        className="inline-flex items-center gap-2 text-[#E6007E] text-sm font-medium hover:text-[#B0005F] transition"
                       >
                         🖥️ Book Virtual Visit →
                       </a>

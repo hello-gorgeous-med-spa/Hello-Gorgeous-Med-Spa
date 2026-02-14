@@ -37,7 +37,7 @@ export function BioteSection() {
   const [showFlyer, setShowFlyer] = useState(false);
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-b from-black via-amber-950/10 to-black">
+    <section className="py-20 md:py-28 px-6 md:px-12 bg-white">
       <div className="max-w-6xl mx-auto">
         <FadeUp>
           <div className="text-center mb-12">

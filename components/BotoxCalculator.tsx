@@ -15,23 +15,23 @@ type TreatmentArea = {
 
 const PRICE_PER_UNIT = 10;
 
-// Positions aligned with circles in hg-botox-face-neck.png
+// Positions aligned with hg-botox-face-neck.png (1024×1536 headshot+neck). Image aspect 2:3.
 const treatmentAreas: TreatmentArea[] = [
-  { id: "forehead", name: "Forehead Lines", units: { min: 10, max: 20 }, position: { top: "14%", left: "50%" }, description: "Smooth horizontal forehead lines" },
-  { id: "glabella", name: "Frown Lines (11s)", units: { min: 15, max: 25 }, position: { top: "24%", left: "50%" }, description: "Between the eyebrows" },
-  { id: "brow-lift-left", name: "Brow Lift (Left)", units: { min: 2, max: 5 }, position: { top: "20%", left: "32%" }, description: "Subtle lift to outer brow" },
-  { id: "brow-lift-right", name: "Brow Lift (Right)", units: { min: 2, max: 5 }, position: { top: "20%", left: "68%" }, description: "Subtle lift to outer brow" },
-  { id: "crows-feet-left", name: "Crow's Feet (Left)", units: { min: 8, max: 12 }, position: { top: "30%", left: "24%" }, description: "Lines around outer eye" },
-  { id: "crows-feet-right", name: "Crow's Feet (Right)", units: { min: 8, max: 12 }, position: { top: "30%", left: "76%" }, description: "Lines around outer eye" },
-  { id: "bunny-lines", name: "Bunny Lines", units: { min: 4, max: 8 }, position: { top: "40%", left: "50%" }, description: "Lines on the nose bridge" },
-  { id: "lip-flip", name: "Lip Flip", units: { min: 4, max: 6 }, position: { top: "52%", left: "50%" }, description: "Subtle upper lip enhancement" },
-  { id: "lip-lines", name: "Lip Lines (Smoker's Lines)", units: { min: 4, max: 8 }, position: { top: "56%", left: "50%" }, description: "Vertical lines around lips" },
-  { id: "dao", name: "DAO (Mouth Corners)", units: { min: 4, max: 8 }, position: { top: "54%", left: "50%" }, description: "Lift downturned mouth corners" },
-  { id: "chin", name: "Chin Dimpling", units: { min: 4, max: 8 }, position: { top: "62%", left: "50%" }, description: "Smooth orange peel texture" },
-  { id: "masseter-left", name: "Masseter (Left)", units: { min: 20, max: 30 }, position: { top: "58%", left: "28%" }, description: "Jaw slimming / TMJ relief" },
-  { id: "masseter-right", name: "Masseter (Right)", units: { min: 20, max: 30 }, position: { top: "58%", left: "72%" }, description: "Jaw slimming / TMJ relief" },
-  { id: "platysma-left", name: "Platysma Bands (Left)", units: { min: 10, max: 20 }, position: { top: "80%", left: "38%" }, description: "Neck bands left side" },
-  { id: "platysma-right", name: "Platysma Bands (Right)", units: { min: 10, max: 20 }, position: { top: "80%", left: "62%" }, description: "Neck bands right side" },
+  { id: "forehead", name: "Forehead Lines", units: { min: 10, max: 20 }, position: { top: "12%", left: "50%" }, description: "Smooth horizontal forehead lines" },
+  { id: "glabella", name: "Frown Lines (11s)", units: { min: 15, max: 25 }, position: { top: "20%", left: "50%" }, description: "Between the eyebrows" },
+  { id: "brow-lift-left", name: "Brow Lift (Left)", units: { min: 2, max: 5 }, position: { top: "18%", left: "30%" }, description: "Subtle lift to outer brow" },
+  { id: "brow-lift-right", name: "Brow Lift (Right)", units: { min: 2, max: 5 }, position: { top: "18%", left: "70%" }, description: "Subtle lift to outer brow" },
+  { id: "crows-feet-left", name: "Crow's Feet (Left)", units: { min: 8, max: 12 }, position: { top: "26%", left: "22%" }, description: "Lines around outer eye" },
+  { id: "crows-feet-right", name: "Crow's Feet (Right)", units: { min: 8, max: 12 }, position: { top: "26%", left: "78%" }, description: "Lines around outer eye" },
+  { id: "bunny-lines", name: "Bunny Lines", units: { min: 4, max: 8 }, position: { top: "36%", left: "50%" }, description: "Lines on the nose bridge" },
+  { id: "lip-flip", name: "Lip Flip", units: { min: 4, max: 6 }, position: { top: "48%", left: "50%" }, description: "Subtle upper lip enhancement" },
+  { id: "lip-lines", name: "Lip Lines (Smoker's Lines)", units: { min: 4, max: 8 }, position: { top: "52%", left: "50%" }, description: "Vertical lines around lips" },
+  { id: "dao", name: "DAO (Mouth Corners)", units: { min: 4, max: 8 }, position: { top: "50%", left: "50%" }, description: "Lift downturned mouth corners" },
+  { id: "chin", name: "Chin Dimpling", units: { min: 4, max: 8 }, position: { top: "58%", left: "50%" }, description: "Smooth orange peel texture" },
+  { id: "masseter-left", name: "Masseter (Left)", units: { min: 20, max: 30 }, position: { top: "54%", left: "26%" }, description: "Jaw slimming / TMJ relief" },
+  { id: "masseter-right", name: "Masseter (Right)", units: { min: 20, max: 30 }, position: { top: "54%", left: "74%" }, description: "Jaw slimming / TMJ relief" },
+  { id: "platysma-left", name: "Platysma Bands (Left)", units: { min: 10, max: 20 }, position: { top: "76%", left: "36%" }, description: "Neck bands left side" },
+  { id: "platysma-right", name: "Platysma Bands (Right)", units: { min: 10, max: 20 }, position: { top: "76%", left: "64%" }, description: "Neck bands right side" },
 ];
 
 export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
@@ -81,7 +81,7 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
       {/* Face + Neck Image */}
       <FadeUp delayMs={embedded ? 0 : 60}>
         <div className="relative rounded-xl overflow-hidden bg-[#FDF7FA]">
-          <div className="relative w-full max-w-[360px] h-[400px] md:h-[480px] mx-auto">
+          <div className="relative w-full max-w-[360px] aspect-[2/3] mx-auto">
             <Image
               src="/images/hg-botox-face-neck.png"
               alt="Select Botox treatment areas"

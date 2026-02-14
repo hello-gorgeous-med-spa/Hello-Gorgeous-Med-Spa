@@ -13,7 +13,7 @@ export function HomepageInteractiveTools() {
   }, []);
 
   return (
-    <section className="py-12 md:py-16 px-4 md:px-6 bg-[#FDF7FA]">
+    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FDF7FA]">
       <div className="max-w-6xl mx-auto min-w-0">
         <FadeUp>
           <div className="text-center mb-10">
@@ -34,7 +34,7 @@ export function HomepageInteractiveTools() {
           {/* Left: Body Consultation Tool */}
           <FadeUp delayMs={80}>
             <div
-              className="h-full min-h-[420px] md:min-h-[480px] flex flex-col rounded-2xl md:rounded-3xl border border-[#E6007E]/15 bg-white p-6 md:p-8 shadow-lg"
+              className="h-full min-h-[420px] md:min-h-[480px] flex flex-col rounded-xl border border-[#111111]/10 bg-white p-6 md:p-8 shadow-md hover:shadow-xl transition"
               aria-label="Virtual consultation tool"
             >
               <div className="flex items-center gap-2 mb-4">

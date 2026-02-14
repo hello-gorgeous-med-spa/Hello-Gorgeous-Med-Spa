@@ -51,15 +51,15 @@ export function ConditionalLayout({
     );
   }
   
-  // Public website - full chrome with header, footer, etc.
+  // Public website - full chrome with header, footer, etc. Light luxury theme.
   return (
     <ChatOpenProvider>
-      <div className="bg-black text-white">
+      <div className="bg-[#FDF7FA] text-[#111111]">
         <BookingTransitionBanner />
         <ImmediateCareStrip />
         <Header />
         <main className="pt-16 w-full min-w-0 overflow-x-hidden">
-          <div className="min-h-screen w-full max-w-full min-w-0 bg-black text-white overflow-x-hidden pb-20 md:pb-0">
+          <div className="min-h-screen w-full max-w-full min-w-0 bg-[#FDF7FA] overflow-x-hidden pb-20 md:pb-0">
             {children}
             <Footer siteSettings={siteSettings} />
           </div>

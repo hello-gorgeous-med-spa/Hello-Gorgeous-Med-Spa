@@ -9,14 +9,14 @@ import { SITE } from "@/lib/seo";
 
 export function LocationMap() {
   return (
-    <section className="py-16 px-4 bg-black">
+    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FDF7FA]">
       <div className="max-w-6xl mx-auto">
         <FadeUp>
           <div className="text-center mb-12">
-            <p className="text-pink-400 text-lg font-medium tracking-wide">VISIT US</p>
-            <h2 className="mt-4 text-3xl md:text-4xl font-bold text-white">
+            <p className="text-[#E6007E] text-sm font-medium tracking-wide">VISIT US</p>
+            <h2 className="mt-4 text-3xl md:text-4xl font-serif font-bold text-[#111111]">
               Our{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-500">
+              <span className="text-[#E6007E]">
                 Location
               </span>
             </h2>
@@ -33,8 +33,8 @@ export function LocationMap() {
 
           {/* Contact Info */}
           <FadeUp delayMs={120}>
-            <div className="h-full rounded-2xl border border-pink-500/20 bg-gradient-to-br from-black to-pink-950/20 p-8 flex flex-col justify-center">
-              <h3 className="text-2xl font-bold text-white mb-6">Hello Gorgeous Med Spa</h3>
+            <div className="h-full rounded-xl border border-[#111111]/10 bg-white shadow-md p-8 flex flex-col justify-center">
+              <h3 className="text-2xl font-bold text-[#111111] mb-6">Hello Gorgeous Med Spa</h3>
               
               <div className="space-y-6">
                 {/* Address */}
@@ -48,13 +48,13 @@ export function LocationMap() {
                     <span className="text-xl">📍</span>
                   </div>
                   <div>
-                    <p className="text-white font-semibold group-hover:text-pink-400 transition">
+                    <p className="text-[#111111] font-semibold group-hover:text-[#E6007E] transition">
                       {SITE.address.streetAddress}
                     </p>
-                    <p className="text-gray-400">
+                    <p className="text-[#5E5E66]">
                       {SITE.address.addressLocality}, {SITE.address.addressRegion} {SITE.address.postalCode}
                     </p>
-                    <p className="text-pink-400 text-sm mt-1">Get Directions →</p>
+                    <p className="text-[#E6007E] text-sm mt-1">Get Directions →</p>
                   </div>
                 </a>
 
@@ -67,10 +67,10 @@ export function LocationMap() {
                     <span className="text-xl">📞</span>
                   </div>
                   <div>
-                    <p className="text-white font-semibold group-hover:text-pink-400 transition">
+                    <p className="text-[#111111] font-semibold group-hover:text-[#E6007E] transition">
                       {SITE.phone}
                     </p>
-                    <p className="text-gray-400">Call or text us</p>
+                    <p className="text-[#5E5E66]">Call or text us</p>
                   </div>
                 </a>
 
@@ -81,7 +81,7 @@ export function LocationMap() {
                   </div>
                   <div>
                     <p className="text-white font-semibold">Hours</p>
-                    <p className="text-gray-400">By Appointment</p>
+                    <p className="text-[#5E5E66]">By Appointment</p>
                     <p className="text-gray-500 text-sm">Botox Parties: Tue & Sat 6-9 PM</p>
                   </div>
                 </div>

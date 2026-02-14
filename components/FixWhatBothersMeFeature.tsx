@@ -6,15 +6,14 @@ import { BOOKING_URL } from "@/lib/flows";
 
 export function FixWhatBothersMeFeature() {
   return (
-    <section className="relative overflow-hidden py-10 md:py-20 max-h-[70vh] md:max-h-none flex flex-col">
-      <div className="absolute inset-0 bg-gradient-to-b from-pink-950/15 via-black to-black pointer-events-none" />
-      <div className="relative z-10 max-w-7xl mx-auto px-4 flex flex-col min-h-0 flex-1">
+    <section className="relative overflow-hidden py-20 md:py-28 max-h-[70vh] md:max-h-none flex flex-col bg-[#FDF7FA]">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col min-h-0 flex-1">
         {/* Title + subhead — mobile-first, compact on small screens */}
         <div className="text-center mb-6 md:mb-12 flex-shrink-0">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-white">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#111111]">
             Fix what bothers me
           </h2>
-          <p className="mt-3 md:mt-4 text-base md:text-xl text-gray-300 max-w-2xl mx-auto">
+          <p className="mt-3 md:mt-4 text-base md:text-lg text-[#5E5E66] max-w-2xl mx-auto">
             Your space. No judgment. Tell us what you'd change — we'll guide you.
           </p>
         </div>
@@ -30,14 +29,14 @@ export function FixWhatBothersMeFeature() {
               href={`/fix-what-bothers-me?concern=${encodeURIComponent(concern.key)}`}
               className="flex-shrink-0 w-[160px] md:w-[180px] snap-center group min-h-[44px] active:scale-[0.98] transition-transform"
             >
-              <div className="h-full min-h-[140px] rounded-xl border border-white/10 bg-white/5 p-6 md:p-8 transition-all duration-300 ease-out hover:border-hg-pink/40 hover:bg-hg-pink/10 hover:-translate-y-[2px] hover:shadow-xl active:border-hg-pink/50 focus-visible:ring-2 focus-visible:ring-hg-pink/50 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+              <div className="h-full min-h-[140px] rounded-xl border border-[#111111]/10 bg-white shadow-md p-6 md:p-8 transition-all duration-300 ease-out hover:border-[#E6007E]/30 hover:shadow-xl hover:-translate-y-[2px] active:border-[#E6007E]/50 focus-visible:ring-2 focus-visible:ring-[#E6007E]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white">
                 <div className="text-3xl md:text-4xl mb-3 transition-transform duration-200 group-hover:scale-110 group-active:scale-105">
                   {concern.icon}
                 </div>
-                <p className="font-semibold text-white text-sm md:text-base leading-tight">
+                <p className="font-semibold text-[#111111] text-sm md:text-base leading-tight">
                   {concern.label}
                 </p>
-                <p className="mt-2 text-pink-400/80 md:text-pink-400/0 md:group-hover:text-pink-400 text-xs font-medium transition-colors duration-200">
+                <p className="mt-2 text-[#5E5E66] md:text-[#5E5E66]/0 md:group-hover:text-[#E6007E] text-xs font-medium transition-colors duration-200">
                   See options →
                 </p>
               </div>
@@ -55,7 +54,7 @@ export function FixWhatBothersMeFeature() {
           </Link>
           <Link
             href={BOOKING_URL}
-            className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center px-6 py-4 border border-white/20 text-gray-300 font-medium rounded-full hover:bg-white/5 hover:text-white active:bg-white/10 transition-colors text-center text-base"
+            className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center px-6 py-4 border border-[#111111]/20 text-[#5E5E66] font-medium rounded-full hover:bg-[#111111]/5 hover:text-[#111111] active:bg-[#111111]/10 transition-colors text-center text-base"
           >
             Or book directly →
           </Link>

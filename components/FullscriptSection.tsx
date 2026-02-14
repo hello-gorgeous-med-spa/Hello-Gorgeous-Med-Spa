@@ -45,21 +45,21 @@ export function FullscriptSection() {
   };
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-b from-black via-fuchsia-950/10 to-black">
+    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FDF7FA]">
       <div className="max-w-6xl mx-auto">
         <FadeUp>
           <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/30 mb-6">
-              <span className="text-fuchsia-400 font-semibold text-sm">NEW</span>
-              <span className="text-white/70 text-sm">Online Supplement Dispensary</span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E6007E]/10 border border-[#E6007E]/20 mb-6">
+              <span className="text-[#E6007E] font-semibold text-sm">NEW</span>
+              <span className="text-[#5E5E66] text-sm">Online Supplement Dispensary</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#111111]">
               Hello Gorgeous{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-pink-400">
+              <span className="text-[#E6007E]">
                 Dispensary
               </span>
             </h2>
-            <p className="mt-4 text-white/70 max-w-2xl mx-auto text-lg">
+            <p className="mt-4 text-[#5E5E66] max-w-2xl mx-auto text-lg">
               Professional-grade supplements delivered to your door. 
               Curated by Ryan & Danielle for your wellness journey.
             </p>

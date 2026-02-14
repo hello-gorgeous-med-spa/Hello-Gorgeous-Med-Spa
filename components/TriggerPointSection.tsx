@@ -77,7 +77,7 @@ export function TriggerPointSection() {
   }, []);
 
   return (
-    <section className="py-12 md:py-16 px-4 md:px-6 bg-gradient-to-b from-black via-red-950/10 to-black">
+    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FDF7FA]">
       <div className="max-w-6xl mx-auto min-w-0">
         <FadeUp>
           <div className="text-center mb-12">

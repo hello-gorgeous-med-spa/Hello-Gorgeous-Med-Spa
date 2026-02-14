@@ -50,7 +50,7 @@ const benefits = [
 
 export function LaserHairSection() {
   return (
-    <section className="py-16 px-4 bg-gradient-to-b from-black via-fuchsia-950/10 to-black overflow-hidden">
+    <section className="py-20 md:py-28 px-6 md:px-12 bg-white overflow-hidden">
       <div className="max-w-6xl mx-auto">
         <FadeUp>
           <div className="text-center mb-10">

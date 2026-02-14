@@ -35,14 +35,13 @@ const galleryImages = [
 
 export function PhotoGallery() {
   return (
-    <Section className="relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-pink-950/10 to-black" />
+    <Section className="relative py-20 md:py-28 px-6 md:px-12 bg-white">
       <div className="relative">
         <FadeUp>
           <div className="text-center mb-12">
-            <p className="text-pink-400 text-lg font-medium tracking-wide">REAL RESULTS</p>
-            <h2 className="mt-4 text-2xl md:text-5xl font-bold text-white">See the Difference</h2>
-            <p className="mt-4 text-base md:text-lg text-white/70 max-w-2xl mx-auto">
+            <p className="text-[#E6007E] text-sm font-medium tracking-wide">REAL RESULTS</p>
+            <h2 className="mt-4 text-2xl md:text-4xl font-serif font-bold text-[#111111]">See the Difference</h2>
+            <p className="mt-4 text-base md:text-lg text-[#5E5E66] max-w-2xl mx-auto">
               Real patients, real results. See what Hello Gorgeous Med Spa can do for you.
             </p>
           </div>
@@ -51,7 +50,7 @@ export function PhotoGallery() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {galleryImages.map((image, idx) => (
             <FadeUp key={image.src} delayMs={100 * idx}>
-              <div className="group relative aspect-square rounded-2xl overflow-hidden border border-pink-500/20 hover:border-pink-500/50 transition">
+              <div className="group relative aspect-square rounded-xl overflow-hidden border border-[#111111]/10 hover:border-[#E6007E]/30 shadow-md hover:shadow-xl transition">
                 <Image
                   src={image.src}
                   alt={image.alt}

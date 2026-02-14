@@ -281,7 +281,7 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-black/95 backdrop-blur-xl border-b border-white/5">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-[#111111]/5">
       <div className="mx-auto max-w-7xl px-4 min-w-0 overflow-x-hidden">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -290,7 +290,7 @@ export function Header() {
               HG
             </span>
             <div className="hidden sm:block">
-              <span className="text-lg font-bold text-white">{SITE.name}</span>
+              <span className="text-lg font-bold text-[#111111]">{SITE.name}</span>
               <span className="block text-[10px] text-pink-400/80 font-medium tracking-wider">MEDICAL AESTHETICS</span>
             </div>
           </Link>
@@ -308,8 +308,8 @@ export function Header() {
                       className={cx(
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/services')
-                    ? "text-pink-400 bg-white/5"
-                    : "text-white/80 hover:text-white hover:bg-white/5"
+                    ? "text-[#E6007E] bg-pink-500/5"
+                    : "text-[#5E5E66] hover:text-[#111111] hover:bg-[#111111]/5"
                 )}
               >
                 Services
@@ -331,8 +331,8 @@ export function Header() {
                       className={cx(
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/about') || pathname?.startsWith('/locations')
-                          ? "text-pink-400 bg-white/5"
-                    : "text-white/80 hover:text-white hover:bg-white/5"
+                          ? "text-[#E6007E] bg-pink-500/5"
+                    : "text-[#5E5E66] hover:text-[#111111] hover:bg-[#111111]/5"
                 )}
               >
                 About
@@ -354,8 +354,8 @@ export function Header() {
                 className={cx(
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/providers')
-                    ? "text-pink-400 bg-white/5"
-                    : "text-white/80 hover:text-white hover:bg-white/5"
+                    ? "text-[#E6007E] bg-pink-500/5"
+                    : "text-[#5E5E66] hover:text-[#111111] hover:bg-[#111111]/5"
                 )}
               >
                 Providers
@@ -377,8 +377,8 @@ export function Header() {
                 className={cx(
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/your-journey') || pathname?.startsWith('/explore-care')
-                    ? "text-pink-400 bg-white/5"
-                    : "text-white/80 hover:text-white hover:bg-white/5"
+                    ? "text-[#E6007E] bg-pink-500/5"
+                    : "text-[#5E5E66] hover:text-[#111111] hover:bg-[#111111]/5"
                 )}
               >
                 Your Journey
@@ -416,8 +416,8 @@ export function Header() {
               className={cx(
                 "px-4 py-2 rounded-lg text-sm font-medium transition-all",
                 pathname === '/contact'
-                  ? "text-pink-400 bg-white/5"
-                  : "text-white/80 hover:text-white hover:bg-white/5"
+                  ? "text-[#E6007E] bg-pink-500/5"
+                  : "text-[#5E5E66] hover:text-[#111111] hover:bg-[#111111]/5"
               )}
             >
               Contact
@@ -429,7 +429,7 @@ export function Header() {
             {/* Phone - Desktop only */}
             <a
               href={`tel:${SITE.phone}`}
-              className="hidden xl:flex items-center gap-2 px-3 py-2 text-sm text-white/70 hover:text-white transition-colors"
+              className="hidden xl:flex items-center gap-2 px-3 py-2 text-sm text-[#5E5E66] hover:text-[#111111] transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -444,7 +444,7 @@ export function Header() {
 
             {/* Mobile Menu Button — 44px tap target */}
             <button
-              className="lg:hidden tap-target p-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg transition-all duration-200"
+              className="lg:hidden tap-target p-2 text-[#5E5E66] hover:text-[#111111] hover:bg-[#111111]/5 rounded-lg transition-all duration-200"
               type="button"
               aria-label="Open menu"
               aria-expanded={mobileMenuOpen}
@@ -460,17 +460,17 @@ export function Header() {
 
       {/* Mobile Menu — smooth open/close */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-black/98 backdrop-blur-xl lg:hidden overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-white/98 backdrop-blur-xl lg:hidden overflow-y-auto">
           {/* Header */}
-          <div className="sticky top-0 bg-black/95 border-b border-white/10 px-4 py-4 flex items-center justify-between">
+          <div className="sticky top-0 bg-white/95 border-b border-[#111111]/10 px-4 py-4 flex items-center justify-between">
             <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3">
               <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 text-white text-sm font-bold">
                 HG
               </span>
-              <span className="text-lg font-bold text-white">{SITE.name}</span>
+              <span className="text-lg font-bold text-[#111111]">{SITE.name}</span>
             </Link>
             <button
-              className="p-2 text-white/70 hover:text-white hover:bg-white/5 rounded-lg"
+              className="p-2 text-[#5E5E66] hover:text-[#111111] hover:bg-[#111111]/5 rounded-lg"
               onClick={() => setMobileMenuOpen(false)}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -495,7 +495,7 @@ export function Header() {
             <div className="border-b border-white/10 pb-4">
               <button
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'services' ? null : 'services')}
-                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-white"
+                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#111111]"
               >
                 <span className="flex items-center gap-3">
                   <span className="text-xl">💋</span>
@@ -515,7 +515,7 @@ export function Header() {
                           key={link.href}
                           href={link.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center gap-3 px-4 py-2.5 text-white/80 hover:text-white hover:bg-white/5 rounded-lg"
+                          className="flex items-center gap-3 px-4 py-2.5 text-[#5E5E66] hover:text-[#111111] hover:bg-[#111111]/5 rounded-lg"
                         >
                           <span>{link.icon}</span>
                           <span>{link.label}</span>
@@ -531,7 +531,7 @@ export function Header() {
             <div className="border-b border-white/10 pb-4">
               <button
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'about' ? null : 'about')}
-                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-white"
+                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#111111]"
               >
                 <span className="flex items-center gap-3">
                   <span className="text-xl">💗</span>
@@ -548,7 +548,7 @@ export function Header() {
                       key={link.href}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-white/80 hover:text-white hover:bg-white/5 rounded-lg"
+                      className="flex items-center gap-3 px-4 py-2.5 text-[#5E5E66] hover:text-[#111111] hover:bg-[#111111]/5 rounded-lg"
                     >
                       <span>{link.icon}</span>
                       <span>{link.label}</span>
@@ -562,7 +562,7 @@ export function Header() {
             <div className="border-b border-white/10 pb-4">
               <button
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'providers' ? null : 'providers')}
-                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-white"
+                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#111111]"
               >
                 <span className="flex items-center gap-3">
                   <span className="text-xl">🩺</span>
@@ -579,7 +579,7 @@ export function Header() {
                       key={link.href}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-white/80 hover:text-white hover:bg-white/5 rounded-lg"
+                      className="flex items-center gap-3 px-4 py-2.5 text-[#5E5E66] hover:text-[#111111] hover:bg-[#111111]/5 rounded-lg"
                     >
                       <span>{link.icon}</span>
                       <span>{link.label}</span>
@@ -593,7 +593,7 @@ export function Header() {
             <div className="border-b border-white/10 pb-4">
               <button
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'journey' ? null : 'journey')}
-                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-white"
+                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#111111]"
               >
                 <span className="flex items-center gap-3">
                   <span className="text-xl">🗺️</span>
@@ -610,7 +610,7 @@ export function Header() {
                       key={link.href}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-white/80 hover:text-white hover:bg-white/5 rounded-lg"
+                      className="flex items-center gap-3 px-4 py-2.5 text-[#5E5E66] hover:text-[#111111] hover:bg-[#111111]/5 rounded-lg"
                     >
                       <span>{link.icon}</span>
                       <span>{link.label}</span>
@@ -642,7 +642,7 @@ export function Header() {
                       key={link.href}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-white/80 hover:text-white hover:bg-white/5 rounded-lg"
+                      className="flex items-center gap-3 px-4 py-2.5 text-[#5E5E66] hover:text-[#111111] hover:bg-[#111111]/5 rounded-lg"
                     >
                       <span>{link.icon}</span>
                       <span>{link.label}</span>
@@ -661,7 +661,7 @@ export function Header() {
             <Link
               href="/contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 text-lg font-semibold text-white"
+              className="flex items-center gap-3 px-4 py-3 text-lg font-semibold text-[#111111]"
             >
               <span className="text-xl">📍</span>
               Contact Us
@@ -670,7 +670,7 @@ export function Header() {
             {/* Phone */}
             <a
               href={`tel:${SITE.phone}`}
-              className="flex items-center gap-3 px-4 py-3 text-lg font-semibold text-white"
+              className="flex items-center gap-3 px-4 py-3 text-lg font-semibold text-[#111111]"
             >
               <span className="text-xl">📞</span>
               (630) 636-6193
@@ -678,7 +678,7 @@ export function Header() {
           </div>
 
           {/* Mobile CTAs - full width, 48px min height */}
-          <div className="sticky bottom-0 bg-black/95 border-t border-white/10 px-4 py-4 space-y-3 safe-area-pb">
+          <div className="sticky bottom-0 bg-white/95 border-t border-[#111111]/10 px-4 py-4 space-y-3 safe-area-pb">
             <CTA href={BOOKING_URL} variant="gradient" className="w-full min-h-[48px] py-4 rounded-xl text-base font-semibold">
               Book Your Appointment
             </CTA>
