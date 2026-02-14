@@ -76,9 +76,9 @@
   background-color: white !important;
 }
 
-/* Force white background on dark gradient overlays (public site) */
+/* Force light pink gradient on dark gradient overlays (public site) */
 [data-site="public"] .absolute.inset-0.bg-gradient-to-b {
-  background: white !important;
+  background: linear-gradient(to bottom, #fce7f3 0%, #fdf2f8 50%, #ffffff 100%) !important;
 }
 
 /* Hello Gorgeous Premium Medical Glam — Design Tokens */

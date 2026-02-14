@@ -446,7 +446,7 @@ function InjectionMapContent() {
         </div>
 
         {/* Face Canvas - Center */}
-        <div className="flex-1 flex items-center justify-center p-6 bg-gradient-to-b from-gray-50 to-gray-100">
+        <div className="flex-1 flex items-center justify-center p-6 bg-gradient-to-b from-pink-50 via-white to-pink-50">
           <div 
             ref={canvasRef}
             onClick={handleFaceClick}

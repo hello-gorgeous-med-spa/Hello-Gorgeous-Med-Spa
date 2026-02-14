@@ -39,21 +39,21 @@ function NavSection({
   }, [hasActiveItem, pathname]);
 
   return (
-    <div className="border-b border-slate-700/50 last:border-0">
+    <div className="border-b border-pink-200 last:border-0">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all ${
           hasActiveItem 
-            ? 'bg-gradient-to-r from-pink-500/20 to-purple-500/10 border-l-2 border-pink-400' 
-            : 'hover:bg-slate-700/50'
+            ? 'bg-gradient-to-r from-pink-500/20 to-purple-500/10 border-l-2 border-[#E6007E]' 
+            : 'hover:bg-pink-100'
         }`}
       >
         <span className="text-lg">{icon}</span>
-        <span className={`flex-1 font-medium text-sm ${hasActiveItem ? 'text-pink-300' : 'text-slate-300'}`}>
+        <span className={`flex-1 font-medium text-sm ${hasActiveItem ? 'text-[#E6007E]' : 'text-gray-700'}`}>
           {title}
         </span>
         <svg 
-          className={`w-4 h-4 text-slate-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
           fill="none" 
           stroke="currentColor" 
           viewBox="0 0 24 24"
@@ -71,7 +71,7 @@ function NavSection({
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all ${
                   isActive(item.href)
                     ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium shadow-lg shadow-pink-500/20'
-                    : 'text-slate-400 hover:bg-slate-700/70 hover:text-white'
+                    : 'text-gray-600 hover:bg-pink-100 hover:text-[#E6007E]'
                 }`}
               >
                 <span className="text-base opacity-80">{item.icon}</span>
@@ -241,15 +241,15 @@ export default function AdminLayout({
 
           <div className="flex">
             {/* Sidebar - Modern dark design */}
-            <aside className="w-64 bg-gradient-to-b from-slate-800 to-slate-900 min-h-[calc(100vh-56px)] sticky top-14 hidden lg:block overflow-y-auto shadow-xl">
+            <aside className="w-64 bg-gradient-to-b from-pink-100 via-pink-50 to-white min-h-[calc(100vh-56px)] sticky top-14 hidden lg:block overflow-y-auto shadow-xl border-r border-pink-200">
               {/* Dashboard link - always visible */}
-              <div className="p-3 border-b border-slate-700/50">
+              <div className="p-3 border-b border-pink-200">
                 <Link
                   href="/admin"
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
                     pathname === '/admin'
                       ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium shadow-lg shadow-pink-500/30'
-                      : 'text-slate-300 hover:bg-slate-700/50'
+                      : 'text-gray-700 hover:bg-pink-100'
                   }`}
                 >
                   <span className="text-lg">📊</span>
@@ -260,7 +260,7 @@ export default function AdminLayout({
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all mt-1 ${
                     pathname.startsWith('/pos')
                       ? 'bg-[#E6007E] text-white font-medium'
-                      : 'text-slate-300 hover:bg-slate-700/50'
+                      : 'text-gray-700 hover:bg-pink-100'
                   }`}
                 >
                   <span className="text-lg">💳</span>
@@ -282,16 +282,16 @@ export default function AdminLayout({
               </nav>
 
               {/* Footer */}
-              <div className="sticky bottom-0 left-0 right-0 p-4 border-t border-slate-700/50 bg-slate-900/95 backdrop-blur">
+              <div className="sticky bottom-0 left-0 right-0 p-4 border-t border-pink-200 bg-pink-50/95 backdrop-blur">
                 <div className="flex items-center justify-center gap-2">
-                  <span className="text-pink-400 text-sm">💗</span>
-                  <p className="text-xs text-slate-400 font-medium">Hello Gorgeous OS</p>
+                  <span className="text-[#E6007E] text-sm">💗</span>
+                  <p className="text-xs text-gray-600 font-medium">Hello Gorgeous OS</p>
                 </div>
               </div>
             </aside>
 
             {/* Mobile Bottom Nav - Modern dark design */}
-            <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-slate-800 border-t border-slate-700 z-50 safe-area-pb shadow-[0_-4px_20px_rgba(0,0,0,0.3)]">
+            <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-pink-200 z-50 safe-area-pb shadow-[0_-4px_20px_rgba(230,0,126,0.1)]">
               <div className="flex justify-around items-center h-16 px-2">
                 <MobileNav />
                 {[
@@ -305,8 +305,8 @@ export default function AdminLayout({
                     href={item.href}
                     className={`flex flex-col items-center justify-center gap-1 min-w-[56px] py-2 rounded-xl transition-all ${
                       isActive(item.href) 
-                        ? 'text-pink-400 bg-pink-500/20' 
-                        : 'text-slate-400 hover:text-white'
+                        ? 'text-[#E6007E] bg-pink-100' 
+                        : 'text-gray-600 hover:text-[#E6007E]'
                     }`}
                   >
                     <span className="text-xl">{item.icon}</span>
@@ -317,7 +317,7 @@ export default function AdminLayout({
             </nav>
 
             {/* Main Content - Light background for contrast */}
-            <main className="flex-1 p-6 pb-24 lg:pb-6 min-h-[calc(100vh-56px)] bg-gradient-to-br from-slate-50 to-gray-100">
+            <main className="flex-1 p-6 pb-24 lg:pb-6 min-h-[calc(100vh-56px)] bg-gradient-to-br from-pink-50 via-white to-pink-50">
               {children}
             </main>
           </div>

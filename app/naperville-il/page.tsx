@@ -62,19 +62,19 @@ export default function NapervilleHubPage() {
       />
 
       <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-100 via-pink-50 to-white" />
         <div className="relative z-10">
           <FadeUp>
-            <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
+            <p className="text-[#E6007E] text-lg md:text-xl font-medium mb-6 tracking-wide">
               NAPERVILLE, IL
             </p>
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight text-black">
               Premium, clinical med spa care{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
+              <span className="text-[#E6007E]">
                 near Naperville
               </span>
             </h1>
-            <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">
+            <p className="mt-6 text-xl text-black/80 max-w-3xl leading-relaxed">
               We serve Naperville clients with a consult-first, safety-driven approach—so you can
               feel confident in your plan and your results.
             </p>
@@ -89,7 +89,7 @@ export default function NapervilleHubPage() {
                 View all locations
               </CTA>
             </div>
-            <p className="mt-6 text-sm text-white/60">
+            <p className="mt-6 text-sm text-black/60">
               Located in Oswego: 74 W. Washington St., Oswego, IL 60543 · (630) 636‑6193
             </p>
           </FadeUp>
