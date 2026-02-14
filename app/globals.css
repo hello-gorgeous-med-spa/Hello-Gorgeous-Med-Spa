@@ -54,6 +54,14 @@
   color: var(--hg-pink) !important;
 }
 
+/* Remove pink-tinted boxes on public site: use white background */
+[data-site="public"] [class*="bg-pink-500/10"],
+[data-site="public"] [class*="bg-pink-500/20"],
+[data-site="public"] [class*="bg-pink-950/20"],
+[data-site="public"] [class*="bg-pink-50"] {
+  background-color: white !important;
+}
+
 /* Force white background on dark gradient overlays (public site) */
 [data-site="public"] .absolute.inset-0.bg-gradient-to-b {
   background: white !important;

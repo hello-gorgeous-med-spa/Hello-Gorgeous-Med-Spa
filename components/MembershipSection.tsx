@@ -18,7 +18,7 @@ export function MembershipSection() {
           <div className="rounded-xl border-2 border-black bg-white shadow-md p-8 md:p-10 hover:shadow-xl hover:-translate-y-[2px] transition-all">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
               <div>
-                <span className="inline-block px-3 py-1 rounded-full bg-[#E6007E]/10 text-[#E6007E] text-xs font-semibold uppercase tracking-wider mb-4">
+                <span className="inline-block px-3 py-1 rounded-full border border-black text-[#E6007E] text-xs font-semibold uppercase tracking-wider mb-4">
                   Member Benefits
                 </span>
                 <h2 className="text-2xl md:text-3xl font-serif font-bold text-[#111111] mb-3">

@@ -17,7 +17,7 @@ export function HomepageInteractiveTools() {
       <div className="max-w-6xl mx-auto min-w-0">
         <FadeUp>
           <div className="text-center mb-10">
-            <span className="inline-block px-4 py-1 rounded-full bg-[#E6007E]/15 text-[#E6007E] text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-1 rounded-full border border-black text-[#E6007E] text-sm font-medium mb-4">
               ✨ Your Journey Starts Here
             </span>
             <h2 className="text-2xl md:text-4xl font-serif font-bold text-[#111111] mb-3">

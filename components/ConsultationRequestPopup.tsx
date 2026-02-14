@@ -153,7 +153,7 @@ export function ConsultationRequestPopup() {
 
         {status === "success" ? (
           <div className="text-center py-4">
-            <div className="w-16 h-16 mx-auto rounded-full bg-[#E6007E]/20 flex items-center justify-center mb-4">
+            <div className="w-16 h-16 mx-auto rounded-full border-2 border-[#E6007E] bg-white flex items-center justify-center mb-4">
               <span className="text-4xl">✓</span>
             </div>
             <h3 className="text-xl font-bold text-[#E6007E]">We&apos;ll be in touch!</h3>
@@ -163,7 +163,7 @@ export function ConsultationRequestPopup() {
           </div>
         ) : (
           <>
-            <h3 className="text-xl font-bold text-white">
+            <h3 className="text-xl font-bold text-[#E6007E]">
               How can we help you?
             </h3>
             <p className="mt-1 text-sm text-black">
@@ -179,7 +179,7 @@ export function ConsultationRequestPopup() {
                   onClick={() => setPatientType("new")}
                   className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium border-2 transition-colors ${
                     patientType === "new"
-                      ? "border-[#E6007E] bg-[#E6007E]/10 text-[#E6007E]"
+                      ? "border-2 border-[#E6007E] bg-white text-[#E6007E]"
                       : "border-black/30 text-black hover:border-black"
                   }`}
                 >
@@ -190,7 +190,7 @@ export function ConsultationRequestPopup() {
                   onClick={() => setPatientType("existing")}
                   className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium border-2 transition-colors ${
                     patientType === "existing"
-                      ? "border-[#E6007E] bg-[#E6007E]/10 text-[#E6007E]"
+                      ? "border-2 border-[#E6007E] bg-white text-[#E6007E]"
                       : "border-black/30 text-black hover:border-black"
                   }`}
                 >

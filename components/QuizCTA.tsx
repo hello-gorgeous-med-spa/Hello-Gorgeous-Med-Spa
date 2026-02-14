@@ -8,14 +8,14 @@ export function QuizCTA() {
     <section className="py-20 md:py-28 px-6 md:px-12 bg-white">
       <div className="max-w-4xl mx-auto min-w-0">
         <FadeUp>
-          <div className="relative overflow-hidden rounded-xl bg-[#FDF7FA] border border-[#E6007E]/20 p-8 md:p-12 shadow-md">
+          <div className="relative overflow-hidden rounded-xl bg-white border-2 border-black p-8 md:p-12 shadow-md">
             {/* Decorative elements */}
-            <div className="absolute top-0 right-0 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl" />
+            <div className="absolute top-0 right-0 w-64 h-64 bg-white rounded-full blur-3xl" />
+            <div className="absolute bottom-0 left-0 w-64 h-64 bg-white rounded-full blur-3xl" />
             
             <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
               <div className="flex-1 text-center md:text-left min-w-0">
-                <span className="inline-block px-4 py-1 rounded-full bg-[#E6007E]/10 text-[#E6007E] text-sm font-medium mb-4">
+                <span className="inline-block px-4 py-1 rounded-full border border-black text-[#E6007E] text-sm font-medium mb-4">
                   ✨ Free 2-Minute Quiz
                 </span>
                 <h2 className="text-2xl md:text-4xl font-serif font-bold text-[#E6007E] mb-3">
