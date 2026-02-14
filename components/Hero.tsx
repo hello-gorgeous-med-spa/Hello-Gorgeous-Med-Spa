@@ -37,9 +37,9 @@ export function Hero({
     <section className="relative bg-[#FDF7FA] py-20 md:py-28 px-6 md:px-12">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row lg:items-center lg:gap-16">
         {/* Left column: headline, subtext, CTA */}
-        <div className="flex-1 max-w-xl min-w-0">
+        <div className="flex-1 min-w-0 basis-0 overflow-visible">
           <h1
-            className={`font-serif font-bold leading-tight text-[#E6007E] transition-all duration-[400ms] ease-out text-4xl md:text-6xl ${
+            className={`font-serif font-bold leading-tight text-[#E6007E] transition-all duration-[400ms] ease-out text-4xl md:text-6xl break-words ${
               mounted ? "opacity-100" : "opacity-0"
             }`}
             style={{ letterSpacing: "-0.02em" }}
@@ -83,14 +83,14 @@ export function Hero({
           </div>
         </div>
         {/* Right column: clean image */}
-        <div className="flex-1 mt-10 lg:mt-0 relative aspect-[4/3] lg:aspect-[3/2] max-w-2xl mx-auto lg:mx-0 w-full overflow-hidden rounded-xl shadow-md">
+        <div className="flex-1 min-w-0 basis-0 mt-10 lg:mt-0 relative aspect-[4/3] lg:aspect-[3/2] max-w-2xl mx-auto lg:mx-0 w-full overflow-hidden rounded-xl shadow-md">
           <Image
             src={imageSrc}
             alt="Hello Gorgeous Med Spa - Medical aesthetics in Oswego, IL"
             fill
             priority
             quality={85}
-            className="object-cover"
+            className="object-contain object-center"
             sizes="(max-width: 1024px) 100vw, 50vw"
           />
         </div>

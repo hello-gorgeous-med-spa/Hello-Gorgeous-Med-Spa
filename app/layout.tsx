@@ -7,7 +7,7 @@ import { getDefaultSEO, getSiteSettings } from "@/lib/cms-readers";
 import { AuthWrapper } from "@/components/AuthWrapper";
 import { ConditionalLayout } from "@/components/ConditionalLayout";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
-import { LeadCapturePopup } from "@/components/LeadCapturePopup";
+import { ConsultationRequestPopup } from "@/components/ConsultationRequestPopup";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -144,7 +144,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className="min-h-screen antialiased font-sans">
         <GoogleAnalytics />
-        <LeadCapturePopup />
+        <ConsultationRequestPopup />
         <AuthWrapper>
           <ConditionalLayout siteSettings={siteSettings ?? undefined}>
             {children}
