@@ -257,7 +257,11 @@ export default function AdminLayout({
                 </Link>
                 <Link
                   href="/pos"
-                  className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-300 hover:bg-slate-700/50 transition-all mt-1"
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all mt-1 ${
+                    pathname.startsWith('/pos')
+                      ? 'bg-[#E6007E] text-white font-medium'
+                      : 'text-slate-300 hover:bg-slate-700/50'
+                  }`}
                 >
                   <span className="text-lg">💳</span>
                   <span className="font-medium">POS / Checkout</span>

@@ -25,15 +25,15 @@ export default function POSLayout({
   }, []);
   
   return (
-    <div className="min-h-screen bg-slate-900 text-white">
+    <div className="min-h-screen bg-white text-black">
       {/* POS Header */}
-      <header className="bg-slate-800 border-b border-slate-700">
+      <header className="bg-white border-b-2 border-black">
         <div className="flex items-center justify-between px-4 h-14">
           <div className="flex items-center gap-4">
-            <Link href="/pos" className="flex items-center gap-2">
+            <Link href="/pos" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
               <span className="text-xl">💗</span>
-              <span className="font-semibold">Hello Gorgeous</span>
-              <span className="text-xs bg-green-500 text-white px-2 py-0.5 rounded font-bold">
+              <span className="font-semibold text-[#E6007E]">Hello Gorgeous</span>
+              <span className="text-xs bg-[#E6007E] text-white px-2 py-0.5 rounded font-bold">
                 POS
               </span>
             </Link>
@@ -43,31 +43,31 @@ export default function POSLayout({
             {/* Quick Stats */}
             <div className="hidden md:flex items-center gap-6 text-sm">
               <div>
-                <span className="text-slate-400">Today&apos;s Sales</span>
-                <span className="ml-2 font-bold text-green-400">$2,450</span>
+                <span className="text-black/70">Today&apos;s Sales</span>
+                <span className="ml-2 font-bold text-[#E6007E]">$2,450</span>
               </div>
               <div>
-                <span className="text-slate-400">Transactions</span>
-                <span className="ml-2 font-bold">12</span>
+                <span className="text-black/70">Transactions</span>
+                <span className="ml-2 font-bold text-black">12</span>
               </div>
             </div>
 
             {/* Time */}
-            <div className="text-sm text-slate-400">
+            <div className="text-sm text-black/70">
               {currentDate}
             </div>
 
             {/* Back to Admin */}
             <Link
               href="/admin"
-              className="text-sm text-slate-400 hover:text-white transition-colors"
+              className="text-sm text-black hover:text-[#E6007E] transition-colors font-medium"
             >
               ← Admin
             </Link>
 
             {/* User */}
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-pink-500 flex items-center justify-center text-sm font-bold">
+              <div className="w-8 h-8 rounded-full bg-[#E6007E] flex items-center justify-center text-white text-sm font-bold">
                 DG
               </div>
             </div>
@@ -76,7 +76,7 @@ export default function POSLayout({
       </header>
 
       {/* Main Content */}
-      <main className="h-[calc(100vh-56px)]">
+      <main className="h-[calc(100vh-56px)] bg-white">
         {children}
       </main>
     </div>

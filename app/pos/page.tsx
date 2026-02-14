@@ -163,15 +163,15 @@ export default function POSPage() {
   return (
     <div className="h-screen flex bg-white">
       {/* Left Panel - Sales Ledger */}
-      <div className="w-1/2 border-r border-gray-200 flex flex-col">
+      <div className="w-1/2 border-r-2 border-black flex flex-col">
         {/* Header */}
-        <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+        <div className="p-4 border-b-2 border-black flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <select className="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-slate-700">
+            <select className="px-4 py-2 bg-white border-2 border-black rounded-lg text-sm font-medium text-black">
               <option>All Locations</option>
               <option>Main Location</option>
             </select>
-            <button className="flex items-center gap-2 px-4 py-2 text-sm text-slate-600 hover:bg-gray-50 rounded-lg">
+            <button className="flex items-center gap-2 px-4 py-2 text-sm text-black hover:bg-black/5 rounded-lg border-2 border-black">
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
               </svg>
@@ -182,8 +182,8 @@ export default function POSPage() {
 
         {/* Ready for Checkout - Today's Appointments */}
         {appointments.length > 0 && (
-          <div className="p-4 border-b border-gray-200 bg-pink-50/50">
-            <p className="text-xs font-semibold text-pink-600 uppercase tracking-wider mb-3">
+          <div className="p-4 border-b-2 border-black bg-white">
+            <p className="text-xs font-semibold text-[#E6007E] uppercase tracking-wider mb-3">
               Ready for Checkout ({appointments.length})
             </p>
             <div className="flex gap-2 overflow-x-auto pb-2">
@@ -191,23 +191,23 @@ export default function POSPage() {
                 <button
                   key={appt.id}
                   onClick={() => selectAppointmentClient(appt)}
-                  className="flex-shrink-0 p-3 bg-white rounded-xl border border-pink-200 hover:border-pink-400 hover:shadow-md transition-all min-w-[160px]"
+                  className="flex-shrink-0 p-3 bg-white rounded-xl border-2 border-black hover:border-[#E6007E] hover:shadow-md transition-all min-w-[160px]"
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white text-xs font-medium">
+                    <div className="w-8 h-8 rounded-full bg-[#E6007E] flex items-center justify-center text-white text-xs font-medium">
                       {appt.client_name?.[0] || 'C'}
                     </div>
                     <div className="text-left">
-                      <p className="font-medium text-slate-800 text-sm truncate max-w-[100px]">
+                      <p className="font-medium text-black text-sm truncate max-w-[100px]">
                         {appt.client_name || 'Client'}
                       </p>
-                      <p className="text-xs text-gray-500">
+                      <p className="text-xs text-black/70">
                         {new Date(appt.starts_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}
                       </p>
                     </div>
                   </div>
-                  <p className="text-xs text-slate-600 truncate">{appt.service_name}</p>
-                  <p className="text-sm font-bold text-pink-600 mt-1">
+                  <p className="text-xs text-black truncate">{appt.service_name}</p>
+                  <p className="text-sm font-bold text-[#E6007E] mt-1">
                     ${appt.service_price || 0}
                   </p>
                 </button>
@@ -219,30 +219,30 @@ export default function POSPage() {
         {/* Sales Table */}
         <div className="flex-1 overflow-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 sticky top-0">
+            <thead className="bg-white border-b-2 border-black sticky top-0">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-[#E6007E] uppercase tracking-wider">
                   Date
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-[#E6007E] uppercase tracking-wider">
                   Client
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <th className="px-6 py-3 text-right text-xs font-medium text-[#E6007E] uppercase tracking-wider">
                   Total
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-black/10">
               {loading ? (
                 <tr>
-                  <td colSpan={3} className="px-6 py-12 text-center text-gray-500">
-                    <div className="animate-spin w-6 h-6 border-2 border-pink-500 border-t-transparent rounded-full mx-auto mb-2" />
+                  <td colSpan={3} className="px-6 py-12 text-center text-black">
+                    <div className="animate-spin w-6 h-6 border-2 border-[#E6007E] border-t-transparent rounded-full mx-auto mb-2" />
                     Loading...
                   </td>
                 </tr>
               ) : sales.length === 0 ? (
                 <tr>
-                  <td colSpan={3} className="px-6 py-12 text-center text-gray-500">
+                  <td colSpan={3} className="px-6 py-12 text-center text-black">
                     No sales yet
                   </td>
                 </tr>
@@ -250,7 +250,7 @@ export default function POSPage() {
                 sales.map((sale) => (
                   <tr 
                     key={sale.id} 
-                    className="hover:bg-gray-50 cursor-pointer transition-colors"
+                    className="hover:bg-black/5 cursor-pointer transition-colors"
                     onClick={() => {
                       setSelectedClient({
                         id: sale.client_id,
@@ -260,13 +260,13 @@ export default function POSPage() {
                       setShowCheckout(true);
                     }}
                   >
-                    <td className="px-6 py-4 text-sm text-slate-600">
+                    <td className="px-6 py-4 text-sm text-black">
                       {formatDate(sale.created_at)}
                     </td>
-                    <td className="px-6 py-4 text-sm font-medium text-slate-800">
+                    <td className="px-6 py-4 text-sm font-medium text-black">
                       {sale.client_name || 'Walk-in'}
                     </td>
-                    <td className="px-6 py-4 text-sm font-semibold text-slate-800 text-right">
+                    <td className="px-6 py-4 text-sm font-semibold text-black text-right">
                       ${((sale.gross_total || sale.net_total || 0) / 100).toFixed(2)}
                     </td>
                   </tr>
@@ -278,7 +278,7 @@ export default function POSPage() {
       </div>
 
       {/* Middle Panel - Checkout */}
-      <div className="w-1/3 border-r border-gray-200 flex flex-col bg-gray-50">
+      <div className="w-1/3 border-r-2 border-black flex flex-col bg-white">
         {showCheckout && selectedClient ? (
           <CheckoutPanel
             client={selectedClient}
@@ -304,13 +304,13 @@ export default function POSPage() {
           />
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center p-8">
-            <div className="w-20 h-20 rounded-full bg-gray-200 flex items-center justify-center mb-4">
-              <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-20 h-20 rounded-full border-2 border-black flex items-center justify-center mb-4">
+              <svg className="w-10 h-10 text-[#E6007E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
             </div>
-            <p className="text-lg font-medium text-slate-700 mb-2">Start Checkout</p>
-            <p className="text-sm text-gray-500 text-center mb-6">
+            <p className="text-lg font-medium text-black mb-2">Start Checkout</p>
+            <p className="text-sm text-black/70 text-center mb-6">
               Select a client from ready appointments<br />or search for a client
             </p>
             
@@ -324,10 +324,10 @@ export default function POSPage() {
                   setSearchQuery(e.target.value);
                   searchClients(e.target.value);
                 }}
-                className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full px-4 py-3 border-2 border-black rounded-xl text-sm focus:ring-2 focus:ring-[#E6007E] focus:border-[#E6007E] text-black"
               />
               {clients.length > 0 && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-xl z-10 max-h-60 overflow-y-auto">
+                <div className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-black rounded-xl shadow-xl z-10 max-h-60 overflow-y-auto">
                   {clients.map((client) => (
                     <button
                       key={client.id}
@@ -341,14 +341,14 @@ export default function POSPage() {
                         setClients([]);
                         setSearchQuery('');
                       }}
-                      className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center gap-3 border-b border-gray-100 last:border-0"
+                      className="w-full text-left px-4 py-3 hover:bg-black/5 flex items-center gap-3 border-b border-black/10 last:border-0"
                     >
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-medium">
+                      <div className="w-10 h-10 rounded-full bg-[#E6007E] flex items-center justify-center text-white font-medium">
                         {client.first_name?.[0]}{client.last_name?.[0]}
                       </div>
                       <div>
-                        <p className="font-medium text-slate-800">{client.first_name} {client.last_name}</p>
-                        <p className="text-sm text-gray-500">{client.email}</p>
+                        <p className="font-medium text-black">{client.first_name} {client.last_name}</p>
+                        <p className="text-sm text-black/70">{client.email}</p>
                       </div>
                     </button>
                   ))}
@@ -362,7 +362,7 @@ export default function POSPage() {
                 setSelectedClient({ id: null, name: 'Walk-in Customer' });
                 setShowCheckout(true);
               }}
-              className="mt-4 px-6 py-2 text-sm font-medium text-pink-600 hover:text-pink-700 hover:bg-pink-50 rounded-lg transition-colors"
+              className="mt-4 px-6 py-2 text-sm font-medium text-[#E6007E] hover:text-[#B0005F] border-2 border-[#E6007E] rounded-lg transition-colors"
             >
               + Walk-in Sale
             </button>
@@ -372,8 +372,8 @@ export default function POSPage() {
 
       {/* Right Panel - Quick Services */}
       <div className="w-1/6 flex flex-col bg-white">
-        <div className="p-4 border-b border-gray-200">
-          <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Quick Add</p>
+        <div className="p-4 border-b-2 border-black">
+          <p className="text-xs font-semibold text-[#E6007E] uppercase tracking-wider">Quick Add</p>
         </div>
         <div className="flex-1 overflow-auto p-3 space-y-2">
           {services.slice(0, 10).map((service) => (
@@ -386,10 +386,10 @@ export default function POSPage() {
                 }
                 addToCart(service, 'service');
               }}
-              className="w-full p-3 text-left bg-gray-50 hover:bg-pink-50 rounded-lg transition-colors border border-transparent hover:border-pink-200"
+              className="w-full p-3 text-left bg-white hover:bg-black/5 rounded-lg transition-colors border-2 border-black hover:border-[#E6007E]"
             >
-              <p className="text-sm font-medium text-slate-800 truncate">{service.name}</p>
-              <p className="text-sm font-bold text-pink-600">
+              <p className="text-sm font-medium text-black truncate">{service.name}</p>
+              <p className="text-sm font-bold text-[#E6007E]">
                 ${service.price_cents ? (service.price_cents / 100).toFixed(0) : service.price || 0}
               </p>
             </button>
@@ -397,16 +397,16 @@ export default function POSPage() {
         </div>
         
         {/* Quick Actions */}
-        <div className="p-3 border-t border-gray-200 space-y-2">
+        <div className="p-3 border-t-2 border-black space-y-2">
           <Link
             href="/pos/gift-card"
-            className="flex items-center gap-2 w-full p-3 bg-purple-50 hover:bg-purple-100 rounded-lg text-purple-700 font-medium text-sm transition-colors"
+            className="flex items-center gap-2 w-full p-3 bg-white hover:bg-black/5 rounded-lg border-2 border-black hover:border-[#E6007E] text-black font-medium text-sm transition-colors"
           >
             <span>🎁</span> Sell Gift Card
           </Link>
           <Link
             href="/admin/memberships"
-            className="flex items-center gap-2 w-full p-3 bg-amber-50 hover:bg-amber-100 rounded-lg text-amber-700 font-medium text-sm transition-colors"
+            className="flex items-center gap-2 w-full p-3 bg-white hover:bg-black/5 rounded-lg border-2 border-black hover:border-[#E6007E] text-black font-medium text-sm transition-colors"
           >
             <span>⭐</span> Memberships
           </Link>
@@ -540,23 +540,23 @@ function CheckoutPanel({
   if (paid) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-8">
-        <div className="w-20 h-20 rounded-full bg-emerald-100 flex items-center justify-center mb-4">
-          <svg className="w-10 h-10 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="w-20 h-20 rounded-full border-2 border-[#E6007E] bg-white flex items-center justify-center mb-4">
+          <svg className="w-10 h-10 text-[#E6007E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <p className="text-xl font-semibold text-slate-800 mb-2">Payment Complete!</p>
-        <p className="text-gray-500 mb-6">${subtotal.toFixed(2)} paid</p>
+        <p className="text-xl font-semibold text-black mb-2">Payment Complete!</p>
+        <p className="text-black/70 mb-6">${subtotal.toFixed(2)} paid</p>
         <div className="space-y-2 w-full max-w-xs">
-          <button className="w-full py-3 bg-gray-100 text-slate-700 rounded-xl hover:bg-gray-200 font-medium">
+          <button className="w-full py-3 border-2 border-black text-black rounded-xl hover:bg-black/5 font-medium">
             📧 Email Receipt
           </button>
-          <button className="w-full py-3 bg-gray-100 text-slate-700 rounded-xl hover:bg-gray-200 font-medium">
+          <button className="w-full py-3 border-2 border-black text-black rounded-xl hover:bg-black/5 font-medium">
             🖨️ Print Receipt
           </button>
           <button
             onClick={onComplete}
-            className="w-full py-3 bg-slate-800 text-white rounded-xl hover:bg-slate-700 font-medium"
+            className="w-full py-3 bg-[#E6007E] text-white rounded-xl hover:bg-[#B0005F] font-medium"
           >
             Done
           </button>
@@ -569,24 +569,24 @@ function CheckoutPanel({
   if (showPayment) {
     return (
       <div className="flex-1 flex flex-col">
-        <div className="p-4 border-b border-gray-200 flex items-center">
-          <button onClick={() => setShowPayment(false)} className="text-gray-500 hover:text-gray-700 mr-3">
+        <div className="p-4 border-b-2 border-black flex items-center">
+          <button onClick={() => setShowPayment(false)} className="text-black hover:text-[#E6007E] mr-3">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <h3 className="font-semibold text-slate-800">Select Payment</h3>
+          <h3 className="font-semibold text-black">Select Payment</h3>
         </div>
         
         <div className="flex-1 flex flex-col items-center justify-center p-6">
-          <p className="text-gray-500 mb-2">Total Due</p>
-          <p className="text-4xl font-bold text-slate-800 mb-8">${subtotal.toFixed(2)}</p>
+          <p className="text-black/70 mb-2">Total Due</p>
+          <p className="text-4xl font-bold text-[#E6007E] mb-8">${subtotal.toFixed(2)}</p>
           
           <div className="w-full max-w-xs space-y-3">
             <button
               onClick={handleTerminalCheckout}
               disabled={processing}
-              className="w-full py-4 bg-blue-600 text-white rounded-xl hover:bg-blue-700 font-medium flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-4 bg-[#E6007E] text-white rounded-xl hover:bg-[#B0005F] font-medium flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {processing ? (
                 <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
@@ -602,13 +602,13 @@ function CheckoutPanel({
             <button
               onClick={handleCashPayment}
               disabled={processing}
-              className="w-full py-4 bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 font-medium disabled:opacity-50"
+              className="w-full py-4 bg-black text-white rounded-xl hover:bg-black/80 font-medium disabled:opacity-50"
             >
               💵 Cash
             </button>
             <button
               disabled={processing}
-              className="w-full py-4 bg-purple-600 text-white rounded-xl hover:bg-purple-700 font-medium disabled:opacity-50"
+              className="w-full py-4 border-2 border-black text-black rounded-xl hover:bg-black/5 font-medium disabled:opacity-50"
             >
               🎁 Gift Card
             </button>
@@ -638,15 +638,15 @@ function CheckoutPanel({
   return (
     <div className="flex-1 flex flex-col">
       {/* Header */}
-      <div className="p-4 border-b border-gray-200 flex items-center justify-between bg-white">
-        <h3 className="font-semibold text-slate-800">Checkout</h3>
+      <div className="p-4 border-b-2 border-black flex items-center justify-between bg-white">
+        <h3 className="font-semibold text-black">Checkout</h3>
         <div className="flex items-center gap-2">
-          <button className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500">
+          <button className="p-1.5 hover:bg-black/5 rounded-lg text-black">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
             </svg>
           </button>
-          <button onClick={onClose} className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500">
+          <button onClick={onClose} className="p-1.5 hover:bg-black/5 rounded-lg text-black">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -655,15 +655,15 @@ function CheckoutPanel({
       </div>
 
       {/* Client Info */}
-      <div className="p-4 border-b border-gray-200 bg-white flex items-center gap-3">
-        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-semibold text-lg">
+      <div className="p-4 border-b-2 border-black bg-white flex items-center gap-3">
+        <div className="w-12 h-12 rounded-full bg-[#E6007E] flex items-center justify-center text-white font-semibold text-lg">
           {client.name?.[0] || 'C'}
         </div>
         <div className="flex-1">
-          <p className="font-semibold text-slate-800">{client.name}</p>
-          <p className="text-sm text-gray-500">Client since {new Date().getFullYear()}</p>
+          <p className="font-semibold text-black">{client.name}</p>
+          <p className="text-sm text-black/70">Client since {new Date().getFullYear()}</p>
         </div>
-        <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg text-gray-400">
+        <button onClick={onClose} className="p-2 hover:bg-black/5 rounded-lg text-black">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
           </svg>
@@ -673,29 +673,29 @@ function CheckoutPanel({
       {/* Cart Items */}
       <div className="flex-1 overflow-auto">
         {cart.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">
+          <div className="p-8 text-center text-black/70">
             <p>No items yet</p>
             <p className="text-sm mt-1">Add services or products below</p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-black/10">
             {cart.map((item) => (
               <div key={item.id} className="p-4 bg-white">
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-2">
-                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-black/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                     </svg>
                     <div>
-                      <p className="font-medium text-slate-800">{item.name}</p>
-                      <p className="text-sm text-gray-500">with {item.provider_name}</p>
+                      <p className="font-medium text-black">{item.name}</p>
+                      <p className="text-sm text-black/70">with {item.provider_name}</p>
                     </div>
                   </div>
                   <div className="text-right">
                     {item.discount > 0 && (
-                      <p className="text-sm text-gray-400 line-through">${item.original_price.toFixed(2)}</p>
+                      <p className="text-sm text-black/50 line-through">${item.original_price.toFixed(2)}</p>
                     )}
-                    <p className="font-semibold text-slate-800">${item.price.toFixed(2)}</p>
+                    <p className="font-semibold text-black">${item.price.toFixed(2)}</p>
                   </div>
                 </div>
               </div>
@@ -704,21 +704,21 @@ function CheckoutPanel({
         )}
 
         {/* Add buttons */}
-        <div className="p-4 flex gap-2 border-t border-gray-200 bg-white">
+        <div className="p-4 flex gap-2 border-t-2 border-black bg-white">
           <button
             onClick={() => setShowServices(!showServices)}
-            className="flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg border border-gray-200"
+            className="flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium text-black hover:bg-black/5 rounded-lg border-2 border-black"
           >
             <span className="text-lg">+</span> ADD SERVICE
           </button>
-          <button className="flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg border border-gray-200">
+          <button className="flex-1 flex items-center justify-center gap-2 py-2.5 text-sm font-medium text-black hover:bg-black/5 rounded-lg border-2 border-black">
             <span className="text-lg">+</span> ADD PRODUCT
           </button>
         </div>
 
         {/* Service dropdown */}
         {showServices && (
-          <div className="p-4 border-t border-gray-200 bg-gray-50 space-y-2">
+          <div className="p-4 border-t-2 border-black bg-white space-y-2">
             {services.slice(0, 8).map((service) => (
               <button
                 key={service.id}
@@ -726,11 +726,11 @@ function CheckoutPanel({
                   onAddToCart(service, 'service');
                   setShowServices(false);
                 }}
-                className="w-full text-left p-3 bg-white rounded-lg hover:bg-pink-50 border border-gray-200 hover:border-pink-200 transition-colors"
+                className="w-full text-left p-3 bg-white rounded-lg hover:bg-black/5 border-2 border-black hover:border-[#E6007E] transition-colors"
               >
                 <div className="flex justify-between">
-                  <span className="text-sm font-medium text-slate-800">{service.name}</span>
-                  <span className="text-sm font-semibold text-pink-600">
+                  <span className="text-sm font-medium text-black">{service.name}</span>
+                  <span className="text-sm font-semibold text-[#E6007E]">
                     ${service.price_cents ? (service.price_cents / 100).toFixed(0) : service.price || 0}
                   </span>
                 </div>
@@ -740,8 +740,8 @@ function CheckoutPanel({
         )}
 
         {/* More button */}
-        <div className="p-4 border-t border-gray-200 bg-white">
-          <button className="flex items-center justify-center gap-2 w-full py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-50 rounded-lg border border-gray-200">
+        <div className="p-4 border-t-2 border-black bg-white">
+          <button className="flex items-center justify-center gap-2 w-full py-2.5 text-sm font-medium text-black hover:bg-black/5 rounded-lg border-2 border-black">
             <span className="text-lg">+</span> MORE
           </button>
         </div>
@@ -749,26 +749,26 @@ function CheckoutPanel({
 
       {/* Offers Applied */}
       {hasDiscount && (
-        <div className="px-4 py-3 border-t border-gray-200 bg-white flex items-center justify-between">
-          <span className="text-sm text-gray-600">
+        <div className="px-4 py-3 border-t-2 border-black bg-white flex items-center justify-between">
+          <span className="text-sm text-black">
             {cart.filter(i => i.discount > 0).length} Offer{cart.filter(i => i.discount > 0).length > 1 ? 's' : ''} Applied
           </span>
-          <button className="text-sm text-pink-600 font-medium">Show</button>
+          <button className="text-sm text-[#E6007E] font-medium">Show</button>
         </div>
       )}
 
       {/* Subtotal */}
-      <div className="px-4 py-3 border-t border-gray-200 bg-white flex items-center justify-between">
-        <span className="text-gray-600">Subtotal</span>
-        <span className="text-lg font-semibold text-slate-800">${subtotal.toFixed(2)}</span>
+      <div className="px-4 py-3 border-t-2 border-black bg-white flex items-center justify-between">
+        <span className="text-black">Subtotal</span>
+        <span className="text-lg font-semibold text-[#E6007E]">${subtotal.toFixed(2)}</span>
       </div>
 
       {/* Go to Payments */}
-      <div className="p-4 border-t border-gray-200 bg-white">
+      <div className="p-4 border-t-2 border-black bg-white">
         <button
           onClick={() => setShowPayment(true)}
           disabled={cart.length === 0}
-          className="w-full py-4 bg-slate-800 text-white font-semibold rounded-xl hover:bg-slate-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wide"
+          className="w-full py-4 bg-[#E6007E] text-white font-semibold rounded-xl hover:bg-[#B0005F] transition-colors disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wide"
         >
           Go to Payments
         </button>
