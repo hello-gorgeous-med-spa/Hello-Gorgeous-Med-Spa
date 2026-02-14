@@ -135,8 +135,8 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbs)) }}
         />
 
-        <Section className="relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
+        <Section className="relative bg-white">
+          <div className="absolute inset-0 bg-white" />
           <div className="relative z-10">
             <FadeUp>
               <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
@@ -162,7 +162,7 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
                   Contact Us
                 </CTA>
               </div>
-              <p className="mt-6 text-sm text-white/60">
+              <p className="mt-6 text-sm text-black/70">
                 {SITE.address.streetAddress}, {SITE.address.addressLocality}, {SITE.address.addressRegion} {SITE.address.postalCode} · {SITE.phone}
               </p>
             </FadeUp>
@@ -173,7 +173,7 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
           <div className="grid gap-8 lg:grid-cols-12">
             <div className="lg:col-span-7">
               <FadeUp>
-                <h2 className="text-3xl md:text-4xl font-bold text-white">
+                <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
                   Why choose Hello Gorgeous for {s.name} in {cityShort}?
                 </h2>
                 <p className="mt-4 text-gray-300 max-w-2xl">
@@ -186,31 +186,31 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
               {LOCATION_PAGE_CONTENT[slug]?.aboutTreatment ? (
                 <>
                   <FadeUp delayMs={40}>
-                    <h2 className="mt-12 text-2xl md:text-3xl font-bold text-white">Who Is a Good Candidate for {s.name}?</h2>
+                    <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">Who Is a Good Candidate for {s.name}?</h2>
                     <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                       <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.candidacy} links={CONTEXTUAL_LINKS} />
                     </p>
                   </FadeUp>
                   <FadeUp delayMs={80}>
-                    <h2 className="mt-12 text-2xl md:text-3xl font-bold text-white">What to Expect During Your {s.name} Appointment</h2>
+                    <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">What to Expect During Your {s.name} Appointment</h2>
                     <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                       <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.whatToExpect} links={CONTEXTUAL_LINKS} />
                     </p>
                   </FadeUp>
                   <FadeUp delayMs={120}>
-                    <h2 className="mt-12 text-2xl md:text-3xl font-bold text-white">Is {s.name} Safe?</h2>
+                    <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">Is {s.name} Safe?</h2>
                     <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                       <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.safetyAndTraining} links={CONTEXTUAL_LINKS} />
                     </p>
                   </FadeUp>
                   <FadeUp delayMs={160}>
-                    <h2 className="mt-12 text-2xl md:text-3xl font-bold text-white">{s.name} for Kendall County Clients</h2>
+                    <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">{s.name} for Kendall County Clients</h2>
                     <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                       <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.communityContext} links={CONTEXTUAL_LINKS} />
                     </p>
                   </FadeUp>
                   <FadeUp delayMs={200}>
-                    <div className="mt-10 rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
+                    <div className="mt-10 rounded-2xl border-2 border-black bg-white p-6">
                       <p className="text-gray-300 leading-relaxed">
                         <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.callToAction} links={CONTEXTUAL_LINKS} />
                       </p>
@@ -231,8 +231,8 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
                       { t: `Serving ${cityShort} & the area`, b: "Convenient to Oswego, Naperville, Aurora, Plainfield, and Yorkville with flexible scheduling." },
                     ].map((x, idx) => (
                       <FadeUp key={x.t} delayMs={40 * idx}>
-                        <div className="rounded-2xl border border-gray-800 bg-black/40 p-6">
-                          <h3 className="text-xl font-bold text-white">{x.t}</h3>
+                        <div className="rounded-2xl border-2 border-black bg-white p-6">
+                          <h3 className="text-xl font-bold text-[#E6007E]">{x.t}</h3>
                           <p className="mt-3 text-gray-300">{x.b}</p>
                         </div>
                       </FadeUp>
@@ -240,13 +240,13 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
                   </div>
                   {LOCATION_PAGE_CONTENT[slug]?.whatToExpect && (
                     <FadeUp delayMs={120}>
-                      <h2 className="mt-12 text-2xl font-bold text-white">What to expect in {cityShort}</h2>
+                      <h2 className="mt-12 text-2xl font-bold text-[#E6007E]">What to expect in {cityShort}</h2>
                       <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">{LOCATION_PAGE_CONTENT[slug]?.whatToExpect}</p>
                     </FadeUp>
                   )}
                   <FadeUp delayMs={160}>
-                    <div className="mt-10 rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
-                      <h3 className="text-xl font-bold text-white">More about {s.name}</h3>
+                    <div className="mt-10 rounded-2xl border-2 border-black bg-white p-6">
+                      <h3 className="text-xl font-bold text-[#E6007E]">More about {s.name}</h3>
                       <p className="mt-3 text-gray-300">
                         {LOCATION_PAGE_CONTENT[slug]?.communityContext ?? LOCATION_PAGE_CONTENT[slug]?.community ?? "Read the full service overview, FAQs, and what to expect on our main service page."}
                       </p>
@@ -274,7 +274,7 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
 
         <Section>
           <FadeUp>
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
               Frequently asked questions
             </h2>
             <p className="mt-4 text-gray-300 max-w-2xl">
@@ -285,10 +285,10 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
           <div className="mt-10 grid gap-4">
             {faqs.map((f, idx) => (
               <FadeUp key={f.question} delayMs={40 * idx}>
-                <details className="group rounded-2xl border border-gray-800 bg-black/40 p-6">
-                  <summary className="cursor-pointer list-none text-lg font-semibold text-white flex items-center justify-between">
+                <details className="group rounded-2xl border-2 border-black bg-white p-6">
+                    <summary className="cursor-pointer list-none text-lg font-semibold text-black flex items-center justify-between">
                     <span>{f.question}</span>
-                    <span className="text-white/60 group-open:rotate-45 transition-transform">
+                    <span className="text-black/60 group-open:rotate-45 transition-transform">
                       +
                     </span>
                   </summary>
@@ -316,7 +316,7 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
               </svg>
             </CTA>
             <p className="text-sm text-gray-500 mt-8">
-              <Link className="underline hover:text-pink-400" href="/contact">
+              <Link className="underline hover:text-[#E6007E]" href="/contact">
                 Contact us
               </Link>{" "}
               with questions.
@@ -347,8 +347,8 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
           dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(medSpaBreadcrumbs)) }}
         />
 
-        <Section className="relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
+        <Section className="relative bg-white">
+          <div className="absolute inset-0 bg-white" />
           <div className="relative z-10">
             <FadeUp>
               <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
@@ -374,7 +374,7 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
                   All Services
                 </CTA>
               </div>
-              <p className="mt-6 text-sm text-white/60">
+              <p className="mt-6 text-sm text-black/70">
                 {SITE.address.streetAddress}, {SITE.address.addressLocality}, {SITE.address.addressRegion} {SITE.address.postalCode} · {SITE.phone}
               </p>
             </FadeUp>
@@ -383,7 +383,7 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
 
         <Section>
           <FadeUp>
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
               Why Choose Our Med Spa in {cityShort}?
             </h2>
             <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
@@ -398,31 +398,31 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
           {LOCATION_PAGE_CONTENT[slug]?.aboutTreatment && (
             <>
               <FadeUp delayMs={40}>
-                <h2 className="mt-12 text-2xl md:text-3xl font-bold text-white">Who Is a Good Candidate for Our Med Spa?</h2>
+                <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">Who Is a Good Candidate for Our Med Spa?</h2>
                 <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                   <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.candidacy} links={CONTEXTUAL_LINKS} />
                 </p>
               </FadeUp>
               <FadeUp delayMs={80}>
-                <h2 className="mt-12 text-2xl md:text-3xl font-bold text-white">What to Expect at Our {cityShort} Med Spa</h2>
+                <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">What to Expect at Our {cityShort} Med Spa</h2>
                 <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                   <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.whatToExpect} links={CONTEXTUAL_LINKS} />
                 </p>
               </FadeUp>
               <FadeUp delayMs={120}>
-                <h2 className="mt-12 text-2xl md:text-3xl font-bold text-white">Safety and Training</h2>
+                <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">Safety and Training</h2>
                 <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                   <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.safetyAndTraining} links={CONTEXTUAL_LINKS} />
                 </p>
               </FadeUp>
               <FadeUp delayMs={160}>
-                <h2 className="mt-12 text-2xl md:text-3xl font-bold text-white">Med Spa for Kendall County Clients</h2>
+                <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">Med Spa for Kendall County Clients</h2>
                 <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                   <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.communityContext} links={CONTEXTUAL_LINKS} />
                 </p>
               </FadeUp>
               <FadeUp delayMs={200}>
-                <div className="mt-10 rounded-2xl border border-gray-800 bg-black/40 p-6">
+                <div className="mt-10 rounded-2xl border-2 border-black bg-white p-6">
                   <p className="text-gray-300 leading-relaxed">
                     <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.callToAction} links={CONTEXTUAL_LINKS} />
                   </p>
@@ -433,14 +433,14 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
 
           {(LOCATION_PAGE_CONTENT[slug]?.whatToExpect && !LOCATION_PAGE_CONTENT[slug]?.aboutTreatment) && (
             <FadeUp>
-              <h2 className="mt-12 text-2xl font-bold text-white">What to expect at our {cityShort} med spa</h2>
+              <h2 className="mt-12 text-2xl font-bold text-[#E6007E]">What to expect at our {cityShort} med spa</h2>
               <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                 {LOCATION_PAGE_CONTENT[slug]?.whatToExpect}
               </p>
             </FadeUp>
           )}
 
-          <h2 className="mt-12 text-2xl md:text-3xl font-bold text-white">Popular treatments for {cityShort} clients</h2>
+          <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">Popular treatments for {cityShort} clients</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
               { name: "Botox, Dysport & Jeuveau", slug: "botox-dysport-jeuveau" },
@@ -454,9 +454,9 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
               <Link
                 key={svc.slug}
                 href={hubPath === "/locations" ? `/services/${svc.slug}` : `${hubPath}/${svc.slug}`}
-                className="block rounded-2xl border border-gray-800 bg-black/40 p-6 hover:border-pink-500/50 transition-colors"
+                className="block rounded-2xl border-2 border-black bg-white p-6 hover:border-[#E6007E] transition-colors"
               >
-                <h3 className="text-lg font-bold text-white">{svc.name}</h3>
+                <h3 className="text-lg font-bold text-black">{svc.name}</h3>
                 <p className="mt-2 text-sm text-pink-400">Learn more →</p>
               </Link>
             ))}

@@ -34,7 +34,7 @@ export function Hero({
   }, []);
 
   return (
-    <section className="relative bg-[#FDF7FA] py-20 md:py-28 px-6 md:px-12">
+    <section className="relative bg-white py-20 md:py-28 px-6 md:px-12">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row lg:items-center lg:gap-16">
         {/* Left column: headline, subtext, CTA */}
         <div className="flex-1 min-w-0 basis-0 overflow-visible">

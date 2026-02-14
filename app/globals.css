@@ -18,6 +18,47 @@
   }
 }
 
+/* Public site: hot pink + black text on white */
+[data-site="public"] h1,
+[data-site="public"] h2 {
+  color: var(--hg-pink);
+}
+[data-site="public"] h3,
+[data-site="public"] h4,
+[data-site="public"] h5,
+[data-site="public"] h6 {
+  color: #111111;
+}
+[data-site="public"] p,
+[data-site="public"] span,
+[data-site="public"] li,
+[data-site="public"] label,
+[data-site="public"] td,
+[data-site="public"] th {
+  color: #111111;
+}
+[data-site="public"] a {
+  color: var(--hg-pink);
+}
+[data-site="public"] a:hover {
+  color: var(--hg-pink-deep);
+}
+
+/* Override gray text on public site: use black for body text */
+[data-site="public"] .text-gray-300,
+[data-site="public"] .text-gray-400,
+[data-site="public"] .text-gray-500 {
+  color: #111111 !important;
+}
+[data-site="public"] .text-pink-400 {
+  color: var(--hg-pink) !important;
+}
+
+/* Force white background on dark gradient overlays (public site) */
+[data-site="public"] .absolute.inset-0.bg-gradient-to-b {
+  background: white !important;
+}
+
 /* Hello Gorgeous Premium Medical Glam — Design Tokens */
 :root {
   --hg-pink: #E6007E;

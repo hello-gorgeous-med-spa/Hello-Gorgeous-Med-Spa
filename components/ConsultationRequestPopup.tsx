@@ -139,11 +139,11 @@ export function ConsultationRequestPopup() {
         onClick={handleClose}
         aria-hidden="true"
       />
-      <div className="relative w-full max-w-md rounded-2xl border-2 border-pink-500/30 bg-gradient-to-b from-gray-900 to-black p-6 shadow-2xl shadow-pink-500/10">
+      <div className="relative w-full max-w-md rounded-2xl border-2 border-black bg-white p-6 shadow-2xl">
         <button
           type="button"
           onClick={handleClose}
-          className="absolute right-3 top-3 rounded-full p-1.5 text-gray-400 hover:bg-white/10 hover:text-white"
+          className="absolute right-3 top-3 rounded-full p-1.5 text-black hover:bg-black/10"
           aria-label="Close"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -153,11 +153,11 @@ export function ConsultationRequestPopup() {
 
         {status === "success" ? (
           <div className="text-center py-4">
-            <div className="w-16 h-16 mx-auto rounded-full bg-pink-500/20 flex items-center justify-center mb-4">
+            <div className="w-16 h-16 mx-auto rounded-full bg-[#E6007E]/20 flex items-center justify-center mb-4">
               <span className="text-4xl">✓</span>
             </div>
-            <h3 className="text-xl font-bold text-white">We&apos;ll be in touch!</h3>
-            <p className="mt-2 text-gray-300 text-sm">
+            <h3 className="text-xl font-bold text-[#E6007E]">We&apos;ll be in touch!</h3>
+            <p className="mt-2 text-black text-sm">
               A team member will reach out soon to help with your consultation.
             </p>
           </div>
@@ -166,21 +166,21 @@ export function ConsultationRequestPopup() {
             <h3 className="text-xl font-bold text-white">
               How can we help you?
             </h3>
-            <p className="mt-1 text-sm text-gray-400">
+            <p className="mt-1 text-sm text-black">
               Request a consultation or book online.
             </p>
 
             {/* Patient type */}
             <div className="mt-5">
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-2">I am</p>
+              <p className="text-xs font-medium text-black uppercase tracking-wider mb-2">I am</p>
               <div className="flex gap-3">
                 <button
                   type="button"
                   onClick={() => setPatientType("new")}
                   className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium border-2 transition-colors ${
                     patientType === "new"
-                      ? "border-pink-500 bg-pink-500/10 text-pink-400"
-                      : "border-gray-600 text-gray-400 hover:border-gray-500"
+                      ? "border-[#E6007E] bg-[#E6007E]/10 text-[#E6007E]"
+                      : "border-black/30 text-black hover:border-black"
                   }`}
                 >
                   New patient
@@ -190,8 +190,8 @@ export function ConsultationRequestPopup() {
                   onClick={() => setPatientType("existing")}
                   className={`flex-1 py-2.5 px-4 rounded-lg text-sm font-medium border-2 transition-colors ${
                     patientType === "existing"
-                      ? "border-pink-500 bg-pink-500/10 text-pink-400"
-                      : "border-gray-600 text-gray-400 hover:border-gray-500"
+                      ? "border-[#E6007E] bg-[#E6007E]/10 text-[#E6007E]"
+                      : "border-black/30 text-black hover:border-black"
                   }`}
                 >
                   Existing patient
@@ -204,7 +204,7 @@ export function ConsultationRequestPopup() {
               <select
                 value={area}
                 onChange={(e) => setArea(e.target.value)}
-                className="w-full px-4 py-3 rounded-lg bg-white/5 border border-gray-600 text-white focus:outline-none focus:border-pink-500 text-sm"
+                className="w-full px-4 py-3 rounded-lg bg-white border-2 border-black text-black focus:outline-none focus:border-[#E6007E] text-sm"
               >
                 {AREA_OPTIONS.map((o) => (
                   <option key={o.value} value={o.value} className="text-gray-900">
@@ -220,21 +220,21 @@ export function ConsultationRequestPopup() {
                 <Link
                   href={BOOKING_URL}
                   onClick={handleBookClick}
-                  className="block w-full py-3.5 px-4 rounded-lg bg-pink-500 hover:bg-pink-600 text-white font-semibold text-center text-sm uppercase tracking-wider transition-colors"
+                  className="block w-full py-3.5 px-4 rounded-lg bg-[#E6007E] hover:bg-[#B0005F] text-white font-semibold text-center text-sm uppercase tracking-wider transition-colors"
                 >
                   Book a consultation
                 </Link>
                 <button
                   type="button"
                   onClick={() => setShowForm(true)}
-                  className="block w-full py-3 px-4 rounded-lg border-2 border-gray-600 text-gray-300 hover:border-gray-500 hover:text-white font-medium text-sm transition-colors"
+                  className="block w-full py-3 px-4 rounded-lg border-2 border-black text-black hover:border-[#E6007E] hover:text-[#E6007E] font-medium text-sm transition-colors"
                 >
                   Not ready? Tell us what you&apos;re interested in
                 </button>
                 <button
                   type="button"
                   onClick={handleClose}
-                  className="block w-full text-center text-sm text-gray-500 hover:text-gray-300"
+                  className="block w-full text-center text-sm text-black hover:text-[#E6007E]"
                 >
                   No thanks
                 </button>
@@ -247,7 +247,7 @@ export function ConsultationRequestPopup() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Name"
-                  className="w-full px-4 py-3 rounded-lg bg-white/5 border border-gray-600 text-white placeholder:text-gray-500 focus:outline-none focus:border-pink-500 text-sm"
+                  className="w-full px-4 py-3 rounded-lg bg-white border-2 border-black text-black placeholder:text-black/50 focus:outline-none focus:border-[#E6007E] text-sm"
                 />
                 <input
                   type="email"
@@ -255,26 +255,26 @@ export function ConsultationRequestPopup() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Email *"
                   required
-                  className="w-full px-4 py-3 rounded-lg bg-white/5 border border-gray-600 text-white placeholder:text-gray-500 focus:outline-none focus:border-pink-500 text-sm"
+                  className="w-full px-4 py-3 rounded-lg bg-white border-2 border-black text-black placeholder:text-black/50 focus:outline-none focus:border-[#E6007E] text-sm"
                 />
                 <input
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="Phone (optional)"
-                  className="w-full px-4 py-3 rounded-lg bg-white/5 border border-gray-600 text-white placeholder:text-gray-500 focus:outline-none focus:border-pink-500 text-sm"
+                  className="w-full px-4 py-3 rounded-lg bg-white border-2 border-black text-black placeholder:text-black/50 focus:outline-none focus:border-[#E6007E] text-sm"
                 />
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="w-full py-3.5 px-4 rounded-lg bg-pink-500 hover:bg-pink-600 text-white font-semibold text-sm disabled:opacity-50"
+                  className="w-full py-3.5 px-4 rounded-lg bg-[#E6007E] hover:bg-[#B0005F] text-white font-semibold text-sm disabled:opacity-50"
                 >
                   {status === "loading" ? "Sending..." : "Request consultation"}
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowForm(false)}
-                  className="block w-full text-center text-sm text-gray-500 hover:text-gray-300"
+                  className="block w-full text-center text-sm text-black hover:text-[#E6007E]"
                 >
                   ← Back
                 </button>
@@ -286,7 +286,7 @@ export function ConsultationRequestPopup() {
               </form>
             )}
 
-            <p className="mt-5 text-[10px] text-gray-500 leading-tight">
+            <p className="mt-5 text-[10px] text-black/70 leading-tight">
               By submitting you agree to receive marketing. Reply STOP to opt out.{" "}
               <Link href="/privacy" className="underline hover:text-gray-400">
                 Privacy
