@@ -24,19 +24,19 @@ export default function ClinicalPartnersPage() {
       />
 
       <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-100 via-pink-50 to-white" />
         <div className="relative z-10">
           <FadeUp>
-            <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
+            <p className="text-[#E6007E] text-lg md:text-xl font-medium mb-6 tracking-wide">
               OUR CLINICAL PARTNERS & STANDARDS
             </p>
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight text-black">
               Quiet confidence in{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
+              <span className="text-[#E6007E]">
                 safety
               </span>
             </h1>
-            <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">
+            <p className="mt-6 text-xl text-black/80 max-w-3xl leading-relaxed">
               We choose partners who meet the same standards we expect for our patients. This page isn’t about
               bragging—it’s about helping you feel safe, informed, and respected.
             </p>
@@ -55,9 +55,9 @@ export default function ClinicalPartnersPage() {
       <Section>
         <div className="grid gap-10">
           <FadeUp>
-            <div className="rounded-2xl border border-gray-800 bg-black/40 p-8">
-              <h2 className="text-2xl font-bold text-white">Why partnerships matter</h2>
-              <p className="mt-4 text-gray-300 leading-relaxed">
+            <div className="rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-8">
+              <h2 className="text-2xl font-bold text-[#E6007E]">Why partnerships matter</h2>
+              <p className="mt-4 text-black/80 leading-relaxed">
                 In medical aesthetics, quality and outcomes aren’t just about technique—they’re also about what’s used,
                 how it’s sourced, how it’s stored, and how protocols are followed. Partnerships help protect safety,
                 consistency, and integrity.
@@ -106,17 +106,17 @@ export default function ClinicalPartnersPage() {
                 },
               ].map((c, idx) => (
                 <FadeUp key={c.title} delayMs={60 * idx}>
-                  <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
-                    <h3 className="text-xl font-bold text-white">{c.title}</h3>
-                    <ul className="mt-4 space-y-2 text-sm text-gray-300">
+                  <div className="rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-6">
+                    <h3 className="text-xl font-bold text-[#E6007E]">{c.title}</h3>
+                    <ul className="mt-4 space-y-2 text-sm text-black/80">
                       {c.items.map((i) => (
                         <li key={i} className="flex gap-2">
-                          <span className="text-pink-400">•</span>
+                          <span className="text-[#E6007E]">•</span>
                           <span>{i}</span>
                         </li>
                       ))}
                     </ul>
-                    <div className="mt-5 space-y-2 text-sm text-gray-300">
+                    <div className="mt-5 space-y-2 text-sm text-black/80">
                       {c.body.map((p) => (
                         <p key={p}>{p}</p>
                       ))}
@@ -126,7 +126,7 @@ export default function ClinicalPartnersPage() {
                         <Link
                           key={l.href}
                           href={l.href}
-                          className="text-sm font-semibold text-white/90 underline hover:text-white"
+                          className="text-sm font-semibold text-[#E6007E] underline hover:text-[#B0005F]"
                         >
                           {l.label}
                         </Link>
@@ -171,17 +171,17 @@ export default function ClinicalPartnersPage() {
                 },
               ].map((c, idx) => (
                 <FadeUp key={c.title} delayMs={60 * idx}>
-                  <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
-                    <h3 className="text-xl font-bold text-white">{c.title}</h3>
-                    <ul className="mt-4 space-y-2 text-sm text-gray-300">
+                  <div className="rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-6">
+                    <h3 className="text-xl font-bold text-[#E6007E]">{c.title}</h3>
+                    <ul className="mt-4 space-y-2 text-sm text-black/80">
                       {c.items.map((i) => (
                         <li key={i} className="flex gap-2">
-                          <span className="text-pink-400">•</span>
+                          <span className="text-[#E6007E]">•</span>
                           <span>{i}</span>
                         </li>
                       ))}
                     </ul>
-                    <div className="mt-5 space-y-2 text-sm text-gray-300">
+                    <div className="mt-5 space-y-2 text-sm text-black/80">
                       {c.body.map((p) => (
                         <p key={p}>{p}</p>
                       ))}
@@ -189,7 +189,7 @@ export default function ClinicalPartnersPage() {
                     <div className="mt-6 flex flex-wrap gap-3">
                       {c.links.map((l) => {
                         const isExternal = l.href.startsWith("http");
-                        const linkClass = "text-sm font-semibold text-white/90 underline hover:text-white";
+                        const linkClass = "text-sm font-semibold text-[#E6007E] underline hover:text-[#B0005F]";
                         return isExternal ? (
                           <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
                             {l.label}
@@ -238,17 +238,17 @@ export default function ClinicalPartnersPage() {
                 },
               ].map((c, idx) => (
                 <FadeUp key={c.title} delayMs={60 * idx}>
-                  <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
-                    <h3 className="text-xl font-bold text-white">{c.title}</h3>
-                    <ul className="mt-4 space-y-2 text-sm text-gray-300">
+                  <div className="rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-6">
+                    <h3 className="text-xl font-bold text-[#E6007E]">{c.title}</h3>
+                    <ul className="mt-4 space-y-2 text-sm text-black/80">
                       {c.items.map((i) => (
                         <li key={i} className="flex gap-2">
-                          <span className="text-pink-400">•</span>
+                          <span className="text-[#E6007E]">•</span>
                           <span>{i}</span>
                         </li>
                       ))}
                     </ul>
-                    <div className="mt-5 space-y-2 text-sm text-gray-300">
+                    <div className="mt-5 space-y-2 text-sm text-black/80">
                       {c.body.map((p) => (
                         <p key={p}>{p}</p>
                       ))}
@@ -258,7 +258,7 @@ export default function ClinicalPartnersPage() {
                         <Link
                           key={l.href}
                           href={l.href}
-                          className="text-sm font-semibold text-white/90 underline hover:text-white"
+                          className="text-sm font-semibold text-[#E6007E] underline hover:text-[#B0005F]"
                         >
                           {l.label}
                         </Link>
@@ -271,8 +271,8 @@ export default function ClinicalPartnersPage() {
           </div>
 
           <FadeUp>
-            <div className="rounded-2xl border border-gray-800 bg-black/40 p-8">
-              <h2 className="text-2xl font-bold text-white">How this protects you</h2>
+            <div className="rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-8">
+              <h2 className="text-2xl font-bold text-[#E6007E]">How this protects you</h2>
               <div className="mt-4 grid gap-4 md:grid-cols-3">
                 {[
                   {
@@ -288,13 +288,13 @@ export default function ClinicalPartnersPage() {
                     body: "No pressure, no hype. If something isn’t right for you, the right answer is ‘not yet’ or ‘not this.’",
                   },
                 ].map((b) => (
-                  <div key={b.title} className="rounded-2xl border border-white/10 bg-white/5 p-6">
-                    <h3 className="text-lg font-semibold text-white">{b.title}</h3>
-                    <p className="mt-3 text-gray-300 text-sm leading-relaxed">{b.body}</p>
+                  <div key={b.title} className="rounded-2xl border-2 border-black bg-white p-6">
+                    <h3 className="text-lg font-semibold text-[#E6007E]">{b.title}</h3>
+                    <p className="mt-3 text-black/80 text-sm leading-relaxed">{b.body}</p>
                   </div>
                 ))}
               </div>
-              <p className="mt-6 text-xs text-white/60">
+              <p className="mt-6 text-xs text-black/60">
                 Note: Partner names are provided for transparency and education only. This page is not a promotional
                 endorsement and does not imply guarantees of outcomes.
               </p>
@@ -302,11 +302,11 @@ export default function ClinicalPartnersPage() {
           </FadeUp>
 
           <FadeUp>
-            <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-8">
-              <h2 className="text-2xl font-bold text-white">Want to start with clarity?</h2>
-              <p className="mt-4 text-gray-300 leading-relaxed">
+            <div className="rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-8">
+              <h2 className="text-2xl font-bold text-[#E6007E]">Want to start with clarity?</h2>
+              <p className="mt-4 text-black/80 leading-relaxed">
                 If you’re not sure what you want yet, start with{" "}
-                <Link className="underline" href="/your-journey">
+                <Link className="underline text-[#E6007E] hover:text-[#B0005F]" href="/your-journey">
                   Your Journey
                 </Link>
                 . If you already have questions, Explore Care and the Care Engine can help you ask them safely.
