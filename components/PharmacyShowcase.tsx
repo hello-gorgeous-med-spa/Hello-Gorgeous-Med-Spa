@@ -72,6 +72,7 @@ const slides: Slide[] = [
     benefits: ["Better sleep quality", "Increased energy", "Muscle recovery", "Anti-aging benefits"],
     icon: "⚡",
     gradient: "from-indigo-600 to-purple-500",
+    image: "/images/olympia-sermorelin.png",
   },
   {
     id: "ipamorelin",
@@ -103,6 +104,7 @@ const slides: Slide[] = [
     benefits: ["Instant energy boost", "Supports metabolism", "Improves mood", "Better focus"],
     icon: "⚡",
     gradient: "from-yellow-500 to-orange-500",
+    image: "/images/olympia-b12-methyl.png",
   },
   {
     id: "biotin",
