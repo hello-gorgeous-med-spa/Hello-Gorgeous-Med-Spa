@@ -198,13 +198,13 @@ export function BodyConsultationTool({
   );
 
   const bodySection = (
-    <div className="relative flex-1 min-h-[420px] md:min-h-[560px] flex items-center justify-center">
-      <div className="relative w-full max-w-[420px] h-[420px] md:max-w-[520px] md:h-[560px] mx-auto">
+    <div className="relative min-h-[400px] md:min-h-[480px] flex items-center justify-center">
+      <div className="relative w-full max-w-[360px] h-[400px] md:h-[480px] mx-auto">
         <Image
           src="/images/hg-consult-body.png"
           alt="Select areas you'd like to improve"
           fill
-          sizes="(max-width: 768px) 420px, 520px"
+          sizes="(max-width: 768px) 360px, 360px"
           className="object-contain drop-shadow-lg"
         />
         {ZONES.map((zone) => (
@@ -224,11 +224,11 @@ export function BodyConsultationTool({
 
   if (embedded) {
     return (
-      <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-stretch min-h-[460px] md:min-h-[560px]">
-        <FadeUp delayMs={0} className="flex-1 min-h-[420px] md:min-h-[560px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 items-stretch min-h-[460px] md:min-h-[560px]">
+        <FadeUp delayMs={0} className="min-h-0">
           {bodySection}
         </FadeUp>
-        <FadeUp delayMs={100} className="w-full lg:w-[340px] flex-shrink-0">
+        <FadeUp delayMs={100}>
           {panel}
         </FadeUp>
       </div>
