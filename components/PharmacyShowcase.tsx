@@ -234,7 +234,7 @@ export function PharmacyShowcase() {
           >
             {/* Slide Card */}
             <div className={`relative rounded-3xl overflow-hidden bg-gradient-to-br ${currentItem.gradient} p-1`}>
-              <div className="bg-black/90 rounded-[22px] p-8 md:p-12">
+              <div className="bg-white rounded-[22px] p-8 md:p-12">
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   {/* Left - Visual */}
                   <div className="relative">
@@ -257,32 +257,32 @@ export function PharmacyShowcase() {
                       </div>
                     </div>
                     {/* Slide counter */}
-                    <div className="absolute bottom-4 right-4 px-3 py-1.5 rounded-full bg-black/50 text-white text-xs font-medium">
+                    <div className="absolute bottom-4 right-4 px-3 py-1.5 rounded-full bg-[#E6007E] text-white text-xs font-medium">
                       {currentSlide + 1} / {filteredSlides.length}
                     </div>
                   </div>
 
                   {/* Right - Info */}
                   <div>
-                    <div className="inline-block px-3 py-1 rounded-full bg-white/10 text-white/80 text-xs font-medium mb-4">
+                    <div className="inline-block px-3 py-1 rounded-full bg-[#E6007E]/10 text-[#E6007E] text-xs font-medium mb-4">
                       {currentItem.category === "weightloss" ? "GLP-1 WEIGHT LOSS" : 
                        currentItem.category === "peptides" ? "PEPTIDE THERAPY" : 
                        "VITAMIN INJECTION"}
                     </div>
-                    <h3 className="text-3xl md:text-4xl font-bold text-white mb-2">
+                    <h3 className="text-3xl md:text-4xl font-bold text-[#E6007E] mb-2">
                       {currentItem.name}
                     </h3>
-                    <p className="text-xl text-white/80 mb-6">
+                    <p className="text-xl text-[#E6007E] mb-6">
                       {currentItem.tagline}
                     </p>
 
                     <div className="space-y-3 mb-8">
                       {currentItem.benefits.map((benefit) => (
                         <div key={benefit} className="flex items-center gap-3">
-                          <div className={`w-6 h-6 rounded-full bg-gradient-to-br ${currentItem.gradient} flex items-center justify-center flex-shrink-0`}>
-                            <span className="text-white text-xs">✓</span>
+                          <div className="w-6 h-6 rounded-full bg-[#E6007E] flex items-center justify-center flex-shrink-0">
+                            <span className="text-white text-xs font-bold">✓</span>
                           </div>
-                          <span className="text-white/80">{benefit}</span>
+                          <span className="text-[#E6007E]">{benefit}</span>
                         </div>
                       ))}
                     </div>
@@ -292,13 +292,13 @@ export function PharmacyShowcase() {
                         href={BOOKING_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`py-3 px-6 bg-gradient-to-r ${currentItem.gradient} text-white font-bold text-center rounded-full hover:opacity-90 transition shadow-lg`}
+                        className="py-3 px-6 bg-[#E6007E] text-white font-bold text-center rounded-full hover:bg-[#B0005F] transition shadow-lg"
                       >
                         Book Consultation
                       </a>
                       <Link
                         href={currentItem.serviceLink}
-                        className="py-3 px-6 border border-white/20 text-white font-semibold text-center rounded-full hover:bg-white/10 transition block"
+                        className="py-3 px-6 border-2 border-[#E6007E] text-[#E6007E] font-semibold text-center rounded-full hover:bg-[#E6007E]/5 transition block"
                       >
                         Learn More
                       </Link>
@@ -312,14 +312,14 @@ export function PharmacyShowcase() {
             <button
               type="button"
               onClick={prevSlide}
-              className="absolute left-2 md:-left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/80 border border-white/20 text-white flex items-center justify-center hover:bg-pink-500 hover:border-pink-500 transition z-10"
+              className="absolute left-2 md:-left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white border-2 border-[#E6007E] text-[#E6007E] flex items-center justify-center hover:bg-[#E6007E] hover:text-white transition z-10 shadow-md"
             >
               ←
             </button>
             <button
               type="button"
               onClick={nextSlide}
-              className="absolute right-2 md:-right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/80 border border-white/20 text-white flex items-center justify-center hover:bg-pink-500 hover:border-pink-500 transition z-10"
+              className="absolute right-2 md:-right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white border-2 border-[#E6007E] text-[#E6007E] flex items-center justify-center hover:bg-[#E6007E] hover:text-white transition z-10 shadow-md"
             >
               →
             </button>
@@ -334,7 +334,7 @@ export function PharmacyShowcase() {
               type="button"
               onClick={() => setCurrentSlide(idx)}
               className={`h-2 rounded-full transition-all ${
-                idx === currentSlide ? "bg-pink-500 w-8" : "bg-gray-600 w-2 hover:bg-gray-500"
+                idx === currentSlide ? "bg-[#E6007E] w-8" : "bg-gray-300 w-2 hover:bg-[#E6007E]/50"
               }`}
             />
           ))}
