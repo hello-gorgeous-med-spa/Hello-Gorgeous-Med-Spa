@@ -54,7 +54,7 @@ export function ConditionalLayout({
   // Public website - full chrome with header, footer, etc. Light luxury theme.
   return (
     <ChatOpenProvider>
-      <div className="bg-[#FDF7FA] text-[#111111]">
+      <div className="bg-[#FDF7FA] text-[#E6007E]">
         <BookingTransitionBanner />
         <ImmediateCareStrip />
         <Header />

@@ -51,15 +51,15 @@ export function FullscriptSection() {
           <div className="text-center mb-12">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E6007E]/10 border border-[#E6007E]/20 mb-6">
               <span className="text-[#E6007E] font-semibold text-sm">NEW</span>
-              <span className="text-[#5E5E66] text-sm">Online Supplement Dispensary</span>
+              <span className="text-[#E6007E] text-sm">Online Supplement Dispensary</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#111111]">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#E6007E]">
               Hello Gorgeous{" "}
               <span className="text-[#E6007E]">
                 Dispensary
               </span>
             </h2>
-            <p className="mt-4 text-[#5E5E66] max-w-2xl mx-auto text-lg">
+            <p className="mt-4 text-[#E6007E] max-w-2xl mx-auto text-lg">
               Professional-grade supplements delivered to your door. 
               Curated by Ryan & Danielle for your wellness journey.
             </p>

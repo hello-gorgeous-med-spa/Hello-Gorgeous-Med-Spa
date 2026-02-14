@@ -185,13 +185,13 @@ export function PharmacyShowcase() {
         <FadeUp>
           <div className="text-center mb-10">
             <p className="text-[#E6007E] text-sm font-medium tracking-wide">COMPOUNDED PHARMACY</p>
-            <h2 className="mt-4 text-3xl md:text-4xl font-serif font-bold text-[#111111]">
+            <h2 className="mt-4 text-3xl md:text-4xl font-serif font-bold text-[#E6007E]">
               Peptides, GLP-1 &{" "}
               <span className="text-[#E6007E]">
                 Vitamin Injections
               </span>
             </h2>
-            <p className="mt-4 text-[#5E5E66] max-w-2xl mx-auto">
+            <p className="mt-4 text-[#E6007E] max-w-2xl mx-auto">
               Premium compounded medications for weight loss, wellness, and optimization.
               All prescribed by our medical team after consultation.
             </p>
@@ -209,7 +209,7 @@ export function PharmacyShowcase() {
                 className={`px-5 py-2.5 rounded-full font-medium text-sm transition-all ${
                   activeCategory === cat.id
                     ? "bg-[#E6007E] text-white shadow-md"
-                    : "bg-[#111111]/5 text-[#5E5E66] hover:bg-[#111111]/10 hover:text-[#111111] border border-[#111111]/10"
+                    : "bg-[#111111]/5 text-[#E6007E] hover:bg-[#111111]/10 hover:text-[#E6007E] border border-black"
                 }`}
               >
                 <span className="mr-2">{cat.icon}</span>

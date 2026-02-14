@@ -99,12 +99,12 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
   };
 
   return (
-    <div className="rounded-xl border border-[#111111]/10 bg-white shadow-md p-4 md:p-5 flex flex-col hover:shadow-xl hover:-translate-y-[2px] transition-all">
+    <div className="rounded-xl border-2 border-black bg-white shadow-md p-4 md:p-5 flex flex-col hover:shadow-xl hover:-translate-y-[2px] transition-all">
       <div className="flex gap-4 items-start flex-1 min-h-0">
         {/* Character Image - uniform portrait size (face + full-body same) */}
         <div className="flex-shrink-0">
           <div
-            className="relative rounded-xl overflow-hidden border border-[#111111]/10 shadow-lg"
+            className="relative rounded-xl overflow-hidden border-2 border-black shadow-lg"
             style={{ width: AVATAR_SIZE, height: AVATAR_SIZE }}
           >
             {showVideo && data.videoSrc ? (
@@ -146,10 +146,10 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-xl">{ui.emoji}</span>
-            <h3 className="text-lg font-bold text-[#111111] truncate">{cfg.displayName}</h3>
+            <h3 className="text-lg font-bold text-[#E6007E] truncate">{cfg.displayName}</h3>
           </div>
           <p className="text-xs text-[#E6007E] mb-3">{cfg.role}</p>
-          <p className="text-[#5E5E66] text-sm leading-snug line-clamp-2 mb-3">{ui.tagline}</p>
+          <p className="text-[#E6007E] text-sm leading-snug line-clamp-2 mb-3">{ui.tagline}</p>
 
           {/* Feature Pills - compact */}
           <div className="flex flex-wrap gap-1.5 mb-3">
@@ -185,7 +185,7 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-full bg-[#111111]/5 text-[#111111] font-medium text-xs hover:bg-[#111111]/10 transition border border-[#111111]/20"
+                className="px-3 py-1.5 rounded-full bg-[#111111]/5 text-[#E6007E] font-medium text-xs hover:bg-[#111111]/10 transition border border-black"
             >
               Book
             </a>
@@ -214,8 +214,8 @@ export function MascotHeroSection() {
     <div className="space-y-6">
       <div className="text-center mb-8">
         <p className="text-[#E6007E] text-sm font-medium tracking-wide">MEET YOUR CARE TEAM</p>
-        <h2 className="mt-2 text-2xl md:text-4xl font-bold text-[#111111]">Your experts, on demand</h2>
-        <p className="mt-2 text-sm md:text-base text-[#5E5E66] max-w-2xl mx-auto">
+        <h2 className="mt-2 text-2xl md:text-4xl font-bold text-[#E6007E]">Your experts, on demand</h2>
+        <p className="mt-2 text-sm md:text-base text-[#E6007E] max-w-2xl mx-auto">
           Pick an expert to get clear, calm answers. Education only—book a consult for medical advice.
         </p>
       </div>
@@ -229,22 +229,22 @@ export function MascotHeroSection() {
       {/* Chat Modal */}
       {chatOpen && selectedPersona && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
-          <div className="w-full max-w-lg bg-white border border-[#111111]/10 rounded-2xl overflow-hidden shadow-2xl">
-            <div className="p-4 border-b border-[#111111]/10 flex items-center justify-between">
+          <div className="w-full max-w-lg bg-white border-2 border-black rounded-2xl overflow-hidden shadow-2xl">
+            <div className="p-4 border-b border-black flex items-center justify-between">
               <div>
-                <p className="text-[#111111] font-bold">Chat with {getPersonaConfig(selectedPersona).displayName}</p>
-                <p className="text-xs text-[#5E5E66]">Education only. No medical advice.</p>
+                <p className="text-[#E6007E] font-bold">Chat with {getPersonaConfig(selectedPersona).displayName}</p>
+                <p className="text-xs text-[#E6007E]">Education only. No medical advice.</p>
               </div>
               <button
                 type="button"
                 onClick={handleCloseChat}
-                className="text-[#5E5E66] hover:text-[#111111] p-2"
+                className="text-[#E6007E] hover:text-[#E6007E] p-2"
               >
                 ✕
               </button>
             </div>
             <div className="p-6">
-                <p className="text-[#5E5E66] text-sm mb-4">
+                <p className="text-[#E6007E] text-sm mb-4">
                 Ask {getPersonaConfig(selectedPersona).displayName} about {getPersonaConfig(selectedPersona).role.toLowerCase()}.
               </p>
               <div className="space-y-3">
@@ -252,7 +252,7 @@ export function MascotHeroSection() {
                   <button
                     key={idx}
                     type="button"
-                    className="w-full text-left px-4 py-3 rounded-xl border border-[#E6007E]/20 bg-[#E6007E]/5 text-[#111111] text-sm hover:bg-[#E6007E]/10 hover:border-[#E6007E]/40 transition"
+                    className="w-full text-left px-4 py-3 rounded-xl border border-[#E6007E]/20 bg-[#E6007E]/5 text-[#E6007E] text-sm hover:bg-[#E6007E]/10 hover:border-[#E6007E]/40 transition"
                   >
                     {starter}
                   </button>
@@ -262,7 +262,7 @@ export function MascotHeroSection() {
                 <input
                   type="text"
                   placeholder="Type your question..."
-                  className="flex-1 px-4 py-3 rounded-xl bg-[#111111]/5 border border-[#111111]/10 text-[#111111] placeholder:text-[#5E5E66] focus:outline-none focus:border-[#E6007E]/50"
+                  className="flex-1 px-4 py-3 rounded-xl bg-[#111111]/5 border-2 border-black text-[#E6007E] placeholder:text-[#E6007E] focus:outline-none focus:border-[#E6007E]/50"
                 />
                 <button
                   type="button"

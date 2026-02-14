@@ -14,7 +14,7 @@ const services = [
 
 export function ImmediateCareBanner() {
   return (
-    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FDF7FA] border-y border-[#111111]/10">
+    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FDF7FA] border-y border-black">
       <div className="max-w-6xl mx-auto min-w-0">
         <FadeUp>
           <div className="text-center mb-8">
@@ -26,13 +26,13 @@ export function ImmediateCareBanner() {
               <span className="text-[#E6007E] font-semibold text-sm">Appointments Available NOW</span>
             </div>
             
-            <h2 className="text-2xl md:text-4xl font-serif font-bold text-[#111111] mb-3">
+            <h2 className="text-2xl md:text-4xl font-serif font-bold text-[#E6007E] mb-3">
               Can&apos;t Get In With Your Doctor?
             </h2>
-            <p className="text-xl text-[#5E5E66] mb-2">
+            <p className="text-xl text-[#E6007E] mb-2">
               Need Immediate Care With <span className="text-[#E6007E] font-semibold">No Waiting?</span>
             </p>
-            <p className="text-[#5E5E66] max-w-2xl mx-auto">
+            <p className="text-[#E6007E] max-w-2xl mx-auto">
               Skip the 6-week wait. Our nurse practitioner Ryan Kent, FNP-BC can see you 
               this week—often same-day or next-day appointments available.
             </p>
@@ -44,10 +44,10 @@ export function ImmediateCareBanner() {
             {services.map((service) => (
               <div
                 key={service.name}
-                className="p-4 rounded-xl bg-white shadow-md border border-[#111111]/10 text-center hover:border-[#E6007E]/30 hover:shadow-xl transition"
+                className="p-4 rounded-xl bg-white shadow-md border border-black text-center hover:border-[#E6007E]/30 hover:shadow-xl transition"
               >
                 <span className="text-3xl mb-2 block">{service.icon}</span>
-                <p className="text-[#111111] font-semibold text-sm">{service.name}</p>
+                <p className="text-[#E6007E] font-semibold text-sm">{service.name}</p>
                 <p className="text-[#E6007E] text-xs">{service.desc}</p>
               </div>
             ))}
@@ -70,7 +70,7 @@ export function ImmediateCareBanner() {
             </a>
             <a
               href="tel:630-636-6193"
-              className="w-full sm:w-auto min-h-[48px] px-8 py-4 rounded-xl bg-white border border-[#111111]/20 text-[#111111] font-medium hover:bg-[#111111]/5 transition flex items-center justify-center gap-2"
+              className="w-full sm:w-auto min-h-[48px] px-8 py-4 rounded-xl bg-white border border-black text-[#E6007E] font-medium hover:bg-[#111111]/5 transition flex items-center justify-center gap-2"
             >
               📞 Call Now: 630-636-6193
             </a>

@@ -40,8 +40,8 @@ export function PhotoGallery() {
         <FadeUp>
           <div className="text-center mb-12">
             <p className="text-[#E6007E] text-sm font-medium tracking-wide">REAL RESULTS</p>
-            <h2 className="mt-4 text-2xl md:text-4xl font-serif font-bold text-[#111111]">See the Difference</h2>
-            <p className="mt-4 text-base md:text-lg text-[#5E5E66] max-w-2xl mx-auto">
+            <h2 className="mt-4 text-2xl md:text-4xl font-serif font-bold text-[#E6007E]">See the Difference</h2>
+            <p className="mt-4 text-base md:text-lg text-[#E6007E] max-w-2xl mx-auto">
               Real patients, real results. See what Hello Gorgeous Med Spa can do for you.
             </p>
           </div>
@@ -50,7 +50,7 @@ export function PhotoGallery() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {galleryImages.map((image, idx) => (
             <FadeUp key={image.src} delayMs={100 * idx}>
-              <div className="group relative aspect-square rounded-xl overflow-hidden border border-[#111111]/10 hover:border-[#E6007E]/30 shadow-md hover:shadow-xl transition">
+              <div className="group relative aspect-square rounded-xl overflow-hidden border-2 border-black hover:border-[#E6007E]/30 shadow-md hover:shadow-xl transition">
                 <Image
                   src={image.src}
                   alt={image.alt}

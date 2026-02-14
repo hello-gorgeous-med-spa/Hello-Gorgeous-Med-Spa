@@ -18,10 +18,10 @@ export function QuizCTA() {
                 <span className="inline-block px-4 py-1 rounded-full bg-[#E6007E]/10 text-[#E6007E] text-sm font-medium mb-4">
                   ✨ Free 2-Minute Quiz
                 </span>
-                <h2 className="text-2xl md:text-4xl font-serif font-bold text-[#111111] mb-3">
+                <h2 className="text-2xl md:text-4xl font-serif font-bold text-[#E6007E] mb-3">
                   Not Sure Where to Start?
                 </h2>
-                <p className="text-[#5E5E66] text-lg mb-6 md:mb-0">
+                <p className="text-[#E6007E] text-lg mb-6 md:mb-0">
                   Take our quick quiz and get personalized treatment recommendations 
                   tailored to your goals. Plus, get <span className="text-[#E6007E] font-semibold">10% off</span> your first visit!
                 </p>
@@ -35,7 +35,7 @@ export function QuizCTA() {
                   <span className="text-2xl">🎯</span>
                   Find My Treatment
                 </Link>
-                <p className="text-center mt-3 text-[#5E5E66] text-sm">
+                <p className="text-center mt-3 text-[#E6007E] text-sm">
                   Takes only 2 minutes
                 </p>
               </div>

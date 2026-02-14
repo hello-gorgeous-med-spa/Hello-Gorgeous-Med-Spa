@@ -14,7 +14,7 @@ export function LocationMap() {
         <FadeUp>
           <div className="text-center mb-12">
             <p className="text-[#E6007E] text-sm font-medium tracking-wide">VISIT US</p>
-            <h2 className="mt-4 text-3xl md:text-4xl font-serif font-bold text-[#111111]">
+            <h2 className="mt-4 text-3xl md:text-4xl font-serif font-bold text-[#E6007E]">
               Our{" "}
               <span className="text-[#E6007E]">
                 Location
@@ -33,8 +33,8 @@ export function LocationMap() {
 
           {/* Contact Info */}
           <FadeUp delayMs={120}>
-            <div className="h-full rounded-xl border border-[#111111]/10 bg-white shadow-md p-8 flex flex-col justify-center">
-              <h3 className="text-2xl font-bold text-[#111111] mb-6">Hello Gorgeous Med Spa</h3>
+            <div className="h-full rounded-xl border-2 border-black bg-white shadow-md p-8 flex flex-col justify-center">
+              <h3 className="text-2xl font-bold text-[#E6007E] mb-6">Hello Gorgeous Med Spa</h3>
               
               <div className="space-y-6">
                 {/* Address */}
@@ -48,10 +48,10 @@ export function LocationMap() {
                     <span className="text-xl">📍</span>
                   </div>
                   <div>
-                    <p className="text-[#111111] font-semibold group-hover:text-[#E6007E] transition">
+                    <p className="text-[#E6007E] font-semibold group-hover:text-[#E6007E] transition">
                       {SITE.address.streetAddress}
                     </p>
-                    <p className="text-[#5E5E66]">
+                    <p className="text-[#E6007E]">
                       {SITE.address.addressLocality}, {SITE.address.addressRegion} {SITE.address.postalCode}
                     </p>
                     <p className="text-[#E6007E] text-sm mt-1">Get Directions →</p>
@@ -67,10 +67,10 @@ export function LocationMap() {
                     <span className="text-xl">📞</span>
                   </div>
                   <div>
-                    <p className="text-[#111111] font-semibold group-hover:text-[#E6007E] transition">
+                    <p className="text-[#E6007E] font-semibold group-hover:text-[#E6007E] transition">
                       {SITE.phone}
                     </p>
-                    <p className="text-[#5E5E66]">Call or text us</p>
+                    <p className="text-[#E6007E]">Call or text us</p>
                   </div>
                 </a>
 
@@ -81,7 +81,7 @@ export function LocationMap() {
                   </div>
                   <div>
                     <p className="text-white font-semibold">Hours</p>
-                    <p className="text-[#5E5E66]">By Appointment</p>
+                    <p className="text-[#E6007E]">By Appointment</p>
                     <p className="text-gray-500 text-sm">Botox Parties: Tue & Sat 6-9 PM</p>
                   </div>
                 </div>

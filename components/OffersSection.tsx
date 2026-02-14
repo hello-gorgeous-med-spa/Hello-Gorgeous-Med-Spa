@@ -11,7 +11,7 @@ export function OffersSection() {
       <div className="max-w-6xl mx-auto min-w-0">
         <FadeUp>
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-4xl font-serif font-bold text-[#111111]">
+            <h2 className="text-2xl md:text-4xl font-serif font-bold text-[#E6007E]">
               Exclusive{" "}
               <span className="text-[#E6007E]">
                 Offers
@@ -29,7 +29,7 @@ export function OffersSection() {
               rel="noopener noreferrer"
               className="group block h-full"
             >
-              <div className="h-full rounded-xl border border-[#111111]/10 bg-white shadow-md p-6 hover:border-[#E6007E]/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-[2px]">
+              <div className="h-full rounded-xl border-2 border-black bg-white shadow-md p-6 hover:border-[#E6007E]/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-[2px]">
                 <div className="flex flex-col items-center text-center h-full">
                   {/* Logo */}
                   <div className="relative w-32 h-32 mb-4">
@@ -45,10 +45,10 @@ export function OffersSection() {
                   <p className="text-[#E6007E] text-xs font-bold tracking-widest mb-2">
                     THE PERFECT GIFT
                   </p>
-                  <h3 className="text-2xl font-bold text-[#111111] mb-2">
+                  <h3 className="text-2xl font-bold text-[#E6007E] mb-2">
                     Gift Cards
                   </h3>
-                  <p className="text-[#5E5E66] text-sm mb-4 flex-1">
+                  <p className="text-[#E6007E] text-sm mb-4 flex-1">
                     Give the gift of confidence. Instant email delivery.
                   </p>
 
@@ -67,26 +67,26 @@ export function OffersSection() {
               href={BOOKING_URL}
               className="group block h-full"
             >
-              <div className="h-full rounded-xl border border-[#111111]/10 bg-white shadow-md p-6 hover:border-[#E6007E]/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-[2px]">
+              <div className="h-full rounded-xl border-2 border-black bg-white shadow-md p-6 hover:border-[#E6007E]/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-[2px]">
                 <div className="flex flex-col items-center text-center h-full">
                   <p className="text-[#E6007E] text-xs font-bold tracking-widest mb-2">
                     LIMITED TIME
                   </p>
-                  <h3 className="text-2xl font-bold text-[#111111] mb-4">
+                  <h3 className="text-2xl font-bold text-[#E6007E] mb-4">
                     Special Pricing
                   </h3>
 
                   <div className="space-y-3 mb-4 flex-1 w-full">
                     <div className="flex items-center justify-between px-4 py-2 rounded-xl bg-[#111111]/5">
-                      <span className="text-[#5E5E66]">💉 Botox</span>
+                      <span className="text-[#E6007E]">💉 Botox</span>
                       <span className="text-[#E6007E] font-bold">$10/unit</span>
                     </div>
                     <div className="flex items-center justify-between px-4 py-2 rounded-xl bg-[#111111]/5">
-                      <span className="text-[#5E5E66]">⚖️ Weight Loss</span>
+                      <span className="text-[#E6007E]">⚖️ Weight Loss</span>
                       <span className="text-[#E6007E] font-bold">1st Mo FREE</span>
                     </div>
                     <div className="flex items-center justify-between px-4 py-2 rounded-xl bg-[#111111]/5">
-                      <span className="text-[#5E5E66]">✨ Dermal Filler</span>
+                      <span className="text-[#E6007E]">✨ Dermal Filler</span>
                       <span className="text-[#E6007E] font-bold">$500/syringe</span>
                     </div>
                   </div>
@@ -106,7 +106,7 @@ export function OffersSection() {
           <div className="mt-6 text-center">
             <a
               href="tel:630-636-6193"
-              className="inline-flex items-center gap-2 text-[#5E5E66] hover:text-[#111111] transition"
+              className="inline-flex items-center gap-2 text-[#E6007E] hover:text-[#E6007E] transition"
             >
               📞 Questions? Call 630-636-6193
             </a>

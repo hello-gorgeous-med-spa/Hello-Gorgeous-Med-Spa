@@ -10,10 +10,10 @@ export function FixWhatBothersMeFeature() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col min-h-0 flex-1">
         {/* Title + subhead — mobile-first, compact on small screens */}
         <div className="text-center mb-6 md:mb-12 flex-shrink-0">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#111111]">
+          <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#E6007E]">
             Fix what bothers me
           </h2>
-          <p className="mt-3 md:mt-4 text-base md:text-lg text-[#5E5E66] max-w-2xl mx-auto">
+          <p className="mt-3 md:mt-4 text-base md:text-lg text-[#E6007E] max-w-2xl mx-auto">
             Your space. No judgment. Tell us what you'd change — we'll guide you.
           </p>
         </div>
@@ -29,14 +29,14 @@ export function FixWhatBothersMeFeature() {
               href={`/fix-what-bothers-me?concern=${encodeURIComponent(concern.key)}`}
               className="flex-shrink-0 w-[160px] md:w-[180px] snap-center group min-h-[44px] active:scale-[0.98] transition-transform"
             >
-              <div className="h-full min-h-[140px] rounded-xl border border-[#111111]/10 bg-white shadow-md p-6 md:p-8 transition-all duration-300 ease-out hover:border-[#E6007E]/30 hover:shadow-xl hover:-translate-y-[2px] active:border-[#E6007E]/50 focus-visible:ring-2 focus-visible:ring-[#E6007E]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white">
+              <div className="h-full min-h-[140px] rounded-xl border-2 border-black bg-white shadow-md p-6 md:p-8 transition-all duration-300 ease-out hover:border-[#E6007E]/30 hover:shadow-xl hover:-translate-y-[2px] active:border-[#E6007E]/50 focus-visible:ring-2 focus-visible:ring-[#E6007E]/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white">
                 <div className="text-3xl md:text-4xl mb-3 transition-transform duration-200 group-hover:scale-110 group-active:scale-105">
                   {concern.icon}
                 </div>
-                <p className="font-semibold text-[#111111] text-sm md:text-base leading-tight">
+                <p className="font-semibold text-[#E6007E] text-sm md:text-base leading-tight">
                   {concern.label}
                 </p>
-                <p className="mt-2 text-[#5E5E66] md:text-[#5E5E66]/0 md:group-hover:text-[#E6007E] text-xs font-medium transition-colors duration-200">
+                <p className="mt-2 text-[#E6007E] md:text-[#E6007E]/0 md:group-hover:text-[#E6007E] text-xs font-medium transition-colors duration-200">
                   See options →
                 </p>
               </div>
@@ -54,7 +54,7 @@ export function FixWhatBothersMeFeature() {
           </Link>
           <Link
             href={BOOKING_URL}
-            className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center px-6 py-4 border border-[#111111]/20 text-[#5E5E66] font-medium rounded-full hover:bg-[#111111]/5 hover:text-[#111111] active:bg-[#111111]/10 transition-colors text-center text-base"
+            className="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center px-6 py-4 border border-black text-[#E6007E] font-medium rounded-full hover:bg-[#111111]/5 hover:text-[#E6007E] active:bg-[#111111]/10 transition-colors text-center text-base"
           >
             Or book directly →
           </Link>

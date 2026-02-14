@@ -74,13 +74,13 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
     : null;
 
   const gridClass = embedded ? "grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 h-full min-h-0" : "grid lg:grid-cols-2 gap-8 items-start";
-  const panelClass = "bg-white rounded-xl p-6 md:p-8 shadow-md border border-[#EAE4E8] flex-1";
+  const panelClass = "bg-white rounded-xl p-6 md:p-8 shadow-md border-2 border-black flex-1";
 
   const innerContent = (
     <div className={gridClass}>
       {/* Face + Neck Image */}
       <FadeUp delayMs={embedded ? 0 : 60}>
-        <div className="relative rounded-xl overflow-hidden bg-[#FDF7FA]">
+        <div className="relative rounded-xl overflow-hidden bg-[#FDF7FA] border-2 border-black">
           <div className="relative w-full max-w-[360px] aspect-[2/3] mx-auto">
             <Image
               src="/images/hg-botox-face-neck.png"
@@ -104,9 +104,9 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
             ))}
           </div>
           {hoveredAreaData && (
-            <div className="absolute bottom-4 left-4 right-4 bg-white rounded-xl p-4 shadow-lg border border-[#EAE4E8]">
-              <p className="text-[#111111] font-semibold">{hoveredAreaData.name}</p>
-              <p className="text-[#5E5E66] text-sm">{hoveredAreaData.description}</p>
+            <div className="absolute bottom-4 left-4 right-4 bg-white rounded-xl p-4 shadow-lg border-2 border-black">
+              <p className="text-[#E6007E] font-semibold">{hoveredAreaData.name}</p>
+              <p className="text-[#E6007E] text-sm">{hoveredAreaData.description}</p>
               <p className="text-[#E6007E] text-sm mt-1">
                 {hoveredAreaData.units.min}-{hoveredAreaData.units.max} units • $
                 {hoveredAreaData.units.min * PRICE_PER_UNIT}-${hoveredAreaData.units.max * PRICE_PER_UNIT}
@@ -119,11 +119,11 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
       {/* Estimate Panel */}
       <FadeUp delayMs={embedded ? 0 : 120}>
         <div className={`${panelClass} ${!embedded ? "lg:sticky lg:top-24" : ""}`}>
-          <h3 className="text-xl font-bold text-[#111111] mb-4">Your Estimate</h3>
+          <h3 className="text-xl font-bold text-[#E6007E] mb-4">Your Estimate</h3>
 
           <div className="space-y-2 mb-6 max-h-64 overflow-y-auto">
             {selectedAreas.size === 0 ? (
-              <p className="text-[#5E5E66] text-sm italic">Tap areas on the face to add treatments</p>
+              <p className="text-[#E6007E] text-sm italic">Tap areas on the face to add treatments</p>
             ) : (
               Array.from(selectedAreas).map((areaId) => {
                 const area = treatmentAreas.find((a) => a.id === areaId);
@@ -131,11 +131,11 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
                 return (
                   <div
                     key={area.id}
-                    className="flex items-center justify-between p-3 rounded-lg bg-[#FDF7FA] border border-[#E6007E]/20"
+                    className="flex items-center justify-between p-3 rounded-lg bg-[#FDF7FA] border-2 border-black"
                   >
                     <div>
-                      <p className="text-[#111111] text-sm font-medium">{area.name}</p>
-                      <p className="text-[#5E5E66] text-xs">{area.units.min}-{area.units.max} units</p>
+                      <p className="text-[#E6007E] text-sm font-medium">{area.name}</p>
+                      <p className="text-[#E6007E] text-xs">{area.units.min}-{area.units.max} units</p>
                     </div>
                     <div className="text-right">
                       <p className="text-[#E6007E] font-semibold">
@@ -144,7 +144,7 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
                       <button
                         type="button"
                         onClick={() => toggleArea(area.id)}
-                        className="text-[#5E5E66] text-xs hover:text-[#E6007E] transition"
+                        className="text-[#E6007E] text-xs hover:text-[#E6007E] transition"
                       >
                         Remove
                       </button>
@@ -155,21 +155,21 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
             )}
           </div>
 
-          <div className="border-t border-[#EAE4E8] my-4" />
+          <div className="border-t-2 border-black my-4" />
 
           <div className="space-y-3 mb-6">
-            <div className="flex justify-between text-[#5E5E66]">
+            <div className="flex justify-between text-[#E6007E]">
               <span>Total Units</span>
               <span>
                 {totals.minUnits === totals.maxUnits ? totals.minUnits : `${totals.minUnits}-${totals.maxUnits}`} units
               </span>
             </div>
-            <div className="flex justify-between text-[#5E5E66]">
+            <div className="flex justify-between text-[#E6007E]">
               <span>Price per Unit</span>
               <span>${PRICE_PER_UNIT}</span>
             </div>
             <div className="flex justify-between text-xl font-bold">
-              <span className="text-[#111111]">Estimated Total</span>
+              <span className="text-[#E6007E]">Estimated Total</span>
               <span className="text-[#E6007E]">
                 {selectedAreas.size === 0 ? "$0" : totals.minPrice === totals.maxPrice ? `$${totals.minPrice}` : `$${totals.minPrice} - $${totals.maxPrice}`}
               </span>
@@ -177,7 +177,7 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
           </div>
 
           {selectedAreas.size >= 3 && (
-            <div className="mb-6 p-3 rounded-lg bg-[#E6007E]/10 border border-[#E6007E]/20">
+            <div className="mb-6 p-3 rounded-lg bg-[#E6007E]/10 border-2 border-black">
               <p className="text-[#E6007E] text-sm font-medium">💡 Tip: Ask about our multi-area discount!</p>
             </div>
           )}
@@ -193,13 +193,13 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
             </a>
             <a
               href="tel:630-636-6193"
-              className="block w-full py-3 px-6 rounded-md bg-white border border-[#EAE4E8] text-[#111111] font-medium text-center hover:bg-[#FDF7FA] transition"
+              className="block w-full py-3 px-6 rounded-md bg-white border border-[#EAE4E8] text-[#E6007E] font-medium text-center hover:bg-[#FDF7FA] transition"
             >
               📞 Call 630-636-6193
             </a>
           </div>
 
-          <p className="mt-4 text-[#5E5E66] text-xs text-center">
+          <p className="mt-4 text-[#E6007E] text-xs text-center">
             * Estimates based on average units. Final pricing determined by provider based on your unique anatomy and goals.
           </p>
         </div>
@@ -212,9 +212,9 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
       <div className="h-full min-h-[420px] flex flex-col rounded-2xl border border-[#E6007E]/15 bg-white p-6 overflow-hidden shadow-lg">
         <div className="flex items-center gap-2 mb-4">
           <span className="text-2xl">💉</span>
-          <h3 className="text-xl font-bold text-[#111111]">Botox Price Calculator</h3>
+          <h3 className="text-xl font-bold text-[#E6007E]">Botox Price Calculator</h3>
         </div>
-        <p className="text-[#5E5E66] text-sm mb-4">
+        <p className="text-[#E6007E] text-sm mb-4">
           Tap the areas you&apos;d like to treat and get an instant estimate.
         </p>
         <div className="flex-1 min-h-0 overflow-auto">
@@ -232,11 +232,11 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
             <span className="inline-block px-4 py-1 rounded-full bg-[#E6007E]/15 text-[#E6007E] text-sm font-medium mb-4">
               💉 Interactive Tool
             </span>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#111111] mb-3">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#E6007E] mb-3">
               Botox{" "}
               <span className="text-[#E6007E]">Price Calculator</span>
             </h2>
-            <p className="text-[#5E5E66] max-w-xl mx-auto">
+            <p className="text-[#E6007E] max-w-xl mx-auto">
               Tap the areas you&apos;d like to treat and get an instant estimate.
               Final pricing determined during consultation.
             </p>
@@ -245,7 +245,7 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
         {innerContent}
         <FadeUp delayMs={180}>
           <div className="mt-12">
-            <h3 className="text-xl font-bold text-[#111111] text-center mb-6">
+            <h3 className="text-xl font-bold text-[#E6007E] text-center mb-6">
               Popular Treatment Packages
             </h3>
             <div className="grid sm:grid-cols-3 gap-4">
@@ -268,8 +268,8 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
                     }`}
                   >
                     {pkg.popular && <span className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-[#E6007E] text-white text-xs font-medium">Popular</span>}
-                    <h4 className="text-[#111111] font-semibold">{pkg.name}</h4>
-                    <p className="text-[#5E5E66] text-sm">{pkg.description}</p>
+                    <h4 className="text-[#E6007E] font-semibold">{pkg.name}</h4>
+                    <p className="text-[#E6007E] text-sm">{pkg.description}</p>
                     <p className="text-[#E6007E] font-bold mt-2">Starting at ${pkgTotal}</p>
                   </button>
                 );

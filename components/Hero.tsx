@@ -39,7 +39,7 @@ export function Hero({
         {/* Left column: headline, subtext, CTA */}
         <div className="flex-1 max-w-xl min-w-0">
           <h1
-            className={`font-serif font-bold leading-tight text-[#111111] transition-all duration-[400ms] ease-out text-4xl md:text-6xl ${
+            className={`font-serif font-bold leading-tight text-[#E6007E] transition-all duration-[400ms] ease-out text-4xl md:text-6xl ${
               mounted ? "opacity-100" : "opacity-0"
             }`}
             style={{ letterSpacing: "-0.02em" }}
@@ -47,7 +47,7 @@ export function Hero({
             {headline}
           </h1>
           <p
-            className={`mt-4 text-base md:text-lg text-[#5E5E66] transition-all duration-[400ms] ease-out ${
+            className={`mt-4 text-base md:text-lg text-[#E6007E] transition-all duration-[400ms] ease-out ${
               mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
             }`}
             style={{ transitionDelay: "100ms" }}
@@ -55,7 +55,7 @@ export function Hero({
             {subheadline}
           </p>
           <p
-            className={`mt-1 text-sm md:text-base text-[#5E5E66]/90 transition-all duration-[400ms] ease-out ${
+            className={`mt-1 text-sm md:text-base text-[#E6007E]/90 transition-all duration-[400ms] ease-out ${
               mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
             }`}
             style={{ transitionDelay: "200ms" }}
@@ -76,7 +76,7 @@ export function Hero({
             </Link>
             <a
               href="tel:630-636-6193"
-              className="inline-flex w-full min-h-[48px] items-center justify-center uppercase tracking-widest px-10 py-4 rounded-md text-sm font-semibold border border-[#111111]/30 text-[#111111] transition-all duration-300 ease-out hover:bg-[#111111]/5 hover:-translate-y-[2px] sm:w-auto"
+              className="inline-flex w-full min-h-[48px] items-center justify-center uppercase tracking-widest px-10 py-4 rounded-md text-sm font-semibold border-2 border-black text-[#E6007E] transition-all duration-300 ease-out hover:bg-[#111111]/5 hover:-translate-y-[2px] sm:w-auto"
             >
               Call 630-636-6193
             </a>

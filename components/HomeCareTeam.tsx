@@ -97,8 +97,8 @@ export function HomeCareTeam() {
         <FadeUp>
           <div className="text-center">
             <p className="text-[#E6007E] text-sm font-medium tracking-wide">MEET YOUR CARE TEAM</p>
-            <h2 className="mt-4 text-2xl md:text-4xl font-serif font-bold text-[#111111]">Real guidance. Thoughtful education.</h2>
-            <p className="mt-4 text-base md:text-lg text-[#5E5E66] max-w-3xl mx-auto">
+            <h2 className="mt-4 text-2xl md:text-4xl font-serif font-bold text-[#E6007E]">Real guidance. Thoughtful education.</h2>
+            <p className="mt-4 text-base md:text-lg text-[#E6007E] max-w-3xl mx-auto">
               Support before you ever book. Choose an expert voice—get clear, calm answers powered by our Knowledge Library.
             </p>
           </div>
@@ -124,7 +124,7 @@ export function HomeCareTeam() {
                     }}
                     className={cx(
                       "min-w-[260px] sm:min-w-[280px] text-left rounded-xl border bg-white shadow-md p-5 transition hover:shadow-xl hover:-translate-y-[2px]",
-                      active ? "border-[#E6007E]/40" : "border-[#111111]/10 hover:border-[#E6007E]/30",
+                      active ? "border-2 border-black" : "border-black hover:border-[#E6007E]/30",
                     )}
                   >
                     <div className="flex items-center gap-3">
@@ -159,15 +159,15 @@ export function HomeCareTeam() {
                         })()}
                       </div>
                       <div className="min-w-0">
-                        <p className="text-xs text-[#5E5E66]">{p.role}</p>
-                        <p className="mt-1 text-lg font-bold text-[#111111] truncate">
+                        <p className="text-xs text-[#E6007E]">{p.role}</p>
+                        <p className="mt-1 text-lg font-bold text-[#E6007E] truncate">
                           <span className="mr-2">{pUi.emoji}</span>
                           {p.displayName}
                         </p>
                       </div>
                     </div>
-                    <p className="mt-4 text-sm text-[#5E5E66]">{pUi.tagline}</p>
-                    <p className="mt-3 text-xs text-[#5E5E66]">Tap to open spotlight</p>
+                    <p className="mt-4 text-sm text-[#E6007E]">{pUi.tagline}</p>
+                    <p className="mt-3 text-xs text-[#E6007E]">Tap to open spotlight</p>
                   </button>
                 </FadeUp>
               );
@@ -176,16 +176,16 @@ export function HomeCareTeam() {
 
           {/* Persona Spotlight Drawer (inline) */}
           {drawerOpen ? (
-            <div className="mt-8 rounded-xl border border-[#111111]/10 bg-white shadow-md overflow-hidden">
-              <div className="p-5 border-b border-[#111111]/10 flex items-start justify-between gap-4">
+            <div className="mt-8 rounded-xl border border-black bg-white shadow-md overflow-hidden">
+              <div className="p-5 border-b border-black flex items-start justify-between gap-4">
                 <div className="min-w-0">
-                  <p className="text-sm text-[#5E5E66]">Persona spotlight</p>
-                  <p className="mt-1 text-xl font-bold text-[#111111]">
+                  <p className="text-sm text-[#E6007E]">Persona spotlight</p>
+                  <p className="mt-1 text-xl font-bold text-[#E6007E]">
                     <span className="mr-2">{ui.emoji}</span>
                     {cfg.displayName}
                   </p>
-                  <p className="mt-2 text-sm text-[#5E5E66]">{cfg.role}</p>
-                  <p className="mt-3 text-sm text-[#5E5E66]">{ui.tagline}</p>
+                  <p className="mt-2 text-sm text-[#E6007E]">{cfg.role}</p>
+                  <p className="mt-3 text-sm text-[#E6007E]">{ui.tagline}</p>
                 </div>
                 <button
                   type="button"
@@ -194,7 +194,7 @@ export function HomeCareTeam() {
                     setChatOpen(false);
                     setVideoOpen(false);
                   }}
-                  className="rounded-lg p-2 text-[#5E5E66] hover:text-[#111111] hover:bg-[#111111]/5 transition"
+                  className="rounded-lg p-2 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#111111]/5 transition"
                   aria-label="Close spotlight"
                 >
                   ✕
@@ -220,7 +220,7 @@ export function HomeCareTeam() {
                       setInput(ui.chatStarters[0] ?? "Where should I start?");
                       memory.setPreference({ stage: "learning" });
                     }}
-                    className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full border border-[#111111]/20 text-[#111111] hover:bg-[#111111]/5 transition"
+                    className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full border border-black text-[#E6007E] hover:bg-[#111111]/5 transition"
                   >
                     Just learning
                   </button>
@@ -231,7 +231,7 @@ export function HomeCareTeam() {
                     <button
                       type="button"
                       onClick={() => setVideoOpen((v) => !v)}
-                      className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full border border-[#111111]/20 text-[#111111] hover:bg-[#111111]/5 transition"
+                      className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full border border-black text-[#E6007E] hover:bg-[#111111]/5 transition"
                     >
                       {videoOpen ? "Hide video" : "Watch intro"}
                     </button>
@@ -241,17 +241,17 @@ export function HomeCareTeam() {
                 {videoOpen && videoSrc ? (
                   <div className="mt-6">
                     <MascotVideo src={videoSrc} poster={poster} title={`${cfg.displayName} video`} />
-                    <p className="mt-3 text-xs text-[#5E5E66]">
+                    <p className="mt-3 text-xs text-[#E6007E]">
                       Educational only. No diagnosis. No medical advice. No outcome guarantees.
                     </p>
                   </div>
                 ) : null}
 
                 {chatOpen ? (
-                  <div className="mt-6 rounded-xl border border-[#111111]/10 bg-white shadow-md overflow-hidden">
-                    <div className="p-4 border-b border-[#111111]/10">
-                      <p className="text-sm font-semibold text-[#111111]">Start a conversation</p>
-                      <p className="mt-1 text-xs text-[#5E5E66]">{complianceFooter()}</p>
+                  <div className="mt-6 rounded-xl border border-black bg-white shadow-md overflow-hidden">
+                    <div className="p-4 border-b border-black">
+                      <p className="text-sm font-semibold text-[#E6007E]">Start a conversation</p>
+                      <p className="mt-1 text-xs text-[#E6007E]">{complianceFooter()}</p>
                     </div>
 
                     <div className="p-4 max-h-[320px] overflow-auto space-y-4">
@@ -261,17 +261,17 @@ export function HomeCareTeam() {
                           className={cx(
                             "whitespace-pre-wrap text-sm leading-relaxed",
                             m.role === "user"
-                              ? "text-[#111111] bg-[#111111]/5 border border-[#111111]/10 rounded-xl p-4"
-                              : "text-[#5E5E66]",
+                              ? "text-[#E6007E] bg-[#111111]/5 border border-black rounded-xl p-4"
+                              : "text-[#E6007E]",
                           )}
                         >
                           {m.content}
                         </div>
                       ))}
-                      {sending ? <div className="text-sm text-[#5E5E66]">Thinking…</div> : null}
+                      {sending ? <div className="text-sm text-[#E6007E]">Thinking…</div> : null}
                     </div>
 
-                    <div className="p-4 border-t border-[#111111]/10">
+                    <div className="p-4 border-t border-black">
                       <div className="flex flex-wrap gap-2">
                         {ui.chatStarters.slice(0, 3).map((s) => (
                           <button
@@ -280,7 +280,7 @@ export function HomeCareTeam() {
                             onClick={() => {
                               setInput(s);
                             }}
-                            className="text-left text-xs text-[#5E5E66] border border-[#111111]/10 rounded-full px-3 py-2 hover:bg-[#111111]/5 transition"
+                            className="text-left text-xs text-[#E6007E] border border-black rounded-full px-3 py-2 hover:bg-[#111111]/5 transition"
                           >
                             {s}
                           </button>
@@ -292,7 +292,7 @@ export function HomeCareTeam() {
                           value={input}
                           onChange={(e) => setInput(e.target.value)}
                           placeholder="Ask a question…"
-                          className="flex-1 rounded-xl bg-[#111111]/5 border border-[#111111]/10 px-4 py-3 text-[#111111] placeholder:text-[#5E5E66] focus:outline-none focus:ring-2 focus:ring-[#E6007E]/50"
+                          className="flex-1 rounded-xl bg-[#111111]/5 border border-black px-4 py-3 text-[#E6007E] placeholder:text-[#E6007E] focus:outline-none focus:ring-2 focus:ring-[#E6007E]/50"
                           onKeyDown={(e) => {
                             if (e.key === "Enter") void send();
                           }}
@@ -309,7 +309,7 @@ export function HomeCareTeam() {
                     </div>
                   </div>
                 ) : (
-                  <p className="mt-6 text-sm text-[#5E5E66]">
+                  <p className="mt-6 text-sm text-[#E6007E]">
                     Choose a button above to start. This is a tool you get here—calm, educational guidance before booking.
                   </p>
                 )}

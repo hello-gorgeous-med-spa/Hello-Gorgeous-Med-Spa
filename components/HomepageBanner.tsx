@@ -14,11 +14,11 @@ export function HomepageBanner({ banner }: { banner: BannerContent | null }) {
   if (headline?.toLowerCase().includes("welcome")) return null;
 
   return (
-    <section className="relative bg-white border-y border-[#111111]/10">
+    <section className="relative bg-white border-y border-2 border-black">
       <div className="max-w-4xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left">
         <div className="flex-1">
-          {headline && <h2 className="text-xl md:text-2xl font-bold text-[#111111]">{headline}</h2>}
-          {subheadline && <p className="mt-1 text-[#5E5E66]">{subheadline}</p>}
+          {headline && <h2 className="text-xl md:text-2xl font-bold text-[#E6007E]">{headline}</h2>}
+          {subheadline && <p className="mt-1 text-[#E6007E]">{subheadline}</p>}
         </div>
         {ctaText && ctaUrl && (
           <Link

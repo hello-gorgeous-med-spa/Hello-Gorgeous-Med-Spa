@@ -34,7 +34,7 @@ export function HomepageInteractiveTools() {
           {/* Left: Body Consultation Tool */}
           <FadeUp delayMs={80}>
             <div
-              className="h-full min-h-[420px] md:min-h-[480px] flex flex-col rounded-xl border border-[#111111]/10 bg-white p-6 md:p-8 shadow-md hover:shadow-xl transition"
+              className="h-full min-h-[420px] md:min-h-[480px] flex flex-col rounded-xl border-2 border-black bg-white p-6 md:p-8 shadow-md hover:shadow-xl transition"
               aria-label="Virtual consultation tool"
             >
               <div className="flex items-center gap-2 mb-4">

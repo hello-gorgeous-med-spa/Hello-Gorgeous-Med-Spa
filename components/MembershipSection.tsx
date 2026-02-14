@@ -15,7 +15,7 @@ export function MembershipSection() {
     <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FDF7FA]">
       <div className="max-w-4xl mx-auto">
         <FadeUp>
-          <div className="rounded-xl border border-[#111111]/10 bg-white shadow-md p-8 md:p-10 hover:shadow-xl hover:-translate-y-[2px] transition-all">
+          <div className="rounded-xl border-2 border-black bg-white shadow-md p-8 md:p-10 hover:shadow-xl hover:-translate-y-[2px] transition-all">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
               <div>
                 <span className="inline-block px-3 py-1 rounded-full bg-[#E6007E]/10 text-[#E6007E] text-xs font-semibold uppercase tracking-wider mb-4">
@@ -27,12 +27,12 @@ export function MembershipSection() {
                     VIP Membership
                   </span>
                 </h2>
-                <p className="text-[#5E5E66] text-base mb-6 max-w-xl">
+                <p className="text-[#E6007E] text-base mb-6 max-w-xl">
                   Save on every visit with 10% off all services, priority booking, monthly perks, and exclusive member events.
                 </p>
                 <ul className="space-y-2 mb-6 md:mb-0">
                   {PERKS.map((p, i) => (
-                    <li key={i} className="flex items-center gap-3 text-[#5E5E66] text-sm">
+                    <li key={i} className="flex items-center gap-3 text-[#E6007E] text-sm">
                       <span className="text-lg">{p.icon}</span>
                       {p.text}
                     </li>
