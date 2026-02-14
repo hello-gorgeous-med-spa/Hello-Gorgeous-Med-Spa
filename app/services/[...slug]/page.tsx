@@ -724,6 +724,31 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               </div>
             </FadeUp>
           </div>
+
+          {/* BHRT Women Product Info PDF */}
+          <FadeUp delayMs={140}>
+            <div className="mt-8 max-w-5xl mx-auto">
+              <a
+                href="/documents/BHRT-Women-Product-Info.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-4 p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white hover:border-[#E6007E] transition-colors group"
+              >
+                <span className="text-3xl">📄</span>
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-[#E6007E] group-hover:underline">
+                    BHRT for Women – Product Information
+                  </h3>
+                  <p className="text-black/80 text-sm mt-1">
+                    Download our Bioidentical Hormone Replacement Therapy product information for women.
+                  </p>
+                </div>
+                <span className="shrink-0 text-[#E6007E] font-semibold group-hover:translate-x-1 transition-transform">
+                  View PDF →
+                </span>
+              </a>
+            </div>
+          </FadeUp>
         </Section>
       )}
 
