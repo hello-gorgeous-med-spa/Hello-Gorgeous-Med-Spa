@@ -37,6 +37,20 @@
 [data-site="public"] th {
   color: #111111;
 }
+
+/* Keep white text visible inside pink/CTA buttons and solid pink backgrounds */
+[data-site="public"] .text-white,
+[data-site="public"] .text-white *,
+[data-site="public"] a[class*="bg-hg-pink"],
+[data-site="public"] a[class*="bg-hg-pink"] *,
+[data-site="public"] button[class*="bg-hg-pink"],
+[data-site="public"] button[class*="bg-hg-pink"] *,
+[data-site="public"] a[class*="bg-pink-500"]:not([class*="/"]),
+[data-site="public"] a[class*="bg-pink-500"]:not([class*="/"]) *,
+[data-site="public"] button[class*="bg-pink-500"]:not([class*="/"]),
+[data-site="public"] button[class*="bg-pink-500"]:not([class*="/"]) * {
+  color: white !important;
+}
 [data-site="public"] a {
   color: var(--hg-pink);
 }
