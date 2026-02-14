@@ -22,19 +22,19 @@ export default function ServicesPage() {
       />
 
       <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-100 via-pink-50 to-white" />
         <div className="relative z-10">
           <FadeUp>
-            <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
+            <p className="text-[#E6007E] text-lg md:text-xl font-medium mb-6 tracking-wide">
               EXPLORE CARE (SERVICES ATLAS™)
             </p>
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight text-black">
               Our{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
+              <span className="text-[#E6007E]">
                 Services
               </span>
             </h1>
-            <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">
+            <p className="mt-6 text-xl text-black/80 max-w-3xl leading-relaxed">
               Prefer a guided experience? Start with Explore Care to navigate by how you feel—no pressure, education first.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4 flex-wrap">
@@ -61,14 +61,14 @@ export default function ServicesPage() {
             <FadeUp key={s.slug} delayMs={40 * idx}>
               <Link
                 href={`/services/${s.slug}`}
-                className="group block rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6 hover:border-white/20 transition"
+                className="group block rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-6 hover:border-[#E6007E] transition"
               >
-                <p className="text-pink-400 text-sm font-semibold tracking-wide">
+                <p className="text-[#E6007E] text-sm font-semibold tracking-wide">
                   {s.category.toUpperCase()}
                 </p>
-                <h2 className="mt-3 text-2xl font-bold text-white">{s.name}</h2>
-                <p className="mt-3 text-gray-300">{s.short}</p>
-                <p className="mt-6 text-sm font-semibold text-white/90">
+                <h2 className="mt-3 text-2xl font-bold text-black">{s.name}</h2>
+                <p className="mt-3 text-black/80">{s.short}</p>
+                <p className="mt-6 text-sm font-semibold text-[#E6007E]">
                   Learn more{" "}
                   <span className="inline-block transition-transform group-hover:translate-x-1">
                     →

@@ -68,8 +68,7 @@ function CategoryPage({ categoryId }: { categoryId: ServiceAtlasClusterId }) {
       />
 
       <Section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/20 via-black to-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-pink-500/10 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-100 via-pink-50 to-white" />
         <div className="relative z-10">
           <FadeUp>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/20 mb-6">
@@ -77,12 +76,12 @@ function CategoryPage({ categoryId }: { categoryId: ServiceAtlasClusterId }) {
               <span className="text-pink-400 text-sm font-semibold uppercase tracking-wider">Service Category</span>
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
-              <span className="text-white">{cluster.title.split(' ')[0]} </span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-pink-500">
+              <span className="text-black">{cluster.title.split(' ')[0]} </span>
+              <span className="text-[#E6007E]">
                 {cluster.title.split(' ').slice(1).join(' ')}
               </span>
             </h1>
-            <p className="mt-6 text-xl md:text-2xl text-gray-300 max-w-3xl leading-relaxed">{cluster.description}</p>
+            <p className="mt-6 text-xl md:text-2xl text-black/80 max-w-3xl leading-relaxed">{cluster.description}</p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-8 py-4">
                 Book a Consultation
@@ -97,10 +96,10 @@ function CategoryPage({ categoryId }: { categoryId: ServiceAtlasClusterId }) {
 
       <Section>
         <FadeUp>
-          <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E] text-center mb-4">
             Explore {cluster.title}
           </h2>
-          <p className="text-gray-400 text-center max-w-2xl mx-auto mb-12">
+          <p className="text-black/80 text-center max-w-2xl mx-auto mb-12">
             Click any treatment below to learn more about benefits, what to expect, and whether it's right for you.
           </p>
         </FadeUp>
@@ -111,16 +110,16 @@ function CategoryPage({ categoryId }: { categoryId: ServiceAtlasClusterId }) {
               <FadeUp key={c.slug} delayMs={40 * idx}>
                 <Link
                   href={`/services/${c.slug}`}
-                  className="group block rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-900/80 to-black p-6 hover:border-pink-500/50 hover:shadow-xl hover:shadow-pink-500/5 transition-all duration-300"
+                  className="group block rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-6 hover:border-[#E6007E] hover:shadow-xl transition-all duration-300"
                 >
-                  <div className="flex items-center gap-2 text-xs text-white/60 mb-3">
-                    <span className="px-2 py-1 rounded bg-white/5">{c.intensity}</span>
+                  <div className="flex items-center gap-2 text-xs text-black/60 mb-3">
+                    <span className="px-2 py-1 rounded bg-pink-100">{c.intensity}</span>
                     <span>•</span>
                     <span>{c.commitment}</span>
                   </div>
-                  <h2 className="text-2xl font-bold text-white group-hover:text-pink-400 transition-colors">{c.name}</h2>
-                  <p className="mt-3 text-gray-400 leading-relaxed">{c.plainLanguage}</p>
-                  <div className="mt-6 flex items-center gap-2 text-pink-400 font-semibold">
+                  <h2 className="text-2xl font-bold text-black group-hover:text-[#E6007E] transition-colors">{c.name}</h2>
+                  <p className="mt-3 text-black/80 leading-relaxed">{c.plainLanguage}</p>
+                  <div className="mt-6 flex items-center gap-2 text-[#E6007E] font-semibold">
                     <span>Learn more</span>
                     <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -131,9 +130,9 @@ function CategoryPage({ categoryId }: { categoryId: ServiceAtlasClusterId }) {
             ))}
           </div>
         ) : (
-          <div className="rounded-2xl border border-gray-800 bg-black/40 p-8 text-center">
-            <p className="text-white font-semibold text-lg">This category is coming soon.</p>
-            <p className="mt-2 text-white/70">
+          <div className="rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-8 text-center">
+            <p className="text-black font-semibold text-lg">This category is coming soon.</p>
+            <p className="mt-2 text-black/80">
               Contact us to learn more about available treatments in this area.
             </p>
             <div className="mt-6 flex justify-center gap-4">
@@ -146,13 +145,13 @@ function CategoryPage({ categoryId }: { categoryId: ServiceAtlasClusterId }) {
 
       {/* CTA Section */}
       <Section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-900/20 to-purple-900/20" />
+        <div className="absolute inset-0 bg-gradient-to-r from-pink-100 via-pink-50 to-pink-100" />
         <div className="relative z-10 text-center">
           <FadeUp>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E] mb-4">
               Ready to Transform Your Look?
             </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+            <p className="text-xl text-black/80 max-w-2xl mx-auto mb-8">
               Book a consultation and let our expert team create a personalized treatment plan just for you.
             </p>
             <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-10 py-4">
@@ -326,8 +325,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
       {/* Hero Section */}
       <Section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/20 via-black to-black" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-pink-500/10 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-100 via-pink-50 to-white" />
         <div className="relative z-10">
           <FadeUp>
             {cluster && (
@@ -342,22 +340,20 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                 </svg>
               </Link>
             )}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-pink-500">
-                {s.name}
-              </span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-[#E6007E]">
+              {s.name}
             </h1>
-            <p className="mt-2 text-lg text-gray-400">{s.heroTitle}</p>
-            <p className="mt-6 text-xl md:text-2xl text-gray-300 max-w-3xl leading-relaxed">{s.heroSubtitle}</p>
+            <p className="mt-2 text-lg text-black/70">{s.heroTitle}</p>
+            <p className="mt-6 text-xl md:text-2xl text-black/80 max-w-3xl leading-relaxed">{s.heroSubtitle}</p>
             
             {/* Quick Stats */}
             <div className="mt-10 grid grid-cols-2 md:grid-cols-4 gap-4">
               {quickFacts.map((f, idx) => (
-                <div key={f.k} className="flex items-center gap-3 p-4 rounded-xl bg-white/5 border border-white/10">
+                <div key={f.k} className="flex items-center gap-3 p-4 rounded-xl bg-pink-50 border-2 border-black">
                   <span className="text-2xl">{f.icon}</span>
                   <div>
-                    <p className="text-xs text-gray-500 uppercase tracking-wide">{f.k}</p>
-                    <p className="text-lg font-bold text-white">{f.v}</p>
+                    <p className="text-xs text-black/60 uppercase tracking-wide">{f.k}</p>
+                    <p className="text-lg font-bold text-black">{f.v}</p>
                   </div>
                 </div>
               ))}
@@ -371,21 +367,21 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                 Have Questions? Contact Us
               </CTA>
             </div>
-            <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-white/70">
+            <div className="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-black/80">
               <span>Or book with:</span>
               <Link
                 href={`${BOOKING_URL}?provider=danielle`}
-                className="text-pink-400 hover:text-pink-300 font-medium underline underline-offset-2"
+                className="text-[#E6007E] hover:text-[#B0005F] font-medium underline underline-offset-2"
               >
                 Danielle
               </Link>
               <Link
                 href={`${BOOKING_URL}?provider=ryan`}
-                className="text-pink-400 hover:text-pink-300 font-medium underline underline-offset-2"
+                className="text-[#E6007E] hover:text-[#B0005F] font-medium underline underline-offset-2"
               >
                 Ryan
               </Link>
-              <Link href="/providers" className="text-white/60 hover:text-white/90">
+              <Link href="/providers" className="text-black/70 hover:text-[#E6007E]">
                 Meet the experts →
               </Link>
             </div>
@@ -397,13 +393,10 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
       <Section>
         <FadeUp>
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
-              Why Choose {s.name} at{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400">
-                Hello Gorgeous
-              </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
+              Why Choose {s.name} at Hello Gorgeous
             </h2>
-            <p className="mt-4 text-xl text-gray-400 max-w-2xl mx-auto">
+            <p className="mt-4 text-xl text-black/80 max-w-2xl mx-auto">
               Experience the difference that expert care and personalized attention makes
             </p>
           </div>
@@ -412,12 +405,12 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {content.benefits.map((b, idx) => (
             <FadeUp key={b.title} delayMs={60 * idx}>
-              <div className="group p-6 rounded-2xl bg-gradient-to-b from-gray-900/80 to-black border border-gray-800 hover:border-pink-500/30 transition-all duration-300">
-                <div className="w-14 h-14 rounded-xl bg-pink-500/10 flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
+              <div className="group p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-white border-2 border-black hover:border-[#E6007E] transition-all duration-300">
+                <div className="w-14 h-14 rounded-xl bg-pink-100 flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
                   {b.icon}
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">{b.title}</h3>
-                <p className="text-gray-400">{b.description}</p>
+                <h3 className="text-xl font-bold text-[#E6007E] mb-2">{b.title}</h3>
+                <p className="text-black/80">{b.description}</p>
               </div>
             </FadeUp>
           ))}
@@ -425,7 +418,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
       </Section>
 
       {/* What It Is / Who It's For / What to Expect */}
-      <Section className="bg-gradient-to-b from-transparent via-pink-950/5 to-transparent">
+      <Section className="bg-gradient-to-b from-pink-50/50 via-white to-pink-50/50">
         <div className="grid lg:grid-cols-3 gap-8">
           {(s.slug === "biote-hormone-therapy"
             ? [
@@ -440,10 +433,10 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               ]
           ).map((c, idx) => (
             <FadeUp key={c.title} delayMs={60 * idx}>
-              <div className="h-full p-8 rounded-2xl bg-black/40 border border-gray-800">
+              <div className="h-full p-8 rounded-2xl bg-gradient-to-br from-pink-50 to-white border-2 border-black">
                 <span className="text-4xl mb-4 block">{c.icon}</span>
-                <h2 className="text-2xl font-bold text-white mb-4">{c.title}</h2>
-                <p className="text-gray-300 leading-relaxed">{c.body}</p>
+                <h2 className="text-2xl font-bold text-[#E6007E] mb-4">{c.title}</h2>
+                <p className="text-black/80 leading-relaxed">{c.body}</p>
               </div>
             </FadeUp>
           ))}
@@ -454,13 +447,10 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
       <Section>
         <FadeUp>
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white">
-              Your Treatment{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400">
-                Journey
-              </span>
+            <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
+              Your Treatment Journey
             </h2>
-            <p className="mt-4 text-xl text-gray-400">Simple, seamless, and stress-free</p>
+            <p className="mt-4 text-xl text-black/80">Simple, seamless, and stress-free</p>
           </div>
         </FadeUp>
 
@@ -471,12 +461,12 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                 {idx < content.process.length - 1 && (
                   <div className="hidden md:block absolute top-8 left-[60%] w-full h-0.5 bg-gradient-to-r from-pink-500/50 to-transparent" />
                 )}
-                <div className="relative p-6 rounded-2xl bg-gradient-to-b from-gray-900/80 to-black border border-gray-800">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 flex items-center justify-center text-white font-bold text-lg mb-4">
+                <div className="relative p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-white border-2 border-black">
+                  <div className="w-12 h-12 rounded-full bg-[#E6007E] flex items-center justify-center text-white font-bold text-lg mb-4">
                     {p.step}
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-2">{p.title}</h3>
-                  <p className="text-gray-400 text-sm">{p.description}</p>
+                  <h3 className="text-xl font-bold text-[#E6007E] mb-2">{p.title}</h3>
+                  <p className="text-black/80 text-sm">{p.description}</p>
                 </div>
               </div>
             </FadeUp>
@@ -489,7 +479,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         <div className="grid lg:grid-cols-12 gap-8">
           <div className="lg:col-span-7">
             <FadeUp>
-              <div className="p-8 rounded-2xl bg-black/40 border border-gray-800">
+              <div className="p-8 rounded-2xl bg-gradient-to-br from-pink-50 to-white border-2 border-black">
                 <div className="flex items-center gap-1 text-pink-400 mb-4">
                   {[...Array(5)].map((_, i) => (
                     <svg key={i} className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
@@ -497,7 +487,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                     </svg>
                   ))}
                 </div>
-                <p className="text-2xl text-white font-medium italic leading-relaxed">
+                <p className="text-2xl text-black font-medium italic leading-relaxed">
                   "{content.testimonial.quote}"
                 </p>
                 <div className="mt-6 flex items-center gap-4">
@@ -505,8 +495,8 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                     {content.testimonial.author.charAt(0)}
                   </div>
                   <div>
-                    <p className="text-white font-semibold">{content.testimonial.author}</p>
-                    <p className="text-gray-500 text-sm">{content.testimonial.location}</p>
+                    <p className="text-black font-semibold">{content.testimonial.author}</p>
+                    <p className="text-black/60 text-sm">{content.testimonial.location}</p>
                   </div>
                 </div>
               </div>
@@ -520,9 +510,9 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                   { icon: "✅", label: "FDA-Approved" },
                   { icon: "🎓", label: "Certified Experts" },
                 ].map((badge) => (
-                  <div key={badge.label} className="flex flex-col items-center p-4 rounded-xl bg-white/5 border border-white/10">
+                  <div key={badge.label} className="flex flex-col items-center p-4 rounded-xl bg-pink-50 border-2 border-black">
                     <span className="text-2xl mb-2">{badge.icon}</span>
-                    <span className="text-sm text-gray-400 text-center">{badge.label}</span>
+                    <span className="text-sm text-black/80 text-center">{badge.label}</span>
                   </div>
                 ))}
               </div>
@@ -545,13 +535,10 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/20 mb-4">
                 <span className="text-pink-400 text-sm font-semibold uppercase tracking-wider">Real Results</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">
-                Before &{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400">
-                  After
-                </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
+                Before & After
               </h2>
-              <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+              <p className="mt-4 text-black/80 max-w-2xl mx-auto">
                 See the beautiful, natural-looking transformations our clients achieve
               </p>
             </div>
@@ -559,7 +546,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
           <div className="grid gap-6 md:grid-cols-2">
             <FadeUp delayMs={60}>
-              <div className="rounded-2xl overflow-hidden border border-gray-800 bg-black">
+              <div className="rounded-2xl overflow-hidden border-2 border-black bg-white">
                 <div className="relative aspect-[9/16] w-full max-w-md mx-auto">
                   <Image
                     src="/images/results/revanesse-1.png"
@@ -572,7 +559,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               </div>
             </FadeUp>
             <FadeUp delayMs={120}>
-              <div className="rounded-2xl overflow-hidden border border-gray-800 bg-black">
+              <div className="rounded-2xl overflow-hidden border-2 border-black bg-white">
                 <div className="relative aspect-[9/16] w-full max-w-md mx-auto">
                   <Image
                     src="/images/results/revanesse-2.png"
@@ -588,7 +575,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
           <FadeUp delayMs={180}>
             <div className="mt-10 text-center">
-              <p className="text-sm text-gray-500 mb-6">
+              <p className="text-sm text-black/60 mb-6">
                 Results shown are from actual clients. Individual results may vary.
               </p>
             </div>
@@ -604,13 +591,10 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/20 mb-4">
                 <span className="text-fuchsia-400 text-sm font-semibold uppercase tracking-wider">Real Results</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">
-                Before &{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-pink-400">
-                  After
-                </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
+                Before & After
               </h2>
-              <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+              <p className="mt-4 text-black/80 max-w-2xl mx-auto">
                 RF microneedling with AnteAge® biosomes—improved texture, pores, and skin quality
               </p>
             </div>
@@ -618,7 +602,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
           <div className="grid gap-6 md:grid-cols-2">
             <FadeUp delayMs={60}>
-              <div className="rounded-2xl overflow-hidden border border-gray-800 bg-black">
+              <div className="rounded-2xl overflow-hidden border-2 border-black bg-white">
                 <div className="relative aspect-[9/16] w-full max-w-md mx-auto">
                   <Image
                     src="/images/results/anteage-1.png"
@@ -631,7 +615,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               </div>
             </FadeUp>
             <FadeUp delayMs={120}>
-              <div className="rounded-2xl overflow-hidden border border-gray-800 bg-black">
+              <div className="rounded-2xl overflow-hidden border-2 border-black bg-white">
                 <div className="relative aspect-[9/16] w-full max-w-md mx-auto">
                   <Image
                     src="/images/results/anteage-2.png"
@@ -647,7 +631,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
           <FadeUp delayMs={180}>
             <div className="mt-10 text-center">
-              <p className="text-sm text-gray-500 mb-6">
+              <p className="text-sm text-black/60 mb-6">
                 Results shown are from actual clients. Individual results may vary. AnteAge® biosomes used in treatment.
               </p>
             </div>
@@ -657,19 +641,16 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
       {/* Hormone Clinical Info - BioTE only */}
       {s.slug === "biote-hormone-therapy" && (
-        <Section className="bg-gradient-to-b from-transparent via-amber-950/10 to-transparent">
+        <Section className="bg-gradient-to-b from-pink-50/50 via-white to-pink-50/50">
           <FadeUp>
             <div className="text-center mb-12">
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 mb-4">
                 <span className="text-amber-400 text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">
-                Formulations, Prescriptions &{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-400">
-                  Safety
-                </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
+                Formulations, Prescriptions & Safety
               </h2>
-              <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+              <p className="mt-4 text-black/80 max-w-2xl mx-auto">
                 What we prescribe, how we formulate, and when we may need to pause or adjust your plan.
               </p>
             </div>
@@ -677,67 +658,67 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             <FadeUp delayMs={60}>
-              <div className="p-6 rounded-2xl border border-amber-500/20 bg-black/40">
-                <h3 className="text-lg font-bold text-amber-400 mb-3 flex items-center gap-2">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
+                <h3 className="text-lg font-bold text-[#E6007E] mb-3 flex items-center gap-2">
                   <span>💊</span> Olympia & Formulations
                 </h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-3">
-                  We use <strong className="text-white">BioTE bioidentical hormone pellets</strong> for sustained release, plus <strong className="text-white">Olympia Pharmacy</strong> compounded medications when appropriate. Olympia offers Biest (50/50 and 80/20 ratios), estradiol, progesterone, testosterone (creams and injectables including testosterone cypionate), and anastrozole—all customized to your dosing needs.
+                <p className="text-black/80 text-sm leading-relaxed mb-3">
+                  We use <strong className="text-black">BioTE bioidentical hormone pellets</strong> for sustained release, plus <strong className="text-black">Olympia Pharmacy</strong> compounded medications when appropriate. Olympia offers Biest (50/50 and 80/20 ratios), estradiol, progesterone, testosterone (creams and injectables including testosterone cypionate), and anastrozole—all customized to your dosing needs.
                 </p>
-                <p className="text-gray-400 text-xs">
+                <p className="text-black/60 text-xs">
                   Your provider selects the best delivery method based on your labs and goals.
                 </p>
               </div>
             </FadeUp>
             <FadeUp delayMs={80}>
-              <div className="p-6 rounded-2xl border border-amber-500/20 bg-black/40">
-                <h3 className="text-lg font-bold text-amber-400 mb-3 flex items-center gap-2">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
+                <h3 className="text-lg font-bold text-[#E6007E] mb-3 flex items-center gap-2">
                   <span>📋</span> Most Common Prescriptions
                 </h3>
-                <ul className="text-gray-300 text-sm space-y-2">
-                  <li><strong className="text-white">Women:</strong> Biest, progesterone, testosterone pellets or cream</li>
-                  <li><strong className="text-white">Men:</strong> Testosterone pellets or testosterone cypionate</li>
-                  <li><strong className="text-white">Both:</strong> Anastrozole (when indicated for balance)</li>
+                <ul className="text-black/80 text-sm space-y-2">
+                  <li><strong className="text-black">Women:</strong> Biest, progesterone, testosterone pellets or cream</li>
+                  <li><strong className="text-black">Men:</strong> Testosterone pellets or testosterone cypionate</li>
+                  <li><strong className="text-black">Both:</strong> Anastrozole (when indicated for balance)</li>
                 </ul>
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-black/60 text-xs mt-3">
                   Dosing is individualized based on lab results and symptom response.
                 </p>
               </div>
             </FadeUp>
             <FadeUp delayMs={100}>
-              <div className="p-6 rounded-2xl border border-amber-500/20 bg-black/40">
-                <h3 className="text-lg font-bold text-amber-400 mb-3 flex items-center gap-2">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
+                <h3 className="text-lg font-bold text-[#E6007E] mb-3 flex items-center gap-2">
                   <span>⚠️</span> Contraindications
                 </h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                <p className="text-black/80 text-sm leading-relaxed mb-2">
                   We do not initiate hormone therapy if you have:
                 </p>
-                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
                   <li>Active or history of breast, endometrial, or prostate cancer</li>
                   <li>Untreated venous thromboembolism (VTE), stroke, or coronary event within 6 months</li>
                   <li>Active liver disease or unexplained vaginal bleeding</li>
                   <li>Pregnancy or breastfeeding</li>
                 </ul>
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-black/60 text-xs mt-3">
                   We screen thoroughly before treatment and discuss any concerns with you.
                 </p>
               </div>
             </FadeUp>
             <FadeUp delayMs={120}>
-              <div className="p-6 rounded-2xl border border-amber-500/20 bg-black/40">
-                <h3 className="text-lg font-bold text-amber-400 mb-3 flex items-center gap-2">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
+                <h3 className="text-lg font-bold text-[#E6007E] mb-3 flex items-center gap-2">
                   <span>🔬</span> Lab Red Flags
                 </h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                <p className="text-black/80 text-sm leading-relaxed mb-2">
                   These lab findings may delay or prevent treatment until addressed:
                 </p>
-                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
-                  <li><strong className="text-white">Men:</strong> Elevated PSA or uncertain PSA status</li>
+                <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
+                  <li><strong className="text-black">Men:</strong> Elevated PSA or uncertain PSA status</li>
                   <li>Markedly elevated hemoglobin/hematocrit (polycythemia risk)</li>
                   <li>Severely abnormal liver function</li>
                   <li>Active cardiovascular concerns or clotting disorders</li>
                 </ul>
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-black/60 text-xs mt-3">
                   We review all labs and discuss next steps before initiating or continuing therapy.
                 </p>
               </div>
@@ -748,19 +729,16 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
       {/* Weight Loss GLP-1 Clinical Info */}
       {s.slug === "weight-loss-therapy" && (
-        <Section className="bg-gradient-to-b from-transparent via-emerald-950/10 to-transparent">
+        <Section className="bg-gradient-to-b from-pink-50/50 via-white to-pink-50/50">
           <FadeUp>
             <div className="text-center mb-12">
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-4">
                 <span className="text-emerald-400 text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">
-                GLP-1 Medications &{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-teal-400">
-                  Safety
-                </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
+                GLP-1 Medications & Safety
               </h2>
-              <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+              <p className="mt-4 text-black/80 max-w-2xl mx-auto">
                 What we prescribe, how we titrate, and when we may need to pause or adjust your plan.
               </p>
             </div>
@@ -768,66 +746,66 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             <FadeUp delayMs={60}>
-              <div className="p-6 rounded-2xl border border-emerald-500/20 bg-black/40">
-                <h3 className="text-lg font-bold text-emerald-400 mb-3 flex items-center gap-2">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
+                <h3 className="text-lg font-bold text-[#E6007E] mb-3 flex items-center gap-2">
                   <span>💊</span> Medications & Formulations
                 </h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-3">
-                  We offer <strong className="text-white">Semaglutide</strong> (similar to Wegovy®/Ozempic®) and <strong className="text-white">Tirzepatide</strong> (similar to Zepbound®/Mounjaro®)—both GLP-1 receptor agonists. Medications are compounded by a licensed pharmacy and titrated gradually to minimize side effects and maximize results.
+                <p className="text-black/80 text-sm leading-relaxed mb-3">
+                  We offer <strong className="text-black">Semaglutide</strong> (similar to Wegovy®/Ozempic®) and <strong className="text-black">Tirzepatide</strong> (similar to Zepbound®/Mounjaro®)—both GLP-1 receptor agonists. Medications are compounded by a licensed pharmacy and titrated gradually to minimize side effects and maximize results.
                 </p>
-                <p className="text-gray-400 text-xs">
+                <p className="text-black/60 text-xs">
                   Your provider selects the best medication and starting dose based on your health history and goals.
                 </p>
               </div>
             </FadeUp>
             <FadeUp delayMs={80}>
-              <div className="p-6 rounded-2xl border border-emerald-500/20 bg-black/40">
-                <h3 className="text-lg font-bold text-emerald-400 mb-3 flex items-center gap-2">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
+                <h3 className="text-lg font-bold text-[#E6007E] mb-3 flex items-center gap-2">
                   <span>📋</span> Most Common Prescriptions
                 </h3>
-                <ul className="text-gray-300 text-sm space-y-2">
-                  <li><strong className="text-white">Semaglutide:</strong> Weekly injection, gradual dose increase over weeks</li>
-                  <li><strong className="text-white">Tirzepatide:</strong> Weekly injection, dual GIP/GLP-1 agonist</li>
+                <ul className="text-black/80 text-sm space-y-2">
+                  <li><strong className="text-black">Semaglutide:</strong> Weekly injection, gradual dose increase over weeks</li>
+                  <li><strong className="text-black">Tirzepatide:</strong> Weekly injection, dual GIP/GLP-1 agonist</li>
                 </ul>
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-black/60 text-xs mt-3">
                   Dosing is individualized. We start low and titrate based on tolerance and response.
                 </p>
               </div>
             </FadeUp>
             <FadeUp delayMs={100}>
-              <div className="p-6 rounded-2xl border border-emerald-500/20 bg-black/40">
-                <h3 className="text-lg font-bold text-emerald-400 mb-3 flex items-center gap-2">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
+                <h3 className="text-lg font-bold text-[#E6007E] mb-3 flex items-center gap-2">
                   <span>⚠️</span> Contraindications
                 </h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                <p className="text-black/80 text-sm leading-relaxed mb-2">
                   We do not initiate GLP-1 therapy if you have:
                 </p>
-                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
                   <li>Personal or family history of medullary thyroid cancer</li>
                   <li>Multiple Endocrine Neoplasia syndrome type 2 (MEN 2)</li>
                   <li>Pregnancy or planning pregnancy</li>
                   <li>History of pancreatitis</li>
                   <li>Severe gastroparesis</li>
                 </ul>
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-black/60 text-xs mt-3">
                   We screen thoroughly before treatment and discuss any concerns with you.
                 </p>
               </div>
             </FadeUp>
             <FadeUp delayMs={120}>
-              <div className="p-6 rounded-2xl border border-emerald-500/20 bg-black/40">
-                <h3 className="text-lg font-bold text-emerald-400 mb-3 flex items-center gap-2">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
+                <h3 className="text-lg font-bold text-[#E6007E] mb-3 flex items-center gap-2">
                   <span>🔬</span> Lab & Monitoring
                 </h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                <p className="text-black/80 text-sm leading-relaxed mb-2">
                   We may check or monitor:
                 </p>
-                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
                   <li>Baseline metabolic panel, A1C if diabetic</li>
                   <li>Regular check-ins for nausea, appetite, and weight</li>
                   <li>Dose adjustments based on tolerance and goals</li>
                 </ul>
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-black/60 text-xs mt-3">
                   Medically supervised. We review progress and adjust your plan as needed.
                 </p>
               </div>
@@ -844,13 +822,13 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/20 mb-4">
                 <span className="text-pink-400 text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
                 Neurotoxins, Safety &{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400">
                   What to Expect
                 </span>
               </h2>
-              <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+              <p className="mt-4 text-black/80 max-w-2xl mx-auto">
                 FDA-approved neuromodulators, treatment areas, and when we may need to pause or adjust.
               </p>
             </div>
@@ -858,7 +836,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             <FadeUp delayMs={60}>
-              <div className="p-6 rounded-2xl border border-pink-500/20 bg-black/40">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
                 <h3 className="text-lg font-bold text-pink-400 mb-3 flex items-center gap-2">
                   <span>💉</span> Products We Use
                 </h3>
@@ -871,64 +849,64 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                     className="w-full h-auto object-contain"
                   />
                 </div>
-                <p className="text-gray-300 text-sm leading-relaxed mb-3">
-                  We use <strong className="text-white">Botox®</strong>, <strong className="text-white">Dysport®</strong>, and <strong className="text-white">Jeuveau®</strong>—all FDA-approved neuromodulators (botulinum toxin type A). Each works similarly to relax targeted muscles and smooth lines. Your provider selects the best product and dosing for your anatomy and goals.
+                <p className="text-black/80 text-sm leading-relaxed mb-3">
+                  We use <strong className="text-black">Botox®</strong>, <strong className="text-black">Dysport®</strong>, and <strong className="text-black">Jeuveau®</strong>—all FDA-approved neuromodulators (botulinum toxin type A). Each works similarly to relax targeted muscles and smooth lines. Your provider selects the best product and dosing for your anatomy and goals.
                 </p>
-                <p className="text-gray-400 text-xs">
+                <p className="text-black/60 text-xs">
                   All are safe, effective, and administered by trained injectors.
                 </p>
               </div>
             </FadeUp>
             <FadeUp delayMs={80}>
-              <div className="p-6 rounded-2xl border border-pink-500/20 bg-black/40">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
                 <h3 className="text-lg font-bold text-pink-400 mb-3 flex items-center gap-2">
                   <span>🎯</span> Treatment Areas
                 </h3>
-                <ul className="text-gray-300 text-sm space-y-2">
-                  <li><strong className="text-white">Forehead:</strong> Horizontal lines</li>
-                  <li><strong className="text-white">Glabella (11s):</strong> Frown lines between brows</li>
-                  <li><strong className="text-white">Crow&apos;s feet:</strong> Lines around eyes</li>
-                  <li><strong className="text-white">Bunny lines, lip flip:</strong> Subtle enhancements</li>
+                <ul className="text-black/80 text-sm space-y-2">
+                  <li><strong className="text-black">Forehead:</strong> Horizontal lines</li>
+                  <li><strong className="text-black">Glabella (11s):</strong> Frown lines between brows</li>
+                  <li><strong className="text-black">Crow&apos;s feet:</strong> Lines around eyes</li>
+                  <li><strong className="text-black">Bunny lines, lip flip:</strong> Subtle enhancements</li>
                 </ul>
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-black/60 text-xs mt-3">
                   Results typically visible in 3–7 days; full effect at 2 weeks. Lasts about 3–4 months.
                 </p>
               </div>
             </FadeUp>
             <FadeUp delayMs={100}>
-              <div className="p-6 rounded-2xl border border-pink-500/20 bg-black/40">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
                 <h3 className="text-lg font-bold text-pink-400 mb-3 flex items-center gap-2">
                   <span>⚠️</span> Contraindications
                 </h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                <p className="text-black/80 text-sm leading-relaxed mb-2">
                   We do not treat if you have:
                 </p>
-                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
                   <li>Pregnancy or breastfeeding</li>
                   <li>Neuromuscular disease (e.g., myasthenia gravis, ALS)</li>
                   <li>Allergy to botulinum toxin or any ingredient</li>
                   <li>Infection at the injection site</li>
                 </ul>
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-black/60 text-xs mt-3">
                   We screen before treatment and discuss any concerns with you.
                 </p>
               </div>
             </FadeUp>
             <FadeUp delayMs={120}>
-              <div className="p-6 rounded-2xl border border-pink-500/20 bg-black/40">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
                 <h3 className="text-lg font-bold text-pink-400 mb-3 flex items-center gap-2">
                   <span>📋</span> What to Expect
                 </h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                <p className="text-black/80 text-sm leading-relaxed mb-2">
                   Quick in-office treatment:
                 </p>
-                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
                   <li>No downtime; return to normal activities</li>
                   <li>Avoid lying down 4 hours; no strenuous exercise 24 hours</li>
                   <li>No massaging treated areas</li>
                   <li>Results last 3–4 months; touch-ups as needed</li>
                 </ul>
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-black/60 text-xs mt-3">
                   We provide detailed aftercare instructions at your visit.
                 </p>
               </div>
@@ -945,13 +923,13 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-rose-500/10 border border-rose-500/20 mb-4">
                 <span className="text-rose-400 text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
                 Products, Safety &{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-rose-400 to-pink-400">
                   What to Expect
                 </span>
               </h2>
-              <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+              <p className="mt-4 text-black/80 max-w-2xl mx-auto">
                 What we use for lip enhancement, contraindications, and aftercare.
               </p>
             </div>
@@ -959,67 +937,67 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             <FadeUp delayMs={60}>
-              <div className="p-6 rounded-2xl border border-rose-500/20 bg-black/40">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
                 <h3 className="text-lg font-bold text-rose-400 mb-3 flex items-center gap-2">
                   <span>💋</span> Products We Use
                 </h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-3">
-                  We use <strong className="text-white">Revanesse®</strong> for lip enhancement—a smooth, resilient hyaluronic acid (HA) filler. We also use <strong className="text-white">Revanesse® with salmon DNA</strong>, which adds polydeoxyribonucleotide (PDRN) for enhanced tissue repair and a more natural feel. Your provider selects the best formulation for your goals.
+                <p className="text-black/80 text-sm leading-relaxed mb-3">
+                  We use <strong className="text-black">Revanesse®</strong> for lip enhancement—a smooth, resilient hyaluronic acid (HA) filler. We also use <strong className="text-black">Revanesse® with salmon DNA</strong>, which adds polydeoxyribonucleotide (PDRN) for enhanced tissue repair and a more natural feel. Your provider selects the best formulation for your goals.
                 </p>
-                <p className="text-gray-400 text-xs">
+                <p className="text-black/60 text-xs">
                   HA fillers are reversible; results are customizable and natural-looking.
                 </p>
               </div>
             </FadeUp>
             <FadeUp delayMs={80}>
-              <div className="p-6 rounded-2xl border border-rose-500/20 bg-black/40">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
                 <h3 className="text-lg font-bold text-rose-400 mb-3 flex items-center gap-2">
                   <span>👄</span> Treatment Areas
                 </h3>
-                <ul className="text-gray-300 text-sm space-y-2">
-                  <li><strong className="text-white">Lip body:</strong> Volume and fullness</li>
-                  <li><strong className="text-white">Lip border:</strong> Definition and shape</li>
-                  <li><strong className="text-white">Cupid&apos;s bow:</strong> Balance and symmetry</li>
+                <ul className="text-black/80 text-sm space-y-2">
+                  <li><strong className="text-black">Lip body:</strong> Volume and fullness</li>
+                  <li><strong className="text-black">Lip border:</strong> Definition and shape</li>
+                  <li><strong className="text-black">Cupid&apos;s bow:</strong> Balance and symmetry</li>
                 </ul>
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-black/60 text-xs mt-3">
                   Results are immediate. Some swelling for 24–48 hours. Results typically last 6–12+ months.
                 </p>
               </div>
             </FadeUp>
             <FadeUp delayMs={100}>
-              <div className="p-6 rounded-2xl border border-rose-500/20 bg-black/40">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
                 <h3 className="text-lg font-bold text-rose-400 mb-3 flex items-center gap-2">
                   <span>⚠️</span> Contraindications
                 </h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                <p className="text-black/80 text-sm leading-relaxed mb-2">
                   We do not treat if you have:
                 </p>
-                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
                   <li>Active infection or cold sore at or near the treatment site</li>
                   <li>Allergy to hyaluronic acid, lidocaine, or bacterial proteins</li>
                   <li>Pregnancy or breastfeeding</li>
                   <li>History of severe scarring or keloids</li>
                 </ul>
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-black/60 text-xs mt-3">
                   We screen before treatment and discuss any concerns with you.
                 </p>
               </div>
             </FadeUp>
             <FadeUp delayMs={120}>
-              <div className="p-6 rounded-2xl border border-rose-500/20 bg-black/40">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
                 <h3 className="text-lg font-bold text-rose-400 mb-3 flex items-center gap-2">
                   <span>📋</span> What to Expect
                 </h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                <p className="text-black/80 text-sm leading-relaxed mb-2">
                   In-office treatment with topical numbing:
                 </p>
-                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
                   <li>Minimal downtime; avoid makeup, intense exercise for 24 hours</li>
                   <li>Possible bruising or swelling for a few days</li>
                   <li>Results settle and look natural within 1–2 weeks</li>
                   <li>Follow aftercare instructions for best outcomes</li>
                 </ul>
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-black/60 text-xs mt-3">
                   We provide detailed aftercare at your visit.
                 </p>
               </div>
@@ -1036,13 +1014,13 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/20 mb-4">
                 <span className="text-fuchsia-400 text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-white">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
                 Products, Safety &{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-pink-400">
                   What to Expect
                 </span>
               </h2>
-              <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+              <p className="mt-4 text-black/80 max-w-2xl mx-auto">
                 Science-backed bioceuticals and neuromodulators we use for optimal RF microneedling results.
               </p>
             </div>
@@ -1050,68 +1028,68 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             <FadeUp delayMs={60}>
-              <div className="p-6 rounded-2xl border border-fuchsia-500/20 bg-black/40">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
                 <h3 className="text-lg font-bold text-fuchsia-400 mb-3 flex items-center gap-2">
                   <span>✨</span> Products We Use
                 </h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-3">
-                  We partner with <strong className="text-white">AnteAge®</strong> for bioceuticals and <strong className="text-white">biosomes</strong>—stem cell–derived growth factors and peptides that support collagen, elastin, and healing. We also use <strong className="text-white">Allergan</strong> for &quot;baby tox&quot;—micro-diluted neuromodulator (Botox Cosmetic®) applied during or after treatment to refine pores and reduce sebum. Your provider selects the best combination for your skin goals.
+                <p className="text-black/80 text-sm leading-relaxed mb-3">
+                  We partner with <strong className="text-black">AnteAge®</strong> for bioceuticals and <strong className="text-black">biosomes</strong>—stem cell–derived growth factors and peptides that support collagen, elastin, and healing. We also use <strong className="text-black">Allergan</strong> for &quot;baby tox&quot;—micro-diluted neuromodulator (Botox Cosmetic®) applied during or after treatment to refine pores and reduce sebum. Your provider selects the best combination for your skin goals.
                 </p>
-                <p className="text-gray-400 text-xs">
+                <p className="text-black/60 text-xs">
                   AnteAge + RF microneedling + baby tox = a complete, science-backed approach to texture and rejuvenation.
                 </p>
               </div>
             </FadeUp>
             <FadeUp delayMs={80}>
-              <div className="p-6 rounded-2xl border border-fuchsia-500/20 bg-black/40">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
                 <h3 className="text-lg font-bold text-fuchsia-400 mb-3 flex items-center gap-2">
                   <span>🎯</span> Treatment Areas & Benefits
                 </h3>
-                <ul className="text-gray-300 text-sm space-y-2">
-                  <li><strong className="text-white">Texture:</strong> Fine lines, pores, acne scars</li>
-                  <li><strong className="text-white">AnteAge biosomes:</strong> Support collagen and healing</li>
-                  <li><strong className="text-white">Baby tox:</strong> Refines pores, reduces oiliness</li>
+                <ul className="text-black/80 text-sm space-y-2">
+                  <li><strong className="text-black">Texture:</strong> Fine lines, pores, acne scars</li>
+                  <li><strong className="text-black">AnteAge biosomes:</strong> Support collagen and healing</li>
+                  <li><strong className="text-black">Baby tox:</strong> Refines pores, reduces oiliness</li>
                 </ul>
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-black/60 text-xs mt-3">
                   A series of 3–4 treatments is typically recommended for best results.
                 </p>
               </div>
             </FadeUp>
             <FadeUp delayMs={100}>
-              <div className="p-6 rounded-2xl border border-fuchsia-500/20 bg-black/40">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
                 <h3 className="text-lg font-bold text-fuchsia-400 mb-3 flex items-center gap-2">
                   <span>⚠️</span> Contraindications
                 </h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                <p className="text-black/80 text-sm leading-relaxed mb-2">
                   We do not treat if you have:
                 </p>
-                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
                   <li>Active breakout, infection, or cold sore in treatment area</li>
                   <li>Keloid scarring tendency</li>
                   <li>Pregnancy or breastfeeding</li>
                   <li>Recent isotretinoin (Accutane) use</li>
                   <li>Uncontrolled bleeding disorder</li>
                 </ul>
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-black/60 text-xs mt-3">
                   We screen before treatment and discuss any concerns with you.
                 </p>
               </div>
             </FadeUp>
             <FadeUp delayMs={120}>
-              <div className="p-6 rounded-2xl border border-fuchsia-500/20 bg-black/40">
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white">
                 <h3 className="text-lg font-bold text-fuchsia-400 mb-3 flex items-center gap-2">
                   <span>📋</span> What to Expect
                 </h3>
-                <p className="text-gray-300 text-sm leading-relaxed mb-2">
+                <p className="text-black/80 text-sm leading-relaxed mb-2">
                   RF microneedling with AnteAge and baby tox:
                 </p>
-                <ul className="text-gray-300 text-sm space-y-1 list-disc list-inside">
+                <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
                   <li>Topical numbing applied; procedure 30–45 minutes</li>
                   <li>Mild redness and pinpoint bleeding; resolves in a few days</li>
                   <li>Minimal downtime; avoid sun, harsh products for 24–48 hours</li>
                   <li>Results improve over weeks as collagen remodels</li>
                 </ul>
-                <p className="text-gray-400 text-xs mt-3">
+                <p className="text-black/60 text-xs mt-3">
                   We provide detailed aftercare at your visit.
                 </p>
               </div>
@@ -1124,12 +1102,12 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
       {(s.slug === "biote-hormone-therapy" || s.slug === "weight-loss-therapy") && (
         <Section className="bg-gradient-to-b from-transparent via-violet-950/10 to-transparent">
           <FadeUp>
-            <div className="max-w-3xl mx-auto rounded-2xl border border-violet-500/20 bg-black/40 p-6 md:p-8">
+            <div className="max-w-3xl mx-auto rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-6 md:p-8">
               <div className="flex flex-col md:flex-row md:items-center gap-6">
                 <div className="flex-1">
                   <h3 className="text-lg font-bold text-violet-400 mb-2">💊 Our Compounding Partner</h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">
-                    We source compounded medications from <strong className="text-white">Olympia Pharmacy</strong>—a licensed 503A/503B facility. 
+                  <p className="text-black/80 text-sm leading-relaxed">
+                    We source compounded medications from <strong>Olympia Pharmacy</strong>—a licensed 503A/503B facility. 
                     Browse their full medication directory for hormones, weight loss, peptides, IV therapy, vitamins, and more.
                   </p>
                 </div>
@@ -1163,15 +1141,15 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                 Questions
               </span>
             </h2>
-            <p className="mt-4 text-gray-400">Everything you need to know about {s.name}</p>
+              <p className="mt-4 text-black/80">Everything you need to know about {s.name}</p>
           </div>
         </FadeUp>
 
         <div className="max-w-3xl mx-auto space-y-4">
           {s.faqs.map((f, idx) => (
             <FadeUp key={f.question} delayMs={40 * idx}>
-              <details className="group rounded-2xl border border-gray-800 bg-black/40 overflow-hidden">
-                <summary className="cursor-pointer p-6 flex items-center justify-between text-lg font-semibold text-white hover:text-pink-400 transition-colors">
+              <details className="group rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white overflow-hidden">
+                <summary className="cursor-pointer p-6 flex items-center justify-between text-lg font-semibold text-black hover:text-[#E6007E] transition-colors">
                   <span>{f.question}</span>
                   <span className="ml-4 flex-shrink-0 w-8 h-8 rounded-full bg-pink-500/10 flex items-center justify-center group-open:rotate-45 transition-transform">
                     <svg className="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -1180,7 +1158,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                   </span>
                 </summary>
                 <div className="px-6 pb-6">
-                  <p className="text-gray-300 leading-relaxed">{f.answer}</p>
+                  <p className="text-black/80 leading-relaxed">{f.answer}</p>
                 </div>
               </details>
             </FadeUp>
@@ -1190,18 +1168,18 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
       {/* Final CTA */}
       <Section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-900/30 via-purple-900/30 to-pink-900/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-pink-100 via-pink-50 to-pink-100" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-pink-500/10 via-transparent to-transparent" />
         <div className="relative z-10 text-center max-w-3xl mx-auto">
           <FadeUp>
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#E6007E] mb-6">
               Ready to Look and Feel{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-rose-400 to-pink-500">
                 Gorgeous
               </span>
               ?
             </h2>
-            <p className="text-xl text-gray-300 mb-8">
+            <p className="text-xl text-black/80 mb-8">
               Book your consultation today and take the first step toward the results you deserve. 
               Our expert team is ready to create your personalized treatment plan.
             </p>
@@ -1213,7 +1191,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                 Contact Us First
               </CTA>
             </div>
-            <p className="mt-6 text-sm text-gray-500">
+            <p className="mt-6 text-sm text-black/60">
               📍 Serving Oswego, Naperville, Aurora & Plainfield | 📞 (630) 636-6193
             </p>
           </FadeUp>
@@ -1224,7 +1202,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
       {cluster && (
         <Section>
           <FadeUp>
-            <h2 className="text-2xl font-bold text-white mb-8">
+            <h2 className="text-2xl font-bold text-[#E6007E] mb-8">
               More in {cluster.title}
             </h2>
           </FadeUp>
@@ -1239,13 +1217,13 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                 <FadeUp key={service.slug} delayMs={60 * idx}>
                   <Link
                     href={`/services/${service.slug}`}
-                    className="group block p-6 rounded-2xl bg-gradient-to-b from-gray-900/80 to-black border border-gray-800 hover:border-pink-500/30 transition-all"
+                    className="group block p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-white border-2 border-black hover:border-[#E6007E] transition-all"
                   >
-                    <h3 className="text-xl font-bold text-white group-hover:text-pink-400 transition-colors">
+                    <h3 className="text-xl font-bold text-black group-hover:text-[#E6007E] transition-colors">
                       {service.name}
                     </h3>
-                    <p className="mt-2 text-gray-400 text-sm line-clamp-2">{service.short}</p>
-                    <span className="mt-4 inline-flex items-center text-pink-400 text-sm font-medium">
+                    <p className="mt-2 text-black/80 text-sm line-clamp-2">{service.short}</p>
+                    <span className="mt-4 inline-flex items-center text-[#E6007E] text-sm font-medium">
                       Learn more
                       <svg className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
