@@ -16,6 +16,8 @@ interface Slide {
   icon: string;
   gradient: string;
   serviceLink: string;
+  /** Optional image path – when set, replaces icon in the yellow/gradient box */
+  image?: string;
 }
 
 const slides: Slide[] = [
@@ -141,6 +143,7 @@ const slides: Slide[] = [
     benefits: ["Immune system boost", "Bone health", "Mood improvement", "Energy support"],
     icon: "☀️",
     gradient: "from-amber-400 to-yellow-500",
+    image: "/images/olympia-vitamin-d3.png",
   },
 ];
 
@@ -232,9 +235,17 @@ export function PharmacyShowcase() {
                 <div className="grid md:grid-cols-2 gap-8 items-center">
                   {/* Left - Visual */}
                   <div className="relative">
-                    <div className={`aspect-square rounded-2xl bg-gradient-to-br ${currentItem.gradient} p-8 flex items-center justify-center`}>
-                      <div className="text-center">
-                        <span className="text-8xl md:text-9xl block mb-4">{currentItem.icon}</span>
+                    <div className={`aspect-square rounded-2xl bg-gradient-to-br ${currentItem.gradient} p-6 flex items-center justify-center overflow-hidden`}>
+                      <div className="text-center w-full h-full flex flex-col items-center justify-center">
+                        {currentItem.image ? (
+                          <img
+                            src={currentItem.image}
+                            alt={`${currentItem.name} – Olympia Pharmaceuticals`}
+                            className="max-h-[70%] max-w-full object-contain mb-3"
+                          />
+                        ) : (
+                          <span className="text-8xl md:text-9xl block mb-4">{currentItem.icon}</span>
+                        )}
                         <span className="text-white/90 text-sm font-medium uppercase tracking-wider">
                           {currentItem.category === "weightloss" ? "GLP-1 Weight Loss" : 
                            currentItem.category === "peptides" ? "Peptide Therapy" : 
