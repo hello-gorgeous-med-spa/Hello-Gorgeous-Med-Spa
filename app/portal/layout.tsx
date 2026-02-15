@@ -45,20 +45,25 @@ const NAV_ITEMS = [
   { href: '/portal', label: 'Home', icon: '🏠' },
   { href: '/portal/appointments', label: 'Appointments', icon: '📅' },
   { href: '/portal/book', label: 'Book', icon: '✨' },
+  { href: '/portal/labs', label: 'Labs', icon: '🧪' },
   { href: '/portal/rewards', label: 'Rewards', icon: '🎁' },
-  { href: '/portal/referrals', label: 'Refer', icon: '💝' },
 ];
 
 const FULL_NAV_ITEMS = [
   { href: '/portal', label: 'Dashboard', icon: '🏠' },
   { href: '/portal/appointments', label: 'Appointments', icon: '📅' },
   { href: '/portal/book', label: 'Book Now', icon: '✨' },
+  { href: '/portal/labs', label: 'Labs & AI', icon: '🧪' },
+  { href: '/portal/medications', label: 'Medications', icon: '💊' },
+  { href: '/portal/messaging', label: 'Messages', icon: '💬' },
   { href: '/portal/rewards', label: 'Rewards', icon: '🎁' },
   { href: '/portal/referrals', label: 'Refer Friends', icon: '💝' },
   { href: '/portal/journey', label: 'My Journey', icon: '📈' },
   { href: '/portal/history', label: 'History', icon: '📋' },
   { href: '/portal/intake', label: 'Forms', icon: '📝' },
   { href: '/portal/membership', label: 'Membership', icon: '💎' },
+  { href: '/portal/account', label: 'Account', icon: '⚙️' },
+  { href: '/memberships', label: 'Wellness Programs', icon: '⚖️' },
 ];
 
 export default function PortalLayout({

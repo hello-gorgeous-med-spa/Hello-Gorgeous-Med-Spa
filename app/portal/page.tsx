@@ -24,18 +24,32 @@ const QUICK_ACTIONS = [
     color: 'from-pink-500 to-rose-500',
   },
   {
+    title: 'Upload Labs',
+    description: 'AI insights & trends',
+    href: '/portal/labs',
+    icon: '🧪',
+    color: 'from-amber-500 to-orange-500',
+  },
+  {
+    title: 'Medications',
+    description: 'Track prescriptions & refills',
+    href: '/portal/medications',
+    icon: '💊',
+    color: 'from-blue-500 to-cyan-500',
+  },
+  {
+    title: 'Messages',
+    description: 'Secure provider chat',
+    href: '/portal/messaging',
+    icon: '💬',
+    color: 'from-emerald-500 to-teal-500',
+  },
+  {
     title: 'View Services',
     description: 'Explore our treatments',
     href: '/services',
     icon: '✨',
     color: 'from-purple-500 to-indigo-500',
-  },
-  {
-    title: 'Treatment History',
-    description: 'See past appointments',
-    href: '/portal/history',
-    icon: '📋',
-    color: 'from-blue-500 to-cyan-500',
   },
   {
     title: 'Refer a Friend',
@@ -77,18 +91,25 @@ export default function PortalDashboard() {
   const { openChat } = useChatOpen();
   const [user, setUser] = useState<any>(null);
   const [appointments, setAppointments] = useState<any[]>([]);
+  const [membership, setMembership] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
   const openPeppiSupplements = () => {
     openChat('peppi', { source: 'client_portal', fulfillment: 'fullscript' });
   };
 
-  // Portal dashboard - shows welcome state for clients
   useEffect(() => {
-    // Client portal will show personalized data when client auth is implemented
-    // For now, show welcome state
     setUser({ firstName: 'Guest', isVip: false });
     setAppointments([]);
+    setMembership(null);
+    // Check for stored email (e.g. from signup) to show membership status
+    const storedEmail = typeof window !== 'undefined' ? localStorage.getItem('hg_portal_email') : null;
+    if (storedEmail) {
+      fetch(`/api/memberships/wellness/me?email=${encodeURIComponent(storedEmail)}`)
+        .then((r) => r.json())
+        .then((d) => setMembership(d.subscription))
+        .catch(() => {});
+    }
     setLoading(false);
   }, []);
 
@@ -128,15 +149,49 @@ export default function PortalDashboard() {
             Ready to feel gorgeous today?
           </p>
 
-          {/* VIP Badge */}
-          {user?.isVip && (
-            <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
-              <span className="text-xl">💎</span>
-              <span className="font-semibold">VIP Member</span>
-            </div>
-          )}
+          {/* Membership badges */}
+          <div className="flex flex-wrap gap-2">
+            {user?.isVip && (
+              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
+                <span className="text-xl">💎</span>
+                <span className="font-semibold">VIP Member</span>
+              </div>
+            )}
+            {membership?.program && (
+              <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full">
+                <span className="text-xl">⚖️</span>
+                <span className="font-semibold">{membership.program.name}</span>
+              </div>
+            )}
+          </div>
         </div>
       </section>
+
+      {/* Wellness Credit Balance - members only */}
+      {membership && (
+        <section>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <Link
+              href="/portal/labs"
+              className="bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-md transition-shadow"
+            >
+              <div className="flex items-center gap-3 mb-2">
+                <span className="text-3xl">🧪</span>
+                <h3 className="font-semibold text-gray-900">Labs & AI</h3>
+              </div>
+              <p className="text-sm text-gray-500">Upload labs for AI insights and trends</p>
+            </Link>
+            <div className="bg-white rounded-2xl border border-gray-100 p-6">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-3xl">💎</span>
+                <span className="text-2xl font-bold text-pink-600">{membership.wellnessCreditBalance ?? 0}</span>
+              </div>
+              <p className="text-sm text-gray-500">Wellness credits remaining</p>
+              <Link href="/portal/membership" className="text-pink-600 text-sm font-medium mt-2 inline-block hover:underline">View details →</Link>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Upcoming Appointments */}
       <section>

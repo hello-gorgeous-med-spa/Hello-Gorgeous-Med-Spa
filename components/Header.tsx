@@ -366,6 +366,19 @@ export function Header() {
               <SimpleDropdown data={navigation.providers} isOpen={activeDropdown === 'providers'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('providers')} />
             </div>
 
+            {/* Memberships */}
+            <Link
+              href="/memberships"
+              className={cx(
+                "px-4 py-2 rounded-lg text-sm font-medium transition-all",
+                pathname?.startsWith('/memberships')
+                  ? "text-[#E6007E] bg-pink-500/5"
+                  : "text-[#E6007E] hover:text-[#E6007E] hover:bg-[#111111]/5"
+              )}
+            >
+              Memberships
+            </Link>
+
             {/* Your Journey Dropdown */}
             <div 
               className="relative"
@@ -600,6 +613,16 @@ export function Header() {
                 </div>
               )}
             </div>
+
+            {/* Memberships */}
+            <Link
+              href="/memberships"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 text-lg font-semibold text-[#E6007E]"
+            >
+              <span className="text-xl">💎</span>
+              Memberships
+            </Link>
 
             {/* Your Journey Section */}
             <div className="border-b border-white/10 pb-4">

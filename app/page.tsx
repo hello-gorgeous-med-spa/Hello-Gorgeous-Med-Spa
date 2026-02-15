@@ -16,6 +16,7 @@ import { FullscriptSection } from "@/components/FullscriptSection";
 import { BioteSection } from "@/components/BioteSection";
 import { EmailBanner } from "@/components/EmailCapture";
 import { HomepageInteractiveTools } from "@/components/HomepageInteractiveTools";
+import { HormoneLabInsightTool } from "@/components/HormoneLabInsightTool";
 import { QuizCTA } from "@/components/QuizCTA";
 import { MembershipSection } from "@/components/MembershipSection";
 import { FixWhatBothersMeFeature } from "@/components/FixWhatBothersMeFeature";
@@ -78,6 +79,7 @@ export default async function HomePage() {
       </section>
       <FixWhatBothersMeFeature />
       <QuizCTA />
+      <HormoneLabInsightTool />
       <MeetProviders />
       <OffersSection />
       <MembershipSection />
