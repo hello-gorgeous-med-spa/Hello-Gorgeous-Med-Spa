@@ -419,6 +419,43 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         </div>
       </Section>
 
+      {/* Hormone Symptoms Infographic - Hormone Page Only */}
+      {s.slug === "biote-hormone-therapy" && (
+        <Section className="bg-gradient-to-b from-white via-pink-50/50 to-white">
+          <FadeUp>
+            <div className="text-center mb-8">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E6007E]/10 border border-[#E6007E]/30 mb-4">
+                <span className="text-lg">⚠️</span>
+                <span className="text-[#E6007E] text-sm font-semibold uppercase tracking-wider">Recognize the Signs</span>
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
+                Signs of Hormonal Imbalance
+              </h2>
+              <p className="mt-3 text-lg text-black/70 max-w-2xl mx-auto">
+                Do any of these symptoms sound familiar? Hormone optimization may help.
+              </p>
+            </div>
+          </FadeUp>
+          <FadeUp delayMs={100}>
+            <div className="max-w-5xl mx-auto">
+              <div className="rounded-3xl border-2 border-[#E6007E]/30 bg-white p-4 md:p-8 shadow-xl overflow-hidden">
+                <Image
+                  src="/images/hormone-symptoms-infographic.png"
+                  alt="Signs and symptoms of hormonal imbalance in women and men - including fatigue, mood swings, weight gain, low sex drive, and more"
+                  width={1200}
+                  height={600}
+                  className="w-full h-auto rounded-xl"
+                  priority
+                />
+              </div>
+              <p className="text-center text-sm text-black/50 mt-4">
+                *These symptoms may be caused by various conditions. A consultation and lab work help determine if hormone therapy is appropriate for you.
+              </p>
+            </div>
+          </FadeUp>
+        </Section>
+      )}
+
       {/* Harmony AI Expert Section - Hormone Page Only */}
       {s.slug === "biote-hormone-therapy" && (
         <Section className="bg-gradient-to-b from-white via-pink-50/30 to-white">
