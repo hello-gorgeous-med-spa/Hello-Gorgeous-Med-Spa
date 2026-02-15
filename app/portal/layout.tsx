@@ -83,7 +83,7 @@ export default function PortalLayout({
 
   return (
     <ChatOpenProvider>
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50">
+    <div data-portal className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-pink-50">
       {/* HIPAA Trust Banner - Shows on first load */}
       <div className="bg-slate-900 text-white text-center py-2 text-xs">
         <span className="inline-flex items-center gap-2">
@@ -99,7 +99,7 @@ export default function PortalLayout({
             {/* Logo */}
             <Link href="/portal" className="flex items-center gap-2">
               <span className="text-2xl">💗</span>
-              <span className="font-semibold text-gray-900">
+              <span className="font-semibold text-[#111111]">
                 Hello Gorgeous
               </span>
               <span className="text-xs bg-pink-100 text-pink-600 px-2 py-0.5 rounded-full font-medium">
@@ -116,7 +116,7 @@ export default function PortalLayout({
                   className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive(item.href)
                       ? 'text-pink-600 bg-pink-50'
-                      : 'text-gray-600 hover:text-pink-600 hover:bg-pink-50'
+                      : 'text-[#111111]/80 hover:text-pink-600 hover:bg-pink-50'
                   }`}
                 >
                   <span className="mr-1">{item.icon}</span>
@@ -146,14 +146,14 @@ export default function PortalLayout({
       </header>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 safe-area-pb">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[#111111]/15 z-50 safe-area-pb">
         <div className="flex justify-around items-center h-16 px-2">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={`flex flex-col items-center gap-1 px-3 py-2 transition-colors ${
-                isActive(item.href) ? 'text-pink-600' : 'text-gray-500'
+                isActive(item.href) ? 'text-pink-600' : 'text-[#111111]/70'
               }`}
             >
               <span className="text-xl">{item.icon}</span>
@@ -169,9 +169,9 @@ export default function PortalLayout({
       </main>
 
       {/* Footer Trust Badges */}
-      <footer className="hidden md:block bg-white border-t border-gray-100 py-4">
+      <footer className="hidden md:block bg-white border-t border-[#111111]/10 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center gap-8 text-sm text-gray-500">
+          <div className="flex items-center justify-center gap-8 text-sm text-[#111111]/70">
             <div className="flex items-center gap-2">
               <span className="text-green-500">🔒</span>
               <span>HIPAA Compliant</span>

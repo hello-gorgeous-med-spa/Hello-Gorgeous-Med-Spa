@@ -7,6 +7,7 @@ import { PERSONA_UI } from "@/lib/personas/ui";
 import { getPersonaConfig } from "@/lib/personas/index";
 import { useChatOpen } from "@/components/ChatOpenContext";
 import { FULLSCRIPT_DISPENSARY_URL } from "@/lib/flows";
+import { mascotImages, getMascotVideoSrc } from "@/lib/media";
 
 type Message = {
   id: string;
@@ -16,13 +17,18 @@ type Message = {
   recommendedCollection?: { id: string; title: string; fullscript_url: string };
 };
 
-const mascots: { id: PersonaId; name: string; avatar: string; color: string; specialty: string }[] = [
-  { id: "peppi", name: "Peppi", avatar: "/images/characters/peppi.png", color: "from-fuchsia-400 to-pink-400", specialty: "Fullscript & Olympia" },
-  { id: "beau-tox", name: "Beau-Tox", avatar: "/images/characters/beau.png", color: "from-purple-500 to-pink-500", specialty: "Botox • Jeuveau • Dysport" },
-  { id: "filla-grace", name: "Filla Grace", avatar: "/images/characters/filla-grace.png", color: "from-pink-400 to-rose-400", specialty: "Revanesse Fillers" },
-  { id: "harmony", name: "Harmony", avatar: "/images/characters/harmony.png", color: "from-rose-500 to-pink-500", specialty: "Biote Hormones" },
-  { id: "founder", name: "Danielle", avatar: "/images/characters/founder.png", color: "from-pink-600 to-pink-500", specialty: "Hello Gorgeous" },
-  { id: "ryan", name: "Dr. Ryan", avatar: "/images/characters/ryan.png", color: "from-fuchsia-500 to-purple-500", specialty: "Medical & Telehealth" },
+function getMascotAvatar(id: PersonaId): string {
+  const m = mascotImages[id];
+  return m?.portrait || `/images/characters/${id === "beau-tox" ? "beau" : id}.png`;
+}
+
+const mascots: { id: PersonaId; name: string; color: string; specialty: string }[] = [
+  { id: "peppi", name: "Peppi", color: "from-fuchsia-400 to-pink-400", specialty: "Fullscript & Olympia" },
+  { id: "beau-tox", name: "Beau-Tox", color: "from-purple-500 to-pink-500", specialty: "Botox • Jeuveau • Dysport" },
+  { id: "filla-grace", name: "Filla Grace", color: "from-pink-400 to-rose-400", specialty: "Revanesse Fillers" },
+  { id: "harmony", name: "Harmony", color: "from-rose-500 to-pink-500", specialty: "Biote Hormones" },
+  { id: "founder", name: "Danielle", color: "from-pink-600 to-pink-500", specialty: "Hello Gorgeous" },
+  { id: "ryan", name: "Dr. Ryan", color: "from-fuchsia-500 to-purple-500", specialty: "Medical & Telehealth" },
 ];
 
 function getSupplementsOpeningMessage(clickedSupplement?: string): string {
@@ -154,16 +160,22 @@ export function MascotChat() {
 
   const currentMascot = mascots.find((m) => m.id === selectedMascot);
   const currentUI = selectedMascot ? PERSONA_UI[selectedMascot] : null;
+  const [videoFailed, setVideoFailed] = useState(false);
+  const mascotVideoSrc = selectedMascot ? getMascotVideoSrc(selectedMascot, "intro") : null;
+
+  useEffect(() => {
+    setVideoFailed(false);
+  }, [selectedMascot]);
 
   return (
     <>
-      {/* Floating Button */}
+      {/* Floating Button - z-[60] above sticky CTAs */}
       <button
         type="button"
         onClick={() => toggleOpen()}
-        className={`fixed bottom-24 md:bottom-6 right-4 z-40 w-16 h-16 rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center ${
+        className={`fixed bottom-24 md:bottom-6 right-4 z-[60] w-16 h-16 rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center ${
           isOpen
-            ? "bg-gray-800 rotate-0"
+            ? "bg-[#111111] rotate-0"
             : "bg-gradient-to-br from-pink-500 to-pink-600 hover:scale-110"
         }`}
         aria-label={isOpen ? "Close chat" : "Open chat"}
@@ -178,32 +190,46 @@ export function MascotChat() {
         )}
       </button>
 
-      {/* Chat Window */}
+      {/* Chat Window - z-[60], light theme for visibility */}
       {isOpen && (
-        <div className="fixed bottom-44 md:bottom-24 right-4 z-40 w-[calc(100vw-2rem)] max-w-md bg-black border border-pink-500/30 rounded-2xl shadow-2xl shadow-pink-500/20 overflow-hidden flex flex-col max-h-[70vh]">
-          {/* Header */}
-          <div className="bg-gradient-to-r from-pink-600 to-pink-500 p-4 flex items-center justify-between">
+        <div data-mascot-chat className="fixed bottom-36 md:bottom-24 right-4 z-[60] w-[calc(100vw-2rem)] max-w-md bg-white rounded-2xl shadow-2xl ring-2 ring-[#E6007E]/30 overflow-hidden flex flex-col max-h-[80vh]">
+          {/* Header with mascot image/video */}
+          <div className="bg-gradient-to-r from-pink-600 to-pink-500 p-4 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
               {currentMascot ? (
                 <>
-                  <div className="w-10 h-10 rounded-full bg-white/20 overflow-hidden">
-                    <Image
-                      src={currentMascot.avatar}
-                      alt={currentMascot.name}
-                      width={40}
-                      height={40}
-                      className="w-full h-full object-cover"
-                    />
+                  <div className="relative w-14 h-14 rounded-full bg-white/20 overflow-hidden shrink-0 ring-2 ring-white/30">
+                    {mascotVideoSrc && !videoFailed ? (
+                      <video
+                        src={mascotVideoSrc}
+                        poster={mascotImages[selectedMascot!]?.portrait}
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        className="w-full h-full object-cover"
+                        onError={() => setVideoFailed(true)}
+                      />
+                    ) : (
+                      <Image
+                        src={getMascotAvatar(currentMascot.id)}
+                        alt={currentMascot.name}
+                        width={56}
+                        height={56}
+                        className="w-full h-full object-cover"
+                        unoptimized
+                      />
+                    )}
                   </div>
                   <div>
                     <p className="text-white font-bold">{currentMascot.name}</p>
-                    <p className="text-white/70 text-xs">Online • Education only</p>
+                    <p className="text-white/80 text-xs">Online • Education only</p>
                   </div>
                 </>
               ) : (
                 <div>
                   <p className="text-white font-bold">Hello Gorgeous AI</p>
-                  <p className="text-white/70 text-xs">Choose who to chat with</p>
+                  <p className="text-white/80 text-xs">Choose who to chat with</p>
                 </div>
               )}
             </div>
@@ -211,7 +237,7 @@ export function MascotChat() {
               <button
                 type="button"
                 onClick={() => backToPicker()}
-                className="text-white/70 hover:text-white text-sm"
+                className="text-white/80 hover:text-white text-sm font-medium"
               >
                 ← Back
               </button>
@@ -220,41 +246,56 @@ export function MascotChat() {
 
           {/* Content */}
           {!selectedMascot ? (
-            // Mascot Selection
-            <div className="p-4 overflow-y-auto">
-              <p className="text-white/70 text-sm mb-4 text-center">
+            // Mascot Selection with avatars
+            <div className="p-4 overflow-y-auto bg-[#111111]">
+              <p className="text-white/80 text-sm mb-4 text-center">
                 Choose a team member to chat with:
               </p>
               <div className="grid grid-cols-2 gap-3">
                 {mascots.map((mascot) => {
                   const ui = PERSONA_UI[mascot.id];
+                  const avatar = getMascotAvatar(mascot.id);
                   return (
                     <button
                       key={mascot.id}
                       type="button"
                       onClick={() => handleSelectMascot(mascot.id)}
-                      className="p-3 rounded-xl border border-white/10 bg-white/5 hover:border-pink-500/50 hover:bg-pink-500/10 transition text-left group"
+                      className="p-3 rounded-xl border border-white/20 bg-white/5 hover:border-pink-500/50 hover:bg-pink-500/10 transition text-left group"
                     >
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xl">{ui.emoji}</span>
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-10 h-10 rounded-full overflow-hidden bg-white/10 shrink-0 flex items-center justify-center">
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={avatar}
+                            alt={mascot.name}
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              e.currentTarget.style.display = "none";
+                              const fallback = e.currentTarget.nextElementSibling;
+                              if (fallback) fallback.classList.remove("hidden");
+                            }}
+                          />
+                          <span className="hidden text-xl">{ui.emoji}</span>
+                        </div>
                         <span className="text-white font-semibold text-sm">{mascot.name}</span>
                       </div>
                       <p className={`text-xs font-medium mb-1 bg-gradient-to-r ${mascot.color} bg-clip-text text-transparent`}>
                         {mascot.specialty}
                       </p>
-                      <p className="text-white/40 text-[10px] line-clamp-2">{ui.tagline}</p>
+                      <p className="text-white/50 text-[10px] line-clamp-2">{ui.tagline}</p>
                     </button>
                   );
                 })}
               </div>
-              <p className="text-white/40 text-xs text-center mt-4">
+              <p className="text-white/50 text-xs text-center mt-4">
                 Educational AI • Not medical advice
               </p>
             </div>
           ) : (
-            // Chat Interface
+            // Chat Interface - light bg for readability
             <>
-              <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-[200px] max-h-[400px]">
+              <div className="mascot-messages-area flex-1 overflow-y-auto p-4 space-y-4 min-h-[200px] max-h-[420px]">
                 {messages.map((message) => (
                   <div
                     key={message.id}
@@ -263,8 +304,8 @@ export function MascotChat() {
                     <div
                       className={`max-w-[85%] rounded-2xl px-4 py-3 ${
                         message.role === "user"
-                          ? "bg-pink-500 text-white rounded-br-md"
-                          : "bg-white/10 text-white/90 rounded-bl-md"
+                          ? "bg-[#E6007E] text-white rounded-br-md"
+                          : "mascot-message-bubble rounded-bl-md shadow-sm border border-[#111111]/10"
                       }`}
                     >
                       <p className="text-sm whitespace-pre-wrap">{message.content}</p>
@@ -295,11 +336,11 @@ export function MascotChat() {
                 ))}
                 {isLoading && (
                   <div className="flex justify-start">
-                    <div className="bg-white/10 rounded-2xl rounded-bl-md px-4 py-3">
+                    <div className="bg-white rounded-2xl rounded-bl-md px-4 py-3 shadow-sm border border-[#111111]/5">
                       <div className="flex gap-1">
-                        <span className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                        <span className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                        <span className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                        <span className="w-2 h-2 bg-[#E6007E] rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                        <span className="w-2 h-2 bg-[#E6007E] rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                        <span className="w-2 h-2 bg-[#E6007E] rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
                       </div>
                     </div>
                   </div>
@@ -309,15 +350,15 @@ export function MascotChat() {
 
               {/* Quick Starters */}
               {messages.length === 1 && currentUI && (
-                <div className="px-4 pb-2">
-                  <p className="text-white/50 text-xs mb-2">Quick questions:</p>
+                <div className="mascot-messages-area px-4 pb-2">
+                  <p className="text-[#111111] text-xs mb-2 font-medium">Quick questions:</p>
                   <div className="flex flex-wrap gap-2">
                     {currentUI.chatStarters.map((starter) => (
                       <button
                         key={starter}
                         type="button"
                         onClick={() => handleSendMessage(starter)}
-                        className="px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/70 text-xs hover:bg-pink-500/20 hover:border-pink-500/30 transition"
+                        className="mascot-quick-btn px-3 py-2 rounded-full border text-xs hover:bg-[#E6007E]/10 hover:border-[#E6007E]/40 transition"
                       >
                         {starter}
                       </button>
@@ -327,7 +368,7 @@ export function MascotChat() {
               )}
 
               {/* Input */}
-              <div className="p-4 border-t border-white/10">
+              <div className="mascot-input-area p-4 border-t border-[#111111]/15 shrink-0">
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -341,18 +382,18 @@ export function MascotChat() {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Ask a question..."
-                    className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder:text-white/40 focus:outline-none focus:border-pink-500/50 text-sm"
+                    className="flex-1 px-4 py-3 rounded-xl border border-[#111111]/20 text-sm placeholder:text-[#111111]/50 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/50 focus:border-[#E6007E] disabled:opacity-60"
                     disabled={isLoading}
                   />
                   <button
                     type="submit"
                     disabled={!input.trim() || isLoading}
-                    className="px-4 py-3 rounded-xl bg-pink-500 text-white font-semibold hover:bg-pink-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-4 py-3 rounded-xl bg-[#E6007E] text-white font-semibold hover:bg-[#B0005F] transition disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
                   >
                     Send
                   </button>
                 </form>
-                <p className="text-white/30 text-xs text-center mt-2">
+                <p className="text-[#111111]/60 text-xs text-center mt-2">
                   Education only • Not medical advice • Book a consult for personalized care
                 </p>
               </div>

@@ -45,7 +45,7 @@ export function ConditionalLayout({
   // Admin routes - no website chrome, just the content
   if (isAdminRoute) {
     return (
-      <div className="bg-gradient-to-br from-pink-50 via-white to-pink-50 text-gray-900 min-h-screen">
+      <div className="bg-gradient-to-br from-pink-50 via-white to-pink-50 text-[#111111] min-h-screen">
         {children}
       </div>
     );

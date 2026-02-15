@@ -34,7 +34,7 @@ export default function AboutPage() {
                 Hello Gorgeous
               </span>
             </h1>
-            <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">
+            <p className="mt-6 text-xl text-white/90 max-w-3xl leading-relaxed">
               A modern med spa experience built around trust, natural-looking results, and a
               premium standard of care.
             </p>
@@ -67,9 +67,9 @@ export default function AboutPage() {
             },
           ].map((c, idx) => (
             <FadeUp key={c.title} delayMs={60 * idx}>
-              <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
+              <div className="rounded-2xl border border-[#E6007E]/30 bg-gradient-to-b from-[#111111] to-black p-6">
                 <h2 className="text-xl font-bold text-white">{c.title}</h2>
-                <p className="mt-3 text-gray-300">{c.body}</p>
+                <p className="mt-3 text-white/80">{c.body}</p>
               </div>
             </FadeUp>
           ))}

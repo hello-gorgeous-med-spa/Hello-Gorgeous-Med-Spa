@@ -23,9 +23,8 @@ export const mascotVideos: Record<PersonaId, Record<string, string>> = {
     aesthetics: "/videos/mascots/founder/founder-vision.mp4",
   },
   harmony: {
-    // TODO: add harmony folder and harmony-intro.mp4 under public/videos/mascots/harmony/
-    intro: "/videos/mascots/ryan/ryan-intro.mp4",
-    education: "/videos/mascots/ryan/ryan-intro.mp4",
+    intro: "/videos/mascots/harmony/harmony-intro.mp4",
+    education: "/videos/mascots/harmony/harmony-intro.mp4",
   },
   founder: {
     vision: "/videos/mascots/founder/founder-vision.mp4",

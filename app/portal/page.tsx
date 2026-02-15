@@ -12,7 +12,7 @@ import { useChatOpen } from '@/components/ChatOpenContext';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-[#111111]/10 rounded ${className}`} />;
 }
 
 const QUICK_ACTIONS = [
@@ -173,20 +173,20 @@ export default function PortalDashboard() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <Link
               href="/portal/labs"
-              className="bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-md transition-shadow"
+              className="bg-white rounded-2xl border border-[#111111]/10 p-6 hover:shadow-md transition-shadow"
             >
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-3xl">🧪</span>
-                <h3 className="font-semibold text-gray-900">Labs & AI</h3>
+                <h3 className="font-semibold text-[#111111]">Labs & AI</h3>
               </div>
-              <p className="text-sm text-gray-500">Upload labs for AI insights and trends</p>
+              <p className="text-sm text-[#111111]/70">Upload labs for AI insights and trends</p>
             </Link>
-            <div className="bg-white rounded-2xl border border-gray-100 p-6">
+            <div className="bg-white rounded-2xl border border-[#111111]/10 p-6">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-3xl">💎</span>
                 <span className="text-2xl font-bold text-pink-600">{membership.wellnessCreditBalance ?? 0}</span>
               </div>
-              <p className="text-sm text-gray-500">Wellness credits remaining</p>
+              <p className="text-sm text-[#111111]/70">Wellness credits remaining</p>
               <Link href="/portal/membership" className="text-pink-600 text-sm font-medium mt-2 inline-block hover:underline">View details →</Link>
             </div>
           </div>
@@ -196,7 +196,7 @@ export default function PortalDashboard() {
       {/* Upcoming Appointments */}
       <section>
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-gray-900">Upcoming Appointments</h2>
+          <h2 className="text-xl font-bold text-[#111111]">Upcoming Appointments</h2>
           <Link
             href="/portal/appointments"
             className="text-pink-600 hover:text-pink-700 text-sm font-medium"
@@ -210,10 +210,10 @@ export default function PortalDashboard() {
             <Skeleton className="h-24" />
           </div>
         ) : appointments.length === 0 ? (
-          <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
+          <div className="bg-white rounded-2xl border border-[#111111]/10 p-8 text-center">
             <span className="text-4xl mb-4 block">📅</span>
-            <h3 className="font-semibold text-gray-900 mb-2">No upcoming appointments</h3>
-            <p className="text-gray-500 mb-4">Book your next treatment today!</p>
+            <h3 className="font-semibold text-[#111111] mb-2">No upcoming appointments</h3>
+            <p className="text-[#111111]/70 mb-4">Book your next treatment today!</p>
             <Link
               href="/portal/book"
               className="inline-flex items-center gap-2 bg-pink-500 text-white px-6 py-2.5 rounded-full font-medium hover:bg-pink-600 transition-colors"
@@ -226,7 +226,7 @@ export default function PortalDashboard() {
             {appointments.map((apt) => (
               <div
                 key={apt.id}
-                className="bg-white rounded-2xl border border-gray-100 p-5 hover:shadow-md transition-shadow"
+                className="bg-white rounded-2xl border border-[#111111]/10 p-5 hover:shadow-md transition-shadow"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
@@ -234,15 +234,15 @@ export default function PortalDashboard() {
                       <span className="text-2xl">💆‍♀️</span>
                     </div>
                     <div>
-                      <h3 className="font-semibold text-gray-900">{apt.service?.name || 'Appointment'}</h3>
-                      <p className="text-sm text-gray-500">
+                      <h3 className="font-semibold text-[#111111]">{apt.service?.name || 'Appointment'}</h3>
+                      <p className="text-sm text-[#111111]/70">
                         {apt.provider?.first_name} {apt.provider?.last_name}
                       </p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-medium text-gray-900">{formatDate(apt.scheduled_at)}</p>
-                    <p className="text-sm text-gray-500">{formatTime(apt.scheduled_at)}</p>
+                    <p className="font-medium text-[#111111]">{formatDate(apt.scheduled_at)}</p>
+                    <p className="text-sm text-[#111111]/70">{formatTime(apt.scheduled_at)}</p>
                   </div>
                 </div>
               </div>
@@ -253,7 +253,7 @@ export default function PortalDashboard() {
 
       {/* Quick Actions */}
       <section>
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Quick Actions</h2>
+        <h2 className="text-xl font-bold text-[#111111] mb-4">Quick Actions</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {QUICK_ACTIONS.map((action) => (
             <Link
@@ -285,16 +285,16 @@ export default function PortalDashboard() {
 
       {/* Featured Services */}
       <section>
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Popular Services</h2>
+        <h2 className="text-xl font-bold text-[#111111] mb-4">Popular Services</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {FEATURED_SERVICES.map((service) => (
             <Link
               key={service.name}
               href={service.href}
-              className="bg-white rounded-2xl border border-gray-100 p-5 text-center hover:shadow-md transition-all hover:border-pink-200"
+              className="bg-white rounded-2xl border border-[#111111]/10 p-5 text-center hover:shadow-md transition-all hover:border-pink-200"
             >
               <span className="text-4xl mb-3 block">{service.image}</span>
-              <h3 className="font-semibold text-gray-900">{service.name}</h3>
+              <h3 className="font-semibold text-[#111111]">{service.name}</h3>
               <p className="text-sm text-pink-600 font-medium">{service.price}</p>
             </Link>
           ))}

@@ -58,11 +58,43 @@
   color: var(--hg-pink-deep);
 }
 
-/* Override gray text on public site: use black for body text */
+/* Override gray on public site: black/white/pink only */
 [data-site="public"] .text-gray-300,
 [data-site="public"] .text-gray-400,
-[data-site="public"] .text-gray-500 {
+[data-site="public"] .text-gray-500,
+[data-site="public"] .text-gray-600,
+[data-site="public"] .text-gray-700,
+[data-site="public"] .text-gray-900 {
   color: #111111 !important;
+}
+[data-site="public"] [class*="bg-gray-50"],
+[data-site="public"] [class*="bg-gray-100"] {
+  background-color: #FDF7FA !important;
+}
+[data-site="public"] [class*="bg-gray-200"] {
+  background-color: rgba(230, 0, 126, 0.08) !important;
+}
+[data-site="public"] [class*="border-gray"] {
+  border-color: rgba(17, 17, 17, 0.15) !important;
+}
+
+/* Portal: no gray, use black/white/pink */
+[data-portal] .text-gray-400,
+[data-portal] .text-gray-500,
+[data-portal] .text-gray-600,
+[data-portal] .text-gray-700,
+[data-portal] .text-gray-900 {
+  color: #111111 !important;
+}
+[data-portal] [class*="bg-gray-50"],
+[data-portal] [class*="bg-gray-100"] {
+  background-color: #FDF7FA !important;
+}
+[data-portal] [class*="bg-gray-200"] {
+  background-color: rgba(230, 0, 126, 0.08) !important;
+}
+[data-portal] [class*="border-gray"] {
+  border-color: rgba(17, 17, 17, 0.15) !important;
 }
 [data-site="public"] .text-pink-400 {
   color: var(--hg-pink) !important;
@@ -79,6 +111,32 @@
 /* Force light pink gradient on dark gradient overlays (public site) */
 [data-site="public"] .absolute.inset-0.bg-gradient-to-b {
   background: linear-gradient(to bottom, #fce7f3 0%, #fdf2f8 50%, #ffffff 100%) !important;
+}
+
+/* Mascot chat: force light theme, exclude from public overrides */
+[data-mascot-chat] {
+  --mascot-chat-bg: #FDF7FA;
+  --mascot-chat-text: #111111;
+}
+[data-mascot-chat] .mascot-messages-area {
+  background-color: var(--mascot-chat-bg) !important;
+  color: var(--mascot-chat-text) !important;
+}
+[data-mascot-chat] .mascot-message-bubble {
+  background-color: white !important;
+  color: var(--mascot-chat-text) !important;
+}
+[data-mascot-chat] .mascot-quick-btn {
+  background-color: white !important;
+  color: var(--mascot-chat-text) !important;
+  border-color: rgba(17, 17, 17, 0.15) !important;
+}
+[data-mascot-chat] .mascot-input-area {
+  background-color: white !important;
+}
+[data-mascot-chat] .mascot-input-area input {
+  background-color: rgba(17, 17, 17, 0.05) !important;
+  color: var(--mascot-chat-text) !important;
 }
 
 /* Dark sections (e.g. authority block): white text on black */
@@ -102,7 +160,7 @@
   --hg-pink-deep: #B0005F;
   --hg-bg-soft: #FDF7FA;
   --hg-dark: #111111;
-  --hg-gray: #5E5E66;
+  --hg-gray: #111111;
   --hg-border: #EAE4E8;
 }
 

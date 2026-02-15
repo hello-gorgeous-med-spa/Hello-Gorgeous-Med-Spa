@@ -74,12 +74,12 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-pink-50 py-12 md:py-20 px-4">
         <div className="max-w-xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 text-center">
+          <div className="bg-white rounded-2xl shadow-xl border border-[#111111]/10 p-8 text-center">
             <div className="text-5xl mb-4">✓</div>
             <h1 className="text-2xl font-bold text-[#111111] mb-4">Request Received</h1>
             <p className="text-[#5E5E66] mb-4">{success.message}</p>
             {success.memberCode && (
-              <p className="text-sm text-gray-500 mb-6">
+              <p className="text-sm text-[#111111]/70 mb-6">
                 Reference: <strong>{success.memberCode}</strong>
               </p>
             )}
@@ -109,7 +109,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
           <Link href="/memberships" className="text-[#E6007E] text-sm font-medium hover:underline mb-8 inline-block">
             ← Back to Memberships
           </Link>
-          <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+          <div className="bg-white rounded-2xl shadow-xl border border-[#111111]/10 p-8">
             <h1 className="text-2xl font-bold text-[#111111] mb-4">Choose Your Program</h1>
             <p className="text-[#5E5E66] mb-6">Select a program to continue.</p>
             <div className="space-y-4">
@@ -117,7 +117,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                 <Link
                   key={slug}
                   href={`/memberships/signup?program=${slug}`}
-                  className="block p-4 rounded-xl border border-gray-200 hover:border-[#E6007E]/50 hover:bg-pink-50/50 transition"
+                  className="block p-4 rounded-xl border border-[#111111]/15 hover:border-[#E6007E]/50 hover:bg-pink-50/50 transition"
                 >
                   <span className="font-semibold text-[#111111]">{p.name}</span>
                   <span className="text-[#5E5E66] ml-2">— {p.priceLabel || `$${p.price}/mo`}</span>
@@ -139,7 +139,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
           ← Back to Memberships
         </Link>
 
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+        <div className="bg-white rounded-2xl shadow-xl border border-[#111111]/10 p-8">
           <h1 className="text-2xl font-bold text-[#111111] mb-2">
             Join {p?.name}
           </h1>
@@ -157,7 +157,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                   required
                   value={form.firstName}
                   onChange={(e) => setForm((f) => ({ ...f, firstName: e.target.value }))}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E6007E] focus:ring-1 focus:ring-[#E6007E] outline-none"
+                  className="w-full px-4 py-3 rounded-xl border border-[#111111]/15 focus:border-[#E6007E] focus:ring-1 focus:ring-[#E6007E] outline-none"
                   placeholder="Jane"
                 />
               </div>
@@ -171,7 +171,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                   required
                   value={form.lastName}
                   onChange={(e) => setForm((f) => ({ ...f, lastName: e.target.value }))}
-                  className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E6007E] focus:ring-1 focus:ring-[#E6007E] outline-none"
+                  className="w-full px-4 py-3 rounded-xl border border-[#111111]/15 focus:border-[#E6007E] focus:ring-1 focus:ring-[#E6007E] outline-none"
                   placeholder="Smith"
                 />
               </div>
@@ -186,7 +186,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                 required
                 value={form.email}
                 onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E6007E] focus:ring-1 focus:ring-[#E6007E] outline-none"
+                className="w-full px-4 py-3 rounded-xl border border-[#111111]/15 focus:border-[#E6007E] focus:ring-1 focus:ring-[#E6007E] outline-none"
                 placeholder="jane@example.com"
               />
             </div>
@@ -199,7 +199,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                 type="tel"
                 value={form.phone}
                 onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E6007E] focus:ring-1 focus:ring-[#E6007E] outline-none"
+                className="w-full px-4 py-3 rounded-xl border border-[#111111]/15 focus:border-[#E6007E] focus:ring-1 focus:ring-[#E6007E] outline-none"
                 placeholder="(630) 555-1234"
               />
             </div>
@@ -212,7 +212,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                 rows={3}
                 value={form.medicalHistoryNote}
                 onChange={(e) => setForm((f) => ({ ...f, medicalHistoryNote: e.target.value }))}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-[#E6007E] focus:ring-1 focus:ring-[#E6007E] outline-none resize-none"
+                className="w-full px-4 py-3 rounded-xl border border-[#111111]/15 focus:border-[#E6007E] focus:ring-1 focus:ring-[#E6007E] outline-none resize-none"
                 placeholder="Any conditions or medications we should know about?"
               />
             </div>
@@ -223,7 +223,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                   required
                   checked={form.hipaaConsent}
                   onChange={(e) => setForm((f) => ({ ...f, hipaaConsent: e.target.checked }))}
-                  className="mt-1 w-5 h-5 rounded border-gray-300 text-[#E6007E]"
+                  className="mt-1 w-5 h-5 rounded border-[#111111]/20 text-[#E6007E]"
                 />
                 <span className="text-sm text-[#111111]">
                   I consent to the use and disclosure of my health information as described in the HIPAA Notice of Privacy Practices. *
@@ -235,7 +235,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                   required
                   checked={form.termsConsent}
                   onChange={(e) => setForm((f) => ({ ...f, termsConsent: e.target.checked }))}
-                  className="mt-1 w-5 h-5 rounded border-gray-300 text-[#E6007E]"
+                  className="mt-1 w-5 h-5 rounded border-[#111111]/20 text-[#E6007E]"
                 />
                 <span className="text-sm text-[#111111]">
                   I agree to the membership terms and authorize Hello Gorgeous to contact me regarding my membership. *
