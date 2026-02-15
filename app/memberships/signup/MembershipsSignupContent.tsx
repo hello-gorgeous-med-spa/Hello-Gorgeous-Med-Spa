@@ -4,9 +4,9 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-const PROGRAMS: Record<string, { name: string; price: number }> = {
+const PROGRAMS: Record<string, { name: string; price: number; priceLabel?: string }> = {
   "precision-hormone": { name: "Precision Hormone Program", price: 199 },
-  "metabolic-reset": { name: "Metabolic Reset Program", price: 149 },
+  "metabolic-reset": { name: "Metabolic Reset Program", price: 450, priceLabel: "From $450/mo (5mg) or $499/mo (7.5mg)" },
 };
 
 export function MembershipsSignupContent({ programSlug }: { programSlug?: string }) {
@@ -120,7 +120,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                   className="block p-4 rounded-xl border border-gray-200 hover:border-[#E6007E]/50 hover:bg-pink-50/50 transition"
                 >
                   <span className="font-semibold text-[#111111]">{p.name}</span>
-                  <span className="text-[#5E5E66] ml-2">— ${p.price}/mo</span>
+                  <span className="text-[#5E5E66] ml-2">— {p.priceLabel || `$${p.price}/mo`}</span>
                 </Link>
               ))}
             </div>
@@ -143,7 +143,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
           <h1 className="text-2xl font-bold text-[#111111] mb-2">
             Join {p?.name}
           </h1>
-          <p className="text-[#5E5E66] mb-6">${p?.price}/month • Full member portal access</p>
+          <p className="text-[#5E5E66] mb-6">{p?.priceLabel || `$${p?.price}/month`} • Full member portal access</p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid sm:grid-cols-2 gap-4">
