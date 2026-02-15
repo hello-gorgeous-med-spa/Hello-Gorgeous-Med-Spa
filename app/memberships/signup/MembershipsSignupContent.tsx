@@ -53,6 +53,13 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
         message: data.message || "Request received.",
         memberCode: data.memberCode,
       });
+      if (form.email) {
+        try {
+          localStorage.setItem("hg_portal_email", form.email.trim());
+        } catch {
+          /* ignore */
+        }
+      }
       if (data.redirectUrl) {
         setTimeout(() => router.push(data.redirectUrl), 3000);
       }
