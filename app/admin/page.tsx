@@ -215,10 +215,15 @@ export default function ExecutiveDashboard() {
       const provRes = await fetch('/api/providers');
       const provData = await provRes.json();
       const providerList = provData.providers || [];
-      setProviders(providerList.map((p: any) => ({
-        id: p.id,
-        name: `${p.first_name || p.firstName || ''} ${p.last_name || p.lastName || ''}`.trim() || 'Provider',
-      })));
+      setProviders(providerList.map((p: any) => {
+        // Build name from display_name or first_name + last_name
+        const firstName = p.first_name || p.firstName || '';
+        const lastName = p.last_name || p.lastName || '';
+        const fullName = `${firstName} ${lastName}`.trim();
+        // Use display_name if available, otherwise fallback to constructed name or "Provider"
+        const name = p.display_name || (fullName && fullName !== 'Provider' ? fullName : 'Provider');
+        return { id: p.id, name };
+      }));
 
       // Calculate stats - use calendar month start, not "30 days ago"
       const now = new Date();

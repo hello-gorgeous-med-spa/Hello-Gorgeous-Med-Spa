@@ -346,6 +346,13 @@ export async function GET(request: NextRequest) {
       // Provider name - try direct columns first, then nested users table
       let providerName = 'Provider';
       let providerFirstName = '';
+      
+      // Known provider IDs from our database - always check this
+      const KNOWN_PROVIDERS: Record<string, string> = {
+        '47ab9361-4a68-4ab8-a860-c9c9fd64d26c': 'Ryan Kent',
+        'b7e6f872-3628-418a-aefb-aca2101f7cb2': 'Danielle Alcala',
+      };
+      
       if (apt.provider) {
         // Try direct columns first
         if (apt.provider.first_name && apt.provider.first_name !== 'Provider') {
@@ -357,18 +364,17 @@ export async function GET(request: NextRequest) {
           providerFirstName = apt.provider.users.first_name;
           providerName = `${apt.provider.users.first_name || ''} ${apt.provider.users.last_name || ''}`.trim();
         }
-        // Last resort: check the provider_id to infer name
-        else if (apt.provider_id) {
-          // Known provider IDs from our database
-          const KNOWN_PROVIDERS: Record<string, string> = {
-            '47ab9361-4a68-4ab8-a860-c9c9fd64d26c': 'Ryan Kent',
-            'b7e6f872-3628-418a-aefb-aca2101f7cb2': 'Danielle Alcala',
-          };
-          if (KNOWN_PROVIDERS[apt.provider_id]) {
-            providerName = KNOWN_PROVIDERS[apt.provider_id];
-            providerFirstName = providerName.split(' ')[0];
-          }
+        // Try KNOWN_PROVIDERS lookup using provider.id
+        else if (apt.provider.id && KNOWN_PROVIDERS[apt.provider.id]) {
+          providerName = KNOWN_PROVIDERS[apt.provider.id];
+          providerFirstName = providerName.split(' ')[0];
         }
+      }
+      
+      // Fallback: Always check provider_id against known providers
+      if (providerName === 'Provider' && apt.provider_id && KNOWN_PROVIDERS[apt.provider_id]) {
+        providerName = KNOWN_PROVIDERS[apt.provider_id];
+        providerFirstName = providerName.split(' ')[0];
       }
       
       return {

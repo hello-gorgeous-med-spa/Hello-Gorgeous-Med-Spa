@@ -10,6 +10,12 @@ import { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { Breadcrumb, ExportButton, NoAppointmentsEmptyState } from '@/components/ui';
 
+// Fallback providers matching database UUIDs
+const FALLBACK_PROVIDERS = [
+  { id: '47ab9361-4a68-4ab8-a860-c9c9fd64d26c', first_name: 'Ryan', last_name: 'Kent', display_name: 'Ryan Kent, FNP-BC', color_hex: '#3b82f6' },
+  { id: 'b7e6f872-3628-418a-aefb-aca2101f7cb2', first_name: 'Danielle', last_name: 'Alcala', display_name: 'Danielle Alcala, RN-S', color_hex: '#ec4899' },
+];
+
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
   return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
@@ -59,16 +65,24 @@ export default function AdminAppointmentsPage() {
     }
   }, [selectedDate]);
 
-  // Fetch providers from API
+  // Fetch providers from API with fallback
   const fetchProviders = useCallback(async () => {
     try {
       const res = await fetch('/api/providers');
       const data = await res.json();
-      if (data.providers) {
-        setProviders(data.providers);
+      if (data.providers && data.providers.length > 0) {
+        // Filter out providers with no real names (where first_name is "Provider" or empty)
+        const validProviders = data.providers.filter((p: any) => 
+          p.first_name && p.first_name !== 'Provider' && p.first_name.trim() !== ''
+        );
+        // Use valid providers or fall back to hardcoded list
+        setProviders(validProviders.length > 0 ? validProviders : FALLBACK_PROVIDERS);
+      } else {
+        setProviders(FALLBACK_PROVIDERS);
       }
     } catch (err) {
       console.error('Failed to load providers:', err);
+      setProviders(FALLBACK_PROVIDERS);
     }
   }, []);
 
@@ -238,11 +252,16 @@ export default function AdminAppointmentsPage() {
               className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-pink-500"
             >
               <option value="all">All Providers</option>
-              {providers.map((p: any) => (
-                <option key={p.id} value={p.id}>
-                  {p.first_name || p.firstName} {p.last_name || p.lastName}
-                </option>
-              ))}
+              {providers.map((p: any) => {
+                const name = p.display_name || 
+                  `${p.first_name || ''} ${p.last_name || ''}`.trim() || 
+                  'Provider';
+                return (
+                  <option key={p.id} value={p.id}>
+                    {name}
+                  </option>
+                );
+              })}
             </select>
 
             {/* Status Filter */}

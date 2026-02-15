@@ -36,7 +36,7 @@ export async function GET() {
     // Try to get providers - support both direct columns and users join
     const { data: providers, error } = await supabase
       .from('providers')
-      .select(`
+      .select(\`
         id,
         user_id,
         slug,
@@ -50,7 +50,7 @@ export async function GET() {
         headshot_url,
         tagline,
         booking_url
-      `)
+      \`)
       .eq('is_active', true)
       .order('created_at', { ascending: true });
 
@@ -59,29 +59,44 @@ export async function GET() {
       return NextResponse.json({ providers: FALLBACK_PROVIDER_LIST });
     }
 
-    // Format providers - use direct columns
+    // Format providers - merge with fallback data for reliable names
     if (providers && providers.length > 0) {
-      const filtered = providers.filter(p => {
-        if (p.slug && ALLOWED_SLUGS.has(p.slug)) return true;
-        if (p.id && ALLOWED_IDS.has(p.id)) return true;
-        return false;
+      // Map DB providers to formatted providers with fallback data
+      const formatted = providers.map(p => {
+        // Get fallback data by slug or id for reliable names
+        const fallback = p.slug ? PROVIDER_FALLBACKS[p.slug] : 
+          Object.values(PROVIDER_FALLBACKS).find(f => f.id === p.id);
+        
+        // Check if we need to use fallback names
+        const needsFallbackName = !p.first_name || p.first_name === 'Provider' || p.first_name.trim() === '';
+        
+        return {
+          id: p.id,
+          user_id: p.user_id,
+          // Use fallback names if DB has generic "Provider" or empty
+          first_name: needsFallbackName ? (fallback?.first_name || 'Provider') : p.first_name,
+          last_name: needsFallbackName ? (fallback?.last_name || '') : (p.last_name || ''),
+          email: p.email || fallback?.email,
+          credentials: p.credentials || fallback?.credentials,
+          color_hex: p.color_hex || fallback?.color_hex || '#EC4899',
+          is_active: p.is_active,
+          slug: p.slug || fallback?.slug,
+          display_name: p.display_name || fallback?.display_name,
+          headshot_url: p.headshot_url || fallback?.headshot_url,
+          tagline: p.tagline || fallback?.tagline,
+          booking_url: p.booking_url || fallback?.booking_url,
+        };
       });
-
-      const formatted = filtered.map(p => ({
-        id: p.id,
-        user_id: p.user_id,
-        first_name: p.first_name || 'Provider',
-        last_name: p.last_name || '',
-        email: p.email,
-        credentials: p.credentials,
-        color_hex: p.color_hex || '#EC4899',
-        is_active: p.is_active,
-        slug: p.slug,
-        display_name: p.display_name,
-        headshot_url: p.headshot_url,
-        tagline: p.tagline,
-        booking_url: p.booking_url,
-      }));
+      
+      // Check if any providers still have bad names - if so, return fallback list
+      const allHaveBadNames = formatted.every(p => 
+        !p.first_name || p.first_name === 'Provider' || p.first_name.trim() === ''
+      );
+      
+      if (allHaveBadNames) {
+        console.log('[Providers API] All providers have bad names, returning fallback');
+        return NextResponse.json({ providers: FALLBACK_PROVIDER_LIST });
+      }
       
       if (formatted.length > 0) {
         return NextResponse.json({ providers: formatted });
