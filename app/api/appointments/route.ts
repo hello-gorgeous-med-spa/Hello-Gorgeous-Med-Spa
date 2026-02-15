@@ -164,6 +164,16 @@ export async function GET(request: NextRequest) {
     let date = searchParams.get('date');
     const providerId = searchParams.get('provider_id');
     let clientId = searchParams.get('client_id');
+    const clientEmail = searchParams.get('email');
+
+    if (!clientId && clientEmail?.trim()) {
+      const { data: client } = await supabase
+        .from('clients')
+        .select('id')
+        .eq('email', clientEmail.toLowerCase().trim())
+        .single();
+      if (client) clientId = client.id;
+    }
 
     // Portal/client: enforce own data only (HIPAA minimum necessary)
     const sessionCookie = request.cookies.get('hgos_session');

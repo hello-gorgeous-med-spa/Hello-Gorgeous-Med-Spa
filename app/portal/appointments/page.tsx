@@ -25,6 +25,8 @@ interface Appointment {
   status: string;
   location: string;
   price: number;
+  isTelehealth?: boolean;
+  telehealthLink?: string;
 }
 
 // Skeleton component
@@ -58,9 +60,9 @@ export default function PortalAppointmentsPage() {
       try {
         setLoading(true);
         
-        // Get client ID from session storage (set during login)
-        const clientId = sessionStorage.getItem('client_id');
-        const clientEmail = sessionStorage.getItem('client_email');
+        // Get client ID/email from session or portal email (wellness signup)
+        const clientId = typeof window !== 'undefined' ? sessionStorage.getItem('client_id') : null;
+        const clientEmail = typeof window !== 'undefined' ? (sessionStorage.getItem('client_email') || localStorage.getItem('hg_portal_email')) : null;
         
         if (!clientId && !clientEmail) {
           // No client session - show empty state
@@ -73,6 +75,7 @@ export default function PortalAppointmentsPage() {
         // Fetch appointments for this client
         const params = new URLSearchParams();
         if (clientId) params.set('client_id', clientId);
+        else if (clientEmail) params.set('email', clientEmail);
         
         const response = await fetch(`/api/appointments?${params.toString()}`);
         const data = await response.json();
@@ -86,6 +89,7 @@ export default function PortalAppointmentsPage() {
           
           for (const apt of data.appointments) {
             const aptDate = new Date(apt.starts_at);
+            const isTelehealth = (apt.type || '').toLowerCase().includes('telehealth') || (apt.type || '').toLowerCase().includes('video');
             const formatted: Appointment = {
               id: apt.id,
               service: apt.service_name || apt.service?.name || 'Service',
@@ -98,8 +102,10 @@ export default function PortalAppointmentsPage() {
               }),
               datetime: aptDate,
               status: apt.status,
-              location: '74 W. Washington St, Oswego, IL',
+              location: isTelehealth ? 'Video visit' : '74 W. Washington St, Oswego, IL',
               price: apt.service_price || (apt.service?.price_cents ? apt.service.price_cents / 100 : 0),
+              isTelehealth,
+              telehealthLink: apt.telehealth_link || apt.telehealth_url,
             };
             
             if (apt.status === 'cancelled' || apt.status === 'completed' || apt.status === 'no_show' || aptDate < now) {
@@ -217,6 +223,7 @@ export default function PortalAppointmentsPage() {
           
           for (const apt of aptData.appointments) {
             const aptDate = new Date(apt.starts_at);
+            const isTelehealth = (apt.type || '').toLowerCase().includes('telehealth') || (apt.type || '').toLowerCase().includes('video');
             const formatted: Appointment = {
               id: apt.id,
               service: apt.service_name || apt.service?.name || 'Service',
@@ -229,8 +236,10 @@ export default function PortalAppointmentsPage() {
               }),
               datetime: aptDate,
               status: apt.status,
-              location: '74 W. Washington St, Oswego, IL',
+              location: isTelehealth ? 'Video visit' : '74 W. Washington St, Oswego, IL',
               price: apt.service_price || 0,
+              isTelehealth,
+              telehealthLink: apt.telehealth_link || apt.telehealth_url,
             };
             
             if (apt.status === 'cancelled' || apt.status === 'completed' || apt.status === 'no_show' || aptDate < now) {
@@ -400,6 +409,16 @@ export default function PortalAppointmentsPage() {
                     <div className="flex items-center gap-2">
                       <span className="text-gray-400">📍</span>
                       <span className="text-gray-900">{apt.location}</span>
+                      {apt.isTelehealth && (
+                        <a
+                          href={apt.telehealthLink || '/telehealth'}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="ml-2 px-2 py-1 bg-blue-100 text-blue-700 text-xs font-medium rounded-full hover:bg-blue-200"
+                        >
+                          Join Video →
+                        </a>
+                      )}
                     </div>
                     <div className="flex items-center gap-2">
                       <span className="text-gray-400">💰</span>
