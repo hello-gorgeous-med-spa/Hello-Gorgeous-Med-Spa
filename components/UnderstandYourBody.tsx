@@ -27,34 +27,34 @@ const TOPICS: Array<{
     label: "Injectables basics",
     personaId: "beau-tox",
     description: "How wrinkle relaxers work, timelines, and expectation setting.",
-    starters: ["Botox vs Dysport—what’s the difference?", "When do results kick in?", "What are general risks?"],
+    starters: ["Botox vs Dysport—what's the difference?", "When do results kick in?", "What are general risks?"],
   },
   {
     id: "skin",
     label: "Skin & aging (education)",
     personaId: "founder",
     description: "How to think about skin health and aging gracefully over time.",
-    starters: ["How do I think about long-term skin health?", "What does ‘natural’ mean here?", "How do I start without overdoing it?"],
+    starters: ["How do I think about long-term skin health?", "What does 'natural' mean here?", "How do I start without overdoing it?"],
   },
   {
     id: "hormones",
     label: "Hormones & wellness (education)",
     personaId: "ryan",
     description: "High-level safety principles and why evaluation matters.",
-    starters: ["What does ‘evaluation + monitoring’ usually mean?", "What safety principles matter most?", "When should I book a consult?"],
+    starters: ["What does 'evaluation + monitoring' usually mean?", "What safety principles matter most?", "When should I book a consult?"],
   },
   {
     id: "weight",
     label: "Weight confidence (education)",
     personaId: "ryan",
     description: "High-level, safety-first education; clinical decisions happen in person.",
-    starters: ["What questions should I ask at a weight consult?", "What’s a safe mindset for progress?", "What’s the best first step?"],
+    starters: ["What questions should I ask at a weight consult?", "What's a safe mindset for progress?", "What's the best first step?"],
   },
   {
     id: "safety",
     label: "Safety & eligibility (high-level)",
     personaId: "ryan",
-    description: "What’s normal to ask, when to seek care, and what requires in-person evaluation.",
+    description: "What's normal to ask, when to seek care, and what requires in-person evaluation.",
     starters: ["What are general contraindication themes?", "When should someone avoid a treatment (in general)?", "What are red flags after treatment?"],
   },
 ];
@@ -122,7 +122,7 @@ export function UnderstandYourBody() {
     {
       role: "assistant",
       content: [
-        "Tell me what you want to understand, and I’ll explain it clearly.",
+        "Tell me what you want to understand, and I'll explain it clearly.",
         "",
         complianceFooter(),
       ].join("\n"),
@@ -138,23 +138,23 @@ export function UnderstandYourBody() {
     <div className="grid gap-10 lg:grid-cols-12">
       <div className="lg:col-span-6">
         <FadeUp>
-          <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
+          <p className="text-[#E6007E] text-lg md:text-xl font-medium mb-6 tracking-wide">
             UNDERSTAND YOUR BODY
           </p>
-          <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+          <h1 className="text-4xl md:text-6xl font-bold leading-tight text-white">
             Education that feels{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
+            <span className="text-[#E6007E]">
               human
             </span>
           </h1>
-          <p className="mt-6 text-xl text-gray-300 max-w-2xl leading-relaxed">
-            Choose a topic and ask what’s on your mind. We’ll keep it calm, clear, and compliance-safe.
+          <p className="mt-6 text-xl text-white/80 max-w-2xl leading-relaxed">
+            Choose a topic and ask what&apos;s on your mind. We&apos;ll keep it calm, clear, and compliance-safe.
           </p>
         </FadeUp>
 
         <div className="mt-10 grid gap-4">
           <FadeUp delayMs={80}>
-            <div className="rounded-2xl border border-gray-800 bg-black/40 p-6">
+            <div className="rounded-2xl border border-[#E6007E]/30 bg-black p-6">
               <p className="text-sm text-white/70">Pick a topic</p>
               <div className="mt-4 grid gap-3">
                 {TOPICS.map((t) => {
@@ -165,12 +165,12 @@ export function UnderstandYourBody() {
                       type="button"
                       onClick={() => setTopicId(t.id)}
                       className={cx(
-                        "text-left rounded-2xl border bg-gradient-to-b from-gray-950/60 to-black p-5 transition",
-                        active ? "border-pink-500/40" : "border-gray-800 hover:border-white/20",
+                        "text-left rounded-2xl border bg-black p-5 transition",
+                        active ? "border-[#E6007E] bg-[#E6007E]/10" : "border-white/20 hover:border-[#E6007E]/50",
                       )}
                     >
-                      <p className="text-sm text-white/70">{t.label}</p>
-                      <p className="mt-2 text-white/80 text-sm">{t.description}</p>
+                      <p className="text-sm text-white font-medium">{t.label}</p>
+                      <p className="mt-2 text-white/70 text-sm">{t.description}</p>
                     </button>
                   );
                 })}
@@ -190,8 +190,8 @@ export function UnderstandYourBody() {
                         className={cx(
                           "text-xs font-semibold rounded-full px-3 py-2 border transition",
                           active
-                            ? "border-pink-500/40 bg-white/5 text-pink-300"
-                            : "border-white/10 text-white/70 hover:bg-white/5 hover:text-white",
+                            ? "border-[#E6007E] bg-[#E6007E]/20 text-[#E6007E]"
+                            : "border-white/20 text-white/70 hover:bg-[#E6007E]/10 hover:text-white hover:border-[#E6007E]/50",
                         )}
                       >
                         <span className="mr-1">{PERSONA_UI[id].emoji}</span>
@@ -210,8 +210,8 @@ export function UnderstandYourBody() {
 
       <div className="lg:col-span-6">
         <FadeUp delayMs={140}>
-          <div className="rounded-2xl border border-gray-800 bg-black/40 overflow-hidden">
-            <div className="p-5 border-b border-white/10">
+          <div className="rounded-2xl border border-[#E6007E]/30 bg-black overflow-hidden">
+            <div className="p-5 border-b border-[#E6007E]/30">
               <p className="text-sm text-white/70">Chat mode</p>
               <p className="mt-1 text-lg font-semibold text-white">
                 {personaUi.emoji} {personaCfg.displayName} — {personaCfg.role}
@@ -226,24 +226,24 @@ export function UnderstandYourBody() {
                   className={cx(
                     "whitespace-pre-wrap text-sm leading-relaxed",
                     m.role === "user"
-                      ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
-                      : "text-gray-200",
+                      ? "text-white bg-[#E6007E]/10 border border-[#E6007E]/30 rounded-2xl p-4"
+                      : "text-white/90",
                   )}
                 >
                   {m.content}
                 </div>
               ))}
-              {sending ? <div className="text-sm text-white/60">Thinking…</div> : null}
+              {sending ? <div className="text-sm text-[#E6007E]">Thinking…</div> : null}
             </div>
 
-            <div className="p-5 border-t border-white/10">
+            <div className="p-5 border-t border-[#E6007E]/30">
               <div className="flex flex-wrap gap-2">
                 {topic.starters.slice(0, 3).map((s) => (
                   <button
                     key={s}
                     type="button"
                     onClick={() => setInput(s)}
-                    className="text-left text-xs text-white/80 border border-white/10 rounded-full px-3 py-2 hover:bg-white/5 transition"
+                    className="text-left text-xs text-white/80 border border-white/20 rounded-full px-3 py-2 hover:bg-[#E6007E]/10 hover:border-[#E6007E]/50 transition"
                   >
                     {s}
                   </button>
@@ -255,7 +255,7 @@ export function UnderstandYourBody() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Ask a question…"
-                  className="flex-1 rounded-xl bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="flex-1 rounded-xl bg-black border border-white/20 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/50 focus:border-[#E6007E]"
                   onKeyDown={(e) => {
                     if (e.key !== "Enter") return;
                     const q = input.trim();
@@ -280,7 +280,7 @@ export function UnderstandYourBody() {
                 <button
                   type="button"
                   disabled={sending}
-                  className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
+                  className="px-4 py-3 rounded-xl bg-[#E6007E] text-white font-semibold hover:bg-[#C4006B] transition disabled:opacity-60"
                   onClick={() => {
                     const q = input.trim();
                     if (!q) return;
@@ -320,4 +320,3 @@ export function UnderstandYourBody() {
     </div>
   );
 }
-

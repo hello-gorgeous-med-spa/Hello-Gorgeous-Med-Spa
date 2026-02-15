@@ -762,6 +762,23 @@ export default function ExecutiveDashboard() {
         </div>
       </div>
 
+      {/* Live System State - Featured */}
+      <Link
+        href="/admin/owner/live-state"
+        className="block bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl shadow-lg p-5 hover:shadow-xl transition-all text-white print:hidden"
+      >
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
+            <span className="text-3xl">📡</span>
+            <div>
+              <h2 className="text-lg font-bold">Live System State</h2>
+              <p className="text-green-100 text-sm">See exactly what your system is doing - no hidden logic</p>
+            </div>
+          </div>
+          <span className="text-2xl">→</span>
+        </div>
+      </Link>
+
       {/* Quick Links */}
       <div className="grid grid-cols-2 lg:grid-cols-8 gap-4 print:hidden">
         <Link

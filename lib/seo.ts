@@ -682,6 +682,32 @@ export const SERVICES: readonly Service[] = [
     ],
   },
   {
+    slug: "lash-spa",
+    name: "Lash Spa",
+    category: "Aesthetics",
+    short: "Lash extensions, fills, perm, and tint for lush, defined lashes.",
+    heroTitle: "Lash Spa in Oswego, IL",
+    heroSubtitle:
+      "Full set, fill, lash perm and tint, and mini fill—premium lash services for every look.",
+    faqs: [
+      {
+        question: "How long does a full set last?",
+        answer:
+          "With proper care, a full set typically lasts 2–3 weeks before a fill is recommended. Results vary based on your natural lash cycle and aftercare.",
+      },
+      {
+        question: "What’s the difference between a fill and a mini fill?",
+        answer:
+          "A fill replenishes lashes grown out since your last appointment (typically 2–3 weeks). A mini fill is a lighter touch-up for minor gaps between full fills.",
+      },
+      {
+        question: "Does lash perm and tint damage my lashes?",
+        answer:
+          "When done correctly by our trained specialists, lash perm and tint enhance your natural lashes without damage. We use quality products and gentle techniques.",
+      },
+    ],
+  },
+  {
     slug: "prf-prp",
     name: "PRF / PRP",
     category: "Regenerative",

@@ -1,215 +1,211 @@
-// ============================================================
-// PUBLIC: PROVIDERS PAGE
-// "Meet The Experts Behind Hello Gorgeous"
-// Premium, medical, trustworthy design
-// ============================================================
-
 import { Metadata } from 'next';
+import { createClient } from '@supabase/supabase-js';
 import Link from 'next/link';
 import Image from 'next/image';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata: Metadata = {
-  title: 'Our Providers | Hello Gorgeous Med Spa',
-  description: 'Meet our licensed medical professionals at Hello Gorgeous Med Spa. Expert injectors and aesthetic specialists delivering personalized care with real results.',
-  openGraph: {
-    title: 'Meet Our Expert Providers | Hello Gorgeous Med Spa',
-    description: 'Licensed medical professionals. Real results. Personalized care.',
-  },
-};
+export const metadata: Metadata = pageMetadata({
+  title: 'Meet Our Providers | Hello Gorgeous Med Spa',
+  description: 'Meet the licensed medical professionals at Hello Gorgeous Med Spa in Oswego, IL. Our expert providers specialize in Botox, fillers, weight loss, and hormone therapy.',
+  path: '/providers',
+});
 
-// Schema markup for SEO
-const schemaMarkup = {
-  "@context": "https://schema.org",
-  "@type": "MedicalBusiness",
-  "name": "Hello Gorgeous Med Spa",
-  "description": "Premium med spa offering Botox, fillers, weight loss, and hormone therapy",
-  "employee": [
-    {
-      "@type": "Person",
-      "name": "Danielle",
-      "jobTitle": "Owner & Lead Injector",
-      "description": "Expert aesthetic injector specializing in natural results"
-    },
-    {
-      "@type": "Person", 
-      "name": "Ryan",
-      "jobTitle": "Medical Provider",
-      "description": "Licensed medical professional"
-    }
-  ]
-};
+interface Provider {
+  id: string;
+  display_name: string;
+  first_name: string;
+  last_name: string;
+  slug: string;
+  credentials: string | null;
+  short_bio: string | null;
+  headshot_url: string | null;
+  intro_video_url: string | null;
+  booking_url: string | null;
+  tagline: string | null;
+}
 
-// Default provider data (will be replaced with DB data)
-const DEFAULT_PROVIDERS = [
-  {
-    id: '1',
-    slug: 'danielle',
-    name: 'Danielle',
-    credentials: 'RN, BSN, Aesthetic Injector',
-    bio: 'With over a decade of experience in aesthetic medicine, Danielle founded Hello Gorgeous Med Spa with a vision to deliver natural, personalized results. Her expertise spans advanced injection techniques, facial balancing, and helping clients feel confident in their own skin.',
-    headshot_url: '/images/team/danielle.jpg',
-    specialties: ['Botox', 'Lip Filler', 'Facial Balancing', 'PRP'],
-    featured: true,
-  },
-  {
-    id: '2',
-    slug: 'ryan',
-    name: 'Ryan',
-    credentials: 'PA-C, Medical Provider',
-    bio: 'Ryan brings clinical precision and a patient-first approach to Hello Gorgeous. Specializing in hormone therapy and weight management, he works closely with each patient to develop personalized treatment plans that deliver lasting results.',
-    headshot_url: '/images/team/ryan.jpg',
-    specialties: ['Hormone Therapy', 'Weight Loss', 'IV Therapy'],
-    featured: true,
-  },
-];
+async function getProviders(): Promise<Provider[]> {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
 
-export default function ProvidersPage() {
+  const { data, error } = await supabase
+    .from('providers')
+    .select('id, display_name, first_name, last_name, slug, credentials, short_bio, headshot_url, intro_video_url, booking_url, tagline')
+    .eq('is_active', true);
+
+  if (error) {
+    console.error('Failed to fetch providers:', error);
+    return [];
+  }
+
+  // Sort: Danielle first
+  return (data || []).sort((a, b) => {
+    if (a.slug === 'danielle') return -1;
+    if (b.slug === 'danielle') return 1;
+    return 0;
+  });
+}
+
+export default async function ProvidersPage() {
+  const providers = await getProviders();
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'MedicalBusiness',
+    name: 'Hello Gorgeous Med Spa',
+    employee: providers.map((p) => ({
+      '@type': 'Person',
+      name: p.display_name || `${p.first_name} ${p.last_name}`,
+      jobTitle: p.credentials,
+      description: p.short_bio,
+      image: p.headshot_url,
+    })),
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaMarkup) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      
-      <main className="min-h-screen bg-white">
-        {/* Hero Section */}
-        <section className="relative py-20 px-4 bg-gradient-to-b from-gray-50 to-white">
-          <div className="max-w-6xl mx-auto text-center">
-            <span className="inline-block px-4 py-2 bg-pink-100 text-pink-600 rounded-full text-sm font-medium mb-6">
-              Our Team
-            </span>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-              Meet The Experts Behind<br />
-              <span className="text-pink-500">Hello Gorgeous</span>
-            </h1>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Licensed medical professionals. Real results. Personalized care.
-            </p>
-          </div>
-        </section>
 
-        {/* Provider Cards */}
-        <section className="py-16 px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-              {DEFAULT_PROVIDERS.map((provider) => (
+      {/* Hero Section - Black background for contrast */}
+      <section className="relative bg-black py-16 md:py-20 px-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
+            Meet The Experts Behind
+            <span className="block text-[#E6007E] mt-2">
+              Hello Gorgeous
+            </span>
+          </h1>
+          <p className="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">
+            Licensed medical professionals. Real results. Personalized care.
+          </p>
+        </div>
+      </section>
+
+      {/* Provider Cards - Clean layout */}
+      <section className="py-12 md:py-16 px-4 md:px-6 bg-gray-50">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {providers.map((provider) => {
+              const name = provider.display_name || `${provider.first_name} ${provider.last_name}`;
+              const firstName = provider.first_name;
+              
+              return (
                 <div
                   key={provider.id}
-                  className="group bg-white rounded-3xl border border-gray-100 shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden"
+                  className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
                 >
-                  {/* Provider Image */}
-                  <div className="relative h-80 bg-gradient-to-br from-gray-100 to-gray-200 overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-48 h-48 rounded-full bg-gradient-to-br from-pink-100 to-pink-200 flex items-center justify-center text-6xl font-bold text-pink-400">
-                        {provider.name.charAt(0)}
+                  {/* Headshot - Smaller height */}
+                  <div className="relative h-64 md:h-72 bg-gradient-to-br from-pink-100 to-rose-50">
+                    {provider.headshot_url ? (
+                      <Image
+                        src={provider.headshot_url}
+                        alt={name}
+                        fill
+                        className="object-cover object-top"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center">
+                        <span className="text-7xl">👩‍⚕️</span>
                       </div>
-                    </div>
-                    {/* Featured Badge */}
-                    {provider.featured && (
-                      <div className="absolute top-4 right-4 px-3 py-1 bg-pink-500 text-white text-xs font-medium rounded-full">
-                        Lead Provider
+                    )}
+                    {/* Play button for intro video */}
+                    {provider.intro_video_url && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+                        <div className="w-14 h-14 bg-white/95 rounded-full flex items-center justify-center shadow-lg cursor-pointer hover:scale-110 transition-transform">
+                          <span className="text-[#E6007E] text-xl ml-1">▶</span>
+                        </div>
                       </div>
                     )}
                   </div>
 
-                  {/* Provider Info */}
-                  <div className="p-8">
-                    <h2 className="text-2xl font-bold text-gray-900 mb-1">
-                      {provider.name}
-                    </h2>
-                    <p className="text-pink-500 font-medium mb-4">
-                      {provider.credentials}
-                    </p>
-                    <p className="text-gray-600 mb-6 line-clamp-3">
-                      {provider.bio}
-                    </p>
+                  {/* Info - Compact padding */}
+                  <div className="p-5 md:p-6">
+                    <h2 className="text-xl font-bold text-gray-900">{name}</h2>
+                    {provider.credentials && (
+                      <p className="text-[#E6007E] font-medium text-sm mt-0.5">{provider.credentials}</p>
+                    )}
+                    {provider.tagline && (
+                      <p className="text-gray-500 text-sm mt-1 italic">{provider.tagline}</p>
+                    )}
+                    {provider.short_bio && (
+                      <p className="text-gray-600 text-sm mt-3 line-clamp-2">{provider.short_bio}</p>
+                    )}
 
-                    {/* Specialties */}
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {provider.specialties.map((specialty) => (
-                        <span
-                          key={specialty}
-                          className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full"
-                        >
-                          {specialty}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* CTAs */}
-                    <div className="flex flex-col sm:flex-row gap-3">
+                    {/* CTAs - Compact */}
+                    <div className="mt-5 flex gap-3">
                       <Link
                         href={`/providers/${provider.slug}`}
-                        className="flex-1 text-center px-6 py-3 bg-gray-900 text-white rounded-xl hover:bg-gray-800 transition-colors font-medium"
+                        className="flex-1 px-4 py-2.5 bg-gray-100 text-gray-700 font-medium rounded-lg text-center text-sm hover:bg-gray-200 transition-colors"
                       >
                         View Results
                       </Link>
                       <Link
-                        href={`/book?provider=${provider.slug}`}
-                        className="flex-1 text-center px-6 py-3 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors font-medium"
+                        href={provider.booking_url || `/book?provider=${provider.slug}`}
+                        className="flex-1 px-4 py-2.5 bg-[#E6007E] text-white font-medium rounded-lg text-center text-sm hover:bg-[#C4006B] transition-colors"
                       >
-                        Book with {provider.name}
+                        Book with {firstName}
                       </Link>
                     </div>
                   </div>
                 </div>
-              ))}
+              );
+            })}
+          </div>
+
+          {providers.length === 0 && (
+            <div className="text-center py-16">
+              <p className="text-gray-500">Provider information coming soon</p>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* Why Choose Us - Darker background for contrast */}
+      <section className="py-12 md:py-16 px-4 md:px-6 bg-black">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-8">
+            Why Trust Hello Gorgeous?
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            <div className="bg-gray-900 rounded-xl p-5 border border-gray-800">
+              <span className="text-3xl mb-3 block">🏆</span>
+              <h3 className="text-base font-semibold text-white">Licensed & Certified</h3>
+              <p className="text-gray-400 text-sm mt-1">All treatments by licensed medical professionals</p>
+            </div>
+            <div className="bg-gray-900 rounded-xl p-5 border border-gray-800">
+              <span className="text-3xl mb-3 block">⭐</span>
+              <h3 className="text-base font-semibold text-white">5-Star Rated</h3>
+              <p className="text-gray-400 text-sm mt-1">Hundreds of verified reviews from real clients</p>
+            </div>
+            <div className="bg-gray-900 rounded-xl p-5 border border-gray-800">
+              <span className="text-3xl mb-3 block">💝</span>
+              <h3 className="text-base font-semibold text-white">Personalized Care</h3>
+              <p className="text-gray-400 text-sm mt-1">Customized plans for your unique goals</p>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Why Choose Us */}
-        <section className="py-16 px-4 bg-gray-50">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 text-center mb-12">
-              Why Choose Hello Gorgeous?
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {[
-                {
-                  icon: '🎓',
-                  title: 'Licensed & Certified',
-                  description: 'All treatments performed by licensed medical professionals with advanced training in aesthetics.',
-                },
-                {
-                  icon: '✨',
-                  title: 'Natural Results',
-                  description: 'We specialize in subtle, natural-looking enhancements that enhance your unique beauty.',
-                },
-                {
-                  icon: '💖',
-                  title: 'Personalized Care',
-                  description: 'Every treatment plan is customized to your goals, anatomy, and lifestyle.',
-                },
-              ].map((item, i) => (
-                <div key={i} className="text-center p-8 bg-white rounded-2xl shadow-sm">
-                  <span className="text-4xl mb-4 block">{item.icon}</span>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">{item.title}</h3>
-                  <p className="text-gray-600">{item.description}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-20 px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Ready to Look & Feel Gorgeous?
-            </h2>
-            <p className="text-xl text-gray-600 mb-8">
-              Schedule your complimentary consultation today.
-            </p>
-            <Link
-              href="/book"
-              className="inline-block px-8 py-4 bg-pink-500 text-white text-lg font-medium rounded-xl hover:bg-pink-600 transition-colors"
-            >
-              Book Your Consultation
-            </Link>
-          </div>
-        </section>
-      </main>
+      {/* CTA - Hot pink */}
+      <section className="py-12 px-4 md:px-6 bg-[#E6007E]">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-bold text-white">Ready to Get Started?</h2>
+          <p className="text-white/90 mt-2 text-base">
+            Book a free consultation to discuss your aesthetic goals
+          </p>
+          <Link
+            href="/book"
+            className="mt-6 inline-block px-8 py-3 bg-white text-[#E6007E] font-bold rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
+          >
+            Book Free Consultation
+          </Link>
+        </div>
+      </section>
     </>
   );
 }

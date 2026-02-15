@@ -274,6 +274,14 @@ function getServiceContent(s: Service) {
         { icon: "⏰", title: "Progressive Results", description: "Skin continues improving for months after treatment" },
       ],
     },
+    "lash-spa": {
+      benefits: [
+        { icon: "👁️", title: "Full Set & Fills", description: "Lush lash extensions tailored to your desired look" },
+        { icon: "✨", title: "Perm & Tint", description: "Lift and define natural lashes without extensions" },
+        { icon: "⏱️", title: "Quick Touch-Ups", description: "Mini fills for minor gaps between full fills" },
+        { icon: "💝", title: "Expert Lash Artists", description: "Trained specialists for beautiful, long-lasting results" },
+      ],
+    },
   };
 
   return { ...baseContent, ...serviceOverrides[s.slug] };
@@ -419,6 +427,52 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
           ))}
         </div>
       </Section>
+
+      {/* Lash Spa Service Options - Lash Spa Page Only */}
+      {s.slug === "lash-spa" && (
+        <Section>
+          <FadeUp>
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
+                Choose Your Lash Service
+              </h2>
+              <p className="mt-4 text-xl text-black/80 max-w-2xl mx-auto">
+                From full sets to quick touch-ups, we offer the perfect lash service for you
+              </p>
+            </div>
+          </FadeUp>
+          <div className="grid md:grid-cols-2 gap-6">
+            <FadeUp delayMs={0}>
+              <div id="full-set" className="scroll-mt-24 p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-white border-2 border-black hover:border-[#E6007E] transition-all">
+                <h3 className="text-xl font-bold text-[#E6007E] mb-2">Full Set</h3>
+                <p className="text-black/80">Complete lash extensions applied to create a full, lush look from scratch. Perfect for first-timers or a fresh start.</p>
+                <Link href="/book/lash-spa" className="mt-4 inline-flex text-sm font-semibold text-[#E6007E] hover:underline">Book Full Set →</Link>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={50}>
+              <div id="fill" className="scroll-mt-24 p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-white border-2 border-black hover:border-[#E6007E] transition-all">
+                <h3 className="text-xl font-bold text-[#E6007E] mb-2">Fill</h3>
+                <p className="text-black/80">Replenish lashes that have grown out or shed. Maintain your look with a full fill to keep your extensions looking fresh.</p>
+                <Link href="/book/lash-spa" className="mt-4 inline-flex text-sm font-semibold text-[#E6007E] hover:underline">Book Fill →</Link>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={100}>
+              <div id="lash-perm-tint" className="scroll-mt-24 p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-white border-2 border-black hover:border-[#E6007E] transition-all">
+                <h3 className="text-xl font-bold text-[#E6007E] mb-2">Lash Perm and Tint</h3>
+                <p className="text-black/80">Curl and darken your natural lashes for a lifted, defined look—no extensions needed. Great for low-maintenance glamour.</p>
+                <Link href="/book/lash-spa" className="mt-4 inline-flex text-sm font-semibold text-[#E6007E] hover:underline">Book Lash Perm & Tint →</Link>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={150}>
+              <div id="mini-fill" className="scroll-mt-24 p-6 rounded-2xl bg-gradient-to-br from-pink-50 to-white border-2 border-black hover:border-[#E6007E] transition-all">
+                <h3 className="text-xl font-bold text-[#E6007E] mb-2">Mini Fill</h3>
+                <p className="text-black/80">A lighter touch-up for minor gaps between full fills. Quick refresh when you need a little boost.</p>
+                <Link href="/book/lash-spa" className="mt-4 inline-flex text-sm font-semibold text-[#E6007E] hover:underline">Book Mini Fill →</Link>
+              </div>
+            </FadeUp>
+          </div>
+        </Section>
+      )}
 
       {/* Hormone Symptoms Infographic - Hormone Page Only */}
       {s.slug === "biote-hormone-therapy" && (

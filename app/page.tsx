@@ -28,36 +28,67 @@ import { TikTokEmbed } from "@/components/TikTokEmbed";
 import { HOME_FAQS, HOME_TESTIMONIALS, SITE, breadcrumbJsonLd, faqJsonLd, pageMetadata, siteJsonLd, testimonialsJsonLd } from "@/lib/seo";
 import { getBannerContent } from "@/lib/cms-readers";
 import { HomepageBanner } from "@/components/HomepageBanner";
+import { getHomepage } from "@/lib/cms/fetch-cms";
+import { DynamicHomepage } from "@/components/DynamicHomepage";
 
 export const metadata: Metadata = pageMetadata({
   title: "Botox, Fillers & Weight Loss Med Spa",
   description:
-    "Hello Gorgeous Med Spa in Oswego, IL offers Botox ($10/unit), dermal fillers, Semaglutide weight loss, Biote hormone therapy, IV therapy & more. ⭐ 5-Star Rated. Serving Naperville, Aurora, Plainfield. Book free consultation!",
+    "Hello Gorgeous Med Spa in Oswego, IL offers Botox ($10/unit), dermal fillers, Semaglutide weight loss, Biote hormone therapy, IV therapy & more. 5-Star Rated. Serving Naperville, Aurora, Plainfield. Book free consultation!",
   path: "/",
 });
 
 export default async function HomePage() {
+  // Try to load from CMS first
+  const cmsPage = await getHomepage();
   const [cmsBanner] = await Promise.all([getBannerContent()]);
 
   const homeBreadcrumbs = [
     { name: "Home", url: SITE.url },
   ];
 
+  // If CMS has content, render dynamically
+  if (cmsPage && cmsPage.sections && cmsPage.sections.length > 0) {
+    return (
+      <>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(HOME_FAQS)) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(homeBreadcrumbs)) }}
+        />
+        {HOME_TESTIMONIALS.length > 0 &&
+          testimonialsJsonLd(HOME_TESTIMONIALS).map((schema, i) => (
+            <script
+              key={i}
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+            />
+          ))}
+        <DynamicHomepage sections={cmsPage.sections} />
+      </>
+    );
+  }
+
+  // Fallback to hardcoded content if CMS is empty
   return (
     <>
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
       />
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(HOME_FAQS)) }}
       />
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(homeBreadcrumbs)) }}
       />
       {HOME_TESTIMONIALS.length > 0 &&
@@ -65,7 +96,6 @@ export default async function HomePage() {
           <script
             key={i}
             type="application/ld+json"
-            // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
           />
         ))}
@@ -102,4 +132,3 @@ export default async function HomePage() {
     </>
   );
 }
-

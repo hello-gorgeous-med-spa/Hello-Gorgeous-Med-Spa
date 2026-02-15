@@ -246,8 +246,19 @@ export default function AdminLayout({
               {/* Dashboard link - always visible */}
               <div className="p-3 border-b border-pink-200">
                 <Link
-                  href="/admin"
+                  href="/admin/owner/live-state"
                   className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                    pathname === '/admin/owner/live-state'
+                      ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white font-medium shadow-lg shadow-green-500/30'
+                      : 'bg-green-50 text-green-700 hover:bg-green-100 border border-green-200'
+                  }`}
+                >
+                  <span className="text-lg">📡</span>
+                  <span className="font-medium">Live System State</span>
+                </Link>
+                <Link
+                  href="/admin"
+                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all mt-1 ${
                     pathname === '/admin'
                       ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium shadow-lg shadow-pink-500/30'
                       : 'text-gray-700 hover:bg-pink-100'

@@ -156,9 +156,69 @@ export async function GET(request: NextRequest) {
     }
 
     // Fallback: Use keyword matching but ALWAYS fetch schedules from database
-    const slug = service?.slug || serviceSlug || '';
+    const slug = (service?.slug || serviceSlug || '').toLowerCase();
+
+    // Lash Spa services (full set, fill, lash perm & tint, mini fill) — Danielle only
+    const isLashService = slug.includes('lash');
+    if (isLashService) {
+      const danielleOnly = PROVIDER_METADATA.filter((p) => p.name.includes('Danielle'));
+      if (danielleOnly.length > 0) {
+        const providers = danielleOnly;
+        const { data: dbProviders } = await supabase
+          .from('providers')
+          .select(`id, color_hex, users!inner(first_name, last_name), credentials`);
+
+        const { data: allSchedules } = await supabase
+          .from('provider_schedules')
+          .select('*');
+
+        const DEFAULT_SCHEDULE: { [day: number]: { start: string; end: string } | null } = {
+          0: null, 1: { start: '09:00', end: '17:00' }, 2: { start: '09:00', end: '17:00' },
+          3: { start: '09:00', end: '17:00' }, 4: { start: '09:00', end: '17:00' },
+          5: { start: '09:00', end: '15:00' }, 6: null,
+        };
+
+        function hasValidWorkingDays(s: { [k: number]: { start: string; end: string } | null }) {
+          return Object.values(s).some((v) => v !== null && v?.start && v?.end);
+        }
+
+        const cleanProviders = providers.map((provider) => {
+          const wantFirst = provider.name.split(' ')[0]?.toLowerCase() || '';
+          const wantLast = provider.name.split(' ').slice(1).join(' ').toLowerCase() || '';
+          const dbProvider = dbProviders?.find((p: any) => {
+            const first = String(p.users?.first_name ?? '').trim().toLowerCase();
+            const last = String(p.users?.last_name ?? '').trim().toLowerCase();
+            return first === wantFirst && last === wantLast;
+          });
+          let schedule: { [day: number]: { start: string; end: string } | null } = {
+            0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null,
+          };
+          if (dbProvider && allSchedules) {
+            const providerSchedules = allSchedules.filter((s: any) => s.provider_id === dbProvider.id);
+            for (const s of providerSchedules) {
+              if (s.is_working && s.start_time && s.end_time) {
+                const start = String(s.start_time).slice(0, 5);
+                const end = String(s.end_time).slice(0, 5);
+                if (start && end) schedule[s.day_of_week] = { start, end };
+              }
+            }
+          }
+          if (!hasValidWorkingDays(schedule)) schedule = { ...DEFAULT_SCHEDULE };
+          return {
+            id: dbProvider?.id || provider.id,
+            name: dbProvider ? `${dbProvider.users.first_name} ${dbProvider.users.last_name}` : provider.name,
+            title: dbProvider?.credentials || provider.title,
+            color: dbProvider?.color_hex || provider.color,
+            schedule,
+          };
+        });
+
+        return NextResponse.json({ providers: cleanProviders, source: 'lash-danielle-only' });
+      }
+    }
+
     const matchingProviders = PROVIDER_METADATA.filter((provider) =>
-      provider.serviceKeywords.some((keyword) => slug.toLowerCase().includes(keyword))
+      provider.serviceKeywords.some((keyword) => slug.includes(keyword))
     );
 
     // If no matches, return all providers

@@ -11,24 +11,31 @@ import {
   CardSkeleton, 
   EmptyState, 
   ErrorState,
-  formatRelativeTime,
 } from '@/lib/hooks/useOwnerMetrics';
 
+interface Rule {
+  id: string;
+  name: string;
+  category: string;
+  enabled: boolean;
+  priority: number;
+  is_active?: boolean;
+  description?: string;
+}
+
+interface Feature {
+  id?: string;
+  key: string;
+  name: string;
+  enabled: boolean;
+  is_enabled?: boolean;
+  category?: string;
+  description?: string;
+}
+
 interface SystemState {
-  rules: Array<{
-    id: string;
-    name: string;
-    category: string;
-    enabled: boolean;
-    priority: number;
-  }>;
-  features: Array<{
-    id: string;
-    key: string;
-    name: string;
-    enabled: boolean;
-    environment: string;
-  }>;
+  rules: Rule[];
+  features: Feature[];
   config: Record<string, any>;
 }
 
@@ -36,7 +43,7 @@ export default function LiveStatePage() {
   const [data, setData] = useState<SystemState | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [filter, setFilter] = useState<'all' | 'active' | 'warning' | 'disabled'>('all');
+  const [filter, setFilter] = useState<'all' | 'active' | 'disabled'>('all');
 
   useEffect(() => {
     async function fetchData() {
@@ -56,9 +63,21 @@ export default function LiveStatePage() {
         const configRes = await fetch('/api/config');
         const configData = await configRes.json();
         
+        // Normalize rules - API returns is_active, we need enabled
+        const normalizedRules = (rulesData.rules || []).map((r: any) => ({
+          ...r,
+          enabled: r.enabled !== undefined ? r.enabled : r.is_active === true,
+        }));
+        
+        // Normalize features - API returns is_enabled, we need enabled
+        const normalizedFeatures = (flagsData.flags || []).map((f: any) => ({
+          ...f,
+          enabled: f.enabled !== undefined ? f.enabled : f.is_enabled === true,
+        }));
+        
         setData({
-          rules: rulesData.rules || [],
-          features: flagsData.flags || [],
+          rules: normalizedRules,
+          features: normalizedFeatures,
           config: configData.config || {},
         });
       } catch (err) {
@@ -94,8 +113,16 @@ export default function LiveStatePage() {
     }
   };
 
+  // Group features by category
+  const groupedFeatures = getFilteredFeatures().reduce((acc, feature) => {
+    const cat = feature.category || 'general';
+    if (!acc[cat]) acc[cat] = [];
+    acc[cat].push(feature);
+    return acc;
+  }, {} as Record<string, Feature[]>);
+
   return (
-    <OwnerLayout title="Live System State" description="Truth view - No hidden system behavior">
+    <OwnerLayout title="Live System State" description="Truth view - What your system is actually doing right now">
       {/* Error State */}
       {error && !isLoading && (
         <ErrorState error={error} onRetry={() => window.location.reload()} />
@@ -115,62 +142,65 @@ export default function LiveStatePage() {
       {/* Data Display */}
       {!isLoading && !error && data && (
         <>
-          {/* Status Summary - REAL DATA */}
-          <div className="grid grid-cols-4 gap-4 mb-6">
+          {/* Status Summary */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <button 
               onClick={() => setFilter('all')} 
-              className={`p-4 rounded-xl border text-left ${filter === 'all' ? 'border-purple-500 bg-purple-50' : 'bg-white'}`}
+              className={`p-4 rounded-xl border text-left transition-all ${filter === 'all' ? 'border-purple-500 bg-purple-50 shadow-md' : 'bg-white hover:shadow-md'}`}
             >
               <p className="text-sm text-gray-500">Total Components</p>
-              <p className="text-2xl font-bold">{data.rules.length + data.features.length}</p>
+              <p className="text-3xl font-bold">{data.rules.length + data.features.length}</p>
             </button>
             <button 
               onClick={() => setFilter('active')} 
-              className={`p-4 rounded-xl border text-left ${filter === 'active' ? 'border-green-500 bg-green-50' : 'bg-white'}`}
+              className={`p-4 rounded-xl border text-left transition-all ${filter === 'active' ? 'border-green-500 bg-green-50 shadow-md' : 'bg-white hover:shadow-md'}`}
             >
               <p className="text-sm text-gray-500">🟢 Active</p>
-              <p className="text-2xl font-bold text-green-600">
+              <p className="text-3xl font-bold text-green-600">
                 {activeRules.length + enabledFeatures.length}
               </p>
             </button>
             <button 
               onClick={() => setFilter('disabled')} 
-              className={`p-4 rounded-xl border text-left ${filter === 'disabled' ? 'border-gray-500 bg-gray-50' : 'bg-white'}`}
+              className={`p-4 rounded-xl border text-left transition-all ${filter === 'disabled' ? 'border-gray-500 bg-gray-100 shadow-md' : 'bg-white hover:shadow-md'}`}
             >
               <p className="text-sm text-gray-500">⚪ Disabled</p>
-              <p className="text-2xl font-bold text-gray-400">
+              <p className="text-3xl font-bold text-gray-400">
                 {disabledRules.length + disabledFeatures.length}
               </p>
             </button>
             <div className="p-4 rounded-xl border bg-white">
-              <p className="text-sm text-gray-500">Last Updated</p>
-              <p className="text-lg font-bold text-green-600">Just now</p>
+              <p className="text-sm text-gray-500">Last Refreshed</p>
+              <p className="text-lg font-bold text-green-600">Just now ✓</p>
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-6">
-            {/* Active Rules - REAL DATA */}
-            <div className="bg-white rounded-xl border">
-              <div className="p-4 border-b bg-gray-50">
-                <h2 className="font-semibold">⚖️ Business Rules ({getFilteredRules().length})</h2>
-                <p className="text-xs text-gray-500">Every active rule visible - no magic logic</p>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Business Rules */}
+            <div className="bg-white rounded-xl border shadow-sm">
+              <div className="p-4 border-b bg-gradient-to-r from-pink-50 to-white">
+                <h2 className="font-semibold text-lg">⚖️ Business Rules ({getFilteredRules().length})</h2>
+                <p className="text-xs text-gray-500">Every active rule visible - no hidden logic</p>
               </div>
-              <div className="max-h-[400px] overflow-y-auto divide-y">
+              <div className="max-h-[500px] overflow-y-auto divide-y">
                 {getFilteredRules().length > 0 ? (
                   getFilteredRules().map(rule => (
-                    <div key={rule.id} className="p-4 hover:bg-gray-50">
+                    <div key={rule.id} className="p-4 hover:bg-gray-50 transition-colors">
                       <div className="flex items-start justify-between">
-                        <div>
+                        <div className="flex-1">
                           <div className="flex items-center gap-2">
-                            <span className={`w-2 h-2 rounded-full ${rule.enabled ? 'bg-green-500' : 'bg-gray-400'}`} />
-                            <h3 className="font-medium text-sm">{rule.name}</h3>
+                            <span className={`w-2.5 h-2.5 rounded-full ${rule.enabled ? 'bg-green-500' : 'bg-gray-300'}`} />
+                            <h3 className="font-medium">{rule.name}</h3>
                           </div>
-                          <p className="text-xs text-gray-500 mt-1">
-                            {rule.category} • Priority: {rule.priority}
+                          {rule.description && (
+                            <p className="text-sm text-gray-500 mt-1 ml-4">{rule.description}</p>
+                          )}
+                          <p className="text-xs text-gray-400 mt-1 ml-4">
+                            Category: {rule.category} • Priority: {rule.priority}
                           </p>
                         </div>
-                        <span className={`text-xs px-2 py-0.5 rounded ${rule.enabled ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
-                          {rule.enabled ? 'active' : 'disabled'}
+                        <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${rule.enabled ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+                          {rule.enabled ? 'ACTIVE' : 'OFF'}
                         </span>
                       </div>
                     </div>
@@ -178,44 +208,53 @@ export default function LiveStatePage() {
                 ) : (
                   <EmptyState 
                     icon="⚖️"
-                    title="No rules configured"
-                    description="Business rules will appear here when created"
+                    title="No rules match filter"
+                    description="Try a different filter or create new rules"
                   />
                 )}
               </div>
             </div>
 
-            {/* Feature Flags - REAL DATA */}
-            <div className="bg-white rounded-xl border">
-              <div className="p-4 border-b bg-gray-50">
-                <h2 className="font-semibold">🎚️ Feature Flags ({getFilteredFeatures().length})</h2>
+            {/* Feature Flags */}
+            <div className="bg-white rounded-xl border shadow-sm">
+              <div className="p-4 border-b bg-gradient-to-r from-blue-50 to-white">
+                <h2 className="font-semibold text-lg">🎚️ Feature Flags ({getFilteredFeatures().length})</h2>
                 <p className="text-xs text-gray-500">All features and their current state</p>
               </div>
-              <div className="max-h-[400px] overflow-y-auto divide-y">
-                {getFilteredFeatures().length > 0 ? (
-                  getFilteredFeatures().map(feature => (
-                    <div key={feature.id} className="p-4 hover:bg-gray-50">
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <span className={`w-2 h-2 rounded-full ${feature.enabled ? 'bg-green-500' : 'bg-gray-400'}`} />
-                            <h3 className="font-medium text-sm">{feature.name || feature.key}</h3>
+              <div className="max-h-[500px] overflow-y-auto">
+                {Object.keys(groupedFeatures).length > 0 ? (
+                  Object.entries(groupedFeatures).map(([category, features]) => (
+                    <div key={category}>
+                      <div className="px-4 py-2 bg-gray-50 border-b sticky top-0">
+                        <p className="text-xs font-semibold text-gray-600 uppercase tracking-wider">{category}</p>
+                      </div>
+                      <div className="divide-y">
+                        {features.map(feature => (
+                          <div key={feature.key} className="p-4 hover:bg-gray-50 transition-colors">
+                            <div className="flex items-start justify-between">
+                              <div className="flex-1">
+                                <div className="flex items-center gap-2">
+                                  <span className={`w-2.5 h-2.5 rounded-full ${feature.enabled ? 'bg-green-500' : 'bg-gray-300'}`} />
+                                  <h3 className="font-medium">{feature.name || feature.key}</h3>
+                                </div>
+                                {feature.description && (
+                                  <p className="text-sm text-gray-500 mt-1 ml-4">{feature.description}</p>
+                                )}
+                              </div>
+                              <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${feature.enabled ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+                                {feature.enabled ? 'ON' : 'OFF'}
+                              </span>
+                            </div>
                           </div>
-                          <p className="text-xs text-gray-500 mt-1">
-                            Key: {feature.key}
-                          </p>
-                        </div>
-                        <span className={`text-xs px-2 py-0.5 rounded ${feature.enabled ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
-                          {feature.enabled ? 'enabled' : 'disabled'}
-                        </span>
+                        ))}
                       </div>
                     </div>
                   ))
                 ) : (
                   <EmptyState 
                     icon="🎚️"
-                    title="No feature flags configured"
-                    description="Feature flags will appear here when created"
+                    title="No features match filter"
+                    description="Try a different filter"
                   />
                 )}
               </div>
@@ -225,9 +264,9 @@ export default function LiveStatePage() {
           {/* Legend */}
           <div className="mt-6 bg-gray-50 rounded-xl p-4">
             <h3 className="font-medium text-gray-700 mb-3">Visual Indicators</h3>
-            <div className="flex gap-6 text-sm">
+            <div className="flex flex-wrap gap-6 text-sm">
               <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-green-500" /> Green = Active/Enabled</div>
-              <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-gray-400" /> Gray = Disabled</div>
+              <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-gray-300" /> Gray = Disabled/Off</div>
             </div>
           </div>
 

@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --max-warnings=9999",
-    "test": "npm run lint"
+    "test": "npm run lint",
+    "seed-lash-spa": "node --env-file=.env.local scripts/seed-lash-spa.mjs"
   },
   "keywords": [
     "medspa",

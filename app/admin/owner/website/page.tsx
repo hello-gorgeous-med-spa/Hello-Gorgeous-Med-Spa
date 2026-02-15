@@ -73,6 +73,7 @@ export default function WebsiteControlPage() {
   ];
 
   const websiteLinks = [
+    { href: '/admin/owner/website/homepage', icon: '🏠', label: 'Homepage', description: 'Edit sections, reorder content' },
     { href: '/admin/owner/website/pages', icon: '📄', label: 'Pages', description: 'Create and edit website pages' },
     { href: '/admin/owner/website/navigation', icon: '🧭', label: 'Navigation', description: 'Header, footer, and menus' },
     { href: '/admin/owner/website/promotions', icon: '🎉', label: 'Offers & Promotions', description: 'Banners, campaigns, specials' },

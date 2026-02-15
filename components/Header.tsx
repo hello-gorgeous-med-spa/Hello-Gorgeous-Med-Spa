@@ -52,6 +52,16 @@ const navigation = {
           { label: "Vitamin Injections", href: "/services/vitamin-injections", icon: "💉" },
         ],
       },
+      {
+        title: "Lash Spa",
+        links: [
+          { label: "Lash Spa", href: "/services/lash-spa", icon: "✨" },
+          { label: "Full Set", href: "/services/lash-spa#full-set", icon: "👁️" },
+          { label: "Fill", href: "/services/lash-spa#fill", icon: "👁️" },
+          { label: "Lash Perm and Tint", href: "/services/lash-spa#lash-perm-tint", icon: "👁️" },
+          { label: "Mini Fill", href: "/services/lash-spa#mini-fill", icon: "👁️" },
+        ],
+      },
     ],
     featured: {
       title: "Most Popular",
@@ -76,9 +86,9 @@ const navigation = {
     label: "Providers",
     href: "/providers",
     links: [
-      { label: "Danielle Alcala, RN-S", href: "/providers/danielle", description: "Founder & RN-S", icon: "💗" },
-      { label: "Ryan Kent, FNP-BC", href: "/providers/ryan", description: "Medical oversight & hormone therapy", icon: "🧑‍⚕️" },
-      { label: "All Providers", href: "/providers", description: "Videos, before/after, booking links", icon: "🎥" },
+      { label: "Danielle Glazier, RN, BSN", href: "/providers/danielle", description: "Lead Aesthetic Injector", icon: "💗" },
+      { label: "Ryan Kent, FNP-BC", href: "/providers/ryan", description: "Hormone Therapy & Wellness", icon: "🧑‍⚕️" },
+      { label: "All Providers", href: "/providers", description: "Videos, before/after, booking", icon: "🎥" },
     ],
   },
   journey: {

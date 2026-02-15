@@ -175,12 +175,32 @@ export default function PrescriptionsPage() {
 
   return (
     <div className="p-6 max-w-7xl mx-auto">
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3"><span className="text-3xl">💊</span>Prescriptions</h1>
           <p className="text-gray-500 mt-1">Manage prescriptions • Print for eFax • Track status</p>
         </div>
-        <button onClick={() => setShowNewModal(true)} className="px-5 py-2.5 bg-pink-500 text-white rounded-xl hover:bg-pink-600 font-medium flex items-center gap-2">+ New Prescription</button>
+        <div className="flex items-center gap-3 flex-wrap">
+          <a
+            href="https://myportal.efax.com/login"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2.5 bg-slate-700 text-white rounded-xl hover:bg-slate-800 font-medium flex items-center gap-2 transition-colors"
+            title="Fax prescriptions to pharmacies"
+          >
+            📠 eFax
+          </a>
+          <a
+            href="https://accounts.charmtracker.com/account/v1/relogin?serviceurl=https%3A%2F%2Faccounts.charmtracker.com%2Fhome%23profile%2Fpersonal"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2.5 bg-purple-600 text-white rounded-xl hover:bg-purple-700 font-medium flex items-center gap-2 transition-colors"
+            title="Open Charm EHR"
+          >
+            🏥 Charm EHR
+          </a>
+          <button onClick={() => setShowNewModal(true)} className="px-5 py-2.5 bg-pink-500 text-white rounded-xl hover:bg-pink-600 font-medium flex items-center gap-2">+ New Prescription</button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">

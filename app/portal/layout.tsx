@@ -30,7 +30,7 @@ function useClientManifest() {
     // Set theme color for portal
     let themeColor = document.querySelector('meta[name="theme-color"]') as HTMLMetaElement;
     if (themeColor) {
-      themeColor.content = '#ec4899';
+      themeColor.content = '#E6007E';
     }
 
     return () => {
@@ -43,27 +43,25 @@ function useClientManifest() {
 
 const NAV_ITEMS = [
   { href: '/portal', label: 'Home', icon: '🏠' },
-  { href: '/portal/appointments', label: 'Appointments', icon: '📅' },
-  { href: '/portal/book', label: 'Book', icon: '✨' },
-  { href: '/portal/labs', label: 'Labs', icon: '🧪' },
-  { href: '/portal/rewards', label: 'Rewards', icon: '🎁' },
+  { href: '/portal/appointments', label: 'Appts', icon: '📅' },
+  { href: '/portal/documents', label: 'Docs', icon: '📁' },
+  { href: '/portal/notifications', label: 'Alerts', icon: '🔔' },
+  { href: '/portal/account', label: 'Me', icon: '👤' },
 ];
 
 const FULL_NAV_ITEMS = [
   { href: '/portal', label: 'Dashboard', icon: '🏠' },
   { href: '/portal/appointments', label: 'Appointments', icon: '📅' },
   { href: '/portal/book', label: 'Book Now', icon: '✨' },
-  { href: '/portal/labs', label: 'Labs & AI', icon: '🧪' },
-  { href: '/portal/medications', label: 'Medications', icon: '💊' },
-  { href: '/portal/messaging', label: 'Messages', icon: '💬' },
-  { href: '/portal/rewards', label: 'Rewards', icon: '🎁' },
-  { href: '/portal/referrals', label: 'Refer Friends', icon: '💝' },
-  { href: '/portal/journey', label: 'My Journey', icon: '📈' },
-  { href: '/portal/history', label: 'History', icon: '📋' },
-  { href: '/portal/intake', label: 'Forms', icon: '📝' },
+  { href: '/portal/documents', label: 'Documents', icon: '📁' },
+  { href: '/portal/receipts', label: 'Receipts', icon: '🧾' },
+  { href: '/portal/wallet', label: 'Wallet', icon: '💳' },
+  { href: '/portal/consents', label: 'Consent Forms', icon: '📝' },
+  { href: '/portal/timeline', label: 'My Progress', icon: '📸' },
+  { href: '/portal/aftercare', label: 'Aftercare', icon: '📋' },
+  { href: '/portal/notifications', label: 'Notifications', icon: '🔔' },
   { href: '/portal/membership', label: 'Membership', icon: '💎' },
   { href: '/portal/account', label: 'Account', icon: '⚙️' },
-  { href: '/memberships', label: 'Wellness Programs', icon: '⚖️' },
 ];
 
 export default function PortalLayout({
@@ -83,9 +81,9 @@ export default function PortalLayout({
 
   return (
     <ChatOpenProvider>
-    <div data-portal className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-pink-50">
+    <div data-portal className="min-h-screen bg-gradient-to-br from-white via-white to-white">
       {/* HIPAA Trust Banner - Shows on first load */}
-      <div className="bg-slate-900 text-white text-center py-2 text-xs">
+      <div className="bg-black text-white text-center py-2 text-xs">
         <span className="inline-flex items-center gap-2">
           <span>🔒</span>
           <span>HIPAA Compliant • 256-bit Encryption • Your data is secure</span>
@@ -93,7 +91,7 @@ export default function PortalLayout({
       </div>
 
       {/* Top Navigation Bar */}
-      <header className="bg-white/80 backdrop-blur-md border-b border-pink-100 sticky top-0 z-50">
+      <header className="bg-white/80 backdrop-blur-md border-b border-[#E6007E]/20 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -102,7 +100,7 @@ export default function PortalLayout({
               <span className="font-semibold text-[#111111]">
                 Hello Gorgeous
               </span>
-              <span className="text-xs bg-pink-100 text-pink-600 px-2 py-0.5 rounded-full font-medium">
+              <span className="text-xs bg-[#E6007E]/10 text-[#E6007E] px-2 py-0.5 rounded-full font-medium">
                 Portal
               </span>
             </Link>
@@ -115,8 +113,8 @@ export default function PortalLayout({
                   href={item.href}
                   className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive(item.href)
-                      ? 'text-pink-600 bg-pink-50'
-                      : 'text-[#111111]/80 hover:text-pink-600 hover:bg-pink-50'
+                      ? 'text-[#E6007E] bg-[#E6007E]/10'
+                      : 'text-[#111111]/80 hover:text-[#E6007E] hover:bg-[#E6007E]/10'
                   }`}
                 >
                   <span className="mr-1">{item.icon}</span>
@@ -129,14 +127,14 @@ export default function PortalLayout({
             <div className="flex items-center gap-3">
               <Link
                 href="/portal/book"
-                className="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all"
+                className="hidden sm:inline-flex items-center gap-2 bg-gradient-to-r from-[#E6007E] to-[#E6007E] text-white px-4 py-2 rounded-full text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all"
               >
                 <span>✨</span>
                 Book Now
               </Link>
               <Link 
                 href="/portal/profile"
-                className="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 hover:bg-pink-200 transition-colors"
+                className="w-10 h-10 rounded-full bg-[#E6007E]/10 flex items-center justify-center text-[#E6007E] hover:bg-[#E6007E]/20 transition-colors"
               >
                 <span className="text-lg">👤</span>
               </Link>
@@ -153,7 +151,7 @@ export default function PortalLayout({
               key={item.href}
               href={item.href}
               className={`flex flex-col items-center gap-1 px-3 py-2 transition-colors ${
-                isActive(item.href) ? 'text-pink-600' : 'text-[#111111]/70'
+                isActive(item.href) ? 'text-[#E6007E]' : 'text-[#111111]/70'
               }`}
             >
               <span className="text-xl">{item.icon}</span>
@@ -184,7 +182,7 @@ export default function PortalLayout({
               <span className="text-purple-500">✓</span>
               <span>SOC 2 Certified</span>
             </div>
-            <Link href="/privacy" className="text-pink-500 hover:underline">
+            <Link href="/privacy" className="text-[#E6007E] hover:underline">
               Privacy Policy
             </Link>
           </div>
