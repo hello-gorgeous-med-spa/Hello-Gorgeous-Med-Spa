@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { MembershipsContent } from "./MembershipsContent";
+import { MembershipsStickyCTA } from "@/components/MembershipsStickyCTA";
 import { SITE } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -18,6 +18,7 @@ export default function MembershipsPage() {
   return (
     <div data-site="public">
       <MembershipsContent />
+      <MembershipsStickyCTA />
     </div>
   );
 }

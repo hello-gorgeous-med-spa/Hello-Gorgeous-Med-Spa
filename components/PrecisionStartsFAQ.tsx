@@ -42,7 +42,7 @@ const FAQ_ITEMS = [
 ];
 
 export function PrecisionStartsFAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
     <section className="py-20 md:py-28 px-6 md:px-12 bg-gradient-to-br from-black via-pink-950/40 to-black">

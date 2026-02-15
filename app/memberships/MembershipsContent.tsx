@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
 import { FadeUp } from "@/components/Section";
 import { YourVisitStepByStep } from "@/components/YourVisitStepByStep";
@@ -84,9 +84,17 @@ const PROGRAMS = [
   },
 ];
 
+type ProgramFilter = "both" | "precision-hormone" | "metabolic-reset";
+
 export function MembershipsContent() {
   const [learnMoreSlug, setLearnMoreSlug] = useState<string | null>(null);
+  const [filter, setFilter] = useState<ProgramFilter>("both");
   const program = learnMoreSlug ? PROGRAMS.find((p) => p.slug === learnMoreSlug) : null;
+
+  const filteredPrograms = useMemo(() => {
+    if (filter === "both") return PROGRAMS;
+    return PROGRAMS.filter((p) => p.slug === filter);
+  }, [filter]);
 
   return (
     <>
@@ -95,14 +103,33 @@ export function MembershipsContent() {
         <div className="max-w-4xl mx-auto text-center">
           <FadeUp>
             <span className="inline-block px-4 py-1.5 rounded-full border border-[#E6007E]/30 text-[#E6007E] text-sm font-medium mb-6">
-              EXCLUSIVE MEMBERSHIPS
+              NO PUNCH CARDS. NO DISCOUNTS. REAL OPTIMIZATION.
             </span>
             <h1 className="text-3xl md:text-5xl font-serif font-bold text-[#111111] mb-4">
-              Continuity Care. Real Optimization.
+              We Read the Labs So You Don&apos;t Have To.
             </h1>
-            <p className="text-lg text-[#5E5E66] max-w-2xl mx-auto">
-              Prescriptions. IV therapy. Vitamin injections. HRT. Blood work. Same-day visits. Next-day labs. Two premium programs built for long-term wellness—hormone optimization and tirzepatide weight loss.
+            <p className="text-lg text-[#5E5E66] max-w-2xl mx-auto mb-4">
+              Prescriptions. IV therapy. Vitamin injections. HRT. Blood work. Same-day visits. Next-day labs. Two programs built for people who want clarity, not guesswork.
             </p>
+            <p className="text-sm text-[#E6007E] font-medium">
+              No membership required for your first visit.
+            </p>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* Testimonial */}
+      <section className="py-12 px-6 md:px-12 bg-white">
+        <div className="max-w-2xl mx-auto">
+          <FadeUp>
+            <blockquote className="text-center">
+              <p className="text-xl md:text-2xl font-serif text-[#111111] italic leading-relaxed mb-4">
+                &ldquo;I finally feel like I have a doctor who actually looks at my numbers and explains them. No more waiting rooms. No more generic advice.&rdquo;
+              </p>
+              <footer className="text-sm text-[#5E5E66]">
+                — Member, Precision Hormone Program
+              </footer>
+            </blockquote>
           </FadeUp>
         </div>
       </section>
@@ -112,21 +139,37 @@ export function MembershipsContent() {
 
       {/* Membership Programs - For ongoing care */}
       <section className="py-12 md:py-20 px-6 md:px-12 bg-white">
-        <div className="max-w-4xl mx-auto text-center mb-10">
+        <div className="max-w-4xl mx-auto text-center mb-6">
           <h2 className="text-2xl md:text-3xl font-bold text-[#111111] mb-3">
-            Want Ongoing Care?
+            What Matters Most?
           </h2>
-          <p className="text-[#5E5E66]">
-            Membership is for ongoing treatment: quarterly labs, prescriptions, peptide therapy, IV therapy, and more.
+          <p className="text-[#5E5E66] mb-8">
+            Hormone optimization, weight loss, or both. Membership is for ongoing care—quarterly labs, prescriptions, peptide therapy, IV therapy.
           </p>
+          <div className="flex flex-wrap justify-center gap-2" role="tablist">
+            {(["both", "precision-hormone", "metabolic-reset"] as const).map((f) => (
+              <button
+                key={f}
+                type="button"
+                onClick={() => setFilter(f)}
+                className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
+                  filter === f
+                    ? "bg-[#E6007E] text-white"
+                    : "bg-[#111111]/5 text-[#111111] hover:bg-[#111111]/10"
+                }`}
+              >
+                {f === "both" ? "Both" : f === "precision-hormone" ? "Hormone" : "Weight Loss"}
+              </button>
+            ))}
+          </div>
         </div>
 
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8">
-            {PROGRAMS.map((p, i) => (
+          <div className={`grid gap-8 ${filteredPrograms.length === 2 ? "md:grid-cols-2" : "max-w-xl mx-auto"}`}>
+            {filteredPrograms.map((p, i) => (
               <FadeUp key={p.slug} delayMs={i * 80}>
                 <div
-                  className={`relative rounded-3xl border-2 ${p.borderColor} bg-white p-8 md:p-10 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden`}
+                  className={`relative rounded-3xl border-2 ${p.borderColor} bg-white p-8 md:p-10 shadow-xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 hover:border-opacity-100 group`}
                 >
                   <div className={`absolute inset-0 bg-gradient-to-br ${p.gradient} opacity-50 pointer-events-none`} />
                   <div className="relative">
@@ -164,7 +207,7 @@ export function MembershipsContent() {
                       <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                         <Link
                           href={`/memberships/signup?program=${p.slug}`}
-                          className="px-8 py-4 bg-[#E6007E] text-white font-bold rounded-full text-center hover:opacity-90 transition"
+                          className="px-8 py-4 bg-[#E6007E] text-white font-bold rounded-full text-center hover:opacity-90 transition hover:scale-[1.02] active:scale-[0.98]"
                         >
                           {p.cta}
                         </Link>
@@ -237,7 +280,7 @@ export function MembershipsContent() {
               Why Membership?
             </h2>
             <p className="text-[#5E5E66] mb-8">
-              Prescriptions. IV therapy. Vitamin injections. Blood work with next-day results. Same-day visits. Our programs are built for continuity—you get the care you need, when you need it.
+              Same-day visits. Next-day labs. No waiting rooms. No guesswork. Our programs are built for continuity—you get the care you need, when you need it.
             </p>
             <div className="flex flex-wrap justify-center gap-6 text-sm">
               <span className="flex items-center gap-2 text-[#111111]">
