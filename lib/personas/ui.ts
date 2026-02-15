@@ -49,14 +49,16 @@ export const PERSONA_UI: Record<
   },
   harmony: {
     emoji: "⚖️",
-    tagline: "Hormone optimization guide. Biote BHRT specialist.",
-    specialty: "Biote",
-    brands: ["Biote Pellets", "Biote Nutraceuticals"],
+    tagline: "Your intelligent guide to Biote hormone therapy. Ask me anything about BHRT, lab panels, pellet therapy, symptoms, and hormone science.",
+    specialty: "Biote BHRT Expert",
+    brands: ["Biote Pellets", "Biote Nutraceuticals", "Olympia Pharmacy"],
     chatStarters: [
       "What are the signs of hormone imbalance?",
       "How do Biote pellets work?",
-      "Do you offer hormone lab testing?",
-      "What's the difference between BHRT and HRT?",
+      "What does the lab panel test for?",
+      "Explain estrogen vs testosterone therapy",
+      "What are the Biote nutraceuticals?",
+      "Am I a candidate for BHRT?",
     ],
   },
   founder: {

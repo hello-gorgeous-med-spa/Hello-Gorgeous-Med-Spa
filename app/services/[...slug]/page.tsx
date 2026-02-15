@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
+import { HarmonyHeroSection } from "@/components/HarmonyHeroSection";
 import { BOOKING_URL } from "@/lib/flows";
 import { SERVICES, faqJsonLd, pageMetadata, siteJsonLd, type Service } from "@/lib/seo";
 import {
@@ -416,6 +417,31 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
           ))}
         </div>
       </Section>
+
+      {/* Harmony AI Expert Section - Hormone Page Only */}
+      {s.slug === "biote-hormone-therapy" && (
+        <Section className="bg-gradient-to-b from-white via-pink-50/30 to-white">
+          <FadeUp>
+            <div className="text-center mb-8">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E6007E]/10 border border-[#E6007E]/30 mb-4">
+                <span className="text-lg">🤖</span>
+                <span className="text-[#E6007E] text-sm font-semibold uppercase tracking-wider">AI Assistant</span>
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
+                Have Questions About Hormones?
+              </h2>
+              <p className="mt-3 text-lg text-black/70 max-w-2xl mx-auto">
+                Get instant answers from our Biote-trained AI expert
+              </p>
+            </div>
+          </FadeUp>
+          <FadeUp delayMs={100}>
+            <div className="max-w-4xl mx-auto">
+              <HarmonyHeroSection />
+            </div>
+          </FadeUp>
+        </Section>
+      )}
 
       {/* What It Is / Who It's For / What to Expect */}
       <Section className="bg-gradient-to-b from-pink-50/50 via-white to-pink-50/50">
