@@ -37,6 +37,7 @@ const PROGRAMS = [
       ctaText: "Learn about hormone therapy",
     },
     price: 199,
+    priceDaily: "~$6.50/day",
     priceLabel: "per month",
     cta: "Join Hormone Program",
     icon: "⚖️",
@@ -75,6 +76,7 @@ const PROGRAMS = [
     },
     priceDisplay: "From $450",
     price: 450,
+    priceDaily: "~$15/day",
     priceLabel: "per month",
     cta: "Join Weight Loss Program",
     icon: "⚡",
@@ -99,7 +101,7 @@ export function MembershipsContent() {
   return (
     <>
       {/* Hero */}
-      <section className="relative py-20 md:py-28 px-6 md:px-12 bg-gradient-to-br from-slate-50 via-white to-pink-50 overflow-hidden">
+      <section className="relative py-20 md:py-28 px-6 md:px-12 bg-gradient-to-br from-white via-pink-50/30 to-white overflow-hidden">
         <div className="max-w-4xl mx-auto text-center">
           <FadeUp>
             <span className="inline-block px-4 py-1.5 rounded-full border border-[#E6007E]/30 text-[#E6007E] text-sm font-medium mb-6">
@@ -108,12 +110,15 @@ export function MembershipsContent() {
             <h1 className="text-3xl md:text-5xl font-serif font-bold text-[#111111] mb-4">
               We Read the Labs So You Don&apos;t Have To.
             </h1>
-            <p className="text-lg text-[#5E5E66] max-w-2xl mx-auto mb-4">
+            <p className="text-lg text-[#111111]/80 max-w-2xl mx-auto mb-4">
               Prescriptions. IV therapy. Vitamin injections. HRT. Blood work. Same-day visits. Next-day labs. Two programs built for people who want clarity, not guesswork.
             </p>
-            <p className="text-sm text-[#E6007E] font-medium">
+            <p className="text-sm text-[#E6007E] font-medium mb-4">
               No membership required for your first visit.
             </p>
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E6007E]/10 text-[#E6007E] text-xs font-semibold">
+              HSA/FSA Eligible
+            </span>
           </FadeUp>
         </div>
       </section>
@@ -126,8 +131,8 @@ export function MembershipsContent() {
               <p className="text-xl md:text-2xl font-serif text-[#111111] italic leading-relaxed mb-4">
                 &ldquo;I finally feel like I have a doctor who actually looks at my numbers and explains them. No more waiting rooms. No more generic advice.&rdquo;
               </p>
-              <footer className="text-sm text-[#5E5E66]">
-                — Member, Precision Hormone Program
+              <footer className="text-sm text-[#111111]/80 font-medium">
+                — Sarah M., Precision Hormone Program
               </footer>
             </blockquote>
           </FadeUp>
@@ -143,7 +148,7 @@ export function MembershipsContent() {
           <h2 className="text-2xl md:text-3xl font-bold text-[#111111] mb-3">
             What Matters Most?
           </h2>
-          <p className="text-[#5E5E66] mb-8">
+          <p className="text-[#111111]/80 mb-8">
             Hormone optimization, weight loss, or both. Membership is for ongoing care—quarterly labs, prescriptions, peptide therapy, IV therapy.
           </p>
           <div className="flex flex-wrap justify-center gap-2" role="tablist">
@@ -155,7 +160,7 @@ export function MembershipsContent() {
                 className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
                   filter === f
                     ? "bg-[#E6007E] text-white"
-                    : "bg-[#111111]/5 text-[#111111] hover:bg-[#111111]/10"
+                    : "bg-[#E6007E]/10 text-[#111111] hover:bg-[#E6007E]/20"
                 }`}
               >
                 {f === "both" ? "Both" : f === "precision-hormone" ? "Hormone" : "Weight Loss"}
@@ -180,7 +185,7 @@ export function MembershipsContent() {
                     <p className={`text-sm font-semibold ${p.accent} mb-4`}>
                       {p.tagline}
                     </p>
-                    <p className="text-[#5E5E66] mb-6">{p.description}</p>
+                    <p className="text-[#111111]/80 mb-6">{p.description}</p>
                     <ul className="space-y-3 mb-6">
                       {p.benefits.map((b) => (
                         <li key={b} className="flex items-center gap-3 text-[#111111]">
@@ -202,7 +207,13 @@ export function MembershipsContent() {
                         <span className="text-3xl font-bold text-[#111111]">
                           {"priceDisplay" in p && p.priceDisplay ? p.priceDisplay : `$${p.price}`}
                         </span>
-                        <span className="text-[#5E5E66] ml-2">/ {p.priceLabel}</span>
+                        <span className="text-[#111111]/80 ml-2">/ {p.priceLabel}</span>
+                        {"priceDaily" in p && p.priceDaily && (
+                          <p className="text-sm text-[#111111]/70 mt-1">{p.priceDaily}</p>
+                        )}
+                        <span className="inline-flex mt-2 px-2 py-0.5 rounded bg-[#E6007E]/10 text-[#E6007E] text-xs font-semibold">
+                          HSA/FSA Eligible
+                        </span>
                       </div>
                       <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                         <Link
@@ -237,7 +248,7 @@ export function MembershipsContent() {
                 <button
                   type="button"
                   onClick={() => setLearnMoreSlug(null)}
-                  className="text-gray-400 hover:text-gray-600 text-2xl leading-none"
+                  className="text-[#111111]/60 hover:text-[#111111] text-2xl leading-none"
                 >
                   ×
                 </button>
@@ -272,6 +283,84 @@ export function MembershipsContent() {
       {/* FAQ - Precision Starts With Understanding */}
       <PrecisionStartsFAQ />
 
+      {/* Not your average - Comparison table */}
+      <section className="py-16 md:py-24 px-6 md:px-12 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <FadeUp>
+            <h2 className="text-2xl md:text-3xl font-bold text-[#111111] mb-3 text-center">
+              Not Your Average Checkup
+            </h2>
+            <p className="text-[#111111]/80 text-center mb-10">
+              We&apos;re built for continuity—not one-off visits.
+            </p>
+            <div className="overflow-x-auto">
+              <table className="w-full border-collapse text-left">
+                <thead>
+                  <tr className="border-b-2 border-[#111111]">
+                    <th className="py-4 pr-4 font-bold text-[#111111]"> </th>
+                    <th className="py-4 px-4 font-bold text-[#111111]">Hello Gorgeous</th>
+                    <th className="py-4 pl-4 font-bold text-[#111111]/60">Typical clinic</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#111111]/10">
+                  <tr>
+                    <td className="py-4 pr-4 text-[#111111]/80">Quarterly labs & check-ins</td>
+                    <td className="py-4 px-4"><span className="text-[#E6007E] font-bold">✓</span></td>
+                    <td className="py-4 pl-4 text-[#111111]/50">—</td>
+                  </tr>
+                  <tr>
+                    <td className="py-4 pr-4 text-[#111111]/80">Same-day visit availability</td>
+                    <td className="py-4 px-4"><span className="text-[#E6007E] font-bold">✓</span></td>
+                    <td className="py-4 pl-4 text-[#111111]/50">—</td>
+                  </tr>
+                  <tr>
+                    <td className="py-4 pr-4 text-[#111111]/80">Next-day lab results</td>
+                    <td className="py-4 px-4"><span className="text-[#E6007E] font-bold">✓</span></td>
+                    <td className="py-4 pl-4 text-[#111111]/50">Often 1–2 weeks</td>
+                  </tr>
+                  <tr>
+                    <td className="py-4 pr-4 text-[#111111]/80">Secure messaging with provider</td>
+                    <td className="py-4 px-4"><span className="text-[#E6007E] font-bold">✓</span></td>
+                    <td className="py-4 pl-4 text-[#111111]/50">—</td>
+                  </tr>
+                  <tr>
+                    <td className="py-4 pr-4 text-[#111111]/80">Prescriptions & IV therapy included</td>
+                    <td className="py-4 px-4"><span className="text-[#E6007E] font-bold">✓</span></td>
+                    <td className="py-4 pl-4 text-[#111111]/50">A la carte</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* Authority - The experts behind Hello Gorgeous */}
+      <section className="py-16 md:py-24 px-6 md:px-12 bg-[#111111]" data-dark>
+        <div className="max-w-4xl mx-auto text-center">
+          <FadeUp>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
+              The Experts Behind Hello Gorgeous
+            </h2>
+            <p className="text-white/80 mb-10">
+              Licensed medical professionals. Real results. Personalized care.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
+              <div className="rounded-2xl border border-[#E6007E]/30 bg-white/5 p-6 text-left">
+                <h3 className="font-bold text-white text-lg">Danielle Alcala</h3>
+                <p className="text-[#E6007E] text-sm font-medium mb-2">RN-S, Licensed CNA, CMAA, Phlebotomist, Licensed Esthetician, Business Owner</p>
+                <p className="text-sm text-white/70">Owner. Aesthetics, wellness, and patient experience.</p>
+              </div>
+              <div className="rounded-2xl border border-[#E6007E]/30 bg-white/5 p-6 text-left">
+                <h3 className="font-bold text-white text-lg">Ryan Kent</h3>
+                <p className="text-[#E6007E] text-sm font-medium mb-2">FNP-BC</p>
+                <p className="text-sm text-white/70">Hormone optimization, weight loss, IV therapy, and medical oversight.</p>
+              </div>
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
       {/* Trust / Differentiator */}
       <section className="py-16 md:py-24 px-6 md:px-12 bg-[#FDF7FA]">
         <div className="max-w-4xl mx-auto text-center">
@@ -279,7 +368,7 @@ export function MembershipsContent() {
             <h2 className="text-2xl md:text-3xl font-bold text-[#111111] mb-6">
               Why Membership?
             </h2>
-            <p className="text-[#5E5E66] mb-8">
+            <p className="text-[#111111]/80 mb-8">
               Same-day visits. Next-day labs. No waiting rooms. No guesswork. Our programs are built for continuity—you get the care you need, when you need it.
             </p>
             <div className="flex flex-wrap justify-center gap-6 text-sm">
@@ -305,9 +394,9 @@ export function MembershipsContent() {
       </section>
 
       {/* Compliance Disclaimer */}
-      <section className="py-8 px-6 md:px-12 bg-gray-50">
+      <section className="py-8 px-6 md:px-12 bg-white">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="text-xs text-[#5E5E66]">
+          <p className="text-xs text-[#111111]/70">
             Results vary by individual. All treatments performed by licensed medical professionals. 
             Client consent on file. This tool and membership programs provide educational information only and do not diagnose, treat, or replace medical advice.
           </p>
@@ -317,7 +406,7 @@ export function MembershipsContent() {
       {/* CTA */}
       <section className="py-16 px-6 md:px-12 bg-white">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="text-[#5E5E66] mb-6">
+          <p className="text-[#111111]/80 mb-6">
             Questions? Call us at{" "}
             <a href="tel:630-636-6193" className="text-[#E6007E] font-semibold hover:underline">
               630-636-6193

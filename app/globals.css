@@ -81,6 +81,21 @@
   background: linear-gradient(to bottom, #fce7f3 0%, #fdf2f8 50%, #ffffff 100%) !important;
 }
 
+/* Dark sections (e.g. authority block): white text on black */
+[data-site="public"] [data-dark] h2,
+[data-site="public"] [data-dark] h3 {
+  color: white !important;
+}
+[data-site="public"] [data-dark] p[class*="E6007E"] {
+  color: #E6007E !important;
+}
+[data-site="public"] [data-dark] p {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+[data-site="public"] [data-dark] p[class*="E6007E"] {
+  color: #E6007E !important;
+}
+
 /* Hello Gorgeous Premium Medical Glam — Design Tokens */
 :root {
   --hg-pink: #E6007E;
