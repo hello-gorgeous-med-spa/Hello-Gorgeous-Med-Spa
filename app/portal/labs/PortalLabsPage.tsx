@@ -3,11 +3,13 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import ReactMarkdown from "react-markdown";
 import Link from "next/link";
+import { useChatOpen } from "@/components/ChatOpenContext";
 
 const DISCLAIMER =
   "This tool provides educational information only and does not diagnose, treat, or replace medical advice. Always consult your licensed healthcare provider.";
 
 export function PortalLabsPage() {
+  const { openChat } = useChatOpen();
   const [email, setEmail] = useState("");
   const [step, setStep] = useState<"disclaimer" | "upload" | "processing" | "results" | "list">("disclaimer");
   const [disclaimerAccepted, setDisclaimerAccepted] = useState(false);
@@ -171,6 +173,24 @@ export function PortalLabsPage() {
               </p>
             </div>
           )}
+
+          {/* Ask Harmony - lab results expert */}
+          <div className="mb-6">
+            <button
+              type="button"
+              onClick={() => openChat("harmony", { source: "client_portal", topics: ["lab results", "hormones", "interpretation"] })}
+              className="w-full rounded-2xl border-2 border-amber-500/30 bg-gradient-to-r from-amber-500/10 to-rose-500/10 p-4 text-left hover:border-amber-500/50 hover:shadow-md transition-all"
+            >
+              <div className="flex items-center gap-3">
+                <span className="text-2xl">⚖️</span>
+                <div>
+                  <p className="font-semibold text-[#111111]">Questions about your results?</p>
+                  <p className="text-sm text-[#111111]/70">Ask Harmony — hormone & lab expert</p>
+                </div>
+                <span className="ml-auto text-[#E6007E] font-medium text-sm">Chat →</span>
+              </div>
+            </button>
+          </div>
 
           {/* Lab History */}
           {labs.length > 0 && step !== "results" && (

@@ -11,7 +11,7 @@ import {
 import type { PersonaId } from "@/lib/personas/types";
 
 export type ChatInitialContext = {
-  source?: "homepage_supplements" | "client_portal";
+  source?: "homepage_supplements" | "client_portal" | "memberships";
   topics?: string[];
   fulfillment?: "fullscript";
   clicked_supplement?: string;

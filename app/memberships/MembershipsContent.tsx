@@ -5,6 +5,7 @@ import Link from "next/link";
 import { FadeUp } from "@/components/Section";
 import { YourVisitStepByStep } from "@/components/YourVisitStepByStep";
 import { PrecisionStartsFAQ } from "@/components/PrecisionStartsFAQ";
+import { useChatOpen } from "@/components/ChatOpenContext";
 
 const PROGRAMS = [
   {
@@ -91,6 +92,7 @@ const PROGRAMS = [
 type ProgramFilter = "both" | "precision-hormone" | "metabolic-reset";
 
 export function MembershipsContent() {
+  const { openChat } = useChatOpen();
   const [learnMoreSlug, setLearnMoreSlug] = useState<string | null>(null);
   const [filter, setFilter] = useState<ProgramFilter>("both");
   const program = learnMoreSlug ? PROGRAMS.find((p) => p.slug === learnMoreSlug) : null;
@@ -311,6 +313,54 @@ export function MembershipsContent() {
           </div>
         </div>
       )}
+
+      {/* Smart Intelligence - Peppi & Harmony mascots */}
+      <section className="py-16 md:py-24 px-6 md:px-12 bg-white">
+        <div className="max-w-4xl mx-auto">
+          <FadeUp>
+            <h2 className="text-2xl md:text-3xl font-bold text-[#111111] mb-3 text-center">
+              Need Help Deciding?
+            </h2>
+            <p className="text-[#111111]/80 text-center mb-10">
+              Chat with our AI experts. Real answers. No pressure.
+            </p>
+            <div className="grid sm:grid-cols-2 gap-6">
+              <button
+                type="button"
+                onClick={() => openChat("harmony", { source: "memberships", topics: ["hormone optimization", "Precision Hormone Program"] })}
+                className="group text-left rounded-2xl border-2 border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-rose-500/10 p-6 hover:border-amber-500/50 hover:shadow-lg transition-all"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-4xl">⚖️</span>
+                  <h3 className="font-bold text-[#111111] text-lg">Ask Harmony</h3>
+                </div>
+                <p className="text-[#111111]/80 text-sm mb-4">
+                  Hormone optimization expert. Lab results, symptoms, BHRT, pellets—she explains it all.
+                </p>
+                <span className="text-[#E6007E] font-semibold text-sm group-hover:underline">
+                  Start chat →
+                </span>
+              </button>
+              <button
+                type="button"
+                onClick={() => openChat("peppi", { source: "memberships", topics: ["weight loss", "tirzepatide", "Metabolic Reset Program"] })}
+                className="group text-left rounded-2xl border-2 border-emerald-500/30 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 p-6 hover:border-emerald-500/50 hover:shadow-lg transition-all"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="text-4xl">⚡</span>
+                  <h3 className="font-bold text-[#111111] text-lg">Ask Peppi</h3>
+                </div>
+                <p className="text-[#111111]/80 text-sm mb-4">
+                  Weight loss, supplements, IV therapy &amp; peptides. She knows our programs inside-out.
+                </p>
+                <span className="text-[#E6007E] font-semibold text-sm group-hover:underline">
+                  Start chat →
+                </span>
+              </button>
+            </div>
+          </FadeUp>
+        </div>
+      </section>
 
       {/* What to expect - Timeline (Biote style) */}
       <section className="py-16 md:py-24 px-6 md:px-12 bg-[#FDF7FA]">
