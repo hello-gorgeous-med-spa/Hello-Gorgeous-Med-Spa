@@ -101,33 +101,33 @@ export default async function PublicBookingPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 via-white to-pink-50">
-      {/* Premium Header */}
-      <header className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 sticky top-0 z-50 shadow-lg">
+      {/* Premium Header - White & Pink Brand */}
+      <header className="bg-white border-b border-gray-100 sticky top-0 z-50 shadow-sm">
         <div className="max-w-6xl mx-auto px-4">
           <div className="h-16 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-10 h-10 bg-gradient-to-br from-pink-400 to-rose-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
+              <div className="w-10 h-10 bg-pink-500 rounded-xl flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform">
                 <span className="text-white text-lg">💗</span>
               </div>
               <div>
-                <span className="font-bold text-white text-lg">Hello Gorgeous</span>
-                <span className="hidden sm:block text-xs text-pink-300">Med Spa • Oswego, IL</span>
+                <span className="font-bold text-gray-900 text-lg">Hello Gorgeous</span>
+                <span className="hidden sm:block text-xs text-pink-600">Med Spa • Oswego, IL</span>
               </div>
             </Link>
             <div className="flex items-center gap-2 sm:gap-4">
-              <a href="tel:6306366193" className="hidden sm:flex items-center gap-2 px-3 py-2 text-sm text-slate-300 hover:text-white transition-colors">
-                <span className="text-pink-400">📞</span>
+              <a href="tel:6306366193" className="hidden sm:flex items-center gap-2 px-3 py-2 text-sm text-gray-600 hover:text-gray-900 transition-colors">
+                <span className="text-pink-500">📞</span>
                 (630) 636-6193
               </a>
               <Link 
                 href="/portal" 
-                className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white text-sm font-medium rounded-full transition-all border border-white/20"
+                className="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-full transition-all"
               >
                 Sign In
               </Link>
               <Link 
                 href="/book" 
-                className="px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-500 text-white text-sm font-semibold rounded-full hover:shadow-lg hover:shadow-pink-500/30 transition-all"
+                className="px-4 py-2 bg-pink-500 text-white text-sm font-semibold rounded-full hover:bg-pink-600 hover:shadow-lg hover:shadow-pink-500/30 transition-all"
               >
                 Book Now
               </Link>
