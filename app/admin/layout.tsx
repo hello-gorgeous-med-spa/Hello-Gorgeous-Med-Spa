@@ -154,6 +154,7 @@ const NAV_SECTIONS = [
       { href: '/admin/payments', label: 'Payments', icon: '💳' },
       { href: '/admin/gift-cards', label: 'Gift Cards', icon: '🎁' },
       { href: '/admin/memberships', label: 'Memberships', icon: '💎' },
+      { href: '/admin/wellness', label: 'Wellness Members', icon: '⚖️' },
       { href: '/admin/promotions', label: 'Promotions', icon: '🏷' },
     ],
   },

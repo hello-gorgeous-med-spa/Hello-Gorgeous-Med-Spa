@@ -149,6 +149,16 @@ export function MembershipsContent() {
         </div>
       </section>
 
+      {/* Compliance Disclaimer */}
+      <section className="py-8 px-6 md:px-12 bg-gray-50">
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-xs text-[#5E5E66]">
+            Results vary by individual. All treatments performed by licensed medical professionals. 
+            Client consent on file. This tool and membership programs provide educational information only and do not diagnose, treat, or replace medical advice.
+          </p>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="py-16 px-6 md:px-12 bg-white">
         <div className="max-w-2xl mx-auto text-center">
