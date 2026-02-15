@@ -8,6 +8,7 @@ import { CTA } from "@/components/CTA";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { HarmonyHeroSection } from "@/components/HarmonyHeroSection";
 import { PeppiHeroSection } from "@/components/PeppiHeroSection";
+import { HormonePricingTiers } from "@/components/HormonePricingTiers";
 import { BOOKING_URL } from "@/lib/flows";
 import { SERVICES, faqJsonLd, pageMetadata, siteJsonLd, type Service } from "@/lib/seo";
 import {
@@ -477,6 +478,15 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             <div className="max-w-4xl mx-auto">
               <HarmonyHeroSection />
             </div>
+          </FadeUp>
+        </Section>
+      )}
+
+      {/* Hormone Pricing Tiers - Hormone Page Only */}
+      {s.slug === "biote-hormone-therapy" && (
+        <Section className="bg-gradient-to-b from-pink-50/30 via-white to-pink-50/30">
+          <FadeUp>
+            <HormonePricingTiers />
           </FadeUp>
         </Section>
       )}
