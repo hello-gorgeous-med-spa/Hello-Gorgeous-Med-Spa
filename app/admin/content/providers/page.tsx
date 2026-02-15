@@ -1,894 +1,561 @@
-"use client";
+// ============================================================
+// ADMIN: PROVIDER CONTENT MANAGEMENT
+// Admin → Content → Providers
+// Upload videos, before/after photos, manage provider profiles
+// ============================================================
 
-import Image from "next/image";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+'use client';
 
-import { useToast } from "@/components/ui/Toast";
-import type { ProviderServiceTag } from "@/lib/providers/media";
+import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 
-type ProviderRecord = {
+interface Provider {
   id: string;
-  slug?: string | null;
-  display_name?: string | null;
-  first_name?: string | null;
-  last_name?: string | null;
-  email?: string | null;
-  credentials?: string | null;
-  tagline?: string | null;
-  headshot_url?: string | null;
-  hero_image_url?: string | null;
-  short_bio?: string | null;
-  philosophy?: string | null;
-  intro_video_url?: string | null;
-  booking_url?: string | null;
-  color_hex?: string | null;
-  is_active?: boolean;
-  media_counts?: {
-    videos: number;
-    results: number;
-  };
-};
-
-type ProviderMedia = {
-  id: string;
-  provider_id: string;
-  media_type: "video" | "before_after";
-  status: "draft" | "published" | "archived";
-  service_tag: ProviderServiceTag;
-  title: string;
-  description?: string | null;
-  video_url?: string | null;
-  before_image_url?: string | null;
-  after_image_url?: string | null;
-  thumbnail_url?: string | null;
-  alt_text?: string | null;
-  duration_seconds?: number | null;
-  width?: number | null;
-  height?: number | null;
-  featured?: boolean;
-  consent_confirmed?: boolean;
-  watermark_enabled?: boolean;
-  sort_order?: number;
-  tags?: string[] | null;
-};
-
-type UploadResponse = {
-  url: string;
-  thumbnailUrl?: string;
-  durationSeconds?: number;
-  width?: number;
-  height?: number;
-};
-
-const SERVICE_TAG_OPTIONS: { value: ProviderServiceTag; label: string }[] = [
-  { value: "botox", label: "Botox" },
-  { value: "lip_filler", label: "Lip Filler" },
-  { value: "prp", label: "PRP / PRF" },
-  { value: "hormone_therapy", label: "Hormone Therapy" },
-  { value: "weight_loss", label: "Weight Loss" },
-  { value: "microneedling", label: "Microneedling" },
-  { value: "laser", label: "Laser" },
-  { value: "other", label: "Other" },
-];
-
-const STATUS_OPTIONS = [
-  { value: "draft", label: "Draft" },
-  { value: "published", label: "Published" },
-];
-
-interface MediaDrawerState {
-  open: boolean;
-  mode: "create" | "edit";
-  mediaType: "video" | "before_after";
-  initialData?: ProviderMedia | null;
+  slug: string;
+  name: string;
+  credentials?: string;
+  bio?: string;
+  philosophy?: string;
+  headshot_url?: string;
+  active: boolean;
 }
 
-type MediaFormState = {
-  title: string;
-  description: string;
-  service_tag: ProviderServiceTag;
-  status: "draft" | "published";
+interface ProviderMedia {
+  id: string;
+  provider_id: string;
+  type: 'video' | 'before_after';
+  video_url?: string;
+  thumbnail_url?: string;
+  video_orientation?: string;
+  before_image_url?: string;
+  after_image_url?: string;
+  title?: string;
+  description?: string;
+  service_tag?: string;
   featured: boolean;
   consent_confirmed: boolean;
   watermark_enabled: boolean;
-  sort_order: number;
-};
+}
 
-export default function ProvidersContentPage() {
-  const { success, error } = useToast();
-  const [providers, setProviders] = useState<ProviderRecord[]>([]);
-  const [loadingProviders, setLoadingProviders] = useState(false);
-  const [selectedProviderId, setSelectedProviderId] = useState<string | null>(null);
-  const [providerForm, setProviderForm] = useState<Partial<ProviderRecord>>({});
-  const [savingProvider, setSavingProvider] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+const SERVICE_TAGS = [
+  { id: 'botox', label: 'Botox' },
+  { id: 'lip_filler', label: 'Lip Filler' },
+  { id: 'dermal_filler', label: 'Dermal Filler' },
+  { id: 'prp', label: 'PRP' },
+  { id: 'hormone_therapy', label: 'Hormone Therapy' },
+  { id: 'weight_loss', label: 'Weight Loss' },
+  { id: 'microneedling', label: 'Microneedling' },
+  { id: 'laser', label: 'Laser' },
+  { id: 'chemical_peel', label: 'Chemical Peel' },
+  { id: 'iv_therapy', label: 'IV Therapy' },
+];
 
+// Default providers (until DB is seeded)
+const DEFAULT_PROVIDERS: Provider[] = [
+  { id: '1', slug: 'danielle', name: 'Danielle', credentials: 'RN, BSN, Aesthetic Injector', active: true },
+  { id: '2', slug: 'ryan', name: 'Ryan', credentials: 'PA-C, Medical Provider', active: true },
+];
+
+export default function AdminProvidersPage() {
+  const [providers, setProviders] = useState<Provider[]>(DEFAULT_PROVIDERS);
+  const [selectedProvider, setSelectedProvider] = useState<Provider | null>(null);
   const [media, setMedia] = useState<ProviderMedia[]>([]);
-  const [mediaLoading, setMediaLoading] = useState(false);
-  const [mediaFilter, setMediaFilter] = useState<"all" | "video" | "before_after">("all");
-  const [serviceFilter, setServiceFilter] = useState<ProviderServiceTag | "all">("all");
+  const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<'profile' | 'videos' | 'beforeafter'>('profile');
 
-  const [mediaDrawer, setMediaDrawer] = useState<MediaDrawerState>({
-    open: false,
-    mode: "create",
-    mediaType: "before_after",
-  });
-  const [mediaForm, setMediaForm] = useState<MediaFormState>({
-    title: "",
-    description: "",
-    service_tag: "other",
-    status: "draft",
-    featured: false,
-    consent_confirmed: false,
-    watermark_enabled: true,
-    sort_order: 0,
-  });
-  const videoInputRef = useRef<HTMLInputElement>(null);
-  const beforeInputRef = useRef<HTMLInputElement>(null);
-  const afterInputRef = useRef<HTMLInputElement>(null);
-  const [assetUploading, setAssetUploading] = useState(false);
+  // Upload modals
+  const [showVideoModal, setShowVideoModal] = useState(false);
+  const [showPhotoModal, setShowPhotoModal] = useState(false);
+  const [saving, setSaving] = useState(false);
 
-  const loadProviders = useCallback(async () => {
+  // Video form
+  const [videoForm, setVideoForm] = useState({
+    video_url: '', thumbnail_url: '', title: '', description: '',
+    service_tag: '', video_orientation: 'horizontal', featured: false,
+  });
+
+  // Before/After form
+  const [photoForm, setPhotoForm] = useState({
+    before_image_url: '', after_image_url: '', title: '', description: '',
+    service_tag: '', consent_confirmed: false, watermark_enabled: true, featured: false,
+  });
+
+  // Profile form
+  const [profileForm, setProfileForm] = useState({
+    credentials: '', bio: '', philosophy: '', headshot_url: '',
+  });
+
+  const fetchMedia = useCallback(async (providerId: string) => {
+    setLoading(true);
     try {
-      setLoadingProviders(true);
-      const res = await fetch("/api/cms/providers");
+      const res = await fetch(`/api/provider-media?provider_id=${providerId}&consent_only=false`);
       const data = await res.json();
-      const list: ProviderRecord[] = data.providers || [];
-      setProviders(list);
-      setSelectedProviderId((current) => current || list[0]?.id || null);
+      setMedia(data.media || []);
     } catch (err) {
       console.error(err);
-      error("Failed to load providers");
     } finally {
-      setLoadingProviders(false);
+      setLoading(false);
     }
-  }, [error]);
-
-  const loadMedia = useCallback(
-    async (providerId: string) => {
-      try {
-        setMediaLoading(true);
-        const res = await fetch(`/api/cms/providers/${providerId}/media`);
-        const data = await res.json();
-        setMedia(data.media || []);
-      } catch (err) {
-        console.error(err);
-        error("Failed to load media");
-      } finally {
-        setMediaLoading(false);
-      }
-    },
-    [error],
-  );
+  }, []);
 
   useEffect(() => {
-    loadProviders();
-  }, [loadProviders]);
-
-  useEffect(() => {
-    if (selectedProviderId) {
-      const provider = providers.find((p) => p.id === selectedProviderId);
-      setProviderForm(provider || {});
-      loadMedia(selectedProviderId);
-    }
-  }, [selectedProviderId, providers, loadMedia]);
-
-  const filteredProviders = useMemo(() => {
-    if (!searchTerm) return providers;
-    const query = searchTerm.toLowerCase();
-    return providers.filter((provider) => {
-      const name = provider.display_name || `${provider.first_name || ""} ${provider.last_name || ""}`;
-      return name.toLowerCase().includes(query) || provider.credentials?.toLowerCase().includes(query);
-    });
-  }, [providers, searchTerm]);
-
-  const selectedProvider = providers.find((p) => p.id === selectedProviderId) || null;
-
-  async function toggleProviderActive(provider: ProviderRecord) {
-    if (!provider.id) return;
-    try {
-      setProviders((prev) => prev.map((p) => (p.id === provider.id ? { ...p, is_active: !p.is_active } : p)));
-      const res = await fetch("/api/cms/providers", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: provider.id, is_active: !provider.is_active }),
+    if (selectedProvider) {
+      fetchMedia(selectedProvider.id);
+      setProfileForm({
+        credentials: selectedProvider.credentials || '',
+        bio: selectedProvider.bio || '',
+        philosophy: selectedProvider.philosophy || '',
+        headshot_url: selectedProvider.headshot_url || '',
       });
-      if (!res.ok) throw new Error();
-      success(`${provider.display_name || provider.first_name} updated`);
-      await loadProviders();
-    } catch {
-      error("Failed to update provider");
     }
-  }
+  }, [selectedProvider, fetchMedia]);
 
-  async function saveProviderForm(event: React.FormEvent) {
-    event.preventDefault();
-    if (!selectedProvider || !providerForm.display_name) {
-      error("Display name is required");
+  const handleUploadVideo = async () => {
+    if (!selectedProvider || !videoForm.video_url) {
+      alert('Video URL is required');
       return;
     }
+    setSaving(true);
     try {
-      setSavingProvider(true);
-      const payload = {
-        id: selectedProvider.id,
-        ...providerForm,
-      };
-      const res = await fetch("/api/cms/providers", {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+      const res = await fetch('/api/provider-media', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider_id: selectedProvider.id,
+          type: 'video',
+          ...videoForm,
+        }),
       });
-      if (!res.ok) {
-        const data = await res.json();
-        throw new Error(data.error || "Failed to save");
+      if (res.ok) {
+        setShowVideoModal(false);
+        setVideoForm({ video_url: '', thumbnail_url: '', title: '', description: '', service_tag: '', video_orientation: 'horizontal', featured: false });
+        fetchMedia(selectedProvider.id);
+      } else {
+        const err = await res.json();
+        alert(err.error || 'Failed to upload');
       }
-      success("Provider saved");
-      await loadProviders();
+    } catch (err) {
+      alert('Failed to upload');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleUploadPhoto = async () => {
+    if (!selectedProvider || !photoForm.before_image_url || !photoForm.after_image_url) {
+      alert('Both before and after images are required');
+      return;
+    }
+    if (!photoForm.consent_confirmed) {
+      alert('You must confirm client consent before uploading before/after photos');
+      return;
+    }
+    setSaving(true);
+    try {
+      const res = await fetch('/api/provider-media', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          provider_id: selectedProvider.id,
+          type: 'before_after',
+          ...photoForm,
+        }),
+      });
+      if (res.ok) {
+        setShowPhotoModal(false);
+        setPhotoForm({ before_image_url: '', after_image_url: '', title: '', description: '', service_tag: '', consent_confirmed: false, watermark_enabled: true, featured: false });
+        fetchMedia(selectedProvider.id);
+      } else {
+        const err = await res.json();
+        alert(err.error || 'Failed to upload');
+      }
+    } catch (err) {
+      alert('Failed to upload');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDeleteMedia = async (id: string) => {
+    if (!confirm('Delete this media?')) return;
+    try {
+      await fetch(`/api/provider-media?id=${id}`, { method: 'DELETE' });
+      if (selectedProvider) fetchMedia(selectedProvider.id);
     } catch (err) {
       console.error(err);
-      error(err instanceof Error ? err.message : "Failed to save provider");
-    } finally {
-      setSavingProvider(false);
     }
-  }
+  };
 
-  function openMediaDrawer(mode: "create" | "edit", mediaType: "video" | "before_after", mediaItem?: ProviderMedia) {
-    setMediaDrawer({ open: true, mode, mediaType, initialData: mediaItem || null });
-    if (mediaItem) {
-      setMediaForm({
-        title: mediaItem.title,
-        description: mediaItem.description || "",
-        service_tag: mediaItem.service_tag,
-        status: mediaItem.status === "published" ? "published" : "draft",
-        featured: mediaItem.featured ?? false,
-        consent_confirmed: mediaItem.consent_confirmed ?? false,
-        watermark_enabled: mediaItem.watermark_enabled ?? true,
-        sort_order: mediaItem.sort_order ?? 0,
-      });
-    } else {
-      setMediaForm({
-        title: "",
-        description: "",
-        service_tag: "other",
-        status: "draft",
-        featured: false,
-        consent_confirmed: false,
-        watermark_enabled: true,
-        sort_order: 0,
-      });
-    }
-  }
-
-  function closeMediaDrawer() {
-    setMediaDrawer((prev) => ({ ...prev, open: false }));
-    if (videoInputRef.current) videoInputRef.current.value = "";
-    if (beforeInputRef.current) beforeInputRef.current.value = "";
-    if (afterInputRef.current) afterInputRef.current.value = "";
-  }
-
-  async function uploadAsset(
-    file: File,
-    options: { assetRole: string; mediaType: "video" | "before_after"; serviceTag?: string; treatmentName?: string }
-  ): Promise<UploadResponse | null> {
-    if (!selectedProvider) return null;
-    setAssetUploading(true);
+  const toggleFeatured = async (mediaItem: ProviderMedia) => {
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("providerSlug", selectedProvider.slug || selectedProvider.display_name || "provider");
-      formData.append("assetRole", options.assetRole);
-      formData.append("mediaType", options.mediaType);
-      if (options.serviceTag) formData.append("serviceTag", options.serviceTag);
-      if (options.treatmentName) formData.append("treatmentName", options.treatmentName);
-      const res = await fetch("/api/uploads/provider-media", {
-        method: "POST",
-        body: formData,
+      await fetch('/api/provider-media', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: mediaItem.id, featured: !mediaItem.featured }),
       });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || "Upload failed");
-      }
-      return data as UploadResponse;
-    } finally {
-      setAssetUploading(false);
-    }
-  }
-
-  async function handleMediaSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    if (!selectedProvider) return;
-    try {
-      let payload: Record<string, unknown> = {
-        media_type: mediaDrawer.mediaType,
-        title: mediaForm.title,
-        description: mediaForm.description,
-        service_tag: mediaForm.service_tag,
-        status: mediaForm.status,
-        featured: mediaForm.featured,
-        consent_confirmed: mediaForm.consent_confirmed,
-        watermark_enabled: mediaForm.watermark_enabled,
-        sort_order: mediaForm.sort_order,
-      };
-
-      if (mediaDrawer.mode === "create") {
-        if (mediaDrawer.mediaType === "video") {
-          const file = videoInputRef.current?.files?.[0];
-          if (!file) {
-            error("Select a video file to upload");
-            return;
-          }
-          const uploaded = await uploadAsset(file, { assetRole: "video", mediaType: "video" });
-          if (!uploaded) {
-            error("Upload failed, please try again.");
-            return;
-          }
-          payload = {
-            ...payload,
-            video_url: uploaded.url,
-            thumbnail_url: uploaded.thumbnailUrl,
-            duration_seconds: uploaded.durationSeconds,
-            width: uploaded.width,
-            height: uploaded.height,
-          };
-        } else {
-          const beforeFile = beforeInputRef.current?.files?.[0];
-          const afterFile = afterInputRef.current?.files?.[0];
-          if (!beforeFile || !afterFile) {
-            error("Upload both before and after photos");
-            return;
-          }
-          const [beforeUpload, afterUpload] = await Promise.all([
-            uploadAsset(beforeFile, {
-              assetRole: "before",
-              mediaType: "before_after",
-              serviceTag: mediaForm.service_tag,
-              treatmentName: mediaForm.title,
-            }),
-            uploadAsset(afterFile, {
-              assetRole: "after",
-              mediaType: "before_after",
-              serviceTag: mediaForm.service_tag,
-              treatmentName: mediaForm.title,
-            }),
-          ]);
-          if (!beforeUpload || !afterUpload) {
-            error("Upload failed, please try again.");
-            return;
-          }
-          payload = {
-            ...payload,
-            before_image_url: beforeUpload.url,
-            after_image_url: afterUpload.url,
-            width: afterUpload.width,
-            height: afterUpload.height,
-            alt_text: beforeUpload.altText || afterUpload.altText,
-          };
-        }
-
-        const res = await fetch(`/api/cms/providers/${selectedProvider.id}/media`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload),
-        });
-        if (!res.ok) {
-          const data = await res.json();
-          throw new Error(data.error || "Failed to create media");
-        }
-        success("Media uploaded");
-      } else if (mediaDrawer.mode === "edit" && mediaDrawer.initialData) {
-        const res = await fetch(`/api/cms/providers/${selectedProvider.id}/media`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id: mediaDrawer.initialData.id, ...payload }),
-        });
-        if (!res.ok) {
-          const data = await res.json();
-          throw new Error(data.error || "Failed to update media");
-        }
-        success("Media updated");
-      }
-
-      closeMediaDrawer();
-      await loadMedia(selectedProvider.id);
+      if (selectedProvider) fetchMedia(selectedProvider.id);
     } catch (err) {
       console.error(err);
-      error(err instanceof Error ? err.message : "Failed to save media");
     }
-  }
+  };
 
-  async function deleteMedia(mediaId: string) {
-    if (!selectedProvider) return;
-    if (!confirm("Archive this media item?")) return;
-    try {
-      const res = await fetch(`/api/cms/providers/${selectedProvider.id}/media?id=${mediaId}`, {
-        method: "DELETE",
-      });
-      if (!res.ok) throw new Error();
-      success("Media archived");
-      await loadMedia(selectedProvider.id);
-    } catch {
-      error("Failed to delete media");
-    }
-  }
-
-  const visibleMedia = media.filter((item) => {
-    if (mediaFilter !== "all" && item.media_type !== mediaFilter) return false;
-    if (serviceFilter !== "all" && item.service_tag !== serviceFilter) return false;
-    return true;
-  });
+  const videos = media.filter(m => m.type === 'video');
+  const photos = media.filter(m => m.type === 'before_after');
 
   return (
-    <div className="space-y-6">
-      <header className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div>
-          <p className="text-sm uppercase tracking-widest text-pink-500 font-semibold">Content</p>
-          <h1 className="text-3xl font-bold text-gray-900">Provider Media & Authority</h1>
-          <p className="text-gray-500">
-            Upload headshots, videos, and before/after results for Danielle & Ryan. Everything syncs with the public Providers page.
-          </p>
-        </div>
-        <div className="flex gap-3">
-          <button
-            onClick={() => openMediaDrawer("create", "before_after")}
-            className="px-4 py-2 rounded-lg bg-pink-100 text-pink-700 font-semibold hover:bg-pink-200"
-            disabled={!selectedProvider}
-          >
-            + Upload Results
-          </button>
-          <button
-            onClick={() => openMediaDrawer("create", "video")}
-            className="px-4 py-2 rounded-lg bg-slate-900 text-white font-semibold hover:bg-slate-800 disabled:opacity-50"
-            disabled={!selectedProvider}
-          >
-            + Upload Video
-          </button>
-        </div>
-      </header>
-
-      <div className="grid grid-cols-1 xl:grid-cols-[320px,1fr] gap-6">
-        <section className="bg-white rounded-2xl border border-gray-200 shadow-sm p-4 space-y-4">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search providers"
-              className="w-full rounded-xl border border-gray-200 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-pink-400"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          <div className="space-y-3 max-h-[70vh] overflow-auto pr-1">
-            {loadingProviders && <p className="text-sm text-gray-500">Loading providers…</p>}
-            {!loadingProviders &&
-              filteredProviders.map((provider) => (
-                <button
-                  key={provider.id}
-                  onClick={() => setSelectedProviderId(provider.id)}
-                  className={`w-full text-left rounded-2xl border px-4 py-3 transition ${
-                    provider.id === selectedProviderId ? "border-pink-400 bg-pink-50" : "border-gray-200 hover:border-pink-200"
-                  }`}
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl overflow-hidden bg-gray-100 relative">
-                      {provider.headshot_url ? (
-                        <Image src={provider.headshot_url} alt={provider.display_name || "Provider"} fill className="object-cover" sizes="48px" />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-xl">{provider.display_name?.[0] || provider.first_name?.[0] || "👩‍⚕️"}</div>
-                      )}
-                    </div>
-                    <div className="flex-1">
-                      <p className="font-semibold text-gray-900">{provider.display_name || `${provider.first_name} ${provider.last_name}`}</p>
-                      <p className="text-xs text-gray-500">{provider.credentials}</p>
-                    </div>
-                    <div className="flex flex-col text-right text-xs text-gray-500">
-                      <span>🎬 {provider.media_counts?.videos ?? 0}</span>
-                      <span>📸 {provider.media_counts?.results ?? 0}</span>
-                    </div>
-                  </div>
-                  <div className="mt-3 flex items-center justify-between text-xs">
-                    <span className={`px-2 py-0.5 rounded-full font-semibold ${provider.is_active ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"}`}>
-                      {provider.is_active ? "Active" : "Hidden"}
-                    </span>
-                    <button
-                      type="button"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleProviderActive(provider);
-                      }}
-                      className="text-pink-600 font-semibold"
-                    >
-                      {provider.is_active ? "Deactivate" : "Activate"}
-                    </button>
-                  </div>
-                </button>
-              ))}
-          </div>
-        </section>
-
-        <section className="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 space-y-8">
-          {selectedProvider ? (
-            <>
-              <div className="flex flex-col gap-6 lg:flex-row lg:items-center">
-                <div className="w-24 h-24 rounded-2xl overflow-hidden bg-gray-100 relative shadow-inner">
-                  {selectedProvider.headshot_url ? (
-                    <Image src={selectedProvider.headshot_url} alt={selectedProvider.display_name || "Provider"} fill className="object-cover" sizes="96px" />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-3xl">{selectedProvider.display_name?.[0] || "👩‍⚕️"}</div>
-                  )}
-                </div>
-                <div className="flex-1">
-                  <h2 className="text-2xl font-bold text-gray-900">{selectedProvider.display_name}</h2>
-                  <p className="text-sm text-gray-500">{selectedProvider.tagline}</p>
-                  <p className="text-xs text-gray-400 mt-1">Slug: {selectedProvider.slug || "not set"}</p>
-                </div>
-              </div>
-
-              <form className="space-y-4" onSubmit={saveProviderForm}>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <label className="flex flex-col gap-1 text-sm font-medium text-gray-700">
-                    Display Name
-                    <input
-                      type="text"
-                      className="rounded-xl border border-gray-200 px-3 py-2"
-                      value={providerForm.display_name || ""}
-                      onChange={(e) => setProviderForm({ ...providerForm, display_name: e.target.value })}
-                      required
-                    />
-                  </label>
-                  <label className="flex flex-col gap-1 text-sm font-medium text-gray-700">
-                    Slug
-                    <input
-                      type="text"
-                      className="rounded-xl border border-gray-200 px-3 py-2"
-                      value={providerForm.slug || ""}
-                      onChange={(e) => setProviderForm({ ...providerForm, slug: e.target.value })}
-                      placeholder="danielle"
-                    />
-                  </label>
-                </div>
-                <label className="flex flex-col gap-1 text-sm font-medium text-gray-700">
-                  Tagline
-                  <input
-                    type="text"
-                    className="rounded-xl border border-gray-200 px-3 py-2"
-                    value={providerForm.tagline || ""}
-                    onChange={(e) => setProviderForm({ ...providerForm, tagline: e.target.value })}
-                    placeholder="Premium injectables & concierge care"
-                  />
-                </label>
-                <label className="flex flex-col gap-1 text-sm font-medium text-gray-700">
-                  Short Bio
-                  <textarea
-                    className="rounded-xl border border-gray-200 px-3 py-2"
-                    rows={3}
-                    value={providerForm.short_bio || ""}
-                    onChange={(e) => setProviderForm({ ...providerForm, short_bio: e.target.value })}
-                  />
-                </label>
-                <label className="flex flex-col gap-1 text-sm font-medium text-gray-700">
-                  Philosophy
-                  <textarea
-                    className="rounded-xl border border-gray-200 px-3 py-2"
-                    rows={3}
-                    value={providerForm.philosophy || ""}
-                    onChange={(e) => setProviderForm({ ...providerForm, philosophy: e.target.value })}
-                  />
-                </label>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <label className="flex flex-col gap-1 text-sm font-medium text-gray-700">
-                    Credentials
-                    <input
-                      type="text"
-                      className="rounded-xl border border-gray-200 px-3 py-2"
-                      value={providerForm.credentials || ""}
-                      onChange={(e) => setProviderForm({ ...providerForm, credentials: e.target.value })}
-                    />
-                  </label>
-                  <label className="flex flex-col gap-1 text-sm font-medium text-gray-700">
-                    Booking URL
-                    <input
-                      type="text"
-                      className="rounded-xl border border-gray-200 px-3 py-2"
-                      value={providerForm.booking_url || ""}
-                      onChange={(e) => setProviderForm({ ...providerForm, booking_url: e.target.value })}
-                      placeholder="/book?provider=danielle"
-                    />
-                  </label>
-                  <label className="flex flex-col gap-1 text-sm font-medium text-gray-700">
-                    Headshot URL
-                    <input
-                      type="url"
-                      className="rounded-xl border border-gray-200 px-3 py-2"
-                      value={providerForm.headshot_url || ""}
-                      onChange={(e) => setProviderForm({ ...providerForm, headshot_url: e.target.value })}
-                    />
-                  </label>
-                  <label className="flex flex-col gap-1 text-sm font-medium text-gray-700">
-                    Hero Image URL
-                    <input
-                      type="url"
-                      className="rounded-xl border border-gray-200 px-3 py-2"
-                      value={providerForm.hero_image_url || ""}
-                      onChange={(e) => setProviderForm({ ...providerForm, hero_image_url: e.target.value })}
-                    />
-                  </label>
-                  <label className="flex flex-col gap-1 text-sm font-medium text-gray-700">
-                    Intro Video URL
-                    <input
-                      type="url"
-                      className="rounded-xl border border-gray-200 px-3 py-2"
-                      value={providerForm.intro_video_url || ""}
-                      onChange={(e) => setProviderForm({ ...providerForm, intro_video_url: e.target.value })}
-                    />
-                  </label>
-                </div>
-
-                <div className="flex justify-end">
-                  <button
-                    type="submit"
-                    className="px-6 py-3 bg-slate-900 text-white rounded-xl font-semibold hover:bg-slate-800 disabled:opacity-50"
-                    disabled={savingProvider}
-                  >
-                    {savingProvider ? "Saving…" : "Save Provider"}
-                  </button>
-                </div>
-              </form>
-
-              <section className="space-y-4">
-                <div className="flex flex-wrap gap-3 items-center justify-between">
-                  <div className="flex gap-2">
-                    <button
-                      type="button"
-                      className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                        mediaFilter === "all" ? "bg-slate-900 text-white" : "bg-gray-100 text-gray-600"
-                      }`}
-                      onClick={() => setMediaFilter("all")}
-                    >
-                      All Media
-                    </button>
-                    <button
-                      type="button"
-                      className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                        mediaFilter === "video" ? "bg-slate-900 text-white" : "bg-gray-100 text-gray-600"
-                      }`}
-                      onClick={() => setMediaFilter("video")}
-                    >
-                      Videos
-                    </button>
-                    <button
-                      type="button"
-                      className={`px-4 py-2 rounded-full text-sm font-semibold ${
-                        mediaFilter === "before_after" ? "bg-slate-900 text-white" : "bg-gray-100 text-gray-600"
-                      }`}
-                      onClick={() => setMediaFilter("before_after")}
-                    >
-                      Results
-                    </button>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-600">
-                    <span>Filter by service:</span>
-                    <select
-                      className="rounded-full border border-gray-200 px-3 py-1"
-                      value={serviceFilter}
-                      onChange={(e) => setServiceFilter(e.target.value as ProviderServiceTag | "all")}
-                    >
-                      <option value="all">All</option>
-                      {SERVICE_TAG_OPTIONS.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                </div>
-
-                {mediaLoading && <p className="text-sm text-gray-500">Loading media…</p>}
-                {!mediaLoading && visibleMedia.length === 0 && (
-                  <div className="border border-dashed border-gray-300 rounded-2xl p-6 text-center text-gray-500">
-                    No media yet. Upload a video or before/after to get started.
-                  </div>
-                )}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {visibleMedia.map((item) => (
-                    <div key={item.id} className="border rounded-2xl overflow-hidden shadow-sm">
-                      <div className="relative aspect-video bg-gray-100">
-                        {item.media_type === "video" && item.thumbnail_url ? (
-                          <Image src={item.thumbnail_url} alt={item.title} fill className="object-cover" sizes="400px" />
-                        ) : item.after_image_url ? (
-                          <Image src={item.after_image_url} alt={item.title} fill className="object-cover" sizes="400px" />
-                        ) : (
-                          <div className="w-full h-full flex items-center justify-center text-4xl">{item.media_type === "video" ? "🎬" : "📸"}</div>
-                        )}
-                        {item.media_type === "video" && (
-                          <span className="absolute top-2 right-2 bg-black/70 text-white text-xs px-2 py-0.5 rounded-full">Video</span>
-                        )}
-                        {item.featured && (
-                          <span className="absolute bottom-2 right-2 bg-pink-500 text-white text-xs px-2 py-0.5 rounded-full">Featured</span>
-                        )}
-                      </div>
-                      <div className="p-4 space-y-2">
-                        <div className="flex items-center justify-between gap-2">
-                          <h3 className="font-semibold text-gray-900">{item.title}</h3>
-                          <span
-                            className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
-                              item.status === "published" ? "bg-green-100 text-green-700" : "bg-gray-100 text-gray-500"
-                            }`}
-                          >
-                            {item.status === "published" ? "Published" : "Draft"}
-                          </span>
-                        </div>
-                        <p className="text-sm text-gray-500">{item.description}</p>
-                        <div className="flex flex-wrap gap-2 text-xs text-gray-500">
-                          <span className="px-2 py-0.5 rounded-full bg-gray-100">{SERVICE_TAG_OPTIONS.find((opt) => opt.value === item.service_tag)?.label}</span>
-                          {item.consent_confirmed ? (
-                            <span className="px-2 py-0.5 rounded-full bg-green-100 text-green-700">Consent on file</span>
-                          ) : (
-                            <span className="px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">Consent pending</span>
-                          )}
-                        </div>
-                        <div className="flex items-center justify-between gap-3 pt-2">
-                          <button
-                            type="button"
-                            className="text-sm font-semibold text-pink-600"
-                            onClick={() => openMediaDrawer("edit", item.media_type, item)}
-                          >
-                            Edit
-                          </button>
-                          <button type="button" className="text-sm text-gray-500 hover:text-red-600" onClick={() => deleteMedia(item.id)}>
-                            Archive
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            </>
-          ) : (
-            <p>Select a provider to manage content.</p>
-          )}
-        </section>
+    <div className="p-6 max-w-7xl mx-auto">
+      {/* Header */}
+      <div className="mb-8">
+        <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+          <span className="text-3xl">👩‍⚕️</span>
+          Provider Management
+        </h1>
+        <p className="text-gray-500 mt-1">Manage provider profiles, videos, and before/after galleries</p>
       </div>
 
-  {mediaDrawer.open && selectedProvider && (
-        <div className="fixed inset-0 bg-black/40 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-4 border-b flex items-center justify-between">
-              <div>
-                <p className="text-xs uppercase tracking-widest text-pink-500 font-semibold">Provider media</p>
-                <h3 className="text-xl font-bold">
-                  {mediaDrawer.mode === "create" ? "Upload" : "Edit"} {mediaDrawer.mediaType === "video" ? "Video" : "Before/After"}
-                </h3>
+      {!selectedProvider ? (
+        /* Provider List */
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {providers.map((provider) => (
+            <button
+              key={provider.id}
+              onClick={() => setSelectedProvider(provider)}
+              className="bg-white rounded-xl border border-gray-200 p-6 text-left hover:shadow-lg transition-shadow"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-16 h-16 rounded-full bg-gradient-to-br from-pink-100 to-pink-200 flex items-center justify-center text-2xl font-bold text-pink-500">
+                  {provider.name.charAt(0)}
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">{provider.name}</h3>
+                  <p className="text-sm text-gray-500">{provider.credentials}</p>
+                  <span className={`inline-block mt-2 px-2 py-0.5 text-xs rounded-full ${provider.active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+                    {provider.active ? 'Active' : 'Inactive'}
+                  </span>
+                </div>
               </div>
-              <button onClick={closeMediaDrawer} className="text-gray-400 hover:text-gray-600">
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
+            </button>
+          ))}
+          {/* Add Provider */}
+          <button className="bg-gray-50 rounded-xl border border-dashed border-gray-300 p-6 flex items-center justify-center text-gray-500 hover:bg-gray-100 transition-colors">
+            <span className="text-2xl mr-2">+</span> Add Provider
+          </button>
+        </div>
+      ) : (
+        /* Provider Detail View */
+        <div>
+          <button
+            onClick={() => setSelectedProvider(null)}
+            className="flex items-center text-gray-500 hover:text-gray-700 mb-6"
+          >
+            <span className="mr-2">←</span> Back to Providers
+          </button>
+
+          <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
+            {/* Provider Header */}
+            <div className="p-6 border-b border-gray-200 flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-pink-100 to-pink-200 flex items-center justify-center text-3xl font-bold text-pink-500">
+                  {selectedProvider.name.charAt(0)}
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">{selectedProvider.name}</h2>
+                  <p className="text-gray-500">{selectedProvider.credentials}</p>
+                </div>
+              </div>
+              <Link
+                href={`/providers/${selectedProvider.slug}`}
+                target="_blank"
+                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
+              >
+                View Public Page →
+              </Link>
+            </div>
+
+            {/* Tabs */}
+            <div className="border-b border-gray-200">
+              <div className="flex">
+                {[
+                  { id: 'profile', label: 'Profile', icon: '📝' },
+                  { id: 'videos', label: 'Videos', icon: '🎬', count: videos.length },
+                  { id: 'beforeafter', label: 'Before/After', icon: '📸', count: photos.length },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id as any)}
+                    className={`px-6 py-4 text-sm font-medium border-b-2 transition-colors ${
+                      activeTab === tab.id
+                        ? 'border-pink-500 text-pink-500'
+                        : 'border-transparent text-gray-500 hover:text-gray-700'
+                    }`}
+                  >
+                    {tab.icon} {tab.label} {tab.count !== undefined && <span className="text-gray-400">({tab.count})</span>}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Tab Content */}
+            <div className="p-6">
+              {/* Profile Tab */}
+              {activeTab === 'profile' && (
+                <div className="max-w-2xl space-y-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Credentials</label>
+                    <input
+                      type="text"
+                      value={profileForm.credentials}
+                      onChange={(e) => setProfileForm({ ...profileForm, credentials: e.target.value })}
+                      placeholder="e.g., RN, BSN, Aesthetic Injector"
+                      className="w-full px-4 py-2 border border-gray-200 rounded-xl"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Bio</label>
+                    <textarea
+                      value={profileForm.bio}
+                      onChange={(e) => setProfileForm({ ...profileForm, bio: e.target.value })}
+                      rows={4}
+                      placeholder="Provider biography..."
+                      className="w-full px-4 py-2 border border-gray-200 rounded-xl"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Philosophy</label>
+                    <textarea
+                      value={profileForm.philosophy}
+                      onChange={(e) => setProfileForm({ ...profileForm, philosophy: e.target.value })}
+                      rows={3}
+                      placeholder="Treatment philosophy quote..."
+                      className="w-full px-4 py-2 border border-gray-200 rounded-xl"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Headshot URL</label>
+                    <input
+                      type="text"
+                      value={profileForm.headshot_url}
+                      onChange={(e) => setProfileForm({ ...profileForm, headshot_url: e.target.value })}
+                      placeholder="https://..."
+                      className="w-full px-4 py-2 border border-gray-200 rounded-xl"
+                    />
+                  </div>
+                  <button className="px-6 py-3 bg-pink-500 text-white rounded-xl hover:bg-pink-600 font-medium">
+                    Save Profile
+                  </button>
+                </div>
+              )}
+
+              {/* Videos Tab */}
+              {activeTab === 'videos' && (
+                <div>
+                  <div className="flex justify-between items-center mb-6">
+                    <h3 className="text-lg font-semibold">Videos</h3>
+                    <button
+                      onClick={() => setShowVideoModal(true)}
+                      className="px-4 py-2 bg-pink-500 text-white rounded-xl hover:bg-pink-600 flex items-center gap-2"
+                    >
+                      + Upload Video
+                    </button>
+                  </div>
+                  {loading ? (
+                    <div className="animate-pulse"><div className="h-40 bg-gray-100 rounded-xl" /></div>
+                  ) : videos.length === 0 ? (
+                    <div className="text-center py-12 bg-gray-50 rounded-xl">
+                      <span className="text-4xl block mb-4">🎬</span>
+                      <p className="text-gray-500">No videos uploaded yet</p>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {videos.map((v) => (
+                        <div key={v.id} className="bg-gray-50 rounded-xl overflow-hidden border">
+                          <div className="aspect-video bg-gray-200 flex items-center justify-center text-4xl text-gray-400">▶</div>
+                          <div className="p-4">
+                            <p className="font-medium text-gray-900">{v.title || 'Untitled'}</p>
+                            <p className="text-sm text-gray-500">{v.service_tag || 'No tag'}</p>
+                            <div className="flex gap-2 mt-3">
+                              <button onClick={() => toggleFeatured(v)} className={`text-sm px-2 py-1 rounded ${v.featured ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-600'}`}>
+                                ⭐ Featured
+                              </button>
+                              <button onClick={() => handleDeleteMedia(v.id)} className="text-sm px-2 py-1 bg-red-50 text-red-600 rounded">Delete</button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Before/After Tab */}
+              {activeTab === 'beforeafter' && (
+                <div>
+                  <div className="flex justify-between items-center mb-6">
+                    <h3 className="text-lg font-semibold">Before/After Gallery</h3>
+                    <button
+                      onClick={() => setShowPhotoModal(true)}
+                      className="px-4 py-2 bg-pink-500 text-white rounded-xl hover:bg-pink-600 flex items-center gap-2"
+                    >
+                      + Upload Before/After
+                    </button>
+                  </div>
+                  {loading ? (
+                    <div className="animate-pulse"><div className="h-40 bg-gray-100 rounded-xl" /></div>
+                  ) : photos.length === 0 ? (
+                    <div className="text-center py-12 bg-gray-50 rounded-xl">
+                      <span className="text-4xl block mb-4">📸</span>
+                      <p className="text-gray-500">No before/after photos yet</p>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                      {photos.map((p) => (
+                        <div key={p.id} className="bg-gray-50 rounded-xl overflow-hidden border">
+                          <div className="flex aspect-[2/1]">
+                            <div className="w-1/2 bg-gray-200 flex items-center justify-center text-xs text-gray-400">Before</div>
+                            <div className="w-1/2 bg-pink-100 flex items-center justify-center text-xs text-pink-400">After</div>
+                          </div>
+                          <div className="p-4">
+                            <p className="font-medium text-gray-900">{p.title || 'Untitled'}</p>
+                            <p className="text-sm text-gray-500">{p.service_tag?.replace('_', ' ') || 'No tag'}</p>
+                            <div className="flex flex-wrap gap-2 mt-3">
+                              <span className={`text-xs px-2 py-1 rounded ${p.consent_confirmed ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+                                {p.consent_confirmed ? '✓ Consent' : '⚠ No Consent'}
+                              </span>
+                              <button onClick={() => toggleFeatured(p)} className={`text-sm px-2 py-1 rounded ${p.featured ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-600'}`}>
+                                ⭐
+                              </button>
+                              <button onClick={() => handleDeleteMedia(p.id)} className="text-sm px-2 py-1 bg-red-50 text-red-600 rounded">Delete</button>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Video Upload Modal */}
+      {showVideoModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-lg w-full">
+            <div className="p-6 border-b flex justify-between">
+              <h2 className="text-xl font-bold">Upload Video</h2>
+              <button onClick={() => setShowVideoModal(false)} className="text-gray-400">✕</button>
+            </div>
+            <div className="p-6 space-y-4">
+              <div>
+                <label className="block text-sm font-medium mb-2">Video URL *</label>
+                <input type="text" value={videoForm.video_url} onChange={e => setVideoForm({...videoForm, video_url: e.target.value})} placeholder="https://..." className="w-full px-4 py-2 border rounded-xl"/>
+                <p className="text-xs text-gray-500 mt-1">Upload to cloud storage (Cloudflare, AWS, etc) and paste URL</p>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Thumbnail URL</label>
+                <input type="text" value={videoForm.thumbnail_url} onChange={e => setVideoForm({...videoForm, thumbnail_url: e.target.value})} placeholder="https://..." className="w-full px-4 py-2 border rounded-xl"/>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Title</label>
+                <input type="text" value={videoForm.title} onChange={e => setVideoForm({...videoForm, title: e.target.value})} placeholder="Video title" className="w-full px-4 py-2 border rounded-xl"/>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Description</label>
+                <textarea value={videoForm.description} onChange={e => setVideoForm({...videoForm, description: e.target.value})} rows={2} className="w-full px-4 py-2 border rounded-xl"/>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Service Tag</label>
+                  <select value={videoForm.service_tag} onChange={e => setVideoForm({...videoForm, service_tag: e.target.value})} className="w-full px-4 py-2 border rounded-xl">
+                    <option value="">Select...</option>
+                    {SERVICE_TAGS.map(t => <option key={t.id} value={t.id}>{t.label}</option>)}
+                  </select>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">Orientation</label>
+                  <select value={videoForm.video_orientation} onChange={e => setVideoForm({...videoForm, video_orientation: e.target.value})} className="w-full px-4 py-2 border rounded-xl">
+                    <option value="horizontal">Horizontal</option>
+                    <option value="vertical">Vertical (Reels)</option>
+                  </select>
+                </div>
+              </div>
+              <label className="flex items-center gap-2">
+                <input type="checkbox" checked={videoForm.featured} onChange={e => setVideoForm({...videoForm, featured: e.target.checked})} className="w-4 h-4 rounded"/>
+                <span className="text-sm">Featured video</span>
+              </label>
+            </div>
+            <div className="p-6 border-t flex justify-end gap-3">
+              <button onClick={() => setShowVideoModal(false)} className="px-4 py-2 text-gray-600">Cancel</button>
+              <button onClick={handleUploadVideo} disabled={!videoForm.video_url || saving} className="px-6 py-2 bg-pink-500 text-white rounded-xl disabled:opacity-50">
+                {saving ? 'Uploading...' : 'Upload Video'}
               </button>
             </div>
-            <form className="p-6 space-y-4" onSubmit={handleMediaSubmit}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <label className="flex flex-col gap-1 text-sm font-semibold text-gray-700">
-                  Title
-                  <input
-                    type="text"
-                    className="rounded-xl border border-gray-200 px-3 py-2"
-                    value={mediaForm.title}
-                    onChange={(e) => setMediaForm({ ...mediaForm, title: e.target.value })}
-                    required
-                  />
-                </label>
-                <label className="flex flex-col gap-1 text-sm font-semibold text-gray-700">
-                  Service Tag
-                  <select
-                    className="rounded-xl border border-gray-200 px-3 py-2"
-                    value={mediaForm.service_tag}
-                    onChange={(e) => setMediaForm({ ...mediaForm, service_tag: e.target.value as ProviderServiceTag })}
-                  >
-                    {SERVICE_TAG_OPTIONS.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-              </div>
-              <label className="flex flex-col gap-1 text-sm font-semibold text-gray-700">
-                Description
-                <textarea
-                  className="rounded-xl border border-gray-200 px-3 py-2"
-                  rows={3}
-                  value={mediaForm.description}
-                  onChange={(e) => setMediaForm({ ...mediaForm, description: e.target.value })}
-                />
-              </label>
-              {mediaDrawer.mediaType === "video" ? (
-                mediaDrawer.mode === "create" && (
-                  <label className="flex flex-col gap-1 text-sm font-semibold text-gray-700">
-                    Video File (MP4, MOV)
-                    <input ref={videoInputRef} type="file" accept="video/*" className="rounded-xl border border-dashed border-gray-300 px-3 py-2" />
-                  </label>
-                )
-              ) : (
-                mediaDrawer.mode === "create" && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <label className="flex flex-col gap-1 text-sm font-semibold text-gray-700">
-                      Before Photo
-                      <input ref={beforeInputRef} type="file" accept="image/*" className="rounded-xl border border-dashed border-gray-300 px-3 py-2" />
-                    </label>
-                    <label className="flex flex-col gap-1 text-sm font-semibold text-gray-700">
-                      After Photo
-                      <input ref={afterInputRef} type="file" accept="image/*" className="rounded-xl border border-dashed border-gray-300 px-3 py-2" />
-                    </label>
-                  </div>
-                )
-              )}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={mediaForm.featured}
-                    onChange={(e) => setMediaForm({ ...mediaForm, featured: e.target.checked })}
-                  />
-                  Featured
-                </label>
-                <label className="flex items-center gap-2">
-                  <input
-                    type="checkbox"
-                    checked={mediaForm.consent_confirmed}
-                    onChange={(e) => setMediaForm({ ...mediaForm, consent_confirmed: e.target.checked })}
-                  />
-                  Client consent confirmed
-                </label>
-                {mediaDrawer.mediaType === "before_after" && (
-                  <label className="flex items-center gap-2">
-                    <input
-                      type="checkbox"
-                      checked={mediaForm.watermark_enabled}
-                      onChange={(e) => setMediaForm({ ...mediaForm, watermark_enabled: e.target.checked })}
-                    />
-                    Watermark photos
-                  </label>
-                )}
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <label className="flex flex-col gap-1 text-sm font-semibold text-gray-700">
-                  Status
-                  <select
-                    className="rounded-xl border border-gray-200 px-3 py-2"
-                    value={mediaForm.status}
-                    onChange={(e) => setMediaForm({ ...mediaForm, status: e.target.value as "draft" | "published" })}
-                  >
-                    {STATUS_OPTIONS.map((option) => (
-                      <option key={option.value} value={option.value}>
-                        {option.label}
-                      </option>
-                    ))}
-                  </select>
-                </label>
-                <label className="flex flex-col gap-1 text-sm font-semibold text-gray-700">
-                  Sort Order
-                  <input
-                    type="number"
-                    className="rounded-xl border border-gray-200 px-3 py-2"
-                    value={mediaForm.sort_order}
-                    onChange={(e) => setMediaForm({ ...mediaForm, sort_order: Number(e.target.value) })}
-                  />
-                </label>
-              </div>
+          </div>
+        </div>
+      )}
 
-              <div className="flex justify-end gap-3 pt-4">
-                <button type="button" onClick={closeMediaDrawer} className="px-4 py-2 rounded-xl border border-gray-200">
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-6 py-2 rounded-xl bg-slate-900 text-white font-semibold disabled:opacity-50"
-                  disabled={assetUploading}
-                >
-                  {assetUploading ? "Uploading…" : mediaDrawer.mode === "create" ? "Upload Media" : "Save Changes"}
-                </button>
+      {/* Before/After Upload Modal */}
+      {showPhotoModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl max-w-lg w-full">
+            <div className="p-6 border-b flex justify-between">
+              <h2 className="text-xl font-bold">Upload Before/After</h2>
+              <button onClick={() => setShowPhotoModal(false)} className="text-gray-400">✕</button>
+            </div>
+            <div className="p-6 space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-2">Before Image URL *</label>
+                  <input type="text" value={photoForm.before_image_url} onChange={e => setPhotoForm({...photoForm, before_image_url: e.target.value})} placeholder="https://..." className="w-full px-4 py-2 border rounded-xl"/>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">After Image URL *</label>
+                  <input type="text" value={photoForm.after_image_url} onChange={e => setPhotoForm({...photoForm, after_image_url: e.target.value})} placeholder="https://..." className="w-full px-4 py-2 border rounded-xl"/>
+                </div>
               </div>
-            </form>
+              <div>
+                <label className="block text-sm font-medium mb-2">Title</label>
+                <input type="text" value={photoForm.title} onChange={e => setPhotoForm({...photoForm, title: e.target.value})} placeholder="e.g., Lip Filler - 1 syringe" className="w-full px-4 py-2 border rounded-xl"/>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Description</label>
+                <textarea value={photoForm.description} onChange={e => setPhotoForm({...photoForm, description: e.target.value})} rows={2} className="w-full px-4 py-2 border rounded-xl"/>
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2">Service Tag</label>
+                <select value={photoForm.service_tag} onChange={e => setPhotoForm({...photoForm, service_tag: e.target.value})} className="w-full px-4 py-2 border rounded-xl">
+                  <option value="">Select...</option>
+                  {SERVICE_TAGS.map(t => <option key={t.id} value={t.id}>{t.label}</option>)}
+                </select>
+              </div>
+              <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
+                <label className="flex items-start gap-3">
+                  <input type="checkbox" checked={photoForm.consent_confirmed} onChange={e => setPhotoForm({...photoForm, consent_confirmed: e.target.checked})} className="w-5 h-5 rounded mt-0.5"/>
+                  <div>
+                    <span className="font-medium text-yellow-800">Client Consent Confirmed *</span>
+                    <p className="text-sm text-yellow-700 mt-1">I confirm that written consent has been obtained from the client to use these photos for marketing purposes.</p>
+                  </div>
+                </label>
+              </div>
+              <div className="flex items-center gap-4">
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" checked={photoForm.watermark_enabled} onChange={e => setPhotoForm({...photoForm, watermark_enabled: e.target.checked})} className="w-4 h-4 rounded"/>
+                  <span className="text-sm">Add watermark</span>
+                </label>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" checked={photoForm.featured} onChange={e => setPhotoForm({...photoForm, featured: e.target.checked})} className="w-4 h-4 rounded"/>
+                  <span className="text-sm">Featured</span>
+                </label>
+              </div>
+            </div>
+            <div className="p-6 border-t flex justify-end gap-3">
+              <button onClick={() => setShowPhotoModal(false)} className="px-4 py-2 text-gray-600">Cancel</button>
+              <button onClick={handleUploadPhoto} disabled={!photoForm.before_image_url || !photoForm.after_image_url || !photoForm.consent_confirmed || saving} className="px-6 py-2 bg-pink-500 text-white rounded-xl disabled:opacity-50">
+                {saving ? 'Uploading...' : 'Upload Photos'}
+              </button>
+            </div>
           </div>
         </div>
       )}

@@ -1,246 +1,383 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+// ============================================================
+// PUBLIC: INDIVIDUAL PROVIDER PROFILE PAGE
+// /providers/danielle or /providers/ryan
+// Video gallery, before/after results, booking CTA
+// ============================================================
 
-import { ResultsDisclaimer } from "@/components/providers/ResultsDisclaimer";
-import { ResultsGallery } from "@/components/providers/ResultsGallery";
-import { VideoGallery } from "@/components/providers/VideoGallery";
-import { BOOKING_URL } from "@/lib/flows";
-import { createServerSupabaseClient } from "@/lib/hgos/supabase";
-import { PROVIDER_FALLBACKS, PROVIDER_MEDIA_FALLBACK, applyProviderImageOverrides } from "@/lib/providers/fallback";
-import { pageMetadata, providerBeforeAfterJsonLd, providerPersonJsonLd, providerVideoJsonLd } from "@/lib/seo";
+'use client';
 
-export const revalidate = 300;
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useParams } from 'next/navigation';
 
-const KNOWN_PROVIDER_SLUGS = Object.keys(PROVIDER_FALLBACKS);
-
-export function generateStaticParams() {
-  return KNOWN_PROVIDER_SLUGS.map((slug) => ({ slug }));
+interface ProviderMedia {
+  id: string;
+  type: 'video' | 'before_after';
+  video_url?: string;
+  thumbnail_url?: string;
+  before_image_url?: string;
+  after_image_url?: string;
+  title?: string;
+  description?: string;
+  service_tag?: string;
+  featured: boolean;
+  alt_text?: string;
 }
 
-type ProviderDetail = {
+interface Provider {
   id: string;
   slug: string;
-  display_name: string;
-  credentials?: string | null;
-  tagline?: string | null;
-  short_bio?: string | null;
-  philosophy?: string | null;
-  headshot_url?: string | null;
-  hero_image_url?: string | null;
-  intro_video_url?: string | null;
-  booking_url?: string | null;
-  color_hex?: string | null;
+  name: string;
+  credentials: string;
+  bio: string;
+  philosophy?: string;
+  headshot_url?: string;
+}
+
+const SERVICE_TAGS = [
+  { id: 'all', label: 'All Results' },
+  { id: 'botox', label: 'Botox' },
+  { id: 'lip_filler', label: 'Lip Filler' },
+  { id: 'dermal_filler', label: 'Dermal Filler' },
+  { id: 'prp', label: 'PRP' },
+  { id: 'hormone_therapy', label: 'Hormone Therapy' },
+  { id: 'weight_loss', label: 'Weight Loss' },
+  { id: 'microneedling', label: 'Microneedling' },
+  { id: 'laser', label: 'Laser' },
+];
+
+// Default providers (until DB is connected)
+const DEFAULT_PROVIDERS: Record<string, Provider> = {
+  danielle: {
+    id: '1', slug: 'danielle', name: 'Danielle', credentials: 'RN, BSN, Aesthetic Injector',
+    bio: 'With over a decade of experience in aesthetic medicine, Danielle founded Hello Gorgeous Med Spa with a vision to deliver natural, personalized results. Her expertise spans advanced injection techniques, facial balancing, and helping clients feel confident in their own skin.',
+    philosophy: 'Beauty should enhance who you already are. My approach is always natural-first—subtle changes that make a big impact without looking "done."',
+  },
+  ryan: {
+    id: '2', slug: 'ryan', name: 'Ryan', credentials: 'PA-C, Medical Provider',
+    bio: 'Ryan brings clinical precision and a patient-first approach to Hello Gorgeous. Specializing in hormone therapy and weight management, he works closely with each patient to develop personalized treatment plans.',
+    philosophy: 'True transformation comes from within. I believe in treating the whole person—optimizing hormones, metabolism, and overall wellness for lasting results.',
+  },
 };
 
-type MediaItem = {
-  id: string;
-  media_type: "video" | "before_after";
-  title: string;
-  description?: string | null;
-  video_url?: string | null;
-  thumbnail_url?: string | null;
-  before_image_url?: string | null;
-  after_image_url?: string | null;
-  service_tag?: string | null;
-  alt_text?: string | null;
-  consent_confirmed?: boolean;
-  duration_seconds?: number | null;
-};
+export default function ProviderProfilePage() {
+  const params = useParams();
+  const slug = params.slug as string;
+  
+  const [provider, setProvider] = useState<Provider | null>(DEFAULT_PROVIDERS[slug] || null);
+  const [media, setMedia] = useState<ProviderMedia[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [activeTab, setActiveTab] = useState<'videos' | 'results'>('results');
+  const [selectedMedia, setSelectedMedia] = useState<ProviderMedia | null>(null);
+  const [sliderPosition, setSliderPosition] = useState(50);
 
-function useFallback(slug: string): { provider: ProviderDetail; videos: MediaItem[]; results: MediaItem[] } | null {
-  const fallback = Object.values(PROVIDER_FALLBACKS).find((p) => p.slug === slug);
-  if (!fallback) return null;
-  const media = PROVIDER_MEDIA_FALLBACK[slug] || [];
-  return {
-    provider: applyProviderImageOverrides({
-      id: fallback.id,
-      slug: fallback.slug,
-      display_name: fallback.display_name,
-      credentials: fallback.credentials,
-      tagline: fallback.tagline,
-      short_bio: fallback.short_bio,
-      philosophy: fallback.philosophy,
-      headshot_url: fallback.headshot_url,
-      hero_image_url: fallback.hero_image_url,
-      intro_video_url: fallback.intro_video_url,
-      booking_url: fallback.booking_url,
-      color_hex: fallback.color_hex || "#ec4899",
-    }),
-    videos: media.filter((item) => item.media_type === "video"),
-    results: media.filter((item) => item.media_type === "before_after"),
-  };
-}
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`/api/provider-media?slug=${slug}`);
+        const data = await res.json();
+        setMedia(data.media || []);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+  }, [slug]);
 
-async function fetchProvider(slug: string): Promise<{ provider: ProviderDetail; videos: MediaItem[]; results: MediaItem[] } | null> {
-  const supabase = createServerSupabaseClient();
-  if (!supabase) return useFallback(slug);
+  const videos = media.filter(m => m.type === 'video');
+  const beforeAfter = media.filter(m => m.type === 'before_after');
+  const filteredResults = activeFilter === 'all' 
+    ? beforeAfter 
+    : beforeAfter.filter(m => m.service_tag === activeFilter);
 
-  try {
-    const { data: provider } = await supabase
-      .from("providers")
-      .select("id, slug, display_name, credentials, tagline, short_bio, philosophy, headshot_url, hero_image_url, intro_video_url, booking_url, color_hex, is_active")
-      .eq("slug", slug)
-      .eq("is_active", true)
-      .maybeSingle();
-
-    if (!provider) return useFallback(slug);
-
-    const { data: media } = await supabase
-      .from("provider_media")
-      .select("id, media_type, title, description, video_url, thumbnail_url, before_image_url, after_image_url, service_tag, alt_text, consent_confirmed, duration_seconds")
-      .eq("provider_id", provider.id)
-      .eq("status", "published")
-      .order("featured", { ascending: false })
-      .order("sort_order", { ascending: true });
-
-    const videos = (media || []).filter((item) => item.media_type === "video");
-    const results = (media || []).filter((item) => item.media_type === "before_after" && item.consent_confirmed);
-
-    return { provider: applyProviderImageOverrides(provider), videos, results };
-  } catch {
-    return useFallback(slug);
+  if (!provider) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold mb-4">Provider not found</h1>
+          <Link href="/providers" className="text-pink-500 hover:underline">View all providers</Link>
+        </div>
+      </div>
+    );
   }
-}
-
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const profile = await fetchProvider(params.slug.toLowerCase());
-  if (!profile) {
-    return pageMetadata({
-      title: "Provider",
-      description: "Licensed medical professionals at Hello Gorgeous.",
-      path: `/providers/${params.slug}`,
-    });
-  }
-  return pageMetadata({
-    title: `${profile.provider.display_name} | Hello Gorgeous Providers`,
-    description: profile.provider.short_bio || "Licensed medical professional at Hello Gorgeous Med Spa.",
-    path: `/providers/${params.slug}`,
-  });
-}
-
-export default async function ProviderDetailPage({ params }: { params: { slug: string } }) {
-  const profile = await fetchProvider(params.slug.toLowerCase());
-  if (!profile) {
-    notFound();
-  }
-  const { provider, videos, results } = profile;
-  const schema = [
-    providerPersonJsonLd({
-      name: provider.display_name,
-      credentials: provider.credentials,
-      description: provider.short_bio,
-      image: provider.headshot_url,
-    }),
-    ...providerVideoJsonLd(provider.display_name, videos),
-    ...providerBeforeAfterJsonLd(provider.display_name, results),
-  ];
 
   return (
-    <main className="bg-gradient-to-b from-black via-slate-950 to-black text-white">
-      <script
-        type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
-      
-      {/* Hero Section */}
-      <section className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-12">
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 via-transparent to-purple-500/10" />
-        <div className="relative mx-auto max-w-5xl">
-          <div className="flex flex-col gap-8 md:flex-row md:items-center">
-            <div className="relative h-48 w-48 flex-shrink-0 overflow-hidden rounded-3xl border border-white/10 bg-black/40 shadow-2xl">
-              {provider.headshot_url ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={provider.headshot_url} alt={provider.display_name} className="h-full w-full object-cover" loading="eager" decoding="async" />
-              ) : (
-                <div className="flex h-full w-full items-center justify-center text-5xl">👩‍⚕️</div>
-              )}
-            </div>
-            <div>
-              <p className="text-sm uppercase tracking-[0.5em] text-pink-400">Provider</p>
-              <h1 className="mt-4 text-4xl font-bold leading-tight md:text-5xl">{provider.display_name}</h1>
-              <p className="mt-2 text-blue-200">{provider.credentials}</p>
-              <p className="mt-4 text-lg text-white/80">{provider.tagline}</p>
-              <div className="mt-8 flex flex-wrap gap-4 text-sm">
-                <a
-                  href={provider.booking_url || `${BOOKING_URL}?provider=${provider.slug}`}
-                  className="rounded-md bg-hg-pink hover:bg-hg-pinkDeep px-10 py-4 font-semibold uppercase tracking-widest text-sm text-white transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
-                >
-                  Book with {provider.display_name.split(" ")[0]}
-                </a>
-                <a href="/contact" className="rounded-full border border-white/20 px-6 py-3 font-semibold text-white/80 hover:text-white">
-                  Text the studio
-                </a>
+    <main className="min-h-screen bg-white">
+      {/* Hero / About Section */}
+      <section className="py-16 px-4 bg-gradient-to-b from-gray-50 to-white">
+        <div className="max-w-6xl mx-auto">
+          <Link href="/providers" className="inline-flex items-center text-gray-500 hover:text-gray-700 mb-8">
+            <span className="mr-2">←</span> All Providers
+          </Link>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Photo */}
+            <div className="relative">
+              <div className="aspect-[4/5] rounded-3xl bg-gradient-to-br from-pink-100 to-gray-100 flex items-center justify-center overflow-hidden">
+                <div className="text-8xl font-bold text-pink-300">
+                  {provider.name.charAt(0)}
+                </div>
               </div>
+            </div>
+
+            {/* Info */}
+            <div>
+              <span className="inline-block px-4 py-2 bg-pink-100 text-pink-600 rounded-full text-sm font-medium mb-4">
+                {provider.credentials}
+              </span>
+              <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                {provider.name}
+              </h1>
+              <p className="text-lg text-gray-600 mb-6">
+                {provider.bio}
+              </p>
+              {provider.philosophy && (
+                <blockquote className="border-l-4 border-pink-500 pl-6 py-2 mb-8">
+                  <p className="text-gray-700 italic">&ldquo;{provider.philosophy}&rdquo;</p>
+                </blockquote>
+              )}
+              <Link
+                href={`/book?provider=${slug}`}
+                className="inline-block px-8 py-4 bg-pink-500 text-white text-lg font-medium rounded-xl hover:bg-pink-600 transition-colors"
+              >
+                Book with {provider.name}
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Philosophy Section */}
-      <section className="px-4 py-16 sm:px-6 lg:px-12">
-        <div className="mx-auto max-w-4xl space-y-6">
-          <p className="text-sm uppercase tracking-[0.5em] text-pink-400">Philosophy</p>
-          <p className="text-lg leading-relaxed text-white/80">{provider.philosophy || provider.short_bio}</p>
+      {/* Tabs */}
+      <section className="border-b border-gray-200 sticky top-0 bg-white z-10">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="flex gap-8">
+            {[
+              { id: 'results', label: 'Results Gallery', count: beforeAfter.length },
+              { id: 'videos', label: 'Videos', count: videos.length },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id as any)}
+                className={`py-4 text-lg font-medium border-b-2 transition-colors ${
+                  activeTab === tab.id
+                    ? 'border-pink-500 text-pink-500'
+                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                }`}
+              >
+                {tab.label} {tab.count > 0 && <span className="text-gray-400">({tab.count})</span>}
+              </button>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Videos Section */}
-      {videos.length > 0 && (
-        <section className="px-4 py-16 sm:px-6 lg:px-12">
-          <div className="mx-auto max-w-5xl space-y-6">
-            <div>
-              <p className="text-sm uppercase tracking-[0.5em] text-pink-400">Videos</p>
-              <h2 className="mt-2 text-3xl font-bold">Watch & Learn</h2>
-              <p className="text-white/70">Quick clips that explain techniques, safety, and behind-the-scenes care.</p>
-            </div>
-            <VideoGallery videos={videos} />
+      {activeTab === 'videos' && (
+        <section className="py-12 px-4">
+          <div className="max-w-6xl mx-auto">
+            {videos.length === 0 ? (
+              <div className="text-center py-16">
+                <span className="text-6xl mb-4 block">🎬</span>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">Videos Coming Soon</h3>
+                <p className="text-gray-500">Check back for educational videos and treatment demonstrations.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {videos.map((video) => (
+                  <button
+                    key={video.id}
+                    onClick={() => setSelectedMedia(video)}
+                    className="group relative aspect-video rounded-2xl overflow-hidden bg-gray-100"
+                  >
+                    {video.thumbnail_url ? (
+                      <Image src={video.thumbnail_url} alt={video.alt_text || ''} fill className="object-cover" />
+                    ) : (
+                      <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900">
+                        <span className="text-white/50 text-6xl">▶</span>
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-colors flex items-center justify-center">
+                      <div className="w-16 h-16 rounded-full bg-white/90 flex items-center justify-center">
+                        <span className="text-pink-500 text-2xl ml-1">▶</span>
+                      </div>
+                    </div>
+                    {video.title && (
+                      <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                        <p className="text-white font-medium">{video.title}</p>
+                      </div>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </section>
       )}
 
-      {/* Results Section with Filtering */}
-      {results.length > 0 && (
-        <section className="px-4 py-16 sm:px-6 lg:px-12">
-          <div className="mx-auto max-w-5xl space-y-10">
-            <div>
-              <p className="text-sm uppercase tracking-[0.5em] text-pink-400">Results</p>
-              <h2 className="mt-2 text-3xl font-bold">Before & After Library</h2>
-              <p className="text-white/70">All clients granted written consent prior to publishing results.</p>
+      {/* Results (Before/After) Section */}
+      {activeTab === 'results' && (
+        <section className="py-12 px-4">
+          <div className="max-w-6xl mx-auto">
+            {/* Service Filter */}
+            <div className="flex flex-wrap gap-2 mb-8">
+              {SERVICE_TAGS.map((tag) => (
+                <button
+                  key={tag.id}
+                  onClick={() => setActiveFilter(tag.id)}
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                    activeFilter === tag.id
+                      ? 'bg-pink-500 text-white'
+                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  }`}
+                >
+                  {tag.label}
+                </button>
+              ))}
             </div>
-            <ResultsGallery results={results} />
+
+            {filteredResults.length === 0 ? (
+              <div className="text-center py-16">
+                <span className="text-6xl mb-4 block">📸</span>
+                <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                  {activeFilter === 'all' ? 'Results Coming Soon' : `No ${activeFilter.replace('_', ' ')} results yet`}
+                </h3>
+                <p className="text-gray-500">Check back for before and after photos.</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {filteredResults.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => setSelectedMedia(item)}
+                    className="group relative rounded-2xl overflow-hidden bg-gray-100 border border-gray-200 hover:shadow-xl transition-shadow"
+                  >
+                    <div className="aspect-square relative">
+                      {/* Before/After Slider Preview */}
+                      <div className="absolute inset-0 flex">
+                        <div className="w-1/2 relative overflow-hidden">
+                          {item.before_image_url && (
+                            <Image src={item.before_image_url} alt="Before" fill className="object-cover" />
+                          )}
+                          <div className="absolute bottom-2 left-2 px-2 py-1 bg-black/70 text-white text-xs rounded">Before</div>
+                        </div>
+                        <div className="w-1/2 relative overflow-hidden">
+                          {item.after_image_url && (
+                            <Image src={item.after_image_url} alt="After" fill className="object-cover" />
+                          )}
+                          <div className="absolute bottom-2 right-2 px-2 py-1 bg-pink-500 text-white text-xs rounded">After</div>
+                        </div>
+                      </div>
+                    </div>
+                    {(item.title || item.service_tag) && (
+                      <div className="p-4 bg-white">
+                        <p className="font-medium text-gray-900">{item.title || item.service_tag?.replace('_', ' ')}</p>
+                        {item.description && <p className="text-sm text-gray-500 mt-1 line-clamp-2">{item.description}</p>}
+                      </div>
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+
+            {/* Disclaimer */}
+            <div className="mt-12 p-6 bg-gray-50 rounded-xl border border-gray-200">
+              <p className="text-sm text-gray-500 text-center">
+                Results vary by individual. All treatments performed by licensed medical professionals. Client consent on file.
+              </p>
+            </div>
           </div>
         </section>
       )}
 
-      {/* CTA Section */}
-      <section className="px-4 py-16 sm:px-6 lg:px-12">
-        <div className="mx-auto max-w-5xl rounded-3xl border border-white/10 bg-white/5 p-10 text-center shadow-2xl">
-          <p className="text-sm uppercase tracking-[0.5em] text-pink-400">Stay in touch</p>
-          <h2 className="mt-4 text-3xl font-bold">Your plan stays under Danielle & Ryan&apos;s oversight</h2>
-          <p className="mt-2 text-white/70">
-            Book a consultation or text our concierge. We&apos;ll align your timeline, budget, and safety considerations.
+      {/* Booking CTA */}
+      <section className="py-16 px-4 bg-gray-900">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl font-bold text-white mb-4">
+            Ready to See Your Transformation?
+          </h2>
+          <p className="text-gray-400 mb-8">
+            Book a consultation with {provider.name} and start your journey.
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <a
-              href={provider.booking_url || `${BOOKING_URL}?provider=${provider.slug}`}
-              className="rounded-full bg-gradient-to-r from-pink-500 to-rose-500 px-6 py-3 font-semibold shadow-lg shadow-pink-500/30"
-            >
-              Book with {provider.display_name.split(" ")[0]}
-            </a>
-            <a href="/contact" className="rounded-full border border-white/20 px-6 py-3 font-semibold text-white/80 hover:text-white">
-              Text the studio
-            </a>
-          </div>
+          <Link
+            href={`/book?provider=${slug}`}
+            className="inline-block px-8 py-4 bg-pink-500 text-white text-lg font-medium rounded-xl hover:bg-pink-600 transition-colors"
+          >
+            Book with {provider.name}
+          </Link>
         </div>
       </section>
 
-      {/* Disclaimer Section */}
-      <section className="px-4 pb-24 sm:px-6 lg:px-12">
-        <div className="mx-auto max-w-5xl">
-          <ResultsDisclaimer />
+      {/* Video/Image Modal */}
+      {selectedMedia && (
+        <div className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center p-4" onClick={() => setSelectedMedia(null)}>
+          <button className="absolute top-4 right-4 text-white text-3xl hover:text-pink-500">&times;</button>
+          <div className="max-w-5xl w-full" onClick={e => e.stopPropagation()}>
+            {selectedMedia.type === 'video' ? (
+              <video
+                src={selectedMedia.video_url || ''}
+                controls
+                autoPlay
+                className="w-full rounded-xl"
+              />
+            ) : (
+              <div className="bg-white rounded-2xl overflow-hidden">
+                {/* Before/After Slider */}
+                <div className="relative aspect-[4/3]">
+                  <div className="absolute inset-0">
+                    {selectedMedia.after_image_url && (
+                      <Image src={selectedMedia.after_image_url} alt="After" fill className="object-cover" />
+                    )}
+                  </div>
+                  <div 
+                    className="absolute inset-0 overflow-hidden"
+                    style={{ width: `${sliderPosition}%` }}
+                  >
+                    {selectedMedia.before_image_url && (
+                      <Image src={selectedMedia.before_image_url} alt="Before" fill className="object-cover" style={{ maxWidth: 'none', width: `${100 / (sliderPosition / 100)}%` }} />
+                    )}
+                  </div>
+                  {/* Slider Handle */}
+                  <div 
+                    className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize"
+                    style={{ left: `${sliderPosition}%` }}
+                    onMouseDown={(e) => {
+                      const handleMove = (ev: MouseEvent) => {
+                        const rect = (e.target as HTMLElement).parentElement?.getBoundingClientRect();
+                        if (rect) {
+                          const pos = ((ev.clientX - rect.left) / rect.width) * 100;
+                          setSliderPosition(Math.max(0, Math.min(100, pos)));
+                        }
+                      };
+                      const handleUp = () => {
+                        window.removeEventListener('mousemove', handleMove);
+                        window.removeEventListener('mouseup', handleUp);
+                      };
+                      window.addEventListener('mousemove', handleMove);
+                      window.addEventListener('mouseup', handleUp);
+                    }}
+                  >
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center">
+                      <span className="text-gray-400">⟷</span>
+                    </div>
+                  </div>
+                  <div className="absolute bottom-4 left-4 px-3 py-1 bg-black/70 text-white text-sm rounded">Before</div>
+                  <div className="absolute bottom-4 right-4 px-3 py-1 bg-pink-500 text-white text-sm rounded">After</div>
+                </div>
+                {(selectedMedia.title || selectedMedia.description) && (
+                  <div className="p-6">
+                    {selectedMedia.title && <h3 className="text-xl font-bold text-gray-900">{selectedMedia.title}</h3>}
+                    {selectedMedia.description && <p className="text-gray-600 mt-2">{selectedMedia.description}</p>}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
-      </section>
+      )}
     </main>
   );
 }
