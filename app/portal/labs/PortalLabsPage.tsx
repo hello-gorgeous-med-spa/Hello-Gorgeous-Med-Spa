@@ -113,9 +113,9 @@ export function PortalLabsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Labs & AI Dashboard</h1>
-        <p className="text-gray-600 mt-1">
-          Upload lab reports for AI-powered educational insights. Results are saved to your profile.
+        <h1 className="text-2xl font-bold text-[#111111]">Labs & AI Dashboard</h1>
+        <p className="text-[#111111]/80 mt-1">
+          Upload lab reports (PDF or screenshot) for AI-powered insights. Results organized by Strengths, Opportunities &amp; Actions.
         </p>
       </div>
 
@@ -139,19 +139,52 @@ export function PortalLabsPage() {
 
       {email && (
         <>
+          {/* Sample preview - first-time or no labs */}
+          {labs.length === 0 && (
+            <details className="bg-white rounded-2xl border border-[#111111]/10 overflow-hidden mb-6">
+              <summary className="px-6 py-4 cursor-pointer font-semibold text-[#111111] hover:bg-[#FDF7FA] transition-colors">
+                See what you&apos;ll get — sample lab analysis
+              </summary>
+              <div className="px-6 pb-6 prose prose-sm max-w-none prose-headings:text-[#E6007E] prose-ul:list-disc">
+                <p className="text-[#111111]/80 mb-4">
+                  After you upload, we&apos;ll organize your results into clear sections:
+                </p>
+                <ul className="space-y-1 text-[#111111]/80 mb-4">
+                  <li><strong>Strengths</strong> — markers in range or improving</li>
+                  <li><strong>Opportunities</strong> — markers worth discussing with your provider</li>
+                  <li><strong>Actions</strong> — next steps, lifestyle topics, questions to ask</li>
+                </ul>
+                <div className="rounded-xl bg-[#FDF7FA] border border-[#E6007E]/20 p-4 text-sm">
+                  <p className="font-semibold text-[#111111] mb-2">Example:</p>
+                  <p className="text-[#111111]/80 mb-2">Your Vitamin D has improved from 22 to 42 ng/mL, moving into a healthier range.</p>
+                  <p className="text-[#111111]/80">HbA1c is 5.8% — worth discussing with your provider for personalized guidance.</p>
+                </div>
+              </div>
+            </details>
+          )}
+
+          {/* Progress summary when 2+ labs */}
+          {labs.length >= 2 && (
+            <div className="bg-[#E6007E]/5 border border-[#E6007E]/20 rounded-2xl p-4 mb-6">
+              <p className="text-sm font-medium text-[#111111]">
+                You have {labs.length} labs on file. Compare results over time by viewing each report.
+              </p>
+            </div>
+          )}
+
           {/* Lab History */}
           {labs.length > 0 && step !== "results" && (
-            <section className="bg-white rounded-2xl border border-gray-100 p-6">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Lab History</h2>
+            <section className="bg-white rounded-2xl border border-[#111111]/10 p-6">
+              <h2 className="text-lg font-semibold text-[#111111] mb-4">Lab History</h2>
               <div className="space-y-2">
                 {labs.map((l) => (
                   <div
                     key={l.id}
-                    className="flex items-center justify-between p-3 rounded-lg bg-gray-50 hover:bg-gray-100"
+                    className="flex items-center justify-between p-3 rounded-lg bg-[#111111]/5 hover:bg-[#111111]/10"
                   >
                     <div>
-                      <p className="font-medium text-gray-900">{l.fileName || "Lab report"}</p>
-                      <p className="text-sm text-gray-500">
+                      <p className="font-medium text-[#111111]">{l.fileName || "Lab report"}</p>
+                      <p className="text-sm text-[#111111]/70">
                         {new Date(l.uploadedAt).toLocaleDateString()}
                       </p>
                     </div>
@@ -169,15 +202,15 @@ export function PortalLabsPage() {
           )}
 
           {/* Upload Flow */}
-          <section className="bg-white rounded-2xl border border-gray-100 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+          <section className="bg-white rounded-2xl border border-[#111111]/10 p-6">
+            <h2 className="text-lg font-semibold text-[#111111] mb-4">
               {step === "disclaimer" || step === "upload" ? "Upload New Lab" : step === "processing" ? "Analyzing..." : "Results"}
             </h2>
 
             {step === "disclaimer" && (
               <div className="space-y-4">
                 <div className="p-4 rounded-xl bg-amber-50 border border-amber-200">
-                  <p className="text-gray-800 text-sm">{DISCLAIMER}</p>
+                  <p className="text-[#111111] text-sm">{DISCLAIMER}</p>
                 </div>
                 <label className="flex items-start gap-3 cursor-pointer">
                   <input
@@ -186,7 +219,7 @@ export function PortalLabsPage() {
                     onChange={(e) => setDisclaimerAccepted(e.target.checked)}
                     className="mt-1 w-5 h-5 rounded text-pink-600"
                   />
-                  <span className="text-sm text-gray-700">I understand and accept.</span>
+                  <span className="text-sm text-[#111111]/80">I understand and accept.</span>
                 </label>
                 <button
                   onClick={handleAcceptDisclaimer}
@@ -204,7 +237,7 @@ export function PortalLabsPage() {
                   onClick={() => !file && document.getElementById("lab-input")?.click()}
                   onDrop={(e) => { e.preventDefault(); const f = e.dataTransfer.files[0]; if (f) handleFileSelect(f); }}
                   onDragOver={(e) => e.preventDefault()}
-                  className="border-2 border-dashed border-gray-200 rounded-xl p-8 text-center cursor-pointer hover:border-pink-300 hover:bg-pink-50/30 transition"
+                  className="border-2 border-dashed border-[#111111]/20 rounded-xl p-8 text-center cursor-pointer hover:border-pink-300 hover:bg-pink-50/30 transition"
                 >
                   <input
                     id="lab-input"
@@ -215,8 +248,8 @@ export function PortalLabsPage() {
                   />
                   {file ? (
                     <div>
-                      <p className="font-medium text-gray-900">{file.name}</p>
-                      <p className="text-sm text-gray-500 mt-1">
+                      <p className="font-medium text-[#111111]">{file.name}</p>
+                      <p className="text-sm text-[#111111]/70 mt-1">
                         <button
                           type="button"
                           onClick={(e) => { e.stopPropagation(); setFile(null); }}
@@ -228,8 +261,8 @@ export function PortalLabsPage() {
                     </div>
                   ) : (
                     <div>
-                      <p className="text-gray-600">Drop file or click to select</p>
-                      <p className="text-sm text-gray-400 mt-1">PDF, JPG, PNG</p>
+                      <p className="text-[#111111]/80">Drop file or click to select</p>
+                      <p className="text-sm text-[#111111]/60 mt-1">PDF, JPG, or PNG (screenshots work)</p>
                     </div>
                   )}
                 </div>
@@ -244,7 +277,7 @@ export function PortalLabsPage() {
                   </button>
                   <button
                     onClick={handleReset}
-                    className="px-6 py-3 border border-gray-200 text-gray-700 font-medium rounded-full hover:bg-gray-50"
+                    className="px-6 py-3 border border-[#111111]/20 text-[#111111]/80 font-medium rounded-full hover:bg-[#111111]/5"
                   >
                     Start Over
                   </button>
@@ -255,7 +288,7 @@ export function PortalLabsPage() {
             {step === "processing" && (
               <div className="py-12 text-center">
                 <div className="w-12 h-12 border-3 border-pink-200 border-t-pink-500 rounded-full animate-spin mx-auto mb-4" />
-                <p className="text-gray-600">Analyzing your labs… 30–45 seconds</p>
+                <p className="text-[#111111]/80">Analyzing your labs… 30–45 seconds</p>
               </div>
             )}
 
@@ -264,7 +297,7 @@ export function PortalLabsPage() {
                 <div className="prose prose-sm max-w-none prose-headings:text-pink-600 print:block">
                   <ReactMarkdown>{insights}</ReactMarkdown>
                 </div>
-                <p className="text-xs text-gray-500 italic">{DISCLAIMER}</p>
+                <p className="text-xs text-[#111111]/70 italic">{DISCLAIMER}</p>
                 <div className="flex flex-wrap gap-3 print:hidden">
                   <button
                     onClick={handlePrint}
@@ -274,13 +307,13 @@ export function PortalLabsPage() {
                   </button>
                   <Link
                     href="/services/biote-hormone-therapy"
-                    className="px-6 py-3 border border-gray-200 text-gray-700 font-medium rounded-full hover:bg-gray-50 inline-block"
+                    className="px-6 py-3 border border-[#111111]/20 text-[#111111]/80 font-medium rounded-full hover:bg-[#111111]/5 inline-block"
                   >
                     Book Hormone Consultation
                   </Link>
                   <button
                     onClick={handleReset}
-                    className="px-6 py-3 text-gray-500 font-medium rounded-full hover:bg-gray-100"
+                    className="px-6 py-3 text-[#111111]/70 font-medium rounded-full hover:bg-[#111111]/10"
                   >
                     Upload Another
                   </button>

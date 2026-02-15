@@ -21,6 +21,7 @@ const PROGRAMS = [
       "AI-powered lab interpretation",
       "Quarterly visits & secure messaging",
     ],
+    benefitPillars: ["Energy", "Mood", "Sleep", "Weight support", "Mental clarity", "Libido"],
     learnMore: {
       headline: "What's Included",
       items: [
@@ -59,6 +60,7 @@ const PROGRAMS = [
       "Secure messaging with provider",
       "Supplement support (Fullscript)",
     ],
+    benefitPillars: ["Weight loss", "Appetite control", "Metabolic support", "Energy", "Body composition"],
     learnMore: {
       headline: "Tirzepatide Weight Loss Program",
       items: [
@@ -119,6 +121,27 @@ export function MembershipsContent() {
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E6007E]/10 text-[#E6007E] text-xs font-semibold">
               HSA/FSA Eligible
             </span>
+          </FadeUp>
+        </div>
+      </section>
+
+      {/* Symptom checklist - Biote style */}
+      <section className="py-12 px-6 md:px-12 bg-[#FDF7FA]">
+        <div className="max-w-4xl mx-auto text-center">
+          <FadeUp>
+            <h2 className="text-xl md:text-2xl font-bold text-[#111111] mb-3">
+              Experiencing hormone imbalance?
+            </h2>
+            <p className="text-[#111111]/80 mb-6">
+              Common signs worth discussing with a provider:
+            </p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {["Hot flashes & night sweats", "Exhaustion & fatigue", "Weight gain", "Brain fog & memory", "Muscle & joint discomfort", "Mood swings", "Sleep issues", "Low libido"].map((s) => (
+                <span key={s} className="px-4 py-2 rounded-full bg-white border border-[#111111]/10 text-sm text-[#111111]">
+                  {s}
+                </span>
+              ))}
+            </div>
           </FadeUp>
         </div>
       </section>
@@ -185,7 +208,16 @@ export function MembershipsContent() {
                     <p className={`text-sm font-semibold ${p.accent} mb-4`}>
                       {p.tagline}
                     </p>
-                    <p className="text-[#111111]/80 mb-6">{p.description}</p>
+                    <p className="text-[#111111]/80 mb-4">{p.description}</p>
+                    {"benefitPillars" in p && p.benefitPillars && (
+                      <div className="flex flex-wrap gap-1.5 mb-6">
+                        {p.benefitPillars.map((bp) => (
+                          <span key={bp} className="px-2.5 py-1 rounded-full bg-[#111111]/5 text-xs font-medium text-[#111111]">
+                            {bp}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                     <ul className="space-y-3 mb-6">
                       {p.benefits.map((b) => (
                         <li key={b} className="flex items-center gap-3 text-[#111111]">
@@ -279,6 +311,36 @@ export function MembershipsContent() {
           </div>
         </div>
       )}
+
+      {/* What to expect - Timeline (Biote style) */}
+      <section className="py-16 md:py-24 px-6 md:px-12 bg-[#FDF7FA]">
+        <div className="max-w-4xl mx-auto">
+          <FadeUp>
+            <h2 className="text-2xl md:text-3xl font-bold text-[#111111] mb-3 text-center">
+              What to Expect
+            </h2>
+            <p className="text-[#111111]/80 text-center mb-10">
+              A clear path from first visit to ongoing optimization.
+            </p>
+            <div className="grid md:grid-cols-4 gap-6">
+              {[
+                { step: "1", title: "Initial visit", desc: "Book online. Complete intake. Labs & InBody scan." },
+                { step: "2", title: "Results review", desc: "Next-day lab results. Review with provider. Personalized plan." },
+                { step: "3", title: "Begin protocol", desc: "Start treatment. Many feel results within 4–6 weeks." },
+                { step: "4", title: "Ongoing care", desc: "Quarterly labs, check-ins & adjustments. Membership keeps you supported." },
+              ].map((item) => (
+                <div key={item.step} className="rounded-2xl bg-white border border-[#111111]/10 p-5 text-center">
+                  <span className="inline-flex w-10 h-10 rounded-full bg-[#E6007E] text-white font-bold items-center justify-center text-lg mb-3">
+                    {item.step}
+                  </span>
+                  <h3 className="font-bold text-[#111111] mb-2">{item.title}</h3>
+                  <p className="text-sm text-[#111111]/80">{item.desc}</p>
+                </div>
+              ))}
+            </div>
+          </FadeUp>
+        </div>
+      </section>
 
       {/* FAQ - Precision Starts With Understanding */}
       <PrecisionStartsFAQ />
