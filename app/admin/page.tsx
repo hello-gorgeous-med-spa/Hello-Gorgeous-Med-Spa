@@ -758,7 +758,7 @@ export default function ExecutiveDashboard() {
       </div>
 
       {/* Quick Links */}
-      <div className="grid grid-cols-2 lg:grid-cols-6 gap-4 print:hidden">
+      <div className="grid grid-cols-2 lg:grid-cols-8 gap-4 print:hidden">
         <Link
           href="/admin/clients"
           className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-pink-200 hover:shadow-md transition-all text-center"
@@ -772,6 +772,13 @@ export default function ExecutiveDashboard() {
         >
           <span className="text-2xl block mb-1">✨</span>
           <p className="font-medium text-gray-900 text-sm">Services</p>
+        </Link>
+        <Link
+          href="/admin/prescriptions"
+          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-pink-200 hover:shadow-md transition-all text-center"
+        >
+          <span className="text-2xl block mb-1">💊</span>
+          <p className="font-medium text-gray-900 text-sm">Prescriptions</p>
         </Link>
         <Link
           href="/admin/reports"
@@ -793,6 +800,13 @@ export default function ExecutiveDashboard() {
         >
           <span className="text-2xl block mb-1">📣</span>
           <p className="font-medium text-gray-900 text-sm">Marketing</p>
+        </Link>
+        <Link
+          href="/admin/content/providers"
+          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-pink-200 hover:shadow-md transition-all text-center"
+        >
+          <span className="text-2xl block mb-1">👩‍⚕️</span>
+          <p className="font-medium text-gray-900 text-sm">Providers</p>
         </Link>
         <Link
           href="/pos"
