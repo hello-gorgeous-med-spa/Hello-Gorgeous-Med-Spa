@@ -11,7 +11,8 @@ import type { Database } from "@/lib/hgos/supabase/database.types";
 export type ProviderServiceTag = Database["public"]["Enums"]["provider_service_tag"];
 
 export const PROVIDER_MEDIA_BUCKET = "provider-media";
-export const PROVIDER_MEDIA_MAX_BYTES = 100 * 1024 * 1024; // 100MB hard limit
+export const PROVIDER_MEDIA_MAX_BYTES = 500 * 1024 * 1024; // 500MB upload limit (will compress)
+export const PROVIDER_MEDIA_TARGET_BYTES = 100 * 1024 * 1024; // 100MB target after compression
 
 export const PROVIDER_MEDIA_SERVICE_LABELS: Record<ProviderServiceTag, string> = {
   botox: "Botox / Dysport",
@@ -132,32 +133,57 @@ export async function compressProviderVideo(inputPath: string): Promise<VideoCom
   const outputPath = path.join(tempDir, `${randomUUID()}.mp4`);
   const thumbnailPath = path.join(tempDir, `${randomUUID()}.jpg`);
 
+  // Probe input to determine best compression settings
+  const inputProbe = await probeVideo(inputPath);
+  const inputSize = (await fs.stat(inputPath)).size;
+  
+  // Determine CRF based on input file size (larger files need more compression)
+  let crf = 24;
+  if (inputSize > 400 * 1024 * 1024) crf = 28; // 400MB+ -> aggressive compression
+  else if (inputSize > 200 * 1024 * 1024) crf = 26; // 200MB+ -> moderate compression
+  
+  // Determine resolution (keep vertical videos vertical)
+  const inputWidth = inputProbe?.streams?.[0]?.width || 1920;
+  const inputHeight = inputProbe?.streams?.[0]?.height || 1080;
+  const isVertical = inputHeight > inputWidth;
+  const scaleFilter = isVertical
+    ? "scale=-2:'min(1920,ih)'"  // Vertical: limit height to 1920
+    : "scale='min(1080,iw)':-2"; // Horizontal: limit width to 1080
+
   await new Promise<void>((resolve, reject) => {
     ffmpeg(inputPath)
-      .addOptions(["-preset faster", "-movflags +faststart", "-crf 24", "-vf scale='min(1080,iw)':-2"])
+      .addOptions([
+        "-preset faster",
+        "-movflags +faststart",
+        `-crf ${crf}`,
+        `-vf ${scaleFilter}`,
+        "-c:a aac",
+        "-b:a 128k",
+      ])
       .output(outputPath)
       .on("end", resolve)
       .on("error", reject)
       .run();
   });
 
+  // Generate thumbnail at 25% through the video
   await new Promise<void>((resolve, reject) => {
     ffmpeg(outputPath)
       .screenshots({
-        timestamps: ["50%"],
+        timestamps: ["25%"],
         filename: path.basename(thumbnailPath),
         folder: tempDir,
-        size: "640x?",
+        size: isVertical ? "?x720" : "720x?",
       })
       .on("end", resolve)
       .on("error", reject);
   });
 
   const probe = await probeVideo(outputPath);
-
   const stats = await fs.stat(outputPath);
-  if (stats.size > PROVIDER_MEDIA_MAX_BYTES) {
-    throw new Error("Compressed video still exceeds 100MB limit");
+  
+  if (stats.size > PROVIDER_MEDIA_TARGET_BYTES) {
+    console.warn(`Compressed video is ${Math.round(stats.size / 1024 / 1024)}MB (target: 100MB). Consider manual optimization.`);
   }
 
   return {

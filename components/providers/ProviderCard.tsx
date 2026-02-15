@@ -1,5 +1,8 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useRef, useState } from "react";
 
 type ProviderCardProps = {
   provider: {
@@ -17,17 +20,66 @@ type ProviderCardProps = {
 };
 
 export function ProviderCard({ provider }: ProviderCardProps) {
+  const [isHovering, setIsHovering] = useState(false);
+  const [videoLoaded, setVideoLoaded] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+    if (videoRef.current && provider.intro_video_url) {
+      videoRef.current.play().catch(() => {});
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
+
   return (
-    <article className="relative rounded-xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 p-8 backdrop-blur-lg shadow-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-xl">
+    <article
+      className="relative rounded-xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 p-8 backdrop-blur-lg shadow-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl hover:border-pink-500/30"
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="flex items-center gap-4">
+        {/* Headshot with optional video overlay */}
         <div className="relative h-20 w-20 rounded-2xl overflow-hidden border border-white/20 bg-black/40">
           {provider.headshot_url ? (
-            <Image src={provider.headshot_url} alt={provider.display_name} fill className="object-cover" sizes="80px" />
+            <Image
+              src={provider.headshot_url}
+              alt={provider.display_name}
+              fill
+              className={`object-cover transition-opacity duration-300 ${
+                isHovering && videoLoaded ? "opacity-0" : "opacity-100"
+              }`}
+              sizes="80px"
+            />
           ) : (
             <div className="w-full h-full flex items-center justify-center text-3xl">👩‍⚕️</div>
           )}
+          
+          {/* Intro Video (plays on hover) */}
+          {provider.intro_video_url && (
+            <video
+              ref={videoRef}
+              src={provider.intro_video_url}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ${
+                isHovering && videoLoaded ? "opacity-100" : "opacity-0"
+              }`}
+              muted
+              loop
+              playsInline
+              preload="none"
+              onLoadedData={() => setVideoLoaded(true)}
+            />
+          )}
         </div>
-        <div>
+
+        <div className="flex-1">
           <p className="text-sm uppercase tracking-[0.25em] text-pink-400">Provider</p>
           <h3 className="text-2xl font-bold text-white">{provider.display_name}</h3>
           <p className="text-xs text-blue-200">{provider.credentials}</p>
@@ -48,7 +100,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
       <div className="mt-6 flex flex-wrap gap-3">
         <Link
           href={`/providers/${provider.slug}`}
-          className="flex-1 rounded-2xl border border-white/20 px-4 py-3 text-center text-sm font-semibold text-white hover:bg-white/10"
+          className="flex-1 rounded-2xl border border-white/20 px-4 py-3 text-center text-sm font-semibold text-white hover:bg-white/10 transition-colors"
         >
           View Results
         </Link>

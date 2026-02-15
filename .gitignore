@@ -144,3 +144,7 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 .vercel
 .env*.local
+
+# Large video files (use Supabase storage instead)
+public/videos/providers/**/*.mov
+public/videos/providers/**/*.mp4

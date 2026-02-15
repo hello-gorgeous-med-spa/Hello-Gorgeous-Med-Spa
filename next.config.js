@@ -12,8 +12,26 @@ const nextConfig = {
   images: {
     remotePatterns: [
       { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "*.supabase.co" },
     ],
   },
+  // CDN caching headers for static media
+  headers: async () => [
+    {
+      source: "/videos/:path*",
+      headers: [
+        { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        { key: "CDN-Cache-Control", value: "public, max-age=31536000" },
+      ],
+    },
+    {
+      source: "/images/:path*",
+      headers: [
+        { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
+        { key: "CDN-Cache-Control", value: "public, max-age=31536000" },
+      ],
+    },
+  ],
   redirects: async () => [
     { source: "/sitemap.website.xml", destination: "/sitemap.xml", permanent: true },
     { source: "/book-now", destination: "/book", permanent: true },

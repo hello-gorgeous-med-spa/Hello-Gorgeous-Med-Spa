@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { BeforeAfterSlider } from "@/components/providers/BeforeAfterSlider";
 import { ResultsDisclaimer } from "@/components/providers/ResultsDisclaimer";
+import { ResultsGallery } from "@/components/providers/ResultsGallery";
 import { VideoGallery } from "@/components/providers/VideoGallery";
 import { BOOKING_URL } from "@/lib/flows";
 import { createServerSupabaseClient } from "@/lib/hgos/supabase";
@@ -44,6 +44,7 @@ type MediaItem = {
   service_tag?: string | null;
   alt_text?: string | null;
   consent_confirmed?: boolean;
+  duration_seconds?: number | null;
 };
 
 function useFallback(slug: string): { provider: ProviderDetail; videos: MediaItem[]; results: MediaItem[] } | null {
@@ -86,7 +87,7 @@ async function fetchProvider(slug: string): Promise<{ provider: ProviderDetail; 
 
     const { data: media } = await supabase
       .from("provider_media")
-      .select("id, media_type, title, description, video_url, thumbnail_url, before_image_url, after_image_url, service_tag, alt_text, consent_confirmed")
+      .select("id, media_type, title, description, video_url, thumbnail_url, before_image_url, after_image_url, service_tag, alt_text, consent_confirmed, duration_seconds")
       .eq("provider_id", provider.id)
       .eq("status", "published")
       .order("featured", { ascending: false })
@@ -141,6 +142,8 @@ export default async function ProviderDetailPage({ params }: { params: { slug: s
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
+      
+      {/* Hero Section */}
       <section className="relative overflow-hidden px-4 py-24 sm:px-6 lg:px-12">
         <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 via-transparent to-purple-500/10" />
         <div className="relative mx-auto max-w-5xl">
@@ -148,7 +151,7 @@ export default async function ProviderDetailPage({ params }: { params: { slug: s
             <div className="relative h-48 w-48 flex-shrink-0 overflow-hidden rounded-3xl border border-white/10 bg-black/40 shadow-2xl">
               {provider.headshot_url ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={provider.headshot_url} alt={provider.display_name} className="h-full w-full object-cover" loading="lazy" decoding="async" />
+                <img src={provider.headshot_url} alt={provider.display_name} className="h-full w-full object-cover" loading="eager" decoding="async" />
               ) : (
                 <div className="flex h-full w-full items-center justify-center text-5xl">👩‍⚕️</div>
               )}
@@ -174,6 +177,7 @@ export default async function ProviderDetailPage({ params }: { params: { slug: s
         </div>
       </section>
 
+      {/* Philosophy Section */}
       <section className="px-4 py-16 sm:px-6 lg:px-12">
         <div className="mx-auto max-w-4xl space-y-6">
           <p className="text-sm uppercase tracking-[0.5em] text-pink-400">Philosophy</p>
@@ -181,6 +185,7 @@ export default async function ProviderDetailPage({ params }: { params: { slug: s
         </div>
       </section>
 
+      {/* Videos Section */}
       {videos.length > 0 && (
         <section className="px-4 py-16 sm:px-6 lg:px-12">
           <div className="mx-auto max-w-5xl space-y-6">
@@ -194,6 +199,7 @@ export default async function ProviderDetailPage({ params }: { params: { slug: s
         </section>
       )}
 
+      {/* Results Section with Filtering */}
       {results.length > 0 && (
         <section className="px-4 py-16 sm:px-6 lg:px-12">
           <div className="mx-auto max-w-5xl space-y-10">
@@ -202,34 +208,18 @@ export default async function ProviderDetailPage({ params }: { params: { slug: s
               <h2 className="mt-2 text-3xl font-bold">Before & After Library</h2>
               <p className="text-white/70">All clients granted written consent prior to publishing results.</p>
             </div>
-            <div className="space-y-10">
-              {results.map((result) => (
-                <div key={result.id} className="space-y-4">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <div>
-                      <h3 className="text-xl font-semibold">{result.title}</h3>
-                      <p className="text-sm text-white/60">{result.description}</p>
-                    </div>
-                    <span className="rounded-full border border-white/20 px-3 py-1 text-xs uppercase tracking-[0.3em]">
-                      {result.service_tag}
-                    </span>
-                  </div>
-                  {result.before_image_url && result.after_image_url && (
-                    <BeforeAfterSlider beforeUrl={result.before_image_url} afterUrl={result.after_image_url} alt={result.alt_text || result.title} />
-                  )}
-                </div>
-              ))}
-            </div>
+            <ResultsGallery results={results} />
           </div>
         </section>
       )}
 
+      {/* CTA Section */}
       <section className="px-4 py-16 sm:px-6 lg:px-12">
         <div className="mx-auto max-w-5xl rounded-3xl border border-white/10 bg-white/5 p-10 text-center shadow-2xl">
           <p className="text-sm uppercase tracking-[0.5em] text-pink-400">Stay in touch</p>
-          <h2 className="mt-4 text-3xl font-bold">Your plan stays under Danielle & Ryan’s oversight</h2>
+          <h2 className="mt-4 text-3xl font-bold">Your plan stays under Danielle & Ryan&apos;s oversight</h2>
           <p className="mt-2 text-white/70">
-            Book a consultation or text our concierge. We’ll align your timeline, budget, and safety considerations.
+            Book a consultation or text our concierge. We&apos;ll align your timeline, budget, and safety considerations.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
             <a
@@ -245,6 +235,7 @@ export default async function ProviderDetailPage({ params }: { params: { slug: s
         </div>
       </section>
 
+      {/* Disclaimer Section */}
       <section className="px-4 pb-24 sm:px-6 lg:px-12">
         <div className="mx-auto max-w-5xl">
           <ResultsDisclaimer />
