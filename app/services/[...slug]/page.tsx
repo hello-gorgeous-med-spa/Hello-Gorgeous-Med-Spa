@@ -7,6 +7,7 @@ import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { HarmonyHeroSection } from "@/components/HarmonyHeroSection";
+import { PeppiHeroSection } from "@/components/PeppiHeroSection";
 import { BOOKING_URL } from "@/lib/flows";
 import { SERVICES, faqJsonLd, pageMetadata, siteJsonLd, type Service } from "@/lib/seo";
 import {
@@ -438,6 +439,31 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
           <FadeUp delayMs={100}>
             <div className="max-w-4xl mx-auto">
               <HarmonyHeroSection />
+            </div>
+          </FadeUp>
+        </Section>
+      )}
+
+      {/* Peppi AI Expert Section - Peptide Page Only */}
+      {s.slug === "sermorelin-growth-peptide" && (
+        <Section className="bg-gradient-to-b from-white via-fuchsia-50/30 to-white">
+          <FadeUp>
+            <div className="text-center mb-8">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/30 mb-4">
+                <span className="text-lg">🤖</span>
+                <span className="text-fuchsia-600 text-sm font-semibold uppercase tracking-wider">AI Peptide Expert</span>
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-fuchsia-600">
+                Your Complete Peptide Education Center
+              </h2>
+              <p className="mt-3 text-lg text-black/70 max-w-2xl mx-auto">
+                Learn about BPC-157, Semaglutide, Sermorelin, and more from our Olympia-trained AI
+              </p>
+            </div>
+          </FadeUp>
+          <FadeUp delayMs={100}>
+            <div className="max-w-5xl mx-auto">
+              <PeppiHeroSection />
             </div>
           </FadeUp>
         </Section>
@@ -1199,8 +1225,113 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         </Section>
       )}
 
-      {/* Powered by Olympia - Hormone, Weight Loss */}
-      {(s.slug === "biote-hormone-therapy" || s.slug === "weight-loss-therapy") && (
+      {/* Peptide Therapy Clinical Info - Sermorelin/Peptide Page */}
+      {s.slug === "sermorelin-growth-peptide" && (
+        <Section className="bg-gradient-to-b from-fuchsia-50/50 via-white to-fuchsia-50/50">
+          <FadeUp>
+            <div className="text-center mb-12">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/20 mb-4">
+                <span className="text-fuchsia-500 text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-fuchsia-600">
+                Peptide Therapies at Hello Gorgeous
+              </h2>
+              <p className="mt-4 text-black/80 max-w-2xl mx-auto">
+                All peptides sourced from Olympia Pharmacy—an FDA-registered 503A/503B compounding facility
+              </p>
+            </div>
+          </FadeUp>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <FadeUp delayMs={60}>
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white">
+                <h3 className="text-lg font-bold text-fuchsia-600 mb-3 flex items-center gap-2">
+                  <span>🩹</span> Healing & Recovery
+                </h3>
+                <ul className="text-black/80 text-sm space-y-2">
+                  <li><strong className="text-black">BPC-157:</strong> Gut healing, tissue repair, injury recovery</li>
+                  <li><strong className="text-black">TB-500:</strong> Muscle repair, inflammation reduction</li>
+                </ul>
+                <p className="text-black/60 text-xs mt-3">
+                  Often combined for synergistic healing benefits.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={80}>
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white">
+                <h3 className="text-lg font-bold text-fuchsia-600 mb-3 flex items-center gap-2">
+                  <span>⚡</span> Growth & Anti-Aging
+                </h3>
+                <ul className="text-black/80 text-sm space-y-2">
+                  <li><strong className="text-black">Sermorelin:</strong> Natural GH optimization, sleep, recovery</li>
+                  <li><strong className="text-black">Ipamorelin:</strong> Selective GH release, minimal side effects</li>
+                  <li><strong className="text-black">CJC-1295:</strong> Enhanced GH/IGF-1, body composition</li>
+                  <li><strong className="text-black">Tesamorelin:</strong> Targets visceral (belly) fat</li>
+                </ul>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={100}>
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white">
+                <h3 className="text-lg font-bold text-fuchsia-600 mb-3 flex items-center gap-2">
+                  <span>🔥</span> Weight & Metabolism
+                </h3>
+                <ul className="text-black/80 text-sm space-y-2">
+                  <li><strong className="text-black">Semaglutide:</strong> GLP-1, appetite control, 15-20% weight loss</li>
+                  <li><strong className="text-black">Tirzepatide:</strong> Dual GIP/GLP-1, may exceed semaglutide</li>
+                  <li><strong className="text-black">AOD-9604:</strong> Targeted fat metabolism</li>
+                  <li><strong className="text-black">MOTS-c:</strong> Mitochondrial peptide, metabolic health</li>
+                </ul>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={120}>
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white">
+                <h3 className="text-lg font-bold text-fuchsia-600 mb-3 flex items-center gap-2">
+                  <span>🛡️</span> Immune & Longevity
+                </h3>
+                <ul className="text-black/80 text-sm space-y-2">
+                  <li><strong className="text-black">Thymosin Alpha-1:</strong> Immune modulation, T-cell support</li>
+                  <li><strong className="text-black">Epithalon:</strong> Telomere support, cellular aging</li>
+                </ul>
+                <p className="text-black/60 text-xs mt-3">
+                  For immune challenges and longevity optimization.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={140}>
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white">
+                <h3 className="text-lg font-bold text-fuchsia-600 mb-3 flex items-center gap-2">
+                  <span>💫</span> Sexual Wellness
+                </h3>
+                <ul className="text-black/80 text-sm space-y-2">
+                  <li><strong className="text-black">PT-141:</strong> Libido support for men and women</li>
+                </ul>
+                <p className="text-black/60 text-xs mt-3">
+                  Works on brain receptors (not vascular like Viagra). FDA-approved as Vyleesi.
+                </p>
+              </div>
+            </FadeUp>
+            <FadeUp delayMs={160}>
+              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white">
+                <h3 className="text-lg font-bold text-fuchsia-600 mb-3 flex items-center gap-2">
+                  <span>⚠️</span> Safety & Requirements
+                </h3>
+                <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
+                  <li>Medical consultation required</li>
+                  <li>Not for pregnancy/breastfeeding</li>
+                  <li>Some require lab monitoring</li>
+                  <li>Injections taught at consultation</li>
+                </ul>
+                <p className="text-black/60 text-xs mt-3">
+                  We screen thoroughly and create personalized protocols.
+                </p>
+              </div>
+            </FadeUp>
+          </div>
+        </Section>
+      )}
+
+      {/* Powered by Olympia - Hormone, Weight Loss, Peptides */}
+      {(s.slug === "biote-hormone-therapy" || s.slug === "weight-loss-therapy" || s.slug === "sermorelin-growth-peptide" || s.slug === "iv-therapy" || s.slug === "vitamin-injections") && (
         <Section className="bg-gradient-to-b from-transparent via-violet-950/10 to-transparent">
           <FadeUp>
             <div className="max-w-3xl mx-auto rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-6 md:p-8">

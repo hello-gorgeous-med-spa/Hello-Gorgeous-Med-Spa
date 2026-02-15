@@ -13,14 +13,16 @@ export const PERSONA_UI: Record<
 > = {
   peppi: {
     emoji: "💊",
-    tagline: "Your peptide, supplement & IV therapy expert. Fullscript & Olympia specialist.",
-    specialty: "Fullscript + Olympia Pharmacy",
-    brands: ["Fullscript", "Olympia Pharmacy"],
+    tagline: "Your intelligent guide to peptide therapies, GLP-1 weight loss, IV infusions, and regenerative wellness. Ask me anything about BPC-157, Semaglutide, Sermorelin, and more!",
+    specialty: "Peptides + GLP-1 + IV Therapy",
+    brands: ["Olympia Pharmacy", "Fullscript", "Hello Gorgeous Wellness"],
     chatStarters: [
-      "What peptides do you offer for healing?",
-      "Tell me about Semaglutide for weight loss",
-      "What's in the Myers Cocktail IV?",
-      "Which supplements should I take?",
+      "What is BPC-157 and how does it heal?",
+      "Semaglutide vs Tirzepatide - which is better?",
+      "How do growth hormone peptides work?",
+      "What peptide is best for recovery?",
+      "Tell me about NAD+ therapy",
+      "What's the Myers Cocktail IV?",
     ],
   },
   "beau-tox": {
