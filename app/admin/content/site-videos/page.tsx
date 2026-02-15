@@ -12,6 +12,7 @@ export default function SiteVideosPage() {
   const [triggerPointUrl, setTriggerPointUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const [saving, setSaving] = useState(false);
   const [removing, setRemoving] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -48,26 +49,58 @@ export default function SiteVideosPage() {
     }
 
     setUploading(true);
+    setUploadProgress(0);
+    
     try {
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("providerSlug", "site");
-      formData.append("assetRole", "video");
-      formData.append("mediaType", "video");
-
-      const uploadRes = await fetch("/api/uploads/provider-media", {
+      // Step 1: Get a signed upload URL
+      const signedUrlRes = await fetch("/api/uploads/signed-url", {
         method: "POST",
-        body: formData,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          filename: file.name,
+          contentType: file.type || "video/mp4",
+          providerSlug: "site",
+          mediaType: "video",
+        }),
       });
-      const uploadData = await uploadRes.json();
-
-      if (!uploadRes.ok) {
-        throw new Error(uploadData.error || "Upload failed");
+      
+      if (!signedUrlRes.ok) {
+        const errData = await signedUrlRes.json();
+        throw new Error(errData.error || "Failed to get upload URL");
       }
+      
+      const { signedUrl, publicUrl } = await signedUrlRes.json();
+      setUploadProgress(10);
+      
+      // Step 2: Upload directly to storage using XMLHttpRequest for progress tracking
+      await new Promise<void>((resolve, reject) => {
+        const xhr = new XMLHttpRequest();
+        
+        xhr.upload.onprogress = (event) => {
+          if (event.lengthComputable) {
+            const percent = Math.round((event.loaded / event.total) * 80) + 10;
+            setUploadProgress(percent);
+          }
+        };
+        
+        xhr.onload = () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve();
+          } else {
+            reject(new Error(`Upload failed with status ${xhr.status}`));
+          }
+        };
+        
+        xhr.onerror = () => reject(new Error("Upload failed"));
+        
+        xhr.open("PUT", signedUrl, true);
+        xhr.setRequestHeader("Content-Type", file.type || "video/mp4");
+        xhr.send(file);
+      });
+      
+      setUploadProgress(95);
 
-      const url = uploadData.url as string;
-      if (!url) throw new Error("No URL returned");
-
+      // Step 3: Save the URL to config
       setSaving(true);
       const configRes = await fetch("/api/config", {
         method: "PUT",
@@ -75,7 +108,7 @@ export default function SiteVideosPage() {
         body: JSON.stringify({
           category: "website",
           key: "trigger_point_video_url",
-          value: url,
+          value: publicUrl,
           description: "Trigger Point section video on homepage",
         }),
       });
@@ -85,13 +118,15 @@ export default function SiteVideosPage() {
         throw new Error(errData.error || "Failed to save");
       }
 
-      setTriggerPointUrl(url);
+      setUploadProgress(100);
+      setTriggerPointUrl(publicUrl);
       success("Trigger Point video uploaded and saved. It will appear on the homepage.");
     } catch (err: unknown) {
       error(err instanceof Error ? err.message : "Upload failed");
     } finally {
       setUploading(false);
       setSaving(false);
+      setUploadProgress(0);
       if (fileInputRef.current) fileInputRef.current.value = "";
     }
   }
@@ -181,18 +216,37 @@ export default function SiteVideosPage() {
             ) : (
               <div className="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center">
                 <p className="text-slate-600 mb-4">No video uploaded yet.</p>
-                <label className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold cursor-pointer hover:opacity-90 transition shadow-lg shadow-pink-500/25">
-                  <input
-                    ref={fileInputRef}
-                    type="file"
-                    accept="video/mp4,video/quicktime,video/x-m4v,.mp4,.mov,.m4v"
-                    onChange={handleUpload}
-                    className="hidden"
-                    disabled={uploading || saving}
-                  />
-                  {uploading || saving ? "Uploading…" : "Upload MP4 Video"}
-                </label>
-                <p className="text-slate-500 text-sm mt-3">Max {MAX_MB}MB • MP4 or MOV</p>
+                
+                {uploading ? (
+                  <div className="space-y-3">
+                    <div className="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+                      <div 
+                        className="bg-gradient-to-r from-pink-500 to-rose-500 h-full transition-all duration-300"
+                        style={{ width: `${uploadProgress}%` }}
+                      />
+                    </div>
+                    <p className="text-slate-600 font-medium">
+                      {uploadProgress < 10 ? "Preparing upload..." : 
+                       uploadProgress < 95 ? `Uploading... ${uploadProgress}%` : 
+                       "Saving..."}
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <label className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold cursor-pointer hover:opacity-90 transition shadow-lg shadow-pink-500/25">
+                      <input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="video/mp4,video/quicktime,video/x-m4v,.mp4,.mov,.m4v"
+                        onChange={handleUpload}
+                        className="hidden"
+                        disabled={uploading || saving}
+                      />
+                      Upload MP4 Video
+                    </label>
+                    <p className="text-slate-500 text-sm mt-3">Max {MAX_MB}MB • MP4 or MOV</p>
+                  </>
+                )}
               </div>
             )}
           </>
