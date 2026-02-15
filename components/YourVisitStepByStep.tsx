@@ -34,7 +34,7 @@ const STEPS = [
 export function YourVisitStepByStep() {
   return (
     <section
-      className="py-20 md:py-28 px-6 md:px-12 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"
+      className="py-20 md:py-28 px-6 md:px-12 bg-gradient-to-br from-black via-pink-950/40 to-black"
       data-site="public"
     >
       <div className="max-w-6xl mx-auto">
@@ -52,12 +52,12 @@ export function YourVisitStepByStep() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
           {STEPS.map((step, i) => (
             <FadeUp key={step.title} delayMs={i * 60}>
-              <div className="rounded-2xl bg-slate-800/80 border border-pink-500/20 p-6 h-full hover:border-pink-500/40 transition-colors">
+              <div className="rounded-2xl bg-black/60 border border-pink-500/30 p-6 h-full hover:border-pink-500/50 hover:bg-pink-950/20 transition-colors">
                 <div className="w-12 h-12 rounded-xl bg-pink-500/20 flex items-center justify-center text-2xl mb-4">
                   {step.icon}
                 </div>
                 <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
-                <p className="text-slate-300 text-sm leading-relaxed">{step.description}</p>
+                <p className="text-white/80 text-sm leading-relaxed">{step.description}</p>
               </div>
             </FadeUp>
           ))}
@@ -72,7 +72,7 @@ export function YourVisitStepByStep() {
               Book Your Initial Visit
               <span>→</span>
             </Link>
-            <p className="text-slate-400 text-sm mt-4">
+            <p className="text-white/70 text-sm mt-4">
               No membership required for your first visit.
             </p>
           </div>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { FadeUp } from "@/components/Section";
 import { YourVisitStepByStep } from "@/components/YourVisitStepByStep";
+import { PrecisionStartsFAQ } from "@/components/PrecisionStartsFAQ";
 
 const PROGRAMS = [
   {
@@ -224,6 +225,9 @@ export function MembershipsContent() {
           </div>
         </div>
       )}
+
+      {/* FAQ - Precision Starts With Understanding */}
+      <PrecisionStartsFAQ />
 
       {/* Trust / Differentiator */}
       <section className="py-16 md:py-24 px-6 md:px-12 bg-[#FDF7FA]">
