@@ -36,7 +36,7 @@ export async function GET() {
     // Try to get providers - support both direct columns and users join
     const { data: providers, error } = await supabase
       .from('providers')
-      .select(\`
+      .select(`
         id,
         user_id,
         slug,
@@ -50,7 +50,7 @@ export async function GET() {
         headshot_url,
         tagline,
         booking_url
-      \`)
+      `)
       .eq('is_active', true)
       .order('created_at', { ascending: true });
 
