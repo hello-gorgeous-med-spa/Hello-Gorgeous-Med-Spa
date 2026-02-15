@@ -34,7 +34,97 @@ interface Package {
   is_active: boolean;
   package_services: PackageService[];
   created_at: string;
+  category?: string;
 }
+
+// Hormone Membership Package Templates
+const HORMONE_PACKAGE_TEMPLATES = [
+  {
+    name: "Hormone Starter Package",
+    description: "3-month intro to hormone therapy. Lab work, consultation, post-lab appointment, hormone therapy initiation, and prescription coordination.",
+    price: 350,
+    duration: "3 Months",
+    validity_days: 90,
+    category: "hormone",
+    includes: [
+      "Initial consultation",
+      "Basic tier lab panel",
+      "Post-lab review appointment",
+      "Hormone therapy initiation",
+      "Prescription coordination (if insurance covers)",
+      "Provider messaging support",
+    ],
+  },
+  {
+    name: "Hormone Essential Program",
+    description: "6-month comprehensive hormone optimization with ongoing support, vitamin injections, IV drips, and wellness perks.",
+    price: 749,
+    duration: "6 Months",
+    validity_days: 180,
+    category: "hormone",
+    is_featured: true,
+    includes: [
+      "Everything in Starter, plus:",
+      "2 comprehensive lab panels",
+      "Dosage review & optimization",
+      "Pellet therapy option included",
+      "Bioidentical hormone therapy",
+      "Monthly vitamin injection (6 total)",
+      "Monthly IV drip (6 total)",
+      "Fullscript account setup",
+      "Wellness check-ups",
+      "Priority scheduling",
+    ],
+    highlight: "Best Value",
+  },
+  {
+    name: "Hormone Premium Program",
+    description: "9-month enhanced program with bonus service credits. Includes 2x $150 service credits at months 4 and 8.",
+    price: 1200,
+    duration: "9 Months",
+    validity_days: 270,
+    category: "hormone",
+    includes: [
+      "Everything in Essential, plus:",
+      "3 comprehensive lab panels",
+      "Extended hormone optimization",
+      "Monthly vitamin injection (9 total)",
+      "Monthly IV drip (9 total)",
+      "Quarterly wellness reviews",
+      "VIP scheduling priority",
+    ],
+    bonuses: [
+      "Month 4: $150 service credit",
+      "Month 8: $150 service credit",
+    ],
+    highlight: "$300 in Free Services",
+  },
+  {
+    name: "Hormone Elite Annual",
+    description: "12-month ultimate hormone wellness experience with 4x $150 service credits throughout the year.",
+    price: 1499,
+    duration: "12 Months",
+    validity_days: 365,
+    category: "hormone",
+    includes: [
+      "Everything in Premium, plus:",
+      "4 comprehensive lab panels",
+      "Year-round hormone optimization",
+      "Monthly vitamin injection (12 total)",
+      "Monthly IV drip (12 total)",
+      "Dedicated provider team",
+      "Same-day appointment access",
+      "Annual wellness strategy session",
+    ],
+    bonuses: [
+      "Month 3: $150 service credit",
+      "Month 6: $150 service credit",
+      "Month 9: $150 service credit",
+      "Month 12: $150 service credit",
+    ],
+    highlight: "$600 in Free Services",
+  },
+];
 
 export default function PackagesPage() {
   const [packages, setPackages] = useState<Package[]>([]);
@@ -44,6 +134,8 @@ export default function PackagesPage() {
   const [editing, setEditing] = useState<Package | null>(null);
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [activeTab, setActiveTab] = useState<'all' | 'hormone' | 'service'>('all');
+  const [showHormoneTemplates, setShowHormoneTemplates] = useState(false);
 
   const [form, setForm] = useState({
     name: '',
@@ -52,6 +144,7 @@ export default function PackagesPage() {
     validity_days: '',
     max_uses: '',
     is_featured: false,
+    category: '',
     selectedServices: [] as { service_id: string; quantity: number }[],
   });
 
@@ -95,7 +188,7 @@ export default function PackagesPage() {
 
   // Save package
   const handleSave = async () => {
-    if (!form.name || form.price <= 0 || form.selectedServices.length === 0) return;
+    if (!form.name || form.price <= 0) return;
     setSaving(true);
     try {
       const payload = {
@@ -106,7 +199,7 @@ export default function PackagesPage() {
         validity_days: form.validity_days ? parseInt(form.validity_days) : null,
         max_uses: form.max_uses ? parseInt(form.max_uses) : null,
         is_featured: form.is_featured,
-        services: form.selectedServices,
+        services: form.selectedServices.length > 0 ? form.selectedServices : undefined,
       };
 
       const res = await fetch('/api/packages', {
@@ -127,6 +220,38 @@ export default function PackagesPage() {
       }
     } catch (err) {
       setMessage({ type: 'error', text: 'Failed to save package' });
+    }
+    setSaving(false);
+    setTimeout(() => setMessage(null), 3000);
+  };
+
+  // Create hormone package from template
+  const createHormonePackage = async (template: typeof HORMONE_PACKAGE_TEMPLATES[0]) => {
+    setSaving(true);
+    try {
+      const payload = {
+        name: template.name,
+        description: template.description,
+        price_cents: template.price * 100,
+        validity_days: template.validity_days,
+        is_featured: template.is_featured || false,
+        services: [], // Hormone packages don't need service links - they're membership programs
+      };
+
+      const res = await fetch('/api/packages', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (res.ok) {
+        setMessage({ type: 'success', text: `${template.name} created!` });
+        fetchData();
+      } else {
+        setMessage({ type: 'error', text: 'Failed to create package' });
+      }
+    } catch (err) {
+      setMessage({ type: 'error', text: 'Failed to create package' });
     }
     setSaving(false);
     setTimeout(() => setMessage(null), 3000);
@@ -170,6 +295,7 @@ export default function PackagesPage() {
       validity_days: '',
       max_uses: '',
       is_featured: false,
+      category: '',
       selectedServices: [],
     });
   };
@@ -184,6 +310,7 @@ export default function PackagesPage() {
       validity_days: pkg.validity_days?.toString() || '',
       max_uses: pkg.max_uses?.toString() || '',
       is_featured: pkg.is_featured,
+      category: pkg.category || '',
       selectedServices: pkg.package_services.map(ps => ({
         service_id: ps.service_id,
         quantity: ps.quantity,
@@ -221,20 +348,37 @@ export default function PackagesPage() {
 
   const value = calculateValue();
 
+  // Filter packages by tab
+  const filteredPackages = packages.filter(pkg => {
+    if (activeTab === 'all') return true;
+    if (activeTab === 'hormone') {
+      return pkg.name.toLowerCase().includes('hormone') || pkg.description?.toLowerCase().includes('hormone');
+    }
+    return !pkg.name.toLowerCase().includes('hormone');
+  });
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Service Packages</h1>
-          <p className="text-gray-500">Bundle services together at a discount</p>
+          <p className="text-gray-500">Bundle services together or create membership programs</p>
         </div>
-        <button
-          onClick={() => { resetForm(); setEditing(null); setShowModal(true); }}
-          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
-        >
-          + Create Package
-        </button>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setShowHormoneTemplates(true)}
+            className="px-4 py-2 bg-fuchsia-500 text-white font-medium rounded-lg hover:bg-fuchsia-600"
+          >
+            + Hormone Package
+          </button>
+          <button
+            onClick={() => { resetForm(); setEditing(null); setShowModal(true); }}
+            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+          >
+            + Custom Package
+          </button>
+        </div>
       </div>
 
       {/* Message */}
@@ -244,25 +388,86 @@ export default function PackagesPage() {
         </div>
       )}
 
+      {/* Tabs */}
+      <div className="flex gap-2 border-b border-gray-200">
+        {[
+          { id: 'all', label: 'All Packages' },
+          { id: 'hormone', label: '💊 Hormone Memberships' },
+          { id: 'service', label: '📦 Service Bundles' },
+        ].map(tab => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id as any)}
+            className={`px-4 py-2 text-sm font-medium border-b-2 -mb-px transition ${
+              activeTab === tab.id
+                ? 'border-pink-500 text-pink-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
+            }`}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Hormone Membership Info Banner */}
+      {activeTab === 'hormone' && (
+        <div className="bg-gradient-to-r from-fuchsia-500 to-purple-600 rounded-xl p-6 text-white">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-3xl">⚖️</span>
+            <div>
+              <h2 className="text-xl font-bold">Hormone Optimization Memberships</h2>
+              <p className="text-fuchsia-100">Comprehensive hormone therapy programs with lab work, treatments, and bonuses</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
+            <div className="bg-white/10 rounded-lg p-3">
+              <p className="text-sm text-fuchsia-100">Starter</p>
+              <p className="font-semibold">$350 / 3mo</p>
+            </div>
+            <div className="bg-white/10 rounded-lg p-3">
+              <p className="text-sm text-fuchsia-100">Essential</p>
+              <p className="font-semibold">$749 / 6mo</p>
+            </div>
+            <div className="bg-white/10 rounded-lg p-3">
+              <p className="text-sm text-fuchsia-100">Premium</p>
+              <p className="font-semibold">$1,200 / 9mo</p>
+            </div>
+            <div className="bg-white/10 rounded-lg p-3">
+              <p className="text-sm text-fuchsia-100">Elite Annual</p>
+              <p className="font-semibold">$1,499 / 12mo</p>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Packages Grid */}
       {loading ? (
         <div className="bg-white rounded-xl border border-gray-100 p-8 text-center text-gray-500">
           Loading packages...
         </div>
-      ) : packages.length === 0 ? (
+      ) : filteredPackages.length === 0 ? (
         <div className="bg-white rounded-xl border border-gray-100 p-12 text-center text-gray-500">
-          <span className="text-4xl block mb-4">📦</span>
-          <p>No packages yet</p>
-          <button
-            onClick={() => { resetForm(); setShowModal(true); }}
-            className="mt-4 text-pink-600 font-medium"
-          >
-            Create your first package
-          </button>
+          <span className="text-4xl block mb-4">{activeTab === 'hormone' ? '💊' : '📦'}</span>
+          <p>No {activeTab === 'hormone' ? 'hormone membership' : ''} packages yet</p>
+          {activeTab === 'hormone' ? (
+            <button
+              onClick={() => setShowHormoneTemplates(true)}
+              className="mt-4 text-fuchsia-600 font-medium"
+            >
+              Create hormone packages from templates
+            </button>
+          ) : (
+            <button
+              onClick={() => { resetForm(); setShowModal(true); }}
+              className="mt-4 text-pink-600 font-medium"
+            >
+              Create your first package
+            </button>
+          )}
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {packages.map(pkg => (
+          {filteredPackages.map(pkg => (
             <div key={pkg.id} className={`bg-white rounded-xl border shadow-sm overflow-hidden ${pkg.is_featured ? 'border-pink-300 ring-2 ring-pink-100' : 'border-gray-100'}`}>
               {pkg.is_featured && (
                 <div className="bg-pink-500 text-white text-center text-xs font-medium py-1">
@@ -272,7 +477,7 @@ export default function PackagesPage() {
               <div className="p-6">
                 <h3 className="font-bold text-lg text-gray-900">{pkg.name}</h3>
                 {pkg.description && (
-                  <p className="text-sm text-gray-500 mt-1">{pkg.description}</p>
+                  <p className="text-sm text-gray-500 mt-1 line-clamp-2">{pkg.description}</p>
                 )}
 
                 <div className="mt-4 flex items-baseline gap-2">
@@ -285,23 +490,24 @@ export default function PackagesPage() {
                   )}
                 </div>
 
-                <div className="mt-4 space-y-2">
-                  <p className="text-sm font-medium text-gray-700">Includes:</p>
-                  <ul className="text-sm text-gray-600 space-y-1">
-                    {pkg.package_services.map((ps, i) => (
-                      <li key={i} className="flex items-center gap-2">
-                        <span className="text-green-500">✓</span>
-                        {ps.quantity > 1 && <span className="font-medium">{ps.quantity}x</span>}
-                        {ps.services?.name || 'Service'}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {pkg.package_services && pkg.package_services.length > 0 && (
+                  <div className="mt-4 space-y-2">
+                    <p className="text-sm font-medium text-gray-700">Includes:</p>
+                    <ul className="text-sm text-gray-600 space-y-1">
+                      {pkg.package_services.map((ps, i) => (
+                        <li key={i} className="flex items-center gap-2">
+                          <span className="text-green-500">✓</span>
+                          {ps.quantity > 1 && <span className="font-medium">{ps.quantity}x</span>}
+                          {ps.services?.name || 'Service'}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
-                {(pkg.validity_days || pkg.max_uses) && (
+                {pkg.validity_days && (
                   <div className="mt-4 text-xs text-gray-500">
-                    {pkg.validity_days && <p>Valid for {pkg.validity_days} days</p>}
-                    {pkg.max_uses && <p>Max {pkg.max_uses} uses</p>}
+                    <p>Valid for {pkg.validity_days} days</p>
                   </div>
                 )}
               </div>
@@ -330,6 +536,77 @@ export default function PackagesPage() {
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* Hormone Package Templates Modal */}
+      {showHormoneTemplates && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+              <div>
+                <h2 className="text-xl font-bold text-gray-900">Hormone Membership Templates</h2>
+                <p className="text-gray-500 text-sm mt-1">Click to create a package from template</p>
+              </div>
+              <button onClick={() => setShowHormoneTemplates(false)} className="text-gray-400 hover:text-gray-600 text-2xl">×</button>
+            </div>
+            <div className="p-6 grid md:grid-cols-2 gap-4">
+              {HORMONE_PACKAGE_TEMPLATES.map((template, idx) => (
+                <div
+                  key={idx}
+                  className={`p-5 rounded-xl border-2 cursor-pointer transition-all hover:shadow-lg ${
+                    template.is_featured ? 'border-fuchsia-400 bg-fuchsia-50' : 'border-gray-200 hover:border-fuchsia-300'
+                  }`}
+                  onClick={() => {
+                    createHormonePackage(template);
+                    setShowHormoneTemplates(false);
+                  }}
+                >
+                  {template.highlight && (
+                    <span className="inline-block px-2 py-1 text-xs font-bold bg-fuchsia-500 text-white rounded mb-2">
+                      {template.highlight}
+                    </span>
+                  )}
+                  <h3 className="font-bold text-lg text-gray-900">{template.name}</h3>
+                  <p className="text-fuchsia-600 font-semibold">${template.price} / {template.duration}</p>
+                  <p className="text-sm text-gray-500 mt-2">{template.description}</p>
+                  
+                  <div className="mt-4">
+                    <p className="text-xs font-semibold text-gray-700 mb-2">Includes:</p>
+                    <ul className="text-xs text-gray-600 space-y-1">
+                      {template.includes.slice(0, 5).map((item, i) => (
+                        <li key={i} className="flex items-start gap-1">
+                          <span className="text-green-500">✓</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                      {template.includes.length > 5 && (
+                        <li className="text-gray-400">+{template.includes.length - 5} more...</li>
+                      )}
+                    </ul>
+                  </div>
+
+                  {template.bonuses && (
+                    <div className="mt-3 pt-3 border-t border-gray-200">
+                      <p className="text-xs font-semibold text-fuchsia-600 mb-1">🎁 Bonuses:</p>
+                      <ul className="text-xs text-gray-600 space-y-1">
+                        {template.bonuses.map((bonus, i) => (
+                          <li key={i} className="flex items-start gap-1">
+                            <span className="text-amber-500">★</span>
+                            <span>{bonus}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  <div className="mt-4 text-center">
+                    <span className="text-sm text-fuchsia-600 font-medium">Click to create →</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
 
@@ -365,7 +642,7 @@ export default function PackagesPage() {
 
               {/* Services Selector */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Select Services *</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Select Services (optional for membership packages)</label>
                 <select
                   onChange={(e) => { if (e.target.value) addService(e.target.value); e.target.value = ''; }}
                   className="w-full px-4 py-2 border border-gray-200 rounded-lg mb-3"
@@ -379,7 +656,7 @@ export default function PackagesPage() {
                 </select>
 
                 {form.selectedServices.length === 0 ? (
-                  <p className="text-sm text-gray-500 text-center py-4">No services selected yet</p>
+                  <p className="text-sm text-gray-500 text-center py-4">No services selected (OK for membership packages)</p>
                 ) : (
                   <div className="space-y-2">
                     {form.selectedServices.map(ss => {
@@ -424,13 +701,15 @@ export default function PackagesPage() {
                     placeholder="0"
                   />
                 </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Value Summary</label>
-                  <div className="px-4 py-2 bg-green-50 border border-green-200 rounded-lg text-sm">
-                    <p>Regular: <span className="font-medium">${(value.regularPrice / 100).toFixed(0)}</span></p>
-                    <p className="text-green-700">Savings: <span className="font-bold">${(value.savings / 100).toFixed(0)} ({value.savingsPercent}%)</span></p>
+                {form.selectedServices.length > 0 && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Value Summary</label>
+                    <div className="px-4 py-2 bg-green-50 border border-green-200 rounded-lg text-sm">
+                      <p>Regular: <span className="font-medium">${(value.regularPrice / 100).toFixed(0)}</span></p>
+                      <p className="text-green-700">Savings: <span className="font-bold">${(value.savings / 100).toFixed(0)} ({value.savingsPercent}%)</span></p>
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
 
               <div className="grid grid-cols-2 gap-4">
@@ -471,7 +750,7 @@ export default function PackagesPage() {
               <button onClick={() => { setShowModal(false); setEditing(null); }} className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg">Cancel</button>
               <button
                 onClick={handleSave}
-                disabled={saving || !form.name || form.price <= 0 || form.selectedServices.length === 0}
+                disabled={saving || !form.name || form.price <= 0}
                 className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
               >
                 {saving ? 'Saving...' : editing ? 'Update Package' : 'Create Package'}
