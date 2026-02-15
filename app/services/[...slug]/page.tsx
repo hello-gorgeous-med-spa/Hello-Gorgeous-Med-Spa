@@ -749,6 +749,56 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               </a>
             </div>
           </FadeUp>
+
+          {/* Lab Panels - Side by Side */}
+          <FadeUp delayMs={160}>
+            <div className="mt-8 max-w-5xl mx-auto">
+              <div className="text-center mb-6">
+                <h3 className="text-xl font-bold text-[#E6007E]">Comprehensive Lab Panels</h3>
+                <p className="text-black/70 text-sm mt-1">View what we test for men and women</p>
+              </div>
+              <div className="grid md:grid-cols-2 gap-4">
+                <a
+                  href="/labs/female-lab-panel.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-pink-100 to-pink-50 hover:border-[#E6007E] hover:shadow-lg transition-all group"
+                >
+                  <span className="text-4xl">👩</span>
+                  <div className="flex-1">
+                    <h4 className="text-lg font-bold text-[#E6007E] group-hover:underline">
+                      Female Lab Panel
+                    </h4>
+                    <p className="text-black/70 text-sm mt-1">
+                      Comprehensive hormone, thyroid, metabolic & vitamin testing for women
+                    </p>
+                  </div>
+                  <span className="shrink-0 text-[#E6007E] font-semibold group-hover:translate-x-1 transition-transform">
+                    View →
+                  </span>
+                </a>
+                <a
+                  href="/labs/male-lab-panel.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-4 p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-blue-100 to-blue-50 hover:border-blue-500 hover:shadow-lg transition-all group"
+                >
+                  <span className="text-4xl">👨</span>
+                  <div className="flex-1">
+                    <h4 className="text-lg font-bold text-blue-600 group-hover:underline">
+                      Male Lab Panel
+                    </h4>
+                    <p className="text-black/70 text-sm mt-1">
+                      Comprehensive hormone, thyroid, metabolic & vitamin testing for men
+                    </p>
+                  </div>
+                  <span className="shrink-0 text-blue-600 font-semibold group-hover:translate-x-1 transition-transform">
+                    View →
+                  </span>
+                </a>
+              </div>
+            </div>
+          </FadeUp>
         </Section>
       )}
 
