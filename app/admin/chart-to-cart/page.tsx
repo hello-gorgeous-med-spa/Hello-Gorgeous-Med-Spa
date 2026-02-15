@@ -96,28 +96,28 @@ export default function ChartToCartPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
-      {/* Hero Header - Aesthetic Record Style */}
-      <div className="bg-gradient-to-r from-pink-600 via-fuchsia-600 to-purple-600 text-white">
-        <div className="max-w-7xl mx-auto px-6 py-12">
+      {/* Hero Header - Clean White & Pink */}
+      <div className="bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-6 py-10">
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-pink-500 rounded-xl flex items-center justify-center">
                   <span className="text-2xl">🛒</span>
                 </div>
                 <div>
-                  <h1 className="text-3xl font-bold">Chart-to-Cart</h1>
-                  <p className="text-pink-100">Powered by Square</p>
+                  <h1 className="text-3xl font-bold text-gray-900">Chart-to-Cart</h1>
+                  <p className="text-pink-600 font-medium">Powered by Square</p>
                 </div>
               </div>
-              <p className="text-xl text-pink-100 max-w-xl">
+              <p className="text-lg text-gray-600 max-w-xl">
                 The gap between charting and checkout is where revenue gets lost. 
                 Chart-to-Cart closes that gap automatically.
               </p>
             </div>
             <Link
               href="/admin/chart-to-cart/new"
-              className="px-6 py-3 bg-white text-pink-600 rounded-xl hover:bg-pink-50 transition-colors font-semibold flex items-center gap-2 shadow-lg shadow-pink-900/20"
+              className="px-6 py-3 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors font-semibold flex items-center gap-2 shadow-lg shadow-pink-500/20"
             >
               <span>➕</span> New Treatment Session
             </Link>
@@ -125,7 +125,7 @@ export default function ChartToCartPage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 -mt-8">
+      <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Stats Cards - Floating */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
           <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-xl shadow-gray-200/50">
@@ -496,31 +496,31 @@ export default function ChartToCartPage() {
         </div>
 
         {/* Integration Info */}
-        <div className="bg-gradient-to-r from-gray-900 to-gray-800 rounded-2xl p-8 mb-8 text-white">
+        <div className="bg-white rounded-2xl border border-gray-200 p-8 mb-8">
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-pink-100 rounded-xl flex items-center justify-center">
                   <span className="text-2xl">⬜</span>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">Square Integration</h3>
-                  <p className="text-gray-400">Connected & Active</p>
+                  <h3 className="text-xl font-bold text-gray-900">Square Integration</h3>
+                  <p className="text-pink-600">Connected & Active</p>
                 </div>
               </div>
-              <p className="text-gray-300 max-w-xl">
+              <p className="text-gray-600 max-w-xl">
                 Chart products → Cart populates → Square processes payment → Inventory updates → Done. 
                 One connected workflow on one device.
               </p>
             </div>
             <div className="flex items-center gap-4">
-              <div className="text-center px-6 py-4 bg-white/10 rounded-xl">
-                <p className="text-3xl font-bold">AR Pay</p>
-                <p className="text-xs text-gray-400 mt-1">Wallet & Loyalty</p>
+              <div className="text-center px-6 py-4 bg-pink-50 border border-pink-100 rounded-xl">
+                <p className="text-2xl font-bold text-pink-600">Wallet</p>
+                <p className="text-xs text-gray-500 mt-1">Credits & Loyalty</p>
               </div>
-              <div className="text-center px-6 py-4 bg-white/10 rounded-xl">
-                <p className="text-3xl font-bold">Text2Pay</p>
-                <p className="text-xs text-gray-400 mt-1">Remote checkout</p>
+              <div className="text-center px-6 py-4 bg-pink-50 border border-pink-100 rounded-xl">
+                <p className="text-2xl font-bold text-pink-600">Text2Pay</p>
+                <p className="text-xs text-gray-500 mt-1">Remote checkout</p>
               </div>
             </div>
           </div>
