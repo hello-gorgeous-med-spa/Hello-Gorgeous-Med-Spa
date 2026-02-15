@@ -37,27 +37,27 @@ export const mascotVideos: Record<PersonaId, Record<string, string>> = {
 
 export const mascotImages: Record<PersonaId, { portrait: string; poster?: string }> = {
   peppi: {
-    portrait: "/media/mascots/peppi.png",
-    poster: "/media/mascots/peppi-poster.jpg",
+    portrait: "/images/characters/peppi.png",
+    poster: "/images/characters/peppi.png",
   },
   "beau-tox": {
-    portrait: "/media/mascots/beau-tox.png",
-    poster: "/media/mascots/beau-tox-poster.jpg",
+    portrait: "/images/characters/beau.png",
+    poster: "/images/characters/beau.png",
   },
   "filla-grace": {
-    portrait: "/media/mascots/filla-grace.png",
-    poster: "/media/mascots/filla-grace-poster.jpg",
+    portrait: "/images/characters/filla-grace.png",
+    poster: "/images/characters/filla-grace.png",
   },
   harmony: {
-    portrait: "/media/mascots/harmony.png",
-    poster: "/media/mascots/harmony-poster.jpg",
+    portrait: "/images/characters/hello-gorgeous-mascot.png",
+    poster: "/images/characters/hello-gorgeous-mascot.png",
   },
   founder: {
-    portrait: "/media/mascots/founder.png",
-    poster: "/media/mascots/founder-poster.jpg",
+    portrait: "/images/characters/founder.png",
+    poster: "/images/characters/founder.png",
   },
   ryan: {
-    portrait: "/media/mascots/ryan.png",
+    portrait: "/images/characters/ryan.png",
     poster: "/media/mascots/ryan-poster.jpg",
   },
 };

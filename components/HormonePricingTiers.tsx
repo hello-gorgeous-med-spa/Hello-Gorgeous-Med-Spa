@@ -37,7 +37,7 @@ const HORMONE_TIERS: Tier[] = [
     id: "essential",
     name: "Essential Program",
     duration: "6 Months",
-    price: 650,
+    price: 749,
     popular: true,
     description: "Our most popular choice. Comprehensive hormone optimization with ongoing support and wellness perks.",
     includes: [
@@ -58,7 +58,7 @@ const HORMONE_TIERS: Tier[] = [
     id: "premium",
     name: "Premium Program",
     duration: "9 Months",
-    price: 950,
+    price: 1200,
     description: "Enhanced program with bonus aesthetic treatments to look and feel your best.",
     includes: [
       "Everything in Essential, plus:",
@@ -70,16 +70,16 @@ const HORMONE_TIERS: Tier[] = [
       "VIP scheduling priority",
     ],
     bonuses: [
-      "Month 4: Choose ONE free service",
-      "Month 8: Choose ONE free service",
+      "Month 4: $150 service credit",
+      "Month 8: $150 service credit",
     ],
-    highlight: "2 Free Bonus Services",
+    highlight: "$300 in Free Services",
   },
   {
     id: "elite",
     name: "Elite Annual",
     duration: "12 Months",
-    price: 1200,
+    price: 1499,
     description: "The ultimate hormone wellness experience. Maximum results with premium perks all year long.",
     includes: [
       "Everything in Premium, plus:",
@@ -92,19 +92,19 @@ const HORMONE_TIERS: Tier[] = [
       "Annual wellness strategy session",
     ],
     bonuses: [
-      "Month 3: Choose ONE free service",
-      "Month 6: Choose ONE free service", 
-      "Month 9: Choose ONE free service",
-      "Month 12: Choose ONE free service",
+      "Month 3: $150 service credit",
+      "Month 6: $150 service credit", 
+      "Month 9: $150 service credit",
+      "Month 12: $150 service credit",
     ],
-    highlight: "4 Free Bonus Services",
+    highlight: "$600 in Free Services",
   },
 ];
 
 const BONUS_OPTIONS = [
-  { name: "Botox", detail: "20 units" },
-  { name: "RF Microneedling", detail: "with exosomes" },
-  { name: "Service Credit", detail: "$400 toward any service" },
+  { name: "Botox", detail: "up to 20 units" },
+  { name: "RF Microneedling", detail: "single treatment" },
+  { name: "Any Service", detail: "$150 credit to use" },
 ];
 
 export function HormonePricingTiers() {
@@ -206,10 +206,10 @@ export function HormonePricingTiers() {
       <div className="rounded-2xl border-2 border-[#E6007E]/20 bg-gradient-to-r from-pink-50 via-white to-pink-50 p-6 md:p-8">
         <div className="text-center mb-6">
           <h3 className="text-xl font-bold text-[#111111]">
-            🎁 Bonus Service Options
+            🎁 How to Use Your $150 Service Credit
           </h3>
           <p className="text-black/70 text-sm mt-1">
-            Premium & Elite members choose from these options for their free services:
+            Premium & Elite members receive $150 credits to use on any service:
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-4">
@@ -222,7 +222,7 @@ export function HormonePricingTiers() {
                 <span className="text-xl">
                   {option.name === "Botox" && "💉"}
                   {option.name === "RF Microneedling" && "✨"}
-                  {option.name === "Service Credit" && "💳"}
+                  {option.name === "Any Service" && "💳"}
                 </span>
               </div>
               <div>
