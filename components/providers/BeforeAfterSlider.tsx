@@ -153,7 +153,7 @@ export function BeforeAfterSlider({
           <span className="px-2.5 py-1 bg-black/60 text-white text-xs font-medium rounded-full">
             Before
           </span>
-          <span className="px-2.5 py-1 bg-pink-500/90 text-white text-xs font-medium rounded-full">
+          <span className="px-2.5 py-1 bg-[#FF2D8E]/90 text-white text-xs font-medium rounded-full">
             After
           </span>
         </div>

@@ -28,7 +28,7 @@ const mascots: { id: PersonaId; name: string; color: string; specialty: string }
   { id: "filla-grace", name: "Filla Grace", color: "from-pink-400 to-rose-400", specialty: "Revanesse Fillers" },
   { id: "harmony", name: "Harmony", color: "from-rose-500 to-pink-500", specialty: "Biote Hormones" },
   { id: "founder", name: "Danielle", color: "from-pink-600 to-pink-500", specialty: "Hello Gorgeous" },
-  { id: "ryan", name: "Dr. Ryan", color: "from-fuchsia-500 to-purple-500", specialty: "Medical & Telehealth" },
+  { id: "ryan", name: "Dr. Ryan", color: "bg-[#FF2D8E]", specialty: "Medical & Telehealth" },
 ];
 
 function getSupplementsOpeningMessage(clickedSupplement?: string): string {
@@ -185,7 +185,7 @@ export function MascotChat() {
         ) : (
           <div className="relative">
             <span className="text-3xl">💬</span>
-            <span className="absolute -top-1 -right-1 w-4 h-4 bg-pink-500 rounded-full border-2 border-white animate-pulse" />
+            <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#FF2D8E] rounded-full border-2 border-white animate-pulse" />
           </div>
         )}
       </button>
@@ -223,13 +223,13 @@ export function MascotChat() {
                   </div>
                   <div>
                     <p className="text-white font-bold">{currentMascot.name}</p>
-                    <p className="text-white/80 text-xs">Online • Education only</p>
+                    <p className="text-black text-xs">Online • Education only</p>
                   </div>
                 </>
               ) : (
                 <div>
                   <p className="text-white font-bold">Hello Gorgeous AI</p>
-                  <p className="text-white/80 text-xs">Choose who to chat with</p>
+                  <p className="text-black text-xs">Choose who to chat with</p>
                 </div>
               )}
             </div>
@@ -237,7 +237,7 @@ export function MascotChat() {
               <button
                 type="button"
                 onClick={() => backToPicker()}
-                className="text-white/80 hover:text-white text-sm font-medium"
+                className="text-black hover:text-white text-sm font-medium"
               >
                 ← Back
               </button>
@@ -248,7 +248,7 @@ export function MascotChat() {
           {!selectedMascot ? (
             // Mascot Selection with avatars
             <div className="p-4 overflow-y-auto bg-[#000000]">
-              <p className="text-white/80 text-sm mb-4 text-center">
+              <p className="text-black text-sm mb-4 text-center">
                 Choose a team member to chat with:
               </p>
               <div className="grid grid-cols-2 gap-3">
@@ -260,10 +260,10 @@ export function MascotChat() {
                       key={mascot.id}
                       type="button"
                       onClick={() => handleSelectMascot(mascot.id)}
-                      className="p-3 rounded-xl border border-white/20 bg-white/5 hover:border-pink-500/50 hover:bg-pink-500/10 transition text-left group"
+                      className="p-3 rounded-xl border border-black bg-white hover:border-[#FF2D8E]/50 hover:bg-[#FF2D8E]/10 transition text-left group"
                     >
                       <div className="flex items-center gap-2 mb-2">
-                        <div className="w-10 h-10 rounded-full overflow-hidden bg-white/10 shrink-0 flex items-center justify-center">
+                        <div className="w-10 h-10 rounded-full overflow-hidden bg-white shrink-0 flex items-center justify-center">
                           {/* eslint-disable-next-line @next/next/no-img-element */}
                           <img
                             src={avatar}
@@ -283,12 +283,12 @@ export function MascotChat() {
                       <p className={`text-xs font-medium mb-1 bg-gradient-to-r ${mascot.color} bg-clip-text text-transparent`}>
                         {mascot.specialty}
                       </p>
-                      <p className="text-white/50 text-[10px] line-clamp-2">{ui.tagline}</p>
+                      <p className="text-black text-[10px] line-clamp-2">{ui.tagline}</p>
                     </button>
                   );
                 })}
               </div>
-              <p className="text-white/50 text-xs text-center mt-4">
+              <p className="text-black text-xs text-center mt-4">
                 Educational AI • Not medical advice
               </p>
             </div>
@@ -316,7 +316,7 @@ export function MascotChat() {
                           href={message.recommendedCollection.fullscript_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="mt-2 inline-flex items-center gap-2 min-h-[44px] px-4 py-2 rounded-full bg-fuchsia-500 text-white text-sm font-semibold hover:bg-fuchsia-600 transition w-fit"
+                          className="mt-2 inline-flex items-center gap-2 min-h-[44px] px-4 py-2 rounded-full bg-[#FF2D8E] text-white text-sm font-semibold hover:bg-black transition w-fit"
                         >
                           🛒 View {message.recommendedCollection.title} on Fullscript
                         </a>
@@ -326,7 +326,7 @@ export function MascotChat() {
                             href={FULLSCRIPT_DISPENSARY_URL}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="mt-2 inline-flex items-center gap-2 min-h-[44px] px-4 py-2 rounded-full bg-fuchsia-500 text-white text-sm font-semibold hover:bg-fuchsia-600 transition w-fit"
+                            className="mt-2 inline-flex items-center gap-2 min-h-[44px] px-4 py-2 rounded-full bg-[#FF2D8E] text-white text-sm font-semibold hover:bg-black transition w-fit"
                           >
                             🛒 View recommended supplements on Fullscript
                           </a>

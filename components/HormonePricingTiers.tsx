@@ -180,7 +180,7 @@ export function HormonePricingTiers() {
                 </p>
                 {tier.bonuses.map((bonus, idx) => (
                   <div key={idx} className="flex items-start gap-2">
-                    <span className="text-amber-500 mt-0.5">★</span>
+                    <span className="text-[#FF2D8E] mt-0.5">★</span>
                     <span className="text-sm text-black/80">{bonus}</span>
                   </div>
                 ))}

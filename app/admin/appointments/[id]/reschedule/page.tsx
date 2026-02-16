@@ -97,7 +97,7 @@ export default function RescheduleAppointmentPage({ params }: { params: { id: st
   if (loading) {
     return (
       <div className="max-w-2xl mx-auto py-12 text-center">
-        <div className="animate-spin h-8 w-8 border-4 border-pink-500 border-t-transparent rounded-full mx-auto" />
+        <div className="animate-spin h-8 w-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full mx-auto" />
       </div>
     );
   }
@@ -176,7 +176,7 @@ export default function RescheduleAppointmentPage({ params }: { params: { id: st
             type="checkbox"
             checked={formData.notify_client}
             onChange={(e) => setFormData({ ...formData, notify_client: e.target.checked })}
-            className="w-4 h-4 text-pink-500 rounded focus:ring-pink-500"
+            className="w-4 h-4 text-[#FF2D8E] rounded focus:ring-pink-500"
           />
           <span className="text-sm text-black">Send notification to client about the change</span>
         </label>
@@ -192,7 +192,7 @@ export default function RescheduleAppointmentPage({ params }: { params: { id: st
           <button
             type="submit"
             disabled={saving || !formData.date || !formData.time}
-            className="px-6 py-2.5 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors disabled:opacity-50"
+            className="px-6 py-2.5 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors disabled:opacity-50"
           >
             {saving ? 'Rescheduling...' : 'Confirm Reschedule'}
           </button>

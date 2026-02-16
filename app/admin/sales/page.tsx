@@ -158,7 +158,7 @@ export default function SalesPage() {
       <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin h-8 w-8 border-4 border-pink-500 border-t-transparent rounded-full" />
+            <div className="animate-spin h-8 w-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full" />
           </div>
         ) : sales.length === 0 ? (
           <div className="py-12 text-center text-black">

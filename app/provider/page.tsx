@@ -216,7 +216,7 @@ export default function ProviderDashboard() {
         <div className="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-6 text-white shadow-xl shadow-purple-500/20">
           <div className="flex items-center gap-2 mb-4">
             <span className="w-3 h-3 bg-white rounded-full animate-pulse" />
-            <span className="text-sm font-semibold text-white/80 uppercase tracking-wide">
+            <span className="text-sm font-semibold text-black uppercase tracking-wide">
               Now in Progress
             </span>
           </div>
@@ -224,7 +224,7 @@ export default function ProviderDashboard() {
             <div>
               <h2 className="text-3xl font-bold mb-1">{currentAppointment.client_name}</h2>
               <p className="text-xl text-white/90">{currentAppointment.service_name}</p>
-              <p className="text-white/70 mt-2">
+              <p className="text-black mt-2">
                 {formatTime(currentAppointment.starts_at)} - {formatTime(currentAppointment.ends_at)}
               </p>
             </div>
@@ -363,7 +363,7 @@ export default function ProviderDashboard() {
                       <div className="flex items-center gap-2">
                         <p className="font-semibold text-black truncate">{apt.client_name}</p>
                         {idx === 0 && (
-                          <span className="px-2 py-0.5 bg-pink-500 text-white text-xs font-bold rounded-full">
+                          <span className="px-2 py-0.5 bg-[#FF2D8E] text-white text-xs font-bold rounded-full">
                             NEXT
                           </span>
                         )}
@@ -380,7 +380,7 @@ export default function ProviderDashboard() {
 
                     <Link
                       href={`/provider/charting?appointment=${apt.id}`}
-                      className="px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white text-sm font-medium rounded-xl transition-colors"
+                      className="px-4 py-2 bg-[#FF2D8E] hover:bg-black text-white text-sm font-medium rounded-xl transition-colors"
                     >
                       Start
                     </Link>
@@ -487,7 +487,7 @@ export default function ProviderDashboard() {
                 href="/provider/charting/new?treatment=botox"
                 className="flex items-center gap-3 p-3 bg-gradient-to-r from-pink-50 to-purple-50 hover:from-pink-100 hover:to-purple-100 rounded-xl transition-colors"
               >
-                <span className="w-10 h-10 bg-pink-500 rounded-lg flex items-center justify-center text-white text-lg">💉</span>
+                <span className="w-10 h-10 bg-[#FF2D8E] rounded-lg flex items-center justify-center text-white text-lg">💉</span>
                 <div>
                   <p className="font-medium text-black">Botox</p>
                   <p className="text-xs text-black">Neurotoxin injection</p>

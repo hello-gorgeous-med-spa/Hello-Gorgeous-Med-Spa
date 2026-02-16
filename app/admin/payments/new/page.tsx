@@ -128,7 +128,7 @@ function NewPaymentContent() {
                 onClick={() => setFormData({ ...formData, paymentType: type.value })}
                 className={`p-4 rounded-lg border-2 text-center transition-colors ${
                   formData.paymentType === type.value
-                    ? 'border-pink-500 bg-pink-50'
+                    ? 'border-[#FF2D8E] bg-pink-50'
                     : 'border-black hover:border-black'
                 }`}
               >
@@ -146,7 +146,7 @@ function NewPaymentContent() {
             <button
               type="button"
               onClick={addItem}
-              className="text-sm text-pink-500 hover:text-pink-600"
+              className="text-sm text-[#FF2D8E] hover:text-pink-600"
             >
               + Add Item
             </button>
@@ -257,7 +257,7 @@ function NewPaymentContent() {
                 onClick={() => setFormData({ ...formData, paymentMethod: method.value })}
                 className={`p-3 rounded-lg border-2 text-center transition-colors ${
                   formData.paymentMethod === method.value
-                    ? 'border-pink-500 bg-pink-50'
+                    ? 'border-[#FF2D8E] bg-pink-50'
                     : 'border-black hover:border-black'
                 }`}
               >
@@ -299,7 +299,7 @@ function NewPaymentContent() {
             )}
             <div className="flex justify-between text-xl font-bold pt-2 border-t border-black">
               <span>Total</span>
-              <span className="text-pink-500">${calculateTotal().toFixed(2)}</span>
+              <span className="text-[#FF2D8E]">${calculateTotal().toFixed(2)}</span>
             </div>
           </div>
 

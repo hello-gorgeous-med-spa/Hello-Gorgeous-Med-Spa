@@ -76,11 +76,11 @@ export default function ReceiptsPage() {
       <div className="bg-gradient-to-br from-black to-black text-white rounded-2xl p-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-white/70">Total Spent in {selectedYear}</p>
+            <p className="text-black">Total Spent in {selectedYear}</p>
             <p className="text-3xl font-bold mt-1">${totalSpent.toFixed(2)}</p>
           </div>
           <div className="text-right">
-            <p className="text-white/70">{receipts.length} Transactions</p>
+            <p className="text-black">{receipts.length} Transactions</p>
             <button className="mt-2 text-sm text-[#FF2D8E] hover:underline">
               Download {selectedYear} Summary
             </button>

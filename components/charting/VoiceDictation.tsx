@@ -292,7 +292,7 @@ export default function VoiceDictation({
         {!isListening ? (
           <button
             onClick={startListening}
-            className="flex-1 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 flex items-center justify-center gap-2"
+            className="flex-1 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black flex items-center justify-center gap-2"
           >
             <span>🎤</span> Start Recording
           </button>

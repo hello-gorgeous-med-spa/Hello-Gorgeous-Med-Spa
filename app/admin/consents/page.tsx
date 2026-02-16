@@ -240,7 +240,7 @@ export default function AdminConsentsPage() {
         </div>
         <button 
           onClick={() => openEditModal()}
-          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+          className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
         >
           + Add Template
         </button>
@@ -285,7 +285,7 @@ export default function AdminConsentsPage() {
               </button>
               <button
                 onClick={() => openEditModal()}
-                className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+                className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
               >
                 Create Custom Template
               </button>
@@ -355,7 +355,7 @@ export default function AdminConsentsPage() {
 
       {/* Edit/Create Modal */}
       {showEditModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-hidden">
             <div className="px-6 py-4 border-b border-black flex items-center justify-between">
               <h2 className="text-xl font-semibold text-black">
@@ -379,7 +379,7 @@ export default function AdminConsentsPage() {
                   value={editForm.name}
                   onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
                   placeholder="e.g., Neurotoxin Treatment Consent"
-                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
                 />
               </div>
 
@@ -390,7 +390,7 @@ export default function AdminConsentsPage() {
                   value={editForm.slug}
                   onChange={(e) => setEditForm({ ...editForm, slug: e.target.value })}
                   placeholder="auto-generated-from-name"
-                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
                 />
                 <p className="text-xs text-black mt-1">Leave blank to auto-generate from name</p>
               </div>
@@ -402,7 +402,7 @@ export default function AdminConsentsPage() {
                   value={editForm.description}
                   onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
                   placeholder="Brief description of this consent form"
-                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
                 />
               </div>
 
@@ -413,7 +413,7 @@ export default function AdminConsentsPage() {
                   onChange={(e) => setEditForm({ ...editForm, content: e.target.value })}
                   placeholder="Enter the full consent form text here..."
                   rows={12}
-                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 font-mono text-sm"
+                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E] font-mono text-sm"
                 />
               </div>
 
@@ -423,7 +423,7 @@ export default function AdminConsentsPage() {
                     type="checkbox"
                     checked={editForm.is_active}
                     onChange={(e) => setEditForm({ ...editForm, is_active: e.target.checked })}
-                    className="w-4 h-4 text-pink-500 rounded focus:ring-pink-500"
+                    className="w-4 h-4 text-[#FF2D8E] rounded focus:ring-pink-500"
                   />
                   <span className="text-sm text-black">Active (available for signing)</span>
                 </label>
@@ -433,7 +433,7 @@ export default function AdminConsentsPage() {
                     type="checkbox"
                     checked={editForm.requires_witness}
                     onChange={(e) => setEditForm({ ...editForm, requires_witness: e.target.checked })}
-                    className="w-4 h-4 text-pink-500 rounded focus:ring-pink-500"
+                    className="w-4 h-4 text-[#FF2D8E] rounded focus:ring-pink-500"
                   />
                   <span className="text-sm text-black">Requires witness signature</span>
                 </label>
@@ -462,7 +462,7 @@ export default function AdminConsentsPage() {
                 <button
                   onClick={handleSave}
                   disabled={saving || !editForm.name || !editForm.content}
-                  className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                  className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
                   {saving ? 'Saving...' : (selectedTemplate ? 'Save Changes' : 'Create Template')}
                 </button>
@@ -474,7 +474,7 @@ export default function AdminConsentsPage() {
 
       {/* Preview Modal */}
       {showPreviewModal && selectedTemplate && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-hidden">
             <div className="px-6 py-4 border-b border-black flex items-center justify-between">
               <div>

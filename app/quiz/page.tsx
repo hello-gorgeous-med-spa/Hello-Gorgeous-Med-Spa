@@ -301,7 +301,7 @@ export default function QuizPage() {
                     href="/book"
                     className={`block w-full mt-4 py-3 text-center font-medium rounded-lg ${
                       index === 0
-                        ? 'bg-pink-500 text-white hover:bg-pink-600'
+                        ? 'bg-[#FF2D8E] text-white hover:bg-black'
                         : 'bg-white text-black hover:bg-white'
                     }`}
                   >
@@ -326,7 +326,7 @@ export default function QuizPage() {
               </Link>
               <a
                 href="tel:6306366193"
-                className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white/10"
+                className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white"
               >
                 Call (630) 636-6193
               </a>
@@ -341,7 +341,7 @@ export default function QuizPage() {
                 setShowResults(false);
                 setShowEmailCapture(false);
               }}
-              className="text-pink-500 hover:text-pink-600 font-medium"
+              className="text-[#FF2D8E] hover:text-pink-600 font-medium"
             >
               ← Retake Quiz
             </button>
@@ -370,7 +370,7 @@ export default function QuizPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="w-full px-4 py-3 border border-black rounded-lg focus:outline-none focus:border-pink-500"
+              className="w-full px-4 py-3 border border-black rounded-lg focus:outline-none focus:border-[#FF2D8E]"
             />
             <button
               type="submit"
@@ -431,7 +431,7 @@ export default function QuizPage() {
                   onClick={() => handleSelect(option.id)}
                   className={`flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left ${
                     isSelected
-                      ? 'border-pink-500 bg-pink-50'
+                      ? 'border-[#FF2D8E] bg-pink-50'
                       : 'border-black hover:border-pink-300'
                   }`}
                 >
@@ -440,7 +440,7 @@ export default function QuizPage() {
                     {option.label}
                   </span>
                   {isSelected && (
-                    <span className="ml-auto text-pink-500">✓</span>
+                    <span className="ml-auto text-[#FF2D8E]">✓</span>
                   )}
                 </button>
               );
@@ -467,7 +467,7 @@ export default function QuizPage() {
                 disabled={!(answers[question.id]?.length > 0)}
                 className={`px-6 py-2 rounded-lg font-medium ${
                   answers[question.id]?.length > 0
-                    ? 'bg-pink-500 text-white hover:bg-pink-600'
+                    ? 'bg-[#FF2D8E] text-white hover:bg-black'
                     : 'bg-white text-black cursor-not-allowed'
                 }`}
               >
@@ -484,11 +484,11 @@ export default function QuizPage() {
           </p>
           <p className="text-black text-sm">
             Prefer to skip?{" "}
-            <Link href="/book" className="text-pink-500 hover:text-pink-600 font-medium">
+            <Link href="/book" className="text-[#FF2D8E] hover:text-pink-600 font-medium">
               Book directly
             </Link>
             {" · "}
-            <a href="tel:630-636-6193" className="text-pink-500 hover:text-pink-600 font-medium">
+            <a href="tel:630-636-6193" className="text-[#FF2D8E] hover:text-pink-600 font-medium">
               Call (630) 636-6193
             </a>
           </p>

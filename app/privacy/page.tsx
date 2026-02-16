@@ -224,7 +224,7 @@ export default function PrivacyPolicyPage() {
             appointment reminders, treatment updates, and promotional offers via SMS. Message and data
             rates may apply.
           </p>
-          <div className="bg-white p-4 rounded-lg border-l-4 border-pink-500">
+          <div className="bg-white p-4 rounded-lg border-l-4 border-[#FF2D8E]">
             <p className="font-medium text-black mb-2">Your mobile information will not be sold or shared with third parties for promotional or marketing purposes.</p>
             <p className="text-sm text-black mb-0">
               We use your phone number only to communicate with you about your appointments and, if you opt in,

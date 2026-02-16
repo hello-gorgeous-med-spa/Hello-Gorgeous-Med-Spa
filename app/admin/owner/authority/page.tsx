@@ -257,7 +257,7 @@ export default function AuthorityPage() {
 
       {/* Force Logout Modal */}
       {showRevokeAll && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
             <h3 className="text-lg font-semibold text-red-600 mb-2">🚨 Force Logout All Users</h3>
             <p className="text-black mb-4">
@@ -278,7 +278,7 @@ export default function AuthorityPage() {
 
       {/* Rotate Secrets Modal */}
       {showRotateSecrets && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
             <h3 className="text-lg font-semibold mb-2">🔑 Rotate API Secrets</h3>
             <p className="text-black mb-4">
@@ -294,7 +294,7 @@ export default function AuthorityPage() {
               <button onClick={() => setShowRotateSecrets(false)} className="px-4 py-2 text-black hover:text-black">
                 Cancel
               </button>
-              <button onClick={rotateSecrets} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
+              <button onClick={rotateSecrets} className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black">
                 Rotate Secrets
               </button>
             </div>

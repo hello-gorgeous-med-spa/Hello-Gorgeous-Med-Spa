@@ -155,12 +155,12 @@ export default function ProviderLayout({
         {/* Logo & Brand */}
         <div className="p-4 border-b border-black">
           <Link href="/provider" className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-pink-500/20">
+            <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-[#FF2D8E]/20">
               <span className="text-white font-bold text-sm">HG</span>
             </div>
             {!sidebarCollapsed && (
               <div>
-                <span className="font-bold text-pink-400 block tracking-tight">Provider Portal</span>
+                <span className="font-bold text-[#FF2D8E] block tracking-tight">Provider Portal</span>
                 <span className="text-xs text-pink-300/60">Clinical Workspace</span>
               </div>
             )}
@@ -169,8 +169,8 @@ export default function ProviderLayout({
 
         {/* Live Clock */}
         {!sidebarCollapsed && (
-          <div className="px-4 py-3 border-b border-black bg-black/50">
-            <p className="text-2xl font-bold text-pink-400 tracking-tight">
+          <div className="px-4 py-3 border-b border-black bg-white">
+            <p className="text-2xl font-bold text-[#FF2D8E] tracking-tight">
               {formatTime(currentTime)}
             </p>
             <p className="text-xs text-pink-300/60">{formatDate(currentTime)}</p>
@@ -190,8 +190,8 @@ export default function ProviderLayout({
                     className={`
                       flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200
                       ${active 
-                        ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/20' 
-                        : 'text-black hover:text-pink-400 hover:bg-pink-500/10'
+                        ? 'bg-[#FF2D8E] text-white shadow-lg shadow-[#FF2D8E]/20' 
+                        : 'text-black hover:text-[#FF2D8E] hover:bg-[#FF2D8E]/10'
                       }
                     `}
                     title={sidebarCollapsed ? item.name : undefined}
@@ -231,7 +231,7 @@ export default function ProviderLayout({
             <div className="grid grid-cols-3 gap-2">
               <Link
                 href="/charting"
-                className="flex flex-col items-center gap-1 p-2 bg-black/50 hover:bg-black rounded-xl transition-colors"
+                className="flex flex-col items-center gap-1 p-2 bg-white hover:bg-black rounded-xl transition-colors"
               >
                 <span className="text-lg">📝</span>
                 <span className="text-[10px] text-black">Chart</span>
@@ -245,7 +245,7 @@ export default function ProviderLayout({
               </Link>
               <Link
                 href="/provider/photos"
-                className="flex flex-col items-center gap-1 p-2 bg-black/50 hover:bg-black rounded-xl transition-colors"
+                className="flex flex-col items-center gap-1 p-2 bg-white hover:bg-black rounded-xl transition-colors"
               >
                 <span className="text-lg">📷</span>
                 <span className="text-[10px] text-black">Photo</span>
@@ -258,7 +258,7 @@ export default function ProviderLayout({
         <div className="p-3 border-t border-black">
           <button
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 text-black hover:text-pink-400 hover:bg-pink-500/10 rounded-xl transition-colors"
+            className="w-full flex items-center justify-center gap-2 px-3 py-2 text-black hover:text-[#FF2D8E] hover:bg-[#FF2D8E]/10 rounded-xl transition-colors"
           >
             <span className="text-lg">{sidebarCollapsed ? '→' : '←'}</span>
             {!sidebarCollapsed && <span className="text-sm">Collapse</span>}
@@ -300,7 +300,7 @@ export default function ProviderLayout({
               {/* New Chart Button */}
               <Link
                 href="/charting"
-                className="flex items-center gap-2 px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white font-medium rounded-xl transition-colors shadow-lg shadow-pink-500/20"
+                className="flex items-center gap-2 px-4 py-2 bg-[#FF2D8E] hover:bg-black text-white font-medium rounded-xl transition-colors shadow-lg shadow-[#FF2D8E]/20"
               >
                 <span>📝</span>
                 <span className="hidden sm:inline">New Chart</span>
@@ -353,9 +353,9 @@ export default function ProviderLayout({
               className={`
                 relative flex flex-col items-center justify-center gap-1 min-w-[56px] py-2 rounded-xl transition-all
                 ${item.highlight 
-                  ? 'bg-pink-500 text-white -mt-4 shadow-lg shadow-pink-500/30' 
+                  ? 'bg-[#FF2D8E] text-white -mt-4 shadow-lg shadow-[#FF2D8E]/30' 
                   : isActive(item.href) 
-                    ? 'text-pink-400' 
+                    ? 'text-[#FF2D8E]' 
                     : 'text-black'
                 }
               `}

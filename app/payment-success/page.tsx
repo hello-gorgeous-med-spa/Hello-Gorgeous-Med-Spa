@@ -46,7 +46,7 @@ function PaymentSuccessContent() {
         <div className="space-y-3">
           <Link
             href="/portal"
-            className="block w-full py-3 bg-pink-500 text-white font-medium rounded-xl hover:bg-pink-600 transition-colors"
+            className="block w-full py-3 bg-[#FF2D8E] text-white font-medium rounded-xl hover:bg-black transition-colors"
           >
             Go to Client Portal
           </Link>

@@ -39,7 +39,7 @@ export function HarmonyHeroSection() {
           {/* Harmony Avatar */}
           <div className="relative w-28 h-28 mx-auto mb-6">
             <div className="absolute inset-0 bg-gradient-to-br from-[#FF2D8E] to-rose-400 rounded-full animate-pulse opacity-30" />
-            <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white shadow-2xl shadow-pink-500/20 bg-gradient-to-br from-pink-100 to-rose-100">
+            <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white shadow-2xl shadow-[#FF2D8E]/20 bg-gradient-to-br from-pink-100 to-rose-100">
               <Image
                 src={harmonyAvatar}
                 alt="Harmony - Your Biote Hormone Expert"
@@ -72,7 +72,7 @@ export function HarmonyHeroSection() {
         <div className="text-center mb-8">
           <button
             onClick={() => handleAskHarmony()}
-            className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-[#FF2D8E] to-rose-500 text-white font-bold text-lg shadow-xl shadow-pink-500/30 hover:shadow-2xl hover:shadow-pink-500/40 hover:scale-105 transition-all duration-300"
+            className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-[#FF2D8E] to-rose-500 text-white font-bold text-lg shadow-xl shadow-[#FF2D8E]/30 hover:shadow-2xl hover:shadow-[#FF2D8E]/40 hover:scale-105 transition-all duration-300"
           >
             <span className="text-2xl">💬</span>
             Chat with Harmony Now

@@ -272,7 +272,7 @@ export default function ConsentFormBuilderPage() {
         {!editingForm && (
           <button
             onClick={createNewForm}
-            className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+            className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
           >
             + Create Form
           </button>
@@ -431,7 +431,7 @@ export default function ConsentFormBuilderPage() {
             </button>
             <button
               onClick={saveForm}
-              className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+              className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
             >
               {isCreating ? 'Create Form' : 'Save Changes'}
             </button>

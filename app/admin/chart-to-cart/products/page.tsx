@@ -88,7 +88,7 @@ export default function ProductsPricingPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="px-5 py-2.5 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors font-medium flex items-center gap-2"
+          className="px-5 py-2.5 bg-[#FF2D8E] text-white rounded-xl hover:bg-black transition-colors font-medium flex items-center gap-2"
         >
           <span>➕</span> Add Product
         </button>
@@ -156,7 +156,7 @@ export default function ProductsPricingPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search products by name or SKU..."
-              className="flex-1 px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="flex-1 px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
             />
           </div>
         </div>
@@ -277,7 +277,7 @@ export default function ProductsPricingPage() {
 
       {/* Edit Modal */}
       {editingProduct && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl max-w-md w-full mx-4 overflow-hidden">
             <div className="p-6 border-b border-black">
               <h3 className="text-lg font-semibold">Edit Product</h3>
@@ -347,7 +347,7 @@ export default function ProductsPricingPage() {
                   setProducts(prev => prev.map(p => p.id === editingProduct.id ? editingProduct : p));
                   setEditingProduct(null);
                 }}
-                className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+                className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
               >
                 Save Changes
               </button>

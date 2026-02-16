@@ -102,7 +102,7 @@ export function KeyboardShortcutsProvider({ children }: { children: ReactNode })
       
       {/* Keyboard Shortcuts Help Modal */}
       {showHelp && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999] p-4" onClick={() => setShowHelp(false)}>
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-[9999] p-4" onClick={() => setShowHelp(false)}>
           <div className="bg-white rounded-xl max-w-md w-full shadow-xl" onClick={e => e.stopPropagation()}>
             <div className="p-6 border-b border-black">
               <h2 className="text-xl font-bold text-black">Keyboard Shortcuts</h2>

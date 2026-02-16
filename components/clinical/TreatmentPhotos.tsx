@@ -116,7 +116,7 @@ export function TreatmentPhotos({
         </div>
         <button
           onClick={handleSave}
-          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+          className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
         >
           Save Photos
         </button>
@@ -159,7 +159,7 @@ export function TreatmentPhotos({
             <canvas ref={canvasRef} className="hidden" />
             
             {/* Angle indicator */}
-            <div className="absolute top-4 left-4 px-3 py-1 bg-black/50 text-white rounded-full text-sm">
+            <div className="absolute top-4 left-4 px-3 py-1 bg-white text-white rounded-full text-sm">
               {ANGLES.find(a => a.id === selectedAngle)?.label}
             </div>
           </div>
@@ -172,7 +172,7 @@ export function TreatmentPhotos({
                 onClick={() => setSelectedAngle(angle.id)}
                 className={`px-3 py-2 rounded-lg text-sm ${
                   selectedAngle === angle.id
-                    ? 'bg-pink-500 text-white'
+                    ? 'bg-[#FF2D8E] text-white'
                     : 'bg-white text-black'
                 }`}
               >
@@ -191,7 +191,7 @@ export function TreatmentPhotos({
             </button>
             <button
               onClick={capturePhoto}
-              className="px-8 py-3 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+              className="px-8 py-3 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
             >
               📸 Capture
             </button>
@@ -208,7 +208,7 @@ export function TreatmentPhotos({
                   alt={`${photo.type} - ${photo.angle}`}
                   className="w-full aspect-square object-cover rounded-lg"
                 />
-                <div className="absolute bottom-2 left-2 px-2 py-1 bg-black/50 text-white text-xs rounded">
+                <div className="absolute bottom-2 left-2 px-2 py-1 bg-white text-white text-xs rounded">
                   {ANGLES.find(a => a.id === photo.angle)?.label}
                 </div>
                 <button
@@ -223,7 +223,7 @@ export function TreatmentPhotos({
             {/* Add Photo Button */}
             <button
               onClick={startCamera}
-              className="aspect-square border-2 border-dashed border-black rounded-lg flex flex-col items-center justify-center hover:border-pink-500 hover:bg-pink-50 transition-colors"
+              className="aspect-square border-2 border-dashed border-black rounded-lg flex flex-col items-center justify-center hover:border-[#FF2D8E] hover:bg-pink-50 transition-colors"
             >
               <span className="text-2xl mb-1">📷</span>
               <span className="text-sm text-black">Add Photo</span>

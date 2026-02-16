@@ -122,11 +122,11 @@ export function TelehealthContent() {
       <Section className="relative py-20 bg-gradient-to-b from-blue-950/30 via-purple-950/20 to-black overflow-hidden">
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#FF2D8E]/20 rounded-full blur-3xl" />
         </div>
         <FadeUp>
           <div className="text-center max-w-3xl mx-auto relative z-10">
-            <span className="inline-block px-4 py-1 rounded-full bg-pink-500/20 text-pink-400 text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-1 rounded-full bg-[#FF2D8E]/20 text-[#FF2D8E] text-sm font-medium mb-4">
               🖥️ HIPAA Compliant Virtual Care
             </span>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
@@ -162,18 +162,18 @@ export function TelehealthContent() {
       </Section>
 
       {/* Join Appointment Banner */}
-      <Section className="py-6 bg-gradient-to-r from-fuchsia-600/20 to-pink-500/20 border-y border-pink-500/30">
+      <Section className="py-6 bg-gradient-to-r from-fuchsia-600/20 to-pink-500/20 border-y border-[#FF2D8E]/30">
         <FadeUp>
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
             <div className="flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full bg-pink-500 animate-pulse" />
+              <span className="w-3 h-3 rounded-full bg-[#FF2D8E] animate-pulse" />
               <span className="text-white font-semibold">Have an Appointment?</span>
             </div>
             <a
               href={DOXY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 rounded-xl bg-gradient-to-r from-fuchsia-500 to-pink-500 text-white font-bold hover:opacity-90 transition flex items-center gap-2"
+              className="px-6 py-3 rounded-xl bg-[#FF2D8E] text-white font-bold hover:opacity-90 transition flex items-center gap-2"
             >
               <span className="text-xl">🖥️</span>
               Join Video Visit Now →
@@ -196,9 +196,9 @@ export function TelehealthContent() {
                       <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 to-pink-500 flex items-center justify-center mx-auto mb-4 text-6xl">
                         👨‍⚕️
                       </div>
-                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/20 border border-pink-500/30">
-                        <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
-                        <span className="text-pink-400 text-sm font-medium">Available for Telehealth</span>
+                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/20 border border-[#FF2D8E]/30">
+                        <span className="w-2 h-2 rounded-full bg-[#FF2D8E] animate-pulse" />
+                        <span className="text-[#FF2D8E] text-sm font-medium">Available for Telehealth</span>
                       </div>
                     </div>
                   </div>
@@ -213,21 +213,21 @@ export function TelehealthContent() {
                   
                   <div className="space-y-3 mb-6">
                     <div className="flex items-start gap-3">
-                      <span className="text-pink-400">✓</span>
+                      <span className="text-[#FF2D8E]">✓</span>
                       <div>
                         <p className="text-white font-medium">Board Certified Family Nurse Practitioner</p>
                         <p className="text-black text-sm">FNP-BC credentialed through ANCC</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <span className="text-pink-400">✓</span>
+                      <span className="text-[#FF2D8E]">✓</span>
                       <div>
                         <p className="text-white font-medium">Full Practice Authority</p>
                         <p className="text-black text-sm">Independent prescriptive authority in Illinois</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <span className="text-pink-400">✓</span>
+                      <span className="text-[#FF2D8E]">✓</span>
                       <div>
                         <p className="text-white font-medium">Specializations</p>
                         <p className="text-black text-sm">Weight Management, Hormone Optimization, Regenerative Medicine</p>
@@ -235,7 +235,7 @@ export function TelehealthContent() {
                     </div>
                   </div>
                   
-                  <div className="p-4 rounded-xl bg-white/5 border border-white/10 mb-6">
+                  <div className="p-4 rounded-xl bg-white border border-black mb-6">
                     <p className="text-black text-sm italic">
                       &ldquo;Telehealth allows me to provide the same high-quality care you&apos;d receive in-office, 
                       with the convenience of connecting from wherever you are. I&apos;m committed to 
@@ -270,7 +270,7 @@ export function TelehealthContent() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {benefits.map((benefit, i) => (
             <FadeUp key={benefit.title} delayMs={i * 60}>
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center hover:border-pink-500/30 transition h-full">
+              <div className="p-6 rounded-2xl bg-white border border-black text-center hover:border-[#FF2D8E]/30 transition h-full">
                 <span className="text-4xl mb-4 block">{benefit.icon}</span>
                 <h3 className="text-white font-semibold mb-2">{benefit.title}</h3>
                 <p className="text-black text-sm">{benefit.description}</p>
@@ -296,7 +296,7 @@ export function TelehealthContent() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {telehealthServices.map((service, i) => (
             <FadeUp key={service.id} delayMs={i * 40}>
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 hover:border-pink-500/30 transition h-full flex flex-col">
+              <div className="p-6 rounded-2xl bg-white border border-black hover:border-[#FF2D8E]/30 transition h-full flex flex-col">
                 <div className="flex items-start gap-4 mb-4">
                   <span className="text-3xl">{service.icon}</span>
                   <div>
@@ -306,12 +306,12 @@ export function TelehealthContent() {
                 </div>
                 <p className="text-black text-sm flex-1 mb-4">{service.description}</p>
                 <div className="flex items-center justify-between mt-auto">
-                  <span className="text-pink-400 font-bold">{service.price}</span>
+                  <span className="text-[#FF2D8E] font-bold">{service.price}</span>
                   <a
                     href={BOOKING_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-4 py-2 rounded-lg bg-pink-500/20 text-pink-400 text-sm font-medium hover:bg-pink-500/30 transition"
+                    className="px-4 py-2 rounded-lg bg-[#FF2D8E]/20 text-[#FF2D8E] text-sm font-medium hover:bg-[#FF2D8E]/30 transition"
                   >
                     Book Now
                   </a>
@@ -343,7 +343,7 @@ export function TelehealthContent() {
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-pink-500 to-blue-500 text-white font-bold text-2xl flex items-center justify-center mx-auto mb-4">
                   {item.icon}
                 </div>
-                <div className="text-pink-400 text-sm font-medium mb-1">Step {item.step}</div>
+                <div className="text-[#FF2D8E] text-sm font-medium mb-1">Step {item.step}</div>
                 <h3 className="text-white font-semibold mb-2">{item.title}</h3>
                 <p className="text-black text-sm">{item.desc}</p>
               </div>
@@ -362,7 +362,7 @@ export function TelehealthContent() {
               </h2>
               <div className="grid sm:grid-cols-2 gap-6">
                 <div>
-                  <h3 className="text-pink-400 font-semibold mb-3">You&apos;ll Need:</h3>
+                  <h3 className="text-[#FF2D8E] font-semibold mb-3">You&apos;ll Need:</h3>
                   <ul className="space-y-2">
                     {[
                       "Device with camera & microphone",
@@ -372,7 +372,7 @@ export function TelehealthContent() {
                       "List of current medications",
                     ].map((item) => (
                       <li key={item} className="flex items-center gap-2 text-black text-sm">
-                        <span className="text-pink-400">✓</span>
+                        <span className="text-[#FF2D8E]">✓</span>
                         {item}
                       </li>
                     ))}
@@ -416,7 +416,7 @@ export function TelehealthContent() {
               <button
                 type="button"
                 onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}
-                className="w-full text-left p-4 rounded-xl bg-white/5 border border-white/10 hover:border-pink-500/30 transition"
+                className="w-full text-left p-4 rounded-xl bg-white border border-black hover:border-[#FF2D8E]/30 transition"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-white font-medium pr-4">{faq.q}</span>
@@ -434,10 +434,10 @@ export function TelehealthContent() {
       </Section>
 
       {/* Platform Info */}
-      <Section className="py-12 bg-black border-t border-white/10">
+      <Section className="py-12 bg-black border-t border-black">
         <FadeUp>
           <div className="text-center max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 mb-6">
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-black mb-6">
               <span className="text-2xl">🔒</span>
               <span className="text-white font-semibold">Powered by Doxy.me</span>
             </div>
@@ -450,7 +450,7 @@ export function TelehealthContent() {
               href={DOXY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-pink-500/20 border border-pink-500/30 text-pink-400 font-medium hover:bg-pink-500/30 transition"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#FF2D8E]/20 border border-[#FF2D8E]/30 text-[#FF2D8E] font-medium hover:bg-[#FF2D8E]/30 transition"
             >
               <span>🖥️</span>
               Join Ryan&apos;s Waiting Room →
@@ -481,7 +481,7 @@ export function TelehealthContent() {
               </a>
               <a
                 href="tel:630-636-6193"
-                className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition"
+                className="px-8 py-4 rounded-xl bg-white border border-black text-white font-medium hover:bg-white transition"
               >
                 📞 630-636-6193
               </a>

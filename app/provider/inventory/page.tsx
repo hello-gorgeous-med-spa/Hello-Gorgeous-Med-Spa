@@ -169,7 +169,7 @@ export default function ProviderInventoryPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-12 h-12 border-4 border-[#FF2D8E] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -184,7 +184,7 @@ export default function ProviderInventoryPage() {
         </div>
         <Link
           href="/admin/inventory"
-          className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium"
+          className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black font-medium"
         >
           Full Inventory →
         </Link>
@@ -254,7 +254,7 @@ export default function ProviderInventoryPage() {
               type="checkbox"
               checked={showExpiringSoon}
               onChange={(e) => setShowExpiringSoon(e.target.checked)}
-              className="w-4 h-4 text-pink-500 rounded"
+              className="w-4 h-4 text-[#FF2D8E] rounded"
             />
             <span className="text-sm text-black">Expiring Soon Only</span>
           </label>
@@ -325,7 +325,7 @@ export default function ProviderInventoryPage() {
 
       {/* Product Detail Modal */}
       {selectedProduct && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden">
             <div className="px-6 py-4 border-b border-black flex items-center justify-between">
               <div>
@@ -429,7 +429,7 @@ export default function ProviderInventoryPage() {
               </button>
               <Link
                 href={`/admin/inventory?product=${selectedProduct.id}`}
-                className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+                className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
               >
                 Manage in Admin
               </Link>

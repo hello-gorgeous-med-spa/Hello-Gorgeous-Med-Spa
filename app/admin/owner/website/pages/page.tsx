@@ -235,7 +235,7 @@ function PagesManagerContent() {
         </div>
         <button
           onClick={() => setShowCreateModal(true)}
-          className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+          className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
         >
           + Create Page
         </button>
@@ -331,7 +331,7 @@ function PagesManagerContent() {
             <p className="text-sm text-black mb-4">Create your first page to get started</p>
             <button
               onClick={() => setShowCreateModal(true)}
-              className="px-4 py-2 bg-pink-500 text-white rounded-lg"
+              className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg"
             >
               + Create Page
             </button>
@@ -341,7 +341,7 @@ function PagesManagerContent() {
 
       {/* Create Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold">Create New Page</h2>
@@ -404,7 +404,7 @@ function PagesManagerContent() {
               <button
                 onClick={handleCreate}
                 disabled={saving || !createForm.title}
-                className="flex-1 px-4 py-2 bg-pink-500 text-white rounded-lg disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-[#FF2D8E] text-white rounded-lg disabled:opacity-50"
               >
                 {saving ? 'Creating...' : 'Create Page'}
               </button>

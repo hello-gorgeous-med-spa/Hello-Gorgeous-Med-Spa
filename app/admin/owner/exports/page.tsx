@@ -190,7 +190,7 @@ export default function DataExportsPage() {
             className={`w-full px-6 py-4 rounded-xl font-medium text-white ${
               exporting || selectedExports.length === 0
                 ? 'bg-white cursor-not-allowed'
-                : 'bg-pink-500 hover:bg-pink-600'
+                : 'bg-[#FF2D8E] hover:bg-black'
             }`}
           >
             {exporting ? '⏳ Exporting...' : `📥 Export ${selectedExports.length} Data Types`}

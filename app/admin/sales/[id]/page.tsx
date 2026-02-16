@@ -217,7 +217,7 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin h-8 w-8 border-4 border-pink-500 border-t-transparent rounded-full" />
+        <div className="animate-spin h-8 w-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full" />
       </div>
     );
   }
@@ -250,7 +250,7 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
       <div className="flex items-center justify-between">
         <div>
           <div className="flex items-center gap-2 text-sm text-black mb-1">
-            <Link href="/admin/sales" className="hover:text-pink-500">Sales</Link>
+            <Link href="/admin/sales" className="hover:text-[#FF2D8E]">Sales</Link>
             <span>/</span>
             <span>{sale.sale_number}</span>
           </div>
@@ -514,7 +514,7 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
       {showRefundModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center">
           <div 
-            className="absolute inset-0 bg-black/50"
+            className="absolute inset-0 bg-white"
             onClick={() => setShowRefundModal(false)}
           />
           <div className="relative bg-white rounded-xl shadow-xl w-full max-w-md mx-4 p-6">

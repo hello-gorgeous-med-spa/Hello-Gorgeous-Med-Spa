@@ -107,7 +107,7 @@ export default function FinancingPage() {
                     onClick={() => setSelectedMonths(m)}
                     className={`flex-1 py-2 rounded-lg font-medium ${
                       selectedMonths === m
-                        ? 'bg-pink-500 text-white'
+                        ? 'bg-[#FF2D8E] text-white'
                         : 'bg-white text-black'
                     }`}
                   >
@@ -275,7 +275,7 @@ export default function FinancingPage() {
             </a>
             <Link
               href="/book"
-              className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white/10"
+              className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white"
             >
               Book Consultation
             </Link>

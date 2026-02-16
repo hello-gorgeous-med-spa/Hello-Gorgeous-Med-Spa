@@ -190,7 +190,7 @@ export default function ChangeManagementPage() {
               </div>
               <button
                 onClick={() => setShowScheduleModal(true)}
-                className="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600"
+                className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg text-sm hover:bg-black"
               >
                 + Schedule Change
               </button>
@@ -276,7 +276,7 @@ export default function ChangeManagementPage() {
 
       {/* Schedule Modal */}
       {showScheduleModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
             <h3 className="text-lg font-semibold mb-4">Schedule a Change</h3>
             <p className="text-sm text-black mb-4">
@@ -296,7 +296,7 @@ export default function ChangeManagementPage() {
               <button onClick={() => setShowScheduleModal(false)} className="px-4 py-2 text-black hover:text-black">
                 Cancel
               </button>
-              <button onClick={() => setShowScheduleModal(false)} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
+              <button onClick={() => setShowScheduleModal(false)} className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black">
                 Schedule
               </button>
             </div>

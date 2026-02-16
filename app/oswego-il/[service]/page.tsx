@@ -92,7 +92,7 @@ export default function OswegoServicePage({ params }: { params: { service: strin
         <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
         <div className="relative z-10">
           <FadeUp>
-            <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
+            <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">
               OSWEGO, IL
             </p>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
@@ -115,7 +115,7 @@ export default function OswegoServicePage({ params }: { params: { service: strin
                 Back to Oswego hub
               </CTA>
             </div>
-            <p className="mt-6 text-sm text-white/60">
+            <p className="mt-6 text-sm text-black">
               74 W. Washington St., Oswego, IL 60543 · (630) 636‑6193
             </p>
           </FadeUp>
@@ -202,7 +202,7 @@ export default function OswegoServicePage({ params }: { params: { service: strin
               <details className="group rounded-2xl border border-black bg-black/40 p-6">
                 <summary className="cursor-pointer list-none text-lg font-semibold text-white flex items-center justify-between">
                   <span>{f.question}</span>
-                  <span className="text-white/60 group-open:rotate-45 transition-transform">+</span>
+                  <span className="text-black group-open:rotate-45 transition-transform">+</span>
                 </summary>
                 <p className="mt-4 text-black">{f.answer}</p>
               </details>

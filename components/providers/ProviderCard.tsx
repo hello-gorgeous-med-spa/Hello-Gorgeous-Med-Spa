@@ -41,13 +41,13 @@ export function ProviderCard({ provider }: ProviderCardProps) {
 
   return (
     <article
-      className="relative rounded-xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 p-8 backdrop-blur-lg shadow-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl hover:border-pink-500/30"
+      className="relative rounded-xl border border-black bg-gradient-to-b from-white/5 to-white/0 p-8 backdrop-blur-lg shadow-md transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-xl hover:border-[#FF2D8E]/30"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <div className="flex items-center gap-4">
         {/* Headshot with optional video overlay */}
-        <div className="relative h-20 w-20 rounded-2xl overflow-hidden border border-white/20 bg-black/40">
+        <div className="relative h-20 w-20 rounded-2xl overflow-hidden border border-black bg-black/40">
           {provider.headshot_url ? (
             <Image
               src={provider.headshot_url}
@@ -80,19 +80,19 @@ export function ProviderCard({ provider }: ProviderCardProps) {
         </div>
 
         <div className="flex-1">
-          <p className="text-sm uppercase tracking-[0.25em] text-pink-400">Provider</p>
+          <p className="text-sm uppercase tracking-[0.25em] text-[#FF2D8E]">Provider</p>
           <h3 className="text-2xl font-bold text-white">{provider.display_name}</h3>
           <p className="text-xs text-blue-200">{provider.credentials}</p>
         </div>
       </div>
 
-      <p className="mt-4 text-sm text-white/80 leading-relaxed">{provider.short_bio || provider.tagline}</p>
+      <p className="mt-4 text-sm text-black leading-relaxed">{provider.short_bio || provider.tagline}</p>
 
-      <div className="mt-4 flex flex-wrap gap-3 text-xs text-white/60">
-        <span className="inline-flex items-center gap-1 rounded-full border border-white/10 px-3 py-1">
+      <div className="mt-4 flex flex-wrap gap-3 text-xs text-black">
+        <span className="inline-flex items-center gap-1 rounded-full border border-black px-3 py-1">
           🎬 {provider.media_counts?.videos ?? 0} videos
         </span>
-        <span className="inline-flex items-center gap-1 rounded-full border border-white/10 px-3 py-1">
+        <span className="inline-flex items-center gap-1 rounded-full border border-black px-3 py-1">
           📸 {provider.media_counts?.results ?? 0} results
         </span>
       </div>
@@ -100,7 +100,7 @@ export function ProviderCard({ provider }: ProviderCardProps) {
       <div className="mt-6 flex flex-wrap gap-3">
         <Link
           href={`/providers/${provider.slug}`}
-          className="flex-1 rounded-2xl border border-white/20 px-4 py-3 text-center text-sm font-semibold text-white hover:bg-white/10 transition-colors"
+          className="flex-1 rounded-2xl border border-black px-4 py-3 text-center text-sm font-semibold text-white hover:bg-white transition-colors"
         >
           View Results
         </Link>

@@ -113,7 +113,7 @@ function InboxContent() {
         <div className="flex-1 overflow-y-auto">
           {loading ? (
             <div className="flex items-center justify-center h-32">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#FF2D8E]"></div>
             </div>
           ) : filteredClients.length === 0 ? (
             <div className="p-4 text-center text-black text-sm">
@@ -142,7 +142,7 @@ function InboxContent() {
                       </p>
                     </div>
                     {client.unread_count ? (
-                      <span className="w-5 h-5 rounded-full bg-pink-500 text-white text-xs flex items-center justify-center">
+                      <span className="w-5 h-5 rounded-full bg-[#FF2D8E] text-white text-xs flex items-center justify-center">
                         {client.unread_count}
                       </span>
                     ) : null}
@@ -245,7 +245,7 @@ function InboxLoading() {
         </div>
       </div>
       <div className="flex-1 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#FF2D8E]"></div>
       </div>
     </div>
   );

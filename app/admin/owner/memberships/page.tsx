@@ -59,14 +59,14 @@ export default function MembershipsPage() {
         <div className="bg-white rounded-xl border">
           <div className="p-4 border-b flex items-center justify-between">
             <h2 className="text-lg font-semibold">Membership Plans</h2>
-            <button className="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600">
+            <button className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg text-sm hover:bg-black">
               + Create Plan
             </button>
           </div>
           <div className="grid grid-cols-3 gap-4 p-4">
             {plans.map(plan => (
               <div key={plan.id} className={`border rounded-xl overflow-hidden ${!plan.is_active ? 'opacity-60' : ''}`}>
-                <div className="h-2 bg-pink-500" />
+                <div className="h-2 bg-[#FF2D8E]" />
                 <div className="p-4">
                   <div className="flex items-start justify-between">
                     <h3 className="text-lg font-semibold">{plan.name}</h3>
@@ -163,7 +163,7 @@ export default function MembershipsPage() {
 
         {/* Save */}
         <div className="flex justify-end">
-          <button onClick={saveSettings} className="px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
+          <button onClick={saveSettings} className="px-6 py-3 bg-[#FF2D8E] text-white rounded-lg hover:bg-black font-medium">
             Save Membership Settings
           </button>
         </div>

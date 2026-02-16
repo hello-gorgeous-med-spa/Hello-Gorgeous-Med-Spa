@@ -12,7 +12,7 @@ export function GiftCardBanner() {
           rel="noopener noreferrer"
           className="group block"
         >
-          <div className="relative rounded-3xl overflow-hidden border-2 border-pink-500/30 bg-gradient-to-br from-black via-pink-950/20 to-black hover:border-pink-500/60 transition-all duration-500 hover:shadow-2xl hover:shadow-pink-500/20">
+          <div className="relative rounded-3xl overflow-hidden border-2 border-[#FF2D8E]/30 bg-gradient-to-br from-black via-pink-950/20 to-black hover:border-[#FF2D8E]/60 transition-all duration-500 hover:shadow-2xl hover:shadow-[#FF2D8E]/20">
             <div className="grid md:grid-cols-2 items-center">
               {/* Left - Logo */}
               <div className="relative p-8 md:p-12 flex items-center justify-center bg-black">
@@ -29,7 +29,7 @@ export function GiftCardBanner() {
 
               {/* Right - Content */}
               <div className="p-8 md:p-12 text-center md:text-left">
-                <p className="text-pink-400 text-sm font-bold tracking-widest mb-3">
+                <p className="text-[#FF2D8E] text-sm font-bold tracking-widest mb-3">
                   THE PERFECT GIFT
                 </p>
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
@@ -43,7 +43,7 @@ export function GiftCardBanner() {
                   or just because. Redeemable for any service.
                 </p>
 
-                <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-pink-500 text-white font-bold text-lg group-hover:bg-pink-600 transition shadow-lg shadow-pink-500/25">
+                <div className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-[#FF2D8E] text-white font-bold text-lg group-hover:bg-black transition shadow-lg shadow-[#FF2D8E]/25">
                   <span className="text-2xl">🎁</span>
                   Purchase eGift Card
                   <span className="group-hover:translate-x-1 transition-transform">→</span>

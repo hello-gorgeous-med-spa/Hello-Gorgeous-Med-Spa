@@ -69,7 +69,7 @@ export default function LocationsPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
         <div className="relative z-10">
           <FadeUp>
-            <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
+            <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">
               LOCATIONS
             </p>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
@@ -101,9 +101,9 @@ export default function LocationsPage() {
             <FadeUp key={l.slug} delayMs={40 * idx}>
               <Link
                 href={`/${l.slug}`}
-                className="group block rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6 hover:border-white/20 transition"
+                className="group block rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6 hover:border-black transition"
               >
-                <p className="text-pink-400 text-sm font-semibold tracking-wide">LOCATION</p>
+                <p className="text-[#FF2D8E] text-sm font-semibold tracking-wide">LOCATION</p>
                 <h2 className="mt-3 text-2xl font-bold text-white">{l.label}</h2>
                 <p className="mt-3 text-black">{l.blurb}</p>
                 <p className="mt-6 text-sm font-semibold text-white/90">

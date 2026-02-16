@@ -118,7 +118,7 @@ export default function BusinessSettingsPage() {
           <h1 className="text-2xl font-bold text-black">Business & Clinic Settings</h1>
           <p className="text-black">Configure your business identity and operations</p>
         </div>
-        <button onClick={saveSettings} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
+        <button onClick={saveSettings} className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black">
           Save All Changes
         </button>
       </div>

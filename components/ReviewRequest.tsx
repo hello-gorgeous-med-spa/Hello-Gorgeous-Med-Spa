@@ -81,7 +81,7 @@ export function ReviewRequest({
               href={googleReviewUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+              className="inline-block px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
             >
               Leave a Google Review
             </a>

@@ -95,7 +95,7 @@ export default function SystemHealthPage() {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#FF2D8E] mx-auto mb-4"></div>
           <p className="text-black">Running system health check...</p>
         </div>
       </div>
@@ -129,7 +129,7 @@ export default function SystemHealthPage() {
         </div>
         <button
           onClick={fetchHealth}
-          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+          className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
         >
           🔄 Refresh Check
         </button>

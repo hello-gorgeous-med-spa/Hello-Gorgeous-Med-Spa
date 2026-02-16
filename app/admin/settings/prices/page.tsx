@@ -170,7 +170,7 @@ export default function PriceManagerPage() {
             <button
               onClick={saveAllPrices}
               disabled={saving}
-              className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 disabled:opacity-50"
+              className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black disabled:opacity-50"
             >
               {saving ? 'Saving...' : 'Save All Prices'}
             </button>

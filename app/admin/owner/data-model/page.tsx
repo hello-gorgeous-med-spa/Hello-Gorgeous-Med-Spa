@@ -115,7 +115,7 @@ export default function DataModelPage() {
               key={entity}
               onClick={() => setFilterEntity(entity)}
               className={`px-4 py-2 rounded-lg text-sm capitalize font-medium transition-colors ${
-                filterEntity === entity ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/30' : 'bg-pink-100 text-pink-700 hover:bg-pink-200 border border-pink-200'
+                filterEntity === entity ? 'bg-[#FF2D8E] text-white shadow-lg shadow-[#FF2D8E]/30' : 'bg-pink-100 text-pink-700 hover:bg-pink-200 border border-pink-200'
               }`}
             >
               {entity === 'all' ? 'All Entities' : entity}
@@ -124,7 +124,7 @@ export default function DataModelPage() {
         </div>
         <button
           onClick={() => setShowAddField(true)}
-          className="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600"
+          className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg text-sm hover:bg-black"
         >
           + Add Custom Field
         </button>
@@ -173,7 +173,7 @@ export default function DataModelPage() {
                   </button>
                 </td>
                 <td className="px-4 py-3 text-center">
-                  {field.lockAfterSign && <span className="text-amber-500">🔒</span>}
+                  {field.lockAfterSign && <span className="text-[#FF2D8E]">🔒</span>}
                 </td>
                 <td className="px-4 py-3">
                   <button onClick={() => deleteField(field.id)} className="text-red-500 hover:text-red-700 text-sm">
@@ -193,7 +193,7 @@ export default function DataModelPage() {
 
       {/* Add Field Modal */}
       {showAddField && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto">
             <h3 className="text-lg font-semibold mb-4">Add Custom Field</h3>
             
@@ -299,7 +299,7 @@ export default function DataModelPage() {
               <button onClick={() => setShowAddField(false)} className="px-4 py-2 text-black hover:text-black">
                 Cancel
               </button>
-              <button onClick={addField} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
+              <button onClick={addField} className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black">
                 Add Field
               </button>
             </div>

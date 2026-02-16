@@ -246,7 +246,7 @@ export function HelloGorgeousAssistant() {
             <button
               type="button"
               onClick={() => setShowBookingFlow(true)}
-              className="flex-1 py-2.5 rounded-xl bg-pink-500 text-white text-center text-sm font-medium hover:bg-pink-600 transition-colors"
+              className="flex-1 py-2.5 rounded-xl bg-[#FF2D8E] text-white text-center text-sm font-medium hover:bg-black transition-colors"
             >
               Book now
             </button>
@@ -296,7 +296,7 @@ export function HelloGorgeousAssistant() {
                 <div
                   className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm ${
                     msg.role === "user"
-                      ? "bg-pink-500 text-white"
+                      ? "bg-[#FF2D8E] text-white"
                       : "bg-white text-black"
                   }`}
                 >
@@ -308,9 +308,9 @@ export function HelloGorgeousAssistant() {
               <div className="flex justify-start">
                 <div className="bg-white rounded-2xl px-4 py-3">
                   <div className="flex gap-1">
-                    <span className="w-2 h-2 bg-black/30 rounded-full animate-bounce" />
-                    <span className="w-2 h-2 bg-black/30 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }} />
-                    <span className="w-2 h-2 bg-black/30 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }} />
+                    <span className="w-2 h-2 bg-white rounded-full animate-bounce" />
+                    <span className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: "0.1s" }} />
+                    <span className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: "0.2s" }} />
                   </div>
                 </div>
               </div>
@@ -334,7 +334,7 @@ export function HelloGorgeousAssistant() {
                   className="w-full rounded-lg border border-black px-3 py-2 text-sm"
                 />
                 <div className="flex gap-2">
-                  <button type="button" onClick={sendFeedbackToOwner} className="flex-1 py-2 rounded-lg bg-pink-500 text-white text-sm font-medium hover:bg-pink-600">Send to owner</button>
+                  <button type="button" onClick={sendFeedbackToOwner} className="flex-1 py-2 rounded-lg bg-[#FF2D8E] text-white text-sm font-medium hover:bg-black">Send to owner</button>
                   <button type="button" onClick={() => { setPendingFeedback(null); setFeedbackName(""); setFeedbackContact(""); }} className="py-2 px-3 rounded-lg bg-white text-black text-sm hover:bg-white">Cancel</button>
                 </div>
               </div>
@@ -400,7 +400,7 @@ export function HelloGorgeousAssistant() {
               <button
                 type="submit"
                 disabled={!input.trim() || isTyping}
-                className="w-10 h-10 bg-pink-500 text-white rounded-full flex items-center justify-center hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
+                className="w-10 h-10 bg-[#FF2D8E] text-white rounded-full flex items-center justify-center hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
               >
                 ↑
               </button>

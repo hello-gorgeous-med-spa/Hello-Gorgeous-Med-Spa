@@ -62,7 +62,7 @@ export default function AdminStaffPage() {
           </Link>
           <button 
             onClick={() => setShowAddModal(true)}
-            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+            className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
           >
             + Add Team Member
           </button>
@@ -262,7 +262,7 @@ export default function AdminStaffPage() {
 
       {/* Edit Staff Modal */}
       {editingStaff && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
           <div className="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-black">
               <h2 className="text-lg font-semibold text-black">Edit Team Member</h2>
@@ -334,7 +334,7 @@ export default function AdminStaffPage() {
                   <input
                     type="checkbox"
                     defaultChecked={editingStaff.canPrescribe}
-                    className="w-4 h-4 text-pink-500 rounded"
+                    className="w-4 h-4 text-[#FF2D8E] rounded"
                   />
                   <span className="text-sm text-black">Can Prescribe</span>
                 </label>
@@ -342,7 +342,7 @@ export default function AdminStaffPage() {
                   <input
                     type="checkbox"
                     defaultChecked={editingStaff.isActive}
-                    className="w-4 h-4 text-pink-500 rounded"
+                    className="w-4 h-4 text-[#FF2D8E] rounded"
                   />
                   <span className="text-sm text-black">Active</span>
                 </label>
@@ -365,7 +365,7 @@ export default function AdminStaffPage() {
                   }
                   setEditingStaff(null);
                 }}
-                className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+                className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
               >
                 Manage in Team Settings
               </button>
@@ -376,7 +376,7 @@ export default function AdminStaffPage() {
 
       {/* Add Staff Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white">
           <div className="bg-white rounded-xl shadow-xl max-w-lg w-full mx-4 max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-black">
               <h2 className="text-lg font-semibold text-black">Add Team Member</h2>
@@ -453,7 +453,7 @@ export default function AdminStaffPage() {
                   // Redirect to the database-connected provider management page
                   window.location.href = '/admin/team/providers';
                 }}
-                className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+                className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
               >
                 Add in Team Settings
               </button>

@@ -112,7 +112,7 @@ export default function AdminClientsPage() {
           />
           <Link
             href="/admin/clients/new"
-            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+            className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
           >
             + Add Client
           </Link>
@@ -128,7 +128,7 @@ export default function AdminClientsPage() {
               placeholder="Search by name, email, or phone..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full pl-10 pr-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
             />
             <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-black" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />

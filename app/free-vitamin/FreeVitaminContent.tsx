@@ -109,7 +109,7 @@ export function FreeVitaminContent() {
         <div className="relative max-w-5xl mx-auto">
           {/* Urgency Banner */}
           <div className="text-center mb-8">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/20 border border-red-500/30 text-red-400 text-sm font-medium animate-pulse">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/20 border border-red-500/30 text-[#FF2D8E] text-sm font-medium animate-pulse">
               <span>🔥</span>
               <span>LIMITED TIME OFFER - While Supplies Last!</span>
             </span>
@@ -160,7 +160,7 @@ export function FreeVitaminContent() {
                   className={`w-full p-4 rounded-2xl border-2 transition-all text-left ${
                     selectedVitamin === vitamin.name
                       ? "border-emerald-500 bg-emerald-500/20"
-                      : "border-white/10 bg-white/5 hover:border-emerald-500/50"
+                      : "border-black bg-white hover:border-emerald-500/50"
                   }`}
                 >
                   <div className="flex items-start gap-4">
@@ -206,7 +206,7 @@ export function FreeVitaminContent() {
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Your Name *"
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-emerald-500"
+                        className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-black/50 focus:outline-none focus:border-emerald-500"
                       />
                     </div>
                     <div>
@@ -216,7 +216,7 @@ export function FreeVitaminContent() {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email Address *"
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-emerald-500"
+                        className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-black/50 focus:outline-none focus:border-emerald-500"
                       />
                     </div>
                     <div>
@@ -225,7 +225,7 @@ export function FreeVitaminContent() {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="Phone Number (optional)"
-                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-emerald-500"
+                        className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-black/50 focus:outline-none focus:border-emerald-500"
                       />
                     </div>
 
@@ -238,7 +238,7 @@ export function FreeVitaminContent() {
                     )}
 
                     {error && (
-                      <p className="text-red-400 text-sm">{error}</p>
+                      <p className="text-[#FF2D8E] text-sm">{error}</p>
                     )}
 
                     <button
@@ -273,7 +273,7 @@ export function FreeVitaminContent() {
                   </p>
 
                   {promoCode && (
-                    <div className="p-4 rounded-xl bg-black/30 border border-emerald-500/30 mb-4">
+                    <div className="p-4 rounded-xl bg-white border border-emerald-500/30 mb-4">
                       <p className="text-black text-sm mb-1">Your Promo Code:</p>
                       <p className="text-2xl font-mono font-bold text-emerald-400">{promoCode}</p>
                       <p className="text-black text-xs mt-2">
@@ -291,7 +291,7 @@ export function FreeVitaminContent() {
                     📅 Book Your Appointment Now
                   </a>
 
-                  <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                  <div className="p-4 rounded-xl bg-white border border-black">
                     <p className="text-black text-sm mb-2">
                       Love your experience? We&apos;d appreciate a review!
                     </p>
@@ -377,7 +377,7 @@ export function FreeVitaminContent() {
             ].map((benefit) => (
               <div
                 key={benefit.title}
-                className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center hover:border-emerald-500/30 transition"
+                className="p-6 rounded-2xl bg-white border border-black text-center hover:border-emerald-500/30 transition"
               >
                 <span className="text-3xl mb-3 block">{benefit.icon}</span>
                 <h3 className="text-white font-bold mb-1">{benefit.title}</h3>
@@ -391,7 +391,7 @@ export function FreeVitaminContent() {
       {/* Referral Section */}
       <section className="py-16 px-4 bg-gradient-to-b from-emerald-950/10 to-black">
         <div className="max-w-3xl mx-auto text-center">
-          <span className="inline-block px-4 py-1 rounded-full bg-pink-500/20 text-pink-400 text-sm font-medium mb-4">
+          <span className="inline-block px-4 py-1 rounded-full bg-[#FF2D8E]/20 text-[#FF2D8E] text-sm font-medium mb-4">
             💝 Referral Program
           </span>
           <h2 className="text-3xl font-bold text-white mb-4">
@@ -429,7 +429,7 @@ export function FreeVitaminContent() {
       </section>
 
       {/* Location Info */}
-      <section className="py-12 px-4 border-t border-white/10">
+      <section className="py-12 px-4 border-t border-black">
         <div className="max-w-5xl mx-auto text-center">
           <p className="text-black text-sm mb-4">Redeem your free vitamin at</p>
           <div className="flex items-center justify-center gap-3">

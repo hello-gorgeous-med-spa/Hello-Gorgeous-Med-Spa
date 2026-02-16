@@ -67,7 +67,7 @@ export default function JoinPage() {
           )}
           <Link
             href="/book"
-            className="inline-block w-full py-3 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 transition-colors"
+            className="inline-block w-full py-3 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-black transition-colors"
           >
             Book Your First Appointment
           </Link>
@@ -113,7 +113,7 @@ export default function JoinPage() {
                 autoComplete="given-name"
                 value={formData.firstName}
                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                className="w-full min-h-[44px] px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full min-h-[44px] px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
                 placeholder="Jane"
               />
             </div>
@@ -125,7 +125,7 @@ export default function JoinPage() {
                 autoComplete="family-name"
                 value={formData.lastName}
                 onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                className="w-full min-h-[44px] px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full min-h-[44px] px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
                 placeholder="Doe"
               />
             </div>
@@ -139,7 +139,7 @@ export default function JoinPage() {
               autoComplete="email"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full min-h-[44px] px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full min-h-[44px] px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
               placeholder="jane@example.com"
             />
           </div>
@@ -151,7 +151,7 @@ export default function JoinPage() {
               autoComplete="tel"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full min-h-[44px] px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full min-h-[44px] px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
               placeholder="(555) 123-4567"
             />
           </div>
@@ -163,7 +163,7 @@ export default function JoinPage() {
                 type="checkbox"
                 checked={formData.loyaltyEnroll}
                 onChange={(e) => setFormData({ ...formData, loyaltyEnroll: e.target.checked })}
-                className="mt-1 w-5 h-5 rounded border-black text-pink-500 focus:ring-pink-500"
+                className="mt-1 w-5 h-5 rounded border-black text-[#FF2D8E] focus:ring-pink-500"
               />
               <div>
                 <span className="font-medium text-black">Join Rewards Program</span>
@@ -176,7 +176,7 @@ export default function JoinPage() {
                 type="checkbox"
                 checked={formData.marketingConsent}
                 onChange={(e) => setFormData({ ...formData, marketingConsent: e.target.checked })}
-                className="mt-1 w-5 h-5 rounded border-black text-pink-500 focus:ring-pink-500"
+                className="mt-1 w-5 h-5 rounded border-black text-[#FF2D8E] focus:ring-pink-500"
               />
               <div>
                 <span className="font-medium text-black">Email Updates</span>
@@ -190,7 +190,7 @@ export default function JoinPage() {
                   type="checkbox"
                   checked={formData.smsConsent}
                   onChange={(e) => setFormData({ ...formData, smsConsent: e.target.checked })}
-                  className="mt-1 w-5 h-5 rounded border-black text-pink-500 focus:ring-pink-500"
+                  className="mt-1 w-5 h-5 rounded border-black text-[#FF2D8E] focus:ring-pink-500"
                 />
                 <div>
                   <span className="font-medium text-black">SMS Updates</span>
@@ -203,16 +203,16 @@ export default function JoinPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full min-h-[44px] py-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold rounded-xl hover:from-pink-600 hover:to-purple-600 active:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-pink-500/25"
+            className="w-full min-h-[44px] py-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white font-semibold rounded-xl hover:from-pink-600 hover:to-purple-600 active:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-[#FF2D8E]/25"
           >
             {submitting ? 'Signing up...' : 'Join Now'}
           </button>
 
           <p className="text-xs text-black text-center">
             By signing up, you agree to our{' '}
-            <Link href="/privacy" className="text-pink-500 hover:underline">Privacy Policy</Link>
+            <Link href="/privacy" className="text-[#FF2D8E] hover:underline">Privacy Policy</Link>
             {' '}and{' '}
-            <Link href="/terms" className="text-pink-500 hover:underline">Terms of Service</Link>
+            <Link href="/terms" className="text-[#FF2D8E] hover:underline">Terms of Service</Link>
           </p>
         </form>
       </div>

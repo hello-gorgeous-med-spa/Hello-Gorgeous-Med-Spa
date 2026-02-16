@@ -12,7 +12,7 @@ export function PromoBanner() {
         <FadeUp>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
             {/* Promo Image */}
-            <div className="relative aspect-square max-w-md mx-auto lg:mx-0 rounded-3xl overflow-hidden border-2 border-pink-500/30 shadow-2xl shadow-pink-500/20">
+            <div className="relative aspect-square max-w-md mx-auto lg:mx-0 rounded-3xl overflow-hidden border-2 border-[#FF2D8E]/30 shadow-2xl shadow-[#FF2D8E]/20">
               <Image
                 src="/images/promo/flyer.png"
                 alt="Hello Gorgeous Med Spa Special Offers - Botox $10/unit, 1st Month Weight Loss Free, Dermal Filler $500"
@@ -24,37 +24,37 @@ export function PromoBanner() {
 
             {/* Promo Text */}
             <div className="text-center lg:text-left">
-              <p className="text-pink-400 text-lg font-medium tracking-wide">LIMITED TIME OFFERS</p>
+              <p className="text-[#FF2D8E] text-lg font-medium tracking-wide">LIMITED TIME OFFERS</p>
               <h2 className="mt-4 text-3xl md:text-5xl font-bold text-white">Special Pricing</h2>
               
               <div className="mt-8 space-y-4">
                 <div className="flex items-center gap-4 justify-center lg:justify-start">
-                  <div className="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-[#FF2D8E]/20 flex items-center justify-center">
                     <span className="text-xl">💉</span>
                   </div>
                   <div className="text-left">
                     <p className="text-white font-bold text-lg">Botox - $10/unit</p>
-                    <p className="text-white/60 text-sm">Premium neuromodulators</p>
+                    <p className="text-black text-sm">Premium neuromodulators</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4 justify-center lg:justify-start">
-                  <div className="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-[#FF2D8E]/20 flex items-center justify-center">
                     <span className="text-xl">⚖️</span>
                   </div>
                   <div className="text-left">
                     <p className="text-white font-bold text-lg">Weight Loss - 1st Month FREE</p>
-                    <p className="text-white/60 text-sm">Medical weight loss program</p>
+                    <p className="text-black text-sm">Medical weight loss program</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-4 justify-center lg:justify-start">
-                  <div className="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full bg-[#FF2D8E]/20 flex items-center justify-center">
                     <span className="text-xl">✨</span>
                   </div>
                   <div className="text-left">
                     <p className="text-white font-bold text-lg">Dermal Filler - $500</p>
-                    <p className="text-white/60 text-sm">Full syringe pricing</p>
+                    <p className="text-black text-sm">Full syringe pricing</p>
                   </div>
                 </div>
               </div>
@@ -64,13 +64,13 @@ export function PromoBanner() {
                   href={BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-8 py-4 bg-pink-500 text-white font-semibold rounded-full hover:bg-pink-600 transition shadow-lg shadow-pink-500/25"
+                  className="px-8 py-4 bg-[#FF2D8E] text-white font-semibold rounded-full hover:bg-black transition shadow-lg shadow-[#FF2D8E]/25"
                 >
                   Book Now
                 </a>
                 <a
                   href="tel:630-636-6193"
-                  className="px-8 py-4 border border-white/20 text-white font-semibold rounded-full hover:bg-white/10 transition"
+                  className="px-8 py-4 border border-black text-white font-semibold rounded-full hover:bg-white transition"
                 >
                   Call 630-636-6193
                 </a>

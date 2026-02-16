@@ -44,7 +44,7 @@ export function LocationMap() {
                   rel="noopener noreferrer"
                   className="flex items-start gap-4 group"
                 >
-                  <div className="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-pink-500/30 transition">
+                  <div className="w-12 h-12 rounded-full bg-[#FF2D8E]/20 flex items-center justify-center flex-shrink-0 group-hover:bg-[#FF2D8E]/30 transition">
                     <span className="text-xl">📍</span>
                   </div>
                   <div>
@@ -63,7 +63,7 @@ export function LocationMap() {
                   href={`tel:${SITE.phone}`}
                   className="flex items-start gap-4 group"
                 >
-                  <div className="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center flex-shrink-0 group-hover:bg-pink-500/30 transition">
+                  <div className="w-12 h-12 rounded-full bg-[#FF2D8E]/20 flex items-center justify-center flex-shrink-0 group-hover:bg-[#FF2D8E]/30 transition">
                     <span className="text-xl">📞</span>
                   </div>
                   <div>
@@ -76,7 +76,7 @@ export function LocationMap() {
 
                 {/* Hours */}
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full bg-pink-500/20 flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-[#FF2D8E]/20 flex items-center justify-center flex-shrink-0">
                     <span className="text-xl">🕐</span>
                   </div>
                   <div>
@@ -93,7 +93,7 @@ export function LocationMap() {
                   href={BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 py-3 px-6 bg-pink-500 text-white font-semibold text-center rounded-full hover:bg-pink-600 transition shadow-lg shadow-pink-500/25"
+                  className="flex-1 py-3 px-6 bg-[#FF2D8E] text-white font-semibold text-center rounded-full hover:bg-black transition shadow-lg shadow-[#FF2D8E]/25"
                 >
                   Book Appointment
                 </a>
@@ -101,7 +101,7 @@ export function LocationMap() {
                   href={MAPS_DIRECTIONS_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 py-3 px-6 border border-white/20 text-white font-semibold text-center rounded-full hover:bg-white/10 transition"
+                  className="flex-1 py-3 px-6 border border-black text-white font-semibold text-center rounded-full hover:bg-white transition"
                 >
                   Get Directions
                 </a>

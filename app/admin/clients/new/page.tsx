@@ -113,7 +113,7 @@ export default function NewClientPage() {
                 required
                 value={formData.firstName}
                 onChange={(e) => updateField('firstName', e.target.value)}
-                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
               />
             </div>
             <div>
@@ -125,7 +125,7 @@ export default function NewClientPage() {
                 required
                 value={formData.lastName}
                 onChange={(e) => updateField('lastName', e.target.value)}
-                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
               />
             </div>
             <div>
@@ -137,7 +137,7 @@ export default function NewClientPage() {
                 required
                 value={formData.email}
                 onChange={(e) => updateField('email', e.target.value)}
-                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
               />
             </div>
             <div>
@@ -150,7 +150,7 @@ export default function NewClientPage() {
                 value={formData.phone}
                 onChange={(e) => updateField('phone', e.target.value)}
                 placeholder="(630) 555-1234"
-                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
               />
             </div>
             <div>
@@ -162,7 +162,7 @@ export default function NewClientPage() {
                 required
                 value={formData.dateOfBirth}
                 onChange={(e) => updateField('dateOfBirth', e.target.value)}
-                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
               />
             </div>
             <div>
@@ -172,7 +172,7 @@ export default function NewClientPage() {
               <select
                 value={formData.gender}
                 onChange={(e) => updateField('gender', e.target.value)}
-                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
               >
                 <option value="">Select...</option>
                 <option value="female">Female</option>
@@ -196,7 +196,7 @@ export default function NewClientPage() {
                 type="text"
                 value={formData.address}
                 onChange={(e) => updateField('address', e.target.value)}
-                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
               />
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
@@ -208,7 +208,7 @@ export default function NewClientPage() {
                   type="text"
                   value={formData.city}
                   onChange={(e) => updateField('city', e.target.value)}
-                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
                 />
               </div>
               <div>
@@ -218,7 +218,7 @@ export default function NewClientPage() {
                 <select
                   value={formData.state}
                   onChange={(e) => updateField('state', e.target.value)}
-                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
                 >
                   <option value="IL">IL</option>
                   <option value="IN">IN</option>
@@ -233,7 +233,7 @@ export default function NewClientPage() {
                   type="text"
                   value={formData.zip}
                   onChange={(e) => updateField('zip', e.target.value)}
-                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
                 />
               </div>
             </div>
@@ -252,7 +252,7 @@ export default function NewClientPage() {
                 type="text"
                 value={formData.emergencyContactName}
                 onChange={(e) => updateField('emergencyContactName', e.target.value)}
-                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
               />
             </div>
             <div>
@@ -263,7 +263,7 @@ export default function NewClientPage() {
                 type="tel"
                 value={formData.emergencyContactPhone}
                 onChange={(e) => updateField('emergencyContactPhone', e.target.value)}
-                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
               />
             </div>
           </div>
@@ -280,7 +280,7 @@ export default function NewClientPage() {
               <select
                 value={formData.referralSource}
                 onChange={(e) => updateField('referralSource', e.target.value)}
-                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
               >
                 <option value="">Select...</option>
                 <option value="google">Google Search</option>
@@ -301,7 +301,7 @@ export default function NewClientPage() {
                 onChange={(e) => updateField('notes', e.target.value)}
                 rows={3}
                 placeholder="Any additional notes about this client..."
-                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
               />
             </div>
             <label className="flex items-center gap-2">
@@ -309,7 +309,7 @@ export default function NewClientPage() {
                 type="checkbox"
                 checked={formData.sendWelcomeEmail}
                 onChange={(e) => updateField('sendWelcomeEmail', e.target.checked)}
-                className="w-4 h-4 text-pink-500 border-black rounded focus:ring-pink-500"
+                className="w-4 h-4 text-[#FF2D8E] border-black rounded focus:ring-pink-500"
               />
               <span className="text-sm text-black">Send welcome email with portal login</span>
             </label>
@@ -327,7 +327,7 @@ export default function NewClientPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="px-6 py-2.5 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 transition-colors disabled:opacity-50"
+            className="px-6 py-2.5 bg-[#FF2D8E] text-white font-semibold rounded-lg hover:bg-black transition-colors disabled:opacity-50"
           >
             {isSubmitting ? 'Creating...' : 'Create Client'}
           </button>

@@ -70,16 +70,16 @@ export default function PeptidesPage() {
           <FadeUp>
             <Link
               href="/services/hormones-wellness"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/20 mb-6 hover:bg-fuchsia-500/20 transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-6 hover:bg-[#FF2D8E]/20 transition-colors"
             >
               <span className="text-xl">🧬</span>
-              <span className="text-fuchsia-600 text-sm font-medium">Hormones & Wellness</span>
-              <svg className="w-4 h-4 text-fuchsia-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <span className="text-[#FF2D8E] text-sm font-medium">Hormones & Wellness</span>
+              <svg className="w-4 h-4 text-[#FF2D8E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </Link>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              <span className="text-fuchsia-600">
+              <span className="text-[#FF2D8E]">
                 Peptide Therapy
               </span>
             </h1>
@@ -89,7 +89,7 @@ export default function PeptidesPage() {
               We offer BPC-157, GHK-Cu, NAD+, CJC-1295, Ipamorelin, Tesamorelin, Semaglutide, Tirzepatide, and more—all personalized to your goals.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-8 py-4 shadow-xl shadow-pink-500/20">
+              <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-8 py-4 shadow-xl shadow-[#FF2D8E]/20">
                 Book Peptide Consultation
               </CTA>
               <CTA href="#peppi" variant="outline" className="text-lg px-8 py-4">
@@ -104,11 +104,11 @@ export default function PeptidesPage() {
       <Section id="peppi" className="bg-gradient-to-b from-white via-fuchsia-50/30 to-white">
         <FadeUp>
           <div className="text-center mb-8">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/30 mb-4">
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/30 mb-4">
               <span className="text-lg">🤖</span>
-              <span className="text-fuchsia-600 text-sm font-semibold uppercase tracking-wider">AI Peptide Expert</span>
+              <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">AI Peptide Expert</span>
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-fuchsia-600">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
               Your Complete Peptide Education Center
             </h2>
             <p className="mt-3 text-lg text-black/70 max-w-2xl mx-auto">
@@ -127,10 +127,10 @@ export default function PeptidesPage() {
       <Section className="bg-gradient-to-b from-fuchsia-50/50 via-white to-fuchsia-50/50">
         <FadeUp>
           <div className="text-center mb-12">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/20 mb-4">
-              <span className="text-fuchsia-600 text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-4">
+              <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-fuchsia-600">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
               Peptide Therapies at Hello Gorgeous
             </h2>
             <p className="mt-4 text-black/80 max-w-2xl mx-auto">
@@ -142,7 +142,7 @@ export default function PeptidesPage() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           <FadeUp delayMs={60}>
             <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white h-full">
-              <h3 className="text-lg font-bold text-fuchsia-600 mb-3 flex items-center gap-2">
+              <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
                 <span>🩹</span> Healing & Recovery
               </h3>
               <ul className="text-black/80 text-sm space-y-2">
@@ -156,7 +156,7 @@ export default function PeptidesPage() {
           </FadeUp>
           <FadeUp delayMs={80}>
             <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white h-full">
-              <h3 className="text-lg font-bold text-fuchsia-600 mb-3 flex items-center gap-2">
+              <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
                 <span>⚡</span> Growth & Anti-Aging
               </h3>
               <ul className="text-black/80 text-sm space-y-2">
@@ -169,7 +169,7 @@ export default function PeptidesPage() {
           </FadeUp>
           <FadeUp delayMs={100}>
             <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white h-full">
-              <h3 className="text-lg font-bold text-fuchsia-600 mb-3 flex items-center gap-2">
+              <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
                 <span>🔥</span> Weight & Metabolism
               </h3>
               <ul className="text-black/80 text-sm space-y-2">
@@ -182,7 +182,7 @@ export default function PeptidesPage() {
           </FadeUp>
           <FadeUp delayMs={120}>
             <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white h-full">
-              <h3 className="text-lg font-bold text-fuchsia-600 mb-3 flex items-center gap-2">
+              <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
                 <span>🛡️</span> Immune & Longevity
               </h3>
               <ul className="text-black/80 text-sm space-y-2">
@@ -196,7 +196,7 @@ export default function PeptidesPage() {
           </FadeUp>
           <FadeUp delayMs={140}>
             <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white h-full">
-              <h3 className="text-lg font-bold text-fuchsia-600 mb-3 flex items-center gap-2">
+              <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
                 <span>💫</span> Sexual Wellness
               </h3>
               <ul className="text-black/80 text-sm space-y-2">
@@ -209,7 +209,7 @@ export default function PeptidesPage() {
           </FadeUp>
           <FadeUp delayMs={160}>
             <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-fuchsia-50 to-white h-full">
-              <h3 className="text-lg font-bold text-fuchsia-600 mb-3 flex items-center gap-2">
+              <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
                 <span>⚠️</span> Safety & Requirements
               </h3>
               <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
@@ -230,10 +230,10 @@ export default function PeptidesPage() {
       <Section className="bg-white">
         <FadeUp>
           <div className="text-center mb-12">
-            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/20 mb-4">
-              <span className="text-fuchsia-600 text-sm font-semibold uppercase tracking-wider">Peptide Education</span>
+            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-4">
+              <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Peptide Education</span>
             </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-fuchsia-600">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
               Your Peptide Guide
             </h2>
             <p className="mt-4 text-black/70 max-w-2xl mx-auto">
@@ -246,7 +246,7 @@ export default function PeptidesPage() {
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
           {PEPTIDE_IMAGES.map((img, idx) => (
             <FadeUp key={img.src} delayMs={60 * idx}>
-              <div className="rounded-2xl overflow-hidden border-2 border-black bg-white hover:border-fuchsia-500/50 hover:shadow-lg transition-all duration-300">
+              <div className="rounded-2xl overflow-hidden border-2 border-black bg-white hover:border-[#FF2D8E]/50 hover:shadow-lg transition-all duration-300">
                 <div className="relative aspect-[4/3] md:aspect-[3/2] w-full bg-gradient-to-br from-fuchsia-50 to-white">
                   <Image
                     src={img.src}
@@ -309,14 +309,14 @@ export default function PeptidesPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-fuchsia-100 via-pink-100 to-fuchsia-100" />
         <div className="relative z-10 text-center max-w-3xl mx-auto">
           <FadeUp>
-            <h2 className="text-3xl md:text-4xl font-bold text-fuchsia-600 mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E] mb-6">
               Ready to Explore Peptide Therapy?
             </h2>
             <p className="text-xl text-black/80 mb-8">
               Book a consultation with our clinical team to discuss your goals and whether peptides are right for you.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-10 py-4 shadow-xl shadow-pink-500/25">
+              <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-10 py-4 shadow-xl shadow-[#FF2D8E]/25">
                 Book Consultation
               </CTA>
               <a

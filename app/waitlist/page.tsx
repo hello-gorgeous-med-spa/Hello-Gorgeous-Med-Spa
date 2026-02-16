@@ -68,7 +68,7 @@ export default function WaitlistPage() {
           <div className="space-y-3">
             <Link
               href="/book"
-              className="block w-full px-6 py-3 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+              className="block w-full px-6 py-3 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
             >
               Browse Available Times
             </Link>
@@ -202,7 +202,7 @@ export default function WaitlistPage() {
               type="checkbox"
               checked={formData.flexibleDates}
               onChange={(e) => setFormData({ ...formData, flexibleDates: e.target.checked })}
-              className="rounded text-pink-500"
+              className="rounded text-[#FF2D8E]"
             />
             <span className="text-sm text-black">I'm flexible on dates (notify me of any openings)</span>
           </label>
@@ -221,7 +221,7 @@ export default function WaitlistPage() {
           <button
             type="submit"
             disabled={isSubmitting}
-            className="w-full px-6 py-3 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+            className="w-full px-6 py-3 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
           >
             {isSubmitting ? 'Joining...' : 'Join Waitlist'}
           </button>
@@ -233,7 +233,7 @@ export default function WaitlistPage() {
         </form>
 
         <div className="mt-6 text-center">
-          <Link href="/book" className="text-pink-500 hover:underline">
+          <Link href="/book" className="text-[#FF2D8E] hover:underline">
             ← Back to booking
           </Link>
         </div>

@@ -199,7 +199,7 @@ export default function PrescriptionsPage() {
           >
             🏥 Charm EHR
           </a>
-          <button onClick={() => setShowNewModal(true)} className="px-5 py-2.5 bg-pink-500 text-white rounded-xl hover:bg-pink-600 font-medium flex items-center gap-2">+ New Prescription</button>
+          <button onClick={() => setShowNewModal(true)} className="px-5 py-2.5 bg-[#FF2D8E] text-white rounded-xl hover:bg-black font-medium flex items-center gap-2">+ New Prescription</button>
         </div>
       </div>
 
@@ -211,7 +211,7 @@ export default function PrescriptionsPage() {
 
       <div className="flex gap-2 mb-6">
         {(['all', 'pending', 'sent', 'filled'] as const).map(f => (
-          <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-lg text-sm font-medium capitalize ${filter === f ? 'bg-pink-500 text-white' : 'bg-white text-black hover:bg-white'}`}>{f}</button>
+          <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-lg text-sm font-medium capitalize ${filter === f ? 'bg-[#FF2D8E] text-white' : 'bg-white text-black hover:bg-white'}`}>{f}</button>
         ))}
       </div>
 
@@ -219,7 +219,7 @@ export default function PrescriptionsPage() {
       : prescriptions.length === 0 ? (
         <div className="bg-white rounded-xl border p-16 text-center">
           <span className="text-6xl">💊</span><h3 className="text-xl font-semibold mt-4">No prescriptions</h3>
-          <button onClick={() => setShowNewModal(true)} className="mt-6 px-6 py-3 bg-pink-500 text-white rounded-xl">New Prescription</button>
+          <button onClick={() => setShowNewModal(true)} className="mt-6 px-6 py-3 bg-[#FF2D8E] text-white rounded-xl">New Prescription</button>
         </div>
       ) : (
         <div className="bg-white rounded-xl border overflow-hidden">
@@ -249,7 +249,7 @@ export default function PrescriptionsPage() {
       )}
 
       {showNewModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b sticky top-0 bg-white z-10 flex justify-between">
               <h2 className="text-xl font-bold">New Prescription</h2>
@@ -282,8 +282,8 @@ export default function PrescriptionsPage() {
                 <div>
                   <label className="block text-sm font-semibold mb-2">Quick Templates</label>
                   <div className="flex gap-2 mb-3 flex-wrap">
-                    <button onClick={() => setCategoryFilter('all')} className={`px-3 py-1 rounded-full text-xs ${categoryFilter === 'all' ? 'bg-pink-500 text-white' : 'bg-white'}`}>All</button>
-                    {uniqueCategories.map(cat => <button key={cat} onClick={() => setCategoryFilter(cat)} className={`px-3 py-1 rounded-full text-xs ${categoryFilter === cat ? 'bg-pink-500 text-white' : 'bg-white'}`}>{cat}</button>)}
+                    <button onClick={() => setCategoryFilter('all')} className={`px-3 py-1 rounded-full text-xs ${categoryFilter === 'all' ? 'bg-[#FF2D8E] text-white' : 'bg-white'}`}>All</button>
+                    {uniqueCategories.map(cat => <button key={cat} onClick={() => setCategoryFilter(cat)} className={`px-3 py-1 rounded-full text-xs ${categoryFilter === cat ? 'bg-[#FF2D8E] text-white' : 'bg-white'}`}>{cat}</button>)}
                   </div>
                   <div className="max-h-48 overflow-y-auto border rounded-xl">
                     {filteredTemplates.map(t => <button key={t.id} onClick={() => applyTemplate(t)} className={`w-full p-3 text-left border-b last:border-0 hover:bg-pink-50 ${selectedTemplate?.id === t.id ? 'bg-pink-50' : ''}`}><p className="font-medium">{t.name} {t.strength}</p><p className="text-xs text-black">{t.notes}</p></button>)}
@@ -311,14 +311,14 @@ export default function PrescriptionsPage() {
             </div>
             <div className="p-6 border-t flex justify-end gap-3 sticky bottom-0 bg-white">
               <button onClick={() => { setShowNewModal(false); resetForm(); }} className="px-4 py-2 text-black">Cancel</button>
-              <button onClick={handleCreate} disabled={!selectedClient || !formData.medication_name || !formData.sig || saving} className="px-6 py-2 bg-pink-500 text-white rounded-xl disabled:opacity-50">{saving ? 'Creating...' : 'Create Prescription'}</button>
+              <button onClick={handleCreate} disabled={!selectedClient || !formData.medication_name || !formData.sig || saving} className="px-6 py-2 bg-[#FF2D8E] text-white rounded-xl disabled:opacity-50">{saving ? 'Creating...' : 'Create Prescription'}</button>
             </div>
           </div>
         </div>
       )}
 
       {showPrintModal && printRx && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-2xl w-full">
             <div className="p-6 border-b flex justify-between"><h2 className="text-xl font-bold">Print Prescription</h2><button onClick={() => setShowPrintModal(false)} className="text-black">✕</button></div>
             <div ref={printRef} className="p-8">
@@ -337,7 +337,7 @@ export default function PrescriptionsPage() {
             </div>
             <div className="p-6 border-t flex justify-end gap-3">
               <button onClick={() => setShowPrintModal(false)} className="px-4 py-2 text-black">Close</button>
-              <button onClick={() => { printPrescription(); updateStatus(printRx.id, 'sent'); }} className="px-6 py-2 bg-pink-500 text-white rounded-xl">🖨️ Print & Mark Sent</button>
+              <button onClick={() => { printPrescription(); updateStatus(printRx.id, 'sent'); }} className="px-6 py-2 bg-[#FF2D8E] text-white rounded-xl">🖨️ Print & Mark Sent</button>
             </div>
           </div>
         </div>

@@ -176,7 +176,7 @@ export function InjectionMapper({
   const getPointColor = (productName: string) => {
     const preset = PRODUCT_PRESETS.find(p => p.name.toLowerCase() === productName.toLowerCase());
     if (preset?.type === 'neurotoxin') return 'bg-blue-500 border-blue-600';
-    if (preset?.type === 'filler') return 'bg-pink-500 border-pink-600';
+    if (preset?.type === 'filler') return 'bg-[#FF2D8E] border-pink-600';
     return 'bg-purple-500 border-purple-600';
   };
 
@@ -273,7 +273,7 @@ export function InjectionMapper({
             <span className="text-black">Neurotoxin</span>
           </div>
           <div className="flex items-center gap-1">
-            <span className="w-3 h-3 rounded-full bg-pink-500"></span>
+            <span className="w-3 h-3 rounded-full bg-[#FF2D8E]"></span>
             <span className="text-black">Filler</span>
           </div>
           <div className="flex items-center gap-1">
@@ -340,7 +340,7 @@ export function InjectionMapper({
                           e.stopPropagation();
                           handleRemovePoint(point.id);
                         }}
-                        className="text-red-400 hover:text-red-600 p-1"
+                        className="text-[#FF2D8E] hover:text-red-600 p-1"
                       >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -357,7 +357,7 @@ export function InjectionMapper({
 
       {/* Add Point Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-black">
               <h2 className="text-lg font-bold text-black">Add Injection Point</h2>
@@ -494,7 +494,7 @@ export function InjectionMapper({
               <button
                 onClick={handleAddPoint}
                 disabled={!pointForm.product_name || !pointForm.area_label}
-                className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
               >
                 Add Point
               </button>

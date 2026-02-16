@@ -44,7 +44,7 @@ export function GeoContextBlock({
   return (
     <div className={`flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm text-black ${className}`}>
       {displayLinks.map((link) => (
-        <Link key={link.href + link.label} href={link.href} className="hover:text-pink-400 transition-colors">
+        <Link key={link.href + link.label} href={link.href} className="hover:text-[#FF2D8E] transition-colors">
           {link.label}
         </Link>
       ))}

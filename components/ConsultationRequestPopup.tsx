@@ -135,7 +135,7 @@ export function ConsultationRequestPopup() {
       aria-label="How can we help you?"
     >
       <div
-        className="absolute inset-0 bg-black/50"
+        className="absolute inset-0 bg-white"
         onClick={handleClose}
         aria-hidden="true"
       />
@@ -279,7 +279,7 @@ export function ConsultationRequestPopup() {
                   ← Back
                 </button>
                 {status === "error" && (
-                  <p className="text-center text-red-400 text-sm">
+                  <p className="text-center text-[#FF2D8E] text-sm">
                     Something went wrong. Please try again or call us.
                   </p>
                 )}

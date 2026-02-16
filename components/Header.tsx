@@ -296,12 +296,12 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 flex-shrink-0">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 text-white text-sm font-bold shadow-lg shadow-pink-500/25">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 text-white text-sm font-bold shadow-lg shadow-[#FF2D8E]/25">
               HG
             </span>
             <div className="hidden sm:block">
               <span className="text-lg font-bold text-[#FF2D8E]">{SITE.name}</span>
-              <span className="block text-[10px] text-pink-400/80 font-medium tracking-wider">MEDICAL AESTHETICS</span>
+              <span className="block text-[10px] text-[#FF2D8E]/80 font-medium tracking-wider">MEDICAL AESTHETICS</span>
             </div>
           </Link>
 
@@ -419,11 +419,11 @@ export function Header() {
               onMouseLeave={handleMouseLeave}
             >
               <button
-                className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all text-pink-400 hover:text-pink-300 hover:bg-pink-500/10 border border-pink-500/30"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all text-[#FF2D8E] hover:text-pink-300 hover:bg-[#FF2D8E]/10 border border-[#FF2D8E]/30"
               >
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-pink-500"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF2D8E]"></span>
                 </span>
                 Specials
                 <svg className={cx("w-4 h-4 transition-transform", activeDropdown === 'specials' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -520,14 +520,14 @@ export function Header() {
               <Link
               href="/fix-what-bothers-me"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-400 font-semibold"
+              className="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 text-[#FF2D8E] font-semibold"
             >
               <span className="text-xl">💗</span>
               Fix what bothers me
             </Link>
 
             {/* Services Section */}
-            <div className="border-b border-white/10 pb-4">
+            <div className="border-b border-black pb-4">
               <button
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'services' ? null : 'services')}
                 className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
@@ -563,7 +563,7 @@ export function Header() {
             </div>
 
             {/* About Section */}
-            <div className="border-b border-white/10 pb-4">
+            <div className="border-b border-black pb-4">
               <button
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'about' ? null : 'about')}
                 className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
@@ -594,7 +594,7 @@ export function Header() {
           </div>
 
             {/* Providers Section */}
-            <div className="border-b border-white/10 pb-4">
+            <div className="border-b border-black pb-4">
               <button
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'providers' ? null : 'providers')}
                 className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
@@ -635,7 +635,7 @@ export function Header() {
             </Link>
 
             {/* Your Journey Section */}
-            <div className="border-b border-white/10 pb-4">
+            <div className="border-b border-black pb-4">
               <button
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'journey' ? null : 'journey')}
                 className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
@@ -666,15 +666,15 @@ export function Header() {
             </div>
 
             {/* Specials Section - Highlighted */}
-            <div className="border-b border-white/10 pb-4">
+            <div className="border-b border-black pb-4">
               <button
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'specials' ? null : 'specials')}
-                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-pink-400"
+                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
               >
                 <span className="flex items-center gap-3">
                   <span className="text-xl">🎁</span>
                   Specials & Offers
-                  <span className="px-2 py-0.5 text-[10px] font-bold bg-pink-500 text-white rounded-full animate-pulse">NEW</span>
+                  <span className="px-2 py-0.5 text-[10px] font-bold bg-[#FF2D8E] text-white rounded-full animate-pulse">NEW</span>
                 </span>
                 <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'specials' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />

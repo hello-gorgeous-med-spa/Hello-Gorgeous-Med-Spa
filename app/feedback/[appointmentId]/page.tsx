@@ -183,7 +183,7 @@ export default function FeedbackPage() {
               onChange={(e) => setComment(e.target.value)}
               placeholder="What did you love? What could we improve?"
               rows={4}
-              className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 resize-none"
+              className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E] resize-none"
             />
           </div>
 

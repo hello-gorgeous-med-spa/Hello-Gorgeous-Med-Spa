@@ -467,7 +467,7 @@ export default function AdminMedicationsPage() {
 
       {/* Log Administration Modal */}
       {showLogModal && selectedMed && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full">
             <div className="p-6 border-b border-black">
               <h2 className="text-xl font-bold text-black">Log Administration</h2>
@@ -552,7 +552,7 @@ export default function AdminMedicationsPage() {
               <button
                 onClick={handleLogAdministration}
                 disabled={saving || !logForm.client_name || !logForm.provider_name}
-                className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
               >
                 {saving ? 'Logging...' : 'Log Administration'}
               </button>

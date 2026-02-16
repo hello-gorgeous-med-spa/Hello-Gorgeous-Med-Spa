@@ -73,7 +73,7 @@ export default function NotificationSettingsPage() {
         </div>
         <button
           onClick={handleSave}
-          className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+          className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
         >
           {saved ? '✓ Saved!' : 'Save Changes'}
         </button>
@@ -132,7 +132,7 @@ export default function NotificationSettingsPage() {
                     type="checkbox"
                     checked={reminder.channels.includes('email')}
                     onChange={() => toggleChannel(index, 'email')}
-                    className="rounded text-pink-500"
+                    className="rounded text-[#FF2D8E]"
                   />
                   <span className="text-sm">Email</span>
                 </label>
@@ -141,7 +141,7 @@ export default function NotificationSettingsPage() {
                     type="checkbox"
                     checked={reminder.channels.includes('sms')}
                     onChange={() => toggleChannel(index, 'sms')}
-                    className="rounded text-pink-500"
+                    className="rounded text-[#FF2D8E]"
                   />
                   <span className="text-sm">SMS</span>
                 </label>
@@ -149,7 +149,7 @@ export default function NotificationSettingsPage() {
             </div>
           ))}
 
-          <button className="w-full py-3 border-2 border-dashed border-black rounded-lg text-black hover:border-pink-500 hover:text-pink-500 transition-colors">
+          <button className="w-full py-3 border-2 border-dashed border-black rounded-lg text-black hover:border-[#FF2D8E] hover:text-[#FF2D8E] transition-colors">
             + Add Another Reminder
           </button>
         </div>
@@ -174,7 +174,7 @@ export default function NotificationSettingsPage() {
                 ...config,
                 followUp: { ...config.followUp, enabled: e.target.checked },
               })}
-              className="rounded text-pink-500 w-5 h-5"
+              className="rounded text-[#FF2D8E] w-5 h-5"
             />
           </label>
 
@@ -204,7 +204,7 @@ export default function NotificationSettingsPage() {
                 ...config,
                 followUp: { ...config.followUp, includeReviewRequest: e.target.checked },
               })}
-              className="rounded text-pink-500 w-5 h-5"
+              className="rounded text-[#FF2D8E] w-5 h-5"
             />
           </label>
 

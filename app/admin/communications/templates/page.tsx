@@ -162,7 +162,7 @@ export default function MessageTemplatesPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="px-5 py-2.5 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors font-medium flex items-center gap-2"
+          className="px-5 py-2.5 bg-[#FF2D8E] text-white rounded-xl hover:bg-black transition-colors font-medium flex items-center gap-2"
         >
           <span>➕</span> Add Template
         </button>
@@ -196,7 +196,7 @@ export default function MessageTemplatesPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search templates..."
-            className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+            className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
           />
         </div>
         <div className="p-3 flex items-center gap-2 overflow-x-auto">
@@ -270,7 +270,7 @@ export default function MessageTemplatesPage() {
 
       {/* Edit Modal */}
       {editingTemplate && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl max-w-lg w-full mx-4 overflow-hidden">
             <div className="p-6 border-b border-black">
               <h3 className="text-lg font-semibold">Edit Template</h3>
@@ -332,7 +332,7 @@ export default function MessageTemplatesPage() {
                   setTemplates(prev => prev.map(t => t.id === editingTemplate.id ? editingTemplate : t));
                   setEditingTemplate(null);
                 }}
-                className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+                className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
               >
                 Save Changes
               </button>

@@ -265,7 +265,7 @@ export default function ContactCollectionPage() {
               type="button"
               onClick={() => fileInputRef.current?.click()}
               disabled={importing}
-              className="px-4 py-2 bg-pink-500 text-white font-medium rounded-xl hover:bg-pink-600 disabled:opacity-50"
+              className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-xl hover:bg-black disabled:opacity-50"
             >
               {importing ? 'Importing...' : '📤 Choose CSV file'}
             </button>

@@ -63,7 +63,7 @@ export function PrecisionStartsFAQ() {
                   {item.q}
                 </span>
                 <span
-                  className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-pink-400 transition-transform duration-200 ${
+                  className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-[#FF2D8E] transition-transform duration-200 ${
                     openIndex === i ? "rotate-180" : ""
                   }`}
                 >
@@ -77,7 +77,7 @@ export function PrecisionStartsFAQ() {
                   openIndex === i ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                 }`}
               >
-                <p className="pb-5 text-white/80 text-sm leading-relaxed pl-0 pr-12">
+                <p className="pb-5 text-black text-sm leading-relaxed pl-0 pr-12">
                   {item.a}
                 </p>
               </div>

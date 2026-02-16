@@ -44,7 +44,7 @@ const PROGRAMS = [
     cta: "Join Hormone Program",
     icon: "⚖️",
     gradient: "from-amber-500/20 to-rose-500/20",
-    borderColor: "border-amber-500/30",
+    borderColor: "border-[#FF2D8E]/30",
     accent: "text-amber-600",
   },
   {
@@ -269,7 +269,7 @@ export function MembershipsContent() {
       {/* Learn More Modal */}
       {program && program.learnMore && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-white"
           onClick={() => setLearnMoreSlug(null)}
         >
           <div
@@ -328,7 +328,7 @@ export function MembershipsContent() {
               <button
                 type="button"
                 onClick={() => openChat("harmony", { source: "memberships", topics: ["hormone optimization", "Precision Hormone Program"] })}
-                className="group text-left rounded-2xl border-2 border-amber-500/30 bg-gradient-to-br from-amber-500/10 to-rose-500/10 p-6 hover:border-amber-500/50 hover:shadow-lg transition-all"
+                className="group text-left rounded-2xl border-2 border-[#FF2D8E]/30 bg-gradient-to-br from-amber-500/10 to-rose-500/10 p-6 hover:border-[#FF2D8E]/50 hover:shadow-lg transition-all"
               >
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-4xl">⚖️</span>
@@ -454,19 +454,19 @@ export function MembershipsContent() {
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
               The Experts Behind Hello Gorgeous
             </h2>
-            <p className="text-white/80 mb-10">
+            <p className="text-black mb-10">
               Licensed medical professionals. Real results. Personalized care.
             </p>
             <div className="grid sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
-              <div className="rounded-2xl border border-[#FF2D8E]/30 bg-white/5 p-6 text-left">
+              <div className="rounded-2xl border border-[#FF2D8E]/30 bg-white p-6 text-left">
                 <h3 className="font-bold text-white text-lg">Danielle Alcala</h3>
                 <p className="text-[#FF2D8E] text-sm font-medium mb-2">RN-S, Licensed CNA, CMAA, Phlebotomist, Licensed Esthetician, Business Owner</p>
-                <p className="text-sm text-white/70">Owner. Aesthetics, wellness, and patient experience.</p>
+                <p className="text-sm text-black">Owner. Aesthetics, wellness, and patient experience.</p>
               </div>
-              <div className="rounded-2xl border border-[#FF2D8E]/30 bg-white/5 p-6 text-left">
+              <div className="rounded-2xl border border-[#FF2D8E]/30 bg-white p-6 text-left">
                 <h3 className="font-bold text-white text-lg">Ryan Kent</h3>
                 <p className="text-[#FF2D8E] text-sm font-medium mb-2">FNP-BC</p>
-                <p className="text-sm text-white/70">Hormone optimization, weight loss, IV therapy, and medical oversight.</p>
+                <p className="text-sm text-black">Hormone optimization, weight loss, IV therapy, and medical oversight.</p>
               </div>
             </div>
           </FadeUp>
@@ -497,7 +497,7 @@ export function MembershipsContent() {
                 Same-day visits
               </span>
               <span className="flex items-center gap-2 text-[#000000]">
-                <span className="text-amber-500">💉</span>
+                <span className="text-[#FF2D8E]">💉</span>
                 IV & vitamin injections
               </span>
             </div>

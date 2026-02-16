@@ -40,7 +40,7 @@ export default function SmsOptInWorkflowPage() {
               href={`${BASE_URL}/book`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-pink-500 text-white rounded-lg text-sm font-medium hover:bg-pink-600"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#FF2D8E] text-white rounded-lg text-sm font-medium hover:bg-black"
             >
               Live Opt-In Form (Booking) →
             </a>
@@ -73,7 +73,7 @@ export default function SmsOptInWorkflowPage() {
               href={`${BASE_URL}/forms/sms-consent`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-pink-500 text-white rounded-lg text-sm font-medium hover:bg-pink-600"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-[#FF2D8E] text-white rounded-lg text-sm font-medium hover:bg-black"
             >
               View / Print Physical Form →
             </a>

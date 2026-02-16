@@ -246,7 +246,7 @@ export default function KioskConsentPage() {
     return (
       <div className="min-h-screen bg-pink-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin w-16 h-16 border-4 border-pink-500 border-t-transparent rounded-full mx-auto mb-6" />
+          <div className="animate-spin w-16 h-16 border-4 border-[#FF2D8E] border-t-transparent rounded-full mx-auto mb-6" />
           <p className="text-xl text-black">Loading...</p>
         </div>
       </div>
@@ -304,7 +304,7 @@ export default function KioskConsentPage() {
             </p>
             <div className="w-32 h-3 bg-white rounded-full mt-1">
               <div
-                className="h-full bg-pink-500 rounded-full transition-all"
+                className="h-full bg-[#FF2D8E] rounded-full transition-all"
                 style={{ width: `${((signedCount + 1) / packets.length) * 100}%` }}
               />
             </div>
@@ -353,7 +353,7 @@ export default function KioskConsentPage() {
           <button
             onClick={handleSubmit}
             disabled={submitting || !signatures[currentPacket.id]}
-            className="w-full mt-8 py-6 bg-pink-500 text-white text-2xl font-bold rounded-2xl hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="w-full mt-8 py-6 bg-[#FF2D8E] text-white text-2xl font-bold rounded-2xl hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {submitting ? (
               <span className="flex items-center justify-center gap-3">

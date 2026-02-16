@@ -54,8 +54,8 @@ export function ResultsGallery({ results }: { results: ResultItem[] }) {
             onClick={() => setActiveFilter("all")}
             className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
               activeFilter === "all"
-                ? "bg-[#FF2D8E] text-white shadow-lg shadow-pink-500/30"
-                : "bg-white/10 text-white/70 hover:bg-white/20 hover:text-white"
+                ? "bg-[#FF2D8E] text-white shadow-lg shadow-[#FF2D8E]/30"
+                : "bg-white text-black hover:bg-white/20 hover:text-white"
             }`}
           >
             All Results ({results.length})
@@ -68,8 +68,8 @@ export function ResultsGallery({ results }: { results: ResultItem[] }) {
                 onClick={() => setActiveFilter(tag)}
                 className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
                   activeFilter === tag
-                    ? "bg-[#FF2D8E] text-white shadow-lg shadow-pink-500/30"
-                    : "bg-white/10 text-white/70 hover:bg-white/20 hover:text-white"
+                    ? "bg-[#FF2D8E] text-white shadow-lg shadow-[#FF2D8E]/30"
+                    : "bg-white text-black hover:bg-white/20 hover:text-white"
                 }`}
               >
                 {SERVICE_LABELS[tag] || tag} ({count})
@@ -86,10 +86,10 @@ export function ResultsGallery({ results }: { results: ResultItem[] }) {
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div>
                 <h3 className="text-xl font-semibold">{result.title}</h3>
-                <p className="text-sm text-white/60">{result.description}</p>
+                <p className="text-sm text-black">{result.description}</p>
               </div>
               {result.service_tag && (
-                <span className="rounded-full border border-white/20 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.3em]">
+                <span className="rounded-full border border-black bg-white px-3 py-1 text-xs uppercase tracking-[0.3em]">
                   {SERVICE_LABELS[result.service_tag] || result.service_tag}
                 </span>
               )}
@@ -107,11 +107,11 @@ export function ResultsGallery({ results }: { results: ResultItem[] }) {
 
       {/* Empty State */}
       {filteredResults.length === 0 && (
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-8 text-center">
-          <p className="text-white/60">No results found for this filter.</p>
+        <div className="rounded-2xl border border-black bg-white p-8 text-center">
+          <p className="text-black">No results found for this filter.</p>
           <button
             onClick={() => setActiveFilter("all")}
-            className="mt-4 text-pink-400 hover:text-pink-300 font-semibold"
+            className="mt-4 text-[#FF2D8E] hover:text-pink-300 font-semibold"
           >
             View all results
           </button>

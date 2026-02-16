@@ -23,7 +23,7 @@ export default function FixWhatBothersMePage({ searchParams }: PageProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-pink-950/20 via-black to-black" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-pink-500/10 via-transparent to-transparent" />
         <div className="relative z-10 max-w-3xl mx-auto text-center px-4 py-12 md:py-16">
-          <p className="text-pink-400 text-sm font-semibold uppercase tracking-wider mb-4">
+          <p className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider mb-4">
             Your space. No judgment.
           </p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
@@ -56,7 +56,7 @@ export default function FixWhatBothersMePage({ searchParams }: PageProps) {
             This is private. We use it only to suggest treatments and follow up with you.
           </p>
           <p className="mt-2 text-black text-sm">
-            Questions? <a href="/contact" className="text-pink-400 hover:text-pink-300">Contact us</a> or call (630) 636-6193.
+            Questions? <a href="/contact" className="text-[#FF2D8E] hover:text-pink-300">Contact us</a> or call (630) 636-6193.
           </p>
         </div>
       </Section>

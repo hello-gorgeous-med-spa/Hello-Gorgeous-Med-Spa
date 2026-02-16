@@ -112,7 +112,7 @@ export default function AIHubPage() {
             <div className="flex gap-4 mb-2">
               <span className="text-amber-300 font-bold">{watchdogCount !== null ? watchdogCount : '—'} logs</span>
               {flaggedCount !== null && flaggedCount > 0 && (
-                <span className="text-red-400 font-bold">{flaggedCount} flagged</span>
+                <span className="text-[#FF2D8E] font-bold">{flaggedCount} flagged</span>
               )}
             </div>
             <Link

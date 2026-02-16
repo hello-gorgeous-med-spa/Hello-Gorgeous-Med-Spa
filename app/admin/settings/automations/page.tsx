@@ -226,7 +226,7 @@ export default function AutomationsPage() {
           <p className="text-black">Create "If this, then that" workflow rules</p>
         </div>
         {!editingAuto && (
-          <button onClick={createNewAutomation} className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
+          <button onClick={createNewAutomation} className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black">
             + Create Automation
           </button>
         )}
@@ -280,7 +280,7 @@ export default function AutomationsPage() {
                   onClick={() => setEditingAuto({ ...editingAuto, trigger: { type: trigger.type } })}
                   className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-sm text-left ${
                     editingAuto.trigger.type === trigger.type
-                      ? 'border-pink-500 bg-pink-50 text-pink-700'
+                      ? 'border-[#FF2D8E] bg-pink-50 text-pink-700'
                       : 'border-black hover:border-black'
                   }`}
                 >
@@ -385,7 +385,7 @@ export default function AutomationsPage() {
               type="checkbox"
               checked={editingAuto.is_active}
               onChange={(e) => setEditingAuto({ ...editingAuto, is_active: e.target.checked })}
-              className="w-4 h-4 text-pink-500 rounded"
+              className="w-4 h-4 text-[#FF2D8E] rounded"
             />
             <span className="text-sm">Automation is active</span>
           </label>
@@ -395,7 +395,7 @@ export default function AutomationsPage() {
             <button onClick={() => { setEditingAuto(null); setIsCreating(false); }} className="px-4 py-2 text-black hover:bg-white rounded-lg">
               Cancel
             </button>
-            <button onClick={saveAutomation} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
+            <button onClick={saveAutomation} className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black">
               {isCreating ? 'Create' : 'Save'}
             </button>
           </div>

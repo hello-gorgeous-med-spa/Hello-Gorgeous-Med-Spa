@@ -61,7 +61,7 @@ export default function JourneyPage() {
           <h1 className="text-2xl font-bold text-black">My Treatment Journey</h1>
           <p className="text-black">Track your progress over time</p>
         </div>
-        <button className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors">
+        <button className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors">
           + Add Note
         </button>
       </div>
@@ -106,7 +106,7 @@ export default function JourneyPage() {
             </p>
             <Link
               href="/portal/book"
-              className="inline-flex items-center gap-2 bg-pink-500 text-white px-6 py-2.5 rounded-full font-medium hover:bg-pink-600 transition-colors"
+              className="inline-flex items-center gap-2 bg-[#FF2D8E] text-white px-6 py-2.5 rounded-full font-medium hover:bg-black transition-colors"
             >
               Book Your First Treatment
             </Link>

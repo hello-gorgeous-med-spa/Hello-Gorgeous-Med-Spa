@@ -48,15 +48,15 @@ export default function PortalHistoryPage() {
       {/* Summary Stats */}
       <div className="grid grid-cols-3 gap-4 mb-8">
         <div className="bg-white rounded-xl border border-black p-4 text-center">
-          <p className="text-2xl font-bold text-pink-500">{TREATMENT_HISTORY.length}</p>
+          <p className="text-2xl font-bold text-[#FF2D8E]">{TREATMENT_HISTORY.length}</p>
           <p className="text-sm text-black">Total Visits</p>
         </div>
         <div className="bg-white rounded-xl border border-black p-4 text-center">
-          <p className="text-2xl font-bold text-pink-500">30</p>
+          <p className="text-2xl font-bold text-[#FF2D8E]">30</p>
           <p className="text-sm text-black">Botox Units (YTD)</p>
         </div>
         <div className="bg-white rounded-xl border border-black p-4 text-center">
-          <p className="text-2xl font-bold text-pink-500">$1,040</p>
+          <p className="text-2xl font-bold text-[#FF2D8E]">$1,040</p>
           <p className="text-sm text-black">Total Spent</p>
         </div>
       </div>
@@ -87,7 +87,7 @@ export default function PortalHistoryPage() {
                 <h3 className="font-semibold text-black text-lg">{treatment.service}</h3>
                 <p className="text-black text-sm">{treatment.provider}</p>
                 {treatment.units && (
-                  <p className="text-sm text-pink-500 mt-1">{treatment.units}</p>
+                  <p className="text-sm text-[#FF2D8E] mt-1">{treatment.units}</p>
                 )}
                 {treatment.notes && (
                   <p className="text-sm text-black mt-3 italic">"{treatment.notes}"</p>

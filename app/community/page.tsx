@@ -47,7 +47,7 @@ export default function CommunityPage() {
                     href="https://www.oswegochamber.org"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-pink-400 underline"
+                    className="hover:text-[#FF2D8E] underline"
                   >
                     Oswego Chamber of Commerce
                   </a>
@@ -57,7 +57,7 @@ export default function CommunityPage() {
                     href="https://www.co.kendall.il.us"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-pink-400 underline"
+                    className="hover:text-[#FF2D8E] underline"
                   >
                     Kendall County, IL
                   </a>
@@ -67,7 +67,7 @@ export default function CommunityPage() {
                     href="https://www.villageofoswego.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="hover:text-pink-400 underline"
+                    className="hover:text-[#FF2D8E] underline"
                   >
                     Village of Oswego
                   </a>
@@ -93,13 +93,13 @@ export default function CommunityPage() {
               <div className="flex flex-wrap gap-4">
                 <a
                   href={BOOKING_URL}
-                  className="inline-flex items-center px-6 py-3 rounded-full bg-pink-500 text-white font-semibold hover:bg-pink-600 transition"
+                  className="inline-flex items-center px-6 py-3 rounded-full bg-[#FF2D8E] text-white font-semibold hover:bg-black transition"
                 >
                   Book a Consultation
                 </a>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center px-6 py-3 rounded-full border border-white/30 text-white font-semibold hover:bg-white/10 transition"
+                  className="inline-flex items-center px-6 py-3 rounded-full border border-white/30 text-white font-semibold hover:bg-white transition"
                 >
                   Contact Us
                 </Link>

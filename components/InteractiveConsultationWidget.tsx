@@ -97,12 +97,12 @@ export function InteractiveConsultationWidget({ onScrollToBotox }: { onScrollToB
                 <Link
                   key={r.name}
                   href={r.href}
-                  className="block p-4 rounded-xl border border-pink-500/20 bg-white/5 hover:bg-pink-500/10 hover:border-pink-500/40 transition-all group"
+                  className="block p-4 rounded-xl border border-[#FF2D8E]/20 bg-white hover:bg-[#FF2D8E]/10 hover:border-[#FF2D8E]/40 transition-all group"
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{r.icon}</span>
                     <span className="text-white font-medium group-hover:text-pink-300">{r.name}</span>
-                    <span className="ml-auto text-pink-500">→</span>
+                    <span className="ml-auto text-[#FF2D8E]">→</span>
                   </div>
                 </Link>
               ))}
@@ -116,7 +116,7 @@ export function InteractiveConsultationWidget({ onScrollToBotox }: { onScrollToB
               <button
                 type="button"
                 onClick={onScrollToBotox}
-                className="w-full py-3 rounded-xl border border-white/20 text-white/80 text-sm font-medium hover:bg-white/5 hover:text-white transition"
+                className="w-full py-3 rounded-xl border border-black text-black text-sm font-medium hover:bg-white hover:text-white transition"
               >
                 💉 Or estimate your Botox cost →
               </button>
@@ -183,8 +183,8 @@ export function InteractiveConsultationWidget({ onScrollToBotox }: { onScrollToB
                     onClick={() => toggleConcern(c.id)}
                     className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition ${
                       selectedConcerns.has(c.id)
-                        ? "bg-pink-500/30 border border-pink-500/50 text-white"
-                        : "bg-white/5 border border-white/10 text-black hover:bg-white/10"
+                        ? "bg-[#FF2D8E]/30 border border-[#FF2D8E]/50 text-white"
+                        : "bg-white border border-black text-black hover:bg-white"
                     }`}
                   >
                     {selectedConcerns.has(c.id) ? "✓ " : ""}{c.label}
@@ -202,9 +202,9 @@ export function InteractiveConsultationWidget({ onScrollToBotox }: { onScrollToB
                   {Array.from(selectedConcerns).map((cid) => {
                     const label = BODY_ZONES.flatMap((z) => z.concerns).find((c) => c.id === cid)?.label || cid;
                     return (
-                      <div key={cid} className="flex items-center justify-between px-3 py-1.5 rounded bg-white/5 text-white text-xs">
+                      <div key={cid} className="flex items-center justify-between px-3 py-1.5 rounded bg-white text-white text-xs">
                         <span>{label}</span>
-                        <button type="button" onClick={() => removeConcern(cid)} className="text-black hover:text-red-400">×</button>
+                        <button type="button" onClick={() => removeConcern(cid)} className="text-black hover:text-[#FF2D8E]">×</button>
                       </div>
                     );
                   })}
@@ -216,7 +216,7 @@ export function InteractiveConsultationWidget({ onScrollToBotox }: { onScrollToB
           <button
             onClick={() => setShowResults(true)}
             disabled={selectedConcerns.size === 0}
-            className="mt-4 w-full py-3 rounded-xl bg-gradient-to-r from-pink-500 to-pink-600 text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-pink-500/25 transition"
+            className="mt-4 w-full py-3 rounded-xl bg-gradient-to-r from-pink-500 to-pink-600 text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-lg hover:shadow-[#FF2D8E]/25 transition"
           >
             Get My Treatment Plan
           </button>

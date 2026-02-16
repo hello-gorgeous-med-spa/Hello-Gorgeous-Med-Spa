@@ -20,7 +20,7 @@ export default function VIPPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
         <div className="relative z-10">
           <FadeUp>
-            <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
+            <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">
               EXCLUSIVE ACCESS
             </p>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
@@ -44,19 +44,19 @@ export default function VIPPage() {
               <h2 className="text-2xl font-bold text-white mb-4">What you get</h2>
               <ul className="space-y-3 text-black">
                 <li className="flex items-center gap-3">
-                  <span className="text-pink-400">✓</span>
+                  <span className="text-[#FF2D8E]">✓</span>
                   First access to new treatments and services
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="text-pink-400">✓</span>
+                  <span className="text-[#FF2D8E]">✓</span>
                   Exclusive offers and seasonal promotions
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="text-pink-400">✓</span>
+                  <span className="text-[#FF2D8E]">✓</span>
                   Birthday and loyalty perks
                 </li>
                 <li className="flex items-center gap-3">
-                  <span className="text-pink-400">✓</span>
+                  <span className="text-[#FF2D8E]">✓</span>
                   Tips and education from our team
                 </li>
               </ul>

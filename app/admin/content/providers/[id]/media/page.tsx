@@ -271,7 +271,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-sm text-black">Before</div>
                   )}
-                  <span className="absolute bottom-1 left-1 px-1.5 py-0.5 bg-black/50 text-white text-xs rounded">
+                  <span className="absolute bottom-1 left-1 px-1.5 py-0.5 bg-white text-white text-xs rounded">
                     Before
                   </span>
                 </div>
@@ -407,7 +407,7 @@ function UploadModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
         <div className="p-6 border-b border-black">
           <h2 className="text-xl font-bold text-black">

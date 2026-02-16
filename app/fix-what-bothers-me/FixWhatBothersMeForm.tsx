@@ -10,7 +10,7 @@ type Suggested = { slug: string; name: string; reason: string };
 type Props = { initialMessage?: string };
 
 const INPUT_BASE =
-  "w-full rounded-xl bg-black border border-black px-4 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50 input-touch";
+  "w-full rounded-xl bg-black border border-black px-4 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-[#FF2D8E]/50 input-touch";
 
 export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -74,7 +74,7 @@ export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl border border-pink-500/20 bg-gradient-to-b from-pink-950/20 to-black p-6 sm:p-8 text-center keyboard-safe">
+      <div className="rounded-2xl border border-[#FF2D8E]/20 bg-gradient-to-b from-pink-950/20 to-black p-6 sm:p-8 text-center keyboard-safe">
         <div className="text-4xl mb-4">💗</div>
         <h2 className="text-2xl font-bold text-white">Thank you.</h2>
         <p className="mt-3 text-black">
@@ -84,12 +84,12 @@ export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
         <div className="mt-8 text-left min-h-[120px]">
           {suggested.length > 0 && (
             <>
-              <p className="text-pink-400 text-sm font-semibold uppercase tracking-wider mb-3">
+              <p className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider mb-3">
                 We think these might help
               </p>
               <ul className="space-y-3" role="list">
                 {suggested.map((s) => (
-                  <li key={s.slug} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-xl bg-white/5 border border-white/10 px-4 py-3">
+                  <li key={s.slug} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-xl bg-white border border-black px-4 py-3">
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-white">{s.name}</p>
                       <p className="text-sm text-black">{s.reason}</p>
@@ -168,7 +168,7 @@ export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
       </div>
 
       {status === "error" && (
-        <p className="mt-4 text-red-400 text-sm" role="alert">
+        <p className="mt-4 text-[#FF2D8E] text-sm" role="alert">
           {errorMsg}
         </p>
       )}

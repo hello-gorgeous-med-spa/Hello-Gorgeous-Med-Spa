@@ -247,7 +247,7 @@ export default function BusinessWalletPage() {
               </div>
               <table className="w-full">
                 <thead>
-                  <tr className="border-b bg-white/50">
+                  <tr className="border-b bg-white0">
                     <th className="text-left px-6 py-3 text-xs font-semibold text-black">Processor</th>
                     <th className="text-right px-4 py-3 text-xs font-semibold text-black">Collected</th>
                     <th className="text-right px-4 py-3 text-xs font-semibold text-black">Fees</th>

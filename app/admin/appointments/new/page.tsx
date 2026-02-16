@@ -337,7 +337,7 @@ function NewAppointmentContent() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full" />
+        <div className="animate-spin w-8 h-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full" />
       </div>
     );
   }
@@ -380,7 +380,7 @@ function NewAppointmentContent() {
               disabled={i + 1 > step}
               className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-colors ${
                 step === i + 1
-                  ? 'bg-pink-500 text-white'
+                  ? 'bg-[#FF2D8E] text-white'
                   : step > i + 1
                   ? 'bg-pink-200 text-pink-700 hover:bg-pink-300'
                   : 'bg-white text-black'
@@ -409,7 +409,7 @@ function NewAppointmentContent() {
                 placeholder="Search client or leave empty for walk-ins"
                 value={clientSearch}
                 onChange={(e) => setClientSearch(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full pl-10 pr-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
               />
             </div>
           </div>
@@ -495,7 +495,7 @@ function NewAppointmentContent() {
                 placeholder="Search by service name"
                 value={serviceSearch}
                 onChange={(e) => setServiceSearch(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full pl-10 pr-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
               />
             </div>
           </div>
@@ -555,7 +555,7 @@ function NewAppointmentContent() {
                           }}
                           className={`w-full flex items-center justify-between px-4 py-3 border-l-4 hover:bg-white transition-colors ${
                             formData.serviceId === service.id
-                              ? 'border-pink-500 bg-pink-50'
+                              ? 'border-[#FF2D8E] bg-pink-50'
                               : 'border-blue-400'
                           }`}
                         >
@@ -618,7 +618,7 @@ function NewAppointmentContent() {
                 key={form.id}
                 className={`flex items-center gap-4 p-4 border rounded-lg cursor-pointer transition-colors ${
                   formData.selectedForms.includes(form.id)
-                    ? 'border-pink-500 bg-pink-50'
+                    ? 'border-[#FF2D8E] bg-pink-50'
                     : 'border-black hover:border-black'
                 }`}
               >
@@ -632,7 +632,7 @@ function NewAppointmentContent() {
                       setFormData({ ...formData, selectedForms: formData.selectedForms.filter((f: string) => f !== form.id) });
                     }
                   }}
-                  className="w-5 h-5 text-pink-500 border-black rounded focus:ring-pink-500"
+                  className="w-5 h-5 text-[#FF2D8E] border-black rounded focus:ring-pink-500"
                 />
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
@@ -685,7 +685,7 @@ function NewAppointmentContent() {
             <button
               type="button"
               onClick={() => setStep(4)}
-              className="px-6 py-2.5 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600"
+              className="px-6 py-2.5 bg-[#FF2D8E] text-white font-semibold rounded-lg hover:bg-black"
             >
               Continue
             </button>
@@ -745,7 +745,7 @@ function NewAppointmentContent() {
               </div>
               {availabilityLoading && (
                 <span className="text-xs text-black flex items-center gap-1">
-                  <div className="animate-spin w-3 h-3 border-2 border-pink-500 border-t-transparent rounded-full" />
+                  <div className="animate-spin w-3 h-3 border-2 border-[#FF2D8E] border-t-transparent rounded-full" />
                   Checking schedule...
                 </span>
               )}
@@ -776,7 +776,7 @@ function NewAppointmentContent() {
                         onClick={() => setFormData({ ...formData, time: slot.time })}
                         className={`px-2 py-2 text-sm rounded-lg border transition-colors ${
                           isSelected
-                            ? 'bg-pink-500 text-white border-pink-500'
+                            ? 'bg-[#FF2D8E] text-white border-[#FF2D8E]'
                             : !slot.available
                             ? 'bg-white text-black border-black cursor-not-allowed line-through'
                             : 'bg-white text-black border-black hover:border-pink-300 hover:bg-pink-50'
@@ -790,7 +790,7 @@ function NewAppointmentContent() {
                 </div>
                 <div className="flex items-center gap-4 mt-2 text-xs text-black">
                   <span className="flex items-center gap-1">
-                    <span className="w-3 h-3 bg-pink-500 rounded"></span> Selected
+                    <span className="w-3 h-3 bg-[#FF2D8E] rounded"></span> Selected
                   </span>
                   <span className="flex items-center gap-1">
                     <span className="w-3 h-3 bg-white rounded"></span> Unavailable
@@ -838,7 +838,7 @@ function NewAppointmentContent() {
               type="button"
               onClick={() => formData.time && setStep(5)}
               disabled={!formData.time}
-              className="px-6 py-2.5 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 disabled:opacity-50"
+              className="px-6 py-2.5 bg-[#FF2D8E] text-white font-semibold rounded-lg hover:bg-black disabled:opacity-50"
             >
               Continue
             </button>
@@ -857,7 +857,7 @@ function NewAppointmentContent() {
           <div className="p-6">
             <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl p-6 space-y-4">
               <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-full bg-pink-500 flex items-center justify-center text-white text-xl font-bold">
+                <div className="w-14 h-14 rounded-full bg-[#FF2D8E] flex items-center justify-center text-white text-xl font-bold">
                   {isWalkIn ? '🚶' : selectedClient?.name?.split(' ').map((n: string) => n[0]).join('')}
                 </div>
                 <div>
@@ -911,7 +911,7 @@ function NewAppointmentContent() {
                 type="checkbox"
                 checked={formData.sendConfirmation}
                 onChange={(e) => setFormData({ ...formData, sendConfirmation: e.target.checked })}
-                className="w-4 h-4 text-pink-500 border-black rounded"
+                className="w-4 h-4 text-[#FF2D8E] border-black rounded"
               />
               <span className="text-sm text-black">Send confirmation email & SMS to client</span>
             </label>
@@ -930,7 +930,7 @@ function NewAppointmentContent() {
               type="button"
               onClick={handleSubmit}
               disabled={isSubmitting}
-              className="px-8 py-3 bg-pink-500 text-white font-bold rounded-lg hover:bg-pink-600 disabled:opacity-50 flex items-center gap-2 text-lg"
+              className="px-8 py-3 bg-[#FF2D8E] text-white font-bold rounded-lg hover:bg-black disabled:opacity-50 flex items-center gap-2 text-lg"
             >
               {isSubmitting ? (
                 <>
@@ -950,7 +950,7 @@ function NewAppointmentContent() {
 
 export default function NewAppointmentPage() {
   return (
-    <Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full" /></div>}>
+    <Suspense fallback={<div className="flex items-center justify-center h-64"><div className="animate-spin w-8 h-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full" /></div>}>
       <NewAppointmentContent />
     </Suspense>
   );

@@ -76,7 +76,7 @@ export function FullscriptSection() {
               rel="noopener noreferrer"
               className="group block h-full"
             >
-              <div className="h-full rounded-3xl border-2 border-fuchsia-500/30 bg-gradient-to-br from-fuchsia-950/40 to-black p-8 hover:border-fuchsia-500/60 transition-all duration-300 hover:shadow-xl hover:shadow-fuchsia-500/10">
+              <div className="h-full rounded-3xl border-2 border-[#FF2D8E]/30 bg-white border-2 border-black p-8 hover:border-[#FF2D8E]/60 transition-all duration-300 hover:shadow-xl hover:shadow-[#FF2D8E]/10">
                 <div className="flex flex-col h-full">
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-fuchsia-500 to-pink-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <span className="text-3xl">🛒</span>
@@ -85,24 +85,24 @@ export function FullscriptSection() {
                   <h3 className="text-2xl font-bold text-white mb-3">
                     Shop Supplements
                   </h3>
-                  <p className="text-white/70 mb-6 flex-1">
+                  <p className="text-black mb-6 flex-1">
                     Browse our curated selection of professional-grade supplements. 
                     Get personalized recommendations based on your health goals.
                   </p>
 
                   <ul className="space-y-2 mb-6">
-                    <li className="flex items-center gap-2 text-white/80 text-sm">
-                      <span className="text-fuchsia-400">✓</span> 20% off retail prices
+                    <li className="flex items-center gap-2 text-black text-sm">
+                      <span className="text-[#FF2D8E]">✓</span> 20% off retail prices
                     </li>
-                    <li className="flex items-center gap-2 text-white/80 text-sm">
-                      <span className="text-fuchsia-400">✓</span> Free shipping on orders $50+
+                    <li className="flex items-center gap-2 text-black text-sm">
+                      <span className="text-[#FF2D8E]">✓</span> Free shipping on orders $50+
                     </li>
-                    <li className="flex items-center gap-2 text-white/80 text-sm">
-                      <span className="text-fuchsia-400">✓</span> Auto-ship & save options
+                    <li className="flex items-center gap-2 text-black text-sm">
+                      <span className="text-[#FF2D8E]">✓</span> Auto-ship & save options
                     </li>
                   </ul>
 
-                  <span className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-fuchsia-500 text-white font-bold group-hover:bg-fuchsia-600 transition shadow-lg shadow-fuchsia-500/25 w-fit">
+                  <span className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FF2D8E] text-white font-bold group-hover:bg-black transition shadow-lg shadow-[#FF2D8E]/25 w-fit">
                     Browse Dispensary
                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </span>
@@ -119,7 +119,7 @@ export function FullscriptSection() {
               rel="noopener noreferrer"
               className="group block h-full"
             >
-              <div className="h-full rounded-3xl border-2 border-pink-500/30 bg-gradient-to-br from-pink-950/40 to-black p-8 hover:border-pink-500/60 transition-all duration-300 hover:shadow-xl hover:shadow-pink-500/10">
+              <div className="h-full rounded-3xl border-2 border-[#FF2D8E]/30 bg-white border-2 border-black p-8 hover:border-[#FF2D8E]/60 transition-all duration-300 hover:shadow-xl hover:shadow-[#FF2D8E]/10">
                 <div className="flex flex-col h-full">
                   <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-500 to-cyan-500 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
                     <span className="text-3xl">📋</span>
@@ -128,24 +128,24 @@ export function FullscriptSection() {
                   <h3 className="text-2xl font-bold text-white mb-3">
                     Share Your Supplements
                   </h3>
-                  <p className="text-white/70 mb-6 flex-1">
+                  <p className="text-black mb-6 flex-1">
                     Already taking supplements? Let us know what you&apos;re currently using 
                     so we can provide better, personalized care.
                   </p>
 
                   <ul className="space-y-2 mb-6">
-                    <li className="flex items-center gap-2 text-white/80 text-sm">
-                      <span className="text-pink-400">✓</span> Review for interactions
+                    <li className="flex items-center gap-2 text-black text-sm">
+                      <span className="text-[#FF2D8E]">✓</span> Review for interactions
                     </li>
-                    <li className="flex items-center gap-2 text-white/80 text-sm">
-                      <span className="text-pink-400">✓</span> Optimize your regimen
+                    <li className="flex items-center gap-2 text-black text-sm">
+                      <span className="text-[#FF2D8E]">✓</span> Optimize your regimen
                     </li>
-                    <li className="flex items-center gap-2 text-white/80 text-sm">
-                      <span className="text-pink-400">✓</span> Personalized recommendations
+                    <li className="flex items-center gap-2 text-black text-sm">
+                      <span className="text-[#FF2D8E]">✓</span> Personalized recommendations
                     </li>
                   </ul>
 
-                  <span className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-pink-500 text-white font-bold group-hover:bg-pink-600 transition shadow-lg shadow-pink-500/25 w-fit">
+                  <span className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#FF2D8E] text-white font-bold group-hover:bg-black transition shadow-lg shadow-[#FF2D8E]/25 w-fit">
                     Complete Intake Form
                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </span>
@@ -157,8 +157,8 @@ export function FullscriptSection() {
 
         {/* Popular Supplements: guided entry + clickable pills */}
         <FadeUp delayMs={180}>
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-            <p className="text-white/60 text-sm font-medium mb-4 text-center">
+          <div className="rounded-2xl border border-black bg-white p-6">
+            <p className="text-black text-sm font-medium mb-4 text-center">
               POPULAR SUPPLEMENTS IN OUR DISPENSARY
             </p>
             <div className="flex flex-wrap justify-center gap-3 mb-6">
@@ -167,13 +167,13 @@ export function FullscriptSection() {
                   key={supp.name}
                   type="button"
                   onClick={() => openPeppiForPill(supp.name)}
-                  className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-black/50 border border-white/10 hover:border-fuchsia-500/50 hover:bg-fuchsia-500/10 transition min-h-[44px] touch-manipulation"
+                  className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-white border border-black hover:border-[#FF2D8E]/50 hover:bg-[#FF2D8E]/10 transition min-h-[44px] touch-manipulation"
                   aria-label={`Ask Peppi about ${supp.name}`}
                 >
                   <span>{supp.icon}</span>
                   <div className="text-left">
                     <span className="text-white text-sm font-medium">{supp.name}</span>
-                    <span className="text-white/50 text-xs ml-2 hidden sm:inline">• {supp.benefit}</span>
+                    <span className="text-black text-xs ml-2 hidden sm:inline">• {supp.benefit}</span>
                   </div>
                 </button>
               ))}
@@ -182,12 +182,12 @@ export function FullscriptSection() {
               <button
                 type="button"
                 onClick={openPeppiSupplements}
-                className="min-h-[44px] px-6 py-3 rounded-full bg-fuchsia-500 text-white font-bold hover:bg-fuchsia-600 transition shadow-lg shadow-fuchsia-500/25 border-2 border-fuchsia-400/50 touch-manipulation focus:outline-none focus:ring-2 focus:ring-fuchsia-400 focus:ring-offset-2 focus:ring-offset-black"
+                className="min-h-[44px] px-6 py-3 rounded-full bg-[#FF2D8E] text-white font-bold hover:bg-black transition shadow-lg shadow-[#FF2D8E]/25 border-2 border-[#FF2D8E]/50 touch-manipulation focus:outline-none focus:ring-2 focus:ring-fuchsia-400 focus:ring-offset-2 focus:ring-offset-black"
                 aria-label="Ask Peppi what supplements are right for me"
               >
                 💬 Ask Peppi what supplements are right for me
               </button>
-              <p className="text-white/50 text-sm mt-3 max-w-md mx-auto">
+              <p className="text-black text-sm mt-3 max-w-md mx-auto">
                 No guessing. We&apos;ll guide you to options that may support your goals — then you can order professional-grade supplements on Fullscript.
               </p>
             </div>
@@ -196,21 +196,21 @@ export function FullscriptSection() {
 
         {/* Trust badges */}
         <FadeUp delayMs={240}>
-          <div className="mt-8 flex flex-wrap justify-center items-center gap-6 text-sm text-white/50">
+          <div className="mt-8 flex flex-wrap justify-center items-center gap-6 text-sm text-black">
             <div className="flex items-center gap-2">
-              <span className="text-fuchsia-400">🔒</span>
+              <span className="text-[#FF2D8E]">🔒</span>
               <span>Secure checkout</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-fuchsia-400">🏥</span>
+              <span className="text-[#FF2D8E]">🏥</span>
               <span>Practitioner-grade quality</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-fuchsia-400">🚚</span>
+              <span className="text-[#FF2D8E]">🚚</span>
               <span>Fast shipping</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-fuchsia-400">💬</span>
+              <span className="text-[#FF2D8E]">💬</span>
               <span>Provider support</span>
             </div>
           </div>

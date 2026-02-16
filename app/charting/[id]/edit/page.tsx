@@ -150,7 +150,7 @@ export default function EditChartNotePage() {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full mx-auto mb-4" />
+          <div className="animate-spin w-8 h-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full mx-auto mb-4" />
           <p className="text-black">Loading note...</p>
         </div>
       </div>
@@ -260,7 +260,7 @@ export default function EditChartNotePage() {
               <div className="flex items-center justify-between mb-2">
                 <label className="text-sm font-medium text-black flex items-center gap-2">
                   <span className={`w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold ${
-                    field === 'subjective' ? 'bg-pink-500' :
+                    field === 'subjective' ? 'bg-[#FF2D8E]' :
                     field === 'objective' ? 'bg-blue-500' :
                     field === 'assessment' ? 'bg-green-500' :
                     'bg-purple-500'
@@ -341,7 +341,7 @@ export default function EditChartNotePage() {
             <button
               onClick={() => handleSave(true)}
               disabled={saving || !note.client_id}
-              className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+              className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
               title={!note.client_id ? 'Client required to finalize' : ''}
             >
               {saving ? 'Saving...' : 'Save & Finalize'}

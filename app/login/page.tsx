@@ -82,8 +82,8 @@ function LoginForm() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-black to-black">
         <div className="text-center">
-          <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-white/70">Loading...</p>
+          <div className="w-12 h-12 border-4 border-[#FF2D8E] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <p className="text-black">Loading...</p>
         </div>
       </div>
     );
@@ -100,7 +100,7 @@ function LoginForm() {
           </p>
         </div>
 
-        <div className="bg-white/10 backdrop-blur-xl rounded-2xl border border-white/20 p-8">
+        <div className="bg-white backdrop-blur-xl rounded-2xl border border-black p-8">
           {magicSent ? (
             <div className="text-center space-y-4">
               <p className="text-white/90">
@@ -131,7 +131,7 @@ function LoginForm() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-pink-500 min-h-[44px]"
+                  className="w-full px-4 py-3 bg-white border border-black rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-pink-500 min-h-[44px]"
                   placeholder="you@example.com"
                   autoComplete="email"
                 />
@@ -142,7 +142,7 @@ function LoginForm() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3 px-4 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 disabled:opacity-50 min-h-[44px]"
+                className="w-full py-3 px-4 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-black disabled:opacity-50 min-h-[44px]"
               >
                 {isLoading ? 'Sending…' : 'Send me a secure login link'}
               </button>
@@ -161,7 +161,7 @@ function LoginForm() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-pink-500 min-h-[44px]"
+                  className="w-full px-4 py-3 bg-white border border-black rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-pink-500 min-h-[44px]"
                   placeholder="you@example.com"
                 />
               </div>
@@ -172,14 +172,14 @@ function LoginForm() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-pink-500 min-h-[44px]"
+                  className="w-full px-4 py-3 bg-white border border-black rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-pink-500 min-h-[44px]"
                   placeholder="••••••••"
                 />
               </div>
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full py-3 px-4 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 disabled:opacity-50 min-h-[44px]"
+                className="w-full py-3 px-4 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-black disabled:opacity-50 min-h-[44px]"
               >
                 {isLoading ? 'Signing in…' : 'Sign In'}
               </button>
@@ -187,7 +187,7 @@ function LoginForm() {
           )}
 
           {!magicSent && (
-            <div className="mt-6 pt-6 border-t border-white/10 text-center">
+            <div className="mt-6 pt-6 border-t border-black text-center">
               <button
                 type="button"
                 onClick={() => { setMode(mode === 'magic' ? 'staff' : 'magic'); setError(''); setPassword(''); }}
@@ -214,7 +214,7 @@ export default function LoginPage() {
     <Suspense
       fallback={
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-black to-black">
-          <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin" />
+          <div className="w-12 h-12 border-4 border-[#FF2D8E] border-t-transparent rounded-full animate-spin" />
         </div>
       }
     >

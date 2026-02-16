@@ -208,7 +208,7 @@ function ChartingContent() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin h-8 w-8 border-4 border-pink-500 border-t-transparent rounded-full" />
+        <div className="animate-spin h-8 w-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full" />
       </div>
     );
   }
@@ -227,7 +227,7 @@ function ChartingContent() {
           <div className="space-y-3">
             <Link
               href="/admin/appointments"
-              className="block w-full px-6 py-3 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 transition-colors"
+              className="block w-full px-6 py-3 bg-[#FF2D8E] text-white font-semibold rounded-lg hover:bg-black transition-colors"
             >
               📅 View Today's Appointments
             </Link>
@@ -339,7 +339,7 @@ function ChartingContent() {
             {/* Subjective */}
             <div>
               <label className="block text-sm font-medium text-black mb-1">
-                <span className="text-pink-500 font-bold">S</span> - Subjective
+                <span className="text-[#FF2D8E] font-bold">S</span> - Subjective
               </label>
               <textarea
                 value={formData.subjective}
@@ -354,7 +354,7 @@ function ChartingContent() {
             {/* Objective */}
             <div>
               <label className="block text-sm font-medium text-black mb-1">
-                <span className="text-pink-500 font-bold">O</span> - Objective
+                <span className="text-[#FF2D8E] font-bold">O</span> - Objective
               </label>
               <textarea
                 value={formData.objective}
@@ -369,7 +369,7 @@ function ChartingContent() {
             {/* Assessment */}
             <div>
               <label className="block text-sm font-medium text-black mb-1">
-                <span className="text-pink-500 font-bold">A</span> - Assessment
+                <span className="text-[#FF2D8E] font-bold">A</span> - Assessment
               </label>
               <textarea
                 value={formData.assessment}
@@ -384,7 +384,7 @@ function ChartingContent() {
             {/* Plan */}
             <div>
               <label className="block text-sm font-medium text-black mb-1">
-                <span className="text-pink-500 font-bold">P</span> - Plan
+                <span className="text-[#FF2D8E] font-bold">P</span> - Plan
               </label>
               <textarea
                 value={formData.plan}
@@ -431,7 +431,7 @@ function ChartingContent() {
                   disabled={isLocked}
                   className={`px-3 py-1.5 text-sm rounded-full border transition-colors ${
                     formData.areas_treated.includes(area)
-                      ? 'bg-pink-500 text-white border-pink-500'
+                      ? 'bg-[#FF2D8E] text-white border-[#FF2D8E]'
                       : 'bg-white text-black border-black hover:border-pink-300'
                   } disabled:opacity-50`}
                 >
@@ -554,7 +554,7 @@ function ChartingContent() {
               checked={formData.consent_obtained}
               onChange={(e) => setFormData({ ...formData, consent_obtained: e.target.checked })}
               disabled={isLocked}
-              className="w-4 h-4 text-pink-500 rounded focus:ring-pink-500"
+              className="w-4 h-4 text-[#FF2D8E] rounded focus:ring-pink-500"
             />
             <span className="text-sm text-black">Informed consent obtained</span>
           </label>
@@ -590,7 +590,7 @@ export default function ChartingPage() {
   return (
     <Suspense fallback={
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin h-8 w-8 border-4 border-pink-500 border-t-transparent rounded-full" />
+        <div className="animate-spin h-8 w-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full" />
       </div>
     }>
       <ChartingContent />

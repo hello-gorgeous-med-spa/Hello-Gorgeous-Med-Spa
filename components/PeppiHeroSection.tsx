@@ -73,8 +73,8 @@ export function PeppiHeroSection() {
           <div className="text-center mb-8">
             {/* Peppi Avatar */}
             <div className="relative w-28 h-28 mx-auto mb-6">
-              <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-500 to-purple-500 rounded-full animate-pulse opacity-30" />
-              <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white shadow-2xl shadow-fuchsia-500/20 bg-gradient-to-br from-fuchsia-100 to-purple-100">
+              <div className="absolute inset-0 bg-gradient-to-br bg-[#FF2D8E] rounded-full animate-pulse opacity-30" />
+              <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white shadow-2xl shadow-[#FF2D8E]/20 bg-gradient-to-br from-fuchsia-100 to-purple-100">
                 <Image
                   src={peppiAvatar}
                   alt="Peppi - Your Peptide & Wellness Expert"
@@ -89,16 +89,16 @@ export function PeppiHeroSection() {
               <span className="absolute bottom-1 right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white shadow-lg" />
             </div>
 
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/30 mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/30 mb-4">
               <span className="text-lg">💊</span>
-              <span className="text-fuchsia-600 text-sm font-bold uppercase tracking-wider">AI Peptide Expert</span>
+              <span className="text-[#FF2D8E] text-sm font-bold uppercase tracking-wider">AI Peptide Expert</span>
             </div>
             
             <h2 className="text-3xl md:text-4xl font-bold text-[#000000] mb-3">
-              Meet <span className="text-fuchsia-600">Peppi</span>
+              Meet <span className="text-[#FF2D8E]">Peppi</span>
             </h2>
             <p className="text-lg text-black/70 max-w-xl mx-auto">
-              Your intelligent guide to <strong className="text-fuchsia-600">peptide therapies</strong>, 
+              Your intelligent guide to <strong className="text-[#FF2D8E]">peptide therapies</strong>, 
               IV infusions, vitamin injections, and regenerative wellness. Ask anything!
             </p>
           </div>
@@ -107,7 +107,7 @@ export function PeppiHeroSection() {
           <div className="text-center mb-8">
             <button
               onClick={() => handleAskPeppi()}
-              className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-fuchsia-500 to-purple-500 text-white font-bold text-lg shadow-xl shadow-fuchsia-500/30 hover:shadow-2xl hover:shadow-fuchsia-500/40 hover:scale-105 transition-all duration-300"
+              className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r bg-[#FF2D8E] text-white font-bold text-lg shadow-xl shadow-[#FF2D8E]/30 hover:shadow-2xl hover:shadow-[#FF2D8E]/40 hover:scale-105 transition-all duration-300"
             >
               <span className="text-2xl">💬</span>
               Chat with Peppi Now
@@ -124,7 +124,7 @@ export function PeppiHeroSection() {
                 <button
                   key={question}
                   onClick={() => handleAskPeppi(question)}
-                  className="px-4 py-2 rounded-full border-2 border-black/10 bg-white text-sm text-black/80 font-medium hover:border-fuchsia-500 hover:text-fuchsia-600 hover:bg-fuchsia-50 transition-all duration-200 shadow-sm hover:shadow-md"
+                  className="px-4 py-2 rounded-full border-2 border-black/10 bg-white text-sm text-black/80 font-medium hover:border-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-fuchsia-50 transition-all duration-200 shadow-sm hover:shadow-md"
                 >
                   {question}
                 </button>
@@ -170,13 +170,13 @@ export function PeppiHeroSection() {
                 onClick={() => setExpandedCategory(expandedCategory === category.name ? null : category.name)}
                 className={`w-full text-left p-4 rounded-2xl border-2 transition-all duration-300 ${
                   expandedCategory === category.name
-                    ? "border-fuchsia-500 bg-fuchsia-50 shadow-lg"
-                    : "border-black/10 bg-white hover:border-fuchsia-500/50 hover:shadow-md"
+                    ? "border-[#FF2D8E] bg-fuchsia-50 shadow-lg"
+                    : "border-black/10 bg-white hover:border-[#FF2D8E]/50 hover:shadow-md"
                 }`}
               >
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-2xl">{category.icon}</span>
-                  <h4 className="font-bold text-black group-hover:text-fuchsia-600 transition-colors">
+                  <h4 className="font-bold text-black group-hover:text-[#FF2D8E] transition-colors">
                     {category.name}
                   </h4>
                 </div>
@@ -195,13 +195,13 @@ export function PeppiHeroSection() {
               
               {/* Expanded state with Ask button */}
               {expandedCategory === category.name && (
-                <div className="mt-2 p-4 rounded-xl bg-fuchsia-500/10 border border-fuchsia-500/20">
+                <div className="mt-2 p-4 rounded-xl bg-[#FF2D8E]/10 border border-[#FF2D8E]/20">
                   <p className="text-sm text-black/70 mb-3">
                     Want to learn more about {category.name.toLowerCase()}?
                   </p>
                   <button
                     onClick={() => handleAskPeppi(`Tell me about ${category.peptides[0]} and other ${category.name.toLowerCase()} peptides`)}
-                    className="w-full py-2 px-4 rounded-full bg-fuchsia-500 text-white font-semibold text-sm hover:bg-fuchsia-600 transition-colors"
+                    className="w-full py-2 px-4 rounded-full bg-[#FF2D8E] text-white font-semibold text-sm hover:bg-black transition-colors"
                   >
                     Ask Peppi About {category.peptides[0]}
                   </button>
@@ -213,7 +213,7 @@ export function PeppiHeroSection() {
       </div>
 
       {/* Book Consultation CTA */}
-      <div className="rounded-3xl border-2 border-fuchsia-500/50 bg-gradient-to-r from-fuchsia-500/10 via-purple-500/10 to-fuchsia-500/10 p-6 md:p-8 text-center">
+      <div className="rounded-3xl border-2 border-[#FF2D8E]/50 bg-gradient-to-r from-fuchsia-500/10 via-purple-500/10 to-fuchsia-500/10 p-6 md:p-8 text-center">
         <h3 className="text-xl font-bold text-[#000000] mb-2">
           Ready to Start Your Peptide Journey?
         </h3>

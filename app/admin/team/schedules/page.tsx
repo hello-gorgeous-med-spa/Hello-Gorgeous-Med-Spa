@@ -224,7 +224,7 @@ export default function LiveSchedulesPage() {
         </div>
         <Link
           href="/admin/appointments/new"
-          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+          className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
         >
           + Book Appointment
         </Link>
@@ -301,7 +301,7 @@ export default function LiveSchedulesPage() {
 
       {/* Edit Modal */}
       {editingCell && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-sm w-full">
             <div className="p-6 border-b border-black">
               <h2 className="text-xl font-bold text-black">
@@ -398,7 +398,7 @@ export default function LiveSchedulesPage() {
                   editForm.endTime
                 )}
                 disabled={saving !== null}
-                className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
               >
                 {saving ? 'Saving...' : 'Save'}
               </button>

@@ -181,7 +181,7 @@ export default function HomepageEditorPage() {
               disabled={!hasChanges || isSaving}
               className={`px-6 py-2 rounded-lg font-medium ${
                 hasChanges
-                  ? 'bg-pink-500 text-white hover:bg-pink-600'
+                  ? 'bg-[#FF2D8E] text-white hover:bg-black'
                   : 'bg-white text-black cursor-not-allowed'
               }`}
             >

@@ -405,7 +405,7 @@ export default function MarketingAutomation() {
           </button>
           <button
             onClick={() => setNewCampaignModal(true)}
-            className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+            className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
           >
             + New Campaign
           </button>
@@ -446,7 +446,7 @@ export default function MarketingAutomation() {
             onClick={() => setActiveTab(tab)}
             className={`px-4 py-3 font-medium text-sm capitalize whitespace-nowrap ${
               activeTab === tab
-                ? 'text-pink-600 border-b-2 border-pink-500'
+                ? 'text-pink-600 border-b-2 border-[#FF2D8E]'
                 : 'text-black hover:text-black'
             }`}
           >
@@ -585,7 +585,7 @@ export default function MarketingAutomation() {
               onChange={(e) => setSearchQuery(e.target.value)}
               className="px-4 py-2 border border-black rounded-lg w-64"
             />
-            <button className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
+            <button className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black">
               + New Template
             </button>
           </div>
@@ -736,7 +736,7 @@ export default function MarketingAutomation() {
 
       {/* Test SMS Modal */}
       {testSmsModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 w-full max-w-md">
             <h2 className="text-xl font-bold text-black mb-4">Send Test SMS</h2>
             <div className="space-y-4">
@@ -765,7 +765,7 @@ export default function MarketingAutomation() {
             <div className="flex gap-3 mt-6">
               <button
                 onClick={handleSendTestSms}
-                className="flex-1 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+                className="flex-1 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
               >
                 Send Test
               </button>
@@ -786,7 +786,7 @@ export default function MarketingAutomation() {
 
       {/* Edit Template Modal */}
       {editTemplateModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 w-full max-w-lg">
             <h2 className="text-xl font-bold text-black mb-4">Edit Template</h2>
             <div className="space-y-4">
@@ -834,7 +834,7 @@ export default function MarketingAutomation() {
                   ));
                   setEditTemplateModal(null);
                 }}
-                className="flex-1 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+                className="flex-1 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
               >
                 Save Template
               </button>
@@ -851,7 +851,7 @@ export default function MarketingAutomation() {
 
       {/* New Campaign Modal */}
       {newCampaignModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 w-full max-w-lg">
             <h2 className="text-xl font-bold text-black mb-4">Create Campaign</h2>
             <div className="space-y-4">
@@ -891,7 +891,7 @@ export default function MarketingAutomation() {
               </div>
             </div>
             <div className="flex gap-3 mt-6">
-              <button className="flex-1 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
+              <button className="flex-1 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black">
                 Create Campaign
               </button>
               <button

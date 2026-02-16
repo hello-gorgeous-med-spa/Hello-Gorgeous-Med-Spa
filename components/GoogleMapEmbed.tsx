@@ -18,7 +18,7 @@ export function GoogleMapEmbed({
   showDirectionsButton = true,
 }: GoogleMapEmbedProps) {
   return (
-    <div className={`overflow-hidden rounded-xl border border-white/10 ${className}`}>
+    <div className={`overflow-hidden rounded-xl border border-black ${className}`}>
       <iframe
         src={MAPS_EMBED_URL}
         width="100%"
@@ -34,7 +34,7 @@ export function GoogleMapEmbed({
           href={MAPS_DIRECTIONS_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-3 flex items-center justify-center gap-2 py-2.5 text-sm font-semibold text-pink-400 hover:text-pink-300 transition-colors"
+          className="mt-3 flex items-center justify-center gap-2 py-2.5 text-sm font-semibold text-[#FF2D8E] hover:text-pink-300 transition-colors"
         >
           <span>📍</span> Get Directions
         </a>

@@ -84,13 +84,13 @@ export default function RewardsPage() {
       <div className={`bg-gradient-to-r ${tierColors[tier.id as keyof typeof tierColors] || tierColors.bronze} rounded-2xl p-6 text-white`}>
         <div className="flex items-start justify-between mb-6">
           <div>
-            <p className="text-white/80 text-sm">Your Balance</p>
+            <p className="text-black text-sm">Your Balance</p>
             {loading ? (
               <Skeleton className="h-12 w-32 bg-white/20" />
             ) : (
               <p className="text-4xl font-bold">{currentPoints.toLocaleString()} pts</p>
             )}
-            <p className="text-white/80 text-sm mt-1">≈ ${pointsValue} value</p>
+            <p className="text-black text-sm mt-1">≈ ${pointsValue} value</p>
           </div>
           <div className="text-right">
             <span className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full font-semibold">
@@ -111,7 +111,7 @@ export default function RewardsPage() {
                 style={{ width: `${Math.min(progressToNextTier, 100)}%` }}
               />
             </div>
-            <p className="text-sm text-white/80 mt-2">
+            <p className="text-sm text-black mt-2">
               {nextTierInfo.pointsNeeded.toLocaleString()} more points to {nextTierInfo.nextTier.name}
             </p>
           </div>
@@ -155,7 +155,7 @@ export default function RewardsPage() {
                   disabled={!canRedeem}
                   className={`w-full py-2 rounded-lg text-sm font-medium transition-colors ${
                     canRedeem
-                      ? 'bg-pink-500 text-white hover:bg-pink-600'
+                      ? 'bg-[#FF2D8E] text-white hover:bg-black'
                       : 'bg-white text-black cursor-not-allowed'
                   }`}
                 >
@@ -227,7 +227,7 @@ export default function RewardsPage() {
 
       {/* Redeem Modal */}
       {showRedeemModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
             <h2 className="text-xl font-bold text-black mb-4">Confirm Redemption</h2>
             {(() => {
@@ -252,7 +252,7 @@ export default function RewardsPage() {
                     </button>
                     <button
                       onClick={() => handleRedeem(reward.id)}
-                      className="flex-1 px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+                      className="flex-1 px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
                     >
                       Confirm
                     </button>

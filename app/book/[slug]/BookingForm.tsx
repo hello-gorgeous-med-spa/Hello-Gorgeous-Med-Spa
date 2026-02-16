@@ -290,7 +290,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
           {/* Step 1: Provider */}
           <div className={`flex items-center gap-2 ${step === 'provider' ? 'text-pink-600' : 'text-black'}`}>
             <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-              step === 'provider' ? 'bg-pink-500 text-white' : 
+              step === 'provider' ? 'bg-[#FF2D8E] text-white' : 
               ['datetime', 'info', 'confirm'].includes(step) ? 'bg-green-500 text-white' : 'bg-white'
             }`}>
               {['datetime', 'info', 'confirm'].includes(step) ? '✓' : '1'}
@@ -302,7 +302,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
           {/* Step 2: Date & Time */}
           <div className={`flex items-center gap-2 ${step === 'datetime' ? 'text-pink-600' : 'text-black'}`}>
             <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-              step === 'datetime' ? 'bg-pink-500 text-white' : 
+              step === 'datetime' ? 'bg-[#FF2D8E] text-white' : 
               ['info', 'confirm'].includes(step) ? 'bg-green-500 text-white' : 'bg-white'
             }`}>
               {['info', 'confirm'].includes(step) ? '✓' : '2'}
@@ -314,7 +314,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
           {/* Step 3: Info */}
           <div className={`flex items-center gap-2 ${step === 'info' ? 'text-pink-600' : 'text-black'}`}>
             <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-              step === 'info' ? 'bg-pink-500 text-white' : 
+              step === 'info' ? 'bg-[#FF2D8E] text-white' : 
               step === 'confirm' ? 'bg-green-500 text-white' : 'bg-white'
             }`}>
               {step === 'confirm' ? '✓' : '3'}
@@ -370,7 +370,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                         }}
                         className={`flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left hover:shadow-md ${
                           selectedProvider?.id === provider.id
-                            ? 'border-pink-500 bg-pink-50'
+                            ? 'border-[#FF2D8E] bg-pink-50'
                             : 'border-black hover:border-pink-300'
                         }`}
                       >
@@ -392,7 +392,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                           </div>
                         </div>
                         
-                        <div className="text-pink-500">
+                        <div className="text-[#FF2D8E]">
                           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
@@ -566,7 +566,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
               <button
                 onClick={() => setStep('info')}
                 disabled={!selectedDate || !selectedTime || !slotAvailable(selectedTime)}
-                className="flex-1 py-3 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 py-3 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Continue
               </button>
@@ -614,7 +614,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   onClick={() => updateField('isNewClient', true)}
                   className={`flex-1 py-3 rounded-xl font-medium transition-all ${
                     formData.isNewClient
-                      ? 'bg-pink-500 text-white'
+                      ? 'bg-[#FF2D8E] text-white'
                       : 'bg-white text-black hover:bg-white'
                   }`}
                 >
@@ -624,7 +624,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   onClick={() => updateField('isNewClient', false)}
                   className={`flex-1 py-3 rounded-xl font-medium transition-all ${
                     !formData.isNewClient
-                      ? 'bg-pink-500 text-white'
+                      ? 'bg-[#FF2D8E] text-white'
                       : 'bg-white text-black hover:bg-white'
                   }`}
                 >
@@ -646,7 +646,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     autoComplete="given-name"
                     value={formData.firstName}
                     onChange={(e) => updateField('firstName', e.target.value)}
-                    className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
+                    className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-[#FF2D8E]"
                   />
                 </div>
                 <div>
@@ -659,7 +659,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     autoComplete="family-name"
                     value={formData.lastName}
                     onChange={(e) => updateField('lastName', e.target.value)}
-                    className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
+                    className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-[#FF2D8E]"
                   />
                 </div>
               </div>
@@ -674,7 +674,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   autoComplete="email"
                   value={formData.email}
                   onChange={(e) => updateField('email', e.target.value)}
-                  className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
+                  className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-[#FF2D8E]"
                 />
               </div>
 
@@ -689,7 +689,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   value={formData.phone}
                   onChange={(e) => updateField('phone', e.target.value)}
                   placeholder="(630) 555-1234"
-                  className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
+                  className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-[#FF2D8E]"
                 />
               </div>
 
@@ -703,7 +703,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     required
                     value={formData.dateOfBirth}
                     onChange={(e) => updateField('dateOfBirth', e.target.value)}
-                    className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
+                    className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-[#FF2D8E]"
                   />
                 </div>
               )}
@@ -717,7 +717,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   onChange={(e) => updateField('notes', e.target.value)}
                   rows={2}
                   placeholder="Any special requests or concerns..."
-                  className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
+                  className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-[#FF2D8E]"
                 />
               </div>
 
@@ -735,7 +735,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     type="checkbox"
                     checked={formData.agreeToSMS}
                     onChange={(e) => updateField('agreeToSMS', e.target.checked)}
-                    className="mt-1 w-4 h-4 min-w-[16px] min-h-[16px] text-pink-500 border-black rounded focus:ring-[#FF2D8E] shrink-0"
+                    className="mt-1 w-4 h-4 min-w-[16px] min-h-[16px] text-[#FF2D8E] border-black rounded focus:ring-[#FF2D8E] shrink-0"
                   />
                   <span className="text-sm text-black">
                     Send me SMS reminders &amp; offers (msg rates may apply, reply STOP to opt out)
@@ -747,7 +747,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     required
                     checked={formData.agreeToTerms}
                     onChange={(e) => updateField('agreeToTerms', e.target.checked)}
-                    className="mt-1 w-4 h-4 min-w-[16px] min-h-[16px] text-pink-500 border-black rounded focus:ring-[#FF2D8E] shrink-0"
+                    className="mt-1 w-4 h-4 min-w-[16px] min-h-[16px] text-[#FF2D8E] border-black rounded focus:ring-[#FF2D8E] shrink-0"
                   />
                   <span className="text-sm text-black">
                     I agree to the <a href="/terms" target="_blank" className="text-pink-600 hover:underline">terms</a> and <a href="/privacy" target="_blank" className="text-pink-600 hover:underline">privacy policy</a> *
@@ -782,7 +782,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   (formData.isNewClient && !formData.dateOfBirth) ||
                   isSubmitting
                 }
-                className="flex-1 py-3 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 py-3 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? 'Booking...' : 'Confirm Booking'}
               </button>
@@ -852,7 +852,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                 <p className="text-sm text-pink-900 mb-2">Add Hello Gorgeous to your home screen for 1-tap booking.</p>
                 <a
                   href="/get-app"
-                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 transition-colors"
+                  className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-black transition-colors"
                 >
                   → Go to /get-app
                 </a>

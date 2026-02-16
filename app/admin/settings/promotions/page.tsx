@@ -143,7 +143,7 @@ export default function PromotionsPage() {
         {!editingPromo && (
           <button
             onClick={createNewPromo}
-            className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+            className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
           >
             + Create Promotion
           </button>
@@ -282,7 +282,7 @@ export default function PromotionsPage() {
                 type="checkbox"
                 checked={editingPromo.is_single_use}
                 onChange={(e) => setEditingPromo({ ...editingPromo, is_single_use: e.target.checked })}
-                className="w-4 h-4 text-pink-500 rounded"
+                className="w-4 h-4 text-[#FF2D8E] rounded"
               />
               <span className="text-sm">Single use per client</span>
             </label>
@@ -291,7 +291,7 @@ export default function PromotionsPage() {
                 type="checkbox"
                 checked={editingPromo.new_clients_only}
                 onChange={(e) => setEditingPromo({ ...editingPromo, new_clients_only: e.target.checked })}
-                className="w-4 h-4 text-pink-500 rounded"
+                className="w-4 h-4 text-[#FF2D8E] rounded"
               />
               <span className="text-sm">New clients only</span>
             </label>
@@ -300,7 +300,7 @@ export default function PromotionsPage() {
                 type="checkbox"
                 checked={editingPromo.is_active}
                 onChange={(e) => setEditingPromo({ ...editingPromo, is_active: e.target.checked })}
-                className="w-4 h-4 text-pink-500 rounded"
+                className="w-4 h-4 text-[#FF2D8E] rounded"
               />
               <span className="text-sm">Active</span>
             </label>
@@ -310,7 +310,7 @@ export default function PromotionsPage() {
             <button onClick={() => { setEditingPromo(null); setIsCreating(false); }} className="px-4 py-2 text-black hover:bg-white rounded-lg">
               Cancel
             </button>
-            <button onClick={savePromo} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
+            <button onClick={savePromo} className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black">
               {isCreating ? 'Create' : 'Save'}
             </button>
           </div>

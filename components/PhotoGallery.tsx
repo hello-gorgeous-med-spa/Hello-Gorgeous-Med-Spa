@@ -73,7 +73,7 @@ export function PhotoGallery() {
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex min-h-[48px] items-center justify-center gap-2 px-8 py-4 bg-pink-500 text-white font-semibold rounded-full hover:bg-pink-600 transition shadow-lg shadow-pink-500/25 w-full md:w-auto"
+              className="inline-flex min-h-[48px] items-center justify-center gap-2 px-8 py-4 bg-[#FF2D8E] text-white font-semibold rounded-full hover:bg-black transition shadow-lg shadow-[#FF2D8E]/25 w-full md:w-auto"
             >
               Book Your Transformation
             </a>

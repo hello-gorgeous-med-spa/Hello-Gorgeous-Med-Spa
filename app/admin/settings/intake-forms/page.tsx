@@ -139,7 +139,7 @@ export default function IntakeFormBuilderPage() {
           <h1 className="text-2xl font-bold text-black">Intake Form Builder</h1>
           <p className="text-black">Customize the new client intake questionnaire</p>
         </div>
-        <button onClick={saveForm} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
+        <button onClick={saveForm} className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black">
           Save Form
         </button>
       </div>
@@ -155,7 +155,7 @@ export default function IntakeFormBuilderPage() {
         <button
           onClick={() => setSelectedSection('all')}
           className={`px-4 py-2 rounded-lg text-sm whitespace-nowrap ${
-            selectedSection === 'all' ? 'bg-pink-500 text-white' : 'bg-white text-black hover:bg-white'
+            selectedSection === 'all' ? 'bg-[#FF2D8E] text-white' : 'bg-white text-black hover:bg-white'
           }`}
         >
           All Fields ({form.fields.length})
@@ -167,7 +167,7 @@ export default function IntakeFormBuilderPage() {
               key={section}
               onClick={() => setSelectedSection(section)}
               className={`px-4 py-2 rounded-lg text-sm whitespace-nowrap ${
-                selectedSection === section ? 'bg-pink-500 text-white' : 'bg-white text-black hover:bg-white'
+                selectedSection === section ? 'bg-[#FF2D8E] text-white' : 'bg-white text-black hover:bg-white'
               }`}
             >
               {section} ({count})
@@ -312,7 +312,7 @@ export default function IntakeFormBuilderPage() {
                   type="checkbox"
                   checked={editingField.required}
                   onChange={(e) => updateField(editingField.id, { required: e.target.checked })}
-                  className="w-4 h-4 text-pink-500 rounded"
+                  className="w-4 h-4 text-[#FF2D8E] rounded"
                 />
                 <span className="text-sm">Required field</span>
               </label>

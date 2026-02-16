@@ -122,14 +122,14 @@ export function EmailCapture() {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
       <div 
-        className="relative w-full max-w-lg bg-gradient-to-br from-black via-pink-950/30 to-black border-2 border-pink-500/50 rounded-3xl overflow-hidden shadow-2xl shadow-pink-500/20"
+        className="relative w-full max-w-lg bg-gradient-to-br from-black via-pink-950/30 to-black border-2 border-[#FF2D8E]/50 rounded-3xl overflow-hidden shadow-2xl shadow-[#FF2D8E]/20"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Close button */}
         <button
           type="button"
           onClick={handleClose}
-          className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white/10 text-white/60 flex items-center justify-center hover:bg-white/20 hover:text-white transition z-10"
+          className="absolute top-4 right-4 w-8 h-8 rounded-full bg-white text-black flex items-center justify-center hover:bg-white/20 hover:text-white transition z-10"
         >
           ✕
         </button>
@@ -141,14 +141,14 @@ export function EmailCapture() {
           {status === "success" ? (
             // Success State
             <div className="text-center py-6">
-              <div className="w-20 h-20 mx-auto rounded-full bg-pink-500/20 flex items-center justify-center mb-6">
+              <div className="w-20 h-20 mx-auto rounded-full bg-[#FF2D8E]/20 flex items-center justify-center mb-6">
                 <span className="text-5xl">✓</span>
               </div>
               <h3 className="text-2xl font-bold text-white mb-2">You&apos;re In!</h3>
-              <p className="text-white/70">
+              <p className="text-black">
                 Check your inbox for your exclusive 10% off code.
               </p>
-              <p className="text-pink-400 font-semibold mt-4">
+              <p className="text-[#FF2D8E] font-semibold mt-4">
                 Welcome to Hello Gorgeous! 💕
               </p>
             </div>
@@ -156,8 +156,8 @@ export function EmailCapture() {
             // Form State
             <>
               <div className="text-center mb-6">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/20 border border-pink-500/30 mb-4">
-                  <span className="text-pink-400 font-semibold text-sm">EXCLUSIVE OFFER</span>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/20 border border-[#FF2D8E]/30 mb-4">
+                  <span className="text-[#FF2D8E] font-semibold text-sm">EXCLUSIVE OFFER</span>
                 </div>
                 <h3 className="text-3xl md:text-4xl font-bold text-white mb-3">
                   Get{" "}
@@ -165,7 +165,7 @@ export function EmailCapture() {
                     10% Off
                   </span>
                 </h3>
-                <p className="text-white/70 text-lg">
+                <p className="text-black text-lg">
                   Your first treatment when you join our VIP list
                 </p>
               </div>
@@ -178,14 +178,14 @@ export function EmailCapture() {
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email"
                     required
-                    className="w-full px-5 py-4 rounded-xl bg-white/5 border border-white/20 text-white placeholder:text-white/40 focus:outline-none focus:border-pink-500 text-center text-lg"
+                    className="w-full px-5 py-4 rounded-xl bg-white border border-black text-white placeholder:text-white/40 focus:outline-none focus:border-[#FF2D8E] text-center text-lg"
                   />
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <select
                     value={concern}
                     onChange={(e) => setConcern(e.target.value)}
-                    className="px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-white focus:outline-none focus:border-pink-500 text-sm"
+                    className="px-4 py-3 rounded-xl bg-white border border-black text-white focus:outline-none focus:border-[#FF2D8E] text-sm"
                   >
                     {CONCERN_OPTIONS.map((o) => (
                       <option key={o.value} value={o.value} className="text-black">{o.label}</option>
@@ -194,7 +194,7 @@ export function EmailCapture() {
                   <select
                     value={timeframe}
                     onChange={(e) => setTimeframe(e.target.value)}
-                    className="px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-white focus:outline-none focus:border-pink-500 text-sm"
+                    className="px-4 py-3 rounded-xl bg-white border border-black text-white focus:outline-none focus:border-[#FF2D8E] text-sm"
                   >
                     {TIMEFRAME_OPTIONS.map((o) => (
                       <option key={o.value} value={o.value} className="text-black">{o.label}</option>
@@ -204,7 +204,7 @@ export function EmailCapture() {
                 <button
                   type="submit"
                   disabled={status === "loading"}
-                  className="w-full py-4 px-6 bg-gradient-to-r from-pink-500 to-pink-600 text-white font-bold text-lg rounded-xl hover:from-pink-600 hover:to-pink-700 transition shadow-lg shadow-pink-500/25 disabled:opacity-50"
+                  className="w-full py-4 px-6 bg-gradient-to-r from-pink-500 to-pink-600 text-white font-bold text-lg rounded-xl hover:from-pink-600 hover:to-pink-700 transition shadow-lg shadow-[#FF2D8E]/25 disabled:opacity-50"
                 >
                   {status === "loading" ? (
                     <span className="flex items-center justify-center gap-2">
@@ -218,23 +218,23 @@ export function EmailCapture() {
               </form>
 
               {status === "error" && (
-                <p className="mt-4 text-center text-red-400 text-sm">
+                <p className="mt-4 text-center text-[#FF2D8E] text-sm">
                   Oops! Something went wrong. Please try again.
                 </p>
               )}
 
               <div className="mt-6 space-y-3">
-                <p className="text-center text-white/50 text-sm">
+                <p className="text-center text-black text-sm">
                   VIP members also get:
                 </p>
                 <div className="flex flex-wrap justify-center gap-3">
-                  <span className="px-3 py-1 rounded-full bg-white/5 text-white/70 text-xs">
+                  <span className="px-3 py-1 rounded-full bg-white text-black text-xs">
                     ✨ Early access to specials
                   </span>
-                  <span className="px-3 py-1 rounded-full bg-white/5 text-white/70 text-xs">
+                  <span className="px-3 py-1 rounded-full bg-white text-black text-xs">
                     🎁 Birthday rewards
                   </span>
-                  <span className="px-3 py-1 rounded-full bg-white/5 text-white/70 text-xs">
+                  <span className="px-3 py-1 rounded-full bg-white text-black text-xs">
                     💌 Exclusive tips
                   </span>
                 </div>
@@ -243,7 +243,7 @@ export function EmailCapture() {
               <button
                 type="button"
                 onClick={handleClose}
-                className="w-full mt-6 text-white/40 text-sm hover:text-white/60 transition"
+                className="w-full mt-6 text-white/40 text-sm hover:text-black transition"
               >
                 No thanks, I&apos;ll pay full price
               </button>
@@ -309,7 +309,7 @@ export function EmailBanner() {
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
               required
-              className="flex-1 md:w-64 px-4 py-3 rounded-full bg-white/20 border border-white/30 text-white placeholder:text-white/60 focus:outline-none focus:bg-white/30"
+              className="flex-1 md:w-64 px-4 py-3 rounded-full bg-white/20 border border-white/30 text-white placeholder:text-black focus:outline-none focus:bg-white/30"
             />
             <button
               type="submit"

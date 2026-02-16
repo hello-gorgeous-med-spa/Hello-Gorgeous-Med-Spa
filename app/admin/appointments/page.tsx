@@ -195,7 +195,7 @@ export default function AdminAppointmentsPage() {
           </Link>
           <Link
             href="/admin/appointments/new"
-            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+            className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
           >
             + New Appointment
           </Link>
@@ -228,7 +228,7 @@ export default function AdminAppointmentsPage() {
               type="date"
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
             />
             <button
               onClick={() => changeDate(1)}

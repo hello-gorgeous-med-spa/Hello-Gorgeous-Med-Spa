@@ -88,7 +88,7 @@ export default function MembershipPage() {
       {/* Hero */}
       <div className="text-center py-16 px-4">
         <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
-          Become a <span className="text-pink-500">VIP Member</span>
+          Become a <span className="text-[#FF2D8E]">VIP Member</span>
         </h1>
         <p className="text-xl text-black max-w-2xl mx-auto">
           Join our exclusive membership program and enjoy premium perks, 
@@ -107,7 +107,7 @@ export default function MembershipPage() {
               }`}
             >
               {plan.popular && (
-                <div className="absolute top-0 left-0 right-0 bg-pink-500 text-white text-center py-1 text-sm font-medium">
+                <div className="absolute top-0 left-0 right-0 bg-[#FF2D8E] text-white text-center py-1 text-sm font-medium">
                   Most Popular
                 </div>
               )}
@@ -125,7 +125,7 @@ export default function MembershipPage() {
                 <ul className="mt-6 space-y-3">
                   {plan.benefits.map((benefit, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <span className="text-pink-500 mt-0.5">✓</span>
+                      <span className="text-[#FF2D8E] mt-0.5">✓</span>
                       <span className="text-black">{benefit}</span>
                     </li>
                   ))}
@@ -135,7 +135,7 @@ export default function MembershipPage() {
                   onClick={() => handleSignup(plan.id)}
                   className={`w-full mt-8 py-3 rounded-lg font-medium transition-colors ${
                     plan.popular
-                      ? 'bg-pink-500 text-white hover:bg-pink-600'
+                      ? 'bg-[#FF2D8E] text-white hover:bg-black'
                       : 'bg-white text-black hover:bg-white'
                   }`}
                 >
@@ -213,7 +213,7 @@ export default function MembershipPage() {
 
       {/* Signup Modal */}
       {showSignupForm && selectedPlan && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-8">
             <h2 className="text-2xl font-bold text-black mb-2">
               Join {MEMBERSHIP_PLANS.find(p => p.id === selectedPlan)?.name}
@@ -279,7 +279,7 @@ export default function MembershipPage() {
 
               <button
                 type="submit"
-                className="w-full py-3 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+                className="w-full py-3 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
               >
                 Continue to Payment
               </button>

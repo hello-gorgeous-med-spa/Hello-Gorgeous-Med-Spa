@@ -78,22 +78,22 @@ export function LeadCapturePopup() {
       aria-label="New client offer"
     >
       <div
-        className="absolute inset-0 bg-black/50"
+        className="absolute inset-0 bg-white"
         onClick={handleClose}
         aria-hidden="true"
       />
-      <div className="relative w-full max-w-md rounded-2xl border border-pink-500/30 bg-gradient-to-b from-black to-black p-6 shadow-2xl shadow-pink-500/10">
+      <div className="relative w-full max-w-md rounded-2xl border border-[#FF2D8E]/30 bg-gradient-to-b from-black to-black p-6 shadow-2xl shadow-[#FF2D8E]/10">
         <button
           type="button"
           onClick={handleClose}
-          className="absolute right-3 top-3 rounded-full p-1.5 text-black hover:bg-white/10 hover:text-white"
+          className="absolute right-3 top-3 rounded-full p-1.5 text-black hover:bg-white hover:text-white"
           aria-label="Close"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
-        <p className="text-pink-400 text-sm font-semibold uppercase tracking-wider">
+        <p className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">
           New Client Offer
         </p>
         <h3 className="mt-2 text-xl font-bold text-white">

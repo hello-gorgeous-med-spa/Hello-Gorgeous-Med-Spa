@@ -140,7 +140,7 @@ export function ConditionsPage() {
       {/* Hero */}
       <div className="text-center py-16 md:py-24">
         <FadeUp>
-          <p className="text-pink-400 text-lg font-medium tracking-wide mb-4">CONDITIONS WE TREAT</p>
+          <p className="text-[#FF2D8E] text-lg font-medium tracking-wide mb-4">CONDITIONS WE TREAT</p>
           <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
             Skin Condition Treatments <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-500">
@@ -156,14 +156,14 @@ export function ConditionsPage() {
 
       {/* Table of Contents */}
       <FadeUp delayMs={100}>
-        <div className="mb-16 p-6 rounded-2xl border border-pink-500/20 bg-pink-950/20">
-          <p className="text-sm font-semibold text-pink-400 mb-4">Table of Contents</p>
+        <div className="mb-16 p-6 rounded-2xl border border-[#FF2D8E]/20 bg-pink-950/20">
+          <p className="text-sm font-semibold text-[#FF2D8E] mb-4">Table of Contents</p>
           <div className="flex flex-wrap gap-2">
             {CONDITIONS.map((c) => (
               <a
                 key={c.id}
                 href={`#${c.id}`}
-                className="px-4 py-2 rounded-full border border-white/10 text-white/80 text-sm hover:border-pink-500/40 hover:text-pink-300 transition-colors"
+                className="px-4 py-2 rounded-full border border-black text-black text-sm hover:border-[#FF2D8E]/40 hover:text-pink-300 transition-colors"
               >
                 {c.title}
               </a>
@@ -178,15 +178,15 @@ export function ConditionsPage() {
           <FadeUp key={condition.id} delayMs={150 + idx * 30}>
             <div
               id={condition.id}
-              className="scroll-mt-24 rounded-2xl border border-pink-500/20 bg-gradient-to-br from-black/60 via-black/40 to-pink-950/20 p-8 md:p-10"
+              className="scroll-mt-24 rounded-2xl border border-[#FF2D8E]/20 bg-gradient-to-br from-black/60 via-black/40 to-pink-950/20 p-8 md:p-10"
             >
               <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">{condition.title}</h2>
-              <p className="text-pink-400 text-lg font-medium mb-6">{condition.headline}</p>
+              <p className="text-[#FF2D8E] text-lg font-medium mb-6">{condition.headline}</p>
 
               <ul className="space-y-2 mb-6">
                 {condition.bullets.map((bullet, i) => (
                   <li key={i} className="flex items-start gap-2 text-black">
-                    <span className="text-pink-500 mt-1">•</span>
+                    <span className="text-[#FF2D8E] mt-1">•</span>
                     <span>{bullet}</span>
                   </li>
                 ))}
@@ -197,7 +197,7 @@ export function ConditionsPage() {
               <div className="flex flex-wrap gap-3">
                 <Link
                   href={condition.learnMoreHref}
-                  className="px-6 py-3 rounded-full border border-white/20 text-white font-semibold hover:bg-white/5 transition-colors"
+                  className="px-6 py-3 rounded-full border border-black text-white font-semibold hover:bg-white transition-colors"
                 >
                   Learn More
                 </Link>
@@ -212,7 +212,7 @@ export function ConditionsPage() {
 
       {/* Bottom CTA */}
       <FadeUp delayMs={200}>
-        <div className="mt-20 text-center p-12 md:p-16 rounded-3xl border border-pink-500/30 bg-gradient-to-br from-pink-950/30 via-black to-pink-950/20">
+        <div className="mt-20 text-center p-12 md:p-16 rounded-3xl border border-[#FF2D8E]/30 bg-gradient-to-br from-pink-950/30 via-black to-pink-950/20">
           <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">
             Schedule a Consultation at Our Oswego Med Spa
           </h2>

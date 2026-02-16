@@ -41,7 +41,7 @@ function ChartsContent() {
   if (appointmentId || clientId) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin h-8 w-8 border-4 border-pink-500 border-t-transparent rounded-full" />
+        <div className="animate-spin h-8 w-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full" />
       </div>
     );
   }
@@ -55,7 +55,7 @@ function ChartsContent() {
         </div>
         <Link
           href="/admin/appointments"
-          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+          className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
         >
           + New Chart (Select Appointment)
         </Link>
@@ -127,7 +127,7 @@ export default function AdminChartsPage() {
   return (
     <Suspense fallback={
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin h-8 w-8 border-4 border-pink-500 border-t-transparent rounded-full" />
+        <div className="animate-spin h-8 w-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full" />
       </div>
     }>
       <ChartsContent />

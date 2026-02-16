@@ -59,7 +59,7 @@ function UnauthorizedContent() {
           <div className="space-y-3">
             <Link
               href="/login"
-              className="block w-full px-4 py-3 bg-pink-500 hover:bg-pink-600 text-white font-medium rounded-lg transition-colors"
+              className="block w-full px-4 py-3 bg-[#FF2D8E] hover:bg-black text-white font-medium rounded-lg transition-colors"
             >
               Sign In with Different Account
             </Link>

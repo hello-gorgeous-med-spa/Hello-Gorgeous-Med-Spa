@@ -241,7 +241,7 @@ export default function MessagesPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search By Name"
-              className="w-full px-4 py-2 pl-10 bg-white border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full px-4 py-2 pl-10 bg-white border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
             />
             <span className="absolute left-3 top-1/2 -translate-y-1/2 text-black">🔍</span>
           </div>
@@ -253,7 +253,7 @@ export default function MessagesPage() {
             onClick={() => setFilter('all')}
             className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
               filter === 'all' 
-                ? 'text-pink-600 border-b-2 border-pink-500' 
+                ? 'text-pink-600 border-b-2 border-[#FF2D8E]' 
                 : 'text-black hover:text-black'
             }`}
           >
@@ -263,7 +263,7 @@ export default function MessagesPage() {
             onClick={() => setFilter('unread')}
             className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
               filter === 'unread' 
-                ? 'text-pink-600 border-b-2 border-pink-500' 
+                ? 'text-pink-600 border-b-2 border-[#FF2D8E]' 
                 : 'text-black hover:text-black'
             }`}
           >

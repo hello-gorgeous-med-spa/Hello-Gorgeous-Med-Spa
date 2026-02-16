@@ -54,7 +54,7 @@ export default function ResultsPage() {
           </Link>
           <Link
             href="/portal/book"
-            className="px-6 py-2 bg-pink-500 text-white font-medium rounded-full hover:bg-pink-600 transition-colors"
+            className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-full hover:bg-black transition-colors"
           >
             Book Now
           </Link>
@@ -92,7 +92,7 @@ export default function ResultsPage() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-2 rounded-full font-medium transition-colors capitalize ${
                   selectedCategory === cat
-                    ? 'bg-pink-500 text-white'
+                    ? 'bg-[#FF2D8E] text-white'
                     : 'bg-white text-black hover:bg-white'
                 }`}
               >
@@ -119,7 +119,7 @@ export default function ResultsPage() {
             </p>
             <Link
               href="/portal/book?service=consultation"
-              className="inline-block px-6 py-3 bg-pink-500 text-white font-medium rounded-full hover:bg-pink-600"
+              className="inline-block px-6 py-3 bg-[#FF2D8E] text-white font-medium rounded-full hover:bg-black"
             >
               Book Free Consultation
             </Link>
@@ -134,11 +134,11 @@ export default function ResultsPage() {
               >
                 <div className="grid grid-cols-2">
                   <div className="aspect-square bg-white relative">
-                    <div className="absolute top-2 left-2 px-2 py-1 bg-black/50 text-white text-xs rounded">Before</div>
+                    <div className="absolute top-2 left-2 px-2 py-1 bg-white text-white text-xs rounded">Before</div>
                     {/* Before image */}
                   </div>
                   <div className="aspect-square bg-white relative">
-                    <div className="absolute top-2 left-2 px-2 py-1 bg-pink-500 text-white text-xs rounded">After</div>
+                    <div className="absolute top-2 left-2 px-2 py-1 bg-[#FF2D8E] text-white text-xs rounded">After</div>
                     {/* After image */}
                   </div>
                 </div>
@@ -201,10 +201,10 @@ export default function ResultsPage() {
             </div>
             <div className="grid md:grid-cols-2 gap-4 p-4">
               <div className="aspect-square bg-white rounded-lg relative">
-                <div className="absolute top-4 left-4 px-3 py-1 bg-black/50 text-white text-sm rounded">Before</div>
+                <div className="absolute top-4 left-4 px-3 py-1 bg-white text-white text-sm rounded">Before</div>
               </div>
               <div className="aspect-square bg-white rounded-lg relative">
-                <div className="absolute top-4 left-4 px-3 py-1 bg-pink-500 text-white text-sm rounded">After</div>
+                <div className="absolute top-4 left-4 px-3 py-1 bg-[#FF2D8E] text-white text-sm rounded">After</div>
               </div>
             </div>
             <div className="p-6 border-t border-black">
@@ -217,7 +217,7 @@ export default function ResultsPage() {
                 </div>
                 <Link
                   href="/portal/book"
-                  className="px-6 py-2 bg-pink-500 text-white font-medium rounded-full hover:bg-pink-600"
+                  className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-full hover:bg-black"
                 >
                   Book This Treatment
                 </Link>

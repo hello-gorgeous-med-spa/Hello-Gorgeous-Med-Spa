@@ -112,9 +112,9 @@ export default function AuroraHubPage() {
             <FadeUp key={s!.slug} delayMs={40 * idx}>
               <Link
                 href={`/aurora-il/${s!.slug}`}
-                className="group block rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6 hover:border-white/20 transition"
+                className="group block rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6 hover:border-black transition"
               >
-                <p className="text-pink-400 text-sm font-semibold tracking-wide">
+                <p className="text-[#FF2D8E] text-sm font-semibold tracking-wide">
                   {s!.category.toUpperCase()}
                 </p>
                 <h3 className="mt-3 text-2xl font-bold text-white">{s!.name}</h3>

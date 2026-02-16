@@ -232,7 +232,7 @@ export default function ChartTemplatesPage() {
           <p className="text-black">Customize SOAP note fields for each service type</p>
         </div>
         {editingTemplate && (
-          <button onClick={saveTemplate} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
+          <button onClick={saveTemplate} className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black">
             Save Template
           </button>
         )}
@@ -331,7 +331,7 @@ export default function ChartTemplatesPage() {
                           />
                           Req
                         </label>
-                        <button onClick={() => removeField(section.id, field.id)} className="text-red-400 hover:text-red-600">🗑</button>
+                        <button onClick={() => removeField(section.id, field.id)} className="text-[#FF2D8E] hover:text-red-600">🗑</button>
                       </div>
                       {['select', 'checkbox'].includes(field.type) && (
                         <input

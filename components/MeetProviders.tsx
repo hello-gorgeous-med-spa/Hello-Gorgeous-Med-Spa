@@ -28,13 +28,13 @@ const providers = [
 
 export function MeetProviders() {
   return (
-    <Section className="relative bg-white">
-      <div className="relative">
+    <Section className="relative bg-white py-24">
+      <div className="relative max-w-5xl mx-auto px-6">
         <FadeUp>
           <div className="text-center mb-12">
-            <p className="text-[#FF2D8E] text-sm font-medium tracking-wide">YOUR PROVIDERS</p>
-            <h2 className="mt-4 text-3xl md:text-4xl font-serif font-bold text-[#FF2D8E]">Meet the Team</h2>
-            <p className="mt-4 text-base md:text-lg text-[#FF2D8E] max-w-2xl mx-auto">
+            <p className="text-[#FF2D8E] text-sm font-bold tracking-wide uppercase">Your Providers</p>
+            <h2 className="mt-4 text-3xl md:text-4xl font-bold text-black">Meet the Team</h2>
+            <p className="mt-4 text-lg text-black max-w-2xl mx-auto">
               Expert providers dedicated to your safety, comfort, and stunning results.
             </p>
           </div>
@@ -43,7 +43,7 @@ export function MeetProviders() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {providers.map((provider, idx) => (
             <FadeUp key={provider.name} delayMs={150 * idx}>
-              <div className="bg-white border-2 border-black rounded-xl overflow-hidden hover:border-[#FF2D8E]/30 transition group shadow-md hover:shadow-xl hover:-translate-y-[2px]">
+              <div className="bg-white border-2 border-black rounded-2xl overflow-hidden hover:border-[#FF2D8E] transition group shadow-md hover:shadow-xl hover:-translate-y-1">
                 <div className="relative aspect-[3/4] overflow-hidden bg-white">
                   <Image
                     src={provider.image}
@@ -56,7 +56,7 @@ export function MeetProviders() {
                     <div className="absolute top-4 right-4">
                       <a
                         href="/telehealth"
-                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-fuchsia-500/90 text-white text-xs font-medium hover:bg-fuchsia-500 transition"
+                        className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#FF2D8E] text-white text-xs font-bold hover:bg-black transition"
                       >
                         <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
                         Telehealth Available
@@ -65,29 +65,29 @@ export function MeetProviders() {
                   )}
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-[#FF2D8E]">{provider.name}</h3>
+                  <h3 className="text-xl font-bold text-black">{provider.name}</h3>
                   {provider.credentials && (
-                    <p className="text-[#FF2D8E] text-xs font-semibold mt-1">{provider.credentials}</p>
+                    <p className="text-[#FF2D8E] text-xs font-bold mt-1">{provider.credentials}</p>
                   )}
-                  <p className="text-[#FF2D8E] text-sm mt-1">{provider.role}</p>
-                  <p className="text-[#FF2D8E] text-sm mt-3">{provider.bio}</p>
+                  <p className="text-black text-sm mt-1">{provider.role}</p>
+                  <p className="text-black text-sm mt-3">{provider.bio}</p>
                   <div className="mt-4 flex flex-wrap gap-3">
                     <Link
                       href={`/book?provider=${provider.slug}`}
-                      className="inline-flex items-center rounded-md bg-hg-pink hover:bg-hg-pinkDeep px-6 py-3 text-sm font-semibold uppercase tracking-widest text-white transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
+                      className="inline-flex items-center rounded-lg bg-[#FF2D8E] hover:bg-black px-6 py-3 text-sm font-bold uppercase tracking-wider text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
                     >
                       Book with {provider.name.split(" ")[0]}
                     </Link>
                     <Link
                       href={`/providers/${provider.slug}`}
-                      className="inline-flex items-center rounded-md border border-black px-6 py-3 text-sm font-medium text-[#FF2D8E] hover:bg-[#000000]/5 transition"
+                      className="inline-flex items-center rounded-lg border-2 border-black px-6 py-3 text-sm font-bold text-black hover:bg-black hover:text-white transition"
                     >
                       View Profile
                     </Link>
                     {provider.telehealth && (
                       <a
                         href="/telehealth"
-                        className="inline-flex items-center gap-2 text-[#FF2D8E] text-sm font-medium hover:text-[#FF2D8E] transition"
+                        className="inline-flex items-center gap-2 text-[#FF2D8E] text-sm font-bold hover:text-black transition"
                       >
                         🖥️ Book Virtual Visit →
                       </a>

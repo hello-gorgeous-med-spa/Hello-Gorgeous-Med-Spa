@@ -27,7 +27,7 @@ export default function PortalMembershipPage() {
           </p>
           <Link
             href="/subscribe"
-            className="inline-block px-6 py-3 bg-white text-pink-500 font-semibold rounded-lg hover:bg-white transition-colors"
+            className="inline-block px-6 py-3 bg-white text-[#FF2D8E] font-semibold rounded-lg hover:bg-white transition-colors"
           >
             View Membership Plans
           </Link>
@@ -75,7 +75,7 @@ export default function PortalMembershipPage() {
         </div>
         <p className="text-2xl font-bold mb-1">Jennifer Martinez</p>
         <p className="text-sm opacity-90">Member since December 2025</p>
-        <div className="mt-6 pt-4 border-t border-white/20">
+        <div className="mt-6 pt-4 border-t border-black">
           <p className="text-sm opacity-90">Next billing: February 1, 2026</p>
           <p className="font-semibold">$199/month</p>
         </div>
@@ -84,15 +84,15 @@ export default function PortalMembershipPage() {
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4 mb-8">
         <div className="bg-white rounded-xl border border-black p-4 text-center">
-          <p className="text-2xl font-bold text-amber-500">2,450</p>
+          <p className="text-2xl font-bold text-[#FF2D8E]">2,450</p>
           <p className="text-sm text-black">Reward Points</p>
         </div>
         <div className="bg-white rounded-xl border border-black p-4 text-center">
-          <p className="text-2xl font-bold text-amber-500">$340</p>
+          <p className="text-2xl font-bold text-[#FF2D8E]">$340</p>
           <p className="text-sm text-black">Saved This Year</p>
         </div>
         <div className="bg-white rounded-xl border border-black p-4 text-center">
-          <p className="text-2xl font-bold text-amber-500">3</p>
+          <p className="text-2xl font-bold text-[#FF2D8E]">3</p>
           <p className="text-sm text-black">Months Active</p>
         </div>
       </div>

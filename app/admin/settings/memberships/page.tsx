@@ -182,7 +182,7 @@ export default function MembershipPlansPage() {
           <p className="text-black">Create and manage membership tiers</p>
         </div>
         {!editingPlan && (
-          <button onClick={createNewPlan} className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
+          <button onClick={createNewPlan} className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black">
             + Create Plan
           </button>
         )}
@@ -328,7 +328,7 @@ export default function MembershipPlansPage() {
 
           <div className="flex justify-end gap-3 pt-4 border-t">
             <button onClick={() => { setEditingPlan(null); setIsCreating(false); }} className="px-4 py-2 text-black hover:bg-white rounded-lg">Cancel</button>
-            <button onClick={savePlan} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
+            <button onClick={savePlan} className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black">
               {isCreating ? 'Create' : 'Save'}
             </button>
           </div>

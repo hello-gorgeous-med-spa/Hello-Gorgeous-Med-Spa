@@ -186,7 +186,7 @@ export default function BookingForm({ service, location }: BookingFormProps) {
                 disabled={!isOpen}
                 className={`flex-shrink-0 w-16 py-3 rounded-xl border-2 transition-all ${
                   isSelected
-                    ? 'border-pink-500 bg-pink-50 text-pink-600'
+                    ? 'border-[#FF2D8E] bg-pink-50 text-pink-600'
                     : isOpen
                     ? 'border-black hover:border-pink-300 hover:bg-pink-50'
                     : 'border-black bg-white text-black cursor-not-allowed'
@@ -226,7 +226,7 @@ export default function BookingForm({ service, location }: BookingFormProps) {
                     onClick={() => setSelectedTime(time)}
                     className={`py-2.5 px-3 rounded-lg border-2 text-sm font-medium transition-all ${
                       isSelected
-                        ? 'border-pink-500 bg-pink-50 text-pink-600'
+                        ? 'border-[#FF2D8E] bg-pink-50 text-pink-600'
                         : 'border-black hover:border-pink-300 hover:bg-pink-50'
                     }`}
                   >
@@ -249,7 +249,7 @@ export default function BookingForm({ service, location }: BookingFormProps) {
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Any special requests or information we should know?"
-            className="w-full px-4 py-3 rounded-xl border border-black focus:border-pink-500 focus:ring-2 focus:ring-pink-200 outline-none resize-none"
+            className="w-full px-4 py-3 rounded-xl border border-black focus:border-[#FF2D8E] focus:ring-2 focus:ring-pink-200 outline-none resize-none"
             rows={3}
           />
         </section>

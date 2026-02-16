@@ -135,10 +135,10 @@ export function ServiceExpertWidget({
 
   return (
     <div className="rounded-2xl border border-black bg-black/40 overflow-hidden">
-      <div className="p-5 border-b border-white/10">
+      <div className="p-5 border-b border-black">
         <div className="flex items-start justify-between gap-4">
           <div>
-            <p className="text-sm text-white/70">Ask an expert about</p>
+            <p className="text-sm text-black">Ask an expert about</p>
             <p className="mt-1 text-lg font-semibold text-white">{serviceName}</p>
           </div>
           <CTA href="/providers" variant="outline" className="px-4 py-2 rounded-lg text-sm">
@@ -157,8 +157,8 @@ export function ServiceExpertWidget({
                 className={cx(
                   "text-xs font-semibold rounded-full px-3 py-2 border transition",
                   active
-                    ? "border-pink-500/40 bg-white/5 text-pink-300"
-                    : "border-white/10 text-white/70 hover:bg-white/5 hover:text-white",
+                    ? "border-[#FF2D8E]/40 bg-white text-pink-300"
+                    : "border-black text-black hover:bg-white hover:text-white",
                 )}
               >
                 <span className="mr-1">{p.emoji}</span>
@@ -168,7 +168,7 @@ export function ServiceExpertWidget({
           })}
         </div>
 
-        <p className="mt-4 text-xs text-white/60">
+        <p className="mt-4 text-xs text-black">
           Education only. No diagnosis. No individualized medical advice.
         </p>
       </div>
@@ -180,24 +180,24 @@ export function ServiceExpertWidget({
             className={cx(
               "whitespace-pre-wrap text-sm leading-relaxed",
               m.role === "user"
-                ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
+                ? "text-white bg-white border border-black rounded-2xl p-4"
                 : "text-white",
             )}
           >
             {m.content}
           </div>
         ))}
-        {sending ? <div className="text-sm text-white/60">Thinking…</div> : null}
+        {sending ? <div className="text-sm text-black">Thinking…</div> : null}
       </div>
 
-      <div className="p-5 border-t border-white/10">
+      <div className="p-5 border-t border-black">
         <div className="flex flex-wrap gap-2">
           {persona.chatStarters.slice(0, 2).map((s) => (
             <button
               key={s}
               type="button"
               onClick={() => send(s)}
-              className="text-left text-xs text-white/80 border border-white/10 rounded-full px-3 py-2 hover:bg-white/5 transition"
+              className="text-left text-xs text-black border border-black rounded-full px-3 py-2 hover:bg-white transition"
             >
               {s}
             </button>
@@ -217,7 +217,7 @@ export function ServiceExpertWidget({
           <button
             type="button"
             disabled={sending}
-            className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
+            className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition disabled:opacity-60"
             onClick={() => send(input)}
           >
             Send

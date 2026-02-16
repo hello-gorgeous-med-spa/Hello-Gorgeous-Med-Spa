@@ -281,7 +281,7 @@ export default function ProviderSchedulePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[200px]">
-        <div className="w-10 h-10 border-4 border-pink-500 border-t-transparent rounded-full animate-spin" />
+        <div className="w-10 h-10 border-4 border-[#FF2D8E] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -305,7 +305,7 @@ export default function ProviderSchedulePage() {
             onClick={handleSave}
             disabled={saving || schedules.length === 0}
             className={`px-6 py-2 font-medium rounded-lg transition-colors ${
-              saved ? 'bg-green-500 text-white' : 'bg-pink-500 text-white hover:bg-pink-600 disabled:opacity-50'
+              saved ? 'bg-green-500 text-white' : 'bg-[#FF2D8E] text-white hover:bg-black disabled:opacity-50'
             }`}
           >
             {saving ? 'Saving…' : saved ? '✓ Saved!' : 'Save All Changes'}
@@ -326,7 +326,7 @@ export default function ProviderSchedulePage() {
             onClick={() => setActiveTab(tab.id as typeof activeTab)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               activeTab === tab.id
-                ? 'bg-pink-500 text-white'
+                ? 'bg-[#FF2D8E] text-white'
                 : 'text-black hover:bg-white'
             }`}
           >
@@ -347,7 +347,7 @@ export default function ProviderSchedulePage() {
                   onClick={() => setSelectedProvider(provider.id)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors ${
                     selectedProvider === provider.id
-                      ? 'border-pink-500 bg-pink-50 text-pink-700'
+                      ? 'border-[#FF2D8E] bg-pink-50 text-pink-700'
                       : 'border-black hover:bg-white'
                   }`}
                 >
@@ -398,7 +398,7 @@ export default function ProviderSchedulePage() {
                         type="checkbox"
                         checked={slot.isOff}
                         onChange={(e) => updateSchedule(day, 'isOff', e.target.checked)}
-                        className="rounded border-black text-pink-500 focus:ring-pink-500"
+                        className="rounded border-black text-[#FF2D8E] focus:ring-pink-500"
                       />
                       <span className="text-sm text-black">Day Off</span>
                     </label>
@@ -450,7 +450,7 @@ export default function ProviderSchedulePage() {
             </div>
             <button
               onClick={() => setShowBlockModal(true)}
-              className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+              className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
             >
               + Block Time
             </button>
@@ -519,7 +519,7 @@ export default function ProviderSchedulePage() {
             </div>
             <button
               onClick={() => setShowHolidayModal(true)}
-              className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+              className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
             >
               + Add Holiday
             </button>
@@ -570,7 +570,7 @@ export default function ProviderSchedulePage() {
             </div>
             <button
               onClick={() => setShowClosedDayModal(true)}
-              className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+              className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
             >
               + Add Closed Day
             </button>
@@ -657,7 +657,7 @@ export default function ProviderSchedulePage() {
 
       {/* Block Time Modal */}
       {showBlockModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full p-6">
             <h2 className="text-xl font-bold text-black mb-4">Block Time for {currentProvider?.displayName ?? 'Provider'}</h2>
             <form onSubmit={(e) => {
@@ -700,7 +700,7 @@ export default function ProviderSchedulePage() {
                       type="checkbox"
                       name="fullDay"
                       defaultChecked
-                      className="rounded border-black text-pink-500"
+                      className="rounded border-black text-[#FF2D8E]"
                       onChange={(e) => {
                         const timeSelects = document.querySelectorAll('.time-select');
                         timeSelects.forEach(el => {
@@ -749,7 +749,7 @@ export default function ProviderSchedulePage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+                  className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
                 >
                   Block Time
                 </button>
@@ -761,7 +761,7 @@ export default function ProviderSchedulePage() {
 
       {/* Holiday Modal */}
       {showHolidayModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full p-6">
             <h2 className="text-xl font-bold text-black mb-4">Add Holiday</h2>
             <form onSubmit={(e) => {
@@ -799,7 +799,7 @@ export default function ProviderSchedulePage() {
                       type="checkbox"
                       name="isClosed"
                       defaultChecked
-                      className="rounded border-black text-pink-500"
+                      className="rounded border-black text-[#FF2D8E]"
                     />
                     <span className="text-sm text-black">Business Closed</span>
                   </label>
@@ -815,7 +815,7 @@ export default function ProviderSchedulePage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+                  className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
                 >
                   Add Holiday
                 </button>
@@ -827,7 +827,7 @@ export default function ProviderSchedulePage() {
 
       {/* Closed Day Modal */}
       {showClosedDayModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full p-6">
             <h2 className="text-xl font-bold text-black mb-4">Add Closed Day</h2>
             <form onSubmit={(e) => {
@@ -868,7 +868,7 @@ export default function ProviderSchedulePage() {
                 </button>
                 <button
                   type="submit"
-                  className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+                  className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
                 >
                   Add Closed Day
                 </button>

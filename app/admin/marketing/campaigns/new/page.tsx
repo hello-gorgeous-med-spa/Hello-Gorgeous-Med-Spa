@@ -202,7 +202,7 @@ export default function NewCampaignPage() {
               <div key={s} className="flex items-center">
                 <div 
                   className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
-                    step === s ? 'bg-pink-500 text-white' : 
+                    step === s ? 'bg-[#FF2D8E] text-white' : 
                     ['channel', 'template', 'audience', 'content', 'review'].indexOf(step) > i 
                       ? 'bg-green-500 text-white' 
                       : 'bg-white text-black'
@@ -232,7 +232,7 @@ export default function NewCampaignPage() {
             <div className="space-y-4">
               <button
                 onClick={() => { setChannel('multichannel'); setStep('template'); }}
-                className="w-full p-6 bg-white rounded-xl border-2 border-black hover:border-pink-500 text-left transition-colors group"
+                className="w-full p-6 bg-white rounded-xl border-2 border-black hover:border-[#FF2D8E] text-left transition-colors group"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
@@ -251,7 +251,7 @@ export default function NewCampaignPage() {
 
               <button
                 onClick={() => { setChannel('email'); setStep('template'); }}
-                className="w-full p-6 bg-white rounded-xl border-2 border-black hover:border-pink-500 text-left transition-colors"
+                className="w-full p-6 bg-white rounded-xl border-2 border-black hover:border-[#FF2D8E] text-left transition-colors"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
@@ -267,7 +267,7 @@ export default function NewCampaignPage() {
 
               <button
                 onClick={() => { setChannel('sms'); setStep('template'); }}
-                className="w-full p-6 bg-white rounded-xl border-2 border-black hover:border-pink-500 text-left transition-colors"
+                className="w-full p-6 bg-white rounded-xl border-2 border-black hover:border-[#FF2D8E] text-left transition-colors"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
@@ -292,7 +292,7 @@ export default function NewCampaignPage() {
 
             <button
               onClick={() => setStep('audience')}
-              className="w-full p-6 bg-white rounded-xl border-2 border-dashed border-black hover:border-pink-500 text-center mb-6 transition-colors"
+              className="w-full p-6 bg-white rounded-xl border-2 border-dashed border-black hover:border-[#FF2D8E] text-center mb-6 transition-colors"
             >
               <span className="text-2xl">✨</span>
               <p className="font-semibold text-black mt-2">Start from Scratch</p>
@@ -306,7 +306,7 @@ export default function NewCampaignPage() {
                   <button
                     key={template.id}
                     onClick={() => loadTemplate(template.id)}
-                    className="p-4 bg-white rounded-xl border-2 border-black hover:border-pink-500 text-left transition-colors"
+                    className="p-4 bg-white rounded-xl border-2 border-black hover:border-[#FF2D8E] text-left transition-colors"
                   >
                     <span className="text-2xl">
                       {template.category === 'Promotions' && '🎉'}
@@ -344,7 +344,7 @@ export default function NewCampaignPage() {
                   key={segment.id}
                   onClick={() => setSelectedSegment(segment.id)}
                   className={`w-full p-4 bg-white rounded-xl border-2 text-left transition-colors ${
-                    selectedSegment === segment.id ? 'border-pink-500 bg-pink-50' : 'border-black hover:border-black'
+                    selectedSegment === segment.id ? 'border-[#FF2D8E] bg-pink-50' : 'border-black hover:border-black'
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -795,7 +795,7 @@ export default function NewCampaignPage() {
                 <button
                   onClick={() => setShowSchedule(!showSchedule)}
                   disabled={sending}
-                  className="flex-1 px-6 py-3 border border-pink-500 text-pink-600 rounded-lg hover:bg-pink-50 disabled:opacity-50"
+                  className="flex-1 px-6 py-3 border border-[#FF2D8E] text-pink-600 rounded-lg hover:bg-pink-50 disabled:opacity-50"
                 >
                   Schedule for Later
                 </button>

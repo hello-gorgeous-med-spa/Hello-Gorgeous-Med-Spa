@@ -9,8 +9,8 @@ export default function NotFound() {
         <div className="rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6 md:p-10">
           <div className="flex flex-col items-center gap-10 md:flex-row md:items-start md:justify-between">
             <div className="text-center md:text-left md:max-w-md">
-              <p className="inline-flex items-center gap-2 text-sm font-semibold tracking-wide text-pink-500">
-                <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-pink-500/10 border border-pink-500/30">
+              <p className="inline-flex items-center gap-2 text-sm font-semibold tracking-wide text-[#FF2D8E]">
+                <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/30">
                   ?
                 </span>
                 404

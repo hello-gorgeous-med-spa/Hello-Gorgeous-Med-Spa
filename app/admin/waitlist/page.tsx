@@ -259,7 +259,7 @@ export default function WaitlistPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="px-5 py-2.5 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors font-medium flex items-center gap-2"
+          className="px-5 py-2.5 bg-[#FF2D8E] text-white rounded-xl hover:bg-black transition-colors font-medium flex items-center gap-2"
         >
           <span>+</span> Add to Waitlist
         </button>
@@ -324,7 +324,7 @@ export default function WaitlistPage() {
             onClick={() => setFilter(f)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors capitalize ${
               filter === f
-                ? 'bg-pink-500 text-white'
+                ? 'bg-[#FF2D8E] text-white'
                 : 'bg-white text-black hover:bg-white'
             }`}
           >
@@ -349,7 +349,7 @@ export default function WaitlistPage() {
           <p className="text-black mt-2">Add patients to the waitlist when schedules are full</p>
           <button
             onClick={() => setShowAddModal(true)}
-            className="mt-6 px-6 py-3 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors font-medium"
+            className="mt-6 px-6 py-3 bg-[#FF2D8E] text-white rounded-xl hover:bg-black transition-colors font-medium"
           >
             Add First Patient
           </button>
@@ -456,7 +456,7 @@ export default function WaitlistPage() {
 
       {/* Add to Waitlist Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-black">
               <div className="flex items-center justify-between">
@@ -487,7 +487,7 @@ export default function WaitlistPage() {
                       }
                     }}
                     placeholder="Search by name or phone..."
-                    className="w-full px-4 py-2 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                    className="w-full px-4 py-2 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
                   />
                   {clients.length > 0 && clientSearch.length >= 2 && (
                     <div className="mt-2 border border-black rounded-xl max-h-48 overflow-y-auto">
@@ -509,7 +509,7 @@ export default function WaitlistPage() {
               ) : (
                 <div className="flex items-center justify-between p-3 bg-pink-50 rounded-xl">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-pink-500 rounded-full flex items-center justify-center text-white font-semibold">
+                    <div className="w-10 h-10 bg-[#FF2D8E] rounded-full flex items-center justify-center text-white font-semibold">
                       {selectedClient.first_name?.[0]}{selectedClient.last_name?.[0]}
                     </div>
                     <div>
@@ -580,7 +580,7 @@ export default function WaitlistPage() {
                       }}
                       className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                         formData.preferred_days.includes(day.id)
-                          ? 'bg-pink-500 text-white'
+                          ? 'bg-[#FF2D8E] text-white'
                           : 'bg-white text-black hover:bg-white'
                       }`}
                     >
@@ -603,7 +603,7 @@ export default function WaitlistPage() {
                       onClick={() => setFormData({ ...formData, preferred_time: time.id })}
                       className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                         formData.preferred_time === time.id
-                          ? 'bg-pink-500 text-white'
+                          ? 'bg-[#FF2D8E] text-white'
                           : 'bg-white text-black hover:bg-white'
                       }`}
                     >
@@ -630,7 +630,7 @@ export default function WaitlistPage() {
                       onClick={() => setFormData({ ...formData, priority: p.id })}
                       className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                         formData.priority === p.id
-                          ? p.id === 'vip' ? 'bg-pink-500 text-white' :
+                          ? p.id === 'vip' ? 'bg-[#FF2D8E] text-white' :
                             p.id === 'high' ? 'bg-orange-500 text-white' :
                             'bg-black text-white'
                           : 'bg-white text-black hover:bg-white'
@@ -648,7 +648,7 @@ export default function WaitlistPage() {
                   type="checkbox"
                   checked={formData.card_on_file}
                   onChange={(e) => setFormData({ ...formData, card_on_file: e.target.checked })}
-                  className="w-5 h-5 rounded border-black text-pink-500 focus:ring-pink-500"
+                  className="w-5 h-5 rounded border-black text-[#FF2D8E] focus:ring-pink-500"
                 />
                 <span className="text-sm text-black">Card on file (secures slot if available)</span>
               </label>
@@ -678,7 +678,7 @@ export default function WaitlistPage() {
               <button
                 onClick={handleAddToWaitlist}
                 disabled={!selectedClient || saving}
-                className="px-6 py-2 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors font-medium disabled:opacity-50"
+                className="px-6 py-2 bg-[#FF2D8E] text-white rounded-xl hover:bg-black transition-colors font-medium disabled:opacity-50"
               >
                 {saving ? 'Adding...' : 'Add to Waitlist'}
               </button>

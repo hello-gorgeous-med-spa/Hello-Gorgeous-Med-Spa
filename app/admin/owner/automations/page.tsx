@@ -61,7 +61,7 @@ export default function AutomationsPage() {
         <div className="bg-white rounded-xl border">
           <div className="p-4 border-b flex items-center justify-between">
             <h2 className="text-lg font-semibold">Active Automations</h2>
-            <button className="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600">
+            <button className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg text-sm hover:bg-black">
               + Create Automation
             </button>
           </div>
@@ -141,7 +141,7 @@ export default function AutomationsPage() {
 
         {/* Save */}
         <div className="flex justify-end">
-          <button onClick={saveSettings} className="px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
+          <button onClick={saveSettings} className="px-6 py-3 bg-[#FF2D8E] text-white rounded-lg hover:bg-black font-medium">
             Save Automation Settings
           </button>
         </div>

@@ -364,7 +364,7 @@ export default function DataExportCenter() {
                 }}
                 className={`p-4 rounded-xl border text-left transition-all ${
                   selectedExport === option.id
-                    ? 'border-pink-500 bg-pink-50 ring-2 ring-pink-200'
+                    ? 'border-[#FF2D8E] bg-pink-50 ring-2 ring-pink-200'
                     : 'border-black bg-white hover:border-black'
                 }`}
               >
@@ -417,7 +417,7 @@ export default function DataExportCenter() {
                         onClick={() => setSelectedFormat(format)}
                         className={`px-4 py-2 rounded-lg text-sm font-medium uppercase ${
                           selectedFormat === format
-                            ? 'bg-pink-500 text-white'
+                            ? 'bg-[#FF2D8E] text-white'
                             : 'bg-white text-black hover:bg-white'
                         }`}
                       >
@@ -479,7 +479,7 @@ export default function DataExportCenter() {
                 <button
                   onClick={handleExport}
                   disabled={processing || (selectedOption.sensitive && !acknowledgePHI)}
-                  className="w-full py-3 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 disabled:bg-white disabled:cursor-not-allowed transition-colors"
+                  className="w-full py-3 bg-[#FF2D8E] text-white font-semibold rounded-lg hover:bg-black disabled:bg-white disabled:cursor-not-allowed transition-colors"
                 >
                   {processing ? (
                     <span className="flex items-center justify-center gap-2">
@@ -549,7 +549,7 @@ export default function DataExportCenter() {
                     job.status === 'completed' ? 'bg-green-500' :
                     job.status === 'failed' ? 'bg-red-500' :
                     job.status === 'processing' ? 'bg-amber-500 animate-pulse' :
-                    'bg-black/30'
+                    'bg-white'
                   }`} />
                   <div>
                     <p className="font-medium text-black">{job.type}</p>

@@ -23,7 +23,7 @@ export default function GetAppPage() {
           </Link>
           <Link
             href="/portal"
-            className="px-4 py-2 bg-pink-500 text-white rounded-full text-sm font-medium hover:bg-pink-600"
+            className="px-4 py-2 bg-[#FF2D8E] text-white rounded-full text-sm font-medium hover:bg-black"
           >
             Open Portal
           </Link>
@@ -39,7 +39,7 @@ export default function GetAppPage() {
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
-            Get the <span className="text-pink-500">Hello Gorgeous</span> App
+            Get the <span className="text-[#FF2D8E]">Hello Gorgeous</span> App
           </h1>
           
           <p className="text-xl text-black max-w-2xl mx-auto">
@@ -181,9 +181,9 @@ export default function GetAppPage() {
           <div className="mt-8 pt-8 border-t border-black text-center">
             <p className="text-sm text-black">
               Read our full{' '}
-              <Link href="/privacy" className="text-pink-400 hover:underline">Privacy Policy</Link>
+              <Link href="/privacy" className="text-[#FF2D8E] hover:underline">Privacy Policy</Link>
               {' '}and{' '}
-              <Link href="/terms" className="text-pink-400 hover:underline">Terms of Service</Link>
+              <Link href="/terms" className="text-[#FF2D8E] hover:underline">Terms of Service</Link>
             </p>
           </div>
         </div>
@@ -198,7 +198,7 @@ export default function GetAppPage() {
             Open My Portal
           </Link>
           <p className="mt-4 text-black text-sm">
-            Questions? Call us at <a href="tel:6306366193" className="text-pink-500">(630) 636-6193</a>
+            Questions? Call us at <a href="tel:6306366193" className="text-[#FF2D8E]">(630) 636-6193</a>
           </p>
         </div>
       </main>

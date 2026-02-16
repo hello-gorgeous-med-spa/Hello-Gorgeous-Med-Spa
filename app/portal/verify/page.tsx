@@ -49,21 +49,21 @@ function VerifyContent() {
           <>
             <div className="animate-spin text-5xl mb-4">💗</div>
             <h1 className="text-2xl font-bold text-white">Verifying...</h1>
-            <p className="text-white/70 mt-2">Please wait while we sign you in</p>
+            <p className="text-black mt-2">Please wait while we sign you in</p>
           </>
         )}
         {status === 'success' && (
           <>
             <div className="text-5xl mb-4">✓</div>
             <h1 className="text-2xl font-bold text-green-400">Success!</h1>
-            <p className="text-white/70 mt-2">Redirecting to your portal...</p>
+            <p className="text-black mt-2">Redirecting to your portal...</p>
           </>
         )}
         {status === 'error' && (
           <>
             <div className="text-5xl mb-4">😕</div>
             <h1 className="text-2xl font-bold text-white">Link Expired</h1>
-            <p className="text-white/70 mt-2">{error}</p>
+            <p className="text-black mt-2">{error}</p>
             <Link href="/portal/login" className="inline-block mt-6 bg-[#FF2D8E] text-white py-3 px-6 rounded-xl font-semibold hover:bg-[#FF2D8E]/90 transition-all">
               Request New Link
             </Link>

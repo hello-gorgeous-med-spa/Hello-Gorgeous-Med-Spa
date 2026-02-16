@@ -118,7 +118,7 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
     return (
       <div className="max-w-2xl mx-auto px-4 py-12 text-center">
         <h1 className="text-2xl font-bold text-black mb-4">Form Not Found</h1>
-        <Link href="/portal" className="text-pink-500 hover:underline">
+        <Link href="/portal" className="text-[#FF2D8E] hover:underline">
           Return to Portal
         </Link>
       </div>
@@ -190,7 +190,7 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
           </p>
           <Link
             href="/portal"
-            className="px-6 py-3 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 inline-block"
+            className="px-6 py-3 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black inline-block"
           >
             Return to Portal
           </Link>
@@ -302,7 +302,7 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
                     value={opt}
                     checked={formData[field.id] === opt}
                     onChange={(e) => handleFieldChange(field.id, e.target.value)}
-                    className="text-pink-500"
+                    className="text-[#FF2D8E]"
                   />
                   <span className="text-black">{opt}</span>
                 </label>
@@ -331,7 +331,7 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
                         : current.filter((v: string) => v !== opt);
                       handleFieldChange(field.id, newValue);
                     }}
-                    className="mt-1 text-pink-500 rounded"
+                    className="mt-1 text-[#FF2D8E] rounded"
                   />
                   <span className="text-black">{opt}</span>
                 </label>
@@ -381,7 +381,7 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="px-8 py-3 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-8 py-3 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? 'Submitting...' : 'Submit Form'}
             </button>

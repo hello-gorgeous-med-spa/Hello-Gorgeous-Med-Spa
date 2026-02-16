@@ -266,7 +266,7 @@ export default function NewChartToCartPage() {
                   </span>
                   <button
                     onClick={() => { setStep('client'); setSelectedClient(null); }}
-                    className="text-pink-400 hover:text-pink-600"
+                    className="text-[#FF2D8E] hover:text-pink-600"
                   >
                     ✕
                   </button>
@@ -298,13 +298,13 @@ export default function NewChartToCartPage() {
                       value={clientSearch}
                       onChange={(e) => setClientSearch(e.target.value)}
                       placeholder="Search by name, email, or phone..."
-                      className="w-full px-4 py-3 pl-12 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                      className="w-full px-4 py-3 pl-12 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
                     />
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-black">🔍</span>
                   </div>
                   <Link
                     href="/admin/clients/new?returnTo=/admin/chart-to-cart/new"
-                    className="shrink-0 px-5 py-3 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors font-medium flex items-center gap-2"
+                    className="shrink-0 px-5 py-3 bg-[#FF2D8E] text-white rounded-xl hover:bg-black transition-colors font-medium flex items-center gap-2"
                   >
                     <span>➕</span> Create New Client
                   </Link>
@@ -324,7 +324,7 @@ export default function NewChartToCartPage() {
                       </p>
                       <Link
                         href="/admin/clients/new?returnTo=/admin/chart-to-cart/new"
-                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-pink-500 text-white rounded-xl hover:bg-pink-600 font-medium"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FF2D8E] text-white rounded-xl hover:bg-black font-medium"
                       >
                         <span>➕</span> Create New Client
                       </Link>
@@ -393,7 +393,7 @@ export default function NewChartToCartPage() {
                     value={searchProducts}
                     onChange={(e) => setSearchProducts(e.target.value)}
                     placeholder="Search products..."
-                    className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 mb-4"
+                    className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E] mb-4"
                   />
 
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -494,7 +494,7 @@ export default function NewChartToCartPage() {
                             </span>
                             <button
                               onClick={() => removeFromCart(item.id)}
-                              className="text-red-400 hover:text-red-600 ml-2"
+                              className="text-[#FF2D8E] hover:text-red-600 ml-2"
                             >
                               🗑
                             </button>

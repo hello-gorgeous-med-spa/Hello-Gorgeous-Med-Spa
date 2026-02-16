@@ -323,7 +323,7 @@ function PhotosContent() {
                     startCamera();
                     setMode('capture');
                   }}
-                  className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium flex items-center gap-2"
+                  className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black font-medium flex items-center gap-2"
                 >
                   📷 Take Photo
                 </button>
@@ -354,7 +354,7 @@ function PhotosContent() {
                     startCamera();
                     setMode('capture');
                   }}
-                  className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+                  className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
                 >
                   Take First Photo
                 </button>
@@ -464,7 +464,7 @@ function PhotosContent() {
             {capturing && !capturedImage && (
               <button
                 onClick={capturePhoto}
-                className="w-full py-4 bg-pink-500 text-white rounded-xl font-bold text-lg hover:bg-pink-600"
+                className="w-full py-4 bg-[#FF2D8E] text-white rounded-xl font-bold text-lg hover:bg-black"
               >
                 📷 Capture Photo
               </button>
@@ -484,7 +484,7 @@ function PhotosContent() {
                         onClick={() => setTreatmentArea(area)}
                         className={`px-3 py-1.5 rounded-full text-sm ${
                           treatmentArea === area
-                            ? 'bg-pink-500 text-white'
+                            ? 'bg-[#FF2D8E] text-white'
                             : 'bg-white text-black hover:bg-white'
                         }`}
                       >

@@ -164,7 +164,7 @@ export default function ProviderSchedulePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-12 h-12 border-4 border-[#FF2D8E] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -179,7 +179,7 @@ export default function ProviderSchedulePage() {
         </div>
         <Link
           href="/admin/team/schedules"
-          className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium"
+          className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black font-medium"
         >
           Full Schedule Editor
         </Link>
@@ -204,7 +204,7 @@ export default function ProviderSchedulePage() {
                   <p className={`font-semibold ${isToday ? 'text-pink-600' : 'text-black'}`}>
                     {DAY_ABBREV[idx]}
                   </p>
-                  {isToday && <span className="text-xs text-pink-500">Today</span>}
+                  {isToday && <span className="text-xs text-[#FF2D8E]">Today</span>}
                 </div>
                 
                 {schedule?.is_working ? (
@@ -335,7 +335,7 @@ export default function ProviderSchedulePage() {
                   </span>
                   <Link
                     href={`/provider/charting?appointment=${apt.id}`}
-                    className="px-3 py-1.5 bg-pink-500 text-white text-sm rounded-lg hover:bg-pink-600"
+                    className="px-3 py-1.5 bg-[#FF2D8E] text-white text-sm rounded-lg hover:bg-black"
                   >
                     Chart
                   </Link>
@@ -348,7 +348,7 @@ export default function ProviderSchedulePage() {
 
       {/* Edit Day Modal */}
       {editingDay !== null && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
             <h2 className="text-xl font-bold text-black mb-4">
               Edit {DAYS[editingDay]} Schedule
@@ -360,7 +360,7 @@ export default function ProviderSchedulePage() {
                   type="checkbox"
                   checked={editForm.is_working}
                   onChange={(e) => setEditForm(prev => ({ ...prev, is_working: e.target.checked }))}
-                  className="w-5 h-5 rounded text-pink-500"
+                  className="w-5 h-5 rounded text-[#FF2D8E]"
                 />
                 <span className="text-black">Working this day</span>
               </label>
@@ -399,7 +399,7 @@ export default function ProviderSchedulePage() {
               <button
                 onClick={handleSaveDay}
                 disabled={saving}
-                className="flex-1 px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black disabled:opacity-50"
               >
                 {saving ? 'Saving...' : 'Save Changes'}
               </button>

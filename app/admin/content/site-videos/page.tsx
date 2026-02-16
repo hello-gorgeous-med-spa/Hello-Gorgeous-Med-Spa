@@ -192,7 +192,7 @@ export default function SiteVideosPage() {
                   </video>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  <label className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-pink-500 text-white font-medium cursor-pointer hover:bg-pink-600 transition disabled:opacity-50">
+                  <label className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#FF2D8E] text-white font-medium cursor-pointer hover:bg-black transition disabled:opacity-50">
                     <input
                       ref={fileInputRef}
                       type="file"
@@ -233,7 +233,7 @@ export default function SiteVideosPage() {
                   </div>
                 ) : (
                   <>
-                    <label className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold cursor-pointer hover:opacity-90 transition shadow-lg shadow-pink-500/25">
+                    <label className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold cursor-pointer hover:opacity-90 transition shadow-lg shadow-[#FF2D8E]/25">
                       <input
                         ref={fileInputRef}
                         type="file"

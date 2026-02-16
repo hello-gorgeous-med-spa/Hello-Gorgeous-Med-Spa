@@ -81,16 +81,16 @@ export function ImmediateCareBanner() {
           <div className="mt-8 text-center">
             <div className="inline-flex flex-wrap justify-center gap-4 text-sm text-black">
               <span className="flex items-center gap-1">
-                <span className="text-pink-400">✓</span> No referral needed
+                <span className="text-[#FF2D8E]">✓</span> No referral needed
               </span>
               <span className="flex items-center gap-1">
-                <span className="text-pink-400">✓</span> Same-day available
+                <span className="text-[#FF2D8E]">✓</span> Same-day available
               </span>
               <span className="flex items-center gap-1">
-                <span className="text-pink-400">✓</span> Telehealth option
+                <span className="text-[#FF2D8E]">✓</span> Telehealth option
               </span>
               <span className="flex items-center gap-1">
-                <span className="text-pink-400">✓</span> Evening hours
+                <span className="text-[#FF2D8E]">✓</span> Evening hours
               </span>
             </div>
           </div>
@@ -117,7 +117,7 @@ export function ImmediateCareStrip() {
         <span className="text-white font-semibold text-sm">
           Can&apos;t get in with your doctor? We have same-day appointments!
         </span>
-        <span className="text-white/80 text-sm hidden sm:inline">
+        <span className="text-black text-sm hidden sm:inline">
           Book Now →
         </span>
       </div>

@@ -111,7 +111,7 @@ export default function ProvidersAdminPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="px-5 py-2.5 bg-pink-500 text-white rounded-xl hover:bg-pink-600 font-medium flex items-center gap-2"
+          className="px-5 py-2.5 bg-[#FF2D8E] text-white rounded-xl hover:bg-black font-medium flex items-center gap-2"
         >
           + Add Provider
         </button>
@@ -193,7 +193,7 @@ export default function ProvidersAdminPage() {
           <p className="text-black mt-1">Add your first provider to get started</p>
           <button
             onClick={() => setShowAddModal(true)}
-            className="mt-4 px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+            className="mt-4 px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
           >
             Add Provider
           </button>
@@ -249,7 +249,7 @@ function ProviderModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
         <div className="p-6 border-b border-black">
           <h2 className="text-xl font-bold text-black">
@@ -383,7 +383,7 @@ function ProviderModal({
             </button>
             <button
               type="submit"
-              className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+              className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
             >
               {provider ? 'Save Changes' : 'Add Provider'}
             </button>

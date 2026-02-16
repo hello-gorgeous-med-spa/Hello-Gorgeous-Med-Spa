@@ -309,7 +309,7 @@ export default function AdminVendorsPage() {
         </div>
         <button
           onClick={() => setShowAddModal(true)}
-          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+          className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
         >
           + Add Vendor
         </button>
@@ -347,7 +347,7 @@ export default function AdminVendorsPage() {
             placeholder="Search vendors..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2.5 pl-10 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+            className="w-full px-4 py-2.5 pl-10 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
           />
           <span className="absolute left-3 top-1/2 -translate-y-1/2 text-black">🔍</span>
         </div>
@@ -358,7 +358,7 @@ export default function AdminVendorsPage() {
               onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
                 selectedCategory === cat
-                  ? 'bg-pink-500 text-white'
+                  ? 'bg-[#FF2D8E] text-white'
                   : 'bg-white text-black hover:bg-white'
               }`}
             >
@@ -425,7 +425,7 @@ export default function AdminVendorsPage() {
                   href={vendor.portalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 px-3 py-2 bg-pink-500 text-white text-sm font-medium rounded-lg hover:bg-pink-600 transition-colors text-center"
+                  className="flex-1 px-3 py-2 bg-[#FF2D8E] text-white text-sm font-medium rounded-lg hover:bg-black transition-colors text-center"
                 >
                   Open Portal →
                 </a>
@@ -503,7 +503,7 @@ function VendorModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+    <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
         <div className="p-6 border-b border-black">
           <h2 className="text-xl font-bold text-black">
@@ -657,7 +657,7 @@ function VendorModal({
             </button>
             <button
               type="submit"
-              className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+              className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
             >
               {isNew ? 'Add Vendor' : 'Save Changes'}
             </button>

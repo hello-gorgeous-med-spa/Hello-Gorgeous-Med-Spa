@@ -41,9 +41,9 @@ export default function PortalLoginPage() {
         <div className="max-w-md w-full text-center">
           <span className="text-5xl">💗</span>
           <h1 className="text-2xl font-bold text-white mt-4">Check Your Email</h1>
-          <p className="text-white/70 mt-2">We sent a secure login link to <strong className="text-[#FF2D8E]">{email}</strong></p>
-          <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mt-6">
-            <p className="text-white/70 text-sm mb-4">Click the link in your email to sign in. The link expires in 15 minutes.</p>
+          <p className="text-black mt-2">We sent a secure login link to <strong className="text-[#FF2D8E]">{email}</strong></p>
+          <div className="bg-white border border-black rounded-2xl p-6 mt-6">
+            <p className="text-black text-sm mb-4">Click the link in your email to sign in. The link expires in 15 minutes.</p>
             <button onClick={() => { setSent(false); setDevLink(''); }} className="text-[#FF2D8E] hover:underline text-sm">Try again</button>
             {devLink && (
               <div className="mt-6 p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
@@ -63,27 +63,27 @@ export default function PortalLoginPage() {
         <div className="text-center mb-8">
           <span className="text-5xl">💗</span>
           <h1 className="text-2xl font-bold text-white mt-4">Welcome Back</h1>
-          <p className="text-white/70 mt-2">Sign in to your Hello Gorgeous patient portal</p>
+          <p className="text-black mt-2">Sign in to your Hello Gorgeous patient portal</p>
         </div>
-        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+        <div className="bg-white border border-black rounded-2xl p-6">
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-white mb-2">Email Address</label>
-              <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="your@email.com" className="w-full px-4 py-3 bg-black border border-white/20 rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50 focus:border-[#FF2D8E]" />
+              <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="your@email.com" className="w-full px-4 py-3 bg-black border border-black rounded-xl text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50 focus:border-[#FF2D8E]" />
             </div>
-            {error && <p className="text-red-400 text-sm">{error}</p>}
+            {error && <p className="text-[#FF2D8E] text-sm">{error}</p>}
             <button type="submit" disabled={loading} className="w-full bg-[#FF2D8E] text-white py-3 px-4 rounded-xl font-semibold hover:bg-[#FF2D8E]/90 disabled:opacity-50 transition-all">
               {loading ? 'Sending...' : 'Send Login Link'}
             </button>
           </form>
           <div className="mt-6 text-center">
-            <p className="text-white/50 text-sm">No password needed. We will send you a secure magic link.</p>
+            <p className="text-black text-sm">No password needed. We will send you a secure magic link.</p>
           </div>
-          <div className="mt-6 pt-6 border-t border-white/10 text-center">
-            <p className="text-white/70 text-sm">New patient? <Link href="/book" className="text-[#FF2D8E] hover:underline">Book your first appointment</Link></p>
+          <div className="mt-6 pt-6 border-t border-black text-center">
+            <p className="text-black text-sm">New patient? <Link href="/book" className="text-[#FF2D8E] hover:underline">Book your first appointment</Link></p>
           </div>
         </div>
-        <div className="mt-8 flex items-center justify-center gap-4 text-xs text-white/50">
+        <div className="mt-8 flex items-center justify-center gap-4 text-xs text-black">
           <span>🔒 HIPAA Compliant</span>
           <span>🛡️ 256-bit Encryption</span>
         </div>

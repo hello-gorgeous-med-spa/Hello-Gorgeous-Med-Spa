@@ -174,7 +174,7 @@ export default function SMSCampaignPage() {
                   onClick={() => applyTemplate(template.id)}
                   className={`p-3 text-left rounded-lg border text-sm transition-colors ${
                     selectedTemplate === template.id
-                      ? 'border-pink-500 bg-pink-50 text-pink-700'
+                      ? 'border-[#FF2D8E] bg-pink-50 text-pink-700'
                       : 'border-black hover:border-pink-300 hover:bg-pink-50'
                   }`}
                 >
@@ -232,7 +232,7 @@ export default function SMSCampaignPage() {
                 onClick={() => setRecipients('all')}
                 className={`flex-1 p-4 rounded-lg border-2 transition-colors ${
                   recipients === 'all'
-                    ? 'border-pink-500 bg-pink-50'
+                    ? 'border-[#FF2D8E] bg-pink-50'
                     : 'border-black hover:border-pink-300'
                 }`}
               >
@@ -243,7 +243,7 @@ export default function SMSCampaignPage() {
                 onClick={() => setRecipients('custom')}
                 className={`flex-1 p-4 rounded-lg border-2 transition-colors ${
                   recipients === 'custom'
-                    ? 'border-pink-500 bg-pink-50'
+                    ? 'border-[#FF2D8E] bg-pink-50'
                     : 'border-black hover:border-pink-300'
                 }`}
               >
@@ -355,7 +355,7 @@ export default function SMSCampaignPage() {
             <button
               onClick={sendCampaign}
               disabled={!message || sending}
-              className="w-full py-4 px-4 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-4 px-4 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {sending ? (
                 <span className="flex items-center justify-center gap-2">

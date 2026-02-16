@@ -255,7 +255,7 @@ export default function ProviderManagementPage() {
             resetForm();
             setShowAddModal(true);
           }}
-          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+          className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
         >
           + Add Provider
         </button>
@@ -360,7 +360,7 @@ export default function ProviderManagementPage() {
 
       {/* Add Provider Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full">
             <div className="p-6 border-b border-black flex items-center justify-between">
               <h2 className="text-xl font-bold text-black">Add Provider</h2>
@@ -443,7 +443,7 @@ export default function ProviderManagementPage() {
               <button
                 onClick={addProvider}
                 disabled={saving || !formData.user_id}
-                className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
               >
                 {saving ? 'Adding...' : 'Add Provider'}
               </button>
@@ -454,7 +454,7 @@ export default function ProviderManagementPage() {
 
       {/* Edit Provider Modal */}
       {editingProvider && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full">
             <div className="p-6 border-b border-black flex items-center justify-between">
               <h2 className="text-xl font-bold text-black">Edit Provider</h2>
@@ -516,7 +516,7 @@ export default function ProviderManagementPage() {
               <button
                 onClick={updateProvider}
                 disabled={saving}
-                className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
               >
                 {saving ? 'Saving...' : 'Save Changes'}
               </button>

@@ -63,7 +63,7 @@ export function HumanJourney() {
     <div className="grid gap-10 lg:grid-cols-12">
       <div className="lg:col-span-7">
         <FadeUp>
-          <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
+          <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">
             YOUR JOURNEY
           </p>
           <h1 className="text-4xl md:text-6xl font-bold leading-tight">
@@ -80,7 +80,7 @@ export function HumanJourney() {
         {/* Journey hub - links to all journey pages */}
         <FadeUp delayMs={40}>
           <div className="hg-card-dark mt-10">
-            <p className="text-sm text-white/70 mb-4">Explore your journey</p>
+            <p className="text-sm text-black mb-4">Explore your journey</p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {JOURNEY_LINKS.map((link) => (
                 <Link
@@ -89,7 +89,7 @@ export function HumanJourney() {
                   className="flex items-center gap-3 p-3 rounded-xl border border-black hover:border-hg-pink/40 hover:bg-hg-pink/5 transition-all duration-300 ease-out hover:-translate-y-[2px] group"
                 >
                   <span className="text-xl group-hover:scale-110 transition-transform">{link.icon}</span>
-                  <span className="text-sm font-medium text-white group-hover:text-pink-400 truncate">{link.label}</span>
+                  <span className="text-sm font-medium text-white group-hover:text-[#FF2D8E] truncate">{link.label}</span>
                   {link.badge && (
                     <span className="ml-auto px-2 py-0.5 text-[10px] font-bold bg-hg-pink text-white rounded-full shrink-0">
                       {link.badge}
@@ -104,13 +104,13 @@ export function HumanJourney() {
         <div className="mt-10 grid gap-4">
           <FadeUp delayMs={80}>
             <div className="hg-card-dark">
-              <p className="text-sm text-white/70">Confidence Check™ (5–7 questions)</p>
+              <p className="text-sm text-black">Confidence Check™ (5–7 questions)</p>
               <div className="mt-6 grid gap-4">
                 <div className="grid gap-2">
                   <label className="text-sm font-semibold text-white">
                     {CONFIDENCE_CHECK_QUESTIONS[0].label}
                   </label>
-                  <p className="text-xs text-white/60">{CONFIDENCE_CHECK_QUESTIONS[0].helper}</p>
+                  <p className="text-xs text-black">{CONFIDENCE_CHECK_QUESTIONS[0].helper}</p>
                   <textarea
                     value={answers.bother}
                     onChange={(e) => setAnswers((p) => ({ ...p, bother: e.target.value }))}
@@ -231,7 +231,7 @@ export function HumanJourney() {
                 </CTA>
                 <button
                   type="button"
-                  className="px-6 py-3 rounded-full border border-white/20 text-white hover:bg-white/5 transition"
+                  className="px-6 py-3 rounded-full border border-black text-white hover:bg-white transition"
                   onClick={() => {
                     setSummary(null);
                     setAnswers({
@@ -255,14 +255,14 @@ export function HumanJourney() {
       <div className="lg:col-span-5">
         <FadeUp delayMs={140}>
           <div className="hg-card-dark overflow-hidden">
-            <div className="p-5 border-b border-white/10">
-              <p className="text-sm text-white/70">Your summary</p>
-              <p className="mt-2 text-xs text-white/60">{complianceFooter()}</p>
+            <div className="p-5 border-b border-black">
+              <p className="text-sm text-black">Your summary</p>
+              <p className="mt-2 text-xs text-black">{complianceFooter()}</p>
             </div>
             <div className="p-5 whitespace-pre-wrap text-sm text-white/90">
               {summary ? summary : "Answer the questions and tap “Generate Summary” to see a calm, plain-language recap."}
             </div>
-            <div className="p-5 border-t border-white/10">
+            <div className="p-5 border-t border-black">
               <div className="flex flex-col gap-3">
                 <CTA href={BOOKING_URL} variant="gradient" className="w-full">
                   Book online (optional)

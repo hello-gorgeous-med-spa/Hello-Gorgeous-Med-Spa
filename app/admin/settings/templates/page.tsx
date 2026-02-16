@@ -301,7 +301,7 @@ export default function MessageTemplatesPage() {
                 </button>
                 <button
                   onClick={saveTemplate}
-                  className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+                  className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
                 >
                   Save Template
                 </button>
@@ -337,7 +337,7 @@ export default function MessageTemplatesPage() {
                 onClick={() => setFilter(cat)}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   filter === cat 
-                    ? 'bg-pink-500 text-white' 
+                    ? 'bg-[#FF2D8E] text-white' 
                     : 'bg-white text-black hover:bg-white'
                 }`}
               >

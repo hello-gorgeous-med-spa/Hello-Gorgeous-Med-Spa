@@ -47,7 +47,7 @@ export default function ProviderMessagesPage() {
           <h1 className="text-2xl font-bold text-black">Messages</h1>
           <p className="text-black">HIPAA-compliant patient communications</p>
         </div>
-        <button className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
+        <button className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black font-medium">
           + New Message
         </button>
       </div>
@@ -79,7 +79,7 @@ export default function ProviderMessagesPage() {
               onClick={() => setActiveTab(tab.id as any)}
               className={`flex-1 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
                 activeTab === tab.id
-                  ? 'border-pink-500 text-pink-600 bg-pink-50'
+                  ? 'border-[#FF2D8E] text-pink-600 bg-pink-50'
                   : 'border-transparent text-black hover:text-black'
               }`}
             >
@@ -110,7 +110,7 @@ export default function ProviderMessagesPage() {
                       <p className="text-sm text-black">2 hours ago</p>
                     </div>
                   </div>
-                  <span className="w-2 h-2 bg-pink-500 rounded-full"></span>
+                  <span className="w-2 h-2 bg-[#FF2D8E] rounded-full"></span>
                 </div>
                 <p className="text-black text-sm">
                   Hi! I have a question about my upcoming appointment...

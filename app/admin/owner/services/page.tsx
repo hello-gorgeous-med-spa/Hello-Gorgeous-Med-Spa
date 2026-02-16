@@ -127,7 +127,7 @@ export default function ServicesPage() {
             <div className="p-4 border-b">
               <div className="flex items-center justify-between mb-3">
                 <h2 className="font-semibold">Service List</h2>
-                <button onClick={createNewService} className="px-3 py-1.5 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600">
+                <button onClick={createNewService} className="px-3 py-1.5 bg-[#FF2D8E] text-white rounded-lg text-sm hover:bg-black">
                   + New Service
                 </button>
               </div>
@@ -536,7 +536,7 @@ export default function ServicesPage() {
                 </button>
                 <button
                   onClick={saveService}
-                  className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium"
+                  className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black font-medium"
                 >
                   Save Service
                 </button>
@@ -547,7 +547,7 @@ export default function ServicesPage() {
               <span className="text-4xl mb-4 block">💉</span>
               <h3 className="text-lg font-semibold text-black mb-2">Select a Service</h3>
               <p className="text-black mb-4">Click a service from the list to configure it, or create a new one.</p>
-              <button onClick={createNewService} className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
+              <button onClick={createNewService} className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black">
                 + Create New Service
               </button>
             </div>

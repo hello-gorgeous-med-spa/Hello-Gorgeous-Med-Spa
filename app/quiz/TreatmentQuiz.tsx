@@ -361,13 +361,13 @@ export function TreatmentQuiz() {
       <>
         <Section className="relative py-20 bg-gradient-to-b from-pink-950/30 via-purple-950/20 to-black overflow-hidden min-h-screen flex items-center">
           <div className="absolute inset-0 opacity-30">
-            <div className="absolute top-20 left-10 w-72 h-72 bg-pink-500/20 rounded-full blur-3xl" />
+            <div className="absolute top-20 left-10 w-72 h-72 bg-[#FF2D8E]/20 rounded-full blur-3xl" />
             <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl" />
           </div>
           <div className="w-full">
             <FadeUp>
               <div className="text-center max-w-2xl mx-auto relative z-10">
-                <span className="inline-block px-4 py-1 rounded-full bg-pink-500/20 text-pink-400 text-sm font-medium mb-4">
+                <span className="inline-block px-4 py-1 rounded-full bg-[#FF2D8E]/20 text-[#FF2D8E] text-sm font-medium mb-4">
                   ✨ 2-Minute Quiz
                 </span>
                 <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
@@ -387,7 +387,7 @@ export function TreatmentQuiz() {
                     { icon: "🎯", text: "Personalized" },
                     { icon: "💝", text: "Free" },
                   ].map((item) => (
-                    <div key={item.text} className="p-3 rounded-xl bg-white/5 border border-white/10">
+                    <div key={item.text} className="p-3 rounded-xl bg-white border border-black">
                       <span className="text-2xl mb-1 block">{item.icon}</span>
                       <span className="text-white text-sm">{item.text}</span>
                     </div>
@@ -419,7 +419,7 @@ export function TreatmentQuiz() {
       <Section className="relative py-20 bg-gradient-to-b from-pink-950/30 via-purple-950/20 to-black min-h-screen flex items-center">
         <div className="w-full max-w-md mx-auto">
           <FadeUp>
-            <div className="bg-black/50 border border-pink-500/20 rounded-3xl p-8">
+            <div className="bg-white border border-[#FF2D8E]/20 rounded-3xl p-8">
               <div className="text-center mb-6">
                 <span className="text-5xl mb-4 block">🎉</span>
                 <h2 className="text-2xl font-bold text-white mb-2">
@@ -439,7 +439,7 @@ export function TreatmentQuiz() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your name"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:border-pink-500 focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-white/50 focus:border-[#FF2D8E] focus:outline-none"
                   />
                 </div>
                 <div>
@@ -449,7 +449,7 @@ export function TreatmentQuiz() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Your email"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:border-pink-500 focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-white/50 focus:border-[#FF2D8E] focus:outline-none"
                   />
                 </div>
                 <div>
@@ -458,7 +458,7 @@ export function TreatmentQuiz() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="Phone (optional)"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:border-pink-500 focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-white/50 focus:border-[#FF2D8E] focus:outline-none"
                   />
                 </div>
                 
@@ -491,7 +491,7 @@ export function TreatmentQuiz() {
         <Section className="relative py-16 bg-gradient-to-b from-pink-950/30 via-purple-950/20 to-black">
           <FadeUp>
             <div className="text-center mb-12">
-              <span className="inline-block px-4 py-1 rounded-full bg-pink-500/20 text-pink-400 text-sm font-medium mb-4">
+              <span className="inline-block px-4 py-1 rounded-full bg-[#FF2D8E]/20 text-[#FF2D8E] text-sm font-medium mb-4">
                 ✨ Your Personalized Results
               </span>
               <h1 className="text-3xl md:text-5xl font-bold text-white mb-4">
@@ -513,11 +513,11 @@ export function TreatmentQuiz() {
               <FadeUp key={treatment.id} delayMs={i * 100}>
                 <div className={`p-6 rounded-2xl border transition h-full flex flex-col ${
                   i === 0 
-                    ? "bg-gradient-to-br from-pink-500/20 to-purple-500/20 border-pink-500/30" 
-                    : "bg-white/5 border-white/10"
+                    ? "bg-gradient-to-br from-pink-500/20 to-purple-500/20 border-[#FF2D8E]/30" 
+                    : "bg-white border-black"
                 }`}>
                   {i === 0 && (
-                    <span className="inline-block px-3 py-1 rounded-full bg-pink-500 text-white text-xs font-medium mb-3 w-fit">
+                    <span className="inline-block px-3 py-1 rounded-full bg-[#FF2D8E] text-white text-xs font-medium mb-3 w-fit">
                       #1 Best Match
                     </span>
                   )}
@@ -525,7 +525,7 @@ export function TreatmentQuiz() {
                     <span className="text-4xl">{treatment.icon}</span>
                     <div>
                       <h3 className="text-xl font-bold text-white">{treatment.name}</h3>
-                      <p className="text-pink-400 font-semibold">{treatment.price}</p>
+                      <p className="text-[#FF2D8E] font-semibold">{treatment.price}</p>
                     </div>
                   </div>
                   <p className="text-black text-sm mb-4">{treatment.description}</p>
@@ -535,7 +535,7 @@ export function TreatmentQuiz() {
                       {treatment.benefits.map((benefit) => (
                         <span
                           key={benefit}
-                          className="px-2 py-1 rounded-full bg-white/5 text-black text-xs"
+                          className="px-2 py-1 rounded-full bg-white text-black text-xs"
                         >
                           ✓ {benefit}
                         </span>
@@ -547,7 +547,7 @@ export function TreatmentQuiz() {
                     className={`mt-4 block w-full py-3 rounded-xl font-medium text-center transition ${
                       i === 0
                         ? "bg-gradient-to-r from-pink-500 to-purple-500 text-white hover:opacity-90"
-                        : "bg-white/10 text-white hover:bg-white/20"
+                        : "bg-white text-white hover:bg-white/20"
                     }`}
                   >
                     Learn More →
@@ -559,7 +559,7 @@ export function TreatmentQuiz() {
 
           {/* CTA */}
           <FadeUp delayMs={400}>
-            <div className="max-w-2xl mx-auto text-center p-8 rounded-3xl bg-gradient-to-r from-pink-500/10 to-purple-500/10 border border-pink-500/20">
+            <div className="max-w-2xl mx-auto text-center p-8 rounded-3xl bg-gradient-to-r from-pink-500/10 to-purple-500/10 border border-[#FF2D8E]/20">
               <h2 className="text-2xl font-bold text-white mb-3">
                 Ready to Get Started?
               </h2>
@@ -578,13 +578,13 @@ export function TreatmentQuiz() {
                 </a>
                 <a
                   href="tel:630-636-6193"
-                  className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition"
+                  className="px-8 py-4 rounded-xl bg-white border border-black text-white font-medium hover:bg-white transition"
                 >
                   📞 Call 630-636-6193
                 </a>
               </div>
               {submitted && (
-                <p className="mt-4 text-pink-400 text-sm">
+                <p className="mt-4 text-[#FF2D8E] text-sm">
                   ✓ Your 10% off code has been sent to {email}
                 </p>
               )}
@@ -594,7 +594,7 @@ export function TreatmentQuiz() {
           {/* Post-quiz satisfaction micro-survey */}
           {!satisfactionRated && (
             <FadeUp delayMs={500}>
-              <div className="max-w-md mx-auto mt-8 p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
+              <div className="max-w-md mx-auto mt-8 p-4 rounded-2xl bg-white border border-black text-center">
                 <p className="text-black text-sm mb-3">How helpful was this quiz?</p>
                 <div className="flex justify-center gap-2">
                   {[1, 2, 3, 4, 5].map((n) => (
@@ -605,7 +605,7 @@ export function TreatmentQuiz() {
                         trackEvent("quiz_satisfaction", { rating: n, source: "treatment-quiz" });
                         setSatisfactionRated(true);
                       }}
-                      className="w-10 h-10 rounded-full bg-white/5 hover:bg-pink-500/30 text-lg transition hover:scale-110"
+                      className="w-10 h-10 rounded-full bg-white hover:bg-[#FF2D8E]/30 text-lg transition hover:scale-110"
                       aria-label={`Rate ${n} out of 5`}
                     >
                       {n === 5 ? "😍" : n === 4 ? "😊" : n === 3 ? "🙂" : n === 2 ? "😐" : "😕"}
@@ -649,7 +649,7 @@ export function TreatmentQuiz() {
               <span>Question {currentStep + 1} of {questions.length}</span>
               <span>{Math.round(progress)}% complete</span>
             </div>
-            <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+            <div className="h-2 bg-white rounded-full overflow-hidden">
               <div
                 className="h-full bg-gradient-to-r from-pink-500 to-purple-500 rounded-full transition-all duration-500"
                 style={{ width: `${progress}%` }}
@@ -681,8 +681,8 @@ export function TreatmentQuiz() {
                   onClick={() => handleAnswer(answer.id)}
                   className={`w-full p-4 rounded-2xl border text-left transition-all ${
                     isSelected
-                      ? "bg-pink-500/20 border-pink-500 scale-[1.02]"
-                      : "bg-white/5 border-white/10 hover:border-pink-500/50 hover:bg-white/10"
+                      ? "bg-[#FF2D8E]/20 border-[#FF2D8E] scale-[1.02]"
+                      : "bg-white border-black hover:border-[#FF2D8E]/50 hover:bg-white"
                   }`}
                 >
                   <div className="flex items-center gap-4">
@@ -690,7 +690,7 @@ export function TreatmentQuiz() {
                     <span className="text-white font-medium flex-1">{answer.text}</span>
                     {currentQuestion.multiSelect && (
                       <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition ${
-                        isSelected ? "bg-pink-500 border-pink-500" : "border-black"
+                        isSelected ? "bg-[#FF2D8E] border-[#FF2D8E]" : "border-black"
                       }`}>
                         {isSelected && <span className="text-white text-sm">✓</span>}
                       </div>
@@ -710,7 +710,7 @@ export function TreatmentQuiz() {
                 <button
                   type="button"
                   onClick={handleBack}
-                  className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition"
+                  className="px-6 py-3 rounded-xl bg-white border border-black text-white font-medium hover:bg-white transition"
                 >
                   ← Back
                 </button>
@@ -733,7 +733,7 @@ export function TreatmentQuiz() {
             <button
               type="button"
               onClick={handleBack}
-              className="mt-8 px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition"
+              className="mt-8 px-6 py-3 rounded-xl bg-white border border-black text-white font-medium hover:bg-white transition"
             >
               ← Back
             </button>

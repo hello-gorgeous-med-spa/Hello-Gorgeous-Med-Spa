@@ -67,32 +67,32 @@ function VideoModal({
   return (
     <div className="fixed inset-0 z-[60] bg-black/80 backdrop-blur-sm p-6">
       <div className="mx-auto max-w-3xl">
-        <div className="flex items-center justify-between gap-4 rounded-t-2xl border border-white/10 bg-black/70 px-5 py-4">
+        <div className="flex items-center justify-between gap-4 rounded-t-2xl border border-black bg-black/70 px-5 py-4">
           <div>
-            <p className="text-sm text-white/70">Video</p>
+            <p className="text-sm text-black">Video</p>
             <p className="text-lg font-semibold text-white">{personaBadge(personaId)}</p>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="rounded-lg p-2 text-white/70 hover:text-white hover:bg-white/5 transition"
+            className="rounded-lg p-2 text-black hover:text-white hover:bg-white transition"
             aria-label="Close video"
           >
             ✕
           </button>
         </div>
-        <div className="rounded-b-2xl border-x border-b border-white/10 bg-black/60 p-4">
+        <div className="rounded-b-2xl border-x border-b border-black bg-black/60 p-4">
           {src ? (
             <MascotVideo src={src} poster={poster} title={personaBadge(personaId)} />
           ) : (
-            <div className="rounded-xl border border-white/10 bg-gradient-to-b from-black/60 to-black p-8 text-center">
+            <div className="rounded-xl border border-black bg-gradient-to-b from-black/60 to-black p-8 text-center">
               <p className="text-white font-semibold">Video placeholder</p>
-              <p className="mt-2 text-white/70">
+              <p className="mt-2 text-black">
                 Register video clips in `lib/media.ts` and ensure files exist under `/public/videos/mascots/...`.
               </p>
             </div>
           )}
-          <p className="mt-3 text-xs text-white/60">
+          <p className="mt-3 text-xs text-black">
             Educational only. No diagnosis. No medical advice. No outcome guarantees.
           </p>
         </div>
@@ -163,7 +163,7 @@ export function PersonaHub() {
 
       <div className="lg:col-span-7">
         <FadeUp>
-          <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
+          <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">
             MEET THE EXPERTS
           </p>
           <h1 className="text-4xl md:text-6xl font-bold leading-tight">
@@ -190,29 +190,29 @@ export function PersonaHub() {
                   onClick={() => setPersonaId(id)}
                   className={cx(
                     "text-left rounded-2xl border bg-gradient-to-b from-black/60 to-black p-5 transition",
-                    active ? "border-pink-500/40" : "border-black hover:border-white/20",
+                    active ? "border-[#FF2D8E]/40" : "border-black hover:border-black",
                   )}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className="text-sm text-white/70">{p.role}</p>
+                      <p className="text-sm text-black">{p.role}</p>
                       <p className="mt-1 text-xl font-bold text-white">
                         <span className="mr-2">{ui.emoji}</span>
                         {p.displayName}
                       </p>
                     </div>
                     {active ? (
-                      <span className="text-xs font-semibold text-pink-400 bg-white/5 border border-white/10 rounded-full px-2 py-1">
+                      <span className="text-xs font-semibold text-[#FF2D8E] bg-white border border-black rounded-full px-2 py-1">
                         Active
                       </span>
                     ) : null}
                   </div>
-                  <p className="mt-3 text-white/70">{ui.tagline}</p>
+                  <p className="mt-3 text-black">{ui.tagline}</p>
                   <div className="mt-4 flex flex-wrap gap-2">
                     {p.allowedTopics.slice(0, 3).map((s) => (
                       <span
                         key={s}
-                        className="text-xs text-white/70 border border-white/10 rounded-full px-2 py-1"
+                        className="text-xs text-black border border-black rounded-full px-2 py-1"
                       >
                         {s}
                       </span>
@@ -228,24 +228,24 @@ export function PersonaHub() {
       <div className="lg:col-span-5">
         <FadeUp delayMs={120}>
           <div className="rounded-2xl border border-black bg-black/40 overflow-hidden">
-            <div className="p-5 border-b border-white/10">
+            <div className="p-5 border-b border-black">
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <p className="text-sm text-white/70">Chat mode</p>
+                  <p className="text-sm text-black">Chat mode</p>
                   <p className="mt-1 text-lg font-semibold text-white">
                     {personaBadge(personaId)} — {personaCfg.role}
                   </p>
                 </div>
                 <button
                   type="button"
-                  className="rounded-lg px-3 py-2 text-sm font-semibold bg-white/5 border border-white/10 text-white/90 hover:bg-white/10 transition"
+                  className="rounded-lg px-3 py-2 text-sm font-semibold bg-white border border-black text-white/90 hover:bg-white transition"
                   onClick={() => setVideoOpen(true)}
                 >
                   Watch video
                 </button>
               </div>
 
-              <p className="mt-3 text-sm text-white/70">
+              <p className="mt-3 text-sm text-black">
                 Education only. No diagnosis. No individualized medical advice.
               </p>
             </div>
@@ -257,7 +257,7 @@ export function PersonaHub() {
                   className={cx(
                     "whitespace-pre-wrap text-sm leading-relaxed",
                     m.role === "user"
-                      ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
+                      ? "text-white bg-white border border-black rounded-2xl p-4"
                       : "text-white",
                   )}
                 >
@@ -265,18 +265,18 @@ export function PersonaHub() {
                 </div>
               ))}
               {sending ? (
-                <div className="text-sm text-white/60">Thinking…</div>
+                <div className="text-sm text-black">Thinking…</div>
               ) : null}
             </div>
 
-            <div className="p-5 border-t border-white/10">
+            <div className="p-5 border-t border-black">
               <div className="flex flex-wrap gap-2">
                 {personaUi.chatStarters.slice(0, 3).map((s) => (
                   <button
                     key={s}
                     type="button"
                     onClick={() => send(s)}
-                    className="text-left text-xs text-white/80 border border-white/10 rounded-full px-3 py-2 hover:bg-white/5 transition"
+                    className="text-left text-xs text-black border border-black rounded-full px-3 py-2 hover:bg-white transition"
                   >
                     {s}
                   </button>
@@ -296,7 +296,7 @@ export function PersonaHub() {
                 <button
                   type="button"
                   disabled={sending}
-                  className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
+                  className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition disabled:opacity-60"
                   onClick={() => send(input)}
                 >
                   Send
@@ -307,7 +307,7 @@ export function PersonaHub() {
                 <CTA href={BOOKING_URL} variant="white" className="w-full">
                   Book a Consultation
                 </CTA>
-                <p className="text-xs text-white/60">
+                <p className="text-xs text-black">
                   Medical disclaimer: this chat is educational only and does not establish a provider-patient relationship.
                 </p>
               </div>

@@ -188,16 +188,16 @@ export function SubscribeContent() {
       <section className="relative py-20 px-4 overflow-hidden" aria-label="Subscribe for Free Service">
         {/* Animated background */}
         <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-900/30 via-black to-purple-900/30" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-fuchsia-500/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#FF2D8E]/20 rounded-full blur-3xl animate-pulse" />
         <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
         
         <div className="relative max-w-5xl mx-auto text-center">
           {/* Logo/Brand */}
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8">
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white backdrop-blur-sm border border-black mb-8">
             <span className="text-2xl">🏥</span>
             <span className="text-white font-bold text-lg">No Prior Authorization</span>
             <span className="text-black">×</span>
-            <span className="text-fuchsia-400 font-bold">Hello Gorgeous</span>
+            <span className="text-[#FF2D8E] font-bold">Hello Gorgeous</span>
           </div>
           
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6">
@@ -215,7 +215,7 @@ export function SubscribeContent() {
           </h1>
           
           <p className="text-xl text-black max-w-2xl mx-auto mb-10">
-            Commit to the <span className="text-fuchsia-400 font-semibold">No Prior Authorization Annual Plan</span> and 
+            Commit to the <span className="text-[#FF2D8E] font-semibold">No Prior Authorization Annual Plan</span> and 
             receive a complimentary service as our thank you —
             <span className="text-white font-semibold"> plus save $189/year!</span>
           </p>
@@ -230,8 +230,8 @@ export function SubscribeContent() {
                   onClick={() => setSelectedPlan("monthly")}
                   className={`px-6 py-3 rounded-xl border-2 transition-all ${
                     selectedPlan === "monthly"
-                      ? "border-fuchsia-500 bg-fuchsia-500/20 text-white"
-                      : "border-white/20 bg-white/5 text-black hover:border-white/40"
+                      ? "border-[#FF2D8E] bg-[#FF2D8E]/20 text-white"
+                      : "border-black bg-white text-black hover:border-white/40"
                   }`}
                 >
                   <span className="block text-sm">Monthly</span>
@@ -242,33 +242,33 @@ export function SubscribeContent() {
                   onClick={() => setSelectedPlan("annual")}
                   className={`relative px-6 py-3 rounded-xl border-2 transition-all ${
                     selectedPlan === "annual"
-                      ? "border-fuchsia-500 bg-fuchsia-500/20 text-white"
-                      : "border-white/20 bg-white/5 text-black hover:border-white/40"
+                      ? "border-[#FF2D8E] bg-[#FF2D8E]/20 text-white"
+                      : "border-black bg-white text-black hover:border-white/40"
                   }`}
                 >
-                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-gradient-to-r from-fuchsia-500 to-purple-500 text-white text-xs font-bold">
+                  <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-gradient-to-r bg-[#FF2D8E] text-white text-xs font-bold">
                     BEST VALUE
                   </span>
                   <span className="block text-sm">Annual</span>
                   <span className="block text-2xl font-bold">${MEMBERSHIP_PRICING.annual.price}<span className="text-sm font-normal">/yr</span></span>
-                  <span className="block text-xs text-fuchsia-400 mt-1">+ FREE $75 Service!</span>
+                  <span className="block text-xs text-[#FF2D8E] mt-1">+ FREE $75 Service!</span>
                 </button>
               </div>
 
               {/* Value summary for annual */}
               {selectedPlan === "annual" && (
-                <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-pink-500/10 to-fuchsia-500/10 border border-pink-500/20">
+                <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-pink-500/10 to-fuchsia-500/10 border border-[#FF2D8E]/20">
                   <div className="flex justify-between items-center text-sm">
                     <span className="text-black">Annual savings vs monthly:</span>
-                    <span className="text-pink-400 font-bold">$189</span>
+                    <span className="text-[#FF2D8E] font-bold">$189</span>
                   </div>
                   <div className="flex justify-between items-center text-sm mt-1">
                     <span className="text-black">FREE welcome service:</span>
-                    <span className="text-pink-400 font-bold">$75</span>
+                    <span className="text-[#FF2D8E] font-bold">$75</span>
                   </div>
-                  <div className="flex justify-between items-center text-sm mt-2 pt-2 border-t border-pink-500/20">
+                  <div className="flex justify-between items-center text-sm mt-2 pt-2 border-t border-[#FF2D8E]/20">
                     <span className="text-white font-semibold">Total value:</span>
-                    <span className="text-fuchsia-400 font-bold text-lg">$264 saved!</span>
+                    <span className="text-[#FF2D8E] font-bold text-lg">$264 saved!</span>
                   </div>
                 </div>
               )}
@@ -281,15 +281,15 @@ export function SubscribeContent() {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
                   required
-                  className="w-full px-6 py-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-fuchsia-500 focus:ring-2 focus:ring-fuchsia-500/20"
+                  className="w-full px-6 py-4 rounded-xl bg-white border border-black text-white placeholder-black/50 focus:outline-none focus:border-[#FF2D8E] focus:ring-2 focus:ring-fuchsia-500/20"
                 />
                 {error && (
-                  <p className="text-red-400 text-sm">{error}</p>
+                  <p className="text-[#FF2D8E] text-sm">{error}</p>
                 )}
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full px-8 py-4 rounded-xl bg-gradient-to-r from-fuchsia-500 to-purple-500 text-white font-bold hover:opacity-90 transition disabled:opacity-50 shadow-lg shadow-fuchsia-500/25"
+                  className="w-full px-8 py-4 rounded-xl bg-gradient-to-r bg-[#FF2D8E] text-white font-bold hover:opacity-90 transition disabled:opacity-50 shadow-lg shadow-[#FF2D8E]/25"
                 >
                   {isSubmitting ? (
                     "Processing..."
@@ -304,13 +304,13 @@ export function SubscribeContent() {
                 Secure checkout via Stripe • Cancel anytime • Instant access
               </p>
               {selectedPlan === "monthly" && (
-                <p className="text-fuchsia-400/80 text-sm mt-2">
+                <p className="text-[#FF2D8E]/80 text-sm mt-2">
                   💡 Switch to Annual to get a FREE $75 service!
                 </p>
               )}
             </div>
           ) : (
-            <div className="max-w-md mx-auto p-6 rounded-2xl bg-gradient-to-r from-pink-500/20 to-fuchsia-500/20 border border-pink-500/30">
+            <div className="max-w-md mx-auto p-6 rounded-2xl bg-gradient-to-r from-pink-500/20 to-fuchsia-500/20 border border-[#FF2D8E]/30">
               <span className="text-4xl mb-3 block">🎉</span>
               <h3 className="text-xl font-bold text-white mb-2">Welcome to the Family!</h3>
               <p className="text-black mb-4">
@@ -367,7 +367,7 @@ export function SubscribeContent() {
           <div className="grid md:grid-cols-2 gap-6">
             {/* The Problem */}
             <div className="p-8 rounded-3xl bg-gradient-to-br from-red-500/10 to-orange-500/10 border border-red-500/20">
-              <h3 className="text-xl font-bold text-red-400 mb-4 flex items-center gap-2">
+              <h3 className="text-xl font-bold text-[#FF2D8E] mb-4 flex items-center gap-2">
                 <span>😤</span> The Old Way (Frustrating)
               </h3>
               <ul className="space-y-3">
@@ -380,7 +380,7 @@ export function SubscribeContent() {
                   "Denied claims",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-black">
-                    <span className="text-red-400">✗</span>
+                    <span className="text-[#FF2D8E]">✗</span>
                     {item}
                   </li>
                 ))}
@@ -388,8 +388,8 @@ export function SubscribeContent() {
             </div>
 
             {/* The Solution */}
-            <div className="p-8 rounded-3xl bg-gradient-to-br from-pink-500/10 to-fuchsia-500/10 border border-pink-500/20">
-              <h3 className="text-xl font-bold text-pink-400 mb-4 flex items-center gap-2">
+            <div className="p-8 rounded-3xl bg-gradient-to-br from-pink-500/10 to-fuchsia-500/10 border border-[#FF2D8E]/20">
+              <h3 className="text-xl font-bold text-[#FF2D8E] mb-4 flex items-center gap-2">
                 <span>😊</span> The NPA Way (Simple)
               </h3>
               <ul className="space-y-3">
@@ -402,7 +402,7 @@ export function SubscribeContent() {
                   "100% transparent",
                 ].map((item) => (
                   <li key={item} className="flex items-center gap-3 text-black">
-                    <span className="text-pink-400">✓</span>
+                    <span className="text-[#FF2D8E]">✓</span>
                     {item}
                   </li>
                 ))}
@@ -430,12 +430,12 @@ export function SubscribeContent() {
                 key={benefit.title}
                 className={`relative p-6 rounded-2xl border transition-all hover:scale-[1.02] ${
                   benefit.highlight
-                    ? "bg-gradient-to-br from-fuchsia-500/20 to-purple-500/20 border-fuchsia-500/50"
-                    : "bg-white/5 border-white/10 hover:border-fuchsia-500/30"
+                    ? "bg-gradient-to-br from-fuchsia-500/20 to-purple-500/20 border-[#FF2D8E]/50"
+                    : "bg-white border-black hover:border-[#FF2D8E]/30"
                 }`}
               >
                 {"annualOnly" in benefit && benefit.annualOnly && (
-                  <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-fuchsia-500/30 text-fuchsia-300 text-xs font-medium">
+                  <span className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-[#FF2D8E]/30 text-fuchsia-300 text-xs font-medium">
                     Annual Only
                   </span>
                 )}
@@ -452,7 +452,7 @@ export function SubscribeContent() {
       <section className="py-20 px-4 bg-gradient-to-b from-fuchsia-950/10 to-black">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-1 rounded-full bg-fuchsia-500/20 text-fuchsia-400 text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-1 rounded-full bg-[#FF2D8E]/20 text-[#FF2D8E] text-sm font-medium mb-4">
               🎁 Annual Member Bonus
             </span>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
@@ -467,12 +467,12 @@ export function SubscribeContent() {
             {freeServices.map((service) => (
               <div
                 key={service.name}
-                className="p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-fuchsia-500/30 transition text-center group hover:bg-fuchsia-500/5"
+                className="p-4 rounded-2xl bg-white border border-black hover:border-[#FF2D8E]/30 transition text-center group hover:bg-[#FF2D8E]/5"
               >
                 <span className="text-3xl mb-2 block group-hover:scale-110 transition">{service.icon}</span>
                 <p className="text-white font-medium text-sm mb-1">{service.name}</p>
-                <p className="text-fuchsia-400 font-bold">{service.value}</p>
-                <p className="text-pink-400 text-xs mt-1">FREE</p>
+                <p className="text-[#FF2D8E] font-bold">{service.value}</p>
+                <p className="text-[#FF2D8E] text-xs mt-1">FREE</p>
               </div>
             ))}
           </div>
@@ -500,10 +500,10 @@ export function SubscribeContent() {
               <div key={step.step} className="relative text-center">
                 {/* Connector line */}
                 {index < howItWorks.length - 1 && (
-                  <div className="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-gradient-to-r from-fuchsia-500 to-purple-500" />
+                  <div className="hidden md:block absolute top-8 left-1/2 w-full h-0.5 bg-gradient-to-r bg-[#FF2D8E]" />
                 )}
                 
-                <div className="relative z-10 w-16 h-16 rounded-full bg-gradient-to-br from-fuchsia-500 to-purple-500 flex items-center justify-center mx-auto mb-4 text-2xl">
+                <div className="relative z-10 w-16 h-16 rounded-full bg-gradient-to-br bg-[#FF2D8E] flex items-center justify-center mx-auto mb-4 text-2xl">
                   {step.icon}
                 </div>
                 <h3 className="text-white font-bold mb-2">{step.title}</h3>
@@ -533,7 +533,7 @@ export function SubscribeContent() {
               <div className="grid grid-cols-2 gap-3">
                 {memberPerks.map((perk) => (
                   <div key={perk} className="flex items-center gap-2">
-                    <span className="text-fuchsia-400">✓</span>
+                    <span className="text-[#FF2D8E]">✓</span>
                     <span className="text-black text-sm">{perk}</span>
                   </div>
                 ))}
@@ -542,7 +542,7 @@ export function SubscribeContent() {
 
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-fuchsia-500/20 to-purple-500/20 rounded-3xl blur-xl" />
-              <div className="relative p-8 rounded-3xl bg-gradient-to-br from-fuchsia-500/10 to-purple-500/10 border border-fuchsia-500/30">
+              <div className="relative p-8 rounded-3xl bg-gradient-to-br from-fuchsia-500/10 to-purple-500/10 border border-[#FF2D8E]/30">
                 <div className="text-center mb-6">
                   <span className="text-5xl mb-4 block">💎</span>
                   <h3 className="text-2xl font-bold text-white mb-2">Annual Membership</h3>
@@ -550,31 +550,31 @@ export function SubscribeContent() {
                     <span className="text-3xl font-bold text-white">${MEMBERSHIP_PRICING.annual.price}</span>
                     <span className="text-black">/year</span>
                   </div>
-                  <p className="text-fuchsia-400 text-sm mt-1">Best value — includes FREE service!</p>
+                  <p className="text-[#FF2D8E] text-sm mt-1">Best value — includes FREE service!</p>
                 </div>
                 
                 <div className="space-y-4 mb-6">
-                  <div className="flex justify-between items-center p-3 rounded-xl bg-white/5">
+                  <div className="flex justify-between items-center p-3 rounded-xl bg-white">
                     <span className="text-black">Free Service (Annual Only)</span>
-                    <span className="text-fuchsia-400 font-bold">Up to $75</span>
+                    <span className="text-[#FF2D8E] font-bold">Up to $75</span>
                   </div>
-                  <div className="flex justify-between items-center p-3 rounded-xl bg-white/5">
+                  <div className="flex justify-between items-center p-3 rounded-xl bg-white">
                     <span className="text-black">Ongoing Discount</span>
-                    <span className="text-fuchsia-400 font-bold">10% Off</span>
+                    <span className="text-[#FF2D8E] font-bold">10% Off</span>
                   </div>
-                  <div className="flex justify-between items-center p-3 rounded-xl bg-white/5">
+                  <div className="flex justify-between items-center p-3 rounded-xl bg-white">
                     <span className="text-black">Priority Booking</span>
-                    <span className="text-pink-400 font-bold">✓ Included</span>
+                    <span className="text-[#FF2D8E] font-bold">✓ Included</span>
                   </div>
-                  <div className="flex justify-between items-center p-3 rounded-xl bg-white/5">
+                  <div className="flex justify-between items-center p-3 rounded-xl bg-white">
                     <span className="text-black">Annual Savings</span>
-                    <span className="text-pink-400 font-bold">$264 total</span>
+                    <span className="text-[#FF2D8E] font-bold">$264 total</span>
                   </div>
                 </div>
 
                 <button
                   onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-fuchsia-500 to-purple-500 text-white font-bold hover:opacity-90 transition"
+                  className="w-full py-4 rounded-xl bg-gradient-to-r bg-[#FF2D8E] text-white font-bold hover:opacity-90 transition"
                 >
                   🎁 Join Annual — Get FREE Service
                 </button>
@@ -600,14 +600,14 @@ export function SubscribeContent() {
             {faqs.map((faq, index) => (
               <div
                 key={index}
-                className="rounded-xl bg-white/5 border border-white/10 overflow-hidden"
+                className="rounded-xl bg-white border border-black overflow-hidden"
               >
                 <button
                   onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                  className="w-full p-5 text-left flex items-center justify-between hover:bg-white/5 transition"
+                  className="w-full p-5 text-left flex items-center justify-between hover:bg-white transition"
                 >
                   <span className="text-white font-medium pr-4">{faq.q}</span>
-                  <span className={`text-fuchsia-400 transition-transform flex-shrink-0 ${expandedFaq === index ? "rotate-180" : ""}`}>
+                  <span className={`text-[#FF2D8E] transition-transform flex-shrink-0 ${expandedFaq === index ? "rotate-180" : ""}`}>
                     ▼
                   </span>
                 </button>
@@ -639,13 +639,13 @@ export function SubscribeContent() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="px-10 py-5 rounded-xl bg-gradient-to-r from-fuchsia-500 to-purple-500 text-white font-bold text-lg hover:opacity-90 transition shadow-lg shadow-fuchsia-500/25 transform hover:scale-105"
+              className="px-10 py-5 rounded-xl bg-gradient-to-r bg-[#FF2D8E] text-white font-bold text-lg hover:opacity-90 transition shadow-lg shadow-[#FF2D8E]/25 transform hover:scale-105"
             >
               🎁 Join Annual — Get FREE Service →
             </button>
             <a
               href="tel:630-636-6193"
-              className="px-10 py-5 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition"
+              className="px-10 py-5 rounded-xl bg-white border border-black text-white font-medium hover:bg-white transition"
             >
               📞 Call 630-636-6193
             </a>
@@ -657,7 +657,7 @@ export function SubscribeContent() {
 
           <p className="mt-4 text-black text-sm">
             Questions? Email us at{" "}
-            <a href="mailto:hello@nopriorauthorization.com" className="text-fuchsia-400 hover:underline">
+            <a href="mailto:hello@nopriorauthorization.com" className="text-[#FF2D8E] hover:underline">
               hello@nopriorauthorization.com
             </a>
           </p>
@@ -665,14 +665,14 @@ export function SubscribeContent() {
       </section>
 
       {/* Partner Locations */}
-      <section className="py-12 px-4 border-t border-white/10">
+      <section className="py-12 px-4 border-t border-black">
         <div className="max-w-5xl mx-auto">
           <p className="text-center text-black text-sm mb-4">
             Redeem your free service at
           </p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-8">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-fuchsia-500/20 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-[#FF2D8E]/20 flex items-center justify-center">
                 <span className="text-2xl">💋</span>
               </div>
               <div>

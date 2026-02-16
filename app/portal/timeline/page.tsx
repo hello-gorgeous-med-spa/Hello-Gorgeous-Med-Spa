@@ -193,7 +193,7 @@ export default function TimelinePage() {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
                   <div className="absolute bottom-2 left-2 right-2">
                     <p className="text-white text-xs">{new Date(photo.takenAt).toLocaleDateString()}</p>
-                    <p className="text-white/70 text-xs capitalize">{photo.type}</p>
+                    <p className="text-black text-xs capitalize">{photo.type}</p>
                   </div>
                 </div>
                 <span className={`absolute top-2 right-2 text-xs px-2 py-1 rounded-full ${
@@ -219,8 +219,8 @@ export default function TimelinePage() {
             />
             <div className="mt-4 text-white">
               <p className="font-medium capitalize">{selectedPhoto.treatmentType} - {selectedPhoto.type}</p>
-              <p className="text-white/70 text-sm mt-1">{new Date(selectedPhoto.takenAt).toLocaleDateString()}</p>
-              {selectedPhoto.notes && <p className="text-white/60 text-sm mt-2">{selectedPhoto.notes}</p>}
+              <p className="text-black text-sm mt-1">{new Date(selectedPhoto.takenAt).toLocaleDateString()}</p>
+              {selectedPhoto.notes && <p className="text-black text-sm mt-2">{selectedPhoto.notes}</p>}
               {selectedPhoto.daysPostTreatment && (
                 <p className="text-[#FF2D8E] text-sm mt-2">{selectedPhoto.daysPostTreatment} days post-treatment</p>
               )}

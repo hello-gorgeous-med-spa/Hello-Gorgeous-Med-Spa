@@ -155,7 +155,7 @@ export default async function ServiceBookingPage({
           </a>
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500 text-white hover:bg-pink-600 transition-colors text-sm font-medium"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E] text-white hover:bg-black transition-colors text-sm font-medium"
           >
             <span>💬</span> Ask Beau-Tox
           </Link>

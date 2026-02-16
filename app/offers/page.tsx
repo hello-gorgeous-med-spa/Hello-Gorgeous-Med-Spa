@@ -111,7 +111,7 @@ export default function OffersPage() {
           </Link>
           <Link
             href="/portal/book"
-            className="px-6 py-2 bg-pink-500 text-white font-medium rounded-full hover:bg-pink-600 transition-colors"
+            className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-full hover:bg-black transition-colors"
           >
             Book Now
           </Link>
@@ -163,7 +163,7 @@ export default function OffersPage() {
               </div>
               <div className="text-center">
                 <span className="text-8xl block mb-4">{featuredOffer.image || '✨'}</span>
-                <div className="bg-white/10 rounded-xl p-4">
+                <div className="bg-white rounded-xl p-4">
                   <p className="text-sm text-pink-100 mb-2">Ends in:</p>
                   <CountdownTimer endsAt={new Date(featuredOffer.ends_at)} />
                 </div>
@@ -181,7 +181,7 @@ export default function OffersPage() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-2 rounded-full font-medium transition-colors capitalize ${
                   selectedCategory === cat
-                    ? 'bg-pink-500 text-white'
+                    ? 'bg-[#FF2D8E] text-white'
                     : 'bg-white text-black hover:bg-white'
                 }`}
               >
@@ -207,7 +207,7 @@ export default function OffersPage() {
             </p>
             <Link
               href="/services"
-              className="inline-block px-6 py-3 bg-pink-500 text-white font-medium rounded-full hover:bg-pink-600"
+              className="inline-block px-6 py-3 bg-[#FF2D8E] text-white font-medium rounded-full hover:bg-black"
             >
               Browse Services
             </Link>
@@ -233,7 +233,7 @@ export default function OffersPage() {
                     <CountdownTimer endsAt={new Date(offer.ends_at)} />
                     <Link
                       href="/portal/book"
-                      className="px-4 py-2 bg-pink-500 text-white font-medium rounded-full hover:bg-pink-600"
+                      className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-full hover:bg-black"
                     >
                       Book
                     </Link>
@@ -252,7 +252,7 @@ export default function OffersPage() {
           </p>
           <Link
             href="/portal/book"
-            className="inline-block px-8 py-3 bg-pink-500 text-white font-bold rounded-full hover:bg-pink-600 transition-colors"
+            className="inline-block px-8 py-3 bg-[#FF2D8E] text-white font-bold rounded-full hover:bg-black transition-colors"
           >
             Book Your Appointment
           </Link>

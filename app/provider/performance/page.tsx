@@ -152,7 +152,7 @@ export default function ProviderPerformancePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-12 h-12 border-4 border-[#FF2D8E] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -184,19 +184,19 @@ export default function ProviderPerformancePage() {
 
       {/* Today's Summary */}
       <div className="bg-gradient-to-r from-pink-500 to-rose-500 rounded-2xl p-6 text-white">
-        <h2 className="text-lg font-medium text-white/80 mb-4">Today's Performance</h2>
+        <h2 className="text-lg font-medium text-black mb-4">Today's Performance</h2>
         <div className="grid grid-cols-3 gap-6">
           <div>
             <p className="text-4xl font-bold">{stats.todayPatients}</p>
-            <p className="text-white/80">Patients Seen</p>
+            <p className="text-black">Patients Seen</p>
           </div>
           <div>
             <p className="text-4xl font-bold">${stats.todayRevenue.toLocaleString()}</p>
-            <p className="text-white/80">Revenue Generated</p>
+            <p className="text-black">Revenue Generated</p>
           </div>
           <div>
             <p className="text-4xl font-bold">{stats.todayUnits}</p>
-            <p className="text-white/80">Units Administered</p>
+            <p className="text-black">Units Administered</p>
           </div>
         </div>
       </div>
@@ -268,7 +268,7 @@ export default function ProviderPerformancePage() {
             </div>
             <div className="flex justify-between items-center">
               <span className="text-black">Avg Rating</span>
-              <span className="font-bold text-amber-500">
+              <span className="font-bold text-[#FF2D8E]">
                 ⭐ {stats.avgRating.toFixed(1)}
               </span>
             </div>

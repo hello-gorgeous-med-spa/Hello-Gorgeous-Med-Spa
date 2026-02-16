@@ -341,12 +341,12 @@ export function ShopContent() {
       {/* Hero */}
       <Section className="relative py-20 bg-gradient-to-b from-pink-950/30 via-purple-950/20 to-black overflow-hidden">
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-pink-500/20 rounded-full blur-3xl" />
+          <div className="absolute top-20 left-10 w-72 h-72 bg-[#FF2D8E]/20 rounded-full blur-3xl" />
           <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl" />
         </div>
         <FadeUp>
           <div className="text-center max-w-3xl mx-auto relative z-10">
-            <span className="inline-block px-4 py-1 rounded-full bg-pink-500/20 text-pink-400 text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-1 rounded-full bg-[#FF2D8E]/20 text-[#FF2D8E] text-sm font-medium mb-4">
               🛍️ Professional Products
             </span>
             <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
@@ -362,18 +362,18 @@ export function ShopContent() {
             
             {/* Payment badges */}
             <div className="flex flex-wrap justify-center gap-4 mb-8">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10">
-                <span className="text-pink-400">✓</span>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-black">
+                <span className="text-[#FF2D8E]">✓</span>
                 <span className="text-white text-sm">Free Shipping $75+</span>
               </div>
               <a
                 href="https://pay.withcherry.com/hellogorgeous"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/30 hover:bg-pink-500/20 transition"
+                className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/30 hover:bg-[#FF2D8E]/20 transition"
               >
                 <span>🍒</span>
-                <span className="text-pink-400 text-sm font-medium">Buy Now, Pay Later with Cherry</span>
+                <span className="text-[#FF2D8E] text-sm font-medium">Buy Now, Pay Later with Cherry</span>
               </a>
             </div>
           </div>
@@ -381,27 +381,27 @@ export function ShopContent() {
       </Section>
 
       {/* Quick Links */}
-      <Section className="py-8 bg-black border-b border-white/10">
+      <Section className="py-8 bg-black border-b border-black">
         <div className="grid grid-cols-3 gap-4 max-w-3xl mx-auto">
           <a
             href="https://us.fullscript.com/welcome/dglazier"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-4 rounded-xl bg-fuchsia-500/10 border border-fuchsia-500/30 text-center hover:bg-fuchsia-500/20 transition"
+            className="p-4 rounded-xl bg-[#FF2D8E]/10 border border-[#FF2D8E]/30 text-center hover:bg-[#FF2D8E]/20 transition"
           >
             <span className="text-2xl mb-2 block">💊</span>
             <span className="text-white font-medium text-sm">Shop Fullscript</span>
-            <span className="text-fuchsia-400 text-xs block">Supplements</span>
+            <span className="text-[#FF2D8E] text-xs block">Supplements</span>
           </a>
           <a
             href="https://pay.withcherry.com/hellogorgeous"
             target="_blank"
             rel="noopener noreferrer"
-            className="p-4 rounded-xl bg-pink-500/10 border border-pink-500/30 text-center hover:bg-pink-500/20 transition"
+            className="p-4 rounded-xl bg-[#FF2D8E]/10 border border-[#FF2D8E]/30 text-center hover:bg-[#FF2D8E]/20 transition"
           >
             <span className="text-2xl mb-2 block">🍒</span>
             <span className="text-white font-medium text-sm">Cherry Financing</span>
-            <span className="text-pink-400 text-xs block">Pay Over Time</span>
+            <span className="text-[#FF2D8E] text-xs block">Pay Over Time</span>
           </a>
           <a
             href="tel:630-636-6193"
@@ -415,7 +415,7 @@ export function ShopContent() {
       </Section>
 
       {/* Categories */}
-      <Section className="py-6 bg-black sticky top-16 z-30 border-b border-white/10">
+      <Section className="py-6 bg-black sticky top-16 z-30 border-b border-black">
         <div className="flex flex-wrap justify-center gap-2">
           {categories.map((cat) => (
             <button
@@ -424,8 +424,8 @@ export function ShopContent() {
               onClick={() => setActiveCategory(cat.id)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 activeCategory === cat.id
-                  ? "bg-pink-500 text-white"
-                  : "bg-white/5 text-black hover:bg-white/10 hover:text-white"
+                  ? "bg-[#FF2D8E] text-white"
+                  : "bg-white text-black hover:bg-white hover:text-white"
               }`}
             >
               <span className="mr-1">{cat.icon}</span>
@@ -442,9 +442,9 @@ export function ShopContent() {
             const action = getButtonAction(product);
             return (
               <FadeUp key={product.id} delayMs={i * 30}>
-                <div className="group relative bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-pink-500/30 transition h-full flex flex-col">
+                <div className="group relative bg-white rounded-2xl overflow-hidden border border-black hover:border-[#FF2D8E]/30 transition h-full flex flex-col">
                   {product.popular && (
-                    <span className="absolute top-3 left-3 z-10 px-3 py-1 rounded-full bg-pink-500 text-white text-xs font-medium">
+                    <span className="absolute top-3 left-3 z-10 px-3 py-1 rounded-full bg-[#FF2D8E] text-white text-xs font-medium">
                       Popular
                     </span>
                   )}
@@ -460,7 +460,7 @@ export function ShopContent() {
                   
                   <div className="p-4 flex-1 flex flex-col">
                     <div className="flex-1">
-                      <p className="text-pink-400 text-xs font-medium mb-1">{product.brand}</p>
+                      <p className="text-[#FF2D8E] text-xs font-medium mb-1">{product.brand}</p>
                       <h3 className="text-white font-semibold mb-1 line-clamp-2">{product.name}</h3>
                       <p className="text-black text-sm line-clamp-2 mb-2">{product.description}</p>
                       {product.tags && (
@@ -468,7 +468,7 @@ export function ShopContent() {
                           {product.tags.slice(0, 2).map((tag) => (
                             <span
                               key={tag}
-                              className="px-2 py-0.5 rounded-full bg-white/5 text-black text-xs"
+                              className="px-2 py-0.5 rounded-full bg-white text-black text-xs"
                             >
                               {tag}
                             </span>
@@ -492,7 +492,7 @@ export function ShopContent() {
                         <button
                           type="button"
                           onClick={action.onClick}
-                          className="w-full py-3 rounded-xl bg-white/10 border border-white/20 text-white font-medium text-sm hover:bg-white/20 transition"
+                          className="w-full py-3 rounded-xl bg-white border border-black text-white font-medium text-sm hover:bg-white/20 transition"
                         >
                           {getButtonText(product.linkType)}
                         </button>
@@ -507,7 +507,7 @@ export function ShopContent() {
       </Section>
 
       {/* Brand Partners */}
-      <Section className="py-12 bg-black border-t border-white/10">
+      <Section className="py-12 bg-black border-t border-black">
         <FadeUp>
           <div className="text-center mb-8">
             <h3 className="text-xl font-bold text-white mb-2">Our Product Partners</h3>
@@ -524,7 +524,7 @@ export function ShopContent() {
             ].map((brand) => (
               <div
                 key={brand.name}
-                className="p-4 rounded-xl bg-white/5 border border-white/10 text-center"
+                className="p-4 rounded-xl bg-white border border-black text-center"
               >
                 <span className="text-3xl mb-2 block">{brand.icon}</span>
                 <p className="text-white font-semibold">{brand.name}</p>
@@ -581,7 +581,7 @@ export function ShopContent() {
               </a>
               <a
                 href="tel:630-636-6193"
-                className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition"
+                className="px-8 py-4 rounded-xl bg-white border border-black text-white font-medium hover:bg-white transition"
               >
                 📞 630-636-6193
               </a>
@@ -593,8 +593,8 @@ export function ShopContent() {
       {/* Order Request Modal */}
       {showOrderForm && orderProduct && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm">
-          <div className="relative w-full max-w-md bg-black rounded-3xl overflow-hidden border border-white/10">
-            <div className="p-6 border-b border-white/10">
+          <div className="relative w-full max-w-md bg-black rounded-3xl overflow-hidden border border-black">
+            <div className="p-6 border-b border-black">
               <div className="flex items-center justify-between">
                 <h3 className="text-white font-bold text-lg">Request to Order</h3>
                 <button
@@ -604,7 +604,7 @@ export function ShopContent() {
                     setFormStatus("idle");
                     setFormData({ name: "", email: "", phone: "", message: "" });
                   }}
-                  className="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition"
+                  className="w-10 h-10 rounded-full bg-white text-white flex items-center justify-center hover:bg-white/20 transition"
                 >
                   ✕
                 </button>
@@ -622,7 +622,7 @@ export function ShopContent() {
                 </div>
               ) : (
                 <>
-                  <div className="flex items-center gap-4 p-4 rounded-xl bg-white/5 mb-6">
+                  <div className="flex items-center gap-4 p-4 rounded-xl bg-white mb-6">
                     <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
                       <Image
                         src={orderProduct.imageUrl}
@@ -632,7 +632,7 @@ export function ShopContent() {
                       />
                     </div>
                     <div>
-                      <p className="text-pink-400 text-xs">{orderProduct.brand}</p>
+                      <p className="text-[#FF2D8E] text-xs">{orderProduct.brand}</p>
                       <p className="text-white font-semibold">{orderProduct.name}</p>
                       <p className="text-white font-bold">{orderProduct.price}</p>
                     </div>
@@ -646,7 +646,7 @@ export function ShopContent() {
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:border-pink-500 focus:outline-none"
+                        className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-white/50 focus:border-[#FF2D8E] focus:outline-none"
                         placeholder="Your name"
                       />
                     </div>
@@ -657,7 +657,7 @@ export function ShopContent() {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:border-pink-500 focus:outline-none"
+                        className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-white/50 focus:border-[#FF2D8E] focus:outline-none"
                         placeholder="your@email.com"
                       />
                     </div>
@@ -668,7 +668,7 @@ export function ShopContent() {
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:border-pink-500 focus:outline-none"
+                        className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-white/50 focus:border-[#FF2D8E] focus:outline-none"
                         placeholder="(630) 555-1234"
                       />
                     </div>
@@ -678,7 +678,7 @@ export function ShopContent() {
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         rows={3}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:border-pink-500 focus:outline-none resize-none"
+                        className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-white/50 focus:border-[#FF2D8E] focus:outline-none resize-none"
                         placeholder="Any questions or special requests?"
                       />
                     </div>
@@ -706,11 +706,11 @@ export function ShopContent() {
       {/* Product Detail Modal */}
       {selectedProduct && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm">
-          <div className="relative w-full max-w-lg bg-black rounded-3xl overflow-hidden border border-white/10">
+          <div className="relative w-full max-w-lg bg-black rounded-3xl overflow-hidden border border-black">
             <button
               type="button"
               onClick={() => setSelectedProduct(null)}
-              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition"
+              className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white text-white flex items-center justify-center hover:bg-black/70 transition"
             >
               ✕
             </button>
@@ -723,7 +723,7 @@ export function ShopContent() {
               />
             </div>
             <div className="p-6">
-              <p className="text-pink-400 text-sm font-medium mb-1">{selectedProduct.brand}</p>
+              <p className="text-[#FF2D8E] text-sm font-medium mb-1">{selectedProduct.brand}</p>
               <h3 className="text-white font-bold text-xl mb-2">{selectedProduct.name}</h3>
               <p className="text-black mb-4">{selectedProduct.description}</p>
               <p className="text-white font-bold text-2xl mb-4">{selectedProduct.price}</p>
@@ -733,7 +733,7 @@ export function ShopContent() {
                   {selectedProduct.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 rounded-full bg-white/5 text-black text-sm"
+                      className="px-3 py-1 rounded-full bg-white text-black text-sm"
                     >
                       {tag}
                     </span>

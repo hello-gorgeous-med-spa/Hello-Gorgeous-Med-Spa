@@ -275,7 +275,7 @@ export default function PortalAppointmentsPage() {
               placeholder="Email address"
               value={lookupEmail}
               onChange={(e) => setLookupEmail(e.target.value)}
-              className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
             />
             <div className="text-center text-black text-sm">or</div>
             <input
@@ -283,7 +283,7 @@ export default function PortalAppointmentsPage() {
               placeholder="Phone number"
               value={lookupPhone}
               onChange={(e) => setLookupPhone(e.target.value)}
-              className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
             />
             {lookupError && (
               <p className="text-red-600 text-sm">{lookupError}</p>
@@ -291,7 +291,7 @@ export default function PortalAppointmentsPage() {
             <button
               onClick={handleLookup}
               disabled={lookupLoading}
-              className="w-full py-3 bg-pink-500 text-white rounded-xl font-medium hover:bg-pink-600 disabled:opacity-50"
+              className="w-full py-3 bg-[#FF2D8E] text-white rounded-xl font-medium hover:bg-black disabled:opacity-50"
             >
               {lookupLoading ? 'Looking up...' : 'Find My Appointments'}
             </button>
@@ -323,7 +323,7 @@ export default function PortalAppointmentsPage() {
             onClick={() => setActiveTab('upcoming')}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
               activeTab === 'upcoming'
-                ? 'bg-pink-500 text-white'
+                ? 'bg-[#FF2D8E] text-white'
                 : 'bg-white text-black hover:bg-white'
             }`}
           >
@@ -333,7 +333,7 @@ export default function PortalAppointmentsPage() {
             onClick={() => setActiveTab('past')}
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
               activeTab === 'past'
-                ? 'bg-pink-500 text-white'
+                ? 'bg-[#FF2D8E] text-white'
                 : 'bg-white text-black hover:bg-white'
             }`}
           >
@@ -356,7 +356,7 @@ export default function PortalAppointmentsPage() {
               <p className="text-black mb-4">Ready for your next treatment?</p>
               <Link
                 href="/portal/book"
-                className="inline-flex items-center gap-2 bg-pink-500 text-white px-6 py-2.5 rounded-full font-medium hover:bg-pink-600 transition-colors"
+                className="inline-flex items-center gap-2 bg-[#FF2D8E] text-white px-6 py-2.5 rounded-full font-medium hover:bg-black transition-colors"
               >
                 Book Now
               </Link>
@@ -483,7 +483,7 @@ export default function PortalAppointmentsPage() {
 
       {/* Cancel Modal */}
       {showCancelModal && selectedAppointment && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
             <h2 className="text-xl font-bold text-black mb-4">Cancel Appointment</h2>
             <p className="text-black mb-4">
@@ -529,7 +529,7 @@ export default function PortalAppointmentsPage() {
 
       {/* Reschedule Modal */}
       {showRescheduleModal && selectedAppointment && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
             <h2 className="text-xl font-bold text-black mb-4">Reschedule Appointment</h2>
             
@@ -545,7 +545,7 @@ export default function PortalAppointmentsPage() {
               
               <Link
                 href="/book"
-                className="block w-full px-4 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 text-center font-medium"
+                className="block w-full px-4 py-3 bg-[#FF2D8E] text-white rounded-lg hover:bg-black text-center font-medium"
               >
                 Book New Time Online
               </Link>

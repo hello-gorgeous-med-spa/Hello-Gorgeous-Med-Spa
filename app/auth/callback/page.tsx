@@ -94,8 +94,8 @@ export default function AuthCallbackPage() {
       <div className="w-full max-w-md text-center">
         {status === 'loading' && (
           <>
-            <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-white/80">Signing you in...</p>
+            <div className="w-12 h-12 border-4 border-[#FF2D8E] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+            <p className="text-black">Signing you in...</p>
           </>
         )}
         {status === 'error' && (
@@ -103,7 +103,7 @@ export default function AuthCallbackPage() {
             <p className="text-red-300 mb-4">{message}</p>
             <a
               href="/login"
-              className="inline-block px-6 py-3 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600"
+              className="inline-block px-6 py-3 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-black"
             >
               Back to Login
             </a>

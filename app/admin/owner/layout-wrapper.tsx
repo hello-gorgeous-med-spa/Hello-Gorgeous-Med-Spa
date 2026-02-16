@@ -53,7 +53,7 @@ export default function OwnerLayout({ children, title, description }: OwnerLayou
           <Link href="/admin/owner" className="flex items-center gap-2">
             <span className="text-2xl">👑</span>
             <div>
-              <h1 className="font-bold text-lg text-pink-400">FOUNDER CONTROL</h1>
+              <h1 className="font-bold text-lg text-[#FF2D8E]">FOUNDER CONTROL</h1>
               <p className="text-xs text-pink-300/60">Governance Layer</p>
             </div>
           </Link>
@@ -70,8 +70,8 @@ export default function OwnerLayout({ children, title, description }: OwnerLayou
                   href={item.href}
                   className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
                     pathname === item.href
-                      ? 'bg-pink-500/20 text-pink-400'
-                      : 'text-black hover:bg-pink-500/10 hover:text-pink-400'
+                      ? 'bg-[#FF2D8E]/20 text-[#FF2D8E]'
+                      : 'text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]'
                   }`}
                 >
                   <span className="text-base">{item.icon}</span>
@@ -91,8 +91,8 @@ export default function OwnerLayout({ children, title, description }: OwnerLayou
                   href={item.href}
                   className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
                     pathname === item.href || pathname.startsWith(item.href + '/')
-                      ? 'bg-pink-500/20 text-pink-400'
-                      : 'text-black hover:bg-pink-500/10 hover:text-pink-400'
+                      ? 'bg-[#FF2D8E]/20 text-[#FF2D8E]'
+                      : 'text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]'
                   }`}
                 >
                   <span className="text-base">{item.icon}</span>
@@ -112,8 +112,8 @@ export default function OwnerLayout({ children, title, description }: OwnerLayou
                   href={item.href}
                   className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
                     pathname === item.href
-                      ? 'bg-pink-500/20 text-pink-400'
-                      : 'text-black hover:bg-pink-500/10 hover:text-pink-400'
+                      ? 'bg-[#FF2D8E]/20 text-[#FF2D8E]'
+                      : 'text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]'
                   }`}
                 >
                   <span className="text-base">{item.icon}</span>

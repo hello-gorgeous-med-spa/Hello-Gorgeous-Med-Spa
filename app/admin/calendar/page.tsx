@@ -537,7 +537,7 @@ export default function CalendarPage() {
                             setSelectedProviderFilter(selectedProviderFilter.filter(id => id !== provider.id));
                           }
                         }}
-                        className="w-4 h-4 rounded border-black text-pink-500 focus:ring-pink-500"
+                        className="w-4 h-4 rounded border-black text-[#FF2D8E] focus:ring-pink-500"
                       />
                       <div className={`w-3 h-3 rounded-full ${PROVIDER_COLORS[idx % PROVIDER_COLORS.length].accent}`} />
                       <span className="text-sm text-black">{provider.first_name} {provider.last_name}</span>
@@ -554,7 +554,7 @@ export default function CalendarPage() {
         {/* Main Calendar Area */}
         <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Provider Headers */}
-        <div className="flex border-b border-black bg-white/50">
+        <div className="flex border-b border-black bg-white0">
           {/* Time column spacer */}
           <div className="w-16 flex-shrink-0" />
           
@@ -591,7 +591,7 @@ export default function CalendarPage() {
         <div className="flex-1 overflow-auto">
           {loading ? (
             <div className="flex items-center justify-center h-full">
-              <div className="animate-spin w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full" />
+              <div className="animate-spin w-8 h-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full" />
             </div>
           ) : (
             <div className="flex min-h-full">
@@ -633,7 +633,7 @@ export default function CalendarPage() {
                           >
                             {inSchedule00 && (
                               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                <span className="text-xs text-pink-500 font-medium bg-white/80 px-2 py-1 rounded">+ Book</span>
+                                <span className="text-xs text-[#FF2D8E] font-medium bg-white/80 px-2 py-1 rounded">+ Book</span>
             </div>
                             )}
                           </div>
@@ -644,7 +644,7 @@ export default function CalendarPage() {
                           >
                             {inSchedule30 && (
                               <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                                <span className="text-xs text-pink-500 font-medium bg-white/80 px-2 py-1 rounded">+ Book</span>
+                                <span className="text-xs text-[#FF2D8E] font-medium bg-white/80 px-2 py-1 rounded">+ Book</span>
                               </div>
                             )}
                           </div>
@@ -959,7 +959,7 @@ export default function CalendarPage() {
 
       {/* Quick Book Modal */}
       {showQuickBook && quickBookSlot && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl">
             <div className="p-6 border-b border-black">
               <div className="flex items-center justify-between">
@@ -1025,7 +1025,7 @@ export default function CalendarPage() {
                   <input
                     type="text"
                     placeholder="Search client by name..."
-                      className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                      className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
                       onChange={(e) => searchClients(e.target.value)}
                   />
                   {clientSearchResults.length > 0 && (
@@ -1075,14 +1075,14 @@ export default function CalendarPage() {
                       placeholder="First Name *"
                       value={newClientForm.first_name}
                       onChange={(e) => setNewClientForm({ ...newClientForm, first_name: e.target.value })}
-                      className="px-3 py-2.5 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
+                      className="px-3 py-2.5 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E] text-sm"
                     />
                     <input
                       type="text"
                       placeholder="Last Name *"
                       value={newClientForm.last_name}
                       onChange={(e) => setNewClientForm({ ...newClientForm, last_name: e.target.value })}
-                      className="px-3 py-2.5 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
+                      className="px-3 py-2.5 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E] text-sm"
                     />
                   </div>
                   <input
@@ -1090,14 +1090,14 @@ export default function CalendarPage() {
                     placeholder="Phone Number *"
                     value={newClientForm.phone}
                     onChange={(e) => setNewClientForm({ ...newClientForm, phone: e.target.value })}
-                    className="w-full px-3 py-2.5 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
+                    className="w-full px-3 py-2.5 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E] text-sm"
                   />
                   <input
                     type="email"
                     placeholder="Email (optional)"
                     value={newClientForm.email}
                     onChange={(e) => setNewClientForm({ ...newClientForm, email: e.target.value })}
-                    className="w-full px-3 py-2.5 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
+                    className="w-full px-3 py-2.5 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E] text-sm"
                   />
                   {newClientForm.first_name && newClientForm.last_name && newClientForm.phone && (
                     <p className="text-sm text-emerald-600 flex items-center gap-1">
@@ -1114,7 +1114,7 @@ export default function CalendarPage() {
               <div>
                 <label className="block text-sm font-medium text-black mb-2">Service *</label>
                 <select 
-                  className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 bg-white"
+                  className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E] bg-white"
                   value={quickBookService}
                   onChange={(e) => setQuickBookService(e.target.value)}
                 >

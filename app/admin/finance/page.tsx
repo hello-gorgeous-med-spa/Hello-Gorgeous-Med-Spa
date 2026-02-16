@@ -296,7 +296,7 @@ export default function FinancialCommandCenter() {
             onClick={() => setActiveTab(tab)}
             className={`px-4 py-3 font-medium text-sm capitalize ${
               activeTab === tab
-                ? 'text-pink-600 border-b-2 border-pink-500'
+                ? 'text-pink-600 border-b-2 border-[#FF2D8E]'
                 : 'text-black hover:text-black'
             }`}
           >
@@ -372,7 +372,7 @@ export default function FinancialCommandCenter() {
                   <span className="font-bold text-black">${(summary?.serviceRevenue || 0).toLocaleString()}</span>
                 </div>
                 <div className="w-full bg-white rounded-full h-2">
-                  <div className="bg-pink-500 h-2 rounded-full" style={{ width: '85%' }} />
+                  <div className="bg-[#FF2D8E] h-2 rounded-full" style={{ width: '85%' }} />
                 </div>
                 <div className="flex items-center justify-between mt-4">
                   <span className="text-black">Retail</span>
@@ -749,7 +749,7 @@ export default function FinancialCommandCenter() {
                 <p className="text-black mb-4">Select a transaction to refund</p>
                 <button
                   onClick={() => setActiveTab('transactions')}
-                  className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+                  className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
                 >
                   View Transactions
                 </button>

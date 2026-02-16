@@ -46,7 +46,7 @@ export default function ServicesPage() {
               </CTA>
               <Link
                 href="/membership"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-md border border-pink-500/30 text-pink-400 text-sm font-medium hover:bg-pink-500/10 transition"
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-md border border-[#FF2D8E]/30 text-[#FF2D8E] text-sm font-medium hover:bg-[#FF2D8E]/10 transition"
               >
                 💎 Save 10% with VIP Membership
               </Link>

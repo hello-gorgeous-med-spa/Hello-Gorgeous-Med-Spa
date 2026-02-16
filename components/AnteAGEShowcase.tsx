@@ -59,14 +59,14 @@ export function AnteAGEShowcase() {
       <div className="max-w-6xl mx-auto">
         <FadeUp>
           <div className="text-center mb-10">
-            <p className="text-pink-400 text-lg font-medium tracking-wide">FEATURED TREATMENT</p>
+            <p className="text-[#FF2D8E] text-lg font-medium tracking-wide">FEATURED TREATMENT</p>
             <h2 className="mt-4 text-3xl md:text-5xl font-bold text-white">
               AnteAGE MD®{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-500">
                 Brightening Exosomes
               </span>
             </h2>
-            <p className="mt-4 text-white/70 max-w-2xl mx-auto">
+            <p className="mt-4 text-black max-w-2xl mx-auto">
               Revolutionary regenerative science for radiant, even-toned skin.
             </p>
           </div>
@@ -78,7 +78,7 @@ export function AnteAGEShowcase() {
             <div className="relative">
               {/* Main Image */}
               <div
-                className="relative aspect-[4/5] rounded-3xl overflow-hidden border-2 border-pink-500/30 cursor-pointer group"
+                className="relative aspect-[4/5] rounded-3xl overflow-hidden border-2 border-[#FF2D8E]/30 cursor-pointer group"
                 onClick={() => setIsModalOpen(true)}
               >
                 <Image
@@ -94,11 +94,11 @@ export function AnteAGEShowcase() {
                 {/* Caption */}
                 <div className="absolute bottom-0 left-0 right-0 p-6">
                   <h3 className="text-xl font-bold text-white">{anteageImages[currentSlide].title}</h3>
-                  <p className="text-white/70 text-sm mt-1">{anteageImages[currentSlide].description}</p>
+                  <p className="text-black text-sm mt-1">{anteageImages[currentSlide].description}</p>
                 </div>
 
                 {/* Click to expand hint */}
-                <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-black/50 text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition">
+                <div className="absolute top-4 right-4 px-3 py-1.5 rounded-full bg-white text-white text-xs font-medium opacity-0 group-hover:opacity-100 transition">
                   Click to expand
                 </div>
               </div>
@@ -107,14 +107,14 @@ export function AnteAGEShowcase() {
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); prevSlide(); }}
-                className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-pink-500 transition"
+                className="absolute left-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white text-white flex items-center justify-center hover:bg-[#FF2D8E] transition"
               >
                 ←
               </button>
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); nextSlide(); }}
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-pink-500 transition"
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white text-white flex items-center justify-center hover:bg-[#FF2D8E] transition"
               >
                 →
               </button>
@@ -127,7 +127,7 @@ export function AnteAGEShowcase() {
                     type="button"
                     onClick={() => setCurrentSlide(idx)}
                     className={`w-2.5 h-2.5 rounded-full transition ${
-                      idx === currentSlide ? "bg-pink-500 w-8" : "bg-black/50 hover:bg-white0"
+                      idx === currentSlide ? "bg-[#FF2D8E] w-8" : "bg-white hover:bg-white0"
                     }`}
                   />
                 ))}
@@ -139,8 +139,8 @@ export function AnteAGEShowcase() {
           <FadeUp delayMs={120}>
             <div className="space-y-6">
               <div>
-                <p className="text-pink-400 font-semibold text-sm tracking-wide mb-2">WHAT IS IT?</p>
-                <p className="text-white/80 leading-relaxed">
+                <p className="text-[#FF2D8E] font-semibold text-sm tracking-wide mb-2">WHAT IS IT?</p>
+                <p className="text-black leading-relaxed">
                   AnteAGE MD® Brightening Exosomes use cutting-edge stem cell technology to target 
                   unwanted pigmentation and promote a healthy, radiant glow. This regenerative treatment 
                   is safe for all Fitzpatrick skin types and delivers visible results.
@@ -148,20 +148,20 @@ export function AnteAGEShowcase() {
               </div>
 
               <div>
-                <p className="text-pink-400 font-semibold text-sm tracking-wide mb-3">KEY BENEFITS</p>
+                <p className="text-[#FF2D8E] font-semibold text-sm tracking-wide mb-3">KEY BENEFITS</p>
                 <div className="grid grid-cols-2 gap-2">
                   {benefits.map((benefit) => (
                     <div key={benefit} className="flex items-center gap-2">
-                      <span className="text-pink-400">✓</span>
-                      <span className="text-white/70 text-sm">{benefit}</span>
+                      <span className="text-[#FF2D8E]">✓</span>
+                      <span className="text-black text-sm">{benefit}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
               <div>
-                <p className="text-pink-400 font-semibold text-sm tracking-wide mb-2">IDEAL FOR</p>
-                <p className="text-white/80">
+                <p className="text-[#FF2D8E] font-semibold text-sm tracking-wide mb-2">IDEAL FOR</p>
+                <p className="text-black">
                   Hyperpigmentation, sun damage, melasma, uneven skin tone, dull complexion, 
                   and anyone seeking a brighter, more youthful appearance.
                 </p>
@@ -172,13 +172,13 @@ export function AnteAGEShowcase() {
                   href={BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex-1 py-4 px-6 bg-pink-500 text-white font-bold text-center rounded-full hover:bg-pink-600 transition shadow-lg shadow-pink-500/25"
+                  className="flex-1 py-4 px-6 bg-[#FF2D8E] text-white font-bold text-center rounded-full hover:bg-black transition shadow-lg shadow-[#FF2D8E]/25"
                 >
                   Book AnteAGE Treatment
                 </a>
                 <a
                   href="tel:630-636-6193"
-                  className="py-4 px-6 border border-white/20 text-white font-semibold text-center rounded-full hover:bg-white/10 transition"
+                  className="py-4 px-6 border border-black text-white font-semibold text-center rounded-full hover:bg-white transition"
                 >
                   📞 Ask Questions
                 </a>
@@ -197,7 +197,7 @@ export function AnteAGEShowcase() {
           <button
             type="button"
             onClick={() => setIsModalOpen(false)}
-            className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white/10 text-white text-2xl flex items-center justify-center hover:bg-white/20 transition"
+            className="absolute top-4 right-4 w-12 h-12 rounded-full bg-white text-white text-2xl flex items-center justify-center hover:bg-white/20 transition"
           >
             ✕
           </button>
@@ -205,7 +205,7 @@ export function AnteAGEShowcase() {
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); prevSlide(); }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 text-white text-xl flex items-center justify-center hover:bg-pink-500 transition"
+            className="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white text-white text-xl flex items-center justify-center hover:bg-[#FF2D8E] transition"
           >
             ←
           </button>
@@ -220,14 +220,14 @@ export function AnteAGEShowcase() {
             />
             <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black to-transparent rounded-b-xl">
               <h3 className="text-2xl font-bold text-white">{anteageImages[currentSlide].title}</h3>
-              <p className="text-white/70 mt-1">{anteageImages[currentSlide].description}</p>
+              <p className="text-black mt-1">{anteageImages[currentSlide].description}</p>
             </div>
           </div>
 
           <button
             type="button"
             onClick={(e) => { e.stopPropagation(); nextSlide(); }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white/10 text-white text-xl flex items-center justify-center hover:bg-pink-500 transition"
+            className="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white text-white text-xl flex items-center justify-center hover:bg-[#FF2D8E] transition"
           >
             →
           </button>
@@ -240,7 +240,7 @@ export function AnteAGEShowcase() {
                 type="button"
                 onClick={(e) => { e.stopPropagation(); setCurrentSlide(idx); }}
                 className={`w-3 h-3 rounded-full transition ${
-                  idx === currentSlide ? "bg-pink-500" : "bg-white/30 hover:bg-white/50"
+                  idx === currentSlide ? "bg-[#FF2D8E]" : "bg-white/30 hover:bg-white0"
                 }`}
               />
             ))}

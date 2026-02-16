@@ -368,13 +368,13 @@ export default function PackagesPage() {
         <div className="flex gap-2">
           <button
             onClick={() => setShowHormoneTemplates(true)}
-            className="px-4 py-2 bg-fuchsia-500 text-white font-medium rounded-lg hover:bg-fuchsia-600"
+            className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
           >
             + Hormone Package
           </button>
           <button
             onClick={() => { resetForm(); setEditing(null); setShowModal(true); }}
-            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+            className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
           >
             + Custom Package
           </button>
@@ -400,7 +400,7 @@ export default function PackagesPage() {
             onClick={() => setActiveTab(tab.id as any)}
             className={`px-4 py-2 text-sm font-medium border-b-2 -mb-px transition ${
               activeTab === tab.id
-                ? 'border-pink-500 text-pink-600'
+                ? 'border-[#FF2D8E] text-pink-600'
                 : 'border-transparent text-black hover:text-black'
             }`}
           >
@@ -420,19 +420,19 @@ export default function PackagesPage() {
             </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-            <div className="bg-white/10 rounded-lg p-3">
+            <div className="bg-white rounded-lg p-3">
               <p className="text-sm text-fuchsia-100">Starter</p>
               <p className="font-semibold">$350 / 3mo</p>
             </div>
-            <div className="bg-white/10 rounded-lg p-3">
+            <div className="bg-white rounded-lg p-3">
               <p className="text-sm text-fuchsia-100">Essential</p>
               <p className="font-semibold">$749 / 6mo</p>
             </div>
-            <div className="bg-white/10 rounded-lg p-3">
+            <div className="bg-white rounded-lg p-3">
               <p className="text-sm text-fuchsia-100">Premium</p>
               <p className="font-semibold">$1,200 / 9mo</p>
             </div>
-            <div className="bg-white/10 rounded-lg p-3">
+            <div className="bg-white rounded-lg p-3">
               <p className="text-sm text-fuchsia-100">Elite Annual</p>
               <p className="font-semibold">$1,499 / 12mo</p>
             </div>
@@ -452,7 +452,7 @@ export default function PackagesPage() {
           {activeTab === 'hormone' ? (
             <button
               onClick={() => setShowHormoneTemplates(true)}
-              className="mt-4 text-fuchsia-600 font-medium"
+              className="mt-4 text-[#FF2D8E] font-medium"
             >
               Create hormone packages from templates
             </button>
@@ -470,7 +470,7 @@ export default function PackagesPage() {
           {filteredPackages.map(pkg => (
             <div key={pkg.id} className={`bg-white rounded-xl border shadow-sm overflow-hidden ${pkg.is_featured ? 'border-pink-300 ring-2 ring-pink-100' : 'border-black'}`}>
               {pkg.is_featured && (
-                <div className="bg-pink-500 text-white text-center text-xs font-medium py-1">
+                <div className="bg-[#FF2D8E] text-white text-center text-xs font-medium py-1">
                   ⭐ FEATURED
                 </div>
               )}
@@ -481,7 +481,7 @@ export default function PackagesPage() {
                 )}
 
                 <div className="mt-4 flex items-baseline gap-2">
-                  <span className="text-3xl font-bold text-pink-500">${(pkg.price_cents / 100).toFixed(0)}</span>
+                  <span className="text-3xl font-bold text-[#FF2D8E]">${(pkg.price_cents / 100).toFixed(0)}</span>
                   {pkg.regular_price_cents > pkg.price_cents && (
                     <>
                       <span className="text-lg text-black line-through">${(pkg.regular_price_cents / 100).toFixed(0)}</span>
@@ -541,7 +541,7 @@ export default function PackagesPage() {
 
       {/* Hormone Package Templates Modal */}
       {showHormoneTemplates && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-black flex items-center justify-between">
               <div>
@@ -555,7 +555,7 @@ export default function PackagesPage() {
                 <div
                   key={idx}
                   className={`p-5 rounded-xl border-2 cursor-pointer transition-all hover:shadow-lg ${
-                    template.is_featured ? 'border-fuchsia-400 bg-fuchsia-50' : 'border-black hover:border-fuchsia-300'
+                    template.is_featured ? 'border-[#FF2D8E] bg-fuchsia-50' : 'border-black hover:border-fuchsia-300'
                   }`}
                   onClick={() => {
                     createHormonePackage(template);
@@ -563,12 +563,12 @@ export default function PackagesPage() {
                   }}
                 >
                   {template.highlight && (
-                    <span className="inline-block px-2 py-1 text-xs font-bold bg-fuchsia-500 text-white rounded mb-2">
+                    <span className="inline-block px-2 py-1 text-xs font-bold bg-[#FF2D8E] text-white rounded mb-2">
                       {template.highlight}
                     </span>
                   )}
                   <h3 className="font-bold text-lg text-black">{template.name}</h3>
-                  <p className="text-fuchsia-600 font-semibold">${template.price} / {template.duration}</p>
+                  <p className="text-[#FF2D8E] font-semibold">${template.price} / {template.duration}</p>
                   <p className="text-sm text-black mt-2">{template.description}</p>
                   
                   <div className="mt-4">
@@ -588,11 +588,11 @@ export default function PackagesPage() {
 
                   {template.bonuses && (
                     <div className="mt-3 pt-3 border-t border-black">
-                      <p className="text-xs font-semibold text-fuchsia-600 mb-1">🎁 Bonuses:</p>
+                      <p className="text-xs font-semibold text-[#FF2D8E] mb-1">🎁 Bonuses:</p>
                       <ul className="text-xs text-black space-y-1">
                         {template.bonuses.map((bonus, i) => (
                           <li key={i} className="flex items-start gap-1">
-                            <span className="text-amber-500">★</span>
+                            <span className="text-[#FF2D8E]">★</span>
                             <span>{bonus}</span>
                           </li>
                         ))}
@@ -601,7 +601,7 @@ export default function PackagesPage() {
                   )}
 
                   <div className="mt-4 text-center">
-                    <span className="text-sm text-fuchsia-600 font-medium">Click to create →</span>
+                    <span className="text-sm text-[#FF2D8E] font-medium">Click to create →</span>
                   </div>
                 </div>
               ))}
@@ -612,7 +612,7 @@ export default function PackagesPage() {
 
       {/* Create/Edit Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-black">
               <h2 className="text-xl font-bold text-black">{editing ? 'Edit Package' : 'Create Package'}</h2>
@@ -740,7 +740,7 @@ export default function PackagesPage() {
                   type="checkbox"
                   checked={form.is_featured}
                   onChange={(e) => setForm({ ...form, is_featured: e.target.checked })}
-                  className="w-4 h-4 text-pink-500 border-black rounded"
+                  className="w-4 h-4 text-[#FF2D8E] border-black rounded"
                 />
                 <span className="text-sm text-black">Feature this package (show prominently on booking page)</span>
               </label>
@@ -751,7 +751,7 @@ export default function PackagesPage() {
               <button
                 onClick={handleSave}
                 disabled={saving || !form.name || form.price <= 0}
-                className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
               >
                 {saving ? 'Saving...' : editing ? 'Update Package' : 'Create Package'}
               </button>

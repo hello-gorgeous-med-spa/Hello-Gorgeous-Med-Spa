@@ -82,7 +82,7 @@ export function PaymentMethodSelector({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         disabled={disabled}
-        className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+        className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
       >
         {Object.values(grouped).flat().map((method) => (
           <option key={method.id} value={method.id}>
@@ -98,7 +98,7 @@ export function PaymentMethodSelector({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       disabled={disabled}
-      className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+      className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
     >
       {Object.entries(grouped).map(([groupName, methods]) => (
         <optgroup key={groupName} label={groupName}>
@@ -145,7 +145,7 @@ export function PaymentMethodGrid({
                 className={`
                   flex items-center gap-2 p-3 rounded-lg border-2 transition-all
                   ${value === method.id
-                    ? 'border-pink-500 bg-pink-50'
+                    ? 'border-[#FF2D8E] bg-pink-50'
                     : 'border-black hover:border-black bg-white'
                   }
                   ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}

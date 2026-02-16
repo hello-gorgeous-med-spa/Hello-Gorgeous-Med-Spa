@@ -175,7 +175,7 @@ export default function ProviderTasksPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-12 h-12 border-4 border-[#FF2D8E] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -190,7 +190,7 @@ export default function ProviderTasksPage() {
         </div>
         <button
           onClick={() => setShowNewTaskModal(true)}
-          className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium"
+          className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black font-medium"
         >
           + New Task
         </button>
@@ -231,7 +231,7 @@ export default function ProviderTasksPage() {
             onClick={() => setFilter(f.id as any)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === f.id
-                ? 'bg-pink-500 text-white'
+                ? 'bg-[#FF2D8E] text-white'
                 : 'bg-white text-black hover:bg-white'
             }`}
           >
@@ -269,7 +269,7 @@ export default function ProviderTasksPage() {
                     className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${
                       task.status === 'completed'
                         ? 'bg-green-500 border-green-500 text-white'
-                        : 'border-black hover:border-pink-500'
+                        : 'border-black hover:border-[#FF2D8E]'
                     }`}
                   >
                     {task.status === 'completed' && '✓'}
@@ -319,7 +319,7 @@ export default function ProviderTasksPage() {
 
       {/* New Task Modal */}
       {showNewTaskModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
             <h2 className="text-xl font-bold text-black mb-4">New Task</h2>
             
@@ -396,7 +396,7 @@ export default function ProviderTasksPage() {
               <button
                 onClick={handleCreateTask}
                 disabled={!newTask.title}
-                className="flex-1 px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="flex-1 px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black disabled:opacity-50"
               >
                 Create Task
               </button>

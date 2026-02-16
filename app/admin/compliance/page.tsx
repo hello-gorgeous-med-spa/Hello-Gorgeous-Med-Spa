@@ -335,7 +335,7 @@ export default function ComplianceDashboard() {
           </button>
           <Link
             href="/admin/export"
-            className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+            className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
           >
             📊 Export Report
           </Link>
@@ -454,7 +454,7 @@ export default function ComplianceDashboard() {
             onClick={() => setActiveTab(tab)}
             className={`px-4 py-3 font-medium text-sm capitalize ${
               activeTab === tab
-                ? 'text-pink-600 border-b-2 border-pink-500'
+                ? 'text-pink-600 border-b-2 border-[#FF2D8E]'
                 : 'text-black hover:text-black'
             }`}
           >

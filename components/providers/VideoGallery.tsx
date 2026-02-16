@@ -74,8 +74,8 @@ export function VideoGallery({ videos }: { videos: VideoItem[] }) {
             onClick={() => setFilter("all")}
             className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
               filter === "all"
-                ? "bg-[#FF2D8E] text-white shadow-lg shadow-pink-500/30"
-                : "bg-white/10 text-white/70 hover:bg-white/20 hover:text-white"
+                ? "bg-[#FF2D8E] text-white shadow-lg shadow-[#FF2D8E]/30"
+                : "bg-white text-black hover:bg-white/20 hover:text-white"
             }`}
           >
             All Videos ({videos.length})
@@ -88,8 +88,8 @@ export function VideoGallery({ videos }: { videos: VideoItem[] }) {
                 onClick={() => setFilter(tag)}
                 className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
                   filter === tag
-                    ? "bg-[#FF2D8E] text-white shadow-lg shadow-pink-500/30"
-                    : "bg-white/10 text-white/70 hover:bg-white/20 hover:text-white"
+                    ? "bg-[#FF2D8E] text-white shadow-lg shadow-[#FF2D8E]/30"
+                    : "bg-white text-black hover:bg-white/20 hover:text-white"
                 }`}
               >
                 {SERVICE_LABELS[tag] || tag} ({count})
@@ -105,7 +105,7 @@ export function VideoGallery({ videos }: { videos: VideoItem[] }) {
           <button
             key={video.id}
             onClick={() => setActiveVideo(video)}
-            className="group overflow-hidden rounded-3xl border border-white/10 bg-white/5 text-left transition-all duration-300 hover:border-pink-500/30 hover:shadow-xl hover:shadow-pink-500/10"
+            className="group overflow-hidden rounded-3xl border border-black bg-white text-left transition-all duration-300 hover:border-[#FF2D8E]/30 hover:shadow-xl hover:shadow-[#FF2D8E]/10"
           >
             <div className="relative aspect-video bg-black/60">
               {video.thumbnail_url ? (
@@ -118,7 +118,7 @@ export function VideoGallery({ videos }: { videos: VideoItem[] }) {
                   decoding="async"
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center text-4xl text-white/50">🎬</div>
+                <div className="flex h-full w-full items-center justify-center text-4xl text-black">🎬</div>
               )}
               {/* Play Button Overlay */}
               <span className="absolute inset-0 flex items-center justify-center">
@@ -137,13 +137,13 @@ export function VideoGallery({ videos }: { videos: VideoItem[] }) {
             </div>
             <div className="p-4">
               {video.service_tag && (
-                <p className="text-xs uppercase tracking-[0.2em] text-pink-400">
+                <p className="text-xs uppercase tracking-[0.2em] text-[#FF2D8E]">
                   {SERVICE_LABELS[video.service_tag] || video.service_tag}
                 </p>
               )}
               <h4 className="mt-1 text-lg font-semibold text-white line-clamp-1">{video.title}</h4>
               {video.description && (
-                <p className="mt-1 text-sm text-white/70 line-clamp-2">{video.description}</p>
+                <p className="mt-1 text-sm text-black line-clamp-2">{video.description}</p>
               )}
             </div>
           </button>
@@ -186,7 +186,7 @@ export function VideoGallery({ videos }: { videos: VideoItem[] }) {
               />
             ) : (
               <div className="aspect-video flex items-center justify-center rounded-t-3xl bg-black">
-                <p className="text-white/60">Video unavailable</p>
+                <p className="text-black">Video unavailable</p>
               </div>
             )}
 
@@ -195,17 +195,17 @@ export function VideoGallery({ videos }: { videos: VideoItem[] }) {
               <div className="flex items-start justify-between gap-4">
                 <div>
                   {activeVideo.service_tag && (
-                    <p className="text-xs uppercase tracking-[0.2em] text-pink-400">
+                    <p className="text-xs uppercase tracking-[0.2em] text-[#FF2D8E]">
                       {SERVICE_LABELS[activeVideo.service_tag] || activeVideo.service_tag}
                     </p>
                   )}
                   <h4 className="mt-1 text-2xl font-bold text-white">{activeVideo.title}</h4>
                   {activeVideo.description && (
-                    <p className="mt-2 text-white/70">{activeVideo.description}</p>
+                    <p className="mt-2 text-black">{activeVideo.description}</p>
                   )}
                 </div>
                 {activeVideo.duration_seconds && (
-                  <span className="shrink-0 rounded-full bg-white/10 px-3 py-1 text-sm text-white/70">
+                  <span className="shrink-0 rounded-full bg-white px-3 py-1 text-sm text-black">
                     {formatDuration(activeVideo.duration_seconds)}
                   </span>
                 )}

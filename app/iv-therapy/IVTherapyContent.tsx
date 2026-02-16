@@ -298,14 +298,14 @@ export function IVTherapyContent() {
 
   const getColorClasses = (color: string) => {
     const colors: Record<string, { bg: string; border: string; text: string }> = {
-      amber: { bg: "bg-amber-500/10", border: "border-amber-500/30", text: "text-amber-400" },
+      amber: { bg: "bg-amber-500/10", border: "border-[#FF2D8E]/30", text: "text-[#FF2D8E]" },
       rose: { bg: "bg-rose-500/10", border: "border-rose-500/30", text: "text-rose-400" },
       blue: { bg: "bg-blue-500/10", border: "border-blue-500/30", text: "text-blue-400" },
       purple: { bg: "bg-purple-500/10", border: "border-purple-500/30", text: "text-purple-400" },
-      pink: { bg: "bg-pink-500/10", border: "border-pink-500/30", text: "text-pink-400" },
+      pink: { bg: "bg-[#FF2D8E]/10", border: "border-[#FF2D8E]/30", text: "text-[#FF2D8E]" },
       orange: { bg: "bg-orange-500/10", border: "border-orange-500/30", text: "text-orange-400" },
       indigo: { bg: "bg-indigo-500/10", border: "border-indigo-500/30", text: "text-indigo-400" },
-      red: { bg: "bg-red-500/10", border: "border-red-500/30", text: "text-red-400" },
+      red: { bg: "bg-red-500/10", border: "border-red-500/30", text: "text-[#FF2D8E]" },
       gray: { bg: "bg-white0/10", border: "border-black/30", text: "text-black" },
     };
     return colors[color] || colors.pink;
@@ -345,7 +345,7 @@ export function IVTherapyContent() {
               </a>
               <a
                 href="tel:630-636-6193"
-                className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition"
+                className="px-8 py-4 rounded-xl bg-white border border-black text-white font-medium hover:bg-white transition"
               >
                 📞 Call for Questions
               </a>
@@ -375,7 +375,7 @@ export function IVTherapyContent() {
             { icon: "👩‍⚕️", title: "Provider Supervised", desc: "Administered by trained medical professionals" },
           ].map((item, i) => (
             <FadeUp key={item.title} delayMs={i * 60}>
-              <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center hover:border-blue-500/30 transition">
+              <div className="p-6 rounded-2xl bg-white border border-black text-center hover:border-blue-500/30 transition">
                 <span className="text-4xl mb-4 block">{item.icon}</span>
                 <h3 className="text-white font-semibold mb-2">{item.title}</h3>
                 <p className="text-black text-sm">{item.desc}</p>
@@ -409,7 +409,7 @@ export function IVTherapyContent() {
                   className={`relative w-full text-left p-6 rounded-2xl border transition-all hover:scale-[1.02] ${colors.bg} ${colors.border} hover:shadow-lg`}
                 >
                   {cocktail.popular && (
-                    <span className="absolute -top-2 -right-2 px-3 py-1 rounded-full bg-pink-500 text-white text-xs font-medium">
+                    <span className="absolute -top-2 -right-2 px-3 py-1 rounded-full bg-[#FF2D8E] text-white text-xs font-medium">
                       Popular
                     </span>
                   )}
@@ -449,10 +449,10 @@ export function IVTherapyContent() {
             {addOns.map((addon) => (
               <div
                 key={addon.name}
-                className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm"
+                className="px-4 py-2 rounded-full bg-white border border-black text-sm"
               >
                 <span className="text-white">{addon.name}</span>
-                <span className="text-pink-400 ml-2">{addon.price}</span>
+                <span className="text-[#FF2D8E] ml-2">{addon.price}</span>
               </div>
             ))}
           </div>
@@ -503,7 +503,7 @@ export function IVTherapyContent() {
               <button
                 type="button"
                 onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}
-                className="w-full text-left p-4 rounded-xl bg-white/5 border border-white/10 hover:border-blue-500/30 transition"
+                className="w-full text-left p-4 rounded-xl bg-white border border-black hover:border-blue-500/30 transition"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-white font-medium">{faq.q}</span>
@@ -524,7 +524,7 @@ export function IVTherapyContent() {
       <Section className="py-12 bg-gradient-to-b from-black to-purple-950/10">
         <FadeUp>
           <div className="text-center max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/5 border border-white/10 mb-6">
+            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-black mb-6">
               <span className="text-2xl">🏥</span>
               <span className="text-white font-semibold">Powered by Olympia Pharmacy</span>
             </div>
@@ -570,7 +570,7 @@ export function IVTherapyContent() {
               </a>
               <a
                 href="tel:630-636-6193"
-                className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition"
+                className="px-8 py-4 rounded-xl bg-white border border-black text-white font-medium hover:bg-white transition"
               >
                 📞 630-636-6193
               </a>
@@ -582,7 +582,7 @@ export function IVTherapyContent() {
       {/* Detail Modal */}
       {selectedCocktail && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm">
-          <div className="relative w-full max-w-lg bg-black rounded-3xl overflow-hidden border border-white/10">
+          <div className="relative w-full max-w-lg bg-black rounded-3xl overflow-hidden border border-black">
             <div className={`p-6 ${getColorClasses(selectedCocktail.color).bg}`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -597,7 +597,7 @@ export function IVTherapyContent() {
                 <button
                   type="button"
                   onClick={() => setSelectedCocktail(null)}
-                  className="w-10 h-10 rounded-full bg-white/10 text-white flex items-center justify-center hover:bg-white/20 transition"
+                  className="w-10 h-10 rounded-full bg-white text-white flex items-center justify-center hover:bg-white/20 transition"
                 >
                   ✕
                 </button>
@@ -612,7 +612,7 @@ export function IVTherapyContent() {
                   {selectedCocktail.ingredients.map((ing) => (
                     <span
                       key={ing}
-                      className="px-3 py-1 rounded-full bg-white/5 text-black text-sm"
+                      className="px-3 py-1 rounded-full bg-white text-black text-sm"
                     >
                       {ing}
                     </span>
@@ -625,14 +625,14 @@ export function IVTherapyContent() {
                 <ul className="space-y-1">
                   {selectedCocktail.benefits.map((benefit) => (
                     <li key={benefit} className="text-black text-sm flex items-center gap-2">
-                      <span className="text-pink-400">✓</span>
+                      <span className="text-[#FF2D8E]">✓</span>
                       {benefit}
                     </li>
                   ))}
                 </ul>
               </div>
 
-              <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 mb-6">
+              <div className="flex items-center justify-between p-4 rounded-xl bg-white mb-6">
                 <div>
                   <p className="text-black text-sm">Duration</p>
                   <p className="text-white font-medium">{selectedCocktail.duration}</p>

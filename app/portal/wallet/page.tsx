@@ -92,19 +92,19 @@ export default function WalletPage() {
       {/* Balance Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div className="bg-gradient-to-br from-[#FF2D8E] to-pink-600 text-white rounded-2xl p-6">
-          <p className="text-white/70 text-sm">Store Credit</p>
+          <p className="text-black text-sm">Store Credit</p>
           <p className="text-3xl font-bold mt-1">${wallet?.creditBalance?.toFixed(2) || '0.00'}</p>
-          <p className="text-white/60 text-xs mt-2">Available for any service</p>
+          <p className="text-black text-xs mt-2">Available for any service</p>
         </div>
         <div className="bg-gradient-to-br from-purple-500 to-purple-700 text-white rounded-2xl p-6">
-          <p className="text-white/70 text-sm">Gift Card Balance</p>
+          <p className="text-black text-sm">Gift Card Balance</p>
           <p className="text-3xl font-bold mt-1">${wallet?.giftCardBalance?.toFixed(2) || '0.00'}</p>
-          <p className="text-white/60 text-xs mt-2">From gift cards redeemed</p>
+          <p className="text-black text-xs mt-2">From gift cards redeemed</p>
         </div>
         <div className="bg-gradient-to-br from-amber-500 to-orange-600 text-white rounded-2xl p-6">
-          <p className="text-white/70 text-sm">Reward Points</p>
+          <p className="text-black text-sm">Reward Points</p>
           <p className="text-3xl font-bold mt-1">{wallet?.rewardPoints?.toLocaleString() || 0}</p>
-          <p className="text-white/60 text-xs mt-2">100 points = $1 credit</p>
+          <p className="text-black text-xs mt-2">100 points = $1 credit</p>
         </div>
       </div>
 

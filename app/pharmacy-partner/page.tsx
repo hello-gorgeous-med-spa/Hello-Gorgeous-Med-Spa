@@ -71,7 +71,7 @@ export default function PharmacyPartnerPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
         <div className="relative z-10">
           <FadeUp>
-            <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
+            <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">
               OUR PHARMACY PARTNER
             </p>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
@@ -89,7 +89,7 @@ export default function PharmacyPartnerPage() {
                 href={OLYMPIA_DIRECTORY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 min-h-[48px] px-8 py-4 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold hover:shadow-lg hover:shadow-pink-500/25 transition"
+                className="inline-flex items-center justify-center gap-2 min-h-[48px] px-8 py-4 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold hover:shadow-lg hover:shadow-[#FF2D8E]/25 transition"
               >
                 Browse Olympia Medication Directory
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -129,14 +129,14 @@ export default function PharmacyPartnerPage() {
                     href={cat.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-sm font-semibold text-pink-400 hover:text-pink-300 underline"
+                    className="text-sm font-semibold text-[#FF2D8E] hover:text-pink-300 underline"
                   >
                     View in directory →
                   </a>
                   {cat.slug && (
                     <Link
                       href={`/services/${cat.slug}`}
-                      className="text-sm font-semibold text-white/80 hover:text-white"
+                      className="text-sm font-semibold text-black hover:text-white"
                     >
                       Learn about {cat.title.toLowerCase()} at HG
                     </Link>
@@ -148,23 +148,23 @@ export default function PharmacyPartnerPage() {
         </div>
 
         <FadeUp>
-          <div className="mt-12 rounded-2xl border border-pink-500/20 bg-black/40 p-8 max-w-3xl mx-auto">
+          <div className="mt-12 rounded-2xl border border-[#FF2D8E]/20 bg-black/40 p-8 max-w-3xl mx-auto">
             <h3 className="text-xl font-bold text-white mb-3">Why Olympia?</h3>
             <ul className="text-black space-y-2 text-sm">
               <li className="flex gap-2">
-                <span className="text-pink-400">•</span>
+                <span className="text-[#FF2D8E]">•</span>
                 Licensed 503A and 503B facilities
               </li>
               <li className="flex gap-2">
-                <span className="text-pink-400">•</span>
+                <span className="text-[#FF2D8E]">•</span>
                 Pharmaceutical-grade compounding standards
               </li>
               <li className="flex gap-2">
-                <span className="text-pink-400">•</span>
+                <span className="text-[#FF2D8E]">•</span>
                 Custom formulations based on your provider&apos;s prescription
               </li>
               <li className="flex gap-2">
-                <span className="text-pink-400">•</span>
+                <span className="text-[#FF2D8E]">•</span>
                 Quality and safety protocols for IV, injectable, topical, and oral medications
               </li>
             </ul>
@@ -186,7 +186,7 @@ export default function PharmacyPartnerPage() {
               </CTA>
               <Link
                 href="/clinical-partners"
-                className="inline-flex items-center justify-center min-h-[48px] px-8 py-4 rounded-full border border-white/20 text-white font-semibold hover:bg-white/5 transition"
+                className="inline-flex items-center justify-center min-h-[48px] px-8 py-4 rounded-full border border-black text-white font-semibold hover:bg-white transition"
               >
                 View All Clinical Partners
               </Link>

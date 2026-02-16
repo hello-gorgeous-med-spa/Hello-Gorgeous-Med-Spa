@@ -184,7 +184,7 @@ export default function ClinicalRulesPage() {
 
         {/* Save */}
         <div className="flex justify-end">
-          <button onClick={saveSettings} className="px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
+          <button onClick={saveSettings} className="px-6 py-3 bg-[#FF2D8E] text-white rounded-lg hover:bg-black font-medium">
             Save Clinical Rules
           </button>
         </div>

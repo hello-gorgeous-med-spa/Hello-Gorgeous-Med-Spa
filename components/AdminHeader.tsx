@@ -84,7 +84,7 @@ export function AdminHeader() {
                 className={`flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium transition-all ${
                   currentView === view.id
                     ? 'bg-white text-black shadow-sm'
-                    : 'text-black hover:text-white hover:bg-black/50'
+                    : 'text-black hover:text-white hover:bg-white'
                 }`}
               >
                 <span aria-hidden>{view.icon}</span>
@@ -114,7 +114,7 @@ export function AdminHeader() {
                       onClick={() => setShowViewMenu(false)}
                       className={`flex items-center gap-2 px-3 py-2.5 rounded-lg transition-colors ${
                         currentView === view.id
-                          ? 'bg-pink-500/20 text-pink-300'
+                          ? 'bg-[#FF2D8E]/20 text-pink-300'
                           : 'hover:bg-black text-black'
                       }`}
                     >
@@ -165,7 +165,7 @@ export function AdminHeader() {
                   <Link
                     href="/admin/vendors"
                     onClick={() => setShowVendors(false)}
-                    className="flex items-center gap-2 px-3 py-2 hover:bg-black rounded-lg transition-colors text-pink-400"
+                    className="flex items-center gap-2 px-3 py-2 hover:bg-black rounded-lg transition-colors text-[#FF2D8E]"
                   >
                     <span>⚙️</span>
                     <span className="text-sm">Manage All Vendors</span>
@@ -191,7 +191,7 @@ export function AdminHeader() {
             <span aria-hidden>➕</span>
             Book
           </Link>
-          <button type="button" className="relative p-2.5 hover:bg-black/50 rounded-xl transition-all" aria-label="Notifications">
+          <button type="button" className="relative p-2.5 hover:bg-white rounded-xl transition-all" aria-label="Notifications">
             <span aria-hidden>🔔</span>
             <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-gradient-to-r from-red-500 to-rose-500 rounded-full animate-pulse" aria-hidden />
           </button>

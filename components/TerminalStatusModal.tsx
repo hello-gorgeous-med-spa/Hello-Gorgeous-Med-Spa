@@ -174,7 +174,7 @@ export default function TerminalStatusModal({
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+        className="absolute inset-0 bg-white backdrop-blur-sm"
         onClick={isCompleted || isFailed ? onClose : undefined}
       />
       
@@ -250,7 +250,7 @@ export default function TerminalStatusModal({
               </p>
             )}
             {isFailed && (
-              <p className="text-red-400">
+              <p className="text-[#FF2D8E]">
                 {error || status?.display_message || 'Payment was not completed'}
               </p>
             )}
@@ -297,7 +297,7 @@ export default function TerminalStatusModal({
               </button>
               <button
                 onClick={handleRetry}
-                className="flex-1 py-3 px-4 bg-pink-500 text-white rounded-xl hover:bg-pink-600 font-medium"
+                className="flex-1 py-3 px-4 bg-[#FF2D8E] text-white rounded-xl hover:bg-black font-medium"
               >
                 Try Again
               </button>

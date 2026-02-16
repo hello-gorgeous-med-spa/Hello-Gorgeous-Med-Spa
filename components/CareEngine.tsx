@@ -240,14 +240,14 @@ export function CareEngine() {
   return (
     <div className="rounded-2xl border border-black bg-black/40 overflow-hidden">
       {/* Compliance & Safety Layer (always on) */}
-      <div className="p-5 border-b border-white/10">
+      <div className="p-5 border-b border-black">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-sm text-white/70">Compliance & Safety (always on)</p>
+            <p className="text-sm text-black">Compliance & Safety (always on)</p>
             <p className="mt-1 text-sm text-white/90">
               Education only · No diagnosis · No prescriptions · Book a consult for personal medical advice
             </p>
-            <p className="mt-2 text-xs text-white/60">
+            <p className="mt-2 text-xs text-black">
               Learn how we think about sourcing and standards:{" "}
               <a className="underline" href="/clinical-partners">
                 Our Clinical Partners & Standards
@@ -262,7 +262,7 @@ export function CareEngine() {
       </div>
 
       {/* Module selector */}
-      <div className="p-5 border-b border-white/10">
+      <div className="p-5 border-b border-black">
         <div className="flex flex-wrap gap-2">
           {(
             [
@@ -288,8 +288,8 @@ export function CareEngine() {
               className={cx(
                 "text-sm font-semibold rounded-full px-4 py-2 border transition",
                 module === m
-                  ? "border-pink-500/40 bg-white/5 text-pink-300"
-                  : "border-white/10 text-white/70 hover:bg-white/5 hover:text-white",
+                  ? "border-[#FF2D8E]/40 bg-white text-pink-300"
+                  : "border-black text-black hover:bg-white hover:text-white",
               )}
             >
               {moduleLabel(m)}
@@ -307,8 +307,8 @@ export function CareEngine() {
               className={cx(
                 "text-xs font-semibold rounded-full px-3 py-2 border transition",
                 personaId === p.id
-                  ? "border-pink-500/40 bg-white/5 text-pink-300"
-                  : "border-white/10 text-white/70 hover:bg-white/5 hover:text-white",
+                  ? "border-[#FF2D8E]/40 bg-white text-pink-300"
+                  : "border-black text-black hover:bg-white hover:text-white",
                 module === "confidence-check" ? "opacity-60 pointer-events-none" : "",
               )}
             >
@@ -318,7 +318,7 @@ export function CareEngine() {
           ))}
         </div>
         {module === "confidence-check" ? (
-          <p className="mt-3 text-xs text-white/60">
+          <p className="mt-3 text-xs text-black">
             Confidence Check™ is led by Peppi tone (education-first, non-medical).
           </p>
         ) : null}
@@ -328,7 +328,7 @@ export function CareEngine() {
       <div className="p-5">
         {module === "education" ? (
           <div>
-            <p className="text-sm text-white/70">
+            <p className="text-sm text-black">
               Persona Education Engine — ask questions before a consult.
             </p>
             <div className="mt-4 max-h-[340px] overflow-auto space-y-4">
@@ -338,14 +338,14 @@ export function CareEngine() {
                   className={cx(
                     "whitespace-pre-wrap text-sm leading-relaxed",
                     m.role === "user"
-                      ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
+                      ? "text-white bg-white border border-black rounded-2xl p-4"
                       : "text-white",
                   )}
                 >
                   {m.content}
                 </div>
               ))}
-              {sending ? <div className="text-sm text-white/60">Thinking…</div> : null}
+              {sending ? <div className="text-sm text-black">Thinking…</div> : null}
             </div>
             <div className="mt-4 flex gap-2">
               <input
@@ -360,7 +360,7 @@ export function CareEngine() {
               <button
                 type="button"
                 disabled={sending}
-                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
+                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition disabled:opacity-60"
                 onClick={sendEducation}
               >
                 Send
@@ -371,7 +371,7 @@ export function CareEngine() {
 
         {module === "preconsult" ? (
           <div>
-            <p className="text-sm text-white/70">
+            <p className="text-sm text-black">
               AI Pre‑Consultation Engine — guided intake to reduce friction (non‑medical).
             </p>
 
@@ -440,14 +440,14 @@ export function CareEngine() {
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <button
                 type="button"
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
+                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition"
                 onClick={buildPreSummary}
               >
                 Generate Summary & Next Steps
               </button>
               <button
                 type="button"
-                className="px-6 py-3 rounded-full border border-white/20 text-white hover:bg-white/5 transition"
+                className="px-6 py-3 rounded-full border border-black text-white hover:bg-white transition"
                 onClick={() => {
                   setPre(PRECONSULT_DEFAULTS);
                   setPreSummary(null);
@@ -459,7 +459,7 @@ export function CareEngine() {
             </div>
 
             {preSummary ? (
-              <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5 whitespace-pre-wrap text-sm text-white">
+              <div className="mt-6 rounded-2xl border border-black bg-white p-5 whitespace-pre-wrap text-sm text-white">
                 {preSummary}
               </div>
             ) : null}
@@ -468,7 +468,7 @@ export function CareEngine() {
 
         {module === "booking" ? (
           <div>
-            <p className="text-sm text-white/70">
+            <p className="text-sm text-black">
               Booking Intelligence Engine — frictionless next step.
             </p>
 
@@ -501,7 +501,7 @@ export function CareEngine() {
                       </li>
                     ))}
                   </ul>
-                  <p className="mt-4 text-xs text-white/60">{complianceFooter()}</p>
+                  <p className="mt-4 text-xs text-black">{complianceFooter()}</p>
                 </div>
               ) : null}
             </div>
@@ -510,7 +510,7 @@ export function CareEngine() {
 
         {module === "postcare" ? (
           <div>
-            <p className="text-sm text-white/70">
+            <p className="text-sm text-black">
               Post‑Treatment Care Engine — “Is this normal?” guidance with red‑flag detection.
             </p>
             <div className="mt-4 max-h-[340px] overflow-auto space-y-4">
@@ -520,14 +520,14 @@ export function CareEngine() {
                   className={cx(
                     "whitespace-pre-wrap text-sm leading-relaxed",
                     m.role === "user"
-                      ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
+                      ? "text-white bg-white border border-black rounded-2xl p-4"
                       : "text-white",
                   )}
                 >
                   {m.content}
                 </div>
               ))}
-              {sending ? <div className="text-sm text-white/60">Thinking…</div> : null}
+              {sending ? <div className="text-sm text-black">Thinking…</div> : null}
             </div>
             <div className="mt-4 flex gap-2">
               <input
@@ -542,7 +542,7 @@ export function CareEngine() {
               <button
                 type="button"
                 disabled={sending}
-                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
+                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition disabled:opacity-60"
                 onClick={sendPostCare}
               >
                 Send
@@ -553,14 +553,14 @@ export function CareEngine() {
 
         {module === "confidence-check" ? (
           <div>
-            <p className="text-sm text-white/70">
+            <p className="text-sm text-black">
               The Confidence Check™ — a short, reflective flow to clarify what you want before booking (no medical advice).
             </p>
 
             <div className="mt-6 grid gap-4">
               <div className="grid gap-2">
                 <label className="text-sm font-semibold text-white">{CONFIDENCE_CHECK_QUESTIONS[0].label}</label>
-                <p className="text-xs text-white/60">{CONFIDENCE_CHECK_QUESTIONS[0].helper}</p>
+                <p className="text-xs text-black">{CONFIDENCE_CHECK_QUESTIONS[0].helper}</p>
                 <textarea
                   value={cc.bother}
                   onChange={(e) => setCc((p) => ({ ...p, bother: e.target.value }))}
@@ -646,7 +646,7 @@ export function CareEngine() {
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <button
                 type="button"
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
+                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition"
                 onClick={() => setCcSummary(buildConfidenceSummary(cc))}
               >
                 Generate Summary
@@ -656,7 +656,7 @@ export function CareEngine() {
               </CTA>
               <button
                 type="button"
-                className="px-6 py-3 rounded-full border border-white/20 text-white hover:bg-white/5 transition"
+                className="px-6 py-3 rounded-full border border-black text-white hover:bg-white transition"
                 onClick={() => {
                   setCcSummary(null);
                   setCc({
@@ -674,9 +674,9 @@ export function CareEngine() {
             </div>
 
             {ccSummary ? (
-              <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5 whitespace-pre-wrap text-sm text-white">
+              <div className="mt-6 rounded-2xl border border-black bg-white p-5 whitespace-pre-wrap text-sm text-white">
                 {ccSummary}
-                <p className="mt-4 text-xs text-white/60">{complianceFooter()}</p>
+                <p className="mt-4 text-xs text-black">{complianceFooter()}</p>
               </div>
             ) : null}
           </div>
@@ -684,7 +684,7 @@ export function CareEngine() {
 
         {module === "ask-before-book" ? (
           <div>
-            <p className="text-sm text-white/70">
+            <p className="text-sm text-black">
               Ask‑Before‑You‑Book Engine™ — ask a question, get routed to the right expert voice, then book if you feel confident.
             </p>
 
@@ -697,8 +697,8 @@ export function CareEngine() {
                   className={cx(
                     "text-xs font-semibold rounded-full px-3 py-2 border transition",
                     askCategory === c.id
-                      ? "border-pink-500/40 bg-white/5 text-pink-300"
-                      : "border-white/10 text-white/70 hover:bg-white/5 hover:text-white",
+                      ? "border-[#FF2D8E]/40 bg-white text-pink-300"
+                      : "border-black text-black hover:bg-white hover:text-white",
                   )}
                 >
                   {c.label}
@@ -713,14 +713,14 @@ export function CareEngine() {
                   className={cx(
                     "whitespace-pre-wrap text-sm leading-relaxed",
                     m.role === "user"
-                      ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
+                      ? "text-white bg-white border border-black rounded-2xl p-4"
                       : "text-white",
                   )}
                 >
                   {m.content}
                 </div>
               ))}
-              {sending ? <div className="text-sm text-white/60">Thinking…</div> : null}
+              {sending ? <div className="text-sm text-black">Thinking…</div> : null}
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
@@ -729,7 +729,7 @@ export function CareEngine() {
                   key={s}
                   type="button"
                   onClick={() => setAskInput(s)}
-                  className="text-left text-xs text-white/80 border border-white/10 rounded-full px-3 py-2 hover:bg-white/5 transition"
+                  className="text-left text-xs text-black border border-black rounded-full px-3 py-2 hover:bg-white transition"
                 >
                   {s}
                 </button>
@@ -776,7 +776,7 @@ export function CareEngine() {
               <button
                 type="button"
                 disabled={sending}
-                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
+                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition disabled:opacity-60"
                 onClick={() => {
                   const q = askInput.trim();
                   if (!q) return;
@@ -819,13 +819,13 @@ export function CareEngine() {
                 Contact us
               </CTA>
             </div>
-            <p className="mt-4 text-xs text-white/60">{complianceFooter()}</p>
+            <p className="mt-4 text-xs text-black">{complianceFooter()}</p>
           </div>
         ) : null}
 
         {module === "normal-checker" ? (
           <div>
-            <p className="text-sm text-white/70">
+            <p className="text-sm text-black">
               “Is This Normal?” Checker™ — choose treatment + symptom + timeline for calm, educational guidance (no diagnosis).
             </p>
 
@@ -877,7 +877,7 @@ export function CareEngine() {
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <button
                 type="button"
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
+                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition"
                 onClick={() => {
                   const res = normalCheck({ treatment: normalTreatment, symptom: normalSymptom, timeline: normalTimeline });
                   if (res.severity === "red-flag" || postTreatmentRedFlags(`${normalSymptom} ${normalTreatment}`)) {
@@ -916,7 +916,7 @@ export function CareEngine() {
             </div>
 
             {normalResult ? (
-              <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5 whitespace-pre-wrap text-sm text-white">
+              <div className="mt-6 rounded-2xl border border-black bg-white p-5 whitespace-pre-wrap text-sm text-white">
                 {normalResult}
               </div>
             ) : null}
@@ -925,7 +925,7 @@ export function CareEngine() {
 
         {module === "timeline-simulator" ? (
           <div>
-            <p className="text-sm text-white/70">
+            <p className="text-sm text-black">
               Treatment Timeline Simulator™ — expectation-setting only (no fake results, no promises). Ask questions as you go.
             </p>
 
@@ -958,8 +958,8 @@ export function CareEngine() {
                       className={cx(
                         "text-xs font-semibold rounded-full px-3 py-2 border transition",
                         tlStepId === st.id
-                          ? "border-pink-500/40 bg-white/5 text-pink-300"
-                          : "border-white/10 text-white/70 hover:bg-white/5 hover:text-white",
+                          ? "border-[#FF2D8E]/40 bg-white text-pink-300"
+                          : "border-black text-black hover:bg-white hover:text-white",
                       )}
                     >
                       {st.label}
@@ -974,7 +974,7 @@ export function CareEngine() {
                   const step = scenario.steps.find((s) => s.id === tlStepId) ?? scenario.steps[0];
                   return (
                     <div className="rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6">
-                      <p className="text-xs text-white/60">Persona narration</p>
+                      <p className="text-xs text-black">Persona narration</p>
                       <p className="mt-1 text-sm text-white/90">
                         {getPersonaName(personaId)} — {scenario.label} — {step.label}
                       </p>
@@ -1017,15 +1017,15 @@ export function CareEngine() {
                         </div>
                       </div>
 
-                      <p className="mt-4 text-xs text-white/60">{complianceFooter()}</p>
+                      <p className="mt-4 text-xs text-black">{complianceFooter()}</p>
                     </div>
                   );
                 })()}
 
                 <div className="mt-6 rounded-2xl border border-black bg-black/40 overflow-hidden">
-                  <div className="p-4 border-b border-white/10">
+                  <div className="p-4 border-b border-black">
                     <p className="text-sm font-semibold text-white">Ask a question about this timeline</p>
-                    <p className="mt-1 text-xs text-white/60">Educational only. No diagnosis. No personalized advice.</p>
+                    <p className="mt-1 text-xs text-black">Educational only. No diagnosis. No personalized advice.</p>
                   </div>
                   <div className="p-4 max-h-[260px] overflow-auto space-y-4">
                     {tlMsgs.map((m, i) => (
@@ -1034,16 +1034,16 @@ export function CareEngine() {
                         className={cx(
                           "whitespace-pre-wrap text-sm leading-relaxed",
                           m.role === "user"
-                            ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
+                            ? "text-white bg-white border border-black rounded-2xl p-4"
                             : "text-white",
                         )}
                       >
                         {m.content}
                       </div>
                     ))}
-                    {sending ? <div className="text-sm text-white/60">Thinking…</div> : null}
+                    {sending ? <div className="text-sm text-black">Thinking…</div> : null}
                   </div>
-                  <div className="p-4 border-t border-white/10">
+                  <div className="p-4 border-t border-black">
                     <div className="flex gap-2">
                       <input
                         value={tlInput}
@@ -1071,7 +1071,7 @@ export function CareEngine() {
                       <button
                         type="button"
                         disabled={sending}
-                        className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
+                        className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition disabled:opacity-60"
                         onClick={() => {
                           const q = tlInput.trim();
                           if (!q) return;
@@ -1109,7 +1109,7 @@ export function CareEngine() {
 
         {module === "beauty-roadmap" ? (
           <div>
-            <p className="text-sm text-white/70">
+            <p className="text-sm text-black">
               Beauty Roadmap™ — a long‑term, education-first view of “now → maintenance → long‑term” (no treatment plans, no promises).
             </p>
 
@@ -1129,8 +1129,8 @@ export function CareEngine() {
                       className={cx(
                         "text-xs font-semibold rounded-full px-3 py-2 border transition",
                         active
-                          ? "border-pink-500/40 bg-white/5 text-pink-300"
-                          : "border-white/10 text-white/70 hover:bg-white/5 hover:text-white",
+                          ? "border-[#FF2D8E]/40 bg-white text-pink-300"
+                          : "border-black text-black hover:bg-white hover:text-white",
                       )}
                       title={p.note}
                     >
@@ -1153,7 +1153,7 @@ export function CareEngine() {
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   type="button"
-                  className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition"
+                  className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition"
                   onClick={() => setRoadmapOut(buildBeautyRoadmap(roadmapPriorities, roadmapNotes))}
                 >
                   Generate Roadmap
@@ -1163,7 +1163,7 @@ export function CareEngine() {
                 </CTA>
                 <button
                   type="button"
-                  className="px-6 py-3 rounded-full border border-white/20 text-white hover:bg-white/5 transition"
+                  className="px-6 py-3 rounded-full border border-black text-white hover:bg-white transition"
                   onClick={() => {
                     setRoadmapOut(null);
                     setRoadmapNotes("");
@@ -1175,9 +1175,9 @@ export function CareEngine() {
               </div>
 
               {roadmapOut ? (
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-5 whitespace-pre-wrap text-sm text-white">
+                <div className="rounded-2xl border border-black bg-white p-5 whitespace-pre-wrap text-sm text-white">
                   {roadmapOut}
-                  <p className="mt-4 text-xs text-white/60">{complianceFooter()}</p>
+                  <p className="mt-4 text-xs text-black">{complianceFooter()}</p>
                 </div>
               ) : null}
             </div>

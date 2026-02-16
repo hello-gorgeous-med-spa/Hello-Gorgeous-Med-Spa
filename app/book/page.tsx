@@ -114,7 +114,7 @@ export default async function PublicBookingPage({
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <div className="h-14 sm:h-16 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-pink-500 rounded-xl flex items-center justify-center shrink-0">
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#FF2D8E] rounded-xl flex items-center justify-center shrink-0">
                 <span className="text-white text-base sm:text-lg">💗</span>
               </div>
               <div>
@@ -124,7 +124,7 @@ export default async function PublicBookingPage({
             </Link>
             <div className="flex items-center gap-2">
               <a href="tel:6306366193" className="p-2 sm:px-3 sm:py-2 text-black hover:text-pink-600 rounded-full min-w-[44px] min-h-[44px] flex items-center justify-center">
-                <span className="text-pink-500">📞</span>
+                <span className="text-[#FF2D8E]">📞</span>
                 <span className="hidden sm:inline ml-1 text-sm">(630) 636-6193</span>
               </a>
               <Link 
@@ -168,7 +168,7 @@ export default async function PublicBookingPage({
                       {service.duration_minutes} min · {service.price_display}
                     </p>
                   </div>
-                  <span className="text-pink-500 shrink-0" aria-hidden>→</span>
+                  <span className="text-[#FF2D8E] shrink-0" aria-hidden>→</span>
                 </Link>
               ))}
             </div>
@@ -194,7 +194,7 @@ export default async function PublicBookingPage({
               </p>
               <a
                 href="tel:6306366193"
-                className="inline-flex items-center gap-2 bg-pink-500 text-white px-6 py-3 rounded-full font-medium hover:bg-pink-600"
+                className="inline-flex items-center gap-2 bg-[#FF2D8E] text-white px-6 py-3 rounded-full font-medium hover:bg-black"
               >
                 📞 (630) 636-6193
               </a>
@@ -254,7 +254,7 @@ export default async function PublicBookingPage({
                                 <span className="font-bold text-pink-600 whitespace-nowrap">
                                   {service.price_display}
                                 </span>
-                                <span className="w-8 h-8 bg-pink-100 group-hover:bg-pink-500 text-pink-500 group-hover:text-white rounded-full flex items-center justify-center transition-all">
+                                <span className="w-8 h-8 bg-pink-100 group-hover:bg-[#FF2D8E] text-[#FF2D8E] group-hover:text-white rounded-full flex items-center justify-center transition-all">
                                   →
                                 </span>
                               </div>
@@ -307,7 +307,7 @@ export default async function PublicBookingPage({
           <div className="flex flex-wrap justify-center gap-4">
             <Link
               href="/quiz"
-              className="inline-flex items-center gap-2 bg-pink-500 text-white px-6 py-3 rounded-full font-medium hover:bg-pink-600 transition-all"
+              className="inline-flex items-center gap-2 bg-[#FF2D8E] text-white px-6 py-3 rounded-full font-medium hover:bg-black transition-all"
             >
               ✨ Take the Quiz
             </Link>
@@ -348,7 +348,7 @@ export default async function PublicBookingPage({
 
         {/* Contact Info */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl p-6 text-white text-center shadow-lg shadow-pink-500/20">
+          <div className="bg-gradient-to-br from-pink-500 to-rose-500 rounded-2xl p-6 text-white text-center shadow-lg shadow-[#FF2D8E]/20">
             <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
               <span className="text-2xl">📍</span>
             </div>

@@ -385,7 +385,7 @@ export function VoiceConcierge() {
         aria-label="Open voice assistant"
       >
         <span className="text-2xl group-hover:scale-110 transition-transform">🎤</span>
-        <span className="absolute -top-1 -right-1 w-4 h-4 bg-pink-500 rounded-full border-2 border-white animate-pulse" />
+        <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#FF2D8E] rounded-full border-2 border-white animate-pulse" />
       </button>
 
       {/* Voice Assistant Modal */}
@@ -400,7 +400,7 @@ export function VoiceConcierge() {
                 </div>
                 <div>
                   <h2 className="text-white font-bold text-lg">Hello Gorgeous Concierge</h2>
-                  <p className="text-white/70 text-sm">Voice-powered booking assistant</p>
+                  <p className="text-black text-sm">Voice-powered booking assistant</p>
                 </div>
               </div>
               <button
@@ -428,7 +428,7 @@ export function VoiceConcierge() {
                 >
                   <span className="text-4xl">{isListening ? "🔴" : "🎤"}</span>
                 </button>
-                <p className="mt-4 text-white/70">
+                <p className="mt-4 text-black">
                   {isListening 
                     ? "Listening... speak now" 
                     : isSpeaking 
@@ -439,7 +439,7 @@ export function VoiceConcierge() {
                   <button
                     type="button"
                     onClick={stopSpeaking}
-                    className="mt-2 text-pink-400 text-sm hover:underline"
+                    className="mt-2 text-[#FF2D8E] text-sm hover:underline"
                   >
                     Stop speaking
                   </button>
@@ -448,8 +448,8 @@ export function VoiceConcierge() {
 
               {/* Transcript */}
               {transcript && (
-                <div className="mb-4 p-4 rounded-xl bg-white/5 border border-white/10">
-                  <p className="text-white/50 text-xs mb-1">You said:</p>
+                <div className="mb-4 p-4 rounded-xl bg-white border border-black">
+                  <p className="text-black text-xs mb-1">You said:</p>
                   <p className="text-white">&ldquo;{transcript}&rdquo;</p>
                 </div>
               )}
@@ -465,20 +465,20 @@ export function VoiceConcierge() {
               {/* Error */}
               {error && (
                 <div className="mb-4 p-4 rounded-xl bg-red-500/10 border border-red-500/30">
-                  <p className="text-red-400">{error}</p>
+                  <p className="text-[#FF2D8E]">{error}</p>
                 </div>
               )}
 
               {/* Service Recommendations */}
               {recommendations.length > 0 && (
                 <div className="space-y-3">
-                  <p className="text-white/50 text-sm">Recommended for you:</p>
+                  <p className="text-black text-sm">Recommended for you:</p>
                   {recommendations.map((rec) => (
                     <div
                       key={rec.id}
                       className={`p-4 rounded-xl border ${
                         rec.isUpsell
-                          ? "bg-white/5 border-white/10"
+                          ? "bg-white border-black"
                           : "bg-gradient-to-r from-purple-500/20 to-pink-500/20 border-purple-500/30"
                       }`}
                     >
@@ -487,13 +487,13 @@ export function VoiceConcierge() {
                           <div className="flex items-center gap-2">
                             <h3 className="text-white font-semibold">{rec.name}</h3>
                             {rec.isUpsell && (
-                              <span className="px-2 py-0.5 rounded-full bg-pink-500/20 text-pink-400 text-xs">
+                              <span className="px-2 py-0.5 rounded-full bg-[#FF2D8E]/20 text-[#FF2D8E] text-xs">
                                 Add-on
                               </span>
                             )}
                           </div>
                           <p className="text-purple-400 font-bold">{rec.price}</p>
-                          <p className="text-white/60 text-sm mt-1">{rec.description}</p>
+                          <p className="text-black text-sm mt-1">{rec.description}</p>
                         </div>
                         <a
                           href={rec.bookingUrl}
@@ -501,7 +501,7 @@ export function VoiceConcierge() {
                           rel="noopener noreferrer"
                           className={`px-4 py-2 rounded-full font-semibold text-sm whitespace-nowrap transition ${
                             rec.isUpsell
-                              ? "bg-white/10 text-white hover:bg-white/20"
+                              ? "bg-white text-white hover:bg-white/20"
                               : "bg-gradient-to-r from-purple-500 to-pink-500 text-white hover:opacity-90"
                           }`}
                         >
@@ -516,7 +516,7 @@ export function VoiceConcierge() {
               {/* Quick Actions */}
               {!transcript && !response && (
                 <div className="mt-6">
-                  <p className="text-white/50 text-sm mb-3 text-center">Or try saying:</p>
+                  <p className="text-black text-sm mb-3 text-center">Or try saying:</p>
                   <div className="flex flex-wrap justify-center gap-2">
                     {["I want Botox", "Weight loss options", "Book a consultation", "What are your specials?"].map((phrase) => (
                       <button
@@ -537,7 +537,7 @@ export function VoiceConcierge() {
                             }
                           }, 100);
                         }}
-                        className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-white/70 text-sm hover:bg-white/10 hover:text-white transition"
+                        className="px-4 py-2 rounded-full bg-white border border-black text-black text-sm hover:bg-white hover:text-white transition"
                       >
                         &ldquo;{phrase}&rdquo;
                       </button>
@@ -547,11 +547,11 @@ export function VoiceConcierge() {
               )}
 
               {/* Call Option */}
-              <div className="mt-6 pt-4 border-t border-white/10 text-center">
-                <p className="text-white/50 text-sm mb-2">Prefer to talk to a human?</p>
+              <div className="mt-6 pt-4 border-t border-black text-center">
+                <p className="text-black text-sm mb-2">Prefer to talk to a human?</p>
                 <a
                   href="tel:630-636-6193"
-                  className="inline-flex items-center gap-2 text-pink-400 font-semibold hover:text-pink-300 transition"
+                  className="inline-flex items-center gap-2 text-[#FF2D8E] font-semibold hover:text-pink-300 transition"
                 >
                   📞 Call 630-636-6193
                 </a>

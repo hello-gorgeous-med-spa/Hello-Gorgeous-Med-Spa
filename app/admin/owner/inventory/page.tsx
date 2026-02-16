@@ -151,7 +151,7 @@ export default function InventoryPage() {
               {lowStockCount > 0 && (
                 <div className="bg-amber-50 border border-amber-200 rounded-lg p-4">
                   <div className="flex items-center gap-2">
-                    <span className="text-amber-500">⚠️</span>
+                    <span className="text-[#FF2D8E]">⚠️</span>
                     <span className="font-medium text-amber-800">{lowStockCount} product{lowStockCount > 1 ? 's' : ''} low on stock</span>
                   </div>
                 </div>
@@ -181,7 +181,7 @@ export default function InventoryPage() {
               <div className="bg-white rounded-xl border">
                 <div className="p-4 border-b flex items-center justify-between">
                   <h2 className="font-semibold">Inventory ({products.length} items)</h2>
-                  <button className="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600">
+                  <button className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg text-sm hover:bg-black">
                     + Add Product
                   </button>
                 </div>

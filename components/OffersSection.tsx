@@ -52,7 +52,7 @@ export function OffersSection() {
                     Give the gift of confidence. Instant email delivery.
                   </p>
 
-                  <span className="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 rounded-full bg-pink-500 text-white font-semibold text-base group-hover:bg-pink-600 transition">
+                  <span className="inline-flex items-center justify-center gap-2 min-h-[48px] px-6 py-3 rounded-full bg-[#FF2D8E] text-white font-semibold text-base group-hover:bg-black transition">
                     🎁 Purchase eGift Card
                     <span className="group-hover:translate-x-1 transition-transform">→</span>
                   </span>

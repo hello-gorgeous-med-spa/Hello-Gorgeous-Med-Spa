@@ -235,7 +235,7 @@ export default function ChangeLogPage() {
             key={cat}
             onClick={() => setFilter(cat)}
             className={`px-4 py-2 rounded-lg text-sm ${
-              filter === cat ? 'bg-pink-500 text-white' : 'bg-white text-black hover:bg-white'
+              filter === cat ? 'bg-[#FF2D8E] text-white' : 'bg-white text-black hover:bg-white'
             }`}
           >
             {cat === 'all' ? 'All' : cat}

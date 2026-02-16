@@ -108,7 +108,7 @@ export default function AdminSettingsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin h-8 w-8 border-4 border-pink-500 border-t-transparent rounded-full" />
+        <div className="animate-spin h-8 w-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full" />
       </div>
     );
   }
@@ -195,7 +195,7 @@ export default function AdminSettingsPage() {
                   type="checkbox"
                   checked={hours.enabled}
                   onChange={(e) => updateHours(day, 'enabled', e.target.checked)}
-                  className="w-4 h-4 text-pink-500 border-black rounded focus:ring-pink-500"
+                  className="w-4 h-4 text-[#FF2D8E] border-black rounded focus:ring-pink-500"
                 />
               </label>
               {hours.enabled ? (
@@ -344,7 +344,7 @@ export default function AdminSettingsPage() {
           type="button"
           onClick={handleSave}
           disabled={saving}
-          className="px-6 py-2.5 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 disabled:opacity-50"
+          className="px-6 py-2.5 bg-[#FF2D8E] text-white font-semibold rounded-lg hover:bg-black disabled:opacity-50"
         >
           {saving ? 'Saving...' : saved ? '✓ Saved!' : 'Save Changes'}
         </button>

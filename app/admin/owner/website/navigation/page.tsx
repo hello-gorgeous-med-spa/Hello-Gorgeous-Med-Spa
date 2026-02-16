@@ -178,7 +178,7 @@ export default function NavigationPage() {
             onClick={() => setActiveLocation(loc)}
             className={`px-4 py-2 rounded-lg capitalize ${
               activeLocation === loc
-                ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/30'
+                ? 'bg-[#FF2D8E] text-white shadow-lg shadow-[#FF2D8E]/30'
                 : 'bg-pink-100 text-pink-700 hover:bg-pink-200 border border-pink-200'
             }`}
           >
@@ -296,7 +296,7 @@ export default function NavigationPage() {
               <button
                 onClick={() => saveNavigation(activeLocation)}
                 disabled={saving}
-                className="w-full py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="w-full py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black disabled:opacity-50"
               >
                 {saving ? 'Saving...' : `Save ${activeLocation} Navigation`}
               </button>
@@ -316,7 +316,7 @@ export default function NavigationPage() {
                     {currentItems.filter(i => i.visible).map(item => (
                       <span
                         key={item.id}
-                        className={item.type === 'button' ? 'px-3 py-1 bg-pink-500 rounded' : ''}
+                        className={item.type === 'button' ? 'px-3 py-1 bg-[#FF2D8E] rounded' : ''}
                       >
                         {item.label}
                       </span>
@@ -336,7 +336,7 @@ export default function NavigationPage() {
               {activeLocation === 'mobile' && (
                 <div className="space-y-2">
                   {currentItems.filter(i => i.visible).map(item => (
-                    <div key={item.id} className={`p-2 ${item.type === 'button' ? 'bg-pink-500 rounded' : ''}`}>
+                    <div key={item.id} className={`p-2 ${item.type === 'button' ? 'bg-[#FF2D8E] rounded' : ''}`}>
                       {item.label}
                     </div>
                   ))}
@@ -359,7 +359,7 @@ export default function NavigationPage() {
 
       {/* Add Item Modal */}
       {showAddItem && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
             <h2 className="text-xl font-bold mb-4">Add Navigation Item</h2>
             
@@ -404,7 +404,7 @@ export default function NavigationPage() {
               </button>
               <button
                 onClick={addItem}
-                className="flex-1 px-4 py-2 bg-pink-500 text-white rounded-lg"
+                className="flex-1 px-4 py-2 bg-[#FF2D8E] text-white rounded-lg"
               >
                 Add Item
               </button>
@@ -415,7 +415,7 @@ export default function NavigationPage() {
 
       {/* Edit Item Modal */}
       {editingItem && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
             <h2 className="text-xl font-bold mb-4">Edit Navigation Item</h2>
             
@@ -468,7 +468,7 @@ export default function NavigationPage() {
                   updateItem(editingItem.id, editingItem);
                   setEditingItem(null);
                 }}
-                className="flex-1 px-4 py-2 bg-pink-500 text-white rounded-lg"
+                className="flex-1 px-4 py-2 bg-[#FF2D8E] text-white rounded-lg"
               >
                 Save Changes
               </button>

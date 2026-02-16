@@ -327,7 +327,7 @@ export default function InventoryPage() {
               setProductForm({ name: '', brand: '', category: 'supplies', sku: '', reorder_point: 10, price_per_unit: 0, cost_per_unit: 0 });
               setShowAddProductModal(true);
             }}
-            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+            className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
           >
             + Add Product
           </button>
@@ -583,7 +583,7 @@ export default function InventoryPage() {
 
       {/* Item Detail Modal */}
       {selectedItem && !showReceiveModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-lg w-full">
             <div className="p-6 border-b border-black">
               <h2 className="text-xl font-bold text-black">{selectedItem.name}</h2>
@@ -640,7 +640,7 @@ export default function InventoryPage() {
               </button>
               <button
                 onClick={() => setShowReceiveModal(true)}
-                className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+                className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
               >
                 Add Stock
               </button>
@@ -651,7 +651,7 @@ export default function InventoryPage() {
 
       {/* Add Product Modal */}
       {showAddProductModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-lg w-full">
             <div className="p-6 border-b border-black">
               <h2 className="text-xl font-bold text-black">Add Product</h2>
@@ -737,7 +737,7 @@ export default function InventoryPage() {
             </div>
             <div className="p-6 border-t border-black flex justify-end gap-3">
               <button onClick={() => setShowAddProductModal(false)} className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg">Cancel</button>
-              <button onClick={handleAddProduct} disabled={saving || !productForm.name} className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50">
+              <button onClick={handleAddProduct} disabled={saving || !productForm.name} className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50">
                 {saving ? 'Adding...' : 'Add Product'}
               </button>
             </div>
@@ -747,7 +747,7 @@ export default function InventoryPage() {
 
       {/* Edit Product Modal */}
       {showEditProductModal && selectedItem && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-lg w-full">
             <div className="p-6 border-b border-black">
               <h2 className="text-xl font-bold text-black">Edit Product</h2>
@@ -792,7 +792,7 @@ export default function InventoryPage() {
             </div>
             <div className="p-6 border-t border-black flex justify-end gap-3">
               <button onClick={() => { setShowEditProductModal(false); setSelectedItem(null); }} className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg">Cancel</button>
-              <button onClick={handleEditProduct} disabled={saving} className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50">
+              <button onClick={handleEditProduct} disabled={saving} className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50">
                 {saving ? 'Saving...' : 'Save Changes'}
               </button>
             </div>
@@ -802,7 +802,7 @@ export default function InventoryPage() {
 
       {/* Receive Stock Modal */}
       {showReceiveModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-lg w-full">
             <div className="p-6 border-b border-black">
               <h2 className="text-xl font-bold text-black">Receive Stock</h2>
@@ -877,7 +877,7 @@ export default function InventoryPage() {
             </div>
             <div className="p-6 border-t border-black flex justify-end gap-3">
               <button onClick={() => { setShowReceiveModal(false); setSelectedItem(null); }} className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg">Cancel</button>
-              <button onClick={handleReceiveStock} disabled={saving || !receiveForm.product_id || receiveForm.quantity <= 0} className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50">
+              <button onClick={handleReceiveStock} disabled={saving || !receiveForm.product_id || receiveForm.quantity <= 0} className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50">
                 {saving ? 'Receiving...' : 'Receive Stock'}
               </button>
             </div>

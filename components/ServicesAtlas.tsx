@@ -71,19 +71,19 @@ async function chat({
 
 function TrustMessage() {
   return (
-    <div className="sticky top-24 rounded-2xl border border-white/10 bg-white/5 p-5">
+    <div className="sticky top-24 rounded-2xl border border-black bg-white p-5">
       <p className="text-sm font-semibold text-white">You don’t need to know what to book today.</p>
-      <p className="mt-2 text-sm text-white/70">
+      <p className="mt-2 text-sm text-black">
         Learning is always welcome here. Booking is optional, and you can start with clarity first.
       </p>
-      <p className="mt-3 text-sm text-white/70">
+      <p className="mt-3 text-sm text-black">
         Want to understand our sourcing and standards?{" "}
         <Link className="underline" href="/clinical-partners">
           Our Clinical Partners & Standards
         </Link>
         .
       </p>
-      <p className="mt-4 text-xs text-white/60">{complianceFooter()}</p>
+      <p className="mt-4 text-xs text-black">{complianceFooter()}</p>
     </div>
   );
 }
@@ -97,7 +97,7 @@ function ComparisonBlock() {
       <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
         <div>
           <h3 className="text-xl font-bold text-white">Comparison tools</h3>
-          <p className="mt-2 text-sm text-white/70">
+          <p className="mt-2 text-sm text-black">
             Education-only comparisons. No recommendations, no pricing emphasis.
           </p>
         </div>
@@ -110,8 +110,8 @@ function ComparisonBlock() {
               className={cx(
                 "text-xs font-semibold rounded-full px-3 py-2 border transition",
                 open === c.id
-                  ? "border-pink-500/40 bg-white/5 text-pink-300"
-                  : "border-white/10 text-white/70 hover:bg-white/5 hover:text-white",
+                  ? "border-[#FF2D8E]/40 bg-white text-pink-300"
+                  : "border-black text-black hover:bg-white hover:text-white",
               )}
             >
               {c.title.split(" (")[0]}
@@ -120,11 +120,11 @@ function ComparisonBlock() {
         </div>
       </div>
 
-      <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5 overflow-auto">
-        <p className="text-xs text-white/60">{current.disclaimer}</p>
+      <div className="mt-6 rounded-2xl border border-black bg-white p-5 overflow-auto">
+        <p className="text-xs text-black">{current.disclaimer}</p>
         <table className="mt-4 w-full text-sm">
           <thead>
-            <tr className="text-left text-white/80">
+            <tr className="text-left text-black">
               <th className="py-2 pr-3">Topic</th>
               {current.columns.map((c) => (
                 <th key={c} className="py-2 pr-3">
@@ -133,12 +133,12 @@ function ComparisonBlock() {
               ))}
             </tr>
           </thead>
-          <tbody className="text-white/80">
+          <tbody className="text-black">
             {current.rows.map((r) => (
-              <tr key={r.label} className="border-t border-white/10">
+              <tr key={r.label} className="border-t border-black">
                 <td className="py-3 pr-3 font-semibold text-white">{r.label}</td>
                 {r.values.map((v, idx) => (
-                  <td key={idx} className="py-3 pr-3 text-white/80">
+                  <td key={idx} className="py-3 pr-3 text-black">
                     {v}
                   </td>
                 ))}
@@ -155,18 +155,18 @@ function PathwaysBlock() {
   return (
     <div className="rounded-2xl border border-black bg-black/40 p-6">
       <h3 className="text-xl font-bold text-white">Care pathways (conceptual)</h3>
-      <p className="mt-2 text-sm text-white/70">
+      <p className="mt-2 text-sm text-black">
         These are not treatment plans—just a gentle way to understand how people often think about care over time.
       </p>
       <div className="mt-6 grid gap-4 md:grid-cols-3">
         {CARE_PATHWAYS.map((p) => (
-          <div key={p.id} className="rounded-2xl border border-white/10 bg-white/5 p-5">
+          <div key={p.id} className="rounded-2xl border border-black bg-white p-5">
             <p className="text-sm font-semibold text-white">{p.title}</p>
-            <p className="mt-2 text-xs text-white/70">{p.description}</p>
-            <div className="mt-4 space-y-2 text-sm text-white/80">
+            <p className="mt-2 text-xs text-black">{p.description}</p>
+            <div className="mt-4 space-y-2 text-sm text-black">
               {p.steps.map((s) => (
                 <div key={s.label} className="flex items-start gap-2">
-                  <span className="text-pink-400">•</span>
+                  <span className="text-[#FF2D8E]">•</span>
                   <span>
                     <span className="font-semibold text-white">{s.label}:</span>{" "}
                     <Link className="underline" href={`/services/${s.cluster}`}>
@@ -177,7 +177,7 @@ function PathwaysBlock() {
                 </div>
               ))}
             </div>
-            <p className="mt-4 text-xs text-white/60">{p.disclaimer}</p>
+            <p className="mt-4 text-xs text-black">{p.disclaimer}</p>
           </div>
         ))}
       </div>
@@ -215,14 +215,14 @@ function ServiceCard({
     <div className="rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-xs text-white/60">Intensity: {intensity} · Commitment: {commitment}</p>
+          <p className="text-xs text-black">Intensity: {intensity} · Commitment: {commitment}</p>
           <h4 className="mt-2 text-xl font-bold text-white">{name}</h4>
-          <p className="mt-3 text-white/70">{plainLanguage}</p>
+          <p className="mt-3 text-black">{plainLanguage}</p>
         </div>
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="text-xs font-semibold rounded-full px-3 py-2 border border-white/10 text-white/80 hover:bg-white/5 transition"
+          className="text-xs font-semibold rounded-full px-3 py-2 border border-black text-black hover:bg-white transition"
         >
           {open ? "Hide" : "Learn more"}
         </button>
@@ -232,7 +232,7 @@ function ServiceCard({
         <div className="mt-5 grid gap-4 md:grid-cols-2">
           <div>
             <p className="text-sm font-semibold text-white">What it commonly helps with</p>
-            <ul className="mt-2 space-y-1 text-sm text-white/80">
+            <ul className="mt-2 space-y-1 text-sm text-black">
               {commonlyHelpsWith.map((x) => (
                 <li key={x}>- {x}</li>
               ))}
@@ -240,7 +240,7 @@ function ServiceCard({
           </div>
           <div>
             <p className="text-sm font-semibold text-white">Who it’s often for</p>
-            <ul className="mt-2 space-y-1 text-sm text-white/80">
+            <ul className="mt-2 space-y-1 text-sm text-black">
               {oftenFor.map((x) => (
                 <li key={x}>- {x}</li>
               ))}
@@ -248,12 +248,12 @@ function ServiceCard({
           </div>
           <div className="md:col-span-2">
             <p className="text-sm font-semibold text-white">Who it may not be for (high-level)</p>
-            <ul className="mt-2 space-y-1 text-sm text-white/80">
+            <ul className="mt-2 space-y-1 text-sm text-black">
               {mayNotBeFor.map((x) => (
                 <li key={x}>- {x}</li>
               ))}
             </ul>
-            <p className="mt-3 text-xs text-white/60">{complianceFooter()}</p>
+            <p className="mt-3 text-xs text-black">{complianceFooter()}</p>
           </div>
         </div>
       ) : null}
@@ -262,7 +262,7 @@ function ServiceCard({
         <Link
           href={`/services/${slug}`}
           onClick={() => onViewed(slug)}
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold border border-white/20 text-white hover:bg-white/5 transition"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold border border-black text-white hover:bg-white transition"
         >
           View details
         </Link>
@@ -274,7 +274,7 @@ function ServiceCard({
               `I’m exploring "${name}". Can you explain what it is, what to expect, and what questions I should ask in a consult?`,
             )
           }
-          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold border border-white/20 text-white hover:bg-white/5 transition"
+          className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold border border-black text-white hover:bg-white transition"
         >
           Talk to us (chat)
         </button>
@@ -332,19 +332,19 @@ function ChatModal({
   return (
     <div className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-sm p-4">
       <div className="mx-auto max-w-2xl">
-        <div className="rounded-2xl border border-white/10 bg-black/70 overflow-hidden">
-          <div className="p-4 border-b border-white/10 flex items-start justify-between gap-3">
+        <div className="rounded-2xl border border-black bg-black/70 overflow-hidden">
+          <div className="p-4 border-b border-black flex items-start justify-between gap-3">
             <div>
-              <p className="text-xs text-white/60">Talk to us (education)</p>
+              <p className="text-xs text-black">Talk to us (education)</p>
               <p className="text-sm font-semibold text-white">
                 {ui.emoji} {cfg.displayName} — {cfg.role}
               </p>
-              <p className="mt-1 text-xs text-white/60">{cfg.disclaimer}</p>
+              <p className="mt-1 text-xs text-black">{cfg.disclaimer}</p>
             </div>
             <button
               type="button"
               onClick={onClose}
-              className="rounded-lg p-2 text-white/70 hover:text-white hover:bg-white/5 transition"
+              className="rounded-lg p-2 text-black hover:text-white hover:bg-white transition"
               aria-label="Close chat"
             >
               ✕
@@ -358,17 +358,17 @@ function ChatModal({
                 className={cx(
                   "whitespace-pre-wrap text-sm leading-relaxed",
                   m.role === "user"
-                    ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
+                    ? "text-white bg-white border border-black rounded-2xl p-4"
                     : "text-white",
                 )}
               >
                 {m.content}
               </div>
             ))}
-            {sending ? <div className="text-sm text-white/60">Thinking…</div> : null}
+            {sending ? <div className="text-sm text-black">Thinking…</div> : null}
           </div>
 
-          <div className="p-4 border-t border-white/10">
+          <div className="p-4 border-t border-black">
             <div className="flex flex-wrap gap-2">
               {PERSONA_CONFIGS.map((p) => {
                 const id = p.id as PersonaId;
@@ -381,8 +381,8 @@ function ChatModal({
                     className={cx(
                       "text-xs font-semibold rounded-full px-3 py-2 border transition",
                       active
-                        ? "border-pink-500/40 bg-white/5 text-pink-300"
-                        : "border-white/10 text-white/70 hover:bg-white/5 hover:text-white",
+                        ? "border-[#FF2D8E]/40 bg-white text-pink-300"
+                        : "border-black text-black hover:bg-white hover:text-white",
                       sending ? "opacity-60" : "",
                     )}
                     // persona switching handled by parent (close/reopen for now)
@@ -423,7 +423,7 @@ function ChatModal({
               <button
                 type="button"
                 disabled={sending}
-                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-pink-500/25 transition disabled:opacity-60"
+                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition disabled:opacity-60"
                 onClick={() => {
                   const q = input.trim();
                   if (!q) return;
@@ -506,11 +506,11 @@ export function ServicesAtlas() {
         <div className="rounded-2xl border border-black bg-black/40 p-6">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="text-sm text-white/70">Services Atlas™</p>
+              <p className="text-sm text-black">Services Atlas™</p>
               <h1 className="mt-2 text-3xl md:text-5xl font-bold text-white">
                 Explore care without pressure
               </h1>
-              <p className="mt-3 text-white/70 max-w-2xl">
+              <p className="mt-3 text-black max-w-2xl">
                 What brings you here today? Choose a path and we’ll show clusters that match—education only, booking optional.
               </p>
             </div>
@@ -535,24 +535,24 @@ export function ServicesAtlas() {
                   }}
                   className={cx(
                     "text-left rounded-2xl border bg-gradient-to-b from-black/60 to-black p-5 transition",
-                    active ? "border-pink-500/40" : "border-black hover:border-white/20",
+                    active ? "border-[#FF2D8E]/40" : "border-black hover:border-black",
                   )}
                 >
                   <p className="text-sm font-semibold text-white">{o.label}</p>
-                  <p className="mt-2 text-sm text-white/70">{o.description}</p>
+                  <p className="mt-2 text-sm text-black">{o.description}</p>
                 </button>
               );
             })}
           </div>
 
           {option ? (
-            <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
+            <div className="mt-6 rounded-2xl border border-black bg-white p-5">
               <p className="text-sm font-semibold text-white">Why this path exists</p>
-              <p className="mt-2 text-sm text-white/80">{option.whyThisExists}</p>
+              <p className="mt-2 text-sm text-black">{option.whyThisExists}</p>
               <div className="mt-4 flex flex-col sm:flex-row gap-3">
                 <button
                   type="button"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold border border-white/20 text-white hover:bg-white/5 transition"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold border border-black text-white hover:bg-white transition"
                   onClick={() =>
                     openTalk(
                       option.personaHandOff,
@@ -564,13 +564,13 @@ export function ServicesAtlas() {
                 </button>
                 <button
                   type="button"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold border border-white/20 text-white hover:bg-white/5 transition"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold border border-black text-white hover:bg-white transition"
                   onClick={() => setSelected(null)}
                 >
                   Clear selection
                 </button>
               </div>
-              <p className="mt-4 text-xs text-white/60">{complianceFooter()}</p>
+              <p className="mt-4 text-xs text-black">{complianceFooter()}</p>
             </div>
           ) : null}
         </div>
@@ -583,10 +583,10 @@ export function ServicesAtlas() {
               <section key={cluster.id} className="rounded-2xl border border-black bg-black/40 p-6">
                 <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                   <div>
-                    <p className="text-xs text-white/60">Service cluster</p>
+                    <p className="text-xs text-black">Service cluster</p>
                     <h2 className="mt-2 text-2xl md:text-3xl font-bold text-white">{cluster.title}</h2>
-                    <p className="mt-3 text-white/70 max-w-3xl">{cluster.description}</p>
-                    <p className="mt-3 text-xs text-white/60">
+                    <p className="mt-3 text-black max-w-3xl">{cluster.description}</p>
+                    <p className="mt-3 text-xs text-black">
                       Browse as a category:{" "}
                       <Link className="underline" href={`/services/${cluster.id}`}>
                         /services/{cluster.id}
@@ -602,7 +602,7 @@ export function ServicesAtlas() {
                           `I’m exploring the "${cluster.title}" cluster. Can you explain what this cluster is for and what a safe next step is?`,
                         )
                       }
-                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold border border-white/20 text-white hover:bg-white/5 transition"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold border border-black text-white hover:bg-white transition"
                     >
                       Talk to us (chat)
                     </button>
@@ -632,9 +632,9 @@ export function ServicesAtlas() {
                     ))}
                   </div>
                 ) : (
-                  <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-5">
+                  <div className="mt-6 rounded-2xl border border-black bg-white p-5">
                     <p className="text-sm font-semibold text-white">Nothing listed here yet.</p>
-                    <p className="mt-2 text-sm text-white/70">
+                    <p className="mt-2 text-sm text-black">
                       If you’re exploring this area, contact us and we’ll guide you to the best next step.
                     </p>
                     <div className="mt-4 flex flex-col sm:flex-row gap-3">
@@ -673,7 +673,7 @@ export function ServicesAtlas() {
 
         <div className="mt-6 rounded-2xl border border-black bg-black/40 p-5">
           <p className="text-sm font-semibold text-white">Want deeper education?</p>
-          <p className="mt-2 text-sm text-white/70">
+          <p className="mt-2 text-sm text-black">
             The Care Engine adds interactive tools for clarity, timelines, and post-treatment reassurance.
           </p>
           <div className="mt-4 flex flex-col gap-3">
@@ -688,10 +688,10 @@ export function ServicesAtlas() {
 
         <div className="mt-6 rounded-2xl border border-black bg-black/40 p-5">
           <p className="text-sm font-semibold text-white">All services (index)</p>
-          <p className="mt-2 text-sm text-white/70">
+          <p className="mt-2 text-sm text-black">
             Prefer the full list? It’s here for clarity.
           </p>
-          <div className="mt-4 space-y-2 text-sm text-white/80">
+          <div className="mt-4 space-y-2 text-sm text-black">
             {ATLAS_SERVICES.slice(0, 10).map((s) => (
               <div key={s.slug}>
                 <Link className="underline" href={`/services/${s.slug}`}>

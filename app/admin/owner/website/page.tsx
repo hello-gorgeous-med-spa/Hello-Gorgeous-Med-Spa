@@ -131,7 +131,7 @@ export default function WebsiteControlPage() {
           <div className="flex gap-4">
             <Link
               href="/admin/owner/website/pages?new=true"
-              className="px-4 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+              className="px-4 py-3 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
             >
               + Create New Page
             </Link>

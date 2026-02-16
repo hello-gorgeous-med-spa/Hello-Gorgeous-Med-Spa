@@ -168,7 +168,7 @@ export default function GiftCardSettingsPage() {
                 </div>
                 <button
                   onClick={() => handleToggle('allow_online_purchase')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_online_purchase ? 'bg-pink-500' : 'bg-white'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_online_purchase ? 'bg-[#FF2D8E]' : 'bg-white'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.allow_online_purchase ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -180,7 +180,7 @@ export default function GiftCardSettingsPage() {
                 </div>
                 <button
                   onClick={() => handleToggle('allow_pos_purchase')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_pos_purchase ? 'bg-pink-500' : 'bg-white'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_pos_purchase ? 'bg-[#FF2D8E]' : 'bg-white'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.allow_pos_purchase ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -220,7 +220,7 @@ export default function GiftCardSettingsPage() {
                 {settings.preset_amounts.map(amount => (
                   <span key={amount} className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm flex items-center gap-2">
                     ${amount}
-                    <button onClick={() => removePresetAmount(amount)} className="text-pink-400 hover:text-pink-600">×</button>
+                    <button onClick={() => removePresetAmount(amount)} className="text-[#FF2D8E] hover:text-pink-600">×</button>
                   </span>
                 ))}
               </div>
@@ -245,7 +245,7 @@ export default function GiftCardSettingsPage() {
               </div>
               <button
                 onClick={() => handleToggle('allow_custom_amount')}
-                className={`w-12 h-6 rounded-full transition-colors ${settings.allow_custom_amount ? 'bg-pink-500' : 'bg-white'}`}
+                className={`w-12 h-6 rounded-full transition-colors ${settings.allow_custom_amount ? 'bg-[#FF2D8E]' : 'bg-white'}`}
               >
                 <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.allow_custom_amount ? 'translate-x-6' : 'translate-x-0.5'}`} />
               </button>
@@ -263,7 +263,7 @@ export default function GiftCardSettingsPage() {
                 </div>
                 <button
                   onClick={() => handleToggle('allow_partial_redemption')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_partial_redemption ? 'bg-pink-500' : 'bg-white'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_partial_redemption ? 'bg-[#FF2D8E]' : 'bg-white'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.allow_partial_redemption ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -275,7 +275,7 @@ export default function GiftCardSettingsPage() {
                 </div>
                 <button
                   onClick={() => handleToggle('allow_split_tender')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_split_tender ? 'bg-pink-500' : 'bg-white'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_split_tender ? 'bg-[#FF2D8E]' : 'bg-white'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.allow_split_tender ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -287,7 +287,7 @@ export default function GiftCardSettingsPage() {
                 </div>
                 <button
                   onClick={() => handleToggle('prompt_before_checkout')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.prompt_before_checkout ? 'bg-pink-500' : 'bg-white'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.prompt_before_checkout ? 'bg-[#FF2D8E]' : 'bg-white'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.prompt_before_checkout ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -299,7 +299,7 @@ export default function GiftCardSettingsPage() {
                 </div>
                 <button
                   onClick={() => handleToggle('auto_apply_to_appointments')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.auto_apply_to_appointments ? 'bg-pink-500' : 'bg-white'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.auto_apply_to_appointments ? 'bg-[#FF2D8E]' : 'bg-white'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.auto_apply_to_appointments ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -317,7 +317,7 @@ export default function GiftCardSettingsPage() {
               </div>
               <button
                 onClick={() => handleToggle('cards_expire')}
-                className={`w-12 h-6 rounded-full transition-colors ${settings.cards_expire ? 'bg-pink-500' : 'bg-white'}`}
+                className={`w-12 h-6 rounded-full transition-colors ${settings.cards_expire ? 'bg-[#FF2D8E]' : 'bg-white'}`}
               >
                 <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.cards_expire ? 'translate-x-6' : 'translate-x-0.5'}`} />
               </button>
@@ -344,7 +344,7 @@ export default function GiftCardSettingsPage() {
             <button
               onClick={saveSettings}
               disabled={saving}
-              className="px-6 py-3 bg-pink-500 text-white rounded-lg font-medium hover:bg-pink-600 disabled:opacity-50"
+              className="px-6 py-3 bg-[#FF2D8E] text-white rounded-lg font-medium hover:bg-black disabled:opacity-50"
             >
               {saving ? 'Saving...' : 'Save Settings'}
             </button>

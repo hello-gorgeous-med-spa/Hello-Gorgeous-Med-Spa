@@ -130,9 +130,9 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
                   <button
                     type="button"
                     onClick={handlePlayVideo}
-                    className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 transition group"
+                    className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-white transition group"
                   >
-                    <div className="w-10 h-10 rounded-full bg-pink-500 flex items-center justify-center shadow-lg group-hover:scale-110 transition">
+                    <div className="w-10 h-10 rounded-full bg-[#FF2D8E] flex items-center justify-center shadow-lg group-hover:scale-110 transition">
                       <span className="text-white text-sm ml-0.5">▶</span>
                     </div>
                   </button>

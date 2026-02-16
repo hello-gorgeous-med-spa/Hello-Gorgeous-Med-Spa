@@ -126,7 +126,7 @@ export function PortalMessagingPage() {
                   <div
                     className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                       m.senderType === "client"
-                        ? "bg-pink-500 text-white"
+                        ? "bg-[#FF2D8E] text-white"
                         : "bg-white text-black"
                     }`}
                   >
@@ -149,13 +149,13 @@ export function PortalMessagingPage() {
                 onChange={(e) => setNewMessage(e.target.value)}
                 placeholder="Type your message..."
                 rows={2}
-                className="flex-1 px-4 py-3 rounded-xl border border-black focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none resize-none"
+                className="flex-1 px-4 py-3 rounded-xl border border-black focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E] outline-none resize-none"
                 disabled={sending}
               />
               <button
                 type="submit"
                 disabled={sending || !newMessage.trim()}
-                className="px-6 py-3 bg-pink-500 text-white font-semibold rounded-xl hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed self-end"
+                className="px-6 py-3 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed self-end"
               >
                 {sending ? "Sending…" : "Send"}
               </button>

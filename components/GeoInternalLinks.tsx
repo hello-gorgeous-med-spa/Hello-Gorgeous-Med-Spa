@@ -16,7 +16,7 @@ export function GeoInternalLinks() {
         <Link
           key={link.href}
           href={link.href}
-          className="hover:text-pink-400 transition-colors"
+          className="hover:text-[#FF2D8E] transition-colors"
         >
           {link.label}
         </Link>

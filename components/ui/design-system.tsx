@@ -290,14 +290,14 @@ export function EmptyState({ icon = '📭', title, description, action }: EmptyS
         action.href ? (
           <Link
             href={action.href}
-            className="mt-4 px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+            className="mt-4 px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
           >
             {action.label}
           </Link>
         ) : (
           <button
             onClick={action.onClick}
-            className="mt-4 px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+            className="mt-4 px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
           >
             {action.label}
           </button>
@@ -445,7 +445,7 @@ interface QuickActionProps {
 export function QuickAction({ icon, label, href, onClick, color = 'default' }: QuickActionProps) {
   const colorClasses = {
     default: 'bg-white hover:bg-pink-50 hover:text-pink-600 text-black',
-    pink: 'bg-pink-500 hover:bg-pink-600 text-white',
+    pink: 'bg-[#FF2D8E] hover:bg-black text-white',
     green: 'bg-emerald-500 hover:bg-emerald-600 text-white',
   };
   
@@ -516,7 +516,7 @@ export function AppointmentRow({
         <div className="flex items-center gap-2">
           <p className="font-semibold text-black truncate">{clientName}</p>
           {isNext && (
-            <span className="px-2 py-0.5 bg-pink-500 text-white text-xs font-medium rounded-full">
+            <span className="px-2 py-0.5 bg-[#FF2D8E] text-white text-xs font-medium rounded-full">
               UP NEXT
             </span>
           )}
@@ -533,7 +533,7 @@ export function AppointmentRow({
       {onAction && (
         <Link
           href={`/provider/charting?appointment=${id}`}
-          className="px-4 py-2 bg-pink-500 text-white text-sm font-medium rounded-lg hover:bg-pink-600 transition-colors"
+          className="px-4 py-2 bg-[#FF2D8E] text-white text-sm font-medium rounded-lg hover:bg-black transition-colors"
         >
           Start
         </Link>
@@ -559,7 +559,7 @@ export function ProgressBar({
   const percentage = Math.min((value / max) * 100, 100);
   
   const colorClasses = {
-    pink: 'bg-pink-500',
+    pink: 'bg-[#FF2D8E]',
     green: 'bg-emerald-500',
     amber: 'bg-amber-500',
   };

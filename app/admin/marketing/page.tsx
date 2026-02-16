@@ -79,7 +79,7 @@ export default function MarketingHubPage() {
           </div>
           <Link
             href="/admin/marketing/campaigns/new"
-            className="px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-xl hover:from-pink-600 hover:to-rose-600 shadow-lg shadow-pink-500/25 transition-all"
+            className="px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-xl hover:from-pink-600 hover:to-rose-600 shadow-lg shadow-[#FF2D8E]/25 transition-all"
           >
             + Create Campaign
           </Link>
@@ -117,7 +117,7 @@ export default function MarketingHubPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <Link
             href="/admin/marketing/campaigns/new"
-            className="bg-white rounded-xl p-6 border-2 border-dashed border-pink-300 hover:border-pink-500 hover:bg-pink-50 transition-colors text-center group"
+            className="bg-white rounded-xl p-6 border-2 border-dashed border-pink-300 hover:border-[#FF2D8E] hover:bg-pink-50 transition-colors text-center group"
           >
             <span className="text-3xl block mb-2">📣</span>
             <h3 className="font-semibold text-black group-hover:text-pink-600">Create New Campaign</h3>

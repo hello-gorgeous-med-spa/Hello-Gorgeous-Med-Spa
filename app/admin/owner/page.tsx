@@ -104,7 +104,7 @@ export default function FounderOverviewPage() {
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
                 pathname === item.href
                   ? 'bg-white/20 text-white'
-                  : 'text-black hover:bg-white/10 hover:text-white'
+                  : 'text-black hover:bg-white hover:text-white'
               }`}
             >
               <span className="text-base">{item.icon}</span>
@@ -172,7 +172,7 @@ export default function FounderOverviewPage() {
                 onClick={() => setDateRange(range)}
                 className={`px-4 py-2 rounded-lg text-sm capitalize ${
                   dateRange === range 
-                    ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/30' 
+                    ? 'bg-[#FF2D8E] text-white shadow-lg shadow-[#FF2D8E]/30' 
                     : 'bg-pink-100 text-pink-700 hover:bg-pink-200 border border-pink-200'
                 }`}
               >
@@ -519,7 +519,7 @@ export default function FounderOverviewPage() {
               </p>
               <div className="mt-4 grid grid-cols-5 gap-3">
                 {['See everything', 'Change anything', 'Undo anything', 'Disable anything', 'Export everything'].map((item, idx) => (
-                  <div key={idx} className="bg-white/10 rounded-lg p-3 text-center">
+                  <div key={idx} className="bg-white rounded-lg p-3 text-center">
                     <span className="text-green-400 block mb-1">✓</span>
                     <span className="text-sm">{item}</span>
                   </div>

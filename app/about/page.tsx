@@ -25,7 +25,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
         <div className="relative z-10">
           <FadeUp>
-            <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
+            <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">
               LUXURY / CLINICAL / AESTHETIC
             </p>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
@@ -69,7 +69,7 @@ export default function AboutPage() {
             <FadeUp key={c.title} delayMs={60 * idx}>
               <div className="rounded-2xl border border-[#FF2D8E]/30 bg-gradient-to-b from-[#000000] to-black p-6">
                 <h2 className="text-xl font-bold text-white">{c.title}</h2>
-                <p className="mt-3 text-white/80">{c.body}</p>
+                <p className="mt-3 text-black">{c.body}</p>
               </div>
             </FadeUp>
           ))}

@@ -73,7 +73,7 @@ export default function ProvidersStaffPage() {
           <div className="bg-white rounded-xl border">
             <div className="p-4 border-b flex items-center justify-between">
               <h2 className="font-semibold">Provider List</h2>
-              <button className="px-3 py-1.5 bg-pink-500 text-white rounded-lg text-sm hover:bg-pink-600">
+              <button className="px-3 py-1.5 bg-[#FF2D8E] text-white rounded-lg text-sm hover:bg-black">
                 + Add Staff
               </button>
             </div>
@@ -335,7 +335,7 @@ export default function ProvidersStaffPage() {
 
               {/* Save Button */}
               <div className="p-4 border-t bg-white flex justify-end">
-                <button className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
+                <button className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black font-medium">
                   Save Changes
                 </button>
               </div>
@@ -352,7 +352,7 @@ export default function ProvidersStaffPage() {
 
       {/* Revoke Confirmation Modal */}
       {showRevokeConfirm && selectedProvider && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
             <h3 className="text-lg font-semibold text-red-600 mb-2">⚠️ Revoke Access</h3>
             <p className="text-black mb-4">

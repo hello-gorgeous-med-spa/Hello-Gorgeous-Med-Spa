@@ -211,7 +211,7 @@ export default function ClientPhotosPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#FF2D8E]"></div>
       </div>
     );
   }
@@ -242,7 +242,7 @@ export default function ClientPhotosPage() {
           </button>
           <button
             onClick={() => setShowCapture(true)}
-            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+            className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
           >
             📸 New Photo
           </button>
@@ -277,7 +277,7 @@ export default function ClientPhotosPage() {
           <p className="text-black mb-4">Capture before/after photos to document treatments</p>
           <button
             onClick={() => setShowCapture(true)}
-            className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+            className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
           >
             Take First Photo
           </button>
@@ -347,7 +347,7 @@ export default function ClientPhotosPage() {
 
       {/* Capture Modal */}
       {showCapture && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-lg w-full">
             <div className="p-6 border-b border-black">
               <h2 className="text-xl font-bold text-black">Capture Photo</h2>
@@ -415,7 +415,7 @@ export default function ClientPhotosPage() {
                     <button
                       onClick={captureFromCamera}
                       disabled={capturing}
-                      className="flex-1 py-3 bg-pink-500 text-white font-bold rounded-lg hover:bg-pink-600"
+                      className="flex-1 py-3 bg-[#FF2D8E] text-white font-bold rounded-lg hover:bg-black"
                     >
                       📸 Capture
                     </button>
@@ -431,7 +431,7 @@ export default function ClientPhotosPage() {
                 <div className="flex gap-3">
                   <button
                     onClick={startCamera}
-                    className="flex-1 py-4 bg-pink-500 text-white font-bold rounded-lg hover:bg-pink-600"
+                    className="flex-1 py-4 bg-[#FF2D8E] text-white font-bold rounded-lg hover:bg-black"
                   >
                     📷 Use Camera
                   </button>

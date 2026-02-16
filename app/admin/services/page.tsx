@@ -386,7 +386,7 @@ export default function AdminServicesPage() {
         </div>
         <button
           onClick={() => openAdd()}
-          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+          className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
         >
           + Add Service
         </button>
@@ -408,7 +408,7 @@ export default function AdminServicesPage() {
           placeholder="Search services..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-12 pr-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+          className="w-full pl-12 pr-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
         />
       </div>
 
@@ -420,7 +420,7 @@ export default function AdminServicesPage() {
             <p className="text-sm">Add your first service to get started</p>
             <button
               onClick={() => openAdd()}
-              className="mt-4 px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+              className="mt-4 px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
             >
               + Add Service
             </button>
@@ -488,7 +488,7 @@ export default function AdminServicesPage() {
 
       {/* Edit/Add Modal */}
       {(editingService || showAddModal) && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-xl w-full max-h-[90vh] overflow-hidden flex flex-col">
             {/* Modal Header */}
             <div className="p-6 border-b border-black flex items-center justify-between">
@@ -610,7 +610,7 @@ export default function AdminServicesPage() {
                         }}
                         className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-colors ${
                           isSelected
-                            ? 'border-pink-500 bg-pink-50'
+                            ? 'border-[#FF2D8E] bg-pink-50'
                             : 'border-black hover:border-black'
                         }`}
                       >
@@ -624,7 +624,7 @@ export default function AdminServicesPage() {
                           {provider.name}
                         </span>
                         {isSelected && (
-                          <svg className="w-4 h-4 text-pink-500" fill="currentColor" viewBox="0 0 20 20">
+                          <svg className="w-4 h-4 text-[#FF2D8E]" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
                           </svg>
                         )}
@@ -724,7 +724,7 @@ export default function AdminServicesPage() {
               <button
                 onClick={saveService}
                 disabled={saving || !editForm.name}
-                className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
               >
                 {saving ? 'Saving...' : 'Save'}
               </button>

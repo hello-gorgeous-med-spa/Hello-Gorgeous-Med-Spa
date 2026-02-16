@@ -201,7 +201,7 @@ export function ClientInbox({
       <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-white">
         {loading ? (
           <div className="flex items-center justify-center h-full">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#FF2D8E]"></div>
           </div>
         ) : messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center">
@@ -219,7 +219,7 @@ export function ClientInbox({
                 <div
                   className={`max-w-[75%] px-4 py-2 rounded-2xl ${
                     message.direction === 'outbound'
-                      ? 'bg-pink-500 text-white rounded-br-md'
+                      ? 'bg-[#FF2D8E] text-white rounded-br-md'
                       : 'bg-white text-black border border-black rounded-bl-md'
                   }`}
                 >
@@ -294,7 +294,7 @@ export function ClientInbox({
           <button
             onClick={handleSend}
             disabled={!newMessage.trim() || sending}
-            className="px-4 py-2 bg-pink-500 text-white rounded-xl hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            className="px-4 py-2 bg-[#FF2D8E] text-white rounded-xl hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             {sending ? (
               <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">

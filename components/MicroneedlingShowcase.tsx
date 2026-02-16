@@ -38,7 +38,7 @@ const tiers = [
     price: "$349",
     color: "from-fuchsia-500 to-pink-500",
     bgColor: "from-fuchsia-500/20 to-pink-500/20",
-    borderColor: "border-fuchsia-500",
+    borderColor: "border-[#FF2D8E]",
     icon: "💎",
     serum: "DNA Salmon Sperm (PDRN) + AnteAGE Growth Factors",
     serumDesc: "Revolutionary VAMP treatment with cellular regeneration",
@@ -130,13 +130,13 @@ export function MicroneedlingShowcase() {
       <div className="max-w-6xl mx-auto">
         <FadeUp>
           <div className="text-center mb-10">
-            <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-fuchsia-500/20 text-[#FF2D8E] text-sm font-medium mb-4">
+            <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-[#FF2D8E]/20 text-[#FF2D8E] text-sm font-medium mb-4">
               <span>🔬</span>
               Advanced Skin Rejuvenation
             </span>
             <h2 className="text-3xl md:text-5xl font-bold text-[#000000] mb-4">
               Microneedling{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-pink-400">
+              <span className="text-transparent bg-clip-text bg-[#FF2D8E]">
                 Perfected
               </span>
             </h2>
@@ -163,7 +163,7 @@ export function MicroneedlingShowcase() {
                 }`}
               >
                 {tier.popular && activeTier !== index && (
-                  <span className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-fuchsia-500 text-white text-[10px] font-bold">
+                  <span className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-[#FF2D8E] text-white text-[10px] font-bold">
                     POPULAR
                   </span>
                 )}
@@ -192,7 +192,7 @@ export function MicroneedlingShowcase() {
               </div>
             )}
             {currentTier.popular && (
-              <div className="absolute top-4 right-4 px-4 py-2 rounded-full bg-gradient-to-r from-fuchsia-500 to-pink-500 text-white font-bold text-sm flex items-center gap-2">
+              <div className="absolute top-4 right-4 px-4 py-2 rounded-full bg-[#FF2D8E] text-white font-bold text-sm flex items-center gap-2">
                 ⭐ Most Popular
               </div>
             )}
@@ -200,13 +200,13 @@ export function MicroneedlingShowcase() {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               {/* Left: Video/Visual Area */}
               <div className="relative">
-                <div className="aspect-video rounded-2xl bg-black/50 border border-[#000000]/15 overflow-hidden flex items-center justify-center">
+                <div className="aspect-video rounded-2xl bg-white border border-[#000000]/15 overflow-hidden flex items-center justify-center">
                   {/* Video Placeholder - Beautiful gradient animation */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${currentTier.color} opacity-20 animate-pulse`}></div>
                   <div className="relative z-10 text-center p-8">
                     <span className="text-6xl mb-4 block">{currentTier.icon}</span>
-                    <p className="text-white/80 font-medium">{currentTier.videoPlaceholder}</p>
-                    <p className="text-white/50 text-sm mt-2">Video Coming Soon</p>
+                    <p className="text-black font-medium">{currentTier.videoPlaceholder}</p>
+                    <p className="text-black text-sm mt-2">Video Coming Soon</p>
                   </div>
                 </div>
                 
@@ -328,27 +328,27 @@ export function MicroneedlingShowcase() {
                 </tr>
                 <tr className="border-t border-[#000000]/15">
                   <td className="p-4 text-[#000000]/80">Collagen Boost</td>
-                  <td className="p-4 text-center text-pink-400">●●○</td>
+                  <td className="p-4 text-center text-[#FF2D8E]">●●○</td>
                   <td className="p-4 text-center text-[#FF2D8E]">●●●</td>
-                  <td className="p-4 text-center text-amber-400">●●●</td>
+                  <td className="p-4 text-center text-[#FF2D8E]">●●●</td>
                 </tr>
                 <tr className="border-t border-[#000000]/15">
                   <td className="p-4 text-[#000000]/80">Fine Line Reduction</td>
-                  <td className="p-4 text-center text-pink-400">●○○</td>
+                  <td className="p-4 text-center text-[#FF2D8E]">●○○</td>
                   <td className="p-4 text-center text-[#FF2D8E]">●●○</td>
-                  <td className="p-4 text-center text-amber-400">●●●</td>
+                  <td className="p-4 text-center text-[#FF2D8E]">●●●</td>
                 </tr>
                 <tr className="border-t border-[#000000]/15">
                   <td className="p-4 text-[#000000]/80">Cellular Repair</td>
-                  <td className="p-4 text-center text-pink-400">●○○</td>
+                  <td className="p-4 text-center text-[#FF2D8E]">●○○</td>
                   <td className="p-4 text-center text-[#FF2D8E]">●●●</td>
-                  <td className="p-4 text-center text-amber-400">●●●</td>
+                  <td className="p-4 text-center text-[#FF2D8E]">●●●</td>
                 </tr>
                 <tr className="border-t border-[#000000]/15">
                   <td className="p-4 text-[#000000]/80">Glass Skin Effect</td>
                   <td className="p-4 text-center text-[#000000]/70">—</td>
                   <td className="p-4 text-center text-[#FF2D8E]">●●○</td>
-                  <td className="p-4 text-center text-amber-400">●●●</td>
+                  <td className="p-4 text-center text-[#FF2D8E]">●●●</td>
                 </tr>
                 <tr className="border-t border-[#000000]/15">
                   <td className="p-4 text-[#000000]/80">Best For</td>
@@ -371,7 +371,7 @@ export function MicroneedlingShowcase() {
               {treatmentAreas.map((area) => (
                 <span
                   key={area}
-                  className="px-4 py-2 rounded-full bg-gradient-to-r from-fuchsia-500/10 to-pink-500/10 border border-fuchsia-500/30 text-[#FF2D8E] text-sm font-medium"
+                  className="px-4 py-2 rounded-full bg-gradient-to-r from-fuchsia-500/10 to-pink-500/10 border border-[#FF2D8E]/30 text-[#FF2D8E] text-sm font-medium"
                 >
                   {area}
                 </span>
@@ -423,13 +423,13 @@ export function MicroneedlingShowcase() {
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-8 py-4 rounded-xl bg-gradient-to-r from-fuchsia-500 to-pink-500 text-white font-bold hover:opacity-90 transition transform hover:scale-105 shadow-lg shadow-fuchsia-500/25"
+                className="px-8 py-4 rounded-xl bg-[#FF2D8E] text-white font-bold hover:opacity-90 transition transform hover:scale-105 shadow-lg shadow-[#FF2D8E]/25"
               >
                 ✨ Book Microneedling →
               </a>
               <a
                 href="tel:630-636-6193"
-                className="px-8 py-4 rounded-xl bg-[#000000]/5 border border-[#000000]/15 text-[#000000] font-medium hover:bg-white/10 transition"
+                className="px-8 py-4 rounded-xl bg-[#000000]/5 border border-[#000000]/15 text-[#000000] font-medium hover:bg-white transition"
               >
                 📞 Free Consultation
               </a>

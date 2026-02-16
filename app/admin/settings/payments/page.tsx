@@ -314,7 +314,7 @@ export default function PaymentSettingsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="animate-spin h-8 w-8 border-4 border-pink-500 border-t-transparent rounded-full" />
+        <div className="animate-spin h-8 w-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full" />
       </div>
     );
   }
@@ -325,7 +325,7 @@ export default function PaymentSettingsPage() {
       <div className="flex items-center justify-between">
         <div>
           <div className="flex items-center gap-2 text-sm text-black mb-1">
-            <Link href="/admin/settings" className="hover:text-pink-500">Settings</Link>
+            <Link href="/admin/settings" className="hover:text-[#FF2D8E]">Settings</Link>
             <span>/</span>
             <span>Payments</span>
           </div>
@@ -424,7 +424,7 @@ export default function PaymentSettingsPage() {
           
           {loadingLocations ? (
             <div className="flex items-center gap-2 text-black">
-              <div className="animate-spin h-4 w-4 border-2 border-pink-500 border-t-transparent rounded-full" />
+              <div className="animate-spin h-4 w-4 border-2 border-[#FF2D8E] border-t-transparent rounded-full" />
               Loading locations...
             </div>
           ) : locations.length === 0 ? (
@@ -436,7 +436,7 @@ export default function PaymentSettingsPage() {
                   key={location.id}
                   className={`flex items-center justify-between p-4 border rounded-lg cursor-pointer transition-colors ${
                     connection.location_id === location.id
-                      ? 'border-pink-500 bg-pink-50'
+                      ? 'border-[#FF2D8E] bg-pink-50'
                       : 'border-black hover:border-black'
                   }`}
                 >
@@ -447,7 +447,7 @@ export default function PaymentSettingsPage() {
                       checked={connection.location_id === location.id}
                       onChange={() => handleLocationChange(location.id)}
                       disabled={saving}
-                      className="w-4 h-4 text-pink-500 border-black focus:ring-pink-500"
+                      className="w-4 h-4 text-[#FF2D8E] border-black focus:ring-pink-500"
                     />
                     <div>
                       <p className="font-medium text-black">{location.name}</p>
@@ -489,7 +489,7 @@ export default function PaymentSettingsPage() {
               </button>
               <button
                 onClick={handleStartPairing}
-                className="px-3 py-1.5 text-sm bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+                className="px-3 py-1.5 text-sm bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
               >
                 + Pair New Device
               </button>
@@ -530,7 +530,7 @@ export default function PaymentSettingsPage() {
           {/* Device List */}
           {loadingDevices ? (
             <div className="flex items-center gap-2 text-black">
-              <div className="animate-spin h-4 w-4 border-2 border-pink-500 border-t-transparent rounded-full" />
+              <div className="animate-spin h-4 w-4 border-2 border-[#FF2D8E] border-t-transparent rounded-full" />
               Loading devices...
             </div>
           ) : devices.length === 0 ? (
@@ -544,7 +544,7 @@ export default function PaymentSettingsPage() {
                 <div
                   key={device.id}
                   className={`flex items-center justify-between p-4 border rounded-lg ${
-                    device.is_default ? 'border-pink-500 bg-pink-50' : 'border-black'
+                    device.is_default ? 'border-[#FF2D8E] bg-pink-50' : 'border-black'
                   }`}
                 >
                   <div className="flex items-center gap-3">

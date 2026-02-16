@@ -135,7 +135,7 @@ function MedicationsSection({ clientId, clientName }: { clientId: string; client
             <button
               onClick={addMedication}
               disabled={!newMed.name}
-              className="px-4 py-1.5 bg-pink-500 text-white text-sm rounded-lg hover:bg-pink-600 disabled:opacity-50"
+              className="px-4 py-1.5 bg-[#FF2D8E] text-white text-sm rounded-lg hover:bg-black disabled:opacity-50"
             >
               Add Medication
             </button>
@@ -165,7 +165,7 @@ function MedicationsSection({ clientId, clientName }: { clientId: string; client
               </div>
               <button
                 onClick={() => removeMedication(med.id)}
-                className="text-red-400 hover:text-red-600 p-1"
+                className="text-[#FF2D8E] hover:text-red-600 p-1"
               >
                 ×
               </button>
@@ -430,7 +430,7 @@ function DocumentsTabContent({
         <h3 className="font-semibold text-black">Documents & Forms</h3>
         <button
           onClick={() => setShowUploadModal(true)}
-          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+          className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
         >
           + Upload Document
         </button>
@@ -499,7 +499,7 @@ function DocumentsTabContent({
       )}
 
       {showUploadModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6">
             <h2 className="text-lg font-bold text-black mb-4">Upload Document</h2>
             <p className="text-sm text-black mb-4">
@@ -578,7 +578,7 @@ function DocumentsTabContent({
               <button
                 onClick={handleUpload}
                 disabled={uploading || !uploadForm.file}
-                className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black disabled:opacity-50"
               >
                 {uploading ? 'Uploading...' : 'Upload'}
               </button>
@@ -1061,7 +1061,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
           </a>
           <Link
             href={`/admin/appointments/new?client=${client.id}`}
-            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+            className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
           >
             Book Appointment
           </Link>
@@ -1149,7 +1149,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
               onClick={() => setActiveTab(tab.id as any)}
               className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
                 activeTab === tab.id
-                  ? 'border-pink-500 text-pink-600'
+                  ? 'border-[#FF2D8E] text-pink-600'
                   : 'border-transparent text-black hover:text-black'
               }`}
             >
@@ -1366,7 +1366,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
             ) : (
               <div className="divide-y divide-purple-100">
                 {giftCards.map((gc) => (
-                  <div key={gc.id} className="p-4 hover:bg-white/50 transition-colors">
+                  <div key={gc.id} className="p-4 hover:bg-white0 transition-colors">
                     <div className="flex items-center justify-between">
                       <div>
                         <div className="flex items-center gap-3">
@@ -1462,7 +1462,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
 
       {/* 2-Way Inbox Modal */}
       {showInbox && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-md h-[600px] overflow-hidden flex flex-col">
             <ClientInbox
               clientId={client.id}
@@ -1477,7 +1477,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
 
       {/* Edit Client Modal */}
       {showEditModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-black">
               <div className="flex items-center justify-between">
@@ -1659,7 +1659,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
                   }
                 }}
                 disabled={editSaving}
-                className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
               >
                 {editSaving ? 'Saving...' : 'Save Changes'}
               </button>

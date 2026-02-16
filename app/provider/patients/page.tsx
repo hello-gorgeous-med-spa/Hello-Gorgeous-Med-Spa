@@ -186,12 +186,12 @@ function PatientLookupContent() {
             placeholder="Search by name, phone, or email..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-4 text-lg border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+            className="w-full pl-12 pr-4 py-4 text-lg border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
             autoFocus
           />
           {searching && (
             <span className="absolute right-4 top-1/2 -translate-y-1/2">
-              <div className="w-5 h-5 border-2 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+              <div className="w-5 h-5 border-2 border-[#FF2D8E] border-t-transparent rounded-full animate-spin"></div>
             </span>
           )}
         </div>
@@ -247,7 +247,7 @@ function PatientLookupContent() {
                     setSelectedPatient(null);
                     setSearchQuery('');
                   }}
-                  className="text-white/80 hover:text-white text-sm mb-3"
+                  className="text-black hover:text-white text-sm mb-3"
                 >
                   ← Back to Search
                 </button>
@@ -260,7 +260,7 @@ function PatientLookupContent() {
                       {selectedPatient.first_name} {selectedPatient.last_name}
                     </h2>
                     {selectedPatient.date_of_birth && (
-                      <p className="text-white/80">
+                      <p className="text-black">
                         {calculateAge(selectedPatient.date_of_birth)} years old
                       </p>
                     )}
@@ -340,7 +340,7 @@ function PatientLookupContent() {
               <div className="space-y-2">
                 <Link
                   href={`/provider/charting?client=${selectedPatient.id}`}
-                  className="block w-full px-4 py-3 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 text-center"
+                  className="block w-full px-4 py-3 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black text-center"
                 >
                   📝 New Chart Note
                 </Link>
@@ -352,7 +352,7 @@ function PatientLookupContent() {
                 </Link>
                 <Link
                   href={`/admin/clients/${selectedPatient.id}/photos`}
-                  className="block w-full px-4 py-3 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-500 text-center"
+                  className="block w-full px-4 py-3 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-[#FF2D8E] text-center"
                 >
                   📷 View Photos
                 </Link>
@@ -379,7 +379,7 @@ function PatientLookupContent() {
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`flex-shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
                     activeTab === tab.id
-                      ? 'border-pink-500 text-pink-600'
+                      ? 'border-[#FF2D8E] text-pink-600'
                       : 'border-transparent text-black hover:text-black'
                   }`}
                 >
@@ -540,7 +540,7 @@ function PatientLookupContent() {
                     <h3 className="font-semibold text-black">Before/After Photos</h3>
                     <Link
                       href={`/provider/photos?client=${selectedPatient.id}`}
-                      className="px-3 py-1.5 bg-pink-500 text-white text-sm rounded-lg hover:bg-pink-600"
+                      className="px-3 py-1.5 bg-[#FF2D8E] text-white text-sm rounded-lg hover:bg-black"
                     >
                       + Add Photo
                     </Link>
@@ -642,7 +642,7 @@ function PatientLookupContent() {
                             <p className="font-bold text-purple-900">{membership.name}</p>
                             <p className="text-sm text-purple-700">{membership.type}</p>
                           </div>
-                          <span className="px-3 py-1 bg-pink-500 text-white text-sm rounded-full font-medium">
+                          <span className="px-3 py-1 bg-[#FF2D8E] text-white text-sm rounded-full font-medium">
                             Active
                           </span>
                         </div>
@@ -657,7 +657,7 @@ function PatientLookupContent() {
                             </div>
                             <div className="w-full h-2 bg-purple-200 rounded-full">
                               <div 
-                                className="h-full bg-pink-500 rounded-full"
+                                className="h-full bg-[#FF2D8E] rounded-full"
                                 style={{ width: `${(membership.units_remaining / membership.units_total) * 100}%` }}
                               />
                             </div>
@@ -675,7 +675,7 @@ function PatientLookupContent() {
                     <div className="text-center py-8">
                       <span className="text-4xl block mb-2">⭐</span>
                       <p className="text-black mb-3">No active membership</p>
-                      <button className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-500">
+                      <button className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-[#FF2D8E]">
                         Enroll in Membership
                       </button>
                     </div>
@@ -758,7 +758,7 @@ function PatientLookupContent() {
                     className="w-full h-40 p-4 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                     defaultValue={selectedPatient.notes}
                   />
-                  <button className="mt-3 px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
+                  <button className="mt-3 px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black">
                     Save Notes
                   </button>
                 </div>

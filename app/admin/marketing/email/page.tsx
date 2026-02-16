@@ -126,7 +126,7 @@ export default function EmailMarketingPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#FF2D8E]"></div>
       </div>
     );
   }
@@ -141,7 +141,7 @@ export default function EmailMarketingPage() {
         </div>
         <button
           onClick={() => setShowComposeModal(true)}
-          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+          className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
         >
           ✉️ New Campaign
         </button>
@@ -235,7 +235,7 @@ export default function EmailMarketingPage() {
             onClick={() => setActiveTab(tab)}
             className={`px-4 py-3 font-medium transition-colors border-b-2 -mb-px capitalize ${
               activeTab === tab 
-                ? 'border-pink-500 text-pink-600' 
+                ? 'border-[#FF2D8E] text-pink-600' 
                 : 'border-transparent text-black hover:text-black'
             }`}
           >
@@ -371,7 +371,7 @@ export default function EmailMarketingPage() {
 
       {/* Compose Modal */}
       {showComposeModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-black sticky top-0 bg-white">
               <h2 className="text-xl font-bold text-black">
@@ -437,7 +437,7 @@ export default function EmailMarketingPage() {
               <button className="px-4 py-2 border border-black text-black font-medium rounded-lg hover:bg-white">
                 Save Draft
               </button>
-              <button className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600">
+              <button className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black">
                 Send / Schedule
               </button>
             </div>

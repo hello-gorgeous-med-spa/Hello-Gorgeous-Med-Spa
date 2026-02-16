@@ -16,7 +16,7 @@ const variants: Record<Variant, string> = {
     "border border-hg-pink text-hg-pink uppercase tracking-widest px-10 py-4 rounded-md text-sm font-semibold transition-all duration-300 ease-out hover:bg-hg-pink hover:text-white hover:-translate-y-[2px] hover:shadow-lg",
   white:
     "bg-white text-hg-dark hover:bg-white uppercase tracking-widest px-10 py-4 rounded-md text-sm font-semibold transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg",
-  ghost: "text-white/70 hover:text-white hover:bg-white/5 tracking-wide",
+  ghost: "text-black hover:text-white hover:bg-white tracking-wide",
 };
 
 export function CTA({

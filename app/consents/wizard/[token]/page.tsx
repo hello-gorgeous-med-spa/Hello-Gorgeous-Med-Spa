@@ -165,7 +165,7 @@ export default function ConsentWizardPage() {
     return (
       <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full mx-auto mb-4" />
+          <div className="animate-spin w-12 h-12 border-4 border-[#FF2D8E] border-t-transparent rounded-full mx-auto mb-4" />
           <p className="text-black">Loading consent forms...</p>
         </div>
       </div>
@@ -236,7 +236,7 @@ export default function ConsentWizardPage() {
               </p>
               <div className="w-24 h-2 bg-white rounded-full mt-1">
                 <div
-                  className="h-full bg-pink-500 rounded-full transition-all"
+                  className="h-full bg-[#FF2D8E] rounded-full transition-all"
                   style={{ width: `${(signedCount / totalCount) * 100}%` }}
                 />
               </div>
@@ -257,7 +257,7 @@ export default function ConsentWizardPage() {
                 packet.status === 'signed'
                   ? 'bg-green-500 text-white'
                   : index === currentIndex
-                  ? 'bg-pink-500 text-white'
+                  ? 'bg-[#FF2D8E] text-white'
                   : 'bg-white text-black'
               }`}
             >
@@ -269,7 +269,7 @@ export default function ConsentWizardPage() {
         {/* Current Consent */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
           {/* Consent Header */}
-          <div className="bg-pink-500 text-white px-6 py-4">
+          <div className="bg-[#FF2D8E] text-white px-6 py-4">
             <h2 className="text-xl font-bold">{currentPacket.template_name}</h2>
             <p className="text-pink-100 text-sm">
               Please read carefully and sign below
@@ -307,7 +307,7 @@ export default function ConsentWizardPage() {
               <label className="flex items-start gap-3">
                 <input
                   type="checkbox"
-                  className="mt-1 w-5 h-5 text-pink-500 rounded"
+                  className="mt-1 w-5 h-5 text-[#FF2D8E] rounded"
                   defaultChecked
                 />
                 <span className="text-sm text-yellow-800">
@@ -332,7 +332,7 @@ export default function ConsentWizardPage() {
             <button
               onClick={handleSubmitConsent}
               disabled={submitting || !signatures[currentPacket.id]}
-              className="w-full py-4 bg-pink-500 text-white font-bold rounded-xl hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full py-4 bg-[#FF2D8E] text-white font-bold rounded-xl hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {submitting ? (
                 <span className="flex items-center justify-center gap-2">

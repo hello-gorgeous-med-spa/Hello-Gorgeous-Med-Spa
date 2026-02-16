@@ -24,7 +24,7 @@ export default function AdminGetAppPage() {
           </Link>
           <Link
             href="/admin"
-            className="px-4 py-2 bg-pink-500 text-white rounded-full text-sm font-medium hover:bg-pink-600"
+            className="px-4 py-2 bg-[#FF2D8E] text-white rounded-full text-sm font-medium hover:bg-black"
           >
             Open Dashboard
           </Link>
@@ -34,13 +34,13 @@ export default function AdminGetAppPage() {
       <main className="max-w-4xl mx-auto px-4 py-12">
         {/* Hero Section */}
         <div className="text-center mb-12">
-          <div className="inline-flex items-center gap-2 bg-pink-500/20 text-pink-400 px-4 py-2 rounded-full text-sm font-medium mb-6">
+          <div className="inline-flex items-center gap-2 bg-[#FF2D8E]/20 text-[#FF2D8E] px-4 py-2 rounded-full text-sm font-medium mb-6">
             <span>👩‍⚕️</span>
             <span>Provider Access</span>
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Get the <span className="text-pink-400">Admin App</span>
+            Get the <span className="text-[#FF2D8E]">Admin App</span>
           </h1>
           
           <p className="text-xl text-black max-w-2xl mx-auto">
@@ -99,19 +99,19 @@ export default function AdminGetAppPage() {
             </div>
             <ol className="space-y-4 text-black">
               <li className="flex gap-3">
-                <span className="w-6 h-6 bg-pink-500/30 text-pink-400 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
+                <span className="w-6 h-6 bg-[#FF2D8E]/30 text-[#FF2D8E] rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
                 <span>Open this page in <strong className="text-white">Safari</strong></span>
               </li>
               <li className="flex gap-3">
-                <span className="w-6 h-6 bg-pink-500/30 text-pink-400 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
+                <span className="w-6 h-6 bg-[#FF2D8E]/30 text-[#FF2D8E] rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
                 <span>Tap the <strong className="text-white">Share button</strong> (square with arrow)</span>
               </li>
               <li className="flex gap-3">
-                <span className="w-6 h-6 bg-pink-500/30 text-pink-400 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">3</span>
+                <span className="w-6 h-6 bg-[#FF2D8E]/30 text-[#FF2D8E] rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">3</span>
                 <span>Scroll down, tap <strong className="text-white">"Add to Home Screen"</strong></span>
               </li>
               <li className="flex gap-3">
-                <span className="w-6 h-6 bg-pink-500/30 text-pink-400 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">4</span>
+                <span className="w-6 h-6 bg-[#FF2D8E]/30 text-[#FF2D8E] rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">4</span>
                 <span>Tap <strong className="text-white">"Add"</strong> - Done! 🎉</span>
               </li>
             </ol>
@@ -125,19 +125,19 @@ export default function AdminGetAppPage() {
             </div>
             <ol className="space-y-4 text-black">
               <li className="flex gap-3">
-                <span className="w-6 h-6 bg-pink-500/30 text-pink-400 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
+                <span className="w-6 h-6 bg-[#FF2D8E]/30 text-[#FF2D8E] rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
                 <span>Open this page in <strong className="text-white">Chrome</strong></span>
               </li>
               <li className="flex gap-3">
-                <span className="w-6 h-6 bg-pink-500/30 text-pink-400 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
+                <span className="w-6 h-6 bg-[#FF2D8E]/30 text-[#FF2D8E] rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
                 <span>Tap the <strong className="text-white">menu</strong> (three dots)</span>
               </li>
               <li className="flex gap-3">
-                <span className="w-6 h-6 bg-pink-500/30 text-pink-400 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">3</span>
+                <span className="w-6 h-6 bg-[#FF2D8E]/30 text-[#FF2D8E] rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">3</span>
                 <span>Tap <strong className="text-white">"Install App"</strong> or <strong className="text-white">"Add to Home Screen"</strong></span>
               </li>
               <li className="flex gap-3">
-                <span className="w-6 h-6 bg-pink-500/30 text-pink-400 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">4</span>
+                <span className="w-6 h-6 bg-[#FF2D8E]/30 text-[#FF2D8E] rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">4</span>
                 <span>Tap <strong className="text-white">"Install"</strong> - Done! 🎉</span>
               </li>
             </ol>
@@ -155,11 +155,11 @@ export default function AdminGetAppPage() {
               <h4 className="font-semibold text-white mb-3">Chrome</h4>
               <ol className="space-y-2 text-black text-sm">
                 <li className="flex gap-2">
-                  <span className="text-pink-400">1.</span>
+                  <span className="text-[#FF2D8E]">1.</span>
                   <span>Click the <strong className="text-white">install icon</strong> in the address bar (or menu → "Install Hello Gorgeous Admin")</span>
                 </li>
                 <li className="flex gap-2">
-                  <span className="text-pink-400">2.</span>
+                  <span className="text-[#FF2D8E]">2.</span>
                   <span>Click <strong className="text-white">"Install"</strong></span>
                 </li>
               </ol>
@@ -168,11 +168,11 @@ export default function AdminGetAppPage() {
               <h4 className="font-semibold text-white mb-3">Safari (Mac)</h4>
               <ol className="space-y-2 text-black text-sm">
                 <li className="flex gap-2">
-                  <span className="text-pink-400">1.</span>
+                  <span className="text-[#FF2D8E]">1.</span>
                   <span>Click <strong className="text-white">File → Add to Dock</strong></span>
                 </li>
                 <li className="flex gap-2">
-                  <span className="text-pink-400">2.</span>
+                  <span className="text-[#FF2D8E]">2.</span>
                   <span>App will appear in your Dock</span>
                 </li>
               </ol>
@@ -181,22 +181,22 @@ export default function AdminGetAppPage() {
         </div>
 
         {/* Quick Links */}
-        <div className="bg-black/50 rounded-2xl border border-black p-6 mb-12">
+        <div className="bg-white rounded-2xl border border-black p-6 mb-12">
           <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            <Link href="/admin" className="p-4 bg-black/50 rounded-xl text-center hover:bg-black transition-colors">
+            <Link href="/admin" className="p-4 bg-white rounded-xl text-center hover:bg-black transition-colors">
               <span className="text-2xl block mb-1">📊</span>
               <span className="text-sm text-black">Dashboard</span>
             </Link>
-            <Link href="/admin/calendar" className="p-4 bg-black/50 rounded-xl text-center hover:bg-black transition-colors">
+            <Link href="/admin/calendar" className="p-4 bg-white rounded-xl text-center hover:bg-black transition-colors">
               <span className="text-2xl block mb-1">📅</span>
               <span className="text-sm text-black">Calendar</span>
             </Link>
-            <Link href="/pos" className="p-4 bg-black/50 rounded-xl text-center hover:bg-black transition-colors">
+            <Link href="/pos" className="p-4 bg-white rounded-xl text-center hover:bg-black transition-colors">
               <span className="text-2xl block mb-1">💳</span>
               <span className="text-sm text-black">POS Terminal</span>
             </Link>
-            <Link href="/admin/clients" className="p-4 bg-black/50 rounded-xl text-center hover:bg-black transition-colors">
+            <Link href="/admin/clients" className="p-4 bg-white rounded-xl text-center hover:bg-black transition-colors">
               <span className="text-2xl block mb-1">👥</span>
               <span className="text-sm text-black">Clients</span>
             </Link>
@@ -213,7 +213,7 @@ export default function AdminGetAppPage() {
             Open Dashboard
           </Link>
           <p className="mt-4 text-black text-sm">
-            Need help? Contact <a href="mailto:support@hellogorgeousmedspa.com" className="text-pink-400">support</a>
+            Need help? Contact <a href="mailto:support@hellogorgeousmedspa.com" className="text-[#FF2D8E]">support</a>
           </p>
         </div>
       </main>

@@ -123,7 +123,7 @@ export default function AdminWellnessPage() {
               </thead>
               <tbody>
                 {subscriptions.map((s: any) => (
-                  <tr key={s.id} className="border-b border-black hover:bg-white/50">
+                  <tr key={s.id} className="border-b border-black hover:bg-white0">
                     <td className="px-6 py-3">
                       <Link
                         href={`/admin/clients/${s.client?.id}`}

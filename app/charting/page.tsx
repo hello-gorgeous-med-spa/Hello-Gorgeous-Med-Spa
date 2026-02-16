@@ -270,7 +270,7 @@ export default function ChartingHubPage() {
           </div>
           <button
             onClick={() => setShowNewNote(true)}
-            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 flex items-center gap-2"
+            className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black flex items-center gap-2"
           >
             <span>+</span> New Note
           </button>
@@ -368,7 +368,7 @@ export default function ChartingHubPage() {
           {/* Notes List */}
           {loading ? (
             <div className="text-center py-12">
-              <div className="animate-spin w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full mx-auto mb-4" />
+              <div className="animate-spin w-8 h-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full mx-auto mb-4" />
               <p className="text-black">Loading notes...</p>
             </div>
           ) : filteredNotes.length === 0 ? (
@@ -380,7 +380,7 @@ export default function ChartingHubPage() {
               </p>
               <button
                 onClick={() => setShowNewNote(true)}
-                className="mt-4 px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+                className="mt-4 px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
               >
                 + New Note
               </button>
@@ -431,7 +431,7 @@ export default function ChartingHubPage() {
 
       {/* New Note Modal */}
       {showNewNote && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
             {/* Modal Header */}
             <div className="px-6 py-4 border-b border-black flex items-center justify-between">
@@ -565,7 +565,7 @@ export default function ChartingHubPage() {
                               className={`w-8 h-8 rounded-full text-white text-xs font-bold ${
                                 activeField === field ? 'ring-2 ring-offset-2 ring-pink-500' : ''
                               } ${
-                                field === 'subjective' ? 'bg-pink-500' :
+                                field === 'subjective' ? 'bg-[#FF2D8E]' :
                                 field === 'objective' ? 'bg-blue-500' :
                                 field === 'assessment' ? 'bg-green-500' :
                                 'bg-purple-500'
@@ -592,7 +592,7 @@ export default function ChartingHubPage() {
                     <label className="block text-sm font-medium text-black mb-1">
                       <span className="text-pink-600 font-bold">S</span>ubjective
                       <span className="text-black font-normal ml-2">Patient's description</span>
-                      {activeField === 'subjective' && showVoice && <span className="text-pink-500 ml-2">🎤</span>}
+                      {activeField === 'subjective' && showVoice && <span className="text-[#FF2D8E] ml-2">🎤</span>}
                     </label>
                     <textarea
                       value={newNote.subjective}
@@ -693,7 +693,7 @@ export default function ChartingHubPage() {
                 <button
                   onClick={() => handleCreateNote(false)}
                   disabled={saving || !newNote.client_id}
-                  className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                  className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
                 >
                   {saving ? 'Saving...' : 'Save & Finalize'}
                 </button>
@@ -705,7 +705,7 @@ export default function ChartingHubPage() {
 
       {/* View Note Modal */}
       {selectedNote && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col">
             <div className="px-6 py-4 border-b border-black flex items-center justify-between">
               <div>

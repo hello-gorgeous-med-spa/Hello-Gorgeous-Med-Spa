@@ -117,7 +117,7 @@ export default function AIMemoryPage() {
         <Link href="/admin/ai" className="text-black hover:text-black">← AI Hub</Link>
         <button
           onClick={openAdd}
-          className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 text-sm font-medium"
+          className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black text-sm font-medium"
         >
           + Add entry
         </button>
@@ -137,7 +137,7 @@ export default function AIMemoryPage() {
       ) : items.length === 0 ? (
         <div className="bg-white rounded-xl border border-black p-8 text-center text-black">
           <p className="mb-4">No entries yet. Add your first FAQ or policy so your AI can use it.</p>
-          <button onClick={openAdd} className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
+          <button onClick={openAdd} className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black">
             Add first entry
           </button>
         </div>
@@ -167,7 +167,7 @@ export default function AIMemoryPage() {
       )}
 
       {modal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
             <h2 className="text-lg font-bold text-black mb-4">
               {modal === 'add' ? 'Add to Business Memory' : 'Edit entry'}
@@ -215,7 +215,7 @@ export default function AIMemoryPage() {
               <button
                 onClick={save}
                 disabled={saving || !form.title.trim()}
-                className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black disabled:opacity-50"
               >
                 {saving ? 'Saving…' : form.content.trim() ? 'Save' : 'Save draft'}
               </button>

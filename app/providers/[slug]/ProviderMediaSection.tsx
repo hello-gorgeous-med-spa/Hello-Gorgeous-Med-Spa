@@ -45,7 +45,7 @@ export function ProviderMediaSection({ media, type }: Props) {
               onClick={() => setSelectedTag(tag)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 selectedTag === tag
-                  ? 'bg-pink-500 text-white'
+                  ? 'bg-[#FF2D8E] text-white'
                   : 'bg-white border border-pink-200 text-black hover:border-pink-400'
               }`}
             >
@@ -80,11 +80,11 @@ export function ProviderMediaSection({ media, type }: Props) {
                 {/* Play overlay */}
                 <div className="absolute inset-0 flex items-center justify-center bg-black/20 group-hover:bg-black/40 transition-colors">
                   <div className="w-14 h-14 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
-                    <span className="text-pink-500 text-xl ml-1">▶</span>
+                    <span className="text-[#FF2D8E] text-xl ml-1">▶</span>
                   </div>
                 </div>
                 {item.is_featured && (
-                  <span className="absolute top-2 left-2 px-2 py-1 bg-pink-500 text-white text-xs font-medium rounded-full">
+                  <span className="absolute top-2 left-2 px-2 py-1 bg-[#FF2D8E] text-white text-xs font-medium rounded-full">
                     Featured
                   </span>
                 )}
@@ -117,10 +117,10 @@ export function ProviderMediaSection({ media, type }: Props) {
                 {/* Divider line */}
                 <div className="absolute inset-y-0 left-1/2 w-0.5 bg-white" />
                 {/* Labels */}
-                <span className="absolute bottom-2 left-2 px-2 py-0.5 bg-black/50 text-white text-xs rounded">
+                <span className="absolute bottom-2 left-2 px-2 py-0.5 bg-white text-white text-xs rounded">
                   Before
                 </span>
-                <span className="absolute bottom-2 right-2 px-2 py-0.5 bg-pink-500 text-white text-xs rounded">
+                <span className="absolute bottom-2 right-2 px-2 py-0.5 bg-[#FF2D8E] text-white text-xs rounded">
                   After
                 </span>
                 {/* Hover overlay */}

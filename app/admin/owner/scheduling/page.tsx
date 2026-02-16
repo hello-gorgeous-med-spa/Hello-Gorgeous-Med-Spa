@@ -147,7 +147,7 @@ export default function SchedulingEnginePage() {
                     key={ps.providerId}
                     onClick={() => setSelectedProvider(ps.providerId)}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                      selectedProvider === ps.providerId ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/30' : 'bg-pink-100 text-pink-700 hover:bg-pink-200 border border-pink-200'
+                      selectedProvider === ps.providerId ? 'bg-[#FF2D8E] text-white shadow-lg shadow-[#FF2D8E]/30' : 'bg-pink-100 text-pink-700 hover:bg-pink-200 border border-pink-200'
                     }`}
                   >
                     {ps.providerName}
@@ -321,7 +321,7 @@ export default function SchedulingEnginePage() {
                 <span className="font-medium">18 / {capacitySettings.maxDailyAppointments}</span>
               </div>
               <div className="w-full bg-white rounded-full h-2">
-                <div className="bg-pink-500 rounded-full h-2" style={{ width: `${(18 / capacitySettings.maxDailyAppointments) * 100}%` }} />
+                <div className="bg-[#FF2D8E] rounded-full h-2" style={{ width: `${(18 / capacitySettings.maxDailyAppointments) * 100}%` }} />
               </div>
               <p className="text-xs text-black">{capacitySettings.maxDailyAppointments - 18} slots remaining</p>
             </div>
@@ -330,7 +330,7 @@ export default function SchedulingEnginePage() {
           {/* Save Button */}
           <button
             onClick={saveSettings}
-            className="w-full px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium"
+            className="w-full px-6 py-3 bg-[#FF2D8E] text-white rounded-lg hover:bg-black font-medium"
           >
             Save All Scheduling Settings
           </button>

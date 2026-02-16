@@ -149,7 +149,7 @@ export default function PatientQueuePage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+        <div className="w-12 h-12 border-4 border-[#FF2D8E] border-t-transparent rounded-full animate-spin"></div>
       </div>
     );
   }
@@ -240,7 +240,7 @@ export default function PatientQueuePage() {
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex items-center gap-3">
                         <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${
-                          patient.status === 'in_progress' ? 'bg-pink-500' : 'bg-green-500'
+                          patient.status === 'in_progress' ? 'bg-[#FF2D8E]' : 'bg-green-500'
                         }`}>
                           {idx + 1}
                         </div>
@@ -268,7 +268,7 @@ export default function PatientQueuePage() {
                           <Link
                             href={`/provider/charting?appointment=${patient.id}`}
                             onClick={() => handleStartVisit(patient.id)}
-                            className="flex-1 px-3 py-2 bg-pink-500 text-white text-sm font-medium rounded-lg hover:bg-pink-500 text-center"
+                            className="flex-1 px-3 py-2 bg-[#FF2D8E] text-white text-sm font-medium rounded-lg hover:bg-[#FF2D8E] text-center"
                           >
                             Start Visit
                           </Link>
@@ -284,7 +284,7 @@ export default function PatientQueuePage() {
                         <>
                           <Link
                             href={`/provider/charting?appointment=${patient.id}`}
-                            className="flex-1 px-3 py-2 bg-pink-500 text-white text-sm font-medium rounded-lg hover:bg-pink-500 text-center"
+                            className="flex-1 px-3 py-2 bg-[#FF2D8E] text-white text-sm font-medium rounded-lg hover:bg-[#FF2D8E] text-center"
                           >
                             Continue Chart
                           </Link>

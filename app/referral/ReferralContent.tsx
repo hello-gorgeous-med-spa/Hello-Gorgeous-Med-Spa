@@ -99,11 +99,11 @@ export function ReferralContent() {
       <section className="relative py-16 px-4 overflow-hidden">
         {/* Animated background */}
         <div className="absolute inset-0 bg-gradient-to-br from-pink-900/30 via-black to-fuchsia-900/30" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-fuchsia-500/20 rounded-full blur-3xl animate-pulse delay-1000" />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#FF2D8E]/20 rounded-full blur-3xl animate-pulse" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[#FF2D8E]/20 rounded-full blur-3xl animate-pulse delay-1000" />
 
         <div className="relative max-w-4xl mx-auto text-center">
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/20 border border-pink-500/30 text-pink-400 text-sm font-medium mb-6">
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/20 border border-[#FF2D8E]/30 text-[#FF2D8E] text-sm font-medium mb-6">
             <span>💝</span>
             <span>Referral Program</span>
           </span>
@@ -190,7 +190,7 @@ export function ReferralContent() {
           </div>
 
           {!submitted ? (
-            <form onSubmit={handleSubmit} className="p-6 rounded-3xl bg-gradient-to-br from-pink-500/10 to-fuchsia-500/10 border border-pink-500/30">
+            <form onSubmit={handleSubmit} className="p-6 rounded-3xl bg-gradient-to-br from-pink-500/10 to-fuchsia-500/10 border border-[#FF2D8E]/30">
               {/* Your Info */}
               <div className="mb-6">
                 <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
@@ -203,7 +203,7 @@ export function ReferralContent() {
                     onChange={(e) => setReferrerName(e.target.value)}
                     placeholder="Your Name *"
                     required
-                    className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-pink-500"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-black/50 focus:outline-none focus:border-[#FF2D8E]"
                   />
                   <input
                     type="email"
@@ -211,7 +211,7 @@ export function ReferralContent() {
                     onChange={(e) => setReferrerEmail(e.target.value)}
                     placeholder="Your Email *"
                     required
-                    className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-pink-500"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-black/50 focus:outline-none focus:border-[#FF2D8E]"
                   />
                 </div>
               </div>
@@ -229,7 +229,7 @@ export function ReferralContent() {
                       onChange={(e) => setFriendName(e.target.value)}
                       placeholder="Friend's Name *"
                       required
-                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-pink-500"
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-black/50 focus:outline-none focus:border-[#FF2D8E]"
                     />
                     <input
                       type="email"
@@ -237,7 +237,7 @@ export function ReferralContent() {
                       onChange={(e) => setFriendEmail(e.target.value)}
                       placeholder="Friend's Email *"
                       required
-                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-pink-500"
+                      className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-black/50 focus:outline-none focus:border-[#FF2D8E]"
                     />
                   </div>
                   <input
@@ -245,19 +245,19 @@ export function ReferralContent() {
                     value={friendPhone}
                     onChange={(e) => setFriendPhone(e.target.value)}
                     placeholder="Friend's Phone (optional)"
-                    className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-pink-500"
+                    className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-black/50 focus:outline-none focus:border-[#FF2D8E]"
                   />
                 </div>
               </div>
 
               {error && (
-                <p className="text-red-400 text-sm mb-4">{error}</p>
+                <p className="text-[#FF2D8E] text-sm mb-4">{error}</p>
               )}
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white font-bold text-lg hover:opacity-90 transition disabled:opacity-50 shadow-lg shadow-pink-500/25"
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white font-bold text-lg hover:opacity-90 transition disabled:opacity-50 shadow-lg shadow-[#FF2D8E]/25"
               >
                 {isSubmitting ? "Sending..." : "💝 Send Referral Invite"}
               </button>
@@ -268,11 +268,11 @@ export function ReferralContent() {
               </p>
             </form>
           ) : (
-            <div className="p-6 rounded-3xl bg-gradient-to-br from-pink-500/20 to-fuchsia-500/20 border border-pink-500/30 text-center">
+            <div className="p-6 rounded-3xl bg-gradient-to-br from-pink-500/20 to-fuchsia-500/20 border border-[#FF2D8E]/30 text-center">
               <span className="text-5xl mb-4 block">🎉</span>
               <h3 className="text-2xl font-bold text-white mb-2">Referral Sent!</h3>
               <p className="text-black mb-6">
-                We&apos;ve sent an invitation to <span className="text-pink-400 font-semibold">{friendName}</span>. 
+                We&apos;ve sent an invitation to <span className="text-[#FF2D8E] font-semibold">{friendName}</span>. 
                 You&apos;ll both receive $25 off after their first visit!
               </p>
               
@@ -284,7 +284,7 @@ export function ReferralContent() {
                     setFriendEmail("");
                     setFriendPhone("");
                   }}
-                  className="px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white hover:bg-white/20 transition"
+                  className="px-6 py-3 rounded-xl bg-white border border-black text-white hover:bg-white/20 transition"
                 >
                   Refer Another Friend
                 </button>
@@ -313,7 +313,7 @@ export function ReferralContent() {
             {benefits.map((benefit) => (
               <div
                 key={benefit.title}
-                className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center hover:border-pink-500/30 transition"
+                className="p-6 rounded-2xl bg-white border border-black text-center hover:border-[#FF2D8E]/30 transition"
               >
                 <span className="text-3xl mb-3 block">{benefit.icon}</span>
                 <h3 className="text-white font-bold mb-1">{benefit.title}</h3>
@@ -340,12 +340,12 @@ export function ReferralContent() {
             {popularServices.map((service) => (
               <div
                 key={service.name}
-                className="p-4 rounded-2xl bg-white/5 border border-white/10 flex items-center gap-4 hover:border-pink-500/30 transition"
+                className="p-4 rounded-2xl bg-white border border-black flex items-center gap-4 hover:border-[#FF2D8E]/30 transition"
               >
                 <span className="text-2xl">{service.icon}</span>
                 <div>
                   <p className="text-white font-medium">{service.name}</p>
-                  <p className="text-pink-400 text-sm">{service.price}</p>
+                  <p className="text-[#FF2D8E] text-sm">{service.price}</p>
                 </div>
               </div>
             ))}
@@ -354,7 +354,7 @@ export function ReferralContent() {
           <div className="text-center mt-8">
             <Link
               href="/services"
-              className="text-pink-400 hover:text-pink-300 font-medium"
+              className="text-[#FF2D8E] hover:text-pink-300 font-medium"
             >
               View All Services →
             </Link>
@@ -373,7 +373,7 @@ export function ReferralContent() {
           </p>
           <button
             onClick={() => window.scrollTo({ top: 400, behavior: "smooth" })}
-            className="px-10 py-5 rounded-xl bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white font-bold text-lg hover:opacity-90 transition shadow-lg shadow-pink-500/25"
+            className="px-10 py-5 rounded-xl bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white font-bold text-lg hover:opacity-90 transition shadow-lg shadow-[#FF2D8E]/25"
           >
             💝 Refer a Friend Now →
           </button>
@@ -381,7 +381,7 @@ export function ReferralContent() {
       </section>
 
       {/* New Client Promo */}
-      <section className="py-12 px-4 border-t border-white/10">
+      <section className="py-12 px-4 border-t border-black">
         <div className="max-w-4xl mx-auto">
           <div className="p-6 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/20 text-center">
             <h3 className="text-xl font-bold text-white mb-2">

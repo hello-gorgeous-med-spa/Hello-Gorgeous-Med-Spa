@@ -158,7 +158,7 @@ function TypedSignature({ value, onChange }: TypedSignatureProps) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Type your full legal name"
-        className="w-full px-4 py-3 text-xl font-signature border-2 border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+        className="w-full px-4 py-3 text-xl font-signature border-2 border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
         style={{ fontFamily: "'Dancing Script', cursive" }}
       />
       {value && (
@@ -246,7 +246,7 @@ export function ConsentFormViewer({ form, onSign, onDecline, loading }: ConsentF
             onClick={() => setSignatureType('typed')}
             className={`flex-1 py-2 px-4 rounded-lg border-2 transition-colors ${
               signatureType === 'typed'
-                ? 'border-pink-500 bg-pink-50 text-pink-700'
+                ? 'border-[#FF2D8E] bg-pink-50 text-pink-700'
                 : 'border-black bg-white text-black hover:border-black'
             }`}
           >
@@ -257,7 +257,7 @@ export function ConsentFormViewer({ form, onSign, onDecline, loading }: ConsentF
             onClick={() => setSignatureType('drawn')}
             className={`flex-1 py-2 px-4 rounded-lg border-2 transition-colors ${
               signatureType === 'drawn'
-                ? 'border-pink-500 bg-pink-50 text-pink-700'
+                ? 'border-[#FF2D8E] bg-pink-50 text-pink-700'
                 : 'border-black bg-white text-black hover:border-black'
             }`}
           >
@@ -410,7 +410,7 @@ export function ConsentFormsWizard({ forms, onComplete, onCancel, clientName }: 
                   index < currentIndex
                     ? 'bg-green-500'
                     : index === currentIndex
-                    ? 'bg-pink-500'
+                    ? 'bg-[#FF2D8E]'
                     : 'bg-white'
                 }`}
                 title={form.shortName}

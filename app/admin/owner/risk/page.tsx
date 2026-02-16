@@ -210,7 +210,7 @@ export default function RiskCompliancePage() {
             </button>
             <button 
               onClick={() => setFilterSeverity('warning')} 
-              className={`p-4 rounded-xl border text-left ${filterSeverity === 'warning' ? 'border-amber-500 bg-amber-50' : 'bg-white'}`}
+              className={`p-4 rounded-xl border text-left ${filterSeverity === 'warning' ? 'border-[#FF2D8E] bg-amber-50' : 'bg-white'}`}
             >
               <p className="text-sm text-black">🟡 Warnings</p>
               <p className="text-2xl font-bold text-amber-600">{warningCount}</p>

@@ -20,7 +20,7 @@ export function MembershipsStickyCTA() {
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-40 py-3 px-4 bg-black/95 backdrop-blur-md border-t border-pink-500/30 safe-area-pb transition-all duration-300"
+      className="fixed bottom-0 left-0 right-0 z-40 py-3 px-4 bg-black/95 backdrop-blur-md border-t border-[#FF2D8E]/30 safe-area-pb transition-all duration-300"
       role="banner"
     >
       <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3">

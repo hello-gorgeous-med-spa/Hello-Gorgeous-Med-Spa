@@ -377,7 +377,7 @@ export default function AIInsightsPage() {
       {/* Main Chat Area */}
       <div className="bg-white rounded-2xl border border-black shadow-sm overflow-hidden">
         {/* Chat Messages */}
-        <div className="h-[400px] overflow-y-auto p-6 space-y-4 bg-white/50">
+        <div className="h-[400px] overflow-y-auto p-6 space-y-4 bg-white0">
           {messages.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center text-center">
               <div className="w-16 h-16 rounded-full bg-gradient-to-br from-violet-100 to-purple-100 flex items-center justify-center mb-4">
@@ -507,7 +507,7 @@ export default function AIInsightsPage() {
           <button type="button" onClick={() => setCommandsView('activity')} className={`px-3 py-1.5 text-sm font-medium rounded-lg ${commandsView === 'activity' ? 'bg-amber-500 text-white' : 'bg-white text-black hover:bg-white'}`}>Activity</button>
         </div>
         <div className="bg-white rounded-2xl border border-black shadow-sm overflow-hidden">
-          <div className="h-[420px] overflow-y-auto p-6 space-y-4 bg-white/50">
+          <div className="h-[420px] overflow-y-auto p-6 space-y-4 bg-white0">
             {commandsView === 'activity' ? (
               loadingActivity ? (
                 <p className="text-black text-sm">Loading activity…</p>
@@ -619,7 +619,7 @@ export default function AIInsightsPage() {
                 value={cmdInput}
                 onChange={(e) => setCmdInput(e.target.value)}
                 placeholder="e.g. Change homepage headline to …"
-                className="flex-1 px-4 py-3 bg-white border border-black rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                className="flex-1 px-4 py-3 bg-white border border-black rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-[#FF2D8E]"
                 disabled={cmdLoading}
               />
               <button type="submit" disabled={!cmdInput.trim() || cmdLoading} className="px-4 py-3 bg-amber-500 text-white font-medium rounded-xl hover:bg-amber-600 disabled:opacity-50">

@@ -107,7 +107,7 @@ export function FinancingOptions({ amount, onSelect, compact = false }: Financin
             onClick={() => handleSelect(provider)}
             className={`w-full p-4 rounded-xl border-2 transition-all ${
               selectedProvider === provider.id 
-                ? 'border-pink-500 bg-pink-50' 
+                ? 'border-[#FF2D8E] bg-pink-50' 
                 : `${provider.bgColor} border`
             }`}
           >
@@ -150,7 +150,7 @@ export function FinancingButton({ amount }: { amount: number }) {
       </button>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold">Financing Options</h2>

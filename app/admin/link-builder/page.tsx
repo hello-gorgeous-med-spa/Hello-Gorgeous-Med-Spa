@@ -272,7 +272,7 @@ export default function LinkBuilderPage() {
                 onClick={() => setSelectedProviders([])}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                   selectedProviders.length === 0
-                    ? 'bg-pink-500 text-white'
+                    ? 'bg-[#FF2D8E] text-white'
                     : 'bg-white text-black hover:bg-white'
                 }`}
               >
@@ -284,7 +284,7 @@ export default function LinkBuilderPage() {
                   onClick={() => toggleProvider(provider.id)}
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                     selectedProviders.includes(provider.id)
-                      ? 'bg-pink-500 text-white'
+                      ? 'bg-[#FF2D8E] text-white'
                       : 'bg-white text-black hover:bg-white'
                   }`}
                 >
@@ -330,7 +330,7 @@ export default function LinkBuilderPage() {
               >
                 <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                   selectedServices.length === filteredServices.length && filteredServices.length > 0
-                    ? 'border-pink-500 bg-pink-500'
+                    ? 'border-[#FF2D8E] bg-[#FF2D8E]'
                     : 'border-black'
                 }`}>
                   {selectedServices.length === filteredServices.length && filteredServices.length > 0 && (
@@ -355,7 +355,7 @@ export default function LinkBuilderPage() {
                   <div className="flex items-center gap-2">
                     <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                       selectedServices.includes(service.id)
-                        ? 'border-pink-500 bg-pink-500'
+                        ? 'border-[#FF2D8E] bg-[#FF2D8E]'
                         : 'border-black'
                     }`}>
                       {selectedServices.includes(service.id) && (
@@ -378,7 +378,7 @@ export default function LinkBuilderPage() {
           <div className="flex justify-end">
             <button
               onClick={handleGenerateLink}
-              className="px-6 py-3 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 transition-colors"
+              className="px-6 py-3 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-black transition-colors"
             >
               Generate Link
             </button>
@@ -404,7 +404,7 @@ export default function LinkBuilderPage() {
             </button>
             <button
               onClick={() => generateLink(selectedType, [], [])}
-              className="px-6 py-3 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 transition-colors"
+              className="px-6 py-3 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-black transition-colors"
             >
               Generate Link
             </button>
@@ -438,7 +438,7 @@ export default function LinkBuilderPage() {
                 className={`px-4 py-3 rounded-lg font-medium transition-all ${
                   copied
                     ? 'bg-green-500 text-white'
-                    : 'bg-pink-500 text-white hover:bg-pink-600'
+                    : 'bg-[#FF2D8E] text-white hover:bg-black'
                 }`}
               >
                 {copied ? '✓ Copied!' : 'Copy'}

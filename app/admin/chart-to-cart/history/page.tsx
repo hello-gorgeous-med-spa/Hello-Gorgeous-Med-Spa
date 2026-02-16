@@ -112,7 +112,7 @@ export default function SessionHistoryPage() {
         </div>
         <Link
           href="/admin/chart-to-cart/new"
-          className="px-5 py-2.5 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors font-medium flex items-center gap-2"
+          className="px-5 py-2.5 bg-[#FF2D8E] text-white rounded-xl hover:bg-black transition-colors font-medium flex items-center gap-2"
         >
           <span>➕</span> New Session
         </Link>
@@ -170,7 +170,7 @@ export default function SessionHistoryPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by client or treatment..."
-              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
             />
           </div>
           <div className="flex items-center gap-2">

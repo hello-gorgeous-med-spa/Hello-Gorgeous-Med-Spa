@@ -188,7 +188,7 @@ export default function MembershipManagePage() {
           <h1 className="text-2xl font-bold text-black">Membership Management</h1>
           <p className="text-black">Manage active subscriptions and member benefits</p>
         </div>
-        <button className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600">
+        <button className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black">
           + Add Member
         </button>
       </div>
@@ -341,7 +341,7 @@ export default function MembershipManagePage() {
               setPlanForm({ name: '', price: 0, billing_cycle: 'monthly', commitment: 'month-to-month', benefits: '' });
               setShowPlanModal(true);
             }}
-            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 text-sm"
+            className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black text-sm"
           >
             + Add Plan
           </button>
@@ -371,7 +371,7 @@ export default function MembershipManagePage() {
                 </button>
               </div>
               <h3 className="font-semibold text-black">{plan.name}</h3>
-              <p className="text-2xl font-bold text-pink-500 mt-1">
+              <p className="text-2xl font-bold text-[#FF2D8E] mt-1">
                 ${plan.price}<span className="text-sm text-black font-normal">/{plan.billing_cycle}</span>
               </p>
               <p className="text-xs text-black mb-3">{plan.commitment}</p>
@@ -390,7 +390,7 @@ export default function MembershipManagePage() {
 
       {/* Plan Edit Modal */}
       {showPlanModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full">
             <div className="p-6 border-b border-black">
               <h2 className="text-xl font-bold text-black">{editingPlan ? 'Edit Plan' : 'Add Plan'}</h2>
@@ -452,7 +452,7 @@ export default function MembershipManagePage() {
             </div>
             <div className="p-6 border-t border-black flex justify-end gap-3">
               <button onClick={() => { setShowPlanModal(false); setEditingPlan(null); }} className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg">Cancel</button>
-              <button onClick={handleSavePlan} disabled={saving || !planForm.name || planForm.price <= 0} className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50">
+              <button onClick={handleSavePlan} disabled={saving || !planForm.name || planForm.price <= 0} className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50">
                 {saving ? 'Saving...' : editingPlan ? 'Save Changes' : 'Create Plan'}
               </button>
             </div>
@@ -462,7 +462,7 @@ export default function MembershipManagePage() {
 
       {/* Member Detail Modal */}
       {selectedMembership && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-lg w-full">
             <div className="p-6 border-b border-black">
               <h2 className="text-xl font-bold text-black">

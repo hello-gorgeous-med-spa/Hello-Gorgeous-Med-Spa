@@ -205,7 +205,7 @@ export default function MarketingAssistantPage() {
                   <div className="flex gap-2 flex-shrink-0">
                     <button
                       onClick={() => setSelectedSuggestion(suggestion)}
-                      className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+                      className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
                     >
                       Review & Send
                     </button>
@@ -247,7 +247,7 @@ export default function MarketingAssistantPage() {
 
       {/* Campaign Preview Modal */}
       {selectedSuggestion && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-hidden">
             <div className="p-6 border-b border-black">
               <div className="flex items-center gap-3">
@@ -296,7 +296,7 @@ export default function MarketingAssistantPage() {
                 <button
                   onClick={() => handleSendCampaign(selectedSuggestion)}
                   disabled={sending}
-                  className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                  className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
                 >
                   {sending ? 'Sending...' : 'Send Campaign'}
                 </button>

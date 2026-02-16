@@ -64,10 +64,10 @@ export default function ModeSwitcher({ variant = 'tabs', showDescription = false
               className={`
                 flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm font-medium transition-all
                 ${isActive 
-                  ? mode.color === 'pink' ? 'bg-pink-500 text-white' :
+                  ? mode.color === 'pink' ? 'bg-[#FF2D8E] text-white' :
                     mode.color === 'amber' ? 'bg-amber-500 text-white' :
                     'bg-emerald-500 text-white'
-                  : 'text-black hover:text-pink-400 hover:bg-pink-500/10'
+                  : 'text-black hover:text-[#FF2D8E] hover:bg-[#FF2D8E]/10'
                 }
               `}
             >
@@ -82,7 +82,7 @@ export default function ModeSwitcher({ variant = 'tabs', showDescription = false
 
   if (variant === 'pills') {
     return (
-      <div className="flex items-center gap-2 p-1 bg-black/50 rounded-xl">
+      <div className="flex items-center gap-2 p-1 bg-white rounded-xl">
         {MODES.map((mode) => {
           const isActive = mode.id === activeMode;
           return (
@@ -92,8 +92,8 @@ export default function ModeSwitcher({ variant = 'tabs', showDescription = false
               className={`
                 flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all
                 ${isActive 
-                  ? 'bg-pink-500 text-white shadow-lg' 
-                  : 'text-black hover:text-pink-400'
+                  ? 'bg-[#FF2D8E] text-white shadow-lg' 
+                  : 'text-black hover:text-[#FF2D8E]'
                 }
               `}
             >
@@ -112,8 +112,8 @@ export default function ModeSwitcher({ variant = 'tabs', showDescription = false
       {MODES.map((mode, index) => {
         const isActive = mode.id === activeMode;
         const colorClasses = {
-          pink: isActive ? 'border-pink-500 text-pink-400 bg-pink-500/10' : 'border-transparent text-black hover:text-pink-400 hover:border-pink-500/50',
-          amber: isActive ? 'border-amber-500 text-amber-400 bg-amber-500/10' : 'border-transparent text-black hover:text-amber-400 hover:border-amber-500/50',
+          pink: isActive ? 'border-[#FF2D8E] text-[#FF2D8E] bg-[#FF2D8E]/10' : 'border-transparent text-black hover:text-[#FF2D8E] hover:border-[#FF2D8E]/50',
+          amber: isActive ? 'border-[#FF2D8E] text-[#FF2D8E] bg-amber-500/10' : 'border-transparent text-black hover:text-[#FF2D8E] hover:border-[#FF2D8E]/50',
           emerald: isActive ? 'border-emerald-500 text-emerald-400 bg-emerald-500/10' : 'border-transparent text-black hover:text-emerald-400 hover:border-emerald-500/50',
         };
         
@@ -165,8 +165,8 @@ export function ModeSwitcherMobile() {
             className={`
               flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all
               ${isActive 
-                ? mode.color === 'pink' ? 'bg-pink-500/20 text-pink-400' :
-                  mode.color === 'amber' ? 'bg-amber-500/20 text-amber-400' :
+                ? mode.color === 'pink' ? 'bg-[#FF2D8E]/20 text-[#FF2D8E]' :
+                  mode.color === 'amber' ? 'bg-amber-500/20 text-[#FF2D8E]' :
                   'bg-emerald-500/20 text-emerald-400'
                 : 'text-black'
               }

@@ -173,7 +173,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
   );
 
   return (
-    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50">
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-white">
       <div className="bg-white rounded-2xl shadow-xl max-w-md w-full max-h-[90vh] overflow-hidden flex flex-col">
         <div className="flex items-center justify-between px-4 py-3 border-b border-black">
           <h2 className="font-semibold text-black">
@@ -198,7 +198,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
               <button
                 type="button"
                 onClick={onClose}
-                className="mt-6 px-6 py-2.5 bg-pink-500 text-white font-medium rounded-xl hover:bg-pink-600"
+                className="mt-6 px-6 py-2.5 bg-[#FF2D8E] text-white font-medium rounded-xl hover:bg-black"
               >
                 Done
               </button>
@@ -301,7 +301,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                     }}
                     className={`flex-shrink-0 px-3 py-2 rounded-lg text-sm ${
                       selectedDate?.toDateString() === d.toDateString()
-                        ? "bg-pink-500 text-white"
+                        ? "bg-[#FF2D8E] text-white"
                         : "bg-white text-black"
                     }`}
                   >
@@ -324,7 +324,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                           type="button"
                           onClick={() => setSelectedTime(time)}
                           className={`py-2 rounded-lg text-sm font-medium ${
-                            selectedTime === time ? "bg-pink-500 text-white" : "bg-white text-black"
+                            selectedTime === time ? "bg-[#FF2D8E] text-white" : "bg-white text-black"
                           }`}
                         >
                           {time}
@@ -346,7 +346,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                   type="button"
                   onClick={() => setStep("info")}
                   disabled={!selectedDate || !selectedTime}
-                  className="flex-1 py-2.5 bg-pink-500 text-white font-medium rounded-xl disabled:opacity-50"
+                  className="flex-1 py-2.5 bg-[#FF2D8E] text-white font-medium rounded-xl disabled:opacity-50"
                 >
                   Continue
                 </button>
@@ -412,14 +412,14 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                 <button
                   type="button"
                   onClick={() => setForm((f) => ({ ...f, isNewClient: true }))}
-                  className={`flex-1 py-2 rounded-lg text-sm ${form.isNewClient ? "bg-pink-500 text-white" : "bg-white"}`}
+                  className={`flex-1 py-2 rounded-lg text-sm ${form.isNewClient ? "bg-[#FF2D8E] text-white" : "bg-white"}`}
                 >
                   New client
                 </button>
                 <button
                   type="button"
                   onClick={() => setForm((f) => ({ ...f, isNewClient: false }))}
-                  className={`flex-1 py-2 rounded-lg text-sm ${!form.isNewClient ? "bg-pink-500 text-white" : "bg-white"}`}
+                  className={`flex-1 py-2 rounded-lg text-sm ${!form.isNewClient ? "bg-[#FF2D8E] text-white" : "bg-white"}`}
                 >
                   Returning
                 </button>
@@ -429,7 +429,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                   type="checkbox"
                   checked={form.agreeToSMS}
                   onChange={(e) => setForm((f) => ({ ...f, agreeToSMS: e.target.checked }))}
-                  className="rounded border-black text-pink-500"
+                  className="rounded border-black text-[#FF2D8E]"
                 />
                 Send reminders by text
               </label>
@@ -438,7 +438,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                   type="checkbox"
                   checked={form.agreeToTerms}
                   onChange={(e) => setForm((f) => ({ ...f, agreeToTerms: e.target.checked }))}
-                  className="mt-0.5 rounded border-black text-pink-500"
+                  className="mt-0.5 rounded border-black text-[#FF2D8E]"
                 />
                 I agree to the cancellation policy and terms *
               </label>
@@ -455,7 +455,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                   type="button"
                   onClick={handleSubmit}
                   disabled={!canSubmitInfo || submitting}
-                  className="flex-1 py-2.5 bg-pink-500 text-white font-medium rounded-xl disabled:opacity-50"
+                  className="flex-1 py-2.5 bg-[#FF2D8E] text-white font-medium rounded-xl disabled:opacity-50"
                 >
                   {submitting ? "Booking…" : "Book it"}
                 </button>

@@ -139,7 +139,7 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
           <div className="absolute inset-0 bg-white" />
           <div className="relative z-10">
             <FadeUp>
-              <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
+              <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">
                 {cityLabel.toUpperCase()}
               </p>
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
@@ -351,7 +351,7 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
           <div className="absolute inset-0 bg-white" />
           <div className="relative z-10">
             <FadeUp>
-              <p className="text-pink-400 text-lg md:text-xl font-medium mb-6 tracking-wide">
+              <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">
                 MED SPA NEAR YOU
               </p>
               <h1 className="text-4xl md:text-6xl font-bold leading-tight">
@@ -457,7 +457,7 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
                 className="block rounded-2xl border-2 border-black bg-white p-6 hover:border-[#FF2D8E] transition-colors"
               >
                 <h3 className="text-lg font-bold text-black">{svc.name}</h3>
-                <p className="mt-2 text-sm text-pink-400">Learn more →</p>
+                <p className="mt-2 text-sm text-[#FF2D8E]">Learn more →</p>
               </Link>
             ))}
           </div>

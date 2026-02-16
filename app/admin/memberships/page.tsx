@@ -54,7 +54,7 @@ export default function AdminMembershipsPage() {
         </div>
         <Link
           href="/admin/memberships/manage"
-          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 inline-block"
+          className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black inline-block"
         >
           + Add Member
         </Link>
@@ -113,19 +113,19 @@ export default function AdminMembershipsPage() {
           </div>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-          <div className="bg-white/10 rounded-lg p-3">
+          <div className="bg-white rounded-lg p-3">
             <p className="text-sm text-purple-100">Free Service</p>
             <p className="font-semibold">Up to $75</p>
           </div>
-          <div className="bg-white/10 rounded-lg p-3">
+          <div className="bg-white rounded-lg p-3">
             <p className="text-sm text-purple-100">Botox Discount</p>
             <p className="font-semibold">$10/unit</p>
           </div>
-          <div className="bg-white/10 rounded-lg p-3">
+          <div className="bg-white rounded-lg p-3">
             <p className="text-sm text-purple-100">Filler Discount</p>
             <p className="font-semibold">15% off</p>
           </div>
-          <div className="bg-white/10 rounded-lg p-3">
+          <div className="bg-white rounded-lg p-3">
             <p className="text-sm text-purple-100">Priority</p>
             <p className="font-semibold">Booking</p>
           </div>

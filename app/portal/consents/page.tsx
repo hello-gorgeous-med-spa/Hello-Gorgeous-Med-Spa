@@ -164,7 +164,7 @@ export default function ConsentsPage() {
       {/* Pending Forms */}
       <div className="bg-white rounded-2xl border border-[#000000]/10 p-6">
         <h2 className="font-semibold text-[#000000] mb-4 flex items-center gap-2">
-          <span className="text-amber-500">⚠️</span> Forms to Complete
+          <span className="text-[#FF2D8E]">⚠️</span> Forms to Complete
         </h2>
         <div className="space-y-3">
           {['hipaa', 'general_consent', 'botox_consent', 'filler_consent'].map((formType) => {
@@ -216,7 +216,7 @@ export default function ConsentsPage() {
 
       {/* Signing Modal */}
       {activeForm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b border-[#000000]/10">
               <h2 className="text-xl font-bold text-[#000000]">{FORM_CONTENT[activeForm]?.title}</h2>

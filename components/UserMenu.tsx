@@ -30,7 +30,7 @@ export function UserMenu() {
     return (
       <Link
         href="/login"
-        className="flex items-center gap-2 px-4 py-2 bg-pink-500 hover:bg-pink-600 rounded-lg text-white text-sm font-medium transition-colors"
+        className="flex items-center gap-2 px-4 py-2 bg-[#FF2D8E] hover:bg-black rounded-lg text-white text-sm font-medium transition-colors"
       >
         Sign In
       </Link>
@@ -41,7 +41,7 @@ export function UserMenu() {
 
   const roleColors: Record<string, string> = {
     owner: 'bg-amber-500',
-    admin: 'bg-pink-500',
+    admin: 'bg-[#FF2D8E]',
     provider: 'bg-purple-500',
     staff: 'bg-blue-500',
     client: 'bg-green-500',
@@ -68,7 +68,7 @@ export function UserMenu() {
           {user.firstName || user.email.split('@')[0]}
         </span>
         <svg
-          className={`w-4 h-4 text-white/70 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 text-black transition-transform ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"

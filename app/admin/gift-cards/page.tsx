@@ -226,7 +226,7 @@ export default function GiftCardsPage() {
           </button>
           <button
             onClick={() => setShowSellModal(true)}
-            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+            className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
           >
             + Sell Gift Card
           </button>
@@ -288,7 +288,7 @@ export default function GiftCardsPage() {
             placeholder="Search by code or recipient..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+            className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
           />
         </div>
         <select
@@ -409,7 +409,7 @@ export default function GiftCardsPage() {
 
       {/* Create Gift Card Modal */}
       {showSellModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full">
             <div className="p-6 border-b border-black">
               <h2 className="text-xl font-bold text-black">Create Gift Card</h2>
@@ -423,7 +423,7 @@ export default function GiftCardsPage() {
                       key={amt}
                       type="button"
                       onClick={() => setCreateForm({...createForm, initial_amount: amt})}
-                      className={`px-3 py-2 rounded-lg border ${createForm.initial_amount === amt ? 'border-pink-500 bg-pink-50 text-pink-700' : 'border-black text-black'}`}
+                      className={`px-3 py-2 rounded-lg border ${createForm.initial_amount === amt ? 'border-[#FF2D8E] bg-pink-50 text-pink-700' : 'border-black text-black'}`}
                     >
                       ${amt}
                     </button>
@@ -564,7 +564,7 @@ export default function GiftCardsPage() {
               <button
                 onClick={handleCreateGiftCard}
                 disabled={saving || createForm.initial_amount <= 0}
-                className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
               >
                 {saving ? 'Creating...' : `Create $${createForm.initial_amount} Gift Card`}
               </button>
@@ -575,7 +575,7 @@ export default function GiftCardsPage() {
 
       {/* Redeem Gift Card Modal */}
       {showRedeemModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full">
             <div className="p-6 border-b border-black">
               <h2 className="text-xl font-bold text-black">Redeem Gift Card</h2>
@@ -608,7 +608,7 @@ export default function GiftCardsPage() {
               <button
                 onClick={handleRedeemGiftCard}
                 disabled={saving || !redeemForm.code || redeemForm.amount <= 0}
-                className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
               >
                 {saving ? 'Redeeming...' : `Redeem $${redeemForm.amount || 0}`}
               </button>

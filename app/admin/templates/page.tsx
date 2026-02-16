@@ -169,7 +169,7 @@ export default function MessageTemplatesPage() {
           </select>
           <button
             onClick={() => setShowAddModal(true)}
-            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+            className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
           >
             + New Template
           </button>
@@ -213,7 +213,7 @@ export default function MessageTemplatesPage() {
                         });
                       }}
                       className={`w-full text-left px-4 py-3 hover:bg-white transition-colors ${
-                        selectedTemplate?.id === template.id ? 'bg-pink-50 border-l-4 border-pink-500' : ''
+                        selectedTemplate?.id === template.id ? 'bg-pink-50 border-l-4 border-[#FF2D8E]' : ''
                       }`}
                     >
                       <div className="flex items-center gap-2">
@@ -249,7 +249,7 @@ export default function MessageTemplatesPage() {
                 <button
                   onClick={handleSave}
                   disabled={saving}
-                  className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                  className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
                 >
                   {saving ? 'Saving...' : 'Save Changes'}
                 </button>
@@ -338,7 +338,7 @@ export default function MessageTemplatesPage() {
 
       {/* Add Template Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-lg w-full">
             <div className="p-6 border-b border-black">
               <h2 className="text-xl font-bold text-black">New Template</h2>
@@ -406,7 +406,7 @@ export default function MessageTemplatesPage() {
               <button
                 onClick={handleCreate}
                 disabled={saving || !newTemplate.name || !newTemplate.body}
-                className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
               >
                 {saving ? 'Creating...' : 'Create Template'}
               </button>

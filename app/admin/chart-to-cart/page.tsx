@@ -102,7 +102,7 @@ export default function ChartToCartPage() {
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 bg-pink-500 rounded-xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-[#FF2D8E] rounded-xl flex items-center justify-center">
                   <span className="text-2xl">🛒</span>
                 </div>
                 <div>
@@ -117,7 +117,7 @@ export default function ChartToCartPage() {
             </div>
             <Link
               href="/admin/chart-to-cart/new"
-              className="px-6 py-3 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors font-semibold flex items-center gap-2 shadow-lg shadow-pink-500/20"
+              className="px-6 py-3 bg-[#FF2D8E] text-white rounded-xl hover:bg-black transition-colors font-semibold flex items-center gap-2 shadow-lg shadow-[#FF2D8E]/20"
             >
               <span>➕</span> New Treatment Session
             </Link>
@@ -161,7 +161,7 @@ export default function ChartToCartPage() {
                 <p className="text-4xl font-bold text-black mt-1">${todayRevenue.toLocaleString()}</p>
                 <p className="text-xs text-pink-600 mt-1">From chart-to-cart</p>
               </div>
-              <div className="w-14 h-14 bg-gradient-to-br from-pink-400 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg shadow-pink-500/30">
+              <div className="w-14 h-14 bg-gradient-to-br from-pink-400 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg shadow-[#FF2D8E]/30">
                 <span className="text-2xl">💰</span>
               </div>
             </div>
@@ -214,7 +214,7 @@ export default function ChartToCartPage() {
           </div>
 
           <div className="bg-gradient-to-br from-pink-50 to-white rounded-2xl border border-pink-100 p-5">
-            <div className="w-10 h-10 bg-pink-500 rounded-xl flex items-center justify-center text-white mb-3">
+            <div className="w-10 h-10 bg-[#FF2D8E] rounded-xl flex items-center justify-center text-white mb-3">
               <span className="text-lg">📦</span>
             </div>
             <h3 className="font-bold text-black">Real-Time Inventory</h3>
@@ -290,7 +290,7 @@ export default function ChartToCartPage() {
             </p>
             <Link
               href="/admin/chart-to-cart/new"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white rounded-xl hover:from-pink-600 hover:to-fuchsia-600 transition-all font-semibold mt-8 shadow-lg shadow-pink-500/25"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 to-fuchsia-500 text-white rounded-xl hover:from-pink-600 hover:to-fuchsia-600 transition-all font-semibold mt-8 shadow-lg shadow-[#FF2D8E]/25"
             >
               <span>➕</span> Start New Session
             </Link>
@@ -318,7 +318,7 @@ export default function ChartToCartPage() {
                 <div className="p-6 border-b border-black">
                   <div className="flex items-start justify-between">
                     <div className="flex items-start gap-4">
-                      <div className="w-14 h-14 bg-gradient-to-br from-pink-400 to-fuchsia-600 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-pink-500/20">
+                      <div className="w-14 h-14 bg-gradient-to-br from-pink-400 to-fuchsia-600 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-[#FF2D8E]/20">
                         {session.client_name.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div>

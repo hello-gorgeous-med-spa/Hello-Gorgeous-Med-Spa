@@ -244,7 +244,7 @@ export default function AdminLayout({
             {/* Sidebar - Clinical Aesthetic Record style */}
             <aside className="w-64 bg-white min-h-[calc(100vh-56px)] sticky top-14 hidden lg:block overflow-y-auto shadow-sm border-r border-black">
               {/* Quick links */}
-              <div className="p-3 border-b border-black bg-white/50">
+              <div className="p-3 border-b border-black bg-white0">
                 <Link
                   href="/admin/owner/live-state"
                   className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all ${

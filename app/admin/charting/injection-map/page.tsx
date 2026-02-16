@@ -267,7 +267,7 @@ function InjectionMapContent() {
           >
             {selectedClient ? (
               <>
-                <div className="w-8 h-8 rounded-full bg-pink-500 text-white flex items-center justify-center font-semibold text-sm">
+                <div className="w-8 h-8 rounded-full bg-[#FF2D8E] text-white flex items-center justify-center font-semibold text-sm">
                   {selectedClient.first_name[0]}{selectedClient.last_name[0]}
                 </div>
                 <span className="font-medium">{selectedClient.first_name} {selectedClient.last_name}</span>
@@ -364,7 +364,7 @@ function InjectionMapContent() {
           <button
             onClick={handleSave}
             disabled={saving || !selectedClientId || points.length === 0}
-            className="px-5 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed text-sm"
+            className="px-5 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed text-sm"
           >
             {saving ? 'Saving...' : 'Save Map'}
           </button>
@@ -655,7 +655,7 @@ function InjectionMapContent() {
 
       {/* Point Editor Modal */}
       {showPointEditor && editingPoint && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl w-full max-w-sm shadow-xl">
             <div className="p-4 border-b border-black flex items-center justify-between">
               <h3 className="font-semibold text-black">Edit Injection Point</h3>
@@ -777,7 +777,7 @@ function InjectionMapContent() {
                   setShowPointEditor(false);
                   setEditingPoint(null);
                 }}
-                className="px-4 py-2 bg-pink-500 text-white rounded-lg text-sm font-medium hover:bg-pink-600"
+                className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg text-sm font-medium hover:bg-black"
               >
                 Done
               </button>
@@ -794,7 +794,7 @@ export default function InjectionMapPage() {
     <Suspense fallback={
       <div className="h-screen flex items-center justify-center bg-white">
         <div className="text-center">
-          <div className="w-10 h-10 border-2 border-pink-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
+          <div className="w-10 h-10 border-2 border-[#FF2D8E] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
           <p className="text-black">Loading...</p>
         </div>
       </div>

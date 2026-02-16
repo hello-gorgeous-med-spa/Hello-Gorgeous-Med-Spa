@@ -131,7 +131,7 @@ export function PortalLabsPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="your@email.com"
-            className="mt-3 w-full max-w-md px-4 py-2 rounded-lg border border-amber-300 focus:ring-2 focus:ring-amber-500 focus:border-amber-500 outline-none"
+            className="mt-3 w-full max-w-md px-4 py-2 rounded-lg border border-amber-300 focus:ring-2 focus:ring-amber-500 focus:border-[#FF2D8E] outline-none"
           />
           <p className="mt-2 text-amber-700 text-xs">
             Not a member? <Link href="/memberships" className="font-semibold underline">Join a wellness program</Link>
@@ -179,7 +179,7 @@ export function PortalLabsPage() {
             <button
               type="button"
               onClick={() => openChat("harmony", { source: "client_portal", topics: ["lab results", "hormones", "interpretation"] })}
-              className="w-full rounded-2xl border-2 border-amber-500/30 bg-gradient-to-r from-amber-500/10 to-rose-500/10 p-4 text-left hover:border-amber-500/50 hover:shadow-md transition-all"
+              className="w-full rounded-2xl border-2 border-[#FF2D8E]/30 bg-gradient-to-r from-amber-500/10 to-rose-500/10 p-4 text-left hover:border-[#FF2D8E]/50 hover:shadow-md transition-all"
             >
               <div className="flex items-center gap-3">
                 <span className="text-2xl">⚖️</span>
@@ -244,7 +244,7 @@ export function PortalLabsPage() {
                 <button
                   onClick={handleAcceptDisclaimer}
                   disabled={!disclaimerAccepted}
-                  className="px-6 py-3 bg-pink-500 text-white font-semibold rounded-full hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="px-6 py-3 bg-[#FF2D8E] text-white font-semibold rounded-full hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   Continue
                 </button>
@@ -291,7 +291,7 @@ export function PortalLabsPage() {
                   <button
                     onClick={handleUpload}
                     disabled={!file || loading}
-                    className="px-6 py-3 bg-pink-500 text-white font-semibold rounded-full hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="px-6 py-3 bg-[#FF2D8E] text-white font-semibold rounded-full hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Analyze
                   </button>
@@ -321,7 +321,7 @@ export function PortalLabsPage() {
                 <div className="flex flex-wrap gap-3 print:hidden">
                   <button
                     onClick={handlePrint}
-                    className="px-6 py-3 bg-pink-500 text-white font-semibold rounded-full hover:opacity-90"
+                    className="px-6 py-3 bg-[#FF2D8E] text-white font-semibold rounded-full hover:opacity-90"
                   >
                     Download PDF (Print)
                   </button>

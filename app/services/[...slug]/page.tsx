@@ -71,9 +71,9 @@ function CategoryPage({ categoryId }: { categoryId: ServiceAtlasClusterId }) {
         <div className="absolute inset-0 bg-gradient-to-b from-pink-100 via-pink-50 to-white" />
         <div className="relative z-10">
           <FadeUp>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/20 mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-6">
               <span className="text-2xl">{cluster.icon}</span>
-              <span className="text-pink-400 text-sm font-semibold uppercase tracking-wider">Service Category</span>
+              <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Service Category</span>
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight">
               <span className="text-black">{cluster.title.split(' ')[0]} </span>
@@ -331,11 +331,11 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             {cluster && (
               <Link 
                 href={`/services/${cluster.id}`}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/20 mb-6 hover:bg-pink-500/20 transition-colors"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-6 hover:bg-[#FF2D8E]/20 transition-colors"
               >
                 <span className="text-xl">{cluster.icon}</span>
-                <span className="text-pink-400 text-sm font-medium">{cluster.title}</span>
-                <svg className="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span className="text-[#FF2D8E] text-sm font-medium">{cluster.title}</span>
+                <svg className="w-4 h-4 text-[#FF2D8E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>
               </Link>
@@ -360,7 +360,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             </div>
             
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
-              <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-8 py-4 shadow-xl shadow-pink-500/20">
+              <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-8 py-4 shadow-xl shadow-[#FF2D8E]/20">
                 Book Now — Limited Availability
               </CTA>
               <CTA href="/contact" variant="outline" className="text-lg px-8 py-4">
@@ -480,7 +480,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
           <div className="lg:col-span-7">
             <FadeUp>
               <div className="p-8 rounded-2xl bg-gradient-to-br from-white to-white border-2 border-black">
-                <div className="flex items-center gap-1 text-pink-400 mb-4">
+                <div className="flex items-center gap-1 text-[#FF2D8E] mb-4">
                   {[...Array(5)].map((_, i) => (
                     <svg key={i} className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
@@ -532,8 +532,8 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         <Section>
           <FadeUp>
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/20 mb-4">
-                <span className="text-pink-400 text-sm font-semibold uppercase tracking-wider">Real Results</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-4">
+                <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Real Results</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
                 Before & After
@@ -588,8 +588,8 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         <Section>
           <FadeUp>
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/20 mb-4">
-                <span className="text-fuchsia-400 text-sm font-semibold uppercase tracking-wider">Real Results</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-4">
+                <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Real Results</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
                 Before & After
@@ -644,8 +644,8 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         <Section className="bg-gradient-to-b from-white/50 via-white to-pink-50/50">
           <FadeUp>
             <div className="text-center mb-12">
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 mb-4">
-                <span className="text-amber-400 text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-[#FF2D8E]/20 mb-4">
+                <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
                 Formulations, Prescriptions & Safety
@@ -894,8 +894,8 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         <Section className="bg-gradient-to-b from-transparent via-pink-950/10 to-transparent">
           <FadeUp>
             <div className="text-center mb-12">
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-pink-500/10 border border-pink-500/20 mb-4">
-                <span className="text-pink-400 text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-4">
+                <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
                 Neurotoxins, Safety &{" "}
@@ -912,10 +912,10 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             <FadeUp delayMs={60}>
               <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-white to-white">
-                <h3 className="text-lg font-bold text-pink-400 mb-3 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
                   <span>💉</span> Products We Use
                 </h3>
-                <div className="mb-4 rounded-xl overflow-hidden bg-white/5 border border-white/10">
+                <div className="mb-4 rounded-xl overflow-hidden bg-white border border-black">
                   <Image
                     src="/images/jeuveau-product.png"
                     alt="Jeuveau neuromodulator vial and syringe - FDA-approved botulinum toxin type A at Hello Gorgeous Med Spa"
@@ -934,7 +934,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             </FadeUp>
             <FadeUp delayMs={80}>
               <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-white to-white">
-                <h3 className="text-lg font-bold text-pink-400 mb-3 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
                   <span>🎯</span> Treatment Areas
                 </h3>
                 <ul className="text-black/80 text-sm space-y-2">
@@ -950,7 +950,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             </FadeUp>
             <FadeUp delayMs={100}>
               <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-white to-white">
-                <h3 className="text-lg font-bold text-pink-400 mb-3 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
                   <span>⚠️</span> Contraindications
                 </h3>
                 <p className="text-black/80 text-sm leading-relaxed mb-2">
@@ -969,7 +969,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             </FadeUp>
             <FadeUp delayMs={120}>
               <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-white to-white">
-                <h3 className="text-lg font-bold text-pink-400 mb-3 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
                   <span>📋</span> What to Expect
                 </h3>
                 <p className="text-black/80 text-sm leading-relaxed mb-2">
@@ -1086,12 +1086,12 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         <Section className="bg-gradient-to-b from-transparent via-fuchsia-950/10 to-transparent">
           <FadeUp>
             <div className="text-center mb-12">
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-fuchsia-500/10 border border-fuchsia-500/20 mb-4">
-                <span className="text-fuchsia-400 text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-4">
+                <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
                 Products, Safety &{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-pink-400">
+                <span className="text-transparent bg-clip-text bg-[#FF2D8E]">
                   What to Expect
                 </span>
               </h2>
@@ -1104,7 +1104,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
           <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
             <FadeUp delayMs={60}>
               <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-white to-white">
-                <h3 className="text-lg font-bold text-fuchsia-400 mb-3 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
                   <span>✨</span> Products We Use
                 </h3>
                 <p className="text-black/80 text-sm leading-relaxed mb-3">
@@ -1117,7 +1117,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             </FadeUp>
             <FadeUp delayMs={80}>
               <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-white to-white">
-                <h3 className="text-lg font-bold text-fuchsia-400 mb-3 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
                   <span>🎯</span> Treatment Areas & Benefits
                 </h3>
                 <ul className="text-black/80 text-sm space-y-2">
@@ -1132,7 +1132,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             </FadeUp>
             <FadeUp delayMs={100}>
               <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-white to-white">
-                <h3 className="text-lg font-bold text-fuchsia-400 mb-3 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
                   <span>⚠️</span> Contraindications
                 </h3>
                 <p className="text-black/80 text-sm leading-relaxed mb-2">
@@ -1152,7 +1152,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             </FadeUp>
             <FadeUp delayMs={120}>
               <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-white to-white">
-                <h3 className="text-lg font-bold text-fuchsia-400 mb-3 flex items-center gap-2">
+                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
                   <span>📋</span> What to Expect
                 </h3>
                 <p className="text-black/80 text-sm leading-relaxed mb-2">
@@ -1226,8 +1226,8 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               <details className="group rounded-2xl border-2 border-black bg-gradient-to-br from-white to-white overflow-hidden">
                 <summary className="cursor-pointer p-6 flex items-center justify-between text-lg font-semibold text-black hover:text-[#FF2D8E] transition-colors">
                   <span>{f.question}</span>
-                  <span className="ml-4 flex-shrink-0 w-8 h-8 rounded-full bg-pink-500/10 flex items-center justify-center group-open:rotate-45 transition-transform">
-                    <svg className="w-4 h-4 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <span className="ml-4 flex-shrink-0 w-8 h-8 rounded-full bg-[#FF2D8E]/10 flex items-center justify-center group-open:rotate-45 transition-transform">
+                    <svg className="w-4 h-4 text-[#FF2D8E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                     </svg>
                   </span>
@@ -1259,7 +1259,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               Our expert team is ready to create your personalized treatment plan.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-10 py-4 shadow-xl shadow-pink-500/25">
+              <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-10 py-4 shadow-xl shadow-[#FF2D8E]/25">
                 Book Your Consultation Now
               </CTA>
               <CTA href="/contact" variant="outline" className="text-lg px-10 py-4">

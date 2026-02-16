@@ -238,7 +238,7 @@ How can I help you today?`,
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="text-white/80 hover:text-white text-xl"
+              className="text-black hover:text-white text-xl"
             >
               ×
             </button>
@@ -254,7 +254,7 @@ How can I help you today?`,
                 <div
                   className={`max-w-[80%] rounded-2xl px-4 py-2 ${
                     message.role === 'user'
-                      ? 'bg-pink-500 text-white'
+                      ? 'bg-[#FF2D8E] text-white'
                       : 'bg-white text-black'
                   }`}
                 >
@@ -267,9 +267,9 @@ How can I help you today?`,
               <div className="flex justify-start">
                 <div className="bg-white rounded-2xl px-4 py-3">
                   <div className="flex gap-1">
-                    <span className="w-2 h-2 bg-black/30 rounded-full animate-bounce" />
-                    <span className="w-2 h-2 bg-black/30 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-                    <span className="w-2 h-2 bg-black/30 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                    <span className="w-2 h-2 bg-white rounded-full animate-bounce" />
+                    <span className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
+                    <span className="w-2 h-2 bg-white rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
                   </div>
                 </div>
               </div>
@@ -310,12 +310,12 @@ How can I help you today?`,
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask me anything..."
-                className="flex-1 px-4 py-2 border border-black rounded-full focus:outline-none focus:border-pink-500"
+                className="flex-1 px-4 py-2 border border-black rounded-full focus:outline-none focus:border-[#FF2D8E]"
               />
               <button
                 type="submit"
                 disabled={!input.trim() || isTyping}
-                className="w-10 h-10 bg-pink-500 text-white rounded-full flex items-center justify-center hover:bg-pink-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-10 h-10 bg-[#FF2D8E] text-white rounded-full flex items-center justify-center hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 ↑
               </button>

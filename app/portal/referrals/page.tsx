@@ -131,7 +131,7 @@ export default function ReferralsPage() {
             <div className="flex gap-3">
               <button
                 onClick={handleShare}
-                className="flex-1 px-4 py-3 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+                className="flex-1 px-4 py-3 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
               >
                 Share Code
               </button>
@@ -209,21 +209,21 @@ export default function ReferralsPage() {
         <h3 className="font-semibold text-black mb-4">How It Works</h3>
         <div className="grid md:grid-cols-3 gap-4">
           <div className="flex gap-3">
-            <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
+            <div className="w-8 h-8 bg-[#FF2D8E] text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
             <div>
               <p className="font-medium text-black">Share Your Code</p>
               <p className="text-sm text-black">Send your unique code to friends</p>
             </div>
           </div>
           <div className="flex gap-3">
-            <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
+            <div className="w-8 h-8 bg-[#FF2D8E] text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
             <div>
               <p className="font-medium text-black">They Book</p>
               <p className="text-sm text-black">They get ${REFERRAL_CONFIG.refereeReward.value} off their first visit</p>
             </div>
           </div>
           <div className="flex gap-3">
-            <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
+            <div className="w-8 h-8 bg-[#FF2D8E] text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
             <div>
               <p className="font-medium text-black">You Earn</p>
               <p className="text-sm text-black">Get ${REFERRAL_CONFIG.referrerReward.value} credited to your account</p>

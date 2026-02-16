@@ -370,7 +370,7 @@ export function VirtualTryOn() {
                         </>
                       )}
                       {!hasEnhancements && (
-                        <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-black/70 backdrop-blur-sm border border-white/10">
+                        <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-black/70 backdrop-blur-sm border border-black">
                           <p className="text-black text-xs text-center">
                             👈 Select enhancements on the right to see your transformation
                           </p>
@@ -391,7 +391,7 @@ export function VirtualTryOn() {
                         setActiveEnhancements(new Map());
                         setShowComparison(false);
                       }}
-                      className="flex-1 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition"
+                      className="flex-1 py-3 rounded-xl bg-white border border-black text-white font-medium hover:bg-white transition"
                     >
                       Upload New Photo
                     </button>
@@ -440,7 +440,7 @@ export function VirtualTryOn() {
                       className={`p-4 rounded-xl border transition-all ${
                         isActive
                           ? "bg-purple-500/10 border-purple-500/30"
-                          : "bg-white/5 border-white/10 hover:border-purple-500/20"
+                          : "bg-white border-black hover:border-purple-500/20"
                       }`}
                     >
                       <button
@@ -453,7 +453,7 @@ export function VirtualTryOn() {
                           className={`w-12 h-12 rounded-xl flex items-center justify-center text-2xl transition ${
                             isActive
                               ? "bg-gradient-to-br from-purple-500 to-pink-500"
-                              : "bg-white/10"
+                              : "bg-white"
                           }`}
                         >
                           {enhancement.icon}
@@ -486,7 +486,7 @@ export function VirtualTryOn() {
                           </div>
                           <div className="relative">
                             {/* Track background */}
-                            <div className="absolute inset-0 h-3 rounded-full bg-white/10" />
+                            <div className="absolute inset-0 h-3 rounded-full bg-white" />
                             {/* Filled track */}
                             <div 
                               className="absolute left-0 top-0 h-3 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 transition-all"

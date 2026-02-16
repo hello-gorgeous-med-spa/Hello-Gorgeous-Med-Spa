@@ -200,7 +200,7 @@ export default function ProviderSchedulesPage() {
         <button
           onClick={saveSchedules}
           disabled={saving}
-          className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 disabled:opacity-50"
+          className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black disabled:opacity-50"
         >
           {saving ? 'Saving...' : 'Save Changes'}
         </button>
@@ -220,7 +220,7 @@ export default function ProviderSchedulesPage() {
             onClick={() => setSelectedProvider(provider.id)}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg border-2 transition-colors ${
               selectedProvider === provider.id
-                ? 'border-pink-500 bg-pink-50'
+                ? 'border-[#FF2D8E] bg-pink-50'
                 : 'border-black hover:border-black'
             }`}
           >
@@ -253,7 +253,7 @@ export default function ProviderSchedulesPage() {
                         type="checkbox"
                         checked={isWorking}
                         onChange={() => toggleWorkingDay(idx)}
-                        className="w-4 h-4 text-pink-500 rounded"
+                        className="w-4 h-4 text-[#FF2D8E] rounded"
                       />
                       <span className={`font-medium ${isWorking ? 'text-black' : 'text-black'}`}>
                         {day}
@@ -329,7 +329,7 @@ export default function ProviderSchedulesPage() {
 
       {/* Time Off Modal */}
       {showTimeOffModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 w-full max-w-md">
             <h3 className="text-lg font-semibold mb-4">Add Time Off for {selectedProviderData?.name}</h3>
             
@@ -373,7 +373,7 @@ export default function ProviderSchedulesPage() {
               </button>
               <button
                 onClick={addTimeOff}
-                className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
+                className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
               >
                 Add Time Off
               </button>

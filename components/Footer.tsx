@@ -20,7 +20,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link href="/" className="flex items-center gap-3 mb-4">
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 text-white text-lg font-bold shadow-lg shadow-pink-500/25">
+              <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 text-white text-lg font-bold shadow-lg shadow-[#FF2D8E]/25">
                 HG
               </span>
               <div>
@@ -34,7 +34,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
             <div className="mt-6 flex items-center gap-4">
               <a
                 href="#"
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#FF2D8E]/30 flex items-center justify-center text-white hover:text-[#FF2D8E] transition-all"
+                className="w-10 h-10 rounded-full bg-white hover:bg-[#FF2D8E]/30 flex items-center justify-center text-white hover:text-[#FF2D8E] transition-all"
                 aria-label="Instagram"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -43,7 +43,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
               </a>
               <a
                 href="#"
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#FF2D8E]/30 flex items-center justify-center text-white hover:text-[#FF2D8E] transition-all"
+                className="w-10 h-10 rounded-full bg-white hover:bg-[#FF2D8E]/30 flex items-center justify-center text-white hover:text-[#FF2D8E] transition-all"
                 aria-label="Facebook"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -54,7 +54,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 href="https://www.tiktok.com/@daniellealcala12"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#FF2D8E]/30 flex items-center justify-center text-white hover:text-[#FF2D8E] transition-all"
+                className="w-10 h-10 rounded-full bg-white hover:bg-[#FF2D8E]/30 flex items-center justify-center text-white hover:text-[#FF2D8E] transition-all"
                 aria-label="TikTok"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -191,7 +191,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
 
         {/* Hours from CMS (optional) */}
         {hasHours && (
-          <div className="mt-8 pt-6 border-t border-white/20">
+          <div className="mt-8 pt-6 border-t border-black">
             <h4 className="font-bold text-[#FF2D8E] mb-3 text-sm uppercase tracking-wider">Hours</h4>
             <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-white">
               {hours.mon_fri && <span>Mon–Fri: {hours.mon_fri}</span>}
@@ -205,7 +205,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
         )}
 
         {/* Local Entity Block - serving area for local SEO */}
-        <div className="mt-8 pt-6 border-t border-white/20">
+        <div className="mt-8 pt-6 border-t border-black">
           <h4 className="font-bold text-[#FF2D8E] mb-3 text-sm uppercase tracking-wider">Serving</h4>
           <p className="text-sm text-white">
             Oswego, IL · Naperville, IL · Plainfield, IL · Aurora, IL · Kendall County
@@ -213,7 +213,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
         </div>
 
         {/* Footer Map */}
-        <div className="mt-10 pt-8 border-t border-white/20">
+        <div className="mt-10 pt-8 border-t border-black">
           <h4 className="font-bold text-[#FF2D8E] mb-4 text-sm uppercase tracking-wider">Find Us</h4>
           <div className="h-[220px] md:h-[200px] max-w-2xl">
             <GoogleMapEmbed height={220} loading="lazy" />
@@ -232,7 +232,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
         </div>
 
         {/* Contact Info Bar */}
-        <div className="mt-12 pt-8 border-t border-white/20">
+        <div className="mt-12 pt-8 border-t border-black">
           <div className="flex flex-wrap items-center justify-between gap-6">
             <div className="flex flex-wrap items-center gap-6 text-sm">
               <a
@@ -277,7 +277,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
       </div>
 
       {/* Privacy & Security (HIPAA-aligned) */}
-      <div className="border-t border-white/20 bg-black">
+      <div className="border-t border-black bg-black">
         <div className="max-w-7xl mx-auto px-6 py-5">
           <h4 className="font-semibold text-[#FF2D8E] text-sm mb-2">Privacy & Security</h4>
           <p className="text-sm text-white max-w-3xl">
@@ -290,7 +290,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/20 bg-black">
+      <div className="border-t border-black bg-black">
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white">
             <p>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>

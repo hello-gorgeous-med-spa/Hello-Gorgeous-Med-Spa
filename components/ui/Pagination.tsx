@@ -128,7 +128,7 @@ export function Pagination({
                 onClick={() => onPageChange(page)}
                 className={`px-3 py-1.5 text-sm font-medium rounded-lg ${
                   currentPage === page
-                    ? 'bg-pink-500 text-white'
+                    ? 'bg-[#FF2D8E] text-white'
                     : 'text-black hover:bg-white'
                 }`}
               >

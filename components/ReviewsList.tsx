@@ -60,7 +60,7 @@ export function ReviewsList() {
           <select
             value={ratingFilter}
             onChange={(e) => setRatingFilter(e.target.value)}
-            className="rounded-lg border border-black bg-black/40 px-3 py-2 text-white focus:border-pink-500 focus:outline-none focus:ring-1 focus:ring-pink-500"
+            className="rounded-lg border border-black bg-black/40 px-3 py-2 text-white focus:border-[#FF2D8E] focus:outline-none focus:ring-1 focus:ring-pink-500"
           >
             <option value="">All</option>
             <option value="5">5 stars</option>
@@ -79,7 +79,7 @@ export function ReviewsList() {
             onChange={(e) => setServiceFilter(e.target.value)}
             onBlur={() => fetchReviews(ratingFilter || undefined, serviceFilter || undefined)}
             onKeyDown={(e) => e.key === "Enter" && fetchReviews(ratingFilter || undefined, serviceFilter || undefined)}
-            className="rounded-lg border border-black bg-black/40 px-3 py-2 text-white placeholder-white/50 focus:border-pink-500 focus:outline-none focus:ring-1 focus:ring-pink-500 min-w-[180px]"
+            className="rounded-lg border border-black bg-black/40 px-3 py-2 text-white placeholder-white/50 focus:border-[#FF2D8E] focus:outline-none focus:ring-1 focus:ring-pink-500 min-w-[180px]"
           />
         </label>
       </div>
@@ -98,11 +98,11 @@ export function ReviewsList() {
               <FadeUp key={r.id} delayMs={Math.min(i * 20, 120)}>
                 <li className="rounded-2xl border border-black bg-black/40 p-6">
                   <div className="flex flex-wrap items-center gap-2 mb-2">
-                    <span className="text-amber-400" aria-label={`${r.rating} stars`}>
+                    <span className="text-[#FF2D8E]" aria-label={`${r.rating} stars`}>
                       {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
                     </span>
                     {r.service_name && (
-                      <span className="text-xs font-medium text-pink-400/90 bg-pink-500/10 px-2 py-0.5 rounded">
+                      <span className="text-xs font-medium text-[#FF2D8E]/90 bg-[#FF2D8E]/10 px-2 py-0.5 rounded">
                         {r.service_name}
                       </span>
                     )}

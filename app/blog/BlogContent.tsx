@@ -314,7 +314,7 @@ export function BlogContent() {
       <Section className="relative py-16 bg-gradient-to-b from-pink-950/30 to-black">
         <FadeUp>
           <div className="text-center max-w-3xl mx-auto">
-            <span className="inline-block px-4 py-1 rounded-full bg-pink-500/20 text-pink-400 text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-1 rounded-full bg-[#FF2D8E]/20 text-[#FF2D8E] text-sm font-medium mb-4">
               📚 Educational Resources
             </span>
             <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
@@ -332,7 +332,7 @@ export function BlogContent() {
       </Section>
 
       {/* Categories */}
-      <Section className="py-8 bg-black border-b border-white/10 sticky top-16 z-30">
+      <Section className="py-8 bg-black border-b border-black sticky top-16 z-30">
         <div className="flex flex-wrap justify-center gap-2">
           {categories.map((cat) => (
             <button
@@ -341,8 +341,8 @@ export function BlogContent() {
               onClick={() => setActiveCategory(cat.id)}
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 activeCategory === cat.id
-                  ? "bg-pink-500 text-white"
-                  : "bg-white/5 text-black hover:bg-white/10 hover:text-white"
+                  ? "bg-[#FF2D8E] text-white"
+                  : "bg-white text-black hover:bg-white hover:text-white"
               }`}
             >
               <span className="mr-1">{cat.icon}</span>
@@ -355,7 +355,7 @@ export function BlogContent() {
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
               showVideos
                 ? "bg-purple-500 text-white"
-                : "bg-white/5 text-black hover:bg-white/10 hover:text-white"
+                : "bg-white text-black hover:bg-white hover:text-white"
             }`}
           >
             🎬 Videos
@@ -374,7 +374,7 @@ export function BlogContent() {
           <div className="grid md:grid-cols-3 gap-6">
             {filteredVideos.map((video, index) => (
               <FadeUp key={video.id} delayMs={index * 60}>
-                <div className="bg-white/5 rounded-2xl overflow-hidden border border-white/10 hover:border-purple-500/30 transition">
+                <div className="bg-white rounded-2xl overflow-hidden border border-black hover:border-purple-500/30 transition">
                   <div className="aspect-video">
                     <iframe
                       src={`https://www.youtube.com/embed/${video.videoId}`}
@@ -408,7 +408,7 @@ export function BlogContent() {
                   href={article.sourceUrl}
                   target={article.isExternal ? "_blank" : "_self"}
                   rel={article.isExternal ? "noopener noreferrer" : undefined}
-                  className="group block bg-gradient-to-br from-pink-500/10 to-purple-500/10 rounded-2xl overflow-hidden border border-pink-500/20 hover:border-pink-500/40 transition"
+                  className="group block bg-gradient-to-br from-pink-500/10 to-purple-500/10 rounded-2xl overflow-hidden border border-[#FF2D8E]/20 hover:border-[#FF2D8E]/40 transition"
                 >
                   <div className="relative aspect-[2/1] overflow-hidden">
                     <Image
@@ -418,7 +418,7 @@ export function BlogContent() {
                       className="object-cover group-hover:scale-105 transition duration-500"
                     />
                     <div className="absolute top-3 left-3 flex gap-2">
-                      <span className="px-3 py-1 rounded-full bg-black/70 text-pink-400 text-xs font-medium">
+                      <span className="px-3 py-1 rounded-full bg-black/70 text-[#FF2D8E] text-xs font-medium">
                         {categories.find((c) => c.id === article.category)?.icon}{" "}
                         {categories.find((c) => c.id === article.category)?.name}
                       </span>
@@ -430,7 +430,7 @@ export function BlogContent() {
                     </div>
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-white group-hover:text-pink-400 transition mb-2">
+                    <h3 className="text-xl font-bold text-white group-hover:text-[#FF2D8E] transition mb-2">
                       {article.title}
                     </h3>
                     <p className="text-black text-sm mb-3">{article.excerpt}</p>
@@ -469,7 +469,7 @@ export function BlogContent() {
                   href={article.sourceUrl}
                   target={article.isExternal ? "_blank" : "_self"}
                   rel={article.isExternal ? "noopener noreferrer" : undefined}
-                  className="group block bg-white/5 rounded-xl overflow-hidden border border-white/10 hover:border-pink-500/30 transition h-full"
+                  className="group block bg-white rounded-xl overflow-hidden border border-black hover:border-[#FF2D8E]/30 transition h-full"
                 >
                   <div className="relative aspect-[3/2] overflow-hidden">
                     <Image
@@ -486,12 +486,12 @@ export function BlogContent() {
                   </div>
                   <div className="p-4">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="text-xs text-pink-400">
+                      <span className="text-xs text-[#FF2D8E]">
                         {categories.find((c) => c.id === article.category)?.icon}
                       </span>
                       <span className="text-xs text-black">{article.date}</span>
                     </div>
-                    <h3 className="text-white font-semibold group-hover:text-pink-400 transition mb-2 line-clamp-2">
+                    <h3 className="text-white font-semibold group-hover:text-[#FF2D8E] transition mb-2 line-clamp-2">
                       {article.title}
                     </h3>
                     <p className="text-black text-sm line-clamp-2">
@@ -506,7 +506,7 @@ export function BlogContent() {
       </Section>
 
       {/* Partner Logos */}
-      <Section className="py-12 bg-black border-t border-white/10">
+      <Section className="py-12 bg-black border-t border-black">
         <FadeUp>
           <div className="text-center mb-8">
             <h3 className="text-lg font-semibold text-white mb-2">
@@ -553,7 +553,7 @@ export function BlogContent() {
               </a>
               <a
                 href="tel:630-636-6193"
-                className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition"
+                className="px-8 py-4 rounded-xl bg-white border border-black text-white font-medium hover:bg-white transition"
               >
                 📞 Call 630-636-6193
               </a>

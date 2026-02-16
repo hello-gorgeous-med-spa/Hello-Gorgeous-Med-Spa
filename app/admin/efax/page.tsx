@@ -158,7 +158,7 @@ export default function EFaxPage() {
           </button>
           <button
             onClick={() => setShowSendModal(true)}
-            className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+            className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
           >
             📠 Send Fax
           </button>
@@ -290,7 +290,7 @@ export default function EFaxPage() {
         <button
           onClick={() => setActiveTab('inbox')}
           className={`px-4 py-3 font-medium transition-colors border-b-2 -mb-px ${
-            activeTab === 'inbox' ? 'border-pink-500 text-pink-600' : 'border-transparent text-black hover:text-black'
+            activeTab === 'inbox' ? 'border-[#FF2D8E] text-pink-600' : 'border-transparent text-black hover:text-black'
           }`}
         >
           📥 Inbox ({inboxFaxes.length})
@@ -298,7 +298,7 @@ export default function EFaxPage() {
         <button
           onClick={() => setActiveTab('sent')}
           className={`px-4 py-3 font-medium transition-colors border-b-2 -mb-px ${
-            activeTab === 'sent' ? 'border-pink-500 text-pink-600' : 'border-transparent text-black hover:text-black'
+            activeTab === 'sent' ? 'border-[#FF2D8E] text-pink-600' : 'border-transparent text-black hover:text-black'
           }`}
         >
           📤 Sent ({sentFaxes.length})
@@ -368,7 +368,7 @@ export default function EFaxPage() {
 
       {/* Send Fax Modal */}
       {showSendModal && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-lg w-full">
             <div className="p-6 border-b border-black">
               <h2 className="text-xl font-bold text-black">Send Fax via eFax</h2>
@@ -451,7 +451,7 @@ export default function EFaxPage() {
               <button
                 onClick={handleSendFax}
                 disabled={sending || !sendForm.to_number || !sendForm.file}
-                className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
               >
                 {sending ? 'Sending...' : 'Send Fax'}
               </button>

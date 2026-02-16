@@ -187,7 +187,7 @@ export function PortalMedicationsPage() {
               <h2 className="text-lg font-semibold text-black">Your Medications</h2>
               <button
                 onClick={() => setShowAddForm(true)}
-                className="px-4 py-2 bg-pink-500 text-white text-sm font-medium rounded-full hover:opacity-90"
+                className="px-4 py-2 bg-[#FF2D8E] text-white text-sm font-medium rounded-full hover:opacity-90"
               >
                 + Add
               </button>
@@ -237,7 +237,7 @@ export function PortalMedicationsPage() {
                   <button
                     type="submit"
                     disabled={adding}
-                    className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:opacity-90 disabled:opacity-50"
+                    className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:opacity-90 disabled:opacity-50"
                   >
                     {adding ? "Adding…" : "Add"}
                   </button>

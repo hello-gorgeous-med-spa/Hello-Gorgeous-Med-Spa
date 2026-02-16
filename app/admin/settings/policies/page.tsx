@@ -38,7 +38,7 @@ export default function PoliciesSettingsPage() {
         </div>
         <button
           onClick={handleSave}
-          className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+          className="px-6 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
         >
           {saved ? '✓ Saved!' : 'Save Changes'}
         </button>

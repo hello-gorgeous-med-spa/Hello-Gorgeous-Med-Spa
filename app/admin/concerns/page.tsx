@@ -90,7 +90,7 @@ export default function AdminConcernsPage() {
           href="/fix-what-bothers-me"
           target="_blank"
           rel="noopener noreferrer"
-          className="px-4 py-2 bg-pink-500 text-white text-sm font-medium rounded-lg hover:bg-pink-600"
+          className="px-4 py-2 bg-[#FF2D8E] text-white text-sm font-medium rounded-lg hover:bg-black"
         >
           View form →
         </a>
@@ -111,7 +111,7 @@ export default function AdminConcernsPage() {
                 onClick={() => setSelected(c)}
                 className={`w-full text-left rounded-xl border p-4 transition-colors ${
                   selected?.id === c.id
-                    ? "border-pink-500 bg-pink-50"
+                    ? "border-[#FF2D8E] bg-pink-50"
                     : "border-black bg-white hover:bg-white"
                 }`}
               >
@@ -224,14 +224,14 @@ export default function AdminConcernsPage() {
                 type="button"
                 onClick={saveFollowUp}
                 disabled={saving}
-                className="w-full py-2 bg-pink-500 text-white text-sm font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                className="w-full py-2 bg-[#FF2D8E] text-white text-sm font-medium rounded-lg hover:bg-black disabled:opacity-50"
               >
                 {saving ? "Saving…" : "Save notes & status"}
               </button>
               {selected.email && (
                 <a
                   href={`mailto:${selected.email}?subject=Hello Gorgeous – we have options for you&body=Hi${selected.name ? ` ${selected.name}` : ""},%0A%0AThank you for sharing what's on your mind. We'd love to match you with a treatment that fits.%0A%0ABook a time that works: ${typeof window !== "undefined" ? window.location.origin : ""}/book%0A%0AOr reply to this email and we'll help you choose.%0A%0A— Hello Gorgeous Med Spa`}
-                  className="block w-full py-2 border border-pink-500 text-pink-600 text-sm font-medium rounded-lg text-center hover:bg-pink-50"
+                  className="block w-full py-2 border border-[#FF2D8E] text-pink-600 text-sm font-medium rounded-lg text-center hover:bg-pink-50"
                 >
                   Email them a booking link
                 </a>

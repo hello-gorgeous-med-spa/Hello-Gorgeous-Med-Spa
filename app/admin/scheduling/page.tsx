@@ -117,7 +117,7 @@ export default function SchedulingSettingsPage() {
           className={`px-6 py-2.5 rounded-xl font-medium transition-all ${
             saved 
               ? 'bg-green-500 text-white' 
-              : 'bg-pink-500 text-white hover:bg-pink-600'
+              : 'bg-[#FF2D8E] text-white hover:bg-black'
           }`}
         >
           {saving ? 'Saving...' : saved ? '✓ Saved' : 'Save Changes'}
@@ -144,7 +144,7 @@ export default function SchedulingSettingsPage() {
                 type="checkbox"
                 checked={settings.online_booking_enabled}
                 onChange={(e) => setSettings({ ...settings, online_booking_enabled: e.target.checked })}
-                className="w-5 h-5 rounded border-black text-pink-500 focus:ring-pink-500"
+                className="w-5 h-5 rounded border-black text-[#FF2D8E] focus:ring-pink-500"
               />
             </label>
 
@@ -157,7 +157,7 @@ export default function SchedulingSettingsPage() {
                 type="checkbox"
                 checked={settings.allow_same_day_booking}
                 onChange={(e) => setSettings({ ...settings, allow_same_day_booking: e.target.checked })}
-                className="w-5 h-5 rounded border-black text-pink-500 focus:ring-pink-500"
+                className="w-5 h-5 rounded border-black text-[#FF2D8E] focus:ring-pink-500"
               />
             </label>
           </div>
@@ -287,7 +287,7 @@ export default function SchedulingSettingsPage() {
                 type="checkbox"
                 checked={settings.require_card_for_booking}
                 onChange={(e) => setSettings({ ...settings, require_card_for_booking: e.target.checked })}
-                className="w-5 h-5 rounded border-black text-pink-500 focus:ring-pink-500"
+                className="w-5 h-5 rounded border-black text-[#FF2D8E] focus:ring-pink-500"
               />
             </label>
 
@@ -321,7 +321,7 @@ export default function SchedulingSettingsPage() {
                 type="checkbox"
                 checked={settings.deposits_enabled}
                 onChange={(e) => setSettings({ ...settings, deposits_enabled: e.target.checked })}
-                className="w-5 h-5 rounded border-black text-pink-500 focus:ring-pink-500"
+                className="w-5 h-5 rounded border-black text-[#FF2D8E] focus:ring-pink-500"
               />
             </label>
 
@@ -354,7 +354,7 @@ export default function SchedulingSettingsPage() {
                     type="checkbox"
                     checked={settings.new_client_deposit_required}
                     onChange={(e) => setSettings({ ...settings, new_client_deposit_required: e.target.checked })}
-                    className="w-5 h-5 rounded border-black text-pink-500 focus:ring-pink-500"
+                    className="w-5 h-5 rounded border-black text-[#FF2D8E] focus:ring-pink-500"
                   />
                 </label>
 

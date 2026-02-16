@@ -35,7 +35,7 @@ export function ContentWithLinks({
         <Link
           key={`${phrase}-${match.index}`}
           href={href}
-          className="text-pink-400 hover:text-pink-300 underline"
+          className="text-[#FF2D8E] hover:text-pink-300 underline"
         >
           {phrase}
         </Link>

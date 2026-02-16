@@ -173,7 +173,7 @@ export default function ClientLoyaltyPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-[400px]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#FF2D8E]"></div>
       </div>
     );
   }
@@ -275,7 +275,7 @@ export default function ClientLoyaltyPage() {
                       <button
                         onClick={() => handleSave(program.id)}
                         disabled={!formData.member_id || saving}
-                        className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50"
+                        className="px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black disabled:opacity-50"
                       >
                         {saving ? 'Saving...' : 'Save'}
                       </button>
@@ -335,7 +335,7 @@ export default function ClientLoyaltyPage() {
                       </a>
                       <button
                         onClick={() => startEdit(program)}
-                        className="px-4 py-2 text-sm bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
+                        className="px-4 py-2 text-sm bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black"
                       >
                         + Add Member ID
                       </button>

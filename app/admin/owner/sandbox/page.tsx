@@ -97,7 +97,7 @@ export default function SandboxPage() {
             </div>
           </div>
           {sandboxActive ? (
-            <button onClick={deactivateSandbox} className="px-4 py-2 bg-black/50 text-white rounded-lg hover:bg-black">
+            <button onClick={deactivateSandbox} className="px-4 py-2 bg-white text-white rounded-lg hover:bg-black">
               Exit Sandbox
             </button>
           ) : (
@@ -172,7 +172,7 @@ export default function SandboxPage() {
                 <div className="bg-white rounded-lg p-4 text-center">
                   <span className="text-4xl block mb-3">📱</span>
                   <p className="text-sm text-black mb-4">Preview how changes will appear to clients</p>
-                  <button className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 text-sm">
+                  <button className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black text-sm">
                     Open Preview
                   </button>
                 </div>
@@ -217,7 +217,7 @@ export default function SandboxPage() {
           </p>
           <button
             onClick={activateSandbox}
-            className="px-6 py-3 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium"
+            className="px-6 py-3 bg-[#FF2D8E] text-white rounded-lg hover:bg-black font-medium"
           >
             Activate Sandbox Mode
           </button>

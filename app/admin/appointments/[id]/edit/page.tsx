@@ -90,7 +90,7 @@ export default function EditAppointmentPage({ params }: { params: { id: string }
   if (loading) {
     return (
       <div className="max-w-2xl mx-auto py-12 text-center">
-        <div className="animate-spin h-8 w-8 border-4 border-pink-500 border-t-transparent rounded-full mx-auto" />
+        <div className="animate-spin h-8 w-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full mx-auto" />
       </div>
     );
   }
@@ -175,7 +175,7 @@ export default function EditAppointmentPage({ params }: { params: { id: string }
           <button
             type="submit"
             disabled={saving}
-            className="px-6 py-2.5 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors disabled:opacity-50"
+            className="px-6 py-2.5 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors disabled:opacity-50"
           >
             {saving ? 'Saving...' : 'Save Changes'}
           </button>

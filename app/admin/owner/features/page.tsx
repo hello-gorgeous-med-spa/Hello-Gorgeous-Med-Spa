@@ -74,7 +74,7 @@ export default function FeatureFlagsPage() {
       {/* Warning Banner */}
       <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
         <div className="flex items-center gap-2">
-          <span className="text-amber-500 text-xl">⚠️</span>
+          <span className="text-[#FF2D8E] text-xl">⚠️</span>
           <p className="text-amber-800 font-medium">Disabling features may affect active users.</p>
         </div>
       </div>
@@ -87,7 +87,7 @@ export default function FeatureFlagsPage() {
             onClick={() => setFilterCategory(cat)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filterCategory === cat 
-                ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/30' 
+                ? 'bg-[#FF2D8E] text-white shadow-lg shadow-[#FF2D8E]/30' 
                 : 'bg-pink-100 text-pink-700 hover:bg-pink-200 border border-pink-200'
             }`}
           >
@@ -160,7 +160,7 @@ export default function FeatureFlagsPage() {
 
       {/* Confirmation Modal */}
       {showConfirm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+        <div className="fixed inset-0 bg-white flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
             <div className="flex items-center gap-2 mb-4">
               <span className="text-2xl">🛑</span>
