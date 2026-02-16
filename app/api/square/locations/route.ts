@@ -13,6 +13,8 @@ export async function GET(request: NextRequest) {
   try {
     // Check for active connection
     const connection = await getActiveConnection();
+    console.log('[Square Locations] Connection:', connection ? 'Found' : 'Not found');
+    
     if (!connection) {
       return NextResponse.json(
         { error: 'Square not connected' },
@@ -21,6 +23,8 @@ export async function GET(request: NextRequest) {
     }
     
     const locationsApi = await getLocationsApiAsync();
+    console.log('[Square Locations] API:', locationsApi ? 'Initialized' : 'Failed to initialize');
+    
     if (!locationsApi) {
       return NextResponse.json(
         { error: 'Square API not available' },
@@ -28,7 +32,9 @@ export async function GET(request: NextRequest) {
       );
     }
     
+    console.log('[Square Locations] Calling listLocations...');
     const { result } = await locationsApi.listLocations();
+    console.log('[Square Locations] Result:', JSON.stringify(result, null, 2));
     
     const locations = (result.locations || []).map((loc: any) => ({
       id: loc.id,
