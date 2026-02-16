@@ -161,7 +161,7 @@
 }
 [data-portal] [class*="bg-white"],
 [data-portal] [class*="bg-white"] {
-  background-color: #FFFFFF !important;
+  background-color: #FDF7FA !important;
 }
 [data-portal] [class*="bg-white"] {
   background-color: rgba(230, 0, 126, 0.08) !important;
@@ -188,7 +188,7 @@
 
 /* Mascot chat: force light theme, exclude from public overrides */
 [data-mascot-chat] {
-  --mascot-chat-bg: #FFFFFF;
+  --mascot-chat-bg: #FDF7FA;
   --mascot-chat-text: #000000;
 }
 [data-mascot-chat] .mascot-messages-area {
@@ -231,10 +231,10 @@
 :root {
   --hg-pink: #FF2D8E;
   --hg-pink-deep: #FF2D8E;
-  --hg-bg-soft: #FFFFFF;
+  --hg-bg-soft: #FDF7FA;
   --hg-dark: #000000;
   --hg-gray: #000000;
-  --hg-border: #000000;
+  --hg-border: #EAE4E8;
 }
 
 html {

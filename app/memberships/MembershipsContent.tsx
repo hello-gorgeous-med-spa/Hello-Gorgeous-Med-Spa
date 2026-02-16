@@ -128,7 +128,7 @@ export function MembershipsContent() {
       </section>
 
       {/* Symptom checklist - Biote style */}
-      <section className="py-12 px-6 md:px-12 bg-[#FFFFFF]">
+      <section className="py-12 px-6 md:px-12 bg-[#FDF7FA]">
         <div className="max-w-4xl mx-auto text-center">
           <FadeUp>
             <h2 className="text-xl md:text-2xl font-bold text-[#000000] mb-3">
@@ -363,7 +363,7 @@ export function MembershipsContent() {
       </section>
 
       {/* What to expect - Timeline (Biote style) */}
-      <section className="py-16 md:py-24 px-6 md:px-12 bg-[#FFFFFF]">
+      <section className="py-16 md:py-24 px-6 md:px-12 bg-[#FDF7FA]">
         <div className="max-w-4xl mx-auto">
           <FadeUp>
             <h2 className="text-2xl md:text-3xl font-bold text-[#000000] mb-3 text-center">
@@ -474,7 +474,7 @@ export function MembershipsContent() {
       </section>
 
       {/* Trust / Differentiator */}
-      <section className="py-16 md:py-24 px-6 md:px-12 bg-[#FFFFFF]">
+      <section className="py-16 md:py-24 px-6 md:px-12 bg-[#FDF7FA]">
         <div className="max-w-4xl mx-auto text-center">
           <FadeUp>
             <h2 className="text-2xl md:text-3xl font-bold text-[#000000] mb-6">

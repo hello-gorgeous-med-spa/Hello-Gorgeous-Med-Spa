@@ -9,7 +9,7 @@ import { SITE } from "@/lib/seo";
 
 export function LocationMap() {
   return (
-    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FFFFFF]">
+    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FDF7FA]">
       <div className="max-w-6xl mx-auto">
         <FadeUp>
           <div className="text-center mb-12">

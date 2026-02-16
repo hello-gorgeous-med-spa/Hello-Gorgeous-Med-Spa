@@ -92,7 +92,7 @@ export function HomeCareTeam() {
   }
 
   return (
-    <Section className="relative bg-[#FFFFFF]">
+    <Section className="relative bg-[#FDF7FA]">
       <div className="relative">
         <FadeUp>
           <div className="text-center">
@@ -128,7 +128,7 @@ export function HomeCareTeam() {
                     )}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="h-16 w-16 rounded-full overflow-hidden border-2 border-[#FF2D8E]/30 bg-[#FFFFFF] flex items-center justify-center shadow-md">
+                      <div className="h-16 w-16 rounded-full overflow-hidden border-2 border-[#FF2D8E]/30 bg-[#FDF7FA] flex items-center justify-center shadow-md">
                         {/* Autoplay video avatar for "alive" mascots */}
                         {(() => {
                           const videoIntent = pickMascotVideoIntentForContext({ personaId: id, mode: "home-spotlight" });

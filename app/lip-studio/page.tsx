@@ -12,7 +12,7 @@ export const metadata: Metadata = pageMetadata({
 
 export default function LipStudioPage() {
   return (
-    <section className="min-h-screen bg-[#FFFFFF] px-6 py-16 md:px-12 md:py-24">
+    <section className="min-h-screen bg-[#FDF7FA] px-6 py-16 md:px-12 md:py-24">
       <div className="max-w-4xl mx-auto">
         <FadeUp>
           <div className="text-center mb-12">
@@ -23,7 +23,7 @@ export default function LipStudioPage() {
               See Your Look{" "}
               <span className="text-[#FF2D8E]">Before You Book</span>
             </h1>
-            <p className="text-[#000000] max-w-xl mx-auto">
+            <p className="text-[#5E5E66] max-w-xl mx-auto">
               Upload your photo for a simulated preview. Select a preset enhancement level to
               explore options. All processing runs in your browser—we never store your images.
             </p>

@@ -6,7 +6,7 @@ import { BOOKING_URL } from "@/lib/flows";
 
 export function FixWhatBothersMeFeature() {
   return (
-    <section className="relative overflow-hidden py-20 md:py-28 max-h-[70vh] md:max-h-none flex flex-col bg-[#FFFFFF]">
+    <section className="relative overflow-hidden py-20 md:py-28 max-h-[70vh] md:max-h-none flex flex-col bg-[#FDF7FA]">
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col min-h-0 flex-1">
         {/* Title + subhead — mobile-first, compact on small screens */}
         <div className="text-center mb-6 md:mb-12 flex-shrink-0">

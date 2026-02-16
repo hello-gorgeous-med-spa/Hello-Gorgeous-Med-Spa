@@ -58,13 +58,13 @@ export default function ReceiptsPage() {
     <div className="space-y-6">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[#000000]">Payment History</h1>
-          <p className="text-[#000000]/70 mt-1">View and download your receipts</p>
+          <h1 className="text-2xl font-bold text-[#111]">Payment History</h1>
+          <p className="text-[#111]/70 mt-1">View and download your receipts</p>
         </div>
         <select
           value={selectedYear}
           onChange={(e) => setSelectedYear(e.target.value)}
-          className="px-4 py-2 border border-[#000000]/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50"
+          className="px-4 py-2 border border-[#111]/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50"
         >
           {years.map((y) => (
             <option key={y} value={y}>{y}</option>
@@ -92,21 +92,21 @@ export default function ReceiptsPage() {
       {loading ? (
         <div className="space-y-4">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-white rounded-xl border border-[#000000]/10 p-4 animate-pulse">
+            <div key={i} className="bg-white rounded-xl border border-[#111]/10 p-4 animate-pulse">
               <div className="h-4 bg-white rounded w-1/3 mb-2"></div>
               <div className="h-3 bg-white rounded w-1/4"></div>
             </div>
           ))}
         </div>
       ) : receipts.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-xl border border-[#000000]/10">
+        <div className="text-center py-12 bg-white rounded-xl border border-[#111]/10">
           <span className="text-4xl">🧾</span>
-          <p className="mt-4 text-[#000000]/70">No receipts found for {selectedYear}</p>
+          <p className="mt-4 text-[#111]/70">No receipts found for {selectedYear}</p>
         </div>
       ) : (
         <div className="space-y-4">
           {receipts.map((receipt) => (
-            <div key={receipt.id} className="bg-white rounded-xl border border-[#000000]/10 overflow-hidden">
+            <div key={receipt.id} className="bg-white rounded-xl border border-[#111]/10 overflow-hidden">
               <button
                 onClick={() => setExpandedReceipt(expandedReceipt === receipt.id ? null : receipt.id)}
                 className="w-full p-4 flex items-center justify-between hover:bg-white transition-colors"
@@ -116,34 +116,34 @@ export default function ReceiptsPage() {
                     <span className="text-xl">🧾</span>
                   </div>
                   <div className="text-left">
-                    <p className="font-medium text-[#000000]">Receipt #{receipt.receiptNumber}</p>
-                    <p className="text-sm text-[#000000]/50">{new Date(receipt.date).toLocaleDateString()}</p>
+                    <p className="font-medium text-[#111]">Receipt #{receipt.receiptNumber}</p>
+                    <p className="text-sm text-[#111]/50">{new Date(receipt.date).toLocaleDateString()}</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="font-semibold text-[#000000]">${receipt.total.toFixed(2)}</p>
+                  <p className="font-semibold text-[#111]">${receipt.total.toFixed(2)}</p>
                   {receipt.lastFour && (
-                    <p className="text-xs text-[#000000]/50">{receipt.cardBrand} •••• {receipt.lastFour}</p>
+                    <p className="text-xs text-[#111]/50">{receipt.cardBrand} •••• {receipt.lastFour}</p>
                   )}
                 </div>
               </button>
 
               {expandedReceipt === receipt.id && (
-                <div className="border-t border-[#000000]/10 p-4 bg-white">
+                <div className="border-t border-[#111]/10 p-4 bg-white">
                   {/* Line Items */}
                   <div className="space-y-2 mb-4">
                     {receipt.lineItems.map((item, idx) => (
                       <div key={idx} className="flex justify-between text-sm">
-                        <span className="text-[#000000]/70">{item.name} x{item.quantity}</span>
-                        <span className="text-[#000000]">${item.price.toFixed(2)}</span>
+                        <span className="text-[#111]/70">{item.name} x{item.quantity}</span>
+                        <span className="text-[#111]">${item.price.toFixed(2)}</span>
                       </div>
                     ))}
                   </div>
 
                   {/* Totals */}
-                  <div className="border-t border-[#000000]/10 pt-4 space-y-1">
+                  <div className="border-t border-[#111]/10 pt-4 space-y-1">
                     <div className="flex justify-between text-sm">
-                      <span className="text-[#000000]/70">Subtotal</span>
+                      <span className="text-[#111]/70">Subtotal</span>
                       <span>${receipt.subtotal.toFixed(2)}</span>
                     </div>
                     {receipt.discount > 0 && (
@@ -153,16 +153,16 @@ export default function ReceiptsPage() {
                       </div>
                     )}
                     <div className="flex justify-between text-sm">
-                      <span className="text-[#000000]/70">Tax</span>
+                      <span className="text-[#111]/70">Tax</span>
                       <span>${receipt.tax.toFixed(2)}</span>
                     </div>
                     {receipt.tip > 0 && (
                       <div className="flex justify-between text-sm">
-                        <span className="text-[#000000]/70">Tip</span>
+                        <span className="text-[#111]/70">Tip</span>
                         <span>${receipt.tip.toFixed(2)}</span>
                       </div>
                     )}
-                    <div className="flex justify-between font-semibold pt-2 border-t border-[#000000]/10">
+                    <div className="flex justify-between font-semibold pt-2 border-t border-[#111]/10">
                       <span>Total</span>
                       <span>${receipt.total.toFixed(2)}</span>
                     </div>
@@ -170,7 +170,7 @@ export default function ReceiptsPage() {
 
                   {/* Provider */}
                   {receipt.providerName && (
-                    <p className="text-sm text-[#000000]/50 mt-4">Provider: {receipt.providerName}</p>
+                    <p className="text-sm text-[#111]/50 mt-4">Provider: {receipt.providerName}</p>
                   )}
 
                   {/* Download Button */}

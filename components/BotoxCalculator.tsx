@@ -80,7 +80,7 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
     <div className={gridClass}>
       {/* Face + Neck Image */}
       <FadeUp delayMs={embedded ? 0 : 60}>
-        <div className="relative rounded-xl overflow-hidden bg-[#FFFFFF] border-2 border-black">
+        <div className="relative rounded-xl overflow-hidden bg-[#FDF7FA] border-2 border-black">
           <div className="relative w-full max-w-[360px] aspect-[2/3] mx-auto">
             <Image
               src="/images/hg-botox-face-neck.png"
@@ -131,7 +131,7 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
                 return (
                   <div
                     key={area.id}
-                    className="flex items-center justify-between p-3 rounded-lg bg-[#FFFFFF] border-2 border-black"
+                    className="flex items-center justify-between p-3 rounded-lg bg-[#FDF7FA] border-2 border-black"
                   >
                     <div>
                       <p className="text-[#FF2D8E] text-sm font-medium">{area.name}</p>
@@ -193,7 +193,7 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
             </a>
             <a
               href="tel:630-636-6193"
-              className="block w-full py-3 px-6 rounded-md bg-white border border-[#000000] text-[#FF2D8E] font-medium text-center hover:bg-[#FFFFFF] transition"
+              className="block w-full py-3 px-6 rounded-md bg-white border border-[#EAE4E8] text-[#FF2D8E] font-medium text-center hover:bg-[#FDF7FA] transition"
             >
               📞 Call 630-636-6193
             </a>
@@ -225,7 +225,7 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
   }
 
   return (
-    <section className="py-16 px-4 md:px-6 bg-[#FFFFFF]">
+    <section className="py-16 px-4 md:px-6 bg-[#FDF7FA]">
       <div className="max-w-6xl mx-auto">
         <FadeUp>
           <div className="text-center mb-10">
@@ -264,7 +264,7 @@ export function BotoxCalculator({ embedded = false }: { embedded?: boolean }) {
                     type="button"
                     onClick={() => setSelectedAreas(new Set(pkg.areas))}
                     className={`relative p-4 rounded-xl border text-left transition hover:scale-[1.02] ${
-                      pkg.popular ? "bg-[#FF2D8E]/10 border-[#FF2D8E]/30" : "bg-white border-[#000000] hover:border-[#FF2D8E]/30"
+                      pkg.popular ? "bg-[#FF2D8E]/10 border-[#FF2D8E]/30" : "bg-white border-[#EAE4E8] hover:border-[#FF2D8E]/30"
                     }`}
                   >
                     {pkg.popular && <span className="absolute -top-2 -right-2 px-2 py-0.5 rounded-full bg-[#FF2D8E] text-white text-xs font-medium">Popular</span>}

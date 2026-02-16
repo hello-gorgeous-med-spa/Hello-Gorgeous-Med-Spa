@@ -114,8 +114,8 @@ export default function NotificationsPage() {
     <div className="space-y-6">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[#000000]">Notifications</h1>
-          <p className="text-[#000000]/70 mt-1">
+          <h1 className="text-2xl font-bold text-[#111]">Notifications</h1>
+          <p className="text-[#111]/70 mt-1">
             {unreadCount > 0 ? `${unreadCount} unread notification${unreadCount > 1 ? 's' : ''}` : 'All caught up!'}
           </p>
         </div>
@@ -134,7 +134,7 @@ export default function NotificationsPage() {
         <button
           onClick={() => setFilter('all')}
           className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-            filter === 'all' ? 'bg-[#FF2D8E] text-white' : 'bg-white border border-[#000000]/10 text-[#000000]/70'
+            filter === 'all' ? 'bg-[#FF2D8E] text-white' : 'bg-white border border-[#111]/10 text-[#111]/70'
           }`}
         >
           All ({notifications.length})
@@ -142,7 +142,7 @@ export default function NotificationsPage() {
         <button
           onClick={() => setFilter('unread')}
           className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-            filter === 'unread' ? 'bg-[#FF2D8E] text-white' : 'bg-white border border-[#000000]/10 text-[#000000]/70'
+            filter === 'unread' ? 'bg-[#FF2D8E] text-white' : 'bg-white border border-[#111]/10 text-[#111]/70'
           }`}
         >
           Unread ({unreadCount})
@@ -151,9 +151,9 @@ export default function NotificationsPage() {
 
       {/* Notifications List */}
       {filteredNotifications.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-xl border border-[#000000]/10">
+        <div className="text-center py-12 bg-white rounded-xl border border-[#111]/10">
           <span className="text-4xl">🔔</span>
-          <p className="mt-4 text-[#000000]/70">
+          <p className="mt-4 text-[#111]/70">
             {filter === 'unread' ? 'No unread notifications' : 'No notifications yet'}
           </p>
         </div>
@@ -162,7 +162,7 @@ export default function NotificationsPage() {
           {filteredNotifications.map((notification) => (
             <div
               key={notification.id}
-              className={`bg-white rounded-xl border border-[#000000]/10 border-l-4 ${PRIORITY_STYLES[notification.priority]} overflow-hidden ${
+              className={`bg-white rounded-xl border border-[#111]/10 border-l-4 ${PRIORITY_STYLES[notification.priority]} overflow-hidden ${
                 !notification.isRead ? 'bg-blue-50/50' : ''
               }`}
             >
@@ -174,20 +174,20 @@ export default function NotificationsPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-2">
                       <div>
-                        <p className={`font-medium text-[#000000] ${!notification.isRead ? 'font-semibold' : ''}`}>
+                        <p className={`font-medium text-[#111] ${!notification.isRead ? 'font-semibold' : ''}`}>
                           {notification.title}
                         </p>
-                        <p className="text-sm text-[#000000]/70 mt-1">{notification.message}</p>
+                        <p className="text-sm text-[#111]/70 mt-1">{notification.message}</p>
                       </div>
                       <button
                         onClick={() => handleDismiss(notification.id)}
-                        className="text-[#000000]/30 hover:text-[#000000]/70 text-xl"
+                        className="text-[#111]/30 hover:text-[#111]/70 text-xl"
                       >
                         ×
                       </button>
                     </div>
                     <div className="flex items-center gap-4 mt-3">
-                      <span className="text-xs text-[#000000]/40">
+                      <span className="text-xs text-[#111]/40">
                         {new Date(notification.createdAt).toLocaleDateString()} at{' '}
                         {new Date(notification.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </span>
@@ -202,7 +202,7 @@ export default function NotificationsPage() {
                       {!notification.isRead && (
                         <button
                           onClick={() => handleMarkRead(notification.id)}
-                          className="text-xs text-[#000000]/50 hover:text-[#000000]/70"
+                          className="text-xs text-[#111]/50 hover:text-[#111]/70"
                         >
                           Mark as read
                         </button>
