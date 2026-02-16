@@ -76,14 +76,14 @@ export function AdminHeader() {
           </Link>
           
           {/* View Switcher Tabs - Desktop */}
-          <div className="hidden md:flex items-center bg-slate-700/40 backdrop-blur-sm rounded-xl p-1">
+          <div className="hidden md:flex items-center bg-slate-700/40 backdrop-blur-sm rounded-lg p-0.5">
             {DASHBOARD_VIEWS.map((view) => (
               <Link
                 key={view.id}
                 href={view.href}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium transition-all ${
                   currentView === view.id
-                    ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-md'
+                    ? 'bg-white text-slate-900 shadow-sm'
                     : 'text-slate-300 hover:text-white hover:bg-slate-600/50'
                 }`}
               >
@@ -186,7 +186,7 @@ export function AdminHeader() {
           </a>
           <Link
             href="/admin/appointments/new"
-            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-400 hover:to-rose-400 rounded-xl text-sm font-medium transition-all shadow-md hover:shadow-lg hover:shadow-pink-500/25"
+            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 bg-[#E6007E] hover:bg-[#c90a68] rounded-lg text-sm font-medium transition-colors"
           >
             <span aria-hidden>➕</span>
             Book

@@ -2,12 +2,12 @@
 
 // ============================================================
 // PROVIDER DASHBOARD - DAILY WORKSPACE
-// Fresha-Level UX - Calm, focused, confidence-boosting
-// This is where providers live all day
+// Provider-specific metrics and quick actions (Aesthetic Record style)
 // ============================================================
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { useProviderId } from '@/lib/provider/useProviderId';
 import {
   KPICard,
   KPISkeleton,
@@ -58,6 +58,7 @@ interface Task {
 // MAIN COMPONENT
 // ============================================================
 export default function ProviderDashboard() {
+  const providerId = useProviderId();
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [stats, setStats] = useState<ProviderStats | null>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -69,7 +70,9 @@ export default function ProviderDashboard() {
   const fetchData = useCallback(async () => {
     try {
       const today = new Date().toISOString().split('T')[0];
-      const res = await fetch(`/api/appointments?date=${today}`);
+      const params = new URLSearchParams({ date: today });
+      if (providerId) params.set('provider_id', providerId);
+      const res = await fetch(`/api/appointments?${params}`);
       
       if (!res.ok) {
         throw new Error('Failed to fetch appointments');
@@ -132,7 +135,7 @@ export default function ProviderDashboard() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [providerId]);
 
   useEffect(() => {
     fetchData();
@@ -444,6 +447,13 @@ export default function ProviderDashboard() {
               >
                 <span className="text-2xl">📝</span>
                 <span className="text-sm font-medium">New Chart</span>
+              </Link>
+              <Link
+                href="/admin/chart-to-cart/new"
+                className="flex flex-col items-center gap-2 p-4 bg-violet-50 hover:bg-violet-100 text-violet-600 rounded-xl transition-colors"
+              >
+                <span className="text-2xl">🛒</span>
+                <span className="text-sm font-medium">Chart-to-Cart</span>
               </Link>
               <Link
                 href="/pos/quick-sale"

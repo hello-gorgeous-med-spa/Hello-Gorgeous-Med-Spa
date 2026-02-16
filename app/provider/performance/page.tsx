@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useProviderId } from '@/lib/provider/useProviderId';
 
 interface PerformanceStats {
   // Today
@@ -42,6 +43,7 @@ interface ServiceBreakdown {
 }
 
 export default function ProviderPerformancePage() {
+  const providerId = useProviderId();
   const [stats, setStats] = useState<PerformanceStats>({
     todayPatients: 0,
     todayRevenue: 0,
@@ -67,7 +69,9 @@ export default function ProviderPerformancePage() {
       setLoading(true);
       try {
         // Fetch appointments
-        const res = await fetch('/api/appointments?limit=500');
+        const params = new URLSearchParams({ limit: '500' });
+        if (providerId) params.set('provider_id', providerId);
+        const res = await fetch(`/api/appointments?${params}`);
         const data = await res.json();
         
         if (data.appointments) {
@@ -143,7 +147,7 @@ export default function ProviderPerformancePage() {
     }
     
     fetchStats();
-  }, [period]);
+  }, [period, providerId]);
 
   if (loading) {
     return (

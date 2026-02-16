@@ -126,18 +126,18 @@ function KPICard({
   };
 
   const gradientBg = gradient ? {
-    green: 'bg-gradient-to-br from-emerald-50 to-teal-50 border-emerald-100',
-    blue: 'bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-100',
-    pink: 'bg-gradient-to-br from-pink-50 to-rose-50 border-pink-100',
-    purple: 'bg-gradient-to-br from-violet-50 to-purple-50 border-violet-100',
-    amber: 'bg-gradient-to-br from-amber-50 to-orange-50 border-amber-100',
-    teal: 'bg-gradient-to-br from-teal-50 to-cyan-50 border-teal-100',
-    red: 'bg-gradient-to-br from-rose-50 to-red-50 border-rose-100',
-    gray: 'bg-white border-gray-100',
-  }[color] : 'bg-white border-gray-100';
+    green: 'bg-white border-slate-200',
+    blue: 'bg-white border-slate-200',
+    pink: 'bg-white border-slate-200',
+    purple: 'bg-white border-slate-200',
+    amber: 'bg-white border-slate-200',
+    teal: 'bg-white border-slate-200',
+    red: 'bg-white border-slate-200',
+    gray: 'bg-white border-slate-200',
+  }[color] : 'bg-white border-slate-200';
 
   return (
-    <div className={`rounded-xl border shadow-sm p-5 transition-all hover:shadow-md ${gradientBg}`}>
+    <div className={`rounded-lg border shadow-sm p-5 transition-shadow hover:shadow ${gradientBg}`}>
       <div className="flex items-start justify-between">
         <p className="text-sm font-medium text-gray-600 mb-1">{label}</p>
         {icon && <span className="text-xl opacity-80">{icon}</span>}
@@ -433,9 +433,9 @@ export default function ExecutiveDashboard() {
   return (
     <div className="space-y-6 print:space-y-4">
       {/* Header - Modern glassmorphic style */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 print:hidden bg-white/80 backdrop-blur-sm rounded-2xl p-5 shadow-sm border border-white/50">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 print:hidden bg-white rounded-lg p-5 shadow-sm border border-slate-200">
         <div>
-          <h1 className="text-2xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">
+          <h1 className="text-2xl font-bold text-slate-900">
             Executive Dashboard
           </h1>
           <p className="text-slate-500 mt-0.5">{today}</p>
@@ -449,7 +449,7 @@ export default function ExecutiveDashboard() {
                 onClick={() => setDateRange(range)}
                 className={`px-4 py-2 text-sm font-medium capitalize rounded-lg transition-all ${
                   dateRange === range
-                    ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-md'
+                    ? 'bg-[#2D63A4] text-white'
                     : 'text-slate-600 hover:bg-white/70'
                 }`}
               >
@@ -462,7 +462,7 @@ export default function ExecutiveDashboard() {
           <select
             value={selectedProvider}
             onChange={(e) => setSelectedProvider(e.target.value)}
-            className="px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-700 shadow-sm focus:ring-2 focus:ring-pink-500/20 focus:border-pink-300 transition-all"
+            className="px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-700 shadow-sm focus:ring-2 focus:ring-[#2D63A4]/30 focus:border-[#2D63A4] transition-all"
           >
             <option value="all">All Providers</option>
             {providers.map((p) => (
@@ -487,7 +487,7 @@ export default function ExecutiveDashboard() {
           {/* Quick Actions */}
           <Link
             href="/admin/appointments/new"
-            className="px-5 py-2.5 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium rounded-xl hover:from-pink-600 hover:to-rose-600 text-sm shadow-lg shadow-pink-500/30 transition-all"
+            className="px-5 py-2.5 bg-[#E6007E] text-white font-medium rounded-lg hover:bg-[#c90a68] text-sm transition-colors"
           >
             + New Booking
           </Link>
@@ -641,7 +641,7 @@ export default function ExecutiveDashboard() {
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
             <h2 className="font-semibold text-gray-900">Revenue by Provider</h2>
-            <Link href="/admin/reports?tab=providers" className="text-sm text-pink-600 hover:text-pink-700">
+            <Link href="/admin/reports?tab=providers" className="text-sm text-[#2D63A4] hover:text-[#002168]">
               Details →
             </Link>
           </div>
@@ -660,7 +660,7 @@ export default function ExecutiveDashboard() {
               providerStats.map((provider, idx) => (
                 <div key={provider.id} className="px-5 py-3 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white text-sm font-bold">
+                    <div className="w-8 h-8 rounded-full bg-[#2D63A4] flex items-center justify-center text-white text-sm font-bold">
                       {idx + 1}
                     </div>
                     <div>
@@ -684,7 +684,7 @@ export default function ExecutiveDashboard() {
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
             <h2 className="font-semibold text-gray-900">Top Services (Month)</h2>
-            <Link href="/admin/reports?tab=services" className="text-sm text-pink-600 hover:text-pink-700">
+            <Link href="/admin/reports?tab=services" className="text-sm text-[#2D63A4] hover:text-[#002168]">
               Details →
             </Link>
           </div>
@@ -723,7 +723,7 @@ export default function ExecutiveDashboard() {
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
           <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
             <h2 className="font-semibold text-gray-900">Today's Schedule</h2>
-            <Link href="/admin/calendar" className="text-sm text-pink-600 hover:text-pink-700">
+            <Link href="/admin/calendar" className="text-sm text-[#2D63A4] hover:text-[#002168]">
               Full Calendar →
             </Link>
           </div>
@@ -783,49 +783,49 @@ export default function ExecutiveDashboard() {
       <div className="grid grid-cols-2 lg:grid-cols-8 gap-4 print:hidden">
         <Link
           href="/admin/clients"
-          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-pink-200 hover:shadow-md transition-all text-center"
+          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-slate-300 hover:shadow transition-all text-center"
         >
           <span className="text-2xl block mb-1">👥</span>
           <p className="font-medium text-gray-900 text-sm">Clients</p>
         </Link>
         <Link
           href="/admin/services"
-          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-pink-200 hover:shadow-md transition-all text-center"
+          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-slate-300 hover:shadow transition-all text-center"
         >
           <span className="text-2xl block mb-1">✨</span>
           <p className="font-medium text-gray-900 text-sm">Services</p>
         </Link>
         <Link
           href="/admin/prescriptions"
-          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-pink-200 hover:shadow-md transition-all text-center"
+          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-slate-300 hover:shadow transition-all text-center"
         >
           <span className="text-2xl block mb-1">💊</span>
           <p className="font-medium text-gray-900 text-sm">Prescriptions</p>
         </Link>
         <Link
           href="/admin/reports"
-          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-pink-200 hover:shadow-md transition-all text-center"
+          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-slate-300 hover:shadow transition-all text-center"
         >
           <span className="text-2xl block mb-1">📈</span>
           <p className="font-medium text-gray-900 text-sm">Reports</p>
         </Link>
         <Link
           href="/admin/compliance"
-          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-pink-200 hover:shadow-md transition-all text-center"
+          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-slate-300 hover:shadow transition-all text-center"
         >
           <span className="text-2xl block mb-1">✅</span>
           <p className="font-medium text-gray-900 text-sm">Compliance</p>
         </Link>
         <Link
           href="/admin/marketing"
-          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-pink-200 hover:shadow-md transition-all text-center"
+          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-slate-300 hover:shadow transition-all text-center"
         >
           <span className="text-2xl block mb-1">📣</span>
           <p className="font-medium text-gray-900 text-sm">Marketing</p>
         </Link>
         <Link
           href="/admin/content/providers"
-          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-pink-200 hover:shadow-md transition-all text-center"
+          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-slate-300 hover:shadow transition-all text-center"
         >
           <span className="text-2xl block mb-1">👩‍⚕️</span>
           <p className="font-medium text-gray-900 text-sm">Providers</p>

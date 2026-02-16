@@ -7,6 +7,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useProviderId } from '@/lib/provider/useProviderId';
 
 interface ScheduleDay {
   day_of_week: number;
@@ -28,6 +29,7 @@ const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 
 const DAY_ABBREV = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 export default function ProviderSchedulePage() {
+  const authProviderId = useProviderId();
   const [weeklySchedule, setWeeklySchedule] = useState<ScheduleDay[]>([]);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -58,12 +60,13 @@ export default function ProviderSchedulePage() {
     async function fetchData() {
       setLoading(true);
       try {
-        // Get providers first to find the current provider ID
-        const providersRes = await fetch('/api/providers');
-        const providersData = await providersRes.json();
-        
-        // Use first provider for now (would come from auth session)
-        const providerId = providersData.providers?.[0]?.id;
+        // Use provider ID from auth, or fallback to first provider (for owner viewing)
+        let providerId = authProviderId;
+        if (!providerId) {
+          const providersRes = await fetch('/api/providers');
+          const providersData = await providersRes.json();
+          providerId = providersData.providers?.[0]?.id;
+        }
         
         if (providerId) {
           // Fetch weekly schedule
@@ -92,7 +95,7 @@ export default function ProviderSchedulePage() {
     }
     
     fetchData();
-  }, []);
+  }, [authProviderId]);
 
   const formatTime = (time: string | null) => {
     if (!time) return '--:--';

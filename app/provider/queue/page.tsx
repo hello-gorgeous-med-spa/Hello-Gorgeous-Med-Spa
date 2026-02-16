@@ -7,6 +7,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { useProviderId } from '@/lib/provider/useProviderId';
 
 interface QueuePatient {
   id: string;
@@ -29,6 +30,7 @@ const ROOMS = [
 ];
 
 export default function PatientQueuePage() {
+  const providerId = useProviderId();
   const [queue, setQueue] = useState<QueuePatient[]>([]);
   const [confirmedUpcoming, setConfirmedUpcoming] = useState<QueuePatient[]>([]);
   const [loading, setLoading] = useState(true);
@@ -38,7 +40,9 @@ export default function PatientQueuePage() {
   const fetchQueue = useCallback(async () => {
     try {
       const today = new Date().toISOString().split('T')[0];
-      const res = await fetch(`/api/appointments?date=${today}`);
+      const params = new URLSearchParams({ date: today });
+      if (providerId) params.set('provider_id', providerId);
+      const res = await fetch(`/api/appointments?${params}`);
       const data = await res.json();
       
       if (data.appointments) {
@@ -75,7 +79,7 @@ export default function PatientQueuePage() {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [providerId]);
 
   useEffect(() => {
     fetchQueue();

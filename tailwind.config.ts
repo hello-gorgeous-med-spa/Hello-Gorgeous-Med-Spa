@@ -9,7 +9,18 @@ export default {
         serif: ["var(--font-playfair)", "Georgia", "serif"],
       },
       colors: {
-        // Hello Gorgeous Premium Medical Glam tokens
+        // Aesthetic Record-style clinical palette
+        clinical: {
+          bg: "#F3F7F8",
+          surface: "#FFFFFF",
+          border: "#E2E8F0",
+          navy: "#002168",
+          navyLight: "#1e3a5f",
+          blue: "#2D63A4",
+          blueLight: "#5E94C2",
+          blueMuted: "#94a3b8",
+        },
+        // Hello Gorgeous brand (use for CTAs/accents only)
         hg: {
           pink: "#E6007E",
           pinkDeep: "#B0005F",
@@ -47,7 +58,8 @@ export default {
       },
       boxShadow: {
         glow: "0 0 0 1px rgba(255,45,149,.2), 0 18px 55px rgba(255,45,149,.18)",
-        card: "0 1px 0 rgba(7,7,10,.06), 0 12px 32px rgba(7,7,10,.08)"
+        card: "0 1px 0 rgba(7,7,10,.06), 0 12px 32px rgba(7,7,10,.08)",
+        clinical: "0 1px 3px rgba(0,33,104,.06), 0 4px 12px rgba(0,0,0,.04)"
       },
       borderRadius: {
         xl: "16px",

@@ -162,6 +162,8 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     let date = searchParams.get('date');
+    const startDate = searchParams.get('start_date');
+    const endDate = searchParams.get('end_date');
     const providerId = searchParams.get('provider_id');
     const limitParam = searchParams.get('limit');
     const limit = limitParam ? parseInt(limitParam, 10) : null;
@@ -229,6 +231,14 @@ export async function GET(request: NextRequest) {
 
     if (date) {
       const { startISO, endISO } = businessDayToISOBounds(date);
+      query = query
+        .gte('starts_at', startISO)
+        .lt('starts_at', endISO)
+        .neq('status', 'cancelled')
+        .order('starts_at', { ascending: true });
+    } else if (startDate && endDate) {
+      const startISO = `${startDate}T00:00:00`;
+      const endISO = `${endDate}T23:59:59`;
       query = query
         .gte('starts_at', startISO)
         .lt('starts_at', endISO)

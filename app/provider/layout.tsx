@@ -11,6 +11,8 @@ import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ModeSwitcher from '@/components/ModeSwitcher';
+import { useProviderId } from '@/lib/provider/useProviderId';
+import { useAuth } from '@/lib/hgos/AuthContext';
 
 const NAV_ITEMS = [
   { 
@@ -75,12 +77,14 @@ export default function ProviderLayout({
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [queueCount, setQueueCount] = useState(0);
+  const providerId = useProviderId();
+  const { user } = useAuth();
 
   // Update time every second for a live feel
   useEffect(() => {
     const timer = setInterval(() => setCurrentTime(new Date()), 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [providerId]);
 
   // SECURITY: Add noindex meta tag to prevent search engine indexing
   useEffect(() => {
@@ -97,7 +101,9 @@ export default function ProviderLayout({
   const fetchQueueCount = useCallback(async () => {
     try {
       const today = new Date().toISOString().split('T')[0];
-      const res = await fetch(`/api/appointments?date=${today}`);
+      const params = new URLSearchParams({ date: today });
+      if (providerId) params.set('provider_id', providerId);
+      const res = await fetch(`/api/appointments?${params}`);
       if (res.ok) {
         const data = await res.json();
         const checkedIn = (data.appointments || []).filter(
@@ -108,7 +114,7 @@ export default function ProviderLayout({
     } catch (error) {
       console.error('Error fetching queue:', error);
     }
-  }, []);
+  }, [providerId]);
 
   useEffect(() => {
     fetchQueueCount();
@@ -312,11 +318,13 @@ export default function ProviderLayout({
               {/* User Avatar */}
               <div className="flex items-center gap-3 pl-4 ml-2 border-l border-gray-200">
                 <div className="text-right hidden sm:block">
-                  <p className="text-sm font-semibold text-gray-900">Provider</p>
+                  <p className="text-sm font-semibold text-gray-900">
+                    {user ? `${user.firstName} ${user.lastName}`.trim() || 'Provider' : 'Provider'}
+                  </p>
                   <p className="text-xs text-emerald-600 font-medium">On Duty</p>
                 </div>
                 <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold shadow-lg">
-                  P
+                  {user?.firstName?.[0] || 'P'}
                 </div>
               </div>
             </div>

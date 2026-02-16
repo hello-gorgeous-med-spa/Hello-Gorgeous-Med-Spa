@@ -39,17 +39,17 @@ function NavSection({
   }, [hasActiveItem, pathname]);
 
   return (
-    <div className="border-b border-pink-200 last:border-0">
+    <div className="border-b border-slate-200 last:border-0">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all ${
           hasActiveItem 
-            ? 'bg-gradient-to-r from-pink-500/20 to-purple-500/10 border-l-2 border-[#E6007E]' 
-            : 'hover:bg-pink-100'
+            ? 'bg-slate-100 border-l-2 border-[#2D63A4]' 
+            : 'hover:bg-slate-50'
         }`}
       >
         <span className="text-lg">{icon}</span>
-        <span className={`flex-1 font-medium text-sm ${hasActiveItem ? 'text-[#E6007E]' : 'text-gray-700'}`}>
+        <span className={`flex-1 font-medium text-sm ${hasActiveItem ? 'text-[#002168]' : 'text-slate-700'}`}>
           {title}
         </span>
         <svg 
@@ -70,8 +70,8 @@ function NavSection({
                 href={item.href}
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all ${
                   isActive(item.href)
-                    ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium shadow-lg shadow-pink-500/20'
-                    : 'text-gray-600 hover:bg-pink-100 hover:text-[#E6007E]'
+                    ? 'bg-[#2D63A4] text-white font-medium'
+                    : 'text-slate-600 hover:bg-slate-100 hover:text-[#002168]'
                 }`}
               >
                 <span className="text-base opacity-80">{item.icon}</span>
@@ -237,46 +237,46 @@ export default function AdminLayout({
   return (
     <ToastProvider>
       <KeyboardShortcutsProvider>
-        <div className="min-h-screen bg-slate-100 admin-panel">
+        <div className="min-h-screen bg-[#F3F7F8] admin-panel">
           <AdminHeader />
 
           <div className="flex">
-            {/* Sidebar - Modern dark design */}
-            <aside className="w-64 bg-gradient-to-b from-pink-100 via-pink-50 to-white min-h-[calc(100vh-56px)] sticky top-14 hidden lg:block overflow-y-auto shadow-xl border-r border-pink-200">
-              {/* Dashboard link - always visible */}
-              <div className="p-3 border-b border-pink-200">
+            {/* Sidebar - Clinical Aesthetic Record style */}
+            <aside className="w-64 bg-white min-h-[calc(100vh-56px)] sticky top-14 hidden lg:block overflow-y-auto shadow-sm border-r border-slate-200">
+              {/* Quick links */}
+              <div className="p-3 border-b border-slate-200 bg-slate-50/50">
                 <Link
                   href="/admin/owner/live-state"
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
+                  className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all ${
                     pathname === '/admin/owner/live-state'
-                      ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white font-medium shadow-lg shadow-green-500/30'
-                      : 'bg-green-50 text-green-700 hover:bg-green-100 border border-green-200'
+                      ? 'bg-emerald-600 text-white font-medium'
+                      : 'text-slate-700 hover:bg-slate-100'
                   }`}
                 >
                   <span className="text-lg">📡</span>
-                  <span className="font-medium">Live System State</span>
+                  <span className="font-medium text-sm">Live State</span>
                 </Link>
                 <Link
                   href="/admin"
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all mt-1 ${
+                  className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all mt-1 ${
                     pathname === '/admin'
-                      ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium shadow-lg shadow-pink-500/30'
-                      : 'text-gray-700 hover:bg-pink-100'
+                      ? 'bg-[#2D63A4] text-white font-medium'
+                      : 'text-slate-700 hover:bg-slate-100'
                   }`}
                 >
                   <span className="text-lg">📊</span>
-                  <span className="font-medium">Dashboard</span>
+                  <span className="font-medium text-sm">Dashboard</span>
                 </Link>
                 <Link
                   href="/pos"
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all mt-1 ${
+                  className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all mt-1 ${
                     pathname.startsWith('/pos')
                       ? 'bg-[#E6007E] text-white font-medium'
-                      : 'text-gray-700 hover:bg-pink-100'
+                      : 'text-slate-700 hover:bg-slate-100'
                   }`}
                 >
                   <span className="text-lg">💳</span>
-                  <span className="font-medium">POS / Checkout</span>
+                  <span className="font-medium text-sm">POS</span>
                 </Link>
               </div>
 
@@ -294,16 +294,16 @@ export default function AdminLayout({
               </nav>
 
               {/* Footer */}
-              <div className="sticky bottom-0 left-0 right-0 p-4 border-t border-pink-200 bg-pink-50/95 backdrop-blur">
+              <div className="sticky bottom-0 left-0 right-0 p-4 border-t border-slate-200 bg-white">
                 <div className="flex items-center justify-center gap-2">
                   <span className="text-[#E6007E] text-sm">💗</span>
-                  <p className="text-xs text-gray-600 font-medium">Hello Gorgeous OS</p>
+                  <p className="text-xs text-slate-500 font-medium">Hello Gorgeous</p>
                 </div>
               </div>
             </aside>
 
-            {/* Mobile Bottom Nav - Modern dark design */}
-            <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-pink-200 z-50 safe-area-pb shadow-[0_-4px_20px_rgba(230,0,126,0.1)]">
+            {/* Mobile Bottom Nav */}
+            <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-50 safe-area-pb shadow-[0_-1px_0_rgba(0,0,0,.06)]">
               <div className="flex justify-around items-center h-16 px-2">
                 <MobileNav />
                 {[
@@ -317,8 +317,8 @@ export default function AdminLayout({
                     href={item.href}
                     className={`flex flex-col items-center justify-center gap-1 min-w-[56px] py-2 rounded-xl transition-all ${
                       isActive(item.href) 
-                        ? 'text-[#E6007E] bg-pink-100' 
-                        : 'text-gray-600 hover:text-[#E6007E]'
+                        ? 'text-[#2D63A4] bg-slate-100' 
+                        : 'text-slate-600 hover:text-[#2D63A4]'
                     }`}
                   >
                     <span className="text-xl">{item.icon}</span>
@@ -328,8 +328,8 @@ export default function AdminLayout({
               </div>
             </nav>
 
-            {/* Main Content - Light background for contrast */}
-            <main className="flex-1 p-6 pb-24 lg:pb-6 min-h-[calc(100vh-56px)] bg-gradient-to-br from-pink-50 via-white to-pink-50">
+            {/* Main Content */}
+            <main className="flex-1 p-6 pb-24 lg:pb-6 min-h-[calc(100vh-56px)] bg-[#F3F7F8]">
               {children}
             </main>
           </div>
