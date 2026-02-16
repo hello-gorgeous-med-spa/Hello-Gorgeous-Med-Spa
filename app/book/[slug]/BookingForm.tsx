@@ -8,7 +8,7 @@
 // ============================================================
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface Service {
   id: string;
@@ -35,6 +35,7 @@ interface Provider {
 
 interface Props {
   service: Service;
+  providerPref?: string;
 }
 
 // Generate time slots based on provider schedule (defensive: require valid start/end)
@@ -102,8 +103,10 @@ function getAvailableDates(provider: Provider | null) {
   return dates;
 }
 
-export default function BookingForm({ service }: Props) {
+export default function BookingForm({ service, providerPref: propProviderPref }: Props) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const providerPref = propProviderPref ?? searchParams?.get('provider') ?? undefined;
   const [step, setStep] = useState<'provider' | 'datetime' | 'info' | 'confirm'>('provider');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedProvider, setSelectedProvider] = useState<Provider | null>(null);
@@ -163,14 +166,25 @@ export default function BookingForm({ service }: Props) {
   };
   const anySlotAvailable = hasAvailability && availabilitySlots.some((s) => s.available);
 
-  // Auto-select if only one provider (after loading completes)
-  // But NOT if user clicked "Change" to go back
+  // Auto-select provider: (1) URL ?provider=danielle/ryan matches, or (2) only one provider
   useEffect(() => {
-    if (!loadingProviders && availableProviders.length === 1 && !selectedProvider && !userChangedProvider) {
+    if (loadingProviders || userChangedProvider || selectedProvider) return;
+    if (availableProviders.length === 0) return;
+
+    const pref = (providerPref || '').toLowerCase();
+    if (pref) {
+      const match = availableProviders.find((p) => p.name.toLowerCase().includes(pref));
+      if (match) {
+        setSelectedProvider(match);
+        setStep('datetime');
+        return;
+      }
+    }
+    if (availableProviders.length === 1) {
       setSelectedProvider(availableProviders[0]);
       setStep('datetime');
     }
-  }, [availableProviders, selectedProvider, loadingProviders, userChangedProvider]);
+  }, [availableProviders, selectedProvider, loadingProviders, userChangedProvider, providerPref]);
 
   // Reset date/time when provider changes
   useEffect(() => {
@@ -707,34 +721,24 @@ export default function BookingForm({ service }: Props) {
                 />
               </div>
 
-              {/* Cancellation & No-Show Policy Box */}
-              <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
-                <h4 className="font-semibold text-amber-900 mb-2 flex items-center gap-2">
-                  ⚠️ Cancellation & No-Show Policy
-                </h4>
-                <ul className="text-sm text-amber-800 space-y-1">
-                  <li>• <strong>24-hour notice required</strong> to cancel or reschedule</li>
-                  <li>• Late cancellations (under 24 hrs) may incur a <strong>50% service fee</strong></li>
-                  <li>• No-shows may be charged the <strong>full service amount</strong></li>
-                  <li>• Clients with 3+ no-shows may require a deposit for future bookings</li>
-                </ul>
-              </div>
+              {/* Policy reminder - compact */}
+              <p className="text-xs text-gray-500">
+                24-hour cancellation notice required. By booking you agree to our{' '}
+                <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:underline">terms</a> and{' '}
+                <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:underline">privacy policy</a>.
+              </p>
 
-              {/* Agreements */}
-              <div className="space-y-3 pt-2">
+              {/* Agreements - compact */}
+              <div className="space-y-3 pt-1">
                 <label className="flex items-start gap-3 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={formData.agreeToSMS}
                     onChange={(e) => updateField('agreeToSMS', e.target.checked)}
-                    className="mt-1 w-4 h-4 text-pink-500 border-gray-300 rounded focus:ring-pink-500 shrink-0"
+                    className="mt-1 w-4 h-4 min-w-[16px] min-h-[16px] text-pink-500 border-gray-300 rounded focus:ring-pink-500 shrink-0"
                   />
                   <span className="text-sm text-gray-600">
-                    I consent to receive recurring automated text messages (appointment reminders, confirmations, and promotional offers) at the phone number provided. Message frequency varies. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help. Consent is not a condition of purchase. View our{' '}
-                    <a href="/privacy#sms-communications-policy" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:underline font-medium">
-                      SMS Communications Policy
-                    </a>
-                    .
+                    Send me SMS reminders &amp; offers (msg rates may apply, reply STOP to opt out)
                   </span>
                 </label>
                 <label className="flex items-start gap-3 cursor-pointer">
@@ -743,18 +747,10 @@ export default function BookingForm({ service }: Props) {
                     required
                     checked={formData.agreeToTerms}
                     onChange={(e) => updateField('agreeToTerms', e.target.checked)}
-                    className="mt-1 w-4 h-4 text-pink-500 border-gray-300 rounded focus:ring-pink-500"
+                    className="mt-1 w-4 h-4 min-w-[16px] min-h-[16px] text-pink-500 border-gray-300 rounded focus:ring-pink-500 shrink-0"
                   />
                   <span className="text-sm text-gray-600">
-                    I agree to the{' '}
-                    <a href="/terms" target="_blank" className="text-pink-600 hover:underline">
-                      terms of service
-                    </a>
-                    ,{' '}
-                    <a href="/privacy" target="_blank" className="text-pink-600 hover:underline">
-                      privacy policy
-                    </a>
-                    , and <strong>cancellation policy</strong> above *
+                    I agree to the <a href="/terms" target="_blank" className="text-pink-600 hover:underline">terms</a> and <a href="/privacy" target="_blank" className="text-pink-600 hover:underline">privacy policy</a> *
                   </span>
                 </label>
               </div>

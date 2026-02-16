@@ -74,8 +74,8 @@ export default function DocumentsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#111]">My Documents</h1>
-        <p className="text-[#111]/70 mt-1">Access and download your records securely</p>
+        <h1 className="text-2xl font-bold text-slate-900">My Documents</h1>
+        <p className="text-slate-900/70 mt-1">Access and download your records securely</p>
       </div>
 
       {/* Category Tabs */}
@@ -86,8 +86,8 @@ export default function DocumentsPage() {
             onClick={() => setActiveCategory(cat.id)}
             className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
               activeCategory === cat.id
-                ? 'bg-[#E6007E] text-white'
-                : 'bg-white border border-[#111]/10 text-[#111]/70 hover:border-[#E6007E]/50'
+                ? 'bg-slate-900 text-white'
+                : 'bg-white border border-slate-200 text-slate-900/70 hover:border-slate-300'
             }`}
           >
             <span>{cat.icon}</span>
@@ -100,27 +100,27 @@ export default function DocumentsPage() {
       {loading ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-white rounded-xl border border-[#111]/10 p-4 animate-pulse">
+            <div key={i} className="bg-white rounded-xl border border-slate-200 p-4 animate-pulse">
               <div className="h-4 bg-gray-200 rounded w-3/4 mb-2"></div>
               <div className="h-3 bg-gray-200 rounded w-1/2"></div>
             </div>
           ))}
         </div>
       ) : documents.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-xl border border-[#111]/10">
+        <div className="text-center py-12 bg-white rounded-xl border border-slate-200">
           <span className="text-4xl">📄</span>
-          <p className="mt-4 text-[#111]/70">No documents found</p>
-          <p className="text-sm text-[#111]/50 mt-1">Documents will appear here after your appointments</p>
+          <p className="mt-4 text-slate-900/70">No documents found</p>
+          <p className="text-sm text-slate-900/50 mt-1">Documents will appear here after your appointments</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {documents.map((doc) => (
-            <div key={doc.id} className="bg-white rounded-xl border border-[#111]/10 p-4 hover:shadow-md transition-shadow">
+            <div key={doc.id} className="bg-white rounded-xl border border-slate-200 p-4 hover:shadow-md transition-shadow">
               <div className="flex items-start justify-between">
                 <div className="flex-1">
-                  <h3 className="font-medium text-[#111] line-clamp-1">{doc.title}</h3>
-                  <p className="text-sm text-[#111]/50 mt-1">{doc.file_name}</p>
-                  <p className="text-xs text-[#111]/40 mt-2">
+                  <h3 className="font-medium text-slate-900 line-clamp-1">{doc.title}</h3>
+                  <p className="text-sm text-slate-900/50 mt-1">{doc.file_name}</p>
+                  <p className="text-xs text-slate-900/40 mt-2">
                     {new Date(doc.created_at).toLocaleDateString()}
                   </p>
                 </div>
@@ -131,7 +131,7 @@ export default function DocumentsPage() {
               <button
                 onClick={() => handleDownload(doc)}
                 disabled={downloading === doc.id}
-                className="mt-4 w-full bg-[#E6007E]/10 text-[#E6007E] py-2 px-4 rounded-lg text-sm font-medium hover:bg-[#E6007E]/20 transition-colors disabled:opacity-50"
+                className="mt-4 w-full bg-slate-900 text-white py-2 px-4 rounded-lg text-sm font-medium hover:bg-slate-800 transition-colors disabled:opacity-50"
               >
                 {downloading === doc.id ? 'Downloading...' : '⬇️ Download'}
               </button>
@@ -143,7 +143,7 @@ export default function DocumentsPage() {
       {/* Download All Button */}
       {documents.length > 0 && (
         <div className="flex justify-center pt-4">
-          <button className="flex items-center gap-2 bg-black text-white py-3 px-6 rounded-xl font-medium hover:bg-black/90 transition-colors">
+          <button className="flex items-center gap-2 bg-slate-900 text-white py-3 px-6 rounded-xl font-medium hover:bg-slate-800 transition-colors">
             <span>📦</span>
             Download All Records
           </button>

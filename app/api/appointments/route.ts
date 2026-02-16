@@ -229,21 +229,22 @@ export async function GET(request: NextRequest) {
       `)
       .order('starts_at', { ascending: false });
 
+    const includeAllStatuses = searchParams.get('include_cancelled') === 'true';
     if (date) {
       const { startISO, endISO } = businessDayToISOBounds(date);
       query = query
         .gte('starts_at', startISO)
         .lt('starts_at', endISO)
-        .neq('status', 'cancelled')
         .order('starts_at', { ascending: true });
+      if (!includeAllStatuses) query = query.neq('status', 'cancelled');
     } else if (startDate && endDate) {
       const startISO = `${startDate}T00:00:00`;
       const endISO = `${endDate}T23:59:59`;
       query = query
         .gte('starts_at', startISO)
-        .lt('starts_at', endISO)
-        .neq('status', 'cancelled')
+        .lte('starts_at', endISO)
         .order('starts_at', { ascending: true });
+      if (!includeAllStatuses) query = query.neq('status', 'cancelled');
     }
 
     if (providerId) {

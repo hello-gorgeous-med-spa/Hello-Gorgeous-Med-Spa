@@ -590,6 +590,145 @@ function DocumentsTabContent({
   );
 }
 
+
+// Unified Chart - Aesthetic Record style: single view with sub-tabs
+function UnifiedChartTabContent({
+  clientId,
+  clientName,
+  appointments,
+  consents,
+  formatDate,
+  loadingExtra,
+}: {
+  clientId: string;
+  clientName: string;
+  appointments: any[];
+  consents: any[];
+  formatDate: (s: string | null) => string;
+  loadingExtra: boolean;
+}) {
+  const [chartSubTab, setChartSubTab] = useState<'appointments' | 'notes' | 'consents' | 'photos' | 'chart-to-cart'>('appointments');
+  const subTabs = [
+    { id: 'appointments' as const, label: 'Appointments', icon: '📅' },
+    { id: 'notes' as const, label: 'Chart Notes', icon: '📋' },
+    { id: 'consents' as const, label: 'Consents', icon: '📝' },
+    { id: 'photos' as const, label: 'Photos', icon: '📷' },
+    { id: 'chart-to-cart' as const, label: 'Chart-to-Cart', icon: '🛒' },
+  ];
+
+  return (
+    <div className="space-y-4">
+      <div className="flex gap-2 overflow-x-auto pb-2 border-b border-slate-200">
+        {subTabs.map((t) => (
+          <button
+            key={t.id}
+            onClick={() => setChartSubTab(t.id)}
+            className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
+              chartSubTab === t.id
+                ? 'bg-[#2D63A4] text-white'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+          >
+            <span>{t.icon}</span>
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      {chartSubTab === 'appointments' && (
+        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+          {loadingExtra ? (
+            <div className="p-6 space-y-3">{[1,2,3,4].map(i => <Skeleton key={i} className="h-12" />)}</div>
+          ) : appointments.length === 0 ? (
+            <div className="p-8 text-center text-slate-500">
+              No appointments
+              <Link href={`/admin/appointments/new?client=${clientId}`} className="block text-[#E6007E] mt-2 font-medium">+ Book</Link>
+            </div>
+          ) : (
+            <table className="w-full">
+              <thead className="bg-slate-50 border-b border-slate-200">
+                <tr>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-slate-900">Date</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-slate-900">Service</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-slate-900">Provider</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-slate-900">Status</th>
+                  <th className="text-right px-5 py-3 text-sm font-semibold text-slate-900">Amount</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100">
+                {appointments.map((apt) => (
+                  <tr key={apt.id} className="hover:bg-slate-50">
+                    <td className="px-5 py-3 text-sm">{formatDate(apt.starts_at)}</td>
+                    <td className="px-5 py-3">{apt.service_name || '-'}</td>
+                    <td className="px-5 py-3 text-slate-600">{apt.provider_name || '-'}</td>
+                    <td className="px-5 py-3">
+                      <span className={`px-2 py-0.5 text-xs rounded-full ${
+                        apt.status === 'completed' ? 'bg-green-100 text-green-700' :
+                        apt.status === 'cancelled' ? 'bg-red-100 text-red-700' : 'bg-blue-100 text-blue-700'
+                      }`}>{apt.status}</span>
+                    </td>
+                    <td className="px-5 py-3 text-right font-medium">${apt.service_price || 0}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+      )}
+
+      {chartSubTab === 'notes' && (
+        <div className="space-y-4">
+          <ClientChartNotes clientId={clientId} />
+          <div className="flex gap-2">
+            <Link href={`/charting?client_id=${clientId}`} className="px-4 py-2 bg-[#2D63A4] text-white text-sm font-medium rounded-lg">New Chart Note</Link>
+            <Link href={`/admin/charting/injection-map?client=${clientId}`} className="px-4 py-2 bg-slate-100 text-slate-700 text-sm font-medium rounded-lg">Injection Map</Link>
+          </div>
+        </div>
+      )}
+
+      {chartSubTab === 'consents' && (
+        <div className="bg-white rounded-xl border border-slate-200 p-6">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="font-semibold text-slate-900">Signed Consents</h3>
+            <Link href={`/admin/consents?client=${clientId}`} className="text-sm text-[#2D63A4] font-medium">Sign New →</Link>
+          </div>
+          {consents.length === 0 ? (
+            <p className="text-slate-500 text-sm">No signed consents</p>
+          ) : (
+            <div className="space-y-2">
+              {consents.map((c) => (
+                <div key={c.id} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
+                  <span className="text-slate-700">{c.consent_form?.name || c.form_type}</span>
+                  <span className="text-slate-500 text-sm">{formatDate(c.signed_at)}</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {chartSubTab === 'photos' && (
+        <div className="bg-white rounded-xl border border-slate-200 p-8 text-center">
+          <span className="text-4xl block mb-4">📷</span>
+          <h3 className="font-semibold text-slate-900 mb-2">Treatment Photos</h3>
+          <p className="text-slate-500 text-sm mb-4">Before/after and progress photos</p>
+          <Link href={`/admin/clients/${clientId}/photos`} className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#2D63A4] text-white font-medium rounded-lg">Open Photos →</Link>
+        </div>
+      )}
+
+      {chartSubTab === 'chart-to-cart' && (
+        <div className="space-y-4">
+          <TreatmentSessionsSection clientId={clientId} />
+          <Link href="/admin/chart-to-cart/new" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#E6007E] text-white font-medium rounded-lg">
+            <span>🛒</span> New Chart-to-Cart Session
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+}
+
+
 // Client Chart Notes component
 function ClientChartNotes({ clientId }: { clientId: string }) {
   const [notes, setNotes] = useState<any[]>([]);
@@ -682,7 +821,7 @@ function ClientChartNotes({ clientId }: { clientId: string }) {
 }
 
 export default function AdminClientDetailPage({ params }: { params: { id: string } }) {
-  const [activeTab, setActiveTab] = useState<'overview' | 'appointments' | 'payments' | 'clinical' | 'documents'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'appointments' | 'payments' | 'chart' | 'documents'>('overview');
   
   // State for API data
   const [client, setClient] = useState<any>(null);
@@ -751,6 +890,24 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
     }
   }, [params.id]);
 
+  // Fetch signed consents for this client
+  const fetchClientConsents = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/consents/sign?clientId=${params.id}`);
+      const data = await res.json();
+      if (data.consents) {
+        setConsents(data.consents.map((c: any) => ({
+          id: c.id,
+          form_type: c.form_type,
+          signed_at: c.signed_at,
+          consent_form: { name: c.form_type?.replace(/_/g, ' ') || 'Consent' },
+        })));
+      }
+    } catch (err) {
+      console.error('Failed to load consents:', err);
+    }
+  }, [params.id]);
+
   // Fetch gift cards for this client
   const fetchClientGiftCards = useCallback(async () => {
     try {
@@ -771,10 +928,11 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
   useEffect(() => {
     if (params.id) {
       fetchClientAppointments();
+      fetchClientConsents();
       fetchClientGiftCards();
       setLoadingExtra(false);
     }
-  }, [params.id, fetchClientAppointments, fetchClientGiftCards]);
+  }, [params.id, fetchClientAppointments, fetchClientConsents, fetchClientGiftCards]);
 
   // Calculate age
   const calculateAge = (dob: string | null) => {
@@ -983,7 +1141,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
             { id: 'overview', label: 'Overview' },
             { id: 'appointments', label: `Appointments (${appointments.length})` },
             { id: 'payments', label: `Payments (${payments.length})` },
-            { id: 'clinical', label: 'Clinical' },
+            { id: 'chart', label: 'Chart' },
             { id: 'documents', label: `Documents (${consents.length})` },
           ].map((tab) => (
             <button
@@ -1282,130 +1440,15 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
         </div>
       )}
 
-      {activeTab === 'clinical' && (
-        <div className="space-y-6">
-          {/* Chart-to-Cart sessions (stays in client profile) */}
-          <TreatmentSessionsSection clientId={client.id} />
-
-          {/* Quick Actions */}
-          <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-100 p-5">
-            <h3 className="font-semibold text-gray-900 mb-3">Quick Clinical Actions</h3>
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href={`/admin/charting/injection-map?client=${client.id}`}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-pink-200 rounded-lg hover:bg-pink-50 transition-colors"
-              >
-                <span>💉</span>
-                <span className="font-medium text-gray-700">New Injection Map</span>
-              </Link>
-              <Link
-                href={`/charting?client=${client.id}`}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-purple-200 rounded-lg hover:bg-purple-50 transition-colors"
-              >
-                <span>📋</span>
-                <span className="font-medium text-gray-700">New Chart Note</span>
-              </Link>
-              <Link
-                href={`/admin/consents?client=${client.id}`}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-blue-200 rounded-lg hover:bg-blue-50 transition-colors"
-              >
-                <span>📝</span>
-                <span className="font-medium text-gray-700">Sign Consent</span>
-              </Link>
-              <Link
-                href="/admin/chart-to-cart/new"
-                className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-green-200 rounded-lg hover:bg-green-50 transition-colors"
-              >
-                <span>🛒</span>
-                <span className="font-medium text-gray-700">Chart-to-Cart Session</span>
-              </Link>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Medications */}
-            <MedicationsSection 
-              clientId={client.id} 
-              clientName={`${client.first_name} ${client.last_name}`} 
-            />
-
-            {/* Medical Summary */}
-            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-              <h3 className="font-semibold text-gray-900 mb-4">Medical Summary</h3>
-              <div className="space-y-4">
-                <div>
-                  <p className="text-sm text-gray-500 mb-1">Allergies</p>
-                  {client.allergies_summary ? (
-                    <p className="text-sm text-red-700 bg-red-50 px-2 py-1 rounded inline-block">
-                      {client.allergies_summary}
-                    </p>
-                  ) : (
-                    <p className="text-sm text-gray-400">None on file</p>
-                  )}
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500 mb-1">Medications</p>
-                  {client.medications_summary ? (
-                    <p className="text-sm text-gray-900">{client.medications_summary}</p>
-                  ) : (
-                    <p className="text-sm text-gray-400">None on file</p>
-                  )}
-                </div>
-                <div>
-                  <p className="text-sm text-gray-500 mb-1">Medical Conditions</p>
-                  {client.medical_conditions_summary ? (
-                    <p className="text-sm text-gray-900">{client.medical_conditions_summary}</p>
-                  ) : (
-                    <p className="text-sm text-gray-400">None on file</p>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Chart Notes */}
-            <ClientChartNotes clientId={client.id} />
-
-            {/* Injection Maps */}
-            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-gray-900">Injection Maps</h3>
-                <Link
-                  href={`/admin/charting/injection-map?client=${client.id}`}
-                  className="text-sm text-pink-600 hover:text-pink-700"
-                >
-                  + New Map
-                </Link>
-              </div>
-              <InjectionMapsPreview clientId={client.id} />
-            </div>
-
-            {/* Consents & Forms */}
-            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-              <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-gray-900">Consents & Forms</h3>
-                <Link
-                  href={`/admin/consents?client=${client.id}`}
-                  className="text-sm text-pink-600 hover:text-pink-700"
-                >
-                  View All →
-                </Link>
-              </div>
-              {consents.length === 0 ? (
-                <p className="text-gray-500 text-sm">No signed consents yet</p>
-              ) : (
-                <div className="space-y-2">
-                  {consents.slice(0, 3).map((consent) => (
-                    <div key={consent.id} className="flex items-center gap-2 text-sm">
-                      <span className="text-green-500">✓</span>
-                      <span className="text-gray-700">{consent.consent_form?.name || 'Consent Form'}</span>
-                      <span className="text-gray-400 text-xs">• {formatDate(consent.signed_at)}</span>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
+      {activeTab === 'chart' && (
+        <UnifiedChartTabContent
+          clientId={client.id}
+          clientName={`${client.first_name} ${client.last_name}`}
+          appointments={appointments}
+          consents={consents}
+          formatDate={formatDate}
+          loadingExtra={loadingExtra}
+        />
       )}
 
       {activeTab === 'documents' && (

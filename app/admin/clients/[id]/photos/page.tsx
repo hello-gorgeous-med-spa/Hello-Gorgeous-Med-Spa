@@ -8,6 +8,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
+import { BeforeAfterSlider } from '@/components/providers/BeforeAfterSlider';
 
 interface Photo {
   id: string;
@@ -510,10 +511,10 @@ export default function ClientPhotosPage() {
         </div>
       )}
 
-      {/* Compare Modal */}
+      {/* Compare Modal - Slider */}
       {compareMode && comparePhotos[0] && comparePhotos[1] && (
         <div className="fixed inset-0 bg-black/90 flex items-center justify-center z-50 p-4">
-          <div className="max-w-6xl w-full">
+          <div className="max-w-2xl w-full">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-xl font-bold text-white">Before & After Comparison</h3>
               <button
@@ -523,27 +524,17 @@ export default function ClientPhotosPage() {
                 Close
               </button>
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              {comparePhotos.map((photo, idx) => (
-                <div key={idx}>
-                  <span className={`text-sm font-medium px-3 py-1 rounded ${
-                    photo?.type === 'before' ? 'bg-blue-500 text-white' :
-                    photo?.type === 'after' ? 'bg-green-500 text-white' :
-                    'bg-yellow-500 text-white'
-                  }`}>
-                    {photo?.type?.toUpperCase()}
-                  </span>
-                  <img
-                    src={photo?.url}
-                    alt={photo?.area}
-                    className="w-full rounded-lg mt-2"
-                  />
-                  <p className="text-gray-400 mt-2 text-sm">
-                    {photo?.area} • {new Date(photo?.captured_at || '').toLocaleDateString()}
-                  </p>
-                </div>
-              ))}
+            <div className="bg-white rounded-xl p-4">
+              <BeforeAfterSlider
+                beforeUrl={comparePhotos[0].url}
+                afterUrl={comparePhotos[1].url}
+                alt={`${comparePhotos[0].area} → ${comparePhotos[1].area}`}
+                aspectRatio="square"
+              />
             </div>
+            <p className="text-gray-400 mt-3 text-sm text-center">
+              {comparePhotos[0].area} vs {comparePhotos[1].area}
+            </p>
           </div>
         </div>
       )}

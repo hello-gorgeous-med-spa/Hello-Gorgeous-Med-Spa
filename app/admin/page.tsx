@@ -171,6 +171,7 @@ export default function ExecutiveDashboard() {
   const [upcomingAppointments, setUpcomingAppointments] = useState<UpcomingAppointment[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   
   // Filters
   const [dateRange, setDateRange] = useState<'today' | 'week' | 'month' | 'year'>('month');
@@ -200,14 +201,21 @@ export default function ExecutiveDashboard() {
       const dashRes = await fetch('/api/dashboard');
       const dashData = await dashRes.json();
 
-      // Fetch appointments for detailed stats
+      // Fetch appointments - use date range for period stats
       const todayDate = new Date().toISOString().split('T')[0];
-      const aptsRes = await fetch(`/api/appointments?date=${todayDate}`);
+      const monthStart = new Date();
+      monthStart.setDate(1);
+      monthStart.setHours(0, 0, 0, 0);
+      const startDate = monthStart.toISOString().split('T')[0];
+      const endDate = new Date().toISOString().split('T')[0];
+
+      const providerParam = selectedProvider !== 'all' ? `&provider_id=${selectedProvider}` : '';
+      const aptsRes = await fetch(`/api/appointments?date=${todayDate}${providerParam}`);
       const aptsData = await aptsRes.json();
       const appointments = aptsData.appointments || [];
 
-      // Fetch all appointments for period stats
-      const allAptsRes = await fetch('/api/appointments?limit=500');
+      // Fetch appointments for period stats with date range (includes cancelled for rate calc)
+      const allAptsRes = await fetch(`/api/appointments?start_date=${startDate}&end_date=${endDate}&include_cancelled=true&limit=1000${providerParam}`);
       const allAptsData = await allAptsRes.json();
       const allAppointments = allAptsData.appointments || [];
 
@@ -225,12 +233,9 @@ export default function ExecutiveDashboard() {
         return { id: p.id, name };
       }));
 
-      // Calculate stats - use calendar month start, not "30 days ago"
+      // Calculate stats - use calendar month start
       const now = new Date();
       const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
-      // Use 1st of current month, not 30 days ago
-      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
-      monthStart.setHours(0, 0, 0, 0);
 
       const todayAppts = appointments.filter((a: any) => a.status !== 'cancelled');
       const completedToday = appointments.filter((a: any) => a.status === 'completed').length;
@@ -382,6 +387,7 @@ export default function ExecutiveDashboard() {
 
       setUpcomingAppointments(upcoming);
       setError(null);
+      setLastUpdated(new Date());
     } catch (err) {
       console.error('Dashboard fetch error:', err);
       setError('Failed to load dashboard data');
@@ -392,8 +398,8 @@ export default function ExecutiveDashboard() {
 
   useEffect(() => {
     fetchDashboard();
-    // Refresh every 60 seconds
-    const interval = setInterval(fetchDashboard, 60000);
+    // Refresh every 30 seconds
+    const interval = setInterval(fetchDashboard, 30000);
     return () => clearInterval(interval);
   }, [fetchDashboard]);
 
@@ -439,6 +445,11 @@ export default function ExecutiveDashboard() {
             Executive Dashboard
           </h1>
           <p className="text-slate-500 mt-0.5">{today}</p>
+        {lastUpdated && (
+          <p className="text-xs text-slate-400 mt-1">
+            Last updated {lastUpdated.toLocaleTimeString()}
+          </p>
+        )}
         </div>
         <div className="flex flex-wrap items-center gap-3">
           {/* Date Range Filter - Pill style */}

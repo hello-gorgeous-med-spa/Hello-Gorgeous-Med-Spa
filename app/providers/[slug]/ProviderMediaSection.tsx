@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import { BeforeAfterSlider } from '@/components/providers/BeforeAfterSlider';
 
 interface MediaItem {
   id: string;
@@ -24,7 +25,6 @@ interface Props {
 export function ProviderMediaSection({ media, type }: Props) {
   const [selectedTag, setSelectedTag] = useState<string>('all');
   const [selectedMedia, setSelectedMedia] = useState<MediaItem | null>(null);
-  const [sliderPosition, setSliderPosition] = useState(50);
 
   // Get unique service tags
   const tags = ['all', ...new Set(media.map((m) => m.service_tag).filter(Boolean))];
@@ -169,62 +169,17 @@ export function ProviderMediaSection({ media, type }: Props) {
                   playsInline
                 />
               </div>
-            ) : (
-              <div className="relative aspect-square">
-                {/* Before/After Slider */}
-                <div className="absolute inset-0">
-                  {/* After image (full) */}
-                  {selectedMedia.after_image_url && (
-                    <Image
-                      src={selectedMedia.after_image_url}
-                      alt="After"
-                      fill
-                      className="object-cover"
-                    />
-                  )}
-                  {/* Before image (clipped) */}
-                  <div
-                    className="absolute inset-0 overflow-hidden"
-                    style={{ width: `${sliderPosition}%` }}
-                  >
-                    {selectedMedia.before_image_url && (
-                      <Image
-                        src={selectedMedia.before_image_url}
-                        alt="Before"
-                        fill
-                        className="object-cover"
-                        style={{ maxWidth: 'none', width: '100%' }}
-                      />
-                    )}
-                  </div>
-                  {/* Slider handle */}
-                  <div
-                    className="absolute top-0 bottom-0 w-1 bg-white shadow-lg cursor-ew-resize"
-                    style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
-                  >
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center">
-                      <span className="text-gray-400">↔</span>
-                    </div>
-                  </div>
-                  {/* Slider input */}
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    value={sliderPosition}
-                    onChange={(e) => setSliderPosition(Number(e.target.value))}
-                    className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize"
-                  />
-                </div>
-                {/* Labels */}
-                <span className="absolute top-4 left-4 px-3 py-1 bg-black/50 text-white text-sm rounded-full">
-                  Before
-                </span>
-                <span className="absolute top-4 right-4 px-3 py-1 bg-pink-500 text-white text-sm rounded-full">
-                  After
-                </span>
+            ) : selectedMedia.before_image_url && selectedMedia.after_image_url ? (
+              <div className="p-4">
+                <BeforeAfterSlider
+                  beforeUrl={selectedMedia.before_image_url}
+                  afterUrl={selectedMedia.after_image_url}
+                  alt={selectedMedia.title || undefined}
+                  aspectRatio="square"
+                  className="rounded-xl overflow-hidden"
+                />
               </div>
-            )}
+            ) : null}
 
             {/* Info */}
             <div className="p-6">
