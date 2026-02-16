@@ -303,7 +303,7 @@ export default function ReportsPage() {
               No service data for this period
             </div>
           ) : (
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-black">
               {(report?.services || []).map((service: any, index: number) => (
                 <div key={service.id} className="px-5 py-4 flex items-center justify-between">
                   <div className="flex items-center gap-4">
@@ -344,7 +344,7 @@ export default function ReportsPage() {
               No provider data for this period
             </div>
           ) : (
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-black">
               {(report?.providers || []).map((provider: any) => (
                 <div key={provider.id} className="px-5 py-4">
                   <div className="flex items-center justify-between mb-2">
@@ -411,7 +411,7 @@ export default function ReportsPage() {
                 </div>
 
                 {/* Recent New Clients */}
-                <div className="divide-y divide-gray-100 max-h-64 overflow-y-auto">
+                <div className="divide-y divide-black max-h-64 overflow-y-auto">
                   {(report?.newClients?.list || []).slice(0, 10).map((client: any) => (
                     <Link
                       key={client.id}
@@ -444,7 +444,7 @@ export default function ReportsPage() {
                 ))}
               </div>
             ) : (
-              <div className="divide-y divide-gray-100">
+              <div className="divide-y divide-black">
                 {(report?.topClients || []).map((client: any, index: number) => (
                   <Link
                     key={client.id}

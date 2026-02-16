@@ -285,7 +285,7 @@ export default function ProviderManagementPage() {
             No active providers. Add one to get started.
           </div>
         ) : (
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-black">
             {activeProviders.map(provider => (
               <div key={provider.id} className="px-5 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-4">
@@ -331,7 +331,7 @@ export default function ProviderManagementPage() {
             <p className="text-sm text-black">These providers are hidden from booking</p>
           </div>
 
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-black">
             {inactiveProviders.map(provider => (
               <div key={provider.id} className="px-5 py-4 flex items-center justify-between bg-white">
                 <div className="flex items-center gap-4">

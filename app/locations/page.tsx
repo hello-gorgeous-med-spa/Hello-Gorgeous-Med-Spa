@@ -101,7 +101,7 @@ export default function LocationsPage() {
             <FadeUp key={l.slug} delayMs={40 * idx}>
               <Link
                 href={`/${l.slug}`}
-                className="group block rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-6 hover:border-white/20 transition"
+                className="group block rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6 hover:border-white/20 transition"
               >
                 <p className="text-pink-400 text-sm font-semibold tracking-wide">LOCATION</p>
                 <h2 className="mt-3 text-2xl font-bold text-white">{l.label}</h2>

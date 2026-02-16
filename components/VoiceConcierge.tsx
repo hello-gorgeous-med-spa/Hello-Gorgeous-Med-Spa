@@ -391,7 +391,7 @@ export function VoiceConcierge() {
       {/* Voice Assistant Modal */}
       {isOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm">
-          <div className="relative w-full max-w-2xl bg-gradient-to-br from-gray-900 via-purple-950/30 to-gray-900 border border-purple-500/30 rounded-3xl overflow-hidden shadow-2xl">
+          <div className="relative w-full max-w-2xl bg-gradient-to-br from-black via-purple-950/30 to-black border border-purple-500/30 rounded-3xl overflow-hidden shadow-2xl">
             {/* Header */}
             <div className="bg-gradient-to-r from-purple-600 to-pink-500 p-5 flex items-center justify-between">
               <div className="flex items-center gap-3">

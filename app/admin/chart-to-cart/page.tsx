@@ -95,7 +95,7 @@ export default function ChartToCartPage() {
   const productsUsed = sessions.reduce((sum, s) => sum + s.products.length, 0);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-white to-white">
       {/* Hero Header - Clean White & Pink */}
       <div className="bg-white border-b border-black">
         <div className="max-w-7xl mx-auto px-6 py-10">
@@ -128,7 +128,7 @@ export default function ChartToCartPage() {
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Stats Cards - Floating */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-2xl border border-black p-6 shadow-xl shadow-gray-200/50">
+          <div className="bg-white rounded-2xl border border-black p-6 shadow-xl shadow-black/10">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-black font-medium">Active Sessions</p>
@@ -141,7 +141,7 @@ export default function ChartToCartPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-black p-6 shadow-xl shadow-gray-200/50">
+          <div className="bg-white rounded-2xl border border-black p-6 shadow-xl shadow-black/10">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-black font-medium">Ready to Checkout</p>
@@ -154,7 +154,7 @@ export default function ChartToCartPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-black p-6 shadow-xl shadow-gray-200/50">
+          <div className="bg-white rounded-2xl border border-black p-6 shadow-xl shadow-black/10">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-black font-medium">Today&apos;s Revenue</p>
@@ -167,7 +167,7 @@ export default function ChartToCartPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-black p-6 shadow-xl shadow-gray-200/50">
+          <div className="bg-white rounded-2xl border border-black p-6 shadow-xl shadow-black/10">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-black font-medium">Products Charted</p>
@@ -349,7 +349,7 @@ export default function ChartToCartPage() {
                 </div>
 
                 {/* Products/Cart Summary */}
-                <div className="p-6 bg-gradient-to-br from-gray-50 to-white">
+                <div className="p-6 bg-gradient-to-br from-white to-white">
                   <div className="flex items-start gap-8">
                     {/* Products */}
                     <div className="flex-1">
@@ -359,7 +359,7 @@ export default function ChartToCartPage() {
                       </h4>
                       <div className="bg-white rounded-xl border border-black overflow-hidden">
                         {session.products.map((product, idx) => (
-                          <div key={product.id} className={`flex items-center justify-between p-3 ${idx !== 0 ? 'border-t border-gray-50' : ''}`}>
+                          <div key={product.id} className={`flex items-center justify-between p-3 ${idx !== 0 ? 'border-t border-black' : ''}`}>
                             <div className="flex items-center gap-3">
                               <span className="w-8 h-8 bg-pink-50 rounded-lg flex items-center justify-center text-pink-600 text-sm">
                                 {product.quantity}×

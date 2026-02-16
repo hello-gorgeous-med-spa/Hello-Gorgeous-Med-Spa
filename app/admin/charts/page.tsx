@@ -82,7 +82,7 @@ function ChartsContent() {
                 <th className="px-5 py-3"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-black">
               {recentNotes.map((note) => (
                 <tr key={note.id} className="hover:bg-white">
                   <td className="px-5 py-3 text-black">

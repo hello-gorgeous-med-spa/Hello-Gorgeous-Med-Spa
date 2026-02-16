@@ -367,7 +367,7 @@ export default function WaitlistPage() {
                 <th className="text-right px-6 py-4 text-xs font-semibold text-black uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-black">
               {entries.map((entry) => (
                 <tr key={entry.id} className="hover:bg-white">
                   <td className="px-6 py-4">

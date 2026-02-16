@@ -111,7 +111,7 @@ export default function OswegoHubPage() {
             <FadeUp key={s!.slug} delayMs={40 * idx}>
               <Link
                 href={`/oswego-il/${s!.slug}`}
-                className="group block rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-6 hover:border-white/20 transition"
+                className="group block rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6 hover:border-white/20 transition"
               >
                 <p className="text-pink-400 text-sm font-semibold tracking-wide">
                   {s!.category.toUpperCase()}

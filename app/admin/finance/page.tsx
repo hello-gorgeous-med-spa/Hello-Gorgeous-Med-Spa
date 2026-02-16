@@ -456,7 +456,7 @@ export default function FinancialCommandCenter() {
                   <th className="px-4 py-3 text-center text-xs font-semibold text-black uppercase">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-black">
                 {loading ? (
                   Array.from({ length: 5 }).map((_, i) => (
                     <tr key={i}>
@@ -553,7 +553,7 @@ export default function FinancialCommandCenter() {
                   <th className="px-4 py-3 text-center text-xs font-semibold text-black uppercase">Edit</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-black">
                 {filteredServices.map((service) => (
                   <tr key={service.id} className="hover:bg-white">
                     <td className="px-4 py-3">
@@ -762,7 +762,7 @@ export default function FinancialCommandCenter() {
             <div className="px-5 py-4 border-b border-black">
               <h3 className="font-semibold text-black">Recent Refunds</h3>
             </div>
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-black">
               {transactions
                 .filter(t => t.status === 'refunded')
                 .slice(0, 10)

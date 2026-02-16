@@ -665,7 +665,7 @@ export default function CalendarPage() {
                             setSelectedAppointment(appt);
                           }}
                           className={`absolute left-1 right-1 rounded-lg border-l-4 p-2 text-left transition-all overflow-hidden ${color.bg} ${color.border} ${color.text} ${
-                            isSelected ? 'ring-2 ring-slate-400 shadow-lg z-20' : 'hover:shadow-md z-10'
+                            isSelected ? 'ring-2 ring-black shadow-lg z-20' : 'hover:shadow-md z-10'
                           }`}
                           style={style}
                         >

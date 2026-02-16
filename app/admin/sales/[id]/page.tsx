@@ -334,7 +334,7 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
                     <th className="text-right px-4 py-2 text-black">Total</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-black">
                   {sale.sale_items.map((item) => (
                     <tr key={item.id}>
                       <td className="px-4 py-2 text-black">{item.item_name}</td>

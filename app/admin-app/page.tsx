@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function AdminGetAppPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <div className="min-h-screen bg-gradient-to-br from-black via-black to-black">
       {/* Header */}
       <header className="bg-black/80 backdrop-blur-md border-b border-black sticky top-0 z-50">
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">

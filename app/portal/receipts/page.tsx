@@ -73,7 +73,7 @@ export default function ReceiptsPage() {
       </div>
 
       {/* Summary Card */}
-      <div className="bg-gradient-to-br from-black to-gray-800 text-white rounded-2xl p-6">
+      <div className="bg-gradient-to-br from-black to-black text-white rounded-2xl p-6">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-white/70">Total Spent in {selectedYear}</p>

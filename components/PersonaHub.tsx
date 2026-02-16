@@ -85,7 +85,7 @@ function VideoModal({
           {src ? (
             <MascotVideo src={src} poster={poster} title={personaBadge(personaId)} />
           ) : (
-            <div className="rounded-xl border border-white/10 bg-gradient-to-b from-gray-950/60 to-black p-8 text-center">
+            <div className="rounded-xl border border-white/10 bg-gradient-to-b from-black/60 to-black p-8 text-center">
               <p className="text-white font-semibold">Video placeholder</p>
               <p className="mt-2 text-white/70">
                 Register video clips in `lib/media.ts` and ensure files exist under `/public/videos/mascots/...`.
@@ -189,7 +189,7 @@ export function PersonaHub() {
                   type="button"
                   onClick={() => setPersonaId(id)}
                   className={cx(
-                    "text-left rounded-2xl border bg-gradient-to-b from-gray-950/60 to-black p-5 transition",
+                    "text-left rounded-2xl border bg-gradient-to-b from-black/60 to-black p-5 transition",
                     active ? "border-pink-500/40" : "border-black hover:border-white/20",
                   )}
                 >

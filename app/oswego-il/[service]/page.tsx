@@ -161,7 +161,7 @@ export default function OswegoServicePage({ params }: { params: { service: strin
             </div>
 
             <FadeUp delayMs={160}>
-              <div className="mt-10 rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-6">
+              <div className="mt-10 rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6">
                 <h3 className="text-xl font-bold text-white">Looking for details?</h3>
                 <p className="mt-3 text-black">
                   Read the full service overview and FAQs on the main service page.

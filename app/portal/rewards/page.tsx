@@ -67,7 +67,7 @@ export default function RewardsPage() {
 
   const tierColors = {
     bronze: 'from-amber-600 to-yellow-700',
-    silver: 'from-gray-400 to-gray-500',
+    silver: 'from-black to-black',
     gold: 'from-yellow-400 to-amber-500',
     platinum: 'from-purple-400 to-indigo-500',
   };
@@ -184,7 +184,7 @@ export default function RewardsPage() {
             <p className="text-sm">Book a treatment to start earning!</p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-black">
             {transactions.map((tx) => (
               <div key={tx.id} className="px-6 py-4 flex items-center justify-between">
                 <div>

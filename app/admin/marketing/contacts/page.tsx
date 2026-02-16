@@ -317,7 +317,7 @@ export default function ContactCollectionPage() {
                 <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase">Joined</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-black">
               {loadingSubscribers ? (
                 <tr>
                   <td colSpan={5} className="px-6 py-12 text-center text-black">

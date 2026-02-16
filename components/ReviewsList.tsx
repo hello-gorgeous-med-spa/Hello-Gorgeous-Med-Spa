@@ -79,7 +79,7 @@ export function ReviewsList() {
             onChange={(e) => setServiceFilter(e.target.value)}
             onBlur={() => fetchReviews(ratingFilter || undefined, serviceFilter || undefined)}
             onKeyDown={(e) => e.key === "Enter" && fetchReviews(ratingFilter || undefined, serviceFilter || undefined)}
-            className="rounded-lg border border-black bg-black/40 px-3 py-2 text-white placeholder-gray-500 focus:border-pink-500 focus:outline-none focus:ring-1 focus:ring-pink-500 min-w-[180px]"
+            className="rounded-lg border border-black bg-black/40 px-3 py-2 text-white placeholder-white/50 focus:border-pink-500 focus:outline-none focus:ring-1 focus:ring-pink-500 min-w-[180px]"
           />
         </label>
       </div>

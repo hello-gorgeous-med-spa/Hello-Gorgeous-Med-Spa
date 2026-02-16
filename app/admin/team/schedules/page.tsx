@@ -266,7 +266,7 @@ export default function LiveSchedulesPage() {
                 </div>
 
                 {/* Days Grid */}
-                <div className="grid grid-cols-7 divide-x divide-gray-100">
+                <div className="grid grid-cols-7 divide-x divide-black">
                   {DAYS.map((day, dayIndex) => {
                     const schedule = getSchedule(ps.provider.id, dayIndex);
                     const isWorking = schedule?.is_working ?? false;

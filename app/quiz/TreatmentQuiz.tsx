@@ -439,7 +439,7 @@ export function TreatmentQuiz() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Your name"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-pink-500 focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:border-pink-500 focus:outline-none"
                   />
                 </div>
                 <div>
@@ -449,7 +449,7 @@ export function TreatmentQuiz() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Your email"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-pink-500 focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:border-pink-500 focus:outline-none"
                   />
                 </div>
                 <div>
@@ -458,7 +458,7 @@ export function TreatmentQuiz() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="Phone (optional)"
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-pink-500 focus:outline-none"
+                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:border-pink-500 focus:outline-none"
                   />
                 </div>
                 

@@ -212,7 +212,7 @@ function ServiceCard({
 }) {
   const [open, setOpen] = React.useState(false);
   return (
-    <div className="rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-6">
+    <div className="rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-xs text-white/60">Intensity: {intensity} · Commitment: {commitment}</p>
@@ -534,7 +534,7 @@ export function ServicesAtlas() {
                     memory.trackTopic(`discovery:${o.id}`);
                   }}
                   className={cx(
-                    "text-left rounded-2xl border bg-gradient-to-b from-gray-950/60 to-black p-5 transition",
+                    "text-left rounded-2xl border bg-gradient-to-b from-black/60 to-black p-5 transition",
                     active ? "border-pink-500/40" : "border-black hover:border-white/20",
                   )}
                 >

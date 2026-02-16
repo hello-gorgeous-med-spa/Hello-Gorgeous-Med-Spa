@@ -224,7 +224,7 @@ export function VirtualTryOn() {
         <div className="grid lg:grid-cols-2 gap-8">
           {/* Image Upload / Preview Area */}
           <FadeUp delayMs={60}>
-            <div className="relative bg-gradient-to-b from-gray-900 to-black rounded-3xl p-6 border border-purple-500/20 min-h-[500px] flex flex-col">
+            <div className="relative bg-gradient-to-b from-black to-black rounded-3xl p-6 border border-purple-500/20 min-h-[500px] flex flex-col">
               {!uploadedImage ? (
                 <div className="flex-1 flex flex-col items-center justify-center">
                   <button
@@ -421,7 +421,7 @@ export function VirtualTryOn() {
 
           {/* Enhancement Controls */}
           <FadeUp delayMs={120}>
-            <div className="bg-gradient-to-b from-gray-900 to-black rounded-3xl p-6 border border-purple-500/20">
+            <div className="bg-gradient-to-b from-black to-black rounded-3xl p-6 border border-purple-500/20">
               <h3 className="text-xl font-bold text-white mb-2">
                 Enhancement Options
               </h3>

@@ -147,7 +147,7 @@ export default function AdminMembershipsPage() {
               <th className="px-5 py-3"></th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-black">
             {loading ? (
               Array.from({ length: 5 }).map((_, i) => (
                 <tr key={i}>

@@ -116,7 +116,7 @@ export default function JourneyPage() {
             {/* Timeline line */}
             <div className="absolute left-10 top-0 bottom-0 w-0.5 bg-white" />
 
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-black">
               {entries.map((entry, index) => (
                 <div key={entry.id} className="relative px-6 py-4 flex gap-4">
                   {/* Icon */}

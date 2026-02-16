@@ -251,7 +251,7 @@ export default function ProviderTasksPage() {
             </p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-black">
             {tasks.map((task) => (
               <div 
                 key={task.id}

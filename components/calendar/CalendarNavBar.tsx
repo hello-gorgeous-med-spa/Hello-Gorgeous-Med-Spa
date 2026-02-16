@@ -186,7 +186,7 @@ export function CalendarNavBar({
                 ) : notifications.length === 0 ? (
                   <div className="p-6 text-center text-black text-sm">No recent activity</div>
                 ) : (
-                  <ul className="divide-y divide-gray-100">
+                  <ul className="divide-y divide-black">
                     {notifications.map((n) => {
                       const style = TYPE_STYLES[n.type] || TYPE_STYLES.confirmed;
                       return (

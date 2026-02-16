@@ -51,7 +51,7 @@ export default function ReviewsPage() {
       <Section id="leave-review">
         <div className="grid gap-10 lg:grid-cols-2 items-start">
           <FadeUp>
-            <div className="rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-8">
+            <div className="rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-8">
               <h2 className="text-2xl font-bold text-white mb-4">
                 Leave a Google review
               </h2>

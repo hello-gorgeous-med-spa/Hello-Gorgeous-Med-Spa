@@ -153,7 +153,7 @@ export default function MarketingAssistantPage() {
           </button>
         </div>
 
-        <div className="divide-y divide-gray-100">
+        <div className="divide-y divide-black">
           {loading ? (
             <div className="p-12 text-center text-black">
               <div className="flex items-center justify-center gap-2 mb-2">

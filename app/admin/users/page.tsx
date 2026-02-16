@@ -151,7 +151,7 @@ export default function AdminUsersPage() {
               <th className="text-right px-5 py-3 text-sm font-semibold text-black">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-black">
             {filteredUsers.map((user) => {
               const provider = ACTIVE_PROVIDERS.find(p => p.id === user.id);
               return (

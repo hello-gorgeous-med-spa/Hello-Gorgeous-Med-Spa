@@ -206,7 +206,7 @@ export function FreeVitaminContent() {
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Your Name *"
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500"
+                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-emerald-500"
                       />
                     </div>
                     <div>
@@ -216,7 +216,7 @@ export function FreeVitaminContent() {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email Address *"
                         required
-                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500"
+                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-emerald-500"
                       />
                     </div>
                     <div>
@@ -225,7 +225,7 @@ export function FreeVitaminContent() {
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                         placeholder="Phone Number (optional)"
-                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500"
+                        className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-emerald-500"
                       />
                     </div>
 

@@ -72,7 +72,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
 
   if (success) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-pink-50 py-12 md:py-20 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-white via-white to-white py-12 md:py-20 px-4">
         <div className="max-w-xl mx-auto">
           <div className="bg-white rounded-2xl shadow-xl border border-[#000000]/10 p-8 text-center">
             <div className="text-5xl mb-4">✓</div>
@@ -104,7 +104,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
   const selectedProgram = programSlug && programSlug in PROGRAMS ? PROGRAMS[programSlug] : null;
   if (!programSlug || !selectedProgram) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-pink-50 py-12 md:py-20 px-4">
+      <div className="min-h-screen bg-gradient-to-br from-white via-white to-white py-12 md:py-20 px-4">
         <div className="max-w-xl mx-auto">
           <Link href="/memberships" className="text-[#FF2D8E] text-sm font-medium hover:underline mb-8 inline-block">
             ← Back to Memberships
@@ -133,7 +133,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
   const p = selectedProgram;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-pink-50 py-12 md:py-20 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-white via-white to-white py-12 md:py-20 px-4">
       <div className="max-w-xl mx-auto">
         <Link href="/memberships" className="text-[#FF2D8E] text-sm font-medium hover:underline mb-8 inline-block">
           ← Back to Memberships

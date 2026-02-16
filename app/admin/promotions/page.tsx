@@ -271,7 +271,7 @@ export default function PromotionsPage() {
                   <th className="px-5 py-3"></th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-black">
                 {promotions.map(promo => (
                   <tr key={promo.id} className="hover:bg-white">
                     <td className="px-5 py-4">

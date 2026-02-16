@@ -51,7 +51,7 @@ export default async function ContactPage() {
       <Section>
         <div className="grid gap-6 lg:grid-cols-2">
           <FadeUp>
-            <div className="rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-6">
+            <div className="rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6">
               <h2 className="text-2xl font-bold text-white">{SITE.name}</h2>
               <p className="mt-3 text-black">
                 {SITE.address.streetAddress}, {SITE.address.addressLocality},{" "}

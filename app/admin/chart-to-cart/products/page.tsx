@@ -195,7 +195,7 @@ export default function ProductsPricingPage() {
               <th className="text-right px-6 py-4 text-sm font-semibold text-black">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-black">
             {filteredProducts.map((product) => {
               const margin = ((product.price - product.cost) / product.price * 100).toFixed(1);
               const isLowStock = product.stock <= product.reorderPoint;

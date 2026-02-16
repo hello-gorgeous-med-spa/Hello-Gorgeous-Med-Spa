@@ -154,7 +154,7 @@ export default async function BookingPage() {
                 </div>
                 
                 {/* Services List */}
-                <div className="divide-y divide-gray-100">
+                <div className="divide-y divide-black">
                   {category.services.length === 0 ? (
                     <div className="p-5 text-center text-black text-sm">
                       No services available in this category yet.

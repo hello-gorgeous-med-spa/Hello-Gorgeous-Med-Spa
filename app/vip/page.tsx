@@ -40,7 +40,7 @@ export default function VIPPage() {
       <Section>
         <div className="grid gap-8 lg:grid-cols-2 max-w-5xl mx-auto">
           <FadeUp>
-            <div className="rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-8">
+            <div className="rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-8">
               <h2 className="text-2xl font-bold text-white mb-4">What you get</h2>
               <ul className="space-y-3 text-black">
                 <li className="flex items-center gap-3">

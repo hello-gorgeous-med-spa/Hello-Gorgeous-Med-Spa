@@ -259,7 +259,7 @@ export default function EmailMarketingPage() {
               </button>
             </div>
           ) : (
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-black">
               {campaigns.map(campaign => (
                 <div key={campaign.id} className="p-4 hover:bg-white">
                   <div className="flex items-center justify-between">

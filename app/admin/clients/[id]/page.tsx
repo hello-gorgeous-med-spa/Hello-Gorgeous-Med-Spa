@@ -655,7 +655,7 @@ function UnifiedChartTabContent({
                   <th className="text-right px-5 py-3 text-sm font-semibold text-black">Amount</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-black">
                 {appointments.map((apt) => (
                   <tr key={apt.id} className="hover:bg-white">
                     <td className="px-5 py-3 text-sm">{formatDate(apt.starts_at)}</td>
@@ -1298,7 +1298,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
                   <th className="text-right px-5 py-3 text-sm font-semibold text-black">Amount</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-black">
                 {appointments.map((apt) => (
                   <tr key={apt.id} className="hover:bg-white">
                     <td className="px-5 py-3">
@@ -1418,7 +1418,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
                     <th className="text-right px-5 py-3 text-sm font-semibold text-black">Amount</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-100">
+                <tbody className="divide-y divide-black">
                   {payments.map((payment) => (
                     <tr key={payment.id} className="hover:bg-white">
                       <td className="px-5 py-3 font-medium text-black">{formatDate(payment.created_at)}</td>

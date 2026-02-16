@@ -43,7 +43,7 @@ export function Skeleton({ className = '', variant = 'default' }: {
   className?: string; 
   variant?: 'default' | 'text' | 'circular' | 'card';
 }) {
-  const baseClasses = 'animate-pulse bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%]';
+  const baseClasses = 'animate-pulse bg-gradient-to-r from-white via-white to-white bg-[length:200%_100%]';
   const variantClasses = {
     default: 'rounded',
     text: 'rounded h-4',

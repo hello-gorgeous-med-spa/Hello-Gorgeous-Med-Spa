@@ -315,7 +315,7 @@ export function InjectionMapper({
               No points added yet
             </div>
           ) : (
-            <div className="max-h-64 overflow-y-auto divide-y divide-gray-100">
+            <div className="max-h-64 overflow-y-auto divide-y divide-black">
               {points.map((point) => (
                 <div 
                   key={point.id}

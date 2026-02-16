@@ -656,7 +656,7 @@ export default function ExecutiveDashboard() {
               Details →
             </Link>
           </div>
-          <div className="divide-y divide-gray-100 max-h-80 overflow-y-auto">
+          <div className="divide-y divide-black max-h-80 overflow-y-auto">
             {loading ? (
               Array.from({ length: 3 }).map((_, i) => (
                 <div key={i} className="px-5 py-3">
@@ -699,7 +699,7 @@ export default function ExecutiveDashboard() {
               Details →
             </Link>
           </div>
-          <div className="divide-y divide-gray-100 max-h-80 overflow-y-auto">
+          <div className="divide-y divide-black max-h-80 overflow-y-auto">
             {loading ? (
               Array.from({ length: 5 }).map((_, i) => (
                 <div key={i} className="px-5 py-3">
@@ -738,7 +738,7 @@ export default function ExecutiveDashboard() {
               Full Calendar →
             </Link>
           </div>
-          <div className="divide-y divide-gray-100 max-h-80 overflow-y-auto">
+          <div className="divide-y divide-black max-h-80 overflow-y-auto">
             {loading ? (
               Array.from({ length: 5 }).map((_, i) => (
                 <div key={i} className="px-5 py-3">

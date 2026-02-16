@@ -178,7 +178,7 @@ export default function ProviderLayout({
         )}
 
         {/* Navigation - Scrollable */}
-        <nav className="flex-1 py-4 overflow-y-auto min-h-0 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-transparent">
+        <nav className="flex-1 py-4 overflow-y-auto min-h-0 scrollbar-thin scrollbar-thumb-black scrollbar-track-transparent">
           <ul className="space-y-1 px-2">
             {NAV_ITEMS.map((item) => {
               const active = isActive(item.href);

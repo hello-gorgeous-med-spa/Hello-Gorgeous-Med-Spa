@@ -295,7 +295,7 @@ export default function MessagesPage() {
                 <tr
                   key={conv.id}
                   onClick={() => onSelectConversation(conv)}
-                  className={`cursor-pointer border-b border-gray-50 hover:bg-white transition-colors ${
+                  className={`cursor-pointer border-b border-black hover:bg-white transition-colors ${
                     selectedConversation?.id === conv.id ? 'bg-blue-50' : ''
                   } ${conv.unread_count > 0 ? 'bg-blue-50/50' : ''}`}
                 >

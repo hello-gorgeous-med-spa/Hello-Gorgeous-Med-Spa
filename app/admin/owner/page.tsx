@@ -85,7 +85,7 @@ export default function FounderOverviewPage() {
   return (
     <div className="flex min-h-[calc(100vh-56px)]">
       {/* Founder Control Sidebar */}
-      <aside className="w-64 bg-gradient-to-b from-slate-900 to-slate-800 text-white flex-shrink-0">
+      <aside className="w-64 bg-gradient-to-b from-black to-black text-white flex-shrink-0">
         <div className="p-4 border-b border-black">
           <div className="flex items-center gap-2">
             <span className="text-2xl">👑</span>

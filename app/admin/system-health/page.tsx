@@ -165,7 +165,7 @@ export default function SystemHealthPage() {
             </span>
           </h2>
         </div>
-        <div className="divide-y divide-gray-100">
+        <div className="divide-y divide-black">
           {data.checklist.map((item, idx) => (
             <div key={idx} className="px-5 py-3 flex items-center justify-between">
               <div className="flex items-center gap-3">

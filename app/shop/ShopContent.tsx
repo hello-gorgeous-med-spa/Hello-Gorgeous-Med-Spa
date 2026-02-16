@@ -449,7 +449,7 @@ export function ShopContent() {
                     </span>
                   )}
                   
-                  <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-gray-800 to-gray-900">
+                  <div className="relative aspect-square overflow-hidden bg-gradient-to-br from-black to-black">
                     <Image
                       src={product.imageUrl}
                       alt={product.name}
@@ -646,7 +646,7 @@ export function ShopContent() {
                         required
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-pink-500 focus:outline-none"
+                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:border-pink-500 focus:outline-none"
                         placeholder="Your name"
                       />
                     </div>
@@ -657,7 +657,7 @@ export function ShopContent() {
                         required
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-pink-500 focus:outline-none"
+                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:border-pink-500 focus:outline-none"
                         placeholder="your@email.com"
                       />
                     </div>
@@ -668,7 +668,7 @@ export function ShopContent() {
                         required
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-pink-500 focus:outline-none"
+                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:border-pink-500 focus:outline-none"
                         placeholder="(630) 555-1234"
                       />
                     </div>
@@ -678,7 +678,7 @@ export function ShopContent() {
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         rows={3}
-                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-gray-500 focus:border-pink-500 focus:outline-none resize-none"
+                        className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/50 focus:border-pink-500 focus:outline-none resize-none"
                         placeholder="Any questions or special requests?"
                       />
                     </div>

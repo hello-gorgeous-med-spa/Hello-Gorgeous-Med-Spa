@@ -460,7 +460,7 @@ export default function AdminServicesPage() {
 
                   {/* Services List */}
                   {expandedCategories.has(category.id) && (
-                    <div className="divide-y divide-gray-50">
+                    <div className="divide-y divide-black">
                       {(searchQuery ? filteredCatServices : category.services).map(renderService)}
                     </div>
                   )}
@@ -477,7 +477,7 @@ export default function AdminServicesPage() {
                     {uncategorizedServices.length}
                   </span>
                 </div>
-                <div className="divide-y divide-gray-50">
+                <div className="divide-y divide-black">
                   {filterServices(uncategorizedServices).map(renderService)}
                 </div>
               </div>

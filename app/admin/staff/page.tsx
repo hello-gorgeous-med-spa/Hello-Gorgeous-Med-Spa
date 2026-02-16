@@ -116,7 +116,7 @@ export default function AdminStaffPage() {
                 <th className="px-5 py-3"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-black">
               {staff.map((member) => (
                 <tr key={member.id} className="hover:bg-white transition-colors">
                   <td className="px-5 py-4">

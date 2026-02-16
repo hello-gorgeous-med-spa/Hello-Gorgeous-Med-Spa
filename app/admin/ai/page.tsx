@@ -30,7 +30,7 @@ export default function AIHubPage() {
   return (
     <div className="min-h-[calc(100vh-56px)] flex flex-col">
       {/* Hero — AI employee that never misses a call + Hello Gorgeous mascot */}
-      <section className="bg-gradient-to-b from-indigo-950 via-slate-900 to-slate-900 text-white px-4 py-12 lg:py-16">
+      <section className="bg-gradient-to-b from-black via-black to-black text-white px-4 py-12 lg:py-16">
         <div className="max-w-4xl mx-auto text-center">
           <div className="flex justify-center mb-6">
             <Image

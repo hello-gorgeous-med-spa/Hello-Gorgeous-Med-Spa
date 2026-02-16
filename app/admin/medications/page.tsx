@@ -447,7 +447,7 @@ export default function AdminMedicationsPage() {
                   <th className="text-left px-5 py-3 text-sm font-semibold text-black">Provider</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-black">
                 {administrations.slice(0, 20).map((admin) => (
                   <tr key={admin.id} className="hover:bg-white">
                     <td className="px-5 py-3 text-black text-sm">

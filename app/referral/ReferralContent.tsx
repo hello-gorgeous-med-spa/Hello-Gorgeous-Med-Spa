@@ -203,7 +203,7 @@ export function ReferralContent() {
                     onChange={(e) => setReferrerName(e.target.value)}
                     placeholder="Your Name *"
                     required
-                    className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-pink-500"
+                    className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-pink-500"
                   />
                   <input
                     type="email"
@@ -211,7 +211,7 @@ export function ReferralContent() {
                     onChange={(e) => setReferrerEmail(e.target.value)}
                     placeholder="Your Email *"
                     required
-                    className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-pink-500"
+                    className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-pink-500"
                   />
                 </div>
               </div>
@@ -229,7 +229,7 @@ export function ReferralContent() {
                       onChange={(e) => setFriendName(e.target.value)}
                       placeholder="Friend's Name *"
                       required
-                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-pink-500"
+                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-pink-500"
                     />
                     <input
                       type="email"
@@ -237,7 +237,7 @@ export function ReferralContent() {
                       onChange={(e) => setFriendEmail(e.target.value)}
                       placeholder="Friend's Email *"
                       required
-                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-pink-500"
+                      className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-pink-500"
                     />
                   </div>
                   <input
@@ -245,7 +245,7 @@ export function ReferralContent() {
                     value={friendPhone}
                     onChange={(e) => setFriendPhone(e.target.value)}
                     placeholder="Friend's Phone (optional)"
-                    className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-pink-500"
+                    className="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-black/50 focus:outline-none focus:border-pink-500"
                   />
                 </div>
               </div>

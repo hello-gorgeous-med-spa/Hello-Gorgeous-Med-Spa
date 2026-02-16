@@ -120,7 +120,7 @@ export default function PharmacyPartnerPage() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {OLYMPIA_CATEGORIES.map((cat, idx) => (
             <FadeUp key={cat.title} delayMs={60 * idx}>
-              <div className="rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-6 h-full flex flex-col">
+              <div className="rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6 h-full flex flex-col">
                 <span className="text-3xl mb-3 block">{cat.icon}</span>
                 <h3 className="text-lg font-bold text-white">{cat.title}</h3>
                 <p className="mt-2 text-sm text-black flex-1">{cat.description}</p>

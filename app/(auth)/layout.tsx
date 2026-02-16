@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 // Auth layout - full screen overlay that covers the root layout chrome
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="fixed inset-0 z-[9999] bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+    <div className="fixed inset-0 z-[9999] bg-gradient-to-br from-black via-black to-black">
       {children}
     </div>
   );

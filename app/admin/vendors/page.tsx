@@ -378,7 +378,7 @@ export default function AdminVendorsPage() {
             <div className="p-5">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-2xl font-bold text-black">
+                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-white to-white flex items-center justify-center text-2xl font-bold text-black">
                     {vendor.name.charAt(0)}
                   </div>
                   <div>

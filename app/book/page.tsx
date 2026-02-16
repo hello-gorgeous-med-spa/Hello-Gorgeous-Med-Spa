@@ -375,7 +375,7 @@ export default async function PublicBookingPage({
             </a>
             <p className="text-violet-200 text-sm mt-2">We respond within minutes!</p>
           </div>
-          <div className="bg-gradient-to-br from-slate-700 to-slate-800 rounded-2xl p-6 text-white text-center shadow-lg">
+          <div className="bg-gradient-to-br from-black to-black rounded-2xl p-6 text-white text-center shadow-lg">
             <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center mx-auto mb-3">
               <span className="text-2xl">🕐</span>
             </div>
@@ -390,7 +390,7 @@ export default async function PublicBookingPage({
       </main>
 
       {/* Footer */}
-      <footer className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-12 mt-12">
+      <footer className="bg-gradient-to-r from-black via-black to-black text-white py-12 mt-12">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="flex items-center gap-3">

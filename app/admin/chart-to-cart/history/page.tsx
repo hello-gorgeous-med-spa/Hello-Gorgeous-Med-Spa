@@ -226,7 +226,7 @@ export default function SessionHistoryPage() {
                 <th className="text-right px-6 py-4 text-sm font-semibold text-black">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-black">
               {filteredSessions.map((session) => (
                 <tr key={session.id} className="hover:bg-white">
                   <td className="px-6 py-4">

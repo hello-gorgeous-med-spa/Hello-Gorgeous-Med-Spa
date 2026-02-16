@@ -295,7 +295,7 @@ export default function AdminConsentsPage() {
             </p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-black">
             {templates.map((template) => (
               <div key={template.id} className="px-5 py-4 flex items-center justify-between hover:bg-white">
                 <div className="flex-1">

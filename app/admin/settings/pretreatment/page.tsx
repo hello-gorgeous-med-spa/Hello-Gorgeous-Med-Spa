@@ -269,7 +269,7 @@ We look forward to seeing you!`,
             </button>
           </div>
         ) : (
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-black">
             {templates.map((template) => (
               <div key={template.id} className="p-4 hover:bg-white flex items-center justify-between">
                 <div className="flex-1">

@@ -473,7 +473,7 @@ export function CareEngine() {
             </p>
 
             <div className="mt-6 grid gap-4">
-              <div className="rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-6">
+              <div className="rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6">
                 <h3 className="text-xl font-bold text-white">Ready to book?</h3>
                 <p className="mt-3 text-black">
                   If you’re ready, book online now. If you used Pre‑Consult, your “suggested starting points”
@@ -973,7 +973,7 @@ export function CareEngine() {
                   const scenario = getTimelineScenario(tlTreatment);
                   const step = scenario.steps.find((s) => s.id === tlStepId) ?? scenario.steps[0];
                   return (
-                    <div className="rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-6">
+                    <div className="rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6">
                       <p className="text-xs text-white/60">Persona narration</p>
                       <p className="mt-1 text-sm text-white/90">
                         {getPersonaName(personaId)} — {scenario.label} — {step.label}

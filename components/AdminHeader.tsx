@@ -67,7 +67,7 @@ export function AdminHeader() {
   }, []);
 
   return (
-    <header className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white sticky top-0 z-50 border-b border-black/30 shadow-lg">
+    <header className="bg-gradient-to-r from-black via-black to-black text-white sticky top-0 z-50 border-b border-black/30 shadow-lg">
       <div className="flex items-center justify-between px-4 h-14 max-w-[1920px] mx-auto">
         <div className="flex items-center gap-4">
           <Link href="/admin" className="flex items-center gap-2 hover:opacity-90 transition-opacity group">

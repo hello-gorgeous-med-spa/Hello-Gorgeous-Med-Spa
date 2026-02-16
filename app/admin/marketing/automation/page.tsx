@@ -476,7 +476,7 @@ export default function MarketingAutomation() {
                   <th className="px-4 py-3 text-center text-xs font-semibold text-black uppercase">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-black">
                 {campaigns.map((campaign) => (
                   <tr key={campaign.id} className="hover:bg-white">
                     <td className="px-4 py-3">

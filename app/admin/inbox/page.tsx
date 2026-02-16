@@ -120,7 +120,7 @@ function InboxContent() {
               {searchQuery ? 'No clients found' : 'No clients yet'}
             </div>
           ) : (
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-black">
               {filteredClients.map((client) => (
                 <button
                   key={client.id}

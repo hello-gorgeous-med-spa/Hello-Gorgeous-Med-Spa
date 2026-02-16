@@ -61,7 +61,7 @@ export default function AdminWellnessPage() {
           <h2 className="px-6 py-4 font-semibold text-black border-b border-black">
             Pending refill requests
           </h2>
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-black">
             {refillRequests.map((r: any) => (
               <div key={r.id} className="px-6 py-4 flex items-center justify-between">
                 <div>
@@ -88,7 +88,7 @@ export default function AdminWellnessPage() {
           <h2 className="px-6 py-4 font-semibold text-black border-b border-black">
             Recent member messages
           </h2>
-          <div className="divide-y divide-gray-100 max-h-64 overflow-y-auto">
+          <div className="divide-y divide-black max-h-64 overflow-y-auto">
             {recentMessages.map((m: any) => (
               <div key={m.id} className="px-6 py-3">
                 <p className="text-sm text-black line-clamp-2">{m.message_body}</p>
@@ -123,7 +123,7 @@ export default function AdminWellnessPage() {
               </thead>
               <tbody>
                 {subscriptions.map((s: any) => (
-                  <tr key={s.id} className="border-b border-gray-50 hover:bg-white/50">
+                  <tr key={s.id} className="border-b border-black hover:bg-white/50">
                     <td className="px-6 py-3">
                       <Link
                         href={`/admin/clients/${s.client?.id}`}

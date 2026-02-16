@@ -541,7 +541,7 @@ export default function DataExportCenter() {
           <div className="px-5 py-4 border-b border-black">
             <h2 className="font-semibold text-black">Export History (This Session)</h2>
           </div>
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-black">
             {jobs.map((job) => (
               <div key={job.id} className="px-5 py-3 flex items-center justify-between">
                 <div className="flex items-center gap-3">

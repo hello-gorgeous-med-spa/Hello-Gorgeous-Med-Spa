@@ -191,7 +191,7 @@ export default function SalesPage() {
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-black">
               {sales.map((sale) => {
                 const itemCount = sale.sale_items?.length || 0;
                 const firstItem = sale.sale_items?.[0];

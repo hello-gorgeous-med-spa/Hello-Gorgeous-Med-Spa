@@ -198,7 +198,7 @@ export default function FinancingPage() {
               </thead>
               <tbody>
                 {PAYMENT_EXAMPLES.map((ex, i) => (
-                  <tr key={i} className="border-b border-gray-50">
+                  <tr key={i} className="border-b border-black">
                     <td className="py-4 px-4 font-medium text-black">{ex.treatment}</td>
                     <td className="py-4 px-4 text-center text-black">${ex.total.toLocaleString()}</td>
                     <td className="py-4 px-4 text-center text-black">{ex.months} months</td>

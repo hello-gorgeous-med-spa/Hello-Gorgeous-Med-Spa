@@ -324,7 +324,7 @@ export default function EFaxPage() {
             </button>
           </div>
         ) : (
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-black">
             {(activeTab === 'inbox' ? inboxFaxes : sentFaxes).map(fax => (
               <div key={fax.id} className="p-4 hover:bg-white flex items-center justify-between">
                 <div className="flex items-center gap-4">

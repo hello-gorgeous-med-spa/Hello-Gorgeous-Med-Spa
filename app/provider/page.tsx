@@ -343,7 +343,7 @@ export default function ProviderDashboard() {
                 ))}
               </div>
             ) : upcomingAppointments.length > 0 ? (
-              <div className="divide-y divide-gray-100">
+              <div className="divide-y divide-black">
                 {upcomingAppointments.map((apt, idx) => (
                   <div
                     key={apt.id}
@@ -408,7 +408,7 @@ export default function ProviderDashboard() {
                   badge={tasks.length}
                 />
               </div>
-              <div className="divide-y divide-gray-100">
+              <div className="divide-y divide-black">
                 {tasks.map(task => (
                   <Link
                     key={task.id}

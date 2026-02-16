@@ -197,7 +197,7 @@ export default function ConsentStatusBadge({
             {packets.map((packet) => (
               <div
                 key={packet.id}
-                className="px-4 py-3 border-b border-gray-50 last:border-0"
+                className="px-4 py-3 border-b border-black last:border-0"
               >
                 <div className="flex items-center justify-between">
                   <p className="font-medium text-black text-sm">

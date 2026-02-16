@@ -216,7 +216,7 @@ export default function AdminPaymentsPage() {
                 <th className="text-right px-5 py-3 text-sm font-semibold text-black">Amount</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-black">
               {loading ? (
                 Array.from({ length: 5 }).map((_, i) => (
                   <tr key={i}>

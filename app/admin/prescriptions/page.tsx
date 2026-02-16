@@ -204,7 +204,7 @@ export default function PrescriptionsPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-        {[{ l: 'Total', v: prescriptions.length, c: 'gray-900' }, { l: 'Pending', v: prescriptions.filter(r => r.status === 'pending').length, c: 'yellow-600' },
+        {[{ l: 'Total', v: prescriptions.length, c: 'black' }, { l: 'Pending', v: prescriptions.filter(r => r.status === 'pending').length, c: 'yellow-600' },
           { l: 'Sent', v: prescriptions.filter(r => r.status === 'sent').length, c: 'blue-600' }, { l: 'Filled', v: prescriptions.filter(r => r.status === 'filled').length, c: 'green-600' }]
           .map((s, i) => <div key={i} className="bg-white rounded-xl border p-5 shadow-sm"><p className="text-sm text-black">{s.l}</p><p className={`text-3xl font-bold text-${s.c} mt-1`}>{s.v}</p></div>)}
       </div>

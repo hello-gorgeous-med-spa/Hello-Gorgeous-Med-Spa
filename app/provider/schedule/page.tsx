@@ -190,7 +190,7 @@ export default function ProviderSchedulePage() {
         <div className="px-5 py-4 border-b border-black">
           <h2 className="font-semibold text-black">Weekly Hours</h2>
         </div>
-        <div className="grid grid-cols-7 divide-x divide-gray-100">
+        <div className="grid grid-cols-7 divide-x divide-black">
           {DAYS.map((day, idx) => {
             const schedule = weeklySchedule.find(s => s.day_of_week === idx);
             const isToday = new Date().getDay() === idx;
@@ -238,7 +238,7 @@ export default function ProviderSchedulePage() {
         <div className="px-5 py-4 border-b border-black">
           <h2 className="font-semibold text-black">This Week's Appointments</h2>
         </div>
-        <div className="grid grid-cols-7 divide-x divide-gray-100">
+        <div className="grid grid-cols-7 divide-x divide-black">
           {weekDates.map((date, idx) => {
             const dateAppts = getAppointmentsForDate(date);
             const isToday = date.toDateString() === new Date().toDateString();
@@ -300,7 +300,7 @@ export default function ProviderSchedulePage() {
           </span>
         </div>
         
-        <div className="divide-y divide-gray-100">
+        <div className="divide-y divide-black">
           {getAppointmentsForDate(new Date()).length === 0 ? (
             <div className="p-8 text-center">
               <span className="text-4xl block mb-2">📅</span>

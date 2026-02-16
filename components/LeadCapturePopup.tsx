@@ -82,7 +82,7 @@ export function LeadCapturePopup() {
         onClick={handleClose}
         aria-hidden="true"
       />
-      <div className="relative w-full max-w-md rounded-2xl border border-pink-500/30 bg-gradient-to-b from-gray-900 to-black p-6 shadow-2xl shadow-pink-500/10">
+      <div className="relative w-full max-w-md rounded-2xl border border-pink-500/30 bg-gradient-to-b from-black to-black p-6 shadow-2xl shadow-pink-500/10">
         <button
           type="button"
           onClick={handleClose}

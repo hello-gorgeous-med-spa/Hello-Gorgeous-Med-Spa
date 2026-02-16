@@ -200,7 +200,7 @@ export default function MessageTemplatesPage() {
                 <div className="px-4 py-3 bg-white border-b border-black">
                   <h3 className="font-medium text-black">{group.icon} {group.name}</h3>
                 </div>
-                <div className="divide-y divide-gray-100">
+                <div className="divide-y divide-black">
                   {group.templates.map(template => (
                     <button
                       key={template.id}

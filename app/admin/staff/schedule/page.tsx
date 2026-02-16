@@ -388,7 +388,7 @@ export default function ProviderSchedulePage() {
               {DAYS.map((day) => {
                 const slot = currentSchedule.schedule[day];
                 return (
-                  <div key={day} className="flex items-center gap-4 py-3 border-b border-gray-50 last:border-0">
+                  <div key={day} className="flex items-center gap-4 py-3 border-b border-black last:border-0">
                     <div className="w-32">
                       <p className="font-medium text-black">{DAY_LABELS[day]}</p>
                     </div>

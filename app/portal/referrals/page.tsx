@@ -183,7 +183,7 @@ export default function ReferralsPage() {
             <p className="text-sm">Share your code to start earning!</p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-100">
+          <div className="divide-y divide-black">
             {referrals.map((referral) => (
               <div key={referral.id} className="px-6 py-4 flex items-center justify-between">
                 <div>

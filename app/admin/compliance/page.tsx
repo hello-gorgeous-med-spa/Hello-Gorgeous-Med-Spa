@@ -583,7 +583,7 @@ export default function ComplianceDashboard() {
                 <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-black">
               {credentials.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="px-4 py-8 text-center text-black">

@@ -227,7 +227,7 @@ export default function PatientQueuePage() {
               <p className="text-black">Waiting room is empty</p>
             </div>
           ) : (
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-black">
               {queue.map((patient, idx) => {
                 const waitTime = getWaitTime(patient.checked_in_at || patient.starts_at);
                 const isWaitingLong = waitTime > 10;
@@ -319,7 +319,7 @@ export default function PatientQueuePage() {
               <p className="text-black">No upcoming appointments</p>
             </div>
           ) : (
-            <div className="divide-y divide-gray-100">
+            <div className="divide-y divide-black">
               {confirmedUpcoming.map((patient) => {
                 const appointmentTime = new Date(patient.starts_at);
                 const now = new Date();
