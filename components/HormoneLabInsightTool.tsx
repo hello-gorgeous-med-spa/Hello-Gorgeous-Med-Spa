@@ -81,7 +81,7 @@ export function HormoneLabInsightTool() {
             <h2 className="text-2xl md:text-4xl font-serif font-bold text-[#E6007E] mb-3">
               Upload Your Hormone Labs. Get Smarter Questions.
             </h2>
-            <p className="text-[#5E5E66] max-w-2xl mx-auto">
+            <p className="text-[#111111]/80 max-w-2xl mx-auto">
               AI-powered educational insights to help you have a more informed conversation with your doctor.
             </p>
           </div>
@@ -154,8 +154,8 @@ export function HormoneLabInsightTool() {
             <FadeUp>
               <div className="flex flex-col items-center justify-center py-16 gap-6">
                 <div className="w-14 h-14 border-3 border-[#E6007E]/30 border-t-[#E6007E] rounded-full animate-spin" />
-                <p className="text-[#5E5E66] font-medium">Analyzing your labs...</p>
-                <p className="text-[#5E5E66] text-sm">This usually takes 30–45 seconds.</p>
+                <p className="text-[#111111]/80 font-medium">Analyzing your labs...</p>
+                <p className="text-[#111111]/80 text-sm">This usually takes 30–45 seconds.</p>
               </div>
             </FadeUp>
           )}
@@ -172,7 +172,7 @@ export function HormoneLabInsightTool() {
                   <ReactMarkdown>{insights}</ReactMarkdown>
                 </div>
                 <div className="pt-4 border-t border-black/10">
-                  <p className="text-xs text-[#5E5E66] mb-4 italic">{DISCLAIMER_TEXT}</p>
+                  <p className="text-xs text-[#111111]/80 mb-4 italic">{DISCLAIMER_TEXT}</p>
                   <div className="flex flex-col sm:flex-row gap-4">
                     <a
                       href={`${BOOKING_URL}?service=biote-hormone-therapy`}
@@ -191,7 +191,7 @@ export function HormoneLabInsightTool() {
                     <button
                       type="button"
                       onClick={handleReset}
-                      className="py-4 px-6 text-[#5E5E66] font-medium rounded-full hover:bg-black/5 transition"
+                      className="py-4 px-6 text-[#111111]/80 font-medium rounded-full hover:bg-black/5 transition"
                     >
                       Analyze Another Lab
                     </button>
@@ -285,7 +285,7 @@ function LabUploadArea({ onFileSelect, selectedFile, onClear, disabled }: LabUpl
         <div className="flex flex-col items-center gap-3">
           <span className="text-4xl">📄</span>
           <p className="text-[#111111] font-semibold">{selectedFile.name}</p>
-          <p className="text-[#5E5E66] text-sm">{(selectedFile.size / 1024).toFixed(1)} KB</p>
+          <p className="text-[#111111]/80 text-sm">{(selectedFile.size / 1024).toFixed(1)} KB</p>
           <button
             type="button"
             onClick={handleChooseDifferent}
@@ -298,7 +298,7 @@ function LabUploadArea({ onFileSelect, selectedFile, onClear, disabled }: LabUpl
         <>
           <div className="text-4xl mb-3">🧪</div>
           <p className="text-[#111111] font-semibold mb-1">Upload your lab report</p>
-          <p className="text-[#5E5E66] text-sm">Drag and drop or click to select. PDF, JPG, or PNG.</p>
+          <p className="text-[#111111]/80 text-sm">Drag and drop or click to select. PDF, JPG, or PNG.</p>
         </>
       )}
     </div>

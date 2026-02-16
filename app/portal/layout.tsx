@@ -92,7 +92,7 @@ export default function PortalLayout({
       </div>
 
       {/* Top Navigation Bar */}
-      <header className="bg-white/95 backdrop-blur-md border-b border-slate-200 sticky top-0 z-50">
+      <header className="bg-white/95 backdrop-blur-md border-b border-[#111111]/15 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
@@ -101,7 +101,7 @@ export default function PortalLayout({
               <span className="font-semibold text-[#111111]">
                 Hello Gorgeous
               </span>
-              <span className="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded-full font-medium">
+              <span className="text-xs bg-[#E6007E]/10 text-[#E6007E] px-2 py-0.5 rounded-full font-medium">
                 Portal
               </span>
             </Link>
@@ -114,8 +114,8 @@ export default function PortalLayout({
                   href={item.href}
                   className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive(item.href)
-                      ? 'text-slate-900 bg-slate-100 font-medium'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+                      ? 'text-[#111111] bg-[#E6007E]/10 font-medium'
+                      : 'text-[#111111]/70 hover:text-[#111111] hover:bg-[#E6007E]/5'
                   }`}
                 >
                   <span className="mr-1">{item.icon}</span>
@@ -135,7 +135,7 @@ export default function PortalLayout({
               </Link>
               <Link 
                 href="/portal/profile"
-                className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 hover:bg-slate-200 transition-colors"
+                className="w-10 h-10 rounded-full bg-[#111111]/5 flex items-center justify-center text-[#111111] hover:bg-[#E6007E]/10 transition-colors"
               >
                 <span className="text-lg">👤</span>
               </Link>
@@ -152,7 +152,7 @@ export default function PortalLayout({
               key={item.href}
               href={item.href}
               className={`flex flex-col items-center gap-1 px-3 py-2 transition-colors ${
-                isActive(item.href) ? 'text-slate-900 font-medium' : 'text-slate-500'
+                isActive(item.href) ? 'text-[#111111] font-medium' : 'text-[#111111]/70'
               }`}
             >
               <span className="text-xl">{item.icon}</span>
@@ -183,7 +183,7 @@ export default function PortalLayout({
               <span className="text-purple-500">✓</span>
               <span>SOC 2 Certified</span>
             </div>
-            <Link href="/privacy" className="text-slate-600 hover:text-slate-900">
+            <Link href="/privacy" className="text-[#111111]/70 hover:text-[#111111]">
               Privacy Policy
             </Link>
           </div>

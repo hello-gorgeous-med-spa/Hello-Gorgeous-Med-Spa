@@ -63,6 +63,16 @@
    All gray/slate/zinc/stone/neutral converted to black or light pink
    ============================================================ */
 
+/* Ensure headings on white sections are always readable (no invisible white-on-white) */
+[data-site="public"] section.bg-white h1,
+[data-site="public"] section.bg-white h2,
+[data-site="public"] section.bg-white h3,
+[data-site="public"] section.bg-white h4,
+[data-site="public"] section.bg-white h5,
+[data-site="public"] section.bg-white h6 {
+  color: #111111 !important;
+}
+
 /* All gray text → black */
 [data-site="public"] .text-gray-100,
 [data-site="public"] .text-gray-200,

@@ -130,17 +130,17 @@ export function MicroneedlingShowcase() {
       <div className="max-w-6xl mx-auto">
         <FadeUp>
           <div className="text-center mb-10">
-            <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-fuchsia-500/20 text-fuchsia-400 text-sm font-medium mb-4">
+            <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-fuchsia-500/20 text-[#E6007E] text-sm font-medium mb-4">
               <span>🔬</span>
               Advanced Skin Rejuvenation
             </span>
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-[#111111] mb-4">
               Microneedling{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-pink-400">
                 Perfected
               </span>
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="text-[#111111]/80 text-lg max-w-2xl mx-auto">
               Three levels of transformation. Choose your path to flawless skin.
             </p>
           </div>
@@ -159,7 +159,7 @@ export function MicroneedlingShowcase() {
                 className={`relative px-6 py-3 rounded-full font-bold transition-all ${
                   activeTier === index
                     ? `bg-gradient-to-r ${tier.color} text-white scale-105 shadow-lg`
-                    : "bg-white/10 text-gray-400 hover:bg-white/20"
+                    : "bg-[#111111]/5 text-[#111111]/80 border border-[#111111]/10 hover:bg-[#E6007E]/10 hover:border-[#E6007E]/30"
                 }`}
               >
                 {tier.popular && activeTier !== index && (
@@ -200,7 +200,7 @@ export function MicroneedlingShowcase() {
             <div className="grid md:grid-cols-2 gap-8 items-center">
               {/* Left: Video/Visual Area */}
               <div className="relative">
-                <div className="aspect-video rounded-2xl bg-black/50 border border-white/10 overflow-hidden flex items-center justify-center">
+                <div className="aspect-video rounded-2xl bg-black/50 border border-[#111111]/15 overflow-hidden flex items-center justify-center">
                   {/* Video Placeholder - Beautiful gradient animation */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${currentTier.color} opacity-20 animate-pulse`}></div>
                   <div className="relative z-10 text-center p-8">
@@ -211,12 +211,12 @@ export function MicroneedlingShowcase() {
                 </div>
                 
                 {/* Serum Info Badge */}
-                <div className="mt-4 p-4 rounded-xl bg-black/40 border border-white/10">
-                  <p className="text-xs text-gray-500 uppercase tracking-wider mb-1">Signature Serum</p>
+                <div className="mt-4 p-4 rounded-xl bg-[#111111]/10 border border-[#111111]/15">
+                  <p className="text-xs text-[#111111]/70 uppercase tracking-wider mb-1">Signature Serum</p>
                   <p className={`font-bold text-transparent bg-clip-text bg-gradient-to-r ${currentTier.color}`}>
                     {currentTier.serum}
                   </p>
-                  <p className="text-gray-400 text-sm mt-1">{currentTier.serumDesc}</p>
+                  <p className="text-[#111111]/80 text-sm mt-1">{currentTier.serumDesc}</p>
                 </div>
               </div>
 
@@ -226,17 +226,17 @@ export function MicroneedlingShowcase() {
                   <span className={`px-3 py-1 rounded-full bg-gradient-to-r ${currentTier.color} text-white text-sm font-bold`}>
                     {currentTier.tier}
                   </span>
-                  <span className="text-gray-500">{currentTier.depth}</span>
+                  <span className="text-[#111111]/70">{currentTier.depth}</span>
                 </div>
                 
-                <h3 className="text-3xl font-bold text-white mb-2">{currentTier.name}</h3>
-                <p className="text-gray-400 italic mb-4">{currentTier.tagline}</p>
+                <h3 className="text-3xl font-bold text-[#111111] mb-2">{currentTier.name}</h3>
+                <p className="text-[#111111]/80 italic mb-4">{currentTier.tagline}</p>
                 
                 <div className="flex items-baseline gap-2 mb-6">
                   <span className={`text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r ${currentTier.color}`}>
                     {currentTier.price}
                   </span>
-                  <span className="text-gray-500">per session</span>
+                  <span className="text-[#111111]/70">per session</span>
                 </div>
 
                 {/* Benefits Grid */}
@@ -244,20 +244,20 @@ export function MicroneedlingShowcase() {
                   {currentTier.benefits.map((benefit) => (
                     <div key={benefit} className="flex items-center gap-2">
                       <span className={`text-transparent bg-clip-text bg-gradient-to-r ${currentTier.color}`}>✓</span>
-                      <span className="text-gray-300 text-sm">{benefit}</span>
+                      <span className="text-[#111111]/90 text-sm">{benefit}</span>
                     </div>
                   ))}
                 </div>
 
                 {/* Meta Info */}
                 <div className="flex flex-wrap gap-4 mb-6">
-                  <div className="px-4 py-2 rounded-lg bg-white/5 border border-white/10">
-                    <p className="text-xs text-gray-500">Ideal For</p>
-                    <p className="text-white font-medium text-sm">{currentTier.idealFor}</p>
+                  <div className="px-4 py-2 rounded-lg bg-[#111111]/5 border border-[#111111]/15">
+                    <p className="text-xs text-[#111111]/70">Ideal For</p>
+                    <p className="text-[#111111] font-medium text-sm">{currentTier.idealFor}</p>
                   </div>
-                  <div className="px-4 py-2 rounded-lg bg-white/5 border border-white/10">
-                    <p className="text-xs text-gray-500">Treatment Plan</p>
-                    <p className="text-white font-medium text-sm">{currentTier.sessions}</p>
+                  <div className="px-4 py-2 rounded-lg bg-[#111111]/5 border border-[#111111]/15">
+                    <p className="text-xs text-[#111111]/70">Treatment Plan</p>
+                    <p className="text-[#111111] font-medium text-sm">{currentTier.sessions}</p>
                   </div>
                 </div>
 
@@ -285,7 +285,7 @@ export function MicroneedlingShowcase() {
                   className={`h-2 rounded-full transition-all ${
                     activeTier === index 
                       ? `w-8 bg-gradient-to-r ${tier.color}` 
-                      : "w-2 bg-white/30 hover:bg-white/50"
+                      : "w-2 bg-white/30 hover:bg-[#E6007E]/50"
                   }`}
                 />
               ))}
@@ -296,13 +296,13 @@ export function MicroneedlingShowcase() {
         {/* Comparison Table */}
         <FadeUp delayMs={180}>
           <div className="mt-12 overflow-x-auto">
-            <h3 className="text-xl font-bold text-white text-center mb-6">
+            <h3 className="text-xl font-bold text-[#111111] text-center mb-6">
               Compare All Tiers
             </h3>
             <table className="w-full min-w-[600px]">
               <thead>
                 <tr>
-                  <th className="text-left p-4 text-gray-500 font-medium">Feature</th>
+                  <th className="text-left p-4 text-[#111111]/70 font-medium">Feature</th>
                   {tiers.map((tier) => (
                     <th 
                       key={tier.id} 
@@ -314,47 +314,47 @@ export function MicroneedlingShowcase() {
                 </tr>
               </thead>
               <tbody className="text-sm">
-                <tr className="border-t border-white/10">
-                  <td className="p-4 text-gray-400">Price</td>
+                <tr className="border-t border-[#111111]/15">
+                  <td className="p-4 text-[#111111]/80">Price</td>
                   {tiers.map((tier) => (
-                    <td key={tier.id} className="p-4 text-center text-white font-bold">{tier.price}</td>
+                    <td key={tier.id} className="p-4 text-center text-[#111111] font-bold">{tier.price}</td>
                   ))}
                 </tr>
-                <tr className="border-t border-white/10">
-                  <td className="p-4 text-gray-400">Primary Serum</td>
-                  <td className="p-4 text-center text-gray-300">Hyaluronic Acid</td>
-                  <td className="p-4 text-center text-gray-300">PDRN + Growth Factors</td>
-                  <td className="p-4 text-center text-gray-300">Baby Tox + BioSomes</td>
+                <tr className="border-t border-[#111111]/15">
+                  <td className="p-4 text-[#111111]/80">Primary Serum</td>
+                  <td className="p-4 text-center text-[#111111]/90">Hyaluronic Acid</td>
+                  <td className="p-4 text-center text-[#111111]/90">PDRN + Growth Factors</td>
+                  <td className="p-4 text-center text-[#111111]/90">Baby Tox + BioSomes</td>
                 </tr>
-                <tr className="border-t border-white/10">
-                  <td className="p-4 text-gray-400">Collagen Boost</td>
+                <tr className="border-t border-[#111111]/15">
+                  <td className="p-4 text-[#111111]/80">Collagen Boost</td>
                   <td className="p-4 text-center text-pink-400">●●○</td>
-                  <td className="p-4 text-center text-fuchsia-400">●●●</td>
+                  <td className="p-4 text-center text-[#E6007E]">●●●</td>
                   <td className="p-4 text-center text-amber-400">●●●</td>
                 </tr>
-                <tr className="border-t border-white/10">
-                  <td className="p-4 text-gray-400">Fine Line Reduction</td>
+                <tr className="border-t border-[#111111]/15">
+                  <td className="p-4 text-[#111111]/80">Fine Line Reduction</td>
                   <td className="p-4 text-center text-pink-400">●○○</td>
-                  <td className="p-4 text-center text-fuchsia-400">●●○</td>
+                  <td className="p-4 text-center text-[#E6007E]">●●○</td>
                   <td className="p-4 text-center text-amber-400">●●●</td>
                 </tr>
-                <tr className="border-t border-white/10">
-                  <td className="p-4 text-gray-400">Cellular Repair</td>
+                <tr className="border-t border-[#111111]/15">
+                  <td className="p-4 text-[#111111]/80">Cellular Repair</td>
                   <td className="p-4 text-center text-pink-400">●○○</td>
-                  <td className="p-4 text-center text-fuchsia-400">●●●</td>
+                  <td className="p-4 text-center text-[#E6007E]">●●●</td>
                   <td className="p-4 text-center text-amber-400">●●●</td>
                 </tr>
-                <tr className="border-t border-white/10">
-                  <td className="p-4 text-gray-400">Glass Skin Effect</td>
-                  <td className="p-4 text-center text-gray-500">—</td>
-                  <td className="p-4 text-center text-fuchsia-400">●●○</td>
+                <tr className="border-t border-[#111111]/15">
+                  <td className="p-4 text-[#111111]/80">Glass Skin Effect</td>
+                  <td className="p-4 text-center text-[#111111]/70">—</td>
+                  <td className="p-4 text-center text-[#E6007E]">●●○</td>
                   <td className="p-4 text-center text-amber-400">●●●</td>
                 </tr>
-                <tr className="border-t border-white/10">
-                  <td className="p-4 text-gray-400">Best For</td>
-                  <td className="p-4 text-center text-gray-300 text-xs">Beginners<br/>Maintenance</td>
-                  <td className="p-4 text-center text-gray-300 text-xs">Anti-Aging<br/>Regeneration</td>
-                  <td className="p-4 text-center text-gray-300 text-xs">Fine Lines<br/>Glass Skin</td>
+                <tr className="border-t border-[#111111]/15">
+                  <td className="p-4 text-[#111111]/80">Best For</td>
+                  <td className="p-4 text-center text-[#111111]/90 text-xs">Beginners<br/>Maintenance</td>
+                  <td className="p-4 text-center text-[#111111]/90 text-xs">Anti-Aging<br/>Regeneration</td>
+                  <td className="p-4 text-center text-[#111111]/90 text-xs">Fine Lines<br/>Glass Skin</td>
                 </tr>
               </tbody>
             </table>
@@ -363,15 +363,15 @@ export function MicroneedlingShowcase() {
 
         {/* Treatment Areas */}
         <FadeUp delayMs={240}>
-          <div className="mt-12 p-6 rounded-2xl bg-white/5 border border-white/10">
-            <h3 className="text-lg font-bold text-white text-center mb-4">
+          <div className="mt-12 p-6 rounded-2xl bg-[#111111]/5 border border-[#111111]/15">
+            <h3 className="text-lg font-bold text-[#111111] text-center mb-4">
               Treatment Areas
             </h3>
             <div className="flex flex-wrap justify-center gap-3">
               {treatmentAreas.map((area) => (
                 <span
                   key={area}
-                  className="px-4 py-2 rounded-full bg-gradient-to-r from-fuchsia-500/10 to-pink-500/10 border border-fuchsia-500/30 text-fuchsia-300 text-sm"
+                  className="px-4 py-2 rounded-full bg-gradient-to-r from-fuchsia-500/10 to-pink-500/10 border border-fuchsia-500/30 text-[#E6007E] text-sm font-medium"
                 >
                   {area}
                 </span>
@@ -383,26 +383,26 @@ export function MicroneedlingShowcase() {
         {/* FAQs */}
         <FadeUp delayMs={300}>
           <div className="mt-12">
-            <h3 className="text-xl font-bold text-white text-center mb-6">
+            <h3 className="text-xl font-bold text-[#111111] text-center mb-6">
               Frequently Asked Questions
             </h3>
             <div className="space-y-3 max-w-2xl mx-auto">
               {faqs.map((faq, index) => (
                 <div
                   key={index}
-                  className="rounded-xl bg-white/5 border border-white/10 overflow-hidden"
+                  className="rounded-xl bg-[#111111]/5 border border-[#111111]/15 overflow-hidden"
                 >
                   <button
                     onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                    className="w-full p-4 text-left flex items-center justify-between hover:bg-white/5 transition"
+                    className="w-full p-4 text-left flex items-center justify-between hover:bg-[#E6007E]/5 transition"
                   >
-                    <span className="text-white font-medium">{faq.q}</span>
-                    <span className={`text-fuchsia-400 transition-transform ${expandedFaq === index ? "rotate-180" : ""}`}>
+                    <span className="text-[#111111] font-medium">{faq.q}</span>
+                    <span className={`text-[#E6007E] transition-transform ${expandedFaq === index ? "rotate-180" : ""}`}>
                       ▼
                     </span>
                   </button>
                   {expandedFaq === index && (
-                    <div className="px-4 pb-4 text-gray-400 text-sm">
+                    <div className="px-4 pb-4 text-[#111111]/80 text-sm">
                       {faq.a}
                     </div>
                   )}
@@ -415,7 +415,7 @@ export function MicroneedlingShowcase() {
         {/* Final CTA */}
         <FadeUp delayMs={360}>
           <div className="mt-12 text-center">
-            <p className="text-gray-400 mb-4">
+            <p className="text-[#111111]/80 mb-4">
               Not sure which tier is right for you? Book a free consultation!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -429,7 +429,7 @@ export function MicroneedlingShowcase() {
               </a>
               <a
                 href="tel:630-636-6193"
-                className="px-8 py-4 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition"
+                className="px-8 py-4 rounded-xl bg-[#111111]/5 border border-[#111111]/15 text-[#111111] font-medium hover:bg-white/10 transition"
               >
                 📞 Free Consultation
               </a>
