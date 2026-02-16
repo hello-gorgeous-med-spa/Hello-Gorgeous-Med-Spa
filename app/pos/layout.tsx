@@ -32,8 +32,8 @@ export default function POSLayout({
           <div className="flex items-center gap-4">
             <Link href="/pos" className="flex items-center gap-2 hover:opacity-90 transition-opacity">
               <span className="text-xl">💗</span>
-              <span className="font-semibold text-[#E6007E]">Hello Gorgeous</span>
-              <span className="text-xs bg-[#E6007E] text-white px-2 py-0.5 rounded font-bold">
+              <span className="font-semibold text-[#FF2D8E]">Hello Gorgeous</span>
+              <span className="text-xs bg-[#FF2D8E] text-white px-2 py-0.5 rounded font-bold">
                 POS
               </span>
             </Link>
@@ -44,7 +44,7 @@ export default function POSLayout({
             <div className="hidden md:flex items-center gap-6 text-sm">
               <div>
                 <span className="text-black/70">Today&apos;s Sales</span>
-                <span className="ml-2 font-bold text-[#E6007E]">$2,450</span>
+                <span className="ml-2 font-bold text-[#FF2D8E]">$2,450</span>
               </div>
               <div>
                 <span className="text-black/70">Transactions</span>
@@ -60,14 +60,14 @@ export default function POSLayout({
             {/* Back to Admin */}
             <Link
               href="/admin"
-              className="text-sm text-black hover:text-[#E6007E] transition-colors font-medium"
+              className="text-sm text-black hover:text-[#FF2D8E] transition-colors font-medium"
             >
               ← Admin
             </Link>
 
             {/* User */}
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-[#E6007E] flex items-center justify-center text-white text-sm font-bold">
+              <div className="w-8 h-8 rounded-full bg-[#FF2D8E] flex items-center justify-center text-white text-sm font-bold">
                 DG
               </div>
             </div>

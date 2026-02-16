@@ -27,10 +27,10 @@ export function Testimonials() {
       <div className="max-w-5xl mx-auto min-w-0">
         <FadeUp>
           <div className="text-center mb-12">
-            <p className="text-[#E6007E] text-sm font-medium tracking-wide">REAL RESULTS</p>
-            <h2 className="mt-4 text-2xl md:text-4xl font-serif font-bold text-[#E6007E]">
+            <p className="text-[#FF2D8E] text-sm font-medium tracking-wide">REAL RESULTS</p>
+            <h2 className="mt-4 text-2xl md:text-4xl font-serif font-bold text-[#FF2D8E]">
               What Our Clients{" "}
-              <span className="text-[#E6007E]">
+              <span className="text-[#FF2D8E]">
                 Say
               </span>
             </h2>
@@ -38,11 +38,11 @@ export function Testimonials() {
               href={SITE.googleReviewUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center justify-center gap-2 text-[#E6007E] hover:text-[#E6007E] transition"
+              className="mt-4 inline-flex items-center justify-center gap-2 text-[#FF2D8E] hover:text-[#FF2D8E] transition"
             >
               <span className="text-yellow-400 text-xl">★★★★★</span>
-              <span className="text-[#E6007E] font-semibold">{SITE.reviewRating}</span>
-              <span className="text-[#E6007E]">on Google · Leave a review</span>
+              <span className="text-[#FF2D8E] font-semibold">{SITE.reviewRating}</span>
+              <span className="text-[#FF2D8E]">on Google · Leave a review</span>
             </a>
           </div>
         </FadeUp>
@@ -51,18 +51,18 @@ export function Testimonials() {
         <div className="hidden md:grid md:grid-cols-2 gap-6">
           {testimonials.map((testimonial, idx) => (
             <FadeUp key={testimonial.name} delayMs={60 * idx}>
-              <div className="h-full rounded-xl border-2 border-black bg-white shadow-md p-6 hover:border-[#E6007E]/30 hover:shadow-xl hover:-translate-y-[2px] transition">
+              <div className="h-full rounded-xl border-2 border-black bg-white shadow-md p-6 hover:border-[#FF2D8E]/30 hover:shadow-xl hover:-translate-y-[2px] transition">
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <p className="text-[#E6007E] font-semibold">{testimonial.name}</p>
-                    <p className="text-[#E6007E] text-sm">{testimonial.location}</p>
+                    <p className="text-[#FF2D8E] font-semibold">{testimonial.name}</p>
+                    <p className="text-[#FF2D8E] text-sm">{testimonial.location}</p>
                   </div>
-                  <span className="px-3 py-1 rounded-full bg-[#E6007E]/10 text-[#E6007E] text-xs font-medium">
+                  <span className="px-3 py-1 rounded-full bg-[#FF2D8E]/10 text-[#FF2D8E] text-xs font-medium">
                     {testimonial.service}
                   </span>
                 </div>
                 <StarRating rating={testimonial.rating} />
-                <p className="mt-4 text-[#E6007E] leading-relaxed">&ldquo;{testimonial.text}&rdquo;</p>
+                <p className="mt-4 text-[#FF2D8E] leading-relaxed">&ldquo;{testimonial.text}&rdquo;</p>
               </div>
             </FadeUp>
           ))}
@@ -74,15 +74,15 @@ export function Testimonials() {
             <div className="rounded-xl border-2 border-black bg-white shadow-md p-6">
               <div className="flex items-start justify-between mb-4">
                 <div>
-                  <p className="text-[#E6007E] font-semibold">{testimonials[activeIndex].name}</p>
-                  <p className="text-[#E6007E] text-sm">{testimonials[activeIndex].location}</p>
+                  <p className="text-[#FF2D8E] font-semibold">{testimonials[activeIndex].name}</p>
+                  <p className="text-[#FF2D8E] text-sm">{testimonials[activeIndex].location}</p>
                 </div>
                 <span className="px-3 py-1 rounded-full bg-pink-500/10 text-pink-400 text-xs font-medium">
                   {testimonials[activeIndex].service}
                 </span>
               </div>
               <StarRating rating={testimonials[activeIndex].rating} />
-                <p className="mt-4 text-[#E6007E] leading-relaxed">&ldquo;{testimonials[activeIndex].text}&rdquo;</p>
+                <p className="mt-4 text-[#FF2D8E] leading-relaxed">&ldquo;{testimonials[activeIndex].text}&rdquo;</p>
             </div>
 
             {/* Dots - 44px tap targets for thumb-friendly taps */}
@@ -94,7 +94,7 @@ export function Testimonials() {
                   onClick={() => setActiveIndex(idx)}
                   aria-label={`View testimonial ${idx + 1}`}
                   className={`min-w-[44px] min-h-[44px] p-2 rounded-full flex items-center justify-center transition ${
-                    idx === activeIndex ? "bg-[#E6007E]" : "bg-[#5E5E66]/30"
+                    idx === activeIndex ? "bg-[#FF2D8E]" : "bg-[#5E5E66]/30"
                   }`}
                 >
                   <span className="sr-only">Testimonial {idx + 1}</span>

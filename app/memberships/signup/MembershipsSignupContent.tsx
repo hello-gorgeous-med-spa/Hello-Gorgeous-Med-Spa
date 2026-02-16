@@ -74,24 +74,24 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-pink-50 py-12 md:py-20 px-4">
         <div className="max-w-xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-xl border border-[#111111]/10 p-8 text-center">
+          <div className="bg-white rounded-2xl shadow-xl border border-[#000000]/10 p-8 text-center">
             <div className="text-5xl mb-4">✓</div>
-            <h1 className="text-2xl font-bold text-[#111111] mb-4">Request Received</h1>
+            <h1 className="text-2xl font-bold text-[#000000] mb-4">Request Received</h1>
             <p className="text-[#5E5E66] mb-4">{success.message}</p>
             {success.memberCode && (
-              <p className="text-sm text-[#111111]/70 mb-6">
+              <p className="text-sm text-[#000000]/70 mb-6">
                 Reference: <strong>{success.memberCode}</strong>
               </p>
             )}
             <p className="text-sm text-[#5E5E66] mb-6">
               We'll contact you shortly. Call us anytime at{" "}
-              <a href="tel:630-636-6193" className="text-[#E6007E] font-semibold">
+              <a href="tel:630-636-6193" className="text-[#FF2D8E] font-semibold">
                 630-636-6193
               </a>
             </p>
             <Link
               href="/portal"
-              className="inline-block px-8 py-4 bg-[#E6007E] text-white font-bold rounded-full hover:opacity-90 transition"
+              className="inline-block px-8 py-4 bg-[#FF2D8E] text-white font-bold rounded-full hover:opacity-90 transition"
             >
               Go to Portal
             </Link>
@@ -106,20 +106,20 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-pink-50 py-12 md:py-20 px-4">
         <div className="max-w-xl mx-auto">
-          <Link href="/memberships" className="text-[#E6007E] text-sm font-medium hover:underline mb-8 inline-block">
+          <Link href="/memberships" className="text-[#FF2D8E] text-sm font-medium hover:underline mb-8 inline-block">
             ← Back to Memberships
           </Link>
-          <div className="bg-white rounded-2xl shadow-xl border border-[#111111]/10 p-8">
-            <h1 className="text-2xl font-bold text-[#111111] mb-4">Choose Your Program</h1>
+          <div className="bg-white rounded-2xl shadow-xl border border-[#000000]/10 p-8">
+            <h1 className="text-2xl font-bold text-[#000000] mb-4">Choose Your Program</h1>
             <p className="text-[#5E5E66] mb-6">Select a program to continue.</p>
             <div className="space-y-4">
               {Object.entries(PROGRAMS).map(([slug, p]) => (
                 <Link
                   key={slug}
                   href={`/memberships/signup?program=${slug}`}
-                  className="block p-4 rounded-xl border border-[#111111]/15 hover:border-[#E6007E]/50 hover:bg-pink-50/50 transition"
+                  className="block p-4 rounded-xl border border-[#000000]/15 hover:border-[#FF2D8E]/50 hover:bg-pink-50/50 transition"
                 >
-                  <span className="font-semibold text-[#111111]">{p.name}</span>
+                  <span className="font-semibold text-[#000000]">{p.name}</span>
                   <span className="text-[#5E5E66] ml-2">— {p.priceLabel || `$${p.price}/mo`}</span>
                 </Link>
               ))}
@@ -135,12 +135,12 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-pink-50 py-12 md:py-20 px-4">
       <div className="max-w-xl mx-auto">
-        <Link href="/memberships" className="text-[#E6007E] text-sm font-medium hover:underline mb-8 inline-block">
+        <Link href="/memberships" className="text-[#FF2D8E] text-sm font-medium hover:underline mb-8 inline-block">
           ← Back to Memberships
         </Link>
 
-        <div className="bg-white rounded-2xl shadow-xl border border-[#111111]/10 p-8">
-          <h1 className="text-2xl font-bold text-[#111111] mb-2">
+        <div className="bg-white rounded-2xl shadow-xl border border-[#000000]/10 p-8">
+          <h1 className="text-2xl font-bold text-[#000000] mb-2">
             Join {p?.name}
           </h1>
           <p className="text-[#5E5E66] mb-6">{p?.priceLabel || `$${p?.price}/month`} • Full member portal access</p>
@@ -148,7 +148,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid sm:grid-cols-2 gap-4">
               <div>
-                <label htmlFor="firstName" className="block text-sm font-medium text-[#111111] mb-1">
+                <label htmlFor="firstName" className="block text-sm font-medium text-[#000000] mb-1">
                   First name *
                 </label>
                 <input
@@ -157,12 +157,12 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                   required
                   value={form.firstName}
                   onChange={(e) => setForm((f) => ({ ...f, firstName: e.target.value }))}
-                  className="w-full px-4 py-3 rounded-xl border border-[#111111]/15 focus:border-[#E6007E] focus:ring-1 focus:ring-[#E6007E] outline-none"
+                  className="w-full px-4 py-3 rounded-xl border border-[#000000]/15 focus:border-[#FF2D8E] focus:ring-1 focus:ring-[#FF2D8E] outline-none"
                   placeholder="Jane"
                 />
               </div>
               <div>
-                <label htmlFor="lastName" className="block text-sm font-medium text-[#111111] mb-1">
+                <label htmlFor="lastName" className="block text-sm font-medium text-[#000000] mb-1">
                   Last name *
                 </label>
                 <input
@@ -171,13 +171,13 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                   required
                   value={form.lastName}
                   onChange={(e) => setForm((f) => ({ ...f, lastName: e.target.value }))}
-                  className="w-full px-4 py-3 rounded-xl border border-[#111111]/15 focus:border-[#E6007E] focus:ring-1 focus:ring-[#E6007E] outline-none"
+                  className="w-full px-4 py-3 rounded-xl border border-[#000000]/15 focus:border-[#FF2D8E] focus:ring-1 focus:ring-[#FF2D8E] outline-none"
                   placeholder="Smith"
                 />
               </div>
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-[#111111] mb-1">
+              <label htmlFor="email" className="block text-sm font-medium text-[#000000] mb-1">
                 Email *
               </label>
               <input
@@ -186,12 +186,12 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                 required
                 value={form.email}
                 onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                className="w-full px-4 py-3 rounded-xl border border-[#111111]/15 focus:border-[#E6007E] focus:ring-1 focus:ring-[#E6007E] outline-none"
+                className="w-full px-4 py-3 rounded-xl border border-[#000000]/15 focus:border-[#FF2D8E] focus:ring-1 focus:ring-[#FF2D8E] outline-none"
                 placeholder="jane@example.com"
               />
             </div>
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-[#111111] mb-1">
+              <label htmlFor="phone" className="block text-sm font-medium text-[#000000] mb-1">
                 Phone
               </label>
               <input
@@ -199,12 +199,12 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                 type="tel"
                 value={form.phone}
                 onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-                className="w-full px-4 py-3 rounded-xl border border-[#111111]/15 focus:border-[#E6007E] focus:ring-1 focus:ring-[#E6007E] outline-none"
+                className="w-full px-4 py-3 rounded-xl border border-[#000000]/15 focus:border-[#FF2D8E] focus:ring-1 focus:ring-[#FF2D8E] outline-none"
                 placeholder="(630) 555-1234"
               />
             </div>
             <div>
-              <label htmlFor="medicalHistory" className="block text-sm font-medium text-[#111111] mb-1">
+              <label htmlFor="medicalHistory" className="block text-sm font-medium text-[#000000] mb-1">
                 Medical history note (optional)
               </label>
               <textarea
@@ -212,7 +212,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                 rows={3}
                 value={form.medicalHistoryNote}
                 onChange={(e) => setForm((f) => ({ ...f, medicalHistoryNote: e.target.value }))}
-                className="w-full px-4 py-3 rounded-xl border border-[#111111]/15 focus:border-[#E6007E] focus:ring-1 focus:ring-[#E6007E] outline-none resize-none"
+                className="w-full px-4 py-3 rounded-xl border border-[#000000]/15 focus:border-[#FF2D8E] focus:ring-1 focus:ring-[#FF2D8E] outline-none resize-none"
                 placeholder="Any conditions or medications we should know about?"
               />
             </div>
@@ -223,9 +223,9 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                   required
                   checked={form.hipaaConsent}
                   onChange={(e) => setForm((f) => ({ ...f, hipaaConsent: e.target.checked }))}
-                  className="mt-1 w-5 h-5 rounded border-[#111111]/20 text-[#E6007E]"
+                  className="mt-1 w-5 h-5 rounded border-[#000000]/20 text-[#FF2D8E]"
                 />
-                <span className="text-sm text-[#111111]">
+                <span className="text-sm text-[#000000]">
                   I consent to the use and disclosure of my health information as described in the HIPAA Notice of Privacy Practices. *
                 </span>
               </label>
@@ -235,9 +235,9 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                   required
                   checked={form.termsConsent}
                   onChange={(e) => setForm((f) => ({ ...f, termsConsent: e.target.checked }))}
-                  className="mt-1 w-5 h-5 rounded border-[#111111]/20 text-[#E6007E]"
+                  className="mt-1 w-5 h-5 rounded border-[#000000]/20 text-[#FF2D8E]"
                 />
-                <span className="text-sm text-[#111111]">
+                <span className="text-sm text-[#000000]">
                   I agree to the membership terms and authorize Hello Gorgeous to contact me regarding my membership. *
                 </span>
               </label>
@@ -250,7 +250,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 bg-[#E6007E] text-white font-bold rounded-full hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition"
+              className="w-full py-4 bg-[#FF2D8E] text-white font-bold rounded-full hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed transition"
             >
               {loading ? "Submitting…" : "Submit Request"}
             </button>

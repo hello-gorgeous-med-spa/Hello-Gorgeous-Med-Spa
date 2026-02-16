@@ -64,7 +64,7 @@ export default function ReceiptsPage() {
         <select
           value={selectedYear}
           onChange={(e) => setSelectedYear(e.target.value)}
-          className="px-4 py-2 border border-[#111]/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#E6007E]/50"
+          className="px-4 py-2 border border-[#111]/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50"
         >
           {years.map((y) => (
             <option key={y} value={y}>{y}</option>
@@ -81,7 +81,7 @@ export default function ReceiptsPage() {
           </div>
           <div className="text-right">
             <p className="text-white/70">{receipts.length} Transactions</p>
-            <button className="mt-2 text-sm text-[#E6007E] hover:underline">
+            <button className="mt-2 text-sm text-[#FF2D8E] hover:underline">
               Download {selectedYear} Summary
             </button>
           </div>
@@ -112,7 +112,7 @@ export default function ReceiptsPage() {
                 className="w-full p-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-[#E6007E]/10 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-[#FF2D8E]/10 rounded-xl flex items-center justify-center">
                     <span className="text-xl">🧾</span>
                   </div>
                   <div className="text-left">

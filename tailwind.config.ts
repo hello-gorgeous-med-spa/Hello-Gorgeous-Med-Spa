@@ -22,10 +22,10 @@ export default {
         },
         // Hello Gorgeous brand (use for CTAs/accents only)
         hg: {
-          pink: "#E6007E",
-          pinkDeep: "#B0005F",
+          pink: "#FF2D8E",
+          pinkDeep: "#FF2D8E",
           bgSoft: "#FDF7FA",
-          dark: "#111111",
+          dark: "#000000",
           gray: "#5E5E66",
           border: "#EAE4E8",
         },

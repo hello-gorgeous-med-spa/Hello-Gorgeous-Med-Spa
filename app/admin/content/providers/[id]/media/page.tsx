@@ -147,7 +147,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
     return (
       <div className="p-8 text-center">
         <p className="text-gray-500">Provider not found</p>
-        <Link href="/admin/content/providers" className="text-[#E6007E] hover:underline mt-2 block">
+        <Link href="/admin/content/providers" className="text-[#FF2D8E] hover:underline mt-2 block">
           ← Back to providers
         </Link>
       </div>
@@ -158,7 +158,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
     <div className="p-8 max-w-6xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <Link href="/admin/content/providers" className="text-[#E6007E] hover:underline text-sm">
+        <Link href="/admin/content/providers" className="text-[#FF2D8E] hover:underline text-sm">
           ← Back to providers
         </Link>
         <h1 className="text-2xl font-bold text-gray-900 mt-2">
@@ -181,7 +181,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
           onClick={() => setActiveTab('videos')}
           className={`pb-3 px-4 font-medium transition-colors ${
             activeTab === 'videos'
-              ? 'text-[#E6007E] border-b-2 border-[#E6007E]'
+              ? 'text-[#FF2D8E] border-b-2 border-[#FF2D8E]'
               : 'text-gray-500 hover:text-gray-700'
           }`}
         >
@@ -191,7 +191,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
           onClick={() => setActiveTab('before_after')}
           className={`pb-3 px-4 font-medium transition-colors ${
             activeTab === 'before_after'
-              ? 'text-[#E6007E] border-b-2 border-[#E6007E]'
+              ? 'text-[#FF2D8E] border-b-2 border-[#FF2D8E]'
               : 'text-gray-500 hover:text-gray-700'
           }`}
         >
@@ -205,7 +205,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
           setUploadType(activeTab === 'videos' ? 'video' : 'before_after');
           setShowUploadModal(true);
         }}
-        className="mb-6 px-5 py-2.5 bg-[#E6007E] text-white rounded-xl hover:bg-[#E6007E]/90 font-medium"
+        className="mb-6 px-5 py-2.5 bg-[#FF2D8E] text-white rounded-xl hover:bg-[#FF2D8E]/90 font-medium"
       >
         + Upload {activeTab === 'videos' ? 'Video' : 'Before/After'}
       </button>
@@ -222,7 +222,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
                   <div className="w-full h-full flex items-center justify-center text-4xl">🎬</div>
                 )}
                 {item.is_featured && (
-                  <span className="absolute top-2 left-2 px-2 py-1 bg-[#E6007E] text-white text-xs rounded-full">
+                  <span className="absolute top-2 left-2 px-2 py-1 bg-[#FF2D8E] text-white text-xs rounded-full">
                     Featured
                   </span>
                 )}
@@ -230,7 +230,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
               <div className="p-4">
                 <h3 className="font-medium text-gray-900">{item.title || 'Untitled'}</h3>
                 {item.service_tag && (
-                  <span className="inline-block mt-1 px-2 py-0.5 bg-[#E6007E]/10 text-[#E6007E] text-xs rounded">
+                  <span className="inline-block mt-1 px-2 py-0.5 bg-[#FF2D8E]/10 text-[#FF2D8E] text-xs rounded">
                     {item.service_tag}
                   </span>
                 )}
@@ -281,7 +281,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-sm text-gray-400">After</div>
                   )}
-                  <span className="absolute bottom-1 right-1 px-1.5 py-0.5 bg-[#E6007E] text-white text-xs rounded">
+                  <span className="absolute bottom-1 right-1 px-1.5 py-0.5 bg-[#FF2D8E] text-white text-xs rounded">
                     After
                   </span>
                 </div>
@@ -289,7 +289,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
               <div className="p-4">
                 <h3 className="font-medium text-gray-900">{item.title || 'Untitled'}</h3>
                 {item.service_tag && (
-                  <span className="inline-block mt-1 px-2 py-0.5 bg-[#E6007E]/10 text-[#E6007E] text-xs rounded">
+                  <span className="inline-block mt-1 px-2 py-0.5 bg-[#FF2D8E]/10 text-[#FF2D8E] text-xs rounded">
                     {item.service_tag}
                   </span>
                 )}
@@ -423,7 +423,7 @@ function UploadModal({
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               placeholder="e.g., Lip Filler Treatment"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E6007E]"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF2D8E]"
             />
           </div>
 
@@ -433,7 +433,7 @@ function UploadModal({
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               rows={2}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E6007E]"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF2D8E]"
             />
           </div>
 
@@ -442,7 +442,7 @@ function UploadModal({
             <select
               value={formData.service_tag}
               onChange={(e) => setFormData({ ...formData, service_tag: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E6007E]"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF2D8E]"
             >
               <option value="">Select a service...</option>
               {serviceTags.map((tag) => (
@@ -459,7 +459,7 @@ function UploadModal({
                   type="file"
                   accept="video/*"
                   onChange={(e) => e.target.files?.[0] && handleFileUpload(e.target.files[0], 'video_url')}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E6007E]"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF2D8E]"
                 />
                 {formData.video_url && <p className="text-xs text-green-600 mt-1">✓ Video uploaded</p>}
                 <p className="text-xs text-gray-500 mt-1">Or paste URL below</p>
@@ -468,7 +468,7 @@ function UploadModal({
                   value={formData.video_url}
                   onChange={(e) => setFormData({ ...formData, video_url: e.target.value })}
                   placeholder="https://..."
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E6007E] mt-2"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF2D8E] mt-2"
                 />
               </div>
               <div>
@@ -478,7 +478,7 @@ function UploadModal({
                   value={formData.video_thumbnail_url}
                   onChange={(e) => setFormData({ ...formData, video_thumbnail_url: e.target.value })}
                   placeholder="https://..."
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#E6007E]"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF2D8E]"
                 />
               </div>
             </>
@@ -510,7 +510,7 @@ function UploadModal({
                     type="checkbox"
                     checked={formData.consent_confirmed}
                     onChange={(e) => setFormData({ ...formData, consent_confirmed: e.target.checked })}
-                    className="mt-1 w-5 h-5 text-[#E6007E] border-gray-300 rounded focus:ring-[#E6007E]"
+                    className="mt-1 w-5 h-5 text-[#FF2D8E] border-gray-300 rounded focus:ring-[#FF2D8E]"
                   />
                   <span className="text-sm text-yellow-800">
                     <strong>Client consent confirmed</strong><br />
@@ -527,7 +527,7 @@ function UploadModal({
                 type="checkbox"
                 checked={formData.is_featured}
                 onChange={(e) => setFormData({ ...formData, is_featured: e.target.checked })}
-                className="w-4 h-4 text-[#E6007E] border-gray-300 rounded focus:ring-[#E6007E]"
+                className="w-4 h-4 text-[#FF2D8E] border-gray-300 rounded focus:ring-[#FF2D8E]"
               />
               <span className="text-sm text-gray-700">Mark as featured</span>
             </label>
@@ -544,7 +544,7 @@ function UploadModal({
             <button
               type="submit"
               disabled={uploading}
-              className="px-6 py-2 bg-[#E6007E] text-white rounded-lg hover:bg-[#E6007E]/90 disabled:opacity-50"
+              className="px-6 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-[#FF2D8E]/90 disabled:opacity-50"
             >
               {uploading ? uploadProgress : 'Save'}
             </button>

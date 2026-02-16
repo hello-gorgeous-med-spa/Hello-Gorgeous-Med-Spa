@@ -32,9 +32,9 @@ export function MeetProviders() {
       <div className="relative">
         <FadeUp>
           <div className="text-center mb-12">
-            <p className="text-[#E6007E] text-sm font-medium tracking-wide">YOUR PROVIDERS</p>
-            <h2 className="mt-4 text-3xl md:text-4xl font-serif font-bold text-[#E6007E]">Meet the Team</h2>
-            <p className="mt-4 text-base md:text-lg text-[#E6007E] max-w-2xl mx-auto">
+            <p className="text-[#FF2D8E] text-sm font-medium tracking-wide">YOUR PROVIDERS</p>
+            <h2 className="mt-4 text-3xl md:text-4xl font-serif font-bold text-[#FF2D8E]">Meet the Team</h2>
+            <p className="mt-4 text-base md:text-lg text-[#FF2D8E] max-w-2xl mx-auto">
               Expert providers dedicated to your safety, comfort, and stunning results.
             </p>
           </div>
@@ -43,7 +43,7 @@ export function MeetProviders() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {providers.map((provider, idx) => (
             <FadeUp key={provider.name} delayMs={150 * idx}>
-              <div className="bg-white border-2 border-black rounded-xl overflow-hidden hover:border-[#E6007E]/30 transition group shadow-md hover:shadow-xl hover:-translate-y-[2px]">
+              <div className="bg-white border-2 border-black rounded-xl overflow-hidden hover:border-[#FF2D8E]/30 transition group shadow-md hover:shadow-xl hover:-translate-y-[2px]">
                 <div className="relative aspect-[3/4] overflow-hidden bg-[#FDF7FA]">
                   <Image
                     src={provider.image}
@@ -65,12 +65,12 @@ export function MeetProviders() {
                   )}
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-[#E6007E]">{provider.name}</h3>
+                  <h3 className="text-xl font-bold text-[#FF2D8E]">{provider.name}</h3>
                   {provider.credentials && (
-                    <p className="text-[#E6007E] text-xs font-semibold mt-1">{provider.credentials}</p>
+                    <p className="text-[#FF2D8E] text-xs font-semibold mt-1">{provider.credentials}</p>
                   )}
-                  <p className="text-[#E6007E] text-sm mt-1">{provider.role}</p>
-                  <p className="text-[#E6007E] text-sm mt-3">{provider.bio}</p>
+                  <p className="text-[#FF2D8E] text-sm mt-1">{provider.role}</p>
+                  <p className="text-[#FF2D8E] text-sm mt-3">{provider.bio}</p>
                   <div className="mt-4 flex flex-wrap gap-3">
                     <Link
                       href={`/book?provider=${provider.slug}`}
@@ -80,14 +80,14 @@ export function MeetProviders() {
                     </Link>
                     <Link
                       href={`/providers/${provider.slug}`}
-                      className="inline-flex items-center rounded-md border border-black px-6 py-3 text-sm font-medium text-[#E6007E] hover:bg-[#111111]/5 transition"
+                      className="inline-flex items-center rounded-md border border-black px-6 py-3 text-sm font-medium text-[#FF2D8E] hover:bg-[#000000]/5 transition"
                     >
                       View Profile
                     </Link>
                     {provider.telehealth && (
                       <a
                         href="/telehealth"
-                        className="inline-flex items-center gap-2 text-[#E6007E] text-sm font-medium hover:text-[#B0005F] transition"
+                        className="inline-flex items-center gap-2 text-[#FF2D8E] text-sm font-medium hover:text-[#FF2D8E] transition"
                       >
                         🖥️ Book Virtual Visit →
                       </a>

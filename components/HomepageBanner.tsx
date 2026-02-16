@@ -17,13 +17,13 @@ export function HomepageBanner({ banner }: { banner: BannerContent | null }) {
     <section className="relative bg-white border-y border-2 border-black">
       <div className="max-w-4xl mx-auto px-6 py-6 flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left">
         <div className="flex-1">
-          {headline && <h2 className="text-xl md:text-2xl font-bold text-[#E6007E]">{headline}</h2>}
-          {subheadline && <p className="mt-1 text-[#E6007E]">{subheadline}</p>}
+          {headline && <h2 className="text-xl md:text-2xl font-bold text-[#FF2D8E]">{headline}</h2>}
+          {subheadline && <p className="mt-1 text-[#FF2D8E]">{subheadline}</p>}
         </div>
         {ctaText && ctaUrl && (
           <Link
             href={ctaUrl}
-            className="shrink-0 inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#E6007E] text-white font-semibold hover:bg-[#B0005F] transition-colors"
+            className="shrink-0 inline-flex items-center justify-center px-6 py-3 rounded-full bg-[#FF2D8E] text-white font-semibold hover:bg-[#FF2D8E] transition-colors"
           >
             {ctaText}
           </Link>

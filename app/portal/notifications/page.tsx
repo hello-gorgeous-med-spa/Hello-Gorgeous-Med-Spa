@@ -122,7 +122,7 @@ export default function NotificationsPage() {
         {unreadCount > 0 && (
           <button
             onClick={handleMarkAllRead}
-            className="text-sm text-[#E6007E] hover:underline"
+            className="text-sm text-[#FF2D8E] hover:underline"
           >
             Mark all as read
           </button>
@@ -134,7 +134,7 @@ export default function NotificationsPage() {
         <button
           onClick={() => setFilter('all')}
           className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-            filter === 'all' ? 'bg-[#E6007E] text-white' : 'bg-white border border-[#111]/10 text-[#111]/70'
+            filter === 'all' ? 'bg-[#FF2D8E] text-white' : 'bg-white border border-[#111]/10 text-[#111]/70'
           }`}
         >
           All ({notifications.length})
@@ -142,7 +142,7 @@ export default function NotificationsPage() {
         <button
           onClick={() => setFilter('unread')}
           className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
-            filter === 'unread' ? 'bg-[#E6007E] text-white' : 'bg-white border border-[#111]/10 text-[#111]/70'
+            filter === 'unread' ? 'bg-[#FF2D8E] text-white' : 'bg-white border border-[#111]/10 text-[#111]/70'
           }`}
         >
           Unread ({unreadCount})
@@ -168,7 +168,7 @@ export default function NotificationsPage() {
             >
               <div className="p-4">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-[#E6007E]/10 rounded-xl flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 h-10 bg-[#FF2D8E]/10 rounded-xl flex items-center justify-center flex-shrink-0">
                     <span className="text-xl">{TYPE_ICONS[notification.type] || '🔔'}</span>
                   </div>
                   <div className="flex-1 min-w-0">
@@ -194,7 +194,7 @@ export default function NotificationsPage() {
                       {notification.actionUrl && (
                         <button
                           onClick={() => handleAction(notification)}
-                          className="text-xs text-[#E6007E] font-medium hover:underline"
+                          className="text-xs text-[#FF2D8E] font-medium hover:underline"
                         >
                           {notification.actionLabel || 'View'} →
                         </button>

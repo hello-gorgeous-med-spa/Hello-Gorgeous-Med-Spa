@@ -67,7 +67,7 @@ export function YourVisitStepByStep() {
           <div className="mt-10 text-center">
             <Link
               href={BOOKING_URL}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-[#E6007E] text-white font-bold rounded-full hover:opacity-90 hover:scale-[1.03] active:scale-[0.98] transition-transform duration-200 shadow-lg shadow-pink-500/25"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF2D8E] text-white font-bold rounded-full hover:opacity-90 hover:scale-[1.03] active:scale-[0.98] transition-transform duration-200 shadow-lg shadow-pink-500/25"
             >
               Book Your Initial Visit
               <span>→</span>

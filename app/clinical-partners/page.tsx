@@ -27,12 +27,12 @@ export default function ClinicalPartnersPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-pink-100 via-pink-50 to-white" />
         <div className="relative z-10">
           <FadeUp>
-            <p className="text-[#E6007E] text-lg md:text-xl font-medium mb-6 tracking-wide">
+            <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">
               OUR CLINICAL PARTNERS & STANDARDS
             </p>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-black">
               Quiet confidence in{" "}
-              <span className="text-[#E6007E]">
+              <span className="text-[#FF2D8E]">
                 safety
               </span>
             </h1>
@@ -56,7 +56,7 @@ export default function ClinicalPartnersPage() {
         <div className="grid gap-10">
           <FadeUp>
             <div className="rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-8">
-              <h2 className="text-2xl font-bold text-[#E6007E]">Why partnerships matter</h2>
+              <h2 className="text-2xl font-bold text-[#FF2D8E]">Why partnerships matter</h2>
               <p className="mt-4 text-black/80 leading-relaxed">
                 In medical aesthetics, quality and outcomes aren’t just about technique—they’re also about what’s used,
                 how it’s sourced, how it’s stored, and how protocols are followed. Partnerships help protect safety,
@@ -107,11 +107,11 @@ export default function ClinicalPartnersPage() {
               ].map((c, idx) => (
                 <FadeUp key={c.title} delayMs={60 * idx}>
                   <div className="rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-6">
-                    <h3 className="text-xl font-bold text-[#E6007E]">{c.title}</h3>
+                    <h3 className="text-xl font-bold text-[#FF2D8E]">{c.title}</h3>
                     <ul className="mt-4 space-y-2 text-sm text-black/80">
                       {c.items.map((i) => (
                         <li key={i} className="flex gap-2">
-                          <span className="text-[#E6007E]">•</span>
+                          <span className="text-[#FF2D8E]">•</span>
                           <span>{i}</span>
                         </li>
                       ))}
@@ -126,7 +126,7 @@ export default function ClinicalPartnersPage() {
                         <Link
                           key={l.href}
                           href={l.href}
-                          className="text-sm font-semibold text-[#E6007E] underline hover:text-[#B0005F]"
+                          className="text-sm font-semibold text-[#FF2D8E] underline hover:text-[#FF2D8E]"
                         >
                           {l.label}
                         </Link>
@@ -172,11 +172,11 @@ export default function ClinicalPartnersPage() {
               ].map((c, idx) => (
                 <FadeUp key={c.title} delayMs={60 * idx}>
                   <div className="rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-6">
-                    <h3 className="text-xl font-bold text-[#E6007E]">{c.title}</h3>
+                    <h3 className="text-xl font-bold text-[#FF2D8E]">{c.title}</h3>
                     <ul className="mt-4 space-y-2 text-sm text-black/80">
                       {c.items.map((i) => (
                         <li key={i} className="flex gap-2">
-                          <span className="text-[#E6007E]">•</span>
+                          <span className="text-[#FF2D8E]">•</span>
                           <span>{i}</span>
                         </li>
                       ))}
@@ -189,7 +189,7 @@ export default function ClinicalPartnersPage() {
                     <div className="mt-6 flex flex-wrap gap-3">
                       {c.links.map((l) => {
                         const isExternal = l.href.startsWith("http");
-                        const linkClass = "text-sm font-semibold text-[#E6007E] underline hover:text-[#B0005F]";
+                        const linkClass = "text-sm font-semibold text-[#FF2D8E] underline hover:text-[#FF2D8E]";
                         return isExternal ? (
                           <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className={linkClass}>
                             {l.label}
@@ -239,11 +239,11 @@ export default function ClinicalPartnersPage() {
               ].map((c, idx) => (
                 <FadeUp key={c.title} delayMs={60 * idx}>
                   <div className="rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-6">
-                    <h3 className="text-xl font-bold text-[#E6007E]">{c.title}</h3>
+                    <h3 className="text-xl font-bold text-[#FF2D8E]">{c.title}</h3>
                     <ul className="mt-4 space-y-2 text-sm text-black/80">
                       {c.items.map((i) => (
                         <li key={i} className="flex gap-2">
-                          <span className="text-[#E6007E]">•</span>
+                          <span className="text-[#FF2D8E]">•</span>
                           <span>{i}</span>
                         </li>
                       ))}
@@ -258,7 +258,7 @@ export default function ClinicalPartnersPage() {
                         <Link
                           key={l.href}
                           href={l.href}
-                          className="text-sm font-semibold text-[#E6007E] underline hover:text-[#B0005F]"
+                          className="text-sm font-semibold text-[#FF2D8E] underline hover:text-[#FF2D8E]"
                         >
                           {l.label}
                         </Link>
@@ -272,7 +272,7 @@ export default function ClinicalPartnersPage() {
 
           <FadeUp>
             <div className="rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-8">
-              <h2 className="text-2xl font-bold text-[#E6007E]">How this protects you</h2>
+              <h2 className="text-2xl font-bold text-[#FF2D8E]">How this protects you</h2>
               <div className="mt-4 grid gap-4 md:grid-cols-3">
                 {[
                   {
@@ -289,7 +289,7 @@ export default function ClinicalPartnersPage() {
                   },
                 ].map((b) => (
                   <div key={b.title} className="rounded-2xl border-2 border-black bg-white p-6">
-                    <h3 className="text-lg font-semibold text-[#E6007E]">{b.title}</h3>
+                    <h3 className="text-lg font-semibold text-[#FF2D8E]">{b.title}</h3>
                     <p className="mt-3 text-black/80 text-sm leading-relaxed">{b.body}</p>
                   </div>
                 ))}
@@ -303,10 +303,10 @@ export default function ClinicalPartnersPage() {
 
           <FadeUp>
             <div className="rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-8">
-              <h2 className="text-2xl font-bold text-[#E6007E]">Want to start with clarity?</h2>
+              <h2 className="text-2xl font-bold text-[#FF2D8E]">Want to start with clarity?</h2>
               <p className="mt-4 text-black/80 leading-relaxed">
                 If you’re not sure what you want yet, start with{" "}
-                <Link className="underline text-[#E6007E] hover:text-[#B0005F]" href="/your-journey">
+                <Link className="underline text-[#FF2D8E] hover:text-[#FF2D8E]" href="/your-journey">
                   Your Journey
                 </Link>
                 . If you already have questions, Explore Care and the Care Engine can help you ask them safely.

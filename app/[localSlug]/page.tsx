@@ -173,7 +173,7 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
           <div className="grid gap-8 lg:grid-cols-12">
             <div className="lg:col-span-7">
               <FadeUp>
-                <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
+                <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
                   Why choose Hello Gorgeous for {s.name} in {cityShort}?
                 </h2>
                 <p className="mt-4 text-gray-300 max-w-2xl">
@@ -186,25 +186,25 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
               {LOCATION_PAGE_CONTENT[slug]?.aboutTreatment ? (
                 <>
                   <FadeUp delayMs={40}>
-                    <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">Who Is a Good Candidate for {s.name}?</h2>
+                    <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">Who Is a Good Candidate for {s.name}?</h2>
                     <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                       <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.candidacy} links={CONTEXTUAL_LINKS} />
                     </p>
                   </FadeUp>
                   <FadeUp delayMs={80}>
-                    <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">What to Expect During Your {s.name} Appointment</h2>
+                    <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">What to Expect During Your {s.name} Appointment</h2>
                     <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                       <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.whatToExpect} links={CONTEXTUAL_LINKS} />
                     </p>
                   </FadeUp>
                   <FadeUp delayMs={120}>
-                    <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">Is {s.name} Safe?</h2>
+                    <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">Is {s.name} Safe?</h2>
                     <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                       <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.safetyAndTraining} links={CONTEXTUAL_LINKS} />
                     </p>
                   </FadeUp>
                   <FadeUp delayMs={160}>
-                    <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">{s.name} for Kendall County Clients</h2>
+                    <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">{s.name} for Kendall County Clients</h2>
                     <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                       <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.communityContext} links={CONTEXTUAL_LINKS} />
                     </p>
@@ -232,7 +232,7 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
                     ].map((x, idx) => (
                       <FadeUp key={x.t} delayMs={40 * idx}>
                         <div className="rounded-2xl border-2 border-black bg-white p-6">
-                          <h3 className="text-xl font-bold text-[#E6007E]">{x.t}</h3>
+                          <h3 className="text-xl font-bold text-[#FF2D8E]">{x.t}</h3>
                           <p className="mt-3 text-gray-300">{x.b}</p>
                         </div>
                       </FadeUp>
@@ -240,13 +240,13 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
                   </div>
                   {LOCATION_PAGE_CONTENT[slug]?.whatToExpect && (
                     <FadeUp delayMs={120}>
-                      <h2 className="mt-12 text-2xl font-bold text-[#E6007E]">What to expect in {cityShort}</h2>
+                      <h2 className="mt-12 text-2xl font-bold text-[#FF2D8E]">What to expect in {cityShort}</h2>
                       <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">{LOCATION_PAGE_CONTENT[slug]?.whatToExpect}</p>
                     </FadeUp>
                   )}
                   <FadeUp delayMs={160}>
                     <div className="mt-10 rounded-2xl border-2 border-black bg-white p-6">
-                      <h3 className="text-xl font-bold text-[#E6007E]">More about {s.name}</h3>
+                      <h3 className="text-xl font-bold text-[#FF2D8E]">More about {s.name}</h3>
                       <p className="mt-3 text-gray-300">
                         {LOCATION_PAGE_CONTENT[slug]?.communityContext ?? LOCATION_PAGE_CONTENT[slug]?.community ?? "Read the full service overview, FAQs, and what to expect on our main service page."}
                       </p>
@@ -274,7 +274,7 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
 
         <Section>
           <FadeUp>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
               Frequently asked questions
             </h2>
             <p className="mt-4 text-gray-300 max-w-2xl">
@@ -316,7 +316,7 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
               </svg>
             </CTA>
             <p className="text-sm text-gray-500 mt-8">
-              <Link className="underline hover:text-[#E6007E]" href="/contact">
+              <Link className="underline hover:text-[#FF2D8E]" href="/contact">
                 Contact us
               </Link>{" "}
               with questions.
@@ -383,7 +383,7 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
 
         <Section>
           <FadeUp>
-            <h2 className="text-3xl md:text-4xl font-bold text-[#E6007E]">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
               Why Choose Our Med Spa in {cityShort}?
             </h2>
             <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
@@ -398,25 +398,25 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
           {LOCATION_PAGE_CONTENT[slug]?.aboutTreatment && (
             <>
               <FadeUp delayMs={40}>
-                <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">Who Is a Good Candidate for Our Med Spa?</h2>
+                <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">Who Is a Good Candidate for Our Med Spa?</h2>
                 <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                   <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.candidacy} links={CONTEXTUAL_LINKS} />
                 </p>
               </FadeUp>
               <FadeUp delayMs={80}>
-                <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">What to Expect at Our {cityShort} Med Spa</h2>
+                <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">What to Expect at Our {cityShort} Med Spa</h2>
                 <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                   <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.whatToExpect} links={CONTEXTUAL_LINKS} />
                 </p>
               </FadeUp>
               <FadeUp delayMs={120}>
-                <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">Safety and Training</h2>
+                <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">Safety and Training</h2>
                 <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                   <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.safetyAndTraining} links={CONTEXTUAL_LINKS} />
                 </p>
               </FadeUp>
               <FadeUp delayMs={160}>
-                <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">Med Spa for Kendall County Clients</h2>
+                <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">Med Spa for Kendall County Clients</h2>
                 <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                   <ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.communityContext} links={CONTEXTUAL_LINKS} />
                 </p>
@@ -433,14 +433,14 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
 
           {(LOCATION_PAGE_CONTENT[slug]?.whatToExpect && !LOCATION_PAGE_CONTENT[slug]?.aboutTreatment) && (
             <FadeUp>
-              <h2 className="mt-12 text-2xl font-bold text-[#E6007E]">What to expect at our {cityShort} med spa</h2>
+              <h2 className="mt-12 text-2xl font-bold text-[#FF2D8E]">What to expect at our {cityShort} med spa</h2>
               <p className="mt-4 text-gray-300 max-w-2xl leading-relaxed">
                 {LOCATION_PAGE_CONTENT[slug]?.whatToExpect}
               </p>
             </FadeUp>
           )}
 
-          <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#E6007E]">Popular treatments for {cityShort} clients</h2>
+          <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">Popular treatments for {cityShort} clients</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
               { name: "Botox, Dysport & Jeuveau", slug: "botox-dysport-jeuveau" },
@@ -454,7 +454,7 @@ export default function LocalSeoPage({ params }: { params: { localSlug: string }
               <Link
                 key={svc.slug}
                 href={hubPath === "/locations" ? `/services/${svc.slug}` : `${hubPath}/${svc.slug}`}
-                className="block rounded-2xl border-2 border-black bg-white p-6 hover:border-[#E6007E] transition-colors"
+                className="block rounded-2xl border-2 border-black bg-white p-6 hover:border-[#FF2D8E] transition-colors"
               >
                 <h3 className="text-lg font-bold text-black">{svc.name}</h3>
                 <p className="mt-2 text-sm text-pink-400">Learn more →</p>

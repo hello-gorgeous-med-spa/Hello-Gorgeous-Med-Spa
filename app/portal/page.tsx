@@ -10,11 +10,11 @@ import Link from 'next/link';
 import { usePortalAuth } from '@/lib/portal/useAuth';
 
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-[#111111]/10 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-[#000000]/10 rounded ${className}`} />;
 }
 
 const QUICK_ACTIONS = [
-  { title: 'Book Appointment', description: 'Schedule your next visit', href: '/portal/book', icon: '📅', color: 'from-[#E6007E] to-[#c90a68]', primary: true },
+  { title: 'Book Appointment', description: 'Schedule your next visit', href: '/portal/book', icon: '📅', color: 'from-[#FF2D8E] to-[#c90a68]', primary: true },
   { title: 'Lab Insights', description: 'Upload hormone labs for AI insights', href: '/portal/labs', icon: '🧪', color: 'bg-slate-50 border border-slate-200' },
   { title: 'My Documents', description: 'Access your records', href: '/portal/documents', icon: '📁', color: 'bg-slate-50 border border-slate-200' },
   { title: 'Consent Forms', description: 'Sign required forms', href: '/portal/consents', icon: '📝', color: 'bg-slate-50 border border-slate-200' },
@@ -103,7 +103,7 @@ export default function PortalDashboard() {
               </div>
             </div>
             {notifications.unreadCount > 0 && (
-              <span className="w-6 h-6 bg-[#E6007E] text-white rounded-full text-xs flex items-center justify-center font-medium">
+              <span className="w-6 h-6 bg-[#FF2D8E] text-white rounded-full text-xs flex items-center justify-center font-medium">
                 {notifications.unreadCount}
               </span>
             )}
@@ -178,7 +178,7 @@ export default function PortalDashboard() {
           <p className="text-slate-900/70 mb-4">Book your next treatment today!</p>
           <Link
             href="/portal/book"
-            className="inline-flex items-center gap-2 bg-[#E6007E] text-white px-6 py-2.5 rounded-full font-medium hover:bg-[#E6007E]/90 transition-colors"
+            className="inline-flex items-center gap-2 bg-[#FF2D8E] text-white px-6 py-2.5 rounded-full font-medium hover:bg-[#FF2D8E]/90 transition-colors"
           >
             Book Now
           </Link>
@@ -226,7 +226,7 @@ export default function PortalDashboard() {
         <p className="text-slate-600 mb-6">Book online 24/7 and choose your preferred time</p>
         <Link
           href="/portal/book"
-          className="inline-flex items-center gap-2 bg-[#E6007E] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#E6007E]/90 transition-colors"
+          className="inline-flex items-center gap-2 bg-[#FF2D8E] text-white px-8 py-3 rounded-full font-semibold hover:bg-[#FF2D8E]/90 transition-colors"
         >
           Book Your Appointment →
         </Link>

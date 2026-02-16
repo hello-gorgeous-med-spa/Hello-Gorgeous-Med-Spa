@@ -47,7 +47,7 @@ export default function BookingTransitionBanner() {
   const isExpired = new Date() > CUTOFF_DATE;
 
   return (
-    <div className="w-full bg-black text-[#E6007E] text-sm md:text-base font-semibold text-center px-4 py-3 relative animate-fade sticky top-0 z-50 shrink-0">
+    <div className="w-full bg-black text-[#FF2D8E] text-sm md:text-base font-semibold text-center px-4 py-3 relative animate-fade sticky top-0 z-50 shrink-0">
       <a href="/book-now" className="block w-full hover:opacity-90 transition pr-8">
         {!isExpired ? (
           <>
@@ -74,7 +74,7 @@ export default function BookingTransitionBanner() {
 
       <button
         onClick={handleDismiss}
-        className="absolute right-3 top-1/2 -translate-y-1/2 text-[#E6007E] opacity-80 hover:opacity-100 p-1"
+        className="absolute right-3 top-1/2 -translate-y-1/2 text-[#FF2D8E] opacity-80 hover:opacity-100 p-1"
         aria-label="Dismiss banner"
       >
         <XIcon size={18} />

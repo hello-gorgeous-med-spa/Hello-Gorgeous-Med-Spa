@@ -29,7 +29,7 @@ export function MembershipsStickyCTA() {
         </p>
         <Link
           href={BOOKING_URL}
-          className="w-full sm:w-auto px-6 py-2.5 bg-[#E6007E] text-white font-bold rounded-full text-center hover:opacity-90 transition hover:scale-[1.02] active:scale-[0.98]"
+          className="w-full sm:w-auto px-6 py-2.5 bg-[#FF2D8E] text-white font-bold rounded-full text-center hover:opacity-90 transition hover:scale-[1.02] active:scale-[0.98]"
         >
           Book Your Visit →
         </Link>

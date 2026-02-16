@@ -130,7 +130,7 @@ export function MicroneedlingShowcase() {
       <div className="max-w-6xl mx-auto">
         <FadeUp>
           <div className="text-center mb-10">
-            <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-fuchsia-500/20 text-[#E6007E] text-sm font-medium mb-4">
+            <span className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-fuchsia-500/20 text-[#FF2D8E] text-sm font-medium mb-4">
               <span>🔬</span>
               Advanced Skin Rejuvenation
             </span>
@@ -159,7 +159,7 @@ export function MicroneedlingShowcase() {
                 className={`relative px-6 py-3 rounded-full font-bold transition-all ${
                   activeTier === index
                     ? `bg-gradient-to-r ${tier.color} text-white scale-105 shadow-lg`
-                    : "bg-[#000000]/5 text-[#000000]/80 border border-[#000000]/10 hover:bg-[#E6007E]/10 hover:border-[#E6007E]/30"
+                    : "bg-[#000000]/5 text-[#000000]/80 border border-[#000000]/10 hover:bg-[#FF2D8E]/10 hover:border-[#FF2D8E]/30"
                 }`}
               >
                 {tier.popular && activeTier !== index && (
@@ -285,7 +285,7 @@ export function MicroneedlingShowcase() {
                   className={`h-2 rounded-full transition-all ${
                     activeTier === index 
                       ? `w-8 bg-gradient-to-r ${tier.color}` 
-                      : "w-2 bg-white/30 hover:bg-[#E6007E]/50"
+                      : "w-2 bg-white/30 hover:bg-[#FF2D8E]/50"
                   }`}
                 />
               ))}
@@ -329,25 +329,25 @@ export function MicroneedlingShowcase() {
                 <tr className="border-t border-[#000000]/15">
                   <td className="p-4 text-[#000000]/80">Collagen Boost</td>
                   <td className="p-4 text-center text-pink-400">●●○</td>
-                  <td className="p-4 text-center text-[#E6007E]">●●●</td>
+                  <td className="p-4 text-center text-[#FF2D8E]">●●●</td>
                   <td className="p-4 text-center text-amber-400">●●●</td>
                 </tr>
                 <tr className="border-t border-[#000000]/15">
                   <td className="p-4 text-[#000000]/80">Fine Line Reduction</td>
                   <td className="p-4 text-center text-pink-400">●○○</td>
-                  <td className="p-4 text-center text-[#E6007E]">●●○</td>
+                  <td className="p-4 text-center text-[#FF2D8E]">●●○</td>
                   <td className="p-4 text-center text-amber-400">●●●</td>
                 </tr>
                 <tr className="border-t border-[#000000]/15">
                   <td className="p-4 text-[#000000]/80">Cellular Repair</td>
                   <td className="p-4 text-center text-pink-400">●○○</td>
-                  <td className="p-4 text-center text-[#E6007E]">●●●</td>
+                  <td className="p-4 text-center text-[#FF2D8E]">●●●</td>
                   <td className="p-4 text-center text-amber-400">●●●</td>
                 </tr>
                 <tr className="border-t border-[#000000]/15">
                   <td className="p-4 text-[#000000]/80">Glass Skin Effect</td>
                   <td className="p-4 text-center text-[#000000]/70">—</td>
-                  <td className="p-4 text-center text-[#E6007E]">●●○</td>
+                  <td className="p-4 text-center text-[#FF2D8E]">●●○</td>
                   <td className="p-4 text-center text-amber-400">●●●</td>
                 </tr>
                 <tr className="border-t border-[#000000]/15">
@@ -371,7 +371,7 @@ export function MicroneedlingShowcase() {
               {treatmentAreas.map((area) => (
                 <span
                   key={area}
-                  className="px-4 py-2 rounded-full bg-gradient-to-r from-fuchsia-500/10 to-pink-500/10 border border-fuchsia-500/30 text-[#E6007E] text-sm font-medium"
+                  className="px-4 py-2 rounded-full bg-gradient-to-r from-fuchsia-500/10 to-pink-500/10 border border-fuchsia-500/30 text-[#FF2D8E] text-sm font-medium"
                 >
                   {area}
                 </span>
@@ -394,10 +394,10 @@ export function MicroneedlingShowcase() {
                 >
                   <button
                     onClick={() => setExpandedFaq(expandedFaq === index ? null : index)}
-                    className="w-full p-4 text-left flex items-center justify-between hover:bg-[#E6007E]/5 transition"
+                    className="w-full p-4 text-left flex items-center justify-between hover:bg-[#FF2D8E]/5 transition"
                   >
                     <span className="text-[#000000] font-medium">{faq.q}</span>
-                    <span className={`text-[#E6007E] transition-transform ${expandedFaq === index ? "rotate-180" : ""}`}>
+                    <span className={`text-[#FF2D8E] transition-transform ${expandedFaq === index ? "rotate-180" : ""}`}>
                       ▼
                     </span>
                   </button>

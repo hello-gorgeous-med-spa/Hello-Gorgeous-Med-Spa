@@ -84,7 +84,7 @@ export async function POST(request: NextRequest) {
               <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">
                 <p>Hi ${firstName},</p>
                 <p>Click the link below to sign in to your Hello Gorgeous patient portal. This link expires in 15 minutes.</p>
-                <p><a href="${magicLink}" style="display: inline-block; background: #E6007E; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600;">Sign In to Portal</a></p>
+                <p><a href="${magicLink}" style="display: inline-block; background: #FF2D8E; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; font-weight: 600;">Sign In to Portal</a></p>
                 <p>If you did not request this link, you can safely ignore this email.</p>
                 <p style="color: #666; font-size: 12px;">Hello Gorgeous Med Spa | 74 W. Washington St, Oswego, IL</p>
               </div>

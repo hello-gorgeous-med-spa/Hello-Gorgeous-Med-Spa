@@ -96,9 +96,9 @@ export function HomeCareTeam() {
       <div className="relative">
         <FadeUp>
           <div className="text-center">
-            <p className="text-[#E6007E] text-sm font-medium tracking-wide">MEET YOUR CARE TEAM</p>
-            <h2 className="mt-4 text-2xl md:text-4xl font-serif font-bold text-[#E6007E]">Real guidance. Thoughtful education.</h2>
-            <p className="mt-4 text-base md:text-lg text-[#E6007E] max-w-3xl mx-auto">
+            <p className="text-[#FF2D8E] text-sm font-medium tracking-wide">MEET YOUR CARE TEAM</p>
+            <h2 className="mt-4 text-2xl md:text-4xl font-serif font-bold text-[#FF2D8E]">Real guidance. Thoughtful education.</h2>
+            <p className="mt-4 text-base md:text-lg text-[#FF2D8E] max-w-3xl mx-auto">
               Support before you ever book. Choose an expert voice—get clear, calm answers powered by our Knowledge Library.
             </p>
           </div>
@@ -124,11 +124,11 @@ export function HomeCareTeam() {
                     }}
                     className={cx(
                       "min-w-[260px] sm:min-w-[280px] text-left rounded-xl border bg-white shadow-md p-5 transition hover:shadow-xl hover:-translate-y-[2px]",
-                      active ? "border-2 border-black" : "border-black hover:border-[#E6007E]/30",
+                      active ? "border-2 border-black" : "border-black hover:border-[#FF2D8E]/30",
                     )}
                   >
                     <div className="flex items-center gap-3">
-                      <div className="h-16 w-16 rounded-full overflow-hidden border-2 border-[#E6007E]/30 bg-[#FDF7FA] flex items-center justify-center shadow-md">
+                      <div className="h-16 w-16 rounded-full overflow-hidden border-2 border-[#FF2D8E]/30 bg-[#FDF7FA] flex items-center justify-center shadow-md">
                         {/* Autoplay video avatar for "alive" mascots */}
                         {(() => {
                           const videoIntent = pickMascotVideoIntentForContext({ personaId: id, mode: "home-spotlight" });
@@ -159,15 +159,15 @@ export function HomeCareTeam() {
                         })()}
                       </div>
                       <div className="min-w-0">
-                        <p className="text-xs text-[#E6007E]">{p.role}</p>
-                        <p className="mt-1 text-lg font-bold text-[#E6007E] truncate">
+                        <p className="text-xs text-[#FF2D8E]">{p.role}</p>
+                        <p className="mt-1 text-lg font-bold text-[#FF2D8E] truncate">
                           <span className="mr-2">{pUi.emoji}</span>
                           {p.displayName}
                         </p>
                       </div>
                     </div>
-                    <p className="mt-4 text-sm text-[#E6007E]">{pUi.tagline}</p>
-                    <p className="mt-3 text-xs text-[#E6007E]">Tap to open spotlight</p>
+                    <p className="mt-4 text-sm text-[#FF2D8E]">{pUi.tagline}</p>
+                    <p className="mt-3 text-xs text-[#FF2D8E]">Tap to open spotlight</p>
                   </button>
                 </FadeUp>
               );
@@ -179,13 +179,13 @@ export function HomeCareTeam() {
             <div className="mt-8 rounded-xl border border-black bg-white shadow-md overflow-hidden">
               <div className="p-5 border-b border-black flex items-start justify-between gap-4">
                 <div className="min-w-0">
-                  <p className="text-sm text-[#E6007E]">Persona spotlight</p>
-                  <p className="mt-1 text-xl font-bold text-[#E6007E]">
+                  <p className="text-sm text-[#FF2D8E]">Persona spotlight</p>
+                  <p className="mt-1 text-xl font-bold text-[#FF2D8E]">
                     <span className="mr-2">{ui.emoji}</span>
                     {cfg.displayName}
                   </p>
-                  <p className="mt-2 text-sm text-[#E6007E]">{cfg.role}</p>
-                  <p className="mt-3 text-sm text-[#E6007E]">{ui.tagline}</p>
+                  <p className="mt-2 text-sm text-[#FF2D8E]">{cfg.role}</p>
+                  <p className="mt-3 text-sm text-[#FF2D8E]">{ui.tagline}</p>
                 </div>
                 <button
                   type="button"
@@ -194,7 +194,7 @@ export function HomeCareTeam() {
                     setChatOpen(false);
                     setVideoOpen(false);
                   }}
-                  className="rounded-lg p-2 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#111111]/5 transition"
+                  className="rounded-lg p-2 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 transition"
                   aria-label="Close spotlight"
                 >
                   ✕
@@ -209,7 +209,7 @@ export function HomeCareTeam() {
                       setChatOpen(true);
                       memory.setPreference({ stage: "learning" });
                     }}
-                    className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full bg-[#E6007E] text-white font-semibold hover:bg-[#B0005F] hover:shadow-xl transition"
+                    className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full bg-[#FF2D8E] text-white font-semibold hover:bg-[#FF2D8E] hover:shadow-xl transition"
                   >
                     Ask a question
                   </button>
@@ -220,7 +220,7 @@ export function HomeCareTeam() {
                       setInput(ui.chatStarters[0] ?? "Where should I start?");
                       memory.setPreference({ stage: "learning" });
                     }}
-                    className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full border border-black text-[#E6007E] hover:bg-[#111111]/5 transition"
+                    className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full border border-black text-[#FF2D8E] hover:bg-[#000000]/5 transition"
                   >
                     Just learning
                   </button>
@@ -231,7 +231,7 @@ export function HomeCareTeam() {
                     <button
                       type="button"
                       onClick={() => setVideoOpen((v) => !v)}
-                      className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full border border-black text-[#E6007E] hover:bg-[#111111]/5 transition"
+                      className="w-full min-h-[48px] sm:w-auto px-6 py-3 rounded-full border border-black text-[#FF2D8E] hover:bg-[#000000]/5 transition"
                     >
                       {videoOpen ? "Hide video" : "Watch intro"}
                     </button>
@@ -241,7 +241,7 @@ export function HomeCareTeam() {
                 {videoOpen && videoSrc ? (
                   <div className="mt-6">
                     <MascotVideo src={videoSrc} poster={poster} title={`${cfg.displayName} video`} />
-                    <p className="mt-3 text-xs text-[#E6007E]">
+                    <p className="mt-3 text-xs text-[#FF2D8E]">
                       Educational only. No diagnosis. No medical advice. No outcome guarantees.
                     </p>
                   </div>
@@ -250,8 +250,8 @@ export function HomeCareTeam() {
                 {chatOpen ? (
                   <div className="mt-6 rounded-xl border border-black bg-white shadow-md overflow-hidden">
                     <div className="p-4 border-b border-black">
-                      <p className="text-sm font-semibold text-[#E6007E]">Start a conversation</p>
-                      <p className="mt-1 text-xs text-[#E6007E]">{complianceFooter()}</p>
+                      <p className="text-sm font-semibold text-[#FF2D8E]">Start a conversation</p>
+                      <p className="mt-1 text-xs text-[#FF2D8E]">{complianceFooter()}</p>
                     </div>
 
                     <div className="p-4 max-h-[320px] overflow-auto space-y-4">
@@ -261,14 +261,14 @@ export function HomeCareTeam() {
                           className={cx(
                             "whitespace-pre-wrap text-sm leading-relaxed",
                             m.role === "user"
-                              ? "text-[#E6007E] bg-[#111111]/5 border border-black rounded-xl p-4"
-                              : "text-[#E6007E]",
+                              ? "text-[#FF2D8E] bg-[#000000]/5 border border-black rounded-xl p-4"
+                              : "text-[#FF2D8E]",
                           )}
                         >
                           {m.content}
                         </div>
                       ))}
-                      {sending ? <div className="text-sm text-[#E6007E]">Thinking…</div> : null}
+                      {sending ? <div className="text-sm text-[#FF2D8E]">Thinking…</div> : null}
                     </div>
 
                     <div className="p-4 border-t border-black">
@@ -280,7 +280,7 @@ export function HomeCareTeam() {
                             onClick={() => {
                               setInput(s);
                             }}
-                            className="text-left text-xs text-[#E6007E] border border-black rounded-full px-3 py-2 hover:bg-[#111111]/5 transition"
+                            className="text-left text-xs text-[#FF2D8E] border border-black rounded-full px-3 py-2 hover:bg-[#000000]/5 transition"
                           >
                             {s}
                           </button>
@@ -292,7 +292,7 @@ export function HomeCareTeam() {
                           value={input}
                           onChange={(e) => setInput(e.target.value)}
                           placeholder="Ask a question…"
-                          className="flex-1 rounded-xl bg-[#111111]/5 border border-black px-4 py-3 text-[#E6007E] placeholder:text-[#E6007E] focus:outline-none focus:ring-2 focus:ring-[#E6007E]/50"
+                          className="flex-1 rounded-xl bg-[#000000]/5 border border-black px-4 py-3 text-[#FF2D8E] placeholder:text-[#FF2D8E] focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50"
                           onKeyDown={(e) => {
                             if (e.key === "Enter") void send();
                           }}
@@ -300,7 +300,7 @@ export function HomeCareTeam() {
                         <button
                           type="button"
                           disabled={sending}
-                          className="px-4 py-3 rounded-xl bg-[#E6007E] text-white font-semibold hover:bg-[#B0005F] transition disabled:opacity-60"
+                          className="px-4 py-3 rounded-xl bg-[#FF2D8E] text-white font-semibold hover:bg-[#FF2D8E] transition disabled:opacity-60"
                           onClick={() => void send()}
                         >
                           Send
@@ -309,7 +309,7 @@ export function HomeCareTeam() {
                     </div>
                   </div>
                 ) : (
-                  <p className="mt-6 text-sm text-[#E6007E]">
+                  <p className="mt-6 text-sm text-[#FF2D8E]">
                     Choose a button above to start. This is a tool you get here—calm, educational guidance before booking.
                   </p>
                 )}

@@ -28,7 +28,7 @@ const TIER_COLORS: Record<string, string> = {
   silver: 'bg-slate-200 text-slate-700',
   gold: 'bg-yellow-100 text-yellow-700',
   platinum: 'bg-purple-100 text-purple-700',
-  vip: 'bg-[#E6007E]/10 text-[#E6007E]',
+  vip: 'bg-[#FF2D8E]/10 text-[#FF2D8E]',
 };
 
 export default function WalletPage() {
@@ -91,7 +91,7 @@ export default function WalletPage() {
 
       {/* Balance Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-gradient-to-br from-[#E6007E] to-pink-600 text-white rounded-2xl p-6">
+        <div className="bg-gradient-to-br from-[#FF2D8E] to-pink-600 text-white rounded-2xl p-6">
           <p className="text-white/70 text-sm">Store Credit</p>
           <p className="text-3xl font-bold mt-1">${wallet?.creditBalance?.toFixed(2) || '0.00'}</p>
           <p className="text-white/60 text-xs mt-2">Available for any service</p>
@@ -140,9 +140,9 @@ export default function WalletPage() {
             value={giftCardCode}
             onChange={(e) => setGiftCardCode(e.target.value.toUpperCase())}
             placeholder="Enter gift card code"
-            className="flex-1 px-4 py-3 border border-[#111]/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#E6007E]/50"
+            className="flex-1 px-4 py-3 border border-[#111]/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50"
           />
-          <button type="submit" className="bg-[#E6007E] text-white px-6 py-3 rounded-xl font-medium hover:bg-[#E6007E]/90 transition-colors">
+          <button type="submit" className="bg-[#FF2D8E] text-white px-6 py-3 rounded-xl font-medium hover:bg-[#FF2D8E]/90 transition-colors">
             Redeem
           </button>
         </form>

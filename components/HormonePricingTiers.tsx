@@ -114,12 +114,12 @@ export function HormonePricingTiers() {
     <div className="space-y-8">
       {/* Header */}
       <div className="text-center">
-        <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E6007E]/10 border border-[#E6007E]/30 mb-4">
+        <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/30 mb-4">
           <span className="text-lg">💎</span>
-          <span className="text-[#E6007E] text-sm font-bold uppercase tracking-wider">Membership Programs</span>
+          <span className="text-[#FF2D8E] text-sm font-bold uppercase tracking-wider">Membership Programs</span>
         </span>
-        <h2 className="text-3xl md:text-4xl font-bold text-[#111111]">
-          Hormone Optimization <span className="text-[#E6007E]">Packages</span>
+        <h2 className="text-3xl md:text-4xl font-bold text-[#000000]">
+          Hormone Optimization <span className="text-[#FF2D8E]">Packages</span>
         </h2>
         <p className="mt-3 text-lg text-black/70 max-w-2xl mx-auto">
           Choose the program that fits your goals. All packages include personalized care from our Biote-certified providers.
@@ -134,14 +134,14 @@ export function HormonePricingTiers() {
             onClick={() => setSelectedTier(tier.id)}
             className={`relative rounded-3xl border-2 p-6 cursor-pointer transition-all duration-300 ${
               selectedTier === tier.id
-                ? "border-[#E6007E] bg-gradient-to-b from-pink-50 to-white shadow-xl scale-[1.02]"
-                : "border-black/10 bg-white hover:border-[#E6007E]/50 hover:shadow-lg"
+                ? "border-[#FF2D8E] bg-gradient-to-b from-pink-50 to-white shadow-xl scale-[1.02]"
+                : "border-black/10 bg-white hover:border-[#FF2D8E]/50 hover:shadow-lg"
             }`}
           >
             {/* Popular/Highlight Badge */}
             {tier.highlight && (
               <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="px-4 py-1 rounded-full bg-[#E6007E] text-white text-xs font-bold uppercase tracking-wide shadow-lg">
+                <span className="px-4 py-1 rounded-full bg-[#FF2D8E] text-white text-xs font-bold uppercase tracking-wide shadow-lg">
                   {tier.highlight}
                 </span>
               </div>
@@ -149,10 +149,10 @@ export function HormonePricingTiers() {
 
             {/* Tier Header */}
             <div className="text-center mb-6 pt-2">
-              <h3 className="text-xl font-bold text-[#111111]">{tier.name}</h3>
-              <p className="text-sm text-[#E6007E] font-semibold">{tier.duration}</p>
+              <h3 className="text-xl font-bold text-[#000000]">{tier.name}</h3>
+              <p className="text-sm text-[#FF2D8E] font-semibold">{tier.duration}</p>
               <div className="mt-4">
-                <span className="text-4xl font-bold text-[#111111]">${tier.price}</span>
+                <span className="text-4xl font-bold text-[#000000]">${tier.price}</span>
                 {tier.priceNote && (
                   <span className="text-sm text-black/60 block">{tier.priceNote}</span>
                 )}
@@ -166,7 +166,7 @@ export function HormonePricingTiers() {
             <div className="space-y-2 mb-6">
               {tier.includes.map((item, idx) => (
                 <div key={idx} className="flex items-start gap-2">
-                  <span className="text-[#E6007E] mt-0.5">✓</span>
+                  <span className="text-[#FF2D8E] mt-0.5">✓</span>
                   <span className="text-sm text-black/80">{item}</span>
                 </div>
               ))}
@@ -175,7 +175,7 @@ export function HormonePricingTiers() {
             {/* Bonuses */}
             {tier.bonuses && tier.bonuses.length > 0 && (
               <div className="border-t border-black/10 pt-4 mb-6">
-                <p className="text-xs font-bold text-[#E6007E] uppercase tracking-wide mb-2">
+                <p className="text-xs font-bold text-[#FF2D8E] uppercase tracking-wide mb-2">
                   🎁 Bonus Services
                 </p>
                 {tier.bonuses.map((bonus, idx) => (
@@ -192,8 +192,8 @@ export function HormonePricingTiers() {
               href={BOOKING_URL}
               className={`block w-full py-3 rounded-full text-center font-semibold transition-all ${
                 selectedTier === tier.id
-                  ? "bg-[#E6007E] text-white hover:bg-[#c4006b]"
-                  : "bg-black/5 text-black hover:bg-[#E6007E] hover:text-white"
+                  ? "bg-[#FF2D8E] text-white hover:bg-[#c4006b]"
+                  : "bg-black/5 text-black hover:bg-[#FF2D8E] hover:text-white"
               }`}
             >
               Get Started
@@ -203,9 +203,9 @@ export function HormonePricingTiers() {
       </div>
 
       {/* Bonus Options Explainer */}
-      <div className="rounded-2xl border-2 border-[#E6007E]/20 bg-gradient-to-r from-pink-50 via-white to-pink-50 p-6 md:p-8">
+      <div className="rounded-2xl border-2 border-[#FF2D8E]/20 bg-gradient-to-r from-pink-50 via-white to-pink-50 p-6 md:p-8">
         <div className="text-center mb-6">
-          <h3 className="text-xl font-bold text-[#111111]">
+          <h3 className="text-xl font-bold text-[#000000]">
             🎁 How to Use Your $150 Service Credit
           </h3>
           <p className="text-black/70 text-sm mt-1">
@@ -218,7 +218,7 @@ export function HormonePricingTiers() {
               key={option.name}
               className="flex items-center gap-4 p-4 rounded-xl bg-white border border-black/10"
             >
-              <div className="w-12 h-12 rounded-full bg-[#E6007E]/10 flex items-center justify-center">
+              <div className="w-12 h-12 rounded-full bg-[#FF2D8E]/10 flex items-center justify-center">
                 <span className="text-xl">
                   {option.name === "Botox" && "💉"}
                   {option.name === "RF Microneedling" && "✨"}
@@ -226,7 +226,7 @@ export function HormonePricingTiers() {
                 </span>
               </div>
               <div>
-                <p className="font-bold text-[#111111]">{option.name}</p>
+                <p className="font-bold text-[#000000]">{option.name}</p>
                 <p className="text-sm text-black/60">{option.detail}</p>
               </div>
             </div>
@@ -236,7 +236,7 @@ export function HormonePricingTiers() {
 
       {/* What's Included Breakdown */}
       <div className="rounded-2xl border-2 border-black bg-white p-6 md:p-8">
-        <h3 className="text-xl font-bold text-[#111111] mb-6 text-center">
+        <h3 className="text-xl font-bold text-[#000000] mb-6 text-center">
           What's Included in Every Package
         </h3>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -244,7 +244,7 @@ export function HormonePricingTiers() {
             <div className="w-14 h-14 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-3">
               <span className="text-2xl">🔬</span>
             </div>
-            <h4 className="font-bold text-[#111111]">Lab Work</h4>
+            <h4 className="font-bold text-[#000000]">Lab Work</h4>
             <p className="text-sm text-black/60 mt-1">
               Comprehensive hormone, thyroid, metabolic & vitamin panels
             </p>
@@ -253,7 +253,7 @@ export function HormonePricingTiers() {
             <div className="w-14 h-14 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-3">
               <span className="text-2xl">👩‍⚕️</span>
             </div>
-            <h4 className="font-bold text-[#111111]">Expert Providers</h4>
+            <h4 className="font-bold text-[#000000]">Expert Providers</h4>
             <p className="text-sm text-black/60 mt-1">
               Biote-certified Danielle & Ryan guide your journey
             </p>
@@ -262,7 +262,7 @@ export function HormonePricingTiers() {
             <div className="w-14 h-14 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-3">
               <span className="text-2xl">💊</span>
             </div>
-            <h4 className="font-bold text-[#111111]">Rx Coordination</h4>
+            <h4 className="font-bold text-[#000000]">Rx Coordination</h4>
             <p className="text-sm text-black/60 mt-1">
               We handle prescriptions—insurance or Olympia Pharmacy
             </p>
@@ -271,7 +271,7 @@ export function HormonePricingTiers() {
             <div className="w-14 h-14 rounded-full bg-pink-100 flex items-center justify-center mx-auto mb-3">
               <span className="text-2xl">📱</span>
             </div>
-            <h4 className="font-bold text-[#111111]">Ongoing Support</h4>
+            <h4 className="font-bold text-[#000000]">Ongoing Support</h4>
             <p className="text-sm text-black/60 mt-1">
               Message your provider, track progress, adjust as needed
             </p>

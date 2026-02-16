@@ -18,21 +18,21 @@ export function ImmediateCareBanner() {
       <div className="max-w-6xl mx-auto min-w-0">
         <FadeUp>
           <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E6007E]/10 border border-[#E6007E]/20 mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-4">
               <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E6007E] opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#E6007E]"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF2D8E] opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-[#FF2D8E]"></span>
               </span>
-              <span className="text-[#E6007E] font-semibold text-sm">Appointments Available NOW</span>
+              <span className="text-[#FF2D8E] font-semibold text-sm">Appointments Available NOW</span>
             </div>
             
-            <h2 className="text-2xl md:text-4xl font-serif font-bold text-[#E6007E] mb-3">
+            <h2 className="text-2xl md:text-4xl font-serif font-bold text-[#FF2D8E] mb-3">
               Can&apos;t Get In With Your Doctor?
             </h2>
-            <p className="text-xl text-[#E6007E] mb-2">
-              Need Immediate Care With <span className="text-[#E6007E] font-semibold">No Waiting?</span>
+            <p className="text-xl text-[#FF2D8E] mb-2">
+              Need Immediate Care With <span className="text-[#FF2D8E] font-semibold">No Waiting?</span>
             </p>
-            <p className="text-[#E6007E] max-w-2xl mx-auto">
+            <p className="text-[#FF2D8E] max-w-2xl mx-auto">
               Skip the 6-week wait. Our nurse practitioner Ryan Kent, FNP-BC can see you 
               this week—often same-day or next-day appointments available.
             </p>
@@ -44,11 +44,11 @@ export function ImmediateCareBanner() {
             {services.map((service) => (
               <div
                 key={service.name}
-                className="p-4 rounded-xl bg-white shadow-md border border-black text-center hover:border-[#E6007E]/30 hover:shadow-xl transition"
+                className="p-4 rounded-xl bg-white shadow-md border border-black text-center hover:border-[#FF2D8E]/30 hover:shadow-xl transition"
               >
                 <span className="text-3xl mb-2 block">{service.icon}</span>
-                <p className="text-[#E6007E] font-semibold text-sm">{service.name}</p>
-                <p className="text-[#E6007E] text-xs">{service.desc}</p>
+                <p className="text-[#FF2D8E] font-semibold text-sm">{service.name}</p>
+                <p className="text-[#FF2D8E] text-xs">{service.desc}</p>
               </div>
             ))}
           </div>
@@ -60,7 +60,7 @@ export function ImmediateCareBanner() {
               href={IMMEDIATE_CARE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="group w-full sm:w-auto min-h-[48px] px-8 py-4 rounded-xl bg-[#E6007E] text-white font-bold text-base md:text-lg hover:bg-[#B0005F] transition hover:-translate-y-[2px] shadow-lg flex items-center justify-center gap-3"
+              className="group w-full sm:w-auto min-h-[48px] px-8 py-4 rounded-xl bg-[#FF2D8E] text-white font-bold text-base md:text-lg hover:bg-[#FF2D8E] transition hover:-translate-y-[2px] shadow-lg flex items-center justify-center gap-3"
             >
               <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
@@ -70,7 +70,7 @@ export function ImmediateCareBanner() {
             </a>
             <a
               href="tel:630-636-6193"
-              className="w-full sm:w-auto min-h-[48px] px-8 py-4 rounded-xl bg-white border border-black text-[#E6007E] font-medium hover:bg-[#111111]/5 transition flex items-center justify-center gap-2"
+              className="w-full sm:w-auto min-h-[48px] px-8 py-4 rounded-xl bg-white border border-black text-[#FF2D8E] font-medium hover:bg-[#000000]/5 transition flex items-center justify-center gap-2"
             >
               📞 Call Now: 630-636-6193
             </a>

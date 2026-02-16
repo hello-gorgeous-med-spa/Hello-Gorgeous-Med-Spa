@@ -63,7 +63,7 @@ export function PeppiHeroSection() {
   return (
     <div className="space-y-8">
       {/* Main Hero Card */}
-      <div className="relative overflow-hidden rounded-3xl border-2 border-[#E6007E] bg-gradient-to-br from-fuchsia-50 via-white to-purple-50 p-8 md:p-12 shadow-xl">
+      <div className="relative overflow-hidden rounded-3xl border-2 border-[#FF2D8E] bg-gradient-to-br from-fuchsia-50 via-white to-purple-50 p-8 md:p-12 shadow-xl">
         {/* Background decoration */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-fuchsia-200/30 to-purple-200/30 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-tr from-purple-300/20 to-transparent rounded-full blur-2xl translate-y-1/2 -translate-x-1/2" />
@@ -94,7 +94,7 @@ export function PeppiHeroSection() {
               <span className="text-fuchsia-600 text-sm font-bold uppercase tracking-wider">AI Peptide Expert</span>
             </div>
             
-            <h2 className="text-3xl md:text-4xl font-bold text-[#111111] mb-3">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#000000] mb-3">
               Meet <span className="text-fuchsia-600">Peppi</span>
             </h2>
             <p className="text-lg text-black/70 max-w-xl mx-auto">
@@ -152,7 +152,7 @@ export function PeppiHeroSection() {
       {/* Peptide Categories Explorer */}
       <div className="rounded-3xl border-2 border-black bg-gradient-to-br from-white to-fuchsia-50/50 p-6 md:p-8">
         <div className="text-center mb-6">
-          <h3 className="text-2xl font-bold text-[#111111]">
+          <h3 className="text-2xl font-bold text-[#000000]">
             Explore Peptide Categories
           </h3>
           <p className="text-black/60 mt-2">
@@ -214,7 +214,7 @@ export function PeppiHeroSection() {
 
       {/* Book Consultation CTA */}
       <div className="rounded-3xl border-2 border-fuchsia-500/50 bg-gradient-to-r from-fuchsia-500/10 via-purple-500/10 to-fuchsia-500/10 p-6 md:p-8 text-center">
-        <h3 className="text-xl font-bold text-[#111111] mb-2">
+        <h3 className="text-xl font-bold text-[#000000] mb-2">
           Ready to Start Your Peptide Journey?
         </h3>
         <p className="text-black/70 mb-4 max-w-xl mx-auto">
@@ -225,7 +225,7 @@ export function PeppiHeroSection() {
           href="https://hellogorgeousmedspa.janeapp.com"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#111111] text-white font-semibold hover:bg-[#333] transition-colors"
+          className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#000000] text-white font-semibold hover:bg-[#333] transition-colors"
         >
           Book a Peptide Consultation
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

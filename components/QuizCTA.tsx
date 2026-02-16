@@ -15,27 +15,27 @@ export function QuizCTA() {
             
             <div className="relative z-10 flex flex-col md:flex-row items-center gap-8">
               <div className="flex-1 text-center md:text-left min-w-0">
-                <span className="inline-block px-4 py-1 rounded-full border border-black text-[#E6007E] text-sm font-medium mb-4">
+                <span className="inline-block px-4 py-1 rounded-full border border-black text-[#FF2D8E] text-sm font-medium mb-4">
                   ✨ Free 2-Minute Quiz
                 </span>
-                <h2 className="text-2xl md:text-4xl font-serif font-bold text-[#E6007E] mb-3">
+                <h2 className="text-2xl md:text-4xl font-serif font-bold text-[#FF2D8E] mb-3">
                   Not Sure Where to Start?
                 </h2>
-                <p className="text-[#E6007E] text-lg mb-6 md:mb-0">
+                <p className="text-[#FF2D8E] text-lg mb-6 md:mb-0">
                   Take our quick quiz and get personalized treatment recommendations 
-                  tailored to your goals. Plus, get <span className="text-[#E6007E] font-semibold">10% off</span> your first visit!
+                  tailored to your goals. Plus, get <span className="text-[#FF2D8E] font-semibold">10% off</span> your first visit!
                 </p>
               </div>
               
               <div className="flex-shrink-0">
                 <Link
                   href="/quiz"
-                  className="w-full md:w-auto min-h-[48px] inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-[#E6007E] text-white font-bold text-base md:text-lg hover:bg-[#B0005F] transition hover:-translate-y-[2px] hover:shadow-xl"
+                  className="w-full md:w-auto min-h-[48px] inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-[#FF2D8E] text-white font-bold text-base md:text-lg hover:bg-[#FF2D8E] transition hover:-translate-y-[2px] hover:shadow-xl"
                 >
                   <span className="text-2xl">🎯</span>
                   Find My Treatment
                 </Link>
-                <p className="text-center mt-3 text-[#E6007E] text-sm">
+                <p className="text-center mt-3 text-[#FF2D8E] text-sm">
                   Takes only 2 minutes
                 </p>
               </div>

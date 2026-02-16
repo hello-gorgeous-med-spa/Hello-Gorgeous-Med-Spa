@@ -186,7 +186,7 @@ export function AdminHeader() {
           </a>
           <Link
             href="/admin/appointments/new"
-            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 bg-[#E6007E] hover:bg-[#c90a68] rounded-lg text-sm font-medium transition-colors"
+            className="hidden sm:inline-flex items-center gap-1.5 px-4 py-2 bg-[#FF2D8E] hover:bg-[#c90a68] rounded-lg text-sm font-medium transition-colors"
           >
             <span aria-hidden>➕</span>
             Book

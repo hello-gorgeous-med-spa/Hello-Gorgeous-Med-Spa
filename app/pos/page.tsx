@@ -183,7 +183,7 @@ export default function POSPage() {
         {/* Ready for Checkout - Today's Appointments */}
         {appointments.length > 0 && (
           <div className="p-4 border-b-2 border-black bg-white">
-            <p className="text-xs font-semibold text-[#E6007E] uppercase tracking-wider mb-3">
+            <p className="text-xs font-semibold text-[#FF2D8E] uppercase tracking-wider mb-3">
               Ready for Checkout ({appointments.length})
             </p>
             <div className="flex gap-2 overflow-x-auto pb-2">
@@ -191,10 +191,10 @@ export default function POSPage() {
                 <button
                   key={appt.id}
                   onClick={() => selectAppointmentClient(appt)}
-                  className="flex-shrink-0 p-3 bg-white rounded-xl border-2 border-black hover:border-[#E6007E] hover:shadow-md transition-all min-w-[160px]"
+                  className="flex-shrink-0 p-3 bg-white rounded-xl border-2 border-black hover:border-[#FF2D8E] hover:shadow-md transition-all min-w-[160px]"
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-full bg-[#E6007E] flex items-center justify-center text-white text-xs font-medium">
+                    <div className="w-8 h-8 rounded-full bg-[#FF2D8E] flex items-center justify-center text-white text-xs font-medium">
                       {appt.client_name?.[0] || 'C'}
                     </div>
                     <div className="text-left">
@@ -207,7 +207,7 @@ export default function POSPage() {
                     </div>
                   </div>
                   <p className="text-xs text-black truncate">{appt.service_name}</p>
-                  <p className="text-sm font-bold text-[#E6007E] mt-1">
+                  <p className="text-sm font-bold text-[#FF2D8E] mt-1">
                     ${appt.service_price || 0}
                   </p>
                 </button>
@@ -221,13 +221,13 @@ export default function POSPage() {
           <table className="w-full">
             <thead className="bg-white border-b-2 border-black sticky top-0">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-[#E6007E] uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-[#FF2D8E] uppercase tracking-wider">
                   Date
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-[#E6007E] uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-[#FF2D8E] uppercase tracking-wider">
                   Client
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-medium text-[#E6007E] uppercase tracking-wider">
+                <th className="px-6 py-3 text-right text-xs font-medium text-[#FF2D8E] uppercase tracking-wider">
                   Total
                 </th>
               </tr>
@@ -236,7 +236,7 @@ export default function POSPage() {
               {loading ? (
                 <tr>
                   <td colSpan={3} className="px-6 py-12 text-center text-black">
-                    <div className="animate-spin w-6 h-6 border-2 border-[#E6007E] border-t-transparent rounded-full mx-auto mb-2" />
+                    <div className="animate-spin w-6 h-6 border-2 border-[#FF2D8E] border-t-transparent rounded-full mx-auto mb-2" />
                     Loading...
                   </td>
                 </tr>
@@ -305,7 +305,7 @@ export default function POSPage() {
         ) : (
           <div className="flex-1 flex flex-col items-center justify-center p-8">
             <div className="w-20 h-20 rounded-full border-2 border-black flex items-center justify-center mb-4">
-              <svg className="w-10 h-10 text-[#E6007E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-10 h-10 text-[#FF2D8E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
               </svg>
             </div>
@@ -324,7 +324,7 @@ export default function POSPage() {
                   setSearchQuery(e.target.value);
                   searchClients(e.target.value);
                 }}
-                className="w-full px-4 py-3 border-2 border-black rounded-xl text-sm focus:ring-2 focus:ring-[#E6007E] focus:border-[#E6007E] text-black"
+                className="w-full px-4 py-3 border-2 border-black rounded-xl text-sm focus:ring-2 focus:ring-[#FF2D8E] focus:border-[#FF2D8E] text-black"
               />
               {clients.length > 0 && (
                 <div className="absolute top-full left-0 right-0 mt-2 bg-white border-2 border-black rounded-xl shadow-xl z-10 max-h-60 overflow-y-auto">
@@ -343,7 +343,7 @@ export default function POSPage() {
                       }}
                       className="w-full text-left px-4 py-3 hover:bg-black/5 flex items-center gap-3 border-b border-black/10 last:border-0"
                     >
-                      <div className="w-10 h-10 rounded-full bg-[#E6007E] flex items-center justify-center text-white font-medium">
+                      <div className="w-10 h-10 rounded-full bg-[#FF2D8E] flex items-center justify-center text-white font-medium">
                         {client.first_name?.[0]}{client.last_name?.[0]}
                       </div>
                       <div>
@@ -362,7 +362,7 @@ export default function POSPage() {
                 setSelectedClient({ id: null, name: 'Walk-in Customer' });
                 setShowCheckout(true);
               }}
-              className="mt-4 px-6 py-2 text-sm font-medium text-[#E6007E] hover:text-[#B0005F] border-2 border-[#E6007E] rounded-lg transition-colors"
+              className="mt-4 px-6 py-2 text-sm font-medium text-[#FF2D8E] hover:text-[#FF2D8E] border-2 border-[#FF2D8E] rounded-lg transition-colors"
             >
               + Walk-in Sale
             </button>
@@ -373,7 +373,7 @@ export default function POSPage() {
       {/* Right Panel - Quick Services */}
       <div className="w-1/6 flex flex-col bg-white">
         <div className="p-4 border-b-2 border-black">
-          <p className="text-xs font-semibold text-[#E6007E] uppercase tracking-wider">Quick Add</p>
+          <p className="text-xs font-semibold text-[#FF2D8E] uppercase tracking-wider">Quick Add</p>
         </div>
         <div className="flex-1 overflow-auto p-3 space-y-2">
           {services.slice(0, 10).map((service) => (
@@ -386,10 +386,10 @@ export default function POSPage() {
                 }
                 addToCart(service, 'service');
               }}
-              className="w-full p-3 text-left bg-white hover:bg-black/5 rounded-lg transition-colors border-2 border-black hover:border-[#E6007E]"
+              className="w-full p-3 text-left bg-white hover:bg-black/5 rounded-lg transition-colors border-2 border-black hover:border-[#FF2D8E]"
             >
               <p className="text-sm font-medium text-black truncate">{service.name}</p>
-              <p className="text-sm font-bold text-[#E6007E]">
+              <p className="text-sm font-bold text-[#FF2D8E]">
                 ${service.price_cents ? (service.price_cents / 100).toFixed(0) : service.price || 0}
               </p>
             </button>
@@ -400,13 +400,13 @@ export default function POSPage() {
         <div className="p-3 border-t-2 border-black space-y-2">
           <Link
             href="/pos/gift-card"
-            className="flex items-center gap-2 w-full p-3 bg-white hover:bg-black/5 rounded-lg border-2 border-black hover:border-[#E6007E] text-black font-medium text-sm transition-colors"
+            className="flex items-center gap-2 w-full p-3 bg-white hover:bg-black/5 rounded-lg border-2 border-black hover:border-[#FF2D8E] text-black font-medium text-sm transition-colors"
           >
             <span>🎁</span> Sell Gift Card
           </Link>
           <Link
             href="/admin/memberships"
-            className="flex items-center gap-2 w-full p-3 bg-white hover:bg-black/5 rounded-lg border-2 border-black hover:border-[#E6007E] text-black font-medium text-sm transition-colors"
+            className="flex items-center gap-2 w-full p-3 bg-white hover:bg-black/5 rounded-lg border-2 border-black hover:border-[#FF2D8E] text-black font-medium text-sm transition-colors"
           >
             <span>⭐</span> Memberships
           </Link>
@@ -540,8 +540,8 @@ function CheckoutPanel({
   if (paid) {
     return (
       <div className="flex-1 flex flex-col items-center justify-center p-8">
-        <div className="w-20 h-20 rounded-full border-2 border-[#E6007E] bg-white flex items-center justify-center mb-4">
-          <svg className="w-10 h-10 text-[#E6007E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div className="w-20 h-20 rounded-full border-2 border-[#FF2D8E] bg-white flex items-center justify-center mb-4">
+          <svg className="w-10 h-10 text-[#FF2D8E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
@@ -556,7 +556,7 @@ function CheckoutPanel({
           </button>
           <button
             onClick={onComplete}
-            className="w-full py-3 bg-[#E6007E] text-white rounded-xl hover:bg-[#B0005F] font-medium"
+            className="w-full py-3 bg-[#FF2D8E] text-white rounded-xl hover:bg-[#FF2D8E] font-medium"
           >
             Done
           </button>
@@ -570,7 +570,7 @@ function CheckoutPanel({
     return (
       <div className="flex-1 flex flex-col">
         <div className="p-4 border-b-2 border-black flex items-center">
-          <button onClick={() => setShowPayment(false)} className="text-black hover:text-[#E6007E] mr-3">
+          <button onClick={() => setShowPayment(false)} className="text-black hover:text-[#FF2D8E] mr-3">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
@@ -580,13 +580,13 @@ function CheckoutPanel({
         
         <div className="flex-1 flex flex-col items-center justify-center p-6">
           <p className="text-black/70 mb-2">Total Due</p>
-          <p className="text-4xl font-bold text-[#E6007E] mb-8">${subtotal.toFixed(2)}</p>
+          <p className="text-4xl font-bold text-[#FF2D8E] mb-8">${subtotal.toFixed(2)}</p>
           
           <div className="w-full max-w-xs space-y-3">
             <button
               onClick={handleTerminalCheckout}
               disabled={processing}
-              className="w-full py-4 bg-[#E6007E] text-white rounded-xl hover:bg-[#B0005F] font-medium flex items-center justify-center gap-2 disabled:opacity-50"
+              className="w-full py-4 bg-[#FF2D8E] text-white rounded-xl hover:bg-[#FF2D8E] font-medium flex items-center justify-center gap-2 disabled:opacity-50"
             >
               {processing ? (
                 <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full" />
@@ -656,7 +656,7 @@ function CheckoutPanel({
 
       {/* Client Info */}
       <div className="p-4 border-b-2 border-black bg-white flex items-center gap-3">
-        <div className="w-12 h-12 rounded-full bg-[#E6007E] flex items-center justify-center text-white font-semibold text-lg">
+        <div className="w-12 h-12 rounded-full bg-[#FF2D8E] flex items-center justify-center text-white font-semibold text-lg">
           {client.name?.[0] || 'C'}
         </div>
         <div className="flex-1">
@@ -726,11 +726,11 @@ function CheckoutPanel({
                   onAddToCart(service, 'service');
                   setShowServices(false);
                 }}
-                className="w-full text-left p-3 bg-white rounded-lg hover:bg-black/5 border-2 border-black hover:border-[#E6007E] transition-colors"
+                className="w-full text-left p-3 bg-white rounded-lg hover:bg-black/5 border-2 border-black hover:border-[#FF2D8E] transition-colors"
               >
                 <div className="flex justify-between">
                   <span className="text-sm font-medium text-black">{service.name}</span>
-                  <span className="text-sm font-semibold text-[#E6007E]">
+                  <span className="text-sm font-semibold text-[#FF2D8E]">
                     ${service.price_cents ? (service.price_cents / 100).toFixed(0) : service.price || 0}
                   </span>
                 </div>
@@ -753,14 +753,14 @@ function CheckoutPanel({
           <span className="text-sm text-black">
             {cart.filter(i => i.discount > 0).length} Offer{cart.filter(i => i.discount > 0).length > 1 ? 's' : ''} Applied
           </span>
-          <button className="text-sm text-[#E6007E] font-medium">Show</button>
+          <button className="text-sm text-[#FF2D8E] font-medium">Show</button>
         </div>
       )}
 
       {/* Subtotal */}
       <div className="px-4 py-3 border-t-2 border-black bg-white flex items-center justify-between">
         <span className="text-black">Subtotal</span>
-        <span className="text-lg font-semibold text-[#E6007E]">${subtotal.toFixed(2)}</span>
+        <span className="text-lg font-semibold text-[#FF2D8E]">${subtotal.toFixed(2)}</span>
       </div>
 
       {/* Go to Payments */}
@@ -768,7 +768,7 @@ function CheckoutPanel({
         <button
           onClick={() => setShowPayment(true)}
           disabled={cart.length === 0}
-          className="w-full py-4 bg-[#E6007E] text-white font-semibold rounded-xl hover:bg-[#B0005F] transition-colors disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wide"
+          className="w-full py-4 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-[#FF2D8E] transition-colors disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wide"
         >
           Go to Payments
         </button>

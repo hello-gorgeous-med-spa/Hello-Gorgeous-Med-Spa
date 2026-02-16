@@ -18,7 +18,7 @@ const SimulationCanvas = dynamic(() => import("./SimulationCanvas").then((m) => 
   ssr: false,
   loading: () => (
     <div className="flex items-center justify-center py-16">
-      <div className="w-10 h-10 border-2 border-[#E6007E]/40 border-t-[#E6007E] rounded-full animate-spin" />
+      <div className="w-10 h-10 border-2 border-[#FF2D8E]/40 border-t-[#FF2D8E] rounded-full animate-spin" />
     </div>
   ),
 });
@@ -72,15 +72,15 @@ export function LipStudio() {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Disclaimer before upload */}
-      <div className="rounded-xl bg-[#FDF7FA] border border-[#E6007E]/20 p-4">
+      <div className="rounded-xl bg-[#FDF7FA] border border-[#FF2D8E]/20 p-4">
         <label className="flex items-start gap-3 cursor-pointer">
           <input
             type="checkbox"
             checked={consent}
             onChange={(e) => setConsent(e.target.checked)}
-            className="mt-1 w-4 h-4 rounded border-[#E6007E]/50 text-[#E6007E] focus:ring-[#E6007E]"
+            className="mt-1 w-4 h-4 rounded border-[#FF2D8E]/50 text-[#FF2D8E] focus:ring-[#FF2D8E]"
           />
-          <span className="text-[#111111] text-sm">
+          <span className="text-[#000000] text-sm">
             I understand this is a simulated preview only. Results are for educational purposes and
             will vary based on anatomy and provider technique.
           </span>
@@ -89,7 +89,7 @@ export function LipStudio() {
 
       {/* P3: See a Real Example First */}
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-[#111111]">See a Real Example First</h3>
+        <h3 className="text-lg font-semibold text-[#000000]">See a Real Example First</h3>
         <Controls value={level} onChange={handleLevelChange} />
         <SimulationCanvas
           imageSrc={DEMO_IMAGE}
@@ -100,7 +100,7 @@ export function LipStudio() {
 
       {/* Now try yours */}
       <div className="space-y-4 pt-4 border-t border-[#EAE4E8]">
-        <h3 className="text-lg font-semibold text-[#111111]">Now try yours</h3>
+        <h3 className="text-lg font-semibold text-[#000000]">Now try yours</h3>
         {!imageSrc ? (
           <UploadArea
             onFileSelect={handleFileSelect}
@@ -123,14 +123,14 @@ export function LipStudio() {
 
             {/* P7: Peak emotion CTA - show after 1 or 1.5 syringe */}
             {showPeakEmotionCTA && (
-              <div className="rounded-xl bg-[#FDF7FA] border border-[#E6007E]/20 p-6 text-center">
-                <p className="text-[#111111] font-medium mb-4">Love this look?</p>
+              <div className="rounded-xl bg-[#FDF7FA] border border-[#FF2D8E]/20 p-6 text-center">
+                <p className="text-[#000000] font-medium mb-4">Love this look?</p>
                 <Link
                   href={BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => handleCTAClick("peak_emotion")}
-                  className="inline-flex justify-center items-center py-3 px-8 rounded-md bg-[#E6007E] hover:bg-[#B0005F] text-white font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+                  className="inline-flex justify-center items-center py-3 px-8 rounded-md bg-[#FF2D8E] hover:bg-[#FF2D8E] text-white font-semibold text-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
                 >
                   Schedule your personalized consultation
                 </Link>
@@ -143,7 +143,7 @@ export function LipStudio() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => handleCTAClick("primary")}
-                className="inline-flex justify-center items-center py-4 px-10 rounded-md bg-[#E6007E] hover:bg-[#B0005F] text-white font-semibold uppercase tracking-widest transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+                className="inline-flex justify-center items-center py-4 px-10 rounded-md bg-[#FF2D8E] hover:bg-[#FF2D8E] text-white font-semibold uppercase tracking-widest transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
               >
                 Book Lip Consultation
               </Link>
@@ -156,7 +156,7 @@ export function LipStudio() {
                   setFaceDetected(null);
                   setShowPeakEmotionCTA(false);
                 }}
-                className="py-4 px-10 rounded-md border border-[#EAE4E8] text-[#111111] font-medium hover:bg-[#FDF7FA] transition"
+                className="py-4 px-10 rounded-md border border-[#EAE4E8] text-[#000000] font-medium hover:bg-[#FDF7FA] transition"
               >
                 Try Different Photo
               </button>

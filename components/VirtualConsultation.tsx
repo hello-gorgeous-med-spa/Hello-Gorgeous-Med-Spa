@@ -92,7 +92,7 @@ export function VirtualConsultation() {
       <div className="max-w-2xl mx-auto">
         <FadeUp>
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-[#111111] mb-2">Your Personalized Recommendations</h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-[#000000] mb-2">Your Personalized Recommendations</h2>
             <p className="text-[#5E5E66]">
               {hasRecommendations
                 ? "Based on your areas of concern, here are treatments that may help:"
@@ -106,23 +106,23 @@ export function VirtualConsultation() {
                 <Link
                   key={rec.id}
                   href={rec.href}
-                  className="block p-6 rounded-2xl border border-[#E6007E]/20 bg-[#FDF7FA] hover:bg-[#FDF7FA]/80 hover:border-[#E6007E]/40 transition-all group"
+                  className="block p-6 rounded-2xl border border-[#FF2D8E]/20 bg-[#FDF7FA] hover:bg-[#FDF7FA]/80 hover:border-[#FF2D8E]/40 transition-all group"
                 >
                   <div className="flex items-center gap-4">
                     <span className="text-3xl">{rec.icon}</span>
                     <div className="flex-1 text-left">
-                      <h3 className="text-lg font-semibold text-[#111111] group-hover:text-[#E6007E]">{rec.name}</h3>
+                      <h3 className="text-lg font-semibold text-[#000000] group-hover:text-[#FF2D8E]">{rec.name}</h3>
                       <p className="text-sm text-[#5E5E66]">{rec.description}</p>
                     </div>
-                    <span className="text-[#E6007E]">→</span>
+                    <span className="text-[#FF2D8E]">→</span>
                   </div>
                 </Link>
               ))}
             </div>
           ) : null}
 
-          <div className="rounded-2xl border border-[#E6007E]/20 bg-[#FDF7FA] p-8 text-center">
-            <h3 className="text-xl font-bold text-[#111111] mb-2">Next Step: Book Your Consultation</h3>
+          <div className="rounded-2xl border border-[#FF2D8E]/20 bg-[#FDF7FA] p-8 text-center">
+            <h3 className="text-xl font-bold text-[#000000] mb-2">Next Step: Book Your Consultation</h3>
             <p className="text-[#5E5E66] mb-6">
               Our specialists will review your goals and create a treatment plan tailored to you. No pressure—just clarity.
             </p>
@@ -131,7 +131,7 @@ export function VirtualConsultation() {
           </div>
 
           {submitted && (
-            <p className="text-center text-[#E6007E] text-sm mt-6">We&apos;ll be in touch soon with more personalized options.</p>
+            <p className="text-center text-[#FF2D8E] text-sm mt-6">We&apos;ll be in touch soon with more personalized options.</p>
           )}
 
           <button
@@ -139,7 +139,7 @@ export function VirtualConsultation() {
               setShowResults(false);
               setSubmitted(false);
             }}
-            className="mt-8 text-[#5E5E66] hover:text-[#111111] text-sm"
+            className="mt-8 text-[#5E5E66] hover:text-[#000000] text-sm"
           >
             ← Start over
           </button>
@@ -151,7 +151,7 @@ export function VirtualConsultation() {
   return (
     <div className="max-w-3xl mx-auto">
       <FadeUp delayMs={0}>
-        <h2 className="text-2xl md:text-3xl font-serif font-bold text-[#111111] mb-2 text-center md:text-left">
+        <h2 className="text-2xl md:text-3xl font-serif font-bold text-[#000000] mb-2 text-center md:text-left">
           Choose Your Areas of Concern
         </h2>
         <p className="text-[#5E5E66] mb-6">Select what you&apos;d like to improve—we&apos;ll recommend the best treatments for you.</p>
@@ -170,8 +170,8 @@ export function VirtualConsultation() {
                   onClick={() => toggleZone(zone.id)}
                   className={`p-4 rounded-xl border text-left transition-all ${
                     isSelected
-                      ? "border-[#E6007E] bg-[#E6007E]/10 text-[#111111]"
-                      : "border-[#E6007E]/20 bg-[#FDF7FA] text-[#5E5E66] hover:border-[#E6007E]/40 hover:text-[#111111]"
+                      ? "border-[#FF2D8E] bg-[#FF2D8E]/10 text-[#000000]"
+                      : "border-[#FF2D8E]/20 bg-[#FDF7FA] text-[#5E5E66] hover:border-[#FF2D8E]/40 hover:text-[#000000]"
                   }`}
                 >
                   <span className="text-2xl block mb-2">{zone.icon}</span>
@@ -192,7 +192,7 @@ export function VirtualConsultation() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="your@email.com"
-            className="w-full px-4 py-3 rounded-xl bg-white border border-[#E6007E]/20 text-[#111111] placeholder:text-[#5E5E66]/60 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/50 focus:border-[#E6007E]"
+            className="w-full px-4 py-3 rounded-xl bg-white border border-[#FF2D8E]/20 text-[#000000] placeholder:text-[#5E5E66]/60 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50 focus:border-[#FF2D8E]"
           />
         </div>
       </FadeUp>
@@ -204,7 +204,7 @@ export function VirtualConsultation() {
             if (email.trim()) setSubmitted(true);
             setShowResults(true);
           }}
-          className="w-full py-4 rounded-xl bg-[#E6007E] hover:bg-[#B0005F] text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+          className="w-full py-4 rounded-xl bg-[#FF2D8E] hover:bg-[#FF2D8E] text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
         >
           {hasRecommendations ? "See My Recommendations" : "Get Personalized Options"}
         </button>

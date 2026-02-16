@@ -146,17 +146,17 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             <span className="text-xl">{ui.emoji}</span>
-            <h3 className="text-lg font-bold text-[#E6007E] truncate">{cfg.displayName}</h3>
+            <h3 className="text-lg font-bold text-[#FF2D8E] truncate">{cfg.displayName}</h3>
           </div>
-          <p className="text-xs text-[#E6007E] mb-3">{cfg.role}</p>
-          <p className="text-[#E6007E] text-sm leading-snug line-clamp-2 mb-3">{ui.tagline}</p>
+          <p className="text-xs text-[#FF2D8E] mb-3">{cfg.role}</p>
+          <p className="text-[#FF2D8E] text-sm leading-snug line-clamp-2 mb-3">{ui.tagline}</p>
 
           {/* Feature Pills - compact */}
           <div className="flex flex-wrap gap-1.5 mb-3">
             {data.features.slice(0, 2).map((feature, idx) => (
               <span
                 key={idx}
-                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#E6007E]/10 border border-[#E6007E]/20 text-xs text-[#E6007E]"
+                className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 text-xs text-[#FF2D8E]"
               >
                 {feature.icon} {feature.title}
               </span>
@@ -169,7 +169,7 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
               <button
                 type="button"
                 onClick={handlePlayVideo}
-                className="px-3 py-1.5 rounded-full bg-[#E6007E]/10 text-[#E6007E] font-medium text-xs border border-[#E6007E]/20 hover:bg-[#E6007E]/20 transition"
+                className="px-3 py-1.5 rounded-full bg-[#FF2D8E]/10 text-[#FF2D8E] font-medium text-xs border border-[#FF2D8E]/20 hover:bg-[#FF2D8E]/20 transition"
               >
                 ▶ Video
               </button>
@@ -177,7 +177,7 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
             <button
               type="button"
               onClick={() => onAskClick(data.id)}
-                className="px-3 py-1.5 rounded-full bg-[#E6007E] text-white font-medium text-xs hover:bg-[#B0005F] transition"
+                className="px-3 py-1.5 rounded-full bg-[#FF2D8E] text-white font-medium text-xs hover:bg-[#FF2D8E] transition"
             >
               💬 Ask
             </button>
@@ -185,7 +185,7 @@ function MascotHero({ data, onAskClick }: { data: MascotHeroData; onAskClick: (i
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-                className="px-3 py-1.5 rounded-full bg-[#111111]/5 text-[#E6007E] font-medium text-xs hover:bg-[#111111]/10 transition border border-black"
+                className="px-3 py-1.5 rounded-full bg-[#000000]/5 text-[#FF2D8E] font-medium text-xs hover:bg-[#000000]/10 transition border border-black"
             >
               Book
             </a>
@@ -213,9 +213,9 @@ export function MascotHeroSection() {
   return (
     <div className="space-y-6">
       <div className="text-center mb-8">
-        <p className="text-[#E6007E] text-sm font-medium tracking-wide">MEET YOUR CARE TEAM</p>
-        <h2 className="mt-2 text-2xl md:text-4xl font-bold text-[#E6007E]">Your experts, on demand</h2>
-        <p className="mt-2 text-sm md:text-base text-[#E6007E] max-w-2xl mx-auto">
+        <p className="text-[#FF2D8E] text-sm font-medium tracking-wide">MEET YOUR CARE TEAM</p>
+        <h2 className="mt-2 text-2xl md:text-4xl font-bold text-[#FF2D8E]">Your experts, on demand</h2>
+        <p className="mt-2 text-sm md:text-base text-[#FF2D8E] max-w-2xl mx-auto">
           Pick an expert to get clear, calm answers. Education only—book a consult for medical advice.
         </p>
       </div>
@@ -232,19 +232,19 @@ export function MascotHeroSection() {
           <div className="w-full max-w-lg bg-white border-2 border-black rounded-2xl overflow-hidden shadow-2xl">
             <div className="p-4 border-b border-black flex items-center justify-between">
               <div>
-                <p className="text-[#E6007E] font-bold">Chat with {getPersonaConfig(selectedPersona).displayName}</p>
-                <p className="text-xs text-[#E6007E]">Education only. No medical advice.</p>
+                <p className="text-[#FF2D8E] font-bold">Chat with {getPersonaConfig(selectedPersona).displayName}</p>
+                <p className="text-xs text-[#FF2D8E]">Education only. No medical advice.</p>
               </div>
               <button
                 type="button"
                 onClick={handleCloseChat}
-                className="text-[#E6007E] hover:text-[#E6007E] p-2"
+                className="text-[#FF2D8E] hover:text-[#FF2D8E] p-2"
               >
                 ✕
               </button>
             </div>
             <div className="p-6">
-                <p className="text-[#E6007E] text-sm mb-4">
+                <p className="text-[#FF2D8E] text-sm mb-4">
                 Ask {getPersonaConfig(selectedPersona).displayName} about {getPersonaConfig(selectedPersona).role.toLowerCase()}.
               </p>
               <div className="space-y-3">
@@ -252,7 +252,7 @@ export function MascotHeroSection() {
                   <button
                     key={idx}
                     type="button"
-                    className="w-full text-left px-4 py-3 rounded-xl border border-[#E6007E]/20 bg-[#E6007E]/5 text-[#E6007E] text-sm hover:bg-[#E6007E]/10 hover:border-[#E6007E]/40 transition"
+                    className="w-full text-left px-4 py-3 rounded-xl border border-[#FF2D8E]/20 bg-[#FF2D8E]/5 text-[#FF2D8E] text-sm hover:bg-[#FF2D8E]/10 hover:border-[#FF2D8E]/40 transition"
                   >
                     {starter}
                   </button>
@@ -262,11 +262,11 @@ export function MascotHeroSection() {
                 <input
                   type="text"
                   placeholder="Type your question..."
-                  className="flex-1 px-4 py-3 rounded-xl bg-[#111111]/5 border-2 border-black text-[#E6007E] placeholder:text-[#E6007E] focus:outline-none focus:border-[#E6007E]/50"
+                  className="flex-1 px-4 py-3 rounded-xl bg-[#000000]/5 border-2 border-black text-[#FF2D8E] placeholder:text-[#FF2D8E] focus:outline-none focus:border-[#FF2D8E]/50"
                 />
                 <button
                   type="button"
-                  className="px-6 py-3 rounded-xl bg-[#E6007E] text-white font-semibold hover:bg-[#B0005F] transition"
+                  className="px-6 py-3 rounded-xl bg-[#FF2D8E] text-white font-semibold hover:bg-[#FF2D8E] transition"
                 >
                   Send
                 </button>

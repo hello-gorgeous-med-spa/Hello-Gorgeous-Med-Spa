@@ -92,16 +92,16 @@ export default function PortalLayout({
       </div>
 
       {/* Top Navigation Bar */}
-      <header className="bg-white/95 backdrop-blur-md border-b border-[#111111]/15 sticky top-0 z-50">
+      <header className="bg-white/95 backdrop-blur-md border-b border-[#000000]/15 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
             <Link href="/portal" className="flex items-center gap-2">
               <span className="text-2xl">💗</span>
-              <span className="font-semibold text-[#111111]">
+              <span className="font-semibold text-[#000000]">
                 Hello Gorgeous
               </span>
-              <span className="text-xs bg-[#E6007E]/10 text-[#E6007E] px-2 py-0.5 rounded-full font-medium">
+              <span className="text-xs bg-[#FF2D8E]/10 text-[#FF2D8E] px-2 py-0.5 rounded-full font-medium">
                 Portal
               </span>
             </Link>
@@ -114,8 +114,8 @@ export default function PortalLayout({
                   href={item.href}
                   className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive(item.href)
-                      ? 'text-[#111111] bg-[#E6007E]/10 font-medium'
-                      : 'text-[#111111]/70 hover:text-[#111111] hover:bg-[#E6007E]/5'
+                      ? 'text-[#000000] bg-[#FF2D8E]/10 font-medium'
+                      : 'text-[#000000]/70 hover:text-[#000000] hover:bg-[#FF2D8E]/5'
                   }`}
                 >
                   <span className="mr-1">{item.icon}</span>
@@ -128,14 +128,14 @@ export default function PortalLayout({
             <div className="flex items-center gap-3">
               <Link
                 href="/portal/book"
-                className="hidden sm:inline-flex items-center gap-2 bg-[#E6007E] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#FF2D8E] transition-colors"
+                className="hidden sm:inline-flex items-center gap-2 bg-[#FF2D8E] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#FF2D8E] transition-colors"
               >
                 <span>✨</span>
                 Book Now
               </Link>
               <Link 
                 href="/portal/profile"
-                className="w-10 h-10 rounded-full bg-[#111111]/5 flex items-center justify-center text-[#111111] hover:bg-[#E6007E]/10 transition-colors"
+                className="w-10 h-10 rounded-full bg-[#000000]/5 flex items-center justify-center text-[#000000] hover:bg-[#FF2D8E]/10 transition-colors"
               >
                 <span className="text-lg">👤</span>
               </Link>
@@ -145,14 +145,14 @@ export default function PortalLayout({
       </header>
 
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[#111111]/15 z-50 safe-area-pb">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-[#000000]/15 z-50 safe-area-pb">
         <div className="flex justify-around items-center h-16 px-2">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}
               href={item.href}
               className={`flex flex-col items-center gap-1 px-3 py-2 transition-colors ${
-                isActive(item.href) ? 'text-[#111111] font-medium' : 'text-[#111111]/70'
+                isActive(item.href) ? 'text-[#000000] font-medium' : 'text-[#000000]/70'
               }`}
             >
               <span className="text-xl">{item.icon}</span>
@@ -168,9 +168,9 @@ export default function PortalLayout({
       </main>
 
       {/* Footer Trust Badges */}
-      <footer className="hidden md:block bg-white border-t border-[#111111]/10 py-4">
+      <footer className="hidden md:block bg-white border-t border-[#000000]/10 py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center gap-8 text-sm text-[#111111]/70">
+          <div className="flex items-center justify-center gap-8 text-sm text-[#000000]/70">
             <div className="flex items-center gap-2">
               <span className="text-green-500">🔒</span>
               <span>HIPAA Compliant</span>
@@ -183,7 +183,7 @@ export default function PortalLayout({
               <span className="text-purple-500">✓</span>
               <span>SOC 2 Certified</span>
             </div>
-            <Link href="/privacy" className="text-[#111111]/70 hover:text-[#111111]">
+            <Link href="/privacy" className="text-[#000000]/70 hover:text-[#000000]">
               Privacy Policy
             </Link>
           </div>

@@ -108,19 +108,19 @@ export function MembershipsContent() {
       <section className="relative py-20 md:py-28 px-6 md:px-12 bg-gradient-to-br from-white via-pink-50/30 to-white overflow-hidden">
         <div className="max-w-4xl mx-auto text-center">
           <FadeUp>
-            <span className="inline-block px-4 py-1.5 rounded-full border border-[#E6007E]/30 text-[#E6007E] text-sm font-medium mb-6">
+            <span className="inline-block px-4 py-1.5 rounded-full border border-[#FF2D8E]/30 text-[#FF2D8E] text-sm font-medium mb-6">
               NO PUNCH CARDS. NO DISCOUNTS. REAL OPTIMIZATION.
             </span>
-            <h1 className="text-3xl md:text-5xl font-serif font-bold text-[#111111] mb-4">
+            <h1 className="text-3xl md:text-5xl font-serif font-bold text-[#000000] mb-4">
               We Read the Labs So You Don&apos;t Have To.
             </h1>
-            <p className="text-lg text-[#111111]/80 max-w-2xl mx-auto mb-4">
+            <p className="text-lg text-[#000000]/80 max-w-2xl mx-auto mb-4">
               Prescriptions. IV therapy. Vitamin injections. HRT. Blood work. Same-day visits. Next-day labs. Two programs built for people who want clarity, not guesswork.
             </p>
-            <p className="text-sm text-[#E6007E] font-medium mb-4">
+            <p className="text-sm text-[#FF2D8E] font-medium mb-4">
               No membership required for your first visit.
             </p>
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E6007E]/10 text-[#E6007E] text-xs font-semibold">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF2D8E]/10 text-[#FF2D8E] text-xs font-semibold">
               HSA/FSA Eligible
             </span>
           </FadeUp>
@@ -131,15 +131,15 @@ export function MembershipsContent() {
       <section className="py-12 px-6 md:px-12 bg-[#FDF7FA]">
         <div className="max-w-4xl mx-auto text-center">
           <FadeUp>
-            <h2 className="text-xl md:text-2xl font-bold text-[#111111] mb-3">
+            <h2 className="text-xl md:text-2xl font-bold text-[#000000] mb-3">
               Experiencing hormone imbalance?
             </h2>
-            <p className="text-[#111111]/80 mb-6">
+            <p className="text-[#000000]/80 mb-6">
               Common signs worth discussing with a provider:
             </p>
             <div className="flex flex-wrap justify-center gap-2">
               {["Hot flashes & night sweats", "Exhaustion & fatigue", "Weight gain", "Brain fog & memory", "Muscle & joint discomfort", "Mood swings", "Sleep issues", "Low libido"].map((s) => (
-                <span key={s} className="px-4 py-2 rounded-full bg-white border border-[#111111]/10 text-sm text-[#111111]">
+                <span key={s} className="px-4 py-2 rounded-full bg-white border border-[#000000]/10 text-sm text-[#000000]">
                   {s}
                 </span>
               ))}
@@ -153,10 +153,10 @@ export function MembershipsContent() {
         <div className="max-w-2xl mx-auto">
           <FadeUp>
             <blockquote className="text-center">
-              <p className="text-xl md:text-2xl font-serif text-[#111111] italic leading-relaxed mb-4">
+              <p className="text-xl md:text-2xl font-serif text-[#000000] italic leading-relaxed mb-4">
                 &ldquo;I finally feel like I have a doctor who actually looks at my numbers and explains them. No more waiting rooms. No more generic advice.&rdquo;
               </p>
-              <footer className="text-sm text-[#111111]/80 font-medium">
+              <footer className="text-sm text-[#000000]/80 font-medium">
                 — Sarah M., Precision Hormone Program
               </footer>
             </blockquote>
@@ -170,10 +170,10 @@ export function MembershipsContent() {
       {/* Membership Programs - For ongoing care */}
       <section className="py-12 md:py-20 px-6 md:px-12 bg-white">
         <div className="max-w-4xl mx-auto text-center mb-6">
-          <h2 className="text-2xl md:text-3xl font-bold text-[#111111] mb-3">
+          <h2 className="text-2xl md:text-3xl font-bold text-[#000000] mb-3">
             What Matters Most?
           </h2>
-          <p className="text-[#111111]/80 mb-8">
+          <p className="text-[#000000]/80 mb-8">
             Hormone optimization, weight loss, or both. Membership is for ongoing care—quarterly labs, prescriptions, peptide therapy, IV therapy.
           </p>
           <div className="flex flex-wrap justify-center gap-2" role="tablist">
@@ -184,8 +184,8 @@ export function MembershipsContent() {
                 onClick={() => setFilter(f)}
                 className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
                   filter === f
-                    ? "bg-[#E6007E] text-white"
-                    : "bg-[#E6007E]/10 text-[#111111] hover:bg-[#E6007E]/20"
+                    ? "bg-[#FF2D8E] text-white"
+                    : "bg-[#FF2D8E]/10 text-[#000000] hover:bg-[#FF2D8E]/20"
                 }`}
               >
                 {f === "both" ? "Both" : f === "precision-hormone" ? "Hormone" : "Weight Loss"}
@@ -204,17 +204,17 @@ export function MembershipsContent() {
                   <div className={`absolute inset-0 bg-gradient-to-br ${p.gradient} opacity-50 pointer-events-none`} />
                   <div className="relative">
                     <div className="text-5xl mb-4">{p.icon}</div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-[#111111] mb-2">
+                    <h2 className="text-2xl md:text-3xl font-bold text-[#000000] mb-2">
                       {p.name}
                     </h2>
                     <p className={`text-sm font-semibold ${p.accent} mb-4`}>
                       {p.tagline}
                     </p>
-                    <p className="text-[#111111]/80 mb-4">{p.description}</p>
+                    <p className="text-[#000000]/80 mb-4">{p.description}</p>
                     {"benefitPillars" in p && p.benefitPillars && (
                       <div className="flex flex-wrap gap-1.5 mb-6">
                         {p.benefitPillars.map((bp) => (
-                          <span key={bp} className="px-2.5 py-1 rounded-full bg-[#111111]/5 text-xs font-medium text-[#111111]">
+                          <span key={bp} className="px-2.5 py-1 rounded-full bg-[#000000]/5 text-xs font-medium text-[#000000]">
                             {bp}
                           </span>
                         ))}
@@ -222,7 +222,7 @@ export function MembershipsContent() {
                     )}
                     <ul className="space-y-3 mb-6">
                       {p.benefits.map((b) => (
-                        <li key={b} className="flex items-center gap-3 text-[#111111]">
+                        <li key={b} className="flex items-center gap-3 text-[#000000]">
                           <span className="text-green-500">✓</span>
                           <span>{b}</span>
                         </li>
@@ -231,28 +231,28 @@ export function MembershipsContent() {
                     <button
                       type="button"
                       onClick={() => setLearnMoreSlug(p.slug)}
-                      className="text-sm font-semibold text-[#E6007E] hover:underline mb-6 inline-flex items-center gap-1"
+                      className="text-sm font-semibold text-[#FF2D8E] hover:underline mb-6 inline-flex items-center gap-1"
                     >
                       Learn More
                       <span>→</span>
                     </button>
                     <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                       <div>
-                        <span className="text-3xl font-bold text-[#111111]">
+                        <span className="text-3xl font-bold text-[#000000]">
                           {"priceDisplay" in p && p.priceDisplay ? p.priceDisplay : `$${p.price}`}
                         </span>
-                        <span className="text-[#111111]/80 ml-2">/ {p.priceLabel}</span>
+                        <span className="text-[#000000]/80 ml-2">/ {p.priceLabel}</span>
                         {"priceDaily" in p && p.priceDaily && (
-                          <p className="text-sm text-[#111111]/70 mt-1">{p.priceDaily}</p>
+                          <p className="text-sm text-[#000000]/70 mt-1">{p.priceDaily}</p>
                         )}
-                        <span className="inline-flex mt-2 px-2 py-0.5 rounded bg-[#E6007E]/10 text-[#E6007E] text-xs font-semibold">
+                        <span className="inline-flex mt-2 px-2 py-0.5 rounded bg-[#FF2D8E]/10 text-[#FF2D8E] text-xs font-semibold">
                           HSA/FSA Eligible
                         </span>
                       </div>
                       <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
                         <Link
                           href={`/memberships/signup?program=${p.slug}`}
-                          className="px-8 py-4 bg-[#E6007E] text-white font-bold rounded-full text-center hover:opacity-90 transition hover:scale-[1.02] active:scale-[0.98]"
+                          className="px-8 py-4 bg-[#FF2D8E] text-white font-bold rounded-full text-center hover:opacity-90 transition hover:scale-[1.02] active:scale-[0.98]"
                         >
                           {p.cta}
                         </Link>
@@ -278,18 +278,18 @@ export function MembershipsContent() {
           >
             <div className="p-6 md:p-8">
               <div className="flex items-start justify-between mb-6">
-                <h3 className="text-xl font-bold text-[#111111]">{program.learnMore.headline}</h3>
+                <h3 className="text-xl font-bold text-[#000000]">{program.learnMore.headline}</h3>
                 <button
                   type="button"
                   onClick={() => setLearnMoreSlug(null)}
-                  className="text-[#111111]/60 hover:text-[#111111] text-2xl leading-none"
+                  className="text-[#000000]/60 hover:text-[#000000] text-2xl leading-none"
                 >
                   ×
                 </button>
               </div>
               <ul className="space-y-3 mb-6">
                 {program.learnMore.items.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-[#111111]">
+                  <li key={item} className="flex items-start gap-3 text-[#000000]">
                     <span className="text-green-500 mt-0.5">✓</span>
                     <span>{item}</span>
                   </li>
@@ -298,13 +298,13 @@ export function MembershipsContent() {
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link
                   href={`/memberships/signup?program=${program.slug}`}
-                  className="px-6 py-3 bg-[#E6007E] text-white font-bold rounded-full text-center hover:opacity-90 transition"
+                  className="px-6 py-3 bg-[#FF2D8E] text-white font-bold rounded-full text-center hover:opacity-90 transition"
                 >
                   Join {program.name}
                 </Link>
                 <Link
                   href={program.learnMore.ctaLink}
-                  className="px-6 py-3 border-2 border-[#E6007E] text-[#E6007E] font-semibold rounded-full text-center hover:bg-[#E6007E]/5 transition"
+                  className="px-6 py-3 border-2 border-[#FF2D8E] text-[#FF2D8E] font-semibold rounded-full text-center hover:bg-[#FF2D8E]/5 transition"
                 >
                   {program.learnMore.ctaText}
                 </Link>
@@ -318,10 +318,10 @@ export function MembershipsContent() {
       <section className="py-16 md:py-24 px-6 md:px-12 bg-white">
         <div className="max-w-4xl mx-auto">
           <FadeUp>
-            <h2 className="text-2xl md:text-3xl font-bold text-[#111111] mb-3 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#000000] mb-3 text-center">
               Need Help Deciding?
             </h2>
-            <p className="text-[#111111]/80 text-center mb-10">
+            <p className="text-[#000000]/80 text-center mb-10">
               Chat with our AI experts. Real answers. No pressure.
             </p>
             <div className="grid sm:grid-cols-2 gap-6">
@@ -332,12 +332,12 @@ export function MembershipsContent() {
               >
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-4xl">⚖️</span>
-                  <h3 className="font-bold text-[#111111] text-lg">Ask Harmony</h3>
+                  <h3 className="font-bold text-[#000000] text-lg">Ask Harmony</h3>
                 </div>
-                <p className="text-[#111111]/80 text-sm mb-4">
+                <p className="text-[#000000]/80 text-sm mb-4">
                   Hormone optimization expert. Lab results, symptoms, BHRT, pellets—she explains it all.
                 </p>
-                <span className="text-[#E6007E] font-semibold text-sm group-hover:underline">
+                <span className="text-[#FF2D8E] font-semibold text-sm group-hover:underline">
                   Start chat →
                 </span>
               </button>
@@ -348,12 +348,12 @@ export function MembershipsContent() {
               >
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-4xl">⚡</span>
-                  <h3 className="font-bold text-[#111111] text-lg">Ask Peppi</h3>
+                  <h3 className="font-bold text-[#000000] text-lg">Ask Peppi</h3>
                 </div>
-                <p className="text-[#111111]/80 text-sm mb-4">
+                <p className="text-[#000000]/80 text-sm mb-4">
                   Weight loss, supplements, IV therapy &amp; peptides. She knows our programs inside-out.
                 </p>
-                <span className="text-[#E6007E] font-semibold text-sm group-hover:underline">
+                <span className="text-[#FF2D8E] font-semibold text-sm group-hover:underline">
                   Start chat →
                 </span>
               </button>
@@ -366,10 +366,10 @@ export function MembershipsContent() {
       <section className="py-16 md:py-24 px-6 md:px-12 bg-[#FDF7FA]">
         <div className="max-w-4xl mx-auto">
           <FadeUp>
-            <h2 className="text-2xl md:text-3xl font-bold text-[#111111] mb-3 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#000000] mb-3 text-center">
               What to Expect
             </h2>
-            <p className="text-[#111111]/80 text-center mb-10">
+            <p className="text-[#000000]/80 text-center mb-10">
               A clear path from first visit to ongoing optimization.
             </p>
             <div className="grid md:grid-cols-4 gap-6">
@@ -379,12 +379,12 @@ export function MembershipsContent() {
                 { step: "3", title: "Begin protocol", desc: "Start treatment. Many feel results within 4–6 weeks." },
                 { step: "4", title: "Ongoing care", desc: "Quarterly labs, check-ins & adjustments. Membership keeps you supported." },
               ].map((item) => (
-                <div key={item.step} className="rounded-2xl bg-white border border-[#111111]/10 p-5 text-center">
-                  <span className="inline-flex w-10 h-10 rounded-full bg-[#E6007E] text-white font-bold items-center justify-center text-lg mb-3">
+                <div key={item.step} className="rounded-2xl bg-white border border-[#000000]/10 p-5 text-center">
+                  <span className="inline-flex w-10 h-10 rounded-full bg-[#FF2D8E] text-white font-bold items-center justify-center text-lg mb-3">
                     {item.step}
                   </span>
-                  <h3 className="font-bold text-[#111111] mb-2">{item.title}</h3>
-                  <p className="text-sm text-[#111111]/80">{item.desc}</p>
+                  <h3 className="font-bold text-[#000000] mb-2">{item.title}</h3>
+                  <p className="text-sm text-[#000000]/80">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -399,46 +399,46 @@ export function MembershipsContent() {
       <section className="py-16 md:py-24 px-6 md:px-12 bg-white">
         <div className="max-w-4xl mx-auto">
           <FadeUp>
-            <h2 className="text-2xl md:text-3xl font-bold text-[#111111] mb-3 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#000000] mb-3 text-center">
               Not Your Average Checkup
             </h2>
-            <p className="text-[#111111]/80 text-center mb-10">
+            <p className="text-[#000000]/80 text-center mb-10">
               We&apos;re built for continuity—not one-off visits.
             </p>
             <div className="overflow-x-auto">
               <table className="w-full border-collapse text-left">
                 <thead>
-                  <tr className="border-b-2 border-[#111111]">
-                    <th className="py-4 pr-4 font-bold text-[#111111]"> </th>
-                    <th className="py-4 px-4 font-bold text-[#111111]">Hello Gorgeous</th>
-                    <th className="py-4 pl-4 font-bold text-[#111111]/60">Typical clinic</th>
+                  <tr className="border-b-2 border-[#000000]">
+                    <th className="py-4 pr-4 font-bold text-[#000000]"> </th>
+                    <th className="py-4 px-4 font-bold text-[#000000]">Hello Gorgeous</th>
+                    <th className="py-4 pl-4 font-bold text-[#000000]/60">Typical clinic</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-[#111111]/10">
+                <tbody className="divide-y divide-[#000000]/10">
                   <tr>
-                    <td className="py-4 pr-4 text-[#111111]/80">Quarterly labs & check-ins</td>
-                    <td className="py-4 px-4"><span className="text-[#E6007E] font-bold">✓</span></td>
-                    <td className="py-4 pl-4 text-[#111111]/50">—</td>
+                    <td className="py-4 pr-4 text-[#000000]/80">Quarterly labs & check-ins</td>
+                    <td className="py-4 px-4"><span className="text-[#FF2D8E] font-bold">✓</span></td>
+                    <td className="py-4 pl-4 text-[#000000]/50">—</td>
                   </tr>
                   <tr>
-                    <td className="py-4 pr-4 text-[#111111]/80">Same-day visit availability</td>
-                    <td className="py-4 px-4"><span className="text-[#E6007E] font-bold">✓</span></td>
-                    <td className="py-4 pl-4 text-[#111111]/50">—</td>
+                    <td className="py-4 pr-4 text-[#000000]/80">Same-day visit availability</td>
+                    <td className="py-4 px-4"><span className="text-[#FF2D8E] font-bold">✓</span></td>
+                    <td className="py-4 pl-4 text-[#000000]/50">—</td>
                   </tr>
                   <tr>
-                    <td className="py-4 pr-4 text-[#111111]/80">Next-day lab results</td>
-                    <td className="py-4 px-4"><span className="text-[#E6007E] font-bold">✓</span></td>
-                    <td className="py-4 pl-4 text-[#111111]/50">Often 1–2 weeks</td>
+                    <td className="py-4 pr-4 text-[#000000]/80">Next-day lab results</td>
+                    <td className="py-4 px-4"><span className="text-[#FF2D8E] font-bold">✓</span></td>
+                    <td className="py-4 pl-4 text-[#000000]/50">Often 1–2 weeks</td>
                   </tr>
                   <tr>
-                    <td className="py-4 pr-4 text-[#111111]/80">Secure messaging with provider</td>
-                    <td className="py-4 px-4"><span className="text-[#E6007E] font-bold">✓</span></td>
-                    <td className="py-4 pl-4 text-[#111111]/50">—</td>
+                    <td className="py-4 pr-4 text-[#000000]/80">Secure messaging with provider</td>
+                    <td className="py-4 px-4"><span className="text-[#FF2D8E] font-bold">✓</span></td>
+                    <td className="py-4 pl-4 text-[#000000]/50">—</td>
                   </tr>
                   <tr>
-                    <td className="py-4 pr-4 text-[#111111]/80">Prescriptions & IV therapy included</td>
-                    <td className="py-4 px-4"><span className="text-[#E6007E] font-bold">✓</span></td>
-                    <td className="py-4 pl-4 text-[#111111]/50">A la carte</td>
+                    <td className="py-4 pr-4 text-[#000000]/80">Prescriptions & IV therapy included</td>
+                    <td className="py-4 px-4"><span className="text-[#FF2D8E] font-bold">✓</span></td>
+                    <td className="py-4 pl-4 text-[#000000]/50">A la carte</td>
                   </tr>
                 </tbody>
               </table>
@@ -448,7 +448,7 @@ export function MembershipsContent() {
       </section>
 
       {/* Authority - The experts behind Hello Gorgeous */}
-      <section className="py-16 md:py-24 px-6 md:px-12 bg-[#111111]" data-dark>
+      <section className="py-16 md:py-24 px-6 md:px-12 bg-[#000000]" data-dark>
         <div className="max-w-4xl mx-auto text-center">
           <FadeUp>
             <h2 className="text-2xl md:text-3xl font-bold text-white mb-3">
@@ -458,14 +458,14 @@ export function MembershipsContent() {
               Licensed medical professionals. Real results. Personalized care.
             </p>
             <div className="grid sm:grid-cols-2 gap-8 max-w-2xl mx-auto">
-              <div className="rounded-2xl border border-[#E6007E]/30 bg-white/5 p-6 text-left">
+              <div className="rounded-2xl border border-[#FF2D8E]/30 bg-white/5 p-6 text-left">
                 <h3 className="font-bold text-white text-lg">Danielle Alcala</h3>
-                <p className="text-[#E6007E] text-sm font-medium mb-2">RN-S, Licensed CNA, CMAA, Phlebotomist, Licensed Esthetician, Business Owner</p>
+                <p className="text-[#FF2D8E] text-sm font-medium mb-2">RN-S, Licensed CNA, CMAA, Phlebotomist, Licensed Esthetician, Business Owner</p>
                 <p className="text-sm text-white/70">Owner. Aesthetics, wellness, and patient experience.</p>
               </div>
-              <div className="rounded-2xl border border-[#E6007E]/30 bg-white/5 p-6 text-left">
+              <div className="rounded-2xl border border-[#FF2D8E]/30 bg-white/5 p-6 text-left">
                 <h3 className="font-bold text-white text-lg">Ryan Kent</h3>
-                <p className="text-[#E6007E] text-sm font-medium mb-2">FNP-BC</p>
+                <p className="text-[#FF2D8E] text-sm font-medium mb-2">FNP-BC</p>
                 <p className="text-sm text-white/70">Hormone optimization, weight loss, IV therapy, and medical oversight.</p>
               </div>
             </div>
@@ -477,26 +477,26 @@ export function MembershipsContent() {
       <section className="py-16 md:py-24 px-6 md:px-12 bg-[#FDF7FA]">
         <div className="max-w-4xl mx-auto text-center">
           <FadeUp>
-            <h2 className="text-2xl md:text-3xl font-bold text-[#111111] mb-6">
+            <h2 className="text-2xl md:text-3xl font-bold text-[#000000] mb-6">
               Why Membership?
             </h2>
-            <p className="text-[#111111]/80 mb-8">
+            <p className="text-[#000000]/80 mb-8">
               Same-day visits. Next-day labs. No waiting rooms. No guesswork. Our programs are built for continuity—you get the care you need, when you need it.
             </p>
             <div className="flex flex-wrap justify-center gap-6 text-sm">
-              <span className="flex items-center gap-2 text-[#111111]">
+              <span className="flex items-center gap-2 text-[#000000]">
                 <span className="text-green-500">💊</span>
                 Prescriptions included
               </span>
-              <span className="flex items-center gap-2 text-[#111111]">
+              <span className="flex items-center gap-2 text-[#000000]">
                 <span className="text-blue-500">🩸</span>
                 Next-day lab results
               </span>
-              <span className="flex items-center gap-2 text-[#111111]">
+              <span className="flex items-center gap-2 text-[#000000]">
                 <span className="text-purple-500">📅</span>
                 Same-day visits
               </span>
-              <span className="flex items-center gap-2 text-[#111111]">
+              <span className="flex items-center gap-2 text-[#000000]">
                 <span className="text-amber-500">💉</span>
                 IV & vitamin injections
               </span>
@@ -508,7 +508,7 @@ export function MembershipsContent() {
       {/* Compliance Disclaimer */}
       <section className="py-8 px-6 md:px-12 bg-white">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="text-xs text-[#111111]/70">
+          <p className="text-xs text-[#000000]/70">
             Results vary by individual. All treatments performed by licensed medical professionals. 
             Client consent on file. This tool and membership programs provide educational information only and do not diagnose, treat, or replace medical advice.
           </p>
@@ -518,13 +518,13 @@ export function MembershipsContent() {
       {/* CTA */}
       <section className="py-16 px-6 md:px-12 bg-white">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="text-[#111111]/80 mb-6">
+          <p className="text-[#000000]/80 mb-6">
             Questions? Call us at{" "}
-            <a href="tel:630-636-6193" className="text-[#E6007E] font-semibold hover:underline">
+            <a href="tel:630-636-6193" className="text-[#FF2D8E] font-semibold hover:underline">
               630-636-6193
             </a>{" "}
             or{" "}
-            <Link href="/contact" className="text-[#E6007E] font-semibold hover:underline">
+            <Link href="/contact" className="text-[#FF2D8E] font-semibold hover:underline">
               send a message
             </Link>
             .

@@ -498,7 +498,7 @@ export default function ExecutiveDashboard() {
           {/* Quick Actions */}
           <Link
             href="/admin/appointments/new"
-            className="px-5 py-2.5 bg-[#E6007E] text-white font-medium rounded-lg hover:bg-[#c90a68] text-sm transition-colors"
+            className="px-5 py-2.5 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-[#c90a68] text-sm transition-colors"
           >
             + New Booking
           </Link>

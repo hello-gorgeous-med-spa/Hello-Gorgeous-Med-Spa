@@ -218,19 +218,19 @@
   color: white !important;
 }
 [data-site="public"] [data-dark] p[class*="E6007E"] {
-  color: #E6007E !important;
+  color: #FF2D8E !important;
 }
 [data-site="public"] [data-dark] p {
   color: rgba(255, 255, 255, 0.85) !important;
 }
 [data-site="public"] [data-dark] p[class*="E6007E"] {
-  color: #E6007E !important;
+  color: #FF2D8E !important;
 }
 
 /* Hello Gorgeous Premium Medical Glam — Design Tokens */
 :root {
-  --hg-pink: #E6007E;
-  --hg-pink-deep: #B0005F;
+  --hg-pink: #FF2D8E;
+  --hg-pink-deep: #FF2D8E;
   --hg-bg-soft: #FDF7FA;
   --hg-dark: #000000;
   --hg-gray: #000000;

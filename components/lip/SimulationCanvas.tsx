@@ -197,8 +197,8 @@ export function SimulationCanvas({
 
   if (error) {
     return (
-      <div className="rounded-xl bg-[#FDF7FA] border border-[#E6007E]/20 p-6 text-center">
-        <p className="text-[#E6007E] text-sm font-medium">{error}</p>
+      <div className="rounded-xl bg-[#FDF7FA] border border-[#FF2D8E]/20 p-6 text-center">
+        <p className="text-[#FF2D8E] text-sm font-medium">{error}</p>
       </div>
     );
   }
@@ -208,7 +208,7 @@ export function SimulationCanvas({
       {!ready && (
         <div className="absolute inset-0 flex items-center justify-center bg-[#FDF7FA]/90 rounded-lg z-10">
           <div className="flex flex-col items-center gap-3">
-            <div className="w-10 h-10 border-2 border-[#E6007E]/40 border-t-[#E6007E] rounded-full animate-spin" />
+            <div className="w-10 h-10 border-2 border-[#FF2D8E]/40 border-t-[#FF2D8E] rounded-full animate-spin" />
             <p className="text-[#5E5E66] text-sm">Detecting face...</p>
           </div>
         </div>

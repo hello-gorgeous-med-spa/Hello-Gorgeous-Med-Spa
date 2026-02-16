@@ -642,7 +642,7 @@ function UnifiedChartTabContent({
           ) : appointments.length === 0 ? (
             <div className="p-8 text-center text-slate-500">
               No appointments
-              <Link href={`/admin/appointments/new?client=${clientId}`} className="block text-[#E6007E] mt-2 font-medium">+ Book</Link>
+              <Link href={`/admin/appointments/new?client=${clientId}`} className="block text-[#FF2D8E] mt-2 font-medium">+ Book</Link>
             </div>
           ) : (
             <table className="w-full">
@@ -719,7 +719,7 @@ function UnifiedChartTabContent({
       {chartSubTab === 'chart-to-cart' && (
         <div className="space-y-4">
           <TreatmentSessionsSection clientId={clientId} />
-          <Link href="/admin/chart-to-cart/new" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#E6007E] text-white font-medium rounded-lg">
+          <Link href="/admin/chart-to-cart/new" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FF2D8E] text-white font-medium rounded-lg">
             <span>🛒</span> New Chart-to-Cart Session
           </Link>
         </div>

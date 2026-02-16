@@ -65,12 +65,12 @@ export default function PlainfieldHubPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-pink-100 via-pink-50 to-white" />
         <div className="relative z-10">
           <FadeUp>
-            <p className="text-[#E6007E] text-lg md:text-xl font-medium mb-6 tracking-wide">
+            <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">
               PLAINFIELD, IL
             </p>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-black">
               Premium, clinical med spa care{" "}
-              <span className="text-[#E6007E]">
+              <span className="text-[#FF2D8E]">
                 near Plainfield
               </span>
             </h1>

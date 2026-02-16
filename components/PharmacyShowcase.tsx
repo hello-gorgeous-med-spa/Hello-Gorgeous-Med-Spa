@@ -190,14 +190,14 @@ export function PharmacyShowcase() {
       <div className="max-w-6xl mx-auto">
         <FadeUp>
           <div className="text-center mb-10">
-            <p className="text-[#E6007E] text-sm font-medium tracking-wide">COMPOUNDED PHARMACY</p>
-            <h2 className="mt-4 text-3xl md:text-4xl font-serif font-bold text-[#E6007E]">
+            <p className="text-[#FF2D8E] text-sm font-medium tracking-wide">COMPOUNDED PHARMACY</p>
+            <h2 className="mt-4 text-3xl md:text-4xl font-serif font-bold text-[#FF2D8E]">
               Peptides, GLP-1 &{" "}
-              <span className="text-[#E6007E]">
+              <span className="text-[#FF2D8E]">
                 Vitamin Injections
               </span>
             </h2>
-            <p className="mt-4 text-[#E6007E] max-w-2xl mx-auto">
+            <p className="mt-4 text-[#FF2D8E] max-w-2xl mx-auto">
               Premium compounded medications for weight loss, wellness, and optimization.
               All prescribed by our medical team after consultation.
             </p>
@@ -214,8 +214,8 @@ export function PharmacyShowcase() {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`px-5 py-2.5 rounded-full font-medium text-sm transition-all ${
                   activeCategory === cat.id
-                    ? "bg-[#E6007E] text-white shadow-md"
-                    : "bg-[#111111]/5 text-[#E6007E] hover:bg-[#111111]/10 hover:text-[#E6007E] border border-black"
+                    ? "bg-[#FF2D8E] text-white shadow-md"
+                    : "bg-[#000000]/5 text-[#FF2D8E] hover:bg-[#000000]/10 hover:text-[#FF2D8E] border border-black"
                 }`}
               >
                 <span className="mr-2">{cat.icon}</span>
@@ -257,32 +257,32 @@ export function PharmacyShowcase() {
                       </div>
                     </div>
                     {/* Slide counter */}
-                    <div className="absolute bottom-4 right-4 px-3 py-1.5 rounded-full bg-[#E6007E] text-white text-xs font-medium">
+                    <div className="absolute bottom-4 right-4 px-3 py-1.5 rounded-full bg-[#FF2D8E] text-white text-xs font-medium">
                       {currentSlide + 1} / {filteredSlides.length}
                     </div>
                   </div>
 
                   {/* Right - Info */}
                   <div>
-                    <div className="inline-block px-3 py-1 rounded-full bg-[#E6007E]/10 text-[#E6007E] text-xs font-medium mb-4">
+                    <div className="inline-block px-3 py-1 rounded-full bg-[#FF2D8E]/10 text-[#FF2D8E] text-xs font-medium mb-4">
                       {currentItem.category === "weightloss" ? "GLP-1 WEIGHT LOSS" : 
                        currentItem.category === "peptides" ? "PEPTIDE THERAPY" : 
                        "VITAMIN INJECTION"}
                     </div>
-                    <h3 className="text-3xl md:text-4xl font-bold text-[#E6007E] mb-2">
+                    <h3 className="text-3xl md:text-4xl font-bold text-[#FF2D8E] mb-2">
                       {currentItem.name}
                     </h3>
-                    <p className="text-xl text-[#E6007E] mb-6">
+                    <p className="text-xl text-[#FF2D8E] mb-6">
                       {currentItem.tagline}
                     </p>
 
                     <div className="space-y-3 mb-8">
                       {currentItem.benefits.map((benefit) => (
                         <div key={benefit} className="flex items-center gap-3">
-                          <div className="w-6 h-6 rounded-full bg-[#E6007E] flex items-center justify-center flex-shrink-0">
+                          <div className="w-6 h-6 rounded-full bg-[#FF2D8E] flex items-center justify-center flex-shrink-0">
                             <span className="text-white text-xs font-bold">✓</span>
                           </div>
-                          <span className="text-[#E6007E]">{benefit}</span>
+                          <span className="text-[#FF2D8E]">{benefit}</span>
                         </div>
                       ))}
                     </div>
@@ -292,13 +292,13 @@ export function PharmacyShowcase() {
                         href={BOOKING_URL}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="py-3 px-6 bg-[#E6007E] text-white font-bold text-center rounded-full hover:bg-[#B0005F] transition shadow-lg"
+                        className="py-3 px-6 bg-[#FF2D8E] text-white font-bold text-center rounded-full hover:bg-[#FF2D8E] transition shadow-lg"
                       >
                         Book Consultation
                       </a>
                       <Link
                         href={currentItem.serviceLink}
-                        className="py-3 px-6 border-2 border-[#E6007E] text-[#E6007E] font-semibold text-center rounded-full hover:bg-[#E6007E]/5 transition block"
+                        className="py-3 px-6 border-2 border-[#FF2D8E] text-[#FF2D8E] font-semibold text-center rounded-full hover:bg-[#FF2D8E]/5 transition block"
                       >
                         Learn More
                       </Link>
@@ -312,14 +312,14 @@ export function PharmacyShowcase() {
             <button
               type="button"
               onClick={prevSlide}
-              className="absolute left-2 md:-left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white border-2 border-[#E6007E] text-[#E6007E] flex items-center justify-center hover:bg-[#E6007E] hover:text-white transition z-10 shadow-md"
+              className="absolute left-2 md:-left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white border-2 border-[#FF2D8E] text-[#FF2D8E] flex items-center justify-center hover:bg-[#FF2D8E] hover:text-white transition z-10 shadow-md"
             >
               ←
             </button>
             <button
               type="button"
               onClick={nextSlide}
-              className="absolute right-2 md:-right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white border-2 border-[#E6007E] text-[#E6007E] flex items-center justify-center hover:bg-[#E6007E] hover:text-white transition z-10 shadow-md"
+              className="absolute right-2 md:-right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-white border-2 border-[#FF2D8E] text-[#FF2D8E] flex items-center justify-center hover:bg-[#FF2D8E] hover:text-white transition z-10 shadow-md"
             >
               →
             </button>
@@ -334,7 +334,7 @@ export function PharmacyShowcase() {
               type="button"
               onClick={() => setCurrentSlide(idx)}
               className={`h-2 rounded-full transition-all ${
-                idx === currentSlide ? "bg-[#E6007E] w-8" : "bg-gray-300 w-2 hover:bg-[#E6007E]/50"
+                idx === currentSlide ? "bg-[#FF2D8E] w-8" : "bg-gray-300 w-2 hover:bg-[#FF2D8E]/50"
               }`}
             />
           ))}

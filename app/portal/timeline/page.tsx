@@ -77,7 +77,7 @@ export default function TimelinePage() {
         <button
           onClick={() => { setCompareMode(!compareMode); setComparePhotos([]); }}
           className={`px-4 py-2 rounded-xl text-sm font-medium transition-colors ${
-            compareMode ? 'bg-[#E6007E] text-white' : 'border border-[#111]/20 text-[#111]/70 hover:border-[#E6007E]'
+            compareMode ? 'bg-[#FF2D8E] text-white' : 'border border-[#111]/20 text-[#111]/70 hover:border-[#FF2D8E]'
           }`}
         >
           {compareMode ? 'Exit Compare' : '🔄 Compare'}
@@ -92,8 +92,8 @@ export default function TimelinePage() {
             onClick={() => setActiveFilter(filter.id)}
             className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-all ${
               activeFilter === filter.id
-                ? 'bg-[#E6007E] text-white'
-                : 'bg-white border border-[#111]/10 text-[#111]/70 hover:border-[#E6007E]/50'
+                ? 'bg-[#FF2D8E] text-white'
+                : 'bg-white border border-[#111]/10 text-[#111]/70 hover:border-[#FF2D8E]/50'
             }`}
           >
             <span>{filter.icon}</span>
@@ -182,7 +182,7 @@ export default function TimelinePage() {
                 key={photo.id}
                 onClick={() => compareMode ? toggleComparePhoto(photo) : setSelectedPhoto(photo)}
                 className={`relative aspect-square bg-gray-100 rounded-xl overflow-hidden cursor-pointer group ${
-                  compareMode && comparePhotos.find(p => p.id === photo.id) ? 'ring-4 ring-[#E6007E]' : ''
+                  compareMode && comparePhotos.find(p => p.id === photo.id) ? 'ring-4 ring-[#FF2D8E]' : ''
                 }`}
               >
                 <img
@@ -222,7 +222,7 @@ export default function TimelinePage() {
               <p className="text-white/70 text-sm mt-1">{new Date(selectedPhoto.takenAt).toLocaleDateString()}</p>
               {selectedPhoto.notes && <p className="text-white/60 text-sm mt-2">{selectedPhoto.notes}</p>}
               {selectedPhoto.daysPostTreatment && (
-                <p className="text-[#E6007E] text-sm mt-2">{selectedPhoto.daysPostTreatment} days post-treatment</p>
+                <p className="text-[#FF2D8E] text-sm mt-2">{selectedPhoto.daysPostTreatment} days post-treatment</p>
               )}
             </div>
           </div>

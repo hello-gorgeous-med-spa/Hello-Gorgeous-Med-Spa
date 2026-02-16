@@ -16,12 +16,12 @@ export default function LipStudioPage() {
       <div className="max-w-4xl mx-auto">
         <FadeUp>
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-1 rounded-full bg-[#E6007E]/15 text-[#E6007E] text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-1 rounded-full bg-[#FF2D8E]/15 text-[#FF2D8E] text-sm font-medium mb-4">
               💋 Lip Enhancement Studio™
             </span>
-            <h1 className="text-3xl md:text-4xl font-serif font-bold text-[#111111] mb-3">
+            <h1 className="text-3xl md:text-4xl font-serif font-bold text-[#000000] mb-3">
               See Your Look{" "}
-              <span className="text-[#E6007E]">Before You Book</span>
+              <span className="text-[#FF2D8E]">Before You Book</span>
             </h1>
             <p className="text-[#5E5E66] max-w-xl mx-auto">
               Upload your photo for a simulated preview. Select a preset enhancement level to

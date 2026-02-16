@@ -54,7 +54,7 @@ export function ResultsGallery({ results }: { results: ResultItem[] }) {
             onClick={() => setActiveFilter("all")}
             className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
               activeFilter === "all"
-                ? "bg-[#E6007E] text-white shadow-lg shadow-pink-500/30"
+                ? "bg-[#FF2D8E] text-white shadow-lg shadow-pink-500/30"
                 : "bg-white/10 text-white/70 hover:bg-white/20 hover:text-white"
             }`}
           >
@@ -68,7 +68,7 @@ export function ResultsGallery({ results }: { results: ResultItem[] }) {
                 onClick={() => setActiveFilter(tag)}
                 className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
                   activeFilter === tag
-                    ? "bg-[#E6007E] text-white shadow-lg shadow-pink-500/30"
+                    ? "bg-[#FF2D8E] text-white shadow-lg shadow-pink-500/30"
                     : "bg-white/10 text-white/70 hover:bg-white/20 hover:text-white"
                 }`}
               >

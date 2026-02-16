@@ -138,12 +138,12 @@ export function UnderstandYourBody() {
     <div className="grid gap-10 lg:grid-cols-12">
       <div className="lg:col-span-6">
         <FadeUp>
-          <p className="text-[#E6007E] text-lg md:text-xl font-medium mb-6 tracking-wide">
+          <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">
             UNDERSTAND YOUR BODY
           </p>
           <h1 className="text-4xl md:text-6xl font-bold leading-tight text-white">
             Education that feels{" "}
-            <span className="text-[#E6007E]">
+            <span className="text-[#FF2D8E]">
               human
             </span>
           </h1>
@@ -154,7 +154,7 @@ export function UnderstandYourBody() {
 
         <div className="mt-10 grid gap-4">
           <FadeUp delayMs={80}>
-            <div className="rounded-2xl border border-[#E6007E]/30 bg-black p-6">
+            <div className="rounded-2xl border border-[#FF2D8E]/30 bg-black p-6">
               <p className="text-sm text-white/70">Pick a topic</p>
               <div className="mt-4 grid gap-3">
                 {TOPICS.map((t) => {
@@ -166,7 +166,7 @@ export function UnderstandYourBody() {
                       onClick={() => setTopicId(t.id)}
                       className={cx(
                         "text-left rounded-2xl border bg-black p-5 transition",
-                        active ? "border-[#E6007E] bg-[#E6007E]/10" : "border-white/20 hover:border-[#E6007E]/50",
+                        active ? "border-[#FF2D8E] bg-[#FF2D8E]/10" : "border-white/20 hover:border-[#FF2D8E]/50",
                       )}
                     >
                       <p className="text-sm text-white font-medium">{t.label}</p>
@@ -190,8 +190,8 @@ export function UnderstandYourBody() {
                         className={cx(
                           "text-xs font-semibold rounded-full px-3 py-2 border transition",
                           active
-                            ? "border-[#E6007E] bg-[#E6007E]/20 text-[#E6007E]"
-                            : "border-white/20 text-white/70 hover:bg-[#E6007E]/10 hover:text-white hover:border-[#E6007E]/50",
+                            ? "border-[#FF2D8E] bg-[#FF2D8E]/20 text-[#FF2D8E]"
+                            : "border-white/20 text-white/70 hover:bg-[#FF2D8E]/10 hover:text-white hover:border-[#FF2D8E]/50",
                         )}
                       >
                         <span className="mr-1">{PERSONA_UI[id].emoji}</span>
@@ -210,8 +210,8 @@ export function UnderstandYourBody() {
 
       <div className="lg:col-span-6">
         <FadeUp delayMs={140}>
-          <div className="rounded-2xl border border-[#E6007E]/30 bg-black overflow-hidden">
-            <div className="p-5 border-b border-[#E6007E]/30">
+          <div className="rounded-2xl border border-[#FF2D8E]/30 bg-black overflow-hidden">
+            <div className="p-5 border-b border-[#FF2D8E]/30">
               <p className="text-sm text-white/70">Chat mode</p>
               <p className="mt-1 text-lg font-semibold text-white">
                 {personaUi.emoji} {personaCfg.displayName} — {personaCfg.role}
@@ -226,24 +226,24 @@ export function UnderstandYourBody() {
                   className={cx(
                     "whitespace-pre-wrap text-sm leading-relaxed",
                     m.role === "user"
-                      ? "text-white bg-[#E6007E]/10 border border-[#E6007E]/30 rounded-2xl p-4"
+                      ? "text-white bg-[#FF2D8E]/10 border border-[#FF2D8E]/30 rounded-2xl p-4"
                       : "text-white/90",
                   )}
                 >
                   {m.content}
                 </div>
               ))}
-              {sending ? <div className="text-sm text-[#E6007E]">Thinking…</div> : null}
+              {sending ? <div className="text-sm text-[#FF2D8E]">Thinking…</div> : null}
             </div>
 
-            <div className="p-5 border-t border-[#E6007E]/30">
+            <div className="p-5 border-t border-[#FF2D8E]/30">
               <div className="flex flex-wrap gap-2">
                 {topic.starters.slice(0, 3).map((s) => (
                   <button
                     key={s}
                     type="button"
                     onClick={() => setInput(s)}
-                    className="text-left text-xs text-white/80 border border-white/20 rounded-full px-3 py-2 hover:bg-[#E6007E]/10 hover:border-[#E6007E]/50 transition"
+                    className="text-left text-xs text-white/80 border border-white/20 rounded-full px-3 py-2 hover:bg-[#FF2D8E]/10 hover:border-[#FF2D8E]/50 transition"
                   >
                     {s}
                   </button>
@@ -255,7 +255,7 @@ export function UnderstandYourBody() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Ask a question…"
-                  className="flex-1 rounded-xl bg-black border border-white/20 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/50 focus:border-[#E6007E]"
+                  className="flex-1 rounded-xl bg-black border border-white/20 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50 focus:border-[#FF2D8E]"
                   onKeyDown={(e) => {
                     if (e.key !== "Enter") return;
                     const q = input.trim();
@@ -280,7 +280,7 @@ export function UnderstandYourBody() {
                 <button
                   type="button"
                   disabled={sending}
-                  className="px-4 py-3 rounded-xl bg-[#E6007E] text-white font-semibold hover:bg-[#C4006B] transition disabled:opacity-60"
+                  className="px-4 py-3 rounded-xl bg-[#FF2D8E] text-white font-semibold hover:bg-[#C4006B] transition disabled:opacity-60"
                   onClick={() => {
                     const q = input.trim();
                     if (!q) return;

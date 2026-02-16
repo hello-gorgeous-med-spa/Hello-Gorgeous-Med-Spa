@@ -36,7 +36,7 @@ export function StickyMobileCTA() {
           </a>
           <a
             href="tel:630-636-6193"
-            className="min-h-[48px] py-3 px-4 border border-black text-[#E6007E] font-semibold rounded-full hover:bg-[#111111]/5 transition flex items-center justify-center gap-2"
+            className="min-h-[48px] py-3 px-4 border border-black text-[#FF2D8E] font-semibold rounded-full hover:bg-[#000000]/5 transition flex items-center justify-center gap-2"
           >
             <span>📞</span>
             <span className="hidden xs:inline">Call</span>

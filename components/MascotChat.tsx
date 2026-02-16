@@ -175,7 +175,7 @@ export function MascotChat() {
         onClick={() => toggleOpen()}
         className={`fixed bottom-24 md:bottom-6 right-4 z-[60] w-16 h-16 rounded-full shadow-2xl transition-all duration-300 flex items-center justify-center ${
           isOpen
-            ? "bg-[#111111] rotate-0"
+            ? "bg-[#000000] rotate-0"
             : "bg-gradient-to-br from-pink-500 to-pink-600 hover:scale-110"
         }`}
         aria-label={isOpen ? "Close chat" : "Open chat"}
@@ -192,7 +192,7 @@ export function MascotChat() {
 
       {/* Chat Window - z-[60], light theme for visibility */}
       {isOpen && (
-        <div data-mascot-chat className="fixed bottom-36 md:bottom-24 right-4 z-[60] w-[calc(100vw-2rem)] max-w-md bg-white rounded-2xl shadow-2xl ring-2 ring-[#E6007E]/30 overflow-hidden flex flex-col max-h-[80vh]">
+        <div data-mascot-chat className="fixed bottom-36 md:bottom-24 right-4 z-[60] w-[calc(100vw-2rem)] max-w-md bg-white rounded-2xl shadow-2xl ring-2 ring-[#FF2D8E]/30 overflow-hidden flex flex-col max-h-[80vh]">
           {/* Header with mascot image/video */}
           <div className="bg-gradient-to-r from-pink-600 to-pink-500 p-4 flex items-center justify-between shrink-0">
             <div className="flex items-center gap-3">
@@ -247,7 +247,7 @@ export function MascotChat() {
           {/* Content */}
           {!selectedMascot ? (
             // Mascot Selection with avatars
-            <div className="p-4 overflow-y-auto bg-[#111111]">
+            <div className="p-4 overflow-y-auto bg-[#000000]">
               <p className="text-white/80 text-sm mb-4 text-center">
                 Choose a team member to chat with:
               </p>
@@ -304,8 +304,8 @@ export function MascotChat() {
                     <div
                       className={`max-w-[85%] rounded-2xl px-4 py-3 ${
                         message.role === "user"
-                          ? "bg-[#E6007E] text-white rounded-br-md"
-                          : "mascot-message-bubble rounded-bl-md shadow-sm border border-[#111111]/10"
+                          ? "bg-[#FF2D8E] text-white rounded-br-md"
+                          : "mascot-message-bubble rounded-bl-md shadow-sm border border-[#000000]/10"
                       }`}
                     >
                       <p className="text-sm whitespace-pre-wrap">{message.content}</p>
@@ -336,11 +336,11 @@ export function MascotChat() {
                 ))}
                 {isLoading && (
                   <div className="flex justify-start">
-                    <div className="bg-white rounded-2xl rounded-bl-md px-4 py-3 shadow-sm border border-[#111111]/5">
+                    <div className="bg-white rounded-2xl rounded-bl-md px-4 py-3 shadow-sm border border-[#000000]/5">
                       <div className="flex gap-1">
-                        <span className="w-2 h-2 bg-[#E6007E] rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
-                        <span className="w-2 h-2 bg-[#E6007E] rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
-                        <span className="w-2 h-2 bg-[#E6007E] rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                        <span className="w-2 h-2 bg-[#FF2D8E] rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                        <span className="w-2 h-2 bg-[#FF2D8E] rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                        <span className="w-2 h-2 bg-[#FF2D8E] rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
                       </div>
                     </div>
                   </div>
@@ -351,14 +351,14 @@ export function MascotChat() {
               {/* Quick Starters */}
               {messages.length === 1 && currentUI && (
                 <div className="mascot-messages-area px-4 pb-2">
-                  <p className="text-[#111111] text-xs mb-2 font-medium">Quick questions:</p>
+                  <p className="text-[#000000] text-xs mb-2 font-medium">Quick questions:</p>
                   <div className="flex flex-wrap gap-2">
                     {currentUI.chatStarters.map((starter) => (
                       <button
                         key={starter}
                         type="button"
                         onClick={() => handleSendMessage(starter)}
-                        className="mascot-quick-btn px-3 py-2 rounded-full border text-xs hover:bg-[#E6007E]/10 hover:border-[#E6007E]/40 transition"
+                        className="mascot-quick-btn px-3 py-2 rounded-full border text-xs hover:bg-[#FF2D8E]/10 hover:border-[#FF2D8E]/40 transition"
                       >
                         {starter}
                       </button>
@@ -368,7 +368,7 @@ export function MascotChat() {
               )}
 
               {/* Input */}
-              <div className="mascot-input-area p-4 border-t border-[#111111]/15 shrink-0">
+              <div className="mascot-input-area p-4 border-t border-[#000000]/15 shrink-0">
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -382,18 +382,18 @@ export function MascotChat() {
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Ask a question..."
-                    className="flex-1 px-4 py-3 rounded-xl border border-[#111111]/20 text-sm placeholder:text-[#111111]/50 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/50 focus:border-[#E6007E] disabled:opacity-60"
+                    className="flex-1 px-4 py-3 rounded-xl border border-[#000000]/20 text-sm placeholder:text-[#000000]/50 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50 focus:border-[#FF2D8E] disabled:opacity-60"
                     disabled={isLoading}
                   />
                   <button
                     type="submit"
                     disabled={!input.trim() || isLoading}
-                    className="px-4 py-3 rounded-xl bg-[#E6007E] text-white font-semibold hover:bg-[#B0005F] transition disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
+                    className="px-4 py-3 rounded-xl bg-[#FF2D8E] text-white font-semibold hover:bg-[#FF2D8E] transition disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
                   >
                     Send
                   </button>
                 </form>
-                <p className="text-[#111111]/60 text-xs text-center mt-2">
+                <p className="text-[#000000]/60 text-xs text-center mt-2">
                   Education only • Not medical advice • Book a consult for personalized care
                 </p>
               </div>

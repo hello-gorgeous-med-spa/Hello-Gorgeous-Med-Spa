@@ -25,12 +25,12 @@ export default function ServicesPage() {
         <div className="absolute inset-0 bg-gradient-to-b from-pink-100 via-pink-50 to-white" />
         <div className="relative z-10">
           <FadeUp>
-            <p className="text-[#E6007E] text-lg md:text-xl font-medium mb-6 tracking-wide">
+            <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">
               EXPLORE CARE (SERVICES ATLAS™)
             </p>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight text-black">
               Our{" "}
-              <span className="text-[#E6007E]">
+              <span className="text-[#FF2D8E]">
                 Services
               </span>
             </h1>
@@ -61,14 +61,14 @@ export default function ServicesPage() {
             <FadeUp key={s.slug} delayMs={40 * idx}>
               <Link
                 href={`/services/${s.slug}`}
-                className="group block rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-6 hover:border-[#E6007E] transition"
+                className="group block rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-6 hover:border-[#FF2D8E] transition"
               >
-                <p className="text-[#E6007E] text-sm font-semibold tracking-wide">
+                <p className="text-[#FF2D8E] text-sm font-semibold tracking-wide">
                   {s.category.toUpperCase()}
                 </p>
                 <h2 className="mt-3 text-2xl font-bold text-black">{s.name}</h2>
                 <p className="mt-3 text-black/80">{s.short}</p>
-                <p className="mt-6 text-sm font-semibold text-[#E6007E]">
+                <p className="mt-6 text-sm font-semibold text-[#FF2D8E]">
                   Learn more{" "}
                   <span className="inline-block transition-transform group-hover:translate-x-1">
                     →

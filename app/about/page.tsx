@@ -67,7 +67,7 @@ export default function AboutPage() {
             },
           ].map((c, idx) => (
             <FadeUp key={c.title} delayMs={60 * idx}>
-              <div className="rounded-2xl border border-[#E6007E]/30 bg-gradient-to-b from-[#111111] to-black p-6">
+              <div className="rounded-2xl border border-[#FF2D8E]/30 bg-gradient-to-b from-[#000000] to-black p-6">
                 <h2 className="text-xl font-bold text-white">{c.title}</h2>
                 <p className="mt-3 text-white/80">{c.body}</p>
               </div>

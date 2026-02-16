@@ -64,7 +64,7 @@ function VerifyContent() {
             <div className="text-5xl mb-4">😕</div>
             <h1 className="text-2xl font-bold text-white">Link Expired</h1>
             <p className="text-white/70 mt-2">{error}</p>
-            <Link href="/portal/login" className="inline-block mt-6 bg-[#E6007E] text-white py-3 px-6 rounded-xl font-semibold hover:bg-[#E6007E]/90 transition-all">
+            <Link href="/portal/login" className="inline-block mt-6 bg-[#FF2D8E] text-white py-3 px-6 rounded-xl font-semibold hover:bg-[#FF2D8E]/90 transition-all">
               Request New Link
             </Link>
           </>

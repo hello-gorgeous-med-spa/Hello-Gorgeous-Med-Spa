@@ -35,11 +35,11 @@ export function PartnersGrid() {
     <section className="py-20 md:py-28 px-6 md:px-12 bg-white">
       <div className="max-w-6xl mx-auto min-w-0">
         <div className="text-center mb-12">
-          <p className="text-[#E6007E] text-sm font-medium tracking-wide">EXCLUSIVE OFFERS</p>
-          <h2 className="mt-4 text-2xl md:text-4xl font-serif font-bold text-[#E6007E]">
+          <p className="text-[#FF2D8E] text-sm font-medium tracking-wide">EXCLUSIVE OFFERS</p>
+          <h2 className="mt-4 text-2xl md:text-4xl font-serif font-bold text-[#FF2D8E]">
             Financing & Rewards
           </h2>
-          <p className="mt-4 text-[#E6007E] max-w-2xl mx-auto">
+          <p className="mt-4 text-[#FF2D8E] max-w-2xl mx-auto">
             We partner with the best to make your treatments affordable and rewarding.
           </p>
         </div>
@@ -51,7 +51,7 @@ export function PartnersGrid() {
               href={partner.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="group relative rounded-xl overflow-hidden border-2 border-black bg-white shadow-md hover:border-[#E6007E]/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-[2px]"
+              className="group relative rounded-xl overflow-hidden border-2 border-black bg-white shadow-md hover:border-[#FF2D8E]/30 transition-all duration-300 hover:shadow-xl hover:-translate-y-[2px]"
             >
               {/* Image */}
               <div className="relative h-64 md:h-72 w-full">
@@ -70,8 +70,8 @@ export function PartnersGrid() {
               <div className="absolute bottom-0 left-0 right-0 p-6">
                 <h3 className="text-xl font-bold text-white mb-1">{partner.name}</h3>
                 <p className="text-white/90 text-sm mb-2">{partner.description}</p>
-                <p className="text-[#E6007E] text-xs font-medium mb-4">{partner.highlight}</p>
-                <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#E6007E] text-white text-sm font-semibold group-hover:bg-[#B0005F] transition">
+                <p className="text-[#FF2D8E] text-xs font-medium mb-4">{partner.highlight}</p>
+                <span className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#FF2D8E] text-white text-sm font-semibold group-hover:bg-[#FF2D8E] transition">
                   {partner.cta}
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </span>

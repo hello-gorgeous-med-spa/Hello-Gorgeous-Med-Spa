@@ -104,7 +104,7 @@ export default function AftercarePage() {
                 className="w-full p-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-[#E6007E]/10 rounded-xl flex items-center justify-center">
+                  <div className="w-12 h-12 bg-[#FF2D8E]/10 rounded-xl flex items-center justify-center">
                     <span className="text-xl">
                       {ac.instructions?.treatmentType === 'botox' ? '💉' :
                        ac.instructions?.treatmentType === 'filler' ? '💋' :
@@ -140,7 +140,7 @@ export default function AftercarePage() {
                     <div className="space-y-2">
                       {ac.instructions.instructions.map((inst, idx) => (
                         <div key={idx} className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
-                          <span className="w-6 h-6 bg-[#E6007E] text-white rounded-full flex items-center justify-center text-xs flex-shrink-0">
+                          <span className="w-6 h-6 bg-[#FF2D8E] text-white rounded-full flex items-center justify-center text-xs flex-shrink-0">
                             {inst.step}
                           </span>
                           <p className="text-[#111]/80 text-sm">{inst.text}</p>
@@ -201,8 +201,8 @@ export default function AftercarePage() {
 
                   {/* Provider Notes */}
                   {ac.providerNotes && (
-                    <div className="p-4 bg-[#E6007E]/5 border border-[#E6007E]/20 rounded-xl">
-                      <p className="font-medium text-[#E6007E] mb-2">💗 Personal Notes From Your Provider</p>
+                    <div className="p-4 bg-[#FF2D8E]/5 border border-[#FF2D8E]/20 rounded-xl">
+                      <p className="font-medium text-[#FF2D8E] mb-2">💗 Personal Notes From Your Provider</p>
                       <p className="text-sm text-[#111]/70">{ac.providerNotes}</p>
                     </div>
                   )}
@@ -211,7 +211,7 @@ export default function AftercarePage() {
                   {!ac.acknowledgedAt && (
                     <button
                       onClick={() => handleAcknowledge(ac.id)}
-                      className="w-full bg-[#E6007E] text-white py-3 rounded-xl font-medium hover:bg-[#E6007E]/90 transition-colors"
+                      className="w-full bg-[#FF2D8E] text-white py-3 rounded-xl font-medium hover:bg-[#FF2D8E]/90 transition-colors"
                     >
                       ✓ I Have Read These Instructions
                     </button>

@@ -74,7 +74,7 @@ export function VideoGallery({ videos }: { videos: VideoItem[] }) {
             onClick={() => setFilter("all")}
             className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
               filter === "all"
-                ? "bg-[#E6007E] text-white shadow-lg shadow-pink-500/30"
+                ? "bg-[#FF2D8E] text-white shadow-lg shadow-pink-500/30"
                 : "bg-white/10 text-white/70 hover:bg-white/20 hover:text-white"
             }`}
           >
@@ -88,7 +88,7 @@ export function VideoGallery({ videos }: { videos: VideoItem[] }) {
                 onClick={() => setFilter(tag)}
                 className={`px-4 py-2 rounded-full text-sm font-semibold transition-all ${
                   filter === tag
-                    ? "bg-[#E6007E] text-white shadow-lg shadow-pink-500/30"
+                    ? "bg-[#FF2D8E] text-white shadow-lg shadow-pink-500/30"
                     : "bg-white/10 text-white/70 hover:bg-white/20 hover:text-white"
                 }`}
               >
@@ -123,7 +123,7 @@ export function VideoGallery({ videos }: { videos: VideoItem[] }) {
               {/* Play Button Overlay */}
               <span className="absolute inset-0 flex items-center justify-center">
                 <span className="rounded-full bg-white/90 p-4 shadow-lg transition-transform duration-300 group-hover:scale-110">
-                  <svg className="h-6 w-6 text-[#E6007E]" fill="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-6 w-6 text-[#FF2D8E]" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M8 5v14l11-7z" />
                   </svg>
                 </span>

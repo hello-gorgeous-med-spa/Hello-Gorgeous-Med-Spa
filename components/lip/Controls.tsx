@@ -33,15 +33,15 @@ export function Controls({ value, onChange }: ControlsProps) {
               className={`
                 px-4 py-2.5 rounded-md text-sm font-semibold transition-all duration-200
                 ${value === opt.value
-                  ? "bg-[#E6007E] text-white shadow-md"
-                  : "bg-white border border-[#EAE4E8] text-[#111111] hover:border-[#E6007E]/50 hover:bg-[#FDF7FA]"
+                  ? "bg-[#FF2D8E] text-white shadow-md"
+                  : "bg-white border border-[#EAE4E8] text-[#000000] hover:border-[#FF2D8E]/50 hover:bg-[#FDF7FA]"
                 }
               `}
             >
               {opt.label}
             </button>
             {hoveredTooltip === opt.value && (
-              <div className="absolute left-0 right-0 top-full mt-1 z-10 px-3 py-2 rounded-lg bg-[#111111] text-white text-xs max-w-[220px] shadow-lg">
+              <div className="absolute left-0 right-0 top-full mt-1 z-10 px-3 py-2 rounded-lg bg-[#000000] text-white text-xs max-w-[220px] shadow-lg">
                 {opt.tooltip}
               </div>
             )}

@@ -137,7 +137,7 @@ export default function ConsentsPage() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
     ctx.lineTo(e.nativeEvent.offsetX, e.nativeEvent.offsetY);
-    ctx.strokeStyle = '#E6007E';
+    ctx.strokeStyle = '#FF2D8E';
     ctx.lineWidth = 2;
     ctx.stroke();
   };
@@ -179,7 +179,7 @@ export default function ConsentsPage() {
                 </div>
                 <button
                   onClick={() => setActiveForm(formType)}
-                  className="bg-[#E6007E] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#E6007E]/90 transition-colors"
+                  className="bg-[#FF2D8E] text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-[#FF2D8E]/90 transition-colors"
                 >
                   Sign Now
                 </button>
@@ -236,7 +236,7 @@ export default function ConsentsPage() {
                 <button
                   onClick={() => setSignatureMode('type')}
                   className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    signatureMode === 'type' ? 'bg-[#E6007E] text-white' : 'bg-gray-100 text-[#111]/70'
+                    signatureMode === 'type' ? 'bg-[#FF2D8E] text-white' : 'bg-gray-100 text-[#111]/70'
                   }`}
                 >
                   Type Signature
@@ -244,7 +244,7 @@ export default function ConsentsPage() {
                 <button
                   onClick={() => setSignatureMode('draw')}
                   className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    signatureMode === 'draw' ? 'bg-[#E6007E] text-white' : 'bg-gray-100 text-[#111]/70'
+                    signatureMode === 'draw' ? 'bg-[#FF2D8E] text-white' : 'bg-gray-100 text-[#111]/70'
                   }`}
                 >
                   Draw Signature
@@ -257,7 +257,7 @@ export default function ConsentsPage() {
                   value={typedSignature}
                   onChange={(e) => setTypedSignature(e.target.value)}
                   placeholder="Type your full legal name"
-                  className="w-full px-4 py-3 border border-[#111]/20 rounded-xl text-lg italic focus:outline-none focus:ring-2 focus:ring-[#E6007E]/50"
+                  className="w-full px-4 py-3 border border-[#111]/20 rounded-xl text-lg italic focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50"
                 />
               ) : (
                 <div className="relative">
@@ -290,7 +290,7 @@ export default function ConsentsPage() {
                 <button
                   onClick={() => handleSign(activeForm)}
                   disabled={signing || (signatureMode === 'type' && !typedSignature.trim())}
-                  className="flex-1 py-3 bg-[#E6007E] text-white rounded-xl font-medium hover:bg-[#E6007E]/90 disabled:opacity-50 transition-colors"
+                  className="flex-1 py-3 bg-[#FF2D8E] text-white rounded-xl font-medium hover:bg-[#FF2D8E]/90 disabled:opacity-50 transition-colors"
                 >
                   {signing ? 'Signing...' : 'Sign & Submit'}
                 </button>

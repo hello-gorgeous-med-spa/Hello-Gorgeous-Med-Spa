@@ -140,7 +140,7 @@ export default async function ProviderProfilePage({ params }: { params: Promise<
       {/* Hero / About Section */}
       <section className="relative bg-gradient-to-br from-white to-white py-16 px-6">
         <div className="max-w-6xl mx-auto">
-          <Link href="/providers" className="text-[#E6007E] hover:underline text-sm mb-8 block">
+          <Link href="/providers" className="text-[#FF2D8E] hover:underline text-sm mb-8 block">
             ← All Providers
           </Link>
 
@@ -166,7 +166,7 @@ export default async function ProviderProfilePage({ params }: { params: Promise<
             <div>
               <h1 className="text-4xl md:text-5xl font-bold text-gray-900">{name}</h1>
               {provider.credentials && (
-                <p className="text-xl text-[#E6007E] font-medium mt-2">{provider.credentials}</p>
+                <p className="text-xl text-[#FF2D8E] font-medium mt-2">{provider.credentials}</p>
               )}
               {provider.tagline && (
                 <p className="text-gray-500 italic mt-1">{provider.tagline}</p>
@@ -179,7 +179,7 @@ export default async function ProviderProfilePage({ params }: { params: Promise<
               )}
 
               {provider.philosophy && (
-                <div className="mt-8 p-6 bg-white/80 rounded-2xl border border-[#E6007E]/20">
+                <div className="mt-8 p-6 bg-white/80 rounded-2xl border border-[#FF2D8E]/20">
                   <h3 className="font-semibold text-gray-900 mb-2">My Philosophy</h3>
                   <p className="text-gray-600 italic">&ldquo;{provider.philosophy}&rdquo;</p>
                 </div>
@@ -188,7 +188,7 @@ export default async function ProviderProfilePage({ params }: { params: Promise<
               <div className="mt-8">
                 <Link
                   href={provider.booking_url || `/book?provider=${provider.slug}`}
-                  className="inline-block px-10 py-4 bg-gradient-to-r from-[#E6007E] to-[#E6007E] text-white font-bold rounded-xl hover:from-pink-600 hover:to-rose-600 transition-colors shadow-lg"
+                  className="inline-block px-10 py-4 bg-gradient-to-r from-[#FF2D8E] to-[#FF2D8E] text-white font-bold rounded-xl hover:from-pink-600 hover:to-rose-600 transition-colors shadow-lg"
                 >
                   Book with {firstName}
                 </Link>
@@ -217,7 +217,7 @@ export default async function ProviderProfilePage({ params }: { params: Promise<
             <ProviderMediaSection media={beforeAfters} type="before_after" />
 
             {/* Disclaimer */}
-            <div className="mt-12 p-6 bg-white/80 rounded-xl border border-[#E6007E]/20 text-sm text-gray-500">
+            <div className="mt-12 p-6 bg-white/80 rounded-xl border border-[#FF2D8E]/20 text-sm text-gray-500">
               <p>
                 <strong>Disclaimer:</strong> Results vary by individual. All treatments performed by licensed
                 medical professionals. Client consent on file.
@@ -228,7 +228,7 @@ export default async function ProviderProfilePage({ params }: { params: Promise<
       )}
 
       {/* CTA Section */}
-      <section className="py-16 px-6 bg-gradient-to-r from-[#E6007E] to-[#E6007E]">
+      <section className="py-16 px-6 bg-gradient-to-r from-[#FF2D8E] to-[#FF2D8E]">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl font-bold text-white">
             Ready to Book with {firstName}?
@@ -239,7 +239,7 @@ export default async function ProviderProfilePage({ params }: { params: Promise<
           <div className="mt-8 flex justify-center gap-4 flex-wrap">
             <Link
               href={provider.booking_url || `/book?provider=${provider.slug}`}
-              className="px-10 py-4 bg-white text-[#E6007E] font-bold rounded-xl hover:bg-[#E6007E]/10 transition-colors shadow-xl"
+              className="px-10 py-4 bg-white text-[#FF2D8E] font-bold rounded-xl hover:bg-[#FF2D8E]/10 transition-colors shadow-xl"
             >
               Book with {firstName}
             </Link>
