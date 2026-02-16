@@ -53,6 +53,7 @@ const FULL_NAV_ITEMS = [
   { href: '/portal', label: 'Dashboard', icon: '🏠' },
   { href: '/portal/appointments', label: 'Appointments', icon: '📅' },
   { href: '/portal/book', label: 'Book Now', icon: '✨' },
+  { href: '/portal/labs', label: 'Lab Insights', icon: '🧪' },
   { href: '/portal/documents', label: 'Documents', icon: '📁' },
   { href: '/portal/receipts', label: 'Receipts', icon: '🧾' },
   { href: '/portal/wallet', label: 'Wallet', icon: '💳' },

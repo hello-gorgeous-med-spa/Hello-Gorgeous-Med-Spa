@@ -15,6 +15,7 @@ function Skeleton({ className = '' }: { className?: string }) {
 
 const QUICK_ACTIONS = [
   { title: 'Book Appointment', description: 'Schedule your next visit', href: '/portal/book', icon: '📅', color: 'from-[#E6007E] to-[#c90a68]', primary: true },
+  { title: 'Lab Insights', description: 'Upload hormone labs for AI insights', href: '/portal/labs', icon: '🧪', color: 'bg-slate-50 border border-slate-200' },
   { title: 'My Documents', description: 'Access your records', href: '/portal/documents', icon: '📁', color: 'bg-slate-50 border border-slate-200' },
   { title: 'Consent Forms', description: 'Sign required forms', href: '/portal/consents', icon: '📝', color: 'bg-slate-50 border border-slate-200' },
   { title: 'My Progress', description: 'View your transformation', href: '/portal/timeline', icon: '📸', color: 'bg-slate-50 border border-slate-200' },

@@ -58,24 +58,81 @@
   color: var(--hg-pink-deep);
 }
 
-/* Override gray on public site: black/white/pink only */
+/* ============================================================
+   PUBLIC SITE: BLACK, WHITE, PINK ONLY — NO GRAY
+   All gray/slate/zinc/stone/neutral converted to black or light pink
+   ============================================================ */
+
+/* All gray text → black */
+[data-site="public"] .text-gray-100,
+[data-site="public"] .text-gray-200,
 [data-site="public"] .text-gray-300,
 [data-site="public"] .text-gray-400,
 [data-site="public"] .text-gray-500,
 [data-site="public"] .text-gray-600,
 [data-site="public"] .text-gray-700,
-[data-site="public"] .text-gray-900 {
+[data-site="public"] .text-gray-800,
+[data-site="public"] .text-gray-900,
+[data-site="public"] .text-slate-400,
+[data-site="public"] .text-slate-500,
+[data-site="public"] .text-slate-600,
+[data-site="public"] .text-slate-700,
+[data-site="public"] .text-slate-800,
+[data-site="public"] .text-slate-900,
+[data-site="public"] .text-zinc-400,
+[data-site="public"] .text-zinc-500,
+[data-site="public"] .text-zinc-600,
+[data-site="public"] .text-zinc-700,
+[data-site="public"] .text-zinc-800,
+[data-site="public"] .text-zinc-900,
+[data-site="public"] .text-stone-500,
+[data-site="public"] .text-stone-600,
+[data-site="public"] .text-stone-700,
+[data-site="public"] .text-stone-800,
+[data-site="public"] .text-stone-900,
+[data-site="public"] .text-neutral-500,
+[data-site="public"] .text-neutral-600,
+[data-site="public"] .text-neutral-700,
+[data-site="public"] .text-neutral-800,
+[data-site="public"] .text-neutral-900 {
   color: #111111 !important;
 }
+
+/* Gray backgrounds → white or light pink */
 [data-site="public"] [class*="bg-gray-50"],
-[data-site="public"] [class*="bg-gray-100"] {
-  background-color: #FDF7FA !important;
+[data-site="public"] [class*="bg-gray-100"],
+[data-site="public"] [class*="bg-slate-50"],
+[data-site="public"] [class*="bg-slate-100"],
+[data-site="public"] [class*="bg-zinc-50"],
+[data-site="public"] [class*="bg-zinc-100"],
+[data-site="public"] [class*="bg-stone-50"],
+[data-site="public"] [class*="bg-stone-100"],
+[data-site="public"] [class*="bg-neutral-50"],
+[data-site="public"] [class*="bg-neutral-100"] {
+  background-color: #ffffff !important;
 }
-[data-site="public"] [class*="bg-gray-200"] {
+[data-site="public"] [class*="bg-gray-200"],
+[data-site="public"] [class*="bg-slate-200"],
+[data-site="public"] [class*="bg-zinc-200"],
+[data-site="public"] [class*="bg-stone-200"],
+[data-site="public"] [class*="bg-neutral-200"] {
   background-color: rgba(230, 0, 126, 0.08) !important;
 }
-[data-site="public"] [class*="border-gray"] {
+
+/* Gray borders → black with opacity */
+[data-site="public"] [class*="border-gray"],
+[data-site="public"] [class*="border-slate"],
+[data-site="public"] [class*="border-zinc"],
+[data-site="public"] [class*="border-stone"],
+[data-site="public"] [class*="border-neutral"] {
   border-color: rgba(17, 17, 17, 0.15) !important;
+}
+
+/* Light sections: ensure body text is dark (excludes buttons/CTAs with explicit colors) */
+[data-site="public"] section.bg-white p:not([class*="text-white"]):not([class*="text-pink"]),
+[data-site="public"] section.bg-white span:not([class*="text-white"]):not([class*="text-pink"]),
+[data-site="public"] .bg-white label:not([class*="text-white"]):not([class*="text-pink"]) {
+  color: #111111 !important;
 }
 
 /* Portal: no gray, use black/white/pink */
@@ -199,24 +256,16 @@ main,
    WHITE-ON-WHITE BUG FIX
    ============================================================ */
 
-/* Force darker input text - applies to all form inputs */
-input, 
-textarea, 
-select {
-  color: #111827 !important; /* gray-900 */
-}
-
-input::placeholder,
-textarea::placeholder {
-  color: #9ca3af !important; /* gray-400 - lighter than typed text */
-}
-
-/* Admin-specific darker text overrides */
+/* Admin only: force darker input text (do NOT apply globally - breaks public modals) */
 .admin-panel input,
 .admin-panel textarea,
 .admin-panel select {
   color: #111827 !important;
   font-weight: 500;
+}
+.admin-panel input::placeholder,
+.admin-panel textarea::placeholder {
+  color: #9ca3af !important;
 }
 
 /* CRITICAL: Fix white text on white backgrounds in admin panel */
@@ -272,10 +321,10 @@ textarea::placeholder {
   --tw-text-opacity: 1;
 }
 
-/* Ensure table text is readable */
-table td,
-table th {
-  color: #374151; /* gray-700 minimum */
+/* Admin only: ensure table text is readable */
+.admin-panel table td,
+.admin-panel table th {
+  color: #374151 !important;
 }
 
 /* Better contrast for stat cards */
@@ -284,13 +333,13 @@ table th {
   font-weight: 500;
 }
 
-/* Override any faded text in admin areas */
-main input,
-main textarea,
-main select,
-aside input,
-aside textarea,
-aside select {
+/* Override any faded text in admin areas only */
+.admin-panel main input,
+.admin-panel main textarea,
+.admin-panel main select,
+.admin-panel aside input,
+.admin-panel aside textarea,
+.admin-panel aside select {
   color: #111827 !important;
 }
 
