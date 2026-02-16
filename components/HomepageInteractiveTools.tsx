@@ -13,7 +13,7 @@ export function HomepageInteractiveTools() {
   }, []);
 
   return (
-    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FDF7FA]">
+    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FFFFFF]">
       <div className="max-w-6xl mx-auto min-w-0">
         <FadeUp>
           <div className="text-center mb-10">
@@ -24,7 +24,7 @@ export function HomepageInteractiveTools() {
               Plan Your Perfect{" "}
               <span className="text-[#FF2D8E]">Treatment</span>
             </h2>
-            <p className="text-[#5E5E66] max-w-2xl mx-auto">
+            <p className="text-[#000000] max-w-2xl mx-auto">
               Explore your concerns, get personalized recommendations, and estimate your Botox cost — all in one place.
             </p>
           </div>
@@ -41,7 +41,7 @@ export function HomepageInteractiveTools() {
                 <span className="text-2xl">🎯</span>
                 <h3 className="text-xl font-bold text-[#000000]">Virtual Consultation</h3>
               </div>
-              <p className="text-[#5E5E66] text-sm mb-4">
+              <p className="text-[#000000] text-sm mb-4">
                 Click areas on the body you&apos;d like to improve → get your personalized treatment plan.
               </p>
               <div className="flex-1 min-h-0">

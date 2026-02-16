@@ -34,7 +34,7 @@ export function Controls({ value, onChange }: ControlsProps) {
                 px-4 py-2.5 rounded-md text-sm font-semibold transition-all duration-200
                 ${value === opt.value
                   ? "bg-[#FF2D8E] text-white shadow-md"
-                  : "bg-white border border-[#EAE4E8] text-[#000000] hover:border-[#FF2D8E]/50 hover:bg-[#FDF7FA]"
+                  : "bg-white border border-[#000000] text-[#000000] hover:border-[#FF2D8E]/50 hover:bg-[#FFFFFF]"
                 }
               `}
             >
@@ -48,7 +48,7 @@ export function Controls({ value, onChange }: ControlsProps) {
           </div>
         ))}
       </div>
-      <p className="text-[#5E5E66] text-xs">
+      <p className="text-[#000000] text-xs">
         Enhancements are intentionally capped to reflect safe, realistic outcomes.
       </p>
     </div>

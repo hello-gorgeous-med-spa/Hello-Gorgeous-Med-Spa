@@ -72,7 +72,7 @@ export function LipStudio() {
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Disclaimer before upload */}
-      <div className="rounded-xl bg-[#FDF7FA] border border-[#FF2D8E]/20 p-4">
+      <div className="rounded-xl bg-[#FFFFFF] border border-[#FF2D8E]/20 p-4">
         <label className="flex items-start gap-3 cursor-pointer">
           <input
             type="checkbox"
@@ -99,7 +99,7 @@ export function LipStudio() {
       </div>
 
       {/* Now try yours */}
-      <div className="space-y-4 pt-4 border-t border-[#EAE4E8]">
+      <div className="space-y-4 pt-4 border-t border-[#000000]">
         <h3 className="text-lg font-semibold text-[#000000]">Now try yours</h3>
         {!imageSrc ? (
           <UploadArea
@@ -116,14 +116,14 @@ export function LipStudio() {
               onLandmarksDetected={handleLandmarksDetected}
             />
 
-            <p className="text-[#5E5E66] text-xs text-center">
+            <p className="text-[#000000] text-xs text-center">
               Simulation for educational purposes only. Results vary based on anatomy and provider
               technique.
             </p>
 
             {/* P7: Peak emotion CTA - show after 1 or 1.5 syringe */}
             {showPeakEmotionCTA && (
-              <div className="rounded-xl bg-[#FDF7FA] border border-[#FF2D8E]/20 p-6 text-center">
+              <div className="rounded-xl bg-[#FFFFFF] border border-[#FF2D8E]/20 p-6 text-center">
                 <p className="text-[#000000] font-medium mb-4">Love this look?</p>
                 <Link
                   href={BOOKING_URL}
@@ -156,7 +156,7 @@ export function LipStudio() {
                   setFaceDetected(null);
                   setShowPeakEmotionCTA(false);
                 }}
-                className="py-4 px-10 rounded-md border border-[#EAE4E8] text-[#000000] font-medium hover:bg-[#FDF7FA] transition"
+                className="py-4 px-10 rounded-md border border-[#000000] text-[#000000] font-medium hover:bg-[#FFFFFF] transition"
               >
                 Try Different Photo
               </button>

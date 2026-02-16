@@ -14,7 +14,7 @@ const services = [
 
 export function ImmediateCareBanner() {
   return (
-    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FDF7FA] border-y border-black">
+    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FFFFFF] border-y border-black">
       <div className="max-w-6xl mx-auto min-w-0">
         <FadeUp>
           <div className="text-center mb-8">

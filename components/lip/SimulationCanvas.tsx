@@ -197,7 +197,7 @@ export function SimulationCanvas({
 
   if (error) {
     return (
-      <div className="rounded-xl bg-[#FDF7FA] border border-[#FF2D8E]/20 p-6 text-center">
+      <div className="rounded-xl bg-[#FFFFFF] border border-[#FF2D8E]/20 p-6 text-center">
         <p className="text-[#FF2D8E] text-sm font-medium">{error}</p>
       </div>
     );
@@ -206,31 +206,31 @@ export function SimulationCanvas({
   return (
     <div ref={containerRef} className="w-full max-w-full overflow-hidden relative">
       {!ready && (
-        <div className="absolute inset-0 flex items-center justify-center bg-[#FDF7FA]/90 rounded-lg z-10">
+        <div className="absolute inset-0 flex items-center justify-center bg-[#FFFFFF]/90 rounded-lg z-10">
           <div className="flex flex-col items-center gap-3">
             <div className="w-10 h-10 border-2 border-[#FF2D8E]/40 border-t-[#FF2D8E] rounded-full animate-spin" />
-            <p className="text-[#5E5E66] text-sm">Detecting face...</p>
+            <p className="text-[#000000] text-sm">Detecting face...</p>
           </div>
         </div>
       )}
       <div className="grid grid-cols-2 gap-4 md:gap-8">
         <div>
-          <p className="text-xs font-medium text-[#5E5E66] mb-2 uppercase tracking-wider">
+          <p className="text-xs font-medium text-[#000000] mb-2 uppercase tracking-wider">
             Original
           </p>
           <canvas
             ref={originalCanvasRef}
-            className="w-full h-auto max-w-full rounded-lg border border-[#EAE4E8] bg-[#FDF7FA]"
+            className="w-full h-auto max-w-full rounded-lg border border-[#000000] bg-[#FFFFFF]"
             style={{ maxHeight: "400px" }}
           />
         </div>
         <div>
-          <p className="text-xs font-medium text-[#5E5E66] mb-2 uppercase tracking-wider">
+          <p className="text-xs font-medium text-[#000000] mb-2 uppercase tracking-wider">
             Simulated
           </p>
           <canvas
             ref={simulatedCanvasRef}
-            className="w-full h-auto max-w-full rounded-lg border border-[#EAE4E8] bg-[#FDF7FA]"
+            className="w-full h-auto max-w-full rounded-lg border border-[#000000] bg-[#FFFFFF]"
             style={{ maxHeight: "400px" }}
           />
         </div>

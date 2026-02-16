@@ -87,7 +87,7 @@ export function HormoneLabInsightTool() {
           </div>
         </FadeUp>
 
-        <div className="rounded-2xl border-2 border-black/10 bg-[#FDF7FA]/50 p-6 md:p-8 shadow-md">
+        <div className="rounded-2xl border-2 border-black/10 bg-[#FFFFFF]/50 p-6 md:p-8 shadow-md">
           {/* Step 1: Disclaimer Modal */}
           {step === "disclaimer" && (
             <FadeUp>
@@ -268,8 +268,8 @@ function LabUploadArea({ onFileSelect, selectedFile, onClear, disabled }: LabUpl
       onDrop={handleDrop}
       className={`
         relative border-2 border-dashed rounded-xl p-8 md:p-12 text-center transition-all
-        ${disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer hover:border-[#FF2D8E]/50 hover:bg-[#FDF7FA]/50"}
-        border-[#FF2D8E]/30 bg-[#FDF7FA]/30
+        ${disabled ? "cursor-not-allowed opacity-60" : "cursor-pointer hover:border-[#FF2D8E]/50 hover:bg-[#FFFFFF]/50"}
+        border-[#FF2D8E]/30 bg-[#FFFFFF]/30
       `}
       onClick={() => !disabled && !selectedFile && inputRef.current?.click()}
     >

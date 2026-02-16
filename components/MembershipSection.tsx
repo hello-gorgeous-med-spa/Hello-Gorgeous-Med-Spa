@@ -12,7 +12,7 @@ const PERKS = [
 
 export function MembershipSection() {
   return (
-    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FDF7FA]">
+    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FFFFFF]">
       <div className="max-w-4xl mx-auto">
         <FadeUp>
           <div className="rounded-xl border-2 border-black bg-white shadow-md p-8 md:p-10 hover:shadow-xl hover:-translate-y-[2px] transition-all">

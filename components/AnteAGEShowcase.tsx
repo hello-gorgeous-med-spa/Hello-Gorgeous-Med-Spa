@@ -55,7 +55,7 @@ export function AnteAGEShowcase() {
   };
 
   return (
-    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FDF7FA]">
+    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FFFFFF]">
       <div className="max-w-6xl mx-auto">
         <FadeUp>
           <div className="text-center mb-10">

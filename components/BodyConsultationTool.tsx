@@ -168,7 +168,7 @@ export function BodyConsultationTool({
             return (
               <div
                 key={id}
-                className="flex items-center justify-between px-4 py-2 rounded-lg bg-[#FDF7FA] border border-[#FF2D8E]/20"
+                className="flex items-center justify-between px-4 py-2 rounded-lg bg-[#FFFFFF] border border-[#FF2D8E]/20"
               >
                 <span className="text-sm font-medium text-[#FF2D8E]">{zone?.label ?? id}</span>
                 <button
@@ -190,7 +190,7 @@ export function BodyConsultationTool({
           setShowResults(true);
         }}
         disabled={selectedZones.size === 0}
-        className="w-full py-4 rounded-md bg-[#FF2D8E] hover:bg-[#FF2D8E] disabled:bg-[#5E5E66]/40 disabled:cursor-not-allowed text-white uppercase tracking-widest text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+        className="w-full py-4 rounded-md bg-[#FF2D8E] hover:bg-[#FF2D8E] disabled:bg-[#000000]/40 disabled:cursor-not-allowed text-white uppercase tracking-widest text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
       >
         Get My Personalized Plan
       </button>

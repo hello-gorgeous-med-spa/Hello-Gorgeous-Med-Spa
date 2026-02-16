@@ -77,13 +77,13 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
           <div className="bg-white rounded-2xl shadow-xl border border-[#000000]/10 p-8 text-center">
             <div className="text-5xl mb-4">✓</div>
             <h1 className="text-2xl font-bold text-[#000000] mb-4">Request Received</h1>
-            <p className="text-[#5E5E66] mb-4">{success.message}</p>
+            <p className="text-[#000000] mb-4">{success.message}</p>
             {success.memberCode && (
               <p className="text-sm text-[#000000]/70 mb-6">
                 Reference: <strong>{success.memberCode}</strong>
               </p>
             )}
-            <p className="text-sm text-[#5E5E66] mb-6">
+            <p className="text-sm text-[#000000] mb-6">
               We'll contact you shortly. Call us anytime at{" "}
               <a href="tel:630-636-6193" className="text-[#FF2D8E] font-semibold">
                 630-636-6193
@@ -111,7 +111,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
           </Link>
           <div className="bg-white rounded-2xl shadow-xl border border-[#000000]/10 p-8">
             <h1 className="text-2xl font-bold text-[#000000] mb-4">Choose Your Program</h1>
-            <p className="text-[#5E5E66] mb-6">Select a program to continue.</p>
+            <p className="text-[#000000] mb-6">Select a program to continue.</p>
             <div className="space-y-4">
               {Object.entries(PROGRAMS).map(([slug, p]) => (
                 <Link
@@ -120,7 +120,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
                   className="block p-4 rounded-xl border border-[#000000]/15 hover:border-[#FF2D8E]/50 hover:bg-pink-50/50 transition"
                 >
                   <span className="font-semibold text-[#000000]">{p.name}</span>
-                  <span className="text-[#5E5E66] ml-2">— {p.priceLabel || `$${p.price}/mo`}</span>
+                  <span className="text-[#000000] ml-2">— {p.priceLabel || `$${p.price}/mo`}</span>
                 </Link>
               ))}
             </div>
@@ -143,7 +143,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
           <h1 className="text-2xl font-bold text-[#000000] mb-2">
             Join {p?.name}
           </h1>
-          <p className="text-[#5E5E66] mb-6">{p?.priceLabel || `$${p?.price}/month`} • Full member portal access</p>
+          <p className="text-[#000000] mb-6">{p?.priceLabel || `$${p?.price}/month`} • Full member portal access</p>
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="grid sm:grid-cols-2 gap-4">
@@ -257,7 +257,7 @@ export function MembershipsSignupContent({ programSlug }: { programSlug?: string
           </form>
         </div>
 
-        <p className="mt-6 text-center text-xs text-[#5E5E66]">
+        <p className="mt-6 text-center text-xs text-[#000000]">
           HIPAA compliant • Your information is secure
         </p>
       </div>

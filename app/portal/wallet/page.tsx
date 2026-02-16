@@ -85,8 +85,8 @@ export default function WalletPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#111]">My Wallet</h1>
-        <p className="text-[#111]/70 mt-1">Manage your credits, gift cards, and rewards</p>
+        <h1 className="text-2xl font-bold text-[#000000]">My Wallet</h1>
+        <p className="text-[#000000]/70 mt-1">Manage your credits, gift cards, and rewards</p>
       </div>
 
       {/* Balance Cards */}
@@ -109,38 +109,38 @@ export default function WalletPage() {
       </div>
 
       {/* Membership Tier */}
-      <div className="bg-white rounded-2xl border border-[#111]/10 p-6">
+      <div className="bg-white rounded-2xl border border-[#000000]/10 p-6">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm text-[#111]/70">Your Status</p>
-            <p className="text-xl font-bold text-[#111] mt-1 capitalize">{wallet?.membershipTier || 'Standard'} Member</p>
+            <p className="text-sm text-[#000000]/70">Your Status</p>
+            <p className="text-xl font-bold text-[#000000] mt-1 capitalize">{wallet?.membershipTier || 'Standard'} Member</p>
           </div>
           <span className={`px-4 py-2 rounded-full font-medium ${TIER_COLORS[wallet?.membershipTier || 'standard']}`}>
             {wallet?.membershipTier?.toUpperCase() || 'STANDARD'}
           </span>
         </div>
-        <div className="mt-4 grid grid-cols-2 gap-4 pt-4 border-t border-[#111]/10">
+        <div className="mt-4 grid grid-cols-2 gap-4 pt-4 border-t border-[#000000]/10">
           <div>
-            <p className="text-sm text-[#111]/50">Total Spent</p>
-            <p className="font-semibold text-[#111]">${wallet?.totalSpent?.toFixed(2) || '0.00'}</p>
+            <p className="text-sm text-[#000000]/50">Total Spent</p>
+            <p className="font-semibold text-[#000000]">${wallet?.totalSpent?.toFixed(2) || '0.00'}</p>
           </div>
           <div>
-            <p className="text-sm text-[#111]/50">Total Saved</p>
+            <p className="text-sm text-[#000000]/50">Total Saved</p>
             <p className="font-semibold text-green-600">${wallet?.totalSaved?.toFixed(2) || '0.00'}</p>
           </div>
         </div>
       </div>
 
       {/* Redeem Gift Card */}
-      <div className="bg-white rounded-2xl border border-[#111]/10 p-6">
-        <h2 className="font-semibold text-[#111] mb-4">Redeem Gift Card</h2>
+      <div className="bg-white rounded-2xl border border-[#000000]/10 p-6">
+        <h2 className="font-semibold text-[#000000] mb-4">Redeem Gift Card</h2>
         <form onSubmit={handleRedeemGiftCard} className="flex gap-3">
           <input
             type="text"
             value={giftCardCode}
             onChange={(e) => setGiftCardCode(e.target.value.toUpperCase())}
             placeholder="Enter gift card code"
-            className="flex-1 px-4 py-3 border border-[#111]/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50"
+            className="flex-1 px-4 py-3 border border-[#000000]/20 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50"
           />
           <button type="submit" className="bg-[#FF2D8E] text-white px-6 py-3 rounded-xl font-medium hover:bg-[#FF2D8E]/90 transition-colors">
             Redeem
@@ -150,19 +150,19 @@ export default function WalletPage() {
       </div>
 
       {/* Transaction History */}
-      <div className="bg-white rounded-2xl border border-[#111]/10 p-6">
-        <h2 className="font-semibold text-[#111] mb-4">Transaction History</h2>
+      <div className="bg-white rounded-2xl border border-[#000000]/10 p-6">
+        <h2 className="font-semibold text-[#000000] mb-4">Transaction History</h2>
         {transactions.length === 0 ? (
-          <p className="text-center py-8 text-[#111]/50">No transactions yet</p>
+          <p className="text-center py-8 text-[#000000]/50">No transactions yet</p>
         ) : (
           <div className="space-y-3">
             {transactions.map((tx) => (
-              <div key={tx.id} className="flex items-center justify-between py-3 border-b border-[#111]/5 last:border-0">
+              <div key={tx.id} className="flex items-center justify-between py-3 border-b border-[#000000]/5 last:border-0">
                 <div>
-                  <p className="font-medium text-[#111]">{tx.description || tx.type}</p>
-                  <p className="text-sm text-[#111]/50">{new Date(tx.date).toLocaleDateString()}</p>
+                  <p className="font-medium text-[#000000]">{tx.description || tx.type}</p>
+                  <p className="text-sm text-[#000000]/50">{new Date(tx.date).toLocaleDateString()}</p>
                 </div>
-                <span className={`font-semibold ${tx.amount > 0 ? 'text-green-600' : 'text-[#111]'}`}>
+                <span className={`font-semibold ${tx.amount > 0 ? 'text-green-600' : 'text-[#000000]'}`}>
                   {tx.amount > 0 ? '+' : ''}{tx.amount.toFixed(2)}
                 </span>
               </div>
