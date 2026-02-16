@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { FadeUp } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 
 const STEPS = [
@@ -33,50 +32,40 @@ const STEPS = [
 
 export function YourVisitStepByStep() {
   return (
-    <section
-      className="py-20 md:py-28 px-6 md:px-12 bg-gradient-to-br from-black via-pink-950/40 to-black"
-      data-site="public"
-    >
-      <div className="max-w-6xl mx-auto">
-        <FadeUp>
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-4xl font-serif font-bold text-white mb-3">
-              Your Visit, Step by Step
-            </h2>
-            <p className="text-pink-200/90 text-lg max-w-2xl mx-auto">
-              A clear, structured process designed for efficiency and precision.
-            </p>
-          </div>
-        </FadeUp>
+    <section className="section-black section-padding">
+      <div className="container">
+        <div className="text-center mb-16">
+          <h2 className="text-2xl md:text-4xl font-serif font-bold mb-4">
+            Your Visit, <span className="text-[#FF2D8E]">Step by Step</span>
+          </h2>
+          <p className="text-lg max-w-2xl mx-auto opacity-90">
+            A clear, structured process designed for efficiency and precision.
+          </p>
+        </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-          {STEPS.map((step, i) => (
-            <FadeUp key={step.title} delayMs={i * 60}>
-              <div className="rounded-2xl bg-black/60 border border-[#FF2D8E]/30 p-6 h-full hover:border-[#FF2D8E]/50 hover:bg-pink-950/20 hover:-translate-y-0.5 transition-all duration-300">
-                <div className="w-12 h-12 rounded-xl bg-[#FF2D8E]/20 flex items-center justify-center text-2xl mb-4">
-                  {step.icon}
-                </div>
-                <h3 className="text-lg font-bold text-white mb-2">{step.title}</h3>
-                <p className="text-black text-sm leading-relaxed">{step.description}</p>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {STEPS.map((step) => (
+            <div 
+              key={step.title}
+              className="rounded-2xl bg-white border-2 border-white p-8 hover:border-[#FF2D8E] transition-all"
+            >
+              <div className="w-14 h-14 rounded-xl bg-[#FF2D8E] flex items-center justify-center text-2xl mb-6 text-white">
+                {step.icon}
               </div>
-            </FadeUp>
+              <h3 className="text-lg font-bold text-black mb-3">{step.title}</h3>
+              <p className="text-black text-sm leading-relaxed">{step.description}</p>
+            </div>
           ))}
         </div>
 
-        <FadeUp delayMs={240}>
-          <div className="mt-10 text-center">
-            <Link
-              href={BOOKING_URL}
-              className="inline-flex items-center gap-2 px-8 py-4 bg-[#FF2D8E] text-white font-bold rounded-full hover:opacity-90 hover:scale-[1.03] active:scale-[0.98] transition-transform duration-200 shadow-lg shadow-[#FF2D8E]/25"
-            >
-              Book Your Initial Visit
-              <span>→</span>
-            </Link>
-            <p className="text-black text-sm mt-4">
-              No membership required for your first visit.
-            </p>
-          </div>
-        </FadeUp>
+        <div className="mt-16 text-center">
+          <Link href={BOOKING_URL} className="btn-primary">
+            Book Your Initial Visit →
+          </Link>
+          <p className="text-sm mt-6 opacity-80">
+            No membership required for your first visit.
+          </p>
+        </div>
       </div>
     </section>
   );

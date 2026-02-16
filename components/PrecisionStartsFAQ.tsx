@@ -45,44 +45,46 @@ export function PrecisionStartsFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-20 md:py-28 px-6 md:px-12 bg-gradient-to-br from-black via-pink-950/40 to-black">
-      <div className="max-w-3xl mx-auto">
-        <h2 className="text-2xl md:text-4xl font-serif font-bold text-white mb-12 text-center">
-          Precision Starts With Understanding
-        </h2>
+    <section className="section-black section-padding">
+      <div className="container">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-4xl font-serif font-bold mb-12 text-center">
+            Precision Starts With <span className="text-[#FF2D8E]">Understanding</span>
+          </h2>
 
-        <div className="divide-y divide-pink-500/20">
-          {FAQ_ITEMS.map((item, i) => (
-            <div key={item.q} className="border-0">
-              <button
-                type="button"
-                onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full flex items-center justify-between py-5 text-left group"
-              >
-                <span className="text-white font-medium pr-4 group-hover:text-pink-300 transition-colors">
-                  {item.q}
-                </span>
-                <span
-                  className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-[#FF2D8E] transition-transform duration-200 ${
-                    openIndex === i ? "rotate-180" : ""
+          <div className="divide-y divide-white/20">
+            {FAQ_ITEMS.map((item, i) => (
+              <div key={item.q}>
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(openIndex === i ? null : i)}
+                  className="w-full flex items-center justify-between py-6 text-left group"
+                >
+                  <span className="font-medium pr-4 group-hover:text-[#FF2D8E] transition-colors">
+                    {item.q}
+                  </span>
+                  <span
+                    className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-[#FF2D8E] transition-transform duration-200 ${
+                      openIndex === i ? "rotate-180" : ""
+                    }`}
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </span>
+                </button>
+                <div
+                  className={`overflow-hidden transition-all duration-200 ${
+                    openIndex === i ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
                   }`}
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </span>
-              </button>
-              <div
-                className={`overflow-hidden transition-all duration-200 ${
-                  openIndex === i ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-                }`}
-              >
-                <p className="pb-5 text-black text-sm leading-relaxed pl-0 pr-12">
-                  {item.a}
-                </p>
+                  <p className="pb-6 text-sm leading-relaxed opacity-90">
+                    {item.a}
+                  </p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>

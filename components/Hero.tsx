@@ -6,22 +6,23 @@ import Link from "next/link";
 
 import { BOOKING_URL } from "@/lib/flows";
 
-const DEFAULT_HEADLINE = "Oswego's Trusted Aesthetic Team";
+const DEFAULT_HEADLINE = "Oswego's Trusted";
+const DEFAULT_HEADLINE_ACCENT = "Aesthetic Team";
 const DEFAULT_SUBHEADLINE = "Medical Experts. Real Results.";
 const DEFAULT_SUBTEXT = "Botox • Fillers • Hormone Therapy • Weight Loss";
 
 export type HeroProps = {
-  /** Override from CMS; empty = use defaults */
   headline?: string;
+  headlineAccent?: string;
   subheadline?: string;
   ctaText?: string;
   ctaUrl?: string;
-  /** Hero image path. Use professional, non-cartoon image. */
   imageSrc?: string;
 };
 
 export function Hero({
   headline = DEFAULT_HEADLINE,
+  headlineAccent = DEFAULT_HEADLINE_ACCENT,
   subheadline = DEFAULT_SUBHEADLINE,
   ctaText = "Book Now",
   ctaUrl = BOOKING_URL,
@@ -34,65 +35,63 @@ export function Hero({
   }, []);
 
   return (
-    <section className="relative bg-white py-20 md:py-28 px-6 md:px-12">
-      <div className="max-w-6xl mx-auto flex flex-col lg:flex-row lg:items-center lg:gap-16">
-        {/* Left column: headline, subtext, CTA */}
-        <div className="flex-1 min-w-0 basis-0 overflow-visible">
-          <h1
-            className={`font-serif font-bold leading-tight text-[#FF2D8E] transition-all duration-[400ms] ease-out text-4xl md:text-6xl break-words ${
-              mounted ? "opacity-100" : "opacity-0"
-            }`}
-            style={{ letterSpacing: "-0.02em" }}
-          >
-            {headline}
-          </h1>
-          <p
-            className={`mt-4 text-base md:text-lg text-[#FF2D8E] transition-all duration-[400ms] ease-out ${
-              mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
-            }`}
-            style={{ transitionDelay: "100ms" }}
-          >
-            {subheadline}
-          </p>
-          <p
-            className={`mt-1 text-sm md:text-base text-[#FF2D8E]/90 transition-all duration-[400ms] ease-out ${
-              mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
-            }`}
-            style={{ transitionDelay: "200ms" }}
-          >
-            {DEFAULT_SUBTEXT}
-          </p>
-          <div
-            className={`mt-6 flex flex-col gap-3 sm:flex-row sm:gap-4 transition-all duration-[500ms] ease-out ${
-              mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
-            }`}
-            style={{ transitionDelay: "300ms" }}
-          >
-            <Link
-              href={ctaUrl}
-              className="inline-flex w-full min-h-[48px] items-center justify-center uppercase tracking-widest px-10 py-4 rounded-md text-sm font-semibold bg-[#FF2D8E] hover:bg-[#FF2D8E] text-white transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg sm:w-auto"
+    <section className="section-white section-padding-lg">
+      <div className="container">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:gap-16">
+          {/* Left column: headline, subtext, CTA */}
+          <div className="flex-1 min-w-0">
+            <h1
+              className={`font-serif font-bold leading-tight transition-all duration-500 ease-out text-4xl md:text-5xl lg:text-[56px] ${
+                mounted ? "opacity-100" : "opacity-0"
+              }`}
+              style={{ letterSpacing: "-0.02em" }}
             >
-              {ctaText}
-            </Link>
-            <a
-              href="tel:630-636-6193"
-              className="inline-flex w-full min-h-[48px] items-center justify-center uppercase tracking-widest px-10 py-4 rounded-md text-sm font-semibold border-2 border-black text-[#FF2D8E] transition-all duration-300 ease-out hover:bg-[#000000]/5 hover:-translate-y-[2px] sm:w-auto"
+              {headline}{" "}
+              <span className="text-[#FF2D8E]">{headlineAccent}</span>
+            </h1>
+            <p
+              className={`mt-6 text-lg md:text-xl transition-all duration-500 ease-out ${
+                mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+              }`}
+              style={{ transitionDelay: "100ms" }}
             >
-              Call 630-636-6193
-            </a>
+              {subheadline}
+            </p>
+            <p
+              className={`mt-2 text-base md:text-lg transition-all duration-500 ease-out ${
+                mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+              }`}
+              style={{ transitionDelay: "150ms" }}
+            >
+              {DEFAULT_SUBTEXT}
+            </p>
+            <div
+              className={`mt-10 flex flex-col gap-4 sm:flex-row transition-all duration-500 ease-out ${
+                mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+              }`}
+              style={{ transitionDelay: "250ms" }}
+            >
+              <Link href={ctaUrl} className="btn-primary">
+                {ctaText}
+              </Link>
+              <a href="tel:630-636-6193" className="btn-outline">
+                Call 630-636-6193
+              </a>
+            </div>
           </div>
-        </div>
-        {/* Right column: clean image */}
-        <div className="flex-1 min-w-0 basis-0 mt-10 lg:mt-0 relative aspect-[4/3] lg:aspect-[3/2] max-w-2xl mx-auto lg:mx-0 w-full overflow-hidden rounded-xl shadow-md">
-          <Image
-            src={imageSrc}
-            alt="Hello Gorgeous Med Spa - Medical aesthetics in Oswego, IL"
-            fill
-            priority
-            quality={85}
-            className="object-contain object-center"
-            sizes="(max-width: 1024px) 100vw, 50vw"
-          />
+          
+          {/* Right column: clean image */}
+          <div className="flex-1 min-w-0 mt-12 lg:mt-0 relative aspect-[4/3] lg:aspect-[3/2] max-w-2xl mx-auto lg:mx-0 w-full overflow-hidden rounded-2xl">
+            <Image
+              src={imageSrc}
+              alt="Hello Gorgeous Med Spa - Medical aesthetics in Oswego, IL"
+              fill
+              priority
+              quality={85}
+              className="object-contain object-center"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+            />
+          </div>
         </div>
       </div>
     </section>

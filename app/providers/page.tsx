@@ -40,7 +40,6 @@ async function getProviders(): Promise<Provider[]> {
     return [];
   }
 
-  // Sort: Danielle first
   return (data || []).sort((a, b) => {
     if (a.slug === 'danielle') return -1;
     if (b.slug === 'danielle') return 1;
@@ -71,36 +70,33 @@ export default async function ProvidersPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Hero Section - Black background for contrast */}
-      <section className="relative bg-black py-16 md:py-20 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight">
-            Meet The Experts Behind
-            <span className="block text-[#FF2D8E] mt-2">
-              Hello Gorgeous
-            </span>
-          </h1>
-          <p className="mt-4 text-lg text-white max-w-2xl mx-auto">
-            Licensed medical professionals. Real results. Personalized care.
-          </p>
+      {/* Hero Section - Black background */}
+      <section className="section-black section-padding-lg">
+        <div className="container">
+          <div className="max-w-4xl mx-auto text-center">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-serif font-bold leading-tight">
+              Meet The Experts Behind
+              <span className="block text-[#FF2D8E] mt-2">Hello Gorgeous</span>
+            </h1>
+            <p className="mt-6 text-lg max-w-2xl mx-auto">
+              Licensed medical professionals. Real results. Personalized care.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Provider Cards - Clean layout */}
-      <section className="py-12 md:py-16 px-4 md:px-6 bg-white">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {/* Provider Cards - White background */}
+      <section className="section-white section-padding">
+        <div className="container">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-5xl mx-auto">
             {providers.map((provider) => {
               const name = provider.display_name || `${provider.first_name} ${provider.last_name}`;
               const firstName = provider.first_name;
               
               return (
-                <div
-                  key={provider.id}
-                  className="bg-white rounded-2xl border border-black overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
-                >
-                  {/* Headshot - Smaller height */}
-                  <div className="relative h-64 md:h-72 bg-gradient-to-br from-pink-100 to-rose-50">
+                <div key={provider.id} className="hg-card p-0 overflow-hidden">
+                  {/* Headshot */}
+                  <div className="relative h-72 md:h-80 bg-white">
                     {provider.headshot_url ? (
                       <Image
                         src={provider.headshot_url}
@@ -110,43 +106,42 @@ export default async function ProvidersPage() {
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center">
-                        <span className="text-7xl">👩‍⚕️</span>
+                        <span className="text-8xl">👩‍⚕️</span>
                       </div>
                     )}
-                    {/* Play button for intro video */}
                     {provider.intro_video_url && (
                       <div className="absolute inset-0 flex items-center justify-center bg-black/10">
-                        <div className="w-14 h-14 bg-white/95 rounded-full flex items-center justify-center shadow-lg cursor-pointer hover:scale-110 transition-transform">
-                          <span className="text-[#FF2D8E] text-xl ml-1">▶</span>
+                        <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg cursor-pointer hover:scale-110 transition-transform border-2 border-[#FF2D8E]">
+                          <span className="text-[#FF2D8E] text-2xl ml-1">▶</span>
                         </div>
                       </div>
                     )}
                   </div>
 
-                  {/* Info - Compact padding */}
-                  <div className="p-5 md:p-6">
-                    <h2 className="text-xl font-bold text-black">{name}</h2>
+                  {/* Info */}
+                  <div className="p-8">
+                    <h2 className="text-xl font-bold">{name}</h2>
                     {provider.credentials && (
-                      <p className="text-[#FF2D8E] font-medium text-sm mt-0.5">{provider.credentials}</p>
+                      <p className="text-[#FF2D8E] font-bold text-sm mt-1">{provider.credentials}</p>
                     )}
                     {provider.tagline && (
-                      <p className="text-black text-sm mt-1 italic">{provider.tagline}</p>
+                      <p className="text-sm mt-2 italic">{provider.tagline}</p>
                     )}
                     {provider.short_bio && (
-                      <p className="text-black text-sm mt-3 line-clamp-2">{provider.short_bio}</p>
+                      <p className="mt-4 text-sm leading-relaxed line-clamp-3">{provider.short_bio}</p>
                     )}
 
-                    {/* CTAs - Compact */}
-                    <div className="mt-5 flex gap-3">
+                    {/* CTAs */}
+                    <div className="mt-6 flex flex-col sm:flex-row gap-3">
                       <Link
                         href={`/providers/${provider.slug}`}
-                        className="flex-1 px-4 py-2.5 bg-white text-black font-medium rounded-lg text-center text-sm hover:bg-white transition-colors"
+                        className="btn-outline text-sm flex-1 text-center"
                       >
                         View Results
                       </Link>
                       <Link
                         href={provider.booking_url || `/book?provider=${provider.slug}`}
-                        className="flex-1 px-4 py-2.5 bg-[#FF2D8E] text-white font-medium rounded-lg text-center text-sm hover:bg-[#C4006B] transition-colors"
+                        className="btn-primary text-sm flex-1 text-center"
                       >
                         Book with {firstName}
                       </Link>
@@ -159,51 +154,52 @@ export default async function ProvidersPage() {
 
           {providers.length === 0 && (
             <div className="text-center py-16">
-              <p className="text-black">Provider information coming soon</p>
+              <p>Provider information coming soon</p>
             </div>
           )}
         </div>
       </section>
 
-      {/* Why Choose Us - Darker background for contrast */}
-      <section className="py-12 md:py-16 px-4 md:px-6 bg-black">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-white mb-8">
-            Why Trust Hello Gorgeous?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            <div className="bg-black rounded-xl p-5 border border-black">
-              <span className="text-3xl mb-3 block">🏆</span>
-              <h3 className="text-base font-semibold text-white">Licensed & Certified</h3>
-              <p className="text-white/80 text-sm mt-1">All treatments by licensed medical professionals</p>
-            </div>
-            <div className="bg-black rounded-xl p-5 border border-black">
-              <span className="text-3xl mb-3 block">⭐</span>
-              <h3 className="text-base font-semibold text-white">5-Star Rated</h3>
-              <p className="text-white/80 text-sm mt-1">Hundreds of verified reviews from real clients</p>
-            </div>
-            <div className="bg-black rounded-xl p-5 border border-black">
-              <span className="text-3xl mb-3 block">💝</span>
-              <h3 className="text-base font-semibold text-white">Personalized Care</h3>
-              <p className="text-white/80 text-sm mt-1">Customized plans for your unique goals</p>
+      {/* Why Choose Us - Black background */}
+      <section className="section-black section-padding">
+        <div className="container">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-2xl md:text-3xl font-serif font-bold mb-12">
+              Why Trust <span className="text-[#FF2D8E]">Hello Gorgeous?</span>
+            </h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="p-6 rounded-2xl bg-white border-2 border-white">
+                <span className="text-4xl mb-4 block">🏆</span>
+                <h3 className="text-lg font-bold text-black">Licensed & Certified</h3>
+                <p className="text-black text-sm mt-2">All treatments by licensed medical professionals</p>
+              </div>
+              <div className="p-6 rounded-2xl bg-white border-2 border-white">
+                <span className="text-4xl mb-4 block">⭐</span>
+                <h3 className="text-lg font-bold text-black">5-Star Rated</h3>
+                <p className="text-black text-sm mt-2">Hundreds of verified reviews from real clients</p>
+              </div>
+              <div className="p-6 rounded-2xl bg-white border-2 border-white">
+                <span className="text-4xl mb-4 block">💝</span>
+                <h3 className="text-lg font-bold text-black">Personalized Care</h3>
+                <p className="text-black text-sm mt-2">Customized plans for your unique goals</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* CTA - Hot pink */}
-      <section className="py-12 px-4 md:px-6 bg-[#FF2D8E]">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-2xl md:text-3xl font-bold text-white">Ready to Get Started?</h2>
-          <p className="text-white/90 mt-2 text-base">
-            Book a free consultation to discuss your aesthetic goals
-          </p>
-          <Link
-            href="/book"
-            className="mt-6 inline-block px-8 py-3 bg-white text-[#FF2D8E] font-bold rounded-lg hover:bg-white transition-colors shadow-lg"
-          >
-            Book Free Consultation
-          </Link>
+      <section className="section-pink section-padding-sm">
+        <div className="container">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-2xl md:text-3xl font-serif font-bold">Ready to Get Started?</h2>
+            <p className="mt-4 text-lg">
+              Book a free consultation to discuss your aesthetic goals
+            </p>
+            <Link href="/book" className="btn-white mt-8 inline-block">
+              Book Free Consultation
+            </Link>
+          </div>
         </div>
       </section>
     </>

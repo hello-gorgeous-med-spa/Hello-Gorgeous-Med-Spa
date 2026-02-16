@@ -99,22 +99,48 @@ export default async function HomePage() {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
           />
         ))}
+      
+      {/* SECTION 1 - HERO (White) */}
       <Hero />
+      
+      {/* Geo Links */}
       <HomepageGeoLinks />
+      
+      {/* CMS Banner */}
       <HomepageBanner banner={cmsBanner} />
-      <section className="py-20 md:py-28 px-6 md:px-12 bg-white">
-        <div className="max-w-5xl mx-auto min-w-0">
+      
+      {/* SECTION 2 - SERVICES / MASCOT (White) */}
+      <section className="section-white section-padding">
+        <div className="container">
           <MascotHeroSection />
         </div>
       </section>
+      
+      {/* Fix What Bothers Me - Interactive Feature */}
       <FixWhatBothersMeFeature />
+      
+      {/* SECTION 3 - QUIZ CTA (Black) */}
       <QuizCTA />
+      
+      {/* SECTION 4 - ABOUT (White) */}
       <AboutSection />
+      
+      {/* SECTION 5 - PROVIDERS (White) */}
       <MeetProviders />
+      
+      {/* SECTION 6 - OFFERS (White) */}
       <OffersSection />
+      
+      {/* SECTION 7 - MEMBERSHIP (White/Black alternation handled internally) */}
       <MembershipSection />
+      
+      {/* Interactive Tools */}
       <HomepageInteractiveTools />
+      
+      {/* Care Team */}
       <HomeCareTeam />
+      
+      {/* Pharmacy & Partner Showcases */}
       <PharmacyShowcase />
       <FullscriptSection />
       <BioteSection />
@@ -122,12 +148,26 @@ export default async function HomePage() {
       <MicroneedlingShowcase />
       <AnteAGEShowcase />
       <LaserHairSection />
+      
+      {/* TikTok Embed */}
       <TikTokEmbed />
+      
+      {/* SECTION - TESTIMONIALS (White) */}
       <Testimonials />
+      
+      {/* Immediate Care Banner */}
       <ImmediateCareBanner />
+      
+      {/* Partners */}
       <PartnersGrid />
+      
+      {/* Gallery */}
       <PhotoGallery />
+      
+      {/* SECTION 5 - HOT PINK CTA STRIP */}
       <EmailBanner />
+      
+      {/* Location Map */}
       <LocationMap />
     </>
   );
