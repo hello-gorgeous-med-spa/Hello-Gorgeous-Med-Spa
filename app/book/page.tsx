@@ -181,7 +181,7 @@ export default async function PublicBookingPage({
             <h2 className="text-2xl font-bold text-slate-900">
               All Services
             </h2>
-            <span className="text-sm text-slate-500">{services.length} treatments available</span>
+            <span className="text-sm text-white">{services.length} treatments available</span>
           </div>
           
           {servicesByCategory.length === 0 ? (
@@ -235,7 +235,7 @@ export default async function PublicBookingPage({
                                   {service.name}
                                 </h4>
                                 <div className="flex items-center gap-2 mt-1 flex-wrap">
-                                  <span className="text-xs text-slate-500 bg-white px-2 py-0.5 rounded-full">
+                                  <span className="text-xs text-white bg-white px-2 py-0.5 rounded-full">
                                     🕐 {service.duration_minutes} min
                                   </span>
                                   {service.deposit_required && (
@@ -409,7 +409,7 @@ export default async function PublicBookingPage({
             </div>
           </div>
           <div className="border-t border-slate-700 mt-8 pt-8 text-center">
-            <p className="text-slate-500 text-sm">
+            <p className="text-white text-sm">
               © {new Date().getFullYear()} Hello Gorgeous Med Spa. All rights reserved. | Oswego, Illinois
             </p>
           </div>

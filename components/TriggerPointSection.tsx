@@ -90,7 +90,7 @@ export function TriggerPointSection() {
                 Injections
               </span>
             </h2>
-            <p className="text-[#111111]/80 text-lg max-w-2xl mx-auto">
+            <p className="text-[#000000]/80 text-lg max-w-2xl mx-auto">
               Tired of living with muscle pain? Our trigger point injections provide 
               fast, targeted relief for chronic pain and muscle tension.
             </p>
@@ -135,7 +135,7 @@ export function TriggerPointSection() {
                       <span className="text-5xl">🎬</span>
                     </div>
                     <p className="text-white font-semibold mb-2">Video Coming Soon</p>
-                    <p className="text-[#111111]/80 text-sm">
+                    <p className="text-[#000000]/80 text-sm">
                       See trigger point injections in action
                     </p>
                   </div>
@@ -153,7 +153,7 @@ export function TriggerPointSection() {
               <h3 className="text-2xl font-bold text-white mb-4">
                 What Are Trigger Point Injections?
               </h3>
-              <p className="text-[#111111]/80 mb-6">
+              <p className="text-[#000000]/80 mb-6">
                 Trigger points are tight knots in your muscles that cause pain—sometimes 
                 in areas far from the knot itself. Our injections deliver medication 
                 directly into these problem areas, releasing tension and providing 
@@ -162,7 +162,7 @@ export function TriggerPointSection() {
               
               <div className="p-4 rounded-xl bg-white/5 border border-white/10 mb-6">
                 <p className="text-white font-semibold mb-2">What&apos;s Injected?</p>
-                <p className="text-[#111111]/80 text-sm">
+                <p className="text-[#000000]/80 text-sm">
                   A combination of local anesthetic (lidocaine) and sometimes a small 
                   amount of corticosteroid to reduce inflammation. Some patients opt 
                   for &quot;dry needling&quot; without medication.
@@ -203,7 +203,7 @@ export function TriggerPointSection() {
               >
                 <span className="text-3xl mb-3 block">{benefit.icon}</span>
                 <h4 className="text-white font-semibold mb-1">{benefit.title}</h4>
-                <p className="text-[#111111]/80 text-sm">{benefit.description}</p>
+                <p className="text-[#000000]/80 text-sm">{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -221,13 +221,13 @@ export function TriggerPointSection() {
                   {conditions.map((condition) => (
                     <div key={condition} className="flex items-center gap-2">
                       <span className="text-red-400">✓</span>
-                      <span className="text-[#111111]/90 text-sm">{condition}</span>
+                      <span className="text-[#000000]/90 text-sm">{condition}</span>
                     </div>
                   ))}
                 </div>
               </div>
               <div className="text-center md:text-right">
-                <p className="text-[#111111]/80 mb-4">
+                <p className="text-[#000000]/80 mb-4">
                   Performed by <span className="text-white font-semibold">Ryan Kent, FNP-BC</span>
                   <br />
                   <span className="text-sm">Board-Certified Nurse Practitioner</span>
@@ -283,7 +283,7 @@ export function TriggerPointSection() {
                   className="p-4 rounded-xl bg-white/5 border border-white/10"
                 >
                   <p className="text-white font-medium mb-1">{faq.q}</p>
-                  <p className="text-[#111111]/80 text-sm">{faq.a}</p>
+                  <p className="text-[#000000]/80 text-sm">{faq.a}</p>
                 </div>
               ))}
             </div>

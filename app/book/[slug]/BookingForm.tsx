@@ -646,7 +646,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     autoComplete="given-name"
                     value={formData.firstName}
                     onChange={(e) => updateField('firstName', e.target.value)}
-                    className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                    className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
                   />
                 </div>
                 <div>
@@ -659,7 +659,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     autoComplete="family-name"
                     value={formData.lastName}
                     onChange={(e) => updateField('lastName', e.target.value)}
-                    className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                    className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
                   />
                 </div>
               </div>
@@ -674,7 +674,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   autoComplete="email"
                   value={formData.email}
                   onChange={(e) => updateField('email', e.target.value)}
-                  className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
                 />
               </div>
 
@@ -689,7 +689,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   value={formData.phone}
                   onChange={(e) => updateField('phone', e.target.value)}
                   placeholder="(630) 555-1234"
-                  className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
                 />
               </div>
 
@@ -703,7 +703,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     required
                     value={formData.dateOfBirth}
                     onChange={(e) => updateField('dateOfBirth', e.target.value)}
-                    className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                    className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
                   />
                 </div>
               )}
@@ -717,7 +717,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   onChange={(e) => updateField('notes', e.target.value)}
                   rows={2}
                   placeholder="Any special requests or concerns..."
-                  className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
                 />
               </div>
 
@@ -735,7 +735,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     type="checkbox"
                     checked={formData.agreeToSMS}
                     onChange={(e) => updateField('agreeToSMS', e.target.checked)}
-                    className="mt-1 w-4 h-4 min-w-[16px] min-h-[16px] text-pink-500 border-gray-300 rounded focus:ring-pink-500 shrink-0"
+                    className="mt-1 w-4 h-4 min-w-[16px] min-h-[16px] text-pink-500 border-gray-300 rounded focus:ring-[#FF2D8E] shrink-0"
                   />
                   <span className="text-sm text-gray-600">
                     Send me SMS reminders &amp; offers (msg rates may apply, reply STOP to opt out)
@@ -747,7 +747,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     required
                     checked={formData.agreeToTerms}
                     onChange={(e) => updateField('agreeToTerms', e.target.checked)}
-                    className="mt-1 w-4 h-4 min-w-[16px] min-h-[16px] text-pink-500 border-gray-300 rounded focus:ring-pink-500 shrink-0"
+                    className="mt-1 w-4 h-4 min-w-[16px] min-h-[16px] text-pink-500 border-gray-300 rounded focus:ring-[#FF2D8E] shrink-0"
                   />
                   <span className="text-sm text-gray-600">
                     I agree to the <a href="/terms" target="_blank" className="text-pink-600 hover:underline">terms</a> and <a href="/privacy" target="_blank" className="text-pink-600 hover:underline">privacy policy</a> *

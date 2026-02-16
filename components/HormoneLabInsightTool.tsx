@@ -100,7 +100,7 @@ export function HormoneLabInsightTool() {
                     type="checkbox"
                     checked={disclaimerAccepted}
                     onChange={(e) => setDisclaimerAccepted(e.target.checked)}
-                    className="mt-1 w-5 h-5 rounded border-gray-300 text-[#E6007E] focus:ring-[#E6007E]"
+                    className="mt-1 w-5 h-5 rounded border-black text-[#E6007E] focus:ring-[#E6007E]"
                   />
                   <span className="text-[#111111] text-sm">
                     I understand this tool provides educational information only and does not diagnose, treat, or replace medical advice. I will consult my healthcare provider.

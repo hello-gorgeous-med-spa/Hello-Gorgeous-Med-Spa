@@ -128,7 +128,7 @@ export default function PortalLayout({
             <div className="flex items-center gap-3">
               <Link
                 href="/portal/book"
-                className="hidden sm:inline-flex items-center gap-2 bg-[#E6007E] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#c90a68] transition-colors"
+                className="hidden sm:inline-flex items-center gap-2 bg-[#E6007E] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#FF2D8E] transition-colors"
               >
                 <span>✨</span>
                 Book Now

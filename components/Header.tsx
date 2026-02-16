@@ -319,7 +319,7 @@ export function Header() {
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/services')
                     ? "text-[#E6007E] bg-pink-500/5"
-                    : "text-[#E6007E] hover:text-[#E6007E] hover:bg-[#111111]/5"
+                    : "text-[#E6007E] hover:text-[#E6007E] hover:bg-[#000000]/5"
                 )}
               >
                 Services
@@ -342,7 +342,7 @@ export function Header() {
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/about') || pathname?.startsWith('/locations')
                           ? "text-[#E6007E] bg-pink-500/5"
-                    : "text-[#E6007E] hover:text-[#E6007E] hover:bg-[#111111]/5"
+                    : "text-[#E6007E] hover:text-[#E6007E] hover:bg-[#000000]/5"
                 )}
               >
                 About
@@ -365,7 +365,7 @@ export function Header() {
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/providers')
                     ? "text-[#E6007E] bg-pink-500/5"
-                    : "text-[#E6007E] hover:text-[#E6007E] hover:bg-[#111111]/5"
+                    : "text-[#E6007E] hover:text-[#E6007E] hover:bg-[#000000]/5"
                 )}
               >
                 Providers
@@ -383,7 +383,7 @@ export function Header() {
                 "px-4 py-2 rounded-lg text-sm font-medium transition-all",
                 pathname?.startsWith('/memberships')
                   ? "text-[#E6007E] bg-pink-500/5"
-                  : "text-[#E6007E] hover:text-[#E6007E] hover:bg-[#111111]/5"
+                  : "text-[#E6007E] hover:text-[#E6007E] hover:bg-[#000000]/5"
               )}
             >
               Memberships
@@ -401,7 +401,7 @@ export function Header() {
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/your-journey') || pathname?.startsWith('/explore-care')
                     ? "text-[#E6007E] bg-pink-500/5"
-                    : "text-[#E6007E] hover:text-[#E6007E] hover:bg-[#111111]/5"
+                    : "text-[#E6007E] hover:text-[#E6007E] hover:bg-[#000000]/5"
                 )}
               >
                 Your Journey
@@ -440,7 +440,7 @@ export function Header() {
                 "px-4 py-2 rounded-lg text-sm font-medium transition-all",
                 pathname === '/contact'
                   ? "text-[#E6007E] bg-pink-500/5"
-                  : "text-[#E6007E] hover:text-[#E6007E] hover:bg-[#111111]/5"
+                  : "text-[#E6007E] hover:text-[#E6007E] hover:bg-[#000000]/5"
               )}
             >
               Contact
@@ -479,7 +479,7 @@ export function Header() {
 
             {/* Mobile Menu Button — 44px tap target */}
             <button
-              className="lg:hidden tap-target p-2 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#111111]/5 rounded-lg transition-all duration-200"
+              className="lg:hidden tap-target p-2 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#000000]/5 rounded-lg transition-all duration-200"
               type="button"
               aria-label="Open menu"
               aria-expanded={mobileMenuOpen}
@@ -505,7 +505,7 @@ export function Header() {
               <span className="text-lg font-bold text-[#E6007E]">{SITE.name}</span>
             </Link>
             <button
-              className="p-2 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#111111]/5 rounded-lg"
+              className="p-2 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#000000]/5 rounded-lg"
               onClick={() => setMobileMenuOpen(false)}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -550,7 +550,7 @@ export function Header() {
                           key={link.href}
                           href={link.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center gap-3 px-4 py-2.5 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#111111]/5 rounded-lg"
+                          className="flex items-center gap-3 px-4 py-2.5 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#000000]/5 rounded-lg"
                         >
                           <span>{link.icon}</span>
                           <span>{link.label}</span>
@@ -583,7 +583,7 @@ export function Header() {
                       key={link.href}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#111111]/5 rounded-lg"
+                      className="flex items-center gap-3 px-4 py-2.5 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#000000]/5 rounded-lg"
                     >
                       <span>{link.icon}</span>
                       <span>{link.label}</span>
@@ -614,7 +614,7 @@ export function Header() {
                       key={link.href}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#111111]/5 rounded-lg"
+                      className="flex items-center gap-3 px-4 py-2.5 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#000000]/5 rounded-lg"
                     >
                       <span>{link.icon}</span>
                       <span>{link.label}</span>
@@ -655,7 +655,7 @@ export function Header() {
                       key={link.href}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#111111]/5 rounded-lg"
+                      className="flex items-center gap-3 px-4 py-2.5 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#000000]/5 rounded-lg"
                     >
                       <span>{link.icon}</span>
                       <span>{link.label}</span>
@@ -687,7 +687,7 @@ export function Header() {
                       key={link.href}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#111111]/5 rounded-lg"
+                      className="flex items-center gap-3 px-4 py-2.5 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#000000]/5 rounded-lg"
                     >
                       <span>{link.icon}</span>
                       <span>{link.label}</span>

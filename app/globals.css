@@ -27,7 +27,7 @@
 [data-site="public"] h4,
 [data-site="public"] h5,
 [data-site="public"] h6 {
-  color: #111111;
+  color: #000000;
 }
 [data-site="public"] p,
 [data-site="public"] span,
@@ -35,7 +35,7 @@
 [data-site="public"] label,
 [data-site="public"] td,
 [data-site="public"] th {
-  color: #111111;
+  color: #000000;
 }
 
 /* Keep white text visible inside pink/CTA buttons and solid pink backgrounds */
@@ -70,7 +70,7 @@
 [data-site="public"] section.bg-white h4,
 [data-site="public"] section.bg-white h5,
 [data-site="public"] section.bg-white h6 {
-  color: #111111 !important;
+  color: #000000 !important;
 }
 
 /* All gray text → black */
@@ -105,13 +105,13 @@
 [data-site="public"] .text-neutral-700,
 [data-site="public"] .text-neutral-800,
 [data-site="public"] .text-neutral-900 {
-  color: #111111 !important;
+  color: #000000 !important;
 }
 
 /* Catch-all: force any remaining gray-like text to black */
 [data-site="public"] [class*="text-gray"],
 [data-site="public"] [class*="text-slate"]:not([class*="text-white"]) {
-  color: #111111 !important;
+  color: #000000 !important;
 }
 
 /* Gray backgrounds → white or light pink */
@@ -148,7 +148,7 @@
 [data-site="public"] section.bg-white p:not([class*="text-white"]):not([class*="text-pink"]),
 [data-site="public"] section.bg-white span:not([class*="text-white"]):not([class*="text-pink"]),
 [data-site="public"] .bg-white label:not([class*="text-white"]):not([class*="text-pink"]) {
-  color: #111111 !important;
+  color: #000000 !important;
 }
 
 /* Portal: no gray, use black/white/pink */
@@ -157,7 +157,7 @@
 [data-portal] .text-gray-600,
 [data-portal] .text-gray-700,
 [data-portal] .text-gray-900 {
-  color: #111111 !important;
+  color: #000000 !important;
 }
 [data-portal] [class*="bg-gray-50"],
 [data-portal] [class*="bg-gray-100"] {
@@ -189,7 +189,7 @@
 /* Mascot chat: force light theme, exclude from public overrides */
 [data-mascot-chat] {
   --mascot-chat-bg: #FDF7FA;
-  --mascot-chat-text: #111111;
+  --mascot-chat-text: #000000;
 }
 [data-mascot-chat] .mascot-messages-area {
   background-color: var(--mascot-chat-bg) !important;
@@ -232,8 +232,8 @@
   --hg-pink: #E6007E;
   --hg-pink-deep: #B0005F;
   --hg-bg-soft: #FDF7FA;
-  --hg-dark: #111111;
-  --hg-gray: #111111;
+  --hg-dark: #000000;
+  --hg-gray: #000000;
   --hg-border: #EAE4E8;
 }
 
