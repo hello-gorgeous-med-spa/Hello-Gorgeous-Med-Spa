@@ -31,19 +31,14 @@ const SQUARE_API_BASE = {
 // These cover: Terminal/Devices, Orders, Payments, Merchant profile
 // ============================================================
 const REQUIRED_SCOPES = [
-  'MERCHANT_PROFILE_READ',    // Read merchant info for connection display
-  'PAYMENTS_WRITE',           // Process payments via Terminal
-  'PAYMENTS_READ',            // Fetch payment details (tips, status)
-  'ORDERS_WRITE',             // Create orders for Terminal checkout
-  'ORDERS_READ',              // Read order details for reconciliation
-  'DEVICES_READ',             // List terminal devices
-  'DEVICE_CREDENTIAL_MANAGEMENT', // Create device pairing codes
-  // ----------------------------------------------------------------
-  // EXPLICITLY NOT REQUESTED (PHI compliance + least privilege):
-  // - CUSTOMERS_* - we don't send customer data to Square
-  // - ITEMS_* - we use generic line items only
-  // - INVENTORY_* - not needed for Terminal
-  // ----------------------------------------------------------------
+  'MERCHANT_PROFILE_READ',
+  'PAYMENTS_WRITE',
+  'PAYMENTS_READ',
+  'ORDERS_WRITE',
+  'ORDERS_READ',
+  'DEVICES_READ',
+  'DEVICE_CREDENTIAL_MANAGEMENT',
+  'LOCATIONS_READ',
 ].join(' ');
 
 export interface SquareOAuthConfig {
