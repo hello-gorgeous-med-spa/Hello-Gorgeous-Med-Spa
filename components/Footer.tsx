@@ -13,7 +13,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
   const hasHours = hours && (hours.mon_fri || hours.sat || hours.sun);
 
   return (
-    <footer className="bg-white text-black border-t-2 border-black">
+    <footer className="bg-black text-white border-t-2 border-black">
       {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 md:px-6 py-12 md:py-16 min-w-0">
         <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8">
@@ -24,17 +24,17 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 HG
               </span>
               <div>
-                <span className="text-xl font-bold text-[#E6007E]">{SITE.name}</span>
-                <span className="block text-xs text-[#E6007E] font-medium tracking-wider">MEDICAL AESTHETICS</span>
+                <span className="text-xl font-bold text-[#FF2D8E]">{SITE.name}</span>
+                <span className="block text-xs text-[#FF2D8E] font-medium tracking-wider">MEDICAL AESTHETICS</span>
               </div>
             </Link>
-            <p className="text-black text-sm leading-relaxed max-w-sm">
+            <p className="text-white text-sm leading-relaxed max-w-sm">
               {tagline}
             </p>
             <div className="mt-6 flex items-center gap-4">
               <a
                 href="#"
-                className="w-10 h-10 rounded-full bg-black/5 hover:bg-[#E6007E]/20 flex items-center justify-center text-black hover:text-[#E6007E] transition-all"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#FF2D8E]/30 flex items-center justify-center text-white hover:text-[#FF2D8E] transition-all"
                 aria-label="Instagram"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -43,7 +43,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
               </a>
               <a
                 href="#"
-                className="w-10 h-10 rounded-full bg-black/5 hover:bg-[#E6007E]/20 flex items-center justify-center text-black hover:text-[#E6007E] transition-all"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#FF2D8E]/30 flex items-center justify-center text-white hover:text-[#FF2D8E] transition-all"
                 aria-label="Facebook"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -54,7 +54,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 href="https://www.tiktok.com/@daniellealcala12"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-black/5 hover:bg-[#E6007E]/20 flex items-center justify-center text-black hover:text-[#E6007E] transition-all"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-[#FF2D8E]/30 flex items-center justify-center text-white hover:text-[#FF2D8E] transition-all"
                 aria-label="TikTok"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -66,12 +66,12 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
 
           {/* Services Column */}
           <div>
-            <h4 className="font-bold text-[#E6007E] mb-5 text-sm uppercase tracking-wider">Services</h4>
+            <h4 className="font-bold text-[#FF2D8E] mb-5 text-sm uppercase tracking-wider">Services</h4>
             <ul className="space-y-3 text-sm">
               {SERVICES.slice(0, 6).map((s) => (
                 <li key={s.slug}>
                   <Link
-                    className="text-black hover:text-[#E6007E] transition-colors"
+                    className="text-white hover:text-[#FF2D8E] transition-colors"
                     href={`/services/${s.slug}`}
                   >
                     {s.name}
@@ -80,7 +80,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
               ))}
               <li>
                 <Link
-                  className="text-[#E6007E] hover:text-[#B0005F] transition-colors font-medium"
+                  className="text-[#FF2D8E] hover:text-[#FF2D8E] transition-colors font-medium"
                   href="/services"
                 >
                   View All Services →
@@ -91,45 +91,45 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
 
           {/* Explore Column */}
           <div>
-            <h4 className="font-bold text-[#E6007E] mb-5 text-sm uppercase tracking-wider">Explore</h4>
-            <ul className="space-y-3 text-sm text-black">
+            <h4 className="font-bold text-[#FF2D8E] mb-5 text-sm uppercase tracking-wider">Explore</h4>
+            <ul className="space-y-3 text-sm text-white">
               <li>
-                <Link className="hover:text-[#E6007E] transition-colors" href="/fix-what-bothers-me">
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/fix-what-bothers-me">
                   Fix What Bothers Me
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-[#E6007E] transition-colors" href="/explore-care">
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/explore-care">
                   Explore Care
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-[#E6007E] transition-colors" href="/your-journey">
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/your-journey">
                   Your Journey
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-[#E6007E] transition-colors" href="/understand-your-body">
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/understand-your-body">
                   Understand Your Body
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-[#E6007E] transition-colors" href="/care-and-support">
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/care-and-support">
                   Care & Support
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-[#E6007E] transition-colors" href="/membership">
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/membership">
                   VIP Membership
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-[#E6007E] transition-colors" href="/quiz">
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/quiz">
                   Find My Treatment
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-[#E6007E] transition-colors" href="/telehealth">
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/telehealth">
                   Telehealth
                 </Link>
               </li>
@@ -138,15 +138,15 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
 
           {/* Company Column */}
           <div>
-            <h4 className="font-bold text-[#E6007E] mb-5 text-sm uppercase tracking-wider">Company</h4>
-            <ul className="space-y-3 text-sm text-black">
+            <h4 className="font-bold text-[#FF2D8E] mb-5 text-sm uppercase tracking-wider">Company</h4>
+            <ul className="space-y-3 text-sm text-white">
               <li>
-                <Link className="hover:text-[#E6007E] transition-colors" href="/about">
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/about">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-[#E6007E] transition-colors" href="/providers">
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/providers">
                   Meet Your Care Team
                 </Link>
               </li>
@@ -155,33 +155,33 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                   href={SITE.googleReviewUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-black hover:text-[#E6007E] transition-colors"
+                  className="text-white hover:text-[#FF2D8E] transition-colors"
                 >
                   Google Reviews
                 </a>
               </li>
               <li>
-                <Link className="hover:text-[#E6007E] transition-colors" href="/locations">
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/locations">
                   Location
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-[#E6007E] transition-colors" href="/community">
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/community">
                   Community
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-[#E6007E] transition-colors" href="/care-engine">
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/care-engine">
                   The Care Engine™
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-[#E6007E] transition-colors" href="/clinical-partners">
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/clinical-partners">
                   Clinical Standards
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-[#E6007E] transition-colors" href="/contact">
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/contact">
                   Contact
                 </Link>
               </li>
@@ -191,9 +191,9 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
 
         {/* Hours from CMS (optional) */}
         {hasHours && (
-          <div className="mt-8 pt-6 border-t border-black/10">
-            <h4 className="font-bold text-[#E6007E] mb-3 text-sm uppercase tracking-wider">Hours</h4>
-            <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-black">
+          <div className="mt-8 pt-6 border-t border-white/20">
+            <h4 className="font-bold text-[#FF2D8E] mb-3 text-sm uppercase tracking-wider">Hours</h4>
+            <div className="flex flex-wrap gap-x-6 gap-y-1 text-sm text-white">
               {hours.mon_fri && <span>Mon–Fri: {hours.mon_fri}</span>}
               {hours.sat && <span>Sat: {hours.sat}</span>}
               {hours.sun && <span>Sun: {hours.sun}</span>}
@@ -205,16 +205,16 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
         )}
 
         {/* Local Entity Block - serving area for local SEO */}
-        <div className="mt-8 pt-6 border-t border-black/10">
-          <h4 className="font-bold text-[#E6007E] mb-3 text-sm uppercase tracking-wider">Serving</h4>
-          <p className="text-sm text-black">
+        <div className="mt-8 pt-6 border-t border-white/20">
+          <h4 className="font-bold text-[#FF2D8E] mb-3 text-sm uppercase tracking-wider">Serving</h4>
+          <p className="text-sm text-white">
             Oswego, IL · Naperville, IL · Plainfield, IL · Aurora, IL · Kendall County
           </p>
         </div>
 
         {/* Footer Map */}
-        <div className="mt-10 pt-8 border-t border-black/10">
-          <h4 className="font-bold text-[#E6007E] mb-4 text-sm uppercase tracking-wider">Find Us</h4>
+        <div className="mt-10 pt-8 border-t border-white/20">
+          <h4 className="font-bold text-[#FF2D8E] mb-4 text-sm uppercase tracking-wider">Find Us</h4>
           <div className="h-[220px] md:h-[200px] max-w-2xl">
             <GoogleMapEmbed height={220} loading="lazy" />
           </div>
@@ -222,7 +222,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
             href={SITE.googleBusinessUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 mt-3 text-sm text-[#E6007E] hover:text-[#B0005F] transition-colors"
+            className="inline-flex items-center gap-2 mt-3 text-sm text-[#FF2D8E] hover:text-[#FF2D8E] transition-colors"
           >
             View on Google
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -232,12 +232,12 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
         </div>
 
         {/* Contact Info Bar */}
-        <div className="mt-12 pt-8 border-t border-black/10">
+        <div className="mt-12 pt-8 border-t border-white/20">
           <div className="flex flex-wrap items-center justify-between gap-6">
             <div className="flex flex-wrap items-center gap-6 text-sm">
               <a
                 href={`tel:${SITE.phone}`}
-                className="flex items-center gap-2 text-black hover:text-[#E6007E] transition-colors"
+                className="flex items-center gap-2 text-white hover:text-[#FF2D8E] transition-colors"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -246,14 +246,14 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
               </a>
               <a
                 href={`mailto:${SITE.email}`}
-                className="flex items-center gap-2 text-black hover:text-[#E6007E] transition-colors"
+                className="flex items-center gap-2 text-white hover:text-[#FF2D8E] transition-colors"
               >
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
                 {SITE.email}
               </a>
-              <span className="flex items-center gap-2 text-black">
+              <span className="flex items-center gap-2 text-white">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -277,31 +277,31 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
       </div>
 
       {/* Privacy & Security (HIPAA-aligned) */}
-      <div className="border-t border-black/10 bg-white">
+      <div className="border-t border-white/20 bg-black">
         <div className="max-w-7xl mx-auto px-6 py-5">
-          <h4 className="font-semibold text-[#E6007E] text-sm mb-2">Privacy & Security</h4>
-          <p className="text-sm text-black max-w-3xl">
+          <h4 className="font-semibold text-[#FF2D8E] text-sm mb-2">Privacy & Security</h4>
+          <p className="text-sm text-white max-w-3xl">
             We use secure, encrypted systems to protect your information. Client access is provided via secure, one-time login links — no passwords required. We never share your personal information without your consent.
           </p>
-          <Link className="inline-block mt-2 text-[#E6007E] hover:text-[#B0005F] text-sm font-medium" href="/privacy">
+          <Link className="inline-block mt-2 text-[#FF2D8E] hover:text-[#FF2D8E] text-sm font-medium" href="/privacy">
             Privacy Policy
           </Link>
         </div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-black/10 bg-white">
+      <div className="border-t border-white/20 bg-black">
         <div className="max-w-7xl mx-auto px-6 py-6">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-black">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white">
             <p>© {new Date().getFullYear()} {SITE.name}. All rights reserved.</p>
             <div className="flex items-center gap-6">
-              <Link className="hover:text-[#E6007E] transition-colors" href="/privacy">
+              <Link className="hover:text-[#FF2D8E] transition-colors" href="/privacy">
                 Privacy Policy
               </Link>
-              <Link className="hover:text-[#E6007E] transition-colors" href="/terms">
+              <Link className="hover:text-[#FF2D8E] transition-colors" href="/terms">
                 Terms of Service
               </Link>
-              <Link className="hover:text-[#E6007E] transition-colors" href="/privacy#hipaa">
+              <Link className="hover:text-[#FF2D8E] transition-colors" href="/privacy#hipaa">
                 HIPAA Notice
               </Link>
             </div>
