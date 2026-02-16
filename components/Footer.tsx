@@ -265,7 +265,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
               href={BOOKING_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-10 py-4 bg-[#FF2D8E] hover:bg-white hover:text-[#FF2D8E] border-2 border-[#FF2D8E] text-white text-sm font-semibold uppercase tracking-widest rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
+              className="inline-flex items-center gap-2 px-10 py-4 bg-hg-pink hover:bg-hg-pinkDeep text-white text-sm font-semibold uppercase tracking-widest rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
             >
               Book Your Appointment
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

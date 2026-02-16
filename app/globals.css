@@ -2,187 +2,239 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ============================================================
-   HELLO GORGEOUS — BRAND DESIGN SYSTEM
-   White • Black • Hot Pink ONLY — No gray
-   ============================================================ */
-
-:root {
-  --white: #FFFFFF;
-  --black: #000000;
-  --hotpink: #FF2D8E;
-  /* Legacy compat - map to new */
-  --hg-pink: #FF2D8E;
-  --hg-pink-deep: #E01A7A;
-  --font-playfair: var(--font-playfair), Georgia, serif;
-  --font-inter: var(--font-inter), Inter, system-ui, sans-serif;
-}
-
-/* Typography scale */
+/* Hello Gorgeous Premium Medical Glam — Typography */
 @layer base {
   h1 {
-    font-family: var(--font-playfair);
-    font-size: clamp(2rem, 5vw, 3.25rem); /* 52px target */
+    font-family: var(--font-playfair), Georgia, serif;
+    font-size: clamp(1.75rem, 4vw, 3.75rem);
     font-weight: 700;
     line-height: 1.15;
   }
   h2 {
-    font-family: var(--font-playfair);
-    font-size: clamp(1.75rem, 4vw, 2.375rem); /* 38px target */
+    font-family: var(--font-playfair), Georgia, serif;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
     font-weight: 700;
     line-height: 1.2;
   }
-  h3 {
-    font-family: var(--font-playfair);
-    font-size: clamp(1.25rem, 3vw, 1.75rem); /* 28px target */
-    font-weight: 700;
-    line-height: 1.3;
-  }
-  body {
-    font-size: 1.125rem; /* 18px */
-    line-height: 1.6;
-  }
 }
 
-/* Spacing system */
-.section-major {
-  padding-top: 100px;
-  padding-bottom: 100px;
-}
-.section-sub {
-  padding-top: 60px;
-  padding-bottom: 60px;
-}
-.container-max {
-  max-width: 1280px;
-  margin-left: auto;
-  margin-right: auto;
-}
-.card-gap {
-  gap: 32px;
-}
-
-/* Public site: black + white + hot pink only */
-[data-site="public"] {
-  --tw-text-opacity: 1;
-}
-
+/* Public site: hot pink + black text on white */
 [data-site="public"] h1,
-[data-site="public"] h2,
+[data-site="public"] h2 {
+  color: var(--hg-pink);
+}
 [data-site="public"] h3,
 [data-site="public"] h4,
 [data-site="public"] h5,
 [data-site="public"] h6 {
-  color: var(--black);
+  color: #111111;
+}
+[data-site="public"] p,
+[data-site="public"] span,
+[data-site="public"] li,
+[data-site="public"] label,
+[data-site="public"] td,
+[data-site="public"] th {
+  color: #111111;
 }
 
-[data-site="public"] .text-hotpink,
-[data-site="public"] [class*="text-[#FF2D8E]"] {
-  color: var(--hotpink) !important;
+/* Keep white text visible inside pink/CTA buttons and solid pink backgrounds */
+[data-site="public"] .text-white,
+[data-site="public"] .text-white *,
+[data-site="public"] a[class*="bg-hg-pink"],
+[data-site="public"] a[class*="bg-hg-pink"] *,
+[data-site="public"] button[class*="bg-hg-pink"],
+[data-site="public"] button[class*="bg-hg-pink"] *,
+[data-site="public"] a[class*="bg-pink-500"]:not([class*="/"]),
+[data-site="public"] a[class*="bg-pink-500"]:not([class*="/"]) *,
+[data-site="public"] button[class*="bg-pink-500"]:not([class*="/"]),
+[data-site="public"] button[class*="bg-pink-500"]:not([class*="/"]) * {
+  color: white !important;
 }
-
-[data-site="public"] section.bg-white h1,
-[data-site="public"] section.bg-white h2,
-[data-site="public"] section.bg-white h3,
-[data-site="public"] section.bg-white h4,
-[data-site="public"] section.bg-white h5,
-[data-site="public"] section.bg-white h6,
-[data-site="public"] section.bg-white p,
-[data-site="public"] section.bg-white span,
-[data-site="public"] section.bg-white li {
-  color: var(--black);
-}
-
-[data-site="public"] section.bg-black h1,
-[data-site="public"] section.bg-black h2,
-[data-site="public"] section.bg-black h3,
-[data-site="public"] section.bg-black h4,
-[data-site="public"] section.bg-black h5,
-[data-site="public"] section.bg-black h6,
-[data-site="public"] section.bg-black p,
-[data-site="public"] section.bg-black span,
-[data-site="public"] section.bg-black li {
-  color: var(--white);
-}
-
 [data-site="public"] a {
-  color: var(--hotpink);
+  color: var(--hg-pink);
 }
 [data-site="public"] a:hover {
   color: var(--hg-pink-deep);
 }
 
-/* Force gray/slate/neutral → black on public site */
+/* ============================================================
+   PUBLIC SITE: BLACK, WHITE, PINK ONLY — NO GRAY
+   All gray/slate/zinc/stone/neutral converted to black or light pink
+   ============================================================ */
+
+/* Ensure headings on white sections are always readable (no invisible white-on-white) */
+[data-site="public"] section.bg-white h1,
+[data-site="public"] section.bg-white h2,
+[data-site="public"] section.bg-white h3,
+[data-site="public"] section.bg-white h4,
+[data-site="public"] section.bg-white h5,
+[data-site="public"] section.bg-white h6 {
+  color: #111111 !important;
+}
+
+/* All gray text → black */
+[data-site="public"] .text-gray-100,
+[data-site="public"] .text-gray-200,
+[data-site="public"] .text-gray-300,
+[data-site="public"] .text-gray-400,
+[data-site="public"] .text-gray-500,
+[data-site="public"] .text-gray-600,
+[data-site="public"] .text-gray-700,
+[data-site="public"] .text-gray-800,
+[data-site="public"] .text-gray-900,
+[data-site="public"] .text-slate-400,
+[data-site="public"] .text-slate-500,
+[data-site="public"] .text-slate-600,
+[data-site="public"] .text-slate-700,
+[data-site="public"] .text-slate-800,
+[data-site="public"] .text-slate-900,
+[data-site="public"] .text-zinc-400,
+[data-site="public"] .text-zinc-500,
+[data-site="public"] .text-zinc-600,
+[data-site="public"] .text-zinc-700,
+[data-site="public"] .text-zinc-800,
+[data-site="public"] .text-zinc-900,
+[data-site="public"] .text-stone-500,
+[data-site="public"] .text-stone-600,
+[data-site="public"] .text-stone-700,
+[data-site="public"] .text-stone-800,
+[data-site="public"] .text-stone-900,
+[data-site="public"] .text-neutral-500,
+[data-site="public"] .text-neutral-600,
+[data-site="public"] .text-neutral-700,
+[data-site="public"] .text-neutral-800,
+[data-site="public"] .text-neutral-900 {
+  color: #111111 !important;
+}
+
+/* Catch-all: force any remaining gray-like text to black */
 [data-site="public"] [class*="text-gray"],
-[data-site="public"] [class*="text-slate"],
-[data-site="public"] [class*="text-zinc"],
-[data-site="public"] [class*="text-stone"],
-[data-site="public"] [class*="text-neutral"] {
-  color: var(--black) !important;
+[data-site="public"] [class*="text-slate"]:not([class*="text-white"]) {
+  color: #111111 !important;
 }
 
-[data-site="public"] [class*="bg-gray"],
-[data-site="public"] [class*="bg-slate"],
-[data-site="public"] [class*="bg-zinc"],
-[data-site="public"] [class*="bg-stone"],
-[data-site="public"] [class*="bg-neutral"] {
-  background-color: var(--white) !important;
+/* Gray backgrounds → white or light pink */
+[data-site="public"] [class*="bg-gray-50"],
+[data-site="public"] [class*="bg-gray-100"],
+[data-site="public"] [class*="bg-slate-50"],
+[data-site="public"] [class*="bg-slate-100"],
+[data-site="public"] [class*="bg-zinc-50"],
+[data-site="public"] [class*="bg-zinc-100"],
+[data-site="public"] [class*="bg-stone-50"],
+[data-site="public"] [class*="bg-stone-100"],
+[data-site="public"] [class*="bg-neutral-50"],
+[data-site="public"] [class*="bg-neutral-100"] {
+  background-color: #ffffff !important;
+}
+[data-site="public"] [class*="bg-gray-200"],
+[data-site="public"] [class*="bg-slate-200"],
+[data-site="public"] [class*="bg-zinc-200"],
+[data-site="public"] [class*="bg-stone-200"],
+[data-site="public"] [class*="bg-neutral-200"] {
+  background-color: rgba(230, 0, 126, 0.08) !important;
 }
 
+/* Gray borders → black with opacity */
 [data-site="public"] [class*="border-gray"],
 [data-site="public"] [class*="border-slate"],
 [data-site="public"] [class*="border-zinc"],
 [data-site="public"] [class*="border-stone"],
 [data-site="public"] [class*="border-neutral"] {
-  border-color: rgba(0, 0, 0, 0.15) !important;
+  border-color: rgba(17, 17, 17, 0.15) !important;
 }
 
-/* Mascot chat */
+/* Light sections: ensure body text is dark (excludes buttons/CTAs with explicit colors) */
+[data-site="public"] section.bg-white p:not([class*="text-white"]):not([class*="text-pink"]),
+[data-site="public"] section.bg-white span:not([class*="text-white"]):not([class*="text-pink"]),
+[data-site="public"] .bg-white label:not([class*="text-white"]):not([class*="text-pink"]) {
+  color: #111111 !important;
+}
+
+/* Portal: no gray, use black/white/pink */
+[data-portal] .text-gray-400,
+[data-portal] .text-gray-500,
+[data-portal] .text-gray-600,
+[data-portal] .text-gray-700,
+[data-portal] .text-gray-900 {
+  color: #111111 !important;
+}
+[data-portal] [class*="bg-gray-50"],
+[data-portal] [class*="bg-gray-100"] {
+  background-color: #FDF7FA !important;
+}
+[data-portal] [class*="bg-gray-200"] {
+  background-color: rgba(230, 0, 126, 0.08) !important;
+}
+[data-portal] [class*="border-gray"] {
+  border-color: rgba(17, 17, 17, 0.15) !important;
+}
+[data-site="public"] .text-pink-400 {
+  color: var(--hg-pink) !important;
+}
+
+/* Remove pink-tinted boxes on public site: use white background */
+[data-site="public"] [class*="bg-pink-500/10"],
+[data-site="public"] [class*="bg-pink-500/20"],
+[data-site="public"] [class*="bg-pink-950/20"],
+[data-site="public"] [class*="bg-pink-50"] {
+  background-color: white !important;
+}
+
+/* Force light pink gradient on dark gradient overlays (public site) */
+[data-site="public"] .absolute.inset-0.bg-gradient-to-b {
+  background: linear-gradient(to bottom, #fce7f3 0%, #fdf2f8 50%, #ffffff 100%) !important;
+}
+
+/* Mascot chat: force light theme, exclude from public overrides */
 [data-mascot-chat] {
-  --mascot-chat-bg: var(--white);
-  --mascot-chat-text: var(--black);
+  --mascot-chat-bg: #FDF7FA;
+  --mascot-chat-text: #111111;
 }
 [data-mascot-chat] .mascot-messages-area {
-  background-color: var(--white) !important;
-  color: var(--black) !important;
+  background-color: var(--mascot-chat-bg) !important;
+  color: var(--mascot-chat-text) !important;
 }
 [data-mascot-chat] .mascot-message-bubble {
-  background-color: var(--white) !important;
-  color: var(--black) !important;
-  border: 1px solid var(--black);
+  background-color: white !important;
+  color: var(--mascot-chat-text) !important;
 }
 [data-mascot-chat] .mascot-quick-btn {
-  background-color: var(--white) !important;
-  color: var(--black) !important;
-  border: 1px solid var(--black) !important;
+  background-color: white !important;
+  color: var(--mascot-chat-text) !important;
+  border-color: rgba(17, 17, 17, 0.15) !important;
 }
 [data-mascot-chat] .mascot-input-area {
-  background-color: var(--white) !important;
+  background-color: white !important;
 }
 [data-mascot-chat] .mascot-input-area input {
-  background-color: var(--white) !important;
-  color: var(--black) !important;
-  border: 1px solid var(--black) !important;
+  background-color: rgba(17, 17, 17, 0.05) !important;
+  color: var(--mascot-chat-text) !important;
 }
 
-/* Admin panel - keep readable (admin uses its own styles) */
-.admin-panel input,
-.admin-panel textarea,
-.admin-panel select {
-  color: var(--black) !important;
+/* Dark sections (e.g. authority block): white text on black */
+[data-site="public"] [data-dark] h2,
+[data-site="public"] [data-dark] h3 {
+  color: white !important;
 }
-.admin-panel h1, .admin-panel h2, .admin-panel h3, .admin-panel h4, .admin-panel h5, .admin-panel h6 {
-  color: var(--black);
+[data-site="public"] [data-dark] p[class*="E6007E"] {
+  color: #E6007E !important;
+}
+[data-site="public"] [data-dark] p {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+[data-site="public"] [data-dark] p[class*="E6007E"] {
+  color: #E6007E !important;
 }
 
-/* Portal */
-[data-portal] [class*="text-gray"],
-[data-portal] [class*="text-slate"] {
-  color: var(--black) !important;
-}
-[data-portal] [class*="bg-gray"],
-[data-portal] [class*="bg-slate"] {
-  background-color: var(--white) !important;
+/* Hello Gorgeous Premium Medical Glam — Design Tokens */
+:root {
+  --hg-pink: #E6007E;
+  --hg-pink-deep: #B0005F;
+  --hg-bg-soft: #FDF7FA;
+  --hg-dark: #111111;
+  --hg-gray: #111111;
+  --hg-border: #EAE4E8;
 }
 
 html {
@@ -190,69 +242,264 @@ html {
   max-width: 100vw;
   scroll-behavior: smooth;
 }
-html, body {
+
+html,
+body {
   height: 100%;
 }
+
 body {
   overflow-x: hidden;
   max-width: 100vw;
   text-rendering: optimizeLegibility;
 }
 
+/* Safe area for sticky mobile nav CTAs */
 .safe-area-pb {
   padding-bottom: max(1rem, env(safe-area-inset-bottom));
 }
 
-main, #__next {
+/* Prevent horizontal scroll - constrain wide children */
+main,
+#__next {
   overflow-x: hidden;
   max-width: 100%;
 }
 
+/* ============================================================
+   ADMIN PANEL TEXT VISIBILITY FIX
+   Make all admin interface text darker and more readable
+   WHITE-ON-WHITE BUG FIX
+   ============================================================ */
+
+/* Admin only: force darker input text (do NOT apply globally - breaks public modals) */
+.admin-panel input,
+.admin-panel textarea,
+.admin-panel select {
+  color: #111827 !important;
+  font-weight: 500;
+}
+.admin-panel input::placeholder,
+.admin-panel textarea::placeholder {
+  color: #9ca3af !important;
+}
+
+/* CRITICAL: Fix white text on white backgrounds in admin panel */
+.admin-panel .bg-white .text-white,
+.admin-panel .bg-gray-50 .text-white,
+.admin-panel .bg-gray-100 .text-white {
+  color: #111827 !important; /* Force dark text on light backgrounds */
+}
+
+/* Fix white text in cards/sections with white backgrounds */
+.admin-panel [class*="bg-white"] > [class*="text-white"],
+.admin-panel [class*="bg-gray"] > [class*="text-white"] {
+  color: #374151 !important; /* gray-700 */
+}
+
+/* Fix headings that might be white */
+.admin-panel h1,
+.admin-panel h2,
+.admin-panel h3,
+.admin-panel h4,
+.admin-panel h5,
+.admin-panel h6 {
+  color: #111827; /* gray-900 - default dark */
+}
+
+/* But allow colored headings */
+.admin-panel h1[class*="text-pink"],
+.admin-panel h2[class*="text-pink"],
+.admin-panel h3[class*="text-pink"] {
+  color: inherit;
+}
+
+/* Fix paragraphs and spans that are white on white */
+.admin-panel .bg-white p:not([class*="text-"]),
+.admin-panel .bg-white span:not([class*="text-"]) {
+  color: #374151; /* gray-700 default */
+}
+
+/* Table text must be readable */
+.admin-panel table td,
+.admin-panel table th {
+  color: #374151 !important; /* gray-700 minimum */
+}
+
+/* Fix labels */
+.admin-panel label {
+  color: #374151 !important; /* gray-700 */
+}
+
+/* Fix light gray labels and descriptions in admin */
+[class*="text-gray-300"],
+[class*="text-gray-400"] {
+  --tw-text-opacity: 1;
+}
+
+/* Admin only: ensure table text is readable */
+.admin-panel table td,
+.admin-panel table th {
+  color: #374151 !important;
+}
+
+/* Better contrast for stat cards */
+.stat-label {
+  color: #4b5563 !important; /* gray-600 */
+  font-weight: 500;
+}
+
+/* Override any faded text in admin areas only */
+.admin-panel main input,
+.admin-panel main textarea,
+.admin-panel main select,
+.admin-panel aside input,
+.admin-panel aside textarea,
+.admin-panel aside select {
+  color: #111827 !important;
+}
+
+/* Buttons with white text are OK if they have colored backgrounds */
+.admin-panel button[class*="bg-pink"] .text-white,
+.admin-panel button[class*="bg-blue"] .text-white,
+.admin-panel button[class*="bg-green"] .text-white,
+.admin-panel button[class*="bg-red"] .text-white,
+.admin-panel a[class*="bg-pink"] .text-white,
+.admin-panel a[class*="bg-blue"] .text-white {
+  color: white !important;
+}
+
+/* Stats and metrics should be dark */
+.admin-panel [class*="stat"] {
+  color: #111827;
+}
+
+/* Fix any remaining white text on white card backgrounds */
+.admin-panel .rounded-xl.bg-white *:not(button):not(a) {
+  color: inherit;
+}
+
+.admin-panel .rounded-xl.bg-white {
+  color: #374151; /* base dark color for cards */
+}
+
 ::selection {
-  background: rgba(255, 45, 142, 0.25);
+  background: rgba(230, 0, 126, 0.25);
 }
 
-/* Button system */
-.btn-primary {
-  background: var(--hotpink);
-  color: var(--white);
-  padding: 16px 32px;
-  border-radius: 8px;
-  font-weight: 600;
-  transition: all 0.2s;
-}
-.btn-primary:hover {
-  background: var(--black);
-  color: var(--hotpink);
+/* Premium Medical Glam — Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .hg-card,
+  .hg-card-dark {
+    transition: box-shadow 300ms ease-out;
+  }
+  .hg-card:hover,
+  .hg-card-dark:hover {
+    transform: none;
+  }
 }
 
-.btn-secondary {
-  background: var(--black);
-  color: var(--white);
-  padding: 16px 32px;
-  border-radius: 8px;
-  font-weight: 600;
-  border: 2px solid var(--black);
-  transition: all 0.2s;
-}
-.btn-secondary:hover {
-  background: var(--white);
-  color: var(--black);
-  border-color: var(--hotpink);
+/* Premium Medical Glam — Card System */
+@layer components {
+  .hg-card {
+    @apply bg-white rounded-xl p-8 shadow-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-xl;
+  }
+  .hg-card-dark {
+    @apply rounded-xl p-8 shadow-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-xl bg-black/40 border border-gray-800;
+  }
 }
 
-/* Fade-up animation */
+/* Premium Medical Glam — Section Reveal (fade + rise 20px, 600ms, ease-out, trigger once) */
 .fade-up {
   opacity: 0;
   transform: translateY(20px);
 }
+
 .fade-up.is-visible {
   opacity: 1;
   transform: translateY(0);
   transition: opacity 600ms ease-out, transform 600ms ease-out;
 }
 
-/* Scrollbar hide */
+.fade-delay-1 {
+  transition-delay: 150ms;
+}
+
+.fade-delay-2 {
+  transition-delay: 300ms;
+}
+
+.fade-delay-3 {
+  transition-delay: 450ms;
+}
+
+/* Fresha transition banner - subtle fade, respects reduced motion */
+@keyframes fade {
+  0% { opacity: 0.95; }
+  50% { opacity: 1; }
+  100% { opacity: 0.95; }
+}
+.animate-fade {
+  animation: fade 6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade {
+    animation: none;
+  }
+}
+
+@keyframes floatSlow {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.float-slow {
+  animation: floatSlow 6s ease-in-out infinite;
+}
+
+/* ============================================================
+   HOMEPAGE HERO — Authority layout
+   slideIn underline, gradient slogan, soft overlay
+   ============================================================ */
+
+@keyframes heroSlideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.hero-trusted-underline {
+  height: 3px;
+  background: linear-gradient(90deg, var(--hg-pink), #ff6fb5);
+  border-radius: 2px;
+  animation: heroSlideIn 0.6s ease-out forwards;
+}
+
+.hero-slogan-gradient {
+  background: linear-gradient(90deg, var(--hg-pink), #ff6fb5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   MOBILE READINESS — Consumer forms & touch
+   Tap targets ≥44px, keyboard-safe spacing, no horizontal scroll
+   ============================================================ */
+
+/* Hide scrollbar but keep scroll (carousels, horizontal lists) */
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -261,17 +508,28 @@ main, #__next {
   display: none;
 }
 
+/* Minimum touch target (44px) for buttons and interactive elements */
 .tap-target {
   min-height: 44px;
   min-width: 44px;
 }
 
+/* Form field height for mobile (≥44px) — use on inputs, textareas, submit buttons */
 .input-touch {
   min-height: 44px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .fade-up {
-    transition: none;
+/* Extra bottom padding so submit button can scroll into view when keyboard is open */
+.keyboard-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+@supports (padding-bottom: max(1rem, env(safe-area-inset-bottom))) {
+  .keyboard-safe {
+    padding-bottom: max(1.5rem, env(safe-area-inset-bottom));
+  }
+}
+@media (max-width: 768px) {
+  .keyboard-safe {
+    padding-bottom: max(4rem, env(safe-area-inset-bottom));
   }
 }
