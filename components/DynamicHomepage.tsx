@@ -12,6 +12,7 @@ import { MascotHeroSection } from "@/components/MascotHeroSection";
 import { HomeCareTeam } from "@/components/HomeCareTeam";
 import { OffersSection } from "@/components/OffersSection";
 import { PhotoGallery } from "@/components/PhotoGallery";
+import { AboutSection } from "@/components/AboutSection";
 import { MeetProviders } from "@/components/MeetProviders";
 import { PartnersGrid } from "@/components/PartnersGrid";
 import { Testimonials } from "@/components/Testimonials";
@@ -93,6 +94,9 @@ function renderSection(section: CMSSection) {
 
     case 'quiz_cta':
       return <QuizCTA key={id} />;
+
+    case 'about':
+      return <AboutSection key={id} />;
 
     case 'providers':
       return <MeetProviders key={id} />;

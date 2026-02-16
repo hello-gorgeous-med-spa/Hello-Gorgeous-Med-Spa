@@ -108,6 +108,12 @@
   color: #111111 !important;
 }
 
+/* Catch-all: force any remaining gray-like text to black */
+[data-site="public"] [class*="text-gray"],
+[data-site="public"] [class*="text-slate"]:not([class*="text-white"]) {
+  color: #111111 !important;
+}
+
 /* Gray backgrounds → white or light pink */
 [data-site="public"] [class*="bg-gray-50"],
 [data-site="public"] [class*="bg-gray-100"],

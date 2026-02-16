@@ -18,6 +18,7 @@ import { EmailBanner } from "@/components/EmailCapture";
 import { HomepageInteractiveTools } from "@/components/HomepageInteractiveTools";
 import { QuizCTA } from "@/components/QuizCTA";
 import { MembershipSection } from "@/components/MembershipSection";
+import { AboutSection } from "@/components/AboutSection";
 import { FixWhatBothersMeFeature } from "@/components/FixWhatBothersMeFeature";
 import { ImmediateCareBanner } from "@/components/ImmediateCareBanner";
 import { TriggerPointSection } from "@/components/TriggerPointSection";
@@ -108,6 +109,7 @@ export default async function HomePage() {
       </section>
       <FixWhatBothersMeFeature />
       <QuizCTA />
+      <AboutSection />
       <MeetProviders />
       <OffersSection />
       <MembershipSection />
