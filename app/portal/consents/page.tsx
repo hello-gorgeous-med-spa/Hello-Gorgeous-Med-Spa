@@ -157,13 +157,13 @@ export default function ConsentsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#111]">Consent Forms</h1>
-        <p className="text-[#111]/70 mt-1">Review and sign required consent forms</p>
+        <h1 className="text-2xl font-bold text-[#000000]">Consent Forms</h1>
+        <p className="text-[#000000]/70 mt-1">Review and sign required consent forms</p>
       </div>
 
       {/* Pending Forms */}
-      <div className="bg-white rounded-2xl border border-[#111]/10 p-6">
-        <h2 className="font-semibold text-[#111] mb-4 flex items-center gap-2">
+      <div className="bg-white rounded-2xl border border-[#000000]/10 p-6">
+        <h2 className="font-semibold text-[#000000] mb-4 flex items-center gap-2">
           <span className="text-amber-500">⚠️</span> Forms to Complete
         </h2>
         <div className="space-y-3">
@@ -174,8 +174,8 @@ export default function ConsentsPage() {
             return (
               <div key={formType} className="flex items-center justify-between p-4 bg-amber-50 border border-amber-200 rounded-xl">
                 <div>
-                  <p className="font-medium text-[#111]">{form?.title || formType}</p>
-                  <p className="text-sm text-[#111]/50">Required before treatment</p>
+                  <p className="font-medium text-[#000000]">{form?.title || formType}</p>
+                  <p className="text-sm text-[#000000]/50">Required before treatment</p>
                 </div>
                 <button
                   onClick={() => setActiveForm(formType)}
@@ -193,21 +193,21 @@ export default function ConsentsPage() {
       </div>
 
       {/* Signed Forms */}
-      <div className="bg-white rounded-2xl border border-[#111]/10 p-6">
-        <h2 className="font-semibold text-[#111] mb-4 flex items-center gap-2">
+      <div className="bg-white rounded-2xl border border-[#000000]/10 p-6">
+        <h2 className="font-semibold text-[#000000] mb-4 flex items-center gap-2">
           <span className="text-green-500">✓</span> Signed Forms
         </h2>
         {consents.filter(c => c.status === 'signed').length === 0 ? (
-          <p className="text-center py-4 text-[#111]/50">No signed forms yet</p>
+          <p className="text-center py-4 text-[#000000]/50">No signed forms yet</p>
         ) : (
           <div className="space-y-3">
             {consents.filter(c => c.status === 'signed').map((consent) => (
               <div key={consent.id} className="flex items-center justify-between p-4 bg-green-50 border border-green-200 rounded-xl">
                 <div>
-                  <p className="font-medium text-[#111]">{FORM_CONTENT[consent.formType]?.title || consent.formType}</p>
+                  <p className="font-medium text-[#000000]">{FORM_CONTENT[consent.formType]?.title || consent.formType}</p>
                   <p className="text-sm text-green-600">Signed {consent.signedAt ? new Date(consent.signedAt).toLocaleDateString() : ''}</p>
                 </div>
-                <button className="text-[#111]/50 hover:text-[#111] text-sm">View PDF</button>
+                <button className="text-[#000000]/50 hover:text-[#000000] text-sm">View PDF</button>
               </div>
             ))}
           </div>
@@ -218,25 +218,25 @@ export default function ConsentsPage() {
       {activeForm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-[#111]/10">
-              <h2 className="text-xl font-bold text-[#111]">{FORM_CONTENT[activeForm]?.title}</h2>
+            <div className="p-6 border-b border-[#000000]/10">
+              <h2 className="text-xl font-bold text-[#000000]">{FORM_CONTENT[activeForm]?.title}</h2>
             </div>
             
             <div className="p-6 space-y-4 max-h-[40vh] overflow-y-auto bg-white">
               {FORM_CONTENT[activeForm]?.content.map((para, idx) => (
-                <p key={idx} className="text-[#111]/70">{para}</p>
+                <p key={idx} className="text-[#000000]/70">{para}</p>
               ))}
             </div>
 
-            <div className="p-6 border-t border-[#111]/10">
-              <p className="text-sm text-[#111]/70 mb-4">By signing below, I acknowledge that I have read and understood this document.</p>
+            <div className="p-6 border-t border-[#000000]/10">
+              <p className="text-sm text-[#000000]/70 mb-4">By signing below, I acknowledge that I have read and understood this document.</p>
               
               {/* Signature Type Toggle */}
               <div className="flex gap-2 mb-4">
                 <button
                   onClick={() => setSignatureMode('type')}
                   className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    signatureMode === 'type' ? 'bg-[#FF2D8E] text-white' : 'bg-white text-[#111]/70'
+                    signatureMode === 'type' ? 'bg-[#FF2D8E] text-white' : 'bg-white text-[#000000]/70'
                   }`}
                 >
                   Type Signature
@@ -244,7 +244,7 @@ export default function ConsentsPage() {
                 <button
                   onClick={() => setSignatureMode('draw')}
                   className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    signatureMode === 'draw' ? 'bg-[#FF2D8E] text-white' : 'bg-white text-[#111]/70'
+                    signatureMode === 'draw' ? 'bg-[#FF2D8E] text-white' : 'bg-white text-[#000000]/70'
                   }`}
                 >
                   Draw Signature
@@ -257,7 +257,7 @@ export default function ConsentsPage() {
                   value={typedSignature}
                   onChange={(e) => setTypedSignature(e.target.value)}
                   placeholder="Type your full legal name"
-                  className="w-full px-4 py-3 border border-[#111]/20 rounded-xl text-lg italic focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50"
+                  className="w-full px-4 py-3 border border-[#000000]/20 rounded-xl text-lg italic focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50"
                 />
               ) : (
                 <div className="relative">
@@ -265,7 +265,7 @@ export default function ConsentsPage() {
                     ref={canvasRef}
                     width={500}
                     height={150}
-                    className="w-full border border-[#111]/20 rounded-xl bg-white cursor-crosshair"
+                    className="w-full border border-[#000000]/20 rounded-xl bg-white cursor-crosshair"
                     onMouseDown={startDrawing}
                     onMouseMove={draw}
                     onMouseUp={() => setIsDrawing(false)}
@@ -273,7 +273,7 @@ export default function ConsentsPage() {
                   />
                   <button
                     onClick={clearCanvas}
-                    className="absolute top-2 right-2 text-xs text-[#111]/50 hover:text-[#111]"
+                    className="absolute top-2 right-2 text-xs text-[#000000]/50 hover:text-[#000000]"
                   >
                     Clear
                   </button>
@@ -283,7 +283,7 @@ export default function ConsentsPage() {
               <div className="flex gap-3 mt-6">
                 <button
                   onClick={() => { setActiveForm(null); setTypedSignature(''); }}
-                  className="flex-1 py-3 border border-[#111]/20 rounded-xl font-medium text-[#111]/70 hover:bg-white transition-colors"
+                  className="flex-1 py-3 border border-[#000000]/20 rounded-xl font-medium text-[#000000]/70 hover:bg-white transition-colors"
                 >
                   Cancel
                 </button>

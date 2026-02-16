@@ -68,8 +68,8 @@ export default function AftercarePage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-[#111]">Aftercare Instructions</h1>
-        <p className="text-[#111]/70 mt-1">Important care instructions for your treatments</p>
+        <h1 className="text-2xl font-bold text-[#000000]">Aftercare Instructions</h1>
+        <p className="text-[#000000]/70 mt-1">Important care instructions for your treatments</p>
       </div>
 
       {/* Emergency Contact */}
@@ -90,15 +90,15 @@ export default function AftercarePage() {
 
       {/* Aftercare Cards */}
       {aftercares.length === 0 ? (
-        <div className="text-center py-12 bg-white rounded-xl border border-[#111]/10">
+        <div className="text-center py-12 bg-white rounded-xl border border-[#000000]/10">
           <span className="text-4xl">📋</span>
-          <p className="mt-4 text-[#111]/70">No aftercare instructions yet</p>
-          <p className="text-sm text-[#111]/50 mt-1">Instructions will appear here after your treatments</p>
+          <p className="mt-4 text-[#000000]/70">No aftercare instructions yet</p>
+          <p className="text-sm text-[#000000]/50 mt-1">Instructions will appear here after your treatments</p>
         </div>
       ) : (
         <div className="space-y-4">
           {aftercares.map((ac) => (
-            <div key={ac.id} className="bg-white rounded-2xl border border-[#111]/10 overflow-hidden">
+            <div key={ac.id} className="bg-white rounded-2xl border border-[#000000]/10 overflow-hidden">
               <button
                 onClick={() => setExpandedId(expandedId === ac.id ? null : ac.id)}
                 className="w-full p-4 flex items-center justify-between hover:bg-white transition-colors"
@@ -113,8 +113,8 @@ export default function AftercarePage() {
                     </span>
                   </div>
                   <div className="text-left">
-                    <p className="font-medium text-[#111]">{ac.instructions?.title || 'Aftercare Instructions'}</p>
-                    <p className="text-sm text-[#111]/50">Sent {new Date(ac.sentAt).toLocaleDateString()}</p>
+                    <p className="font-medium text-[#000000]">{ac.instructions?.title || 'Aftercare Instructions'}</p>
+                    <p className="text-sm text-[#000000]/50">Sent {new Date(ac.sentAt).toLocaleDateString()}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -128,22 +128,22 @@ export default function AftercarePage() {
               </button>
 
               {expandedId === ac.id && ac.instructions && (
-                <div className="border-t border-[#111]/10 p-6 space-y-6">
+                <div className="border-t border-[#000000]/10 p-6 space-y-6">
                   {/* Summary */}
                   {ac.instructions.summary && (
-                    <p className="text-[#111]/70">{ac.instructions.summary}</p>
+                    <p className="text-[#000000]/70">{ac.instructions.summary}</p>
                   )}
 
                   {/* Steps */}
                   <div>
-                    <h3 className="font-medium text-[#111] mb-3">Key Instructions</h3>
+                    <h3 className="font-medium text-[#000000] mb-3">Key Instructions</h3>
                     <div className="space-y-2">
                       {ac.instructions.instructions.map((inst, idx) => (
                         <div key={idx} className="flex items-start gap-3 p-3 bg-white rounded-xl">
                           <span className="w-6 h-6 bg-[#FF2D8E] text-white rounded-full flex items-center justify-center text-xs flex-shrink-0">
                             {inst.step}
                           </span>
-                          <p className="text-[#111]/80 text-sm">{inst.text}</p>
+                          <p className="text-[#000000]/80 text-sm">{inst.text}</p>
                         </div>
                       ))}
                     </div>
@@ -203,7 +203,7 @@ export default function AftercarePage() {
                   {ac.providerNotes && (
                     <div className="p-4 bg-[#FF2D8E]/5 border border-[#FF2D8E]/20 rounded-xl">
                       <p className="font-medium text-[#FF2D8E] mb-2">💗 Personal Notes From Your Provider</p>
-                      <p className="text-sm text-[#111]/70">{ac.providerNotes}</p>
+                      <p className="text-sm text-[#000000]/70">{ac.providerNotes}</p>
                     </div>
                   )}
 

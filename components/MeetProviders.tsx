@@ -44,7 +44,7 @@ export function MeetProviders() {
           {providers.map((provider, idx) => (
             <FadeUp key={provider.name} delayMs={150 * idx}>
               <div className="bg-white border-2 border-black rounded-xl overflow-hidden hover:border-[#FF2D8E]/30 transition group shadow-md hover:shadow-xl hover:-translate-y-[2px]">
-                <div className="relative aspect-[3/4] overflow-hidden bg-[#FDF7FA]">
+                <div className="relative aspect-[3/4] overflow-hidden bg-[#FFFFFF]">
                   <Image
                     src={provider.image}
                     alt={`${provider.name}, ${provider.credentials} at Hello Gorgeous Med Spa`}

@@ -42,8 +42,8 @@ export function UploadArea({ onFileSelect, disabled, isProcessing }: UploadAreaP
       className={`
         relative border-2 border-dashed rounded-xl p-8 md:p-12 text-center cursor-pointer
         transition-all duration-200
-        ${disabled || isProcessing ? "cursor-not-allowed opacity-60" : "hover:border-[#FF2D8E]/50 hover:bg-[#FDF7FA]/50"}
-        ${"border-[#FF2D8E]/30 bg-[#FDF7FA]/30"}
+        ${disabled || isProcessing ? "cursor-not-allowed opacity-60" : "hover:border-[#FF2D8E]/50 hover:bg-[#FFFFFF]/50"}
+        ${"border-[#FF2D8E]/30 bg-[#FFFFFF]/30"}
       `}
     >
       <input
@@ -57,13 +57,13 @@ export function UploadArea({ onFileSelect, disabled, isProcessing }: UploadAreaP
       {isProcessing ? (
         <div className="flex flex-col items-center gap-3">
           <div className="w-10 h-10 border-2 border-[#FF2D8E]/40 border-t-[#FF2D8E] rounded-full animate-spin" />
-          <p className="text-[#5E5E66] text-sm">Analyzing face...</p>
+          <p className="text-[#000000] text-sm">Analyzing face...</p>
         </div>
       ) : (
         <>
           <div className="text-4xl mb-3">📸</div>
           <p className="text-[#000000] font-semibold mb-1">Upload your photo</p>
-          <p className="text-[#5E5E66] text-sm">
+          <p className="text-[#000000] text-sm">
             Drag and drop or click to select. JPEG, PNG, or WebP.
           </p>
         </>

@@ -23,7 +23,7 @@ export function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
-    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FDF7FA]">
+    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FFFFFF]">
       <div className="max-w-5xl mx-auto min-w-0">
         <FadeUp>
           <div className="text-center mb-12">
@@ -94,7 +94,7 @@ export function Testimonials() {
                   onClick={() => setActiveIndex(idx)}
                   aria-label={`View testimonial ${idx + 1}`}
                   className={`min-w-[44px] min-h-[44px] p-2 rounded-full flex items-center justify-center transition ${
-                    idx === activeIndex ? "bg-[#FF2D8E]" : "bg-[#5E5E66]/30"
+                    idx === activeIndex ? "bg-[#FF2D8E]" : "bg-[#000000]/30"
                   }`}
                 >
                   <span className="sr-only">Testimonial {idx + 1}</span>

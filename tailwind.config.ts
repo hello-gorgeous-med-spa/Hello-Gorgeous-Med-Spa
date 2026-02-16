@@ -24,10 +24,10 @@ export default {
         hg: {
           pink: "#FF2D8E",
           pinkDeep: "#FF2D8E",
-          bgSoft: "#FDF7FA",
+          bgSoft: "#FFFFFF",
           dark: "#000000",
-          gray: "#5E5E66",
-          border: "#EAE4E8",
+          gray: "#000000",
+          border: "#000000",
         },
         ink: {
           950: "#07070A",

@@ -144,7 +144,7 @@ export function PortalLabsPage() {
           {/* Sample preview - first-time or no labs */}
           {labs.length === 0 && (
             <details className="bg-white rounded-2xl border border-[#000000]/10 overflow-hidden mb-6">
-              <summary className="px-6 py-4 cursor-pointer font-semibold text-[#000000] hover:bg-[#FDF7FA] transition-colors">
+              <summary className="px-6 py-4 cursor-pointer font-semibold text-[#000000] hover:bg-[#FFFFFF] transition-colors">
                 See what you&apos;ll get — sample lab analysis
               </summary>
               <div className="px-6 pb-6 prose prose-sm max-w-none prose-headings:text-[#FF2D8E] prose-ul:list-disc">
@@ -156,7 +156,7 @@ export function PortalLabsPage() {
                   <li><strong>Opportunities</strong> — markers worth discussing with your provider</li>
                   <li><strong>Actions</strong> — next steps, lifestyle topics, questions to ask</li>
                 </ul>
-                <div className="rounded-xl bg-[#FDF7FA] border border-[#FF2D8E]/20 p-4 text-sm">
+                <div className="rounded-xl bg-[#FFFFFF] border border-[#FF2D8E]/20 p-4 text-sm">
                   <p className="font-semibold text-[#000000] mb-2">Example:</p>
                   <p className="text-[#000000]/80 mb-2">Your Vitamin D has improved from 22 to 42 ng/mL, moving into a healthier range.</p>
                   <p className="text-[#000000]/80">HbA1c is 5.8% — worth discussing with your provider for personalized guidance.</p>

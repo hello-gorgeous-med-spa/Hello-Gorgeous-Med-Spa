@@ -3,7 +3,7 @@ import Link from "next/link";
 /** Contextual internal links in homepage body for local SEO authority. */
 export function HomepageGeoLinks() {
   return (
-    <section className="py-6 md:py-8 px-4 md:px-6 bg-[#FDF7FA]">
+    <section className="py-6 md:py-8 px-4 md:px-6 bg-[#FFFFFF]">
       <div className="max-w-3xl mx-auto text-center min-w-0">
         <p className="text-[#FF2D8E] text-base md:text-lg leading-relaxed">
           Hello Gorgeous Med Spa in Oswego serves clients from Naperville, Aurora, and Plainfield.
