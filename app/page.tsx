@@ -99,36 +99,7 @@ export default async function HomePage() {
             dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
           />
         ))}
-      <Hero />
-      <HomepageGeoLinks />
-      <HomepageBanner banner={cmsBanner} />
-      <section className="py-20 md:py-28 px-6 md:px-12 bg-white">
-        <div className="max-w-5xl mx-auto min-w-0">
-          <MascotHeroSection />
-        </div>
-      </section>
-      <FixWhatBothersMeFeature />
-      <QuizCTA />
-      <AboutSection />
-      <MeetProviders />
-      <OffersSection />
-      <MembershipSection />
-      <HomepageInteractiveTools />
-      <HomeCareTeam />
-      <PharmacyShowcase />
-      <FullscriptSection />
-      <BioteSection />
-      <TriggerPointSection />
-      <MicroneedlingShowcase />
-      <AnteAGEShowcase />
-      <LaserHairSection />
-      <TikTokEmbed />
-      <Testimonials />
-      <ImmediateCareBanner />
-      <PartnersGrid />
-      <PhotoGallery />
-      <EmailBanner />
-      <LocationMap />
+      <HomepageWireframe />
     </>
   );
 }

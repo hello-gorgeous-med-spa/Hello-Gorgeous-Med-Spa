@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacyPolicyPage() {
-  const lastUpdated = 'January 30, 2026';
+  const lastUpdated = 'February 16, 2026';
 
   return (
     <div className="min-h-screen bg-white">

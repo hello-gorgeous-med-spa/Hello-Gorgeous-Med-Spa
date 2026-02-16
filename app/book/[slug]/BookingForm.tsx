@@ -778,6 +778,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   !formData.lastName ||
                   !formData.email ||
                   !formData.phone ||
+                  !formData.agreeToSMS ||
                   !formData.agreeToTerms ||
                   (formData.isNewClient && !formData.dateOfBirth) ||
                   isSubmitting
