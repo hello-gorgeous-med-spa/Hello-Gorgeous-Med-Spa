@@ -80,7 +80,7 @@ export default async function ProvidersPage() {
               Hello Gorgeous
             </span>
           </h1>
-          <p className="mt-4 text-lg text-black max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-white max-w-2xl mx-auto">
             Licensed medical professionals. Real results. Personalized care.
           </p>
         </div>
@@ -175,17 +175,17 @@ export default async function ProvidersPage() {
             <div className="bg-black rounded-xl p-5 border border-black">
               <span className="text-3xl mb-3 block">🏆</span>
               <h3 className="text-base font-semibold text-white">Licensed & Certified</h3>
-              <p className="text-black text-sm mt-1">All treatments by licensed medical professionals</p>
+              <p className="text-white/80 text-sm mt-1">All treatments by licensed medical professionals</p>
             </div>
             <div className="bg-black rounded-xl p-5 border border-black">
               <span className="text-3xl mb-3 block">⭐</span>
               <h3 className="text-base font-semibold text-white">5-Star Rated</h3>
-              <p className="text-black text-sm mt-1">Hundreds of verified reviews from real clients</p>
+              <p className="text-white/80 text-sm mt-1">Hundreds of verified reviews from real clients</p>
             </div>
             <div className="bg-black rounded-xl p-5 border border-black">
               <span className="text-3xl mb-3 block">💝</span>
               <h3 className="text-base font-semibold text-white">Personalized Care</h3>
-              <p className="text-black text-sm mt-1">Customized plans for your unique goals</p>
+              <p className="text-white/80 text-sm mt-1">Customized plans for your unique goals</p>
             </div>
           </div>
         </div>

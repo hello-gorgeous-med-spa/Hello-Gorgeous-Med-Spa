@@ -150,7 +150,7 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
                     <Link
                       href={link.href}
                       onClick={onClose}
-                      className="flex items-center gap-2 text-black hover:text-pink-600 transition-colors group"
+                      className="flex items-center gap-2 text-black hover:text-[#FF2D8E] transition-colors group"
                     >
                       <span className="text-lg group-hover:scale-110 transition-transform">{link.icon}</span>
                       <span className="text-sm font-medium">{link.label}</span>
@@ -169,7 +169,7 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
             <Link
               href={data.featured.cta.href}
               onClick={onClose}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-pink-600 hover:text-pink-700"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[#FF2D8E] hover:text-pink-700"
             >
               {data.featured.cta.label}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -184,7 +184,7 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
           <Link
             href="/services"
             onClick={onClose}
-            className="text-sm font-medium text-black hover:text-pink-600 flex items-center gap-2"
+            className="text-sm font-medium text-black hover:text-[#FF2D8E] flex items-center gap-2"
           >
             View All Services
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -243,7 +243,7 @@ function SimpleDropdown({
               </span>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-black group-hover:text-pink-600 transition-colors">
+                  <span className="font-semibold text-black group-hover:text-[#FF2D8E] transition-colors">
                     {link.label}
                   </span>
                   {'badge' in link && link.badge && (
