@@ -108,11 +108,11 @@ export function TreatmentPhotos({
   const afterPhotos = photos.filter(p => p.type === 'after');
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 p-6">
+    <div className="bg-white rounded-xl border border-black p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="font-semibold text-gray-900">Treatment Photos</h3>
-          <p className="text-sm text-gray-500">{treatmentArea}</p>
+          <h3 className="font-semibold text-black">Treatment Photos</h3>
+          <p className="text-sm text-black">{treatmentArea}</p>
         </div>
         <button
           onClick={handleSave}
@@ -129,7 +129,7 @@ export function TreatmentPhotos({
           className={`flex-1 py-3 rounded-lg font-medium ${
             activeType === 'before'
               ? 'bg-blue-500 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              : 'bg-white text-black hover:bg-white'
           }`}
         >
           Before ({beforePhotos.length})
@@ -139,7 +139,7 @@ export function TreatmentPhotos({
           className={`flex-1 py-3 rounded-lg font-medium ${
             activeType === 'after'
               ? 'bg-green-500 text-white'
-              : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              : 'bg-white text-black hover:bg-white'
           }`}
         >
           After ({afterPhotos.length})
@@ -173,7 +173,7 @@ export function TreatmentPhotos({
                 className={`px-3 py-2 rounded-lg text-sm ${
                   selectedAngle === angle.id
                     ? 'bg-pink-500 text-white'
-                    : 'bg-gray-100 text-gray-700'
+                    : 'bg-white text-black'
                 }`}
               >
                 {angle.icon} {angle.label}
@@ -185,7 +185,7 @@ export function TreatmentPhotos({
           <div className="flex gap-4 justify-center">
             <button
               onClick={stopCamera}
-              className="px-6 py-3 bg-gray-200 text-gray-700 font-medium rounded-lg"
+              className="px-6 py-3 bg-white text-black font-medium rounded-lg"
             >
               Cancel
             </button>
@@ -223,20 +223,20 @@ export function TreatmentPhotos({
             {/* Add Photo Button */}
             <button
               onClick={startCamera}
-              className="aspect-square border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center hover:border-pink-500 hover:bg-pink-50 transition-colors"
+              className="aspect-square border-2 border-dashed border-black rounded-lg flex flex-col items-center justify-center hover:border-pink-500 hover:bg-pink-50 transition-colors"
             >
               <span className="text-2xl mb-1">📷</span>
-              <span className="text-sm text-gray-500">Add Photo</span>
+              <span className="text-sm text-black">Add Photo</span>
             </button>
           </div>
 
           {/* Side-by-Side Comparison */}
           {beforePhotos.length > 0 && afterPhotos.length > 0 && (
-            <div className="border-t border-gray-100 pt-6">
-              <h4 className="font-medium text-gray-900 mb-4">Comparison</h4>
+            <div className="border-t border-black pt-6">
+              <h4 className="font-medium text-black mb-4">Comparison</h4>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-500 mb-2 text-center">Before</p>
+                  <p className="text-sm text-black mb-2 text-center">Before</p>
                   <img
                     src={beforePhotos[0].dataUrl}
                     alt="Before"
@@ -244,7 +244,7 @@ export function TreatmentPhotos({
                   />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500 mb-2 text-center">After</p>
+                  <p className="text-sm text-black mb-2 text-center">After</p>
                   <img
                     src={afterPhotos[0].dataUrl}
                     alt="After"
@@ -257,7 +257,7 @@ export function TreatmentPhotos({
         </>
       )}
 
-      <p className="text-xs text-gray-400 mt-4">
+      <p className="text-xs text-black mt-4">
         Photos are stored securely in compliance with HIPAA regulations.
       </p>
     </div>

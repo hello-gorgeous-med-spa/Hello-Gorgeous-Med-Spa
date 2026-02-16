@@ -19,7 +19,7 @@ export default function GetAppPage() {
         <div className="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <span className="text-2xl">💗</span>
-            <span className="font-semibold text-gray-900">Hello Gorgeous</span>
+            <span className="font-semibold text-black">Hello Gorgeous</span>
           </Link>
           <Link
             href="/portal"
@@ -38,11 +38,11 @@ export default function GetAppPage() {
             <span>HIPAA Compliant & Secure</span>
           </div>
           
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
             Get the <span className="text-pink-500">Hello Gorgeous</span> App
           </h1>
           
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-black max-w-2xl mx-auto">
             Book appointments, get reminders, track your treatments, and earn rewards - all from your phone.
           </p>
         </div>
@@ -87,12 +87,12 @@ export default function GetAppPage() {
         {/* Installation Instructions */}
         <div className="grid md:grid-cols-2 gap-6 mb-12">
           {/* iPhone Instructions */}
-          <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+          <div className="bg-white rounded-2xl border border-black p-6 shadow-sm">
             <div className="flex items-center gap-3 mb-4">
               <span className="text-3xl">🍎</span>
-              <h3 className="text-xl font-bold text-gray-900">iPhone / iPad</h3>
+              <h3 className="text-xl font-bold text-black">iPhone / iPad</h3>
             </div>
-            <ol className="space-y-4 text-gray-600">
+            <ol className="space-y-4 text-black">
               <li className="flex gap-3">
                 <span className="w-6 h-6 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
                 <span>Open this page in <strong>Safari</strong></span>
@@ -113,12 +113,12 @@ export default function GetAppPage() {
           </div>
 
           {/* Android Instructions */}
-          <div className="bg-white rounded-2xl border border-gray-200 p-6 shadow-sm">
+          <div className="bg-white rounded-2xl border border-black p-6 shadow-sm">
             <div className="flex items-center gap-3 mb-4">
               <span className="text-3xl">🤖</span>
-              <h3 className="text-xl font-bold text-gray-900">Android</h3>
+              <h3 className="text-xl font-bold text-black">Android</h3>
             </div>
-            <ol className="space-y-4 text-gray-600">
+            <ol className="space-y-4 text-black">
               <li className="flex gap-3">
                 <span className="w-6 h-6 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
                 <span>Open this page in <strong>Chrome</strong></span>
@@ -140,10 +140,10 @@ export default function GetAppPage() {
         </div>
 
         {/* Security Section */}
-        <div className="bg-slate-900 rounded-2xl p-8 text-white mb-12">
+        <div className="bg-black rounded-2xl p-8 text-white mb-12">
           <div className="text-center mb-8">
             <h2 className="text-2xl font-bold mb-2">Your Privacy & Security Matter</h2>
-            <p className="text-slate-400">We take protecting your information seriously</p>
+            <p className="text-black">We take protecting your information seriously</p>
           </div>
           
           <div className="grid md:grid-cols-3 gap-6">
@@ -152,7 +152,7 @@ export default function GetAppPage() {
                 <span className="text-3xl">🔒</span>
               </div>
               <h3 className="font-semibold mb-2">HIPAA Compliant</h3>
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-black">
                 Your health information is protected according to federal healthcare privacy laws
               </p>
             </div>
@@ -162,7 +162,7 @@ export default function GetAppPage() {
                 <span className="text-3xl">🛡️</span>
               </div>
               <h3 className="font-semibold mb-2">256-bit Encryption</h3>
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-black">
                 Bank-level security protects all data transmitted to and from our servers
               </p>
             </div>
@@ -172,14 +172,14 @@ export default function GetAppPage() {
                 <span className="text-3xl">✓</span>
               </div>
               <h3 className="font-semibold mb-2">SOC 2 Certified</h3>
-              <p className="text-sm text-slate-400">
+              <p className="text-sm text-black">
                 Our systems meet rigorous security and availability standards
               </p>
             </div>
           </div>
           
-          <div className="mt-8 pt-8 border-t border-slate-700 text-center">
-            <p className="text-sm text-slate-400">
+          <div className="mt-8 pt-8 border-t border-black text-center">
+            <p className="text-sm text-black">
               Read our full{' '}
               <Link href="/privacy" className="text-pink-400 hover:underline">Privacy Policy</Link>
               {' '}and{' '}
@@ -197,30 +197,30 @@ export default function GetAppPage() {
             <span>✨</span>
             Open My Portal
           </Link>
-          <p className="mt-4 text-gray-500 text-sm">
+          <p className="mt-4 text-black text-sm">
             Questions? Call us at <a href="tel:6306366193" className="text-pink-500">(630) 636-6193</a>
           </p>
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="bg-white border-t border-gray-200 py-8 mt-12">
+      <footer className="bg-white border-t border-black py-8 mt-12">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <div className="flex items-center justify-center gap-6 mb-4">
-            <div className="flex items-center gap-2 text-sm text-gray-500">
+            <div className="flex items-center gap-2 text-sm text-black">
               <span>🔒</span>
               <span>HIPAA Compliant</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-500">
+            <div className="flex items-center gap-2 text-sm text-black">
               <span>🛡️</span>
               <span>256-bit SSL</span>
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-500">
+            <div className="flex items-center gap-2 text-sm text-black">
               <span>✓</span>
               <span>Secure</span>
             </div>
           </div>
-          <p className="text-gray-500 text-sm">
+          <p className="text-black text-sm">
             © 2026 Hello Gorgeous Med Spa | 74 W. Washington St, Oswego, IL 60543
           </p>
         </div>

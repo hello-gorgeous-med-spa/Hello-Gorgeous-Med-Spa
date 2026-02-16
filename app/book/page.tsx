@@ -110,7 +110,7 @@ export default async function PublicBookingPage({
   return (
     <div className="min-h-screen bg-white">
       {/* Compact Header */}
-      <header className="bg-white border-b border-gray-100 sticky top-0 z-50">
+      <header className="bg-white border-b border-black sticky top-0 z-50">
         <div className="max-w-3xl mx-auto px-4 sm:px-6">
           <div className="h-14 sm:h-16 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
@@ -118,18 +118,18 @@ export default async function PublicBookingPage({
                 <span className="text-white text-base sm:text-lg">💗</span>
               </div>
               <div>
-                <span className="font-bold text-gray-900 text-base sm:text-lg">Hello Gorgeous</span>
+                <span className="font-bold text-black text-base sm:text-lg">Hello Gorgeous</span>
                 <span className="hidden sm:block text-xs text-pink-600">Oswego, IL</span>
               </div>
             </Link>
             <div className="flex items-center gap-2">
-              <a href="tel:6306366193" className="p-2 sm:px-3 sm:py-2 text-gray-600 hover:text-pink-600 rounded-full min-w-[44px] min-h-[44px] flex items-center justify-center">
+              <a href="tel:6306366193" className="p-2 sm:px-3 sm:py-2 text-black hover:text-pink-600 rounded-full min-w-[44px] min-h-[44px] flex items-center justify-center">
                 <span className="text-pink-500">📞</span>
                 <span className="hidden sm:inline ml-1 text-sm">(630) 636-6193</span>
               </a>
               <Link 
                 href="/portal" 
-                className="px-3 py-2 sm:px-4 sm:py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium rounded-full min-h-[44px] flex items-center"
+                className="px-3 py-2 sm:px-4 sm:py-2 bg-white hover:bg-white text-black text-sm font-medium rounded-full min-h-[44px] flex items-center"
               >
                 Sign In
               </Link>
@@ -141,10 +141,10 @@ export default async function PublicBookingPage({
       <main className="max-w-3xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Compact Hero */}
         <section className="mb-6 sm:mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-black mb-2">
             Book Your Appointment
           </h1>
-          <p className="text-gray-600 text-sm sm:text-base">
+          <p className="text-black text-sm sm:text-base">
             Choose a service below. New clients always welcome.
           </p>
         </section>
@@ -152,19 +152,19 @@ export default async function PublicBookingPage({
         {/* Quick Book - Popular Services */}
         {popularServices.length > 0 && (
           <section className="mb-8">
-            <h2 className="text-base font-semibold text-gray-900 mb-3">Most Popular</h2>
+            <h2 className="text-base font-semibold text-black mb-3">Most Popular</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {popularServices.map((service) => (
                 <Link
                   key={service.id}
                   href={`/book/${service.slug}${providerQ}`}
-                  className="flex items-center justify-between gap-4 p-4 sm:p-5 rounded-xl border border-gray-200 hover:border-pink-300 hover:bg-pink-50/50 transition-all group min-h-[72px] active:scale-[0.99]"
+                  className="flex items-center justify-between gap-4 p-4 sm:p-5 rounded-xl border border-black hover:border-pink-300 hover:bg-pink-50/50 transition-all group min-h-[72px] active:scale-[0.99]"
                 >
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-gray-900 group-hover:text-pink-600 transition-colors line-clamp-2">
+                    <h3 className="font-semibold text-black group-hover:text-pink-600 transition-colors line-clamp-2">
                       {service.name}
                     </h3>
-                    <p className="text-xs text-gray-500 mt-0.5">
+                    <p className="text-xs text-black mt-0.5">
                       {service.duration_minutes} min · {service.price_display}
                     </p>
                   </div>
@@ -178,18 +178,18 @@ export default async function PublicBookingPage({
         {/* All Services by Category */}
         <section id="all-services" className="mb-12">
           <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-slate-900">
+            <h2 className="text-2xl font-bold text-black">
               All Services
             </h2>
             <span className="text-sm text-white">{services.length} treatments available</span>
           </div>
           
           {servicesByCategory.length === 0 ? (
-            <div className="bg-white rounded-2xl p-8 border border-gray-200 text-center">
-              <p className="text-gray-600 mb-2">
+            <div className="bg-white rounded-2xl p-8 border border-black text-center">
+              <p className="text-black mb-2">
                 No services are available for online booking right now.
               </p>
-              <p className="text-gray-500 mb-4">
+              <p className="text-black mb-4">
                 Please call or text us to book your appointment.
               </p>
               <a
@@ -205,7 +205,7 @@ export default async function PublicBookingPage({
                 category.services.length > 0 && (
                   <div key={category.id} id={category.slug} className="scroll-mt-36">
                     {/* Category Card */}
-                    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                    <div className="bg-white rounded-2xl border border-black overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                       {/* Category Header - Colorful */}
                       <div className={`bg-gradient-to-r ${CATEGORY_COLORS[category.slug] || 'from-pink-500 to-rose-500'} px-6 py-4`}>
                         <div className="flex items-center justify-between">
@@ -228,10 +228,10 @@ export default async function PublicBookingPage({
                             <Link
                               key={service.id}
                               href={`/book/${service.slug}${providerQ}`}
-                              className="flex items-center justify-between p-4 bg-gray-50 hover:bg-gradient-to-r hover:from-pink-50 hover:to-rose-50 rounded-xl transition-all group border border-transparent hover:border-pink-200"
+                              className="flex items-center justify-between p-4 bg-white hover:bg-gradient-to-r hover:from-pink-50 hover:to-rose-50 rounded-xl transition-all group border border-transparent hover:border-pink-200"
                             >
                               <div className="flex-1 min-w-0">
-                                <h4 className="font-semibold text-slate-800 group-hover:text-pink-600 transition-colors line-clamp-1">
+                                <h4 className="font-semibold text-black group-hover:text-pink-600 transition-colors line-clamp-1">
                                   {service.name}
                                 </h4>
                                 <div className="flex items-center gap-2 mt-1 flex-wrap">
@@ -298,10 +298,10 @@ export default async function PublicBookingPage({
         {/* Not Sure Section */}
         <section className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 text-center mb-12">
           <div className="text-4xl mb-4">🤔</div>
-          <h3 className="text-xl font-semibold text-gray-900 mb-2">
+          <h3 className="text-xl font-semibold text-black mb-2">
             Not sure which treatment is right for you?
           </h3>
-          <p className="text-gray-600 mb-6">
+          <p className="text-black mb-6">
             Book a free consultation and our team will create a personalized plan just for you.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
@@ -313,7 +313,7 @@ export default async function PublicBookingPage({
             </Link>
             <Link
               href={`/book/consultation-free${providerQ}`}
-              className="inline-flex items-center gap-2 bg-white text-gray-900 px-6 py-3 rounded-full font-medium hover:shadow-lg transition-all border border-gray-200"
+              className="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-medium hover:shadow-lg transition-all border border-black"
             >
               Book Free Consultation
             </Link>
@@ -380,10 +380,10 @@ export default async function PublicBookingPage({
               <span className="text-2xl">🕐</span>
             </div>
             <h4 className="font-bold text-lg">Hours</h4>
-            <div className="text-slate-300 mt-1 text-sm space-y-1">
+            <div className="text-black mt-1 text-sm space-y-1">
               <p>Mon - Thu: <span className="text-white font-medium">9am - 5pm</span></p>
               <p>Friday: <span className="text-white font-medium">9am - 3pm</span></p>
-              <p>Sat - Sun: <span className="text-slate-400">Closed</span></p>
+              <p>Sat - Sun: <span className="text-black">Closed</span></p>
             </div>
           </div>
         </section>
@@ -399,16 +399,16 @@ export default async function PublicBookingPage({
               </div>
               <div>
                 <p className="font-bold">Hello Gorgeous Med Spa</p>
-                <p className="text-sm text-slate-400">Where beauty meets wellness</p>
+                <p className="text-sm text-black">Where beauty meets wellness</p>
               </div>
             </div>
             <div className="flex items-center gap-6 text-sm">
-              <Link href="/privacy" className="text-slate-400 hover:text-white transition-colors">Privacy Policy</Link>
-              <Link href="/terms" className="text-slate-400 hover:text-white transition-colors">Terms of Service</Link>
-              <Link href="/contact" className="text-slate-400 hover:text-white transition-colors">Contact Us</Link>
+              <Link href="/privacy" className="text-black hover:text-white transition-colors">Privacy Policy</Link>
+              <Link href="/terms" className="text-black hover:text-white transition-colors">Terms of Service</Link>
+              <Link href="/contact" className="text-black hover:text-white transition-colors">Contact Us</Link>
             </div>
           </div>
-          <div className="border-t border-slate-700 mt-8 pt-8 text-center">
+          <div className="border-t border-black mt-8 pt-8 text-center">
             <p className="text-white text-sm">
               © {new Date().getFullYear()} Hello Gorgeous Med Spa. All rights reserved. | Oswego, Illinois
             </p>

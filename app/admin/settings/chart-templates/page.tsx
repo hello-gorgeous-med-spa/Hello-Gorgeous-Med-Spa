@@ -223,13 +223,13 @@ export default function ChartTemplatesPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+          <div className="flex items-center gap-2 text-sm text-black mb-1">
             <Link href="/admin/settings" className="hover:text-pink-600">Settings</Link>
             <span>/</span>
             <span>Chart Templates</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Chart Templates</h1>
-          <p className="text-gray-500">Customize SOAP note fields for each service type</p>
+          <h1 className="text-2xl font-bold text-black">Chart Templates</h1>
+          <p className="text-black">Customize SOAP note fields for each service type</p>
         </div>
         {editingTemplate && (
           <button onClick={saveTemplate} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
@@ -250,9 +250,9 @@ export default function ChartTemplatesPage() {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-lg font-semibold">{editingTemplate.name}</h2>
-              <p className="text-sm text-gray-500">{editingTemplate.description}</p>
+              <p className="text-sm text-black">{editingTemplate.description}</p>
             </div>
-            <button onClick={() => setEditingTemplate(null)} className="text-gray-500 hover:text-gray-700">
+            <button onClick={() => setEditingTemplate(null)} className="text-black hover:text-black">
               ← Back to list
             </button>
           </div>
@@ -292,7 +292,7 @@ export default function ChartTemplatesPage() {
           <div className="grid grid-cols-2 gap-6">
             {editingTemplate.sections.map(section => (
               <div key={section.id} className="bg-white rounded-xl border overflow-hidden">
-                <div className="bg-gray-50 p-3 border-b flex items-center justify-between">
+                <div className="bg-white p-3 border-b flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="w-8 h-8 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center font-bold">
                       {section.code}
@@ -304,7 +304,7 @@ export default function ChartTemplatesPage() {
                       <button
                         key={ft.value}
                         onClick={() => addField(section.id, ft.value)}
-                        className="px-2 py-1 text-xs bg-white border rounded hover:bg-gray-50"
+                        className="px-2 py-1 text-xs bg-white border rounded hover:bg-white"
                         title={ft.label}
                       >
                         {ft.icon}
@@ -314,7 +314,7 @@ export default function ChartTemplatesPage() {
                 </div>
                 <div className="divide-y max-h-80 overflow-y-auto">
                   {section.fields.map(field => (
-                    <div key={field.id} className="p-3 hover:bg-gray-50">
+                    <div key={field.id} className="p-3 hover:bg-white">
                       <div className="flex items-center gap-2 mb-2">
                         <input
                           type="text"
@@ -338,7 +338,7 @@ export default function ChartTemplatesPage() {
                           type="text"
                           value={(field.options || []).join(', ')}
                           onChange={(e) => updateField(section.id, field.id, { options: e.target.value.split(',').map(o => o.trim()).filter(Boolean) })}
-                          className="w-full px-2 py-1 border rounded text-xs text-gray-500"
+                          className="w-full px-2 py-1 border rounded text-xs text-black"
                           placeholder="Options (comma-separated)"
                         />
                       )}
@@ -353,17 +353,17 @@ export default function ChartTemplatesPage() {
         /* Templates List */
         <div className="bg-white rounded-xl border divide-y">
           {templates.map(template => (
-            <div key={template.id} className="p-4 hover:bg-gray-50">
+            <div key={template.id} className="p-4 hover:bg-white">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
-                    <h3 className="font-medium text-gray-900">{template.name}</h3>
-                    <span className={`text-xs px-2 py-0.5 rounded ${template.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
+                    <h3 className="font-medium text-black">{template.name}</h3>
+                    <span className={`text-xs px-2 py-0.5 rounded ${template.is_active ? 'bg-green-100 text-green-700' : 'bg-white text-black'}`}>
                       {template.is_active ? 'Active' : 'Inactive'}
                     </span>
                   </div>
-                  <p className="text-sm text-gray-500 mt-1">{template.description}</p>
-                  <p className="text-xs text-gray-400 mt-1">
+                  <p className="text-sm text-black mt-1">{template.description}</p>
+                  <p className="text-xs text-black mt-1">
                     {template.sections.length} sections • {template.sections.reduce((a, s) => a + s.fields.length, 0)} fields
                     {template.require_lot_tracking && ' • Lot tracking'}
                     {template.require_before_photo && ' • Before photo'}
@@ -376,7 +376,7 @@ export default function ChartTemplatesPage() {
                   </button>
                   <button
                     onClick={() => toggleActive(template.id)}
-                    className={`w-12 h-6 rounded-full transition-colors relative ${template.is_active ? 'bg-green-500' : 'bg-gray-300'}`}
+                    className={`w-12 h-6 rounded-full transition-colors relative ${template.is_active ? 'bg-green-500' : 'bg-white'}`}
                   >
                     <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${template.is_active ? 'right-1' : 'left-1'}`} />
                   </button>

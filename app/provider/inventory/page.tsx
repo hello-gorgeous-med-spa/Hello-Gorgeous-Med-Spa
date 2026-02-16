@@ -179,8 +179,8 @@ export default function ProviderInventoryPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Products & Inventory</h1>
-          <p className="text-gray-500">Track lot numbers and expiration dates</p>
+          <h1 className="text-2xl font-bold text-black">Products & Inventory</h1>
+          <p className="text-black">Track lot numbers and expiration dates</p>
         </div>
         <Link
           href="/admin/inventory"
@@ -226,22 +226,22 @@ export default function ProviderInventoryPage() {
       )}
 
       {/* Search & Filters */}
-      <div className="bg-white rounded-xl border border-gray-100 p-4">
+      <div className="bg-white rounded-xl border border-black p-4">
         <div className="flex flex-col md:flex-row gap-4">
           <div className="flex-1 relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-black">🔍</span>
             <input
               type="text"
               placeholder="Search by product name or SKU..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+              className="w-full pl-10 pr-4 py-2.5 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
             />
           </div>
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+            className="px-4 py-2.5 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
           >
             {categories.map(cat => (
               <option key={cat} value={cat}>
@@ -249,14 +249,14 @@ export default function ProviderInventoryPage() {
               </option>
             ))}
           </select>
-          <label className="flex items-center gap-2 px-4 py-2.5 bg-gray-50 rounded-lg cursor-pointer">
+          <label className="flex items-center gap-2 px-4 py-2.5 bg-white rounded-lg cursor-pointer">
             <input
               type="checkbox"
               checked={showExpiringSoon}
               onChange={(e) => setShowExpiringSoon(e.target.checked)}
               className="w-4 h-4 text-pink-500 rounded"
             />
-            <span className="text-sm text-gray-700">Expiring Soon Only</span>
+            <span className="text-sm text-black">Expiring Soon Only</span>
           </label>
         </div>
       </div>
@@ -274,13 +274,13 @@ export default function ProviderInventoryPage() {
           return (
             <div 
               key={product.id}
-              className="bg-white rounded-xl border border-gray-100 overflow-hidden hover:shadow-md transition-shadow"
+              className="bg-white rounded-xl border border-black overflow-hidden hover:shadow-md transition-shadow"
             >
               <div className="p-4">
                 <div className="flex items-start justify-between mb-2">
                   <div>
-                    <h3 className="font-semibold text-gray-900">{product.name}</h3>
-                    <p className="text-sm text-gray-500">{product.category}</p>
+                    <h3 className="font-semibold text-black">{product.name}</h3>
+                    <p className="text-sm text-black">{product.category}</p>
                   </div>
                   {isLowStock && (
                     <span className="px-2 py-1 bg-red-100 text-red-700 text-xs font-medium rounded-full">
@@ -291,8 +291,8 @@ export default function ProviderInventoryPage() {
                 
                 <div className="flex items-center justify-between mb-3">
                   <div>
-                    <p className="text-2xl font-bold text-gray-900">{product.quantity_on_hand}</p>
-                    <p className="text-xs text-gray-500">{product.unit_of_measure} in stock</p>
+                    <p className="text-2xl font-bold text-black">{product.quantity_on_hand}</p>
+                    <p className="text-xs text-black">{product.unit_of_measure} in stock</p>
                   </div>
                   {expStatus && (
                     <div className={`px-3 py-1.5 rounded-lg border text-xs font-medium ${expStatus.color}`}>
@@ -319,7 +319,7 @@ export default function ProviderInventoryPage() {
       {filteredProducts.length === 0 && (
         <div className="text-center py-12">
           <span className="text-4xl block mb-2">📦</span>
-          <p className="text-gray-500">No products found</p>
+          <p className="text-black">No products found</p>
         </div>
       )}
 
@@ -327,17 +327,17 @@ export default function ProviderInventoryPage() {
       {selectedProduct && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+            <div className="px-6 py-4 border-b border-black flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-bold text-gray-900">{selectedProduct.name}</h2>
-                <p className="text-sm text-gray-500">
+                <h2 className="text-xl font-bold text-black">{selectedProduct.name}</h2>
+                <p className="text-sm text-black">
                   {selectedProduct.sku && `SKU: ${selectedProduct.sku} • `}
                   {selectedProduct.category}
                 </p>
               </div>
               <button 
                 onClick={() => setSelectedProduct(null)}
-                className="text-gray-400 hover:text-gray-600 text-2xl"
+                className="text-black hover:text-black text-2xl"
               >
                 ×
               </button>
@@ -345,25 +345,25 @@ export default function ProviderInventoryPage() {
             
             <div className="p-6 overflow-y-auto max-h-[60vh]">
               {/* Stock Summary */}
-              <div className="bg-gray-50 rounded-xl p-4 mb-6">
+              <div className="bg-white rounded-xl p-4 mb-6">
                 <div className="grid grid-cols-3 gap-4 text-center">
                   <div>
-                    <p className="text-2xl font-bold text-gray-900">{selectedProduct.quantity_on_hand}</p>
-                    <p className="text-sm text-gray-500">Total On Hand</p>
+                    <p className="text-2xl font-bold text-black">{selectedProduct.quantity_on_hand}</p>
+                    <p className="text-sm text-black">Total On Hand</p>
                   </div>
                   <div>
-                    <p className="text-2xl font-bold text-gray-900">{selectedProduct.lots.length}</p>
-                    <p className="text-sm text-gray-500">Active Lots</p>
+                    <p className="text-2xl font-bold text-black">{selectedProduct.lots.length}</p>
+                    <p className="text-sm text-black">Active Lots</p>
                   </div>
                   <div>
                     <p className="text-2xl font-bold text-amber-600">{selectedProduct.reorder_level}</p>
-                    <p className="text-sm text-gray-500">Reorder Level</p>
+                    <p className="text-sm text-black">Reorder Level</p>
                   </div>
                 </div>
               </div>
 
               {/* Lot Details */}
-              <h3 className="font-semibold text-gray-900 mb-3">Lot Information</h3>
+              <h3 className="font-semibold text-black mb-3">Lot Information</h3>
               <div className="space-y-3">
                 {selectedProduct.lots.map(lot => {
                   const expStatus = getExpirationStatus(lot.expiration_date);
@@ -388,16 +388,16 @@ export default function ProviderInventoryPage() {
                       
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
-                          <p className="text-gray-600">Expiration Date</p>
+                          <p className="text-black">Expiration Date</p>
                           <p className="font-medium">
                             {formatDate(lot.expiration_date)}
                             {daysUntil >= 0 && (
-                              <span className="ml-2 text-gray-500">({daysUntil} days)</span>
+                              <span className="ml-2 text-black">({daysUntil} days)</span>
                             )}
                           </p>
                         </div>
                         <div>
-                          <p className="text-gray-600">Received</p>
+                          <p className="text-black">Received</p>
                           <p className="font-medium">{formatDate(lot.received_date)}</p>
                         </div>
                       </div>
@@ -420,10 +420,10 @@ export default function ProviderInventoryPage() {
               </div>
             </div>
             
-            <div className="px-6 py-4 border-t border-gray-100 flex justify-end gap-3">
+            <div className="px-6 py-4 border-t border-black flex justify-end gap-3">
               <button
                 onClick={() => setSelectedProduct(null)}
-                className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-black hover:bg-white rounded-lg"
               >
                 Close
               </button>

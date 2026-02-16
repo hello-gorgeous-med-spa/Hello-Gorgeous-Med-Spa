@@ -376,7 +376,7 @@ export function TreatmentQuiz() {
                     Perfect Treatment
                   </span>
                 </h1>
-                <p className="text-gray-400 text-lg mb-8">
+                <p className="text-black text-lg mb-8">
                   Answer a few quick questions and get personalized treatment 
                   recommendations tailored to your goals, concerns, and lifestyle.
                 </p>
@@ -402,7 +402,7 @@ export function TreatmentQuiz() {
                   Start Quiz →
                 </button>
                 
-                <p className="mt-6 text-gray-500 text-sm">
+                <p className="mt-6 text-black text-sm">
                   No commitment required. Get instant recommendations!
                 </p>
               </div>
@@ -425,7 +425,7 @@ export function TreatmentQuiz() {
                 <h2 className="text-2xl font-bold text-white mb-2">
                   Your Results Are Ready!
                 </h2>
-                <p className="text-gray-400">
+                <p className="text-black">
                   Enter your info to see your personalized treatment plan 
                   and get 10% off your first visit.
                 </p>
@@ -473,7 +473,7 @@ export function TreatmentQuiz() {
               <button
                 type="button"
                 onClick={skipLeadCapture}
-                className="w-full mt-4 text-gray-500 text-sm hover:text-gray-400 transition"
+                className="w-full mt-4 text-black text-sm hover:text-black transition"
               >
                 Skip and see results
               </button>
@@ -500,7 +500,7 @@ export function TreatmentQuiz() {
                   Treatment Plan
                 </span>
               </h1>
-              <p className="text-gray-400 max-w-xl mx-auto">
+              <p className="text-black max-w-xl mx-auto">
                 Based on your answers, here are the treatments we recommend for you.
                 {submitted && " Check your email for your 10% off code!"}
               </p>
@@ -528,14 +528,14 @@ export function TreatmentQuiz() {
                       <p className="text-pink-400 font-semibold">{treatment.price}</p>
                     </div>
                   </div>
-                  <p className="text-gray-400 text-sm mb-4">{treatment.description}</p>
+                  <p className="text-black text-sm mb-4">{treatment.description}</p>
                   <div className="flex-1">
-                    <p className="text-gray-500 text-xs mb-2">Benefits:</p>
+                    <p className="text-black text-xs mb-2">Benefits:</p>
                     <div className="flex flex-wrap gap-2">
                       {treatment.benefits.map((benefit) => (
                         <span
                           key={benefit}
-                          className="px-2 py-1 rounded-full bg-white/5 text-gray-300 text-xs"
+                          className="px-2 py-1 rounded-full bg-white/5 text-black text-xs"
                         >
                           ✓ {benefit}
                         </span>
@@ -563,7 +563,7 @@ export function TreatmentQuiz() {
               <h2 className="text-2xl font-bold text-white mb-3">
                 Ready to Get Started?
               </h2>
-              <p className="text-gray-400 mb-6">
+              <p className="text-black mb-6">
                 Book a free consultation to discuss your personalized treatment plan 
                 with our expert team.
               </p>
@@ -595,7 +595,7 @@ export function TreatmentQuiz() {
           {!satisfactionRated && (
             <FadeUp delayMs={500}>
               <div className="max-w-md mx-auto mt-8 p-4 rounded-2xl bg-white/5 border border-white/10 text-center">
-                <p className="text-gray-400 text-sm mb-3">How helpful was this quiz?</p>
+                <p className="text-black text-sm mb-3">How helpful was this quiz?</p>
                 <div className="flex justify-center gap-2">
                   {[1, 2, 3, 4, 5].map((n) => (
                     <button
@@ -628,7 +628,7 @@ export function TreatmentQuiz() {
                 setShowLeadCapture(false);
                 setSubmitted(false);
               }}
-              className="text-gray-500 hover:text-white transition"
+              className="text-black hover:text-white transition"
             >
               ← Retake Quiz
             </button>
@@ -645,7 +645,7 @@ export function TreatmentQuiz() {
         {/* Progress bar */}
         <FadeUp>
           <div className="mb-8">
-            <div className="flex items-center justify-between text-sm text-gray-400 mb-2">
+            <div className="flex items-center justify-between text-sm text-black mb-2">
               <span>Question {currentStep + 1} of {questions.length}</span>
               <span>{Math.round(progress)}% complete</span>
             </div>
@@ -665,7 +665,7 @@ export function TreatmentQuiz() {
               {currentQuestion.question}
             </h2>
             {currentQuestion.subtitle && (
-              <p className="text-gray-400">{currentQuestion.subtitle}</p>
+              <p className="text-black">{currentQuestion.subtitle}</p>
             )}
           </div>
         </FadeUp>
@@ -690,7 +690,7 @@ export function TreatmentQuiz() {
                     <span className="text-white font-medium flex-1">{answer.text}</span>
                     {currentQuestion.multiSelect && (
                       <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition ${
-                        isSelected ? "bg-pink-500 border-pink-500" : "border-gray-500"
+                        isSelected ? "bg-pink-500 border-pink-500" : "border-black"
                       }`}>
                         {isSelected && <span className="text-white text-sm">✓</span>}
                       </div>

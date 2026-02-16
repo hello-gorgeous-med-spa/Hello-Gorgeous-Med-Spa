@@ -70,7 +70,7 @@ export default function ChangeManagementPage() {
       case 'low': return 'bg-green-100 text-green-700';
       case 'medium': return 'bg-amber-100 text-amber-700';
       case 'high': return 'bg-red-100 text-red-700';
-      default: return 'bg-gray-100 text-gray-600';
+      default: return 'bg-white text-black';
     }
   };
 
@@ -105,19 +105,19 @@ export default function ChangeManagementPage() {
           {/* Stats */}
           <div className="grid grid-cols-4 gap-4">
             <div className="bg-white rounded-lg border p-4">
-              <p className="text-sm text-gray-500">Total Changes (7d)</p>
+              <p className="text-sm text-black">Total Changes (7d)</p>
               <p className="text-2xl font-bold">{changes.length}</p>
             </div>
             <div className="bg-white rounded-lg border p-4">
-              <p className="text-sm text-gray-500">High Risk</p>
+              <p className="text-sm text-black">High Risk</p>
               <p className="text-2xl font-bold text-red-600">{changes.filter(c => c.riskScore === 'high').length}</p>
             </div>
             <div className="bg-white rounded-lg border p-4">
-              <p className="text-sm text-gray-500">Can Rollback</p>
+              <p className="text-sm text-black">Can Rollback</p>
               <p className="text-2xl font-bold text-green-600">{changes.filter(c => c.canRollback && !c.isRolledBack).length}</p>
             </div>
             <div className="bg-white rounded-lg border p-4">
-              <p className="text-sm text-gray-500">Rolled Back</p>
+              <p className="text-sm text-black">Rolled Back</p>
               <p className="text-2xl font-bold text-amber-600">{changes.filter(c => c.isRolledBack).length}</p>
             </div>
           </div>
@@ -126,23 +126,23 @@ export default function ChangeManagementPage() {
           <div className="bg-white rounded-xl border">
             <div className="p-4 border-b">
               <h2 className="font-semibold">📝 Change Log</h2>
-              <p className="text-xs text-gray-500">Who changed what, when, before/after, risk score</p>
+              <p className="text-xs text-black">Who changed what, when, before/after, risk score</p>
             </div>
             <div className="divide-y">
               {changes.map(change => (
-                <div key={change.id} className={`p-4 ${change.isRolledBack ? 'bg-gray-50 opacity-60' : ''}`}>
+                <div key={change.id} className={`p-4 ${change.isRolledBack ? 'bg-white opacity-60' : ''}`}>
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
                         <span className={`text-xs px-2 py-0.5 rounded ${
                           change.action === 'Created' ? 'bg-green-100 text-green-700' :
                           change.action === 'Updated' || change.action === 'Modified' ? 'bg-blue-100 text-blue-700' :
-                          'bg-gray-100 text-gray-700'
+                          'bg-white text-black'
                         }`}>{change.action}</span>
                         <h3 className="font-medium">{change.target}</h3>
                         {change.isRolledBack && <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded">Rolled Back</span>}
                       </div>
-                      <p className="text-xs text-gray-500">{change.user} • {formatTime(change.timestamp)} • {change.category}</p>
+                      <p className="text-xs text-black">{change.user} • {formatTime(change.timestamp)} • {change.category}</p>
                       
                       {/* Before/After Diff */}
                       {(change.before || change.after) && (
@@ -186,7 +186,7 @@ export default function ChangeManagementPage() {
             <div className="p-4 border-b flex items-center justify-between">
               <div>
                 <h2 className="font-semibold">📅 Scheduled Changes</h2>
-                <p className="text-xs text-gray-500">Future changes queued for deployment</p>
+                <p className="text-xs text-black">Future changes queued for deployment</p>
               </div>
               <button
                 onClick={() => setShowScheduleModal(true)}
@@ -200,21 +200,21 @@ export default function ChangeManagementPage() {
                 <div key={sc.id} className="p-4 flex items-center justify-between">
                   <div>
                     <h3 className="font-medium">{sc.description}</h3>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-black">
                       Scheduled: {new Date(sc.scheduledFor).toLocaleDateString()} • Created by {sc.createdBy}
                     </p>
                   </div>
                   <span className={`text-xs px-2 py-1 rounded ${
                     sc.status === 'approved' ? 'bg-green-100 text-green-700' :
                     sc.status === 'pending' ? 'bg-amber-100 text-amber-700' :
-                    'bg-gray-100 text-gray-600'
+                    'bg-white text-black'
                   }`}>
                     {sc.status}
                   </span>
                 </div>
               ))}
               {scheduledChanges.length === 0 && (
-                <div className="p-4 text-center text-gray-500">No scheduled changes</div>
+                <div className="p-4 text-center text-black">No scheduled changes</div>
               )}
             </div>
           </div>
@@ -230,12 +230,12 @@ export default function ChangeManagementPage() {
             </div>
             <div className="p-4 space-y-2">
               {sections.map(section => (
-                <label key={section.id} className="flex items-center justify-between p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                <label key={section.id} className="flex items-center justify-between p-3 border rounded-lg cursor-pointer hover:bg-white">
                   <span className="text-sm">{section.label}</span>
                   <button
                     onClick={() => toggleFreeze(section.id)}
                     className={`w-10 h-5 rounded-full transition-colors relative ${
-                      frozenSections.includes(section.id) ? 'bg-blue-500' : 'bg-gray-300'
+                      frozenSections.includes(section.id) ? 'bg-blue-500' : 'bg-white'
                     }`}
                   >
                     <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform ${
@@ -262,9 +262,9 @@ export default function ChangeManagementPage() {
           </div>
 
           {/* Immutable Log Note */}
-          <div className="bg-gray-50 border rounded-xl p-4">
-            <h3 className="font-medium text-gray-700 mb-2">📋 Immutable Log</h3>
-            <ul className="text-xs text-gray-600 space-y-1">
+          <div className="bg-white border rounded-xl p-4">
+            <h3 className="font-medium text-black mb-2">📋 Immutable Log</h3>
+            <ul className="text-xs text-black space-y-1">
               <li>• One-click rollback available</li>
               <li>• No silent changes</li>
               <li>• All changes audited</li>
@@ -279,21 +279,21 @@ export default function ChangeManagementPage() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
             <h3 className="text-lg font-semibold mb-4">Schedule a Change</h3>
-            <p className="text-sm text-gray-500 mb-4">
+            <p className="text-sm text-black mb-4">
               Schedule configuration changes to take effect at a future date.
             </p>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <label className="block text-sm font-medium text-black mb-1">Description</label>
                 <input type="text" className="w-full px-4 py-2 border rounded-lg" placeholder="What will change?" />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Effective Date</label>
+                <label className="block text-sm font-medium text-black mb-1">Effective Date</label>
                 <input type="date" className="w-full px-4 py-2 border rounded-lg" />
               </div>
             </div>
             <div className="flex gap-3 justify-end mt-6">
-              <button onClick={() => setShowScheduleModal(false)} className="px-4 py-2 text-gray-600 hover:text-gray-800">
+              <button onClick={() => setShowScheduleModal(false)} className="px-4 py-2 text-black hover:text-black">
                 Cancel
               </button>
               <button onClick={() => setShowScheduleModal(false)} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">

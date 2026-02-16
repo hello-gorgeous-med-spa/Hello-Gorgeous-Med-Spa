@@ -225,7 +225,7 @@ export function BioteSection() {
 
         {/* Disclaimer */}
         <FadeUp delayMs={300}>
-          <p className="mt-8 text-center text-xs text-gray-500 max-w-2xl mx-auto">
+          <p className="mt-8 text-center text-xs text-black max-w-2xl mx-auto">
             *These statements have not been evaluated by the Food and Drug Administration. 
             This product is not intended to diagnose, treat, cure, or prevent any disease. 
             Results may vary by individual.

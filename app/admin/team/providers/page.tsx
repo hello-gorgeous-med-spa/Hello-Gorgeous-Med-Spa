@@ -247,8 +247,8 @@ export default function ProviderManagementPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Provider Management</h1>
-          <p className="text-gray-500">Manage who can be booked for services</p>
+          <h1 className="text-2xl font-bold text-black">Provider Management</h1>
+          <p className="text-black">Manage who can be booked for services</p>
         </div>
         <button
           onClick={() => {
@@ -272,16 +272,16 @@ export default function ProviderManagementPage() {
       )}
 
       {/* Active Providers */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100">
-          <h2 className="font-semibold text-gray-900">Active Providers ({activeProviders.length})</h2>
-          <p className="text-sm text-gray-500">These providers appear in booking and schedules</p>
+      <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-black">
+          <h2 className="font-semibold text-black">Active Providers ({activeProviders.length})</h2>
+          <p className="text-sm text-black">These providers appear in booking and schedules</p>
         </div>
 
         {loading ? (
-          <div className="p-8 text-center text-gray-500">Loading...</div>
+          <div className="p-8 text-center text-black">Loading...</div>
         ) : activeProviders.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">
+          <div className="p-8 text-center text-black">
             No active providers. Add one to get started.
           </div>
         ) : (
@@ -296,10 +296,10 @@ export default function ProviderManagementPage() {
                     {provider.name.split(' ').map(n => n[0]).join('')}
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">{provider.name}</p>
-                    <p className="text-sm text-gray-500">{provider.credentials || 'Provider'}</p>
+                    <p className="font-medium text-black">{provider.name}</p>
+                    <p className="text-sm text-black">{provider.credentials || 'Provider'}</p>
                     {provider.email && (
-                      <p className="text-xs text-gray-400">{provider.email}</p>
+                      <p className="text-xs text-black">{provider.email}</p>
                     )}
                   </div>
                 </div>
@@ -312,7 +312,7 @@ export default function ProviderManagementPage() {
                   </button>
                   <button
                     onClick={() => removeProvider(provider)}
-                    className="px-3 py-1.5 text-sm text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                    className="px-3 py-1.5 text-sm text-black hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
                   >
                     Remove
                   </button>
@@ -325,15 +325,15 @@ export default function ProviderManagementPage() {
 
       {/* Inactive Providers */}
       {inactiveProviders.length > 0 && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-100">
-            <h2 className="font-semibold text-gray-900">Inactive Providers ({inactiveProviders.length})</h2>
-            <p className="text-sm text-gray-500">These providers are hidden from booking</p>
+        <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-black">
+            <h2 className="font-semibold text-black">Inactive Providers ({inactiveProviders.length})</h2>
+            <p className="text-sm text-black">These providers are hidden from booking</p>
           </div>
 
           <div className="divide-y divide-gray-100">
             {inactiveProviders.map(provider => (
-              <div key={provider.id} className="px-5 py-4 flex items-center justify-between bg-gray-50">
+              <div key={provider.id} className="px-5 py-4 flex items-center justify-between bg-white">
                 <div className="flex items-center gap-4">
                   <div
                     className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg opacity-50"
@@ -342,8 +342,8 @@ export default function ProviderManagementPage() {
                     {provider.name.split(' ').map(n => n[0]).join('')}
                   </div>
                   <div>
-                    <p className="font-medium text-gray-500">{provider.name}</p>
-                    <p className="text-sm text-gray-400">{provider.credentials || 'Provider'}</p>
+                    <p className="font-medium text-black">{provider.name}</p>
+                    <p className="text-sm text-black">{provider.credentials || 'Provider'}</p>
                   </div>
                 </div>
                 <button
@@ -362,9 +362,9 @@ export default function ProviderManagementPage() {
       {showAddModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full">
-            <div className="p-6 border-b border-gray-100 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-gray-900">Add Provider</h2>
-              <button onClick={() => setShowAddModal(false)} className="text-gray-400 hover:text-gray-600">
+            <div className="p-6 border-b border-black flex items-center justify-between">
+              <h2 className="text-xl font-bold text-black">Add Provider</h2>
+              <button onClick={() => setShowAddModal(false)} className="text-black hover:text-black">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -374,7 +374,7 @@ export default function ProviderManagementPage() {
             <div className="p-6 space-y-4">
               {/* Select User */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Select User *</label>
+                <label className="block text-sm font-medium text-black mb-1">Select User *</label>
                 <select
                   value={formData.user_id}
                   onChange={(e) => {
@@ -385,7 +385,7 @@ export default function ProviderManagementPage() {
                       name: user ? `${user.first_name} ${user.last_name}` : '',
                     });
                   }}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                 >
                   <option value="">Choose a user...</option>
                   {availableUsers.map(user => (
@@ -403,19 +403,19 @@ export default function ProviderManagementPage() {
 
               {/* Credentials */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Title / Credentials</label>
+                <label className="block text-sm font-medium text-black mb-1">Title / Credentials</label>
                 <input
                   type="text"
                   value={formData.credentials}
                   onChange={(e) => setFormData({ ...formData, credentials: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="e.g., APRN, FNP-BC or Esthetician"
                 />
               </div>
 
               {/* Color */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Calendar Color</label>
+                <label className="block text-sm font-medium text-black mb-2">Calendar Color</label>
                 <div className="flex flex-wrap gap-2">
                   {COLORS.map(color => (
                     <button
@@ -423,7 +423,7 @@ export default function ProviderManagementPage() {
                       type="button"
                       onClick={() => setFormData({ ...formData, color: color.value })}
                       className={`w-10 h-10 rounded-full border-2 transition-all ${
-                        formData.color === color.value ? 'border-gray-900 scale-110' : 'border-transparent'
+                        formData.color === color.value ? 'border-black scale-110' : 'border-transparent'
                       }`}
                       style={{ backgroundColor: color.value }}
                       title={color.name}
@@ -433,10 +433,10 @@ export default function ProviderManagementPage() {
               </div>
             </div>
 
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
+            <div className="p-6 border-t border-black flex justify-end gap-3">
               <button
                 onClick={() => setShowAddModal(false)}
-                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
               >
                 Cancel
               </button>
@@ -456,9 +456,9 @@ export default function ProviderManagementPage() {
       {editingProvider && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full">
-            <div className="p-6 border-b border-gray-100 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-gray-900">Edit Provider</h2>
-              <button onClick={() => setEditingProvider(null)} className="text-gray-400 hover:text-gray-600">
+            <div className="p-6 border-b border-black flex items-center justify-between">
+              <h2 className="text-xl font-bold text-black">Edit Provider</h2>
+              <button onClick={() => setEditingProvider(null)} className="text-black hover:text-black">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
@@ -468,27 +468,27 @@ export default function ProviderManagementPage() {
             <div className="p-6 space-y-4">
               {/* Name (read-only) */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
-                <p className="px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-gray-700">
+                <label className="block text-sm font-medium text-black mb-1">Name</label>
+                <p className="px-4 py-2 bg-white border border-black rounded-lg text-black">
                   {editingProvider.name}
                 </p>
               </div>
 
               {/* Credentials */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Title / Credentials</label>
+                <label className="block text-sm font-medium text-black mb-1">Title / Credentials</label>
                 <input
                   type="text"
                   value={formData.credentials}
                   onChange={(e) => setFormData({ ...formData, credentials: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="e.g., APRN, FNP-BC"
                 />
               </div>
 
               {/* Color */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Calendar Color</label>
+                <label className="block text-sm font-medium text-black mb-2">Calendar Color</label>
                 <div className="flex flex-wrap gap-2">
                   {COLORS.map(color => (
                     <button
@@ -496,7 +496,7 @@ export default function ProviderManagementPage() {
                       type="button"
                       onClick={() => setFormData({ ...formData, color: color.value })}
                       className={`w-10 h-10 rounded-full border-2 transition-all ${
-                        formData.color === color.value ? 'border-gray-900 scale-110' : 'border-transparent'
+                        formData.color === color.value ? 'border-black scale-110' : 'border-transparent'
                       }`}
                       style={{ backgroundColor: color.value }}
                       title={color.name}
@@ -506,10 +506,10 @@ export default function ProviderManagementPage() {
               </div>
             </div>
 
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
+            <div className="p-6 border-t border-black flex justify-end gap-3">
               <button
                 onClick={() => setEditingProvider(null)}
-                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
               >
                 Cancel
               </button>

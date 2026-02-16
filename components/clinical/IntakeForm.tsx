@@ -144,7 +144,7 @@ export default function IntakeForm({
       case 'phone':
         return (
           <div key={field.name} className="space-y-1">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-black">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </label>
@@ -154,18 +154,18 @@ export default function IntakeForm({
               onChange={(e) => updateField(field.name, e.target.value)}
               placeholder={field.placeholder}
               className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 ${
-                hasError ? 'border-red-300 bg-red-50' : 'border-gray-200'
+                hasError ? 'border-red-300 bg-red-50' : 'border-black'
               }`}
             />
             {hasError && <p className="text-sm text-red-600">{hasError}</p>}
-            {field.helpText && <p className="text-sm text-gray-500">{field.helpText}</p>}
+            {field.helpText && <p className="text-sm text-black">{field.helpText}</p>}
           </div>
         );
 
       case 'textarea':
         return (
           <div key={field.name} className="space-y-1">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-black">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </label>
@@ -175,7 +175,7 @@ export default function IntakeForm({
               placeholder={field.placeholder}
               rows={3}
               className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 ${
-                hasError ? 'border-red-300 bg-red-50' : 'border-gray-200'
+                hasError ? 'border-red-300 bg-red-50' : 'border-black'
               }`}
             />
             {hasError && <p className="text-sm text-red-600">{hasError}</p>}
@@ -185,7 +185,7 @@ export default function IntakeForm({
       case 'select':
         return (
           <div key={field.name} className="space-y-1">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-black">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </label>
@@ -193,7 +193,7 @@ export default function IntakeForm({
               value={formData[field.name] || ''}
               onChange={(e) => updateField(field.name, e.target.value)}
               className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 ${
-                hasError ? 'border-red-300 bg-red-50' : 'border-gray-200'
+                hasError ? 'border-red-300 bg-red-50' : 'border-black'
               }`}
             >
               <option value="">Select an option</option>
@@ -210,7 +210,7 @@ export default function IntakeForm({
       case 'radio':
         return (
           <div key={field.name} className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-black">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </label>
@@ -221,7 +221,7 @@ export default function IntakeForm({
                   className={`flex items-center gap-2 px-4 py-2 border rounded-xl cursor-pointer transition-colors ${
                     formData[field.name] === option
                       ? 'border-indigo-500 bg-indigo-50 text-indigo-700'
-                      : 'border-gray-200 hover:border-gray-300'
+                      : 'border-black hover:border-black'
                   }`}
                 >
                   <input
@@ -243,7 +243,7 @@ export default function IntakeForm({
       case 'checkbox_group':
         return (
           <div key={field.name} className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-black">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </label>
@@ -256,16 +256,16 @@ export default function IntakeForm({
                     className={`flex items-center gap-2 px-4 py-3 border rounded-xl cursor-pointer transition-colors ${
                       isChecked
                         ? 'border-indigo-500 bg-indigo-50'
-                        : 'border-gray-200 hover:border-gray-300'
+                        : 'border-black hover:border-black'
                     }`}
                   >
                     <input
                       type="checkbox"
                       checked={isChecked}
                       onChange={() => toggleCheckboxGroup(field.name, option)}
-                      className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                      className="w-4 h-4 text-indigo-600 border-black rounded focus:ring-indigo-500"
                     />
-                    <span className={isChecked ? 'text-indigo-700' : 'text-gray-700'}>
+                    <span className={isChecked ? 'text-indigo-700' : 'text-black'}>
                       {option}
                     </span>
                   </label>
@@ -279,7 +279,7 @@ export default function IntakeForm({
       case 'date':
         return (
           <div key={field.name} className="space-y-1">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-black">
               {field.label}
               {field.required && <span className="text-red-500 ml-1">*</span>}
             </label>
@@ -288,7 +288,7 @@ export default function IntakeForm({
               value={formData[field.name] || ''}
               onChange={(e) => updateField(field.name, e.target.value)}
               className={`w-full px-4 py-3 border rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 ${
-                hasError ? 'border-red-300 bg-red-50' : 'border-gray-200'
+                hasError ? 'border-red-300 bg-red-50' : 'border-black'
               }`}
             />
             {hasError && <p className="text-sm text-red-600">{hasError}</p>}
@@ -304,32 +304,32 @@ export default function IntakeForm({
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+        <div className="px-6 py-4 border-b border-black flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-gray-900">{templateName}</h2>
-            <p className="text-sm text-gray-500">Patient: {clientName}</p>
+            <h2 className="text-xl font-bold text-black">{templateName}</h2>
+            <p className="text-sm text-black">Patient: {clientName}</p>
           </div>
           <button
             onClick={onCancel}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-white rounded-lg transition-colors"
           >
             ✕
           </button>
         </div>
 
         {/* Progress */}
-        <div className="px-6 py-3 bg-gray-50 border-b border-gray-200">
+        <div className="px-6 py-3 bg-white border-b border-black">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-gray-700">
+            <span className="text-sm font-medium text-black">
               {isLastSection
                 ? 'Review & Sign'
                 : `Section ${currentSection + 1} of ${sections.length}`}
             </span>
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-black">
               {Math.round(((currentSection) / (sections.length + 1)) * 100)}% Complete
             </span>
           </div>
-          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div className="h-2 bg-white rounded-full overflow-hidden">
             <div
               className="h-full bg-indigo-600 rounded-full transition-all duration-300"
               style={{ width: `${((currentSection) / (sections.length + 1)) * 100}%` }}
@@ -342,11 +342,11 @@ export default function IntakeForm({
           {!isLastSection && currentSectionData && (
             <div className="space-y-6">
               <div className="mb-6">
-                <h3 className="text-lg font-semibold text-gray-900">
+                <h3 className="text-lg font-semibold text-black">
                   {currentSectionData.title}
                 </h3>
                 {currentSectionData.description && (
-                  <p className="text-gray-500 mt-1">{currentSectionData.description}</p>
+                  <p className="text-black mt-1">{currentSectionData.description}</p>
                 )}
               </div>
 
@@ -358,26 +358,26 @@ export default function IntakeForm({
           {isLastSection && (
             <div className="space-y-6">
               <div className="text-center mb-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                <h3 className="text-lg font-semibold text-black mb-2">
                   Review & Sign
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-black">
                   Please review your responses and sign below to certify that the
                   information provided is accurate and complete.
                 </p>
               </div>
 
               {/* Summary */}
-              <div className="bg-gray-50 rounded-xl p-4 mb-6">
-                <h4 className="font-medium text-gray-900 mb-3">Summary</h4>
+              <div className="bg-white rounded-xl p-4 mb-6">
+                <h4 className="font-medium text-black mb-3">Summary</h4>
                 <div className="space-y-2 text-sm">
                   {Object.entries(formData).map(([key, value]) => {
                     if (!value || (Array.isArray(value) && value.length === 0)) return null;
                     const displayValue = Array.isArray(value) ? value.join(', ') : value;
                     return (
                       <div key={key} className="flex">
-                        <span className="text-gray-500 w-1/3">{key}:</span>
-                        <span className="text-gray-900">{displayValue}</span>
+                        <span className="text-black w-1/3">{key}:</span>
+                        <span className="text-black">{displayValue}</span>
                       </div>
                     );
                   })}
@@ -414,10 +414,10 @@ export default function IntakeForm({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between bg-gray-50">
+        <div className="px-6 py-4 border-t border-black flex items-center justify-between bg-white">
           <button
             onClick={currentSection === 0 ? onCancel : goToPreviousSection}
-            className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium"
+            className="px-4 py-2 text-black hover:text-black font-medium"
           >
             {currentSection === 0 ? 'Cancel' : '← Back'}
           </button>

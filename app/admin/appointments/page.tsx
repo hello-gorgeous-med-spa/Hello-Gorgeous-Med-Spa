@@ -18,7 +18,7 @@ const FALLBACK_PROVIDERS = [
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-white rounded ${className}`} />;
 }
 
 // Status configuration
@@ -27,7 +27,7 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }
   confirmed: { label: 'Confirmed', color: 'text-blue-700', bg: 'bg-blue-100' },
   checked_in: { label: 'Checked In', color: 'text-green-700', bg: 'bg-green-100' },
   in_progress: { label: 'In Progress', color: 'text-purple-700', bg: 'bg-purple-100' },
-  completed: { label: 'Completed', color: 'text-gray-600', bg: 'bg-gray-100' },
+  completed: { label: 'Completed', color: 'text-black', bg: 'bg-white' },
   cancelled: { label: 'Cancelled', color: 'text-red-700', bg: 'bg-red-100' },
   no_show: { label: 'No Show', color: 'text-red-700', bg: 'bg-red-100' },
 };
@@ -178,8 +178,8 @@ export default function AdminAppointmentsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Appointments</h1>
-          <p className="text-gray-500">View and manage all appointments</p>
+          <h1 className="text-2xl font-bold text-black">Appointments</h1>
+          <p className="text-black">View and manage all appointments</p>
         </div>
         <div className="flex items-center gap-3">
           <ExportButton
@@ -189,7 +189,7 @@ export default function AdminAppointmentsPage() {
           />
           <Link
             href="/admin/calendar"
-            className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            className="px-4 py-2 border border-black text-black font-medium rounded-lg hover:bg-white transition-colors"
           >
             📅 Calendar View
           </Link>
@@ -215,12 +215,12 @@ export default function AdminAppointmentsPage() {
       )}
 
       {/* Date Navigation */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4">
+      <div className="bg-white rounded-xl border border-black shadow-sm p-4">
         <div className="flex flex-wrap items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <button
               onClick={() => changeDate(-1)}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-white rounded-lg transition-colors"
             >
               ←
             </button>
@@ -228,11 +228,11 @@ export default function AdminAppointmentsPage() {
               type="date"
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             />
             <button
               onClick={() => changeDate(1)}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-white rounded-lg transition-colors"
             >
               →
             </button>
@@ -249,7 +249,7 @@ export default function AdminAppointmentsPage() {
             <select
               value={filterProvider}
               onChange={(e) => setFilterProvider(e.target.value)}
-              className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-pink-500"
+              className="px-3 py-2 border border-black rounded-lg text-sm focus:ring-2 focus:ring-pink-500"
             >
               <option value="all">All Providers</option>
               {providers.map((p: any) => {
@@ -268,7 +268,7 @@ export default function AdminAppointmentsPage() {
             <select
               value={filterStatus}
               onChange={(e) => setFilterStatus(e.target.value)}
-              className="px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-pink-500"
+              className="px-3 py-2 border border-black rounded-lg text-sm focus:ring-2 focus:ring-pink-500"
             >
               <option value="all">All Statuses</option>
               <option value="pending">Pending</option>
@@ -282,13 +282,13 @@ export default function AdminAppointmentsPage() {
 
             {/* Search */}
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-black">🔍</span>
               <input
                 type="text"
                 placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-pink-500 w-48"
+                className="pl-9 pr-4 py-2 border border-black rounded-lg text-sm focus:ring-2 focus:ring-pink-500 w-48"
               />
             </div>
           </div>
@@ -297,44 +297,44 @@ export default function AdminAppointmentsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Total</p>
-          <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Total</p>
+          <p className="text-2xl font-bold text-black">{stats.total}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Checked In</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Checked In</p>
           <p className="text-2xl font-bold text-green-600">{stats.checkedIn}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">In Progress</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">In Progress</p>
           <p className="text-2xl font-bold text-pink-600">{stats.inProgress}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Completed</p>
-          <p className="text-2xl font-bold text-gray-600">{stats.completed}</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Completed</p>
+          <p className="text-2xl font-bold text-black">{stats.completed}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Cancelled</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Cancelled</p>
           <p className="text-2xl font-bold text-red-600">{stats.cancelled}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Revenue</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Revenue</p>
           <p className="text-2xl font-bold text-green-600">${stats.revenue.toLocaleString()}</p>
         </div>
       </div>
 
       {/* Appointments Table */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-100">
+            <thead className="bg-white border-b border-black">
               <tr>
-                <th className="text-left px-4 py-3 text-sm font-semibold text-gray-900">Time</th>
-                <th className="text-left px-4 py-3 text-sm font-semibold text-gray-900">Client</th>
-                <th className="text-left px-4 py-3 text-sm font-semibold text-gray-900">Service</th>
-                <th className="text-left px-4 py-3 text-sm font-semibold text-gray-900">Provider</th>
-                <th className="text-left px-4 py-3 text-sm font-semibold text-gray-900">Status</th>
-                <th className="text-left px-4 py-3 text-sm font-semibold text-gray-900">Price</th>
+                <th className="text-left px-4 py-3 text-sm font-semibold text-black">Time</th>
+                <th className="text-left px-4 py-3 text-sm font-semibold text-black">Client</th>
+                <th className="text-left px-4 py-3 text-sm font-semibold text-black">Service</th>
+                <th className="text-left px-4 py-3 text-sm font-semibold text-black">Provider</th>
+                <th className="text-left px-4 py-3 text-sm font-semibold text-black">Status</th>
+                <th className="text-left px-4 py-3 text-sm font-semibold text-black">Price</th>
                 <th className="px-4 py-3"></th>
               </tr>
             </thead>
@@ -361,29 +361,29 @@ export default function AdminAppointmentsPage() {
                 filteredAppointments.map((apt) => {
                   const statusConfig = STATUS_CONFIG[apt.status] || STATUS_CONFIG.pending;
                   return (
-                    <tr key={apt.id} className="hover:bg-gray-50 transition-colors">
+                    <tr key={apt.id} className="hover:bg-white transition-colors">
                       <td className="px-4 py-3">
-                        <span className="font-medium text-gray-900">
+                        <span className="font-medium text-black">
                           {formatTime(apt.starts_at)}
                         </span>
-                        <p className="text-xs text-gray-500">{apt.duration || 30} min</p>
+                        <p className="text-xs text-black">{apt.duration || 30} min</p>
                       </td>
                       <td className="px-4 py-3">
                         <Link
                           href={`/admin/clients/${apt.client_id}`}
-                          className="font-medium text-gray-900 hover:text-pink-600"
+                          className="font-medium text-black hover:text-pink-600"
                         >
                           {apt.client_name || 'Unknown'}
                         </Link>
                         {apt.client_phone && (
-                          <p className="text-sm text-gray-500">{apt.client_phone}</p>
+                          <p className="text-sm text-black">{apt.client_phone}</p>
                         )}
                       </td>
                       <td className="px-4 py-3">
-                        <span className="text-gray-900">{apt.service_name || 'Service'}</span>
+                        <span className="text-black">{apt.service_name || 'Service'}</span>
                       </td>
                       <td className="px-4 py-3">
-                        <span className="text-gray-600">
+                        <span className="text-black">
                           {apt.provider_name || 'Provider'}
                         </span>
                       </td>
@@ -393,7 +393,7 @@ export default function AdminAppointmentsPage() {
                         </span>
                       </td>
                       <td className="px-4 py-3">
-                        <span className="font-medium text-gray-900">
+                        <span className="font-medium text-black">
                           ${apt.service_price || 0}
                         </span>
                       </td>
@@ -401,7 +401,7 @@ export default function AdminAppointmentsPage() {
                         <div className="flex items-center gap-2 justify-end">
                           <Link
                             href={`/admin/appointments/${apt.id}`}
-                            className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg"
+                            className="px-3 py-1.5 text-sm font-medium text-black hover:bg-white rounded-lg"
                           >
                             View
                           </Link>
@@ -422,8 +422,8 @@ export default function AdminAppointmentsPage() {
         </div>
 
         {/* Footer */}
-        <div className="px-4 py-3 border-t border-gray-100 bg-gray-50">
-          <p className="text-sm text-gray-500">
+        <div className="px-4 py-3 border-t border-black bg-white">
+          <p className="text-sm text-black">
             Showing {filteredAppointments.length} of {appointments.length} appointments
           </p>
         </div>

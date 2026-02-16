@@ -132,10 +132,10 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
     return (
       <div className="p-8">
         <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/3 mb-8" />
+          <div className="h-8 bg-white rounded w-1/3 mb-8" />
           <div className="grid grid-cols-3 gap-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="h-48 bg-gray-200 rounded-xl" />
+              <div key={i} className="h-48 bg-white rounded-xl" />
             ))}
           </div>
         </div>
@@ -146,7 +146,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
   if (!provider) {
     return (
       <div className="p-8 text-center">
-        <p className="text-gray-500">Provider not found</p>
+        <p className="text-black">Provider not found</p>
         <Link href="/admin/content/providers" className="text-[#FF2D8E] hover:underline mt-2 block">
           ← Back to providers
         </Link>
@@ -161,10 +161,10 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
         <Link href="/admin/content/providers" className="text-[#FF2D8E] hover:underline text-sm">
           ← Back to providers
         </Link>
-        <h1 className="text-2xl font-bold text-gray-900 mt-2">
+        <h1 className="text-2xl font-bold text-black mt-2">
           Media for {provider.name}
         </h1>
-        <p className="text-gray-500">Upload and manage videos and before/after photos</p>
+        <p className="text-black">Upload and manage videos and before/after photos</p>
       </div>
 
       {/* Message */}
@@ -176,13 +176,13 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
       )}
 
       {/* Tabs */}
-      <div className="flex gap-4 mb-6 border-b border-gray-200">
+      <div className="flex gap-4 mb-6 border-b border-black">
         <button
           onClick={() => setActiveTab('videos')}
           className={`pb-3 px-4 font-medium transition-colors ${
             activeTab === 'videos'
               ? 'text-[#FF2D8E] border-b-2 border-[#FF2D8E]'
-              : 'text-gray-500 hover:text-gray-700'
+              : 'text-black hover:text-black'
           }`}
         >
           🎬 Videos ({videos.length})
@@ -192,7 +192,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
           className={`pb-3 px-4 font-medium transition-colors ${
             activeTab === 'before_after'
               ? 'text-[#FF2D8E] border-b-2 border-[#FF2D8E]'
-              : 'text-gray-500 hover:text-gray-700'
+              : 'text-black hover:text-black'
           }`}
         >
           📸 Before/After ({beforeAfters.length})
@@ -214,8 +214,8 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
       {activeTab === 'videos' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {videos.map((item) => (
-            <div key={item.id} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-              <div className="relative aspect-video bg-gray-100">
+            <div key={item.id} className="bg-white rounded-xl border border-black overflow-hidden">
+              <div className="relative aspect-video bg-white">
                 {item.video_thumbnail_url ? (
                   <Image src={item.video_thumbnail_url} alt={item.title || ''} fill className="object-cover" />
                 ) : (
@@ -228,7 +228,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
                 )}
               </div>
               <div className="p-4">
-                <h3 className="font-medium text-gray-900">{item.title || 'Untitled'}</h3>
+                <h3 className="font-medium text-black">{item.title || 'Untitled'}</h3>
                 {item.service_tag && (
                   <span className="inline-block mt-1 px-2 py-0.5 bg-[#FF2D8E]/10 text-[#FF2D8E] text-xs rounded">
                     {item.service_tag}
@@ -237,7 +237,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
                 <div className="mt-3 flex gap-2">
                   <button
                     onClick={() => handleToggleFeatured(item)}
-                    className="flex-1 text-xs px-3 py-1.5 bg-gray-100 rounded hover:bg-gray-200"
+                    className="flex-1 text-xs px-3 py-1.5 bg-white rounded hover:bg-white"
                   >
                     {item.is_featured ? '★ Unfeature' : '☆ Feature'}
                   </button>
@@ -252,7 +252,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
             </div>
           ))}
           {videos.length === 0 && (
-            <div className="col-span-full text-center py-12 text-gray-500">
+            <div className="col-span-full text-center py-12 text-black">
               No videos uploaded yet
             </div>
           )}
@@ -263,23 +263,23 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
       {activeTab === 'before_after' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {beforeAfters.map((item) => (
-            <div key={item.id} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-              <div className="grid grid-cols-2 gap-0.5 bg-gray-200">
-                <div className="relative aspect-square bg-gray-100">
+            <div key={item.id} className="bg-white rounded-xl border border-black overflow-hidden">
+              <div className="grid grid-cols-2 gap-0.5 bg-white">
+                <div className="relative aspect-square bg-white">
                   {item.before_image_url ? (
                     <Image src={item.before_image_url} alt="Before" fill className="object-cover" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-sm text-gray-400">Before</div>
+                    <div className="w-full h-full flex items-center justify-center text-sm text-black">Before</div>
                   )}
                   <span className="absolute bottom-1 left-1 px-1.5 py-0.5 bg-black/50 text-white text-xs rounded">
                     Before
                   </span>
                 </div>
-                <div className="relative aspect-square bg-gray-100">
+                <div className="relative aspect-square bg-white">
                   {item.after_image_url ? (
                     <Image src={item.after_image_url} alt="After" fill className="object-cover" />
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center text-sm text-gray-400">After</div>
+                    <div className="w-full h-full flex items-center justify-center text-sm text-black">After</div>
                   )}
                   <span className="absolute bottom-1 right-1 px-1.5 py-0.5 bg-[#FF2D8E] text-white text-xs rounded">
                     After
@@ -287,7 +287,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
                 </div>
               </div>
               <div className="p-4">
-                <h3 className="font-medium text-gray-900">{item.title || 'Untitled'}</h3>
+                <h3 className="font-medium text-black">{item.title || 'Untitled'}</h3>
                 {item.service_tag && (
                   <span className="inline-block mt-1 px-2 py-0.5 bg-[#FF2D8E]/10 text-[#FF2D8E] text-xs rounded">
                     {item.service_tag}
@@ -299,7 +299,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
                 <div className="mt-3 flex gap-2">
                   <button
                     onClick={() => handleToggleFeatured(item)}
-                    className="flex-1 text-xs px-3 py-1.5 bg-gray-100 rounded hover:bg-gray-200"
+                    className="flex-1 text-xs px-3 py-1.5 bg-white rounded hover:bg-white"
                   >
                     {item.is_featured ? '★ Unfeature' : '☆ Feature'}
                   </button>
@@ -314,7 +314,7 @@ export default function ProviderMediaPage({ params }: { params: Promise<{ id: st
             </div>
           ))}
           {beforeAfters.length === 0 && (
-            <div className="col-span-full text-center py-12 text-gray-500">
+            <div className="col-span-full text-center py-12 text-black">
               No before/after photos uploaded yet
             </div>
           )}
@@ -409,40 +409,40 @@ function UploadModal({
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-        <div className="p-6 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-900">
+        <div className="p-6 border-b border-black">
+          <h2 className="text-xl font-bold text-black">
             {type === 'video' ? 'Upload Video' : 'Upload Before/After'}
           </h2>
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+            <label className="block text-sm font-medium text-black mb-1">Title</label>
             <input
               type="text"
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
               placeholder="e.g., Lip Filler Treatment"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF2D8E]"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E]"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <label className="block text-sm font-medium text-black mb-1">Description</label>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               rows={2}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF2D8E]"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E]"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Service Tag</label>
+            <label className="block text-sm font-medium text-black mb-1">Service Tag</label>
             <select
               value={formData.service_tag}
               onChange={(e) => setFormData({ ...formData, service_tag: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF2D8E]"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E]"
             >
               <option value="">Select a service...</option>
               {serviceTags.map((tag) => (
@@ -454,53 +454,53 @@ function UploadModal({
           {type === 'video' ? (
             <>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Upload Video</label>
+                <label className="block text-sm font-medium text-black mb-1">Upload Video</label>
                 <input
                   type="file"
                   accept="video/*"
                   onChange={(e) => e.target.files?.[0] && handleFileUpload(e.target.files[0], 'video_url')}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF2D8E]"
+                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E]"
                 />
                 {formData.video_url && <p className="text-xs text-green-600 mt-1">✓ Video uploaded</p>}
-                <p className="text-xs text-gray-500 mt-1">Or paste URL below</p>
+                <p className="text-xs text-black mt-1">Or paste URL below</p>
                 <input
                   type="url"
                   value={formData.video_url}
                   onChange={(e) => setFormData({ ...formData, video_url: e.target.value })}
                   placeholder="https://..."
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF2D8E] mt-2"
+                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] mt-2"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Thumbnail URL</label>
+                <label className="block text-sm font-medium text-black mb-1">Thumbnail URL</label>
                 <input
                   type="url"
                   value={formData.video_thumbnail_url}
                   onChange={(e) => setFormData({ ...formData, video_thumbnail_url: e.target.value })}
                   placeholder="https://..."
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#FF2D8E]"
+                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E]"
                 />
               </div>
             </>
           ) : (
             <>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Before Image</label>
+                <label className="block text-sm font-medium text-black mb-1">Before Image</label>
                 <input
                   type="file"
                   accept="image/*"
                   onChange={(e) => e.target.files?.[0] && handleFileUpload(e.target.files[0], 'before_image_url')}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                 />
                 {formData.before_image_url && <p className="text-xs text-green-600 mt-1">✓ Uploaded</p>}
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">After Image</label>
+                <label className="block text-sm font-medium text-black mb-1">After Image</label>
                 <input
                   type="file"
                   accept="image/*"
                   onChange={(e) => e.target.files?.[0] && handleFileUpload(e.target.files[0], 'after_image_url')}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                 />
                 {formData.after_image_url && <p className="text-xs text-green-600 mt-1">✓ Uploaded</p>}
               </div>
@@ -510,7 +510,7 @@ function UploadModal({
                     type="checkbox"
                     checked={formData.consent_confirmed}
                     onChange={(e) => setFormData({ ...formData, consent_confirmed: e.target.checked })}
-                    className="mt-1 w-5 h-5 text-[#FF2D8E] border-gray-300 rounded focus:ring-[#FF2D8E]"
+                    className="mt-1 w-5 h-5 text-[#FF2D8E] border-black rounded focus:ring-[#FF2D8E]"
                   />
                   <span className="text-sm text-yellow-800">
                     <strong>Client consent confirmed</strong><br />
@@ -527,9 +527,9 @@ function UploadModal({
                 type="checkbox"
                 checked={formData.is_featured}
                 onChange={(e) => setFormData({ ...formData, is_featured: e.target.checked })}
-                className="w-4 h-4 text-[#FF2D8E] border-gray-300 rounded focus:ring-[#FF2D8E]"
+                className="w-4 h-4 text-[#FF2D8E] border-black rounded focus:ring-[#FF2D8E]"
               />
-              <span className="text-sm text-gray-700">Mark as featured</span>
+              <span className="text-sm text-black">Mark as featured</span>
             </label>
           </div>
 
@@ -537,7 +537,7 @@ function UploadModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+              className="px-6 py-2 border border-black rounded-lg text-black hover:bg-white"
             >
               Cancel
             </button>

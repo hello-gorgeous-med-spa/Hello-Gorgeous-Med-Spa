@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-white rounded ${className}`} />;
 }
 
 export default function AdminPaymentsPage() {
@@ -112,8 +112,8 @@ export default function AdminPaymentsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Payments</h1>
-          <p className="text-gray-500">View and manage payment history</p>
+          <h1 className="text-2xl font-bold text-black">Payments</h1>
+          <p className="text-black">View and manage payment history</p>
         </div>
         <Link
           href="/pos"
@@ -134,32 +134,32 @@ export default function AdminPaymentsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Today's Revenue</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Today's Revenue</p>
           {loading ? (
             <Skeleton className="h-8 w-24 mt-1" />
           ) : (
             <p className="text-2xl font-bold text-green-600">${stats.todayRevenue.toLocaleString()}</p>
           )}
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">This Week</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">This Week</p>
           {loading ? (
             <Skeleton className="h-8 w-24 mt-1" />
           ) : (
-            <p className="text-2xl font-bold text-gray-900">${stats.weekRevenue.toLocaleString()}</p>
+            <p className="text-2xl font-bold text-black">${stats.weekRevenue.toLocaleString()}</p>
           )}
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">This Month</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">This Month</p>
           {loading ? (
             <Skeleton className="h-8 w-24 mt-1" />
           ) : (
-            <p className="text-2xl font-bold text-gray-900">${stats.monthRevenue.toLocaleString()}</p>
+            <p className="text-2xl font-bold text-black">${stats.monthRevenue.toLocaleString()}</p>
           )}
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Pending</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Pending</p>
           {loading ? (
             <Skeleton className="h-8 w-24 mt-1" />
           ) : (
@@ -190,13 +190,13 @@ export default function AdminPaymentsPage() {
       </div>
 
       {/* Payments Table */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-          <h2 className="font-semibold text-gray-900">Recent Payments</h2>
+      <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-black flex items-center justify-between">
+          <h2 className="font-semibold text-black">Recent Payments</h2>
           <select
             value={dateFilter}
             onChange={(e) => setDateFilter(e.target.value)}
-            className="px-3 py-1.5 border border-gray-200 rounded-lg text-sm"
+            className="px-3 py-1.5 border border-black rounded-lg text-sm"
           >
             <option value="all">All Time</option>
             <option value="today">Today</option>
@@ -207,13 +207,13 @@ export default function AdminPaymentsPage() {
         
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-100">
+            <thead className="bg-white border-b border-black">
               <tr>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Date</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Client</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Method</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Status</th>
-                <th className="text-right px-5 py-3 text-sm font-semibold text-gray-900">Amount</th>
+                <th className="text-left px-5 py-3 text-sm font-semibold text-black">Date</th>
+                <th className="text-left px-5 py-3 text-sm font-semibold text-black">Client</th>
+                <th className="text-left px-5 py-3 text-sm font-semibold text-black">Method</th>
+                <th className="text-left px-5 py-3 text-sm font-semibold text-black">Status</th>
+                <th className="text-right px-5 py-3 text-sm font-semibold text-black">Amount</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
@@ -229,21 +229,21 @@ export default function AdminPaymentsPage() {
                 ))
               ) : filteredPayments.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-5 py-12 text-center text-gray-500">
+                  <td colSpan={5} className="px-5 py-12 text-center text-black">
                     No payments found
                   </td>
                 </tr>
               ) : (
                 filteredPayments.map((payment: any) => (
-                  <tr key={payment.id} className="hover:bg-gray-50">
+                  <tr key={payment.id} className="hover:bg-white">
                     <td className="px-5 py-3">
-                      <p className="font-medium text-gray-900">{formatDate(payment.created_at)}</p>
-                      <p className="text-sm text-gray-500">{formatTime(payment.created_at)}</p>
+                      <p className="font-medium text-black">{formatDate(payment.created_at)}</p>
+                      <p className="text-sm text-black">{formatTime(payment.created_at)}</p>
                     </td>
-                    <td className="px-5 py-3 text-gray-900">
+                    <td className="px-5 py-3 text-black">
                       {payment.client?.first_name} {payment.client?.last_name}
                     </td>
-                    <td className="px-5 py-3 text-gray-600">
+                    <td className="px-5 py-3 text-black">
                       {payment.payment_method || 'Card'}
                     </td>
                     <td className="px-5 py-3">
@@ -252,7 +252,7 @@ export default function AdminPaymentsPage() {
                           ? 'bg-green-100 text-green-700'
                           : payment.status === 'pending'
                           ? 'bg-amber-100 text-amber-700'
-                          : 'bg-gray-100 text-gray-600'
+                          : 'bg-white text-black'
                       }`}>
                         {payment.status === 'completed' ? '✓ Completed' : payment.status}
                       </span>

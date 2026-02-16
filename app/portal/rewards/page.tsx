@@ -17,7 +17,7 @@ import {
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-white rounded ${className}`} />;
 }
 
 const REWARDS_CATALOG = [
@@ -76,8 +76,8 @@ export default function RewardsPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">My Rewards</h1>
-        <p className="text-gray-500">Track your points and redeem rewards</p>
+        <h1 className="text-2xl font-bold text-black">My Rewards</h1>
+        <p className="text-black">Track your points and redeem rewards</p>
       </div>
 
       {/* Points & Tier Card */}
@@ -120,23 +120,23 @@ export default function RewardsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl border border-gray-100 p-4 text-center">
-          <p className="text-2xl font-bold text-gray-900">{currentPoints}</p>
-          <p className="text-sm text-gray-500">Available Points</p>
+        <div className="bg-white rounded-xl border border-black p-4 text-center">
+          <p className="text-2xl font-bold text-black">{currentPoints}</p>
+          <p className="text-sm text-black">Available Points</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-4 text-center">
-          <p className="text-2xl font-bold text-gray-900">{lifetimePoints}</p>
-          <p className="text-sm text-gray-500">Lifetime Points</p>
+        <div className="bg-white rounded-xl border border-black p-4 text-center">
+          <p className="text-2xl font-bold text-black">{lifetimePoints}</p>
+          <p className="text-sm text-black">Lifetime Points</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-4 text-center">
+        <div className="bg-white rounded-xl border border-black p-4 text-center">
           <p className="text-2xl font-bold text-pink-600">{tier.multiplier}x</p>
-          <p className="text-sm text-gray-500">Points Multiplier</p>
+          <p className="text-sm text-black">Points Multiplier</p>
         </div>
       </div>
 
       {/* Rewards Catalog */}
       <div>
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Redeem Rewards</h2>
+        <h2 className="text-xl font-bold text-black mb-4">Redeem Rewards</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {REWARDS_CATALOG.map((reward) => {
             const canRedeem = currentPoints >= reward.points;
@@ -144,11 +144,11 @@ export default function RewardsPage() {
               <div
                 key={reward.id}
                 className={`bg-white rounded-xl border p-4 text-center ${
-                  canRedeem ? 'border-gray-100 hover:border-pink-200' : 'border-gray-100 opacity-60'
+                  canRedeem ? 'border-black hover:border-pink-200' : 'border-black opacity-60'
                 }`}
               >
                 <span className="text-4xl block mb-2">{reward.icon}</span>
-                <h3 className="font-medium text-gray-900 text-sm mb-1">{reward.name}</h3>
+                <h3 className="font-medium text-black text-sm mb-1">{reward.name}</h3>
                 <p className="text-pink-600 font-bold mb-3">{reward.points} pts</p>
                 <button
                   onClick={() => canRedeem && setShowRedeemModal(reward.id)}
@@ -156,7 +156,7 @@ export default function RewardsPage() {
                   className={`w-full py-2 rounded-lg text-sm font-medium transition-colors ${
                     canRedeem
                       ? 'bg-pink-500 text-white hover:bg-pink-600'
-                      : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                      : 'bg-white text-black cursor-not-allowed'
                   }`}
                 >
                   {canRedeem ? 'Redeem' : 'Not Enough'}
@@ -168,9 +168,9 @@ export default function RewardsPage() {
       </div>
 
       {/* Transaction History */}
-      <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100">
-          <h3 className="font-semibold text-gray-900">Points History</h3>
+      <div className="bg-white rounded-2xl border border-black overflow-hidden">
+        <div className="px-6 py-4 border-b border-black">
+          <h3 className="font-semibold text-black">Points History</h3>
         </div>
         
         {loading ? (
@@ -178,7 +178,7 @@ export default function RewardsPage() {
             {[1, 2, 3].map(i => <Skeleton key={i} className="h-12" />)}
           </div>
         ) : transactions.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">
+          <div className="p-8 text-center text-black">
             <span className="text-4xl block mb-2">🌟</span>
             <p>No points activity yet</p>
             <p className="text-sm">Book a treatment to start earning!</p>
@@ -188,8 +188,8 @@ export default function RewardsPage() {
             {transactions.map((tx) => (
               <div key={tx.id} className="px-6 py-4 flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-gray-900">{tx.description}</p>
-                  <p className="text-sm text-gray-500">
+                  <p className="font-medium text-black">{tx.description}</p>
+                  <p className="text-sm text-black">
                     {new Date(tx.created_at).toLocaleDateString()}
                   </p>
                 </div>
@@ -203,8 +203,8 @@ export default function RewardsPage() {
       </div>
 
       {/* How to Earn */}
-      <div className="bg-gray-50 rounded-2xl p-6">
-        <h3 className="font-semibold text-gray-900 mb-4">How to Earn Points</h3>
+      <div className="bg-white rounded-2xl p-6">
+        <h3 className="font-semibold text-black mb-4">How to Earn Points</h3>
         <div className="grid md:grid-cols-2 gap-4 text-sm">
           <div className="flex items-center gap-3">
             <span className="text-2xl">💉</span>
@@ -229,7 +229,7 @@ export default function RewardsPage() {
       {showRedeemModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Confirm Redemption</h2>
+            <h2 className="text-xl font-bold text-black mb-4">Confirm Redemption</h2>
             {(() => {
               const reward = REWARDS_CATALOG.find(r => r.id === showRedeemModal);
               if (!reward) return null;
@@ -237,16 +237,16 @@ export default function RewardsPage() {
                 <>
                   <div className="text-center py-4">
                     <span className="text-5xl">{reward.icon}</span>
-                    <p className="font-semibold text-gray-900 mt-2">{reward.name}</p>
+                    <p className="font-semibold text-black mt-2">{reward.name}</p>
                     <p className="text-pink-600 font-bold">{reward.points} points</p>
                   </div>
-                  <p className="text-gray-600 text-sm text-center mb-4">
+                  <p className="text-black text-sm text-center mb-4">
                     You will have {currentPoints - reward.points} points remaining.
                   </p>
                   <div className="flex gap-3">
                     <button
                       onClick={() => setShowRedeemModal(null)}
-                      className="flex-1 px-4 py-2 border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50"
+                      className="flex-1 px-4 py-2 border border-black text-black rounded-lg hover:bg-white"
                     >
                       Cancel
                     </button>

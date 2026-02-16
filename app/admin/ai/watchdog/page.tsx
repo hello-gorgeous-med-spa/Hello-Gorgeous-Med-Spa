@@ -47,26 +47,26 @@ export default function AIWatchdogPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-4">
-        <Link href="/admin/ai" className="text-slate-500 hover:text-slate-700">← AI Hub</Link>
-        <label className="flex items-center gap-2 text-sm text-gray-600">
+        <Link href="/admin/ai" className="text-black hover:text-black">← AI Hub</Link>
+        <label className="flex items-center gap-2 text-sm text-black">
           <input
             type="checkbox"
             checked={flaggedOnly}
             onChange={(e) => setFlaggedOnly(e.target.checked)}
-            className="rounded border-gray-300"
+            className="rounded border-black"
           />
           Flagged only
         </label>
       </div>
-      <h1 className="text-xl font-bold text-gray-900">AI Watchdog</h1>
-      <p className="text-gray-600 text-sm">
+      <h1 className="text-xl font-bold text-black">AI Watchdog</h1>
+      <p className="text-black text-sm">
         Monitors AI responses, flags risk or non-compliance, maintains audit trails. All in your system.
       </p>
 
       {loading ? (
-        <p className="text-gray-500">Loading…</p>
+        <p className="text-black">Loading…</p>
       ) : logs.length === 0 ? (
-        <div className="bg-slate-50 rounded-xl border border-slate-200 p-8 text-center text-gray-600">
+        <div className="bg-white rounded-xl border border-black p-8 text-center text-black">
           {flaggedOnly ? 'No flagged logs.' : 'No AI activity logged yet. Use AI Insights (chat) and logs will appear here.'}
         </div>
       ) : (
@@ -75,14 +75,14 @@ export default function AIWatchdogPage() {
             <li
               key={log.id}
               className={`rounded-xl border p-4 ${
-                log.flagged ? 'bg-red-50 border-red-200' : 'bg-white border-gray-200'
+                log.flagged ? 'bg-red-50 border-red-200' : 'bg-white border-black'
               }`}
             >
               <div className="flex items-center justify-between gap-2 flex-wrap">
-                <span className="text-xs font-medium text-gray-500 uppercase">
+                <span className="text-xs font-medium text-black uppercase">
                   {log.source} · {log.channel || '—'}
                 </span>
-                <span className="text-xs text-gray-500">
+                <span className="text-xs text-black">
                   {new Date(log.created_at).toLocaleString()}
                 </span>
                 {log.flagged && (
@@ -90,19 +90,19 @@ export default function AIWatchdogPage() {
                 )}
               </div>
               {log.request_summary && (
-                <p className="text-sm text-gray-700 mt-2">
-                  <span className="font-medium text-gray-500">Request:</span> {log.request_summary}
+                <p className="text-sm text-black mt-2">
+                  <span className="font-medium text-black">Request:</span> {log.request_summary}
                 </p>
               )}
               {log.response_summary && (
-                <p className="text-sm text-gray-600 mt-1">
-                  <span className="font-medium text-gray-500">Response:</span> {log.response_summary}
+                <p className="text-sm text-black mt-1">
+                  <span className="font-medium text-black">Response:</span> {log.response_summary}
                 </p>
               )}
               {log.full_response_preview && (
                 <details className="mt-2">
-                  <summary className="text-xs text-gray-500 cursor-pointer">Preview full response</summary>
-                  <pre className="mt-1 text-xs text-gray-600 bg-gray-50 p-2 rounded overflow-x-auto whitespace-pre-wrap">
+                  <summary className="text-xs text-black cursor-pointer">Preview full response</summary>
+                  <pre className="mt-1 text-xs text-black bg-white p-2 rounded overflow-x-auto whitespace-pre-wrap">
                     {log.full_response_preview}
                   </pre>
                 </details>

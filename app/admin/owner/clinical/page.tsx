@@ -71,7 +71,7 @@ export default function ClinicalRulesPage() {
               { key: 'lock_after_signature', label: 'Lock Chart After Signature' },
               { key: 'allow_addendum_after_lock', label: 'Allow Addendums After Lock' },
             ].map(item => (
-              <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+              <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-white">
                 <input
                   type="checkbox"
                   checked={chartRequirements[item.key as keyof typeof chartRequirements] as boolean}
@@ -83,7 +83,7 @@ export default function ClinicalRulesPage() {
             ))}
           </div>
           <div className="mt-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">Auto-Save Interval (seconds)</label>
+            <label className="block text-sm font-medium text-black mb-1">Auto-Save Interval (seconds)</label>
             <input
               type="number"
               value={chartRequirements.auto_save_interval}
@@ -105,7 +105,7 @@ export default function ClinicalRulesPage() {
               { key: 'require_after_photo_laser', label: 'After Photo - Laser' },
               { key: 'require_consent_for_photos', label: 'Require Consent for Photos' },
             ].map(item => (
-              <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+              <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-white">
                 <input
                   type="checkbox"
                   checked={photoRequirements[item.key as keyof typeof photoRequirements] as boolean}
@@ -127,7 +127,7 @@ export default function ClinicalRulesPage() {
               { key: 'require_expiration', label: 'Require Expiration Date Entry' },
               { key: 'block_expired_products', label: 'Block Use of Expired Products' },
             ].map(item => (
-              <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+              <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-white">
                 <input
                   type="checkbox"
                   checked={lotTracking[item.key as keyof typeof lotTracking] as boolean}
@@ -138,7 +138,7 @@ export default function ClinicalRulesPage() {
               </label>
             ))}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Warn When Expiring Within (days)</label>
+              <label className="block text-sm font-medium text-black mb-1">Warn When Expiring Within (days)</label>
               <input
                 type="number"
                 value={lotTracking.warn_expiring_days}
@@ -158,7 +158,7 @@ export default function ClinicalRulesPage() {
               { key: 'log_all_chart_access', label: 'Log All Chart Access' },
               { key: 'log_all_edits', label: 'Log All Chart Edits' },
             ].map(item => (
-              <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+              <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-white">
                 <input
                   type="checkbox"
                   checked={auditSettings[item.key as keyof typeof auditSettings] as boolean}
@@ -169,7 +169,7 @@ export default function ClinicalRulesPage() {
               </label>
             ))}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Record Retention (years)</label>
+              <label className="block text-sm font-medium text-black mb-1">Record Retention (years)</label>
               <input
                 type="number"
                 value={auditSettings.retention_years}
@@ -177,7 +177,7 @@ export default function ClinicalRulesPage() {
                 className="w-full px-4 py-2 border rounded-lg"
                 min="1"
               />
-              <p className="text-xs text-gray-500 mt-1">HIPAA recommends minimum 6 years</p>
+              <p className="text-xs text-black mt-1">HIPAA recommends minimum 6 years</p>
             </div>
           </div>
         </div>

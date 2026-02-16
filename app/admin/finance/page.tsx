@@ -73,7 +73,7 @@ function StatCard({ label, value, subValue, icon, color = 'gray' }: {
   color?: 'gray' | 'green' | 'red' | 'blue' | 'purple';
 }) {
   const colorStyles = {
-    gray: 'text-gray-900',
+    gray: 'text-black',
     green: 'text-green-600',
     red: 'text-red-600',
     blue: 'text-blue-600',
@@ -81,19 +81,19 @@ function StatCard({ label, value, subValue, icon, color = 'gray' }: {
   };
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 p-4">
+    <div className="bg-white rounded-xl border border-black p-4">
       <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-500">{label}</p>
+        <p className="text-sm text-black">{label}</p>
         {icon && <span>{icon}</span>}
       </div>
       <p className={`text-2xl font-bold ${colorStyles[color]} mt-1`}>{value}</p>
-      {subValue && <p className="text-xs text-gray-500">{subValue}</p>}
+      {subValue && <p className="text-xs text-black">{subValue}</p>}
     </div>
   );
 }
 
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-white rounded ${className}`} />;
 }
 
 // ============================================================
@@ -269,13 +269,13 @@ export default function FinancialCommandCenter() {
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Financial Command Center</h1>
-          <p className="text-gray-500">Revenue tracking, pricing control, and refund management</p>
+          <h1 className="text-2xl font-bold text-black">Financial Command Center</h1>
+          <p className="text-black">Revenue tracking, pricing control, and refund management</p>
         </div>
         <div className="flex items-center gap-3">
           <Link
             href="/admin/export"
-            className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm"
+            className="px-4 py-2 border border-black text-black rounded-lg hover:bg-white text-sm"
           >
             📊 Export Reports
           </Link>
@@ -289,7 +289,7 @@ export default function FinancialCommandCenter() {
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-gray-200">
+      <div className="flex border-b border-black">
         {(['overview', 'transactions', 'pricing', 'refunds'] as const).map((tab) => (
           <button
             key={tab}
@@ -297,7 +297,7 @@ export default function FinancialCommandCenter() {
             className={`px-4 py-3 font-medium text-sm capitalize ${
               activeTab === tab
                 ? 'text-pink-600 border-b-2 border-pink-500'
-                : 'text-gray-500 hover:text-gray-700'
+                : 'text-black hover:text-black'
             }`}
           >
             {tab === 'overview' && '📊 '}
@@ -364,35 +364,35 @@ export default function FinancialCommandCenter() {
 
           {/* Revenue Breakdown */}
           <div className="grid lg:grid-cols-2 gap-6">
-            <div className="bg-white rounded-xl border border-gray-100 p-5">
-              <h3 className="font-semibold text-gray-900 mb-4">Revenue by Category</h3>
+            <div className="bg-white rounded-xl border border-black p-5">
+              <h3 className="font-semibold text-black mb-4">Revenue by Category</h3>
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-gray-600">Services</span>
-                  <span className="font-bold text-gray-900">${(summary?.serviceRevenue || 0).toLocaleString()}</span>
+                  <span className="text-black">Services</span>
+                  <span className="font-bold text-black">${(summary?.serviceRevenue || 0).toLocaleString()}</span>
                 </div>
-                <div className="w-full bg-gray-100 rounded-full h-2">
+                <div className="w-full bg-white rounded-full h-2">
                   <div className="bg-pink-500 h-2 rounded-full" style={{ width: '85%' }} />
                 </div>
                 <div className="flex items-center justify-between mt-4">
-                  <span className="text-gray-600">Retail</span>
-                  <span className="font-bold text-gray-900">${(summary?.retailRevenue || 0).toLocaleString()}</span>
+                  <span className="text-black">Retail</span>
+                  <span className="font-bold text-black">${(summary?.retailRevenue || 0).toLocaleString()}</span>
                 </div>
-                <div className="w-full bg-gray-100 rounded-full h-2">
+                <div className="w-full bg-white rounded-full h-2">
                   <div className="bg-blue-500 h-2 rounded-full" style={{ width: '10%' }} />
                 </div>
                 <div className="flex items-center justify-between mt-4">
-                  <span className="text-gray-600">Memberships</span>
-                  <span className="font-bold text-gray-900">${(summary?.membershipRevenue || 0).toLocaleString()}</span>
+                  <span className="text-black">Memberships</span>
+                  <span className="font-bold text-black">${(summary?.membershipRevenue || 0).toLocaleString()}</span>
                 </div>
-                <div className="w-full bg-gray-100 rounded-full h-2">
+                <div className="w-full bg-white rounded-full h-2">
                   <div className="bg-purple-500 h-2 rounded-full" style={{ width: '5%' }} />
                 </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl border border-gray-100 p-5">
-              <h3 className="font-semibold text-gray-900 mb-4">Liabilities & Pending</h3>
+            <div className="bg-white rounded-xl border border-black p-5">
+              <h3 className="font-semibold text-black mb-4">Liabilities & Pending</h3>
               <div className="space-y-4">
                 <div className="flex items-center justify-between p-3 bg-amber-50 rounded-lg">
                   <div>
@@ -428,12 +428,12 @@ export default function FinancialCommandCenter() {
               placeholder="Search by client or service..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 px-4 py-2 border border-gray-200 rounded-lg"
+              className="flex-1 px-4 py-2 border border-black rounded-lg"
             />
             <select
               value={dateFilter}
               onChange={(e) => setDateFilter(e.target.value as any)}
-              className="px-4 py-2 border border-gray-200 rounded-lg"
+              className="px-4 py-2 border border-black rounded-lg"
             >
               <option value="today">Today</option>
               <option value="week">This Week</option>
@@ -443,17 +443,17 @@ export default function FinancialCommandCenter() {
           </div>
 
           {/* Transactions Table */}
-          <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+          <div className="bg-white rounded-xl border border-black overflow-hidden">
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-white">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Date</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Client</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Service</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Payment</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
-                  <th className="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">Amount</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Actions</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Date</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Client</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Service</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Payment</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Status</th>
+                  <th className="px-4 py-3 text-right text-xs font-semibold text-black uppercase">Amount</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-black uppercase">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -467,27 +467,27 @@ export default function FinancialCommandCenter() {
                   ))
                 ) : filteredTransactions.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="px-4 py-8 text-center text-gray-500">
+                    <td colSpan={7} className="px-4 py-8 text-center text-black">
                       No transactions found
                     </td>
                   </tr>
                 ) : (
                   filteredTransactions.slice(0, 50).map((tx) => (
-                    <tr key={tx.id} className="hover:bg-gray-50">
-                      <td className="px-4 py-3 text-sm text-gray-900">
+                    <tr key={tx.id} className="hover:bg-white">
+                      <td className="px-4 py-3 text-sm text-black">
                         {new Date(tx.created_at).toLocaleDateString()}
                       </td>
                       <td className="px-4 py-3">
-                        <p className="font-medium text-gray-900">{tx.client_name || 'Guest'}</p>
+                        <p className="font-medium text-black">{tx.client_name || 'Guest'}</p>
                       </td>
-                      <td className="px-4 py-3 text-sm text-gray-600">
+                      <td className="px-4 py-3 text-sm text-black">
                         {tx.service_name || '-'}
                       </td>
                       <td className="px-4 py-3">
                         <span className={`px-2 py-1 text-xs rounded-full ${
                           tx.payment_method === 'card' ? 'bg-blue-100 text-blue-700' :
                           tx.payment_method === 'cash' ? 'bg-green-100 text-green-700' :
-                          'bg-gray-100 text-gray-700'
+                          'bg-white text-black'
                         }`}>
                           {tx.payment_method || 'Card'}
                         </span>
@@ -497,12 +497,12 @@ export default function FinancialCommandCenter() {
                           tx.status === 'completed' || tx.status === 'succeeded' ? 'bg-green-100 text-green-700' :
                           tx.status === 'refunded' ? 'bg-amber-100 text-amber-700' :
                           tx.status === 'failed' ? 'bg-red-100 text-red-700' :
-                          'bg-gray-100 text-gray-700'
+                          'bg-white text-black'
                         }`}>
                           {tx.status}
                         </span>
                       </td>
-                      <td className="px-4 py-3 text-right font-semibold text-gray-900">
+                      <td className="px-4 py-3 text-right font-semibold text-black">
                         ${(tx.amount || 0).toLocaleString()}
                       </td>
                       <td className="px-4 py-3 text-center">
@@ -537,32 +537,32 @@ export default function FinancialCommandCenter() {
             placeholder="Search services..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+            className="w-full px-4 py-2 border border-black rounded-lg"
           />
 
           {/* Pricing Table */}
-          <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+          <div className="bg-white rounded-xl border border-black overflow-hidden">
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-white">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Service</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Category</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Duration</th>
-                  <th className="px-4 py-3 text-right text-xs font-semibold text-gray-500 uppercase">Current Price</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Status</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Edit</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Service</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Category</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Duration</th>
+                  <th className="px-4 py-3 text-right text-xs font-semibold text-black uppercase">Current Price</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-black uppercase">Status</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-black uppercase">Edit</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {filteredServices.map((service) => (
-                  <tr key={service.id} className="hover:bg-gray-50">
+                  <tr key={service.id} className="hover:bg-white">
                     <td className="px-4 py-3">
-                      <p className="font-medium text-gray-900">{service.name}</p>
+                      <p className="font-medium text-black">{service.name}</p>
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-600">
+                    <td className="px-4 py-3 text-sm text-black">
                       {service.category_name || '-'}
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-600">
+                    <td className="px-4 py-3 text-sm text-black">
                       {service.duration} min
                     </td>
                     <td className="px-4 py-3 text-right">
@@ -575,12 +575,12 @@ export default function FinancialCommandCenter() {
                           autoFocus
                         />
                       ) : (
-                        <span className="font-bold text-gray-900">${service.price}</span>
+                        <span className="font-bold text-black">${service.price}</span>
                       )}
                     </td>
                     <td className="px-4 py-3 text-center">
                       <span className={`px-2 py-1 text-xs rounded-full ${
-                        service.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'
+                        service.is_active ? 'bg-green-100 text-green-700' : 'bg-white text-black'
                       }`}>
                         {service.is_active ? 'Active' : 'Inactive'}
                       </span>
@@ -600,7 +600,7 @@ export default function FinancialCommandCenter() {
                               setEditingService(null);
                               setNewPrice('');
                             }}
-                            className="text-sm text-gray-500 hover:text-gray-700"
+                            className="text-sm text-black hover:text-black"
                           >
                             Cancel
                           </button>
@@ -652,30 +652,30 @@ export default function FinancialCommandCenter() {
       {activeTab === 'refunds' && (
         <div className="space-y-6">
           {/* Process Refund Card */}
-          <div className="bg-white rounded-xl border border-gray-200 p-6">
-            <h3 className="font-semibold text-gray-900 mb-4">Process Refund</h3>
+          <div className="bg-white rounded-xl border border-black p-6">
+            <h3 className="font-semibold text-black mb-4">Process Refund</h3>
             
             {selectedTransaction ? (
               <div className="space-y-4">
                 {/* Selected Transaction Info */}
-                <div className="bg-gray-50 rounded-lg p-4">
+                <div className="bg-white rounded-lg p-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <p className="text-sm text-gray-500">Client</p>
+                      <p className="text-sm text-black">Client</p>
                       <p className="font-medium">{selectedTransaction.client_name}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Original Amount</p>
+                      <p className="text-sm text-black">Original Amount</p>
                       <p className="font-medium">${selectedTransaction.amount}</p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Date</p>
+                      <p className="text-sm text-black">Date</p>
                       <p className="font-medium">
                         {new Date(selectedTransaction.created_at).toLocaleDateString()}
                       </p>
                     </div>
                     <div>
-                      <p className="text-sm text-gray-500">Service</p>
+                      <p className="text-sm text-black">Service</p>
                       <p className="font-medium">{selectedTransaction.service_name || '-'}</p>
                     </div>
                   </div>
@@ -684,33 +684,33 @@ export default function FinancialCommandCenter() {
                 {/* Refund Form */}
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-black mb-1">
                       Refund Amount
                     </label>
                     <div className="relative">
-                      <span className="absolute left-3 top-2 text-gray-500">$</span>
+                      <span className="absolute left-3 top-2 text-black">$</span>
                       <input
                         type="number"
                         value={refundAmount}
                         onChange={(e) => setRefundAmount(e.target.value)}
                         max={selectedTransaction.amount}
-                        className="w-full pl-8 pr-4 py-2 border border-gray-200 rounded-lg"
+                        className="w-full pl-8 pr-4 py-2 border border-black rounded-lg"
                         placeholder="0.00"
                       />
                     </div>
-                    <p className="text-xs text-gray-500 mt-1">
+                    <p className="text-xs text-black mt-1">
                       Max: ${selectedTransaction.amount} (full refund)
                     </p>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-black mb-1">
                       Reason for Refund
                     </label>
                     <select
                       value={refundReason}
                       onChange={(e) => setRefundReason(e.target.value)}
-                      className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                      className="w-full px-4 py-2 border border-black rounded-lg"
                     >
                       <option value="">Select a reason...</option>
                       <option value="requested_by_customer">Requested by customer</option>
@@ -726,7 +726,7 @@ export default function FinancialCommandCenter() {
                     <button
                       onClick={handleRefund}
                       disabled={processingRefund || !refundAmount || !refundReason}
-                      className="flex-1 py-3 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
+                      className="flex-1 py-3 bg-red-500 text-white font-semibold rounded-lg hover:bg-red-600 disabled:bg-white disabled:cursor-not-allowed"
                     >
                       {processingRefund ? 'Processing...' : `Process Refund ($${refundAmount || 0})`}
                     </button>
@@ -736,7 +736,7 @@ export default function FinancialCommandCenter() {
                         setRefundAmount('');
                         setRefundReason('');
                       }}
-                      className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+                      className="px-6 py-3 border border-black text-black rounded-lg hover:bg-white"
                     >
                       Cancel
                     </button>
@@ -746,7 +746,7 @@ export default function FinancialCommandCenter() {
             ) : (
               <div className="text-center py-8">
                 <span className="text-4xl block mb-2">💳</span>
-                <p className="text-gray-500 mb-4">Select a transaction to refund</p>
+                <p className="text-black mb-4">Select a transaction to refund</p>
                 <button
                   onClick={() => setActiveTab('transactions')}
                   className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
@@ -758,9 +758,9 @@ export default function FinancialCommandCenter() {
           </div>
 
           {/* Refund History */}
-          <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-200">
-              <h3 className="font-semibold text-gray-900">Recent Refunds</h3>
+          <div className="bg-white rounded-xl border border-black overflow-hidden">
+            <div className="px-5 py-4 border-b border-black">
+              <h3 className="font-semibold text-black">Recent Refunds</h3>
             </div>
             <div className="divide-y divide-gray-100">
               {transactions
@@ -769,8 +769,8 @@ export default function FinancialCommandCenter() {
                 .map((tx) => (
                   <div key={tx.id} className="px-5 py-3 flex items-center justify-between">
                     <div>
-                      <p className="font-medium text-gray-900">{tx.client_name}</p>
-                      <p className="text-sm text-gray-500">
+                      <p className="font-medium text-black">{tx.client_name}</p>
+                      <p className="text-sm text-black">
                         {new Date(tx.created_at).toLocaleDateString()} • {tx.service_name || 'Service'}
                       </p>
                     </div>
@@ -785,7 +785,7 @@ export default function FinancialCommandCenter() {
                   </div>
                 ))}
               {transactions.filter(t => t.status === 'refunded').length === 0 && (
-                <div className="px-5 py-8 text-center text-gray-500">
+                <div className="px-5 py-8 text-center text-black">
                   No refunds processed
                 </div>
               )}

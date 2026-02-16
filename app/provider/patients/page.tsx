@@ -177,16 +177,16 @@ function PatientLookupContent() {
   return (
     <div className="space-y-6">
       {/* Search Header */}
-      <div className="bg-white rounded-xl border border-gray-100 p-6">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">Patient Lookup</h1>
+      <div className="bg-white rounded-xl border border-black p-6">
+        <h1 className="text-2xl font-bold text-black mb-4">Patient Lookup</h1>
         <div className="relative">
-          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-black">🔍</span>
           <input
             type="text"
             placeholder="Search by name, phone, or email..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-12 pr-4 py-4 text-lg border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+            className="w-full pl-12 pr-4 py-4 text-lg border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             autoFocus
           />
           {searching && (
@@ -198,7 +198,7 @@ function PatientLookupContent() {
 
         {/* Search Results */}
         {searchResults.length > 0 && !selectedPatient && (
-          <div className="mt-4 border border-gray-200 rounded-xl overflow-hidden">
+          <div className="mt-4 border border-black rounded-xl overflow-hidden">
             {searchResults.map((patient) => (
               <button
                 key={patient.id}
@@ -207,25 +207,25 @@ function PatientLookupContent() {
                   loadPatientDetails(patient.id);
                   setSearchResults([]);
                 }}
-                className="w-full px-4 py-3 flex items-center justify-between hover:bg-gray-50 border-b border-gray-100 last:border-0 text-left"
+                className="w-full px-4 py-3 flex items-center justify-between hover:bg-white border-b border-black last:border-0 text-left"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-bold">
                     {patient.first_name?.[0]}{patient.last_name?.[0]}
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">
+                    <p className="font-medium text-black">
                       {patient.first_name} {patient.last_name}
                     </p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-black">
                       {patient.phone || patient.email}
                     </p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm text-gray-500">{patient.total_visits} visits</p>
+                  <p className="text-sm text-black">{patient.total_visits} visits</p>
                   {patient.last_visit && (
-                    <p className="text-xs text-gray-400">Last: {formatDate(patient.last_visit)}</p>
+                    <p className="text-xs text-black">Last: {formatDate(patient.last_visit)}</p>
                   )}
                 </div>
               </button>
@@ -240,7 +240,7 @@ function PatientLookupContent() {
           {/* Left Column - Patient Info */}
           <div className="space-y-6">
             {/* Basic Info Card */}
-            <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+            <div className="bg-white rounded-xl border border-black overflow-hidden">
               <div className="bg-gradient-to-r from-pink-500 to-rose-500 p-6 text-white">
                 <button
                   onClick={() => {
@@ -271,24 +271,24 @@ function PatientLookupContent() {
               <div className="p-5 space-y-4">
                 {selectedPatient.phone && (
                   <div className="flex items-center gap-3">
-                    <span className="text-gray-400">📱</span>
-                    <a href={`tel:${selectedPatient.phone}`} className="text-gray-900 hover:text-pink-600">
+                    <span className="text-black">📱</span>
+                    <a href={`tel:${selectedPatient.phone}`} className="text-black hover:text-pink-600">
                       {selectedPatient.phone}
                     </a>
                   </div>
                 )}
                 {selectedPatient.email && (
                   <div className="flex items-center gap-3">
-                    <span className="text-gray-400">✉️</span>
-                    <a href={`mailto:${selectedPatient.email}`} className="text-gray-900 hover:text-pink-600">
+                    <span className="text-black">✉️</span>
+                    <a href={`mailto:${selectedPatient.email}`} className="text-black hover:text-pink-600">
                       {selectedPatient.email}
                     </a>
                   </div>
                 )}
                 {selectedPatient.date_of_birth && (
                   <div className="flex items-center gap-3">
-                    <span className="text-gray-400">🎂</span>
-                    <span className="text-gray-900">{formatDate(selectedPatient.date_of_birth)}</span>
+                    <span className="text-black">🎂</span>
+                    <span className="text-black">{formatDate(selectedPatient.date_of_birth)}</span>
                   </div>
                 )}
               </div>
@@ -310,22 +310,22 @@ function PatientLookupContent() {
             )}
 
             {/* Quick Stats */}
-            <div className="bg-white rounded-xl border border-gray-100 p-5">
-              <h3 className="font-semibold text-gray-900 mb-4">Patient Stats</h3>
+            <div className="bg-white rounded-xl border border-black p-5">
+              <h3 className="font-semibold text-black mb-4">Patient Stats</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-500">Total Visits</p>
-                  <p className="text-2xl font-bold text-gray-900">{selectedPatient.total_visits || 0}</p>
+                  <p className="text-sm text-black">Total Visits</p>
+                  <p className="text-2xl font-bold text-black">{selectedPatient.total_visits || 0}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Total Spent</p>
+                  <p className="text-sm text-black">Total Spent</p>
                   <p className="text-2xl font-bold text-green-600">
                     ${(selectedPatient.total_spent || 0).toLocaleString()}
                   </p>
                 </div>
                 {selectedPatient.membership_status && (
                   <div className="col-span-2">
-                    <p className="text-sm text-gray-500">Membership</p>
+                    <p className="text-sm text-black">Membership</p>
                     <p className="text-lg font-semibold text-pink-600">
                       {selectedPatient.membership_status}
                     </p>
@@ -335,8 +335,8 @@ function PatientLookupContent() {
             </div>
 
             {/* Quick Actions */}
-            <div className="bg-white rounded-xl border border-gray-100 p-5">
-              <h3 className="font-semibold text-gray-900 mb-4">Quick Actions</h3>
+            <div className="bg-white rounded-xl border border-black p-5">
+              <h3 className="font-semibold text-black mb-4">Quick Actions</h3>
               <div className="space-y-2">
                 <Link
                   href={`/provider/charting?client=${selectedPatient.id}`}
@@ -361,9 +361,9 @@ function PatientLookupContent() {
           </div>
 
           {/* Right Column - Tabs Content */}
-          <div className="lg:col-span-2 bg-white rounded-xl border border-gray-100 overflow-hidden">
+          <div className="lg:col-span-2 bg-white rounded-xl border border-black overflow-hidden">
             {/* Tabs */}
-            <div className="flex border-b border-gray-200 overflow-x-auto">
+            <div className="flex border-b border-black overflow-x-auto">
               {[
                 { id: 'overview', label: 'Overview', icon: '📋' },
                 { id: 'history', label: 'Visits', icon: '📅' },
@@ -380,7 +380,7 @@ function PatientLookupContent() {
                   className={`flex-shrink-0 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
                     activeTab === tab.id
                       ? 'border-pink-500 text-pink-600'
-                      : 'border-transparent text-gray-500 hover:text-gray-700'
+                      : 'border-transparent text-black hover:text-black'
                   }`}
                 >
                   <span className="mr-1">{tab.icon}</span>
@@ -395,7 +395,7 @@ function PatientLookupContent() {
                 <div className="space-y-6">
                   {/* Consent Status */}
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-3">Consent Status</h3>
+                    <h3 className="font-semibold text-black mb-3">Consent Status</h3>
                     <div className="grid grid-cols-3 gap-3">
                       <div className={`p-3 rounded-lg border ${
                         selectedPatient.consent_status?.hipaa 
@@ -424,11 +424,11 @@ function PatientLookupContent() {
                       <div className={`p-3 rounded-lg border ${
                         selectedPatient.consent_status?.photo 
                           ? 'bg-green-50 border-green-200' 
-                          : 'bg-gray-50 border-gray-200'
+                          : 'bg-white border-black'
                       }`}>
                         <p className="text-sm font-medium">Photo Release</p>
                         <p className={`text-xs ${
-                          selectedPatient.consent_status?.photo ? 'text-green-600' : 'text-gray-500'
+                          selectedPatient.consent_status?.photo ? 'text-green-600' : 'text-black'
                         }`}>
                           {selectedPatient.consent_status?.photo ? '✓ Complete' : '— Not signed'}
                         </p>
@@ -438,16 +438,16 @@ function PatientLookupContent() {
 
                   {/* Recent Visits */}
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-3">Recent Visits</h3>
+                    <h3 className="font-semibold text-black mb-3">Recent Visits</h3>
                     {visitHistory.length === 0 ? (
-                      <p className="text-gray-500 text-sm">No visit history</p>
+                      <p className="text-black text-sm">No visit history</p>
                     ) : (
                       <div className="space-y-2">
                         {visitHistory.slice(0, 5).map((visit) => (
-                          <div key={visit.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                          <div key={visit.id} className="flex items-center justify-between p-3 bg-white rounded-lg">
                             <div>
-                              <p className="font-medium text-gray-900">{visit.service}</p>
-                              <p className="text-sm text-gray-500">{formatDate(visit.date)} • {visit.provider}</p>
+                              <p className="font-medium text-black">{visit.service}</p>
+                              <p className="text-sm text-black">{formatDate(visit.date)} • {visit.provider}</p>
                             </div>
                             <p className="font-semibold text-green-600">${visit.amount}</p>
                           </div>
@@ -461,21 +461,21 @@ function PatientLookupContent() {
               {/* History Tab */}
               {activeTab === 'history' && (
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-3">Complete Visit History</h3>
+                  <h3 className="font-semibold text-black mb-3">Complete Visit History</h3>
                   {visitHistory.length === 0 ? (
-                    <p className="text-gray-500">No visit history found</p>
+                    <p className="text-black">No visit history found</p>
                   ) : (
                     <div className="space-y-3">
                       {visitHistory.map((visit) => (
-                        <div key={visit.id} className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50">
+                        <div key={visit.id} className="p-4 border border-black rounded-lg hover:bg-white">
                           <div className="flex items-start justify-between">
                             <div>
-                              <p className="font-semibold text-gray-900">{visit.service}</p>
-                              <p className="text-sm text-gray-500">
+                              <p className="font-semibold text-black">{visit.service}</p>
+                              <p className="text-sm text-black">
                                 {formatDate(visit.date)} • {visit.provider}
                               </p>
                               {visit.notes && (
-                                <p className="text-sm text-gray-600 mt-2 italic">{visit.notes}</p>
+                                <p className="text-sm text-black mt-2 italic">{visit.notes}</p>
                               )}
                             </div>
                             <div className="text-right">
@@ -498,12 +498,12 @@ function PatientLookupContent() {
               {/* Consents Tab */}
               {activeTab === 'consents' && (
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-3">Consent Forms</h3>
+                  <h3 className="font-semibold text-black mb-3">Consent Forms</h3>
                   <div className="space-y-3">
                     <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="font-medium text-gray-900">HIPAA Authorization</p>
+                          <p className="font-medium text-black">HIPAA Authorization</p>
                           <p className="text-sm text-green-600">Signed on Jan 15, 2024</p>
                         </div>
                         <button className="text-sm text-green-700 hover:underline">View</button>
@@ -512,7 +512,7 @@ function PatientLookupContent() {
                     <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="font-medium text-gray-900">General Treatment Consent</p>
+                          <p className="font-medium text-black">General Treatment Consent</p>
                           <p className="text-sm text-green-600">Signed on Jan 15, 2024</p>
                         </div>
                         <button className="text-sm text-green-700 hover:underline">View</button>
@@ -521,7 +521,7 @@ function PatientLookupContent() {
                     <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="font-medium text-gray-900">Injectable Consent</p>
+                          <p className="font-medium text-black">Injectable Consent</p>
                           <p className="text-sm text-amber-600">Not signed</p>
                         </div>
                         <button className="px-3 py-1 bg-amber-500 text-white text-sm rounded hover:bg-amber-600">
@@ -537,7 +537,7 @@ function PatientLookupContent() {
               {activeTab === 'photos' && (
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-semibold text-gray-900">Before/After Photos</h3>
+                    <h3 className="font-semibold text-black">Before/After Photos</h3>
                     <Link
                       href={`/provider/photos?client=${selectedPatient.id}`}
                       className="px-3 py-1.5 bg-pink-500 text-white text-sm rounded-lg hover:bg-pink-600"
@@ -549,7 +549,7 @@ function PatientLookupContent() {
                   {photos.length === 0 ? (
                     <div className="text-center py-8">
                       <span className="text-4xl block mb-2">📷</span>
-                      <p className="text-gray-500 mb-3">No photos on file</p>
+                      <p className="text-black mb-3">No photos on file</p>
                       <Link
                         href={`/provider/photos?client=${selectedPatient.id}`}
                         className="text-pink-600 hover:underline"
@@ -586,30 +586,30 @@ function PatientLookupContent() {
               {/* Payments Tab */}
               {activeTab === 'payments' && (
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-4">Payment History</h3>
+                  <h3 className="font-semibold text-black mb-4">Payment History</h3>
                   
                   {payments.length === 0 ? (
                     <div className="text-center py-8">
                       <span className="text-4xl block mb-2">💳</span>
-                      <p className="text-gray-500">No payment records</p>
+                      <p className="text-black">No payment records</p>
                     </div>
                   ) : (
                     <div className="space-y-3">
                       {payments.map((payment: any) => (
-                        <div key={payment.id} className="p-4 border border-gray-200 rounded-lg">
+                        <div key={payment.id} className="p-4 border border-black rounded-lg">
                           <div className="flex items-center justify-between">
                             <div>
-                              <p className="font-medium text-gray-900">
+                              <p className="font-medium text-black">
                                 ${(payment.amount_cents / 100).toFixed(2)}
                               </p>
-                              <p className="text-sm text-gray-500">
+                              <p className="text-sm text-black">
                                 {formatDate(payment.created_at)} • {payment.payment_method || 'Card'}
                               </p>
                             </div>
                             <span className={`px-2 py-1 text-xs rounded-full ${
                               payment.status === 'succeeded' ? 'bg-green-100 text-green-700' :
                               payment.status === 'refunded' ? 'bg-amber-100 text-amber-700' :
-                              'bg-gray-100 text-gray-600'
+                              'bg-white text-black'
                             }`}>
                               {payment.status}
                             </span>
@@ -620,10 +620,10 @@ function PatientLookupContent() {
                   )}
 
                   {/* Outstanding Balance */}
-                  <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+                  <div className="mt-6 p-4 bg-white rounded-lg">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600">Outstanding Balance</span>
-                      <span className="text-xl font-bold text-gray-900">$0.00</span>
+                      <span className="text-black">Outstanding Balance</span>
+                      <span className="text-xl font-bold text-black">$0.00</span>
                     </div>
                   </div>
                 </div>
@@ -632,7 +632,7 @@ function PatientLookupContent() {
               {/* Membership Tab */}
               {activeTab === 'membership' && (
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-4">Membership & Packages</h3>
+                  <h3 className="font-semibold text-black mb-4">Membership & Packages</h3>
                   
                   {membership ? (
                     <div className="space-y-4">
@@ -674,7 +674,7 @@ function PatientLookupContent() {
                   ) : (
                     <div className="text-center py-8">
                       <span className="text-4xl block mb-2">⭐</span>
-                      <p className="text-gray-500 mb-3">No active membership</p>
+                      <p className="text-black mb-3">No active membership</p>
                       <button className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-500">
                         Enroll in Membership
                       </button>
@@ -683,7 +683,7 @@ function PatientLookupContent() {
 
                   {/* Loyalty Points */}
                   <div className="mt-6">
-                    <h4 className="font-medium text-gray-900 mb-3">Loyalty Rewards</h4>
+                    <h4 className="font-medium text-black mb-3">Loyalty Rewards</h4>
                     <div className="p-4 bg-amber-50 border border-amber-200 rounded-xl">
                       <div className="flex items-center gap-3">
                         <span className="text-3xl">🏆</span>
@@ -705,8 +705,8 @@ function PatientLookupContent() {
               {activeTab === 'documents' && (
                 <div>
                   <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-semibold text-gray-900">Medical Documents</h3>
-                    <button className="px-3 py-1.5 bg-gray-100 text-gray-700 text-sm rounded-lg hover:bg-gray-200">
+                    <h3 className="font-semibold text-black">Medical Documents</h3>
+                    <button className="px-3 py-1.5 bg-white text-black text-sm rounded-lg hover:bg-white">
                       + Upload
                     </button>
                   </div>
@@ -714,15 +714,15 @@ function PatientLookupContent() {
                   {documents.length === 0 ? (
                     <div className="text-center py-8">
                       <span className="text-4xl block mb-2">📁</span>
-                      <p className="text-gray-500">No documents on file</p>
-                      <p className="text-sm text-gray-400 mt-1">
+                      <p className="text-black">No documents on file</p>
+                      <p className="text-sm text-black mt-1">
                         Labs, clearances, referrals, etc.
                       </p>
                     </div>
                   ) : (
                     <div className="space-y-2">
                       {documents.map((doc: any) => (
-                        <div key={doc.id} className="p-3 border border-gray-200 rounded-lg flex items-center justify-between">
+                        <div key={doc.id} className="p-3 border border-black rounded-lg flex items-center justify-between">
                           <div className="flex items-center gap-3">
                             <span className="text-2xl">
                               {doc.type === 'lab' ? '🧪' : 
@@ -730,8 +730,8 @@ function PatientLookupContent() {
                                doc.type === 'referral' ? '📋' : '📄'}
                             </span>
                             <div>
-                              <p className="font-medium text-gray-900">{doc.name}</p>
-                              <p className="text-sm text-gray-500">{formatDate(doc.uploaded_at)}</p>
+                              <p className="font-medium text-black">{doc.name}</p>
+                              <p className="text-sm text-black">{formatDate(doc.uploaded_at)}</p>
                             </div>
                           </div>
                           <button className="text-pink-600 hover:text-pink-700 text-sm">
@@ -747,7 +747,7 @@ function PatientLookupContent() {
               {/* Notes Tab */}
               {activeTab === 'notes' && (
                 <div>
-                  <h3 className="font-semibold text-gray-900 mb-3">Patient Notes</h3>
+                  <h3 className="font-semibold text-black mb-3">Patient Notes</h3>
                   <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4">
                     <p className="text-sm text-amber-800">
                       ⚠️ Internal notes only - not visible to patient
@@ -755,7 +755,7 @@ function PatientLookupContent() {
                   </div>
                   <textarea
                     placeholder="Add notes about this patient..."
-                    className="w-full h-40 p-4 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full h-40 p-4 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                     defaultValue={selectedPatient.notes}
                   />
                   <button className="mt-3 px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">

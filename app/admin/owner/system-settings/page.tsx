@@ -63,13 +63,13 @@ export default function SystemSettingsPage() {
       <div className="space-y-6">
         {/* BUSINESS SECTION */}
         <div className="bg-white rounded-xl border">
-          <div className="p-4 border-b bg-gray-50">
-            <h2 className="font-semibold text-gray-900">🏢 Business</h2>
+          <div className="p-4 border-b bg-white">
+            <h2 className="font-semibold text-black">🏢 Business</h2>
           </div>
           <div className="p-6 space-y-4">
             {/* Business Name */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Business Name</label>
+              <label className="block text-sm font-medium text-black mb-1">Business Name</label>
               <input
                 type="text"
                 value={business.name}
@@ -80,9 +80,9 @@ export default function SystemSettingsPage() {
 
             {/* Locations */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Locations</label>
+              <label className="block text-sm font-medium text-black mb-1">Locations</label>
               {business.locations.map(loc => (
-                <div key={loc.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg mb-2">
+                <div key={loc.id} className="flex items-center gap-3 p-3 bg-white rounded-lg mb-2">
                   <input
                     type="text"
                     value={loc.name}
@@ -102,7 +102,7 @@ export default function SystemSettingsPage() {
 
             {/* Time Zone */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Time Zone</label>
+              <label className="block text-sm font-medium text-black mb-1">Time Zone</label>
               <select
                 value={business.timezone}
                 onChange={(e) => setBusiness(prev => ({ ...prev, timezone: e.target.value }))}
@@ -117,7 +117,7 @@ export default function SystemSettingsPage() {
 
             {/* Launch Date */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Launch Date</label>
+              <label className="block text-sm font-medium text-black mb-1">Launch Date</label>
               <input
                 type="date"
                 value={business.launchDate}
@@ -128,10 +128,10 @@ export default function SystemSettingsPage() {
 
             {/* Legal Disclaimers */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Legal Disclaimers</label>
+              <label className="block text-sm font-medium text-black mb-2">Legal Disclaimers</label>
               <div className="space-y-3">
                 <div>
-                  <span className="text-xs text-gray-500">Booking Disclaimer</span>
+                  <span className="text-xs text-black">Booking Disclaimer</span>
                   <textarea
                     value={business.legalDisclaimers.booking}
                     onChange={(e) => setBusiness(prev => ({ ...prev, legalDisclaimers: { ...prev.legalDisclaimers, booking: e.target.value }}))}
@@ -140,7 +140,7 @@ export default function SystemSettingsPage() {
                   />
                 </div>
                 <div>
-                  <span className="text-xs text-gray-500">Consent Disclaimer</span>
+                  <span className="text-xs text-black">Consent Disclaimer</span>
                   <textarea
                     value={business.legalDisclaimers.consent}
                     onChange={(e) => setBusiness(prev => ({ ...prev, legalDisclaimers: { ...prev.legalDisclaimers, consent: e.target.value }}))}
@@ -149,7 +149,7 @@ export default function SystemSettingsPage() {
                   />
                 </div>
                 <div>
-                  <span className="text-xs text-gray-500">Payment Disclaimer</span>
+                  <span className="text-xs text-black">Payment Disclaimer</span>
                   <textarea
                     value={business.legalDisclaimers.payment}
                     onChange={(e) => setBusiness(prev => ({ ...prev, legalDisclaimers: { ...prev.legalDisclaimers, payment: e.target.value }}))}
@@ -164,14 +164,14 @@ export default function SystemSettingsPage() {
 
         {/* GLOBAL DEFAULTS SECTION */}
         <div className="bg-white rounded-xl border">
-          <div className="p-4 border-b bg-gray-50">
-            <h2 className="font-semibold text-gray-900">⚙️ Global Defaults</h2>
+          <div className="p-4 border-b bg-white">
+            <h2 className="font-semibold text-black">⚙️ Global Defaults</h2>
           </div>
           <div className="p-6 space-y-4">
             {/* Buffers */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Default Buffer Before (min)</label>
+                <label className="block text-sm font-medium text-black mb-1">Default Buffer Before (min)</label>
                 <input
                   type="number"
                   value={defaults.bufferBefore}
@@ -181,7 +181,7 @@ export default function SystemSettingsPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Default Buffer After (min)</label>
+                <label className="block text-sm font-medium text-black mb-1">Default Buffer After (min)</label>
                 <input
                   type="number"
                   value={defaults.bufferAfter}
@@ -195,7 +195,7 @@ export default function SystemSettingsPage() {
             {/* Cancellation & No-Show */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Default Cancellation Window (hours)</label>
+                <label className="block text-sm font-medium text-black mb-1">Default Cancellation Window (hours)</label>
                 <input
                   type="number"
                   value={defaults.cancellationWindow}
@@ -205,7 +205,7 @@ export default function SystemSettingsPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Default No-Show Fee ($)</label>
+                <label className="block text-sm font-medium text-black mb-1">Default No-Show Fee ($)</label>
                 <input
                   type="number"
                   value={defaults.noShowFee}
@@ -218,7 +218,7 @@ export default function SystemSettingsPage() {
 
             {/* Consent Enforcement */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Default Consent Enforcement</label>
+              <label className="block text-sm font-medium text-black mb-1">Default Consent Enforcement</label>
               <select
                 value={defaults.consentEnforcement}
                 onChange={(e) => setDefaults(prev => ({ ...prev, consentEnforcement: e.target.value as any }))}
@@ -232,14 +232,14 @@ export default function SystemSettingsPage() {
 
             {/* Charting Rules */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Default Charting Rules</label>
+              <label className="block text-sm font-medium text-black mb-2">Default Charting Rules</label>
               <div className="space-y-2">
                 {[
                   { key: 'requireSOAP', label: 'Require SOAP format' },
                   { key: 'requireSignature', label: 'Require provider signature' },
                   { key: 'lockAfterSign', label: 'Lock chart after signature' },
                 ].map(item => (
-                  <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                  <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-white">
                     <input
                       type="checkbox"
                       checked={defaults.chartingRules[item.key as keyof typeof defaults.chartingRules] as boolean}
@@ -250,7 +250,7 @@ export default function SystemSettingsPage() {
                   </label>
                 ))}
                 <div className="mt-2">
-                  <label className="block text-sm text-gray-600 mb-1">Auto-save interval (seconds)</label>
+                  <label className="block text-sm text-black mb-1">Auto-save interval (seconds)</label>
                   <input
                     type="number"
                     value={defaults.chartingRules.autoSaveInterval}

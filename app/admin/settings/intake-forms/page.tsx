@@ -131,13 +131,13 @@ export default function IntakeFormBuilderPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+          <div className="flex items-center gap-2 text-sm text-black mb-1">
             <Link href="/admin/settings" className="hover:text-pink-600">Settings</Link>
             <span>/</span>
             <span>Intake Forms</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Intake Form Builder</h1>
-          <p className="text-gray-500">Customize the new client intake questionnaire</p>
+          <h1 className="text-2xl font-bold text-black">Intake Form Builder</h1>
+          <p className="text-black">Customize the new client intake questionnaire</p>
         </div>
         <button onClick={saveForm} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
           Save Form
@@ -155,7 +155,7 @@ export default function IntakeFormBuilderPage() {
         <button
           onClick={() => setSelectedSection('all')}
           className={`px-4 py-2 rounded-lg text-sm whitespace-nowrap ${
-            selectedSection === 'all' ? 'bg-pink-500 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            selectedSection === 'all' ? 'bg-pink-500 text-white' : 'bg-white text-black hover:bg-white'
           }`}
         >
           All Fields ({form.fields.length})
@@ -167,7 +167,7 @@ export default function IntakeFormBuilderPage() {
               key={section}
               onClick={() => setSelectedSection(section)}
               className={`px-4 py-2 rounded-lg text-sm whitespace-nowrap ${
-                selectedSection === section ? 'bg-pink-500 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                selectedSection === section ? 'bg-pink-500 text-white' : 'bg-white text-black hover:bg-white'
               }`}
             >
               {section} ({count})
@@ -186,14 +186,14 @@ export default function IntakeFormBuilderPage() {
 
             return (
               <div key={section} className="bg-white rounded-xl border">
-                <div className="flex items-center justify-between p-4 border-b bg-gray-50">
-                  <h3 className="font-semibold text-gray-900">{section}</h3>
+                <div className="flex items-center justify-between p-4 border-b bg-white">
+                  <h3 className="font-semibold text-black">{section}</h3>
                   <div className="flex gap-1">
                     {FIELD_TYPES.slice(0, 4).map(ft => (
                       <button
                         key={ft.value}
                         onClick={() => addField(section, ft.value)}
-                        className="px-2 py-1 text-sm bg-white border rounded hover:bg-gray-50"
+                        className="px-2 py-1 text-sm bg-white border rounded hover:bg-white"
                         title={`Add ${ft.label}`}
                       >
                         {ft.icon}
@@ -206,30 +206,30 @@ export default function IntakeFormBuilderPage() {
                     <div
                       key={field.id}
                       onClick={() => setEditingField(field)}
-                      className={`flex items-center gap-3 p-4 cursor-pointer hover:bg-gray-50 ${
+                      className={`flex items-center gap-3 p-4 cursor-pointer hover:bg-white ${
                         editingField?.id === field.id ? 'bg-pink-50' : ''
                       }`}
                     >
                       <span className="text-lg">{FIELD_TYPES.find(t => t.value === field.type)?.icon}</span>
                       <div className="flex-1">
-                        <p className="font-medium text-gray-900">
-                          {field.label || <span className="text-gray-400 italic">Untitled field</span>}
+                        <p className="font-medium text-black">
+                          {field.label || <span className="text-black italic">Untitled field</span>}
                         </p>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-black">
                           {FIELD_TYPES.find(t => t.value === field.type)?.label}
                           {field.required && ' • Required'}
                         </p>
                       </div>
                       <button
                         onClick={(e) => { e.stopPropagation(); removeField(field.id); }}
-                        className="text-gray-400 hover:text-red-500"
+                        className="text-black hover:text-red-500"
                       >
                         🗑
                       </button>
                     </div>
                   ))}
                   {sectionFields.length === 0 && (
-                    <p className="p-4 text-sm text-gray-500 text-center">No fields in this section</p>
+                    <p className="p-4 text-sm text-black text-center">No fields in this section</p>
                   )}
                 </div>
               </div>
@@ -239,14 +239,14 @@ export default function IntakeFormBuilderPage() {
 
         {/* Field Editor */}
         <div className="bg-white rounded-xl border p-4 sticky top-4 h-fit">
-          <h3 className="font-semibold text-gray-900 mb-4">
+          <h3 className="font-semibold text-black mb-4">
             {editingField ? 'Edit Field' : 'Select a field'}
           </h3>
 
           {editingField ? (
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Field Label</label>
+                <label className="block text-sm font-medium text-black mb-1">Field Label</label>
                 <input
                   type="text"
                   value={editingField.label}
@@ -257,7 +257,7 @@ export default function IntakeFormBuilderPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Field Type</label>
+                <label className="block text-sm font-medium text-black mb-1">Field Type</label>
                 <select
                   value={editingField.type}
                   onChange={(e) => updateField(editingField.id, { type: e.target.value as any })}
@@ -270,7 +270,7 @@ export default function IntakeFormBuilderPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Section</label>
+                <label className="block text-sm font-medium text-black mb-1">Section</label>
                 <select
                   value={editingField.section}
                   onChange={(e) => updateField(editingField.id, { section: e.target.value })}
@@ -284,7 +284,7 @@ export default function IntakeFormBuilderPage() {
 
               {editingField.type === 'text' || editingField.type === 'textarea' ? (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Placeholder</label>
+                  <label className="block text-sm font-medium text-black mb-1">Placeholder</label>
                   <input
                     type="text"
                     value={editingField.placeholder || ''}
@@ -297,7 +297,7 @@ export default function IntakeFormBuilderPage() {
 
               {['select', 'checkbox', 'radio'].includes(editingField.type) && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Options (one per line)</label>
+                  <label className="block text-sm font-medium text-black mb-1">Options (one per line)</label>
                   <textarea
                     value={(editingField.options || []).join('\n')}
                     onChange={(e) => updateField(editingField.id, { options: e.target.value.split('\n').filter(Boolean) })}
@@ -318,7 +318,7 @@ export default function IntakeFormBuilderPage() {
               </label>
             </div>
           ) : (
-            <p className="text-sm text-gray-500">Click on a field to edit its properties</p>
+            <p className="text-sm text-black">Click on a field to edit its properties</p>
           )}
         </div>
       </div>

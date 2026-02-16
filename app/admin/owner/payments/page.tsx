@@ -60,17 +60,17 @@ export default function PaymentsPage() {
           <h2 className="text-lg font-semibold mb-4">Payment Processor</h2>
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Processor</label>
-              <div className="px-4 py-2 bg-gray-100 rounded-lg font-medium">{processorSettings.processor}</div>
+              <label className="block text-sm font-medium text-black mb-1">Processor</label>
+              <div className="px-4 py-2 bg-white rounded-lg font-medium">{processorSettings.processor}</div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Mode</label>
+              <label className="block text-sm font-medium text-black mb-1">Mode</label>
               <div className={`px-4 py-2 rounded-lg font-medium ${processorSettings.mode === 'live' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'}`}>
                 {processorSettings.mode.toUpperCase()}
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Statement Descriptor</label>
+              <label className="block text-sm font-medium text-black mb-1">Statement Descriptor</label>
               <input
                 type="text"
                 value={processorSettings.statement_descriptor}
@@ -94,7 +94,7 @@ export default function PaymentsPage() {
               <span>Collect Sales Tax</span>
             </label>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Default Tax Rate (%)</label>
+              <label className="block text-sm font-medium text-black mb-1">Default Tax Rate (%)</label>
               <input
                 type="number"
                 value={taxSettings.default_tax_rate}
@@ -127,7 +127,7 @@ export default function PaymentsPage() {
               { key: 'accept_membership_credits', label: 'Membership Credits' },
               { key: 'accept_financing', label: 'Third-Party Financing' },
             ].map(item => (
-              <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+              <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-white">
                 <input
                   type="checkbox"
                   checked={paymentMethods[item.key as keyof typeof paymentMethods]}
@@ -151,7 +151,7 @@ export default function PaymentsPage() {
             {refundPolicy.allow_refunds && (
               <>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Refund Window (days)</label>
+                  <label className="block text-sm font-medium text-black mb-1">Refund Window (days)</label>
                   <input
                     type="number"
                     value={refundPolicy.refund_window_days}
@@ -170,7 +170,7 @@ export default function PaymentsPage() {
                 </label>
                 {refundPolicy.require_manager_approval && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Approval Threshold ($)</label>
+                    <label className="block text-sm font-medium text-black mb-1">Approval Threshold ($)</label>
                     <input
                       type="number"
                       value={refundPolicy.approval_threshold}
@@ -178,7 +178,7 @@ export default function PaymentsPage() {
                       className="w-full px-4 py-2 border rounded-lg"
                       min="0"
                     />
-                    <p className="text-xs text-gray-500 mt-1">Refunds above this amount require approval</p>
+                    <p className="text-xs text-black mt-1">Refunds above this amount require approval</p>
                   </div>
                 )}
               </>

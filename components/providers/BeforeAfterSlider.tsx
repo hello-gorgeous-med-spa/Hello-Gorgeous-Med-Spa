@@ -88,7 +88,7 @@ export function BeforeAfterSlider({
     <div className={`space-y-4 ${className}`}>
       <div
         ref={containerRef}
-        className={`relative w-full overflow-hidden rounded-xl border border-gray-200 bg-gray-100 shadow-sm select-none touch-none ${aspectClass}`}
+        className={`relative w-full overflow-hidden rounded-xl border border-black bg-white shadow-sm select-none touch-none ${aspectClass}`}
         onMouseDown={handleMouseDown}
         onTouchStart={handleTouchStart}
         style={{ userSelect: isDragging ? "none" : undefined }}
@@ -131,9 +131,9 @@ export function BeforeAfterSlider({
           }}
           aria-hidden
         >
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center border border-gray-200 hover:scale-110 active:scale-95 transition-transform">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 bg-white rounded-full shadow-md flex items-center justify-center border border-black hover:scale-110 active:scale-95 transition-transform">
             <svg
-              className="w-5 h-5 text-gray-500"
+              className="w-5 h-5 text-black"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

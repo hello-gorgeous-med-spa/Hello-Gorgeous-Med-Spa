@@ -334,7 +334,7 @@ export function PharmacyShowcase() {
               type="button"
               onClick={() => setCurrentSlide(idx)}
               className={`h-2 rounded-full transition-all ${
-                idx === currentSlide ? "bg-[#FF2D8E] w-8" : "bg-gray-300 w-2 hover:bg-[#FF2D8E]/50"
+                idx === currentSlide ? "bg-[#FF2D8E] w-8" : "bg-white w-2 hover:bg-[#FF2D8E]/50"
               }`}
             />
           ))}
@@ -342,7 +342,7 @@ export function PharmacyShowcase() {
 
         {/* Disclaimer */}
         <FadeUp delayMs={180}>
-          <p className="mt-8 text-center text-xs text-gray-500 max-w-2xl mx-auto">
+          <p className="mt-8 text-center text-xs text-black max-w-2xl mx-auto">
             All medications require a consultation and prescription from our medical provider. 
             Results vary by individual. These statements have not been evaluated by the FDA.
           </p>

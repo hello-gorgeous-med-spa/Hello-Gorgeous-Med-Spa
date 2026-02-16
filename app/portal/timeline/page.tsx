@@ -108,7 +108,7 @@ export default function TimelinePage() {
           <p className="text-sm text-[#111]/70 mb-4">Select 2 photos to compare side by side</p>
           <div className="flex gap-4">
             {[0, 1].map((idx) => (
-              <div key={idx} className="flex-1 aspect-[3/4] bg-gray-100 rounded-xl flex items-center justify-center">
+              <div key={idx} className="flex-1 aspect-[3/4] bg-white rounded-xl flex items-center justify-center">
                 {comparePhotos[idx] ? (
                   <img
                     src={comparePhotos[idx].url}
@@ -138,7 +138,7 @@ export default function TimelinePage() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <p className="text-sm text-[#111]/50 mb-2 text-center">Before</p>
-              <div className="aspect-[3/4] bg-gray-100 rounded-xl overflow-hidden">
+              <div className="aspect-[3/4] bg-white rounded-xl overflow-hidden">
                 <img
                   src={beforePhotos[0]?.url}
                   alt="Before"
@@ -148,7 +148,7 @@ export default function TimelinePage() {
             </div>
             <div>
               <p className="text-sm text-[#111]/50 mb-2 text-center">After</p>
-              <div className="aspect-[3/4] bg-gray-100 rounded-xl overflow-hidden">
+              <div className="aspect-[3/4] bg-white rounded-xl overflow-hidden">
                 <img
                   src={afterPhotos[afterPhotos.length - 1]?.url}
                   alt="After"
@@ -166,7 +166,7 @@ export default function TimelinePage() {
         {loading ? (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="aspect-square bg-gray-200 rounded-xl animate-pulse"></div>
+              <div key={i} className="aspect-square bg-white rounded-xl animate-pulse"></div>
             ))}
           </div>
         ) : photos.length === 0 ? (
@@ -181,7 +181,7 @@ export default function TimelinePage() {
               <div
                 key={photo.id}
                 onClick={() => compareMode ? toggleComparePhoto(photo) : setSelectedPhoto(photo)}
-                className={`relative aspect-square bg-gray-100 rounded-xl overflow-hidden cursor-pointer group ${
+                className={`relative aspect-square bg-white rounded-xl overflow-hidden cursor-pointer group ${
                   compareMode && comparePhotos.find(p => p.id === photo.id) ? 'ring-4 ring-[#FF2D8E]' : ''
                 }`}
               >
@@ -197,7 +197,7 @@ export default function TimelinePage() {
                   </div>
                 </div>
                 <span className={`absolute top-2 right-2 text-xs px-2 py-1 rounded-full ${
-                  photo.type === 'before' ? 'bg-gray-500 text-white' :
+                  photo.type === 'before' ? 'bg-white0 text-white' :
                   photo.type === 'after' ? 'bg-green-500 text-white' : 'bg-blue-500 text-white'
                 }`}>
                   {photo.type}

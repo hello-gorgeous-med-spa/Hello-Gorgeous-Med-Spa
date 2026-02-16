@@ -132,13 +132,13 @@ export default function PromotionsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+          <div className="flex items-center gap-2 text-sm text-black mb-1">
             <Link href="/admin/settings" className="hover:text-pink-600">Settings</Link>
             <span>/</span>
             <span>Promotions</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Promotions & Coupons</h1>
-          <p className="text-gray-500">Create discount codes without code changes</p>
+          <h1 className="text-2xl font-bold text-black">Promotions & Coupons</h1>
+          <p className="text-black">Create discount codes without code changes</p>
         </div>
         {!editingPromo && (
           <button
@@ -161,12 +161,12 @@ export default function PromotionsPage() {
         <div className="bg-white rounded-xl border p-6 space-y-6">
           <div className="flex items-center justify-between border-b pb-4">
             <h2 className="text-lg font-semibold">{isCreating ? 'Create Promotion' : 'Edit Promotion'}</h2>
-            <button onClick={() => { setEditingPromo(null); setIsCreating(false); }} className="text-gray-500">✕</button>
+            <button onClick={() => { setEditingPromo(null); setIsCreating(false); }} className="text-black">✕</button>
           </div>
 
           <div className="grid grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Promotion Name *</label>
+              <label className="block text-sm font-medium text-black mb-1">Promotion Name *</label>
               <input
                 type="text"
                 value={editingPromo.name}
@@ -176,7 +176,7 @@ export default function PromotionsPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Promo Code *</label>
+              <label className="block text-sm font-medium text-black mb-1">Promo Code *</label>
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -185,7 +185,7 @@ export default function PromotionsPage() {
                   className="flex-1 px-4 py-2 border rounded-lg uppercase"
                   placeholder="SUMMER20"
                 />
-                <button onClick={generateCode} className="px-3 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm">
+                <button onClick={generateCode} className="px-3 py-2 bg-white rounded-lg hover:bg-white text-sm">
                   Generate
                 </button>
               </div>
@@ -194,7 +194,7 @@ export default function PromotionsPage() {
 
           <div className="grid grid-cols-3 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Discount Type</label>
+              <label className="block text-sm font-medium text-black mb-1">Discount Type</label>
               <select
                 value={editingPromo.type}
                 onChange={(e) => setEditingPromo({ ...editingPromo, type: e.target.value as any })}
@@ -206,7 +206,7 @@ export default function PromotionsPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 {editingPromo.type === 'percentage' ? 'Percentage' : editingPromo.type === 'fixed' ? 'Amount ($)' : 'Free Item Value'}
               </label>
               <input
@@ -219,7 +219,7 @@ export default function PromotionsPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Minimum Purchase ($)</label>
+              <label className="block text-sm font-medium text-black mb-1">Minimum Purchase ($)</label>
               <input
                 type="number"
                 value={editingPromo.min_purchase}
@@ -232,7 +232,7 @@ export default function PromotionsPage() {
 
           <div className="grid grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+              <label className="block text-sm font-medium text-black mb-1">Start Date</label>
               <input
                 type="date"
                 value={editingPromo.start_date}
@@ -241,7 +241,7 @@ export default function PromotionsPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+              <label className="block text-sm font-medium text-black mb-1">End Date</label>
               <input
                 type="date"
                 value={editingPromo.end_date}
@@ -253,7 +253,7 @@ export default function PromotionsPage() {
 
           <div className="grid grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Applies To</label>
+              <label className="block text-sm font-medium text-black mb-1">Applies To</label>
               <select
                 value={editingPromo.applies_to}
                 onChange={(e) => setEditingPromo({ ...editingPromo, applies_to: e.target.value as any })}
@@ -265,7 +265,7 @@ export default function PromotionsPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Usage Limit (optional)</label>
+              <label className="block text-sm font-medium text-black mb-1">Usage Limit (optional)</label>
               <input
                 type="number"
                 value={editingPromo.usage_limit || ''}
@@ -307,7 +307,7 @@ export default function PromotionsPage() {
           </div>
 
           <div className="flex justify-end gap-3 pt-4 border-t">
-            <button onClick={() => { setEditingPromo(null); setIsCreating(false); }} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+            <button onClick={() => { setEditingPromo(null); setIsCreating(false); }} className="px-4 py-2 text-black hover:bg-white rounded-lg">
               Cancel
             </button>
             <button onClick={savePromo} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
@@ -319,7 +319,7 @@ export default function PromotionsPage() {
         /* Promotions List */
         <div className="bg-white rounded-xl border divide-y">
           {promotions.length === 0 ? (
-            <div className="p-12 text-center text-gray-500">
+            <div className="p-12 text-center text-black">
               <p>No promotions yet</p>
               <button onClick={createNewPromo} className="mt-4 text-pink-600 hover:text-pink-700">
                 Create your first promotion
@@ -327,28 +327,28 @@ export default function PromotionsPage() {
             </div>
           ) : (
             promotions.map(promo => (
-              <div key={promo.id} className="p-4 hover:bg-gray-50">
+              <div key={promo.id} className="p-4 hover:bg-white">
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-3">
-                      <h3 className="font-medium text-gray-900">{promo.name}</h3>
-                      <code className="px-2 py-0.5 bg-gray-100 rounded text-sm font-mono">{promo.code}</code>
-                      <span className={`text-xs px-2 py-0.5 rounded ${promo.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
+                      <h3 className="font-medium text-black">{promo.name}</h3>
+                      <code className="px-2 py-0.5 bg-white rounded text-sm font-mono">{promo.code}</code>
+                      <span className={`text-xs px-2 py-0.5 rounded ${promo.is_active ? 'bg-green-100 text-green-700' : 'bg-white text-black'}`}>
                         {promo.is_active ? 'Active' : 'Inactive'}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-black mt-1">
                       {promo.type === 'percentage' ? `${promo.value}% off` : promo.type === 'fixed' ? `$${promo.value} off` : 'Buy One Get One'}
                       {promo.min_purchase > 0 && ` • Min $${promo.min_purchase}`}
                       {promo.usage_limit && ` • ${promo.usage_count}/${promo.usage_limit} used`}
                       {promo.new_clients_only && ' • New clients only'}
                     </p>
-                    <p className="text-xs text-gray-400 mt-1">
+                    <p className="text-xs text-black mt-1">
                       Valid: {new Date(promo.start_date).toLocaleDateString()} - {new Date(promo.end_date).toLocaleDateString()}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button onClick={() => setEditingPromo(promo)} className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded">
+                    <button onClick={() => setEditingPromo(promo)} className="px-3 py-1.5 text-sm text-black hover:bg-white rounded">
                       Edit
                     </button>
                     <button onClick={() => deletePromo(promo.id)} className="px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 rounded">
@@ -356,7 +356,7 @@ export default function PromotionsPage() {
                     </button>
                     <button
                       onClick={() => toggleActive(promo.id)}
-                      className={`w-12 h-6 rounded-full transition-colors relative ${promo.is_active ? 'bg-green-500' : 'bg-gray-300'}`}
+                      className={`w-12 h-6 rounded-full transition-colors relative ${promo.is_active ? 'bg-green-500' : 'bg-white'}`}
                     >
                       <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${promo.is_active ? 'right-1' : 'left-1'}`} />
                     </button>

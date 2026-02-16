@@ -283,50 +283,50 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden keyboard-safe">
+    <div className="bg-white rounded-2xl border border-black overflow-hidden keyboard-safe">
       {/* Progress Steps */}
-      <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+      <div className="bg-white px-6 py-4 border-b border-black">
         <div className="flex items-center justify-center gap-2 sm:gap-4">
           {/* Step 1: Provider */}
-          <div className={`flex items-center gap-2 ${step === 'provider' ? 'text-pink-600' : 'text-gray-400'}`}>
+          <div className={`flex items-center gap-2 ${step === 'provider' ? 'text-pink-600' : 'text-black'}`}>
             <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
               step === 'provider' ? 'bg-pink-500 text-white' : 
-              ['datetime', 'info', 'confirm'].includes(step) ? 'bg-green-500 text-white' : 'bg-gray-300'
+              ['datetime', 'info', 'confirm'].includes(step) ? 'bg-green-500 text-white' : 'bg-white'
             }`}>
               {['datetime', 'info', 'confirm'].includes(step) ? '✓' : '1'}
             </span>
             <span className="text-sm font-medium hidden sm:inline">Provider</span>
           </div>
-          <div className="w-4 sm:w-8 h-px bg-gray-300" />
+          <div className="w-4 sm:w-8 h-px bg-white" />
           
           {/* Step 2: Date & Time */}
-          <div className={`flex items-center gap-2 ${step === 'datetime' ? 'text-pink-600' : 'text-gray-400'}`}>
+          <div className={`flex items-center gap-2 ${step === 'datetime' ? 'text-pink-600' : 'text-black'}`}>
             <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
               step === 'datetime' ? 'bg-pink-500 text-white' : 
-              ['info', 'confirm'].includes(step) ? 'bg-green-500 text-white' : 'bg-gray-300'
+              ['info', 'confirm'].includes(step) ? 'bg-green-500 text-white' : 'bg-white'
             }`}>
               {['info', 'confirm'].includes(step) ? '✓' : '2'}
             </span>
             <span className="text-sm font-medium hidden sm:inline">Date & Time</span>
           </div>
-          <div className="w-4 sm:w-8 h-px bg-gray-300" />
+          <div className="w-4 sm:w-8 h-px bg-white" />
           
           {/* Step 3: Info */}
-          <div className={`flex items-center gap-2 ${step === 'info' ? 'text-pink-600' : 'text-gray-400'}`}>
+          <div className={`flex items-center gap-2 ${step === 'info' ? 'text-pink-600' : 'text-black'}`}>
             <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
               step === 'info' ? 'bg-pink-500 text-white' : 
-              step === 'confirm' ? 'bg-green-500 text-white' : 'bg-gray-300'
+              step === 'confirm' ? 'bg-green-500 text-white' : 'bg-white'
             }`}>
               {step === 'confirm' ? '✓' : '3'}
             </span>
             <span className="text-sm font-medium hidden sm:inline">Your Info</span>
           </div>
-          <div className="w-4 sm:w-8 h-px bg-gray-300" />
+          <div className="w-4 sm:w-8 h-px bg-white" />
           
           {/* Step 4: Confirmed */}
-          <div className={`flex items-center gap-2 ${step === 'confirm' ? 'text-pink-600' : 'text-gray-400'}`}>
+          <div className={`flex items-center gap-2 ${step === 'confirm' ? 'text-pink-600' : 'text-black'}`}>
             <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
-              step === 'confirm' ? 'bg-green-500 text-white' : 'bg-gray-300'
+              step === 'confirm' ? 'bg-green-500 text-white' : 'bg-white'
             }`}>
               {step === 'confirm' ? '✓' : '4'}
             </span>
@@ -340,19 +340,19 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
         {step === 'provider' && (
           <div className="space-y-6">
             <div>
-              <h3 className="font-semibold text-gray-900 mb-2">Choose Your Provider</h3>
-              <p className="text-sm text-gray-500 mb-4">
+              <h3 className="font-semibold text-black mb-2">Choose Your Provider</h3>
+              <p className="text-sm text-black mb-4">
                 Select who you'd like to see for your {service.name}
               </p>
               
               {loadingProviders ? (
                 <div className="space-y-4">
                   {[1, 2].map((i) => (
-                    <div key={i} className="flex items-center gap-4 p-4 rounded-xl border-2 border-gray-200 animate-pulse">
-                      <div className="w-16 h-16 rounded-full bg-gray-200" />
+                    <div key={i} className="flex items-center gap-4 p-4 rounded-xl border-2 border-black animate-pulse">
+                      <div className="w-16 h-16 rounded-full bg-white" />
                       <div className="flex-1">
-                        <div className="h-5 w-32 bg-gray-200 rounded mb-2" />
-                        <div className="h-4 w-24 bg-gray-200 rounded" />
+                        <div className="h-5 w-32 bg-white rounded mb-2" />
+                        <div className="h-4 w-24 bg-white rounded" />
                       </div>
                     </div>
                   ))}
@@ -371,7 +371,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                         className={`flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left hover:shadow-md ${
                           selectedProvider?.id === provider.id
                             ? 'border-pink-500 bg-pink-50'
-                            : 'border-gray-200 hover:border-pink-300'
+                            : 'border-black hover:border-pink-300'
                         }`}
                       >
                         {/* Provider Avatar */}
@@ -383,10 +383,10 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                         </div>
                         
                         <div className="flex-1">
-                          <h4 className="font-semibold text-gray-900">{provider.name}</h4>
-                          <p className="text-sm text-gray-500">{provider.title}</p>
-                          <div className="flex items-center gap-2 mt-2 text-xs text-gray-400">
-                            <span className="inline-flex items-center gap-1 bg-gray-100 px-2 py-1 rounded-full">
+                          <h4 className="font-semibold text-black">{provider.name}</h4>
+                          <p className="text-sm text-black">{provider.title}</p>
+                          <div className="flex items-center gap-2 mt-2 text-xs text-black">
+                            <span className="inline-flex items-center gap-1 bg-white px-2 py-1 rounded-full">
                               📅 {Object.entries(provider.schedule).filter(([_, v]) => v !== null).length} days/week
                             </span>
                           </div>
@@ -402,7 +402,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   </div>
                   
                   {availableProviders.length === 0 && (
-                    <div className="text-center py-8 text-gray-500">
+                    <div className="text-center py-8 text-black">
                       <p>No providers available for this service.</p>
                       <p className="text-sm mt-2">Please call us at (630) 636-6193 to book.</p>
                     </div>
@@ -418,7 +418,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   setSelectedProvider(availableProviders[0]); // Default to first
                   setStep('datetime');
                 }}
-                className="w-full py-3 text-gray-600 text-sm hover:text-gray-900 transition-colors"
+                className="w-full py-3 text-black text-sm hover:text-black transition-colors"
               >
                 No preference - show me the first available
               </button>
@@ -430,7 +430,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
         {step === 'datetime' && selectedProvider && (
           <div className="space-y-6">
             {/* Provider Summary */}
-            <div className="flex items-center justify-between bg-gray-50 rounded-xl p-4">
+            <div className="flex items-center justify-between bg-white rounded-xl p-4">
               <div className="flex items-center gap-3">
                 <div 
                   className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold"
@@ -439,8 +439,8 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   {selectedProvider.name.split(' ').map(n => n[0]).join('')}
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900">{selectedProvider.name}</p>
-                  <p className="text-xs text-gray-500">{selectedProvider.title}</p>
+                  <p className="font-medium text-black">{selectedProvider.name}</p>
+                  <p className="text-xs text-black">{selectedProvider.title}</p>
                 </div>
               </div>
               <button
@@ -457,7 +457,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
 
             {/* Date Selection — thumb-friendly tap targets */}
             <div>
-              <h3 className="font-semibold text-gray-900 mb-3">Select a Date</h3>
+              <h3 className="font-semibold text-black mb-3">Select a Date</h3>
               <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide touch-pan-x" style={{ WebkitOverflowScrolling: 'touch' }}>
                 {availableDates.map((date) => (
                   <button
@@ -470,7 +470,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     className={`flex-shrink-0 min-h-[44px] min-w-[64px] px-4 py-3 rounded-xl text-center transition-all active:scale-[0.98] ${
                       selectedDate?.toDateString() === date.toDateString()
                         ? 'text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        : 'bg-white text-black hover:bg-white'
                     }`}
                     style={selectedDate?.toDateString() === date.toDateString() 
                       ? { backgroundColor: selectedProvider.color } 
@@ -492,11 +492,11 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
             {/* Time Selection — only available slots are selectable; unavailable are grayed out */}
             {selectedDate && (
               <div>
-                <h3 className="font-semibold text-gray-900 mb-3">
+                <h3 className="font-semibold text-black mb-3">
                   Select a Time for {formatDate(selectedDate)}
                 </h3>
                 {loadingAvailability ? (
-                  <div className="py-6 text-center text-gray-500 text-sm">
+                  <div className="py-6 text-center text-black text-sm">
                     Checking availability…
                   </div>
                 ) : timeSlots.length > 0 ? (
@@ -507,7 +507,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                       </p>
                     )}
                     {!hasAvailability && !loadingAvailability && (
-                      <p className="text-sm text-gray-500 mb-3">
+                      <p className="text-sm text-black mb-3">
                         Couldn&apos;t load availability. Please refresh or call (630) 636-6193.
                       </p>
                     )}
@@ -522,10 +522,10 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                             disabled={!available}
                             className={`min-h-[44px] px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
                               !available
-                                ? 'bg-gray-100 text-gray-400 cursor-not-allowed line-through'
+                                ? 'bg-white text-black cursor-not-allowed line-through'
                                 : selectedTime === time
                                   ? 'text-white'
-                                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200 active:scale-[0.98]'
+                                  : 'bg-white text-black hover:bg-white active:scale-[0.98]'
                             }`}
                             style={available && selectedTime === time && selectedProvider
                               ? { backgroundColor: selectedProvider.color }
@@ -540,11 +540,11 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     </div>
                   </>
                 ) : (
-                  <div className="text-center py-6 bg-gray-50 rounded-xl">
-                    <p className="text-gray-500">
+                  <div className="text-center py-6 bg-white rounded-xl">
+                    <p className="text-black">
                       {selectedProvider?.name} is not available on this day.
                     </p>
-                    <p className="text-sm text-gray-400 mt-1">
+                    <p className="text-sm text-black mt-1">
                       Please select a different date.
                     </p>
                   </div>
@@ -559,7 +559,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   setSelectedProvider(null);
                   setStep('provider');
                 }}
-                className="px-6 py-3 text-gray-600 font-medium hover:bg-gray-100 rounded-xl transition-colors"
+                className="px-6 py-3 text-black font-medium hover:bg-white rounded-xl transition-colors"
               >
                 Back
               </button>
@@ -580,7 +580,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
             {/* Summary */}
             <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl p-4">
               <div className="flex items-center justify-between mb-2">
-                <p className="text-sm font-medium text-gray-500">Your Appointment</p>
+                <p className="text-sm font-medium text-black">Your Appointment</p>
                 <button
                   onClick={() => setStep('datetime')}
                   className="text-sm text-pink-600 hover:text-pink-700 font-medium"
@@ -598,24 +598,24 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   </div>
                 )}
                 <div>
-                  <p className="font-semibold text-gray-900">
+                  <p className="font-semibold text-black">
                     {selectedDate && formatDate(selectedDate)} at {selectedTime}
                   </p>
-                  <p className="text-sm text-gray-500">with {selectedProvider?.name}</p>
+                  <p className="text-sm text-black">with {selectedProvider?.name}</p>
                 </div>
               </div>
             </div>
 
             {/* Are you a new client? */}
             <div>
-              <h3 className="font-semibold text-gray-900 mb-3">Have you visited us before?</h3>
+              <h3 className="font-semibold text-black mb-3">Have you visited us before?</h3>
               <div className="flex gap-3">
                 <button
                   onClick={() => updateField('isNewClient', true)}
                   className={`flex-1 py-3 rounded-xl font-medium transition-all ${
                     formData.isNewClient
                       ? 'bg-pink-500 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      : 'bg-white text-black hover:bg-white'
                   }`}
                 >
                   I'm New! 🎉
@@ -625,7 +625,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   className={`flex-1 py-3 rounded-xl font-medium transition-all ${
                     !formData.isNewClient
                       ? 'bg-pink-500 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      : 'bg-white text-black hover:bg-white'
                   }`}
                 >
                   Returning Client
@@ -637,7 +637,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-black mb-1">
                     First Name *
                   </label>
                   <input
@@ -646,11 +646,11 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     autoComplete="given-name"
                     value={formData.firstName}
                     onChange={(e) => updateField('firstName', e.target.value)}
-                    className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
+                    className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-black mb-1">
                     Last Name *
                   </label>
                   <input
@@ -659,13 +659,13 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     autoComplete="family-name"
                     value={formData.lastName}
                     onChange={(e) => updateField('lastName', e.target.value)}
-                    className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
+                    className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black mb-1">
                   Email *
                 </label>
                 <input
@@ -674,12 +674,12 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   autoComplete="email"
                   value={formData.email}
                   onChange={(e) => updateField('email', e.target.value)}
-                  className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
+                  className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black mb-1">
                   Phone Number *
                 </label>
                 <input
@@ -689,13 +689,13 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   value={formData.phone}
                   onChange={(e) => updateField('phone', e.target.value)}
                   placeholder="(630) 555-1234"
-                  className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
+                  className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
                 />
               </div>
 
               {formData.isNewClient && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-black mb-1">
                     Date of Birth *
                   </label>
                   <input
@@ -703,13 +703,13 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     required
                     value={formData.dateOfBirth}
                     onChange={(e) => updateField('dateOfBirth', e.target.value)}
-                    className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
+                    className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
                   />
                 </div>
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black mb-1">
                   Notes (optional)
                 </label>
                 <textarea
@@ -717,12 +717,12 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   onChange={(e) => updateField('notes', e.target.value)}
                   rows={2}
                   placeholder="Any special requests or concerns..."
-                  className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
+                  className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-pink-500"
                 />
               </div>
 
               {/* Policy reminder - compact */}
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-black">
                 24-hour cancellation notice required. By booking you agree to our{' '}
                 <a href="/terms" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:underline">terms</a> and{' '}
                 <a href="/privacy" target="_blank" rel="noopener noreferrer" className="text-pink-600 hover:underline">privacy policy</a>.
@@ -735,9 +735,9 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     type="checkbox"
                     checked={formData.agreeToSMS}
                     onChange={(e) => updateField('agreeToSMS', e.target.checked)}
-                    className="mt-1 w-4 h-4 min-w-[16px] min-h-[16px] text-pink-500 border-gray-300 rounded focus:ring-[#FF2D8E] shrink-0"
+                    className="mt-1 w-4 h-4 min-w-[16px] min-h-[16px] text-pink-500 border-black rounded focus:ring-[#FF2D8E] shrink-0"
                   />
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-black">
                     Send me SMS reminders &amp; offers (msg rates may apply, reply STOP to opt out)
                   </span>
                 </label>
@@ -747,9 +747,9 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     required
                     checked={formData.agreeToTerms}
                     onChange={(e) => updateField('agreeToTerms', e.target.checked)}
-                    className="mt-1 w-4 h-4 min-w-[16px] min-h-[16px] text-pink-500 border-gray-300 rounded focus:ring-[#FF2D8E] shrink-0"
+                    className="mt-1 w-4 h-4 min-w-[16px] min-h-[16px] text-pink-500 border-black rounded focus:ring-[#FF2D8E] shrink-0"
                   />
-                  <span className="text-sm text-gray-600">
+                  <span className="text-sm text-black">
                     I agree to the <a href="/terms" target="_blank" className="text-pink-600 hover:underline">terms</a> and <a href="/privacy" target="_blank" className="text-pink-600 hover:underline">privacy policy</a> *
                   </span>
                 </label>
@@ -767,7 +767,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
             <div className="flex gap-3">
               <button
                 onClick={() => setStep('datetime')}
-                className="px-6 py-3 text-gray-600 font-medium hover:bg-gray-100 rounded-xl transition-colors"
+                className="px-6 py-3 text-black font-medium hover:bg-white rounded-xl transition-colors"
               >
                 Back
               </button>
@@ -796,38 +796,38 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
             <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-green-100 flex items-center justify-center">
               <span className="text-4xl">✓</span>
             </div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-2xl font-bold text-black mb-2">
               You're All Set!
             </h2>
-            <p className="text-gray-600 mb-6">
+            <p className="text-black mb-6">
               Your appointment has been booked. We've sent a confirmation to{' '}
               <strong>{formData.email}</strong>
             </p>
 
-            <div className="bg-gray-50 rounded-xl p-6 max-w-sm mx-auto text-left mb-8">
-              <h3 className="font-semibold text-gray-900 mb-3">Appointment Details</h3>
+            <div className="bg-white rounded-xl p-6 max-w-sm mx-auto text-left mb-8">
+              <h3 className="font-semibold text-black mb-3">Appointment Details</h3>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Service:</span>
-                  <span className="text-gray-900 font-medium">{service.name}</span>
+                  <span className="text-black">Service:</span>
+                  <span className="text-black font-medium">{service.name}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Provider:</span>
-                  <span className="text-gray-900 font-medium">{selectedProvider?.name}</span>
+                  <span className="text-black">Provider:</span>
+                  <span className="text-black font-medium">{selectedProvider?.name}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Date:</span>
-                  <span className="text-gray-900 font-medium">
+                  <span className="text-black">Date:</span>
+                  <span className="text-black font-medium">
                     {selectedDate && formatFullDate(selectedDate)}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Time:</span>
-                  <span className="text-gray-900 font-medium">{selectedTime}</span>
+                  <span className="text-black">Time:</span>
+                  <span className="text-black font-medium">{selectedTime}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Duration:</span>
-                  <span className="text-gray-900 font-medium">{service.duration_minutes} min</span>
+                  <span className="text-black">Duration:</span>
+                  <span className="text-black font-medium">{service.duration_minutes} min</span>
                 </div>
               </div>
             </div>
@@ -843,7 +843,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                 href={`https://calendar.google.com/calendar/r/eventedit?text=${encodeURIComponent(service.name + ' with ' + selectedProvider?.name + ' at Hello Gorgeous')}&dates=${selectedDate?.toISOString().split('T')[0].replace(/-/g, '')}&details=${encodeURIComponent('Your appointment at Hello Gorgeous Med Spa with ' + selectedProvider?.name)}&location=${encodeURIComponent('74 W. Washington St, Oswego, IL 60543')}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-gray-200 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white border border-black text-black font-medium rounded-xl hover:bg-white transition-colors"
               >
                 📅 Add to Calendar
               </a>
@@ -860,14 +860,14 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
             </div>
 
             {/* Reminder about policies */}
-            <div className="bg-gray-100 rounded-xl p-4 mt-6 text-left max-w-sm mx-auto">
-              <p className="text-xs text-gray-600">
+            <div className="bg-white rounded-xl p-4 mt-6 text-left max-w-sm mx-auto">
+              <p className="text-xs text-black">
                 <strong>Reminder:</strong> Please arrive 5-10 minutes early. If you need to cancel or 
                 reschedule, please provide at least 24 hours notice to avoid a cancellation fee.
               </p>
             </div>
 
-            <p className="text-sm text-gray-500 mt-8">
+            <p className="text-sm text-black mt-8">
               Need to make changes?{' '}
               <a href="tel:6306366193" className="text-pink-600 hover:underline">
                 Call us at (630) 636-6193

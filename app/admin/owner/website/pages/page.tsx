@@ -36,7 +36,7 @@ export default function PagesManagerPage() {
       <OwnerLayout title="Pages" description="Create and manage website pages">
         <div className="p-8 text-center">
           <div className="animate-spin text-4xl mb-4">📄</div>
-          <p className="text-gray-500">Loading...</p>
+          <p className="text-black">Loading...</p>
         </div>
       </OwnerLayout>
     }>
@@ -187,10 +187,10 @@ function PagesManagerContent() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'published': return 'bg-green-100 text-green-700';
-      case 'draft': return 'bg-gray-100 text-gray-600';
+      case 'draft': return 'bg-white text-black';
       case 'scheduled': return 'bg-blue-100 text-blue-700';
       case 'archived': return 'bg-red-100 text-red-600';
-      default: return 'bg-gray-100 text-gray-600';
+      default: return 'bg-white text-black';
     }
   };
 
@@ -246,43 +246,43 @@ function PagesManagerContent() {
         {isLoading ? (
           <div className="p-8 text-center">
             <div className="animate-spin text-4xl mb-4">📄</div>
-            <p className="text-gray-500">Loading pages...</p>
+            <p className="text-black">Loading pages...</p>
           </div>
         ) : filteredPages.length > 0 ? (
           <table className="w-full">
-            <thead className="bg-gray-50 border-b">
+            <thead className="bg-white border-b">
               <tr>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">PAGE</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">URL</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">STATUS</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">TEMPLATE</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">UPDATED</th>
-                <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">ACTIONS</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-black">PAGE</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-black">URL</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-black">STATUS</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-black">TEMPLATE</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-black">UPDATED</th>
+                <th className="text-right px-4 py-3 text-xs font-semibold text-black">ACTIONS</th>
               </tr>
             </thead>
             <tbody className="divide-y">
               {filteredPages.map(page => (
-                <tr key={page.id} className="hover:bg-gray-50">
+                <tr key={page.id} className="hover:bg-white">
                   <td className="px-4 py-3">
                     <Link href={`/admin/owner/website/pages/${page.id}`} className="font-medium hover:text-pink-600">
                       {page.title}
                     </Link>
                   </td>
                   <td className="px-4 py-3">
-                    <code className="text-sm text-gray-500">/{page.slug}</code>
+                    <code className="text-sm text-black">/{page.slug}</code>
                   </td>
                   <td className="px-4 py-3">
                     <span className={`text-xs px-2 py-1 rounded ${getStatusBadge(page.status)}`}>
                       {page.status}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm text-gray-500">{page.template}</td>
-                  <td className="px-4 py-3 text-sm text-gray-500">{formatDate(page.updated_at)}</td>
+                  <td className="px-4 py-3 text-sm text-black">{page.template}</td>
+                  <td className="px-4 py-3 text-sm text-black">{formatDate(page.updated_at)}</td>
                   <td className="px-4 py-3">
                     <div className="flex gap-2 justify-end">
                       <Link
                         href={`/admin/owner/website/pages/${page.id}`}
-                        className="text-xs px-2 py-1 bg-gray-100 rounded hover:bg-gray-200"
+                        className="text-xs px-2 py-1 bg-white rounded hover:bg-white"
                       >
                         Edit
                       </Link>
@@ -327,8 +327,8 @@ function PagesManagerContent() {
         ) : (
           <div className="p-8 text-center">
             <span className="text-4xl block mb-3">📄</span>
-            <h3 className="font-medium text-gray-700 mb-1">No pages yet</h3>
-            <p className="text-sm text-gray-500 mb-4">Create your first page to get started</p>
+            <h3 className="font-medium text-black mb-1">No pages yet</h3>
+            <p className="text-sm text-black mb-4">Create your first page to get started</p>
             <button
               onClick={() => setShowCreateModal(true)}
               className="px-4 py-2 bg-pink-500 text-white rounded-lg"
@@ -345,12 +345,12 @@ function PagesManagerContent() {
           <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold">Create New Page</h2>
-              <button onClick={() => setShowCreateModal(false)} className="text-gray-400 hover:text-gray-600">✕</button>
+              <button onClick={() => setShowCreateModal(false)} className="text-black hover:text-black">✕</button>
             </div>
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Page Title *</label>
+                <label className="block text-sm font-medium text-black mb-1">Page Title *</label>
                 <input
                   type="text"
                   value={createForm.title}
@@ -365,9 +365,9 @@ function PagesManagerContent() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">URL Slug</label>
+                <label className="block text-sm font-medium text-black mb-1">URL Slug</label>
                 <div className="flex items-center">
-                  <span className="text-gray-400 mr-1">/</span>
+                  <span className="text-black mr-1">/</span>
                   <input
                     type="text"
                     value={createForm.slug}
@@ -379,7 +379,7 @@ function PagesManagerContent() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Template</label>
+                <label className="block text-sm font-medium text-black mb-2">Template</label>
                 <div className="grid grid-cols-2 gap-2">
                   {TEMPLATES.map(template => (
                     <button
@@ -390,7 +390,7 @@ function PagesManagerContent() {
                       }`}
                     >
                       <p className="font-medium text-sm">{template.name}</p>
-                      <p className="text-xs text-gray-500">{template.description}</p>
+                      <p className="text-xs text-black">{template.description}</p>
                     </button>
                   ))}
                 </div>

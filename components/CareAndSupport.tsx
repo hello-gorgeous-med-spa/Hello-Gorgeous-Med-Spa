@@ -109,13 +109,13 @@ export function CareAndSupport() {
             </span>{" "}
             your visit
           </h1>
-          <p className="mt-6 text-xl text-gray-300 max-w-2xl leading-relaxed">
+          <p className="mt-6 text-xl text-black max-w-2xl leading-relaxed">
             Calm, educational guidance to reduce anxiety. If something feels unsafe, we’ll say so.
           </p>
         </FadeUp>
 
         <FadeUp delayMs={100}>
-          <div className="mt-10 rounded-2xl border border-gray-800 bg-black/40 p-6">
+          <div className="mt-10 rounded-2xl border border-black bg-black/40 p-6">
             <p className="text-sm text-white/70">“Is this normal?” Checker™</p>
             <div className="mt-6 grid gap-4 md:grid-cols-3">
               <div className="grid gap-2">
@@ -123,7 +123,7 @@ export function CareAndSupport() {
                 <select
                   value={treatment}
                   onChange={(e) => setTreatment(e.target.value as TreatmentType)}
-                  className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 >
                   {TREATMENT_OPTIONS.map((t) => (
                     <option key={t.id} value={t.id}>
@@ -137,7 +137,7 @@ export function CareAndSupport() {
                 <select
                   value={symptom}
                   onChange={(e) => setSymptom(e.target.value as SymptomId)}
-                  className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 >
                   {SYMPTOM_OPTIONS.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -151,7 +151,7 @@ export function CareAndSupport() {
                 <select
                   value={timeline}
                   onChange={(e) => setTimeline(e.target.value as TimelineBucket)}
-                  className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 >
                   {TIMELINE_OPTIONS.map((t) => (
                     <option key={t.id} value={t.id}>
@@ -191,7 +191,7 @@ export function CareAndSupport() {
 
       <div className="lg:col-span-6">
         <FadeUp delayMs={160}>
-          <div className="rounded-2xl border border-gray-800 bg-black/40 overflow-hidden">
+          <div className="rounded-2xl border border-black bg-black/40 overflow-hidden">
             <div className="p-5 border-b border-white/10">
               <p className="text-sm text-white/70">Post‑treatment chat (educational)</p>
               <p className="mt-2 text-xs text-white/60">
@@ -230,7 +230,7 @@ export function CareAndSupport() {
                     "whitespace-pre-wrap text-sm leading-relaxed",
                     m.role === "user"
                       ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
-                      : "text-gray-200",
+                      : "text-white",
                   )}
                 >
                   {m.content}
@@ -245,7 +245,7 @@ export function CareAndSupport() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Example: swelling day 2 after filler—normal?"
-                  className="flex-1 rounded-xl bg-gray-900 border border-gray-700 px-4 py-3 !text-white placeholder:text-gray-400 caret-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="flex-1 rounded-xl bg-black border border-black px-4 py-3 !text-white placeholder:text-black caret-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   onKeyDown={(e) => {
                     if (e.key !== "Enter") return;
                     const q = input.trim();

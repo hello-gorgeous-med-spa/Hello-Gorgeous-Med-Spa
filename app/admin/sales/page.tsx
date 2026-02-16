@@ -98,7 +98,7 @@ export default function SalesPage() {
       case 'unpaid':
         return 'bg-red-100 text-red-700';
       default:
-        return 'bg-gray-100 text-gray-700';
+        return 'bg-white text-black';
     }
   };
 
@@ -121,8 +121,8 @@ export default function SalesPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Sales</h1>
-          <p className="text-sm text-gray-500">
+          <h1 className="text-2xl font-bold text-black">Sales</h1>
+          <p className="text-sm text-black">
             {total} total sale{total !== 1 ? 's' : ''}
           </p>
         </div>
@@ -134,7 +134,7 @@ export default function SalesPage() {
             setStatusFilter(e.target.value);
             setOffset(0);
           }}
-          className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+          className="px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
         >
           <option value="">All Statuses</option>
           <option value="completed">Completed</option>
@@ -155,38 +155,38 @@ export default function SalesPage() {
       )}
 
       {/* Sales Table */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-12">
             <div className="animate-spin h-8 w-8 border-4 border-pink-500 border-t-transparent rounded-full" />
           </div>
         ) : sales.length === 0 ? (
-          <div className="py-12 text-center text-gray-500">
+          <div className="py-12 text-center text-black">
             No sales found
           </div>
         ) : (
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-100">
+            <thead className="bg-white border-b border-black">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-semibold text-black uppercase tracking-wider">
                   Sale #
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-semibold text-black uppercase tracking-wider">
                   Date
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-semibold text-black uppercase tracking-wider">
                   Items
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-semibold text-black uppercase tracking-wider">
                   Payment
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-semibold text-black uppercase tracking-wider">
                   Status
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                <th className="px-6 py-3 text-right text-xs font-semibold text-black uppercase tracking-wider">
                   Total
                 </th>
-                <th className="px-6 py-3 text-right text-xs font-semibold text-gray-600 uppercase tracking-wider">
+                <th className="px-6 py-3 text-right text-xs font-semibold text-black uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
@@ -198,7 +198,7 @@ export default function SalesPage() {
                 const paymentMethod = sale.sale_payments?.[0]?.payment_method;
 
                 return (
-                  <tr key={sale.id} className="hover:bg-gray-50">
+                  <tr key={sale.id} className="hover:bg-white">
                     <td className="px-6 py-4 whitespace-nowrap">
                       <Link 
                         href={`/admin/sales/${sale.id}`}
@@ -207,18 +207,18 @@ export default function SalesPage() {
                         {sale.sale_number}
                       </Link>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-black">
                       {new Date(sale.created_at).toLocaleDateString()}
-                      <span className="block text-xs text-gray-400">
+                      <span className="block text-xs text-black">
                         {new Date(sale.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                       </span>
                     </td>
                     <td className="px-6 py-4">
-                      <div className="text-sm text-gray-900">
+                      <div className="text-sm text-black">
                         {firstItem?.item_name || 'No items'}
                       </div>
                       {itemCount > 1 && (
-                        <span className="text-xs text-gray-400">
+                        <span className="text-xs text-black">
                           +{itemCount - 1} more
                         </span>
                       )}
@@ -229,7 +229,7 @@ export default function SalesPage() {
                           {getPaymentIcon(paymentMethod)}
                         </span>
                       ) : (
-                        <span className="text-gray-400">-</span>
+                        <span className="text-black">-</span>
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -238,7 +238,7 @@ export default function SalesPage() {
                       </span>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-right">
-                      <span className="font-semibold text-gray-900">
+                      <span className="font-semibold text-black">
                         ${(sale.gross_total / 100).toFixed(2)}
                       </span>
                       {sale.balance_due > 0 && (
@@ -266,21 +266,21 @@ export default function SalesPage() {
       {/* Pagination */}
       {total > limit && (
         <div className="flex items-center justify-between">
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-black">
             Showing {offset + 1} - {Math.min(offset + limit, total)} of {total}
           </p>
           <div className="flex gap-2">
             <button
               onClick={() => setOffset(Math.max(0, offset - limit))}
               disabled={offset === 0}
-              className="px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 border border-black rounded-lg hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Previous
             </button>
             <button
               onClick={() => setOffset(offset + limit)}
               disabled={offset + limit >= total}
-              className="px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 border border-black rounded-lg hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Next
             </button>

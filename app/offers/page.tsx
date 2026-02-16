@@ -26,7 +26,7 @@ interface Offer {
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-white rounded ${className}`} />;
 }
 
 // Countdown timer component
@@ -61,20 +61,20 @@ function CountdownTimer({ endsAt }: { endsAt: Date }) {
   return (
     <div className="flex gap-2 text-center">
       {timeLeft.days > 0 && (
-        <div className="bg-gray-900 text-white px-2 py-1 rounded">
+        <div className="bg-black text-white px-2 py-1 rounded">
           <span className="text-xl font-bold">{timeLeft.days}</span>
           <span className="text-xs block">days</span>
         </div>
       )}
-      <div className="bg-gray-900 text-white px-2 py-1 rounded">
+      <div className="bg-black text-white px-2 py-1 rounded">
         <span className="text-xl font-bold">{timeLeft.hours.toString().padStart(2, '0')}</span>
         <span className="text-xs block">hrs</span>
       </div>
-      <div className="bg-gray-900 text-white px-2 py-1 rounded">
+      <div className="bg-black text-white px-2 py-1 rounded">
         <span className="text-xl font-bold">{timeLeft.mins.toString().padStart(2, '0')}</span>
         <span className="text-xs block">min</span>
       </div>
-      <div className="bg-gray-900 text-white px-2 py-1 rounded">
+      <div className="bg-black text-white px-2 py-1 rounded">
         <span className="text-xl font-bold">{timeLeft.secs.toString().padStart(2, '0')}</span>
         <span className="text-xs block">sec</span>
       </div>
@@ -121,10 +121,10 @@ export default function OffersPage() {
       <main className="max-w-7xl mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
             Special Offers
           </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+          <p className="text-xl text-black max-w-2xl mx-auto">
             Limited-time deals on our most popular treatments. Don't miss out!
           </p>
         </div>
@@ -182,7 +182,7 @@ export default function OffersPage() {
                 className={`px-4 py-2 rounded-full font-medium transition-colors capitalize ${
                   selectedCategory === cat
                     ? 'bg-pink-500 text-white'
-                    : 'bg-white text-gray-600 hover:bg-gray-100'
+                    : 'bg-white text-black hover:bg-white'
                 }`}
               >
                 {cat}
@@ -201,8 +201,8 @@ export default function OffersPage() {
         ) : filteredOffers.length === 0 ? (
           <div className="text-center py-16">
             <span className="text-6xl block mb-4">🎁</span>
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">No Current Offers</h2>
-            <p className="text-gray-600 mb-6">
+            <h2 className="text-2xl font-bold text-black mb-2">No Current Offers</h2>
+            <p className="text-black mb-6">
               Check back soon for special deals and promotions!
             </p>
             <Link
@@ -215,7 +215,7 @@ export default function OffersPage() {
         ) : (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredOffers.filter(o => !o.featured).map(offer => (
-              <div key={offer.id} className="bg-white rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg transition-shadow">
+              <div key={offer.id} className="bg-white rounded-2xl border border-black overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-4xl">{offer.image || '✨'}</span>
@@ -223,11 +223,11 @@ export default function OffersPage() {
                       Save {offer.savings_percent}%
                     </span>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">{offer.title}</h3>
-                  <p className="text-gray-600 text-sm mb-4">{offer.description}</p>
+                  <h3 className="text-xl font-bold text-black mb-2">{offer.title}</h3>
+                  <p className="text-black text-sm mb-4">{offer.description}</p>
                   <div className="flex items-baseline gap-2 mb-4">
-                    <span className="text-2xl font-bold text-gray-900">${offer.sale_price}</span>
-                    <span className="text-gray-400 line-through">${offer.original_price}</span>
+                    <span className="text-2xl font-bold text-black">${offer.sale_price}</span>
+                    <span className="text-black line-through">${offer.original_price}</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <CountdownTimer endsAt={new Date(offer.ends_at)} />
@@ -245,9 +245,9 @@ export default function OffersPage() {
         )}
 
         {/* CTA Section */}
-        <div className="mt-16 text-center bg-gray-900 rounded-3xl p-12 text-white">
+        <div className="mt-16 text-center bg-black rounded-3xl p-12 text-white">
           <h2 className="text-3xl font-bold mb-4">Ready to Get Gorgeous?</h2>
-          <p className="text-gray-300 mb-6">
+          <p className="text-black mb-6">
             Don't miss these amazing deals. Book your appointment today!
           </p>
           <Link

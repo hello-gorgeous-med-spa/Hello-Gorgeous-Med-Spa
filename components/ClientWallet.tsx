@@ -111,9 +111,9 @@ export default function ClientWallet({
   if (isLoading) {
     return (
       <div className="animate-pulse p-4">
-        <div className="h-6 bg-gray-200 rounded w-32 mb-4"></div>
-        <div className="h-20 bg-gray-200 rounded mb-2"></div>
-        <div className="h-20 bg-gray-200 rounded"></div>
+        <div className="h-6 bg-white rounded w-32 mb-4"></div>
+        <div className="h-20 bg-white rounded mb-2"></div>
+        <div className="h-20 bg-white rounded"></div>
       </div>
     );
   }
@@ -133,7 +133,7 @@ export default function ClientWallet({
     return (
       <div className="p-6 text-center border border-dashed rounded-xl">
         <span className="text-3xl mb-2 block">🎁</span>
-        <p className="text-gray-500 text-sm">No gift cards available</p>
+        <p className="text-black text-sm">No gift cards available</p>
       </div>
     );
   }
@@ -149,7 +149,7 @@ export default function ClientWallet({
 
       {/* Gift Cards List */}
       <div className="space-y-3">
-        <h3 className="font-medium text-gray-700">Your Gift Cards</h3>
+        <h3 className="font-medium text-black">Your Gift Cards</h3>
         
         {wallet.giftCards.map(card => (
           <div
@@ -157,7 +157,7 @@ export default function ClientWallet({
             className={`p-4 border rounded-xl transition-all ${
               selectedCard === card.id 
                 ? 'border-purple-500 bg-purple-50' 
-                : 'border-gray-200 hover:border-gray-300'
+                : 'border-black hover:border-black'
             } ${checkoutMode ? 'cursor-pointer' : ''}`}
             onClick={() => checkoutMode && handleSelectCard(card)}
           >
@@ -169,27 +169,27 @@ export default function ClientWallet({
                     <span className="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded">Expired</span>
                   )}
                 </div>
-                <p className="text-xs text-gray-500 mt-1">•••• {card.last4}</p>
+                <p className="text-xs text-black mt-1">•••• {card.last4}</p>
                 {card.message && (
-                  <p className="text-xs text-gray-400 mt-2 italic">"{card.message}"</p>
+                  <p className="text-xs text-black mt-2 italic">"{card.message}"</p>
                 )}
                 {card.purchaserName && !card.isOwned && (
-                  <p className="text-xs text-gray-400 mt-1">From: {card.purchaserName}</p>
+                  <p className="text-xs text-black mt-1">From: {card.purchaserName}</p>
                 )}
               </div>
               
               <div className="text-right">
-                <p className={`text-xl font-bold ${card.currentBalance > 0 ? 'text-green-600' : 'text-gray-400'}`}>
+                <p className={`text-xl font-bold ${card.currentBalance > 0 ? 'text-green-600' : 'text-black'}`}>
                   {formatCurrency(card.currentBalance)}
                 </p>
-                <p className="text-xs text-gray-400">of {formatCurrency(card.initialValue)}</p>
+                <p className="text-xs text-black">of {formatCurrency(card.initialValue)}</p>
               </div>
             </div>
 
             {/* Amount selector when selected in checkout mode */}
             {checkoutMode && selectedCard === card.id && (
               <div className="mt-4 pt-4 border-t">
-                <label className="block text-sm text-gray-600 mb-2">Amount to apply:</label>
+                <label className="block text-sm text-black mb-2">Amount to apply:</label>
                 <div className="flex gap-2">
                   <input
                     type="number"
@@ -241,13 +241,13 @@ export default function ClientWallet({
       {/* Recent Activity (non-checkout mode) */}
       {!checkoutMode && transactions.length > 0 && (
         <div className="mt-6">
-          <h3 className="font-medium text-gray-700 mb-3">Recent Activity</h3>
+          <h3 className="font-medium text-black mb-3">Recent Activity</h3>
           <div className="space-y-2">
             {transactions.slice(0, 5).map(txn => (
               <div key={txn.id} className="flex items-center justify-between text-sm py-2 border-b">
                 <div>
-                  <p className="text-gray-700 capitalize">{txn.type.replace('_', ' ')}</p>
-                  <p className="text-xs text-gray-400">{formatDate(txn.createdAt)}</p>
+                  <p className="text-black capitalize">{txn.type.replace('_', ' ')}</p>
+                  <p className="text-xs text-black">{formatDate(txn.createdAt)}</p>
                 </div>
                 <p className={`font-medium ${txn.amount > 0 ? 'text-green-600' : 'text-red-600'}`}>
                   {txn.amount > 0 ? '+' : ''}{formatCurrency(txn.amount)}

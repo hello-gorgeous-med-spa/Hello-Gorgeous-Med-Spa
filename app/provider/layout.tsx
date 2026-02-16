@@ -145,7 +145,7 @@ export default function ProviderLayout({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 flex">
+    <div className="min-h-screen bg-white flex">
       {/* Sidebar - Jet Black */}
       <aside className={`
         ${sidebarCollapsed ? 'w-20' : 'w-64'} 
@@ -153,7 +153,7 @@ export default function ProviderLayout({
         fixed top-0 left-0 h-screen z-40
       `}>
         {/* Logo & Brand */}
-        <div className="p-4 border-b border-gray-800">
+        <div className="p-4 border-b border-black">
           <Link href="/provider" className="flex items-center gap-3">
             <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-pink-600 rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg shadow-pink-500/20">
               <span className="text-white font-bold text-sm">HG</span>
@@ -169,7 +169,7 @@ export default function ProviderLayout({
 
         {/* Live Clock */}
         {!sidebarCollapsed && (
-          <div className="px-4 py-3 border-b border-gray-800 bg-gray-900/50">
+          <div className="px-4 py-3 border-b border-black bg-black/50">
             <p className="text-2xl font-bold text-pink-400 tracking-tight">
               {formatTime(currentTime)}
             </p>
@@ -191,7 +191,7 @@ export default function ProviderLayout({
                       flex items-center gap-3 px-3 py-3 rounded-xl transition-all duration-200
                       ${active 
                         ? 'bg-pink-500 text-white shadow-lg shadow-pink-500/20' 
-                        : 'text-gray-400 hover:text-pink-400 hover:bg-pink-500/10'
+                        : 'text-black hover:text-pink-400 hover:bg-pink-500/10'
                       }
                     `}
                     title={sidebarCollapsed ? item.name : undefined}
@@ -207,7 +207,7 @@ export default function ProviderLayout({
                           </span>
                         )}
                         {item.shortcut && (
-                          <kbd className="hidden lg:inline-block px-1.5 py-0.5 text-[10px] text-gray-500 bg-gray-800 rounded">
+                          <kbd className="hidden lg:inline-block px-1.5 py-0.5 text-[10px] text-black bg-black rounded">
                             {item.shortcut}
                           </kbd>
                         )}
@@ -231,10 +231,10 @@ export default function ProviderLayout({
             <div className="grid grid-cols-3 gap-2">
               <Link
                 href="/charting"
-                className="flex flex-col items-center gap-1 p-2 bg-gray-800/50 hover:bg-gray-800 rounded-xl transition-colors"
+                className="flex flex-col items-center gap-1 p-2 bg-black/50 hover:bg-black rounded-xl transition-colors"
               >
                 <span className="text-lg">📝</span>
-                <span className="text-[10px] text-gray-400">Chart</span>
+                <span className="text-[10px] text-black">Chart</span>
               </Link>
               <Link
                 href="/pos/quick-sale"
@@ -245,20 +245,20 @@ export default function ProviderLayout({
               </Link>
               <Link
                 href="/provider/photos"
-                className="flex flex-col items-center gap-1 p-2 bg-gray-800/50 hover:bg-gray-800 rounded-xl transition-colors"
+                className="flex flex-col items-center gap-1 p-2 bg-black/50 hover:bg-black rounded-xl transition-colors"
               >
                 <span className="text-lg">📷</span>
-                <span className="text-[10px] text-gray-400">Photo</span>
+                <span className="text-[10px] text-black">Photo</span>
               </Link>
             </div>
           </div>
         )}
 
         {/* Footer */}
-        <div className="p-3 border-t border-gray-800">
+        <div className="p-3 border-t border-black">
           <button
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 text-gray-500 hover:text-pink-400 hover:bg-pink-500/10 rounded-xl transition-colors"
+            className="w-full flex items-center justify-center gap-2 px-3 py-2 text-black hover:text-pink-400 hover:bg-pink-500/10 rounded-xl transition-colors"
           >
             <span className="text-lg">{sidebarCollapsed ? '→' : '←'}</span>
             {!sidebarCollapsed && <span className="text-sm">Collapse</span>}
@@ -269,12 +269,12 @@ export default function ProviderLayout({
       {/* Main Content Area */}
       <div className={`flex-1 ${sidebarCollapsed ? 'ml-20' : 'ml-64'} transition-all duration-300`}>
         {/* Top Header Bar */}
-        <header className="bg-white border-b border-gray-200 sticky top-0 z-30 shadow-sm">
+        <header className="bg-white border-b border-black sticky top-0 z-30 shadow-sm">
           {/* Mode Tabs Row */}
-          <div className="h-12 px-6 flex items-center justify-between border-b border-gray-100 bg-gray-50">
+          <div className="h-12 px-6 flex items-center justify-between border-b border-black bg-white">
             <ModeSwitcher variant="minimal" />
             
-            <div className="flex items-center gap-2 text-sm text-gray-500">
+            <div className="flex items-center gap-2 text-sm text-black">
               <span className="w-2 h-2 bg-emerald-500 rounded-full" />
               <span>Provider Mode</span>
             </div>
@@ -316,9 +316,9 @@ export default function ProviderLayout({
               </Link>
 
               {/* User Avatar */}
-              <div className="flex items-center gap-3 pl-4 ml-2 border-l border-gray-200">
+              <div className="flex items-center gap-3 pl-4 ml-2 border-l border-black">
                 <div className="text-right hidden sm:block">
-                  <p className="text-sm font-semibold text-gray-900">
+                  <p className="text-sm font-semibold text-black">
                     {user ? `${user.firstName} ${user.lastName}`.trim() || 'Provider' : 'Provider'}
                   </p>
                   <p className="text-xs text-emerald-600 font-medium">On Duty</p>
@@ -338,7 +338,7 @@ export default function ProviderLayout({
       </div>
 
       {/* Mobile Bottom Nav */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#0a0a0a] border-t border-gray-800 z-50 safe-area-pb">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#0a0a0a] border-t border-black z-50 safe-area-pb">
         <div className="flex justify-around items-center h-16 px-2">
           {[
             { href: '/provider', icon: '🏠', label: 'Home' },
@@ -356,7 +356,7 @@ export default function ProviderLayout({
                   ? 'bg-pink-500 text-white -mt-4 shadow-lg shadow-pink-500/30' 
                   : isActive(item.href) 
                     ? 'text-pink-400' 
-                    : 'text-gray-500'
+                    : 'text-black'
                 }
               `}
             >

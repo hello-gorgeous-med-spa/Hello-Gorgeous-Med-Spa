@@ -79,7 +79,7 @@ export function ImmediateCareBanner() {
 
         <FadeUp delayMs={300}>
           <div className="mt-8 text-center">
-            <div className="inline-flex flex-wrap justify-center gap-4 text-sm text-gray-400">
+            <div className="inline-flex flex-wrap justify-center gap-4 text-sm text-black">
               <span className="flex items-center gap-1">
                 <span className="text-pink-400">✓</span> No referral needed
               </span>

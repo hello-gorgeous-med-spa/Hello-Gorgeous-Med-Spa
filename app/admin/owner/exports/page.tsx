@@ -88,8 +88,8 @@ export default function DataExportsPage() {
               <h2 className="font-semibold">Export Options</h2>
               <div className="flex gap-2">
                 <button onClick={selectAll} className="text-sm text-pink-600 hover:text-pink-700">Select All</button>
-                <span className="text-gray-300">|</span>
-                <button onClick={clearAll} className="text-sm text-gray-500 hover:text-gray-700">Clear All</button>
+                <span className="text-black">|</span>
+                <button onClick={clearAll} className="text-sm text-black hover:text-black">Clear All</button>
               </div>
             </div>
             <div className="grid grid-cols-2 gap-3 p-4">
@@ -97,7 +97,7 @@ export default function DataExportsPage() {
                 <label
                   key={exp.id}
                   className={`flex items-start gap-3 p-4 border rounded-lg cursor-pointer transition-colors ${
-                    selectedExports.includes(exp.id) ? 'border-purple-500 bg-purple-50' : 'hover:bg-gray-50'
+                    selectedExports.includes(exp.id) ? 'border-purple-500 bg-purple-50' : 'hover:bg-white'
                   }`}
                 >
                   <input
@@ -111,11 +111,11 @@ export default function DataExportsPage() {
                       <span>{exp.icon}</span>
                       <span className="font-medium">{exp.name}</span>
                     </div>
-                    <p className="text-xs text-gray-500 mt-1">{exp.description}</p>
+                    <p className="text-xs text-black mt-1">{exp.description}</p>
                     <div className="flex justify-between mt-2">
-                      <span className="text-xs text-gray-400">{exp.recordCount.toLocaleString()} records</span>
+                      <span className="text-xs text-black">{exp.recordCount.toLocaleString()} records</span>
                       {exp.lastExport && (
-                        <span className="text-xs text-gray-400">Last: {exp.lastExport}</span>
+                        <span className="text-xs text-black">Last: {exp.lastExport}</span>
                       )}
                     </div>
                   </div>
@@ -139,7 +139,7 @@ export default function DataExportsPage() {
                 <label
                   key={fmt.value}
                   className={`flex items-center gap-3 p-3 border rounded-lg cursor-pointer ${
-                    selectedFormat === fmt.value ? 'border-purple-500 bg-purple-50' : 'hover:bg-gray-50'
+                    selectedFormat === fmt.value ? 'border-purple-500 bg-purple-50' : 'hover:bg-white'
                   }`}
                 >
                   <input
@@ -152,7 +152,7 @@ export default function DataExportsPage() {
                   />
                   <div>
                     <span className="font-medium">{fmt.label}</span>
-                    <p className="text-xs text-gray-500">{fmt.desc}</p>
+                    <p className="text-xs text-black">{fmt.desc}</p>
                   </div>
                 </label>
               ))}
@@ -164,11 +164,11 @@ export default function DataExportsPage() {
             <h3 className="font-semibold mb-3">Export Summary</h3>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-500">Selected Types</span>
+                <span className="text-black">Selected Types</span>
                 <span className="font-medium">{selectedExports.length}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">Total Records</span>
+                <span className="text-black">Total Records</span>
                 <span className="font-medium">
                   {exports
                     .filter(e => selectedExports.includes(e.id))
@@ -177,7 +177,7 @@ export default function DataExportsPage() {
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-500">Format</span>
+                <span className="text-black">Format</span>
                 <span className="font-medium">{selectedFormat.toUpperCase()}</span>
               </div>
             </div>
@@ -189,7 +189,7 @@ export default function DataExportsPage() {
             disabled={exporting || selectedExports.length === 0}
             className={`w-full px-6 py-4 rounded-xl font-medium text-white ${
               exporting || selectedExports.length === 0
-                ? 'bg-gray-300 cursor-not-allowed'
+                ? 'bg-white cursor-not-allowed'
                 : 'bg-pink-500 hover:bg-pink-600'
             }`}
           >
@@ -214,9 +214,9 @@ export default function DataExportsPage() {
       </div>
 
       {/* Compliance Note */}
-      <div className="mt-6 bg-gray-50 border border-gray-200 rounded-lg p-4">
-        <h3 className="font-medium text-gray-700 mb-1">📋 Compliance Notes</h3>
-        <ul className="text-sm text-gray-600 space-y-1">
+      <div className="mt-6 bg-white border border-black rounded-lg p-4">
+        <h3 className="font-medium text-black mb-1">📋 Compliance Notes</h3>
+        <ul className="text-sm text-black space-y-1">
           <li>• All exports are logged in the audit trail</li>
           <li>• PHI exports require Owner-level access</li>
           <li>• Data retention complies with HIPAA guidelines (7 years)</li>

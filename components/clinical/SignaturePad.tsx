@@ -144,7 +144,7 @@ export default function SignaturePad({
           ref={canvasRef}
           width={width}
           height={height}
-          className="border border-gray-200 rounded-xl cursor-crosshair touch-none w-full"
+          className="border border-black rounded-xl cursor-crosshair touch-none w-full"
           style={{ maxWidth: width }}
           onMouseDown={startDrawing}
           onMouseMove={draw}
@@ -156,7 +156,7 @@ export default function SignaturePad({
         />
         {!hasSignature && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <p className="text-gray-400 text-lg">Sign here</p>
+            <p className="text-black text-lg">Sign here</p>
           </div>
         )}
       </div>
@@ -165,7 +165,7 @@ export default function SignaturePad({
         <button
           type="button"
           onClick={clearSignature}
-          className="px-4 py-2 text-sm text-gray-600 hover:text-gray-800 hover:bg-gray-100 rounded-lg transition-colors"
+          className="px-4 py-2 text-sm text-black hover:text-black hover:bg-white rounded-lg transition-colors"
         >
           Clear Signature
         </button>
@@ -179,7 +179,7 @@ export default function SignaturePad({
         </button>
       </div>
 
-      <p className="text-xs text-gray-500 text-center">
+      <p className="text-xs text-black text-center">
         By signing above, you acknowledge that this electronic signature is legally binding.
       </p>
     </div>

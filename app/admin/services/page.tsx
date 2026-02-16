@@ -278,23 +278,23 @@ export default function AdminServicesPage() {
     return (
       <div
         key={service.id}
-        className={`flex items-center justify-between px-4 py-3 border-l-4 hover:bg-gray-50 transition-colors ${
-          service.is_active ? 'border-pink-400' : 'border-gray-300 bg-gray-50'
+        className={`flex items-center justify-between px-4 py-3 border-l-4 hover:bg-white transition-colors ${
+          service.is_active ? 'border-pink-400' : 'border-black bg-white'
         }`}
       >
         <div className="flex-1 min-w-0 pl-4">
           <div className="flex items-center gap-2">
-            <p className={`font-medium ${service.is_active ? 'text-gray-900' : 'text-gray-500'}`}>
+            <p className={`font-medium ${service.is_active ? 'text-black' : 'text-black'}`}>
               {service.name}
             </p>
             {!service.is_active && (
-              <span className="text-xs bg-gray-200 text-gray-600 px-2 py-0.5 rounded">Inactive</span>
+              <span className="text-xs bg-white text-black px-2 py-0.5 rounded">Inactive</span>
             )}
             {service.requires_consult && (
               <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded">Consult</span>
             )}
           </div>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-black">
             {service.duration_minutes}min
             {service.short_description && ` • ${service.short_description}`}
           </p>
@@ -314,28 +314,28 @@ export default function AdminServicesPage() {
         </div>
         
         <div className="flex items-center gap-3">
-          <span className="font-semibold text-gray-900 min-w-[80px] text-right">
+          <span className="font-semibold text-black min-w-[80px] text-right">
             {formatPrice(service)}
           </span>
           
           {/* Actions dropdown */}
           <div className="relative group">
-            <button className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded-lg flex items-center gap-1">
+            <button className="px-3 py-1.5 text-sm text-black hover:bg-white rounded-lg flex items-center gap-1">
               Actions
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>
             </button>
-            <div className="absolute right-0 top-full mt-1 w-40 bg-white rounded-lg shadow-lg border border-gray-200 py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
+            <div className="absolute right-0 top-full mt-1 w-40 bg-white rounded-lg shadow-lg border border-black py-1 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-10">
               <button
                 onClick={() => openEdit(service)}
-                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                className="w-full text-left px-4 py-2 text-sm text-black hover:bg-white"
               >
                 Edit details
               </button>
               <button
                 onClick={() => toggleActive(service)}
-                className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+                className="w-full text-left px-4 py-2 text-sm text-black hover:bg-white"
               >
                 {service.is_active ? 'Deactivate' : 'Activate'}
               </button>
@@ -357,13 +357,13 @@ export default function AdminServicesPage() {
       <div className="space-y-6">
         <Breadcrumb />
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Services</h1>
-          <p className="text-gray-500">Loading your service menu...</p>
+          <h1 className="text-2xl font-bold text-black">Services</h1>
+          <p className="text-black">Loading your service menu...</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-8">
+        <div className="bg-white rounded-xl border border-black p-8">
           <div className="animate-pulse space-y-4">
             {[1, 2, 3, 4, 5].map(i => (
-              <div key={i} className="h-16 bg-gray-100 rounded" />
+              <div key={i} className="h-16 bg-white rounded" />
             ))}
           </div>
         </div>
@@ -379,8 +379,8 @@ export default function AdminServicesPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Services</h1>
-          <p className="text-gray-500">
+          <h1 className="text-2xl font-bold text-black">Services</h1>
+          <p className="text-black">
             {services.length} services in {categories.length} categories
           </p>
         </div>
@@ -402,20 +402,20 @@ export default function AdminServicesPage() {
 
       {/* Search */}
       <div className="relative">
-        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+        <span className="absolute left-4 top-1/2 -translate-y-1/2 text-black">🔍</span>
         <input
           type="text"
           placeholder="Search services..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+          className="w-full pl-12 pr-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
         />
       </div>
 
       {/* Services by Category */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
         {groupedServices.length === 0 && uncategorizedServices.length === 0 ? (
-          <div className="p-12 text-center text-gray-500">
+          <div className="p-12 text-center text-black">
             <p className="text-lg mb-2">No services yet</p>
             <p className="text-sm">Add your first service to get started</p>
             <button
@@ -432,18 +432,18 @@ export default function AdminServicesPage() {
               if (filteredCatServices.length === 0 && searchQuery) return null;
               
               return (
-                <div key={category.id} className="border-b border-gray-100 last:border-0">
+                <div key={category.id} className="border-b border-black last:border-0">
                   {/* Category Header */}
                   <button
                     onClick={() => toggleCategory(category.id)}
-                    className="w-full flex items-center justify-between px-4 py-4 bg-gray-50 hover:bg-gray-100 transition-colors"
+                    className="w-full flex items-center justify-between px-4 py-4 bg-white hover:bg-white transition-colors"
                   >
                     <div className="flex items-center gap-3">
                       <span className={`transform transition-transform ${expandedCategories.has(category.id) ? 'rotate-90' : ''}`}>
                         ▶
                       </span>
-                      <span className="font-semibold text-gray-900">{category.name}</span>
-                      <span className="text-sm text-gray-500 bg-gray-200 px-2 py-0.5 rounded-full">
+                      <span className="font-semibold text-black">{category.name}</span>
+                      <span className="text-sm text-black bg-white px-2 py-0.5 rounded-full">
                         {category.services.length}
                       </span>
                     </div>
@@ -470,10 +470,10 @@ export default function AdminServicesPage() {
 
             {/* Uncategorized */}
             {filterServices(uncategorizedServices).length > 0 && (
-              <div className="border-b border-gray-100 last:border-0">
-                <div className="px-4 py-4 bg-gray-50">
-                  <span className="font-semibold text-gray-700">Uncategorized</span>
-                  <span className="ml-2 text-sm text-gray-500 bg-gray-200 px-2 py-0.5 rounded-full">
+              <div className="border-b border-black last:border-0">
+                <div className="px-4 py-4 bg-white">
+                  <span className="font-semibold text-black">Uncategorized</span>
+                  <span className="ml-2 text-sm text-black bg-white px-2 py-0.5 rounded-full">
                     {uncategorizedServices.length}
                   </span>
                 </div>
@@ -491,13 +491,13 @@ export default function AdminServicesPage() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-xl w-full max-h-[90vh] overflow-hidden flex flex-col">
             {/* Modal Header */}
-            <div className="p-6 border-b border-gray-100 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-gray-900">
+            <div className="p-6 border-b border-black flex items-center justify-between">
+              <h2 className="text-xl font-bold text-black">
                 {editingService ? 'Edit service' : 'Add service'}
               </h2>
               <button
                 onClick={() => { setEditingService(null); setShowAddModal(false); }}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-black hover:text-black"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -518,23 +518,23 @@ export default function AdminServicesPage() {
             <div className="p-6 overflow-y-auto flex-1 space-y-5">
               {/* Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Service name *</label>
+                <label className="block text-sm font-medium text-black mb-1">Service name *</label>
                 <input
                   type="text"
                   value={editForm.name}
                   onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                   placeholder="e.g., Botox Treatment"
                 />
               </div>
 
               {/* Category */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                <label className="block text-sm font-medium text-black mb-1">Category</label>
                 <select
                   value={editForm.category_id}
                   onChange={(e) => setEditForm({ ...editForm, category_id: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                 >
                   <option value="">No category</option>
                   {categories.map(cat => (
@@ -545,26 +545,26 @@ export default function AdminServicesPage() {
 
               {/* Pricing and Duration */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Pricing and duration</label>
-                <div className="bg-gray-50 rounded-lg p-4 space-y-3">
+                <label className="block text-sm font-medium text-black mb-2">Pricing and duration</label>
+                <div className="bg-white rounded-lg p-4 space-y-3">
                   <div className="flex gap-4">
                     <div className="flex-1">
-                      <label className="block text-xs text-gray-500 mb-1">Price ($)</label>
+                      <label className="block text-xs text-black mb-1">Price ($)</label>
                       <input
                         type="number"
                         value={editForm.price}
                         onChange={(e) => setEditForm({ ...editForm, price: parseFloat(e.target.value) || 0 })}
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                        className="w-full px-3 py-2 border border-black rounded-lg"
                         min="0"
                         step="1"
                       />
                     </div>
                     <div className="flex-1">
-                      <label className="block text-xs text-gray-500 mb-1">Duration</label>
+                      <label className="block text-xs text-black mb-1">Duration</label>
                       <select
                         value={editForm.duration_minutes}
                         onChange={(e) => setEditForm({ ...editForm, duration_minutes: parseInt(e.target.value) })}
-                        className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                        className="w-full px-3 py-2 border border-black rounded-lg"
                       >
                         {DURATION_OPTIONS.map(d => (
                           <option key={d} value={d}>{d} min</option>
@@ -577,11 +577,11 @@ export default function AdminServicesPage() {
 
               {/* Description */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <label className="block text-sm font-medium text-black mb-1">Description</label>
                 <textarea
                   value={editForm.description}
                   onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   rows={3}
                   placeholder="Service details..."
                 />
@@ -589,9 +589,9 @@ export default function AdminServicesPage() {
 
               {/* Team Members */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-black mb-2">
                   Team members
-                  <span className="text-gray-400 font-normal ml-1">({editForm.provider_ids.length})</span>
+                  <span className="text-black font-normal ml-1">({editForm.provider_ids.length})</span>
                 </label>
                 <div className="flex flex-wrap gap-2">
                   {providers.map(provider => {
@@ -611,7 +611,7 @@ export default function AdminServicesPage() {
                         className={`flex items-center gap-2 px-3 py-2 rounded-lg border-2 transition-colors ${
                           isSelected
                             ? 'border-pink-500 bg-pink-50'
-                            : 'border-gray-200 hover:border-gray-300'
+                            : 'border-black hover:border-black'
                         }`}
                       >
                         <div
@@ -620,7 +620,7 @@ export default function AdminServicesPage() {
                         >
                           {provider.name.charAt(0)}
                         </div>
-                        <span className={isSelected ? 'text-pink-700 font-medium' : 'text-gray-700'}>
+                        <span className={isSelected ? 'text-pink-700 font-medium' : 'text-black'}>
                           {provider.name}
                         </span>
                         {isSelected && (
@@ -636,18 +636,18 @@ export default function AdminServicesPage() {
 
               {/* Settings Toggles */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Settings</label>
+                <label className="block text-sm font-medium text-black mb-2">Settings</label>
                 <div className="space-y-3">
-                  <label className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer">
+                  <label className="flex items-center justify-between p-3 bg-white rounded-lg cursor-pointer">
                     <div>
-                      <span className="font-medium text-gray-700">Online booking</span>
-                      <p className="text-xs text-gray-500">Allow clients to book this service online</p>
+                      <span className="font-medium text-black">Online booking</span>
+                      <p className="text-xs text-black">Allow clients to book this service online</p>
                     </div>
                     <button
                       type="button"
                       onClick={() => setEditForm(prev => ({ ...prev, allow_online_booking: !prev.allow_online_booking }))}
                       className={`w-12 h-6 rounded-full transition-colors relative ${
-                        editForm.allow_online_booking ? 'bg-green-500' : 'bg-gray-300'
+                        editForm.allow_online_booking ? 'bg-green-500' : 'bg-white'
                       }`}
                     >
                       <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${
@@ -656,16 +656,16 @@ export default function AdminServicesPage() {
                     </button>
                   </label>
 
-                  <label className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer">
+                  <label className="flex items-center justify-between p-3 bg-white rounded-lg cursor-pointer">
                     <div>
-                      <span className="font-medium text-gray-700">Requires consultation</span>
-                      <p className="text-xs text-gray-500">New clients need a consult first</p>
+                      <span className="font-medium text-black">Requires consultation</span>
+                      <p className="text-xs text-black">New clients need a consult first</p>
                     </div>
                     <button
                       type="button"
                       onClick={() => setEditForm(prev => ({ ...prev, requires_consult: !prev.requires_consult }))}
                       className={`w-12 h-6 rounded-full transition-colors relative ${
-                        editForm.requires_consult ? 'bg-amber-500' : 'bg-gray-300'
+                        editForm.requires_consult ? 'bg-amber-500' : 'bg-white'
                       }`}
                     >
                       <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${
@@ -674,16 +674,16 @@ export default function AdminServicesPage() {
                     </button>
                   </label>
 
-                  <label className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer">
+                  <label className="flex items-center justify-between p-3 bg-white rounded-lg cursor-pointer">
                     <div>
-                      <span className="font-medium text-gray-700">Consent form required</span>
-                      <p className="text-xs text-gray-500">Client must sign consent before service</p>
+                      <span className="font-medium text-black">Consent form required</span>
+                      <p className="text-xs text-black">Client must sign consent before service</p>
                     </div>
                     <button
                       type="button"
                       onClick={() => setEditForm(prev => ({ ...prev, requires_consent: !prev.requires_consent }))}
                       className={`w-12 h-6 rounded-full transition-colors relative ${
-                        editForm.requires_consent ? 'bg-blue-500' : 'bg-gray-300'
+                        editForm.requires_consent ? 'bg-blue-500' : 'bg-white'
                       }`}
                     >
                       <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${
@@ -692,16 +692,16 @@ export default function AdminServicesPage() {
                     </button>
                   </label>
 
-                  <label className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer">
+                  <label className="flex items-center justify-between p-3 bg-white rounded-lg cursor-pointer">
                     <div>
-                      <span className="font-medium text-gray-700">Active</span>
-                      <p className="text-xs text-gray-500">Show this service in booking</p>
+                      <span className="font-medium text-black">Active</span>
+                      <p className="text-xs text-black">Show this service in booking</p>
                     </div>
                     <button
                       type="button"
                       onClick={() => setEditForm(prev => ({ ...prev, is_active: !prev.is_active }))}
                       className={`w-12 h-6 rounded-full transition-colors relative ${
-                        editForm.is_active ? 'bg-green-500' : 'bg-gray-300'
+                        editForm.is_active ? 'bg-green-500' : 'bg-white'
                       }`}
                     >
                       <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${
@@ -714,10 +714,10 @@ export default function AdminServicesPage() {
             </div>
 
             {/* Modal Footer */}
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
+            <div className="p-6 border-t border-black flex justify-end gap-3">
               <button
                 onClick={() => { setEditingService(null); setShowAddModal(false); }}
-                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
               >
                 Close
               </button>

@@ -74,37 +74,37 @@
 }
 
 /* All gray text → black */
-[data-site="public"] .text-gray-100,
-[data-site="public"] .text-gray-200,
-[data-site="public"] .text-gray-300,
-[data-site="public"] .text-gray-400,
-[data-site="public"] .text-gray-500,
-[data-site="public"] .text-gray-600,
-[data-site="public"] .text-gray-700,
-[data-site="public"] .text-gray-800,
-[data-site="public"] .text-gray-900,
-[data-site="public"] .text-slate-400,
-[data-site="public"] .text-slate-500,
-[data-site="public"] .text-slate-600,
-[data-site="public"] .text-slate-700,
-[data-site="public"] .text-slate-800,
-[data-site="public"] .text-slate-900,
-[data-site="public"] .text-zinc-400,
-[data-site="public"] .text-zinc-500,
-[data-site="public"] .text-zinc-600,
-[data-site="public"] .text-zinc-700,
-[data-site="public"] .text-zinc-800,
-[data-site="public"] .text-zinc-900,
+[data-site="public"] .text-white,
+[data-site="public"] .text-white,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
 [data-site="public"] .text-stone-500,
 [data-site="public"] .text-stone-600,
 [data-site="public"] .text-stone-700,
 [data-site="public"] .text-stone-800,
 [data-site="public"] .text-stone-900,
-[data-site="public"] .text-neutral-500,
-[data-site="public"] .text-neutral-600,
-[data-site="public"] .text-neutral-700,
-[data-site="public"] .text-neutral-800,
-[data-site="public"] .text-neutral-900 {
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black,
+[data-site="public"] .text-black {
   color: #000000 !important;
 }
 
@@ -115,23 +115,23 @@
 }
 
 /* Gray backgrounds → white or light pink */
-[data-site="public"] [class*="bg-gray-50"],
-[data-site="public"] [class*="bg-gray-100"],
-[data-site="public"] [class*="bg-slate-50"],
-[data-site="public"] [class*="bg-slate-100"],
+[data-site="public"] [class*="bg-white"],
+[data-site="public"] [class*="bg-white"],
+[data-site="public"] [class*="bg-white"],
+[data-site="public"] [class*="bg-white"],
 [data-site="public"] [class*="bg-zinc-50"],
-[data-site="public"] [class*="bg-zinc-100"],
+[data-site="public"] [class*="bg-white"],
 [data-site="public"] [class*="bg-stone-50"],
 [data-site="public"] [class*="bg-stone-100"],
 [data-site="public"] [class*="bg-neutral-50"],
-[data-site="public"] [class*="bg-neutral-100"] {
+[data-site="public"] [class*="bg-white"] {
   background-color: #ffffff !important;
 }
-[data-site="public"] [class*="bg-gray-200"],
-[data-site="public"] [class*="bg-slate-200"],
-[data-site="public"] [class*="bg-zinc-200"],
+[data-site="public"] [class*="bg-white"],
+[data-site="public"] [class*="bg-white"],
+[data-site="public"] [class*="bg-white"],
 [data-site="public"] [class*="bg-stone-200"],
-[data-site="public"] [class*="bg-neutral-200"] {
+[data-site="public"] [class*="bg-white"] {
   background-color: rgba(230, 0, 126, 0.08) !important;
 }
 
@@ -152,18 +152,18 @@
 }
 
 /* Portal: no gray, use black/white/pink */
-[data-portal] .text-gray-400,
-[data-portal] .text-gray-500,
-[data-portal] .text-gray-600,
-[data-portal] .text-gray-700,
-[data-portal] .text-gray-900 {
+[data-portal] .text-black,
+[data-portal] .text-black,
+[data-portal] .text-black,
+[data-portal] .text-black,
+[data-portal] .text-black {
   color: #000000 !important;
 }
-[data-portal] [class*="bg-gray-50"],
-[data-portal] [class*="bg-gray-100"] {
+[data-portal] [class*="bg-white"],
+[data-portal] [class*="bg-white"] {
   background-color: #FDF7FA !important;
 }
-[data-portal] [class*="bg-gray-200"] {
+[data-portal] [class*="bg-white"] {
   background-color: rgba(230, 0, 126, 0.08) !important;
 }
 [data-portal] [class*="border-gray"] {
@@ -286,8 +286,8 @@ main,
 
 /* CRITICAL: Fix white text on white backgrounds in admin panel */
 .admin-panel .bg-white .text-white,
-.admin-panel .bg-gray-50 .text-white,
-.admin-panel .bg-gray-100 .text-white {
+.admin-panel .bg-white .text-white,
+.admin-panel .bg-white .text-white {
   color: #111827 !important; /* Force dark text on light backgrounds */
 }
 
@@ -332,8 +332,8 @@ main,
 }
 
 /* Fix light gray labels and descriptions in admin */
-[class*="text-gray-300"],
-[class*="text-gray-400"] {
+[class*="text-black"],
+[class*="text-black"] {
   --tw-text-opacity: 1;
 }
 
@@ -405,7 +405,7 @@ main,
     @apply bg-white rounded-xl p-8 shadow-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-xl;
   }
   .hg-card-dark {
-    @apply rounded-xl p-8 shadow-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-xl bg-black/40 border border-gray-800;
+    @apply rounded-xl p-8 shadow-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-xl bg-black/40 border border-black;
   }
 }
 

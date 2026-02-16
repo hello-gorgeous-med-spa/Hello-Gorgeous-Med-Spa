@@ -260,13 +260,13 @@ export default function ChartingHubPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
+      <div className="bg-white border-b border-black px-6 py-4">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">📋 Charting Hub</h1>
-            <p className="text-gray-500 text-sm">Clinical documentation • Appointment optional</p>
+            <h1 className="text-2xl font-bold text-black">📋 Charting Hub</h1>
+            <p className="text-black text-sm">Clinical documentation • Appointment optional</p>
           </div>
           <button
             onClick={() => setShowNewNote(true)}
@@ -279,7 +279,7 @@ export default function ChartingHubPage() {
 
       <div className="flex">
         {/* Left Sidebar - Filters */}
-        <div className="w-64 bg-white border-r border-gray-200 min-h-[calc(100vh-80px)] p-4">
+        <div className="w-64 bg-white border-r border-black min-h-[calc(100vh-80px)] p-4">
           {/* Search */}
           <div className="mb-6">
             <input
@@ -287,13 +287,13 @@ export default function ChartingHubPage() {
               placeholder="Search notes..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-black rounded-lg text-sm focus:ring-2 focus:ring-pink-500 focus:border-transparent"
             />
           </div>
 
           {/* Quick Filters */}
           <div className="space-y-1">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Filters</p>
+            <p className="text-xs font-semibold text-black uppercase tracking-wide mb-2">Filters</p>
             {[
               { key: 'all', label: 'All Notes', icon: '📄' },
               { key: 'drafts', label: 'Drafts', icon: '✏️' },
@@ -306,7 +306,7 @@ export default function ChartingHubPage() {
                 className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   filter === key
                     ? 'bg-pink-50 text-pink-700'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    : 'text-black hover:bg-white'
                 }`}
               >
                 {icon} {label}
@@ -315,21 +315,21 @@ export default function ChartingHubPage() {
           </div>
 
           {/* Stats */}
-          <div className="mt-8 p-4 bg-gray-50 rounded-lg">
-            <p className="text-xs font-semibold text-gray-500 uppercase mb-3">Summary</p>
+          <div className="mt-8 p-4 bg-white rounded-lg">
+            <p className="text-xs font-semibold text-black uppercase mb-3">Summary</p>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-gray-600">Total Notes</span>
+                <span className="text-black">Total Notes</span>
                 <span className="font-semibold">{notes.length}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Drafts</span>
+                <span className="text-black">Drafts</span>
                 <span className="font-semibold text-yellow-600">
                   {notes.filter(n => n.status === 'draft').length}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Finalized</span>
+                <span className="text-black">Finalized</span>
                 <span className="font-semibold text-green-600">
                   {notes.filter(n => n.status === 'final' || n.status === 'locked').length}
                 </span>
@@ -369,13 +369,13 @@ export default function ChartingHubPage() {
           {loading ? (
             <div className="text-center py-12">
               <div className="animate-spin w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full mx-auto mb-4" />
-              <p className="text-gray-500">Loading notes...</p>
+              <p className="text-black">Loading notes...</p>
             </div>
           ) : filteredNotes.length === 0 ? (
-            <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
+            <div className="text-center py-12 bg-white rounded-xl border border-black">
               <p className="text-4xl mb-4">📝</p>
-              <p className="text-gray-600 font-medium">No notes found</p>
-              <p className="text-gray-500 text-sm mt-1">
+              <p className="text-black font-medium">No notes found</p>
+              <p className="text-black text-sm mt-1">
                 {filter === 'drafts' ? 'No draft notes' : 'Create your first chart note'}
               </p>
               <button
@@ -391,7 +391,7 @@ export default function ChartingHubPage() {
                 <div
                   key={note.id}
                   onClick={() => setSelectedNote(note)}
-                  className="bg-white rounded-xl border border-gray-200 p-4 hover:border-pink-300 hover:shadow-sm cursor-pointer transition-all"
+                  className="bg-white rounded-xl border border-black p-4 hover:border-pink-300 hover:shadow-sm cursor-pointer transition-all"
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
@@ -399,26 +399,26 @@ export default function ChartingHubPage() {
                         <span className={`px-2 py-0.5 rounded text-xs font-medium ${STATUS_COLORS[note.status]}`}>
                           {note.status.toUpperCase()}
                         </span>
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-black">
                           {NOTE_TYPE_LABELS[note.note_type] || note.note_type}
                         </span>
                       </div>
-                      <h3 className="font-semibold text-gray-900">
+                      <h3 className="font-semibold text-black">
                         {note.client_name || 'No client assigned'}
                       </h3>
                       {note.title && (
-                        <p className="text-sm text-gray-600">{note.title}</p>
+                        <p className="text-sm text-black">{note.title}</p>
                       )}
                       {note.assessment && (
-                        <p className="text-sm text-gray-500 mt-1 line-clamp-2">
+                        <p className="text-sm text-black mt-1 line-clamp-2">
                           {note.assessment}
                         </p>
                       )}
                     </div>
                     <div className="text-right text-sm">
-                      <p className="text-gray-500">{formatDate(note.created_at)}</p>
+                      <p className="text-black">{formatDate(note.created_at)}</p>
                       {note.created_by_name && (
-                        <p className="text-gray-400 text-xs">{note.created_by_name}</p>
+                        <p className="text-black text-xs">{note.created_by_name}</p>
                       )}
                     </div>
                   </div>
@@ -434,22 +434,22 @@ export default function ChartingHubPage() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden flex flex-col">
             {/* Modal Header */}
-            <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-gray-900">New Chart Note</h2>
+            <div className="px-6 py-4 border-b border-black flex items-center justify-between">
+              <h2 className="text-xl font-bold text-black">New Chart Note</h2>
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setShowVoice(!showVoice)}
                   className={`px-3 py-1.5 rounded-lg font-medium text-sm flex items-center gap-2 ${
                     showVoice 
                       ? 'bg-pink-100 text-pink-700' 
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      : 'bg-white text-black hover:bg-white'
                   }`}
                 >
                   🎤 Voice
                 </button>
                 <button
                   onClick={() => setShowNewNote(false)}
-                  className="text-gray-400 hover:text-gray-600 text-xl"
+                  className="text-black hover:text-black text-xl"
                 >
                   ✕
                 </button>
@@ -463,18 +463,18 @@ export default function ChartingHubPage() {
                 <div className="space-y-4">
                   {/* Client Search */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
-                      Client <span className="text-gray-400">(optional for drafts)</span>
+                    <label className="block text-sm font-medium text-black mb-1">
+                      Client <span className="text-black">(optional for drafts)</span>
                     </label>
                     <input
                       type="text"
                       placeholder="Search by name, email, phone..."
                       value={clientSearch}
                       onChange={(e) => setClientSearch(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                     />
                     {clients.length > 0 && (
-                      <div className="mt-2 border border-gray-200 rounded-lg max-h-40 overflow-y-auto">
+                      <div className="mt-2 border border-black rounded-lg max-h-40 overflow-y-auto">
                         {clients.map((client) => (
                           <button
                             key={client.id}
@@ -483,10 +483,10 @@ export default function ChartingHubPage() {
                               setClientSearch(`${client.first_name} ${client.last_name}`);
                               setClients([]);
                             }}
-                            className="w-full text-left px-3 py-2 hover:bg-gray-50 text-sm"
+                            className="w-full text-left px-3 py-2 hover:bg-white text-sm"
                           >
                             <p className="font-medium">{client.first_name} {client.last_name}</p>
-                            <p className="text-xs text-gray-500">{client.email}</p>
+                            <p className="text-xs text-black">{client.email}</p>
                           </button>
                         ))}
                       </div>
@@ -498,13 +498,13 @@ export default function ChartingHubPage() {
 
                   {/* Note Type */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-black mb-1">
                       Note Type
                     </label>
                     <select
                       value={newNote.note_type}
                       onChange={(e) => setNewNote(prev => ({ ...prev, note_type: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                     >
                       {Object.entries(NOTE_TYPE_LABELS).map(([value, label]) => (
                         <option key={value} value={value}>{label}</option>
@@ -514,13 +514,13 @@ export default function ChartingHubPage() {
 
                   {/* Template */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-black mb-1">
                       Template
                     </label>
                     <select
                       value={newNote.template_id}
                       onChange={(e) => applyTemplate(e.target.value)}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                     >
                       <option value="">No template</option>
                       {templates.map((template) => (
@@ -533,7 +533,7 @@ export default function ChartingHubPage() {
 
                   {/* Title */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-black mb-1">
                       Title / Summary
                     </label>
                     <input
@@ -541,7 +541,7 @@ export default function ChartingHubPage() {
                       placeholder="e.g., Botox Treatment - Glabella"
                       value={newNote.title}
                       onChange={(e) => setNewNote(prev => ({ ...prev, title: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                      className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                     />
                   </div>
                 </div>
@@ -554,8 +554,8 @@ export default function ChartingHubPage() {
                       <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
                           <span className="text-lg">🎤</span>
-                          <span className="font-medium text-gray-900">Voice Dictation</span>
-                          <span className="text-sm text-gray-500">→ {activeField.charAt(0).toUpperCase() + activeField.slice(1)}</span>
+                          <span className="font-medium text-black">Voice Dictation</span>
+                          <span className="text-sm text-black">→ {activeField.charAt(0).toUpperCase() + activeField.slice(1)}</span>
                         </div>
                         <div className="flex gap-1">
                           {(['subjective', 'objective', 'assessment', 'plan'] as const).map((field) => (
@@ -589,9 +589,9 @@ export default function ChartingHubPage() {
                     onClick={() => setActiveField('subjective')}
                     className={`cursor-pointer transition-all ${activeField === 'subjective' && showVoice ? 'ring-2 ring-pink-300 rounded-lg' : ''}`}
                   >
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-black mb-1">
                       <span className="text-pink-600 font-bold">S</span>ubjective
-                      <span className="text-gray-400 font-normal ml-2">Patient's description</span>
+                      <span className="text-black font-normal ml-2">Patient's description</span>
                       {activeField === 'subjective' && showVoice && <span className="text-pink-500 ml-2">🎤</span>}
                     </label>
                     <textarea
@@ -600,7 +600,7 @@ export default function ChartingHubPage() {
                       onFocus={() => setActiveField('subjective')}
                       placeholder="Chief complaint, history, patient's perspective..."
                       rows={4}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none text-gray-900"
+                      className="w-full px-3 py-2 border border-black rounded-lg text-sm resize-none text-black"
                     />
                   </div>
 
@@ -609,9 +609,9 @@ export default function ChartingHubPage() {
                     onClick={() => setActiveField('objective')}
                     className={`cursor-pointer transition-all ${activeField === 'objective' && showVoice ? 'ring-2 ring-blue-300 rounded-lg' : ''}`}
                   >
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-black mb-1">
                       <span className="text-blue-600 font-bold">O</span>bjective
-                      <span className="text-gray-400 font-normal ml-2">Clinical observations</span>
+                      <span className="text-black font-normal ml-2">Clinical observations</span>
                       {activeField === 'objective' && showVoice && <span className="text-blue-500 ml-2">🎤</span>}
                     </label>
                     <textarea
@@ -620,7 +620,7 @@ export default function ChartingHubPage() {
                       onFocus={() => setActiveField('objective')}
                       placeholder="Physical exam findings, measurements, observations..."
                       rows={4}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none text-gray-900"
+                      className="w-full px-3 py-2 border border-black rounded-lg text-sm resize-none text-black"
                     />
                   </div>
 
@@ -629,9 +629,9 @@ export default function ChartingHubPage() {
                     onClick={() => setActiveField('assessment')}
                     className={`cursor-pointer transition-all ${activeField === 'assessment' && showVoice ? 'ring-2 ring-green-300 rounded-lg' : ''}`}
                   >
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-black mb-1">
                       <span className="text-green-600 font-bold">A</span>ssessment
-                      <span className="text-gray-400 font-normal ml-2">Clinical impression</span>
+                      <span className="text-black font-normal ml-2">Clinical impression</span>
                       {activeField === 'assessment' && showVoice && <span className="text-green-500 ml-2">🎤</span>}
                     </label>
                     <textarea
@@ -640,7 +640,7 @@ export default function ChartingHubPage() {
                       onFocus={() => setActiveField('assessment')}
                       placeholder="Diagnosis, clinical impression, treatment rationale..."
                       rows={3}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none text-gray-900"
+                      className="w-full px-3 py-2 border border-black rounded-lg text-sm resize-none text-black"
                     />
                   </div>
 
@@ -649,9 +649,9 @@ export default function ChartingHubPage() {
                     onClick={() => setActiveField('plan')}
                     className={`cursor-pointer transition-all ${activeField === 'plan' && showVoice ? 'ring-2 ring-purple-300 rounded-lg' : ''}`}
                   >
-                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                    <label className="block text-sm font-medium text-black mb-1">
                       <span className="text-purple-600 font-bold">P</span>lan
-                      <span className="text-gray-400 font-normal ml-2">Treatment plan</span>
+                      <span className="text-black font-normal ml-2">Treatment plan</span>
                       {activeField === 'plan' && showVoice && <span className="text-purple-500 ml-2">🎤</span>}
                     </label>
                     <textarea
@@ -660,7 +660,7 @@ export default function ChartingHubPage() {
                       onFocus={() => setActiveField('plan')}
                       placeholder="Treatment performed, follow-up plan, patient education..."
                       rows={4}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none text-gray-900"
+                      className="w-full px-3 py-2 border border-black rounded-lg text-sm resize-none text-black"
                     />
                   </div>
                 </div>
@@ -668,25 +668,25 @@ export default function ChartingHubPage() {
             </div>
 
             {/* Modal Footer */}
-            <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between bg-gray-50">
+            <div className="px-6 py-4 border-t border-black flex items-center justify-between bg-white">
               <div className="text-sm">
                 {newNote.client_id ? (
                   <span className="text-green-600">✅ Client selected - ready to finalize</span>
                 ) : (
-                  <span className="text-gray-500">💡 Select a client to finalize, or save as draft</span>
+                  <span className="text-black">💡 Select a client to finalize, or save as draft</span>
                 )}
               </div>
               <div className="flex gap-3">
                 <button
                   onClick={() => setShowNewNote(false)}
-                  className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                  className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
                 >
                   Cancel
                 </button>
                 <button
                   onClick={() => handleCreateNote(true)}
                   disabled={saving}
-                  className="px-4 py-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 disabled:opacity-50"
+                  className="px-4 py-2 bg-white text-black font-medium rounded-lg hover:bg-white disabled:opacity-50"
                 >
                   Save Draft
                 </button>
@@ -707,21 +707,21 @@ export default function ChartingHubPage() {
       {selectedNote && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col">
-            <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+            <div className="px-6 py-4 border-b border-black flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2">
-                  <h2 className="text-xl font-bold text-gray-900">
+                  <h2 className="text-xl font-bold text-black">
                     {selectedNote.client_name || 'Chart Note'}
                   </h2>
                   <span className={`px-2 py-0.5 rounded text-xs font-medium ${STATUS_COLORS[selectedNote.status]}`}>
                     {selectedNote.status.toUpperCase()}
                   </span>
                 </div>
-                <p className="text-sm text-gray-500">{formatDate(selectedNote.created_at)}</p>
+                <p className="text-sm text-black">{formatDate(selectedNote.created_at)}</p>
               </div>
               <button
                 onClick={() => setSelectedNote(null)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-black hover:text-black"
               >
                 ✕
               </button>
@@ -730,41 +730,41 @@ export default function ChartingHubPage() {
             <div className="flex-1 overflow-y-auto p-6 space-y-4">
               {selectedNote.title && (
                 <div>
-                  <p className="text-sm font-medium text-gray-500">Title</p>
-                  <p className="text-gray-900">{selectedNote.title}</p>
+                  <p className="text-sm font-medium text-black">Title</p>
+                  <p className="text-black">{selectedNote.title}</p>
                 </div>
               )}
 
               {selectedNote.subjective && (
                 <div className="p-4 bg-pink-50 rounded-lg">
                   <p className="text-sm font-medium text-pink-700 mb-1">Subjective</p>
-                  <p className="text-gray-800 whitespace-pre-wrap">{selectedNote.subjective}</p>
+                  <p className="text-black whitespace-pre-wrap">{selectedNote.subjective}</p>
                 </div>
               )}
 
               {selectedNote.objective && (
                 <div className="p-4 bg-blue-50 rounded-lg">
                   <p className="text-sm font-medium text-blue-700 mb-1">Objective</p>
-                  <p className="text-gray-800 whitespace-pre-wrap">{selectedNote.objective}</p>
+                  <p className="text-black whitespace-pre-wrap">{selectedNote.objective}</p>
                 </div>
               )}
 
               {selectedNote.assessment && (
                 <div className="p-4 bg-green-50 rounded-lg">
                   <p className="text-sm font-medium text-green-700 mb-1">Assessment</p>
-                  <p className="text-gray-800 whitespace-pre-wrap">{selectedNote.assessment}</p>
+                  <p className="text-black whitespace-pre-wrap">{selectedNote.assessment}</p>
                 </div>
               )}
 
               {selectedNote.plan && (
                 <div className="p-4 bg-purple-50 rounded-lg">
                   <p className="text-sm font-medium text-purple-700 mb-1">Plan</p>
-                  <p className="text-gray-800 whitespace-pre-wrap">{selectedNote.plan}</p>
+                  <p className="text-black whitespace-pre-wrap">{selectedNote.plan}</p>
                 </div>
               )}
             </div>
 
-            <div className="px-6 py-4 border-t border-gray-200 flex justify-between bg-gray-50">
+            <div className="px-6 py-4 border-t border-black flex justify-between bg-white">
               <div>
                 {selectedNote.status === 'draft' && (
                   <Link
@@ -777,7 +777,7 @@ export default function ChartingHubPage() {
               </div>
               <button
                 onClick={() => setSelectedNote(null)}
-                className="px-4 py-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300"
+                className="px-4 py-2 bg-white text-black font-medium rounded-lg hover:bg-white"
               >
                 Close
               </button>

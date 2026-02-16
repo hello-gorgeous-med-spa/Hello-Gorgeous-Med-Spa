@@ -80,14 +80,14 @@ export default async function ProvidersPage() {
               Hello Gorgeous
             </span>
           </h1>
-          <p className="mt-4 text-lg text-gray-300 max-w-2xl mx-auto">
+          <p className="mt-4 text-lg text-black max-w-2xl mx-auto">
             Licensed medical professionals. Real results. Personalized care.
           </p>
         </div>
       </section>
 
       {/* Provider Cards - Clean layout */}
-      <section className="py-12 md:py-16 px-4 md:px-6 bg-gray-50">
+      <section className="py-12 md:py-16 px-4 md:px-6 bg-white">
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {providers.map((provider) => {
@@ -97,7 +97,7 @@ export default async function ProvidersPage() {
               return (
                 <div
                   key={provider.id}
-                  className="bg-white rounded-2xl border border-gray-200 overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
+                  className="bg-white rounded-2xl border border-black overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
                 >
                   {/* Headshot - Smaller height */}
                   <div className="relative h-64 md:h-72 bg-gradient-to-br from-pink-100 to-rose-50">
@@ -125,22 +125,22 @@ export default async function ProvidersPage() {
 
                   {/* Info - Compact padding */}
                   <div className="p-5 md:p-6">
-                    <h2 className="text-xl font-bold text-gray-900">{name}</h2>
+                    <h2 className="text-xl font-bold text-black">{name}</h2>
                     {provider.credentials && (
                       <p className="text-[#FF2D8E] font-medium text-sm mt-0.5">{provider.credentials}</p>
                     )}
                     {provider.tagline && (
-                      <p className="text-gray-500 text-sm mt-1 italic">{provider.tagline}</p>
+                      <p className="text-black text-sm mt-1 italic">{provider.tagline}</p>
                     )}
                     {provider.short_bio && (
-                      <p className="text-gray-600 text-sm mt-3 line-clamp-2">{provider.short_bio}</p>
+                      <p className="text-black text-sm mt-3 line-clamp-2">{provider.short_bio}</p>
                     )}
 
                     {/* CTAs - Compact */}
                     <div className="mt-5 flex gap-3">
                       <Link
                         href={`/providers/${provider.slug}`}
-                        className="flex-1 px-4 py-2.5 bg-gray-100 text-gray-700 font-medium rounded-lg text-center text-sm hover:bg-gray-200 transition-colors"
+                        className="flex-1 px-4 py-2.5 bg-white text-black font-medium rounded-lg text-center text-sm hover:bg-white transition-colors"
                       >
                         View Results
                       </Link>
@@ -159,7 +159,7 @@ export default async function ProvidersPage() {
 
           {providers.length === 0 && (
             <div className="text-center py-16">
-              <p className="text-gray-500">Provider information coming soon</p>
+              <p className="text-black">Provider information coming soon</p>
             </div>
           )}
         </div>
@@ -172,20 +172,20 @@ export default async function ProvidersPage() {
             Why Trust Hello Gorgeous?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            <div className="bg-gray-900 rounded-xl p-5 border border-gray-800">
+            <div className="bg-black rounded-xl p-5 border border-black">
               <span className="text-3xl mb-3 block">🏆</span>
               <h3 className="text-base font-semibold text-white">Licensed & Certified</h3>
-              <p className="text-gray-400 text-sm mt-1">All treatments by licensed medical professionals</p>
+              <p className="text-black text-sm mt-1">All treatments by licensed medical professionals</p>
             </div>
-            <div className="bg-gray-900 rounded-xl p-5 border border-gray-800">
+            <div className="bg-black rounded-xl p-5 border border-black">
               <span className="text-3xl mb-3 block">⭐</span>
               <h3 className="text-base font-semibold text-white">5-Star Rated</h3>
-              <p className="text-gray-400 text-sm mt-1">Hundreds of verified reviews from real clients</p>
+              <p className="text-black text-sm mt-1">Hundreds of verified reviews from real clients</p>
             </div>
-            <div className="bg-gray-900 rounded-xl p-5 border border-gray-800">
+            <div className="bg-black rounded-xl p-5 border border-black">
               <span className="text-3xl mb-3 block">💝</span>
               <h3 className="text-base font-semibold text-white">Personalized Care</h3>
-              <p className="text-gray-400 text-sm mt-1">Customized plans for your unique goals</p>
+              <p className="text-black text-sm mt-1">Customized plans for your unique goals</p>
             </div>
           </div>
         </div>
@@ -200,7 +200,7 @@ export default async function ProvidersPage() {
           </p>
           <Link
             href="/book"
-            className="mt-6 inline-block px-8 py-3 bg-white text-[#FF2D8E] font-bold rounded-lg hover:bg-gray-100 transition-colors shadow-lg"
+            className="mt-6 inline-block px-8 py-3 bg-white text-[#FF2D8E] font-bold rounded-lg hover:bg-white transition-colors shadow-lg"
           >
             Book Free Consultation
           </Link>

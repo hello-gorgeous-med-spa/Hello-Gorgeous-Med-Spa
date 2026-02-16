@@ -70,27 +70,27 @@ export default function MembershipsPage() {
                 <div className="p-4">
                   <div className="flex items-start justify-between">
                     <h3 className="text-lg font-semibold">{plan.name}</h3>
-                    <span className={`text-xs px-2 py-0.5 rounded ${plan.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
+                    <span className={`text-xs px-2 py-0.5 rounded ${plan.is_active ? 'bg-green-100 text-green-700' : 'bg-white text-black'}`}>
                       {plan.is_active ? 'Active' : 'Inactive'}
                     </span>
                   </div>
                   <div className="mt-2">
                     <span className="text-2xl font-bold">${plan.price}</span>
-                    <span className="text-gray-500">/{plan.billing}</span>
+                    <span className="text-black">/{plan.billing}</span>
                   </div>
                   <ul className="mt-3 space-y-1">
                     {plan.benefits.map((b, i) => (
-                      <li key={i} className="text-sm text-gray-600 flex items-center gap-2">
+                      <li key={i} className="text-sm text-black flex items-center gap-2">
                         <span className="text-green-500">✓</span> {b}
                       </li>
                     ))}
                   </ul>
-                  <p className="text-xs text-gray-400 mt-3">{plan.member_count} active members</p>
+                  <p className="text-xs text-black mt-3">{plan.member_count} active members</p>
                   <div className="mt-4 flex items-center justify-between">
                     <button className="text-sm text-pink-600 hover:text-pink-700">Edit</button>
                     <button
                       onClick={() => toggleActive(plan.id)}
-                      className={`w-10 h-5 rounded-full transition-colors relative ${plan.is_active ? 'bg-green-500' : 'bg-gray-300'}`}
+                      className={`w-10 h-5 rounded-full transition-colors relative ${plan.is_active ? 'bg-green-500' : 'bg-white'}`}
                     >
                       <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform ${plan.is_active ? 'right-0.5' : 'left-0.5'}`} />
                     </button>
@@ -109,12 +109,12 @@ export default function MembershipsPage() {
               <input type="checkbox" checked={billingSettings.allow_pause} onChange={(e) => setBillingSettings(prev => ({ ...prev, allow_pause: e.target.checked }))} className="w-5 h-5" />
               <div>
                 <span className="block font-medium">Allow Membership Pause</span>
-                <span className="text-xs text-gray-500">Members can pause billing temporarily</span>
+                <span className="text-xs text-black">Members can pause billing temporarily</span>
               </div>
             </label>
             {billingSettings.allow_pause && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Max Pause Duration (days)</label>
+                <label className="block text-sm font-medium text-black mb-1">Max Pause Duration (days)</label>
                 <input
                   type="number"
                   value={billingSettings.max_pause_days}
@@ -128,26 +128,26 @@ export default function MembershipsPage() {
               <input type="checkbox" checked={billingSettings.allow_downgrade} onChange={(e) => setBillingSettings(prev => ({ ...prev, allow_downgrade: e.target.checked }))} className="w-5 h-5" />
               <div>
                 <span className="block font-medium">Allow Downgrade</span>
-                <span className="text-xs text-gray-500">Members can switch to a lower tier</span>
+                <span className="text-xs text-black">Members can switch to a lower tier</span>
               </div>
             </label>
             <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer">
               <input type="checkbox" checked={billingSettings.prorate_changes} onChange={(e) => setBillingSettings(prev => ({ ...prev, prorate_changes: e.target.checked }))} className="w-5 h-5" />
               <div>
                 <span className="block font-medium">Prorate Plan Changes</span>
-                <span className="text-xs text-gray-500">Adjust billing when changing plans mid-cycle</span>
+                <span className="text-xs text-black">Adjust billing when changing plans mid-cycle</span>
               </div>
             </label>
             <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer">
               <input type="checkbox" checked={billingSettings.retry_failed_payments} onChange={(e) => setBillingSettings(prev => ({ ...prev, retry_failed_payments: e.target.checked }))} className="w-5 h-5" />
               <div>
                 <span className="block font-medium">Retry Failed Payments</span>
-                <span className="text-xs text-gray-500">Automatically retry declined charges</span>
+                <span className="text-xs text-black">Automatically retry declined charges</span>
               </div>
             </label>
             {billingSettings.retry_failed_payments && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Retry Attempts</label>
+                <label className="block text-sm font-medium text-black mb-1">Retry Attempts</label>
                 <input
                   type="number"
                   value={billingSettings.retry_attempts}

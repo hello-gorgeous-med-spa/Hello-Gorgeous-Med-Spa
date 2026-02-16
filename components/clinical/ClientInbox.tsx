@@ -155,12 +155,12 @@ export function ClientInbox({
 
   const containerClass = isModal 
     ? "flex flex-col h-full" 
-    : "flex flex-col h-[500px] bg-white rounded-xl border border-gray-200 overflow-hidden";
+    : "flex flex-col h-[500px] bg-white rounded-xl border border-black overflow-hidden";
 
   return (
     <div className={containerClass}>
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200 bg-gray-50">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-black bg-white">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center">
             <span className="text-pink-600 font-semibold text-sm">
@@ -168,16 +168,16 @@ export function ClientInbox({
             </span>
           </div>
           <div>
-            <h3 className="font-semibold text-gray-900 text-sm">{clientName}</h3>
+            <h3 className="font-semibold text-black text-sm">{clientName}</h3>
             {clientPhone && (
-              <p className="text-xs text-gray-500">{clientPhone}</p>
+              <p className="text-xs text-black">{clientPhone}</p>
             )}
           </div>
         </div>
         <div className="flex items-center gap-2">
           <button
             onClick={fetchMessages}
-            className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 text-black hover:text-black hover:bg-white rounded-lg transition-colors"
             title="Refresh"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -187,7 +187,7 @@ export function ClientInbox({
           {onClose && (
             <button
               onClick={onClose}
-              className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 text-black hover:text-black hover:bg-white rounded-lg transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -198,7 +198,7 @@ export function ClientInbox({
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-gray-50">
+      <div className="flex-1 overflow-y-auto p-4 space-y-3 bg-white">
         {loading ? (
           <div className="flex items-center justify-center h-full">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500"></div>
@@ -206,8 +206,8 @@ export function ClientInbox({
         ) : messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center">
             <span className="text-4xl mb-3">💬</span>
-            <p className="text-gray-500 text-sm">No messages yet</p>
-            <p className="text-gray-400 text-xs mt-1">Start a conversation with {clientName}</p>
+            <p className="text-black text-sm">No messages yet</p>
+            <p className="text-black text-xs mt-1">Start a conversation with {clientName}</p>
           </div>
         ) : (
           <>
@@ -220,7 +220,7 @@ export function ClientInbox({
                   className={`max-w-[75%] px-4 py-2 rounded-2xl ${
                     message.direction === 'outbound'
                       ? 'bg-pink-500 text-white rounded-br-md'
-                      : 'bg-white text-gray-900 border border-gray-200 rounded-bl-md'
+                      : 'bg-white text-black border border-black rounded-bl-md'
                   }`}
                 >
                   <p className="text-sm whitespace-pre-wrap">{message.content}</p>
@@ -228,7 +228,7 @@ export function ClientInbox({
                     message.direction === 'outbound' ? 'justify-end' : 'justify-start'
                   }`}>
                     <span className={`text-[10px] ${
-                      message.direction === 'outbound' ? 'text-pink-200' : 'text-gray-400'
+                      message.direction === 'outbound' ? 'text-pink-200' : 'text-black'
                     }`}>
                       {formatTime(message.sent_at)}
                     </span>
@@ -255,14 +255,14 @@ export function ClientInbox({
 
       {/* Quick Replies */}
       {messages.length === 0 && !loading && (
-        <div className="px-4 py-2 border-t border-gray-100 bg-white">
-          <p className="text-xs text-gray-500 mb-2">Quick replies:</p>
+        <div className="px-4 py-2 border-t border-black bg-white">
+          <p className="text-xs text-black mb-2">Quick replies:</p>
           <div className="flex flex-wrap gap-1">
             {quickReplies.slice(0, 3).map((reply, i) => (
               <button
                 key={i}
                 onClick={() => setNewMessage(reply)}
-                className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-colors truncate max-w-[150px]"
+                className="text-xs px-2 py-1 bg-white text-black rounded-full hover:bg-white transition-colors truncate max-w-[150px]"
               >
                 {reply}
               </button>
@@ -279,7 +279,7 @@ export function ClientInbox({
       )}
 
       {/* Input */}
-      <div className="p-3 border-t border-gray-200 bg-white">
+      <div className="p-3 border-t border-black bg-white">
         <div className="flex items-end gap-2">
           <textarea
             ref={inputRef}
@@ -287,7 +287,7 @@ export function ClientInbox({
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Type a message..."
-            className="flex-1 px-3 py-2 border border-gray-200 rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+            className="flex-1 px-3 py-2 border border-black rounded-xl text-sm resize-none focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
             rows={1}
             style={{ minHeight: '40px', maxHeight: '100px' }}
           />
@@ -308,7 +308,7 @@ export function ClientInbox({
             )}
           </button>
         </div>
-        <p className="text-[10px] text-gray-400 mt-1 text-center">
+        <p className="text-[10px] text-black mt-1 text-center">
           Press Enter to send • Shift+Enter for new line
         </p>
       </div>

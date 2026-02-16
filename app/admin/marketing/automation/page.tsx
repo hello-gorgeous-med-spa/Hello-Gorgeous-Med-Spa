@@ -393,13 +393,13 @@ export default function MarketingAutomation() {
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Marketing Automation</h1>
-          <p className="text-gray-500">Campaigns, automated messages, and client engagement</p>
+          <h1 className="text-2xl font-bold text-black">Marketing Automation</h1>
+          <p className="text-black">Campaigns, automated messages, and client engagement</p>
         </div>
         <div className="flex items-center gap-3">
           <button
             onClick={() => setTestSmsModal(true)}
-            className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+            className="px-4 py-2 border border-black text-black rounded-lg hover:bg-white"
           >
             📱 Test SMS
           </button>
@@ -414,32 +414,32 @@ export default function MarketingAutomation() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
-        <div className="bg-white rounded-xl border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Messages Sent (Month)</p>
-          <p className="text-2xl font-bold text-gray-900">{stats.monthSent.toLocaleString()}</p>
+        <div className="bg-white rounded-xl border border-black p-4">
+          <p className="text-sm text-black">Messages Sent (Month)</p>
+          <p className="text-2xl font-bold text-black">{stats.monthSent.toLocaleString()}</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Avg Open Rate</p>
+        <div className="bg-white rounded-xl border border-black p-4">
+          <p className="text-sm text-black">Avg Open Rate</p>
           <p className="text-2xl font-bold text-green-600">{stats.avgOpenRate}%</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">SMS Spend (Month)</p>
-          <p className="text-2xl font-bold text-gray-900">${stats.smsCost.toFixed(2)}</p>
+        <div className="bg-white rounded-xl border border-black p-4">
+          <p className="text-sm text-black">SMS Spend (Month)</p>
+          <p className="text-2xl font-bold text-black">${stats.smsCost.toFixed(2)}</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Active Automations</p>
+        <div className="bg-white rounded-xl border border-black p-4">
+          <p className="text-sm text-black">Active Automations</p>
           <p className="text-2xl font-bold text-blue-600">
             {automations.filter(a => a.isActive).length}
           </p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Attributed Revenue</p>
+        <div className="bg-white rounded-xl border border-black p-4">
+          <p className="text-sm text-black">Attributed Revenue</p>
           <p className="text-2xl font-bold text-green-600">${stats.totalRevenue.toLocaleString()}</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-gray-200 overflow-x-auto">
+      <div className="flex border-b border-black overflow-x-auto">
         {(['campaigns', 'automation', 'templates', 'segments', 'sms'] as const).map((tab) => (
           <button
             key={tab}
@@ -447,7 +447,7 @@ export default function MarketingAutomation() {
             className={`px-4 py-3 font-medium text-sm capitalize whitespace-nowrap ${
               activeTab === tab
                 ? 'text-pink-600 border-b-2 border-pink-500'
-                : 'text-gray-500 hover:text-gray-700'
+                : 'text-black hover:text-black'
             }`}
           >
             {tab === 'campaigns' && '📣 '}
@@ -463,31 +463,31 @@ export default function MarketingAutomation() {
       {/* Campaigns Tab */}
       {activeTab === 'campaigns' && (
         <div className="space-y-4">
-          <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+          <div className="bg-white rounded-xl border border-black overflow-hidden">
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-white">
                 <tr>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Campaign</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Type</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Sent</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Open Rate</th>
-                  <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Revenue</th>
-                  <th className="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase">Actions</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Campaign</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Type</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Status</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Sent</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Open Rate</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Revenue</th>
+                  <th className="px-4 py-3 text-center text-xs font-semibold text-black uppercase">Actions</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {campaigns.map((campaign) => (
-                  <tr key={campaign.id} className="hover:bg-gray-50">
+                  <tr key={campaign.id} className="hover:bg-white">
                     <td className="px-4 py-3">
-                      <p className="font-medium text-gray-900">{campaign.name}</p>
-                      <p className="text-sm text-gray-500">{campaign.trigger}</p>
+                      <p className="font-medium text-black">{campaign.name}</p>
+                      <p className="text-sm text-black">{campaign.trigger}</p>
                     </td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-1 text-xs rounded-full ${
                         campaign.type === 'sms' ? 'bg-blue-100 text-blue-700' :
                         campaign.type === 'email' ? 'bg-pink-100 text-pink-700' :
-                        'bg-gray-100 text-gray-700'
+                        'bg-white text-black'
                       }`}>
                         {campaign.type.toUpperCase()}
                       </span>
@@ -496,14 +496,14 @@ export default function MarketingAutomation() {
                       <span className={`px-2 py-1 text-xs rounded-full ${
                         campaign.status === 'active' ? 'bg-green-100 text-green-700' :
                         campaign.status === 'paused' ? 'bg-amber-100 text-amber-700' :
-                        campaign.status === 'completed' ? 'bg-gray-100 text-gray-700' :
-                        'bg-gray-100 text-gray-500'
+                        campaign.status === 'completed' ? 'bg-white text-black' :
+                        'bg-white text-black'
                       }`}>
                         {campaign.status}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-gray-600">{campaign.sentCount.toLocaleString()}</td>
-                    <td className="px-4 py-3 text-gray-600">{campaign.openRate || '-'}%</td>
+                    <td className="px-4 py-3 text-black">{campaign.sentCount.toLocaleString()}</td>
+                    <td className="px-4 py-3 text-black">{campaign.openRate || '-'}%</td>
                     <td className="px-4 py-3 font-medium text-green-600">
                       {campaign.revenue > 0 ? `$${campaign.revenue.toLocaleString()}` : '-'}
                     </td>
@@ -534,7 +534,7 @@ export default function MarketingAutomation() {
               <div
                 key={auto.id}
                 className={`bg-white rounded-xl border p-4 ${
-                  auto.isActive ? 'border-green-200' : 'border-gray-200'
+                  auto.isActive ? 'border-green-200' : 'border-black'
                 }`}
               >
                 <div className="flex items-start justify-between">
@@ -542,7 +542,7 @@ export default function MarketingAutomation() {
                     <button
                       onClick={() => toggleAutomation(auto.id)}
                       className={`mt-1 w-10 h-6 rounded-full transition-colors ${
-                        auto.isActive ? 'bg-green-500' : 'bg-gray-300'
+                        auto.isActive ? 'bg-green-500' : 'bg-white'
                       }`}
                     >
                       <span
@@ -552,16 +552,16 @@ export default function MarketingAutomation() {
                       />
                     </button>
                     <div>
-                      <p className="font-medium text-gray-900">{auto.name}</p>
-                      <p className="text-sm text-gray-500 mt-1">
+                      <p className="font-medium text-black">{auto.name}</p>
+                      <p className="text-sm text-black mt-1">
                         <span className="font-medium">Trigger:</span> {auto.trigger}
                       </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-black">
                         <span className="font-medium">Action:</span> {auto.action}
                       </p>
                     </div>
                   </div>
-                  <div className="text-right text-sm text-gray-500">
+                  <div className="text-right text-sm text-black">
                     <p>{auto.triggerCount} times triggered</p>
                     {auto.lastTriggered && (
                       <p>Last: {new Date(auto.lastTriggered).toLocaleDateString()}</p>
@@ -583,7 +583,7 @@ export default function MarketingAutomation() {
               placeholder="Search templates..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="px-4 py-2 border border-gray-200 rounded-lg w-64"
+              className="px-4 py-2 border border-black rounded-lg w-64"
             />
             <button className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
               + New Template
@@ -596,18 +596,18 @@ export default function MarketingAutomation() {
               .map((template) => (
                 <div
                   key={template.id}
-                  className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-md transition-shadow"
+                  className="bg-white rounded-xl border border-black p-4 hover:shadow-md transition-shadow"
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div>
-                      <h3 className="font-semibold text-gray-900">{template.name}</h3>
+                      <h3 className="font-semibold text-black">{template.name}</h3>
                       <div className="flex gap-2 mt-1">
                         <span className={`px-2 py-0.5 text-xs rounded-full ${
                           template.type === 'sms' ? 'bg-blue-100 text-blue-700' : 'bg-pink-100 text-pink-700'
                         }`}>
                           {template.type.toUpperCase()}
                         </span>
-                        <span className="px-2 py-0.5 text-xs rounded-full bg-gray-100 text-gray-600">
+                        <span className="px-2 py-0.5 text-xs rounded-full bg-white text-black">
                           {template.category}
                         </span>
                       </div>
@@ -619,10 +619,10 @@ export default function MarketingAutomation() {
                       Edit
                     </button>
                   </div>
-                  <p className="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg mt-3 font-mono">
+                  <p className="text-sm text-black bg-white p-3 rounded-lg mt-3 font-mono">
                     {template.content}
                   </p>
-                  <div className="mt-3 flex items-center justify-between text-xs text-gray-500">
+                  <div className="mt-3 flex items-center justify-between text-xs text-black">
                     <span>Variables: {template.variables.join(', ')}</span>
                     <span>{template.useCount} uses</span>
                   </div>
@@ -639,18 +639,18 @@ export default function MarketingAutomation() {
             {segments.map((segment) => (
               <div
                 key={segment.id}
-                className="bg-white rounded-xl border border-gray-200 p-5 hover:shadow-md transition-shadow"
+                className="bg-white rounded-xl border border-black p-5 hover:shadow-md transition-shadow"
               >
                 <div className="flex items-start justify-between mb-2">
-                  <h3 className="font-semibold text-gray-900">{segment.name}</h3>
+                  <h3 className="font-semibold text-black">{segment.name}</h3>
                   <span className="text-2xl font-bold text-pink-600">{segment.clientCount}</span>
                 </div>
-                <p className="text-sm text-gray-600 mb-3">{segment.description}</p>
-                <div className="text-xs text-gray-500 bg-gray-50 p-2 rounded font-mono">
+                <p className="text-sm text-black mb-3">{segment.description}</p>
+                <div className="text-xs text-black bg-white p-2 rounded font-mono">
                   {segment.criteria}
                 </div>
                 <div className="flex items-center justify-between mt-3">
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-black">
                     Updated: {new Date(segment.lastUpdated).toLocaleDateString()}
                   </span>
                   <button className="text-sm text-pink-600 hover:text-pink-700">
@@ -661,7 +661,7 @@ export default function MarketingAutomation() {
             ))}
           </div>
 
-          <button className="w-full py-3 border-2 border-dashed border-gray-300 rounded-xl text-gray-500 hover:border-pink-300 hover:text-pink-600 transition-colors">
+          <button className="w-full py-3 border-2 border-dashed border-black rounded-xl text-black hover:border-pink-300 hover:text-pink-600 transition-colors">
             + Create New Segment
           </button>
         </div>
@@ -670,34 +670,34 @@ export default function MarketingAutomation() {
       {/* SMS Settings Tab */}
       {activeTab === 'sms' && (
         <div className="space-y-6">
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <h3 className="font-semibold text-gray-900 mb-4">SMS Configuration</h3>
+          <div className="bg-white rounded-xl border border-black p-5">
+            <h3 className="font-semibold text-black mb-4">SMS Configuration</h3>
             <div className="space-y-4">
-              <div className="flex items-center justify-between py-3 border-b border-gray-100">
+              <div className="flex items-center justify-between py-3 border-b border-black">
                 <div>
-                  <p className="font-medium text-gray-900">Provider</p>
-                  <p className="text-sm text-gray-500">Telnyx 10DLC</p>
+                  <p className="font-medium text-black">Provider</p>
+                  <p className="text-sm text-black">Telnyx 10DLC</p>
                 </div>
                 <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">Connected</span>
               </div>
-              <div className="flex items-center justify-between py-3 border-b border-gray-100">
+              <div className="flex items-center justify-between py-3 border-b border-black">
                 <div>
-                  <p className="font-medium text-gray-900">Phone Number</p>
-                  <p className="text-sm text-gray-500">Configured in environment</p>
+                  <p className="font-medium text-black">Phone Number</p>
+                  <p className="text-sm text-black">Configured in environment</p>
                 </div>
-                <span className="text-gray-600">Active</span>
+                <span className="text-black">Active</span>
               </div>
-              <div className="flex items-center justify-between py-3 border-b border-gray-100">
+              <div className="flex items-center justify-between py-3 border-b border-black">
                 <div>
-                  <p className="font-medium text-gray-900">10DLC Registration</p>
-                  <p className="text-sm text-gray-500">Required for carrier compliance</p>
+                  <p className="font-medium text-black">10DLC Registration</p>
+                  <p className="text-sm text-black">Required for carrier compliance</p>
                 </div>
                 <span className="px-3 py-1 bg-amber-100 text-amber-700 rounded-full text-sm">Pending</span>
               </div>
               <div className="flex items-center justify-between py-3">
                 <div>
-                  <p className="font-medium text-gray-900">STOP Handling</p>
-                  <p className="text-sm text-gray-500">Automatic opt-out compliance</p>
+                  <p className="font-medium text-black">STOP Handling</p>
+                  <p className="text-sm text-black">Automatic opt-out compliance</p>
                 </div>
                 <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">Enabled</span>
               </div>
@@ -714,20 +714,20 @@ export default function MarketingAutomation() {
             </ul>
           </div>
 
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <h3 className="font-semibold text-gray-900 mb-4">SMS Usage</h3>
+          <div className="bg-white rounded-xl border border-black p-5">
+            <h3 className="font-semibold text-black mb-4">SMS Usage</h3>
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
-                <p className="text-3xl font-bold text-gray-900">{stats.totalSent.toLocaleString()}</p>
-                <p className="text-sm text-gray-500">Total Sent</p>
+                <p className="text-3xl font-bold text-black">{stats.totalSent.toLocaleString()}</p>
+                <p className="text-sm text-black">Total Sent</p>
               </div>
               <div>
-                <p className="text-3xl font-bold text-gray-900">${stats.smsCost.toFixed(2)}</p>
-                <p className="text-sm text-gray-500">This Month</p>
+                <p className="text-3xl font-bold text-black">${stats.smsCost.toFixed(2)}</p>
+                <p className="text-sm text-black">This Month</p>
               </div>
               <div>
-                <p className="text-3xl font-bold text-gray-900">$0.01</p>
-                <p className="text-sm text-gray-500">Per Message</p>
+                <p className="text-3xl font-bold text-black">$0.01</p>
+                <p className="text-sm text-black">Per Message</p>
               </div>
             </div>
           </div>
@@ -738,28 +738,28 @@ export default function MarketingAutomation() {
       {testSmsModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 w-full max-w-md">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Send Test SMS</h2>
+            <h2 className="text-xl font-bold text-black mb-4">Send Test SMS</h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                <label className="block text-sm font-medium text-black mb-1">Phone Number</label>
                 <input
                   type="tel"
                   value={testPhone}
                   onChange={(e) => setTestPhone(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="+1 (555) 123-4567"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                <label className="block text-sm font-medium text-black mb-1">Message</label>
                 <textarea
                   value={testMessage}
                   onChange={(e) => setTestMessage(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   rows={4}
                   placeholder="Enter your test message..."
                 />
-                <p className="text-xs text-gray-500 mt-1">{testMessage.length}/160 characters</p>
+                <p className="text-xs text-black mt-1">{testMessage.length}/160 characters</p>
               </div>
             </div>
             <div className="flex gap-3 mt-6">
@@ -775,7 +775,7 @@ export default function MarketingAutomation() {
                   setTestPhone('');
                   setTestMessage('');
                 }}
-                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+                className="px-4 py-2 border border-black text-black rounded-lg hover:bg-white"
               >
                 Cancel
               </button>
@@ -788,28 +788,28 @@ export default function MarketingAutomation() {
       {editTemplateModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 w-full max-w-lg">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Edit Template</h2>
+            <h2 className="text-xl font-bold text-black mb-4">Edit Template</h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Template Name</label>
+                <label className="block text-sm font-medium text-black mb-1">Template Name</label>
                 <input
                   type="text"
                   value={editTemplateModal.name}
                   onChange={(e) => setEditTemplateModal({ ...editTemplateModal, name: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message Content</label>
+                <label className="block text-sm font-medium text-black mb-1">Message Content</label>
                 <textarea
                   value={editTemplateModal.content}
                   onChange={(e) => setEditTemplateModal({ ...editTemplateModal, content: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg font-mono text-sm"
+                  className="w-full px-4 py-2 border border-black rounded-lg font-mono text-sm"
                   rows={5}
                 />
               </div>
-              <div className="bg-gray-50 p-3 rounded-lg">
-                <p className="text-sm font-medium text-gray-700 mb-2">Available Variables:</p>
+              <div className="bg-white p-3 rounded-lg">
+                <p className="text-sm font-medium text-black mb-2">Available Variables:</p>
                 <div className="flex flex-wrap gap-2">
                   {['{{first_name}}', '{{last_name}}', '{{service}}', '{{time}}', '{{date}}', '{{booking_link}}', '{{review_link}}'].map((v) => (
                     <button
@@ -818,7 +818,7 @@ export default function MarketingAutomation() {
                         ...editTemplateModal,
                         content: editTemplateModal.content + ' ' + v,
                       })}
-                      className="px-2 py-1 bg-white border border-gray-200 rounded text-xs text-gray-600 hover:bg-gray-100"
+                      className="px-2 py-1 bg-white border border-black rounded text-xs text-black hover:bg-white"
                     >
                       {v}
                     </button>
@@ -840,7 +840,7 @@ export default function MarketingAutomation() {
               </button>
               <button
                 onClick={() => setEditTemplateModal(null)}
-                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+                className="px-4 py-2 border border-black text-black rounded-lg hover:bg-white"
               >
                 Cancel
               </button>
@@ -853,27 +853,27 @@ export default function MarketingAutomation() {
       {newCampaignModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 w-full max-w-lg">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Create Campaign</h2>
+            <h2 className="text-xl font-bold text-black mb-4">Create Campaign</h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Campaign Name</label>
+                <label className="block text-sm font-medium text-black mb-1">Campaign Name</label>
                 <input
                   type="text"
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="Summer Special Promo"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
-                <select className="w-full px-4 py-2 border border-gray-200 rounded-lg">
+                <label className="block text-sm font-medium text-black mb-1">Type</label>
+                <select className="w-full px-4 py-2 border border-black rounded-lg">
                   <option value="sms">SMS Only</option>
                   <option value="email">Email Only</option>
                   <option value="both">SMS + Email</option>
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Target Segment</label>
-                <select className="w-full px-4 py-2 border border-gray-200 rounded-lg">
+                <label className="block text-sm font-medium text-black mb-1">Target Segment</label>
+                <select className="w-full px-4 py-2 border border-black rounded-lg">
                   <option value="">Select a segment...</option>
                   {segments.map(s => (
                     <option key={s.id} value={s.id}>{s.name} ({s.clientCount} clients)</option>
@@ -881,8 +881,8 @@ export default function MarketingAutomation() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message Template</label>
-                <select className="w-full px-4 py-2 border border-gray-200 rounded-lg">
+                <label className="block text-sm font-medium text-black mb-1">Message Template</label>
+                <select className="w-full px-4 py-2 border border-black rounded-lg">
                   <option value="">Select a template...</option>
                   {templates.filter(t => t.category === 'marketing').map(t => (
                     <option key={t.id} value={t.id}>{t.name}</option>
@@ -896,7 +896,7 @@ export default function MarketingAutomation() {
               </button>
               <button
                 onClick={() => setNewCampaignModal(false)}
-                className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50"
+                className="px-4 py-2 border border-black text-black rounded-lg hover:bg-white"
               >
                 Cancel
               </button>

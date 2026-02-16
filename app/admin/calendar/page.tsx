@@ -483,14 +483,14 @@ export default function CalendarPage() {
       confirmed: { bg: 'bg-emerald-100', text: 'text-emerald-700', label: 'Confirmed' },
       checked_in: { bg: 'bg-amber-100', text: 'text-amber-700', label: 'Checked In' },
       in_progress: { bg: 'bg-purple-100', text: 'text-purple-700', label: 'In Progress' },
-      completed: { bg: 'bg-gray-100', text: 'text-gray-700', label: 'Completed' },
+      completed: { bg: 'bg-white', text: 'text-black', label: 'Completed' },
       cancelled: { bg: 'bg-red-100', text: 'text-red-700', label: 'Cancelled' },
       no_show: { bg: 'bg-red-100', text: 'text-red-700', label: 'No Show' },
     };
     const style = styles[status] || styles.confirmed;
     return (
       <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${style.bg} ${style.text}`}>
-        <span className={`w-1.5 h-1.5 rounded-full ${status === 'checked_in' ? 'bg-amber-500' : status === 'confirmed' ? 'bg-emerald-500' : 'bg-gray-500'}`} />
+        <span className={`w-1.5 h-1.5 rounded-full ${status === 'checked_in' ? 'bg-amber-500' : status === 'confirmed' ? 'bg-emerald-500' : 'bg-white0'}`} />
         {style.label}
       </span>
     );
@@ -510,7 +510,7 @@ export default function CalendarPage() {
           <div className="relative">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-slate-300 bg-slate-700 hover:bg-slate-600 rounded-lg transition-colors"
+              className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-black bg-black hover:bg-black rounded-lg transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
@@ -518,8 +518,8 @@ export default function CalendarPage() {
               Filters
             </button>
             {showFilters && (
-              <div className="absolute left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-200 z-50 p-4">
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Providers</p>
+              <div className="absolute left-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-black z-50 p-4">
+                <p className="text-xs font-semibold text-black uppercase tracking-wider mb-3">Providers</p>
                 <div className="space-y-2">
                   {providers.map((provider, idx) => (
                     <label key={provider.id} className="flex items-center gap-3 cursor-pointer">
@@ -537,10 +537,10 @@ export default function CalendarPage() {
                             setSelectedProviderFilter(selectedProviderFilter.filter(id => id !== provider.id));
                           }
                         }}
-                        className="w-4 h-4 rounded border-gray-300 text-pink-500 focus:ring-pink-500"
+                        className="w-4 h-4 rounded border-black text-pink-500 focus:ring-pink-500"
                       />
                       <div className={`w-3 h-3 rounded-full ${PROVIDER_COLORS[idx % PROVIDER_COLORS.length].accent}`} />
-                      <span className="text-sm text-gray-700">{provider.first_name} {provider.last_name}</span>
+                      <span className="text-sm text-black">{provider.first_name} {provider.last_name}</span>
                     </label>
                   ))}
             </div>
@@ -550,11 +550,11 @@ export default function CalendarPage() {
         }
       />
 
-      <div className="flex flex-1 min-h-0 bg-white rounded-b-xl overflow-hidden shadow-sm border border-gray-200 border-t-0">
+      <div className="flex flex-1 min-h-0 bg-white rounded-b-xl overflow-hidden shadow-sm border border-black border-t-0">
         {/* Main Calendar Area */}
         <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Provider Headers */}
-        <div className="flex border-b border-gray-200 bg-gray-50/50">
+        <div className="flex border-b border-black bg-white/50">
           {/* Time column spacer */}
           <div className="w-16 flex-shrink-0" />
           
@@ -565,19 +565,19 @@ export default function CalendarPage() {
             return (
               <div
                 key={provider.id}
-                className={`flex-1 px-3 py-3 border-l border-gray-200 min-w-[180px] ${offToday ? 'bg-gray-100' : ''}`}
+                className={`flex-1 px-3 py-3 border-l border-black min-w-[180px] ${offToday ? 'bg-white' : ''}`}
               >
                 <div className="flex items-center gap-3">
                   {/* Avatar */}
-                  <div className={`w-10 h-10 rounded-full ${offToday ? 'bg-gray-300' : color.accent} flex items-center justify-center text-white font-medium text-sm shadow-sm`}>
+                  <div className={`w-10 h-10 rounded-full ${offToday ? 'bg-white' : color.accent} flex items-center justify-center text-white font-medium text-sm shadow-sm`}>
                     {provider.first_name?.[0]}{provider.last_name?.[0]}
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className={`font-medium ${offToday ? 'text-gray-500' : 'text-slate-800'}`}>
+                    <span className={`font-medium ${offToday ? 'text-black' : 'text-black'}`}>
                       {provider.first_name}
-                      {offToday && <span className="text-gray-400 font-normal ml-1">(off)</span>}
+                      {offToday && <span className="text-black font-normal ml-1">(off)</span>}
             </span>
-                    <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </div>
@@ -596,10 +596,10 @@ export default function CalendarPage() {
           ) : (
             <div className="flex min-h-full">
               {/* Time labels */}
-              <div className="w-16 flex-shrink-0 border-r border-gray-200">
+              <div className="w-16 flex-shrink-0 border-r border-black">
                 {HOUR_LABELS.map((hour) => (
                   <div key={hour} className="h-24 relative">
-                    <span className="absolute -top-2.5 right-3 text-xs text-gray-500 font-medium">
+                    <span className="absolute -top-2.5 right-3 text-xs text-black font-medium">
                       {formatTimeDisplay(hour)}
                     </span>
                   </div>
@@ -616,7 +616,7 @@ export default function CalendarPage() {
                 return (
                   <div
                     key={provider.id}
-                    className={`flex-1 border-l border-gray-200 relative min-w-[180px] ${offToday ? 'bg-gray-50' : ''}`}
+                    className={`flex-1 border-l border-black relative min-w-[180px] ${offToday ? 'bg-white' : ''}`}
                   >
                     {/* Clickable hour slots — grayed out when provider is off or outside working hours */}
                     {HOUR_LABELS.map((hour) => {
@@ -625,10 +625,10 @@ export default function CalendarPage() {
                       const inSchedule00 = isSlotInSchedule(provider.id, selectedDate, slot00);
                       const inSchedule30 = isSlotInSchedule(provider.id, selectedDate, slot30);
                       return (
-                        <div key={hour} className="h-24 border-b border-gray-100 relative">
+                        <div key={hour} className="h-24 border-b border-black relative">
                           {/* First 30 min */}
                           <div
-                            className={`absolute inset-x-0 top-0 h-12 transition-colors group ${inSchedule00 ? 'cursor-pointer hover:bg-pink-50/50' : 'bg-gray-100 cursor-not-allowed'}`}
+                            className={`absolute inset-x-0 top-0 h-12 transition-colors group ${inSchedule00 ? 'cursor-pointer hover:bg-pink-50/50' : 'bg-white cursor-not-allowed'}`}
                             onClick={() => inSchedule00 && handleSlotClick(slot00, provider.id, providerName)}
                           >
                             {inSchedule00 && (
@@ -639,7 +639,7 @@ export default function CalendarPage() {
                           </div>
                           {/* Second 30 min */}
                           <div
-                            className={`absolute inset-x-0 bottom-0 h-12 transition-colors group ${inSchedule30 ? 'cursor-pointer hover:bg-pink-50/50' : 'bg-gray-100 cursor-not-allowed'}`}
+                            className={`absolute inset-x-0 bottom-0 h-12 transition-colors group ${inSchedule30 ? 'cursor-pointer hover:bg-pink-50/50' : 'bg-white cursor-not-allowed'}`}
                             onClick={() => inSchedule30 && handleSlotClick(slot30, provider.id, providerName)}
                           >
                             {inSchedule30 && (
@@ -690,21 +690,21 @@ export default function CalendarPage() {
       </div>
 
       {/* Right Panel - Appointment Detail */}
-      <div className="w-80 border-l border-gray-200 bg-white flex flex-col">
+      <div className="w-80 border-l border-black bg-white flex flex-col">
         {selectedAppointment ? (
           <>
             {/* Panel Header */}
-            <div className="p-4 border-b border-gray-200 flex items-center justify-between">
-              <h3 className="font-semibold text-slate-800">Appointment</h3>
+            <div className="p-4 border-b border-black flex items-center justify-between">
+              <h3 className="font-semibold text-black">Appointment</h3>
               <div className="flex items-center gap-2">
                 {/* More Actions Dropdown */}
                 <div className="relative group">
-                  <button className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500">
+                  <button className="p-1.5 hover:bg-white rounded-lg text-black">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
                     </svg>
                   </button>
-                  <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
+                  <div className="absolute right-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-black opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50">
                     <button 
                       onClick={() => {
                         if (confirm('Cancel this appointment?')) {
@@ -763,7 +763,7 @@ export default function CalendarPage() {
                 {/* Edit Appointment */}
                 <Link 
                   href={`/admin/appointments/${selectedAppointment.id}/edit`}
-                  className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500"
+                  className="p-1.5 hover:bg-white rounded-lg text-black"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -772,7 +772,7 @@ export default function CalendarPage() {
                 {/* Close */}
                 <button 
                   onClick={() => setSelectedAppointment(null)}
-                  className="p-1.5 hover:bg-gray-100 rounded-lg text-gray-500"
+                  className="p-1.5 hover:bg-white rounded-lg text-black"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -782,34 +782,34 @@ export default function CalendarPage() {
       </div>
 
             {/* Status & Checkout */}
-            <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+            <div className="p-4 border-b border-black flex items-center justify-between">
               {getStatusBadge(selectedAppointment.status)}
           <Link
                 href={`/admin/pos?appointment=${selectedAppointment.id}&client=${selectedAppointment.client_id}`}
-                className="px-4 py-2 bg-slate-800 text-white text-sm font-medium rounded-lg hover:bg-slate-700 transition-colors"
+                className="px-4 py-2 bg-black text-white text-sm font-medium rounded-lg hover:bg-black transition-colors"
           >
                 CHECKOUT
           </Link>
         </div>
 
             {/* Date/Time */}
-            <div className="p-4 border-b border-gray-200">
+            <div className="p-4 border-b border-black">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-gray-500">On</span>
-                <span className="text-slate-800 font-medium">
+                <span className="text-black">On</span>
+                <span className="text-black font-medium">
                   {new Date(selectedAppointment.starts_at).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
                 </span>
             </div>
               <div className="flex items-center justify-between text-sm mt-2">
-                <span className="text-gray-500">At</span>
-                <span className="text-slate-800 font-medium">
+                <span className="text-black">At</span>
+                <span className="text-black font-medium">
                   {formatApptTime(selectedAppointment.starts_at)}
                   </span>
                 </div>
           </div>
 
             {/* Client Info - INTERACTIVE */}
-            <div className="p-4 border-b border-gray-200">
+            <div className="p-4 border-b border-black">
               <div className="flex items-center gap-3">
                 <Link 
                   href={selectedAppointment.client_id ? `/admin/clients/${selectedAppointment.client_id}` : '#'}
@@ -819,12 +819,12 @@ export default function CalendarPage() {
                 </Link>
                           <Link
                   href={selectedAppointment.client_id ? `/admin/clients/${selectedAppointment.client_id}` : '#'}
-                  className="flex-1 hover:bg-gray-50 -m-2 p-2 rounded-lg transition-colors"
+                  className="flex-1 hover:bg-white -m-2 p-2 rounded-lg transition-colors"
                 >
-                  <p className="font-semibold text-slate-800">
+                  <p className="font-semibold text-black">
                     {selectedAppointment.client_name || 'Client'}
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-black">
                     Client since {new Date().getFullYear()}
                             </p>
                           </Link>
@@ -856,7 +856,7 @@ export default function CalendarPage() {
 
               {/* Contact Info */}
               {(selectedAppointment.client_email || selectedAppointment.client_phone) && (
-                <div className="mt-3 text-xs text-gray-500 space-y-1">
+                <div className="mt-3 text-xs text-black space-y-1">
                   {selectedAppointment.client_email && (
                     <p className="flex items-center gap-2">
                       <span>✉️</span>
@@ -894,30 +894,30 @@ export default function CalendarPage() {
             <div className="p-4 flex-1">
                               <div className="flex items-center justify-between">
                                 <div>
-                  <p className="font-semibold text-slate-800">
+                  <p className="font-semibold text-black">
                     {selectedAppointment.service_name || 'Service'}
                                   </p>
                                 </div>
-                <p className="text-lg font-bold text-slate-800">
+                <p className="text-lg font-bold text-black">
                   ${selectedAppointment.service_price || selectedAppointment.service?.price || 0}
                                   </p>
                                 </div>
               
-              <div className="mt-3 text-sm text-gray-600 space-y-1">
+              <div className="mt-3 text-sm text-black space-y-1">
                 <p>
-                  <span className="text-gray-500">with</span>{' '}
+                  <span className="text-black">with</span>{' '}
                   <span className="font-medium">{selectedAppointment.provider_name || 'Provider'}</span>
                 </p>
                 <p>
-                  <span className="text-gray-500">at</span>{' '}
+                  <span className="text-black">at</span>{' '}
                   <span className="font-medium">{formatApptTime(selectedAppointment.starts_at)}</span>
-                  <span className="text-gray-500 ml-3">for: {selectedAppointment.duration_minutes || selectedAppointment.duration || 30} min</span>
+                  <span className="text-black ml-3">for: {selectedAppointment.duration_minutes || selectedAppointment.duration || 30} min</span>
                 </p>
                               </div>
             </div>
 
             {/* Quick Actions */}
-            <div className="p-4 border-t border-gray-200 space-y-2">
+            <div className="p-4 border-t border-black space-y-2">
               <div className="grid grid-cols-2 gap-2">
                 <Link
                   href={`/admin/charting?client=${selectedAppointment.client_id}&appointment=${selectedAppointment.id}`}
@@ -943,14 +943,14 @@ export default function CalendarPage() {
         ) : (
           <div className="flex-1 flex items-center justify-center p-8 text-center">
             <div>
-              <div className="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                     </div>
-              <p className="text-gray-500 font-medium">Select an appointment</p>
-              <p className="text-sm text-gray-400 mt-1">Click on any appointment to view details</p>
-              <p className="text-sm text-gray-400 mt-1">or click empty time slot to book</p>
+              <p className="text-black font-medium">Select an appointment</p>
+              <p className="text-sm text-black mt-1">Click on any appointment to view details</p>
+              <p className="text-sm text-black mt-1">or click empty time slot to book</p>
                   </div>
             </div>
           )}
@@ -961,20 +961,20 @@ export default function CalendarPage() {
       {showQuickBook && quickBookSlot && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full shadow-2xl">
-            <div className="p-6 border-b border-gray-100">
+            <div className="p-6 border-b border-black">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-xl font-bold text-slate-800">Quick Book</h2>
+                  <h2 className="text-xl font-bold text-black">Quick Book</h2>
                   <p className="text-pink-600 font-semibold mt-2">
                     Booking for: {selectedDate.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
                   </p>
-                  <p className="text-gray-500 mt-1">
+                  <p className="text-black mt-1">
                     {quickBookSlot.time} with {quickBookSlot.providerName}
                   </p>
                 </div>
                 <button
                   onClick={() => setShowQuickBook(false)}
-                  className="p-2 hover:bg-gray-100 rounded-lg text-gray-500"
+                  className="p-2 hover:bg-white rounded-lg text-black"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -985,7 +985,7 @@ export default function CalendarPage() {
             
             <div className="p-6 space-y-4">
               {/* Toggle: Existing vs New Client */}
-              <div className="flex gap-2 p-1 bg-gray-100 rounded-xl">
+              <div className="flex gap-2 p-1 bg-white rounded-xl">
                 <button
                   type="button"
                   onClick={() => {
@@ -994,8 +994,8 @@ export default function CalendarPage() {
                   }}
                   className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
                     !isNewClient 
-                      ? 'bg-white text-slate-800 shadow-sm' 
-                      : 'text-gray-500 hover:text-gray-700'
+                      ? 'bg-white text-black shadow-sm' 
+                      : 'text-black hover:text-black'
                   }`}
                 >
                   Existing Client
@@ -1009,8 +1009,8 @@ export default function CalendarPage() {
                   }}
                   className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
                     isNewClient 
-                      ? 'bg-white text-slate-800 shadow-sm' 
-                      : 'text-gray-500 hover:text-gray-700'
+                      ? 'bg-white text-black shadow-sm' 
+                      : 'text-black hover:text-black'
                   }`}
                 >
                   + New Client
@@ -1020,16 +1020,16 @@ export default function CalendarPage() {
               {/* Existing Client Search */}
               {!isNewClient && (
               <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Search Client *</label>
+                  <label className="block text-sm font-medium text-black mb-2">Search Client *</label>
                 <div className="relative">
                   <input
                     type="text"
                     placeholder="Search client by name..."
-                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                      className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                       onChange={(e) => searchClients(e.target.value)}
                   />
                   {clientSearchResults.length > 0 && (
-                      <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-xl z-10 max-h-48 overflow-y-auto">
+                      <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-black rounded-xl shadow-xl z-10 max-h-48 overflow-y-auto">
                       {clientSearchResults.map((client) => (
                         <button
                           key={client.id}
@@ -1038,14 +1038,14 @@ export default function CalendarPage() {
                             setQuickBookClient(client.id);
                             setClientSearchResults([]);
                           }}
-                            className="w-full text-left px-4 py-3 hover:bg-gray-50 flex items-center gap-3 border-b border-gray-100 last:border-0"
+                            className="w-full text-left px-4 py-3 hover:bg-white flex items-center gap-3 border-b border-black last:border-0"
                         >
                             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-medium">
                             {client.first_name?.[0]}{client.last_name?.[0]}
                           </div>
                           <div>
-                              <p className="font-medium text-slate-800">{client.first_name} {client.last_name}</p>
-                              <p className="text-sm text-gray-500">{client.email || client.phone}</p>
+                              <p className="font-medium text-black">{client.first_name} {client.last_name}</p>
+                              <p className="text-sm text-black">{client.email || client.phone}</p>
                           </div>
                         </button>
                       ))}
@@ -1075,14 +1075,14 @@ export default function CalendarPage() {
                       placeholder="First Name *"
                       value={newClientForm.first_name}
                       onChange={(e) => setNewClientForm({ ...newClientForm, first_name: e.target.value })}
-                      className="px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
+                      className="px-3 py-2.5 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
                     />
                     <input
                       type="text"
                       placeholder="Last Name *"
                       value={newClientForm.last_name}
                       onChange={(e) => setNewClientForm({ ...newClientForm, last_name: e.target.value })}
-                      className="px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
+                      className="px-3 py-2.5 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
                     />
                   </div>
                   <input
@@ -1090,14 +1090,14 @@ export default function CalendarPage() {
                     placeholder="Phone Number *"
                     value={newClientForm.phone}
                     onChange={(e) => setNewClientForm({ ...newClientForm, phone: e.target.value })}
-                    className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
+                    className="w-full px-3 py-2.5 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
                   />
                   <input
                     type="email"
                     placeholder="Email (optional)"
                     value={newClientForm.email}
                     onChange={(e) => setNewClientForm({ ...newClientForm, email: e.target.value })}
-                    className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
+                    className="w-full px-3 py-2.5 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 text-sm"
                   />
                   {newClientForm.first_name && newClientForm.last_name && newClientForm.phone && (
                     <p className="text-sm text-emerald-600 flex items-center gap-1">
@@ -1112,9 +1112,9 @@ export default function CalendarPage() {
 
               {/* Service Selection */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Service *</label>
+                <label className="block text-sm font-medium text-black mb-2">Service *</label>
                 <select 
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 bg-white"
+                  className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 bg-white"
                   value={quickBookService}
                   onChange={(e) => setQuickBookService(e.target.value)}
                 >
@@ -1128,17 +1128,17 @@ export default function CalendarPage() {
               </div>
             </div>
 
-            <div className="p-6 border-t border-gray-100 flex justify-between">
+            <div className="p-6 border-t border-black flex justify-between">
               <button
                 onClick={() => setShowQuickBook(false)}
-                className="px-4 py-2 text-gray-600 font-medium hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
               >
                 Cancel
               </button>
               <div className="flex gap-2">
                 <Link
                   href={`/admin/appointments/new?provider=${quickBookSlot?.providerId}&date=${dateString}&time=${encodeURIComponent(quickBookSlot?.time || '')}`}
-                  className="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200"
+                  className="px-4 py-2 bg-white text-black font-medium rounded-lg hover:bg-white"
                   onClick={() => setShowQuickBook(false)}
                 >
                   Full Form

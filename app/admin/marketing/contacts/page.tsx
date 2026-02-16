@@ -147,46 +147,46 @@ export default function ContactCollectionPage() {
 
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Contact Collection</h1>
-        <p className="text-gray-500">Grow your client list with shareable sign-up links</p>
+        <h1 className="text-2xl font-bold text-black">Contact Collection</h1>
+        <p className="text-black">Grow your client list with shareable sign-up links</p>
       </div>
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-        <div className="bg-white rounded-xl p-4 border border-gray-100">
-          <p className="text-sm text-gray-500">Total Subscribers</p>
-          <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
+        <div className="bg-white rounded-xl p-4 border border-black">
+          <p className="text-sm text-black">Total Subscribers</p>
+          <p className="text-2xl font-bold text-black">{stats.total}</p>
         </div>
-        <div className="bg-white rounded-xl p-4 border border-gray-100">
-          <p className="text-sm text-gray-500">This Month</p>
+        <div className="bg-white rounded-xl p-4 border border-black">
+          <p className="text-sm text-black">This Month</p>
           <p className="text-2xl font-bold text-green-600">+{stats.thisMonth}</p>
         </div>
-        <div className="bg-white rounded-xl p-4 border border-gray-100">
-          <p className="text-sm text-gray-500">Email Opt-in</p>
-          <p className="text-2xl font-bold text-gray-900">{stats.emailOptIn}</p>
+        <div className="bg-white rounded-xl p-4 border border-black">
+          <p className="text-sm text-black">Email Opt-in</p>
+          <p className="text-2xl font-bold text-black">{stats.emailOptIn}</p>
         </div>
-        <div className="bg-white rounded-xl p-4 border border-gray-100">
-          <p className="text-sm text-gray-500">SMS Opt-in</p>
-          <p className="text-2xl font-bold text-gray-900">{stats.smsOptIn}</p>
+        <div className="bg-white rounded-xl p-4 border border-black">
+          <p className="text-sm text-black">SMS Opt-in</p>
+          <p className="text-2xl font-bold text-black">{stats.smsOptIn}</p>
         </div>
-        <div className="bg-white rounded-xl p-4 border border-gray-100">
-          <p className="text-sm text-gray-500">Loyalty Members</p>
+        <div className="bg-white rounded-xl p-4 border border-black">
+          <p className="text-sm text-black">Loyalty Members</p>
           <p className="text-2xl font-bold text-pink-600">{stats.loyaltyEnrolled}</p>
         </div>
       </div>
 
       {/* Sign-up Link Card */}
-      <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-        <div className="p-6 border-b border-gray-100">
-          <h2 className="text-lg font-semibold text-gray-900">Online Sign-up</h2>
-          <p className="text-sm text-gray-500">Share this link to collect contacts and grow your marketing list</p>
+      <div className="bg-white rounded-2xl border border-black overflow-hidden">
+        <div className="p-6 border-b border-black">
+          <h2 className="text-lg font-semibold text-black">Online Sign-up</h2>
+          <p className="text-sm text-black">Share this link to collect contacts and grow your marketing list</p>
         </div>
 
         <div className="p-6">
           <div className="flex flex-col md:flex-row gap-6">
             {/* QR Code Preview */}
             <div className="flex-shrink-0">
-              <div className="w-40 h-40 bg-gray-50 rounded-xl border border-gray-200 flex items-center justify-center overflow-hidden">
+              <div className="w-40 h-40 bg-white rounded-xl border border-black flex items-center justify-center overflow-hidden">
                 <img
                   src={`https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=${encodeURIComponent(signupUrlWithUtm)}`}
                   alt="Sign-up QR Code"
@@ -198,14 +198,14 @@ export default function ContactCollectionPage() {
             {/* Link and Actions */}
             <div className="flex-1 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Sign-up Page URL</label>
+                <label className="block text-sm font-medium text-black mb-2">Sign-up Page URL</label>
                 <div className="flex items-center gap-2">
-                  <div className="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-600 truncate">
+                  <div className="flex-1 px-4 py-3 bg-white border border-black rounded-xl text-sm text-black truncate">
                     {signupUrl}
                   </div>
                   <button
                     onClick={() => copyToClipboard(signupUrl)}
-                    className="px-4 py-3 bg-gray-900 text-white font-medium rounded-xl hover:bg-gray-800 transition-colors"
+                    className="px-4 py-3 bg-black text-white font-medium rounded-xl hover:bg-black transition-colors"
                   >
                     {copied ? 'Copied!' : 'Copy'}
                   </button>
@@ -215,7 +215,7 @@ export default function ContactCollectionPage() {
               <div className="flex flex-wrap gap-3">
                 <button
                   onClick={downloadQRCode}
-                  className="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition-colors flex items-center gap-2"
+                  className="px-4 py-2 bg-white text-black font-medium rounded-xl hover:bg-white transition-colors flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -226,7 +226,7 @@ export default function ContactCollectionPage() {
                   href={signupUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition-colors flex items-center gap-2"
+                  className="px-4 py-2 bg-white text-black font-medium rounded-xl hover:bg-white transition-colors flex items-center gap-2"
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -246,10 +246,10 @@ export default function ContactCollectionPage() {
       </div>
 
       {/* Import from CSV — id for owner dashboard deep link */}
-      <div id="import" className="bg-white rounded-2xl border border-gray-200 overflow-hidden scroll-mt-4">
-        <div className="p-6 border-b border-gray-100">
-          <h2 className="text-lg font-semibold text-gray-900">Import contact list (CSV)</h2>
-          <p className="text-sm text-gray-500">Upload a CSV to add contacts to your marketing list. Existing emails are updated; new ones are added.</p>
+      <div id="import" className="bg-white rounded-2xl border border-black overflow-hidden scroll-mt-4">
+        <div className="p-6 border-b border-black">
+          <h2 className="text-lg font-semibold text-black">Import contact list (CSV)</h2>
+          <p className="text-sm text-black">Upload a CSV to add contacts to your marketing list. Existing emails are updated; new ones are added.</p>
         </div>
         <div className="p-6 space-y-4">
           <div className="flex flex-wrap items-center gap-3">
@@ -272,17 +272,17 @@ export default function ContactCollectionPage() {
             <button
               type="button"
               onClick={downloadTemplate}
-              className="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200"
+              className="px-4 py-2 bg-white text-black font-medium rounded-xl hover:bg-white"
             >
               Download template
             </button>
           </div>
-          <p className="text-sm text-gray-500">
-            CSV format: <code className="bg-gray-100 px-1 rounded">email, first_name, last_name, phone</code>. First row can be headers (email, first_name, last_name, phone).
+          <p className="text-sm text-black">
+            CSV format: <code className="bg-white px-1 rounded">email, first_name, last_name, phone</code>. First row can be headers (email, first_name, last_name, phone).
           </p>
           {importResult && (
-            <div className="bg-gray-50 rounded-xl p-4 text-sm">
-              <p className="font-medium text-gray-900">Last import: {importResult.imported} new, {importResult.updated} updated, {importResult.skipped} skipped.</p>
+            <div className="bg-white rounded-xl p-4 text-sm">
+              <p className="font-medium text-black">Last import: {importResult.imported} new, {importResult.updated} updated, {importResult.skipped} skipped.</p>
               {importResult.errors.length > 0 && (
                 <p className="text-amber-700 mt-1">Errors: {importResult.errors.slice(0, 5).map((e) => `Row ${e.row}: ${e.error}`).join('; ')}{importResult.errors.length > 5 ? '…' : ''}</p>
               )}
@@ -292,11 +292,11 @@ export default function ContactCollectionPage() {
       </div>
 
       {/* Recent Subscribers */}
-      <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-        <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+      <div className="bg-white rounded-2xl border border-black overflow-hidden">
+        <div className="p-6 border-b border-black flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">Recent Sign-ups</h2>
-            <p className="text-sm text-gray-500">People who joined through the sign-up page</p>
+            <h2 className="text-lg font-semibold text-black">Recent Sign-ups</h2>
+            <p className="text-sm text-black">People who joined through the sign-up page</p>
           </div>
           <button
             onClick={fetchSubscribers}
@@ -308,38 +308,38 @@ export default function ContactCollectionPage() {
 
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50">
+            <thead className="bg-white">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Phone</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Preferences</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Joined</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase">Name</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase">Email</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase">Phone</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase">Preferences</th>
+                <th className="px-6 py-3 text-left text-xs font-medium text-black uppercase">Joined</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {loadingSubscribers ? (
                 <tr>
-                  <td colSpan={5} className="px-6 py-12 text-center text-gray-500">
+                  <td colSpan={5} className="px-6 py-12 text-center text-black">
                     Loading...
                   </td>
                 </tr>
               ) : subscribers.length === 0 ? (
                 <tr>
                   <td colSpan={5} className="px-6 py-12 text-center">
-                    <div className="text-gray-400 mb-2">📭</div>
-                    <p className="text-gray-500">No subscribers yet</p>
-                    <p className="text-sm text-gray-400">Share your sign-up link to start collecting contacts</p>
+                    <div className="text-black mb-2">📭</div>
+                    <p className="text-black">No subscribers yet</p>
+                    <p className="text-sm text-black">Share your sign-up link to start collecting contacts</p>
                   </td>
                 </tr>
               ) : (
                 subscribers.map((sub) => (
-                  <tr key={sub.id} className="hover:bg-gray-50">
+                  <tr key={sub.id} className="hover:bg-white">
                     <td className="px-6 py-4">
-                      <span className="font-medium text-gray-900">{sub.first_name} {sub.last_name}</span>
+                      <span className="font-medium text-black">{sub.first_name} {sub.last_name}</span>
                     </td>
-                    <td className="px-6 py-4 text-gray-600">{sub.email}</td>
-                    <td className="px-6 py-4 text-gray-600">{sub.phone || '—'}</td>
+                    <td className="px-6 py-4 text-black">{sub.email}</td>
+                    <td className="px-6 py-4 text-black">{sub.phone || '—'}</td>
                     <td className="px-6 py-4">
                       <div className="flex gap-1">
                         {sub.email_opt_in && (
@@ -353,7 +353,7 @@ export default function ContactCollectionPage() {
                         )}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-sm text-gray-500">
+                    <td className="px-6 py-4 text-sm text-black">
                       {new Date(sub.created_at).toLocaleDateString()}
                     </td>
                   </tr>

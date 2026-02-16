@@ -355,7 +355,7 @@ export function ShopContent() {
                 Hello Gorgeous
               </span>
             </h1>
-            <p className="text-gray-400 text-lg mb-8">
+            <p className="text-black text-lg mb-8">
               Professional-grade skincare, supplements, and wellness products.
               Curated by our providers, delivered to your door.
             </p>
@@ -425,7 +425,7 @@ export function ShopContent() {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 activeCategory === cat.id
                   ? "bg-pink-500 text-white"
-                  : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
+                  : "bg-white/5 text-black hover:bg-white/10 hover:text-white"
               }`}
             >
               <span className="mr-1">{cat.icon}</span>
@@ -462,13 +462,13 @@ export function ShopContent() {
                     <div className="flex-1">
                       <p className="text-pink-400 text-xs font-medium mb-1">{product.brand}</p>
                       <h3 className="text-white font-semibold mb-1 line-clamp-2">{product.name}</h3>
-                      <p className="text-gray-400 text-sm line-clamp-2 mb-2">{product.description}</p>
+                      <p className="text-black text-sm line-clamp-2 mb-2">{product.description}</p>
                       {product.tags && (
                         <div className="flex flex-wrap gap-1 mb-3">
                           {product.tags.slice(0, 2).map((tag) => (
                             <span
                               key={tag}
-                              className="px-2 py-0.5 rounded-full bg-white/5 text-gray-500 text-xs"
+                              className="px-2 py-0.5 rounded-full bg-white/5 text-black text-xs"
                             >
                               {tag}
                             </span>
@@ -511,7 +511,7 @@ export function ShopContent() {
         <FadeUp>
           <div className="text-center mb-8">
             <h3 className="text-xl font-bold text-white mb-2">Our Product Partners</h3>
-            <p className="text-gray-400 text-sm">
+            <p className="text-black text-sm">
               Professional-grade products from trusted brands
             </p>
           </div>
@@ -528,7 +528,7 @@ export function ShopContent() {
               >
                 <span className="text-3xl mb-2 block">{brand.icon}</span>
                 <p className="text-white font-semibold">{brand.name}</p>
-                <p className="text-gray-500 text-sm">{brand.desc}</p>
+                <p className="text-black text-sm">{brand.desc}</p>
               </div>
             ))}
           </div>
@@ -543,7 +543,7 @@ export function ShopContent() {
             <h2 className="text-2xl font-bold text-white mb-3">
               Buy Now, Pay Later with Cherry
             </h2>
-            <p className="text-gray-400 mb-6">
+            <p className="text-black mb-6">
               Split your purchase into easy monthly payments. Quick approval, no hard credit check.
               Available for products and treatments.
             </p>
@@ -566,7 +566,7 @@ export function ShopContent() {
             <h2 className="text-3xl font-bold text-white mb-4">
               Need Product Recommendations?
             </h2>
-            <p className="text-gray-400 mb-6">
+            <p className="text-black mb-6">
               Not sure which products are right for you? Book a consultation and
               our providers will create a personalized regimen.
             </p>
@@ -593,7 +593,7 @@ export function ShopContent() {
       {/* Order Request Modal */}
       {showOrderForm && orderProduct && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm">
-          <div className="relative w-full max-w-md bg-gray-900 rounded-3xl overflow-hidden border border-white/10">
+          <div className="relative w-full max-w-md bg-black rounded-3xl overflow-hidden border border-white/10">
             <div className="p-6 border-b border-white/10">
               <div className="flex items-center justify-between">
                 <h3 className="text-white font-bold text-lg">Request to Order</h3>
@@ -616,7 +616,7 @@ export function ShopContent() {
                 <div className="text-center py-8">
                   <span className="text-5xl mb-4 block">✅</span>
                   <h4 className="text-white font-bold text-xl mb-2">Request Sent!</h4>
-                  <p className="text-gray-400">
+                  <p className="text-black">
                     We&apos;ll contact you within 24 hours to complete your order.
                   </p>
                 </div>
@@ -691,7 +691,7 @@ export function ShopContent() {
                       {formStatus === "sending" ? "Sending..." : "Submit Order Request"}
                     </button>
                     
-                    <p className="text-gray-500 text-xs text-center">
+                    <p className="text-black text-xs text-center">
                       We&apos;ll contact you to confirm availability and process payment.
                       Cherry financing available.
                     </p>
@@ -706,7 +706,7 @@ export function ShopContent() {
       {/* Product Detail Modal */}
       {selectedProduct && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm">
-          <div className="relative w-full max-w-lg bg-gray-900 rounded-3xl overflow-hidden border border-white/10">
+          <div className="relative w-full max-w-lg bg-black rounded-3xl overflow-hidden border border-white/10">
             <button
               type="button"
               onClick={() => setSelectedProduct(null)}
@@ -725,7 +725,7 @@ export function ShopContent() {
             <div className="p-6">
               <p className="text-pink-400 text-sm font-medium mb-1">{selectedProduct.brand}</p>
               <h3 className="text-white font-bold text-xl mb-2">{selectedProduct.name}</h3>
-              <p className="text-gray-400 mb-4">{selectedProduct.description}</p>
+              <p className="text-black mb-4">{selectedProduct.description}</p>
               <p className="text-white font-bold text-2xl mb-4">{selectedProduct.price}</p>
               
               {selectedProduct.tags && (
@@ -733,7 +733,7 @@ export function ShopContent() {
                   {selectedProduct.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="px-3 py-1 rounded-full bg-white/5 text-gray-400 text-sm"
+                      className="px-3 py-1 rounded-full bg-white/5 text-black text-sm"
                     >
                       {tag}
                     </span>

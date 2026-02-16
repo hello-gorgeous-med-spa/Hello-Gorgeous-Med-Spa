@@ -55,8 +55,8 @@ export default function JoinPage() {
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <span className="text-4xl">✓</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">You're In!</h1>
-          <p className="text-gray-600 mb-6">
+          <h1 className="text-2xl font-bold text-black mb-2">You're In!</h1>
+          <p className="text-black mb-6">
             Welcome to Hello Gorgeous! You'll receive exclusive offers, tips, and updates.
           </p>
           {formData.loyaltyEnroll && (
@@ -73,7 +73,7 @@ export default function JoinPage() {
           </Link>
           <Link
             href="/"
-            className="inline-block mt-3 text-gray-500 hover:text-gray-700"
+            className="inline-block mt-3 text-black hover:text-black"
           >
             ← Back to Home
           </Link>
@@ -106,52 +106,52 @@ export default function JoinPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
+              <label className="block text-sm font-medium text-black mb-1">First Name *</label>
               <input
                 type="text"
                 required
                 autoComplete="given-name"
                 value={formData.firstName}
                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full min-h-[44px] px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                 placeholder="Jane"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
+              <label className="block text-sm font-medium text-black mb-1">Last Name *</label>
               <input
                 type="text"
                 required
                 autoComplete="family-name"
                 value={formData.lastName}
                 onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full min-h-[44px] px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                 placeholder="Doe"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+            <label className="block text-sm font-medium text-black mb-1">Email *</label>
             <input
               type="email"
               required
               autoComplete="email"
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full min-h-[44px] px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               placeholder="jane@example.com"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Phone (Optional)</label>
+            <label className="block text-sm font-medium text-black mb-1">Phone (Optional)</label>
             <input
               type="tel"
               autoComplete="tel"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full min-h-[44px] px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full min-h-[44px] px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               placeholder="(555) 123-4567"
             />
           </div>
@@ -163,11 +163,11 @@ export default function JoinPage() {
                 type="checkbox"
                 checked={formData.loyaltyEnroll}
                 onChange={(e) => setFormData({ ...formData, loyaltyEnroll: e.target.checked })}
-                className="mt-1 w-5 h-5 rounded border-gray-300 text-pink-500 focus:ring-pink-500"
+                className="mt-1 w-5 h-5 rounded border-black text-pink-500 focus:ring-pink-500"
               />
               <div>
-                <span className="font-medium text-gray-900">Join Rewards Program</span>
-                <p className="text-sm text-gray-500">Earn points on every visit and redeem for free treatments</p>
+                <span className="font-medium text-black">Join Rewards Program</span>
+                <p className="text-sm text-black">Earn points on every visit and redeem for free treatments</p>
               </div>
             </label>
 
@@ -176,11 +176,11 @@ export default function JoinPage() {
                 type="checkbox"
                 checked={formData.marketingConsent}
                 onChange={(e) => setFormData({ ...formData, marketingConsent: e.target.checked })}
-                className="mt-1 w-5 h-5 rounded border-gray-300 text-pink-500 focus:ring-pink-500"
+                className="mt-1 w-5 h-5 rounded border-black text-pink-500 focus:ring-pink-500"
               />
               <div>
-                <span className="font-medium text-gray-900">Email Updates</span>
-                <p className="text-sm text-gray-500">Receive exclusive offers and beauty tips</p>
+                <span className="font-medium text-black">Email Updates</span>
+                <p className="text-sm text-black">Receive exclusive offers and beauty tips</p>
               </div>
             </label>
 
@@ -190,11 +190,11 @@ export default function JoinPage() {
                   type="checkbox"
                   checked={formData.smsConsent}
                   onChange={(e) => setFormData({ ...formData, smsConsent: e.target.checked })}
-                  className="mt-1 w-5 h-5 rounded border-gray-300 text-pink-500 focus:ring-pink-500"
+                  className="mt-1 w-5 h-5 rounded border-black text-pink-500 focus:ring-pink-500"
                 />
                 <div>
-                  <span className="font-medium text-gray-900">SMS Updates</span>
-                  <p className="text-sm text-gray-500">Get appointment reminders and flash deals via text</p>
+                  <span className="font-medium text-black">SMS Updates</span>
+                  <p className="text-sm text-black">Get appointment reminders and flash deals via text</p>
                 </div>
               </label>
             )}
@@ -208,7 +208,7 @@ export default function JoinPage() {
             {submitting ? 'Signing up...' : 'Join Now'}
           </button>
 
-          <p className="text-xs text-gray-400 text-center">
+          <p className="text-xs text-black text-center">
             By signing up, you agree to our{' '}
             <Link href="/privacy" className="text-pink-500 hover:underline">Privacy Policy</Link>
             {' '}and{' '}

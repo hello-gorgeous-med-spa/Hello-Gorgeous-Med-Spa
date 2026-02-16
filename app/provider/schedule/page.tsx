@@ -174,8 +174,8 @@ export default function ProviderSchedulePage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">My Schedule</h1>
-          <p className="text-gray-500">Manage your availability and view appointments</p>
+          <h1 className="text-2xl font-bold text-black">My Schedule</h1>
+          <p className="text-black">Manage your availability and view appointments</p>
         </div>
         <Link
           href="/admin/team/schedules"
@@ -186,9 +186,9 @@ export default function ProviderSchedulePage() {
       </div>
 
       {/* Weekly Schedule Overview */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100">
-          <h2 className="font-semibold text-gray-900">Weekly Hours</h2>
+      <div className="bg-white rounded-xl border border-black overflow-hidden">
+        <div className="px-5 py-4 border-b border-black">
+          <h2 className="font-semibold text-black">Weekly Hours</h2>
         </div>
         <div className="grid grid-cols-7 divide-x divide-gray-100">
           {DAYS.map((day, idx) => {
@@ -201,7 +201,7 @@ export default function ProviderSchedulePage() {
                 className={`p-4 ${isToday ? 'bg-pink-50' : ''}`}
               >
                 <div className="text-center mb-3">
-                  <p className={`font-semibold ${isToday ? 'text-pink-600' : 'text-gray-900'}`}>
+                  <p className={`font-semibold ${isToday ? 'text-pink-600' : 'text-black'}`}>
                     {DAY_ABBREV[idx]}
                   </p>
                   {isToday && <span className="text-xs text-pink-500">Today</span>}
@@ -210,20 +210,20 @@ export default function ProviderSchedulePage() {
                 {schedule?.is_working ? (
                   <div className="text-center">
                     <p className="text-sm text-green-600 font-medium">Working</p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-black">
                       {formatTime(schedule.start_time)}
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-black">
                       to {formatTime(schedule.end_time)}
                     </p>
                   </div>
                 ) : (
-                  <p className="text-sm text-gray-400 text-center">Off</p>
+                  <p className="text-sm text-black text-center">Off</p>
                 )}
                 
                 <button
                   onClick={() => handleEditDay(idx)}
-                  className="w-full mt-2 px-2 py-1 text-xs text-gray-500 hover:text-pink-600 hover:bg-pink-50 rounded"
+                  className="w-full mt-2 px-2 py-1 text-xs text-black hover:text-pink-600 hover:bg-pink-50 rounded"
                 >
                   Edit
                 </button>
@@ -234,9 +234,9 @@ export default function ProviderSchedulePage() {
       </div>
 
       {/* This Week's View */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100">
-          <h2 className="font-semibold text-gray-900">This Week's Appointments</h2>
+      <div className="bg-white rounded-xl border border-black overflow-hidden">
+        <div className="px-5 py-4 border-b border-black">
+          <h2 className="font-semibold text-black">This Week's Appointments</h2>
         </div>
         <div className="grid grid-cols-7 divide-x divide-gray-100">
           {weekDates.map((date, idx) => {
@@ -247,20 +247,20 @@ export default function ProviderSchedulePage() {
             return (
               <div 
                 key={idx}
-                className={`min-h-[200px] ${!schedule?.is_working ? 'bg-gray-50' : ''} ${isToday ? 'bg-blue-50' : ''}`}
+                className={`min-h-[200px] ${!schedule?.is_working ? 'bg-white' : ''} ${isToday ? 'bg-blue-50' : ''}`}
               >
-                <div className={`p-2 text-center border-b border-gray-100 ${isToday ? 'bg-blue-100' : 'bg-gray-50'}`}>
-                  <p className="text-xs text-gray-500">{DAY_ABBREV[idx]}</p>
-                  <p className={`text-lg font-bold ${isToday ? 'text-blue-600' : 'text-gray-900'}`}>
+                <div className={`p-2 text-center border-b border-black ${isToday ? 'bg-blue-100' : 'bg-white'}`}>
+                  <p className="text-xs text-black">{DAY_ABBREV[idx]}</p>
+                  <p className={`text-lg font-bold ${isToday ? 'text-blue-600' : 'text-black'}`}>
                     {date.getDate()}
                   </p>
                 </div>
                 
                 <div className="p-2 space-y-1">
                   {!schedule?.is_working ? (
-                    <p className="text-xs text-gray-400 text-center py-4">Day Off</p>
+                    <p className="text-xs text-black text-center py-4">Day Off</p>
                   ) : dateAppts.length === 0 ? (
-                    <p className="text-xs text-gray-400 text-center py-4">No appts</p>
+                    <p className="text-xs text-black text-center py-4">No appts</p>
                   ) : (
                     dateAppts.slice(0, 5).map(apt => (
                       <Link
@@ -268,7 +268,7 @@ export default function ProviderSchedulePage() {
                         href={`/provider/charting?appointment=${apt.id}`}
                         className={`block p-1.5 text-xs rounded ${
                           apt.status === 'completed' ? 'bg-green-100 text-green-700' :
-                          apt.status === 'cancelled' ? 'bg-gray-100 text-gray-500 line-through' :
+                          apt.status === 'cancelled' ? 'bg-white text-black line-through' :
                           'bg-pink-100 text-pink-700'
                         }`}
                       >
@@ -280,7 +280,7 @@ export default function ProviderSchedulePage() {
                     ))
                   )}
                   {dateAppts.length > 5 && (
-                    <p className="text-xs text-gray-500 text-center">
+                    <p className="text-xs text-black text-center">
                       +{dateAppts.length - 5} more
                     </p>
                   )}
@@ -292,10 +292,10 @@ export default function ProviderSchedulePage() {
       </div>
 
       {/* Today's Detailed Schedule */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-          <h2 className="font-semibold text-gray-900">Today's Schedule</h2>
-          <span className="text-sm text-gray-500">
+      <div className="bg-white rounded-xl border border-black overflow-hidden">
+        <div className="px-5 py-4 border-b border-black flex items-center justify-between">
+          <h2 className="font-semibold text-black">Today's Schedule</h2>
+          <span className="text-sm text-black">
             {getAppointmentsForDate(new Date()).length} appointments
           </span>
         </div>
@@ -304,23 +304,23 @@ export default function ProviderSchedulePage() {
           {getAppointmentsForDate(new Date()).length === 0 ? (
             <div className="p-8 text-center">
               <span className="text-4xl block mb-2">📅</span>
-              <p className="text-gray-500">No appointments scheduled for today</p>
+              <p className="text-black">No appointments scheduled for today</p>
             </div>
           ) : (
             getAppointmentsForDate(new Date()).map(apt => (
-              <div key={apt.id} className="p-4 flex items-center justify-between hover:bg-gray-50">
+              <div key={apt.id} className="p-4 flex items-center justify-between hover:bg-white">
                 <div className="flex items-center gap-4">
                   <div className="text-center min-w-[80px]">
-                    <p className="text-lg font-bold text-gray-900">
+                    <p className="text-lg font-bold text-black">
                       {new Date(apt.starts_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-black">
                       {new Date(apt.ends_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' })}
                     </p>
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">{apt.client_name}</p>
-                    <p className="text-sm text-gray-500">{apt.service_name}</p>
+                    <p className="font-medium text-black">{apt.client_name}</p>
+                    <p className="text-sm text-black">{apt.service_name}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -329,7 +329,7 @@ export default function ProviderSchedulePage() {
                     apt.status === 'in_progress' ? 'bg-pink-100 text-pink-700' :
                     apt.status === 'checked_in' ? 'bg-blue-100 text-blue-700' :
                     apt.status === 'cancelled' ? 'bg-red-100 text-red-700' :
-                    'bg-gray-100 text-gray-600'
+                    'bg-white text-black'
                   }`}>
                     {apt.status.replace('_', ' ')}
                   </span>
@@ -350,7 +350,7 @@ export default function ProviderSchedulePage() {
       {editingDay !== null && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">
+            <h2 className="text-xl font-bold text-black mb-4">
               Edit {DAYS[editingDay]} Schedule
             </h2>
             
@@ -362,27 +362,27 @@ export default function ProviderSchedulePage() {
                   onChange={(e) => setEditForm(prev => ({ ...prev, is_working: e.target.checked }))}
                   className="w-5 h-5 rounded text-pink-500"
                 />
-                <span className="text-gray-900">Working this day</span>
+                <span className="text-black">Working this day</span>
               </label>
               
               {editForm.is_working && (
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1">Start Time</label>
+                    <label className="block text-sm text-black mb-1">Start Time</label>
                     <input
                       type="time"
                       value={editForm.start_time}
                       onChange={(e) => setEditForm(prev => ({ ...prev, start_time: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                      className="w-full px-3 py-2 border border-black rounded-lg"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm text-gray-600 mb-1">End Time</label>
+                    <label className="block text-sm text-black mb-1">End Time</label>
                     <input
                       type="time"
                       value={editForm.end_time}
                       onChange={(e) => setEditForm(prev => ({ ...prev, end_time: e.target.value }))}
-                      className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                      className="w-full px-3 py-2 border border-black rounded-lg"
                     />
                   </div>
                 </div>
@@ -392,7 +392,7 @@ export default function ProviderSchedulePage() {
             <div className="flex gap-3 mt-6">
               <button
                 onClick={() => setEditingDay(null)}
-                className="flex-1 px-4 py-2 border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50"
+                className="flex-1 px-4 py-2 border border-black text-black rounded-lg hover:bg-white"
               >
                 Cancel
               </button>

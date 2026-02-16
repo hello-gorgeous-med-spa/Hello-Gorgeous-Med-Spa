@@ -82,7 +82,7 @@ export function LocationMap() {
                   <div>
                     <p className="text-white font-semibold">Hours</p>
                     <p className="text-[#FF2D8E]">By Appointment</p>
-                    <p className="text-gray-500 text-sm">Botox Parties: Tue & Sat 6-9 PM</p>
+                    <p className="text-black text-sm">Botox Parties: Tue & Sat 6-9 PM</p>
                   </div>
                 </div>
               </div>
@@ -113,7 +113,7 @@ export function LocationMap() {
         {/* Serving Areas + Geo Internal Links */}
         <FadeUp delayMs={180}>
           <div className="mt-10 text-center space-y-4">
-            <p className="text-gray-400">
+            <p className="text-black">
               Proudly serving{" "}
               <span className="text-white">Oswego</span>,{" "}
               <span className="text-white">Naperville</span>,{" "}

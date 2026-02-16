@@ -141,8 +141,8 @@ export function PortalMedicationsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Medications & Supplements</h1>
-        <p className="text-gray-600 mt-1">
+        <h1 className="text-2xl font-bold text-black">Medications & Supplements</h1>
+        <p className="text-black mt-1">
           Track prescriptions, peptides, IV therapies. Request refills.
         </p>
       </div>
@@ -166,9 +166,9 @@ export function PortalMedicationsPage() {
       {email && (
         <>
           {/* Fullscript Supplements */}
-          <section className="bg-white rounded-2xl border border-gray-100 p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-2">Supplements</h2>
-            <p className="text-gray-600 text-sm mb-4">
+          <section className="bg-white rounded-2xl border border-black p-6">
+            <h2 className="text-lg font-semibold text-black mb-2">Supplements</h2>
+            <p className="text-black text-sm mb-4">
               Browse recommended supplements through our Fullscript dispensary.
             </p>
             <a
@@ -182,9 +182,9 @@ export function PortalMedicationsPage() {
           </section>
 
           {/* Medication List */}
-          <section className="bg-white rounded-2xl border border-gray-100 p-6">
+          <section className="bg-white rounded-2xl border border-black p-6">
             <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-semibold text-gray-900">Your Medications</h2>
+              <h2 className="text-lg font-semibold text-black">Your Medications</h2>
               <button
                 onClick={() => setShowAddForm(true)}
                 className="px-4 py-2 bg-pink-500 text-white text-sm font-medium rounded-full hover:opacity-90"
@@ -194,32 +194,32 @@ export function PortalMedicationsPage() {
             </div>
 
             {showAddForm && (
-              <form onSubmit={handleAdd} className="mb-6 p-4 rounded-xl bg-gray-50 border border-gray-200 space-y-3">
+              <form onSubmit={handleAdd} className="mb-6 p-4 rounded-xl bg-white border border-black space-y-3">
                 <input
                   required
                   placeholder="Medication name *"
                   value={form.medName}
                   onChange={(e) => setForm((f) => ({ ...f, medName: e.target.value }))}
-                  className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-pink-500 outline-none"
+                  className="w-full px-4 py-2 rounded-lg border border-black focus:ring-2 focus:ring-pink-500 outline-none"
                 />
                 <div className="grid grid-cols-2 gap-3">
                   <input
                     placeholder="Dosage"
                     value={form.dosage}
                     onChange={(e) => setForm((f) => ({ ...f, dosage: e.target.value }))}
-                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-pink-500 outline-none"
+                    className="w-full px-4 py-2 rounded-lg border border-black focus:ring-2 focus:ring-pink-500 outline-none"
                   />
                   <input
                     placeholder="Unit"
                     value={form.unit}
                     onChange={(e) => setForm((f) => ({ ...f, unit: e.target.value }))}
-                    className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-pink-500 outline-none"
+                    className="w-full px-4 py-2 rounded-lg border border-black focus:ring-2 focus:ring-pink-500 outline-none"
                   />
                 </div>
                 <select
                   value={form.category}
                   onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))}
-                  className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-pink-500 outline-none"
+                  className="w-full px-4 py-2 rounded-lg border border-black focus:ring-2 focus:ring-pink-500 outline-none"
                 >
                   <option value="">Category</option>
                   {CATEGORIES.map((c) => (
@@ -231,7 +231,7 @@ export function PortalMedicationsPage() {
                   value={form.notes}
                   onChange={(e) => setForm((f) => ({ ...f, notes: e.target.value }))}
                   rows={2}
-                  className="w-full px-4 py-2 rounded-lg border border-gray-200 focus:ring-2 focus:ring-pink-500 outline-none resize-none"
+                  className="w-full px-4 py-2 rounded-lg border border-black focus:ring-2 focus:ring-pink-500 outline-none resize-none"
                 />
                 <div className="flex gap-2">
                   <button
@@ -244,7 +244,7 @@ export function PortalMedicationsPage() {
                   <button
                     type="button"
                     onClick={() => setShowAddForm(false)}
-                    className="px-4 py-2 border border-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-50"
+                    className="px-4 py-2 border border-black text-black font-medium rounded-lg hover:bg-white"
                   >
                     Cancel
                   </button>
@@ -253,9 +253,9 @@ export function PortalMedicationsPage() {
             )}
 
             {loading ? (
-              <p className="text-gray-500 py-8 text-center">Loading…</p>
+              <p className="text-black py-8 text-center">Loading…</p>
             ) : medications.length === 0 ? (
-              <div className="py-12 text-center text-gray-500">
+              <div className="py-12 text-center text-black">
                 <p className="mb-4">No medications tracked yet.</p>
                 <p className="text-sm">Add medications or request your provider to add them.</p>
               </div>
@@ -264,11 +264,11 @@ export function PortalMedicationsPage() {
                 {medications.map((m) => (
                   <div
                     key={m.id}
-                    className="flex items-center justify-between p-4 rounded-xl bg-gray-50 border border-gray-100"
+                    className="flex items-center justify-between p-4 rounded-xl bg-white border border-black"
                   >
                     <div>
-                      <p className="font-semibold text-gray-900">{m.medName}</p>
-                      <p className="text-sm text-gray-500">
+                      <p className="font-semibold text-black">{m.medName}</p>
+                      <p className="text-sm text-black">
                         {m.dosage && `${m.dosage} ${m.unit || ""}`}
                         {m.category && ` • ${m.category}`}
                         {m.refillStatus === "pending" && " • Refill requested"}

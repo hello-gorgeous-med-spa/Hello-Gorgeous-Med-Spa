@@ -42,7 +42,7 @@ export function GeoContextBlock({
   const displayLinks = links[city] ?? links.oswego;
 
   return (
-    <div className={`flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm text-gray-400 ${className}`}>
+    <div className={`flex flex-wrap justify-center gap-x-4 gap-y-1 text-sm text-black ${className}`}>
       {displayLinks.map((link) => (
         <Link key={link.href + link.label} href={link.href} className="hover:text-pink-400 transition-colors">
           {link.label}

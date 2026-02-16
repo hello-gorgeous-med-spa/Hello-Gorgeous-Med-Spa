@@ -80,7 +80,7 @@ export default function PharmacyPartnerPage() {
                 Compounded Medications
               </span>
             </h1>
-            <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">
+            <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">
               We source our compounded medications from Olympia Pharmacy—a licensed 503A and 503B facility. 
               Their full medication directory includes hormones, weight loss (GLP-1), peptides, IV therapy, vitamins, and more.
             </p>
@@ -110,7 +110,7 @@ export default function PharmacyPartnerPage() {
             <h2 className="text-2xl md:text-4xl font-bold text-white">
               Categories We Use
             </h2>
-            <p className="mt-4 text-gray-400 max-w-2xl mx-auto">
+            <p className="mt-4 text-black max-w-2xl mx-auto">
               Olympia&apos;s directory covers the compounded medications we work with at Hello Gorgeous. 
               Browse by category below—or explore their full directory.
             </p>
@@ -120,10 +120,10 @@ export default function PharmacyPartnerPage() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {OLYMPIA_CATEGORIES.map((cat, idx) => (
             <FadeUp key={cat.title} delayMs={60 * idx}>
-              <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6 h-full flex flex-col">
+              <div className="rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-6 h-full flex flex-col">
                 <span className="text-3xl mb-3 block">{cat.icon}</span>
                 <h3 className="text-lg font-bold text-white">{cat.title}</h3>
-                <p className="mt-2 text-sm text-gray-300 flex-1">{cat.description}</p>
+                <p className="mt-2 text-sm text-black flex-1">{cat.description}</p>
                 <div className="mt-4 flex flex-wrap gap-3">
                   <a
                     href={cat.href}
@@ -150,7 +150,7 @@ export default function PharmacyPartnerPage() {
         <FadeUp>
           <div className="mt-12 rounded-2xl border border-pink-500/20 bg-black/40 p-8 max-w-3xl mx-auto">
             <h3 className="text-xl font-bold text-white mb-3">Why Olympia?</h3>
-            <ul className="text-gray-300 space-y-2 text-sm">
+            <ul className="text-black space-y-2 text-sm">
               <li className="flex gap-2">
                 <span className="text-pink-400">•</span>
                 Licensed 503A and 503B facilities
@@ -168,7 +168,7 @@ export default function PharmacyPartnerPage() {
                 Quality and safety protocols for IV, injectable, topical, and oral medications
               </li>
             </ul>
-            <p className="mt-4 text-xs text-gray-500">
+            <p className="mt-4 text-xs text-black">
               Compounded medications are not FDA-approved. Your provider determines candidacy and dosing based on your consultation and labs.
             </p>
           </div>
@@ -176,7 +176,7 @@ export default function PharmacyPartnerPage() {
 
         <FadeUp>
           <div className="mt-12 text-center">
-            <p className="text-gray-400 mb-6">Ready to explore treatments?</p>
+            <p className="text-black mb-6">Ready to explore treatments?</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <CTA href="/explore-care" variant="outline">
                 Explore Care

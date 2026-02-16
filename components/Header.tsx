@@ -141,7 +141,7 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
           {/* Service columns */}
           {data.columns.map((column) => (
             <div key={column.title}>
-              <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">
+              <h3 className="text-xs font-bold text-black uppercase tracking-wider mb-4">
                 {column.title}
               </h3>
               <ul className="space-y-3">
@@ -150,7 +150,7 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
                     <Link
                       href={link.href}
                       onClick={onClose}
-                      className="flex items-center gap-2 text-gray-700 hover:text-pink-600 transition-colors group"
+                      className="flex items-center gap-2 text-black hover:text-pink-600 transition-colors group"
                     >
                       <span className="text-lg group-hover:scale-110 transition-transform">{link.icon}</span>
                       <span className="text-sm font-medium">{link.label}</span>
@@ -164,8 +164,8 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
           {/* Featured section */}
           <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-6">
             <div className="text-4xl mb-3">{data.featured.image}</div>
-            <h3 className="font-bold text-gray-900 mb-2">{data.featured.title}</h3>
-            <p className="text-sm text-gray-600 mb-4">{data.featured.description}</p>
+            <h3 className="font-bold text-black mb-2">{data.featured.title}</h3>
+            <p className="text-sm text-black mb-4">{data.featured.description}</p>
             <Link
               href={data.featured.cta.href}
               onClick={onClose}
@@ -184,7 +184,7 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
           <Link
             href="/services"
             onClick={onClose}
-            className="text-sm font-medium text-gray-600 hover:text-pink-600 flex items-center gap-2"
+            className="text-sm font-medium text-black hover:text-pink-600 flex items-center gap-2"
           >
             View All Services
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -236,14 +236,14 @@ function SimpleDropdown({
               key={link.href}
               href={link.href}
               onClick={onClose}
-              className="flex items-start gap-4 p-3 rounded-xl hover:bg-gray-50 transition-colors group"
+              className="flex items-start gap-4 p-3 rounded-xl hover:bg-white transition-colors group"
             >
               <span className="text-2xl mt-0.5 group-hover:scale-110 transition-transform">
                 {link.icon}
               </span>
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-gray-900 group-hover:text-pink-600 transition-colors">
+                  <span className="font-semibold text-black group-hover:text-pink-600 transition-colors">
                     {link.label}
                   </span>
                   {'badge' in link && link.badge && (
@@ -252,7 +252,7 @@ function SimpleDropdown({
                     </span>
                   )}
                 </div>
-                <p className="text-sm text-gray-500 mt-0.5">{link.description}</p>
+                <p className="text-sm text-black mt-0.5">{link.description}</p>
               </div>
             </Link>
           ))}
@@ -544,7 +544,7 @@ export function Header() {
                 <div className="mt-2 ml-4 space-y-4">
                   {navigation.services.columns.map((column) => (
                     <div key={column.title}>
-                      <p className="text-xs font-bold text-gray-500 uppercase tracking-wider px-4 mb-2">{column.title}</p>
+                      <p className="text-xs font-bold text-black uppercase tracking-wider px-4 mb-2">{column.title}</p>
                       {column.links.map((link) => (
                         <Link
                           key={link.href}

@@ -93,7 +93,7 @@ function ComparisonBlock() {
   const current = COMPARISONS.find((c) => c.id === open) ?? COMPARISONS[0];
 
   return (
-    <div className="rounded-2xl border border-gray-800 bg-black/40 p-6">
+    <div className="rounded-2xl border border-black bg-black/40 p-6">
       <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
         <div>
           <h3 className="text-xl font-bold text-white">Comparison tools</h3>
@@ -153,7 +153,7 @@ function ComparisonBlock() {
 
 function PathwaysBlock() {
   return (
-    <div className="rounded-2xl border border-gray-800 bg-black/40 p-6">
+    <div className="rounded-2xl border border-black bg-black/40 p-6">
       <h3 className="text-xl font-bold text-white">Care pathways (conceptual)</h3>
       <p className="mt-2 text-sm text-white/70">
         These are not treatment plans—just a gentle way to understand how people often think about care over time.
@@ -212,7 +212,7 @@ function ServiceCard({
 }) {
   const [open, setOpen] = React.useState(false);
   return (
-    <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
+    <div className="rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-6">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-xs text-white/60">Intensity: {intensity} · Commitment: {commitment}</p>
@@ -359,7 +359,7 @@ function ChatModal({
                   "whitespace-pre-wrap text-sm leading-relaxed",
                   m.role === "user"
                     ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
-                    : "text-gray-200",
+                    : "text-white",
                 )}
               >
                 {m.content}
@@ -401,7 +401,7 @@ function ChatModal({
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask a question…"
-                className="flex-1 rounded-xl bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                className="flex-1 rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 onKeyDown={(e) => {
                   if (e.key !== "Enter") return;
                   const q = input.trim();
@@ -503,7 +503,7 @@ export function ServicesAtlas() {
 
       <div className="lg:col-span-8">
         {/* Section 1: Discovery tool */}
-        <div className="rounded-2xl border border-gray-800 bg-black/40 p-6">
+        <div className="rounded-2xl border border-black bg-black/40 p-6">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="text-sm text-white/70">Services Atlas™</p>
@@ -535,7 +535,7 @@ export function ServicesAtlas() {
                   }}
                   className={cx(
                     "text-left rounded-2xl border bg-gradient-to-b from-gray-950/60 to-black p-5 transition",
-                    active ? "border-pink-500/40" : "border-gray-800 hover:border-white/20",
+                    active ? "border-pink-500/40" : "border-black hover:border-white/20",
                   )}
                 >
                   <p className="text-sm font-semibold text-white">{o.label}</p>
@@ -580,7 +580,7 @@ export function ServicesAtlas() {
           {ATLAS_CLUSTERS.filter((c) => activeClusters.includes(c.id)).map((cluster) => {
             const cards = servicesForCluster(cluster.id);
             return (
-              <section key={cluster.id} className="rounded-2xl border border-gray-800 bg-black/40 p-6">
+              <section key={cluster.id} className="rounded-2xl border border-black bg-black/40 p-6">
                 <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                   <div>
                     <p className="text-xs text-white/60">Service cluster</p>
@@ -671,7 +671,7 @@ export function ServicesAtlas() {
       <div className="lg:col-span-4">
         <TrustMessage />
 
-        <div className="mt-6 rounded-2xl border border-gray-800 bg-black/40 p-5">
+        <div className="mt-6 rounded-2xl border border-black bg-black/40 p-5">
           <p className="text-sm font-semibold text-white">Want deeper education?</p>
           <p className="mt-2 text-sm text-white/70">
             The Care Engine adds interactive tools for clarity, timelines, and post-treatment reassurance.
@@ -686,7 +686,7 @@ export function ServicesAtlas() {
           </div>
         </div>
 
-        <div className="mt-6 rounded-2xl border border-gray-800 bg-black/40 p-5">
+        <div className="mt-6 rounded-2xl border border-black bg-black/40 p-5">
           <p className="text-sm font-semibold text-white">All services (index)</p>
           <p className="mt-2 text-sm text-white/70">
             Prefer the full list? It’s here for clarity.

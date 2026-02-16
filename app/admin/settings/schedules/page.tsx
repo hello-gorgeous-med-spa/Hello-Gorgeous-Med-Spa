@@ -174,10 +174,10 @@ export default function ProviderSchedulesPage() {
   if (loading) {
     return (
       <div className="space-y-6">
-        <h1 className="text-2xl font-bold text-gray-900">Provider Schedules</h1>
+        <h1 className="text-2xl font-bold text-black">Provider Schedules</h1>
         <div className="bg-white rounded-xl border p-8">
           <div className="animate-pulse space-y-4">
-            {[1, 2, 3].map(i => <div key={i} className="h-12 bg-gray-100 rounded" />)}
+            {[1, 2, 3].map(i => <div key={i} className="h-12 bg-white rounded" />)}
           </div>
         </div>
       </div>
@@ -189,13 +189,13 @@ export default function ProviderSchedulesPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+          <div className="flex items-center gap-2 text-sm text-black mb-1">
             <Link href="/admin/settings" className="hover:text-pink-600">Settings</Link>
             <span>/</span>
             <span>Provider Schedules</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Provider Schedules</h1>
-          <p className="text-gray-500">Set working hours, days off, and vacations</p>
+          <h1 className="text-2xl font-bold text-black">Provider Schedules</h1>
+          <p className="text-black">Set working hours, days off, and vacations</p>
         </div>
         <button
           onClick={saveSchedules}
@@ -221,14 +221,14 @@ export default function ProviderSchedulesPage() {
             className={`flex items-center gap-2 px-4 py-2 rounded-lg border-2 transition-colors ${
               selectedProvider === provider.id
                 ? 'border-pink-500 bg-pink-50'
-                : 'border-gray-200 hover:border-gray-300'
+                : 'border-black hover:border-black'
             }`}
           >
             <div
               className="w-3 h-3 rounded-full"
               style={{ backgroundColor: provider.color }}
             />
-            <span className={selectedProvider === provider.id ? 'font-medium text-pink-700' : 'text-gray-700'}>
+            <span className={selectedProvider === provider.id ? 'font-medium text-pink-700' : 'text-black'}>
               {provider.name}
             </span>
           </button>
@@ -238,7 +238,7 @@ export default function ProviderSchedulesPage() {
       <div className="grid grid-cols-3 gap-6">
         {/* Weekly Schedule */}
         <div className="col-span-2 bg-white rounded-xl border p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Weekly Schedule</h2>
+          <h2 className="text-lg font-semibold text-black mb-4">Weekly Schedule</h2>
           
           <div className="space-y-3">
             {DAYS.map((day, idx) => {
@@ -246,7 +246,7 @@ export default function ProviderSchedulesPage() {
               const isWorking = schedule?.is_working;
 
               return (
-                <div key={day} className={`flex items-center gap-4 p-3 rounded-lg ${isWorking ? 'bg-gray-50' : 'bg-gray-100'}`}>
+                <div key={day} className={`flex items-center gap-4 p-3 rounded-lg ${isWorking ? 'bg-white' : 'bg-white'}`}>
                   <div className="w-28">
                     <label className="flex items-center gap-2 cursor-pointer">
                       <input
@@ -255,7 +255,7 @@ export default function ProviderSchedulesPage() {
                         onChange={() => toggleWorkingDay(idx)}
                         className="w-4 h-4 text-pink-500 rounded"
                       />
-                      <span className={`font-medium ${isWorking ? 'text-gray-900' : 'text-gray-400'}`}>
+                      <span className={`font-medium ${isWorking ? 'text-black' : 'text-black'}`}>
                         {day}
                       </span>
                     </label>
@@ -269,7 +269,7 @@ export default function ProviderSchedulesPage() {
                         onChange={(e) => updateSchedule(idx, 'start_time', e.target.value)}
                         className="px-3 py-2 border rounded-lg text-sm"
                       />
-                      <span className="text-gray-500">to</span>
+                      <span className="text-black">to</span>
                       <input
                         type="time"
                         value={schedule?.end_time || '17:00'}
@@ -278,7 +278,7 @@ export default function ProviderSchedulesPage() {
                       />
                     </>
                   ) : (
-                    <span className="text-gray-400 text-sm">Not working</span>
+                    <span className="text-black text-sm">Not working</span>
                   )}
                 </div>
               );
@@ -289,7 +289,7 @@ export default function ProviderSchedulesPage() {
         {/* Time Off */}
         <div className="bg-white rounded-xl border p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">Time Off</h2>
+            <h2 className="text-lg font-semibold text-black">Time Off</h2>
             <button
               onClick={() => setShowTimeOffModal(true)}
               className="text-sm text-pink-600 hover:text-pink-700"
@@ -299,7 +299,7 @@ export default function ProviderSchedulesPage() {
           </div>
 
           {currentProviderTimeOff.length === 0 ? (
-            <p className="text-sm text-gray-500 text-center py-8">
+            <p className="text-sm text-black text-center py-8">
               No scheduled time off
             </p>
           ) : (
@@ -335,7 +335,7 @@ export default function ProviderSchedulesPage() {
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                <label className="block text-sm font-medium text-black mb-1">Start Date</label>
                 <input
                   type="date"
                   value={newTimeOff.start_date}
@@ -344,7 +344,7 @@ export default function ProviderSchedulesPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+                <label className="block text-sm font-medium text-black mb-1">End Date</label>
                 <input
                   type="date"
                   value={newTimeOff.end_date}
@@ -353,7 +353,7 @@ export default function ProviderSchedulesPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Reason (optional)</label>
+                <label className="block text-sm font-medium text-black mb-1">Reason (optional)</label>
                 <input
                   type="text"
                   value={newTimeOff.reason}
@@ -367,7 +367,7 @@ export default function ProviderSchedulesPage() {
             <div className="flex justify-end gap-3 mt-6">
               <button
                 onClick={() => setShowTimeOffModal(false)}
-                className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-black hover:bg-white rounded-lg"
               >
                 Cancel
               </button>

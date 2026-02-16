@@ -56,7 +56,7 @@ export function Skeleton({ className = '', variant = 'default' }: {
 
 export function KPISkeleton() {
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+    <div className="bg-white rounded-2xl p-6 shadow-sm border border-black">
       <Skeleton className="h-4 w-24 mb-3" />
       <Skeleton className="h-10 w-32 mb-2" />
       <Skeleton className="h-3 w-20" />
@@ -159,7 +159,7 @@ export function KPICard({
   animate = true,
 }: KPICardProps) {
   const colorClasses = {
-    default: 'text-gray-900',
+    default: 'text-black',
     pink: 'text-pink-600',
     green: 'text-emerald-600',
     amber: 'text-amber-600',
@@ -176,14 +176,14 @@ export function KPICard({
   
   const content = (
     <div className={`
-      bg-white rounded-2xl p-6 shadow-sm border border-gray-100 
+      bg-white rounded-2xl p-6 shadow-sm border border-black 
       transition-all duration-300 hover:shadow-lg hover:border-pink-200 hover:-translate-y-0.5
       ${bgAccent[color]}
       ${size === 'large' ? 'p-8' : ''}
       ${href ? 'cursor-pointer' : ''}
     `}>
       <div className="flex items-start justify-between mb-2">
-        <p className="text-sm font-medium text-gray-500">{label}</p>
+        <p className="text-sm font-medium text-black">{label}</p>
         {icon && <span className="text-2xl">{icon}</span>}
       </div>
       
@@ -235,19 +235,19 @@ export function StatusBadge({ status, size = 'md', pulse = false }: StatusBadgeP
     confirmed: 'bg-blue-100 text-blue-700 border-blue-200',
     checked_in: 'bg-emerald-100 text-emerald-700 border-emerald-200',
     in_progress: 'bg-purple-100 text-purple-700 border-purple-200',
-    completed: 'bg-gray-100 text-gray-600 border-gray-200',
+    completed: 'bg-white text-black border-black',
     cancelled: 'bg-red-100 text-red-700 border-red-200',
     no_show: 'bg-amber-100 text-amber-700 border-amber-200',
     pending: 'bg-yellow-100 text-yellow-700 border-yellow-200',
     
     // General
     active: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-    inactive: 'bg-gray-100 text-gray-600 border-gray-200',
+    inactive: 'bg-white text-black border-black',
     warning: 'bg-amber-100 text-amber-700 border-amber-200',
     error: 'bg-red-100 text-red-700 border-red-200',
   };
   
-  const style = statusStyles[status.toLowerCase()] || 'bg-gray-100 text-gray-600 border-gray-200';
+  const style = statusStyles[status.toLowerCase()] || 'bg-white text-black border-black';
   const sizeClass = size === 'sm' ? 'px-2 py-0.5 text-xs' : 'px-3 py-1 text-sm';
   
   return (
@@ -284,8 +284,8 @@ export function EmptyState({ icon = '📭', title, description, action }: EmptyS
   return (
     <div className="flex flex-col items-center justify-center py-12 px-4">
       <span className="text-5xl mb-4">{icon}</span>
-      <h3 className="text-lg font-semibold text-gray-900 mb-1">{title}</h3>
-      {description && <p className="text-sm text-gray-500 text-center max-w-sm">{description}</p>}
+      <h3 className="text-lg font-semibold text-black mb-1">{title}</h3>
+      {description && <p className="text-sm text-black text-center max-w-sm">{description}</p>}
       {action && (
         action.href ? (
           <Link
@@ -327,8 +327,8 @@ export function Card({ children, className = '', hover = true, padding = 'md' }:
   
   return (
     <div className={`
-      bg-white rounded-2xl border border-gray-100 shadow-sm
-      ${hover ? 'transition-all duration-300 hover:shadow-md hover:border-gray-200' : ''}
+      bg-white rounded-2xl border border-black shadow-sm
+      ${hover ? 'transition-all duration-300 hover:shadow-md hover:border-black' : ''}
       ${paddingClasses[padding]}
       ${className}
     `}>
@@ -354,9 +354,9 @@ export function SectionHeader({ title, action, badge }: SectionHeaderProps) {
   return (
     <div className="flex items-center justify-between mb-4">
       <div className="flex items-center gap-3">
-        <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+        <h2 className="text-lg font-semibold text-black">{title}</h2>
         {badge !== undefined && (
-          <span className="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs font-medium rounded-full">
+          <span className="px-2 py-0.5 bg-white text-black text-xs font-medium rounded-full">
             {badge}
           </span>
         )}
@@ -444,7 +444,7 @@ interface QuickActionProps {
 
 export function QuickAction({ icon, label, href, onClick, color = 'default' }: QuickActionProps) {
   const colorClasses = {
-    default: 'bg-gray-50 hover:bg-pink-50 hover:text-pink-600 text-gray-700',
+    default: 'bg-white hover:bg-pink-50 hover:text-pink-600 text-black',
     pink: 'bg-pink-500 hover:bg-pink-600 text-white',
     green: 'bg-emerald-500 hover:bg-emerald-600 text-white',
   };
@@ -503,29 +503,29 @@ export function AppointmentRow({
   return (
     <div className={`
       flex items-center gap-4 p-4 rounded-xl transition-all duration-200
-      ${isNext ? 'bg-pink-50 border-2 border-pink-200' : 'hover:bg-gray-50'}
+      ${isNext ? 'bg-pink-50 border-2 border-pink-200' : 'hover:bg-white'}
     `}>
       <div className="text-center min-w-[70px]">
-        <p className={`text-lg font-bold ${isNext ? 'text-pink-600' : 'text-gray-900'}`}>
+        <p className={`text-lg font-bold ${isNext ? 'text-pink-600' : 'text-black'}`}>
           {formatTime(time)}
         </p>
-        {duration && <p className="text-xs text-gray-500">{duration} min</p>}
+        {duration && <p className="text-xs text-black">{duration} min</p>}
       </div>
       
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <p className="font-semibold text-gray-900 truncate">{clientName}</p>
+          <p className="font-semibold text-black truncate">{clientName}</p>
           {isNext && (
             <span className="px-2 py-0.5 bg-pink-500 text-white text-xs font-medium rounded-full">
               UP NEXT
             </span>
           )}
         </div>
-        <p className="text-sm text-gray-500 truncate">{serviceName}</p>
+        <p className="text-sm text-black truncate">{serviceName}</p>
       </div>
       
       {amount !== undefined && (
-        <p className="font-semibold text-gray-900">${amount}</p>
+        <p className="font-semibold text-black">${amount}</p>
       )}
       
       <StatusBadge status={status} pulse={status === 'checked_in'} />
@@ -566,14 +566,14 @@ export function ProgressBar({
   
   return (
     <div className="w-full">
-      <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+      <div className="h-2 bg-white rounded-full overflow-hidden">
         <div 
           className={`h-full ${colorClasses[color]} transition-all duration-500 ease-out rounded-full`}
           style={{ width: `${percentage}%` }}
         />
       </div>
       {showLabel && (
-        <p className="text-xs text-gray-500 mt-1 text-right">{Math.round(percentage)}%</p>
+        <p className="text-xs text-black mt-1 text-right">{Math.round(percentage)}%</p>
       )}
     </div>
   );

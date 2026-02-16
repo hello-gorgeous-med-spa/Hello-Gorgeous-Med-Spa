@@ -83,21 +83,21 @@ export default function SandboxPage() {
       )}
 
       {/* Status Banner */}
-      <div className={`p-4 rounded-xl mb-6 ${sandboxActive ? 'bg-amber-100 border-2 border-amber-400' : 'bg-gray-100 border border-gray-200'}`}>
+      <div className={`p-4 rounded-xl mb-6 ${sandboxActive ? 'bg-amber-100 border-2 border-amber-400' : 'bg-white border border-black'}`}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span className="text-2xl">{sandboxActive ? '🧪' : '🔒'}</span>
             <div>
-              <h2 className={`font-semibold ${sandboxActive ? 'text-amber-800' : 'text-gray-700'}`}>
+              <h2 className={`font-semibold ${sandboxActive ? 'text-amber-800' : 'text-black'}`}>
                 {sandboxActive ? 'Sandbox Mode Active' : 'Production Mode'}
               </h2>
-              <p className={`text-sm ${sandboxActive ? 'text-amber-600' : 'text-gray-500'}`}>
+              <p className={`text-sm ${sandboxActive ? 'text-amber-600' : 'text-black'}`}>
                 {sandboxActive ? 'Changes will not affect live data' : 'All changes affect production'}
               </p>
             </div>
           </div>
           {sandboxActive ? (
-            <button onClick={deactivateSandbox} className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">
+            <button onClick={deactivateSandbox} className="px-4 py-2 bg-black/50 text-white rounded-lg hover:bg-black">
               Exit Sandbox
             </button>
           ) : (
@@ -112,7 +112,7 @@ export default function SandboxPage() {
         <>
           {/* Quick Test Scenarios */}
           <div className="bg-white rounded-xl border mb-6">
-            <div className="p-4 border-b bg-gray-50">
+            <div className="p-4 border-b bg-white">
               <h2 className="font-semibold">🧪 Quick Test Scenarios</h2>
             </div>
             <div className="grid grid-cols-3 gap-4 p-4">
@@ -124,7 +124,7 @@ export default function SandboxPage() {
                 >
                   <span className="text-2xl block mb-2">{scenario.icon}</span>
                   <h3 className="font-medium text-sm">{scenario.label}</h3>
-                  <p className="text-xs text-gray-500">{scenario.description}</p>
+                  <p className="text-xs text-black">{scenario.description}</p>
                 </button>
               ))}
             </div>
@@ -134,7 +134,7 @@ export default function SandboxPage() {
           <div className="grid grid-cols-2 gap-6 mb-6">
             {/* Changes List */}
             <div className="bg-white rounded-xl border">
-              <div className="p-4 border-b bg-gray-50 flex items-center justify-between">
+              <div className="p-4 border-b bg-white flex items-center justify-between">
                 <h2 className="font-semibold">📝 Pending Changes</h2>
                 <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-sm">
                   {changes.length} changes
@@ -142,16 +142,16 @@ export default function SandboxPage() {
               </div>
               <div className="max-h-[300px] overflow-y-auto">
                 {changes.length === 0 ? (
-                  <div className="p-4 text-center text-gray-500">
+                  <div className="p-4 text-center text-black">
                     No changes yet. Use the test scenarios above.
                   </div>
                 ) : (
                   <div className="divide-y">
                     {changes.map(change => (
-                      <div key={change.id} className="p-3 hover:bg-gray-50">
+                      <div key={change.id} className="p-3 hover:bg-white">
                         <div className="flex items-center justify-between">
-                          <span className="text-xs bg-gray-100 px-2 py-0.5 rounded">{change.type}</span>
-                          <span className="text-xs text-gray-400">
+                          <span className="text-xs bg-white px-2 py-0.5 rounded">{change.type}</span>
+                          <span className="text-xs text-black">
                             {new Date(change.timestamp).toLocaleTimeString()}
                           </span>
                         </div>
@@ -165,13 +165,13 @@ export default function SandboxPage() {
 
             {/* Preview Panel */}
             <div className="bg-white rounded-xl border">
-              <div className="p-4 border-b bg-gray-50">
+              <div className="p-4 border-b bg-white">
                 <h2 className="font-semibold">👁️ Preview Client Flow</h2>
               </div>
               <div className="p-4">
-                <div className="bg-gray-100 rounded-lg p-4 text-center">
+                <div className="bg-white rounded-lg p-4 text-center">
                   <span className="text-4xl block mb-3">📱</span>
-                  <p className="text-sm text-gray-600 mb-4">Preview how changes will appear to clients</p>
+                  <p className="text-sm text-black mb-4">Preview how changes will appear to clients</p>
                   <button className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 text-sm">
                     Open Preview
                   </button>
@@ -188,7 +188,7 @@ export default function SandboxPage() {
               className={`flex-1 px-6 py-4 rounded-xl font-medium ${
                 changes.length > 0
                   ? 'bg-green-600 text-white hover:bg-green-700'
-                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  : 'bg-white text-black cursor-not-allowed'
               }`}
             >
               ✓ Publish to Live ({changes.length} changes)
@@ -199,7 +199,7 @@ export default function SandboxPage() {
               className={`flex-1 px-6 py-4 rounded-xl font-medium ${
                 changes.length > 0
                   ? 'bg-red-100 text-red-700 hover:bg-red-200'
-                  : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                  : 'bg-white text-black cursor-not-allowed'
               }`}
             >
               ✕ Discard All Changes
@@ -212,7 +212,7 @@ export default function SandboxPage() {
         <div className="bg-white rounded-xl border p-8 text-center">
           <span className="text-5xl block mb-4">🧪</span>
           <h3 className="text-xl font-semibold mb-2">Sandbox Mode</h3>
-          <p className="text-gray-500 mb-6 max-w-md mx-auto">
+          <p className="text-black mb-6 max-w-md mx-auto">
             Test configuration changes, simulate bookings, and preview client flows without affecting your live production data.
           </p>
           <button

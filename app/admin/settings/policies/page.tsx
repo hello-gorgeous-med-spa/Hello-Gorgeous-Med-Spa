@@ -30,11 +30,11 @@ export default function PoliciesSettingsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <Link href="/admin/settings" className="text-sm text-gray-500 hover:text-gray-700 mb-1 inline-block">
+          <Link href="/admin/settings" className="text-sm text-black hover:text-black mb-1 inline-block">
             ← Back to Settings
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900">Business Policies</h1>
-          <p className="text-gray-500">Configure cancellation, booking, and payment rules</p>
+          <h1 className="text-2xl font-bold text-black">Business Policies</h1>
+          <p className="text-black">Configure cancellation, booking, and payment rules</p>
         </div>
         <button
           onClick={handleSave}
@@ -45,15 +45,15 @@ export default function PoliciesSettingsPage() {
       </div>
 
       {/* Cancellation Policy */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
-        <div className="px-6 py-4 border-b border-gray-100">
-          <h2 className="font-semibold text-gray-900">Cancellation Policy</h2>
-          <p className="text-sm text-gray-500">Rules for client cancellations and no-shows</p>
+      <div className="bg-white rounded-xl border border-black shadow-sm">
+        <div className="px-6 py-4 border-b border-black">
+          <h2 className="font-semibold text-black">Cancellation Policy</h2>
+          <p className="text-sm text-black">Rules for client cancellations and no-shows</p>
         </div>
         <div className="p-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Free Cancellation Window
               </label>
               <div className="flex items-center gap-2">
@@ -64,17 +64,17 @@ export default function PoliciesSettingsPage() {
                     ...cancellationPolicy,
                     freeCancellationHours: parseInt(e.target.value) || 0,
                   })}
-                  className="w-24 px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-24 px-4 py-2 border border-black rounded-lg"
                 />
-                <span className="text-gray-500">hours before appointment</span>
+                <span className="text-black">hours before appointment</span>
               </div>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs text-black mt-1">
                 Clients can cancel free of charge if they give this much notice
               </p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Late Cancellation Fee
               </label>
               <div className="flex items-center gap-2">
@@ -85,17 +85,17 @@ export default function PoliciesSettingsPage() {
                     ...cancellationPolicy,
                     lateCancellationFeePercent: parseInt(e.target.value) || 0,
                   })}
-                  className="w-24 px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-24 px-4 py-2 border border-black rounded-lg"
                 />
-                <span className="text-gray-500">% of service price</span>
+                <span className="text-black">% of service price</span>
               </div>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs text-black mt-1">
                 Fee charged when cancelling with less than {cancellationPolicy.freeCancellationHours} hours notice
               </p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Reschedule Blocked Window
               </label>
               <div className="flex items-center gap-2">
@@ -106,17 +106,17 @@ export default function PoliciesSettingsPage() {
                     ...cancellationPolicy,
                     rescheduleBlockedHours: parseInt(e.target.value) || 0,
                   })}
-                  className="w-24 px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-24 px-4 py-2 border border-black rounded-lg"
                 />
-                <span className="text-gray-500">hours before appointment</span>
+                <span className="text-black">hours before appointment</span>
               </div>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs text-black mt-1">
                 Online rescheduling blocked within this window (must call)
               </p>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Max No-Shows Before Flag
               </label>
               <div className="flex items-center gap-2">
@@ -127,18 +127,18 @@ export default function PoliciesSettingsPage() {
                     ...cancellationPolicy,
                     maxNoShows: parseInt(e.target.value) || 0,
                   })}
-                  className="w-24 px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-24 px-4 py-2 border border-black rounded-lg"
                 />
-                <span className="text-gray-500">no-shows</span>
+                <span className="text-black">no-shows</span>
               </div>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs text-black mt-1">
                 Client account flagged after this many no-shows
               </p>
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-black mb-1">
               Policy Message (shown to clients)
             </label>
             <textarea
@@ -148,22 +148,22 @@ export default function PoliciesSettingsPage() {
                 clientMessage: e.target.value,
               })}
               rows={4}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+              className="w-full px-4 py-2 border border-black rounded-lg"
             />
           </div>
         </div>
       </div>
 
       {/* Booking Policy */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
-        <div className="px-6 py-4 border-b border-gray-100">
-          <h2 className="font-semibold text-gray-900">Booking Policy</h2>
-          <p className="text-sm text-gray-500">Rules for appointment scheduling</p>
+      <div className="bg-white rounded-xl border border-black shadow-sm">
+        <div className="px-6 py-4 border-b border-black">
+          <h2 className="font-semibold text-black">Booking Policy</h2>
+          <p className="text-sm text-black">Rules for appointment scheduling</p>
         </div>
         <div className="p-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Max Advance Booking
               </label>
               <div className="flex items-center gap-2">
@@ -174,14 +174,14 @@ export default function PoliciesSettingsPage() {
                     ...bookingPolicy,
                     maxAdvanceBookingDays: parseInt(e.target.value) || 0,
                   })}
-                  className="w-24 px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-24 px-4 py-2 border border-black rounded-lg"
                 />
-                <span className="text-gray-500">days in advance</span>
+                <span className="text-black">days in advance</span>
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Minimum Notice Required
               </label>
               <div className="flex items-center gap-2">
@@ -192,14 +192,14 @@ export default function PoliciesSettingsPage() {
                     ...bookingPolicy,
                     minNoticeHours: parseInt(e.target.value) || 0,
                   })}
-                  className="w-24 px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-24 px-4 py-2 border border-black rounded-lg"
                 />
-                <span className="text-gray-500">hours minimum</span>
+                <span className="text-black">hours minimum</span>
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Deposit Amount
               </label>
               <div className="flex items-center gap-2">
@@ -210,18 +210,18 @@ export default function PoliciesSettingsPage() {
                     ...bookingPolicy,
                     depositPercent: parseInt(e.target.value) || 0,
                   })}
-                  className="w-24 px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-24 px-4 py-2 border border-black rounded-lg"
                 />
-                <span className="text-gray-500">% of service price</span>
+                <span className="text-black">% of service price</span>
               </div>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Deposit Required When Service Over
               </label>
               <div className="flex items-center gap-2">
-                <span className="text-gray-500">$</span>
+                <span className="text-black">$</span>
                 <input
                   type="number"
                   value={bookingPolicy.depositThresholdAmount}
@@ -229,7 +229,7 @@ export default function PoliciesSettingsPage() {
                     ...bookingPolicy,
                     depositThresholdAmount: parseInt(e.target.value) || 0,
                   })}
-                  className="w-32 px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-32 px-4 py-2 border border-black rounded-lg"
                 />
               </div>
             </div>
@@ -244,9 +244,9 @@ export default function PoliciesSettingsPage() {
                   ...bookingPolicy,
                   allowNewClientOnlineBooking: e.target.checked,
                 })}
-                className="rounded border-gray-300"
+                className="rounded border-black"
               />
-              <span className="text-gray-700">Allow new clients to book online</span>
+              <span className="text-black">Allow new clients to book online</span>
             </label>
 
             <label className="flex items-center gap-3">
@@ -257,9 +257,9 @@ export default function PoliciesSettingsPage() {
                   ...bookingPolicy,
                   requireFirstTimeConsultation: e.target.checked,
                 })}
-                className="rounded border-gray-300"
+                className="rounded border-black"
               />
-              <span className="text-gray-700">Require consultation for first-time clients</span>
+              <span className="text-black">Require consultation for first-time clients</span>
             </label>
 
             <label className="flex items-center gap-3">
@@ -270,9 +270,9 @@ export default function PoliciesSettingsPage() {
                   ...bookingPolicy,
                   requireDepositNewClients: e.target.checked,
                 })}
-                className="rounded border-gray-300"
+                className="rounded border-black"
               />
-              <span className="text-gray-700">Require deposit from new clients</span>
+              <span className="text-black">Require deposit from new clients</span>
             </label>
           </div>
         </div>
@@ -280,8 +280,8 @@ export default function PoliciesSettingsPage() {
 
       {/* Preview */}
       <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl border border-pink-100 p-6">
-        <h3 className="font-semibold text-gray-900 mb-3">📋 Policy Preview (What Clients See)</h3>
-        <div className="bg-white rounded-lg p-4 text-sm text-gray-700">
+        <h3 className="font-semibold text-black mb-3">📋 Policy Preview (What Clients See)</h3>
+        <div className="bg-white rounded-lg p-4 text-sm text-black">
           <p>{cancellationPolicy.clientMessage}</p>
         </div>
       </div>

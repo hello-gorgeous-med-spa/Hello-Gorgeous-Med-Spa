@@ -153,13 +153,13 @@ export default function ServicesPage() {
             {/* Service Table */}
             <div className="max-h-[600px] overflow-y-auto">
               <table className="w-full">
-                <thead className="bg-gray-50 sticky top-0">
+                <thead className="bg-white sticky top-0">
                   <tr>
-                    <th className="text-left px-4 py-2 text-xs font-semibold text-gray-500">SERVICE</th>
-                    <th className="text-left px-4 py-2 text-xs font-semibold text-gray-500">CAT</th>
-                    <th className="text-right px-4 py-2 text-xs font-semibold text-gray-500">DUR</th>
-                    <th className="text-right px-4 py-2 text-xs font-semibold text-gray-500">PRICE</th>
-                    <th className="px-4 py-2 text-xs font-semibold text-gray-500">STATUS</th>
+                    <th className="text-left px-4 py-2 text-xs font-semibold text-black">SERVICE</th>
+                    <th className="text-left px-4 py-2 text-xs font-semibold text-black">CAT</th>
+                    <th className="text-right px-4 py-2 text-xs font-semibold text-black">DUR</th>
+                    <th className="text-right px-4 py-2 text-xs font-semibold text-black">PRICE</th>
+                    <th className="px-4 py-2 text-xs font-semibold text-black">STATUS</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y">
@@ -167,16 +167,16 @@ export default function ServicesPage() {
                     <tr
                       key={service.id}
                       onClick={() => { setSelectedService(service); setActiveTab('general'); }}
-                      className={`cursor-pointer hover:bg-gray-50 ${selectedService?.id === service.id ? 'bg-purple-50' : ''}`}
+                      className={`cursor-pointer hover:bg-white ${selectedService?.id === service.id ? 'bg-purple-50' : ''}`}
                     >
                       <td className="px-4 py-3 text-sm font-medium">{service.name}</td>
-                      <td className="px-4 py-3 text-xs text-gray-500">{service.category.substring(0, 3)}</td>
+                      <td className="px-4 py-3 text-xs text-black">{service.category.substring(0, 3)}</td>
                       <td className="px-4 py-3 text-sm text-right">{service.duration}m</td>
                       <td className="px-4 py-3 text-sm text-right">${service.price}</td>
                       <td className="px-4 py-3">
                         <span className={`text-xs px-2 py-0.5 rounded ${
                           service.status === 'active' ? 'bg-green-100 text-green-700' :
-                          service.status === 'draft' ? 'bg-gray-100 text-gray-600' :
+                          service.status === 'draft' ? 'bg-white text-black' :
                           'bg-red-100 text-red-700'
                         }`}>
                           {service.status}
@@ -195,9 +195,9 @@ export default function ServicesPage() {
           {selectedService ? (
             <div className="bg-white rounded-xl border">
               {/* Panel Header */}
-              <div className="p-4 border-b bg-gray-50">
+              <div className="p-4 border-b bg-white">
                 <h2 className="font-semibold text-lg">{selectedService.name}</h2>
-                <p className="text-sm text-gray-500">Service Configuration Panel</p>
+                <p className="text-sm text-black">Service Configuration Panel</p>
               </div>
 
               {/* Tabs */}
@@ -209,7 +209,7 @@ export default function ServicesPage() {
                     className={`px-4 py-3 text-sm font-medium border-b-2 -mb-px ${
                       activeTab === tab.id
                         ? 'border-purple-500 text-pink-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700'
+                        : 'border-transparent text-black hover:text-black'
                     }`}
                   >
                     {tab.label}
@@ -223,7 +223,7 @@ export default function ServicesPage() {
                 {activeTab === 'general' && (
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+                      <label className="block text-sm font-medium text-black mb-1">Name</label>
                       <input
                         type="text"
                         value={selectedService.name}
@@ -233,7 +233,7 @@ export default function ServicesPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                        <label className="block text-sm font-medium text-black mb-1">Category</label>
                         <select
                           value={selectedService.category}
                           onChange={(e) => updateService({ category: e.target.value })}
@@ -245,7 +245,7 @@ export default function ServicesPage() {
                         </select>
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                        <label className="block text-sm font-medium text-black mb-1">Status</label>
                         <select
                           value={selectedService.status}
                           onChange={(e) => updateService({ status: e.target.value as any })}
@@ -259,7 +259,7 @@ export default function ServicesPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Price ($)</label>
+                        <label className="block text-sm font-medium text-black mb-1">Price ($)</label>
                         <input
                           type="number"
                           value={selectedService.price}
@@ -270,7 +270,7 @@ export default function ServicesPage() {
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Taxable</label>
+                        <label className="block text-sm font-medium text-black mb-1">Taxable</label>
                         <select
                           value={selectedService.taxable ? 'yes' : 'no'}
                           onChange={(e) => updateService({ taxable: e.target.value === 'yes' })}
@@ -288,7 +288,7 @@ export default function ServicesPage() {
                 {activeTab === 'timing' && (
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Duration (minutes)</label>
+                      <label className="block text-sm font-medium text-black mb-1">Duration (minutes)</label>
                       <input
                         type="number"
                         value={selectedService.duration}
@@ -299,7 +299,7 @@ export default function ServicesPage() {
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Buffer Before (min)</label>
+                        <label className="block text-sm font-medium text-black mb-1">Buffer Before (min)</label>
                         <input
                           type="number"
                           value={selectedService.bufferBefore}
@@ -309,7 +309,7 @@ export default function ServicesPage() {
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">Buffer After (min)</label>
+                        <label className="block text-sm font-medium text-black mb-1">Buffer After (min)</label>
                         <input
                           type="number"
                           value={selectedService.bufferAfter}
@@ -319,8 +319,8 @@ export default function ServicesPage() {
                         />
                       </div>
                     </div>
-                    <div className="p-4 bg-gray-50 rounded-lg">
-                      <p className="text-sm text-gray-600">
+                    <div className="p-4 bg-white rounded-lg">
+                      <p className="text-sm text-black">
                         <strong>Total block time:</strong> {selectedService.bufferBefore + selectedService.duration + selectedService.bufferAfter} minutes
                       </p>
                     </div>
@@ -331,10 +331,10 @@ export default function ServicesPage() {
                 {activeTab === 'clinical' && (
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Required Consent(s)</label>
+                      <label className="block text-sm font-medium text-black mb-2">Required Consent(s)</label>
                       <div className="space-y-2">
                         {CONSENTS.map(consent => (
-                          <label key={consent} className="flex items-center gap-3 p-2 border rounded-lg cursor-pointer hover:bg-gray-50">
+                          <label key={consent} className="flex items-center gap-3 p-2 border rounded-lg cursor-pointer hover:bg-white">
                             <input
                               type="checkbox"
                               checked={selectedService.requiredConsents.includes(consent)}
@@ -352,10 +352,10 @@ export default function ServicesPage() {
                       </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Required Chart Sections</label>
+                      <label className="block text-sm font-medium text-black mb-2">Required Chart Sections</label>
                       <div className="grid grid-cols-2 gap-2">
                         {CHART_SECTIONS.map(section => (
-                          <label key={section} className="flex items-center gap-3 p-2 border rounded-lg cursor-pointer hover:bg-gray-50">
+                          <label key={section} className="flex items-center gap-3 p-2 border rounded-lg cursor-pointer hover:bg-white">
                             <input
                               type="checkbox"
                               checked={selectedService.requiredChartSections.includes(section)}
@@ -373,24 +373,24 @@ export default function ServicesPage() {
                       </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Required Photos</label>
+                      <label className="block text-sm font-medium text-black mb-2">Required Photos</label>
                       <div className="space-y-2">
-                        <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                        <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-white">
                           <input type="checkbox" checked={selectedService.requireBeforePhoto} onChange={(e) => updateService({ requireBeforePhoto: e.target.checked })} className="w-5 h-5 text-pink-600" />
                           <span>Before Photo (Pre-treatment)</span>
                         </label>
-                        <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                        <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-white">
                           <input type="checkbox" checked={selectedService.requireAfterPhoto} onChange={(e) => updateService({ requireAfterPhoto: e.target.checked })} className="w-5 h-5 text-pink-600" />
                           <span>After Photo (Post-treatment)</span>
                         </label>
                       </div>
                     </div>
                     <div>
-                      <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                      <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-white">
                         <input type="checkbox" checked={selectedService.requireInventory} onChange={(e) => updateService({ requireInventory: e.target.checked })} className="w-5 h-5 text-pink-600" />
                         <div>
                           <span className="font-medium">Require Inventory / Lot Tracking</span>
-                          <p className="text-xs text-gray-500">Must select product lot when charting</p>
+                          <p className="text-xs text-black">Must select product lot when charting</p>
                         </div>
                       </label>
                     </div>
@@ -401,10 +401,10 @@ export default function ServicesPage() {
                 {activeTab === 'providers' && (
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Eligible Providers</label>
+                      <label className="block text-sm font-medium text-black mb-2">Eligible Providers</label>
                       <div className="space-y-2">
                         {PROVIDERS.map(provider => (
-                          <label key={provider.id} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                          <label key={provider.id} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-white">
                             <input
                               type="checkbox"
                               checked={selectedService.eligibleProviders.includes(provider.id)}
@@ -422,8 +422,8 @@ export default function ServicesPage() {
                       </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Unit Limits per Provider</label>
-                      <p className="text-xs text-gray-500 mb-2">Set maximum units this provider can administer per day (for injectable services)</p>
+                      <label className="block text-sm font-medium text-black mb-2">Unit Limits per Provider</label>
+                      <p className="text-xs text-black mb-2">Set maximum units this provider can administer per day (for injectable services)</p>
                       {PROVIDERS.map(provider => (
                         <div key={provider.id} className="flex items-center gap-3 mb-2">
                           <span className="w-32 text-sm">{provider.name}</span>
@@ -443,7 +443,7 @@ export default function ServicesPage() {
                             className="w-24 px-3 py-2 border rounded-lg text-sm"
                             min="0"
                           />
-                          <span className="text-xs text-gray-500">units/day</span>
+                          <span className="text-xs text-black">units/day</span>
                         </div>
                       ))}
                     </div>
@@ -454,7 +454,7 @@ export default function ServicesPage() {
                 {activeTab === 'automation' && (
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Follow-up Timing (days after treatment)</label>
+                      <label className="block text-sm font-medium text-black mb-1">Follow-up Timing (days after treatment)</label>
                       <input
                         type="number"
                         value={selectedService.followUpDays}
@@ -462,10 +462,10 @@ export default function ServicesPage() {
                         className="w-full px-4 py-2 border rounded-lg"
                         min="0"
                       />
-                      <p className="text-xs text-gray-500 mt-1">0 = no automatic follow-up</p>
+                      <p className="text-xs text-black mt-1">0 = no automatic follow-up</p>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Post-Care Message (SMS)</label>
+                      <label className="block text-sm font-medium text-black mb-1">Post-Care Message (SMS)</label>
                       <textarea
                         value={selectedService.postCareMessage}
                         onChange={(e) => updateService({ postCareMessage: e.target.value })}
@@ -473,10 +473,10 @@ export default function ServicesPage() {
                         rows={3}
                         placeholder="Instructions sent to client after treatment..."
                       />
-                      <p className="text-xs text-gray-500 mt-1">{selectedService.postCareMessage.length}/160 characters</p>
+                      <p className="text-xs text-black mt-1">{selectedService.postCareMessage.length}/160 characters</p>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Review Request Trigger (days after)</label>
+                      <label className="block text-sm font-medium text-black mb-1">Review Request Trigger (days after)</label>
                       <input
                         type="number"
                         value={selectedService.reviewRequestDays}
@@ -484,7 +484,7 @@ export default function ServicesPage() {
                         className="w-full px-4 py-2 border rounded-lg"
                         min="0"
                       />
-                      <p className="text-xs text-gray-500 mt-1">0 = no review request</p>
+                      <p className="text-xs text-black mt-1">0 = no review request</p>
                     </div>
                   </div>
                 )}
@@ -493,7 +493,7 @@ export default function ServicesPage() {
                 {activeTab === 'publishing' && (
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Publish Status</label>
+                      <label className="block text-sm font-medium text-black mb-1">Publish Status</label>
                       <select
                         value={selectedService.publishStatus}
                         onChange={(e) => updateService({ publishStatus: e.target.value as any })}
@@ -503,7 +503,7 @@ export default function ServicesPage() {
                         <option value="live">Live - Available for booking</option>
                       </select>
                     </div>
-                    <label className="flex items-center gap-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+                    <label className="flex items-center gap-3 p-4 border rounded-lg cursor-pointer hover:bg-white">
                       <input
                         type="checkbox"
                         checked={selectedService.applyToFutureOnly}
@@ -512,11 +512,11 @@ export default function ServicesPage() {
                       />
                       <div>
                         <span className="font-medium">Apply to future bookings only</span>
-                        <p className="text-xs text-gray-500">Existing appointments will not be affected by changes</p>
+                        <p className="text-xs text-black">Existing appointments will not be affected by changes</p>
                       </div>
                     </label>
-                    <div className={`p-4 rounded-lg ${selectedService.publishStatus === 'live' ? 'bg-green-50 border border-green-200' : 'bg-gray-50 border border-gray-200'}`}>
-                      <p className={`text-sm ${selectedService.publishStatus === 'live' ? 'text-green-700' : 'text-gray-600'}`}>
+                    <div className={`p-4 rounded-lg ${selectedService.publishStatus === 'live' ? 'bg-green-50 border border-green-200' : 'bg-white border border-black'}`}>
+                      <p className={`text-sm ${selectedService.publishStatus === 'live' ? 'text-green-700' : 'text-black'}`}>
                         {selectedService.publishStatus === 'live'
                           ? '✓ This service is currently visible to clients and available for online booking.'
                           : '⚠ This service is in draft mode and not visible to clients.'}
@@ -527,10 +527,10 @@ export default function ServicesPage() {
               </div>
 
               {/* Save Button */}
-              <div className="p-4 border-t bg-gray-50 flex justify-end gap-3">
+              <div className="p-4 border-t bg-white flex justify-end gap-3">
                 <button
                   onClick={() => setSelectedService(null)}
-                  className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                  className="px-4 py-2 text-black hover:text-black"
                 >
                   Cancel
                 </button>
@@ -545,8 +545,8 @@ export default function ServicesPage() {
           ) : (
             <div className="bg-white rounded-xl border p-12 text-center">
               <span className="text-4xl mb-4 block">💉</span>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Select a Service</h3>
-              <p className="text-gray-500 mb-4">Click a service from the list to configure it, or create a new one.</p>
+              <h3 className="text-lg font-semibold text-black mb-2">Select a Service</h3>
+              <p className="text-black mb-4">Click a service from the list to configure it, or create a new one.</p>
               <button onClick={createNewService} className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
                 + Create New Service
               </button>

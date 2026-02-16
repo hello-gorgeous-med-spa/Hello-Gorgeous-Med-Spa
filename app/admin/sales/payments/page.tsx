@@ -54,7 +54,7 @@ const STATUS_COLORS: Record<string, string> = {
   failed: 'bg-red-100 text-red-700',
   refunded: 'bg-purple-100 text-purple-700',
   partially_refunded: 'bg-orange-100 text-orange-700',
-  voided: 'bg-gray-200 text-gray-500',
+  voided: 'bg-white text-black',
 };
 
 const METHOD_ICONS: Record<string, string> = {
@@ -156,11 +156,11 @@ export default function PaymentsPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <Link href="/admin/sales" className="text-sm text-gray-500 hover:text-gray-700">
+          <Link href="/admin/sales" className="text-sm text-black hover:text-black">
             ← Back to Sales
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900 mt-1">Payments</h1>
-          <p className="text-gray-500 text-sm">All transactions linked to sales</p>
+          <h1 className="text-2xl font-bold text-black mt-1">Payments</h1>
+          <p className="text-black text-sm">All transactions linked to sales</p>
         </div>
       </div>
 
@@ -168,19 +168,19 @@ export default function PaymentsPage() {
       {stats && (
         <div className="grid grid-cols-5 gap-4 mb-6">
           <div className="bg-white rounded-xl border p-4">
-            <p className="text-sm text-gray-500">Total Payments</p>
+            <p className="text-sm text-black">Total Payments</p>
             <p className="text-2xl font-bold">{stats.total}</p>
           </div>
           <div className="bg-white rounded-xl border p-4">
-            <p className="text-sm text-gray-500">Total Amount</p>
+            <p className="text-sm text-black">Total Amount</p>
             <p className="text-2xl font-bold text-green-600">{formatCurrency(stats.totalAmount)}</p>
           </div>
           <div className="bg-white rounded-xl border p-4">
-            <p className="text-sm text-gray-500">Tips</p>
+            <p className="text-sm text-black">Tips</p>
             <p className="text-2xl font-bold text-blue-600">{formatCurrency(stats.totalTips)}</p>
           </div>
           <div className="bg-white rounded-xl border p-4">
-            <p className="text-sm text-gray-500">Fees</p>
+            <p className="text-sm text-black">Fees</p>
             <p className="text-2xl font-bold text-red-600">{formatCurrency(stats.totalFees)}</p>
           </div>
           <div className="bg-gradient-to-r from-pink-500 to-purple-500 rounded-xl p-4 text-white">
@@ -196,28 +196,28 @@ export default function PaymentsPage() {
           <div className="bg-white rounded-xl border p-4 flex items-center gap-3">
             <span className="text-2xl">💳</span>
             <div>
-              <p className="text-xs text-gray-500">Card</p>
+              <p className="text-xs text-black">Card</p>
               <p className="text-lg font-bold">{formatCurrency(stats.byMethod.card)}</p>
             </div>
           </div>
           <div className="bg-white rounded-xl border p-4 flex items-center gap-3">
             <span className="text-2xl">💵</span>
             <div>
-              <p className="text-xs text-gray-500">Cash</p>
+              <p className="text-xs text-black">Cash</p>
               <p className="text-lg font-bold">{formatCurrency(stats.byMethod.cash)}</p>
             </div>
           </div>
           <div className="bg-white rounded-xl border p-4 flex items-center gap-3">
             <span className="text-2xl">🎁</span>
             <div>
-              <p className="text-xs text-gray-500">Gift Card</p>
+              <p className="text-xs text-black">Gift Card</p>
               <p className="text-lg font-bold">{formatCurrency(stats.byMethod.gift_card)}</p>
             </div>
           </div>
           <div className="bg-white rounded-xl border p-4 flex items-center gap-3">
             <span className="text-2xl">📋</span>
             <div>
-              <p className="text-xs text-gray-500">Other</p>
+              <p className="text-xs text-black">Other</p>
               <p className="text-lg font-bold">{formatCurrency(stats.byMethod.other)}</p>
             </div>
           </div>
@@ -285,7 +285,7 @@ export default function PaymentsPage() {
 
           <button
             onClick={fetchPayments}
-            className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg"
+            className="px-4 py-2 bg-white hover:bg-white rounded-lg"
           >
             🔄 Refresh
           </button>
@@ -304,43 +304,43 @@ export default function PaymentsPage() {
         {isLoading ? (
           <div className="p-8 text-center">
             <div className="animate-spin text-4xl mb-4">💳</div>
-            <p className="text-gray-500">Loading payments...</p>
+            <p className="text-black">Loading payments...</p>
           </div>
         ) : payments.length === 0 ? (
           <div className="p-8 text-center">
             <span className="text-4xl">💳</span>
-            <p className="text-gray-500 mt-2">No payments found</p>
+            <p className="text-black mt-2">No payments found</p>
           </div>
         ) : (
           <table className="w-full">
-            <thead className="bg-gray-50 border-b">
+            <thead className="bg-white border-b">
               <tr>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">Payment #</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">Date</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">Client</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">Sale #</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">Method</th>
-                <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">Status</th>
-                <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">Amount</th>
-                <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">Tip</th>
-                <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">Fee</th>
-                <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">Net</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-black">Payment #</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-black">Date</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-black">Client</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-black">Sale #</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-black">Method</th>
+                <th className="text-left px-4 py-3 text-xs font-semibold text-black">Status</th>
+                <th className="text-right px-4 py-3 text-xs font-semibold text-black">Amount</th>
+                <th className="text-right px-4 py-3 text-xs font-semibold text-black">Tip</th>
+                <th className="text-right px-4 py-3 text-xs font-semibold text-black">Fee</th>
+                <th className="text-right px-4 py-3 text-xs font-semibold text-black">Net</th>
               </tr>
             </thead>
             <tbody className="divide-y">
               {payments.map((payment) => (
-                <tr key={payment.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-4 font-mono text-sm text-gray-600">
+                <tr key={payment.id} className="hover:bg-white">
+                  <td className="px-4 py-4 font-mono text-sm text-black">
                     {payment.payment_number}
                   </td>
-                  <td className="px-4 py-4 text-sm text-gray-500">
+                  <td className="px-4 py-4 text-sm text-black">
                     {formatDateTime(payment.processed_at || payment.created_at)}
                   </td>
                   <td className="px-4 py-4 text-sm">
                     {payment.sales?.clients?.user_profiles ? (
                       `${payment.sales.clients.user_profiles.first_name} ${payment.sales.clients.user_profiles.last_name}`
                     ) : (
-                      <span className="text-gray-400">—</span>
+                      <span className="text-black">—</span>
                     )}
                   </td>
                   <td className="px-4 py-4">
@@ -356,7 +356,7 @@ export default function PaymentsPage() {
                       <span>{METHOD_ICONS[payment.payment_method] || '📝'}</span>
                       <span className="capitalize text-sm">{payment.payment_method.replace('_', ' ')}</span>
                       {payment.card_last_four && (
-                        <span className="text-gray-400 text-xs">•••• {payment.card_last_four}</span>
+                        <span className="text-black text-xs">•••• {payment.card_last_four}</span>
                       )}
                     </div>
                   </td>
@@ -392,19 +392,19 @@ export default function PaymentsPage() {
       <div className="mt-6 flex gap-4">
         <Link
           href="/admin/sales"
-          className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm"
+          className="px-4 py-2 bg-white hover:bg-white rounded-lg text-sm"
         >
           📋 Sales Ledger
         </Link>
         <Link
           href="/admin/sales/daily-summary"
-          className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm"
+          className="px-4 py-2 bg-white hover:bg-white rounded-lg text-sm"
         >
           📊 Daily Summary
         </Link>
         <Link
           href="/admin/sales/wallet"
-          className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm"
+          className="px-4 py-2 bg-white hover:bg-white rounded-lg text-sm"
         >
           💼 Business Wallet
         </Link>

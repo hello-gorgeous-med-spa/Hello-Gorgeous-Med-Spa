@@ -146,8 +146,8 @@ export default function EFaxPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">eFax</h1>
-          <p className="text-gray-500">Send and receive faxes via eFax.com</p>
+          <h1 className="text-2xl font-bold text-black">eFax</h1>
+          <p className="text-black">Send and receive faxes via eFax.com</p>
         </div>
         <div className="flex gap-3">
           <button
@@ -184,8 +184,8 @@ export default function EFaxPage() {
               <span className="text-3xl">📠</span>
             </div>
             <div>
-              <h3 className="font-bold text-gray-900 text-lg">eFax Account</h3>
-              <p className="text-gray-600">Connected to your eFax.com account</p>
+              <h3 className="font-bold text-black text-lg">eFax Account</h3>
+              <p className="text-black">Connected to your eFax.com account</p>
               <p className="text-sm text-blue-600 mt-1">myportal.efax.com</p>
             </div>
           </div>
@@ -204,31 +204,31 @@ export default function EFaxPage() {
             className="p-4 bg-white rounded-lg border border-blue-200 hover:border-blue-400 transition-colors text-left"
           >
             <span className="text-2xl mb-2 block">📥</span>
-            <p className="font-medium text-gray-900">View Inbox</p>
-            <p className="text-sm text-gray-500">Check received faxes</p>
+            <p className="font-medium text-black">View Inbox</p>
+            <p className="text-sm text-black">Check received faxes</p>
           </button>
           <button
             onClick={openEfaxPortal}
             className="p-4 bg-white rounded-lg border border-blue-200 hover:border-blue-400 transition-colors text-left"
           >
             <span className="text-2xl mb-2 block">📤</span>
-            <p className="font-medium text-gray-900">Sent Faxes</p>
-            <p className="text-sm text-gray-500">View sent history</p>
+            <p className="font-medium text-black">Sent Faxes</p>
+            <p className="text-sm text-black">View sent history</p>
           </button>
           <button
             onClick={() => setShowSendModal(true)}
             className="p-4 bg-white rounded-lg border border-blue-200 hover:border-blue-400 transition-colors text-left"
           >
             <span className="text-2xl mb-2 block">✉️</span>
-            <p className="font-medium text-gray-900">Compose Fax</p>
-            <p className="text-sm text-gray-500">Send a new fax</p>
+            <p className="font-medium text-black">Compose Fax</p>
+            <p className="text-sm text-black">Send a new fax</p>
           </button>
         </div>
       </div>
 
       {/* Quick Access Card */}
-      <div className="bg-white border border-gray-200 rounded-xl p-6">
-        <h3 className="font-semibold text-gray-900 mb-4">Quick Access</h3>
+      <div className="bg-white border border-black rounded-xl p-6">
+        <h3 className="font-semibold text-black mb-4">Quick Access</h3>
         <div className="flex flex-wrap gap-3">
           <a
             href="https://myportal.efax.com/login"
@@ -258,7 +258,7 @@ export default function EFaxPage() {
             href="https://myportal.efax.com/login"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 font-medium text-sm"
+            className="px-4 py-2 bg-white text-black rounded-lg hover:bg-white font-medium text-sm"
           >
             📊 Usage & Billing
           </a>
@@ -267,30 +267,30 @@ export default function EFaxPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Inbox</p>
-          <p className="text-2xl font-bold text-gray-900">{stats.inbox}</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Inbox</p>
+          <p className="text-2xl font-bold text-black">{stats.inbox}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Unread</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Unread</p>
           <p className="text-2xl font-bold text-blue-600">{stats.unread}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Sent</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Sent</p>
           <p className="text-2xl font-bold text-green-600">{stats.sent}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Pending</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Pending</p>
           <p className="text-2xl font-bold text-amber-600">{stats.pending}</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 border-b border-gray-200">
+      <div className="flex gap-1 border-b border-black">
         <button
           onClick={() => setActiveTab('inbox')}
           className={`px-4 py-3 font-medium transition-colors border-b-2 -mb-px ${
-            activeTab === 'inbox' ? 'border-pink-500 text-pink-600' : 'border-transparent text-gray-500 hover:text-gray-700'
+            activeTab === 'inbox' ? 'border-pink-500 text-pink-600' : 'border-transparent text-black hover:text-black'
           }`}
         >
           📥 Inbox ({inboxFaxes.length})
@@ -298,7 +298,7 @@ export default function EFaxPage() {
         <button
           onClick={() => setActiveTab('sent')}
           className={`px-4 py-3 font-medium transition-colors border-b-2 -mb-px ${
-            activeTab === 'sent' ? 'border-pink-500 text-pink-600' : 'border-transparent text-gray-500 hover:text-gray-700'
+            activeTab === 'sent' ? 'border-pink-500 text-pink-600' : 'border-transparent text-black hover:text-black'
           }`}
         >
           📤 Sent ({sentFaxes.length})
@@ -306,14 +306,14 @@ export default function EFaxPage() {
       </div>
 
       {/* Fax List */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-xl border border-black overflow-hidden">
         {loading ? (
-          <div className="p-8 text-center text-gray-500">Loading faxes...</div>
+          <div className="p-8 text-center text-black">Loading faxes...</div>
         ) : (activeTab === 'inbox' ? inboxFaxes : sentFaxes).length === 0 ? (
-          <div className="p-12 text-center text-gray-500">
+          <div className="p-12 text-center text-black">
             <span className="text-4xl block mb-4">{activeTab === 'inbox' ? '📥' : '📤'}</span>
             <p className="mb-2">No {activeTab === 'inbox' ? 'received' : 'sent'} faxes in app yet</p>
-            <p className="text-sm text-gray-400 mb-4">
+            <p className="text-sm text-black mb-4">
               View your full fax history in the eFax portal
             </p>
             <button
@@ -326,7 +326,7 @@ export default function EFaxPage() {
         ) : (
           <div className="divide-y divide-gray-100">
             {(activeTab === 'inbox' ? inboxFaxes : sentFaxes).map(fax => (
-              <div key={fax.id} className="p-4 hover:bg-gray-50 flex items-center justify-between">
+              <div key={fax.id} className="p-4 hover:bg-white flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                     fax.status === 'delivered' || fax.status === 'received' ? 'bg-green-100 text-green-600' :
@@ -336,13 +336,13 @@ export default function EFaxPage() {
                     {fax.direction === 'inbound' ? '📥' : '📤'}
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">
+                    <p className="font-medium text-black">
                       {fax.recipient_name || formatPhone(fax.direction === 'inbound' ? fax.from_number : fax.to_number)}
                     </p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-black">
                       {fax.subject || `${fax.pages} page${fax.pages !== 1 ? 's' : ''}`}
                     </p>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-black">
                       {new Date(fax.created_at).toLocaleString()}
                     </p>
                   </div>
@@ -370,52 +370,52 @@ export default function EFaxPage() {
       {showSendModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-lg w-full">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">Send Fax via eFax</h2>
-              <p className="text-sm text-gray-500 mt-1">
+            <div className="p-6 border-b border-black">
+              <h2 className="text-xl font-bold text-black">Send Fax via eFax</h2>
+              <p className="text-sm text-black mt-1">
                 Fax will be sent through your eFax account
               </p>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Fax Number *</label>
+                <label className="block text-sm font-medium text-black mb-1">Fax Number *</label>
                 <input
                   type="tel"
                   value={sendForm.to_number}
                   onChange={(e) => setSendForm({ ...sendForm, to_number: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="(555) 123-4567"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Recipient Name</label>
+                <label className="block text-sm font-medium text-black mb-1">Recipient Name</label>
                 <input
                   type="text"
                   value={sendForm.recipient_name}
                   onChange={(e) => setSendForm({ ...sendForm, recipient_name: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="Dr. Smith's Office"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                <label className="block text-sm font-medium text-black mb-1">Subject</label>
                 <input
                   type="text"
                   value={sendForm.subject}
                   onChange={(e) => setSendForm({ ...sendForm, subject: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="Patient Records Request"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Document *</label>
+                <label className="block text-sm font-medium text-black mb-1">Document *</label>
                 <input
                   type="file"
                   accept=".pdf,.doc,.docx,.png,.jpg,.jpeg"
                   onChange={(e) => setSendForm({ ...sendForm, file: e.target.files?.[0] || null })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                 />
-                <p className="text-xs text-gray-500 mt-1">PDF, Word, or image files</p>
+                <p className="text-xs text-black mt-1">PDF, Word, or image files</p>
               </div>
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
@@ -424,7 +424,7 @@ export default function EFaxPage() {
                   onChange={(e) => setSendForm({ ...sendForm, cover_page: e.target.checked })}
                   className="rounded"
                 />
-                <span className="text-sm text-gray-700">Include cover page with Hello Gorgeous branding</span>
+                <span className="text-sm text-black">Include cover page with Hello Gorgeous branding</span>
               </label>
 
               {/* Alternative: Send via Portal */}
@@ -441,10 +441,10 @@ export default function EFaxPage() {
                 </button>
               </div>
             </div>
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
+            <div className="p-6 border-t border-black flex justify-end gap-3">
               <button
                 onClick={() => setShowSendModal(false)}
-                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
               >
                 Cancel
               </button>
@@ -468,20 +468,20 @@ export default function EFaxPage() {
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-white rounded-lg p-4 border border-purple-200">
-            <h4 className="font-semibold text-gray-900">DoseSpot</h4>
-            <p className="text-sm text-gray-600 mt-1">
+            <h4 className="font-semibold text-black">DoseSpot</h4>
+            <p className="text-sm text-black mt-1">
               Embeddable e-prescribing widget. EPCS certified for controlled substances. 
               Integrates with Surescripts network.
             </p>
             <p className="text-xs text-pink-600 mt-2 font-medium">Recommended for med spas</p>
           </div>
           <div className="bg-white rounded-lg p-4 border border-purple-200">
-            <h4 className="font-semibold text-gray-900">DrFirst (Rcopia)</h4>
-            <p className="text-sm text-gray-600 mt-1">
+            <h4 className="font-semibold text-black">DrFirst (Rcopia)</h4>
+            <p className="text-sm text-black mt-1">
               Full e-prescribing platform with medication history, drug interactions, 
               and prior authorization.
             </p>
-            <p className="text-xs text-gray-500 mt-2">Enterprise solution</p>
+            <p className="text-xs text-black mt-2">Enterprise solution</p>
           </div>
         </div>
         <p className="text-sm text-purple-700 mt-4">
@@ -490,23 +490,23 @@ export default function EFaxPage() {
       </div>
 
       {/* API Setup Info (Collapsible) */}
-      <details className="bg-gray-50 border border-gray-200 rounded-xl">
-        <summary className="p-4 cursor-pointer font-medium text-gray-700 hover:text-gray-900">
+      <details className="bg-white border border-black rounded-xl">
+        <summary className="p-4 cursor-pointer font-medium text-black hover:text-black">
           🔧 Advanced: API Integration Setup
         </summary>
-        <div className="p-4 pt-0 border-t border-gray-200 mt-4">
-          <p className="text-sm text-gray-600 mb-4">
+        <div className="p-4 pt-0 border-t border-black mt-4">
+          <p className="text-sm text-black mb-4">
             For automatic fax syncing, you can connect the eFax Developer API. This allows:
           </p>
-          <ul className="text-sm text-gray-600 space-y-1 mb-4 list-disc list-inside">
+          <ul className="text-sm text-black space-y-1 mb-4 list-disc list-inside">
             <li>Send faxes directly from this admin panel</li>
             <li>Auto-sync received faxes to your inbox</li>
             <li>Delivery status tracking</li>
             <li>Attach faxes to patient records</li>
           </ul>
-          <div className="bg-white rounded-lg p-4 border border-gray-200">
-            <p className="text-sm font-medium text-gray-900 mb-2">To enable API integration:</p>
-            <ol className="text-sm text-gray-600 space-y-2 list-decimal list-inside">
+          <div className="bg-white rounded-lg p-4 border border-black">
+            <p className="text-sm font-medium text-black mb-2">To enable API integration:</p>
+            <ol className="text-sm text-black space-y-2 list-decimal list-inside">
               <li>Log into your eFax account at <a href="https://myportal.efax.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">myportal.efax.com</a></li>
               <li>Go to Settings → API Access</li>
               <li>Generate your API credentials (Account ID & API Key)</li>

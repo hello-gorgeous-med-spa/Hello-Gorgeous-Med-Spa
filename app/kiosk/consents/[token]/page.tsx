@@ -110,7 +110,7 @@ function KioskSignaturePad({
 
   return (
     <div className="space-y-3">
-      <div className="relative border-4 border-dashed border-gray-300 rounded-xl overflow-hidden bg-white mx-auto" style={{ width: 600, height: 200 }}>
+      <div className="relative border-4 border-dashed border-black rounded-xl overflow-hidden bg-white mx-auto" style={{ width: 600, height: 200 }}>
         <canvas
           ref={canvasRef}
           className="touch-none cursor-crosshair"
@@ -122,10 +122,10 @@ function KioskSignaturePad({
           onTouchMove={handleMove}
           onTouchEnd={handleEnd}
         />
-        <div className="absolute bottom-6 left-6 right-6 border-b-2 border-gray-400" />
+        <div className="absolute bottom-6 left-6 right-6 border-b-2 border-black" />
         {!hasSignature && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <p className="text-gray-400 text-xl">Sign here with your finger</p>
+            <p className="text-black text-xl">Sign here with your finger</p>
           </div>
         )}
       </div>
@@ -133,7 +133,7 @@ function KioskSignaturePad({
         <button
           type="button"
           onClick={handleClear}
-          className="px-6 py-2 text-gray-600 hover:text-gray-900 text-lg"
+          className="px-6 py-2 text-black hover:text-black text-lg"
         >
           Clear Signature
         </button>
@@ -247,7 +247,7 @@ export default function KioskConsentPage() {
       <div className="min-h-screen bg-pink-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin w-16 h-16 border-4 border-pink-500 border-t-transparent rounded-full mx-auto mb-6" />
-          <p className="text-xl text-gray-600">Loading...</p>
+          <p className="text-xl text-black">Loading...</p>
         </div>
       </div>
     );
@@ -258,9 +258,9 @@ export default function KioskConsentPage() {
       <div className="min-h-screen bg-red-50 flex items-center justify-center p-8">
         <div className="text-center max-w-lg">
           <div className="text-6xl mb-6">⚠️</div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">Session Error</h1>
-          <p className="text-xl text-gray-600 mb-8">{error}</p>
-          <p className="text-gray-500">Please ask staff for assistance.</p>
+          <h1 className="text-3xl font-bold text-black mb-4">Session Error</h1>
+          <p className="text-xl text-black mb-8">{error}</p>
+          <p className="text-black">Please ask staff for assistance.</p>
         </div>
       </div>
     );
@@ -271,12 +271,12 @@ export default function KioskConsentPage() {
       <div className="min-h-screen bg-green-50 flex items-center justify-center p-8">
         <div className="text-center max-w-lg">
           <div className="text-8xl mb-6">✅</div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">All Done!</h1>
-          <p className="text-2xl text-gray-600 mb-8">
+          <h1 className="text-4xl font-bold text-black mb-4">All Done!</h1>
+          <p className="text-2xl text-black mb-8">
             Thank you, {clientName}!<br />
             All consent forms have been signed.
           </p>
-          <p className="text-xl text-gray-500">
+          <p className="text-xl text-black">
             Please return the iPad to staff.
           </p>
         </div>
@@ -296,13 +296,13 @@ export default function KioskConsentPage() {
             <h1 className="text-2xl font-bold text-pink-600">
               Hello Gorgeous Med Spa
             </h1>
-            <p className="text-gray-600">Consent Forms - {clientName}</p>
+            <p className="text-black">Consent Forms - {clientName}</p>
           </div>
           <div className="text-right">
-            <p className="text-lg font-semibold text-gray-900">
+            <p className="text-lg font-semibold text-black">
               {signedCount + 1} of {packets.length}
             </p>
-            <div className="w-32 h-3 bg-gray-200 rounded-full mt-1">
+            <div className="w-32 h-3 bg-white rounded-full mt-1">
               <div
                 className="h-full bg-pink-500 rounded-full transition-all"
                 style={{ width: `${((signedCount + 1) / packets.length) * 100}%` }}
@@ -316,7 +316,7 @@ export default function KioskConsentPage() {
       <div className="flex-1 p-8 max-w-4xl mx-auto w-full">
         {/* Consent Title */}
         <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">
+          <h2 className="text-3xl font-bold text-black">
             {currentPacket.template_name}
           </h2>
         </div>
@@ -329,7 +329,7 @@ export default function KioskConsentPage() {
               dangerouslySetInnerHTML={{ __html: currentPacket.template_content.content }}
             />
           ) : (
-            <p className="text-lg text-gray-700 leading-relaxed">
+            <p className="text-lg text-black leading-relaxed">
               By signing below, I acknowledge that I have been informed of the
               risks, benefits, and alternatives to the proposed treatment. I
               have had the opportunity to ask questions and all my questions
@@ -341,7 +341,7 @@ export default function KioskConsentPage() {
 
         {/* Signature Area */}
         <div className="bg-white rounded-2xl shadow-lg p-8">
-          <h3 className="text-xl font-semibold text-gray-900 text-center mb-6">
+          <h3 className="text-xl font-semibold text-black text-center mb-6">
             Please Sign Below
           </h3>
           

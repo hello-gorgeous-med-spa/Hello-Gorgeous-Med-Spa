@@ -164,7 +164,7 @@ export function VideoGallery({ videos }: { videos: VideoItem[] }) {
           >
             {/* Close Button */}
             <button
-              className="absolute -right-2 -top-2 z-10 rounded-full bg-white p-2 text-gray-900 shadow-lg hover:bg-gray-100 transition-colors"
+              className="absolute -right-2 -top-2 z-10 rounded-full bg-white p-2 text-black shadow-lg hover:bg-white transition-colors"
               onClick={handleClose}
               aria-label="Close video"
             >
@@ -185,7 +185,7 @@ export function VideoGallery({ videos }: { videos: VideoItem[] }) {
                 controlsList="nodownload"
               />
             ) : (
-              <div className="aspect-video flex items-center justify-center rounded-t-3xl bg-gray-900">
+              <div className="aspect-video flex items-center justify-center rounded-t-3xl bg-black">
                 <p className="text-white/60">Video unavailable</p>
               </div>
             )}

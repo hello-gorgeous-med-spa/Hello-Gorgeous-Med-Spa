@@ -39,8 +39,8 @@ export default function SystemAccessPage() {
     switch (status) {
       case 'verified': return 'bg-green-100 text-green-700';
       case 'needs_attention': return 'bg-amber-100 text-amber-700';
-      case 'not_setup': return 'bg-gray-100 text-gray-600';
-      default: return 'bg-gray-100 text-gray-600';
+      case 'not_setup': return 'bg-white text-black';
+      default: return 'bg-white text-black';
     }
   };
 
@@ -66,13 +66,13 @@ export default function SystemAccessPage() {
 
       {/* Credentials Panel */}
       <div className="bg-white rounded-xl border">
-        <div className="p-4 border-b bg-gray-50">
+        <div className="p-4 border-b bg-white">
           <h2 className="font-semibold">🔑 Credentials Panel</h2>
-          <p className="text-sm text-gray-500">All external services the system depends on</p>
+          <p className="text-sm text-black">All external services the system depends on</p>
         </div>
         <div className="divide-y">
           {systems.map(system => (
-            <div key={system.id} className="p-4 hover:bg-gray-50">
+            <div key={system.id} className="p-4 hover:bg-white">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
                   <div className="w-10 h-10 bg-pink-100 rounded-lg flex items-center justify-center text-lg">
@@ -89,7 +89,7 @@ export default function SystemAccessPage() {
                   </div>
                   <div>
                     <h3 className="font-medium">{system.name}</h3>
-                    <p className="text-xs text-gray-500">{system.category} • {system.description}</p>
+                    <p className="text-xs text-black">{system.category} • {system.description}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
@@ -106,25 +106,25 @@ export default function SystemAccessPage() {
                   </a>
                   <button
                     onClick={() => setExpandedSystem(expandedSystem === system.id ? null : system.id)}
-                    className="text-gray-400 hover:text-gray-600"
+                    className="text-black hover:text-black"
                   >
                     {expandedSystem === system.id ? '▲' : '▼'}
                   </button>
                 </div>
               </div>
               {expandedSystem === system.id && (
-                <div className="mt-4 p-4 bg-gray-50 rounded-lg">
+                <div className="mt-4 p-4 bg-white rounded-lg">
                   <div className="grid grid-cols-3 gap-4 text-sm">
                     <div>
-                      <span className="text-gray-500">Owner Account</span>
+                      <span className="text-black">Owner Account</span>
                       <p className="font-medium">{system.owner}</p>
                     </div>
                     <div>
-                      <span className="text-gray-500">Dashboard URL</span>
+                      <span className="text-black">Dashboard URL</span>
                       <p className="font-medium text-pink-600">{system.url}</p>
                     </div>
                     <div>
-                      <span className="text-gray-500">Last Verified</span>
+                      <span className="text-black">Last Verified</span>
                       <p className="font-medium">{system.lastVerified || 'Never'}</p>
                     </div>
                   </div>
@@ -163,7 +163,7 @@ export default function SystemAccessPage() {
           ].map((item, idx) => (
             <div key={idx} className="flex items-center gap-3 bg-white p-3 rounded-lg">
               <span className="w-6 h-6 bg-green-500 text-white rounded-full flex items-center justify-center text-sm">✓</span>
-              <span className="text-sm text-gray-700">{item}</span>
+              <span className="text-sm text-black">{item}</span>
             </div>
           ))}
         </div>

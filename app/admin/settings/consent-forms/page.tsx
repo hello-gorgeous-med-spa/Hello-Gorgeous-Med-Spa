@@ -261,13 +261,13 @@ export default function ConsentFormBuilderPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+          <div className="flex items-center gap-2 text-sm text-black mb-1">
             <Link href="/admin/settings" className="hover:text-pink-600">Settings</Link>
             <span>/</span>
             <span>Consent Forms</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Consent Form Builder</h1>
-          <p className="text-gray-500">Create and edit consent forms without code</p>
+          <h1 className="text-2xl font-bold text-black">Consent Form Builder</h1>
+          <p className="text-black">Create and edit consent forms without code</p>
         </div>
         {!editingForm && (
           <button
@@ -290,7 +290,7 @@ export default function ConsentFormBuilderPage() {
         <div className="bg-white rounded-xl border p-6 space-y-6">
           <div className="flex items-center justify-between border-b pb-4">
             <h2 className="text-lg font-semibold">{isCreating ? 'Create New Form' : 'Edit Form'}</h2>
-            <button onClick={() => { setEditingForm(null); setIsCreating(false); }} className="text-gray-500 hover:text-gray-700">
+            <button onClick={() => { setEditingForm(null); setIsCreating(false); }} className="text-black hover:text-black">
               ✕ Close
             </button>
           </div>
@@ -298,7 +298,7 @@ export default function ConsentFormBuilderPage() {
           {/* Basic Info */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Form Name *</label>
+              <label className="block text-sm font-medium text-black mb-1">Form Name *</label>
               <input
                 type="text"
                 value={editingForm.name}
@@ -308,7 +308,7 @@ export default function ConsentFormBuilderPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+              <label className="block text-sm font-medium text-black mb-1">Category</label>
               <select
                 value={editingForm.category}
                 onChange={(e) => setEditingForm({ ...editingForm, category: e.target.value })}
@@ -323,7 +323,7 @@ export default function ConsentFormBuilderPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <label className="block text-sm font-medium text-black mb-1">Description</label>
             <input
               type="text"
               value={editingForm.description}
@@ -335,7 +335,7 @@ export default function ConsentFormBuilderPage() {
 
           {/* Content */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Form Content</label>
+            <label className="block text-sm font-medium text-black mb-1">Form Content</label>
             <textarea
               value={editingForm.content}
               onChange={(e) => setEditingForm({ ...editingForm, content: e.target.value })}
@@ -347,13 +347,13 @@ export default function ConsentFormBuilderPage() {
           {/* Fields */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <label className="block text-sm font-medium text-gray-700">Form Fields</label>
+              <label className="block text-sm font-medium text-black">Form Fields</label>
               <div className="flex gap-2">
                 {FIELD_TYPES.map(ft => (
                   <button
                     key={ft.value}
                     onClick={() => addField(ft.value)}
-                    className="px-3 py-1 text-sm bg-gray-100 rounded hover:bg-gray-200"
+                    className="px-3 py-1 text-sm bg-white rounded hover:bg-white"
                     title={`Add ${ft.label}`}
                   >
                     {ft.icon}
@@ -364,7 +364,7 @@ export default function ConsentFormBuilderPage() {
 
             <div className="space-y-2">
               {editingForm.fields.map((field, idx) => (
-                <div key={field.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                <div key={field.id} className="flex items-center gap-3 p-3 bg-white rounded-lg">
                   <span className="text-lg">{FIELD_TYPES.find(t => t.value === field.type)?.icon}</span>
                   <input
                     type="text"
@@ -385,7 +385,7 @@ export default function ConsentFormBuilderPage() {
                 </div>
               ))}
               {editingForm.fields.length === 0 && (
-                <p className="text-sm text-gray-500 text-center py-4">Click the icons above to add form fields</p>
+                <p className="text-sm text-black text-center py-4">Click the icons above to add form fields</p>
               )}
             </div>
           </div>
@@ -393,7 +393,7 @@ export default function ConsentFormBuilderPage() {
           {/* Settings */}
           <div className="grid grid-cols-2 gap-4 pt-4 border-t">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Expires After (days)</label>
+              <label className="block text-sm font-medium text-black mb-1">Expires After (days)</label>
               <input
                 type="number"
                 value={editingForm.expires_days}
@@ -425,7 +425,7 @@ export default function ConsentFormBuilderPage() {
           <div className="flex justify-end gap-3 pt-4 border-t">
             <button
               onClick={() => { setEditingForm(null); setIsCreating(false); }}
-              className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+              className="px-4 py-2 text-black hover:bg-white rounded-lg"
             >
               Cancel
             </button>
@@ -441,32 +441,32 @@ export default function ConsentFormBuilderPage() {
         /* Form List */
         <div className="bg-white rounded-xl border divide-y">
           {forms.map(form => (
-            <div key={form.id} className="p-4 flex items-center justify-between hover:bg-gray-50">
+            <div key={form.id} className="p-4 flex items-center justify-between hover:bg-white">
               <div className="flex-1">
                 <div className="flex items-center gap-2">
-                  <h3 className="font-medium text-gray-900">{form.name}</h3>
-                  <span className={`text-xs px-2 py-0.5 rounded ${form.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
+                  <h3 className="font-medium text-black">{form.name}</h3>
+                  <span className={`text-xs px-2 py-0.5 rounded ${form.is_active ? 'bg-green-100 text-green-700' : 'bg-white text-black'}`}>
                     {form.is_active ? 'Active' : 'Inactive'}
                   </span>
-                  <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
+                  <span className="text-xs bg-white text-black px-2 py-0.5 rounded">
                     v{form.version}
                   </span>
                 </div>
-                <p className="text-sm text-gray-500 mt-0.5">{form.description}</p>
-                <p className="text-xs text-gray-400 mt-1">
+                <p className="text-sm text-black mt-0.5">{form.description}</p>
+                <p className="text-xs text-black mt-1">
                   {form.fields.length} fields • Expires: {form.expires_days} days • Category: {form.category}
                 </p>
               </div>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setEditingForm(form)}
-                  className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded"
+                  className="px-3 py-1.5 text-sm text-black hover:bg-white rounded"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => toggleFormActive(form.id)}
-                  className={`w-12 h-6 rounded-full transition-colors relative ${form.is_active ? 'bg-green-500' : 'bg-gray-300'}`}
+                  className={`w-12 h-6 rounded-full transition-colors relative ${form.is_active ? 'bg-green-500' : 'bg-white'}`}
                 >
                   <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${form.is_active ? 'right-1' : 'left-1'}`} />
                 </button>

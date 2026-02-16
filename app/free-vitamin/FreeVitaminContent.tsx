@@ -123,12 +123,12 @@ export function FreeVitaminContent() {
               </span>{" "}
               Vitamin Injection
               <br />
-              <span className="text-2xl md:text-4xl text-gray-300">
+              <span className="text-2xl md:text-4xl text-black">
                 (Up to $65 Value)
               </span>
             </h1>
 
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-6">
+            <p className="text-xl text-black max-w-2xl mx-auto mb-6">
               Subscribe to our wellness list and claim your{" "}
               <span className="text-white font-semibold">complimentary vitamin shot</span> at
               Hello Gorgeous Med Spa. No catch, no obligation.
@@ -139,7 +139,7 @@ export function FreeVitaminContent() {
               {socialProof.map((item) => (
                 <div key={item.label} className="text-center">
                   <div className="text-2xl font-bold text-emerald-400">{item.stat}</div>
-                  <div className="text-sm text-gray-500">{item.label}</div>
+                  <div className="text-sm text-black">{item.label}</div>
                 </div>
               ))}
             </div>
@@ -174,12 +174,12 @@ export function FreeVitaminContent() {
                               Most Popular
                             </span>
                           )}
-                          <span className="text-gray-400 line-through text-sm">{vitamin.value}</span>
+                          <span className="text-black line-through text-sm">{vitamin.value}</span>
                           <span className="text-emerald-400 font-bold">FREE</span>
                         </div>
                       </div>
                       <p className="text-emerald-400 text-sm mt-1">{vitamin.benefit}</p>
-                      <p className="text-gray-500 text-sm mt-1">{vitamin.description}</p>
+                      <p className="text-black text-sm mt-1">{vitamin.description}</p>
                     </div>
                   </div>
                 </button>
@@ -193,7 +193,7 @@ export function FreeVitaminContent() {
                   <div className="text-center mb-6">
                     <span className="text-4xl mb-2 block">🎁</span>
                     <h3 className="text-2xl font-bold text-white">Claim Your FREE Vitamin</h3>
-                    <p className="text-gray-400 text-sm mt-1">
+                    <p className="text-black text-sm mt-1">
                       Enter your details to get your exclusive offer
                     </p>
                   </div>
@@ -252,14 +252,14 @@ export function FreeVitaminContent() {
 
                   <div className="mt-4 space-y-2">
                     {urgencyReasons.map((reason) => (
-                      <div key={reason.text} className="flex items-center gap-2 text-gray-400 text-sm">
+                      <div key={reason.text} className="flex items-center gap-2 text-black text-sm">
                         <span>{reason.icon}</span>
                         <span>{reason.text}</span>
                       </div>
                     ))}
                   </div>
 
-                  <p className="text-center text-gray-500 text-xs mt-4">
+                  <p className="text-center text-black text-xs mt-4">
                     By subscribing, you agree to receive wellness tips and exclusive offers.
                     Unsubscribe anytime.
                   </p>
@@ -268,15 +268,15 @@ export function FreeVitaminContent() {
                 <div className="p-6 rounded-3xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 text-center">
                   <span className="text-5xl mb-4 block">🎉</span>
                   <h3 className="text-2xl font-bold text-white mb-2">You&apos;re All Set!</h3>
-                  <p className="text-gray-300 mb-4">
+                  <p className="text-black mb-4">
                     Your FREE vitamin injection is waiting for you!
                   </p>
 
                   {promoCode && (
                     <div className="p-4 rounded-xl bg-black/30 border border-emerald-500/30 mb-4">
-                      <p className="text-gray-400 text-sm mb-1">Your Promo Code:</p>
+                      <p className="text-black text-sm mb-1">Your Promo Code:</p>
                       <p className="text-2xl font-mono font-bold text-emerald-400">{promoCode}</p>
-                      <p className="text-gray-500 text-xs mt-2">
+                      <p className="text-black text-xs mt-2">
                         Mention this code when booking
                       </p>
                     </div>
@@ -292,7 +292,7 @@ export function FreeVitaminContent() {
                   </a>
 
                   <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                    <p className="text-gray-400 text-sm mb-2">
+                    <p className="text-black text-sm mb-2">
                       Love your experience? We&apos;d appreciate a review!
                     </p>
                     <a
@@ -350,7 +350,7 @@ export function FreeVitaminContent() {
                   {item.icon}
                 </div>
                 <h3 className="text-white font-bold mb-2">{item.title}</h3>
-                <p className="text-gray-400 text-sm">{item.description}</p>
+                <p className="text-black text-sm">{item.description}</p>
               </div>
             ))}
           </div>
@@ -363,7 +363,7 @@ export function FreeVitaminContent() {
           <h2 className="text-3xl font-bold text-white text-center mb-4">
             Why Vitamin Injections?
           </h2>
-          <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+          <p className="text-black text-center mb-12 max-w-2xl mx-auto">
             Unlike oral supplements that lose potency through digestion, injections deliver 
             100% absorption directly into your bloodstream for maximum benefit.
           </p>
@@ -381,7 +381,7 @@ export function FreeVitaminContent() {
               >
                 <span className="text-3xl mb-3 block">{benefit.icon}</span>
                 <h3 className="text-white font-bold mb-1">{benefit.title}</h3>
-                <p className="text-gray-400 text-sm">{benefit.desc}</p>
+                <p className="text-black text-sm">{benefit.desc}</p>
               </div>
             ))}
           </div>
@@ -397,7 +397,7 @@ export function FreeVitaminContent() {
           <h2 className="text-3xl font-bold text-white mb-4">
             Give $25, Get $25
           </h2>
-          <p className="text-gray-400 mb-8">
+          <p className="text-black mb-8">
             Love your experience? Refer a friend and you&apos;ll BOTH get $25 off your next service!
           </p>
           <Link
@@ -416,7 +416,7 @@ export function FreeVitaminContent() {
             Don&apos;t Miss Out on Your{" "}
             <span className="text-emerald-400">FREE</span> Vitamin!
           </h2>
-          <p className="text-gray-400 mb-8">
+          <p className="text-black mb-8">
             This offer won&apos;t last forever. Claim yours now and experience the Hello Gorgeous difference.
           </p>
           <button
@@ -431,14 +431,14 @@ export function FreeVitaminContent() {
       {/* Location Info */}
       <section className="py-12 px-4 border-t border-white/10">
         <div className="max-w-5xl mx-auto text-center">
-          <p className="text-gray-500 text-sm mb-4">Redeem your free vitamin at</p>
+          <p className="text-black text-sm mb-4">Redeem your free vitamin at</p>
           <div className="flex items-center justify-center gap-3">
             <div className="w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center">
               <span className="text-2xl">💋</span>
             </div>
             <div className="text-left">
               <p className="text-white font-bold">Hello Gorgeous Med Spa</p>
-              <p className="text-gray-400 text-sm">74 W. Washington St, Oswego, IL 60543</p>
+              <p className="text-black text-sm">74 W. Washington St, Oswego, IL 60543</p>
             </div>
           </div>
           <a

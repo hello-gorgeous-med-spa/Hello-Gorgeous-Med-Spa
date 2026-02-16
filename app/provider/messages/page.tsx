@@ -44,8 +44,8 @@ export default function ProviderMessagesPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Messages</h1>
-          <p className="text-gray-500">HIPAA-compliant patient communications</p>
+          <h1 className="text-2xl font-bold text-black">Messages</h1>
+          <p className="text-black">HIPAA-compliant patient communications</p>
         </div>
         <button className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
           + New Message
@@ -67,8 +67,8 @@ export default function ProviderMessagesPage() {
       </div>
 
       {/* Tabs */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-        <div className="flex border-b border-gray-100">
+      <div className="bg-white rounded-xl border border-black overflow-hidden">
+        <div className="flex border-b border-black">
           {[
             { id: 'inbox', label: 'Inbox', count: 3 },
             { id: 'sent', label: 'Sent', count: 0 },
@@ -80,13 +80,13 @@ export default function ProviderMessagesPage() {
               className={`flex-1 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
                 activeTab === tab.id
                   ? 'border-pink-500 text-pink-600 bg-pink-50'
-                  : 'border-transparent text-gray-500 hover:text-gray-700'
+                  : 'border-transparent text-black hover:text-black'
               }`}
             >
               {tab.label}
               {tab.count > 0 && (
                 <span className={`ml-2 px-2 py-0.5 rounded-full text-xs ${
-                  activeTab === tab.id ? 'bg-pink-200 text-pink-700' : 'bg-gray-200 text-gray-600'
+                  activeTab === tab.id ? 'bg-pink-200 text-pink-700' : 'bg-white text-black'
                 }`}>
                   {tab.count}
                 </span>
@@ -106,47 +106,47 @@ export default function ProviderMessagesPage() {
                       JD
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900">Jane Doe</p>
-                      <p className="text-sm text-gray-500">2 hours ago</p>
+                      <p className="font-semibold text-black">Jane Doe</p>
+                      <p className="text-sm text-black">2 hours ago</p>
                     </div>
                   </div>
                   <span className="w-2 h-2 bg-pink-500 rounded-full"></span>
                 </div>
-                <p className="text-gray-700 text-sm">
+                <p className="text-black text-sm">
                   Hi! I have a question about my upcoming appointment...
                 </p>
               </div>
 
-              <div className="p-4 bg-white border border-gray-200 rounded-xl hover:bg-gray-50">
+              <div className="p-4 bg-white border border-black rounded-xl hover:bg-white">
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center font-bold text-gray-600">
+                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center font-bold text-black">
                       MS
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900">Mary Smith</p>
-                      <p className="text-sm text-gray-500">Yesterday</p>
+                      <p className="font-semibold text-black">Mary Smith</p>
+                      <p className="text-sm text-black">Yesterday</p>
                     </div>
                   </div>
                 </div>
-                <p className="text-gray-600 text-sm">
+                <p className="text-black text-sm">
                   Thank you for the great service! I'll be back soon.
                 </p>
               </div>
 
-              <div className="p-4 bg-white border border-gray-200 rounded-xl hover:bg-gray-50">
+              <div className="p-4 bg-white border border-black rounded-xl hover:bg-white">
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center font-bold text-gray-600">
+                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center font-bold text-black">
                       RJ
                     </div>
                     <div>
-                      <p className="font-semibold text-gray-900">Robert Johnson</p>
-                      <p className="text-sm text-gray-500">3 days ago</p>
+                      <p className="font-semibold text-black">Robert Johnson</p>
+                      <p className="text-sm text-black">3 days ago</p>
                     </div>
                   </div>
                 </div>
-                <p className="text-gray-600 text-sm">
+                <p className="text-black text-sm">
                   Can I reschedule my appointment to next week?
                 </p>
               </div>
@@ -157,8 +157,8 @@ export default function ProviderMessagesPage() {
           {activeTab === 'sent' && (
             <div className="text-center py-12">
               <span className="text-4xl block mb-2">📤</span>
-              <p className="text-gray-500">No sent messages yet</p>
-              <p className="text-sm text-gray-400 mt-1">Messages you send will appear here</p>
+              <p className="text-black">No sent messages yet</p>
+              <p className="text-sm text-black mt-1">Messages you send will appear here</p>
             </div>
           )}
 
@@ -168,19 +168,19 @@ export default function ProviderMessagesPage() {
               {templates.map((template) => (
                 <div 
                   key={template.id}
-                  className="p-4 bg-white border border-gray-200 rounded-xl hover:bg-gray-50 cursor-pointer group"
+                  className="p-4 bg-white border border-black rounded-xl hover:bg-white cursor-pointer group"
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-semibold text-gray-900">{template.name}</h3>
+                    <h3 className="font-semibold text-black">{template.name}</h3>
                     <button className="px-3 py-1 bg-pink-100 text-pink-600 text-sm rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
                       Use Template
                     </button>
                   </div>
-                  <p className="text-sm text-gray-600 line-clamp-2">{template.preview}</p>
+                  <p className="text-sm text-black line-clamp-2">{template.preview}</p>
                 </div>
               ))}
               
-              <button className="w-full p-4 border-2 border-dashed border-gray-200 rounded-xl text-gray-500 hover:border-pink-300 hover:text-pink-600 transition-colors">
+              <button className="w-full p-4 border-2 border-dashed border-black rounded-xl text-black hover:border-pink-300 hover:text-pink-600 transition-colors">
                 + Create New Template
               </button>
             </div>
@@ -189,8 +189,8 @@ export default function ProviderMessagesPage() {
       </div>
 
       {/* Quick Send Options */}
-      <div className="bg-white rounded-xl border border-gray-100 p-5">
-        <h2 className="font-semibold text-gray-900 mb-4">Quick Actions</h2>
+      <div className="bg-white rounded-xl border border-black p-5">
+        <h2 className="font-semibold text-black mb-4">Quick Actions</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           <button className="p-4 bg-green-50 rounded-xl hover:bg-green-100 transition-colors text-center">
             <span className="text-2xl block mb-1">📱</span>

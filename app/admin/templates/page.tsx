@@ -154,14 +154,14 @@ export default function MessageTemplatesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Message Templates</h1>
-          <p className="text-gray-500">Customize your email and SMS messages</p>
+          <h1 className="text-2xl font-bold text-black">Message Templates</h1>
+          <p className="text-black">Customize your email and SMS messages</p>
         </div>
         <div className="flex items-center gap-3">
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value as any)}
-            className="px-4 py-2 border border-gray-200 rounded-lg"
+            className="px-4 py-2 border border-black rounded-lg"
           >
             <option value="all">All Messages</option>
             <option value="email">Email Only</option>
@@ -187,18 +187,18 @@ export default function MessageTemplatesPage() {
         {/* Template List */}
         <div className="lg:col-span-1 space-y-4">
           {loading ? (
-            <div className="bg-white rounded-xl border border-gray-100 p-8 text-center text-gray-500">
+            <div className="bg-white rounded-xl border border-black p-8 text-center text-black">
               Loading templates...
             </div>
           ) : groupedTemplates.length === 0 ? (
-            <div className="bg-white rounded-xl border border-gray-100 p-8 text-center text-gray-500">
+            <div className="bg-white rounded-xl border border-black p-8 text-center text-black">
               No templates found
             </div>
           ) : (
             groupedTemplates.map(group => (
-              <div key={group.id} className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-                <div className="px-4 py-3 bg-gray-50 border-b border-gray-100">
-                  <h3 className="font-medium text-gray-900">{group.icon} {group.name}</h3>
+              <div key={group.id} className="bg-white rounded-xl border border-black overflow-hidden">
+                <div className="px-4 py-3 bg-white border-b border-black">
+                  <h3 className="font-medium text-black">{group.icon} {group.name}</h3>
                 </div>
                 <div className="divide-y divide-gray-100">
                   {group.templates.map(template => (
@@ -212,7 +212,7 @@ export default function MessageTemplatesPage() {
                           body: template.body,
                         });
                       }}
-                      className={`w-full text-left px-4 py-3 hover:bg-gray-50 transition-colors ${
+                      className={`w-full text-left px-4 py-3 hover:bg-white transition-colors ${
                         selectedTemplate?.id === template.id ? 'bg-pink-50 border-l-4 border-pink-500' : ''
                       }`}
                     >
@@ -222,7 +222,7 @@ export default function MessageTemplatesPage() {
                         }`}>
                           {template.type.toUpperCase()}
                         </span>
-                        <span className="font-medium text-gray-900 text-sm">{template.name}</span>
+                        <span className="font-medium text-black text-sm">{template.name}</span>
                       </div>
                     </button>
                   ))}
@@ -235,16 +235,16 @@ export default function MessageTemplatesPage() {
         {/* Editor */}
         <div className="lg:col-span-2">
           {!selectedTemplate ? (
-            <div className="bg-white rounded-xl border border-gray-100 p-12 text-center text-gray-500">
+            <div className="bg-white rounded-xl border border-black p-12 text-center text-black">
               <span className="text-4xl mb-4 block">📝</span>
               <p>Select a template to edit</p>
             </div>
           ) : (
-            <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+            <div className="bg-white rounded-xl border border-black overflow-hidden">
+              <div className="px-6 py-4 border-b border-black flex items-center justify-between">
                 <div>
-                  <h2 className="font-semibold text-gray-900">Edit Template</h2>
-                  <p className="text-sm text-gray-500">{selectedTemplate.type === 'email' ? 'Email' : 'SMS'} • {selectedTemplate.category}</p>
+                  <h2 className="font-semibold text-black">Edit Template</h2>
+                  <p className="text-sm text-black">{selectedTemplate.type === 'email' ? 'Email' : 'SMS'} • {selectedTemplate.category}</p>
                 </div>
                 <button
                   onClick={handleSave}
@@ -258,24 +258,24 @@ export default function MessageTemplatesPage() {
               <div className="p-6 space-y-4">
                 {/* Name */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Template Name</label>
+                  <label className="block text-sm font-medium text-black mb-1">Template Name</label>
                   <input
                     type="text"
                     value={editForm.name}
                     onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
 
                 {/* Subject (email only) */}
                 {selectedTemplate.type === 'email' && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Subject Line</label>
+                    <label className="block text-sm font-medium text-black mb-1">Subject Line</label>
                     <input
                       type="text"
                       value={editForm.subject}
                       onChange={(e) => setEditForm({ ...editForm, subject: e.target.value })}
-                      className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                      className="w-full px-4 py-2 border border-black rounded-lg"
                       placeholder="Enter email subject..."
                     />
                   </div>
@@ -283,49 +283,49 @@ export default function MessageTemplatesPage() {
 
                 {/* Body */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                  <label className="block text-sm font-medium text-black mb-1">
                     Message Body
                     {selectedTemplate.type === 'sms' && (
-                      <span className="text-gray-400 font-normal ml-2">({editForm.body.length}/160 chars)</span>
+                      <span className="text-black font-normal ml-2">({editForm.body.length}/160 chars)</span>
                     )}
                   </label>
                   <textarea
                     value={editForm.body}
                     onChange={(e) => setEditForm({ ...editForm, body: e.target.value })}
                     rows={selectedTemplate.type === 'email' ? 10 : 4}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg font-mono text-sm"
+                    className="w-full px-4 py-2 border border-black rounded-lg font-mono text-sm"
                   />
                 </div>
 
                 {/* Variables */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Insert Variable</label>
+                  <label className="block text-sm font-medium text-black mb-2">Insert Variable</label>
                   <div className="flex flex-wrap gap-2">
                     {Object.entries(VARIABLE_HELP).map(([key, desc]) => (
                       <button
                         key={key}
                         type="button"
                         onClick={() => insertVariable(key)}
-                        className="px-3 py-1.5 text-sm bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-700"
+                        className="px-3 py-1.5 text-sm bg-white hover:bg-white rounded-lg text-black"
                         title={desc}
                       >
                         {`{{${key}}}`}
                       </button>
                     ))}
                   </div>
-                  <p className="text-xs text-gray-500 mt-2">Click a variable to add it to your message. Variables will be replaced with actual values when sent.</p>
+                  <p className="text-xs text-black mt-2">Click a variable to add it to your message. Variables will be replaced with actual values when sent.</p>
                 </div>
 
                 {/* Preview */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Preview</label>
-                  <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <label className="block text-sm font-medium text-black mb-2">Preview</label>
+                  <div className="p-4 bg-white rounded-lg border border-black">
                     {selectedTemplate.type === 'email' && editForm.subject && (
-                      <p className="font-semibold text-gray-900 mb-2">
+                      <p className="font-semibold text-black mb-2">
                         {editForm.subject.replace(/\{\{(\w+)\}\}/g, (_, v) => `[${v}]`)}
                       </p>
                     )}
-                    <p className="text-gray-700 whitespace-pre-wrap">
+                    <p className="text-black whitespace-pre-wrap">
                       {editForm.body.replace(/\{\{(\w+)\}\}/g, (_, v) => `[${v}]`)}
                     </p>
                   </div>
@@ -340,38 +340,38 @@ export default function MessageTemplatesPage() {
       {showAddModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-lg w-full">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">New Template</h2>
+            <div className="p-6 border-b border-black">
+              <h2 className="text-xl font-bold text-black">New Template</h2>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Template Name *</label>
+                <label className="block text-sm font-medium text-black mb-1">Template Name *</label>
                 <input
                   type="text"
                   value={newTemplate.name}
                   onChange={(e) => setNewTemplate({ ...newTemplate, name: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="e.g., Holiday Sale SMS"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                  <label className="block text-sm font-medium text-black mb-1">Type</label>
                   <select
                     value={newTemplate.type}
                     onChange={(e) => setNewTemplate({ ...newTemplate, type: e.target.value as any })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   >
                     <option value="sms">SMS</option>
                     <option value="email">Email</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                  <label className="block text-sm font-medium text-black mb-1">Category</label>
                   <select
                     value={newTemplate.category}
                     onChange={(e) => setNewTemplate({ ...newTemplate, category: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   >
                     {CATEGORIES.map(cat => (
                       <option key={cat.id} value={cat.id}>{cat.name}</option>
@@ -381,28 +381,28 @@ export default function MessageTemplatesPage() {
               </div>
               {newTemplate.type === 'email' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Subject</label>
+                  <label className="block text-sm font-medium text-black mb-1">Subject</label>
                   <input
                     type="text"
                     value={newTemplate.subject}
                     onChange={(e) => setNewTemplate({ ...newTemplate, subject: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
               )}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message Body *</label>
+                <label className="block text-sm font-medium text-black mb-1">Message Body *</label>
                 <textarea
                   value={newTemplate.body}
                   onChange={(e) => setNewTemplate({ ...newTemplate, body: e.target.value })}
                   rows={4}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="Enter your message..."
                 />
               </div>
             </div>
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
-              <button onClick={() => setShowAddModal(false)} className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg">Cancel</button>
+            <div className="p-6 border-t border-black flex justify-end gap-3">
+              <button onClick={() => setShowAddModal(false)} className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg">Cancel</button>
               <button
                 onClick={handleCreate}
                 disabled={saving || !newTemplate.name || !newTemplate.body}

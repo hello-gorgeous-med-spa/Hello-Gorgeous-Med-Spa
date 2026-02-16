@@ -10,11 +10,11 @@ import Link from 'next/link';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-white rounded ${className}`} />;
 }
 
 const STATUSES = [
-  { value: 'confirmed', label: 'Confirmed', color: 'bg-gray-100 text-gray-700' },
+  { value: 'confirmed', label: 'Confirmed', color: 'bg-white text-black' },
   { value: 'checked_in', label: 'Checked In', color: 'bg-blue-100 text-blue-700' },
   { value: 'in_progress', label: 'In Progress', color: 'bg-pink-100 text-pink-700' },
   { value: 'completed', label: 'Completed', color: 'bg-green-100 text-green-700' },
@@ -217,7 +217,7 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
   if (!appointment) {
     return (
       <div className="max-w-4xl mx-auto text-center py-12">
-        <p className="text-gray-500 mb-4">Appointment not found</p>
+        <p className="text-black mb-4">Appointment not found</p>
         <Link href="/admin/appointments" className="text-pink-600 hover:text-pink-700">
           ← Back to Appointments
         </Link>
@@ -235,16 +235,16 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
       <div className="mb-6">
         <Link
           href="/admin/appointments"
-          className="text-sm text-gray-500 hover:text-gray-700 mb-2 inline-block"
+          className="text-sm text-black hover:text-black mb-2 inline-block"
         >
           ← Back to Appointments
         </Link>
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Appointment Details</h1>
-            <p className="text-gray-500">{date} at {time}</p>
+            <h1 className="text-2xl font-bold text-black">Appointment Details</h1>
+            <p className="text-black">{date} at {time}</p>
           </div>
-          <span className={`px-3 py-1.5 text-sm font-medium rounded-full ${currentStatus?.color || 'bg-gray-100'}`}>
+          <span className={`px-3 py-1.5 text-sm font-medium rounded-full ${currentStatus?.color || 'bg-white'}`}>
             {currentStatus?.label || appointment.status}
           </span>
         </div>
@@ -254,11 +254,11 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
         {/* Main Info */}
         <div className="lg:col-span-2 space-y-6">
           {/* Appointment Card */}
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+          <div className="bg-white rounded-xl border border-black shadow-sm p-6">
             <div className="flex items-start gap-6 flex-wrap">
               {/* Client */}
               <div className="flex-1 min-w-[200px]">
-                <h3 className="text-sm font-medium text-gray-500 mb-2">Client</h3>
+                <h3 className="text-sm font-medium text-black mb-2">Client</h3>
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-bold">
                     {clientName.split(' ').map((n) => n[0]).join('')}
@@ -266,7 +266,7 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
                   <div>
                     <Link
                       href={`/admin/clients/${appointment.client?.id}`}
-                      className="font-semibold text-gray-900 hover:text-pink-600"
+                      className="font-semibold text-black hover:text-pink-600"
                     >
                       {clientName}
                     </Link>
@@ -275,35 +275,35 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
                         💎 VIP
                       </span>
                     )}
-                    <p className="text-sm text-gray-500">{appointment.client?.phone || '-'}</p>
+                    <p className="text-sm text-black">{appointment.client?.phone || '-'}</p>
                   </div>
                 </div>
               </div>
 
               {/* Service */}
               <div className="flex-1 min-w-[200px]">
-                <h3 className="text-sm font-medium text-gray-500 mb-2">Service</h3>
-                <p className="font-semibold text-gray-900">{appointment.service?.name || 'Service'}</p>
-                <p className="text-sm text-gray-500">
+                <h3 className="text-sm font-medium text-black mb-2">Service</h3>
+                <p className="font-semibold text-black">{appointment.service?.name || 'Service'}</p>
+                <p className="text-sm text-black">
                   {appointment.service?.duration_minutes || appointment.duration_minutes || 30} min • ${appointment.service?.price || 0}
                 </p>
               </div>
 
               {/* Provider */}
               <div className="flex-1 min-w-[200px]">
-                <h3 className="text-sm font-medium text-gray-500 mb-2">Provider</h3>
-                <p className="font-semibold text-gray-900">{providerName}</p>
+                <h3 className="text-sm font-medium text-black mb-2">Provider</h3>
+                <p className="font-semibold text-black">{providerName}</p>
                 {appointment.provider?.title && (
-                  <p className="text-sm text-gray-500">{appointment.provider.title}</p>
+                  <p className="text-sm text-black">{appointment.provider.title}</p>
                 )}
               </div>
             </div>
 
             {/* How booked */}
             {(appointment.booking_source || appointment.source) && (
-              <div className="mt-4 pt-4 border-t border-gray-100">
-                <p className="text-sm text-gray-500">
-                  Booked via: <span className="font-medium text-gray-700">
+              <div className="mt-4 pt-4 border-t border-black">
+                <p className="text-sm text-black">
+                  Booked via: <span className="font-medium text-black">
                     {(appointment.booking_source || appointment.source) === 'online_booking' ? 'Online booking' : (appointment.booking_source || appointment.source) === 'admin_calendar' ? 'Calendar / POS' : String(appointment.booking_source || appointment.source)}
                   </span>
                 </p>
@@ -312,37 +312,37 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
 
             {/* Notes */}
             {appointment.notes && (
-              <div className="mt-6 pt-6 border-t border-gray-100">
-                <h3 className="text-sm font-medium text-gray-500 mb-2">Notes</h3>
-                <p className="text-gray-900">{appointment.notes}</p>
+              <div className="mt-6 pt-6 border-t border-black">
+                <h3 className="text-sm font-medium text-black mb-2">Notes</h3>
+                <p className="text-black">{appointment.notes}</p>
               </div>
             )}
           </div>
 
           {/* Status Checklist */}
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-            <h3 className="font-semibold text-gray-900 mb-4">Appointment Checklist</h3>
+          <div className="bg-white rounded-xl border border-black shadow-sm p-6">
+            <h3 className="font-semibold text-black mb-4">Appointment Checklist</h3>
             <div className="space-y-3">
-              <div className="flex items-center justify-between py-2 border-b border-gray-100">
+              <div className="flex items-center justify-between py-2 border-b border-black">
                 <div className="flex items-center gap-2">
                   <span className="text-green-500">✓</span>
-                  <span className="text-gray-700">Appointment booked</span>
+                  <span className="text-black">Appointment booked</span>
                 </div>
               </div>
-              <div className="flex items-center justify-between py-2 border-b border-gray-100">
+              <div className="flex items-center justify-between py-2 border-b border-black">
                 <div className="flex items-center gap-2">
-                  <span className={appointment.status !== 'confirmed' ? 'text-green-500' : 'text-gray-300'}>
+                  <span className={appointment.status !== 'confirmed' ? 'text-green-500' : 'text-black'}>
                     {appointment.status !== 'confirmed' ? '✓' : '○'}
                   </span>
-                  <span className="text-gray-700">Client checked in</span>
+                  <span className="text-black">Client checked in</span>
                 </div>
               </div>
               <div className="flex items-center justify-between py-2">
                 <div className="flex items-center gap-2">
-                  <span className={appointment.status === 'completed' ? 'text-green-500' : 'text-gray-300'}>
+                  <span className={appointment.status === 'completed' ? 'text-green-500' : 'text-black'}>
                     {appointment.status === 'completed' ? '✓' : '○'}
                   </span>
-                  <span className="text-gray-700">Appointment completed</span>
+                  <span className="text-black">Appointment completed</span>
                 </div>
               </div>
             </div>
@@ -355,7 +355,7 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
               : 'bg-amber-50 border-amber-200'
           }`}>
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-gray-900">Consent Forms</h3>
+              <h3 className="font-semibold text-black">Consent Forms</h3>
               {consentStatus?.hasAllRequired ? (
                 <span className="px-2 py-1 text-xs font-medium bg-green-100 text-green-700 rounded-full">
                   ✓ Complete
@@ -371,7 +371,7 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
               <div className="space-y-2">
                 {consentStatus.consentDetails?.map((consent) => (
                   <div key={consent.type} className="flex items-center justify-between py-1">
-                    <span className="text-sm text-gray-700">{consent.name}</span>
+                    <span className="text-sm text-black">{consent.name}</span>
                     {consent.signed ? (
                       <span className="text-xs text-green-600">
                         ✓ {new Date(consent.signedAt!).toLocaleDateString()}
@@ -393,7 +393,7 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
                 )}
               </div>
             ) : (
-              <p className="text-sm text-gray-500">Loading consent status...</p>
+              <p className="text-sm text-black">Loading consent status...</p>
             )}
 
             {!consentStatus?.hasAllRequired && (
@@ -407,8 +407,8 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
         {/* Sidebar - Actions */}
         <div className="space-y-6">
           {/* Quick Actions */}
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-            <h3 className="font-semibold text-gray-900 mb-4">Actions</h3>
+          <div className="bg-white rounded-xl border border-black shadow-sm p-5">
+            <h3 className="font-semibold text-black mb-4">Actions</h3>
             <div className="space-y-2">
               {appointment.status === 'confirmed' && (
                 <button
@@ -438,13 +438,13 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
               )}
                 <Link
                   href={`/admin/appointments/${appointment.id}/edit`}
-                  className="block w-full px-4 py-2.5 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors text-center"
+                  className="block w-full px-4 py-2.5 border border-black text-black font-medium rounded-lg hover:bg-white transition-colors text-center"
                 >
                   ✏️ Edit Appointment
                 </Link>
                 <Link
                   href={`/admin/appointments/${appointment.id}/reschedule`}
-                  className="block w-full px-4 py-2.5 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors text-center"
+                  className="block w-full px-4 py-2.5 border border-black text-black font-medium rounded-lg hover:bg-white transition-colors text-center"
                 >
                   📅 Reschedule
                 </Link>
@@ -487,8 +487,8 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
           </div>
 
           {/* Change Status */}
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-            <h3 className="font-semibold text-gray-900 mb-4">Change Status</h3>
+          <div className="bg-white rounded-xl border border-black shadow-sm p-5">
+            <h3 className="font-semibold text-black mb-4">Change Status</h3>
             <div className="space-y-2">
               {STATUSES.map((status) => (
                 <button
@@ -498,7 +498,7 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
                   className={`w-full text-left px-4 py-2 rounded-lg text-sm transition-colors ${
                     appointment.status === status.value
                       ? `${status.color} font-medium`
-                      : 'hover:bg-gray-50 text-gray-700'
+                      : 'hover:bg-white text-black'
                   } disabled:cursor-not-allowed`}
                 >
                   {status.label}
@@ -508,34 +508,34 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
           </div>
 
           {/* Contact Client */}
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-            <h3 className="font-semibold text-gray-900 mb-4">Contact Client</h3>
+          <div className="bg-white rounded-xl border border-black shadow-sm p-5">
+            <h3 className="font-semibold text-black mb-4">Contact Client</h3>
             <div className="space-y-2">
               {appointment.client?.phone && (
                 <>
                   <a
                     href={`tel:${appointment.client.phone}`}
-                    className="flex items-center gap-3 px-4 py-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-3 px-4 py-2.5 border border-black rounded-lg hover:bg-white transition-colors"
                   >
                     <span>📞</span>
-                    <span className="text-gray-700">Call</span>
+                    <span className="text-black">Call</span>
                   </a>
                   <a
                     href={`sms:${appointment.client.phone}`}
-                    className="flex items-center gap-3 px-4 py-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-3 px-4 py-2.5 border border-black rounded-lg hover:bg-white transition-colors"
                   >
                     <span>💬</span>
-                    <span className="text-gray-700">Text</span>
+                    <span className="text-black">Text</span>
                   </a>
                 </>
               )}
               {appointment.client?.email && (
                 <a
                   href={`mailto:${appointment.client.email}`}
-                  className="flex items-center gap-3 px-4 py-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                  className="flex items-center gap-3 px-4 py-2.5 border border-black rounded-lg hover:bg-white transition-colors"
                 >
                   <span>✉️</span>
-                  <span className="text-gray-700">Email</span>
+                  <span className="text-black">Email</span>
                 </a>
               )}
             </div>
@@ -547,18 +547,18 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
       {showCancelModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Cancel Appointment</h2>
-            <p className="text-gray-600 mb-4">
+            <h2 className="text-xl font-bold text-black mb-4">Cancel Appointment</h2>
+            <p className="text-black mb-4">
               Are you sure you want to cancel this appointment? The client will be notified.
             </p>
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Cancellation Reason
               </label>
               <select
                 value={cancelReason}
                 onChange={(e) => setCancelReason(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               >
                 <option value="">Select reason...</option>
                 <option value="client_request">Client requested</option>
@@ -571,7 +571,7 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setShowCancelModal(false)}
-                className="px-4 py-2 text-gray-600 font-medium hover:bg-gray-100 rounded-lg transition-colors"
+                className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg transition-colors"
               >
                 Keep Appointment
               </button>

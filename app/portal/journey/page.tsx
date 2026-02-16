@@ -20,7 +20,7 @@ interface TreatmentEntry {
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-white rounded ${className}`} />;
 }
 
 export default function JourneyPage() {
@@ -58,8 +58,8 @@ export default function JourneyPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">My Treatment Journey</h1>
-          <p className="text-gray-500">Track your progress over time</p>
+          <h1 className="text-2xl font-bold text-black">My Treatment Journey</h1>
+          <p className="text-black">Track your progress over time</p>
         </div>
         <button className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors">
           + Add Note
@@ -80,9 +80,9 @@ export default function JourneyPage() {
       </div>
 
       {/* Timeline */}
-      <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100">
-          <h3 className="font-semibold text-gray-900">Treatment Timeline</h3>
+      <div className="bg-white rounded-2xl border border-black overflow-hidden">
+        <div className="px-6 py-4 border-b border-black">
+          <h3 className="font-semibold text-black">Treatment Timeline</h3>
         </div>
 
         {loading ? (
@@ -100,8 +100,8 @@ export default function JourneyPage() {
         ) : entries.length === 0 ? (
           <div className="p-12 text-center">
             <span className="text-5xl block mb-4">🌟</span>
-            <h3 className="font-semibold text-gray-900 mb-2">Start Your Journey</h3>
-            <p className="text-gray-500 mb-4">
+            <h3 className="font-semibold text-black mb-2">Start Your Journey</h3>
+            <p className="text-black mb-4">
               Your treatment history will appear here after your first appointment.
             </p>
             <Link
@@ -114,7 +114,7 @@ export default function JourneyPage() {
         ) : (
           <div className="relative">
             {/* Timeline line */}
-            <div className="absolute left-10 top-0 bottom-0 w-0.5 bg-gray-200" />
+            <div className="absolute left-10 top-0 bottom-0 w-0.5 bg-white" />
 
             <div className="divide-y divide-gray-100">
               {entries.map((entry, index) => (
@@ -128,20 +128,20 @@ export default function JourneyPage() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <h4 className="font-semibold text-gray-900">{entry.treatment || 'Entry'}</h4>
-                        <p className="text-sm text-gray-500">
+                        <h4 className="font-semibold text-black">{entry.treatment || 'Entry'}</h4>
+                        <p className="text-sm text-black">
                           {entry.provider && `${entry.provider} • `}
                           {formatDate(entry.date)}
                         </p>
                         {entry.notes && (
-                          <p className="text-sm text-gray-600 mt-2">{entry.notes}</p>
+                          <p className="text-sm text-black mt-2">{entry.notes}</p>
                         )}
                       </div>
                       <span className={`px-2 py-1 text-xs rounded-full capitalize ${
                         entry.type === 'treatment' ? 'bg-pink-100 text-pink-700' :
                         entry.type === 'photo' ? 'bg-blue-100 text-blue-700' :
                         entry.type === 'note' ? 'bg-purple-100 text-purple-700' :
-                        'bg-gray-100 text-gray-600'
+                        'bg-white text-black'
                       }`}>
                         {entry.type}
                       </span>
@@ -155,28 +155,28 @@ export default function JourneyPage() {
       </div>
 
       {/* Features Coming Soon */}
-      <div className="bg-gray-50 rounded-2xl p-6">
-        <h3 className="font-semibold text-gray-900 mb-4">Coming Soon</h3>
+      <div className="bg-white rounded-2xl p-6">
+        <h3 className="font-semibold text-black mb-4">Coming Soon</h3>
         <div className="grid md:grid-cols-3 gap-4">
           <div className="flex gap-3">
             <span className="text-2xl">📷</span>
             <div>
-              <p className="font-medium text-gray-900">Progress Photos</p>
-              <p className="text-sm text-gray-500">Upload before/after photos</p>
+              <p className="font-medium text-black">Progress Photos</p>
+              <p className="text-sm text-black">Upload before/after photos</p>
             </div>
           </div>
           <div className="flex gap-3">
             <span className="text-2xl">📏</span>
             <div>
-              <p className="font-medium text-gray-900">Measurements</p>
-              <p className="text-sm text-gray-500">Track weight loss journey</p>
+              <p className="font-medium text-black">Measurements</p>
+              <p className="text-sm text-black">Track weight loss journey</p>
             </div>
           </div>
           <div className="flex gap-3">
             <span className="text-2xl">🎯</span>
             <div>
-              <p className="font-medium text-gray-900">Goals</p>
-              <p className="text-sm text-gray-500">Set and track beauty goals</p>
+              <p className="font-medium text-black">Goals</p>
+              <p className="text-sm text-black">Set and track beauty goals</p>
             </div>
           </div>
         </div>

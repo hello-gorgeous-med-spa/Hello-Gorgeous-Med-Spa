@@ -164,24 +164,24 @@ export default async function ProviderProfilePage({ params }: { params: Promise<
 
             {/* Info */}
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900">{name}</h1>
+              <h1 className="text-4xl md:text-5xl font-bold text-black">{name}</h1>
               {provider.credentials && (
                 <p className="text-xl text-[#FF2D8E] font-medium mt-2">{provider.credentials}</p>
               )}
               {provider.tagline && (
-                <p className="text-gray-500 italic mt-1">{provider.tagline}</p>
+                <p className="text-black italic mt-1">{provider.tagline}</p>
               )}
 
               {fullBio && (
-                <div className="mt-6 prose prose-lg text-gray-600">
+                <div className="mt-6 prose prose-lg text-black">
                   <p>{fullBio}</p>
                 </div>
               )}
 
               {provider.philosophy && (
                 <div className="mt-8 p-6 bg-white/80 rounded-2xl border border-[#FF2D8E]/20">
-                  <h3 className="font-semibold text-gray-900 mb-2">My Philosophy</h3>
-                  <p className="text-gray-600 italic">&ldquo;{provider.philosophy}&rdquo;</p>
+                  <h3 className="font-semibold text-black mb-2">My Philosophy</h3>
+                  <p className="text-black italic">&ldquo;{provider.philosophy}&rdquo;</p>
                 </div>
               )}
 
@@ -202,7 +202,7 @@ export default async function ProviderProfilePage({ params }: { params: Promise<
       {videos.length > 0 && (
         <section className="py-16 px-6 bg-white">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-8">Videos</h2>
+            <h2 className="text-3xl font-bold text-black mb-8">Videos</h2>
             <ProviderMediaSection media={videos} type="video" />
           </div>
         </section>
@@ -212,12 +212,12 @@ export default async function ProviderProfilePage({ params }: { params: Promise<
       {beforeAfters.length > 0 && (
         <section className="py-16 px-6 bg-gradient-to-br from-white to-white">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Results</h2>
-            <p className="text-gray-600 mb-8">See real results from real clients</p>
+            <h2 className="text-3xl font-bold text-black mb-4">Results</h2>
+            <p className="text-black mb-8">See real results from real clients</p>
             <ProviderMediaSection media={beforeAfters} type="before_after" />
 
             {/* Disclaimer */}
-            <div className="mt-12 p-6 bg-white/80 rounded-xl border border-[#FF2D8E]/20 text-sm text-gray-500">
+            <div className="mt-12 p-6 bg-white/80 rounded-xl border border-[#FF2D8E]/20 text-sm text-black">
               <p>
                 <strong>Disclaimer:</strong> Results vary by individual. All treatments performed by licensed
                 medical professionals. Client consent on file.

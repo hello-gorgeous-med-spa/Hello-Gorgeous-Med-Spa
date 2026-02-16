@@ -40,17 +40,17 @@ export default function MascotFeedbackPage() {
   return (
     <div className="p-6 max-w-4xl mx-auto">
       <div className="mb-8">
-        <Link href="/admin/ai" className="text-slate-500 hover:text-slate-700 text-sm">← AI Hub</Link>
-        <h1 className="text-2xl font-bold text-gray-900 mt-2">Mascot feedback for owner</h1>
-        <p className="text-gray-500 text-sm mt-1">
+        <Link href="/admin/ai" className="text-black hover:text-black text-sm">← AI Hub</Link>
+        <h1 className="text-2xl font-bold text-black mt-2">Mascot feedback for owner</h1>
+        <p className="text-black text-sm mt-1">
           Messages, complaints, and callback requests sent from the Hello Gorgeous chat widget. She sends you everything so you can follow up.
         </p>
       </div>
 
       {loading ? (
-        <p className="text-gray-500">Loading…</p>
+        <p className="text-black">Loading…</p>
       ) : items.length === 0 ? (
-        <div className="rounded-xl border border-gray-200 bg-gray-50 p-8 text-center text-gray-500">
+        <div className="rounded-xl border border-black bg-white p-8 text-center text-black">
           No feedback yet. When visitors use “Send to owner” in the chat, it will show up here (and in your email if Resend is configured).
         </div>
       ) : (
@@ -58,10 +58,10 @@ export default function MascotFeedbackPage() {
           {items.map((item) => (
             <li
               key={item.id}
-              className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm"
+              className="rounded-xl border border-black bg-white p-4 shadow-sm"
             >
-              <p className="text-gray-900 whitespace-pre-wrap">{item.message}</p>
-              <div className="mt-3 flex flex-wrap gap-3 text-sm text-gray-500">
+              <p className="text-black whitespace-pre-wrap">{item.message}</p>
+              <div className="mt-3 flex flex-wrap gap-3 text-sm text-black">
                 {item.contact_name && <span>Name: {item.contact_name}</span>}
                 {item.contact_email && <a href={`mailto:${item.contact_email}`} className="text-pink-600 hover:underline">{item.contact_email}</a>}
                 {item.contact_phone && <a href={`tel:${item.contact_phone}`} className="text-pink-600 hover:underline">{item.contact_phone}</a>}

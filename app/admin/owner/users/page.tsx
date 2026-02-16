@@ -78,11 +78,11 @@ export default function ProvidersStaffPage() {
               </button>
             </div>
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-white">
                 <tr>
-                  <th className="text-left px-4 py-2 text-xs font-semibold text-gray-500">NAME</th>
-                  <th className="text-left px-4 py-2 text-xs font-semibold text-gray-500">ROLE</th>
-                  <th className="px-4 py-2 text-xs font-semibold text-gray-500">STATUS</th>
+                  <th className="text-left px-4 py-2 text-xs font-semibold text-black">NAME</th>
+                  <th className="text-left px-4 py-2 text-xs font-semibold text-black">ROLE</th>
+                  <th className="px-4 py-2 text-xs font-semibold text-black">STATUS</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
@@ -90,20 +90,20 @@ export default function ProvidersStaffPage() {
                   <tr
                     key={provider.id}
                     onClick={() => { setSelectedProvider(provider); setActiveTab('profile'); }}
-                    className={`cursor-pointer hover:bg-gray-50 ${selectedProvider?.id === provider.id ? 'bg-purple-50' : ''}`}
+                    className={`cursor-pointer hover:bg-white ${selectedProvider?.id === provider.id ? 'bg-purple-50' : ''}`}
                   >
                     <td className="px-4 py-3">
                       <div>
                         <p className="font-medium text-sm">{provider.name}</p>
-                        <p className="text-xs text-gray-500">{provider.credentials}</p>
+                        <p className="text-xs text-black">{provider.credentials}</p>
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-xs text-gray-600 capitalize">{provider.role.replace('_', ' ')}</td>
+                    <td className="px-4 py-3 text-xs text-black capitalize">{provider.role.replace('_', ' ')}</td>
                     <td className="px-4 py-3">
                       <span className={`text-xs px-2 py-0.5 rounded ${
                         provider.status === 'active' ? 'bg-green-100 text-green-700' :
                         provider.status === 'locked' ? 'bg-red-100 text-red-700' :
-                        'bg-gray-100 text-gray-600'
+                        'bg-white text-black'
                       }`}>
                         {provider.status}
                       </span>
@@ -119,10 +119,10 @@ export default function ProvidersStaffPage() {
         <div className="w-2/3">
           {selectedProvider ? (
             <div className="bg-white rounded-xl border">
-              <div className="p-4 border-b bg-gray-50 flex items-center justify-between">
+              <div className="p-4 border-b bg-white flex items-center justify-between">
                 <div>
                   <h2 className="font-semibold text-lg">{selectedProvider.name}</h2>
-                  <p className="text-sm text-gray-500">{selectedProvider.email}</p>
+                  <p className="text-sm text-black">{selectedProvider.email}</p>
                 </div>
                 {selectedProvider.status === 'active' && (
                   <button
@@ -143,7 +143,7 @@ export default function ProvidersStaffPage() {
                     className={`px-4 py-3 text-sm font-medium border-b-2 -mb-px ${
                       activeTab === tab.id
                         ? 'border-purple-500 text-pink-600'
-                        : 'border-transparent text-gray-500 hover:text-gray-700'
+                        : 'border-transparent text-black hover:text-black'
                     }`}
                   >
                     {tab.label}
@@ -157,7 +157,7 @@ export default function ProvidersStaffPage() {
                 {activeTab === 'profile' && (
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                      <label className="block text-sm font-medium text-black mb-1">Full Name</label>
                       <input
                         type="text"
                         value={selectedProvider.name}
@@ -166,7 +166,7 @@ export default function ProvidersStaffPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Credentials</label>
+                      <label className="block text-sm font-medium text-black mb-1">Credentials</label>
                       <input
                         type="text"
                         value={selectedProvider.credentials}
@@ -176,7 +176,7 @@ export default function ProvidersStaffPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Role</label>
+                      <label className="block text-sm font-medium text-black mb-1">Role</label>
                       <select
                         value={selectedProvider.role}
                         onChange={(e) => updateProvider({ role: e.target.value as any })}
@@ -189,7 +189,7 @@ export default function ProvidersStaffPage() {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                      <label className="block text-sm font-medium text-black mb-1">Email</label>
                       <input
                         type="email"
                         value={selectedProvider.email}
@@ -204,10 +204,10 @@ export default function ProvidersStaffPage() {
                 {activeTab === 'capabilities' && (
                   <div className="space-y-6">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Services Allowed</label>
+                      <label className="block text-sm font-medium text-black mb-2">Services Allowed</label>
                       <div className="grid grid-cols-2 gap-2">
                         {SERVICES.map(service => (
-                          <label key={service} className="flex items-center gap-3 p-2 border rounded-lg cursor-pointer hover:bg-gray-50">
+                          <label key={service} className="flex items-center gap-3 p-2 border rounded-lg cursor-pointer hover:bg-white">
                             <input
                               type="checkbox"
                               checked={selectedProvider.servicesAllowed.includes(service)}
@@ -225,7 +225,7 @@ export default function ProvidersStaffPage() {
                       </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">Unit Limits</label>
+                      <label className="block text-sm font-medium text-black mb-2">Unit Limits</label>
                       {SERVICES.filter(s => s === 'Botox' || s === 'Juvederm').map(service => (
                         <div key={service} className="flex items-center gap-3 mb-2">
                           <span className="w-32 text-sm">{service}</span>
@@ -246,11 +246,11 @@ export default function ProvidersStaffPage() {
                             className="w-24 px-3 py-2 border rounded-lg text-sm"
                             min="0"
                           />
-                          <span className="text-xs text-gray-500">units/day</span>
+                          <span className="text-xs text-black">units/day</span>
                         </div>
                       ))}
                     </div>
-                    <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+                    <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-white">
                       <input
                         type="checkbox"
                         checked={selectedProvider.salesPermissions}
@@ -259,7 +259,7 @@ export default function ProvidersStaffPage() {
                       />
                       <div>
                         <span className="font-medium">Sales Permissions</span>
-                        <p className="text-xs text-gray-500">Can process payments and view financial data</p>
+                        <p className="text-xs text-black">Can process payments and view financial data</p>
                       </div>
                     </label>
                   </div>
@@ -268,7 +268,7 @@ export default function ProvidersStaffPage() {
                 {/* SCHEDULE ACCESS TAB */}
                 {activeTab === 'schedule' && (
                   <div className="space-y-4">
-                    <label className="flex items-center gap-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+                    <label className="flex items-center gap-3 p-4 border rounded-lg cursor-pointer hover:bg-white">
                       <input
                         type="checkbox"
                         checked={selectedProvider.canEditSchedule}
@@ -277,10 +277,10 @@ export default function ProvidersStaffPage() {
                       />
                       <div>
                         <span className="font-medium">Can Edit Own Schedule</span>
-                        <p className="text-xs text-gray-500">Provider can modify their own availability</p>
+                        <p className="text-xs text-black">Provider can modify their own availability</p>
                       </div>
                     </label>
-                    <label className="flex items-center gap-3 p-4 border rounded-lg cursor-pointer hover:bg-gray-50">
+                    <label className="flex items-center gap-3 p-4 border rounded-lg cursor-pointer hover:bg-white">
                       <input
                         type="checkbox"
                         checked={selectedProvider.canOverride}
@@ -289,7 +289,7 @@ export default function ProvidersStaffPage() {
                       />
                       <div>
                         <span className="font-medium">Can Override Booking Rules</span>
-                        <p className="text-xs text-gray-500">Provider can book outside normal rules (requires logging)</p>
+                        <p className="text-xs text-black">Provider can book outside normal rules (requires logging)</p>
                       </div>
                     </label>
                   </div>
@@ -299,12 +299,12 @@ export default function ProvidersStaffPage() {
                 {activeTab === 'security' && (
                   <div className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
-                      <div className="p-4 bg-gray-50 rounded-lg">
-                        <p className="text-xs text-gray-500">Last Login</p>
+                      <div className="p-4 bg-white rounded-lg">
+                        <p className="text-xs text-black">Last Login</p>
                         <p className="font-medium">{new Date(selectedProvider.lastLogin).toLocaleString()}</p>
                       </div>
-                      <div className="p-4 bg-gray-50 rounded-lg">
-                        <p className="text-xs text-gray-500">Active Sessions</p>
+                      <div className="p-4 bg-white rounded-lg">
+                        <p className="text-xs text-black">Active Sessions</p>
                         <p className="font-medium">{selectedProvider.activeSessions}</p>
                       </div>
                     </div>
@@ -334,7 +334,7 @@ export default function ProvidersStaffPage() {
               </div>
 
               {/* Save Button */}
-              <div className="p-4 border-t bg-gray-50 flex justify-end">
+              <div className="p-4 border-t bg-white flex justify-end">
                 <button className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">
                   Save Changes
                 </button>
@@ -343,8 +343,8 @@ export default function ProvidersStaffPage() {
           ) : (
             <div className="bg-white rounded-xl border p-12 text-center">
               <span className="text-4xl mb-4 block">👥</span>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Select a Provider</h3>
-              <p className="text-gray-500">Click a provider from the list to view and edit their profile.</p>
+              <h3 className="text-lg font-semibold text-black mb-2">Select a Provider</h3>
+              <p className="text-black">Click a provider from the list to view and edit their profile.</p>
             </div>
           )}
         </div>
@@ -355,12 +355,12 @@ export default function ProvidersStaffPage() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
             <h3 className="text-lg font-semibold text-red-600 mb-2">⚠️ Revoke Access</h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-black mb-4">
               Are you sure you want to revoke access for <strong>{selectedProvider.name}</strong>?
               They will be immediately logged out of all sessions.
             </p>
             <div className="flex gap-3 justify-end">
-              <button onClick={() => setShowRevokeConfirm(false)} className="px-4 py-2 text-gray-600 hover:text-gray-800">
+              <button onClick={() => setShowRevokeConfirm(false)} className="px-4 py-2 text-black hover:text-black">
                 Cancel
               </button>
               <button onClick={revokeAccess} className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">

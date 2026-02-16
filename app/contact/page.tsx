@@ -40,7 +40,7 @@ export default async function ContactPage() {
                 Us
               </span>
             </h1>
-            <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">
+            <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">
               Questions about services or booking? Reach out and we’ll help you choose the
               right next step.
             </p>
@@ -51,20 +51,20 @@ export default async function ContactPage() {
       <Section>
         <div className="grid gap-6 lg:grid-cols-2">
           <FadeUp>
-            <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
+            <div className="rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-6">
               <h2 className="text-2xl font-bold text-white">{SITE.name}</h2>
-              <p className="mt-3 text-gray-300">
+              <p className="mt-3 text-black">
                 {SITE.address.streetAddress}, {SITE.address.addressLocality},{" "}
                 {SITE.address.addressRegion} {SITE.address.postalCode}
               </p>
-              <p className="mt-4 text-gray-300">
+              <p className="mt-4 text-black">
                 <span className="text-white font-semibold">Phone:</span> {SITE.phone}
               </p>
-              <p className="mt-2 text-gray-300">
+              <p className="mt-2 text-black">
                 <span className="text-white font-semibold">Email:</span> {SITE.email}
               </p>
               {hasHours && (
-                <p className="mt-4 text-gray-300">
+                <p className="mt-4 text-black">
                   <span className="text-white font-semibold">Hours:</span>{" "}
                   {[hours.mon_fri && `Mon–Fri ${hours.mon_fri}`, hours.sat && `Sat ${hours.sat}`, hours.sun && `Sun ${hours.sun}`]
                     .filter(Boolean)
@@ -83,12 +83,12 @@ export default async function ContactPage() {
           </FadeUp>
 
           <FadeUp delayMs={80}>
-            <div className="rounded-2xl border border-gray-800 bg-black/40 p-6">
+            <div className="rounded-2xl border border-black bg-black/40 p-6">
               <h2 className="text-2xl font-bold text-white">Map & directions</h2>
-              <p className="mt-3 text-gray-300">
+              <p className="mt-3 text-black">
                 We’re at 74 W. Washington St., Oswego, IL. Get directions or call us to confirm your visit.
               </p>
-              <div className="mt-6 rounded-xl overflow-hidden border border-gray-700 h-64">
+              <div className="mt-6 rounded-xl overflow-hidden border border-black h-64">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2978.8!2d-88.3516!3d41.6828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880ef9a8f7c00001%3A0x1234567890abcdef!2s74%20W%20Washington%20St%2C%20Oswego%2C%20IL%2060543!5e0!3m2!1sen!2sus!4v1706000000000!5m2!1sen!2sus"
                   width="100%"
@@ -108,9 +108,9 @@ export default async function ContactPage() {
 
       <Section>
         <FadeUp>
-          <div className="rounded-2xl border border-gray-800 bg-black/40 p-6">
+          <div className="rounded-2xl border border-black bg-black/40 p-6">
             <h2 className="text-2xl font-bold text-white">Send a message</h2>
-            <p className="mt-3 text-gray-300">
+            <p className="mt-3 text-black">
               Questions about services or booking? We’ll respond as soon as we can.
             </p>
             <ContactForm />

@@ -29,7 +29,7 @@ export default function FixWhatBothersMePage({ searchParams }: PageProps) {
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
             Fix what bothers me
           </h1>
-          <p className="mt-6 text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto">
+          <p className="mt-6 text-xl text-black leading-relaxed max-w-2xl mx-auto">
             Whatever it is—weight, skin, lines, energy, or something you can't quite name—write it here.
             We'll read it, match you with options that fit, and reach out. Or you can book directly if we suggest a path.
           </p>
@@ -39,7 +39,7 @@ export default function FixWhatBothersMePage({ searchParams }: PageProps) {
       <Section className="relative">
         <div className="max-w-2xl mx-auto">
           <div className="mb-6 text-center">
-            <p className="text-gray-400 text-sm">
+            <p className="text-black text-sm">
               Know what you want?{" "}
               <a href="/book" className="text-hg-pink hover:text-hg-pinkDeep font-semibold underline underline-offset-2">
                 Book directly →
@@ -52,10 +52,10 @@ export default function FixWhatBothersMePage({ searchParams }: PageProps) {
 
       <Section className="relative border-t border-white/5">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="text-gray-500 text-sm">
+          <p className="text-black text-sm">
             This is private. We use it only to suggest treatments and follow up with you.
           </p>
-          <p className="mt-2 text-gray-500 text-sm">
+          <p className="mt-2 text-black text-sm">
             Questions? <a href="/contact" className="text-pink-400 hover:text-pink-300">Contact us</a> or call (630) 636-6193.
           </p>
         </div>

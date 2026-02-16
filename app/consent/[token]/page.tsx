@@ -100,7 +100,7 @@ export default function ConsentSigningPage() {
       <div className="min-h-screen bg-gradient-to-br from-pink-50 to-rose-50 flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-pink-200 border-t-pink-600 rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">Loading consent forms...</p>
+          <p className="text-black">Loading consent forms...</p>
         </div>
       </div>
     );
@@ -114,9 +114,9 @@ export default function ConsentSigningPage() {
           <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <span className="text-3xl">⚠️</span>
           </div>
-          <h1 className="text-xl font-bold text-gray-900 mb-2">Unable to Load Forms</h1>
-          <p className="text-gray-600 mb-6">{error}</p>
-          <p className="text-sm text-gray-500">
+          <h1 className="text-xl font-bold text-black mb-2">Unable to Load Forms</h1>
+          <p className="text-black mb-6">{error}</p>
+          <p className="text-sm text-black">
             If you believe this is an error, please contact us at{' '}
             <a href="tel:630-636-6193" className="text-pink-600 hover:underline">
               (630) 636-6193
@@ -135,8 +135,8 @@ export default function ConsentSigningPage() {
           <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <span className="text-4xl">✅</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">All Done!</h1>
-          <p className="text-gray-600 mb-6">
+          <h1 className="text-2xl font-bold text-black mb-2">All Done!</h1>
+          <p className="text-black mb-6">
             Thank you, {data?.client.users.first_name}! All consent forms have been signed successfully.
           </p>
           <div className="bg-pink-50 rounded-xl p-4 mb-6">
@@ -145,7 +145,7 @@ export default function ConsentSigningPage() {
               You can view them anytime through your client portal.
             </p>
           </div>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-black">
             You may close this window or{' '}
             <a href="/" className="text-pink-600 hover:underline">
               visit our website
@@ -170,15 +170,15 @@ export default function ConsentSigningPage() {
           <div className="flex items-center gap-3">
             <span className="text-2xl">💎</span>
             <div>
-              <h1 className="font-bold text-gray-900">Hello Gorgeous Med Spa</h1>
-              <p className="text-sm text-gray-500">Consent Forms</p>
+              <h1 className="font-bold text-black">Hello Gorgeous Med Spa</h1>
+              <p className="text-sm text-black">Consent Forms</p>
             </div>
           </div>
           <div className="text-right">
-            <p className="text-sm font-medium text-gray-900">
+            <p className="text-sm font-medium text-black">
               {data.client.users.first_name} {data.client.users.last_name}
             </p>
-            <p className="text-xs text-gray-500">{data.client.users.email}</p>
+            <p className="text-xs text-black">{data.client.users.email}</p>
           </div>
         </div>
       </header>
@@ -186,10 +186,10 @@ export default function ConsentSigningPage() {
       {/* Intro */}
       <div className="max-w-4xl mx-auto px-4 py-6">
         <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">
+          <h2 className="text-lg font-semibold text-black mb-2">
             Welcome, {data.client.users.first_name}! 👋
           </h2>
-          <p className="text-gray-600">
+          <p className="text-black">
             Please review and sign the following consent forms before your appointment. 
             These forms are required to ensure your safety and help us provide you with 
             the best possible care.
@@ -211,7 +211,7 @@ export default function ConsentSigningPage() {
       {submitting ? (
         <div className="max-w-4xl mx-auto px-4 py-12 text-center">
           <div className="w-16 h-16 border-4 border-pink-200 border-t-pink-600 rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-600">Saving your signatures...</p>
+          <p className="text-black">Saving your signatures...</p>
         </div>
       ) : (
         <ConsentFormsWizard
@@ -223,7 +223,7 @@ export default function ConsentSigningPage() {
 
       {/* Footer */}
       <footer className="bg-white border-t mt-12 py-6">
-        <div className="max-w-4xl mx-auto px-4 text-center text-sm text-gray-500">
+        <div className="max-w-4xl mx-auto px-4 text-center text-sm text-black">
           <p>Hello Gorgeous Med Spa • 74 W. Washington St, Oswego, IL 60543</p>
           <p className="mt-1">
             Questions? Call us at{' '}

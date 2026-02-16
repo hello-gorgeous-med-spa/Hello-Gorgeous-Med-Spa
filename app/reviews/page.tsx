@@ -29,7 +29,7 @@ export default function ReviewsPage() {
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
               Our reviews
             </h1>
-            <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">
+            <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">
               We’re proud of what our clients say. Read their feedback below or leave one
               on Google after your visit—your voice helps others in Oswego, Naperville, Aurora, and
               the surrounding area find us.
@@ -41,7 +41,7 @@ export default function ReviewsPage() {
       <Section>
         <FadeUp>
           <h2 className="text-2xl font-bold text-white mb-6">Client feedback</h2>
-          <p className="text-gray-400 text-sm mb-4">
+          <p className="text-black text-sm mb-4">
             Reviews from our database—including past feedback we've preserved. Updated live.
           </p>
           <ReviewsList />
@@ -51,11 +51,11 @@ export default function ReviewsPage() {
       <Section id="leave-review">
         <div className="grid gap-10 lg:grid-cols-2 items-start">
           <FadeUp>
-            <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-8">
+            <div className="rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-8">
               <h2 className="text-2xl font-bold text-white mb-4">
                 Leave a Google review
               </h2>
-              <p className="text-gray-300 mb-6">
+              <p className="text-black mb-6">
                 Love your visit? Tell the world on Google. Your review helps others find us
                 and means the world to our team.
               </p>
@@ -69,7 +69,7 @@ export default function ReviewsPage() {
                   <span>★</span> Leave a Google review
                 </a>
               </div>
-              <p className="mt-6 text-sm text-gray-500">
+              <p className="mt-6 text-sm text-black">
                 Opens Google so you can rate and write your review. Thank you for supporting our
                 small business!
               </p>
@@ -77,9 +77,9 @@ export default function ReviewsPage() {
           </FadeUp>
 
           <FadeUp delayMs={80}>
-            <div className="rounded-2xl border border-gray-800 bg-black/40 p-8 text-center">
+            <div className="rounded-2xl border border-black bg-black/40 p-8 text-center">
               <h3 className="text-xl font-bold text-white mb-2">Scan to leave a Google review</h3>
-              <p className="text-gray-400 text-sm mb-6">
+              <p className="text-black text-sm mb-6">
                 Use your phone camera to scan—opens our Google review page
               </p>
               <a
@@ -103,11 +103,11 @@ export default function ReviewsPage() {
 
       <Section>
         <FadeUp>
-          <div className="rounded-2xl border border-gray-800 bg-black/40 p-8 max-w-3xl mx-auto text-center">
+          <div className="rounded-2xl border border-black bg-black/40 p-8 max-w-3xl mx-auto text-center">
             <h2 className="text-2xl font-bold text-white mb-4">
               After your appointment
             </h2>
-            <p className="text-gray-300">
+            <p className="text-black">
               We may send you a follow-up with a direct link to leave a Google review. You can also
               use this page or the QR code above anytime—we appreciate every piece of feedback.
             </p>

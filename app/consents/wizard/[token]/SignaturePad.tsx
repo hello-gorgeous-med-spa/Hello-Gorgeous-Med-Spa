@@ -130,7 +130,7 @@ export default function SignaturePad({
 
   return (
     <div className="space-y-2">
-      <div className="relative border-2 border-dashed border-gray-300 rounded-lg overflow-hidden bg-white">
+      <div className="relative border-2 border-dashed border-black rounded-lg overflow-hidden bg-white">
         <canvas
           ref={canvasRef}
           className="touch-none cursor-crosshair"
@@ -144,24 +144,24 @@ export default function SignaturePad({
         />
         
         {/* Signature line */}
-        <div className="absolute bottom-4 left-4 right-4 border-b border-gray-400" />
+        <div className="absolute bottom-4 left-4 right-4 border-b border-black" />
         
         {/* Placeholder text */}
         {!hasSignature && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <p className="text-gray-400 text-sm">Sign here</p>
+            <p className="text-black text-sm">Sign here</p>
           </div>
         )}
       </div>
       
       <div className="flex justify-between items-center">
-        <p className="text-xs text-gray-500">
+        <p className="text-xs text-black">
           Draw your signature using your finger or mouse
         </p>
         <button
           type="button"
           onClick={handleClear}
-          className="text-sm text-gray-600 hover:text-gray-900"
+          className="text-sm text-black hover:text-black"
         >
           Clear
         </button>

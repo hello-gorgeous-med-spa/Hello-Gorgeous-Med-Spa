@@ -201,13 +201,13 @@ export default function LiveSchedulesPage() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Provider Schedules</h1>
-          <p className="text-gray-500">Loading schedules...</p>
+          <h1 className="text-2xl font-bold text-black">Provider Schedules</h1>
+          <p className="text-black">Loading schedules...</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-8">
+        <div className="bg-white rounded-xl border border-black shadow-sm p-8">
           <div className="animate-pulse space-y-4">
-            <div className="h-16 bg-gray-100 rounded" />
-            <div className="h-16 bg-gray-100 rounded" />
+            <div className="h-16 bg-white rounded" />
+            <div className="h-16 bg-white rounded" />
           </div>
         </div>
       </div>
@@ -219,8 +219,8 @@ export default function LiveSchedulesPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">📅 All Providers - This Week</h1>
-          <p className="text-gray-500">Click any cell to edit hours • Changes affect booking immediately</p>
+          <h1 className="text-2xl font-bold text-black">📅 All Providers - This Week</h1>
+          <p className="text-black">Click any cell to edit hours • Changes affect booking immediately</p>
         </div>
         <Link
           href="/admin/appointments/new"
@@ -240,17 +240,17 @@ export default function LiveSchedulesPage() {
       )}
 
       {/* Schedule Grid */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
         {providerSchedules.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">
+          <div className="p-8 text-center text-black">
             No providers found. Add providers first.
           </div>
         ) : (
           <div className="overflow-x-auto">
             {providerSchedules.map((ps) => (
-              <div key={ps.provider.id} className="border-b border-gray-100 last:border-0">
+              <div key={ps.provider.id} className="border-b border-black last:border-0">
                 {/* Provider Header */}
-                <div className="px-6 py-4 bg-gray-50 flex items-center gap-3">
+                <div className="px-6 py-4 bg-white flex items-center gap-3">
                   <div
                     className="w-10 h-10 rounded-full flex items-center justify-center text-white font-bold"
                     style={{ backgroundColor: ps.provider.color }}
@@ -258,9 +258,9 @@ export default function LiveSchedulesPage() {
                     {ps.provider.name.split(' ').map(n => n[0]).join('')}
                   </div>
                   <div>
-                    <p className="font-semibold text-gray-900">{ps.provider.name}</p>
+                    <p className="font-semibold text-black">{ps.provider.name}</p>
                     {ps.provider.title && (
-                      <p className="text-xs text-gray-500">{ps.provider.title}</p>
+                      <p className="text-xs text-black">{ps.provider.title}</p>
                     )}
                   </div>
                 </div>
@@ -276,18 +276,18 @@ export default function LiveSchedulesPage() {
                     return (
                       <div
                         key={dayIndex}
-                        className={`p-3 text-center cursor-pointer hover:bg-gray-50 transition-colors ${
-                          !isWorking ? 'bg-gray-50' : ''
+                        className={`p-3 text-center cursor-pointer hover:bg-white transition-colors ${
+                          !isWorking ? 'bg-white' : ''
                         }`}
                         onClick={() => !isEditing && openEdit(ps.provider.id, dayIndex)}
                       >
-                        <p className="text-xs font-medium text-gray-500 mb-1">{day}</p>
+                        <p className="text-xs font-medium text-black mb-1">{day}</p>
                         {isWorking ? (
-                          <p className="text-sm font-semibold text-gray-900">
+                          <p className="text-sm font-semibold text-black">
                             {formatTime(schedule?.start_time || '09:00')} - {formatTime(schedule?.end_time || '17:00')}
                           </p>
                         ) : (
-                          <p className="text-sm text-gray-400 italic">Off</p>
+                          <p className="text-sm text-black italic">Off</p>
                         )}
                       </div>
                     );
@@ -303,11 +303,11 @@ export default function LiveSchedulesPage() {
       {editingCell && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-sm w-full">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">
+            <div className="p-6 border-b border-black">
+              <h2 className="text-xl font-bold text-black">
                 Edit {FULL_DAYS[editingCell.day]}
               </h2>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-black">
                 {providerSchedules.find(ps => ps.provider.id === editingCell.providerId)?.provider.name}
               </p>
             </div>
@@ -315,11 +315,11 @@ export default function LiveSchedulesPage() {
             <div className="p-6 space-y-4">
               {/* Working toggle */}
               <div className="flex items-center justify-between">
-                <span className="font-medium text-gray-700">Working this day?</span>
+                <span className="font-medium text-black">Working this day?</span>
                 <button
                   onClick={() => setEditForm(prev => ({ ...prev, isWorking: !prev.isWorking }))}
                   className={`w-14 h-7 rounded-full transition-colors relative ${
-                    editForm.isWorking ? 'bg-green-500' : 'bg-gray-300'
+                    editForm.isWorking ? 'bg-green-500' : 'bg-white'
                   }`}
                 >
                   <span
@@ -334,11 +334,11 @@ export default function LiveSchedulesPage() {
                 <>
                   {/* Start time */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Start Time</label>
+                    <label className="block text-sm font-medium text-black mb-1">Start Time</label>
                     <select
                       value={editForm.startTime}
                       onChange={(e) => setEditForm(prev => ({ ...prev, startTime: e.target.value }))}
-                      className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                      className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                     >
                       {TIME_OPTIONS.map(time => (
                         <option key={time} value={time}>{formatTimeFull(time)}</option>
@@ -348,11 +348,11 @@ export default function LiveSchedulesPage() {
 
                   {/* End time */}
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">End Time</label>
+                    <label className="block text-sm font-medium text-black mb-1">End Time</label>
                     <select
                       value={editForm.endTime}
                       onChange={(e) => setEditForm(prev => ({ ...prev, endTime: e.target.value }))}
-                      className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                      className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                     >
                       {TIME_OPTIONS.filter(t => t > editForm.startTime).map(time => (
                         <option key={time} value={time}>{formatTimeFull(time)}</option>
@@ -361,7 +361,7 @@ export default function LiveSchedulesPage() {
                   </div>
 
                   {/* Hours display */}
-                  <div className="bg-gray-50 rounded-lg p-3 text-center">
+                  <div className="bg-white rounded-lg p-3 text-center">
                     <p className="text-2xl font-bold text-pink-600">
                       {(() => {
                         const [sh, sm] = editForm.startTime.split(':').map(Number);
@@ -370,7 +370,7 @@ export default function LiveSchedulesPage() {
                         return hours.toFixed(1);
                       })()}
                     </p>
-                    <p className="text-xs text-gray-500">hours scheduled</p>
+                    <p className="text-xs text-black">hours scheduled</p>
                   </div>
                 </>
               )}
@@ -382,10 +382,10 @@ export default function LiveSchedulesPage() {
               )}
             </div>
 
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
+            <div className="p-6 border-t border-black flex justify-end gap-3">
               <button
                 onClick={() => setEditingCell(null)}
-                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
               >
                 Cancel
               </button>

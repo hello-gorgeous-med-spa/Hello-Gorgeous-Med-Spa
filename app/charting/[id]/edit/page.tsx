@@ -148,10 +148,10 @@ export default function EditChartNotePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin w-8 h-8 border-4 border-pink-500 border-t-transparent rounded-full mx-auto mb-4" />
-          <p className="text-gray-500">Loading note...</p>
+          <p className="text-black">Loading note...</p>
         </div>
       </div>
     );
@@ -159,9 +159,9 @@ export default function EditChartNotePage() {
 
   if (!note) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <p className="text-xl text-gray-600 mb-4">Note not found</p>
+          <p className="text-xl text-black mb-4">Note not found</p>
           <Link href="/charting" className="text-pink-600 hover:text-pink-700">
             ← Back to Charting Hub
           </Link>
@@ -173,10 +173,10 @@ export default function EditChartNotePage() {
   // Can't edit finalized notes
   if (note.status !== 'draft') {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center max-w-md">
-          <p className="text-xl text-gray-600 mb-2">This note is {note.status}</p>
-          <p className="text-gray-500 mb-4">Finalized notes cannot be edited. You can create an amendment if changes are needed.</p>
+          <p className="text-xl text-black mb-2">This note is {note.status}</p>
+          <p className="text-black mb-4">Finalized notes cannot be edited. You can create an amendment if changes are needed.</p>
           <Link href="/charting" className="text-pink-600 hover:text-pink-700">
             ← Back to Charting Hub
           </Link>
@@ -186,20 +186,20 @@ export default function EditChartNotePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
+      <div className="bg-white border-b border-black px-6 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link href="/charting" className="text-gray-400 hover:text-gray-600">
+            <Link href="/charting" className="text-black hover:text-black">
               ← Back
             </Link>
             <div>
-              <h1 className="text-xl font-bold text-gray-900">
+              <h1 className="text-xl font-bold text-black">
                 Edit Chart Note
               </h1>
               {note.client_name && (
-                <p className="text-sm text-gray-500">Client: {note.client_name}</p>
+                <p className="text-sm text-black">Client: {note.client_name}</p>
               )}
             </div>
           </div>
@@ -210,7 +210,7 @@ export default function EditChartNotePage() {
               className={`px-3 py-2 rounded-lg font-medium flex items-center gap-2 ${
                 showVoice 
                   ? 'bg-pink-100 text-pink-700' 
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-white text-black hover:bg-white'
               }`}
             >
               🎤 Voice Dictation
@@ -235,8 +235,8 @@ export default function EditChartNotePage() {
         {/* Main Editor */}
         <div className="flex-1 space-y-4">
           {/* Title */}
-          <div className="bg-white rounded-xl border border-gray-200 p-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+          <div className="bg-white rounded-xl border border-black p-4">
+            <label className="block text-sm font-medium text-black mb-2">
               Title / Summary
             </label>
             <input
@@ -244,7 +244,7 @@ export default function EditChartNotePage() {
               value={formData.title}
               onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
               placeholder="e.g., Botox Treatment - Glabella & Forehead"
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+              className="w-full px-3 py-2 border border-black rounded-lg"
             />
           </div>
 
@@ -253,12 +253,12 @@ export default function EditChartNotePage() {
             <div 
               key={field}
               className={`bg-white rounded-xl border-2 p-4 transition-colors ${
-                activeField === field ? 'border-pink-300' : 'border-gray-200'
+                activeField === field ? 'border-pink-300' : 'border-black'
               }`}
               onClick={() => setActiveField(field as any)}
             >
               <div className="flex items-center justify-between mb-2">
-                <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
+                <label className="text-sm font-medium text-black flex items-center gap-2">
                   <span className={`w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold ${
                     field === 'subjective' ? 'bg-pink-500' :
                     field === 'objective' ? 'bg-blue-500' :
@@ -268,7 +268,7 @@ export default function EditChartNotePage() {
                     {field.charAt(0).toUpperCase()}
                   </span>
                   <span className="capitalize">{field}</span>
-                  <span className="text-gray-400 font-normal">
+                  <span className="text-black font-normal">
                     {field === 'subjective' && '- Patient description'}
                     {field === 'objective' && '- Clinical observations'}
                     {field === 'assessment' && '- Clinical impression'}
@@ -289,7 +289,7 @@ export default function EditChartNotePage() {
                   'Treatment performed, follow-up plan, patient education...'
                 }
                 rows={5}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg resize-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-3 py-2 border border-black rounded-lg resize-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
               />
             </div>
           ))}
@@ -319,22 +319,22 @@ export default function EditChartNotePage() {
       </div>
 
       {/* Footer Actions */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-6 py-4">
+      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-black px-6 py-4">
         <div className="flex items-center justify-between max-w-6xl mx-auto">
-          <div className="text-sm text-gray-500">
+          <div className="text-sm text-black">
             Last saved: {new Date(note.created_at).toLocaleString()}
           </div>
           <div className="flex items-center gap-3">
             <Link
               href="/charting"
-              className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+              className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
             >
               Cancel
             </Link>
             <button
               onClick={() => handleSave(false)}
               disabled={saving}
-              className="px-4 py-2 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 disabled:opacity-50"
+              className="px-4 py-2 bg-white text-black font-medium rounded-lg hover:bg-white disabled:opacity-50"
             >
               Save Draft
             </button>

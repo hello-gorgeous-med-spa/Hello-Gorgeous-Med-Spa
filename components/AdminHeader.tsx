@@ -22,7 +22,7 @@ const DASHBOARD_VIEWS = [
 // Quick access vendor links - updated with actual portal URLs
 const QUICK_VENDORS = [
   { name: 'Charm EHR', url: 'https://accounts.charmtracker.com/signin', icon: '🏥', color: 'text-purple-300' },
-  { name: 'eFax Portal', url: 'https://myportal.efax.com/login', icon: '📠', color: 'text-slate-300' },
+  { name: 'eFax Portal', url: 'https://myportal.efax.com/login', icon: '📠', color: 'text-black' },
   { name: 'McKesson', url: 'https://connect.mckesson.com/', icon: '📦', color: 'text-blue-300' },
   { name: 'Allergan', url: 'https://www.brilliantconnections.com/', icon: '💉', color: 'text-pink-300' },
   { name: 'Evolus', url: 'https://providers.evolus.com/', icon: '💎', color: 'text-cyan-300' },
@@ -67,7 +67,7 @@ export function AdminHeader() {
   }, []);
 
   return (
-    <header className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white sticky top-0 z-50 border-b border-slate-700/30 shadow-lg">
+    <header className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white sticky top-0 z-50 border-b border-black/30 shadow-lg">
       <div className="flex items-center justify-between px-4 h-14 max-w-[1920px] mx-auto">
         <div className="flex items-center gap-4">
           <Link href="/admin" className="flex items-center gap-2 hover:opacity-90 transition-opacity group">
@@ -76,15 +76,15 @@ export function AdminHeader() {
           </Link>
           
           {/* View Switcher Tabs - Desktop */}
-          <div className="hidden md:flex items-center bg-slate-700/40 backdrop-blur-sm rounded-lg p-0.5">
+          <div className="hidden md:flex items-center bg-black/40 backdrop-blur-sm rounded-lg p-0.5">
             {DASHBOARD_VIEWS.map((view) => (
               <Link
                 key={view.id}
                 href={view.href}
                 className={`flex items-center gap-1.5 px-4 py-2 rounded-md text-sm font-medium transition-all ${
                   currentView === view.id
-                    ? 'bg-white text-slate-900 shadow-sm'
-                    : 'text-slate-300 hover:text-white hover:bg-slate-600/50'
+                    ? 'bg-white text-black shadow-sm'
+                    : 'text-black hover:text-white hover:bg-black/50'
                 }`}
               >
                 <span aria-hidden>{view.icon}</span>
@@ -97,7 +97,7 @@ export function AdminHeader() {
           <div className="relative md:hidden" ref={viewMenuRef}>
             <button
               onClick={() => setShowViewMenu(!showViewMenu)}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-medium transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-black hover:bg-black rounded-lg text-sm font-medium transition-colors"
             >
               <span aria-hidden>{currentViewData.icon}</span>
               <span>{currentViewData.label}</span>
@@ -105,7 +105,7 @@ export function AdminHeader() {
             </button>
             
             {showViewMenu && (
-              <div className="absolute left-0 mt-2 w-48 bg-slate-800 border border-slate-700 rounded-xl shadow-xl overflow-hidden z-50">
+              <div className="absolute left-0 mt-2 w-48 bg-black border border-black rounded-xl shadow-xl overflow-hidden z-50">
                 <div className="p-1">
                   {DASHBOARD_VIEWS.map((view) => (
                     <Link
@@ -115,13 +115,13 @@ export function AdminHeader() {
                       className={`flex items-center gap-2 px-3 py-2.5 rounded-lg transition-colors ${
                         currentView === view.id
                           ? 'bg-pink-500/20 text-pink-300'
-                          : 'hover:bg-slate-700 text-slate-200'
+                          : 'hover:bg-black text-black'
                       }`}
                     >
                       <span className="text-lg">{view.icon}</span>
                       <div>
                         <div className="font-medium">{view.label}</div>
-                        <div className="text-xs text-slate-400">{view.description}</div>
+                        <div className="text-xs text-black">{view.description}</div>
                       </div>
                     </Link>
                   ))}
@@ -136,7 +136,7 @@ export function AdminHeader() {
           <div className="relative" ref={dropdownRef}>
             <button
               onClick={() => setShowVendors(!showVendors)}
-              className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 bg-slate-700 hover:bg-slate-600 rounded-lg text-sm font-medium transition-colors"
+              className="hidden md:inline-flex items-center gap-1.5 px-3 py-2 bg-black hover:bg-black rounded-lg text-sm font-medium transition-colors"
             >
               <span aria-hidden>🏢</span>
               Vendors
@@ -144,9 +144,9 @@ export function AdminHeader() {
             </button>
             
             {showVendors && (
-              <div className="absolute right-0 mt-2 w-56 bg-slate-800 border border-slate-700 rounded-xl shadow-xl overflow-hidden z-50">
+              <div className="absolute right-0 mt-2 w-56 bg-black border border-black rounded-xl shadow-xl overflow-hidden z-50">
                 <div className="p-2">
-                  <p className="text-xs text-slate-400 px-2 py-1 uppercase tracking-wider">Quick Access</p>
+                  <p className="text-xs text-black px-2 py-1 uppercase tracking-wider">Quick Access</p>
                   {QUICK_VENDORS.map((vendor) => (
                     <a
                       key={vendor.name}
@@ -154,18 +154,18 @@ export function AdminHeader() {
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => setShowVendors(false)}
-                      className="flex items-center gap-2 px-3 py-2 hover:bg-slate-700 rounded-lg transition-colors"
+                      className="flex items-center gap-2 px-3 py-2 hover:bg-black rounded-lg transition-colors"
                     >
                       <span className={vendor.color}>{vendor.icon}</span>
                       <span className="text-sm">{vendor.name}</span>
                     </a>
                   ))}
                 </div>
-                <div className="border-t border-slate-700 p-2">
+                <div className="border-t border-black p-2">
                   <Link
                     href="/admin/vendors"
                     onClick={() => setShowVendors(false)}
-                    className="flex items-center gap-2 px-3 py-2 hover:bg-slate-700 rounded-lg transition-colors text-pink-400"
+                    className="flex items-center gap-2 px-3 py-2 hover:bg-black rounded-lg transition-colors text-pink-400"
                   >
                     <span>⚙️</span>
                     <span className="text-sm">Manage All Vendors</span>
@@ -191,13 +191,13 @@ export function AdminHeader() {
             <span aria-hidden>➕</span>
             Book
           </Link>
-          <button type="button" className="relative p-2.5 hover:bg-slate-700/50 rounded-xl transition-all" aria-label="Notifications">
+          <button type="button" className="relative p-2.5 hover:bg-black/50 rounded-xl transition-all" aria-label="Notifications">
             <span aria-hidden>🔔</span>
             <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-gradient-to-r from-red-500 to-rose-500 rounded-full animate-pulse" aria-hidden />
           </button>
 
           {isLoading ? (
-            <div className="w-8 h-8 rounded-full bg-slate-600 animate-pulse" aria-hidden />
+            <div className="w-8 h-8 rounded-full bg-black animate-pulse" aria-hidden />
           ) : (
             <UserMenu />
           )}

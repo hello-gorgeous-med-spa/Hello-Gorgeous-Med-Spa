@@ -105,7 +105,7 @@ export default function RescheduleAppointmentPage({ params }: { params: { id: st
   if (!appointment) {
     return (
       <div className="max-w-2xl mx-auto py-12 text-center">
-        <p className="text-gray-500">Appointment not found</p>
+        <p className="text-black">Appointment not found</p>
         <Link href="/admin/appointments" className="text-pink-600 hover:text-pink-700 mt-2 inline-block">
           ← Back to Appointments
         </Link>
@@ -120,12 +120,12 @@ export default function RescheduleAppointmentPage({ params }: { params: { id: st
       <div className="mb-6">
         <Link
           href={`/admin/appointments/${params.id}`}
-          className="text-sm text-gray-500 hover:text-gray-700 mb-2 inline-block"
+          className="text-sm text-black hover:text-black mb-2 inline-block"
         >
           ← Back to Appointment
         </Link>
-        <h1 className="text-2xl font-bold text-gray-900">Reschedule Appointment</h1>
-        <p className="text-gray-500">Change date/time for {appointment.client_name}</p>
+        <h1 className="text-2xl font-bold text-black">Reschedule Appointment</h1>
+        <p className="text-black">Change date/time for {appointment.client_name}</p>
       </div>
 
       {/* Current Info */}
@@ -138,28 +138,28 @@ export default function RescheduleAppointmentPage({ params }: { params: { id: st
         </p>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 space-y-4">
+      <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-black shadow-sm p-6 space-y-4">
         <div className="grid grid-cols-2 gap-4">
           {/* New Date */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">New Date</label>
+            <label className="block text-sm font-medium text-black mb-1">New Date</label>
             <input
               type="date"
               value={formData.date}
               onChange={(e) => setFormData({ ...formData, date: e.target.value })}
               min={new Date().toISOString().split('T')[0]}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               required
             />
           </div>
 
           {/* New Time */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">New Time</label>
+            <label className="block text-sm font-medium text-black mb-1">New Time</label>
             <select
               value={formData.time}
               onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               required
             >
               <option value="">Select time...</option>
@@ -178,14 +178,14 @@ export default function RescheduleAppointmentPage({ params }: { params: { id: st
             onChange={(e) => setFormData({ ...formData, notify_client: e.target.checked })}
             className="w-4 h-4 text-pink-500 rounded focus:ring-pink-500"
           />
-          <span className="text-sm text-gray-700">Send notification to client about the change</span>
+          <span className="text-sm text-black">Send notification to client about the change</span>
         </label>
 
         {/* Actions */}
         <div className="flex justify-end gap-3 pt-4">
           <Link
             href={`/admin/appointments/${params.id}`}
-            className="px-6 py-2.5 text-gray-600 font-medium hover:bg-gray-100 rounded-lg transition-colors"
+            className="px-6 py-2.5 text-black font-medium hover:bg-white rounded-lg transition-colors"
           >
             Cancel
           </Link>

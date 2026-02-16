@@ -73,20 +73,20 @@ export default function FinancingPage() {
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
       {/* Hero */}
       <div className="text-center py-16 px-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
           Look Gorgeous Now, <span className="text-green-600">Pay Over Time</span>
         </h1>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+        <p className="text-xl text-black max-w-2xl mx-auto mb-8">
           Don't let budget hold you back from feeling your best. 
           We offer flexible financing options with instant approval.
         </p>
         
         {/* Quick Calculator */}
         <div className="max-w-lg mx-auto bg-white rounded-2xl shadow-xl p-6 mb-8">
-          <h3 className="font-semibold text-gray-900 mb-4">Quick Payment Estimator</h3>
+          <h3 className="font-semibold text-black mb-4">Quick Payment Estimator</h3>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm text-gray-600 mb-2">Treatment Cost</label>
+              <label className="block text-sm text-black mb-2">Treatment Cost</label>
               <input
                 type="range"
                 min="200"
@@ -96,10 +96,10 @@ export default function FinancingPage() {
                 onChange={(e) => setSelectedAmount(parseInt(e.target.value))}
                 className="w-full accent-pink-500"
               />
-              <p className="text-2xl font-bold text-gray-900">${selectedAmount.toLocaleString()}</p>
+              <p className="text-2xl font-bold text-black">${selectedAmount.toLocaleString()}</p>
             </div>
             <div>
-              <label className="block text-sm text-gray-600 mb-2">Payment Term</label>
+              <label className="block text-sm text-black mb-2">Payment Term</label>
               <div className="flex gap-2">
                 {[3, 6, 12, 18, 24].map((m) => (
                   <button
@@ -108,7 +108,7 @@ export default function FinancingPage() {
                     className={`flex-1 py-2 rounded-lg font-medium ${
                       selectedMonths === m
                         ? 'bg-pink-500 text-white'
-                        : 'bg-gray-100 text-gray-700'
+                        : 'bg-white text-black'
                     }`}
                   >
                     {m}mo
@@ -116,12 +116,12 @@ export default function FinancingPage() {
                 ))}
               </div>
             </div>
-            <div className="pt-4 border-t border-gray-100">
-              <p className="text-gray-600">Estimated Monthly Payment</p>
+            <div className="pt-4 border-t border-black">
+              <p className="text-black">Estimated Monthly Payment</p>
               <p className="text-4xl font-bold text-green-600">
-                ${monthlyPayment}<span className="text-lg text-gray-400">/mo</span>
+                ${monthlyPayment}<span className="text-lg text-black">/mo</span>
               </p>
-              <p className="text-xs text-gray-400 mt-1">*Actual rate depends on credit approval</p>
+              <p className="text-xs text-black mt-1">*Actual rate depends on credit approval</p>
             </div>
           </div>
         </div>
@@ -129,7 +129,7 @@ export default function FinancingPage() {
 
       {/* Financing Options */}
       <div className="max-w-6xl mx-auto px-4 pb-16">
-        <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">
+        <h2 className="text-2xl font-bold text-black text-center mb-8">
           Choose Your Financing Partner
         </h2>
         
@@ -150,8 +150,8 @@ export default function FinancingPage() {
                 <div className="flex items-center gap-3 mb-4">
                   <span className="text-4xl">{option.logo}</span>
                   <div>
-                    <h3 className="font-bold text-xl text-gray-900">{option.name}</h3>
-                    <p className="text-sm text-gray-500">{option.tagline}</p>
+                    <h3 className="font-bold text-xl text-black">{option.name}</h3>
+                    <p className="text-sm text-black">{option.tagline}</p>
                   </div>
                 </div>
 
@@ -159,7 +159,7 @@ export default function FinancingPage() {
                   {option.features.map((feature, i) => (
                     <li key={i} className="flex items-start gap-2 text-sm">
                       <span className="text-green-500 mt-0.5">✓</span>
-                      <span className="text-gray-700">{feature}</span>
+                      <span className="text-black">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -171,7 +171,7 @@ export default function FinancingPage() {
                   className={`block w-full py-3 rounded-lg font-medium text-center ${
                     option.popular
                       ? 'bg-green-500 text-white hover:bg-green-600'
-                      : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                      : 'bg-white text-black hover:bg-white'
                   }`}
                 >
                   Apply Now
@@ -183,72 +183,72 @@ export default function FinancingPage() {
 
         {/* Payment Examples */}
         <div className="bg-white rounded-2xl shadow-lg p-8 mb-12">
-          <h3 className="font-bold text-xl text-gray-900 mb-6 text-center">
+          <h3 className="font-bold text-xl text-black mb-6 text-center">
             Sample Payment Plans
           </h3>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="border-b border-gray-100">
-                  <th className="text-left py-3 px-4 text-gray-600 font-medium">Treatment</th>
-                  <th className="text-center py-3 px-4 text-gray-600 font-medium">Total</th>
-                  <th className="text-center py-3 px-4 text-gray-600 font-medium">Term</th>
-                  <th className="text-center py-3 px-4 text-gray-600 font-medium">Monthly</th>
+                <tr className="border-b border-black">
+                  <th className="text-left py-3 px-4 text-black font-medium">Treatment</th>
+                  <th className="text-center py-3 px-4 text-black font-medium">Total</th>
+                  <th className="text-center py-3 px-4 text-black font-medium">Term</th>
+                  <th className="text-center py-3 px-4 text-black font-medium">Monthly</th>
                 </tr>
               </thead>
               <tbody>
                 {PAYMENT_EXAMPLES.map((ex, i) => (
                   <tr key={i} className="border-b border-gray-50">
-                    <td className="py-4 px-4 font-medium text-gray-900">{ex.treatment}</td>
-                    <td className="py-4 px-4 text-center text-gray-700">${ex.total.toLocaleString()}</td>
-                    <td className="py-4 px-4 text-center text-gray-700">{ex.months} months</td>
+                    <td className="py-4 px-4 font-medium text-black">{ex.treatment}</td>
+                    <td className="py-4 px-4 text-center text-black">${ex.total.toLocaleString()}</td>
+                    <td className="py-4 px-4 text-center text-black">{ex.months} months</td>
                     <td className="py-4 px-4 text-center font-bold text-green-600">${ex.monthly}/mo</td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
-          <p className="text-xs text-gray-400 text-center mt-4">
+          <p className="text-xs text-black text-center mt-4">
             *Payment amounts are estimates. Actual rates vary based on credit approval and selected financing option.
           </p>
         </div>
 
         {/* FAQ */}
         <div className="max-w-3xl mx-auto">
-          <h3 className="font-bold text-xl text-gray-900 mb-6 text-center">Financing FAQ</h3>
+          <h3 className="font-bold text-xl text-black mb-6 text-center">Financing FAQ</h3>
           <div className="space-y-4">
             <details className="bg-white rounded-lg p-4 shadow">
-              <summary className="font-medium text-gray-900 cursor-pointer">
+              <summary className="font-medium text-black cursor-pointer">
                 Will applying hurt my credit score?
               </summary>
-              <p className="mt-3 text-gray-600">
+              <p className="mt-3 text-black">
                 Cherry and Affirm perform a soft credit check that doesn't impact your score. 
                 CareCredit does a hard inquiry, but only after you choose to proceed with the full application.
               </p>
             </details>
             <details className="bg-white rounded-lg p-4 shadow">
-              <summary className="font-medium text-gray-900 cursor-pointer">
+              <summary className="font-medium text-black cursor-pointer">
                 How quickly can I get approved?
               </summary>
-              <p className="mt-3 text-gray-600">
+              <p className="mt-3 text-black">
                 Most applications are approved within 2 minutes. You can apply right here in our office 
                 and use your financing immediately for your treatment.
               </p>
             </details>
             <details className="bg-white rounded-lg p-4 shadow">
-              <summary className="font-medium text-gray-900 cursor-pointer">
+              <summary className="font-medium text-black cursor-pointer">
                 What if I want to pay off early?
               </summary>
-              <p className="mt-3 text-gray-600">
+              <p className="mt-3 text-black">
                 All our financing partners allow early payoff with no penalties. Pay off your balance 
                 whenever you're ready at no extra cost.
               </p>
             </details>
             <details className="bg-white rounded-lg p-4 shadow">
-              <summary className="font-medium text-gray-900 cursor-pointer">
+              <summary className="font-medium text-black cursor-pointer">
                 Can I use financing for any treatment?
               </summary>
-              <p className="mt-3 text-gray-600">
+              <p className="mt-3 text-black">
                 Yes! Financing can be used for any service or package at Hello Gorgeous Med Spa, 
                 including injectables, facials, body treatments, and skincare products.
               </p>

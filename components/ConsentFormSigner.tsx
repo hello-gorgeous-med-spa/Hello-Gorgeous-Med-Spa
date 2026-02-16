@@ -112,7 +112,7 @@ function SignaturePad({ onSignatureChange, width = 500, height = 200 }: Signatur
 
   return (
     <div className="space-y-2">
-      <div className="border-2 border-gray-300 rounded-lg overflow-hidden bg-white">
+      <div className="border-2 border-black rounded-lg overflow-hidden bg-white">
         <canvas
           ref={canvasRef}
           width={width}
@@ -128,7 +128,7 @@ function SignaturePad({ onSignatureChange, width = 500, height = 200 }: Signatur
         />
       </div>
       <div className="flex items-center justify-between">
-        <p className="text-sm text-gray-500">Sign above using your mouse or finger</p>
+        <p className="text-sm text-black">Sign above using your mouse or finger</p>
         <button
           type="button"
           onClick={clear}
@@ -158,12 +158,12 @@ function TypedSignature({ value, onChange }: TypedSignatureProps) {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder="Type your full legal name"
-        className="w-full px-4 py-3 text-xl font-signature border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+        className="w-full px-4 py-3 text-xl font-signature border-2 border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
         style={{ fontFamily: "'Dancing Script', cursive" }}
       />
       {value && (
-        <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-          <p className="text-sm text-gray-500 mb-2">Preview:</p>
+        <div className="p-4 bg-white rounded-lg border border-black">
+          <p className="text-sm text-black mb-2">Preview:</p>
           <p className="text-2xl" style={{ fontFamily: "'Dancing Script', cursive" }}>
             {value}
           </p>
@@ -236,8 +236,8 @@ export function ConsentFormViewer({ form, onSign, onDecline, loading }: ConsentF
       )}
 
       {/* Signature Section */}
-      <div className="border-t bg-gray-50 px-6 py-6">
-        <h3 className="font-semibold text-gray-900 mb-4">Signature</h3>
+      <div className="border-t bg-white px-6 py-6">
+        <h3 className="font-semibold text-black mb-4">Signature</h3>
 
         {/* Signature Type Toggle */}
         <div className="flex gap-4 mb-4">
@@ -247,7 +247,7 @@ export function ConsentFormViewer({ form, onSign, onDecline, loading }: ConsentF
             className={`flex-1 py-2 px-4 rounded-lg border-2 transition-colors ${
               signatureType === 'typed'
                 ? 'border-pink-500 bg-pink-50 text-pink-700'
-                : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
+                : 'border-black bg-white text-black hover:border-black'
             }`}
           >
             ✏️ Type Signature
@@ -258,7 +258,7 @@ export function ConsentFormViewer({ form, onSign, onDecline, loading }: ConsentF
             className={`flex-1 py-2 px-4 rounded-lg border-2 transition-colors ${
               signatureType === 'drawn'
                 ? 'border-pink-500 bg-pink-50 text-pink-700'
-                : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300'
+                : 'border-black bg-white text-black hover:border-black'
             }`}
           >
             🖊️ Draw Signature
@@ -279,9 +279,9 @@ export function ConsentFormViewer({ form, onSign, onDecline, loading }: ConsentF
               type="checkbox"
               checked={agreedToTerms}
               onChange={(e) => setAgreedToTerms(e.target.checked)}
-              className="mt-1 w-5 h-5 text-pink-600 border-gray-300 rounded focus:ring-pink-500"
+              className="mt-1 w-5 h-5 text-pink-600 border-black rounded focus:ring-pink-500"
             />
-            <span className="text-sm text-gray-700">
+            <span className="text-sm text-black">
               I have read and understand this document. I agree to be bound by its terms. 
               I am signing this document voluntarily and of my own free will.
             </span>
@@ -295,7 +295,7 @@ export function ConsentFormViewer({ form, onSign, onDecline, loading }: ConsentF
               type="button"
               onClick={onDecline}
               disabled={loading}
-              className="flex-1 py-3 px-4 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
+              className="flex-1 py-3 px-4 border border-black text-black rounded-lg hover:bg-white transition-colors disabled:opacity-50"
             >
               Decline
             </button>
@@ -381,12 +381,12 @@ export function ConsentFormsWizard({ forms, onComplete, onCancel, clientName }: 
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8 px-4">
+    <div className="min-h-screen bg-white py-8 px-4">
       <div className="max-w-4xl mx-auto">
         {/* Progress Header */}
         <div className="bg-white rounded-xl shadow-sm p-4 mb-6">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-gray-600">
+            <span className="text-sm text-black">
               {clientName && <span className="font-medium">{clientName} • </span>}
               Document {currentIndex + 1} of {forms.length}
             </span>
@@ -394,7 +394,7 @@ export function ConsentFormsWizard({ forms, onComplete, onCancel, clientName }: 
               {Math.round(progress)}% Complete
             </span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <div className="w-full bg-white rounded-full h-2">
             <div
               className="bg-gradient-to-r from-pink-500 to-rose-500 h-2 rounded-full transition-all duration-500"
               style={{ width: `${progress}%` }}
@@ -411,7 +411,7 @@ export function ConsentFormsWizard({ forms, onComplete, onCancel, clientName }: 
                     ? 'bg-green-500'
                     : index === currentIndex
                     ? 'bg-pink-500'
-                    : 'bg-gray-200'
+                    : 'bg-white'
                 }`}
                 title={form.shortName}
               />
@@ -433,7 +433,7 @@ export function ConsentFormsWizard({ forms, onComplete, onCancel, clientName }: 
             <button
               type="button"
               onClick={onCancel}
-              className="text-gray-500 hover:text-gray-700 text-sm"
+              className="text-black hover:text-black text-sm"
             >
               Cancel and return later
             </button>
@@ -458,7 +458,7 @@ export function ConsentStatusBadge({ status, expiresAt }: ConsentStatusBadgeProp
     signed: { icon: '✅', label: 'Signed', color: 'bg-green-100 text-green-800' },
     pending: { icon: '⏳', label: 'Pending', color: 'bg-yellow-100 text-yellow-800' },
     expired: { icon: '⚠️', label: 'Expired', color: 'bg-red-100 text-red-800' },
-    missing: { icon: '❌', label: 'Missing', color: 'bg-gray-100 text-gray-800' },
+    missing: { icon: '❌', label: 'Missing', color: 'bg-white text-black' },
   };
 
   const config = statusConfig[status];
@@ -468,7 +468,7 @@ export function ConsentStatusBadge({ status, expiresAt }: ConsentStatusBadgeProp
       <span>{config.icon}</span>
       <span>{config.label}</span>
       {status === 'signed' && expiresAt && (
-        <span className="text-gray-500">
+        <span className="text-black">
           (expires {new Date(expiresAt).toLocaleDateString()})
         </span>
       )}
@@ -491,16 +491,16 @@ export function ClientConsentSummary({ signedConsents, onRequestSignature }: Cli
   const missingForms = getMissingConsents(signedConsents);
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+    <div className="bg-white rounded-xl shadow-sm border border-black overflow-hidden">
       {/* Header */}
-      <div className="px-6 py-4 border-b bg-gray-50">
+      <div className="px-6 py-4 border-b bg-white">
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-gray-900">Consent Forms</h3>
+          <h3 className="font-semibold text-black">Consent Forms</h3>
           <span className={`text-sm font-medium ${percent === 100 ? 'text-green-600' : 'text-amber-600'}`}>
             {completed}/{total} Complete ({percent}%)
           </span>
         </div>
-        <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+        <div className="w-full bg-white rounded-full h-2 mt-2">
           <div
             className={`h-2 rounded-full transition-all ${percent === 100 ? 'bg-green-500' : 'bg-amber-500'}`}
             style={{ width: `${percent}%` }}
@@ -530,8 +530,8 @@ export function ClientConsentSummary({ signedConsents, onRequestSignature }: Cli
           return (
             <div key={form.id} className="px-6 py-3 flex items-center justify-between">
               <div>
-                <p className="font-medium text-gray-900">{form.shortName}</p>
-                <p className="text-sm text-gray-500">
+                <p className="font-medium text-black">{form.shortName}</p>
+                <p className="text-sm text-black">
                   {signed?.signedAt && `Signed ${new Date(signed.signedAt).toLocaleDateString()}`}
                 </p>
               </div>
@@ -543,7 +543,7 @@ export function ClientConsentSummary({ signedConsents, onRequestSignature }: Cli
 
       {/* Actions */}
       {missingForms.length > 0 && onRequestSignature && (
-        <div className="px-6 py-4 border-t bg-gray-50">
+        <div className="px-6 py-4 border-t bg-white">
           <button
             type="button"
             onClick={() => onRequestSignature(missingForms.map(f => f.id))}

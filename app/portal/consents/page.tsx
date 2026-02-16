@@ -222,7 +222,7 @@ export default function ConsentsPage() {
               <h2 className="text-xl font-bold text-[#111]">{FORM_CONTENT[activeForm]?.title}</h2>
             </div>
             
-            <div className="p-6 space-y-4 max-h-[40vh] overflow-y-auto bg-gray-50">
+            <div className="p-6 space-y-4 max-h-[40vh] overflow-y-auto bg-white">
               {FORM_CONTENT[activeForm]?.content.map((para, idx) => (
                 <p key={idx} className="text-[#111]/70">{para}</p>
               ))}
@@ -236,7 +236,7 @@ export default function ConsentsPage() {
                 <button
                   onClick={() => setSignatureMode('type')}
                   className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    signatureMode === 'type' ? 'bg-[#FF2D8E] text-white' : 'bg-gray-100 text-[#111]/70'
+                    signatureMode === 'type' ? 'bg-[#FF2D8E] text-white' : 'bg-white text-[#111]/70'
                   }`}
                 >
                   Type Signature
@@ -244,7 +244,7 @@ export default function ConsentsPage() {
                 <button
                   onClick={() => setSignatureMode('draw')}
                   className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    signatureMode === 'draw' ? 'bg-[#FF2D8E] text-white' : 'bg-gray-100 text-[#111]/70'
+                    signatureMode === 'draw' ? 'bg-[#FF2D8E] text-white' : 'bg-white text-[#111]/70'
                   }`}
                 >
                   Draw Signature
@@ -283,7 +283,7 @@ export default function ConsentsPage() {
               <div className="flex gap-3 mt-6">
                 <button
                   onClick={() => { setActiveForm(null); setTypedSignature(''); }}
-                  className="flex-1 py-3 border border-[#111]/20 rounded-xl font-medium text-[#111]/70 hover:bg-gray-50 transition-colors"
+                  className="flex-1 py-3 border border-[#111]/20 rounded-xl font-medium text-[#111]/70 hover:bg-white transition-colors"
                 >
                   Cancel
                 </button>

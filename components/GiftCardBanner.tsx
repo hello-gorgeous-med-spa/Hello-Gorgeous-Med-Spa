@@ -38,7 +38,7 @@ export function GiftCardBanner() {
                     Available
                   </span>
                 </h2>
-                <p className="text-gray-300 text-lg mb-6 leading-relaxed">
+                <p className="text-black text-lg mb-6 leading-relaxed">
                   Give the gift of confidence. Perfect for birthdays, anniversaries, 
                   or just because. Redeemable for any service.
                 </p>
@@ -49,7 +49,7 @@ export function GiftCardBanner() {
                   <span className="group-hover:translate-x-1 transition-transform">→</span>
                 </div>
 
-                <p className="mt-4 text-sm text-gray-400">
+                <p className="mt-4 text-sm text-black">
                   Instant delivery via email • Any amount
                 </p>
               </div>

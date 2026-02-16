@@ -256,14 +256,14 @@ function InjectionMapContent() {
   };
 
   return (
-    <div className="h-[calc(100vh-80px)] flex flex-col bg-gray-100">
+    <div className="h-[calc(100vh-80px)] flex flex-col bg-white">
       {/* Top Toolbar */}
-      <div className="bg-white border-b border-gray-200 px-4 py-2 flex items-center justify-between gap-4">
+      <div className="bg-white border-b border-black px-4 py-2 flex items-center justify-between gap-4">
         {/* Client Selector */}
         <div className="relative">
           <button
             onClick={() => setShowClientPicker(!showClientPicker)}
-            className="flex items-center gap-2 px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-white hover:bg-white rounded-lg transition-colors"
           >
             {selectedClient ? (
               <>
@@ -274,35 +274,35 @@ function InjectionMapContent() {
               </>
             ) : (
               <>
-                <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
-                  <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
+                  <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </div>
-                <span className="text-gray-500">Select Client</span>
+                <span className="text-black">Select Client</span>
               </>
             )}
-            <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>
           </button>
 
           {/* Client Dropdown */}
           {showClientPicker && (
-            <div className="absolute top-full left-0 mt-1 w-72 bg-white rounded-xl shadow-xl border border-gray-200 z-50 overflow-hidden">
-              <div className="p-2 border-b border-gray-100">
+            <div className="absolute top-full left-0 mt-1 w-72 bg-white rounded-xl shadow-xl border border-black z-50 overflow-hidden">
+              <div className="p-2 border-b border-black">
                 <input
                   type="text"
                   value={clientSearch}
                   onChange={(e) => setClientSearch(e.target.value)}
                   placeholder="Search clients..."
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                   autoFocus
                 />
               </div>
               <div className="max-h-64 overflow-y-auto">
                 {filteredClients.length === 0 ? (
-                  <p className="p-4 text-gray-500 text-sm text-center">No clients found</p>
+                  <p className="p-4 text-black text-sm text-center">No clients found</p>
                 ) : (
                   filteredClients.map(client => (
                     <button
@@ -313,16 +313,16 @@ function InjectionMapContent() {
                         setClientSearch('');
                         router.push(`/admin/charting/injection-map?client=${client.id}`);
                       }}
-                      className={`w-full text-left px-4 py-2 hover:bg-gray-50 flex items-center gap-3 ${
+                      className={`w-full text-left px-4 py-2 hover:bg-white flex items-center gap-3 ${
                         selectedClientId === client.id ? 'bg-pink-50' : ''
                       }`}
                     >
-                      <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-sm font-medium">
+                      <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center text-sm font-medium">
                         {client.first_name[0]}{client.last_name[0]}
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">{client.first_name} {client.last_name}</p>
-                        {client.email && <p className="text-xs text-gray-500">{client.email}</p>}
+                        <p className="font-medium text-black">{client.first_name} {client.last_name}</p>
+                        {client.email && <p className="text-xs text-black">{client.email}</p>}
                       </div>
                     </button>
                   ))
@@ -333,22 +333,22 @@ function InjectionMapContent() {
         </div>
 
         {/* Quick Units Adjuster */}
-        <div className="flex items-center gap-2 bg-gray-100 rounded-lg px-3 py-1">
-          <span className="text-sm text-gray-600">Quick Add:</span>
+        <div className="flex items-center gap-2 bg-white rounded-lg px-3 py-1">
+          <span className="text-sm text-black">Quick Add:</span>
           <button 
             onClick={() => setQuickUnits(Math.max(1, quickUnits - 1))}
-            className="w-7 h-7 rounded bg-white border border-gray-200 hover:bg-gray-50 font-bold text-gray-600"
+            className="w-7 h-7 rounded bg-white border border-black hover:bg-white font-bold text-black"
           >
             -
           </button>
           <span className="w-8 text-center font-semibold">{quickUnits}</span>
           <button 
             onClick={() => setQuickUnits(quickUnits + 1)}
-            className="w-7 h-7 rounded bg-white border border-gray-200 hover:bg-gray-50 font-bold text-gray-600"
+            className="w-7 h-7 rounded bg-white border border-black hover:bg-white font-bold text-black"
           >
             +
           </button>
-          <span className="text-sm text-gray-500">{selectedProduct.unit}</span>
+          <span className="text-sm text-black">{selectedProduct.unit}</span>
         </div>
 
         {/* Actions */}
@@ -356,7 +356,7 @@ function InjectionMapContent() {
           {points.length > 0 && (
             <button
               onClick={() => setPoints([])}
-              className="px-3 py-2 text-gray-600 hover:bg-gray-100 rounded-lg text-sm"
+              className="px-3 py-2 text-black hover:bg-white rounded-lg text-sm"
             >
               Clear All
             </button>
@@ -374,9 +374,9 @@ function InjectionMapContent() {
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden">
         {/* Product Toolbar - Left */}
-        <div className="w-48 bg-white border-r border-gray-200 overflow-y-auto">
-          <div className="p-3 border-b border-gray-100">
-            <h3 className="font-semibold text-gray-700 text-xs uppercase tracking-wide">Neurotoxins</h3>
+        <div className="w-48 bg-white border-r border-black overflow-y-auto">
+          <div className="p-3 border-b border-black">
+            <h3 className="font-semibold text-black text-xs uppercase tracking-wide">Neurotoxins</h3>
           </div>
           <div className="p-2 space-y-1">
             {PRODUCTS.neurotoxins.map(product => (
@@ -386,7 +386,7 @@ function InjectionMapContent() {
                 className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-left transition-colors ${
                   selectedProduct.name === product.name 
                     ? 'bg-blue-50 text-blue-700 ring-1 ring-blue-200' 
-                    : 'hover:bg-gray-50 text-gray-700'
+                    : 'hover:bg-white text-black'
                 }`}
               >
                 <span 
@@ -398,8 +398,8 @@ function InjectionMapContent() {
             ))}
           </div>
 
-          <div className="p-3 border-b border-t border-gray-100 mt-2">
-            <h3 className="font-semibold text-gray-700 text-xs uppercase tracking-wide">Fillers</h3>
+          <div className="p-3 border-b border-t border-black mt-2">
+            <h3 className="font-semibold text-black text-xs uppercase tracking-wide">Fillers</h3>
           </div>
           <div className="p-2 space-y-1">
             {PRODUCTS.fillers.map(product => (
@@ -409,7 +409,7 @@ function InjectionMapContent() {
                 className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-left transition-colors ${
                   selectedProduct.name === product.name 
                     ? 'bg-pink-50 text-pink-700 ring-1 ring-pink-200' 
-                    : 'hover:bg-gray-50 text-gray-700'
+                    : 'hover:bg-white text-black'
                 }`}
               >
                 <span 
@@ -421,8 +421,8 @@ function InjectionMapContent() {
             ))}
           </div>
 
-          <div className="p-3 border-b border-t border-gray-100 mt-2">
-            <h3 className="font-semibold text-gray-700 text-xs uppercase tracking-wide">Other</h3>
+          <div className="p-3 border-b border-t border-black mt-2">
+            <h3 className="font-semibold text-black text-xs uppercase tracking-wide">Other</h3>
           </div>
           <div className="p-2 space-y-1">
             {PRODUCTS.other.map(product => (
@@ -432,7 +432,7 @@ function InjectionMapContent() {
                 className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-left transition-colors ${
                   selectedProduct.name === product.name 
                     ? 'bg-amber-50 text-amber-700 ring-1 ring-amber-200' 
-                    : 'hover:bg-gray-50 text-gray-700'
+                    : 'hover:bg-white text-black'
                 }`}
               >
                 <span 
@@ -545,7 +545,7 @@ function InjectionMapContent() {
             {/* Click hint */}
             {points.length === 0 && (
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="text-center text-gray-400">
+                <div className="text-center text-black">
                   <p className="text-sm">Click anywhere to add injection points</p>
                   <p className="text-xs mt-1">Selected: {selectedProduct.name}</p>
                 </div>
@@ -555,11 +555,11 @@ function InjectionMapContent() {
         </div>
 
         {/* Right Panel - Details & History */}
-        <div className="w-72 bg-white border-l border-gray-200 overflow-y-auto flex flex-col">
+        <div className="w-72 bg-white border-l border-black overflow-y-auto flex flex-col">
           {/* Product Totals */}
           {Object.keys(totals).length > 0 && (
-            <div className="p-4 border-b border-gray-100">
-              <h3 className="font-semibold text-gray-900 text-sm mb-3">Treatment Summary</h3>
+            <div className="p-4 border-b border-black">
+              <h3 className="font-semibold text-black text-sm mb-3">Treatment Summary</h3>
               <div className="space-y-2">
                 {Object.entries(totals).map(([product, amounts]) => (
                   <div key={product} className="flex items-center justify-between">
@@ -568,9 +568,9 @@ function InjectionMapContent() {
                         className="w-3 h-3 rounded-full"
                         style={{ backgroundColor: getProductColor(product) }}
                       />
-                      <span className="text-sm text-gray-700">{product}</span>
+                      <span className="text-sm text-black">{product}</span>
                     </div>
-                    <span className="text-sm font-medium text-gray-900">
+                    <span className="text-sm font-medium text-black">
                       {amounts.units > 0 ? `${amounts.units}u` : ''}
                       {amounts.ml > 0 ? `${amounts.ml.toFixed(1)}ml` : ''}
                     </span>
@@ -581,12 +581,12 @@ function InjectionMapContent() {
           )}
 
           {/* Points List */}
-          <div className="flex-1 p-4 border-b border-gray-100">
-            <h3 className="font-semibold text-gray-900 text-sm mb-3">
+          <div className="flex-1 p-4 border-b border-black">
+            <h3 className="font-semibold text-black text-sm mb-3">
               Injection Points ({points.length})
             </h3>
             {points.length === 0 ? (
-              <p className="text-gray-400 text-sm text-center py-4">No points added yet</p>
+              <p className="text-black text-sm text-center py-4">No points added yet</p>
             ) : (
               <div className="space-y-2">
                 {points.map((point) => (
@@ -597,7 +597,7 @@ function InjectionMapContent() {
                       setShowPointEditor(true);
                     }}
                     className={`p-2 rounded-lg cursor-pointer transition-colors ${
-                      editingPoint?.id === point.id ? 'bg-pink-50 ring-1 ring-pink-200' : 'hover:bg-gray-50'
+                      editingPoint?.id === point.id ? 'bg-pink-50 ring-1 ring-pink-200' : 'hover:bg-white'
                     }`}
                   >
                     <div className="flex items-center gap-2">
@@ -605,9 +605,9 @@ function InjectionMapContent() {
                         className="w-3 h-3 rounded-full flex-shrink-0"
                         style={{ backgroundColor: getProductColor(point.product) }}
                       />
-                      <span className="text-sm font-medium text-gray-900">{point.area}</span>
+                      <span className="text-sm font-medium text-black">{point.area}</span>
                     </div>
-                    <p className="text-xs text-gray-500 ml-5">
+                    <p className="text-xs text-black ml-5">
                       {point.product} • {point.units ? `${point.units}u` : ''}{point.ml ? `${point.ml}ml` : ''}
                     </p>
                   </div>
@@ -617,13 +617,13 @@ function InjectionMapContent() {
           </div>
 
           {/* Notes */}
-          <div className="p-4 border-b border-gray-100">
-            <h3 className="font-semibold text-gray-900 text-sm mb-2">Notes</h3>
+          <div className="p-4 border-b border-black">
+            <h3 className="font-semibold text-black text-sm mb-2">Notes</h3>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               placeholder="Treatment notes..."
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm resize-none"
+              className="w-full px-3 py-2 border border-black rounded-lg text-sm resize-none"
               rows={3}
             />
           </div>
@@ -631,18 +631,18 @@ function InjectionMapContent() {
           {/* History */}
           {selectedClientId && existingMaps.length > 0 && (
             <div className="p-4">
-              <h3 className="font-semibold text-gray-900 text-sm mb-3">Previous Maps</h3>
+              <h3 className="font-semibold text-black text-sm mb-3">Previous Maps</h3>
               <div className="space-y-2">
                 {existingMaps.slice(0, 5).map((map) => (
                   <Link
                     key={map.id}
                     href={`/admin/charting/injection-map?map=${map.id}`}
-                    className="block p-2 rounded-lg hover:bg-gray-50 text-sm"
+                    className="block p-2 rounded-lg hover:bg-white text-sm"
                   >
-                    <p className="font-medium text-gray-900">
+                    <p className="font-medium text-black">
                       {new Date(map.created_at).toLocaleDateString()}
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-black">
                       {map.points?.length || 0} points
                     </p>
                   </Link>
@@ -657,16 +657,16 @@ function InjectionMapContent() {
       {showPointEditor && editingPoint && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl w-full max-w-sm shadow-xl">
-            <div className="p-4 border-b border-gray-100 flex items-center justify-between">
-              <h3 className="font-semibold text-gray-900">Edit Injection Point</h3>
+            <div className="p-4 border-b border-black flex items-center justify-between">
+              <h3 className="font-semibold text-black">Edit Injection Point</h3>
               <button
                 onClick={() => {
                   setShowPointEditor(false);
                   setEditingPoint(null);
                 }}
-                className="p-1 hover:bg-gray-100 rounded"
+                className="p-1 hover:bg-white rounded"
               >
-                <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                 </svg>
               </button>
@@ -674,11 +674,11 @@ function InjectionMapContent() {
 
             <div className="p-4 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Area</label>
+                <label className="block text-sm font-medium text-black mb-1">Area</label>
                 <select
                   value={editingPoint.area}
                   onChange={(e) => updatePoint({ area: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                 >
                   {FACE_AREAS.map(area => (
                     <option key={area} value={area}>{area}</option>
@@ -687,11 +687,11 @@ function InjectionMapContent() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Product</label>
+                <label className="block text-sm font-medium text-black mb-1">Product</label>
                 <select
                   value={editingPoint.product}
                   onChange={(e) => updatePoint({ product: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                 >
                   <optgroup label="Neurotoxins">
                     {PRODUCTS.neurotoxins.map(p => <option key={p.name} value={p.name}>{p.name}</option>)}
@@ -707,34 +707,34 @@ function InjectionMapContent() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Units</label>
+                  <label className="block text-sm font-medium text-black mb-1">Units</label>
                   <input
                     type="number"
                     value={editingPoint.units || ''}
                     onChange={(e) => updatePoint({ units: e.target.value ? parseFloat(e.target.value) : undefined })}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                     placeholder="0"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Volume (ml)</label>
+                  <label className="block text-sm font-medium text-black mb-1">Volume (ml)</label>
                   <input
                     type="number"
                     step="0.1"
                     value={editingPoint.ml || ''}
                     onChange={(e) => updatePoint({ ml: e.target.value ? parseFloat(e.target.value) : undefined })}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                     placeholder="0.0"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Depth</label>
+                <label className="block text-sm font-medium text-black mb-1">Depth</label>
                 <select
                   value={editingPoint.depth || ''}
                   onChange={(e) => updatePoint({ depth: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                 >
                   <option value="">Select...</option>
                   {DEPTHS.map(d => <option key={d} value={d}>{d}</option>)}
@@ -742,11 +742,11 @@ function InjectionMapContent() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Technique</label>
+                <label className="block text-sm font-medium text-black mb-1">Technique</label>
                 <select
                   value={editingPoint.technique || ''}
                   onChange={(e) => updatePoint({ technique: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                 >
                   <option value="">Select...</option>
                   {TECHNIQUES.map(t => <option key={t} value={t}>{t}</option>)}
@@ -754,18 +754,18 @@ function InjectionMapContent() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Lot Number</label>
+                <label className="block text-sm font-medium text-black mb-1">Lot Number</label>
                 <input
                   type="text"
                   value={editingPoint.lot || ''}
                   onChange={(e) => updatePoint({ lot: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                   placeholder="e.g., AB12345"
                 />
               </div>
             </div>
 
-            <div className="p-4 border-t border-gray-100 flex justify-between">
+            <div className="p-4 border-t border-black flex justify-between">
               <button
                 onClick={() => deletePoint(editingPoint.id)}
                 className="px-4 py-2 text-red-600 hover:bg-red-50 rounded-lg text-sm font-medium"
@@ -792,10 +792,10 @@ function InjectionMapContent() {
 export default function InjectionMapPage() {
   return (
     <Suspense fallback={
-      <div className="h-screen flex items-center justify-center bg-gray-100">
+      <div className="h-screen flex items-center justify-center bg-white">
         <div className="text-center">
           <div className="w-10 h-10 border-2 border-pink-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-gray-500">Loading...</p>
+          <p className="text-black">Loading...</p>
         </div>
       </div>
     }>

@@ -23,9 +23,9 @@ interface Transaction {
 }
 
 const TIER_COLORS: Record<string, string> = {
-  standard: 'bg-gray-100 text-gray-600',
+  standard: 'bg-white text-black',
   bronze: 'bg-amber-100 text-amber-700',
-  silver: 'bg-slate-200 text-slate-700',
+  silver: 'bg-white text-black',
   gold: 'bg-yellow-100 text-yellow-700',
   platinum: 'bg-purple-100 text-purple-700',
   vip: 'bg-[#FF2D8E]/10 text-[#FF2D8E]',

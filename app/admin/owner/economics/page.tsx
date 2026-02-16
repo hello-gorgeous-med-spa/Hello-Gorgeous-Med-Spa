@@ -126,7 +126,7 @@ export default function EconomicsPage() {
             className={`px-4 py-3 text-sm font-medium border-b-2 -mb-px ${
               activeTab === tab.id
                 ? 'border-purple-500 text-pink-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
+                : 'border-transparent text-black hover:text-black'
             }`}
           >
             {tab.label}
@@ -150,13 +150,13 @@ export default function EconomicsPage() {
                 <div key={version.id} className="p-4 flex items-center justify-between">
                   <div>
                     <h3 className="font-medium">{version.name}</h3>
-                    <p className="text-sm text-gray-500">Effective: {version.effectiveDate}</p>
+                    <p className="text-sm text-black">Effective: {version.effectiveDate}</p>
                   </div>
                   <div className="flex items-center gap-3">
                     <span className={`text-xs px-2 py-1 rounded ${
                       version.status === 'active' ? 'bg-green-100 text-green-700' :
                       version.status === 'scheduled' ? 'bg-blue-100 text-blue-700' :
-                      'bg-gray-100 text-gray-600'
+                      'bg-white text-black'
                     }`}>
                       {version.status}
                     </span>
@@ -177,11 +177,11 @@ export default function EconomicsPage() {
                 <div key={rule.id} className="p-4 flex items-center justify-between">
                   <div>
                     <h3 className="font-medium">{rule.name}</h3>
-                    <p className="text-sm text-gray-500">{rule.condition} • {rule.adjustment}</p>
+                    <p className="text-sm text-black">{rule.condition} • {rule.adjustment}</p>
                   </div>
                   <button
                     onClick={() => toggleTimePricing(rule.id)}
-                    className={`w-12 h-6 rounded-full transition-colors relative ${rule.enabled ? 'bg-green-500' : 'bg-gray-300'}`}
+                    className={`w-12 h-6 rounded-full transition-colors relative ${rule.enabled ? 'bg-green-500' : 'bg-white'}`}
                   >
                     <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${rule.enabled ? 'right-1' : 'left-1'}`} />
                   </button>
@@ -200,7 +200,7 @@ export default function EconomicsPage() {
             <h2 className="font-semibold mb-4">💰 Commission Formulas</h2>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Default Rate (%)</label>
+                <label className="block text-sm font-medium text-black mb-1">Default Rate (%)</label>
                 <input
                   type="number"
                   value={commissionRules.defaultRate}
@@ -209,7 +209,7 @@ export default function EconomicsPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Injectables Rate (%)</label>
+                <label className="block text-sm font-medium text-black mb-1">Injectables Rate (%)</label>
                 <input
                   type="number"
                   value={commissionRules.injectableRate}
@@ -218,7 +218,7 @@ export default function EconomicsPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Facial Rate (%)</label>
+                <label className="block text-sm font-medium text-black mb-1">Facial Rate (%)</label>
                 <input
                   type="number"
                   value={commissionRules.facialRate}
@@ -227,7 +227,7 @@ export default function EconomicsPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Product Sales Rate (%)</label>
+                <label className="block text-sm font-medium text-black mb-1">Product Sales Rate (%)</label>
                 <input
                   type="number"
                   value={commissionRules.productSalesRate}
@@ -251,9 +251,9 @@ export default function EconomicsPage() {
               {commissionRules.tieredCommission && (
                 <div className="space-y-2">
                   {commissionRules.tiers.map((tier, idx) => (
-                    <div key={idx} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                    <div key={idx} className="flex items-center gap-3 p-3 bg-white rounded-lg">
                       <span className="text-sm">Revenue ≥ ${tier.threshold.toLocaleString()}</span>
-                      <span className="text-gray-400">→</span>
+                      <span className="text-black">→</span>
                       <span className="font-medium">{tier.rate}%</span>
                     </div>
                   ))}
@@ -268,13 +268,13 @@ export default function EconomicsPage() {
               <h2 className="font-semibold">👤 Provider Commission (This Month)</h2>
             </div>
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-white">
                 <tr>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">PROVIDER</th>
-                  <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">REVENUE</th>
-                  <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">RATE</th>
-                  <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">COMMISSION</th>
-                  <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">PROFIT</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-black">PROVIDER</th>
+                  <th className="text-right px-4 py-3 text-xs font-semibold text-black">REVENUE</th>
+                  <th className="text-right px-4 py-3 text-xs font-semibold text-black">RATE</th>
+                  <th className="text-right px-4 py-3 text-xs font-semibold text-black">COMMISSION</th>
+                  <th className="text-right px-4 py-3 text-xs font-semibold text-black">PROFIT</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
@@ -302,23 +302,23 @@ export default function EconomicsPage() {
               <h2 className="font-semibold">📊 Profit per Service</h2>
             </div>
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-white">
                 <tr>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">SERVICE</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">CATEGORY</th>
-                  <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">PRICE</th>
-                  <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">COST</th>
-                  <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">MARGIN</th>
-                  <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">MARGIN %</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-black">SERVICE</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-black">CATEGORY</th>
+                  <th className="text-right px-4 py-3 text-xs font-semibold text-black">PRICE</th>
+                  <th className="text-right px-4 py-3 text-xs font-semibold text-black">COST</th>
+                  <th className="text-right px-4 py-3 text-xs font-semibold text-black">MARGIN</th>
+                  <th className="text-right px-4 py-3 text-xs font-semibold text-black">MARGIN %</th>
                 </tr>
               </thead>
               <tbody className="divide-y">
                 {serviceEconomics.map(service => (
                   <tr key={service.id}>
                     <td className="px-4 py-3 font-medium">{service.name}</td>
-                    <td className="px-4 py-3 text-gray-500">{service.category}</td>
+                    <td className="px-4 py-3 text-black">{service.category}</td>
                     <td className="px-4 py-3 text-right">${service.currentPrice}</td>
-                    <td className="px-4 py-3 text-right text-gray-500">${service.cost}</td>
+                    <td className="px-4 py-3 text-right text-black">${service.cost}</td>
                     <td className="px-4 py-3 text-right font-semibold text-green-600">${service.margin}</td>
                     <td className="px-4 py-3 text-right">
                       <span className={`px-2 py-0.5 rounded text-sm ${

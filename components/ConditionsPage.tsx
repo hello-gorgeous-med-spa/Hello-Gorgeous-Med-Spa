@@ -147,7 +147,7 @@ export function ConditionsPage() {
               in Oswego, IL
             </span>
           </h1>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-black max-w-2xl mx-auto mb-8">
             Find treatments tailored to your concerns. From acne and wrinkles to weight loss and fatigue—we're here to help you look and feel your best.
           </p>
           <CTA href={BOOKING_URL}>Book Appointment</CTA>
@@ -185,7 +185,7 @@ export function ConditionsPage() {
 
               <ul className="space-y-2 mb-6">
                 {condition.bullets.map((bullet, i) => (
-                  <li key={i} className="flex items-start gap-2 text-gray-300">
+                  <li key={i} className="flex items-start gap-2 text-black">
                     <span className="text-pink-500 mt-1">•</span>
                     <span>{bullet}</span>
                   </li>
@@ -216,13 +216,13 @@ export function ConditionsPage() {
           <h2 className="text-2xl md:text-4xl font-bold text-white mb-4">
             Schedule a Consultation at Our Oswego Med Spa
           </h2>
-          <p className="text-gray-300 text-lg max-w-2xl mx-auto mb-8">
+          <p className="text-black text-lg max-w-2xl mx-auto mb-8">
             Begin your journey with a personalized consultation in our serene, boutique setting. Our
             expert team will listen, assess, and design a treatment plan tailored to your unique
             goals.
           </p>
           <CTA href={BOOKING_URL}>Book Your Consultation Today</CTA>
-          <p className="text-gray-500 text-sm mt-6">74 W. Washington St, Oswego, IL</p>
+          <p className="text-black text-sm mt-6">74 W. Washington St, Oswego, IL</p>
         </div>
       </FadeUp>
     </div>

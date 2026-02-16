@@ -78,7 +78,7 @@ function SignaturePad({ onChange }: SignaturePadProps) {
 
   return (
     <div className="space-y-2">
-      <div className="border-2 border-dashed border-gray-300 rounded-lg overflow-hidden bg-white">
+      <div className="border-2 border-dashed border-black rounded-lg overflow-hidden bg-white">
         <canvas
           ref={canvasRef}
           width={400}
@@ -96,7 +96,7 @@ function SignaturePad({ onChange }: SignaturePadProps) {
       <button
         type="button"
         onClick={clearSignature}
-        className="text-sm text-gray-500 hover:text-gray-700"
+        className="text-sm text-black hover:text-black"
       >
         Clear Signature
       </button>
@@ -117,7 +117,7 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
   if (!form) {
     return (
       <div className="max-w-2xl mx-auto px-4 py-12 text-center">
-        <h1 className="text-2xl font-bold text-gray-900 mb-4">Form Not Found</h1>
+        <h1 className="text-2xl font-bold text-black mb-4">Form Not Found</h1>
         <Link href="/portal" className="text-pink-500 hover:underline">
           Return to Portal
         </Link>
@@ -211,15 +211,15 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
     switch (field.type) {
       case 'section':
         return (
-          <div key={field.id} className="pt-6 pb-2 border-b border-gray-200">
-            <h3 className="text-lg font-semibold text-gray-900">{field.label}</h3>
+          <div key={field.id} className="pt-6 pb-2 border-b border-black">
+            <h3 className="text-lg font-semibold text-black">{field.label}</h3>
           </div>
         );
 
       case 'text':
         return (
           <div key={field.id} id={field.id} className="space-y-1">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-black">
               {field.label} {field.required && <span className="text-red-500">*</span>}
             </label>
             <input
@@ -227,9 +227,9 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
               value={formData[field.id] || ''}
               onChange={(e) => handleFieldChange(field.id, e.target.value)}
               placeholder={field.placeholder}
-              className={`w-full px-4 py-2 border rounded-lg ${errors[field.id] ? 'border-red-500' : 'border-gray-200'}`}
+              className={`w-full px-4 py-2 border rounded-lg ${errors[field.id] ? 'border-red-500' : 'border-black'}`}
             />
-            {field.helpText && <p className="text-xs text-gray-500">{field.helpText}</p>}
+            {field.helpText && <p className="text-xs text-black">{field.helpText}</p>}
             {errors[field.id] && <p className="text-xs text-red-500">{errors[field.id]}</p>}
           </div>
         );
@@ -237,7 +237,7 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
       case 'textarea':
         return (
           <div key={field.id} id={field.id} className="space-y-1">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-black">
               {field.label} {field.required && <span className="text-red-500">*</span>}
             </label>
             <textarea
@@ -245,7 +245,7 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
               onChange={(e) => handleFieldChange(field.id, e.target.value)}
               placeholder={field.placeholder}
               rows={3}
-              className={`w-full px-4 py-2 border rounded-lg ${errors[field.id] ? 'border-red-500' : 'border-gray-200'}`}
+              className={`w-full px-4 py-2 border rounded-lg ${errors[field.id] ? 'border-red-500' : 'border-black'}`}
             />
             {errors[field.id] && <p className="text-xs text-red-500">{errors[field.id]}</p>}
           </div>
@@ -254,14 +254,14 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
       case 'date':
         return (
           <div key={field.id} id={field.id} className="space-y-1">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-black">
               {field.label} {field.required && <span className="text-red-500">*</span>}
             </label>
             <input
               type="date"
               value={formData[field.id] || ''}
               onChange={(e) => handleFieldChange(field.id, e.target.value)}
-              className={`w-full px-4 py-2 border rounded-lg ${errors[field.id] ? 'border-red-500' : 'border-gray-200'}`}
+              className={`w-full px-4 py-2 border rounded-lg ${errors[field.id] ? 'border-red-500' : 'border-black'}`}
             />
             {errors[field.id] && <p className="text-xs text-red-500">{errors[field.id]}</p>}
           </div>
@@ -270,13 +270,13 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
       case 'select':
         return (
           <div key={field.id} id={field.id} className="space-y-1">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-black">
               {field.label} {field.required && <span className="text-red-500">*</span>}
             </label>
             <select
               value={formData[field.id] || ''}
               onChange={(e) => handleFieldChange(field.id, e.target.value)}
-              className={`w-full px-4 py-2 border rounded-lg ${errors[field.id] ? 'border-red-500' : 'border-gray-200'}`}
+              className={`w-full px-4 py-2 border rounded-lg ${errors[field.id] ? 'border-red-500' : 'border-black'}`}
             >
               <option value="">Select...</option>
               {field.options?.map(opt => (
@@ -290,7 +290,7 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
       case 'radio':
         return (
           <div key={field.id} id={field.id} className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-black">
               {field.label} {field.required && <span className="text-red-500">*</span>}
             </label>
             <div className="space-y-2">
@@ -304,7 +304,7 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
                     onChange={(e) => handleFieldChange(field.id, e.target.value)}
                     className="text-pink-500"
                   />
-                  <span className="text-gray-700">{opt}</span>
+                  <span className="text-black">{opt}</span>
                 </label>
               ))}
             </div>
@@ -315,7 +315,7 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
       case 'checkbox':
         return (
           <div key={field.id} id={field.id} className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-black">
               {field.label} {field.required && <span className="text-red-500">*</span>}
             </label>
             <div className="space-y-2">
@@ -333,7 +333,7 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
                     }}
                     className="mt-1 text-pink-500 rounded"
                   />
-                  <span className="text-gray-700">{opt}</span>
+                  <span className="text-black">{opt}</span>
                 </label>
               ))}
             </div>
@@ -344,10 +344,10 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
       case 'signature':
         return (
           <div key={field.id} id={field.id} className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-black">
               {field.label} {field.required && <span className="text-red-500">*</span>}
             </label>
-            <p className="text-xs text-gray-500 mb-2">Please sign below using your mouse or finger</p>
+            <p className="text-xs text-black mb-2">Please sign below using your mouse or finger</p>
             <SignaturePad onChange={(dataUrl) => handleFieldChange(field.id, dataUrl)} />
             {errors[field.id] && <p className="text-xs text-red-500">{errors[field.id]}</p>}
           </div>
@@ -361,21 +361,21 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
       <div className="mb-8">
-        <Link href="/portal" className="text-sm text-gray-500 hover:text-gray-700 mb-2 inline-block">
+        <Link href="/portal" className="text-sm text-black hover:text-black mb-2 inline-block">
           ← Back to Portal
         </Link>
-        <h1 className="text-2xl font-bold text-gray-900">{form.name}</h1>
-        <p className="text-gray-500">{form.description}</p>
+        <h1 className="text-2xl font-bold text-black">{form.name}</h1>
+        <p className="text-black">{form.description}</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-100 p-6">
+      <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-black p-6">
         <div className="space-y-6">
           {form.fields.map(renderField)}
         </div>
 
-        <div className="mt-8 pt-6 border-t border-gray-100">
+        <div className="mt-8 pt-6 border-t border-black">
           <div className="flex items-center justify-between">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-black">
               * Required fields
             </p>
             <button
@@ -389,7 +389,7 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
         </div>
       </form>
 
-      <p className="text-xs text-gray-400 mt-4 text-center">
+      <p className="text-xs text-black mt-4 text-center">
         Your information is protected and stored securely in compliance with HIPAA regulations.
       </p>
     </div>

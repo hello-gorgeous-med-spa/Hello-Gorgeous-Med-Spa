@@ -18,15 +18,15 @@ function PaymentSuccessContent() {
         </div>
 
         {/* Title */}
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Payment Successful!</h1>
-        <p className="text-gray-600 mb-8">
+        <h1 className="text-3xl font-bold text-black mb-2">Payment Successful!</h1>
+        <p className="text-black mb-8">
           Thank you for your payment. A confirmation email has been sent to your email address.
         </p>
 
         {/* Details Card */}
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-8 text-left">
-          <h3 className="font-semibold text-gray-900 mb-4">What happens next?</h3>
-          <ul className="space-y-3 text-sm text-gray-600">
+        <div className="bg-white rounded-xl shadow-sm border border-black p-6 mb-8 text-left">
+          <h3 className="font-semibold text-black mb-4">What happens next?</h3>
+          <ul className="space-y-3 text-sm text-black">
             <li className="flex items-start gap-3">
               <span className="text-green-500 mt-0.5">✓</span>
               <span>Your receipt has been emailed to you</span>
@@ -52,14 +52,14 @@ function PaymentSuccessContent() {
           </Link>
           <Link
             href="/"
-            className="block w-full py-3 bg-gray-100 text-gray-700 font-medium rounded-xl hover:bg-gray-200 transition-colors"
+            className="block w-full py-3 bg-white text-black font-medium rounded-xl hover:bg-white transition-colors"
           >
             Return to Homepage
           </Link>
         </div>
 
         {/* Support */}
-        <p className="text-sm text-gray-500 mt-8">
+        <p className="text-sm text-black mt-8">
           Questions? Contact us at{' '}
           <a href="tel:+16306366193" className="text-pink-600 hover:underline">
             (630) 636-6193

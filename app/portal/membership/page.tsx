@@ -14,8 +14,8 @@ export default function PortalMembershipPage() {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900">VIP Membership</h1>
-          <p className="text-gray-500">Exclusive benefits for our most valued clients</p>
+          <h1 className="text-2xl font-bold text-black">VIP Membership</h1>
+          <p className="text-black">Exclusive benefits for our most valued clients</p>
         </div>
 
         {/* Join CTA */}
@@ -27,15 +27,15 @@ export default function PortalMembershipPage() {
           </p>
           <Link
             href="/subscribe"
-            className="inline-block px-6 py-3 bg-white text-pink-500 font-semibold rounded-lg hover:bg-gray-100 transition-colors"
+            className="inline-block px-6 py-3 bg-white text-pink-500 font-semibold rounded-lg hover:bg-white transition-colors"
           >
             View Membership Plans
           </Link>
         </div>
 
         {/* Benefits */}
-        <div className="bg-white rounded-xl border border-gray-100 p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">Membership Benefits</h3>
+        <div className="bg-white rounded-xl border border-black p-6">
+          <h3 className="font-semibold text-black mb-4">Membership Benefits</h3>
           <div className="grid md:grid-cols-2 gap-4">
             {[
               { icon: '💉', title: 'Botox Savings', desc: 'Special member pricing on all injectables' },
@@ -45,11 +45,11 @@ export default function PortalMembershipPage() {
               { icon: '📞', title: 'Direct Line', desc: 'Personal concierge access' },
               { icon: '🎉', title: 'Member Events', desc: 'Invite-only experiences' },
             ].map((benefit) => (
-              <div key={benefit.title} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+              <div key={benefit.title} className="flex items-start gap-3 p-3 bg-white rounded-lg">
                 <span className="text-2xl">{benefit.icon}</span>
                 <div>
-                  <p className="font-medium text-gray-900">{benefit.title}</p>
-                  <p className="text-sm text-gray-500">{benefit.desc}</p>
+                  <p className="font-medium text-black">{benefit.title}</p>
+                  <p className="text-sm text-black">{benefit.desc}</p>
                 </div>
               </div>
             ))}
@@ -63,8 +63,8 @@ export default function PortalMembershipPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">My Membership</h1>
-        <p className="text-gray-500">Manage your VIP membership</p>
+        <h1 className="text-2xl font-bold text-black">My Membership</h1>
+        <p className="text-black">Manage your VIP membership</p>
       </div>
 
       {/* Membership Card */}
@@ -83,29 +83,29 @@ export default function PortalMembershipPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4 mb-8">
-        <div className="bg-white rounded-xl border border-gray-100 p-4 text-center">
+        <div className="bg-white rounded-xl border border-black p-4 text-center">
           <p className="text-2xl font-bold text-amber-500">2,450</p>
-          <p className="text-sm text-gray-500">Reward Points</p>
+          <p className="text-sm text-black">Reward Points</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-4 text-center">
+        <div className="bg-white rounded-xl border border-black p-4 text-center">
           <p className="text-2xl font-bold text-amber-500">$340</p>
-          <p className="text-sm text-gray-500">Saved This Year</p>
+          <p className="text-sm text-black">Saved This Year</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-4 text-center">
+        <div className="bg-white rounded-xl border border-black p-4 text-center">
           <p className="text-2xl font-bold text-amber-500">3</p>
-          <p className="text-sm text-gray-500">Months Active</p>
+          <p className="text-sm text-black">Months Active</p>
         </div>
       </div>
 
       {/* Manage */}
-      <div className="bg-white rounded-xl border border-gray-100 p-6">
-        <h3 className="font-semibold text-gray-900 mb-4">Manage Membership</h3>
+      <div className="bg-white rounded-xl border border-black p-6">
+        <h3 className="font-semibold text-black mb-4">Manage Membership</h3>
         <div className="space-y-3">
-          <button className="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg flex items-center justify-between">
+          <button className="w-full text-left px-4 py-3 bg-white hover:bg-white rounded-lg flex items-center justify-between">
             <span>Update Payment Method</span>
             <span>→</span>
           </button>
-          <button className="w-full text-left px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-lg flex items-center justify-between">
+          <button className="w-full text-left px-4 py-3 bg-white hover:bg-white rounded-lg flex items-center justify-between">
             <span>View Billing History</span>
             <span>→</span>
           </button>

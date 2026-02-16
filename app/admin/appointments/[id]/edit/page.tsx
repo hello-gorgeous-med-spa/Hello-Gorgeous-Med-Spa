@@ -98,7 +98,7 @@ export default function EditAppointmentPage({ params }: { params: { id: string }
   if (!appointment) {
     return (
       <div className="max-w-2xl mx-auto py-12 text-center">
-        <p className="text-gray-500">Appointment not found</p>
+        <p className="text-black">Appointment not found</p>
         <Link href="/admin/appointments" className="text-pink-600 hover:text-pink-700 mt-2 inline-block">
           ← Back to Appointments
         </Link>
@@ -111,22 +111,22 @@ export default function EditAppointmentPage({ params }: { params: { id: string }
       <div className="mb-6">
         <Link
           href={`/admin/appointments/${params.id}`}
-          className="text-sm text-gray-500 hover:text-gray-700 mb-2 inline-block"
+          className="text-sm text-black hover:text-black mb-2 inline-block"
         >
           ← Back to Appointment
         </Link>
-        <h1 className="text-2xl font-bold text-gray-900">Edit Appointment</h1>
-        <p className="text-gray-500">Update appointment details for {appointment.client_name}</p>
+        <h1 className="text-2xl font-bold text-black">Edit Appointment</h1>
+        <p className="text-black">Update appointment details for {appointment.client_name}</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 space-y-4">
+      <form onSubmit={handleSubmit} className="bg-white rounded-xl border border-black shadow-sm p-6 space-y-4">
         {/* Service */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Service</label>
+          <label className="block text-sm font-medium text-black mb-1">Service</label>
           <select
             value={formData.service_id}
             onChange={(e) => setFormData({ ...formData, service_id: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+            className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
           >
             <option value="">Select service...</option>
             {services.map((s: any) => (
@@ -137,11 +137,11 @@ export default function EditAppointmentPage({ params }: { params: { id: string }
 
         {/* Provider */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Provider</label>
+          <label className="block text-sm font-medium text-black mb-1">Provider</label>
           <select
             value={formData.provider_id}
             onChange={(e) => setFormData({ ...formData, provider_id: e.target.value })}
-            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+            className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
           >
             <option value="">Select provider...</option>
             {providers.map((p: any) => (
@@ -154,13 +154,13 @@ export default function EditAppointmentPage({ params }: { params: { id: string }
 
         {/* Notes */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+          <label className="block text-sm font-medium text-black mb-1">Notes</label>
           <textarea
             value={formData.notes}
             onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
             rows={3}
             placeholder="Appointment notes..."
-            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+            className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
           />
         </div>
 
@@ -168,7 +168,7 @@ export default function EditAppointmentPage({ params }: { params: { id: string }
         <div className="flex justify-end gap-3 pt-4">
           <Link
             href={`/admin/appointments/${params.id}`}
-            className="px-6 py-2.5 text-gray-600 font-medium hover:bg-gray-100 rounded-lg transition-colors"
+            className="px-6 py-2.5 text-black font-medium hover:bg-white rounded-lg transition-colors"
           >
             Cancel
           </Link>

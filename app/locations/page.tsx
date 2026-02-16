@@ -79,7 +79,7 @@ export default function LocationsPage() {
               </span>{" "}
               and beyond
             </h1>
-            <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">
+            <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">
               We’re based in Oswego, IL and serve nearby communities with consult-first, safety-driven
               clinical aesthetics.
             </p>
@@ -101,11 +101,11 @@ export default function LocationsPage() {
             <FadeUp key={l.slug} delayMs={40 * idx}>
               <Link
                 href={`/${l.slug}`}
-                className="group block rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6 hover:border-white/20 transition"
+                className="group block rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-6 hover:border-white/20 transition"
               >
                 <p className="text-pink-400 text-sm font-semibold tracking-wide">LOCATION</p>
                 <h2 className="mt-3 text-2xl font-bold text-white">{l.label}</h2>
-                <p className="mt-3 text-gray-300">{l.blurb}</p>
+                <p className="mt-3 text-black">{l.blurb}</p>
                 <p className="mt-6 text-sm font-semibold text-white/90">
                   View services{" "}
                   <span className="inline-block transition-transform group-hover:translate-x-1">

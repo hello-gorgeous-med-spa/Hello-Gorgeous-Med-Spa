@@ -217,13 +217,13 @@ export default function AutomationsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+          <div className="flex items-center gap-2 text-sm text-black mb-1">
             <Link href="/admin/settings" className="hover:text-pink-600">Settings</Link>
             <span>/</span>
             <span>Automations</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Automations</h1>
-          <p className="text-gray-500">Create "If this, then that" workflow rules</p>
+          <h1 className="text-2xl font-bold text-black">Automations</h1>
+          <p className="text-black">Create "If this, then that" workflow rules</p>
         </div>
         {!editingAuto && (
           <button onClick={createNewAutomation} className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
@@ -243,13 +243,13 @@ export default function AutomationsPage() {
         <div className="bg-white rounded-xl border p-6 space-y-6">
           <div className="flex items-center justify-between border-b pb-4">
             <h2 className="text-lg font-semibold">{isCreating ? 'Create Automation' : 'Edit Automation'}</h2>
-            <button onClick={() => { setEditingAuto(null); setIsCreating(false); }} className="text-gray-500">✕</button>
+            <button onClick={() => { setEditingAuto(null); setIsCreating(false); }} className="text-black">✕</button>
           </div>
 
           {/* Basic Info */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+              <label className="block text-sm font-medium text-black mb-1">Name *</label>
               <input
                 type="text"
                 value={editingAuto.name}
@@ -259,7 +259,7 @@ export default function AutomationsPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+              <label className="block text-sm font-medium text-black mb-1">Description</label>
               <input
                 type="text"
                 value={editingAuto.description}
@@ -272,7 +272,7 @@ export default function AutomationsPage() {
 
           {/* Trigger */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">When this happens... (Trigger)</label>
+            <label className="block text-sm font-medium text-black mb-2">When this happens... (Trigger)</label>
             <div className="grid grid-cols-3 gap-2">
               {TRIGGERS.map(trigger => (
                 <button
@@ -281,7 +281,7 @@ export default function AutomationsPage() {
                   className={`flex items-center gap-2 px-3 py-2 rounded-lg border text-sm text-left ${
                     editingAuto.trigger.type === trigger.type
                       ? 'border-pink-500 bg-pink-50 text-pink-700'
-                      : 'border-gray-200 hover:border-gray-300'
+                      : 'border-black hover:border-black'
                   }`}
                 >
                   <span>{trigger.icon}</span>
@@ -293,17 +293,17 @@ export default function AutomationsPage() {
 
           {/* Actions */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Do this... (Actions)</label>
+            <label className="block text-sm font-medium text-black mb-2">Do this... (Actions)</label>
             
             {/* Action List */}
             <div className="space-y-3 mb-4">
               {editingAuto.actions.map((action, idx) => {
                 const actionDef = ACTIONS.find(a => a.type === action.type);
                 return (
-                  <div key={idx} className="flex items-start gap-3 p-4 bg-gray-50 rounded-lg">
+                  <div key={idx} className="flex items-start gap-3 p-4 bg-white rounded-lg">
                     <span className="text-xl">{actionDef?.icon}</span>
                     <div className="flex-1 space-y-2">
-                      <p className="font-medium text-gray-900">{actionDef?.label}</p>
+                      <p className="font-medium text-black">{actionDef?.label}</p>
                       
                       {action.type === 'send_sms' || action.type === 'send_email' ? (
                         <textarea
@@ -339,14 +339,14 @@ export default function AutomationsPage() {
                         />
                       ) : action.type === 'schedule_followup' ? (
                         <div className="flex items-center gap-2">
-                          <span className="text-sm text-gray-500">Schedule in</span>
+                          <span className="text-sm text-black">Schedule in</span>
                           <input
                             type="number"
                             value={action.config.days || 14}
                             onChange={(e) => updateAction(idx, { config: { ...action.config, days: parseInt(e.target.value) } })}
                             className="w-20 px-3 py-1 border rounded text-sm"
                           />
-                          <span className="text-sm text-gray-500">days</span>
+                          <span className="text-sm text-black">days</span>
                         </div>
                       ) : action.type === 'apply_discount' ? (
                         <input
@@ -370,7 +370,7 @@ export default function AutomationsPage() {
                 <button
                   key={action.type}
                   onClick={() => addAction(action.type)}
-                  className="flex items-center gap-1 px-3 py-1.5 text-sm bg-gray-100 rounded hover:bg-gray-200"
+                  className="flex items-center gap-1 px-3 py-1.5 text-sm bg-white rounded hover:bg-white"
                 >
                   <span>{action.icon}</span>
                   <span>{action.label}</span>
@@ -392,7 +392,7 @@ export default function AutomationsPage() {
 
           {/* Save */}
           <div className="flex justify-end gap-3 pt-4 border-t">
-            <button onClick={() => { setEditingAuto(null); setIsCreating(false); }} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+            <button onClick={() => { setEditingAuto(null); setIsCreating(false); }} className="px-4 py-2 text-black hover:bg-white rounded-lg">
               Cancel
             </button>
             <button onClick={saveAutomation} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
@@ -406,23 +406,23 @@ export default function AutomationsPage() {
           {automations.map(auto => {
             const trigger = TRIGGERS.find(t => t.type === auto.trigger.type);
             return (
-              <div key={auto.id} className={`p-4 ${auto.is_active ? '' : 'bg-gray-50'}`}>
+              <div key={auto.id} className={`p-4 ${auto.is_active ? '' : 'bg-white'}`}>
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <h3 className="font-medium text-gray-900">{auto.name}</h3>
-                      <span className={`text-xs px-2 py-0.5 rounded ${auto.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-200 text-gray-600'}`}>
+                      <h3 className="font-medium text-black">{auto.name}</h3>
+                      <span className={`text-xs px-2 py-0.5 rounded ${auto.is_active ? 'bg-green-100 text-green-700' : 'bg-white text-black'}`}>
                         {auto.is_active ? 'Active' : 'Inactive'}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-1">{auto.description}</p>
+                    <p className="text-sm text-black mt-1">{auto.description}</p>
                     
                     <div className="flex items-center gap-4 mt-2">
-                      <div className="flex items-center gap-1 text-xs text-gray-500">
+                      <div className="flex items-center gap-1 text-xs text-black">
                         <span>{trigger?.icon}</span>
                         <span>{trigger?.label}</span>
                       </div>
-                      <span className="text-gray-300">→</span>
+                      <span className="text-black">→</span>
                       <div className="flex items-center gap-1">
                         {auto.actions.map((a, i) => {
                           const actionDef = ACTIONS.find(ad => ad.type === a.type);
@@ -431,13 +431,13 @@ export default function AutomationsPage() {
                       </div>
                     </div>
 
-                    <p className="text-xs text-gray-400 mt-2">
+                    <p className="text-xs text-black mt-2">
                       Ran {auto.run_count} times • Last: {formatLastRun(auto.last_run)}
                     </p>
                   </div>
                   
                   <div className="flex items-center gap-2">
-                    <button onClick={() => setEditingAuto(auto)} className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded">
+                    <button onClick={() => setEditingAuto(auto)} className="px-3 py-1.5 text-sm text-black hover:bg-white rounded">
                       Edit
                     </button>
                     <button onClick={() => deleteAutomation(auto.id)} className="px-3 py-1.5 text-sm text-red-600 hover:bg-red-50 rounded">
@@ -445,7 +445,7 @@ export default function AutomationsPage() {
                     </button>
                     <button
                       onClick={() => toggleActive(auto.id)}
-                      className={`w-12 h-6 rounded-full transition-colors relative ${auto.is_active ? 'bg-green-500' : 'bg-gray-300'}`}
+                      className={`w-12 h-6 rounded-full transition-colors relative ${auto.is_active ? 'bg-green-500' : 'bg-white'}`}
                     >
                       <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${auto.is_active ? 'right-1' : 'left-1'}`} />
                     </button>

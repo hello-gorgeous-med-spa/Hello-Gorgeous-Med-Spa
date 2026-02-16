@@ -148,29 +148,29 @@ export default function LiveStatePage() {
               onClick={() => setFilter('all')} 
               className={`p-4 rounded-xl border text-left transition-all ${filter === 'all' ? 'border-purple-500 bg-purple-50 shadow-md' : 'bg-white hover:shadow-md'}`}
             >
-              <p className="text-sm text-gray-500">Total Components</p>
+              <p className="text-sm text-black">Total Components</p>
               <p className="text-3xl font-bold">{data.rules.length + data.features.length}</p>
             </button>
             <button 
               onClick={() => setFilter('active')} 
               className={`p-4 rounded-xl border text-left transition-all ${filter === 'active' ? 'border-green-500 bg-green-50 shadow-md' : 'bg-white hover:shadow-md'}`}
             >
-              <p className="text-sm text-gray-500">🟢 Active</p>
+              <p className="text-sm text-black">🟢 Active</p>
               <p className="text-3xl font-bold text-green-600">
                 {activeRules.length + enabledFeatures.length}
               </p>
             </button>
             <button 
               onClick={() => setFilter('disabled')} 
-              className={`p-4 rounded-xl border text-left transition-all ${filter === 'disabled' ? 'border-gray-500 bg-gray-100 shadow-md' : 'bg-white hover:shadow-md'}`}
+              className={`p-4 rounded-xl border text-left transition-all ${filter === 'disabled' ? 'border-black bg-white shadow-md' : 'bg-white hover:shadow-md'}`}
             >
-              <p className="text-sm text-gray-500">⚪ Disabled</p>
-              <p className="text-3xl font-bold text-gray-400">
+              <p className="text-sm text-black">⚪ Disabled</p>
+              <p className="text-3xl font-bold text-black">
                 {disabledRules.length + disabledFeatures.length}
               </p>
             </button>
             <div className="p-4 rounded-xl border bg-white">
-              <p className="text-sm text-gray-500">Last Refreshed</p>
+              <p className="text-sm text-black">Last Refreshed</p>
               <p className="text-lg font-bold text-green-600">Just now ✓</p>
             </div>
           </div>
@@ -180,26 +180,26 @@ export default function LiveStatePage() {
             <div className="bg-white rounded-xl border shadow-sm">
               <div className="p-4 border-b bg-gradient-to-r from-pink-50 to-white">
                 <h2 className="font-semibold text-lg">⚖️ Business Rules ({getFilteredRules().length})</h2>
-                <p className="text-xs text-gray-500">Every active rule visible - no hidden logic</p>
+                <p className="text-xs text-black">Every active rule visible - no hidden logic</p>
               </div>
               <div className="max-h-[500px] overflow-y-auto divide-y">
                 {getFilteredRules().length > 0 ? (
                   getFilteredRules().map(rule => (
-                    <div key={rule.id} className="p-4 hover:bg-gray-50 transition-colors">
+                    <div key={rule.id} className="p-4 hover:bg-white transition-colors">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
                           <div className="flex items-center gap-2">
-                            <span className={`w-2.5 h-2.5 rounded-full ${rule.enabled ? 'bg-green-500' : 'bg-gray-300'}`} />
+                            <span className={`w-2.5 h-2.5 rounded-full ${rule.enabled ? 'bg-green-500' : 'bg-white'}`} />
                             <h3 className="font-medium">{rule.name}</h3>
                           </div>
                           {rule.description && (
-                            <p className="text-sm text-gray-500 mt-1 ml-4">{rule.description}</p>
+                            <p className="text-sm text-black mt-1 ml-4">{rule.description}</p>
                           )}
-                          <p className="text-xs text-gray-400 mt-1 ml-4">
+                          <p className="text-xs text-black mt-1 ml-4">
                             Category: {rule.category} • Priority: {rule.priority}
                           </p>
                         </div>
-                        <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${rule.enabled ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+                        <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${rule.enabled ? 'bg-green-100 text-green-700' : 'bg-white text-black'}`}>
                           {rule.enabled ? 'ACTIVE' : 'OFF'}
                         </span>
                       </div>
@@ -219,29 +219,29 @@ export default function LiveStatePage() {
             <div className="bg-white rounded-xl border shadow-sm">
               <div className="p-4 border-b bg-gradient-to-r from-blue-50 to-white">
                 <h2 className="font-semibold text-lg">🎚️ Feature Flags ({getFilteredFeatures().length})</h2>
-                <p className="text-xs text-gray-500">All features and their current state</p>
+                <p className="text-xs text-black">All features and their current state</p>
               </div>
               <div className="max-h-[500px] overflow-y-auto">
                 {Object.keys(groupedFeatures).length > 0 ? (
                   Object.entries(groupedFeatures).map(([category, features]) => (
                     <div key={category}>
-                      <div className="px-4 py-2 bg-gray-50 border-b sticky top-0">
-                        <p className="text-xs font-semibold text-gray-600 uppercase tracking-wider">{category}</p>
+                      <div className="px-4 py-2 bg-white border-b sticky top-0">
+                        <p className="text-xs font-semibold text-black uppercase tracking-wider">{category}</p>
                       </div>
                       <div className="divide-y">
                         {features.map(feature => (
-                          <div key={feature.key} className="p-4 hover:bg-gray-50 transition-colors">
+                          <div key={feature.key} className="p-4 hover:bg-white transition-colors">
                             <div className="flex items-start justify-between">
                               <div className="flex-1">
                                 <div className="flex items-center gap-2">
-                                  <span className={`w-2.5 h-2.5 rounded-full ${feature.enabled ? 'bg-green-500' : 'bg-gray-300'}`} />
+                                  <span className={`w-2.5 h-2.5 rounded-full ${feature.enabled ? 'bg-green-500' : 'bg-white'}`} />
                                   <h3 className="font-medium">{feature.name || feature.key}</h3>
                                 </div>
                                 {feature.description && (
-                                  <p className="text-sm text-gray-500 mt-1 ml-4">{feature.description}</p>
+                                  <p className="text-sm text-black mt-1 ml-4">{feature.description}</p>
                                 )}
                               </div>
-                              <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${feature.enabled ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+                              <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${feature.enabled ? 'bg-green-100 text-green-700' : 'bg-white text-black'}`}>
                                 {feature.enabled ? 'ON' : 'OFF'}
                               </span>
                             </div>
@@ -262,11 +262,11 @@ export default function LiveStatePage() {
           </div>
 
           {/* Legend */}
-          <div className="mt-6 bg-gray-50 rounded-xl p-4">
-            <h3 className="font-medium text-gray-700 mb-3">Visual Indicators</h3>
+          <div className="mt-6 bg-white rounded-xl p-4">
+            <h3 className="font-medium text-black mb-3">Visual Indicators</h3>
             <div className="flex flex-wrap gap-6 text-sm">
               <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-green-500" /> Green = Active/Enabled</div>
-              <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-gray-300" /> Gray = Disabled/Off</div>
+              <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-white" /> Gray = Disabled/Off</div>
             </div>
           </div>
 

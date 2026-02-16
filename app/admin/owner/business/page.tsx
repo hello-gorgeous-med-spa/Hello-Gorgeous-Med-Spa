@@ -110,13 +110,13 @@ export default function BusinessSettingsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+          <div className="flex items-center gap-2 text-sm text-black mb-1">
             <Link href="/admin/owner" className="hover:text-pink-600">Owner Mode</Link>
             <span>/</span>
             <span>Business Settings</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Business & Clinic Settings</h1>
-          <p className="text-gray-500">Configure your business identity and operations</p>
+          <h1 className="text-2xl font-bold text-black">Business & Clinic Settings</h1>
+          <p className="text-black">Configure your business identity and operations</p>
         </div>
         <button onClick={saveSettings} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
           Save All Changes
@@ -132,10 +132,10 @@ export default function BusinessSettingsPage() {
       <div className="grid grid-cols-2 gap-6">
         {/* Basic Info */}
         <div className="bg-white rounded-xl border p-6 space-y-4">
-          <h2 className="text-lg font-semibold text-gray-900">Basic Information</h2>
+          <h2 className="text-lg font-semibold text-black">Basic Information</h2>
           
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Business Name</label>
+            <label className="block text-sm font-medium text-black mb-1">Business Name</label>
             <input
               type="text"
               value={businessName}
@@ -145,7 +145,7 @@ export default function BusinessSettingsPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Time Zone</label>
+            <label className="block text-sm font-medium text-black mb-1">Time Zone</label>
             <select
               value={timezone}
               onChange={(e) => setTimezone(e.target.value)}
@@ -159,7 +159,7 @@ export default function BusinessSettingsPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">System Launch Date</label>
+            <label className="block text-sm font-medium text-black mb-1">System Launch Date</label>
             <input
               type="date"
               value={launchDate}
@@ -169,7 +169,7 @@ export default function BusinessSettingsPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Default Buffer (minutes)</label>
+            <label className="block text-sm font-medium text-black mb-1">Default Buffer (minutes)</label>
             <input
               type="number"
               value={defaultBuffer}
@@ -183,8 +183,8 @@ export default function BusinessSettingsPage() {
 
         {/* Legal */}
         <div className="bg-white rounded-xl border p-6 space-y-4">
-          <h2 className="text-lg font-semibold text-gray-900">Legal Disclaimer</h2>
-          <p className="text-sm text-gray-500">Displayed on booking confirmations and client portal</p>
+          <h2 className="text-lg font-semibold text-black">Legal Disclaimer</h2>
+          <p className="text-sm text-black">Displayed on booking confirmations and client portal</p>
           
           <textarea
             value={legalDisclaimer}
@@ -198,7 +198,7 @@ export default function BusinessSettingsPage() {
       {/* Locations */}
       <div className="bg-white rounded-xl border p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900">Locations</h2>
+          <h2 className="text-lg font-semibold text-black">Locations</h2>
           <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">Multi-location ready</span>
         </div>
 
@@ -208,7 +208,7 @@ export default function BusinessSettingsPage() {
               <div className="flex items-start justify-between">
                 <div className="flex-1 grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Location Name</label>
+                    <label className="block text-sm font-medium text-black mb-1">Location Name</label>
                     <input
                       type="text"
                       value={loc.name}
@@ -217,7 +217,7 @@ export default function BusinessSettingsPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                    <label className="block text-sm font-medium text-black mb-1">Phone</label>
                     <input
                       type="text"
                       value={loc.phone}
@@ -226,7 +226,7 @@ export default function BusinessSettingsPage() {
                     />
                   </div>
                   <div className="col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                    <label className="block text-sm font-medium text-black mb-1">Address</label>
                     <input
                       type="text"
                       value={loc.address}
@@ -235,7 +235,7 @@ export default function BusinessSettingsPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
+                    <label className="block text-sm font-medium text-black mb-1">City</label>
                     <input
                       type="text"
                       value={loc.city}
@@ -245,7 +245,7 @@ export default function BusinessSettingsPage() {
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
+                      <label className="block text-sm font-medium text-black mb-1">State</label>
                       <input
                         type="text"
                         value={loc.state}
@@ -254,7 +254,7 @@ export default function BusinessSettingsPage() {
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">ZIP</label>
+                      <label className="block text-sm font-medium text-black mb-1">ZIP</label>
                       <input
                         type="text"
                         value={loc.zip}
@@ -285,11 +285,11 @@ export default function BusinessSettingsPage() {
 
       {/* Business Hours */}
       <div className="bg-white rounded-xl border p-6">
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">Business Hours</h2>
+        <h2 className="text-lg font-semibold text-black mb-4">Business Hours</h2>
         
         <div className="space-y-3">
           {hours.map((h, idx) => (
-            <div key={h.day} className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
+            <div key={h.day} className="flex items-center gap-4 p-3 bg-white rounded-lg">
               <div className="w-28">
                 <label className="flex items-center gap-2">
                   <input
@@ -298,7 +298,7 @@ export default function BusinessSettingsPage() {
                     onChange={(e) => updateHours(idx, 'is_open', e.target.checked)}
                     className="w-4 h-4"
                   />
-                  <span className={`font-medium ${h.is_open ? 'text-gray-900' : 'text-gray-400'}`}>{h.day}</span>
+                  <span className={`font-medium ${h.is_open ? 'text-black' : 'text-black'}`}>{h.day}</span>
                 </label>
               </div>
               {h.is_open ? (
@@ -309,7 +309,7 @@ export default function BusinessSettingsPage() {
                     onChange={(e) => updateHours(idx, 'open_time', e.target.value)}
                     className="px-3 py-2 border rounded"
                   />
-                  <span className="text-gray-500">to</span>
+                  <span className="text-black">to</span>
                   <input
                     type="time"
                     value={h.close_time}
@@ -318,7 +318,7 @@ export default function BusinessSettingsPage() {
                   />
                 </>
               ) : (
-                <span className="text-gray-400">Closed</span>
+                <span className="text-black">Closed</span>
               )}
             </div>
           ))}
@@ -328,7 +328,7 @@ export default function BusinessSettingsPage() {
       {/* Holidays */}
       <div className="bg-white rounded-xl border p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-gray-900">Holidays & Closures</h2>
+          <h2 className="text-lg font-semibold text-black">Holidays & Closures</h2>
           <button onClick={addHoliday} className="text-sm text-pink-600 hover:text-pink-700">
             + Add Holiday
           </button>
@@ -336,7 +336,7 @@ export default function BusinessSettingsPage() {
         
         <div className="space-y-2">
           {holidays.map(h => (
-            <div key={h.id} className="flex items-center gap-4 p-3 bg-gray-50 rounded-lg">
+            <div key={h.id} className="flex items-center gap-4 p-3 bg-white rounded-lg">
               <input
                 type="text"
                 value={h.name}

@@ -53,9 +53,9 @@ export default function MarketingHubPage() {
       case 'sent': return 'bg-green-100 text-green-700';
       case 'sending': return 'bg-blue-100 text-blue-700';
       case 'scheduled': return 'bg-purple-100 text-purple-700';
-      case 'draft': return 'bg-gray-100 text-gray-600';
+      case 'draft': return 'bg-white text-black';
       case 'failed': return 'bg-red-100 text-red-700';
-      default: return 'bg-gray-100 text-gray-600';
+      default: return 'bg-white text-black';
     }
   };
 
@@ -69,13 +69,13 @@ export default function MarketingHubPage() {
   };
 
   return (
-    <div className="min-h-[calc(100vh-56px)] bg-gray-50">
+    <div className="min-h-[calc(100vh-56px)] bg-white">
       {/* Header */}
       <div className="bg-white border-b">
         <div className="max-w-6xl mx-auto px-4 py-6 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Marketing Campaigns</h1>
-            <p className="text-gray-500 mt-1">Email & SMS campaigns — just like Fresha, but free.</p>
+            <h1 className="text-2xl font-bold text-black">Marketing Campaigns</h1>
+            <p className="text-black mt-1">Email & SMS campaigns — just like Fresha, but free.</p>
           </div>
           <Link
             href="/admin/marketing/campaigns/new"
@@ -90,26 +90,26 @@ export default function MarketingHubPage() {
         {/* Stats cards */}
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
           <div className="bg-white rounded-xl p-4 border">
-            <p className="text-sm text-gray-500">Email Reach</p>
-            <p className="text-2xl font-bold text-gray-900">{audience?.email?.toLocaleString() || '—'}</p>
-            <p className="text-xs text-gray-400">opted-in clients</p>
+            <p className="text-sm text-black">Email Reach</p>
+            <p className="text-2xl font-bold text-black">{audience?.email?.toLocaleString() || '—'}</p>
+            <p className="text-xs text-black">opted-in clients</p>
           </div>
           <div className="bg-white rounded-xl p-4 border">
-            <p className="text-sm text-gray-500">SMS Reach</p>
-            <p className="text-2xl font-bold text-gray-900">{audience?.sms?.toLocaleString() || '—'}</p>
-            <p className="text-xs text-gray-400">opted-in clients</p>
+            <p className="text-sm text-black">SMS Reach</p>
+            <p className="text-2xl font-bold text-black">{audience?.sms?.toLocaleString() || '—'}</p>
+            <p className="text-xs text-black">opted-in clients</p>
           </div>
           <div className="bg-white rounded-xl p-4 border">
-            <p className="text-sm text-gray-500">Total Clients</p>
-            <p className="text-2xl font-bold text-gray-900">{stats?.totalClients?.toLocaleString() || '—'}</p>
+            <p className="text-sm text-black">Total Clients</p>
+            <p className="text-2xl font-bold text-black">{stats?.totalClients?.toLocaleString() || '—'}</p>
           </div>
           <div className="bg-white rounded-xl p-4 border">
-            <p className="text-sm text-gray-500">SMS Opt-in Rate</p>
-            <p className="text-2xl font-bold text-gray-900">{stats ? `${stats.optInRate}%` : '—'}</p>
+            <p className="text-sm text-black">SMS Opt-in Rate</p>
+            <p className="text-2xl font-bold text-black">{stats ? `${stats.optInRate}%` : '—'}</p>
           </div>
           <div className="bg-white rounded-xl p-4 border">
-            <p className="text-sm text-gray-500">Campaigns Sent</p>
-            <p className="text-2xl font-bold text-gray-900">{campaigns.filter(c => c.status === 'sent' || c.status === 'sending').length}</p>
+            <p className="text-sm text-black">Campaigns Sent</p>
+            <p className="text-2xl font-bold text-black">{campaigns.filter(c => c.status === 'sent' || c.status === 'sending').length}</p>
           </div>
         </div>
 
@@ -120,41 +120,41 @@ export default function MarketingHubPage() {
             className="bg-white rounded-xl p-6 border-2 border-dashed border-pink-300 hover:border-pink-500 hover:bg-pink-50 transition-colors text-center group"
           >
             <span className="text-3xl block mb-2">📣</span>
-            <h3 className="font-semibold text-gray-900 group-hover:text-pink-600">Create New Campaign</h3>
-            <p className="text-sm text-gray-500 mt-1">Email, SMS, or both</p>
+            <h3 className="font-semibold text-black group-hover:text-pink-600">Create New Campaign</h3>
+            <p className="text-sm text-black mt-1">Email, SMS, or both</p>
           </Link>
           <Link
             href="/admin/sms"
             className="bg-white rounded-xl p-6 border hover:border-green-400 hover:bg-green-50 transition-colors text-center group"
           >
             <span className="text-3xl block mb-2">💬</span>
-            <h3 className="font-semibold text-gray-900 group-hover:text-green-600">SMS Inbox</h3>
-            <p className="text-sm text-gray-500 mt-1">View conversations & quick send</p>
+            <h3 className="font-semibold text-black group-hover:text-green-600">SMS Inbox</h3>
+            <p className="text-sm text-black mt-1">View conversations & quick send</p>
           </Link>
           <Link
             href="/admin/marketing/contacts"
             className="bg-white rounded-xl p-6 border hover:border-blue-400 hover:bg-blue-50 transition-colors text-center group"
           >
             <span className="text-3xl block mb-2">📋</span>
-            <h3 className="font-semibold text-gray-900 group-hover:text-blue-600">Manage Contacts</h3>
-            <p className="text-sm text-gray-500 mt-1">Import, export, preferences</p>
+            <h3 className="font-semibold text-black group-hover:text-blue-600">Manage Contacts</h3>
+            <p className="text-sm text-black mt-1">Import, export, preferences</p>
           </Link>
         </div>
 
         {/* Campaign History */}
         <div className="bg-white rounded-xl border">
           <div className="p-4 border-b flex items-center justify-between">
-            <h2 className="font-semibold text-gray-900">Campaign History</h2>
-            <span className="text-sm text-gray-400">{campaigns.length} campaign{campaigns.length !== 1 ? 's' : ''}</span>
+            <h2 className="font-semibold text-black">Campaign History</h2>
+            <span className="text-sm text-black">{campaigns.length} campaign{campaigns.length !== 1 ? 's' : ''}</span>
           </div>
 
           {loadingCampaigns ? (
-            <div className="p-8 text-center text-gray-400">Loading campaigns...</div>
+            <div className="p-8 text-center text-black">Loading campaigns...</div>
           ) : campaigns.length === 0 ? (
             <div className="p-12 text-center">
               <span className="text-5xl block mb-4">📬</span>
-              <h3 className="text-lg font-semibold text-gray-700 mb-2">No campaigns yet</h3>
-              <p className="text-gray-500 mb-6">Create your first campaign to start reaching your clients.</p>
+              <h3 className="text-lg font-semibold text-black mb-2">No campaigns yet</h3>
+              <p className="text-black mb-6">Create your first campaign to start reaching your clients.</p>
               <Link
                 href="/admin/marketing/campaigns/new"
                 className="inline-block px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium rounded-lg hover:from-pink-600 hover:to-rose-600"
@@ -165,11 +165,11 @@ export default function MarketingHubPage() {
           ) : (
             <div className="divide-y">
               {campaigns.map((c) => (
-                <div key={c.id} className="p-4 flex items-center gap-4 hover:bg-gray-50">
+                <div key={c.id} className="p-4 flex items-center gap-4 hover:bg-white">
                   <span className="text-2xl">{channelIcon(c.channel)}</span>
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-gray-900 truncate">{c.name}</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="font-medium text-black truncate">{c.name}</p>
+                    <p className="text-sm text-black">
                       {new Date(c.created_at).toLocaleDateString('en-US', {
                         month: 'short',
                         day: 'numeric',
@@ -183,8 +183,8 @@ export default function MarketingHubPage() {
                     {c.status}
                   </span>
                   <div className="text-right text-sm">
-                    <p className="text-gray-900 font-medium">{c.total_recipients.toLocaleString()} recipients</p>
-                    <p className="text-gray-400">
+                    <p className="text-black font-medium">{c.total_recipients.toLocaleString()} recipients</p>
+                    <p className="text-black">
                       {c.email_sent > 0 && `${c.email_sent} emails`}
                       {c.email_sent > 0 && c.sms_sent > 0 && ' + '}
                       {c.sms_sent > 0 && `${c.sms_sent} SMS`}

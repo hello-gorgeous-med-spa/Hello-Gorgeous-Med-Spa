@@ -79,20 +79,20 @@ function StatusBadge({ status }: { status: string }) {
     completed: 'bg-green-100 text-green-700',
     in_progress: 'bg-purple-100 text-purple-700',
     checked_in: 'bg-blue-100 text-blue-700',
-    confirmed: 'bg-gray-100 text-gray-600',
+    confirmed: 'bg-white text-black',
     cancelled: 'bg-red-100 text-red-700',
     no_show: 'bg-amber-100 text-amber-700',
   };
 
   return (
-    <span className={`px-2 py-1 text-xs font-medium rounded-full ${styles[status] || 'bg-gray-100 text-gray-600'}`}>
+    <span className={`px-2 py-1 text-xs font-medium rounded-full ${styles[status] || 'bg-white text-black'}`}>
       {status.replace('_', ' ')}
     </span>
   );
 }
 
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-white rounded ${className}`} />;
 }
 
 function KPICard({ 
@@ -115,7 +115,7 @@ function KPICard({
   gradient?: boolean;
 }) {
   const colorClasses = {
-    gray: 'text-gray-900',
+    gray: 'text-black',
     green: 'text-emerald-600',
     red: 'text-rose-600',
     blue: 'text-blue-600',
@@ -126,20 +126,20 @@ function KPICard({
   };
 
   const gradientBg = gradient ? {
-    green: 'bg-white border-slate-200',
-    blue: 'bg-white border-slate-200',
-    pink: 'bg-white border-slate-200',
-    purple: 'bg-white border-slate-200',
-    amber: 'bg-white border-slate-200',
-    teal: 'bg-white border-slate-200',
-    red: 'bg-white border-slate-200',
-    gray: 'bg-white border-slate-200',
-  }[color] : 'bg-white border-slate-200';
+    green: 'bg-white border-black',
+    blue: 'bg-white border-black',
+    pink: 'bg-white border-black',
+    purple: 'bg-white border-black',
+    amber: 'bg-white border-black',
+    teal: 'bg-white border-black',
+    red: 'bg-white border-black',
+    gray: 'bg-white border-black',
+  }[color] : 'bg-white border-black';
 
   return (
     <div className={`rounded-lg border shadow-sm p-5 transition-shadow hover:shadow ${gradientBg}`}>
       <div className="flex items-start justify-between">
-        <p className="text-sm font-medium text-gray-600 mb-1">{label}</p>
+        <p className="text-sm font-medium text-black mb-1">{label}</p>
         {icon && <span className="text-xl opacity-80">{icon}</span>}
       </div>
       {loading ? (
@@ -147,7 +147,7 @@ function KPICard({
       ) : (
         <>
           <p className={`text-3xl font-bold tracking-tight ${colorClasses[color]}`}>{value}</p>
-          {subValue && <p className="text-sm text-gray-500 mt-1">{subValue}</p>}
+          {subValue && <p className="text-sm text-black mt-1">{subValue}</p>}
           {trend && (
             <p className={`text-sm mt-1 font-medium ${trend.positive ? 'text-emerald-600' : 'text-rose-600'}`}>
               {trend.positive ? '↑' : '↓'} {Math.abs(trend.value)}% vs last period
@@ -439,21 +439,21 @@ export default function ExecutiveDashboard() {
   return (
     <div className="space-y-6 print:space-y-4">
       {/* Header - Modern glassmorphic style */}
-      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 print:hidden bg-white rounded-lg p-5 shadow-sm border border-slate-200">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 print:hidden bg-white rounded-lg p-5 shadow-sm border border-black">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">
+          <h1 className="text-2xl font-bold text-black">
             Executive Dashboard
           </h1>
-          <p className="text-slate-500 mt-0.5">{today}</p>
+          <p className="text-black mt-0.5">{today}</p>
         {lastUpdated && (
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-black mt-1">
             Last updated {lastUpdated.toLocaleTimeString()}
           </p>
         )}
         </div>
         <div className="flex flex-wrap items-center gap-3">
           {/* Date Range Filter - Pill style */}
-          <div className="flex bg-slate-100 rounded-xl p-1">
+          <div className="flex bg-white rounded-xl p-1">
             {(['today', 'week', 'month', 'year'] as const).map((range) => (
               <button
                 key={range}
@@ -461,7 +461,7 @@ export default function ExecutiveDashboard() {
                 className={`px-4 py-2 text-sm font-medium capitalize rounded-lg transition-all ${
                   dateRange === range
                     ? 'bg-[#2D63A4] text-white'
-                    : 'text-slate-600 hover:bg-white/70'
+                    : 'text-black hover:bg-white/70'
                 }`}
               >
                 {range === 'today' ? 'Today' : range === 'week' ? 'Week' : range === 'month' ? 'Month' : 'Year'}
@@ -473,7 +473,7 @@ export default function ExecutiveDashboard() {
           <select
             value={selectedProvider}
             onChange={(e) => setSelectedProvider(e.target.value)}
-            className="px-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm text-slate-700 shadow-sm focus:ring-2 focus:ring-[#2D63A4]/30 focus:border-[#2D63A4] transition-all"
+            className="px-4 py-2.5 bg-white border border-black rounded-xl text-sm text-black shadow-sm focus:ring-2 focus:ring-[#2D63A4]/30 focus:border-[#2D63A4] transition-all"
           >
             <option value="all">All Providers</option>
             {providers.map((p) => (
@@ -484,13 +484,13 @@ export default function ExecutiveDashboard() {
           {/* Export Buttons */}
           <button
             onClick={handleExportCSV}
-            className="px-4 py-2.5 bg-white border border-slate-200 text-slate-700 font-medium rounded-xl hover:bg-slate-50 hover:border-slate-300 text-sm shadow-sm transition-all"
+            className="px-4 py-2.5 bg-white border border-black text-black font-medium rounded-xl hover:bg-white hover:border-black text-sm shadow-sm transition-all"
           >
             📊 Export CSV
           </button>
           <button
             onClick={handleExportPDF}
-            className="px-4 py-2.5 bg-slate-800 text-white font-medium rounded-xl hover:bg-slate-700 text-sm shadow-md transition-all"
+            className="px-4 py-2.5 bg-black text-white font-medium rounded-xl hover:bg-black text-sm shadow-md transition-all"
           >
             📄 Print/PDF
           </button>
@@ -508,7 +508,7 @@ export default function ExecutiveDashboard() {
       {/* Print Header */}
       <div className="hidden print:block">
         <h1 className="text-xl font-bold">Hello Gorgeous Med Spa - Executive Dashboard</h1>
-        <p className="text-gray-600">{today}</p>
+        <p className="text-black">{today}</p>
       </div>
 
       {/* Error State */}
@@ -649,9 +649,9 @@ export default function ExecutiveDashboard() {
       {/* Main Content Grid */}
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Revenue by Provider */}
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-            <h2 className="font-semibold text-gray-900">Revenue by Provider</h2>
+        <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-black flex items-center justify-between">
+            <h2 className="font-semibold text-black">Revenue by Provider</h2>
             <Link href="/admin/reports?tab=providers" className="text-sm text-[#2D63A4] hover:text-[#002168]">
               Details →
             </Link>
@@ -664,7 +664,7 @@ export default function ExecutiveDashboard() {
                 </div>
               ))
             ) : providerStats.length === 0 ? (
-              <div className="px-5 py-8 text-center text-gray-500">
+              <div className="px-5 py-8 text-center text-black">
                 No provider data yet
               </div>
             ) : (
@@ -675,15 +675,15 @@ export default function ExecutiveDashboard() {
                       {idx + 1}
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900">{provider.name}</p>
-                      <p className="text-xs text-gray-500">
+                      <p className="font-medium text-black">{provider.name}</p>
+                      <p className="text-xs text-black">
                         {provider.appointments} appts • {provider.utilization}% util
                       </p>
                     </div>
                   </div>
                   <div className="text-right">
                     <p className="font-bold text-green-600">${provider.revenue.toLocaleString()}</p>
-                    <p className="text-xs text-gray-500">{provider.completed} completed</p>
+                    <p className="text-xs text-black">{provider.completed} completed</p>
                   </div>
                 </div>
               ))
@@ -692,9 +692,9 @@ export default function ExecutiveDashboard() {
         </div>
 
         {/* Top Services */}
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-            <h2 className="font-semibold text-gray-900">Top Services (Month)</h2>
+        <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-black flex items-center justify-between">
+            <h2 className="font-semibold text-black">Top Services (Month)</h2>
             <Link href="/admin/reports?tab=services" className="text-sm text-[#2D63A4] hover:text-[#002168]">
               Details →
             </Link>
@@ -707,22 +707,22 @@ export default function ExecutiveDashboard() {
                 </div>
               ))
             ) : serviceStats.length === 0 ? (
-              <div className="px-5 py-8 text-center text-gray-500">
+              <div className="px-5 py-8 text-center text-black">
                 No service data yet
               </div>
             ) : (
               serviceStats.map((service, idx) => (
                 <div key={service.id} className="px-5 py-3 flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="text-lg font-bold text-gray-300">#{idx + 1}</span>
+                    <span className="text-lg font-bold text-black">#{idx + 1}</span>
                     <div>
-                      <p className="font-medium text-gray-900 truncate max-w-[150px]">{service.name}</p>
-                      <p className="text-xs text-gray-500">{service.bookings} bookings</p>
+                      <p className="font-medium text-black truncate max-w-[150px]">{service.name}</p>
+                      <p className="text-xs text-black">{service.bookings} bookings</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold text-gray-900">${service.revenue.toLocaleString()}</p>
-                    <p className="text-xs text-gray-500">${service.avgPrice} avg</p>
+                    <p className="font-semibold text-black">${service.revenue.toLocaleString()}</p>
+                    <p className="text-xs text-black">${service.avgPrice} avg</p>
                   </div>
                 </div>
               ))
@@ -731,9 +731,9 @@ export default function ExecutiveDashboard() {
         </div>
 
         {/* Upcoming Appointments */}
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-            <h2 className="font-semibold text-gray-900">Today's Schedule</h2>
+        <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
+          <div className="px-5 py-4 border-b border-black flex items-center justify-between">
+            <h2 className="font-semibold text-black">Today's Schedule</h2>
             <Link href="/admin/calendar" className="text-sm text-[#2D63A4] hover:text-[#002168]">
               Full Calendar →
             </Link>
@@ -746,7 +746,7 @@ export default function ExecutiveDashboard() {
                 </div>
               ))
             ) : upcomingAppointments.length === 0 ? (
-              <div className="px-5 py-8 text-center text-gray-500">
+              <div className="px-5 py-8 text-center text-black">
                 No appointments scheduled
               </div>
             ) : (
@@ -754,15 +754,15 @@ export default function ExecutiveDashboard() {
                 <Link
                   key={apt.id}
                   href={`/admin/appointments/${apt.id}`}
-                  className="px-5 py-3 flex items-center justify-between hover:bg-gray-50"
+                  className="px-5 py-3 flex items-center justify-between hover:bg-white"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium text-gray-900 w-16">
+                    <span className="text-sm font-medium text-black w-16">
                       {formatTime(apt.time)}
                     </span>
                     <div>
-                      <p className="font-medium text-gray-900">{apt.client_name}</p>
-                      <p className="text-sm text-gray-500">{apt.service}</p>
+                      <p className="font-medium text-black">{apt.client_name}</p>
+                      <p className="text-sm text-black">{apt.service}</p>
                     </div>
                   </div>
                   <StatusBadge status={apt.status} />
@@ -794,52 +794,52 @@ export default function ExecutiveDashboard() {
       <div className="grid grid-cols-2 lg:grid-cols-8 gap-4 print:hidden">
         <Link
           href="/admin/clients"
-          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-slate-300 hover:shadow transition-all text-center"
+          className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
         >
           <span className="text-2xl block mb-1">👥</span>
-          <p className="font-medium text-gray-900 text-sm">Clients</p>
+          <p className="font-medium text-black text-sm">Clients</p>
         </Link>
         <Link
           href="/admin/services"
-          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-slate-300 hover:shadow transition-all text-center"
+          className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
         >
           <span className="text-2xl block mb-1">✨</span>
-          <p className="font-medium text-gray-900 text-sm">Services</p>
+          <p className="font-medium text-black text-sm">Services</p>
         </Link>
         <Link
           href="/admin/prescriptions"
-          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-slate-300 hover:shadow transition-all text-center"
+          className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
         >
           <span className="text-2xl block mb-1">💊</span>
-          <p className="font-medium text-gray-900 text-sm">Prescriptions</p>
+          <p className="font-medium text-black text-sm">Prescriptions</p>
         </Link>
         <Link
           href="/admin/reports"
-          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-slate-300 hover:shadow transition-all text-center"
+          className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
         >
           <span className="text-2xl block mb-1">📈</span>
-          <p className="font-medium text-gray-900 text-sm">Reports</p>
+          <p className="font-medium text-black text-sm">Reports</p>
         </Link>
         <Link
           href="/admin/compliance"
-          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-slate-300 hover:shadow transition-all text-center"
+          className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
         >
           <span className="text-2xl block mb-1">✅</span>
-          <p className="font-medium text-gray-900 text-sm">Compliance</p>
+          <p className="font-medium text-black text-sm">Compliance</p>
         </Link>
         <Link
           href="/admin/marketing"
-          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-slate-300 hover:shadow transition-all text-center"
+          className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
         >
           <span className="text-2xl block mb-1">📣</span>
-          <p className="font-medium text-gray-900 text-sm">Marketing</p>
+          <p className="font-medium text-black text-sm">Marketing</p>
         </Link>
         <Link
           href="/admin/content/providers"
-          className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 hover:border-slate-300 hover:shadow transition-all text-center"
+          className="bg-white rounded-xl border border-black shadow-sm p-4 hover:border-black hover:shadow transition-all text-center"
         >
           <span className="text-2xl block mb-1">👩‍⚕️</span>
-          <p className="font-medium text-gray-900 text-sm">Providers</p>
+          <p className="font-medium text-black text-sm">Providers</p>
         </Link>
         <Link
           href="/pos"

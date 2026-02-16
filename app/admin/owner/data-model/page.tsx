@@ -133,23 +133,23 @@ export default function DataModelPage() {
       {/* Fields Table */}
       <div className="bg-white rounded-xl border">
         <table className="w-full">
-          <thead className="bg-gray-50">
+          <thead className="bg-white">
             <tr>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">FIELD NAME</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">TYPE</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">ENTITY</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">VISIBILITY</th>
-              <th className="px-4 py-3 text-xs font-semibold text-gray-500">REQUIRED</th>
-              <th className="px-4 py-3 text-xs font-semibold text-gray-500">LOCK</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-black">FIELD NAME</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-black">TYPE</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-black">ENTITY</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-black">VISIBILITY</th>
+              <th className="px-4 py-3 text-xs font-semibold text-black">REQUIRED</th>
+              <th className="px-4 py-3 text-xs font-semibold text-black">LOCK</th>
               <th className="px-4 py-3"></th>
             </tr>
           </thead>
           <tbody className="divide-y">
             {filteredFields.map(field => (
-              <tr key={field.id} className="hover:bg-gray-50">
+              <tr key={field.id} className="hover:bg-white">
                 <td className="px-4 py-3 font-medium">{field.name}</td>
                 <td className="px-4 py-3">
-                  <span className="text-xs bg-gray-100 px-2 py-1 rounded capitalize">{field.type}</span>
+                  <span className="text-xs bg-white px-2 py-1 rounded capitalize">{field.type}</span>
                 </td>
                 <td className="px-4 py-3">
                   <span className={`text-xs px-2 py-1 rounded capitalize ${
@@ -161,13 +161,13 @@ export default function DataModelPage() {
                     {field.entity}
                   </span>
                 </td>
-                <td className="px-4 py-3 text-sm text-gray-500">
+                <td className="px-4 py-3 text-sm text-black">
                   {field.visibility.join(', ')}
                 </td>
                 <td className="px-4 py-3 text-center">
                   <button
                     onClick={() => toggleRequired(field.id)}
-                    className={`w-5 h-5 rounded ${field.required ? 'bg-green-500 text-white' : 'bg-gray-200'} flex items-center justify-center text-xs mx-auto`}
+                    className={`w-5 h-5 rounded ${field.required ? 'bg-green-500 text-white' : 'bg-white'} flex items-center justify-center text-xs mx-auto`}
                   >
                     {field.required ? '✓' : ''}
                   </button>
@@ -185,7 +185,7 @@ export default function DataModelPage() {
           </tbody>
         </table>
         {filteredFields.length === 0 && (
-          <div className="p-8 text-center text-gray-500">
+          <div className="p-8 text-center text-black">
             No custom fields for this entity. Click "+ Add Custom Field" to create one.
           </div>
         )}
@@ -199,7 +199,7 @@ export default function DataModelPage() {
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Field Name</label>
+                <label className="block text-sm font-medium text-black mb-1">Field Name</label>
                 <input
                   type="text"
                   value={newField.name}
@@ -211,7 +211,7 @@ export default function DataModelPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Field Type</label>
+                  <label className="block text-sm font-medium text-black mb-1">Field Type</label>
                   <select
                     value={newField.type}
                     onChange={(e) => setNewField(prev => ({ ...prev, type: e.target.value as any }))}
@@ -223,7 +223,7 @@ export default function DataModelPage() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Entity</label>
+                  <label className="block text-sm font-medium text-black mb-1">Entity</label>
                   <select
                     value={newField.entity}
                     onChange={(e) => setNewField(prev => ({ ...prev, entity: e.target.value as any }))}
@@ -238,7 +238,7 @@ export default function DataModelPage() {
 
               {newField.type === 'select' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Options (comma-separated)</label>
+                  <label className="block text-sm font-medium text-black mb-1">Options (comma-separated)</label>
                   <input
                     type="text"
                     value={newField.options?.join(', ')}
@@ -250,10 +250,10 @@ export default function DataModelPage() {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Role Visibility</label>
+                <label className="block text-sm font-medium text-black mb-2">Role Visibility</label>
                 <div className="flex flex-wrap gap-2">
                   {roles.map(role => (
-                    <label key={role} className="flex items-center gap-2 px-3 py-2 border rounded-lg cursor-pointer hover:bg-gray-50">
+                    <label key={role} className="flex items-center gap-2 px-3 py-2 border rounded-lg cursor-pointer hover:bg-white">
                       <input
                         type="checkbox"
                         checked={newField.visibility?.includes(role)}
@@ -296,7 +296,7 @@ export default function DataModelPage() {
             </div>
 
             <div className="flex gap-3 justify-end mt-6">
-              <button onClick={() => setShowAddField(false)} className="px-4 py-2 text-gray-600 hover:text-gray-800">
+              <button onClick={() => setShowAddField(false)} className="px-4 py-2 text-black hover:text-black">
                 Cancel
               </button>
               <button onClick={addField} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">

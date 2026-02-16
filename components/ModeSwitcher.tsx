@@ -67,7 +67,7 @@ export default function ModeSwitcher({ variant = 'tabs', showDescription = false
                   ? mode.color === 'pink' ? 'bg-pink-500 text-white' :
                     mode.color === 'amber' ? 'bg-amber-500 text-white' :
                     'bg-emerald-500 text-white'
-                  : 'text-gray-400 hover:text-pink-400 hover:bg-pink-500/10'
+                  : 'text-black hover:text-pink-400 hover:bg-pink-500/10'
                 }
               `}
             >
@@ -82,7 +82,7 @@ export default function ModeSwitcher({ variant = 'tabs', showDescription = false
 
   if (variant === 'pills') {
     return (
-      <div className="flex items-center gap-2 p-1 bg-gray-800/50 rounded-xl">
+      <div className="flex items-center gap-2 p-1 bg-black/50 rounded-xl">
         {MODES.map((mode) => {
           const isActive = mode.id === activeMode;
           return (
@@ -93,7 +93,7 @@ export default function ModeSwitcher({ variant = 'tabs', showDescription = false
                 flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all
                 ${isActive 
                   ? 'bg-pink-500 text-white shadow-lg' 
-                  : 'text-gray-400 hover:text-pink-400'
+                  : 'text-black hover:text-pink-400'
                 }
               `}
             >
@@ -112,9 +112,9 @@ export default function ModeSwitcher({ variant = 'tabs', showDescription = false
       {MODES.map((mode, index) => {
         const isActive = mode.id === activeMode;
         const colorClasses = {
-          pink: isActive ? 'border-pink-500 text-pink-400 bg-pink-500/10' : 'border-transparent text-gray-400 hover:text-pink-400 hover:border-pink-500/50',
-          amber: isActive ? 'border-amber-500 text-amber-400 bg-amber-500/10' : 'border-transparent text-gray-400 hover:text-amber-400 hover:border-amber-500/50',
-          emerald: isActive ? 'border-emerald-500 text-emerald-400 bg-emerald-500/10' : 'border-transparent text-gray-400 hover:text-emerald-400 hover:border-emerald-500/50',
+          pink: isActive ? 'border-pink-500 text-pink-400 bg-pink-500/10' : 'border-transparent text-black hover:text-pink-400 hover:border-pink-500/50',
+          amber: isActive ? 'border-amber-500 text-amber-400 bg-amber-500/10' : 'border-transparent text-black hover:text-amber-400 hover:border-amber-500/50',
+          emerald: isActive ? 'border-emerald-500 text-emerald-400 bg-emerald-500/10' : 'border-transparent text-black hover:text-emerald-400 hover:border-emerald-500/50',
         };
         
         return (
@@ -131,7 +131,7 @@ export default function ModeSwitcher({ variant = 'tabs', showDescription = false
             <div>
               <span className="font-semibold text-sm">{mode.label}</span>
               {showDescription && (
-                <p className="text-[10px] text-gray-500">{mode.description}</p>
+                <p className="text-[10px] text-black">{mode.description}</p>
               )}
             </div>
             {isActive && (
@@ -155,7 +155,7 @@ export function ModeSwitcherMobile() {
   const activeMode = getActiveMode();
 
   return (
-    <div className="flex justify-center gap-4 py-2 px-4 bg-[#0a0a0a] border-b border-gray-800">
+    <div className="flex justify-center gap-4 py-2 px-4 bg-[#0a0a0a] border-b border-black">
       {MODES.map((mode) => {
         const isActive = mode.id === activeMode;
         return (
@@ -168,7 +168,7 @@ export function ModeSwitcherMobile() {
                 ? mode.color === 'pink' ? 'bg-pink-500/20 text-pink-400' :
                   mode.color === 'amber' ? 'bg-amber-500/20 text-amber-400' :
                   'bg-emerald-500/20 text-emerald-400'
-                : 'text-gray-500'
+                : 'text-black'
               }
             `}
           >

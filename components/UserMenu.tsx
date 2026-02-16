@@ -61,7 +61,7 @@ export function UserMenu() {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center gap-2 hover:opacity-80 transition-opacity"
       >
-        <div className={`w-8 h-8 rounded-full ${roleColors[user.role] || 'bg-gray-500'} flex items-center justify-center text-white text-sm font-bold`}>
+        <div className={`w-8 h-8 rounded-full ${roleColors[user.role] || 'bg-white0'} flex items-center justify-center text-white text-sm font-bold`}>
           {initials}
         </div>
         <span className="hidden sm:inline text-sm text-white">
@@ -79,18 +79,18 @@ export function UserMenu() {
 
       {/* Dropdown Menu */}
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden z-50">
+        <div className="absolute right-0 mt-2 w-64 bg-white rounded-xl shadow-lg border border-black overflow-hidden z-50">
           {/* User Info */}
-          <div className="p-4 border-b border-gray-100">
+          <div className="p-4 border-b border-black">
             <div className="flex items-center gap-3">
-              <div className={`w-10 h-10 rounded-full ${roleColors[user.role] || 'bg-gray-500'} flex items-center justify-center text-white font-bold`}>
+              <div className={`w-10 h-10 rounded-full ${roleColors[user.role] || 'bg-white0'} flex items-center justify-center text-white font-bold`}>
                 {initials}
               </div>
               <div>
-                <p className="font-medium text-gray-900">
+                <p className="font-medium text-black">
                   {user.firstName} {user.lastName}
                 </p>
-                <p className="text-sm text-gray-500">{user.email}</p>
+                <p className="text-sm text-black">{user.email}</p>
                 <span className={`inline-block mt-1 px-2 py-0.5 text-xs font-medium rounded-full ${
                   user.role === 'owner' ? 'bg-amber-100 text-amber-700' :
                   user.role === 'admin' ? 'bg-pink-100 text-pink-700' :
@@ -109,7 +109,7 @@ export function UserMenu() {
             {(user.role === 'owner' || user.role === 'admin') && (
               <Link
                 href="/admin"
-                className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
+                className="flex items-center gap-3 px-4 py-2 text-black hover:bg-white transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 <span>📊</span>
@@ -119,7 +119,7 @@ export function UserMenu() {
             {(user.role === 'owner' || user.role === 'admin' || user.role === 'provider') && (
               <Link
                 href="/provider"
-                className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
+                className="flex items-center gap-3 px-4 py-2 text-black hover:bg-white transition-colors"
                 onClick={() => setIsOpen(false)}
               >
                 <span>🩺</span>
@@ -128,7 +128,7 @@ export function UserMenu() {
             )}
             <Link
               href="/portal"
-              className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-3 px-4 py-2 text-black hover:bg-white transition-colors"
               onClick={() => setIsOpen(false)}
             >
               <span>👤</span>
@@ -136,7 +136,7 @@ export function UserMenu() {
             </Link>
             <Link
               href="/admin/settings"
-              className="flex items-center gap-3 px-4 py-2 text-gray-700 hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-3 px-4 py-2 text-black hover:bg-white transition-colors"
               onClick={() => setIsOpen(false)}
             >
               <span>⚙️</span>
@@ -145,7 +145,7 @@ export function UserMenu() {
           </div>
 
           {/* Logout */}
-          <div className="border-t border-gray-100 py-2">
+          <div className="border-t border-black py-2">
             <button
               onClick={() => {
                 setIsOpen(false);

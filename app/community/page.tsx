@@ -24,11 +24,11 @@ export default function CommunityPage() {
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Our Community
           </h1>
-          <p className="text-xl text-gray-300 mb-8">
+          <p className="text-xl text-black mb-8">
             Hello Gorgeous Med Spa is proud to call Oswego and Kendall County home. We are committed to our community through local partnerships, involvement, and delivering exceptional care to our neighbors.
           </p>
 
-          <div className="space-y-8 text-gray-300">
+          <div className="space-y-8 text-black">
             <section>
               <h2 className="text-2xl font-bold text-white mb-4">Serving the Fox Valley</h2>
               <p>

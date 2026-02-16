@@ -82,8 +82,8 @@ export function PortalMessagingPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Secure Messaging</h1>
-        <p className="text-gray-600 mt-1">
+        <h1 className="text-2xl font-bold text-black">Secure Messaging</h1>
+        <p className="text-black mt-1">
           HIPAA-compliant messaging with your provider. 24–48 hour response time.
         </p>
       </div>
@@ -102,18 +102,18 @@ export function PortalMessagingPage() {
       )}
 
       {email && (
-        <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden flex flex-col" style={{ minHeight: 400 }}>
-          <div className="p-4 border-b border-gray-100 bg-gray-50">
-            <p className="text-sm text-gray-600">
+        <div className="bg-white rounded-2xl border border-black overflow-hidden flex flex-col" style={{ minHeight: 400 }}>
+          <div className="p-4 border-b border-black bg-white">
+            <p className="text-sm text-black">
               Messages are secure and will be responded to within 24–48 hours.
             </p>
           </div>
 
           <div className="flex-1 overflow-y-auto p-4 space-y-4 min-h-[300px] max-h-[400px]">
             {loading ? (
-              <p className="text-gray-500 text-center py-8">Loading…</p>
+              <p className="text-black text-center py-8">Loading…</p>
             ) : messages.length === 0 ? (
-              <div className="text-center py-12 text-gray-500">
+              <div className="text-center py-12 text-black">
                 <p className="mb-2">No messages yet.</p>
                 <p className="text-sm">Send a message below and we&apos;ll get back to you.</p>
               </div>
@@ -127,11 +127,11 @@ export function PortalMessagingPage() {
                     className={`max-w-[80%] rounded-2xl px-4 py-3 ${
                       m.senderType === "client"
                         ? "bg-pink-500 text-white"
-                        : "bg-gray-100 text-gray-900"
+                        : "bg-white text-black"
                     }`}
                   >
                     <p className="text-sm whitespace-pre-wrap">{m.body}</p>
-                    <p className={`text-xs mt-1 ${m.senderType === "client" ? "text-pink-100" : "text-gray-500"}`}>
+                    <p className={`text-xs mt-1 ${m.senderType === "client" ? "text-pink-100" : "text-black"}`}>
                       {formatTime(m.sentAt)}
                       {m.senderType === "provider" && " • Provider"}
                     </p>
@@ -142,14 +142,14 @@ export function PortalMessagingPage() {
             <div ref={bottomRef} />
           </div>
 
-          <form onSubmit={handleSend} className="p-4 border-t border-gray-100">
+          <form onSubmit={handleSend} className="p-4 border-t border-black">
             <div className="flex gap-2">
               <textarea
                 value={newMessage}
                 onChange={(e) => setNewMessage(e.target.value)}
                 placeholder="Type your message..."
                 rows={2}
-                className="flex-1 px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none resize-none"
+                className="flex-1 px-4 py-3 rounded-xl border border-black focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none resize-none"
                 disabled={sending}
               />
               <button

@@ -108,12 +108,12 @@ export function AppointmentStatusDropdown({
           />
           
           {/* Dropdown */}
-          <div className="absolute top-full left-0 mt-1 bg-white rounded-lg shadow-lg border border-gray-200 py-1 z-50 min-w-[180px]">
+          <div className="absolute top-full left-0 mt-1 bg-white rounded-lg shadow-lg border border-black py-1 z-50 min-w-[180px]">
             {actions.map((action) => (
               <button
                 key={action.key}
                 onClick={() => handleAction(action)}
-                className="w-full px-4 py-2 text-left text-sm hover:bg-gray-50 flex items-center gap-2"
+                className="w-full px-4 py-2 text-left text-sm hover:bg-white flex items-center gap-2"
                 disabled={loading}
               >
                 <span>{action.icon}</span>
@@ -165,7 +165,7 @@ export function AppointmentStatusTimeline({ currentStatus }: AppointmentStatusTi
                   ? `${config.bgColor} ${config.textColor} ring-2 ring-offset-2`
                   : isActive
                   ? 'bg-green-100 text-green-600'
-                  : 'bg-gray-100 text-gray-400'
+                  : 'bg-white text-black'
               }`}
               style={isCurrent ? { ringColor: config.color } : {}}
               title={config.displayName}
@@ -177,7 +177,7 @@ export function AppointmentStatusTimeline({ currentStatus }: AppointmentStatusTi
             {index < workflow.length - 1 && (
               <div
                 className={`w-8 h-0.5 ${
-                  index < currentIndex ? 'bg-green-300' : 'bg-gray-200'
+                  index < currentIndex ? 'bg-green-300' : 'bg-white'
                 }`}
               />
             )}

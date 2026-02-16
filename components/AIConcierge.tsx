@@ -255,7 +255,7 @@ How can I help you today?`,
                   className={`max-w-[80%] rounded-2xl px-4 py-2 ${
                     message.role === 'user'
                       ? 'bg-pink-500 text-white'
-                      : 'bg-gray-100 text-gray-800'
+                      : 'bg-white text-black'
                   }`}
                 >
                   <div className="whitespace-pre-wrap text-sm">{message.content}</div>
@@ -265,11 +265,11 @@ How can I help you today?`,
             
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-gray-100 rounded-2xl px-4 py-3">
+                <div className="bg-white rounded-2xl px-4 py-3">
                   <div className="flex gap-1">
-                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
-                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                    <span className="w-2 h-2 bg-black/30 rounded-full animate-bounce" />
+                    <span className="w-2 h-2 bg-black/30 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
+                    <span className="w-2 h-2 bg-black/30 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
                   </div>
                 </div>
               </div>
@@ -281,13 +281,13 @@ How can I help you today?`,
           {/* Quick Questions */}
           {messages.length <= 2 && (
             <div className="px-4 pb-2">
-              <p className="text-xs text-gray-500 mb-2">Quick questions:</p>
+              <p className="text-xs text-black mb-2">Quick questions:</p>
               <div className="flex flex-wrap gap-2">
                 {QUICK_QUESTIONS.slice(0, 3).map((q) => (
                   <button
                     key={q}
                     onClick={() => handleQuickQuestion(q)}
-                    className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-full text-xs text-gray-700"
+                    className="px-3 py-1.5 bg-white hover:bg-white rounded-full text-xs text-black"
                   >
                     {q}
                   </button>
@@ -297,7 +297,7 @@ How can I help you today?`,
           )}
 
           {/* Input */}
-          <div className="border-t border-gray-100 p-4">
+          <div className="border-t border-black p-4">
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -310,7 +310,7 @@ How can I help you today?`,
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask me anything..."
-                className="flex-1 px-4 py-2 border border-gray-200 rounded-full focus:outline-none focus:border-pink-500"
+                className="flex-1 px-4 py-2 border border-black rounded-full focus:outline-none focus:border-pink-500"
               />
               <button
                 type="submit"
@@ -320,7 +320,7 @@ How can I help you today?`,
                 ↑
               </button>
             </form>
-            <p className="text-[10px] text-gray-400 text-center mt-2">
+            <p className="text-[10px] text-black text-center mt-2">
               AI assistant • For emergencies call (630) 636-6193
             </p>
           </div>

@@ -14,7 +14,7 @@ function HeroSection({ content }: { content: Record<string, unknown> }) {
   const description = (content.description as string) || '';
   const background_image = (content.background_image as string) || '';
   const background_color = (content.background_color as string) || 'bg-gradient-to-br from-pink-100 via-white to-pink-50';
-  const text_color = (content.text_color as string) || 'text-gray-900';
+  const text_color = (content.text_color as string) || 'text-black';
   const cta_text = (content.cta_text as string) || 'Book Now';
   const cta_url = (content.cta_url as string) || '/book';
   const cta_secondary_text = (content.cta_secondary_text as string) || '';
@@ -35,7 +35,7 @@ function HeroSection({ content }: { content: Record<string, unknown> }) {
         {description && <p className={`mt-6 text-lg ${text_color} opacity-70 max-w-2xl ${alignment === 'center' ? 'mx-auto' : ''}`}>{description}</p>}
         <div className={`mt-8 flex gap-4 ${alignment === 'center' ? 'justify-center' : ''} flex-wrap`}>
           {cta_text && <Link href={cta_url} className="px-8 py-4 bg-pink-500 hover:bg-pink-600 text-white font-semibold rounded-lg transition-all shadow-lg">{cta_text}</Link>}
-          {cta_secondary_text && <Link href={cta_secondary_url} className="px-8 py-4 bg-white/90 hover:bg-white text-gray-900 font-semibold rounded-lg transition-all shadow border">{cta_secondary_text}</Link>}
+          {cta_secondary_text && <Link href={cta_secondary_url} className="px-8 py-4 bg-white/90 hover:bg-white text-black font-semibold rounded-lg transition-all shadow border">{cta_secondary_text}</Link>}
         </div>
       </div>
     </section>
@@ -50,7 +50,7 @@ function TextSection({ content }: { content: Record<string, unknown> }) {
   const body = (content.body as string) || '';
   const alignment = (content.alignment as string) || 'left';
   const background_color = (content.background_color as string) || 'bg-white';
-  const text_color = (content.text_color as string) || 'text-gray-900';
+  const text_color = (content.text_color as string) || 'text-black';
   const max_width = (content.max_width as string) || 'max-w-4xl';
   const textAlign = alignment === 'center' ? 'text-center' : alignment === 'right' ? 'text-right' : 'text-left';
 
@@ -82,8 +82,8 @@ function ServicesGridSection({ content }: { content: Record<string, unknown> }) 
       <div className="max-w-7xl mx-auto">
         {title && (
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">{title}</h2>
-            {subtitle && <p className="mt-4 text-lg text-gray-600">{subtitle}</p>}
+            <h2 className="text-3xl md:text-4xl font-bold text-black">{title}</h2>
+            {subtitle && <p className="mt-4 text-lg text-black">{subtitle}</p>}
           </div>
         )}
         <div className={`grid grid-cols-1 ${gridCols[columns] || 'md:grid-cols-3'} gap-8`}>
@@ -91,8 +91,8 @@ function ServicesGridSection({ content }: { content: Record<string, unknown> }) 
             <div key={idx} className="bg-gradient-to-br from-pink-50 to-white rounded-2xl border border-pink-100 p-6 hover:shadow-lg transition-all">
               {service.image && <div className="relative h-48 mb-4 rounded-xl overflow-hidden"><Image src={service.image} alt={service.name} fill className="object-cover" /></div>}
               {service.icon && !service.image && <span className="text-4xl mb-4 block">{service.icon}</span>}
-              <h3 className="text-xl font-bold text-gray-900">{service.name}</h3>
-              {service.description && <p className="mt-2 text-gray-600">{service.description}</p>}
+              <h3 className="text-xl font-bold text-black">{service.name}</h3>
+              {service.description && <p className="mt-2 text-black">{service.description}</p>}
               {show_prices && service.price && <p className="mt-3 text-lg font-semibold text-pink-600">{service.price}</p>}
               {show_cta && service.url && <Link href={service.url} className="mt-4 inline-block text-pink-600 hover:text-pink-700 font-medium">{cta_text} →</Link>}
             </div>
@@ -117,18 +117,18 @@ function TestimonialsSection({ content }: { content: Record<string, unknown> }) 
       <div className="max-w-6xl mx-auto">
         {title && (
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">{title}</h2>
-            {subtitle && <p className="mt-4 text-lg text-gray-600">{subtitle}</p>}
+            <h2 className="text-3xl md:text-4xl font-bold text-black">{title}</h2>
+            {subtitle && <p className="mt-4 text-lg text-black">{subtitle}</p>}
           </div>
         )}
         <div className={`grid grid-cols-1 ${display === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : ''} gap-6`}>
           {testimonials.map((t, idx) => (
             <div key={idx} className="bg-white rounded-2xl p-6 shadow-sm border border-pink-100">
               <div className="flex gap-1 mb-4">{[...Array(t.rating || 5)].map((_, i) => <span key={i} className="text-yellow-400">⭐</span>)}</div>
-              <p className="text-gray-700 italic">&ldquo;{t.text}&rdquo;</p>
+              <p className="text-black italic">&ldquo;{t.text}&rdquo;</p>
               <div className="mt-4 pt-4 border-t border-pink-100">
-                <p className="font-semibold text-gray-900">{t.name}</p>
-                {t.location && <p className="text-sm text-gray-500">{t.location}</p>}
+                <p className="font-semibold text-black">{t.name}</p>
+                {t.location && <p className="text-sm text-black">{t.location}</p>}
                 {t.service && <p className="text-sm text-pink-600">{t.service}</p>}
               </div>
             </div>
@@ -177,8 +177,8 @@ function ProvidersSection({ content }: { content: Record<string, unknown> }) {
       <div className="max-w-6xl mx-auto">
         {title && (
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">{title}</h2>
-            {subtitle && <p className="mt-4 text-lg text-gray-600">{subtitle}</p>}
+            <h2 className="text-3xl md:text-4xl font-bold text-black">{title}</h2>
+            {subtitle && <p className="mt-4 text-lg text-black">{subtitle}</p>}
           </div>
         )}
         <div className={`grid grid-cols-1 ${display === 'grid' ? 'md:grid-cols-2' : ''} gap-8`}>
@@ -187,9 +187,9 @@ function ProvidersSection({ content }: { content: Record<string, unknown> }) {
               <div className="flex flex-col md:flex-row gap-6">
                 {p.image && <div className="relative w-32 h-32 rounded-full overflow-hidden flex-shrink-0 border-4 border-pink-200"><Image src={p.image} alt={p.name} fill className="object-cover" /></div>}
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900">{p.name}</h3>
+                  <h3 className="text-xl font-bold text-black">{p.name}</h3>
                   {p.credentials && <p className="text-pink-600 font-medium">{p.credentials}</p>}
-                  {p.bio && <p className="mt-3 text-gray-600">{p.bio}</p>}
+                  {p.bio && <p className="mt-3 text-black">{p.bio}</p>}
                   {p.url && <Link href={p.url} className="mt-4 inline-block text-pink-600 hover:text-pink-700 font-medium">View Profile →</Link>}
                 </div>
               </div>
@@ -215,18 +215,18 @@ function FAQSection({ content }: { content: Record<string, unknown> }) {
       <div className="max-w-3xl mx-auto">
         {title && (
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900">{title}</h2>
-            {subtitle && <p className="mt-4 text-lg text-gray-600">{subtitle}</p>}
+            <h2 className="text-3xl md:text-4xl font-bold text-black">{title}</h2>
+            {subtitle && <p className="mt-4 text-lg text-black">{subtitle}</p>}
           </div>
         )}
         <div className="space-y-4">
           {faqs.map((faq, idx) => (
             <div key={idx} className="border border-pink-100 rounded-xl overflow-hidden">
               <button onClick={() => setOpenIdx(openIdx === idx ? null : idx)} className="w-full px-6 py-4 text-left flex items-center justify-between bg-gradient-to-r from-pink-50 to-white hover:from-pink-100">
-                <span className="font-semibold text-gray-900">{faq.question}</span>
+                <span className="font-semibold text-black">{faq.question}</span>
                 <span className="text-pink-500">{openIdx === idx ? '−' : '+'}</span>
               </button>
-              {openIdx === idx && <div className="px-6 py-4 bg-white"><p className="text-gray-600">{faq.answer}</p></div>}
+              {openIdx === idx && <div className="px-6 py-4 bg-white"><p className="text-black">{faq.answer}</p></div>}
             </div>
           ))}
         </div>
@@ -251,7 +251,7 @@ function ImageSection({ content }: { content: Record<string, unknown> }) {
       <div className={`relative ${full_width ? 'aspect-[21/9]' : 'aspect-video'} ${rounded ? 'rounded-2xl' : ''} overflow-hidden`}>
         <Image src={image_url} alt={alt || 'Image'} fill className="object-cover" />
       </div>
-      {caption && <p className="mt-4 text-center text-gray-500 text-sm">{caption}</p>}
+      {caption && <p className="mt-4 text-center text-black text-sm">{caption}</p>}
     </section>
   );
 }
@@ -271,7 +271,7 @@ function VideoSection({ content }: { content: Record<string, unknown> }) {
     return (
       <section className="py-12 px-6">
         <div className="max-w-4xl mx-auto">
-          {title && <h3 className="text-xl font-bold text-gray-900 mb-4">{title}</h3>}
+          {title && <h3 className="text-xl font-bold text-black mb-4">{title}</h3>}
           <div className="aspect-video rounded-2xl overflow-hidden"><iframe src={video_url} className="w-full h-full" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen /></div>
         </div>
       </section>
@@ -281,7 +281,7 @@ function VideoSection({ content }: { content: Record<string, unknown> }) {
   return (
     <section className="py-12 px-6">
       <div className="max-w-4xl mx-auto">
-        {title && <h3 className="text-xl font-bold text-gray-900 mb-4">{title}</h3>}
+        {title && <h3 className="text-xl font-bold text-black mb-4">{title}</h3>}
         <video src={video_url} className="w-full rounded-2xl" autoPlay={autoplay} muted={muted} loop={loop} controls={!autoplay} playsInline />
       </div>
     </section>
@@ -300,7 +300,7 @@ function GallerySection({ content }: { content: Record<string, unknown> }) {
   return (
     <section className="py-16 px-6 bg-white">
       <div className="max-w-6xl mx-auto">
-        {title && <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">{title}</h2>}
+        {title && <h2 className="text-3xl font-bold text-black mb-8 text-center">{title}</h2>}
         <div className={`grid grid-cols-1 ${gridCols[columns] || 'md:grid-cols-3'} gap-4`}>
           {images.map((img, idx) => {
             const imgUrl = typeof img === 'string' ? img : img.url;
@@ -350,14 +350,14 @@ function ContactSection({ content }: { content: Record<string, unknown> }) {
   return (
     <section className="py-20 px-6 bg-gradient-to-br from-pink-50 to-white">
       <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-12">{title}</h2>
+        <h2 className="text-3xl md:text-4xl font-bold text-black text-center mb-12">{title}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div className="space-y-6">
-            <div className="flex items-start gap-4"><span className="text-2xl">📍</span><div><p className="font-semibold text-gray-900">Address</p><p className="text-gray-600">{address}</p></div></div>
-            <div className="flex items-start gap-4"><span className="text-2xl">📞</span><div><p className="font-semibold text-gray-900">Phone</p><a href={`tel:${phone}`} className="text-pink-600 hover:text-pink-700">{phone}</a></div></div>
-            <div className="flex items-start gap-4"><span className="text-2xl">✉️</span><div><p className="font-semibold text-gray-900">Email</p><a href={`mailto:${email}`} className="text-pink-600 hover:text-pink-700">{email}</a></div></div>
+            <div className="flex items-start gap-4"><span className="text-2xl">📍</span><div><p className="font-semibold text-black">Address</p><p className="text-black">{address}</p></div></div>
+            <div className="flex items-start gap-4"><span className="text-2xl">📞</span><div><p className="font-semibold text-black">Phone</p><a href={`tel:${phone}`} className="text-pink-600 hover:text-pink-700">{phone}</a></div></div>
+            <div className="flex items-start gap-4"><span className="text-2xl">✉️</span><div><p className="font-semibold text-black">Email</p><a href={`mailto:${email}`} className="text-pink-600 hover:text-pink-700">{email}</a></div></div>
             {show_hours && Object.keys(hours).length > 0 && (
-              <div className="mt-8"><h3 className="font-semibold text-gray-900 mb-4">Hours</h3><div className="space-y-2 text-gray-600">{Object.entries(hours).map(([day, time]) => <div key={day} className="flex justify-between"><span>{day}</span><span>{time}</span></div>)}</div></div>
+              <div className="mt-8"><h3 className="font-semibold text-black mb-4">Hours</h3><div className="space-y-2 text-black">{Object.entries(hours).map(([day, time]) => <div key={day} className="flex justify-between"><span>{day}</span><span>{time}</span></div>)}</div></div>
             )}
           </div>
           {show_map && <div className="rounded-xl overflow-hidden h-[300px]"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2961.7!2d-88.3515!3d41.6828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880e5!5e0!3m2!1sen!2sus!4v1" className="w-full h-full border-0" loading="lazy" allowFullScreen /></div>}

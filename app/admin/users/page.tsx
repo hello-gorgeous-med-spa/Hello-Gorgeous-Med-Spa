@@ -85,8 +85,8 @@ export default function AdminUsersPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">User Management</h1>
-          <p className="text-gray-500">Manage staff accounts and system access</p>
+          <h1 className="text-2xl font-bold text-black">User Management</h1>
+          <p className="text-black">Manage staff accounts and system access</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -98,25 +98,25 @@ export default function AdminUsersPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Total Users</p>
-          <p className="text-2xl font-bold text-gray-900">{users.length}</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Total Users</p>
+          <p className="text-2xl font-bold text-black">{users.length}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Providers</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Providers</p>
           <p className="text-2xl font-bold text-purple-600">
             {users.filter((u) => u.role === 'provider').length}
           </p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Active</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Active</p>
           <p className="text-2xl font-bold text-green-600">
             {users.filter((u) => u.status === 'active').length}
           </p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Inactive</p>
-          <p className="text-2xl font-bold text-gray-400">
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Inactive</p>
+          <p className="text-2xl font-bold text-black">
             {users.filter((u) => u.status === 'inactive').length}
           </p>
         </div>
@@ -131,7 +131,7 @@ export default function AdminUsersPage() {
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filterRole === role
                 ? 'bg-pink-500 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-white text-black hover:bg-white'
             }`}
           >
             {role === 'all' ? 'All Users' : ROLE_LABELS[role]}
@@ -140,22 +140,22 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Users Table */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
         <table className="w-full">
-          <thead className="bg-gray-50 border-b border-gray-100">
+          <thead className="bg-white border-b border-black">
             <tr>
-              <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">User</th>
-              <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Role</th>
-              <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Status</th>
-              <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Last Login</th>
-              <th className="text-right px-5 py-3 text-sm font-semibold text-gray-900">Actions</th>
+              <th className="text-left px-5 py-3 text-sm font-semibold text-black">User</th>
+              <th className="text-left px-5 py-3 text-sm font-semibold text-black">Role</th>
+              <th className="text-left px-5 py-3 text-sm font-semibold text-black">Status</th>
+              <th className="text-left px-5 py-3 text-sm font-semibold text-black">Last Login</th>
+              <th className="text-right px-5 py-3 text-sm font-semibold text-black">Actions</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100">
             {filteredUsers.map((user) => {
               const provider = ACTIVE_PROVIDERS.find(p => p.id === user.id);
               return (
-                <tr key={user.id} className="hover:bg-gray-50">
+                <tr key={user.id} className="hover:bg-white">
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
                       <div 
@@ -165,13 +165,13 @@ export default function AdminUsersPage() {
                         {user.firstName[0]}{user.lastName[0]}
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">
+                        <p className="font-medium text-black">
                           {user.firstName} {user.lastName}
                           {user.credentials && (
-                            <span className="text-gray-500 font-normal">, {user.credentials}</span>
+                            <span className="text-black font-normal">, {user.credentials}</span>
                           )}
                         </p>
-                        <p className="text-sm text-gray-500">{user.email}</p>
+                        <p className="text-sm text-black">{user.email}</p>
                       </div>
                     </div>
                   </td>
@@ -186,19 +186,19 @@ export default function AdminUsersPage() {
                         ? 'bg-green-100 text-green-700'
                         : user.status === 'pending'
                         ? 'bg-amber-100 text-amber-700'
-                        : 'bg-gray-100 text-gray-700'
+                        : 'bg-white text-black'
                     }`}>
                       {user.status}
                     </span>
                   </td>
-                  <td className="px-5 py-4 text-sm text-gray-600">
+                  <td className="px-5 py-4 text-sm text-black">
                     {user.lastLogin || 'Never'}
                   </td>
                   <td className="px-5 py-4 text-right">
                     <div className="flex items-center justify-end gap-2">
                       <button
                         onClick={() => setEditingUser(user)}
-                        className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded-lg"
+                        className="px-3 py-1.5 text-sm text-black hover:bg-white rounded-lg"
                       >
                         Edit
                       </button>
@@ -229,17 +229,17 @@ export default function AdminUsersPage() {
       </div>
 
       {/* Role Permissions */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-        <h2 className="font-semibold text-gray-900 mb-4">Role Permissions</h2>
+      <div className="bg-white rounded-xl border border-black shadow-sm p-6">
+        <h2 className="font-semibold text-black mb-4">Role Permissions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {Object.entries(ROLE_PERMISSIONS).map(([role, permissions]) => (
-            <div key={role} className="border border-gray-100 rounded-lg p-4">
+            <div key={role} className="border border-black rounded-lg p-4">
               <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full mb-3 ${ROLE_COLORS[role]}`}>
                 {ROLE_LABELS[role]}
               </span>
               <ul className="space-y-1">
                 {permissions.map((permission, i) => (
-                  <li key={i} className="text-sm text-gray-600 flex items-start gap-2">
+                  <li key={i} className="text-sm text-black flex items-start gap-2">
                     <span className="text-green-500 mt-0.5">✓</span>
                     {permission}
                   </li>
@@ -313,8 +313,8 @@ function UserModal({
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl max-w-md w-full">
-        <div className="p-6 border-b border-gray-100">
-          <h2 className="text-xl font-bold text-gray-900">
+        <div className="p-6 border-b border-black">
+          <h2 className="text-xl font-bold text-black">
             {user ? 'Edit User' : 'Add New User'}
           </h2>
         </div>
@@ -322,7 +322,7 @@ function UserModal({
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 First Name *
               </label>
               <input
@@ -330,11 +330,11 @@ function UserModal({
                 required
                 value={formData.firstName}
                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Last Name *
               </label>
               <input
@@ -342,13 +342,13 @@ function UserModal({
                 required
                 value={formData.lastName}
                 onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-black mb-1">
               Email *
             </label>
             <input
@@ -356,12 +356,12 @@ function UserModal({
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-black mb-1">
               Credentials (optional)
             </label>
             <input
@@ -369,18 +369,18 @@ function UserModal({
               placeholder="e.g., FNP-BC, RN-S"
               value={formData.credentials || ''}
               onChange={(e) => setFormData({ ...formData, credentials: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-black mb-1">
               Role *
             </label>
             <select
               value={formData.role}
               onChange={(e) => setFormData({ ...formData, role: e.target.value as User['role'] })}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               disabled={user?.role === 'owner'}
             >
               <option value="staff">Staff (Front Desk)</option>
@@ -402,7 +402,7 @@ function UserModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+              className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
             >
               Cancel
             </button>

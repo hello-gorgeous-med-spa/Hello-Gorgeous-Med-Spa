@@ -195,7 +195,7 @@ export default function VoiceDictation({
 
   if (!isSupported) {
     return (
-      <div className={`text-sm text-gray-500 ${className}`}>
+      <div className={`text-sm text-black ${className}`}>
         🎤 Voice dictation not available in this browser
       </div>
     );
@@ -209,7 +209,7 @@ export default function VoiceDictation({
         className={`p-2 rounded-lg transition-colors ${
           isListening 
             ? 'bg-red-100 text-red-600 animate-pulse' 
-            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            : 'bg-white text-black hover:bg-white'
         } ${className}`}
         title={isListening ? 'Stop dictation' : 'Start voice dictation'}
       >
@@ -219,12 +219,12 @@ export default function VoiceDictation({
   }
 
   return (
-    <div className={`bg-white border border-gray-200 rounded-xl p-4 ${className}`}>
+    <div className={`bg-white border border-black rounded-xl p-4 ${className}`}>
       {/* Header */}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="text-lg">🎤</span>
-          <span className="font-medium text-gray-900">Voice Dictation</span>
+          <span className="font-medium text-black">Voice Dictation</span>
           {isListening && (
             <span className="flex items-center gap-1 text-xs text-red-600">
               <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
@@ -237,14 +237,14 @@ export default function VoiceDictation({
         <div className="relative">
           <button
             onClick={() => setShowFieldSelector(!showFieldSelector)}
-            className="text-sm text-gray-600 hover:text-gray-900 flex items-center gap-1"
+            className="text-sm text-black hover:text-black flex items-center gap-1"
           >
             Insert into: <span className="font-medium capitalize">{selectedField}</span>
             <span className="text-xs">▼</span>
           </button>
           
           {showFieldSelector && (
-            <div className="absolute right-0 top-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 py-1 min-w-[140px]">
+            <div className="absolute right-0 top-full mt-1 bg-white border border-black rounded-lg shadow-lg z-10 py-1 min-w-[140px]">
               {['subjective', 'objective', 'assessment', 'plan'].map((field) => (
                 <button
                   key={field}
@@ -252,8 +252,8 @@ export default function VoiceDictation({
                     setSelectedField(field);
                     setShowFieldSelector(false);
                   }}
-                  className={`w-full text-left px-3 py-1.5 text-sm hover:bg-gray-50 capitalize ${
-                    selectedField === field ? 'bg-pink-50 text-pink-700' : 'text-gray-700'
+                  className={`w-full text-left px-3 py-1.5 text-sm hover:bg-white capitalize ${
+                    selectedField === field ? 'bg-pink-50 text-pink-700' : 'text-black'
                   }`}
                 >
                   {field}
@@ -272,14 +272,14 @@ export default function VoiceDictation({
       )}
 
       {/* Transcript Display */}
-      <div className="mb-3 p-3 bg-gray-50 rounded-lg min-h-[80px] max-h-[200px] overflow-y-auto">
+      <div className="mb-3 p-3 bg-white rounded-lg min-h-[80px] max-h-[200px] overflow-y-auto">
         {transcript || interimTranscript ? (
           <>
-            <span className="text-gray-900">{transcript}</span>
-            <span className="text-gray-400 italic">{interimTranscript}</span>
+            <span className="text-black">{transcript}</span>
+            <span className="text-black italic">{interimTranscript}</span>
           </>
         ) : (
-          <span className="text-gray-400 text-sm">
+          <span className="text-black text-sm">
             {isListening 
               ? 'Start speaking...' 
               : 'Click "Start Recording" to begin dictation'}
@@ -325,7 +325,7 @@ export default function VoiceDictation({
           </button>
           <button
             onClick={clearTranscript}
-            className="py-2 px-4 bg-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-300 text-sm"
+            className="py-2 px-4 bg-white text-black font-medium rounded-lg hover:bg-white text-sm"
           >
             Clear
           </button>
@@ -333,7 +333,7 @@ export default function VoiceDictation({
       )}
 
       {/* Tips */}
-      <div className="mt-3 text-xs text-gray-500">
+      <div className="mt-3 text-xs text-black">
         <p>💡 Tips: Speak clearly • Say "period" or "comma" for punctuation • Works best in Chrome</p>
       </div>
     </div>

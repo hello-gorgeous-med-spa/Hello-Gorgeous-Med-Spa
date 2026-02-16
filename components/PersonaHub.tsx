@@ -172,7 +172,7 @@ export function PersonaHub() {
               on demand
             </span>
           </h1>
-          <p className="mt-6 text-xl text-gray-300 max-w-2xl leading-relaxed">
+          <p className="mt-6 text-xl text-black max-w-2xl leading-relaxed">
             Pick an expert to switch chat tone + scope instantly. Watch short credibility clips.
             Education only—book a consult for medical advice.
           </p>
@@ -190,7 +190,7 @@ export function PersonaHub() {
                   onClick={() => setPersonaId(id)}
                   className={cx(
                     "text-left rounded-2xl border bg-gradient-to-b from-gray-950/60 to-black p-5 transition",
-                    active ? "border-pink-500/40" : "border-gray-800 hover:border-white/20",
+                    active ? "border-pink-500/40" : "border-black hover:border-white/20",
                   )}
                 >
                   <div className="flex items-start justify-between gap-3">
@@ -227,7 +227,7 @@ export function PersonaHub() {
 
       <div className="lg:col-span-5">
         <FadeUp delayMs={120}>
-          <div className="rounded-2xl border border-gray-800 bg-black/40 overflow-hidden">
+          <div className="rounded-2xl border border-black bg-black/40 overflow-hidden">
             <div className="p-5 border-b border-white/10">
               <div className="flex items-start justify-between gap-4">
                 <div>
@@ -258,7 +258,7 @@ export function PersonaHub() {
                     "whitespace-pre-wrap text-sm leading-relaxed",
                     m.role === "user"
                       ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
-                      : "text-gray-200",
+                      : "text-white",
                   )}
                 >
                   {m.content}
@@ -288,7 +288,7 @@ export function PersonaHub() {
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   placeholder="Ask a question…"
-                  className="flex-1 rounded-xl bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="flex-1 rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   onKeyDown={(e) => {
                     if (e.key === "Enter") send(input);
                   }}

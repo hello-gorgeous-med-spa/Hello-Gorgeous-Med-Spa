@@ -150,7 +150,7 @@ export default function ProviderTasksPage() {
       case 'high': return 'bg-red-100 text-red-700 border-red-200';
       case 'medium': return 'bg-amber-100 text-amber-700 border-amber-200';
       case 'low': return 'bg-green-100 text-green-700 border-green-200';
-      default: return 'bg-gray-100 text-gray-700';
+      default: return 'bg-white text-black';
     }
   };
 
@@ -185,8 +185,8 @@ export default function ProviderTasksPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Tasks & Follow-ups</h1>
-          <p className="text-gray-500">Manage clinical reminders and patient follow-ups</p>
+          <h1 className="text-2xl font-bold text-black">Tasks & Follow-ups</h1>
+          <p className="text-black">Manage clinical reminders and patient follow-ups</p>
         </div>
         <button
           onClick={() => setShowNewTaskModal(true)}
@@ -198,20 +198,20 @@ export default function ProviderTasksPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4">
-        <div className={`bg-white rounded-xl border p-5 ${todayCount > 0 ? 'border-blue-200 bg-blue-50' : 'border-gray-100'}`}>
-          <p className="text-sm text-gray-500">Due Today</p>
-          <p className={`text-3xl font-bold ${todayCount > 0 ? 'text-blue-600' : 'text-gray-900'}`}>
+        <div className={`bg-white rounded-xl border p-5 ${todayCount > 0 ? 'border-blue-200 bg-blue-50' : 'border-black'}`}>
+          <p className="text-sm text-black">Due Today</p>
+          <p className={`text-3xl font-bold ${todayCount > 0 ? 'text-blue-600' : 'text-black'}`}>
             {todayCount}
           </p>
         </div>
-        <div className={`bg-white rounded-xl border p-5 ${overdueCount > 0 ? 'border-red-200 bg-red-50' : 'border-gray-100'}`}>
-          <p className="text-sm text-gray-500">Overdue</p>
-          <p className={`text-3xl font-bold ${overdueCount > 0 ? 'text-red-600' : 'text-gray-900'}`}>
+        <div className={`bg-white rounded-xl border p-5 ${overdueCount > 0 ? 'border-red-200 bg-red-50' : 'border-black'}`}>
+          <p className="text-sm text-black">Overdue</p>
+          <p className={`text-3xl font-bold ${overdueCount > 0 ? 'text-red-600' : 'text-black'}`}>
             {overdueCount}
           </p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-5">
-          <p className="text-sm text-gray-500">Completed This Week</p>
+        <div className="bg-white rounded-xl border border-black p-5">
+          <p className="text-sm text-black">Completed This Week</p>
           <p className="text-3xl font-bold text-green-600">
             {tasks.filter(t => t.status === 'completed').length}
           </p>
@@ -232,7 +232,7 @@ export default function ProviderTasksPage() {
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === f.id
                 ? 'bg-pink-500 text-white'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                : 'bg-white text-black hover:bg-white'
             }`}
           >
             {f.label}
@@ -241,12 +241,12 @@ export default function ProviderTasksPage() {
       </div>
 
       {/* Task List */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-xl border border-black overflow-hidden">
         {tasks.length === 0 ? (
           <div className="p-12 text-center">
             <span className="text-5xl block mb-3">✅</span>
-            <p className="text-gray-500 text-lg">No tasks to show</p>
-            <p className="text-gray-400 text-sm mt-1">
+            <p className="text-black text-lg">No tasks to show</p>
+            <p className="text-black text-sm mt-1">
               {filter === 'completed' ? 'No completed tasks' : 'All caught up!'}
             </p>
           </div>
@@ -256,7 +256,7 @@ export default function ProviderTasksPage() {
               <div 
                 key={task.id}
                 className={`p-4 ${
-                  task.status === 'completed' ? 'bg-gray-50 opacity-75' :
+                  task.status === 'completed' ? 'bg-white opacity-75' :
                   isOverdue(task.due_date) ? 'bg-red-50' :
                   task.due_date === new Date().toISOString().split('T')[0] ? 'bg-blue-50' : ''
                 }`}
@@ -269,7 +269,7 @@ export default function ProviderTasksPage() {
                     className={`w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 ${
                       task.status === 'completed'
                         ? 'bg-green-500 border-green-500 text-white'
-                        : 'border-gray-300 hover:border-pink-500'
+                        : 'border-black hover:border-pink-500'
                     }`}
                   >
                     {task.status === 'completed' && '✓'}
@@ -280,20 +280,20 @@ export default function ProviderTasksPage() {
                     <div className="flex items-center gap-2 mb-1">
                       <span className="text-lg">{getTypeIcon(task.type)}</span>
                       <p className={`font-medium ${
-                        task.status === 'completed' ? 'text-gray-500 line-through' : 'text-gray-900'
+                        task.status === 'completed' ? 'text-black line-through' : 'text-black'
                       }`}>
                         {task.title}
                       </p>
                     </div>
                     
                     {task.client_name && (
-                      <p className="text-sm text-gray-600">
+                      <p className="text-sm text-black">
                         Patient: {task.client_name}
                       </p>
                     )}
                     
                     {task.description && (
-                      <p className="text-sm text-gray-500 mt-1">{task.description}</p>
+                      <p className="text-sm text-black mt-1">{task.description}</p>
                     )}
                   </div>
 
@@ -305,7 +305,7 @@ export default function ProviderTasksPage() {
                     <span className={`text-sm font-medium ${
                       isOverdue(task.due_date) && task.status !== 'completed'
                         ? 'text-red-600'
-                        : 'text-gray-500'
+                        : 'text-black'
                     }`}>
                       {formatDate(task.due_date)}
                     </span>
@@ -321,15 +321,15 @@ export default function ProviderTasksPage() {
       {showNewTaskModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">New Task</h2>
+            <h2 className="text-xl font-bold text-black mb-4">New Task</h2>
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Task Type</label>
+                <label className="block text-sm font-medium text-black mb-1">Task Type</label>
                 <select
                   value={newTask.type}
                   onChange={(e) => setNewTask({ ...newTask, type: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-3 py-2 border border-black rounded-lg"
                 >
                   <option value="follow_up">📅 Follow-up</option>
                   <option value="call_patient">📞 Call Patient</option>
@@ -340,43 +340,43 @@ export default function ProviderTasksPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Title *</label>
+                <label className="block text-sm font-medium text-black mb-1">Title *</label>
                 <input
                   type="text"
                   value={newTask.title}
                   onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
                   placeholder="e.g., 2-week filler follow-up"
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-3 py-2 border border-black rounded-lg"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <label className="block text-sm font-medium text-black mb-1">Description</label>
                 <textarea
                   value={newTask.description}
                   onChange={(e) => setNewTask({ ...newTask, description: e.target.value })}
                   placeholder="Additional details..."
                   rows={2}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-3 py-2 border border-black rounded-lg"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Due Date *</label>
+                  <label className="block text-sm font-medium text-black mb-1">Due Date *</label>
                   <input
                     type="date"
                     value={newTask.due_date}
                     onChange={(e) => setNewTask({ ...newTask, due_date: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-3 py-2 border border-black rounded-lg"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Priority</label>
+                  <label className="block text-sm font-medium text-black mb-1">Priority</label>
                   <select
                     value={newTask.priority}
                     onChange={(e) => setNewTask({ ...newTask, priority: e.target.value as any })}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-3 py-2 border border-black rounded-lg"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -389,7 +389,7 @@ export default function ProviderTasksPage() {
             <div className="flex gap-3 mt-6">
               <button
                 onClick={() => setShowNewTaskModal(false)}
-                className="flex-1 px-4 py-2 border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50"
+                className="flex-1 px-4 py-2 border border-black text-black rounded-lg hover:bg-white"
               >
                 Cancel
               </button>

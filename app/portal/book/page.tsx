@@ -74,10 +74,10 @@ export default async function BookingPage() {
     <div className="space-y-8">
       {/* Header */}
       <section>
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <h1 className="text-3xl font-bold text-black mb-2">
           Book an Appointment
         </h1>
-        <p className="text-gray-600">
+        <p className="text-black">
           Select a service to get started
         </p>
       </section>
@@ -85,7 +85,7 @@ export default async function BookingPage() {
       {/* Featured Services */}
       {featuredServices.length > 0 && (
         <section>
-          <h2 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
+          <h2 className="text-lg font-semibold text-black mb-4 flex items-center gap-2">
             <span>⭐</span> Most Popular
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -96,17 +96,17 @@ export default async function BookingPage() {
                 className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-5 border border-pink-100 hover:shadow-lg hover:border-pink-300 transition-all group"
               >
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="font-semibold text-gray-900 group-hover:text-pink-600 transition-colors">
+                  <h3 className="font-semibold text-black group-hover:text-pink-600 transition-colors">
                     {service.name}
                   </h3>
                   <span className="text-pink-600 font-semibold text-sm">
                     {service.price_display}
                   </span>
                 </div>
-                <p className="text-sm text-gray-500 mb-3 line-clamp-2">
+                <p className="text-sm text-black mb-3 line-clamp-2">
                   {service.short_description}
                 </p>
-                <div className="flex items-center gap-3 text-xs text-gray-400">
+                <div className="flex items-center gap-3 text-xs text-black">
                   <span>🕐 {service.duration_minutes} min</span>
                   {service.requires_consult && (
                     <span className="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">
@@ -122,41 +122,41 @@ export default async function BookingPage() {
 
       {/* All Categories */}
       <section>
-        <h2 className="text-lg font-semibold text-gray-900 mb-4">
+        <h2 className="text-lg font-semibold text-black mb-4">
           All Services
         </h2>
         
         {servicesByCategory.length === 0 ? (
-          <div className="bg-white rounded-2xl p-8 border border-gray-100 text-center">
-            <p className="text-gray-500 mb-4">
+          <div className="bg-white rounded-2xl p-8 border border-black text-center">
+            <p className="text-black mb-4">
               Services are being loaded. Please refresh in a moment.
             </p>
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-black">
               If this persists, the services may need to be seeded.
             </p>
           </div>
         ) : (
           <div className="space-y-6">
             {servicesByCategory.map((category) => (
-              <div key={category.id} className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+              <div key={category.id} className="bg-white rounded-2xl border border-black overflow-hidden">
                 {/* Category Header */}
-                <div className="bg-gray-50 px-5 py-4 border-b border-gray-100">
-                  <h3 className="font-semibold text-gray-900 flex items-center gap-2">
+                <div className="bg-white px-5 py-4 border-b border-black">
+                  <h3 className="font-semibold text-black flex items-center gap-2">
                     <span>{CATEGORY_ICONS[category.slug] || '✨'}</span>
                     {category.name}
-                    <span className="text-sm font-normal text-gray-500">
+                    <span className="text-sm font-normal text-black">
                       ({category.services.length})
                     </span>
                   </h3>
                   {category.description && (
-                    <p className="text-sm text-gray-500 mt-1">{category.description}</p>
+                    <p className="text-sm text-black mt-1">{category.description}</p>
                   )}
                 </div>
                 
                 {/* Services List */}
                 <div className="divide-y divide-gray-100">
                   {category.services.length === 0 ? (
-                    <div className="p-5 text-center text-gray-400 text-sm">
+                    <div className="p-5 text-center text-black text-sm">
                       No services available in this category yet.
                     </div>
                   ) : (
@@ -167,11 +167,11 @@ export default async function BookingPage() {
                         className="flex items-center justify-between p-5 hover:bg-pink-50 transition-colors group"
                       >
                         <div className="flex-1 min-w-0">
-                          <h4 className="font-medium text-gray-900 group-hover:text-pink-600 transition-colors">
+                          <h4 className="font-medium text-black group-hover:text-pink-600 transition-colors">
                             {service.name}
                           </h4>
                           <div className="flex items-center gap-3 mt-1">
-                            <span className="text-sm text-gray-500">
+                            <span className="text-sm text-black">
                               🕐 {service.duration_minutes} min
                             </span>
                             {service.deposit_required && (
@@ -190,7 +190,7 @@ export default async function BookingPage() {
                           <span className="font-semibold text-pink-600">
                             {service.price_display}
                           </span>
-                          <span className="text-gray-400 group-hover:text-pink-600 transition-colors">
+                          <span className="text-black group-hover:text-pink-600 transition-colors">
                             →
                           </span>
                         </div>
@@ -209,14 +209,14 @@ export default async function BookingPage() {
         <div className="flex flex-col sm:flex-row items-center gap-4">
           <div className="text-4xl">🤔</div>
           <div className="flex-1 text-center sm:text-left">
-            <h3 className="font-semibold text-gray-900">Not sure which service?</h3>
-            <p className="text-sm text-gray-600">
+            <h3 className="font-semibold text-black">Not sure which service?</h3>
+            <p className="text-sm text-black">
               Book a free consultation and we'll help you find the perfect treatment.
             </p>
           </div>
           <Link
             href="/portal/book/free-consultation"
-            className="bg-white text-gray-900 px-5 py-2.5 rounded-full font-medium hover:shadow-md transition-all text-sm"
+            className="bg-white text-black px-5 py-2.5 rounded-full font-medium hover:shadow-md transition-all text-sm"
           >
             Free Consultation
           </Link>

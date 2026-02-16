@@ -324,13 +324,13 @@ export default function PaymentSettingsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+          <div className="flex items-center gap-2 text-sm text-black mb-1">
             <Link href="/admin/settings" className="hover:text-pink-500">Settings</Link>
             <span>/</span>
             <span>Payments</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Payment Settings</h1>
-          <p className="text-gray-500">Configure Square for terminal payments</p>
+          <h1 className="text-2xl font-bold text-black">Payment Settings</h1>
+          <p className="text-black">Configure Square for terminal payments</p>
         </div>
         {success && (
           <span className="px-4 py-2 bg-green-100 text-green-700 rounded-lg font-medium">
@@ -345,8 +345,8 @@ export default function PaymentSettingsPage() {
       </div>
 
       {/* Connection Status */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-        <h2 className="font-semibold text-gray-900 mb-4">Square Connection</h2>
+      <div className="bg-white rounded-xl border border-black shadow-sm p-6">
+        <h2 className="font-semibold text-black mb-4">Square Connection</h2>
         
         {connection ? (
           <div className="space-y-4">
@@ -357,10 +357,10 @@ export default function PaymentSettingsPage() {
                   <span className="text-xl">{'✓'}</span>
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900">
+                  <p className="font-medium text-black">
                     {connection.business_name || 'Square Account'}
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-black">
                     Connected since {new Date(connection.connected_at).toLocaleDateString()}
                   </p>
                 </div>
@@ -385,12 +385,12 @@ export default function PaymentSettingsPage() {
             {/* Merchant Info */}
             <div className="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <span className="text-gray-500">Merchant ID:</span>
-                <span className="ml-2 font-mono text-gray-700">{connection.merchant_id}</span>
+                <span className="text-black">Merchant ID:</span>
+                <span className="ml-2 font-mono text-black">{connection.merchant_id}</span>
               </div>
               <div>
-                <span className="text-gray-500">Last Webhook:</span>
-                <span className="ml-2 text-gray-700">
+                <span className="text-black">Last Webhook:</span>
+                <span className="ml-2 text-black">
                   {connection.last_webhook_at 
                     ? new Date(connection.last_webhook_at).toLocaleString() 
                     : 'Never'}
@@ -400,13 +400,13 @@ export default function PaymentSettingsPage() {
           </div>
         ) : (
           <div className="text-center py-8">
-            <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-3xl">💳</span>
             </div>
-            <p className="text-gray-600 mb-4">Connect your Square account to accept terminal payments</p>
+            <p className="text-black mb-4">Connect your Square account to accept terminal payments</p>
             <a
               href="/api/square/oauth/start"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-semibold rounded-lg hover:bg-gray-800"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-semibold rounded-lg hover:bg-black"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M21.5 9h-9a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zM12 5h9a.5.5 0 0 0 .5-.5v-2A2.5 2.5 0 0 0 19 0H5a2.5 2.5 0 0 0-2.5 2.5v2a.5.5 0 0 0 .5.5h9z"/>
@@ -419,16 +419,16 @@ export default function PaymentSettingsPage() {
 
       {/* Location Selection */}
       {connection && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Location</h2>
+        <div className="bg-white rounded-xl border border-black shadow-sm p-6">
+          <h2 className="font-semibold text-black mb-4">Location</h2>
           
           {loadingLocations ? (
-            <div className="flex items-center gap-2 text-gray-500">
+            <div className="flex items-center gap-2 text-black">
               <div className="animate-spin h-4 w-4 border-2 border-pink-500 border-t-transparent rounded-full" />
               Loading locations...
             </div>
           ) : locations.length === 0 ? (
-            <p className="text-gray-500">No locations found in your Square account</p>
+            <p className="text-black">No locations found in your Square account</p>
           ) : (
             <div className="space-y-2">
               {locations.map((location) => (
@@ -437,7 +437,7 @@ export default function PaymentSettingsPage() {
                   className={`flex items-center justify-between p-4 border rounded-lg cursor-pointer transition-colors ${
                     connection.location_id === location.id
                       ? 'border-pink-500 bg-pink-50'
-                      : 'border-gray-200 hover:border-gray-300'
+                      : 'border-black hover:border-black'
                   }`}
                 >
                   <div className="flex items-center gap-3">
@@ -447,12 +447,12 @@ export default function PaymentSettingsPage() {
                       checked={connection.location_id === location.id}
                       onChange={() => handleLocationChange(location.id)}
                       disabled={saving}
-                      className="w-4 h-4 text-pink-500 border-gray-300 focus:ring-pink-500"
+                      className="w-4 h-4 text-pink-500 border-black focus:ring-pink-500"
                     />
                     <div>
-                      <p className="font-medium text-gray-900">{location.name}</p>
+                      <p className="font-medium text-black">{location.name}</p>
                       {location.address && (
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-black">
                           {[location.address.line1, location.address.city, location.address.state]
                             .filter(Boolean)
                             .join(', ')}
@@ -463,7 +463,7 @@ export default function PaymentSettingsPage() {
                   <span className={`px-2 py-1 text-xs rounded-full ${
                     location.status === 'ACTIVE' 
                       ? 'bg-green-100 text-green-700' 
-                      : 'bg-gray-100 text-gray-600'
+                      : 'bg-white text-black'
                   }`}>
                     {location.status}
                   </span>
@@ -476,14 +476,14 @@ export default function PaymentSettingsPage() {
 
       {/* Terminal Devices */}
       {connection?.location_id && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+        <div className="bg-white rounded-xl border border-black shadow-sm p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-gray-900">Terminal Devices</h2>
+            <h2 className="font-semibold text-black">Terminal Devices</h2>
             <div className="flex gap-2">
               <button
                 onClick={() => fetchDevices(true)}
                 disabled={loadingDevices}
-                className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded-lg"
+                className="px-3 py-1.5 text-sm text-black hover:bg-white rounded-lg"
               >
                 {loadingDevices ? 'Refreshing...' : 'Refresh'}
               </button>
@@ -529,12 +529,12 @@ export default function PaymentSettingsPage() {
 
           {/* Device List */}
           {loadingDevices ? (
-            <div className="flex items-center gap-2 text-gray-500">
+            <div className="flex items-center gap-2 text-black">
               <div className="animate-spin h-4 w-4 border-2 border-pink-500 border-t-transparent rounded-full" />
               Loading devices...
             </div>
           ) : devices.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-black">
               <p>No terminal devices paired</p>
               <p className="text-sm mt-1">Click &quot;Pair New Device&quot; to add a Square Terminal</p>
             </div>
@@ -544,25 +544,25 @@ export default function PaymentSettingsPage() {
                 <div
                   key={device.id}
                   className={`flex items-center justify-between p-4 border rounded-lg ${
-                    device.is_default ? 'border-pink-500 bg-pink-50' : 'border-gray-200'
+                    device.is_default ? 'border-pink-500 bg-pink-50' : 'border-black'
                   }`}
                 >
                   <div className="flex items-center gap-3">
                     <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
-                      device.status === 'paired' ? 'bg-green-100' : 'bg-gray-100'
+                      device.status === 'paired' ? 'bg-green-100' : 'bg-white'
                     }`}>
                       <span className="text-xl">📱</span>
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <p className="font-medium text-gray-900">{device.name}</p>
+                        <p className="font-medium text-black">{device.name}</p>
                         {device.is_default && (
                           <span className="px-2 py-0.5 text-xs bg-pink-100 text-pink-700 rounded-full">
                             Default
                           </span>
                         )}
                       </div>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-black">
                         {device.product_type} 
                         {device.last_seen_at && (
                           <span> - Last seen {new Date(device.last_seen_at).toLocaleString()}</span>
@@ -576,14 +576,14 @@ export default function PaymentSettingsPage() {
                         ? 'bg-green-100 text-green-700' 
                         : device.status === 'offline'
                         ? 'bg-red-100 text-red-700'
-                        : 'bg-gray-100 text-gray-600'
+                        : 'bg-white text-black'
                     }`}>
                       {device.status}
                     </span>
                     <button
                       onClick={() => handleTestPing(device.id)}
                       disabled={testingPing}
-                      className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded-lg"
+                      className="px-3 py-1.5 text-sm text-black hover:bg-white rounded-lg"
                     >
                       {testingPing ? '...' : 'Test'}
                     </button>
@@ -618,18 +618,18 @@ export default function PaymentSettingsPage() {
 
       {/* Webhook Configuration Help */}
       {connection && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Webhook Configuration</h2>
-          <p className="text-sm text-gray-600 mb-3">
+        <div className="bg-white rounded-xl border border-black shadow-sm p-6">
+          <h2 className="font-semibold text-black mb-4">Webhook Configuration</h2>
+          <p className="text-sm text-black mb-3">
             Configure these webhooks in your Square Developer Dashboard:
           </p>
-          <div className="bg-gray-50 rounded-lg p-4">
-            <p className="text-sm font-medium text-gray-700 mb-2">Webhook URL:</p>
-            <code className="block text-sm bg-white px-3 py-2 rounded border border-gray-200 break-all">
+          <div className="bg-white rounded-lg p-4">
+            <p className="text-sm font-medium text-black mb-2">Webhook URL:</p>
+            <code className="block text-sm bg-white px-3 py-2 rounded border border-black break-all">
               {typeof window !== 'undefined' ? `${window.location.origin}/api/square/webhook` : '/api/square/webhook'}
             </code>
-            <p className="text-sm font-medium text-gray-700 mt-4 mb-2">Required Events:</p>
-            <ul className="text-sm text-gray-600 list-disc list-inside space-y-1">
+            <p className="text-sm font-medium text-black mt-4 mb-2">Required Events:</p>
+            <ul className="text-sm text-black list-disc list-inside space-y-1">
               <li>terminal.checkout.created</li>
               <li>terminal.checkout.updated</li>
               <li>payment.completed</li>

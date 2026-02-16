@@ -101,7 +101,7 @@ export default function OswegoHubPage() {
               Oswego
             </span>
           </h2>
-          <p className="mt-4 text-gray-300 max-w-2xl">
+          <p className="mt-4 text-black max-w-2xl">
             These are the most requested clinical and aesthetics services we provide locally.
           </p>
         </FadeUp>
@@ -111,13 +111,13 @@ export default function OswegoHubPage() {
             <FadeUp key={s!.slug} delayMs={40 * idx}>
               <Link
                 href={`/oswego-il/${s!.slug}`}
-                className="group block rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6 hover:border-white/20 transition"
+                className="group block rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-6 hover:border-white/20 transition"
               >
                 <p className="text-pink-400 text-sm font-semibold tracking-wide">
                   {s!.category.toUpperCase()}
                 </p>
                 <h3 className="mt-3 text-2xl font-bold text-white">{s!.name}</h3>
-                <p className="mt-3 text-gray-300">{s!.short}</p>
+                <p className="mt-3 text-black">{s!.short}</p>
                 <p className="mt-6 text-sm font-semibold text-white/90">
                   Oswego details{" "}
                   <span className="inline-block transition-transform group-hover:translate-x-1">
@@ -137,7 +137,7 @@ export default function OswegoHubPage() {
               <h2 className="text-3xl md:text-4xl font-bold text-white">
                 Not sure where to start?
               </h2>
-              <p className="mt-4 text-gray-300 max-w-2xl">
+              <p className="mt-4 text-black max-w-2xl">
                 Ask a question and we’ll point you to the best next step. Educational only—book
                 a consult for personal medical guidance.
               </p>
@@ -159,9 +159,9 @@ export default function OswegoHubPage() {
                 },
               ].map((x, idx) => (
                 <FadeUp key={x.t} delayMs={40 * idx}>
-                  <div className="rounded-2xl border border-gray-800 bg-black/40 p-6">
+                  <div className="rounded-2xl border border-black bg-black/40 p-6">
                     <h3 className="text-xl font-bold text-white">{x.t}</h3>
-                    <p className="mt-3 text-gray-300">{x.b}</p>
+                    <p className="mt-3 text-black">{x.b}</p>
                   </div>
                 </FadeUp>
               ))}

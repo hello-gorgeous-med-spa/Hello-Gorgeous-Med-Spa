@@ -142,32 +142,32 @@ export default function PrivacyPolicyPage() {
           <h2>5. Your Rights Under HIPAA</h2>
           <p>You have the following rights regarding your health information:</p>
           
-          <div className="bg-gray-50 p-4 rounded-lg mb-4">
+          <div className="bg-white p-4 rounded-lg mb-4">
             <h4 className="font-bold">Right to Access</h4>
             <p className="text-sm mb-0">You may request copies of your medical records. We may charge a reasonable fee for copies.</p>
           </div>
 
-          <div className="bg-gray-50 p-4 rounded-lg mb-4">
+          <div className="bg-white p-4 rounded-lg mb-4">
             <h4 className="font-bold">Right to Amend</h4>
             <p className="text-sm mb-0">You may request corrections to your medical record if you believe information is incorrect.</p>
           </div>
 
-          <div className="bg-gray-50 p-4 rounded-lg mb-4">
+          <div className="bg-white p-4 rounded-lg mb-4">
             <h4 className="font-bold">Right to Accounting of Disclosures</h4>
             <p className="text-sm mb-0">You may request a list of certain disclosures we have made of your information.</p>
           </div>
 
-          <div className="bg-gray-50 p-4 rounded-lg mb-4">
+          <div className="bg-white p-4 rounded-lg mb-4">
             <h4 className="font-bold">Right to Request Restrictions</h4>
             <p className="text-sm mb-0">You may request restrictions on how we use or share your information, though we are not always required to agree.</p>
           </div>
 
-          <div className="bg-gray-50 p-4 rounded-lg mb-4">
+          <div className="bg-white p-4 rounded-lg mb-4">
             <h4 className="font-bold">Right to Confidential Communications</h4>
             <p className="text-sm mb-0">You may request that we communicate with you in a specific way or at a specific location.</p>
           </div>
 
-          <div className="bg-gray-50 p-4 rounded-lg">
+          <div className="bg-white p-4 rounded-lg">
             <h4 className="font-bold">Right to a Paper Copy</h4>
             <p className="text-sm mb-0">You may request a paper copy of this Privacy Policy at any time.</p>
           </div>
@@ -224,9 +224,9 @@ export default function PrivacyPolicyPage() {
             appointment reminders, treatment updates, and promotional offers via SMS. Message and data
             rates may apply.
           </p>
-          <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-pink-500">
-            <p className="font-medium text-gray-900 mb-2">Your mobile information will not be sold or shared with third parties for promotional or marketing purposes.</p>
-            <p className="text-sm text-gray-700 mb-0">
+          <div className="bg-white p-4 rounded-lg border-l-4 border-pink-500">
+            <p className="font-medium text-black mb-2">Your mobile information will not be sold or shared with third parties for promotional or marketing purposes.</p>
+            <p className="text-sm text-black mb-0">
               We use your phone number only to communicate with you about your appointments and, if you opt in,
               to send occasional promotional offers from Hello Gorgeous Med Spa. You may opt out at any time
               by replying STOP to any message.
@@ -235,9 +235,9 @@ export default function PrivacyPolicyPage() {
         </section>
 
         <section id="sms-communications-policy" className="mb-8 scroll-mt-24 p-6 bg-pink-50 rounded-xl border-2 border-pink-200">
-          <h2 className="text-2xl font-bold text-gray-900 mt-0">📱 SMS Communications Policy</h2>
+          <h2 className="text-2xl font-bold text-black mt-0">📱 SMS Communications Policy</h2>
           
-          <h3 className="text-lg font-semibold text-gray-900 mt-6">SMS Consent &amp; Opt-In</h3>
+          <h3 className="text-lg font-semibold text-black mt-6">SMS Consent &amp; Opt-In</h3>
           <p>
             By providing your mobile phone number and affirmatively opting in, you consent to receive text messages from Hello Gorgeous Med Spa related to:
           </p>
@@ -252,7 +252,7 @@ export default function PrivacyPolicyPage() {
           <p><strong>Message and data rates may apply.</strong></p>
           <p><strong>Consent to receive SMS messages is not a condition of purchase.</strong></p>
 
-          <h4 className="font-semibold text-gray-900 mt-4">You may opt in by:</h4>
+          <h4 className="font-semibold text-black mt-4">You may opt in by:</h4>
           <ul>
             <li>Checking the SMS consent box during booking</li>
             <li>Submitting an online intake form that includes SMS consent language</li>
@@ -260,32 +260,32 @@ export default function PrivacyPolicyPage() {
             <li>Verbally consenting and confirming via text</li>
           </ul>
 
-          <h3 className="text-lg font-semibold text-gray-900 mt-6">Opt-Out Instructions</h3>
+          <h3 className="text-lg font-semibold text-black mt-6">Opt-Out Instructions</h3>
           <p>
             You may opt out of SMS communications at any time by replying: <strong>STOP</strong> or <strong>UNSUBSCRIBE</strong>.
           </p>
           <p>After opting out, you will receive a final confirmation message confirming your removal from our messaging list.</p>
 
-          <h3 className="text-lg font-semibold text-gray-900 mt-6">Help Instructions</h3>
+          <h3 className="text-lg font-semibold text-black mt-6">Help Instructions</h3>
           <p>For assistance, reply <strong>HELP</strong> or contact us directly at:</p>
           <p className="mb-0">
             📞 (630) 636-6193<br />
             📧 hello.gorgeous@hellogorgeousmedspa.com
           </p>
 
-          <h3 className="text-lg font-semibold text-gray-900 mt-6">Data Usage &amp; Privacy Commitment</h3>
+          <h3 className="text-lg font-semibold text-black mt-6">Data Usage &amp; Privacy Commitment</h3>
           <p>
             We respect your privacy. <strong>Your mobile information will not be sold, rented, or shared with third parties for promotional or marketing purposes.</strong> We may share information with service providers solely for operational purposes necessary to deliver messaging services. All information is handled in accordance with our general Privacy Policy and applicable healthcare data protection regulations.
           </p>
 
-          <h3 className="text-lg font-semibold text-gray-900 mt-6">Message Types</h3>
+          <h3 className="text-lg font-semibold text-black mt-6">Message Types</h3>
           <p>Examples of messages you may receive:</p>
           <ul>
             <li>&ldquo;Hello Gorgeous Med Spa: Your Botox appointment is confirmed for Friday at 2:00 PM.&rdquo;</li>
             <li>&ldquo;Reminder: Your hormone therapy consultation is tomorrow at 10:30 AM.&rdquo;</li>
             <li>&ldquo;Special Offer: $20 off PRF this month. Reply STOP to opt out.&rdquo;</li>
           </ul>
-          <p className="text-sm text-gray-600 mb-0">
+          <p className="text-sm text-black mb-0">
             Full opt-in workflow documentation (digital form, physical form, confirmation script):{' '}
             <Link href="/sms-opt-in" className="text-pink-600 underline">
               SMS Opt-In Workflow
@@ -367,15 +367,15 @@ export default function PrivacyPolicyPage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
+      <footer className="bg-black text-white py-8">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <p className="text-gray-400">
+          <p className="text-black">
             © {new Date().getFullYear()} Hello Gorgeous Med Spa. All rights reserved.
           </p>
           <div className="flex justify-center gap-6 mt-4 text-sm">
-            <Link href="/terms" className="text-gray-400 hover:text-white">Terms of Service</Link>
-            <Link href="/privacy" className="text-gray-400 hover:text-white">Privacy Policy</Link>
-            <Link href="/contact" className="text-gray-400 hover:text-white">Contact</Link>
+            <Link href="/terms" className="text-black hover:text-white">Terms of Service</Link>
+            <Link href="/privacy" className="text-black hover:text-white">Privacy Policy</Link>
+            <Link href="/contact" className="text-black hover:text-white">Contact</Link>
           </div>
         </div>
       </footer>

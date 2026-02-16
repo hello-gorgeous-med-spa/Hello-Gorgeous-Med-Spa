@@ -188,7 +188,7 @@ export function EmailCapture() {
                     className="px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-white focus:outline-none focus:border-pink-500 text-sm"
                   >
                     {CONCERN_OPTIONS.map((o) => (
-                      <option key={o.value} value={o.value} className="text-gray-900">{o.label}</option>
+                      <option key={o.value} value={o.value} className="text-black">{o.label}</option>
                     ))}
                   </select>
                   <select
@@ -197,7 +197,7 @@ export function EmailCapture() {
                     className="px-4 py-3 rounded-xl bg-white/5 border border-white/20 text-white focus:outline-none focus:border-pink-500 text-sm"
                   >
                     {TIMEFRAME_OPTIONS.map((o) => (
-                      <option key={o.value} value={o.value} className="text-gray-900">{o.label}</option>
+                      <option key={o.value} value={o.value} className="text-black">{o.label}</option>
                     ))}
                   </select>
                 </div>

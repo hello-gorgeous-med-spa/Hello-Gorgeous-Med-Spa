@@ -214,7 +214,7 @@ export function VirtualTryOn() {
                 Try-On
               </span>
             </h2>
-            <p className="text-gray-400 max-w-xl mx-auto">
+            <p className="text-black max-w-xl mx-auto">
               Upload a selfie and preview how treatments could enhance your natural
               beauty. This is a simulation—real results vary.
             </p>
@@ -239,7 +239,7 @@ export function VirtualTryOn() {
                       <p className="text-white font-semibold text-lg">
                         Upload Your Selfie
                       </p>
-                      <p className="text-gray-400 text-sm mt-1">
+                      <p className="text-black text-sm mt-1">
                         Front-facing photo works best
                       </p>
                     </div>
@@ -254,7 +254,7 @@ export function VirtualTryOn() {
 
                   {/* Sample photos */}
                   <div className="mt-8 text-center">
-                    <p className="text-gray-500 text-sm mb-3">Or try with a sample:</p>
+                    <p className="text-black text-sm mb-3">Or try with a sample:</p>
                     <div className="flex gap-3 justify-center">
                       {[
                         "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=300&h=300&fit=crop&crop=face",
@@ -339,7 +339,7 @@ export function VirtualTryOn() {
                         style={{ left: `${comparisonPosition}%` }}
                       >
                         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white shadow-lg flex items-center justify-center">
-                          <span className="text-gray-800">↔</span>
+                          <span className="text-black">↔</span>
                         </div>
                       </div>
                     </div>
@@ -371,7 +371,7 @@ export function VirtualTryOn() {
                       )}
                       {!hasEnhancements && (
                         <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-black/70 backdrop-blur-sm border border-white/10">
-                          <p className="text-gray-400 text-xs text-center">
+                          <p className="text-black text-xs text-center">
                             👈 Select enhancements on the right to see your transformation
                           </p>
                         </div>
@@ -425,7 +425,7 @@ export function VirtualTryOn() {
               <h3 className="text-xl font-bold text-white mb-2">
                 Enhancement Options
               </h3>
-              <p className="text-gray-400 text-sm mb-6">
+              <p className="text-black text-sm mb-6">
                 Select treatments to preview their potential effects
               </p>
 
@@ -462,7 +462,7 @@ export function VirtualTryOn() {
                           <p className="text-white font-semibold">
                             {enhancement.name}
                           </p>
-                          <p className="text-gray-400 text-sm">
+                          <p className="text-black text-sm">
                             {enhancement.description}
                           </p>
                         </div>
@@ -470,7 +470,7 @@ export function VirtualTryOn() {
                           className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition ${
                             isActive
                               ? "bg-purple-500 border-purple-400"
-                              : "border-gray-600"
+                              : "border-black"
                           }`}
                         >
                           {isActive && <span className="text-white text-sm">✓</span>}
@@ -481,7 +481,7 @@ export function VirtualTryOn() {
                       {isActive && (
                         <div className="mt-4 pl-16">
                           <div className="flex items-center justify-between text-sm mb-2">
-                            <span className="text-gray-400">Intensity</span>
+                            <span className="text-black">Intensity</span>
                             <span className="text-purple-400 font-bold">{intensity}%</span>
                           </div>
                           <div className="relative">
@@ -503,7 +503,7 @@ export function VirtualTryOn() {
                               className="relative w-full h-3 rounded-full appearance-none bg-transparent cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:shadow-purple-500/50 [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-purple-500 [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-125"
                             />
                           </div>
-                          <div className="flex justify-between text-xs text-gray-500 mt-1">
+                          <div className="flex justify-between text-xs text-black mt-1">
                             <span>Subtle</span>
                             <span>Dramatic</span>
                           </div>
@@ -522,19 +522,19 @@ export function VirtualTryOn() {
                   </p>
                   <ul className="space-y-1 text-sm">
                     {activeEnhancements.has("lips") && (
-                      <li className="text-gray-300">💋 Dermal Fillers (Lips)</li>
+                      <li className="text-black">💋 Dermal Fillers (Lips)</li>
                     )}
                     {activeEnhancements.has("smooth") && (
-                      <li className="text-gray-300">💉 Botox + Skin Resurfacing</li>
+                      <li className="text-black">💉 Botox + Skin Resurfacing</li>
                     )}
                     {activeEnhancements.has("contour") && (
-                      <li className="text-gray-300">💎 Cheek & Jawline Fillers</li>
+                      <li className="text-black">💎 Cheek & Jawline Fillers</li>
                     )}
                     {activeEnhancements.has("glow") && (
-                      <li className="text-gray-300">✨ Glutathione + Vitamin IV</li>
+                      <li className="text-black">✨ Glutathione + Vitamin IV</li>
                     )}
                     {activeEnhancements.has("eyes") && (
-                      <li className="text-gray-300">👁️ Under-eye Filler + Botox</li>
+                      <li className="text-black">👁️ Under-eye Filler + Botox</li>
                     )}
                   </ul>
                 </div>
@@ -550,7 +550,7 @@ export function VirtualTryOn() {
                 >
                   Book Free Consultation →
                 </a>
-                <p className="text-gray-500 text-xs text-center">
+                <p className="text-black text-xs text-center">
                   * Virtual preview is for illustration only. Actual results depend
                   on individual factors and will be discussed during consultation.
                 </p>

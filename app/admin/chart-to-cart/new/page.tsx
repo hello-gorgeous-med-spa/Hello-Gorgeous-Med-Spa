@@ -244,19 +244,19 @@ export default function NewChartToCartPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
+      <div className="bg-white border-b border-black sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Link
                 href="/admin/chart-to-cart"
-                className="text-gray-400 hover:text-gray-600 transition-colors"
+                className="text-black hover:text-black transition-colors"
               >
                 ← Back
               </Link>
-              <h1 className="text-xl font-semibold text-gray-900">New Treatment Session</h1>
+              <h1 className="text-xl font-semibold text-black">New Treatment Session</h1>
             </div>
             <div className="flex items-center gap-3">
               {step === 'treatment' && selectedClient && (
@@ -281,13 +281,13 @@ export default function NewChartToCartPage() {
         {/* Step 1: Client Selection */}
         {step === 'client' && (
           <div className="max-w-2xl mx-auto">
-            <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
-              <div className="p-6 border-b border-gray-100">
-                <h2 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
+            <div className="bg-white rounded-2xl border border-black shadow-sm overflow-hidden">
+              <div className="p-6 border-b border-black">
+                <h2 className="text-lg font-semibold text-black flex items-center gap-2">
                   <span className="w-8 h-8 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-bold">1</span>
                   Select Client
                 </h2>
-                <p className="text-gray-500 text-sm mt-1">Search from your full client list or add a new client</p>
+                <p className="text-black text-sm mt-1">Search from your full client list or add a new client</p>
               </div>
 
               <div className="p-6">
@@ -298,9 +298,9 @@ export default function NewChartToCartPage() {
                       value={clientSearch}
                       onChange={(e) => setClientSearch(e.target.value)}
                       placeholder="Search by name, email, or phone..."
-                      className="w-full px-4 py-3 pl-12 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                      className="w-full px-4 py-3 pl-12 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                     />
-                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-black">🔍</span>
                   </div>
                   <Link
                     href="/admin/clients/new?returnTo=/admin/chart-to-cart/new"
@@ -310,16 +310,16 @@ export default function NewChartToCartPage() {
                   </Link>
                 </div>
 
-                <p className="text-xs text-gray-500 mb-3">
+                <p className="text-xs text-black mb-3">
                   {clientSearch.trim() ? `Showing matches for "${clientSearch}"` : 'Showing your full client list (A–Z). Use search to narrow.'}
                 </p>
 
                 <div className="mt-2 max-h-80 overflow-y-auto">
                   {loadingClients ? (
-                    <div className="py-8 text-center text-gray-400">Loading clients...</div>
+                    <div className="py-8 text-center text-black">Loading clients...</div>
                   ) : clients.length === 0 ? (
                     <div className="py-8 text-center">
-                      <p className="text-gray-400 mb-4">
+                      <p className="text-black mb-4">
                         {clientSearch.trim() ? 'No clients match your search.' : 'No clients in your database yet.'}
                       </p>
                       <Link
@@ -338,18 +338,18 @@ export default function NewChartToCartPage() {
                             setSelectedClient(client);
                             setStep('treatment');
                           }}
-                          className="w-full p-4 text-left rounded-xl border border-gray-100 hover:border-pink-300 hover:bg-pink-50/50 transition-colors flex items-center gap-4"
+                          className="w-full p-4 text-left rounded-xl border border-black hover:border-pink-300 hover:bg-pink-50/50 transition-colors flex items-center gap-4"
                         >
                           <div className="w-12 h-12 bg-gradient-to-br from-pink-400 to-pink-600 rounded-full flex items-center justify-center text-white font-bold">
                             {client.first_name?.[0]}{client.last_name?.[0]}
                           </div>
                           <div className="flex-1">
-                            <p className="font-medium text-gray-900">
+                            <p className="font-medium text-black">
                               {client.first_name} {client.last_name}
                             </p>
-                            <p className="text-sm text-gray-500">{client.email}</p>
+                            <p className="text-sm text-black">{client.email}</p>
                           </div>
-                          <span className="text-gray-400">→</span>
+                          <span className="text-black">→</span>
                         </button>
                       ))}
                     </div>
@@ -365,9 +365,9 @@ export default function NewChartToCartPage() {
           <div className="flex gap-6">
             {/* Left: Product Selection */}
             <div className="flex-1">
-              <div className="bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden">
+              <div className="bg-white rounded-2xl border border-black shadow-sm overflow-hidden">
                 {/* Category Tabs */}
-                <div className="border-b border-gray-100 overflow-x-auto">
+                <div className="border-b border-black overflow-x-auto">
                   <div className="flex items-center p-2 gap-1 min-w-max">
                     {PRODUCT_CATEGORIES.map((cat) => (
                       <button
@@ -376,7 +376,7 @@ export default function NewChartToCartPage() {
                         className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
                           selectedCategory === cat.id
                             ? 'bg-pink-100 text-pink-700'
-                            : 'text-gray-600 hover:bg-gray-100'
+                            : 'text-black hover:bg-white'
                         }`}
                       >
                         <span className="mr-1">{cat.icon}</span>
@@ -393,7 +393,7 @@ export default function NewChartToCartPage() {
                     value={searchProducts}
                     onChange={(e) => setSearchProducts(e.target.value)}
                     placeholder="Search products..."
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 mb-4"
+                    className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 mb-4"
                   />
 
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -401,14 +401,14 @@ export default function NewChartToCartPage() {
                       <button
                         key={product.id}
                         onClick={() => addToCart(product)}
-                        className="p-4 text-left border border-gray-100 rounded-xl hover:border-pink-300 hover:bg-pink-50/30 transition-all group"
+                        className="p-4 text-left border border-black rounded-xl hover:border-pink-300 hover:bg-pink-50/30 transition-all group"
                       >
-                        <p className="font-medium text-gray-900 text-sm group-hover:text-pink-700">
+                        <p className="font-medium text-black text-sm group-hover:text-pink-700">
                           {product.name}
                         </p>
                         <p className="text-pink-600 font-semibold mt-1">
                           ${product.price.toFixed(2)}
-                          <span className="text-gray-400 font-normal text-xs">/{product.unit}</span>
+                          <span className="text-black font-normal text-xs">/{product.unit}</span>
                         </p>
                       </button>
                     ))}
@@ -416,7 +416,7 @@ export default function NewChartToCartPage() {
                 </div>
 
                 {/* Quick Actions */}
-                <div className="p-4 border-t border-gray-100 bg-gray-50">
+                <div className="p-4 border-t border-black bg-white">
                   <div className="flex items-center gap-3">
                     <Link
                       href={`/admin/charting/injection-map?client=${selectedClient.id}`}
@@ -436,7 +436,7 @@ export default function NewChartToCartPage() {
                         type="button"
                         onClick={() => photoInputRef.current?.click()}
                         disabled={uploadingPhoto}
-                        className="px-4 py-3 border border-gray-200 rounded-xl hover:bg-gray-100 transition-colors disabled:opacity-50 flex items-center gap-2"
+                        className="px-4 py-3 border border-black rounded-xl hover:bg-white transition-colors disabled:opacity-50 flex items-center gap-2"
                       >
                         {uploadingPhoto ? (
                           <span className="animate-spin">⏳</span>
@@ -453,9 +453,9 @@ export default function NewChartToCartPage() {
 
             {/* Right: Cart Summary */}
             <div className="w-96">
-              <div className="bg-white rounded-2xl border border-gray-200 shadow-sm sticky top-24">
-                <div className="p-4 border-b border-gray-100">
-                  <h3 className="font-semibold text-gray-900 flex items-center justify-between">
+              <div className="bg-white rounded-2xl border border-black shadow-sm sticky top-24">
+                <div className="p-4 border-b border-black">
+                  <h3 className="font-semibold text-black flex items-center justify-between">
                     <span>Current Sale</span>
                     <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
                   </h3>
@@ -464,28 +464,28 @@ export default function NewChartToCartPage() {
                 {/* Cart Items */}
                 <div className="p-4 max-h-80 overflow-y-auto">
                   {cart.length === 0 ? (
-                    <p className="text-center text-gray-400 py-8">
+                    <p className="text-center text-black py-8">
                       Add products to start the sale
                     </p>
                   ) : (
                     <div className="space-y-3">
                       {cart.map((item) => (
-                        <div key={item.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-0">
+                        <div key={item.id} className="flex items-center justify-between py-2 border-b border-black last:border-0">
                           <div className="flex-1">
                             <p className="text-pink-600 font-medium text-sm">{item.name}</p>
-                            <p className="text-xs text-gray-400">${item.price.toFixed(2)}/{item.unit}</p>
+                            <p className="text-xs text-black">${item.price.toFixed(2)}/{item.unit}</p>
                           </div>
                           <div className="flex items-center gap-2">
                             <button
                               onClick={() => updateQuantity(item.id, -1)}
-                              className="w-7 h-7 bg-gray-100 rounded-lg hover:bg-gray-200 text-gray-600 flex items-center justify-center"
+                              className="w-7 h-7 bg-white rounded-lg hover:bg-white text-black flex items-center justify-center"
                             >
                               −
                             </button>
                             <span className="w-8 text-center font-medium">{item.quantity}</span>
                             <button
                               onClick={() => updateQuantity(item.id, 1)}
-                              className="w-7 h-7 bg-gray-100 rounded-lg hover:bg-gray-200 text-gray-600 flex items-center justify-center"
+                              className="w-7 h-7 bg-white rounded-lg hover:bg-white text-black flex items-center justify-center"
                             >
                               +
                             </button>
@@ -507,21 +507,21 @@ export default function NewChartToCartPage() {
 
                 {/* Totals */}
                 {cart.length > 0 && (
-                  <div className="p-4 bg-gray-50 border-t border-gray-100">
+                  <div className="p-4 bg-white border-t border-black">
                     <div className="space-y-2 text-sm">
-                      <div className="flex justify-between text-gray-600">
+                      <div className="flex justify-between text-black">
                         <span>Subtotal</span>
                         <span>${cartTotal.toFixed(2)}</span>
                       </div>
-                      <div className="flex justify-between text-gray-600">
+                      <div className="flex justify-between text-black">
                         <span>Surcharge (2.75%)</span>
                         <span>${surcharge.toFixed(2)}</span>
                       </div>
-                      <div className="flex justify-between text-gray-600">
+                      <div className="flex justify-between text-black">
                         <span>Sales Tax (8.75%)</span>
                         <span>${salesTax.toFixed(2)}</span>
                       </div>
-                      <div className="flex justify-between font-bold text-lg pt-2 border-t border-gray-200">
+                      <div className="flex justify-between font-bold text-lg pt-2 border-t border-black">
                         <span>Total</span>
                         <span>${grandTotal.toFixed(2)}</span>
                       </div>
@@ -530,11 +530,11 @@ export default function NewChartToCartPage() {
                 )}
 
                 {/* Actions */}
-                <div className="p-4 border-t border-gray-100 space-y-2">
+                <div className="p-4 border-t border-black space-y-2">
                   {saveError && (
                     <p className="text-sm text-red-600 text-center">{saveError}</p>
                   )}
-                  <div className="flex items-center gap-2 text-xs text-gray-500 mb-3">
+                  <div className="flex items-center gap-2 text-xs text-black mb-3">
                     <span className="flex-1 flex items-center gap-1">
                       <span>^</span> Option
                     </span>
@@ -553,7 +553,7 @@ export default function NewChartToCartPage() {
                   >
                     {saving ? 'Saving to client profile…' : 'Save & Checkout'}
                   </button>
-                  <p className="text-xs text-gray-500 text-center">Session is saved to this client&apos;s profile</p>
+                  <p className="text-xs text-black text-center">Session is saved to this client&apos;s profile</p>
                 </div>
               </div>
             </div>

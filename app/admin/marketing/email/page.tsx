@@ -136,8 +136,8 @@ export default function EmailMarketingPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Email Marketing</h1>
-          <p className="text-gray-500">Send campaigns, automations, and newsletters</p>
+          <h1 className="text-2xl font-bold text-black">Email Marketing</h1>
+          <p className="text-black">Send campaigns, automations, and newsletters</p>
         </div>
         <button
           onClick={() => setShowComposeModal(true)}
@@ -161,9 +161,9 @@ export default function EmailMarketingPage() {
             >
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-2xl">🐵</span>
-                <span className="font-bold text-gray-900">Mailchimp</span>
+                <span className="font-bold text-black">Mailchimp</span>
               </div>
-              <p className="text-sm text-gray-600">Popular choice, free up to 500 contacts</p>
+              <p className="text-sm text-black">Popular choice, free up to 500 contacts</p>
             </button>
             <button
               onClick={() => window.open('https://www.klaviyo.com/partners/signup', '_blank')}
@@ -171,16 +171,16 @@ export default function EmailMarketingPage() {
             >
               <div className="flex items-center gap-3 mb-2">
                 <span className="text-2xl">💜</span>
-                <span className="font-bold text-gray-900">Klaviyo</span>
+                <span className="font-bold text-black">Klaviyo</span>
               </div>
-              <p className="text-sm text-gray-600">Advanced automation, great for e-commerce</p>
+              <p className="text-sm text-black">Advanced automation, great for e-commerce</p>
             </button>
           </div>
           <details className="mt-4">
             <summary className="text-sm text-amber-700 cursor-pointer hover:text-amber-800">
               How to connect →
             </summary>
-            <div className="mt-2 p-4 bg-white rounded-lg text-sm text-gray-600">
+            <div className="mt-2 p-4 bg-white rounded-lg text-sm text-black">
               <ol className="list-decimal list-inside space-y-2">
                 <li>Sign up for Mailchimp or Klaviyo (free plans available)</li>
                 <li>Go to your account settings and find API Keys</li>
@@ -209,26 +209,26 @@ export default function EmailMarketingPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Total Subscribers</p>
-          <p className="text-2xl font-bold text-gray-900">{stats.totalSubscribers.toLocaleString()}</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Total Subscribers</p>
+          <p className="text-2xl font-bold text-black">{stats.totalSubscribers.toLocaleString()}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Avg Open Rate</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Avg Open Rate</p>
           <p className="text-2xl font-bold text-green-600">{stats.avgOpenRate}%</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Avg Click Rate</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Avg Click Rate</p>
           <p className="text-2xl font-bold text-blue-600">{stats.avgClickRate}%</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Campaigns Sent</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Campaigns Sent</p>
           <p className="text-2xl font-bold text-pink-600">{stats.campaignsSent}</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 border-b border-gray-200">
+      <div className="flex gap-1 border-b border-black">
         {(['campaigns', 'templates', 'automation', 'settings'] as const).map(tab => (
           <button
             key={tab}
@@ -236,7 +236,7 @@ export default function EmailMarketingPage() {
             className={`px-4 py-3 font-medium transition-colors border-b-2 -mb-px capitalize ${
               activeTab === tab 
                 ? 'border-pink-500 text-pink-600' 
-                : 'border-transparent text-gray-500 hover:text-gray-700'
+                : 'border-transparent text-black hover:text-black'
             }`}
           >
             {tab}
@@ -246,9 +246,9 @@ export default function EmailMarketingPage() {
 
       {/* Tab Content */}
       {activeTab === 'campaigns' && (
-        <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+        <div className="bg-white rounded-xl border border-black overflow-hidden">
           {campaigns.length === 0 ? (
-            <div className="p-12 text-center text-gray-500">
+            <div className="p-12 text-center text-black">
               <span className="text-4xl block mb-4">✉️</span>
               <p className="mb-4">No campaigns yet</p>
               <button
@@ -261,16 +261,16 @@ export default function EmailMarketingPage() {
           ) : (
             <div className="divide-y divide-gray-100">
               {campaigns.map(campaign => (
-                <div key={campaign.id} className="p-4 hover:bg-gray-50">
+                <div key={campaign.id} className="p-4 hover:bg-white">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-medium text-gray-900">{campaign.name}</p>
-                      <p className="text-sm text-gray-500">{campaign.subject}</p>
+                      <p className="font-medium text-black">{campaign.name}</p>
+                      <p className="text-sm text-black">{campaign.subject}</p>
                     </div>
                     <span className={`px-2 py-1 text-xs font-medium rounded-full ${
                       campaign.status === 'sent' ? 'bg-green-100 text-green-700' :
                       campaign.status === 'scheduled' ? 'bg-blue-100 text-blue-700' :
-                      'bg-gray-100 text-gray-700'
+                      'bg-white text-black'
                     }`}>
                       {campaign.status}
                     </span>
@@ -287,20 +287,20 @@ export default function EmailMarketingPage() {
           {DEFAULT_TEMPLATES.map(template => (
             <div
               key={template.id}
-              className="bg-white rounded-xl border border-gray-100 p-4 hover:border-pink-300 cursor-pointer transition-colors"
+              className="bg-white rounded-xl border border-black p-4 hover:border-pink-300 cursor-pointer transition-colors"
               onClick={() => {
                 setSelectedTemplate(template);
                 setShowComposeModal(true);
               }}
             >
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-medium px-2 py-1 bg-gray-100 text-gray-600 rounded">
+                <span className="text-xs font-medium px-2 py-1 bg-white text-black rounded">
                   {template.category}
                 </span>
               </div>
-              <h3 className="font-semibold text-gray-900 mb-1">{template.name}</h3>
-              <p className="text-sm text-gray-500 mb-2">{template.subject}</p>
-              <p className="text-xs text-gray-400 line-clamp-2">{template.preview}</p>
+              <h3 className="font-semibold text-black mb-1">{template.name}</h3>
+              <p className="text-sm text-black mb-2">{template.subject}</p>
+              <p className="text-xs text-black line-clamp-2">{template.preview}</p>
             </div>
           ))}
         </div>
@@ -309,8 +309,8 @@ export default function EmailMarketingPage() {
       {activeTab === 'automation' && (
         <div className="space-y-4">
           <div className="bg-gradient-to-r from-purple-50 to-pink-50 border border-purple-200 rounded-xl p-6">
-            <h3 className="font-bold text-gray-900 mb-2">🤖 Email Automations</h3>
-            <p className="text-gray-600 mb-4">
+            <h3 className="font-bold text-black mb-2">🤖 Email Automations</h3>
+            <p className="text-black mb-4">
               Set up automated emails that send based on triggers like birthdays, treatment anniversaries, or inactivity.
             </p>
             <div className="space-y-3">
@@ -322,11 +322,11 @@ export default function EmailMarketingPage() {
               ].map((auto, idx) => (
                 <div key={idx} className="flex items-center justify-between p-4 bg-white rounded-lg border border-purple-100">
                   <div>
-                    <p className="font-medium text-gray-900">{auto.name}</p>
-                    <p className="text-sm text-gray-500">{auto.trigger}</p>
+                    <p className="font-medium text-black">{auto.name}</p>
+                    <p className="text-sm text-black">{auto.trigger}</p>
                   </div>
                   <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                    auto.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'
+                    auto.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-white text-black'
                   }`}>
                     {auto.status}
                   </span>
@@ -338,30 +338,30 @@ export default function EmailMarketingPage() {
       )}
 
       {activeTab === 'settings' && (
-        <div className="bg-white rounded-xl border border-gray-100 p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">Email Settings</h3>
+        <div className="bg-white rounded-xl border border-black p-6">
+          <h3 className="font-semibold text-black mb-4">Email Settings</h3>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">From Name</label>
+              <label className="block text-sm font-medium text-black mb-1">From Name</label>
               <input
                 type="text"
                 defaultValue="Hello Gorgeous Med Spa"
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                className="w-full px-4 py-2 border border-black rounded-lg"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Reply-To Email</label>
+              <label className="block text-sm font-medium text-black mb-1">Reply-To Email</label>
               <input
                 type="email"
                 defaultValue="hello.gorgeous@hellogorgeousmedspa.com"
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                className="w-full px-4 py-2 border border-black rounded-lg"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Physical Address (required for CAN-SPAM)</label>
+              <label className="block text-sm font-medium text-black mb-1">Physical Address (required for CAN-SPAM)</label>
               <textarea
                 defaultValue="2406 Route 71, Oswego, IL 60543"
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                className="w-full px-4 py-2 border border-black rounded-lg"
                 rows={2}
               />
             </div>
@@ -373,42 +373,42 @@ export default function EmailMarketingPage() {
       {showComposeModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-100 sticky top-0 bg-white">
-              <h2 className="text-xl font-bold text-gray-900">
+            <div className="p-6 border-b border-black sticky top-0 bg-white">
+              <h2 className="text-xl font-bold text-black">
                 {selectedTemplate ? `New Campaign: ${selectedTemplate.name}` : 'New Campaign'}
               </h2>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Campaign Name</label>
+                <label className="block text-sm font-medium text-black mb-1">Campaign Name</label>
                 <input
                   type="text"
                   defaultValue={selectedTemplate?.name || ''}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="e.g., February Newsletter"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Subject Line</label>
+                <label className="block text-sm font-medium text-black mb-1">Subject Line</label>
                 <input
                   type="text"
                   defaultValue={selectedTemplate?.subject || ''}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="Your email subject..."
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Preview Text</label>
+                <label className="block text-sm font-medium text-black mb-1">Preview Text</label>
                 <input
                   type="text"
                   defaultValue={selectedTemplate?.preview || ''}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="Text shown in email preview..."
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Recipients</label>
-                <select className="w-full px-4 py-2 border border-gray-200 rounded-lg">
+                <label className="block text-sm font-medium text-black mb-1">Recipients</label>
+                <select className="w-full px-4 py-2 border border-black rounded-lg">
                   <option>All Subscribers ({stats.totalSubscribers})</option>
                   <option>Active Clients (Last 6 months)</option>
                   <option>Inactive Clients (6+ months)</option>
@@ -418,23 +418,23 @@ export default function EmailMarketingPage() {
                   <option>VIP Members</option>
                 </select>
               </div>
-              <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                <p className="text-sm text-gray-600 text-center">
+              <div className="bg-white rounded-lg p-4 border border-black">
+                <p className="text-sm text-black text-center">
                   Email editor would load here when connected to Mailchimp/Klaviyo
                 </p>
               </div>
             </div>
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3 sticky bottom-0 bg-white">
+            <div className="p-6 border-t border-black flex justify-end gap-3 sticky bottom-0 bg-white">
               <button
                 onClick={() => {
                   setShowComposeModal(false);
                   setSelectedTemplate(null);
                 }}
-                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
               >
                 Cancel
               </button>
-              <button className="px-4 py-2 border border-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-50">
+              <button className="px-4 py-2 border border-black text-black font-medium rounded-lg hover:bg-white">
                 Save Draft
               </button>
               <button className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600">

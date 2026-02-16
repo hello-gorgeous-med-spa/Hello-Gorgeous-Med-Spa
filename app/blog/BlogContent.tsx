@@ -323,7 +323,7 @@ export function BlogContent() {
                 Resources
               </span>
             </h1>
-            <p className="text-gray-400 text-lg">
+            <p className="text-black text-lg">
               Expert insights on aesthetics, wellness, and beauty from our trusted
               partners and the Hello Gorgeous team.
             </p>
@@ -342,7 +342,7 @@ export function BlogContent() {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
                 activeCategory === cat.id
                   ? "bg-pink-500 text-white"
-                  : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
+                  : "bg-white/5 text-black hover:bg-white/10 hover:text-white"
               }`}
             >
               <span className="mr-1">{cat.icon}</span>
@@ -355,7 +355,7 @@ export function BlogContent() {
             className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
               showVideos
                 ? "bg-purple-500 text-white"
-                : "bg-white/5 text-gray-400 hover:bg-white/10 hover:text-white"
+                : "bg-white/5 text-black hover:bg-white/10 hover:text-white"
             }`}
           >
             🎬 Videos
@@ -386,7 +386,7 @@ export function BlogContent() {
                   </div>
                   <div className="p-4">
                     <p className="text-white font-semibold">{video.title}</p>
-                    <p className="text-gray-500 text-sm">Source: {video.source}</p>
+                    <p className="text-black text-sm">Source: {video.source}</p>
                   </div>
                 </div>
               </FadeUp>
@@ -423,7 +423,7 @@ export function BlogContent() {
                         {categories.find((c) => c.id === article.category)?.name}
                       </span>
                       {article.isExternal && (
-                        <span className="px-3 py-1 rounded-full bg-black/70 text-gray-400 text-xs">
+                        <span className="px-3 py-1 rounded-full bg-black/70 text-black text-xs">
                           ↗ {article.source}
                         </span>
                       )}
@@ -433,8 +433,8 @@ export function BlogContent() {
                     <h3 className="text-xl font-bold text-white group-hover:text-pink-400 transition mb-2">
                       {article.title}
                     </h3>
-                    <p className="text-gray-400 text-sm mb-3">{article.excerpt}</p>
-                    <div className="flex items-center justify-between text-xs text-gray-500">
+                    <p className="text-black text-sm mb-3">{article.excerpt}</p>
+                    <div className="flex items-center justify-between text-xs text-black">
                       <span>{article.date}</span>
                       {article.readTime && <span>{article.readTime} read</span>}
                     </div>
@@ -459,7 +459,7 @@ export function BlogContent() {
 
         {regularArticles.length === 0 && featuredArticles.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-gray-400">No articles in this category yet.</p>
+            <p className="text-black">No articles in this category yet.</p>
           </div>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -479,7 +479,7 @@ export function BlogContent() {
                       className="object-cover group-hover:scale-105 transition duration-500"
                     />
                     {article.isExternal && (
-                      <span className="absolute top-2 right-2 px-2 py-1 rounded-full bg-black/70 text-gray-400 text-xs">
+                      <span className="absolute top-2 right-2 px-2 py-1 rounded-full bg-black/70 text-black text-xs">
                         ↗ {article.source}
                       </span>
                     )}
@@ -489,12 +489,12 @@ export function BlogContent() {
                       <span className="text-xs text-pink-400">
                         {categories.find((c) => c.id === article.category)?.icon}
                       </span>
-                      <span className="text-xs text-gray-500">{article.date}</span>
+                      <span className="text-xs text-black">{article.date}</span>
                     </div>
                     <h3 className="text-white font-semibold group-hover:text-pink-400 transition mb-2 line-clamp-2">
                       {article.title}
                     </h3>
-                    <p className="text-gray-400 text-sm line-clamp-2">
+                    <p className="text-black text-sm line-clamp-2">
                       {article.excerpt}
                     </p>
                   </div>
@@ -512,7 +512,7 @@ export function BlogContent() {
             <h3 className="text-lg font-semibold text-white mb-2">
               Trusted Partners & Sources
             </h3>
-            <p className="text-gray-500 text-sm">
+            <p className="text-black text-sm">
               Educational content curated from industry leaders
             </p>
           </div>
@@ -521,7 +521,7 @@ export function BlogContent() {
               (partner) => (
                 <span
                   key={partner}
-                  className="text-gray-400 font-semibold text-lg"
+                  className="text-black font-semibold text-lg"
                 >
                   {partner}
                 </span>
@@ -538,7 +538,7 @@ export function BlogContent() {
             <h2 className="text-3xl font-bold text-white mb-4">
               Have Questions?
             </h2>
-            <p className="text-gray-400 mb-6">
+            <p className="text-black mb-6">
               Our team is here to help you understand which treatments are right
               for you. Book a free consultation today.
             </p>

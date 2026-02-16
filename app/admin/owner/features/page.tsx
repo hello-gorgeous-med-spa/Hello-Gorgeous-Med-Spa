@@ -99,24 +99,24 @@ export default function FeatureFlagsPage() {
       {/* Feature List */}
       <div className="bg-white rounded-xl border">
         <table className="w-full">
-          <thead className="bg-gray-50">
+          <thead className="bg-white">
             <tr>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">FEATURE</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">DESCRIPTION</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">ENVIRONMENT</th>
-              <th className="px-4 py-3 text-xs font-semibold text-gray-500">STATUS</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-black">FEATURE</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-black">DESCRIPTION</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-black">ENVIRONMENT</th>
+              <th className="px-4 py-3 text-xs font-semibold text-black">STATUS</th>
             </tr>
           </thead>
           <tbody className="divide-y">
             {filteredFeatures.map(feature => (
-              <tr key={feature.id} className={`hover:bg-gray-50 ${!feature.status ? 'bg-gray-50' : ''}`}>
+              <tr key={feature.id} className={`hover:bg-white ${!feature.status ? 'bg-white' : ''}`}>
                 <td className="px-4 py-4">
                   <div className="flex items-center gap-2">
                     {feature.isCritical && <span className="text-red-500" title="Critical Feature">🔴</span>}
                     <span className="font-medium text-sm">{feature.name}</span>
                   </div>
                 </td>
-                <td className="px-4 py-4 text-sm text-gray-600">{feature.description}</td>
+                <td className="px-4 py-4 text-sm text-black">{feature.description}</td>
                 <td className="px-4 py-4">
                   <select
                     value={feature.environment}
@@ -131,7 +131,7 @@ export default function FeatureFlagsPage() {
                 <td className="px-4 py-4 text-center">
                   <button
                     onClick={() => toggleFeature(feature)}
-                    className={`w-14 h-7 rounded-full transition-colors relative ${feature.status ? 'bg-green-500' : 'bg-gray-300'}`}
+                    className={`w-14 h-7 rounded-full transition-colors relative ${feature.status ? 'bg-green-500' : 'bg-white'}`}
                   >
                     <span className={`absolute top-1 w-5 h-5 bg-white rounded-full transition-transform shadow ${feature.status ? 'right-1' : 'left-1'}`} />
                   </button>
@@ -145,15 +145,15 @@ export default function FeatureFlagsPage() {
       {/* Stats */}
       <div className="mt-6 grid grid-cols-3 gap-4">
         <div className="bg-white rounded-xl border p-4">
-          <p className="text-sm text-gray-500">Enabled Features</p>
+          <p className="text-sm text-black">Enabled Features</p>
           <p className="text-2xl font-bold text-green-600">{features.filter(f => f.status).length}</p>
         </div>
         <div className="bg-white rounded-xl border p-4">
-          <p className="text-sm text-gray-500">Disabled Features</p>
-          <p className="text-2xl font-bold text-gray-400">{features.filter(f => !f.status).length}</p>
+          <p className="text-sm text-black">Disabled Features</p>
+          <p className="text-2xl font-bold text-black">{features.filter(f => !f.status).length}</p>
         </div>
         <div className="bg-white rounded-xl border p-4">
-          <p className="text-sm text-gray-500">Critical Features</p>
+          <p className="text-sm text-black">Critical Features</p>
           <p className="text-2xl font-bold text-red-600">{features.filter(f => f.isCritical && f.status).length}</p>
         </div>
       </div>
@@ -166,14 +166,14 @@ export default function FeatureFlagsPage() {
               <span className="text-2xl">🛑</span>
               <h3 className="text-lg font-semibold text-red-600">Disable Critical Feature?</h3>
             </div>
-            <p className="text-gray-600 mb-2">
+            <p className="text-black mb-2">
               You are about to disable <strong>{showConfirm.feature.name}</strong>.
             </p>
             <p className="text-red-600 text-sm mb-4">
               This is a critical feature and disabling it may affect active users and system functionality.
             </p>
             <div className="flex gap-3 justify-end">
-              <button onClick={() => setShowConfirm(null)} className="px-4 py-2 text-gray-600 hover:text-gray-800">
+              <button onClick={() => setShowConfirm(null)} className="px-4 py-2 text-black hover:text-black">
                 Cancel
               </button>
               <button

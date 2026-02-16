@@ -13,7 +13,7 @@ import { STANDARD_INTAKE_FORMS, getRequiredForms } from '@/lib/hgos/intake-forms
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-white rounded ${className}`} />;
 }
 
 export default function IntakeFormsPage() {
@@ -70,8 +70,8 @@ export default function IntakeFormsPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Intake Forms</h1>
-        <p className="text-gray-500">Complete required forms before your appointment</p>
+        <h1 className="text-2xl font-bold text-black">Intake Forms</h1>
+        <p className="text-black">Complete required forms before your appointment</p>
       </div>
 
       {/* Status Banner */}
@@ -107,15 +107,15 @@ export default function IntakeFormsPage() {
 
       {/* Upcoming Appointment */}
       {upcomingAppointment && (
-        <div className="bg-white rounded-2xl border border-gray-100 p-6">
-          <h3 className="font-semibold text-gray-900 mb-3">Upcoming Appointment</h3>
+        <div className="bg-white rounded-2xl border border-black p-6">
+          <h3 className="font-semibold text-black mb-3">Upcoming Appointment</h3>
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 rounded-xl bg-pink-100 flex items-center justify-center">
               <span className="text-2xl">💆‍♀️</span>
             </div>
             <div>
-              <p className="font-medium text-gray-900">{upcomingAppointment.serviceName}</p>
-              <p className="text-sm text-gray-500">{upcomingAppointment.date} at {upcomingAppointment.time}</p>
+              <p className="font-medium text-black">{upcomingAppointment.serviceName}</p>
+              <p className="text-sm text-black">{upcomingAppointment.date} at {upcomingAppointment.time}</p>
             </div>
           </div>
         </div>
@@ -123,7 +123,7 @@ export default function IntakeFormsPage() {
 
       {/* Forms List */}
       <div className="space-y-4">
-        <h3 className="font-semibold text-gray-900">All Forms</h3>
+        <h3 className="font-semibold text-black">All Forms</h3>
         
         {loading ? (
           Array.from({ length: 4 }).map((_, i) => (
@@ -134,7 +134,7 @@ export default function IntakeFormsPage() {
             <div
               key={form.id}
               className={`bg-white rounded-xl border p-4 ${
-                form.status === 'required' ? 'border-amber-300 bg-amber-50' : 'border-gray-100'
+                form.status === 'required' ? 'border-amber-300 bg-amber-50' : 'border-black'
               }`}
             >
               <div className="flex items-center justify-between">
@@ -142,7 +142,7 @@ export default function IntakeFormsPage() {
                   <div className={`w-10 h-10 rounded-lg flex items-center justify-center ${
                     form.status === 'completed' ? 'bg-green-100' :
                     form.status === 'required' ? 'bg-amber-100' :
-                    'bg-gray-100'
+                    'bg-white'
                   }`}>
                     <span className="text-xl">
                       {form.status === 'completed' ? '✓' :
@@ -151,10 +151,10 @@ export default function IntakeFormsPage() {
                     </span>
                   </div>
                   <div>
-                    <h4 className="font-medium text-gray-900">{form.name}</h4>
-                    <p className="text-sm text-gray-500">{form.description}</p>
+                    <h4 className="font-medium text-black">{form.name}</h4>
+                    <p className="text-sm text-black">{form.description}</p>
                     {form.completedAt && (
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-xs text-black mt-1">
                         Completed: {form.completedAt.toLocaleDateString()}
                         {form.expiresAt && ` • Expires: ${form.expiresAt.toLocaleDateString()}`}
                       </p>
@@ -176,7 +176,7 @@ export default function IntakeFormsPage() {
                   ) : (
                     <Link
                       href={`/portal/intake/${form.id}`}
-                      className="px-4 py-2 border border-gray-200 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50"
+                      className="px-4 py-2 border border-black text-black text-sm font-medium rounded-lg hover:bg-white"
                     >
                       View
                     </Link>
@@ -189,21 +189,21 @@ export default function IntakeFormsPage() {
       </div>
 
       {/* Help Section */}
-      <div className="bg-gray-50 rounded-2xl p-6">
-        <h3 className="font-semibold text-gray-900 mb-2">Need Help?</h3>
-        <p className="text-gray-600 text-sm mb-4">
+      <div className="bg-white rounded-2xl p-6">
+        <h3 className="font-semibold text-black mb-2">Need Help?</h3>
+        <p className="text-black text-sm mb-4">
           If you have questions about any of these forms, please contact us.
         </p>
         <div className="flex gap-3">
           <a
             href="tel:+16306366193"
-            className="px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium"
+            className="px-4 py-2 bg-white border border-black text-black rounded-lg hover:bg-white text-sm font-medium"
           >
             📞 Call Us
           </a>
           <a
             href={`mailto:${SITE.email}`}
-            className="px-4 py-2 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium"
+            className="px-4 py-2 bg-white border border-black text-black rounded-lg hover:bg-white text-sm font-medium"
           >
             ✉️ Email Us
           </a>

@@ -173,13 +173,13 @@ export default function MembershipPlansPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+          <div className="flex items-center gap-2 text-sm text-black mb-1">
             <Link href="/admin/settings" className="hover:text-pink-600">Settings</Link>
             <span>/</span>
             <span>Membership Plans</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Membership Plans</h1>
-          <p className="text-gray-500">Create and manage membership tiers</p>
+          <h1 className="text-2xl font-bold text-black">Membership Plans</h1>
+          <p className="text-black">Create and manage membership tiers</p>
         </div>
         {!editingPlan && (
           <button onClick={createNewPlan} className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
@@ -199,12 +199,12 @@ export default function MembershipPlansPage() {
         <div className="bg-white rounded-xl border p-6 space-y-6">
           <div className="flex items-center justify-between border-b pb-4">
             <h2 className="text-lg font-semibold">{isCreating ? 'Create Membership Plan' : 'Edit Plan'}</h2>
-            <button onClick={() => { setEditingPlan(null); setIsCreating(false); }} className="text-gray-500">✕</button>
+            <button onClick={() => { setEditingPlan(null); setIsCreating(false); }} className="text-black">✕</button>
           </div>
 
           <div className="grid grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Plan Name *</label>
+              <label className="block text-sm font-medium text-black mb-1">Plan Name *</label>
               <input
                 type="text"
                 value={editingPlan.name}
@@ -214,7 +214,7 @@ export default function MembershipPlansPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Color</label>
+              <label className="block text-sm font-medium text-black mb-1">Color</label>
               <input
                 type="color"
                 value={editingPlan.color}
@@ -225,7 +225,7 @@ export default function MembershipPlansPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+            <label className="block text-sm font-medium text-black mb-1">Description</label>
             <input
               type="text"
               value={editingPlan.description}
@@ -237,7 +237,7 @@ export default function MembershipPlansPage() {
 
           <div className="grid grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Price ($)</label>
+              <label className="block text-sm font-medium text-black mb-1">Price ($)</label>
               <input
                 type="number"
                 value={(editingPlan.price_cents / 100).toFixed(0)}
@@ -247,7 +247,7 @@ export default function MembershipPlansPage() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Billing Period</label>
+              <label className="block text-sm font-medium text-black mb-1">Billing Period</label>
               <select
                 value={editingPlan.billing_period}
                 onChange={(e) => setEditingPlan({ ...editingPlan, billing_period: e.target.value as any })}
@@ -263,13 +263,13 @@ export default function MembershipPlansPage() {
           {/* Benefits */}
           <div>
             <div className="flex items-center justify-between mb-3">
-              <label className="block text-sm font-medium text-gray-700">Benefits</label>
+              <label className="block text-sm font-medium text-black">Benefits</label>
               <div className="flex gap-2">
                 {BENEFIT_TYPES.map(bt => (
                   <button
                     key={bt.value}
                     onClick={() => addBenefit(bt.value)}
-                    className="px-3 py-1 text-sm bg-gray-100 rounded hover:bg-gray-200"
+                    className="px-3 py-1 text-sm bg-white rounded hover:bg-white"
                     title={bt.label}
                   >
                     {bt.icon}
@@ -280,7 +280,7 @@ export default function MembershipPlansPage() {
 
             <div className="space-y-2">
               {editingPlan.benefits.map(benefit => (
-                <div key={benefit.id} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
+                <div key={benefit.id} className="flex items-center gap-3 p-3 bg-white rounded-lg">
                   <span>{BENEFIT_TYPES.find(t => t.value === benefit.type)?.icon}</span>
                   <input
                     type="text"
@@ -302,7 +302,7 @@ export default function MembershipPlansPage() {
                 </div>
               ))}
               {editingPlan.benefits.length === 0 && (
-                <p className="text-sm text-gray-500 text-center py-4">Click icons above to add benefits</p>
+                <p className="text-sm text-black text-center py-4">Click icons above to add benefits</p>
               )}
             </div>
           </div>
@@ -327,7 +327,7 @@ export default function MembershipPlansPage() {
           </div>
 
           <div className="flex justify-end gap-3 pt-4 border-t">
-            <button onClick={() => { setEditingPlan(null); setIsCreating(false); }} className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg">Cancel</button>
+            <button onClick={() => { setEditingPlan(null); setIsCreating(false); }} className="px-4 py-2 text-black hover:bg-white rounded-lg">Cancel</button>
             <button onClick={savePlan} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
               {isCreating ? 'Create' : 'Save'}
             </button>
@@ -345,41 +345,41 @@ export default function MembershipPlansPage() {
               <div className="p-6">
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900">{plan.name}</h3>
+                    <h3 className="text-lg font-semibold text-black">{plan.name}</h3>
                     {plan.is_featured && (
                       <span className="text-xs bg-pink-100 text-pink-700 px-2 py-0.5 rounded">Most Popular</span>
                     )}
                   </div>
-                  <span className={`text-xs px-2 py-0.5 rounded ${plan.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
+                  <span className={`text-xs px-2 py-0.5 rounded ${plan.is_active ? 'bg-green-100 text-green-700' : 'bg-white text-black'}`}>
                     {plan.is_active ? 'Active' : 'Inactive'}
                   </span>
                 </div>
-                <p className="text-sm text-gray-500 mt-1">{plan.description}</p>
+                <p className="text-sm text-black mt-1">{plan.description}</p>
 
                 <div className="mt-4">
-                  <span className="text-3xl font-bold text-gray-900">{formatPrice(plan.price_cents)}</span>
-                  <span className="text-gray-500">/{plan.billing_period}</span>
+                  <span className="text-3xl font-bold text-black">{formatPrice(plan.price_cents)}</span>
+                  <span className="text-black">/{plan.billing_period}</span>
                 </div>
 
                 <div className="mt-4 space-y-2">
                   {plan.benefits.slice(0, 4).map(b => (
-                    <div key={b.id} className="flex items-center gap-2 text-sm text-gray-600">
+                    <div key={b.id} className="flex items-center gap-2 text-sm text-black">
                       <span className="text-green-500">✓</span>
                       {b.description}
                     </div>
                   ))}
                   {plan.benefits.length > 4 && (
-                    <p className="text-xs text-gray-400">+{plan.benefits.length - 4} more benefits</p>
+                    <p className="text-xs text-black">+{plan.benefits.length - 4} more benefits</p>
                   )}
                 </div>
 
-                <p className="text-xs text-gray-400 mt-4">{plan.member_count || 0} active members</p>
+                <p className="text-xs text-black mt-4">{plan.member_count || 0} active members</p>
 
                 <div className="flex items-center justify-between mt-4 pt-4 border-t">
                   <button onClick={() => setEditingPlan(plan)} className="text-sm text-pink-600 hover:text-pink-700">Edit</button>
                   <button
                     onClick={() => toggleActive(plan.id)}
-                    className={`w-10 h-5 rounded-full transition-colors relative ${plan.is_active ? 'bg-green-500' : 'bg-gray-300'}`}
+                    className={`w-10 h-5 rounded-full transition-colors relative ${plan.is_active ? 'bg-green-500' : 'bg-white'}`}
                   >
                     <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform ${plan.is_active ? 'right-0.5' : 'left-0.5'}`} />
                   </button>

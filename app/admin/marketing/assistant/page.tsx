@@ -80,7 +80,7 @@ export default function MarketingAssistantPage() {
       case 'high': return 'bg-red-100 text-red-700';
       case 'medium': return 'bg-amber-100 text-amber-700';
       case 'low': return 'bg-green-100 text-green-700';
-      default: return 'bg-gray-100 text-gray-700';
+      default: return 'bg-white text-black';
     }
   };
 
@@ -106,8 +106,8 @@ export default function MarketingAssistantPage() {
           <span className="text-2xl">🤖</span>
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Marketing Assistant</h1>
-          <p className="text-gray-500">AI-powered campaign suggestions for your business</p>
+          <h1 className="text-2xl font-bold text-black">Marketing Assistant</h1>
+          <p className="text-black">AI-powered campaign suggestions for your business</p>
         </div>
       </div>
 
@@ -115,21 +115,21 @@ export default function MarketingAssistantPage() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {loading ? (
           Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="bg-white rounded-xl p-4 border border-gray-100 animate-pulse">
-              <div className="h-4 bg-gray-200 rounded w-20 mb-2" />
-              <div className="h-6 bg-gray-200 rounded w-16" />
+            <div key={i} className="bg-white rounded-xl p-4 border border-black animate-pulse">
+              <div className="h-4 bg-white rounded w-20 mb-2" />
+              <div className="h-6 bg-white rounded w-16" />
             </div>
           ))
         ) : (
           insights.map((insight) => (
-            <div key={insight.id} className="bg-white rounded-xl p-4 border border-gray-100">
+            <div key={insight.id} className="bg-white rounded-xl p-4 border border-black">
               <div className="flex items-center gap-2 mb-1">
                 <span>{insight.icon}</span>
-                <span className="text-sm text-gray-500">{insight.title}</span>
+                <span className="text-sm text-black">{insight.title}</span>
               </div>
-              <p className="text-xl font-bold text-gray-900">{insight.value}</p>
+              <p className="text-xl font-bold text-black">{insight.value}</p>
               {insight.trend && (
-                <p className={`text-xs mt-1 ${insight.trend === 'up' ? 'text-green-600' : insight.trend === 'down' ? 'text-red-600' : 'text-gray-500'}`}>
+                <p className={`text-xs mt-1 ${insight.trend === 'up' ? 'text-green-600' : insight.trend === 'down' ? 'text-red-600' : 'text-black'}`}>
                   {insight.trend === 'up' ? '↑' : insight.trend === 'down' ? '↓' : '→'} {insight.trendValue}
                 </p>
               )}
@@ -139,11 +139,11 @@ export default function MarketingAssistantPage() {
       </div>
 
       {/* AI Suggestions */}
-      <div className="bg-white rounded-2xl border border-gray-200 overflow-hidden">
-        <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+      <div className="bg-white rounded-2xl border border-black overflow-hidden">
+        <div className="p-6 border-b border-black flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">Campaign Suggestions</h2>
-            <p className="text-sm text-gray-500">Personalized campaigns based on your customer data</p>
+            <h2 className="text-lg font-semibold text-black">Campaign Suggestions</h2>
+            <p className="text-sm text-black">Personalized campaigns based on your customer data</p>
           </div>
           <button
             onClick={fetchSuggestions}
@@ -155,7 +155,7 @@ export default function MarketingAssistantPage() {
 
         <div className="divide-y divide-gray-100">
           {loading ? (
-            <div className="p-12 text-center text-gray-500">
+            <div className="p-12 text-center text-black">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
                 <div className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
@@ -166,35 +166,35 @@ export default function MarketingAssistantPage() {
           ) : suggestions.length === 0 ? (
             <div className="p-12 text-center">
               <span className="text-4xl mb-4 block">✨</span>
-              <p className="text-gray-500">No campaign suggestions right now</p>
-              <p className="text-sm text-gray-400 mt-1">Check back later for personalized recommendations</p>
+              <p className="text-black">No campaign suggestions right now</p>
+              <p className="text-sm text-black mt-1">Check back later for personalized recommendations</p>
             </div>
           ) : (
             suggestions.map((suggestion) => (
-              <div key={suggestion.id} className="p-6 hover:bg-gray-50 transition-colors">
+              <div key={suggestion.id} className="p-6 hover:bg-white transition-colors">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-pink-50 flex items-center justify-center text-2xl flex-shrink-0">
                     {getTypeIcon(suggestion.type)}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-semibold text-gray-900">{suggestion.title}</h3>
+                      <h3 className="font-semibold text-black">{suggestion.title}</h3>
                       <span className={`px-2 py-0.5 text-xs font-medium rounded-full ${getPriorityColor(suggestion.priority)}`}>
                         {suggestion.priority}
                       </span>
                     </div>
-                    <p className="text-gray-600 text-sm mb-3">{suggestion.description}</p>
+                    <p className="text-black text-sm mb-3">{suggestion.description}</p>
                     <div className="flex flex-wrap items-center gap-4 text-sm">
-                      <span className="text-gray-500">
-                        <span className="font-medium text-gray-700">{suggestion.audienceCount}</span> {suggestion.audience}
+                      <span className="text-black">
+                        <span className="font-medium text-black">{suggestion.audienceCount}</span> {suggestion.audience}
                       </span>
-                      <span className="text-gray-400">•</span>
-                      <span className="text-gray-500">
+                      <span className="text-black">•</span>
+                      <span className="text-black">
                         via {suggestion.channel === 'both' ? 'Email & SMS' : suggestion.channel.toUpperCase()}
                       </span>
                       {suggestion.potentialRevenue && (
                         <>
-                          <span className="text-gray-400">•</span>
+                          <span className="text-black">•</span>
                           <span className="text-green-600 font-medium">
                             Est. ${suggestion.potentialRevenue.toLocaleString()} revenue
                           </span>
@@ -221,27 +221,27 @@ export default function MarketingAssistantPage() {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Link
           href="/admin/marketing/contacts"
-          className="bg-white rounded-xl p-6 border border-gray-200 hover:border-pink-200 hover:shadow-md transition-all group"
+          className="bg-white rounded-xl p-6 border border-black hover:border-pink-200 hover:shadow-md transition-all group"
         >
           <span className="text-2xl mb-3 block">📋</span>
-          <h3 className="font-semibold text-gray-900 group-hover:text-pink-600">Contact Collection</h3>
-          <p className="text-sm text-gray-500 mt-1">Get your sign-up link & QR code</p>
+          <h3 className="font-semibold text-black group-hover:text-pink-600">Contact Collection</h3>
+          <p className="text-sm text-black mt-1">Get your sign-up link & QR code</p>
         </Link>
         <Link
           href="/admin/marketing/campaigns/new"
-          className="bg-white rounded-xl p-6 border border-gray-200 hover:border-pink-200 hover:shadow-md transition-all group"
+          className="bg-white rounded-xl p-6 border border-black hover:border-pink-200 hover:shadow-md transition-all group"
         >
           <span className="text-2xl mb-3 block">✉️</span>
-          <h3 className="font-semibold text-gray-900 group-hover:text-pink-600">Create Campaign</h3>
-          <p className="text-sm text-gray-500 mt-1">Build a custom email or SMS campaign</p>
+          <h3 className="font-semibold text-black group-hover:text-pink-600">Create Campaign</h3>
+          <p className="text-sm text-black mt-1">Build a custom email or SMS campaign</p>
         </Link>
         <Link
           href="/admin/sms"
-          className="bg-white rounded-xl p-6 border border-gray-200 hover:border-pink-200 hover:shadow-md transition-all group"
+          className="bg-white rounded-xl p-6 border border-black hover:border-pink-200 hover:shadow-md transition-all group"
         >
           <span className="text-2xl mb-3 block">💬</span>
-          <h3 className="font-semibold text-gray-900 group-hover:text-pink-600">SMS Center</h3>
-          <p className="text-sm text-gray-500 mt-1">Send texts and manage conversations</p>
+          <h3 className="font-semibold text-black group-hover:text-pink-600">SMS Center</h3>
+          <p className="text-sm text-black mt-1">Send texts and manage conversations</p>
         </Link>
       </div>
 
@@ -249,47 +249,47 @@ export default function MarketingAssistantPage() {
       {selectedSuggestion && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-hidden">
-            <div className="p-6 border-b border-gray-100">
+            <div className="p-6 border-b border-black">
               <div className="flex items-center gap-3">
                 <span className="text-2xl">{getTypeIcon(selectedSuggestion.type)}</span>
                 <div>
-                  <h2 className="text-xl font-bold text-gray-900">{selectedSuggestion.title}</h2>
-                  <p className="text-sm text-gray-500">{selectedSuggestion.audienceCount} recipients</p>
+                  <h2 className="text-xl font-bold text-black">{selectedSuggestion.title}</h2>
+                  <p className="text-sm text-black">{selectedSuggestion.audienceCount} recipients</p>
                 </div>
               </div>
             </div>
             
             <div className="p-6 space-y-4 max-h-[50vh] overflow-y-auto">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Message Preview</label>
-                <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
-                  <p className="text-gray-700 whitespace-pre-wrap">{selectedSuggestion.suggestedMessage}</p>
+                <label className="block text-sm font-medium text-black mb-2">Message Preview</label>
+                <div className="bg-white rounded-xl p-4 border border-black">
+                  <p className="text-black whitespace-pre-wrap">{selectedSuggestion.suggestedMessage}</p>
                 </div>
               </div>
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Channel</label>
-                  <p className="text-gray-600">{selectedSuggestion.channel === 'both' ? 'Email & SMS' : selectedSuggestion.channel.toUpperCase()}</p>
+                  <label className="block text-sm font-medium text-black mb-1">Channel</label>
+                  <p className="text-black">{selectedSuggestion.channel === 'both' ? 'Email & SMS' : selectedSuggestion.channel.toUpperCase()}</p>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Est. Revenue</label>
+                  <label className="block text-sm font-medium text-black mb-1">Est. Revenue</label>
                   <p className="text-green-600 font-semibold">${selectedSuggestion.potentialRevenue?.toLocaleString() || '—'}</p>
                 </div>
               </div>
             </div>
 
-            <div className="p-6 border-t border-gray-100 flex justify-between">
+            <div className="p-6 border-t border-black flex justify-between">
               <button
                 onClick={() => setSelectedSuggestion(null)}
-                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
               >
                 Cancel
               </button>
               <div className="flex gap-2">
                 <button
                   onClick={() => setSelectedSuggestion(null)}
-                  className="px-4 py-2 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200"
+                  className="px-4 py-2 bg-white text-black font-medium rounded-lg hover:bg-white"
                 >
                   Edit First
                 </button>

@@ -195,10 +195,10 @@ export function withAuth<P extends object>(
 
     if (isLoading) {
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="min-h-screen flex items-center justify-center bg-white">
           <div className="text-center">
             <div className="w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-            <p className="text-gray-500">Loading...</p>
+            <p className="text-black">Loading...</p>
           </div>
         </div>
       );
@@ -210,11 +210,11 @@ export function withAuth<P extends object>(
 
     if (options?.roles && user && !options.roles.includes(user.role)) {
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="min-h-screen flex items-center justify-center bg-white">
           <div className="text-center">
             <p className="text-6xl mb-4">🚫</p>
-            <h1 className="text-2xl font-bold text-gray-900">Access Denied</h1>
-            <p className="text-gray-500 mt-2">You don't have permission to view this page.</p>
+            <h1 className="text-2xl font-bold text-black">Access Denied</h1>
+            <p className="text-black mt-2">You don't have permission to view this page.</p>
           </div>
         </div>
       );

@@ -39,21 +39,21 @@ function NavSection({
   }, [hasActiveItem, pathname]);
 
   return (
-    <div className="border-b border-slate-200 last:border-0">
+    <div className="border-b border-black last:border-0">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`w-full flex items-center gap-3 px-4 py-3 text-left transition-all ${
           hasActiveItem 
-            ? 'bg-slate-100 border-l-2 border-[#2D63A4]' 
-            : 'hover:bg-slate-50'
+            ? 'bg-white border-l-2 border-[#2D63A4]' 
+            : 'hover:bg-white'
         }`}
       >
         <span className="text-lg">{icon}</span>
-        <span className={`flex-1 font-medium text-sm ${hasActiveItem ? 'text-[#002168]' : 'text-slate-700'}`}>
+        <span className={`flex-1 font-medium text-sm ${hasActiveItem ? 'text-[#002168]' : 'text-black'}`}>
           {title}
         </span>
         <svg 
-          className={`w-4 h-4 text-gray-500 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 text-black transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
           fill="none" 
           stroke="currentColor" 
           viewBox="0 0 24 24"
@@ -71,7 +71,7 @@ function NavSection({
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all ${
                   isActive(item.href)
                     ? 'bg-[#2D63A4] text-white font-medium'
-                    : 'text-slate-600 hover:bg-slate-100 hover:text-[#002168]'
+                    : 'text-black hover:bg-white hover:text-[#002168]'
                 }`}
               >
                 <span className="text-base opacity-80">{item.icon}</span>
@@ -242,15 +242,15 @@ export default function AdminLayout({
 
           <div className="flex">
             {/* Sidebar - Clinical Aesthetic Record style */}
-            <aside className="w-64 bg-white min-h-[calc(100vh-56px)] sticky top-14 hidden lg:block overflow-y-auto shadow-sm border-r border-slate-200">
+            <aside className="w-64 bg-white min-h-[calc(100vh-56px)] sticky top-14 hidden lg:block overflow-y-auto shadow-sm border-r border-black">
               {/* Quick links */}
-              <div className="p-3 border-b border-slate-200 bg-slate-50/50">
+              <div className="p-3 border-b border-black bg-white/50">
                 <Link
                   href="/admin/owner/live-state"
                   className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all ${
                     pathname === '/admin/owner/live-state'
                       ? 'bg-emerald-600 text-white font-medium'
-                      : 'text-slate-700 hover:bg-slate-100'
+                      : 'text-black hover:bg-white'
                   }`}
                 >
                   <span className="text-lg">📡</span>
@@ -261,7 +261,7 @@ export default function AdminLayout({
                   className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all mt-1 ${
                     pathname === '/admin'
                       ? 'bg-[#2D63A4] text-white font-medium'
-                      : 'text-slate-700 hover:bg-slate-100'
+                      : 'text-black hover:bg-white'
                   }`}
                 >
                   <span className="text-lg">📊</span>
@@ -272,7 +272,7 @@ export default function AdminLayout({
                   className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all mt-1 ${
                     pathname.startsWith('/pos')
                       ? 'bg-[#FF2D8E] text-white font-medium'
-                      : 'text-slate-700 hover:bg-slate-100'
+                      : 'text-black hover:bg-white'
                   }`}
                 >
                   <span className="text-lg">💳</span>
@@ -294,16 +294,16 @@ export default function AdminLayout({
               </nav>
 
               {/* Footer */}
-              <div className="sticky bottom-0 left-0 right-0 p-4 border-t border-slate-200 bg-white">
+              <div className="sticky bottom-0 left-0 right-0 p-4 border-t border-black bg-white">
                 <div className="flex items-center justify-center gap-2">
                   <span className="text-[#FF2D8E] text-sm">💗</span>
-                  <p className="text-xs text-slate-500 font-medium">Hello Gorgeous</p>
+                  <p className="text-xs text-black font-medium">Hello Gorgeous</p>
                 </div>
               </div>
             </aside>
 
             {/* Mobile Bottom Nav */}
-            <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-50 safe-area-pb shadow-[0_-1px_0_rgba(0,0,0,.06)]">
+            <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-black z-50 safe-area-pb shadow-[0_-1px_0_rgba(0,0,0,.06)]">
               <div className="flex justify-around items-center h-16 px-2">
                 <MobileNav />
                 {[
@@ -317,8 +317,8 @@ export default function AdminLayout({
                     href={item.href}
                     className={`flex flex-col items-center justify-center gap-1 min-w-[56px] py-2 rounded-xl transition-all ${
                       isActive(item.href) 
-                        ? 'text-[#2D63A4] bg-slate-100' 
-                        : 'text-slate-600 hover:text-[#2D63A4]'
+                        ? 'text-[#2D63A4] bg-white' 
+                        : 'text-black hover:text-[#2D63A4]'
                     }`}
                   >
                     <span className="text-xl">{item.icon}</span>

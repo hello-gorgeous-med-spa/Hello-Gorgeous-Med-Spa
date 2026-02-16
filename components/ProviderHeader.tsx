@@ -26,13 +26,13 @@ export function ProviderHeader() {
   const { user, isLoading } = useAuth();
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
+    <header className="bg-white border-b border-black sticky top-0 z-50">
       <div className="max-w-full mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/provider" className="flex items-center gap-2">
             <span className="text-2xl">💗</span>
-            <span className="font-semibold text-gray-900">
+            <span className="font-semibold text-black">
               Hello Gorgeous
             </span>
             <span className="text-xs bg-indigo-100 text-indigo-700 px-2 py-0.5 rounded-full font-medium">
@@ -46,7 +46,7 @@ export function ProviderHeader() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="relative px-4 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 transition-colors"
+                className="relative px-4 py-2 rounded-lg text-sm font-medium text-black hover:text-indigo-600 hover:bg-indigo-50 transition-colors"
               >
                 <span className="mr-2">{item.icon}</span>
                 {item.label}
@@ -66,7 +66,7 @@ export function ProviderHeader() {
               <Link
                 key={action.href}
                 href={action.href}
-                className="hidden lg:inline-flex items-center gap-1 px-3 py-1.5 text-sm text-gray-600 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                className="hidden lg:inline-flex items-center gap-1 px-3 py-1.5 text-sm text-black hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
               >
                 <span>{action.icon}</span>
                 {action.label}
@@ -74,9 +74,9 @@ export function ProviderHeader() {
             ))}
 
             {/* User Menu */}
-            <div className="flex items-center gap-3 pl-3 border-l border-gray-200">
+            <div className="flex items-center gap-3 pl-3 border-l border-black">
               {isLoading ? (
-                <div className="w-8 h-8 rounded-full bg-gray-200 animate-pulse" />
+                <div className="w-8 h-8 rounded-full bg-white animate-pulse" />
               ) : (
                 <UserMenu />
               )}

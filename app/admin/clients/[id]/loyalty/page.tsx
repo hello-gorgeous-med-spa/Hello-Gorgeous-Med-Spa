@@ -183,13 +183,13 @@ export default function ClientLoyaltyPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+          <div className="flex items-center gap-2 text-sm text-black mb-1">
             <Link href={`/admin/clients/${clientId}`} className="hover:text-pink-600">
               ← Back to {client?.first_name} {client?.last_name}
             </Link>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Loyalty & Rewards</h1>
-          <p className="text-gray-500">Track manufacturer reward programs for this client</p>
+          <h1 className="text-2xl font-bold text-black">Loyalty & Rewards</h1>
+          <p className="text-black">Track manufacturer reward programs for this client</p>
         </div>
       </div>
 
@@ -210,7 +210,7 @@ export default function ClientLoyaltyPage() {
           const isEditing = editingProgram === program.id;
 
           return (
-            <div key={program.id} className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+            <div key={program.id} className="bg-white rounded-xl border border-black overflow-hidden">
               {/* Header */}
               <div className={`${program.color} px-6 py-4 text-white`}>
                 <div className="flex items-center justify-between">
@@ -234,39 +234,39 @@ export default function ClientLoyaltyPage() {
                 {isEditing ? (
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                      <label className="block text-sm font-medium text-black mb-1">
                         Member ID / Account Number *
                       </label>
                       <input
                         type="text"
                         value={formData.member_id}
                         onChange={(e) => setFormData({ ...formData, member_id: e.target.value })}
-                        className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                        className="w-full px-4 py-2 border border-black rounded-lg"
                         placeholder="Enter member ID"
                       />
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-black mb-1">
                           Points Balance (optional)
                         </label>
                         <input
                           type="number"
                           value={formData.points_balance}
                           onChange={(e) => setFormData({ ...formData, points_balance: e.target.value })}
-                          className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                          className="w-full px-4 py-2 border border-black rounded-lg"
                           placeholder="0"
                         />
                       </div>
                       <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">
+                        <label className="block text-sm font-medium text-black mb-1">
                           Tier (optional)
                         </label>
                         <input
                           type="text"
                           value={formData.tier}
                           onChange={(e) => setFormData({ ...formData, tier: e.target.value })}
-                          className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                          className="w-full px-4 py-2 border border-black rounded-lg"
                           placeholder="e.g., Gold, Platinum"
                         />
                       </div>
@@ -284,7 +284,7 @@ export default function ClientLoyaltyPage() {
                           setEditingProgram(null);
                           setFormData({ member_id: '', points_balance: '', tier: '' });
                         }}
-                        className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                        className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
                       >
                         Cancel
                       </button>
@@ -293,15 +293,15 @@ export default function ClientLoyaltyPage() {
                 ) : enrolled ? (
                   <div className="flex items-center justify-between">
                     <div className="space-y-1">
-                      <p className="text-sm text-gray-500">Member ID</p>
-                      <p className="font-mono font-medium text-gray-900">{enrolled.member_id}</p>
+                      <p className="text-sm text-black">Member ID</p>
+                      <p className="font-mono font-medium text-black">{enrolled.member_id}</p>
                       {enrolled.points_balance !== undefined && (
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-black">
                           Points: <span className="font-semibold text-green-600">{enrolled.points_balance.toLocaleString()}</span>
                         </p>
                       )}
                       {enrolled.tier && (
-                        <p className="text-sm text-gray-600">
+                        <p className="text-sm text-black">
                           Tier: <span className="font-semibold">{enrolled.tier}</span>
                         </p>
                       )}
@@ -309,7 +309,7 @@ export default function ClientLoyaltyPage() {
                     <div className="flex gap-2">
                       <button
                         onClick={() => startEdit(program)}
-                        className="px-3 py-1.5 text-sm text-gray-600 hover:text-pink-600 font-medium"
+                        className="px-3 py-1.5 text-sm text-black hover:text-pink-600 font-medium"
                       >
                         Edit
                       </button>
@@ -323,13 +323,13 @@ export default function ClientLoyaltyPage() {
                   </div>
                 ) : (
                   <div className="flex items-center justify-between">
-                    <p className="text-gray-500">Not enrolled yet</p>
+                    <p className="text-black">Not enrolled yet</p>
                     <div className="flex gap-3">
                       <a
                         href={program.enrollUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="px-4 py-2 text-sm text-gray-700 border border-gray-200 rounded-lg hover:bg-gray-50"
+                        className="px-4 py-2 text-sm text-black border border-black rounded-lg hover:bg-white"
                       >
                         Patient Signup ↗
                       </a>
@@ -349,9 +349,9 @@ export default function ClientLoyaltyPage() {
       </div>
 
       {/* Provider Portals */}
-      <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
-        <h3 className="font-semibold text-gray-900 mb-3">Provider Portals</h3>
-        <p className="text-sm text-gray-600 mb-4">
+      <div className="bg-white rounded-xl p-6 border border-black">
+        <h3 className="font-semibold text-black mb-3">Provider Portals</h3>
+        <p className="text-sm text-black mb-4">
           Access manufacturer portals to verify points, submit treatments, and manage your practice account.
         </p>
         <div className="flex flex-wrap gap-3">
@@ -361,7 +361,7 @@ export default function ClientLoyaltyPage() {
               href={program.providerPortal}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 text-sm font-medium"
+              className="px-4 py-2 bg-white border border-black rounded-lg hover:bg-white text-sm font-medium"
             >
               {program.logo} {program.name} Portal ↗
             </a>

@@ -176,9 +176,9 @@ export default function ProviderDashboard() {
       case 'confirmed': return 'bg-blue-100 text-blue-700 border-blue-200';
       case 'checked_in': return 'bg-emerald-100 text-emerald-700 border-emerald-200';
       case 'in_progress': return 'bg-pink-100 text-pink-700 border-purple-200';
-      case 'completed': return 'bg-gray-100 text-gray-500 border-gray-200';
+      case 'completed': return 'bg-white text-black border-black';
       case 'no_show': return 'bg-amber-100 text-amber-700 border-amber-200';
-      default: return 'bg-gray-100 text-gray-600 border-gray-200';
+      default: return 'bg-white text-black border-black';
     }
   };
 
@@ -302,8 +302,8 @@ export default function ProviderDashboard() {
       {stats && stats.todayTotal > 0 && (
         <Card>
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-gray-700">Day Progress</span>
-            <span className="text-sm text-gray-500">
+            <span className="text-sm font-medium text-black">Day Progress</span>
+            <span className="text-sm text-black">
               {stats.completed} of {stats.todayTotal} completed
             </span>
           </div>
@@ -321,7 +321,7 @@ export default function ProviderDashboard() {
         {/* Upcoming Appointments */}
         <div className="lg:col-span-2">
           <Card padding="none">
-            <div className="px-5 py-4 border-b border-gray-100">
+            <div className="px-5 py-4 border-b border-black">
               <SectionHeader
                 title="Upcoming Today"
                 badge={upcomingAppointments.length}
@@ -348,27 +348,27 @@ export default function ProviderDashboard() {
                   <div
                     key={apt.id}
                     className={`
-                      flex items-center gap-4 px-5 py-4 transition-all hover:bg-gray-50
+                      flex items-center gap-4 px-5 py-4 transition-all hover:bg-white
                       ${idx === 0 ? 'bg-pink-50' : ''}
                     `}
                   >
                     <div className="text-center min-w-[70px]">
-                      <p className={`text-lg font-bold ${idx === 0 ? 'text-pink-600' : 'text-gray-900'}`}>
+                      <p className={`text-lg font-bold ${idx === 0 ? 'text-pink-600' : 'text-black'}`}>
                         {formatTime(apt.starts_at)}
                       </p>
-                      <p className="text-xs text-gray-500">{apt.duration || 30} min</p>
+                      <p className="text-xs text-black">{apt.duration || 30} min</p>
                     </div>
                     
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2">
-                        <p className="font-semibold text-gray-900 truncate">{apt.client_name}</p>
+                        <p className="font-semibold text-black truncate">{apt.client_name}</p>
                         {idx === 0 && (
                           <span className="px-2 py-0.5 bg-pink-500 text-white text-xs font-bold rounded-full">
                             NEXT
                           </span>
                         )}
                       </div>
-                      <p className="text-sm text-gray-500 truncate">{apt.service_name}</p>
+                      <p className="text-sm text-black truncate">{apt.service_name}</p>
                     </div>
 
                     <span className={`px-3 py-1 text-xs font-medium rounded-full border ${getStatusStyle(apt.status)}`}>
@@ -402,7 +402,7 @@ export default function ProviderDashboard() {
           {/* Tasks */}
           {tasks.length > 0 && (
             <Card padding="none">
-              <div className="px-5 py-4 border-b border-gray-100 bg-amber-50">
+              <div className="px-5 py-4 border-b border-black bg-amber-50">
                 <SectionHeader
                   title="Pending Tasks"
                   badge={tasks.length}
@@ -413,7 +413,7 @@ export default function ProviderDashboard() {
                   <Link
                     key={task.id}
                     href={task.type === 'chart' ? `/provider/charting?appointment=${task.appointmentId}` : '/provider/tasks'}
-                    className="flex items-center gap-3 px-5 py-3 hover:bg-gray-50 transition-colors"
+                    className="flex items-center gap-3 px-5 py-3 hover:bg-white transition-colors"
                   >
                     <span className="text-xl">
                       {task.type === 'chart' && '📝'}
@@ -423,8 +423,8 @@ export default function ProviderDashboard() {
                       {task.type === 'followup' && '📞'}
                     </span>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-900 text-sm">{task.title}</p>
-                      <p className="text-xs text-gray-500">{task.client}</p>
+                      <p className="font-medium text-black text-sm">{task.title}</p>
+                      <p className="text-xs text-black">{task.client}</p>
                     </div>
                     {task.urgent && (
                       <span className="px-2 py-0.5 bg-red-100 text-red-700 text-xs font-medium rounded-full">
@@ -489,8 +489,8 @@ export default function ProviderDashboard() {
               >
                 <span className="w-10 h-10 bg-pink-500 rounded-lg flex items-center justify-center text-white text-lg">💉</span>
                 <div>
-                  <p className="font-medium text-gray-900">Botox</p>
-                  <p className="text-xs text-gray-500">Neurotoxin injection</p>
+                  <p className="font-medium text-black">Botox</p>
+                  <p className="text-xs text-black">Neurotoxin injection</p>
                 </div>
               </Link>
               <Link
@@ -499,8 +499,8 @@ export default function ProviderDashboard() {
               >
                 <span className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center text-white text-lg">✨</span>
                 <div>
-                  <p className="font-medium text-gray-900">Filler</p>
-                  <p className="text-xs text-gray-500">Dermal filler injection</p>
+                  <p className="font-medium text-black">Filler</p>
+                  <p className="text-xs text-black">Dermal filler injection</p>
                 </div>
               </Link>
               <Link
@@ -509,8 +509,8 @@ export default function ProviderDashboard() {
               >
                 <span className="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center text-white text-lg">⚡</span>
                 <div>
-                  <p className="font-medium text-gray-900">Laser</p>
-                  <p className="text-xs text-gray-500">Laser treatment</p>
+                  <p className="font-medium text-black">Laser</p>
+                  <p className="text-xs text-black">Laser treatment</p>
                 </div>
               </Link>
             </div>
@@ -528,9 +528,9 @@ export default function ProviderDashboard() {
                 <input type="checkbox" defaultChecked className="w-5 h-5 rounded text-emerald-500 border-emerald-300" />
                 <span className="text-sm text-emerald-800 font-medium">Equipment sanitized</span>
               </label>
-              <label className="flex items-center gap-3 p-3 bg-gray-50 border border-gray-100 rounded-xl cursor-pointer">
-                <input type="checkbox" className="w-5 h-5 rounded border-gray-300" />
-                <span className="text-sm text-gray-700">End of day reconciliation</span>
+              <label className="flex items-center gap-3 p-3 bg-white border border-black rounded-xl cursor-pointer">
+                <input type="checkbox" className="w-5 h-5 rounded border-black" />
+                <span className="text-sm text-black">End of day reconciliation</span>
               </label>
             </div>
           </Card>
@@ -539,7 +539,7 @@ export default function ProviderDashboard() {
 
       {/* Day Timeline */}
       <Card padding="none">
-        <div className="px-5 py-4 border-b border-gray-100">
+        <div className="px-5 py-4 border-b border-black">
           <SectionHeader
             title="Full Day Timeline"
             badge={appointments.filter(a => a.status !== 'cancelled').length}
@@ -561,14 +561,14 @@ export default function ProviderDashboard() {
               return (
                 <div key={hour} className="w-28 flex-shrink-0">
                   <p className={`text-xs font-medium mb-2 text-center ${
-                    isCurrent ? 'text-pink-600' : isPast ? 'text-gray-400' : 'text-gray-600'
+                    isCurrent ? 'text-pink-600' : isPast ? 'text-black' : 'text-black'
                   }`}>
                     {hourStr}
                     {isCurrent && <span className="ml-1">•</span>}
                   </p>
                   <div className={`
                     min-h-[80px] rounded-xl border-2 border-dashed p-1.5 overflow-hidden
-                    ${isCurrent ? 'border-pink-300 bg-pink-50' : isPast ? 'border-gray-200 bg-gray-50' : 'border-gray-200'}
+                    ${isCurrent ? 'border-pink-300 bg-pink-50' : isPast ? 'border-black bg-white' : 'border-black'}
                   `}>
                     {aptsInHour.map(apt => (
                       <Link

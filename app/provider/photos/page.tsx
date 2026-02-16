@@ -218,8 +218,8 @@ function PhotosContent() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Patient Photos</h1>
-          <p className="text-gray-500">Capture and manage before/after documentation</p>
+          <h1 className="text-2xl font-bold text-black">Patient Photos</h1>
+          <p className="text-black">Capture and manage before/after documentation</p>
         </div>
         {selectedClient && (
           <button
@@ -228,7 +228,7 @@ function PhotosContent() {
               setPhotos([]);
               setMode('search');
             }}
-            className="text-sm text-gray-500 hover:text-gray-700"
+            className="text-sm text-black hover:text-black"
           >
             ← Change Patient
           </button>
@@ -250,22 +250,22 @@ function PhotosContent() {
 
       {/* Search Mode */}
       {mode === 'search' && !selectedClient && (
-        <div className="bg-white rounded-xl border border-gray-100 p-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Select Patient</h2>
+        <div className="bg-white rounded-xl border border-black p-6">
+          <h2 className="font-semibold text-black mb-4">Select Patient</h2>
           <div className="relative">
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-black">🔍</span>
             <input
               type="text"
               placeholder="Search by name, phone, or email..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500"
+              className="w-full pl-12 pr-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500"
               autoFocus
             />
           </div>
 
           {searchResults.length > 0 && (
-            <div className="mt-4 border border-gray-200 rounded-xl overflow-hidden">
+            <div className="mt-4 border border-black rounded-xl overflow-hidden">
               {searchResults.map((client) => (
                 <button
                   key={client.id}
@@ -274,13 +274,13 @@ function PhotosContent() {
                     setMode('gallery');
                     setSearchQuery('');
                   }}
-                  className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-50 border-b border-gray-100 last:border-0 text-left"
+                  className="w-full px-4 py-3 flex items-center gap-3 hover:bg-white border-b border-black last:border-0 text-left"
                 >
                   <div className="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-bold">
                     {client.first_name?.[0]}{client.last_name?.[0]}
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900">
+                    <p className="font-medium text-black">
                       {client.first_name} {client.last_name}
                     </p>
                   </div>
@@ -295,21 +295,21 @@ function PhotosContent() {
       {mode === 'gallery' && selectedClient && (
         <>
           {/* Client Header */}
-          <div className="bg-white rounded-xl border border-gray-100 p-6">
+          <div className="bg-white rounded-xl border border-black p-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-bold text-xl">
                   {selectedClient.first_name?.[0]}{selectedClient.last_name?.[0]}
                 </div>
                 <div>
-                  <h2 className="text-xl font-bold text-gray-900">
+                  <h2 className="text-xl font-bold text-black">
                     {selectedClient.first_name} {selectedClient.last_name}
                   </h2>
-                  <p className="text-gray-500">{photos.length} photos on file</p>
+                  <p className="text-black">{photos.length} photos on file</p>
                 </div>
               </div>
               <div className="flex gap-2">
-                <label className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 cursor-pointer font-medium">
+                <label className="px-4 py-2 bg-white text-black rounded-lg hover:bg-white cursor-pointer font-medium">
                   📁 Upload
                   <input
                     type="file"
@@ -332,9 +332,9 @@ function PhotosContent() {
           </div>
 
           {/* Photo Gallery */}
-          <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-            <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-              <h3 className="font-semibold text-gray-900">Photo History</h3>
+          <div className="bg-white rounded-xl border border-black overflow-hidden">
+            <div className="px-5 py-4 border-b border-black flex items-center justify-between">
+              <h3 className="font-semibold text-black">Photo History</h3>
               <div className="flex gap-2">
                 <button className="px-3 py-1 bg-green-100 text-green-700 text-sm rounded-lg font-medium">
                   Before
@@ -348,7 +348,7 @@ function PhotosContent() {
             {photos.length === 0 ? (
               <div className="p-12 text-center">
                 <span className="text-5xl block mb-3">📷</span>
-                <p className="text-gray-500 mb-4">No photos yet for this patient</p>
+                <p className="text-black mb-4">No photos yet for this patient</p>
                 <button
                   onClick={() => {
                     startCamera();
@@ -364,7 +364,7 @@ function PhotosContent() {
                 {photos.map((photo) => (
                   <div
                     key={photo.id}
-                    className="relative group rounded-xl overflow-hidden border border-gray-200"
+                    className="relative group rounded-xl overflow-hidden border border-black"
                   >
                     <img
                       src={photo.url || photo.thumbnail_url}
@@ -398,9 +398,9 @@ function PhotosContent() {
 
       {/* Capture Mode */}
       {mode === 'capture' && selectedClient && (
-        <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-            <h3 className="font-semibold text-gray-900">
+        <div className="bg-white rounded-xl border border-black overflow-hidden">
+          <div className="px-5 py-4 border-b border-black flex items-center justify-between">
+            <h3 className="font-semibold text-black">
               {capturedImage ? 'Review Photo' : 'Capture Photo'}
             </h3>
             <button
@@ -408,7 +408,7 @@ function PhotosContent() {
                 stopCamera();
                 setMode('gallery');
               }}
-              className="text-gray-500 hover:text-gray-700"
+              className="text-black hover:text-black"
             >
               ✕ Cancel
             </button>
@@ -422,7 +422,7 @@ function PhotosContent() {
                 className={`flex-1 py-3 rounded-xl font-semibold text-lg ${
                   photoType === 'before'
                     ? 'bg-green-500 text-white'
-                    : 'bg-gray-100 text-gray-700'
+                    : 'bg-white text-black'
                 }`}
               >
                 📸 BEFORE
@@ -432,7 +432,7 @@ function PhotosContent() {
                 className={`flex-1 py-3 rounded-xl font-semibold text-lg ${
                   photoType === 'after'
                     ? 'bg-blue-500 text-white'
-                    : 'bg-gray-100 text-gray-700'
+                    : 'bg-white text-black'
                 }`}
               >
                 ✨ AFTER
@@ -474,7 +474,7 @@ function PhotosContent() {
               <>
                 {/* Treatment Area */}
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-black mb-2">
                     Treatment Area
                   </label>
                   <div className="flex flex-wrap gap-2">
@@ -485,7 +485,7 @@ function PhotosContent() {
                         className={`px-3 py-1.5 rounded-full text-sm ${
                           treatmentArea === area
                             ? 'bg-pink-500 text-white'
-                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            : 'bg-white text-black hover:bg-white'
                         }`}
                       >
                         {area}
@@ -496,14 +496,14 @@ function PhotosContent() {
 
                 {/* Notes */}
                 <div className="mb-4">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-black mb-2">
                     Notes (optional)
                   </label>
                   <textarea
                     value={photoNotes}
                     onChange={(e) => setPhotoNotes(e.target.value)}
                     placeholder="Any observations..."
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                     rows={2}
                   />
                 </div>
@@ -515,7 +515,7 @@ function PhotosContent() {
                       setCapturedImage(null);
                       if (!cameraStream) startCamera();
                     }}
-                    className="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200"
+                    className="flex-1 py-3 bg-white text-black rounded-xl font-medium hover:bg-white"
                   >
                     Retake
                   </button>

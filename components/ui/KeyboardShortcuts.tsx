@@ -104,14 +104,14 @@ export function KeyboardShortcutsProvider({ children }: { children: ReactNode })
       {showHelp && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-[9999] p-4" onClick={() => setShowHelp(false)}>
           <div className="bg-white rounded-xl max-w-md w-full shadow-xl" onClick={e => e.stopPropagation()}>
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">Keyboard Shortcuts</h2>
-              <p className="text-sm text-gray-500">Press Escape to close</p>
+            <div className="p-6 border-b border-black">
+              <h2 className="text-xl font-bold text-black">Keyboard Shortcuts</h2>
+              <p className="text-sm text-black">Press Escape to close</p>
             </div>
             <div className="p-6 max-h-[60vh] overflow-y-auto">
               <div className="space-y-4">
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-700 mb-2">Navigation</h3>
+                  <h3 className="text-sm font-semibold text-black mb-2">Navigation</h3>
                   <div className="space-y-2">
                     <ShortcutRow keys={['Alt', 'D']} description="Dashboard" />
                     <ShortcutRow keys={['Alt', 'A']} description="Appointments" />
@@ -121,14 +121,14 @@ export function KeyboardShortcutsProvider({ children }: { children: ReactNode })
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-700 mb-2">Actions</h3>
+                  <h3 className="text-sm font-semibold text-black mb-2">Actions</h3>
                   <div className="space-y-2">
                     <ShortcutRow keys={['⌘/Ctrl', 'N']} description="New Appointment" />
                     <ShortcutRow keys={['⌘/Ctrl', 'Shift', 'C']} description="New Client" />
                   </div>
                 </div>
                 <div>
-                  <h3 className="text-sm font-semibold text-gray-700 mb-2">General</h3>
+                  <h3 className="text-sm font-semibold text-black mb-2">General</h3>
                   <div className="space-y-2">
                     <ShortcutRow keys={['⌘/Ctrl', '/']} description="Show Shortcuts" />
                     <ShortcutRow keys={['Esc']} description="Close / Cancel" />
@@ -136,10 +136,10 @@ export function KeyboardShortcutsProvider({ children }: { children: ReactNode })
                 </div>
               </div>
             </div>
-            <div className="p-4 border-t border-gray-100 bg-gray-50 rounded-b-xl">
+            <div className="p-4 border-t border-black bg-white rounded-b-xl">
               <button
                 onClick={() => setShowHelp(false)}
-                className="w-full py-2 text-center text-gray-600 font-medium hover:bg-gray-100 rounded-lg"
+                className="w-full py-2 text-center text-black font-medium hover:bg-white rounded-lg"
               >
                 Close
               </button>
@@ -154,14 +154,14 @@ export function KeyboardShortcutsProvider({ children }: { children: ReactNode })
 function ShortcutRow({ keys, description }: { keys: string[]; description: string }) {
   return (
     <div className="flex items-center justify-between">
-      <span className="text-sm text-gray-600">{description}</span>
+      <span className="text-sm text-black">{description}</span>
       <div className="flex gap-1">
         {keys.map((key, i) => (
           <span key={i}>
-            <kbd className="px-2 py-1 text-xs font-semibold text-gray-700 bg-gray-100 border border-gray-200 rounded">
+            <kbd className="px-2 py-1 text-xs font-semibold text-black bg-white border border-black rounded">
               {key}
             </kbd>
-            {i < keys.length - 1 && <span className="text-gray-400 mx-0.5">+</span>}
+            {i < keys.length - 1 && <span className="text-black mx-0.5">+</span>}
           </span>
         ))}
       </div>

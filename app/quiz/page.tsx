@@ -264,10 +264,10 @@ export default function QuizPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
             <span className="text-6xl mb-4 block">🎉</span>
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            <h1 className="text-3xl font-bold text-black mb-4">
               Your Personalized Recommendations
             </h1>
-            <p className="text-gray-600">
+            <p className="text-black">
               Based on your answers, here are the perfect treatments for you:
             </p>
           </div>
@@ -289,11 +289,11 @@ export default function QuizPage() {
                   <div className="flex items-start gap-4">
                     <span className="text-4xl">{rec.icon}</span>
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold text-gray-900">{rec.name}</h3>
-                      <p className="text-gray-600 mb-4">{rec.description}</p>
+                      <h3 className="text-xl font-bold text-black">{rec.name}</h3>
+                      <p className="text-black mb-4">{rec.description}</p>
                       <div className="flex flex-wrap gap-4 text-sm">
                         <span className="text-pink-600 font-medium">{rec.price}</span>
-                        <span className="text-gray-500">⏱️ {rec.duration}</span>
+                        <span className="text-black">⏱️ {rec.duration}</span>
                       </div>
                     </div>
                   </div>
@@ -302,7 +302,7 @@ export default function QuizPage() {
                     className={`block w-full mt-4 py-3 text-center font-medium rounded-lg ${
                       index === 0
                         ? 'bg-pink-500 text-white hover:bg-pink-600'
-                        : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                        : 'bg-white text-black hover:bg-white'
                     }`}
                   >
                     Book {rec.name}
@@ -357,8 +357,8 @@ export default function QuizPage() {
         <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8">
           <div className="text-center mb-6">
             <span className="text-5xl mb-4 block">📧</span>
-            <h2 className="text-2xl font-bold text-gray-900">Almost Done!</h2>
-            <p className="text-gray-600 mt-2">
+            <h2 className="text-2xl font-bold text-black">Almost Done!</h2>
+            <p className="text-black mt-2">
               Enter your email to get your personalized recommendations and 
               exclusive offers.
             </p>
@@ -370,7 +370,7 @@ export default function QuizPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:border-pink-500"
+              className="w-full px-4 py-3 border border-black rounded-lg focus:outline-none focus:border-pink-500"
             />
             <button
               type="submit"
@@ -382,12 +382,12 @@ export default function QuizPage() {
 
           <button
             onClick={handleSkipEmail}
-            className="w-full py-3 text-gray-500 font-medium mt-2 hover:text-gray-700"
+            className="w-full py-3 text-black font-medium mt-2 hover:text-black"
           >
             Skip for now
           </button>
 
-          <p className="text-xs text-gray-400 text-center mt-4">
+          <p className="text-xs text-black text-center mt-4">
             We'll send your results and exclusive first-time client offers. No spam, ever.
           </p>
         </div>
@@ -400,11 +400,11 @@ export default function QuizPage() {
       <div className="max-w-2xl mx-auto">
         {/* Progress */}
         <div className="mb-8">
-          <div className="flex justify-between text-sm text-gray-500 mb-2">
+          <div className="flex justify-between text-sm text-black mb-2">
             <span>Question {currentQuestion + 1} of {QUESTIONS.length}</span>
             <span>{Math.round(progress)}% complete</span>
           </div>
-          <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div className="h-2 bg-white rounded-full overflow-hidden">
             <div
               className="h-full bg-gradient-to-r from-pink-500 to-purple-500 rounded-full transition-all"
               style={{ width: `${progress}%` }}
@@ -414,12 +414,12 @@ export default function QuizPage() {
 
         {/* Question */}
         <div className="bg-white rounded-2xl shadow-xl p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+          <h2 className="text-2xl font-bold text-black mb-6 text-center">
             {question.question}
           </h2>
 
           {question.type === 'multiple' && (
-            <p className="text-gray-500 text-center mb-6">Select all that apply</p>
+            <p className="text-black text-center mb-6">Select all that apply</p>
           )}
 
           <div className="grid grid-cols-1 gap-3">
@@ -432,11 +432,11 @@ export default function QuizPage() {
                   className={`flex items-center gap-4 p-4 rounded-xl border-2 transition-all text-left ${
                     isSelected
                       ? 'border-pink-500 bg-pink-50'
-                      : 'border-gray-200 hover:border-pink-300'
+                      : 'border-black hover:border-pink-300'
                   }`}
                 >
                   <span className="text-3xl">{option.icon}</span>
-                  <span className={`font-medium ${isSelected ? 'text-pink-700' : 'text-gray-700'}`}>
+                  <span className={`font-medium ${isSelected ? 'text-pink-700' : 'text-black'}`}>
                     {option.label}
                   </span>
                   {isSelected && (
@@ -454,8 +454,8 @@ export default function QuizPage() {
               disabled={currentQuestion === 0}
               className={`px-6 py-2 rounded-lg font-medium ${
                 currentQuestion === 0
-                  ? 'text-gray-300 cursor-not-allowed'
-                  : 'text-gray-600 hover:bg-gray-100'
+                  ? 'text-black cursor-not-allowed'
+                  : 'text-black hover:bg-white'
               }`}
             >
               ← Back
@@ -468,7 +468,7 @@ export default function QuizPage() {
                 className={`px-6 py-2 rounded-lg font-medium ${
                   answers[question.id]?.length > 0
                     ? 'bg-pink-500 text-white hover:bg-pink-600'
-                    : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                    : 'bg-white text-black cursor-not-allowed'
                 }`}
               >
                 Next →
@@ -479,10 +479,10 @@ export default function QuizPage() {
 
         {/* Trust indicators + Need help */}
         <div className="mt-8 text-center space-y-2">
-          <p className="text-gray-500 text-sm">
+          <p className="text-black text-sm">
             🔒 Your answers are confidential and help us recommend the best treatments for you
           </p>
-          <p className="text-gray-500 text-sm">
+          <p className="text-black text-sm">
             Prefer to skip?{" "}
             <Link href="/book" className="text-pink-500 hover:text-pink-600 font-medium">
               Book directly

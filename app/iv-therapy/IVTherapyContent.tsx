@@ -306,7 +306,7 @@ export function IVTherapyContent() {
       orange: { bg: "bg-orange-500/10", border: "border-orange-500/30", text: "text-orange-400" },
       indigo: { bg: "bg-indigo-500/10", border: "border-indigo-500/30", text: "text-indigo-400" },
       red: { bg: "bg-red-500/10", border: "border-red-500/30", text: "text-red-400" },
-      gray: { bg: "bg-gray-500/10", border: "border-gray-500/30", text: "text-gray-400" },
+      gray: { bg: "bg-white0/10", border: "border-black/30", text: "text-black" },
     };
     return colors[color] || colors.pink;
   };
@@ -330,7 +330,7 @@ export function IVTherapyContent() {
                 Therapy
               </span>
             </h1>
-            <p className="text-gray-400 text-lg mb-8">
+            <p className="text-black text-lg mb-8">
               100% absorption. Instant results. Pharmaceutical-grade vitamins, minerals,
               and amino acids delivered directly to your bloodstream.
             </p>
@@ -361,7 +361,7 @@ export function IVTherapyContent() {
             <h2 className="text-3xl font-bold text-white mb-4">
               Why IV Therapy?
             </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">
+            <p className="text-black max-w-2xl mx-auto">
               Oral supplements have only 20-40% absorption. IV therapy delivers 100%
               of nutrients directly to your cells for immediate, powerful results.
             </p>
@@ -378,7 +378,7 @@ export function IVTherapyContent() {
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center hover:border-blue-500/30 transition">
                 <span className="text-4xl mb-4 block">{item.icon}</span>
                 <h3 className="text-white font-semibold mb-2">{item.title}</h3>
-                <p className="text-gray-400 text-sm">{item.desc}</p>
+                <p className="text-black text-sm">{item.desc}</p>
               </div>
             </FadeUp>
           ))}
@@ -392,7 +392,7 @@ export function IVTherapyContent() {
             <h2 className="text-3xl font-bold text-white mb-4">
               IV Cocktail Menu
             </h2>
-            <p className="text-gray-400">
+            <p className="text-black">
               Choose your drip or let us customize one for you
             </p>
           </div>
@@ -418,12 +418,12 @@ export function IVTherapyContent() {
                     <div className="flex-1">
                       <h3 className="text-white font-bold text-lg">{cocktail.name}</h3>
                       <p className={`text-sm ${colors.text}`}>{cocktail.tagline}</p>
-                      <p className="text-gray-400 text-sm mt-2 line-clamp-2">
+                      <p className="text-black text-sm mt-2 line-clamp-2">
                         {cocktail.description}
                       </p>
                       <div className="mt-4 flex items-center justify-between">
                         <span className="text-white font-bold">{cocktail.price}</span>
-                        <span className="text-gray-500 text-sm">{cocktail.duration}</span>
+                        <span className="text-black text-sm">{cocktail.duration}</span>
                       </div>
                     </div>
                   </div>
@@ -441,7 +441,7 @@ export function IVTherapyContent() {
             <h2 className="text-2xl font-bold text-white mb-2">
               Customize Your Drip
             </h2>
-            <p className="text-gray-400">Add boosters to any IV treatment</p>
+            <p className="text-black">Add boosters to any IV treatment</p>
           </div>
         </FadeUp>
         <FadeUp delayMs={60}>
@@ -481,7 +481,7 @@ export function IVTherapyContent() {
                   {item.step}
                 </div>
                 <h3 className="text-white font-semibold mb-2">{item.title}</h3>
-                <p className="text-gray-400 text-sm">{item.desc}</p>
+                <p className="text-black text-sm">{item.desc}</p>
               </div>
             </FadeUp>
           ))}
@@ -507,12 +507,12 @@ export function IVTherapyContent() {
               >
                 <div className="flex items-center justify-between">
                   <span className="text-white font-medium">{faq.q}</span>
-                  <span className="text-gray-400 text-xl">
+                  <span className="text-black text-xl">
                     {expandedFaq === i ? "−" : "+"}
                   </span>
                 </div>
                 {expandedFaq === i && (
-                  <p className="mt-3 text-gray-400 text-sm">{faq.a}</p>
+                  <p className="mt-3 text-black text-sm">{faq.a}</p>
                 )}
               </button>
             </FadeUp>
@@ -528,7 +528,7 @@ export function IVTherapyContent() {
               <span className="text-2xl">🏥</span>
               <span className="text-white font-semibold">Powered by Olympia Pharmacy</span>
             </div>
-            <p className="text-gray-400 mb-6">
+            <p className="text-black mb-6">
               All IV formulations are compounded by Olympia Pharmacy, a licensed 503A
               compounding pharmacy. We use only pharmaceutical-grade ingredients with
               rigorous quality control.
@@ -555,7 +555,7 @@ export function IVTherapyContent() {
             <h2 className="text-3xl font-bold text-white mb-4">
               Ready to Feel Amazing?
             </h2>
-            <p className="text-gray-400 mb-6">
+            <p className="text-black mb-6">
               Book your IV therapy session today and experience the difference
               100% absorption makes.
             </p>
@@ -582,7 +582,7 @@ export function IVTherapyContent() {
       {/* Detail Modal */}
       {selectedCocktail && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90 backdrop-blur-sm">
-          <div className="relative w-full max-w-lg bg-gray-900 rounded-3xl overflow-hidden border border-white/10">
+          <div className="relative w-full max-w-lg bg-black rounded-3xl overflow-hidden border border-white/10">
             <div className={`p-6 ${getColorClasses(selectedCocktail.color).bg}`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -604,7 +604,7 @@ export function IVTherapyContent() {
               </div>
             </div>
             <div className="p-6">
-              <p className="text-gray-300 mb-6">{selectedCocktail.description}</p>
+              <p className="text-black mb-6">{selectedCocktail.description}</p>
 
               <div className="mb-6">
                 <h4 className="text-white font-semibold mb-2">Ingredients</h4>
@@ -612,7 +612,7 @@ export function IVTherapyContent() {
                   {selectedCocktail.ingredients.map((ing) => (
                     <span
                       key={ing}
-                      className="px-3 py-1 rounded-full bg-white/5 text-gray-300 text-sm"
+                      className="px-3 py-1 rounded-full bg-white/5 text-black text-sm"
                     >
                       {ing}
                     </span>
@@ -624,7 +624,7 @@ export function IVTherapyContent() {
                 <h4 className="text-white font-semibold mb-2">Benefits</h4>
                 <ul className="space-y-1">
                   {selectedCocktail.benefits.map((benefit) => (
-                    <li key={benefit} className="text-gray-400 text-sm flex items-center gap-2">
+                    <li key={benefit} className="text-black text-sm flex items-center gap-2">
                       <span className="text-pink-400">✓</span>
                       {benefit}
                     </li>
@@ -634,11 +634,11 @@ export function IVTherapyContent() {
 
               <div className="flex items-center justify-between p-4 rounded-xl bg-white/5 mb-6">
                 <div>
-                  <p className="text-gray-400 text-sm">Duration</p>
+                  <p className="text-black text-sm">Duration</p>
                   <p className="text-white font-medium">{selectedCocktail.duration}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-gray-400 text-sm">Price</p>
+                  <p className="text-black text-sm">Price</p>
                   <p className="text-white font-bold text-xl">{selectedCocktail.price}</p>
                 </div>
               </div>

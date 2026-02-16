@@ -204,7 +204,7 @@ export default function NavigationPage() {
             {isLoading ? (
               <div className="p-8 text-center">
                 <div className="animate-spin text-2xl mb-2">🔄</div>
-                <p className="text-gray-500">Loading...</p>
+                <p className="text-black">Loading...</p>
               </div>
             ) : currentItems.length > 0 ? (
               <div className="divide-y">
@@ -215,14 +215,14 @@ export default function NavigationPage() {
                         <button
                           onClick={() => moveItem(item.id, 'up')}
                           disabled={idx === 0}
-                          className="text-gray-400 hover:text-gray-600 disabled:opacity-30"
+                          className="text-black hover:text-black disabled:opacity-30"
                         >
                           ↑
                         </button>
                         <button
                           onClick={() => moveItem(item.id, 'down')}
                           disabled={idx === currentItems.length - 1}
-                          className="text-gray-400 hover:text-gray-600 disabled:opacity-30"
+                          className="text-black hover:text-black disabled:opacity-30"
                         >
                           ↓
                         </button>
@@ -244,17 +244,17 @@ export default function NavigationPage() {
                             <span className="text-xs bg-green-100 text-green-600 px-2 py-0.5 rounded">{item.badge}</span>
                           )}
                         </div>
-                        <p className="text-sm text-gray-400">{item.url}</p>
+                        <p className="text-sm text-black">{item.url}</p>
                         
                         {/* Dropdown Children */}
                         {item.type === 'dropdown' && item.children && item.children.length > 0 && (
                           <div className="mt-2 ml-4 space-y-1">
                             {item.children.map(child => (
-                              <div key={child.id} className="text-sm text-gray-500 flex items-center gap-2">
+                              <div key={child.id} className="text-sm text-black flex items-center gap-2">
                                 <span>└</span>
                                 <span>{child.label}</span>
-                                <span className="text-gray-300">→</span>
-                                <span className="text-gray-400">{child.url}</span>
+                                <span className="text-black">→</span>
+                                <span className="text-black">{child.url}</span>
                               </div>
                             ))}
                           </div>
@@ -264,19 +264,19 @@ export default function NavigationPage() {
                       <div className="flex gap-2">
                         <button
                           onClick={() => updateItem(item.id, { visible: !item.visible })}
-                          className={`p-1 ${item.visible ? 'text-green-500' : 'text-gray-400'}`}
+                          className={`p-1 ${item.visible ? 'text-green-500' : 'text-black'}`}
                         >
                           {item.visible ? '👁️' : '👁️‍🗨️'}
                         </button>
                         <button
                           onClick={() => setEditingItem(item)}
-                          className="p-1 text-gray-400 hover:text-pink-600"
+                          className="p-1 text-black hover:text-pink-600"
                         >
                           ✏️
                         </button>
                         <button
                           onClick={() => removeItem(item.id)}
-                          className="p-1 text-gray-400 hover:text-red-600"
+                          className="p-1 text-black hover:text-red-600"
                         >
                           🗑️
                         </button>
@@ -286,13 +286,13 @@ export default function NavigationPage() {
                 ))}
               </div>
             ) : (
-              <div className="p-8 text-center text-gray-500">
+              <div className="p-8 text-center text-black">
                 No navigation items. Click "Add Item" to start.
               </div>
             )}
             
             {/* Save Button */}
-            <div className="p-4 border-t bg-gray-50">
+            <div className="p-4 border-t bg-white">
               <button
                 onClick={() => saveNavigation(activeLocation)}
                 disabled={saving}
@@ -308,7 +308,7 @@ export default function NavigationPage() {
         <div className="space-y-6">
           <div className="bg-white rounded-xl border p-4">
             <h3 className="font-semibold mb-3">Preview</h3>
-            <div className="bg-gray-900 text-white p-4 rounded-lg">
+            <div className="bg-black text-white p-4 rounded-lg">
               {activeLocation === 'header' && (
                 <div className="flex items-center justify-between text-sm">
                   <span className="font-bold">Hello Gorgeous</span>
@@ -328,7 +328,7 @@ export default function NavigationPage() {
                 <div className="text-sm space-y-2">
                   <div className="grid grid-cols-2 gap-4">
                     {currentItems.filter(i => i.visible).map(item => (
-                      <span key={item.id} className="text-gray-300">{item.label}</span>
+                      <span key={item.id} className="text-black">{item.label}</span>
                     ))}
                   </div>
                 </div>
@@ -365,7 +365,7 @@ export default function NavigationPage() {
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Label</label>
+                <label className="block text-sm font-medium text-black mb-1">Label</label>
                 <input
                   type="text"
                   value={newItem.label}
@@ -375,7 +375,7 @@ export default function NavigationPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">URL</label>
+                <label className="block text-sm font-medium text-black mb-1">URL</label>
                 <input
                   type="text"
                   value={newItem.url}
@@ -385,7 +385,7 @@ export default function NavigationPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                <label className="block text-sm font-medium text-black mb-1">Type</label>
                 <select
                   value={newItem.type}
                   onChange={(e) => setNewItem({ ...newItem, type: e.target.value as any })}
@@ -421,7 +421,7 @@ export default function NavigationPage() {
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Label</label>
+                <label className="block text-sm font-medium text-black mb-1">Label</label>
                 <input
                   type="text"
                   value={editingItem.label}
@@ -430,7 +430,7 @@ export default function NavigationPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">URL</label>
+                <label className="block text-sm font-medium text-black mb-1">URL</label>
                 <input
                   type="text"
                   value={editingItem.url}
@@ -445,10 +445,10 @@ export default function NavigationPage() {
                   onChange={(e) => setEditingItem({ ...editingItem, highlight: e.target.checked })}
                   className="w-4 h-4"
                 />
-                <label className="text-sm text-gray-700">Highlight (draw attention)</label>
+                <label className="text-sm text-black">Highlight (draw attention)</label>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Badge (optional)</label>
+                <label className="block text-sm font-medium text-black mb-1">Badge (optional)</label>
                 <input
                   type="text"
                   value={editingItem.badge || ''}

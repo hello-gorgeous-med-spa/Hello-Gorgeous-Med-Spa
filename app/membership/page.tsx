@@ -87,10 +87,10 @@ export default function MembershipPage() {
     <div className="min-h-screen bg-gradient-to-b from-pink-50 via-white to-purple-50">
       {/* Hero */}
       <div className="text-center py-16 px-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
           Become a <span className="text-pink-500">VIP Member</span>
         </h1>
-        <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+        <p className="text-xl text-black max-w-2xl mx-auto">
           Join our exclusive membership program and enjoy premium perks, 
           priority booking, and significant savings on your favorite treatments.
         </p>
@@ -112,21 +112,21 @@ export default function MembershipPage() {
                 </div>
               )}
               <div className={`p-8 ${plan.popular ? 'pt-12' : ''}`}>
-                <h2 className="text-2xl font-bold text-gray-900">{plan.name}</h2>
-                <p className="text-gray-500 mt-1">{plan.description}</p>
+                <h2 className="text-2xl font-bold text-black">{plan.name}</h2>
+                <p className="text-black mt-1">{plan.description}</p>
                 
                 <div className="mt-6">
-                  <span className="text-4xl font-bold text-gray-900">${plan.price}</span>
-                  <span className="text-gray-500">/{plan.billingCycle}</span>
+                  <span className="text-4xl font-bold text-black">${plan.price}</span>
+                  <span className="text-black">/{plan.billingCycle}</span>
                 </div>
-                <p className="text-sm text-gray-500 mt-1">{plan.commitment}</p>
+                <p className="text-sm text-black mt-1">{plan.commitment}</p>
                 <p className="text-sm text-green-600 font-medium mt-2">{plan.savings}</p>
 
                 <ul className="mt-6 space-y-3">
                   {plan.benefits.map((benefit, i) => (
                     <li key={i} className="flex items-start gap-3">
                       <span className="text-pink-500 mt-0.5">✓</span>
-                      <span className="text-gray-700">{benefit}</span>
+                      <span className="text-black">{benefit}</span>
                     </li>
                   ))}
                 </ul>
@@ -136,7 +136,7 @@ export default function MembershipPage() {
                   className={`w-full mt-8 py-3 rounded-lg font-medium transition-colors ${
                     plan.popular
                       ? 'bg-pink-500 text-white hover:bg-pink-600'
-                      : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
+                      : 'bg-white text-black hover:bg-white'
                   }`}
                 >
                   Get Started
@@ -148,42 +148,42 @@ export default function MembershipPage() {
 
         {/* FAQ */}
         <div className="mt-16 max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">
+          <h2 className="text-2xl font-bold text-black text-center mb-8">
             Frequently Asked Questions
           </h2>
           <div className="space-y-4">
             <details className="bg-white rounded-lg p-4 shadow">
-              <summary className="font-medium text-gray-900 cursor-pointer">
+              <summary className="font-medium text-black cursor-pointer">
                 Can I cancel my membership?
               </summary>
-              <p className="mt-3 text-gray-600">
+              <p className="mt-3 text-black">
                 VIP Annual and Botox Club have commitment periods. After the commitment period, 
                 you can cancel anytime. Glow Monthly can be cancelled at any time with 30 days notice.
               </p>
             </details>
             <details className="bg-white rounded-lg p-4 shadow">
-              <summary className="font-medium text-gray-900 cursor-pointer">
+              <summary className="font-medium text-black cursor-pointer">
                 Do unused benefits roll over?
               </summary>
-              <p className="mt-3 text-gray-600">
+              <p className="mt-3 text-black">
                 Monthly treatment credits and included services do not roll over to the next month. 
                 Use them or lose them! However, your discounts are always available.
               </p>
             </details>
             <details className="bg-white rounded-lg p-4 shadow">
-              <summary className="font-medium text-gray-900 cursor-pointer">
+              <summary className="font-medium text-black cursor-pointer">
                 Can I share my membership with family?
               </summary>
-              <p className="mt-3 text-gray-600">
+              <p className="mt-3 text-black">
                 Memberships are individual and non-transferable. However, we offer family discounts 
                 when multiple members of the same household join. Ask us for details!
               </p>
             </details>
             <details className="bg-white rounded-lg p-4 shadow">
-              <summary className="font-medium text-gray-900 cursor-pointer">
+              <summary className="font-medium text-black cursor-pointer">
                 When will I be billed?
               </summary>
-              <p className="mt-3 text-gray-600">
+              <p className="mt-3 text-black">
                 You'll be billed on the same date each month as your signup date. 
                 For example, if you sign up on the 15th, you'll be billed on the 15th of each month.
               </p>
@@ -193,17 +193,17 @@ export default function MembershipPage() {
 
         {/* CTA */}
         <div className="mt-16 text-center">
-          <p className="text-gray-600 mb-4">Have questions? We're here to help.</p>
+          <p className="text-black mb-4">Have questions? We're here to help.</p>
           <div className="flex justify-center gap-4">
             <a
               href="tel:6306366193"
-              className="px-6 py-3 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800"
+              className="px-6 py-3 bg-black text-white font-medium rounded-lg hover:bg-black"
             >
               Call (630) 636-6193
             </a>
             <Link
               href="/book"
-              className="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50"
+              className="px-6 py-3 border border-black text-black font-medium rounded-lg hover:bg-white"
             >
               Book Consultation
             </Link>
@@ -215,65 +215,65 @@ export default function MembershipPage() {
       {showSignupForm && selectedPlan && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-2xl font-bold text-black mb-2">
               Join {MEMBERSHIP_PLANS.find(p => p.id === selectedPlan)?.name}
             </h2>
-            <p className="text-gray-500 mb-6">
+            <p className="text-black mb-6">
               Enter your details to get started
             </p>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                  <label className="block text-sm font-medium text-black mb-1">First Name</label>
                   <input
                     type="text"
                     required
                     value={formData.firstName}
                     onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                  <label className="block text-sm font-medium text-black mb-1">Last Name</label>
                   <input
                     type="text"
                     required
                     value={formData.lastName}
                     onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                <label className="block text-sm font-medium text-black mb-1">Email</label>
                 <input
                   type="email"
                   required
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                <label className="block text-sm font-medium text-black mb-1">Phone</label>
                 <input
                   type="tel"
                   required
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                 />
               </div>
 
-              <div className="bg-gray-50 rounded-lg p-4 mt-4">
+              <div className="bg-white rounded-lg p-4 mt-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Monthly price</span>
+                  <span className="text-black">Monthly price</span>
                   <span className="font-medium">${MEMBERSHIP_PLANS.find(p => p.id === selectedPlan)?.price}/mo</span>
                 </div>
                 <div className="flex justify-between text-sm mt-1">
-                  <span className="text-gray-600">Due today</span>
-                  <span className="font-bold text-gray-900">${MEMBERSHIP_PLANS.find(p => p.id === selectedPlan)?.price}</span>
+                  <span className="text-black">Due today</span>
+                  <span className="font-bold text-black">${MEMBERSHIP_PLANS.find(p => p.id === selectedPlan)?.price}</span>
                 </div>
               </div>
 
@@ -286,13 +286,13 @@ export default function MembershipPage() {
               <button
                 type="button"
                 onClick={() => setShowSignupForm(false)}
-                className="w-full py-3 text-gray-600 font-medium hover:bg-gray-100 rounded-lg"
+                className="w-full py-3 text-black font-medium hover:bg-white rounded-lg"
               >
                 Cancel
               </button>
             </form>
 
-            <p className="text-xs text-gray-400 mt-4 text-center">
+            <p className="text-xs text-black mt-4 text-center">
               By signing up, you agree to our membership terms and cancellation policy.
             </p>
           </div>

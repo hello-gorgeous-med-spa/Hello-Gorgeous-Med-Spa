@@ -76,23 +76,23 @@ function NewPaymentContent() {
         <div>
           <Link
             href="/admin/payments"
-            className="text-sm text-gray-500 hover:text-gray-700 mb-2 inline-block"
+            className="text-sm text-black hover:text-black mb-2 inline-block"
           >
             ← Back to Payments
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900">New Payment</h1>
+          <h1 className="text-2xl font-bold text-black">New Payment</h1>
         </div>
       </div>
 
       {/* Payment Form */}
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Client Selection */}
-        <div className="bg-white rounded-xl border border-gray-100 p-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Client Information</h2>
+        <div className="bg-white rounded-xl border border-black p-6">
+          <h2 className="font-semibold text-black mb-4">Client Information</h2>
           
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Search Client
               </label>
               <input
@@ -100,7 +100,7 @@ function NewPaymentContent() {
                 placeholder="Search by name, email, or phone..."
                 value={formData.clientSearch}
                 onChange={(e) => setFormData({ ...formData, clientSearch: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               />
               {formData.selectedClient && (
                 <div className="mt-2 p-3 bg-green-50 border border-green-200 rounded-lg">
@@ -112,8 +112,8 @@ function NewPaymentContent() {
         </div>
 
         {/* Payment Type */}
-        <div className="bg-white rounded-xl border border-gray-100 p-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Payment Type</h2>
+        <div className="bg-white rounded-xl border border-black p-6">
+          <h2 className="font-semibold text-black mb-4">Payment Type</h2>
           
           <div className="grid grid-cols-4 gap-3">
             {[
@@ -129,7 +129,7 @@ function NewPaymentContent() {
                 className={`p-4 rounded-lg border-2 text-center transition-colors ${
                   formData.paymentType === type.value
                     ? 'border-pink-500 bg-pink-50'
-                    : 'border-gray-200 hover:border-gray-300'
+                    : 'border-black hover:border-black'
                 }`}
               >
                 <span className="text-2xl block mb-1">{type.icon}</span>
@@ -140,9 +140,9 @@ function NewPaymentContent() {
         </div>
 
         {/* Line Items */}
-        <div className="bg-white rounded-xl border border-gray-100 p-6">
+        <div className="bg-white rounded-xl border border-black p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-gray-900">Items</h2>
+            <h2 className="font-semibold text-black">Items</h2>
             <button
               type="button"
               onClick={addItem}
@@ -160,24 +160,24 @@ function NewPaymentContent() {
                   placeholder="Description"
                   value={item.description}
                   onChange={(e) => updateItem(index, 'description', e.target.value)}
-                  className="flex-1 px-3 py-2 border border-gray-200 rounded-lg"
+                  className="flex-1 px-3 py-2 border border-black rounded-lg"
                 />
                 <input
                   type="number"
                   min="1"
                   value={item.quantity}
                   onChange={(e) => updateItem(index, 'quantity', parseInt(e.target.value) || 1)}
-                  className="w-20 px-3 py-2 border border-gray-200 rounded-lg text-center"
+                  className="w-20 px-3 py-2 border border-black rounded-lg text-center"
                 />
                 <div className="relative">
-                  <span className="absolute left-3 top-2 text-gray-400">$</span>
+                  <span className="absolute left-3 top-2 text-black">$</span>
                   <input
                     type="number"
                     min="0"
                     step="0.01"
                     value={item.price}
                     onChange={(e) => updateItem(index, 'price', parseFloat(e.target.value) || 0)}
-                    className="w-28 pl-7 pr-3 py-2 border border-gray-200 rounded-lg"
+                    className="w-28 pl-7 pr-3 py-2 border border-black rounded-lg"
                   />
                 </div>
                 {formData.items.length > 1 && (
@@ -195,12 +195,12 @@ function NewPaymentContent() {
         </div>
 
         {/* Discount & Tip */}
-        <div className="bg-white rounded-xl border border-gray-100 p-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Adjustments</h2>
+        <div className="bg-white rounded-xl border border-black p-6">
+          <h2 className="font-semibold text-black mb-4">Adjustments</h2>
           
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Discount
               </label>
               <div className="flex gap-2">
@@ -209,12 +209,12 @@ function NewPaymentContent() {
                   min="0"
                   value={formData.discount}
                   onChange={(e) => setFormData({ ...formData, discount: parseFloat(e.target.value) || 0 })}
-                  className="flex-1 px-3 py-2 border border-gray-200 rounded-lg"
+                  className="flex-1 px-3 py-2 border border-black rounded-lg"
                 />
                 <select
                   value={formData.discountType}
                   onChange={(e) => setFormData({ ...formData, discountType: e.target.value })}
-                  className="px-3 py-2 border border-gray-200 rounded-lg"
+                  className="px-3 py-2 border border-black rounded-lg"
                 >
                   <option value="percent">%</option>
                   <option value="fixed">$</option>
@@ -222,18 +222,18 @@ function NewPaymentContent() {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Tip
               </label>
               <div className="relative">
-                <span className="absolute left-3 top-2 text-gray-400">$</span>
+                <span className="absolute left-3 top-2 text-black">$</span>
                 <input
                   type="number"
                   min="0"
                   step="0.01"
                   value={formData.tip}
                   onChange={(e) => setFormData({ ...formData, tip: parseFloat(e.target.value) || 0 })}
-                  className="w-full pl-7 pr-3 py-2 border border-gray-200 rounded-lg"
+                  className="w-full pl-7 pr-3 py-2 border border-black rounded-lg"
                 />
               </div>
             </div>
@@ -241,8 +241,8 @@ function NewPaymentContent() {
         </div>
 
         {/* Payment Method */}
-        <div className="bg-white rounded-xl border border-gray-100 p-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Payment Method</h2>
+        <div className="bg-white rounded-xl border border-black p-6">
+          <h2 className="font-semibold text-black mb-4">Payment Method</h2>
           
           <div className="grid grid-cols-4 gap-3">
             {[
@@ -258,7 +258,7 @@ function NewPaymentContent() {
                 className={`p-3 rounded-lg border-2 text-center transition-colors ${
                   formData.paymentMethod === method.value
                     ? 'border-pink-500 bg-pink-50'
-                    : 'border-gray-200 hover:border-gray-300'
+                    : 'border-black hover:border-black'
                 }`}
               >
                 <span className="text-xl block mb-1">{method.icon}</span>
@@ -277,10 +277,10 @@ function NewPaymentContent() {
         </div>
 
         {/* Total & Submit */}
-        <div className="bg-white rounded-xl border border-gray-100 p-6">
+        <div className="bg-white rounded-xl border border-black p-6">
           <div className="space-y-2 mb-6">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-500">Subtotal</span>
+              <span className="text-black">Subtotal</span>
               <span>${formData.items.reduce((sum, item) => sum + (item.quantity * item.price), 0).toFixed(2)}</span>
             </div>
             {formData.discount > 0 && (
@@ -293,11 +293,11 @@ function NewPaymentContent() {
             )}
             {formData.tip > 0 && (
               <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Tip</span>
+                <span className="text-black">Tip</span>
                 <span>${formData.tip.toFixed(2)}</span>
               </div>
             )}
-            <div className="flex justify-between text-xl font-bold pt-2 border-t border-gray-200">
+            <div className="flex justify-between text-xl font-bold pt-2 border-t border-black">
               <span>Total</span>
               <span className="text-pink-500">${calculateTotal().toFixed(2)}</span>
             </div>
@@ -306,7 +306,7 @@ function NewPaymentContent() {
           <div className="flex gap-3">
             <Link
               href="/admin/payments"
-              className="flex-1 px-4 py-3 text-center text-gray-700 bg-gray-100 font-medium rounded-lg hover:bg-gray-200"
+              className="flex-1 px-4 py-3 text-center text-black bg-white font-medium rounded-lg hover:bg-white"
             >
               Cancel
             </Link>

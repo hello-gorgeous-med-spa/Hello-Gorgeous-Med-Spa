@@ -101,7 +101,7 @@ export default function OswegoServicePage({ params }: { params: { service: strin
               </span>{" "}
               in Oswego
             </h1>
-            <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">
+            <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">
               {s.heroSubtitle}
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
@@ -129,7 +129,7 @@ export default function OswegoServicePage({ params }: { params: { service: strin
               <h2 className="text-3xl md:text-4xl font-bold text-white">
                 A local, clinical-first experience
               </h2>
-              <p className="mt-4 text-gray-300 max-w-2xl">
+              <p className="mt-4 text-black max-w-2xl">
                 This Oswego landing page is designed for local searchers—clear next steps,
                 education-first, and a consult-driven plan. For full details, see the main service
                 page.
@@ -152,18 +152,18 @@ export default function OswegoServicePage({ params }: { params: { service: strin
                 },
               ].map((x, idx) => (
                 <FadeUp key={x.t} delayMs={40 * idx}>
-                  <div className="rounded-2xl border border-gray-800 bg-black/40 p-6">
+                  <div className="rounded-2xl border border-black bg-black/40 p-6">
                     <h3 className="text-xl font-bold text-white">{x.t}</h3>
-                    <p className="mt-3 text-gray-300">{x.b}</p>
+                    <p className="mt-3 text-black">{x.b}</p>
                   </div>
                 </FadeUp>
               ))}
             </div>
 
             <FadeUp delayMs={160}>
-              <div className="mt-10 rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
+              <div className="mt-10 rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-6">
                 <h3 className="text-xl font-bold text-white">Looking for details?</h3>
-                <p className="mt-3 text-gray-300">
+                <p className="mt-3 text-black">
                   Read the full service overview and FAQs on the main service page.
                 </p>
                 <div className="mt-6 flex flex-col sm:flex-row gap-4">
@@ -191,7 +191,7 @@ export default function OswegoServicePage({ params }: { params: { service: strin
           <h2 className="text-3xl md:text-4xl font-bold text-white">
             Oswego FAQ
           </h2>
-          <p className="mt-4 text-gray-300 max-w-2xl">
+          <p className="mt-4 text-black max-w-2xl">
             Quick answers for local patients searching for {s.name} in Oswego, IL.
           </p>
         </FadeUp>
@@ -199,12 +199,12 @@ export default function OswegoServicePage({ params }: { params: { service: strin
         <div className="mt-10 grid gap-4">
           {oswegoFaqs(s.name).map((f, idx) => (
             <FadeUp key={f.question} delayMs={40 * idx}>
-              <details className="group rounded-2xl border border-gray-800 bg-black/40 p-6">
+              <details className="group rounded-2xl border border-black bg-black/40 p-6">
                 <summary className="cursor-pointer list-none text-lg font-semibold text-white flex items-center justify-between">
                   <span>{f.question}</span>
                   <span className="text-white/60 group-open:rotate-45 transition-transform">+</span>
                 </summary>
-                <p className="mt-4 text-gray-300">{f.answer}</p>
+                <p className="mt-4 text-black">{f.answer}</p>
               </details>
             </FadeUp>
           ))}
@@ -229,7 +229,7 @@ export default function OswegoServicePage({ params }: { params: { service: strin
               <polyline points="12 5 19 12 12 19" />
             </svg>
           </CTA>
-          <p className="text-sm text-gray-500 mt-8">
+          <p className="text-sm text-black mt-8">
             Prefer a question first? <Link className="underline" href="/contact">Contact us</Link>.
           </p>
         </div>

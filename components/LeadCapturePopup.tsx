@@ -86,7 +86,7 @@ export function LeadCapturePopup() {
         <button
           type="button"
           onClick={handleClose}
-          className="absolute right-3 top-3 rounded-full p-1.5 text-gray-400 hover:bg-white/10 hover:text-white"
+          className="absolute right-3 top-3 rounded-full p-1.5 text-black hover:bg-white/10 hover:text-white"
           aria-label="Close"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,7 +99,7 @@ export function LeadCapturePopup() {
         <h3 className="mt-2 text-xl font-bold text-white">
           Get exclusive offers & first access
         </h3>
-        <p className="mt-2 text-gray-300 text-sm">
+        <p className="mt-2 text-black text-sm">
           Join our list for seasonal promos, new treatment alerts, and VIP perks. No spam.
         </p>
         <Link
@@ -112,14 +112,14 @@ export function LeadCapturePopup() {
         <button
           type="button"
           onClick={handleClose}
-          className="mt-3 block w-full text-center text-sm text-gray-500 hover:text-gray-300"
+          className="mt-3 block w-full text-center text-sm text-black hover:text-black"
         >
           No thanks
         </button>
-        <p className="mt-4 text-[10px] text-gray-500 leading-tight">
+        <p className="mt-4 text-[10px] text-black leading-tight">
           By signing up you agree to receive marketing messages. Message and data rates may
           apply. Reply STOP to opt out of SMS. We respect your privacy—see our{" "}
-          <Link href="/privacy" className="underline hover:text-gray-400">
+          <Link href="/privacy" className="underline hover:text-black">
             Privacy Policy
           </Link>
           .

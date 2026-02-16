@@ -201,7 +201,7 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
       case 'FAILED':
         return 'bg-red-100 text-red-700';
       default:
-        return 'bg-gray-100 text-gray-700';
+        return 'bg-white text-black';
     }
   };
 
@@ -249,12 +249,12 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+          <div className="flex items-center gap-2 text-sm text-black mb-1">
             <Link href="/admin/sales" className="hover:text-pink-500">Sales</Link>
             <span>/</span>
             <span>{sale.sale_number}</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+          <h1 className="text-2xl font-bold text-black flex items-center gap-3">
             {sale.sale_number}
             <span className={`px-3 py-1 text-sm rounded-full ${getStatusColor(sale.status)}`}>
               {sale.status}
@@ -270,51 +270,51 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
       </div>
 
       {/* Sale Info */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-        <h2 className="font-semibold text-gray-900 mb-4">Sale Details</h2>
+      <div className="bg-white rounded-xl border border-black shadow-sm p-6">
+        <h2 className="font-semibold text-black mb-4">Sale Details</h2>
         
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <div>
-            <p className="text-sm text-gray-500">Created</p>
-            <p className="font-medium text-gray-900">
+            <p className="text-sm text-black">Created</p>
+            <p className="font-medium text-black">
               {new Date(sale.created_at).toLocaleString()}
             </p>
           </div>
           {sale.completed_at && (
             <div>
-              <p className="text-sm text-gray-500">Completed</p>
-              <p className="font-medium text-gray-900">
+              <p className="text-sm text-black">Completed</p>
+              <p className="font-medium text-black">
                 {new Date(sale.completed_at).toLocaleString()}
               </p>
             </div>
           )}
           <div>
-            <p className="text-sm text-gray-500">Subtotal</p>
-            <p className="font-medium text-gray-900">${(sale.subtotal / 100).toFixed(2)}</p>
+            <p className="text-sm text-black">Subtotal</p>
+            <p className="font-medium text-black">${(sale.subtotal / 100).toFixed(2)}</p>
           </div>
           {sale.discount_total > 0 && (
             <div>
-              <p className="text-sm text-gray-500">Discount</p>
+              <p className="text-sm text-black">Discount</p>
               <p className="font-medium text-green-600">-${(sale.discount_total / 100).toFixed(2)}</p>
             </div>
           )}
           {sale.tip_total > 0 && (
             <div>
-              <p className="text-sm text-gray-500">Tip</p>
-              <p className="font-medium text-gray-900">${(sale.tip_total / 100).toFixed(2)}</p>
+              <p className="text-sm text-black">Tip</p>
+              <p className="font-medium text-black">${(sale.tip_total / 100).toFixed(2)}</p>
             </div>
           )}
           <div>
-            <p className="text-sm text-gray-500">Total</p>
-            <p className="font-bold text-lg text-gray-900">${(sale.gross_total / 100).toFixed(2)}</p>
+            <p className="text-sm text-black">Total</p>
+            <p className="font-bold text-lg text-black">${(sale.gross_total / 100).toFixed(2)}</p>
           </div>
           <div>
-            <p className="text-sm text-gray-500">Paid</p>
-            <p className="font-medium text-gray-900">${(sale.amount_paid / 100).toFixed(2)}</p>
+            <p className="text-sm text-black">Paid</p>
+            <p className="font-medium text-black">${(sale.amount_paid / 100).toFixed(2)}</p>
           </div>
           {sale.balance_due > 0 && (
             <div>
-              <p className="text-sm text-gray-500">Balance Due</p>
+              <p className="text-sm text-black">Balance Due</p>
               <p className="font-medium text-red-600">${(sale.balance_due / 100).toFixed(2)}</p>
             </div>
           )}
@@ -323,24 +323,24 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
         {/* Line Items */}
         {sale.sale_items && sale.sale_items.length > 0 && (
           <div>
-            <h3 className="text-sm font-medium text-gray-700 mb-2">Items</h3>
-            <div className="border border-gray-200 rounded-lg overflow-hidden">
+            <h3 className="text-sm font-medium text-black mb-2">Items</h3>
+            <div className="border border-black rounded-lg overflow-hidden">
               <table className="w-full text-sm">
-                <thead className="bg-gray-50">
+                <thead className="bg-white">
                   <tr>
-                    <th className="text-left px-4 py-2 text-gray-600">Item</th>
-                    <th className="text-center px-4 py-2 text-gray-600">Qty</th>
-                    <th className="text-right px-4 py-2 text-gray-600">Price</th>
-                    <th className="text-right px-4 py-2 text-gray-600">Total</th>
+                    <th className="text-left px-4 py-2 text-black">Item</th>
+                    <th className="text-center px-4 py-2 text-black">Qty</th>
+                    <th className="text-right px-4 py-2 text-black">Price</th>
+                    <th className="text-right px-4 py-2 text-black">Total</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {sale.sale_items.map((item) => (
                     <tr key={item.id}>
-                      <td className="px-4 py-2 text-gray-900">{item.item_name}</td>
-                      <td className="px-4 py-2 text-center text-gray-600">{item.quantity}</td>
-                      <td className="px-4 py-2 text-right text-gray-600">${(item.unit_price / 100).toFixed(2)}</td>
-                      <td className="px-4 py-2 text-right text-gray-900">${(item.total_price / 100).toFixed(2)}</td>
+                      <td className="px-4 py-2 text-black">{item.item_name}</td>
+                      <td className="px-4 py-2 text-center text-black">{item.quantity}</td>
+                      <td className="px-4 py-2 text-right text-black">${(item.unit_price / 100).toFixed(2)}</td>
+                      <td className="px-4 py-2 text-right text-black">${(item.total_price / 100).toFixed(2)}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -352,14 +352,14 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
 
       {/* Payments */}
       {sale.sale_payments && sale.sale_payments.length > 0 && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Payments</h2>
+        <div className="bg-white rounded-xl border border-black shadow-sm p-6">
+          <h2 className="font-semibold text-black mb-4">Payments</h2>
           
           <div className="space-y-4">
             {sale.sale_payments.map((payment) => (
               <div 
                 key={payment.id}
-                className="border border-gray-200 rounded-lg p-4"
+                className="border border-black rounded-lg p-4"
               >
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">
@@ -369,21 +369,21 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
                        payment.payment_method === 'gift_card' ? '🎁' : '💳'}
                     </span>
                     <div>
-                      <p className="font-medium text-gray-900">
+                      <p className="font-medium text-black">
                         {payment.payment_method === 'card' ? 'Card Payment' : 
                          payment.payment_method === 'cash' ? 'Cash Payment' : 
                          payment.payment_method === 'gift_card' ? 'Gift Card' : payment.payment_method}
                         {payment.card_brand && payment.card_last_four && (
-                          <span className="text-gray-500 ml-2">
+                          <span className="text-black ml-2">
                             {payment.card_brand} ****{payment.card_last_four}
                           </span>
                         )}
                       </p>
-                      <p className="text-sm text-gray-500">{payment.payment_number}</p>
+                      <p className="text-sm text-black">{payment.payment_number}</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-gray-900">${(payment.amount / 100).toFixed(2)}</p>
+                    <p className="font-bold text-black">${(payment.amount / 100).toFixed(2)}</p>
                     <span className={`px-2 py-0.5 text-xs rounded-full ${getStatusColor(payment.status)}`}>
                       {payment.status}
                     </span>
@@ -394,33 +394,33 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
                   {payment.tip_amount > 0 && (
                     <div>
-                      <span className="text-gray-500">Tip: </span>
-                      <span className="text-gray-900">${(payment.tip_amount / 100).toFixed(2)}</span>
+                      <span className="text-black">Tip: </span>
+                      <span className="text-black">${(payment.tip_amount / 100).toFixed(2)}</span>
                     </div>
                   )}
                   {payment.processing_fee > 0 && (
                     <div>
-                      <span className="text-gray-500">Fee: </span>
-                      <span className="text-gray-900">${(payment.processing_fee / 100).toFixed(2)}</span>
+                      <span className="text-black">Fee: </span>
+                      <span className="text-black">${(payment.processing_fee / 100).toFixed(2)}</span>
                     </div>
                   )}
                   {payment.refund_amount > 0 && (
                     <div>
-                      <span className="text-gray-500">Refunded: </span>
+                      <span className="text-black">Refunded: </span>
                       <span className="text-purple-600">${(payment.refund_amount / 100).toFixed(2)}</span>
                     </div>
                   )}
                   {payment.processed_at && (
                     <div>
-                      <span className="text-gray-500">Processed: </span>
-                      <span className="text-gray-900">{new Date(payment.processed_at).toLocaleString()}</span>
+                      <span className="text-black">Processed: </span>
+                      <span className="text-black">{new Date(payment.processed_at).toLocaleString()}</span>
                     </div>
                   )}
                 </div>
 
                 {/* Square IDs */}
                 {(payment.square_payment_id || payment.square_order_id) && (
-                  <div className="mt-3 pt-3 border-t border-gray-100 text-xs font-mono text-gray-500">
+                  <div className="mt-3 pt-3 border-t border-black text-xs font-mono text-black">
                     {payment.square_payment_id && (
                       <p>Payment ID: {payment.square_payment_id}</p>
                     )}
@@ -452,21 +452,21 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
 
       {/* Refunds */}
       {refunds.length > 0 && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Refunds</h2>
+        <div className="bg-white rounded-xl border border-black shadow-sm p-6">
+          <h2 className="font-semibold text-black mb-4">Refunds</h2>
           
           <div className="space-y-3">
             {refunds.map((refund) => (
               <div 
                 key={refund.id}
-                className="flex items-center justify-between p-4 border border-gray-200 rounded-lg"
+                className="flex items-center justify-between p-4 border border-black rounded-lg"
               >
                 <div>
-                  <p className="font-medium text-gray-900">
+                  <p className="font-medium text-black">
                     {refund.refund_type === 'full' ? 'Full Refund' : 'Partial Refund'}
                   </p>
-                  <p className="text-sm text-gray-500">{refund.reason}</p>
-                  <p className="text-xs text-gray-400 mt-1">
+                  <p className="text-sm text-black">{refund.reason}</p>
+                  <p className="text-xs text-black mt-1">
                     {new Date(refund.created_at).toLocaleString()}
                   </p>
                 </div>
@@ -484,8 +484,8 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
 
       {/* Actions */}
       {hasSquarePayment && refundableAmount > 0 && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Actions</h2>
+        <div className="bg-white rounded-xl border border-black shadow-sm p-6">
+          <h2 className="font-semibold text-black mb-4">Actions</h2>
           
           <div className="flex gap-3">
             <button
@@ -502,7 +502,7 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
                 setRefundType('partial');
                 setShowRefundModal(true);
               }}
-              className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 font-medium"
+              className="px-4 py-2 bg-white text-black rounded-lg hover:bg-white font-medium"
             >
               Partial Refund
             </button>
@@ -518,17 +518,17 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
             onClick={() => setShowRefundModal(false)}
           />
           <div className="relative bg-white rounded-xl shadow-xl w-full max-w-md mx-4 p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <h2 className="text-xl font-semibold text-black mb-4">
               {refundType === 'full' ? 'Full Refund' : 'Partial Refund'}
             </h2>
             
             {refundType === 'partial' && (
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black mb-1">
                   Refund Amount (max ${refundableAmount.toFixed(2)})
                 </label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-black">$</span>
                   <input
                     type="number"
                     step="0.01"
@@ -536,14 +536,14 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
                     value={refundAmount}
                     onChange={(e) => setRefundAmount(e.target.value)}
                     placeholder="0.00"
-                    className="w-full pl-7 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full pl-7 pr-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                   />
                 </div>
               </div>
             )}
             
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Reason for Refund *
               </label>
               <textarea
@@ -551,7 +551,7 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
                 onChange={(e) => setRefundReason(e.target.value)}
                 placeholder="Customer requested refund..."
                 rows={3}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               />
             </div>
             
@@ -564,7 +564,7 @@ export default function SaleDetailPage({ params }: { params: Promise<{ id: strin
             <div className="flex gap-3">
               <button
                 onClick={() => setShowRefundModal(false)}
-                className="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
+                className="flex-1 px-4 py-2 bg-white text-black rounded-lg hover:bg-white"
               >
                 Cancel
               </button>

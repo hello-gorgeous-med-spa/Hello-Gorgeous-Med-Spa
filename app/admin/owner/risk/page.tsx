@@ -122,7 +122,7 @@ export default function RiskCompliancePage() {
       case 'critical': return 'bg-red-100 text-red-700';
       case 'warning': return 'bg-amber-100 text-amber-700';
       case 'info': return 'bg-blue-100 text-blue-700';
-      default: return 'bg-gray-100 text-gray-600';
+      default: return 'bg-white text-black';
     }
   };
 
@@ -198,32 +198,32 @@ export default function RiskCompliancePage() {
               onClick={() => setFilterSeverity('all')} 
               className={`p-4 rounded-xl border text-left ${filterSeverity === 'all' ? 'border-purple-500 bg-purple-50' : 'bg-white'}`}
             >
-              <p className="text-sm text-gray-500">Total Issues</p>
+              <p className="text-sm text-black">Total Issues</p>
               <p className="text-2xl font-bold">{issues.length}</p>
             </button>
             <button 
               onClick={() => setFilterSeverity('critical')} 
               className={`p-4 rounded-xl border text-left ${filterSeverity === 'critical' ? 'border-red-500 bg-red-50' : 'bg-white'}`}
             >
-              <p className="text-sm text-gray-500">🔴 Critical</p>
+              <p className="text-sm text-black">🔴 Critical</p>
               <p className="text-2xl font-bold text-red-600">{criticalCount}</p>
             </button>
             <button 
               onClick={() => setFilterSeverity('warning')} 
               className={`p-4 rounded-xl border text-left ${filterSeverity === 'warning' ? 'border-amber-500 bg-amber-50' : 'bg-white'}`}
             >
-              <p className="text-sm text-gray-500">🟡 Warnings</p>
+              <p className="text-sm text-black">🟡 Warnings</p>
               <p className="text-2xl font-bold text-amber-600">{warningCount}</p>
             </button>
             <button 
               onClick={() => setFilterSeverity('info')} 
               className={`p-4 rounded-xl border text-left ${filterSeverity === 'info' ? 'border-blue-500 bg-blue-50' : 'bg-white'}`}
             >
-              <p className="text-sm text-gray-500">🔵 Info</p>
+              <p className="text-sm text-black">🔵 Info</p>
               <p className="text-2xl font-bold text-blue-600">{infoCount}</p>
             </button>
             <div className="p-4 rounded-xl border bg-white">
-              <p className="text-sm text-gray-500">Last Scan</p>
+              <p className="text-sm text-black">Last Scan</p>
               <p className="text-lg font-bold text-green-600">Just now</p>
             </div>
           </div>
@@ -232,13 +232,13 @@ export default function RiskCompliancePage() {
           <div className="bg-white rounded-xl border">
             <div className="p-4 border-b">
               <h2 className="font-semibold">⚠️ Active Issues ({filteredIssues.length})</h2>
-              <p className="text-xs text-gray-500">Click an issue to take action</p>
+              <p className="text-xs text-black">Click an issue to take action</p>
             </div>
             
             {filteredIssues.length > 0 ? (
               <div className="divide-y">
                 {filteredIssues.map(issue => (
-                  <div key={issue.id} className={`p-4 hover:bg-gray-50 ${
+                  <div key={issue.id} className={`p-4 hover:bg-white ${
                     issue.severity === 'critical' ? 'border-l-4 border-l-red-500' :
                     issue.severity === 'warning' ? 'border-l-4 border-l-amber-500' :
                     'border-l-4 border-l-blue-500'
@@ -253,8 +253,8 @@ export default function RiskCompliancePage() {
                               {issue.severity}
                             </span>
                           </div>
-                          <p className="text-sm text-gray-600">{issue.description}</p>
-                          <p className="text-xs text-gray-500 mt-1">Affected: {issue.affectedCount} item{issue.affectedCount > 1 ? 's' : ''}</p>
+                          <p className="text-sm text-black">{issue.description}</p>
+                          <p className="text-xs text-black mt-1">Affected: {issue.affectedCount} item{issue.affectedCount > 1 ? 's' : ''}</p>
                         </div>
                       </div>
                       <a
@@ -282,7 +282,7 @@ export default function RiskCompliancePage() {
 
           {/* Export */}
           <div className="mt-6 flex justify-end">
-            <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm">
+            <button className="px-4 py-2 bg-white text-black rounded-lg hover:bg-white text-sm">
               📥 Export Compliance Report
             </button>
           </div>

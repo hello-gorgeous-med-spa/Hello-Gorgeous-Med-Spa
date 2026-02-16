@@ -62,18 +62,18 @@ export function TipSelector({
   return (
     <div className="bg-white rounded-xl p-6">
       {/* Breadcrumb */}
-      <div className="flex items-center gap-2 text-sm text-gray-400 mb-6">
+      <div className="flex items-center gap-2 text-sm text-black mb-6">
         <span>Cart</span>
         <span>›</span>
-        <span className="text-gray-900 font-medium">Tip</span>
+        <span className="text-black font-medium">Tip</span>
         <span>›</span>
         <span>Payment</span>
       </div>
 
       {/* Header */}
-      <h2 className="text-2xl font-bold text-gray-900 mb-2">Select tip</h2>
-      <p className="text-gray-500 mb-6">
-        Select an amount for <span className="font-medium text-gray-700">{providerName}</span>
+      <h2 className="text-2xl font-bold text-black mb-2">Select tip</h2>
+      <p className="text-black mb-6">
+        Select an amount for <span className="font-medium text-black">{providerName}</span>
       </p>
 
       {/* Tip Options Grid */}
@@ -90,15 +90,15 @@ export function TipSelector({
                 p-4 rounded-xl border-2 transition-all text-center
                 ${isSelected
                   ? 'border-purple-500 bg-purple-50'
-                  : 'border-gray-200 hover:border-gray-300 bg-white'
+                  : 'border-black hover:border-black bg-white'
                 }
               `}
             >
-              <p className={`font-bold text-lg ${isSelected ? 'text-purple-700' : 'text-gray-900'}`}>
+              <p className={`font-bold text-lg ${isSelected ? 'text-purple-700' : 'text-black'}`}>
                 {option.percentage === 0 ? option.label : option.label}
               </p>
               {option.percentage > 0 && (
-                <p className={`text-sm ${isSelected ? 'text-purple-600' : 'text-gray-500'}`}>
+                <p className={`text-sm ${isSelected ? 'text-purple-600' : 'text-black'}`}>
                   {formatCurrency(tipAmount)}
                 </p>
               )}
@@ -114,25 +114,25 @@ export function TipSelector({
           w-full p-4 rounded-xl border-2 transition-all flex items-center justify-center gap-2
           ${customTipMode
             ? 'border-purple-500 bg-purple-50'
-            : 'border-gray-200 hover:border-gray-300 bg-white'
+            : 'border-black hover:border-black bg-white'
           }
         `}
       >
         <span className="text-xl">⊕</span>
-        <span className={`font-medium ${customTipMode ? 'text-purple-700' : 'text-gray-900'}`}>
+        <span className={`font-medium ${customTipMode ? 'text-purple-700' : 'text-black'}`}>
           Custom tip
         </span>
       </button>
 
       {/* Custom Tip Input */}
       {customTipMode && (
-        <div className="mt-4 p-4 bg-gray-50 rounded-xl">
-          <label className="block text-sm font-medium text-gray-700 mb-2">
+        <div className="mt-4 p-4 bg-white rounded-xl">
+          <label className="block text-sm font-medium text-black mb-2">
             Enter custom amount
           </label>
           <div className="flex gap-2">
             <div className="relative flex-1">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-black">$</span>
               <input
                 type="number"
                 value={customTipValue}
@@ -140,7 +140,7 @@ export function TipSelector({
                 placeholder="0.00"
                 step="0.01"
                 min="0"
-                className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
+                className="w-full pl-8 pr-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
                 autoFocus
               />
             </div>
@@ -188,7 +188,7 @@ export function CompactTipSelector({
 
   return (
     <div className="space-y-2">
-      <label className="text-sm font-medium text-gray-700">
+      <label className="text-sm font-medium text-black">
         Tip for {providerName}
       </label>
       <div className="flex gap-2 flex-wrap">
@@ -204,7 +204,7 @@ export function CompactTipSelector({
                 px-3 py-2 text-sm rounded-lg border transition-colors
                 ${isSelected
                   ? 'bg-purple-600 text-white border-purple-600'
-                  : 'bg-white text-gray-700 border-gray-300 hover:border-gray-400'
+                  : 'bg-white text-black border-black hover:border-black'
                 }
               `}
             >
@@ -257,13 +257,13 @@ export function CheckoutSummary({
   const provider = items[0]?.provider || 'Provider';
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+    <div className="bg-white rounded-xl border border-black overflow-hidden">
       {/* Client Info */}
-      <div className="p-4 border-b bg-gray-50">
+      <div className="p-4 border-b bg-white">
         <div className="flex items-center justify-between">
           <div>
-            <p className="font-semibold text-gray-900">{clientName}</p>
-            <p className="text-sm text-gray-500">{clientPhone}</p>
+            <p className="font-semibold text-black">{clientName}</p>
+            <p className="text-sm text-black">{clientPhone}</p>
           </div>
           <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-bold">
             {clientName.charAt(0)}
@@ -280,17 +280,17 @@ export function CheckoutSummary({
           <div key={index} className="flex items-start gap-3">
             <div className="w-1 h-full bg-purple-500 rounded" />
             <div className="flex-1">
-              <p className="font-medium text-gray-900">{item.name}</p>
-              <p className="text-sm text-gray-500">
+              <p className="font-medium text-black">{item.name}</p>
+              <p className="text-sm text-black">
                 {item.duration} • {item.provider}
               </p>
             </div>
-            <p className="font-medium text-gray-900">${item.price.toFixed(2)}</p>
+            <p className="font-medium text-black">${item.price.toFixed(2)}</p>
           </div>
         ))}
 
         {/* Add to cart button */}
-        <button className="flex items-center gap-2 text-gray-600 hover:text-gray-900 text-sm">
+        <button className="flex items-center gap-2 text-black hover:text-black text-sm">
           <span>🛒</span> Add to cart
         </button>
       </div>
@@ -304,8 +304,8 @@ export function CheckoutSummary({
           </div>
         )}
         <div className="flex justify-between">
-          <span className="text-gray-600">Subtotal</span>
-          <span className="text-gray-900">${(subtotal + processingFee).toFixed(2)}</span>
+          <span className="text-black">Subtotal</span>
+          <span className="text-black">${(subtotal + processingFee).toFixed(2)}</span>
         </div>
         {tip > 0 && (
           <div className="flex justify-between text-green-600">
@@ -315,8 +315,8 @@ export function CheckoutSummary({
         )}
         {tax > 0 && (
           <div className="flex justify-between">
-            <span className="text-gray-600">Tax</span>
-            <span className="text-gray-900">${tax.toFixed(2)}</span>
+            <span className="text-black">Tax</span>
+            <span className="text-black">${tax.toFixed(2)}</span>
           </div>
         )}
         <div className="flex justify-between pt-2 border-t font-bold">
@@ -328,14 +328,14 @@ export function CheckoutSummary({
       {/* To Pay */}
       <div className="border-t p-4">
         <div className="flex justify-between items-center mb-4">
-          <span className="font-medium text-gray-900">To pay</span>
+          <span className="font-medium text-black">To pay</span>
           <span className="text-xl font-bold">${total.toFixed(2)}</span>
         </div>
         <div className="flex gap-2">
-          <button className="p-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+          <button className="p-2 border border-black rounded-lg hover:bg-white">
             <span className="text-lg">⋮</span>
           </button>
-          <button className="flex-1 py-3 bg-gray-900 text-white font-semibold rounded-lg hover:bg-gray-800">
+          <button className="flex-1 py-3 bg-black text-white font-semibold rounded-lg hover:bg-black">
             Continue to payment
           </button>
         </div>
@@ -379,7 +379,7 @@ export function CheckoutWithTip({ service, client, onComplete }: CheckoutWithTip
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-8">
+    <div className="min-h-screen bg-white py-8">
       <div className="max-w-4xl mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Side - Tip Selection */}
@@ -394,9 +394,9 @@ export function CheckoutWithTip({ service, client, onComplete }: CheckoutWithTip
             )}
             {step === 'payment' && (
               <div className="bg-white rounded-xl p-6">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Payment</h2>
+                <h2 className="text-2xl font-bold text-black mb-6">Payment</h2>
                 {/* Payment form would go here */}
-                <p className="text-gray-500">Select payment method...</p>
+                <p className="text-black">Select payment method...</p>
               </div>
             )}
           </div>

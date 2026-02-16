@@ -221,13 +221,13 @@ export default function ClientPhotosPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+          <div className="flex items-center gap-2 text-sm text-black mb-1">
             <Link href={`/admin/clients/${clientId}`} className="hover:text-pink-600">
               ← Back to {client?.first_name} {client?.last_name}
             </Link>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Photos</h1>
-          <p className="text-gray-500">Before/after documentation for treatments</p>
+          <h1 className="text-2xl font-bold text-black">Photos</h1>
+          <p className="text-black">Before/after documentation for treatments</p>
         </div>
         <div className="flex gap-3">
           <button
@@ -235,7 +235,7 @@ export default function ClientPhotosPage() {
             className={`px-4 py-2 font-medium rounded-lg ${
               compareMode 
                 ? 'bg-purple-500 text-white' 
-                : 'border border-gray-200 text-gray-700 hover:bg-gray-50'
+                : 'border border-black text-black hover:bg-white'
             }`}
           >
             {compareMode ? '✓ Compare Mode' : '↔️ Compare'}
@@ -271,10 +271,10 @@ export default function ClientPhotosPage() {
 
       {/* Photo Grid */}
       {Object.keys(groupedPhotos).length === 0 ? (
-        <div className="bg-white rounded-xl border border-gray-100 p-12 text-center">
+        <div className="bg-white rounded-xl border border-black p-12 text-center">
           <span className="text-6xl block mb-4">📷</span>
-          <h3 className="text-lg font-semibold text-gray-900 mb-2">No photos yet</h3>
-          <p className="text-gray-500 mb-4">Capture before/after photos to document treatments</p>
+          <h3 className="text-lg font-semibold text-black mb-2">No photos yet</h3>
+          <p className="text-black mb-4">Capture before/after photos to document treatments</p>
           <button
             onClick={() => setShowCapture(true)}
             className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600"
@@ -287,9 +287,9 @@ export default function ClientPhotosPage() {
           {Object.entries(groupedPhotos)
             .sort(([a], [b]) => b.localeCompare(a))
             .map(([date, datePhotos]) => (
-              <div key={date} className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-                <div className="px-6 py-4 bg-gray-50 border-b border-gray-100">
-                  <h3 className="font-semibold text-gray-900">
+              <div key={date} className="bg-white rounded-xl border border-black overflow-hidden">
+                <div className="px-6 py-4 bg-white border-b border-black">
+                  <h3 className="font-semibold text-black">
                     {new Date(date).toLocaleDateString('en-US', { 
                       weekday: 'long', 
                       year: 'numeric', 
@@ -297,7 +297,7 @@ export default function ClientPhotosPage() {
                       day: 'numeric' 
                     })}
                   </h3>
-                  <p className="text-sm text-gray-500">{datePhotos.length} photo(s)</p>
+                  <p className="text-sm text-black">{datePhotos.length} photo(s)</p>
                 </div>
                 <div className="p-6">
                   <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
@@ -349,13 +349,13 @@ export default function ClientPhotosPage() {
       {showCapture && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-lg w-full">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">Capture Photo</h2>
+            <div className="p-6 border-b border-black">
+              <h2 className="text-xl font-bold text-black">Capture Photo</h2>
             </div>
             <div className="p-6 space-y-4">
               {/* Photo Type */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Photo Type</label>
+                <label className="block text-sm font-medium text-black mb-2">Photo Type</label>
                 <div className="flex gap-2">
                   {(['before', 'after', 'progress'] as const).map(type => (
                     <button
@@ -366,7 +366,7 @@ export default function ClientPhotosPage() {
                           ? type === 'before' ? 'bg-blue-500 text-white' :
                             type === 'after' ? 'bg-green-500 text-white' :
                             'bg-yellow-500 text-white'
-                          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                          : 'bg-white text-black hover:bg-white'
                       }`}
                     >
                       {type}
@@ -377,11 +377,11 @@ export default function ClientPhotosPage() {
 
               {/* Area */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Treatment Area</label>
+                <label className="block text-sm font-medium text-black mb-1">Treatment Area</label>
                 <select
                   value={selectedArea}
                   onChange={(e) => setSelectedArea(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                 >
                   {PHOTO_AREAS.map(area => (
                     <option key={area} value={area}>{area}</option>
@@ -391,11 +391,11 @@ export default function ClientPhotosPage() {
 
               {/* Notes */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Notes (optional)</label>
+                <label className="block text-sm font-medium text-black mb-1">Notes (optional)</label>
                 <textarea
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   rows={2}
                   placeholder="Any relevant notes..."
                 />
@@ -421,7 +421,7 @@ export default function ClientPhotosPage() {
                     </button>
                     <button
                       onClick={stopCamera}
-                      className="px-4 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300"
+                      className="px-4 py-3 bg-white text-black rounded-lg hover:bg-white"
                     >
                       Cancel
                     </button>
@@ -437,7 +437,7 @@ export default function ClientPhotosPage() {
                   </button>
                   <button
                     onClick={() => fileInputRef.current?.click()}
-                    className="flex-1 py-4 bg-gray-100 text-gray-700 font-medium rounded-lg hover:bg-gray-200"
+                    className="flex-1 py-4 bg-white text-black font-medium rounded-lg hover:bg-white"
                   >
                     📁 Upload File
                   </button>
@@ -451,13 +451,13 @@ export default function ClientPhotosPage() {
                 </div>
               )}
             </div>
-            <div className="p-6 border-t border-gray-100">
+            <div className="p-6 border-t border-black">
               <button
                 onClick={() => {
                   setShowCapture(false);
                   stopCamera();
                 }}
-                className="w-full py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                className="w-full py-2 text-black font-medium hover:bg-white rounded-lg"
               >
                 Cancel
               </button>
@@ -480,7 +480,7 @@ export default function ClientPhotosPage() {
                   {selectedPhoto.type.toUpperCase()}
                 </span>
                 <h3 className="text-xl font-bold mt-2">{selectedPhoto.area}</h3>
-                <p className="text-gray-400">
+                <p className="text-black">
                   {new Date(selectedPhoto.captured_at).toLocaleString()}
                 </p>
               </div>
@@ -493,7 +493,7 @@ export default function ClientPhotosPage() {
                 </button>
                 <button
                   onClick={() => setSelectedPhoto(null)}
-                  className="px-4 py-2 bg-white text-gray-900 rounded-lg hover:bg-gray-100"
+                  className="px-4 py-2 bg-white text-black rounded-lg hover:bg-white"
                 >
                   Close
                 </button>
@@ -505,7 +505,7 @@ export default function ClientPhotosPage() {
               className="w-full rounded-lg"
             />
             {selectedPhoto.notes && (
-              <p className="mt-4 text-gray-300">{selectedPhoto.notes}</p>
+              <p className="mt-4 text-black">{selectedPhoto.notes}</p>
             )}
           </div>
         </div>
@@ -519,7 +519,7 @@ export default function ClientPhotosPage() {
               <h3 className="text-xl font-bold text-white">Before & After Comparison</h3>
               <button
                 onClick={() => setComparePhotos([null, null])}
-                className="px-4 py-2 bg-white text-gray-900 rounded-lg hover:bg-gray-100"
+                className="px-4 py-2 bg-white text-black rounded-lg hover:bg-white"
               >
                 Close
               </button>
@@ -532,7 +532,7 @@ export default function ClientPhotosPage() {
                 aspectRatio="square"
               />
             </div>
-            <p className="text-gray-400 mt-3 text-sm text-center">
+            <p className="text-black mt-3 text-sm text-center">
               {comparePhotos[0].area} vs {comparePhotos[1].area}
             </p>
           </div>

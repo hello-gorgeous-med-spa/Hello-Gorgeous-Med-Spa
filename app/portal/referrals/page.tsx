@@ -17,7 +17,7 @@ import {
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-white rounded ${className}`} />;
 }
 
 export default function ReferralsPage() {
@@ -82,7 +82,7 @@ export default function ReferralsPage() {
       case 'signed_up':
         return <span className="px-2 py-1 bg-purple-100 text-purple-700 rounded-full text-xs">Signed Up</span>;
       default:
-        return <span className="px-2 py-1 bg-gray-100 text-gray-600 rounded-full text-xs">Pending</span>;
+        return <span className="px-2 py-1 bg-white text-black rounded-full text-xs">Pending</span>;
     }
   };
 
@@ -90,8 +90,8 @@ export default function ReferralsPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Referral Program</h1>
-        <p className="text-gray-500">Share the love and earn rewards!</p>
+        <h1 className="text-2xl font-bold text-black">Referral Program</h1>
+        <p className="text-black">Share the love and earn rewards!</p>
       </div>
 
       {/* Program Info */}
@@ -109,15 +109,15 @@ export default function ReferralsPage() {
       </div>
 
       {/* Your Code */}
-      <div className="bg-white rounded-2xl border border-gray-100 p-6">
-        <h3 className="font-semibold text-gray-900 mb-4">Your Referral Code</h3>
+      <div className="bg-white rounded-2xl border border-black p-6">
+        <h3 className="font-semibold text-black mb-4">Your Referral Code</h3>
         
         {loading ? (
           <Skeleton className="h-16 w-full" />
         ) : (
           <>
             <div className="flex items-center gap-3 mb-4">
-              <div className="flex-1 bg-gray-50 rounded-lg px-6 py-4 text-center">
+              <div className="flex-1 bg-white rounded-lg px-6 py-4 text-center">
                 <span className="text-3xl font-bold tracking-widest text-pink-600">{referralCode}</span>
               </div>
               <button
@@ -137,7 +137,7 @@ export default function ReferralsPage() {
               </button>
               <button
                 onClick={() => handleCopy(referralLink)}
-                className="px-4 py-3 border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors"
+                className="px-4 py-3 border border-black text-black rounded-lg hover:bg-white transition-colors"
               >
                 Copy Link
               </button>
@@ -148,28 +148,28 @@ export default function ReferralsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-white rounded-xl border border-gray-100 p-4 text-center">
-          <p className="text-2xl font-bold text-gray-900">{stats.totalReferrals}</p>
-          <p className="text-sm text-gray-500">Total Referrals</p>
+        <div className="bg-white rounded-xl border border-black p-4 text-center">
+          <p className="text-2xl font-bold text-black">{stats.totalReferrals}</p>
+          <p className="text-sm text-black">Total Referrals</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-4 text-center">
+        <div className="bg-white rounded-xl border border-black p-4 text-center">
           <p className="text-2xl font-bold text-green-600">{stats.converted}</p>
-          <p className="text-sm text-gray-500">Converted</p>
+          <p className="text-sm text-black">Converted</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-4 text-center">
+        <div className="bg-white rounded-xl border border-black p-4 text-center">
           <p className="text-2xl font-bold text-amber-600">{stats.pending}</p>
-          <p className="text-sm text-gray-500">Pending</p>
+          <p className="text-sm text-black">Pending</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-4 text-center">
+        <div className="bg-white rounded-xl border border-black p-4 text-center">
           <p className="text-2xl font-bold text-pink-600">${stats.totalEarned}</p>
-          <p className="text-sm text-gray-500">Earned</p>
+          <p className="text-sm text-black">Earned</p>
         </div>
       </div>
 
       {/* Referral History */}
-      <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-100">
-          <h3 className="font-semibold text-gray-900">Referral History</h3>
+      <div className="bg-white rounded-2xl border border-black overflow-hidden">
+        <div className="px-6 py-4 border-b border-black">
+          <h3 className="font-semibold text-black">Referral History</h3>
         </div>
         
         {loading ? (
@@ -177,7 +177,7 @@ export default function ReferralsPage() {
             {[1, 2, 3].map(i => <Skeleton key={i} className="h-16" />)}
           </div>
         ) : referrals.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">
+          <div className="p-8 text-center text-black">
             <span className="text-4xl block mb-2">👥</span>
             <p>No referrals yet</p>
             <p className="text-sm">Share your code to start earning!</p>
@@ -187,8 +187,8 @@ export default function ReferralsPage() {
             {referrals.map((referral) => (
               <div key={referral.id} className="px-6 py-4 flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-gray-900">{referral.refereeName}</p>
-                  <p className="text-sm text-gray-500">
+                  <p className="font-medium text-black">{referral.refereeName}</p>
+                  <p className="text-sm text-black">
                     {referral.createdAt.toLocaleDateString()}
                   </p>
                 </div>
@@ -205,28 +205,28 @@ export default function ReferralsPage() {
       </div>
 
       {/* How It Works */}
-      <div className="bg-gray-50 rounded-2xl p-6">
-        <h3 className="font-semibold text-gray-900 mb-4">How It Works</h3>
+      <div className="bg-white rounded-2xl p-6">
+        <h3 className="font-semibold text-black mb-4">How It Works</h3>
         <div className="grid md:grid-cols-3 gap-4">
           <div className="flex gap-3">
             <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">1</div>
             <div>
-              <p className="font-medium text-gray-900">Share Your Code</p>
-              <p className="text-sm text-gray-500">Send your unique code to friends</p>
+              <p className="font-medium text-black">Share Your Code</p>
+              <p className="text-sm text-black">Send your unique code to friends</p>
             </div>
           </div>
           <div className="flex gap-3">
             <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">2</div>
             <div>
-              <p className="font-medium text-gray-900">They Book</p>
-              <p className="text-sm text-gray-500">They get ${REFERRAL_CONFIG.refereeReward.value} off their first visit</p>
+              <p className="font-medium text-black">They Book</p>
+              <p className="text-sm text-black">They get ${REFERRAL_CONFIG.refereeReward.value} off their first visit</p>
             </div>
           </div>
           <div className="flex gap-3">
             <div className="w-8 h-8 bg-pink-500 text-white rounded-full flex items-center justify-center font-bold flex-shrink-0">3</div>
             <div>
-              <p className="font-medium text-gray-900">You Earn</p>
-              <p className="text-sm text-gray-500">Get ${REFERRAL_CONFIG.referrerReward.value} credited to your account</p>
+              <p className="font-medium text-black">You Earn</p>
+              <p className="text-sm text-black">Get ${REFERRAL_CONFIG.referrerReward.value} credited to your account</p>
             </div>
           </div>
         </div>

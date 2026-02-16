@@ -149,16 +149,16 @@ export default function MessageTemplatesPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+          <div className="flex items-center gap-2 text-sm text-black mb-2">
             <Link href="/admin/messages" className="hover:text-pink-600">Messages</Link>
             <span>→</span>
             <span>Templates</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+          <h1 className="text-2xl font-bold text-black flex items-center gap-3">
             <span className="text-3xl">📝</span>
             Message Templates
           </h1>
-          <p className="text-gray-500 mt-1">Quick reply templates for common patient communications</p>
+          <p className="text-black mt-1">Quick reply templates for common patient communications</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -170,33 +170,33 @@ export default function MessageTemplatesPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
-          <p className="text-sm text-gray-500">Total Templates</p>
-          <p className="text-3xl font-bold text-gray-900 mt-1">{templates.length}</p>
+        <div className="bg-white rounded-xl border border-black p-5 shadow-sm">
+          <p className="text-sm text-black">Total Templates</p>
+          <p className="text-3xl font-bold text-black mt-1">{templates.length}</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
-          <p className="text-sm text-gray-500">Active</p>
+        <div className="bg-white rounded-xl border border-black p-5 shadow-sm">
+          <p className="text-sm text-black">Active</p>
           <p className="text-3xl font-bold text-green-600 mt-1">{templates.filter(t => t.isActive).length}</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
-          <p className="text-sm text-gray-500">Categories</p>
-          <p className="text-3xl font-bold text-gray-900 mt-1">{CATEGORIES.length - 1}</p>
+        <div className="bg-white rounded-xl border border-black p-5 shadow-sm">
+          <p className="text-sm text-black">Categories</p>
+          <p className="text-3xl font-bold text-black mt-1">{CATEGORIES.length - 1}</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
-          <p className="text-sm text-gray-500">Time Saved</p>
+        <div className="bg-white rounded-xl border border-black p-5 shadow-sm">
+          <p className="text-sm text-black">Time Saved</p>
           <p className="text-3xl font-bold text-blue-600 mt-1">~2hrs/day</p>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm mb-6">
-        <div className="p-4 border-b border-gray-100">
+      <div className="bg-white rounded-xl border border-black shadow-sm mb-6">
+        <div className="p-4 border-b border-black">
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search templates..."
-            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+            className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
           />
         </div>
         <div className="p-3 flex items-center gap-2 overflow-x-auto">
@@ -207,7 +207,7 @@ export default function MessageTemplatesPage() {
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap flex items-center gap-2 ${
                 selectedCategory === cat.id
                   ? 'bg-pink-100 text-pink-700'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  : 'bg-white text-black hover:bg-white'
               }`}
             >
               <span>{cat.icon}</span>
@@ -222,22 +222,22 @@ export default function MessageTemplatesPage() {
         {filteredTemplates.map((template) => (
           <div
             key={template.id}
-            className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+            className="bg-white rounded-xl border border-black shadow-sm overflow-hidden hover:shadow-md transition-shadow"
           >
-            <div className="p-4 border-b border-gray-100 flex items-center justify-between">
+            <div className="p-4 border-b border-black flex items-center justify-between">
               <div>
-                <h3 className="font-semibold text-gray-900">{template.name}</h3>
-                <span className="text-xs text-gray-500 capitalize">{template.category}</span>
+                <h3 className="font-semibold text-black">{template.name}</h3>
+                <span className="text-xs text-black capitalize">{template.category}</span>
               </div>
               <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                template.isActive ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'
+                template.isActive ? 'bg-green-100 text-green-700' : 'bg-white text-black'
               }`}>
                 {template.isActive ? 'Active' : 'Inactive'}
               </span>
             </div>
             
             <div className="p-4">
-              <div className="bg-gray-50 rounded-lg p-3 text-sm text-gray-700 whitespace-pre-wrap">
+              <div className="bg-white rounded-lg p-3 text-sm text-black whitespace-pre-wrap">
                 {template.message}
               </div>
             </div>
@@ -251,7 +251,7 @@ export default function MessageTemplatesPage() {
               </button>
               <button
                 onClick={() => setEditingTemplate(template)}
-                className="flex-1 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors"
+                className="flex-1 py-2 bg-white text-black rounded-lg text-sm font-medium hover:bg-white transition-colors"
               >
                 ✏️ Edit
               </button>
@@ -261,10 +261,10 @@ export default function MessageTemplatesPage() {
       </div>
 
       {filteredTemplates.length === 0 && (
-        <div className="text-center py-12 bg-white rounded-xl border border-gray-100">
+        <div className="text-center py-12 bg-white rounded-xl border border-black">
           <span className="text-5xl">📭</span>
-          <h3 className="text-lg font-semibold text-gray-900 mt-4">No templates found</h3>
-          <p className="text-gray-500 mt-1">Try a different search or category</p>
+          <h3 className="text-lg font-semibold text-black mt-4">No templates found</h3>
+          <p className="text-black mt-1">Try a different search or category</p>
         </div>
       )}
 
@@ -272,25 +272,25 @@ export default function MessageTemplatesPage() {
       {editingTemplate && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-2xl max-w-lg w-full mx-4 overflow-hidden">
-            <div className="p-6 border-b border-gray-100">
+            <div className="p-6 border-b border-black">
               <h3 className="text-lg font-semibold">Edit Template</h3>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Template Name</label>
+                <label className="block text-sm font-medium text-black mb-1">Template Name</label>
                 <input
                   type="text"
                   value={editingTemplate.name}
                   onChange={(e) => setEditingTemplate({ ...editingTemplate, name: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                <label className="block text-sm font-medium text-black mb-1">Category</label>
                 <select
                   value={editingTemplate.category}
                   onChange={(e) => setEditingTemplate({ ...editingTemplate, category: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                 >
                   {CATEGORIES.filter(c => c.id !== 'all').map(cat => (
                     <option key={cat.id} value={cat.id}>{cat.name}</option>
@@ -298,14 +298,14 @@ export default function MessageTemplatesPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message</label>
+                <label className="block text-sm font-medium text-black mb-1">Message</label>
                 <textarea
                   value={editingTemplate.message}
                   onChange={(e) => setEditingTemplate({ ...editingTemplate, message: e.target.value })}
                   rows={5}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg resize-none"
+                  className="w-full px-4 py-2 border border-black rounded-lg resize-none"
                 />
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-black mt-1">
                   Use {'{{firstName}}'}, {'{{time}}'}, {'{{date}}'} for personalization
                 </p>
               </div>
@@ -317,13 +317,13 @@ export default function MessageTemplatesPage() {
                   onChange={(e) => setEditingTemplate({ ...editingTemplate, isActive: e.target.checked })}
                   className="rounded"
                 />
-                <label htmlFor="isActive" className="text-sm text-gray-700">Active</label>
+                <label htmlFor="isActive" className="text-sm text-black">Active</label>
               </div>
             </div>
-            <div className="p-4 bg-gray-50 flex justify-end gap-3">
+            <div className="p-4 bg-white flex justify-end gap-3">
               <button
                 onClick={() => setEditingTemplate(null)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-900"
+                className="px-4 py-2 text-black hover:text-black"
               >
                 Cancel
               </button>

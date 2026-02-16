@@ -11,7 +11,7 @@ function StarRating({ rating }: { rating: number }) {
   return (
     <div className="flex gap-1">
       {[...Array(5)].map((_, i) => (
-        <span key={i} className={i < rating ? "text-pink-400" : "text-gray-600"}>
+        <span key={i} className={i < rating ? "text-pink-400" : "text-black"}>
           ★
         </span>
       ))}
@@ -119,7 +119,7 @@ export function Testimonials() {
               href={REVIEWS_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition text-sm"
+              className="inline-flex items-center gap-2 text-black hover:text-white transition text-sm"
             >
               <span>📝</span> See all reviews
             </a>

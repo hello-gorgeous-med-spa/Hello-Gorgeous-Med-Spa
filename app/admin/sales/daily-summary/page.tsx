@@ -95,10 +95,10 @@ export default function DailySummaryPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <Link href="/admin/sales" className="text-sm text-gray-500 hover:text-gray-700">
+          <Link href="/admin/sales" className="text-sm text-black hover:text-black">
             ← Back to Sales
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900 mt-1">Daily Sales Summary</h1>
+          <h1 className="text-2xl font-bold text-black mt-1">Daily Sales Summary</h1>
         </div>
       </div>
 
@@ -106,7 +106,7 @@ export default function DailySummaryPage() {
       <div className="bg-white rounded-xl border p-4 mb-6 flex items-center justify-between">
         <button
           onClick={() => navigateDate('prev')}
-          className="px-4 py-2 hover:bg-gray-100 rounded-lg"
+          className="px-4 py-2 hover:bg-white rounded-lg"
         >
           ← Previous Day
         </button>
@@ -128,7 +128,7 @@ export default function DailySummaryPage() {
         <button
           onClick={() => navigateDate('next')}
           disabled={isToday}
-          className="px-4 py-2 hover:bg-gray-100 rounded-lg disabled:opacity-50"
+          className="px-4 py-2 hover:bg-white rounded-lg disabled:opacity-50"
         >
           Next Day →
         </button>
@@ -137,7 +137,7 @@ export default function DailySummaryPage() {
       {isLoading ? (
         <div className="bg-white rounded-xl border p-8 text-center">
           <div className="animate-spin text-4xl mb-4">📊</div>
-          <p className="text-gray-500">Loading summary...</p>
+          <p className="text-black">Loading summary...</p>
         </div>
       ) : error ? (
         <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
@@ -171,15 +171,15 @@ export default function DailySummaryPage() {
           <div className="grid grid-cols-2 gap-6">
             {/* Transaction Summary */}
             <div className="bg-white rounded-xl border overflow-hidden">
-              <div className="px-6 py-4 border-b bg-gray-50">
+              <div className="px-6 py-4 border-b bg-white">
                 <h3 className="font-semibold">Transaction Summary</h3>
               </div>
               <table className="w-full">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left px-6 py-3 text-xs font-semibold text-gray-500">Category</th>
-                    <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500">Qty</th>
-                    <th className="text-right px-6 py-3 text-xs font-semibold text-gray-500">Gross</th>
+                    <th className="text-left px-6 py-3 text-xs font-semibold text-black">Category</th>
+                    <th className="text-center px-4 py-3 text-xs font-semibold text-black">Qty</th>
+                    <th className="text-right px-6 py-3 text-xs font-semibold text-black">Gross</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y">
@@ -214,7 +214,7 @@ export default function DailySummaryPage() {
                     <td className="px-6 py-3 text-right font-medium">-{formatCurrency(summary.transactionSummary.refunds.gross)}</td>
                   </tr>
                 </tbody>
-                <tfoot className="bg-gray-50 font-semibold">
+                <tfoot className="bg-white font-semibold">
                   <tr>
                     <td className="px-6 py-3">Net Sales</td>
                     <td className="px-4 py-3 text-center"></td>
@@ -226,15 +226,15 @@ export default function DailySummaryPage() {
 
             {/* Cash Movement Summary */}
             <div className="bg-white rounded-xl border overflow-hidden">
-              <div className="px-6 py-4 border-b bg-gray-50">
+              <div className="px-6 py-4 border-b bg-white">
                 <h3 className="font-semibold">Cash Movement</h3>
               </div>
               <table className="w-full">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left px-6 py-3 text-xs font-semibold text-gray-500">Payment Method</th>
-                    <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500">Count</th>
-                    <th className="text-right px-6 py-3 text-xs font-semibold text-gray-500">Amount</th>
+                    <th className="text-left px-6 py-3 text-xs font-semibold text-black">Payment Method</th>
+                    <th className="text-center px-4 py-3 text-xs font-semibold text-black">Count</th>
+                    <th className="text-right px-6 py-3 text-xs font-semibold text-black">Amount</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y">
@@ -264,7 +264,7 @@ export default function DailySummaryPage() {
                     <td className="px-6 py-3 text-right font-medium">{formatCurrency(summary.paymentSummary.other.amount)}</td>
                   </tr>
                 </tbody>
-                <tfoot className="bg-gray-50 font-semibold">
+                <tfoot className="bg-white font-semibold">
                   <tr>
                     <td className="px-6 py-3">Total Collected</td>
                     <td className="px-4 py-3 text-center"></td>
@@ -279,16 +279,16 @@ export default function DailySummaryPage() {
           <div className="bg-white rounded-xl border p-6">
             <h3 className="font-semibold mb-4">Financial Summary</h3>
             <div className="grid grid-cols-6 gap-4 text-center">
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-500">Gross Sales</p>
+              <div className="p-4 bg-white rounded-lg">
+                <p className="text-sm text-black">Gross Sales</p>
                 <p className="text-xl font-bold">{formatCurrency(summary.financials.grossSales)}</p>
               </div>
               <div className="p-4 bg-green-50 rounded-lg">
                 <p className="text-sm text-green-600">Discounts</p>
                 <p className="text-xl font-bold text-green-600">-{formatCurrency(summary.financials.discounts)}</p>
               </div>
-              <div className="p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-500">Tax Collected</p>
+              <div className="p-4 bg-white rounded-lg">
+                <p className="text-sm text-black">Tax Collected</p>
                 <p className="text-xl font-bold">{formatCurrency(summary.financials.taxCollected)}</p>
               </div>
               <div className="p-4 bg-blue-50 rounded-lg">
@@ -313,9 +313,9 @@ export default function DailySummaryPage() {
               <p className="text-3xl font-bold text-amber-700">{formatCurrency(summary.outstanding)}</p>
               <p className="text-xs text-amber-600 mt-2">{summary.unpaidSales} unpaid sales</p>
             </div>
-            <div className="bg-gray-50 border rounded-xl p-6">
-              <p className="text-gray-600 text-sm font-medium">Processing Fees</p>
-              <p className="text-3xl font-bold text-gray-700">{formatCurrency(summary.processingFees)}</p>
+            <div className="bg-white border rounded-xl p-6">
+              <p className="text-black text-sm font-medium">Processing Fees</p>
+              <p className="text-3xl font-bold text-black">{formatCurrency(summary.processingFees)}</p>
             </div>
             <div className="bg-green-50 border border-green-200 rounded-xl p-6">
               <p className="text-green-700 text-sm font-medium">Net Payable</p>

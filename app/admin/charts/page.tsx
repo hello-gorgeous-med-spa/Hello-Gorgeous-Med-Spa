@@ -50,8 +50,8 @@ function ChartsContent() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Chart Notes</h1>
-          <p className="text-gray-500">Clinical documentation and SOAP notes</p>
+          <h1 className="text-2xl font-bold text-black">Chart Notes</h1>
+          <p className="text-black">Clinical documentation and SOAP notes</p>
         </div>
         <Link
           href="/admin/appointments"
@@ -61,37 +61,37 @@ function ChartsContent() {
         </Link>
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
         {loading ? (
-          <div className="p-8 text-center text-gray-500">Loading...</div>
+          <div className="p-8 text-center text-black">Loading...</div>
         ) : recentNotes.length === 0 ? (
           <div className="p-8 text-center">
-            <p className="text-gray-500 mb-4">No chart notes yet</p>
+            <p className="text-black mb-4">No chart notes yet</p>
             <Link href="/admin/appointments" className="text-pink-600 hover:text-pink-700 font-medium">
               Go to appointments to create a chart
             </Link>
           </div>
         ) : (
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-100">
+            <thead className="bg-white border-b border-black">
               <tr>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Date</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Client</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Provider</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Status</th>
+                <th className="text-left px-5 py-3 text-sm font-semibold text-black">Date</th>
+                <th className="text-left px-5 py-3 text-sm font-semibold text-black">Client</th>
+                <th className="text-left px-5 py-3 text-sm font-semibold text-black">Provider</th>
+                <th className="text-left px-5 py-3 text-sm font-semibold text-black">Status</th>
                 <th className="px-5 py-3"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {recentNotes.map((note) => (
-                <tr key={note.id} className="hover:bg-gray-50">
-                  <td className="px-5 py-3 text-gray-900">
+                <tr key={note.id} className="hover:bg-white">
+                  <td className="px-5 py-3 text-black">
                     {new Date(note.created_at).toLocaleDateString()}
                   </td>
-                  <td className="px-5 py-3 text-gray-900">
+                  <td className="px-5 py-3 text-black">
                     {note.client_name || 'Client'}
                   </td>
-                  <td className="px-5 py-3 text-gray-600">
+                  <td className="px-5 py-3 text-black">
                     {note.provider_name || 'Provider'}
                   </td>
                   <td className="px-5 py-3">

@@ -47,7 +47,7 @@ export default function BotoxPartyPage() {
               </span>{" "}
               Party
             </h1>
-            <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">
+            <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">
               Gather your crew for an unforgettable beauty event. Exclusive pricing, 
               professional service, and a whole lot of fun—right at your place.
             </p>
@@ -114,7 +114,7 @@ export default function BotoxPartyPage() {
                   {item.step}
                 </div>
                 <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-                <p className="text-gray-300">{item.description}</p>
+                <p className="text-black">{item.description}</p>
               </div>
             </FadeUp>
           ))}
@@ -129,7 +129,7 @@ export default function BotoxPartyPage() {
             <h2 className="mt-4 text-3xl md:text-4xl font-bold text-white">
               Party Pricing
             </h2>
-            <p className="mt-4 text-gray-300 max-w-2xl mx-auto">
+            <p className="mt-4 text-black max-w-2xl mx-auto">
               Special rates only available at Botox + Besties events.
             </p>
           </div>
@@ -189,7 +189,7 @@ export default function BotoxPartyPage() {
             <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
               Ready to Host?
             </h2>
-            <p className="text-xl text-gray-300 max-w-2xl mx-auto mb-8">
+            <p className="text-xl text-black max-w-2xl mx-auto mb-8">
               Call now to book your Botox + Besties event. Available Tuesdays & Saturdays, 6-9 PM.
             </p>
             <a
@@ -198,7 +198,7 @@ export default function BotoxPartyPage() {
             >
               <span className="text-2xl">📞</span> 630-636-6193
             </a>
-            <p className="mt-6 text-gray-400">
+            <p className="mt-6 text-black">
               hellogorgeousmedspa.com
             </p>
           </div>

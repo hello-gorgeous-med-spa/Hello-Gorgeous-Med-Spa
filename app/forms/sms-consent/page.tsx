@@ -17,13 +17,13 @@ export default function SmsConsentFormPage() {
     <div className="min-h-screen bg-white p-8 print:p-4">
       <div className="max-w-2xl mx-auto">
         {/* Printable form */}
-        <div className="border-2 border-gray-300 p-8 print:border-gray-400">
-          <h1 className="text-2xl font-bold text-gray-900 mb-1">Hello Gorgeous Med Spa</h1>
-          <p className="text-gray-600 text-sm mb-6">74 W. Washington St, Oswego, IL 60543 • (630) 636-6193</p>
+        <div className="border-2 border-black p-8 print:border-black">
+          <h1 className="text-2xl font-bold text-black mb-1">Hello Gorgeous Med Spa</h1>
+          <p className="text-black text-sm mb-6">74 W. Washington St, Oswego, IL 60543 • (630) 636-6193</p>
 
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">SMS/Text Message Consent</h2>
+          <h2 className="text-lg font-semibold text-black mb-4">SMS/Text Message Consent</h2>
 
-          <div className="space-y-4 text-sm text-gray-800">
+          <div className="space-y-4 text-sm text-black">
             <p>
               By signing this form and providing your phone number, you agree to receive SMS (text) messages from Hello Gorgeous Med Spa related to:
             </p>
@@ -43,28 +43,28 @@ export default function SmsConsentFormPage() {
 
           <div className="mt-8 space-y-6">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
-              <div className="border-b-2 border-gray-400 h-10" />
+              <label className="block text-sm font-medium text-black mb-1">Phone Number</label>
+              <div className="border-b-2 border-black h-10" />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Print Name</label>
-              <div className="border-b-2 border-gray-400 h-10" />
+              <label className="block text-sm font-medium text-black mb-1">Print Name</label>
+              <div className="border-b-2 border-black h-10" />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Signature</label>
-              <div className="border-b-2 border-gray-400 h-14" />
+              <label className="block text-sm font-medium text-black mb-1">Signature</label>
+              <div className="border-b-2 border-black h-14" />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Date</label>
-              <div className="border-b-2 border-gray-400 h-10 w-32" />
+              <label className="block text-sm font-medium text-black mb-1">Date</label>
+              <div className="border-b-2 border-black h-10 w-32" />
             </div>
           </div>
         </div>
 
-        <p className="mt-6 text-center text-sm text-gray-500 print:hidden">
+        <p className="mt-6 text-center text-sm text-black print:hidden">
           <PrintButton />
         </p>
       </div>

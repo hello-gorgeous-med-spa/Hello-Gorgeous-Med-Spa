@@ -196,7 +196,7 @@ export function InjectionMapper({
         <div 
           ref={containerRef}
           onClick={handleDiagramClick}
-          className={`relative w-full aspect-[3/4] max-w-md mx-auto bg-gradient-to-b from-pink-50 to-white rounded-2xl border-2 border-gray-200 overflow-hidden ${!readOnly ? 'cursor-crosshair' : ''}`}
+          className={`relative w-full aspect-[3/4] max-w-md mx-auto bg-gradient-to-b from-pink-50 to-white rounded-2xl border-2 border-black overflow-hidden ${!readOnly ? 'cursor-crosshair' : ''}`}
         >
           {/* Face outline SVG */}
           <svg viewBox="0 0 100 133" className="absolute inset-0 w-full h-full pointer-events-none">
@@ -261,7 +261,7 @@ export function InjectionMapper({
           {/* Click hint */}
           {!readOnly && points.length === 0 && (
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <p className="text-gray-400 text-sm">Click to add injection points</p>
+              <p className="text-black text-sm">Click to add injection points</p>
             </div>
           )}
         </div>
@@ -270,15 +270,15 @@ export function InjectionMapper({
         <div className="flex justify-center gap-4 mt-4 text-xs">
           <div className="flex items-center gap-1">
             <span className="w-3 h-3 rounded-full bg-blue-500"></span>
-            <span className="text-gray-600">Neurotoxin</span>
+            <span className="text-black">Neurotoxin</span>
           </div>
           <div className="flex items-center gap-1">
             <span className="w-3 h-3 rounded-full bg-pink-500"></span>
-            <span className="text-gray-600">Filler</span>
+            <span className="text-black">Filler</span>
           </div>
           <div className="flex items-center gap-1">
             <span className="w-3 h-3 rounded-full bg-purple-500"></span>
-            <span className="text-gray-600">Other</span>
+            <span className="text-black">Other</span>
           </div>
         </div>
       </div>
@@ -287,13 +287,13 @@ export function InjectionMapper({
       <div className="lg:w-72 space-y-4">
         {/* Totals */}
         {Object.keys(totals).length > 0 && (
-          <div className="bg-gray-50 rounded-xl p-4">
-            <h3 className="font-semibold text-gray-900 mb-3 text-sm">Product Totals</h3>
+          <div className="bg-white rounded-xl p-4">
+            <h3 className="font-semibold text-black mb-3 text-sm">Product Totals</h3>
             <div className="space-y-2">
               {Object.entries(totals).map(([product, amounts]) => (
                 <div key={product} className="flex justify-between text-sm">
-                  <span className="text-gray-600">{product}</span>
-                  <span className="font-medium text-gray-900">
+                  <span className="text-black">{product}</span>
+                  <span className="font-medium text-black">
                     {amounts.units > 0 && `${amounts.units} units`}
                     {amounts.units > 0 && amounts.ml > 0 && ' / '}
                     {amounts.ml > 0 && `${amounts.ml} ml`}
@@ -305,13 +305,13 @@ export function InjectionMapper({
         )}
 
         {/* Points list */}
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-          <div className="p-3 border-b border-gray-100">
-            <h3 className="font-semibold text-gray-900 text-sm">Injection Points ({points.length})</h3>
+        <div className="bg-white rounded-xl border border-black overflow-hidden">
+          <div className="p-3 border-b border-black">
+            <h3 className="font-semibold text-black text-sm">Injection Points ({points.length})</h3>
           </div>
           
           {points.length === 0 ? (
-            <div className="p-4 text-center text-gray-400 text-sm">
+            <div className="p-4 text-center text-black text-sm">
               No points added yet
             </div>
           ) : (
@@ -320,18 +320,18 @@ export function InjectionMapper({
                 <div 
                   key={point.id}
                   onClick={() => setSelectedPoint(selectedPoint === point.id ? null : point.id)}
-                  className={`p-3 cursor-pointer transition-colors ${selectedPoint === point.id ? 'bg-pink-50' : 'hover:bg-gray-50'}`}
+                  className={`p-3 cursor-pointer transition-colors ${selectedPoint === point.id ? 'bg-pink-50' : 'hover:bg-white'}`}
                 >
                   <div className="flex justify-between items-start">
                     <div>
-                      <p className="font-medium text-gray-900 text-sm">{point.area_label}</p>
-                      <p className="text-xs text-gray-500">
+                      <p className="font-medium text-black text-sm">{point.area_label}</p>
+                      <p className="text-xs text-black">
                         {point.product_name}
                         {point.units && ` • ${point.units} units`}
                         {point.volume_ml && ` • ${point.volume_ml} ml`}
                       </p>
                       {point.technique && (
-                        <p className="text-xs text-gray-400">{point.technique}</p>
+                        <p className="text-xs text-black">{point.technique}</p>
                       )}
                     </div>
                     {!readOnly && (
@@ -359,18 +359,18 @@ export function InjectionMapper({
       {showAddModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-lg font-bold text-gray-900">Add Injection Point</h2>
-              <p className="text-sm text-gray-500">Document the injection details</p>
+            <div className="p-6 border-b border-black">
+              <h2 className="text-lg font-bold text-black">Add Injection Point</h2>
+              <p className="text-sm text-black">Document the injection details</p>
             </div>
 
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Area *</label>
+                <label className="block text-sm font-medium text-black mb-1">Area *</label>
                 <select
                   value={pointForm.area_label}
                   onChange={(e) => setPointForm(prev => ({ ...prev, area_label: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                 >
                   <option value="">Select area...</option>
                   {FACE_AREAS.map(area => (
@@ -380,11 +380,11 @@ export function InjectionMapper({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Product *</label>
+                <label className="block text-sm font-medium text-black mb-1">Product *</label>
                 <select
                   value={pointForm.product_name}
                   onChange={(e) => setPointForm(prev => ({ ...prev, product_name: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                 >
                   <option value="">Select product...</option>
                   <optgroup label="Neurotoxins">
@@ -407,24 +407,24 @@ export function InjectionMapper({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Units</label>
+                  <label className="block text-sm font-medium text-black mb-1">Units</label>
                   <input
                     type="number"
                     step="0.5"
                     value={pointForm.units}
                     onChange={(e) => setPointForm(prev => ({ ...prev, units: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                     placeholder="e.g., 10"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Volume (ml)</label>
+                  <label className="block text-sm font-medium text-black mb-1">Volume (ml)</label>
                   <input
                     type="number"
                     step="0.1"
                     value={pointForm.volume_ml}
                     onChange={(e) => setPointForm(prev => ({ ...prev, volume_ml: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                     placeholder="e.g., 0.5"
                   />
                 </div>
@@ -432,32 +432,32 @@ export function InjectionMapper({
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Lot Number</label>
+                  <label className="block text-sm font-medium text-black mb-1">Lot Number</label>
                   <input
                     type="text"
                     value={pointForm.lot_number}
                     onChange={(e) => setPointForm(prev => ({ ...prev, lot_number: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                     placeholder="e.g., AB12345"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Expiration</label>
+                  <label className="block text-sm font-medium text-black mb-1">Expiration</label>
                   <input
                     type="date"
                     value={pointForm.expiration_date}
                     onChange={(e) => setPointForm(prev => ({ ...prev, expiration_date: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                    className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Injection Depth</label>
+                <label className="block text-sm font-medium text-black mb-1">Injection Depth</label>
                 <select
                   value={pointForm.injection_depth}
                   onChange={(e) => setPointForm(prev => ({ ...prev, injection_depth: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                 >
                   <option value="">Select depth...</option>
                   {INJECTION_DEPTHS.map(d => (
@@ -467,11 +467,11 @@ export function InjectionMapper({
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Technique</label>
+                <label className="block text-sm font-medium text-black mb-1">Technique</label>
                 <select
                   value={pointForm.technique}
                   onChange={(e) => setPointForm(prev => ({ ...prev, technique: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                 >
                   <option value="">Select technique...</option>
                   {TECHNIQUES.map(t => (
@@ -481,13 +481,13 @@ export function InjectionMapper({
               </div>
             </div>
 
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
+            <div className="p-6 border-t border-black flex justify-end gap-3">
               <button
                 onClick={() => {
                   setShowAddModal(false);
                   setPendingPosition(null);
                 }}
-                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
               >
                 Cancel
               </button>

@@ -65,11 +65,11 @@ export default function NotificationSettingsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <Link href="/admin/settings" className="text-sm text-gray-500 hover:text-gray-700 mb-1 inline-block">
+          <Link href="/admin/settings" className="text-sm text-black hover:text-black mb-1 inline-block">
             ← Back to Settings
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900">Notification Settings</h1>
-          <p className="text-gray-500">Configure automated appointment reminders and follow-ups</p>
+          <h1 className="text-2xl font-bold text-black">Notification Settings</h1>
+          <p className="text-black">Configure automated appointment reminders and follow-ups</p>
         </div>
         <button
           onClick={handleSave}
@@ -80,11 +80,11 @@ export default function NotificationSettingsPage() {
       </div>
 
       {/* Master Toggle */}
-      <div className="bg-white rounded-xl border border-gray-100 p-6">
+      <div className="bg-white rounded-xl border border-black p-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="font-semibold text-gray-900">Automated Reminders</h2>
-            <p className="text-sm text-gray-500">Send automatic appointment reminders to clients</p>
+            <h2 className="font-semibold text-black">Automated Reminders</h2>
+            <p className="text-sm text-black">Send automatic appointment reminders to clients</p>
           </div>
           <label className="flex items-center gap-3 cursor-pointer">
             <input
@@ -93,10 +93,10 @@ export default function NotificationSettingsPage() {
               onChange={(e) => setConfig({ ...config, enabled: e.target.checked })}
               className="sr-only"
             />
-            <div className={`w-12 h-6 rounded-full transition-colors ${config.enabled ? 'bg-green-500' : 'bg-gray-300'}`}>
+            <div className={`w-12 h-6 rounded-full transition-colors ${config.enabled ? 'bg-green-500' : 'bg-white'}`}>
               <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform mt-0.5 ${config.enabled ? 'translate-x-6 ml-0.5' : 'translate-x-0.5'}`} />
             </div>
-            <span className={config.enabled ? 'text-green-600 font-medium' : 'text-gray-500'}>
+            <span className={config.enabled ? 'text-green-600 font-medium' : 'text-black'}>
               {config.enabled ? 'Enabled' : 'Disabled'}
             </span>
           </label>
@@ -104,23 +104,23 @@ export default function NotificationSettingsPage() {
       </div>
 
       {/* Reminder Schedule */}
-      <div className="bg-white rounded-xl border border-gray-100">
-        <div className="px-6 py-4 border-b border-gray-100">
-          <h2 className="font-semibold text-gray-900">Reminder Schedule</h2>
-          <p className="text-sm text-gray-500">When and how to send appointment reminders</p>
+      <div className="bg-white rounded-xl border border-black">
+        <div className="px-6 py-4 border-b border-black">
+          <h2 className="font-semibold text-black">Reminder Schedule</h2>
+          <p className="text-sm text-black">When and how to send appointment reminders</p>
         </div>
         <div className="p-6 space-y-6">
           {config.reminders.map((reminder, index) => (
-            <div key={index} className="flex items-center justify-between py-4 border-b border-gray-100 last:border-0">
+            <div key={index} className="flex items-center justify-between py-4 border-b border-black last:border-0">
               <div className="flex items-center gap-4">
                 <div className="w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center">
                   <span className="text-2xl">⏰</span>
                 </div>
                 <div>
-                  <p className="font-medium text-gray-900">
+                  <p className="font-medium text-black">
                     {reminder.hours} hours before
                   </p>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-black">
                     {reminder.hours >= 24 ? 'Day before reminder' : 'Same day reminder'}
                   </p>
                 </div>
@@ -149,23 +149,23 @@ export default function NotificationSettingsPage() {
             </div>
           ))}
 
-          <button className="w-full py-3 border-2 border-dashed border-gray-200 rounded-lg text-gray-500 hover:border-pink-500 hover:text-pink-500 transition-colors">
+          <button className="w-full py-3 border-2 border-dashed border-black rounded-lg text-black hover:border-pink-500 hover:text-pink-500 transition-colors">
             + Add Another Reminder
           </button>
         </div>
       </div>
 
       {/* Follow-up Settings */}
-      <div className="bg-white rounded-xl border border-gray-100">
-        <div className="px-6 py-4 border-b border-gray-100">
-          <h2 className="font-semibold text-gray-900">Post-Appointment Follow-up</h2>
-          <p className="text-sm text-gray-500">Automatic thank you and review requests</p>
+      <div className="bg-white rounded-xl border border-black">
+        <div className="px-6 py-4 border-b border-black">
+          <h2 className="font-semibold text-black">Post-Appointment Follow-up</h2>
+          <p className="text-sm text-black">Automatic thank you and review requests</p>
         </div>
         <div className="p-6 space-y-4">
           <label className="flex items-center justify-between py-3">
             <div>
-              <p className="font-medium text-gray-900">Send follow-up message</p>
-              <p className="text-sm text-gray-500">Thank clients after their appointment</p>
+              <p className="font-medium text-black">Send follow-up message</p>
+              <p className="text-sm text-black">Thank clients after their appointment</p>
             </div>
             <input
               type="checkbox"
@@ -179,7 +179,7 @@ export default function NotificationSettingsPage() {
           </label>
 
           <div className="flex items-center gap-4">
-            <label className="text-sm text-gray-700">Send</label>
+            <label className="text-sm text-black">Send</label>
             <input
               type="number"
               value={config.followUp.hoursAfter}
@@ -187,15 +187,15 @@ export default function NotificationSettingsPage() {
                 ...config,
                 followUp: { ...config.followUp, hoursAfter: parseInt(e.target.value) || 2 },
               })}
-              className="w-20 px-3 py-2 border border-gray-200 rounded-lg"
+              className="w-20 px-3 py-2 border border-black rounded-lg"
             />
-            <span className="text-sm text-gray-700">hours after appointment</span>
+            <span className="text-sm text-black">hours after appointment</span>
           </div>
 
           <label className="flex items-center justify-between py-3">
             <div>
-              <p className="font-medium text-gray-900">Include review request</p>
-              <p className="text-sm text-gray-500">Ask clients to leave a Google review</p>
+              <p className="font-medium text-black">Include review request</p>
+              <p className="text-sm text-black">Ask clients to leave a Google review</p>
             </div>
             <input
               type="checkbox"
@@ -209,7 +209,7 @@ export default function NotificationSettingsPage() {
           </label>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-black mb-1">
               Google Review URL
             </label>
             <input
@@ -219,7 +219,7 @@ export default function NotificationSettingsPage() {
                 ...config,
                 followUp: { ...config.followUp, reviewUrl: e.target.value },
               })}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+              className="w-full px-4 py-2 border border-black rounded-lg"
               placeholder="https://g.page/r/..."
             />
           </div>
@@ -227,12 +227,12 @@ export default function NotificationSettingsPage() {
       </div>
 
       {/* SMS Settings */}
-      <div className="bg-white rounded-xl border border-gray-100 p-6">
+      <div className="bg-white rounded-xl border border-black p-6">
         <div className="flex items-center gap-4 mb-4">
           <span className="text-2xl">📱</span>
           <div>
-            <h2 className="font-semibold text-gray-900">SMS Settings</h2>
-            <p className="text-sm text-gray-500">Configure text message delivery</p>
+            <h2 className="font-semibold text-black">SMS Settings</h2>
+            <p className="text-sm text-black">Configure text message delivery</p>
           </div>
         </div>
 
@@ -248,12 +248,12 @@ export default function NotificationSettingsPage() {
       </div>
 
       {/* Email Settings */}
-      <div className="bg-white rounded-xl border border-gray-100 p-6">
+      <div className="bg-white rounded-xl border border-black p-6">
         <div className="flex items-center gap-4 mb-4">
           <span className="text-2xl">✉️</span>
           <div>
-            <h2 className="font-semibold text-gray-900">Email Settings</h2>
-            <p className="text-sm text-gray-500">Configure email delivery</p>
+            <h2 className="font-semibold text-black">Email Settings</h2>
+            <p className="text-sm text-black">Configure email delivery</p>
           </div>
         </div>
 
@@ -270,18 +270,18 @@ export default function NotificationSettingsPage() {
 
       {/* Preview */}
       <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-xl border border-pink-100 p-6">
-        <h3 className="font-semibold text-gray-900 mb-4">📬 Message Preview</h3>
+        <h3 className="font-semibold text-black mb-4">📬 Message Preview</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-white rounded-lg p-4">
-            <p className="text-xs text-gray-500 mb-2">24-Hour Reminder (SMS)</p>
-            <p className="text-sm text-gray-700">
+            <p className="text-xs text-black mb-2">24-Hour Reminder (SMS)</p>
+            <p className="text-sm text-black">
               Hello Gorgeous Med Spa: Reminder - You have an appointment tomorrow at 10:00 AM for Botox. 
               Reply HELP for assistance or manage at hgms.link/abc123
             </p>
           </div>
           <div className="bg-white rounded-lg p-4">
-            <p className="text-xs text-gray-500 mb-2">Follow-up (SMS)</p>
-            <p className="text-sm text-gray-700">
+            <p className="text-xs text-black mb-2">Follow-up (SMS)</p>
+            <p className="text-sm text-black">
               Thank you for visiting Hello Gorgeous! 💕 We'd love your feedback: g.page/r/CYQOWmT_HcwQEBM/review
             </p>
           </div>

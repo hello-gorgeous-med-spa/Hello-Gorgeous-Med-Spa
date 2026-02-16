@@ -95,7 +95,7 @@ export default function WebsiteControlPage() {
             <div className="flex items-center gap-3">
               <span className="text-2xl">{stat.icon}</span>
               <div>
-                <p className="text-xs text-gray-500">{stat.label}</p>
+                <p className="text-xs text-black">{stat.label}</p>
                 <p className="text-xl font-bold">{stat.value}</p>
               </div>
             </div>
@@ -119,7 +119,7 @@ export default function WebsiteControlPage() {
                   <span className="text-2xl">{link.icon}</span>
                   <div>
                     <h3 className="font-semibold">{link.label}</h3>
-                    <p className="text-sm text-gray-500">{link.description}</p>
+                    <p className="text-sm text-black">{link.description}</p>
                   </div>
                 </div>
               </Link>
@@ -144,7 +144,7 @@ export default function WebsiteControlPage() {
             <a
               href="/"
               target="_blank"
-              className="px-4 py-3 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
+              className="px-4 py-3 bg-white text-black rounded-lg hover:bg-white"
             >
               👁️ Preview Site
             </a>
@@ -159,7 +159,7 @@ export default function WebsiteControlPage() {
             {isLoading ? (
               <div className="space-y-2">
                 {[1, 2, 3].map(i => (
-                  <div key={i} className="h-10 bg-gray-100 rounded animate-pulse" />
+                  <div key={i} className="h-10 bg-white rounded animate-pulse" />
                 ))}
               </div>
             ) : pages.length > 0 ? (
@@ -168,11 +168,11 @@ export default function WebsiteControlPage() {
                   <Link
                     key={page.id}
                     href={`/admin/owner/website/pages/${page.id}`}
-                    className="flex items-center justify-between p-2 hover:bg-gray-50 rounded"
+                    className="flex items-center justify-between p-2 hover:bg-white rounded"
                   >
                     <span className="text-sm truncate">{page.title}</span>
                     <span className={`text-xs px-2 py-0.5 rounded ${
-                      page.status === 'published' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'
+                      page.status === 'published' ? 'bg-green-100 text-green-700' : 'bg-white text-black'
                     }`}>
                       {page.status}
                     </span>
@@ -180,7 +180,7 @@ export default function WebsiteControlPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-gray-500">No pages yet</p>
+              <p className="text-sm text-black">No pages yet</p>
             )}
             <Link href="/admin/owner/website/pages" className="text-sm text-pink-600 block mt-3">
               View all pages →
@@ -196,7 +196,7 @@ export default function WebsiteControlPage() {
                   <Link
                     key={promo.id}
                     href={`/admin/owner/website/promotions/${promo.id}`}
-                    className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded"
+                    className="flex items-center gap-2 p-2 hover:bg-white rounded"
                   >
                     <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
                     <span className="text-sm truncate">{promo.name}</span>
@@ -204,7 +204,7 @@ export default function WebsiteControlPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-sm text-gray-500">No active promotions</p>
+              <p className="text-sm text-black">No active promotions</p>
             )}
             <Link href="/admin/owner/website/promotions" className="text-sm text-pink-600 block mt-3">
               Manage promotions →

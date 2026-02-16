@@ -58,7 +58,7 @@ export default async function ServiceBookingPage({
   return (
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Breadcrumb */}
-      <nav className="text-sm text-gray-500">
+      <nav className="text-sm text-black">
         <Link href="/portal" className="hover:text-pink-600">
           Portal
         </Link>
@@ -67,11 +67,11 @@ export default async function ServiceBookingPage({
           Book
         </Link>
         <span className="mx-2">/</span>
-        <span className="text-gray-900">{service.name}</span>
+        <span className="text-black">{service.name}</span>
       </nav>
 
       {/* Service Info Card */}
-      <section className="bg-white rounded-2xl border border-gray-100 overflow-hidden">
+      <section className="bg-white rounded-2xl border border-black overflow-hidden">
         <div className="bg-gradient-to-r from-pink-500 to-purple-500 p-6 text-white">
           <div className="flex items-start justify-between">
             <div>
@@ -92,7 +92,7 @@ export default async function ServiceBookingPage({
         <div className="p-6">
           {/* Description */}
           {service.short_description && (
-            <p className="text-gray-600 mb-6">{service.short_description}</p>
+            <p className="text-black mb-6">{service.short_description}</p>
           )}
 
           {/* Requirements */}
@@ -123,10 +123,10 @@ export default async function ServiceBookingPage({
 
           {/* Location Info */}
           {location && (
-            <div className="flex items-start gap-3 text-sm text-gray-600 mb-6">
+            <div className="flex items-start gap-3 text-sm text-black mb-6">
               <span className="text-lg">📍</span>
               <div>
-                <p className="font-medium text-gray-900">{location.name}</p>
+                <p className="font-medium text-black">{location.name}</p>
                 <p>{location.address_line1}</p>
                 <p>{location.city}, {location.state} {location.postal_code}</p>
               </div>
@@ -142,14 +142,14 @@ export default async function ServiceBookingPage({
       />
 
       {/* Help */}
-      <section className="bg-gray-50 rounded-2xl p-6 text-center">
-        <p className="text-gray-600 mb-3">
+      <section className="bg-white rounded-2xl p-6 text-center">
+        <p className="text-black mb-3">
           Have questions about this service?
         </p>
         <div className="flex items-center justify-center gap-3">
           <a
             href="tel:630-636-6193"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gray-300 text-gray-700 hover:bg-white transition-colors text-sm font-medium"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-black text-black hover:bg-white transition-colors text-sm font-medium"
           >
             <span>📞</span> Call Us
           </a>

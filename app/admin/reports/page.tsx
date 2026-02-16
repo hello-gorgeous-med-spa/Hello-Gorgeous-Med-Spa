@@ -10,7 +10,7 @@ import Link from 'next/link';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-white rounded ${className}`} />;
 }
 
 export default function ReportsPage() {
@@ -87,13 +87,13 @@ export default function ReportsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Reports & Analytics</h1>
-          <p className="text-gray-500">Track performance and business metrics</p>
+          <h1 className="text-2xl font-bold text-black">Reports & Analytics</h1>
+          <p className="text-black">Track performance and business metrics</p>
         </div>
         <div className="flex items-center gap-3">
           <button
             onClick={() => handleExport('csv')}
-            className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            className="px-4 py-2 border border-black text-black font-medium rounded-lg hover:bg-white transition-colors"
           >
             Export CSV
           </button>
@@ -108,10 +108,10 @@ export default function ReportsPage() {
 
 
       {/* Date Range & Tabs */}
-      <div className="bg-white rounded-xl border border-gray-100 p-4">
+      <div className="bg-white rounded-xl border border-black p-4">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           {/* Date Range */}
-          <div className="flex border border-gray-200 rounded-lg overflow-hidden">
+          <div className="flex border border-black rounded-lg overflow-hidden">
             {(['today', 'week', 'month'] as const).map((range) => (
               <button
                 key={range}
@@ -119,7 +119,7 @@ export default function ReportsPage() {
                 className={`px-4 py-2 text-sm font-medium capitalize ${
                   dateRange === range
                     ? 'bg-pink-500 text-white'
-                    : 'bg-white text-gray-600 hover:bg-gray-50'
+                    : 'bg-white text-black hover:bg-white'
                 }`}
               >
                 {range === 'today' ? 'Today' : range === 'week' ? 'Last 7 Days' : 'Last 30 Days'}
@@ -128,15 +128,15 @@ export default function ReportsPage() {
           </div>
 
           {/* Report Tabs */}
-          <div className="flex border border-gray-200 rounded-lg overflow-hidden">
+          <div className="flex border border-black rounded-lg overflow-hidden">
             {(['overview', 'services', 'providers', 'clients'] as const).map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
                 className={`px-4 py-2 text-sm font-medium capitalize ${
                   activeTab === tab
-                    ? 'bg-gray-900 text-white'
-                    : 'bg-white text-gray-600 hover:bg-gray-50'
+                    ? 'bg-black text-white'
+                    : 'bg-white text-black hover:bg-white'
                 }`}
               >
                 {tab}
@@ -158,12 +158,12 @@ export default function ReportsPage() {
         <div className="space-y-6">
           {/* KPI Cards */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="bg-white rounded-xl border border-gray-100 p-5">
-              <p className="text-sm text-gray-500 mb-1">Total Revenue</p>
+            <div className="bg-white rounded-xl border border-black p-5">
+              <p className="text-sm text-black mb-1">Total Revenue</p>
               {loading ? (
                 <Skeleton className="h-9 w-32" />
               ) : (
-                <p className="text-3xl font-bold text-gray-900">
+                <p className="text-3xl font-bold text-black">
                   ${(report?.revenue?.total || 0).toLocaleString()}
                 </p>
               )}
@@ -171,23 +171,23 @@ export default function ReportsPage() {
                 {(report?.revenue?.transactionCount ?? 0)} transactions
               </p>
             </div>
-            <div className="bg-white rounded-xl border border-gray-100 p-5">
-              <p className="text-sm text-gray-500 mb-1">Avg Ticket</p>
+            <div className="bg-white rounded-xl border border-black p-5">
+              <p className="text-sm text-black mb-1">Avg Ticket</p>
               {loading ? (
                 <Skeleton className="h-9 w-24" />
               ) : (
-                <p className="text-3xl font-bold text-gray-900">
+                <p className="text-3xl font-bold text-black">
                   ${(report?.revenue?.avgTicket || 0).toLocaleString()}
                 </p>
               )}
-              <p className="text-sm text-gray-500 mt-1">per transaction</p>
+              <p className="text-sm text-black mt-1">per transaction</p>
             </div>
-            <div className="bg-white rounded-xl border border-gray-100 p-5">
-              <p className="text-sm text-gray-500 mb-1">Appointments</p>
+            <div className="bg-white rounded-xl border border-black p-5">
+              <p className="text-sm text-black mb-1">Appointments</p>
               {loading ? (
                 <Skeleton className="h-9 w-20" />
               ) : (
-                <p className="text-3xl font-bold text-gray-900">
+                <p className="text-3xl font-bold text-black">
                   {report?.appointments?.total || 0}
                 </p>
               )}
@@ -195,12 +195,12 @@ export default function ReportsPage() {
                 {report?.appointments?.completionRate || 0}% completion rate
               </p>
             </div>
-            <div className="bg-white rounded-xl border border-gray-100 p-5">
-              <p className="text-sm text-gray-500 mb-1">New Clients</p>
+            <div className="bg-white rounded-xl border border-black p-5">
+              <p className="text-sm text-black mb-1">New Clients</p>
               {loading ? (
                 <Skeleton className="h-9 w-16" />
               ) : (
-                <p className="text-3xl font-bold text-gray-900">
+                <p className="text-3xl font-bold text-black">
                   {report?.clients?.new || 0}
                 </p>
               )}
@@ -211,8 +211,8 @@ export default function ReportsPage() {
           {/* Additional Metrics */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Appointment Breakdown */}
-            <div className="bg-white rounded-xl border border-gray-100 p-5">
-              <h3 className="font-semibold text-gray-900 mb-4">Appointment Status</h3>
+            <div className="bg-white rounded-xl border border-black p-5">
+              <h3 className="font-semibold text-black mb-4">Appointment Status</h3>
               {loading ? (
                 <div className="space-y-3">
                   {[1, 2, 3, 4].map((i) => (
@@ -222,25 +222,25 @@ export default function ReportsPage() {
               ) : (
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-600">Completed</span>
+                    <span className="text-black">Completed</span>
                     <span className="font-semibold text-green-600">
                       {report?.appointments?.completed ?? 0}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-600">No Shows</span>
+                    <span className="text-black">No Shows</span>
                     <span className="font-semibold text-red-600">
                       {report?.appointments?.noShows ?? 0}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-600">Cancelled</span>
-                    <span className="font-semibold text-gray-600">
+                    <span className="text-black">Cancelled</span>
+                    <span className="font-semibold text-black">
                       {report?.appointments?.cancelled ?? 0}
                     </span>
                   </div>
                   <div className="flex items-center justify-between pt-2 border-t">
-                    <span className="text-gray-600">No Show Rate</span>
+                    <span className="text-black">No Show Rate</span>
                     <span className="font-semibold text-amber-600">
                       {report?.appointments?.noShowRate ?? 0}%
                     </span>
@@ -250,8 +250,8 @@ export default function ReportsPage() {
             </div>
 
             {/* Tips & Discounts */}
-            <div className="bg-white rounded-xl border border-gray-100 p-5">
-              <h3 className="font-semibold text-gray-900 mb-4">Revenue Breakdown</h3>
+            <div className="bg-white rounded-xl border border-black p-5">
+              <h3 className="font-semibold text-black mb-4">Revenue Breakdown</h3>
               {loading ? (
                 <div className="space-y-3">
                   {[1, 2, 3].map((i) => (
@@ -261,20 +261,20 @@ export default function ReportsPage() {
               ) : (
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-600">Service Revenue</span>
-                    <span className="font-semibold text-gray-900">
+                    <span className="text-black">Service Revenue</span>
+                    <span className="font-semibold text-black">
                       ${((report?.revenue?.total || 0) - (report?.revenue?.tips || 0)).toLocaleString()}
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span className="text-gray-600">Tips</span>
+                    <span className="text-black">Tips</span>
                     <span className="font-semibold text-green-600">
                       +${(report?.revenue?.tips || 0).toLocaleString()}
                     </span>
                   </div>
                   <div className="flex items-center justify-between pt-2 border-t">
-                    <span className="font-medium text-gray-900">Total</span>
-                    <span className="font-bold text-gray-900">
+                    <span className="font-medium text-black">Total</span>
+                    <span className="font-bold text-black">
                       ${(report?.revenue?.total || 0).toLocaleString()}
                     </span>
                   </div>
@@ -287,9 +287,9 @@ export default function ReportsPage() {
 
       {/* Services Tab */}
       {activeTab === 'services' && (
-        <div className="bg-white rounded-xl border border-gray-100">
-          <div className="px-5 py-4 border-b border-gray-100">
-            <h2 className="font-semibold text-gray-900">Revenue by Service</h2>
+        <div className="bg-white rounded-xl border border-black">
+          <div className="px-5 py-4 border-b border-black">
+            <h2 className="font-semibold text-black">Revenue by Service</h2>
           </div>
           
           {loading ? (
@@ -299,7 +299,7 @@ export default function ReportsPage() {
               ))}
             </div>
           ) : report?.services?.length === 0 ? (
-            <div className="p-12 text-center text-gray-500">
+            <div className="p-12 text-center text-black">
               No service data for this period
             </div>
           ) : (
@@ -307,15 +307,15 @@ export default function ReportsPage() {
               {(report?.services || []).map((service: any, index: number) => (
                 <div key={service.id} className="px-5 py-4 flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <span className="text-lg font-bold text-gray-400">#{index + 1}</span>
+                    <span className="text-lg font-bold text-black">#{index + 1}</span>
                     <div>
-                      <p className="font-medium text-gray-900">{service.name}</p>
-                      <p className="text-sm text-gray-500">{service.count} bookings</p>
+                      <p className="font-medium text-black">{service.name}</p>
+                      <p className="text-sm text-black">{service.count} bookings</p>
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold text-gray-900">${service.revenue.toLocaleString()}</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="font-semibold text-black">${service.revenue.toLocaleString()}</p>
+                    <p className="text-sm text-black">
                       ${Math.round(service.revenue / service.count).toLocaleString()} avg
                     </p>
                   </div>
@@ -328,9 +328,9 @@ export default function ReportsPage() {
 
       {/* Providers Tab */}
       {activeTab === 'providers' && (
-        <div className="bg-white rounded-xl border border-gray-100">
-          <div className="px-5 py-4 border-b border-gray-100">
-            <h2 className="font-semibold text-gray-900">Provider Performance</h2>
+        <div className="bg-white rounded-xl border border-black">
+          <div className="px-5 py-4 border-b border-black">
+            <h2 className="font-semibold text-black">Provider Performance</h2>
           </div>
           
           {loading ? (
@@ -340,7 +340,7 @@ export default function ReportsPage() {
               ))}
             </div>
           ) : report?.providers?.length === 0 ? (
-            <div className="p-12 text-center text-gray-500">
+            <div className="p-12 text-center text-black">
               No provider data for this period
             </div>
           ) : (
@@ -353,22 +353,22 @@ export default function ReportsPage() {
                         {provider.name.split(' ').map((n: string) => n[0]).join('')}
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">{provider.name}</p>
-                        <p className="text-sm text-gray-500">{provider.appointments} appointments</p>
+                        <p className="font-medium text-black">{provider.name}</p>
+                        <p className="text-sm text-black">{provider.appointments} appointments</p>
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold text-gray-900">${provider.revenue.toLocaleString()}</p>
+                      <p className="font-semibold text-black">${provider.revenue.toLocaleString()}</p>
                       <p className="text-sm text-green-600">{provider.completed} completed</p>
                     </div>
                   </div>
                   <div className="flex gap-4 text-sm">
-                    <span className="text-gray-500">
-                      Completion: <span className="font-medium text-gray-900">
+                    <span className="text-black">
+                      Completion: <span className="font-medium text-black">
                         {provider.appointments ? Math.round((provider.completed / provider.appointments) * 100) : 0}%
                       </span>
                     </span>
-                    <span className="text-gray-500">
+                    <span className="text-black">
                       No Shows: <span className="font-medium text-red-600">{provider.noShows}</span>
                     </span>
                   </div>
@@ -383,10 +383,10 @@ export default function ReportsPage() {
       {activeTab === 'clients' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* New Clients */}
-          <div className="bg-white rounded-xl border border-gray-100">
-            <div className="px-5 py-4 border-b border-gray-100">
-              <h2 className="font-semibold text-gray-900">New Clients</h2>
-              <p className="text-sm text-gray-500">{report?.newClients?.total || 0} this period</p>
+          <div className="bg-white rounded-xl border border-black">
+            <div className="px-5 py-4 border-b border-black">
+              <h2 className="font-semibold text-black">New Clients</h2>
+              <p className="text-sm text-black">{report?.newClients?.total || 0} this period</p>
             </div>
             
             {loading ? (
@@ -398,13 +398,13 @@ export default function ReportsPage() {
             ) : (
               <>
                 {/* By Source */}
-                <div className="p-5 border-b border-gray-100">
-                  <p className="text-sm font-medium text-gray-700 mb-3">Acquisition Source</p>
+                <div className="p-5 border-b border-black">
+                  <p className="text-sm font-medium text-black mb-3">Acquisition Source</p>
                   <div className="space-y-2">
                     {Object.entries(report?.newClients?.bySource || {}).map(([source, count]) => (
                       <div key={source} className="flex items-center justify-between">
-                        <span className="text-gray-600 capitalize">{source.replace('_', ' ')}</span>
-                        <span className="font-medium text-gray-900">{count as number}</span>
+                        <span className="text-black capitalize">{source.replace('_', ' ')}</span>
+                        <span className="font-medium text-black">{count as number}</span>
                       </div>
                     ))}
                   </div>
@@ -416,12 +416,12 @@ export default function ReportsPage() {
                     <Link
                       key={client.id}
                       href={`/admin/clients/${client.id}`}
-                      className="px-5 py-3 flex items-center justify-between hover:bg-gray-50"
+                      className="px-5 py-3 flex items-center justify-between hover:bg-white"
                     >
-                      <span className="font-medium text-gray-900">
+                      <span className="font-medium text-black">
                         {client.first_name} {client.last_name}
                       </span>
-                      <span className="text-sm text-gray-500">
+                      <span className="text-sm text-black">
                         {new Date(client.created_at).toLocaleDateString()}
                       </span>
                     </Link>
@@ -432,9 +432,9 @@ export default function ReportsPage() {
           </div>
 
           {/* Top Clients */}
-          <div className="bg-white rounded-xl border border-gray-100">
-            <div className="px-5 py-4 border-b border-gray-100">
-              <h2 className="font-semibold text-gray-900">Top Clients by Lifetime Value</h2>
+          <div className="bg-white rounded-xl border border-black">
+            <div className="px-5 py-4 border-b border-black">
+              <h2 className="font-semibold text-black">Top Clients by Lifetime Value</h2>
             </div>
             
             {loading ? (
@@ -449,19 +449,19 @@ export default function ReportsPage() {
                   <Link
                     key={client.id}
                     href={`/admin/clients/${client.id}`}
-                    className="px-5 py-3 flex items-center justify-between hover:bg-gray-50"
+                    className="px-5 py-3 flex items-center justify-between hover:bg-white"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="w-6 text-center font-bold text-gray-400">#{index + 1}</span>
-                      <span className="font-medium text-gray-900">
+                      <span className="w-6 text-center font-bold text-black">#{index + 1}</span>
+                      <span className="font-medium text-black">
                         {client.first_name} {client.last_name}
                       </span>
                     </div>
                     <div className="text-right">
-                      <p className="font-semibold text-gray-900">
+                      <p className="font-semibold text-black">
                         ${(client.total_spent || 0).toLocaleString()}
                       </p>
-                      <p className="text-xs text-gray-500">{client.total_visits || 0} visits</p>
+                      <p className="text-xs text-black">{client.total_visits || 0} visits</p>
                     </div>
                   </Link>
                 ))}

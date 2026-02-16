@@ -73,10 +73,10 @@ export function Pagination({
   }
 
   return (
-    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 py-3 bg-gray-50 border-t border-gray-100">
+    <div className="flex flex-col sm:flex-row items-center justify-between gap-4 px-4 py-3 bg-white border-t border-black">
       {/* Info */}
       <div className="flex items-center gap-4">
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-black">
           Showing <span className="font-medium">{startItem}</span> to{' '}
           <span className="font-medium">{endItem}</span> of{' '}
           <span className="font-medium">{totalItems.toLocaleString()}</span> results
@@ -85,14 +85,14 @@ export function Pagination({
         {/* Page Size Selector */}
         {showPageSizeSelector && onPageSizeChange && (
           <div className="flex items-center gap-2">
-            <label htmlFor="pageSize" className="text-sm text-gray-500">
+            <label htmlFor="pageSize" className="text-sm text-black">
               Show:
             </label>
             <select
               id="pageSize"
               value={pageSize}
               onChange={(e) => onPageSizeChange(Number(e.target.value))}
-              className="px-2 py-1 text-sm border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+              className="px-2 py-1 text-sm border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
             >
               {pageSizeOptions.map((size) => (
                 <option key={size} value={size}>
@@ -110,7 +110,7 @@ export function Pagination({
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className="px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-3 py-1.5 text-sm font-medium text-black bg-white border border-black rounded-lg hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
         >
           ← Prev
         </button>
@@ -119,7 +119,7 @@ export function Pagination({
         <div className="hidden sm:flex items-center gap-1">
           {getPageNumbers().map((page, index) => (
             page === 'ellipsis' ? (
-              <span key={`ellipsis-${index}`} className="px-2 py-1 text-gray-400">
+              <span key={`ellipsis-${index}`} className="px-2 py-1 text-black">
                 ...
               </span>
             ) : (
@@ -129,7 +129,7 @@ export function Pagination({
                 className={`px-3 py-1.5 text-sm font-medium rounded-lg ${
                   currentPage === page
                     ? 'bg-pink-500 text-white'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    : 'text-black hover:bg-white'
                 }`}
               >
                 {page}
@@ -139,7 +139,7 @@ export function Pagination({
         </div>
 
         {/* Mobile page indicator */}
-        <span className="sm:hidden px-3 py-1.5 text-sm text-gray-500">
+        <span className="sm:hidden px-3 py-1.5 text-sm text-black">
           {currentPage} / {totalPages}
         </span>
 
@@ -147,7 +147,7 @@ export function Pagination({
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className="px-3 py-1.5 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="px-3 py-1.5 text-sm font-medium text-black bg-white border border-black rounded-lg hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed"
         >
           Next →
         </button>

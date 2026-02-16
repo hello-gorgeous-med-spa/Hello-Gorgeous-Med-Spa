@@ -114,7 +114,7 @@ export default function AIMemoryPage() {
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
-        <Link href="/admin/ai" className="text-slate-500 hover:text-slate-700">← AI Hub</Link>
+        <Link href="/admin/ai" className="text-black hover:text-black">← AI Hub</Link>
         <button
           onClick={openAdd}
           className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 text-sm font-medium"
@@ -122,8 +122,8 @@ export default function AIMemoryPage() {
           + Add entry
         </button>
       </div>
-      <h1 className="text-xl font-bold text-gray-900">Business Memory</h1>
-      <p className="text-gray-600 text-sm">
+      <h1 className="text-xl font-bold text-black">Business Memory</h1>
+      <p className="text-black text-sm">
         Searchable knowledge your AI uses. You own this data. Add FAQs, policies, service info.
       </p>
 
@@ -133,9 +133,9 @@ export default function AIMemoryPage() {
         </p>
       )}
       {loading ? (
-        <p className="text-gray-500">Loading…</p>
+        <p className="text-black">Loading…</p>
       ) : items.length === 0 ? (
-        <div className="bg-slate-50 rounded-xl border border-slate-200 p-8 text-center text-gray-600">
+        <div className="bg-white rounded-xl border border-black p-8 text-center text-black">
           <p className="mb-4">No entries yet. Add your first FAQ or policy so your AI can use it.</p>
           <button onClick={openAdd} className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">
             Add first entry
@@ -149,9 +149,9 @@ export default function AIMemoryPage() {
               className="bg-white rounded-xl border p-4 flex items-start justify-between gap-4"
             >
               <div className="min-w-0 flex-1">
-                <span className="text-xs text-gray-500 uppercase font-medium">{item.type}</span>
-                <h3 className="font-medium text-gray-900 mt-0.5">{item.title}</h3>
-                <p className="text-sm text-gray-600 mt-1 line-clamp-2">{item.content}</p>
+                <span className="text-xs text-black uppercase font-medium">{item.type}</span>
+                <h3 className="font-medium text-black mt-0.5">{item.title}</h3>
+                <p className="text-sm text-black mt-1 line-clamp-2">{item.content}</p>
               </div>
               <div className="flex gap-2 flex-shrink-0">
                 <button onClick={() => openEdit(item)} className="text-sm text-pink-600 hover:text-pink-700">
@@ -169,16 +169,16 @@ export default function AIMemoryPage() {
       {modal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl p-6 w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">
+            <h2 className="text-lg font-bold text-black mb-4">
               {modal === 'add' ? 'Add to Business Memory' : 'Edit entry'}
             </h2>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                <label className="block text-sm font-medium text-black mb-1">Type</label>
                 <select
                   value={form.type}
                   onChange={(e) => setForm({ ...form, type: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-3 py-2 border border-black rounded-lg"
                 >
                   <option value="faq">FAQ</option>
                   <option value="policy">Policy</option>
@@ -187,20 +187,20 @@ export default function AIMemoryPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                <label className="block text-sm font-medium text-black mb-1">Title</label>
                 <input
                   value={form.title}
                   onChange={(e) => setForm({ ...form, title: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-3 py-2 border border-black rounded-lg"
                   placeholder="e.g. Cancellation policy"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Content</label>
+                <label className="block text-sm font-medium text-black mb-1">Content</label>
                 <textarea
                   value={form.content}
                   onChange={(e) => setForm({ ...form, content: e.target.value })}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-3 py-2 border border-black rounded-lg"
                   rows={5}
                   placeholder="What should the AI know?"
                 />
@@ -219,7 +219,7 @@ export default function AIMemoryPage() {
               >
                 {saving ? 'Saving…' : form.content.trim() ? 'Save' : 'Save draft'}
               </button>
-              <button onClick={() => setModal(null)} className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">
+              <button onClick={() => setModal(null)} className="px-4 py-2 border border-black rounded-lg hover:bg-white">
                 Cancel
               </button>
             </div>

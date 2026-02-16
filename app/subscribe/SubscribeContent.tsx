@@ -196,7 +196,7 @@ export function SubscribeContent() {
           <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8">
             <span className="text-2xl">🏥</span>
             <span className="text-white font-bold text-lg">No Prior Authorization</span>
-            <span className="text-gray-400">×</span>
+            <span className="text-black">×</span>
             <span className="text-fuchsia-400 font-bold">Hello Gorgeous</span>
           </div>
           
@@ -209,12 +209,12 @@ export function SubscribeContent() {
               <span className="absolute -top-2 -right-8 text-2xl animate-bounce">🎁</span>
             </span>
             <br />
-            <span className="text-3xl md:text-5xl lg:text-6xl text-gray-300">
+            <span className="text-3xl md:text-5xl lg:text-6xl text-black">
               Up to $75 Value
             </span>
           </h1>
           
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-10">
+          <p className="text-xl text-black max-w-2xl mx-auto mb-10">
             Commit to the <span className="text-fuchsia-400 font-semibold">No Prior Authorization Annual Plan</span> and 
             receive a complimentary service as our thank you —
             <span className="text-white font-semibold"> plus save $189/year!</span>
@@ -231,7 +231,7 @@ export function SubscribeContent() {
                   className={`px-6 py-3 rounded-xl border-2 transition-all ${
                     selectedPlan === "monthly"
                       ? "border-fuchsia-500 bg-fuchsia-500/20 text-white"
-                      : "border-white/20 bg-white/5 text-gray-400 hover:border-white/40"
+                      : "border-white/20 bg-white/5 text-black hover:border-white/40"
                   }`}
                 >
                   <span className="block text-sm">Monthly</span>
@@ -243,7 +243,7 @@ export function SubscribeContent() {
                   className={`relative px-6 py-3 rounded-xl border-2 transition-all ${
                     selectedPlan === "annual"
                       ? "border-fuchsia-500 bg-fuchsia-500/20 text-white"
-                      : "border-white/20 bg-white/5 text-gray-400 hover:border-white/40"
+                      : "border-white/20 bg-white/5 text-black hover:border-white/40"
                   }`}
                 >
                   <span className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-gradient-to-r from-fuchsia-500 to-purple-500 text-white text-xs font-bold">
@@ -259,11 +259,11 @@ export function SubscribeContent() {
               {selectedPlan === "annual" && (
                 <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-pink-500/10 to-fuchsia-500/10 border border-pink-500/20">
                   <div className="flex justify-between items-center text-sm">
-                    <span className="text-gray-400">Annual savings vs monthly:</span>
+                    <span className="text-black">Annual savings vs monthly:</span>
                     <span className="text-pink-400 font-bold">$189</span>
                   </div>
                   <div className="flex justify-between items-center text-sm mt-1">
-                    <span className="text-gray-400">FREE welcome service:</span>
+                    <span className="text-black">FREE welcome service:</span>
                     <span className="text-pink-400 font-bold">$75</span>
                   </div>
                   <div className="flex justify-between items-center text-sm mt-2 pt-2 border-t border-pink-500/20">
@@ -300,7 +300,7 @@ export function SubscribeContent() {
                   )}
                 </button>
               </form>
-              <p className="text-gray-500 text-sm mt-3">
+              <p className="text-black text-sm mt-3">
                 Secure checkout via Stripe • Cancel anytime • Instant access
               </p>
               {selectedPlan === "monthly" && (
@@ -313,7 +313,7 @@ export function SubscribeContent() {
             <div className="max-w-md mx-auto p-6 rounded-2xl bg-gradient-to-r from-pink-500/20 to-fuchsia-500/20 border border-pink-500/30">
               <span className="text-4xl mb-3 block">🎉</span>
               <h3 className="text-xl font-bold text-white mb-2">Welcome to the Family!</h3>
-              <p className="text-gray-300 mb-4">
+              <p className="text-black mb-4">
                 {selectedPlan === "annual" ? (
                   <>Check your email for your member code and instructions to claim your FREE $75 service!</>
                 ) : (
@@ -324,7 +324,7 @@ export function SubscribeContent() {
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block px-6 py-3 rounded-xl bg-white text-black font-bold hover:bg-gray-100 transition"
+                className="inline-block px-6 py-3 rounded-xl bg-white text-black font-bold hover:bg-white transition"
               >
                 {selectedPlan === "annual" ? "Book Your Free Service Now →" : "Book an Appointment →"}
               </a>
@@ -339,7 +339,7 @@ export function SubscribeContent() {
               { icon: "🔒", text: "HIPAA Compliant" },
               { icon: "✅", text: "Board Certified" },
             ].map((badge) => (
-              <div key={badge.text} className="flex items-center gap-2 text-gray-400">
+              <div key={badge.text} className="flex items-center gap-2 text-black">
                 <span>{badge.icon}</span>
                 <span className="text-sm">{badge.text}</span>
               </div>
@@ -358,7 +358,7 @@ export function SubscribeContent() {
                 No Prior Authorization?
               </span>
             </h2>
-            <p className="text-gray-400 max-w-2xl mx-auto text-lg">
+            <p className="text-black max-w-2xl mx-auto text-lg">
               We&apos;re revolutionizing healthcare access. No more waiting weeks for insurance approvals, 
               no more referral runarounds, no more surprise bills.
             </p>
@@ -379,7 +379,7 @@ export function SubscribeContent() {
                   "Endless paperwork",
                   "Denied claims",
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-gray-400">
+                  <li key={item} className="flex items-center gap-3 text-black">
                     <span className="text-red-400">✗</span>
                     {item}
                   </li>
@@ -401,7 +401,7 @@ export function SubscribeContent() {
                   "One simple membership",
                   "100% transparent",
                 ].map((item) => (
-                  <li key={item} className="flex items-center gap-3 text-gray-400">
+                  <li key={item} className="flex items-center gap-3 text-black">
                     <span className="text-pink-400">✓</span>
                     {item}
                   </li>
@@ -419,7 +419,7 @@ export function SubscribeContent() {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Member Benefits
             </h2>
-            <p className="text-gray-400">
+            <p className="text-black">
               More than just a subscription — it&apos;s a better way to access healthcare
             </p>
           </div>
@@ -441,7 +441,7 @@ export function SubscribeContent() {
                 )}
                 <span className="text-4xl mb-4 block">{benefit.icon}</span>
                 <h3 className="text-xl font-bold text-white mb-2">{benefit.title}</h3>
-                <p className="text-gray-400">{benefit.description}</p>
+                <p className="text-black">{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -458,7 +458,7 @@ export function SubscribeContent() {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Choose Any Service Up to $75
             </h2>
-            <p className="text-gray-400 max-w-xl mx-auto">
+            <p className="text-black max-w-xl mx-auto">
               As a thank you for your annual commitment, pick ONE of these services completely FREE:
             </p>
           </div>
@@ -477,7 +477,7 @@ export function SubscribeContent() {
             ))}
           </div>
 
-          <p className="text-center text-gray-500 text-sm mt-6">
+          <p className="text-center text-black text-sm mt-6">
             * Additional services available at member-discounted rates
           </p>
         </div>
@@ -490,7 +490,7 @@ export function SubscribeContent() {
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
               How It Works
             </h2>
-            <p className="text-gray-400">
+            <p className="text-black">
               Get started in 4 simple steps
             </p>
           </div>
@@ -507,7 +507,7 @@ export function SubscribeContent() {
                   {step.icon}
                 </div>
                 <h3 className="text-white font-bold mb-2">{step.title}</h3>
-                <p className="text-gray-400 text-sm">{step.description}</p>
+                <p className="text-black text-sm">{step.description}</p>
               </div>
             ))}
           </div>
@@ -525,7 +525,7 @@ export function SubscribeContent() {
               <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 Member Perks That Keep Giving
               </h2>
-              <p className="text-gray-400 mb-6">
+              <p className="text-black mb-6">
                 Your free service is just the beginning. As a member, you&apos;ll enjoy exclusive 
                 perks and savings on all future visits.
               </p>
@@ -534,7 +534,7 @@ export function SubscribeContent() {
                 {memberPerks.map((perk) => (
                   <div key={perk} className="flex items-center gap-2">
                     <span className="text-fuchsia-400">✓</span>
-                    <span className="text-gray-300 text-sm">{perk}</span>
+                    <span className="text-black text-sm">{perk}</span>
                   </div>
                 ))}
               </div>
@@ -548,26 +548,26 @@ export function SubscribeContent() {
                   <h3 className="text-2xl font-bold text-white mb-2">Annual Membership</h3>
                   <div className="flex items-center justify-center gap-2">
                     <span className="text-3xl font-bold text-white">${MEMBERSHIP_PRICING.annual.price}</span>
-                    <span className="text-gray-400">/year</span>
+                    <span className="text-black">/year</span>
                   </div>
                   <p className="text-fuchsia-400 text-sm mt-1">Best value — includes FREE service!</p>
                 </div>
                 
                 <div className="space-y-4 mb-6">
                   <div className="flex justify-between items-center p-3 rounded-xl bg-white/5">
-                    <span className="text-gray-300">Free Service (Annual Only)</span>
+                    <span className="text-black">Free Service (Annual Only)</span>
                     <span className="text-fuchsia-400 font-bold">Up to $75</span>
                   </div>
                   <div className="flex justify-between items-center p-3 rounded-xl bg-white/5">
-                    <span className="text-gray-300">Ongoing Discount</span>
+                    <span className="text-black">Ongoing Discount</span>
                     <span className="text-fuchsia-400 font-bold">10% Off</span>
                   </div>
                   <div className="flex justify-between items-center p-3 rounded-xl bg-white/5">
-                    <span className="text-gray-300">Priority Booking</span>
+                    <span className="text-black">Priority Booking</span>
                     <span className="text-pink-400 font-bold">✓ Included</span>
                   </div>
                   <div className="flex justify-between items-center p-3 rounded-xl bg-white/5">
-                    <span className="text-gray-300">Annual Savings</span>
+                    <span className="text-black">Annual Savings</span>
                     <span className="text-pink-400 font-bold">$264 total</span>
                   </div>
                 </div>
@@ -578,7 +578,7 @@ export function SubscribeContent() {
                 >
                   🎁 Join Annual — Get FREE Service
                 </button>
-                <p className="text-center text-gray-500 text-xs mt-3">
+                <p className="text-center text-black text-xs mt-3">
                   Or start with ${MEMBERSHIP_PRICING.monthly.price}/month (no free service)
                 </p>
               </div>
@@ -612,7 +612,7 @@ export function SubscribeContent() {
                   </span>
                 </button>
                 {expandedFaq === index && (
-                  <div className="px-5 pb-5 text-gray-400">
+                  <div className="px-5 pb-5 text-black">
                     {faq.a}
                   </div>
                 )}
@@ -631,7 +631,7 @@ export function SubscribeContent() {
               Healthcare Freedom?
             </span>
           </h2>
-          <p className="text-xl text-gray-400 mb-8">
+          <p className="text-xl text-black mb-8">
             Join thousands who&apos;ve ditched the insurance runaround. 
             Commit to annual and your free $75 service is waiting.
           </p>
@@ -651,11 +651,11 @@ export function SubscribeContent() {
             </a>
           </div>
 
-          <p className="text-gray-400 text-sm mt-4">
+          <p className="text-black text-sm mt-4">
             Annual: ${MEMBERSHIP_PRICING.annual.price}/year (includes FREE $75 service) • Monthly: ${MEMBERSHIP_PRICING.monthly.price}/month
           </p>
 
-          <p className="mt-4 text-gray-500 text-sm">
+          <p className="mt-4 text-black text-sm">
             Questions? Email us at{" "}
             <a href="mailto:hello@nopriorauthorization.com" className="text-fuchsia-400 hover:underline">
               hello@nopriorauthorization.com
@@ -667,7 +667,7 @@ export function SubscribeContent() {
       {/* Partner Locations */}
       <section className="py-12 px-4 border-t border-white/10">
         <div className="max-w-5xl mx-auto">
-          <p className="text-center text-gray-500 text-sm mb-4">
+          <p className="text-center text-black text-sm mb-4">
             Redeem your free service at
           </p>
           <div className="flex flex-col md:flex-row items-center justify-center gap-8">
@@ -677,7 +677,7 @@ export function SubscribeContent() {
               </div>
               <div>
                 <p className="text-white font-bold">Hello Gorgeous Med Spa</p>
-                <p className="text-gray-400 text-sm">74 W. Washington St, Oswego, IL 60543</p>
+                <p className="text-black text-sm">74 W. Washington St, Oswego, IL 60543</p>
               </div>
             </div>
           </div>

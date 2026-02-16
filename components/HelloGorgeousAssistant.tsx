@@ -242,7 +242,7 @@ export function HelloGorgeousAssistant() {
           </div>
 
           {/* Book now (live) / Call us */}
-          <div className="flex gap-2 p-3 border-b border-gray-100 shrink-0">
+          <div className="flex gap-2 p-3 border-b border-black shrink-0">
             <button
               type="button"
               onClick={() => setShowBookingFlow(true)}
@@ -252,7 +252,7 @@ export function HelloGorgeousAssistant() {
             </button>
             <a
               href={telHref}
-              className="flex-1 py-2.5 rounded-xl bg-gray-800 text-white text-center text-sm font-medium hover:bg-gray-900 transition-colors"
+              className="flex-1 py-2.5 rounded-xl bg-black text-white text-center text-sm font-medium hover:bg-black transition-colors"
             >
               Call us
             </a>
@@ -280,11 +280,11 @@ export function HelloGorgeousAssistant() {
                   playsInline
                   onError={() => setIntroVideoError(true)}
                 />
-                <div className="p-3 text-sm text-gray-700 space-y-2">
+                <div className="p-3 text-sm text-black space-y-2">
                   <p className="font-medium text-pink-800">Meet your assistant — Danielle’s mini me</p>
                   <p>{MASCOT_SCRIPT.whoSheIs}</p>
                   <p>{MASCOT_SCRIPT.whatSheCanDo}</p>
-                  <p className="text-xs text-gray-500">{MASCOT_SCRIPT.howToUseHer}</p>
+                  <p className="text-xs text-black">{MASCOT_SCRIPT.howToUseHer}</p>
                 </div>
               </div>
             )}
@@ -297,7 +297,7 @@ export function HelloGorgeousAssistant() {
                   className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm ${
                     msg.role === "user"
                       ? "bg-pink-500 text-white"
-                      : "bg-gray-100 text-gray-800"
+                      : "bg-white text-black"
                   }`}
                 >
                   <div className="whitespace-pre-wrap">{msg.content}</div>
@@ -306,11 +306,11 @@ export function HelloGorgeousAssistant() {
             ))}
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-gray-100 rounded-2xl px-4 py-3">
+                <div className="bg-white rounded-2xl px-4 py-3">
                   <div className="flex gap-1">
-                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
-                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }} />
-                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }} />
+                    <span className="w-2 h-2 bg-black/30 rounded-full animate-bounce" />
+                    <span className="w-2 h-2 bg-black/30 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }} />
+                    <span className="w-2 h-2 bg-black/30 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }} />
                   </div>
                 </div>
               </div>
@@ -318,24 +318,24 @@ export function HelloGorgeousAssistant() {
             {pendingFeedback && (
               <div className="rounded-xl border-2 border-pink-200 bg-pink-50 p-3 space-y-2">
                 <p className="text-xs font-medium text-pink-800">Send to Danielle</p>
-                <p className="text-sm text-gray-700 line-clamp-2">&ldquo;{pendingFeedback.message}&rdquo;</p>
+                <p className="text-sm text-black line-clamp-2">&ldquo;{pendingFeedback.message}&rdquo;</p>
                 <input
                   type="text"
                   placeholder="Your name (optional)"
                   value={feedbackName}
                   onChange={(e) => setFeedbackName(e.target.value)}
-                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
+                  className="w-full rounded-lg border border-black px-3 py-2 text-sm"
                 />
                 <input
                   type="text"
                   placeholder="Email or phone for callback (optional)"
                   value={feedbackContact}
                   onChange={(e) => setFeedbackContact(e.target.value)}
-                  className="w-full rounded-lg border border-gray-200 px-3 py-2 text-sm"
+                  className="w-full rounded-lg border border-black px-3 py-2 text-sm"
                 />
                 <div className="flex gap-2">
                   <button type="button" onClick={sendFeedbackToOwner} className="flex-1 py-2 rounded-lg bg-pink-500 text-white text-sm font-medium hover:bg-pink-600">Send to owner</button>
-                  <button type="button" onClick={() => { setPendingFeedback(null); setFeedbackName(""); setFeedbackContact(""); }} className="py-2 px-3 rounded-lg bg-gray-200 text-gray-700 text-sm hover:bg-gray-300">Cancel</button>
+                  <button type="button" onClick={() => { setPendingFeedback(null); setFeedbackName(""); setFeedbackContact(""); }} className="py-2 px-3 rounded-lg bg-white text-black text-sm hover:bg-white">Cancel</button>
                 </div>
               </div>
             )}
@@ -345,14 +345,14 @@ export function HelloGorgeousAssistant() {
           {/* Quick questions */}
           {messages.length <= 2 && (
             <div className="px-4 pb-2 shrink-0">
-              <p className="text-xs text-gray-500 mb-2">Try asking:</p>
+              <p className="text-xs text-black mb-2">Try asking:</p>
               <div className="flex flex-wrap gap-2">
                 {QUICK_QUESTIONS.map((q) => (
                   <button
                     key={q}
                     type="button"
                     onClick={() => handleQuickQuestion(q)}
-                    className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-full text-xs text-gray-700"
+                    className="px-3 py-1.5 bg-white hover:bg-white rounded-full text-xs text-black"
                   >
                     {q}
                   </button>
@@ -362,7 +362,7 @@ export function HelloGorgeousAssistant() {
           )}
 
           {/* Input + voice */}
-          <div className="border-t border-gray-100 p-3 shrink-0">
+          <div className="border-t border-black p-3 shrink-0">
             {(isListening || isSpeaking) && (
               <p className="text-xs text-pink-600 mb-1 text-center">
                 {isListening ? "Listening…" : "Speaking…"}
@@ -383,7 +383,7 @@ export function HelloGorgeousAssistant() {
                 onClick={isListening ? stopListening : startListening}
                 disabled={isTyping || isSpeaking}
                 className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
-                  isListening ? "bg-red-500 text-white animate-pulse" : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  isListening ? "bg-red-500 text-white animate-pulse" : "bg-white text-black hover:bg-white"
                 } disabled:opacity-50 disabled:cursor-not-allowed`}
                 aria-label={isListening ? "Stop listening" : "Talk to assistant"}
                 title={isListening ? "Stop listening" : "Tap to speak"}
@@ -395,7 +395,7 @@ export function HelloGorgeousAssistant() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask me anything..."
-                className="flex-1 px-4 py-2 border border-gray-200 rounded-full text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-400"
+                className="flex-1 px-4 py-2 border border-black rounded-full text-black placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-400"
               />
               <button
                 type="submit"

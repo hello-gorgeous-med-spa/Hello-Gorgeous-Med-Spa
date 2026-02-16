@@ -127,7 +127,7 @@ export function AnteAGEShowcase() {
                     type="button"
                     onClick={() => setCurrentSlide(idx)}
                     className={`w-2.5 h-2.5 rounded-full transition ${
-                      idx === currentSlide ? "bg-pink-500 w-8" : "bg-gray-600 hover:bg-gray-500"
+                      idx === currentSlide ? "bg-pink-500 w-8" : "bg-black/50 hover:bg-white0"
                     }`}
                   />
                 ))}

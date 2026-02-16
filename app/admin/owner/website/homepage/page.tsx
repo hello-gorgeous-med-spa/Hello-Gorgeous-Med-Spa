@@ -138,7 +138,7 @@ export default function HomepageEditorPage() {
       <OwnerLayout title="Homepage" description="Manage homepage sections">
         <div className="p-8 text-center">
           <div className="animate-spin text-4xl mb-4">🏠</div>
-          <p className="text-gray-500">Loading homepage...</p>
+          <p className="text-black">Loading homepage...</p>
         </div>
       </OwnerLayout>
     );
@@ -149,8 +149,8 @@ export default function HomepageEditorPage() {
       <OwnerLayout title="Homepage" description="Manage homepage sections">
         <div className="p-8 text-center">
           <span className="text-5xl mb-4 block">⚠️</span>
-          <h2 className="text-xl font-bold text-gray-900">Homepage not found in CMS</h2>
-          <p className="text-gray-500 mt-2">Run the seed script to initialize the homepage.</p>
+          <h2 className="text-xl font-bold text-black">Homepage not found in CMS</h2>
+          <p className="text-black mt-2">Run the seed script to initialize the homepage.</p>
         </div>
       </OwnerLayout>
     );
@@ -165,14 +165,14 @@ export default function HomepageEditorPage() {
             <Link href="/admin/owner/website" className="text-pink-600 hover:underline text-sm">
               ← Back to Website Control
             </Link>
-            <h1 className="text-2xl font-bold text-gray-900 mt-2">Homepage Sections</h1>
-            <p className="text-gray-500">Drag to reorder, toggle to show/hide</p>
+            <h1 className="text-2xl font-bold text-black mt-2">Homepage Sections</h1>
+            <p className="text-black">Drag to reorder, toggle to show/hide</p>
           </div>
           <div className="flex gap-3">
             <a
               href="/"
               target="_blank"
-              className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+              className="px-4 py-2 border border-black rounded-lg text-black hover:bg-white"
             >
               👁️ Preview
             </a>
@@ -182,7 +182,7 @@ export default function HomepageEditorPage() {
               className={`px-6 py-2 rounded-lg font-medium ${
                 hasChanges
                   ? 'bg-pink-500 text-white hover:bg-pink-600'
-                  : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                  : 'bg-white text-black cursor-not-allowed'
               }`}
             >
               {isSaving ? 'Saving...' : hasChanges ? 'Save & Publish' : 'No Changes'}
@@ -213,7 +213,7 @@ export default function HomepageEditorPage() {
               <div
                 key={section.id}
                 className={`bg-white rounded-xl border p-4 transition-all ${
-                  section.visible ? 'border-gray-200' : 'border-gray-100 opacity-60'
+                  section.visible ? 'border-black' : 'border-black opacity-60'
                 }`}
               >
                 <div className="flex items-center gap-4">
@@ -222,14 +222,14 @@ export default function HomepageEditorPage() {
                     <button
                       onClick={() => moveSection(index, 'up')}
                       disabled={index === 0}
-                      className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30"
+                      className="p-1 text-black hover:text-black disabled:opacity-30"
                     >
                       ▲
                     </button>
                     <button
                       onClick={() => moveSection(index, 'down')}
                       disabled={index === page.sections.length - 1}
-                      className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30"
+                      className="p-1 text-black hover:text-black disabled:opacity-30"
                     >
                       ▼
                     </button>
@@ -240,18 +240,18 @@ export default function HomepageEditorPage() {
 
                   {/* Info */}
                   <div className="flex-1">
-                    <h3 className="font-medium text-gray-900">{info.name}</h3>
-                    <p className="text-sm text-gray-500">{info.description}</p>
+                    <h3 className="font-medium text-black">{info.name}</h3>
+                    <p className="text-sm text-black">{info.description}</p>
                   </div>
 
                   {/* Position */}
-                  <span className="text-sm text-gray-400 w-8 text-center">#{index + 1}</span>
+                  <span className="text-sm text-black w-8 text-center">#{index + 1}</span>
 
                   {/* Visibility Toggle */}
                   <button
                     onClick={() => toggleVisibility(section.id)}
                     className={`w-12 h-6 rounded-full transition-colors relative ${
-                      section.visible ? 'bg-green-500' : 'bg-gray-300'
+                      section.visible ? 'bg-green-500' : 'bg-white'
                     }`}
                   >
                     <span
@@ -268,8 +268,8 @@ export default function HomepageEditorPage() {
 
         {/* Help Text */}
         <div className="mt-8 p-6 bg-pink-50 rounded-xl border border-pink-100">
-          <h3 className="font-semibold text-gray-900 mb-2">💡 Tips</h3>
-          <ul className="text-sm text-gray-600 space-y-1">
+          <h3 className="font-semibold text-black mb-2">💡 Tips</h3>
+          <ul className="text-sm text-black space-y-1">
             <li>• Toggle the switch to show/hide sections on your homepage</li>
             <li>• Use ▲▼ buttons to reorder sections</li>
             <li>• Click "Save & Publish" to make changes live immediately</li>

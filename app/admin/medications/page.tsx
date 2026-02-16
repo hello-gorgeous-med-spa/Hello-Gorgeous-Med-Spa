@@ -283,8 +283,8 @@ export default function AdminMedicationsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Medications</h1>
-          <p className="text-gray-500">Browse drugs & log administrations • Formulation, McKesson, Olympia</p>
+          <h1 className="text-2xl font-bold text-black">Medications</h1>
+          <p className="text-black">Browse drugs & log administrations • Formulation, McKesson, Olympia</p>
         </div>
       </div>
 
@@ -297,37 +297,37 @@ export default function AdminMedicationsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">This Week</p>
-          <p className="text-2xl font-bold text-gray-900">{stats.thisWeek}</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">This Week</p>
+          <p className="text-2xl font-bold text-black">{stats.thisWeek}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">This Month</p>
-          <p className="text-2xl font-bold text-gray-900">{stats.thisMonth}</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">This Month</p>
+          <p className="text-2xl font-bold text-black">{stats.thisMonth}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Total Products</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Total Products</p>
           <p className="text-2xl font-bold text-pink-600">{allMedications.length}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Suppliers</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Suppliers</p>
           <p className="text-2xl font-bold text-pink-600">3</p>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl border border-gray-100 p-4">
+      <div className="bg-white rounded-xl border border-black p-4">
         <div className="flex flex-col md:flex-row gap-4">
           {/* Search */}
           <div className="flex-1">
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-black">🔍</span>
               <input
                 type="text"
                 placeholder="Search medications..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                className="w-full pl-10 pr-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               />
             </div>
           </div>
@@ -336,7 +336,7 @@ export default function AdminMedicationsPage() {
           <select
             value={selectedSupplier}
             onChange={(e) => setSelectedSupplier(e.target.value)}
-            className="px-4 py-2 border border-gray-200 rounded-lg"
+            className="px-4 py-2 border border-black rounded-lg"
           >
             {SUPPLIERS.map(s => (
               <option key={s.id} value={s.id}>{s.name}</option>
@@ -347,7 +347,7 @@ export default function AdminMedicationsPage() {
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-4 py-2 border border-gray-200 rounded-lg"
+            className="px-4 py-2 border border-black rounded-lg"
           >
             <option value="all">All Categories</option>
             {Object.entries(MEDICATION_DATABASE).map(([key, cat]) => (
@@ -368,7 +368,7 @@ export default function AdminMedicationsPage() {
                   : s.id === 'Olympia' ? 'bg-pink-100 text-pink-700 ring-2 ring-purple-300'
                   : s.id === 'Formulation' ? 'bg-green-100 text-green-700 ring-2 ring-green-300'
                   : 'bg-pink-100 text-pink-700 ring-2 ring-pink-300'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                  : 'bg-white text-black hover:bg-white'
               }`}
             >
               {s.name}
@@ -380,17 +380,17 @@ export default function AdminMedicationsPage() {
       {/* Medication Grid by Category */}
       <div className="space-y-6">
         {Object.entries(groupedMedications).length === 0 ? (
-          <div className="bg-white rounded-xl border border-gray-100 p-12 text-center text-gray-500">
+          <div className="bg-white rounded-xl border border-black p-12 text-center text-black">
             <span className="text-4xl block mb-4">💊</span>
             <p>No medications match your search</p>
           </div>
         ) : (
           Object.entries(groupedMedications).map(([catKey, category]) => (
-            <div key={catKey} className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-              <div className="px-5 py-3 bg-gray-50 border-b border-gray-100 flex items-center gap-2">
+            <div key={catKey} className="bg-white rounded-xl border border-black overflow-hidden">
+              <div className="px-5 py-3 bg-white border-b border-black flex items-center gap-2">
                 <span className="text-xl">{category.icon}</span>
-                <h2 className="font-semibold text-gray-900">{category.name}</h2>
-                <span className="text-sm text-gray-500">({category.items.length})</span>
+                <h2 className="font-semibold text-black">{category.name}</h2>
+                <span className="text-sm text-black">({category.items.length})</span>
               </div>
               <div className="p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
                 {category.items.map(med => (
@@ -401,10 +401,10 @@ export default function AdminMedicationsPage() {
                       setLogForm({ ...logForm, dose: med.defaultDose });
                       setShowLogModal(true);
                     }}
-                    className="text-left p-4 border border-gray-200 rounded-lg hover:border-pink-300 hover:bg-pink-50 transition-all group"
+                    className="text-left p-4 border border-black rounded-lg hover:border-pink-300 hover:bg-pink-50 transition-all group"
                   >
-                    <p className="font-medium text-gray-900 text-sm group-hover:text-pink-700">{med.name}</p>
-                    <p className="text-xs text-gray-500 mt-1">{med.brand}</p>
+                    <p className="font-medium text-black text-sm group-hover:text-pink-700">{med.name}</p>
+                    <p className="text-xs text-black mt-1">{med.brand}</p>
                     <div className="flex items-center gap-2 mt-2">
                       <span className={`px-2 py-0.5 text-xs rounded-full ${
                         med.supplier === 'McKesson' ? 'bg-blue-100 text-blue-700' :
@@ -413,7 +413,7 @@ export default function AdminMedicationsPage() {
                       }`}>
                         {med.supplier}
                       </span>
-                      <span className="text-xs text-gray-400">{med.defaultDose} {med.unit}</span>
+                      <span className="text-xs text-black">{med.defaultDose} {med.unit}</span>
                     </div>
                   </button>
                 ))}
@@ -424,39 +424,39 @@ export default function AdminMedicationsPage() {
       </div>
 
       {/* Recent Administrations */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100">
-          <h2 className="font-semibold text-gray-900">Recent Administrations</h2>
+      <div className="bg-white rounded-xl border border-black overflow-hidden">
+        <div className="px-5 py-4 border-b border-black">
+          <h2 className="font-semibold text-black">Recent Administrations</h2>
         </div>
         {loading ? (
-          <div className="p-8 text-center text-gray-500">Loading...</div>
+          <div className="p-8 text-center text-black">Loading...</div>
         ) : administrations.length === 0 ? (
-          <div className="p-8 text-center text-gray-500">
+          <div className="p-8 text-center text-black">
             <p>No administrations logged yet</p>
             <p className="text-sm mt-1">Click any medication above to log an administration</p>
           </div>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-100">
+              <thead className="bg-white border-b border-black">
                 <tr>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Date</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Medication</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Dose</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Client</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Provider</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Date</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Medication</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Dose</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Client</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Provider</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {administrations.slice(0, 20).map((admin) => (
-                  <tr key={admin.id} className="hover:bg-gray-50">
-                    <td className="px-5 py-3 text-gray-600 text-sm">
+                  <tr key={admin.id} className="hover:bg-white">
+                    <td className="px-5 py-3 text-black text-sm">
                       {new Date(admin.administered_at).toLocaleDateString()}
                     </td>
-                    <td className="px-5 py-3 font-medium text-gray-900">{admin.medication_name}</td>
-                    <td className="px-5 py-3 text-gray-600">{admin.dose} {admin.unit}</td>
-                    <td className="px-5 py-3 text-gray-900">{admin.client_name}</td>
-                    <td className="px-5 py-3 text-gray-600">{admin.provider_name}</td>
+                    <td className="px-5 py-3 font-medium text-black">{admin.medication_name}</td>
+                    <td className="px-5 py-3 text-black">{admin.dose} {admin.unit}</td>
+                    <td className="px-5 py-3 text-black">{admin.client_name}</td>
+                    <td className="px-5 py-3 text-black">{admin.provider_name}</td>
                   </tr>
                 ))}
               </tbody>
@@ -469,53 +469,53 @@ export default function AdminMedicationsPage() {
       {showLogModal && selectedMed && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">Log Administration</h2>
-              <p className="text-gray-500">{selectedMed.name}</p>
+            <div className="p-6 border-b border-black">
+              <h2 className="text-xl font-bold text-black">Log Administration</h2>
+              <p className="text-black">{selectedMed.name}</p>
             </div>
             <div className="p-6 space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Dose *</label>
+                  <label className="block text-sm font-medium text-black mb-1">Dose *</label>
                   <div className="flex">
                     <input
                       type="number"
                       value={logForm.dose || selectedMed.defaultDose}
                       onChange={(e) => setLogForm({ ...logForm, dose: parseFloat(e.target.value) || 0 })}
-                      className="flex-1 px-4 py-2 border border-gray-200 rounded-l-lg"
+                      className="flex-1 px-4 py-2 border border-black rounded-l-lg"
                     />
-                    <span className="px-3 py-2 bg-gray-100 border border-l-0 border-gray-200 rounded-r-lg text-gray-600">
+                    <span className="px-3 py-2 bg-white border border-l-0 border-black rounded-r-lg text-black">
                       {selectedMed.unit}
                     </span>
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Lot Number</label>
+                  <label className="block text-sm font-medium text-black mb-1">Lot Number</label>
                   <input
                     type="text"
                     value={logForm.lot_number}
                     onChange={(e) => setLogForm({ ...logForm, lot_number: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                     placeholder="Optional"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Client Name *</label>
+                <label className="block text-sm font-medium text-black mb-1">Client Name *</label>
                 <input
                   type="text"
                   value={logForm.client_name}
                   onChange={(e) => setLogForm({ ...logForm, client_name: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="Enter client name"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Provider *</label>
+                <label className="block text-sm font-medium text-black mb-1">Provider *</label>
                 <select
                   value={logForm.provider_name}
                   onChange={(e) => setLogForm({ ...logForm, provider_name: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                 >
                   <option value="">Select provider...</option>
                   <option value="Danielle Alcala">Danielle Alcala</option>
@@ -523,29 +523,29 @@ export default function AdminMedicationsPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+                <label className="block text-sm font-medium text-black mb-1">Notes</label>
                 <textarea
                   value={logForm.notes}
                   onChange={(e) => setLogForm({ ...logForm, notes: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   rows={2}
                   placeholder="Optional notes..."
                 />
               </div>
 
-              <div className="p-3 bg-gray-50 rounded-lg text-sm">
-                <p className="text-gray-600">
+              <div className="p-3 bg-white rounded-lg text-sm">
+                <p className="text-black">
                   <span className="font-medium">Supplier:</span> {selectedMed.supplier}
                 </p>
-                <p className="text-gray-600">
+                <p className="text-black">
                   <span className="font-medium">Brand:</span> {selectedMed.brand}
                 </p>
               </div>
             </div>
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
+            <div className="p-6 border-t border-black flex justify-end gap-3">
               <button
                 onClick={() => { setShowLogModal(false); setSelectedMed(null); }}
-                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
               >
                 Cancel
               </button>

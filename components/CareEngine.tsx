@@ -238,7 +238,7 @@ export function CareEngine() {
   }
 
   return (
-    <div className="rounded-2xl border border-gray-800 bg-black/40 overflow-hidden">
+    <div className="rounded-2xl border border-black bg-black/40 overflow-hidden">
       {/* Compliance & Safety Layer (always on) */}
       <div className="p-5 border-b border-white/10">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
@@ -339,7 +339,7 @@ export function CareEngine() {
                     "whitespace-pre-wrap text-sm leading-relaxed",
                     m.role === "user"
                       ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
-                      : "text-gray-200",
+                      : "text-white",
                   )}
                 >
                   {m.content}
@@ -352,7 +352,7 @@ export function CareEngine() {
                 value={eduInput}
                 onChange={(e) => setEduInput(e.target.value)}
                 placeholder="Ask a question…"
-                className="flex-1 rounded-xl bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                className="flex-1 rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") sendEducation();
                 }}
@@ -381,7 +381,7 @@ export function CareEngine() {
                 <textarea
                   value={pre.goals}
                   onChange={(e) => setPre((p) => ({ ...p, goals: e.target.value }))}
-                  className="w-full min-h-[96px] rounded-xl bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="w-full min-h-[96px] rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   placeholder="Example: smooth forehead lines, subtle lip hydration, lose 20 lbs safely…"
                 />
               </div>
@@ -397,7 +397,7 @@ export function CareEngine() {
                         experienceLevel: e.target.value as PreConsultAnswer["experienceLevel"],
                       }))
                     }
-                    className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                    className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   >
                     <option value="first-time">First time</option>
                     <option value="returning">Returning</option>
@@ -416,7 +416,7 @@ export function CareEngine() {
                         timeframe: e.target.value as PreConsultAnswer["timeframe"],
                       }))
                     }
-                    className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                    className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   >
                     <option value="asap">ASAP</option>
                     <option value="2-4weeks">2–4 weeks</option>
@@ -431,7 +431,7 @@ export function CareEngine() {
                 <textarea
                   value={pre.concerns}
                   onChange={(e) => setPre((p) => ({ ...p, concerns: e.target.value }))}
-                  className="w-full min-h-[96px] rounded-xl bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="w-full min-h-[96px] rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   placeholder="Example: downtime, safety, bruising, eligibility, meds…"
                 />
               </div>
@@ -473,9 +473,9 @@ export function CareEngine() {
             </p>
 
             <div className="mt-6 grid gap-4">
-              <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
+              <div className="rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-6">
                 <h3 className="text-xl font-bold text-white">Ready to book?</h3>
-                <p className="mt-3 text-gray-300">
+                <p className="mt-3 text-black">
                   If you’re ready, book online now. If you used Pre‑Consult, your “suggested starting points”
                   are below (non‑binding).
                 </p>
@@ -490,9 +490,9 @@ export function CareEngine() {
               </div>
 
               {preSuggested.length ? (
-                <div className="rounded-2xl border border-gray-800 bg-black/40 p-6">
+                <div className="rounded-2xl border border-black bg-black/40 p-6">
                   <h4 className="text-lg font-semibold text-white">Suggested starting points</h4>
-                  <ul className="mt-4 space-y-2 text-gray-300 text-sm">
+                  <ul className="mt-4 space-y-2 text-black text-sm">
                     {preSuggested.map((slug) => (
                       <li key={slug}>
                         <a className="underline" href={`/services/${slug}`}>
@@ -521,7 +521,7 @@ export function CareEngine() {
                     "whitespace-pre-wrap text-sm leading-relaxed",
                     m.role === "user"
                       ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
-                      : "text-gray-200",
+                      : "text-white",
                   )}
                 >
                   {m.content}
@@ -534,7 +534,7 @@ export function CareEngine() {
                 value={postInput}
                 onChange={(e) => setPostInput(e.target.value)}
                 placeholder="Example: swelling 2 days after filler—normal?"
-                className="flex-1 rounded-xl bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                className="flex-1 rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") sendPostCare();
                 }}
@@ -564,7 +564,7 @@ export function CareEngine() {
                 <textarea
                   value={cc.bother}
                   onChange={(e) => setCc((p) => ({ ...p, bother: e.target.value }))}
-                  className="w-full min-h-[88px] rounded-xl bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="w-full min-h-[88px] rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   placeholder="Example: my forehead lines, feeling tired, uneven texture…"
                 />
               </div>
@@ -575,7 +575,7 @@ export function CareEngine() {
                   <select
                     value={cc.changeStyle}
                     onChange={(e) => setCc((p) => ({ ...p, changeStyle: e.target.value as ConfidenceCheckAnswer["changeStyle"] }))}
-                    className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                    className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   >
                     <option value="subtle">Subtle</option>
                     <option value="noticeable">Noticeable</option>
@@ -587,7 +587,7 @@ export function CareEngine() {
                   <select
                     value={cc.firstTime}
                     onChange={(e) => setCc((p) => ({ ...p, firstTime: e.target.value as ConfidenceCheckAnswer["firstTime"] }))}
-                    className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                    className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   >
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
@@ -602,7 +602,7 @@ export function CareEngine() {
                   <select
                     value={cc.timeframe}
                     onChange={(e) => setCc((p) => ({ ...p, timeframe: e.target.value as ConfidenceCheckAnswer["timeframe"] }))}
-                    className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                    className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   >
                     <option value="asap">ASAP</option>
                     <option value="2-4weeks">2–4 weeks</option>
@@ -617,7 +617,7 @@ export function CareEngine() {
                     onChange={(e) =>
                       setCc((p) => ({ ...p, downtimeComfort: e.target.value as ConfidenceCheckAnswer["downtimeComfort"] }))
                     }
-                    className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                    className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -634,7 +634,7 @@ export function CareEngine() {
                   onChange={(e) =>
                     setCc((p) => ({ ...p, decisionStyle: e.target.value as ConfidenceCheckAnswer["decisionStyle"] }))
                   }
-                  className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 >
                   <option value="i-need-guidance">I need guidance</option>
                   <option value="i-just-want-options">I want options</option>
@@ -714,7 +714,7 @@ export function CareEngine() {
                     "whitespace-pre-wrap text-sm leading-relaxed",
                     m.role === "user"
                       ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
-                      : "text-gray-200",
+                      : "text-white",
                   )}
                 >
                   {m.content}
@@ -741,7 +741,7 @@ export function CareEngine() {
                 value={askInput}
                 onChange={(e) => setAskInput(e.target.value)}
                 placeholder="Ask a question…"
-                className="flex-1 rounded-xl bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                className="flex-1 rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 onKeyDown={(e) => {
                   if (e.key !== "Enter") return;
                   const q = askInput.trim();
@@ -835,7 +835,7 @@ export function CareEngine() {
                 <select
                   value={normalTreatment}
                   onChange={(e) => setNormalTreatment(e.target.value as TreatmentType)}
-                  className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 >
                   {TREATMENT_OPTIONS.map((t) => (
                     <option key={t.id} value={t.id}>
@@ -849,7 +849,7 @@ export function CareEngine() {
                 <select
                   value={normalSymptom}
                   onChange={(e) => setNormalSymptom(e.target.value as SymptomId)}
-                  className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 >
                   {SYMPTOM_OPTIONS.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -863,7 +863,7 @@ export function CareEngine() {
                 <select
                   value={normalTimeline}
                   onChange={(e) => setNormalTimeline(e.target.value as TimelineBucket)}
-                  className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 >
                   {TIMELINE_OPTIONS.map((t) => (
                     <option key={t.id} value={t.id}>
@@ -940,7 +940,7 @@ export function CareEngine() {
                     const scenario = getTimelineScenario(id);
                     setTlStepId(scenario.steps[0]?.id ?? "before");
                   }}
-                  className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 >
                   {TIMELINE_SCENARIOS.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -973,7 +973,7 @@ export function CareEngine() {
                   const scenario = getTimelineScenario(tlTreatment);
                   const step = scenario.steps.find((s) => s.id === tlStepId) ?? scenario.steps[0];
                   return (
-                    <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-6">
+                    <div className="rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-6">
                       <p className="text-xs text-white/60">Persona narration</p>
                       <p className="mt-1 text-sm text-white/90">
                         {getPersonaName(personaId)} — {scenario.label} — {step.label}
@@ -982,7 +982,7 @@ export function CareEngine() {
                       <div className="mt-4 grid gap-4 md:grid-cols-2">
                         <div>
                           <p className="text-sm font-semibold text-white">What changes</p>
-                          <ul className="mt-2 space-y-1 text-sm text-gray-300">
+                          <ul className="mt-2 space-y-1 text-sm text-black">
                             {step.whatChanges.map((x) => (
                               <li key={x}>- {x}</li>
                             ))}
@@ -990,7 +990,7 @@ export function CareEngine() {
                         </div>
                         <div>
                           <p className="text-sm font-semibold text-white">What does NOT change</p>
-                          <ul className="mt-2 space-y-1 text-sm text-gray-300">
+                          <ul className="mt-2 space-y-1 text-sm text-black">
                             {step.whatDoesNotChange.map((x) => (
                               <li key={x}>- {x}</li>
                             ))}
@@ -1001,7 +1001,7 @@ export function CareEngine() {
                       <div className="mt-4 grid gap-4 md:grid-cols-2">
                         <div>
                           <p className="text-sm font-semibold text-white">What’s normal</p>
-                          <ul className="mt-2 space-y-1 text-sm text-gray-300">
+                          <ul className="mt-2 space-y-1 text-sm text-black">
                             {step.whatsNormal.map((x) => (
                               <li key={x}>- {x}</li>
                             ))}
@@ -1009,7 +1009,7 @@ export function CareEngine() {
                         </div>
                         <div>
                           <p className="text-sm font-semibold text-white">What’s NOT normal</p>
-                          <ul className="mt-2 space-y-1 text-sm text-gray-300">
+                          <ul className="mt-2 space-y-1 text-sm text-black">
                             {step.whatsNotNormal.map((x) => (
                               <li key={x}>- {x}</li>
                             ))}
@@ -1022,7 +1022,7 @@ export function CareEngine() {
                   );
                 })()}
 
-                <div className="mt-6 rounded-2xl border border-gray-800 bg-black/40 overflow-hidden">
+                <div className="mt-6 rounded-2xl border border-black bg-black/40 overflow-hidden">
                   <div className="p-4 border-b border-white/10">
                     <p className="text-sm font-semibold text-white">Ask a question about this timeline</p>
                     <p className="mt-1 text-xs text-white/60">Educational only. No diagnosis. No personalized advice.</p>
@@ -1035,7 +1035,7 @@ export function CareEngine() {
                           "whitespace-pre-wrap text-sm leading-relaxed",
                           m.role === "user"
                             ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
-                            : "text-gray-200",
+                            : "text-white",
                         )}
                       >
                         {m.content}
@@ -1049,7 +1049,7 @@ export function CareEngine() {
                         value={tlInput}
                         onChange={(e) => setTlInput(e.target.value)}
                         placeholder="Ask a question…"
-                        className="flex-1 rounded-xl bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                        className="flex-1 rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                         onKeyDown={(e) => {
                           if (e.key !== "Enter") return;
                           const q = tlInput.trim();
@@ -1145,7 +1145,7 @@ export function CareEngine() {
                 <textarea
                   value={roadmapNotes}
                   onChange={(e) => setRoadmapNotes(e.target.value)}
-                  className="w-full min-h-[88px] rounded-xl bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="w-full min-h-[88px] rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   placeholder="Example: I want to look refreshed but still like me…"
                 />
               </div>

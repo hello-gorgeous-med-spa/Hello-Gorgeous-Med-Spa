@@ -113,7 +113,7 @@ export default function ConsentStatusBadge({
 
   if (loading) {
     return (
-      <span className="inline-flex items-center px-2 py-1 bg-gray-100 text-gray-500 text-xs rounded-full">
+      <span className="inline-flex items-center px-2 py-1 bg-white text-black text-xs rounded-full">
         <span className="animate-pulse">Loading...</span>
       </span>
     );
@@ -121,7 +121,7 @@ export default function ConsentStatusBadge({
 
   if (!summary || summary.total === 0) {
     return (
-      <span className="inline-flex items-center px-2 py-1 bg-gray-100 text-gray-500 text-xs rounded-full">
+      <span className="inline-flex items-center px-2 py-1 bg-white text-black text-xs rounded-full">
         No consents
       </span>
     );
@@ -148,8 +148,8 @@ export default function ConsentStatusBadge({
       label: 'Missing',
     },
     none: {
-      bg: 'bg-gray-100',
-      text: 'text-gray-600',
+      bg: 'bg-white',
+      text: 'text-black',
       icon: '⚪',
       label: 'None',
     },
@@ -183,11 +183,11 @@ export default function ConsentStatusBadge({
       </button>
 
       {showDropdown && (
-        <div className="absolute top-full left-0 mt-2 w-80 bg-white border border-gray-200 rounded-xl shadow-lg z-50">
+        <div className="absolute top-full left-0 mt-2 w-80 bg-white border border-black rounded-xl shadow-lg z-50">
           {/* Header */}
-          <div className="px-4 py-3 border-b border-gray-100">
-            <p className="font-medium text-gray-900">Consent Forms</p>
-            <p className="text-sm text-gray-500">
+          <div className="px-4 py-3 border-b border-black">
+            <p className="font-medium text-black">Consent Forms</p>
+            <p className="text-sm text-black">
               {summary.signed} of {summary.total} signed
             </p>
           </div>
@@ -200,12 +200,12 @@ export default function ConsentStatusBadge({
                 className="px-4 py-3 border-b border-gray-50 last:border-0"
               >
                 <div className="flex items-center justify-between">
-                  <p className="font-medium text-gray-900 text-sm">
+                  <p className="font-medium text-black text-sm">
                     {packet.template_name}
                   </p>
                   <StatusPill status={packet.status} />
                 </div>
-                <div className="mt-1 text-xs text-gray-500 space-x-3">
+                <div className="mt-1 text-xs text-black space-x-3">
                   {packet.sent_at && (
                     <span>Sent: {formatTime(packet.sent_at)}</span>
                   )}
@@ -222,7 +222,7 @@ export default function ConsentStatusBadge({
 
           {/* Actions */}
           {summary.overall_status !== 'complete' && (
-            <div className="px-4 py-3 border-t border-gray-100 flex gap-2">
+            <div className="px-4 py-3 border-t border-black flex gap-2">
               <button
                 onClick={handleResend}
                 disabled={resending}
@@ -243,7 +243,7 @@ export default function ConsentStatusBadge({
           {/* Close button */}
           <button
             onClick={() => setShowDropdown(false)}
-            className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
+            className="absolute top-2 right-2 text-black hover:text-black"
           >
             ✕
           </button>
@@ -259,7 +259,7 @@ function StatusPill({ status }: { status: string }) {
     signed: { bg: 'bg-green-100', text: 'text-green-700' },
     viewed: { bg: 'bg-blue-100', text: 'text-blue-700' },
     sent: { bg: 'bg-yellow-100', text: 'text-yellow-700' },
-    draft: { bg: 'bg-gray-100', text: 'text-gray-700' },
+    draft: { bg: 'bg-white', text: 'text-black' },
   };
 
   const config = configs[status] || configs.draft;

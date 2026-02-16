@@ -101,16 +101,16 @@ export default function BusinessWalletPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <Link href="/admin/sales" className="text-sm text-gray-500 hover:text-gray-700">
+          <Link href="/admin/sales" className="text-sm text-black hover:text-black">
             ← Back to Sales
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900 mt-1">Business Wallet</h1>
-          <p className="text-gray-500 text-sm">Live cash position - Updated in real time</p>
+          <h1 className="text-2xl font-bold text-black mt-1">Business Wallet</h1>
+          <p className="text-black text-sm">Live cash position - Updated in real time</p>
         </div>
         <button
           onClick={fetchWallet}
           disabled={isLoading}
-          className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg flex items-center gap-2"
+          className="px-4 py-2 bg-white hover:bg-white rounded-lg flex items-center gap-2"
         >
           <span className={isLoading ? 'animate-spin' : ''}>🔄</span>
           Refresh
@@ -120,7 +120,7 @@ export default function BusinessWalletPage() {
       {isLoading && !wallet ? (
         <div className="bg-white rounded-xl border p-8 text-center">
           <div className="animate-spin text-4xl mb-4">💼</div>
-          <p className="text-gray-500">Loading wallet...</p>
+          <p className="text-black">Loading wallet...</p>
         </div>
       ) : error ? (
         <div className="bg-red-50 border border-red-200 rounded-lg p-6 text-center">
@@ -135,12 +135,12 @@ export default function BusinessWalletPage() {
                 <span className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
                 <span className="text-sm font-medium text-green-600">LIVE</span>
               </span>
-              <span className="text-gray-400">|</span>
-              <span className="text-sm text-gray-500">
+              <span className="text-black">|</span>
+              <span className="text-sm text-black">
                 Last updated: {formatTime(wallet.lastUpdated)}
               </span>
             </div>
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-black">
               {new Date(wallet.date).toLocaleDateString('en-US', {
                 weekday: 'long',
                 month: 'long',
@@ -178,16 +178,16 @@ export default function BusinessWalletPage() {
           {/* Transaction Counts */}
           <div className="grid grid-cols-4 gap-4">
             <div className="bg-white rounded-xl border p-4 text-center">
-              <p className="text-3xl font-bold text-gray-900">{wallet.counts.totalTransactions}</p>
-              <p className="text-sm text-gray-500">Total Transactions</p>
+              <p className="text-3xl font-bold text-black">{wallet.counts.totalTransactions}</p>
+              <p className="text-sm text-black">Total Transactions</p>
             </div>
             <div className="bg-white rounded-xl border p-4 text-center">
               <p className="text-3xl font-bold text-green-600">{wallet.counts.collections}</p>
-              <p className="text-sm text-gray-500">Collections</p>
+              <p className="text-sm text-black">Collections</p>
             </div>
             <div className="bg-white rounded-xl border p-4 text-center">
               <p className="text-3xl font-bold text-red-600">{wallet.counts.refunds}</p>
-              <p className="text-sm text-gray-500">Refunds</p>
+              <p className="text-sm text-black">Refunds</p>
             </div>
             <div className="bg-amber-50 rounded-xl border border-amber-200 p-4 text-center">
               <p className="text-3xl font-bold text-amber-600">{wallet.counts.pending}</p>
@@ -198,7 +198,7 @@ export default function BusinessWalletPage() {
           <div className="grid grid-cols-2 gap-6">
             {/* By Payment Method */}
             <div className="bg-white rounded-xl border overflow-hidden">
-              <div className="px-6 py-4 border-b bg-gray-50">
+              <div className="px-6 py-4 border-b bg-white">
                 <h3 className="font-semibold">By Payment Method</h3>
               </div>
               <div className="p-6 space-y-4">
@@ -242,16 +242,16 @@ export default function BusinessWalletPage() {
 
             {/* By Processor */}
             <div className="bg-white rounded-xl border overflow-hidden">
-              <div className="px-6 py-4 border-b bg-gray-50">
+              <div className="px-6 py-4 border-b bg-white">
                 <h3 className="font-semibold">By Processor</h3>
               </div>
               <table className="w-full">
                 <thead>
-                  <tr className="border-b bg-gray-50/50">
-                    <th className="text-left px-6 py-3 text-xs font-semibold text-gray-500">Processor</th>
-                    <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">Collected</th>
-                    <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">Fees</th>
-                    <th className="text-right px-6 py-3 text-xs font-semibold text-gray-500">Net</th>
+                  <tr className="border-b bg-white/50">
+                    <th className="text-left px-6 py-3 text-xs font-semibold text-black">Processor</th>
+                    <th className="text-right px-4 py-3 text-xs font-semibold text-black">Collected</th>
+                    <th className="text-right px-4 py-3 text-xs font-semibold text-black">Fees</th>
+                    <th className="text-right px-6 py-3 text-xs font-semibold text-black">Net</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y">
@@ -264,13 +264,13 @@ export default function BusinessWalletPage() {
                   <tr>
                     <td className="px-6 py-3 font-medium">Cash</td>
                     <td className="px-4 py-3 text-right">{formatCurrency(wallet.byProcessor.cash?.collected || 0)}</td>
-                    <td className="px-4 py-3 text-right text-gray-400">$0.00</td>
+                    <td className="px-4 py-3 text-right text-black">$0.00</td>
                     <td className="px-6 py-3 text-right font-medium">{formatCurrency(wallet.byProcessor.cash?.net || 0)}</td>
                   </tr>
                   <tr>
                     <td className="px-6 py-3 font-medium">Gift Card</td>
                     <td className="px-4 py-3 text-right">{formatCurrency(wallet.byProcessor.giftCard?.collected || 0)}</td>
-                    <td className="px-4 py-3 text-right text-gray-400">$0.00</td>
+                    <td className="px-4 py-3 text-right text-black">$0.00</td>
                     <td className="px-6 py-3 text-right font-medium">{formatCurrency(wallet.byProcessor.giftCard?.net || 0)}</td>
                   </tr>
                 </tbody>
@@ -313,19 +313,19 @@ export default function BusinessWalletPage() {
           <div className="flex gap-4">
             <Link
               href="/admin/sales/daily-summary"
-              className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm"
+              className="px-4 py-2 bg-white hover:bg-white rounded-lg text-sm"
             >
               📊 View Daily Summary
             </Link>
             <Link
               href="/admin/sales"
-              className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm"
+              className="px-4 py-2 bg-white hover:bg-white rounded-lg text-sm"
             >
               📋 View All Sales
             </Link>
             <Link
               href="/admin/sales/payments"
-              className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-sm"
+              className="px-4 py-2 bg-white hover:bg-white rounded-lg text-sm"
             >
               💳 View Payments
             </Link>

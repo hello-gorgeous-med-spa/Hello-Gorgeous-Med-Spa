@@ -159,8 +159,8 @@ export default function BookingForm({ service, location }: BookingFormProps) {
   return (
     <div className="space-y-6">
       {/* Date Selection */}
-      <section className="bg-white rounded-2xl border border-gray-100 p-6">
-        <h2 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+      <section className="bg-white rounded-2xl border border-black p-6">
+        <h2 className="font-semibold text-black mb-4 flex items-center gap-2">
           <span>📅</span> Select a Date
         </h2>
         
@@ -188,13 +188,13 @@ export default function BookingForm({ service, location }: BookingFormProps) {
                   isSelected
                     ? 'border-pink-500 bg-pink-50 text-pink-600'
                     : isOpen
-                    ? 'border-gray-200 hover:border-pink-300 hover:bg-pink-50'
-                    : 'border-gray-100 bg-gray-50 text-gray-300 cursor-not-allowed'
+                    ? 'border-black hover:border-pink-300 hover:bg-pink-50'
+                    : 'border-black bg-white text-black cursor-not-allowed'
                 }`}
               >
                 <div className="text-xs font-medium">{dayName}</div>
                 <div className="text-xl font-bold">{dayNum}</div>
-                <div className="text-xs text-gray-500">{month}</div>
+                <div className="text-xs text-black">{month}</div>
               </button>
             );
           })}
@@ -203,16 +203,16 @@ export default function BookingForm({ service, location }: BookingFormProps) {
 
       {/* Time Selection */}
       {selectedDate && (
-        <section className="bg-white rounded-2xl border border-gray-100 p-6">
-          <h2 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <section className="bg-white rounded-2xl border border-black p-6">
+          <h2 className="font-semibold text-black mb-4 flex items-center gap-2">
             <span>🕐</span> Select a Time
-            <span className="text-sm font-normal text-gray-500">
+            <span className="text-sm font-normal text-black">
               ({formatDate(selectedDate)})
             </span>
           </h2>
           
           {timeSlots.length === 0 ? (
-            <p className="text-gray-500 text-center py-4">
+            <p className="text-black text-center py-4">
               No available times for this date. Please select another date.
             </p>
           ) : (
@@ -227,7 +227,7 @@ export default function BookingForm({ service, location }: BookingFormProps) {
                     className={`py-2.5 px-3 rounded-lg border-2 text-sm font-medium transition-all ${
                       isSelected
                         ? 'border-pink-500 bg-pink-50 text-pink-600'
-                        : 'border-gray-200 hover:border-pink-300 hover:bg-pink-50'
+                        : 'border-black hover:border-pink-300 hover:bg-pink-50'
                     }`}
                   >
                     {formatTime(time)}
@@ -241,15 +241,15 @@ export default function BookingForm({ service, location }: BookingFormProps) {
 
       {/* Notes */}
       {selectedDate && selectedTime && (
-        <section className="bg-white rounded-2xl border border-gray-100 p-6">
-          <h2 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <section className="bg-white rounded-2xl border border-black p-6">
+          <h2 className="font-semibold text-black mb-4 flex items-center gap-2">
             <span>📝</span> Notes (Optional)
           </h2>
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
             placeholder="Any special requests or information we should know?"
-            className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-pink-500 focus:ring-2 focus:ring-pink-200 outline-none resize-none"
+            className="w-full px-4 py-3 rounded-xl border border-black focus:border-pink-500 focus:ring-2 focus:ring-pink-200 outline-none resize-none"
             rows={3}
           />
         </section>
@@ -258,23 +258,23 @@ export default function BookingForm({ service, location }: BookingFormProps) {
       {/* Summary & Submit */}
       {selectedDate && selectedTime && (
         <section className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl border border-pink-100 p-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Booking Summary</h2>
+          <h2 className="font-semibold text-black mb-4">Booking Summary</h2>
           
           <div className="space-y-3 mb-6">
             <div className="flex justify-between">
-              <span className="text-gray-600">Service</span>
+              <span className="text-black">Service</span>
               <span className="font-medium">{service.name}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Date</span>
+              <span className="text-black">Date</span>
               <span className="font-medium">{formatDate(selectedDate)}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Time</span>
+              <span className="text-black">Time</span>
               <span className="font-medium">{formatTime(selectedTime)}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-600">Duration</span>
+              <span className="text-black">Duration</span>
               <span className="font-medium">{service.duration_minutes} min</span>
             </div>
             <hr className="border-pink-200" />
@@ -289,7 +289,7 @@ export default function BookingForm({ service, location }: BookingFormProps) {
               </span>
             </div>
             {service.deposit_required && (
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-black">
                 Full service price: {service.price_display} (balance due at appointment)
               </p>
             )}

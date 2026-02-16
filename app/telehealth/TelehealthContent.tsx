@@ -135,7 +135,7 @@ export function TelehealthContent() {
                 Virtual Visits
               </span>
             </h1>
-            <p className="text-gray-400 text-lg mb-8">
+            <p className="text-black text-lg mb-8">
               Get expert medical care from the comfort of your home. Connect with
               Ryan Kent, FNP-BC for consultations, follow-ups, and prescription management.
             </p>
@@ -178,7 +178,7 @@ export function TelehealthContent() {
               <span className="text-xl">🖥️</span>
               Join Video Visit Now →
             </a>
-            <span className="text-gray-400 text-sm">No download required</span>
+            <span className="text-black text-sm">No download required</span>
           </div>
         </FadeUp>
       </Section>
@@ -216,27 +216,27 @@ export function TelehealthContent() {
                       <span className="text-pink-400">✓</span>
                       <div>
                         <p className="text-white font-medium">Board Certified Family Nurse Practitioner</p>
-                        <p className="text-gray-400 text-sm">FNP-BC credentialed through ANCC</p>
+                        <p className="text-black text-sm">FNP-BC credentialed through ANCC</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <span className="text-pink-400">✓</span>
                       <div>
                         <p className="text-white font-medium">Full Practice Authority</p>
-                        <p className="text-gray-400 text-sm">Independent prescriptive authority in Illinois</p>
+                        <p className="text-black text-sm">Independent prescriptive authority in Illinois</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <span className="text-pink-400">✓</span>
                       <div>
                         <p className="text-white font-medium">Specializations</p>
-                        <p className="text-gray-400 text-sm">Weight Management, Hormone Optimization, Regenerative Medicine</p>
+                        <p className="text-black text-sm">Weight Management, Hormone Optimization, Regenerative Medicine</p>
                       </div>
                     </div>
                   </div>
                   
                   <div className="p-4 rounded-xl bg-white/5 border border-white/10 mb-6">
-                    <p className="text-gray-300 text-sm italic">
+                    <p className="text-black text-sm italic">
                       &ldquo;Telehealth allows me to provide the same high-quality care you&apos;d receive in-office, 
                       with the convenience of connecting from wherever you are. I&apos;m committed to 
                       making healthcare accessible and personalized for every patient.&rdquo;
@@ -273,7 +273,7 @@ export function TelehealthContent() {
               <div className="p-6 rounded-2xl bg-white/5 border border-white/10 text-center hover:border-pink-500/30 transition h-full">
                 <span className="text-4xl mb-4 block">{benefit.icon}</span>
                 <h3 className="text-white font-semibold mb-2">{benefit.title}</h3>
-                <p className="text-gray-400 text-sm">{benefit.description}</p>
+                <p className="text-black text-sm">{benefit.description}</p>
               </div>
             </FadeUp>
           ))}
@@ -287,7 +287,7 @@ export function TelehealthContent() {
             <h2 className="text-3xl font-bold text-white mb-4">
               Telehealth Services
             </h2>
-            <p className="text-gray-400">
+            <p className="text-black">
               Services available via secure video visit with Ryan Kent, FNP-BC
             </p>
           </div>
@@ -301,10 +301,10 @@ export function TelehealthContent() {
                   <span className="text-3xl">{service.icon}</span>
                   <div>
                     <h3 className="text-white font-semibold">{service.name}</h3>
-                    <p className="text-gray-500 text-sm">{service.duration}</p>
+                    <p className="text-black text-sm">{service.duration}</p>
                   </div>
                 </div>
-                <p className="text-gray-400 text-sm flex-1 mb-4">{service.description}</p>
+                <p className="text-black text-sm flex-1 mb-4">{service.description}</p>
                 <div className="flex items-center justify-between mt-auto">
                   <span className="text-pink-400 font-bold">{service.price}</span>
                   <a
@@ -345,7 +345,7 @@ export function TelehealthContent() {
                 </div>
                 <div className="text-pink-400 text-sm font-medium mb-1">Step {item.step}</div>
                 <h3 className="text-white font-semibold mb-2">{item.title}</h3>
-                <p className="text-gray-400 text-sm">{item.desc}</p>
+                <p className="text-black text-sm">{item.desc}</p>
               </div>
             </FadeUp>
           ))}
@@ -371,7 +371,7 @@ export function TelehealthContent() {
                       "Good lighting on your face",
                       "List of current medications",
                     ].map((item) => (
-                      <li key={item} className="flex items-center gap-2 text-gray-300 text-sm">
+                      <li key={item} className="flex items-center gap-2 text-black text-sm">
                         <span className="text-pink-400">✓</span>
                         {item}
                       </li>
@@ -388,7 +388,7 @@ export function TelehealthContent() {
                       "Insurance card (if using)",
                       "Payment method",
                     ].map((item) => (
-                      <li key={item} className="flex items-center gap-2 text-gray-300 text-sm">
+                      <li key={item} className="flex items-center gap-2 text-black text-sm">
                         <span className="text-blue-400">✓</span>
                         {item}
                       </li>
@@ -420,12 +420,12 @@ export function TelehealthContent() {
               >
                 <div className="flex items-center justify-between">
                   <span className="text-white font-medium pr-4">{faq.q}</span>
-                  <span className="text-gray-400 text-xl flex-shrink-0">
+                  <span className="text-black text-xl flex-shrink-0">
                     {expandedFaq === i ? "−" : "+"}
                   </span>
                 </div>
                 {expandedFaq === i && (
-                  <p className="mt-3 text-gray-400 text-sm">{faq.a}</p>
+                  <p className="mt-3 text-black text-sm">{faq.a}</p>
                 )}
               </button>
             </FadeUp>
@@ -441,7 +441,7 @@ export function TelehealthContent() {
               <span className="text-2xl">🔒</span>
               <span className="text-white font-semibold">Powered by Doxy.me</span>
             </div>
-            <p className="text-gray-400 text-sm mb-6">
+            <p className="text-black text-sm mb-6">
               We use Doxy.me, a HIPAA-compliant telemedicine platform trusted by over 1 million 
               healthcare providers. Your visit is encrypted end-to-end, ensuring complete privacy 
               and security. No downloads required—just click your link and connect.
@@ -466,7 +466,7 @@ export function TelehealthContent() {
             <h2 className="text-3xl font-bold text-white mb-4">
               Ready for Your Virtual Visit?
             </h2>
-            <p className="text-gray-400 mb-6">
+            <p className="text-black mb-6">
               Book your telehealth appointment with Ryan Kent, FNP-BC today.
               Same-day appointments often available.
             </p>

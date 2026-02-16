@@ -108,7 +108,7 @@ export function InteractiveConsultationWidget({ onScrollToBotox }: { onScrollToB
               ))}
             </div>
           ) : (
-            <p className="text-gray-400 text-sm mb-4">Book a free consultation and we&apos;ll create your plan together.</p>
+            <p className="text-black text-sm mb-4">Book a free consultation and we&apos;ll create your plan together.</p>
           )}
           <div className="space-y-3">
             <CTA href={BOOKING_URL} variant="gradient" className="w-full justify-center">Book Free Consultation</CTA>
@@ -123,7 +123,7 @@ export function InteractiveConsultationWidget({ onScrollToBotox }: { onScrollToB
             )}
           </div>
         </div>
-        <button onClick={() => setShowResults(false)} className="mt-4 text-gray-500 hover:text-white text-sm">← Start over</button>
+        <button onClick={() => setShowResults(false)} className="mt-4 text-black hover:text-white text-sm">← Start over</button>
       </div>
     );
   }
@@ -131,7 +131,7 @@ export function InteractiveConsultationWidget({ onScrollToBotox }: { onScrollToB
   return (
     <div className="h-full flex flex-col">
       {/* Instructions */}
-      <p className="text-xs text-gray-400 mb-4">
+      <p className="text-xs text-black mb-4">
         Click a body part → select your concerns → get your plan
       </p>
 
@@ -164,7 +164,7 @@ export function InteractiveConsultationWidget({ onScrollToBotox }: { onScrollToB
               );
             })}
           </svg>
-          <p className="text-center text-gray-500 text-xs mt-2">Tap an area</p>
+          <p className="text-center text-black text-xs mt-2">Tap an area</p>
         </div>
 
         {/* Right panel - Concerns or Selections */}
@@ -173,7 +173,7 @@ export function InteractiveConsultationWidget({ onScrollToBotox }: { onScrollToB
             <>
               <div className="flex items-center justify-between mb-3">
                 <h4 className="text-white font-semibold text-sm">{activeZone.label} Concerns</h4>
-                <button onClick={() => setActiveZone(null)} className="text-gray-500 hover:text-white text-xs">✕</button>
+                <button onClick={() => setActiveZone(null)} className="text-black hover:text-white text-xs">✕</button>
               </div>
               <div className="space-y-2 mb-4 flex-1 overflow-auto">
                 {activeZone.concerns.map((c) => (
@@ -184,7 +184,7 @@ export function InteractiveConsultationWidget({ onScrollToBotox }: { onScrollToB
                     className={`block w-full text-left px-3 py-2 rounded-lg text-sm transition ${
                       selectedConcerns.has(c.id)
                         ? "bg-pink-500/30 border border-pink-500/50 text-white"
-                        : "bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10"
+                        : "bg-white/5 border border-white/10 text-black hover:bg-white/10"
                     }`}
                   >
                     {selectedConcerns.has(c.id) ? "✓ " : ""}{c.label}
@@ -194,9 +194,9 @@ export function InteractiveConsultationWidget({ onScrollToBotox }: { onScrollToB
             </>
           ) : (
             <div className="flex-1 flex flex-col justify-center">
-              <p className="text-gray-500 text-sm mb-3">Your selections ({selectedConcerns.size})</p>
+              <p className="text-black text-sm mb-3">Your selections ({selectedConcerns.size})</p>
               {selectedConcerns.size === 0 ? (
-                <p className="text-gray-600 text-xs">Click a body part to get started</p>
+                <p className="text-black text-xs">Click a body part to get started</p>
               ) : (
                 <div className="space-y-1 max-h-32 overflow-auto">
                   {Array.from(selectedConcerns).map((cid) => {
@@ -204,7 +204,7 @@ export function InteractiveConsultationWidget({ onScrollToBotox }: { onScrollToB
                     return (
                       <div key={cid} className="flex items-center justify-between px-3 py-1.5 rounded bg-white/5 text-white text-xs">
                         <span>{label}</span>
-                        <button type="button" onClick={() => removeConcern(cid)} className="text-gray-500 hover:text-red-400">×</button>
+                        <button type="button" onClick={() => removeConcern(cid)} className="text-black hover:text-red-400">×</button>
                       </div>
                     );
                   })}

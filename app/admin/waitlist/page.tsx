@@ -214,7 +214,7 @@ export default function WaitlistPage() {
       case 'booked':
         return <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium">Booked</span>;
       case 'expired':
-        return <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">Expired</span>;
+        return <span className="px-3 py-1 bg-white text-black rounded-full text-xs font-medium">Expired</span>;
       default:
         return null;
     }
@@ -251,11 +251,11 @@ export default function WaitlistPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+          <h1 className="text-2xl font-bold text-black flex items-center gap-3">
             <span className="text-3xl">📋</span>
             Waitlist Management
           </h1>
-          <p className="text-gray-500 mt-1">Turn cancellations into conversions with smart waitlist</p>
+          <p className="text-black mt-1">Turn cancellations into conversions with smart waitlist</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -267,22 +267,22 @@ export default function WaitlistPage() {
 
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+        <div className="bg-white rounded-xl border border-black p-5 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">Total on Waitlist</p>
-              <p className="text-3xl font-bold text-gray-900 mt-1">{stats.total}</p>
+              <p className="text-sm text-black">Total on Waitlist</p>
+              <p className="text-3xl font-bold text-black mt-1">{stats.total}</p>
             </div>
-            <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center">
+            <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center">
               <span className="text-2xl">📋</span>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+        <div className="bg-white rounded-xl border border-black p-5 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">Waiting</p>
+              <p className="text-sm text-black">Waiting</p>
               <p className="text-3xl font-bold text-yellow-600 mt-1">{stats.waiting}</p>
             </div>
             <div className="w-12 h-12 bg-yellow-100 rounded-xl flex items-center justify-center">
@@ -291,10 +291,10 @@ export default function WaitlistPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+        <div className="bg-white rounded-xl border border-black p-5 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">Contacted</p>
+              <p className="text-sm text-black">Contacted</p>
               <p className="text-3xl font-bold text-blue-600 mt-1">{stats.contacted}</p>
             </div>
             <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
@@ -303,10 +303,10 @@ export default function WaitlistPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+        <div className="bg-white rounded-xl border border-black p-5 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">Converted to Bookings</p>
+              <p className="text-sm text-black">Converted to Bookings</p>
               <p className="text-3xl font-bold text-green-600 mt-1">{stats.booked}</p>
             </div>
             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
@@ -325,7 +325,7 @@ export default function WaitlistPage() {
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors capitalize ${
               filter === f
                 ? 'bg-pink-500 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-white text-black hover:bg-white'
             }`}
           >
             {f}
@@ -335,18 +335,18 @@ export default function WaitlistPage() {
 
       {/* Waitlist Table */}
       {loading ? (
-        <div className="bg-white rounded-xl border border-gray-100 p-8">
+        <div className="bg-white rounded-xl border border-black p-8">
           <div className="animate-pulse space-y-4">
             {[1, 2, 3].map(i => (
-              <div key={i} className="h-16 bg-gray-100 rounded-lg" />
+              <div key={i} className="h-16 bg-white rounded-lg" />
             ))}
           </div>
         </div>
       ) : entries.length === 0 ? (
-        <div className="bg-white rounded-xl border border-gray-100 p-16 text-center">
+        <div className="bg-white rounded-xl border border-black p-16 text-center">
           <span className="text-6xl">📋</span>
-          <h3 className="text-xl font-semibold text-gray-900 mt-4">No patients on waitlist</h3>
-          <p className="text-gray-500 mt-2">Add patients to the waitlist when schedules are full</p>
+          <h3 className="text-xl font-semibold text-black mt-4">No patients on waitlist</h3>
+          <p className="text-black mt-2">Add patients to the waitlist when schedules are full</p>
           <button
             onClick={() => setShowAddModal(true)}
             className="mt-6 px-6 py-3 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors font-medium"
@@ -355,59 +355,59 @@ export default function WaitlistPage() {
           </button>
         </div>
       ) : (
-        <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+        <div className="bg-white rounded-xl border border-black overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-100">
+            <thead className="bg-white border-b border-black">
               <tr>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Patient</th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Service</th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Preferences</th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Added</th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="text-right px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="text-left px-6 py-4 text-xs font-semibold text-black uppercase tracking-wider">Patient</th>
+                <th className="text-left px-6 py-4 text-xs font-semibold text-black uppercase tracking-wider">Service</th>
+                <th className="text-left px-6 py-4 text-xs font-semibold text-black uppercase tracking-wider">Preferences</th>
+                <th className="text-left px-6 py-4 text-xs font-semibold text-black uppercase tracking-wider">Added</th>
+                <th className="text-left px-6 py-4 text-xs font-semibold text-black uppercase tracking-wider">Status</th>
+                <th className="text-right px-6 py-4 text-xs font-semibold text-black uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {entries.map((entry) => (
-                <tr key={entry.id} className="hover:bg-gray-50">
+                <tr key={entry.id} className="hover:bg-white">
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-pink-100 rounded-full flex items-center justify-center text-pink-600 font-semibold">
                         {entry.client_name?.split(' ').map(n => n[0]).join('') || '?'}
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900 flex items-center gap-2">
+                        <p className="font-medium text-black flex items-center gap-2">
                           {entry.client_name}
                           {getPriorityBadge(entry.priority)}
                           {entry.card_on_file && (
                             <span className="text-green-500 text-sm" title="Card on file">💳</span>
                           )}
                         </p>
-                        <p className="text-sm text-gray-500">{entry.client_phone || entry.client_email}</p>
+                        <p className="text-sm text-black">{entry.client_phone || entry.client_email}</p>
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <p className="text-gray-900">{entry.service_name || 'Any service'}</p>
+                    <p className="text-black">{entry.service_name || 'Any service'}</p>
                     {entry.provider_name && (
-                      <p className="text-sm text-gray-500">with {entry.provider_name}</p>
+                      <p className="text-sm text-black">with {entry.provider_name}</p>
                     )}
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex flex-wrap gap-1">
                       {entry.preferred_days?.map(day => (
-                        <span key={day} className="px-2 py-0.5 bg-gray-100 rounded text-xs text-gray-600 capitalize">
+                        <span key={day} className="px-2 py-0.5 bg-white rounded text-xs text-black capitalize">
                           {day.slice(0, 3)}
                         </span>
                       ))}
                     </div>
-                    <p className="text-xs text-gray-400 mt-1 capitalize">
+                    <p className="text-xs text-black mt-1 capitalize">
                       {entry.preferred_time === 'any' ? 'Any time' : entry.preferred_time}
                     </p>
                   </td>
                   <td className="px-6 py-4">
-                    <p className="text-gray-900">{formatDate(entry.created_at)}</p>
-                    <p className="text-xs text-gray-400">{getTimeAgo(entry.created_at)}</p>
+                    <p className="text-black">{formatDate(entry.created_at)}</p>
+                    <p className="text-xs text-black">{getTimeAgo(entry.created_at)}</p>
                   </td>
                   <td className="px-6 py-4">
                     {getStatusBadge(entry.status)}
@@ -441,7 +441,7 @@ export default function WaitlistPage() {
                       )}
                       <button
                         onClick={() => removeFromWaitlist(entry.id)}
-                        className="p-1.5 text-gray-400 hover:text-red-500 transition-colors"
+                        className="p-1.5 text-black hover:text-red-500 transition-colors"
                       >
                         <span>🗑</span>
                       </button>
@@ -458,12 +458,12 @@ export default function WaitlistPage() {
       {showAddModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-100">
+            <div className="p-6 border-b border-black">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold text-gray-900">Add to Waitlist</h2>
+                <h2 className="text-xl font-bold text-black">Add to Waitlist</h2>
                 <button
                   onClick={() => setShowAddModal(false)}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-black hover:text-black"
                 >
                   ✕
                 </button>
@@ -474,7 +474,7 @@ export default function WaitlistPage() {
               {/* Client Selection */}
               {!selectedClient ? (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-black mb-2">
                     Search Patient
                   </label>
                   <input
@@ -487,20 +487,20 @@ export default function WaitlistPage() {
                       }
                     }}
                     placeholder="Search by name or phone..."
-                    className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                    className="w-full px-4 py-2 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                   />
                   {clients.length > 0 && clientSearch.length >= 2 && (
-                    <div className="mt-2 border border-gray-200 rounded-xl max-h-48 overflow-y-auto">
+                    <div className="mt-2 border border-black rounded-xl max-h-48 overflow-y-auto">
                       {clients.map((client) => (
                         <button
                           key={client.id}
                           onClick={() => setSelectedClient(client)}
-                          className="w-full p-3 text-left hover:bg-pink-50 border-b border-gray-100 last:border-0"
+                          className="w-full p-3 text-left hover:bg-pink-50 border-b border-black last:border-0"
                         >
-                          <p className="font-medium text-gray-900">
+                          <p className="font-medium text-black">
                             {client.first_name} {client.last_name}
                           </p>
-                          <p className="text-sm text-gray-500">{client.phone || client.email}</p>
+                          <p className="text-sm text-black">{client.phone || client.email}</p>
                         </button>
                       ))}
                     </div>
@@ -513,10 +513,10 @@ export default function WaitlistPage() {
                       {selectedClient.first_name?.[0]}{selectedClient.last_name?.[0]}
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900">
+                      <p className="font-medium text-black">
                         {selectedClient.first_name} {selectedClient.last_name}
                       </p>
-                      <p className="text-sm text-gray-500">{selectedClient.phone}</p>
+                      <p className="text-sm text-black">{selectedClient.phone}</p>
                     </div>
                   </div>
                   <button
@@ -530,13 +530,13 @@ export default function WaitlistPage() {
 
               {/* Service Selection */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-black mb-2">
                   Requested Service (Optional)
                 </label>
                 <select
                   value={formData.service_id}
                   onChange={(e) => setFormData({ ...formData, service_id: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-4 py-2 border border-black rounded-xl focus:ring-2 focus:ring-pink-500"
                 >
                   <option value="">Any service</option>
                   {services.map((s) => (
@@ -547,13 +547,13 @@ export default function WaitlistPage() {
 
               {/* Provider Selection */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-black mb-2">
                   Preferred Provider (Optional)
                 </label>
                 <select
                   value={formData.provider_id}
                   onChange={(e) => setFormData({ ...formData, provider_id: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-4 py-2 border border-black rounded-xl focus:ring-2 focus:ring-pink-500"
                 >
                   <option value="">Any provider</option>
                   {providers.map((p) => (
@@ -564,7 +564,7 @@ export default function WaitlistPage() {
 
               {/* Preferred Days */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-black mb-2">
                   Preferred Days
                 </label>
                 <div className="flex flex-wrap gap-2">
@@ -581,7 +581,7 @@ export default function WaitlistPage() {
                       className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                         formData.preferred_days.includes(day.id)
                           ? 'bg-pink-500 text-white'
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          : 'bg-white text-black hover:bg-white'
                       }`}
                     >
                       {day.label}
@@ -592,7 +592,7 @@ export default function WaitlistPage() {
 
               {/* Preferred Time */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-black mb-2">
                   Preferred Time
                 </label>
                 <div className="grid grid-cols-2 gap-2">
@@ -604,7 +604,7 @@ export default function WaitlistPage() {
                       className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                         formData.preferred_time === time.id
                           ? 'bg-pink-500 text-white'
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                          : 'bg-white text-black hover:bg-white'
                       }`}
                     >
                       {time.label}
@@ -615,7 +615,7 @@ export default function WaitlistPage() {
 
               {/* Priority */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-black mb-2">
                   Priority
                 </label>
                 <div className="flex gap-2">
@@ -632,8 +632,8 @@ export default function WaitlistPage() {
                         formData.priority === p.id
                           ? p.id === 'vip' ? 'bg-pink-500 text-white' :
                             p.id === 'high' ? 'bg-orange-500 text-white' :
-                            'bg-gray-700 text-white'
-                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                            'bg-black text-white'
+                          : 'bg-white text-black hover:bg-white'
                       }`}
                     >
                       {p.label}
@@ -648,14 +648,14 @@ export default function WaitlistPage() {
                   type="checkbox"
                   checked={formData.card_on_file}
                   onChange={(e) => setFormData({ ...formData, card_on_file: e.target.checked })}
-                  className="w-5 h-5 rounded border-gray-300 text-pink-500 focus:ring-pink-500"
+                  className="w-5 h-5 rounded border-black text-pink-500 focus:ring-pink-500"
                 />
-                <span className="text-sm text-gray-700">Card on file (secures slot if available)</span>
+                <span className="text-sm text-black">Card on file (secures slot if available)</span>
               </label>
 
               {/* Notes */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-black mb-2">
                   Notes
                 </label>
                 <textarea
@@ -663,15 +663,15 @@ export default function WaitlistPage() {
                   onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                   placeholder="Any additional notes..."
                   rows={3}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-4 py-2 border border-black rounded-xl focus:ring-2 focus:ring-pink-500"
                 />
               </div>
             </div>
 
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
+            <div className="p-6 border-t border-black flex justify-end gap-3">
               <button
                 onClick={() => setShowAddModal(false)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-900"
+                className="px-4 py-2 text-black hover:text-black"
               >
                 Cancel
               </button>

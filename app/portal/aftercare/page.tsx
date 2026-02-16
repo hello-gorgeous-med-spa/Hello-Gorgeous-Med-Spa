@@ -101,7 +101,7 @@ export default function AftercarePage() {
             <div key={ac.id} className="bg-white rounded-2xl border border-[#111]/10 overflow-hidden">
               <button
                 onClick={() => setExpandedId(expandedId === ac.id ? null : ac.id)}
-                className="w-full p-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                className="w-full p-4 flex items-center justify-between hover:bg-white transition-colors"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-[#FF2D8E]/10 rounded-xl flex items-center justify-center">
@@ -139,7 +139,7 @@ export default function AftercarePage() {
                     <h3 className="font-medium text-[#111] mb-3">Key Instructions</h3>
                     <div className="space-y-2">
                       {ac.instructions.instructions.map((inst, idx) => (
-                        <div key={idx} className="flex items-start gap-3 p-3 bg-gray-50 rounded-xl">
+                        <div key={idx} className="flex items-start gap-3 p-3 bg-white rounded-xl">
                           <span className="w-6 h-6 bg-[#FF2D8E] text-white rounded-full flex items-center justify-center text-xs flex-shrink-0">
                             {inst.step}
                           </span>

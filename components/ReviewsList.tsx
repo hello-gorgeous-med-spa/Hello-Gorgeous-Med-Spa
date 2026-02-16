@@ -55,12 +55,12 @@ export function ReviewsList() {
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center gap-4">
-        <label className="flex items-center gap-2 text-sm text-gray-400">
+        <label className="flex items-center gap-2 text-sm text-black">
           <span>Rating:</span>
           <select
             value={ratingFilter}
             onChange={(e) => setRatingFilter(e.target.value)}
-            className="rounded-lg border border-gray-700 bg-black/40 px-3 py-2 text-white focus:border-pink-500 focus:outline-none focus:ring-1 focus:ring-pink-500"
+            className="rounded-lg border border-black bg-black/40 px-3 py-2 text-white focus:border-pink-500 focus:outline-none focus:ring-1 focus:ring-pink-500"
           >
             <option value="">All</option>
             <option value="5">5 stars</option>
@@ -70,7 +70,7 @@ export function ReviewsList() {
             <option value="1">1 star</option>
           </select>
         </label>
-        <label className="flex items-center gap-2 text-sm text-gray-400">
+        <label className="flex items-center gap-2 text-sm text-black">
           <span>Service:</span>
           <input
             type="text"
@@ -79,24 +79,24 @@ export function ReviewsList() {
             onChange={(e) => setServiceFilter(e.target.value)}
             onBlur={() => fetchReviews(ratingFilter || undefined, serviceFilter || undefined)}
             onKeyDown={(e) => e.key === "Enter" && fetchReviews(ratingFilter || undefined, serviceFilter || undefined)}
-            className="rounded-lg border border-gray-700 bg-black/40 px-3 py-2 text-white placeholder-gray-500 focus:border-pink-500 focus:outline-none focus:ring-1 focus:ring-pink-500 min-w-[180px]"
+            className="rounded-lg border border-black bg-black/40 px-3 py-2 text-white placeholder-gray-500 focus:border-pink-500 focus:outline-none focus:ring-1 focus:ring-pink-500 min-w-[180px]"
           />
         </label>
       </div>
 
       {loading ? (
-        <p className="text-gray-400">Loading reviews...</p>
+        <p className="text-black">Loading reviews...</p>
       ) : reviews.length === 0 ? (
-        <p className="text-gray-400">No reviews yet. Be the first to leave feedback after your visit!</p>
+        <p className="text-black">No reviews yet. Be the first to leave feedback after your visit!</p>
       ) : (
         <>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm text-black">
             {total} review{total !== 1 ? "s" : ""} · Sorted by highest rating, then newest
           </p>
           <ul className="space-y-4">
             {reviews.map((r, i) => (
               <FadeUp key={r.id} delayMs={Math.min(i * 20, 120)}>
-                <li className="rounded-2xl border border-gray-800 bg-black/40 p-6">
+                <li className="rounded-2xl border border-black bg-black/40 p-6">
                   <div className="flex flex-wrap items-center gap-2 mb-2">
                     <span className="text-amber-400" aria-label={`${r.rating} stars`}>
                       {"★".repeat(r.rating)}{"☆".repeat(5 - r.rating)}
@@ -107,14 +107,14 @@ export function ReviewsList() {
                       </span>
                     )}
                     {r.is_verified && (
-                      <span className="text-xs text-gray-500">Verified client review</span>
+                      <span className="text-xs text-black">Verified client review</span>
                     )}
                     {r.source === "fresha_legacy" && (
-                      <span className="text-xs text-gray-500">Imported review</span>
+                      <span className="text-xs text-black">Imported review</span>
                     )}
                   </div>
-                  <p className="text-gray-200 leading-relaxed">{r.review_text}</p>
-                  <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-gray-500">
+                  <p className="text-white leading-relaxed">{r.review_text}</p>
+                  <div className="mt-3 flex flex-wrap items-center gap-2 text-sm text-black">
                     {r.client_name && <span>{r.client_name}</span>}
                     <span>{formatDate(r.created_at)}</span>
                   </div>

@@ -124,11 +124,11 @@ export default function RulesPrecedencePage() {
               <span className={`px-3 py-1 rounded-lg text-sm font-medium border ${categoryColors[cat]}`}>
                 {categoryLabels[cat]}
               </span>
-              {idx < categoryOrder.length - 1 && <span className="text-gray-400">→</span>}
+              {idx < categoryOrder.length - 1 && <span className="text-black">→</span>}
             </div>
           ))}
         </div>
-        <p className="text-xs text-gray-500 mt-2">Higher priority categories always override lower ones. Founder Override always wins.</p>
+        <p className="text-xs text-black mt-2">Higher priority categories always override lower ones. Founder Override always wins.</p>
       </div>
 
       <div className="grid grid-cols-3 gap-6">
@@ -137,7 +137,7 @@ export default function RulesPrecedencePage() {
           <div className="bg-white rounded-xl border">
             <div className="p-4 border-b">
               <h2 className="font-semibold">All System Rules</h2>
-              <p className="text-xs text-gray-500">Drag within category to reorder priority</p>
+              <p className="text-xs text-black">Drag within category to reorder priority</p>
             </div>
             <div className="divide-y">
               {categoryOrder.map(category => (
@@ -149,7 +149,7 @@ export default function RulesPrecedencePage() {
                     <div
                       key={rule.id}
                       onClick={() => setSelectedRule(rule)}
-                      className={`p-4 flex items-center gap-4 hover:bg-gray-50 cursor-pointer ${
+                      className={`p-4 flex items-center gap-4 hover:bg-white cursor-pointer ${
                         selectedRule?.id === rule.id ? 'bg-purple-50' : ''
                       } ${rule.status === 'conflict' ? 'bg-red-50' : ''}`}
                     >
@@ -157,11 +157,11 @@ export default function RulesPrecedencePage() {
                       <div className="flex flex-col gap-1">
                         <button
                           onClick={(e) => { e.stopPropagation(); moveRule(rule.id, 'up'); }}
-                          className="text-gray-400 hover:text-gray-600 text-xs"
+                          className="text-black hover:text-black text-xs"
                         >▲</button>
                         <button
                           onClick={(e) => { e.stopPropagation(); moveRule(rule.id, 'down'); }}
-                          className="text-gray-400 hover:text-gray-600 text-xs"
+                          className="text-black hover:text-black text-xs"
                         >▼</button>
                       </div>
 
@@ -173,10 +173,10 @@ export default function RulesPrecedencePage() {
                             <span className="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded">CONFLICT</span>
                           )}
                           {rule.status === 'suspended' && (
-                            <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">SUSPENDED</span>
+                            <span className="text-xs bg-white text-black px-2 py-0.5 rounded">SUSPENDED</span>
                           )}
                         </div>
-                        <p className="text-xs text-gray-500 mt-0.5">{rule.description}</p>
+                        <p className="text-xs text-black mt-0.5">{rule.description}</p>
                         {rule.conflictsWith && (
                           <p className="text-xs text-red-600 mt-1">⚠️ Conflicts with: {rule.conflictsWith}</p>
                         )}
@@ -186,7 +186,7 @@ export default function RulesPrecedencePage() {
                       <button
                         onClick={(e) => { e.stopPropagation(); toggleRule(rule.id); }}
                         className={`w-12 h-6 rounded-full transition-colors relative ${
-                          rule.status === 'active' ? 'bg-green-500' : 'bg-gray-300'
+                          rule.status === 'active' ? 'bg-green-500' : 'bg-white'
                         }`}
                       >
                         <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${
@@ -213,19 +213,19 @@ export default function RulesPrecedencePage() {
               </div>
               <div className="p-4 space-y-4">
                 <div>
-                  <label className="text-xs text-gray-500">Description</label>
+                  <label className="text-xs text-black">Description</label>
                   <p className="text-sm">{selectedRule.description}</p>
                 </div>
                 <div>
-                  <label className="text-xs text-gray-500">Priority</label>
+                  <label className="text-xs text-black">Priority</label>
                   <p className="text-sm font-medium">#{selectedRule.priority}</p>
                 </div>
                 <div>
-                  <label className="text-xs text-gray-500">Status</label>
+                  <label className="text-xs text-black">Status</label>
                   <p className={`text-sm font-medium ${
                     selectedRule.status === 'active' ? 'text-green-600' :
                     selectedRule.status === 'conflict' ? 'text-red-600' :
-                    'text-gray-500'
+                    'text-black'
                   }`}>
                     {selectedRule.status.toUpperCase()}
                   </p>
@@ -243,7 +243,7 @@ export default function RulesPrecedencePage() {
                     onClick={() => toggleRule(selectedRule.id)}
                     className={`w-full px-4 py-2 rounded-lg text-sm font-medium ${
                       selectedRule.status === 'active'
-                        ? 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        ? 'bg-white text-black hover:bg-white'
                         : 'bg-green-100 text-green-700 hover:bg-green-200'
                     }`}
                   >
@@ -265,7 +265,7 @@ export default function RulesPrecedencePage() {
             <div className="bg-white rounded-xl border p-8 text-center">
               <span className="text-4xl block mb-3">⚖️</span>
               <h3 className="font-semibold">Select a Rule</h3>
-              <p className="text-sm text-gray-500">Click a rule to view details and actions</p>
+              <p className="text-sm text-black">Click a rule to view details and actions</p>
             </div>
           )}
 

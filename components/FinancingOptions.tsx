@@ -75,8 +75,8 @@ export function FinancingOptions({ amount, onSelect, compact = false }: Financin
     return (
       <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-lg p-4 border border-pink-200">
         <div className="flex items-center justify-between mb-3">
-          <p className="font-medium text-gray-900">💰 Need financing?</p>
-          <p className="text-sm text-gray-600">As low as ${Math.round(amount / 24)}/mo</p>
+          <p className="font-medium text-black">💰 Need financing?</p>
+          <p className="text-sm text-black">As low as ${Math.round(amount / 24)}/mo</p>
         </div>
         <div className="flex gap-2">
           {FINANCING_PROVIDERS.map(provider => (
@@ -96,8 +96,8 @@ export function FinancingOptions({ amount, onSelect, compact = false }: Financin
   return (
     <div className="space-y-4">
       <div className="text-center mb-6">
-        <h3 className="text-lg font-bold text-gray-900">Pay Over Time</h3>
-        <p className="text-gray-600">Split your ${amount.toLocaleString()} into easy monthly payments</p>
+        <h3 className="text-lg font-bold text-black">Pay Over Time</h3>
+        <p className="text-black">Split your ${amount.toLocaleString()} into easy monthly payments</p>
       </div>
 
       <div className="space-y-3">
@@ -116,19 +116,19 @@ export function FinancingOptions({ amount, onSelect, compact = false }: Financin
                 <span className="text-2xl">{provider.logo}</span>
                 <div className="text-left">
                   <p className={`font-bold ${provider.color}`}>{provider.name}</p>
-                  <p className="text-sm text-gray-600">{provider.description}</p>
+                  <p className="text-sm text-black">{provider.description}</p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-lg font-bold text-gray-900">{provider.monthlyEstimate(amount)}</p>
-                <p className="text-xs text-gray-500">{provider.terms}</p>
+                <p className="text-lg font-bold text-black">{provider.monthlyEstimate(amount)}</p>
+                <p className="text-xs text-black">{provider.terms}</p>
               </div>
             </div>
           </button>
         ))}
       </div>
 
-      <p className="text-xs text-center text-gray-500 mt-4">
+      <p className="text-xs text-center text-black mt-4">
         Clicking will open the financing application in a new window.
         Approval subject to credit check by financing provider.
       </p>
@@ -144,7 +144,7 @@ export function FinancingButton({ amount }: { amount: number }) {
     <>
       <button
         onClick={() => setShowModal(true)}
-        className="w-full py-3 px-4 bg-gradient-to-r from-pink-100 to-purple-100 text-gray-800 font-medium rounded-xl border border-pink-200 hover:from-pink-200 hover:to-purple-200 transition-colors"
+        className="w-full py-3 px-4 bg-gradient-to-r from-pink-100 to-purple-100 text-black font-medium rounded-xl border border-pink-200 hover:from-pink-200 hover:to-purple-200 transition-colors"
       >
         💰 Pay Over Time - As low as ${Math.round(amount / 24)}/mo
       </button>
@@ -156,7 +156,7 @@ export function FinancingButton({ amount }: { amount: number }) {
               <h2 className="text-xl font-bold">Financing Options</h2>
               <button
                 onClick={() => setShowModal(false)}
-                className="text-gray-400 hover:text-gray-600 text-2xl"
+                className="text-black hover:text-black text-2xl"
               >
                 ×
               </button>

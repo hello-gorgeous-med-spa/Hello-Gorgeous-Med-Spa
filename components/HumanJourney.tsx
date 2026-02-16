@@ -72,7 +72,7 @@ export function HumanJourney() {
               commit
             </span>
           </h1>
-          <p className="mt-6 text-xl text-gray-300 max-w-2xl leading-relaxed">
+          <p className="mt-6 text-xl text-black max-w-2xl leading-relaxed">
             A short, human-first flow led by Peppi tone. No medical advice. No pressure. Just clarity.
           </p>
         </FadeUp>
@@ -86,7 +86,7 @@ export function HumanJourney() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="flex items-center gap-3 p-3 rounded-xl border border-gray-800 hover:border-hg-pink/40 hover:bg-hg-pink/5 transition-all duration-300 ease-out hover:-translate-y-[2px] group"
+                  className="flex items-center gap-3 p-3 rounded-xl border border-black hover:border-hg-pink/40 hover:bg-hg-pink/5 transition-all duration-300 ease-out hover:-translate-y-[2px] group"
                 >
                   <span className="text-xl group-hover:scale-110 transition-transform">{link.icon}</span>
                   <span className="text-sm font-medium text-white group-hover:text-pink-400 truncate">{link.label}</span>
@@ -114,7 +114,7 @@ export function HumanJourney() {
                   <textarea
                     value={answers.bother}
                     onChange={(e) => setAnswers((p) => ({ ...p, bother: e.target.value }))}
-                    className="w-full min-h-[88px] rounded-xl bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                    className="w-full min-h-[88px] rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                     placeholder="Example: my forehead lines, feeling less like myself, dull skin…"
                   />
                 </div>
@@ -132,7 +132,7 @@ export function HumanJourney() {
                           changeStyle: e.target.value as ConfidenceCheckAnswer["changeStyle"],
                         }))
                       }
-                      className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                      className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                     >
                       <option value="subtle">Subtle</option>
                       <option value="noticeable">Noticeable</option>
@@ -148,7 +148,7 @@ export function HumanJourney() {
                       onChange={(e) =>
                         setAnswers((p) => ({ ...p, firstTime: e.target.value as ConfidenceCheckAnswer["firstTime"] }))
                       }
-                      className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                      className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                     >
                       <option value="yes">Yes</option>
                       <option value="no">No</option>
@@ -167,7 +167,7 @@ export function HumanJourney() {
                       onChange={(e) =>
                         setAnswers((p) => ({ ...p, timeframe: e.target.value as ConfidenceCheckAnswer["timeframe"] }))
                       }
-                      className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                      className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                     >
                       <option value="asap">ASAP</option>
                       <option value="2-4weeks">2–4 weeks</option>
@@ -187,7 +187,7 @@ export function HumanJourney() {
                           downtimeComfort: e.target.value as ConfidenceCheckAnswer["downtimeComfort"],
                         }))
                       }
-                      className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                      className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                     >
                       <option value="low">Low</option>
                       <option value="medium">Medium</option>
@@ -209,7 +209,7 @@ export function HumanJourney() {
                         decisionStyle: e.target.value as ConfidenceCheckAnswer["decisionStyle"],
                       }))
                     }
-                    className="rounded-xl bg-black border border-gray-800 px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                    className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   >
                     <option value="i-need-guidance">I need guidance</option>
                     <option value="i-just-want-options">I want options</option>

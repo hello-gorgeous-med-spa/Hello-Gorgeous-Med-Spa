@@ -119,7 +119,7 @@ export function ReferralContent() {
             </span>
           </h1>
 
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-8">
+          <p className="text-xl text-black max-w-2xl mx-auto mb-8">
             Share the glow! Refer a friend to Hello Gorgeous Med Spa and you&apos;ll{" "}
             <span className="text-white font-semibold">BOTH</span> receive $25 off your next service.
           </p>
@@ -170,7 +170,7 @@ export function ReferralContent() {
                   {item.icon}
                 </div>
                 <h3 className="text-white font-bold mb-2">{item.title}</h3>
-                <p className="text-gray-400 text-sm">{item.description}</p>
+                <p className="text-black text-sm">{item.description}</p>
               </div>
             ))}
           </div>
@@ -184,7 +184,7 @@ export function ReferralContent() {
             <h2 className="text-3xl font-bold text-white mb-4">
               Refer a Friend Now
             </h2>
-            <p className="text-gray-400">
+            <p className="text-black">
               Fill out the form below and we&apos;ll send your friend an invitation with the referral offer.
             </p>
           </div>
@@ -262,7 +262,7 @@ export function ReferralContent() {
                 {isSubmitting ? "Sending..." : "💝 Send Referral Invite"}
               </button>
 
-              <p className="text-center text-gray-500 text-xs mt-4">
+              <p className="text-center text-black text-xs mt-4">
                 Your friend will receive an email with the referral offer. 
                 $25 credits are applied after their first visit.
               </p>
@@ -271,7 +271,7 @@ export function ReferralContent() {
             <div className="p-6 rounded-3xl bg-gradient-to-br from-pink-500/20 to-fuchsia-500/20 border border-pink-500/30 text-center">
               <span className="text-5xl mb-4 block">🎉</span>
               <h3 className="text-2xl font-bold text-white mb-2">Referral Sent!</h3>
-              <p className="text-gray-300 mb-6">
+              <p className="text-black mb-6">
                 We&apos;ve sent an invitation to <span className="text-pink-400 font-semibold">{friendName}</span>. 
                 You&apos;ll both receive $25 off after their first visit!
               </p>
@@ -317,7 +317,7 @@ export function ReferralContent() {
               >
                 <span className="text-3xl mb-3 block">{benefit.icon}</span>
                 <h3 className="text-white font-bold mb-1">{benefit.title}</h3>
-                <p className="text-gray-400 text-sm">{benefit.desc}</p>
+                <p className="text-black text-sm">{benefit.desc}</p>
               </div>
             ))}
           </div>
@@ -331,7 +331,7 @@ export function ReferralContent() {
             <h2 className="text-3xl font-bold text-white mb-4">
               Popular Services to Try
             </h2>
-            <p className="text-gray-400">
+            <p className="text-black">
               Use your $25 credit toward any of these amazing treatments
             </p>
           </div>
@@ -368,7 +368,7 @@ export function ReferralContent() {
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
             Start Sharing, Start Saving!
           </h2>
-          <p className="text-gray-400 mb-8">
+          <p className="text-black mb-8">
             There&apos;s no limit to how many friends you can refer. The more you share, the more you save!
           </p>
           <button
@@ -387,7 +387,7 @@ export function ReferralContent() {
             <h3 className="text-xl font-bold text-white mb-2">
               New to Hello Gorgeous?
             </h3>
-            <p className="text-gray-400 mb-4">
+            <p className="text-black mb-4">
               Get a FREE vitamin injection (up to $65 value) just for subscribing!
             </p>
             <Link

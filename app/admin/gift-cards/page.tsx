@@ -12,7 +12,7 @@ import { useToast } from '@/components/ui/Toast';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-white rounded ${className}`} />;
 }
 
 export default function GiftCardsPage() {
@@ -209,8 +209,8 @@ export default function GiftCardsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Gift Cards</h1>
-          <p className="text-gray-500">Sell, track, and redeem gift cards</p>
+          <h1 className="text-2xl font-bold text-black">Gift Cards</h1>
+          <p className="text-black">Sell, track, and redeem gift cards</p>
         </div>
         <div className="flex items-center gap-3">
           <ExportButton
@@ -220,7 +220,7 @@ export default function GiftCardsPage() {
           />
           <button
             onClick={() => setShowRedeemModal(true)}
-            className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            className="px-4 py-2 border border-black text-black font-medium rounded-lg hover:bg-white transition-colors"
           >
             Redeem Card
           </button>
@@ -242,38 +242,38 @@ export default function GiftCardsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Active Cards</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Active Cards</p>
           {loading ? (
             <Skeleton className="h-8 w-16 mt-1" />
           ) : (
-            <p className="text-2xl font-bold text-gray-900">
+            <p className="text-2xl font-bold text-black">
               {giftCards.filter(gc => gc.status === 'active').length}
             </p>
           )}
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Outstanding Balance</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Outstanding Balance</p>
           {loading ? (
             <Skeleton className="h-8 w-24 mt-1" />
           ) : (
             <p className="text-2xl font-bold text-amber-600">${totalLiability.toLocaleString()}</p>
           )}
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Total Sold</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Total Sold</p>
           {loading ? (
             <Skeleton className="h-8 w-24 mt-1" />
           ) : (
             <p className="text-2xl font-bold text-green-600">${totalSold.toLocaleString()}</p>
           )}
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Redeemed</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Redeemed</p>
           {loading ? (
             <Skeleton className="h-8 w-16 mt-1" />
           ) : (
-            <p className="text-2xl font-bold text-gray-600">
+            <p className="text-2xl font-bold text-black">
               {giftCards.filter(gc => gc.status === 'redeemed').length}
             </p>
           )}
@@ -288,13 +288,13 @@ export default function GiftCardsPage() {
             placeholder="Search by code or recipient..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+            className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
           />
         </div>
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
-          className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+          className="px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
         >
           <option value="all">All Status</option>
           <option value="active">Active</option>
@@ -304,17 +304,17 @@ export default function GiftCardsPage() {
       </div>
 
       {/* Gift Cards Table */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-100">
+            <thead className="bg-white border-b border-black">
               <tr>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Code</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Recipient</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Initial</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Balance</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Status</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Expires</th>
+                <th className="text-left px-5 py-3 text-sm font-semibold text-black">Code</th>
+                <th className="text-left px-5 py-3 text-sm font-semibold text-black">Recipient</th>
+                <th className="text-left px-5 py-3 text-sm font-semibold text-black">Initial</th>
+                <th className="text-left px-5 py-3 text-sm font-semibold text-black">Balance</th>
+                <th className="text-left px-5 py-3 text-sm font-semibold text-black">Status</th>
+                <th className="text-left px-5 py-3 text-sm font-semibold text-black">Expires</th>
                 <th className="px-5 py-3"></th>
               </tr>
             </thead>
@@ -337,7 +337,7 @@ export default function GiftCardsPage() {
                     {giftCards.length === 0 ? (
                       <NoDataEmptyState type="gift cards" />
                     ) : (
-                      <div className="text-center py-8 text-gray-500">
+                      <div className="text-center py-8 text-black">
                         No gift cards match your search
                         <br />
                         <button
@@ -352,28 +352,28 @@ export default function GiftCardsPage() {
                 </tr>
               ) : (
                 filteredCards.map((gc) => (
-                  <tr key={gc.id} className="hover:bg-gray-50">
+                  <tr key={gc.id} className="hover:bg-white">
                     <td className="px-5 py-3">
-                      <span className="font-mono text-sm text-gray-900">{gc.code}</span>
+                      <span className="font-mono text-sm text-black">{gc.code}</span>
                     </td>
                     <td className="px-5 py-3">
-                      <p className="text-gray-900">{gc.recipient_name || '-'}</p>
+                      <p className="text-black">{gc.recipient_name || '-'}</p>
                       {gc.recipient_email && (
-                        <p className="text-sm text-gray-500">{gc.recipient_email}</p>
+                        <p className="text-sm text-black">{gc.recipient_email}</p>
                       )}
                     </td>
-                    <td className="px-5 py-3 text-gray-900">${gc.initial_amount || 0}</td>
+                    <td className="px-5 py-3 text-black">${gc.initial_amount || 0}</td>
                     <td className="px-5 py-3 font-semibold text-green-600">${gc.current_balance || 0}</td>
                     <td className="px-5 py-3">
                       <span className={`px-2 py-1 text-xs rounded-full ${
                         gc.status === 'active' ? 'bg-green-100 text-green-700' :
-                        gc.status === 'redeemed' ? 'bg-gray-100 text-gray-600' :
+                        gc.status === 'redeemed' ? 'bg-white text-black' :
                         'bg-red-100 text-red-700'
                       }`}>
                         {gc.status}
                       </span>
                     </td>
-                    <td className="px-5 py-3 text-gray-600">
+                    <td className="px-5 py-3 text-black">
                       {gc.expires_at ? new Date(gc.expires_at).toLocaleDateString() : '-'}
                     </td>
                     <td className="px-5 py-3">
@@ -392,7 +392,7 @@ export default function GiftCardsPage() {
                         {gc.status === 'active' && (
                           <button 
                             onClick={() => handleVoidCard(gc)}
-                            className="px-2 py-1 text-sm text-gray-400 hover:text-red-600 hover:bg-red-50 rounded"
+                            className="px-2 py-1 text-sm text-black hover:text-red-600 hover:bg-red-50 rounded"
                           >
                             Void
                           </button>
@@ -411,19 +411,19 @@ export default function GiftCardsPage() {
       {showSellModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">Create Gift Card</h2>
+            <div className="p-6 border-b border-black">
+              <h2 className="text-xl font-bold text-black">Create Gift Card</h2>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Amount *</label>
+                <label className="block text-sm font-medium text-black mb-1">Amount *</label>
                 <div className="flex gap-2">
                   {[25, 50, 100, 150, 200].map(amt => (
                     <button
                       key={amt}
                       type="button"
                       onClick={() => setCreateForm({...createForm, initial_amount: amt})}
-                      className={`px-3 py-2 rounded-lg border ${createForm.initial_amount === amt ? 'border-pink-500 bg-pink-50 text-pink-700' : 'border-gray-200 text-gray-700'}`}
+                      className={`px-3 py-2 rounded-lg border ${createForm.initial_amount === amt ? 'border-pink-500 bg-pink-50 text-pink-700' : 'border-black text-black'}`}
                     >
                       ${amt}
                     </button>
@@ -433,15 +433,15 @@ export default function GiftCardsPage() {
                   type="number"
                   value={createForm.initial_amount}
                   onChange={(e) => setCreateForm({...createForm, initial_amount: parseInt(e.target.value) || 0})}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg mt-2"
+                  className="w-full px-4 py-2 border border-black rounded-lg mt-2"
                   placeholder="Custom amount"
                 />
               </div>
 
               {/* Client Selector */}
               <div className="relative">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Link to Client Profile <span className="text-gray-400 font-normal">(optional)</span>
+                <label className="block text-sm font-medium text-black mb-1">
+                  Link to Client Profile <span className="text-black font-normal">(optional)</span>
                 </label>
                 {selectedClient ? (
                   <div className="flex items-center justify-between p-3 bg-purple-50 border border-purple-200 rounded-lg">
@@ -450,8 +450,8 @@ export default function GiftCardsPage() {
                         {selectedClient.first_name?.[0]}{selectedClient.last_name?.[0]}
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">{selectedClient.first_name} {selectedClient.last_name}</p>
-                        <p className="text-sm text-gray-500">{selectedClient.email || selectedClient.phone}</p>
+                        <p className="font-medium text-black">{selectedClient.first_name} {selectedClient.last_name}</p>
+                        <p className="text-sm text-black">{selectedClient.email || selectedClient.phone}</p>
                       </div>
                     </div>
                     <button
@@ -460,7 +460,7 @@ export default function GiftCardsPage() {
                         setSelectedClient(null);
                         setCreateForm({...createForm, recipient_client_id: '', recipient_name: '', recipient_email: ''});
                       }}
-                      className="text-gray-400 hover:text-gray-600"
+                      className="text-black hover:text-black"
                     >
                       ✕
                     </button>
@@ -475,11 +475,11 @@ export default function GiftCardsPage() {
                         setShowClientDropdown(true);
                       }}
                       onFocus={() => setShowClientDropdown(true)}
-                      className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                      className="w-full px-4 py-2 border border-black rounded-lg"
                       placeholder="Search clients by name or email..."
                     />
                     {showClientDropdown && clients.length > 0 && (
-                      <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-48 overflow-y-auto">
+                      <div className="absolute z-10 w-full mt-1 bg-white border border-black rounded-lg shadow-lg max-h-48 overflow-y-auto">
                         {clients.map((client) => (
                           <button
                             key={client.id}
@@ -495,72 +495,72 @@ export default function GiftCardsPage() {
                               setShowClientDropdown(false);
                               setClientSearch('');
                             }}
-                            className="w-full px-4 py-3 text-left hover:bg-gray-50 flex items-center gap-3 border-b border-gray-100 last:border-0"
+                            className="w-full px-4 py-3 text-left hover:bg-white flex items-center gap-3 border-b border-black last:border-0"
                           >
                             <div className="w-8 h-8 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-medium">
                               {client.first_name?.[0]}{client.last_name?.[0]}
                             </div>
                             <div>
-                              <p className="font-medium text-gray-900">{client.first_name} {client.last_name}</p>
-                              <p className="text-sm text-gray-500">{client.email || client.phone}</p>
+                              <p className="font-medium text-black">{client.first_name} {client.last_name}</p>
+                              <p className="text-sm text-black">{client.email || client.phone}</p>
                             </div>
                           </button>
                         ))}
                       </div>
                     )}
                     {showClientDropdown && clientSearch && clients.length === 0 && (
-                      <div className="absolute z-10 w-full mt-1 bg-white border border-gray-200 rounded-lg shadow-lg p-4 text-center text-gray-500">
+                      <div className="absolute z-10 w-full mt-1 bg-white border border-black rounded-lg shadow-lg p-4 text-center text-black">
                         No clients found
                       </div>
                     )}
                   </>
                 )}
-                <p className="text-xs text-gray-400 mt-1">Card will appear in their profile's Payments tab</p>
+                <p className="text-xs text-black mt-1">Card will appear in their profile's Payments tab</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Recipient Name</label>
+                <label className="block text-sm font-medium text-black mb-1">Recipient Name</label>
                 <input
                   type="text"
                   value={createForm.recipient_name}
                   onChange={(e) => setCreateForm({...createForm, recipient_name: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="Who is this for?"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Recipient Email</label>
+                <label className="block text-sm font-medium text-black mb-1">Recipient Email</label>
                 <input
                   type="email"
                   value={createForm.recipient_email}
                   onChange={(e) => setCreateForm({...createForm, recipient_email: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="Email to send gift card code"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Purchaser Name</label>
+                <label className="block text-sm font-medium text-black mb-1">Purchaser Name</label>
                 <input
                   type="text"
                   value={createForm.purchaser_name}
                   onChange={(e) => setCreateForm({...createForm, purchaser_name: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="Who purchased this?"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Message (optional)</label>
+                <label className="block text-sm font-medium text-black mb-1">Message (optional)</label>
                 <textarea
                   value={createForm.message}
                   onChange={(e) => setCreateForm({...createForm, message: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   rows={2}
                   placeholder="Personal message..."
                 />
               </div>
             </div>
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
-              <button onClick={() => setShowSellModal(false)} className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg">Cancel</button>
+            <div className="p-6 border-t border-black flex justify-end gap-3">
+              <button onClick={() => setShowSellModal(false)} className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg">Cancel</button>
               <button
                 onClick={handleCreateGiftCard}
                 disabled={saving || createForm.initial_amount <= 0}
@@ -577,34 +577,34 @@ export default function GiftCardsPage() {
       {showRedeemModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">Redeem Gift Card</h2>
+            <div className="p-6 border-b border-black">
+              <h2 className="text-xl font-bold text-black">Redeem Gift Card</h2>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Gift Card Code *</label>
+                <label className="block text-sm font-medium text-black mb-1">Gift Card Code *</label>
                 <input
                   type="text"
                   value={redeemForm.code}
                   onChange={(e) => setRedeemForm({...redeemForm, code: e.target.value.toUpperCase()})}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg font-mono"
+                  className="w-full px-4 py-2 border border-black rounded-lg font-mono"
                   placeholder="HG-XXXXXXXX"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Amount to Redeem *</label>
+                <label className="block text-sm font-medium text-black mb-1">Amount to Redeem *</label>
                 <input
                   type="number"
                   step="0.01"
                   value={redeemForm.amount || ''}
                   onChange={(e) => setRedeemForm({...redeemForm, amount: parseFloat(e.target.value) || 0})}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="0.00"
                 />
               </div>
             </div>
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
-              <button onClick={() => setShowRedeemModal(false)} className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg">Cancel</button>
+            <div className="p-6 border-t border-black flex justify-end gap-3">
+              <button onClick={() => setShowRedeemModal(false)} className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg">Cancel</button>
               <button
                 onClick={handleRedeemGiftCard}
                 disabled={saving || !redeemForm.code || redeemForm.amount <= 0}

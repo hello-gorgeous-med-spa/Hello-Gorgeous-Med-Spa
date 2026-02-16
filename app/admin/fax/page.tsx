@@ -28,8 +28,8 @@ export default function FaxPage() {
     <div className="p-6 max-w-6xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">eFax Center</h1>
-        <p className="text-gray-600 mt-1">Send and receive faxes digitally - no fax machine needed</p>
+        <h1 className="text-3xl font-bold text-black">eFax Center</h1>
+        <p className="text-black mt-1">Send and receive faxes digitally - no fax machine needed</p>
       </div>
 
       {/* Quick Actions */}
@@ -54,11 +54,11 @@ export default function FaxPage() {
           className="bg-white border-2 border-pink-200 hover:border-pink-400 rounded-2xl p-6 transition-colors group"
         >
           <div className="flex items-center justify-between mb-4">
-            <span className="text-gray-600">Send a Fax</span>
+            <span className="text-black">Send a Fax</span>
             <span className="text-2xl group-hover:scale-110 transition-transform">📤</span>
           </div>
-          <div className="text-xl font-bold text-gray-900">Compose New Fax</div>
-          <p className="text-gray-500 text-sm mt-2">
+          <div className="text-xl font-bold text-black">Compose New Fax</div>
+          <p className="text-black text-sm mt-2">
             Upload a document and send via eFax
           </p>
         </a>
@@ -71,11 +71,11 @@ export default function FaxPage() {
           className="bg-white border-2 border-blue-200 hover:border-blue-400 rounded-2xl p-6 transition-colors group"
         >
           <div className="flex items-center justify-between mb-4">
-            <span className="text-gray-600">Fax Inbox</span>
+            <span className="text-black">Fax Inbox</span>
             <span className="text-2xl group-hover:scale-110 transition-transform">📥</span>
           </div>
-          <div className="text-xl font-bold text-gray-900">View Received Faxes</div>
-          <p className="text-gray-500 text-sm mt-2">
+          <div className="text-xl font-bold text-black">View Received Faxes</div>
+          <p className="text-black text-sm mt-2">
             Check incoming faxes in your eFax inbox
           </p>
         </a>
@@ -85,8 +85,8 @@ export default function FaxPage() {
       <div className="bg-white rounded-2xl border p-6 mb-8">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-xl font-bold text-gray-900">eFax Portal</h2>
-            <p className="text-gray-500">Access your full eFax dashboard</p>
+            <h2 className="text-xl font-bold text-black">eFax Portal</h2>
+            <p className="text-black">Access your full eFax dashboard</p>
           </div>
           <a
             href={EFAX_CONFIG.loginUrl}
@@ -98,15 +98,15 @@ export default function FaxPage() {
           </a>
         </div>
 
-        <div className="bg-gray-50 rounded-xl p-4">
-          <h3 className="font-medium text-gray-700 mb-2">Quick Login Info</h3>
+        <div className="bg-white rounded-xl p-4">
+          <h3 className="font-medium text-black mb-2">Quick Login Info</h3>
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <span className="text-gray-500">Account/Fax Number:</span>
+              <span className="text-black">Account/Fax Number:</span>
               <span className="ml-2 font-mono bg-white px-2 py-1 rounded">{EFAX_CONFIG.accountId}</span>
             </div>
             <div>
-              <span className="text-gray-500">Login URL:</span>
+              <span className="text-black">Login URL:</span>
               <a href={EFAX_CONFIG.loginUrl} target="_blank" rel="noopener noreferrer" className="ml-2 text-pink-600 hover:underline">
                 efax.com/login
               </a>
@@ -117,14 +117,14 @@ export default function FaxPage() {
 
       {/* How It Works */}
       <div className="bg-white rounded-2xl border p-6 mb-8">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">How eFax Works</h2>
+        <h2 className="text-xl font-bold text-black mb-4">How eFax Works</h2>
         <div className="grid md:grid-cols-2 gap-6">
           <div>
-            <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+            <h3 className="font-semibold text-black mb-3 flex items-center gap-2">
               <span className="w-8 h-8 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-sm font-bold">1</span>
               Receiving Faxes
             </h3>
-            <ul className="space-y-2 text-gray-600 ml-10">
+            <ul className="space-y-2 text-black ml-10">
               <li>• Share your fax number: <strong>{EFAX_CONFIG.faxNumber}</strong></li>
               <li>• Faxes arrive as PDFs in your eFax inbox</li>
               <li>• Get email notifications for new faxes</li>
@@ -132,11 +132,11 @@ export default function FaxPage() {
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+            <h3 className="font-semibold text-black mb-3 flex items-center gap-2">
               <span className="w-8 h-8 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-sm font-bold">2</span>
               Sending Faxes
             </h3>
-            <ul className="space-y-2 text-gray-600 ml-10">
+            <ul className="space-y-2 text-black ml-10">
               <li>• Click "Send a Fax" above or use eFax portal</li>
               <li>• Upload PDF, Word, or image files</li>
               <li>• Enter recipient's fax number</li>
@@ -148,22 +148,22 @@ export default function FaxPage() {
 
       {/* Common Med Spa Fax Uses */}
       <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-2xl border border-pink-200 p-6 mb-8">
-        <h2 className="text-xl font-bold text-gray-900 mb-4">Common Med Spa Fax Uses</h2>
+        <h2 className="text-xl font-bold text-black mb-4">Common Med Spa Fax Uses</h2>
         <div className="grid md:grid-cols-3 gap-4">
           <div className="bg-white rounded-xl p-4">
             <div className="text-2xl mb-2">📋</div>
-            <h3 className="font-semibold text-gray-800">Medical Records</h3>
-            <p className="text-sm text-gray-600">Send/receive patient records securely via fax for HIPAA compliance</p>
+            <h3 className="font-semibold text-black">Medical Records</h3>
+            <p className="text-sm text-black">Send/receive patient records securely via fax for HIPAA compliance</p>
           </div>
           <div className="bg-white rounded-xl p-4">
             <div className="text-2xl mb-2">💊</div>
-            <h3 className="font-semibold text-gray-800">Prescriptions</h3>
-            <p className="text-sm text-gray-600">Fax prescriptions to pharmacies or receive orders from physicians</p>
+            <h3 className="font-semibold text-black">Prescriptions</h3>
+            <p className="text-sm text-black">Fax prescriptions to pharmacies or receive orders from physicians</p>
           </div>
           <div className="bg-white rounded-xl p-4">
             <div className="text-2xl mb-2">📑</div>
-            <h3 className="font-semibold text-gray-800">Insurance & Referrals</h3>
-            <p className="text-sm text-gray-600">Process insurance paperwork and receive referrals from other providers</p>
+            <h3 className="font-semibold text-black">Insurance & Referrals</h3>
+            <p className="text-sm text-black">Process insurance paperwork and receive referrals from other providers</p>
           </div>
         </div>
       </div>
@@ -171,7 +171,7 @@ export default function FaxPage() {
       {/* Recent Activity (Placeholder) */}
       <div className="bg-white rounded-2xl border p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-gray-900">Recent Fax Activity</h2>
+          <h2 className="text-xl font-bold text-black">Recent Fax Activity</h2>
           <a
             href={EFAX_CONFIG.inboxUrl}
             target="_blank"
@@ -181,12 +181,12 @@ export default function FaxPage() {
             View All in eFax →
           </a>
         </div>
-        <p className="text-gray-500 text-sm mb-4">
+        <p className="text-black text-sm mb-4">
           To view your complete fax history, log in to your eFax portal.
         </p>
-        <div className="bg-gray-50 rounded-xl p-8 text-center">
+        <div className="bg-white rounded-xl p-8 text-center">
           <div className="text-4xl mb-3">📠</div>
-          <p className="text-gray-600">Your fax activity appears in the eFax portal</p>
+          <p className="text-black">Your fax activity appears in the eFax portal</p>
           <a
             href={EFAX_CONFIG.loginUrl}
             target="_blank"

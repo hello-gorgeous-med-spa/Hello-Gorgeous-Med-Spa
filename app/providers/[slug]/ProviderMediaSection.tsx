@@ -46,7 +46,7 @@ export function ProviderMediaSection({ media, type }: Props) {
               className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
                 selectedTag === tag
                   ? 'bg-pink-500 text-white'
-                  : 'bg-white border border-pink-200 text-gray-700 hover:border-pink-400'
+                  : 'bg-white border border-pink-200 text-black hover:border-pink-400'
               }`}
             >
               {tag === 'all' ? 'All' : tag.replace(/-/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase())}
@@ -64,7 +64,7 @@ export function ProviderMediaSection({ media, type }: Props) {
             className="cursor-pointer group"
           >
             {type === 'video' ? (
-              <div className="relative aspect-video bg-gray-100 rounded-xl overflow-hidden">
+              <div className="relative aspect-video bg-white rounded-xl overflow-hidden">
                 {item.video_thumbnail_url ? (
                   <Image
                     src={item.video_thumbnail_url}
@@ -90,7 +90,7 @@ export function ProviderMediaSection({ media, type }: Props) {
                 )}
               </div>
             ) : (
-              <div className="relative aspect-square bg-gray-100 rounded-xl overflow-hidden">
+              <div className="relative aspect-square bg-white rounded-xl overflow-hidden">
                 {/* Before/After Preview */}
                 <div className="absolute inset-0 grid grid-cols-2">
                   <div className="relative">
@@ -132,7 +132,7 @@ export function ProviderMediaSection({ media, type }: Props) {
               </div>
             )}
             {item.title && (
-              <h3 className="mt-3 font-medium text-gray-900">{item.title}</h3>
+              <h3 className="mt-3 font-medium text-black">{item.title}</h3>
             )}
             {item.service_tag && (
               <span className="inline-block mt-1 px-2 py-0.5 bg-pink-100 text-pink-700 text-xs rounded">
@@ -144,7 +144,7 @@ export function ProviderMediaSection({ media, type }: Props) {
       </div>
 
       {filtered.length === 0 && (
-        <p className="text-center text-gray-500 py-8">
+        <p className="text-center text-black py-8">
           No {type === 'video' ? 'videos' : 'results'} available for this filter
         </p>
       )}
@@ -184,10 +184,10 @@ export function ProviderMediaSection({ media, type }: Props) {
             {/* Info */}
             <div className="p-6">
               {selectedMedia.title && (
-                <h3 className="text-xl font-bold text-gray-900">{selectedMedia.title}</h3>
+                <h3 className="text-xl font-bold text-black">{selectedMedia.title}</h3>
               )}
               {selectedMedia.description && (
-                <p className="mt-2 text-gray-600">{selectedMedia.description}</p>
+                <p className="mt-2 text-black">{selectedMedia.description}</p>
               )}
               {selectedMedia.service_tag && (
                 <span className="inline-block mt-3 px-3 py-1 bg-pink-100 text-pink-700 text-sm rounded-full">
@@ -196,7 +196,7 @@ export function ProviderMediaSection({ media, type }: Props) {
               )}
               <button
                 onClick={() => setSelectedMedia(null)}
-                className="mt-6 w-full py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors"
+                className="mt-6 w-full py-3 bg-white text-black rounded-xl hover:bg-white transition-colors"
               >
                 Close
               </button>

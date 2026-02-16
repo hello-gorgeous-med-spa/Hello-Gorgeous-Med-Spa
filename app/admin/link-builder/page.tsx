@@ -223,13 +223,13 @@ export default function LinkBuilderPage() {
     <div className="p-6 max-w-5xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+        <div className="flex items-center gap-2 text-sm text-black mb-2">
           <Link href="/admin" className="hover:text-pink-600">Admin</Link>
           <span>/</span>
           <span>Link Builder</span>
         </div>
-        <h1 className="text-2xl font-bold text-gray-900">Link Builder</h1>
-        <p className="text-gray-600 mt-1">Create shareable links and QR codes for booking</p>
+        <h1 className="text-2xl font-bold text-black">Link Builder</h1>
+        <p className="text-black mt-1">Create shareable links and QR codes for booking</p>
       </div>
 
       {/* Step 1: Select Link Type */}
@@ -239,13 +239,13 @@ export default function LinkBuilderPage() {
             <button
               key={type.id}
               onClick={() => handleSelectType(type.id)}
-              className="bg-white rounded-xl border-2 border-gray-100 p-6 text-left hover:border-pink-300 hover:shadow-lg transition-all group"
+              className="bg-white rounded-xl border-2 border-black p-6 text-left hover:border-pink-300 hover:shadow-lg transition-all group"
             >
               <div className="text-3xl mb-3">{type.icon}</div>
-              <h3 className="font-semibold text-gray-900 group-hover:text-pink-600 transition-colors">
+              <h3 className="font-semibold text-black group-hover:text-pink-600 transition-colors">
                 {type.title}
               </h3>
-              <p className="text-sm text-gray-500 mt-1">{type.description}</p>
+              <p className="text-sm text-black mt-1">{type.description}</p>
               <div className="mt-4 text-pink-600 text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
                 Create link →
               </div>
@@ -258,22 +258,22 @@ export default function LinkBuilderPage() {
       {step === 'customize' && selectedType === 'services' && (
         <div className="space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">Customize your link</h2>
-            <button onClick={reset} className="text-gray-500 hover:text-gray-700 text-sm">
+            <h2 className="text-lg font-semibold text-black">Customize your link</h2>
+            <button onClick={reset} className="text-black hover:text-black text-sm">
               ← Back
             </button>
           </div>
 
           {/* Provider Selection */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <h3 className="font-medium text-gray-900 mb-3">Team Members</h3>
+          <div className="bg-white rounded-xl border border-black p-5">
+            <h3 className="font-medium text-black mb-3">Team Members</h3>
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setSelectedProviders([])}
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                   selectedProviders.length === 0
                     ? 'bg-pink-500 text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                    : 'bg-white text-black hover:bg-white'
                 }`}
               >
                 All team members ({providers.length})
@@ -285,7 +285,7 @@ export default function LinkBuilderPage() {
                   className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                     selectedProviders.includes(provider.id)
                       ? 'bg-pink-500 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      : 'bg-white text-black hover:bg-white'
                   }`}
                 >
                   {provider.name}
@@ -295,14 +295,14 @@ export default function LinkBuilderPage() {
           </div>
 
           {/* Service Selection */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
+          <div className="bg-white rounded-xl border border-black p-5">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-medium text-gray-900">Services</h3>
+              <h3 className="font-medium text-black">Services</h3>
               <div className="flex items-center gap-3">
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  className="px-3 py-2 border border-black rounded-lg text-sm"
                 >
                   <option value="all">All categories</option>
                   {categories.map((cat) => (
@@ -314,24 +314,24 @@ export default function LinkBuilderPage() {
                   placeholder="Search services..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="px-3 py-2 border border-gray-200 rounded-lg text-sm w-48"
+                  className="px-3 py-2 border border-black rounded-lg text-sm w-48"
                 />
               </div>
             </div>
 
-            <div className="border-b border-gray-100 pb-3 mb-3">
+            <div className="border-b border-black pb-3 mb-3">
               <button
                 onClick={selectAllServices}
                 className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                   selectedServices.length === filteredServices.length && filteredServices.length > 0
                     ? 'bg-pink-50 text-pink-700'
-                    : 'hover:bg-gray-50'
+                    : 'hover:bg-white'
                 }`}
               >
                 <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                   selectedServices.length === filteredServices.length && filteredServices.length > 0
                     ? 'border-pink-500 bg-pink-500'
-                    : 'border-gray-300'
+                    : 'border-black'
                 }`}>
                   {selectedServices.length === filteredServices.length && filteredServices.length > 0 && (
                     <span className="text-white text-xs">✓</span>
@@ -349,14 +349,14 @@ export default function LinkBuilderPage() {
                   className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-sm transition-all ${
                     selectedServices.includes(service.id)
                       ? 'bg-pink-50 text-pink-700'
-                      : 'hover:bg-gray-50'
+                      : 'hover:bg-white'
                   }`}
                 >
                   <div className="flex items-center gap-2">
                     <span className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${
                       selectedServices.includes(service.id)
                         ? 'border-pink-500 bg-pink-500'
-                        : 'border-gray-300'
+                        : 'border-black'
                     }`}>
                       {selectedServices.includes(service.id) && (
                         <span className="text-white text-xs">✓</span>
@@ -365,7 +365,7 @@ export default function LinkBuilderPage() {
                     <span>{service.name}</span>
                   </div>
                   {service.price_cents && (
-                    <span className="text-gray-500">
+                    <span className="text-black">
                       ${(service.price_cents / 100).toFixed(0)}
                     </span>
                   )}
@@ -392,14 +392,14 @@ export default function LinkBuilderPage() {
           <div className="text-4xl mb-4">
             {LINK_TYPES.find(t => t.id === selectedType)?.icon}
           </div>
-          <h2 className="text-lg font-semibold text-gray-900 mb-2">
+          <h2 className="text-lg font-semibold text-black mb-2">
             {LINK_TYPES.find(t => t.id === selectedType)?.title}
           </h2>
-          <p className="text-gray-500 mb-6">
+          <p className="text-black mb-6">
             {LINK_TYPES.find(t => t.id === selectedType)?.description}
           </p>
           <div className="flex justify-center gap-3">
-            <button onClick={reset} className="px-4 py-2 text-gray-600 hover:text-gray-800">
+            <button onClick={reset} className="px-4 py-2 text-black hover:text-black">
               ← Back
             </button>
             <button
@@ -419,19 +419,19 @@ export default function LinkBuilderPage() {
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <span className="text-3xl">✓</span>
             </div>
-            <h2 className="text-xl font-semibold text-gray-900">Your link is ready!</h2>
-            <p className="text-gray-500 mt-1">{generatedLink.label}</p>
+            <h2 className="text-xl font-semibold text-black">Your link is ready!</h2>
+            <p className="text-black mt-1">{generatedLink.label}</p>
           </div>
 
           {/* Link Display */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5 mb-6">
-            <label className="text-sm font-medium text-gray-700 mb-2 block">Shareable Link</label>
+          <div className="bg-white rounded-xl border border-black p-5 mb-6">
+            <label className="text-sm font-medium text-black mb-2 block">Shareable Link</label>
             <div className="flex items-center gap-2">
               <input
                 type="text"
                 readOnly
                 value={generatedLink.url}
-                className="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg text-gray-700 text-sm"
+                className="flex-1 px-4 py-3 bg-white border border-black rounded-lg text-black text-sm"
               />
               <button
                 onClick={copyToClipboard}
@@ -448,7 +448,7 @@ export default function LinkBuilderPage() {
             {generatedLink.filters.length > 0 && (
               <div className="mt-3 flex flex-wrap gap-2">
                 {generatedLink.filters.map((filter, i) => (
-                  <span key={i} className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded">
+                  <span key={i} className="px-2 py-1 bg-white text-black text-xs rounded">
                     {filter}
                   </span>
                 ))}
@@ -457,16 +457,16 @@ export default function LinkBuilderPage() {
           </div>
 
           {/* QR Code Placeholder */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5 mb-6 text-center">
-            <label className="text-sm font-medium text-gray-700 mb-3 block">QR Code</label>
-            <div className="w-48 h-48 bg-gray-100 rounded-lg mx-auto flex items-center justify-center">
+          <div className="bg-white rounded-xl border border-black p-5 mb-6 text-center">
+            <label className="text-sm font-medium text-black mb-3 block">QR Code</label>
+            <div className="w-48 h-48 bg-white rounded-lg mx-auto flex items-center justify-center">
               <div className="text-center">
                 <div className="text-4xl mb-2">📱</div>
-                <p className="text-xs text-gray-500">QR Code</p>
-                <p className="text-xs text-gray-400">Scan to book</p>
+                <p className="text-xs text-black">QR Code</p>
+                <p className="text-xs text-black">Scan to book</p>
               </div>
             </div>
-            <p className="text-sm text-gray-500 mt-3">
+            <p className="text-sm text-black mt-3">
               Right-click to save the QR code image
             </p>
           </div>
@@ -475,7 +475,7 @@ export default function LinkBuilderPage() {
           <div className="flex justify-center gap-3">
             <button
               onClick={reset}
-              className="px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-xl hover:bg-gray-50 transition-colors"
+              className="px-6 py-3 border border-black text-black font-medium rounded-xl hover:bg-white transition-colors"
             >
               Create Another Link
             </button>
@@ -483,7 +483,7 @@ export default function LinkBuilderPage() {
               href={generatedLink.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 bg-gray-900 text-white font-medium rounded-xl hover:bg-gray-800 transition-colors"
+              className="px-6 py-3 bg-black text-white font-medium rounded-xl hover:bg-black transition-colors"
             >
               Preview Link ↗
             </a>

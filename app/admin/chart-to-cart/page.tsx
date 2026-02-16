@@ -77,7 +77,7 @@ export default function ChartToCartPage() {
       case 'ready_to_checkout':
         return <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-medium animate-pulse">Ready to Checkout</span>;
       case 'completed':
-        return <span className="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-medium">Completed</span>;
+        return <span className="px-3 py-1 bg-white text-black rounded-full text-xs font-medium">Completed</span>;
       default:
         return null;
     }
@@ -97,7 +97,7 @@ export default function ChartToCartPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
       {/* Hero Header - Clean White & Pink */}
-      <div className="bg-white border-b border-gray-100">
+      <div className="bg-white border-b border-black">
         <div className="max-w-7xl mx-auto px-6 py-10">
           <div className="flex items-center justify-between">
             <div>
@@ -106,11 +106,11 @@ export default function ChartToCartPage() {
                   <span className="text-2xl">🛒</span>
                 </div>
                 <div>
-                  <h1 className="text-3xl font-bold text-gray-900">Chart-to-Cart</h1>
+                  <h1 className="text-3xl font-bold text-black">Chart-to-Cart</h1>
                   <p className="text-pink-600 font-medium">Powered by Square</p>
                 </div>
               </div>
-              <p className="text-lg text-gray-600 max-w-xl">
+              <p className="text-lg text-black max-w-xl">
                 The gap between charting and checkout is where revenue gets lost. 
                 Chart-to-Cart closes that gap automatically.
               </p>
@@ -128,11 +128,11 @@ export default function ChartToCartPage() {
       <div className="max-w-7xl mx-auto px-6 py-8">
         {/* Stats Cards - Floating */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-xl shadow-gray-200/50">
+          <div className="bg-white rounded-2xl border border-black p-6 shadow-xl shadow-gray-200/50">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500 font-medium">Active Sessions</p>
-                <p className="text-4xl font-bold text-gray-900 mt-1">{activeCount}</p>
+                <p className="text-sm text-black font-medium">Active Sessions</p>
+                <p className="text-4xl font-bold text-black mt-1">{activeCount}</p>
                 <p className="text-xs text-blue-600 mt-1">In treatment room</p>
               </div>
               <div className="w-14 h-14 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/30">
@@ -141,10 +141,10 @@ export default function ChartToCartPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-xl shadow-gray-200/50">
+          <div className="bg-white rounded-2xl border border-black p-6 shadow-xl shadow-gray-200/50">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500 font-medium">Ready to Checkout</p>
+                <p className="text-sm text-black font-medium">Ready to Checkout</p>
                 <p className="text-4xl font-bold text-green-600 mt-1">{readyCount}</p>
                 <p className="text-xs text-green-600 mt-1">Awaiting payment</p>
               </div>
@@ -154,11 +154,11 @@ export default function ChartToCartPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-xl shadow-gray-200/50">
+          <div className="bg-white rounded-2xl border border-black p-6 shadow-xl shadow-gray-200/50">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500 font-medium">Today&apos;s Revenue</p>
-                <p className="text-4xl font-bold text-gray-900 mt-1">${todayRevenue.toLocaleString()}</p>
+                <p className="text-sm text-black font-medium">Today&apos;s Revenue</p>
+                <p className="text-4xl font-bold text-black mt-1">${todayRevenue.toLocaleString()}</p>
                 <p className="text-xs text-pink-600 mt-1">From chart-to-cart</p>
               </div>
               <div className="w-14 h-14 bg-gradient-to-br from-pink-400 to-pink-600 rounded-2xl flex items-center justify-center shadow-lg shadow-pink-500/30">
@@ -167,11 +167,11 @@ export default function ChartToCartPage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-gray-100 p-6 shadow-xl shadow-gray-200/50">
+          <div className="bg-white rounded-2xl border border-black p-6 shadow-xl shadow-gray-200/50">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-gray-500 font-medium">Products Charted</p>
-                <p className="text-4xl font-bold text-gray-900 mt-1">{productsUsed}</p>
+                <p className="text-sm text-black font-medium">Products Charted</p>
+                <p className="text-4xl font-bold text-black mt-1">{productsUsed}</p>
                 <p className="text-xs text-purple-600 mt-1">Real-time inventory</p>
               </div>
               <div className="w-14 h-14 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/30">
@@ -187,8 +187,8 @@ export default function ChartToCartPage() {
             <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center text-white mb-3">
               <span className="text-lg">🔄</span>
             </div>
-            <h3 className="font-bold text-gray-900">Treatment to Checkout</h3>
-            <p className="text-sm text-gray-600 mt-1">
+            <h3 className="font-bold text-black">Treatment to Checkout</h3>
+            <p className="text-sm text-black mt-1">
               Chart completes → cart populates → instant checkout. No communication gaps.
             </p>
           </div>
@@ -197,8 +197,8 @@ export default function ChartToCartPage() {
             <div className="w-10 h-10 bg-green-500 rounded-xl flex items-center justify-center text-white mb-3">
               <span className="text-lg">✓</span>
             </div>
-            <h3 className="font-bold text-gray-900">What&apos;s Charted = Charged</h3>
-            <p className="text-sm text-gray-600 mt-1">
+            <h3 className="font-bold text-black">What&apos;s Charted = Charged</h3>
+            <p className="text-sm text-black mt-1">
               Every product, unit, and service automatically syncs to invoice. Zero leakage.
             </p>
           </div>
@@ -207,8 +207,8 @@ export default function ChartToCartPage() {
             <div className="w-10 h-10 bg-purple-500 rounded-xl flex items-center justify-center text-white mb-3">
               <span className="text-lg">⏱️</span>
             </div>
-            <h3 className="font-bold text-gray-900">No Double Entry</h3>
-            <p className="text-sm text-gray-600 mt-1">
+            <h3 className="font-bold text-black">No Double Entry</h3>
+            <p className="text-sm text-black mt-1">
               Staff freed from cross-checking systems. Focus on patient care, not paperwork.
             </p>
           </div>
@@ -217,8 +217,8 @@ export default function ChartToCartPage() {
             <div className="w-10 h-10 bg-pink-500 rounded-xl flex items-center justify-center text-white mb-3">
               <span className="text-lg">📦</span>
             </div>
-            <h3 className="font-bold text-gray-900">Real-Time Inventory</h3>
-            <p className="text-sm text-gray-600 mt-1">
+            <h3 className="font-bold text-black">Real-Time Inventory</h3>
+            <p className="text-sm text-black mt-1">
               Products used = inventory updated. Accurate cost analysis and supply tracking.
             </p>
           </div>
@@ -226,13 +226,13 @@ export default function ChartToCartPage() {
 
         {/* Filter Tabs */}
         <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-2 bg-white rounded-xl border border-gray-200 p-1">
+          <div className="flex items-center gap-2 bg-white rounded-xl border border-black p-1">
             <button
               onClick={() => setFilter('all')}
               className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all ${
                 filter === 'all' 
-                  ? 'bg-gray-900 text-white shadow-sm' 
-                  : 'text-gray-600 hover:bg-gray-100'
+                  ? 'bg-black text-white shadow-sm' 
+                  : 'text-black hover:bg-white'
               }`}
             >
               All Sessions
@@ -242,7 +242,7 @@ export default function ChartToCartPage() {
               className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
                 filter === 'in_progress' 
                   ? 'bg-blue-600 text-white shadow-sm' 
-                  : 'text-gray-600 hover:bg-gray-100'
+                  : 'text-black hover:bg-white'
               }`}
             >
               <span className="w-2 h-2 bg-blue-400 rounded-full animate-pulse" />
@@ -253,7 +253,7 @@ export default function ChartToCartPage() {
               className={`px-5 py-2.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2 ${
                 filter === 'ready_to_checkout' 
                   ? 'bg-green-600 text-white shadow-sm' 
-                  : 'text-gray-600 hover:bg-gray-100'
+                  : 'text-black hover:bg-white'
               }`}
             >
               <span className="w-2 h-2 bg-green-400 rounded-full" />
@@ -263,7 +263,7 @@ export default function ChartToCartPage() {
 
           <button
             onClick={fetchSessions}
-            className="px-4 py-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors flex items-center gap-2"
+            className="px-4 py-2 text-black hover:text-black hover:bg-white rounded-lg transition-colors flex items-center gap-2"
           >
             <span>🔄</span> Refresh
           </button>
@@ -273,19 +273,19 @@ export default function ChartToCartPage() {
         {loading ? (
           <div className="space-y-4">
             {[1, 2, 3].map(i => (
-              <div key={i} className="bg-white rounded-2xl border border-gray-100 p-6 animate-pulse shadow-sm">
-                <div className="h-6 bg-gray-200 rounded w-1/4 mb-4" />
-                <div className="h-4 bg-gray-100 rounded w-1/2" />
+              <div key={i} className="bg-white rounded-2xl border border-black p-6 animate-pulse shadow-sm">
+                <div className="h-6 bg-white rounded w-1/4 mb-4" />
+                <div className="h-4 bg-white rounded w-1/2" />
               </div>
             ))}
           </div>
         ) : filteredSessions.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-2xl border border-gray-100 shadow-sm">
+          <div className="text-center py-20 bg-white rounded-2xl border border-black shadow-sm">
             <div className="w-20 h-20 bg-gradient-to-br from-pink-100 to-pink-200 rounded-full flex items-center justify-center mx-auto mb-6">
               <span className="text-4xl">🛒</span>
             </div>
-            <h3 className="text-2xl font-bold text-gray-900">No Active Sessions</h3>
-            <p className="text-gray-500 mt-2 max-w-md mx-auto">
+            <h3 className="text-2xl font-bold text-black">No Active Sessions</h3>
+            <p className="text-black mt-2 max-w-md mx-auto">
               Start a new treatment session to begin charting. Products charted are automatically sent to the cart for checkout.
             </p>
             <Link
@@ -303,7 +303,7 @@ export default function ChartToCartPage() {
                 className={`bg-white rounded-2xl border shadow-sm overflow-hidden hover:shadow-lg transition-all ${
                   session.status === 'ready_to_checkout' 
                     ? 'border-green-200 ring-2 ring-green-100' 
-                    : 'border-gray-100'
+                    : 'border-black'
                 }`}
               >
                 {/* Status Banner */}
@@ -315,21 +315,21 @@ export default function ChartToCartPage() {
                 )}
 
                 {/* Session Header */}
-                <div className="p-6 border-b border-gray-100">
+                <div className="p-6 border-b border-black">
                   <div className="flex items-start justify-between">
                     <div className="flex items-start gap-4">
                       <div className="w-14 h-14 bg-gradient-to-br from-pink-400 to-fuchsia-600 rounded-2xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-pink-500/20">
                         {session.client_name.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div>
-                        <h3 className="font-bold text-gray-900 text-lg flex items-center gap-3">
+                        <h3 className="font-bold text-black text-lg flex items-center gap-3">
                           {session.client_name}
                           {getStatusBadge(session.status)}
                         </h3>
-                        <p className="text-gray-500 text-sm mt-0.5">
+                        <p className="text-black text-sm mt-0.5">
                           <span className="font-medium">Provider:</span> {session.provider} • {session.treatment_summary}
                         </p>
-                        <div className="flex items-center gap-4 mt-2 text-xs text-gray-400">
+                        <div className="flex items-center gap-4 mt-2 text-xs text-black">
                           <span className="flex items-center gap-1">
                             <span>🕐</span> Started {getTimeElapsed(session.started_at)} ago
                           </span>
@@ -340,10 +340,10 @@ export default function ChartToCartPage() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <p className="text-3xl font-bold text-gray-900">
+                      <p className="text-3xl font-bold text-black">
                         ${session.total.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                       </p>
-                      <p className="text-xs text-gray-400">Balance Due</p>
+                      <p className="text-xs text-black">Balance Due</p>
                     </div>
                   </div>
                 </div>
@@ -353,20 +353,20 @@ export default function ChartToCartPage() {
                   <div className="flex items-start gap-8">
                     {/* Products */}
                     <div className="flex-1">
-                      <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+                      <h4 className="text-xs font-bold text-black uppercase tracking-wider mb-3 flex items-center gap-2">
                         <span className="w-5 h-5 bg-pink-100 rounded flex items-center justify-center text-pink-600 text-xs">🛒</span>
                         Current Sale
                       </h4>
-                      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+                      <div className="bg-white rounded-xl border border-black overflow-hidden">
                         {session.products.map((product, idx) => (
                           <div key={product.id} className={`flex items-center justify-between p-3 ${idx !== 0 ? 'border-t border-gray-50' : ''}`}>
                             <div className="flex items-center gap-3">
                               <span className="w-8 h-8 bg-pink-50 rounded-lg flex items-center justify-center text-pink-600 text-sm">
                                 {product.quantity}×
                               </span>
-                              <span className="font-medium text-gray-900">{product.name}</span>
+                              <span className="font-medium text-black">{product.name}</span>
                             </div>
-                            <span className="font-bold text-gray-900">
+                            <span className="font-bold text-black">
                               ${product.price.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                             </span>
                           </div>
@@ -376,18 +376,18 @@ export default function ChartToCartPage() {
 
                     {/* Paperwork Status */}
                     <div className="w-52">
-                      <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3 flex items-center gap-2">
+                      <h4 className="text-xs font-bold text-black uppercase tracking-wider mb-3 flex items-center gap-2">
                         <span className="w-5 h-5 bg-blue-100 rounded flex items-center justify-center text-blue-600 text-xs">📋</span>
                         Paperwork
                       </h4>
-                      <div className="bg-white rounded-xl border border-gray-100 p-4 space-y-3">
+                      <div className="bg-white rounded-xl border border-black p-4 space-y-3">
                         <div className="flex items-center gap-3">
                           {session.paperwork.consents ? (
                             <span className="w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xs">✓</span>
                           ) : (
                             <span className="w-6 h-6 bg-red-100 text-red-500 rounded-full flex items-center justify-center text-xs">✕</span>
                           )}
-                          <span className={`text-sm ${session.paperwork.consents ? 'text-gray-700' : 'text-gray-400'}`}>
+                          <span className={`text-sm ${session.paperwork.consents ? 'text-black' : 'text-black'}`}>
                             Consents Signed
                           </span>
                         </div>
@@ -397,7 +397,7 @@ export default function ChartToCartPage() {
                           ) : (
                             <span className="w-6 h-6 bg-red-100 text-red-500 rounded-full flex items-center justify-center text-xs">✕</span>
                           )}
-                          <span className={`text-sm ${session.paperwork.questionnaires ? 'text-gray-700' : 'text-gray-400'}`}>
+                          <span className={`text-sm ${session.paperwork.questionnaires ? 'text-black' : 'text-black'}`}>
                             Questionnaires
                           </span>
                         </div>
@@ -407,21 +407,21 @@ export default function ChartToCartPage() {
                 </div>
 
                 {/* Actions */}
-                <div className="p-4 bg-white border-t border-gray-100 flex items-center justify-between">
+                <div className="p-4 bg-white border-t border-black flex items-center justify-between">
                   <div className="flex items-center gap-1">
                     <Link
                       href={`/admin/charting/injection-map?client=${session.client_id}`}
-                      className="px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-colors flex items-center gap-2"
+                      className="px-4 py-2.5 text-sm text-black hover:text-black hover:bg-white rounded-xl transition-colors flex items-center gap-2"
                     >
                       <span>💉</span> View Chart
                     </Link>
-                    <button className="px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-colors flex items-center gap-2">
+                    <button className="px-4 py-2.5 text-sm text-black hover:text-black hover:bg-white rounded-xl transition-colors flex items-center gap-2">
                       <span>📝</span> Notes
                     </button>
-                    <button className="px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-colors flex items-center gap-2">
+                    <button className="px-4 py-2.5 text-sm text-black hover:text-black hover:bg-white rounded-xl transition-colors flex items-center gap-2">
                       <span>📷</span> Photos
                     </button>
-                    <button className="px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-xl transition-colors flex items-center gap-2">
+                    <button className="px-4 py-2.5 text-sm text-black hover:text-black hover:bg-white rounded-xl transition-colors flex items-center gap-2">
                       <span>🎁</span> Loyalty
                     </button>
                   </div>
@@ -446,49 +446,49 @@ export default function ChartToCartPage() {
 
         {/* Quick Actions Grid */}
         <div className="mt-12 mb-8">
-          <h2 className="text-xl font-bold text-gray-900 mb-6">Quick Actions</h2>
+          <h2 className="text-xl font-bold text-black mb-6">Quick Actions</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Link
               href="/admin/charting/injection-map"
-              className="p-6 bg-white rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-lg transition-all group"
+              className="p-6 bg-white rounded-2xl border border-black hover:border-blue-200 hover:shadow-lg transition-all group"
             >
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center text-white text-2xl group-hover:scale-110 transition-transform shadow-lg shadow-blue-500/20">
                   💉
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900">Injection Mapping</h3>
-                  <p className="text-sm text-gray-500">Chart treatments on face diagram</p>
+                  <h3 className="font-bold text-black">Injection Mapping</h3>
+                  <p className="text-sm text-black">Chart treatments on face diagram</p>
                 </div>
               </div>
             </Link>
 
             <Link
               href="/admin/chart-to-cart/products"
-              className="p-6 bg-white rounded-2xl border border-gray-100 hover:border-purple-200 hover:shadow-lg transition-all group"
+              className="p-6 bg-white rounded-2xl border border-black hover:border-purple-200 hover:shadow-lg transition-all group"
             >
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center text-white text-2xl group-hover:scale-110 transition-transform shadow-lg shadow-purple-500/20">
                   💊
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900">Products & Pricing</h3>
-                  <p className="text-sm text-gray-500">Manage inventory & pricing variations</p>
+                  <h3 className="font-bold text-black">Products & Pricing</h3>
+                  <p className="text-sm text-black">Manage inventory & pricing variations</p>
                 </div>
               </div>
             </Link>
 
             <Link
               href="/pos"
-              className="p-6 bg-white rounded-2xl border border-gray-100 hover:border-green-200 hover:shadow-lg transition-all group"
+              className="p-6 bg-white rounded-2xl border border-black hover:border-green-200 hover:shadow-lg transition-all group"
             >
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center text-white text-2xl group-hover:scale-110 transition-transform shadow-lg shadow-green-500/20">
                   💳
                 </div>
                 <div>
-                  <h3 className="font-bold text-gray-900">Square POS</h3>
-                  <p className="text-sm text-gray-500">Process payments, apply loyalty</p>
+                  <h3 className="font-bold text-black">Square POS</h3>
+                  <p className="text-sm text-black">Process payments, apply loyalty</p>
                 </div>
               </div>
             </Link>
@@ -496,7 +496,7 @@ export default function ChartToCartPage() {
         </div>
 
         {/* Integration Info */}
-        <div className="bg-white rounded-2xl border border-gray-200 p-8 mb-8">
+        <div className="bg-white rounded-2xl border border-black p-8 mb-8">
           <div className="flex items-center justify-between">
             <div>
               <div className="flex items-center gap-3 mb-4">
@@ -504,11 +504,11 @@ export default function ChartToCartPage() {
                   <span className="text-2xl">⬜</span>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900">Square Integration</h3>
+                  <h3 className="text-xl font-bold text-black">Square Integration</h3>
                   <p className="text-pink-600">Connected & Active</p>
                 </div>
               </div>
-              <p className="text-gray-600 max-w-xl">
+              <p className="text-black max-w-xl">
                 Chart products → Cart populates → Square processes payment → Inventory updates → Done. 
                 One connected workflow on one device.
               </p>
@@ -516,18 +516,18 @@ export default function ChartToCartPage() {
             <div className="flex items-center gap-4">
               <div className="text-center px-6 py-4 bg-pink-50 border border-pink-100 rounded-xl">
                 <p className="text-2xl font-bold text-pink-600">Wallet</p>
-                <p className="text-xs text-gray-500 mt-1">Credits & Loyalty</p>
+                <p className="text-xs text-black mt-1">Credits & Loyalty</p>
               </div>
               <div className="text-center px-6 py-4 bg-pink-50 border border-pink-100 rounded-xl">
                 <p className="text-2xl font-bold text-pink-600">Text2Pay</p>
-                <p className="text-xs text-gray-500 mt-1">Remote checkout</p>
+                <p className="text-xs text-black mt-1">Remote checkout</p>
               </div>
             </div>
           </div>
         </div>
 
         {/* Footer Note */}
-        <div className="text-center py-8 text-gray-400 text-sm">
+        <div className="text-center py-8 text-black text-sm">
           <p>Chart-to-Cart eliminates revenue leakage and double entry. Every treatment charted is automatically charged.</p>
           <p className="mt-1">💎 VIP patients get a seamless, faster checkout experience.</p>
         </div>

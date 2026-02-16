@@ -209,7 +209,7 @@ export default function TermsOfServicePage() {
           </address>
         </section>
 
-        <section className="mb-8 p-6 bg-gray-100 rounded-xl">
+        <section className="mb-8 p-6 bg-white rounded-xl">
           <h2 className="mt-0">15. Governing Law</h2>
           <p className="mb-0">
             These Terms of Service shall be governed by and construed in accordance with the laws of 
@@ -220,15 +220,15 @@ export default function TermsOfServicePage() {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-8">
+      <footer className="bg-black text-white py-8">
         <div className="max-w-4xl mx-auto px-4 text-center">
-          <p className="text-gray-400">
+          <p className="text-black">
             © {new Date().getFullYear()} Hello Gorgeous Med Spa. All rights reserved.
           </p>
           <div className="flex justify-center gap-6 mt-4 text-sm">
-            <Link href="/terms" className="text-gray-400 hover:text-white">Terms of Service</Link>
-            <Link href="/privacy" className="text-gray-400 hover:text-white">Privacy Policy</Link>
-            <Link href="/contact" className="text-gray-400 hover:text-white">Contact</Link>
+            <Link href="/terms" className="text-black hover:text-white">Terms of Service</Link>
+            <Link href="/privacy" className="text-black hover:text-white">Privacy Policy</Link>
+            <Link href="/contact" className="text-black hover:text-white">Contact</Link>
           </div>
         </div>
       </footer>

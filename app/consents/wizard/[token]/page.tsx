@@ -166,7 +166,7 @@ export default function ConsentWizardPage() {
       <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin w-12 h-12 border-4 border-pink-500 border-t-transparent rounded-full mx-auto mb-4" />
-          <p className="text-gray-600">Loading consent forms...</p>
+          <p className="text-black">Loading consent forms...</p>
         </div>
       </div>
     );
@@ -178,9 +178,9 @@ export default function ConsentWizardPage() {
       <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md text-center">
           <div className="text-5xl mb-4">😔</div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Unable to Load</h1>
-          <p className="text-gray-600 mb-6">{error}</p>
-          <p className="text-sm text-gray-500">
+          <h1 className="text-2xl font-bold text-black mb-2">Unable to Load</h1>
+          <p className="text-black mb-6">{error}</p>
+          <p className="text-sm text-black">
             Please contact Hello Gorgeous Med Spa for assistance.
           </p>
         </div>
@@ -194,11 +194,11 @@ export default function ConsentWizardPage() {
       <div className="min-h-screen bg-gradient-to-b from-green-50 to-white flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md text-center">
           <div className="text-5xl mb-4">✅</div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">All Done!</h1>
-          <p className="text-gray-600 mb-6">
+          <h1 className="text-2xl font-bold text-black mb-2">All Done!</h1>
+          <p className="text-black mb-6">
             Thank you for completing your consent forms, {wizardData?.client_name}!
           </p>
-          <p className="text-sm text-gray-500 mb-4">
+          <p className="text-sm text-black mb-4">
             We look forward to seeing you at your appointment.
           </p>
           <div className="bg-pink-50 rounded-lg p-4">
@@ -219,22 +219,22 @@ export default function ConsentWizardPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 sticky top-0 z-10">
+      <div className="bg-white border-b border-black sticky top-0 z-10">
         <div className="max-w-3xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-xl font-bold text-gray-900">
+              <h1 className="text-xl font-bold text-black">
                 Hello Gorgeous Med Spa
               </h1>
-              <p className="text-sm text-gray-500">
+              <p className="text-sm text-black">
                 Consent Forms for {wizardData.client_name}
               </p>
             </div>
             <div className="text-right">
-              <p className="text-sm font-medium text-gray-900">
+              <p className="text-sm font-medium text-black">
                 {signedCount} of {totalCount} signed
               </p>
-              <div className="w-24 h-2 bg-gray-200 rounded-full mt-1">
+              <div className="w-24 h-2 bg-white rounded-full mt-1">
                 <div
                   className="h-full bg-pink-500 rounded-full transition-all"
                   style={{ width: `${(signedCount / totalCount) * 100}%` }}
@@ -258,7 +258,7 @@ export default function ConsentWizardPage() {
                   ? 'bg-green-500 text-white'
                   : index === currentIndex
                   ? 'bg-pink-500 text-white'
-                  : 'bg-gray-200 text-gray-600'
+                  : 'bg-white text-black'
               }`}
             >
               {packet.status === 'signed' ? '✓' : index + 1}
@@ -278,7 +278,7 @@ export default function ConsentWizardPage() {
 
           {/* Consent Content */}
           <div className="p-6">
-            <div className="prose prose-sm max-w-none mb-6 max-h-64 overflow-y-auto border border-gray-100 rounded-lg p-4 bg-gray-50">
+            <div className="prose prose-sm max-w-none mb-6 max-h-64 overflow-y-auto border border-black rounded-lg p-4 bg-white">
               {currentPacket.template_content?.content ? (
                 <div dangerouslySetInnerHTML={{ 
                   __html: currentPacket.template_content.content 
@@ -287,13 +287,13 @@ export default function ConsentWizardPage() {
                 currentPacket.template_content.sections.map((section: any, i: number) => (
                   <div key={i} className="mb-4">
                     {section.title && (
-                      <h3 className="font-bold text-gray-900">{section.title}</h3>
+                      <h3 className="font-bold text-black">{section.title}</h3>
                     )}
-                    <p className="text-gray-700">{section.content}</p>
+                    <p className="text-black">{section.content}</p>
                   </div>
                 ))
               ) : (
-                <p className="text-gray-600">
+                <p className="text-black">
                   By signing below, I acknowledge that I have been informed of the
                   risks, benefits, and alternatives to the proposed treatment. I
                   consent to the treatment and authorize Hello Gorgeous Med Spa to
@@ -319,7 +319,7 @@ export default function ConsentWizardPage() {
 
             {/* Signature Pad */}
             <div className="mb-6">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-black mb-2">
                 Your Signature
               </label>
               <SignaturePad
@@ -353,14 +353,14 @@ export default function ConsentWizardPage() {
           <button
             onClick={() => setCurrentIndex(Math.max(0, currentIndex - 1))}
             disabled={currentIndex === 0}
-            className="px-4 py-2 text-gray-600 hover:text-gray-900 disabled:opacity-50"
+            className="px-4 py-2 text-black hover:text-black disabled:opacity-50"
           >
             ← Previous
           </button>
           <button
             onClick={() => setCurrentIndex(Math.min(totalCount - 1, currentIndex + 1))}
             disabled={currentIndex === totalCount - 1}
-            className="px-4 py-2 text-gray-600 hover:text-gray-900 disabled:opacity-50"
+            className="px-4 py-2 text-black hover:text-black disabled:opacity-50"
           >
             Next →
           </button>
@@ -368,7 +368,7 @@ export default function ConsentWizardPage() {
       </div>
 
       {/* Footer */}
-      <div className="text-center py-8 text-sm text-gray-500">
+      <div className="text-center py-8 text-sm text-black">
         <p>Hello Gorgeous Med Spa</p>
         <p>Questions? Call us at (630) 793-7546</p>
       </div>

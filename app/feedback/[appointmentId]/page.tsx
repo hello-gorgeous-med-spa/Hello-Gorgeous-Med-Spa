@@ -62,8 +62,8 @@ export default function FeedbackPage() {
               <div className="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-4xl">⭐</span>
               </div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h1>
-              <p className="text-gray-600 mb-6">
+              <h1 className="text-2xl font-bold text-black mb-2">Thank You!</h1>
+              <p className="text-black mb-6">
                 We're so happy you had a great experience! Would you mind sharing 
                 your feedback on Google? It helps others find us.
               </p>
@@ -81,7 +81,7 @@ export default function FeedbackPage() {
               </button>
               <button
                 onClick={() => router.push('/')}
-                className="text-gray-500 hover:text-gray-700 text-sm"
+                className="text-black hover:text-black text-sm"
               >
                 No thanks, maybe later
               </button>
@@ -91,8 +91,8 @@ export default function FeedbackPage() {
               <div className="w-20 h-20 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-4xl">💝</span>
               </div>
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h1>
-              <p className="text-gray-600 mb-6">
+              <h1 className="text-2xl font-bold text-black mb-2">Thank You!</h1>
+              <p className="text-black mb-6">
                 We appreciate you taking the time to share your feedback. 
                 Your input helps us improve our services.
               </p>
@@ -124,17 +124,17 @@ export default function FeedbackPage() {
         {/* Header */}
         <div className="text-center mb-8">
           <span className="text-4xl mb-4 block">💎</span>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl font-bold text-black mb-2">
             How was your visit?
           </h1>
-          <p className="text-gray-600">
+          <p className="text-black">
             Your feedback helps us provide the best experience
           </p>
         </div>
 
         {/* Rating Card */}
         <div className="bg-white rounded-2xl shadow-xl p-6 mb-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4 text-center">
+          <h2 className="text-lg font-semibold text-black mb-4 text-center">
             Rate your experience
           </h2>
 
@@ -153,7 +153,7 @@ export default function FeedbackPage() {
                   className={`text-4xl transition-colors ${
                     star <= (hoveredRating || rating || 0)
                       ? 'text-yellow-400'
-                      : 'text-gray-300'
+                      : 'text-black'
                   }`}
                 >
                   ★
@@ -164,7 +164,7 @@ export default function FeedbackPage() {
 
           {/* Rating Label */}
           {rating && (
-            <p className="text-center text-gray-600 mb-6">
+            <p className="text-center text-black mb-6">
               {rating === 5 && '🌟 Excellent! We\'re thrilled!'}
               {rating === 4 && '😊 Great! Thanks for the feedback!'}
               {rating === 3 && '👍 Good, but we can do better'}
@@ -175,7 +175,7 @@ export default function FeedbackPage() {
 
           {/* Comment */}
           <div className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-black mb-2">
               Tell us more (optional)
             </label>
             <textarea
@@ -183,7 +183,7 @@ export default function FeedbackPage() {
               onChange={(e) => setComment(e.target.value)}
               placeholder="What did you love? What could we improve?"
               rows={4}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 resize-none"
+              className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500 resize-none"
             />
           </div>
 
@@ -198,7 +198,7 @@ export default function FeedbackPage() {
         </div>
 
         {/* Footer */}
-        <p className="text-center text-sm text-gray-500">
+        <p className="text-center text-sm text-black">
           Hello Gorgeous Med Spa • (630) 636-6193
         </p>
       </div>

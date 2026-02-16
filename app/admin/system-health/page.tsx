@@ -96,7 +96,7 @@ export default function SystemHealthPage() {
       <div className="flex items-center justify-center min-h-[400px]">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-500 mx-auto mb-4"></div>
-          <p className="text-gray-500">Running system health check...</p>
+          <p className="text-black">Running system health check...</p>
         </div>
       </div>
     );
@@ -124,8 +124,8 @@ export default function SystemHealthPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">System Health</h1>
-          <p className="text-gray-500">Go-live readiness verification</p>
+          <h1 className="text-2xl font-bold text-black">System Health</h1>
+          <p className="text-black">Go-live readiness verification</p>
         </div>
         <button
           onClick={fetchHealth}
@@ -145,7 +145,7 @@ export default function SystemHealthPage() {
           {data.status === 'READY' ? 'Ready for Go-Live!' : 
            data.status === 'ALMOST_READY' ? 'Almost Ready' : 'Needs Work'}
         </div>
-        <p className="text-sm text-gray-600 mt-2">
+        <p className="text-sm text-black mt-2">
           Last checked: {new Date(data.timestamp).toLocaleString()}
         </p>
         {data.checklistSummary.canGoLive && (
@@ -156,11 +156,11 @@ export default function SystemHealthPage() {
       </div>
 
       {/* Go-Live Checklist */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-        <div className="p-5 border-b border-gray-100 bg-gray-50">
-          <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+      <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
+        <div className="p-5 border-b border-black bg-white">
+          <h2 className="font-semibold text-black flex items-center gap-2">
             📋 Go-Live Checklist
-            <span className="text-sm font-normal text-gray-500">
+            <span className="text-sm font-normal text-black">
               ({data.checklistSummary.allReady}/{data.checklistSummary.allTotal} ready)
             </span>
           </h2>
@@ -169,10 +169,10 @@ export default function SystemHealthPage() {
           {data.checklist.map((item, idx) => (
             <div key={idx} className="px-5 py-3 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className={`text-xl ${item.ready ? 'text-green-500' : 'text-gray-300'}`}>
+                <span className={`text-xl ${item.ready ? 'text-green-500' : 'text-black'}`}>
                   {item.ready ? '✅' : '⬜'}
                 </span>
-                <span className={item.ready ? 'text-gray-900' : 'text-gray-500'}>
+                <span className={item.ready ? 'text-black' : 'text-black'}>
                   {item.item}
                 </span>
                 {item.critical && (
@@ -188,32 +188,32 @@ export default function SystemHealthPage() {
 
       {/* Key Metrics */}
       <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-        <div className="bg-white rounded-lg border border-gray-100 p-4 text-center">
-          <p className="text-3xl font-bold text-gray-900">{data.metrics.totalClients}</p>
-          <p className="text-sm text-gray-500">Clients</p>
+        <div className="bg-white rounded-lg border border-black p-4 text-center">
+          <p className="text-3xl font-bold text-black">{data.metrics.totalClients}</p>
+          <p className="text-sm text-black">Clients</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4 text-center">
-          <p className="text-3xl font-bold text-gray-900">{data.metrics.totalServices}</p>
-          <p className="text-sm text-gray-500">Services</p>
+        <div className="bg-white rounded-lg border border-black p-4 text-center">
+          <p className="text-3xl font-bold text-black">{data.metrics.totalServices}</p>
+          <p className="text-sm text-black">Services</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4 text-center">
-          <p className="text-3xl font-bold text-gray-900">{data.metrics.totalAppointments}</p>
-          <p className="text-sm text-gray-500">Appointments</p>
+        <div className="bg-white rounded-lg border border-black p-4 text-center">
+          <p className="text-3xl font-bold text-black">{data.metrics.totalAppointments}</p>
+          <p className="text-sm text-black">Appointments</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4 text-center">
+        <div className="bg-white rounded-lg border border-black p-4 text-center">
           <p className="text-3xl font-bold text-green-600">{data.metrics.smsOptInCount}</p>
-          <p className="text-sm text-gray-500">SMS Opt-In</p>
+          <p className="text-sm text-black">SMS Opt-In</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4 text-center">
-          <p className="text-3xl font-bold text-gray-900">{data.database.tablesExisting}</p>
-          <p className="text-sm text-gray-500">DB Tables</p>
+        <div className="bg-white rounded-lg border border-black p-4 text-center">
+          <p className="text-3xl font-bold text-black">{data.database.tablesExisting}</p>
+          <p className="text-sm text-black">DB Tables</p>
         </div>
       </div>
 
       {/* Integrations */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-        <div className="p-5 border-b border-gray-100 bg-gray-50">
-          <h2 className="font-semibold text-gray-900">🔌 Integrations</h2>
+      <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
+        <div className="p-5 border-b border-black bg-white">
+          <h2 className="font-semibold text-black">🔌 Integrations</h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-5">
           {data.integrations.map((int, idx) => (
@@ -222,20 +222,20 @@ export default function SystemHealthPage() {
               className={`p-4 rounded-lg border ${
                 int.configured 
                   ? 'bg-green-50 border-green-200' 
-                  : 'bg-gray-50 border-gray-200'
+                  : 'bg-white border-black'
               }`}
             >
               <div className="flex items-center gap-2 mb-1">
-                <span className={int.configured ? 'text-green-600' : 'text-gray-400'}>
+                <span className={int.configured ? 'text-green-600' : 'text-black'}>
                   {int.configured ? '✅' : '❌'}
                 </span>
-                <span className="font-medium text-gray-900">{int.name}</span>
+                <span className="font-medium text-black">{int.name}</span>
               </div>
               {int.details && (
                 <p className={`text-sm ${
                   int.details === 'LIVE MODE' ? 'text-green-600 font-semibold' :
                   int.details === 'TEST MODE' ? 'text-yellow-600 font-semibold' :
-                  'text-gray-500'
+                  'text-black'
                 }`}>
                   {int.details}
                 </p>
@@ -246,11 +246,11 @@ export default function SystemHealthPage() {
       </div>
 
       {/* Database Tables */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-        <div className="p-5 border-b border-gray-100 bg-gray-50">
-          <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+      <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
+        <div className="p-5 border-b border-black bg-white">
+          <h2 className="font-semibold text-black flex items-center gap-2">
             🗄️ Database Tables
-            <span className="text-sm font-normal text-gray-500">
+            <span className="text-sm font-normal text-black">
               ({data.database.tablesExisting}/{data.database.tablesTotal} exist, 
               {data.database.tablesWithData} with data)
             </span>
@@ -292,35 +292,35 @@ export default function SystemHealthPage() {
 
       {/* Quick Actions */}
       <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-100 p-6">
-        <h2 className="font-semibold text-gray-900 mb-4">🚀 Quick Actions</h2>
+        <h2 className="font-semibold text-black mb-4">🚀 Quick Actions</h2>
         <div className="flex flex-wrap gap-3">
           <Link
             href="/admin/services"
-            className="px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 text-sm font-medium"
+            className="px-4 py-2 bg-white border border-black rounded-lg hover:bg-white text-sm font-medium"
           >
             Manage Services
           </Link>
           <Link
             href="/admin/clients"
-            className="px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 text-sm font-medium"
+            className="px-4 py-2 bg-white border border-black rounded-lg hover:bg-white text-sm font-medium"
           >
             View Clients
           </Link>
           <Link
             href="/admin/sms"
-            className="px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 text-sm font-medium"
+            className="px-4 py-2 bg-white border border-black rounded-lg hover:bg-white text-sm font-medium"
           >
             SMS Marketing
           </Link>
           <Link
             href="/pos"
-            className="px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 text-sm font-medium"
+            className="px-4 py-2 bg-white border border-black rounded-lg hover:bg-white text-sm font-medium"
           >
             Test POS
           </Link>
           <Link
             href="/book"
-            className="px-4 py-2 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 text-sm font-medium"
+            className="px-4 py-2 bg-white border border-black rounded-lg hover:bg-white text-sm font-medium"
           >
             Test Booking
           </Link>
@@ -328,21 +328,21 @@ export default function SystemHealthPage() {
       </div>
 
       {/* Disaster Recovery Doc Link */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-        <h2 className="font-semibold text-gray-900 mb-2">📚 Documentation</h2>
-        <p className="text-gray-600 text-sm mb-4">
+      <div className="bg-white rounded-xl border border-black shadow-sm p-6">
+        <h2 className="font-semibold text-black mb-2">📚 Documentation</h2>
+        <p className="text-black text-sm mb-4">
           Essential guides for operating Hello Gorgeous OS
         </p>
         <div className="flex flex-wrap gap-3">
           <a
             href="/docs/disaster-recovery"
-            className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm font-medium"
+            className="px-4 py-2 bg-white rounded-lg hover:bg-white text-sm font-medium"
           >
             Disaster Recovery Plan
           </a>
           <a
             href="/docs/OWNERS-MANUAL.md"
-            className="px-4 py-2 bg-gray-100 rounded-lg hover:bg-gray-200 text-sm font-medium"
+            className="px-4 py-2 bg-white rounded-lg hover:bg-white text-sm font-medium"
           >
             Owner's Manual
           </a>

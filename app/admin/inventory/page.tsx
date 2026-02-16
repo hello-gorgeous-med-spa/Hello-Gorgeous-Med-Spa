@@ -11,7 +11,7 @@ import { Breadcrumb, ExportButton, NoDataEmptyState } from '@/components/ui';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-white rounded ${className}`} />;
 }
 
 interface InventoryItem {
@@ -313,8 +313,8 @@ export default function InventoryPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Inventory</h1>
-          <p className="text-gray-500">Track products, lots, and stock levels</p>
+          <h1 className="text-2xl font-bold text-black">Inventory</h1>
+          <p className="text-black">Track products, lots, and stock levels</p>
         </div>
         <div className="flex items-center gap-3">
           <ExportButton
@@ -336,7 +336,7 @@ export default function InventoryPage() {
               setReceiveForm({ product_id: '', quantity: 0, lot_number: '', expiration_date: '', cost_per_unit: 0, notes: '' });
               setShowReceiveModal(true);
             }}
-            className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            className="px-4 py-2 border border-black text-black font-medium rounded-lg hover:bg-white transition-colors"
           >
             Receive Stock
           </button>
@@ -381,16 +381,16 @@ export default function InventoryPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Total Products</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Total Products</p>
           {loading ? (
             <Skeleton className="h-8 w-16 mt-1" />
           ) : (
-            <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
+            <p className="text-2xl font-bold text-black">{stats.total}</p>
           )}
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Low Stock Alerts</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Low Stock Alerts</p>
           {loading ? (
             <Skeleton className="h-8 w-12 mt-1" />
           ) : (
@@ -399,37 +399,37 @@ export default function InventoryPage() {
             </p>
           )}
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Inventory Value</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Inventory Value</p>
           {loading ? (
             <Skeleton className="h-8 w-24 mt-1" />
           ) : (
-            <p className="text-2xl font-bold text-gray-900">${stats.totalValue.toLocaleString()}</p>
+            <p className="text-2xl font-bold text-black">${stats.totalValue.toLocaleString()}</p>
           )}
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Categories</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Categories</p>
           {loading ? (
             <Skeleton className="h-8 w-12 mt-1" />
           ) : (
-            <p className="text-2xl font-bold text-gray-900">{stats.categories}</p>
+            <p className="text-2xl font-bold text-black">{stats.categories}</p>
           )}
         </div>
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl border border-gray-100 p-4">
+      <div className="bg-white rounded-xl border border-black p-4">
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           {/* Search */}
           <div className="flex-1">
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-black">🔍</span>
               <input
                 type="text"
                 placeholder="Search by name, brand, or SKU..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg"
+                className="w-full pl-10 pr-4 py-2 border border-black rounded-lg"
               />
             </div>
           </div>
@@ -438,7 +438,7 @@ export default function InventoryPage() {
           <select
             value={selectedCategory}
             onChange={(e) => setSelectedCategory(e.target.value)}
-            className="px-4 py-2 border border-gray-200 rounded-lg"
+            className="px-4 py-2 border border-black rounded-lg"
           >
             <option value="all">All Categories</option>
             {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
@@ -454,24 +454,24 @@ export default function InventoryPage() {
               onChange={(e) => setShowLowStockOnly(e.target.checked)}
               className="rounded"
             />
-            <span className="text-sm text-gray-700">Low Stock Only</span>
+            <span className="text-sm text-black">Low Stock Only</span>
           </label>
         </div>
       </div>
 
       {/* Inventory Table */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-xl border border-black overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-100">
+            <thead className="bg-white border-b border-black">
               <tr>
-                <th className="text-left px-4 py-3 text-sm font-semibold text-gray-900">Product</th>
-                <th className="text-left px-4 py-3 text-sm font-semibold text-gray-900">Category</th>
-                <th className="text-left px-4 py-3 text-sm font-semibold text-gray-900">Stock</th>
-                <th className="text-left px-4 py-3 text-sm font-semibold text-gray-900">Reorder At</th>
-                <th className="text-left px-4 py-3 text-sm font-semibold text-gray-900">Cost/Unit</th>
-                <th className="text-left px-4 py-3 text-sm font-semibold text-gray-900">Price/Unit</th>
-                <th className="text-left px-4 py-3 text-sm font-semibold text-gray-900">Status</th>
+                <th className="text-left px-4 py-3 text-sm font-semibold text-black">Product</th>
+                <th className="text-left px-4 py-3 text-sm font-semibold text-black">Category</th>
+                <th className="text-left px-4 py-3 text-sm font-semibold text-black">Stock</th>
+                <th className="text-left px-4 py-3 text-sm font-semibold text-black">Reorder At</th>
+                <th className="text-left px-4 py-3 text-sm font-semibold text-black">Cost/Unit</th>
+                <th className="text-left px-4 py-3 text-sm font-semibold text-black">Price/Unit</th>
+                <th className="text-left px-4 py-3 text-sm font-semibold text-black">Status</th>
                 <th className="px-4 py-3"></th>
               </tr>
             </thead>
@@ -497,33 +497,33 @@ export default function InventoryPage() {
                 </tr>
               ) : (
                 filteredInventory.map((item) => (
-                  <tr key={item.id} className="hover:bg-gray-50">
+                  <tr key={item.id} className="hover:bg-white">
                     <td className="px-4 py-3">
                       <div>
-                        <p className="font-medium text-gray-900">{item.name}</p>
+                        <p className="font-medium text-black">{item.name}</p>
                         {item.brand && (
-                          <p className="text-sm text-gray-500">{item.brand}</p>
+                          <p className="text-sm text-black">{item.brand}</p>
                         )}
                         {item.sku && (
-                          <p className="text-xs text-gray-400">SKU: {item.sku}</p>
+                          <p className="text-xs text-black">SKU: {item.sku}</p>
                         )}
                       </div>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="px-2 py-1 text-xs font-medium bg-gray-100 text-gray-600 rounded-full">
+                      <span className="px-2 py-1 text-xs font-medium bg-white text-black rounded-full">
                         {CATEGORY_LABELS[item.category] || item.category}
                       </span>
                     </td>
                     <td className="px-4 py-3">
                       <span className={`font-semibold ${
-                        item.currentStock <= item.reorderPoint ? 'text-red-600' : 'text-gray-900'
+                        item.currentStock <= item.reorderPoint ? 'text-red-600' : 'text-black'
                       }`}>
                         {item.currentStock}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-gray-600">{item.reorderPoint}</td>
-                    <td className="px-4 py-3 text-gray-600">${item.cost}</td>
-                    <td className="px-4 py-3 font-medium text-gray-900">${item.price}</td>
+                    <td className="px-4 py-3 text-black">{item.reorderPoint}</td>
+                    <td className="px-4 py-3 text-black">${item.cost}</td>
+                    <td className="px-4 py-3 font-medium text-black">${item.price}</td>
                     <td className="px-4 py-3">
                       {item.currentStock <= item.reorderPoint ? (
                         <span className="px-2 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-full">
@@ -551,7 +551,7 @@ export default function InventoryPage() {
                             });
                             setShowEditProductModal(true);
                           }}
-                          className="px-2 py-1 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded"
+                          className="px-2 py-1 text-sm font-medium text-black hover:bg-white rounded"
                         >
                           Edit
                         </button>
@@ -567,7 +567,7 @@ export default function InventoryPage() {
                         </button>
                         <button
                           onClick={() => handleDeleteProduct(item)}
-                          className="px-2 py-1 text-sm text-gray-400 hover:text-red-600 hover:bg-red-50 rounded"
+                          className="px-2 py-1 text-sm text-black hover:text-red-600 hover:bg-red-50 rounded"
                         >
                           Del
                         </button>
@@ -585,36 +585,36 @@ export default function InventoryPage() {
       {selectedItem && !showReceiveModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-lg w-full">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">{selectedItem.name}</h2>
+            <div className="p-6 border-b border-black">
+              <h2 className="text-xl font-bold text-black">{selectedItem.name}</h2>
               {selectedItem.brand && (
-                <p className="text-gray-500">{selectedItem.brand}</p>
+                <p className="text-black">{selectedItem.brand}</p>
               )}
             </div>
             <div className="p-6 space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <p className="text-sm text-gray-500">Current Stock</p>
-                  <p className="text-lg font-bold text-gray-900">{selectedItem.currentStock}</p>
+                  <p className="text-sm text-black">Current Stock</p>
+                  <p className="text-lg font-bold text-black">{selectedItem.currentStock}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Reorder Point</p>
-                  <p className="text-lg font-bold text-gray-900">{selectedItem.reorderPoint}</p>
+                  <p className="text-sm text-black">Reorder Point</p>
+                  <p className="text-lg font-bold text-black">{selectedItem.reorderPoint}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Cost per Unit</p>
-                  <p className="text-lg font-bold text-gray-900">${selectedItem.cost}</p>
+                  <p className="text-sm text-black">Cost per Unit</p>
+                  <p className="text-lg font-bold text-black">${selectedItem.cost}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-gray-500">Price per Unit</p>
-                  <p className="text-lg font-bold text-gray-900">${selectedItem.price}</p>
+                  <p className="text-sm text-black">Price per Unit</p>
+                  <p className="text-lg font-bold text-black">${selectedItem.price}</p>
                 </div>
               </div>
 
               {/* Lot Information */}
               <div>
-                <h3 className="font-medium text-gray-900 mb-2">Lot Tracking (FIFO)</h3>
-                <div className="bg-gray-50 rounded-lg p-4 text-sm text-gray-500">
+                <h3 className="font-medium text-black mb-2">Lot Tracking (FIFO)</h3>
+                <div className="bg-white rounded-lg p-4 text-sm text-black">
                   {selectedItem.lots?.length ? (
                     <div className="space-y-2">
                       {selectedItem.lots.map((lot) => (
@@ -631,10 +631,10 @@ export default function InventoryPage() {
                 </div>
               </div>
             </div>
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
+            <div className="p-6 border-t border-black flex justify-end gap-3">
               <button
                 onClick={() => setSelectedItem(null)}
-                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
               >
                 Close
               </button>
@@ -653,37 +653,37 @@ export default function InventoryPage() {
       {showAddProductModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-lg w-full">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">Add Product</h2>
+            <div className="p-6 border-b border-black">
+              <h2 className="text-xl font-bold text-black">Add Product</h2>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Product Name *</label>
+                <label className="block text-sm font-medium text-black mb-1">Product Name *</label>
                 <input
                   type="text"
                   value={productForm.name}
                   onChange={(e) => setProductForm({...productForm, name: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="e.g., Botox, Juvederm"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Brand</label>
+                  <label className="block text-sm font-medium text-black mb-1">Brand</label>
                   <input
                     type="text"
                     value={productForm.brand}
                     onChange={(e) => setProductForm({...productForm, brand: e.target.value})}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                     placeholder="e.g., Allergan"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                  <label className="block text-sm font-medium text-black mb-1">Category</label>
                   <select
                     value={productForm.category}
                     onChange={(e) => setProductForm({...productForm, category: e.target.value})}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   >
                     {Object.entries(CATEGORY_LABELS).map(([key, label]) => (
                       <option key={key} value={key}>{label}</option>
@@ -693,50 +693,50 @@ export default function InventoryPage() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">SKU</label>
+                  <label className="block text-sm font-medium text-black mb-1">SKU</label>
                   <input
                     type="text"
                     value={productForm.sku}
                     onChange={(e) => setProductForm({...productForm, sku: e.target.value})}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                     placeholder="Optional"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Reorder Point</label>
+                  <label className="block text-sm font-medium text-black mb-1">Reorder Point</label>
                   <input
                     type="number"
                     value={productForm.reorder_point}
                     onChange={(e) => setProductForm({...productForm, reorder_point: parseInt(e.target.value) || 10})}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Cost per Unit ($)</label>
+                  <label className="block text-sm font-medium text-black mb-1">Cost per Unit ($)</label>
                   <input
                     type="number"
                     step="0.01"
                     value={productForm.cost_per_unit}
                     onChange={(e) => setProductForm({...productForm, cost_per_unit: parseFloat(e.target.value) || 0})}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Price per Unit ($)</label>
+                  <label className="block text-sm font-medium text-black mb-1">Price per Unit ($)</label>
                   <input
                     type="number"
                     step="0.01"
                     value={productForm.price_per_unit}
                     onChange={(e) => setProductForm({...productForm, price_per_unit: parseFloat(e.target.value) || 0})}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
               </div>
             </div>
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
-              <button onClick={() => setShowAddProductModal(false)} className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg">Cancel</button>
+            <div className="p-6 border-t border-black flex justify-end gap-3">
+              <button onClick={() => setShowAddProductModal(false)} className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg">Cancel</button>
               <button onClick={handleAddProduct} disabled={saving || !productForm.name} className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50">
                 {saving ? 'Adding...' : 'Add Product'}
               </button>
@@ -749,49 +749,49 @@ export default function InventoryPage() {
       {showEditProductModal && selectedItem && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-lg w-full">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">Edit Product</h2>
+            <div className="p-6 border-b border-black">
+              <h2 className="text-xl font-bold text-black">Edit Product</h2>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Product Name *</label>
-                <input type="text" value={productForm.name} onChange={(e) => setProductForm({...productForm, name: e.target.value})} className="w-full px-4 py-2 border border-gray-200 rounded-lg" />
+                <label className="block text-sm font-medium text-black mb-1">Product Name *</label>
+                <input type="text" value={productForm.name} onChange={(e) => setProductForm({...productForm, name: e.target.value})} className="w-full px-4 py-2 border border-black rounded-lg" />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Brand</label>
-                  <input type="text" value={productForm.brand} onChange={(e) => setProductForm({...productForm, brand: e.target.value})} className="w-full px-4 py-2 border border-gray-200 rounded-lg" />
+                  <label className="block text-sm font-medium text-black mb-1">Brand</label>
+                  <input type="text" value={productForm.brand} onChange={(e) => setProductForm({...productForm, brand: e.target.value})} className="w-full px-4 py-2 border border-black rounded-lg" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                  <select value={productForm.category} onChange={(e) => setProductForm({...productForm, category: e.target.value})} className="w-full px-4 py-2 border border-gray-200 rounded-lg">
+                  <label className="block text-sm font-medium text-black mb-1">Category</label>
+                  <select value={productForm.category} onChange={(e) => setProductForm({...productForm, category: e.target.value})} className="w-full px-4 py-2 border border-black rounded-lg">
                     {Object.entries(CATEGORY_LABELS).map(([key, label]) => (<option key={key} value={key}>{label}</option>))}
                   </select>
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">SKU</label>
-                  <input type="text" value={productForm.sku} onChange={(e) => setProductForm({...productForm, sku: e.target.value})} className="w-full px-4 py-2 border border-gray-200 rounded-lg" />
+                  <label className="block text-sm font-medium text-black mb-1">SKU</label>
+                  <input type="text" value={productForm.sku} onChange={(e) => setProductForm({...productForm, sku: e.target.value})} className="w-full px-4 py-2 border border-black rounded-lg" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Reorder Point</label>
-                  <input type="number" value={productForm.reorder_point} onChange={(e) => setProductForm({...productForm, reorder_point: parseInt(e.target.value) || 10})} className="w-full px-4 py-2 border border-gray-200 rounded-lg" />
+                  <label className="block text-sm font-medium text-black mb-1">Reorder Point</label>
+                  <input type="number" value={productForm.reorder_point} onChange={(e) => setProductForm({...productForm, reorder_point: parseInt(e.target.value) || 10})} className="w-full px-4 py-2 border border-black rounded-lg" />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Cost per Unit ($)</label>
-                  <input type="number" step="0.01" value={productForm.cost_per_unit} onChange={(e) => setProductForm({...productForm, cost_per_unit: parseFloat(e.target.value) || 0})} className="w-full px-4 py-2 border border-gray-200 rounded-lg" />
+                  <label className="block text-sm font-medium text-black mb-1">Cost per Unit ($)</label>
+                  <input type="number" step="0.01" value={productForm.cost_per_unit} onChange={(e) => setProductForm({...productForm, cost_per_unit: parseFloat(e.target.value) || 0})} className="w-full px-4 py-2 border border-black rounded-lg" />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Price per Unit ($)</label>
-                  <input type="number" step="0.01" value={productForm.price_per_unit} onChange={(e) => setProductForm({...productForm, price_per_unit: parseFloat(e.target.value) || 0})} className="w-full px-4 py-2 border border-gray-200 rounded-lg" />
+                  <label className="block text-sm font-medium text-black mb-1">Price per Unit ($)</label>
+                  <input type="number" step="0.01" value={productForm.price_per_unit} onChange={(e) => setProductForm({...productForm, price_per_unit: parseFloat(e.target.value) || 0})} className="w-full px-4 py-2 border border-black rounded-lg" />
                 </div>
               </div>
             </div>
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
-              <button onClick={() => { setShowEditProductModal(false); setSelectedItem(null); }} className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg">Cancel</button>
+            <div className="p-6 border-t border-black flex justify-end gap-3">
+              <button onClick={() => { setShowEditProductModal(false); setSelectedItem(null); }} className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg">Cancel</button>
               <button onClick={handleEditProduct} disabled={saving} className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50">
                 {saving ? 'Saving...' : 'Save Changes'}
               </button>
@@ -804,16 +804,16 @@ export default function InventoryPage() {
       {showReceiveModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-lg w-full">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">Receive Stock</h2>
+            <div className="p-6 border-b border-black">
+              <h2 className="text-xl font-bold text-black">Receive Stock</h2>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Product *</label>
+                <label className="block text-sm font-medium text-black mb-1">Product *</label>
                 <select 
                   value={receiveForm.product_id}
                   onChange={(e) => setReceiveForm({...receiveForm, product_id: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                 >
                   <option value="">Select product...</option>
                   {inventory.map((item) => (
@@ -823,60 +823,60 @@ export default function InventoryPage() {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Quantity *</label>
+                  <label className="block text-sm font-medium text-black mb-1">Quantity *</label>
                   <input
                     type="number"
                     value={receiveForm.quantity || ''}
                     onChange={(e) => setReceiveForm({...receiveForm, quantity: parseInt(e.target.value) || 0})}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                     placeholder="0"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Lot Number</label>
+                  <label className="block text-sm font-medium text-black mb-1">Lot Number</label>
                   <input
                     type="text"
                     value={receiveForm.lot_number}
                     onChange={(e) => setReceiveForm({...receiveForm, lot_number: e.target.value})}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                     placeholder="LOT-XXXX"
                   />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Expiration Date</label>
+                  <label className="block text-sm font-medium text-black mb-1">Expiration Date</label>
                   <input
                     type="date"
                     value={receiveForm.expiration_date}
                     onChange={(e) => setReceiveForm({...receiveForm, expiration_date: e.target.value})}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Cost per Unit ($)</label>
+                  <label className="block text-sm font-medium text-black mb-1">Cost per Unit ($)</label>
                   <input
                     type="number"
                     step="0.01"
                     value={receiveForm.cost_per_unit || ''}
                     onChange={(e) => setReceiveForm({...receiveForm, cost_per_unit: parseFloat(e.target.value) || 0})}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Notes</label>
+                <label className="block text-sm font-medium text-black mb-1">Notes</label>
                 <textarea
                   value={receiveForm.notes}
                   onChange={(e) => setReceiveForm({...receiveForm, notes: e.target.value})}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   rows={2}
                   placeholder="Invoice #, vendor notes..."
                 />
               </div>
             </div>
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
-              <button onClick={() => { setShowReceiveModal(false); setSelectedItem(null); }} className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg">Cancel</button>
+            <div className="p-6 border-t border-black flex justify-end gap-3">
+              <button onClick={() => { setShowReceiveModal(false); setSelectedItem(null); }} className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg">Cancel</button>
               <button onClick={handleReceiveStock} disabled={saving || !receiveForm.product_id || receiveForm.quantity <= 0} className="px-6 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 disabled:opacity-50">
                 {saving ? 'Receiving...' : 'Receive Stock'}
               </button>

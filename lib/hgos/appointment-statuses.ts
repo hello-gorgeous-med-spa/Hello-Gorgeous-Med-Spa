@@ -141,8 +141,8 @@ export const APPOINTMENT_STATUSES: Record<AppointmentStatusKey, AppointmentStatu
     label: 'No-Show',
     displayName: 'No-Show',
     color: '#6B7280', // Gray
-    bgColor: 'bg-gray-100',
-    textColor: 'text-gray-700',
+    bgColor: 'bg-white',
+    textColor: 'text-black',
     icon: '⚠️',
     allowedFromStatuses: ['confirmed', 'pending'],
     actions: [

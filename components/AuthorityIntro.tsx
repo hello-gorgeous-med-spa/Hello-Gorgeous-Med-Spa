@@ -84,7 +84,7 @@ export function AuthorityIntro() {
             </p>
           ))}
         </div>
-        <p className="mt-6 text-lg md:text-xl text-gray-300 font-medium">
+        <p className="mt-6 text-lg md:text-xl text-black font-medium">
           Oswego&apos;s Trusted Aesthetic Team
         </p>
       </div>

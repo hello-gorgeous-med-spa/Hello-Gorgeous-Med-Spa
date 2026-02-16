@@ -191,8 +191,8 @@ export default function PromotionsPage() {
           <div className="px-4 py-2 bg-green-100 rounded-lg">
             <span className="text-green-700 font-medium">{activeCount} Active</span>
           </div>
-          <div className="px-4 py-2 bg-gray-100 rounded-lg">
-            <span className="text-gray-600">{promotions.length} Total</span>
+          <div className="px-4 py-2 bg-white rounded-lg">
+            <span className="text-black">{promotions.length} Total</span>
           </div>
         </div>
         <button
@@ -207,7 +207,7 @@ export default function PromotionsPage() {
       {isLoading ? (
         <div className="grid grid-cols-3 gap-4">
           {[1, 2, 3].map(i => (
-            <div key={i} className="h-48 bg-gray-100 rounded-xl animate-pulse" />
+            <div key={i} className="h-48 bg-white rounded-xl animate-pulse" />
           ))}
         </div>
       ) : promotions.length > 0 ? (
@@ -218,24 +218,24 @@ export default function PromotionsPage() {
               className={`bg-white rounded-xl border overflow-hidden ${!promo.is_active ? 'opacity-60' : ''}`}
             >
               {promo.image_url && (
-                <div className="h-32 bg-gray-100" style={{ backgroundImage: `url(${promo.image_url})`, backgroundSize: 'cover' }} />
+                <div className="h-32 bg-white" style={{ backgroundImage: `url(${promo.image_url})`, backgroundSize: 'cover' }} />
               )}
               <div className="p-4">
                 <div className="flex items-start justify-between mb-2">
                   <h3 className="font-semibold">{promo.name}</h3>
-                  <span className={`text-xs px-2 py-0.5 rounded ${promo.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'}`}>
+                  <span className={`text-xs px-2 py-0.5 rounded ${promo.is_active ? 'bg-green-100 text-green-700' : 'bg-white text-black'}`}>
                     {promo.is_active ? 'Active' : 'Inactive'}
                   </span>
                 </div>
                 {promo.headline && (
-                  <p className="text-sm text-gray-600 mb-2">{promo.headline}</p>
+                  <p className="text-sm text-black mb-2">{promo.headline}</p>
                 )}
                 <div className="flex flex-wrap gap-1 mb-3">
                   {promo.display_locations?.map((loc: string) => (
                     <span key={loc} className="text-xs bg-pink-100 text-pink-600 px-2 py-0.5 rounded">{loc}</span>
                   ))}
                 </div>
-                <div className="flex items-center justify-between text-xs text-gray-400">
+                <div className="flex items-center justify-between text-xs text-black">
                   <span>{promo.views || 0} views • {promo.clicks || 0} clicks</span>
                   {promo.ends_at && (
                     <span>Ends {new Date(promo.ends_at).toLocaleDateString()}</span>
@@ -250,7 +250,7 @@ export default function PromotionsPage() {
                   </button>
                   <button
                     onClick={() => handleEdit(promo)}
-                    className="flex-1 py-1 bg-gray-100 rounded text-xs"
+                    className="flex-1 py-1 bg-white rounded text-xs"
                   >
                     Edit
                   </button>
@@ -268,8 +268,8 @@ export default function PromotionsPage() {
       ) : (
         <div className="bg-white rounded-xl border p-12 text-center">
           <span className="text-4xl block mb-3">🎉</span>
-          <h3 className="font-medium text-gray-700 mb-1">No promotions yet</h3>
-          <p className="text-sm text-gray-500 mb-4">Create your first promotion to drive engagement</p>
+          <h3 className="font-medium text-black mb-1">No promotions yet</h3>
+          <p className="text-sm text-black mb-4">Create your first promotion to drive engagement</p>
           <button
             onClick={() => { resetForm(); setShowCreate(true); }}
             className="px-4 py-2 bg-pink-500 text-white rounded-lg"
@@ -285,12 +285,12 @@ export default function PromotionsPage() {
           <div className="bg-white rounded-xl p-6 max-w-2xl w-full mx-4 my-8">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold">{editingPromo ? 'Edit Promotion' : 'Create Promotion'}</h2>
-              <button onClick={() => { setShowCreate(false); setEditingPromo(null); }} className="text-gray-400 hover:text-gray-600">✕</button>
+              <button onClick={() => { setShowCreate(false); setEditingPromo(null); }} className="text-black hover:text-black">✕</button>
             </div>
             
             <div className="grid grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto">
               <div className="col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Promotion Name *</label>
+                <label className="block text-sm font-medium text-black mb-1">Promotion Name *</label>
                 <input
                   type="text"
                   value={form.name}
@@ -301,7 +301,7 @@ export default function PromotionsPage() {
               </div>
               
               <div className="col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Headline</label>
+                <label className="block text-sm font-medium text-black mb-1">Headline</label>
                 <input
                   type="text"
                   value={form.headline}
@@ -312,7 +312,7 @@ export default function PromotionsPage() {
               </div>
               
               <div className="col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Subheadline</label>
+                <label className="block text-sm font-medium text-black mb-1">Subheadline</label>
                 <input
                   type="text"
                   value={form.subheadline}
@@ -322,7 +322,7 @@ export default function PromotionsPage() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">CTA Text</label>
+                <label className="block text-sm font-medium text-black mb-1">CTA Text</label>
                 <input
                   type="text"
                   value={form.cta_text}
@@ -332,7 +332,7 @@ export default function PromotionsPage() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">CTA URL</label>
+                <label className="block text-sm font-medium text-black mb-1">CTA URL</label>
                 <input
                   type="text"
                   value={form.cta_url}
@@ -343,7 +343,7 @@ export default function PromotionsPage() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Promo Code</label>
+                <label className="block text-sm font-medium text-black mb-1">Promo Code</label>
                 <input
                   type="text"
                   value={form.promo_code}
@@ -354,7 +354,7 @@ export default function PromotionsPage() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Display As</label>
+                <label className="block text-sm font-medium text-black mb-1">Display As</label>
                 <select
                   value={form.display_as}
                   onChange={(e) => setForm({ ...form, display_as: e.target.value })}
@@ -368,7 +368,7 @@ export default function PromotionsPage() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                <label className="block text-sm font-medium text-black mb-1">Start Date</label>
                 <input
                   type="date"
                   value={form.starts_at}
@@ -378,7 +378,7 @@ export default function PromotionsPage() {
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+                <label className="block text-sm font-medium text-black mb-1">End Date</label>
                 <input
                   type="date"
                   value={form.ends_at}
@@ -388,7 +388,7 @@ export default function PromotionsPage() {
               </div>
               
               <div className="col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">Image URL</label>
+                <label className="block text-sm font-medium text-black mb-1">Image URL</label>
                 <input
                   type="text"
                   value={form.image_url}
@@ -399,7 +399,7 @@ export default function PromotionsPage() {
               </div>
               
               <div className="col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-2">Display Locations</label>
+                <label className="block text-sm font-medium text-black mb-2">Display Locations</label>
                 <div className="flex flex-wrap gap-2">
                   {['homepage', 'services', 'booking', 'checkout', 'all'].map(loc => (
                     <button
@@ -413,7 +413,7 @@ export default function PromotionsPage() {
                       className={`px-3 py-1 rounded-full text-sm ${
                         form.display_locations.includes(loc)
                           ? 'bg-pink-100 text-pink-700'
-                          : 'bg-gray-100 text-gray-600'
+                          : 'bg-white text-black'
                       }`}
                     >
                       {loc}
@@ -429,7 +429,7 @@ export default function PromotionsPage() {
                   onChange={(e) => setForm({ ...form, is_active: e.target.checked })}
                   className="w-4 h-4"
                 />
-                <label className="text-sm text-gray-700">Activate immediately</label>
+                <label className="text-sm text-black">Activate immediately</label>
               </div>
             </div>
             

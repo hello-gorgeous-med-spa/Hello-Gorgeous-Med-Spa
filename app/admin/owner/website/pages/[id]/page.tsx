@@ -249,7 +249,7 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
     return (
       <OwnerLayout title="Page Not Found" description="">
         <div className="text-center py-12">
-          <p className="text-gray-500 mb-4">This page could not be found.</p>
+          <p className="text-black mb-4">This page could not be found.</p>
           <Link href="/admin/owner/website/pages" className="text-pink-600">
             ← Back to Pages
           </Link>
@@ -273,17 +273,17 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-4">
-          <Link href="/admin/owner/website/pages" className="text-gray-400 hover:text-gray-600">
+          <Link href="/admin/owner/website/pages" className="text-black hover:text-black">
             ← Back
           </Link>
           <input
             type="text"
             value={page.title}
             onChange={(e) => { setPage({ ...page, title: e.target.value }); setHasChanges(true); }}
-            className="text-2xl font-bold bg-transparent border-b border-transparent hover:border-gray-300 focus:border-purple-500 focus:outline-none"
+            className="text-2xl font-bold bg-transparent border-b border-transparent hover:border-black focus:border-purple-500 focus:outline-none"
           />
           <span className={`text-xs px-2 py-1 rounded ${
-            page.status === 'published' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'
+            page.status === 'published' ? 'bg-green-100 text-green-700' : 'bg-white text-black'
           }`}>
             {page.status}
           </span>
@@ -295,14 +295,14 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
           <a
             href={`/${page.slug}`}
             target="_blank"
-            className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200"
+            className="px-4 py-2 bg-white text-black rounded-lg hover:bg-white"
           >
             👁️ Preview
           </a>
           <button
             onClick={savePage}
             disabled={isSaving || !hasChanges}
-            className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 disabled:opacity-50"
+            className="px-4 py-2 bg-white text-black rounded-lg hover:bg-white disabled:opacity-50"
           >
             {isSaving ? 'Saving...' : 'Save Draft'}
           </button>
@@ -324,7 +324,7 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
             className={`px-4 py-2 text-sm capitalize ${
               activeTab === tab 
                 ? 'border-b-2 border-purple-500 text-pink-600 font-medium' 
-                : 'text-gray-500 hover:text-gray-700'
+                : 'text-black hover:text-black'
             }`}
           >
             {tab}
@@ -348,39 +348,39 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
                   <span className="text-xl">{SECTION_TYPES[section.type as keyof typeof SECTION_TYPES]?.icon || '📦'}</span>
                   <div>
                     <h3 className="font-medium">{SECTION_TYPES[section.type as keyof typeof SECTION_TYPES]?.name || section.type}</h3>
-                    <p className="text-xs text-gray-400">Section {idx + 1}</p>
+                    <p className="text-xs text-black">Section {idx + 1}</p>
                   </div>
                 </div>
                 <div className="flex gap-2">
                   <button
                     onClick={() => moveSection(section.id, 'up')}
                     disabled={idx === 0}
-                    className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30"
+                    className="p-1 text-black hover:text-black disabled:opacity-30"
                   >
                     ↑
                   </button>
                   <button
                     onClick={() => moveSection(section.id, 'down')}
                     disabled={idx === page.sections.length - 1}
-                    className="p-1 text-gray-400 hover:text-gray-600 disabled:opacity-30"
+                    className="p-1 text-black hover:text-black disabled:opacity-30"
                   >
                     ↓
                   </button>
                   <button
                     onClick={() => updateSection(section.id, { visible: !section.visible })}
-                    className={`p-1 ${section.visible ? 'text-green-500' : 'text-gray-400'}`}
+                    className={`p-1 ${section.visible ? 'text-green-500' : 'text-black'}`}
                   >
                     {section.visible ? '👁️' : '👁️‍🗨️'}
                   </button>
                   <button
                     onClick={() => setEditingSection(editingSection === section.id ? null : section.id)}
-                    className="p-1 text-gray-400 hover:text-pink-600"
+                    className="p-1 text-black hover:text-pink-600"
                   >
                     ✏️
                   </button>
                   <button
                     onClick={() => removeSection(section.id)}
-                    className="p-1 text-gray-400 hover:text-red-600"
+                    className="p-1 text-black hover:text-red-600"
                   >
                     🗑️
                   </button>
@@ -389,7 +389,7 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
 
               {/* Section Editor */}
               {editingSection === section.id && (
-                <div className="p-4 bg-gray-50">
+                <div className="p-4 bg-white">
                   <SectionEditor
                     type={section.type}
                     content={section.content}
@@ -403,7 +403,7 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
           {/* Add Section Button */}
           <button
             onClick={() => setShowAddSection(true)}
-            className="w-full p-4 border-2 border-dashed rounded-xl text-gray-400 hover:text-pink-600 hover:border-purple-300"
+            className="w-full p-4 border-2 border-dashed rounded-xl text-black hover:text-pink-600 hover:border-purple-300"
           >
             + Add Section
           </button>
@@ -414,9 +414,9 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
       {activeTab === 'seo' && (
         <div className="bg-white rounded-xl border p-6 space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">URL Slug</label>
+            <label className="block text-sm font-medium text-black mb-1">URL Slug</label>
             <div className="flex items-center">
-              <span className="text-gray-400 mr-1">/</span>
+              <span className="text-black mr-1">/</span>
               <input
                 type="text"
                 value={page.slug}
@@ -426,7 +426,7 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Meta Title</label>
+            <label className="block text-sm font-medium text-black mb-1">Meta Title</label>
             <input
               type="text"
               value={page.meta_title || ''}
@@ -434,10 +434,10 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
               className="w-full px-3 py-2 border rounded-lg"
               placeholder={page.title}
             />
-            <p className="text-xs text-gray-400 mt-1">{(page.meta_title || page.title).length}/60 characters</p>
+            <p className="text-xs text-black mt-1">{(page.meta_title || page.title).length}/60 characters</p>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Meta Description</label>
+            <label className="block text-sm font-medium text-black mb-1">Meta Description</label>
             <textarea
               value={page.meta_description || ''}
               onChange={(e) => { setPage({ ...page, meta_description: e.target.value }); setHasChanges(true); }}
@@ -445,10 +445,10 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
               rows={3}
               placeholder="Brief description for search engines..."
             />
-            <p className="text-xs text-gray-400 mt-1">{(page.meta_description || '').length}/160 characters</p>
+            <p className="text-xs text-black mt-1">{(page.meta_description || '').length}/160 characters</p>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">OG Image URL</label>
+            <label className="block text-sm font-medium text-black mb-1">OG Image URL</label>
             <input
               type="text"
               value={page.og_image_url || ''}
@@ -464,7 +464,7 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
               onChange={(e) => { setPage({ ...page, no_index: e.target.checked }); setHasChanges(true); }}
               className="w-4 h-4"
             />
-            <label className="text-sm text-gray-700">No Index (hide from search engines)</label>
+            <label className="text-sm text-black">No Index (hide from search engines)</label>
           </div>
         </div>
       )}
@@ -473,7 +473,7 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
       {activeTab === 'settings' && (
         <div className="bg-white rounded-xl border p-6 space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Visibility</label>
+            <label className="block text-sm font-medium text-black mb-1">Visibility</label>
             <select
               value={page.visibility}
               onChange={(e) => { setPage({ ...page, visibility: e.target.value }); setHasChanges(true); }}
@@ -485,7 +485,7 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Template</label>
+            <label className="block text-sm font-medium text-black mb-1">Template</label>
             <select
               value={page.template}
               onChange={(e) => { setPage({ ...page, template: e.target.value }); setHasChanges(true); }}
@@ -506,20 +506,20 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
           {versions.length > 0 ? (
             <div className="divide-y">
               {versions.map(version => (
-                <div key={version.id} className="p-4 hover:bg-gray-50">
+                <div key={version.id} className="p-4 hover:bg-white">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-medium">Version {version.version_number}</p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-black">
                         {new Date(version.created_at).toLocaleString()}
                       </p>
                       {version.change_summary && (
-                        <p className="text-xs text-gray-400 mt-1">{version.change_summary}</p>
+                        <p className="text-xs text-black mt-1">{version.change_summary}</p>
                       )}
                     </div>
                     <button
                       onClick={() => restoreVersion(version.id)}
-                      className="px-3 py-1 bg-gray-100 rounded text-sm hover:bg-gray-200"
+                      className="px-3 py-1 bg-white rounded text-sm hover:bg-white"
                     >
                       Restore
                     </button>
@@ -528,7 +528,7 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
               ))}
             </div>
           ) : (
-            <div className="p-8 text-center text-gray-500">
+            <div className="p-8 text-center text-black">
               No version history yet. Save changes to create versions.
             </div>
           )}
@@ -541,7 +541,7 @@ export default function PageEditorPage({ params }: { params: Promise<{ id: strin
           <div className="bg-white rounded-xl p-6 max-w-2xl w-full mx-4 max-h-[80vh] overflow-y-auto">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold">Add Section</h2>
-              <button onClick={() => setShowAddSection(false)} className="text-gray-400 hover:text-gray-600">✕</button>
+              <button onClick={() => setShowAddSection(false)} className="text-black hover:text-black">✕</button>
             </div>
             
             <div className="grid grid-cols-3 gap-4">
@@ -583,7 +583,7 @@ function SectionEditor({
       return (
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Headline</label>
+            <label className="block text-sm font-medium text-black mb-1">Headline</label>
             <input
               type="text"
               value={content.headline || ''}
@@ -592,7 +592,7 @@ function SectionEditor({
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Subheadline</label>
+            <label className="block text-sm font-medium text-black mb-1">Subheadline</label>
             <input
               type="text"
               value={content.subheadline || ''}
@@ -601,7 +601,7 @@ function SectionEditor({
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Background Image URL</label>
+            <label className="block text-sm font-medium text-black mb-1">Background Image URL</label>
             <input
               type="text"
               value={content.image_url || ''}
@@ -611,7 +611,7 @@ function SectionEditor({
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">CTA Text</label>
+              <label className="block text-sm font-medium text-black mb-1">CTA Text</label>
               <input
                 type="text"
                 value={content.cta_text || ''}
@@ -620,7 +620,7 @@ function SectionEditor({
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">CTA URL</label>
+              <label className="block text-sm font-medium text-black mb-1">CTA URL</label>
               <input
                 type="text"
                 value={content.cta_url || ''}
@@ -636,7 +636,7 @@ function SectionEditor({
       return (
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Title (optional)</label>
+            <label className="block text-sm font-medium text-black mb-1">Title (optional)</label>
             <input
               type="text"
               value={content.title || ''}
@@ -645,7 +645,7 @@ function SectionEditor({
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Content</label>
+            <label className="block text-sm font-medium text-black mb-1">Content</label>
             <textarea
               value={content.content || ''}
               onChange={(e) => updateContent('content', e.target.value)}
@@ -660,7 +660,7 @@ function SectionEditor({
       return (
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Section Title</label>
+            <label className="block text-sm font-medium text-black mb-1">Section Title</label>
             <input
               type="text"
               value={content.title || 'Our Services'}
@@ -670,7 +670,7 @@ function SectionEditor({
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Columns</label>
+              <label className="block text-sm font-medium text-black mb-1">Columns</label>
               <select
                 value={content.columns || 3}
                 onChange={(e) => updateContent('columns', parseInt(e.target.value))}
@@ -688,7 +688,7 @@ function SectionEditor({
                 onChange={(e) => updateContent('show_prices', e.target.checked)}
                 className="w-4 h-4"
               />
-              <label className="text-sm text-gray-700">Show Prices</label>
+              <label className="text-sm text-black">Show Prices</label>
             </div>
           </div>
         </div>
@@ -696,9 +696,9 @@ function SectionEditor({
 
     default:
       return (
-        <div className="text-sm text-gray-500">
+        <div className="text-sm text-black">
           <p>Configure this {type} section.</p>
-          <pre className="mt-2 p-2 bg-gray-100 rounded text-xs overflow-auto">
+          <pre className="mt-2 p-2 bg-white rounded text-xs overflow-auto">
             {JSON.stringify(content, null, 2)}
           </pre>
         </div>

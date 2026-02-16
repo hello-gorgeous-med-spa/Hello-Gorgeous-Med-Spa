@@ -215,17 +215,17 @@ export default function AdminConsentsPage() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Consent Forms</h1>
-            <p className="text-gray-500">Loading...</p>
+            <h1 className="text-2xl font-bold text-black">Consent Forms</h1>
+            <p className="text-black">Loading...</p>
           </div>
         </div>
         <div className="animate-pulse space-y-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
             {[1, 2, 3].map(i => (
-              <div key={i} className="bg-gray-200 rounded-lg h-20"></div>
+              <div key={i} className="bg-white rounded-lg h-20"></div>
             ))}
           </div>
-          <div className="bg-gray-200 rounded-xl h-64"></div>
+          <div className="bg-white rounded-xl h-64"></div>
         </div>
       </div>
     );
@@ -235,8 +235,8 @@ export default function AdminConsentsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Consent Forms</h1>
-          <p className="text-gray-500">Manage consent templates and view signed consents</p>
+          <h1 className="text-2xl font-bold text-black">Consent Forms</h1>
+          <p className="text-black">Manage consent templates and view signed consents</p>
         </div>
         <button 
           onClick={() => openEditModal()}
@@ -253,28 +253,28 @@ export default function AdminConsentsPage() {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Total Templates</p>
-          <p className="text-2xl font-bold text-gray-900">{stats.total}</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Total Templates</p>
+          <p className="text-2xl font-bold text-black">{stats.total}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Total Signed</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Total Signed</p>
           <p className="text-2xl font-bold text-green-600">{stats.totalSigned.toLocaleString()}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Expiring Soon (30 days)</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Expiring Soon (30 days)</p>
           <p className="text-2xl font-bold text-amber-600">{stats.expiringSoon}</p>
         </div>
       </div>
 
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100">
-          <h2 className="font-semibold text-gray-900">Consent Templates</h2>
+      <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-black">
+          <h2 className="font-semibold text-black">Consent Templates</h2>
         </div>
         
         {templates.length === 0 ? (
           <div className="px-5 py-12 text-center">
-            <p className="text-gray-500 mb-4">No consent templates found</p>
+            <p className="text-black mb-4">No consent templates found</p>
             <div className="flex justify-center gap-3">
               <button
                 onClick={handleSeedTemplates}
@@ -290,19 +290,19 @@ export default function AdminConsentsPage() {
                 Create Custom Template
               </button>
             </div>
-            <p className="text-xs text-gray-400 mt-3">
+            <p className="text-xs text-black mt-3">
               Default templates include: HIPAA, Neurotoxin, Filler, Weight Loss, Photo Release, and more
             </p>
           </div>
         ) : (
           <div className="divide-y divide-gray-100">
             {templates.map((template) => (
-              <div key={template.id} className="px-5 py-4 flex items-center justify-between hover:bg-gray-50">
+              <div key={template.id} className="px-5 py-4 flex items-center justify-between hover:bg-white">
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
-                    <p className="font-medium text-gray-900">{template.name}</p>
+                    <p className="font-medium text-black">{template.name}</p>
                     {!template.is_active && (
-                      <span className="px-2 py-0.5 text-xs bg-gray-100 text-gray-600 rounded-full">
+                      <span className="px-2 py-0.5 text-xs bg-white text-black rounded-full">
                         Inactive
                       </span>
                     )}
@@ -312,13 +312,13 @@ export default function AdminConsentsPage() {
                       </span>
                     )}
                   </div>
-                  <p className="text-sm text-gray-500">
+                  <p className="text-sm text-black">
                     {(template.signed_count || 0).toLocaleString()} signed • 
                     Version {template.version} • 
                     Updated {new Date(template.updated_at).toLocaleDateString()}
                   </p>
                   {template.description && (
-                    <p className="text-sm text-gray-400 mt-1 truncate max-w-lg">
+                    <p className="text-sm text-black mt-1 truncate max-w-lg">
                       {template.description}
                     </p>
                   )}
@@ -326,7 +326,7 @@ export default function AdminConsentsPage() {
                 <div className="flex items-center gap-2">
                   <button 
                     onClick={() => openPreviewModal(template)}
-                    className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="px-3 py-1.5 text-sm text-black hover:bg-white rounded-lg transition-colors"
                   >
                     Preview
                   </button>
@@ -357,13 +357,13 @@ export default function AdminConsentsPage() {
       {showEditModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
-              <h2 className="text-xl font-semibold text-gray-900">
+            <div className="px-6 py-4 border-b border-black flex items-center justify-between">
+              <h2 className="text-xl font-semibold text-black">
                 {selectedTemplate ? 'Edit Consent Template' : 'Create Consent Template'}
               </h2>
               <button 
                 onClick={() => setShowEditModal(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-black hover:text-black"
               >
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -373,47 +373,47 @@ export default function AdminConsentsPage() {
             
             <div className="px-6 py-4 space-y-4 max-h-[60vh] overflow-y-auto">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+                <label className="block text-sm font-medium text-black mb-1">Name *</label>
                 <input
                   type="text"
                   value={editForm.name}
                   onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
                   placeholder="e.g., Neurotoxin Treatment Consent"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Slug</label>
+                <label className="block text-sm font-medium text-black mb-1">Slug</label>
                 <input
                   type="text"
                   value={editForm.slug}
                   onChange={(e) => setEditForm({ ...editForm, slug: e.target.value })}
                   placeholder="auto-generated-from-name"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                 />
-                <p className="text-xs text-gray-500 mt-1">Leave blank to auto-generate from name</p>
+                <p className="text-xs text-black mt-1">Leave blank to auto-generate from name</p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <label className="block text-sm font-medium text-black mb-1">Description</label>
                 <input
                   type="text"
                   value={editForm.description}
                   onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
                   placeholder="Brief description of this consent form"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Content * (supports Markdown/HTML)</label>
+                <label className="block text-sm font-medium text-black mb-1">Content * (supports Markdown/HTML)</label>
                 <textarea
                   value={editForm.content}
                   onChange={(e) => setEditForm({ ...editForm, content: e.target.value })}
                   placeholder="Enter the full consent form text here..."
                   rows={12}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 font-mono text-sm"
+                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 font-mono text-sm"
                 />
               </div>
 
@@ -425,7 +425,7 @@ export default function AdminConsentsPage() {
                     onChange={(e) => setEditForm({ ...editForm, is_active: e.target.checked })}
                     className="w-4 h-4 text-pink-500 rounded focus:ring-pink-500"
                   />
-                  <span className="text-sm text-gray-700">Active (available for signing)</span>
+                  <span className="text-sm text-black">Active (available for signing)</span>
                 </label>
 
                 <label className="flex items-center gap-2 cursor-pointer">
@@ -435,12 +435,12 @@ export default function AdminConsentsPage() {
                     onChange={(e) => setEditForm({ ...editForm, requires_witness: e.target.checked })}
                     className="w-4 h-4 text-pink-500 rounded focus:ring-pink-500"
                   />
-                  <span className="text-sm text-gray-700">Requires witness signature</span>
+                  <span className="text-sm text-black">Requires witness signature</span>
                 </label>
               </div>
             </div>
 
-            <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-between">
+            <div className="px-6 py-4 border-t border-black flex items-center justify-between">
               {selectedTemplate && (
                 <button
                   onClick={() => {
@@ -455,7 +455,7 @@ export default function AdminConsentsPage() {
               <div className="flex items-center gap-3 ml-auto">
                 <button
                   onClick={() => setShowEditModal(false)}
-                  className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                  className="px-4 py-2 text-black hover:bg-white rounded-lg transition-colors"
                 >
                   Cancel
                 </button>
@@ -476,14 +476,14 @@ export default function AdminConsentsPage() {
       {showPreviewModal && selectedTemplate && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl shadow-xl max-w-3xl w-full max-h-[90vh] overflow-hidden">
-            <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+            <div className="px-6 py-4 border-b border-black flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-semibold text-gray-900">{selectedTemplate.name}</h2>
-                <p className="text-sm text-gray-500">Version {selectedTemplate.version}</p>
+                <h2 className="text-xl font-semibold text-black">{selectedTemplate.name}</h2>
+                <p className="text-sm text-black">Version {selectedTemplate.version}</p>
               </div>
               <button 
                 onClick={() => setShowPreviewModal(false)}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-black hover:text-black"
               >
                 <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -498,7 +498,7 @@ export default function AdminConsentsPage() {
               />
             </div>
 
-            <div className="px-6 py-4 border-t border-gray-100 flex items-center justify-end gap-3">
+            <div className="px-6 py-4 border-t border-black flex items-center justify-end gap-3">
               <button
                 onClick={() => {
                   setShowPreviewModal(false);
@@ -510,7 +510,7 @@ export default function AdminConsentsPage() {
               </button>
               <button
                 onClick={() => setShowPreviewModal(false)}
-                className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                className="px-4 py-2 bg-white text-black rounded-lg hover:bg-white transition-colors"
               >
                 Close Preview
               </button>

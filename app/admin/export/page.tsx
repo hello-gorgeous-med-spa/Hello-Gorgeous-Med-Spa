@@ -331,8 +331,8 @@ export default function DataExportCenter() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Data Export Center</h1>
-          <p className="text-gray-500">Export business data for compliance, backups, and analysis</p>
+          <h1 className="text-2xl font-bold text-black">Data Export Center</h1>
+          <p className="text-black">Export business data for compliance, backups, and analysis</p>
         </div>
       </div>
 
@@ -353,7 +353,7 @@ export default function DataExportCenter() {
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Export Options */}
         <div className="lg:col-span-2 space-y-4">
-          <h2 className="font-semibold text-gray-900">Select Data to Export</h2>
+          <h2 className="font-semibold text-black">Select Data to Export</h2>
           <div className="grid sm:grid-cols-2 gap-3">
             {EXPORT_OPTIONS.map((option) => (
               <button
@@ -365,7 +365,7 @@ export default function DataExportCenter() {
                 className={`p-4 rounded-xl border text-left transition-all ${
                   selectedExport === option.id
                     ? 'border-pink-500 bg-pink-50 ring-2 ring-pink-200'
-                    : 'border-gray-200 bg-white hover:border-gray-300'
+                    : 'border-black bg-white hover:border-black'
                 }`}
               >
                 <div className="flex items-start justify-between">
@@ -376,11 +376,11 @@ export default function DataExportCenter() {
                     </span>
                   )}
                 </div>
-                <h3 className="font-semibold text-gray-900 mt-2">{option.name}</h3>
-                <p className="text-sm text-gray-500 mt-1">{option.description}</p>
+                <h3 className="font-semibold text-black mt-2">{option.name}</h3>
+                <p className="text-sm text-black mt-1">{option.description}</p>
                 <div className="flex gap-1 mt-2">
                   {option.formats.map((f) => (
-                    <span key={f} className="px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded uppercase">
+                    <span key={f} className="px-2 py-0.5 bg-white text-black text-xs rounded uppercase">
                       {f}
                     </span>
                   ))}
@@ -392,22 +392,22 @@ export default function DataExportCenter() {
 
         {/* Export Configuration */}
         <div className="space-y-4">
-          <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-4">
-            <h2 className="font-semibold text-gray-900">Export Settings</h2>
+          <div className="bg-white rounded-xl border border-black p-5 space-y-4">
+            <h2 className="font-semibold text-black">Export Settings</h2>
 
             {selectedOption ? (
               <>
                 {/* Selected Item */}
-                <div className="bg-gray-50 rounded-lg p-3">
+                <div className="bg-white rounded-lg p-3">
                   <div className="flex items-center gap-2">
                     <span className="text-xl">{selectedOption.icon}</span>
-                    <span className="font-medium text-gray-900">{selectedOption.name}</span>
+                    <span className="font-medium text-black">{selectedOption.name}</span>
                   </div>
                 </div>
 
                 {/* Format Selection */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-black mb-2">
                     Export Format
                   </label>
                   <div className="flex gap-2">
@@ -418,7 +418,7 @@ export default function DataExportCenter() {
                         className={`px-4 py-2 rounded-lg text-sm font-medium uppercase ${
                           selectedFormat === format
                             ? 'bg-pink-500 text-white'
-                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                            : 'bg-white text-black hover:bg-white'
                         }`}
                       >
                         {format}
@@ -429,7 +429,7 @@ export default function DataExportCenter() {
 
                 {/* Date Range (optional) */}
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-black mb-2">
                     Date Range (Optional)
                   </label>
                   <div className="grid grid-cols-2 gap-2">
@@ -437,13 +437,13 @@ export default function DataExportCenter() {
                       type="date"
                       value={dateRange.start}
                       onChange={(e) => setDateRange(prev => ({ ...prev, start: e.target.value }))}
-                      className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                      className="px-3 py-2 border border-black rounded-lg text-sm"
                     />
                     <input
                       type="date"
                       value={dateRange.end}
                       onChange={(e) => setDateRange(prev => ({ ...prev, end: e.target.value }))}
-                      className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                      className="px-3 py-2 border border-black rounded-lg text-sm"
                     />
                   </div>
                 </div>
@@ -454,9 +454,9 @@ export default function DataExportCenter() {
                     type="checkbox"
                     checked={includeDeleted}
                     onChange={(e) => setIncludeDeleted(e.target.checked)}
-                    className="w-4 h-4 rounded border-gray-300"
+                    className="w-4 h-4 rounded border-black"
                   />
-                  <span className="text-gray-700">Include deleted/archived records</span>
+                  <span className="text-black">Include deleted/archived records</span>
                 </label>
 
                 {/* PHI Acknowledgment */}
@@ -466,7 +466,7 @@ export default function DataExportCenter() {
                       type="checkbox"
                       checked={acknowledgePHI}
                       onChange={(e) => setAcknowledgePHI(e.target.checked)}
-                      className="w-4 h-4 rounded border-gray-300 mt-0.5"
+                      className="w-4 h-4 rounded border-black mt-0.5"
                     />
                     <span className="text-red-700">
                       I acknowledge this export contains PHI and I am authorized to access this data.
@@ -479,7 +479,7 @@ export default function DataExportCenter() {
                 <button
                   onClick={handleExport}
                   disabled={processing || (selectedOption.sensitive && !acknowledgePHI)}
-                  className="w-full py-3 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
+                  className="w-full py-3 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 disabled:bg-white disabled:cursor-not-allowed transition-colors"
                 >
                   {processing ? (
                     <span className="flex items-center justify-center gap-2">
@@ -493,7 +493,7 @@ export default function DataExportCenter() {
                 </button>
               </>
             ) : (
-              <div className="text-center py-8 text-gray-500">
+              <div className="text-center py-8 text-black">
                 <span className="text-4xl block mb-2">👈</span>
                 <p>Select a data type to configure export</p>
               </div>
@@ -501,15 +501,15 @@ export default function DataExportCenter() {
           </div>
 
           {/* Quick Export Buttons */}
-          <div className="bg-white rounded-xl border border-gray-200 p-5 space-y-3">
-            <h2 className="font-semibold text-gray-900">Quick Exports</h2>
+          <div className="bg-white rounded-xl border border-black p-5 space-y-3">
+            <h2 className="font-semibold text-black">Quick Exports</h2>
             <button
               onClick={() => {
                 setSelectedExport('full-backup');
                 setSelectedFormat('json');
                 setAcknowledgePHI(true);
               }}
-              className="w-full py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm"
+              className="w-full py-2 border border-black text-black rounded-lg hover:bg-white text-sm"
             >
               🔒 Full Database Backup
             </button>
@@ -518,7 +518,7 @@ export default function DataExportCenter() {
                 setSelectedExport('transactions');
                 setSelectedFormat('csv');
               }}
-              className="w-full py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm"
+              className="w-full py-2 border border-black text-black rounded-lg hover:bg-white text-sm"
             >
               💳 Financial Report (CSV)
             </button>
@@ -527,7 +527,7 @@ export default function DataExportCenter() {
                 setSelectedExport('appointments');
                 setSelectedFormat('csv');
               }}
-              className="w-full py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm"
+              className="w-full py-2 border border-black text-black rounded-lg hover:bg-white text-sm"
             >
               📅 Appointments (CSV)
             </button>
@@ -537,9 +537,9 @@ export default function DataExportCenter() {
 
       {/* Export History */}
       {jobs.length > 0 && (
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-200">
-            <h2 className="font-semibold text-gray-900">Export History (This Session)</h2>
+        <div className="bg-white rounded-xl border border-black overflow-hidden">
+          <div className="px-5 py-4 border-b border-black">
+            <h2 className="font-semibold text-black">Export History (This Session)</h2>
           </div>
           <div className="divide-y divide-gray-100">
             {jobs.map((job) => (
@@ -549,11 +549,11 @@ export default function DataExportCenter() {
                     job.status === 'completed' ? 'bg-green-500' :
                     job.status === 'failed' ? 'bg-red-500' :
                     job.status === 'processing' ? 'bg-amber-500 animate-pulse' :
-                    'bg-gray-400'
+                    'bg-black/30'
                   }`} />
                   <div>
-                    <p className="font-medium text-gray-900">{job.type}</p>
-                    <p className="text-sm text-gray-500">
+                    <p className="font-medium text-black">{job.type}</p>
+                    <p className="text-sm text-black">
                       {job.startedAt.toLocaleTimeString()}
                       {job.completedAt && ` - Completed in ${Math.round((job.completedAt.getTime() - job.startedAt.getTime()) / 1000)}s`}
                     </p>
@@ -583,8 +583,8 @@ export default function DataExportCenter() {
       )}
 
       {/* Compliance Footer */}
-      <div className="bg-gray-50 rounded-xl p-4 text-center">
-        <p className="text-sm text-gray-600">
+      <div className="bg-white rounded-xl p-4 text-center">
+        <p className="text-sm text-black">
           All exports are logged for HIPAA compliance. Data retention: 7 years for medical records, 3 years for financial.
           <br />
           For data deletion requests (CCPA/GDPR), contact your compliance officer.

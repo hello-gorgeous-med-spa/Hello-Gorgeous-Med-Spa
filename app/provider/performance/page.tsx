@@ -162,18 +162,18 @@ export default function ProviderPerformancePage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">My Performance</h1>
-          <p className="text-gray-500">Track your productivity and patient metrics</p>
+          <h1 className="text-2xl font-bold text-black">My Performance</h1>
+          <p className="text-black">Track your productivity and patient metrics</p>
         </div>
-        <div className="flex items-center gap-2 bg-gray-100 rounded-lg p-1">
+        <div className="flex items-center gap-2 bg-white rounded-lg p-1">
           {(['week', 'month', 'quarter'] as const).map((p) => (
             <button
               key={p}
               onClick={() => setPeriod(p)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 period === p 
-                  ? 'bg-white text-gray-900 shadow-sm' 
-                  : 'text-gray-600 hover:text-gray-900'
+                  ? 'bg-white text-black shadow-sm' 
+                  : 'text-black hover:text-black'
               }`}
             >
               {p.charAt(0).toUpperCase() + p.slice(1)}
@@ -204,70 +204,70 @@ export default function ProviderPerformancePage() {
       {/* Stats Grid */}
       <div className="grid md:grid-cols-3 gap-6">
         {/* This Week */}
-        <div className="bg-white rounded-xl border border-gray-100 p-5">
-          <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <div className="bg-white rounded-xl border border-black p-5">
+          <h3 className="font-semibold text-black mb-4 flex items-center gap-2">
             <span className="text-lg">📅</span>
             This Week
           </h3>
           <div className="space-y-3">
             <div className="flex justify-between">
-              <span className="text-gray-500">Patients</span>
-              <span className="font-bold text-gray-900">{stats.weekPatients}</span>
+              <span className="text-black">Patients</span>
+              <span className="font-bold text-black">{stats.weekPatients}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-500">Revenue</span>
+              <span className="text-black">Revenue</span>
               <span className="font-bold text-green-600">${stats.weekRevenue.toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-500">Units</span>
-              <span className="font-bold text-gray-900">{stats.weekUnits}</span>
+              <span className="text-black">Units</span>
+              <span className="font-bold text-black">{stats.weekUnits}</span>
             </div>
           </div>
         </div>
 
         {/* This Month */}
-        <div className="bg-white rounded-xl border border-gray-100 p-5">
-          <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <div className="bg-white rounded-xl border border-black p-5">
+          <h3 className="font-semibold text-black mb-4 flex items-center gap-2">
             <span className="text-lg">📆</span>
             This Month
           </h3>
           <div className="space-y-3">
             <div className="flex justify-between">
-              <span className="text-gray-500">Patients</span>
-              <span className="font-bold text-gray-900">{stats.monthPatients}</span>
+              <span className="text-black">Patients</span>
+              <span className="font-bold text-black">{stats.monthPatients}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-500">Revenue</span>
+              <span className="text-black">Revenue</span>
               <span className="font-bold text-green-600">${stats.monthRevenue.toLocaleString()}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-gray-500">Units</span>
-              <span className="font-bold text-gray-900">{stats.monthUnits}</span>
+              <span className="text-black">Units</span>
+              <span className="font-bold text-black">{stats.monthUnits}</span>
             </div>
           </div>
         </div>
 
         {/* Key Metrics */}
-        <div className="bg-white rounded-xl border border-gray-100 p-5">
-          <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <div className="bg-white rounded-xl border border-black p-5">
+          <h3 className="font-semibold text-black mb-4 flex items-center gap-2">
             <span className="text-lg">📊</span>
             Key Metrics
           </h3>
           <div className="space-y-3">
             <div className="flex justify-between items-center">
-              <span className="text-gray-500">Rebook Rate</span>
+              <span className="text-black">Rebook Rate</span>
               <span className={`font-bold ${stats.rebookRate >= 60 ? 'text-green-600' : 'text-amber-600'}`}>
                 {stats.rebookRate}%
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-500">No-Show Rate</span>
+              <span className="text-black">No-Show Rate</span>
               <span className={`font-bold ${stats.noShowRate <= 10 ? 'text-green-600' : 'text-red-600'}`}>
                 {stats.noShowRate}%
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-gray-500">Avg Rating</span>
+              <span className="text-black">Avg Rating</span>
               <span className="font-bold text-amber-500">
                 ⭐ {stats.avgRating.toFixed(1)}
               </span>
@@ -277,13 +277,13 @@ export default function ProviderPerformancePage() {
       </div>
 
       {/* Service Breakdown */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100">
-          <h2 className="font-semibold text-gray-900">Service Breakdown (This Month)</h2>
+      <div className="bg-white rounded-xl border border-black overflow-hidden">
+        <div className="px-5 py-4 border-b border-black">
+          <h2 className="font-semibold text-black">Service Breakdown (This Month)</h2>
         </div>
         <div className="p-5">
           {serviceBreakdown.length === 0 ? (
-            <p className="text-gray-500 text-center py-8">No data available</p>
+            <p className="text-black text-center py-8">No data available</p>
           ) : (
             <div className="space-y-4">
               {serviceBreakdown.map((service, idx) => (
@@ -293,14 +293,14 @@ export default function ProviderPerformancePage() {
                       <span className="w-6 h-6 bg-pink-100 text-pink-600 rounded-full flex items-center justify-center text-xs font-bold">
                         {idx + 1}
                       </span>
-                      <span className="font-medium text-gray-900">{service.service}</span>
+                      <span className="font-medium text-black">{service.service}</span>
                     </div>
                     <div className="text-right">
-                      <span className="font-bold text-gray-900">{service.count}</span>
-                      <span className="text-gray-500 text-sm ml-2">(${service.revenue.toLocaleString()})</span>
+                      <span className="font-bold text-black">{service.count}</span>
+                      <span className="text-black text-sm ml-2">(${service.revenue.toLocaleString()})</span>
                     </div>
                   </div>
-                  <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden">
+                  <div className="w-full h-2 bg-white rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-gradient-to-r from-pink-400 to-rose-500 rounded-full"
                       style={{ width: `${service.percentage}%` }}
@@ -316,17 +316,17 @@ export default function ProviderPerformancePage() {
       {/* Goals & Achievements */}
       <div className="grid md:grid-cols-2 gap-6">
         {/* Monthly Goals */}
-        <div className="bg-white rounded-xl border border-gray-100 p-5">
-          <h3 className="font-semibold text-gray-900 mb-4">Monthly Goals</h3>
+        <div className="bg-white rounded-xl border border-black p-5">
+          <h3 className="font-semibold text-black mb-4">Monthly Goals</h3>
           <div className="space-y-4">
             <div>
               <div className="flex justify-between mb-1">
-                <span className="text-gray-600">Revenue Goal</span>
-                <span className="text-gray-900 font-medium">
+                <span className="text-black">Revenue Goal</span>
+                <span className="text-black font-medium">
                   ${stats.monthRevenue.toLocaleString()} / $50,000
                 </span>
               </div>
-              <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+              <div className="w-full h-3 bg-white rounded-full overflow-hidden">
                 <div 
                   className="h-full bg-green-500 rounded-full transition-all"
                   style={{ width: `${Math.min((stats.monthRevenue / 50000) * 100, 100)}%` }}
@@ -335,12 +335,12 @@ export default function ProviderPerformancePage() {
             </div>
             <div>
               <div className="flex justify-between mb-1">
-                <span className="text-gray-600">Patient Goal</span>
-                <span className="text-gray-900 font-medium">
+                <span className="text-black">Patient Goal</span>
+                <span className="text-black font-medium">
                   {stats.monthPatients} / 150 patients
                 </span>
               </div>
-              <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+              <div className="w-full h-3 bg-white rounded-full overflow-hidden">
                 <div 
                   className="h-full bg-blue-500 rounded-full transition-all"
                   style={{ width: `${Math.min((stats.monthPatients / 150) * 100, 100)}%` }}
@@ -349,12 +349,12 @@ export default function ProviderPerformancePage() {
             </div>
             <div>
               <div className="flex justify-between mb-1">
-                <span className="text-gray-600">Rebook Rate</span>
-                <span className="text-gray-900 font-medium">
+                <span className="text-black">Rebook Rate</span>
+                <span className="text-black font-medium">
                   {stats.rebookRate}% / 70% target
                 </span>
               </div>
-              <div className="w-full h-3 bg-gray-100 rounded-full overflow-hidden">
+              <div className="w-full h-3 bg-white rounded-full overflow-hidden">
                 <div 
                   className={`h-full rounded-full transition-all ${
                     stats.rebookRate >= 70 ? 'bg-green-500' : 'bg-amber-500'
@@ -367,28 +367,28 @@ export default function ProviderPerformancePage() {
         </div>
 
         {/* Recent Achievements */}
-        <div className="bg-white rounded-xl border border-gray-100 p-5">
-          <h3 className="font-semibold text-gray-900 mb-4">Achievements</h3>
+        <div className="bg-white rounded-xl border border-black p-5">
+          <h3 className="font-semibold text-black mb-4">Achievements</h3>
           <div className="space-y-3">
             <div className="flex items-center gap-3 p-3 bg-amber-50 rounded-lg">
               <span className="text-2xl">🏆</span>
               <div>
-                <p className="font-medium text-gray-900">Top Performer</p>
-                <p className="text-sm text-gray-500">Highest revenue this month</p>
+                <p className="font-medium text-black">Top Performer</p>
+                <p className="text-sm text-black">Highest revenue this month</p>
               </div>
             </div>
             <div className="flex items-center gap-3 p-3 bg-green-50 rounded-lg">
               <span className="text-2xl">⭐</span>
               <div>
-                <p className="font-medium text-gray-900">5-Star Provider</p>
-                <p className="text-sm text-gray-500">Avg rating above 4.8</p>
+                <p className="font-medium text-black">5-Star Provider</p>
+                <p className="text-sm text-black">Avg rating above 4.8</p>
               </div>
             </div>
             <div className="flex items-center gap-3 p-3 bg-blue-50 rounded-lg">
               <span className="text-2xl">📈</span>
               <div>
-                <p className="font-medium text-gray-900">Growth Champion</p>
-                <p className="text-sm text-gray-500">15% increase from last month</p>
+                <p className="font-medium text-black">Growth Champion</p>
+                <p className="text-sm text-black">15% increase from last month</p>
               </div>
             </div>
           </div>

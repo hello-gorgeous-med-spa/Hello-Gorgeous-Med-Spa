@@ -64,7 +64,7 @@ export function LaserHairSection() {
                 Removal
               </span>
             </h2>
-            <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            <p className="text-black text-lg max-w-2xl mx-auto">
               Say goodbye to shaving, waxing, and ingrown hairs forever. 
               Smooth, hair-free skin is just a few sessions away.
             </p>
@@ -99,7 +99,7 @@ export function LaserHairSection() {
                     <span className="text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-fuchsia-400 to-pink-400">
                       {pkg.price}
                     </span>
-                    <span className="text-gray-500 line-through text-lg">
+                    <span className="text-black line-through text-lg">
                       {pkg.originalPrice}
                     </span>
                   </div>
@@ -112,7 +112,7 @@ export function LaserHairSection() {
                   {pkg.areas.map((area) => (
                     <div key={area} className="flex items-center gap-2 justify-center">
                       <span className="text-fuchsia-400">✓</span>
-                      <span className="text-gray-300">{area}</span>
+                      <span className="text-black">{area}</span>
                     </div>
                   ))}
                 </div>
@@ -144,7 +144,7 @@ export function LaserHairSection() {
               >
                 <span className="text-3xl mb-2 block">{benefit.icon}</span>
                 <h4 className="text-white font-semibold text-sm mb-1">{benefit.title}</h4>
-                <p className="text-gray-400 text-xs">{benefit.desc}</p>
+                <p className="text-black text-xs">{benefit.desc}</p>
               </div>
             ))}
           </div>
@@ -167,7 +167,7 @@ export function LaserHairSection() {
                 </div>
               ))}
             </div>
-            <p className="text-center text-gray-500 text-sm mt-4">
+            <p className="text-center text-black text-sm mt-4">
               * Prices are per session. Package deals available for 6+ sessions.
             </p>
           </div>
@@ -191,7 +191,7 @@ export function LaserHairSection() {
                     {item.step}
                   </div>
                   <h4 className="text-white font-semibold mb-1">{item.title}</h4>
-                  <p className="text-gray-400 text-sm">{item.desc}</p>
+                  <p className="text-black text-sm">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -201,7 +201,7 @@ export function LaserHairSection() {
         {/* CTA */}
         <FadeUp delayMs={300}>
           <div className="mt-12 text-center">
-            <p className="text-gray-400 mb-4">
+            <p className="text-black mb-4">
               Ready to ditch the razor? Book your laser hair removal today!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -220,7 +220,7 @@ export function LaserHairSection() {
                 📞 630-636-6193
               </a>
             </div>
-            <p className="mt-4 text-gray-500 text-sm">
+            <p className="mt-4 text-black text-sm">
               Limited time pricing. Most clients need 6-8 sessions for best results.
             </p>
           </div>

@@ -41,9 +41,9 @@ export function PaymentMethodBadge({
     financing: 'bg-purple-100 text-purple-800',
     credit: 'bg-amber-100 text-amber-800',
     gift: 'bg-pink-100 text-pink-800',
-    comp: 'bg-gray-100 text-gray-800',
+    comp: 'bg-white text-black',
     deposit: 'bg-cyan-100 text-cyan-800',
-    other: 'bg-gray-100 text-gray-800',
+    other: 'bg-white text-black',
   };
 
   return (
@@ -82,7 +82,7 @@ export function PaymentMethodSelector({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         disabled={disabled}
-        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+        className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
       >
         {Object.values(grouped).flat().map((method) => (
           <option key={method.id} value={method.id}>
@@ -98,7 +98,7 @@ export function PaymentMethodSelector({
       value={value}
       onChange={(e) => onChange(e.target.value)}
       disabled={disabled}
-      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+      className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
     >
       {Object.entries(grouped).map(([groupName, methods]) => (
         <optgroup key={groupName} label={groupName}>
@@ -134,7 +134,7 @@ export function PaymentMethodGrid({
     <div className="space-y-4">
       {Object.entries(grouped).map(([groupName, methods]) => (
         <div key={groupName}>
-          <h4 className="text-sm font-medium text-gray-500 mb-2">{groupName}</h4>
+          <h4 className="text-sm font-medium text-black mb-2">{groupName}</h4>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
             {methods.map((method) => (
               <button
@@ -146,13 +146,13 @@ export function PaymentMethodGrid({
                   flex items-center gap-2 p-3 rounded-lg border-2 transition-all
                   ${value === method.id
                     ? 'border-pink-500 bg-pink-50'
-                    : 'border-gray-200 hover:border-gray-300 bg-white'
+                    : 'border-black hover:border-black bg-white'
                   }
                   ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}
                 `}
               >
                 <span className="text-2xl">{method.icon}</span>
-                <span className="text-sm font-medium text-gray-700">{method.displayName}</span>
+                <span className="text-sm font-medium text-black">{method.displayName}</span>
               </button>
             ))}
           </div>
@@ -208,7 +208,7 @@ export function SplitPaymentEditor({
             value={split.methodId}
             onChange={(e) => updateSplit(index, { methodId: e.target.value })}
             disabled={disabled}
-            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+            className="flex-1 px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
           >
             {allMethods.map((method) => (
               <option key={method.id} value={method.id}>
@@ -218,7 +218,7 @@ export function SplitPaymentEditor({
           </select>
           
           <div className="relative w-32">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-black">$</span>
             <input
               type="number"
               value={split.amount}
@@ -226,7 +226,7 @@ export function SplitPaymentEditor({
               disabled={disabled}
               step="0.01"
               min="0"
-              className="w-full pl-7 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+              className="w-full pl-7 pr-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
             />
           </div>
 
@@ -249,7 +249,7 @@ export function SplitPaymentEditor({
           type="button"
           onClick={addSplit}
           disabled={disabled}
-          className="w-full py-2 border-2 border-dashed border-gray-300 rounded-lg text-gray-500 hover:border-gray-400 hover:text-gray-600 transition-colors"
+          className="w-full py-2 border-2 border-dashed border-black rounded-lg text-black hover:border-black hover:text-black transition-colors"
         >
           + Add Another Payment Method (${remainingAmount.toFixed(2)} remaining)
         </button>
@@ -262,7 +262,7 @@ export function SplitPaymentEditor({
 
       {/* Total summary */}
       <div className="flex justify-between items-center pt-4 border-t">
-        <span className="text-gray-600">Total</span>
+        <span className="text-black">Total</span>
         <span className={`font-bold text-lg ${Math.abs(remainingAmount) < 0.01 ? 'text-green-600' : 'text-amber-600'}`}>
           ${totalAmount.toFixed(2)}
         </span>
@@ -299,8 +299,8 @@ export function FinancingOptions({ amount, onSelect }: FinancingOptionsProps) {
             <div className="flex items-center gap-3">
               <span className="text-2xl">{option.icon}</span>
               <div>
-                <p className="font-medium text-gray-900">{option.displayName}</p>
-                <p className="text-sm text-gray-500">{option.description}</p>
+                <p className="font-medium text-black">{option.displayName}</p>
+                <p className="text-sm text-black">{option.description}</p>
               </div>
             </div>
             {option.id === 'afterpay' && (
@@ -308,7 +308,7 @@ export function FinancingOptions({ amount, onSelect }: FinancingOptionsProps) {
                 <p className="font-semibold text-purple-600">
                   4 x ${(amount / 4).toFixed(2)}
                 </p>
-                <p className="text-xs text-gray-500">interest-free</p>
+                <p className="text-xs text-black">interest-free</p>
               </div>
             )}
             {onSelect && (
@@ -342,7 +342,7 @@ export function PaymentReceiptLine({ splits }: PaymentReceiptLineProps) {
     const method = getPaymentMethod(splits[0].methodId);
     return (
       <div className="flex items-center justify-between py-2">
-        <span className="text-gray-600">
+        <span className="text-black">
           {method?.icon} {method?.displayName || splits[0].methodId}
         </span>
         <span className="font-medium">${splits[0].amount.toFixed(2)}</span>
@@ -356,7 +356,7 @@ export function PaymentReceiptLine({ splits }: PaymentReceiptLineProps) {
         const method = getPaymentMethod(split.methodId);
         return (
           <div key={index} className="flex items-center justify-between py-1 text-sm">
-            <span className="text-gray-600">
+            <span className="text-black">
               {method?.icon} {method?.displayName || split.methodId}
             </span>
             <span>${split.amount.toFixed(2)}</span>

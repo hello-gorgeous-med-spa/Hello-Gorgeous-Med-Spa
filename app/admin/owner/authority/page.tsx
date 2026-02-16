@@ -113,7 +113,7 @@ export default function AuthorityPage() {
             <div className="p-4 border-b flex items-center justify-between">
               <div>
                 <h2 className="font-semibold">👥 User Access Control</h2>
-                <p className="text-xs text-gray-500">{totalSessions} active sessions</p>
+                <p className="text-xs text-black">{totalSessions} active sessions</p>
               </div>
               <button
                 onClick={() => setShowRevokeAll(true)}
@@ -123,42 +123,42 @@ export default function AuthorityPage() {
               </button>
             </div>
             <table className="w-full">
-              <thead className="bg-gray-50">
+              <thead className="bg-white">
                 <tr>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">USER</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">ROLE</th>
-                  <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">LAST LOGIN</th>
-                  <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500">SESSIONS</th>
-                  <th className="text-center px-4 py-3 text-xs font-semibold text-gray-500">STATUS</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-black">USER</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-black">ROLE</th>
+                  <th className="text-left px-4 py-3 text-xs font-semibold text-black">LAST LOGIN</th>
+                  <th className="text-center px-4 py-3 text-xs font-semibold text-black">SESSIONS</th>
+                  <th className="text-center px-4 py-3 text-xs font-semibold text-black">STATUS</th>
                   <th className="px-4 py-3"></th>
                 </tr>
               </thead>
               <tbody className="divide-y">
                 {users.map(user => (
-                  <tr key={user.id} className={`hover:bg-gray-50 ${user.status === 'locked' ? 'bg-red-50' : ''}`}>
+                  <tr key={user.id} className={`hover:bg-white ${user.status === 'locked' ? 'bg-red-50' : ''}`}>
                     <td className="px-4 py-3">
                       <div>
                         <p className="font-medium">{user.name}</p>
-                        <p className="text-xs text-gray-500">{user.email}</p>
+                        <p className="text-xs text-black">{user.email}</p>
                       </div>
                     </td>
                     <td className="px-4 py-3">
                       <span className={`text-xs px-2 py-1 rounded ${
                         user.role === 'Founder' ? 'bg-pink-100 text-pink-700' :
                         user.role === 'Provider' ? 'bg-blue-100 text-blue-700' :
-                        'bg-gray-100 text-gray-700'
+                        'bg-white text-black'
                       }`}>
                         {user.role}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-sm text-gray-500">
+                    <td className="px-4 py-3 text-sm text-black">
                       {new Date(user.lastLogin).toLocaleString()}
                     </td>
                     <td className="px-4 py-3 text-center">
                       {user.activeSessions > 0 ? (
                         <span className="bg-green-100 text-green-700 px-2 py-0.5 rounded text-xs">{user.activeSessions}</span>
                       ) : (
-                        <span className="text-gray-400 text-xs">0</span>
+                        <span className="text-black text-xs">0</span>
                       )}
                     </td>
                     <td className="px-4 py-3 text-center">
@@ -189,7 +189,7 @@ export default function AuthorityPage() {
                         )
                       )}
                       {user.role === 'Founder' && (
-                        <span className="text-xs text-gray-400">Protected</span>
+                        <span className="text-xs text-black">Protected</span>
                       )}
                     </td>
                   </tr>
@@ -209,24 +209,24 @@ export default function AuthorityPage() {
             <div className="p-4 space-y-3">
               <button
                 onClick={toggleReadOnly}
-                className="w-full p-3 text-left rounded-lg border hover:bg-gray-50"
+                className="w-full p-3 text-left rounded-lg border hover:bg-white"
               >
                 <h3 className="font-medium text-sm">🔒 Lock System to Read-Only</h3>
-                <p className="text-xs text-gray-500">Block all write operations instantly</p>
+                <p className="text-xs text-black">Block all write operations instantly</p>
               </button>
               <button
                 onClick={() => setShowRevokeAll(true)}
-                className="w-full p-3 text-left rounded-lg border hover:bg-gray-50"
+                className="w-full p-3 text-left rounded-lg border hover:bg-white"
               >
                 <h3 className="font-medium text-sm">👤 Force Logout All Users</h3>
-                <p className="text-xs text-gray-500">End all active sessions (except Founder)</p>
+                <p className="text-xs text-black">End all active sessions (except Founder)</p>
               </button>
               <button
                 onClick={() => setShowRotateSecrets(true)}
-                className="w-full p-3 text-left rounded-lg border hover:bg-gray-50"
+                className="w-full p-3 text-left rounded-lg border hover:bg-white"
               >
                 <h3 className="font-medium text-sm">🔑 Rotate API Secrets</h3>
-                <p className="text-xs text-gray-500">Generate new API keys via UI</p>
+                <p className="text-xs text-black">Generate new API keys via UI</p>
               </button>
             </div>
           </div>
@@ -243,9 +243,9 @@ export default function AuthorityPage() {
           </div>
 
           {/* Audit Note */}
-          <div className="bg-gray-50 border rounded-xl p-4">
-            <h3 className="font-medium text-gray-700 mb-2">📋 All Actions Logged</h3>
-            <p className="text-xs text-gray-600">
+          <div className="bg-white border rounded-xl p-4">
+            <h3 className="font-medium text-black mb-2">📋 All Actions Logged</h3>
+            <p className="text-xs text-black">
               Every access control action is recorded in the audit log with user, timestamp, IP, and action details.
             </p>
             <a href="/admin/owner/audit" className="text-xs text-pink-600 hover:text-pink-700 mt-2 inline-block">
@@ -260,12 +260,12 @@ export default function AuthorityPage() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
             <h3 className="text-lg font-semibold text-red-600 mb-2">🚨 Force Logout All Users</h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-black mb-4">
               This will immediately end all active sessions for all users except the Founder.
               Users will need to log in again.
             </p>
             <div className="flex gap-3 justify-end">
-              <button onClick={() => setShowRevokeAll(false)} className="px-4 py-2 text-gray-600 hover:text-gray-800">
+              <button onClick={() => setShowRevokeAll(false)} className="px-4 py-2 text-black hover:text-black">
                 Cancel
               </button>
               <button onClick={forceLogoutAll} className="px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
@@ -281,7 +281,7 @@ export default function AuthorityPage() {
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
             <h3 className="text-lg font-semibold mb-2">🔑 Rotate API Secrets</h3>
-            <p className="text-gray-600 mb-4">
+            <p className="text-black mb-4">
               This will generate new API keys for all integrations (Stripe, Telnyx, etc.).
               Existing keys will be invalidated.
             </p>
@@ -291,7 +291,7 @@ export default function AuthorityPage() {
               </p>
             </div>
             <div className="flex gap-3 justify-end">
-              <button onClick={() => setShowRotateSecrets(false)} className="px-4 py-2 text-gray-600 hover:text-gray-800">
+              <button onClick={() => setShowRotateSecrets(false)} className="px-4 py-2 text-black hover:text-black">
                 Cancel
               </button>
               <button onClick={rotateSecrets} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600">

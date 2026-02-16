@@ -56,7 +56,7 @@ export default function CareEnginePage() {
                 trust
               </span>
             </h1>
-            <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">
+            <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">
               Persona-driven education, pre-consult preparation, booking intelligence, and post-treatment
               guidance—with compliance and safety always on.
             </p>

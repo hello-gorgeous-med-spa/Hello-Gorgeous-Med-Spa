@@ -158,30 +158,30 @@ export default function SiteVideosPage() {
 
   return (
     <div className="p-6 max-w-3xl">
-      <h1 className="text-2xl font-bold text-slate-800 mb-2">Site Videos</h1>
-      <p className="text-slate-600 mb-8">
+      <h1 className="text-2xl font-bold text-black mb-2">Site Videos</h1>
+      <p className="text-black mb-8">
         Upload MP4 or MOV videos for your website. Videos are stored securely and appear on the public site.
       </p>
 
       {/* Trigger Point Video */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+      <div className="bg-white rounded-2xl border border-black shadow-sm p-6">
         <div className="flex items-center gap-3 mb-4">
           <span className="text-2xl">🎯</span>
           <div>
-            <h2 className="text-lg font-semibold text-slate-800">Trigger Point Video</h2>
-            <p className="text-sm text-slate-500">
+            <h2 className="text-lg font-semibold text-black">Trigger Point Video</h2>
+            <p className="text-sm text-black">
               Shown in the Trigger Point Injections section on the homepage
             </p>
           </div>
         </div>
 
         {loading ? (
-          <div className="py-12 text-center text-slate-500">Loading…</div>
+          <div className="py-12 text-center text-black">Loading…</div>
         ) : (
           <>
             {triggerPointUrl ? (
               <div className="space-y-4">
-                <div className="aspect-video rounded-xl overflow-hidden bg-slate-900">
+                <div className="aspect-video rounded-xl overflow-hidden bg-black">
                   <video
                     src={triggerPointUrl}
                     controls
@@ -207,25 +207,25 @@ export default function SiteVideosPage() {
                     type="button"
                     onClick={handleRemove}
                     disabled={removing}
-                    className="px-4 py-2 rounded-lg border border-slate-300 text-slate-700 font-medium hover:bg-slate-50 transition disabled:opacity-50"
+                    className="px-4 py-2 rounded-lg border border-black text-black font-medium hover:bg-white transition disabled:opacity-50"
                   >
                     {removing ? "Removing…" : "Remove Video"}
                   </button>
                 </div>
               </div>
             ) : (
-              <div className="border-2 border-dashed border-slate-300 rounded-xl p-8 text-center">
-                <p className="text-slate-600 mb-4">No video uploaded yet.</p>
+              <div className="border-2 border-dashed border-black rounded-xl p-8 text-center">
+                <p className="text-black mb-4">No video uploaded yet.</p>
                 
                 {uploading ? (
                   <div className="space-y-3">
-                    <div className="w-full bg-slate-200 rounded-full h-3 overflow-hidden">
+                    <div className="w-full bg-white rounded-full h-3 overflow-hidden">
                       <div 
                         className="bg-gradient-to-r from-pink-500 to-rose-500 h-full transition-all duration-300"
                         style={{ width: `${uploadProgress}%` }}
                       />
                     </div>
-                    <p className="text-slate-600 font-medium">
+                    <p className="text-black font-medium">
                       {uploadProgress < 10 ? "Preparing upload..." : 
                        uploadProgress < 95 ? `Uploading... ${uploadProgress}%` : 
                        "Saving..."}
@@ -244,7 +244,7 @@ export default function SiteVideosPage() {
                       />
                       Upload MP4 Video
                     </label>
-                    <p className="text-slate-500 text-sm mt-3">Max {MAX_MB}MB • MP4 or MOV</p>
+                    <p className="text-black text-sm mt-3">Max {MAX_MB}MB • MP4 or MOV</p>
                   </>
                 )}
               </div>
@@ -253,7 +253,7 @@ export default function SiteVideosPage() {
         )}
       </div>
 
-      <p className="mt-6 text-sm text-slate-500">
+      <p className="mt-6 text-sm text-black">
         Videos are compressed and stored in your cloud storage. Changes appear on the homepage within a few seconds.
       </p>
     </div>

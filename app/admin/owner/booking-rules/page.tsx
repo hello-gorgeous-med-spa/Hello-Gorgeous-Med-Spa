@@ -135,22 +135,22 @@ export default function BookingRulesPage() {
           </button>
         </div>
         <table className="w-full">
-          <thead className="bg-gray-50">
+          <thead className="bg-white">
             <tr>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">PRIORITY</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">RULE NAME</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">CONDITION</th>
-              <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">ACTION</th>
-              <th className="px-4 py-3 text-xs font-semibold text-gray-500">ENABLED</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-black">PRIORITY</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-black">RULE NAME</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-black">CONDITION</th>
+              <th className="text-left px-4 py-3 text-xs font-semibold text-black">ACTION</th>
+              <th className="px-4 py-3 text-xs font-semibold text-black">ENABLED</th>
               <th className="px-4 py-3"></th>
             </tr>
           </thead>
           <tbody className="divide-y">
             {rules.sort((a, b) => a.priority - b.priority).map(rule => (
-              <tr key={rule.id} className={`hover:bg-gray-50 ${!rule.enabled ? 'opacity-50' : ''}`}>
-                <td className="px-4 py-3 text-sm font-mono text-gray-500">#{rule.priority}</td>
+              <tr key={rule.id} className={`hover:bg-white ${!rule.enabled ? 'opacity-50' : ''}`}>
+                <td className="px-4 py-3 text-sm font-mono text-black">#{rule.priority}</td>
                 <td className="px-4 py-3 font-medium text-sm">{rule.name}</td>
-                <td className="px-4 py-3 text-sm text-gray-600">
+                <td className="px-4 py-3 text-sm text-black">
                   {rule.conditions.map((c, i) => (
                     <span key={i}>
                       {i > 0 && <span className="text-pink-600"> AND </span>}
@@ -162,12 +162,12 @@ export default function BookingRulesPage() {
                   <span className="bg-pink-100 text-pink-700 px-2 py-0.5 rounded text-xs">
                     {rule.action.replace(/_/g, ' ')}
                   </span>
-                  <span className="ml-2 text-gray-500">{rule.actionValue}</span>
+                  <span className="ml-2 text-black">{rule.actionValue}</span>
                 </td>
                 <td className="px-4 py-3 text-center">
                   <button
                     onClick={() => toggleRule(rule.id)}
-                    className={`w-10 h-5 rounded-full transition-colors relative ${rule.enabled ? 'bg-green-500' : 'bg-gray-300'}`}
+                    className={`w-10 h-5 rounded-full transition-colors relative ${rule.enabled ? 'bg-green-500' : 'bg-white'}`}
                   >
                     <span className={`absolute top-0.5 w-4 h-4 bg-white rounded-full transition-transform ${rule.enabled ? 'right-0.5' : 'left-0.5'}`} />
                   </button>
@@ -196,16 +196,16 @@ export default function BookingRulesPage() {
       {showDrawer && editingRule && (
         <div className="fixed inset-0 bg-black/50 z-50 flex justify-end">
           <div className="bg-white w-[500px] h-full overflow-y-auto shadow-xl">
-            <div className="p-4 border-b bg-gray-50 flex items-center justify-between sticky top-0">
+            <div className="p-4 border-b bg-white flex items-center justify-between sticky top-0">
               <h2 className="font-semibold text-lg">Rule Builder</h2>
-              <button onClick={() => { setShowDrawer(false); setEditingRule(null); }} className="text-gray-400 hover:text-gray-600">
+              <button onClick={() => { setShowDrawer(false); setEditingRule(null); }} className="text-black hover:text-black">
                 ✕
               </button>
             </div>
             <div className="p-6 space-y-6">
               {/* Rule Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Rule Name</label>
+                <label className="block text-sm font-medium text-black mb-1">Rule Name</label>
                 <input
                   type="text"
                   value={editingRule.name}
@@ -217,10 +217,10 @@ export default function BookingRulesPage() {
 
               {/* Conditions */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">IF (Conditions)</label>
+                <label className="block text-sm font-medium text-black mb-2">IF (Conditions)</label>
                 <div className="space-y-3">
                   {editingRule.conditions.map((condition, idx) => (
-                    <div key={idx} className="p-3 bg-gray-50 rounded-lg">
+                    <div key={idx} className="p-3 bg-white rounded-lg">
                       {idx > 0 && <p className="text-xs text-pink-600 font-medium mb-2">AND</p>}
                       <div className="flex gap-2">
                         <select
@@ -266,7 +266,7 @@ export default function BookingRulesPage() {
 
               {/* Action */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">THEN (Action)</label>
+                <label className="block text-sm font-medium text-black mb-2">THEN (Action)</label>
                 <select
                   value={editingRule.action}
                   onChange={(e) => setEditingRule({ ...editingRule, action: e.target.value })}
@@ -287,7 +287,7 @@ export default function BookingRulesPage() {
 
               {/* Priority */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Priority (1 = highest)</label>
+                <label className="block text-sm font-medium text-black mb-1">Priority (1 = highest)</label>
                 <input
                   type="number"
                   value={editingRule.priority}
@@ -310,8 +310,8 @@ export default function BookingRulesPage() {
             </div>
 
             {/* Save Button */}
-            <div className="p-4 border-t bg-gray-50 flex gap-3 justify-end sticky bottom-0">
-              <button onClick={() => { setShowDrawer(false); setEditingRule(null); }} className="px-4 py-2 text-gray-600 hover:text-gray-800">
+            <div className="p-4 border-t bg-white flex gap-3 justify-end sticky bottom-0">
+              <button onClick={() => { setShowDrawer(false); setEditingRule(null); }} className="px-4 py-2 text-black hover:text-black">
                 Cancel
               </button>
               <button onClick={saveRule} className="px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 font-medium">

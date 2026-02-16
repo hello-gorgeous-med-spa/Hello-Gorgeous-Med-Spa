@@ -88,10 +88,10 @@ export default function ProvidersAdminPage() {
     return (
       <div className="p-8">
         <div className="animate-pulse">
-          <div className="h-8 bg-gray-200 rounded w-1/4 mb-8" />
+          <div className="h-8 bg-white rounded w-1/4 mb-8" />
           <div className="space-y-4">
-            <div className="h-32 bg-gray-200 rounded" />
-            <div className="h-32 bg-gray-200 rounded" />
+            <div className="h-32 bg-white rounded" />
+            <div className="h-32 bg-white rounded" />
           </div>
         </div>
       </div>
@@ -103,11 +103,11 @@ export default function ProvidersAdminPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+          <h1 className="text-2xl font-bold text-black flex items-center gap-3">
             <span className="text-3xl">👩‍⚕️</span>
             Providers
           </h1>
-          <p className="text-gray-500 mt-1">Manage provider profiles, videos, and before/after photos</p>
+          <p className="text-black mt-1">Manage provider profiles, videos, and before/after photos</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -128,7 +128,7 @@ export default function ProvidersAdminPage() {
       {/* Providers Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {providers.map((provider) => (
-          <div key={provider.id} className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+          <div key={provider.id} className="bg-white rounded-2xl shadow-sm border border-black overflow-hidden">
             <div className="p-6">
               <div className="flex gap-4">
                 {/* Headshot */}
@@ -142,12 +142,12 @@ export default function ProvidersAdminPage() {
 
                 {/* Info */}
                 <div className="flex-1">
-                  <h3 className="text-lg font-bold text-gray-900">{provider.name}</h3>
+                  <h3 className="text-lg font-bold text-black">{provider.name}</h3>
                   {provider.credentials && (
                     <p className="text-sm text-pink-600 font-medium">{provider.credentials}</p>
                   )}
                   {provider.short_bio && (
-                    <p className="text-sm text-gray-600 mt-2 line-clamp-2">{provider.short_bio}</p>
+                    <p className="text-sm text-black mt-2 line-clamp-2">{provider.short_bio}</p>
                   )}
                 </div>
               </div>
@@ -156,7 +156,7 @@ export default function ProvidersAdminPage() {
               <div className="mt-6 flex gap-3">
                 <button
                   onClick={() => setEditingProvider(provider)}
-                  className="flex-1 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium"
+                  className="flex-1 px-4 py-2 bg-white text-black rounded-lg hover:bg-white text-sm font-medium"
                 >
                   Edit Profile
                 </button>
@@ -175,7 +175,7 @@ export default function ProvidersAdminPage() {
               </div>
 
               {/* Quick Stats */}
-              <div className="mt-4 pt-4 border-t border-gray-100 flex gap-4 text-sm text-gray-500">
+              <div className="mt-4 pt-4 border-t border-black flex gap-4 text-sm text-black">
                 <span>Slug: /{provider.slug}</span>
                 <span className={provider.is_active ? 'text-green-600' : 'text-red-600'}>
                   {provider.is_active ? '● Active' : '● Inactive'}
@@ -187,10 +187,10 @@ export default function ProvidersAdminPage() {
       </div>
 
       {providers.length === 0 && (
-        <div className="text-center py-16 bg-white rounded-2xl border border-gray-200">
+        <div className="text-center py-16 bg-white rounded-2xl border border-black">
           <span className="text-5xl mb-4 block">👩‍⚕️</span>
-          <h3 className="text-lg font-medium text-gray-900">No providers yet</h3>
-          <p className="text-gray-500 mt-1">Add your first provider to get started</p>
+          <h3 className="text-lg font-medium text-black">No providers yet</h3>
+          <p className="text-black mt-1">Add your first provider to get started</p>
           <button
             onClick={() => setShowAddModal(true)}
             className="mt-4 px-6 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600"
@@ -251,8 +251,8 @@ function ProviderModal({
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-        <div className="p-6 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-gray-900">
+        <div className="p-6 border-b border-black">
+          <h2 className="text-xl font-bold text-black">
             {provider ? 'Edit Provider' : 'Add New Provider'}
           </h2>
         </div>
@@ -261,7 +261,7 @@ function ProviderModal({
           {/* Basic Info */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Name *</label>
+              <label className="block text-sm font-medium text-black mb-1">Name *</label>
               <input
                 type="text"
                 value={formData.name}
@@ -272,19 +272,19 @@ function ProviderModal({
                     slug: formData.slug || generateSlug(e.target.value)
                   });
                 }}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 required
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">URL Slug *</label>
+              <label className="block text-sm font-medium text-black mb-1">URL Slug *</label>
               <div className="flex items-center">
-                <span className="text-gray-500 text-sm mr-1">/providers/</span>
+                <span className="text-black text-sm mr-1">/providers/</span>
                 <input
                   type="text"
                   value={formData.slug}
                   onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                  className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                  className="flex-1 px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                   required
                 />
               </div>
@@ -292,81 +292,81 @@ function ProviderModal({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Credentials</label>
+            <label className="block text-sm font-medium text-black mb-1">Credentials</label>
             <input
               type="text"
               value={formData.credentials}
               onChange={(e) => setFormData({ ...formData, credentials: e.target.value })}
               placeholder="e.g., RN, BSN, Aesthetic Injector"
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Short Bio</label>
+            <label className="block text-sm font-medium text-black mb-1">Short Bio</label>
             <textarea
               value={formData.short_bio}
               onChange={(e) => setFormData({ ...formData, short_bio: e.target.value })}
               placeholder="Brief introduction (shown on provider cards)"
               rows={2}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Full Bio</label>
+            <label className="block text-sm font-medium text-black mb-1">Full Bio</label>
             <textarea
               value={formData.full_bio}
               onChange={(e) => setFormData({ ...formData, full_bio: e.target.value })}
               placeholder="Detailed biography (shown on profile page)"
               rows={4}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Philosophy</label>
+            <label className="block text-sm font-medium text-black mb-1">Philosophy</label>
             <textarea
               value={formData.philosophy}
               onChange={(e) => setFormData({ ...formData, philosophy: e.target.value })}
               placeholder="Provider's treatment philosophy"
               rows={3}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
             />
           </div>
 
           {/* Media URLs */}
-          <div className="border-t border-gray-200 pt-6">
-            <h3 className="font-medium text-gray-900 mb-4">Media</h3>
+          <div className="border-t border-black pt-6">
+            <h3 className="font-medium text-black mb-4">Media</h3>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Headshot URL</label>
+                <label className="block text-sm font-medium text-black mb-1">Headshot URL</label>
                 <input
                   type="url"
                   value={formData.headshot_url}
                   onChange={(e) => setFormData({ ...formData, headshot_url: e.target.value })}
                   placeholder="https://..."
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Intro Video URL</label>
+                <label className="block text-sm font-medium text-black mb-1">Intro Video URL</label>
                 <input
                   type="url"
                   value={formData.intro_video_url}
                   onChange={(e) => setFormData({ ...formData, intro_video_url: e.target.value })}
                   placeholder="https://..."
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Booking URL</label>
+                <label className="block text-sm font-medium text-black mb-1">Booking URL</label>
                 <input
                   type="text"
                   value={formData.booking_url}
                   onChange={(e) => setFormData({ ...formData, booking_url: e.target.value })}
                   placeholder="/book?provider=slug"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 />
               </div>
             </div>
@@ -377,7 +377,7 @@ function ProviderModal({
             <button
               type="button"
               onClick={onClose}
-              className="px-6 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50"
+              className="px-6 py-2 border border-black rounded-lg text-black hover:bg-white"
             >
               Cancel
             </button>

@@ -207,7 +207,7 @@ export function ConsultationRequestPopup() {
                 className="w-full px-4 py-3 rounded-lg bg-white border-2 border-black text-black focus:outline-none focus:border-[#FF2D8E] text-sm"
               >
                 {AREA_OPTIONS.map((o) => (
-                  <option key={o.value} value={o.value} className="text-gray-900">
+                  <option key={o.value} value={o.value} className="text-black">
                     {o.label}
                   </option>
                 ))}
@@ -288,7 +288,7 @@ export function ConsultationRequestPopup() {
 
             <p className="mt-5 text-[10px] text-black/70 leading-tight">
               By submitting you agree to receive marketing. Reply STOP to opt out.{" "}
-              <Link href="/privacy" className="underline hover:text-gray-400">
+              <Link href="/privacy" className="underline hover:text-black">
                 Privacy
               </Link>
             </p>

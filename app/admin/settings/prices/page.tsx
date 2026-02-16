@@ -131,12 +131,12 @@ export default function PriceManagerPage() {
     return (
       <div className="space-y-6">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Price Manager</h1>
-          <p className="text-gray-500">Loading services...</p>
+          <h1 className="text-2xl font-bold text-black">Price Manager</h1>
+          <p className="text-black">Loading services...</p>
         </div>
         <div className="bg-white rounded-xl border p-8">
           <div className="animate-pulse space-y-4">
-            {[1, 2, 3, 4, 5].map(i => <div key={i} className="h-12 bg-gray-100 rounded" />)}
+            {[1, 2, 3, 4, 5].map(i => <div key={i} className="h-12 bg-white rounded" />)}
           </div>
         </div>
       </div>
@@ -148,13 +148,13 @@ export default function PriceManagerPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+          <div className="flex items-center gap-2 text-sm text-black mb-1">
             <Link href="/admin/settings" className="hover:text-pink-600">Settings</Link>
             <span>/</span>
             <span>Price Manager</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Price Manager</h1>
-          <p className="text-gray-500">{services.length} services • Change prices without code</p>
+          <h1 className="text-2xl font-bold text-black">Price Manager</h1>
+          <p className="text-black">{services.length} services • Change prices without code</p>
         </div>
         {hasChanges && (
           <div className="flex items-center gap-3">
@@ -163,7 +163,7 @@ export default function PriceManagerPage() {
             </span>
             <button
               onClick={discardChanges}
-              className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+              className="px-4 py-2 text-black hover:bg-white rounded-lg"
             >
               Discard
             </button>
@@ -188,7 +188,7 @@ export default function PriceManagerPage() {
       <div className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-4 flex-1">
           <div className="relative flex-1 max-w-md">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-black">🔍</span>
             <input
               type="text"
               placeholder="Search services..."
@@ -212,7 +212,7 @@ export default function PriceManagerPage() {
 
         {/* Bulk Actions */}
         <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-500">Bulk adjust:</span>
+          <span className="text-sm text-black">Bulk adjust:</span>
           <button
             onClick={() => applyBulkChange(-10)}
             className="px-3 py-1.5 text-sm bg-red-50 text-red-600 rounded hover:bg-red-100"
@@ -243,14 +243,14 @@ export default function PriceManagerPage() {
       {/* Price Table */}
       <div className="bg-white rounded-xl border overflow-hidden">
         <table className="w-full">
-          <thead className="bg-gray-50 border-b">
+          <thead className="bg-white border-b">
             <tr>
-              <th className="text-left px-4 py-3 text-sm font-semibold text-gray-600">Service</th>
-              <th className="text-left px-4 py-3 text-sm font-semibold text-gray-600">Category</th>
-              <th className="text-left px-4 py-3 text-sm font-semibold text-gray-600">Duration</th>
-              <th className="text-left px-4 py-3 text-sm font-semibold text-gray-600">Current Price</th>
-              <th className="text-left px-4 py-3 text-sm font-semibold text-gray-600">New Price</th>
-              <th className="text-left px-4 py-3 text-sm font-semibold text-gray-600">Status</th>
+              <th className="text-left px-4 py-3 text-sm font-semibold text-black">Service</th>
+              <th className="text-left px-4 py-3 text-sm font-semibold text-black">Category</th>
+              <th className="text-left px-4 py-3 text-sm font-semibold text-black">Duration</th>
+              <th className="text-left px-4 py-3 text-sm font-semibold text-black">Current Price</th>
+              <th className="text-left px-4 py-3 text-sm font-semibold text-black">New Price</th>
+              <th className="text-left px-4 py-3 text-sm font-semibold text-black">Status</th>
             </tr>
           </thead>
           <tbody className="divide-y">
@@ -261,22 +261,22 @@ export default function PriceManagerPage() {
               const displayPrice = hasEdit ? editedPrice : currentPrice;
 
               return (
-                <tr key={service.id} className={`hover:bg-gray-50 ${hasEdit ? 'bg-amber-50' : ''}`}>
+                <tr key={service.id} className={`hover:bg-white ${hasEdit ? 'bg-amber-50' : ''}`}>
                   <td className="px-4 py-3">
-                    <span className={`font-medium ${service.is_active ? 'text-gray-900' : 'text-gray-400'}`}>
+                    <span className={`font-medium ${service.is_active ? 'text-black' : 'text-black'}`}>
                       {service.name}
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-sm text-gray-500">{service.category}</td>
-                  <td className="px-4 py-3 text-sm text-gray-500">{service.duration_minutes} min</td>
+                  <td className="px-4 py-3 text-sm text-black">{service.category}</td>
+                  <td className="px-4 py-3 text-sm text-black">{service.duration_minutes} min</td>
                   <td className="px-4 py-3">
-                    <span className={hasEdit ? 'line-through text-gray-400' : 'text-gray-900'}>
+                    <span className={hasEdit ? 'line-through text-black' : 'text-black'}>
                       {formatPrice(currentPrice)}
                     </span>
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <span className="text-gray-400">$</span>
+                      <span className="text-black">$</span>
                       <input
                         type="number"
                         value={(displayPrice / 100).toFixed(2)}
@@ -295,7 +295,7 @@ export default function PriceManagerPage() {
                             delete newEdited[service.id];
                             setEditedPrices(newEdited);
                           }}
-                          className="text-gray-400 hover:text-gray-600"
+                          className="text-black hover:text-black"
                         >
                           ↩
                         </button>
@@ -304,7 +304,7 @@ export default function PriceManagerPage() {
                   </td>
                   <td className="px-4 py-3">
                     <span className={`text-xs px-2 py-1 rounded ${
-                      service.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-500'
+                      service.is_active ? 'bg-green-100 text-green-700' : 'bg-white text-black'
                     }`}>
                       {service.is_active ? 'Active' : 'Inactive'}
                     </span>
@@ -316,7 +316,7 @@ export default function PriceManagerPage() {
         </table>
         
         {filteredServices.length === 0 && (
-          <div className="text-center py-12 text-gray-500">
+          <div className="text-center py-12 text-black">
             No services found matching your criteria
           </div>
         )}

@@ -221,16 +221,16 @@ export default function MessagesPage() {
   };
 
   return (
-    <div className="h-[calc(100vh-56px)] flex bg-gray-50">
+    <div className="h-[calc(100vh-56px)] flex bg-white">
       {/* Left Sidebar - Conversations List */}
-      <div className="w-80 bg-white border-r border-gray-200 flex flex-col">
+      <div className="w-80 bg-white border-r border-black flex flex-col">
         {/* Header */}
-        <div className="p-4 border-b border-gray-100">
+        <div className="p-4 border-b border-black">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-xl font-bold text-gray-900">Messages</h1>
+            <h1 className="text-xl font-bold text-black">Messages</h1>
             <div className="flex items-center gap-2">
-              <span className="text-sm text-gray-500">Your Number:</span>
-              <span className="text-sm font-medium text-gray-700">+1 (331) 717-7545</span>
+              <span className="text-sm text-black">Your Number:</span>
+              <span className="text-sm font-medium text-black">+1 (331) 717-7545</span>
             </div>
           </div>
           
@@ -241,20 +241,20 @@ export default function MessagesPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search By Name"
-              className="w-full px-4 py-2 pl-10 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full px-4 py-2 pl-10 bg-white border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             />
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-black">🔍</span>
           </div>
         </div>
 
         {/* Filter Tabs */}
-        <div className="flex border-b border-gray-100">
+        <div className="flex border-b border-black">
           <button
             onClick={() => setFilter('all')}
             className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
               filter === 'all' 
                 ? 'text-pink-600 border-b-2 border-pink-500' 
-                : 'text-gray-500 hover:text-gray-700'
+                : 'text-black hover:text-black'
             }`}
           >
             Unread ({totalUnread})
@@ -264,7 +264,7 @@ export default function MessagesPage() {
             className={`flex-1 px-4 py-3 text-sm font-medium transition-colors ${
               filter === 'unread' 
                 ? 'text-pink-600 border-b-2 border-pink-500' 
-                : 'text-gray-500 hover:text-gray-700'
+                : 'text-black hover:text-black'
             }`}
           >
             <span className="text-blue-500">Read ({totalRead})</span>
@@ -274,17 +274,17 @@ export default function MessagesPage() {
         {/* Conversations List */}
         <div className="flex-1 overflow-y-auto">
           {loadingList ? (
-            <div className="p-6 text-center text-gray-500">Loading conversations…</div>
+            <div className="p-6 text-center text-black">Loading conversations…</div>
           ) : filteredConversations.length === 0 ? (
-            <div className="p-6 text-center text-gray-500">
-              <p className="font-medium text-gray-700">No conversations yet</p>
+            <div className="p-6 text-center text-black">
+              <p className="font-medium text-black">No conversations yet</p>
               <p className="text-sm mt-1">When clients text your Telnyx number, threads will appear here.</p>
               <p className="text-xs mt-4"><Link href="/admin/sms" className="text-pink-600 hover:underline">SMS Campaigns</Link> for one-time blasts.</p>
             </div>
           ) : (
           <table className="w-full">
-            <thead className="bg-gray-50 sticky top-0">
-              <tr className="text-xs text-gray-500">
+            <thead className="bg-white sticky top-0">
+              <tr className="text-xs text-black">
                 <th className="text-left px-4 py-2 font-medium">Client</th>
                 <th className="text-left px-4 py-2 font-medium">Message</th>
                 <th className="text-right px-4 py-2 font-medium">Date</th>
@@ -295,7 +295,7 @@ export default function MessagesPage() {
                 <tr
                   key={conv.id}
                   onClick={() => onSelectConversation(conv)}
-                  className={`cursor-pointer border-b border-gray-50 hover:bg-gray-50 transition-colors ${
+                  className={`cursor-pointer border-b border-gray-50 hover:bg-white transition-colors ${
                     selectedConversation?.id === conv.id ? 'bg-blue-50' : ''
                   } ${conv.unread_count > 0 ? 'bg-blue-50/50' : ''}`}
                 >
@@ -305,19 +305,19 @@ export default function MessagesPage() {
                         {conv.client_initials}
                       </div>
                       <div>
-                        <p className={`font-medium text-sm ${conv.unread_count > 0 ? 'text-gray-900' : 'text-gray-700'}`}>
+                        <p className={`font-medium text-sm ${conv.unread_count > 0 ? 'text-black' : 'text-black'}`}>
                           {conv.client_name}
                         </p>
                       </div>
                     </div>
                   </td>
                   <td className="px-4 py-3">
-                    <p className={`text-sm truncate max-w-[150px] ${conv.unread_count > 0 ? 'text-gray-900 font-medium' : 'text-gray-500'}`}>
+                    <p className={`text-sm truncate max-w-[150px] ${conv.unread_count > 0 ? 'text-black font-medium' : 'text-black'}`}>
                       {conv.last_message}
                     </p>
                   </td>
                   <td className="px-4 py-3 text-right">
-                    <p className="text-xs text-gray-400">{formatTime(conv.last_message_time)}</p>
+                    <p className="text-xs text-black">{formatTime(conv.last_message_time)}</p>
                   </td>
                 </tr>
               ))}
@@ -331,7 +331,7 @@ export default function MessagesPage() {
       {selectedConversation ? (
         <div className="flex-1 flex flex-col bg-white">
           {/* Conversation Header */}
-          <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+          <div className="px-6 py-4 border-b border-black flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button 
                 onClick={() => setSelectedConversation(null)}
@@ -339,7 +339,7 @@ export default function MessagesPage() {
               >
                 ← Back
               </button>
-              <h2 className="font-semibold text-gray-900">{selectedConversation.client_name}</h2>
+              <h2 className="font-semibold text-black">{selectedConversation.client_name}</h2>
             </div>
             <button
               onClick={() => setShowClientInfo(!showClientInfo)}
@@ -352,7 +352,7 @@ export default function MessagesPage() {
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-6 space-y-6">
             {loadingMessages ? (
-              <div className="flex justify-center py-8 text-gray-500">Loading messages…</div>
+              <div className="flex justify-center py-8 text-black">Loading messages…</div>
             ) : (
             <>
             {/* Group messages by date */}
@@ -364,7 +364,7 @@ export default function MessagesPage() {
                 <div key={msg.id}>
                   {showDate && (
                     <div className="flex items-center justify-center my-4">
-                      <span className="px-3 py-1 bg-gray-100 rounded-full text-xs text-gray-500">
+                      <span className="px-3 py-1 bg-white rounded-full text-xs text-black">
                         {formatMessageDate(msg.timestamp)}
                       </span>
                     </div>
@@ -379,15 +379,15 @@ export default function MessagesPage() {
                     
                     <div className={`max-w-md ${msg.direction === 'outbound' ? 'order-first' : ''}`}>
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-xs text-gray-500">
+                        <span className="text-xs text-black">
                           {msg.direction === 'inbound' ? selectedConversation.client_name : 'You'}
                         </span>
-                        <span className="text-xs text-gray-400">{formatMessageTime(msg.timestamp)}</span>
+                        <span className="text-xs text-black">{formatMessageTime(msg.timestamp)}</span>
                       </div>
                       <div className={`px-4 py-3 rounded-2xl ${
                         msg.direction === 'outbound' 
                           ? 'bg-blue-500 text-white rounded-br-md' 
-                          : 'bg-gray-100 text-gray-800 rounded-bl-md'
+                          : 'bg-white text-black rounded-bl-md'
                       }`}>
                         <p className="text-sm">{msg.content}</p>
                       </div>
@@ -408,7 +408,7 @@ export default function MessagesPage() {
           </div>
 
           {/* Message Input */}
-          <div className="p-4 border-t border-gray-100">
+          <div className="p-4 border-t border-black">
             <div className="flex items-center gap-3">
               <input
                 type="text"
@@ -416,7 +416,7 @@ export default function MessagesPage() {
                 onChange={(e) => setNewMessage(e.target.value)}
                 onKeyPress={(e) => e.key === 'Enter' && handleSend()}
                 placeholder="Type a message...."
-                className="flex-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                className="flex-1 px-4 py-3 bg-white border border-black rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
               />
               <button
                 onClick={handleSend}
@@ -429,29 +429,29 @@ export default function MessagesPage() {
           </div>
         </div>
       ) : (
-        <div className="flex-1 flex items-center justify-center bg-gray-50">
+        <div className="flex-1 flex items-center justify-center bg-white">
           <div className="text-center max-w-sm px-6">
             <span className="text-6xl">💬</span>
-            <h3 className="text-xl font-semibold text-gray-900 mt-4">2-Way Messages</h3>
-            <p className="text-gray-500 mt-2">Click a client’s name in the list on the left to open your text thread with them. You can read and reply here.</p>
-            <p className="text-gray-400 text-sm mt-4 flex items-center justify-center gap-2">
-              <span className="inline-block border border-gray-300 rounded px-2 py-1">← Click a name</span>
+            <h3 className="text-xl font-semibold text-black mt-4">2-Way Messages</h3>
+            <p className="text-black mt-2">Click a client’s name in the list on the left to open your text thread with them. You can read and reply here.</p>
+            <p className="text-black text-sm mt-4 flex items-center justify-center gap-2">
+              <span className="inline-block border border-black rounded px-2 py-1">← Click a name</span>
               <span>to open</span>
             </p>
-            <p className="text-gray-400 text-xs mt-6">Messages use your Telnyx number. For one-time blasts to many clients, use <Link href="/admin/sms" className="text-pink-600 hover:underline">SMS Campaigns</Link>.</p>
+            <p className="text-black text-xs mt-6">Messages use your Telnyx number. For one-time blasts to many clients, use <Link href="/admin/sms" className="text-pink-600 hover:underline">SMS Campaigns</Link>.</p>
           </div>
         </div>
       )}
 
       {/* Right Sidebar - Client Info */}
       {selectedConversation && showClientInfo && (
-        <div className="w-72 bg-white border-l border-gray-200 overflow-y-auto">
-          <div className="p-4 border-b border-gray-100">
+        <div className="w-72 bg-white border-l border-black overflow-y-auto">
+          <div className="p-4 border-b border-black">
             <div className="flex items-center justify-between">
-              <h3 className="font-semibold text-gray-900">{selectedConversation.client_name}</h3>
+              <h3 className="font-semibold text-black">{selectedConversation.client_name}</h3>
               <Link
                 href={`/admin/clients/${selectedConversation.client_id}`}
-                className="text-gray-400 hover:text-gray-600"
+                className="text-black hover:text-black"
               >
                 ↗
               </Link>
@@ -463,7 +463,7 @@ export default function MessagesPage() {
             <div className="w-24 h-24 bg-gradient-to-br from-pink-400 to-pink-600 rounded-full flex items-center justify-center text-white text-3xl font-bold mb-4">
               {selectedConversation.client_initials}
             </div>
-            <div className="flex items-center gap-2 text-gray-500">
+            <div className="flex items-center gap-2 text-black">
               <span>💬</span>
               <span>-</span>
             </div>
@@ -473,53 +473,53 @@ export default function MessagesPage() {
           <div className="px-4 space-y-4">
             {selectedConversation.client_info?.address && (
               <div className="flex items-start gap-3">
-                <span className="text-gray-400">📍</span>
+                <span className="text-black">📍</span>
                 <div>
-                  <p className="text-sm text-gray-900">{selectedConversation.client_info.address}</p>
+                  <p className="text-sm text-black">{selectedConversation.client_info.address}</p>
                 </div>
               </div>
             )}
 
             {selectedConversation.client_info?.birthday && (
-              <div className="flex items-center justify-between py-2 border-t border-gray-100">
-                <span className="text-sm text-gray-500">Birthday:</span>
-                <span className="text-sm text-gray-900">{selectedConversation.client_info.birthday}</span>
+              <div className="flex items-center justify-between py-2 border-t border-black">
+                <span className="text-sm text-black">Birthday:</span>
+                <span className="text-sm text-black">{selectedConversation.client_info.birthday}</span>
               </div>
             )}
 
-            <div className="flex items-center justify-between py-2 border-t border-gray-100">
-              <span className="text-sm text-gray-500">Emergency Contact Name:</span>
-              <span className="text-sm text-gray-400">-</span>
+            <div className="flex items-center justify-between py-2 border-t border-black">
+              <span className="text-sm text-black">Emergency Contact Name:</span>
+              <span className="text-sm text-black">-</span>
             </div>
 
-            <div className="flex items-center justify-between py-2 border-t border-gray-100">
-              <span className="text-sm text-gray-500">Emergency Contact No:</span>
-              <span className="text-sm text-gray-400">-</span>
+            <div className="flex items-center justify-between py-2 border-t border-black">
+              <span className="text-sm text-black">Emergency Contact No:</span>
+              <span className="text-sm text-black">-</span>
             </div>
 
             {selectedConversation.client_info?.last_visit && (
-              <div className="flex items-center justify-between py-2 border-t border-gray-100">
-                <span className="text-sm text-gray-500">Last Visit:</span>
-                <span className="text-sm text-gray-900">{selectedConversation.client_info.last_visit}</span>
+              <div className="flex items-center justify-between py-2 border-t border-black">
+                <span className="text-sm text-black">Last Visit:</span>
+                <span className="text-sm text-black">{selectedConversation.client_info.last_visit}</span>
               </div>
             )}
 
-            <div className="flex items-center justify-between py-2 border-t border-gray-100">
-              <span className="text-sm text-gray-500">Membership Program:</span>
-              <span className="text-sm text-gray-900">{selectedConversation.client_info?.membership || 'Not Registered'}</span>
+            <div className="flex items-center justify-between py-2 border-t border-black">
+              <span className="text-sm text-black">Membership Program:</span>
+              <span className="text-sm text-black">{selectedConversation.client_info?.membership || 'Not Registered'}</span>
             </div>
 
             {selectedConversation.client_info?.membership_savings && (
-              <div className="flex items-center justify-between py-2 border-t border-gray-100">
-                <span className="text-sm text-gray-500">Membership Saving This Year:</span>
-                <span className="text-sm text-gray-900">${selectedConversation.client_info.membership_savings}</span>
+              <div className="flex items-center justify-between py-2 border-t border-black">
+                <span className="text-sm text-black">Membership Saving This Year:</span>
+                <span className="text-sm text-black">${selectedConversation.client_info.membership_savings}</span>
               </div>
             )}
 
             {selectedConversation.client_info?.total_sales && (
-              <div className="flex items-center justify-between py-2 border-t border-gray-100">
-                <span className="text-sm text-gray-500">Total Sales Relationship:</span>
-                <span className="text-sm font-semibold text-gray-900">
+              <div className="flex items-center justify-between py-2 border-t border-black">
+                <span className="text-sm text-black">Total Sales Relationship:</span>
+                <span className="text-sm font-semibold text-black">
                   ${selectedConversation.client_info.total_sales.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                 </span>
               </div>

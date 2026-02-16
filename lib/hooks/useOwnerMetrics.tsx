@@ -142,8 +142,8 @@ export function useOwnerMetrics(range: DateRange = 'month'): UseOwnerMetricsResu
 export function MetricSkeleton() {
   return (
     <div className="animate-pulse">
-      <div className="h-4 bg-gray-200 rounded w-20 mb-2"></div>
-      <div className="h-8 bg-gray-200 rounded w-24"></div>
+      <div className="h-4 bg-white rounded w-20 mb-2"></div>
+      <div className="h-8 bg-white rounded w-24"></div>
     </div>
   );
 }
@@ -151,9 +151,9 @@ export function MetricSkeleton() {
 export function CardSkeleton() {
   return (
     <div className="bg-white rounded-xl border p-4 animate-pulse">
-      <div className="h-4 bg-gray-200 rounded w-24 mb-3"></div>
-      <div className="h-8 bg-gray-200 rounded w-32 mb-2"></div>
-      <div className="h-3 bg-gray-200 rounded w-20"></div>
+      <div className="h-4 bg-white rounded w-24 mb-3"></div>
+      <div className="h-8 bg-white rounded w-32 mb-2"></div>
+      <div className="h-3 bg-white rounded w-20"></div>
     </div>
   );
 }
@@ -163,9 +163,9 @@ export function TableSkeleton({ rows = 5 }: { rows?: number }) {
     <div className="animate-pulse">
       {Array.from({ length: rows }).map((_, i) => (
         <div key={i} className="flex gap-4 p-4 border-b">
-          <div className="h-4 bg-gray-200 rounded flex-1"></div>
-          <div className="h-4 bg-gray-200 rounded w-20"></div>
-          <div className="h-4 bg-gray-200 rounded w-16"></div>
+          <div className="h-4 bg-white rounded flex-1"></div>
+          <div className="h-4 bg-white rounded w-20"></div>
+          <div className="h-4 bg-white rounded w-16"></div>
         </div>
       ))}
     </div>
@@ -192,8 +192,8 @@ export function EmptyState({
   return (
     <div className="text-center py-8">
       <span className="text-4xl block mb-3">{icon}</span>
-      <h3 className="font-medium text-gray-700 mb-1">{title}</h3>
-      <p className="text-sm text-gray-500 mb-4">{description}</p>
+      <h3 className="font-medium text-black mb-1">{title}</h3>
+      <p className="text-sm text-black mb-4">{description}</p>
       {action && actionLabel && (
         <button 
           onClick={action}

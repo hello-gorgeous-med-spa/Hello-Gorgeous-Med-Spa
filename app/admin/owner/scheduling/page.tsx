@@ -89,12 +89,12 @@ export default function SchedulingEnginePage() {
         <div className="col-span-2 space-y-6">
           {/* Global Business Hours */}
           <div className="bg-white rounded-xl border">
-            <div className="p-4 border-b bg-gray-50">
+            <div className="p-4 border-b bg-white">
               <h2 className="font-semibold">🏢 Global Business Hours</h2>
             </div>
             <div className="p-4">
               {businessHours.map((day, idx) => (
-                <div key={day.day} className={`flex items-center gap-4 p-3 ${idx % 2 === 0 ? 'bg-gray-50' : ''} rounded-lg`}>
+                <div key={day.day} className={`flex items-center gap-4 p-3 ${idx % 2 === 0 ? 'bg-white' : ''} rounded-lg`}>
                   <div className="w-28">
                     <label className="flex items-center gap-2">
                       <input
@@ -107,7 +107,7 @@ export default function SchedulingEnginePage() {
                         }}
                         className="w-4 h-4"
                       />
-                      <span className={day.isOpen ? 'font-medium' : 'text-gray-400'}>{day.day}</span>
+                      <span className={day.isOpen ? 'font-medium' : 'text-black'}>{day.day}</span>
                     </label>
                   </div>
                   {day.isOpen ? (
@@ -127,7 +127,7 @@ export default function SchedulingEnginePage() {
                       />
                     </>
                   ) : (
-                    <span className="text-gray-400 text-sm">Closed</span>
+                    <span className="text-black text-sm">Closed</span>
                   )}
                 </div>
               ))}
@@ -136,7 +136,7 @@ export default function SchedulingEnginePage() {
 
           {/* Provider Schedules */}
           <div className="bg-white rounded-xl border">
-            <div className="p-4 border-b bg-gray-50">
+            <div className="p-4 border-b bg-white">
               <h2 className="font-semibold">👤 Provider Schedules</h2>
             </div>
             <div className="p-4">
@@ -159,7 +159,7 @@ export default function SchedulingEnginePage() {
               {selectedProvider && (
                 <div>
                   {providerSchedules.find(ps => ps.providerId === selectedProvider)?.schedule.map((day, idx) => (
-                    <div key={day.day} className={`flex items-center gap-4 p-3 ${idx % 2 === 0 ? 'bg-gray-50' : ''} rounded-lg`}>
+                    <div key={day.day} className={`flex items-center gap-4 p-3 ${idx % 2 === 0 ? 'bg-white' : ''} rounded-lg`}>
                       <div className="w-28">
                         <label className="flex items-center gap-2">
                           <input
@@ -177,7 +177,7 @@ export default function SchedulingEnginePage() {
                             }}
                             className="w-4 h-4"
                           />
-                          <span className={day.isOpen ? 'font-medium' : 'text-gray-400'}>{day.day}</span>
+                          <span className={day.isOpen ? 'font-medium' : 'text-black'}>{day.day}</span>
                         </label>
                       </div>
                       {day.isOpen ? (
@@ -215,7 +215,7 @@ export default function SchedulingEnginePage() {
                           />
                         </>
                       ) : (
-                        <span className="text-gray-400 text-sm">Not working</span>
+                        <span className="text-black text-sm">Not working</span>
                       )}
                     </div>
                   ))}
@@ -223,14 +223,14 @@ export default function SchedulingEnginePage() {
               )}
 
               {!selectedProvider && (
-                <p className="text-gray-500 text-center py-4">Select a provider to edit their schedule</p>
+                <p className="text-black text-center py-4">Select a provider to edit their schedule</p>
               )}
             </div>
           </div>
 
           {/* Blackout Dates */}
           <div className="bg-white rounded-xl border">
-            <div className="p-4 border-b bg-gray-50 flex items-center justify-between">
+            <div className="p-4 border-b bg-white flex items-center justify-between">
               <h2 className="font-semibold">📅 Blackout Dates / Holidays</h2>
               <button className="text-sm text-pink-600 hover:text-pink-700">+ Add Date</button>
             </div>
@@ -239,7 +239,7 @@ export default function SchedulingEnginePage() {
                 <div key={bd.id} className="flex items-center justify-between p-3 border-b last:border-0">
                   <div>
                     <p className="font-medium text-sm">{bd.reason}</p>
-                    <p className="text-xs text-gray-500">{bd.date}</p>
+                    <p className="text-xs text-black">{bd.date}</p>
                   </div>
                   <button className="text-red-500 hover:text-red-700 text-sm">Remove</button>
                 </div>
@@ -252,12 +252,12 @@ export default function SchedulingEnginePage() {
         <div className="space-y-6">
           {/* Capacity Settings */}
           <div className="bg-white rounded-xl border">
-            <div className="p-4 border-b bg-gray-50">
+            <div className="p-4 border-b bg-white">
               <h2 className="font-semibold">⚙️ Capacity Controls</h2>
             </div>
             <div className="p-4 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Max Daily Appointments</label>
+                <label className="block text-sm font-medium text-black mb-1">Max Daily Appointments</label>
                 <input
                   type="number"
                   value={capacitySettings.maxDailyAppointments}
@@ -267,7 +267,7 @@ export default function SchedulingEnginePage() {
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Max Concurrent Bookings</label>
+                <label className="block text-sm font-medium text-black mb-1">Max Concurrent Bookings</label>
                 <input
                   type="number"
                   value={capacitySettings.maxConcurrent}
@@ -285,7 +285,7 @@ export default function SchedulingEnginePage() {
                 />
                 <div>
                   <span className="font-medium text-sm">Allow Overbooking</span>
-                  <p className="text-xs text-gray-500">Requires manual approval</p>
+                  <p className="text-xs text-black">Requires manual approval</p>
                 </div>
               </label>
             </div>
@@ -298,13 +298,13 @@ export default function SchedulingEnginePage() {
             <div className="bg-white rounded-lg p-3 text-sm">
               <p className="font-medium mb-2">Available Hours</p>
               {businessHours.filter(d => d.isOpen).map(d => (
-                <div key={d.day} className="flex justify-between text-xs text-gray-600 py-1">
+                <div key={d.day} className="flex justify-between text-xs text-black py-1">
                   <span>{d.day}</span>
                   <span>{d.open} - {d.close}</span>
                 </div>
               ))}
               {businessHours.filter(d => !d.isOpen).map(d => (
-                <div key={d.day} className="flex justify-between text-xs text-gray-400 py-1">
+                <div key={d.day} className="flex justify-between text-xs text-black py-1">
                   <span>{d.day}</span>
                   <span>Closed</span>
                 </div>
@@ -314,16 +314,16 @@ export default function SchedulingEnginePage() {
 
           {/* Capacity Indicator */}
           <div className="bg-white rounded-xl border p-4">
-            <h3 className="font-semibold text-gray-800 mb-3">📊 Today's Capacity</h3>
+            <h3 className="font-semibold text-black mb-3">📊 Today's Capacity</h3>
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
                 <span>Booked</span>
                 <span className="font-medium">18 / {capacitySettings.maxDailyAppointments}</span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="w-full bg-white rounded-full h-2">
                 <div className="bg-pink-500 rounded-full h-2" style={{ width: `${(18 / capacitySettings.maxDailyAppointments) * 100}%` }} />
               </div>
-              <p className="text-xs text-gray-500">{capacitySettings.maxDailyAppointments - 18} slots remaining</p>
+              <p className="text-xs text-black">{capacitySettings.maxDailyAppointments - 18} slots remaining</p>
             </div>
           </div>
 

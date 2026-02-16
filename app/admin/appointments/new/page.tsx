@@ -348,12 +348,12 @@ function NewAppointmentContent() {
       <div className="mb-6">
         <Link
           href="/admin/appointments"
-          className="text-sm text-gray-500 hover:text-gray-700 mb-2 inline-block"
+          className="text-sm text-black hover:text-black mb-2 inline-block"
         >
           ← Back to Calendar
         </Link>
-        <h1 className="text-2xl font-bold text-gray-900">Book Appointment</h1>
-        <p className="text-gray-500">Select client, service, consent forms, and time</p>
+        <h1 className="text-2xl font-bold text-black">Book Appointment</h1>
+        <p className="text-black">Select client, service, consent forms, and time</p>
       </div>
 
       {/* Error/Success Messages */}
@@ -383,39 +383,39 @@ function NewAppointmentContent() {
                   ? 'bg-pink-500 text-white'
                   : step > i + 1
                   ? 'bg-pink-200 text-pink-700 hover:bg-pink-300'
-                  : 'bg-gray-200 text-gray-500'
+                  : 'bg-white text-black'
               }`}
             >
               {step > i + 1 ? '✓' : i + 1}
             </button>
-            {i < 4 && <div className={`w-8 h-1 mx-1 ${step > i + 1 ? 'bg-pink-300' : 'bg-gray-200'}`} />}
+            {i < 4 && <div className={`w-8 h-1 mx-1 ${step > i + 1 ? 'bg-pink-300' : 'bg-white'}`} />}
           </div>
         ))}
       </div>
 
       {/* Step 1: Select Client */}
       {step === 1 && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
-          <div className="p-4 border-b border-gray-100">
-            <h2 className="font-semibold text-gray-900">Select a client</h2>
+        <div className="bg-white rounded-xl border border-black shadow-sm">
+          <div className="p-4 border-b border-black">
+            <h2 className="font-semibold text-black">Select a client</h2>
           </div>
 
           {/* Search Bar */}
-          <div className="p-4 border-b border-gray-100">
+          <div className="p-4 border-b border-black">
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-black">🔍</span>
               <input
                 type="text"
                 placeholder="Search client or leave empty for walk-ins"
                 value={clientSearch}
                 onChange={(e) => setClientSearch(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full pl-10 pr-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               />
             </div>
           </div>
 
           {/* Quick Actions */}
-          <div className="p-4 border-b border-gray-100 flex gap-4">
+          <div className="p-4 border-b border-black flex gap-4">
             <Link
               href="/admin/clients/new"
               className="flex items-center gap-3 px-4 py-3 bg-pink-100 text-pink-700 rounded-lg hover:bg-pink-200 transition-colors"
@@ -440,7 +440,7 @@ function NewAppointmentContent() {
           {/* Client List */}
           <div className="max-h-96 overflow-y-auto">
             {clientResults.length === 0 ? (
-              <div className="p-8 text-center text-gray-500">
+              <div className="p-8 text-center text-black">
                 {clientSearch ? 'No clients found' : 'No clients yet'}
               </div>
             ) : (
@@ -458,14 +458,14 @@ function NewAppointmentContent() {
                     setIsWalkIn(false);
                     setStep(2);
                   }}
-                  className="w-full flex items-center gap-4 px-4 py-3 hover:bg-gray-50 transition-colors border-b border-gray-100 last:border-0"
+                  className="w-full flex items-center gap-4 px-4 py-3 hover:bg-white transition-colors border-b border-black last:border-0"
                 >
                   <div className="w-12 h-12 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold">
                     {client.first_name?.[0]}{client.last_name?.[0]}
                   </div>
                   <div className="text-left">
-                    <p className="font-medium text-gray-900">{client.first_name} {client.last_name}</p>
-                    <p className="text-sm text-gray-500">{client.phone || client.email}</p>
+                    <p className="font-medium text-black">{client.first_name} {client.last_name}</p>
+                    <p className="text-sm text-black">{client.phone || client.email}</p>
                   </div>
                 </button>
               ))
@@ -476,37 +476,37 @@ function NewAppointmentContent() {
 
       {/* Step 2: Select Service */}
       {step === 2 && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
-          <div className="p-4 border-b border-gray-100 flex items-center justify-between">
-            <h2 className="font-semibold text-gray-900">Select a service</h2>
+        <div className="bg-white rounded-xl border border-black shadow-sm">
+          <div className="p-4 border-b border-black flex items-center justify-between">
+            <h2 className="font-semibold text-black">Select a service</h2>
             {(selectedClient || isWalkIn) && (
-              <span className="text-sm text-gray-500">
+              <span className="text-sm text-black">
                 {isWalkIn ? '🚶 Walk-In' : `👤 ${selectedClient?.name}`}
               </span>
             )}
           </div>
 
           {/* Search Bar */}
-          <div className="p-4 border-b border-gray-100">
+          <div className="p-4 border-b border-black">
             <div className="relative">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-black">🔍</span>
               <input
                 type="text"
                 placeholder="Search by service name"
                 value={serviceSearch}
                 onChange={(e) => setServiceSearch(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                className="w-full pl-10 pr-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               />
             </div>
           </div>
 
           {/* Provider Selection */}
-          <div className="p-4 border-b border-gray-100">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Provider</label>
+          <div className="p-4 border-b border-black">
+            <label className="block text-sm font-medium text-black mb-2">Provider</label>
             <select
               value={formData.providerId}
               onChange={(e) => setFormData({ ...formData, providerId: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
             >
               {providers.map((p: any) => (
                 <option key={p.id} value={p.id}>
@@ -519,21 +519,21 @@ function NewAppointmentContent() {
           {/* Categorized Services */}
           <div className="max-h-[500px] overflow-y-auto">
             {filteredGroupedServices.length === 0 ? (
-              <div className="p-8 text-center text-gray-500">
+              <div className="p-8 text-center text-black">
                 {serviceSearch ? 'No services match your search' : 'No services available'}
               </div>
             ) : (
               filteredGroupedServices.map((category: any) => (
-                <div key={category.id} className="border-b border-gray-100 last:border-0">
+                <div key={category.id} className="border-b border-black last:border-0">
                   {/* Category Header */}
                   <button
                     type="button"
                     onClick={() => toggleCategory(category.id)}
-                    className="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition-colors"
+                    className="w-full flex items-center justify-between px-4 py-3 hover:bg-white transition-colors"
                   >
                     <div className="flex items-center gap-2">
-                      <span className="font-semibold text-gray-900">{category.name}</span>
-                      <span className="text-xs bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full">
+                      <span className="font-semibold text-black">{category.name}</span>
+                      <span className="text-xs bg-white text-black px-2 py-0.5 rounded-full">
                         {category.services.length}
                       </span>
                     </div>
@@ -544,7 +544,7 @@ function NewAppointmentContent() {
 
                   {/* Services in Category */}
                   {expandedCategories.has(category.id) && (
-                    <div className="bg-gray-50">
+                    <div className="bg-white">
                       {category.services.map((service: any) => (
                         <button
                           key={service.id}
@@ -553,20 +553,20 @@ function NewAppointmentContent() {
                             setFormData({ ...formData, serviceId: service.id, customPrice: '' });
                             setStep(3);
                           }}
-                          className={`w-full flex items-center justify-between px-4 py-3 border-l-4 hover:bg-gray-100 transition-colors ${
+                          className={`w-full flex items-center justify-between px-4 py-3 border-l-4 hover:bg-white transition-colors ${
                             formData.serviceId === service.id
                               ? 'border-pink-500 bg-pink-50'
                               : 'border-blue-400'
                           }`}
                         >
                           <div className="text-left pl-4">
-                            <p className="font-medium text-gray-900">{service.name}</p>
-                            <p className="text-sm text-gray-500">
+                            <p className="font-medium text-black">{service.name}</p>
+                            <p className="text-sm text-black">
                               {service.duration_minutes || 30}min
                               {service.short_description && ` • ${service.short_description}`}
                             </p>
                           </div>
-                          <p className="font-semibold text-gray-900">
+                          <p className="font-semibold text-black">
                             {service.price_display || `$${(service.price_cents || 0) / 100}`}
                           </p>
                         </button>
@@ -579,11 +579,11 @@ function NewAppointmentContent() {
           </div>
 
           {/* Footer */}
-          <div className="p-4 border-t border-gray-100 flex justify-between">
+          <div className="p-4 border-t border-black flex justify-between">
             <button
               type="button"
               onClick={() => setStep(1)}
-              className="px-6 py-2.5 text-gray-600 font-medium hover:bg-gray-100 rounded-lg"
+              className="px-6 py-2.5 text-black font-medium hover:bg-white rounded-lg"
             >
               Back
             </button>
@@ -593,21 +593,21 @@ function NewAppointmentContent() {
 
       {/* Step 3: Consent Forms */}
       {step === 3 && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
-          <div className="p-4 border-b border-gray-100">
-            <h2 className="font-semibold text-gray-900">Required Forms</h2>
-            <p className="text-sm text-gray-500 mt-1">Select forms for client to sign before appointment</p>
+        <div className="bg-white rounded-xl border border-black shadow-sm">
+          <div className="p-4 border-b border-black">
+            <h2 className="font-semibold text-black">Required Forms</h2>
+            <p className="text-sm text-black mt-1">Select forms for client to sign before appointment</p>
           </div>
 
           {/* Summary */}
-          <div className="p-4 bg-gray-50 border-b border-gray-100">
+          <div className="p-4 bg-white border-b border-black">
             <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-600">Client:</span>
-              <span className="font-medium text-gray-900">{isWalkIn ? 'Walk-In' : selectedClient?.name}</span>
+              <span className="text-black">Client:</span>
+              <span className="font-medium text-black">{isWalkIn ? 'Walk-In' : selectedClient?.name}</span>
             </div>
             <div className="flex items-center justify-between text-sm mt-1">
-              <span className="text-gray-600">Service:</span>
-              <span className="font-medium text-gray-900">{selectedService?.name}</span>
+              <span className="text-black">Service:</span>
+              <span className="font-medium text-black">{selectedService?.name}</span>
             </div>
           </div>
 
@@ -619,7 +619,7 @@ function NewAppointmentContent() {
                 className={`flex items-center gap-4 p-4 border rounded-lg cursor-pointer transition-colors ${
                   formData.selectedForms.includes(form.id)
                     ? 'border-pink-500 bg-pink-50'
-                    : 'border-gray-200 hover:border-gray-300'
+                    : 'border-black hover:border-black'
                 }`}
               >
                 <input
@@ -632,16 +632,16 @@ function NewAppointmentContent() {
                       setFormData({ ...formData, selectedForms: formData.selectedForms.filter((f: string) => f !== form.id) });
                     }
                   }}
-                  className="w-5 h-5 text-pink-500 border-gray-300 rounded focus:ring-pink-500"
+                  className="w-5 h-5 text-pink-500 border-black rounded focus:ring-pink-500"
                 />
                 <div className="flex-1">
                   <div className="flex items-center gap-2">
-                    <span className="font-medium text-gray-900">{form.name}</span>
+                    <span className="font-medium text-black">{form.name}</span>
                     {form.required && (
                       <span className="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded">Required</span>
                     )}
                   </div>
-                  <p className="text-sm text-gray-500">{form.description}</p>
+                  <p className="text-sm text-black">{form.description}</p>
                 </div>
               </label>
             ))}
@@ -649,16 +649,16 @@ function NewAppointmentContent() {
 
           {/* Price Adjustment */}
           {selectedService && (
-            <div className="p-4 border-t border-gray-100">
+            <div className="p-4 border-t border-black">
               <div className="flex items-center justify-between">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">Price Adjustment</label>
-                  <p className="text-xs text-gray-500">
+                  <label className="block text-sm font-medium text-black">Price Adjustment</label>
+                  <p className="text-xs text-black">
                     Standard: {selectedService.price_display || `$${(selectedService.price_cents || 0) / 100}`}
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-gray-500">$</span>
+                  <span className="text-black">$</span>
                   <input
                     type="number"
                     step="0.01"
@@ -666,7 +666,7 @@ function NewAppointmentContent() {
                     placeholder={(selectedService.price_cents / 100).toFixed(2)}
                     value={formData.customPrice}
                     onChange={(e) => setFormData({ ...formData, customPrice: e.target.value })}
-                    className="w-28 px-3 py-2 border border-gray-200 rounded-lg text-right"
+                    className="w-28 px-3 py-2 border border-black rounded-lg text-right"
                   />
                 </div>
               </div>
@@ -674,11 +674,11 @@ function NewAppointmentContent() {
           )}
 
           {/* Footer */}
-          <div className="p-4 border-t border-gray-100 flex justify-between">
+          <div className="p-4 border-t border-black flex justify-between">
             <button
               type="button"
               onClick={() => setStep(2)}
-              className="px-6 py-2.5 text-gray-600 font-medium hover:bg-gray-100 rounded-lg"
+              className="px-6 py-2.5 text-black font-medium hover:bg-white rounded-lg"
             >
               Back
             </button>
@@ -695,40 +695,40 @@ function NewAppointmentContent() {
 
       {/* Step 4: Date & Time */}
       {step === 4 && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
-          <div className="p-4 border-b border-gray-100">
-            <h2 className="font-semibold text-gray-900">Select Date & Time</h2>
+        <div className="bg-white rounded-xl border border-black shadow-sm">
+          <div className="p-4 border-b border-black">
+            <h2 className="font-semibold text-black">Select Date & Time</h2>
           </div>
 
           {/* Summary */}
-          <div className="p-4 bg-gray-50 border-b border-gray-100">
+          <div className="p-4 bg-white border-b border-black">
             <div className="grid grid-cols-2 gap-2 text-sm">
-              <span className="text-gray-600">Client:</span>
-              <span className="font-medium text-gray-900 text-right">{isWalkIn ? 'Walk-In' : selectedClient?.name}</span>
-              <span className="text-gray-600">Service:</span>
-              <span className="font-medium text-gray-900 text-right">{selectedService?.name}</span>
-              <span className="text-gray-600">Provider:</span>
-              <span className="font-medium text-gray-900 text-right">
+              <span className="text-black">Client:</span>
+              <span className="font-medium text-black text-right">{isWalkIn ? 'Walk-In' : selectedClient?.name}</span>
+              <span className="text-black">Service:</span>
+              <span className="font-medium text-black text-right">{selectedService?.name}</span>
+              <span className="text-black">Provider:</span>
+              <span className="font-medium text-black text-right">
                 {selectedProvider?.first_name || selectedProvider?.firstName} {selectedProvider?.last_name || selectedProvider?.lastName}
               </span>
-              <span className="text-gray-600">Duration:</span>
-              <span className="font-medium text-gray-900 text-right">{selectedService?.duration_minutes || 30} min</span>
-              <span className="text-gray-600">Forms:</span>
-              <span className="font-medium text-gray-900 text-right">{formData.selectedForms.length} selected</span>
-              <span className="text-gray-900 font-semibold pt-2 border-t">Price:</span>
+              <span className="text-black">Duration:</span>
+              <span className="font-medium text-black text-right">{selectedService?.duration_minutes || 30} min</span>
+              <span className="text-black">Forms:</span>
+              <span className="font-medium text-black text-right">{formData.selectedForms.length} selected</span>
+              <span className="text-black font-semibold pt-2 border-t">Price:</span>
               <span className="font-bold text-pink-600 text-right text-lg pt-2 border-t">${getDisplayPrice().toFixed(2)}</span>
             </div>
           </div>
 
           {/* Date Picker */}
-          <div className="p-4 border-b border-gray-100">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Select Date</label>
+          <div className="p-4 border-b border-black">
+            <label className="block text-sm font-medium text-black mb-2">Select Date</label>
             <input
               type="date"
               value={formData.date}
               onChange={(e) => setFormData({ ...formData, date: e.target.value, time: '' })}
               min={new Date().toISOString().split('T')[0]}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+              className="w-full px-4 py-2 border border-black rounded-lg"
             />
           </div>
 
@@ -736,15 +736,15 @@ function NewAppointmentContent() {
           <div className="p-4">
             <div className="flex items-center justify-between mb-2">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Select Time</label>
+                <label className="block text-sm font-medium text-black">Select Time</label>
                 {workingHours && isProviderWorking && (
-                  <p className="text-xs text-gray-500">
+                  <p className="text-xs text-black">
                     Working hours: {workingHours.start} - {workingHours.end}
                   </p>
                 )}
               </div>
               {availabilityLoading && (
-                <span className="text-xs text-gray-500 flex items-center gap-1">
+                <span className="text-xs text-black flex items-center gap-1">
                   <div className="animate-spin w-3 h-3 border-2 border-pink-500 border-t-transparent rounded-full" />
                   Checking schedule...
                 </span>
@@ -778,8 +778,8 @@ function NewAppointmentContent() {
                           isSelected
                             ? 'bg-pink-500 text-white border-pink-500'
                             : !slot.available
-                            ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed line-through'
-                            : 'bg-white text-gray-700 border-gray-200 hover:border-pink-300 hover:bg-pink-50'
+                            ? 'bg-white text-black border-black cursor-not-allowed line-through'
+                            : 'bg-white text-black border-black hover:border-pink-300 hover:bg-pink-50'
                         }`}
                         title={!slot.available ? (slot.reason === 'booked' ? 'Already booked' : 'Not available') : 'Available'}
                       >
@@ -788,15 +788,15 @@ function NewAppointmentContent() {
                     );
                   })}
                 </div>
-                <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+                <div className="flex items-center gap-4 mt-2 text-xs text-black">
                   <span className="flex items-center gap-1">
                     <span className="w-3 h-3 bg-pink-500 rounded"></span> Selected
                   </span>
                   <span className="flex items-center gap-1">
-                    <span className="w-3 h-3 bg-gray-200 rounded"></span> Unavailable
+                    <span className="w-3 h-3 bg-white rounded"></span> Unavailable
                   </span>
                   <span className="flex items-center gap-1">
-                    <span className="w-3 h-3 bg-white border border-gray-200 rounded"></span> Available
+                    <span className="w-3 h-3 bg-white border border-black rounded"></span> Available
                   </span>
                 </div>
               </>
@@ -804,9 +804,9 @@ function NewAppointmentContent() {
 
             {/* No slots available */}
             {!availabilityLoading && isProviderWorking && availableSlots.length === 0 && (
-              <div className="p-6 bg-gray-50 border border-gray-200 rounded-lg text-center">
-                <p className="text-gray-600">No available slots for this date</p>
-                <p className="text-gray-500 text-sm mt-1">
+              <div className="p-6 bg-white border border-black rounded-lg text-center">
+                <p className="text-black">No available slots for this date</p>
+                <p className="text-black text-sm mt-1">
                   Try selecting a different date
                 </p>
               </div>
@@ -814,23 +814,23 @@ function NewAppointmentContent() {
           </div>
 
           {/* Notes */}
-          <div className="p-4 border-t border-gray-100">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Notes (optional)</label>
+          <div className="p-4 border-t border-black">
+            <label className="block text-sm font-medium text-black mb-2">Notes (optional)</label>
             <textarea
               value={formData.notes}
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
               rows={2}
               placeholder="Any special requests..."
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+              className="w-full px-4 py-2 border border-black rounded-lg"
             />
           </div>
 
           {/* Footer */}
-          <div className="p-4 border-t border-gray-100 flex justify-between">
+          <div className="p-4 border-t border-black flex justify-between">
             <button
               type="button"
               onClick={() => setStep(3)}
-              className="px-6 py-2.5 text-gray-600 font-medium hover:bg-gray-100 rounded-lg"
+              className="px-6 py-2.5 text-black font-medium hover:bg-white rounded-lg"
             >
               Back
             </button>
@@ -848,9 +848,9 @@ function NewAppointmentContent() {
 
       {/* Step 5: Confirm & Book */}
       {step === 5 && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
-          <div className="p-4 border-b border-gray-100">
-            <h2 className="font-semibold text-gray-900">Confirm Booking</h2>
+        <div className="bg-white rounded-xl border border-black shadow-sm">
+          <div className="p-4 border-b border-black">
+            <h2 className="font-semibold text-black">Confirm Booking</h2>
           </div>
 
           {/* Full Summary */}
@@ -861,46 +861,46 @@ function NewAppointmentContent() {
                   {isWalkIn ? '🚶' : selectedClient?.name?.split(' ').map((n: string) => n[0]).join('')}
                 </div>
                 <div>
-                  <p className="font-semibold text-lg text-gray-900">{isWalkIn ? 'Walk-In Client' : selectedClient?.name}</p>
+                  <p className="font-semibold text-lg text-black">{isWalkIn ? 'Walk-In Client' : selectedClient?.name}</p>
                   {!isWalkIn && selectedClient?.phone && (
-                    <p className="text-gray-600">{selectedClient.phone}</p>
+                    <p className="text-black">{selectedClient.phone}</p>
                   )}
                 </div>
               </div>
 
-              <div className="border-t border-gray-300 pt-4 space-y-3">
+              <div className="border-t border-black pt-4 space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Service</span>
-                  <span className="font-medium text-gray-900">{selectedService?.name}</span>
+                  <span className="text-black">Service</span>
+                  <span className="font-medium text-black">{selectedService?.name}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Provider</span>
-                  <span className="font-medium text-gray-900">
+                  <span className="text-black">Provider</span>
+                  <span className="font-medium text-black">
                     {selectedProvider?.first_name || selectedProvider?.firstName} {selectedProvider?.last_name || selectedProvider?.lastName}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Date</span>
-                  <span className="font-medium text-gray-900">
+                  <span className="text-black">Date</span>
+                  <span className="font-medium text-black">
                     {new Date(formData.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Time</span>
-                  <span className="font-medium text-gray-900">{formData.time}</span>
+                  <span className="text-black">Time</span>
+                  <span className="font-medium text-black">{formData.time}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Duration</span>
-                  <span className="font-medium text-gray-900">{selectedService?.duration_minutes || 30} minutes</span>
+                  <span className="text-black">Duration</span>
+                  <span className="font-medium text-black">{selectedService?.duration_minutes || 30} minutes</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Forms to Sign</span>
-                  <span className="font-medium text-gray-900">{formData.selectedForms.length}</span>
+                  <span className="text-black">Forms to Sign</span>
+                  <span className="font-medium text-black">{formData.selectedForms.length}</span>
                 </div>
               </div>
 
-              <div className="border-t border-gray-300 pt-4 flex justify-between items-center">
-                <span className="text-lg font-semibold text-gray-900">Total</span>
+              <div className="border-t border-black pt-4 flex justify-between items-center">
+                <span className="text-lg font-semibold text-black">Total</span>
                 <span className="text-2xl font-bold text-pink-600">${getDisplayPrice().toFixed(2)}</span>
               </div>
             </div>
@@ -911,18 +911,18 @@ function NewAppointmentContent() {
                 type="checkbox"
                 checked={formData.sendConfirmation}
                 onChange={(e) => setFormData({ ...formData, sendConfirmation: e.target.checked })}
-                className="w-4 h-4 text-pink-500 border-gray-300 rounded"
+                className="w-4 h-4 text-pink-500 border-black rounded"
               />
-              <span className="text-sm text-gray-700">Send confirmation email & SMS to client</span>
+              <span className="text-sm text-black">Send confirmation email & SMS to client</span>
             </label>
           </div>
 
           {/* Footer */}
-          <div className="p-4 border-t border-gray-100 flex justify-between">
+          <div className="p-4 border-t border-black flex justify-between">
             <button
               type="button"
               onClick={() => setStep(4)}
-              className="px-6 py-2.5 text-gray-600 font-medium hover:bg-gray-100 rounded-lg"
+              className="px-6 py-2.5 text-black font-medium hover:bg-white rounded-lg"
             >
               Back
             </button>

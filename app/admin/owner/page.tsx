@@ -66,7 +66,7 @@ export default function FounderOverviewPage() {
 
   // Determine system status based on real data
   const getSystemStatus = () => {
-    if (!data) return { status: 'unknown', color: 'text-gray-600 bg-gray-100', icon: '⚪' };
+    if (!data) return { status: 'unknown', color: 'text-black bg-white', icon: '⚪' };
     
     const hasIssues = 
       data.inventory.expired > 0 || 
@@ -86,12 +86,12 @@ export default function FounderOverviewPage() {
     <div className="flex min-h-[calc(100vh-56px)]">
       {/* Founder Control Sidebar */}
       <aside className="w-64 bg-gradient-to-b from-slate-900 to-slate-800 text-white flex-shrink-0">
-        <div className="p-4 border-b border-slate-700">
+        <div className="p-4 border-b border-black">
           <div className="flex items-center gap-2">
             <span className="text-2xl">👑</span>
             <div>
               <h1 className="font-bold text-lg">FOUNDER CONTROL</h1>
-              <p className="text-xs text-slate-400">Governance Layer</p>
+              <p className="text-xs text-black">Governance Layer</p>
             </div>
           </div>
         </div>
@@ -104,7 +104,7 @@ export default function FounderOverviewPage() {
               className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
                 pathname === item.href
                   ? 'bg-white/20 text-white'
-                  : 'text-slate-300 hover:bg-white/10 hover:text-white'
+                  : 'text-black hover:bg-white/10 hover:text-white'
               }`}
             >
               <span className="text-base">{item.icon}</span>
@@ -113,7 +113,7 @@ export default function FounderOverviewPage() {
           ))}
         </nav>
 
-        <div className="p-4 border-t border-slate-700">
+        <div className="p-4 border-t border-black">
           <div className={`p-2 rounded-lg text-center text-xs ${
             emergencyMode === 'readonly' ? 'bg-red-500/20 text-red-300' :
             emergencyMode === 'booking_disabled' ? 'bg-amber-500/20 text-amber-300' :
@@ -127,7 +127,7 @@ export default function FounderOverviewPage() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 bg-gray-50 overflow-y-auto">
+      <main className="flex-1 p-6 bg-white overflow-y-auto">
         {/* Emergency Mode Banner */}
         {emergencyMode !== 'normal' && (
           <div className={`mb-6 p-4 rounded-xl flex items-center justify-between ${
@@ -146,7 +146,7 @@ export default function FounderOverviewPage() {
             </div>
             <button
               onClick={() => executeEmergencyAction('restore')}
-              className="px-4 py-2 bg-white rounded-lg text-sm font-medium hover:bg-gray-100"
+              className="px-4 py-2 bg-white rounded-lg text-sm font-medium hover:bg-white"
             >
               Restore Normal Operation
             </button>
@@ -162,8 +162,8 @@ export default function FounderOverviewPage() {
         {/* Header with Date Range Filter */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">Founder Overview</h1>
-            <p className="text-gray-500">Real-time system governance and control</p>
+            <h1 className="text-2xl font-bold text-black">Founder Overview</h1>
+            <p className="text-black">Real-time system governance and control</p>
           </div>
           <div className="flex gap-2">
             {(['today', 'week', 'month', 'year'] as DateRange[]).map(range => (
@@ -207,40 +207,40 @@ export default function FounderOverviewPage() {
             {/* System Status Row - ALL REAL DATA */}
             <div className="grid grid-cols-6 gap-4 mb-6">
               <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-gray-500">System Status</span>
+                <span className="text-xs text-black">System Status</span>
                 <div className={`mt-1 px-3 py-1 rounded-lg inline-flex items-center gap-2 ${systemStatus.color}`}>
                   <span>{systemStatus.icon}</span>
                   <span className="font-bold capitalize">{systemStatus.status}</span>
                 </div>
               </div>
               <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-gray-500">{dateRange.charAt(0).toUpperCase() + dateRange.slice(1)} Revenue</span>
-                <p className="text-lg font-bold text-gray-900 mt-1">
+                <span className="text-xs text-black">{dateRange.charAt(0).toUpperCase() + dateRange.slice(1)} Revenue</span>
+                <p className="text-lg font-bold text-black mt-1">
                   {data.revenue.total > 0 ? formatCurrency(data.revenue.total) : '$0'}
                 </p>
                 {data.revenue.total === 0 && (
-                  <p className="text-xs text-gray-400">No transactions yet</p>
+                  <p className="text-xs text-black">No transactions yet</p>
                 )}
               </div>
               <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-gray-500">Appointments</span>
-                <p className="text-lg font-bold text-gray-900 mt-1">{data.appointments.total}</p>
+                <span className="text-xs text-black">Appointments</span>
+                <p className="text-lg font-bold text-black mt-1">{data.appointments.total}</p>
                 {data.appointments.total === 0 && (
-                  <p className="text-xs text-gray-400">None this period</p>
+                  <p className="text-xs text-black">None this period</p>
                 )}
               </div>
               <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-gray-500">Active Rules</span>
+                <span className="text-xs text-black">Active Rules</span>
                 <p className="text-lg font-bold text-pink-600 mt-1">{data.system.activeRules}</p>
               </div>
               <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-gray-500">Features Enabled</span>
+                <span className="text-xs text-black">Features Enabled</span>
                 <p className="text-lg font-bold text-blue-600 mt-1">
                   {data.system.enabledFeatures}/{data.system.totalFeatures}
                 </p>
               </div>
               <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-gray-500">Data Updated</span>
+                <span className="text-xs text-black">Data Updated</span>
                 <p className="text-sm font-medium text-green-600 mt-1">
                   {formatRelativeTime(data.timestamp)}
                 </p>
@@ -250,26 +250,26 @@ export default function FounderOverviewPage() {
             {/* Key Metrics Grid - ALL REAL DATA */}
             <div className="grid grid-cols-4 gap-4 mb-6">
               <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-gray-500">Total Clients</span>
-                <p className="text-2xl font-bold text-gray-900">{data.clients.total.toLocaleString()}</p>
+                <span className="text-xs text-black">Total Clients</span>
+                <p className="text-2xl font-bold text-black">{data.clients.total.toLocaleString()}</p>
                 <p className="text-xs text-green-600 mt-1">+{data.clients.new} new this {dateRange}</p>
               </div>
               <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-gray-500">Avg Ticket</span>
-                <p className="text-2xl font-bold text-gray-900">
+                <span className="text-xs text-black">Avg Ticket</span>
+                <p className="text-2xl font-bold text-black">
                   {data.revenue.avgTicket > 0 ? formatCurrency(data.revenue.avgTicket) : '—'}
                 </p>
-                <p className="text-xs text-gray-400">{data.revenue.transactions} transactions</p>
+                <p className="text-xs text-black">{data.revenue.transactions} transactions</p>
               </div>
               <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-gray-500">No-Show Rate</span>
+                <span className="text-xs text-black">No-Show Rate</span>
                 <p className={`text-2xl font-bold ${data.appointments.noShowRate > 0.05 ? 'text-red-600' : 'text-green-600'}`}>
                   {formatPercent(data.appointments.noShowRate)}
                 </p>
-                <p className="text-xs text-gray-400">{data.appointments.noShows} no-shows</p>
+                <p className="text-xs text-black">{data.appointments.noShows} no-shows</p>
               </div>
               <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-gray-500">Active Memberships</span>
+                <span className="text-xs text-black">Active Memberships</span>
                 <p className="text-2xl font-bold text-pink-600">{data.memberships.active}</p>
               </div>
             </div>
@@ -279,42 +279,42 @@ export default function FounderOverviewPage() {
               {/* Alerts Panel - REAL DATA */}
               <div className="bg-white rounded-xl border">
                 <div className="p-4 border-b">
-                  <h2 className="font-semibold text-gray-900">⚠️ Alerts Panel</h2>
+                  <h2 className="font-semibold text-black">⚠️ Alerts Panel</h2>
                 </div>
                 <div className="divide-y">
                   {data.compliance.pendingConsents > 0 && (
-                    <Link href="/admin/consents" className="flex items-center gap-3 p-4 hover:bg-gray-50">
+                    <Link href="/admin/consents" className="flex items-center gap-3 p-4 hover:bg-white">
                       <span className="w-2 h-2 rounded-full bg-amber-500" />
                       <span className="text-amber-700">{data.compliance.pendingConsents} pending consent request{data.compliance.pendingConsents > 1 ? 's' : ''}</span>
-                      <span className="ml-auto text-gray-400">→</span>
+                      <span className="ml-auto text-black">→</span>
                     </Link>
                   )}
                   {data.inventory.expired > 0 && (
-                    <Link href="/admin/owner/inventory" className="flex items-center gap-3 p-4 hover:bg-gray-50">
+                    <Link href="/admin/owner/inventory" className="flex items-center gap-3 p-4 hover:bg-white">
                       <span className="w-2 h-2 rounded-full bg-red-500" />
                       <span className="text-red-700">{data.inventory.expired} expired product{data.inventory.expired > 1 ? 's' : ''} in inventory</span>
-                      <span className="ml-auto text-gray-400">→</span>
+                      <span className="ml-auto text-black">→</span>
                     </Link>
                   )}
                   {data.inventory.expiringSoon > 0 && (
-                    <Link href="/admin/owner/inventory" className="flex items-center gap-3 p-4 hover:bg-gray-50">
+                    <Link href="/admin/owner/inventory" className="flex items-center gap-3 p-4 hover:bg-white">
                       <span className="w-2 h-2 rounded-full bg-amber-500" />
                       <span className="text-amber-700">{data.inventory.expiringSoon} product{data.inventory.expiringSoon > 1 ? 's' : ''} expiring within 30 days</span>
-                      <span className="ml-auto text-gray-400">→</span>
+                      <span className="ml-auto text-black">→</span>
                     </Link>
                   )}
                   {data.inventory.lowStock > 0 && (
-                    <Link href="/admin/owner/inventory" className="flex items-center gap-3 p-4 hover:bg-gray-50">
+                    <Link href="/admin/owner/inventory" className="flex items-center gap-3 p-4 hover:bg-white">
                       <span className="w-2 h-2 rounded-full bg-blue-500" />
                       <span className="text-blue-700">{data.inventory.lowStock} product{data.inventory.lowStock > 1 ? 's' : ''} low on stock</span>
-                      <span className="ml-auto text-gray-400">→</span>
+                      <span className="ml-auto text-black">→</span>
                     </Link>
                   )}
                   {data.compliance.pendingConsents === 0 && 
                    data.inventory.expired === 0 && 
                    data.inventory.expiringSoon === 0 && 
                    data.inventory.lowStock === 0 && (
-                    <div className="p-4 text-center text-gray-500">
+                    <div className="p-4 text-center text-black">
                       <span className="text-green-500">✓</span> No active alerts
                     </div>
                   )}
@@ -332,7 +332,7 @@ export default function FounderOverviewPage() {
                     onClick={() => setShowEmergencyConfirm('readonly')}
                     disabled={emergencyMode === 'readonly'}
                     className={`w-full p-4 rounded-lg text-left flex items-center gap-4 ${
-                      emergencyMode === 'readonly' ? 'bg-gray-100 opacity-50' : 'bg-red-50 hover:bg-red-100 border border-red-200'
+                      emergencyMode === 'readonly' ? 'bg-white opacity-50' : 'bg-red-50 hover:bg-red-100 border border-red-200'
                     }`}
                   >
                     <span className="text-2xl">🔴</span>
@@ -346,7 +346,7 @@ export default function FounderOverviewPage() {
                     onClick={() => setShowEmergencyConfirm('disable_booking')}
                     disabled={emergencyMode !== 'normal'}
                     className={`w-full p-4 rounded-lg text-left flex items-center gap-4 ${
-                      emergencyMode !== 'normal' ? 'bg-gray-100 opacity-50' : 'bg-amber-50 hover:bg-amber-100 border border-amber-200'
+                      emergencyMode !== 'normal' ? 'bg-white opacity-50' : 'bg-amber-50 hover:bg-amber-100 border border-amber-200'
                     }`}
                   >
                     <span className="text-2xl">🟠</span>
@@ -373,12 +373,12 @@ export default function FounderOverviewPage() {
             {/* Marketing & SMS — one place to get set up */}
             <div className="bg-white rounded-xl border mb-6">
               <div className="p-4 border-b bg-gradient-to-r from-pink-50 to-purple-50">
-                <h2 className="font-semibold text-gray-900">📣 Marketing & SMS</h2>
-                <p className="text-sm text-gray-500">Contacts, email, and text messaging — set up in one place</p>
+                <h2 className="font-semibold text-black">📣 Marketing & SMS</h2>
+                <p className="text-sm text-black">Contacts, email, and text messaging — set up in one place</p>
               </div>
               <div className="p-4 grid md:grid-cols-2 gap-6">
                 <div>
-                  <h3 className="font-medium text-gray-900 mb-3">Quick links</h3>
+                  <h3 className="font-medium text-black mb-3">Quick links</h3>
                   <ul className="space-y-2">
                     <li>
                       <Link href="/admin/marketing/contacts" className="text-pink-600 hover:text-pink-700 font-medium flex items-center gap-2">
@@ -401,30 +401,30 @@ export default function FounderOverviewPage() {
                       </Link>
                     </li>
                     <li>
-                      <Link href="/admin/settings" className="text-gray-600 hover:text-gray-800 flex items-center gap-2">
+                      <Link href="/admin/settings" className="text-black hover:text-black flex items-center gap-2">
                         ⚙️ Business Settings — integrations (Telnyx, Resend)
                       </Link>
                     </li>
                   </ul>
                 </div>
                 <div>
-                  <h3 className="font-medium text-gray-900 mb-3">Get started checklist</h3>
-                  <ul className="space-y-2 text-sm text-gray-600">
+                  <h3 className="font-medium text-black mb-3">Get started checklist</h3>
+                  <ul className="space-y-2 text-sm text-black">
                     <li className="flex items-center gap-2">
-                      <span className="text-gray-400">1.</span> Add <code className="bg-gray-100 px-1 rounded">TELNYX_API_KEY</code> and <code className="bg-gray-100 px-1 rounded">TELNYX_PHONE_NUMBER</code> in your hosting env (Vercel/host).
+                      <span className="text-black">1.</span> Add <code className="bg-white px-1 rounded">TELNYX_API_KEY</code> and <code className="bg-white px-1 rounded">TELNYX_PHONE_NUMBER</code> in your hosting env (Vercel/host).
                     </li>
                     <li className="flex items-center gap-2">
-                      <span className="text-gray-400">2.</span> Add <code className="bg-gray-100 px-1 rounded">RESEND_API_KEY</code> and <code className="bg-gray-100 px-1 rounded">RESEND_FROM_EMAIL</code> for marketing emails. Verify your domain in Resend (add DNS records in your DNS provider).
+                      <span className="text-black">2.</span> Add <code className="bg-white px-1 rounded">RESEND_API_KEY</code> and <code className="bg-white px-1 rounded">RESEND_FROM_EMAIL</code> for marketing emails. Verify your domain in Resend (add DNS records in your DNS provider).
                     </li>
                     <li className="flex items-center gap-2">
-                      <span className="text-gray-400">3.</span> Upload your contact list: Marketing → Contact Collection → Import from CSV (or share the sign-up link to grow the list).
+                      <span className="text-black">3.</span> Upload your contact list: Marketing → Contact Collection → Import from CSV (or share the sign-up link to grow the list).
                     </li>
                     <li className="flex items-center gap-2">
-                      <span className="text-gray-400">4.</span> Share the sign-up link from Contact Collection (or QR code) to collect new leads.
+                      <span className="text-black">4.</span> Share the sign-up link from Contact Collection (or QR code) to collect new leads.
                     </li>
                   </ul>
-                  <p className="mt-3 text-xs text-gray-500">
-                    Full setup guide: <code className="bg-gray-100 px-1 rounded">docs/MARKETING_SMS_SETUP.md</code>
+                  <p className="mt-3 text-xs text-black">
+                    Full setup guide: <code className="bg-white px-1 rounded">docs/MARKETING_SMS_SETUP.md</code>
                   </p>
                 </div>
               </div>
@@ -438,11 +438,11 @@ export default function FounderOverviewPage() {
               {data.recentChanges.length > 0 ? (
                 <div className="divide-y">
                   {data.recentChanges.slice(0, 5).map(change => (
-                    <div key={change.id} className="p-4 hover:bg-gray-50">
+                    <div key={change.id} className="p-4 hover:bg-white">
                       <div className="flex items-start justify-between">
                         <div>
                           <p className="font-medium text-sm">{change.action} {change.target}</p>
-                          <p className="text-xs text-gray-500">{change.user} • {formatRelativeTime(change.timestamp)}</p>
+                          <p className="text-xs text-black">{change.user} • {formatRelativeTime(change.timestamp)}</p>
                         </div>
                       </div>
                     </div>
@@ -475,11 +475,11 @@ export default function FounderOverviewPage() {
                     <div key={apt.id} className="p-4 flex items-center justify-between">
                       <div>
                         <p className="font-medium text-sm">{apt.clientName}</p>
-                        <p className="text-xs text-gray-500">{apt.service} with {apt.provider}</p>
+                        <p className="text-xs text-black">{apt.service} with {apt.provider}</p>
                       </div>
                       <div className="text-right">
                         <p className="text-sm font-medium">{new Date(apt.time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
-                        <p className="text-xs text-gray-500">{new Date(apt.time).toLocaleDateString()}</p>
+                        <p className="text-xs text-black">{new Date(apt.time).toLocaleDateString()}</p>
                       </div>
                     </div>
                   ))}
@@ -501,10 +501,10 @@ export default function FounderOverviewPage() {
                 </div>
                 <div className="p-4 grid grid-cols-2 gap-4">
                   {data.providers.stats.map(provider => (
-                    <div key={provider.id} className="p-4 bg-gray-50 rounded-lg">
+                    <div key={provider.id} className="p-4 bg-white rounded-lg">
                       <p className="font-medium">{provider.name}</p>
                       <p className="text-2xl font-bold text-pink-600">{provider.appointments}</p>
-                      <p className="text-xs text-gray-500">appointments</p>
+                      <p className="text-xs text-black">appointments</p>
                     </div>
                   ))}
                 </div>
@@ -512,9 +512,9 @@ export default function FounderOverviewPage() {
             )}
 
             {/* Governance Principle */}
-            <div className="bg-slate-900 text-white rounded-xl p-6">
+            <div className="bg-black text-white rounded-xl p-6">
               <h3 className="font-bold text-lg mb-2">🧠 Core Principle</h3>
-              <p className="text-slate-300">
+              <p className="text-black">
                 If the Founder cannot control it from this dashboard, the system is not complete.
               </p>
               <div className="mt-4 grid grid-cols-5 gap-3">
@@ -540,7 +540,7 @@ export default function FounderOverviewPage() {
                 {showEmergencyConfirm === 'readonly' ? 'Enable Read-Only Mode?' : 'Disable Booking?'}
               </h3>
             </div>
-            <p className="text-gray-600 mb-4">
+            <p className="text-black mb-4">
               {showEmergencyConfirm === 'readonly'
                 ? 'This will immediately block ALL write operations. Users will be unable to save any changes, book appointments, or process payments. This action is logged.'
                 : 'This will prevent clients from booking new appointments. Existing appointments will not be affected. This action is logged.'}
@@ -548,7 +548,7 @@ export default function FounderOverviewPage() {
             <div className="flex gap-3 justify-end">
               <button
                 onClick={() => setShowEmergencyConfirm(null)}
-                className="px-4 py-2 text-gray-600 hover:text-gray-800"
+                className="px-4 py-2 text-black hover:text-black"
               >
                 Cancel
               </button>

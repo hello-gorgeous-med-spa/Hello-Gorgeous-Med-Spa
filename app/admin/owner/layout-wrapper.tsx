@@ -49,7 +49,7 @@ export default function OwnerLayout({ children, title, description }: OwnerLayou
     <div className="flex min-h-[calc(100vh-56px)]">
       {/* Founder Control Sidebar */}
       <aside className="w-64 bg-gradient-to-b from-slate-900 to-slate-800 text-white flex-shrink-0">
-        <div className="p-4 border-b border-slate-700">
+        <div className="p-4 border-b border-black">
           <Link href="/admin/owner" className="flex items-center gap-2">
             <span className="text-2xl">👑</span>
             <div>
@@ -71,7 +71,7 @@ export default function OwnerLayout({ children, title, description }: OwnerLayou
                   className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
                     pathname === item.href
                       ? 'bg-pink-500/20 text-pink-400'
-                      : 'text-slate-300 hover:bg-pink-500/10 hover:text-pink-400'
+                      : 'text-black hover:bg-pink-500/10 hover:text-pink-400'
                   }`}
                 >
                   <span className="text-base">{item.icon}</span>
@@ -92,7 +92,7 @@ export default function OwnerLayout({ children, title, description }: OwnerLayou
                   className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
                     pathname === item.href || pathname.startsWith(item.href + '/')
                       ? 'bg-pink-500/20 text-pink-400'
-                      : 'text-slate-300 hover:bg-pink-500/10 hover:text-pink-400'
+                      : 'text-black hover:bg-pink-500/10 hover:text-pink-400'
                   }`}
                 >
                   <span className="text-base">{item.icon}</span>
@@ -113,7 +113,7 @@ export default function OwnerLayout({ children, title, description }: OwnerLayou
                   className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
                     pathname === item.href
                       ? 'bg-pink-500/20 text-pink-400'
-                      : 'text-slate-300 hover:bg-pink-500/10 hover:text-pink-400'
+                      : 'text-black hover:bg-pink-500/10 hover:text-pink-400'
                   }`}
                 >
                   <span className="text-base">{item.icon}</span>
@@ -124,7 +124,7 @@ export default function OwnerLayout({ children, title, description }: OwnerLayou
           </div>
         </nav>
 
-        <div className="p-4 border-t border-slate-700">
+        <div className="p-4 border-t border-black">
           <div className="p-2 rounded-lg bg-green-500/20 text-green-300 text-center text-xs">
             🟢 NORMAL OPERATION
           </div>
@@ -132,9 +132,9 @@ export default function OwnerLayout({ children, title, description }: OwnerLayou
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 bg-gray-50 overflow-y-auto">
+      <main className="flex-1 bg-white overflow-y-auto">
         {/* Mode Switcher Header */}
-        <div className="h-12 px-6 flex items-center justify-between border-b border-gray-200 bg-white">
+        <div className="h-12 px-6 flex items-center justify-between border-b border-black bg-white">
           <ModeSwitcher variant="minimal" />
           
           <div className="flex items-center gap-2 text-sm text-amber-600">
@@ -145,8 +145,8 @@ export default function OwnerLayout({ children, title, description }: OwnerLayou
 
         <div className="p-6">
           <div className="mb-6">
-            <h1 className="text-2xl font-bold text-gray-900">{title}</h1>
-            {description && <p className="text-gray-500">{description}</p>}
+            <h1 className="text-2xl font-bold text-black">{title}</h1>
+            {description && <p className="text-black">{description}</p>}
           </div>
           {children}
         </div>

@@ -175,14 +175,14 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
   return (
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/50">
       <div className="bg-white rounded-2xl shadow-xl max-w-md w-full max-h-[90vh] overflow-hidden flex flex-col">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-          <h2 className="font-semibold text-gray-900">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-black">
+          <h2 className="font-semibold text-black">
             {step === "success" ? "You're booked!" : "Book an appointment"}
           </h2>
           <button
             type="button"
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 text-2xl leading-none"
+            className="text-black hover:text-black text-2xl leading-none"
             aria-label="Close"
           >
             ×
@@ -191,8 +191,8 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
         <div className="flex-1 overflow-y-auto p-4">
           {step === "success" && (
             <div className="text-center py-6">
-              <p className="text-lg text-gray-800 mb-2">Your appointment is on the schedule.</p>
-              <p className="text-sm text-gray-500">
+              <p className="text-lg text-black mb-2">Your appointment is on the schedule.</p>
+              <p className="text-sm text-black">
                 We'll send confirmation and reminders to your email and phone.
               </p>
               <button
@@ -207,15 +207,15 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
 
           {step === "service" && (
             <div className="space-y-4">
-              <p className="text-sm text-gray-500">Choose a service</p>
+              <p className="text-sm text-black">Choose a service</p>
               {loadingServices ? (
                 <div className="animate-pulse space-y-2">
                   {[1, 2, 3].map((i) => (
-                    <div key={i} className="h-12 bg-gray-100 rounded-lg" />
+                    <div key={i} className="h-12 bg-white rounded-lg" />
                   ))}
                 </div>
               ) : services.length === 0 ? (
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-black">
                   No online booking available right now. Please call us to book.
                 </p>
               ) : (
@@ -228,10 +228,10 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                         setSelectedService(s);
                         setStep("provider");
                       }}
-                      className="w-full text-left px-4 py-3 rounded-xl border-2 border-gray-200 hover:border-pink-300 hover:bg-pink-50/50"
+                      className="w-full text-left px-4 py-3 rounded-xl border-2 border-black hover:border-pink-300 hover:bg-pink-50/50"
                     >
-                      <span className="font-medium text-gray-900">{s.name}</span>
-                      <span className="text-gray-500 text-sm block">{s.duration_minutes} min</span>
+                      <span className="font-medium text-black">{s.name}</span>
+                      <span className="text-black text-sm block">{s.duration_minutes} min</span>
                     </button>
                   ))}
                 </div>
@@ -248,9 +248,9 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
               >
                 ← Change service
               </button>
-              <p className="text-sm text-gray-500">Choose your provider</p>
+              <p className="text-sm text-black">Choose your provider</p>
               {loadingProviders ? (
-                <div className="animate-pulse h-20 bg-gray-100 rounded-xl" />
+                <div className="animate-pulse h-20 bg-white rounded-xl" />
               ) : (
                 <div className="space-y-2">
                   {providers.map((p) => (
@@ -261,7 +261,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                         setSelectedProvider(p);
                         setStep("datetime");
                       }}
-                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border-2 border-gray-200 hover:border-pink-300"
+                      className="w-full flex items-center gap-3 px-4 py-3 rounded-xl border-2 border-black hover:border-pink-300"
                     >
                       <div
                         className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold"
@@ -270,8 +270,8 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                         {p.name.split(" ").map((n) => n[0]).join("")}
                       </div>
                       <div className="text-left">
-                        <span className="font-medium text-gray-900">{p.name}</span>
-                        <span className="text-gray-500 text-sm block">{p.title}</span>
+                        <span className="font-medium text-black">{p.name}</span>
+                        <span className="text-black text-sm block">{p.title}</span>
                       </div>
                     </button>
                   ))}
@@ -289,7 +289,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
               >
                 ← Change provider
               </button>
-              <p className="text-sm text-gray-500">Select date</p>
+              <p className="text-sm text-black">Select date</p>
               <div className="flex gap-2 overflow-x-auto pb-2">
                 {availableDates.map((d) => (
                   <button
@@ -302,7 +302,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                     className={`flex-shrink-0 px-3 py-2 rounded-lg text-sm ${
                       selectedDate?.toDateString() === d.toDateString()
                         ? "bg-pink-500 text-white"
-                        : "bg-gray-100 text-gray-700"
+                        : "bg-white text-black"
                     }`}
                   >
                     {d.toLocaleDateString("en-US", { weekday: "short" })} {d.getDate()}
@@ -311,11 +311,11 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
               </div>
               {selectedDate && (
                 <>
-                  <p className="text-sm text-gray-500">Select time</p>
+                  <p className="text-sm text-black">Select time</p>
                   {loadingSlots ? (
-                    <div className="animate-pulse h-10 bg-gray-100 rounded-lg" />
+                    <div className="animate-pulse h-10 bg-white rounded-lg" />
                   ) : timeSlots.length === 0 ? (
-                    <p className="text-sm text-gray-500">No slots this day. Pick another date.</p>
+                    <p className="text-sm text-black">No slots this day. Pick another date.</p>
                   ) : (
                     <div className="grid grid-cols-3 gap-2">
                       {timeSlots.map(({ time }) => (
@@ -324,7 +324,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                           type="button"
                           onClick={() => setSelectedTime(time)}
                           className={`py-2 rounded-lg text-sm font-medium ${
-                            selectedTime === time ? "bg-pink-500 text-white" : "bg-gray-100 text-gray-700"
+                            selectedTime === time ? "bg-pink-500 text-white" : "bg-white text-black"
                           }`}
                         >
                           {time}
@@ -338,7 +338,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                 <button
                   type="button"
                   onClick={() => setStep("provider")}
-                  className="px-4 py-2 text-gray-600 text-sm font-medium"
+                  className="px-4 py-2 text-black text-sm font-medium"
                 >
                   Back
                 </button>
@@ -357,10 +357,10 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
           {step === "info" && selectedProvider && selectedDate && selectedService && (
             <div className="space-y-4">
               <div className="bg-pink-50 rounded-xl p-3 text-sm">
-                <p className="font-medium text-gray-900">
+                <p className="font-medium text-black">
                   {formatDate(selectedDate)} at {selectedTime}
                 </p>
-                <p className="text-gray-600">{selectedService.name} with {selectedProvider.name}</p>
+                <p className="text-black">{selectedService.name} with {selectedProvider.name}</p>
               </div>
               <button
                 type="button"
@@ -375,14 +375,14 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                   placeholder="First name *"
                   value={form.firstName}
                   onChange={(e) => setForm((f) => ({ ...f, firstName: e.target.value }))}
-                  className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  className="px-3 py-2 border border-black rounded-lg text-sm"
                 />
                 <input
                   type="text"
                   placeholder="Last name *"
                   value={form.lastName}
                   onChange={(e) => setForm((f) => ({ ...f, lastName: e.target.value }))}
-                  className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  className="px-3 py-2 border border-black rounded-lg text-sm"
                 />
               </div>
               <input
@@ -390,14 +390,14 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                 placeholder="Email *"
                 value={form.email}
                 onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-black rounded-lg text-sm"
               />
               <input
                 type="tel"
                 placeholder="Phone *"
                 value={form.phone}
                 onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value }))}
-                className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                className="w-full px-3 py-2 border border-black rounded-lg text-sm"
               />
               {form.isNewClient && (
                 <input
@@ -405,21 +405,21 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                   placeholder="Date of birth"
                   value={form.dateOfBirth}
                   onChange={(e) => setForm((f) => ({ ...f, dateOfBirth: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                  className="w-full px-3 py-2 border border-black rounded-lg text-sm"
                 />
               )}
               <div className="flex gap-2">
                 <button
                   type="button"
                   onClick={() => setForm((f) => ({ ...f, isNewClient: true }))}
-                  className={`flex-1 py-2 rounded-lg text-sm ${form.isNewClient ? "bg-pink-500 text-white" : "bg-gray-100"}`}
+                  className={`flex-1 py-2 rounded-lg text-sm ${form.isNewClient ? "bg-pink-500 text-white" : "bg-white"}`}
                 >
                   New client
                 </button>
                 <button
                   type="button"
                   onClick={() => setForm((f) => ({ ...f, isNewClient: false }))}
-                  className={`flex-1 py-2 rounded-lg text-sm ${!form.isNewClient ? "bg-pink-500 text-white" : "bg-gray-100"}`}
+                  className={`flex-1 py-2 rounded-lg text-sm ${!form.isNewClient ? "bg-pink-500 text-white" : "bg-white"}`}
                 >
                   Returning
                 </button>
@@ -429,7 +429,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                   type="checkbox"
                   checked={form.agreeToSMS}
                   onChange={(e) => setForm((f) => ({ ...f, agreeToSMS: e.target.checked }))}
-                  className="rounded border-gray-300 text-pink-500"
+                  className="rounded border-black text-pink-500"
                 />
                 Send reminders by text
               </label>
@@ -438,7 +438,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                   type="checkbox"
                   checked={form.agreeToTerms}
                   onChange={(e) => setForm((f) => ({ ...f, agreeToTerms: e.target.checked }))}
-                  className="mt-0.5 rounded border-gray-300 text-pink-500"
+                  className="mt-0.5 rounded border-black text-pink-500"
                 />
                 I agree to the cancellation policy and terms *
               </label>
@@ -447,7 +447,7 @@ export function MascotBookingFlow({ onClose, onSuccess }: Props) {
                 <button
                   type="button"
                   onClick={() => setStep("datetime")}
-                  className="px-4 py-2 text-gray-600 text-sm font-medium"
+                  className="px-4 py-2 text-black text-sm font-medium"
                 >
                   Back
                 </button>

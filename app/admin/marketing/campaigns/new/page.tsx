@@ -172,18 +172,18 @@ export default function NewCampaignPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-white">
       {/* Header */}
       <div className="bg-white border-b sticky top-0 z-10">
         <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <Link href="/admin/marketing" className="text-gray-500 hover:text-gray-700">
+            <Link href="/admin/marketing" className="text-black hover:text-black">
               ← Back
             </Link>
             <h1 className="text-lg font-semibold">Create Campaign</h1>
           </div>
           <div className="flex items-center gap-3">
-            <button className="px-4 py-2 text-gray-600 hover:text-gray-800">
+            <button className="px-4 py-2 text-black hover:text-black">
               Save Draft
             </button>
             <button 
@@ -205,12 +205,12 @@ export default function NewCampaignPage() {
                     step === s ? 'bg-pink-500 text-white' : 
                     ['channel', 'template', 'audience', 'content', 'review'].indexOf(step) > i 
                       ? 'bg-green-500 text-white' 
-                      : 'bg-gray-200 text-gray-500'
+                      : 'bg-white text-black'
                   }`}
                 >
                   {i + 1}
                 </div>
-                {i < 4 && <div className="w-12 h-0.5 bg-gray-200 mx-1" />}
+                {i < 4 && <div className="w-12 h-0.5 bg-white mx-1" />}
               </div>
             ))}
           </div>
@@ -221,8 +221,8 @@ export default function NewCampaignPage() {
         {/* Step 1: Channel Selection */}
         {step === 'channel' && (
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Select a channel</h2>
-            <p className="text-gray-500 mb-8">Choose how you want to reach your clients</p>
+            <h2 className="text-2xl font-bold text-black mb-2">Select a channel</h2>
+            <p className="text-black mb-8">Choose how you want to reach your clients</p>
             
             <div className="bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-xl p-4 mb-6">
               <p className="font-medium">✨ Unlimited emails & SMS included - FREE</p>
@@ -232,7 +232,7 @@ export default function NewCampaignPage() {
             <div className="space-y-4">
               <button
                 onClick={() => { setChannel('multichannel'); setStep('template'); }}
-                className="w-full p-6 bg-white rounded-xl border-2 border-gray-200 hover:border-pink-500 text-left transition-colors group"
+                className="w-full p-6 bg-white rounded-xl border-2 border-black hover:border-pink-500 text-left transition-colors group"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
@@ -240,10 +240,10 @@ export default function NewCampaignPage() {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <h3 className="font-semibold text-gray-900">Multichannel</h3>
+                      <h3 className="font-semibold text-black">Multichannel</h3>
                       <span className="px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full">Recommended</span>
                     </div>
-                    <p className="text-sm text-gray-500">Maximize reach with both email and text message</p>
+                    <p className="text-sm text-black">Maximize reach with both email and text message</p>
                     <p className="text-sm text-pink-600 font-medium mt-1">Reach {audienceEstimates.total.toLocaleString()} clients</p>
                   </div>
                 </div>
@@ -251,15 +251,15 @@ export default function NewCampaignPage() {
 
               <button
                 onClick={() => { setChannel('email'); setStep('template'); }}
-                className="w-full p-6 bg-white rounded-xl border-2 border-gray-200 hover:border-pink-500 text-left transition-colors"
+                className="w-full p-6 bg-white rounded-xl border-2 border-black hover:border-pink-500 text-left transition-colors"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
                     <span className="text-2xl">📧</span>
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900">Email</h3>
-                    <p className="text-sm text-gray-500">Send promotional emails to your clients</p>
+                    <h3 className="font-semibold text-black">Email</h3>
+                    <p className="text-sm text-black">Send promotional emails to your clients</p>
                     <p className="text-sm text-pink-600 font-medium mt-1">Reach {audienceEstimates.email.toLocaleString()} clients</p>
                   </div>
                 </div>
@@ -267,15 +267,15 @@ export default function NewCampaignPage() {
 
               <button
                 onClick={() => { setChannel('sms'); setStep('template'); }}
-                className="w-full p-6 bg-white rounded-xl border-2 border-gray-200 hover:border-pink-500 text-left transition-colors"
+                className="w-full p-6 bg-white rounded-xl border-2 border-black hover:border-pink-500 text-left transition-colors"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
                     <span className="text-2xl">💬</span>
                   </div>
                   <div className="flex-1">
-                    <h3 className="font-semibold text-gray-900">Text Message</h3>
-                    <p className="text-sm text-gray-500">Send promotional text messages to your clients</p>
+                    <h3 className="font-semibold text-black">Text Message</h3>
+                    <p className="text-sm text-black">Send promotional text messages to your clients</p>
                     <p className="text-sm text-pink-600 font-medium mt-1">Reach {audienceEstimates.sms.toLocaleString()} clients</p>
                   </div>
                 </div>
@@ -287,16 +287,16 @@ export default function NewCampaignPage() {
         {/* Step 2: Template Selection */}
         {step === 'template' && (
           <div className="max-w-4xl mx-auto">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Choose a template</h2>
-            <p className="text-gray-500 mb-8">Start with a pre-built template or create from scratch</p>
+            <h2 className="text-2xl font-bold text-black mb-2">Choose a template</h2>
+            <p className="text-black mb-8">Start with a pre-built template or create from scratch</p>
 
             <button
               onClick={() => setStep('audience')}
-              className="w-full p-6 bg-white rounded-xl border-2 border-dashed border-gray-300 hover:border-pink-500 text-center mb-6 transition-colors"
+              className="w-full p-6 bg-white rounded-xl border-2 border-dashed border-black hover:border-pink-500 text-center mb-6 transition-colors"
             >
               <span className="text-2xl">✨</span>
-              <p className="font-semibold text-gray-900 mt-2">Start from Scratch</p>
-              <p className="text-sm text-gray-500">Build your own custom campaign</p>
+              <p className="font-semibold text-black mt-2">Start from Scratch</p>
+              <p className="text-sm text-black">Build your own custom campaign</p>
             </button>
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -306,7 +306,7 @@ export default function NewCampaignPage() {
                   <button
                     key={template.id}
                     onClick={() => loadTemplate(template.id)}
-                    className="p-4 bg-white rounded-xl border-2 border-gray-200 hover:border-pink-500 text-left transition-colors"
+                    className="p-4 bg-white rounded-xl border-2 border-black hover:border-pink-500 text-left transition-colors"
                   >
                     <span className="text-2xl">
                       {template.category === 'Promotions' && '🎉'}
@@ -314,9 +314,9 @@ export default function NewCampaignPage() {
                       {template.category === 'Retention' && '💕'}
                       {template.category === 'Automated' && '⚡'}
                     </span>
-                    <h3 className="font-semibold text-gray-900 mt-2">{template.name}</h3>
-                    <p className="text-sm text-gray-500">{template.description}</p>
-                    <span className="inline-block mt-2 px-2 py-0.5 bg-gray-100 text-gray-600 text-xs rounded">
+                    <h3 className="font-semibold text-black mt-2">{template.name}</h3>
+                    <p className="text-sm text-black">{template.description}</p>
+                    <span className="inline-block mt-2 px-2 py-0.5 bg-white text-black text-xs rounded">
                       {template.category}
                     </span>
                   </button>
@@ -325,7 +325,7 @@ export default function NewCampaignPage() {
 
             <button 
               onClick={() => setStep('channel')}
-              className="mt-6 text-gray-500 hover:text-gray-700"
+              className="mt-6 text-black hover:text-black"
             >
               ← Back to channel selection
             </button>
@@ -335,8 +335,8 @@ export default function NewCampaignPage() {
         {/* Step 3: Audience Selection */}
         {step === 'audience' && (
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Select your audience</h2>
-            <p className="text-gray-500 mb-8">Who should receive this campaign?</p>
+            <h2 className="text-2xl font-bold text-black mb-2">Select your audience</h2>
+            <p className="text-black mb-8">Who should receive this campaign?</p>
 
             <div className="space-y-3">
               {AUDIENCE_SEGMENTS.map(segment => (
@@ -344,14 +344,14 @@ export default function NewCampaignPage() {
                   key={segment.id}
                   onClick={() => setSelectedSegment(segment.id)}
                   className={`w-full p-4 bg-white rounded-xl border-2 text-left transition-colors ${
-                    selectedSegment === segment.id ? 'border-pink-500 bg-pink-50' : 'border-gray-200 hover:border-gray-300'
+                    selectedSegment === segment.id ? 'border-pink-500 bg-pink-50' : 'border-black hover:border-black'
                   }`}
                 >
                   <div className="flex items-center gap-3">
                     <span className="text-2xl">{segment.icon}</span>
                     <div>
-                      <h3 className="font-semibold text-gray-900">{segment.name}</h3>
-                      <p className="text-sm text-gray-500">{segment.description}</p>
+                      <h3 className="font-semibold text-black">{segment.name}</h3>
+                      <p className="text-sm text-black">{segment.description}</p>
                     </div>
                   </div>
                 </button>
@@ -361,7 +361,7 @@ export default function NewCampaignPage() {
             <div className="flex gap-3 mt-8">
               <button 
                 onClick={() => setStep('template')}
-                className="px-6 py-2 text-gray-600 hover:text-gray-800"
+                className="px-6 py-2 text-black hover:text-black"
               >
                 ← Back
               </button>
@@ -380,13 +380,13 @@ export default function NewCampaignPage() {
           <div className="grid grid-cols-12 gap-6">
             {/* Sidebar - Block Types */}
             <div className="col-span-3 bg-white rounded-xl p-4 h-fit sticky top-32">
-              <h3 className="font-semibold text-gray-900 mb-4">Add content</h3>
+              <h3 className="font-semibold text-black mb-4">Add content</h3>
               <div className="grid grid-cols-2 gap-2">
                 {Object.keys(DEFAULT_BLOCKS).map((type) => (
                   <button
                     key={type}
                     onClick={() => addBlock(type as BlockType)}
-                    className="p-3 bg-gray-50 rounded-lg hover:bg-gray-100 text-center transition-colors"
+                    className="p-3 bg-white rounded-lg hover:bg-white text-center transition-colors"
                   >
                     <span className="text-xl block mb-1">
                       {type === 'title' && '📝'}
@@ -398,20 +398,20 @@ export default function NewCampaignPage() {
                       {type === 'deal' && '💰'}
                       {type === 'spacer' && '↕️'}
                     </span>
-                    <span className="text-xs text-gray-600 capitalize">{type}</span>
+                    <span className="text-xs text-black capitalize">{type}</span>
                   </button>
                 ))}
               </div>
 
               {/* Themes */}
-              <h3 className="font-semibold text-gray-900 mt-6 mb-4">Themes</h3>
+              <h3 className="font-semibold text-black mt-6 mb-4">Themes</h3>
               <div className="space-y-2">
                 {EMAIL_THEMES.map(t => (
                   <button
                     key={t.id}
                     onClick={() => setTheme(t)}
                     className={`w-full p-2 rounded-lg text-left text-sm flex items-center gap-2 ${
-                      theme.id === t.id ? 'bg-pink-100 text-pink-700' : 'hover:bg-gray-50'
+                      theme.id === t.id ? 'bg-pink-100 text-pink-700' : 'hover:bg-white'
                     }`}
                   >
                     <div 
@@ -429,37 +429,37 @@ export default function NewCampaignPage() {
               {(channel === 'email' || channel === 'multichannel') && (
                 <>
                   <div className="bg-white rounded-xl p-4 mb-4">
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Subject Line</label>
+                    <label className="block text-sm font-medium text-black mb-1">Subject Line</label>
                     <input
                       type="text"
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
                       placeholder="Enter email subject..."
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                      className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                     />
-                    <label className="block text-sm font-medium text-gray-700 mb-1 mt-3">Preview Text</label>
+                    <label className="block text-sm font-medium text-black mb-1 mt-3">Preview Text</label>
                     <input
                       type="text"
                       value={previewText}
                       onChange={(e) => setPreviewText(e.target.value)}
                       placeholder="This appears after the subject in inbox..."
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                      className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                     />
                   </div>
 
                   <div 
-                    className="bg-white rounded-xl overflow-hidden border-2 border-gray-200"
+                    className="bg-white rounded-xl overflow-hidden border-2 border-black"
                     style={{ backgroundColor: theme.backgroundColor }}
                   >
                     {/* Email Preview Header */}
-                    <div className="bg-gray-100 px-4 py-2 text-sm text-gray-500 border-b">
+                    <div className="bg-white px-4 py-2 text-sm text-black border-b">
                       Preview
                     </div>
                     
                     {/* Email Content */}
                     <div className="p-6 max-w-lg mx-auto bg-white my-4 rounded shadow-sm">
                       {blocks.length === 0 ? (
-                        <div className="text-center py-12 text-gray-400">
+                        <div className="text-center py-12 text-black">
                           <p className="text-lg mb-2">Add content blocks from the left panel</p>
                           <p className="text-sm">Click on Title, Paragraph, Image, etc. to build your email</p>
                         </div>
@@ -471,8 +471,8 @@ export default function NewCampaignPage() {
                           >
                             {/* Block Controls */}
                             <div className="absolute -right-2 top-0 hidden group-hover:flex flex-col gap-1 bg-white shadow-lg rounded-lg p-1 z-10">
-                              <button onClick={() => moveBlock(block.id, 'up')} className="p-1 hover:bg-gray-100 rounded text-xs">↑</button>
-                              <button onClick={() => moveBlock(block.id, 'down')} className="p-1 hover:bg-gray-100 rounded text-xs">↓</button>
+                              <button onClick={() => moveBlock(block.id, 'up')} className="p-1 hover:bg-white rounded text-xs">↑</button>
+                              <button onClick={() => moveBlock(block.id, 'down')} className="p-1 hover:bg-white rounded text-xs">↓</button>
                               <button onClick={() => removeBlock(block.id)} className="p-1 hover:bg-red-100 text-red-500 rounded text-xs">✕</button>
                             </div>
                             
@@ -516,10 +516,10 @@ export default function NewCampaignPage() {
                                 style={{ backgroundColor: theme.backgroundColor, border: `2px solid ${theme.primaryColor}` }}
                               >
                                 <h3 className="font-bold text-lg" style={{ color: theme.primaryColor }}>{block.content.title}</h3>
-                                <p className="text-sm text-gray-600">{block.content.description}</p>
+                                <p className="text-sm text-black">{block.content.description}</p>
                                 <p className="text-2xl font-bold mt-2" style={{ color: theme.primaryColor }}>
                                   {block.content.originalPrice > 0 && (
-                                    <span className="text-gray-400 line-through text-lg mr-2">${block.content.originalPrice}</span>
+                                    <span className="text-black line-through text-lg mr-2">${block.content.originalPrice}</span>
                                   )}
                                   ${block.content.salePrice}
                                 </p>
@@ -530,7 +530,7 @@ export default function NewCampaignPage() {
                                 {block.content.src ? (
                                   <img src={block.content.src} alt={block.content.alt} className="max-w-full mx-auto rounded" />
                                 ) : (
-                                  <div className="bg-gray-100 rounded-lg p-8">
+                                  <div className="bg-white rounded-lg p-8">
                                     <input
                                       type="text"
                                       placeholder="Paste image URL..."
@@ -543,7 +543,7 @@ export default function NewCampaignPage() {
                               </div>
                             )}
                             {block.type === 'spacer' && (
-                              <div style={{ height: block.content.height }} className="bg-gray-50 rounded" />
+                              <div style={{ height: block.content.height }} className="bg-white rounded" />
                             )}
                           </div>
                         ))
@@ -551,7 +551,7 @@ export default function NewCampaignPage() {
                     </div>
 
                     {/* Footer */}
-                    <div className="bg-gray-50 px-4 py-3 text-center text-xs text-gray-500">
+                    <div className="bg-white px-4 py-3 text-center text-xs text-black">
                       {theme.footerText}
                     </div>
                   </div>
@@ -561,7 +561,7 @@ export default function NewCampaignPage() {
               {/* SMS Preview */}
               {(channel === 'sms' || channel === 'multichannel') && (
                 <div className={channel === 'multichannel' ? 'mt-6' : ''}>
-                  <h3 className="font-semibold text-gray-900 mb-3">
+                  <h3 className="font-semibold text-black mb-3">
                     {channel === 'multichannel' ? 'SMS Version' : 'Text Message'}
                   </h3>
                   <div className="bg-white rounded-xl p-4">
@@ -570,10 +570,10 @@ export default function NewCampaignPage() {
                       onChange={(e) => setSmsContent(e.target.value)}
                       placeholder="Type your SMS message... Use {firstName} for personalization"
                       rows={4}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                      className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                     />
                     <div className="flex justify-between mt-2 text-sm">
-                      <span className={smsValidation.valid ? 'text-gray-500' : 'text-red-500'}>
+                      <span className={smsValidation.valid ? 'text-black' : 'text-red-500'}>
                         {smsContent.length}/160 characters ({smsValidation.segments} segment{smsValidation.segments !== 1 ? 's' : ''})
                       </span>
                       {!smsValidation.valid && (
@@ -582,7 +582,7 @@ export default function NewCampaignPage() {
                     </div>
 
                     {/* Phone Preview */}
-                    <div className="mt-4 bg-gray-900 rounded-3xl p-4 max-w-xs mx-auto">
+                    <div className="mt-4 bg-black rounded-3xl p-4 max-w-xs mx-auto">
                       <div className="bg-green-500 rounded-2xl p-3 text-white text-sm">
                         {smsContent || 'Your message preview will appear here...'}
                       </div>
@@ -595,18 +595,18 @@ export default function NewCampaignPage() {
             {/* Settings Panel */}
             <div className="col-span-3 space-y-4">
               <div className="bg-white rounded-xl p-4">
-                <h3 className="font-semibold text-gray-900 mb-3">Campaign Summary</h3>
+                <h3 className="font-semibold text-black mb-3">Campaign Summary</h3>
                 <dl className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <dt className="text-gray-500">Channel</dt>
+                    <dt className="text-black">Channel</dt>
                     <dd className="font-medium capitalize">{channel}</dd>
                   </div>
                   <div className="flex justify-between">
-                    <dt className="text-gray-500">Audience</dt>
+                    <dt className="text-black">Audience</dt>
                     <dd className="font-medium">{AUDIENCE_SEGMENTS.find(s => s.id === selectedSegment)?.name}</dd>
                   </div>
                   <div className="flex justify-between">
-                    <dt className="text-gray-500">Est. Recipients</dt>
+                    <dt className="text-black">Est. Recipients</dt>
                     <dd className="font-medium text-pink-600">
                       {channel === 'email' ? audienceEstimates.email.toLocaleString() :
                        channel === 'sms' ? audienceEstimates.sms.toLocaleString() :
@@ -627,7 +627,7 @@ export default function NewCampaignPage() {
               <div className="flex gap-3">
                 <button 
                   onClick={() => setStep('audience')}
-                  className="flex-1 px-4 py-2 text-gray-600 hover:text-gray-800 border rounded-lg"
+                  className="flex-1 px-4 py-2 text-black hover:text-black border rounded-lg"
                 >
                   ← Back
                 </button>
@@ -645,8 +645,8 @@ export default function NewCampaignPage() {
         {/* Step 5: Review & Send */}
         {step === 'review' && (
           <div className="max-w-2xl mx-auto">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Review & Send</h2>
-            <p className="text-gray-500 mb-8">Double-check everything before sending</p>
+            <h2 className="text-2xl font-bold text-black mb-2">Review & Send</h2>
+            <p className="text-black mb-8">Double-check everything before sending</p>
 
             {/* Success Result */}
             {sendResult?.success && (
@@ -706,34 +706,34 @@ export default function NewCampaignPage() {
 
             {/* Campaign Name */}
             <div className="bg-white rounded-xl p-6 mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Campaign Name</label>
+              <label className="block text-sm font-medium text-black mb-1">Campaign Name</label>
               <input
                 type="text"
                 value={campaignName}
                 onChange={(e) => setCampaignName(e.target.value)}
                 placeholder={`${channel || 'email'} campaign - ${new Date().toLocaleDateString()}`}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               />
-              <p className="text-xs text-gray-400 mt-1">Internal name to identify this campaign in your history</p>
+              <p className="text-xs text-black mt-1">Internal name to identify this campaign in your history</p>
             </div>
 
             <div className="bg-white rounded-xl p-6 space-y-4">
               <div className="flex justify-between py-3 border-b">
-                <span className="text-gray-500">Campaign Type</span>
+                <span className="text-black">Campaign Type</span>
                 <span className="font-medium capitalize">{channel}</span>
               </div>
               {(channel === 'email' || channel === 'multichannel') && (
                 <div className="flex justify-between py-3 border-b">
-                  <span className="text-gray-500">Subject</span>
+                  <span className="text-black">Subject</span>
                   <span className="font-medium">{subject || 'Not set'}</span>
                 </div>
               )}
               <div className="flex justify-between py-3 border-b">
-                <span className="text-gray-500">Audience</span>
+                <span className="text-black">Audience</span>
                 <span className="font-medium">{AUDIENCE_SEGMENTS.find(s => s.id === selectedSegment)?.name}</span>
               </div>
               <div className="flex justify-between py-3 border-b">
-                <span className="text-gray-500">Est. Recipients</span>
+                <span className="text-black">Est. Recipients</span>
                 <span className="font-medium text-pink-600">
                   {channel === 'email' ? audienceEstimates.email.toLocaleString() :
                    channel === 'sms' ? audienceEstimates.sms.toLocaleString() :
@@ -742,14 +742,14 @@ export default function NewCampaignPage() {
               </div>
               {(channel === 'sms' || channel === 'multichannel') && (
                 <div className="flex justify-between py-3 border-b">
-                  <span className="text-gray-500">SMS Cost Estimate</span>
-                  <span className="font-medium text-gray-700">
+                  <span className="text-black">SMS Cost Estimate</span>
+                  <span className="font-medium text-black">
                     ~${(audienceEstimates.sms * 0.004).toFixed(2)} ({audienceEstimates.sms} texts)
                   </span>
                 </div>
               )}
               <div className="flex justify-between py-3">
-                <span className="text-gray-500">Email Cost</span>
+                <span className="text-black">Email Cost</span>
                 <span className="font-bold text-green-600">FREE (Resend) ✓</span>
               </div>
             </div>
@@ -757,18 +757,18 @@ export default function NewCampaignPage() {
             {/* Schedule option */}
             {showSchedule && (
               <div className="bg-white rounded-xl p-6 mt-4">
-                <label className="block text-sm font-medium text-gray-700 mb-2">Schedule Send Date & Time</label>
+                <label className="block text-sm font-medium text-black mb-2">Schedule Send Date & Time</label>
                 <input
                   type="datetime-local"
                   value={scheduleDate}
                   onChange={(e) => setScheduleDate(e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                   min={new Date().toISOString().slice(0, 16)}
                 />
                 <div className="flex gap-3 mt-4">
                   <button
                     onClick={() => setShowSchedule(false)}
-                    className="px-4 py-2 text-gray-600 hover:text-gray-800 border rounded-lg text-sm"
+                    className="px-4 py-2 text-black hover:text-black border rounded-lg text-sm"
                   >
                     Cancel
                   </button>
@@ -788,7 +788,7 @@ export default function NewCampaignPage() {
                 <button 
                   onClick={() => setStep('content')}
                   disabled={sending}
-                  className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 disabled:opacity-50"
+                  className="flex-1 px-6 py-3 border border-black text-black rounded-lg hover:bg-white disabled:opacity-50"
                 >
                   ← Edit Content
                 </button>

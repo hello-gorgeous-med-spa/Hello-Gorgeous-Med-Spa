@@ -67,20 +67,20 @@ export default function AutomationsPage() {
           </div>
           <div className="divide-y">
             {automations.map(auto => (
-              <div key={auto.id} className={`p-4 ${!auto.is_active ? 'bg-gray-50 opacity-75' : ''}`}>
+              <div key={auto.id} className={`p-4 ${!auto.is_active ? 'bg-white opacity-75' : ''}`}>
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="font-medium">{auto.name}</h3>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-black mt-1">
                       Trigger: {auto.trigger.replace(/_/g, ' ')} → {auto.action.replace(/_/g, ' ')} ({auto.timing})
                     </p>
-                    <p className="text-xs text-gray-400 mt-1">Ran {auto.run_count} times</p>
+                    <p className="text-xs text-black mt-1">Ran {auto.run_count} times</p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <button className="text-sm text-gray-600 hover:text-gray-900">Edit</button>
+                    <button className="text-sm text-black hover:text-black">Edit</button>
                     <button
                       onClick={() => toggleActive(auto.id)}
-                      className={`w-12 h-6 rounded-full transition-colors relative ${auto.is_active ? 'bg-green-500' : 'bg-gray-300'}`}
+                      className={`w-12 h-6 rounded-full transition-colors relative ${auto.is_active ? 'bg-green-500' : 'bg-white'}`}
                     >
                       <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${auto.is_active ? 'right-1' : 'left-1'}`} />
                     </button>
@@ -99,11 +99,11 @@ export default function AutomationsPage() {
               <input type="checkbox" checked={optOutSettings.honor_stop_keyword} onChange={(e) => setOptOutSettings(prev => ({ ...prev, honor_stop_keyword: e.target.checked }))} className="w-5 h-5" />
               <div>
                 <span className="block font-medium">Honor STOP Keywords</span>
-                <span className="text-xs text-gray-500">Automatically opt-out clients who text STOP</span>
+                <span className="text-xs text-black">Automatically opt-out clients who text STOP</span>
               </div>
             </label>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">STOP Keywords (comma-separated)</label>
+              <label className="block text-sm font-medium text-black mb-1">STOP Keywords (comma-separated)</label>
               <input
                 type="text"
                 value={optOutSettings.stop_keywords.join(', ')}
@@ -115,14 +115,14 @@ export default function AutomationsPage() {
               <input type="checkbox" checked={optOutSettings.send_confirmation_on_optout} onChange={(e) => setOptOutSettings(prev => ({ ...prev, send_confirmation_on_optout: e.target.checked }))} className="w-5 h-5" />
               <div>
                 <span className="block font-medium">Send Opt-Out Confirmation</span>
-                <span className="text-xs text-gray-500">Confirm successful opt-out to client</span>
+                <span className="text-xs text-black">Confirm successful opt-out to client</span>
               </div>
             </label>
             <label className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer">
               <input type="checkbox" checked={optOutSettings.allow_resubscribe} onChange={(e) => setOptOutSettings(prev => ({ ...prev, allow_resubscribe: e.target.checked }))} className="w-5 h-5" />
               <div>
                 <span className="block font-medium">Allow Re-Subscribe</span>
-                <span className="text-xs text-gray-500">Clients can text START to opt back in</span>
+                <span className="text-xs text-black">Clients can text START to opt back in</span>
               </div>
             </label>
           </div>

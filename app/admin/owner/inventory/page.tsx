@@ -110,8 +110,8 @@ export default function InventoryPage() {
       case 'in_stock': return 'bg-green-100 text-green-700';
       case 'low': return 'bg-amber-100 text-amber-700';
       case 'expired': return 'bg-red-100 text-red-700';
-      case 'out': return 'bg-gray-100 text-gray-600';
-      default: return 'bg-gray-100 text-gray-600';
+      case 'out': return 'bg-white text-black';
+      default: return 'bg-white text-black';
     }
   };
 
@@ -210,25 +210,25 @@ export default function InventoryPage() {
 
                 {filteredProducts.length > 0 ? (
                   <table className="w-full">
-                    <thead className="bg-gray-50">
+                    <thead className="bg-white">
                       <tr>
-                        <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">PRODUCT</th>
-                        <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">LOT</th>
-                        <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">EXP</th>
-                        <th className="text-right px-4 py-3 text-xs font-semibold text-gray-500">QTY</th>
-                        <th className="px-4 py-3 text-xs font-semibold text-gray-500">STATUS</th>
+                        <th className="text-left px-4 py-3 text-xs font-semibold text-black">PRODUCT</th>
+                        <th className="text-left px-4 py-3 text-xs font-semibold text-black">LOT</th>
+                        <th className="text-left px-4 py-3 text-xs font-semibold text-black">EXP</th>
+                        <th className="text-right px-4 py-3 text-xs font-semibold text-black">QTY</th>
+                        <th className="px-4 py-3 text-xs font-semibold text-black">STATUS</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y">
                       {filteredProducts.map(product => (
-                        <tr key={product.id} className={`hover:bg-gray-50 ${product.status === 'expired' ? 'bg-red-50/50' : ''}`}>
+                        <tr key={product.id} className={`hover:bg-white ${product.status === 'expired' ? 'bg-red-50/50' : ''}`}>
                           <td className="px-4 py-3">
                             <div>
                               <p className="font-medium text-sm">{product.name}</p>
-                              <p className="text-xs text-gray-500">{product.category}</p>
+                              <p className="text-xs text-black">{product.category}</p>
                             </div>
                           </td>
-                          <td className="px-4 py-3 text-sm font-mono text-gray-600">{product.lot_number}</td>
+                          <td className="px-4 py-3 text-sm font-mono text-black">{product.lot_number}</td>
                           <td className="px-4 py-3 text-sm">
                             {product.expiration_date ? formatDate(product.expiration_date) : '—'}
                           </td>
@@ -258,23 +258,23 @@ export default function InventoryPage() {
                 <h3 className="font-semibold mb-3">📊 Inventory Stats</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Total Products</span>
+                    <span className="text-black">Total Products</span>
                     <span className="font-medium">{products.length}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">In Stock</span>
+                    <span className="text-black">In Stock</span>
                     <span className="font-medium text-green-600">{products.filter(p => p.status === 'in_stock').length}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Low Stock</span>
+                    <span className="text-black">Low Stock</span>
                     <span className="font-medium text-amber-600">{lowStockCount}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Expiring Soon</span>
+                    <span className="text-black">Expiring Soon</span>
                     <span className="font-medium text-orange-600">{expiringCount}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-500">Expired</span>
+                    <span className="text-black">Expired</span>
                     <span className="font-medium text-red-600">{expiredCount}</span>
                   </div>
                 </div>

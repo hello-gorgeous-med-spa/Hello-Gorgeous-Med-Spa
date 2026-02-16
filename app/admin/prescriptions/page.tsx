@@ -177,15 +177,15 @@ export default function PrescriptionsPage() {
     <div className="p-6 max-w-7xl mx-auto">
       <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3"><span className="text-3xl">💊</span>Prescriptions</h1>
-          <p className="text-gray-500 mt-1">Manage prescriptions • Print for eFax • Track status</p>
+          <h1 className="text-2xl font-bold text-black flex items-center gap-3"><span className="text-3xl">💊</span>Prescriptions</h1>
+          <p className="text-black mt-1">Manage prescriptions • Print for eFax • Track status</p>
         </div>
         <div className="flex items-center gap-3 flex-wrap">
           <a
             href="https://myportal.efax.com/login"
             target="_blank"
             rel="noopener noreferrer"
-            className="px-5 py-2.5 bg-slate-700 text-white rounded-xl hover:bg-slate-800 font-medium flex items-center gap-2 transition-colors"
+            className="px-5 py-2.5 bg-black text-white rounded-xl hover:bg-black font-medium flex items-center gap-2 transition-colors"
             title="Fax prescriptions to pharmacies"
           >
             📠 eFax
@@ -206,16 +206,16 @@ export default function PrescriptionsPage() {
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         {[{ l: 'Total', v: prescriptions.length, c: 'gray-900' }, { l: 'Pending', v: prescriptions.filter(r => r.status === 'pending').length, c: 'yellow-600' },
           { l: 'Sent', v: prescriptions.filter(r => r.status === 'sent').length, c: 'blue-600' }, { l: 'Filled', v: prescriptions.filter(r => r.status === 'filled').length, c: 'green-600' }]
-          .map((s, i) => <div key={i} className="bg-white rounded-xl border p-5 shadow-sm"><p className="text-sm text-gray-500">{s.l}</p><p className={`text-3xl font-bold text-${s.c} mt-1`}>{s.v}</p></div>)}
+          .map((s, i) => <div key={i} className="bg-white rounded-xl border p-5 shadow-sm"><p className="text-sm text-black">{s.l}</p><p className={`text-3xl font-bold text-${s.c} mt-1`}>{s.v}</p></div>)}
       </div>
 
       <div className="flex gap-2 mb-6">
         {(['all', 'pending', 'sent', 'filled'] as const).map(f => (
-          <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-lg text-sm font-medium capitalize ${filter === f ? 'bg-pink-500 text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}>{f}</button>
+          <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-lg text-sm font-medium capitalize ${filter === f ? 'bg-pink-500 text-white' : 'bg-white text-black hover:bg-white'}`}>{f}</button>
         ))}
       </div>
 
-      {loading ? <div className="bg-white rounded-xl border p-8 animate-pulse"><div className="h-16 bg-gray-100 rounded mb-4"/><div className="h-16 bg-gray-100 rounded"/></div>
+      {loading ? <div className="bg-white rounded-xl border p-8 animate-pulse"><div className="h-16 bg-white rounded mb-4"/><div className="h-16 bg-white rounded"/></div>
       : prescriptions.length === 0 ? (
         <div className="bg-white rounded-xl border p-16 text-center">
           <span className="text-6xl">💊</span><h3 className="text-xl font-semibold mt-4">No prescriptions</h3>
@@ -224,20 +224,20 @@ export default function PrescriptionsPage() {
       ) : (
         <div className="bg-white rounded-xl border overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-50 border-b"><tr>
-              {['Patient', 'Medication', 'Sig', 'Qty', 'Date', 'Status', 'Actions'].map(h => <th key={h} className={`px-6 py-4 text-xs font-semibold text-gray-500 uppercase ${h === 'Actions' ? 'text-right' : 'text-left'}`}>{h}</th>)}
+            <thead className="bg-white border-b"><tr>
+              {['Patient', 'Medication', 'Sig', 'Qty', 'Date', 'Status', 'Actions'].map(h => <th key={h} className={`px-6 py-4 text-xs font-semibold text-black uppercase ${h === 'Actions' ? 'text-right' : 'text-left'}`}>{h}</th>)}
             </tr></thead>
             <tbody className="divide-y">
               {prescriptions.map(rx => (
-                <tr key={rx.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4"><p className="font-medium">{rx.client_name}</p><p className="text-xs text-gray-500">DOB: {rx.client_dob || 'N/A'}</p></td>
-                  <td className="px-6 py-4"><p className="font-medium">{rx.medication_name}</p><p className="text-xs text-gray-500">{rx.form}</p></td>
-                  <td className="px-6 py-4"><p className="text-sm text-gray-700 max-w-xs truncate">{rx.sig}</p></td>
-                  <td className="px-6 py-4"><p>#{rx.quantity || '-'}</p><p className="text-xs text-gray-500">{rx.refills || 0} refills</p></td>
+                <tr key={rx.id} className="hover:bg-white">
+                  <td className="px-6 py-4"><p className="font-medium">{rx.client_name}</p><p className="text-xs text-black">DOB: {rx.client_dob || 'N/A'}</p></td>
+                  <td className="px-6 py-4"><p className="font-medium">{rx.medication_name}</p><p className="text-xs text-black">{rx.form}</p></td>
+                  <td className="px-6 py-4"><p className="text-sm text-black max-w-xs truncate">{rx.sig}</p></td>
+                  <td className="px-6 py-4"><p>#{rx.quantity || '-'}</p><p className="text-xs text-black">{rx.refills || 0} refills</p></td>
                   <td className="px-6 py-4">{formatDate(rx.created_at)}</td>
                   <td className="px-6 py-4">{statusBadge(rx.status)}</td>
                   <td className="px-6 py-4"><div className="flex justify-end gap-2">
-                    <button onClick={() => { setPrintRx(rx); setShowPrintModal(true); }} className="px-3 py-1.5 text-sm bg-gray-100 rounded-lg hover:bg-gray-200">🖨️ Print</button>
+                    <button onClick={() => { setPrintRx(rx); setShowPrintModal(true); }} className="px-3 py-1.5 text-sm bg-white rounded-lg hover:bg-white">🖨️ Print</button>
                     {rx.status === 'pending' && <button onClick={() => updateStatus(rx.id, 'sent')} className="px-3 py-1.5 text-sm bg-blue-100 text-blue-700 rounded-lg">Mark Sent</button>}
                     {rx.status === 'sent' && <button onClick={() => updateStatus(rx.id, 'filled')} className="px-3 py-1.5 text-sm bg-green-100 text-green-700 rounded-lg">Mark Filled</button>}
                   </div></td>
@@ -253,7 +253,7 @@ export default function PrescriptionsPage() {
           <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6 border-b sticky top-0 bg-white z-10 flex justify-between">
               <h2 className="text-xl font-bold">New Prescription</h2>
-              <button onClick={() => { setShowNewModal(false); resetForm(); }} className="text-gray-400 hover:text-gray-600">✕</button>
+              <button onClick={() => { setShowNewModal(false); resetForm(); }} className="text-black hover:text-black">✕</button>
             </div>
             <div className="p-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="space-y-6">
@@ -264,12 +264,12 @@ export default function PrescriptionsPage() {
                       <input type="text" value={clientSearch} onChange={(e) => { setClientSearch(e.target.value); if (e.target.value.length >= 2) fetchClients(e.target.value); }} placeholder="Search patient..." className="w-full px-4 py-2 border rounded-xl"/>
                       {clients.length > 0 && clientSearch.length >= 2 && (
                         <div className="mt-2 border rounded-xl max-h-40 overflow-y-auto">
-                          {clients.map(c => <button key={c.id} onClick={() => setSelectedClient(c)} className="w-full p-3 text-left hover:bg-pink-50 border-b last:border-0"><p className="font-medium">{c.first_name} {c.last_name}</p><p className="text-xs text-gray-500">DOB: {c.date_of_birth || 'N/A'}</p></button>)}
+                          {clients.map(c => <button key={c.id} onClick={() => setSelectedClient(c)} className="w-full p-3 text-left hover:bg-pink-50 border-b last:border-0"><p className="font-medium">{c.first_name} {c.last_name}</p><p className="text-xs text-black">DOB: {c.date_of_birth || 'N/A'}</p></button>)}
                         </div>
                       )}
                     </div>
                   ) : (
-                    <div className="flex justify-between p-3 bg-pink-50 rounded-xl"><div><p className="font-medium">{selectedClient.first_name} {selectedClient.last_name}</p><p className="text-sm text-gray-500">DOB: {selectedClient.date_of_birth || 'N/A'}</p></div><button onClick={() => setSelectedClient(null)} className="text-pink-600">Change</button></div>
+                    <div className="flex justify-between p-3 bg-pink-50 rounded-xl"><div><p className="font-medium">{selectedClient.first_name} {selectedClient.last_name}</p><p className="text-sm text-black">DOB: {selectedClient.date_of_birth || 'N/A'}</p></div><button onClick={() => setSelectedClient(null)} className="text-pink-600">Change</button></div>
                   )}
                 </div>
                 <div>
@@ -282,11 +282,11 @@ export default function PrescriptionsPage() {
                 <div>
                   <label className="block text-sm font-semibold mb-2">Quick Templates</label>
                   <div className="flex gap-2 mb-3 flex-wrap">
-                    <button onClick={() => setCategoryFilter('all')} className={`px-3 py-1 rounded-full text-xs ${categoryFilter === 'all' ? 'bg-pink-500 text-white' : 'bg-gray-100'}`}>All</button>
-                    {uniqueCategories.map(cat => <button key={cat} onClick={() => setCategoryFilter(cat)} className={`px-3 py-1 rounded-full text-xs ${categoryFilter === cat ? 'bg-pink-500 text-white' : 'bg-gray-100'}`}>{cat}</button>)}
+                    <button onClick={() => setCategoryFilter('all')} className={`px-3 py-1 rounded-full text-xs ${categoryFilter === 'all' ? 'bg-pink-500 text-white' : 'bg-white'}`}>All</button>
+                    {uniqueCategories.map(cat => <button key={cat} onClick={() => setCategoryFilter(cat)} className={`px-3 py-1 rounded-full text-xs ${categoryFilter === cat ? 'bg-pink-500 text-white' : 'bg-white'}`}>{cat}</button>)}
                   </div>
                   <div className="max-h-48 overflow-y-auto border rounded-xl">
-                    {filteredTemplates.map(t => <button key={t.id} onClick={() => applyTemplate(t)} className={`w-full p-3 text-left border-b last:border-0 hover:bg-pink-50 ${selectedTemplate?.id === t.id ? 'bg-pink-50' : ''}`}><p className="font-medium">{t.name} {t.strength}</p><p className="text-xs text-gray-500">{t.notes}</p></button>)}
+                    {filteredTemplates.map(t => <button key={t.id} onClick={() => applyTemplate(t)} className={`w-full p-3 text-left border-b last:border-0 hover:bg-pink-50 ${selectedTemplate?.id === t.id ? 'bg-pink-50' : ''}`}><p className="font-medium">{t.name} {t.strength}</p><p className="text-xs text-black">{t.notes}</p></button>)}
                   </div>
                 </div>
               </div>
@@ -310,7 +310,7 @@ export default function PrescriptionsPage() {
               </div>
             </div>
             <div className="p-6 border-t flex justify-end gap-3 sticky bottom-0 bg-white">
-              <button onClick={() => { setShowNewModal(false); resetForm(); }} className="px-4 py-2 text-gray-600">Cancel</button>
+              <button onClick={() => { setShowNewModal(false); resetForm(); }} className="px-4 py-2 text-black">Cancel</button>
               <button onClick={handleCreate} disabled={!selectedClient || !formData.medication_name || !formData.sig || saving} className="px-6 py-2 bg-pink-500 text-white rounded-xl disabled:opacity-50">{saving ? 'Creating...' : 'Create Prescription'}</button>
             </div>
           </div>
@@ -320,15 +320,15 @@ export default function PrescriptionsPage() {
       {showPrintModal && printRx && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-2xl w-full">
-            <div className="p-6 border-b flex justify-between"><h2 className="text-xl font-bold">Print Prescription</h2><button onClick={() => setShowPrintModal(false)} className="text-gray-400">✕</button></div>
+            <div className="p-6 border-b flex justify-between"><h2 className="text-xl font-bold">Print Prescription</h2><button onClick={() => setShowPrintModal(false)} className="text-black">✕</button></div>
             <div ref={printRef} className="p-8">
-              <div className="text-center border-b-2 border-black pb-4 mb-4"><h1 className="text-2xl font-bold">Hello Gorgeous Med Spa</h1><p className="text-gray-600">74 W. Washington St, Oswego, IL 60543</p><p className="text-gray-600">(630) 636-6193</p></div>
+              <div className="text-center border-b-2 border-black pb-4 mb-4"><h1 className="text-2xl font-bold">Hello Gorgeous Med Spa</h1><p className="text-black">74 W. Washington St, Oswego, IL 60543</p><p className="text-black">(630) 636-6193</p></div>
               <p><strong>Patient:</strong> {printRx.client_name}</p>
               <p><strong>DOB:</strong> {printRx.client_dob || 'N/A'}</p>
               <p><strong>Date:</strong> {formatDate(printRx.created_at)}</p>
               <p className="text-3xl font-bold my-4">Rx</p>
               <p className="text-xl font-bold">{printRx.medication_name}</p>
-              <div className="my-4 p-3 bg-gray-100 rounded"><strong>Sig:</strong> {printRx.sig}</div>
+              <div className="my-4 p-3 bg-white rounded"><strong>Sig:</strong> {printRx.sig}</div>
               <p><strong>Quantity:</strong> #{printRx.quantity || 'As directed'}</p>
               <p><strong>Refills:</strong> {printRx.refills || 0}</p>
               {printRx.daw && <p className="font-bold">DAW - Dispense As Written</p>}
@@ -336,7 +336,7 @@ export default function PrescriptionsPage() {
               <div className="mt-12"><p><strong>Prescriber:</strong> {printRx.provider_name || '_________________'}</p><div className="border-t border-black w-64 mt-10 pt-1"><span className="text-sm">Signature</span></div></div>
             </div>
             <div className="p-6 border-t flex justify-end gap-3">
-              <button onClick={() => setShowPrintModal(false)} className="px-4 py-2 text-gray-600">Close</button>
+              <button onClick={() => setShowPrintModal(false)} className="px-4 py-2 text-black">Close</button>
               <button onClick={() => { printPrescription(); updateStatus(printRx.id, 'sent'); }} className="px-6 py-2 bg-pink-500 text-white rounded-xl">🖨️ Print & Mark Sent</button>
             </div>
           </div>

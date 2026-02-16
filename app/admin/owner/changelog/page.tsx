@@ -149,7 +149,7 @@ export default function ChangeLogPage() {
       case 'disabled': return 'bg-amber-100 text-amber-700';
       case 'locked': return 'bg-red-100 text-red-700';
       case 'signed': return 'bg-pink-100 text-pink-700';
-      default: return 'bg-gray-100 text-gray-700';
+      default: return 'bg-white text-black';
     }
   };
 
@@ -172,13 +172,13 @@ export default function ChangeLogPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+          <div className="flex items-center gap-2 text-sm text-black mb-1">
             <Link href="/admin/owner" className="hover:text-pink-600">Owner Mode</Link>
             <span>/</span>
             <span>Change Log</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Change Log & Rollback</h1>
-          <p className="text-gray-500">Track all configuration changes with one-click rollback</p>
+          <h1 className="text-2xl font-bold text-black">Change Log & Rollback</h1>
+          <p className="text-black">Track all configuration changes with one-click rollback</p>
         </div>
       </div>
 
@@ -205,23 +205,23 @@ export default function ChangeLogPage() {
       {/* Stats */}
       <div className="grid grid-cols-4 gap-4">
         <div className="bg-white rounded-lg border p-4">
-          <p className="text-sm text-gray-500">Total Changes</p>
-          <p className="text-2xl font-bold text-gray-900">{logs.length}</p>
+          <p className="text-sm text-black">Total Changes</p>
+          <p className="text-2xl font-bold text-black">{logs.length}</p>
         </div>
         <div className="bg-white rounded-lg border p-4">
-          <p className="text-sm text-gray-500">Today</p>
+          <p className="text-sm text-black">Today</p>
           <p className="text-2xl font-bold text-blue-600">
             {logs.filter(l => new Date(l.timestamp).toDateString() === new Date().toDateString()).length}
           </p>
         </div>
         <div className="bg-white rounded-lg border p-4">
-          <p className="text-sm text-gray-500">Can Rollback</p>
+          <p className="text-sm text-black">Can Rollback</p>
           <p className="text-2xl font-bold text-green-600">
             {logs.filter(l => l.can_rollback && !l.is_rolled_back).length}
           </p>
         </div>
         <div className="bg-white rounded-lg border p-4">
-          <p className="text-sm text-gray-500">Rolled Back</p>
+          <p className="text-sm text-black">Rolled Back</p>
           <p className="text-2xl font-bold text-amber-600">
             {logs.filter(l => l.is_rolled_back).length}
           </p>
@@ -235,7 +235,7 @@ export default function ChangeLogPage() {
             key={cat}
             onClick={() => setFilter(cat)}
             className={`px-4 py-2 rounded-lg text-sm ${
-              filter === cat ? 'bg-pink-500 text-white' : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+              filter === cat ? 'bg-pink-500 text-white' : 'bg-white text-black hover:bg-white'
             }`}
           >
             {cat === 'all' ? 'All' : cat}
@@ -246,7 +246,7 @@ export default function ChangeLogPage() {
       {/* Log Entries */}
       <div className="bg-white rounded-xl border divide-y">
         {filteredLogs.map(log => (
-          <div key={log.id} className={`p-4 ${log.is_rolled_back ? 'bg-gray-50 opacity-60' : ''}`}>
+          <div key={log.id} className={`p-4 ${log.is_rolled_back ? 'bg-white opacity-60' : ''}`}>
             <div className="flex items-start justify-between">
               <div className="flex items-start gap-3">
                 <span className="text-xl mt-1">{getCategoryIcon(log.category)}</span>
@@ -255,13 +255,13 @@ export default function ChangeLogPage() {
                     <span className={`text-xs px-2 py-0.5 rounded ${getActionColor(log.action)}`}>
                       {log.action}
                     </span>
-                    <h3 className="font-medium text-gray-900">{log.target}</h3>
+                    <h3 className="font-medium text-black">{log.target}</h3>
                     {log.is_rolled_back && (
                       <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded">Rolled Back</span>
                     )}
                   </div>
                   
-                  <p className="text-sm text-gray-500 mt-1">
+                  <p className="text-sm text-black mt-1">
                     {log.user} • {formatTimestamp(log.timestamp)}
                   </p>
 
@@ -295,14 +295,14 @@ export default function ChangeLogPage() {
                 </button>
               )}
               {!log.can_rollback && (
-                <span className="text-xs text-gray-400">Cannot rollback</span>
+                <span className="text-xs text-black">Cannot rollback</span>
               )}
             </div>
           </div>
         ))}
 
         {filteredLogs.length === 0 && (
-          <div className="p-12 text-center text-gray-500">
+          <div className="p-12 text-center text-black">
             No changes logged in this category
           </div>
         )}
@@ -310,7 +310,7 @@ export default function ChangeLogPage() {
 
       {/* Export Audit Log */}
       <div className="flex justify-end">
-        <button className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">
+        <button className="px-4 py-2 text-sm bg-white text-black rounded-lg hover:bg-white">
           📥 Export Audit Log (CSV)
         </button>
       </div>

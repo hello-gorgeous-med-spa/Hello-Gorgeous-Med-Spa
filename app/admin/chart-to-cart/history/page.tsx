@@ -99,16 +99,16 @@ export default function SessionHistoryPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-2">
+          <div className="flex items-center gap-2 text-sm text-black mb-2">
             <Link href="/admin/chart-to-cart" className="hover:text-pink-600">Chart-to-Cart</Link>
             <span>→</span>
             <span>Session History</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
+          <h1 className="text-2xl font-bold text-black flex items-center gap-3">
             <span className="text-3xl">📜</span>
             Session History
           </h1>
-          <p className="text-gray-500 mt-1">View past treatment sessions and transactions</p>
+          <p className="text-black mt-1">View past treatment sessions and transactions</p>
         </div>
         <Link
           href="/admin/chart-to-cart/new"
@@ -120,11 +120,11 @@ export default function SessionHistoryPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+        <div className="bg-white rounded-xl border border-black p-5 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">Total Sessions</p>
-              <p className="text-3xl font-bold text-gray-900 mt-1">{totalSessions}</p>
+              <p className="text-sm text-black">Total Sessions</p>
+              <p className="text-3xl font-bold text-black mt-1">{totalSessions}</p>
             </div>
             <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
               <span className="text-2xl">📋</span>
@@ -132,10 +132,10 @@ export default function SessionHistoryPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+        <div className="bg-white rounded-xl border border-black p-5 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">Total Revenue</p>
+              <p className="text-sm text-black">Total Revenue</p>
               <p className="text-3xl font-bold text-green-600 mt-1">
                 ${totalRevenue.toLocaleString('en-US', { minimumFractionDigits: 2 })}
               </p>
@@ -146,11 +146,11 @@ export default function SessionHistoryPage() {
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-gray-100 p-5 shadow-sm">
+        <div className="bg-white rounded-xl border border-black p-5 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-500">Average Sale</p>
-              <p className="text-3xl font-bold text-gray-900 mt-1">
+              <p className="text-sm text-black">Average Sale</p>
+              <p className="text-3xl font-bold text-black mt-1">
                 ${totalSessions > 0 ? (totalRevenue / totalSessions).toLocaleString('en-US', { minimumFractionDigits: 2 }) : '0.00'}
               </p>
             </div>
@@ -162,7 +162,7 @@ export default function SessionHistoryPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm mb-6">
+      <div className="bg-white rounded-xl border border-black shadow-sm mb-6">
         <div className="p-4 flex flex-wrap items-center gap-4">
           <div className="flex-1 min-w-64">
             <input
@@ -170,14 +170,14 @@ export default function SessionHistoryPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by client or treatment..."
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             />
           </div>
           <div className="flex items-center gap-2">
             <button
               onClick={() => setDateRange('today')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                dateRange === 'today' ? 'bg-pink-100 text-pink-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                dateRange === 'today' ? 'bg-pink-100 text-pink-700' : 'bg-white text-black hover:bg-white'
               }`}
             >
               Today
@@ -185,7 +185,7 @@ export default function SessionHistoryPage() {
             <button
               onClick={() => setDateRange('week')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                dateRange === 'week' ? 'bg-pink-100 text-pink-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                dateRange === 'week' ? 'bg-pink-100 text-pink-700' : 'bg-white text-black hover:bg-white'
               }`}
             >
               This Week
@@ -193,7 +193,7 @@ export default function SessionHistoryPage() {
             <button
               onClick={() => setDateRange('all')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                dateRange === 'all' ? 'bg-pink-100 text-pink-700' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                dateRange === 'all' ? 'bg-pink-100 text-pink-700' : 'bg-white text-black hover:bg-white'
               }`}
             >
               All Time
@@ -203,34 +203,34 @@ export default function SessionHistoryPage() {
       </div>
 
       {/* Sessions List */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+      <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
         {loading ? (
-          <div className="p-8 text-center text-gray-400">Loading...</div>
+          <div className="p-8 text-center text-black">Loading...</div>
         ) : filteredSessions.length === 0 ? (
           <div className="p-12 text-center">
             <span className="text-5xl">📭</span>
-            <h3 className="text-lg font-semibold text-gray-900 mt-4">No sessions found</h3>
-            <p className="text-gray-500 mt-1">Try adjusting your filters</p>
+            <h3 className="text-lg font-semibold text-black mt-4">No sessions found</h3>
+            <p className="text-black mt-1">Try adjusting your filters</p>
           </div>
         ) : (
           <table className="w-full">
-            <thead className="bg-gray-50 border-b border-gray-100">
+            <thead className="bg-white border-b border-black">
               <tr>
-                <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Date & Time</th>
-                <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Client</th>
-                <th className="text-left px-6 py-4 text-sm font-semibold text-gray-900">Treatment</th>
-                <th className="text-center px-6 py-4 text-sm font-semibold text-gray-900">Products</th>
-                <th className="text-center px-6 py-4 text-sm font-semibold text-gray-900">Payment</th>
-                <th className="text-right px-6 py-4 text-sm font-semibold text-gray-900">Total</th>
-                <th className="text-center px-6 py-4 text-sm font-semibold text-gray-900">Status</th>
-                <th className="text-right px-6 py-4 text-sm font-semibold text-gray-900">Actions</th>
+                <th className="text-left px-6 py-4 text-sm font-semibold text-black">Date & Time</th>
+                <th className="text-left px-6 py-4 text-sm font-semibold text-black">Client</th>
+                <th className="text-left px-6 py-4 text-sm font-semibold text-black">Treatment</th>
+                <th className="text-center px-6 py-4 text-sm font-semibold text-black">Products</th>
+                <th className="text-center px-6 py-4 text-sm font-semibold text-black">Payment</th>
+                <th className="text-right px-6 py-4 text-sm font-semibold text-black">Total</th>
+                <th className="text-center px-6 py-4 text-sm font-semibold text-black">Status</th>
+                <th className="text-right px-6 py-4 text-sm font-semibold text-black">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {filteredSessions.map((session) => (
-                <tr key={session.id} className="hover:bg-gray-50">
+                <tr key={session.id} className="hover:bg-white">
                   <td className="px-6 py-4">
-                    <p className="font-medium text-gray-900">{formatDate(session.date)}</p>
+                    <p className="font-medium text-black">{formatDate(session.date)}</p>
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-3">
@@ -238,24 +238,24 @@ export default function SessionHistoryPage() {
                         {session.client_name.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">{session.client_name}</p>
-                        <p className="text-xs text-gray-500">{session.provider}</p>
+                        <p className="font-medium text-black">{session.client_name}</p>
+                        <p className="text-xs text-black">{session.provider}</p>
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-4">
-                    <p className="text-gray-700 text-sm max-w-xs truncate">{session.treatment_summary}</p>
+                    <p className="text-black text-sm max-w-xs truncate">{session.treatment_summary}</p>
                   </td>
                   <td className="px-6 py-4 text-center">
-                    <span className="px-2 py-1 bg-gray-100 rounded-full text-xs font-medium text-gray-700">
+                    <span className="px-2 py-1 bg-white rounded-full text-xs font-medium text-black">
                       {session.products_count} items
                     </span>
                   </td>
                   <td className="px-6 py-4 text-center">
-                    <span className="text-sm text-gray-600">{session.payment_method}</span>
+                    <span className="text-sm text-black">{session.payment_method}</span>
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <p className="font-bold text-gray-900">
+                    <p className="font-bold text-black">
                       ${session.total.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                     </p>
                   </td>

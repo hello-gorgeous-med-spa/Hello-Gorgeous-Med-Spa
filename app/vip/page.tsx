@@ -29,7 +29,7 @@ export default function VIPPage() {
                 VIP List
               </span>
             </h1>
-            <p className="mt-6 text-xl text-gray-300 max-w-3xl leading-relaxed">
+            <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">
               Be the first to know about new services, limited-time offers, and member-only
               perks. We’ll never spam you—just the good stuff.
             </p>
@@ -40,9 +40,9 @@ export default function VIPPage() {
       <Section>
         <div className="grid gap-8 lg:grid-cols-2 max-w-5xl mx-auto">
           <FadeUp>
-            <div className="rounded-2xl border border-gray-800 bg-gradient-to-b from-gray-950/60 to-black p-8">
+            <div className="rounded-2xl border border-black bg-gradient-to-b from-gray-950/60 to-black p-8">
               <h2 className="text-2xl font-bold text-white mb-4">What you get</h2>
-              <ul className="space-y-3 text-gray-300">
+              <ul className="space-y-3 text-black">
                 <li className="flex items-center gap-3">
                   <span className="text-pink-400">✓</span>
                   First access to new treatments and services
@@ -64,9 +64,9 @@ export default function VIPPage() {
           </FadeUp>
 
           <FadeUp delayMs={80}>
-            <div className="rounded-2xl border border-gray-800 bg-black/40 p-8">
+            <div className="rounded-2xl border border-black bg-black/40 p-8">
               <h2 className="text-2xl font-bold text-white mb-4">Sign up</h2>
-              <p className="text-gray-300 mb-6">
+              <p className="text-black mb-6">
                 Join with email and optionally SMS for appointment reminders and quick
                 updates.
               </p>

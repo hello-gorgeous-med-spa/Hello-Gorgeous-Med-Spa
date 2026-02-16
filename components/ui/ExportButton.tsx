@@ -69,7 +69,7 @@ export function ExportButton({
     <button
       onClick={handleExport}
       disabled={exporting || data.length === 0}
-      className={`px-4 py-2 bg-white border border-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors ${className}`}
+      className={`px-4 py-2 bg-white border border-black text-black font-medium rounded-lg hover:bg-white disabled:opacity-50 disabled:cursor-not-allowed transition-colors ${className}`}
     >
       {exporting ? (
         <span className="flex items-center gap-2">

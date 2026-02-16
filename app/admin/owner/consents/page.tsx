@@ -66,24 +66,24 @@ export default function ConsentsPage() {
           </div>
           <div className="divide-y">
             {forms.map(form => (
-              <div key={form.id} className={`p-4 ${!form.is_active ? 'bg-gray-50 opacity-75' : ''}`}>
+              <div key={form.id} className={`p-4 ${!form.is_active ? 'bg-white opacity-75' : ''}`}>
                 <div className="flex items-center justify-between">
                   <div>
                     <div className="flex items-center gap-2">
                       <h3 className="font-medium">{form.name}</h3>
-                      <span className="text-xs bg-gray-100 px-2 py-0.5 rounded">v{form.version}</span>
+                      <span className="text-xs bg-white px-2 py-0.5 rounded">v{form.version}</span>
                       <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">{form.category}</span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-1">
+                    <p className="text-sm text-black mt-1">
                       {form.expires_days > 0 ? `Expires: ${form.expires_days} days` : 'No expiration'}
                       {form.requires_signature && ' • Signature required'}
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
-                    <button className="text-sm text-gray-600 hover:text-gray-900">Edit</button>
+                    <button className="text-sm text-black hover:text-black">Edit</button>
                     <button
                       onClick={() => toggleActive(form.id)}
-                      className={`w-12 h-6 rounded-full transition-colors relative ${form.is_active ? 'bg-green-500' : 'bg-gray-300'}`}
+                      className={`w-12 h-6 rounded-full transition-colors relative ${form.is_active ? 'bg-green-500' : 'bg-white'}`}
                     >
                       <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${form.is_active ? 'right-1' : 'left-1'}`} />
                     </button>
@@ -103,7 +103,7 @@ export default function ConsentsPage() {
               { key: 'block_checkout_without_consent', label: 'Block checkout if required consent is missing/expired' },
               { key: 'allow_override_with_note', label: 'Allow staff to override with documented reason' },
             ].map(item => (
-              <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
+              <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-white">
                 <input
                   type="checkbox"
                   checked={enforcementRules[item.key as keyof typeof enforcementRules] as boolean}
@@ -114,7 +114,7 @@ export default function ConsentsPage() {
               </label>
             ))}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Send Reminder Before Expiry (days)</label>
+              <label className="block text-sm font-medium text-black mb-1">Send Reminder Before Expiry (days)</label>
               <input
                 type="number"
                 value={enforcementRules.send_reminder_days_before_expiry}

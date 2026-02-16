@@ -362,8 +362,8 @@ export default function PackagesPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Service Packages</h1>
-          <p className="text-gray-500">Bundle services together or create membership programs</p>
+          <h1 className="text-2xl font-bold text-black">Service Packages</h1>
+          <p className="text-black">Bundle services together or create membership programs</p>
         </div>
         <div className="flex gap-2">
           <button
@@ -389,7 +389,7 @@ export default function PackagesPage() {
       )}
 
       {/* Tabs */}
-      <div className="flex gap-2 border-b border-gray-200">
+      <div className="flex gap-2 border-b border-black">
         {[
           { id: 'all', label: 'All Packages' },
           { id: 'hormone', label: '💊 Hormone Memberships' },
@@ -401,7 +401,7 @@ export default function PackagesPage() {
             className={`px-4 py-2 text-sm font-medium border-b-2 -mb-px transition ${
               activeTab === tab.id
                 ? 'border-pink-500 text-pink-600'
-                : 'border-transparent text-gray-500 hover:text-gray-700'
+                : 'border-transparent text-black hover:text-black'
             }`}
           >
             {tab.label}
@@ -442,11 +442,11 @@ export default function PackagesPage() {
 
       {/* Packages Grid */}
       {loading ? (
-        <div className="bg-white rounded-xl border border-gray-100 p-8 text-center text-gray-500">
+        <div className="bg-white rounded-xl border border-black p-8 text-center text-black">
           Loading packages...
         </div>
       ) : filteredPackages.length === 0 ? (
-        <div className="bg-white rounded-xl border border-gray-100 p-12 text-center text-gray-500">
+        <div className="bg-white rounded-xl border border-black p-12 text-center text-black">
           <span className="text-4xl block mb-4">{activeTab === 'hormone' ? '💊' : '📦'}</span>
           <p>No {activeTab === 'hormone' ? 'hormone membership' : ''} packages yet</p>
           {activeTab === 'hormone' ? (
@@ -468,23 +468,23 @@ export default function PackagesPage() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredPackages.map(pkg => (
-            <div key={pkg.id} className={`bg-white rounded-xl border shadow-sm overflow-hidden ${pkg.is_featured ? 'border-pink-300 ring-2 ring-pink-100' : 'border-gray-100'}`}>
+            <div key={pkg.id} className={`bg-white rounded-xl border shadow-sm overflow-hidden ${pkg.is_featured ? 'border-pink-300 ring-2 ring-pink-100' : 'border-black'}`}>
               {pkg.is_featured && (
                 <div className="bg-pink-500 text-white text-center text-xs font-medium py-1">
                   ⭐ FEATURED
                 </div>
               )}
               <div className="p-6">
-                <h3 className="font-bold text-lg text-gray-900">{pkg.name}</h3>
+                <h3 className="font-bold text-lg text-black">{pkg.name}</h3>
                 {pkg.description && (
-                  <p className="text-sm text-gray-500 mt-1 line-clamp-2">{pkg.description}</p>
+                  <p className="text-sm text-black mt-1 line-clamp-2">{pkg.description}</p>
                 )}
 
                 <div className="mt-4 flex items-baseline gap-2">
                   <span className="text-3xl font-bold text-pink-500">${(pkg.price_cents / 100).toFixed(0)}</span>
                   {pkg.regular_price_cents > pkg.price_cents && (
                     <>
-                      <span className="text-lg text-gray-400 line-through">${(pkg.regular_price_cents / 100).toFixed(0)}</span>
+                      <span className="text-lg text-black line-through">${(pkg.regular_price_cents / 100).toFixed(0)}</span>
                       <span className="text-sm font-medium text-green-600">Save {pkg.savings_percent}%</span>
                     </>
                   )}
@@ -492,8 +492,8 @@ export default function PackagesPage() {
 
                 {pkg.package_services && pkg.package_services.length > 0 && (
                   <div className="mt-4 space-y-2">
-                    <p className="text-sm font-medium text-gray-700">Includes:</p>
-                    <ul className="text-sm text-gray-600 space-y-1">
+                    <p className="text-sm font-medium text-black">Includes:</p>
+                    <ul className="text-sm text-black space-y-1">
                       {pkg.package_services.map((ps, i) => (
                         <li key={i} className="flex items-center gap-2">
                           <span className="text-green-500">✓</span>
@@ -506,23 +506,23 @@ export default function PackagesPage() {
                 )}
 
                 {pkg.validity_days && (
-                  <div className="mt-4 text-xs text-gray-500">
+                  <div className="mt-4 text-xs text-black">
                     <p>Valid for {pkg.validity_days} days</p>
                   </div>
                 )}
               </div>
 
-              <div className="px-6 py-4 bg-gray-50 border-t border-gray-100 flex items-center justify-between">
+              <div className="px-6 py-4 bg-white border-t border-black flex items-center justify-between">
                 <button
                   onClick={() => toggleFeatured(pkg)}
-                  className={`text-sm ${pkg.is_featured ? 'text-pink-600' : 'text-gray-400 hover:text-pink-600'}`}
+                  className={`text-sm ${pkg.is_featured ? 'text-pink-600' : 'text-black hover:text-pink-600'}`}
                 >
                   {pkg.is_featured ? '★ Featured' : '☆ Feature'}
                 </button>
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => openEdit(pkg)}
-                    className="px-3 py-1.5 text-sm text-gray-600 hover:bg-gray-100 rounded"
+                    className="px-3 py-1.5 text-sm text-black hover:bg-white rounded"
                   >
                     Edit
                   </button>
@@ -543,19 +543,19 @@ export default function PackagesPage() {
       {showHormoneTemplates && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-100 flex items-center justify-between">
+            <div className="p-6 border-b border-black flex items-center justify-between">
               <div>
-                <h2 className="text-xl font-bold text-gray-900">Hormone Membership Templates</h2>
-                <p className="text-gray-500 text-sm mt-1">Click to create a package from template</p>
+                <h2 className="text-xl font-bold text-black">Hormone Membership Templates</h2>
+                <p className="text-black text-sm mt-1">Click to create a package from template</p>
               </div>
-              <button onClick={() => setShowHormoneTemplates(false)} className="text-gray-400 hover:text-gray-600 text-2xl">×</button>
+              <button onClick={() => setShowHormoneTemplates(false)} className="text-black hover:text-black text-2xl">×</button>
             </div>
             <div className="p-6 grid md:grid-cols-2 gap-4">
               {HORMONE_PACKAGE_TEMPLATES.map((template, idx) => (
                 <div
                   key={idx}
                   className={`p-5 rounded-xl border-2 cursor-pointer transition-all hover:shadow-lg ${
-                    template.is_featured ? 'border-fuchsia-400 bg-fuchsia-50' : 'border-gray-200 hover:border-fuchsia-300'
+                    template.is_featured ? 'border-fuchsia-400 bg-fuchsia-50' : 'border-black hover:border-fuchsia-300'
                   }`}
                   onClick={() => {
                     createHormonePackage(template);
@@ -567,13 +567,13 @@ export default function PackagesPage() {
                       {template.highlight}
                     </span>
                   )}
-                  <h3 className="font-bold text-lg text-gray-900">{template.name}</h3>
+                  <h3 className="font-bold text-lg text-black">{template.name}</h3>
                   <p className="text-fuchsia-600 font-semibold">${template.price} / {template.duration}</p>
-                  <p className="text-sm text-gray-500 mt-2">{template.description}</p>
+                  <p className="text-sm text-black mt-2">{template.description}</p>
                   
                   <div className="mt-4">
-                    <p className="text-xs font-semibold text-gray-700 mb-2">Includes:</p>
-                    <ul className="text-xs text-gray-600 space-y-1">
+                    <p className="text-xs font-semibold text-black mb-2">Includes:</p>
+                    <ul className="text-xs text-black space-y-1">
                       {template.includes.slice(0, 5).map((item, i) => (
                         <li key={i} className="flex items-start gap-1">
                           <span className="text-green-500">✓</span>
@@ -581,15 +581,15 @@ export default function PackagesPage() {
                         </li>
                       ))}
                       {template.includes.length > 5 && (
-                        <li className="text-gray-400">+{template.includes.length - 5} more...</li>
+                        <li className="text-black">+{template.includes.length - 5} more...</li>
                       )}
                     </ul>
                   </div>
 
                   {template.bonuses && (
-                    <div className="mt-3 pt-3 border-t border-gray-200">
+                    <div className="mt-3 pt-3 border-t border-black">
                       <p className="text-xs font-semibold text-fuchsia-600 mb-1">🎁 Bonuses:</p>
-                      <ul className="text-xs text-gray-600 space-y-1">
+                      <ul className="text-xs text-black space-y-1">
                         {template.bonuses.map((bonus, i) => (
                           <li key={i} className="flex items-start gap-1">
                             <span className="text-amber-500">★</span>
@@ -614,27 +614,27 @@ export default function PackagesPage() {
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">{editing ? 'Edit Package' : 'Create Package'}</h2>
+            <div className="p-6 border-b border-black">
+              <h2 className="text-xl font-bold text-black">{editing ? 'Edit Package' : 'Create Package'}</h2>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Package Name *</label>
+                <label className="block text-sm font-medium text-black mb-1">Package Name *</label>
                 <input
                   type="text"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="e.g., New Client Glow Package"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <label className="block text-sm font-medium text-black mb-1">Description</label>
                 <textarea
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   rows={2}
                   placeholder="What's included and why it's great..."
                 />
@@ -642,10 +642,10 @@ export default function PackagesPage() {
 
               {/* Services Selector */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Select Services (optional for membership packages)</label>
+                <label className="block text-sm font-medium text-black mb-2">Select Services (optional for membership packages)</label>
                 <select
                   onChange={(e) => { if (e.target.value) addService(e.target.value); e.target.value = ''; }}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg mb-3"
+                  className="w-full px-4 py-2 border border-black rounded-lg mb-3"
                 >
                   <option value="">+ Add a service...</option>
                   {services
@@ -656,25 +656,25 @@ export default function PackagesPage() {
                 </select>
 
                 {form.selectedServices.length === 0 ? (
-                  <p className="text-sm text-gray-500 text-center py-4">No services selected (OK for membership packages)</p>
+                  <p className="text-sm text-black text-center py-4">No services selected (OK for membership packages)</p>
                 ) : (
                   <div className="space-y-2">
                     {form.selectedServices.map(ss => {
                       const service = services.find(s => s.id === ss.service_id);
                       return (
-                        <div key={ss.service_id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div key={ss.service_id} className="flex items-center justify-between p-3 bg-white rounded-lg">
                           <div className="flex items-center gap-3">
                             <input
                               type="number"
                               min="1"
                               value={ss.quantity}
                               onChange={(e) => updateQuantity(ss.service_id, parseInt(e.target.value) || 1)}
-                              className="w-16 px-2 py-1 border border-gray-200 rounded text-center"
+                              className="w-16 px-2 py-1 border border-black rounded text-center"
                             />
-                            <span className="text-gray-900">{service?.name}</span>
+                            <span className="text-black">{service?.name}</span>
                           </div>
                           <div className="flex items-center gap-3">
-                            <span className="text-gray-600">${((service?.price_cents || 0) * ss.quantity / 100).toFixed(0)}</span>
+                            <span className="text-black">${((service?.price_cents || 0) * ss.quantity / 100).toFixed(0)}</span>
                             <button
                               onClick={() => removeService(ss.service_id)}
                               className="text-red-500 hover:text-red-700"
@@ -692,18 +692,18 @@ export default function PackagesPage() {
               {/* Price & Value */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Package Price ($) *</label>
+                  <label className="block text-sm font-medium text-black mb-1">Package Price ($) *</label>
                   <input
                     type="number"
                     value={form.price || ''}
                     onChange={(e) => setForm({ ...form, price: parseFloat(e.target.value) || 0 })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                     placeholder="0"
                   />
                 </div>
                 {form.selectedServices.length > 0 && (
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Value Summary</label>
+                    <label className="block text-sm font-medium text-black mb-1">Value Summary</label>
                     <div className="px-4 py-2 bg-green-50 border border-green-200 rounded-lg text-sm">
                       <p>Regular: <span className="font-medium">${(value.regularPrice / 100).toFixed(0)}</span></p>
                       <p className="text-green-700">Savings: <span className="font-bold">${(value.savings / 100).toFixed(0)} ({value.savingsPercent}%)</span></p>
@@ -714,22 +714,22 @@ export default function PackagesPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Valid for (days)</label>
+                  <label className="block text-sm font-medium text-black mb-1">Valid for (days)</label>
                   <input
                     type="number"
                     value={form.validity_days}
                     onChange={(e) => setForm({ ...form, validity_days: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                     placeholder="No expiry"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Max Uses</label>
+                  <label className="block text-sm font-medium text-black mb-1">Max Uses</label>
                   <input
                     type="number"
                     value={form.max_uses}
                     onChange={(e) => setForm({ ...form, max_uses: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                     placeholder="Unlimited"
                   />
                 </div>
@@ -740,14 +740,14 @@ export default function PackagesPage() {
                   type="checkbox"
                   checked={form.is_featured}
                   onChange={(e) => setForm({ ...form, is_featured: e.target.checked })}
-                  className="w-4 h-4 text-pink-500 border-gray-300 rounded"
+                  className="w-4 h-4 text-pink-500 border-black rounded"
                 />
-                <span className="text-sm text-gray-700">Feature this package (show prominently on booking page)</span>
+                <span className="text-sm text-black">Feature this package (show prominently on booking page)</span>
               </label>
             </div>
 
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
-              <button onClick={() => { setShowModal(false); setEditing(null); }} className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg">Cancel</button>
+            <div className="p-6 border-t border-black flex justify-end gap-3">
+              <button onClick={() => { setShowModal(false); setEditing(null); }} className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg">Cancel</button>
               <button
                 onClick={handleSave}
                 disabled={saving || !form.name || form.price <= 0}

@@ -217,10 +217,10 @@ function ChartingContent() {
   if (!appointmentId && !clientId) {
     return (
       <div className="max-w-2xl mx-auto py-12">
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-8 text-center">
+        <div className="bg-white rounded-xl border border-black shadow-sm p-8 text-center">
           <div className="text-6xl mb-4">📋</div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Select an Appointment to Chart</h1>
-          <p className="text-gray-500 mb-6">
+          <h1 className="text-2xl font-bold text-black mb-2">Select an Appointment to Chart</h1>
+          <p className="text-black mb-6">
             Chart notes must be linked to a specific appointment or client visit.
           </p>
           
@@ -233,13 +233,13 @@ function ChartingContent() {
             </Link>
             <Link
               href="/admin/clients"
-              className="block w-full px-6 py-3 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+              className="block w-full px-6 py-3 border border-black text-black font-medium rounded-lg hover:bg-white transition-colors"
             >
               👥 Search Clients
             </Link>
           </div>
 
-          <p className="text-sm text-gray-400 mt-6">
+          <p className="text-sm text-black mt-6">
             Tip: Click "Chart" from any appointment to start documentation
           </p>
         </div>
@@ -256,16 +256,16 @@ function ChartingContent() {
       <div className="mb-6">
         <Link
           href={appointmentId ? `/admin/appointments/${appointmentId}` : '/admin/appointments'}
-          className="text-sm text-gray-500 hover:text-gray-700 mb-2 inline-block"
+          className="text-sm text-black hover:text-black mb-2 inline-block"
         >
           ← Back
         </Link>
         <div className="flex items-start justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-black">
               {existingNote ? 'Edit Chart Note' : 'New Chart Note'}
             </h1>
-            <p className="text-gray-500">SOAP Documentation for {clientName}</p>
+            <p className="text-black">SOAP Documentation for {clientName}</p>
           </div>
           {isLocked && (
             <span className="px-3 py-1 bg-green-100 text-green-700 text-sm font-medium rounded-full">
@@ -299,13 +299,13 @@ function ChartingContent() {
 
       <form onSubmit={(e) => { e.preventDefault(); handleSave(false); }}>
         {/* Provider Selection */}
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Provider</h2>
+        <div className="bg-white rounded-xl border border-black shadow-sm p-6 mb-6">
+          <h2 className="font-semibold text-black mb-4">Provider</h2>
           <select
             value={formData.provider_id}
             onChange={(e) => setFormData({ ...formData, provider_id: e.target.value })}
             disabled={isLocked}
-            className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-gray-100"
+            className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-white"
           >
             <option value="">Select provider...</option>
             {providers.map((p: any) => (
@@ -317,13 +317,13 @@ function ChartingContent() {
         </div>
 
         {/* SOAP Notes */}
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">SOAP Notes</h2>
+        <div className="bg-white rounded-xl border border-black shadow-sm p-6 mb-6">
+          <h2 className="font-semibold text-black mb-4">SOAP Notes</h2>
           
           <div className="space-y-4">
             {/* Chief Complaint */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Chief Complaint
               </label>
               <input
@@ -332,13 +332,13 @@ function ChartingContent() {
                 onChange={(e) => setFormData({ ...formData, chief_complaint: e.target.value })}
                 disabled={isLocked}
                 placeholder="Primary reason for visit..."
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-gray-100"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-white"
               />
             </div>
 
             {/* Subjective */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 <span className="text-pink-500 font-bold">S</span> - Subjective
               </label>
               <textarea
@@ -347,13 +347,13 @@ function ChartingContent() {
                 disabled={isLocked}
                 rows={3}
                 placeholder="Patient's symptoms, history, concerns..."
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-gray-100"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-white"
               />
             </div>
 
             {/* Objective */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 <span className="text-pink-500 font-bold">O</span> - Objective
               </label>
               <textarea
@@ -362,13 +362,13 @@ function ChartingContent() {
                 disabled={isLocked}
                 rows={3}
                 placeholder="Physical findings, observations..."
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-gray-100"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-white"
               />
             </div>
 
             {/* Assessment */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 <span className="text-pink-500 font-bold">A</span> - Assessment
               </label>
               <textarea
@@ -377,13 +377,13 @@ function ChartingContent() {
                 disabled={isLocked}
                 rows={3}
                 placeholder="Clinical assessment, diagnosis..."
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-gray-100"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-white"
               />
             </div>
 
             {/* Plan */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 <span className="text-pink-500 font-bold">P</span> - Plan
               </label>
               <textarea
@@ -392,19 +392,19 @@ function ChartingContent() {
                 disabled={isLocked}
                 rows={3}
                 placeholder="Treatment plan, next steps..."
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-gray-100"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-white"
               />
             </div>
           </div>
         </div>
 
         {/* Treatment Details */}
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Treatment Details</h2>
+        <div className="bg-white rounded-xl border border-black shadow-sm p-6 mb-6">
+          <h2 className="font-semibold text-black mb-4">Treatment Details</h2>
 
           {/* Treatment Performed */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-black mb-1">
               Treatment Performed
             </label>
             <textarea
@@ -413,13 +413,13 @@ function ChartingContent() {
               disabled={isLocked}
               rows={2}
               placeholder="Description of treatment..."
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-gray-100"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-white"
             />
           </div>
 
           {/* Areas Treated */}
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-black mb-2">
               Areas Treated
             </label>
             <div className="flex flex-wrap gap-2">
@@ -432,7 +432,7 @@ function ChartingContent() {
                   className={`px-3 py-1.5 text-sm rounded-full border transition-colors ${
                     formData.areas_treated.includes(area)
                       ? 'bg-pink-500 text-white border-pink-500'
-                      : 'bg-white text-gray-700 border-gray-200 hover:border-pink-300'
+                      : 'bg-white text-black border-black hover:border-pink-300'
                   } disabled:opacity-50`}
                 >
                   {area}
@@ -444,7 +444,7 @@ function ChartingContent() {
           {/* Products Used */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-black">
                 Products Used
               </label>
               {!isLocked && (
@@ -466,7 +466,7 @@ function ChartingContent() {
                     onChange={(e) => handleProductChange(index, 'name', e.target.value)}
                     disabled={isLocked}
                     placeholder="Product name"
-                    className="flex-1 px-3 py-2 border border-gray-200 rounded-lg text-sm disabled:bg-gray-100"
+                    className="flex-1 px-3 py-2 border border-black rounded-lg text-sm disabled:bg-white"
                   />
                   <input
                     type="text"
@@ -474,7 +474,7 @@ function ChartingContent() {
                     onChange={(e) => handleProductChange(index, 'units', e.target.value)}
                     disabled={isLocked}
                     placeholder="Units/Amount"
-                    className="w-24 px-3 py-2 border border-gray-200 rounded-lg text-sm disabled:bg-gray-100"
+                    className="w-24 px-3 py-2 border border-black rounded-lg text-sm disabled:bg-white"
                   />
                   <input
                     type="text"
@@ -482,7 +482,7 @@ function ChartingContent() {
                     onChange={(e) => handleProductChange(index, 'lot_number', e.target.value)}
                     disabled={isLocked}
                     placeholder="Lot #"
-                    className="w-28 px-3 py-2 border border-gray-200 rounded-lg text-sm disabled:bg-gray-100"
+                    className="w-28 px-3 py-2 border border-black rounded-lg text-sm disabled:bg-white"
                   />
                   {!isLocked && (
                     <button
@@ -496,19 +496,19 @@ function ChartingContent() {
                 </div>
               ))}
               {formData.products_used.length === 0 && (
-                <p className="text-sm text-gray-500 py-2">No products added</p>
+                <p className="text-sm text-black py-2">No products added</p>
               )}
             </div>
           </div>
         </div>
 
         {/* Follow-up & Instructions */}
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 mb-6">
-          <h2 className="font-semibold text-gray-900 mb-4">Follow-up & Instructions</h2>
+        <div className="bg-white rounded-xl border border-black shadow-sm p-6 mb-6">
+          <h2 className="font-semibold text-black mb-4">Follow-up & Instructions</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Follow-up Date
               </label>
               <input
@@ -516,11 +516,11 @@ function ChartingContent() {
                 value={formData.follow_up_date}
                 onChange={(e) => setFormData({ ...formData, follow_up_date: e.target.value })}
                 disabled={isLocked}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-gray-100"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-white"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Adverse Reactions
               </label>
               <input
@@ -529,13 +529,13 @@ function ChartingContent() {
                 onChange={(e) => setFormData({ ...formData, adverse_reactions: e.target.value })}
                 disabled={isLocked}
                 placeholder="None observed"
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-gray-100"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-white"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-black mb-1">
               Patient Instructions
             </label>
             <textarea
@@ -544,7 +544,7 @@ function ChartingContent() {
               disabled={isLocked}
               rows={2}
               placeholder="Post-treatment care instructions..."
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-gray-100"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 disabled:bg-white"
             />
           </div>
 
@@ -556,7 +556,7 @@ function ChartingContent() {
               disabled={isLocked}
               className="w-4 h-4 text-pink-500 rounded focus:ring-pink-500"
             />
-            <span className="text-sm text-gray-700">Informed consent obtained</span>
+            <span className="text-sm text-black">Informed consent obtained</span>
           </label>
         </div>
 
@@ -567,7 +567,7 @@ function ChartingContent() {
               type="button"
               onClick={() => handleSave(false)}
               disabled={saving}
-              className="px-6 py-2.5 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
+              className="px-6 py-2.5 border border-black text-black font-medium rounded-lg hover:bg-white transition-colors disabled:opacity-50"
             >
               {saving ? 'Saving...' : 'Save Draft'}
             </button>

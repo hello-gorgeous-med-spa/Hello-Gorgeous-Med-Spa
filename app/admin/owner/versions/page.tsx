@@ -78,19 +78,19 @@ export default function VersionHistoryPage() {
         {/* Stats */}
         <div className="grid grid-cols-4 gap-4">
           <div className="bg-white rounded-lg border p-4">
-            <p className="text-sm text-gray-500">Total Changes</p>
+            <p className="text-sm text-black">Total Changes</p>
             <p className="text-2xl font-bold">{versions.length}</p>
           </div>
           <div className="bg-white rounded-lg border p-4">
-            <p className="text-sm text-gray-500">Today</p>
+            <p className="text-sm text-black">Today</p>
             <p className="text-2xl font-bold text-blue-600">{versions.filter(v => new Date(v.timestamp).toDateString() === new Date().toDateString()).length}</p>
           </div>
           <div className="bg-white rounded-lg border p-4">
-            <p className="text-sm text-gray-500">Can Rollback</p>
+            <p className="text-sm text-black">Can Rollback</p>
             <p className="text-2xl font-bold text-green-600">{versions.filter(v => v.can_rollback && !v.is_rolled_back).length}</p>
           </div>
           <div className="bg-white rounded-lg border p-4">
-            <p className="text-sm text-gray-500">Rolled Back</p>
+            <p className="text-sm text-black">Rolled Back</p>
             <p className="text-2xl font-bold text-amber-600">{versions.filter(v => v.is_rolled_back).length}</p>
           </div>
         </div>
@@ -107,7 +107,7 @@ export default function VersionHistoryPage() {
         {/* Version List */}
         <div className="bg-white rounded-xl border divide-y">
           {filteredVersions.map(entry => (
-            <div key={entry.id} className={`p-4 ${entry.is_rolled_back ? 'bg-gray-50 opacity-60' : ''}`}>
+            <div key={entry.id} className={`p-4 ${entry.is_rolled_back ? 'bg-white opacity-60' : ''}`}>
               <div className="flex items-start justify-between">
                 <div>
                   <div className="flex items-center gap-2">
@@ -115,12 +115,12 @@ export default function VersionHistoryPage() {
                       entry.action === 'Created' ? 'bg-green-100 text-green-700' :
                       entry.action === 'Updated' ? 'bg-blue-100 text-blue-700' :
                       entry.action === 'Deleted' ? 'bg-red-100 text-red-700' :
-                      'bg-gray-100 text-gray-700'
+                      'bg-white text-black'
                     }`}>{entry.action}</span>
                     <h3 className="font-medium">{entry.target}</h3>
                     {entry.is_rolled_back && <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded">Rolled Back</span>}
                   </div>
-                  <p className="text-sm text-gray-500 mt-1">{entry.user} • {formatTime(entry.timestamp)}</p>
+                  <p className="text-sm text-black mt-1">{entry.user} • {formatTime(entry.timestamp)}</p>
                   {(entry.before || entry.after) && (
                     <div className="mt-2 flex gap-4 text-xs">
                       {entry.before && (
@@ -150,7 +150,7 @@ export default function VersionHistoryPage() {
 
         {/* Export */}
         <div className="flex justify-end">
-          <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm">
+          <button className="px-4 py-2 bg-white text-black rounded-lg hover:bg-white text-sm">
             📥 Export Version History
           </button>
         </div>

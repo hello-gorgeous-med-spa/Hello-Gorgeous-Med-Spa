@@ -10,7 +10,7 @@ type Suggested = { slug: string; name: string; reason: string };
 type Props = { initialMessage?: string };
 
 const INPUT_BASE =
-  "w-full rounded-xl bg-black border border-gray-800 px-4 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50 input-touch";
+  "w-full rounded-xl bg-black border border-black px-4 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-pink-500/50 input-touch";
 
 export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -77,7 +77,7 @@ export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
       <div className="rounded-2xl border border-pink-500/20 bg-gradient-to-b from-pink-950/20 to-black p-6 sm:p-8 text-center keyboard-safe">
         <div className="text-4xl mb-4">💗</div>
         <h2 className="text-2xl font-bold text-white">Thank you.</h2>
-        <p className="mt-3 text-gray-300">
+        <p className="mt-3 text-black">
           We've received what you shared. We'll review it and get back to you—or you can book below if one of these fits.
         </p>
         {/* Stacked cards on mobile, reserve min-height to avoid CLS when suggestions load */}
@@ -92,7 +92,7 @@ export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
                   <li key={s.slug} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-xl bg-white/5 border border-white/10 px-4 py-3">
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-white">{s.name}</p>
-                      <p className="text-sm text-gray-400">{s.reason}</p>
+                      <p className="text-sm text-black">{s.reason}</p>
                     </div>
                     <Link
                       href={s.slug === "quiz" ? "/quiz" : `/book/${s.slug}`}
@@ -106,7 +106,7 @@ export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
             </>
           )}
         </div>
-        <p className="mt-8 text-gray-500 text-sm">
+        <p className="mt-8 text-black text-sm">
           <Link href="/" className="text-hg-pink hover:text-hg-pinkDeep">Back to home</Link>
           {" · "}
           <Link href={BOOKING_URL} className="text-hg-pink hover:text-hg-pinkDeep">See all services</Link>
@@ -116,11 +116,11 @@ export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-2xl border border-gray-800 bg-black/40 p-6 md:p-8 keyboard-safe">
-      <p className="text-gray-400 text-sm mb-4">
+    <form onSubmit={handleSubmit} className="rounded-2xl border border-black bg-black/40 p-6 md:p-8 keyboard-safe">
+      <p className="text-black text-sm mb-4">
         Name and contact are optional. If you leave them, we can reach out personally.
       </p>
-      <p className="text-gray-500 text-sm mb-6">
+      <p className="text-black text-sm mb-6">
         Prefer to talk? <a href="tel:630-636-6193" className="text-hg-pink hover:text-hg-pinkDeep font-medium">Call (630) 636-6193</a>
       </p>
 

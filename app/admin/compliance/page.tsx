@@ -315,8 +315,8 @@ export default function ComplianceDashboard() {
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Compliance Dashboard</h1>
-          <p className="text-gray-500">
+          <h1 className="text-2xl font-bold text-black">Compliance Dashboard</h1>
+          <p className="text-black">
             HIPAA compliance, credential tracking, and audit monitoring
             {lastScan && (
               <span className="ml-2 text-xs">
@@ -329,7 +329,7 @@ export default function ComplianceDashboard() {
           <button
             onClick={runComplianceScan}
             disabled={loading}
-            className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 disabled:opacity-50"
+            className="px-4 py-2 border border-black text-black rounded-lg hover:bg-white disabled:opacity-50"
           >
             {loading ? '⏳ Scanning...' : '🔄 Run Scan'}
           </button>
@@ -350,8 +350,8 @@ export default function ComplianceDashboard() {
       }`}>
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900">Compliance Score</h2>
-            <p className="text-gray-600">Based on current alerts and pending items</p>
+            <h2 className="text-lg font-semibold text-black">Compliance Score</h2>
+            <p className="text-black">Based on current alerts and pending items</p>
           </div>
           <div className="text-right">
             <span className={`text-5xl font-bold ${
@@ -361,10 +361,10 @@ export default function ComplianceDashboard() {
             }`}>
               {complianceScore}
             </span>
-            <span className="text-2xl text-gray-400">/100</span>
+            <span className="text-2xl text-black">/100</span>
           </div>
         </div>
-        <div className="mt-4 bg-gray-200 rounded-full h-3">
+        <div className="mt-4 bg-white rounded-full h-3">
           <div
             className={`h-3 rounded-full transition-all ${
               complianceScore >= 80 ? 'bg-green-500' :
@@ -387,12 +387,12 @@ export default function ComplianceDashboard() {
               <div key={alert.id} className="bg-white rounded-lg p-4 border border-red-100">
                 <div className="flex items-start justify-between">
                   <div>
-                    <p className="font-medium text-gray-900">{alert.title}</p>
-                    <p className="text-sm text-gray-600 mt-1">{alert.description}</p>
+                    <p className="font-medium text-black">{alert.title}</p>
+                    <p className="text-sm text-black mt-1">{alert.description}</p>
                   </div>
                   <button
                     onClick={() => dismissAlert(alert.id)}
-                    className="text-gray-400 hover:text-gray-600"
+                    className="text-black hover:text-black"
                   >
                     ✕
                   </button>
@@ -422,12 +422,12 @@ export default function ComplianceDashboard() {
               <div key={alert.id} className="bg-white rounded-lg p-4 border border-amber-100">
                 <div className="flex items-start justify-between">
                   <div>
-                    <p className="font-medium text-gray-900">{alert.title}</p>
-                    <p className="text-sm text-gray-600 mt-1">{alert.description}</p>
+                    <p className="font-medium text-black">{alert.title}</p>
+                    <p className="text-sm text-black mt-1">{alert.description}</p>
                   </div>
                   <button
                     onClick={() => dismissAlert(alert.id)}
-                    className="text-gray-400 hover:text-gray-600"
+                    className="text-black hover:text-black"
                   >
                     ✕
                   </button>
@@ -447,7 +447,7 @@ export default function ComplianceDashboard() {
       )}
 
       {/* Tabs */}
-      <div className="flex border-b border-gray-200">
+      <div className="flex border-b border-black">
         {(['overview', 'consents', 'credentials', 'audit', 'inventory'] as const).map((tab) => (
           <button
             key={tab}
@@ -455,7 +455,7 @@ export default function ComplianceDashboard() {
             className={`px-4 py-3 font-medium text-sm capitalize ${
               activeTab === tab
                 ? 'text-pink-600 border-b-2 border-pink-500'
-                : 'text-gray-500 hover:text-gray-700'
+                : 'text-black hover:text-black'
             }`}
           >
             {tab}
@@ -466,54 +466,54 @@ export default function ComplianceDashboard() {
       {/* Overview Tab */}
       {activeTab === 'overview' && (
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="bg-white rounded-xl border border-gray-100 p-5">
+          <div className="bg-white rounded-xl border border-black p-5">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-500">Consent Compliance</span>
+              <span className="text-black">Consent Compliance</span>
               <span className="text-2xl">📋</span>
             </div>
-            <p className="text-3xl font-bold text-gray-900">
+            <p className="text-3xl font-bold text-black">
               {consentStats ? Math.round(((consentStats.totalClients - consentStats.missingConsents) / Math.max(consentStats.totalClients, 1)) * 100) : 0}%
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-black">
               {consentStats?.missingConsents || 0} missing
             </p>
           </div>
 
-          <div className="bg-white rounded-xl border border-gray-100 p-5">
+          <div className="bg-white rounded-xl border border-black p-5">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-500">Provider Credentials</span>
+              <span className="text-black">Provider Credentials</span>
               <span className="text-2xl">🎓</span>
             </div>
-            <p className="text-3xl font-bold text-gray-900">
+            <p className="text-3xl font-bold text-black">
               {credentials.filter(c => c.status === 'valid').length}/{credentials.length}
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-black">
               {credentials.filter(c => c.status === 'expiring').length} expiring soon
             </p>
           </div>
 
-          <div className="bg-white rounded-xl border border-gray-100 p-5">
+          <div className="bg-white rounded-xl border border-black p-5">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-500">Audit Actions Today</span>
+              <span className="text-black">Audit Actions Today</span>
               <span className="text-2xl">📝</span>
             </div>
-            <p className="text-3xl font-bold text-gray-900">
+            <p className="text-3xl font-bold text-black">
               {auditSummary?.totalActions || 0}
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-black">
               {auditSummary?.phiAccess || 0} PHI access
             </p>
           </div>
 
-          <div className="bg-white rounded-xl border border-gray-100 p-5">
+          <div className="bg-white rounded-xl border border-black p-5">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-gray-500">Inventory Issues</span>
+              <span className="text-black">Inventory Issues</span>
               <span className="text-2xl">📦</span>
             </div>
-            <p className="text-3xl font-bold text-gray-900">
+            <p className="text-3xl font-bold text-black">
               {(inventoryCompliance?.expired || 0) + (inventoryCompliance?.expiringSoon || 0)}
             </p>
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-black">
               {inventoryCompliance?.expired || 0} expired
             </p>
           </div>
@@ -525,25 +525,25 @@ export default function ComplianceDashboard() {
         <div className="space-y-4">
           <div className="grid md:grid-cols-4 gap-4">
             <div className="bg-white rounded-xl border p-4">
-              <p className="text-sm text-gray-500">Total Clients</p>
+              <p className="text-sm text-black">Total Clients</p>
               <p className="text-2xl font-bold">{consentStats?.totalClients || 0}</p>
             </div>
             <div className="bg-white rounded-xl border p-4">
-              <p className="text-sm text-gray-500">HIPAA Signed</p>
+              <p className="text-sm text-black">HIPAA Signed</p>
               <p className="text-2xl font-bold text-green-600">{consentStats?.hipaaConsent || 0}</p>
             </div>
             <div className="bg-white rounded-xl border p-4">
-              <p className="text-sm text-gray-500">Treatment Consent</p>
+              <p className="text-sm text-black">Treatment Consent</p>
               <p className="text-2xl font-bold text-blue-600">{consentStats?.treatmentConsent || 0}</p>
             </div>
             <div className="bg-white rounded-xl border p-4">
-              <p className="text-sm text-gray-500">Photo Release</p>
+              <p className="text-sm text-black">Photo Release</p>
               <p className="text-2xl font-bold text-pink-600">{consentStats?.photoConsent || 0}</p>
             </div>
           </div>
 
-          <div className="bg-white rounded-xl border border-gray-200 p-5">
-            <h3 className="font-semibold text-gray-900 mb-3">Required Consent Forms</h3>
+          <div className="bg-white rounded-xl border border-black p-5">
+            <h3 className="font-semibold text-black mb-3">Required Consent Forms</h3>
             <ul className="space-y-2 text-sm">
               <li className="flex items-center gap-2">
                 <span className="text-green-500">✓</span>
@@ -572,31 +572,31 @@ export default function ComplianceDashboard() {
 
       {/* Credentials Tab */}
       {activeTab === 'credentials' && (
-        <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+        <div className="bg-white rounded-xl border border-black overflow-hidden">
           <table className="w-full">
-            <thead className="bg-gray-50">
+            <thead className="bg-white">
               <tr>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Provider</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Credential</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">License #</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Expiration</th>
-                <th className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase">Status</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Provider</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Credential</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">License #</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Expiration</th>
+                <th className="px-4 py-3 text-left text-xs font-semibold text-black uppercase">Status</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
               {credentials.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="px-4 py-8 text-center text-gray-500">
+                  <td colSpan={5} className="px-4 py-8 text-center text-black">
                     No provider credentials found
                   </td>
                 </tr>
               ) : (
                 credentials.map((cred) => (
                   <tr key={cred.id} className={cred.status === 'expired' ? 'bg-red-50' : ''}>
-                    <td className="px-4 py-3 font-medium text-gray-900">{cred.providerName}</td>
-                    <td className="px-4 py-3 text-gray-600">{cred.credentialType}</td>
-                    <td className="px-4 py-3 text-gray-600">{cred.licenseNumber}</td>
-                    <td className="px-4 py-3 text-gray-600">
+                    <td className="px-4 py-3 font-medium text-black">{cred.providerName}</td>
+                    <td className="px-4 py-3 text-black">{cred.credentialType}</td>
+                    <td className="px-4 py-3 text-black">{cred.licenseNumber}</td>
+                    <td className="px-4 py-3 text-black">
                       {new Date(cred.expirationDate).toLocaleDateString()}
                     </td>
                     <td className="px-4 py-3">
@@ -623,27 +623,27 @@ export default function ComplianceDashboard() {
         <div className="space-y-4">
           <div className="grid md:grid-cols-3 gap-4">
             <div className="bg-white rounded-xl border p-4">
-              <p className="text-sm text-gray-500">PHI Access Today</p>
+              <p className="text-sm text-black">PHI Access Today</p>
               <p className="text-2xl font-bold">{auditSummary?.phiAccess || 0}</p>
             </div>
             <div className="bg-white rounded-xl border p-4">
-              <p className="text-sm text-gray-500">Chart Modifications</p>
+              <p className="text-sm text-black">Chart Modifications</p>
               <p className="text-2xl font-bold">{auditSummary?.chartEdits || 0}</p>
             </div>
             <div className="bg-white rounded-xl border p-4">
-              <p className="text-sm text-gray-500">Consents Signed</p>
+              <p className="text-sm text-black">Consents Signed</p>
               <p className="text-2xl font-bold">{auditSummary?.consentsSigned || 0}</p>
             </div>
           </div>
 
           <div className="bg-white rounded-xl border p-5">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-gray-900">Audit Trail</h3>
+              <h3 className="font-semibold text-black">Audit Trail</h3>
               <Link href="/admin/users?tab=logs" className="text-sm text-pink-600 hover:text-pink-700">
                 View Full Log →
               </Link>
             </div>
-            <p className="text-gray-600 text-sm">
+            <p className="text-black text-sm">
               All PHI access, chart modifications, and consent actions are automatically logged 
               with timestamp, user ID, and IP address for HIPAA compliance.
             </p>
@@ -656,19 +656,19 @@ export default function ComplianceDashboard() {
         <div className="space-y-4">
           <div className="grid md:grid-cols-4 gap-4">
             <div className="bg-white rounded-xl border p-4">
-              <p className="text-sm text-gray-500">Total Lots Tracked</p>
+              <p className="text-sm text-black">Total Lots Tracked</p>
               <p className="text-2xl font-bold">{inventoryCompliance?.totalLots || 0}</p>
             </div>
             <div className="bg-white rounded-xl border p-4">
-              <p className="text-sm text-gray-500">Expiring (30 days)</p>
+              <p className="text-sm text-black">Expiring (30 days)</p>
               <p className="text-2xl font-bold text-amber-600">{inventoryCompliance?.expiringSoon || 0}</p>
             </div>
             <div className="bg-white rounded-xl border p-4">
-              <p className="text-sm text-gray-500">Expired</p>
+              <p className="text-sm text-black">Expired</p>
               <p className="text-2xl font-bold text-red-600">{inventoryCompliance?.expired || 0}</p>
             </div>
             <div className="bg-white rounded-xl border p-4">
-              <p className="text-sm text-gray-500">Missing Lot #</p>
+              <p className="text-sm text-black">Missing Lot #</p>
               <p className="text-2xl font-bold text-amber-600">{inventoryCompliance?.missingLotNumbers || 0}</p>
             </div>
           </div>
@@ -686,7 +686,7 @@ export default function ComplianceDashboard() {
       )}
 
       {/* HIPAA Notice Footer */}
-      <div className="bg-gray-50 rounded-xl p-4 text-center text-sm text-gray-600">
+      <div className="bg-white rounded-xl p-4 text-center text-sm text-black">
         This compliance dashboard is provided as a tool to help monitor regulatory requirements.
         It does not constitute legal advice. Consult with healthcare compliance professionals for
         specific guidance on HIPAA, state medical board, and other regulatory requirements.

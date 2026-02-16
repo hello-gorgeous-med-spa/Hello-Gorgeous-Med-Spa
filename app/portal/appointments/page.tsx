@@ -32,7 +32,7 @@ interface Appointment {
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-white rounded ${className}`} />;
 }
 
 export default function PortalAppointmentsPage() {
@@ -258,15 +258,15 @@ export default function PortalAppointmentsPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">My Appointments</h1>
-        <p className="text-gray-500">View and manage your upcoming treatments</p>
+        <h1 className="text-2xl font-bold text-black">My Appointments</h1>
+        <p className="text-black">View and manage your upcoming treatments</p>
       </div>
 
       {/* Appointment Lookup (shown when no appointments loaded) */}
       {!loading && !hasAppointments && (
-        <div className="bg-white rounded-2xl border border-gray-100 p-6">
-          <h3 className="font-semibold text-gray-900 mb-4">Find Your Appointments</h3>
-          <p className="text-gray-600 text-sm mb-4">
+        <div className="bg-white rounded-2xl border border-black p-6">
+          <h3 className="font-semibold text-black mb-4">Find Your Appointments</h3>
+          <p className="text-black text-sm mb-4">
             Enter your email or phone number to view and manage your appointments.
           </p>
           <div className="space-y-3">
@@ -275,15 +275,15 @@ export default function PortalAppointmentsPage() {
               placeholder="Email address"
               value={lookupEmail}
               onChange={(e) => setLookupEmail(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             />
-            <div className="text-center text-gray-400 text-sm">or</div>
+            <div className="text-center text-black text-sm">or</div>
             <input
               type="tel"
               placeholder="Phone number"
               value={lookupPhone}
               onChange={(e) => setLookupPhone(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+              className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             />
             {lookupError && (
               <p className="text-red-600 text-sm">{lookupError}</p>
@@ -296,8 +296,8 @@ export default function PortalAppointmentsPage() {
               {lookupLoading ? 'Looking up...' : 'Find My Appointments'}
             </button>
           </div>
-          <div className="mt-4 pt-4 border-t border-gray-100 text-center">
-            <p className="text-sm text-gray-500 mb-2">Don't have an appointment yet?</p>
+          <div className="mt-4 pt-4 border-t border-black text-center">
+            <p className="text-sm text-black mb-2">Don't have an appointment yet?</p>
             <Link
               href="/book"
               className="text-pink-600 font-medium hover:text-pink-700"
@@ -324,7 +324,7 @@ export default function PortalAppointmentsPage() {
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
               activeTab === 'upcoming'
                 ? 'bg-pink-500 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-white text-black hover:bg-white'
             }`}
           >
             Upcoming ({upcomingAppointments.length})
@@ -334,7 +334,7 @@ export default function PortalAppointmentsPage() {
             className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
               activeTab === 'past'
                 ? 'bg-pink-500 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                : 'bg-white text-black hover:bg-white'
             }`}
           >
             Past ({pastAppointments.length})
@@ -350,10 +350,10 @@ export default function PortalAppointmentsPage() {
               <Skeleton key={i} className="h-40" />
             ))
           ) : appointmentsWithStatus.length === 0 ? (
-            <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
+            <div className="bg-white rounded-2xl border border-black p-8 text-center">
               <span className="text-4xl mb-4 block">📅</span>
-              <h3 className="font-semibold text-gray-900 mb-2">No upcoming appointments</h3>
-              <p className="text-gray-500 mb-4">Ready for your next treatment?</p>
+              <h3 className="font-semibold text-black mb-2">No upcoming appointments</h3>
+              <p className="text-black mb-4">Ready for your next treatment?</p>
               <Link
                 href="/portal/book"
                 className="inline-flex items-center gap-2 bg-pink-500 text-white px-6 py-2.5 rounded-full font-medium hover:bg-pink-600 transition-colors"
@@ -365,18 +365,18 @@ export default function PortalAppointmentsPage() {
             appointmentsWithStatus.map((apt) => (
               <div
                 key={apt.id}
-                className="bg-white rounded-2xl border border-gray-100 overflow-hidden"
+                className="bg-white rounded-2xl border border-black overflow-hidden"
               >
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="text-lg font-semibold text-gray-900">{apt.service}</h3>
-                      <p className="text-gray-500">{apt.provider}</p>
+                      <h3 className="text-lg font-semibold text-black">{apt.service}</h3>
+                      <p className="text-black">{apt.provider}</p>
                     </div>
                     <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                       apt.status === 'confirmed' ? 'bg-green-100 text-green-700' :
                       apt.status === 'pending' ? 'bg-amber-100 text-amber-700' :
-                      'bg-gray-100 text-gray-600'
+                      'bg-white text-black'
                     }`}>
                       {apt.status}
                     </span>
@@ -384,16 +384,16 @@ export default function PortalAppointmentsPage() {
 
                   <div className="grid grid-cols-2 gap-4 mb-4">
                     <div className="flex items-center gap-2">
-                      <span className="text-gray-400">📅</span>
-                      <span className="text-gray-900">{formatDate(apt.date)}</span>
+                      <span className="text-black">📅</span>
+                      <span className="text-black">{formatDate(apt.date)}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-gray-400">🕐</span>
-                      <span className="text-gray-900">{apt.time}</span>
+                      <span className="text-black">🕐</span>
+                      <span className="text-black">{apt.time}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-gray-400">📍</span>
-                      <span className="text-gray-900">{apt.location}</span>
+                      <span className="text-black">📍</span>
+                      <span className="text-black">{apt.location}</span>
                       {apt.isTelehealth && (
                         <a
                           href={apt.telehealthLink || '/telehealth'}
@@ -406,20 +406,20 @@ export default function PortalAppointmentsPage() {
                       )}
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-gray-400">💰</span>
-                      <span className="text-gray-900">${apt.price}</span>
+                      <span className="text-black">💰</span>
+                      <span className="text-black">${apt.price}</span>
                     </div>
                   </div>
                 </div>
 
-                <div className="border-t border-gray-100 px-6 py-3 bg-gray-50 flex gap-3">
+                <div className="border-t border-black px-6 py-3 bg-white flex gap-3">
                   <button
                     onClick={() => handleRescheduleClick(apt)}
                     disabled={!apt.rescheduleStatus.allowed}
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                       apt.rescheduleStatus.allowed
-                        ? 'bg-white border border-gray-200 text-gray-700 hover:bg-gray-100'
-                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                        ? 'bg-white border border-black text-black hover:bg-white'
+                        : 'bg-white text-black cursor-not-allowed'
                     }`}
                   >
                     Reschedule
@@ -430,13 +430,13 @@ export default function PortalAppointmentsPage() {
                     className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                       apt.cancelStatus.allowed
                         ? 'bg-white border border-red-200 text-red-600 hover:bg-red-50'
-                        : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                        : 'bg-white text-black cursor-not-allowed'
                     }`}
                   >
                     Cancel
                   </button>
                   {(!apt.cancelStatus.allowed || !apt.rescheduleStatus.allowed) && (
-                    <span className="text-xs text-gray-500 self-center ml-auto">
+                    <span className="text-xs text-black self-center ml-auto">
                       {apt.cancelStatus.reason || apt.rescheduleStatus.reason}
                     </span>
                   )}
@@ -455,23 +455,23 @@ export default function PortalAppointmentsPage() {
               <Skeleton key={i} className="h-20" />
             ))
           ) : pastAppointments.length === 0 ? (
-            <div className="bg-white rounded-2xl border border-gray-100 p-8 text-center">
-              <p className="text-gray-500">No past appointments</p>
+            <div className="bg-white rounded-2xl border border-black p-8 text-center">
+              <p className="text-black">No past appointments</p>
             </div>
           ) : (
             pastAppointments.map((apt) => (
               <div
                 key={apt.id}
-                className="bg-white rounded-xl border border-gray-100 p-4 flex items-center justify-between"
+                className="bg-white rounded-xl border border-black p-4 flex items-center justify-between"
               >
                 <div>
-                  <h3 className="font-medium text-gray-900">{apt.service}</h3>
-                  <p className="text-sm text-gray-500">{apt.provider} • {formatDate(apt.date)}</p>
+                  <h3 className="font-medium text-black">{apt.service}</h3>
+                  <p className="text-sm text-black">{apt.provider} • {formatDate(apt.date)}</p>
                 </div>
                 <span className={`px-2 py-1 text-xs rounded-full ${
                   apt.status === 'completed' ? 'bg-green-100 text-green-700' :
                   apt.status === 'cancelled' ? 'bg-red-100 text-red-700' :
-                  'bg-gray-100 text-gray-600'
+                  'bg-white text-black'
                 }`}>
                   {apt.status}
                 </span>
@@ -485,20 +485,20 @@ export default function PortalAppointmentsPage() {
       {showCancelModal && selectedAppointment && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Cancel Appointment</h2>
-            <p className="text-gray-600 mb-4">
+            <h2 className="text-xl font-bold text-black mb-4">Cancel Appointment</h2>
+            <p className="text-black mb-4">
               Are you sure you want to cancel your <strong>{selectedAppointment.service}</strong> appointment on{' '}
               <strong>{formatDate(selectedAppointment.date)}</strong>?
             </p>
 
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-black mb-2">
                 Reason for cancellation
               </label>
               <select
                 value={cancelReason}
                 onChange={(e) => setCancelReason(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               >
                 <option value="">Select reason...</option>
                 <option value="schedule_conflict">Schedule conflict</option>
@@ -511,7 +511,7 @@ export default function PortalAppointmentsPage() {
             <div className="flex gap-3">
               <button
                 onClick={() => { setShowCancelModal(false); setSelectedAppointment(null); }}
-                className="flex-1 px-4 py-2 border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50"
+                className="flex-1 px-4 py-2 border border-black text-black rounded-lg hover:bg-white"
               >
                 Keep Appointment
               </button>
@@ -531,15 +531,15 @@ export default function PortalAppointmentsPage() {
       {showRescheduleModal && selectedAppointment && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-md w-full p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Reschedule Appointment</h2>
+            <h2 className="text-xl font-bold text-black mb-4">Reschedule Appointment</h2>
             
-            <div className="bg-gray-50 rounded-lg p-4 mb-4">
+            <div className="bg-white rounded-lg p-4 mb-4">
               <p className="font-medium">{selectedAppointment.service}</p>
-              <p className="text-sm text-gray-500">{formatDate(selectedAppointment.date)} at {selectedAppointment.time}</p>
+              <p className="text-sm text-black">{formatDate(selectedAppointment.date)} at {selectedAppointment.time}</p>
             </div>
 
             <div className="space-y-3 mb-4">
-              <p className="text-gray-600 text-sm">
+              <p className="text-black text-sm">
                 Choose how you'd like to reschedule:
               </p>
               
@@ -552,26 +552,26 @@ export default function PortalAppointmentsPage() {
               
               <a
                 href="tel:6306366193"
-                className="block w-full px-4 py-3 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 text-center"
+                className="block w-full px-4 py-3 bg-white border border-black text-black rounded-lg hover:bg-white text-center"
               >
                 📞 Call (630) 636-6193
               </a>
               
               <a
                 href="sms:6306366193?body=Hi, I'd like to reschedule my appointment"
-                className="block w-full px-4 py-3 bg-white border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 text-center"
+                className="block w-full px-4 py-3 bg-white border border-black text-black rounded-lg hover:bg-white text-center"
               >
                 💬 Text Us
               </a>
             </div>
 
-            <p className="text-xs text-gray-500 text-center mb-4">
+            <p className="text-xs text-black text-center mb-4">
               After booking your new time, you can cancel this appointment.
             </p>
 
             <button
               onClick={() => { setShowRescheduleModal(false); setSelectedAppointment(null); }}
-              className="w-full px-4 py-2 border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50"
+              className="w-full px-4 py-2 border border-black text-black rounded-lg hover:bg-white"
             >
               Close
             </button>

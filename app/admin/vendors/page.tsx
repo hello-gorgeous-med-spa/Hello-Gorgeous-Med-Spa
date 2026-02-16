@@ -304,8 +304,8 @@ export default function AdminVendorsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Vendor Portal</h1>
-          <p className="text-gray-500">Quick access to all your suppliers and partners</p>
+          <h1 className="text-2xl font-bold text-black">Vendor Portal</h1>
+          <p className="text-black">Quick access to all your suppliers and partners</p>
         </div>
         <button
           onClick={() => setShowAddModal(true)}
@@ -317,7 +317,7 @@ export default function AdminVendorsPage() {
 
       {/* Quick Access - Favorites */}
       <div className="bg-gradient-to-r from-pink-50 to-purple-50 rounded-xl border border-pink-100 p-6">
-        <h2 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+        <h2 className="font-semibold text-black mb-4 flex items-center gap-2">
           ⭐ Quick Access
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
@@ -327,13 +327,13 @@ export default function AdminVendorsPage() {
               href={vendor.portalUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-white rounded-lg p-4 text-center hover:shadow-md transition-shadow border border-gray-100"
+              className="bg-white rounded-lg p-4 text-center hover:shadow-md transition-shadow border border-black"
             >
               <div className="w-12 h-12 mx-auto mb-2 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 flex items-center justify-center text-white font-bold text-lg">
                 {vendor.name.charAt(0)}
               </div>
-              <p className="font-medium text-gray-900 text-sm truncate">{vendor.name}</p>
-              <p className="text-xs text-gray-500">{vendor.category}</p>
+              <p className="font-medium text-black text-sm truncate">{vendor.name}</p>
+              <p className="text-xs text-black">{vendor.category}</p>
             </a>
           ))}
         </div>
@@ -347,9 +347,9 @@ export default function AdminVendorsPage() {
             placeholder="Search vendors..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-2.5 pl-10 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+            className="w-full px-4 py-2.5 pl-10 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
           />
-          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+          <span className="absolute left-3 top-1/2 -translate-y-1/2 text-black">🔍</span>
         </div>
         <div className="flex gap-2 overflow-x-auto pb-2">
           {CATEGORIES.map((cat) => (
@@ -359,7 +359,7 @@ export default function AdminVendorsPage() {
               className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-colors ${
                 selectedCategory === cat
                   ? 'bg-pink-500 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  : 'bg-white text-black hover:bg-white'
               }`}
             >
               {cat}
@@ -373,17 +373,17 @@ export default function AdminVendorsPage() {
         {filteredVendors.map((vendor) => (
           <div
             key={vendor.id}
-            className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden hover:shadow-md transition-shadow"
+            className="bg-white rounded-xl border border-black shadow-sm overflow-hidden hover:shadow-md transition-shadow"
           >
             <div className="p-5">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-2xl font-bold text-gray-600">
+                  <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center text-2xl font-bold text-black">
                     {vendor.name.charAt(0)}
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">{vendor.name}</h3>
-                    <span className="text-xs px-2 py-0.5 bg-gray-100 text-gray-600 rounded">
+                    <h3 className="font-semibold text-black">{vendor.name}</h3>
+                    <span className="text-xs px-2 py-0.5 bg-white text-black rounded">
                       {vendor.category}
                     </span>
                   </div>
@@ -396,12 +396,12 @@ export default function AdminVendorsPage() {
                 </button>
               </div>
 
-              <p className="text-sm text-gray-600 mb-4">{vendor.description}</p>
+              <p className="text-sm text-black mb-4">{vendor.description}</p>
 
               {/* Rep Info */}
               {vendor.repName && (
-                <div className="text-sm text-gray-600 mb-3 p-2 bg-gray-50 rounded-lg">
-                  <p className="font-medium text-gray-900">{vendor.repName}</p>
+                <div className="text-sm text-black mb-3 p-2 bg-white rounded-lg">
+                  <p className="font-medium text-black">{vendor.repName}</p>
                   {vendor.repPhone && <p>{vendor.repPhone}</p>}
                   {vendor.repEmail && <p className="text-pink-600">{vendor.repEmail}</p>}
                 </div>
@@ -409,14 +409,14 @@ export default function AdminVendorsPage() {
 
               {/* Account Number */}
               {vendor.accountNumber && (
-                <p className="text-xs text-gray-500 mb-3">
+                <p className="text-xs text-black mb-3">
                   Account: <span className="font-mono">{vendor.accountNumber}</span>
                 </p>
               )}
 
               {/* Notes */}
               {vendor.notes && (
-                <p className="text-xs text-gray-500 italic mb-4">{vendor.notes}</p>
+                <p className="text-xs text-black italic mb-4">{vendor.notes}</p>
               )}
 
               {/* Actions */}
@@ -434,14 +434,14 @@ export default function AdminVendorsPage() {
                     href={vendor.orderUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 transition-colors"
+                    className="px-3 py-2 border border-black text-black text-sm font-medium rounded-lg hover:bg-white transition-colors"
                   >
                     Order
                   </a>
                 )}
                 <button
                   onClick={() => setEditingVendor(vendor)}
-                  className="px-3 py-2 border border-gray-300 text-gray-700 text-sm rounded-lg hover:bg-gray-50 transition-colors"
+                  className="px-3 py-2 border border-black text-black text-sm rounded-lg hover:bg-white transition-colors"
                 >
                   ✏️
                 </button>
@@ -505,8 +505,8 @@ function VendorModal({
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
-        <div className="p-6 border-b border-gray-100">
-          <h2 className="text-xl font-bold text-gray-900">
+        <div className="p-6 border-b border-black">
+          <h2 className="text-xl font-bold text-black">
             {isNew ? 'Add Vendor' : `Edit ${vendor.name}`}
           </h2>
         </div>
@@ -514,7 +514,7 @@ function VendorModal({
         <form onSubmit={handleSubmit} className="p-6 space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Vendor Name *
               </label>
               <input
@@ -522,18 +522,18 @@ function VendorModal({
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Category
               </label>
               <select
                 value={formData.category}
                 onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               >
                 {CATEGORIES.filter((c) => c !== 'All').map((cat) => (
                   <option key={cat} value={cat}>{cat}</option>
@@ -542,19 +542,19 @@ function VendorModal({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Account Number
               </label>
               <input
                 type="text"
                 value={formData.accountNumber || ''}
                 onChange={(e) => setFormData({ ...formData, accountNumber: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               />
             </div>
 
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Portal URL *
               </label>
               <input
@@ -563,12 +563,12 @@ function VendorModal({
                 value={formData.portalUrl}
                 onChange={(e) => setFormData({ ...formData, portalUrl: e.target.value })}
                 placeholder="https://"
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               />
             </div>
 
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Order URL
               </label>
               <input
@@ -576,58 +576,58 @@ function VendorModal({
                 value={formData.orderUrl || ''}
                 onChange={(e) => setFormData({ ...formData, orderUrl: e.target.value })}
                 placeholder="https://"
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               />
             </div>
 
             <div className="col-span-2">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-black mb-1">
                 Description
               </label>
               <input
                 type="text"
                 value={formData.description}
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
               />
             </div>
           </div>
 
           {/* Rep Info */}
-          <div className="border-t border-gray-100 pt-4">
-            <h3 className="font-medium text-gray-900 mb-3">Sales Rep Contact</h3>
+          <div className="border-t border-black pt-4">
+            <h3 className="font-medium text-black mb-3">Sales Rep Contact</h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black mb-1">
                   Rep Name
                 </label>
                 <input
                   type="text"
                   value={formData.repName || ''}
                   onChange={(e) => setFormData({ ...formData, repName: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black mb-1">
                   Rep Phone
                 </label>
                 <input
                   type="tel"
                   value={formData.repPhone || ''}
                   onChange={(e) => setFormData({ ...formData, repPhone: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black mb-1">
                   Rep Email
                 </label>
                 <input
                   type="email"
                   value={formData.repEmail || ''}
                   onChange={(e) => setFormData({ ...formData, repEmail: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                 />
               </div>
             </div>
@@ -635,23 +635,23 @@ function VendorModal({
 
           {/* Notes */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-black mb-1">
               Notes
             </label>
             <textarea
               value={formData.notes || ''}
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
               rows={2}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
             />
           </div>
 
           {/* Actions */}
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-100">
+          <div className="flex justify-end gap-3 pt-4 border-t border-black">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg transition-colors"
+              className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg transition-colors"
             >
               Cancel
             </button>

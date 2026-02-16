@@ -93,8 +93,8 @@ export default function ReceiptsPage() {
         <div className="space-y-4">
           {[1, 2, 3].map((i) => (
             <div key={i} className="bg-white rounded-xl border border-[#111]/10 p-4 animate-pulse">
-              <div className="h-4 bg-gray-200 rounded w-1/3 mb-2"></div>
-              <div className="h-3 bg-gray-200 rounded w-1/4"></div>
+              <div className="h-4 bg-white rounded w-1/3 mb-2"></div>
+              <div className="h-3 bg-white rounded w-1/4"></div>
             </div>
           ))}
         </div>
@@ -109,7 +109,7 @@ export default function ReceiptsPage() {
             <div key={receipt.id} className="bg-white rounded-xl border border-[#111]/10 overflow-hidden">
               <button
                 onClick={() => setExpandedReceipt(expandedReceipt === receipt.id ? null : receipt.id)}
-                className="w-full p-4 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                className="w-full p-4 flex items-center justify-between hover:bg-white transition-colors"
               >
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-[#FF2D8E]/10 rounded-xl flex items-center justify-center">
@@ -129,7 +129,7 @@ export default function ReceiptsPage() {
               </button>
 
               {expandedReceipt === receipt.id && (
-                <div className="border-t border-[#111]/10 p-4 bg-gray-50">
+                <div className="border-t border-[#111]/10 p-4 bg-white">
                   {/* Line Items */}
                   <div className="space-y-2 mb-4">
                     {receipt.lineItems.map((item, idx) => (

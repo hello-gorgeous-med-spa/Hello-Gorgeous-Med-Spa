@@ -12,7 +12,7 @@ import { ClientInbox } from '@/components/clinical/ClientInbox';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-white rounded ${className}`} />;
 }
 
 // Medications section component
@@ -64,9 +64,9 @@ function MedicationsSection({ clientId, clientName }: { clientId: string; client
   }
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+    <div className="bg-white rounded-xl border border-black shadow-sm p-5">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-gray-900">Medications</h3>
+        <h3 className="font-semibold text-black">Medications</h3>
         <div className="flex gap-2">
           <button
             onClick={() => setShowAddForm(!showAddForm)}
@@ -87,35 +87,35 @@ function MedicationsSection({ clientId, clientName }: { clientId: string; client
 
       {/* Add Form */}
       {showAddForm && (
-        <div className="mb-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
+        <div className="mb-4 p-4 bg-white rounded-lg border border-black">
           <div className="grid grid-cols-2 gap-3 mb-3">
             <input
               type="text"
               value={newMed.name}
               onChange={(e) => setNewMed({ ...newMed, name: e.target.value })}
               placeholder="Medication name *"
-              className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+              className="px-3 py-2 border border-black rounded-lg text-sm"
             />
             <input
               type="text"
               value={newMed.dosage}
               onChange={(e) => setNewMed({ ...newMed, dosage: e.target.value })}
               placeholder="Dosage (e.g., 10mg)"
-              className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+              className="px-3 py-2 border border-black rounded-lg text-sm"
             />
             <input
               type="text"
               value={newMed.frequency}
               onChange={(e) => setNewMed({ ...newMed, frequency: e.target.value })}
               placeholder="Frequency (e.g., Once daily)"
-              className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+              className="px-3 py-2 border border-black rounded-lg text-sm"
             />
             <input
               type="text"
               value={newMed.prescriber}
               onChange={(e) => setNewMed({ ...newMed, prescriber: e.target.value })}
               placeholder="Prescriber"
-              className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+              className="px-3 py-2 border border-black rounded-lg text-sm"
             />
           </div>
           <input
@@ -123,12 +123,12 @@ function MedicationsSection({ clientId, clientName }: { clientId: string; client
             value={newMed.notes}
             onChange={(e) => setNewMed({ ...newMed, notes: e.target.value })}
             placeholder="Notes (optional)"
-            className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm mb-3"
+            className="w-full px-3 py-2 border border-black rounded-lg text-sm mb-3"
           />
           <div className="flex justify-end gap-2">
             <button
               onClick={() => setShowAddForm(false)}
-              className="px-3 py-1.5 text-gray-600 text-sm hover:bg-gray-100 rounded-lg"
+              className="px-3 py-1.5 text-black text-sm hover:bg-white rounded-lg"
             >
               Cancel
             </button>
@@ -147,21 +147,21 @@ function MedicationsSection({ clientId, clientName }: { clientId: string; client
       {medications.length === 0 ? (
         <div className="text-center py-6">
           <span className="text-3xl mb-2 block">💊</span>
-          <p className="text-gray-500 text-sm">No medications on record</p>
-          <p className="text-gray-400 text-xs mt-1">Add records here after prescribing in Charm</p>
+          <p className="text-black text-sm">No medications on record</p>
+          <p className="text-black text-xs mt-1">Add records here after prescribing in Charm</p>
         </div>
       ) : (
         <div className="space-y-3">
           {medications.map((med) => (
-            <div key={med.id} className="flex items-start justify-between p-3 bg-gray-50 rounded-lg">
+            <div key={med.id} className="flex items-start justify-between p-3 bg-white rounded-lg">
               <div>
-                <p className="font-medium text-gray-900">{med.name}</p>
-                <p className="text-sm text-gray-600">
+                <p className="font-medium text-black">{med.name}</p>
+                <p className="text-sm text-black">
                   {med.dosage && `${med.dosage} • `}
                   {med.frequency && `${med.frequency} • `}
                   {med.prescriber && `by ${med.prescriber}`}
                 </p>
-                {med.notes && <p className="text-xs text-gray-500 mt-1">{med.notes}</p>}
+                {med.notes && <p className="text-xs text-black mt-1">{med.notes}</p>}
               </div>
               <button
                 onClick={() => removeMedication(med.id)}
@@ -175,8 +175,8 @@ function MedicationsSection({ clientId, clientName }: { clientId: string; client
       )}
 
       {/* Charm Link */}
-      <div className="mt-4 pt-4 border-t border-gray-100">
-        <p className="text-xs text-gray-400 text-center">
+      <div className="mt-4 pt-4 border-t border-black">
+        <p className="text-xs text-black text-center">
           Use <a href="https://accounts.charmtracker.com/signin" target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline">Charm EHR</a> for official prescriptions (EPCS certified)
         </p>
       </div>
@@ -210,9 +210,9 @@ function TreatmentSessionsSection({ clientId }: { clientId: string }) {
   }
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+    <div className="bg-white rounded-xl border border-black shadow-sm p-5">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-gray-900">Chart-to-Cart Sessions</h3>
+        <h3 className="font-semibold text-black">Chart-to-Cart Sessions</h3>
         <Link
           href="/admin/chart-to-cart/new"
           className="text-sm text-pink-600 hover:text-pink-700 font-medium"
@@ -220,13 +220,13 @@ function TreatmentSessionsSection({ clientId }: { clientId: string }) {
           + New Session
         </Link>
       </div>
-      <p className="text-xs text-gray-500 mb-4">
+      <p className="text-xs text-black mb-4">
         Treatment sessions created here are saved to this client&apos;s profile.
       </p>
       {sessions.length === 0 ? (
         <div className="text-center py-6">
           <span className="text-3xl mb-2 block">🛒</span>
-          <p className="text-gray-500 text-sm">No Chart-to-Cart sessions yet</p>
+          <p className="text-black text-sm">No Chart-to-Cart sessions yet</p>
           <Link
             href="/admin/chart-to-cart/new"
             className="inline-block mt-2 text-pink-600 hover:text-pink-700 text-sm font-medium"
@@ -237,27 +237,27 @@ function TreatmentSessionsSection({ clientId }: { clientId: string }) {
       ) : (
         <div className="space-y-3">
           {sessions.map((s) => (
-            <div key={s.id} className="p-3 bg-gray-50 rounded-lg border border-gray-100">
+            <div key={s.id} className="p-3 bg-white rounded-lg border border-black">
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <p className="font-medium text-gray-900">{s.treatment_summary || 'Treatment'}</p>
-                  <p className="text-xs text-gray-500 mt-0.5">
+                  <p className="font-medium text-black">{s.treatment_summary || 'Treatment'}</p>
+                  <p className="text-xs text-black mt-0.5">
                     {new Date(s.started_at).toLocaleDateString()} • {s.provider || 'Staff'} •
                     <span className={`ml-1 px-1.5 py-0.5 rounded text-xs ${
-                      s.status === 'completed' ? 'bg-gray-200 text-gray-700' :
+                      s.status === 'completed' ? 'bg-white text-black' :
                       s.status === 'ready_to_checkout' ? 'bg-green-100 text-green-700' : 'bg-blue-100 text-blue-700'
                     }`}>
                       {s.status?.replace('_', ' ')}
                     </span>
                   </p>
                   {Array.isArray(s.products) && s.products.length > 0 && (
-                    <p className="text-xs text-gray-600 mt-1">
+                    <p className="text-xs text-black mt-1">
                       {s.products.map((p: any) => `${p.name} (${p.quantity})`).join(', ')}
                     </p>
                   )}
                 </div>
                 <div className="text-right shrink-0">
-                  <p className="font-semibold text-gray-900">${Number(s.total || 0).toFixed(2)}</p>
+                  <p className="font-semibold text-black">${Number(s.total || 0).toFixed(2)}</p>
                   <Link
                     href="/admin/chart-to-cart"
                     className="text-xs text-pink-600 hover:text-pink-700"
@@ -302,7 +302,7 @@ function InjectionMapsPreview({ clientId }: { clientId: string }) {
     return (
       <div className="text-center py-4">
         <span className="text-3xl mb-2 block">💉</span>
-        <p className="text-gray-500 text-sm">No injection maps yet</p>
+        <p className="text-black text-sm">No injection maps yet</p>
         <Link
           href={`/admin/charting/injection-map?client=${clientId}`}
           className="text-pink-600 text-sm hover:text-pink-700 mt-1 inline-block"
@@ -319,20 +319,20 @@ function InjectionMapsPreview({ clientId }: { clientId: string }) {
         <Link
           key={map.id}
           href={`/admin/charting/injection-map?map=${map.id}&client=${clientId}`}
-          className="block p-3 border border-gray-100 rounded-lg hover:bg-gray-50 transition-colors"
+          className="block p-3 border border-black rounded-lg hover:bg-white transition-colors"
         >
           <div className="flex items-center justify-between">
             <div>
-              <p className="font-medium text-gray-900 text-sm">
+              <p className="font-medium text-black text-sm">
                 {new Date(map.created_at).toLocaleDateString('en-US', { 
                   month: 'short', day: 'numeric', year: 'numeric' 
                 })}
               </p>
-              <p className="text-xs text-gray-500">
+              <p className="text-xs text-black">
                 {map.points?.length || 0} injection points
               </p>
             </div>
-            <span className="text-gray-400">→</span>
+            <span className="text-black">→</span>
           </div>
         </Link>
       ))}
@@ -425,9 +425,9 @@ function DocumentsTabContent({
   const allEmpty = consents.length === 0 && portalDocs.length === 0;
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+    <div className="bg-white rounded-xl border border-black shadow-sm p-6">
       <div className="flex items-center justify-between mb-6">
-        <h3 className="font-semibold text-gray-900">Documents & Forms</h3>
+        <h3 className="font-semibold text-black">Documents & Forms</h3>
         <button
           onClick={() => setShowUploadModal(true)}
           className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
@@ -443,25 +443,25 @@ function DocumentsTabContent({
           ))}
         </div>
       ) : allEmpty ? (
-        <p className="text-gray-500 text-center py-8">No documents on file</p>
+        <p className="text-black text-center py-8">No documents on file</p>
       ) : (
         <div className="space-y-6">
           {consents.length > 0 && (
             <div>
-              <h4 className="text-sm font-medium text-gray-600 mb-2">Signed Consents</h4>
+              <h4 className="text-sm font-medium text-black mb-2">Signed Consents</h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {consents.map((consent) => (
                   <div
                     key={consent.id}
-                    className="p-4 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors cursor-pointer"
+                    className="p-4 border border-black rounded-lg hover:border-black transition-colors cursor-pointer"
                   >
                     <div className="flex items-start gap-3">
                       <span className="text-2xl">📄</span>
                       <div>
-                        <p className="font-medium text-gray-900 text-sm">
+                        <p className="font-medium text-black text-sm">
                           {consent.consent_form?.name || 'Document'}
                         </p>
-                        <p className="text-xs text-gray-500">Signed {formatDate(consent.signed_at)}</p>
+                        <p className="text-xs text-black">Signed {formatDate(consent.signed_at)}</p>
                       </div>
                     </div>
                   </div>
@@ -471,7 +471,7 @@ function DocumentsTabContent({
           )}
           {portalDocs.length > 0 && (
             <div>
-              <h4 className="text-sm font-medium text-gray-600 mb-2">Portal Documents</h4>
+              <h4 className="text-sm font-medium text-black mb-2">Portal Documents</h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {portalDocs.map((doc) => (
                   <a
@@ -479,13 +479,13 @@ function DocumentsTabContent({
                     href={doc.file_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-4 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors cursor-pointer block"
+                    className="p-4 border border-black rounded-lg hover:border-black transition-colors cursor-pointer block"
                   >
                     <div className="flex items-start gap-3">
                       <span className="text-2xl">📎</span>
                       <div className="min-w-0 flex-1">
-                        <p className="font-medium text-gray-900 text-sm truncate">{doc.title}</p>
-                        <p className="text-xs text-gray-500">
+                        <p className="font-medium text-black text-sm truncate">{doc.title}</p>
+                        <p className="text-xs text-black">
                           {doc.document_type} • {formatDate(doc.created_at)}
                         </p>
                       </div>
@@ -501,13 +501,13 @@ function DocumentsTabContent({
       {showUploadModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6">
-            <h2 className="text-lg font-bold text-gray-900 mb-4">Upload Document</h2>
-            <p className="text-sm text-gray-500 mb-4">
+            <h2 className="text-lg font-bold text-black mb-4">Upload Document</h2>
+            <p className="text-sm text-black mb-4">
               Documents are stored securely and visible to the client in their portal.
             </p>
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">File *</label>
+                <label className="block text-sm font-medium text-black mb-1">File *</label>
                 <input
                   type="file"
                   accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
@@ -518,21 +518,21 @@ function DocumentsTabContent({
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                <label className="block text-sm font-medium text-black mb-1">Title</label>
                 <input
                   type="text"
                   value={uploadForm.title}
                   onChange={(e) => setUploadForm((f) => ({ ...f, title: e.target.value }))}
                   placeholder="Document title"
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-3 py-2 border border-black rounded-lg"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                <label className="block text-sm font-medium text-black mb-1">Type</label>
                 <select
                   value={uploadForm.document_type}
                   onChange={(e) => setUploadForm((f) => ({ ...f, document_type: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-3 py-2 border border-black rounded-lg"
                 >
                   {DOC_TYPES.map((t) => (
                     <option key={t} value={t}>
@@ -542,11 +542,11 @@ function DocumentsTabContent({
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                <label className="block text-sm font-medium text-black mb-1">Category</label>
                 <select
                   value={uploadForm.category}
                   onChange={(e) => setUploadForm((f) => ({ ...f, category: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-3 py-2 border border-black rounded-lg"
                 >
                   {CATEGORIES.map((c) => (
                     <option key={c} value={c}>
@@ -556,12 +556,12 @@ function DocumentsTabContent({
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description (optional)</label>
+                <label className="block text-sm font-medium text-black mb-1">Description (optional)</label>
                 <textarea
                   value={uploadForm.description}
                   onChange={(e) => setUploadForm((f) => ({ ...f, description: e.target.value }))}
                   rows={2}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-3 py-2 border border-black rounded-lg"
                 />
               </div>
             </div>
@@ -571,7 +571,7 @@ function DocumentsTabContent({
                   setShowUploadModal(false);
                   setUploadForm({ title: '', document_type: 'other', category: 'other', description: '', file: null });
                 }}
-                className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-black hover:bg-white rounded-lg"
               >
                 Cancel
               </button>
@@ -618,7 +618,7 @@ function UnifiedChartTabContent({
 
   return (
     <div className="space-y-4">
-      <div className="flex gap-2 overflow-x-auto pb-2 border-b border-slate-200">
+      <div className="flex gap-2 overflow-x-auto pb-2 border-b border-black">
         {subTabs.map((t) => (
           <button
             key={t.id}
@@ -626,7 +626,7 @@ function UnifiedChartTabContent({
             className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium whitespace-nowrap transition-all ${
               chartSubTab === t.id
                 ? 'bg-[#2D63A4] text-white'
-                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+                : 'bg-white text-black hover:bg-white'
             }`}
           >
             <span>{t.icon}</span>
@@ -636,31 +636,31 @@ function UnifiedChartTabContent({
       </div>
 
       {chartSubTab === 'appointments' && (
-        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
+        <div className="bg-white rounded-xl border border-black overflow-hidden">
           {loadingExtra ? (
             <div className="p-6 space-y-3">{[1,2,3,4].map(i => <Skeleton key={i} className="h-12" />)}</div>
           ) : appointments.length === 0 ? (
-            <div className="p-8 text-center text-slate-500">
+            <div className="p-8 text-center text-black">
               No appointments
               <Link href={`/admin/appointments/new?client=${clientId}`} className="block text-[#FF2D8E] mt-2 font-medium">+ Book</Link>
             </div>
           ) : (
             <table className="w-full">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-white border-b border-black">
                 <tr>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-slate-900">Date</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-slate-900">Service</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-slate-900">Provider</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-slate-900">Status</th>
-                  <th className="text-right px-5 py-3 text-sm font-semibold text-slate-900">Amount</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Date</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Service</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Provider</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Status</th>
+                  <th className="text-right px-5 py-3 text-sm font-semibold text-black">Amount</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {appointments.map((apt) => (
-                  <tr key={apt.id} className="hover:bg-slate-50">
+                  <tr key={apt.id} className="hover:bg-white">
                     <td className="px-5 py-3 text-sm">{formatDate(apt.starts_at)}</td>
                     <td className="px-5 py-3">{apt.service_name || '-'}</td>
-                    <td className="px-5 py-3 text-slate-600">{apt.provider_name || '-'}</td>
+                    <td className="px-5 py-3 text-black">{apt.provider_name || '-'}</td>
                     <td className="px-5 py-3">
                       <span className={`px-2 py-0.5 text-xs rounded-full ${
                         apt.status === 'completed' ? 'bg-green-100 text-green-700' :
@@ -681,25 +681,25 @@ function UnifiedChartTabContent({
           <ClientChartNotes clientId={clientId} />
           <div className="flex gap-2">
             <Link href={`/charting?client_id=${clientId}`} className="px-4 py-2 bg-[#2D63A4] text-white text-sm font-medium rounded-lg">New Chart Note</Link>
-            <Link href={`/admin/charting/injection-map?client=${clientId}`} className="px-4 py-2 bg-slate-100 text-slate-700 text-sm font-medium rounded-lg">Injection Map</Link>
+            <Link href={`/admin/charting/injection-map?client=${clientId}`} className="px-4 py-2 bg-white text-black text-sm font-medium rounded-lg">Injection Map</Link>
           </div>
         </div>
       )}
 
       {chartSubTab === 'consents' && (
-        <div className="bg-white rounded-xl border border-slate-200 p-6">
+        <div className="bg-white rounded-xl border border-black p-6">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="font-semibold text-slate-900">Signed Consents</h3>
+            <h3 className="font-semibold text-black">Signed Consents</h3>
             <Link href={`/admin/consents?client=${clientId}`} className="text-sm text-[#2D63A4] font-medium">Sign New →</Link>
           </div>
           {consents.length === 0 ? (
-            <p className="text-slate-500 text-sm">No signed consents</p>
+            <p className="text-black text-sm">No signed consents</p>
           ) : (
             <div className="space-y-2">
               {consents.map((c) => (
-                <div key={c.id} className="flex items-center justify-between py-2 border-b border-slate-100 last:border-0">
-                  <span className="text-slate-700">{c.consent_form?.name || c.form_type}</span>
-                  <span className="text-slate-500 text-sm">{formatDate(c.signed_at)}</span>
+                <div key={c.id} className="flex items-center justify-between py-2 border-b border-black last:border-0">
+                  <span className="text-black">{c.consent_form?.name || c.form_type}</span>
+                  <span className="text-black text-sm">{formatDate(c.signed_at)}</span>
                 </div>
               ))}
             </div>
@@ -708,10 +708,10 @@ function UnifiedChartTabContent({
       )}
 
       {chartSubTab === 'photos' && (
-        <div className="bg-white rounded-xl border border-slate-200 p-8 text-center">
+        <div className="bg-white rounded-xl border border-black p-8 text-center">
           <span className="text-4xl block mb-4">📷</span>
-          <h3 className="font-semibold text-slate-900 mb-2">Treatment Photos</h3>
-          <p className="text-slate-500 text-sm mb-4">Before/after and progress photos</p>
+          <h3 className="font-semibold text-black mb-2">Treatment Photos</h3>
+          <p className="text-black text-sm mb-4">Before/after and progress photos</p>
           <Link href={`/admin/clients/${clientId}/photos`} className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#2D63A4] text-white font-medium rounded-lg">Open Photos →</Link>
         </div>
       )}
@@ -769,9 +769,9 @@ function ClientChartNotes({ clientId }: { clientId: string }) {
   }
 
   return (
-    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+    <div className="bg-white rounded-xl border border-black shadow-sm p-5">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-gray-900">Chart Notes</h3>
+        <h3 className="font-semibold text-black">Chart Notes</h3>
         <Link
           href={`/charting?client_id=${clientId}`}
           className="text-sm text-pink-600 hover:text-pink-700"
@@ -782,7 +782,7 @@ function ClientChartNotes({ clientId }: { clientId: string }) {
       {notes.length === 0 ? (
         <div className="text-center py-4">
           <span className="text-3xl mb-2 block">📋</span>
-          <p className="text-gray-500 text-sm">No chart notes yet</p>
+          <p className="text-black text-sm">No chart notes yet</p>
           <Link
             href={`/charting?client=${clientId}`}
             className="text-pink-600 text-sm hover:text-pink-700 mt-1 inline-block"
@@ -796,21 +796,21 @@ function ClientChartNotes({ clientId }: { clientId: string }) {
             <Link
               key={note.id}
               href={note.status === 'draft' ? `/charting/${note.id}/edit` : `/charting?note=${note.id}`}
-              className="block border-b border-gray-100 pb-3 last:border-0 hover:bg-gray-50 -mx-2 px-2 py-1 rounded transition-colors"
+              className="block border-b border-black pb-3 last:border-0 hover:bg-white -mx-2 px-2 py-1 rounded transition-colors"
             >
               <div className="flex items-center justify-between">
-                <p className="font-medium text-gray-900 text-sm">
+                <p className="font-medium text-black text-sm">
                   {note.title || note.service_name || 'Chart Note'}
                 </p>
-                <span className={`px-2 py-0.5 text-xs font-medium rounded ${STATUS_COLORS[note.status] || 'bg-gray-100 text-gray-800'}`}>
+                <span className={`px-2 py-0.5 text-xs font-medium rounded ${STATUS_COLORS[note.status] || 'bg-white text-black'}`}>
                   {note.status.toUpperCase()}
                 </span>
               </div>
-              <p className="text-xs text-gray-500 mt-0.5">
+              <p className="text-xs text-black mt-0.5">
                 {formatDate(note.created_at)} • {note.created_by_name || 'Staff'}
               </p>
               {note.assessment && (
-                <p className="text-xs text-gray-600 mt-1 line-clamp-1">{note.assessment}</p>
+                <p className="text-xs text-black mt-1 line-clamp-1">{note.assessment}</p>
               )}
             </Link>
           ))}
@@ -977,7 +977,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
   if (error || !client) {
     return (
       <div className="text-center py-12">
-        <p className="text-gray-500 mb-4">
+        <p className="text-black mb-4">
           {error || 'Client not found'}
         </p>
         <Link href="/admin/clients" className="text-pink-600 hover:text-pink-700">
@@ -996,7 +996,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
         <div>
           <Link
             href="/admin/clients"
-            className="text-sm text-gray-500 hover:text-gray-700 mb-2 inline-block"
+            className="text-sm text-black hover:text-black mb-2 inline-block"
           >
             ← Back to Clients
           </Link>
@@ -1006,7 +1006,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
             </div>
             <div>
               <div className="flex items-center gap-3">
-                <h1 className="text-2xl font-bold text-gray-900">
+                <h1 className="text-2xl font-bold text-black">
                   {client.first_name} {client.last_name}
                 </h1>
                 {client.is_vip && (
@@ -1015,14 +1015,14 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
                   </span>
                 )}
               </div>
-              <p className="text-gray-500">
+              <p className="text-black">
                 {age ? `${age} years old • ` : ''}
                 Client since {formatDate(client.created_at)} • {client.total_visits || 0} visits
               </p>
               {client.tags && client.tags.length > 0 && (
                 <div className="flex flex-wrap gap-1 mt-1">
                   {client.tags.map((tag: string) => (
-                    <span key={tag} className="px-2 py-0.5 text-xs bg-gray-100 text-gray-600 rounded">
+                    <span key={tag} className="px-2 py-0.5 text-xs bg-white text-black rounded">
                       {tag}
                     </span>
                   ))}
@@ -1084,17 +1084,17 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
               });
               setShowEditModal(true);
             }}
-            className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-colors"
+            className="px-4 py-2 border border-black text-black font-medium rounded-lg hover:bg-white transition-colors"
           >
             Edit
           </button>
           {client.phone && (
-            <a href={`tel:${client.phone}`} className="p-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+            <a href={`tel:${client.phone}`} className="p-2 border border-black text-black rounded-lg hover:bg-white transition-colors">
               📞
             </a>
           )}
           {client.email && (
-            <a href={`mailto:${client.email}`} className="p-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+            <a href={`mailto:${client.email}`} className="p-2 border border-black text-black rounded-lg hover:bg-white transition-colors">
               ✉️
             </a>
           )}
@@ -1114,28 +1114,28 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Total Visits</p>
-          <p className="text-2xl font-bold text-gray-900">{client.total_visits || 0}</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Total Visits</p>
+          <p className="text-2xl font-bold text-black">{client.total_visits || 0}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Total Spent</p>
-          <p className="text-2xl font-bold text-gray-900">${(client.total_spent || 0).toLocaleString()}</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Total Spent</p>
+          <p className="text-2xl font-bold text-black">${(client.total_spent || 0).toLocaleString()}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Avg Ticket</p>
-          <p className="text-2xl font-bold text-gray-900">
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Avg Ticket</p>
+          <p className="text-2xl font-bold text-black">
             ${client.total_visits ? Math.round((client.total_spent || 0) / client.total_visits) : 0}
           </p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Last Visit</p>
-          <p className="text-2xl font-bold text-gray-900">{formatDate(client.last_visit_at)}</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Last Visit</p>
+          <p className="text-2xl font-bold text-black">{formatDate(client.last_visit_at)}</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-black">
         <nav className="flex gap-4">
           {[
             { id: 'overview', label: 'Overview' },
@@ -1150,7 +1150,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
               className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
                 activeTab === tab.id
                   ? 'border-pink-500 text-pink-600'
-                  : 'border-transparent text-gray-500 hover:text-gray-700'
+                  : 'border-transparent text-black hover:text-black'
               }`}
             >
               {tab.label}
@@ -1163,20 +1163,20 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
       {activeTab === 'overview' && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Contact Info */}
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-            <h3 className="font-semibold text-gray-900 mb-4">Contact Information</h3>
+          <div className="bg-white rounded-xl border border-black shadow-sm p-5">
+            <h3 className="font-semibold text-black mb-4">Contact Information</h3>
             <div className="space-y-3 text-sm">
               <div>
-                <p className="text-gray-500">Email</p>
-                <p className="text-gray-900">{client.email || '-'}</p>
+                <p className="text-black">Email</p>
+                <p className="text-black">{client.email || '-'}</p>
               </div>
               <div>
-                <p className="text-gray-500">Phone</p>
-                <p className="text-gray-900">{client.phone || '-'}</p>
+                <p className="text-black">Phone</p>
+                <p className="text-black">{client.phone || '-'}</p>
               </div>
               <div>
-                <p className="text-gray-500">Address</p>
-                <p className="text-gray-900">
+                <p className="text-black">Address</p>
+                <p className="text-black">
                   {client.address_line1 ? (
                     <>
                       {client.address_line1}
@@ -1188,25 +1188,25 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
                 </p>
               </div>
               <div>
-                <p className="text-gray-500">Date of Birth</p>
-                <p className="text-gray-900">
+                <p className="text-black">Date of Birth</p>
+                <p className="text-black">
                   {client.date_of_birth ? `${formatDate(client.date_of_birth)} (${age} years old)` : '-'}
                 </p>
               </div>
               <div>
-                <p className="text-gray-500">Emergency Contact</p>
-                <p className="text-gray-900">{client.emergency_contact_name || '-'}</p>
+                <p className="text-black">Emergency Contact</p>
+                <p className="text-black">{client.emergency_contact_name || '-'}</p>
                 {client.emergency_contact_phone && (
-                  <p className="text-gray-500">{client.emergency_contact_phone}</p>
+                  <p className="text-black">{client.emergency_contact_phone}</p>
                 )}
               </div>
             </div>
           </div>
 
           {/* Recent Appointments */}
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
+          <div className="bg-white rounded-xl border border-black shadow-sm p-5">
             <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-gray-900">Recent Appointments</h3>
+              <h3 className="font-semibold text-black">Recent Appointments</h3>
               <button
                 onClick={() => setActiveTab('appointments')}
                 className="text-sm text-pink-600 hover:text-pink-700"
@@ -1219,16 +1219,16 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
                 {[1, 2, 3].map(i => <Skeleton key={i} className="h-16" />)}
               </div>
             ) : appointments.length === 0 ? (
-              <p className="text-gray-500 text-sm py-4">No appointments yet</p>
+              <p className="text-black text-sm py-4">No appointments yet</p>
             ) : (
               <div className="space-y-3">
                 {appointments.slice(0, 3).map((apt) => (
-                  <div key={apt.id} className="border-b border-gray-100 pb-3 last:border-0">
+                  <div key={apt.id} className="border-b border-black pb-3 last:border-0">
                     <div className="flex items-center justify-between">
-                      <p className="font-medium text-gray-900">{apt.service_name || 'Service'}</p>
-                      <p className="text-sm text-gray-900">${apt.service_price || 0}</p>
+                      <p className="font-medium text-black">{apt.service_name || 'Service'}</p>
+                      <p className="text-sm text-black">${apt.service_price || 0}</p>
                     </div>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-black">
                       {formatDate(apt.starts_at)} • {apt.provider_name || 'Provider'}
                     </p>
                   </div>
@@ -1240,19 +1240,19 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
           {/* Consents & Notes */}
           <div className="space-y-6">
             {/* Consents */}
-            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-              <h3 className="font-semibold text-gray-900 mb-4">Consents</h3>
+            <div className="bg-white rounded-xl border border-black shadow-sm p-5">
+              <h3 className="font-semibold text-black mb-4">Consents</h3>
               {loadingExtra ? (
                 <div className="space-y-2">
                   {[1, 2].map(i => <Skeleton key={i} className="h-10" />)}
                 </div>
               ) : consents.length === 0 ? (
-                <p className="text-gray-500 text-sm">No consents on file</p>
+                <p className="text-black text-sm">No consents on file</p>
               ) : (
                 <div className="space-y-2">
                   {consents.slice(0, 4).map((consent) => (
                     <div key={consent.id} className="flex items-center justify-between py-2">
-                      <p className="text-sm text-gray-900">{consent.consent_form?.name || 'Consent'}</p>
+                      <p className="text-sm text-black">{consent.consent_form?.name || 'Consent'}</p>
                       <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
                         ✓ Valid
                       </span>
@@ -1264,9 +1264,9 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
 
             {/* Internal Notes */}
             {client.internal_notes && (
-              <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-5">
-                <h3 className="font-semibold text-gray-900 mb-4">Internal Notes</h3>
-                <p className="text-sm text-gray-600">{client.internal_notes}</p>
+              <div className="bg-white rounded-xl border border-black shadow-sm p-5">
+                <h3 className="font-semibold text-black mb-4">Internal Notes</h3>
+                <p className="text-sm text-black">{client.internal_notes}</p>
               </div>
             )}
           </div>
@@ -1274,13 +1274,13 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
       )}
 
       {activeTab === 'appointments' && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+        <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
           {loadingExtra ? (
             <div className="p-6">
               {[1, 2, 3, 4].map(i => <Skeleton key={i} className="h-16 mb-2" />)}
             </div>
           ) : appointments.length === 0 ? (
-            <div className="p-8 text-center text-gray-500">
+            <div className="p-8 text-center text-black">
               No appointments found
               <br />
               <Link href={`/admin/appointments/new?client=${client.id}`} className="text-pink-600 mt-2 inline-block">
@@ -1289,23 +1289,23 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
             </div>
           ) : (
             <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-100">
+              <thead className="bg-white border-b border-black">
                 <tr>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Date</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Service</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Provider</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Status</th>
-                  <th className="text-right px-5 py-3 text-sm font-semibold text-gray-900">Amount</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Date</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Service</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Provider</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Status</th>
+                  <th className="text-right px-5 py-3 text-sm font-semibold text-black">Amount</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {appointments.map((apt) => (
-                  <tr key={apt.id} className="hover:bg-gray-50">
+                  <tr key={apt.id} className="hover:bg-white">
                     <td className="px-5 py-3">
-                      <p className="font-medium text-gray-900">{formatDate(apt.starts_at)}</p>
+                      <p className="font-medium text-black">{formatDate(apt.starts_at)}</p>
                     </td>
-                    <td className="px-5 py-3 text-gray-900">{apt.service_name || '-'}</td>
-                    <td className="px-5 py-3 text-gray-600">
+                    <td className="px-5 py-3 text-black">{apt.service_name || '-'}</td>
+                    <td className="px-5 py-3 text-black">
                       {apt.provider_name || 'Provider'}
                     </td>
                     <td className="px-5 py-3">
@@ -1317,7 +1317,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
                         {apt.status}
                       </span>
                     </td>
-                    <td className="px-5 py-3 text-right font-medium text-gray-900">
+                    <td className="px-5 py-3 text-right font-medium text-black">
                       ${apt.service_price || 0}
                     </td>
                   </tr>
@@ -1337,12 +1337,12 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">🎁</span>
                   <div>
-                    <h3 className="font-semibold text-gray-900">Gift Cards</h3>
-                    <p className="text-sm text-gray-500">Cards owned by or purchased for this client</p>
+                    <h3 className="font-semibold text-black">Gift Cards</h3>
+                    <p className="text-sm text-black">Cards owned by or purchased for this client</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <p className="text-sm text-gray-500">Total Balance</p>
+                  <p className="text-sm text-black">Total Balance</p>
                   <p className="text-2xl font-bold text-green-600">
                     ${giftCards.filter(gc => gc.status === 'active').reduce((sum, gc) => sum + (gc.current_balance || 0), 0).toFixed(2)}
                   </p>
@@ -1355,7 +1355,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
               </div>
             ) : giftCards.length === 0 ? (
               <div className="p-8 text-center">
-                <p className="text-gray-500 mb-4">No gift cards linked to this client</p>
+                <p className="text-black mb-4">No gift cards linked to this client</p>
                 <Link
                   href="/admin/gift-cards"
                   className="inline-flex items-center gap-2 px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
@@ -1375,20 +1375,20 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
                           </span>
                           <span className={`px-2 py-1 text-xs rounded-full ${
                             gc.status === 'active' ? 'bg-green-100 text-green-700' :
-                            gc.status === 'redeemed' ? 'bg-gray-100 text-gray-600' :
+                            gc.status === 'redeemed' ? 'bg-white text-black' :
                             'bg-red-100 text-red-700'
                           }`}>
                             {gc.status}
                           </span>
                         </div>
-                        <p className="text-sm text-gray-500 mt-1">
+                        <p className="text-sm text-black mt-1">
                           {gc.purchaser_client_id === params.id ? 'Purchased by this client' : 'Gift for this client'}
                           {gc.expires_at && ` • Expires ${new Date(gc.expires_at).toLocaleDateString()}`}
                         </p>
                       </div>
                       <div className="text-right">
                         <p className="text-2xl font-bold text-green-600">${(gc.current_balance || 0).toFixed(2)}</p>
-                        <p className="text-xs text-gray-400">of ${(gc.initial_value || gc.initial_amount || 0).toFixed(2)}</p>
+                        <p className="text-xs text-black">of ${(gc.initial_value || gc.initial_amount || 0).toFixed(2)}</p>
                       </div>
                     </div>
                   </div>
@@ -1398,31 +1398,31 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
           </div>
 
           {/* Payments Table */}
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-            <div className="p-5 border-b border-gray-100">
-              <h3 className="font-semibold text-gray-900">Payment History</h3>
+          <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
+            <div className="p-5 border-b border-black">
+              <h3 className="font-semibold text-black">Payment History</h3>
             </div>
             {loadingExtra ? (
               <div className="p-6">
                 {[1, 2, 3].map(i => <Skeleton key={i} className="h-16 mb-2" />)}
               </div>
             ) : payments.length === 0 ? (
-              <div className="p-8 text-center text-gray-500">No payments found</div>
+              <div className="p-8 text-center text-black">No payments found</div>
             ) : (
               <table className="w-full">
-                <thead className="bg-gray-50 border-b border-gray-100">
+                <thead className="bg-white border-b border-black">
                   <tr>
-                    <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Date</th>
-                    <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Method</th>
-                    <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Status</th>
-                    <th className="text-right px-5 py-3 text-sm font-semibold text-gray-900">Amount</th>
+                    <th className="text-left px-5 py-3 text-sm font-semibold text-black">Date</th>
+                    <th className="text-left px-5 py-3 text-sm font-semibold text-black">Method</th>
+                    <th className="text-left px-5 py-3 text-sm font-semibold text-black">Status</th>
+                    <th className="text-right px-5 py-3 text-sm font-semibold text-black">Amount</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
                   {payments.map((payment) => (
-                    <tr key={payment.id} className="hover:bg-gray-50">
-                      <td className="px-5 py-3 font-medium text-gray-900">{formatDate(payment.created_at)}</td>
-                      <td className="px-5 py-3 text-gray-600">{payment.payment_method || 'Card'}</td>
+                    <tr key={payment.id} className="hover:bg-white">
+                      <td className="px-5 py-3 font-medium text-black">{formatDate(payment.created_at)}</td>
+                      <td className="px-5 py-3 text-black">{payment.payment_method || 'Card'}</td>
                       <td className="px-5 py-3">
                         <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">
                           {payment.status || 'completed'}
@@ -1479,10 +1479,10 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
       {showEditModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-100">
+            <div className="p-6 border-b border-black">
               <div className="flex items-center justify-between">
-                <h2 className="text-xl font-bold text-gray-900">Edit Client</h2>
-                <button onClick={() => setShowEditModal(false)} className="text-gray-400 hover:text-gray-600 text-2xl">×</button>
+                <h2 className="text-xl font-bold text-black">Edit Client</h2>
+                <button onClick={() => setShowEditModal(false)} className="text-black hover:text-black text-2xl">×</button>
               </div>
             </div>
             
@@ -1490,93 +1490,93 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
               {/* Basic Info */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                  <label className="block text-sm font-medium text-black mb-1">First Name</label>
                   <input
                     type="text"
                     value={editForm.first_name}
                     onChange={(e) => setEditForm({...editForm, first_name: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                  <label className="block text-sm font-medium text-black mb-1">Last Name</label>
                   <input
                     type="text"
                     value={editForm.last_name}
                     onChange={(e) => setEditForm({...editForm, last_name: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                   />
                 </div>
               </div>
               
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                  <label className="block text-sm font-medium text-black mb-1">Email</label>
                   <input
                     type="email"
                     value={editForm.email}
                     onChange={(e) => setEditForm({...editForm, email: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                  <label className="block text-sm font-medium text-black mb-1">Phone</label>
                   <input
                     type="tel"
                     value={editForm.phone}
                     onChange={(e) => setEditForm({...editForm, phone: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                   />
                 </div>
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Date of Birth</label>
+                <label className="block text-sm font-medium text-black mb-1">Date of Birth</label>
                 <input
                   type="date"
                   value={editForm.date_of_birth}
                   onChange={(e) => setEditForm({...editForm, date_of_birth: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                 />
               </div>
               
               {/* Address */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Address</label>
+                <label className="block text-sm font-medium text-black mb-1">Address</label>
                 <input
                   type="text"
                   value={editForm.address_line1}
                   onChange={(e) => setEditForm({...editForm, address_line1: e.target.value})}
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                 />
               </div>
               
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
+                  <label className="block text-sm font-medium text-black mb-1">City</label>
                   <input
                     type="text"
                     value={editForm.city}
                     onChange={(e) => setEditForm({...editForm, city: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">State</label>
+                  <label className="block text-sm font-medium text-black mb-1">State</label>
                   <input
                     type="text"
                     value={editForm.state}
                     onChange={(e) => setEditForm({...editForm, state: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">ZIP</label>
+                  <label className="block text-sm font-medium text-black mb-1">ZIP</label>
                   <input
                     type="text"
                     value={editForm.postal_code}
                     onChange={(e) => setEditForm({...editForm, postal_code: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                   />
                 </div>
               </div>
@@ -1584,53 +1584,53 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
               {/* Emergency Contact */}
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Emergency Contact Name</label>
+                  <label className="block text-sm font-medium text-black mb-1">Emergency Contact Name</label>
                   <input
                     type="text"
                     value={editForm.emergency_contact_name}
                     onChange={(e) => setEditForm({...editForm, emergency_contact_name: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Emergency Contact Phone</label>
+                  <label className="block text-sm font-medium text-black mb-1">Emergency Contact Phone</label>
                   <input
                     type="tel"
                     value={editForm.emergency_contact_phone}
                     onChange={(e) => setEditForm({...editForm, emergency_contact_phone: e.target.value})}
-                    className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                    className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                   />
                 </div>
               </div>
               
               {/* Medical */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Allergies</label>
+                <label className="block text-sm font-medium text-black mb-1">Allergies</label>
                 <input
                   type="text"
                   value={editForm.allergies_summary}
                   onChange={(e) => setEditForm({...editForm, allergies_summary: e.target.value})}
                   placeholder="e.g., Penicillin, latex"
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                 />
               </div>
               
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Internal Notes</label>
+                <label className="block text-sm font-medium text-black mb-1">Internal Notes</label>
                 <textarea
                   value={editForm.internal_notes}
                   onChange={(e) => setEditForm({...editForm, internal_notes: e.target.value})}
                   rows={3}
                   placeholder="Notes only visible to staff..."
-                  className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-3 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
                 />
               </div>
             </div>
             
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
+            <div className="p-6 border-t border-black flex justify-end gap-3">
               <button
                 onClick={() => setShowEditModal(false)}
-                className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
               >
                 Cancel
               </button>

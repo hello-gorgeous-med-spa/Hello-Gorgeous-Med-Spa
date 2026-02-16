@@ -41,23 +41,23 @@ export default function PortalHistoryPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Treatment History</h1>
-        <p className="text-gray-500">Your complete treatment record</p>
+        <h1 className="text-2xl font-bold text-black">Treatment History</h1>
+        <p className="text-black">Your complete treatment record</p>
       </div>
 
       {/* Summary Stats */}
       <div className="grid grid-cols-3 gap-4 mb-8">
-        <div className="bg-white rounded-xl border border-gray-100 p-4 text-center">
+        <div className="bg-white rounded-xl border border-black p-4 text-center">
           <p className="text-2xl font-bold text-pink-500">{TREATMENT_HISTORY.length}</p>
-          <p className="text-sm text-gray-500">Total Visits</p>
+          <p className="text-sm text-black">Total Visits</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-4 text-center">
+        <div className="bg-white rounded-xl border border-black p-4 text-center">
           <p className="text-2xl font-bold text-pink-500">30</p>
-          <p className="text-sm text-gray-500">Botox Units (YTD)</p>
+          <p className="text-sm text-black">Botox Units (YTD)</p>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-4 text-center">
+        <div className="bg-white rounded-xl border border-black p-4 text-center">
           <p className="text-2xl font-bold text-pink-500">$1,040</p>
-          <p className="text-sm text-gray-500">Total Spent</p>
+          <p className="text-sm text-black">Total Spent</p>
         </div>
       </div>
 
@@ -66,12 +66,12 @@ export default function PortalHistoryPage() {
         {TREATMENT_HISTORY.map((treatment, index) => (
           <div
             key={treatment.id}
-            className="bg-white rounded-xl border border-gray-100 p-6"
+            className="bg-white rounded-xl border border-black p-6"
           >
             <div className="flex items-start justify-between">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="text-sm text-gray-400">
+                  <span className="text-sm text-black">
                     {new Date(treatment.date).toLocaleDateString('en-US', { 
                       month: 'long', 
                       day: 'numeric', 
@@ -84,18 +84,18 @@ export default function PortalHistoryPage() {
                     </span>
                   )}
                 </div>
-                <h3 className="font-semibold text-gray-900 text-lg">{treatment.service}</h3>
-                <p className="text-gray-500 text-sm">{treatment.provider}</p>
+                <h3 className="font-semibold text-black text-lg">{treatment.service}</h3>
+                <p className="text-black text-sm">{treatment.provider}</p>
                 {treatment.units && (
                   <p className="text-sm text-pink-500 mt-1">{treatment.units}</p>
                 )}
                 {treatment.notes && (
-                  <p className="text-sm text-gray-600 mt-3 italic">"{treatment.notes}"</p>
+                  <p className="text-sm text-black mt-3 italic">"{treatment.notes}"</p>
                 )}
               </div>
               <div className="text-right">
                 {treatment.amount > 0 ? (
-                  <p className="font-semibold text-gray-900">${treatment.amount}</p>
+                  <p className="font-semibold text-black">${treatment.amount}</p>
                 ) : (
                   <span className="text-sm text-green-600">Complimentary</span>
                 )}

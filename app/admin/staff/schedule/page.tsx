@@ -291,11 +291,11 @@ export default function ProviderSchedulePage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <Link href="/admin/staff" className="text-sm text-gray-500 hover:text-gray-700 mb-1 inline-block">
+          <Link href="/admin/staff" className="text-sm text-black hover:text-black mb-1 inline-block">
             ← Back to Staff
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900">Schedule Management</h1>
-          <p className="text-gray-500">Working hours, blocked time, holidays & closed days</p>
+          <h1 className="text-2xl font-bold text-black">Schedule Management</h1>
+          <p className="text-black">Working hours, blocked time, holidays & closed days</p>
         </div>
         <div className="flex flex-col items-end gap-1">
           {saveError && (
@@ -314,7 +314,7 @@ export default function ProviderSchedulePage() {
       </div>
 
       {/* Tabs */}
-      <div className="bg-white rounded-xl border border-gray-100 p-1 inline-flex gap-1">
+      <div className="bg-white rounded-xl border border-black p-1 inline-flex gap-1">
         {[
           { id: 'schedule', label: '📅 Weekly Schedule' },
           { id: 'blocked', label: '🚫 Blocked Time' },
@@ -327,7 +327,7 @@ export default function ProviderSchedulePage() {
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               activeTab === tab.id
                 ? 'bg-pink-500 text-white'
-                : 'text-gray-600 hover:bg-gray-100'
+                : 'text-black hover:bg-white'
             }`}
           >
             {tab.label}
@@ -337,9 +337,9 @@ export default function ProviderSchedulePage() {
 
       {/* Provider Selector */}
       {(activeTab === 'schedule' || activeTab === 'blocked') && (
-        <div className="bg-white rounded-xl border border-gray-100 p-4">
+        <div className="bg-white rounded-xl border border-black p-4">
           <div className="flex items-center gap-4">
-            <label className="text-sm font-medium text-gray-700">Select Provider:</label>
+            <label className="text-sm font-medium text-black">Select Provider:</label>
             <div className="flex gap-2">
               {providers.map((provider) => (
                 <button
@@ -348,7 +348,7 @@ export default function ProviderSchedulePage() {
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-colors ${
                     selectedProvider === provider.id
                       ? 'border-pink-500 bg-pink-50 text-pink-700'
-                      : 'border-gray-200 hover:bg-gray-50'
+                      : 'border-black hover:bg-white'
                   }`}
                 >
                   <div
@@ -359,7 +359,7 @@ export default function ProviderSchedulePage() {
                   </div>
                   <div className="text-left">
                     <p className="font-medium">{provider.fullName}</p>
-                    <p className="text-xs text-gray-500">{provider.credentials}</p>
+                    <p className="text-xs text-black">{provider.credentials}</p>
                   </div>
                 </button>
               ))}
@@ -370,11 +370,11 @@ export default function ProviderSchedulePage() {
 
       {/* Weekly Schedule Tab */}
       {activeTab === 'schedule' && currentSchedule && currentProvider && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
-          <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+        <div className="bg-white rounded-xl border border-black shadow-sm">
+          <div className="px-6 py-4 border-b border-black flex items-center justify-between">
             <div>
-              <h2 className="font-semibold text-gray-900">Weekly Schedule</h2>
-              <p className="text-sm text-gray-500">Regular working hours for {currentProvider.displayName}</p>
+              <h2 className="font-semibold text-black">Weekly Schedule</h2>
+              <p className="text-sm text-black">Regular working hours for {currentProvider.displayName}</p>
             </div>
             <button
               onClick={() => copyToAllDays('monday')}
@@ -390,7 +390,7 @@ export default function ProviderSchedulePage() {
                 return (
                   <div key={day} className="flex items-center gap-4 py-3 border-b border-gray-50 last:border-0">
                     <div className="w-32">
-                      <p className="font-medium text-gray-900">{DAY_LABELS[day]}</p>
+                      <p className="font-medium text-black">{DAY_LABELS[day]}</p>
                     </div>
                     
                     <label className="flex items-center gap-2 min-w-[100px]">
@@ -398,9 +398,9 @@ export default function ProviderSchedulePage() {
                         type="checkbox"
                         checked={slot.isOff}
                         onChange={(e) => updateSchedule(day, 'isOff', e.target.checked)}
-                        className="rounded border-gray-300 text-pink-500 focus:ring-pink-500"
+                        className="rounded border-black text-pink-500 focus:ring-pink-500"
                       />
-                      <span className="text-sm text-gray-600">Day Off</span>
+                      <span className="text-sm text-black">Day Off</span>
                     </label>
 
                     {!slot.isOff && (
@@ -408,18 +408,18 @@ export default function ProviderSchedulePage() {
                         <select
                           value={slot.start}
                           onChange={(e) => updateSchedule(day, 'start', e.target.value)}
-                          className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                          className="px-3 py-2 border border-black rounded-lg text-sm"
                         >
                           <option value="">Start time</option>
                           {TIME_OPTIONS.map(t => (
                             <option key={t} value={t}>{formatTime(t)}</option>
                           ))}
                         </select>
-                        <span className="text-gray-400">to</span>
+                        <span className="text-black">to</span>
                         <select
                           value={slot.end}
                           onChange={(e) => updateSchedule(day, 'end', e.target.value)}
-                          className="px-3 py-2 border border-gray-200 rounded-lg text-sm"
+                          className="px-3 py-2 border border-black rounded-lg text-sm"
                         >
                           <option value="">End time</option>
                           {TIME_OPTIONS.map(t => (
@@ -430,7 +430,7 @@ export default function ProviderSchedulePage() {
                     )}
 
                     {slot.isOff && (
-                      <span className="text-gray-400 italic">Not working</span>
+                      <span className="text-black italic">Not working</span>
                     )}
                   </div>
                 );
@@ -442,11 +442,11 @@ export default function ProviderSchedulePage() {
 
       {/* Blocked Time Tab */}
       {activeTab === 'blocked' && currentSchedule && currentProvider && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
-          <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+        <div className="bg-white rounded-xl border border-black shadow-sm">
+          <div className="px-6 py-4 border-b border-black flex items-center justify-between">
             <div>
-              <h2 className="font-semibold text-gray-900">Blocked Time</h2>
-              <p className="text-sm text-gray-500">Time off, meetings, and other blocked periods for {currentProvider.displayName}</p>
+              <h2 className="font-semibold text-black">Blocked Time</h2>
+              <p className="text-sm text-black">Time off, meetings, and other blocked periods for {currentProvider.displayName}</p>
             </div>
             <button
               onClick={() => setShowBlockModal(true)}
@@ -458,7 +458,7 @@ export default function ProviderSchedulePage() {
           <div className="p-6">
             {currentSchedule.blockedTimes.length === 0 ? (
               <div className="text-center py-8">
-                <p className="text-gray-400 mb-2">No blocked time scheduled</p>
+                <p className="text-black mb-2">No blocked time scheduled</p>
                 <button
                   onClick={() => setShowBlockModal(true)}
                   className="text-pink-600 hover:text-pink-700"
@@ -471,7 +471,7 @@ export default function ProviderSchedulePage() {
                 {currentSchedule.blockedTimes.map((block) => (
                   <div
                     key={block.id}
-                    className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+                    className="flex items-center justify-between p-4 bg-white rounded-lg"
                   >
                     <div className="flex items-center gap-4">
                       <div className={`px-3 py-1 rounded-full text-xs font-medium ${
@@ -479,15 +479,15 @@ export default function ProviderSchedulePage() {
                         block.reason === 'lunch' ? 'bg-yellow-100 text-yellow-700' :
                         block.reason === 'meeting' ? 'bg-blue-100 text-blue-700' :
                         block.reason === 'training' ? 'bg-pink-100 text-pink-700' :
-                        'bg-gray-100 text-gray-700'
+                        'bg-white text-black'
                       }`}>
                         {BLOCK_REASONS.find(r => r.id === block.reason)?.label || block.reason}
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">
+                        <p className="font-medium text-black">
                           {new Date(block.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
                         </p>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-black">
                           {block.startTime && block.endTime 
                             ? `${formatTime(block.startTime)} - ${formatTime(block.endTime)}`
                             : 'Full day'}
@@ -511,11 +511,11 @@ export default function ProviderSchedulePage() {
 
       {/* Holidays Tab */}
       {activeTab === 'holidays' && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
-          <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+        <div className="bg-white rounded-xl border border-black shadow-sm">
+          <div className="px-6 py-4 border-b border-black flex items-center justify-between">
             <div>
-              <h2 className="font-semibold text-gray-900">Holidays</h2>
-              <p className="text-sm text-gray-500">Business holidays and modified hours (applies to all providers)</p>
+              <h2 className="font-semibold text-black">Holidays</h2>
+              <p className="text-sm text-black">Business holidays and modified hours (applies to all providers)</p>
             </div>
             <button
               onClick={() => setShowHolidayModal(true)}
@@ -529,7 +529,7 @@ export default function ProviderSchedulePage() {
               {holidays.sort((a, b) => a.date.localeCompare(b.date)).map((holiday) => (
                 <div
                   key={holiday.id}
-                  className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+                  className="flex items-center justify-between p-4 bg-white rounded-lg"
                 >
                   <div className="flex items-center gap-4">
                     <div className={`px-3 py-1 rounded-full text-xs font-medium ${
@@ -540,8 +540,8 @@ export default function ProviderSchedulePage() {
                       {holiday.isClosed ? 'Closed' : 'Modified Hours'}
                     </div>
                     <div>
-                      <p className="font-medium text-gray-900">{holiday.name}</p>
-                      <p className="text-sm text-gray-500">
+                      <p className="font-medium text-black">{holiday.name}</p>
+                      <p className="text-sm text-black">
                         {new Date(holiday.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
                         {holiday.modifiedHours && ` • ${formatTime(holiday.modifiedHours.start)} - ${formatTime(holiday.modifiedHours.end)}`}
                       </p>
@@ -562,11 +562,11 @@ export default function ProviderSchedulePage() {
 
       {/* Closed Days Tab */}
       {activeTab === 'closed' && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm">
-          <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
+        <div className="bg-white rounded-xl border border-black shadow-sm">
+          <div className="px-6 py-4 border-b border-black flex items-center justify-between">
             <div>
-              <h2 className="font-semibold text-gray-900">Closed Days</h2>
-              <p className="text-sm text-gray-500">Days the business is closed (applies to all providers)</p>
+              <h2 className="font-semibold text-black">Closed Days</h2>
+              <p className="text-sm text-black">Days the business is closed (applies to all providers)</p>
             </div>
             <button
               onClick={() => setShowClosedDayModal(true)}
@@ -578,25 +578,25 @@ export default function ProviderSchedulePage() {
           <div className="p-6">
             {closedDays.length === 0 ? (
               <div className="text-center py-8">
-                <p className="text-gray-400 mb-2">No additional closed days scheduled</p>
-                <p className="text-sm text-gray-400">Holidays are shown in the Holidays tab</p>
+                <p className="text-black mb-2">No additional closed days scheduled</p>
+                <p className="text-sm text-black">Holidays are shown in the Holidays tab</p>
               </div>
             ) : (
               <div className="space-y-3">
                 {closedDays.sort((a, b) => a.date.localeCompare(b.date)).map((day) => (
                   <div
                     key={day.date}
-                    className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+                    className="flex items-center justify-between p-4 bg-white rounded-lg"
                   >
                     <div className="flex items-center gap-4">
                       <div className="px-3 py-1 rounded-full text-xs font-medium bg-red-100 text-red-700">
                         Closed
                       </div>
                       <div>
-                        <p className="font-medium text-gray-900">
+                        <p className="font-medium text-black">
                           {new Date(day.date).toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}
                         </p>
-                        {day.reason && <p className="text-sm text-gray-500">{day.reason}</p>}
+                        {day.reason && <p className="text-sm text-black">{day.reason}</p>}
                       </div>
                     </div>
                     <button
@@ -615,7 +615,7 @@ export default function ProviderSchedulePage() {
 
       {/* Schedule Preview */}
       <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-xl border border-blue-100 p-6">
-        <h3 className="font-semibold text-gray-900 mb-4">📅 All Providers - This Week</h3>
+        <h3 className="font-semibold text-black mb-4">📅 All Providers - This Week</h3>
         <div className="space-y-4">
           {providers.map((provider) => {
             const schedule = schedules.find((s) => s.providerId === provider.id);
@@ -630,18 +630,18 @@ export default function ProviderSchedulePage() {
                   >
                     {initials}
                   </div>
-                  <span className="font-medium text-gray-900">{provider.displayName}</span>
+                  <span className="font-medium text-black">{provider.displayName}</span>
                 </div>
                 <div className="grid grid-cols-7 gap-2">
                   {DAYS.map((day) => {
                     const slot = schedule.schedule[day];
                     return (
                       <div key={day} className="text-center">
-                        <p className="text-xs font-medium text-gray-500 mb-1">{DAY_LABELS[day].slice(0, 3)}</p>
+                        <p className="text-xs font-medium text-black mb-1">{DAY_LABELS[day].slice(0, 3)}</p>
                         {slot.isOff ? (
-                          <p className="text-xs text-gray-400">Off</p>
+                          <p className="text-xs text-black">Off</p>
                         ) : (
-                          <p className="text-xs text-gray-900">
+                          <p className="text-xs text-black">
                             {formatTimeShort(slot.start)} - {formatTimeShort(slot.end)}
                           </p>
                         )}
@@ -659,7 +659,7 @@ export default function ProviderSchedulePage() {
       {showBlockModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Block Time for {currentProvider?.displayName ?? 'Provider'}</h2>
+            <h2 className="text-xl font-bold text-black mb-4">Block Time for {currentProvider?.displayName ?? 'Provider'}</h2>
             <form onSubmit={(e) => {
               e.preventDefault();
               const form = e.target as HTMLFormElement;
@@ -674,20 +674,20 @@ export default function ProviderSchedulePage() {
             }}>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Date *</label>
+                  <label className="block text-sm font-medium text-black mb-1">Date *</label>
                   <input
                     type="date"
                     name="blockDate"
                     required
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Reason *</label>
+                  <label className="block text-sm font-medium text-black mb-1">Reason *</label>
                   <select
                     name="reason"
                     required
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   >
                     {BLOCK_REASONS.map(r => (
                       <option key={r.id} value={r.id}>{r.label}</option>
@@ -700,7 +700,7 @@ export default function ProviderSchedulePage() {
                       type="checkbox"
                       name="fullDay"
                       defaultChecked
-                      className="rounded border-gray-300 text-pink-500"
+                      className="rounded border-black text-pink-500"
                       onChange={(e) => {
                         const timeSelects = document.querySelectorAll('.time-select');
                         timeSelects.forEach(el => {
@@ -708,21 +708,21 @@ export default function ProviderSchedulePage() {
                         });
                       }}
                     />
-                    <span className="text-sm text-gray-700">Full Day</span>
+                    <span className="text-sm text-black">Full Day</span>
                   </label>
                 </div>
                 <div className="grid grid-cols-2 gap-4 time-select" style={{ display: 'none' }}>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">Start Time</label>
-                    <select name="startTime" className="w-full px-4 py-2 border border-gray-200 rounded-lg">
+                    <label className="block text-sm font-medium text-black mb-1">Start Time</label>
+                    <select name="startTime" className="w-full px-4 py-2 border border-black rounded-lg">
                       {TIME_OPTIONS.map(t => (
                         <option key={t} value={t}>{formatTime(t)}</option>
                       ))}
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-1">End Time</label>
-                    <select name="endTime" className="w-full px-4 py-2 border border-gray-200 rounded-lg">
+                    <label className="block text-sm font-medium text-black mb-1">End Time</label>
+                    <select name="endTime" className="w-full px-4 py-2 border border-black rounded-lg">
                       {TIME_OPTIONS.map(t => (
                         <option key={t} value={t}>{formatTime(t)}</option>
                       ))}
@@ -730,12 +730,12 @@ export default function ProviderSchedulePage() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Notes (optional)</label>
+                  <label className="block text-sm font-medium text-black mb-1">Notes (optional)</label>
                   <input
                     type="text"
                     name="notes"
                     placeholder="e.g., Vacation, Doctor appointment"
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
               </div>
@@ -743,7 +743,7 @@ export default function ProviderSchedulePage() {
                 <button
                   type="button"
                   onClick={() => setShowBlockModal(false)}
-                  className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                  className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
                 >
                   Cancel
                 </button>
@@ -763,7 +763,7 @@ export default function ProviderSchedulePage() {
       {showHolidayModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Add Holiday</h2>
+            <h2 className="text-xl font-bold text-black mb-4">Add Holiday</h2>
             <form onSubmit={(e) => {
               e.preventDefault();
               const form = e.target as HTMLFormElement;
@@ -775,22 +775,22 @@ export default function ProviderSchedulePage() {
             }}>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Holiday Name *</label>
+                  <label className="block text-sm font-medium text-black mb-1">Holiday Name *</label>
                   <input
                     type="text"
                     name="holidayName"
                     required
                     placeholder="e.g., Christmas Day"
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Date *</label>
+                  <label className="block text-sm font-medium text-black mb-1">Date *</label>
                   <input
                     type="date"
                     name="holidayDate"
                     required
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
                 <div>
@@ -799,9 +799,9 @@ export default function ProviderSchedulePage() {
                       type="checkbox"
                       name="isClosed"
                       defaultChecked
-                      className="rounded border-gray-300 text-pink-500"
+                      className="rounded border-black text-pink-500"
                     />
-                    <span className="text-sm text-gray-700">Business Closed</span>
+                    <span className="text-sm text-black">Business Closed</span>
                   </label>
                 </div>
               </div>
@@ -809,7 +809,7 @@ export default function ProviderSchedulePage() {
                 <button
                   type="button"
                   onClick={() => setShowHolidayModal(false)}
-                  className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                  className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
                 >
                   Cancel
                 </button>
@@ -829,7 +829,7 @@ export default function ProviderSchedulePage() {
       {showClosedDayModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-md w-full p-6">
-            <h2 className="text-xl font-bold text-gray-900 mb-4">Add Closed Day</h2>
+            <h2 className="text-xl font-bold text-black mb-4">Add Closed Day</h2>
             <form onSubmit={(e) => {
               e.preventDefault();
               const form = e.target as HTMLFormElement;
@@ -840,21 +840,21 @@ export default function ProviderSchedulePage() {
             }}>
               <div className="space-y-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Date *</label>
+                  <label className="block text-sm font-medium text-black mb-1">Date *</label>
                   <input
                     type="date"
                     name="closedDate"
                     required
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Reason (optional)</label>
+                  <label className="block text-sm font-medium text-black mb-1">Reason (optional)</label>
                   <input
                     type="text"
                     name="closedReason"
                     placeholder="e.g., Team training, Maintenance"
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
               </div>
@@ -862,7 +862,7 @@ export default function ProviderSchedulePage() {
                 <button
                   type="button"
                   onClick={() => setShowClosedDayModal(false)}
-                  className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg"
+                  className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg"
                 >
                   Cancel
                 </button>

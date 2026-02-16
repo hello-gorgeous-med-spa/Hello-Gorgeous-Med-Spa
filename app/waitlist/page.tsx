@@ -60,8 +60,8 @@ export default function WaitlistPage() {
       <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white flex items-center justify-center px-4">
         <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
           <span className="text-5xl mb-4 block">🎉</span>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">You're on the Waitlist!</h1>
-          <p className="text-gray-600 mb-6">
+          <h1 className="text-2xl font-bold text-black mb-2">You're on the Waitlist!</h1>
+          <p className="text-black mb-6">
             We'll notify you as soon as a spot opens up for your preferred service. 
             You'll have 30 minutes to confirm your booking once notified.
           </p>
@@ -74,7 +74,7 @@ export default function WaitlistPage() {
             </Link>
             <Link
               href="/"
-              className="block w-full px-6 py-3 border border-gray-200 text-gray-700 font-medium rounded-lg hover:bg-gray-50"
+              className="block w-full px-6 py-3 border border-black text-black font-medium rounded-lg hover:bg-white"
             >
               Return Home
             </Link>
@@ -88,8 +88,8 @@ export default function WaitlistPage() {
     <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white py-12 px-4">
       <div className="max-w-lg mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Join the Waitlist</h1>
-          <p className="text-gray-600">
+          <h1 className="text-3xl font-bold text-black mb-2">Join the Waitlist</h1>
+          <p className="text-black">
             Can't find your preferred time? Join our waitlist and we'll notify you 
             when a spot opens up.
           </p>
@@ -99,58 +99,58 @@ export default function WaitlistPage() {
           {/* Contact Info */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">First Name *</label>
+              <label className="block text-sm font-medium text-black mb-1">First Name *</label>
               <input
                 type="text"
                 required
                 value={formData.firstName}
                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                className="w-full px-4 py-2 border border-black rounded-lg"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Last Name *</label>
+              <label className="block text-sm font-medium text-black mb-1">Last Name *</label>
               <input
                 type="text"
                 required
                 value={formData.lastName}
                 onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                className="w-full px-4 py-2 border border-black rounded-lg"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email *</label>
+            <label className="block text-sm font-medium text-black mb-1">Email *</label>
             <input
               type="email"
               required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+              className="w-full px-4 py-2 border border-black rounded-lg"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Phone *</label>
+            <label className="block text-sm font-medium text-black mb-1">Phone *</label>
             <input
               type="tel"
               required
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+              className="w-full px-4 py-2 border border-black rounded-lg"
               placeholder="(630) 555-1234"
             />
           </div>
 
           {/* Service Selection */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Service *</label>
+            <label className="block text-sm font-medium text-black mb-1">Service *</label>
             <select
               required
               value={formData.serviceId}
               onChange={(e) => setFormData({ ...formData, serviceId: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+              className="w-full px-4 py-2 border border-black rounded-lg"
             >
               <option value="">Select a service...</option>
               {services.map(s => (
@@ -160,11 +160,11 @@ export default function WaitlistPage() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Provider Preference</label>
+            <label className="block text-sm font-medium text-black mb-1">Provider Preference</label>
             <select
               value={formData.providerId}
               onChange={(e) => setFormData({ ...formData, providerId: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+              className="w-full px-4 py-2 border border-black rounded-lg"
             >
               {providers.map(p => (
                 <option key={p.id} value={p.id}>{p.name}</option>
@@ -174,22 +174,22 @@ export default function WaitlistPage() {
 
           {/* Date Preferences */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Preferred Date</label>
+            <label className="block text-sm font-medium text-black mb-1">Preferred Date</label>
             <input
               type="date"
               value={formData.preferredDate}
               onChange={(e) => setFormData({ ...formData, preferredDate: e.target.value })}
               min={new Date().toISOString().split('T')[0]}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+              className="w-full px-4 py-2 border border-black rounded-lg"
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Preferred Time</label>
+            <label className="block text-sm font-medium text-black mb-1">Preferred Time</label>
             <select
               value={formData.preferredTimeRange}
               onChange={(e) => setFormData({ ...formData, preferredTimeRange: e.target.value as any })}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+              className="w-full px-4 py-2 border border-black rounded-lg"
             >
               <option value="any">Any time</option>
               <option value="morning">Morning (before 12pm)</option>
@@ -204,15 +204,15 @@ export default function WaitlistPage() {
               onChange={(e) => setFormData({ ...formData, flexibleDates: e.target.checked })}
               className="rounded text-pink-500"
             />
-            <span className="text-sm text-gray-700">I'm flexible on dates (notify me of any openings)</span>
+            <span className="text-sm text-black">I'm flexible on dates (notify me of any openings)</span>
           </label>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Notes (optional)</label>
+            <label className="block text-sm font-medium text-black mb-1">Notes (optional)</label>
             <textarea
               value={formData.notes}
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+              className="w-full px-4 py-2 border border-black rounded-lg"
               rows={2}
               placeholder="Any special requests or notes..."
             />
@@ -226,7 +226,7 @@ export default function WaitlistPage() {
             {isSubmitting ? 'Joining...' : 'Join Waitlist'}
           </button>
 
-          <p className="text-xs text-gray-500 text-center">
+          <p className="text-xs text-black text-center">
             When a spot opens up, you'll receive an email and text. 
             You'll have 30 minutes to confirm before we notify the next person.
           </p>

@@ -82,28 +82,28 @@ function InboxContent() {
   });
 
   return (
-    <div className="flex h-[calc(100vh-120px)] bg-white rounded-xl border border-gray-200 overflow-hidden">
+    <div className="flex h-[calc(100vh-120px)] bg-white rounded-xl border border-black overflow-hidden">
       {/* Client List Sidebar */}
-      <div className="w-80 border-r border-gray-200 flex flex-col">
+      <div className="w-80 border-r border-black flex flex-col">
         {/* Header */}
-        <div className="p-4 border-b border-gray-200">
-          <h1 className="text-xl font-bold text-gray-900 flex items-center gap-2">
+        <div className="p-4 border-b border-black">
+          <h1 className="text-xl font-bold text-black flex items-center gap-2">
             <span>💬</span> Messages
           </h1>
-          <p className="text-sm text-gray-500 mt-1">SMS conversations with clients</p>
+          <p className="text-sm text-black mt-1">SMS conversations with clients</p>
         </div>
 
         {/* Search */}
-        <div className="p-3 border-b border-gray-100">
+        <div className="p-3 border-b border-black">
           <div className="relative">
             <input
               type="text"
               placeholder="Search clients..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full pl-9 pr-4 py-2 border border-black rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
             />
-            <svg className="absolute left-3 top-2.5 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="absolute left-3 top-2.5 w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
@@ -116,7 +116,7 @@ function InboxContent() {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500"></div>
             </div>
           ) : filteredClients.length === 0 ? (
-            <div className="p-4 text-center text-gray-500 text-sm">
+            <div className="p-4 text-center text-black text-sm">
               {searchQuery ? 'No clients found' : 'No clients yet'}
             </div>
           ) : (
@@ -125,7 +125,7 @@ function InboxContent() {
                 <button
                   key={client.id}
                   onClick={() => setSelectedClient(client)}
-                  className={`w-full p-4 text-left hover:bg-gray-50 transition-colors ${
+                  className={`w-full p-4 text-left hover:bg-white transition-colors ${
                     selectedClient?.id === client.id ? 'bg-pink-50 border-l-4 border-l-pink-500' : ''
                   }`}
                 >
@@ -134,10 +134,10 @@ function InboxContent() {
                       {client.first_name?.[0]}{client.last_name?.[0]}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-gray-900 truncate">
+                      <p className="font-medium text-black truncate">
                         {client.first_name} {client.last_name}
                       </p>
-                      <p className="text-xs text-gray-500 truncate">
+                      <p className="text-xs text-black truncate">
                         {client.phone || client.email || 'No contact info'}
                       </p>
                     </div>
@@ -159,16 +159,16 @@ function InboxContent() {
         {selectedClient ? (
           <>
             {/* Chat Header */}
-            <div className="p-4 border-b border-gray-200 flex items-center justify-between bg-gray-50">
+            <div className="p-4 border-b border-black flex items-center justify-between bg-white">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-medium">
                   {selectedClient.first_name?.[0]}{selectedClient.last_name?.[0]}
                 </div>
                 <div>
-                  <h2 className="font-semibold text-gray-900">
+                  <h2 className="font-semibold text-black">
                     {selectedClient.first_name} {selectedClient.last_name}
                   </h2>
-                  <p className="text-sm text-gray-500">{selectedClient.phone}</p>
+                  <p className="text-sm text-black">{selectedClient.phone}</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -181,7 +181,7 @@ function InboxContent() {
                 {selectedClient.phone && (
                   <a
                     href={`tel:${selectedClient.phone}`}
-                    className="p-2 text-gray-500 hover:bg-gray-100 rounded-lg transition-colors"
+                    className="p-2 text-black hover:bg-white rounded-lg transition-colors"
                     title="Call"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -202,15 +202,15 @@ function InboxContent() {
             </div>
           </>
         ) : (
-          <div className="flex-1 flex items-center justify-center bg-gray-50">
+          <div className="flex-1 flex items-center justify-center bg-white">
             <div className="text-center">
-              <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center mx-auto mb-4">
-                <svg className="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-20 h-20 rounded-full bg-white flex items-center justify-center mx-auto mb-4">
+                <svg className="w-10 h-10 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
               </div>
-              <h3 className="text-lg font-medium text-gray-900">Select a conversation</h3>
-              <p className="text-sm text-gray-500 mt-1">
+              <h3 className="text-lg font-medium text-black">Select a conversation</h3>
+              <p className="text-sm text-black mt-1">
                 Choose a client from the list to start messaging
               </p>
             </div>
@@ -224,21 +224,21 @@ function InboxContent() {
 // Loading fallback for Suspense
 function InboxLoading() {
   return (
-    <div className="flex h-[calc(100vh-120px)] bg-white rounded-xl border border-gray-200 overflow-hidden">
-      <div className="w-80 border-r border-gray-200 flex flex-col">
-        <div className="p-4 border-b border-gray-200">
-          <div className="h-6 w-32 bg-gray-200 rounded animate-pulse"></div>
+    <div className="flex h-[calc(100vh-120px)] bg-white rounded-xl border border-black overflow-hidden">
+      <div className="w-80 border-r border-black flex flex-col">
+        <div className="p-4 border-b border-black">
+          <div className="h-6 w-32 bg-white rounded animate-pulse"></div>
         </div>
         <div className="p-3">
-          <div className="h-10 bg-gray-100 rounded-lg animate-pulse"></div>
+          <div className="h-10 bg-white rounded-lg animate-pulse"></div>
         </div>
         <div className="flex-1 p-4 space-y-3">
           {[1, 2, 3, 4, 5].map(i => (
             <div key={i} className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gray-200 animate-pulse"></div>
+              <div className="w-10 h-10 rounded-full bg-white animate-pulse"></div>
               <div className="flex-1">
-                <div className="h-4 w-24 bg-gray-200 rounded animate-pulse mb-1"></div>
-                <div className="h-3 w-32 bg-gray-100 rounded animate-pulse"></div>
+                <div className="h-4 w-24 bg-white rounded animate-pulse mb-1"></div>
+                <div className="h-3 w-32 bg-white rounded animate-pulse"></div>
               </div>
             </div>
           ))}

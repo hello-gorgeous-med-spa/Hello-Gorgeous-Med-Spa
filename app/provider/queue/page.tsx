@@ -159,8 +159,8 @@ export default function PatientQueuePage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Patient Queue</h1>
-          <p className="text-gray-500">Manage waiting room and patient flow</p>
+          <h1 className="text-2xl font-bold text-black">Patient Queue</h1>
+          <p className="text-black">Manage waiting room and patient flow</p>
         </div>
         <div className="flex items-center gap-2">
           <span className="flex items-center gap-2 px-3 py-1.5 bg-green-100 text-green-700 rounded-full text-sm font-medium">
@@ -172,40 +172,40 @@ export default function PatientQueuePage() {
 
       {/* Queue Stats */}
       <div className="grid grid-cols-3 gap-4">
-        <div className="bg-white rounded-xl border border-gray-100 p-5">
+        <div className="bg-white rounded-xl border border-black p-5">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center">
               <span className="text-2xl">👥</span>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Waiting</p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-sm text-black">Waiting</p>
+              <p className="text-2xl font-bold text-black">
                 {queue.filter(p => p.status === 'checked_in').length}
               </p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-5">
+        <div className="bg-white rounded-xl border border-black p-5">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
               <span className="text-2xl">⚡</span>
             </div>
             <div>
-              <p className="text-sm text-gray-500">In Treatment</p>
-              <p className="text-2xl font-bold text-gray-900">
+              <p className="text-sm text-black">In Treatment</p>
+              <p className="text-2xl font-bold text-black">
                 {queue.filter(p => p.status === 'in_progress').length}
               </p>
             </div>
           </div>
         </div>
-        <div className="bg-white rounded-xl border border-gray-100 p-5">
+        <div className="bg-white rounded-xl border border-black p-5">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
               <span className="text-2xl">🕐</span>
             </div>
             <div>
-              <p className="text-sm text-gray-500">Arriving Soon</p>
-              <p className="text-2xl font-bold text-gray-900">{confirmedUpcoming.length}</p>
+              <p className="text-sm text-black">Arriving Soon</p>
+              <p className="text-2xl font-bold text-black">{confirmedUpcoming.length}</p>
             </div>
           </div>
         </div>
@@ -213,9 +213,9 @@ export default function PatientQueuePage() {
 
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Current Queue */}
-        <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-100 bg-green-50">
-            <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+        <div className="bg-white rounded-xl border border-black overflow-hidden">
+          <div className="px-5 py-4 border-b border-black bg-green-50">
+            <h2 className="font-semibold text-black flex items-center gap-2">
               <span className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
               Checked In / In Treatment
             </h2>
@@ -224,7 +224,7 @@ export default function PatientQueuePage() {
           {queue.length === 0 ? (
             <div className="p-8 text-center">
               <span className="text-4xl block mb-2">🪑</span>
-              <p className="text-gray-500">Waiting room is empty</p>
+              <p className="text-black">Waiting room is empty</p>
             </div>
           ) : (
             <div className="divide-y divide-gray-100">
@@ -245,8 +245,8 @@ export default function PatientQueuePage() {
                           {idx + 1}
                         </div>
                         <div>
-                          <p className="font-semibold text-gray-900">{patient.client_name}</p>
-                          <p className="text-sm text-gray-500">{patient.service_name}</p>
+                          <p className="font-semibold text-black">{patient.client_name}</p>
+                          <p className="text-sm text-black">{patient.service_name}</p>
                         </div>
                       </div>
                       <div className="text-right">
@@ -256,7 +256,7 @@ export default function PatientQueuePage() {
                         }`}>
                           {patient.status === 'in_progress' ? 'In Treatment' : `Waiting ${waitTime}m`}
                         </p>
-                        <p className="text-xs text-gray-400">
+                        <p className="text-xs text-black">
                           Appt: {formatTime(patient.starts_at)}
                         </p>
                       </div>
@@ -274,7 +274,7 @@ export default function PatientQueuePage() {
                           </Link>
                           <Link
                             href={`/provider/patients?id=${patient.id}`}
-                            className="px-3 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200"
+                            className="px-3 py-2 bg-white text-black text-sm font-medium rounded-lg hover:bg-white"
                           >
                             View
                           </Link>
@@ -305,9 +305,9 @@ export default function PatientQueuePage() {
         </div>
 
         {/* Arriving Soon */}
-        <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-          <div className="px-5 py-4 border-b border-gray-100 bg-blue-50">
-            <h2 className="font-semibold text-gray-900 flex items-center gap-2">
+        <div className="bg-white rounded-xl border border-black overflow-hidden">
+          <div className="px-5 py-4 border-b border-black bg-blue-50">
+            <h2 className="font-semibold text-black flex items-center gap-2">
               <span className="text-lg">🕐</span>
               Arriving Soon
             </h2>
@@ -316,7 +316,7 @@ export default function PatientQueuePage() {
           {confirmedUpcoming.length === 0 ? (
             <div className="p-8 text-center">
               <span className="text-4xl block mb-2">📅</span>
-              <p className="text-gray-500">No upcoming appointments</p>
+              <p className="text-black">No upcoming appointments</p>
             </div>
           ) : (
             <div className="divide-y divide-gray-100">
@@ -331,19 +331,19 @@ export default function PatientQueuePage() {
                   <div key={patient.id} className={`p-4 ${isLate ? 'bg-red-50' : isArriving ? 'bg-blue-50' : ''}`}>
                     <div className="flex items-center justify-between mb-3">
                       <div>
-                        <p className="font-semibold text-gray-900">{patient.client_name}</p>
-                        <p className="text-sm text-gray-500">{patient.service_name}</p>
+                        <p className="font-semibold text-black">{patient.client_name}</p>
+                        <p className="text-sm text-black">{patient.service_name}</p>
                       </div>
                       <div className="text-right">
                         <p className={`text-lg font-bold ${
                           isLate ? 'text-red-600' : 
-                          isArriving ? 'text-blue-600' : 'text-gray-900'
+                          isArriving ? 'text-blue-600' : 'text-black'
                         }`}>
                           {formatTime(patient.starts_at)}
                         </p>
                         <p className={`text-xs ${
                           isLate ? 'text-red-500' : 
-                          isArriving ? 'text-blue-500' : 'text-gray-500'
+                          isArriving ? 'text-blue-500' : 'text-black'
                         }`}>
                           {isLate ? `${Math.abs(minutesUntil)}m late` :
                            minutesUntil <= 0 ? 'Now' :
@@ -369,7 +369,7 @@ export default function PatientQueuePage() {
                       )}
                       <Link
                         href={`/provider/patients?id=${patient.id}`}
-                        className="px-3 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200"
+                        className="px-3 py-2 bg-white text-black text-sm font-medium rounded-lg hover:bg-white"
                       >
                         View
                       </Link>
@@ -383,9 +383,9 @@ export default function PatientQueuePage() {
       </div>
 
       {/* Room Status */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100">
-          <h2 className="font-semibold text-gray-900">Room Status</h2>
+      <div className="bg-white rounded-xl border border-black overflow-hidden">
+        <div className="px-5 py-4 border-b border-black">
+          <h2 className="font-semibold text-black">Room Status</h2>
         </div>
         <div className="grid md:grid-cols-3 gap-4 p-5">
           {ROOMS.map((room) => {
@@ -403,7 +403,7 @@ export default function PatientQueuePage() {
                 <div className="flex items-center gap-3 mb-3">
                   <span className="text-2xl">{room.icon}</span>
                   <div>
-                    <p className="font-semibold text-gray-900">{room.name}</p>
+                    <p className="font-semibold text-black">{room.name}</p>
                     <p className={`text-sm ${occupant ? 'text-pink-600' : 'text-green-600'}`}>
                       {occupant ? 'Occupied' : 'Available'}
                     </p>
@@ -412,8 +412,8 @@ export default function PatientQueuePage() {
                 
                 {occupant ? (
                   <div className="p-3 bg-white rounded-lg">
-                    <p className="font-medium text-gray-900">{occupant.client_name}</p>
-                    <p className="text-sm text-gray-500">{occupant.service_name}</p>
+                    <p className="font-medium text-black">{occupant.client_name}</p>
+                    <p className="text-sm text-black">{occupant.service_name}</p>
                   </div>
                 ) : (
                   <p className="text-sm text-green-700">Ready for next patient</p>

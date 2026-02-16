@@ -191,8 +191,8 @@ export default function PromotionsPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Promotions & Coupons</h1>
-          <p className="text-gray-500">Create and manage discount codes</p>
+          <h1 className="text-2xl font-bold text-black">Promotions & Coupons</h1>
+          <p className="text-black">Create and manage discount codes</p>
         </div>
         <button
           onClick={() => { resetForm(); setEditing(null); setShowModal(true); }}
@@ -211,21 +211,21 @@ export default function PromotionsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Total Promotions</p>
-          <p className="text-2xl font-bold text-gray-900">{promotions.length}</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Total Promotions</p>
+          <p className="text-2xl font-bold text-black">{promotions.length}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Active</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Active</p>
           <p className="text-2xl font-bold text-green-600">{activeCount}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Total Uses</p>
-          <p className="text-2xl font-bold text-gray-900">{totalUsage}</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Total Uses</p>
+          <p className="text-2xl font-bold text-black">{totalUsage}</p>
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Expired/Inactive</p>
-          <p className="text-2xl font-bold text-gray-400">{promotions.length - activeCount}</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Expired/Inactive</p>
+          <p className="text-2xl font-bold text-black">{promotions.length - activeCount}</p>
         </div>
       </div>
 
@@ -234,7 +234,7 @@ export default function PromotionsPage() {
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value as any)}
-          className="px-4 py-2 border border-gray-200 rounded-lg"
+          className="px-4 py-2 border border-black rounded-lg"
         >
           <option value="all">All Promotions</option>
           <option value="active">Active Only</option>
@@ -243,11 +243,11 @@ export default function PromotionsPage() {
       </div>
 
       {/* Promotions List */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
+      <div className="bg-white rounded-xl border border-black overflow-hidden">
         {loading ? (
-          <div className="p-8 text-center text-gray-500">Loading promotions...</div>
+          <div className="p-8 text-center text-black">Loading promotions...</div>
         ) : promotions.length === 0 ? (
-          <div className="p-12 text-center text-gray-500">
+          <div className="p-12 text-center text-black">
             <span className="text-4xl block mb-4">🏷️</span>
             <p>No promotions yet</p>
             <button
@@ -260,46 +260,46 @@ export default function PromotionsPage() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full">
-              <thead className="bg-gray-50 border-b border-gray-100">
+              <thead className="bg-white border-b border-black">
                 <tr>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Code</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Name</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Discount</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Usage</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Valid</th>
-                  <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Status</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Code</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Name</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Discount</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Usage</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Valid</th>
+                  <th className="text-left px-5 py-3 text-sm font-semibold text-black">Status</th>
                   <th className="px-5 py-3"></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
                 {promotions.map(promo => (
-                  <tr key={promo.id} className="hover:bg-gray-50">
+                  <tr key={promo.id} className="hover:bg-white">
                     <td className="px-5 py-4">
                       <span className="font-mono text-sm font-semibold text-pink-600 bg-pink-50 px-2 py-1 rounded">
                         {promo.code}
                       </span>
                     </td>
                     <td className="px-5 py-4">
-                      <p className="font-medium text-gray-900">{promo.name}</p>
+                      <p className="font-medium text-black">{promo.name}</p>
                       {promo.description && (
-                        <p className="text-xs text-gray-500">{promo.description}</p>
+                        <p className="text-xs text-black">{promo.description}</p>
                       )}
                     </td>
                     <td className="px-5 py-4">
-                      <span className="font-semibold text-gray-900">
+                      <span className="font-semibold text-black">
                         {promo.discount_type === 'percentage' ? `${promo.discount_value}%` : `$${promo.discount_value}`}
                       </span>
                       {promo.min_purchase > 0 && (
-                        <p className="text-xs text-gray-500">Min ${promo.min_purchase}</p>
+                        <p className="text-xs text-black">Min ${promo.min_purchase}</p>
                       )}
                     </td>
                     <td className="px-5 py-4">
-                      <span className="text-gray-900">{promo.usage_count}</span>
+                      <span className="text-black">{promo.usage_count}</span>
                       {promo.usage_limit && (
-                        <span className="text-gray-500">/{promo.usage_limit}</span>
+                        <span className="text-black">/{promo.usage_limit}</span>
                       )}
                     </td>
-                    <td className="px-5 py-4 text-sm text-gray-600">
+                    <td className="px-5 py-4 text-sm text-black">
                       {promo.start_date || promo.end_date ? (
                         <>
                           {promo.start_date && new Date(promo.start_date).toLocaleDateString()}
@@ -314,7 +314,7 @@ export default function PromotionsPage() {
                       <button
                         onClick={() => toggleActive(promo)}
                         className={`px-2 py-1 text-xs font-medium rounded-full ${
-                          isPromoActive(promo) ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'
+                          isPromoActive(promo) ? 'bg-green-100 text-green-700' : 'bg-white text-black'
                         }`}
                       >
                         {isPromoActive(promo) ? 'Active' : 'Inactive'}
@@ -324,7 +324,7 @@ export default function PromotionsPage() {
                       <div className="flex items-center gap-1">
                         <button
                           onClick={() => openEdit(promo)}
-                          className="px-2 py-1 text-sm text-gray-600 hover:bg-gray-100 rounded"
+                          className="px-2 py-1 text-sm text-black hover:bg-white rounded"
                         >
                           Edit
                         </button>
@@ -348,53 +348,53 @@ export default function PromotionsPage() {
       {showModal && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-xl max-w-lg w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6 border-b border-gray-100">
-              <h2 className="text-xl font-bold text-gray-900">{editing ? 'Edit Promotion' : 'Create Promotion'}</h2>
+            <div className="p-6 border-b border-black">
+              <h2 className="text-xl font-bold text-black">{editing ? 'Edit Promotion' : 'Create Promotion'}</h2>
             </div>
             <div className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Promotion Name *</label>
+                <label className="block text-sm font-medium text-black mb-1">Promotion Name *</label>
                 <input
                   type="text"
                   value={form.name}
                   onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   placeholder="e.g., Valentine's Day 20% Off"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Promo Code</label>
+                <label className="block text-sm font-medium text-black mb-1">Promo Code</label>
                 <input
                   type="text"
                   value={form.code}
                   onChange={(e) => setForm({ ...form, code: e.target.value.toUpperCase() })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg font-mono"
+                  className="w-full px-4 py-2 border border-black rounded-lg font-mono"
                   placeholder="Auto-generated if empty"
                   disabled={!!editing}
                 />
-                <p className="text-xs text-gray-500 mt-1">Leave empty to auto-generate a code</p>
+                <p className="text-xs text-black mt-1">Leave empty to auto-generate a code</p>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Discount Type</label>
+                  <label className="block text-sm font-medium text-black mb-1">Discount Type</label>
                   <select
                     value={form.discount_type}
                     onChange={(e) => setForm({ ...form, discount_type: e.target.value as any })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   >
                     <option value="percentage">Percentage (%)</option>
                     <option value="fixed">Fixed Amount ($)</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Discount Value *</label>
+                  <label className="block text-sm font-medium text-black mb-1">Discount Value *</label>
                   <input
                     type="number"
                     value={form.discount_value}
                     onChange={(e) => setForm({ ...form, discount_value: parseInt(e.target.value) || 0 })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                     placeholder={form.discount_type === 'percentage' ? 'e.g., 20' : 'e.g., 50'}
                   />
                 </div>
@@ -402,22 +402,22 @@ export default function PromotionsPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Min Purchase ($)</label>
+                  <label className="block text-sm font-medium text-black mb-1">Min Purchase ($)</label>
                   <input
                     type="number"
                     value={form.min_purchase || ''}
                     onChange={(e) => setForm({ ...form, min_purchase: parseInt(e.target.value) || 0 })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                     placeholder="0 = no minimum"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Usage Limit</label>
+                  <label className="block text-sm font-medium text-black mb-1">Usage Limit</label>
                   <input
                     type="number"
                     value={form.usage_limit}
                     onChange={(e) => setForm({ ...form, usage_limit: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                     placeholder="Unlimited if empty"
                   />
                 </div>
@@ -425,38 +425,38 @@ export default function PromotionsPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+                  <label className="block text-sm font-medium text-black mb-1">Start Date</label>
                   <input
                     type="date"
                     value={form.start_date}
                     onChange={(e) => setForm({ ...form, start_date: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+                  <label className="block text-sm font-medium text-black mb-1">End Date</label>
                   <input
                     type="date"
                     value={form.end_date}
                     onChange={(e) => setForm({ ...form, end_date: e.target.value })}
-                    className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                    className="w-full px-4 py-2 border border-black rounded-lg"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Description</label>
+                <label className="block text-sm font-medium text-black mb-1">Description</label>
                 <textarea
                   value={form.description}
                   onChange={(e) => setForm({ ...form, description: e.target.value })}
-                  className="w-full px-4 py-2 border border-gray-200 rounded-lg"
+                  className="w-full px-4 py-2 border border-black rounded-lg"
                   rows={2}
                   placeholder="Internal notes or terms..."
                 />
               </div>
             </div>
-            <div className="p-6 border-t border-gray-100 flex justify-end gap-3">
-              <button onClick={() => { setShowModal(false); setEditing(null); }} className="px-4 py-2 text-gray-700 font-medium hover:bg-gray-100 rounded-lg">Cancel</button>
+            <div className="p-6 border-t border-black flex justify-end gap-3">
+              <button onClick={() => { setShowModal(false); setEditing(null); }} className="px-4 py-2 text-black font-medium hover:bg-white rounded-lg">Cancel</button>
               <button
                 onClick={handleSave}
                 disabled={saving || !form.name || !form.discount_value}

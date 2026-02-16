@@ -123,8 +123,8 @@ export default function GiftCardSettingsPage() {
     return (
       <OwnerLayout title="Gift Card Settings" description="Loading...">
         <div className="animate-pulse space-y-4">
-          <div className="h-20 bg-gray-200 rounded"></div>
-          <div className="h-40 bg-gray-200 rounded"></div>
+          <div className="h-20 bg-white rounded"></div>
+          <div className="h-40 bg-white rounded"></div>
         </div>
       </OwnerLayout>
     );
@@ -146,11 +146,11 @@ export default function GiftCardSettingsPage() {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="text-lg font-bold">Gift Cards {settings.enabled ? 'ENABLED' : 'DISABLED'}</h2>
-                <p className="text-sm text-gray-600">Master switch for all gift card functionality</p>
+                <p className="text-sm text-black">Master switch for all gift card functionality</p>
               </div>
               <button
                 onClick={() => handleToggle('enabled')}
-                className={`w-14 h-8 rounded-full transition-colors ${settings.enabled ? 'bg-green-500' : 'bg-gray-300'}`}
+                className={`w-14 h-8 rounded-full transition-colors ${settings.enabled ? 'bg-green-500' : 'bg-white'}`}
               >
                 <div className={`w-6 h-6 bg-white rounded-full shadow transform transition-transform ${settings.enabled ? 'translate-x-7' : 'translate-x-1'}`} />
               </button>
@@ -164,11 +164,11 @@ export default function GiftCardSettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">Online Purchase</p>
-                  <p className="text-sm text-gray-500">Allow gift cards to be purchased on website</p>
+                  <p className="text-sm text-black">Allow gift cards to be purchased on website</p>
                 </div>
                 <button
                   onClick={() => handleToggle('allow_online_purchase')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_online_purchase ? 'bg-pink-500' : 'bg-gray-300'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_online_purchase ? 'bg-pink-500' : 'bg-white'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.allow_online_purchase ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -176,11 +176,11 @@ export default function GiftCardSettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">POS Purchase</p>
-                  <p className="text-sm text-gray-500">Allow gift cards to be sold in-spa</p>
+                  <p className="text-sm text-black">Allow gift cards to be sold in-spa</p>
                 </div>
                 <button
                   onClick={() => handleToggle('allow_pos_purchase')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_pos_purchase ? 'bg-pink-500' : 'bg-gray-300'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_pos_purchase ? 'bg-pink-500' : 'bg-white'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.allow_pos_purchase ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -193,7 +193,7 @@ export default function GiftCardSettingsPage() {
             <h3 className="font-semibold mb-4">Purchase Amounts</h3>
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
-                <label className="block text-sm text-gray-500 mb-1">Minimum Amount</label>
+                <label className="block text-sm text-black mb-1">Minimum Amount</label>
                 <input
                   type="number"
                   value={settings.min_purchase_amount}
@@ -203,7 +203,7 @@ export default function GiftCardSettingsPage() {
                 />
               </div>
               <div>
-                <label className="block text-sm text-gray-500 mb-1">Maximum Amount</label>
+                <label className="block text-sm text-black mb-1">Maximum Amount</label>
                 <input
                   type="number"
                   value={settings.max_purchase_amount}
@@ -215,7 +215,7 @@ export default function GiftCardSettingsPage() {
             </div>
             
             <div className="mb-4">
-              <label className="block text-sm text-gray-500 mb-2">Preset Amounts</label>
+              <label className="block text-sm text-black mb-2">Preset Amounts</label>
               <div className="flex flex-wrap gap-2 mb-2">
                 {settings.preset_amounts.map(amount => (
                   <span key={amount} className="px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-sm flex items-center gap-2">
@@ -241,11 +241,11 @@ export default function GiftCardSettingsPage() {
             <div className="flex items-center justify-between pt-4 border-t">
               <div>
                 <p className="font-medium">Allow Custom Amounts</p>
-                <p className="text-sm text-gray-500">Let customers enter any amount</p>
+                <p className="text-sm text-black">Let customers enter any amount</p>
               </div>
               <button
                 onClick={() => handleToggle('allow_custom_amount')}
-                className={`w-12 h-6 rounded-full transition-colors ${settings.allow_custom_amount ? 'bg-pink-500' : 'bg-gray-300'}`}
+                className={`w-12 h-6 rounded-full transition-colors ${settings.allow_custom_amount ? 'bg-pink-500' : 'bg-white'}`}
               >
                 <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.allow_custom_amount ? 'translate-x-6' : 'translate-x-0.5'}`} />
               </button>
@@ -259,11 +259,11 @@ export default function GiftCardSettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">Partial Redemption</p>
-                  <p className="text-sm text-gray-500">Allow using part of gift card balance</p>
+                  <p className="text-sm text-black">Allow using part of gift card balance</p>
                 </div>
                 <button
                   onClick={() => handleToggle('allow_partial_redemption')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_partial_redemption ? 'bg-pink-500' : 'bg-gray-300'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_partial_redemption ? 'bg-pink-500' : 'bg-white'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.allow_partial_redemption ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -271,11 +271,11 @@ export default function GiftCardSettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">Split Tender</p>
-                  <p className="text-sm text-gray-500">Allow combining with other payment methods</p>
+                  <p className="text-sm text-black">Allow combining with other payment methods</p>
                 </div>
                 <button
                   onClick={() => handleToggle('allow_split_tender')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_split_tender ? 'bg-pink-500' : 'bg-gray-300'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.allow_split_tender ? 'bg-pink-500' : 'bg-white'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.allow_split_tender ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -283,11 +283,11 @@ export default function GiftCardSettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">Prompt Before Checkout</p>
-                  <p className="text-sm text-gray-500">Ask if client wants to use gift card</p>
+                  <p className="text-sm text-black">Ask if client wants to use gift card</p>
                 </div>
                 <button
                   onClick={() => handleToggle('prompt_before_checkout')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.prompt_before_checkout ? 'bg-pink-500' : 'bg-gray-300'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.prompt_before_checkout ? 'bg-pink-500' : 'bg-white'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.prompt_before_checkout ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -295,11 +295,11 @@ export default function GiftCardSettingsPage() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium">Auto-Apply to Appointments</p>
-                  <p className="text-sm text-gray-500">Automatically apply gift card if available</p>
+                  <p className="text-sm text-black">Automatically apply gift card if available</p>
                 </div>
                 <button
                   onClick={() => handleToggle('auto_apply_to_appointments')}
-                  className={`w-12 h-6 rounded-full transition-colors ${settings.auto_apply_to_appointments ? 'bg-pink-500' : 'bg-gray-300'}`}
+                  className={`w-12 h-6 rounded-full transition-colors ${settings.auto_apply_to_appointments ? 'bg-pink-500' : 'bg-white'}`}
                 >
                   <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.auto_apply_to_appointments ? 'translate-x-6' : 'translate-x-0.5'}`} />
                 </button>
@@ -313,18 +313,18 @@ export default function GiftCardSettingsPage() {
             <div className="flex items-center justify-between mb-4">
               <div>
                 <p className="font-medium">Gift Cards Expire</p>
-                <p className="text-sm text-gray-500">Set expiration date on new gift cards</p>
+                <p className="text-sm text-black">Set expiration date on new gift cards</p>
               </div>
               <button
                 onClick={() => handleToggle('cards_expire')}
-                className={`w-12 h-6 rounded-full transition-colors ${settings.cards_expire ? 'bg-pink-500' : 'bg-gray-300'}`}
+                className={`w-12 h-6 rounded-full transition-colors ${settings.cards_expire ? 'bg-pink-500' : 'bg-white'}`}
               >
                 <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform ${settings.cards_expire ? 'translate-x-6' : 'translate-x-0.5'}`} />
               </button>
             </div>
             {settings.cards_expire && (
               <div>
-                <label className="block text-sm text-gray-500 mb-1">Expiration Period (months)</label>
+                <label className="block text-sm text-black mb-1">Expiration Period (months)</label>
                 <input
                   type="number"
                   value={settings.default_expiration_months}
@@ -361,7 +361,7 @@ export default function GiftCardSettingsPage() {
               <span className="text-blue-700 text-sm">Connected</span>
             </div>
             <div className="mt-3">
-              <label className="block text-xs text-gray-500 mb-1">Location ID</label>
+              <label className="block text-xs text-black mb-1">Location ID</label>
               <input
                 type="text"
                 value={settings.square_location_id || ''}
@@ -378,19 +378,19 @@ export default function GiftCardSettingsPage() {
               <h3 className="font-semibold mb-3">Sync Status</h3>
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Total Cards</span>
+                  <span className="text-black">Total Cards</span>
                   <span className="font-medium">{syncStats.total}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Recently Synced</span>
+                  <span className="text-black">Recently Synced</span>
                   <span className="text-green-600">{syncStats.recentlySynced}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Needs Sync</span>
+                  <span className="text-black">Needs Sync</span>
                   <span className="text-amber-600">{syncStats.needsSync}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Errors</span>
+                  <span className="text-black">Errors</span>
                   <span className="text-red-600">{syncStats.hasErrors}</span>
                 </div>
               </div>

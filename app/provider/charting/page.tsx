@@ -27,53 +27,53 @@ function ChartingContent() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">Clinical Charting</h1>
-        <p className="text-gray-500">Document patient visits and treatments</p>
+        <h1 className="text-2xl font-bold text-black">Clinical Charting</h1>
+        <p className="text-black">Document patient visits and treatments</p>
       </div>
 
       {/* Quick Start Options */}
       <div className="grid md:grid-cols-2 gap-6">
         <Link
           href="/admin/charting"
-          className="bg-white rounded-xl border border-gray-100 p-6 hover:shadow-lg transition-shadow group"
+          className="bg-white rounded-xl border border-black p-6 hover:shadow-lg transition-shadow group"
         >
           <div className="flex items-center gap-4 mb-4">
             <div className="w-14 h-14 bg-pink-100 rounded-xl flex items-center justify-center group-hover:bg-pink-200 transition-colors">
               <span className="text-3xl">📝</span>
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900">New Chart Note</h2>
-              <p className="text-gray-500">Start documenting a visit</p>
+              <h2 className="text-xl font-bold text-black">New Chart Note</h2>
+              <p className="text-black">Start documenting a visit</p>
             </div>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-black">
             Create a new SOAP note with injection details, photos, and treatment documentation.
           </p>
         </Link>
 
         <Link
           href="/provider/patients"
-          className="bg-white rounded-xl border border-gray-100 p-6 hover:shadow-lg transition-shadow group"
+          className="bg-white rounded-xl border border-black p-6 hover:shadow-lg transition-shadow group"
         >
           <div className="flex items-center gap-4 mb-4">
             <div className="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center group-hover:bg-blue-200 transition-colors">
               <span className="text-3xl">🔍</span>
             </div>
             <div>
-              <h2 className="text-xl font-bold text-gray-900">Find Patient</h2>
-              <p className="text-gray-500">Look up existing charts</p>
+              <h2 className="text-xl font-bold text-black">Find Patient</h2>
+              <p className="text-black">Look up existing charts</p>
             </div>
           </div>
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-black">
             Search for a patient to view their history, previous notes, and photos.
           </p>
         </Link>
       </div>
 
       {/* Chart Templates */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100">
-          <h2 className="font-semibold text-gray-900">Quick Templates</h2>
+      <div className="bg-white rounded-xl border border-black overflow-hidden">
+        <div className="px-5 py-4 border-b border-black">
+          <h2 className="font-semibold text-black">Quick Templates</h2>
         </div>
         <div className="p-4 grid grid-cols-2 md:grid-cols-4 gap-3">
           {[
@@ -84,7 +84,7 @@ function ChartingContent() {
             { name: 'Facial', icon: '✨', color: 'bg-purple-50 hover:bg-purple-100' },
             { name: 'Laser', icon: '🔆', color: 'bg-amber-50 hover:bg-amber-100' },
             { name: 'PRP', icon: '🩸', color: 'bg-red-50 hover:bg-red-100' },
-            { name: 'Consultation', icon: '🗣️', color: 'bg-gray-50 hover:bg-gray-100' },
+            { name: 'Consultation', icon: '🗣️', color: 'bg-white hover:bg-white' },
           ].map((template) => (
             <Link
               key={template.name}
@@ -92,21 +92,21 @@ function ChartingContent() {
               className={`p-4 rounded-xl ${template.color} transition-colors text-center`}
             >
               <span className="text-2xl block mb-2">{template.icon}</span>
-              <span className="text-sm font-medium text-gray-700">{template.name}</span>
+              <span className="text-sm font-medium text-black">{template.name}</span>
             </Link>
           ))}
         </div>
       </div>
 
       {/* Recent Charts */}
-      <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
-          <h2 className="font-semibold text-gray-900">Recent Charts</h2>
+      <div className="bg-white rounded-xl border border-black overflow-hidden">
+        <div className="px-5 py-4 border-b border-black flex items-center justify-between">
+          <h2 className="font-semibold text-black">Recent Charts</h2>
           <Link href="/admin/charts" className="text-sm text-pink-600 hover:text-pink-700">
             View All →
           </Link>
         </div>
-        <div className="p-8 text-center text-gray-500">
+        <div className="p-8 text-center text-black">
           <p>Your recent chart notes will appear here.</p>
           <p className="text-sm mt-1">Start a new chart or search for a patient above.</p>
         </div>

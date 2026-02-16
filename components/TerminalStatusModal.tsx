@@ -179,9 +179,9 @@ export default function TerminalStatusModal({
       />
       
       {/* Modal */}
-      <div className="relative bg-slate-800 rounded-2xl shadow-xl w-full max-w-md mx-4 overflow-hidden">
+      <div className="relative bg-black rounded-2xl shadow-xl w-full max-w-md mx-4 overflow-hidden">
         {/* Header */}
-        <div className="p-6 border-b border-slate-700">
+        <div className="p-6 border-b border-black">
           <h2 className="text-xl font-semibold text-white text-center">
             {isCompleted ? 'Payment Complete' : isFailed ? 'Payment Failed' : 'Terminal Payment'}
           </h2>
@@ -216,7 +216,7 @@ export default function TerminalStatusModal({
           
           {/* Amount */}
           <div className="text-center mb-4">
-            <p className="text-slate-400 text-sm">
+            <p className="text-black text-sm">
               {isCompleted ? 'Total Charged' : 'Amount'}
             </p>
             <p className="text-4xl font-bold text-white">
@@ -234,7 +234,7 @@ export default function TerminalStatusModal({
             {isInProgress && (
               <div className="flex items-center justify-center gap-2">
                 <div className="animate-spin h-4 w-4 border-2 border-blue-500 border-t-transparent rounded-full" />
-                <p className="text-slate-300">
+                <p className="text-black">
                   {status?.display_message || 'Sending to terminal...'}
                 </p>
               </div>
@@ -243,7 +243,7 @@ export default function TerminalStatusModal({
               <p className="text-green-400">
                 Payment successful!
                 {status?.payment?.card_brand && status?.payment?.card_last_four && (
-                  <span className="block text-sm text-slate-400 mt-1">
+                  <span className="block text-sm text-black mt-1">
                     {status.payment.card_brand} ****{status.payment.card_last_four}
                   </span>
                 )}
@@ -276,12 +276,12 @@ export default function TerminalStatusModal({
         </div>
         
         {/* Actions */}
-        <div className="p-6 border-t border-slate-700 flex gap-3">
+        <div className="p-6 border-t border-black flex gap-3">
           {isInProgress && (
             <button
               onClick={handleCancel}
               disabled={canceling}
-              className="flex-1 py-3 px-4 bg-slate-700 text-white rounded-xl hover:bg-slate-600 disabled:opacity-50"
+              className="flex-1 py-3 px-4 bg-black text-white rounded-xl hover:bg-black disabled:opacity-50"
             >
               {canceling ? 'Canceling...' : 'Cancel'}
             </button>
@@ -291,7 +291,7 @@ export default function TerminalStatusModal({
             <>
               <button
                 onClick={onClose}
-                className="flex-1 py-3 px-4 bg-slate-700 text-white rounded-xl hover:bg-slate-600"
+                className="flex-1 py-3 px-4 bg-black text-white rounded-xl hover:bg-black"
               >
                 Close
               </button>
@@ -325,7 +325,7 @@ function StatusStep({ label, status }: { label: string; status: 'pending' | 'act
       <div className={`w-6 h-6 rounded-full flex items-center justify-center ${
         status === 'completed' ? 'bg-green-500' :
         status === 'active' ? 'bg-blue-500' :
-        'bg-slate-600'
+        'bg-black'
       }`}>
         {status === 'completed' ? (
           <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -334,11 +334,11 @@ function StatusStep({ label, status }: { label: string; status: 'pending' | 'act
         ) : status === 'active' ? (
           <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
         ) : (
-          <div className="w-2 h-2 bg-slate-500 rounded-full" />
+          <div className="w-2 h-2 bg-white0 rounded-full" />
         )}
       </div>
       <span className={`text-sm ${
-        status === 'active' ? 'text-white' : 'text-slate-400'
+        status === 'active' ? 'text-white' : 'text-black'
       }`}>
         {label}
       </span>

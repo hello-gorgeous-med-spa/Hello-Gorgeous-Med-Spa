@@ -11,7 +11,7 @@ import Link from 'next/link';
 
 // Skeleton component
 function Skeleton({ className = '' }: { className?: string }) {
-  return <div className={`animate-pulse bg-gray-200 rounded ${className}`} />;
+  return <div className={`animate-pulse bg-white rounded ${className}`} />;
 }
 
 export default function AdminMembershipsPage() {
@@ -49,8 +49,8 @@ export default function AdminMembershipsPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Memberships</h1>
-          <p className="text-gray-500">Manage VIP membership program</p>
+          <h1 className="text-2xl font-bold text-black">Memberships</h1>
+          <p className="text-black">Manage VIP membership program</p>
         </div>
         <Link
           href="/admin/memberships/manage"
@@ -69,32 +69,32 @@ export default function AdminMembershipsPage() {
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Active Members</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Active Members</p>
           {loading ? (
             <Skeleton className="h-8 w-16 mt-1" />
           ) : (
             <p className="text-2xl font-bold text-pink-600">{stats.total}</p>
           )}
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Annual</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Annual</p>
           {loading ? (
             <Skeleton className="h-8 w-16 mt-1" />
           ) : (
-            <p className="text-2xl font-bold text-gray-900">{stats.annual}</p>
+            <p className="text-2xl font-bold text-black">{stats.annual}</p>
           )}
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Monthly</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Monthly</p>
           {loading ? (
             <Skeleton className="h-8 w-16 mt-1" />
           ) : (
-            <p className="text-2xl font-bold text-gray-900">{stats.monthly}</p>
+            <p className="text-2xl font-bold text-black">{stats.monthly}</p>
           )}
         </div>
-        <div className="bg-white rounded-lg border border-gray-100 p-4">
-          <p className="text-sm text-gray-500">Est. Annual Revenue</p>
+        <div className="bg-white rounded-lg border border-black p-4">
+          <p className="text-sm text-black">Est. Annual Revenue</p>
           {loading ? (
             <Skeleton className="h-8 w-24 mt-1" />
           ) : (
@@ -133,17 +133,17 @@ export default function AdminMembershipsPage() {
       </div>
 
       {/* Members Table */}
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-        <div className="px-5 py-4 border-b border-gray-100">
-          <h2 className="font-semibold text-gray-900">VIP Members</h2>
+      <div className="bg-white rounded-xl border border-black shadow-sm overflow-hidden">
+        <div className="px-5 py-4 border-b border-black">
+          <h2 className="font-semibold text-black">VIP Members</h2>
         </div>
         <table className="w-full">
-          <thead className="bg-gray-50 border-b border-gray-100">
+          <thead className="bg-white border-b border-black">
             <tr>
-              <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Member</th>
-              <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Plan</th>
-              <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Since</th>
-              <th className="text-left px-5 py-3 text-sm font-semibold text-gray-900">Status</th>
+              <th className="text-left px-5 py-3 text-sm font-semibold text-black">Member</th>
+              <th className="text-left px-5 py-3 text-sm font-semibold text-black">Plan</th>
+              <th className="text-left px-5 py-3 text-sm font-semibold text-black">Since</th>
+              <th className="text-left px-5 py-3 text-sm font-semibold text-black">Status</th>
               <th className="px-5 py-3"></th>
             </tr>
           </thead>
@@ -160,7 +160,7 @@ export default function AdminMembershipsPage() {
               ))
             ) : members.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-5 py-12 text-center text-gray-500">
+                <td colSpan={5} className="px-5 py-12 text-center text-black">
                   No VIP members yet
                   <br />
                   <span className="text-sm">VIP status is assigned in client profiles</span>
@@ -168,20 +168,20 @@ export default function AdminMembershipsPage() {
               </tr>
             ) : (
               members.map((member) => (
-                <tr key={member.id} className="hover:bg-gray-50">
+                <tr key={member.id} className="hover:bg-white">
                   <td className="px-5 py-3">
                     <div className="flex items-center gap-2">
                       <span className="text-purple-500">💎</span>
                       <Link 
                         href={`/admin/clients/${member.id}`}
-                        className="font-medium text-gray-900 hover:text-pink-600"
+                        className="font-medium text-black hover:text-pink-600"
                       >
                         {member.user?.first_name || member.first_name} {member.user?.last_name || member.last_name}
                       </Link>
                     </div>
                   </td>
-                  <td className="px-5 py-3 text-gray-900">Annual</td>
-                  <td className="px-5 py-3 text-gray-600">
+                  <td className="px-5 py-3 text-black">Annual</td>
+                  <td className="px-5 py-3 text-black">
                     {member.created_at ? new Date(member.created_at).toLocaleDateString() : '-'}
                   </td>
                   <td className="px-5 py-3">
@@ -192,7 +192,7 @@ export default function AdminMembershipsPage() {
                   <td className="px-5 py-3">
                     <Link
                       href={`/admin/clients/${member.id}`}
-                      className="px-3 py-1.5 text-sm font-medium text-gray-600 hover:bg-gray-100 rounded-lg"
+                      className="px-3 py-1.5 text-sm font-medium text-black hover:bg-white rounded-lg"
                     >
                       View
                     </Link>

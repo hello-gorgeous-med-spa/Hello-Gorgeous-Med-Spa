@@ -89,7 +89,7 @@ export default function AuditLogsPage() {
     switch (severity) {
       case 'critical': return 'bg-red-100 text-red-700';
       case 'warning': return 'bg-amber-100 text-amber-700';
-      default: return 'bg-gray-100 text-gray-600';
+      default: return 'bg-white text-black';
     }
   };
 
@@ -109,8 +109,8 @@ export default function AuditLogsPage() {
           <div className="grid grid-cols-4 gap-4">
             {Array.from({ length: 4 }).map((_, i) => (
               <div key={i} className="bg-white rounded-lg border p-4 animate-pulse">
-                <div className="h-4 bg-gray-200 rounded w-20 mb-2"></div>
-                <div className="h-8 bg-gray-200 rounded w-16"></div>
+                <div className="h-4 bg-white rounded w-20 mb-2"></div>
+                <div className="h-8 bg-white rounded w-16"></div>
               </div>
             ))}
           </div>
@@ -137,7 +137,7 @@ export default function AuditLogsPage() {
             <h3 className="font-medium mb-3">Filters</h3>
             <div className="grid grid-cols-5 gap-4">
               <div>
-                <label className="block text-xs text-gray-500 mb-1">Severity</label>
+                <label className="block text-xs text-black mb-1">Severity</label>
                 <select 
                   value={filter.severity} 
                   onChange={(e) => setFilter(prev => ({ ...prev, severity: e.target.value }))} 
@@ -150,7 +150,7 @@ export default function AuditLogsPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-xs text-gray-500 mb-1">User</label>
+                <label className="block text-xs text-black mb-1">User</label>
                 <select 
                   value={filter.user} 
                   onChange={(e) => setFilter(prev => ({ ...prev, user: e.target.value }))} 
@@ -160,7 +160,7 @@ export default function AuditLogsPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-xs text-gray-500 mb-1">Action</label>
+                <label className="block text-xs text-black mb-1">Action</label>
                 <select 
                   value={filter.action} 
                   onChange={(e) => setFilter(prev => ({ ...prev, action: e.target.value }))} 
@@ -170,7 +170,7 @@ export default function AuditLogsPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-xs text-gray-500 mb-1">From Date</label>
+                <label className="block text-xs text-black mb-1">From Date</label>
                 <input 
                   type="date" 
                   value={dateRange.from} 
@@ -179,7 +179,7 @@ export default function AuditLogsPage() {
                 />
               </div>
               <div>
-                <label className="block text-xs text-gray-500 mb-1">To Date</label>
+                <label className="block text-xs text-black mb-1">To Date</label>
                 <input 
                   type="date" 
                   value={dateRange.to} 
@@ -193,19 +193,19 @@ export default function AuditLogsPage() {
           {/* Stats - REAL DATA */}
           <div className="grid grid-cols-4 gap-4 mb-6">
             <div className="bg-white rounded-lg border p-4">
-              <p className="text-sm text-gray-500">Total Entries</p>
+              <p className="text-sm text-black">Total Entries</p>
               <p className="text-2xl font-bold">{logs.length}</p>
             </div>
             <div className="bg-white rounded-lg border p-4">
-              <p className="text-sm text-gray-500">Critical Events</p>
+              <p className="text-sm text-black">Critical Events</p>
               <p className="text-2xl font-bold text-red-600">{criticalCount}</p>
             </div>
             <div className="bg-white rounded-lg border p-4">
-              <p className="text-sm text-gray-500">Warnings</p>
+              <p className="text-sm text-black">Warnings</p>
               <p className="text-2xl font-bold text-amber-600">{warningCount}</p>
             </div>
             <div className="bg-white rounded-lg border p-4">
-              <p className="text-sm text-gray-500">Showing</p>
+              <p className="text-sm text-black">Showing</p>
               <p className="text-2xl font-bold text-blue-600">{filteredLogs.length}</p>
             </div>
           </div>
@@ -214,29 +214,29 @@ export default function AuditLogsPage() {
           <div className="bg-white rounded-xl border overflow-hidden">
             {filteredLogs.length > 0 ? (
               <table className="w-full">
-                <thead className="bg-gray-50 border-b">
+                <thead className="bg-white border-b">
                   <tr>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">TIMESTAMP</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">USER</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">ACTION</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">RESOURCE</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">DETAILS</th>
-                    <th className="text-left px-4 py-3 text-xs font-semibold text-gray-500">SEVERITY</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-black">TIMESTAMP</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-black">USER</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-black">ACTION</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-black">RESOURCE</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-black">DETAILS</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-black">SEVERITY</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y">
                   {filteredLogs.map(log => (
-                    <tr key={log.id} className="hover:bg-gray-50">
-                      <td className="px-4 py-3 text-xs text-gray-500 font-mono">
+                    <tr key={log.id} className="hover:bg-white">
+                      <td className="px-4 py-3 text-xs text-black font-mono">
                         {log.timestamp ? formatRelativeTime(log.timestamp) : '—'}
                       </td>
                       <td className="px-4 py-3 text-sm">{log.user}</td>
                       <td className="px-4 py-3 text-sm font-mono">{log.action}</td>
                       <td className="px-4 py-3 text-sm">
                         {log.resource}
-                        {log.resource_id && <span className="text-gray-400 text-xs ml-1">({log.resource_id})</span>}
+                        {log.resource_id && <span className="text-black text-xs ml-1">({log.resource_id})</span>}
                       </td>
-                      <td className="px-4 py-3 text-xs text-gray-500 max-w-xs truncate">
+                      <td className="px-4 py-3 text-xs text-black max-w-xs truncate">
                         {log.details ? JSON.stringify(log.details).substring(0, 50) : '—'}
                       </td>
                       <td className="px-4 py-3">
@@ -259,10 +259,10 @@ export default function AuditLogsPage() {
 
           {/* Export */}
           <div className="mt-6 flex justify-end gap-3">
-            <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm">
+            <button className="px-4 py-2 bg-white text-black rounded-lg hover:bg-white text-sm">
               📥 Export to CSV
             </button>
-            <button className="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm">
+            <button className="px-4 py-2 bg-white text-black rounded-lg hover:bg-white text-sm">
               📥 Export to JSON
             </button>
           </div>

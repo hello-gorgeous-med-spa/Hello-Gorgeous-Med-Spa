@@ -134,7 +134,7 @@ export function ServiceExpertWidget({
   }
 
   return (
-    <div className="rounded-2xl border border-gray-800 bg-black/40 overflow-hidden">
+    <div className="rounded-2xl border border-black bg-black/40 overflow-hidden">
       <div className="p-5 border-b border-white/10">
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -181,7 +181,7 @@ export function ServiceExpertWidget({
               "whitespace-pre-wrap text-sm leading-relaxed",
               m.role === "user"
                 ? "text-white bg-white/5 border border-white/10 rounded-2xl p-4"
-                : "text-gray-200",
+                : "text-white",
             )}
           >
             {m.content}
@@ -209,7 +209,7 @@ export function ServiceExpertWidget({
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask a question…"
-            className="flex-1 rounded-xl bg-black border border-gray-800 px-4 py-3 text-white placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+            className="flex-1 rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
             onKeyDown={(e) => {
               if (e.key === "Enter") send(input);
             }}

@@ -79,27 +79,27 @@ export default function ConsentForm({
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between">
+        <div className="px-6 py-4 border-b border-black flex items-center justify-between">
           <div>
-            <h2 className="text-xl font-bold text-gray-900">{templateName}</h2>
-            <p className="text-sm text-gray-500">Patient: {clientName}</p>
+            <h2 className="text-xl font-bold text-black">{templateName}</h2>
+            <p className="text-sm text-black">Patient: {clientName}</p>
           </div>
           <button
             onClick={onCancel}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-white rounded-lg transition-colors"
           >
             ✕
           </button>
         </div>
 
         {/* Progress */}
-        <div className="px-6 py-3 bg-gray-50 border-b border-gray-200">
+        <div className="px-6 py-3 bg-white border-b border-black">
           <div className="flex items-center gap-2">
             <div
               className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm ${
                 step === 'read'
                   ? 'bg-indigo-100 text-indigo-700 font-medium'
-                  : 'text-gray-500'
+                  : 'text-black'
               }`}
             >
               <span className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center text-xs">
@@ -107,38 +107,38 @@ export default function ConsentForm({
               </span>
               Read
             </div>
-            <div className="w-8 h-px bg-gray-300" />
+            <div className="w-8 h-px bg-white" />
             <div
               className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm ${
                 step === 'acknowledge'
                   ? 'bg-indigo-100 text-indigo-700 font-medium'
-                  : 'text-gray-500'
+                  : 'text-black'
               }`}
             >
               <span
                 className={`w-5 h-5 rounded-full flex items-center justify-center text-xs ${
                   step === 'acknowledge' || step === 'sign'
                     ? 'bg-indigo-600 text-white'
-                    : 'bg-gray-300 text-white'
+                    : 'bg-white text-white'
                 }`}
               >
                 2
               </span>
               Acknowledge
             </div>
-            <div className="w-8 h-px bg-gray-300" />
+            <div className="w-8 h-px bg-white" />
             <div
               className={`flex items-center gap-2 px-3 py-1 rounded-full text-sm ${
                 step === 'sign'
                   ? 'bg-indigo-100 text-indigo-700 font-medium'
-                  : 'text-gray-500'
+                  : 'text-black'
               }`}
             >
               <span
                 className={`w-5 h-5 rounded-full flex items-center justify-center text-xs ${
                   step === 'sign'
                     ? 'bg-indigo-600 text-white'
-                    : 'bg-gray-300 text-white'
+                    : 'bg-white text-white'
                 }`}
               >
                 3
@@ -160,15 +160,15 @@ export default function ConsentForm({
                 }}
               />
 
-              <div className="pt-4 border-t border-gray-200">
+              <div className="pt-4 border-t border-black">
                 <label className="flex items-start gap-3 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={hasReadConsent}
                     onChange={(e) => setHasReadConsent(e.target.checked)}
-                    className="w-5 h-5 mt-0.5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    className="w-5 h-5 mt-0.5 text-indigo-600 border-black rounded focus:ring-indigo-500"
                   />
-                  <span className="text-gray-700">
+                  <span className="text-black">
                     I have read the entire consent form above and scrolled through all content.
                   </span>
                 </label>
@@ -179,22 +179,22 @@ export default function ConsentForm({
           {/* Step 2: Acknowledge */}
           {step === 'acknowledge' && (
             <div className="space-y-4">
-              <p className="text-gray-700 mb-6">
+              <p className="text-black mb-6">
                 Please confirm each of the following statements by checking the boxes:
               </p>
 
               {acknowledgmentItems.map((item) => (
                 <label
                   key={item}
-                  className="flex items-start gap-3 p-4 border border-gray-200 rounded-xl cursor-pointer hover:border-indigo-200 hover:bg-indigo-50/50 transition-colors"
+                  className="flex items-start gap-3 p-4 border border-black rounded-xl cursor-pointer hover:border-indigo-200 hover:bg-indigo-50/50 transition-colors"
                 >
                   <input
                     type="checkbox"
                     checked={acknowledgedItems.includes(item)}
                     onChange={() => toggleAcknowledgment(item)}
-                    className="w-5 h-5 mt-0.5 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                    className="w-5 h-5 mt-0.5 text-indigo-600 border-black rounded focus:ring-indigo-500"
                   />
-                  <span className="text-gray-700">{item}</span>
+                  <span className="text-black">{item}</span>
                 </label>
               ))}
             </div>
@@ -204,10 +204,10 @@ export default function ConsentForm({
           {step === 'sign' && (
             <div className="space-y-6">
               <div className="text-center mb-6">
-                <p className="text-gray-700">
+                <p className="text-black">
                   Please sign below to complete your consent for:
                 </p>
-                <p className="text-lg font-semibold text-gray-900 mt-1">
+                <p className="text-lg font-semibold text-black mt-1">
                   {templateName}
                 </p>
               </div>
@@ -230,8 +230,8 @@ export default function ConsentForm({
                 </div>
               )}
 
-              <div className="p-4 bg-gray-50 rounded-xl text-sm text-gray-600">
-                <p className="font-medium text-gray-900 mb-2">Legal Notice:</p>
+              <div className="p-4 bg-white rounded-xl text-sm text-black">
+                <p className="font-medium text-black mb-2">Legal Notice:</p>
                 <p>
                   By signing this document electronically, I acknowledge that my electronic
                   signature is the legal equivalent of my manual signature. This consent
@@ -244,10 +244,10 @@ export default function ConsentForm({
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 border-t border-gray-200 flex items-center justify-between bg-gray-50">
+        <div className="px-6 py-4 border-t border-black flex items-center justify-between bg-white">
           <button
             onClick={step === 'read' ? onCancel : () => setStep(step === 'sign' ? 'acknowledge' : 'read')}
-            className="px-4 py-2 text-gray-600 hover:text-gray-800 font-medium"
+            className="px-4 py-2 text-black hover:text-black font-medium"
           >
             {step === 'read' ? 'Cancel' : '← Back'}
           </button>

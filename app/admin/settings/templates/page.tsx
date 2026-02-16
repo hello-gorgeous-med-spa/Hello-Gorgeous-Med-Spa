@@ -229,13 +229,13 @@ export default function MessageTemplatesPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="flex items-center gap-2 text-sm text-gray-500 mb-1">
+          <div className="flex items-center gap-2 text-sm text-black mb-1">
             <Link href="/admin/settings" className="hover:text-pink-600">Settings</Link>
             <span>/</span>
             <span>Message Templates</span>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Message Templates</h1>
-          <p className="text-gray-500">Customize all SMS and email notifications</p>
+          <h1 className="text-2xl font-bold text-black">Message Templates</h1>
+          <p className="text-black">Customize all SMS and email notifications</p>
         </div>
       </div>
 
@@ -251,9 +251,9 @@ export default function MessageTemplatesPage() {
           <div className="flex items-center justify-between border-b pb-4">
             <div>
               <h2 className="text-lg font-semibold">{editingTemplate.name}</h2>
-              <p className="text-sm text-gray-500">{editingTemplate.description}</p>
+              <p className="text-sm text-black">{editingTemplate.description}</p>
             </div>
-            <button onClick={() => setEditingTemplate(null)} className="text-gray-500 hover:text-gray-700">
+            <button onClick={() => setEditingTemplate(null)} className="text-black hover:text-black">
               ✕ Close
             </button>
           </div>
@@ -263,7 +263,7 @@ export default function MessageTemplatesPage() {
             <div className="col-span-2 space-y-4">
               {editingTemplate.channel === 'email' && (
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Email Subject</label>
+                  <label className="block text-sm font-medium text-black mb-1">Email Subject</label>
                   <input
                     type="text"
                     value={editingTemplate.subject || ''}
@@ -274,9 +274,9 @@ export default function MessageTemplatesPage() {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-black mb-1">
                   Message Body 
-                  <span className="text-gray-400 font-normal ml-2">
+                  <span className="text-black font-normal ml-2">
                     ({editingTemplate.channel === 'sms' ? `${editingTemplate.body.length} chars` : 'Email'})
                   </span>
                 </label>
@@ -295,7 +295,7 @@ export default function MessageTemplatesPage() {
               <div className="flex justify-end gap-3">
                 <button
                   onClick={() => setEditingTemplate(null)}
-                  className="px-4 py-2 text-gray-600 hover:bg-gray-100 rounded-lg"
+                  className="px-4 py-2 text-black hover:bg-white rounded-lg"
                 >
                   Cancel
                 </button>
@@ -309,9 +309,9 @@ export default function MessageTemplatesPage() {
             </div>
 
             {/* Variables Panel */}
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h3 className="font-medium text-gray-900 mb-3">Available Variables</h3>
-              <p className="text-xs text-gray-500 mb-3">Click to insert into message</p>
+            <div className="bg-white rounded-lg p-4">
+              <h3 className="font-medium text-black mb-3">Available Variables</h3>
+              <p className="text-xs text-black mb-3">Click to insert into message</p>
               <div className="space-y-2">
                 {AVAILABLE_VARIABLES.map(v => (
                   <button
@@ -320,7 +320,7 @@ export default function MessageTemplatesPage() {
                     className="w-full text-left px-3 py-2 bg-white rounded border text-sm hover:bg-pink-50 hover:border-pink-200"
                   >
                     <span className="font-mono text-pink-600">{v.key}</span>
-                    <span className="block text-xs text-gray-500">{v.desc}</span>
+                    <span className="block text-xs text-black">{v.desc}</span>
                   </button>
                 ))}
               </div>
@@ -338,7 +338,7 @@ export default function MessageTemplatesPage() {
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                   filter === cat 
                     ? 'bg-pink-500 text-white' 
-                    : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                    : 'bg-white text-black hover:bg-white'
                 }`}
               >
                 {cat === 'all' ? 'All' : cat.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase())}
@@ -349,20 +349,20 @@ export default function MessageTemplatesPage() {
           {/* Templates List */}
           <div className="bg-white rounded-xl border divide-y">
             {filteredTemplates.map(template => (
-              <div key={template.id} className="p-4 hover:bg-gray-50">
+              <div key={template.id} className="p-4 hover:bg-white">
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
                       <span className="text-lg">
                         {template.channel === 'sms' ? '💬' : template.channel === 'email' ? '📧' : '📨'}
                       </span>
-                      <h3 className="font-medium text-gray-900">{template.name}</h3>
-                      <span className={`text-xs px-2 py-0.5 rounded ${template.is_active ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'}`}>
+                      <h3 className="font-medium text-black">{template.name}</h3>
+                      <span className={`text-xs px-2 py-0.5 rounded ${template.is_active ? 'bg-green-100 text-green-700' : 'bg-white text-black'}`}>
                         {template.is_active ? 'Active' : 'Inactive'}
                       </span>
                     </div>
-                    <p className="text-sm text-gray-500 mt-1">{template.description}</p>
-                    <p className="text-xs text-gray-400 mt-2 font-mono bg-gray-50 p-2 rounded truncate">
+                    <p className="text-sm text-black mt-1">{template.description}</p>
+                    <p className="text-xs text-black mt-2 font-mono bg-white p-2 rounded truncate">
                       {template.body.substring(0, 100)}...
                     </p>
                   </div>
@@ -375,7 +375,7 @@ export default function MessageTemplatesPage() {
                     </button>
                     <button
                       onClick={() => toggleActive(template.id)}
-                      className={`w-12 h-6 rounded-full transition-colors relative ${template.is_active ? 'bg-green-500' : 'bg-gray-300'}`}
+                      className={`w-12 h-6 rounded-full transition-colors relative ${template.is_active ? 'bg-green-500' : 'bg-white'}`}
                     >
                       <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${template.is_active ? 'right-1' : 'left-1'}`} />
                     </button>
