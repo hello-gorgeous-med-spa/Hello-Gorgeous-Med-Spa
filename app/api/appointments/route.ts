@@ -163,6 +163,8 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     let date = searchParams.get('date');
     const providerId = searchParams.get('provider_id');
+    const limitParam = searchParams.get('limit');
+    const limit = limitParam ? parseInt(limitParam, 10) : null;
     let clientId = searchParams.get('client_id');
     const clientEmail = searchParams.get('email');
 
@@ -176,8 +178,19 @@ export async function GET(request: NextRequest) {
     }
 
     // Portal/client: enforce own data only (HIPAA minimum necessary)
+    const portalSession = request.cookies.get('portal_session')?.value;
+    if (portalSession) {
+      const { data: sess } = await supabase
+        .from('client_sessions')
+        .select('client_id')
+        .eq('session_token', portalSession)
+        .is('revoked_at', null)
+        .gt('expires_at', new Date().toISOString())
+        .single();
+      if (sess?.client_id) clientId = sess.client_id;
+    }
     const sessionCookie = request.cookies.get('hgos_session');
-    if (sessionCookie?.value) {
+    if (!clientId && sessionCookie?.value) {
       try {
         const session = JSON.parse(decodeURIComponent(sessionCookie.value));
         if (session.role === 'client' && session.clientId) {
@@ -229,6 +242,10 @@ export async function GET(request: NextRequest) {
 
     if (clientId) {
       query = query.eq('client_id', clientId);
+    }
+
+    if (limit && limit > 0) {
+      query = query.limit(limit);
     }
 
     const { data, error } = await query;

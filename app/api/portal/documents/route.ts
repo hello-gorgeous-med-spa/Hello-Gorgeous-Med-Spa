@@ -40,7 +40,19 @@ export async function GET(request: NextRequest) {
       .eq('status', 'active')
       .order('created_at', { ascending: false });
 
-    if (category) query = query.eq('category', category);
+    if (category && category !== 'all') {
+      // Map portal "medical" to DB "clinical"; "instructions" to "aftercare"
+      const catMap: Record<string, string | string[]> = {
+        medical: ['medical', 'clinical'],
+        instructions: ['instructions', 'aftercare'],
+      };
+      const dbCat = catMap[category] ?? category;
+      if (Array.isArray(dbCat)) {
+        query = query.in('category', dbCat);
+      } else {
+        query = query.eq('category', dbCat);
+      }
+    }
     if (type) query = query.eq('document_type', type);
 
     const { data: documents, error } = await query;

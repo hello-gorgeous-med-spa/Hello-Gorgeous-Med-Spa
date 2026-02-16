@@ -11,6 +11,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 import { getPaymentsApi, getSquareLocationId, dollarsToCents } from '@/lib/square/client';
+import { createPaymentReceiptFromSale } from '@/lib/portal/sync-receipt';
 
 export const dynamic = 'force-dynamic';
 
@@ -168,6 +169,13 @@ export async function POST(request: NextRequest) {
           payment_status: 'paid',
         })
         .eq('id', appointment_id);
+    }
+
+    // Sync to portal payment_receipts for client download
+    if (sale?.id && client_id && paymentStatus === 'completed' && supabase) {
+      createPaymentReceiptFromSale(supabase, sale.id).then((r) => {
+        if (r.created) console.log('[POS] Portal receipt created:', r.receiptId);
+      }).catch((e) => console.warn('[POS] Portal receipt sync failed:', e));
     }
 
     return NextResponse.json({

@@ -348,6 +348,248 @@ function InjectionMapsPreview({ clientId }: { clientId: string }) {
   );
 }
 
+// Documents tab: fetches client_documents + upload modal
+function DocumentsTabContent({
+  clientId,
+  formatDate,
+  consents,
+  loadingExtra,
+}: {
+  clientId: string;
+  formatDate: (s: string | null) => string;
+  consents: any[];
+  loadingExtra: boolean;
+}) {
+  const [portalDocs, setPortalDocs] = useState<any[]>([]);
+  const [docsLoading, setDocsLoading] = useState(true);
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [uploadForm, setUploadForm] = useState({
+    title: '',
+    document_type: 'other',
+    category: 'other',
+    description: '',
+    file: null as File | null,
+  });
+
+  const fetchDocs = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/admin/client-documents?client_id=${clientId}`);
+      const data = await res.json();
+      setPortalDocs(data.documents || []);
+    } catch (err) {
+      console.error('Failed to load documents:', err);
+    } finally {
+      setDocsLoading(false);
+    }
+  }, [clientId]);
+
+  useEffect(() => {
+    if (clientId) fetchDocs();
+  }, [clientId, fetchDocs]);
+
+  const handleUpload = async () => {
+    if (!uploadForm.file) {
+      alert('Please select a file');
+      return;
+    }
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append('file', uploadForm.file);
+      fd.append('client_id', clientId);
+      fd.append('title', uploadForm.title || uploadForm.file.name);
+      fd.append('document_type', uploadForm.document_type);
+      fd.append('category', uploadForm.category);
+      if (uploadForm.description) fd.append('description', uploadForm.description);
+      const res = await fetch('/api/admin/client-documents', { method: 'POST', body: fd });
+      const data = await res.json();
+      if (data.success && data.document) {
+        setPortalDocs((prev) => [data.document, ...prev]);
+        setShowUploadModal(false);
+        setUploadForm({ title: '', document_type: 'other', category: 'other', description: '', file: null });
+      } else {
+        alert(data.error || 'Upload failed');
+      }
+    } catch (err) {
+      alert('Upload failed');
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const DOC_TYPES = ['intake', 'consent', 'receipt', 'aftercare', 'prescription', 'lab', 'other'];
+  const CATEGORIES = ['clinical', 'financial', 'consent', 'intake', 'other'];
+
+  const loading = loadingExtra || docsLoading;
+  const allEmpty = consents.length === 0 && portalDocs.length === 0;
+
+  return (
+    <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
+      <div className="flex items-center justify-between mb-6">
+        <h3 className="font-semibold text-gray-900">Documents & Forms</h3>
+        <button
+          onClick={() => setShowUploadModal(true)}
+          className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors"
+        >
+          + Upload Document
+        </button>
+      </div>
+
+      {loading ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[1, 2, 3].map((i) => (
+            <Skeleton key={i} className="h-20" />
+          ))}
+        </div>
+      ) : allEmpty ? (
+        <p className="text-gray-500 text-center py-8">No documents on file</p>
+      ) : (
+        <div className="space-y-6">
+          {consents.length > 0 && (
+            <div>
+              <h4 className="text-sm font-medium text-gray-600 mb-2">Signed Consents</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {consents.map((consent) => (
+                  <div
+                    key={consent.id}
+                    className="p-4 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors cursor-pointer"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">📄</span>
+                      <div>
+                        <p className="font-medium text-gray-900 text-sm">
+                          {consent.consent_form?.name || 'Document'}
+                        </p>
+                        <p className="text-xs text-gray-500">Signed {formatDate(consent.signed_at)}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+          {portalDocs.length > 0 && (
+            <div>
+              <h4 className="text-sm font-medium text-gray-600 mb-2">Portal Documents</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {portalDocs.map((doc) => (
+                  <a
+                    key={doc.id}
+                    href={doc.file_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-4 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors cursor-pointer block"
+                  >
+                    <div className="flex items-start gap-3">
+                      <span className="text-2xl">📎</span>
+                      <div className="min-w-0 flex-1">
+                        <p className="font-medium text-gray-900 text-sm truncate">{doc.title}</p>
+                        <p className="text-xs text-gray-500">
+                          {doc.document_type} • {formatDate(doc.created_at)}
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {showUploadModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6">
+            <h2 className="text-lg font-bold text-gray-900 mb-4">Upload Document</h2>
+            <p className="text-sm text-gray-500 mb-4">
+              Documents are stored securely and visible to the client in their portal.
+            </p>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">File *</label>
+                <input
+                  type="file"
+                  accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                  onChange={(e) =>
+                    setUploadForm((f) => ({ ...f, file: e.target.files?.[0] || null }))
+                  }
+                  className="w-full text-sm"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Title</label>
+                <input
+                  type="text"
+                  value={uploadForm.title}
+                  onChange={(e) => setUploadForm((f) => ({ ...f, title: e.target.value }))}
+                  placeholder="Document title"
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                <select
+                  value={uploadForm.document_type}
+                  onChange={(e) => setUploadForm((f) => ({ ...f, document_type: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                >
+                  {DOC_TYPES.map((t) => (
+                    <option key={t} value={t}>
+                      {t}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                <select
+                  value={uploadForm.category}
+                  onChange={(e) => setUploadForm((f) => ({ ...f, category: e.target.value }))}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                >
+                  {CATEGORIES.map((c) => (
+                    <option key={c} value={c}>
+                      {c}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Description (optional)</label>
+                <textarea
+                  value={uploadForm.description}
+                  onChange={(e) => setUploadForm((f) => ({ ...f, description: e.target.value }))}
+                  rows={2}
+                  className="w-full px-3 py-2 border border-gray-200 rounded-lg"
+                />
+              </div>
+            </div>
+            <div className="flex justify-end gap-2 mt-6">
+              <button
+                onClick={() => {
+                  setShowUploadModal(false);
+                  setUploadForm({ title: '', document_type: 'other', category: 'other', description: '', file: null });
+                }}
+                className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleUpload}
+                disabled={uploading || !uploadForm.file}
+                className="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 disabled:opacity-50"
+              >
+                {uploading ? 'Uploading...' : 'Upload'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // Client Chart Notes component
 function ClientChartNotes({ clientId }: { clientId: string }) {
   const [notes, setNotes] = useState<any[]>([]);
@@ -1167,36 +1409,12 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
       )}
 
       {activeTab === 'documents' && (
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="font-semibold text-gray-900">Documents & Forms</h3>
-            <button className="px-4 py-2 bg-pink-500 text-white font-medium rounded-lg hover:bg-pink-600 transition-colors">
-              + Upload Document
-            </button>
-          </div>
-          
-          {loadingExtra ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {[1, 2, 3].map(i => <Skeleton key={i} className="h-20" />)}
-            </div>
-          ) : consents.length === 0 ? (
-            <p className="text-gray-500 text-center py-8">No documents on file</p>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {consents.map((consent) => (
-                <div key={consent.id} className="p-4 border border-gray-200 rounded-lg hover:border-gray-300 transition-colors cursor-pointer">
-                  <div className="flex items-start gap-3">
-                    <span className="text-2xl">📄</span>
-                    <div>
-                      <p className="font-medium text-gray-900 text-sm">{consent.consent_form?.name || 'Document'}</p>
-                      <p className="text-xs text-gray-500">Signed {formatDate(consent.signed_at)}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+        <DocumentsTabContent
+          clientId={client.id}
+          formatDate={formatDate}
+          consents={consents}
+          loadingExtra={loadingExtra}
+        />
       )}
 
       {/* 2-Way Inbox Modal */}

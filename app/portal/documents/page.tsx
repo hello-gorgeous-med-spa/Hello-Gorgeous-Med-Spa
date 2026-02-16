@@ -39,7 +39,7 @@ export default function DocumentsPage() {
     setLoading(true);
     try {
       const params = activeCategory !== 'all' ? `?category=${activeCategory}` : '';
-      const res = await fetch(`/api/portal/documents${params}`);
+      const res = await fetch(`/api/portal/documents${params}`, { credentials: 'include' });
       const data = await res.json();
       setDocuments(data.documents || []);
     } catch (err) {
@@ -52,7 +52,7 @@ export default function DocumentsPage() {
   const handleDownload = async (doc: Document) => {
     setDownloading(doc.id);
     try {
-      const res = await fetch(`/api/portal/documents/download?id=${doc.id}`);
+      const res = await fetch(`/api/portal/documents/download?id=${doc.id}`, { credentials: 'include' });
       const data = await res.json();
       if (data.download_url) {
         const a = document.createElement('a');

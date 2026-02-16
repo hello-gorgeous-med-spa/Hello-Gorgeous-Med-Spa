@@ -10,6 +10,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { createPaymentReceiptFromSale } from '@/lib/portal/sync-receipt';
 import { fetchPaymentDetails } from '@/lib/square/terminal';
 import {
   verifyWebhookSignature,
@@ -301,6 +302,9 @@ export async function POST(request: NextRequest) {
                 .eq('square_terminal_checkout_id', checkoutId);
               
               console.log('Terminal payment finalized:', paymentDetails.paymentId, 'Total:', totalCollected, 'Tip:', tipAmount);
+              createPaymentReceiptFromSale(supabase, terminalCheckout.sale_id).then((r) => {
+                if (r.created) console.log('[Webhook] Portal receipt created for terminal payment');
+              }).catch((e) => console.warn('[Webhook] Portal receipt sync failed:', e));
             }
           }
         } else if (status === 'CANCELED') {

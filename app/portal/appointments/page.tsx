@@ -7,6 +7,7 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import { usePortalAuth } from '@/lib/portal/useAuth';
 import { 
   canCancelAppointment, 
   canRescheduleAppointment,
@@ -54,30 +55,14 @@ export default function PortalAppointmentsPage() {
   const [lookupLoading, setLookupLoading] = useState(false);
   const [lookupError, setLookupError] = useState('');
 
-  // Fetch client's appointments from API
+  const { authenticated } = usePortalAuth(true);
+
   useEffect(() => {
+    if (!authenticated) return;
     async function fetchAppointments() {
       try {
         setLoading(true);
-        
-        // Get client ID/email from session or portal email (wellness signup)
-        const clientId = typeof window !== 'undefined' ? sessionStorage.getItem('client_id') : null;
-        const clientEmail = typeof window !== 'undefined' ? (sessionStorage.getItem('client_email') || localStorage.getItem('hg_portal_email')) : null;
-        
-        if (!clientId && !clientEmail) {
-          // No client session - show empty state
-          setUpcomingAppointments([]);
-          setPastAppointments([]);
-          setLoading(false);
-          return;
-        }
-
-        // Fetch appointments for this client
-        const params = new URLSearchParams();
-        if (clientId) params.set('client_id', clientId);
-        else if (clientEmail) params.set('email', clientEmail);
-        
-        const response = await fetch(`/api/appointments?${params.toString()}`);
+        const response = await fetch('/api/appointments?limit=100', { credentials: 'include' });
         const data = await response.json();
         
         if (data.appointments) {
@@ -130,7 +115,7 @@ export default function PortalAppointmentsPage() {
     }
     
     fetchAppointments();
-  }, []);
+  }, [authenticated]);
 
 
   // Calculate cancellation/reschedule status for each appointment
