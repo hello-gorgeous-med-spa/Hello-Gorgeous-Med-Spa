@@ -16,10 +16,16 @@ export function middleware(request: NextRequest) {
   const pathname = url.pathname;
   const hostname = request.headers.get('host') || '';
 
+  // Portal login/verify — always publicly accessible (magic link flow)
+  if (pathname === '/portal/login' || pathname === '/portal/verify') {
+    return NextResponse.next();
+  }
+
   // /login is always publicly accessible — never redirect unauthenticated users away
   if (pathname === '/login' || pathname.startsWith('/login/')) {
-    const sessionCookie = request.cookies.get('hgos_session');
-    let isAuthenticated = false;
+  const sessionCookie = request.cookies.get('hgos_session');
+  const portalSessionCookie = request.cookies.get('portal_session');
+  let isAuthenticated = false;
     if (sessionCookie?.value) {
       try {
         const sessionData = JSON.parse(decodeURIComponent(sessionCookie.value));
@@ -46,6 +52,7 @@ export function middleware(request: NextRequest) {
 
   // Check for auth session cookie and validate it has required data
   const sessionCookie = request.cookies.get('hgos_session');
+  const portalSessionCookie = request.cookies.get('portal_session');
   let isAuthenticated = false;
 
   if (sessionCookie?.value) {
@@ -56,6 +63,12 @@ export function middleware(request: NextRequest) {
     } catch {
       isAuthenticated = false;
     }
+  }
+
+  // For /portal/* (excluding login/verify), portal_session counts as authenticated
+  const isPortalRoute = pathname === '/portal' || (pathname.startsWith('/portal/') && pathname !== '/portal/login' && pathname !== '/portal/verify');
+  if (isPortalRoute && !isAuthenticated && portalSessionCookie?.value) {
+    isAuthenticated = true;
   }
 
   // Check if accessing from book.hellogorgeousmedspa.com subdomain
@@ -84,9 +97,11 @@ export function middleware(request: NextRequest) {
     url.pathname === route || url.pathname.startsWith(`${route}/`)
   );
 
-  // Redirect to /login if accessing protected route without authentication
+  // Redirect to login if accessing protected route without authentication
   if (isProtectedRoute && !isAuthenticated) {
-    const loginUrl = new URL('/login', request.url);
+    const isPortalRoute = pathname === '/portal' || pathname.startsWith('/portal/');
+    const loginPath = isPortalRoute ? '/portal/login' : '/login';
+    const loginUrl = new URL(loginPath, request.url);
     loginUrl.searchParams.set('returnTo', url.pathname);
     return NextResponse.redirect(loginUrl);
   }
