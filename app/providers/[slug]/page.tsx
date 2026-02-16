@@ -61,7 +61,6 @@ async function getProvider(slug: string): Promise<{ provider: Provider | null; m
     .order('featured', { ascending: false })
     .order('sort_order', { ascending: true });
 
-  // Map to expected format
   const media = (mediaRaw || []).map((m: any) => ({
     id: m.id,
     type: m.media_type,
@@ -137,16 +136,16 @@ export default async function ProviderProfilePage({ params }: { params: Promise<
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      {/* Hero / About Section */}
-      <section className="relative bg-gradient-to-br from-white to-white py-16 px-6">
-        <div className="max-w-6xl mx-auto">
-          <Link href="/providers" className="text-[#FF2D8E] hover:underline text-sm mb-8 block">
+      {/* A. About Section - White background */}
+      <section className="section-white section-padding">
+        <div className="container">
+          <Link href="/providers" className="text-[#FF2D8E] hover:text-black font-bold text-sm mb-8 inline-block">
             ← All Providers
           </Link>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             {/* Photo */}
-            <div className="relative aspect-[4/5] max-w-md mx-auto lg:mx-0 rounded-3xl overflow-hidden shadow-2xl">
+            <div className="relative aspect-[4/5] max-w-md mx-auto lg:mx-0 rounded-2xl overflow-hidden border-2 border-black">
               {provider.headshot_url ? (
                 <Image
                   src={provider.headshot_url}
@@ -156,7 +155,7 @@ export default async function ProviderProfilePage({ params }: { params: Promise<
                   priority
                 />
               ) : (
-                <div className="w-full h-full bg-gradient-to-br from-pink-100 to-rose-100 flex items-center justify-center">
+                <div className="w-full h-full bg-white flex items-center justify-center">
                   <span className="text-9xl">👩‍⚕️</span>
                 </div>
               )}
@@ -164,31 +163,31 @@ export default async function ProviderProfilePage({ params }: { params: Promise<
 
             {/* Info */}
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold text-black">{name}</h1>
+              <h1 className="text-4xl md:text-5xl font-serif font-bold">{name}</h1>
               {provider.credentials && (
-                <p className="text-xl text-[#FF2D8E] font-medium mt-2">{provider.credentials}</p>
+                <p className="text-xl text-[#FF2D8E] font-bold mt-3">{provider.credentials}</p>
               )}
               {provider.tagline && (
-                <p className="text-black italic mt-1">{provider.tagline}</p>
+                <p className="italic mt-2">{provider.tagline}</p>
               )}
 
               {fullBio && (
-                <div className="mt-6 prose prose-lg text-black">
-                  <p>{fullBio}</p>
+                <div className="mt-8">
+                  <p className="text-lg leading-relaxed">{fullBio}</p>
                 </div>
               )}
 
               {provider.philosophy && (
-                <div className="mt-8 p-6 bg-white/80 rounded-2xl border border-[#FF2D8E]/20">
-                  <h3 className="font-semibold text-black mb-2">My Philosophy</h3>
-                  <p className="text-black italic">&ldquo;{provider.philosophy}&rdquo;</p>
+                <div className="mt-8 p-6 rounded-2xl border-2 border-[#FF2D8E]">
+                  <h3 className="font-bold mb-2">My Philosophy</h3>
+                  <p className="italic">&ldquo;{provider.philosophy}&rdquo;</p>
                 </div>
               )}
 
-              <div className="mt-8">
+              <div className="mt-10">
                 <Link
                   href={provider.booking_url || `/book?provider=${provider.slug}`}
-                  className="inline-block px-10 py-4 bg-gradient-to-r from-[#FF2D8E] to-[#FF2D8E] text-white font-bold rounded-xl hover:from-pink-600 hover:to-rose-600 transition-colors shadow-lg"
+                  className="btn-primary"
                 >
                   Book with {firstName}
                 </Link>
@@ -198,26 +197,30 @@ export default async function ProviderProfilePage({ params }: { params: Promise<
         </div>
       </section>
 
-      {/* Videos Section */}
+      {/* B. Videos Section - Black background */}
       {videos.length > 0 && (
-        <section className="py-16 px-6 bg-white">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-black mb-8">Videos</h2>
+        <section className="section-black section-padding">
+          <div className="container">
+            <h2 className="text-3xl font-serif font-bold mb-8">
+              <span className="text-[#FF2D8E]">Videos</span> from {firstName}
+            </h2>
             <ProviderMediaSection media={videos} type="video" />
           </div>
         </section>
       )}
 
-      {/* Results / Before & After Section */}
+      {/* C. Results / Before & After Section - White background */}
       {beforeAfters.length > 0 && (
-        <section className="py-16 px-6 bg-gradient-to-br from-white to-white">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-black mb-4">Results</h2>
-            <p className="text-black mb-8">See real results from real clients</p>
+        <section className="section-white section-padding">
+          <div className="container">
+            <h2 className="text-3xl font-serif font-bold mb-4">
+              Real <span className="text-[#FF2D8E]">Results</span>
+            </h2>
+            <p className="mb-12 text-lg">See real results from real clients</p>
             <ProviderMediaSection media={beforeAfters} type="before_after" />
 
             {/* Disclaimer */}
-            <div className="mt-12 p-6 bg-white/80 rounded-xl border border-[#FF2D8E]/20 text-sm text-black">
+            <div className="mt-16 p-6 rounded-2xl border-2 border-black text-sm">
               <p>
                 <strong>Disclaimer:</strong> Results vary by individual. All treatments performed by licensed
                 medical professionals. Client consent on file.
@@ -227,28 +230,30 @@ export default async function ProviderProfilePage({ params }: { params: Promise<
         </section>
       )}
 
-      {/* CTA Section */}
-      <section className="py-16 px-6 bg-gradient-to-r from-[#FF2D8E] to-[#FF2D8E]">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-white">
-            Ready to Book with {firstName}?
-          </h2>
-          <p className="text-white/90 mt-4">
-            Schedule your personalized consultation today
-          </p>
-          <div className="mt-8 flex justify-center gap-4 flex-wrap">
-            <Link
-              href={provider.booking_url || `/book?provider=${provider.slug}`}
-              className="px-10 py-4 bg-white text-[#FF2D8E] font-bold rounded-xl hover:bg-[#FF2D8E]/10 transition-colors shadow-xl"
-            >
-              Book with {firstName}
-            </Link>
-            <Link
-              href="/providers"
-              className="px-10 py-4 bg-white/20 text-white font-bold rounded-xl hover:bg-white/30 transition-colors border border-white/30"
-            >
-              View All Providers
-            </Link>
+      {/* D. CTA Section - Hot Pink */}
+      <section className="section-pink section-padding">
+        <div className="container">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl font-serif font-bold">
+              Ready to Book with {firstName}?
+            </h2>
+            <p className="mt-4 text-lg">
+              Schedule your personalized consultation today
+            </p>
+            <div className="mt-10 flex justify-center gap-4 flex-wrap">
+              <Link
+                href={provider.booking_url || `/book?provider=${provider.slug}`}
+                className="btn-white"
+              >
+                Book with {firstName}
+              </Link>
+              <Link
+                href="/providers"
+                className="px-8 py-4 rounded-lg font-bold border-2 border-white hover:bg-white hover:text-[#FF2D8E] transition"
+              >
+                View All Providers
+              </Link>
+            </div>
           </div>
         </div>
       </section>
