@@ -77,20 +77,17 @@ export function TriggerPointSection() {
   }, []);
 
   return (
-    <section className="py-20 md:py-28 px-6 md:px-12 bg-[#FFFFFF]">
+    <section className="py-24 md:py-32 px-6 md:px-12 bg-white">
       <div className="max-w-6xl mx-auto min-w-0">
         <FadeUp>
           <div className="text-center mb-12">
-            <span className="inline-block px-4 py-1 rounded-full bg-red-500/20 text-red-400 text-sm font-medium mb-4">
+            <span className="inline-block px-4 py-2 rounded-full bg-[#FF2D8E]/10 text-[#FF2D8E] text-sm font-bold mb-4">
               🎯 Pain Relief Specialists
             </span>
-            <h2 className="text-2xl md:text-5xl font-bold text-white mb-4">
-              Trigger Point{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-400 to-orange-400">
-                Injections
-              </span>
+            <h2 className="text-2xl md:text-5xl font-bold text-black mb-4">
+              Trigger Point <span className="text-[#FF2D8E]">Injections</span>
             </h2>
-            <p className="text-[#000000]/80 text-lg max-w-2xl mx-auto">
+            <p className="text-black text-lg max-w-2xl mx-auto">
               Tired of living with muscle pain? Our trigger point injections provide 
               fast, targeted relief for chronic pain and muscle tension.
             </p>
@@ -100,7 +97,7 @@ export function TriggerPointSection() {
         <div className="grid lg:grid-cols-2 gap-8 items-center mb-12">
           {/* Video Section */}
           <FadeUp delayMs={60}>
-            <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-red-500/10 to-orange-500/10 border border-red-500/20">
+            <div className="relative rounded-2xl overflow-hidden border-2 border-black bg-white">
               {streamUid ? (
                 <div className="aspect-video relative">
                   <StreamVideo uid={streamUid} loading="lazy" className="w-full h-full" />
@@ -128,20 +125,16 @@ export function TriggerPointSection() {
                   )}
                 </div>
               ) : (
-                // Placeholder until video is added
-                <div className="aspect-video relative flex items-center justify-center bg-gradient-to-br from-red-950/50 to-orange-950/50">
+                <div className="aspect-video relative flex items-center justify-center bg-[#FF2D8E]/10">
                   <div className="text-center p-8">
-                    <div className="w-24 h-24 rounded-full bg-red-500/20 border-2 border-red-500/40 flex items-center justify-center mx-auto mb-4">
+                    <div className="w-24 h-24 rounded-full bg-[#FF2D8E]/20 border-2 border-[#FF2D8E] flex items-center justify-center mx-auto mb-4">
                       <span className="text-5xl">🎬</span>
                     </div>
-                    <p className="text-white font-semibold mb-2">Video Coming Soon</p>
-                    <p className="text-[#000000]/80 text-sm">
+                    <p className="text-black font-bold mb-2">Video Coming Soon</p>
+                    <p className="text-black text-sm">
                       See trigger point injections in action
                     </p>
                   </div>
-                  {/* Decorative elements */}
-                  <div className="absolute top-4 left-4 w-20 h-20 border border-red-500/20 rounded-full" />
-                  <div className="absolute bottom-4 right-4 w-32 h-32 border border-orange-500/20 rounded-full" />
                 </div>
               )}
             </div>
@@ -150,19 +143,19 @@ export function TriggerPointSection() {
           {/* Info Section */}
           <FadeUp delayMs={120}>
             <div>
-              <h3 className="text-2xl font-bold text-white mb-4">
+              <h3 className="text-2xl font-bold text-black mb-4">
                 What Are Trigger Point Injections?
               </h3>
-              <p className="text-[#000000]/80 mb-6">
+              <p className="text-black mb-6">
                 Trigger points are tight knots in your muscles that cause pain—sometimes 
                 in areas far from the knot itself. Our injections deliver medication 
                 directly into these problem areas, releasing tension and providing 
                 rapid relief.
               </p>
               
-              <div className="p-4 rounded-xl bg-white/5 border border-white/10 mb-6">
-                <p className="text-white font-semibold mb-2">What&apos;s Injected?</p>
-                <p className="text-[#000000]/80 text-sm">
+              <div className="p-4 rounded-xl border-2 border-black mb-6">
+                <p className="text-black font-bold mb-2">What&apos;s Injected?</p>
+                <p className="text-black text-sm">
                   A combination of local anesthetic (lidocaine) and sometimes a small 
                   amount of corticosteroid to reduce inflammation. Some patients opt 
                   for &quot;dry needling&quot; without medication.
@@ -173,7 +166,7 @@ export function TriggerPointSection() {
                 {treatedAreas.map((area) => (
                   <span
                     key={area}
-                    className="px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-sm"
+                    className="px-3 py-1 rounded-full border-2 border-black text-black text-sm hover:border-[#FF2D8E] transition"
                   >
                     {area}
                   </span>
@@ -184,7 +177,7 @@ export function TriggerPointSection() {
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold hover:opacity-90 transition transform hover:scale-105 shadow-lg shadow-red-500/25"
+                className="inline-flex items-center gap-3 px-8 py-4 rounded-lg bg-[#FF2D8E] text-white font-bold hover:bg-black transition"
               >
                 <span className="text-xl">🎯</span>
                 Book Trigger Point Treatment
@@ -195,15 +188,15 @@ export function TriggerPointSection() {
 
         {/* Benefits Grid */}
         <FadeUp delayMs={180}>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {benefits.map((benefit) => (
               <div
                 key={benefit.title}
-                className="p-5 rounded-2xl bg-white/5 border border-white/10 hover:border-red-500/30 transition text-center"
+                className="p-6 rounded-2xl border-2 border-black bg-white hover:border-[#FF2D8E] transition text-center"
               >
                 <span className="text-3xl mb-3 block">{benefit.icon}</span>
-                <h4 className="text-white font-semibold mb-1">{benefit.title}</h4>
-                <p className="text-[#000000]/80 text-sm">{benefit.description}</p>
+                <h4 className="text-black font-bold mb-1">{benefit.title}</h4>
+                <p className="text-black text-sm">{benefit.description}</p>
               </div>
             ))}
           </div>
@@ -211,24 +204,24 @@ export function TriggerPointSection() {
 
         {/* Conditions Treated */}
         <FadeUp delayMs={240}>
-          <div className="p-8 rounded-3xl bg-gradient-to-r from-red-500/10 to-orange-500/10 border border-red-500/20">
+          <div className="p-8 rounded-2xl border-2 border-black bg-white">
             <div className="grid md:grid-cols-2 gap-8 items-center">
               <div>
-                <h3 className="text-xl font-bold text-white mb-4">
+                <h3 className="text-xl font-bold text-black mb-4">
                   Conditions We Treat
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
                   {conditions.map((condition) => (
                     <div key={condition} className="flex items-center gap-2">
-                      <span className="text-red-400">✓</span>
-                      <span className="text-[#000000]/90 text-sm">{condition}</span>
+                      <span className="text-[#FF2D8E]">✓</span>
+                      <span className="text-black text-sm">{condition}</span>
                     </div>
                   ))}
                 </div>
               </div>
               <div className="text-center md:text-right">
-                <p className="text-[#000000]/80 mb-4">
-                  Performed by <span className="text-white font-semibold">Ryan Kent, FNP-BC</span>
+                <p className="text-black mb-4">
+                  Performed by <span className="text-[#FF2D8E] font-bold">Ryan Kent, FNP-BC</span>
                   <br />
                   <span className="text-sm">Board-Certified Nurse Practitioner</span>
                 </p>
@@ -237,13 +230,13 @@ export function TriggerPointSection() {
                     href={BOOKING_URL}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-6 py-3 rounded-xl bg-gradient-to-r from-red-500 to-orange-500 text-white font-bold hover:opacity-90 transition"
+                    className="px-6 py-3 rounded-lg bg-[#FF2D8E] text-white font-bold hover:bg-black transition"
                   >
                     Book Now →
                   </a>
                   <a
                     href="tel:630-636-6193"
-                    className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition"
+                    className="px-6 py-3 rounded-lg bg-black text-white font-bold hover:bg-[#FF2D8E] transition"
                   >
                     📞 630-636-6193
                   </a>
@@ -256,7 +249,7 @@ export function TriggerPointSection() {
         {/* FAQ */}
         <FadeUp delayMs={300}>
           <div className="mt-12 max-w-3xl mx-auto">
-            <h3 className="text-xl font-bold text-white text-center mb-6">
+            <h3 className="text-xl font-bold text-black text-center mb-6">
               Common Questions
             </h3>
             <div className="space-y-4">
@@ -280,10 +273,10 @@ export function TriggerPointSection() {
               ].map((faq) => (
                 <div
                   key={faq.q}
-                  className="p-4 rounded-xl bg-white/5 border border-white/10"
+                  className="p-4 rounded-xl border-2 border-black"
                 >
-                  <p className="text-white font-medium mb-1">{faq.q}</p>
-                  <p className="text-[#000000]/80 text-sm">{faq.a}</p>
+                  <p className="text-black font-bold mb-1">{faq.q}</p>
+                  <p className="text-black text-sm">{faq.a}</p>
                 </div>
               ))}
             </div>
