@@ -47,85 +47,103 @@ export default function OwnerLayout({ children, title, description }: OwnerLayou
 
   return (
     <div className="flex min-h-[calc(100vh-56px)]">
-      {/* Founder Control Sidebar */}
-      <aside className="w-64 bg-gradient-to-b from-black to-black text-white flex-shrink-0">
-        <div className="p-4 border-b border-black">
-          <Link href="/admin/owner" className="flex items-center gap-2">
+      {/* Founder Control Sidebar - STATIC, always visible */}
+      <aside className="w-64 bg-black flex-shrink-0 flex flex-col">
+        {/* Header */}
+        <div className="p-4 border-b border-white/10">
+          <Link href="/admin/owner" className="flex items-center gap-3">
             <span className="text-2xl">👑</span>
             <div>
               <h1 className="font-bold text-lg text-[#FF2D8E]">FOUNDER CONTROL</h1>
-              <p className="text-xs text-pink-300/60">Governance Layer</p>
+              <p className="text-xs text-white/50">Governance Layer</p>
             </div>
           </Link>
         </div>
         
-        <nav className="p-2 overflow-y-auto max-h-[calc(100vh-180px)]">
+        {/* Navigation - Static tabs, not hover */}
+        <nav className="flex-1 p-3 overflow-y-auto">
           {/* Operating System */}
-          <div className="mb-4">
-            <p className="px-3 py-1 text-xs text-pink-300/50 font-semibold uppercase">Operating System</p>
-            <div className="space-y-0.5">
-              {OS_NAV.map(item => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                    pathname === item.href
-                      ? 'bg-[#FF2D8E]/20 text-[#FF2D8E]'
-                      : 'text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]'
-                  }`}
-                >
-                  <span className="text-base">{item.icon}</span>
-                  <span>{item.label}</span>
-                </Link>
-              ))}
+          <div className="mb-6">
+            <p className="px-3 py-2 text-xs text-[#FF2D8E] font-bold uppercase tracking-wider">
+              Operating System
+            </p>
+            <div className="space-y-1">
+              {OS_NAV.map(item => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                      isActive
+                        ? 'bg-[#FF2D8E] text-white'
+                        : 'text-white hover:bg-[#FF2D8E]/20 hover:text-[#FF2D8E]'
+                    }`}
+                  >
+                    <span className="text-base">{item.icon}</span>
+                    <span>{item.label}</span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
 
           {/* Website */}
-          <div className="mb-4">
-            <p className="px-3 py-1 text-xs text-pink-300/50 font-semibold uppercase">Website</p>
-            <div className="space-y-0.5">
-              {WEBSITE_NAV.map(item => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                    pathname === item.href || pathname.startsWith(item.href + '/')
-                      ? 'bg-[#FF2D8E]/20 text-[#FF2D8E]'
-                      : 'text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]'
-                  }`}
-                >
-                  <span className="text-base">{item.icon}</span>
-                  <span>{item.label}</span>
-                </Link>
-              ))}
+          <div className="mb-6">
+            <p className="px-3 py-2 text-xs text-[#FF2D8E] font-bold uppercase tracking-wider">
+              Website
+            </p>
+            <div className="space-y-1">
+              {WEBSITE_NAV.map(item => {
+                const isActive = pathname === item.href || pathname.startsWith(item.href + '/');
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                      isActive
+                        ? 'bg-[#FF2D8E] text-white'
+                        : 'text-white hover:bg-[#FF2D8E]/20 hover:text-[#FF2D8E]'
+                    }`}
+                  >
+                    <span className="text-base">{item.icon}</span>
+                    <span>{item.label}</span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
 
           {/* Governance */}
-          <div className="mb-4">
-            <p className="px-3 py-1 text-xs text-pink-300/50 font-semibold uppercase">Governance</p>
-            <div className="space-y-0.5">
-              {GOVERNANCE_NAV.map(item => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                    pathname === item.href
-                      ? 'bg-[#FF2D8E]/20 text-[#FF2D8E]'
-                      : 'text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]'
-                  }`}
-                >
-                  <span className="text-base">{item.icon}</span>
-                  <span>{item.label}</span>
-                </Link>
-              ))}
+          <div className="mb-6">
+            <p className="px-3 py-2 text-xs text-[#FF2D8E] font-bold uppercase tracking-wider">
+              Governance
+            </p>
+            <div className="space-y-1">
+              {GOVERNANCE_NAV.map(item => {
+                const isActive = pathname === item.href;
+                return (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors ${
+                      isActive
+                        ? 'bg-[#FF2D8E] text-white'
+                        : 'text-white hover:bg-[#FF2D8E]/20 hover:text-[#FF2D8E]'
+                    }`}
+                  >
+                    <span className="text-base">{item.icon}</span>
+                    <span>{item.label}</span>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         </nav>
 
-        <div className="p-4 border-t border-black">
-          <div className="p-2 rounded-lg bg-green-500/20 text-green-300 text-center text-xs">
+        {/* Status Footer */}
+        <div className="p-4 border-t border-white/10">
+          <div className="p-3 rounded-lg bg-green-500/20 text-green-400 text-center text-sm font-medium">
             🟢 NORMAL OPERATION
           </div>
         </div>
@@ -134,19 +152,19 @@ export default function OwnerLayout({ children, title, description }: OwnerLayou
       {/* Main Content */}
       <main className="flex-1 bg-white overflow-y-auto">
         {/* Mode Switcher Header */}
-        <div className="h-12 px-6 flex items-center justify-between border-b border-black bg-white">
+        <div className="h-14 px-6 flex items-center justify-between border-b border-gray-200 bg-white">
           <ModeSwitcher variant="minimal" />
           
-          <div className="flex items-center gap-2 text-sm text-amber-600">
+          <div className="flex items-center gap-2 text-sm">
             <span className="text-lg">👑</span>
-            <span className="font-medium">Owner Mode</span>
+            <span className="font-bold text-[#FF2D8E]">Owner Mode</span>
           </div>
         </div>
 
-        <div className="p-6">
-          <div className="mb-6">
-            <h1 className="text-2xl font-bold text-black">{title}</h1>
-            {description && <p className="text-black">{description}</p>}
+        <div className="p-8">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-black">{title}</h1>
+            {description && <p className="mt-2 text-gray-600">{description}</p>}
           </div>
           {children}
         </div>
