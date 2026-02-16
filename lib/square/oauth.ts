@@ -232,7 +232,9 @@ export async function revokeTokens(accessTokenEncrypted: string): Promise<boolea
  */
 export async function storeConnection(
   tokens: SquareTokenResponse,
-  businessName?: string
+  businessName?: string,
+  locationId?: string,
+  locationName?: string
 ): Promise<string> {
   const config = getOAuthConfig();
   // Use admin client to bypass RLS for storing encrypted tokens
@@ -266,6 +268,8 @@ export async function storeConnection(
         token_expires_at: tokens.expires_at,
         token_type: tokens.token_type,
         business_name: businessName || null,
+        location_id: locationId || null,
+        location_name: locationName || null,
         status: 'active',
         environment: config.environment,
         last_token_refresh_at: new Date().toISOString(),
@@ -290,6 +294,8 @@ export async function storeConnection(
         token_expires_at: tokens.expires_at,
         token_type: tokens.token_type,
         business_name: businessName || null,
+        location_id: locationId || null,
+        location_name: locationName || null,
         status: 'active',
         environment: config.environment,
         scopes: REQUIRED_SCOPES.split(' '),

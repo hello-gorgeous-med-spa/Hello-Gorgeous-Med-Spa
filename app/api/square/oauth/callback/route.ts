@@ -88,14 +88,15 @@ export async function GET(request: NextRequest) {
       throw new Error(`Token exchange failed: ${tokenError instanceof Error ? tokenError.message : 'Unknown error'}`);
     }
     
+    // Get Square API base URL
+    const config = getOAuthConfig();
+    const baseUrl = config.environment === 'production' 
+      ? 'https://connect.squareup.com' 
+      : 'https://connect.squareupsandbox.com';
+    
     // Fetch merchant info to get business name
     let businessName: string | undefined;
     try {
-      const config = getOAuthConfig();
-      const baseUrl = config.environment === 'production' 
-        ? 'https://connect.squareup.com' 
-        : 'https://connect.squareupsandbox.com';
-      
       const merchantResponse = await fetch(`${baseUrl}/v2/merchants/${tokens.merchant_id}`, {
         headers: {
           'Authorization': `Bearer ${tokens.access_token}`,
@@ -106,16 +107,57 @@ export async function GET(request: NextRequest) {
       if (merchantResponse.ok) {
         const merchantData = await merchantResponse.json();
         businessName = merchantData.merchant?.business_name;
+        console.log('[Square OAuth] Business name:', businessName);
       }
     } catch (merchantError) {
       console.warn('Could not fetch merchant info:', merchantError);
     }
     
-    // Store connection in database
-    console.log('[Square OAuth] Storing connection...');
+    // ========================================================
+    // FETCH LOCATIONS - Critical for terminal payments
+    // ========================================================
+    let locationId: string | undefined;
+    let locationName: string | undefined;
+    
+    try {
+      console.log('[Square OAuth] Fetching locations...');
+      const locationsResponse = await fetch(`${baseUrl}/v2/locations`, {
+        headers: {
+          'Authorization': `Bearer ${tokens.access_token}`,
+          'Square-Version': '2024-01-18',
+        },
+      });
+      
+      if (locationsResponse.ok) {
+        const locationsData = await locationsResponse.json();
+        const locations = locationsData.locations || [];
+        console.log('[Square OAuth] Found', locations.length, 'locations');
+        
+        // Find the first active location (preferably the main one)
+        const activeLocation = locations.find((loc: any) => 
+          loc.status === 'ACTIVE' && loc.type !== 'MOBILE'
+        ) || locations.find((loc: any) => loc.status === 'ACTIVE') || locations[0];
+        
+        if (activeLocation) {
+          locationId = activeLocation.id;
+          locationName = activeLocation.name;
+          console.log('[Square OAuth] Selected location:', locationName, '(', locationId, ')');
+        } else {
+          console.warn('[Square OAuth] No active locations found');
+        }
+      } else {
+        const errorData = await locationsResponse.json();
+        console.error('[Square OAuth] Failed to fetch locations:', errorData);
+      }
+    } catch (locationError) {
+      console.error('[Square OAuth] Location fetch error:', locationError);
+    }
+    
+    // Store connection in database (including location)
+    console.log('[Square OAuth] Storing connection with location...');
     let connectionId;
     try {
-      connectionId = await storeConnection(tokens, businessName);
+      connectionId = await storeConnection(tokens, businessName, locationId, locationName);
       console.log('[Square OAuth] Connection stored, id:', connectionId);
     } catch (storeError) {
       console.error('[Square OAuth] Store connection FAILED:', storeError);
@@ -131,7 +173,9 @@ export async function GET(request: NextRequest) {
       details: {
         merchant_id: tokens.merchant_id,
         business_name: businessName,
-        environment: getOAuthConfig().environment,
+        location_id: locationId,
+        location_name: locationName,
+        environment: config.environment,
       },
     });
     
@@ -139,7 +183,9 @@ export async function GET(request: NextRequest) {
     return NextResponse.redirect(
       buildRedirectUrl(returnUrl, {
         success: 'true',
-        message: 'Square account connected successfully',
+        message: locationId 
+          ? `Square connected! Location: ${locationName || locationId}` 
+          : 'Square connected (no location found - please check Square Dashboard)',
       })
     );
     
