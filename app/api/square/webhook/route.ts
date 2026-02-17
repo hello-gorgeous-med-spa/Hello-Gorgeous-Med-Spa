@@ -13,8 +13,6 @@ import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 import { createPaymentReceiptFromSale } from '@/lib/portal/sync-receipt';
 import { fetchPaymentDetails } from '@/lib/square/terminal';
 import {
-
-export const runtime = 'nodejs';
   verifyWebhookSignature,
   claimWebhookEvent,
   updateWebhookEventStatus,
@@ -24,6 +22,8 @@ export const runtime = 'nodejs';
   getWebhookUrl,
   type SquareWebhookEvent,
 } from '@/lib/square/webhook';
+
+export const runtime = 'nodejs';
 
 export async function POST(request: NextRequest) {
   // ============================================================
