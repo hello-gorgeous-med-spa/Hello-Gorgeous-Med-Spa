@@ -22,8 +22,8 @@ export async function GET() {
     } catch {
       raw = readFileSync(wellKnownPath, 'utf-8');
     }
-    // If content is hex-encoded (Square download format), decode it
-    const content = /^[0-9a-fA-F]+$/.test(raw.trim()) ? Buffer.from(raw.trim(), 'hex').toString('utf-8') : raw;
+    // Serve raw content as-is — Square may expect hex format (their download format)
+    const content = raw.trim();
 
     return new NextResponse(content, {
       status: 200,
