@@ -9,6 +9,7 @@ import { getActiveConnection } from '@/lib/square/oauth';
 import { getLocationsApiAsync } from '@/lib/square/client';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 /**
  * GET /api/square/settings

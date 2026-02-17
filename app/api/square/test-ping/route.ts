@@ -9,6 +9,7 @@ import { getActiveConnection } from '@/lib/square/oauth';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 /**
  * POST /api/square/test-ping

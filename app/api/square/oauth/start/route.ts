@@ -8,6 +8,7 @@ import { cookies } from 'next/headers';
 import { getOAuthUrl, generateOAuthState, getOAuthConfig } from '@/lib/square/oauth';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 /**
  * Validate OAuth URL contains all required parameters

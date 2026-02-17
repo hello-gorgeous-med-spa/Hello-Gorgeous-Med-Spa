@@ -12,6 +12,7 @@ import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 import { getActiveConnection } from '@/lib/square/oauth';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 /**
  * GET /api/square/devices/[id]

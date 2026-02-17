@@ -9,6 +9,7 @@ import { exchangeCodeForTokens, storeConnection, getOAuthConfig } from '@/lib/sq
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;

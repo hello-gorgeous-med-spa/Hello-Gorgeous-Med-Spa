@@ -10,6 +10,7 @@ import { decryptToken, verifyEncryptionSetup, getCurrentKeyVersion } from '@/lib
 import { getLocationsApiAsync } from '@/lib/square/client';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 interface HealthCheckResult {
   status: 'healthy' | 'degraded' | 'unhealthy';

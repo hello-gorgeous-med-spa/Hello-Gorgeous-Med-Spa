@@ -8,6 +8,7 @@ import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 import { cancelTerminalCheckout } from '@/lib/square/terminal';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 /**
  * POST /api/pos/invoices/[id]/square/cancel

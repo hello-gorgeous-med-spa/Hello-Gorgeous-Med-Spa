@@ -13,6 +13,8 @@ import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 import { createPaymentReceiptFromSale } from '@/lib/portal/sync-receipt';
 import { fetchPaymentDetails } from '@/lib/square/terminal';
 import {
+
+export const runtime = 'nodejs';
   verifyWebhookSignature,
   claimWebhookEvent,
   updateWebhookEventStatus,

@@ -8,6 +8,7 @@ import { getActiveConnection, disconnectSquare } from '@/lib/square/oauth';
 import { getMerchantsApiAsync } from '@/lib/square/client';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 /**
  * GET /api/square/connection

@@ -16,6 +16,7 @@ import { createTerminalCheckout } from '@/lib/square/terminal';
 import crypto from 'crypto';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 // ================================================================
 // PHI-SAFE ORDER BUILDER
