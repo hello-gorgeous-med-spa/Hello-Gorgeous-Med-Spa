@@ -4,7 +4,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDevicesApiAsync, getSquareClientAsync } from '@/lib/square/client';
+import { getDevicesApiAsync, getSquareClientAsync, createSquareClientWithToken } from '@/lib/square/client';
 import { getActiveConnection, getAccessToken } from '@/lib/square/oauth';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 
@@ -151,53 +151,90 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Create device code for pairing
-    console.log('[Devices POST] Creating device code for location:', locationId);
-    const response = await devicesApi.createDeviceCode({
-      idempotencyKey: crypto.randomUUID(),
-      deviceCode: {
-        locationId,
-        productType: 'TERMINAL_API',
-        name: name || `Terminal ${Date.now().toString(36).toUpperCase()}`,
-      },
-    });
+    // Create device code - use personal token if OAuth lacks permissions
+    const createCode = async (api: any) => {
+      const idempotencyKey = crypto.randomUUID();
+      const deviceName = name || `Terminal ${Date.now().toString(36).toUpperCase()}`;
+      const resp = await api.createDeviceCode({
+        idempotencyKey,
+        deviceCode: { locationId, productType: 'TERMINAL_API', name: deviceName },
+      });
+      return resp;
+    };
+
+    let response: any;
+    let usedPersonalToken = false;
+
+    try {
+      response = await createCode(devicesApi);
+    } catch (oauthErr: any) {
+      const errMsg = String(oauthErr?.message || oauthErr).toLowerCase();
+      const isAuthError = errMsg.includes('authorized') || errMsg.includes('permission') || errMsg.includes('access denied');
+      const personalToken = process.env.SQUARE_ACCESS_TOKEN;
+      if (isAuthError && personalToken) {
+        console.log('[Devices POST] OAuth lacked permission, retrying with personal access token');
+        const personalClient = await createSquareClientWithToken(personalToken);
+        const personalApi = personalClient?.devicesApi;
+        if (personalApi) {
+          response = await createCode(personalApi);
+          usedPersonalToken = true;
+        } else {
+          throw oauthErr;
+        }
+      } else {
+        throw oauthErr;
+      }
+    }
 
     const { result } = response;
-    
+
     if (result.errors && result.errors.length > 0) {
       const sqErr = result.errors[0];
-      console.error('[Devices POST] Square API error:', sqErr);
+      const detail = sqErr.detail || sqErr.code || '';
+      const isAuthError = String(detail).toLowerCase().includes('authorized') || String(detail).toLowerCase().includes('permission');
+      const personalToken = process.env.SQUARE_ACCESS_TOKEN;
+      if (isAuthError && personalToken && !usedPersonalToken) {
+        console.log('[Devices POST] OAuth returned auth error, retrying with personal access token');
+        const personalClient = await createSquareClientWithToken(personalToken);
+        const personalApi = personalClient?.devicesApi;
+        if (personalApi) {
+          const retryResp = await createCode(personalApi);
+          if (retryResp.result?.deviceCode) {
+            const dc = retryResp.result.deviceCode;
+            return NextResponse.json({
+              deviceCodeId: dc.id,
+              code: dc.code,
+              status: dc.status,
+              expiresAt: dc.statusChangedAt,
+              name: dc.name,
+            });
+          }
+        }
+      }
       return NextResponse.json(
-        { 
-          error: 'Failed to create device code',
-          details: sqErr.detail || sqErr.code || JSON.stringify(sqErr),
-        },
+        { error: 'Failed to create device code', details: detail || JSON.stringify(sqErr) },
         { status: 400 }
       );
     }
-    
+
     if (!result.deviceCode) {
       return NextResponse.json(
         { error: 'Failed to create device code', details: 'No device code in response' },
         { status: 500 }
       );
     }
-    
+
     const deviceCode = result.deviceCode;
-    console.log('[Devices POST] Device code created:', deviceCode.code);
-    
     return NextResponse.json({
       deviceCodeId: deviceCode.id,
-      code: deviceCode.code, // The code to enter on the terminal
+      code: deviceCode.code,
       status: deviceCode.status,
-      expiresAt: deviceCode.statusChangedAt, // When the code expires
+      expiresAt: deviceCode.statusChangedAt,
       name: deviceCode.name,
     });
     
   } catch (error: any) {
     console.error('[Devices POST] createDeviceCode error:', error);
-    console.error('[Devices POST] error.errors:', error?.errors);
-    console.error('[Devices POST] error.body:', error?.body);
     let details = error?.message || String(error);
     if (error?.errors?.[0]) {
       const sq = error.errors[0];
@@ -206,11 +243,32 @@ export async function POST(request: NextRequest) {
       const sq = error.body.errors[0];
       details = sq.detail || sq.code || JSON.stringify(sq);
     }
+    const isAuthErr = String(details).toLowerCase().includes('authorized') || String(details).toLowerCase().includes('permission');
+    const personalToken = process.env.SQUARE_ACCESS_TOKEN;
+    if (isAuthErr && personalToken && locationId) {
+      try {
+        const pc = await createSquareClientWithToken(personalToken);
+        const pa = pc?.devicesApi;
+        if (pa) {
+          const r = await pa.createDeviceCode({
+            idempotencyKey: crypto.randomUUID(),
+            deviceCode: {
+              locationId,
+              productType: 'TERMINAL_API',
+              name: name || `Terminal ${Date.now().toString(36).toUpperCase()}`,
+            },
+          });
+          if (r?.result?.deviceCode) {
+            const dc = r.result.deviceCode;
+            return NextResponse.json({ deviceCodeId: dc.id, code: dc.code, status: dc.status, expiresAt: dc.statusChangedAt, name: dc.name });
+          }
+        }
+      } catch (retryErr) {
+        console.error('[Devices POST] Personal token retry failed:', retryErr);
+      }
+    }
     return NextResponse.json(
-      { 
-        error: 'Failed to create device code',
-        details,
-      },
+      { error: 'Failed to create device code', details },
       { status: 500 }
     );
   }
