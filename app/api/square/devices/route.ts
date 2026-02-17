@@ -4,8 +4,8 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { getDevicesApiAsync } from '@/lib/square/client';
-import { getActiveConnection } from '@/lib/square/oauth';
+import { getDevicesApiAsync, getSquareClientAsync } from '@/lib/square/client';
+import { getActiveConnection, getAccessToken } from '@/lib/square/oauth';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 
 export const dynamic = 'force-dynamic';
@@ -105,6 +105,8 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const connection = await getActiveConnection();
+    console.log('[Devices POST] Connection:', connection ? connection.id : 'null');
+    
     if (!connection) {
       return NextResponse.json(
         { error: 'Square not connected' },
@@ -114,6 +116,7 @@ export async function POST(request: NextRequest) {
     
     const body = await request.json();
     const { locationId, name } = body;
+    console.log('[Devices POST] Location ID:', locationId);
     
     if (!locationId) {
       return NextResponse.json(
@@ -122,15 +125,33 @@ export async function POST(request: NextRequest) {
       );
     }
     
+    // Check if we can get a token
+    const token = await getAccessToken();
+    console.log('[Devices POST] Token available:', !!token);
+    
+    // Get client and API
+    const client = await getSquareClientAsync();
+    console.log('[Devices POST] Client:', client ? 'OK' : 'null');
+    
     const devicesApi = await getDevicesApiAsync();
+    console.log('[Devices POST] Devices API:', devicesApi ? 'OK' : 'null');
+    
     if (!devicesApi) {
       return NextResponse.json(
-        { error: 'Square API not available' },
+        { 
+          error: 'Square API not available',
+          debug: {
+            hasConnection: !!connection,
+            hasToken: !!token,
+            hasClient: !!client,
+          }
+        },
         { status: 500 }
       );
     }
     
     // Create device code for pairing
+    console.log('[Devices POST] Creating device code...');
     const { result } = await devicesApi.createDeviceCode({
       idempotencyKey: crypto.randomUUID(),
       deviceCode: {
@@ -148,6 +169,7 @@ export async function POST(request: NextRequest) {
     }
     
     const deviceCode = result.deviceCode;
+    console.log('[Devices POST] Device code created:', deviceCode.code);
     
     return NextResponse.json({
       deviceCodeId: deviceCode.id,
