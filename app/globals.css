@@ -43,12 +43,24 @@
     -webkit-font-smoothing: antialiased;
     background: #FFFFFF;
     color: #000000;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
   }
 
   /* NO global color: white allowed */
   h1, h2, h3, h4, h5, h6,
   p, span, li, label, td, th, div {
     color: inherit;
+  }
+
+  /* Allow copy and paste site-wide */
+  input, textarea, select, [contenteditable="true"] {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
   }
 }
 
