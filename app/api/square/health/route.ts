@@ -112,13 +112,21 @@ export async function GET(request: NextRequest) {
   // 3. SQUARE API CHECK (can we call Square?)
   // ============================================================
   try {
+    console.log('[Health] Getting access token...');
     const accessToken = await getAccessToken();
+    console.log('[Health] Access token:', accessToken ? `${accessToken.substring(0, 10)}...` : 'null');
+    
     if (accessToken) {
       // Try a lightweight API call
+      console.log('[Health] Getting locations API...');
       const locationsApi = await getLocationsApiAsync();
+      console.log('[Health] Locations API:', locationsApi ? 'initialized' : 'null');
+      
       if (locationsApi) {
+        console.log('[Health] Calling listLocations...');
         const { result: locationsResult } = await locationsApi.listLocations();
         const locationCount = locationsResult.locations?.length || 0;
+        console.log('[Health] Got', locationCount, 'locations');
         
         result.checks.squareApi = {
           status: 'pass',
@@ -129,6 +137,10 @@ export async function GET(request: NextRequest) {
         result.checks.squareApi = {
           status: 'warn',
           message: 'Locations API not initialized',
+          details: { 
+            hasToken: true,
+            tokenPreview: accessToken.substring(0, 10) + '...',
+          },
         };
       }
     } else {
@@ -139,9 +151,11 @@ export async function GET(request: NextRequest) {
       result.summary.push('Cannot call Square API - token missing or expired');
     }
   } catch (error: any) {
+    console.error('[Health] Square API error:', error);
     result.checks.squareApi = {
       status: 'fail',
       message: error.message || 'Square API call failed',
+      details: { errorStack: error.stack?.substring(0, 200) },
     };
     result.summary.push('Square API is unreachable');
   }
