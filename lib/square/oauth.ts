@@ -31,15 +31,13 @@ const SQUARE_API_BASE = {
 // These cover: Terminal/Devices, Orders, Payments, Merchant profile
 // ============================================================
 const REQUIRED_SCOPES = [
-  'MERCHANT_PROFILE_READ',  // Includes location access
+  'MERCHANT_PROFILE_READ',
   'PAYMENTS_WRITE',
   'PAYMENTS_READ',
   'ORDERS_WRITE',
   'ORDERS_READ',
   'DEVICES_READ',
-  'DEVICE_CREDENTIAL_MANAGEMENT',  // Create pairing codes
-  'TERMINAL_READ',   // Read terminal checkout status
-  'TERMINAL_WRITE',  // Create terminal checkouts
+  'DEVICE_CREDENTIAL_MANAGEMENT',
 ].join(' ');
 
 export interface SquareOAuthConfig {
