@@ -18,6 +18,13 @@ const nextConfig = {
   // CDN caching headers for static media
   headers: async () => [
     {
+      source: "/.well-known/apple-developer-merchantid-domain-association",
+      headers: [
+        { key: "Content-Type", value: "text/plain; charset=utf-8" },
+        { key: "Content-Disposition", value: "inline" },
+      ],
+    },
+    {
       source: "/videos/:path*",
       headers: [
         { key: "Cache-Control", value: "public, max-age=31536000, immutable" },
