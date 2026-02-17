@@ -15,59 +15,28 @@ type SquareClient = any;
 
 /**
  * Create Square client with a specific access token
- * Creates a fresh client per request - no caching
+ * Uses square/legacy - v44 main export has different API; legacy matches our code
  */
 export async function createSquareClientWithToken(accessToken: string): Promise<SquareClient> {
-  console.log('[Square Client] createSquareClientWithToken called');
-  console.log('[Square Client] Token length:', accessToken?.length || 0);
-  
   try {
-    console.log('[Square Client] Importing square module...');
-    const squareModule = await import('square');
-    console.log('[Square Client] Module keys:', Object.keys(squareModule).join(', '));
-    
-    // Square SDK v44+ uses SquareClient instead of Client
-    // and token instead of accessToken
-    const SquareClient = squareModule.SquareClient || squareModule.Client;
-    const SquareEnvironment = squareModule.SquareEnvironment || squareModule.Environment;
-    
-    if (!SquareClient) {
-      console.error('[Square Client] SquareClient class not found');
-      console.error('[Square Client] Available exports:', Object.keys(squareModule));
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const { Client, Environment } = require('square/legacy');
+
+    if (!Client) {
+      console.error('[Square Client] Client not found in square/legacy');
       return null;
     }
-    
+
     const isProd = process.env.SQUARE_ENVIRONMENT === 'production';
-    console.log('[Square Client] Environment:', isProd ? 'production' : 'sandbox');
-    
-    // v44 API: new SquareClient({ token, environment })
-    const clientConfig: any = {
-      token: accessToken,
-    };
-    
-    // Add environment if available
-    if (SquareEnvironment) {
-      clientConfig.environment = isProd 
-        ? SquareEnvironment.Production 
-        : SquareEnvironment.Sandbox;
-    }
-    
-    console.log('[Square Client] Creating client...');
-    const client = new SquareClient(clientConfig);
-    
-    console.log('[Square Client] Client created');
-    console.log('[Square Client] Client type:', typeof client);
-    console.log('[Square Client] Has devices:', !!client.devices);
-    console.log('[Square Client] Has locations:', !!client.locations);
-    console.log('[Square Client] Has terminal:', !!client.terminal);
-    // Also check old API names for compatibility
-    console.log('[Square Client] Has devicesApi:', !!client.devicesApi);
-    console.log('[Square Client] Has locationsApi:', !!client.locationsApi);
-    
+
+    const client = new Client({
+      accessToken,
+      environment: isProd ? Environment.Production : Environment.Sandbox,
+    });
+
     return client;
   } catch (error: any) {
     console.error('[Square Client] Failed to create client:', error.message);
-    console.error('[Square Client] Error stack:', error.stack?.substring(0, 500));
     return null;
   }
 }
