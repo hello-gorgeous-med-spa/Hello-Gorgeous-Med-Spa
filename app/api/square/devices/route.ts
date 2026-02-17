@@ -126,93 +126,45 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Check if we can get a token
-    const token = await getAccessToken();
-    console.log('[Devices POST] Token available:', !!token);
-    
-    // Get client and API
-    const client = await getSquareClientAsync();
-    console.log('[Devices POST] Client:', client ? 'OK' : 'null');
-    
-    const devicesApi = await getDevicesApiAsync();
-    console.log('[Devices POST] Devices API:', devicesApi ? 'OK' : 'null');
-    
+    // Prefer personal access token for device pairing (has full access, no scope issues)
+    const personalToken = process.env.SQUARE_ACCESS_TOKEN;
+    let devicesApi: any = null;
+
+    if (personalToken) {
+      const personalClient = await createSquareClientWithToken(personalToken);
+      devicesApi = personalClient?.devicesApi;
+    }
+    if (!devicesApi) {
+      devicesApi = await getDevicesApiAsync();
+    }
+
     if (!devicesApi) {
       return NextResponse.json(
         { 
-          error: 'Square API not available',
-          debug: {
-            hasConnection: !!connection,
-            hasToken: !!token,
-            hasClient: !!client,
-          }
+          error: 'Square API not available. Add SQUARE_ACCESS_TOKEN to Vercel (Production token from Square Developer Console > Credentials).',
         },
         { status: 500 }
       );
     }
-    
-    // Create device code - use personal token if OAuth lacks permissions
-    const createCode = async (api: any) => {
-      const idempotencyKey = crypto.randomUUID();
-      const deviceName = name || `Terminal ${Date.now().toString(36).toUpperCase()}`;
-      const resp = await api.createDeviceCode({
-        idempotencyKey,
-        deviceCode: { locationId, productType: 'TERMINAL_API', name: deviceName },
-      });
-      return resp;
-    };
 
-    let response: any;
-    let usedPersonalToken = false;
-
-    try {
-      response = await createCode(devicesApi);
-    } catch (oauthErr: any) {
-      const errMsg = String(oauthErr?.message || oauthErr).toLowerCase();
-      const isAuthError = errMsg.includes('authorized') || errMsg.includes('permission') || errMsg.includes('access denied');
-      const personalToken = process.env.SQUARE_ACCESS_TOKEN;
-      if (isAuthError && personalToken) {
-        console.log('[Devices POST] OAuth lacked permission, retrying with personal access token');
-        const personalClient = await createSquareClientWithToken(personalToken);
-        const personalApi = personalClient?.devicesApi;
-        if (personalApi) {
-          response = await createCode(personalApi);
-          usedPersonalToken = true;
-        } else {
-          throw oauthErr;
-        }
-      } else {
-        throw oauthErr;
-      }
-    }
+    const idempotencyKey = crypto.randomUUID();
+    const deviceName = name || `Terminal ${Date.now().toString(36).toUpperCase()}`;
+    const response = await devicesApi.createDeviceCode({
+      idempotencyKey,
+      deviceCode: { locationId, productType: 'TERMINAL_API', name: deviceName },
+    });
 
     const { result } = response;
 
     if (result.errors && result.errors.length > 0) {
       const sqErr = result.errors[0];
-      const detail = sqErr.detail || sqErr.code || '';
-      const isAuthError = String(detail).toLowerCase().includes('authorized') || String(detail).toLowerCase().includes('permission');
-      const personalToken = process.env.SQUARE_ACCESS_TOKEN;
-      if (isAuthError && personalToken && !usedPersonalToken) {
-        console.log('[Devices POST] OAuth returned auth error, retrying with personal access token');
-        const personalClient = await createSquareClientWithToken(personalToken);
-        const personalApi = personalClient?.devicesApi;
-        if (personalApi) {
-          const retryResp = await createCode(personalApi);
-          if (retryResp.result?.deviceCode) {
-            const dc = retryResp.result.deviceCode;
-            return NextResponse.json({
-              deviceCodeId: dc.id,
-              code: dc.code,
-              status: dc.status,
-              expiresAt: dc.statusChangedAt,
-              name: dc.name,
-            });
-          }
-        }
+      let detail = sqErr.detail || sqErr.code || JSON.stringify(sqErr);
+      const isAuthErr = String(detail).toLowerCase().includes('authorized');
+      if (isAuthErr && !personalToken) {
+        detail += ' Add SQUARE_ACCESS_TOKEN to Vercel (Production token from Square Developer Console > Credentials).';
       }
       return NextResponse.json(
-        { error: 'Failed to create device code', details: detail || JSON.stringify(sqErr) },
+        { error: 'Failed to create device code', details: detail },
         { status: 400 }
       );
     }
