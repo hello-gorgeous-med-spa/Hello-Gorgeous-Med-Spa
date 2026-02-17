@@ -272,16 +272,28 @@ export default function PaymentSettingsPage() {
         body: JSON.stringify({ locationId: connection.location_id }),
       });
       
-      const data = await res.json();
+      let data;
+      try {
+        data = await res.json();
+      } catch {
+        setPairingStatus('Failed: Invalid response from server');
+        return;
+      }
       
       if (res.ok && data.code) {
         setPairingCode(data.code);
         setPairingStatus('Enter this code on your Square Terminal');
       } else {
-        setPairingStatus('Failed: ' + (data.error || 'Unknown error'));
+        const msg = data.details ? `${data.error}: ${data.details}` : (data.error || 'Unknown error');
+        setPairingStatus('Failed: ' + msg);
+        setError(msg);
+        setTimeout(() => setError(null), 8000);
       }
-    } catch {
-      setPairingStatus('Failed to create pairing code');
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Network or server error';
+      setPairingStatus('Failed: ' + msg);
+      setError(msg);
+      setTimeout(() => setError(null), 8000);
     }
   };
 

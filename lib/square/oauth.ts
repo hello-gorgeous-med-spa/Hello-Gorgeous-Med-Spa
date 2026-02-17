@@ -37,7 +37,9 @@ const REQUIRED_SCOPES = [
   'ORDERS_WRITE',
   'ORDERS_READ',
   'DEVICES_READ',
-  'DEVICE_CREDENTIAL_MANAGEMENT',
+  'DEVICE_CREDENTIAL_MANAGEMENT',  // Create pairing codes
+  'TERMINAL_READ',   // Read terminal checkout status
+  'TERMINAL_WRITE',  // Create terminal checkouts
 ].join(' ');
 
 export interface SquareOAuthConfig {

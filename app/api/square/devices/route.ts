@@ -152,8 +152,8 @@ export async function POST(request: NextRequest) {
     }
     
     // Create device code for pairing
-    console.log('[Devices POST] Creating device code...');
-    const { result } = await devicesApi.createDeviceCode({
+    console.log('[Devices POST] Creating device code for location:', locationId);
+    const response = await devicesApi.createDeviceCode({
       idempotencyKey: crypto.randomUUID(),
       deviceCode: {
         locationId,
@@ -161,10 +161,24 @@ export async function POST(request: NextRequest) {
         name: name || `Terminal ${Date.now().toString(36).toUpperCase()}`,
       },
     });
+
+    const { result } = response;
+    
+    if (result.errors && result.errors.length > 0) {
+      const sqErr = result.errors[0];
+      console.error('[Devices POST] Square API error:', sqErr);
+      return NextResponse.json(
+        { 
+          error: 'Failed to create device code',
+          details: sqErr.detail || sqErr.code || JSON.stringify(sqErr),
+        },
+        { status: 400 }
+      );
+    }
     
     if (!result.deviceCode) {
       return NextResponse.json(
-        { error: 'Failed to create device code' },
+        { error: 'Failed to create device code', details: 'No device code in response' },
         { status: 500 }
       );
     }
@@ -181,11 +195,21 @@ export async function POST(request: NextRequest) {
     });
     
   } catch (error: any) {
-    console.error('Error creating device code:', error);
+    console.error('[Devices POST] createDeviceCode error:', error);
+    console.error('[Devices POST] error.errors:', error?.errors);
+    console.error('[Devices POST] error.body:', error?.body);
+    let details = error?.message || String(error);
+    if (error?.errors?.[0]) {
+      const sq = error.errors[0];
+      details = sq.detail || sq.code || JSON.stringify(sq);
+    } else if (error?.body?.errors?.[0]) {
+      const sq = error.body.errors[0];
+      details = sq.detail || sq.code || JSON.stringify(sq);
+    }
     return NextResponse.json(
       { 
         error: 'Failed to create device code',
-        details: error.message || String(error),
+        details,
       },
       { status: 500 }
     );
