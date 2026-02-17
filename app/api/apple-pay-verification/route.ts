@@ -13,8 +13,17 @@ export const runtime = 'nodejs';
 
 export async function GET() {
   try {
-    const filePath = join(process.cwd(), 'public', '.well-known', 'apple-developer-merchantid-domain-association');
-    const content = readFileSync(filePath, 'utf-8');
+    // Prefer Square_Apple_Pay (new download from Square) if it exists
+    const squarePath = join(process.cwd(), 'public', 'Square_Apple_Pay');
+    const wellKnownPath = join(process.cwd(), 'public', '.well-known', 'apple-developer-merchantid-domain-association');
+    let raw = '';
+    try {
+      raw = readFileSync(squarePath, 'utf-8');
+    } catch {
+      raw = readFileSync(wellKnownPath, 'utf-8');
+    }
+    // If content is hex-encoded (Square download format), decode it
+    const content = /^[0-9a-fA-F]+$/.test(raw.trim()) ? Buffer.from(raw.trim(), 'hex').toString('utf-8') : raw;
 
     return new NextResponse(content, {
       status: 200,
