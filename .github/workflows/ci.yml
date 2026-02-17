@@ -26,6 +26,9 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: hello-gorgeous-med-spa
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -35,6 +38,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: hello-gorgeous-med-spa/package-lock.json
 
       - name: Install dependencies
         run: npm ci

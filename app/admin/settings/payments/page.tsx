@@ -425,7 +425,8 @@ export default function PaymentSettingsPage() {
               <span className="text-3xl">💳</span>
             </div>
             <p className="text-black mb-4">Connect your Square account to accept terminal payments</p>
-            <a
+            {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+            <Link
               href="/api/square/oauth/start"
               className="inline-flex items-center gap-2 px-6 py-3 bg-black text-white font-semibold rounded-lg hover:bg-black"
             >
@@ -433,7 +434,7 @@ export default function PaymentSettingsPage() {
                 <path d="M21.5 9h-9a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5zM12 5h9a.5.5 0 0 0 .5-.5v-2A2.5 2.5 0 0 0 19 0H5a2.5 2.5 0 0 0-2.5 2.5v2a.5.5 0 0 0 .5.5h9z"/>
               </svg>
               Connect Square
-            </a>
+            </Link>
           </div>
         )}
       </div>

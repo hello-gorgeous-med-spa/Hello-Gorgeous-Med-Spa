@@ -29,7 +29,7 @@ export async function GET() {
       status: 200,
       headers: {
         'Content-Type': 'text/plain; charset=utf-8',
-        'Content-Disposition': 'inline',
+        'Content-Disposition': 'attachment; filename="apple-developer-merchantid-domain-association"',
         'Content-Length': Buffer.byteLength(content, 'utf-8').toString(),
         'Cache-Control': 'public, max-age=3600',
       },
