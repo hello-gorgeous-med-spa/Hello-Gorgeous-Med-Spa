@@ -18,14 +18,38 @@ type SquareClient = any;
  * Creates a fresh client per request - no caching
  */
 export async function createSquareClientWithToken(accessToken: string): Promise<SquareClient> {
+  console.log('[Square Client] createSquareClientWithToken called');
+  console.log('[Square Client] Token length:', accessToken?.length || 0);
+  
   try {
-    console.log('[Square Client] Creating client with token...');
-    const squareModule = await import('square');
-    const { Client, Environment } = squareModule;
+    // Try dynamic import first
+    console.log('[Square Client] Attempting dynamic import...');
+    let Client: any;
+    let Environment: any;
+    
+    try {
+      const squareModule = await import('square');
+      console.log('[Square Client] Dynamic import succeeded, keys:', Object.keys(squareModule));
+      Client = squareModule.Client;
+      Environment = squareModule.Environment;
+    } catch (importError: any) {
+      console.error('[Square Client] Dynamic import failed:', importError.message);
+      // Fallback to require
+      console.log('[Square Client] Trying require fallback...');
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const square = require('square');
+      Client = square.Client;
+      Environment = square.Environment;
+    }
+    
+    if (!Client) {
+      console.error('[Square Client] Client class not found in square module');
+      return null;
+    }
     
     const isProd = process.env.SQUARE_ENVIRONMENT === 'production';
     console.log('[Square Client] Environment:', isProd ? 'Production' : 'Sandbox');
-    console.log('[Square Client] Client constructor:', typeof Client);
+    console.log('[Square Client] SQUARE_ENVIRONMENT env var:', process.env.SQUARE_ENVIRONMENT);
     
     const client = new Client({
       accessToken,
@@ -33,11 +57,14 @@ export async function createSquareClientWithToken(accessToken: string): Promise<
     });
     
     console.log('[Square Client] Client created successfully');
-    console.log('[Square Client] devicesApi:', !!client.devicesApi);
-    console.log('[Square Client] locationsApi:', !!client.locationsApi);
+    console.log('[Square Client] Has devicesApi:', !!client.devicesApi);
+    console.log('[Square Client] Has locationsApi:', !!client.locationsApi);
+    console.log('[Square Client] Has terminalApi:', !!client.terminalApi);
+    
     return client;
-  } catch (error) {
-    console.error('[Square Client] Failed to create client:', error);
+  } catch (error: any) {
+    console.error('[Square Client] Failed to create client:', error.message);
+    console.error('[Square Client] Error stack:', error.stack);
     return null;
   }
 }
