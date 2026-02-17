@@ -39,12 +39,7 @@ const nextConfig = {
       ],
     },
   ],
-  rewrites: async () => [
-    {
-      source: "/.well-known/apple-developer-merchantid-domain-association",
-      destination: "/api/apple-pay-verification",
-    },
-  ],
+  rewrites: async () => [],
   redirects: async () => [
     { source: "/sitemap.website.xml", destination: "/sitemap.xml", permanent: true },
     { source: "/book-now", destination: "/book", permanent: true },
