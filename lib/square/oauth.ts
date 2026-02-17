@@ -31,14 +31,13 @@ const SQUARE_API_BASE = {
 // These cover: Terminal/Devices, Orders, Payments, Merchant profile
 // ============================================================
 const REQUIRED_SCOPES = [
-  'MERCHANT_PROFILE_READ',
+  'MERCHANT_PROFILE_READ',  // Includes location access
   'PAYMENTS_WRITE',
   'PAYMENTS_READ',
   'ORDERS_WRITE',
   'ORDERS_READ',
   'DEVICES_READ',
   'DEVICE_CREDENTIAL_MANAGEMENT',
-  'LOCATIONS_READ',
 ].join(' ');
 
 export interface SquareOAuthConfig {
