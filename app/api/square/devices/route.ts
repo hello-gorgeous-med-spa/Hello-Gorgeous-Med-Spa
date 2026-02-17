@@ -104,10 +104,10 @@ export async function GET(request: NextRequest) {
  * Create a device pairing code for a new terminal
  */
 export async function POST(request: NextRequest) {
+  let locationId: string | null = null;
+  let name: string | undefined;
   try {
     const connection = await getActiveConnection();
-    console.log('[Devices POST] Connection:', connection ? connection.id : 'null');
-    
     if (!connection) {
       return NextResponse.json(
         { error: 'Square not connected' },
@@ -115,9 +115,9 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    const body = await request.json();
-    const { locationId, name } = body;
-    console.log('[Devices POST] Location ID:', locationId);
+    const body = await request.json().catch(() => ({}));
+    locationId = body?.locationId || connection.location_id;
+    name = body?.name;
     
     if (!locationId) {
       return NextResponse.json(
@@ -154,7 +154,13 @@ export async function POST(request: NextRequest) {
       deviceCode: { locationId, productType: 'TERMINAL_API', name: deviceName },
     });
 
-    const { result } = response;
+    const result = response?.result;
+    if (!result) {
+      return NextResponse.json(
+        { error: 'Failed to create device code', details: 'Empty response from Square API' },
+        { status: 500 }
+      );
+    }
 
     if (result.errors && result.errors.length > 0) {
       const sqErr = result.errors[0];
@@ -194,30 +200,6 @@ export async function POST(request: NextRequest) {
     } else if (error?.body?.errors?.[0]) {
       const sq = error.body.errors[0];
       details = sq.detail || sq.code || JSON.stringify(sq);
-    }
-    const isAuthErr = String(details).toLowerCase().includes('authorized') || String(details).toLowerCase().includes('permission');
-    const personalToken = process.env.SQUARE_ACCESS_TOKEN;
-    if (isAuthErr && personalToken && locationId) {
-      try {
-        const pc = await createSquareClientWithToken(personalToken);
-        const pa = pc?.devicesApi;
-        if (pa) {
-          const r = await pa.createDeviceCode({
-            idempotencyKey: crypto.randomUUID(),
-            deviceCode: {
-              locationId,
-              productType: 'TERMINAL_API',
-              name: name || `Terminal ${Date.now().toString(36).toUpperCase()}`,
-            },
-          });
-          if (r?.result?.deviceCode) {
-            const dc = r.result.deviceCode;
-            return NextResponse.json({ deviceCodeId: dc.id, code: dc.code, status: dc.status, expiresAt: dc.statusChangedAt, name: dc.name });
-          }
-        }
-      } catch (retryErr) {
-        console.error('[Devices POST] Personal token retry failed:', retryErr);
-      }
     }
     return NextResponse.json(
       { error: 'Failed to create device code', details },

@@ -274,9 +274,18 @@ export default function PaymentSettingsPage() {
       
       let data;
       try {
-        data = await res.json();
+        const text = await res.text();
+        if (!text || !text.trim()) {
+          data = { error: 'Server error', details: `Empty response (HTTP ${res.status}). Add SQUARE_ACCESS_TOKEN to Vercel.` };
+        } else {
+          try {
+            data = JSON.parse(text);
+          } catch {
+            data = { error: 'Server error', details: text.slice(0, 100) };
+          }
+        }
       } catch {
-        setPairingStatus('Failed: Invalid response from server');
+        setPairingStatus('Failed: Network error');
         return;
       }
       
