@@ -17,21 +17,24 @@ type SquareClient = any;
  * Create Square client with a specific access token
  * Creates a fresh client per request - no caching
  */
-export function createSquareClientWithToken(accessToken: string): SquareClient {
+export async function createSquareClientWithToken(accessToken: string): Promise<SquareClient> {
   try {
     console.log('[Square Client] Creating client with token...');
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const { Client, Environment } = require('square');
+    const squareModule = await import('square');
+    const { Client, Environment } = squareModule;
     
     const isProd = process.env.SQUARE_ENVIRONMENT === 'production';
     console.log('[Square Client] Environment:', isProd ? 'Production' : 'Sandbox');
+    console.log('[Square Client] Client constructor:', typeof Client);
     
     const client = new Client({
       accessToken,
       environment: isProd ? Environment.Production : Environment.Sandbox,
     });
     
-    console.log('[Square Client] Client created, devicesApi:', !!client.devicesApi);
+    console.log('[Square Client] Client created successfully');
+    console.log('[Square Client] devicesApi:', !!client.devicesApi);
+    console.log('[Square Client] locationsApi:', !!client.locationsApi);
     return client;
   } catch (error) {
     console.error('[Square Client] Failed to create client:', error);
@@ -50,7 +53,7 @@ export async function getSquareClientAsync(): Promise<SquareClient> {
   console.log('[Square Client] OAuth token:', oauthToken ? 'Found' : 'Not found');
   
   if (oauthToken) {
-    return createSquareClientWithToken(oauthToken);
+    return await createSquareClientWithToken(oauthToken);
   }
   
   console.log('[Square Client] No OAuth token available');
