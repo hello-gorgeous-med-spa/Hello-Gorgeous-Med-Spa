@@ -22,49 +22,52 @@ export async function createSquareClientWithToken(accessToken: string): Promise<
   console.log('[Square Client] Token length:', accessToken?.length || 0);
   
   try {
-    // Try dynamic import first
-    console.log('[Square Client] Attempting dynamic import...');
-    let Client: any;
-    let Environment: any;
+    console.log('[Square Client] Importing square module...');
+    const squareModule = await import('square');
+    console.log('[Square Client] Module keys:', Object.keys(squareModule).join(', '));
     
-    try {
-      const squareModule = await import('square');
-      console.log('[Square Client] Dynamic import succeeded, keys:', Object.keys(squareModule));
-      Client = squareModule.Client;
-      Environment = squareModule.Environment;
-    } catch (importError: any) {
-      console.error('[Square Client] Dynamic import failed:', importError.message);
-      // Fallback to require
-      console.log('[Square Client] Trying require fallback...');
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const square = require('square');
-      Client = square.Client;
-      Environment = square.Environment;
-    }
+    // Square SDK v44+ uses SquareClient instead of Client
+    // and token instead of accessToken
+    const SquareClient = squareModule.SquareClient || squareModule.Client;
+    const SquareEnvironment = squareModule.SquareEnvironment || squareModule.Environment;
     
-    if (!Client) {
-      console.error('[Square Client] Client class not found in square module');
+    if (!SquareClient) {
+      console.error('[Square Client] SquareClient class not found');
+      console.error('[Square Client] Available exports:', Object.keys(squareModule));
       return null;
     }
     
     const isProd = process.env.SQUARE_ENVIRONMENT === 'production';
-    console.log('[Square Client] Environment:', isProd ? 'Production' : 'Sandbox');
-    console.log('[Square Client] SQUARE_ENVIRONMENT env var:', process.env.SQUARE_ENVIRONMENT);
+    console.log('[Square Client] Environment:', isProd ? 'production' : 'sandbox');
     
-    const client = new Client({
-      accessToken,
-      environment: isProd ? Environment.Production : Environment.Sandbox,
-    });
+    // v44 API: new SquareClient({ token, environment })
+    const clientConfig: any = {
+      token: accessToken,
+    };
     
-    console.log('[Square Client] Client created successfully');
+    // Add environment if available
+    if (SquareEnvironment) {
+      clientConfig.environment = isProd 
+        ? SquareEnvironment.Production 
+        : SquareEnvironment.Sandbox;
+    }
+    
+    console.log('[Square Client] Creating client...');
+    const client = new SquareClient(clientConfig);
+    
+    console.log('[Square Client] Client created');
+    console.log('[Square Client] Client type:', typeof client);
+    console.log('[Square Client] Has devices:', !!client.devices);
+    console.log('[Square Client] Has locations:', !!client.locations);
+    console.log('[Square Client] Has terminal:', !!client.terminal);
+    // Also check old API names for compatibility
     console.log('[Square Client] Has devicesApi:', !!client.devicesApi);
     console.log('[Square Client] Has locationsApi:', !!client.locationsApi);
-    console.log('[Square Client] Has terminalApi:', !!client.terminalApi);
     
     return client;
   } catch (error: any) {
     console.error('[Square Client] Failed to create client:', error.message);
-    console.error('[Square Client] Error stack:', error.stack);
+    console.error('[Square Client] Error stack:', error.stack?.substring(0, 500));
     return null;
   }
 }
@@ -89,6 +92,9 @@ export async function getSquareClientAsync(): Promise<SquareClient> {
 
 // ============================================================
 // ASYNC API GETTERS (use OAuth token from database)
+// SDK v44 uses client.payments, client.devices etc.
+// Legacy SDK used client.paymentsApi, client.devicesApi etc.
+// We check for both for compatibility
 // ============================================================
 
 /**
@@ -96,7 +102,7 @@ export async function getSquareClientAsync(): Promise<SquareClient> {
  */
 export async function getPaymentsApiAsync() {
   const client = await getSquareClientAsync();
-  return client?.paymentsApi ?? null;
+  return client?.payments ?? client?.paymentsApi ?? null;
 }
 
 /**
@@ -104,7 +110,7 @@ export async function getPaymentsApiAsync() {
  */
 export async function getOrdersApiAsync() {
   const client = await getSquareClientAsync();
-  return client?.ordersApi ?? null;
+  return client?.orders ?? client?.ordersApi ?? null;
 }
 
 /**
@@ -112,7 +118,7 @@ export async function getOrdersApiAsync() {
  */
 export async function getTerminalApiAsync() {
   const client = await getSquareClientAsync();
-  return client?.terminalApi ?? null;
+  return client?.terminal ?? client?.terminalApi ?? null;
 }
 
 /**
@@ -120,7 +126,7 @@ export async function getTerminalApiAsync() {
  */
 export async function getDevicesApiAsync() {
   const client = await getSquareClientAsync();
-  return client?.devicesApi ?? null;
+  return client?.devices ?? client?.devicesApi ?? null;
 }
 
 /**
@@ -128,7 +134,7 @@ export async function getDevicesApiAsync() {
  */
 export async function getLocationsApiAsync() {
   const client = await getSquareClientAsync();
-  return client?.locationsApi ?? null;
+  return client?.locations ?? client?.locationsApi ?? null;
 }
 
 /**
@@ -136,7 +142,7 @@ export async function getLocationsApiAsync() {
  */
 export async function getMerchantsApiAsync() {
   const client = await getSquareClientAsync();
-  return client?.merchantsApi ?? null;
+  return client?.merchants ?? client?.merchantsApi ?? null;
 }
 
 /**
@@ -144,7 +150,7 @@ export async function getMerchantsApiAsync() {
  */
 export async function getRefundsApiAsync() {
   const client = await getSquareClientAsync();
-  return client?.refundsApi ?? null;
+  return client?.refunds ?? client?.refundsApi ?? null;
 }
 
 /**
@@ -152,7 +158,7 @@ export async function getRefundsApiAsync() {
  */
 export async function getCustomersApiAsync() {
   const client = await getSquareClientAsync();
-  return client?.customersApi ?? null;
+  return client?.customers ?? client?.customersApi ?? null;
 }
 
 /**
@@ -160,7 +166,7 @@ export async function getCustomersApiAsync() {
  */
 export async function getGiftCardsApiAsync() {
   const client = await getSquareClientAsync();
-  return client?.giftCardsApi ?? null;
+  return client?.giftCards ?? client?.giftCardsApi ?? null;
 }
 
 /**
@@ -168,7 +174,7 @@ export async function getGiftCardsApiAsync() {
  */
 export async function getGiftCardActivitiesApiAsync() {
   const client = await getSquareClientAsync();
-  return client?.giftCardActivitiesApi ?? null;
+  return client?.giftCardActivities ?? client?.giftCardActivitiesApi ?? null;
 }
 
 // ============================================================
