@@ -14,7 +14,7 @@ export const runtime = 'nodejs';
 export async function GET() {
   try {
     // Prefer Square_Apple_Pay (new download from Square) if it exists
-    const squarePath = join(process.cwd(), 'public', 'Square_Apple_Pay');
+    const squarePath = join(process.cwd(), 'public', 'SQUARE_APPLE_PAY');
     const wellKnownPath = join(process.cwd(), 'public', '.well-known', 'apple-developer-merchantid-domain-association');
     let raw = '';
     try {
