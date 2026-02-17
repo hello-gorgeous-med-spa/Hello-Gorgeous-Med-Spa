@@ -16,6 +16,11 @@ export function middleware(request: NextRequest) {
   const pathname = url.pathname;
   const hostname = request.headers.get('host') || '';
 
+  // .well-known (Apple Pay, etc.) — never redirect, never auth
+  if (pathname.startsWith('/.well-known/')) {
+    return NextResponse.next();
+  }
+
   // Portal login/verify — always publicly accessible (magic link flow)
   if (pathname === '/portal/login' || pathname === '/portal/verify') {
     return NextResponse.next();
