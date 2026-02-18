@@ -133,27 +133,51 @@ export async function POST(request: NextRequest) {
       }
       const supabase = createServerSupabaseClient();
       const displayName = name || `Terminal ${squareDeviceId.slice(-4)}`;
-      const { data: device, error: upsertError } = await supabase
+      const row = {
+        connection_id: connection.id,
+        location_id: locationId,
+        square_device_id: squareDeviceId,
+        name: displayName,
+        product_type: 'TERMINAL_API',
+        status: 'paired',
+        paired_at: new Date().toISOString(),
+      };
+
+      let device: { id: string } | null = null;
+      const { data: upserted, error: upsertError } = await supabase
         .from('square_devices')
-        .upsert({
-          connection_id: connection.id,
-          location_id: locationId,
-          square_device_id: squareDeviceId,
-          name: displayName,
-          product_type: 'TERMINAL_API',
-          status: 'paired',
-          paired_at: new Date().toISOString(),
-        }, {
-          onConflict: 'location_id,square_device_id',
-        })
+        .upsert(row, { onConflict: 'location_id,square_device_id' })
         .select()
         .single();
 
       if (upsertError) {
-        return NextResponse.json(
-          { error: 'Failed to add device', details: upsertError.message },
-          { status: 500 }
-        );
+        const { data: inserted, error: insertError } = await supabase
+          .from('square_devices')
+          .insert(row)
+          .select()
+          .single();
+        if (insertError) {
+          if (insertError.code === '23505') {
+            const { data: existing } = await supabase
+              .from('square_devices')
+              .select('*')
+              .eq('location_id', locationId)
+              .eq('square_device_id', squareDeviceId)
+              .single();
+            device = existing;
+          }
+          if (!device) {
+            console.error('[Add device by ID]', upsertError, insertError);
+            return NextResponse.json(
+              { error: 'Failed to add device', details: insertError?.message || upsertError.message },
+              { status: 500 }
+            );
+          }
+        } else {
+          device = inserted;
+        }
+      } else {
+        device = upserted;
       }
 
       const setAsDefault = body?.set_as_default !== false;

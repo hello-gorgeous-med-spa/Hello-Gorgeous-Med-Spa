@@ -316,12 +316,12 @@ export default function PaymentSettingsPage() {
     const id = addByIdInput.trim();
     if (!id) {
       setError('Enter a Square device ID');
-      setTimeout(() => setError(null), 3000);
+      setTimeout(() => setError(null), 5000);
       return;
     }
     if (!connection?.location_id) {
       setError('Select a location first');
-      setTimeout(() => setError(null), 3000);
+      setTimeout(() => setError(null), 5000);
       return;
     }
     setAddingById(true);
@@ -336,21 +336,28 @@ export default function PaymentSettingsPage() {
           set_as_default: devices.length === 0,
         }),
       });
-      const data = await res.json();
+      let data: { added?: boolean; error?: string; details?: string } = {};
+      try {
+        data = await res.json();
+      } catch {
+        setError(res.ok ? 'Invalid response from server' : `Request failed (${res.status})`);
+        return;
+      } finally {
+        setAddingById(false);
+      }
       if (res.ok && data.added) {
         setAddByIdInput('');
         setShowAddById(false);
-        fetchDevices(false);
-        fetchConnection();
+        await fetchDevices(false);
         setSuccess('Device added successfully');
-        setTimeout(() => setSuccess(null), 3000);
+        setTimeout(() => setSuccess(null), 5000);
       } else {
-        setError(data.error || data.details || 'Failed to add device');
+        const errMsg = [data.error, data.details].filter(Boolean).join(' — ') || 'Failed to add device';
+        setError(errMsg);
       }
-    } catch {
-      setError('Failed to add device');
-    } finally {
+    } catch (err) {
       setAddingById(false);
+      setError(err instanceof Error ? err.message : 'Network error. Check your connection and try again.');
     }
   };
 
@@ -578,7 +585,7 @@ export default function PaymentSettingsPage() {
               <div className="flex items-center justify-between mb-2">
                 <h3 className="font-medium text-black">Add Device by Square ID</h3>
                 <button
-                  onClick={() => setShowAddById(false)}
+                  onClick={() => { setShowAddById(false); setError(null); }}
                   className="text-black hover:text-gray-600"
                 >
                   Close
@@ -587,6 +594,11 @@ export default function PaymentSettingsPage() {
               <p className="text-sm text-black mb-3">
                 If your terminal is already paired in the Square app, enter its device ID here. Find it in Square Dashboard → Devices → your terminal.
               </p>
+              {error && (
+                <div className="mb-3 p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+                  {error}
+                </div>
+              )}
               <div className="flex gap-2">
                 <input
                   type="text"
