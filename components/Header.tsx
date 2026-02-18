@@ -107,6 +107,7 @@ const navigation = {
       { label: "Annual Membership", href: "/subscribe", description: "Save 10% on everything", icon: "🎁", badge: "SAVE" },
       { label: "Give $25, Get $25", href: "/referral", description: "Refer a friend", icon: "💝" },
       { label: "Current Promotions", href: "/book", description: "This month's deals", icon: "🔥" },
+      { label: "Financing Options", href: "/financing", description: "Cherry, Affirm & CareCredit", icon: "💳" },
     ],
   },
 };

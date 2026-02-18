@@ -9,6 +9,8 @@ import { PhotoGallery } from "@/components/PhotoGallery";
 import { MeetProviders } from "@/components/MeetProviders";
 import { PartnersGrid } from "@/components/PartnersGrid";
 import { Testimonials } from "@/components/Testimonials";
+import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
+import { CertificationBadges } from "@/components/CertificationBadges";
 import { LocationMap } from "@/components/LocationMap";
 import { AnteAGEShowcase } from "@/components/AnteAGEShowcase";
 import { PharmacyShowcase } from "@/components/PharmacyShowcase";
@@ -137,9 +139,6 @@ export default async function HomePage() {
       {/* Interactive Tools */}
       <HomepageInteractiveTools />
       
-      {/* Care Team */}
-      <HomeCareTeam />
-      
       {/* Pharmacy & Partner Showcases */}
       <PharmacyShowcase />
       <FullscriptSection />
@@ -152,8 +151,11 @@ export default async function HomePage() {
       {/* TikTok Embed */}
       <TikTokEmbed />
       
-      {/* SECTION - TESTIMONIALS (White) */}
-      <Testimonials />
+      {/* SECTION - TESTIMONIALS CAROUSEL (Black) */}
+      <TestimonialsCarousel />
+      
+      {/* CERTIFICATION BADGES */}
+      <CertificationBadges />
       
       {/* Immediate Care Banner */}
       <ImmediateCareBanner />

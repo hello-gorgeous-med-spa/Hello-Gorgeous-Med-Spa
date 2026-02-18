@@ -1,287 +1,309 @@
-'use client';
+import type { Metadata } from "next";
+import Link from "next/link";
+import { CTA } from "@/components/CTA";
+import { FadeUp, Section } from "@/components/Section";
+import { BOOKING_URL } from "@/lib/flows";
+import { pageMetadata, siteJsonLd } from "@/lib/seo";
 
-// ============================================================
-// FINANCING OPTIONS PAGE
-// Show available financing and payment plans
-// ============================================================
+export const metadata: Metadata = pageMetadata({
+  title: "Financing Options | Hello Gorgeous Med Spa",
+  description: "Flexible payment plans for Botox, fillers, weight loss, and more. Cherry financing, Affirm, and other options available. Get the treatments you want today.",
+  path: "/financing",
+});
 
-import { useState } from 'react';
-import Link from 'next/link';
-
-const FINANCING_OPTIONS = [
+const financingOptions = [
   {
-    id: 'cherry',
-    name: 'Cherry',
-    logo: '🍒',
-    tagline: 'Apply in minutes, get approved instantly',
+    name: "Cherry",
+    description: "0% APR financing available",
     features: [
-      'No hard credit check to apply',
-      'Instant approval decisions',
-      'Plans from 3-24 months',
-      'Rates as low as 0% APR',
-      'Pay off early with no penalty',
+      "Apply in minutes",
+      "No hard credit check to apply",
+      "Flexible payment plans (3-24 months)",
+      "0% APR options available",
+      "Use for any treatment",
     ],
-    applyUrl: 'https://withcherry.com/apply',
-    popular: true,
+    cta: "Apply with Cherry",
+    url: "https://withcherry.com/",
+    highlight: true,
+    icon: "🍒",
   },
   {
-    id: 'carecredit',
-    name: 'CareCredit',
-    logo: '💳',
-    tagline: 'The healthcare credit card',
+    name: "Affirm",
+    description: "Buy now, pay over time",
     features: [
-      '0% promotional financing available',
-      'Use at 250,000+ locations',
-      'Special financing on purchases $200+',
-      'Accepted nationwide',
-      'Manage payments in app',
+      "Quick & easy application",
+      "Split into monthly payments",
+      "Know upfront what you'll pay",
+      "No hidden fees",
+      "Check eligibility without impacting credit",
     ],
-    applyUrl: 'https://www.carecredit.com/apply',
-    popular: false,
+    cta: "Learn About Affirm",
+    url: "https://www.affirm.com/",
+    highlight: false,
+    icon: "✨",
   },
   {
-    id: 'affirm',
-    name: 'Affirm',
-    logo: '✓',
-    tagline: 'Pay over time, your way',
+    name: "CareCredit",
+    description: "Healthcare credit card",
     features: [
-      'Split into 4 payments (0% APR)',
-      'Or monthly payments 6-36 months',
-      'No hidden fees',
-      'See your rate without impacting credit',
-      'Easy checkout integration',
+      "Special financing options",
+      "Use for multiple treatments",
+      "Accepted at thousands of providers",
+      "Easy monthly payments",
+      "Reusable credit line",
     ],
-    applyUrl: 'https://www.affirm.com',
-    popular: false,
+    cta: "Apply for CareCredit",
+    url: "https://www.carecredit.com/",
+    highlight: false,
+    icon: "💳",
   },
 ];
 
-const PAYMENT_EXAMPLES = [
-  { total: 500, monthly: 45, months: 12, treatment: 'Botox Session' },
-  { total: 1200, monthly: 100, months: 12, treatment: 'Filler Package' },
-  { total: 2500, monthly: 105, months: 24, treatment: 'Full Face Refresh' },
-  { total: 4000, monthly: 167, months: 24, treatment: 'Body Contouring' },
+const popularPackages = [
+  {
+    name: "Botox Touch-Up",
+    price: "$250",
+    monthly: "$42/mo",
+    description: "Perfect for maintenance visits",
+  },
+  {
+    name: "Lip Filler",
+    price: "$650",
+    monthly: "$54/mo",
+    description: "1 syringe of premium filler",
+  },
+  {
+    name: "Weight Loss Program",
+    price: "$399/mo",
+    monthly: "$100/wk",
+    description: "Semaglutide or Tirzepatide",
+  },
+  {
+    name: "Full Face Rejuvenation",
+    price: "$2,500",
+    monthly: "$104/mo",
+    description: "Botox + fillers package",
+  },
 ];
 
 export default function FinancingPage() {
-  const [selectedAmount, setSelectedAmount] = useState(1000);
-  const [selectedMonths, setSelectedMonths] = useState(12);
-
-  const monthlyPayment = Math.ceil(selectedAmount / selectedMonths);
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
+      />
+
       {/* Hero */}
-      <div className="text-center py-16 px-4">
-        <h1 className="text-4xl md:text-5xl font-bold text-black mb-4">
-          Look Gorgeous Now, <span className="text-green-600">Pay Over Time</span>
-        </h1>
-        <p className="text-xl text-black max-w-2xl mx-auto mb-8">
-          Don't let budget hold you back from feeling your best. 
-          We offer flexible financing options with instant approval.
-        </p>
-        
-        {/* Quick Calculator */}
-        <div className="max-w-lg mx-auto bg-white rounded-2xl shadow-xl p-6 mb-8">
-          <h3 className="font-semibold text-black mb-4">Quick Payment Estimator</h3>
-          <div className="space-y-4">
-            <div>
-              <label className="block text-sm text-black mb-2">Treatment Cost</label>
-              <input
-                type="range"
-                min="200"
-                max="5000"
-                step="100"
-                value={selectedAmount}
-                onChange={(e) => setSelectedAmount(parseInt(e.target.value))}
-                className="w-full accent-pink-500"
-              />
-              <p className="text-2xl font-bold text-black">${selectedAmount.toLocaleString()}</p>
-            </div>
-            <div>
-              <label className="block text-sm text-black mb-2">Payment Term</label>
-              <div className="flex gap-2">
-                {[3, 6, 12, 18, 24].map((m) => (
-                  <button
-                    key={m}
-                    onClick={() => setSelectedMonths(m)}
-                    className={`flex-1 py-2 rounded-lg font-medium ${
-                      selectedMonths === m
-                        ? 'bg-[#FF2D8E] text-white'
-                        : 'bg-white text-black'
-                    }`}
-                  >
-                    {m}mo
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className="pt-4 border-t border-black">
-              <p className="text-black">Estimated Monthly Payment</p>
-              <p className="text-4xl font-bold text-green-600">
-                ${monthlyPayment}<span className="text-lg text-black">/mo</span>
-              </p>
-              <p className="text-xs text-black mt-1">*Actual rate depends on credit approval</p>
-            </div>
-          </div>
+      <Section className="bg-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <FadeUp>
+            <p className="text-[#E6007E] text-sm font-semibold tracking-widest uppercase mb-4">
+              FLEXIBLE PAYMENT OPTIONS
+            </p>
+            <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight mb-6">
+              Look Your Best <span className="text-[#E6007E]">Today</span>,
+              <br />Pay Over Time
+            </h1>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+              Don't let cost hold you back from feeling confident. We offer flexible financing 
+              options so you can get the treatments you want now and pay at your own pace.
+            </p>
+          </FadeUp>
         </div>
-      </div>
+      </Section>
 
       {/* Financing Options */}
-      <div className="max-w-6xl mx-auto px-4 pb-16">
-        <h2 className="text-2xl font-bold text-black text-center mb-8">
-          Choose Your Financing Partner
-        </h2>
-        
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          {FINANCING_OPTIONS.map((option) => (
-            <div
-              key={option.id}
-              className={`bg-white rounded-2xl shadow-lg overflow-hidden ${
-                option.popular ? 'ring-2 ring-green-500 relative' : ''
-              }`}
-            >
-              {option.popular && (
-                <div className="absolute top-0 left-0 right-0 bg-green-500 text-white text-center py-1 text-sm font-medium">
-                  Most Popular
-                </div>
-              )}
-              <div className={`p-6 ${option.popular ? 'pt-10' : ''}`}>
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-4xl">{option.logo}</span>
-                  <div>
-                    <h3 className="font-bold text-xl text-black">{option.name}</h3>
-                    <p className="text-sm text-black">{option.tagline}</p>
-                  </div>
-                </div>
-
-                <ul className="space-y-3 mb-6">
-                  {option.features.map((feature, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm">
-                      <span className="text-green-500 mt-0.5">✓</span>
-                      <span className="text-black">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <a
-                  href={option.applyUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`block w-full py-3 rounded-lg font-medium text-center ${
-                    option.popular
-                      ? 'bg-green-500 text-white hover:bg-green-600'
-                      : 'bg-white text-black hover:bg-white'
-                  }`}
-                >
-                  Apply Now
-                </a>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Payment Examples */}
-        <div className="bg-white rounded-2xl shadow-lg p-8 mb-12">
-          <h3 className="font-bold text-xl text-black mb-6 text-center">
-            Sample Payment Plans
-          </h3>
-          <div className="overflow-x-auto">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b border-black">
-                  <th className="text-left py-3 px-4 text-black font-medium">Treatment</th>
-                  <th className="text-center py-3 px-4 text-black font-medium">Total</th>
-                  <th className="text-center py-3 px-4 text-black font-medium">Term</th>
-                  <th className="text-center py-3 px-4 text-black font-medium">Monthly</th>
-                </tr>
-              </thead>
-              <tbody>
-                {PAYMENT_EXAMPLES.map((ex, i) => (
-                  <tr key={i} className="border-b border-black">
-                    <td className="py-4 px-4 font-medium text-black">{ex.treatment}</td>
-                    <td className="py-4 px-4 text-center text-black">${ex.total.toLocaleString()}</td>
-                    <td className="py-4 px-4 text-center text-black">{ex.months} months</td>
-                    <td className="py-4 px-4 text-center font-bold text-green-600">${ex.monthly}/mo</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+      <Section className="bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-black">
+              Choose Your <span className="text-[#E6007E]">Payment Plan</span>
+            </h2>
           </div>
-          <p className="text-xs text-black text-center mt-4">
-            *Payment amounts are estimates. Actual rates vary based on credit approval and selected financing option.
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {financingOptions.map((option, idx) => (
+              <FadeUp key={option.name} delayMs={idx * 100}>
+                <div className={`rounded-2xl p-6 h-full flex flex-col ${
+                  option.highlight 
+                    ? "bg-gradient-to-br from-[#E6007E] to-pink-600 text-white shadow-xl shadow-[#E6007E]/25" 
+                    : "bg-white border border-gray-200 shadow-sm"
+                }`}>
+                  {option.highlight && (
+                    <span className="self-start px-3 py-1 bg-white text-[#E6007E] text-xs font-bold rounded-full mb-4">
+                      MOST POPULAR
+                    </span>
+                  )}
+                  
+                  <div className="text-4xl mb-4">{option.icon}</div>
+                  
+                  <h3 className={`text-2xl font-bold ${option.highlight ? "text-white" : "text-black"}`}>
+                    {option.name}
+                  </h3>
+                  <p className={`mt-2 ${option.highlight ? "text-white/80" : "text-gray-600"}`}>
+                    {option.description}
+                  </p>
+
+                  <ul className="mt-6 space-y-3 flex-1">
+                    {option.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2">
+                        <span className={option.highlight ? "text-white" : "text-[#E6007E]"}>✓</span>
+                        <span className={`text-sm ${option.highlight ? "text-white/90" : "text-gray-700"}`}>
+                          {feature}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  <a
+                    href={option.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`mt-6 block text-center py-3 px-6 rounded-full font-bold transition ${
+                      option.highlight
+                        ? "bg-white text-[#E6007E] hover:bg-gray-100"
+                        : "bg-[#E6007E] text-white hover:bg-[#C4006B]"
+                    }`}
+                  >
+                    {option.cta}
+                  </a>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </Section>
+
+      {/* Example Monthly Payments */}
+      <Section className="bg-white">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-black">
+              Sample <span className="text-[#E6007E]">Monthly Payments</span>
+            </h2>
+            <p className="mt-4 text-gray-600">
+              With 12-month financing at 0% APR*
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {popularPackages.map((pkg) => (
+              <div key={pkg.name} className="bg-gray-50 rounded-2xl p-6 text-center">
+                <h3 className="font-bold text-black">{pkg.name}</h3>
+                <p className="text-sm text-gray-500 mt-1">{pkg.description}</p>
+                <div className="mt-4">
+                  <span className="text-3xl font-bold text-[#E6007E]">{pkg.monthly}</span>
+                </div>
+                <p className="text-xs text-gray-400 mt-2">Total: {pkg.price}</p>
+              </div>
+            ))}
+          </div>
+
+          <p className="text-center text-xs text-gray-400 mt-8">
+            *Subject to credit approval. Terms and conditions apply. Example payments shown for illustrative purposes.
           </p>
         </div>
+      </Section>
 
-        {/* FAQ */}
-        <div className="max-w-3xl mx-auto">
-          <h3 className="font-bold text-xl text-black mb-6 text-center">Financing FAQ</h3>
-          <div className="space-y-4">
-            <details className="bg-white rounded-lg p-4 shadow">
-              <summary className="font-medium text-black cursor-pointer">
-                Will applying hurt my credit score?
-              </summary>
-              <p className="mt-3 text-black">
-                Cherry and Affirm perform a soft credit check that doesn't impact your score. 
-                CareCredit does a hard inquiry, but only after you choose to proceed with the full application.
-              </p>
-            </details>
-            <details className="bg-white rounded-lg p-4 shadow">
-              <summary className="font-medium text-black cursor-pointer">
-                How quickly can I get approved?
-              </summary>
-              <p className="mt-3 text-black">
-                Most applications are approved within 2 minutes. You can apply right here in our office 
-                and use your financing immediately for your treatment.
-              </p>
-            </details>
-            <details className="bg-white rounded-lg p-4 shadow">
-              <summary className="font-medium text-black cursor-pointer">
-                What if I want to pay off early?
-              </summary>
-              <p className="mt-3 text-black">
-                All our financing partners allow early payoff with no penalties. Pay off your balance 
-                whenever you're ready at no extra cost.
-              </p>
-            </details>
-            <details className="bg-white rounded-lg p-4 shadow">
-              <summary className="font-medium text-black cursor-pointer">
-                Can I use financing for any treatment?
-              </summary>
-              <p className="mt-3 text-black">
-                Yes! Financing can be used for any service or package at Hello Gorgeous Med Spa, 
-                including injectables, facials, body treatments, and skincare products.
-              </p>
-            </details>
+      {/* How It Works */}
+      <Section className="bg-black text-white">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold">
+              How It <span className="text-[#E6007E]">Works</span>
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                step: "1",
+                title: "Apply Online",
+                description: "Quick application takes just 2 minutes. Get approved instantly with no impact to your credit score.",
+              },
+              {
+                step: "2",
+                title: "Book Your Treatment",
+                description: "Schedule your appointment and let us know you'll be using financing at checkout.",
+              },
+              {
+                step: "3",
+                title: "Pay Over Time",
+                description: "Enjoy your results now and pay in comfortable monthly installments.",
+              },
+            ].map((item) => (
+              <div key={item.step} className="text-center">
+                <div className="w-16 h-16 mx-auto rounded-full bg-[#E6007E] flex items-center justify-center text-2xl font-bold mb-4">
+                  {item.step}
+                </div>
+                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+                <p className="text-white/70">{item.description}</p>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
+      </Section>
+
+      {/* FAQ */}
+      <Section className="bg-white">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-black">
+              Frequently Asked <span className="text-[#E6007E]">Questions</span>
+            </h2>
+          </div>
+
+          <div className="space-y-4">
+            {[
+              {
+                q: "Will applying affect my credit score?",
+                a: "No! Checking your eligibility with Cherry or Affirm does not impact your credit score. Only a soft credit check is performed during the application.",
+              },
+              {
+                q: "Can I use financing for any treatment?",
+                a: "Yes! You can use financing for any service we offer including Botox, fillers, weight loss programs, hormone therapy, and more.",
+              },
+              {
+                q: "How quickly will I know if I'm approved?",
+                a: "Most applications are processed instantly. You'll know within minutes if you're approved and for how much.",
+              },
+              {
+                q: "Is there a minimum purchase amount?",
+                a: "Minimum amounts may vary by financing provider. Cherry typically has a $200 minimum, while others may vary.",
+              },
+            ].map((faq) => (
+              <div key={faq.q} className="border border-gray-200 rounded-xl p-6">
+                <h3 className="font-bold text-black">{faq.q}</h3>
+                <p className="mt-2 text-gray-600">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </Section>
 
       {/* CTA */}
-      <div className="bg-gradient-to-r from-green-600 to-teal-600 py-16 px-4">
-        <div className="max-w-4xl mx-auto text-center text-white">
-          <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-          <p className="text-green-100 mb-8 text-lg">
-            Apply now and you could be approved in minutes. Our team is here to help you through the process.
+      <Section className="bg-[#E6007E]">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Ready to Get Started?
+          </h2>
+          <p className="text-white/90 text-lg mb-8">
+            Book your consultation today and ask about our financing options.
           </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <a
-              href="https://withcherry.com/apply"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-3 bg-white text-green-600 font-medium rounded-lg hover:bg-green-50"
-            >
-              Apply with Cherry
-            </a>
-            <Link
-              href="/book"
-              className="px-8 py-3 border-2 border-white text-white font-medium rounded-lg hover:bg-white"
-            >
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <CTA href={BOOKING_URL} variant="white">
               Book Consultation
+            </CTA>
+            <Link
+              href="/contact"
+              className="px-8 py-4 rounded-full font-bold border-2 border-white text-white hover:bg-white hover:text-[#E6007E] transition"
+            >
+              Questions? Contact Us
             </Link>
           </div>
         </div>
-      </div>
-    </div>
+      </Section>
+    </>
   );
 }
