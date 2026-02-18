@@ -11,7 +11,7 @@
 
 import { getTerminalApiAsync, getOrdersApiAsync, getPaymentsApiAsync } from './client';
 import { getActiveConnection } from './oauth';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { createServerSupabaseClient, createAdminSupabaseClient } from '@/lib/hgos/supabase';
 
 // ============================================================
 // TYPES
@@ -93,7 +93,10 @@ export async function createTerminalCheckout(
     taxCents = 0,
   } = params;
   
-  const supabase = createServerSupabaseClient();
+  const supabase = createAdminSupabaseClient() ?? createServerSupabaseClient();
+  if (!supabase) {
+    throw new Error('Database not configured');
+  }
   
   // Get Square device ID from our database
   const { data: device } = await supabase
@@ -281,14 +284,16 @@ export async function cancelTerminalCheckout(
     await terminalApi.cancelTerminalCheckout(checkoutId);
     
     // Update our database
-    const supabase = createServerSupabaseClient();
-    await supabase
-      .from('terminal_checkouts')
-      .update({ 
-        status: 'CANCELED',
-        canceled_at: new Date().toISOString(),
-      })
-      .eq('square_checkout_id', checkoutId);
+    const supabase = createAdminSupabaseClient() ?? createServerSupabaseClient();
+    if (supabase) {
+      await supabase
+        .from('terminal_checkouts')
+        .update({ 
+          status: 'CANCELED',
+          canceled_at: new Date().toISOString(),
+        })
+        .eq('square_checkout_id', checkoutId);
+    }
     
     return true;
   } catch (error: any) {
@@ -368,7 +373,8 @@ export async function getCheckoutStatusFromDb(
   totalMoney: number;
   errorMessage: string | null;
 } | null> {
-  const supabase = createServerSupabaseClient();
+  const supabase = createAdminSupabaseClient() ?? createServerSupabaseClient();
+  if (!supabase) return null;
   
   const { data: checkout } = await supabase
     .from('terminal_checkouts')
