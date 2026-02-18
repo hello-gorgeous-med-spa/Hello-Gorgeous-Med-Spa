@@ -36,7 +36,13 @@ export async function GET(request: NextRequest) {
       );
     }
     
-    const supabase = createServerSupabaseClient();
+    const supabase = createAdminSupabaseClient() ?? createServerSupabaseClient();
+    if (!supabase) {
+      return NextResponse.json(
+        { error: 'Database not configured' },
+        { status: 500 }
+      );
+    }
     
     // If refresh requested, fetch from Square API
     if (refresh) {
