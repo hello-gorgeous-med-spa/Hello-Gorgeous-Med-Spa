@@ -75,8 +75,7 @@ const navigation = {
     href: "/about",
     links: [
       { label: "About Hello Gorgeous", href: "/about", description: "Our story, mission & team", icon: "💗" },
-      { label: "Danielle Glazier, RN, BSN", href: "/providers/danielle", description: "Lead Aesthetic Injector", icon: "👩‍⚕️" },
-      { label: "Ryan Kent, FNP-BC", href: "/providers/ryan", description: "Medical Director & Wellness", icon: "🧑‍⚕️" },
+      { label: "Meet Our Team", href: "/providers", description: "Danielle, Ryan & our experts", icon: "👩‍⚕️" },
       { label: "Our Location", href: "/locations", description: "Visit us in Oswego, IL", icon: "📍" },
       { label: "Clinical Standards", href: "/clinical-partners", description: "Safety & quality commitment", icon: "🏥" },
       { label: "The Care Engine™", href: "/care-engine", description: "Our personalized approach", icon: "⚙️" },
@@ -388,52 +387,6 @@ export function Header() {
                 </svg>
               </Link>
               <SimpleDropdown data={navigation.journey} isOpen={activeDropdown === 'journey'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('journey')} />
-            </div>
-
-            {/* Providers Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => handleMouseEnter('providers')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Link
-                href="/providers"
-                className={cx(
-                  "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                  pathname?.startsWith('/providers')
-                    ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
-                    : "text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5"
-                )}
-              >
-                Providers
-                <svg className={cx("w-4 h-4 transition-transform", activeDropdown === 'providers' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Link>
-              <SimpleDropdown data={navigation.providers} isOpen={activeDropdown === 'providers'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('providers')} />
-            </div>
-
-            {/* Providers Dropdown */}
-            <div 
-              className="relative"
-              onMouseEnter={() => handleMouseEnter('providers')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Link
-                href="/providers"
-                className={cx(
-                  "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                  pathname?.startsWith('/providers')
-                    ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
-                    : "text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5"
-                )}
-              >
-                Providers
-                <svg className={cx("w-4 h-4 transition-transform", activeDropdown === 'providers' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </Link>
-              <SimpleDropdown data={navigation.providers} isOpen={activeDropdown === 'providers'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('providers')} />
             </div>
 
             {/* Specials Dropdown - Highlighted */}
