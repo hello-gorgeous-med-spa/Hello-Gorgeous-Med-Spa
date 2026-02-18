@@ -106,6 +106,7 @@ function HeroWrapper({ content }: { content: Record<string, unknown> }) {
   return (
     <Hero
       headline={content.headline as string}
+      headlineAccent={content.headline_accent as string || ""}
       subheadline={content.subheadline as string}
       ctaText={content.cta_text as string}
       ctaUrl={content.cta_url as string}

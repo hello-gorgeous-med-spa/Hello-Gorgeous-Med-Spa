@@ -47,7 +47,9 @@ export function Hero({
               style={{ letterSpacing: "-0.02em" }}
             >
               {headline}{" "}
-              <span className="text-[#FF2D8E]">{headlineAccent}</span>
+              {headlineAccent && !headline.includes(headlineAccent) && (
+                <span className="text-[#FF2D8E]">{headlineAccent}</span>
+              )}
             </h1>
             <p
               className={`mt-6 text-lg md:text-xl transition-all duration-500 ease-out ${

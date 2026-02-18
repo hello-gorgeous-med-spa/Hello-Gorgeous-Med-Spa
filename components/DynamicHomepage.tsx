@@ -56,6 +56,7 @@ function renderSection(section: CMSSection) {
         <Hero
           key={id}
           headline={content.headline as string}
+          headlineAccent={(content.headline_accent as string) || ""}
           subheadline={content.subheadline as string}
           ctaText={content.cta_text as string}
           ctaUrl={content.cta_url as string}
