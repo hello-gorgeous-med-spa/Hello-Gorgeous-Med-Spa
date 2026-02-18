@@ -106,6 +106,22 @@ export default function POSPage() {
     }]);
   };
 
+  // Add custom amount to cart
+  const addCustomAmount = (amount: number, description: string = 'Custom Charge') => {
+    if (amount <= 0) return;
+    setCart(prev => [...prev, {
+      id: `custom-${Date.now()}`,
+      type: 'service',
+      item_id: null,
+      name: description,
+      price: amount,
+      original_price: amount,
+      quantity: 1,
+      discount: 0,
+      provider_name: selectedClient?.provider_name || 'Staff',
+    }]);
+  };
+
   // Remove from cart
   const removeFromCart = (cartId: string) => {
     setCart(prev => prev.filter(item => item.id !== cartId));
@@ -287,6 +303,7 @@ export default function POSPage() {
             onAddToCart={addToCart}
             onRemoveFromCart={removeFromCart}
             onApplyDiscount={applyDiscount}
+            onAddCustomAmount={addCustomAmount}
             subtotal={subtotal}
             hasDiscount={hasDiscount}
             totalDiscount={totalDiscount}
@@ -424,6 +441,7 @@ function CheckoutPanel({
   onAddToCart,
   onRemoveFromCart,
   onApplyDiscount,
+  onAddCustomAmount,
   subtotal,
   hasDiscount,
   totalDiscount,
@@ -436,6 +454,7 @@ function CheckoutPanel({
   onAddToCart: (item: any, type: 'service' | 'product') => void;
   onRemoveFromCart: (id: string) => void;
   onApplyDiscount: (id: string, percent: number) => void;
+  onAddCustomAmount: (amount: number, description?: string) => void;
   subtotal: number;
   hasDiscount: boolean;
   totalDiscount: number;
@@ -444,6 +463,9 @@ function CheckoutPanel({
 }) {
   const [showServices, setShowServices] = useState(false);
   const [showPayment, setShowPayment] = useState(false);
+  const [showCustomAmount, setShowCustomAmount] = useState(false);
+  const [customAmount, setCustomAmount] = useState('');
+  const [customDescription, setCustomDescription] = useState('');
   const [processing, setProcessing] = useState(false);
   const [saleId, setSaleId] = useState<string | null>(null);
   const [showTerminalModal, setShowTerminalModal] = useState(false);
@@ -739,12 +761,58 @@ function CheckoutPanel({
           </div>
         )}
 
-        {/* More button */}
+        {/* Custom Amount button */}
         <div className="p-4 border-t-2 border-black bg-white">
-          <button className="flex items-center justify-center gap-2 w-full py-2.5 text-sm font-medium text-black hover:bg-black/5 rounded-lg border-2 border-black">
-            <span className="text-lg">+</span> MORE
+          <button 
+            onClick={() => setShowCustomAmount(!showCustomAmount)}
+            className="flex items-center justify-center gap-2 w-full py-2.5 text-sm font-medium text-[#FF2D8E] hover:bg-[#FF2D8E]/5 rounded-lg border-2 border-[#FF2D8E]"
+          >
+            <span className="text-lg">$</span> CUSTOM AMOUNT
           </button>
         </div>
+
+        {/* Custom Amount Input */}
+        {showCustomAmount && (
+          <div className="p-4 border-t-2 border-black bg-white space-y-3">
+            <div>
+              <label className="block text-xs font-medium text-black/70 mb-1">Amount ($)</label>
+              <input
+                type="number"
+                step="0.01"
+                min="0"
+                placeholder="0.00"
+                value={customAmount}
+                onChange={(e) => setCustomAmount(e.target.value)}
+                className="w-full px-3 py-2 border-2 border-black rounded-lg text-lg font-semibold text-black placeholder-black/30 focus:border-[#FF2D8E] focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-medium text-black/70 mb-1">Description (optional)</label>
+              <input
+                type="text"
+                placeholder="Custom Charge"
+                value={customDescription}
+                onChange={(e) => setCustomDescription(e.target.value)}
+                className="w-full px-3 py-2 border-2 border-black rounded-lg text-sm text-black placeholder-black/30 focus:border-[#FF2D8E] focus:outline-none"
+              />
+            </div>
+            <button
+              onClick={() => {
+                const amount = parseFloat(customAmount);
+                if (amount > 0) {
+                  onAddCustomAmount(amount, customDescription || 'Custom Charge');
+                  setCustomAmount('');
+                  setCustomDescription('');
+                  setShowCustomAmount(false);
+                }
+              }}
+              disabled={!customAmount || parseFloat(customAmount) <= 0}
+              className="w-full py-2.5 bg-[#FF2D8E] text-white rounded-lg font-medium hover:bg-[#FF2D8E]/90 disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              Add ${customAmount ? parseFloat(customAmount).toFixed(2) : '0.00'}
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Offers Applied */}
