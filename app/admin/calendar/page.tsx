@@ -12,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/Toast';
 import { CalendarNavBar } from '@/components/calendar/CalendarNavBar';
 import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from '@/lib/provider-credentials';
+import { businessDateTimeToUTC } from '@/lib/business-timezone';
 
 // Provider colors - soft pastels like Boulevard
 const PROVIDER_COLORS = [
@@ -78,7 +79,7 @@ export default function CalendarPage() {
     try {
       setLoading(true);
       console.log('[Calendar] Fetching appointments for date:', dateString);
-      const res = await fetch(`/api/appointments?date=${dateString}`);
+      const res = await fetch(`/api/appointments?date=${dateString}`, { cache: 'no-store' });
       const data = await res.json();
       console.log('[Calendar] Received appointments:', data.appointments?.length || 0, data.appointments);
       if (data.appointments) {
@@ -294,15 +295,13 @@ export default function CalendarPage() {
       
       const [hours, minutes] = quickBookSlot.time.split(':').map(Number);
       
-      // Build a datetime string that preserves the selected calendar date
-      // Format: YYYY-MM-DDTHH:MM:SS (local time, no timezone offset)
-      // This ensures the appointment shows on the correct calendar day
-      const year = selectedDate.getFullYear();
-      const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
-      const day = String(selectedDate.getDate()).padStart(2, '0');
-      const hourStr = String(hours).padStart(2, '0');
-      const minStr = String(minutes).padStart(2, '0');
-      const startsAt = `${year}-${month}-${day}T${hourStr}:${minStr}:00`;
+      // Use business timezone (America/Chicago) so appointment stores correctly and shows on calendar
+      const dateOnly = selectedDate.toISOString().split('T')[0];
+      const startDateTime = businessDateTimeToUTC(dateOnly, hours, minutes);
+      const startsAt = startDateTime.toISOString();
+
+      const selectedService = services.find((s: any) => s.id === quickBookService);
+      const durationMinutes = selectedService?.duration_minutes ?? 30;
 
       // Resolve provider ID to ensure it's a valid UUID
       const resolvedProviderId = await resolveProviderId(quickBookSlot.providerId);
@@ -315,6 +314,7 @@ export default function CalendarPage() {
           service_id: quickBookService,
           provider_id: resolvedProviderId,
           starts_at: startsAt,
+          duration_minutes: durationMinutes,
           status: 'confirmed',
         }),
       });
@@ -329,7 +329,8 @@ export default function CalendarPage() {
       setIsNewClient(false);
       setNewClientForm({ first_name: '', last_name: '', email: '', phone: '' });
       setQuickBookClient('');
-      fetchAppointments();
+      setQuickBookSlot(null);
+      await fetchAppointments();
     } catch (err: any) {
       toast.error(err.message || 'Failed to book appointment');
     } finally {
