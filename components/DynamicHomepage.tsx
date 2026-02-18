@@ -13,7 +13,6 @@ import { HomeCareTeam } from "@/components/HomeCareTeam";
 import { OffersSection } from "@/components/OffersSection";
 import { PhotoGallery } from "@/components/PhotoGallery";
 import { AboutSection } from "@/components/AboutSection";
-import { MeetProviders } from "@/components/MeetProviders";
 import { PartnersGrid } from "@/components/PartnersGrid";
 import { Testimonials } from "@/components/Testimonials";
 import { LocationMap } from "@/components/LocationMap";
@@ -95,7 +94,8 @@ function renderSection(section: CMSSection) {
       return <AboutSection key={id} />;
 
     case 'providers':
-      return <MeetProviders key={id} />;
+      // Meet the Team now lives on About page only
+      return null;
 
     case 'offers':
       return <OffersSection key={id} />;

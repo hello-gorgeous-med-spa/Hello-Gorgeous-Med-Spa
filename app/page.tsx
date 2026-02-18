@@ -6,7 +6,6 @@ import { MascotHeroSection } from "@/components/MascotHeroSection";
 import { HomeCareTeam } from "@/components/HomeCareTeam";
 import { OffersSection } from "@/components/OffersSection";
 import { PhotoGallery } from "@/components/PhotoGallery";
-import { MeetProviders } from "@/components/MeetProviders";
 import { PartnersGrid } from "@/components/PartnersGrid";
 import { Testimonials } from "@/components/Testimonials";
 import { TestimonialsCarousel } from "@/components/TestimonialsCarousel";
@@ -126,9 +125,6 @@ export default async function HomePage() {
       
       {/* SECTION 4 - ABOUT (White) */}
       <AboutSection />
-      
-      {/* SECTION 5 - PROVIDERS (White) */}
-      <MeetProviders />
       
       {/* SECTION 6 - OFFERS (White) */}
       <OffersSection />
