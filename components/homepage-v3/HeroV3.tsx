@@ -55,8 +55,8 @@ export function HeroV3() {
         >
           <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
             <Image
-              src="/images/team/danielle.png"
-              alt="Danielle Glazier, NP - Owner of Hello Gorgeous Med Spa"
+              src="/images/hero-banner.png"
+              alt="Hello Gorgeous Med Spa - Luxury Medical Aesthetics"
               fill
               priority
               className="object-cover"
