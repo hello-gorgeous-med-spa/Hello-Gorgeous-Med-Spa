@@ -10,7 +10,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { createServerSupabaseClient, createAdminSupabaseClient } from '@/lib/hgos/supabase';
 import { getActiveConnection } from '@/lib/square/oauth';
 import { createTerminalCheckout } from '@/lib/square/terminal';
 import crypto from 'crypto';
@@ -156,7 +156,13 @@ export async function POST(
       );
     }
     
-    const supabase = createServerSupabaseClient();
+    const supabase = createAdminSupabaseClient() ?? createServerSupabaseClient();
+    if (!supabase) {
+      return NextResponse.json(
+        { error: 'Database not configured' },
+        { status: 500 }
+      );
+    }
     
     // Fetch the sale with items
     const { data: sale, error: saleError } = await supabase
