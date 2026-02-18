@@ -101,7 +101,8 @@ export async function GET(request: NextRequest) {
 
 /**
  * POST /api/square/devices
- * Create a device pairing code for a new terminal
+ * - If square_device_id is provided: add device by Square ID (for already-paired terminals)
+ * - Otherwise: create a device pairing code for a new terminal
  */
 export async function POST(request: NextRequest) {
   let locationId: string | null = null;
@@ -118,6 +119,56 @@ export async function POST(request: NextRequest) {
     const body = await request.json().catch(() => ({}));
     locationId = body?.locationId || connection.location_id;
     name = body?.name;
+    
+    // Add device by Square ID (already paired via Square app)
+    const squareDeviceId = typeof body?.square_device_id === 'string'
+      ? body.square_device_id.trim()
+      : null;
+    if (squareDeviceId) {
+      if (!locationId) {
+        return NextResponse.json(
+          { error: 'Location required. Select a location first.' },
+          { status: 400 }
+        );
+      }
+      const supabase = createServerSupabaseClient();
+      const displayName = name || `Terminal ${squareDeviceId.slice(-4)}`;
+      const { data: device, error: upsertError } = await supabase
+        .from('square_devices')
+        .upsert({
+          connection_id: connection.id,
+          location_id: locationId,
+          square_device_id: squareDeviceId,
+          name: displayName,
+          product_type: 'TERMINAL_API',
+          status: 'paired',
+          paired_at: new Date().toISOString(),
+        }, {
+          onConflict: 'location_id,square_device_id',
+        })
+        .select()
+        .single();
+
+      if (upsertError) {
+        return NextResponse.json(
+          { error: 'Failed to add device', details: upsertError.message },
+          { status: 500 }
+        );
+      }
+
+      const setAsDefault = body?.set_as_default !== false;
+      if (setAsDefault && device) {
+        await supabase.from('square_devices').update({ is_default: false }).eq('connection_id', connection.id);
+        await supabase.from('square_devices').update({ is_default: true }).eq('id', device.id);
+        await supabase.from('square_connections').update({ default_device_id: device.id }).eq('id', connection.id);
+      }
+
+      return NextResponse.json({
+        device,
+        added: true,
+        message: 'Device added successfully',
+      });
+    }
     
     if (!locationId) {
       return NextResponse.json(

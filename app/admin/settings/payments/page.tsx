@@ -67,6 +67,11 @@ export default function PaymentSettingsPage() {
   const [pairingCode, setPairingCode] = useState<string | null>(null);
   const [pairingStatus, setPairingStatus] = useState<string>('');
   
+  // Add by ID state
+  const [showAddById, setShowAddById] = useState(false);
+  const [addByIdInput, setAddByIdInput] = useState('');
+  const [addingById, setAddingById] = useState(false);
+  
   // Saving state
   const [saving, setSaving] = useState(false);
 
@@ -306,6 +311,49 @@ export default function PaymentSettingsPage() {
     }
   };
 
+  // Add device by Square ID (already paired via Square app)
+  const handleAddById = async () => {
+    const id = addByIdInput.trim();
+    if (!id) {
+      setError('Enter a Square device ID');
+      setTimeout(() => setError(null), 3000);
+      return;
+    }
+    if (!connection?.location_id) {
+      setError('Select a location first');
+      setTimeout(() => setError(null), 3000);
+      return;
+    }
+    setAddingById(true);
+    setError(null);
+    try {
+      const res = await fetch('/api/square/devices', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          square_device_id: id,
+          locationId: connection.location_id,
+          set_as_default: devices.length === 0,
+        }),
+      });
+      const data = await res.json();
+      if (res.ok && data.added) {
+        setAddByIdInput('');
+        setShowAddById(false);
+        fetchDevices(false);
+        fetchConnection();
+        setSuccess('Device added successfully');
+        setTimeout(() => setSuccess(null), 3000);
+      } else {
+        setError(data.error || data.details || 'Failed to add device');
+      }
+    } catch {
+      setError('Failed to add device');
+    } finally {
+      setAddingById(false);
+    }
+  };
+
   // Disconnect Square
   const handleDisconnect = async () => {
     if (!confirm('Are you sure you want to disconnect Square? This will disable terminal payments.')) {
@@ -510,6 +558,12 @@ export default function PaymentSettingsPage() {
                 {loadingDevices ? 'Refreshing...' : 'Refresh'}
               </button>
               <button
+                onClick={() => setShowAddById(!showAddById)}
+                className="px-3 py-1.5 text-sm border border-black text-black rounded-lg hover:bg-black hover:text-white"
+              >
+                Add by Square ID
+              </button>
+              <button
                 onClick={handleStartPairing}
                 className="px-3 py-1.5 text-sm bg-[#FF2D8E] text-white rounded-lg hover:bg-black"
               >
@@ -517,6 +571,40 @@ export default function PaymentSettingsPage() {
               </button>
             </div>
           </div>
+
+          {/* Add by Square ID */}
+          {showAddById && (
+            <div className="mb-4 p-4 bg-gray-50 border border-black rounded-lg">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-medium text-black">Add Device by Square ID</h3>
+                <button
+                  onClick={() => setShowAddById(false)}
+                  className="text-black hover:text-gray-600"
+                >
+                  Close
+                </button>
+              </div>
+              <p className="text-sm text-black mb-3">
+                If your terminal is already paired in the Square app, enter its device ID here. Find it in Square Dashboard → Devices → your terminal.
+              </p>
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={addByIdInput}
+                  onChange={(e) => setAddByIdInput(e.target.value)}
+                  placeholder="e.g. 539CS149C3000508"
+                  className="flex-1 px-3 py-2 border border-black rounded-lg text-black placeholder:text-gray-500"
+                />
+                <button
+                  onClick={handleAddById}
+                  disabled={addingById}
+                  className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black disabled:opacity-50"
+                >
+                  {addingById ? 'Adding...' : 'Add Device'}
+                </button>
+              </div>
+            </div>
+          )}
 
           {/* Pairing Modal */}
           {showPairing && (
