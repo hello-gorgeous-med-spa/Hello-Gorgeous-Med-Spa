@@ -123,7 +123,7 @@ export function FreeVitaminContent() {
               </span>{" "}
               Vitamin Injection
               <br />
-              <span className="text-2xl md:text-4xl text-black">
+              <span className="text-2xl md:text-4xl text-white/90">
                 (Up to $65 Value)
               </span>
             </h1>
