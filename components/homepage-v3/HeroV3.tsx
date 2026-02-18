@@ -53,13 +53,13 @@ export function HeroV3() {
             mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          <div className="relative aspect-[3/4] md:aspect-[4/5] max-h-[500px] lg:max-h-[600px] rounded-2xl overflow-hidden mx-auto">
+          <div className="relative w-full aspect-[1742/614] rounded-2xl overflow-hidden mx-auto">
             <Image
               src="/images/hero-banner.png"
               alt="Hello Gorgeous Med Spa - Luxury Medical Aesthetics"
               fill
               priority
-              className="object-cover object-center"
+              className="object-contain object-center"
               sizes="(max-width: 768px) 100vw, 50vw"
             />
           </div>
