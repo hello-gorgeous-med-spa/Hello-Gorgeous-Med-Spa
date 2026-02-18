@@ -387,7 +387,8 @@ export function Header() {
               onMouseEnter={() => handleMouseEnter('specials')}
               onMouseLeave={handleMouseLeave}
             >
-              <button
+              <Link
+                href={navigation.specials.href}
                 className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all text-[#FF2D8E] hover:text-pink-300 hover:bg-[#FF2D8E]/10 border border-[#FF2D8E]/30"
               >
                 <span className="relative flex h-2 w-2">
@@ -398,7 +399,7 @@ export function Header() {
                 <svg className={cx("w-4 h-4 transition-transform", activeDropdown === 'specials' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
-              </button>
+              </Link>
               <SimpleDropdown data={navigation.specials} isOpen={activeDropdown === 'specials'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('specials')} align="right" />
             </div>
 
