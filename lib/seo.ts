@@ -30,8 +30,8 @@ export const SITE = {
   geo: { latitude: 41.6828, longitude: -88.3515 },
   serviceAreas: ["Oswego, IL", "Naperville, IL", "Aurora, IL", "Plainfield, IL", "Yorkville, IL", "Kendall County, IL"],
   googleBusinessUrl: "https://www.google.com/maps/place/Hello+Gorgeous+Med+Spa/@41.6828,-88.3515,17z",
-  /** Direct link to leave a Google review. Update with your GBP g.page link if different. */
-  googleReviewUrl: "https://g.page/r/CYQOWmT_HcwQEBM/review",
+  /** Direct link to leave a Google review. Uses Place ID for one-click review form. */
+  googleReviewUrl: "https://search.google.com/local/writereview?placeid=ChIJt2xHqd_vDogRhA5aZP8dzBA",
   priceRange: "$$$" as const,
   /** AggregateRating - only injected when both set. Update from GBP or manually. */
   reviewRating: "4.9",
