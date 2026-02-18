@@ -20,8 +20,7 @@ const nextConfig = {
     {
       source: "/.well-known/apple-developer-merchantid-domain-association",
       headers: [
-        { key: "Content-Type", value: "application/json; charset=utf-8" },
-        { key: "Access-Control-Allow-Origin", value: "*" },
+        { key: "Content-Type", value: "text/plain" },
       ],
     },
     {

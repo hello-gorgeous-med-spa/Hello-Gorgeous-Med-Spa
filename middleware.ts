@@ -156,17 +156,7 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// Only run middleware on specific paths
+// Only run middleware on specific paths — .well-known excluded so Apple Pay verification is never touched
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - .well-known (Apple Pay domain verification, etc.)
-     * - public files (public directory)
-     */
-    '/((?!_next/static|_next/image|favicon.ico|\\.well-known|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
-  ],
+  matcher: ['/((?!\\.well-known).*)'],
 };
