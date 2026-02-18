@@ -67,6 +67,7 @@ export async function PUT(
       service_id,
       duration_minutes,
       status,
+      payment_status,
       notes,
       internal_notes,
       check_in_at,
@@ -109,6 +110,7 @@ export async function PUT(
       updates.cancel_reason = cancellation_reason;
     }
     if (no_show_reason !== undefined) updates.no_show_reason = no_show_reason;
+    if (payment_status !== undefined) updates.payment_status = payment_status;
 
     const { data, error } = await supabase
       .from('appointments')
@@ -162,6 +164,62 @@ export async function PUT(
         ).then(({ error }) => {
           if (error) console.error('Review pending insert error:', error);
         }).catch(err => console.error('Review pending insert error:', err));
+
+        // AUTO-CREATE DRAFT INVOICE for completed appointments (if no invoice exists)
+        const { data: existingInvoice } = await supabase
+          .from('sales')
+          .select('id')
+          .eq('appointment_id', id)
+          .maybeSingle();
+        
+        if (!existingInvoice) {
+          // Get service price
+          const { data: serviceData } = await supabase
+            .from('services')
+            .select('id, name, price, price_cents')
+            .eq('id', service_id || currentAppointment.service_id)
+            .single();
+          
+          if (serviceData) {
+            const price = serviceData.price_cents || (serviceData.price ? serviceData.price * 100 : 0);
+            
+            // Create draft invoice
+            const { data: newSale, error: saleErr } = await supabase
+              .from('sales')
+              .insert({
+                client_id: currentAppointment.client_id,
+                appointment_id: id,
+                sale_type: 'service',
+                status: 'draft',
+                subtotal: price,
+                discount_total: 0,
+                tax_total: 0,
+                tip_total: 0,
+                gross_total: price,
+                net_total: price,
+                amount_paid: 0,
+                balance_due: price,
+              })
+              .select()
+              .single();
+            
+            if (newSale && !saleErr) {
+              // Create sale item
+              await supabase.from('sale_items').insert({
+                sale_id: newSale.id,
+                item_type: 'service',
+                item_id: serviceData.id,
+                item_name: serviceData.name,
+                quantity: 1,
+                unit_price: price,
+                discount_amount: 0,
+                tax_amount: 0,
+                total_price: price,
+              });
+              console.log('Auto-created draft invoice for appointment:', id);
+            }
+          }
+        }
       } catch (aftercareError) {
         // Don't fail the appointment update if aftercare fails
         console.error('Aftercare trigger error:', aftercareError);
