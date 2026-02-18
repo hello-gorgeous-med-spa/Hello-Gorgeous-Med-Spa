@@ -48,7 +48,7 @@ export function ContactForm() {
   return (
     <form className="mt-6 grid gap-4 keyboard-safe" onSubmit={handleSubmit}>
       <input
-        className="w-full min-h-[48px] text-base rounded-lg bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-[#FF2D8E]/50"
+        className="w-full min-h-[48px] text-base rounded-lg bg-white border border-gray-300 px-4 py-3 text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50 focus:border-[#FF2D8E]"
         placeholder="Name"
         name="name"
         type="text"
@@ -57,7 +57,7 @@ export function ContactForm() {
         disabled={status === "sending"}
       />
       <input
-        className="w-full min-h-[48px] text-base rounded-lg bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-[#FF2D8E]/50"
+        className="w-full min-h-[48px] text-base rounded-lg bg-white border border-gray-300 px-4 py-3 text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50 focus:border-[#FF2D8E]"
         placeholder="Email or phone"
         name="contact"
         type="text"
@@ -66,14 +66,14 @@ export function ContactForm() {
         disabled={status === "sending"}
       />
       <textarea
-        className="w-full min-h-[120px] text-base rounded-lg bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-[#FF2D8E]/50 resize-y"
+        className="w-full min-h-[120px] text-base rounded-lg bg-white border border-gray-300 px-4 py-3 text-black placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/50 focus:border-[#FF2D8E] resize-y"
         placeholder="How can we help?"
         name="message"
         required
         disabled={status === "sending"}
       />
       {status === "success" && (
-        <p className="text-green-400 text-sm font-medium" role="status">Thank you. We’ll get back to you soon.</p>
+        <p className="text-green-600 text-sm font-medium" role="status">Thank you. We’ll get back to you soon.</p>
       )}
       {status === "error" && (
         <p className="text-[#FF2D8E] text-sm font-medium" role="alert">{errorMessage}</p>

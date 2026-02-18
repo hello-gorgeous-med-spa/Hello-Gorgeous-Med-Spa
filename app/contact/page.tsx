@@ -27,45 +27,47 @@ export default async function ContactPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
       />
 
-      <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
-        <div className="relative z-10">
+      <Section className="bg-white">
+        <div className="max-w-4xl mx-auto">
           <FadeUp>
-            <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">
+            <p className="text-[#FF2D8E] text-sm font-bold tracking-widest uppercase mb-4">
               OSWEGO, IL
             </p>
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              Contact{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
-                Us
-              </span>
+            <h1 className="text-4xl md:text-5xl font-bold text-black leading-tight">
+              Contact <span className="text-[#FF2D8E]">Us</span>
             </h1>
-            <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">
-              Questions about services or booking? Reach out and we’ll help you choose the
+            <p className="mt-6 text-lg text-gray-600 max-w-2xl leading-relaxed">
+              Questions about services or booking? Reach out and we'll help you choose the
               right next step.
             </p>
           </FadeUp>
         </div>
       </Section>
 
-      <Section>
-        <div className="grid gap-6 lg:grid-cols-2">
+      <Section className="bg-gray-50">
+        <div className="grid gap-6 lg:grid-cols-2 max-w-5xl mx-auto">
           <FadeUp>
-            <div className="rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6">
-              <h2 className="text-2xl font-bold text-white">{SITE.name}</h2>
-              <p className="mt-3 text-black">
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h2 className="text-2xl font-bold text-black">{SITE.name}</h2>
+              <p className="mt-3 text-gray-600">
                 {SITE.address.streetAddress}, {SITE.address.addressLocality},{" "}
                 {SITE.address.addressRegion} {SITE.address.postalCode}
               </p>
-              <p className="mt-4 text-black">
-                <span className="text-white font-semibold">Phone:</span> {SITE.phone}
+              <p className="mt-4">
+                <span className="text-black font-semibold">Phone:</span>{" "}
+                <a href={`tel:${SITE.phone}`} className="text-[#FF2D8E] hover:underline">
+                  {SITE.phone}
+                </a>
               </p>
-              <p className="mt-2 text-black">
-                <span className="text-white font-semibold">Email:</span> {SITE.email}
+              <p className="mt-2">
+                <span className="text-black font-semibold">Email:</span>{" "}
+                <a href={`mailto:${SITE.email}`} className="text-[#FF2D8E] hover:underline break-all">
+                  {SITE.email}
+                </a>
               </p>
               {hasHours && (
-                <p className="mt-4 text-black">
-                  <span className="text-white font-semibold">Hours:</span>{" "}
+                <p className="mt-4 text-gray-600">
+                  <span className="text-black font-semibold">Hours:</span>{" "}
                   {[hours.mon_fri && `Mon–Fri ${hours.mon_fri}`, hours.sat && `Sat ${hours.sat}`, hours.sun && `Sun ${hours.sun}`]
                     .filter(Boolean)
                     .join(" · ")}
@@ -83,12 +85,12 @@ export default async function ContactPage() {
           </FadeUp>
 
           <FadeUp delayMs={80}>
-            <div className="rounded-2xl border border-black bg-black/40 p-6">
-              <h2 className="text-2xl font-bold text-white">Map & directions</h2>
-              <p className="mt-3 text-black">
-                We’re at 74 W. Washington St., Oswego, IL. Get directions or call us to confirm your visit.
+            <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h2 className="text-2xl font-bold text-black">Map & directions</h2>
+              <p className="mt-3 text-gray-600">
+                We're at 74 W. Washington St., Oswego, IL. Get directions or call us to confirm your visit.
               </p>
-              <div className="mt-6 rounded-xl overflow-hidden border border-black h-64">
+              <div className="mt-6 rounded-xl overflow-hidden border border-gray-200 h-64">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2978.8!2d-88.3516!3d41.6828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880ef9a8f7c00001%3A0x1234567890abcdef!2s74%20W%20Washington%20St%2C%20Oswego%2C%20IL%2060543!5e0!3m2!1sen!2sus!4v1706000000000!5m2!1sen!2sus"
                   width="100%"
@@ -106,12 +108,12 @@ export default async function ContactPage() {
         </div>
       </Section>
 
-      <Section>
+      <Section className="bg-white">
         <FadeUp>
-          <div className="rounded-2xl border border-black bg-black/40 p-6">
-            <h2 className="text-2xl font-bold text-white">Send a message</h2>
-            <p className="mt-3 text-black">
-              Questions about services or booking? We’ll respond as soon as we can.
+          <div className="rounded-2xl border border-gray-200 bg-gray-50 p-6 shadow-sm max-w-2xl mx-auto">
+            <h2 className="text-2xl font-bold text-black">Send a message</h2>
+            <p className="mt-3 text-gray-600">
+              Questions about services or booking? We'll respond as soon as we can.
             </p>
             <ContactForm />
           </div>
@@ -120,4 +122,3 @@ export default async function ContactPage() {
     </>
   );
 }
-
