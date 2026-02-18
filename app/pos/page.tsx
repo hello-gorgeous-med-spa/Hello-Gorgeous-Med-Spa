@@ -154,6 +154,7 @@ function POSContent() {
   const [clientSearch, setClientSearch] = useState('');
   const [clientResults, setClientResults] = useState<Client[]>([]);
   const [loadedAppointmentId, setLoadedAppointmentId] = useState<string | null>(null);
+  const [isWalkIn, setIsWalkIn] = useState(false);
 
   // Tax rate (can be made configurable)
   const TAX_RATE = 0; // 0% for services in IL
@@ -270,6 +271,7 @@ function POSContent() {
 
   // Select appointment to checkout
   const selectAppointment = (appt: ReadyAppointment) => {
+    setIsWalkIn(false);
     const lineItem: LineItem = {
       id: `service-${appt.id}-${Date.now()}`,
       type: 'service',
@@ -305,6 +307,7 @@ function POSContent() {
 
   // Start walk-in
   const startWalkIn = () => {
+    setIsWalkIn(true);
     setInvoice({
       id: null,
       client: null,
@@ -542,6 +545,7 @@ function POSContent() {
 
   // Reset for new transaction
   const resetInvoice = () => {
+    setIsWalkIn(false);
     setInvoice({
       id: null,
       client: null,
@@ -662,7 +666,7 @@ function POSContent() {
 
       {/* CENTER PANEL - Active Invoice */}
       <div className="flex-1 flex flex-col bg-white">
-        {invoice.items.length === 0 && !invoice.client ? (
+        {invoice.items.length === 0 && !invoice.client && !isWalkIn ? (
           // Empty state
           <div className="flex-1 flex items-center justify-center">
             <div className="text-center max-w-md">
