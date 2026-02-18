@@ -81,13 +81,8 @@ function renderSection(section: CMSSection) {
       );
 
     case 'mascots':
-      return (
-        <section key={id} className="py-20 md:py-28 px-6 md:px-12 bg-white">
-          <div className="max-w-5xl mx-auto min-w-0">
-            <MascotHeroSection />
-          </div>
-        </section>
-      );
+      // Temporarily disabled - needs redesign for professional look
+      return null;
 
     case 'fix_what_bothers_me':
       return <FixWhatBothersMeFeature key={id} />;
@@ -111,7 +106,8 @@ function renderSection(section: CMSSection) {
       return <HomepageInteractiveTools key={id} />;
 
     case 'care_team':
-      return <HomeCareTeam key={id} />;
+      // Temporarily disabled - needs redesign
+      return null;
 
     case 'pharmacy':
       return <PharmacyShowcase key={id} />;

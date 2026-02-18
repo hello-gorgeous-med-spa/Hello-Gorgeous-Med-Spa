@@ -238,16 +238,16 @@ export function CareEngine() {
   }
 
   return (
-    <div className="rounded-2xl border border-black bg-black/40 overflow-hidden">
+    <div className="rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
       {/* Compliance & Safety Layer (always on) */}
-      <div className="p-5 border-b border-black">
+      <div className="p-5 border-b border-gray-200">
         <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
           <div>
-            <p className="text-sm text-black">Compliance & Safety (always on)</p>
-            <p className="mt-1 text-sm text-white/90">
+            <p className="text-sm text-gray-700">Compliance & Safety (always on)</p>
+            <p className="mt-1 text-sm text-gray-600">
               Education only · No diagnosis · No prescriptions · Book a consult for personal medical advice
             </p>
-            <p className="mt-2 text-xs text-black">
+            <p className="mt-2 text-xs text-gray-700">
               Learn how we think about sourcing and standards:{" "}
               <a className="underline" href="/clinical-partners">
                 Our Clinical Partners & Standards
@@ -262,7 +262,7 @@ export function CareEngine() {
       </div>
 
       {/* Module selector */}
-      <div className="p-5 border-b border-black">
+      <div className="p-5 border-b border-gray-200">
         <div className="flex flex-wrap gap-2">
           {(
             [
@@ -288,8 +288,8 @@ export function CareEngine() {
               className={cx(
                 "text-sm font-semibold rounded-full px-4 py-2 border transition",
                 module === m
-                  ? "border-[#FF2D8E]/40 bg-white text-pink-300"
-                  : "border-black text-black hover:bg-white hover:text-white",
+                  ? "border-[#E6007E] bg-white text-[#E6007E]"
+                  : "border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-[#E6007E]",
               )}
             >
               {moduleLabel(m)}
@@ -307,8 +307,8 @@ export function CareEngine() {
               className={cx(
                 "text-xs font-semibold rounded-full px-3 py-2 border transition",
                 personaId === p.id
-                  ? "border-[#FF2D8E]/40 bg-white text-pink-300"
-                  : "border-black text-black hover:bg-white hover:text-white",
+                  ? "border-[#E6007E] bg-white text-[#E6007E]"
+                  : "border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-[#E6007E]",
                 module === "confidence-check" ? "opacity-60 pointer-events-none" : "",
               )}
             >
@@ -318,7 +318,7 @@ export function CareEngine() {
           ))}
         </div>
         {module === "confidence-check" ? (
-          <p className="mt-3 text-xs text-black">
+          <p className="mt-3 text-xs text-gray-700">
             Confidence Check™ is led by Peppi tone (education-first, non-medical).
           </p>
         ) : null}
@@ -328,7 +328,7 @@ export function CareEngine() {
       <div className="p-5">
         {module === "education" ? (
           <div>
-            <p className="text-sm text-black">
+            <p className="text-sm text-gray-700">
               Persona Education Engine — ask questions before a consult.
             </p>
             <div className="mt-4 max-h-[340px] overflow-auto space-y-4">
@@ -338,21 +338,21 @@ export function CareEngine() {
                   className={cx(
                     "whitespace-pre-wrap text-sm leading-relaxed",
                     m.role === "user"
-                      ? "text-white bg-white border border-black rounded-2xl p-4"
-                      : "text-white",
+                      ? "text-[#E6007E] bg-[#E6007E]/10 border border-gray-200 rounded-2xl p-4"
+                      : "text-gray-800",
                   )}
                 >
                   {m.content}
                 </div>
               ))}
-              {sending ? <div className="text-sm text-black">Thinking…</div> : null}
+              {sending ? <div className="text-sm text-gray-700">Thinking…</div> : null}
             </div>
             <div className="mt-4 flex gap-2">
               <input
                 value={eduInput}
                 onChange={(e) => setEduInput(e.target.value)}
                 placeholder="Ask a question…"
-                className="flex-1 rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                className="flex-1 rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") sendEducation();
                 }}
@@ -360,7 +360,7 @@ export function CareEngine() {
               <button
                 type="button"
                 disabled={sending}
-                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition disabled:opacity-60"
+                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-gray-900 font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition disabled:opacity-60"
                 onClick={sendEducation}
               >
                 Send
@@ -371,24 +371,24 @@ export function CareEngine() {
 
         {module === "preconsult" ? (
           <div>
-            <p className="text-sm text-black">
+            <p className="text-sm text-gray-700">
               AI Pre‑Consultation Engine — guided intake to reduce friction (non‑medical).
             </p>
 
             <div className="mt-6 grid gap-4">
               <div className="grid gap-2">
-                <label className="text-sm font-semibold text-white">Goals</label>
+                <label className="text-sm font-semibold text-gray-900">Goals</label>
                 <textarea
                   value={pre.goals}
                   onChange={(e) => setPre((p) => ({ ...p, goals: e.target.value }))}
-                  className="w-full min-h-[96px] rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="w-full min-h-[96px] rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   placeholder="Example: smooth forehead lines, subtle lip hydration, lose 20 lbs safely…"
                 />
               </div>
 
               <div className="grid gap-2 md:grid-cols-2">
                 <div className="grid gap-2">
-                  <label className="text-sm font-semibold text-white">Experience level</label>
+                  <label className="text-sm font-semibold text-gray-900">Experience level</label>
                   <select
                     value={pre.experienceLevel}
                     onChange={(e) =>
@@ -397,7 +397,7 @@ export function CareEngine() {
                         experienceLevel: e.target.value as PreConsultAnswer["experienceLevel"],
                       }))
                     }
-                    className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                    className="rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   >
                     <option value="first-time">First time</option>
                     <option value="returning">Returning</option>
@@ -407,7 +407,7 @@ export function CareEngine() {
                 </div>
 
                 <div className="grid gap-2">
-                  <label className="text-sm font-semibold text-white">Timeframe</label>
+                  <label className="text-sm font-semibold text-gray-900">Timeframe</label>
                   <select
                     value={pre.timeframe}
                     onChange={(e) =>
@@ -416,7 +416,7 @@ export function CareEngine() {
                         timeframe: e.target.value as PreConsultAnswer["timeframe"],
                       }))
                     }
-                    className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                    className="rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   >
                     <option value="asap">ASAP</option>
                     <option value="2-4weeks">2–4 weeks</option>
@@ -427,11 +427,11 @@ export function CareEngine() {
               </div>
 
               <div className="grid gap-2">
-                <label className="text-sm font-semibold text-white">Concerns / questions</label>
+                <label className="text-sm font-semibold text-gray-900">Concerns / questions</label>
                 <textarea
                   value={pre.concerns}
                   onChange={(e) => setPre((p) => ({ ...p, concerns: e.target.value }))}
-                  className="w-full min-h-[96px] rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="w-full min-h-[96px] rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   placeholder="Example: downtime, safety, bruising, eligibility, meds…"
                 />
               </div>
@@ -440,14 +440,14 @@ export function CareEngine() {
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <button
                 type="button"
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition"
+                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-gray-900 font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition"
                 onClick={buildPreSummary}
               >
                 Generate Summary & Next Steps
               </button>
               <button
                 type="button"
-                className="px-6 py-3 rounded-full border border-black text-white hover:bg-white transition"
+                className="px-6 py-3 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-50 transition"
                 onClick={() => {
                   setPre(PRECONSULT_DEFAULTS);
                   setPreSummary(null);
@@ -459,7 +459,7 @@ export function CareEngine() {
             </div>
 
             {preSummary ? (
-              <div className="mt-6 rounded-2xl border border-black bg-white p-5 whitespace-pre-wrap text-sm text-white">
+              <div className="mt-6 rounded-2xl border border-gray-200 bg-white p-5 whitespace-pre-wrap text-sm text-gray-700">
                 {preSummary}
               </div>
             ) : null}
@@ -468,14 +468,14 @@ export function CareEngine() {
 
         {module === "booking" ? (
           <div>
-            <p className="text-sm text-black">
+            <p className="text-sm text-gray-700">
               Booking Intelligence Engine — frictionless next step.
             </p>
 
             <div className="mt-6 grid gap-4">
-              <div className="rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6">
-                <h3 className="text-xl font-bold text-white">Ready to book?</h3>
-                <p className="mt-3 text-black">
+              <div className="rounded-2xl border border-gray-200 bg-gradient-to-b from-black/60 to-black p-6">
+                <h3 className="text-xl font-bold text-gray-900">Ready to book?</h3>
+                <p className="mt-3 text-gray-700">
                   If you’re ready, book online now. If you used Pre‑Consult, your “suggested starting points”
                   are below (non‑binding).
                 </p>
@@ -490,9 +490,9 @@ export function CareEngine() {
               </div>
 
               {preSuggested.length ? (
-                <div className="rounded-2xl border border-black bg-black/40 p-6">
-                  <h4 className="text-lg font-semibold text-white">Suggested starting points</h4>
-                  <ul className="mt-4 space-y-2 text-black text-sm">
+                <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-6">
+                  <h4 className="text-lg font-semibold text-gray-900">Suggested starting points</h4>
+                  <ul className="mt-4 space-y-2 text-gray-700 text-sm">
                     {preSuggested.map((slug) => (
                       <li key={slug}>
                         <a className="underline" href={`/services/${slug}`}>
@@ -501,7 +501,7 @@ export function CareEngine() {
                       </li>
                     ))}
                   </ul>
-                  <p className="mt-4 text-xs text-black">{complianceFooter()}</p>
+                  <p className="mt-4 text-xs text-gray-700">{complianceFooter()}</p>
                 </div>
               ) : null}
             </div>
@@ -510,7 +510,7 @@ export function CareEngine() {
 
         {module === "postcare" ? (
           <div>
-            <p className="text-sm text-black">
+            <p className="text-sm text-gray-700">
               Post‑Treatment Care Engine — “Is this normal?” guidance with red‑flag detection.
             </p>
             <div className="mt-4 max-h-[340px] overflow-auto space-y-4">
@@ -520,21 +520,21 @@ export function CareEngine() {
                   className={cx(
                     "whitespace-pre-wrap text-sm leading-relaxed",
                     m.role === "user"
-                      ? "text-white bg-white border border-black rounded-2xl p-4"
-                      : "text-white",
+                      ? "text-[#E6007E] bg-[#E6007E]/10 border border-gray-200 rounded-2xl p-4"
+                      : "text-gray-800",
                   )}
                 >
                   {m.content}
                 </div>
               ))}
-              {sending ? <div className="text-sm text-black">Thinking…</div> : null}
+              {sending ? <div className="text-sm text-gray-700">Thinking…</div> : null}
             </div>
             <div className="mt-4 flex gap-2">
               <input
                 value={postInput}
                 onChange={(e) => setPostInput(e.target.value)}
                 placeholder="Example: swelling 2 days after filler—normal?"
-                className="flex-1 rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                className="flex-1 rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") sendPostCare();
                 }}
@@ -542,7 +542,7 @@ export function CareEngine() {
               <button
                 type="button"
                 disabled={sending}
-                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition disabled:opacity-60"
+                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-gray-900 font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition disabled:opacity-60"
                 onClick={sendPostCare}
               >
                 Send
@@ -553,29 +553,29 @@ export function CareEngine() {
 
         {module === "confidence-check" ? (
           <div>
-            <p className="text-sm text-black">
+            <p className="text-sm text-gray-700">
               The Confidence Check™ — a short, reflective flow to clarify what you want before booking (no medical advice).
             </p>
 
             <div className="mt-6 grid gap-4">
               <div className="grid gap-2">
-                <label className="text-sm font-semibold text-white">{CONFIDENCE_CHECK_QUESTIONS[0].label}</label>
-                <p className="text-xs text-black">{CONFIDENCE_CHECK_QUESTIONS[0].helper}</p>
+                <label className="text-sm font-semibold text-gray-900">{CONFIDENCE_CHECK_QUESTIONS[0].label}</label>
+                <p className="text-xs text-gray-700">{CONFIDENCE_CHECK_QUESTIONS[0].helper}</p>
                 <textarea
                   value={cc.bother}
                   onChange={(e) => setCc((p) => ({ ...p, bother: e.target.value }))}
-                  className="w-full min-h-[88px] rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="w-full min-h-[88px] rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   placeholder="Example: my forehead lines, feeling tired, uneven texture…"
                 />
               </div>
 
               <div className="grid gap-2 md:grid-cols-2">
                 <div className="grid gap-2">
-                  <label className="text-sm font-semibold text-white">{CONFIDENCE_CHECK_QUESTIONS[1].label}</label>
+                  <label className="text-sm font-semibold text-gray-900">{CONFIDENCE_CHECK_QUESTIONS[1].label}</label>
                   <select
                     value={cc.changeStyle}
                     onChange={(e) => setCc((p) => ({ ...p, changeStyle: e.target.value as ConfidenceCheckAnswer["changeStyle"] }))}
-                    className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                    className="rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   >
                     <option value="subtle">Subtle</option>
                     <option value="noticeable">Noticeable</option>
@@ -583,11 +583,11 @@ export function CareEngine() {
                   </select>
                 </div>
                 <div className="grid gap-2">
-                  <label className="text-sm font-semibold text-white">{CONFIDENCE_CHECK_QUESTIONS[2].label}</label>
+                  <label className="text-sm font-semibold text-gray-900">{CONFIDENCE_CHECK_QUESTIONS[2].label}</label>
                   <select
                     value={cc.firstTime}
                     onChange={(e) => setCc((p) => ({ ...p, firstTime: e.target.value as ConfidenceCheckAnswer["firstTime"] }))}
-                    className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                    className="rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   >
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
@@ -598,11 +598,11 @@ export function CareEngine() {
 
               <div className="grid gap-2 md:grid-cols-2">
                 <div className="grid gap-2">
-                  <label className="text-sm font-semibold text-white">{CONFIDENCE_CHECK_QUESTIONS[3].label}</label>
+                  <label className="text-sm font-semibold text-gray-900">{CONFIDENCE_CHECK_QUESTIONS[3].label}</label>
                   <select
                     value={cc.timeframe}
                     onChange={(e) => setCc((p) => ({ ...p, timeframe: e.target.value as ConfidenceCheckAnswer["timeframe"] }))}
-                    className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                    className="rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   >
                     <option value="asap">ASAP</option>
                     <option value="2-4weeks">2–4 weeks</option>
@@ -611,13 +611,13 @@ export function CareEngine() {
                   </select>
                 </div>
                 <div className="grid gap-2">
-                  <label className="text-sm font-semibold text-white">{CONFIDENCE_CHECK_QUESTIONS[4].label}</label>
+                  <label className="text-sm font-semibold text-gray-900">{CONFIDENCE_CHECK_QUESTIONS[4].label}</label>
                   <select
                     value={cc.downtimeComfort}
                     onChange={(e) =>
                       setCc((p) => ({ ...p, downtimeComfort: e.target.value as ConfidenceCheckAnswer["downtimeComfort"] }))
                     }
-                    className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                    className="rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   >
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -628,13 +628,13 @@ export function CareEngine() {
               </div>
 
               <div className="grid gap-2">
-                <label className="text-sm font-semibold text-white">{CONFIDENCE_CHECK_QUESTIONS[5].label}</label>
+                <label className="text-sm font-semibold text-gray-900">{CONFIDENCE_CHECK_QUESTIONS[5].label}</label>
                 <select
                   value={cc.decisionStyle}
                   onChange={(e) =>
                     setCc((p) => ({ ...p, decisionStyle: e.target.value as ConfidenceCheckAnswer["decisionStyle"] }))
                   }
-                  className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 >
                   <option value="i-need-guidance">I need guidance</option>
                   <option value="i-just-want-options">I want options</option>
@@ -646,7 +646,7 @@ export function CareEngine() {
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <button
                 type="button"
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition"
+                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-gray-900 font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition"
                 onClick={() => setCcSummary(buildConfidenceSummary(cc))}
               >
                 Generate Summary
@@ -656,7 +656,7 @@ export function CareEngine() {
               </CTA>
               <button
                 type="button"
-                className="px-6 py-3 rounded-full border border-black text-white hover:bg-white transition"
+                className="px-6 py-3 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-50 transition"
                 onClick={() => {
                   setCcSummary(null);
                   setCc({
@@ -674,9 +674,9 @@ export function CareEngine() {
             </div>
 
             {ccSummary ? (
-              <div className="mt-6 rounded-2xl border border-black bg-white p-5 whitespace-pre-wrap text-sm text-white">
+              <div className="mt-6 rounded-2xl border border-gray-200 bg-white p-5 whitespace-pre-wrap text-sm text-gray-700">
                 {ccSummary}
-                <p className="mt-4 text-xs text-black">{complianceFooter()}</p>
+                <p className="mt-4 text-xs text-gray-700">{complianceFooter()}</p>
               </div>
             ) : null}
           </div>
@@ -684,7 +684,7 @@ export function CareEngine() {
 
         {module === "ask-before-book" ? (
           <div>
-            <p className="text-sm text-black">
+            <p className="text-sm text-gray-700">
               Ask‑Before‑You‑Book Engine™ — ask a question, get routed to the right expert voice, then book if you feel confident.
             </p>
 
@@ -697,8 +697,8 @@ export function CareEngine() {
                   className={cx(
                     "text-xs font-semibold rounded-full px-3 py-2 border transition",
                     askCategory === c.id
-                      ? "border-[#FF2D8E]/40 bg-white text-pink-300"
-                      : "border-black text-black hover:bg-white hover:text-white",
+                      ? "border-[#E6007E] bg-white text-[#E6007E]"
+                      : "border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-[#E6007E]",
                   )}
                 >
                   {c.label}
@@ -713,14 +713,14 @@ export function CareEngine() {
                   className={cx(
                     "whitespace-pre-wrap text-sm leading-relaxed",
                     m.role === "user"
-                      ? "text-white bg-white border border-black rounded-2xl p-4"
-                      : "text-white",
+                      ? "text-[#E6007E] bg-[#E6007E]/10 border border-gray-200 rounded-2xl p-4"
+                      : "text-gray-800",
                   )}
                 >
                   {m.content}
                 </div>
               ))}
-              {sending ? <div className="text-sm text-black">Thinking…</div> : null}
+              {sending ? <div className="text-sm text-gray-700">Thinking…</div> : null}
             </div>
 
             <div className="mt-4 flex flex-wrap gap-2">
@@ -729,7 +729,7 @@ export function CareEngine() {
                   key={s}
                   type="button"
                   onClick={() => setAskInput(s)}
-                  className="text-left text-xs text-black border border-black rounded-full px-3 py-2 hover:bg-white transition"
+                  className="text-left text-xs text-gray-700 border border-gray-200 rounded-full px-3 py-2 hover:bg-white transition"
                 >
                   {s}
                 </button>
@@ -741,7 +741,7 @@ export function CareEngine() {
                 value={askInput}
                 onChange={(e) => setAskInput(e.target.value)}
                 placeholder="Ask a question…"
-                className="flex-1 rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                className="flex-1 rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 onKeyDown={(e) => {
                   if (e.key !== "Enter") return;
                   const q = askInput.trim();
@@ -776,7 +776,7 @@ export function CareEngine() {
               <button
                 type="button"
                 disabled={sending}
-                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition disabled:opacity-60"
+                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-gray-900 font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition disabled:opacity-60"
                 onClick={() => {
                   const q = askInput.trim();
                   if (!q) return;
@@ -819,23 +819,23 @@ export function CareEngine() {
                 Contact us
               </CTA>
             </div>
-            <p className="mt-4 text-xs text-black">{complianceFooter()}</p>
+            <p className="mt-4 text-xs text-gray-700">{complianceFooter()}</p>
           </div>
         ) : null}
 
         {module === "normal-checker" ? (
           <div>
-            <p className="text-sm text-black">
+            <p className="text-sm text-gray-700">
               “Is This Normal?” Checker™ — choose treatment + symptom + timeline for calm, educational guidance (no diagnosis).
             </p>
 
             <div className="mt-6 grid gap-4 md:grid-cols-3">
               <div className="grid gap-2">
-                <label className="text-sm font-semibold text-white">Treatment type</label>
+                <label className="text-sm font-semibold text-gray-900">Treatment type</label>
                 <select
                   value={normalTreatment}
                   onChange={(e) => setNormalTreatment(e.target.value as TreatmentType)}
-                  className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 >
                   {TREATMENT_OPTIONS.map((t) => (
                     <option key={t.id} value={t.id}>
@@ -845,11 +845,11 @@ export function CareEngine() {
                 </select>
               </div>
               <div className="grid gap-2">
-                <label className="text-sm font-semibold text-white">Symptom</label>
+                <label className="text-sm font-semibold text-gray-900">Symptom</label>
                 <select
                   value={normalSymptom}
                   onChange={(e) => setNormalSymptom(e.target.value as SymptomId)}
-                  className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 >
                   {SYMPTOM_OPTIONS.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -859,11 +859,11 @@ export function CareEngine() {
                 </select>
               </div>
               <div className="grid gap-2">
-                <label className="text-sm font-semibold text-white">Timeline</label>
+                <label className="text-sm font-semibold text-gray-900">Timeline</label>
                 <select
                   value={normalTimeline}
                   onChange={(e) => setNormalTimeline(e.target.value as TimelineBucket)}
-                  className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 >
                   {TIMELINE_OPTIONS.map((t) => (
                     <option key={t.id} value={t.id}>
@@ -877,7 +877,7 @@ export function CareEngine() {
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <button
                 type="button"
-                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition"
+                className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-gray-900 font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition"
                 onClick={() => {
                   const res = normalCheck({ treatment: normalTreatment, symptom: normalSymptom, timeline: normalTimeline });
                   if (res.severity === "red-flag" || postTreatmentRedFlags(`${normalSymptom} ${normalTreatment}`)) {
@@ -916,7 +916,7 @@ export function CareEngine() {
             </div>
 
             {normalResult ? (
-              <div className="mt-6 rounded-2xl border border-black bg-white p-5 whitespace-pre-wrap text-sm text-white">
+              <div className="mt-6 rounded-2xl border border-gray-200 bg-white p-5 whitespace-pre-wrap text-sm text-gray-700">
                 {normalResult}
               </div>
             ) : null}
@@ -925,13 +925,13 @@ export function CareEngine() {
 
         {module === "timeline-simulator" ? (
           <div>
-            <p className="text-sm text-black">
+            <p className="text-sm text-gray-700">
               Treatment Timeline Simulator™ — expectation-setting only (no fake results, no promises). Ask questions as you go.
             </p>
 
             <div className="mt-6 grid gap-4 md:grid-cols-3">
               <div className="grid gap-2 md:col-span-1">
-                <label className="text-sm font-semibold text-white">Timeline</label>
+                <label className="text-sm font-semibold text-gray-900">Timeline</label>
                 <select
                   value={tlTreatment}
                   onChange={(e) => {
@@ -940,7 +940,7 @@ export function CareEngine() {
                     const scenario = getTimelineScenario(id);
                     setTlStepId(scenario.steps[0]?.id ?? "before");
                   }}
-                  className="rounded-xl bg-black border border-black px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                 >
                   {TIMELINE_SCENARIOS.map((s) => (
                     <option key={s.id} value={s.id}>
@@ -958,8 +958,8 @@ export function CareEngine() {
                       className={cx(
                         "text-xs font-semibold rounded-full px-3 py-2 border transition",
                         tlStepId === st.id
-                          ? "border-[#FF2D8E]/40 bg-white text-pink-300"
-                          : "border-black text-black hover:bg-white hover:text-white",
+                          ? "border-[#E6007E] bg-white text-[#E6007E]"
+                          : "border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-[#E6007E]",
                       )}
                     >
                       {st.label}
@@ -973,24 +973,24 @@ export function CareEngine() {
                   const scenario = getTimelineScenario(tlTreatment);
                   const step = scenario.steps.find((s) => s.id === tlStepId) ?? scenario.steps[0];
                   return (
-                    <div className="rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6">
-                      <p className="text-xs text-black">Persona narration</p>
-                      <p className="mt-1 text-sm text-white/90">
+                    <div className="rounded-2xl border border-gray-200 bg-gradient-to-b from-black/60 to-black p-6">
+                      <p className="text-xs text-gray-700">Persona narration</p>
+                      <p className="mt-1 text-sm text-gray-600">
                         {getPersonaName(personaId)} — {scenario.label} — {step.label}
                       </p>
 
                       <div className="mt-4 grid gap-4 md:grid-cols-2">
                         <div>
-                          <p className="text-sm font-semibold text-white">What changes</p>
-                          <ul className="mt-2 space-y-1 text-sm text-black">
+                          <p className="text-sm font-semibold text-gray-900">What changes</p>
+                          <ul className="mt-2 space-y-1 text-sm text-gray-700">
                             {step.whatChanges.map((x) => (
                               <li key={x}>- {x}</li>
                             ))}
                           </ul>
                         </div>
                         <div>
-                          <p className="text-sm font-semibold text-white">What does NOT change</p>
-                          <ul className="mt-2 space-y-1 text-sm text-black">
+                          <p className="text-sm font-semibold text-gray-900">What does NOT change</p>
+                          <ul className="mt-2 space-y-1 text-sm text-gray-700">
                             {step.whatDoesNotChange.map((x) => (
                               <li key={x}>- {x}</li>
                             ))}
@@ -1000,16 +1000,16 @@ export function CareEngine() {
 
                       <div className="mt-4 grid gap-4 md:grid-cols-2">
                         <div>
-                          <p className="text-sm font-semibold text-white">What’s normal</p>
-                          <ul className="mt-2 space-y-1 text-sm text-black">
+                          <p className="text-sm font-semibold text-gray-900">What’s normal</p>
+                          <ul className="mt-2 space-y-1 text-sm text-gray-700">
                             {step.whatsNormal.map((x) => (
                               <li key={x}>- {x}</li>
                             ))}
                           </ul>
                         </div>
                         <div>
-                          <p className="text-sm font-semibold text-white">What’s NOT normal</p>
-                          <ul className="mt-2 space-y-1 text-sm text-black">
+                          <p className="text-sm font-semibold text-gray-900">What’s NOT normal</p>
+                          <ul className="mt-2 space-y-1 text-sm text-gray-700">
                             {step.whatsNotNormal.map((x) => (
                               <li key={x}>- {x}</li>
                             ))}
@@ -1017,15 +1017,15 @@ export function CareEngine() {
                         </div>
                       </div>
 
-                      <p className="mt-4 text-xs text-black">{complianceFooter()}</p>
+                      <p className="mt-4 text-xs text-gray-700">{complianceFooter()}</p>
                     </div>
                   );
                 })()}
 
-                <div className="mt-6 rounded-2xl border border-black bg-black/40 overflow-hidden">
-                  <div className="p-4 border-b border-black">
-                    <p className="text-sm font-semibold text-white">Ask a question about this timeline</p>
-                    <p className="mt-1 text-xs text-black">Educational only. No diagnosis. No personalized advice.</p>
+                <div className="mt-6 rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+                  <div className="p-4 border-b border-gray-200">
+                    <p className="text-sm font-semibold text-gray-900">Ask a question about this timeline</p>
+                    <p className="mt-1 text-xs text-gray-700">Educational only. No diagnosis. No personalized advice.</p>
                   </div>
                   <div className="p-4 max-h-[260px] overflow-auto space-y-4">
                     {tlMsgs.map((m, i) => (
@@ -1034,22 +1034,22 @@ export function CareEngine() {
                         className={cx(
                           "whitespace-pre-wrap text-sm leading-relaxed",
                           m.role === "user"
-                            ? "text-white bg-white border border-black rounded-2xl p-4"
-                            : "text-white",
+                            ? "text-[#E6007E] bg-[#E6007E]/10 border border-gray-200 rounded-2xl p-4"
+                            : "text-gray-800",
                         )}
                       >
                         {m.content}
                       </div>
                     ))}
-                    {sending ? <div className="text-sm text-black">Thinking…</div> : null}
+                    {sending ? <div className="text-sm text-gray-700">Thinking…</div> : null}
                   </div>
-                  <div className="p-4 border-t border-black">
+                  <div className="p-4 border-t border-gray-200">
                     <div className="flex gap-2">
                       <input
                         value={tlInput}
                         onChange={(e) => setTlInput(e.target.value)}
                         placeholder="Ask a question…"
-                        className="flex-1 rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                        className="flex-1 rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                         onKeyDown={(e) => {
                           if (e.key !== "Enter") return;
                           const q = tlInput.trim();
@@ -1071,7 +1071,7 @@ export function CareEngine() {
                       <button
                         type="button"
                         disabled={sending}
-                        className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition disabled:opacity-60"
+                        className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-gray-900 font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition disabled:opacity-60"
                         onClick={() => {
                           const q = tlInput.trim();
                           if (!q) return;
@@ -1109,7 +1109,7 @@ export function CareEngine() {
 
         {module === "beauty-roadmap" ? (
           <div>
-            <p className="text-sm text-black">
+            <p className="text-sm text-gray-700">
               Beauty Roadmap™ — a long‑term, education-first view of “now → maintenance → long‑term” (no treatment plans, no promises).
             </p>
 
@@ -1129,8 +1129,8 @@ export function CareEngine() {
                       className={cx(
                         "text-xs font-semibold rounded-full px-3 py-2 border transition",
                         active
-                          ? "border-[#FF2D8E]/40 bg-white text-pink-300"
-                          : "border-black text-black hover:bg-white hover:text-white",
+                          ? "border-[#E6007E] bg-white text-[#E6007E]"
+                          : "border-gray-200 text-gray-700 hover:bg-gray-50 hover:text-[#E6007E]",
                       )}
                       title={p.note}
                     >
@@ -1141,11 +1141,11 @@ export function CareEngine() {
               </div>
 
               <div className="grid gap-2">
-                <label className="text-sm font-semibold text-white">Notes (optional)</label>
+                <label className="text-sm font-semibold text-gray-900">Notes (optional)</label>
                 <textarea
                   value={roadmapNotes}
                   onChange={(e) => setRoadmapNotes(e.target.value)}
-                  className="w-full min-h-[88px] rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                  className="w-full min-h-[88px] rounded-xl bg-gray-50 border border-gray-200 px-4 py-3 text-gray-900 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500/50"
                   placeholder="Example: I want to look refreshed but still like me…"
                 />
               </div>
@@ -1153,7 +1153,7 @@ export function CareEngine() {
               <div className="flex flex-col sm:flex-row gap-3">
                 <button
                   type="button"
-                  className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition"
+                  className="px-6 py-3 rounded-full bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-gray-900 font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition"
                   onClick={() => setRoadmapOut(buildBeautyRoadmap(roadmapPriorities, roadmapNotes))}
                 >
                   Generate Roadmap
@@ -1163,7 +1163,7 @@ export function CareEngine() {
                 </CTA>
                 <button
                   type="button"
-                  className="px-6 py-3 rounded-full border border-black text-white hover:bg-white transition"
+                  className="px-6 py-3 rounded-full border border-gray-300 text-gray-700 hover:bg-gray-50 transition"
                   onClick={() => {
                     setRoadmapOut(null);
                     setRoadmapNotes("");
@@ -1175,9 +1175,9 @@ export function CareEngine() {
               </div>
 
               {roadmapOut ? (
-                <div className="rounded-2xl border border-black bg-white p-5 whitespace-pre-wrap text-sm text-white">
+                <div className="rounded-2xl border border-gray-200 bg-white p-5 whitespace-pre-wrap text-sm text-gray-700">
                   {roadmapOut}
-                  <p className="mt-4 text-xs text-black">{complianceFooter()}</p>
+                  <p className="mt-4 text-xs text-gray-700">{complianceFooter()}</p>
                 </div>
               ) : null}
             </div>
