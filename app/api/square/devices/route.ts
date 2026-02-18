@@ -6,7 +6,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getDevicesApiAsync, getSquareClientAsync, createSquareClientWithToken } from '@/lib/square/client';
 import { getActiveConnection, getAccessToken } from '@/lib/square/oauth';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { createServerSupabaseClient, createAdminSupabaseClient } from '@/lib/hgos/supabase';
 
 export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
@@ -131,7 +131,13 @@ export async function POST(request: NextRequest) {
           { status: 400 }
         );
       }
-      const supabase = createServerSupabaseClient();
+      const supabase = createAdminSupabaseClient() ?? createServerSupabaseClient();
+      if (!supabase) {
+        return NextResponse.json(
+          { error: 'Database not configured', details: 'Missing Supabase credentials' },
+          { status: 500 }
+        );
+      }
       const displayName = name || `Terminal ${squareDeviceId.slice(-4)}`;
       const row = {
         connection_id: connection.id,
@@ -167,9 +173,12 @@ export async function POST(request: NextRequest) {
             device = existing;
           }
           if (!device) {
+            const err = insertError || upsertError;
+            const msg = err?.message || 'Unknown database error';
+            const code = err?.code ? ` (code: ${err.code})` : '';
             console.error('[Add device by ID]', upsertError, insertError);
             return NextResponse.json(
-              { error: 'Failed to add device', details: insertError?.message || upsertError.message },
+              { error: 'Failed to add device', details: `${msg}${code}` },
               { status: 500 }
             );
           }
