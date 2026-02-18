@@ -30,12 +30,11 @@ export function MeetProviders() {
     <section className="section-white section-padding">
       <div className="container">
         <div className="text-center mb-16">
-          <p className="text-[#FF2D8E] text-sm font-bold tracking-wider uppercase">Your Providers</p>
-          <h2 className="mt-4 text-3xl md:text-4xl font-serif font-bold">
-            Meet the <span className="text-[#FF2D8E]">Team</span>
+          <h2 className="text-3xl md:text-4xl font-serif font-bold">
+            Oswego's Trusted <span className="text-[#FF2D8E]">Aesthetic Team</span>
           </h2>
           <p className="mt-6 text-lg max-w-2xl mx-auto">
-            Expert providers dedicated to your safety, comfort, and stunning results.
+            Medical Experts. Real Results.
           </p>
         </div>
 
