@@ -786,8 +786,8 @@ export default function CalendarPage() {
             <div className="p-4 border-b border-black flex items-center justify-between">
               {getStatusBadge(selectedAppointment.status)}
           <Link
-                href={`/admin/payments/new?appointment=${selectedAppointment.id}&client=${selectedAppointment.client_id}`}
-                className="px-4 py-2 bg-black text-white text-sm font-medium rounded-lg hover:bg-black transition-colors"
+                href={`/pos?appointment=${selectedAppointment.id}&client=${selectedAppointment.client_id}`}
+                className="px-4 py-2 bg-[#FF2D8E] text-white text-sm font-medium rounded-lg hover:bg-black transition-colors"
           >
                 CHECKOUT
           </Link>

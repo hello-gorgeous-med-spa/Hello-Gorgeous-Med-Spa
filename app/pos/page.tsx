@@ -5,7 +5,8 @@
 // Sales ledger + Checkout panel layout
 // ============================================================
 
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 
@@ -14,10 +15,15 @@ const TerminalStatusModal = dynamic(() => import('@/components/TerminalStatusMod
 });
 
 export default function POSPage() {
+  const searchParams = useSearchParams();
+  const appointmentId = searchParams.get('appointment');
+  const clientIdParam = searchParams.get('client');
+  
   const [selectedClient, setSelectedClient] = useState<any | null>(null);
   const [cart, setCart] = useState<any[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [showCheckout, setShowCheckout] = useState(false);
+  const [loadedAppointmentId, setLoadedAppointmentId] = useState<string | null>(null);
   
   // Data
   const [sales, setSales] = useState<any[]>([]);
@@ -74,6 +80,61 @@ export default function POSPage() {
     Promise.all([fetchSales(), fetchServices(), fetchTodaysAppointments()])
       .finally(() => setLoading(false));
   }, [fetchSales, fetchServices, fetchTodaysAppointments]);
+
+  // Load appointment from URL params (coming from calendar checkout)
+  useEffect(() => {
+    if (appointmentId && appointmentId !== loadedAppointmentId) {
+      const loadAppointment = async () => {
+        try {
+          const res = await fetch(`/api/appointments/${appointmentId}`);
+          const data = await res.json();
+          if (data.appointment) {
+            const appt = data.appointment;
+            // Extract nested data
+            const clientName = appt.client 
+              ? `${appt.client.first_name || ''} ${appt.client.last_name || ''}`.trim() || 'Client'
+              : appt.client_name || 'Client';
+            const providerName = appt.provider
+              ? `${appt.provider.first_name || ''} ${appt.provider.last_name || ''}`.trim() || 'Provider'
+              : appt.provider_name || 'Provider';
+            const serviceName = appt.service?.name || appt.service_name || 'Service';
+            // Get price - check nested service first, then appointment fields
+            const servicePrice = appt.service?.price 
+              || appt.service?.price_cents / 100 
+              || appt.service_price 
+              || appt.price 
+              || 0;
+            
+            // Set client
+            setSelectedClient({
+              id: appt.client_id || appt.client?.id,
+              name: clientName,
+              email: appt.client?.email || appt.client_email,
+              appointment_id: appt.id,
+              provider_name: providerName,
+            });
+            // Set cart with the appointment service
+            setCart([{
+              id: `service-${appt.service_id || appt.service?.id || appt.id}-${Date.now()}`,
+              type: 'service',
+              item_id: appt.service_id || appt.service?.id,
+              name: serviceName,
+              price: servicePrice,
+              original_price: servicePrice,
+              quantity: 1,
+              discount: 0,
+              provider_name: providerName,
+            }]);
+            setShowCheckout(true);
+            setLoadedAppointmentId(appointmentId);
+          }
+        } catch (err) {
+          console.error('Failed to load appointment:', err);
+        }
+      };
+      loadAppointment();
+    }
+  }, [appointmentId, loadedAppointmentId]);
 
   // Search clients
   const searchClients = useCallback(async (query: string) => {
