@@ -4,7 +4,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 import { cancelTerminalCheckout } from '@/lib/square/terminal';
 
 export const dynamic = 'force-dynamic';
@@ -21,7 +21,7 @@ export async function POST(
   try {
     const { id: saleId } = await params;
     
-    const supabase = createServerSupabaseClient();
+    const supabase = createAdminSupabaseClient();
     
     // Get the most recent active terminal checkout for this sale
     const { data: checkout, error: checkoutError } = await supabase
