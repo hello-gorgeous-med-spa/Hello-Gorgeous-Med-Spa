@@ -1,262 +1,291 @@
-import { Metadata } from 'next';
-import { createClient } from '@supabase/supabase-js';
-import { notFound } from 'next/navigation';
-import Link from 'next/link';
-import Image from 'next/image';
-import { pageMetadata } from '@/lib/seo';
-import { ProviderMediaSection } from './ProviderMediaSection';
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+import Link from "next/link";
+import Image from "next/image";
+import { BOOKING_URL } from "@/lib/flows";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { ProviderVideos } from "./ProviderVideos";
+import { ProviderResults } from "./ProviderResults";
 
-interface Provider {
-  id: string;
-  display_name: string;
-  first_name: string;
-  last_name: string;
+interface Props {
+  params: Promise<{ slug: string }>;
+}
+
+async function getProvider(slug: string) {
+  try {
+    const supabase = await createServerSupabaseClient();
+    const { data: provider } = await supabase
+      .from("providers")
+      .select("*")
+      .eq("slug", slug)
+      .eq("active", true)
+      .single();
+    return provider;
+  } catch {
+    return null;
+  }
+}
+
+async function getProviderMedia(providerId: string) {
+  try {
+    const supabase = await createServerSupabaseClient();
+    const { data: media } = await supabase
+      .from("provider_media")
+      .select("*")
+      .eq("provider_id", providerId)
+      .eq("status", "published")
+      .eq("consent_confirmed", true)
+      .order("featured", { ascending: false })
+      .order("display_order", { ascending: true });
+    return media || [];
+  } catch {
+    return [];
+  }
+}
+
+async function getServiceTags() {
+  try {
+    const supabase = await createServerSupabaseClient();
+    const { data } = await supabase
+      .from("provider_service_tags")
+      .select("*")
+      .order("display_order", { ascending: true });
+    return data || [];
+  } catch {
+    return [];
+  }
+}
+
+// Fallback providers for when database is empty
+const fallbackProviders: Record<string, {
   slug: string;
-  credentials: string | null;
-  short_bio: string | null;
-  bio: string | null;
-  philosophy: string | null;
-  headshot_url: string | null;
-  intro_video_url: string | null;
-  booking_url: string | null;
-  tagline: string | null;
-}
+  name: string;
+  role: string;
+  credentials: string;
+  headshot_url: string;
+  bio: string;
+  philosophy: string;
+  telehealth_enabled: boolean;
+}> = {
+  danielle: {
+    slug: "danielle",
+    name: "Danielle Alcala",
+    role: "Founder, Hello Gorgeous Med Spa",
+    credentials: "Licensed CNA • CMAA • Phlebotomist",
+    headshot_url: "/images/team/danielle.png",
+    bio: "Passionate about helping clients feel confident and beautiful. Patient-first care philosophy with a focus on personalized treatments.",
+    philosophy: "Every client deserves to feel gorgeous. My approach is rooted in listening to your goals and creating a personalized plan that enhances your natural beauty.",
+    telehealth_enabled: false,
+  },
+  ryan: {
+    slug: "ryan",
+    name: "Ryan Kent",
+    role: "Medical Director",
+    credentials: "MSN, FNP-C, ABAAHP • Full Practice Authority NP",
+    headshot_url: "/images/providers/ryan-kent-clinic.jpg",
+    bio: "Board-Certified Family Nurse Practitioner with full prescriptive authority. Specializing in weight management, hormone optimization, and regenerative medicine.",
+    philosophy: "Medical aesthetics should be grounded in science and delivered with care. I focus on evidence-based treatments that deliver real, measurable results.",
+    telehealth_enabled: true,
+  },
+};
 
-interface MediaItem {
-  id: string;
-  type: 'video' | 'before_after';
-  video_url: string | null;
-  video_thumbnail_url: string | null;
-  before_image_url: string | null;
-  after_image_url: string | null;
-  title: string | null;
-  description: string | null;
-  service_tag: string | null;
-  is_featured: boolean;
-}
-
-async function getProvider(slug: string): Promise<{ provider: Provider | null; media: MediaItem[] }> {
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  );
-
-  const { data: provider, error } = await supabase
-    .from('providers')
-    .select('*')
-    .eq('slug', slug)
-    .eq('is_active', true)
-    .single();
-
-  if (error || !provider) {
-    return { provider: null, media: [] };
-  }
-
-  const { data: mediaRaw } = await supabase
-    .from('provider_media')
-    .select('*')
-    .eq('provider_id', provider.id)
-    .eq('status', 'published')
-    .or('media_type.eq.video,consent_confirmed.eq.true')
-    .order('featured', { ascending: false })
-    .order('sort_order', { ascending: true });
-
-  const media = (mediaRaw || []).map((m: any) => ({
-    id: m.id,
-    type: m.media_type,
-    video_url: m.video_url,
-    video_thumbnail_url: m.thumbnail_url,
-    before_image_url: m.before_image_url,
-    after_image_url: m.after_image_url,
-    title: m.title,
-    description: m.description,
-    service_tag: m.service_tag,
-    is_featured: m.featured,
-  }));
-
-  return { provider, media: media || [] };
-}
-
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const { provider } = await getProvider(slug);
+  const provider = (await getProvider(slug)) || fallbackProviders[slug];
 
   if (!provider) {
-    return pageMetadata({ title: 'Provider Not Found', path: '/providers' });
+    return { title: "Provider Not Found" };
   }
 
-  const name = provider.display_name || `${provider.first_name} ${provider.last_name}`;
-
-  return pageMetadata({
-    title: `${name} - ${provider.credentials || 'Provider'} | Hello Gorgeous Med Spa`,
-    description: provider.short_bio || `Meet ${name}, a licensed medical professional at Hello Gorgeous Med Spa.`,
-    path: `/providers/${slug}`,
-  });
-}
-
-export default async function ProviderProfilePage({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const { provider, media } = await getProvider(slug);
-
-  if (!provider) {
-    notFound();
-  }
-
-  const name = provider.display_name || `${provider.first_name} ${provider.last_name}`;
-  const firstName = provider.first_name;
-  const fullBio = provider.bio || provider.short_bio;
-
-  const videos = media.filter((m) => m.type === 'video');
-  const beforeAfters = media.filter((m) => m.type === 'before_after');
-
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: name,
-    jobTitle: provider.credentials,
-    description: fullBio,
-    image: provider.headshot_url,
-    worksFor: {
-      '@type': 'MedicalBusiness',
-      name: 'Hello Gorgeous Med Spa',
-      address: {
-        '@type': 'PostalAddress',
-        streetAddress: '74 W. Washington Street',
-        addressLocality: 'Oswego',
-        addressRegion: 'IL',
-        postalCode: '60543',
-      },
+  return {
+    title: `${provider.name} | Hello Gorgeous Med Spa`,
+    description: provider.bio,
+    openGraph: {
+      title: `${provider.name} | Hello Gorgeous Med Spa`,
+      description: provider.bio,
+      type: "profile",
     },
   };
+}
+
+export default async function ProviderProfilePage({ params }: Props) {
+  const { slug } = await params;
+  let provider = await getProvider(slug);
+  let media: Array<{
+    id: string;
+    type: string;
+    video_url?: string;
+    video_thumbnail_url?: string;
+    video_orientation?: string;
+    before_image_url?: string;
+    after_image_url?: string;
+    service_tag?: string;
+    title?: string;
+    description?: string;
+    featured?: boolean;
+  }> = [];
+
+  // Use fallback if no database provider
+  if (!provider) {
+    const fallback = fallbackProviders[slug];
+    if (!fallback) {
+      notFound();
+    }
+    provider = fallback as typeof provider;
+  } else {
+    media = await getProviderMedia(provider.id);
+  }
+
+  const serviceTags = await getServiceTags();
+
+  const videos = media.filter((m) => m.type === "video");
+  const beforeAfter = media.filter((m) => m.type === "before_after");
 
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
-      {/* A. About Section - White background */}
-      <section className="section-white section-padding">
-        <div className="container">
-          <Link href="/providers" className="text-[#FF2D8E] hover:text-black font-bold text-sm mb-8 inline-block">
-            ← All Providers
-          </Link>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <main className="bg-white">
+      {/* About Section */}
+      <section className="py-24">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-start">
             {/* Photo */}
-            <div className="relative aspect-[4/5] max-w-md mx-auto lg:mx-0 rounded-2xl overflow-hidden border-2 border-black">
-              {provider.headshot_url ? (
+            <div className="relative">
+              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden">
                 <Image
-                  src={provider.headshot_url}
-                  alt={name}
+                  src={provider.headshot_url || "/images/team/placeholder.png"}
+                  alt={`${provider.name}, ${provider.credentials}`}
                   fill
-                  className="object-cover"
                   priority
+                  className="object-cover object-top"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
-              ) : (
-                <div className="w-full h-full bg-white flex items-center justify-center">
-                  <span className="text-9xl">👩‍⚕️</span>
+              </div>
+              {provider.telehealth_enabled && (
+                <div className="absolute top-4 right-4">
+                  <Link
+                    href="/telehealth"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#E6007E] text-white text-sm font-semibold hover:opacity-90 transition"
+                  >
+                    <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+                    Telehealth Available
+                  </Link>
                 </div>
               )}
             </div>
 
             {/* Info */}
             <div>
-              <h1 className="text-4xl md:text-5xl font-serif font-bold">{name}</h1>
-              {provider.credentials && (
-                <p className="text-xl text-[#FF2D8E] font-bold mt-3">{provider.credentials}</p>
-              )}
-              {provider.tagline && (
-                <p className="italic mt-2">{provider.tagline}</p>
-              )}
+              <h1 className="text-4xl md:text-5xl font-semibold text-black">
+                {provider.name}
+              </h1>
+              <p className="mt-2 text-[#E6007E] text-lg font-semibold">
+                {provider.credentials}
+              </p>
+              <p className="mt-1 text-black/60">{provider.role}</p>
 
-              {fullBio && (
-                <div className="mt-8">
-                  <p className="text-lg leading-relaxed">{fullBio}</p>
-                </div>
-              )}
+              <div className="mt-8">
+                <h2 className="text-xl font-semibold text-black mb-4">About</h2>
+                <p className="text-black/70 leading-relaxed">{provider.bio}</p>
+              </div>
 
               {provider.philosophy && (
-                <div className="mt-8 p-6 rounded-2xl border-2 border-[#FF2D8E]">
-                  <h3 className="font-bold mb-2">My Philosophy</h3>
-                  <p className="italic">&ldquo;{provider.philosophy}&rdquo;</p>
+                <div className="mt-8">
+                  <h2 className="text-xl font-semibold text-black mb-4">
+                    Philosophy
+                  </h2>
+                  <p className="text-black/70 leading-relaxed italic">
+                    "{provider.philosophy}"
+                  </p>
                 </div>
               )}
 
-              <div className="mt-10">
+              <div className="mt-10 flex flex-col sm:flex-row gap-4">
                 <Link
-                  href={provider.booking_url || `/book?provider=${provider.slug}`}
-                  className="btn-primary"
+                  href={`${BOOKING_URL}?provider=${provider.slug}`}
+                  className="inline-flex items-center justify-center bg-[#E6007E] text-white px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition-all"
                 >
-                  Book with {firstName}
+                  Book with {provider.name.split(" ")[0]}
                 </Link>
+                {provider.telehealth_enabled && (
+                  <Link
+                    href="/telehealth"
+                    className="inline-flex items-center justify-center border-2 border-black text-black px-8 py-4 rounded-lg font-semibold hover:border-[#E6007E] hover:text-[#E6007E] transition-all"
+                  >
+                    Virtual Consultation
+                  </Link>
+                )}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* B. Videos Section - Black background */}
+      {/* Videos Section */}
       {videos.length > 0 && (
-        <section className="section-black section-padding">
-          <div className="container">
-            <h2 className="text-3xl font-serif font-bold mb-8">
-              <span className="text-[#FF2D8E]">Videos</span> from {firstName}
-            </h2>
-            <ProviderMediaSection media={videos} type="video" />
-          </div>
-        </section>
+        <ProviderVideos videos={videos} providerName={provider.name} />
       )}
 
-      {/* C. Results / Before & After Section - White background */}
-      {beforeAfters.length > 0 && (
-        <section className="section-white section-padding">
-          <div className="container">
-            <h2 className="text-3xl font-serif font-bold mb-4">
-              Real <span className="text-[#FF2D8E]">Results</span>
-            </h2>
-            <p className="mb-12 text-lg">See real results from real clients</p>
-            <ProviderMediaSection media={beforeAfters} type="before_after" />
-
-            {/* Disclaimer */}
-            <div className="mt-16 p-6 rounded-2xl border-2 border-black text-sm">
-              <p>
-                <strong>Disclaimer:</strong> Results vary by individual. All treatments performed by licensed
-                medical professionals. Client consent on file.
-              </p>
-            </div>
-          </div>
-        </section>
+      {/* Results Section */}
+      {beforeAfter.length > 0 && (
+        <ProviderResults
+          results={beforeAfter}
+          serviceTags={serviceTags}
+          providerName={provider.name}
+        />
       )}
 
-      {/* D. CTA Section - Hot Pink */}
-      <section className="section-pink section-padding">
-        <div className="container">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl font-serif font-bold">
-              Ready to Book with {firstName}?
-            </h2>
-            <p className="mt-4 text-lg">
-              Schedule your personalized consultation today
-            </p>
-            <div className="mt-10 flex justify-center gap-4 flex-wrap">
-              <Link
-                href={provider.booking_url || `/book?provider=${provider.slug}`}
-                className="btn-white"
-              >
-                Book with {firstName}
-              </Link>
-              <Link
-                href="/providers"
-                className="px-8 py-4 rounded-lg font-bold border-2 border-white hover:bg-white hover:text-[#FF2D8E] transition"
-              >
-                View All Providers
-              </Link>
-            </div>
+      {/* CTA Section */}
+      <section className="bg-black py-24">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
+          <h2 className="text-4xl md:text-5xl font-semibold text-white">
+            Ready to Book with {provider.name.split(" ")[0]}?
+          </h2>
+          <p className="mt-6 text-lg text-white/80">
+            Schedule your consultation and start your transformation journey.
+          </p>
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href={`${BOOKING_URL}?provider=${provider.slug}`}
+              className="inline-flex items-center justify-center bg-[#E6007E] text-white px-10 py-4 rounded-lg font-semibold uppercase tracking-wide hover:opacity-90 transition-all"
+            >
+              Book with {provider.name.split(" ")[0]}
+            </Link>
+            <a
+              href="tel:630-636-6193"
+              className="inline-flex items-center justify-center border-2 border-white text-white px-10 py-4 rounded-lg font-semibold uppercase tracking-wide hover:bg-white hover:text-black transition-all"
+            >
+              Call 630-636-6193
+            </a>
           </div>
         </div>
       </section>
-    </>
+
+      {/* Compliance Disclaimer */}
+      <section className="bg-white py-8 border-t border-black/10">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
+          <p className="text-sm text-black/50">
+            Results vary by individual. All treatments performed by licensed
+            medical professionals. Client consent on file.
+          </p>
+        </div>
+      </section>
+
+      {/* Schema Markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: provider.name,
+            jobTitle: provider.role,
+            description: provider.bio,
+            worksFor: {
+              "@type": "MedicalBusiness",
+              name: "Hello Gorgeous Med Spa",
+            },
+          }),
+        }}
+      />
+    </main>
   );
 }

@@ -3,12 +3,11 @@ import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 export async function GET() {
   try {
-    const supabase = await createServerSupabaseClient();
+    const supabase = createServerSupabaseClient();
     
     const { data, error } = await supabase
       .from("providers")
       .select("*")
-      .eq("active", true)
       .order("display_order", { ascending: true });
 
     if (error) throw error;
