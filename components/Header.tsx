@@ -74,21 +74,12 @@ const navigation = {
     label: "About",
     href: "/about",
     links: [
-      { label: "About Hello Gorgeous", href: "/about", description: "Our story and mission", icon: "💗" },
-      { label: "View Providers", href: "/providers", description: "Expert providers you can trust", icon: "👩‍⚕️" },
+      { label: "About Hello Gorgeous", href: "/about", description: "Our story, mission & team", icon: "💗" },
+      { label: "Danielle Glazier, RN, BSN", href: "/providers/danielle", description: "Lead Aesthetic Injector", icon: "👩‍⚕️" },
+      { label: "Ryan Kent, FNP-BC", href: "/providers/ryan", description: "Medical Director & Wellness", icon: "🧑‍⚕️" },
       { label: "Our Location", href: "/locations", description: "Visit us in Oswego, IL", icon: "📍" },
       { label: "Clinical Standards", href: "/clinical-partners", description: "Safety & quality commitment", icon: "🏥" },
-      { label: "Pharmacy Partner", href: "/pharmacy-partner", description: "Olympia compounded medications", icon: "💊" },
       { label: "The Care Engine™", href: "/care-engine", description: "Our personalized approach", icon: "⚙️" },
-    ],
-  },
-  providers: {
-    label: "Providers",
-    href: "/providers",
-    links: [
-      { label: "Danielle Glazier, RN, BSN", href: "/providers/danielle", description: "Lead Aesthetic Injector", icon: "💗" },
-      { label: "Ryan Kent, FNP-BC", href: "/providers/ryan", description: "Hormone Therapy & Wellness", icon: "🧑‍⚕️" },
-      { label: "All Providers", href: "/providers", description: "Videos, before/after, booking", icon: "🎥" },
     ],
   },
   journey: {
@@ -315,7 +306,7 @@ export function Header() {
             >
               <Link
                 href="/services"
-                      className={cx(
+                className={cx(
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/services')
                     ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
@@ -330,18 +321,18 @@ export function Header() {
               <ServicesDropdown isOpen={activeDropdown === 'services'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('services')} />
             </div>
 
-            {/* About Dropdown */}
+            {/* About Dropdown (includes providers) */}
             <div 
               className="relative"
               onMouseEnter={() => handleMouseEnter('about')}
               onMouseLeave={handleMouseLeave}
             >
-                    <Link
+              <Link
                 href="/about"
-                      className={cx(
+                className={cx(
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                  pathname?.startsWith('/about') || pathname?.startsWith('/locations')
-                          ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
+                  pathname?.startsWith('/about') || pathname?.startsWith('/providers') || pathname?.startsWith('/locations')
+                    ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
                     : "text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5"
                 )}
               >
@@ -349,31 +340,8 @@ export function Header() {
                 <svg className={cx("w-4 h-4 transition-transform", activeDropdown === 'about' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
-                    </Link>
-              <SimpleDropdown data={navigation.about} isOpen={activeDropdown === 'about'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('about')} />
-            </div>
-
-            {/* Providers Dropdown */}
-            <div
-              className="relative"
-              onMouseEnter={() => handleMouseEnter('providers')}
-              onMouseLeave={handleMouseLeave}
-            >
-              <Link
-                href="/providers"
-                className={cx(
-                  "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                  pathname?.startsWith('/providers')
-                    ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
-                    : "text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5"
-                )}
-              >
-                Providers
-                <svg className={cx("w-4 h-4 transition-transform", activeDropdown === 'providers' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
               </Link>
-              <SimpleDropdown data={navigation.providers} isOpen={activeDropdown === 'providers'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('providers')} />
+              <SimpleDropdown data={navigation.about} isOpen={activeDropdown === 'about'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('about')} />
             </div>
 
             {/* Memberships */}
@@ -431,7 +399,7 @@ export function Header() {
                 </svg>
               </button>
               <SimpleDropdown data={navigation.specials} isOpen={activeDropdown === 'specials'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('specials')} align="right" />
-                </div>
+            </div>
 
             {/* Contact */}
             <Link
@@ -474,10 +442,10 @@ export function Header() {
 
             {/* Book Now Button */}
             <CTA href={BOOKING_URL} variant="gradient" className="hidden md:flex px-8 py-3">
-                Book Now
-              </CTA>
+              Book Now
+            </CTA>
 
-            {/* Mobile Menu Button — 44px tap target */}
+            {/* Mobile Menu Button */}
             <button
               className="lg:hidden tap-target p-2 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 rounded-lg transition-all duration-200"
               type="button"
@@ -493,7 +461,7 @@ export function Header() {
         </div>
       </div>
 
-      {/* Mobile Menu — smooth open/close */}
+      {/* Mobile Menu */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 bg-white/98 backdrop-blur-xl lg:hidden overflow-y-auto">
           {/* Header */}
@@ -516,8 +484,8 @@ export function Header() {
 
           {/* Mobile Navigation */}
           <div className="px-4 py-6 space-y-2">
-            {/* Fix What Bothers Me — 1 tap reachable */}
-              <Link
+            {/* Fix What Bothers Me */}
+            <Link
               href="/fix-what-bothers-me"
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 text-[#FF2D8E] font-semibold"
@@ -554,7 +522,7 @@ export function Header() {
                         >
                           <span>{link.icon}</span>
                           <span>{link.label}</span>
-              </Link>
+                        </Link>
                       ))}
                     </div>
                   ))}
@@ -562,7 +530,7 @@ export function Header() {
               )}
             </div>
 
-            {/* About Section */}
+            {/* About Section (includes providers) */}
             <div className="border-b border-black pb-4">
               <button
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'about' ? null : 'about')}
@@ -570,7 +538,7 @@ export function Header() {
               >
                 <span className="flex items-center gap-3">
                   <span className="text-xl">💗</span>
-                  About
+                  About & Team
                 </span>
                 <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'about' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -579,37 +547,6 @@ export function Header() {
               {mobileSubmenu === 'about' && (
                 <div className="mt-2 ml-4">
                   {navigation.about.links.map((link) => (
-                    <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 rounded-lg"
-                    >
-                      <span>{link.icon}</span>
-                      <span>{link.label}</span>
-                    </Link>
-                  ))}
-                </div>
-              )}
-          </div>
-
-            {/* Providers Section */}
-            <div className="border-b border-black pb-4">
-              <button
-                onClick={() => setMobileSubmenu(mobileSubmenu === 'providers' ? null : 'providers')}
-                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
-              >
-                <span className="flex items-center gap-3">
-                  <span className="text-xl">🩺</span>
-                  Providers
-                </span>
-                <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'providers' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                </svg>
-              </button>
-              {mobileSubmenu === 'providers' && (
-                <div className="mt-2 ml-4">
-                  {navigation.providers.links.map((link) => (
                     <Link
                       key={link.href}
                       href={link.href}
@@ -665,7 +602,7 @@ export function Header() {
               )}
             </div>
 
-            {/* Specials Section - Highlighted */}
+            {/* Specials Section */}
             <div className="border-b border-black pb-4">
               <button
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'specials' ? null : 'specials')}
@@ -735,7 +672,7 @@ export function Header() {
             </a>
           </div>
 
-          {/* Mobile CTAs - full width, 48px min height */}
+          {/* Mobile CTAs */}
           <div className="sticky bottom-0 bg-white/95 border-t border-black px-4 py-4 space-y-3 safe-area-pb">
             <CTA href={BOOKING_URL} variant="gradient" className="w-full min-h-[48px] py-4 rounded-xl text-base font-semibold">
               Book Your Appointment
