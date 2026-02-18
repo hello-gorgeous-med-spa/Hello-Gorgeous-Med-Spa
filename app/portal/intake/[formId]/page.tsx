@@ -9,6 +9,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { STANDARD_INTAKE_FORMS, type IntakeForm, type IntakeFormField } from '@/lib/hgos/intake-forms';
+import { SMSDisclosure } from '@/components/SMSDisclosure';
 
 interface SignaturePadProps {
   onChange: (dataUrl: string) => void;
@@ -337,6 +338,44 @@ export default function IntakeFormPage({ params }: { params: { formId: string } 
                 </label>
               ))}
             </div>
+            {errors[field.id] && <p className="text-xs text-red-500">{errors[field.id]}</p>}
+          </div>
+        );
+
+      case 'phone':
+        return (
+          <div key={field.id} id={field.id} className="space-y-1">
+            <label className="block text-sm font-medium text-black">
+              {field.label} {field.required && <span className="text-red-500">*</span>}
+            </label>
+            <input
+              type="tel"
+              value={formData[field.id] || ''}
+              onChange={(e) => handleFieldChange(field.id, e.target.value)}
+              placeholder={field.placeholder}
+              className={`w-full px-4 py-2 border rounded-lg ${errors[field.id] ? 'border-red-500' : 'border-black'}`}
+            />
+            <SMSDisclosure variant="dark" />
+            {field.helpText && <p className="text-xs text-black">{field.helpText}</p>}
+            {errors[field.id] && <p className="text-xs text-red-500">{errors[field.id]}</p>}
+          </div>
+        );
+
+      case 'phone':
+        return (
+          <div key={field.id} id={field.id} className="space-y-1">
+            <label className="block text-sm font-medium text-black">
+              {field.label} {field.required && <span className="text-red-500">*</span>}
+            </label>
+            <input
+              type="tel"
+              value={formData[field.id] || ''}
+              onChange={(e) => handleFieldChange(field.id, e.target.value)}
+              placeholder={field.placeholder}
+              className={`w-full px-4 py-2 border rounded-lg ${errors[field.id] ? 'border-red-500' : 'border-black'}`}
+            />
+            <SMSDisclosure variant="dark" />
+            {field.helpText && <p className="text-xs text-black">{field.helpText}</p>}
             {errors[field.id] && <p className="text-xs text-red-500">{errors[field.id]}</p>}
           </div>
         );

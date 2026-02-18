@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
+import { SMSDisclosure } from "@/components/SMSDisclosure";
 
 type Category = "all" | "skincare" | "supplements" | "injectables" | "wellness";
 
@@ -671,6 +672,7 @@ export function ShopContent() {
                         className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-white/50 focus:border-[#FF2D8E] focus:outline-none"
                         placeholder="(630) 555-1234"
                       />
+                      <SMSDisclosure variant="dark" />
                     </div>
                     <div>
                       <label className="text-white text-sm font-medium block mb-1">Message (optional)</label>

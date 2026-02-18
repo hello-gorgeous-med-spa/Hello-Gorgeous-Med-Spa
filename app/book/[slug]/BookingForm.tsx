@@ -691,6 +691,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   placeholder="(630) 555-1234"
                   className="w-full min-h-[44px] px-4 py-3 border border-black rounded-lg focus:ring-2 focus:ring-[#FF2D8E] focus:border-[#FF2D8E]"
                 />
+                <SMSDisclosure variant="dark" />
               </div>
 
               {formData.isNewClient && (
@@ -735,10 +736,10 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     type="checkbox"
                     checked={formData.agreeToSMS}
                     onChange={(e) => updateField('agreeToSMS', e.target.checked)}
-                    className="mt-1 w-4 h-4 min-w-[16px] min-h-[16px] text-[#FF2D8E] border-black rounded focus:ring-[#FF2D8E] shrink-0"
+                    className="mt-1 w-4 h-4 min-w-[16px] min-h-[16px] accent-[#E6007E] border-black rounded focus:ring-[#E6007E] shrink-0"
                   />
                   <span className="text-sm text-black">
-                    Send me SMS reminders &amp; offers (msg rates may apply, reply STOP to opt out)
+                    I agree to receive text messages from Hello Gorgeous Med Spa as described above.
                   </span>
                 </label>
                 <label className="flex items-start gap-3 cursor-pointer">

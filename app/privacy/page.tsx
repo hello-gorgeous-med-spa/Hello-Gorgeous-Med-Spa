@@ -220,9 +220,14 @@ export default function PrivacyPolicyPage() {
         <section id="sms-mobile" className="mb-8 scroll-mt-24">
           <h2>9. SMS and Mobile Messaging</h2>
           <p>
+            Hello Gorgeous Med Spa may send appointment reminders, promotional offers, and account
+            notifications via SMS. Message frequency varies. Message and data rates may apply. Reply
+            STOP to opt out. Reply HELP for assistance. We do not sell or share mobile information
+            with third parties for marketing purposes.
+          </p>
+          <p>
             When you provide your mobile number and opt in to receive text messages, we may send you
-            appointment reminders, treatment updates, and promotional offers via SMS. Message and data
-            rates may apply.
+            appointment reminders, treatment updates, and promotional offers via SMS.
           </p>
           <div className="bg-white p-4 rounded-lg border-l-4 border-[#FF2D8E]">
             <p className="font-medium text-black mb-2">Your mobile information will not be sold or shared with third parties for promotional or marketing purposes.</p>

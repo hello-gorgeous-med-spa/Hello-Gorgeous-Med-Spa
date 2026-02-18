@@ -5,7 +5,7 @@
 
 export interface IntakeFormField {
   id: string;
-  type: 'text' | 'textarea' | 'select' | 'checkbox' | 'radio' | 'date' | 'signature' | 'section';
+  type: 'text' | 'textarea' | 'select' | 'checkbox' | 'radio' | 'date' | 'phone' | 'signature' | 'section';
   label: string;
   required: boolean;
   options?: string[];
@@ -38,7 +38,7 @@ export const MEDICAL_HISTORY_FORM: IntakeForm = {
     { id: 'dob', type: 'date', label: 'Date of Birth', required: true },
     { id: 'gender', type: 'select', label: 'Gender', required: true, options: ['Female', 'Male', 'Non-binary', 'Prefer not to say'] },
     { id: 'emergency_contact', type: 'text', label: 'Emergency Contact Name', required: true },
-    { id: 'emergency_phone', type: 'text', label: 'Emergency Contact Phone', required: true },
+    { id: 'emergency_phone', type: 'phone', label: 'Emergency Contact Phone', required: true },
     
     { id: 'section-medical', type: 'section', label: 'Medical History', required: false },
     { id: 'allergies', type: 'textarea', label: 'List any allergies (medications, latex, foods, etc.)', required: false, placeholder: 'None' },

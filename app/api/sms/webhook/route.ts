@@ -1,10 +1,11 @@
 // ============================================================
 // TELNYX SMS WEBHOOK
-// Handles incoming messages (STOP opt-outs) and delivery receipts
+// Handles incoming messages (STOP opt-outs, HELP), delivery receipts
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { sendSmsTelnyx } from '@/lib/notifications/telnyx';
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
@@ -79,10 +80,12 @@ export async function POST(request: NextRequest) {
           console.log(`Resubscribe recorded for: ${from}`);
         }
 
-        // Check for HELP keyword
+        // Check for HELP keyword - 10DLC compliance: auto-respond with support info
         if (text === 'HELP' && from) {
-          // Could trigger an auto-reply here if needed
-          console.log(`Help request from: ${from}`);
+          const helpMessage = 'Hello Gorgeous Med Spa: For assistance call 630-636-6193 or visit https://hellogorgeousmedspa.com/contact';
+          const toNumber = from.startsWith('+') ? from : `+1${from.replace(/\D/g, '')}`;
+          await sendSmsTelnyx(toNumber, helpMessage);
+          console.log(`Help response sent to: ${from}`);
         }
 
         break;

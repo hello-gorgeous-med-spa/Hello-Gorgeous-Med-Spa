@@ -248,6 +248,7 @@ export function TreatmentQuiz() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
+  const [agreeToSMS, setAgreeToSMS] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [showLeadCapture, setShowLeadCapture] = useState(false);
   const [satisfactionRated, setSatisfactionRated] = useState(false);
@@ -460,11 +461,20 @@ export function TreatmentQuiz() {
                     placeholder="Phone (optional)"
                     className="w-full px-4 py-3 rounded-xl bg-white border border-black text-white placeholder-white/50 focus:border-[#FF2D8E] focus:outline-none"
                   />
+                  <SMSDisclosure variant="dark" />
+                  <div className="mt-3">
+                    <SMSConsentCheckbox
+                      checked={agreeToSMS}
+                      onChange={setAgreeToSMS}
+                      required={!!phone.trim()}
+                    />
+                  </div>
                 </div>
                 
                 <button
                   type="submit"
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold hover:opacity-90 transition"
+                  disabled={phone.trim() && !agreeToSMS}
+                  className="w-full py-4 rounded-xl bg-gradient-to-r from-pink-500 to-purple-500 text-white font-bold hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   See My Results + Get 10% Off →
                 </button>
