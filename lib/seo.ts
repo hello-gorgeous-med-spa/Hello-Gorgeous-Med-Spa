@@ -28,7 +28,7 @@ export const SITE = {
     addressCountry: "US",
   },
   geo: { latitude: 41.6828, longitude: -88.3515 },
-  serviceAreas: ["Oswego, IL", "Naperville, IL", "Aurora, IL", "Plainfield, IL", "Yorkville, IL", "Kendall County, IL"],
+  serviceAreas: ["Oswego, IL", "Naperville, IL", "Aurora, IL", "Plainfield, IL", "Yorkville, IL", "Sugar Grove, IL", "Montgomery, IL", "Kendall County, IL", "Kane County, IL"],
   googleBusinessUrl: "https://www.google.com/maps/place/Hello+Gorgeous+Med+Spa/@41.6828,-88.3515,17z",
   /** Direct link to leave a Google review. */
   googleReviewUrl: "https://g.page/r/CYQOWmT_HcwQEBM/review",

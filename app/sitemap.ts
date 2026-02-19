@@ -50,6 +50,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/naperville-il`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE.url}/aurora-il`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     { url: `${SITE.url}/plainfield-il`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE.url}/yorkville-il`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE.url}/sugar-grove-il`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
+    { url: `${SITE.url}/montgomery-il`, lastModified: now, changeFrequency: "monthly", priority: 0.9 },
     
     // Services Atlas category routes (SEO-safe clusters)
     { url: `${SITE.url}/services/aesthetics-injectables`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
@@ -72,53 +75,35 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: now,
   }));
 
-  const oswegoTopRoutes: MetadataRoute.Sitemap = [
+  // Location service slugs (top 6 services for each location)
+  const locationServiceSlugs = [
     "botox-dysport-jeuveau",
     "dermal-fillers",
     "weight-loss-therapy",
     "rf-microneedling",
     "biote-hormone-therapy",
     "iv-therapy",
-  ].map((slug) => ({
-    url: `${SITE.url}/oswego-il/${slug}`,
-    lastModified: now,
-  }));
+  ];
 
-  const napervilleTopRoutes: MetadataRoute.Sitemap = [
-    "botox-dysport-jeuveau",
-    "dermal-fillers",
-    "weight-loss-therapy",
-    "rf-microneedling",
-    "biote-hormone-therapy",
-    "iv-therapy",
-  ].map((slug) => ({
-    url: `${SITE.url}/naperville-il/${slug}`,
-    lastModified: now,
-  }));
+  // Generate routes for all locations
+  const locations = [
+    "oswego-il",
+    "naperville-il",
+    "aurora-il",
+    "plainfield-il",
+    "yorkville-il",
+    "sugar-grove-il",
+    "montgomery-il",
+  ];
 
-  const auroraTopRoutes: MetadataRoute.Sitemap = [
-    "botox-dysport-jeuveau",
-    "dermal-fillers",
-    "weight-loss-therapy",
-    "rf-microneedling",
-    "biote-hormone-therapy",
-    "iv-therapy",
-  ].map((slug) => ({
-    url: `${SITE.url}/aurora-il/${slug}`,
-    lastModified: now,
-  }));
-
-  const plainfieldTopRoutes: MetadataRoute.Sitemap = [
-    "botox-dysport-jeuveau",
-    "dermal-fillers",
-    "weight-loss-therapy",
-    "rf-microneedling",
-    "biote-hormone-therapy",
-    "iv-therapy",
-  ].map((slug) => ({
-    url: `${SITE.url}/plainfield-il/${slug}`,
-    lastModified: now,
-  }));
+  const locationServiceRoutes: MetadataRoute.Sitemap = locations.flatMap((location) =>
+    locationServiceSlugs.map((slug) => ({
+      url: `${SITE.url}/${location}/${slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    }))
+  );
 
   // GBP-style local landing pages (/botox-oswego-il/, /med-spa-oswego-il/, etc.)
   const gbpRoutes: MetadataRoute.Sitemap = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS].map(
@@ -134,10 +119,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...staticRoutes,
     ...serviceRoutes,
     ...gbpRoutes,
-    ...oswegoTopRoutes,
-    ...napervilleTopRoutes,
-    ...auroraTopRoutes,
-    ...plainfieldTopRoutes,
+    ...locationServiceRoutes,
   ];
 }
-

@@ -1,0 +1,216 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+
+import { CTA } from "@/components/CTA";
+import { FadeUp, Section } from "@/components/Section";
+import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
+import { BOOKING_URL } from "@/lib/flows";
+import { SERVICES, SITE, faqJsonLd, pageMetadata, serviceJsonLd, siteJsonLd, breadcrumbJsonLd } from "@/lib/seo";
+
+const serviceSlugs = [
+  "botox-dysport-jeuveau",
+  "dermal-fillers",
+  "weight-loss-therapy",
+  "rf-microneedling",
+  "biote-hormone-therapy",
+  "iv-therapy",
+] as const;
+
+export function generateStaticParams() {
+  return serviceSlugs.map((service) => ({ service }));
+}
+
+export function generateMetadata({ params }: { params: { service: string } }): Metadata {
+  const s = SERVICES.find((x) => x.slug === params.service);
+  if (!s) {
+    return pageMetadata({
+      title: "Yorkville, IL Service",
+      description: "Service details for Yorkville, IL.",
+      path: "/yorkville-il",
+    });
+  }
+
+  return pageMetadata({
+    title: `${s.name} Near Yorkville, IL | Hello Gorgeous Med Spa`,
+    description: `${s.name} for Yorkville, IL residents — ${s.short} Book a consultation at Hello Gorgeous Med Spa in Oswego.`,
+    path: `/yorkville-il/${s.slug}`,
+  });
+}
+
+function locationFaqs(serviceName: string) {
+  return [
+    {
+      question: `Do you offer ${serviceName} for Yorkville clients?`,
+      answer: "Yes—Hello Gorgeous Med Spa serves clients from Yorkville. Our clinic is located in nearby Oswego, IL.",
+    },
+    {
+      question: "Do I need a consultation first?",
+      answer: "We recommend starting with a consultation so we can confirm candidacy, set expectations, and build a safe plan.",
+    },
+    {
+      question: "Where do I go for my appointment?",
+      answer: "Our clinic is located at 74 W. Washington St., Oswego, IL 60543 — just minutes from Yorkville.",
+    },
+  ];
+}
+
+export default function YorkvilleServicePage({ params }: { params: { service: string } }) {
+  if (!serviceSlugs.includes(params.service as (typeof serviceSlugs)[number])) {
+    notFound();
+  }
+
+  const s = SERVICES.find((x) => x.slug === params.service);
+  if (!s) notFound();
+
+  const breadcrumbs = [
+    { name: "Home", url: SITE.url },
+    { name: "Yorkville, IL", url: `${SITE.url}/yorkville-il` },
+    { name: s.name, url: `${SITE.url}/yorkville-il/${s.slug}` },
+  ];
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd(s)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(locationFaqs(s.name))) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbs)) }}
+      />
+
+      <Section className="relative">
+        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
+        <div className="relative z-10">
+          <FadeUp>
+            <p className="text-[#FF2D8E] text-lg md:text-xl font-medium mb-6 tracking-wide">
+              YORKVILLE, IL
+            </p>
+            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-pink-400">
+                {s.name}
+              </span>{" "}
+              near Yorkville
+            </h1>
+            <p className="mt-6 text-xl text-white/80 max-w-3xl leading-relaxed">
+              {s.heroSubtitle}
+            </p>
+            <div className="mt-10 flex flex-col sm:flex-row gap-4">
+              <CTA href={BOOKING_URL} variant="gradient">
+                Book a Consultation
+              </CTA>
+              <CTA href={`/services/${s.slug}`} variant="outline">
+                View main service page
+              </CTA>
+              <CTA href="/yorkville-il" variant="outline">
+                Back to Yorkville hub
+              </CTA>
+            </div>
+            <p className="mt-6 text-sm text-white/60">
+              Located in Oswego: 74 W. Washington St., Oswego, IL 60543 · (630) 636‑6193
+            </p>
+          </FadeUp>
+        </div>
+      </Section>
+
+      <Section>
+        <div className="grid gap-8 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <FadeUp>
+              <h2 className="text-3xl md:text-4xl font-bold text-white">
+                {s.name} for Yorkville residents
+              </h2>
+              <p className="mt-4 text-white/70 max-w-2xl">
+                This page helps Yorkville clients understand next steps. For full details and FAQs,
+                see the main service page.
+              </p>
+            </FadeUp>
+
+            <div className="mt-10 grid gap-4">
+              {[
+                { t: "Consult-first", b: "We confirm candidacy, review goals, and build a plan designed around your outcomes and safety." },
+                { t: "Premium experience", b: "Luxury, calm, and professional—clear timelines and expectations." },
+                { t: "Serving Yorkville", b: "Convenient for Yorkville clients — just minutes to our Oswego location." },
+              ].map((x, idx) => (
+                <FadeUp key={x.t} delayMs={40 * idx}>
+                  <div className="rounded-2xl border border-white/20 bg-black/40 p-6">
+                    <h3 className="text-xl font-bold text-white">{x.t}</h3>
+                    <p className="mt-3 text-white/70">{x.b}</p>
+                  </div>
+                </FadeUp>
+              ))}
+            </div>
+
+            <FadeUp delayMs={160}>
+              <div className="mt-10 rounded-2xl border border-white/20 bg-gradient-to-b from-black/60 to-black p-6">
+                <h3 className="text-xl font-bold text-white">Want the full overview?</h3>
+                <p className="mt-3 text-white/70">
+                  Read the complete service overview and FAQs on the main service page.
+                </p>
+                <div className="mt-6 flex flex-col sm:flex-row gap-4">
+                  <CTA href={`/services/${s.slug}`} variant="white">
+                    Main service page
+                  </CTA>
+                  <CTA href="/providers" variant="outline">
+                    Meet the Experts
+                  </CTA>
+                </div>
+              </div>
+            </FadeUp>
+          </div>
+
+          <div className="lg:col-span-5">
+            <FadeUp delayMs={120}>
+              <ServiceExpertWidget serviceName={s.name} slug={s.slug} category={s.category} />
+            </FadeUp>
+          </div>
+        </div>
+      </Section>
+
+      <Section>
+        <FadeUp>
+          <h2 className="text-3xl md:text-4xl font-bold text-white">Yorkville FAQ</h2>
+          <p className="mt-4 text-white/70 max-w-2xl">
+            Quick answers for local patients searching for {s.name} near Yorkville, IL.
+          </p>
+        </FadeUp>
+
+        <div className="mt-10 grid gap-4">
+          {locationFaqs(s.name).map((f, idx) => (
+            <FadeUp key={f.question} delayMs={40 * idx}>
+              <details className="group rounded-2xl border border-white/20 bg-black/40 p-6">
+                <summary className="cursor-pointer list-none text-lg font-semibold text-white flex items-center justify-between">
+                  <span>{f.question}</span>
+                  <span className="text-white/60 group-open:rotate-45 transition-transform">+</span>
+                </summary>
+                <p className="mt-4 text-white/70">{f.answer}</p>
+              </details>
+            </FadeUp>
+          ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <CTA href={BOOKING_URL} variant="white" className="group inline-flex">
+            Book a Consultation
+            <svg stroke="currentColor" fill="none" strokeWidth="2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round" className="ml-2 group-hover:translate-x-1 transition-transform" height="1em" width="1em">
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </CTA>
+          <p className="text-sm text-white/60 mt-8">
+            Prefer a question first? <Link className="underline hover:text-[#E6007E]" href="/contact">Contact us</Link>.
+          </p>
+        </div>
+      </Section>
+    </>
+  );
+}
