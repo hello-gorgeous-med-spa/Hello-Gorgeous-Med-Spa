@@ -118,6 +118,19 @@ const navigation = {
       { label: "Financing Options", href: "/financing", description: "Cherry, Affirm & CareCredit", icon: "💳" },
     ],
   },
+  rx: {
+    label: "RX",
+    href: "/rx",
+    links: [
+      { label: "Hello Gorgeous RX™", href: "/rx", description: "Luxury Longevity Division", icon: "💊" },
+      { label: "Hormone Optimization", href: "/rx/hormones", description: "Bio-identical hormone therapy", icon: "🧬" },
+      { label: "Metabolic Optimization", href: "/rx/metabolic", description: "Medical weight loss programs", icon: "⚖️" },
+      { label: "Peptides + Longevity", href: "/rx/peptides", description: "Cellular regeneration", icon: "🧪" },
+      { label: "Sexual Wellness", href: "/rx/sexual-health", description: "Hormone-supported programs", icon: "🔥" },
+      { label: "Clinical Dermatology", href: "/rx/dermatology", description: "Prescription skincare", icon: "🧴" },
+      { label: "RX Membership", href: "/rx/membership", description: "Medical optimization programs", icon: "💎" },
+    ],
+  },
 };
 
 function cx(...classes: Array<string | undefined | null | false>) {
@@ -387,6 +400,29 @@ export function Header() {
                 </svg>
               </Link>
               <SimpleDropdown data={navigation.journey} isOpen={activeDropdown === 'journey'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('journey')} />
+            </div>
+
+            {/* RX Dropdown */}
+            <div 
+              className="relative"
+              onMouseEnter={() => handleMouseEnter('rx')}
+              onMouseLeave={handleMouseLeave}
+            >
+              <Link
+                href="/rx"
+                className={cx(
+                  "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
+                  pathname?.startsWith('/rx')
+                    ? "text-[#E6007E] bg-[#E6007E]/10 border border-[#E6007E]/30"
+                    : "text-[#E6007E] hover:text-[#E6007E] hover:bg-[#E6007E]/10 border border-transparent hover:border-[#E6007E]/30"
+                )}
+              >
+                RX
+                <svg className={cx("w-4 h-4 transition-transform", activeDropdown === 'rx' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              <SimpleDropdown data={navigation.rx} isOpen={activeDropdown === 'rx'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('rx')} />
             </div>
 
             {/* Patient Care */}
@@ -662,15 +698,37 @@ export function Header() {
               )}
             </div>
 
-            {/* Patient Care */}
-            <Link
-              href="/pre-post-care"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
-            >
-              <span className="text-xl">📋</span>
-              Patient Care
-            </Link>
+            {/* RX Section */}
+            <div className="border-b border-black pb-4">
+              <button
+                onClick={() => setMobileSubmenu(mobileSubmenu === 'rx' ? null : 'rx')}
+                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#E6007E]"
+              >
+                <span className="flex items-center gap-3">
+                  <span className="text-xl">💊</span>
+                  RX
+                  <span className="px-2 py-0.5 text-[10px] font-bold bg-[#E6007E] text-white rounded-full">MEDICAL</span>
+                </span>
+                <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'rx' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {mobileSubmenu === 'rx' && (
+                <div className="mt-2 ml-4">
+                  {navigation.rx.links.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-3 px-4 py-2.5 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#E6007E]/5 rounded-lg"
+                    >
+                      <span>{link.icon}</span>
+                      <span>{link.label}</span>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Patient Care */}
             <Link
