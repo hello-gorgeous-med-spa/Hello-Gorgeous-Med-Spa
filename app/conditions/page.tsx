@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 
 import { ConditionsPage } from "@/components/ConditionsPage";
-import { Section } from "@/components/Section";
-import { FAQ, faqJsonLd, pageMetadata, siteJsonLd } from "@/lib/seo";
+import { FAQ, faqJsonLd, pageMetadata, siteJsonLd, SITE, breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Skin Condition Treatments | Acne, Wrinkles, Hyperpigmentation | Oswego, IL",
@@ -25,25 +24,27 @@ const faqs: FAQ[] = [
 ];
 
 export default function ConditionsPageRoute() {
+  const breadcrumbs = [
+    { name: "Home", url: SITE.url },
+    { name: "Conditions We Treat", url: `${SITE.url}/conditions` },
+  ];
+
   return (
     <>
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
       />
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqs)) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbs)) }}
+      />
 
-      <Section className="relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-pink-900/10 via-black to-black" />
-        <div className="relative z-10 max-w-4xl mx-auto">
-          <ConditionsPage />
-        </div>
-      </Section>
+      <ConditionsPage />
     </>
   );
 }
