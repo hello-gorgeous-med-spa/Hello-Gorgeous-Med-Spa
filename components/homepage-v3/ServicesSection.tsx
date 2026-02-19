@@ -26,7 +26,7 @@ const services = [
       "Comprehensive wellness solutions designed to enhance energy, balance hormones, and optimize health.",
     link: "/rx",
     items: ["Hormone Therapy", "Weight Loss", "IV Therapy", "Peptides"],
-    image: "/images/services/hg-iv-therapy.png",
+    image: "/images/services/hg-wellness-vials.png",
   },
 ];
 
