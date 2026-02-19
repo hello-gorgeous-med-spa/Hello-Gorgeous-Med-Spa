@@ -1017,6 +1017,29 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               </div>
             </FadeUp>
           </div>
+
+          {/* Lip Flip Before/After */}
+          <FadeUp delayMs={160}>
+            <div className="mt-12 max-w-4xl mx-auto">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold text-[#FF2D8E]">Botox Lip Flip Results</h3>
+                <p className="text-black/80 text-sm mt-2">Real results from our clients</p>
+              </div>
+              <div className="rounded-2xl overflow-hidden border-2 border-black">
+                <Image
+                  src="/images/botox-lip-flip-before-after.png"
+                  alt="Botox Lip Flip before and after results at Hello Gorgeous Med Spa"
+                  width={1200}
+                  height={800}
+                  className="w-full h-auto object-contain"
+                  sizes="(max-width: 768px) 100vw, 800px"
+                />
+              </div>
+              <p className="text-center text-black/60 text-xs mt-4">
+                Results vary by individual. All treatments performed by licensed medical professionals.
+              </p>
+            </div>
+          </FadeUp>
         </Section>
       )}
 
