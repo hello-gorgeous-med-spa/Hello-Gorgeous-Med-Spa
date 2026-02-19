@@ -10,7 +10,7 @@ type Suggested = { slug: string; name: string; reason: string };
 type Props = { initialMessage?: string };
 
 const INPUT_BASE =
-  "w-full rounded-xl bg-black border border-black px-4 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50 focus:border-[#FF2D8E]/50 input-touch";
+  "w-full rounded-xl bg-black border border-black px-4 text-white placeholder:text-white/50 focus:outline-none focus:ring-2 focus:ring-[#E6007E]/50 focus:border-[#E6007E]/50 input-touch";
 
 export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
@@ -74,29 +74,29 @@ export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
 
   if (status === "success") {
     return (
-      <div className="rounded-2xl border border-[#FF2D8E]/20 bg-gradient-to-b from-pink-950/20 to-black p-6 sm:p-8 text-center keyboard-safe">
+      <div className="rounded-2xl border-2 border-[#E6007E]/20 bg-black/60 p-6 sm:p-8 text-center keyboard-safe">
         <div className="text-4xl mb-4">💗</div>
         <h2 className="text-2xl font-bold text-white">Thank you.</h2>
-        <p className="mt-3 text-black">
-          We've received what you shared. We'll review it and get back to you—or you can book below if one of these fits.
+        <p className="mt-3 text-white/80">
+          We&apos;ve received what you shared. We&apos;ll review it and get back to you—or you can book below if one of these fits.
         </p>
         {/* Stacked cards on mobile, reserve min-height to avoid CLS when suggestions load */}
         <div className="mt-8 text-left min-h-[120px]">
           {suggested.length > 0 && (
             <>
-              <p className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider mb-3">
+              <p className="text-[#E6007E] text-sm font-semibold uppercase tracking-wider mb-3">
                 We think these might help
               </p>
               <ul className="space-y-3" role="list">
                 {suggested.map((s) => (
-                  <li key={s.slug} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-xl bg-white border border-black px-4 py-3">
+                  <li key={s.slug} className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 rounded-xl bg-white border-2 border-black/10 px-4 py-3">
                     <div className="flex-1 min-w-0">
-                      <p className="font-semibold text-white">{s.name}</p>
-                      <p className="text-sm text-black">{s.reason}</p>
+                      <p className="font-semibold text-black">{s.name}</p>
+                      <p className="text-sm text-black/70">{s.reason}</p>
                     </div>
                     <Link
                       href={s.slug === "quiz" ? "/quiz" : `/book/${s.slug}`}
-                      className="flex-shrink-0 w-full sm:w-auto inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-hg-pink hover:bg-hg-pinkDeep text-white text-sm font-semibold uppercase tracking-widest rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
+                      className="flex-shrink-0 w-full sm:w-auto inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-[#E6007E] hover:bg-[#E6007E]/90 text-white text-sm font-semibold uppercase tracking-widest rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
                     >
                       {s.slug === "quiz" ? "Start" : "Book"}
                     </Link>
@@ -106,22 +106,22 @@ export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
             </>
           )}
         </div>
-        <p className="mt-8 text-black text-sm">
-          <Link href="/" className="text-hg-pink hover:text-hg-pinkDeep">Back to home</Link>
+        <p className="mt-8 text-white/80 text-sm">
+          <Link href="/" className="text-[#E6007E] hover:underline">Back to home</Link>
           {" · "}
-          <Link href={BOOKING_URL} className="text-hg-pink hover:text-hg-pinkDeep">See all services</Link>
+          <Link href={BOOKING_URL} className="text-[#E6007E] hover:underline">See all services</Link>
         </p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="rounded-2xl border border-black bg-black/40 p-6 md:p-8 keyboard-safe">
-      <p className="text-black text-sm mb-4">
+    <form onSubmit={handleSubmit} className="rounded-2xl border-2 border-black bg-black/60 p-6 md:p-8 keyboard-safe">
+      <p className="text-white/80 text-sm mb-4">
         Name and contact are optional. If you leave them, we can reach out personally.
       </p>
-      <p className="text-black text-sm mb-6">
-        Prefer to talk? <a href="tel:630-636-6193" className="text-hg-pink hover:text-hg-pinkDeep font-medium">Call (630) 636-6193</a>
+      <p className="text-white/80 text-sm mb-6">
+        Prefer to talk? <a href="tel:630-636-6193" className="text-[#E6007E] hover:underline font-medium">Call (630) 636-6193</a>
       </p>
 
       <div className="grid gap-4">
@@ -168,22 +168,22 @@ export function FixWhatBothersMeForm({ initialMessage = "" }: Props) {
       </div>
 
       {status === "error" && (
-        <p className="mt-4 text-[#FF2D8E] text-sm" role="alert">
+        <p className="mt-4 text-[#E6007E] text-sm" role="alert">
           {errorMsg}
         </p>
       )}
 
-      <div className="mt-8 flex flex-col sm:flex-row gap-3 sticky bottom-0 bg-black/40 -mx-6 -mb-6 px-6 py-4 md:static md:bg-transparent md:mx-0 md:mb-0 md:py-0">
+      <div className="mt-8 flex flex-col sm:flex-row gap-3 sticky bottom-0 bg-black/60 -mx-6 -mb-6 px-6 py-4 md:static md:bg-transparent md:mx-0 md:mb-0 md:py-0">
         <button
           type="submit"
           disabled={status === "sending"}
-          className="flex-1 min-h-[44px] px-10 py-4 bg-hg-pink hover:bg-hg-pinkDeep text-white font-semibold uppercase tracking-widest rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg disabled:opacity-70 disabled:pointer-events-none disabled:hover:translate-y-0"
+          className="flex-1 min-h-[44px] px-10 py-4 bg-[#E6007E] hover:bg-[#E6007E]/90 text-white font-semibold uppercase tracking-widest rounded-xl transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg disabled:opacity-70 disabled:pointer-events-none disabled:hover:translate-y-0"
         >
           {status === "sending" ? "Sending…" : "Share with us"}
         </button>
         <Link
           href="/book"
-          className="flex-1 min-h-[44px] inline-flex items-center justify-center px-10 py-4 border border-hg-pink text-hg-pink font-semibold uppercase tracking-widest rounded-md hover:bg-hg-pink hover:text-white transition-all duration-300 ease-out hover:-translate-y-[2px] text-center text-sm"
+          className="flex-1 min-h-[44px] inline-flex items-center justify-center px-10 py-4 border-2 border-[#E6007E] text-[#E6007E] font-semibold uppercase tracking-widest rounded-xl hover:bg-[#E6007E] hover:text-white transition-all duration-300 ease-out hover:-translate-y-[2px] text-center text-sm"
         >
           I know what I want — book now
         </Link>

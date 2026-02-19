@@ -29,6 +29,10 @@ function cx(...classes: Array<string | undefined | null | false>) {
   return classes.filter(Boolean).join(" ");
 }
 
+/* Brand color overrides for CTAs on this page (Opus #E6007E) */
+const CTA_GRADIENT = "!bg-[#E6007E] hover:!bg-[#E6007E]/90";
+const CTA_OUTLINE = "!border-[#E6007E] !text-[#E6007E] hover:!bg-[#E6007E] hover:!text-white";
+
 function useSessionState<T>(key: string, initial: T) {
   const [value, setValue] = React.useState<T>(() => {
     if (typeof window === "undefined") return initial;
@@ -112,7 +116,7 @@ function ComparisonBlock() {
               className={cx(
                 "text-xs font-semibold rounded-full px-3 py-2 border transition",
                 open === c.id
-                  ? "border-[#E6007E]/40 bg-white text-pink-300"
+                  ? "border-[#E6007E]/40 bg-white text-[#E6007E]"
                   : "border-black text-black hover:bg-white hover:text-white",
               )}
             >
@@ -280,7 +284,7 @@ function ServiceCard({
         >
           Talk to us (chat)
         </button>
-        <CTA href={BOOKING_URL} variant="gradient" className="px-6 py-3 text-sm">
+        <CTA href={BOOKING_URL} variant="gradient" className={cx(CTA_GRADIENT, "px-6 py-3 text-sm")}>
           Book when ready (optional)
         </CTA>
       </div>
@@ -383,7 +387,7 @@ function ChatModal({
                     className={cx(
                       "text-xs font-semibold rounded-full px-3 py-2 border transition",
                       active
-                        ? "border-[#E6007E]/40 bg-white text-pink-300"
+                        ? "border-[#E6007E]/40 bg-white text-[#E6007E]"
                         : "border-black text-black hover:bg-white hover:text-white",
                       sending ? "opacity-60" : "",
                     )}
@@ -403,7 +407,7 @@ function ChatModal({
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask a question…"
-                className="flex-1 rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-pink-500/50"
+                className="flex-1 rounded-xl bg-black border border-black px-4 py-3 text-white placeholder:text-black focus:outline-none focus:ring-2 focus:ring-[#E6007E]/50"
                 onKeyDown={(e) => {
                   if (e.key !== "Enter") return;
                   const q = input.trim();
@@ -425,7 +429,7 @@ function ChatModal({
               <button
                 type="button"
                 disabled={sending}
-                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#E6007E]/25 transition disabled:opacity-60"
+                className="px-4 py-3 rounded-xl bg-[#E6007E] text-white font-semibold hover:shadow-2xl hover:shadow-[#E6007E]/25 transition disabled:opacity-60"
                 onClick={() => {
                   const q = input.trim();
                   if (!q) return;
@@ -448,10 +452,10 @@ function ChatModal({
             </div>
 
             <div className="mt-4 flex flex-col sm:flex-row gap-3">
-              <CTA href={BOOKING_URL} variant="gradient" className="w-full">
+              <CTA href={BOOKING_URL} variant="gradient" className={cx(CTA_GRADIENT, "w-full")}>
                 Book when ready (optional)
               </CTA>
-              <CTA href="/contact" variant="outline" className="w-full">
+              <CTA href="/contact" variant="outline" className={cx(CTA_OUTLINE, "w-full")}>
                 Contact us
               </CTA>
             </div>
@@ -500,7 +504,7 @@ export function ServicesAtlas() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">Explore care without pressure</h1>
             <p className="mt-6 text-lg md:text-xl text-white/80 max-w-2xl">What brings you here today? Choose a path below—education only, booking optional.</p>
             <div className="mt-8">
-              <CTA href={BOOKING_URL} variant="gradient" className="inline-flex">Book Now (optional)</CTA>
+              <CTA href={BOOKING_URL} variant="gradient" className={cx(CTA_GRADIENT, "inline-flex")}>Book Now (optional)</CTA>
             </div>
           </FadeUp>
         </div>
@@ -531,7 +535,7 @@ export function ServicesAtlas() {
               </p>
             </div>
             <div className="flex gap-3">
-              <CTA href={BOOKING_URL} variant="gradient" className="px-5 py-3 text-sm">
+              <CTA href={BOOKING_URL} variant="gradient" className={cx(CTA_GRADIENT, "px-5 py-3 text-sm")}>
                 Book Now (optional)
               </CTA>
             </div>
@@ -622,7 +626,7 @@ export function ServicesAtlas() {
                     >
                       Talk to us (chat)
                     </button>
-                    <CTA href={BOOKING_URL} variant="outline" className="px-6 py-3 text-sm">
+                    <CTA href={BOOKING_URL} variant="outline" className={cx(CTA_OUTLINE, "px-6 py-3 text-sm")}>
                       Book when ready (optional)
                     </CTA>
                   </div>
@@ -654,10 +658,10 @@ export function ServicesAtlas() {
                       If you’re exploring this area, contact us and we’ll guide you to the best next step.
                     </p>
                     <div className="mt-4 flex flex-col sm:flex-row gap-3">
-                      <CTA href="/contact" variant="outline">
+                      <CTA href="/contact" variant="outline" className={CTA_OUTLINE}>
                         Talk to us
                       </CTA>
-                      <CTA href={BOOKING_URL} variant="gradient">
+                      <CTA href={BOOKING_URL} variant="gradient" className={CTA_GRADIENT}>
                         Book when ready (optional)
                       </CTA>
                     </div>
@@ -693,10 +697,10 @@ export function ServicesAtlas() {
             The Care Engine adds interactive tools for clarity, timelines, and post-treatment reassurance.
           </p>
           <div className="mt-4 flex flex-col gap-3">
-            <CTA href="/care-engine" variant="gradient" className="w-full">
+            <CTA href="/care-engine" variant="gradient" className={cx(CTA_GRADIENT, "w-full")}>
               Open the Care Engine™
             </CTA>
-            <CTA href="/your-journey" variant="outline" className="w-full">
+            <CTA href="/your-journey" variant="outline" className={cx(CTA_OUTLINE, "w-full")}>
               Start with Your Journey
             </CTA>
           </div>
