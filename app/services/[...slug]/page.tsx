@@ -1040,6 +1040,74 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               </p>
             </div>
           </FadeUp>
+
+          {/* Gummy Smile Treatment */}
+          <FadeUp delayMs={200}>
+            <div className="mt-16 max-w-5xl mx-auto">
+              <div className="text-center mb-8">
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-4">
+                  <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Popular Treatment</span>
+                </span>
+                <h3 className="text-3xl font-bold text-[#FF2D8E]">Gummy Smile Correction</h3>
+                <p className="text-black/80 mt-3 max-w-2xl mx-auto">
+                  A precise Botox treatment that relaxes the upper lip muscles, reducing how much gum shows when you smile for a more balanced, confident look.
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 gap-8 items-center">
+                <div className="space-y-4">
+                  <div className="p-4 rounded-xl bg-pink-50 border border-black">
+                    <h4 className="font-bold text-black flex items-center gap-2">
+                      <span>😊</span> What It Treats
+                    </h4>
+                    <p className="text-black/80 text-sm mt-1">
+                      Excessive gum display when smiling, caused by hyperactive upper lip elevator muscles
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-pink-50 border border-black">
+                    <h4 className="font-bold text-black flex items-center gap-2">
+                      <span>💉</span> How It Works
+                    </h4>
+                    <p className="text-black/80 text-sm mt-1">
+                      Small amounts of Botox are injected into the levator labii superioris muscle, gently relaxing the upper lip so it doesn&apos;t lift as high
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-pink-50 border border-black">
+                    <h4 className="font-bold text-black flex items-center gap-2">
+                      <span>⏱️</span> Quick & Simple
+                    </h4>
+                    <p className="text-black/80 text-sm mt-1">
+                      Takes just 5–10 minutes with minimal discomfort. Results appear in 3–7 days and last 3–4 months
+                    </p>
+                  </div>
+                  <div className="p-4 rounded-xl bg-pink-50 border border-black">
+                    <h4 className="font-bold text-black flex items-center gap-2">
+                      <span>✨</span> Natural Results
+                    </h4>
+                    <p className="text-black/80 text-sm mt-1">
+                      You&apos;ll still smile naturally—just with less gum showing. Fully customizable to your preferences
+                    </p>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="rounded-2xl overflow-hidden border-2 border-black">
+                    <Image
+                      src="/images/gummy-smile-before-after.png"
+                      alt="Gummy Smile Botox treatment before and after at Hello Gorgeous Med Spa"
+                      width={1200}
+                      height={800}
+                      className="w-full h-auto object-contain"
+                      sizes="(max-width: 768px) 100vw, 600px"
+                    />
+                  </div>
+                  <p className="text-center text-black/60 text-xs mt-3">
+                    Results vary by individual. All treatments performed by licensed medical professionals.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </FadeUp>
         </Section>
       )}
 
