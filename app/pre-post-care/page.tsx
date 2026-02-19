@@ -44,7 +44,6 @@ const careGuides = [
     viewOnline: "/pre-post-care/laser",
     serviceLink: "/services/laser-hair-removal",
     icon: "⚡",
-    comingSoon: true,
   },
   {
     id: "microneedling",
@@ -53,7 +52,6 @@ const careGuides = [
     viewOnline: "/pre-post-care/microneedling",
     serviceLink: "/services/rf-microneedling",
     icon: "🔬",
-    comingSoon: true,
   },
   {
     id: "chemical-peel",
@@ -80,7 +78,6 @@ const careGuides = [
     viewOnline: "/pre-post-care/weight-loss",
     serviceLink: "/services/weight-loss-therapy",
     icon: "📉",
-    comingSoon: true,
   },
 ];
 
