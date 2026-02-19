@@ -389,6 +389,19 @@ export function Header() {
               <SimpleDropdown data={navigation.journey} isOpen={activeDropdown === 'journey'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('journey')} />
             </div>
 
+            {/* Patient Care */}
+            <Link
+              href="/pre-post-care"
+              className={cx(
+                "px-4 py-2 rounded-lg text-sm font-medium transition-all",
+                pathname?.startsWith('/pre-post-care')
+                  ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
+                  : "text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5"
+              )}
+            >
+              Patient Care
+            </Link>
+
             {/* Specials Dropdown - Highlighted */}
             <div 
               className="relative"
@@ -648,6 +661,26 @@ export function Header() {
                 </div>
               )}
             </div>
+
+            {/* Patient Care */}
+            <Link
+              href="/pre-post-care"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
+            >
+              <span className="text-xl">📋</span>
+              Patient Care
+            </Link>
+
+            {/* Patient Care */}
+            <Link
+              href="/pre-post-care"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
+            >
+              <span className="text-xl">📋</span>
+              Patient Care
+            </Link>
 
             {/* Contact */}
             <Link
