@@ -158,6 +158,17 @@ export function InjectablesConversion() {
           </div>
         </div>
 
+        {/* Lip Hero Image */}
+        <div className="relative rounded-2xl overflow-hidden mb-16">
+          <Image
+            src="/images/services/hg-lip-hero.png"
+            alt="Natural-Looking Beautiful Lips with Botox Lip Flip at Hello Gorgeous Med Spa"
+            width={1200}
+            height={600}
+            className="w-full object-cover"
+          />
+        </div>
+
         {/* Final CTA */}
         <div className="relative text-center py-12 rounded-2xl overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-[#E6007E]/20 via-transparent to-[#E6007E]/20" />
