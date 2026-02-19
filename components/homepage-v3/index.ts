@@ -4,5 +4,6 @@ export { InjectablesConversion } from "./InjectablesConversion";
 export { ServicesSection } from "./ServicesSection";
 export { ExperienceSection } from "./ExperienceSection";
 export { InnovationSection } from "./InnovationSection";
+export { AIAssistantsSection } from "./AIAssistantsSection";
 export { PhilosophySection } from "./PhilosophySection";
 export { FinalCTA } from "./FinalCTA";

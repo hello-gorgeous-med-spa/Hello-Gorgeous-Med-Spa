@@ -6,6 +6,7 @@ import {
   ServicesSection,
   ExperienceSection,
   InnovationSection,
+  AIAssistantsSection,
   PhilosophySection,
   FinalCTA,
 } from "@/components/homepage-v3";
@@ -41,6 +42,7 @@ export default function HomePage() {
         <ServicesSection />
         <ExperienceSection />
         <InnovationSection />
+        <AIAssistantsSection />
         <PhilosophySection />
         <FinalCTA />
       </main>
