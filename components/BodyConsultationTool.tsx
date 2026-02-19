@@ -8,7 +8,7 @@ import { CTA } from "@/components/CTA";
 import { FadeUp } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 
-const HG_PINK = "#FF2D8E";
+const BRAND_PINK = "#E6007E";
 
 type Zone = {
   id: string;
@@ -99,8 +99,8 @@ export function BodyConsultationTool({
       <div className="max-w-2xl mx-auto">
         <FadeUp>
           <div className="text-center mb-8">
-            <h2 className="text-2xl md:text-3xl font-serif font-bold text-[#FF2D8E] mb-2">Your Personalized Plan</h2>
-            <p className="text-[#FF2D8E]">
+            <h2 className="text-2xl md:text-3xl font-bold text-black mb-2">Your Personalized Plan</h2>
+            <p className="text-black/80">
               {hasRecommendations
                 ? "Based on your areas of concern, here are treatments that may help:"
                 : "Book a free consultation and we'll create your plan together."}
@@ -111,19 +111,19 @@ export function BodyConsultationTool({
               {recommendations.map((rec) => (
                 <div
                   key={rec.id}
-                  className="flex flex-col sm:flex-row sm:items-center gap-4 p-6 rounded-xl border border-[#FF2D8E]/20 bg-white hover:border-[#FF2D8E]/40 transition-all group shadow-md"
+                  className="flex flex-col sm:flex-row sm:items-center gap-4 p-6 rounded-2xl border-2 border-black/10 bg-white hover:border-[#E6007E]/30 transition-all group shadow-sm"
                 >
                   <Link href={rec.href} className="flex flex-1 items-center gap-4 min-w-0">
                     <span className="text-3xl flex-shrink-0">{rec.icon}</span>
                     <div className="flex-1 text-left min-w-0">
-                      <h3 className="text-lg font-semibold text-[#FF2D8E] group-hover:text-[#FF2D8E]">{rec.name}</h3>
-                      <p className="text-sm text-[#FF2D8E]">{rec.description}</p>
+                      <h3 className="text-lg font-semibold text-black group-hover:text-[#E6007E]">{rec.name}</h3>
+                      <p className="text-sm text-black/70">{rec.description}</p>
                     </div>
-                    <span className="text-[#FF2D8E] hidden sm:inline">→</span>
+                    <span className="text-[#E6007E] hidden sm:inline">→</span>
                   </Link>
                   <Link
                     href={rec.providerSlug ? `/book/${rec.bookSlug}?provider=${rec.providerSlug}` : `/book/${rec.bookSlug}`}
-                    className="flex-shrink-0 w-full sm:w-auto inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-hg-pink hover:bg-hg-pinkDeep text-white text-sm font-semibold uppercase tracking-widest rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
+                    className="flex-shrink-0 w-full sm:w-auto inline-flex items-center justify-center min-h-[44px] px-6 py-3 bg-[#E6007E] hover:bg-[#E6007E]/90 text-white text-sm font-semibold uppercase tracking-widest rounded-md transition-all duration-300 ease-out hover:-translate-y-[2px] hover:shadow-lg"
                   >
                     Book with {rec.providerSlug === "danielle" ? "Danielle" : rec.providerSlug === "ryan" ? "Ryan" : "us"}
                   </Link>
@@ -131,23 +131,23 @@ export function BodyConsultationTool({
               ))}
             </div>
           ) : null}
-          <div className="rounded-xl bg-white p-8 text-center shadow-md border border-[#FF2D8E]/10">
-            <h3 className="text-xl font-bold text-[#FF2D8E] mb-2">Next Step: Book Your Consultation</h3>
-            <p className="text-[#FF2D8E] mb-6">Our specialists will create a treatment plan tailored to you.</p>
+          <div className="rounded-2xl border-2 border-black/10 bg-white p-8 text-center shadow-sm">
+            <h3 className="text-xl font-bold text-black mb-2">Next Step: Book Your Consultation</h3>
+            <p className="text-black/80 mb-6">Our specialists will create a treatment plan tailored to you.</p>
             <CTA href={BOOKING_URL}>Book Free Consultation</CTA>
           </div>
           {onScrollToBotox && hasRecommendations && (
             <button
               type="button"
               onClick={onScrollToBotox}
-              className="mt-4 w-full py-3 rounded-xl border border-[#FF2D8E]/30 text-[#FF2D8E] text-sm font-medium hover:bg-[#FF2D8E]/5 transition"
+              className="mt-4 w-full py-3 rounded-xl border border-[#E6007E]/30 text-[#E6007E] text-sm font-medium hover:bg-[#E6007E]/5 transition"
             >
               💉 Or estimate your Botox cost →
             </button>
           )}
           <button
             onClick={() => { setShowResults(false); }}
-            className="mt-6 text-[#FF2D8E] hover:text-[#FF2D8E] text-sm"
+            className="mt-6 text-black/70 hover:text-[#E6007E] text-sm font-medium"
           >
             ← Start over
           </button>
@@ -157,10 +157,10 @@ export function BodyConsultationTool({
   }
 
   const panel = (
-    <div className="bg-white rounded-xl p-6 md:p-8 shadow-md h-full flex flex-col">
-      <h3 className="text-lg font-bold text-[#FF2D8E] mb-4">Your Selections</h3>
+    <div className="bg-white rounded-2xl border-2 border-black/10 p-6 md:p-8 shadow-sm h-full flex flex-col">
+      <h3 className="text-lg font-bold text-black mb-4">Your Selections</h3>
       {selectedZones.size === 0 ? (
-        <p className="text-[#FF2D8E] text-sm mb-6">Click areas on the body to select your concerns.</p>
+        <p className="text-black/70 text-sm mb-6">Click areas on the body to select your concerns.</p>
       ) : (
         <div className="space-y-2 mb-6 flex-1 overflow-auto max-h-48">
           {Array.from(selectedZones).map((id) => {
@@ -168,13 +168,13 @@ export function BodyConsultationTool({
             return (
               <div
                 key={id}
-                className="flex items-center justify-between px-4 py-2 rounded-lg bg-[#FFFFFF] border border-[#FF2D8E]/20"
+                className="flex items-center justify-between px-4 py-2 rounded-lg bg-white border border-black/10"
               >
-                <span className="text-sm font-medium text-[#FF2D8E]">{zone?.label ?? id}</span>
+                <span className="text-sm font-medium text-black">{zone?.label ?? id}</span>
                 <button
                   type="button"
                   onClick={() => removeZone(id)}
-                  className="text-[#FF2D8E] hover:text-[#FF2D8E] text-lg leading-none"
+                  className="text-black/60 hover:text-[#E6007E] text-lg leading-none"
                   aria-label={`Remove ${zone?.label}`}
                 >
                   ×
@@ -190,7 +190,7 @@ export function BodyConsultationTool({
           setShowResults(true);
         }}
         disabled={selectedZones.size === 0}
-        className="w-full py-4 rounded-md bg-[#FF2D8E] hover:bg-[#FF2D8E] disabled:bg-[#000000]/40 disabled:cursor-not-allowed text-white uppercase tracking-widest text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+        className="w-full py-4 rounded-xl bg-[#E6007E] hover:bg-[#E6007E]/90 disabled:bg-black/20 disabled:cursor-not-allowed text-white uppercase tracking-widest text-sm font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
       >
         Get My Personalized Plan
       </button>
@@ -238,11 +238,8 @@ export function BodyConsultationTool({
   return (
     <div className="min-h-[70vh] flex flex-col">
       <FadeUp delayMs={0}>
-        <h1 className="text-3xl md:text-4xl font-serif font-bold text-[#FF2D8E] mb-2 text-center md:text-left">
-          Virtual Consultation
-        </h1>
-        <p className="text-[#FF2D8E] mb-8 text-center md:text-left">
-          Click the areas you&apos;d like to improve. Your personalized treatment plan is one tap away.
+        <p className="text-sm font-semibold text-[#E6007E] uppercase tracking-wide mb-6 text-center md:text-left">
+          Select areas you&apos;d like to improve
         </p>
       </FadeUp>
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-stretch flex-1">

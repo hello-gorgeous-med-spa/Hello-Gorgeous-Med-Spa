@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { VirtualConsultationBody } from "@/components/VirtualConsultationBody";
-import { pageMetadata, siteJsonLd } from "@/lib/seo";
+import { pageMetadata, siteJsonLd, SITE, breadcrumbJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Virtual Consultation | Personalized Treatment Recommendations | Oswego, IL",
@@ -10,12 +10,20 @@ export const metadata: Metadata = pageMetadata({
 });
 
 export default function VirtualConsultationPage() {
+  const breadcrumbs = [
+    { name: "Home", url: SITE.url },
+    { name: "Virtual Consultation", url: `${SITE.url}/virtual-consultation` },
+  ];
+
   return (
     <>
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbs)) }}
       />
 
       <VirtualConsultationBody />
