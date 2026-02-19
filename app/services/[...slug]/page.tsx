@@ -756,25 +756,25 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               </div>
             </FadeUp>
 
-            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-4 max-w-3xl mx-auto">
               <FadeUp delayMs={60}>
-                <div className="rounded-2xl overflow-hidden border-2 border-black bg-white shadow-lg">
+                <div className="rounded-xl overflow-hidden border border-black/20 bg-white shadow-md">
                   <Image
                     src="/images/microneedling/microneedling-before-after-1.png"
                     alt="Microneedling acne scarring before and after - progressive improvement at Hello Gorgeous Med Spa"
-                    width={800}
-                    height={600}
+                    width={400}
+                    height={300}
                     className="w-full h-auto object-contain"
                   />
                 </div>
               </FadeUp>
               <FadeUp delayMs={120}>
-                <div className="rounded-2xl overflow-hidden border-2 border-black bg-white shadow-lg">
+                <div className="rounded-xl overflow-hidden border border-black/20 bg-white shadow-md">
                   <Image
                     src="/images/microneedling/microneedling-before-after-2.png"
                     alt="Microneedling skin texture before and after results at Hello Gorgeous Med Spa"
-                    width={800}
-                    height={600}
+                    width={400}
+                    height={300}
                     className="w-full h-auto object-contain"
                   />
                 </div>
@@ -1569,14 +1569,14 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
           {/* Hero Device Image */}
           <FadeUp delayMs={60}>
-            <div className="mb-12 rounded-2xl overflow-hidden border-2 border-black shadow-xl">
+            <div className="mb-10 max-w-2xl mx-auto rounded-xl overflow-hidden border border-black/20 shadow-md">
               <Image
                 src="/images/laser/zemits-duocratis-hero.png"
                 alt="Zemits Duocratis laser hair removal device at Hello Gorgeous Med Spa Oswego IL - Experience cutting-edge laser hair removal"
-                width={1200}
-                height={675}
+                width={600}
+                height={340}
                 className="w-full h-auto object-cover"
-                sizes="100vw"
+                sizes="(max-width: 768px) 100vw, 600px"
                 priority
               />
             </div>
@@ -1602,23 +1602,23 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
           {/* Before/After Results */}
           <FadeUp delayMs={200}>
-            <div className="mb-12">
-              <div className="text-center mb-6">
-                <h3 className="text-2xl font-bold text-[#FF2D8E]">Real Results</h3>
-                <p className="text-black/80 text-sm mt-2">Multiple treatment areas, lasting hair reduction</p>
+            <div className="mb-10">
+              <div className="text-center mb-4">
+                <h3 className="text-xl font-bold text-[#FF2D8E]">Real Results</h3>
+                <p className="text-black/80 text-sm mt-1">Multiple treatment areas, lasting hair reduction</p>
               </div>
-              <div className="rounded-2xl overflow-hidden border-2 border-black shadow-lg">
+              <div className="max-w-2xl mx-auto rounded-xl overflow-hidden border border-black/20 shadow-md">
                 <Image
                   src="/images/laser/laser-hair-removal-results.png"
                   alt="Laser hair removal before and after results - underarms, bikini, chin, facial hair at Hello Gorgeous Med Spa"
-                  width={1200}
-                  height={800}
+                  width={600}
+                  height={400}
                   className="w-full h-auto object-contain"
-                  sizes="100vw"
+                  sizes="(max-width: 768px) 100vw, 600px"
                 />
               </div>
-              <p className="text-center text-black/60 text-xs mt-4">
-                Results vary by individual. Multiple sessions recommended for optimal results.
+              <p className="text-center text-black/60 text-xs mt-3">
+                Results vary by individual. Multiple sessions recommended.
               </p>
             </div>
           </FadeUp>
