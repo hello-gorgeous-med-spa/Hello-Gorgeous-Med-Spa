@@ -15,15 +15,15 @@ export default {
            NO GRAY ALLOWED
            ======================================== */
         
-        // Primary brand colors
+        // Primary brand colors (Opus / site-wide branding)
         white: "#FFFFFF",
         black: "#000000",
-        hotpink: "#FF2D8E",
+        hotpink: "#E6007E",
         
         // Hello Gorgeous brand tokens
         hg: {
-          pink: "#FF2D8E",
-          pinkDeep: "#E6007E",
+          pink: "#E6007E",
+          pinkDeep: "#C90A68",
           dark: "#000000",
           light: "#FFFFFF",
         },

@@ -77,7 +77,7 @@ async function chat({
 
 function TrustMessage() {
   return (
-    <div className="sticky top-24 rounded-2xl border border-black bg-white p-5">
+    <div className="sticky top-24 rounded-2xl border-2 border-black bg-white p-5">
       <p className="text-sm font-semibold text-black">You don’t need to know what to book today.</p>
       <p className="mt-2 text-sm text-black">
         Learning is always welcome here. Booking is optional, and you can start with clarity first.
@@ -99,11 +99,11 @@ function ComparisonBlock() {
   const current = COMPARISONS.find((c) => c.id === open) ?? COMPARISONS[0];
 
   return (
-    <div className="rounded-2xl border border-black bg-black/40 p-6">
+    <div className="rounded-2xl border-2 border-black bg-black p-6">
       <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
         <div>
           <h3 className="text-xl font-bold text-white">Comparison tools</h3>
-          <p className="mt-2 text-sm text-black">
+          <p className="mt-2 text-sm text-white/80">
             Education-only comparisons. No recommendations, no pricing emphasis.
           </p>
         </div>
@@ -117,7 +117,7 @@ function ComparisonBlock() {
                 "text-xs font-semibold rounded-full px-3 py-2 border transition",
                 open === c.id
                   ? "border-[#E6007E]/40 bg-white text-[#E6007E]"
-                  : "border-black text-black hover:bg-white hover:text-white",
+                  : "border-white text-white hover:bg-white hover:text-black",
               )}
             >
               {c.title.split(" (")[0]}
@@ -126,7 +126,7 @@ function ComparisonBlock() {
         </div>
       </div>
 
-      <div className="mt-6 rounded-2xl border border-black bg-white p-5 overflow-auto">
+      <div className="mt-6 rounded-2xl border-2 border-black bg-white p-5 overflow-auto">
         <p className="text-xs text-black">{current.disclaimer}</p>
         <table className="mt-4 w-full text-sm">
           <thead>
@@ -142,7 +142,7 @@ function ComparisonBlock() {
           <tbody className="text-black">
             {current.rows.map((r) => (
               <tr key={r.label} className="border-t border-black">
-                <td className="py-3 pr-3 font-semibold text-white">{r.label}</td>
+                <td className="py-3 pr-3 font-semibold text-black">{r.label}</td>
                 {r.values.map((v, idx) => (
                   <td key={idx} className="py-3 pr-3 text-black">
                     {v}
@@ -159,22 +159,22 @@ function ComparisonBlock() {
 
 function PathwaysBlock() {
   return (
-    <div className="rounded-2xl border border-black bg-black/40 p-6">
+    <div className="rounded-2xl border-2 border-black bg-black p-6">
       <h3 className="text-xl font-bold text-white">Care pathways (conceptual)</h3>
       <p className="mt-2 text-sm text-white/80">
         These are not treatment plans—just a gentle way to understand how people often think about care over time.
       </p>
       <div className="mt-6 grid gap-4 md:grid-cols-3">
         {CARE_PATHWAYS.map((p) => (
-          <div key={p.id} className="rounded-2xl border border-black bg-white p-5">
-            <p className="text-sm font-semibold text-white">{p.title}</p>
-            <p className="mt-2 text-xs text-black">{p.description}</p>
+          <div key={p.id} className="rounded-2xl border-2 border-black bg-white p-5">
+            <p className="text-sm font-semibold text-black">{p.title}</p>
+            <p className="mt-2 text-xs text-black/80">{p.description}</p>
             <div className="mt-4 space-y-2 text-sm text-black">
               {p.steps.map((s) => (
                 <div key={s.label} className="flex items-start gap-2">
                   <span className="text-[#E6007E]">•</span>
                   <span>
-                    <span className="font-semibold text-white">{s.label}:</span>{" "}
+                    <span className="font-semibold text-black">{s.label}:</span>{" "}
                     <Link className="underline" href={`/services/${s.cluster}`}>
                       {s.cluster}
                     </Link>{" "}
@@ -218,7 +218,7 @@ function ServiceCard({
 }) {
   const [open, setOpen] = React.useState(false);
   return (
-    <div className="rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6">
+    <div className="rounded-2xl border-2 border-black bg-black p-6">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p className="text-xs text-white/80">Intensity: {intensity} · Commitment: {commitment}</p>
@@ -338,7 +338,7 @@ function ChatModal({
   return (
     <div className="fixed inset-0 z-[70] bg-black/80 backdrop-blur-sm p-4">
       <div className="mx-auto max-w-2xl">
-        <div className="rounded-2xl border border-black bg-black/70 overflow-hidden">
+        <div className="rounded-2xl border-2 border-black bg-black overflow-hidden">
           <div className="p-4 border-b border-black flex items-start justify-between gap-3">
             <div>
               <p className="text-xs text-black">Talk to us (education)</p>
@@ -388,7 +388,7 @@ function ChatModal({
                       "text-xs font-semibold rounded-full px-3 py-2 border transition",
                       active
                         ? "border-[#E6007E]/40 bg-white text-[#E6007E]"
-                        : "border-black text-black hover:bg-white hover:text-white",
+                        : "border-white text-white hover:bg-white hover:text-black",
                       sending ? "opacity-60" : "",
                     )}
                     // persona switching handled by parent (close/reopen for now)
@@ -523,7 +523,7 @@ export function ServicesAtlas() {
 
       <div className="lg:col-span-8">
         {/* Section 1: Discovery tool */}
-        <div className="rounded-2xl border border-black bg-black/40 p-6">
+        <div className="rounded-2xl border-2 border-black bg-black p-6">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
               <p className="text-sm text-[#E6007E]">Services Atlas™</p>
@@ -554,7 +554,7 @@ export function ServicesAtlas() {
                     memory.trackTopic(`discovery:${o.id}`);
                   }}
                   className={cx(
-                    "text-left rounded-2xl border bg-gradient-to-b from-black/60 to-black p-5 transition",
+                    "text-left rounded-2xl border-2 bg-black p-5 transition",
                     active ? "border-[#E6007E]/40" : "border-black hover:border-black",
                   )}
                 >
@@ -566,7 +566,7 @@ export function ServicesAtlas() {
           </div>
 
           {option ? (
-            <div className="mt-6 rounded-2xl border border-black bg-white p-5">
+            <div className="mt-6 rounded-2xl border-2 border-black bg-white p-5">
               <p className="text-sm font-semibold text-black">Why this path exists</p>
               <p className="mt-2 text-sm text-black">{option.whyThisExists}</p>
               <div className="mt-4 flex flex-col sm:flex-row gap-3">
@@ -600,10 +600,10 @@ export function ServicesAtlas() {
           {ATLAS_CLUSTERS.filter((c) => activeClusters.includes(c.id)).map((cluster) => {
             const cards = servicesForCluster(cluster.id);
             return (
-              <section key={cluster.id} className="rounded-2xl border border-black bg-black/40 p-6">
+              <section key={cluster.id} className="rounded-2xl border-2 border-black bg-black p-6">
                 <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                   <div>
-                    <p className="text-xs text-black">Service cluster</p>
+                    <p className="text-xs text-[#E6007E] font-semibold uppercase tracking-wide">Service cluster</p>
                     <h2 className="mt-2 text-2xl md:text-3xl font-bold text-white">{cluster.title}</h2>
                     <p className="mt-3 text-white/80 max-w-3xl">{cluster.description}</p>
                     <p className="mt-3 text-xs text-white/80">
@@ -652,8 +652,8 @@ export function ServicesAtlas() {
                     ))}
                   </div>
                 ) : (
-                  <div className="mt-6 rounded-2xl border border-black bg-white p-5">
-                    <p className="text-sm font-semibold text-white">Nothing listed here yet.</p>
+                  <div className="mt-6 rounded-2xl border-2 border-black bg-white p-5">
+                    <p className="text-sm font-semibold text-black">Nothing listed here yet.</p>
                     <p className="mt-2 text-sm text-black">
                       If you’re exploring this area, contact us and we’ll guide you to the best next step.
                     </p>
@@ -691,7 +691,7 @@ export function ServicesAtlas() {
       <div className="lg:col-span-4">
         <TrustMessage />
 
-        <div className="mt-6 rounded-2xl border border-black bg-black/40 p-5">
+        <div className="mt-6 rounded-2xl border-2 border-black bg-black p-5">
           <p className="text-sm font-semibold text-white">Want deeper education?</p>
           <p className="mt-2 text-sm text-white/80">
             The Care Engine adds interactive tools for clarity, timelines, and post-treatment reassurance.
@@ -706,7 +706,7 @@ export function ServicesAtlas() {
           </div>
         </div>
 
-        <div className="mt-6 rounded-2xl border border-black bg-black/40 p-5">
+        <div className="mt-6 rounded-2xl border-2 border-black bg-black p-5">
           <p className="text-sm font-semibold text-white">All services (index)</p>
           <p className="mt-2 text-sm text-white/80">
             Prefer the full list? It’s here for clarity.
