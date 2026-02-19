@@ -325,7 +325,21 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
 
       {/* Hero Section */}
       <Section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-pink-100 via-pink-50 to-white" />
+        {serviceSlug === "botox-dysport-jeuveau" && (
+          <div className="relative w-full aspect-[16/9] md:aspect-[21/9] max-h-[420px] rounded-2xl overflow-hidden mb-10">
+            <Image
+              src="/images/botox-lip-flip-hero.png"
+              alt="Natural-looking beautiful lips with Botox Lip Flip at Hello Gorgeous Med Spa"
+              fill
+              priority
+              className="object-cover object-center"
+              sizes="100vw"
+            />
+          </div>
+        )}
+        {serviceSlug !== "botox-dysport-jeuveau" && (
+          <div className="absolute inset-0 bg-gradient-to-b from-pink-100 via-pink-50 to-white" />
+        )}
         <div className="relative z-10">
           <FadeUp>
             {cluster && (
