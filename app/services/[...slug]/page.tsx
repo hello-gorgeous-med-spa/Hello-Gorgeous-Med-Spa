@@ -610,60 +610,296 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         </Section>
       )}
 
-      {/* Before/After Results Gallery - RF Microneedling with AnteAge */}
+      {/* Comprehensive Microneedling Content */}
       {s.slug === "rf-microneedling" && (
-        <Section>
-          <FadeUp>
-            <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-4">
-                <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Real Results</span>
-              </div>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
-                Before & After
-              </h2>
-              <p className="mt-4 text-black/80 max-w-2xl mx-auto">
-                RF microneedling with AnteAge® biosomes—improved texture, pores, and skin quality
-              </p>
-            </div>
-          </FadeUp>
+        <>
+          {/* What Is Microneedling */}
+          <Section className="bg-white">
+            <div className="max-w-4xl mx-auto">
+              <FadeUp>
+                <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E] text-center mb-8">
+                  What Is Microneedling?
+                </h2>
+                <p className="text-lg text-black/80 leading-relaxed mb-4">
+                  Microneedling, also known as <strong className="text-black">Collagen Induction Therapy (CIT)</strong>, is a clinically proven skin rejuvenation treatment designed to stimulate your body&apos;s natural collagen production.
+                </p>
+                <p className="text-lg text-black/80 leading-relaxed">
+                  Using a precision microneedling device, controlled micro-injuries are created in the skin to activate healing, strengthen tissue, and remodel collagen and elastin. The result? <strong className="text-black">Smoother texture, tighter skin, improved tone, and a more youthful appearance.</strong>
+                </p>
+              </FadeUp>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            <FadeUp delayMs={60}>
-              <div className="rounded-2xl overflow-hidden border-2 border-black bg-white">
-                <div className="relative aspect-[9/16] w-full max-w-md mx-auto">
-                  <Image
-                    src="/images/results/anteage-1.png"
-                    alt="RF microneedling with AnteAge before and after - Patient 1"
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
+              <FadeUp delayMs={100}>
+                <div className="mt-10 p-8 rounded-2xl bg-gradient-to-br from-pink-50 to-white border-2 border-black">
+                  <h3 className="text-xl font-bold text-[#FF2D8E] mb-4">
+                    At Hello Gorgeous Med Spa®, microneedling treats:
+                  </h3>
+                  <div className="grid md:grid-cols-2 gap-3">
+                    {["Fine lines and wrinkles", "Acne scarring", "Stretch marks", "Sun damage", "Enlarged pores", "Uneven skin tone", "Skin laxity", "Hyperpigmentation"].map((item) => (
+                      <div key={item} className="flex items-center gap-3">
+                        <span className="w-6 h-6 rounded-full bg-[#FF2D8E] flex items-center justify-center text-white text-sm">✓</span>
+                        <span className="text-black">{item}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+              </FadeUp>
+            </div>
+          </Section>
+
+          {/* AnteAge Exosomes Section */}
+          <Section className="bg-gradient-to-b from-white via-[#F8E6ED]/50 to-white">
+            <FadeUp>
+              <div className="text-center mb-12">
+                <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-4">
+                  <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Premium Upgrade</span>
+                </span>
+                <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
+                  Microneedling + AnteAge® Exosomes
+                </h2>
+                <p className="mt-4 text-black/80 max-w-2xl mx-auto">
+                  Supercharge your results with cutting-edge regenerative science
+                </p>
               </div>
             </FadeUp>
-            <FadeUp delayMs={120}>
-              <div className="rounded-2xl overflow-hidden border-2 border-black bg-white">
-                <div className="relative aspect-[9/16] w-full max-w-md mx-auto">
-                  <Image
-                    src="/images/results/anteage-2.png"
-                    alt="RF microneedling with AnteAge before and after - Patient 2"
-                    fill
-                    className="object-contain"
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                  />
+
+            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+              <FadeUp delayMs={60}>
+                <div className="p-6 rounded-2xl border-2 border-black bg-white h-full">
+                  <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
+                    <span>🧬</span> What Are Exosomes?
+                  </h3>
+                  <p className="text-black/80 text-sm leading-relaxed">
+                    Exosomes are tiny extracellular vesicles derived from stem cells that carry powerful growth factors, proteins, and signaling molecules. When applied during microneedling, they penetrate deep into the skin through the micro-channels, delivering regenerative signals directly to your cells.
+                  </p>
                 </div>
+              </FadeUp>
+              <FadeUp delayMs={80}>
+                <div className="p-6 rounded-2xl border-2 border-black bg-white h-full">
+                  <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
+                    <span>✨</span> Why AnteAge®?
+                  </h3>
+                  <p className="text-black/80 text-sm leading-relaxed">
+                    AnteAge® uses bone marrow-derived stem cell exosomes and biosomes—the gold standard in regenerative aesthetics. Their proprietary formulations enhance healing, reduce inflammation, and maximize collagen production.
+                  </p>
+                </div>
+              </FadeUp>
+              <FadeUp delayMs={100}>
+                <div className="p-6 rounded-2xl border-2 border-black bg-white h-full">
+                  <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
+                    <span>⚡</span> Enhanced Benefits
+                  </h3>
+                  <ul className="text-black/80 text-sm space-y-2">
+                    <li>• Faster healing and reduced downtime</li>
+                    <li>• Amplified collagen and elastin production</li>
+                    <li>• Improved skin texture and firmness</li>
+                    <li>• Enhanced scar remodeling</li>
+                  </ul>
+                </div>
+              </FadeUp>
+              <FadeUp delayMs={120}>
+                <div className="p-6 rounded-2xl border-2 border-black bg-white h-full">
+                  <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
+                    <span>💎</span> The Hello Gorgeous Difference
+                  </h3>
+                  <p className="text-black/80 text-sm leading-relaxed">
+                    We combine RF microneedling with AnteAge® exosomes and optional &quot;baby tox&quot; (micro-diluted Botox) for the ultimate skin transformation targeting texture, pores, and fine lines simultaneously.
+                  </p>
+                </div>
+              </FadeUp>
+            </div>
+          </Section>
+
+          {/* How It Works */}
+          <Section className="bg-white">
+            <div className="max-w-4xl mx-auto">
+              <FadeUp>
+                <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E] text-center mb-8">
+                  How Does Microneedling Work?
+                </h2>
+                <p className="text-lg text-black/80 text-center mb-10">
+                  RF microneedling uses a medical-grade precision device with ultra-fine needles that create controlled micro-channels in the dermis while preserving the epidermis.
+                </p>
+              </FadeUp>
+
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                {[
+                  { icon: "🔬", title: "Stimulates Growth Factors" },
+                  { icon: "💪", title: "Increases Collagen" },
+                  { icon: "🛡️", title: "Thickens Epidermis" },
+                  { icon: "❤️", title: "Improves Blood Flow" },
+                  { icon: "✨", title: "Enhances Absorption" },
+                ].map((item, idx) => (
+                  <FadeUp key={item.title} delayMs={60 * idx}>
+                    <div className="text-center p-4 rounded-xl bg-pink-50 border border-black/10">
+                      <span className="text-2xl block mb-2">{item.icon}</span>
+                      <span className="text-xs font-medium text-black">{item.title}</span>
+                    </div>
+                  </FadeUp>
+                ))}
+              </div>
+            </div>
+          </Section>
+
+          {/* Before/After Results Gallery */}
+          <Section className="bg-gradient-to-b from-white to-pink-50/50">
+            <FadeUp>
+              <div className="text-center mb-12">
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-4">
+                  <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Real Results</span>
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
+                  Before & After Gallery
+                </h2>
+                <p className="mt-4 text-black/80 max-w-2xl mx-auto">
+                  See the transformative power of RF microneedling with AnteAge®
+                </p>
               </div>
             </FadeUp>
-          </div>
 
-          <FadeUp delayMs={180}>
-            <div className="mt-10 text-center">
-              <p className="text-sm text-black/60 mb-6">
-                Results shown are from actual clients. Individual results may vary. AnteAge® biosomes used in treatment.
-              </p>
+            <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+              <FadeUp delayMs={60}>
+                <div className="rounded-2xl overflow-hidden border-2 border-black bg-white shadow-lg">
+                  <Image
+                    src="/images/microneedling/microneedling-before-after-1.png"
+                    alt="Microneedling acne scarring before and after - progressive improvement at Hello Gorgeous Med Spa"
+                    width={800}
+                    height={600}
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+              </FadeUp>
+              <FadeUp delayMs={120}>
+                <div className="rounded-2xl overflow-hidden border-2 border-black bg-white shadow-lg">
+                  <Image
+                    src="/images/microneedling/microneedling-before-after-2.png"
+                    alt="Microneedling skin texture before and after results at Hello Gorgeous Med Spa"
+                    width={800}
+                    height={600}
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+              </FadeUp>
             </div>
-          </FadeUp>
-        </Section>
+
+            <FadeUp delayMs={180}>
+              <p className="text-center text-black/60 text-sm mt-8">
+                Individual results may vary. All treatments performed by licensed professionals at Hello Gorgeous Med Spa®.
+              </p>
+            </FadeUp>
+          </Section>
+
+          {/* Safety & Pain */}
+          <Section className="bg-white">
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              <FadeUp>
+                <div className="p-8 rounded-2xl border-2 border-black bg-white h-full">
+                  <h3 className="text-xl font-bold text-[#FF2D8E] mb-4">
+                    Is Microneedling Safe for All Skin Types?
+                  </h3>
+                  <p className="text-black/80 leading-relaxed mb-4">
+                    <strong className="text-black">Yes.</strong> Microneedling is safe for all skin types and tones because it does not remove or damage the top layer of skin like lasers or chemical peels.
+                  </p>
+                  <p className="text-black/80 leading-relaxed">
+                    Since melanin production is not triggered aggressively, the risk of hyperpigmentation is significantly reduced.
+                  </p>
+                </div>
+              </FadeUp>
+              <FadeUp delayMs={60}>
+                <div className="p-8 rounded-2xl border-2 border-black bg-white h-full">
+                  <h3 className="text-xl font-bold text-[#FF2D8E] mb-4">
+                    Does Microneedling Hurt?
+                  </h3>
+                  <p className="text-black/80 leading-relaxed mb-4">
+                    Most patients describe microneedling as <strong className="text-black">very tolerable</strong>. A topical numbing cream is applied before treatment.
+                  </p>
+                  <p className="text-black/80 leading-relaxed">
+                    You may feel light vibration or mild pressure during the procedure—nothing that should cause significant discomfort.
+                  </p>
+                </div>
+              </FadeUp>
+            </div>
+          </Section>
+
+          {/* Acne Scarring */}
+          <Section className="bg-gradient-to-b from-pink-50/50 to-white">
+            <div className="max-w-4xl mx-auto">
+              <FadeUp>
+                <div className="p-8 rounded-2xl bg-gradient-to-br from-[#F8E6ED] to-white border-2 border-black">
+                  <h3 className="text-2xl font-bold text-[#FF2D8E] mb-6 text-center">
+                    Microneedling for Acne Scarring
+                  </h3>
+                  <p className="text-black/80 leading-relaxed mb-4">
+                    Depressed acne scars form when the body does not produce enough collagen following inflammation. Microneedling stimulates collagen remodeling to gradually fill in and smooth these areas.
+                  </p>
+                  <div className="grid md:grid-cols-2 gap-4 mt-6">
+                    {["Lower risk of hyperpigmentation", "Minimal downtime", "Safe for all skin tones", "Clinically proven improvement"].map((item) => (
+                      <div key={item} className="flex items-center gap-3 p-3 rounded-xl bg-white border border-black/10">
+                        <span className="w-6 h-6 rounded-full bg-[#FF2D8E] flex items-center justify-center text-white text-sm">✓</span>
+                        <span className="text-black font-medium text-sm">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </FadeUp>
+            </div>
+          </Section>
+
+          {/* Downtime & Cost */}
+          <Section className="bg-white">
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              <FadeUp>
+                <div className="p-8 rounded-2xl border-2 border-black bg-white">
+                  <h3 className="text-xl font-bold text-[#FF2D8E] mb-4">
+                    Downtime & Aftercare
+                  </h3>
+                  <p className="text-black/80 leading-relaxed mb-4">
+                    Microneedling requires <strong className="text-black">minimal downtime</strong>. You may experience:
+                  </p>
+                  <ul className="space-y-2 text-black/80 text-sm">
+                    <li>• Mild redness (similar to sunburn)</li>
+                    <li>• Slight swelling</li>
+                    <li>• Temporary sensitivity</li>
+                  </ul>
+                  <p className="text-black/80 leading-relaxed mt-4 text-sm">
+                    Most clients return to normal activities within 24–48 hours.
+                  </p>
+                </div>
+              </FadeUp>
+              <FadeUp delayMs={60}>
+                <div className="p-8 rounded-2xl border-2 border-black bg-white">
+                  <h3 className="text-xl font-bold text-[#FF2D8E] mb-4">
+                    How Much Does Microneedling Cost?
+                  </h3>
+                  <p className="text-black/80 leading-relaxed mb-4 text-sm">
+                    Pricing depends on:
+                  </p>
+                  <ul className="space-y-2 text-black/80 text-sm mb-4">
+                    <li>• Treatment area</li>
+                    <li>• Number of sessions required</li>
+                    <li>• Add-ons (PRF, AnteAge®, baby tox)</li>
+                  </ul>
+                  <p className="text-black/80 leading-relaxed text-sm">
+                    During your consultation, we create a customized plan for your goals and budget.
+                  </p>
+                </div>
+              </FadeUp>
+            </div>
+          </Section>
+
+          {/* Local SEO */}
+          <Section className="bg-gradient-to-b from-pink-50/50 to-white">
+            <div className="max-w-4xl mx-auto text-center">
+              <FadeUp>
+                <h3 className="text-2xl font-bold text-[#FF2D8E] mb-4">
+                  Microneedling Near Oswego, IL
+                </h3>
+                <p className="text-black/80 leading-relaxed">
+                  Searching for microneedling near <strong className="text-black">Oswego, Aurora, Naperville, or Yorkville</strong>? Hello Gorgeous Med Spa® offers advanced RF microneedling with AnteAge® exosomes in a luxury clinical setting right here in Kendall County.
+                </p>
+              </FadeUp>
+            </div>
+          </Section>
+        </>
       )}
 
       {/* Hormone Clinical Info - BioTE only */}
