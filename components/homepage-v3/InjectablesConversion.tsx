@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { BOOKING_URL } from "@/lib/flows";
 
 const services = [
@@ -13,6 +14,7 @@ const services = [
     ],
     link: "/services/botox-dysport-jeuveau",
     linkText: "Explore Neurotoxins",
+    image: "/images/services/hg-botox-syringes.png",
   },
   {
     title: "Dermal Fillers",
@@ -23,6 +25,7 @@ const services = [
     ],
     link: "/services/dermal-fillers",
     linkText: "Explore Fillers",
+    image: "/images/services/hg-lips-filler.png",
   },
   {
     title: "Lip Enhancement Studio",
@@ -33,6 +36,7 @@ const services = [
     ],
     link: "/lip-studio",
     linkText: "Try Lip Studio",
+    image: "/images/services/hg-perfect-lips.png",
   },
   {
     title: "Full-Face Consultation",
@@ -43,6 +47,7 @@ const services = [
     ],
     link: BOOKING_URL,
     linkText: "Book Consultation",
+    image: "/images/services/hg-botox-vials.png",
   },
 ];
 
@@ -69,30 +74,42 @@ export function InjectablesConversion() {
           <div className="mt-6 w-24 h-0.5 bg-[#E6007E] mx-auto" />
         </div>
 
-        {/* Service Grid */}
+        {/* Service Grid with Images */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {services.map((service) => (
             <div
               key={service.title}
-              className="border border-white/20 rounded-lg p-6 hover:border-[#E6007E]/50 transition-all duration-300"
+              className="border border-white/20 rounded-lg overflow-hidden hover:border-[#E6007E]/50 transition-all duration-300 group"
             >
-              <h3 className="text-xl font-semibold text-white mb-4">
-                {service.title}
-              </h3>
-              <ul className="space-y-2 mb-6">
-                {service.points.map((point) => (
-                  <li key={point} className="text-white/80 text-sm flex items-start gap-2">
-                    <span className="text-[#E6007E] mt-1">•</span>
-                    {point}
-                  </li>
-                ))}
-              </ul>
-              <Link
-                href={service.link}
-                className="text-[#E6007E] text-sm font-semibold hover:underline inline-flex items-center gap-1"
-              >
-                → {service.linkText}
-              </Link>
+              {/* Service Image */}
+              <div className="relative h-40 overflow-hidden">
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold text-white mb-4">
+                  {service.title}
+                </h3>
+                <ul className="space-y-2 mb-6">
+                  {service.points.map((point) => (
+                    <li key={point} className="text-white/80 text-sm flex items-start gap-2">
+                      <span className="text-[#E6007E] mt-1">•</span>
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+                <Link
+                  href={service.link}
+                  className="text-[#E6007E] text-sm font-semibold hover:underline inline-flex items-center gap-1"
+                >
+                  → {service.linkText}
+                </Link>
+              </div>
             </div>
           ))}
         </div>
