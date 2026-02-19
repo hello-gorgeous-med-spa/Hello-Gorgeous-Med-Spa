@@ -85,6 +85,38 @@ const careGuides = [
     serviceLink: "/services/weight-loss-therapy",
     icon: "📉",
   },
+  {
+    id: "prp-prf",
+    title: "PRP / PRF",
+    description: "Platelet-rich plasma and fibrin regenerative treatment care guide.",
+    viewOnline: "/pre-post-care/prp-prf",
+    serviceLink: "/services/prf-prp",
+    icon: "🩸",
+  },
+  {
+    id: "trigger-point",
+    title: "Trigger Point Injections",
+    description: "Muscle tension relief and pain management care guide.",
+    viewOnline: "/pre-post-care/trigger-point",
+    serviceLink: "/services/vitamin-injections",
+    icon: "💪",
+  },
+  {
+    id: "prp-prf",
+    title: "PRP / PRF",
+    description: "Platelet-rich plasma and fibrin regenerative treatment care guide.",
+    viewOnline: "/pre-post-care/prp-prf",
+    serviceLink: "/services/prf-prp",
+    icon: "🩸",
+  },
+  {
+    id: "trigger-point",
+    title: "Trigger Point Injections",
+    description: "Muscle tension relief and pain management care guide.",
+    viewOnline: "/pre-post-care/trigger-point",
+    serviceLink: "/services/vitamin-injections",
+    icon: "💪",
+  },
 ];
 
 export default function PrePostCarePage() {
