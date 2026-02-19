@@ -150,7 +150,6 @@ function ComparisonBlock() {
         </table>
       </div>
     </div>
-    </div>
   );
 }
 
@@ -724,6 +723,8 @@ export function ServicesAtlas() {
           </div>
         </div>
       </div>
+    </div>
+    </div>
     </div>
   );
 }
