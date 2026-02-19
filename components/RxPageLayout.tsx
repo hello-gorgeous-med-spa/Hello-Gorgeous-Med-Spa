@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
 
@@ -7,32 +8,47 @@ interface RxPageLayoutProps {
   subtitle: string;
   description: string;
   icon: string;
+  heroImage?: string;
   children: React.ReactNode;
 }
 
-export function RxPageLayout({ title, subtitle, description, icon, children }: RxPageLayoutProps) {
+export function RxPageLayout({ title, subtitle, description, icon, heroImage, children }: RxPageLayoutProps) {
   return (
     <>
       {/* Hero */}
-      <Section className="relative overflow-hidden bg-black text-white py-20">
+      <Section className="relative overflow-hidden bg-black text-white py-16 md:py-20">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-black/95 to-[#E6007E]/20" />
         <FadeUp>
-          <div className="relative z-10 max-w-4xl mx-auto">
-            <Link href="/rx" className="inline-flex items-center gap-2 text-white/70 hover:text-white mb-6 transition-colors">
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-              Back to Hello Gorgeous RX™
-            </Link>
-            <div className="flex items-center gap-4 mb-4">
-              <span className="text-5xl">{icon}</span>
-              <div>
-                <p className="text-[#E6007E] text-sm font-semibold uppercase tracking-wider">Hello Gorgeous RX™</p>
-                <h1 className="text-4xl md:text-5xl font-bold">{title}</h1>
+          <div className={`relative z-10 max-w-7xl mx-auto ${heroImage ? 'grid lg:grid-cols-2 gap-8 lg:gap-12 items-center' : ''}`}>
+            <div>
+              <Link href="/rx" className="inline-flex items-center gap-2 text-white/70 hover:text-white mb-6 transition-colors">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                Back to Hello Gorgeous RX™
+              </Link>
+              <div className="flex items-center gap-4 mb-4">
+                <span className="text-5xl">{icon}</span>
+                <div>
+                  <p className="text-[#E6007E] text-sm font-semibold uppercase tracking-wider">Hello Gorgeous RX™</p>
+                  <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold">{title}</h1>
+                </div>
               </div>
+              <p className="text-xl text-white/80 mb-2">{subtitle}</p>
+              <p className="text-white/60 max-w-2xl">{description}</p>
             </div>
-            <p className="text-xl text-white/80 mb-2">{subtitle}</p>
-            <p className="text-white/60 max-w-2xl">{description}</p>
+            {heroImage && (
+              <div className="hidden lg:block">
+                <Image
+                  src={heroImage}
+                  alt={`${title} - Hello Gorgeous RX`}
+                  width={500}
+                  height={350}
+                  className="rounded-2xl shadow-2xl"
+                  priority
+                />
+              </div>
+            )}
           </div>
         </FadeUp>
       </Section>

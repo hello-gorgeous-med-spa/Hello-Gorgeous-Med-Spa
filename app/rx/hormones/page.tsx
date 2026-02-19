@@ -55,6 +55,8 @@ export default function HormonesPage() {
       subtitle="Bio-Identical Hormone Therapy for Men & Women"
       description="Restore hormonal balance with physician-supervised bio-identical hormone replacement therapy, customized to your unique physiology."
       icon="🧬"
+      heroImage="/images/rx/rx-hormone-vial.png"
+      heroImage="/images/rx/rx-hormone-vial.png"
     >
       {/* Services Grid */}
       <Section className="bg-gradient-to-b from-white to-pink-50/30">

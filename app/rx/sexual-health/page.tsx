@@ -52,6 +52,7 @@ export default function SexualHealthPage() {
       subtitle="Hormone-Supported Sexual Health Programs"
       description="Comprehensive sexual wellness programs for men and women, addressing the hormonal and medical factors affecting intimate health and vitality."
       icon="🔥"
+      heroImage="/images/rx/rx-sexual-wellness.png"
     >
       {/* Men's Services */}
       <Section className="bg-gradient-to-b from-white to-pink-50/30">

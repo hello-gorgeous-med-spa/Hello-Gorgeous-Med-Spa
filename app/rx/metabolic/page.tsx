@@ -49,6 +49,7 @@ export default function MetabolicPage() {
       subtitle="Medical Weight Loss & Metabolic Support"
       description="Physician-supervised weight management programs combining advanced medications, nutritional guidance, and ongoing metabolic monitoring."
       icon="⚖️"
+      heroImage="/images/rx/rx-metabolic-pen.png"
     >
       {/* Services Grid */}
       <Section className="bg-gradient-to-b from-white to-pink-50/30">

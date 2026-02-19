@@ -49,6 +49,7 @@ export default function DermatologyPage() {
       subtitle="Prescription Dermatology Integrated With Aesthetic Care"
       description="Medical-grade prescription skincare seamlessly integrated with our aesthetic treatments for comprehensive skin transformation."
       icon="🧴"
+      heroImage="/images/rx/rx-dermatology-products.png"
     >
       {/* Services Grid */}
       <Section className="bg-gradient-to-b from-white to-pink-50/30">

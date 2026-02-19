@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
 import { pageMetadata } from "@/lib/seo";
@@ -91,29 +92,41 @@ export default function RxPage() {
       />
 
       {/* Hero Section */}
-      <Section className="relative overflow-hidden bg-black text-white min-h-[70vh] flex items-center">
+      <Section className="relative overflow-hidden bg-black text-white min-h-[80vh] flex items-center">
         <div className="absolute inset-0 bg-gradient-to-br from-black via-black/95 to-[#E6007E]/20" />
         <FadeUp>
-          <div className="relative z-10 text-center max-w-4xl mx-auto">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 mb-6">
-              <span className="text-[#E6007E] text-sm font-semibold uppercase tracking-wider">Medical Division</span>
+          <div className="relative z-10 grid lg:grid-cols-2 gap-12 items-center max-w-7xl mx-auto">
+            <div className="text-center lg:text-left">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 mb-6">
+                <span className="text-[#E6007E] text-sm font-semibold uppercase tracking-wider">Medical Division</span>
+              </div>
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4">
+                HELLO GORGEOUS <span className="text-[#E6007E]">RX™</span>
+              </h1>
+              <p className="text-2xl md:text-3xl font-light text-white/90 mb-6">
+                Luxury Longevity + Hormone Optimization
+              </p>
+              <p className="text-lg text-white/70 max-w-2xl mb-10 leading-relaxed">
+                A physician-supervised medical optimization division of Hello Gorgeous Med Spa®, offering advanced hormone therapy, metabolic support, prescription dermatology, peptides, and sexual wellness programs for qualified Illinois patients.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                <CTA href="/rx/membership" variant="gradient" className="px-10 py-4 text-lg">
+                  Begin Medical Evaluation
+                </CTA>
+                <CTA href="#programs" variant="outline" className="px-10 py-4 text-lg border-white text-white hover:bg-white hover:text-black">
+                  Explore Programs
+                </CTA>
+              </div>
             </div>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-4">
-              HELLO GORGEOUS <span className="text-[#E6007E]">RX™</span>
-            </h1>
-            <p className="text-2xl md:text-3xl font-light text-white/90 mb-6">
-              Luxury Longevity + Hormone Optimization
-            </p>
-            <p className="text-lg text-white/70 max-w-3xl mx-auto mb-10 leading-relaxed">
-              A physician-supervised medical optimization division of Hello Gorgeous Med Spa®, offering advanced hormone therapy, metabolic support, prescription dermatology, peptides, and sexual wellness programs for qualified Illinois patients.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <CTA href="/rx/membership" variant="gradient" className="px-10 py-4 text-lg">
-                Begin Medical Evaluation
-              </CTA>
-              <CTA href="#programs" variant="outline" className="px-10 py-4 text-lg border-white text-white hover:bg-white hover:text-black">
-                Explore Programs
-              </CTA>
+            <div className="hidden lg:block">
+              <Image
+                src="/images/rx/rx-vials-hero.png"
+                alt="Hello Gorgeous RX prescription vials and medications"
+                width={600}
+                height={400}
+                className="rounded-2xl shadow-2xl"
+                priority
+              />
             </div>
           </div>
         </FadeUp>

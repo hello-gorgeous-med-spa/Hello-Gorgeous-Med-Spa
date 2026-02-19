@@ -49,6 +49,7 @@ export default function PeptidesPage() {
       subtitle="Cellular Longevity & Regenerative Medicine"
       description="Advanced peptide therapies and micronutrient optimization designed to support cellular health, energy production, and healthy aging."
       icon="🧪"
+      heroImage="/images/rx/rx-peptides-syringes.png"
     >
       {/* Services Grid */}
       <Section className="bg-gradient-to-b from-white to-pink-50/30">
