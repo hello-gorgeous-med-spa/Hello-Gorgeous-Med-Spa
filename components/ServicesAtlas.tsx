@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import React from "react";
 
 import { CTA } from "@/components/CTA";
+import { FadeUp } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import type { PersonaId } from "@/lib/personas/types";
 import { PERSONA_CONFIGS, getPersonaConfig } from "@/lib/personas/index";
@@ -72,7 +74,7 @@ async function chat({
 function TrustMessage() {
   return (
     <div className="sticky top-24 rounded-2xl border border-black bg-white p-5">
-      <p className="text-sm font-semibold text-white">You don’t need to know what to book today.</p>
+      <p className="text-sm font-semibold text-black">You don’t need to know what to book today.</p>
       <p className="mt-2 text-sm text-black">
         Learning is always welcome here. Booking is optional, and you can start with clarity first.
       </p>
@@ -110,7 +112,7 @@ function ComparisonBlock() {
               className={cx(
                 "text-xs font-semibold rounded-full px-3 py-2 border transition",
                 open === c.id
-                  ? "border-[#FF2D8E]/40 bg-white text-pink-300"
+                  ? "border-[#E6007E]/40 bg-white text-pink-300"
                   : "border-black text-black hover:bg-white hover:text-white",
               )}
             >
@@ -148,6 +150,7 @@ function ComparisonBlock() {
         </table>
       </div>
     </div>
+    </div>
   );
 }
 
@@ -155,7 +158,7 @@ function PathwaysBlock() {
   return (
     <div className="rounded-2xl border border-black bg-black/40 p-6">
       <h3 className="text-xl font-bold text-white">Care pathways (conceptual)</h3>
-      <p className="mt-2 text-sm text-black">
+      <p className="mt-2 text-sm text-white/80">
         These are not treatment plans—just a gentle way to understand how people often think about care over time.
       </p>
       <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -166,7 +169,7 @@ function PathwaysBlock() {
             <div className="mt-4 space-y-2 text-sm text-black">
               {p.steps.map((s) => (
                 <div key={s.label} className="flex items-start gap-2">
-                  <span className="text-[#FF2D8E]">•</span>
+                  <span className="text-[#E6007E]">•</span>
                   <span>
                     <span className="font-semibold text-white">{s.label}:</span>{" "}
                     <Link className="underline" href={`/services/${s.cluster}`}>
@@ -215,14 +218,14 @@ function ServiceCard({
     <div className="rounded-2xl border border-black bg-gradient-to-b from-black/60 to-black p-6">
       <div className="flex items-start justify-between gap-3">
         <div>
-          <p className="text-xs text-black">Intensity: {intensity} · Commitment: {commitment}</p>
+          <p className="text-xs text-white/80">Intensity: {intensity} · Commitment: {commitment}</p>
           <h4 className="mt-2 text-xl font-bold text-white">{name}</h4>
-          <p className="mt-3 text-black">{plainLanguage}</p>
+          <p className="mt-3 text-white/80">{plainLanguage}</p>
         </div>
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="text-xs font-semibold rounded-full px-3 py-2 border border-black text-black hover:bg-white transition"
+          className="text-xs font-semibold rounded-full px-3 py-2 border border-white text-white hover:bg-white hover:text-black transition"
         >
           {open ? "Hide" : "Learn more"}
         </button>
@@ -248,12 +251,12 @@ function ServiceCard({
           </div>
           <div className="md:col-span-2">
             <p className="text-sm font-semibold text-white">Who it may not be for (high-level)</p>
-            <ul className="mt-2 space-y-1 text-sm text-black">
+            <ul className="mt-2 space-y-1 text-sm text-white/80">
               {mayNotBeFor.map((x) => (
                 <li key={x}>- {x}</li>
               ))}
             </ul>
-            <p className="mt-3 text-xs text-black">{complianceFooter()}</p>
+            <p className="mt-3 text-xs text-white/70">{complianceFooter()}</p>
           </div>
         </div>
       ) : null}
@@ -381,7 +384,7 @@ function ChatModal({
                     className={cx(
                       "text-xs font-semibold rounded-full px-3 py-2 border transition",
                       active
-                        ? "border-[#FF2D8E]/40 bg-white text-pink-300"
+                        ? "border-[#E6007E]/40 bg-white text-pink-300"
                         : "border-black text-black hover:bg-white hover:text-white",
                       sending ? "opacity-60" : "",
                     )}
@@ -423,7 +426,7 @@ function ChatModal({
               <button
                 type="button"
                 disabled={sending}
-                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#FF2D8E]/25 transition disabled:opacity-60"
+                className="px-4 py-3 rounded-xl bg-gradient-to-r from-pink-500 via-pink-500 to-pink-500 text-white font-semibold hover:shadow-2xl hover:shadow-[#E6007E]/25 transition disabled:opacity-60"
                 onClick={() => {
                   const q = input.trim();
                   if (!q) return;
@@ -490,6 +493,20 @@ export function ServicesAtlas() {
   }
 
   return (
+    <div className="min-h-screen bg-white">
+      <div className="bg-black py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <FadeUp>
+            <p className="text-[#E6007E] text-lg md:text-xl font-semibold mb-4 tracking-wide uppercase">Services Atlas™</p>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">Explore care without pressure</h1>
+            <p className="mt-6 text-lg md:text-xl text-white/80 max-w-2xl">What brings you here today? Choose a path below—education only, booking optional.</p>
+            <div className="mt-8">
+              <CTA href={BOOKING_URL} variant="gradient" className="inline-flex">Book Now (optional)</CTA>
+            </div>
+          </FadeUp>
+        </div>
+      </div>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-12 md:py-16">
     <div className="grid gap-10 lg:grid-cols-12">
       <ChatModal
         open={chatOpen}
@@ -506,11 +523,11 @@ export function ServicesAtlas() {
         <div className="rounded-2xl border border-black bg-black/40 p-6">
           <div className="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="text-sm text-black">Services Atlas™</p>
+              <p className="text-sm text-[#E6007E]">Services Atlas™</p>
               <h1 className="mt-2 text-3xl md:text-5xl font-bold text-white">
                 Explore care without pressure
               </h1>
-              <p className="mt-3 text-black max-w-2xl">
+              <p className="mt-3 text-white/80 max-w-2xl">
                 What brings you here today? Choose a path and we’ll show clusters that match—education only, booking optional.
               </p>
             </div>
@@ -535,11 +552,11 @@ export function ServicesAtlas() {
                   }}
                   className={cx(
                     "text-left rounded-2xl border bg-gradient-to-b from-black/60 to-black p-5 transition",
-                    active ? "border-[#FF2D8E]/40" : "border-black hover:border-black",
+                    active ? "border-[#E6007E]/40" : "border-black hover:border-black",
                   )}
                 >
                   <p className="text-sm font-semibold text-white">{o.label}</p>
-                  <p className="mt-2 text-sm text-black">{o.description}</p>
+                  <p className="mt-2 text-sm text-white/70">{o.description}</p>
                 </button>
               );
             })}
@@ -547,7 +564,7 @@ export function ServicesAtlas() {
 
           {option ? (
             <div className="mt-6 rounded-2xl border border-black bg-white p-5">
-              <p className="text-sm font-semibold text-white">Why this path exists</p>
+              <p className="text-sm font-semibold text-black">Why this path exists</p>
               <p className="mt-2 text-sm text-black">{option.whyThisExists}</p>
               <div className="mt-4 flex flex-col sm:flex-row gap-3">
                 <button
@@ -585,8 +602,8 @@ export function ServicesAtlas() {
                   <div>
                     <p className="text-xs text-black">Service cluster</p>
                     <h2 className="mt-2 text-2xl md:text-3xl font-bold text-white">{cluster.title}</h2>
-                    <p className="mt-3 text-black max-w-3xl">{cluster.description}</p>
-                    <p className="mt-3 text-xs text-black">
+                    <p className="mt-3 text-white/80 max-w-3xl">{cluster.description}</p>
+                    <p className="mt-3 text-xs text-white/80">
                       Browse as a category:{" "}
                       <Link className="underline" href={`/services/${cluster.id}`}>
                         /services/{cluster.id}
@@ -673,7 +690,7 @@ export function ServicesAtlas() {
 
         <div className="mt-6 rounded-2xl border border-black bg-black/40 p-5">
           <p className="text-sm font-semibold text-white">Want deeper education?</p>
-          <p className="mt-2 text-sm text-black">
+          <p className="mt-2 text-sm text-white/80">
             The Care Engine adds interactive tools for clarity, timelines, and post-treatment reassurance.
           </p>
           <div className="mt-4 flex flex-col gap-3">
@@ -688,10 +705,10 @@ export function ServicesAtlas() {
 
         <div className="mt-6 rounded-2xl border border-black bg-black/40 p-5">
           <p className="text-sm font-semibold text-white">All services (index)</p>
-          <p className="mt-2 text-sm text-black">
+          <p className="mt-2 text-sm text-white/80">
             Prefer the full list? It’s here for clarity.
           </p>
-          <div className="mt-4 space-y-2 text-sm text-black">
+          <div className="mt-4 space-y-2 text-sm text-white/80">
             {ATLAS_SERVICES.slice(0, 10).map((s) => (
               <div key={s.slug}>
                 <Link className="underline" href={`/services/${s.slug}`}>

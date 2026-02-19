@@ -379,6 +379,19 @@ export function Header() {
               Memberships
             </Link>
 
+            {/* Explore Care - direct link */}
+            <Link
+              href="/explore-care"
+              className={cx(
+                "px-4 py-2 rounded-lg text-sm font-medium transition-all",
+                pathname === "/explore-care"
+                  ? "text-[#E6007E] bg-[#E6007E]/10"
+                  : "text-[#FF2D8E] hover:text-[#E6007E] hover:bg-[#000000]/5"
+              )}
+            >
+              Explore Care
+            </Link>
+
             {/* Your Journey Dropdown */}
             <div 
               className="relative"
@@ -389,7 +402,7 @@ export function Header() {
                 href="/your-journey"
                 className={cx(
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                  pathname?.startsWith('/your-journey') || pathname?.startsWith('/explore-care')
+                  pathname?.startsWith('/your-journey')
                     ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
                     : "text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5"
                 )}
@@ -628,6 +641,21 @@ export function Header() {
             >
               <span className="text-xl">💎</span>
               Memberships
+            </Link>
+
+            {/* Explore Care - direct link */}
+            <Link
+              href="/explore-care"
+              onClick={() => setMobileMenuOpen(false)}
+              className={cx(
+                "flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl font-semibold",
+                pathname === "/explore-care"
+                  ? "bg-[#E6007E]/10 border border-[#E6007E]/20 text-[#E6007E]"
+                  : "text-[#FF2D8E] hover:bg-[#000000]/5"
+              )}
+            >
+              <span className="text-xl">🔍</span>
+              Explore Care
             </Link>
 
             {/* Your Journey Section */}

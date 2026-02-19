@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { FadeUp, Section } from "@/components/Section";
+import Image from "next/image";
+import { FadeUp } from "@/components/Section";
+import { CTA } from "@/components/CTA";
 import { BOOKING_URL } from "@/lib/flows";
 
 const telehealthServices = [
@@ -117,252 +119,224 @@ export function TelehealthContent() {
   const [expandedFaq, setExpandedFaq] = useState<number | null>(null);
 
   return (
-    <>
-      {/* Hero */}
-      <Section className="relative py-20 bg-gradient-to-b from-blue-950/30 via-purple-950/20 to-black overflow-hidden">
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/20 rounded-full blur-3xl" />
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-[#FF2D8E]/20 rounded-full blur-3xl" />
-        </div>
-        <FadeUp>
-          <div className="text-center max-w-3xl mx-auto relative z-10">
-            <span className="inline-block px-4 py-1 rounded-full bg-[#FF2D8E]/20 text-[#FF2D8E] text-sm font-medium mb-4">
-              🖥️ HIPAA Compliant Virtual Care
-            </span>
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-4">
-              Telehealth{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-blue-400">
-                Virtual Visits
-              </span>
-            </h1>
-            <p className="text-black text-lg mb-8">
-              Get expert medical care from the comfort of your home. Connect with
-              Ryan Kent, FNP-BC for consultations, follow-ups, and prescription management.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-4 rounded-xl bg-gradient-to-r from-pink-500 to-blue-500 text-white font-bold hover:opacity-90 transition"
-              >
-                Book Telehealth Visit →
-              </a>
-              <a
-                href={DOXY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-4 rounded-xl bg-gradient-to-r from-fuchsia-600 to-pink-500 text-white font-bold hover:opacity-90 transition animate-pulse"
-              >
-                🖥️ Join Your Appointment
-              </a>
-            </div>
+    <div className="min-h-screen bg-white">
+      {/* Hero — black, white text, brand pink only */}
+      <div className="bg-black py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <FadeUp>
+              <p className="text-[#E6007E] text-lg md:text-xl font-semibold mb-4 tracking-wide uppercase">
+                HIPAA Compliant Virtual Care
+              </p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
+                Telehealth{" "}
+                <span className="text-[#E6007E]">Virtual Visits</span>
+              </h1>
+              <p className="mt-6 text-lg md:text-xl text-white/80 max-w-xl leading-relaxed">
+                Get expert medical care from the comfort of your home. Connect with Ryan Kent, FNP-BC for consultations, follow-ups, and prescription management.
+              </p>
+              <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                <CTA href={BOOKING_URL} variant="gradient" className="inline-flex">
+                  Book Telehealth Visit
+                </CTA>
+                <a
+                  href={DOXY_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-lg border-2 border-white text-white font-semibold hover:bg-white hover:text-black transition-colors"
+                >
+                  Join Video Visit Now
+                </a>
+              </div>
+              <p className="mt-4 text-white/60 text-sm">No download required</p>
+            </FadeUp>
+            <FadeUp delayMs={100}>
+              <div className="relative">
+                <Image
+                  src="/images/rx/hg-ryan-kent-rx-authority.png"
+                  alt="Ryan Kent FNP-BC - Telehealth and full prescriptive authority at Hello Gorgeous Med Spa"
+                  width={600}
+                  height={400}
+                  className="rounded-2xl shadow-2xl object-cover"
+                  priority
+                />
+              </div>
+            </FadeUp>
           </div>
-        </FadeUp>
-      </Section>
+        </div>
+      </div>
 
-      {/* Join Appointment Banner */}
-      <Section className="py-6 bg-gradient-to-r from-fuchsia-600/20 to-pink-500/20 border-y border-[#FF2D8E]/30">
-        <FadeUp>
+      {/* Join appointment strip */}
+      <div className="bg-[#E6007E] py-4">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
-            <div className="flex items-center gap-3">
-              <span className="w-3 h-3 rounded-full bg-[#FF2D8E] animate-pulse" />
-              <span className="text-white font-semibold">Have an Appointment?</span>
-            </div>
+            <span className="text-white font-semibold">Have an appointment?</span>
             <a
               href={DOXY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 rounded-xl bg-[#FF2D8E] text-white font-bold hover:opacity-90 transition flex items-center gap-2"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-white text-[#E6007E] font-bold hover:bg-black hover:text-white transition-colors"
             >
-              <span className="text-xl">🖥️</span>
-              Join Video Visit Now →
+              Join Video Visit Now
             </a>
-            <span className="text-black text-sm">No download required</span>
           </div>
-        </FadeUp>
-      </Section>
+        </div>
+      </div>
 
-      {/* Provider Card */}
-      <Section className="py-16 bg-black">
-        <FadeUp>
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-gradient-to-br from-blue-500/10 to-pink-500/10 rounded-3xl border border-blue-500/20 overflow-hidden">
-              <div className="grid md:grid-cols-2 gap-0">
-                {/* Image */}
-                <div className="relative aspect-square md:aspect-auto bg-gradient-to-br from-blue-950/50 to-pink-950/50">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center p-8">
-                      <div className="w-32 h-32 rounded-full bg-gradient-to-br from-blue-500 to-pink-500 flex items-center justify-center mx-auto mb-4 text-6xl">
-                        👨‍⚕️
-                      </div>
-                      <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/20 border border-[#FF2D8E]/30">
-                        <span className="w-2 h-2 rounded-full bg-[#FF2D8E] animate-pulse" />
-                        <span className="text-[#FF2D8E] text-sm font-medium">Available for Telehealth</span>
-                      </div>
-                    </div>
+      {/* Provider card — white card on light bg */}
+      <div className="bg-white border-t border-black/10 py-16 md:py-24">
+        <div className="max-w-4xl mx-auto px-6 md:px-12">
+          <FadeUp>
+            <div className="rounded-2xl border-2 border-black p-8 md:p-10 bg-white shadow-sm">
+              <div className="grid md:grid-cols-2 gap-8 items-start">
+                <div className="flex flex-col items-center md:items-start">
+                  <div className="w-24 h-24 rounded-full bg-black flex items-center justify-center text-4xl mb-4">
+                    👨‍⚕️
                   </div>
+                  <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E6007E]/10 border border-[#E6007E]/30 text-[#E6007E] text-sm font-medium">
+                    Available for Telehealth
+                  </span>
                 </div>
-                
-                {/* Info */}
-                <div className="p-8">
-                  <div className="mb-4">
-                    <h2 className="text-2xl font-bold text-white mb-1">Ryan Kent</h2>
-                    <p className="text-blue-400 font-semibold">FNP-BC | Full Practice Authority NP</p>
-                  </div>
-                  
-                  <div className="space-y-3 mb-6">
-                    <div className="flex items-start gap-3">
-                      <span className="text-[#FF2D8E]">✓</span>
+                <div>
+                  <h2 className="text-2xl font-bold text-black mb-1">Ryan Kent</h2>
+                  <p className="text-[#E6007E] font-semibold mb-6">FNP-BC | Full Practice Authority NP</p>
+                  <ul className="space-y-3 mb-6">
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#E6007E] mt-0.5">✓</span>
                       <div>
-                        <p className="text-white font-medium">Board Certified Family Nurse Practitioner</p>
-                        <p className="text-black text-sm">FNP-BC credentialed through ANCC</p>
+                        <p className="text-black font-medium">Board Certified Family Nurse Practitioner</p>
+                        <p className="text-black/60 text-sm">FNP-BC credentialed through ANCC</p>
                       </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <span className="text-[#FF2D8E]">✓</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#E6007E] mt-0.5">✓</span>
                       <div>
-                        <p className="text-white font-medium">Full Practice Authority</p>
-                        <p className="text-black text-sm">Independent prescriptive authority in Illinois</p>
+                        <p className="text-black font-medium">Full Practice Authority</p>
+                        <p className="text-black/60 text-sm">Independent prescriptive authority in Illinois</p>
                       </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <span className="text-[#FF2D8E]">✓</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="text-[#E6007E] mt-0.5">✓</span>
                       <div>
-                        <p className="text-white font-medium">Specializations</p>
-                        <p className="text-black text-sm">Weight Management, Hormone Optimization, Regenerative Medicine</p>
+                        <p className="text-black font-medium">Specializations</p>
+                        <p className="text-black/60 text-sm">Weight Management, Hormone Optimization, Regenerative Medicine</p>
                       </div>
-                    </div>
-                  </div>
-                  
-                  <div className="p-4 rounded-xl bg-white border border-black mb-6">
-                    <p className="text-black text-sm italic">
-                      &ldquo;Telehealth allows me to provide the same high-quality care you&apos;d receive in-office, 
-                      with the convenience of connecting from wherever you are. I&apos;m committed to 
-                      making healthcare accessible and personalized for every patient.&rdquo;
+                    </li>
+                  </ul>
+                  <div className="p-4 rounded-xl bg-black/5 border border-black/10 mb-6">
+                    <p className="text-black/80 text-sm italic">
+                      &ldquo;Telehealth allows me to provide the same high-quality care you&apos;d receive in-office, with the convenience of connecting from wherever you are. I&apos;m committed to making healthcare accessible and personalized for every patient.&rdquo;
                     </p>
                   </div>
-                  
-                  <a
-                    href={BOOKING_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block w-full py-4 rounded-xl bg-gradient-to-r from-pink-500 to-blue-500 text-white font-bold text-center hover:opacity-90 transition"
-                  >
-                    Book with Ryan →
-                  </a>
+                  <CTA href={BOOKING_URL} variant="gradient" className="inline-flex">
+                    Book with Ryan
+                  </CTA>
                 </div>
               </div>
             </div>
-          </div>
-        </FadeUp>
-      </Section>
-
-      {/* Benefits */}
-      <Section className="py-16 bg-gradient-to-b from-black to-pink-950/10">
-        <FadeUp>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Why Choose Telehealth?
-            </h2>
-          </div>
-        </FadeUp>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {benefits.map((benefit, i) => (
-            <FadeUp key={benefit.title} delayMs={i * 60}>
-              <div className="p-6 rounded-2xl bg-white border border-black text-center hover:border-[#FF2D8E]/30 transition h-full">
-                <span className="text-4xl mb-4 block">{benefit.icon}</span>
-                <h3 className="text-white font-semibold mb-2">{benefit.title}</h3>
-                <p className="text-black text-sm">{benefit.description}</p>
-              </div>
-            </FadeUp>
-          ))}
+          </FadeUp>
         </div>
-      </Section>
+      </div>
 
-      {/* Services */}
-      <Section className="py-16 bg-black">
-        <FadeUp>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Telehealth Services
+      {/* Benefits — white section, black text */}
+      <div className="bg-black py-16 md:py-24">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <FadeUp>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
+              Why Choose <span className="text-[#E6007E]">Telehealth?</span>
             </h2>
-            <p className="text-black">
+          </FadeUp>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {benefits.map((benefit, i) => (
+              <FadeUp key={benefit.title} delayMs={i * 60}>
+                <div className="p-6 rounded-2xl border-2 border-white/20 bg-white/5 text-center hover:border-[#E6007E]/50 transition h-full">
+                  <span className="text-4xl mb-4 block">{benefit.icon}</span>
+                  <h3 className="text-white font-semibold mb-2">{benefit.title}</h3>
+                  <p className="text-white/70 text-sm">{benefit.description}</p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Services — white section */}
+      <div className="bg-white py-16 md:py-24 border-t border-black/10">
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <FadeUp>
+            <h2 className="text-3xl md:text-4xl font-bold text-black mb-4 text-center">
+              Telehealth <span className="text-[#E6007E]">Services</span>
+            </h2>
+            <p className="text-black/70 text-center max-w-2xl mx-auto mb-12">
               Services available via secure video visit with Ryan Kent, FNP-BC
             </p>
-          </div>
-        </FadeUp>
-        
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {telehealthServices.map((service, i) => (
-            <FadeUp key={service.id} delayMs={i * 40}>
-              <div className="p-6 rounded-2xl bg-white border border-black hover:border-[#FF2D8E]/30 transition h-full flex flex-col">
-                <div className="flex items-start gap-4 mb-4">
-                  <span className="text-3xl">{service.icon}</span>
-                  <div>
-                    <h3 className="text-white font-semibold">{service.name}</h3>
-                    <p className="text-black text-sm">{service.duration}</p>
+          </FadeUp>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {telehealthServices.map((service, i) => (
+              <FadeUp key={service.id} delayMs={i * 40}>
+                <div className="p-6 rounded-2xl border-2 border-black/10 bg-white hover:border-[#E6007E]/30 transition h-full flex flex-col shadow-sm">
+                  <div className="flex items-start gap-4 mb-4">
+                    <span className="text-3xl">{service.icon}</span>
+                    <div>
+                      <h3 className="text-black font-semibold">{service.name}</h3>
+                      <p className="text-black/60 text-sm">{service.duration}</p>
+                    </div>
+                  </div>
+                  <p className="text-black/80 text-sm flex-1 mb-4">{service.description}</p>
+                  <div className="flex items-center justify-between mt-auto">
+                    <span className="text-[#E6007E] font-bold">{service.price}</span>
+                    <CTA href={BOOKING_URL} variant="outline" className="!px-4 !py-2 !text-sm">
+                      Book Now
+                    </CTA>
                   </div>
                 </div>
-                <p className="text-black text-sm flex-1 mb-4">{service.description}</p>
-                <div className="flex items-center justify-between mt-auto">
-                  <span className="text-[#FF2D8E] font-bold">{service.price}</span>
-                  <a
-                    href={BOOKING_URL}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 rounded-lg bg-[#FF2D8E]/20 text-[#FF2D8E] text-sm font-medium hover:bg-[#FF2D8E]/30 transition"
-                  >
-                    Book Now
-                  </a>
-                </div>
-              </div>
-            </FadeUp>
-          ))}
-        </div>
-      </Section>
-
-      {/* How It Works */}
-      <Section className="py-16 bg-gradient-to-b from-black to-blue-950/10">
-        <FadeUp>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              How Telehealth Works
-            </h2>
+              </FadeUp>
+            ))}
           </div>
-        </FadeUp>
-        <div className="grid md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-          {[
-            { step: "1", title: "Book Online", desc: "Schedule your telehealth visit through our booking system", icon: "📅" },
-            { step: "2", title: "Get Your Link", desc: "Receive a secure video link via email/text", icon: "📧" },
-            { step: "3", title: "Connect", desc: "Click the link at your appointment time to join", icon: "🖥️" },
-            { step: "4", title: "Get Care", desc: "Meet with Ryan, get your treatment plan & prescriptions", icon: "✅" },
-          ].map((item, i) => (
-            <FadeUp key={item.step} delayMs={i * 60}>
-              <div className="text-center">
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-pink-500 to-blue-500 text-white font-bold text-2xl flex items-center justify-center mx-auto mb-4">
-                  {item.icon}
-                </div>
-                <div className="text-[#FF2D8E] text-sm font-medium mb-1">Step {item.step}</div>
-                <h3 className="text-white font-semibold mb-2">{item.title}</h3>
-                <p className="text-black text-sm">{item.desc}</p>
-              </div>
-            </FadeUp>
-          ))}
         </div>
-      </Section>
+      </div>
 
-      {/* What You'll Need */}
-      <Section className="py-16 bg-black">
-        <FadeUp>
-          <div className="max-w-3xl mx-auto">
-            <div className="p-8 rounded-3xl bg-gradient-to-br from-blue-500/10 to-pink-500/10 border border-blue-500/20">
-              <h2 className="text-2xl font-bold text-white mb-6 text-center">
-                📋 Prepare for Your Visit
+      {/* How it works — black strip */}
+      <div className="bg-black py-16 md:py-24">
+        <div className="max-w-5xl mx-auto px-6 md:px-12">
+          <FadeUp>
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-12 text-center">
+              How Telehealth <span className="text-[#E6007E]">Works</span>
+            </h2>
+          </FadeUp>
+          <div className="grid md:grid-cols-4 gap-8">
+            {[
+              { step: "1", title: "Book Online", desc: "Schedule your telehealth visit through our booking system", icon: "📅" },
+              { step: "2", title: "Get Your Link", desc: "Receive a secure video link via email/text", icon: "📧" },
+              { step: "3", title: "Connect", desc: "Click the link at your appointment time to join", icon: "🖥️" },
+              { step: "4", title: "Get Care", desc: "Meet with Ryan, get your treatment plan & prescriptions", icon: "✅" },
+            ].map((item, i) => (
+              <FadeUp key={item.step} delayMs={i * 60}>
+                <div className="text-center">
+                  <div className="w-14 h-14 rounded-xl bg-[#E6007E] text-white text-2xl flex items-center justify-center mx-auto mb-4">
+                    {item.icon}
+                  </div>
+                  <div className="text-[#E6007E] text-sm font-semibold mb-1">Step {item.step}</div>
+                  <h3 className="text-white font-semibold mb-2">{item.title}</h3>
+                  <p className="text-white/70 text-sm">{item.desc}</p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Prepare for visit — white */}
+      <div className="bg-white py-16 md:py-24 border-t border-black/10">
+        <div className="max-w-4xl mx-auto px-6 md:px-12">
+          <FadeUp>
+            <div className="rounded-2xl border-2 border-black/10 bg-white p-8 md:p-10 shadow-sm">
+              <h2 className="text-2xl font-bold text-black mb-8 text-center">
+                Prepare for Your Visit
               </h2>
-              <div className="grid sm:grid-cols-2 gap-6">
+              <div className="grid sm:grid-cols-2 gap-8">
                 <div>
-                  <h3 className="text-[#FF2D8E] font-semibold mb-3">You&apos;ll Need:</h3>
+                  <h3 className="text-[#E6007E] font-semibold mb-3">You&apos;ll Need:</h3>
                   <ul className="space-y-2">
                     {[
                       "Device with camera & microphone",
@@ -372,14 +346,14 @@ export function TelehealthContent() {
                       "List of current medications",
                     ].map((item) => (
                       <li key={item} className="flex items-center gap-2 text-black text-sm">
-                        <span className="text-[#FF2D8E]">✓</span>
+                        <span className="text-[#E6007E]">✓</span>
                         {item}
                       </li>
                     ))}
                   </ul>
                 </div>
                 <div>
-                  <h3 className="text-blue-400 font-semibold mb-3">Have Ready:</h3>
+                  <h3 className="text-[#E6007E] font-semibold mb-3">Have Ready:</h3>
                   <ul className="space-y-2">
                     {[
                       "Questions for Ryan",
@@ -389,7 +363,7 @@ export function TelehealthContent() {
                       "Payment method",
                     ].map((item) => (
                       <li key={item} className="flex items-center gap-2 text-black text-sm">
-                        <span className="text-blue-400">✓</span>
+                        <span className="text-[#E6007E]">✓</span>
                         {item}
                       </li>
                     ))}
@@ -397,98 +371,89 @@ export function TelehealthContent() {
                 </div>
               </div>
             </div>
-          </div>
-        </FadeUp>
-      </Section>
-
-      {/* FAQs */}
-      <Section className="py-16 bg-gradient-to-b from-black to-pink-950/10">
-        <FadeUp>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white mb-4">
-              Telehealth FAQs
-            </h2>
-          </div>
-        </FadeUp>
-        <div className="max-w-3xl mx-auto space-y-4">
-          {faqs.map((faq, i) => (
-            <FadeUp key={i} delayMs={i * 40}>
-              <button
-                type="button"
-                onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}
-                className="w-full text-left p-4 rounded-xl bg-white border border-black hover:border-[#FF2D8E]/30 transition"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="text-white font-medium pr-4">{faq.q}</span>
-                  <span className="text-black text-xl flex-shrink-0">
-                    {expandedFaq === i ? "−" : "+"}
-                  </span>
-                </div>
-                {expandedFaq === i && (
-                  <p className="mt-3 text-black text-sm">{faq.a}</p>
-                )}
-              </button>
-            </FadeUp>
-          ))}
+          </FadeUp>
         </div>
-      </Section>
+      </div>
 
-      {/* Platform Info */}
-      <Section className="py-12 bg-black border-t border-black">
-        <FadeUp>
-          <div className="text-center max-w-2xl mx-auto">
-            <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-black mb-6">
+      {/* FAQs — white */}
+      <div className="bg-white py-16 md:py-24 border-t border-black/10">
+        <div className="max-w-3xl mx-auto px-6 md:px-12">
+          <FadeUp>
+            <h2 className="text-3xl font-bold text-black mb-8 text-center">
+              Telehealth <span className="text-[#E6007E]">FAQs</span>
+            </h2>
+          </FadeUp>
+          <div className="space-y-4">
+            {faqs.map((faq, i) => (
+              <FadeUp key={i} delayMs={i * 30}>
+                <button
+                  type="button"
+                  onClick={() => setExpandedFaq(expandedFaq === i ? null : i)}
+                  className="w-full text-left p-5 rounded-xl border-2 border-black/10 bg-white hover:border-[#E6007E]/30 transition"
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <span className="text-black font-medium">{faq.q}</span>
+                    <span className="text-[#E6007E] text-xl flex-shrink-0">
+                      {expandedFaq === i ? "−" : "+"}
+                    </span>
+                  </div>
+                  {expandedFaq === i && (
+                    <p className="mt-3 text-black/70 text-sm">{faq.a}</p>
+                  )}
+                </button>
+              </FadeUp>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Platform — black strip */}
+      <div className="bg-black py-12 md:py-16">
+        <div className="max-w-2xl mx-auto px-6 md:px-12 text-center">
+          <FadeUp>
+            <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/10 border border-white/20 mb-6">
               <span className="text-2xl">🔒</span>
               <span className="text-white font-semibold">Powered by Doxy.me</span>
             </div>
-            <p className="text-black text-sm mb-6">
-              We use Doxy.me, a HIPAA-compliant telemedicine platform trusted by over 1 million 
-              healthcare providers. Your visit is encrypted end-to-end, ensuring complete privacy 
-              and security. No downloads required—just click your link and connect.
+            <p className="text-white/70 text-sm mb-6">
+              We use Doxy.me, a HIPAA-compliant telemedicine platform trusted by over 1 million healthcare providers. Your visit is encrypted end-to-end, ensuring complete privacy and security. No downloads required—just click your link and connect.
             </p>
             <a
               href={DOXY_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#FF2D8E]/20 border border-[#FF2D8E]/30 text-[#FF2D8E] font-medium hover:bg-[#FF2D8E]/30 transition"
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-[#E6007E] text-[#E6007E] font-semibold hover:bg-[#E6007E] hover:text-white transition-colors"
             >
-              <span>🖥️</span>
-              Join Ryan&apos;s Waiting Room →
+              Join Ryan&apos;s Waiting Room
             </a>
-          </div>
-        </FadeUp>
-      </Section>
+          </FadeUp>
+        </div>
+      </div>
 
-      {/* CTA */}
-      <Section className="py-16 bg-gradient-to-b from-black to-pink-950/20">
-        <FadeUp>
-          <div className="max-w-2xl mx-auto text-center">
+      {/* CTA — black */}
+      <div className="bg-black py-16 md:py-24">
+        <div className="max-w-2xl mx-auto px-6 md:px-12 text-center">
+          <FadeUp>
             <h2 className="text-3xl font-bold text-white mb-4">
               Ready for Your Virtual Visit?
             </h2>
-            <p className="text-black mb-6">
-              Book your telehealth appointment with Ryan Kent, FNP-BC today.
-              Same-day appointments often available.
+            <p className="text-white/80 mb-8">
+              Book your telehealth appointment with Ryan Kent, FNP-BC today. Same-day appointments often available.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href={BOOKING_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-8 py-4 rounded-xl bg-gradient-to-r from-pink-500 to-blue-500 text-white font-bold hover:opacity-90 transition"
-              >
-                Book Telehealth Visit →
-              </a>
+              <CTA href={BOOKING_URL} variant="gradient" className="inline-flex">
+                Book Telehealth Visit
+              </CTA>
               <a
                 href="tel:630-636-6193"
-                className="px-8 py-4 rounded-xl bg-white border border-black text-white font-medium hover:bg-white transition"
+                className="inline-flex items-center justify-center px-8 py-4 rounded-lg border-2 border-white text-white font-semibold hover:bg-white hover:text-black transition-colors"
               >
-                📞 630-636-6193
+                630-636-6193
               </a>
             </div>
-          </div>
-        </FadeUp>
-      </Section>
-    </>
+          </FadeUp>
+        </div>
+      </div>
+    </div>
   );
 }
