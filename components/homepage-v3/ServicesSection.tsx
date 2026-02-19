@@ -18,15 +18,25 @@ const services = [
       "Advanced treatments that restore, resurface, and revitalize your skin from the cellular level.",
     link: "/services/microneedling",
     items: ["Microneedling", "Chemical Peels", "Laser Treatments", "PRP Facials"],
-    image: "/images/services/hg-microneedling.png",
+    image: "/images/services/hg-prp-gold-tubes.png",
   },
   {
-    title: "Wellness & Optimization",
+    title: "Medical Weight Loss",
     description:
-      "Comprehensive wellness solutions designed to enhance energy, balance hormones, and optimize health.",
-    link: "/rx",
-    items: ["Hormone Therapy", "Weight Loss", "IV Therapy", "Peptides"],
-    image: "/images/services/hg-wellness-vials.png",
+      "Physician-supervised GLP-1 therapies including Semaglutide and Tirzepatide for lasting results.",
+    link: "/rx/metabolic",
+    items: ["Semaglutide", "Tirzepatide", "B12 Injections", "Lipo-C"],
+    image: "/images/services/hg-glp1-weight-loss-rx.png",
+    badge: "RX",
+  },
+  {
+    title: "Hormone Optimization",
+    description:
+      "Bio-identical hormone therapy for men and women. Restore balance, energy, and vitality.",
+    link: "/rx/hormones",
+    items: ["TRT for Men", "HRT for Women", "BioTE Pellets", "Thyroid Support"],
+    image: "/images/services/hg-hormone-rx-collection.png",
+    badge: "RX",
   },
 ];
 
@@ -45,14 +55,14 @@ export function ServicesSection() {
         </div>
 
         {/* Service Cards */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service) => (
             <div
               key={service.title}
               className="group bg-white border border-black rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300"
             >
               {/* Service Image */}
-              <div className="relative h-48 overflow-hidden">
+              <div className="relative h-44 overflow-hidden">
                 <Image
                   src={service.image}
                   alt={service.title}
@@ -60,15 +70,20 @@ export function ServicesSection() {
                   className="object-cover group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
+                {service.badge && (
+                  <span className="absolute top-3 right-3 px-2 py-1 bg-[#E6007E] text-white text-xs font-bold rounded">
+                    {service.badge}
+                  </span>
+                )}
               </div>
-              <div className="p-8">
-                <h3 className="text-2xl font-semibold text-black mb-4">
+              <div className="p-6">
+                <h3 className="text-xl font-semibold text-black mb-3">
                   {service.title}
                 </h3>
-                <p className="text-black/70 mb-6 leading-relaxed">
+                <p className="text-black/70 text-sm mb-4 leading-relaxed">
                   {service.description}
                 </p>
-                <ul className="space-y-2 mb-8">
+                <ul className="space-y-1.5 mb-6">
                   {service.items.map((item) => (
                     <li key={item} className="text-black text-sm flex items-center gap-2">
                       <span className="w-1.5 h-1.5 bg-[#E6007E] rounded-full" />
@@ -78,7 +93,7 @@ export function ServicesSection() {
                 </ul>
                 <Link
                   href={service.link}
-                  className="inline-flex items-center text-black font-semibold group-hover:text-[#E6007E] transition-colors"
+                  className="inline-flex items-center text-black font-semibold text-sm group-hover:text-[#E6007E] transition-colors"
                 >
                   <span className="relative">
                     Learn More

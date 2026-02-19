@@ -3,6 +3,7 @@ export { TrustStrip } from "./TrustStrip";
 export { InjectablesConversion } from "./InjectablesConversion";
 export { ServicesSection } from "./ServicesSection";
 export { ExperienceSection } from "./ExperienceSection";
+export { RxShowcaseSection } from "./RxShowcaseSection";
 export { InnovationSection } from "./InnovationSection";
 export { AIAssistantsSection } from "./AIAssistantsSection";
 export { PhilosophySection } from "./PhilosophySection";

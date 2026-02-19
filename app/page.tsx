@@ -5,6 +5,7 @@ import {
   InjectablesConversion,
   ServicesSection,
   ExperienceSection,
+  RxShowcaseSection,
   InnovationSection,
   AIAssistantsSection,
   PhilosophySection,
@@ -40,6 +41,7 @@ export default function HomePage() {
         <TrustStrip />
         <InjectablesConversion />
         <ServicesSection />
+        <RxShowcaseSection />
         <ExperienceSection />
         <InnovationSection />
         <AIAssistantsSection />
