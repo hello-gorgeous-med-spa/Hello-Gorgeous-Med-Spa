@@ -429,6 +429,22 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             </FadeUp>
           ))}
         </div>
+
+        {/* Lip Flip Benefits Image - Botox only */}
+        {serviceSlug === "botox-dysport-jeuveau" && (
+          <FadeUp delayMs={200}>
+            <div className="mt-12 relative w-full rounded-2xl overflow-hidden border-2 border-black">
+              <Image
+                src="/images/botox-lip-flip-benefits.png"
+                alt="Benefits of Lip Flip with Botox - Symmetry, confidence, subtle enhancement, minimal downtime, personalized approach"
+                width={1200}
+                height={600}
+                className="w-full h-auto object-contain"
+                sizes="100vw"
+              />
+            </div>
+          </FadeUp>
+        )}
       </Section>
 
       {/* What It Is / Who It's For / What to Expect */}
