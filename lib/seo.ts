@@ -1177,3 +1177,183 @@ export function testimonialsJsonLd(
     reviewBody: t.text,
   }));
 }
+
+// ============================================
+// IMAGE SEO SCHEMAS
+// ============================================
+
+export type ServiceImage = {
+  src: string;
+  alt: string;
+  title: string;
+  service?: string;
+  category?: "injectables" | "wellness" | "aesthetics" | "rx" | "regenerative";
+};
+
+/** ImageObject schema for individual images - helps Google Images understand and rank your images */
+export function imageObjectJsonLd(image: ServiceImage) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ImageObject",
+    contentUrl: `${SITE.url}${image.src}`,
+    url: `${SITE.url}${image.src}`,
+    name: image.title,
+    description: image.alt,
+    caption: image.alt,
+    creditText: SITE.name,
+    creator: {
+      "@type": "Organization",
+      name: SITE.name,
+    },
+    copyrightHolder: {
+      "@type": "Organization",
+      name: SITE.name,
+    },
+    acquireLicensePage: `${SITE.url}/contact`,
+    license: `${SITE.url}/terms`,
+  };
+}
+
+/** ImageGallery schema for collections of service images */
+export function imageGalleryJsonLd(images: ServiceImage[], galleryName: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ImageGallery",
+    name: galleryName,
+    description: `${galleryName} at ${SITE.name} - Professional medical aesthetics in Oswego, IL`,
+    provider: {
+      "@type": "MedicalBusiness",
+      name: SITE.name,
+      "@id": `${SITE.url}/#organization`,
+    },
+    image: images.map((img) => ({
+      "@type": "ImageObject",
+      contentUrl: `${SITE.url}${img.src}`,
+      name: img.title,
+      description: img.alt,
+    })),
+  };
+}
+
+/** Before/After image pair schema for treatment results */
+export function beforeAfterImageJsonLd(
+  beforeSrc: string,
+  afterSrc: string,
+  treatment: string,
+  caption?: string
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalEntity",
+    name: `${treatment} Before and After Results`,
+    description: caption || `${treatment} results at ${SITE.name}`,
+    image: [
+      {
+        "@type": "ImageObject",
+        name: `${treatment} - Before Treatment`,
+        contentUrl: `${SITE.url}${beforeSrc}`,
+      },
+      {
+        "@type": "ImageObject",
+        name: `${treatment} - After Treatment`,
+        contentUrl: `${SITE.url}${afterSrc}`,
+      },
+    ],
+    provider: {
+      "@type": "MedicalBusiness",
+      name: SITE.name,
+    },
+  };
+}
+
+/** WebPage schema with image for key landing pages */
+export function webPageJsonLd(page: {
+  title: string;
+  description: string;
+  path: string;
+  image?: string;
+  datePublished?: string;
+  dateModified?: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${SITE.url}${page.path}#webpage`,
+    url: `${SITE.url}${page.path}`,
+    name: page.title,
+    description: page.description,
+    isPartOf: { "@id": `${SITE.url}/#website` },
+    about: { "@id": `${SITE.url}/#organization` },
+    ...(page.image && {
+      primaryImageOfPage: {
+        "@type": "ImageObject",
+        contentUrl: `${SITE.url}${page.image}`,
+      },
+    }),
+    ...(page.datePublished && { datePublished: page.datePublished }),
+    ...(page.dateModified && { dateModified: page.dateModified }),
+    inLanguage: "en-US",
+    potentialAction: {
+      "@type": "ReadAction",
+      target: `${SITE.url}${page.path}`,
+    },
+  };
+}
+
+// ============================================
+// SERVICE IMAGE CATALOG (for sitemap & schema)
+// ============================================
+
+export const SERVICE_IMAGES: ServiceImage[] = [
+  // Injectables
+  { src: "/images/services/hg-botox-syringes.png", alt: "Botox syringes and vials at Hello Gorgeous Med Spa Oswego IL", title: "Botox Treatment", service: "Botox", category: "injectables" },
+  { src: "/images/services/hg-botox-vials.png", alt: "Medical-grade Botox vials for wrinkle treatment at Hello Gorgeous Med Spa", title: "Botox Vials", service: "Botox", category: "injectables" },
+  { src: "/images/services/hg-botox-flatlay.png", alt: "Botox treatment flatlay with branded Hello Gorgeous aesthetic supplies", title: "Botox Flatlay", service: "Botox", category: "injectables" },
+  { src: "/images/services/hg-lip-hero.png", alt: "Natural-looking lip filler results with Botox lip flip at Hello Gorgeous Med Spa", title: "Lip Enhancement Hero", service: "Lip Filler", category: "injectables" },
+  { src: "/images/services/hg-lips-filler.png", alt: "Dermal filler lip enhancement treatment at Hello Gorgeous Med Spa Oswego", title: "Lip Filler Treatment", service: "Lip Filler", category: "injectables" },
+  { src: "/images/services/hg-perfect-lips.png", alt: "Perfect natural lip enhancement results at Hello Gorgeous Med Spa", title: "Perfect Lips", service: "Lip Filler", category: "injectables" },
+  { src: "/images/services/hg-dermal-fillers.png", alt: "Dermal filler syringes for facial volume restoration at Hello Gorgeous Med Spa", title: "Dermal Fillers", service: "Dermal Fillers", category: "injectables" },
+  { src: "/images/services/hg-lip-filler.png", alt: "Lip filler injection treatment at Hello Gorgeous Med Spa Oswego IL", title: "Lip Filler Injection", service: "Lip Filler", category: "injectables" },
+  
+  // Weight Loss & RX
+  { src: "/images/services/hg-weight-loss.png", alt: "Medical weight loss treatment with GLP-1 at Hello Gorgeous Med Spa", title: "Medical Weight Loss", service: "Weight Loss", category: "rx" },
+  { src: "/images/services/hg-semaglutide-pen.png", alt: "Semaglutide injection pen for weight loss at Hello Gorgeous Med Spa Oswego", title: "Semaglutide Pen", service: "Semaglutide", category: "rx" },
+  { src: "/images/services/hg-glp1-weight-loss-rx.png", alt: "GLP-1 weight loss prescription therapy at Hello Gorgeous Med Spa", title: "GLP-1 Weight Loss RX", service: "Weight Loss", category: "rx" },
+  { src: "/images/services/hg-hormone-rx-collection.png", alt: "Hormone replacement therapy prescriptions at Hello Gorgeous Med Spa", title: "Hormone RX Collection", service: "Hormone Therapy", category: "rx" },
+  { src: "/images/services/hg-peptides-rx.png", alt: "Peptide therapy BPC-157 Sermorelin at Hello Gorgeous Med Spa Oswego", title: "Peptides RX", service: "Peptide Therapy", category: "rx" },
+  { src: "/images/services/hg-sexual-wellness-rx.png", alt: "Sexual wellness prescriptions for men and women at Hello Gorgeous Med Spa", title: "Sexual Wellness RX", service: "Sexual Wellness", category: "rx" },
+  { src: "/images/services/hg-prescription-skincare.png", alt: "Prescription-grade skincare tretinoin hydroquinone at Hello Gorgeous Med Spa", title: "Prescription Skincare", service: "RX Skincare", category: "rx" },
+  { src: "/images/services/hg-full-rx-authority.png", alt: "Full prescriptive authority Ryan Kent FNP-BC at Hello Gorgeous Med Spa", title: "Full RX Authority", service: "Telehealth", category: "rx" },
+  
+  // Aesthetics & Skin
+  { src: "/images/services/hg-microneedling.png", alt: "RF Microneedling treatment for skin rejuvenation at Hello Gorgeous Med Spa", title: "Microneedling", service: "Microneedling", category: "aesthetics" },
+  { src: "/images/services/hg-microneedling-device.png", alt: "Professional microneedling device at Hello Gorgeous Med Spa Oswego", title: "Microneedling Device", service: "Microneedling", category: "aesthetics" },
+  { src: "/images/services/hg-chemical-peel.png", alt: "Chemical peel treatment for glowing skin at Hello Gorgeous Med Spa", title: "Chemical Peel", service: "Chemical Peel", category: "aesthetics" },
+  { src: "/images/services/hg-hydrafacial.png", alt: "HydraFacial treatment for deep cleansing at Hello Gorgeous Med Spa", title: "HydraFacial", service: "HydraFacial", category: "aesthetics" },
+  { src: "/images/services/hg-hydrafacial-serums.png", alt: "HydraFacial serums and boosters at Hello Gorgeous Med Spa Oswego", title: "HydraFacial Serums", service: "HydraFacial", category: "aesthetics" },
+  { src: "/images/services/hg-laser-device.png", alt: "Laser treatment device for hair removal and skin at Hello Gorgeous Med Spa", title: "Laser Device", service: "Laser Hair Removal", category: "aesthetics" },
+  { src: "/images/services/hg-skincare-collection.png", alt: "Medical-grade skincare collection at Hello Gorgeous Med Spa Oswego", title: "Skincare Collection", service: "Skincare", category: "aesthetics" },
+  
+  // Regenerative
+  { src: "/images/services/hg-prp-prf.png", alt: "PRP PRF regenerative treatment at Hello Gorgeous Med Spa Oswego IL", title: "PRP PRF Treatment", service: "PRP/PRF", category: "regenerative" },
+  { src: "/images/services/hg-prp-gold-tubes.png", alt: "PRP gold tubes for platelet-rich plasma therapy at Hello Gorgeous Med Spa", title: "PRP Gold Tubes", service: "PRP", category: "regenerative" },
+  { src: "/images/services/hg-biote-pellets.png", alt: "BioTE hormone pellet therapy at Hello Gorgeous Med Spa Oswego", title: "BioTE Pellets", service: "Hormone Therapy", category: "wellness" },
+  { src: "/images/services/hg-iv-drip-vitamins.png", alt: "IV vitamin drip therapy for wellness at Hello Gorgeous Med Spa", title: "IV Vitamin Drip", service: "IV Therapy", category: "wellness" },
+  
+  // Brand & Experience
+  { src: "/images/services/hg-consultation-setup.png", alt: "Consultation experience at Hello Gorgeous Med Spa Oswego IL", title: "Consultation Setup", category: "aesthetics" },
+  { src: "/images/services/hg-vip-membership-card.png", alt: "VIP membership card for Hello Gorgeous Med Spa exclusive benefits", title: "VIP Membership", category: "aesthetics" },
+  { src: "/images/services/hg-gift-card-box.png", alt: "Gift card box for Hello Gorgeous Med Spa treatments", title: "Gift Card", category: "aesthetics" },
+];
+
+/** Get images by category for targeted schema injection */
+export function getImagesByCategory(category: ServiceImage["category"]) {
+  return SERVICE_IMAGES.filter((img) => img.category === category);
+}
+
+/** Get images by service name for service page schema */
+export function getImagesByService(service: string) {
+  return SERVICE_IMAGES.filter(
+    (img) => img.service?.toLowerCase() === service.toLowerCase()
+  );
+}

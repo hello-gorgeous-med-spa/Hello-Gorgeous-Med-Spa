@@ -6,7 +6,7 @@ import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { BOOKING_URL } from "@/lib/flows";
-import { SERVICES, faqJsonLd, pageMetadata, siteJsonLd } from "@/lib/seo";
+import { SERVICES, SITE, faqJsonLd, pageMetadata, serviceJsonLd, siteJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 
 const napervilleServiceSlugs = [
   "botox-dysport-jeuveau",
@@ -70,17 +70,29 @@ export default function NapervilleServicePage({ params }: { params: { service: s
   const s = SERVICES.find((x) => x.slug === params.service);
   if (!s) notFound();
 
+  const breadcrumbs = [
+    { name: "Home", url: SITE.url },
+    { name: "Naperville, IL", url: `${SITE.url}/naperville-il` },
+    { name: s.name, url: `${SITE.url}/naperville-il/${s.slug}` },
+  ];
+
   return (
     <>
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
       />
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd(s)) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(napervilleFaqs(s.name))) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbs)) }}
       />
 
       <Section className="relative">
@@ -231,4 +243,3 @@ export default function NapervilleServicePage({ params }: { params: { service: s
     </>
   );
 }
-

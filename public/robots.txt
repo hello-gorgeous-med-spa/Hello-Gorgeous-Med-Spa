@@ -8,3 +8,4 @@ Disallow: /portal/
 Disallow: /private/
 
 Sitemap: https://www.hellogorgeousmedspa.com/sitemap.xml
+Sitemap: https://www.hellogorgeousmedspa.com/image-sitemap.xml

@@ -6,7 +6,7 @@ import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { BOOKING_URL } from "@/lib/flows";
-import { SERVICES, faqJsonLd, pageMetadata, siteJsonLd } from "@/lib/seo";
+import { SERVICES, SITE, faqJsonLd, pageMetadata, serviceJsonLd, siteJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 
 const plainfieldServiceSlugs = [
   "botox-dysport-jeuveau",
@@ -70,17 +70,29 @@ export default function PlainfieldServicePage({ params }: { params: { service: s
   const s = SERVICES.find((x) => x.slug === params.service);
   if (!s) notFound();
 
+  const breadcrumbs = [
+    { name: "Home", url: SITE.url },
+    { name: "Plainfield, IL", url: `${SITE.url}/plainfield-il` },
+    { name: s.name, url: `${SITE.url}/plainfield-il/${s.slug}` },
+  ];
+
   return (
     <>
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
       />
       <script
         type="application/ld+json"
-        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceJsonLd(s)) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(plainfieldFaqs(s.name))) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbs)) }}
       />
 
       <Section className="relative">
@@ -122,7 +134,7 @@ export default function PlainfieldServicePage({ params }: { params: { service: s
           <div className="lg:col-span-7">
             <FadeUp>
               <h2 className="text-3xl md:text-4xl font-bold text-white">
-                Local clarity, premium experience
+                Built for local search — designed for confidence
               </h2>
               <p className="mt-4 text-black max-w-2xl">
                 This page helps Plainfield clients understand next steps. For full details and FAQs,
@@ -231,4 +243,3 @@ export default function PlainfieldServicePage({ params }: { params: { service: s
     </>
   );
 }
-
