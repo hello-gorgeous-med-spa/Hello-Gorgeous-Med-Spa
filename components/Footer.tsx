@@ -114,11 +114,6 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 </Link>
               </li>
               <li>
-                <Link className="hover:text-[#FF2D8E] transition-colors" href="/care-and-support">
-                  Care & Support
-                </Link>
-              </li>
-              <li>
                 <Link className="hover:text-[#FF2D8E] transition-colors" href="/membership">
                   VIP Membership
                 </Link>

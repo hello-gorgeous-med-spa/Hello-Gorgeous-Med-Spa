@@ -46,6 +46,7 @@ const nextConfig = {
     { source: "/specials", destination: "/free-vitamin", permanent: true },
     { source: "/your-care-team", destination: "/providers", permanent: true },
     { source: "/meet-the-team", destination: "/providers", permanent: true },
+    { source: "/care-and-support", destination: "/pre-post-care", permanent: true },
     // GoDaddy legacy URLs (hellogorgeousmedspa.com)
     { source: "/home", destination: "/", permanent: true },
     { source: "/about-1", destination: "/about", permanent: true },

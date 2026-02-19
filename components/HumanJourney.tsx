@@ -20,7 +20,6 @@ const JOURNEY_LINKS = [
   { href: "/conditions", label: "Conditions We Treat", icon: "✨" },
   { href: "/explore-care", label: "Explore Care Options", icon: "🔍" },
   { href: "/understand-your-body", label: "Understand Your Body", icon: "📚" },
-  { href: "/care-and-support", label: "Care & Support", icon: "💝" },
   { href: "/telehealth", label: "Telehealth", icon: "🖥️" },
   { href: "/lip-studio", label: "Lip Enhancement Studio", icon: "✨" },
   { href: "/botox-calculator", label: "Botox Calculator", icon: "💉" },

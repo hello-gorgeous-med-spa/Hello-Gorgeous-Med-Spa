@@ -39,7 +39,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE.url}/explore-care`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE.url}/your-journey`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE.url}/understand-your-body`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
-    { url: `${SITE.url}/care-and-support`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     { url: `${SITE.url}/clinical-partners`, lastModified: now, changeFrequency: "monthly", priority: 0.5 },
     { url: `${SITE.url}/pharmacy-partner`, lastModified: now, changeFrequency: "monthly", priority: 0.6 },
     

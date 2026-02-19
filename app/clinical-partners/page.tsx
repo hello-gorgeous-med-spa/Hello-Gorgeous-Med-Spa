@@ -166,7 +166,7 @@ export default function ClinicalPartnersPage() {
                     { href: "/pharmacy-partner", label: "Our Pharmacy Partner" },
                     { href: "/services/iv-therapy", label: "IV therapy education" },
                     { href: "/peptides", label: "Peptide education" },
-                    { href: "/care-and-support", label: "Care & Support" },
+                    { href: "/pre-post-care", label: "Pre- & post-care" },
                   ],
                 },
               ].map((c, idx) => (

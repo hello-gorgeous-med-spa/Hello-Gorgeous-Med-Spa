@@ -91,7 +91,6 @@ const navigation = {
       { label: "Explore Care Options", href: "/explore-care", description: "Discover treatments for you", icon: "🔍" },
       { label: "Your Treatment Journey", href: "/your-journey", description: "What to expect", icon: "🗺️" },
       { label: "Understand Your Body", href: "/understand-your-body", description: "Learn about aging & skin", icon: "📚" },
-      { label: "Care & Support", href: "/care-and-support", description: "Resources & aftercare", icon: "💝" },
       { label: "Telehealth", href: "/telehealth", description: "Virtual consultations", icon: "🖥️" },
       { label: "Lip Enhancement Studio", href: "/lip-studio", description: "Visualize your perfect look", icon: "✨" },
       { label: "Botox Calculator", href: "/botox-calculator", description: "Estimate units for your areas", icon: "💉" },
