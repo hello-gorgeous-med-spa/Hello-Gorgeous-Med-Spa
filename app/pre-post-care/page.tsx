@@ -60,16 +60,22 @@ const careGuides = [
     viewOnline: "/pre-post-care/chemical-peel",
     serviceLink: "/services/chemical-peels",
     icon: "🧪",
-    comingSoon: true,
   },
   {
-    id: "hydrafacial",
-    title: "HydraFacial",
-    description: "Care guide for HydraFacial treatments.",
-    viewOnline: "/pre-post-care/hydrafacial",
-    serviceLink: "/services/hydra-facial",
+    id: "iv-therapy",
+    title: "IV Therapy",
+    description: "Wellness drips and vitamin injection care guide.",
+    viewOnline: "/pre-post-care/iv-therapy",
+    serviceLink: "/services/iv-therapy",
     icon: "💧",
-    comingSoon: true,
+  },
+  {
+    id: "hormone-therapy",
+    title: "Hormone Therapy",
+    description: "Hormone optimization and replacement therapy care guide.",
+    viewOnline: "/pre-post-care/hormone-therapy",
+    serviceLink: "/services/biote-hormone-therapy",
+    icon: "⚖️",
   },
   {
     id: "weight-loss",
@@ -112,12 +118,7 @@ export default function PrePostCarePage() {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {careGuides.map((guide, idx) => (
             <FadeUp key={guide.id} delayMs={40 * idx}>
-              <div className="h-full p-6 rounded-2xl border-2 border-black bg-white hover:border-[#FF2D8E] transition-all group relative">
-                {guide.comingSoon && (
-                  <span className="absolute top-4 right-4 px-2 py-1 text-xs font-bold bg-black/10 text-black/60 rounded">
-                    Coming Soon
-                  </span>
-                )}
+              <div className="h-full p-6 rounded-2xl border-2 border-black bg-white hover:border-[#FF2D8E] transition-all group">
                 <div className="flex items-start gap-4">
                   <span className="text-3xl">{guide.icon}</span>
                   <div className="flex-1">
@@ -131,24 +132,15 @@ export default function PrePostCarePage() {
                 </div>
                 
                 <div className="mt-6 flex flex-col gap-3">
-                  {guide.comingSoon ? (
-                    <span className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-black/20 text-black/50 font-semibold cursor-not-allowed">
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                      </svg>
-                      View & Download
-                    </span>
-                  ) : (
-                    <Link
-                      href={guide.viewOnline}
-                      className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-black text-white font-semibold hover:bg-[#FF2D8E] transition-colors"
-                    >
-                      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                      </svg>
-                      View & Download
-                    </Link>
-                  )}
+                  <Link
+                    href={guide.viewOnline}
+                    className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl bg-black text-white font-semibold hover:bg-[#FF2D8E] transition-colors"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    View & Download
+                  </Link>
                   <Link
                     href={guide.serviceLink}
                     className="flex items-center justify-center gap-2 w-full px-4 py-3 rounded-xl border-2 border-black text-black font-semibold hover:border-[#FF2D8E] hover:text-[#FF2D8E] transition-colors"
