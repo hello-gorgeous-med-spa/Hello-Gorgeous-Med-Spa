@@ -7,13 +7,13 @@ import { BOOKING_URL } from "@/lib/flows";
 export function ExperienceSection() {
   return (
     <section className="bg-white">
-      {/* First Split - Image Left */}
+      {/* First Split - Consultation Image Left */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-24">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-          <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl">
             <Image
-              src="/images/gallery/treatment-1.png"
-              alt="Precision aesthetic treatment at Hello Gorgeous"
+              src="/images/services/hg-consultation-setup.png"
+              alt="Hello Gorgeous consultation experience with iPad and branded materials"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"
@@ -59,7 +59,7 @@ export function ExperienceSection() {
         </div>
       </div>
 
-      {/* Second Split - Image Right */}
+      {/* Second Split - VIP Card Right */}
       <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 border-t border-black/10">
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
           <div className="order-2 md:order-1">
@@ -100,10 +100,10 @@ export function ExperienceSection() {
               </svg>
             </Link>
           </div>
-          <div className="relative aspect-[4/5] rounded-2xl overflow-hidden order-1 md:order-2">
+          <div className="relative aspect-[4/3] rounded-2xl overflow-hidden order-1 md:order-2 shadow-2xl">
             <Image
-              src="/images/gallery/treatment-2.png"
-              alt="Personalized aesthetic journey at Hello Gorgeous"
+              src="/images/services/hg-vip-membership-card.png"
+              alt="Hello Gorgeous VIP membership card with rose petals"
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 50vw"

@@ -121,7 +121,7 @@ export default function RxPage() {
             </div>
             <div className="hidden lg:block">
               <Image
-                src="/images/rx/rx-vials-hero.png"
+                src="/images/rx/hg-ryan-kent-rx-authority.png"
                 alt="Hello Gorgeous RX prescription vials and medications"
                 width={600}
                 height={400}
