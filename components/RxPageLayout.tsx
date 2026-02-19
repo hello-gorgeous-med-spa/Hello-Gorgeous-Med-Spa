@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
+import { RxContactForm, RxCTASection } from "@/components/RxContactForm";
 
 interface RxPageLayoutProps {
   title: string;
@@ -61,25 +62,84 @@ export function RxPageLayout({ title, subtitle, description, icon, heroImage, ch
       {/* Content */}
       {children}
 
-      {/* Telehealth CTA */}
-      <Section className="bg-black text-white">
+      {/* CTA Options Section */}
+      <Section className="bg-gradient-to-b from-white to-pink-50/50">
         <FadeUp>
-          <div className="text-center max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold mb-4">
+          <div className="text-center mb-10">
+            <h2 className="text-3xl font-bold text-black mb-4">
               Ready to <span className="text-[#E6007E]">Get Started?</span>
             </h2>
-            <p className="text-white/70 mb-8">
-              Schedule your virtual evaluation with our medical team. Telehealth consultations available for qualified Illinois patients.
+            <p className="text-black/70 max-w-2xl mx-auto">
+              Choose how you&apos;d like to begin your medical optimization journey. All services require a consultation with our medical team.
             </p>
-            <CTA href="/rx/membership" variant="gradient" className="px-10 py-4 text-lg">
-              Schedule Virtual Evaluation
-            </CTA>
+          </div>
+          <RxCTASection />
+        </FadeUp>
+      </Section>
+
+      {/* Contact Form Section */}
+      <Section className="bg-white">
+        <FadeUp>
+          <div className="max-w-4xl mx-auto">
+            <div className="grid lg:grid-cols-2 gap-12 items-start">
+              <div>
+                <h2 className="text-3xl font-bold text-black mb-4">
+                  Have <span className="text-[#E6007E]">Questions?</span>
+                </h2>
+                <p className="text-black/70 mb-6">
+                  Submit an inquiry and our medical team will review your information and contact you within 24-48 hours to discuss your options.
+                </p>
+                <div className="space-y-4 mb-8">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-[#E6007E]/10 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-[#E6007E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-black">No commitment required</p>
+                      <p className="text-sm text-black/60">Just an inquiry to learn more about your options</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-[#E6007E]/10 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-[#E6007E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-black">Confidential & HIPAA compliant</p>
+                      <p className="text-sm text-black/60">Your information is protected</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-[#E6007E]/10 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-4 h-4 text-[#E6007E]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="font-semibold text-black">Illinois residents only</p>
+                      <p className="text-sm text-black/60">We can only serve patients in Illinois</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="p-4 rounded-xl bg-black text-white">
+                  <p className="font-semibold mb-1">Prefer to call?</p>
+                  <a href="tel:6306366193" className="text-[#E6007E] text-xl font-bold hover:underline">(630) 636-6193</a>
+                </div>
+              </div>
+              <div className="bg-pink-50/50 rounded-2xl p-6 border border-[#E6007E]/20">
+                <h3 className="text-xl font-bold text-black mb-4">Submit an Inquiry</h3>
+                <RxContactForm />
+              </div>
+            </div>
           </div>
         </FadeUp>
       </Section>
 
       {/* Legal Footer */}
-      <Section className="bg-gradient-to-b from-black to-black/95 text-white/60 py-8">
+      <Section className="bg-black text-white/60 py-8">
         <div className="max-w-4xl mx-auto text-center text-xs space-y-2">
           <p>Prescription products are available only to qualified patients following medical evaluation.</p>
           <p>Individual results vary. Not all patients are candidates. Illinois residents only.</p>
