@@ -1317,6 +1317,158 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         </Section>
       )}
 
+      {/* Laser Hair Removal - Zemits Duocratis */}
+      {s.slug === "laser-hair-removal" && (
+        <Section className="bg-gradient-to-b from-[#F8E6ED] via-white to-[#F8E6ED]/30">
+          <FadeUp>
+            <div className="text-center mb-12">
+              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-4">
+                <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Advanced Technology</span>
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
+                Permanent Confidence Starts Here
+              </h2>
+              <p className="mt-4 text-black/80 max-w-2xl mx-auto">
+                Say goodbye to razor burn, ingrown hairs, and constant shaving. Our Zemits Duocratis Professional Laser delivers powerful, precise, and safe hair reduction for all skin types.
+              </p>
+            </div>
+          </FadeUp>
+
+          {/* Hero Device Image */}
+          <FadeUp delayMs={60}>
+            <div className="mb-12 rounded-2xl overflow-hidden border-2 border-black shadow-xl">
+              <Image
+                src="/images/laser/zemits-duocratis-hero.png"
+                alt="Zemits Duocratis laser hair removal device at Hello Gorgeous Med Spa Oswego IL - Experience cutting-edge laser hair removal"
+                width={1200}
+                height={675}
+                className="w-full h-auto object-cover"
+                sizes="100vw"
+                priority
+              />
+            </div>
+          </FadeUp>
+
+          {/* Benefits Grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            {[
+              { icon: "⚡", title: "Fast & Effective", desc: "Large treatment areas covered quickly with professional-grade power" },
+              { icon: "🎯", title: "All Skin Types", desc: "Safe for light to dark skin tones with adjustable settings" },
+              { icon: "❄️", title: "Built-in Cooling", desc: "Comfortable treatment with integrated skin cooling technology" },
+              { icon: "✨", title: "Long-lasting Results", desc: "Permanent hair reduction after a series of treatments" },
+            ].map((b, idx) => (
+              <FadeUp key={b.title} delayMs={80 + idx * 40}>
+                <div className="p-6 rounded-2xl bg-white border-2 border-black hover:border-[#FF2D8E] transition-all">
+                  <span className="text-3xl mb-3 block">{b.icon}</span>
+                  <h3 className="text-lg font-bold text-[#FF2D8E] mb-2">{b.title}</h3>
+                  <p className="text-black/80 text-sm">{b.desc}</p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+
+          {/* Before/After Results */}
+          <FadeUp delayMs={200}>
+            <div className="mb-12">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold text-[#FF2D8E]">Real Results</h3>
+                <p className="text-black/80 text-sm mt-2">Multiple treatment areas, lasting hair reduction</p>
+              </div>
+              <div className="rounded-2xl overflow-hidden border-2 border-black shadow-lg">
+                <Image
+                  src="/images/laser/laser-hair-removal-results.png"
+                  alt="Laser hair removal before and after results - underarms, bikini, chin, facial hair at Hello Gorgeous Med Spa"
+                  width={1200}
+                  height={800}
+                  className="w-full h-auto object-contain"
+                  sizes="100vw"
+                />
+              </div>
+              <p className="text-center text-black/60 text-xs mt-4">
+                Results vary by individual. Multiple sessions recommended for optimal results.
+              </p>
+            </div>
+          </FadeUp>
+
+          {/* Treatable Areas */}
+          <FadeUp delayMs={240}>
+            <div className="max-w-4xl mx-auto">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-[#FF2D8E]">Treatable Areas</h3>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {[
+                  { area: "Underarms", icon: "💪" },
+                  { area: "Bikini & Brazilian", icon: "👙" },
+                  { area: "Chin & Upper Lip", icon: "👄" },
+                  { area: "Full Face", icon: "😊" },
+                  { area: "Legs", icon: "🦵" },
+                  { area: "Arms", icon: "💪" },
+                  { area: "Back", icon: "🔙" },
+                  { area: "Chest", icon: "👔" },
+                ].map((item, idx) => (
+                  <div key={item.area} className="flex items-center gap-3 p-4 rounded-xl bg-white border border-black/10 hover:border-[#FF2D8E]/50 transition-colors">
+                    <span className="text-xl">{item.icon}</span>
+                    <span className="text-black font-medium text-sm">{item.area}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </FadeUp>
+
+          {/* Clinical Info Grid */}
+          <FadeUp delayMs={280}>
+            <div className="mt-12 grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+              <div className="p-6 rounded-2xl border-2 border-black bg-white">
+                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
+                  <span>🔬</span> How It Works
+                </h3>
+                <p className="text-black/80 text-sm leading-relaxed">
+                  The Zemits Duocratis uses dual-wavelength diode laser technology (755nm + 808nm + 1064nm) to target melanin in hair follicles. Light energy converts to heat, disabling the follicle&apos;s ability to regrow hair while the built-in cooling system protects your skin.
+                </p>
+              </div>
+              <div className="p-6 rounded-2xl border-2 border-black bg-white">
+                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
+                  <span>📅</span> Treatment Plan
+                </h3>
+                <p className="text-black/80 text-sm leading-relaxed">
+                  Most clients need 6–8 sessions spaced 4–6 weeks apart for optimal results. Hair grows in cycles, so multiple treatments ensure we target follicles in their active growth phase.
+                </p>
+              </div>
+              <div className="p-6 rounded-2xl border-2 border-black bg-white">
+                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
+                  <span>⚠️</span> Contraindications
+                </h3>
+                <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
+                  <li>Pregnancy or breastfeeding</li>
+                  <li>Active tan or recent sun exposure</li>
+                  <li>Photosensitizing medications</li>
+                  <li>Active skin infections in treatment area</li>
+                </ul>
+              </div>
+              <div className="p-6 rounded-2xl border-2 border-black bg-white">
+                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
+                  <span>📋</span> What to Expect
+                </h3>
+                <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
+                  <li>Shave treatment area 24 hours before</li>
+                  <li>Avoid sun, tanning 2 weeks before/after</li>
+                  <li>Mild redness possible; resolves quickly</li>
+                  <li>No waxing or plucking between sessions</li>
+                </ul>
+              </div>
+            </div>
+          </FadeUp>
+
+          {/* Disclaimer */}
+          <FadeUp delayMs={320}>
+            <p className="text-center text-black/60 text-xs mt-10 max-w-2xl mx-auto">
+              Results vary by individual. All treatments performed by licensed professionals at Hello Gorgeous Med Spa®. Consultation required to determine candidacy.
+            </p>
+          </FadeUp>
+        </Section>
+      )}
+
       {/* Powered by Olympia - Hormone, Weight Loss */}
       {(s.slug === "biote-hormone-therapy" || s.slug === "weight-loss-therapy") && (
         <Section className="bg-gradient-to-b from-transparent via-violet-950/10 to-transparent">
