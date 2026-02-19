@@ -326,15 +326,27 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
       {/* Hero Section */}
       <Section className="relative overflow-hidden">
         {serviceSlug === "botox-dysport-jeuveau" && (
-          <div className="relative w-full aspect-[16/9] md:aspect-[21/9] max-h-[420px] rounded-2xl overflow-hidden mb-10">
-            <Image
-              src="/images/botox-lip-flip-hero.png"
-              alt="Natural-looking beautiful lips with Botox Lip Flip at Hello Gorgeous Med Spa"
-              fill
-              priority
-              className="object-cover object-center"
-              sizes="100vw"
-            />
+          <div className="grid md:grid-cols-2 gap-6 mb-10">
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border-2 border-black shadow-lg">
+              <Image
+                src="/images/botox-lip-flip-hero.png"
+                alt="Natural-looking beautiful lips with Botox Lip Flip at Hello Gorgeous Med Spa"
+                fill
+                priority
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden border-2 border-black shadow-lg">
+              <Image
+                src="/images/botox-lip-flip-benefits.png"
+                alt="Benefits of Lip Flip with Botox - Symmetry, confidence, subtle enhancement, minimal downtime, personalized approach"
+                fill
+                priority
+                className="object-cover object-center"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
           </div>
         )}
         {serviceSlug !== "botox-dysport-jeuveau" && (
@@ -430,21 +442,6 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
           ))}
         </div>
 
-        {/* Lip Flip Benefits Image - Botox only */}
-        {serviceSlug === "botox-dysport-jeuveau" && (
-          <FadeUp delayMs={200}>
-            <div className="mt-12 relative w-full rounded-2xl overflow-hidden border-2 border-black">
-              <Image
-                src="/images/botox-lip-flip-benefits.png"
-                alt="Benefits of Lip Flip with Botox - Symmetry, confidence, subtle enhancement, minimal downtime, personalized approach"
-                width={1200}
-                height={600}
-                className="w-full h-auto object-contain"
-                sizes="100vw"
-              />
-            </div>
-          </FadeUp>
-        )}
       </Section>
 
       {/* What It Is / Who It's For / What to Expect */}
