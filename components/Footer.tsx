@@ -51,8 +51,10 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
             </a>
             <div className="mt-6 flex items-center gap-4">
               <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-white hover:bg-[#FF2D8E]/30 flex items-center justify-center text-white hover:text-[#FF2D8E] transition-all"
+                href={SITE.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white hover:bg-[#E6007E]/30 flex items-center justify-center text-white hover:text-[#E6007E] transition-all"
                 aria-label="Instagram"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -60,8 +62,10 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 </svg>
               </a>
               <a
-                href="#"
-                className="w-10 h-10 rounded-full bg-white hover:bg-[#FF2D8E]/30 flex items-center justify-center text-white hover:text-[#FF2D8E] transition-all"
+                href={SITE.social.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-10 h-10 rounded-full bg-white hover:bg-[#E6007E]/30 flex items-center justify-center text-white hover:text-[#E6007E] transition-all"
                 aria-label="Facebook"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -69,10 +73,10 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 </svg>
               </a>
               <a
-                href="https://www.tiktok.com/@daniellealcala12"
+                href={SITE.social.tiktok}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-white hover:bg-[#FF2D8E]/30 flex items-center justify-center text-white hover:text-[#FF2D8E] transition-all"
+                className="w-10 h-10 rounded-full bg-white hover:bg-[#E6007E]/30 flex items-center justify-center text-white hover:text-[#E6007E] transition-all"
                 aria-label="TikTok"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

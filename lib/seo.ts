@@ -36,6 +36,12 @@ export const SITE = {
   /** AggregateRating - only injected when both set. Update from GBP or manually. */
   reviewRating: "4.9",
   reviewCount: "47",
+  /** Social — update here when you change handles; footer and other components use these. */
+  social: {
+    instagram: "https://www.instagram.com/hello.gorgeous2026/",
+    facebook: "https://www.facebook.com/hellogorgeousmedspa",
+    tiktok: "https://www.tiktok.com/@daniellealcala12",
+  },
 } as const;
 
 export const HOME_FAQS: readonly FAQ[] = [
