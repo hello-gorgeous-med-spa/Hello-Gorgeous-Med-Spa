@@ -154,18 +154,23 @@ const PHI_BLOCKED_FIELDS = [
 
 /**
  * Get Supabase client with service role (for audit inserts)
+ * Returns null if not configured (audit logging will be skipped)
  */
 function getAuditSupabase() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   
-  if (!url || !key) {
-    throw new Error('Supabase credentials not configured for audit logging');
+  if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) {
+    return null;
   }
   
-  return createClient(url, key, {
-    auth: { persistSession: false },
-  });
+  try {
+    return createClient(url, key, {
+      auth: { persistSession: false },
+    });
+  } catch {
+    return null;
+  }
 }
 
 /**
@@ -286,6 +291,12 @@ export function getRequestId(): string | null {
 export async function logAuditEvent(params: AuditEventParams): Promise<void> {
   try {
     const supabase = getAuditSupabase();
+    
+    // Skip audit logging if Supabase not configured (don't block login/operations)
+    if (!supabase) {
+      console.log('[AUDIT] Skipping audit log - Supabase not configured');
+      return;
+    }
     
     // Get request context
     const [ipAddress, userAgent, resourcePath] = await Promise.all([
