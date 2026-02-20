@@ -26,11 +26,12 @@ export function SMSDisclosure({
       role="region"
       aria-label="SMS consent disclosure"
     >
-      By providing your phone number, you agree to receive appointment reminders
-      and occasional promotional text messages from Hello Gorgeous Med Spa.
-      Message frequency varies. Message and data rates may apply. Reply STOP to
-      opt out. Reply HELP for help.{" "}
-      <Link href="/privacy" className={linkClass}>
+      By providing your mobile number, you agree to receive SMS messages from
+      Hello Gorgeous Med Spa regarding appointments, updates, and promotional
+      offers. Message frequency varies (up to 4 messages per month). Message
+      &amp; data rates may apply. Reply STOP to unsubscribe. Reply HELP for
+      help. View our{" "}
+      <Link href="https://www.hellogorgeousmedspa.com/privacy" className={linkClass}>
         Privacy Policy
       </Link>
       .

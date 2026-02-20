@@ -242,6 +242,20 @@ export default function PrivacyPolicyPage() {
         <section id="sms-communications-policy" className="mb-8 scroll-mt-24 p-6 bg-pink-50 rounded-xl border-2 border-pink-200">
           <h2 className="text-2xl font-bold text-black mt-0">📱 SMS Communications Policy</h2>
           
+          <div className="mt-4 p-4 bg-white rounded-lg border-2 border-black" role="region" aria-label="Message program summary">
+            <h3 className="text-lg font-semibold text-black mt-0 mb-2">Message Program Summary</h3>
+            <p className="text-sm text-black mb-2">
+              Hello Gorgeous Med Spa sends appointment confirmations, appointment reminders, post-treatment care instructions, account notifications, and occasional promotional offers to clients who explicitly opt in. Message frequency varies (up to 4 messages per month). <strong>Message and data rates may apply.</strong> Reply <strong>STOP</strong> to unsubscribe. Reply <strong>HELP</strong> for help.
+            </p>
+            <p className="text-sm text-black mb-0">
+              <strong>Where to opt in (mobile opt-in path):</strong>
+            </p>
+            <ul className="text-sm text-black list-disc pl-5 mt-1 mb-0">
+              <li>Contact form: <a href="https://www.hellogorgeousmedspa.com/contact" className="text-pink-600 underline">https://www.hellogorgeousmedspa.com/contact</a></li>
+              <li>Booking: <a href="https://www.hellogorgeousmedspa.com/book" className="text-pink-600 underline">https://www.hellogorgeousmedspa.com/book</a></li>
+            </ul>
+          </div>
+          
           <h3 className="text-lg font-semibold text-black mt-6">SMS Consent &amp; Opt-In</h3>
           <p>
             By providing your mobile phone number and affirmatively opting in, you consent to receive text messages from Hello Gorgeous Med Spa related to:
@@ -291,10 +305,11 @@ export default function PrivacyPolicyPage() {
             <li>&ldquo;Special Offer: $20 off PRF this month. Reply STOP to opt out.&rdquo;</li>
           </ul>
           <p className="text-sm text-black mb-0">
-            Full opt-in workflow documentation (digital form, physical form, confirmation script):{' '}
-            <Link href="/sms-opt-in" className="text-pink-600 underline">
-              SMS Opt-In Workflow
-            </Link>
+            You may opt in via our website at{' '}
+            <Link href="/contact" className="text-pink-600 underline">Contact</Link>
+            {' '}or{' '}
+            <Link href="/book" className="text-pink-600 underline">Book</Link>
+            , or in person (intake form or verbal consent confirmed via text).
           </p>
         </section>
 

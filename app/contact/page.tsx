@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 
 import { CTA } from "@/components/CTA";
 import { ContactForm } from "@/components/ContactForm";
+import { ContactSMSOptIn } from "@/components/ContactSMSOptIn";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE, pageMetadata, siteJsonLd } from "@/lib/seo";
@@ -116,6 +117,23 @@ export default async function ContactPage() {
               Questions about services or booking? We'll respond as soon as we can.
             </p>
             <ContactForm />
+          </div>
+        </FadeUp>
+      </Section>
+
+      {/* Mobile opt-in path for 10DLC/MNO verification — visible at /contact */}
+      <Section className="bg-white">
+        <FadeUp>
+          <div className="rounded-2xl border-2 border-black bg-white p-6 shadow-sm max-w-2xl mx-auto">
+            <h2 id="sms-opt-in" className="text-xl font-bold text-black">
+              Get text updates (optional)
+            </h2>
+            <p className="mt-2 text-black/80 text-sm">
+              Opt in to receive appointment reminders and occasional offers via SMS at{" "}
+              <strong>https://www.hellogorgeousmedspa.com/contact</strong> or when booking at{" "}
+              <strong>https://www.hellogorgeousmedspa.com/book</strong>.
+            </p>
+            <ContactSMSOptIn />
           </div>
         </FadeUp>
       </Section>

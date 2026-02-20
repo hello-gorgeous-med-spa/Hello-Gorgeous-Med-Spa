@@ -9,6 +9,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { SMSDisclosure } from '@/components/SMSDisclosure';
 
 interface Service {
   id: string;
@@ -127,7 +128,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
     isNewClient: true,
     notes: '',
     agreeToTerms: false,
-    agreeToSMS: true,
+    agreeToSMS: false,
   });
 
   // Fetch providers from API (database-driven with fallback)
