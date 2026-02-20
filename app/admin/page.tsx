@@ -8,6 +8,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { fetchWithTimeout } from '@/lib/fetchWithTimeout';
 
 // ============================================================
 // TYPES
