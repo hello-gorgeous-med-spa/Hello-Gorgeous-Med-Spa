@@ -1,5 +1,5 @@
 // ============================================================
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 // API: APPOINTMENTS - Full CRUD with service role (bypasses RLS)
 // INCLUDES: Consent enforcement, audit logging
 // ============================================================
@@ -10,8 +10,21 @@ import { businessDayToISOBounds } from '@/lib/business-timezone';
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
 
+// Timeout for database operations (8 seconds - under Vercel's 10s limit)
+const DB_TIMEOUT_MS = 8000;
+
+// Helper to wrap promises with timeout
+function withTimeout<T>(promise: Promise<T>, ms: number, errorMsg: string): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) => 
+      setTimeout(() => reject(new Error(errorMsg)), ms)
+    ),
+  ]);
+}
+
 // Helper to safely create supabase client
-function getSupabase() {
+function getSupabase(): SupabaseClient | null {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   
@@ -259,7 +272,12 @@ export async function GET(request: NextRequest) {
       query = query.limit(limit);
     }
 
-    const { data, error } = await query;
+    // Execute query with timeout
+    const { data, error } = await withTimeout(
+      query,
+      DB_TIMEOUT_MS,
+      'Database timeout - Supabase may be unreachable'
+    );
 
     if (error) {
       console.error('Error fetching appointments:', error);
@@ -420,8 +438,16 @@ export async function GET(request: NextRequest) {
     });
 
     return NextResponse.json({ appointments });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Appointments API error:', error);
+    // Return helpful error for timeout
+    if (error?.message?.includes('timeout') || error?.message?.includes('unreachable')) {
+      return NextResponse.json({ 
+        error: 'Database connection timeout. Please try again or check Supabase status.',
+        code: 'DB_TIMEOUT',
+        appointments: [],
+      }, { status: 504 });
+    }
     return NextResponse.json({ error: 'Failed to fetch appointments' }, { status: 500 });
   }
 }

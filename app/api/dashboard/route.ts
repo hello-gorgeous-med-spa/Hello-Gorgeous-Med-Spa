@@ -1,12 +1,25 @@
 // ============================================================
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 // API: DASHBOARD STATS - Aggregated data with service role
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
 
+// Timeout for database operations (8 seconds - under Vercel's 10s limit)
+const DB_TIMEOUT_MS = 8000;
+
+// Helper to wrap promises with timeout
+function withTimeout<T>(promise: Promise<T>, ms: number, errorMsg: string): Promise<T> {
+  return Promise.race([
+    promise,
+    new Promise<T>((_, reject) => 
+      setTimeout(() => reject(new Error(errorMsg)), ms)
+    ),
+  ]);
+}
+
 // Safe Supabase helper
-function getSupabase() {
+function getSupabase(): SupabaseClient | null {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   
@@ -48,12 +61,16 @@ export async function GET(request: NextRequest) {
   try {
     const today = new Date().toISOString().split('T')[0];
 
-    // Get today's appointments count
-    const { count: todayAppointments } = await supabase
-      .from('appointments')
-      .select('*', { count: 'exact', head: true })
-      .gte('starts_at', `${today}T00:00:00`)
-      .lt('starts_at', `${today}T23:59:59`);
+    // Get today's appointments count (with timeout)
+    const { count: todayAppointments } = await withTimeout(
+      supabase
+        .from('appointments')
+        .select('*', { count: 'exact', head: true })
+        .gte('starts_at', `${today}T00:00:00`)
+        .lt('starts_at', `${today}T23:59:59`),
+      DB_TIMEOUT_MS,
+      'Database timeout'
+    );
 
     // Get total clients
     const { count: totalClients } = await supabase
@@ -172,8 +189,16 @@ export async function GET(request: NextRequest) {
       },
       upcomingAppointments: upcoming,
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Dashboard API error:', error);
+    // Return helpful error for timeout
+    if (error?.message?.includes('timeout')) {
+      return NextResponse.json({ 
+        ...EMPTY_STATS, 
+        error: 'Database connection timeout',
+        code: 'DB_TIMEOUT',
+      }, { status: 504 });
+    }
     return NextResponse.json(EMPTY_STATS);
   }
 }
