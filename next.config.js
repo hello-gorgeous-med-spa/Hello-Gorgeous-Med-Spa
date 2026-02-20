@@ -1,6 +1,10 @@
+const path = require("path");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Ensure production build traces from this app, not parent monorepo (fixes "entire site down" when multiple lockfiles exist)
+  outputFileTracingRoot: path.join(__dirname),
   eslint: {
     // Allow production builds to complete even with ESLint errors
     ignoreDuringBuilds: true,

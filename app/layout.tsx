@@ -114,7 +114,12 @@ export const viewport: Viewport = {
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const siteSettings = await getSiteSettings();
+  let siteSettings: Awaited<ReturnType<typeof getSiteSettings>> = null;
+  try {
+    siteSettings = await getSiteSettings();
+  } catch {
+    // CMS/Supabase unavailable — render site with defaults so live site never goes fully down
+  }
 
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
