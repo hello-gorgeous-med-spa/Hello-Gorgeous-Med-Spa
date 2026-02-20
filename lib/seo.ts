@@ -39,7 +39,7 @@ export const SITE = {
   /** Social — update here when you change handles; footer and other components use these. */
   social: {
     instagram: "https://www.instagram.com/hello.gorgeous2026/",
-    facebook: "https://www.facebook.com/hellogorgeousmedspa",
+    facebook: "https://www.facebook.com/profile.php?id=61572963239427",
     tiktok: "https://www.tiktok.com/@daniellealcala12",
   },
 } as const;
