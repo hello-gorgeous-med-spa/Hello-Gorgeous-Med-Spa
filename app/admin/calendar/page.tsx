@@ -491,7 +491,7 @@ export default function CalendarPage() {
     const style = styles[status] || styles.confirmed;
     return (
       <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${style.bg} ${style.text}`}>
-        <span className={`w-1.5 h-1.5 rounded-full ${status === 'checked_in' ? 'bg-amber-500' : status === 'confirmed' ? 'bg-emerald-500' : 'bg-white0'}`} />
+        <span className={`w-1.5 h-1.5 rounded-full ${status === 'checked_in' ? 'bg-amber-500' : status === 'confirmed' ? 'bg-emerald-500' : 'bg-white'}`} />
         {style.label}
       </span>
     );
@@ -555,7 +555,7 @@ export default function CalendarPage() {
         {/* Main Calendar Area */}
         <div className="flex-1 flex flex-col overflow-hidden min-w-0">
         {/* Provider Headers */}
-        <div className="flex border-b border-black bg-white0">
+        <div className="flex border-b border-black bg-white">
           {/* Time column spacer */}
           <div className="w-16 flex-shrink-0" />
           
