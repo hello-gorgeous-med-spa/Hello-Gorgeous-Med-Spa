@@ -5,21 +5,13 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { BOOKING_URL } from "@/lib/flows";
 
-/** Hero video — use a committed file so it works on deploy (provider clips are gitignored). Swap for CDN URL if you host elsewhere. */
-const HERO_VIDEO_SRC = "/videos/trigger-point-injection.mp4";
-
 export function HeroV3() {
   const [mounted, setMounted] = useState(false);
-  const [videoReady, setVideoReady] = useState(false);
-  const [videoError, setVideoError] = useState(false);
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 100);
     return () => clearTimeout(t);
   }, []);
-
-  const showVideo = !videoError;
-  const fadeIn = mounted && (showVideo ? videoReady : true);
 
   return (
     <section className="bg-white flex items-center py-12 md:py-16 lg:py-20">
@@ -55,47 +47,23 @@ export function HeroV3() {
           </div>
         </div>
 
-        {/* Right - Fade-in video with image fallback */}
+        {/* Right - Image */}
         <div
           className={`relative transition-all duration-700 delay-200 ${
-            fadeIn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          <div className="relative w-full aspect-[1742/614] rounded-2xl overflow-hidden mx-auto bg-black/5">
-            {showVideo ? (
-              <>
-                <video
-                  className="absolute inset-0 w-full h-full object-cover rounded-2xl"
-                  src={HERO_VIDEO_SRC}
-                  muted
-                  loop
-                  playsInline
-                  autoPlay
-                  preload="metadata"
-                  onLoadedData={() => setVideoReady(true)}
-                  onError={() => setVideoError(true)}
-                  aria-label="Hello Gorgeous Med Spa - luxury medical aesthetics"
-                />
-                {/* Fade-in overlay so video doesn't pop in */}
-                <div
-                  className={`absolute inset-0 bg-black transition-opacity duration-1000 pointer-events-none rounded-2xl ${
-                    videoReady ? "opacity-0" : "opacity-100"
-                  }`}
-                />
-              </>
-            ) : null}
-            {(!showVideo || !videoReady) && (
-              <Image
-                src="/images/hero-banner.png"
-                alt="Hello Gorgeous Med Spa - Luxury Medical Aesthetics"
-                fill
-                priority
-                className="object-contain object-center rounded-2xl"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            )}
+          <div className="relative w-full aspect-[1742/614] rounded-2xl overflow-hidden mx-auto">
+            <Image
+              src="/images/hero-banner.png"
+              alt="Hello Gorgeous Med Spa - Luxury Medical Aesthetics"
+              fill
+              priority
+              className="object-contain object-center"
+              sizes="(max-width: 768px) 100vw, 50vw"
+            />
           </div>
-          <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-[#E6007E] rounded-full opacity-20 blur-2xl pointer-events-none" />
+          <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-[#E6007E] rounded-full opacity-20 blur-2xl" />
         </div>
       </div>
     </section>
