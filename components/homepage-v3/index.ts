@@ -7,6 +7,7 @@ export { RxShowcaseSection } from "./RxShowcaseSection";
 export { InnovationSection } from "./InnovationSection";
 export { AIAssistantsSection } from "./AIAssistantsSection";
 export { PhilosophySection } from "./PhilosophySection";
+export { HomepageOurStory } from "./HomepageOurStory";
 export { HomepageTestimonials } from "./HomepageTestimonials";
 export { HomepageFAQ } from "./HomepageFAQ";
 export { FinalCTA } from "./FinalCTA";

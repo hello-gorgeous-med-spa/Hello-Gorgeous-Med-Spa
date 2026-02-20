@@ -9,6 +9,7 @@ import {
   InnovationSection,
   AIAssistantsSection,
   PhilosophySection,
+  HomepageOurStory,
   HomepageTestimonials,
   HomepageFAQ,
   FinalCTA,
@@ -117,6 +118,7 @@ export default function HomePage() {
         <InnovationSection />
         <AIAssistantsSection />
         <PhilosophySection />
+        <HomepageOurStory />
         <HomepageTestimonials />
         <HomepageFAQ />
         <FinalCTA />
