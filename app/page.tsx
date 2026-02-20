@@ -9,6 +9,7 @@ import {
   InnovationSection,
   AIAssistantsSection,
   PhilosophySection,
+  HomepageTestimonials,
   HomepageFAQ,
   FinalCTA,
 } from "@/components/homepage-v3";
@@ -116,6 +117,7 @@ export default function HomePage() {
         <InnovationSection />
         <AIAssistantsSection />
         <PhilosophySection />
+        <HomepageTestimonials />
         <HomepageFAQ />
         <FinalCTA />
       </main>
