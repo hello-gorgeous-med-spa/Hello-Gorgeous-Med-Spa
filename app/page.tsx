@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import {
   HeroV3,
   TrustStrip,
+  PartnerBadges,
   InjectablesConversion,
   ServicesSection,
   ExperienceSection,
@@ -12,6 +13,7 @@ import {
   HomepageOurStory,
   HomepageTestimonials,
   HomepageFAQ,
+  HomepageLetsChat,
   FinalCTA,
 } from "@/components/homepage-v3";
 import {
@@ -111,6 +113,7 @@ export default function HomePage() {
       <main className="bg-white">
         <HeroV3 />
         <TrustStrip />
+        <PartnerBadges />
         <InjectablesConversion />
         <ServicesSection />
         <RxShowcaseSection />
@@ -121,6 +124,7 @@ export default function HomePage() {
         <HomepageOurStory />
         <HomepageTestimonials />
         <HomepageFAQ />
+        <HomepageLetsChat />
         <FinalCTA />
       </main>
     </>

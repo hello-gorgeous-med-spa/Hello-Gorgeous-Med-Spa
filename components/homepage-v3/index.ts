@@ -1,5 +1,6 @@
 export { HeroV3 } from "./HeroV3";
 export { TrustStrip } from "./TrustStrip";
+export { PartnerBadges } from "./PartnerBadges";
 export { InjectablesConversion } from "./InjectablesConversion";
 export { ServicesSection } from "./ServicesSection";
 export { ExperienceSection } from "./ExperienceSection";
@@ -10,4 +11,5 @@ export { PhilosophySection } from "./PhilosophySection";
 export { HomepageOurStory } from "./HomepageOurStory";
 export { HomepageTestimonials } from "./HomepageTestimonials";
 export { HomepageFAQ } from "./HomepageFAQ";
+export { HomepageLetsChat } from "./HomepageLetsChat";
 export { FinalCTA } from "./FinalCTA";
