@@ -13,6 +13,7 @@ import { useToast } from '@/components/ui/Toast';
 import { CalendarNavBar } from '@/components/calendar/CalendarNavBar';
 import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from '@/lib/provider-credentials';
 import { businessDateTimeToUTC } from '@/lib/business-timezone';
+import { fetchWithTimeout } from '@/lib/fetchWithTimeout';
 
 // Provider colors - soft pastels like Boulevard
 const PROVIDER_COLORS = [
@@ -112,14 +113,11 @@ export default function CalendarPage() {
     }
   }, []);
 
-  // Fetch services
   const fetchServices = useCallback(async () => {
     try {
-      const res = await fetch('/api/services?active=true');
-      const data = await res.json();
-      if (data.services) {
-        setServices(data.services);
-      }
+      const res = await fetchWithTimeout('/api/services?active=true');
+      const data = await res.json().catch(() => ({}));
+      if (data.services) setServices(data.services);
     } catch (err) {
       console.error('Failed to load services:', err);
     }
@@ -550,6 +548,13 @@ export default function CalendarPage() {
           </div>
         }
       />
+
+      {dataError && (
+        <div className="mx-4 mt-2 p-4 bg-amber-50 border-2 border-amber-400 rounded-lg text-amber-900">
+          <p className="font-medium">Data unavailable</p>
+          <p className="text-sm">{dataError}</p>
+        </div>
+      )}
 
       <div className="flex flex-1 min-h-0 bg-white rounded-b-xl overflow-hidden shadow-sm border border-black border-t-0">
         {/* Main Calendar Area */}

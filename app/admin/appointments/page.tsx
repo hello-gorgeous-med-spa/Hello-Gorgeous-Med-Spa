@@ -9,6 +9,7 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { Breadcrumb, ExportButton, NoAppointmentsEmptyState } from '@/components/ui';
+import { fetchWithTimeout } from '@/lib/fetchWithTimeout';
 
 // Fallback providers matching database UUIDs
 const FALLBACK_PROVIDERS = [
@@ -47,29 +48,37 @@ export default function AdminAppointmentsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Fetch appointments from API
+  // Fetch appointments (timeout so page never sticks on loading)
   const fetchAppointments = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch(`/api/appointments?date=${selectedDate}`);
-      const data = await res.json();
-      if (data.appointments) {
-        setAppointments(data.appointments);
+      const res = await fetchWithTimeout(`/api/appointments?date=${selectedDate}`);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setError(data?.error || 'Failed to load appointments');
+        setAppointments([]);
+        return;
       }
+      if (data.source === 'local') {
+        setError('Database not connected. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in your hosting environment.');
+        setAppointments([]);
+        return;
+      }
+      setAppointments(data.appointments ?? []);
       setError(null);
     } catch (err) {
-      setError('Failed to load appointments');
+      setError(err instanceof Error ? err.message : 'Failed to load appointments');
+      setAppointments([]);
       console.error(err);
     } finally {
       setLoading(false);
     }
   }, [selectedDate]);
 
-  // Fetch providers from API with fallback
   const fetchProviders = useCallback(async () => {
     try {
-      const res = await fetch('/api/providers');
-      const data = await res.json();
+      const res = await fetchWithTimeout('/api/providers');
+      const data = await res.json().catch(() => ({}));
       if (data.providers && data.providers.length > 0) {
         // Filter out providers with no real names (where first_name is "Provider" or empty)
         const validProviders = data.providers.filter((p: any) => 

@@ -42,7 +42,7 @@ export async function GET(request: NextRequest) {
   const supabase = getSupabase();
   if (!supabase) {
     console.log('Dashboard: Supabase not configured, returning empty stats');
-    return NextResponse.json(EMPTY_STATS);
+    return NextResponse.json({ ...EMPTY_STATS, source: 'local' });
   }
 
   try {

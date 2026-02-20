@@ -7,6 +7,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { fetchWithTimeout } from '@/lib/fetchWithTimeout';
 
 interface SquareConnection {
   id: string;
@@ -92,18 +93,13 @@ export default function PaymentSettingsPage() {
     }
   }, []);
 
-  // Fetch connection status
   const fetchConnection = useCallback(async () => {
     try {
       setLoading(true);
-      const res = await fetch('/api/square/settings');
-      const data = await res.json();
-      
-      if (data.connection) {
-        setConnection(data.connection);
-      } else {
-        setConnection(null);
-      }
+      const res = await fetchWithTimeout('/api/square/settings');
+      const data = await res.json().catch(() => ({}));
+      if (data.connection) setConnection(data.connection);
+      else setConnection(null);
     } catch (err) {
       console.error('Failed to fetch connection:', err);
       setError('Failed to load Square connection status');
@@ -112,18 +108,13 @@ export default function PaymentSettingsPage() {
     }
   }, []);
 
-  // Fetch locations
   const fetchLocations = useCallback(async () => {
     if (!connection) return;
-    
     try {
       setLoadingLocations(true);
-      const res = await fetch('/api/square/locations');
-      const data = await res.json();
-      
-      if (data.locations) {
-        setLocations(data.locations);
-      }
+      const res = await fetchWithTimeout('/api/square/locations');
+      const data = await res.json().catch(() => ({}));
+      if (data.locations) setLocations(data.locations);
     } catch (err) {
       console.error('Failed to fetch locations:', err);
     } finally {
@@ -131,18 +122,13 @@ export default function PaymentSettingsPage() {
     }
   }, [connection]);
 
-  // Fetch devices
   const fetchDevices = useCallback(async (refresh = false) => {
     if (!connection?.location_id) return;
-    
     try {
       setLoadingDevices(true);
-      const res = await fetch(`/api/square/devices?locationId=${connection.location_id}&refresh=${refresh}`);
-      const data = await res.json();
-      
-      if (data.devices) {
-        setDevices(data.devices);
-      }
+      const res = await fetchWithTimeout(`/api/square/devices?locationId=${connection.location_id}&refresh=${refresh}`);
+      const data = await res.json().catch(() => ({}));
+      if (data.devices) setDevices(data.devices);
     } catch (err) {
       console.error('Failed to fetch devices:', err);
     } finally {

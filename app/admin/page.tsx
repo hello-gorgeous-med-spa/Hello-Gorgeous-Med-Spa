@@ -193,15 +193,23 @@ export default function ExecutiveDashboard() {
     });
   };
 
-  // Fetch dashboard data
+  // Fetch dashboard data (timeout so dashboard never sticks on loading)
   const fetchDashboard = useCallback(async () => {
     setLoading(true);
     try {
-      // Fetch base dashboard data
-      const dashRes = await fetch('/api/dashboard');
-      const dashData = await dashRes.json();
+      const dashRes = await fetchWithTimeout('/api/dashboard');
+      const dashData = await dashRes.json().catch(() => ({}));
+      if (!dashRes.ok) {
+        setError(dashData?.error || 'Failed to load dashboard');
+        setLoading(false);
+        return;
+      }
+      if (dashData.source === 'local') {
+        setError('Database not connected. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in your hosting environment (e.g. Vercel).');
+        setLoading(false);
+        return;
+      }
 
-      // Fetch appointments - use date range for period stats
       const todayDate = new Date().toISOString().split('T')[0];
       const monthStart = new Date();
       monthStart.setDate(1);
@@ -210,18 +218,16 @@ export default function ExecutiveDashboard() {
       const endDate = new Date().toISOString().split('T')[0];
 
       const providerParam = selectedProvider !== 'all' ? `&provider_id=${selectedProvider}` : '';
-      const aptsRes = await fetch(`/api/appointments?date=${todayDate}${providerParam}`);
-      const aptsData = await aptsRes.json();
+      const aptsRes = await fetchWithTimeout(`/api/appointments?date=${todayDate}${providerParam}`);
+      const aptsData = await aptsRes.json().catch(() => ({}));
       const appointments = aptsData.appointments || [];
 
-      // Fetch appointments for period stats with date range (includes cancelled for rate calc)
-      const allAptsRes = await fetch(`/api/appointments?start_date=${startDate}&end_date=${endDate}&include_cancelled=true&limit=1000${providerParam}`);
-      const allAptsData = await allAptsRes.json();
+      const allAptsRes = await fetchWithTimeout(`/api/appointments?start_date=${startDate}&end_date=${endDate}&include_cancelled=true&limit=1000${providerParam}`);
+      const allAptsData = await allAptsRes.json().catch(() => ({}));
       const allAppointments = allAptsData.appointments || [];
 
-      // Fetch providers
-      const provRes = await fetch('/api/providers');
-      const provData = await provRes.json();
+      const provRes = await fetchWithTimeout('/api/providers');
+      const provData = await provRes.json().catch(() => ({}));
       const providerList = provData.providers || [];
       setProviders(providerList.map((p: any) => {
         // Build name from display_name or first_name + last_name
