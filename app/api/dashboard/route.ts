@@ -5,8 +5,12 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 import { NextRequest, NextResponse } from 'next/server';
 
-// Timeout for database operations (8 seconds - under Vercel's 10s limit)
-const DB_TIMEOUT_MS = 8000;
+// Increase max duration for this function
+export const maxDuration = 30;
+export const dynamic = 'force-dynamic';
+
+// Timeout for database operations
+const DB_TIMEOUT_MS = 15000;
 
 // Helper to wrap promises with timeout
 function withTimeout<T>(promise: Promise<T>, ms: number, errorMsg: string): Promise<T> {

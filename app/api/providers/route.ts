@@ -1,8 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { createClient } from "@supabase/supabase-js";
 
-// Timeout for database operations (8 seconds)
-const DB_TIMEOUT_MS = 8000;
+// Increase max duration for this function
+export const maxDuration = 15;
+export const dynamic = 'force-dynamic';
+
+// Timeout for database operations
+const DB_TIMEOUT_MS = 10000;
 
 // Helper to wrap promises with timeout
 function withTimeout<T>(promise: Promise<T>, ms: number, errorMsg: string): Promise<T> {
@@ -20,9 +24,24 @@ const FALLBACK_PROVIDERS = [
   { id: 'b7e6f872-3628-418a-aefb-aca2101f7cb2', first_name: 'Danielle', last_name: 'Alcala', display_name: 'Danielle Alcala, RN-S', credentials: 'RN-S', color_hex: '#ec4899', active: true },
 ];
 
+// Create supabase client inline (not from shared module to avoid issues)
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) return null;
+  return createClient(url, key, {
+    auth: { autoRefreshToken: false, persistSession: false },
+  });
+}
+
 export async function GET() {
   try {
-    const supabase = await createServerSupabaseClient();
+    const supabase = getSupabase();
+    
+    if (!supabase) {
+      console.log('Providers: Supabase not configured, returning fallback');
+      return NextResponse.json({ providers: FALLBACK_PROVIDERS, source: 'fallback' });
+    }
     
     const { data, error } = await withTimeout(
       supabase
@@ -57,7 +76,11 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
-    const supabase = await createServerSupabaseClient();
+    const supabase = getSupabase();
+    if (!supabase) {
+      return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+    }
+    
     const body = await req.json();
     
     const { data, error } = await supabase

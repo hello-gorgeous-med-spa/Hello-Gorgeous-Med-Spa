@@ -10,8 +10,11 @@ import { businessDayToISOBounds } from '@/lib/business-timezone';
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
 
-// Timeout for database operations (8 seconds - under Vercel's 10s limit)
-const DB_TIMEOUT_MS = 8000;
+// Increase max duration for this function (Vercel Pro allows up to 60s)
+export const maxDuration = 30;
+
+// Timeout for database operations (15 seconds with increased function duration)
+const DB_TIMEOUT_MS = 15000;
 
 // Helper to wrap promises with timeout
 function withTimeout<T>(promise: Promise<T>, ms: number, errorMsg: string): Promise<T> {
