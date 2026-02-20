@@ -1,285 +1,162 @@
 'use client';
 
-// ============================================================
-// LIVE SYSTEM STATE - TRUTH VIEW
-// ALL DATA FROM DATABASE - NO STATIC VALUES
-// ============================================================
+/**
+ * Live System State – Owner view
+ * Shows connectivity and status of Dashboard, Appointments, Providers APIs and DB.
+ */
 
-import { useState, useEffect } from 'react';
-import OwnerLayout from '../layout-wrapper';
-import { 
-  CardSkeleton, 
-  EmptyState, 
-  ErrorState,
-} from '@/lib/hooks/useOwnerMetrics';
+import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
+import { Breadcrumb } from '@/components/ui';
+import { fetchWithTimeout } from '@/lib/fetchWithTimeout';
 
-interface Rule {
-  id: string;
-  name: string;
-  category: string;
-  enabled: boolean;
-  priority: number;
-  is_active?: boolean;
-  description?: string;
-}
+type CheckStatus = 'pending' | 'ok' | 'fail' | 'timeout';
 
-interface Feature {
-  id?: string;
-  key: string;
-  name: string;
-  enabled: boolean;
-  is_enabled?: boolean;
-  category?: string;
-  description?: string;
-}
-
-interface SystemState {
-  rules: Rule[];
-  features: Feature[];
-  config: Record<string, any>;
+interface CheckResult {
+  label: string;
+  status: CheckStatus;
+  message?: string;
 }
 
 export default function LiveStatePage() {
-  const [data, setData] = useState<SystemState | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [filter, setFilter] = useState<'all' | 'active' | 'disabled'>('all');
+  const [checks, setChecks] = useState<CheckResult[]>([
+    { label: 'Dashboard API', status: 'pending' },
+    { label: 'Appointments API', status: 'pending' },
+    { label: 'Providers API', status: 'pending' },
+  ]);
+  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchData() {
-      setIsLoading(true);
-      setError(null);
-      
-      try {
-        // Fetch rules
-        const rulesRes = await fetch('/api/config/rules');
-        const rulesData = await rulesRes.json();
-        
-        // Fetch feature flags
-        const flagsRes = await fetch('/api/config/flags');
-        const flagsData = await flagsRes.json();
-        
-        // Fetch config
-        const configRes = await fetch('/api/config');
-        const configData = await configRes.json();
-        
-        // Normalize rules - API returns is_active, we need enabled
-        const normalizedRules = (rulesData.rules || []).map((r: any) => ({
-          ...r,
-          enabled: r.enabled !== undefined ? r.enabled : r.is_active === true,
-        }));
-        
-        // Normalize features - API returns is_enabled, we need enabled
-        const normalizedFeatures = (flagsData.flags || []).map((f: any) => ({
-          ...f,
-          enabled: f.enabled !== undefined ? f.enabled : f.is_enabled === true,
-        }));
-        
-        setData({
-          rules: normalizedRules,
-          features: normalizedFeatures,
-          config: configData.config || {},
-        });
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch system state');
-      } finally {
-        setIsLoading(false);
+  const runChecks = useCallback(async () => {
+    setLoading(true);
+    setChecks([
+      { label: 'Dashboard API', status: 'pending' },
+      { label: 'Appointments API', status: 'pending' },
+      { label: 'Providers API', status: 'pending' },
+    ]);
+
+    const results: CheckResult[] = [];
+
+    try {
+      const dashRes = await fetchWithTimeout('/api/dashboard');
+      const dashData = await dashRes.json().catch(() => ({}));
+      if (!dashRes.ok) {
+        results.push({ label: 'Dashboard API', status: 'fail', message: dashData?.error || `HTTP ${dashRes.status}` });
+      } else if (dashData.source === 'local') {
+        results.push({ label: 'Dashboard API', status: 'ok', message: 'Responding (DB not connected – check env)' });
+      } else {
+        results.push({ label: 'Dashboard API', status: 'ok', message: 'Connected' });
       }
+    } catch (e) {
+      results.push({
+        label: 'Dashboard API',
+        status: e instanceof Error && e.message.includes('timed out') ? 'timeout' : 'fail',
+        message: e instanceof Error ? e.message : 'Request failed',
+      });
     }
-    
-    fetchData();
+
+    try {
+      const aptRes = await fetchWithTimeout('/api/appointments?date=' + new Date().toISOString().split('T')[0]);
+      const aptData = await aptRes.json().catch(() => ({}));
+      if (!aptRes.ok) {
+        results.push({ label: 'Appointments API', status: 'fail', message: aptData?.error || `HTTP ${aptRes.status}` });
+      } else if (aptData.source === 'local') {
+        results.push({ label: 'Appointments API', status: 'ok', message: 'Responding (DB not connected)' });
+      } else {
+        results.push({ label: 'Appointments API', status: 'ok', message: `Connected (${aptData.appointments?.length ?? 0} today)` });
+      }
+    } catch (e) {
+      results.push({
+        label: 'Appointments API',
+        status: e instanceof Error && e.message.includes('timed out') ? 'timeout' : 'fail',
+        message: e instanceof Error ? e.message : 'Request failed',
+      });
+    }
+
+    try {
+      const provRes = await fetchWithTimeout('/api/providers');
+      const provData = await provRes.json().catch(() => ({}));
+      if (!provRes.ok) {
+        results.push({ label: 'Providers API', status: 'fail', message: provData?.error || `HTTP ${provRes.status}` });
+      } else {
+        const count = provData.providers?.length ?? 0;
+        results.push({ label: 'Providers API', status: 'ok', message: `Connected (${count} providers)` });
+      }
+    } catch (e) {
+      results.push({
+        label: 'Providers API',
+        status: e instanceof Error && e.message.includes('timed out') ? 'timeout' : 'fail',
+        message: e instanceof Error ? e.message : 'Request failed',
+      });
+    }
+
+    setChecks(results);
+    setLoading(false);
   }, []);
 
-  const activeRules = data?.rules.filter(r => r.enabled) || [];
-  const disabledRules = data?.rules.filter(r => !r.enabled) || [];
-  const enabledFeatures = data?.features.filter(f => f.enabled) || [];
-  const disabledFeatures = data?.features.filter(f => !f.enabled) || [];
+  useEffect(() => {
+    runChecks();
+  }, [runChecks]);
 
-  const getFilteredRules = () => {
-    if (!data) return [];
-    switch (filter) {
-      case 'active': return activeRules;
-      case 'disabled': return disabledRules;
-      default: return data.rules;
-    }
+  const statusColor = (s: CheckStatus) => {
+    if (s === 'ok') return 'bg-emerald-100 text-emerald-800 border-emerald-300';
+    if (s === 'timeout') return 'bg-amber-100 text-amber-800 border-amber-300';
+    return 'bg-red-100 text-red-800 border-red-300';
   };
 
-  const getFilteredFeatures = () => {
-    if (!data) return [];
-    switch (filter) {
-      case 'active': return enabledFeatures;
-      case 'disabled': return disabledFeatures;
-      default: return data.features;
-    }
+  const statusIcon = (s: CheckStatus) => {
+    if (s === 'ok') return '✓';
+    if (s === 'timeout') return '⏱';
+    if (s === 'pending') return '…';
+    return '✗';
   };
-
-  // Group features by category
-  const groupedFeatures = getFilteredFeatures().reduce((acc, feature) => {
-    const cat = feature.category || 'general';
-    if (!acc[cat]) acc[cat] = [];
-    acc[cat].push(feature);
-    return acc;
-  }, {} as Record<string, Feature[]>);
 
   return (
-    <OwnerLayout title="Live System State" description="Truth view - What your system is actually doing right now">
-      {/* Error State */}
-      {error && !isLoading && (
-        <ErrorState error={error} onRetry={() => window.location.reload()} />
-      )}
-
-      {/* Loading State */}
-      {isLoading && (
-        <div className="space-y-6">
-          <div className="grid grid-cols-4 gap-4">
-            {Array.from({ length: 4 }).map((_, i) => (
-              <CardSkeleton key={i} />
-            ))}
-          </div>
+    <div className="space-y-6">
+      <Breadcrumb />
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-black">Live System State</h1>
+          <p className="text-black mt-0.5">See exactly what your system is doing – no hidden logic.</p>
         </div>
-      )}
+        <div className="flex items-center gap-3">
+          <Link
+            href="/admin"
+            className="px-4 py-2 border-2 border-black text-black font-medium rounded-lg hover:bg-black hover:text-white transition-colors"
+          >
+            ← Dashboard
+          </Link>
+          <button
+            onClick={runChecks}
+            disabled={loading}
+            className="px-4 py-2 bg-[#E6007E] text-white font-medium rounded-lg hover:opacity-90 disabled:opacity-60 transition-opacity"
+          >
+            {loading ? 'Checking…' : 'Refresh'}
+          </button>
+        </div>
+      </div>
 
-      {/* Data Display */}
-      {!isLoading && !error && data && (
-        <>
-          {/* Status Summary */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-            <button 
-              onClick={() => setFilter('all')} 
-              className={`p-4 rounded-xl border text-left transition-all ${filter === 'all' ? 'border-purple-500 bg-purple-50 shadow-md' : 'bg-white hover:shadow-md'}`}
-            >
-              <p className="text-sm text-black">Total Components</p>
-              <p className="text-3xl font-bold">{data.rules.length + data.features.length}</p>
-            </button>
-            <button 
-              onClick={() => setFilter('active')} 
-              className={`p-4 rounded-xl border text-left transition-all ${filter === 'active' ? 'border-green-500 bg-green-50 shadow-md' : 'bg-white hover:shadow-md'}`}
-            >
-              <p className="text-sm text-black">🟢 Active</p>
-              <p className="text-3xl font-bold text-green-600">
-                {activeRules.length + enabledFeatures.length}
-              </p>
-            </button>
-            <button 
-              onClick={() => setFilter('disabled')} 
-              className={`p-4 rounded-xl border text-left transition-all ${filter === 'disabled' ? 'border-black bg-white shadow-md' : 'bg-white hover:shadow-md'}`}
-            >
-              <p className="text-sm text-black">⚪ Disabled</p>
-              <p className="text-3xl font-bold text-black">
-                {disabledRules.length + disabledFeatures.length}
-              </p>
-            </button>
-            <div className="p-4 rounded-xl border bg-white">
-              <p className="text-sm text-black">Last Refreshed</p>
-              <p className="text-lg font-bold text-green-600">Just now ✓</p>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Business Rules */}
-            <div className="bg-white rounded-xl border shadow-sm">
-              <div className="p-4 border-b bg-gradient-to-r from-pink-50 to-white">
-                <h2 className="font-semibold text-lg">⚖️ Business Rules ({getFilteredRules().length})</h2>
-                <p className="text-xs text-black">Every active rule visible - no hidden logic</p>
+      <div className="bg-white rounded-xl border-2 border-black shadow-sm overflow-hidden">
+        <div className="p-4 border-b border-black bg-black/5">
+          <h2 className="font-semibold text-black">System checks</h2>
+          <p className="text-sm text-black mt-0.5">APIs and database connectivity (last run just now).</p>
+        </div>
+        <ul className="divide-y divide-black/10">
+          {checks.map((c, i) => (
+            <li key={i} className="p-4 flex items-center justify-between gap-4">
+              <div>
+                <p className="font-medium text-black">{c.label}</p>
+                {c.message && <p className="text-sm text-black/70 mt-0.5">{c.message}</p>}
               </div>
-              <div className="max-h-[500px] overflow-y-auto divide-y">
-                {getFilteredRules().length > 0 ? (
-                  getFilteredRules().map(rule => (
-                    <div key={rule.id} className="p-4 hover:bg-white transition-colors">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            <span className={`w-2.5 h-2.5 rounded-full ${rule.enabled ? 'bg-green-500' : 'bg-white'}`} />
-                            <h3 className="font-medium">{rule.name}</h3>
-                          </div>
-                          {rule.description && (
-                            <p className="text-sm text-black mt-1 ml-4">{rule.description}</p>
-                          )}
-                          <p className="text-xs text-black mt-1 ml-4">
-                            Category: {rule.category} • Priority: {rule.priority}
-                          </p>
-                        </div>
-                        <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${rule.enabled ? 'bg-green-100 text-green-700' : 'bg-white text-black'}`}>
-                          {rule.enabled ? 'ACTIVE' : 'OFF'}
-                        </span>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <EmptyState 
-                    icon="⚖️"
-                    title="No rules match filter"
-                    description="Try a different filter or create new rules"
-                  />
-                )}
-              </div>
-            </div>
-
-            {/* Feature Flags */}
-            <div className="bg-white rounded-xl border shadow-sm">
-              <div className="p-4 border-b bg-gradient-to-r from-blue-50 to-white">
-                <h2 className="font-semibold text-lg">🎚️ Feature Flags ({getFilteredFeatures().length})</h2>
-                <p className="text-xs text-black">All features and their current state</p>
-              </div>
-              <div className="max-h-[500px] overflow-y-auto">
-                {Object.keys(groupedFeatures).length > 0 ? (
-                  Object.entries(groupedFeatures).map(([category, features]) => (
-                    <div key={category}>
-                      <div className="px-4 py-2 bg-white border-b sticky top-0">
-                        <p className="text-xs font-semibold text-black uppercase tracking-wider">{category}</p>
-                      </div>
-                      <div className="divide-y">
-                        {features.map(feature => (
-                          <div key={feature.key} className="p-4 hover:bg-white transition-colors">
-                            <div className="flex items-start justify-between">
-                              <div className="flex-1">
-                                <div className="flex items-center gap-2">
-                                  <span className={`w-2.5 h-2.5 rounded-full ${feature.enabled ? 'bg-green-500' : 'bg-white'}`} />
-                                  <h3 className="font-medium">{feature.name || feature.key}</h3>
-                                </div>
-                                {feature.description && (
-                                  <p className="text-sm text-black mt-1 ml-4">{feature.description}</p>
-                                )}
-                              </div>
-                              <span className={`text-xs px-2.5 py-1 rounded-full font-medium ${feature.enabled ? 'bg-green-100 text-green-700' : 'bg-white text-black'}`}>
-                                {feature.enabled ? 'ON' : 'OFF'}
-                              </span>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <EmptyState 
-                    icon="🎚️"
-                    title="No features match filter"
-                    description="Try a different filter"
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Legend */}
-          <div className="mt-6 bg-white rounded-xl p-4">
-            <h3 className="font-medium text-black mb-3">Visual Indicators</h3>
-            <div className="flex flex-wrap gap-6 text-sm">
-              <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-green-500" /> Green = Active/Enabled</div>
-              <div className="flex items-center gap-2"><span className="w-3 h-3 rounded-full bg-white" /> Gray = Disabled/Off</div>
-            </div>
-          </div>
-
-          {/* Transparency Note */}
-          <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-4">
-            <h3 className="font-medium text-blue-800">🔍 Full Transparency</h3>
-            <p className="text-sm text-blue-600 mt-1">
-              This view shows ALL active system rules and features. There is no hidden logic.
-              What you see here is exactly what the system is using.
-            </p>
-          </div>
-        </>
-      )}
-    </OwnerLayout>
+              <span
+                className={`shrink-0 px-3 py-1 rounded-lg border text-sm font-medium ${statusColor(c.status)}`}
+                title={c.status === 'pending' ? 'Checking…' : c.message}
+              >
+                {statusIcon(c.status)} {c.status === 'pending' ? 'Checking…' : c.status.toUpperCase()}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
   );
 }
