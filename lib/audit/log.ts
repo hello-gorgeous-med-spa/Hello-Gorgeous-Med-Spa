@@ -10,8 +10,21 @@
 // ============================================================
 
 import { headers } from 'next/headers';
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { v4 as uuidv4 } from 'uuid';
+
+// Timeout for audit DB operations (don't let audit logging block operations)
+const AUDIT_TIMEOUT_MS = 3000;
+
+// Helper to add timeout to Supabase queries
+function withAuditTimeout<T>(promise: Promise<T>): Promise<T | null> {
+  return Promise.race([
+    promise,
+    new Promise<null>((resolve) => 
+      setTimeout(() => resolve(null), AUDIT_TIMEOUT_MS)
+    )
+  ]);
+}
 
 // ============================================================
 // TYPES
@@ -330,14 +343,16 @@ export async function logAuditEvent(params: AuditEventParams): Promise<void> {
       resource_path: resourcePath,
     };
     
-    // Insert audit log (using service role)
-    const { error } = await supabase
-      .from('audit_log')
-      .insert(entry);
+    // Insert audit log (using service role) with timeout
+    // Don't let audit logging block operations
+    const result = await withAuditTimeout(
+      supabase.from('audit_log').insert(entry)
+    );
     
-    if (error) {
-      // Log to console but don't throw - audit failures shouldn't break the app
-      console.error('[AUDIT] Failed to write audit log:', error.message);
+    if (result === null) {
+      console.log('[AUDIT] Audit log insert timed out - continuing without blocking');
+    } else if (result.error) {
+      console.error('[AUDIT] Failed to write audit log:', result.error.message);
     }
   } catch (err) {
     // Log to console but don't throw
