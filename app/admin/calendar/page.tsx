@@ -72,32 +72,40 @@ export default function CalendarPage() {
   const [providers, setProviders] = useState<any[]>([]);
   const [providerSchedules, setProviderSchedules] = useState<Record<string, { day_of_week: number; is_working: boolean; start_time: string | null; end_time: string | null }[]>>({});
   const [loading, setLoading] = useState(true);
+  const [dataError, setDataError] = useState<string | null>(null);
 
   const dateString = selectedDate.toISOString().split('T')[0];
 
-  // Fetch appointments
   const fetchAppointments = useCallback(async () => {
     try {
       setLoading(true);
-      console.log('[Calendar] Fetching appointments for date:', dateString);
-      const res = await fetch(`/api/appointments?date=${dateString}`, { cache: 'no-store' });
-      const data = await res.json();
-      console.log('[Calendar] Received appointments:', data.appointments?.length || 0, data.appointments);
-      if (data.appointments) {
-        setAppointments(data.appointments);
+      setDataError(null);
+      const res = await fetchWithTimeout(`/api/appointments?date=${dateString}`, { cache: 'no-store' });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setDataError(data?.error || 'Failed to load appointments');
+        setAppointments([]);
+        return;
       }
+      if (data.source === 'local') {
+        setDataError('Database not connected. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in your hosting environment.');
+        setAppointments([]);
+        return;
+      }
+      setAppointments(data.appointments ?? []);
     } catch (err) {
+      setDataError(err instanceof Error ? err.message : 'Failed to load appointments');
+      setAppointments([]);
       console.error('Failed to load appointments:', err);
     } finally {
       setLoading(false);
     }
   }, [dateString]);
 
-  // Fetch providers
   const fetchProviders = useCallback(async () => {
     try {
-      const res = await fetch('/api/providers');
-      const data = await res.json();
+      const res = await fetchWithTimeout('/api/providers');
+      const data = await res.json().catch(() => ({}));
       if (data.providers && data.providers.length > 0) {
         // Filter out providers with no real names
         const validProviders = data.providers.filter((p: any) => 
