@@ -882,7 +882,7 @@ export function siteJsonLd() {
   };
 }
 
-export function localBusinessJsonLd() {
+export function mainLocalBusinessJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",

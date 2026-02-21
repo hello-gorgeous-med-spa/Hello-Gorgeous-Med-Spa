@@ -22,7 +22,7 @@ import {
   SITE,
   pageMetadata,
   siteJsonLd,
-  localBusinessJsonLd,
+  mainLocalBusinessJsonLd,
   breadcrumbJsonLd,
   imageGalleryJsonLd,
   getImagesByCategory,
@@ -57,7 +57,7 @@ export default function HomePage() {
       {/* LocalBusiness Schema */}
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd()) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(mainLocalBusinessJsonLd()) }}
       />
       
       {/* Breadcrumb Schema */}
