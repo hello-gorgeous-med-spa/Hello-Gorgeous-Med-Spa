@@ -123,6 +123,7 @@ const NAV_SECTIONS = [
       { href: '/admin/clients/new', label: 'Add Client', icon: '➕' },
       { href: '/admin/appointments', label: 'Appointments', icon: '📅' },
       { href: '/admin/calendar', label: 'Calendar', icon: '🗓' },
+      { href: '/admin/waitlist', label: 'Waitlist', icon: '⏳' },
     ],
   },
   {
@@ -200,9 +201,29 @@ const NAV_SECTIONS = [
     title: 'Content',
     icon: '📰',
     items: [
+      { href: '/admin/content/site', label: 'Site Content (CMS)', icon: '📝' },
       { href: '/admin/content/providers', label: 'Providers', icon: '👩‍⚕️' },
-      { href: '/admin/media', label: 'Media (Stream)', icon: '🎬' },
+      { href: '/admin/media', label: 'Media Library', icon: '🎬' },
       { href: '/admin/content/site-videos', label: 'Site Videos', icon: '📹' },
+      { href: '/admin/content/banners', label: 'Banners & Promos', icon: '🎯' },
+    ],
+  },
+  {
+    title: 'Analytics',
+    icon: '📊',
+    items: [
+      { href: '/admin/analytics', label: 'Dashboard', icon: '📈' },
+      { href: '/admin/analytics/revenue', label: 'Revenue', icon: '💰' },
+      { href: '/admin/analytics/clients', label: 'Client Insights', icon: '👥' },
+      { href: '/admin/analytics/marketing', label: 'Campaign Performance', icon: '📣' },
+    ],
+  },
+  {
+    title: 'Audit & Security',
+    icon: '🔒',
+    items: [
+      { href: '/admin/audit-logs', label: 'Audit Logs', icon: '📜' },
+      { href: '/admin/ai/watchdog', label: 'AI Watchdog', icon: '🛡️' },
     ],
   },
   {

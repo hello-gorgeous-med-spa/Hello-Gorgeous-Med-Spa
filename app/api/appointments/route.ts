@@ -683,3 +683,220 @@ export async function PUT(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to update appointment' }, { status: 500 });
   }
 }
+
+// DELETE - Cancel or permanently delete appointment
+export async function DELETE(request: NextRequest) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+    const permanent = searchParams.get('permanent') === 'true';
+
+    if (!id) {
+      return NextResponse.json({ error: 'Appointment ID required' }, { status: 400 });
+    }
+
+    if (permanent) {
+      // Permanent delete - only for Owner role (should be checked by middleware)
+      const { error } = await supabase
+        .from('appointments')
+        .delete()
+        .eq('id', id);
+
+      if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+      }
+
+      await logAppointmentAction(supabase, 'permanent_delete', id, undefined, {}, request);
+    } else {
+      // Soft cancel - mark as cancelled
+      const { error } = await supabase
+        .from('appointments')
+        .update({ 
+          status: 'cancelled',
+          cancelled_at: new Date().toISOString(),
+        })
+        .eq('id', id);
+
+      if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+      }
+
+      await logAppointmentAction(supabase, 'cancelled', id, undefined, {}, request);
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Delete appointment error:', error);
+    return NextResponse.json({ error: 'Failed to delete appointment' }, { status: 500 });
+  }
+}
+
+// PATCH - Specialized operations (no-show, refund, reschedule)
+export async function PATCH(request: NextRequest) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
+  try {
+    const body = await request.json();
+    const { id, action, ...data } = body;
+
+    if (!id || !action) {
+      return NextResponse.json({ error: 'Appointment ID and action required' }, { status: 400 });
+    }
+
+    // Get current appointment
+    const { data: appointment, error: fetchError } = await supabase
+      .from('appointments')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    if (fetchError || !appointment) {
+      return NextResponse.json({ error: 'Appointment not found' }, { status: 404 });
+    }
+
+    let updateData: any = {};
+    let auditAction = action;
+
+    switch (action) {
+      case 'no_show':
+        updateData = {
+          status: 'no_show',
+          no_show_at: new Date().toISOString(),
+          no_show_reason: data.reason || null,
+        };
+        break;
+
+      case 'check_in':
+        updateData = {
+          status: 'checked_in',
+          checked_in_at: new Date().toISOString(),
+        };
+        break;
+
+      case 'start':
+        updateData = {
+          status: 'in_progress',
+          started_at: new Date().toISOString(),
+        };
+        break;
+
+      case 'complete':
+        updateData = {
+          status: 'completed',
+          completed_at: new Date().toISOString(),
+        };
+        break;
+
+      case 'cancel':
+        updateData = {
+          status: 'cancelled',
+          cancelled_at: new Date().toISOString(),
+          cancellation_reason: data.reason || null,
+        };
+        break;
+
+      case 'reschedule':
+        if (!data.new_starts_at) {
+          return NextResponse.json({ error: 'New start time required for reschedule' }, { status: 400 });
+        }
+        
+        // Calculate new end time
+        const duration = data.duration_minutes || 
+          (appointment.ends_at && appointment.starts_at 
+            ? (new Date(appointment.ends_at).getTime() - new Date(appointment.starts_at).getTime()) / 60000
+            : 30);
+        const newEndsAt = new Date(new Date(data.new_starts_at).getTime() + duration * 60000);
+        
+        updateData = {
+          starts_at: data.new_starts_at,
+          ends_at: newEndsAt.toISOString(),
+          status: 'confirmed',
+          rescheduled_at: new Date().toISOString(),
+          rescheduled_from: appointment.starts_at,
+        };
+        auditAction = 'rescheduled';
+        break;
+
+      case 'apply_discount':
+        if (data.discount_amount === undefined && data.discount_percent === undefined) {
+          return NextResponse.json({ error: 'Discount amount or percent required' }, { status: 400 });
+        }
+        updateData = {
+          discount_amount_cents: data.discount_amount ? Math.round(data.discount_amount * 100) : null,
+          discount_percent: data.discount_percent || null,
+          discount_reason: data.reason || 'Manual discount',
+        };
+        auditAction = 'discount_applied';
+        break;
+
+      case 'refund':
+        updateData = {
+          refund_amount_cents: data.refund_amount ? Math.round(data.refund_amount * 100) : null,
+          refund_reason: data.reason || 'Manual refund',
+          refund_at: new Date().toISOString(),
+          payment_status: 'refunded',
+        };
+        auditAction = 'refund_issued';
+        break;
+
+      case 'add_note':
+        const existingNotes = appointment.internal_notes || appointment.notes || '';
+        const timestamp = new Date().toLocaleString();
+        const newNote = `[${timestamp}] ${data.note}`;
+        updateData = {
+          internal_notes: existingNotes ? `${existingNotes}\n${newNote}` : newNote,
+        };
+        auditAction = 'note_added';
+        break;
+
+      case 'flag':
+        updateData = {
+          flags: data.flags || [],
+          flagged_at: new Date().toISOString(),
+        };
+        auditAction = 'flagged';
+        break;
+
+      default:
+        return NextResponse.json({ error: `Unknown action: ${action}` }, { status: 400 });
+    }
+
+    // Perform the update
+    const { data: updatedAppointment, error: updateError } = await supabase
+      .from('appointments')
+      .update(updateData)
+      .eq('id', id)
+      .select()
+      .single();
+
+    if (updateError) {
+      console.error('Appointment update error:', updateError);
+      return NextResponse.json({ error: updateError.message }, { status: 500 });
+    }
+
+    // Log the action
+    await logAppointmentAction(supabase, auditAction, id, data.user_id, {
+      action,
+      previous_status: appointment.status,
+      new_status: updateData.status,
+      ...data,
+    }, request);
+
+    return NextResponse.json({ 
+      success: true, 
+      appointment: updatedAppointment,
+      action: auditAction,
+    });
+  } catch (error) {
+    console.error('Appointment PATCH error:', error);
+    return NextResponse.json({ error: 'Failed to process appointment action' }, { status: 500 });
+  }
+}

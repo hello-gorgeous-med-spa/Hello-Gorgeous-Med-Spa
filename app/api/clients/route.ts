@@ -362,3 +362,260 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to create client' }, { status: 500 });
   }
 }
+
+export async function PUT(request: NextRequest) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
+  try {
+    const body = await request.json();
+    const { id, ...updateData } = body;
+
+    if (!id) {
+      return NextResponse.json({ error: 'Client ID required' }, { status: 400 });
+    }
+
+    // Get the client to find user_id
+    const { data: client } = await supabase
+      .from('clients')
+      .select('user_id')
+      .eq('id', id)
+      .single();
+
+    if (!client) {
+      return NextResponse.json({ error: 'Client not found' }, { status: 404 });
+    }
+
+    // Prepare update data (map camelCase to snake_case)
+    const clientUpdate: any = {};
+    const userUpdate: any = {};
+
+    // Fields that go on clients table
+    if (updateData.first_name || updateData.firstName) {
+      clientUpdate.first_name = updateData.first_name || updateData.firstName;
+      userUpdate.first_name = clientUpdate.first_name;
+    }
+    if (updateData.last_name || updateData.lastName) {
+      clientUpdate.last_name = updateData.last_name || updateData.lastName;
+      userUpdate.last_name = clientUpdate.last_name;
+    }
+    if (updateData.email !== undefined) {
+      clientUpdate.email = updateData.email?.toLowerCase()?.trim() || null;
+      userUpdate.email = clientUpdate.email;
+    }
+    if (updateData.phone !== undefined) {
+      clientUpdate.phone = updateData.phone || null;
+      userUpdate.phone = clientUpdate.phone;
+    }
+    if (updateData.date_of_birth !== undefined) clientUpdate.date_of_birth = updateData.date_of_birth;
+    if (updateData.gender !== undefined) clientUpdate.gender = updateData.gender;
+    if (updateData.address_line1 !== undefined) clientUpdate.address_line1 = updateData.address_line1;
+    if (updateData.address_line2 !== undefined) clientUpdate.address_line2 = updateData.address_line2;
+    if (updateData.city !== undefined) clientUpdate.city = updateData.city;
+    if (updateData.state !== undefined) clientUpdate.state = updateData.state;
+    if (updateData.postal_code !== undefined) clientUpdate.postal_code = updateData.postal_code;
+    if (updateData.emergency_contact_name !== undefined) clientUpdate.emergency_contact_name = updateData.emergency_contact_name;
+    if (updateData.emergency_contact_phone !== undefined) clientUpdate.emergency_contact_phone = updateData.emergency_contact_phone;
+    if (updateData.referral_source !== undefined) clientUpdate.referral_source = updateData.referral_source;
+    if (updateData.internal_notes !== undefined) clientUpdate.internal_notes = updateData.internal_notes;
+    if (updateData.allergies_summary !== undefined) clientUpdate.allergies_summary = updateData.allergies_summary;
+    if (updateData.medications_summary !== undefined) clientUpdate.medications_summary = updateData.medications_summary;
+    if (updateData.medical_conditions_summary !== undefined) clientUpdate.medical_conditions_summary = updateData.medical_conditions_summary;
+    if (updateData.is_vip !== undefined) clientUpdate.is_vip = updateData.is_vip;
+    if (updateData.tags !== undefined) clientUpdate.tags = updateData.tags;
+
+    // Update clients table
+    if (Object.keys(clientUpdate).length > 0) {
+      const { error: clientError } = await supabase
+        .from('clients')
+        .update(clientUpdate)
+        .eq('id', id);
+
+      if (clientError) {
+        console.error('Client update error:', clientError);
+        return NextResponse.json({ error: clientError.message }, { status: 500 });
+      }
+    }
+
+    // Update users table if we have user data and a user_id
+    if (client.user_id && Object.keys(userUpdate).length > 0) {
+      await supabase
+        .from('users')
+        .update(userUpdate)
+        .eq('id', client.user_id);
+    }
+
+    // Fetch updated client
+    const { data: updatedClient } = await supabase
+      .from('clients')
+      .select('*')
+      .eq('id', id)
+      .single();
+
+    return NextResponse.json({ success: true, client: updatedClient });
+  } catch (error) {
+    console.error('Update client error:', error);
+    return NextResponse.json({ error: 'Failed to update client' }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: NextRequest) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
+  try {
+    const { searchParams } = new URL(request.url);
+    const id = searchParams.get('id');
+    const permanent = searchParams.get('permanent') === 'true';
+
+    if (!id) {
+      return NextResponse.json({ error: 'Client ID required' }, { status: 400 });
+    }
+
+    if (permanent) {
+      // Permanent delete - only for Owner role (should be checked by middleware)
+      const { error } = await supabase
+        .from('clients')
+        .delete()
+        .eq('id', id);
+
+      if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+      }
+    } else {
+      // Soft delete - mark as inactive/deleted
+      const { error } = await supabase
+        .from('clients')
+        .update({ 
+          is_active: false,
+          deleted_at: new Date().toISOString(),
+        })
+        .eq('id', id);
+
+      if (error) {
+        return NextResponse.json({ error: error.message }, { status: 500 });
+      }
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error('Delete client error:', error);
+    return NextResponse.json({ error: 'Failed to delete client' }, { status: 500 });
+  }
+}
+
+// Merge duplicate clients
+export async function PATCH(request: NextRequest) {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+  }
+
+  try {
+    const body = await request.json();
+    const { action, primaryId, mergeIds } = body;
+
+    if (action !== 'merge') {
+      return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
+    }
+
+    if (!primaryId || !mergeIds || !Array.isArray(mergeIds) || mergeIds.length === 0) {
+      return NextResponse.json({ error: 'Primary ID and merge IDs required' }, { status: 400 });
+    }
+
+    // Get all clients to merge
+    const { data: clientsToMerge } = await supabase
+      .from('clients')
+      .select('*')
+      .in('id', [primaryId, ...mergeIds]);
+
+    if (!clientsToMerge || clientsToMerge.length < 2) {
+      return NextResponse.json({ error: 'Not enough clients found to merge' }, { status: 404 });
+    }
+
+    const primary = clientsToMerge.find(c => c.id === primaryId);
+    if (!primary) {
+      return NextResponse.json({ error: 'Primary client not found' }, { status: 404 });
+    }
+
+    // Merge data - take non-null values from other clients if primary is null
+    const mergeClients = clientsToMerge.filter(c => c.id !== primaryId);
+    const mergedData: any = { ...primary };
+
+    for (const mc of mergeClients) {
+      // Fill in missing data from merged clients
+      if (!mergedData.phone && mc.phone) mergedData.phone = mc.phone;
+      if (!mergedData.date_of_birth && mc.date_of_birth) mergedData.date_of_birth = mc.date_of_birth;
+      if (!mergedData.address_line1 && mc.address_line1) mergedData.address_line1 = mc.address_line1;
+      if (!mergedData.city && mc.city) mergedData.city = mc.city;
+      if (!mergedData.state && mc.state) mergedData.state = mc.state;
+      if (!mergedData.postal_code && mc.postal_code) mergedData.postal_code = mc.postal_code;
+      
+      // Combine visit counts and spending
+      mergedData.visit_count = (mergedData.visit_count || 0) + (mc.visit_count || 0);
+      mergedData.lifetime_value_cents = (mergedData.lifetime_value_cents || 0) + (mc.lifetime_value_cents || 0);
+      
+      // Combine tags
+      if (mc.tags && Array.isArray(mc.tags)) {
+        mergedData.tags = [...new Set([...(mergedData.tags || []), ...mc.tags])];
+      }
+      
+      // Append notes
+      if (mc.internal_notes) {
+        mergedData.internal_notes = (mergedData.internal_notes || '') + 
+          `\n\n[Merged from ${mc.first_name} ${mc.last_name}]: ${mc.internal_notes}`;
+      }
+    }
+
+    // Update primary client with merged data
+    const { error: updateError } = await supabase
+      .from('clients')
+      .update({
+        phone: mergedData.phone,
+        date_of_birth: mergedData.date_of_birth,
+        address_line1: mergedData.address_line1,
+        city: mergedData.city,
+        state: mergedData.state,
+        postal_code: mergedData.postal_code,
+        visit_count: mergedData.visit_count,
+        lifetime_value_cents: mergedData.lifetime_value_cents,
+        tags: mergedData.tags,
+        internal_notes: mergedData.internal_notes,
+      })
+      .eq('id', primaryId);
+
+    if (updateError) {
+      return NextResponse.json({ error: updateError.message }, { status: 500 });
+    }
+
+    // Update appointments to point to primary client
+    await supabase
+      .from('appointments')
+      .update({ client_id: primaryId })
+      .in('client_id', mergeIds);
+
+    // Soft delete merged clients
+    await supabase
+      .from('clients')
+      .update({ 
+        is_active: false,
+        deleted_at: new Date().toISOString(),
+        internal_notes: supabase.sql`COALESCE(internal_notes, '') || '\n[MERGED INTO ' || ${primaryId} || ']'`
+      })
+      .in('id', mergeIds);
+
+    return NextResponse.json({ 
+      success: true, 
+      message: `Merged ${mergeIds.length} clients into primary client`,
+      primaryId,
+      mergedCount: mergeIds.length,
+    });
+  } catch (error) {
+    console.error('Merge clients error:', error);
+    return NextResponse.json({ error: 'Failed to merge clients' }, { status: 500 });
+  }
+}

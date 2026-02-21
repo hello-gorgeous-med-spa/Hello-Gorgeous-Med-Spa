@@ -83,6 +83,11 @@ export async function POST(req: NextRequest) {
     
     const body = await req.json();
     
+    // Generate UUID if not provided
+    if (!body.id) {
+      body.id = crypto.randomUUID();
+    }
+    
     const { data, error } = await supabase
       .from("providers")
       .insert(body)
@@ -96,6 +101,101 @@ export async function POST(req: NextRequest) {
     console.error("Error creating provider:", error);
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Failed to create provider" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(req: NextRequest) {
+  try {
+    const supabase = getSupabase();
+    if (!supabase) {
+      return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+    }
+    
+    const body = await req.json();
+    const { id, ...updateData } = body;
+    
+    if (!id) {
+      return NextResponse.json({ error: 'Provider ID required' }, { status: 400 });
+    }
+    
+    // Check if provider exists in DB
+    const { data: existing } = await supabase
+      .from("providers")
+      .select("id")
+      .eq("id", id)
+      .single();
+    
+    let data, error;
+    
+    if (!existing) {
+      // Provider doesn't exist (might be a fallback) - insert it
+      const fallbackProvider = FALLBACK_PROVIDERS.find(p => p.id === id);
+      const insertData = fallbackProvider 
+        ? { ...fallbackProvider, ...updateData }
+        : { id, ...updateData };
+      
+      const result = await supabase
+        .from("providers")
+        .upsert(insertData, { onConflict: 'id' })
+        .select()
+        .single();
+      
+      data = result.data;
+      error = result.error;
+    } else {
+      // Update existing provider
+      const result = await supabase
+        .from("providers")
+        .update(updateData)
+        .eq("id", id)
+        .select()
+        .single();
+      
+      data = result.data;
+      error = result.error;
+    }
+
+    if (error) throw error;
+
+    return NextResponse.json({ success: true, provider: data });
+  } catch (error: unknown) {
+    console.error("Error updating provider:", error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Failed to update provider" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(req: NextRequest) {
+  try {
+    const supabase = getSupabase();
+    if (!supabase) {
+      return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+    }
+    
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get('id');
+    
+    if (!id) {
+      return NextResponse.json({ error: 'Provider ID required' }, { status: 400 });
+    }
+    
+    // Soft delete - just set active to false
+    const { error } = await supabase
+      .from("providers")
+      .update({ active: false })
+      .eq("id", id);
+
+    if (error) throw error;
+
+    return NextResponse.json({ success: true });
+  } catch (error: unknown) {
+    console.error("Error deleting provider:", error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Failed to delete provider" },
       { status: 500 }
     );
   }
