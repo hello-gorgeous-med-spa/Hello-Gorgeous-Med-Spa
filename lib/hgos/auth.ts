@@ -9,7 +9,7 @@ import { createBrowserSupabaseClient, createServerSupabaseClient } from './supab
 // TYPES
 // ============================================================
 
-export type UserRole = 'owner' | 'admin' | 'provider' | 'staff' | 'client';
+export type UserRole = 'owner' | 'admin' | 'provider' | 'staff' | 'client' | 'readonly';
 
 export interface AuthUser {
   id: string;
@@ -24,6 +24,9 @@ export interface AuthUser {
   permissions: string[];
   createdAt: string;
   lastLoginAt?: string;
+  isProtected?: boolean;
+  requires2FA?: boolean;
+  twoFactorEnabled?: boolean;
 }
 
 export interface LoginCredentials {
@@ -44,47 +47,95 @@ export interface AuthSession {
 
 export const ROLE_PERMISSIONS: Record<UserRole, string[]> = {
   owner: [
-    'all', // Full access
+    'all', // Full access - Owner has every permission
   ],
   admin: [
     'dashboard.view',
-    'appointments.manage',
-    'clients.manage',
-    'services.manage',
-    'staff.view',
-    'reports.view',
-    'reports.export',
+    'appointments.view',
+    'appointments.create',
+    'appointments.edit',
+    'appointments.cancel',
+    'appointments.refund',
+    'clients.view',
+    'clients.create',
+    'clients.edit',
+    'clients.delete',
+    'clients.merge',
+    'clients.export',
+    'services.view',
+    'services.create',
+    'services.edit',
+    'services.delete',
+    'providers.view',
+    'providers.create',
+    'providers.edit',
+    'users.view',
+    'users.create',
+    'users.edit',
+    'waitlist.view',
+    'waitlist.create',
+    'waitlist.edit',
+    'waitlist.delete',
+    'waitlist.convert',
+    'marketing.view',
+    'marketing.create',
+    'marketing.edit',
+    'marketing.send',
+    'content.view',
+    'content.edit',
+    'analytics.view',
+    'analytics.export',
+    'settings.view',
     'pos.access',
     'pos.refund',
     'pos.discount',
     'charts.view',
-    'marketing.manage',
-    'settings.view',
+    'charts.create',
+    'reports.view',
+    'reports.export',
+    'inventory.view',
+    'inventory.manage',
   ],
   provider: [
     'dashboard.view',
     'appointments.view',
-    'appointments.own',
     'clients.view',
-    'clients.own',
-    'charts.manage',
+    'services.view',
+    'providers.view',
+    'charts.view',
+    'charts.create',
     'charts.sign',
     'pos.access',
-    'schedule.own',
+    'pos.discount',
   ],
   staff: [
     'dashboard.view',
-    'appointments.manage',
+    'appointments.view',
+    'appointments.create',
+    'appointments.edit',
+    'appointments.cancel',
     'clients.view',
     'clients.create',
+    'services.view',
+    'providers.view',
+    'waitlist.view',
+    'waitlist.create',
+    'waitlist.convert',
     'pos.access',
-    'checkin.manage',
+    'inventory.view',
   ],
   client: [
     'portal.access',
-    'appointments.own',
     'profile.manage',
-    'documents.own',
+  ],
+  readonly: [
+    'dashboard.view',
+    'appointments.view',
+    'clients.view',
+    'services.view',
+    'providers.view',
+    'analytics.view',
+    'reports.view',
   ],
 };
 
@@ -93,15 +144,25 @@ export const ROLE_PERMISSIONS: Record<UserRole, string[]> = {
 // ============================================================
 
 export const ROUTE_PERMISSIONS: Record<string, UserRole[]> = {
-  '/admin': ['owner', 'admin', 'staff'],
-  '/admin/reports': ['owner', 'admin'],
+  // Admin routes
+  '/admin': ['owner', 'admin', 'staff', 'readonly'],
+  '/admin/reports': ['owner', 'admin', 'readonly'],
   '/admin/staff': ['owner', 'admin'],
+  '/admin/users': ['owner', 'admin'],
   '/admin/settings': ['owner', 'admin'],
   '/admin/vendors': ['owner'],
+  '/admin/audit-logs': ['owner'],
+  '/admin/analytics': ['owner', 'admin', 'readonly'],
+  '/admin/content': ['owner', 'admin'],
+  '/admin/marketing': ['owner', 'admin'],
+  '/admin/waitlist': ['owner', 'admin', 'staff'],
   '/admin/chart-to-cart': ['owner', 'admin', 'provider', 'staff'],
+  // Provider routes
   '/provider': ['owner', 'admin', 'provider'],
   '/provider/chart': ['owner', 'admin', 'provider'],
+  // POS
   '/pos': ['owner', 'admin', 'provider', 'staff'],
+  // Client portal
   '/portal': ['owner', 'admin', 'provider', 'staff', 'client'],
 };
 

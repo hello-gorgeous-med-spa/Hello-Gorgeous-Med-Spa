@@ -31,15 +31,15 @@ export function middleware(request: NextRequest) {
   const sessionCookie = request.cookies.get('hgos_session');
   const portalSessionCookie = request.cookies.get('portal_session');
   let isAuthenticated = false;
-    if (sessionCookie?.value) {
-      try {
-        const sessionData = JSON.parse(decodeURIComponent(sessionCookie.value));
-        const validRoles = ['owner', 'admin', 'staff', 'provider', 'client'];
-        isAuthenticated = !!(sessionData.userId && sessionData.role && validRoles.includes(sessionData.role));
-      } catch {
-        isAuthenticated = false;
-      }
+  if (sessionCookie?.value) {
+    try {
+      const sessionData = JSON.parse(decodeURIComponent(sessionCookie.value));
+      const validRoles = ['owner', 'admin', 'staff', 'provider', 'client', 'readonly'];
+      isAuthenticated = !!(sessionData.userId && sessionData.role && validRoles.includes(sessionData.role));
+    } catch {
+      isAuthenticated = false;
     }
+  }
     // Only redirect clients to portal; allow staff/admin to reach /login so they can use "Staff sign in" or see client form
     if (isAuthenticated && sessionCookie?.value) {
       try {
@@ -63,7 +63,7 @@ export function middleware(request: NextRequest) {
   if (sessionCookie?.value) {
     try {
       const sessionData = JSON.parse(decodeURIComponent(sessionCookie.value));
-      const validRoles = ['owner', 'admin', 'staff', 'provider', 'client'];
+      const validRoles = ['owner', 'admin', 'staff', 'provider', 'client', 'readonly'];
       isAuthenticated = !!(sessionData.userId && sessionData.role && validRoles.includes(sessionData.role));
     } catch {
       isAuthenticated = false;
@@ -111,30 +111,42 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Role-based access: /admin and /pos require admin-level roles; clients must not access
+  // Role-based access control with enhanced permission checks
   if (isProtectedRoute && isAuthenticated && sessionCookie?.value) {
     try {
       const sessionData = JSON.parse(decodeURIComponent(sessionCookie.value));
       const role = sessionData.role;
+      
+      // Define role access levels
       const adminRoles = ['owner', 'admin', 'staff'];
+      const viewOnlyAdminRoles = ['owner', 'admin', 'staff', 'readonly'];
+      const posRoles = ['owner', 'admin', 'staff', 'provider'];
+      
+      // Owner-only routes (audit logs, settings that affect system)
+      const ownerOnlyPaths = ['/admin/audit-logs', '/admin/vendors'];
+      if (ownerOnlyPaths.some(p => pathname.startsWith(p))) {
+        if (role !== 'owner') {
+          return NextResponse.redirect(new URL('/admin', request.url));
+        }
+      }
 
-      // /admin/* — only owner, admin, staff. Redirect clients and providers to /
+      // /admin/* — owner, admin, staff, readonly (readonly can view but not modify)
       if (pathname === '/admin' || pathname.startsWith('/admin/')) {
-        if (!adminRoles.includes(role)) {
+        if (!viewOnlyAdminRoles.includes(role)) {
           return NextResponse.redirect(new URL('/', request.url));
         }
       }
 
-      // /pos/* — only owner, admin, staff
+      // /pos/* — owner, admin, staff, provider (providers can checkout their own patients)
       if (pathname === '/pos' || pathname.startsWith('/pos/')) {
-        if (!adminRoles.includes(role)) {
+        if (!posRoles.includes(role)) {
           return NextResponse.redirect(new URL('/', request.url));
         }
       }
 
-      // /provider/* — owner, admin, staff, provider. Clients cannot access.
+      // /provider/* — owner, admin, staff, provider. Clients and readonly cannot access.
       if (pathname === '/provider' || pathname.startsWith('/provider/')) {
-        if (role === 'client') {
+        if (role === 'client' || role === 'readonly') {
           return NextResponse.redirect(new URL('/', request.url));
         }
       }

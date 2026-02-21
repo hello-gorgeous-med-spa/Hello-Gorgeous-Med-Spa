@@ -80,6 +80,8 @@ export async function POST(request: NextRequest) {
             lastName: 'Glazier-Alcala',
             permissions: ROLE_PERMISSIONS.owner,
             createdAt: '2024-01-01',
+            isProtected: true,
+            requires2FA: true,
           };
           
           const session = {
@@ -107,6 +109,8 @@ export async function POST(request: NextRequest) {
         lastName: 'Glazier-Alcala',
         permissions: ROLE_PERMISSIONS.owner,
         createdAt: '2024-01-01',
+        isProtected: true,
+        requires2FA: true,
       };
       
       const session = {
