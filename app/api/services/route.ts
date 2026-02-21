@@ -547,6 +547,85 @@ export async function GET(request: NextRequest) {
   }
 }
 
+// Auto-initialize tables if they don't exist
+async function ensureTablesExist(supabase: any) {
+  try {
+    // Check if service_categories table exists by trying to query it
+    const { error: catError } = await supabase.from('service_categories').select('id').limit(1);
+    
+    if (catError && catError.code === '42P01') {
+      // Table doesn't exist - create it
+      console.log('Creating service_categories table...');
+      await supabase.rpc('exec_sql', {
+        sql: `
+          CREATE TABLE IF NOT EXISTS service_categories (
+            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+            name TEXT NOT NULL,
+            slug TEXT UNIQUE NOT NULL,
+            description TEXT,
+            display_order INT DEFAULT 0,
+            is_active BOOLEAN DEFAULT true,
+            created_at TIMESTAMPTZ DEFAULT NOW(),
+            updated_at TIMESTAMPTZ DEFAULT NOW()
+          );
+          ALTER TABLE service_categories ENABLE ROW LEVEL SECURITY;
+          DROP POLICY IF EXISTS service_categories_all ON service_categories;
+          CREATE POLICY service_categories_all ON service_categories FOR ALL USING (true) WITH CHECK (true);
+        `
+      }).catch(() => {
+        // If RPC doesn't work, we'll handle it differently
+        console.log('RPC not available for table creation');
+      });
+      
+      // Insert default categories
+      for (const cat of DEFAULT_CATEGORIES) {
+        await supabase.from('service_categories').upsert(cat, { onConflict: 'id' }).catch(() => {});
+      }
+    }
+    
+    // Check if services table exists
+    const { error: svcError } = await supabase.from('services').select('id').limit(1);
+    
+    if (svcError && svcError.code === '42P01') {
+      console.log('Creating services table...');
+      await supabase.rpc('exec_sql', {
+        sql: `
+          CREATE TABLE IF NOT EXISTS services (
+            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+            name TEXT NOT NULL,
+            slug TEXT UNIQUE NOT NULL,
+            description TEXT,
+            short_description TEXT,
+            category_id UUID REFERENCES service_categories(id) ON DELETE SET NULL,
+            price_cents INT DEFAULT 0,
+            price_display TEXT,
+            duration_minutes INT DEFAULT 30,
+            is_active BOOLEAN DEFAULT true,
+            requires_consult BOOLEAN DEFAULT false,
+            requires_consent BOOLEAN DEFAULT true,
+            allow_online_booking BOOLEAN DEFAULT true,
+            provider_ids UUID[],
+            image_url TEXT,
+            sort_order INT DEFAULT 0,
+            created_at TIMESTAMPTZ DEFAULT NOW(),
+            updated_at TIMESTAMPTZ DEFAULT NOW()
+          );
+          ALTER TABLE services ENABLE ROW LEVEL SECURITY;
+          DROP POLICY IF EXISTS services_all ON services;
+          CREATE POLICY services_all ON services FOR ALL USING (true) WITH CHECK (true);
+        `
+      }).catch(() => {
+        console.log('RPC not available for table creation');
+      });
+    }
+    
+    return true;
+  } catch (err) {
+    console.log('Table check error:', err);
+    return false;
+  }
+}
+
 export async function POST(request: NextRequest) {
   const supabase = getSupabase();
   if (!supabase) {
@@ -554,11 +633,22 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    // Ensure tables exist before inserting
+    await ensureTablesExist(supabase);
+    
     const body = await request.json();
 
     // Generate UUID if not provided
     if (!body.id) {
       body.id = crypto.randomUUID();
+    }
+
+    // First, ensure category exists if specified
+    if (body.category_id) {
+      const cat = DEFAULT_CATEGORIES.find(c => c.id === body.category_id);
+      if (cat) {
+        await supabase.from('service_categories').upsert(cat, { onConflict: 'id' }).catch(() => {});
+      }
     }
 
     const { data, error } = await supabase
@@ -569,6 +659,13 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error('Service create error:', error);
+      // If table doesn't exist error, provide helpful message
+      if (error.code === '42P01') {
+        return NextResponse.json({ 
+          error: 'Services table not set up. Please contact support or run the database setup.',
+          details: error.message 
+        }, { status: 500 });
+      }
       return NextResponse.json({ error: error.message }, { status: 500 });
     }
 
@@ -586,6 +683,8 @@ export async function PUT(request: NextRequest) {
   }
 
   try {
+    await ensureTablesExist(supabase);
+    
     const body = await request.json();
     const { id, ...updateData } = body;
 
@@ -593,12 +692,30 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: 'Service ID required' }, { status: 400 });
     }
 
-    const { data, error } = await supabase
+    // Check if this is a default service that doesn't exist in DB yet
+    const defaultService = DEFAULT_SERVICES.find(s => s.id === id);
+    
+    // Try to update first
+    let { data, error } = await supabase
       .from('services')
       .update(updateData)
       .eq('id', id)
       .select()
       .single();
+
+    // If no rows updated and it's a default service, insert it first then update
+    if (error && error.code === 'PGRST116' && defaultService) {
+      // Insert the default service first
+      const insertData = { ...defaultService, ...updateData };
+      const insertResult = await supabase
+        .from('services')
+        .upsert(insertData, { onConflict: 'id' })
+        .select()
+        .single();
+      
+      data = insertResult.data;
+      error = insertResult.error;
+    }
 
     if (error) {
       console.error('Service update error:', error);

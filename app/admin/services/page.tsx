@@ -25,6 +25,7 @@ interface Service {
   category?: { id: string; name: string };
   price_cents?: number;
   price_display?: string;
+  price?: number;
   duration_minutes: number;
   is_active: boolean;
   requires_consult?: boolean;
@@ -63,6 +64,7 @@ export default function AdminServicesPage() {
     description: '',
     short_description: '',
     price: 0,
+    price_display: '',
     duration_minutes: 30,
     category_id: '',
     is_active: true,
@@ -168,6 +170,7 @@ export default function AdminServicesPage() {
       description: service.description || '',
       short_description: service.short_description || '',
       price: service.price_cents ? service.price_cents / 100 : 0,
+      price_display: service.price_display || '',
       duration_minutes: service.duration_minutes || 30,
       category_id: service.category_id || '',
       is_active: service.is_active ?? true,
@@ -186,6 +189,7 @@ export default function AdminServicesPage() {
       description: '',
       short_description: '',
       price: 0,
+      price_display: '',
       duration_minutes: 30,
       category_id: categoryId || '',
       is_active: true,
@@ -209,6 +213,10 @@ export default function AdminServicesPage() {
     setMessage(null);
 
     try {
+      // Generate display price if not provided
+      const displayPrice = editForm.price_display?.trim() || 
+        (editForm.price > 0 ? `$${editForm.price}` : 'Free');
+      
       const serviceData = {
         id: editingService?.id,
         name: editForm.name,
@@ -216,7 +224,7 @@ export default function AdminServicesPage() {
         description: editForm.description || null,
         short_description: editForm.short_description || null,
         price_cents: Math.round(editForm.price * 100),
-        price_display: `$${editForm.price}`,
+        price_display: displayPrice,
         duration_minutes: editForm.duration_minutes,
         category_id: editForm.category_id || null,
         is_active: editForm.is_active,
@@ -549,29 +557,33 @@ export default function AdminServicesPage() {
                 <select
                   value={editForm.category_id}
                   onChange={(e) => setEditForm({ ...editForm, category_id: e.target.value })}
-                  className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
                 >
                   <option value="">No category</option>
                   {categories.map(cat => (
                     <option key={cat.id} value={cat.id}>{cat.name}</option>
                   ))}
                 </select>
+                <p className="text-xs text-gray-500 mt-1">
+                  Categories: Injectables, Dermal Fillers, Weight Loss, Skin Treatments, IV Therapy, Laser Treatments, Wellness, Consultations
+                </p>
               </div>
 
               {/* Pricing and Duration */}
               <div>
                 <label className="block text-sm font-medium text-black mb-2">Pricing and duration</label>
-                <div className="bg-white rounded-lg p-4 space-y-3">
+                <div className="bg-gray-50 rounded-lg p-4 space-y-3">
                   <div className="flex gap-4">
                     <div className="flex-1">
-                      <label className="block text-xs text-black mb-1">Price ($)</label>
+                      <label className="block text-xs text-black mb-1">Base Price ($)</label>
                       <input
                         type="number"
                         value={editForm.price}
                         onChange={(e) => setEditForm({ ...editForm, price: parseFloat(e.target.value) || 0 })}
-                        className="w-full px-3 py-2 border border-black rounded-lg"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
                         min="0"
                         step="1"
+                        placeholder="0"
                       />
                     </div>
                     <div className="flex-1">
@@ -579,7 +591,7 @@ export default function AdminServicesPage() {
                       <select
                         value={editForm.duration_minutes}
                         onChange={(e) => setEditForm({ ...editForm, duration_minutes: parseInt(e.target.value) })}
-                        className="w-full px-3 py-2 border border-black rounded-lg"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
                       >
                         {DURATION_OPTIONS.map(d => (
                           <option key={d} value={d}>{d} min</option>
@@ -587,18 +599,48 @@ export default function AdminServicesPage() {
                       </select>
                     </div>
                   </div>
+                  <div>
+                    <label className="block text-xs text-black mb-1">
+                      Display Price <span className="text-gray-500">(shown to clients - e.g., "$12/unit", "From $1,500", "Free")</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={editForm.price_display || ''}
+                      onChange={(e) => setEditForm({ ...editForm, price_display: e.target.value })}
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                      placeholder={editForm.price > 0 ? `$${editForm.price}` : 'Free'}
+                    />
+                    <p className="text-xs text-gray-500 mt-1">Leave blank to auto-generate from base price</p>
+                  </div>
                 </div>
               </div>
 
-              {/* Description */}
+              {/* Short Description */}
               <div>
-                <label className="block text-sm font-medium text-black mb-1">Description</label>
+                <label className="block text-sm font-medium text-black mb-1">
+                  Short Description <span className="text-gray-500">(shown in service list)</span>
+                </label>
+                <input
+                  type="text"
+                  value={editForm.short_description}
+                  onChange={(e) => setEditForm({ ...editForm, short_description: e.target.value })}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
+                  placeholder="e.g., Smooth wrinkles & fine lines"
+                  maxLength={100}
+                />
+              </div>
+
+              {/* Full Description */}
+              <div>
+                <label className="block text-sm font-medium text-black mb-1">
+                  Full Description <span className="text-gray-500">(optional - detailed info)</span>
+                </label>
                 <textarea
                   value={editForm.description}
                   onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
-                  className="w-full px-4 py-2 border border-black rounded-lg"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500"
                   rows={3}
-                  placeholder="Service details..."
+                  placeholder="Service details shown when client clicks for more info..."
                 />
               </div>
 
