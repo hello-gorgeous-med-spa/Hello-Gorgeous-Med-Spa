@@ -775,29 +775,49 @@ export function pageMetadata({
 export function siteJsonLd() {
   return {
     "@context": "https://schema.org",
-    "@type": ["MedicalBusiness", "LocalBusiness", "HealthAndBeautyBusiness"],
+    "@type": "MedicalBusiness",
     "@id": `${SITE.url}/#organization`,
     name: SITE.name,
-    alternateName: ["Hello Gorgeous Med Spa Oswego", "Hello Gorgeous Medspa"],
+    alternateName: "Hello Gorgeous Medspa",
     url: SITE.url,
     description: SITE.description,
     telephone: SITE.phone,
     email: SITE.email,
-    image: `${SITE.url}/images/logo-full.png`,
-    logo: `${SITE.url}/images/logo-full.png`,
+    image: {
+      "@type": "ImageObject",
+      url: `${SITE.url}/images/logo-full.png`,
+      width: 600,
+      height: 600,
+    },
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE.url}/images/logo-full.png`,
+      width: 600,
+      height: 600,
+    },
     priceRange: SITE.priceRange,
     currenciesAccepted: "USD",
     paymentAccepted: "Cash, Credit Card, Cherry Financing",
     address: {
       "@type": "PostalAddress",
-      ...SITE.address,
+      streetAddress: SITE.address.streetAddress,
+      addressLocality: SITE.address.addressLocality,
+      addressRegion: SITE.address.addressRegion,
+      postalCode: SITE.address.postalCode,
+      addressCountry: "US",
     },
     geo: {
       "@type": "GeoCoordinates",
       latitude: SITE.geo.latitude,
       longitude: SITE.geo.longitude,
     },
-    areaServed: SITE.serviceAreas.map((name) => ({ "@type": "City", name })),
+    areaServed: [
+      { "@type": "City", name: "Oswego", containedInPlace: { "@type": "State", name: "Illinois" } },
+      { "@type": "City", name: "Naperville", containedInPlace: { "@type": "State", name: "Illinois" } },
+      { "@type": "City", name: "Aurora", containedInPlace: { "@type": "State", name: "Illinois" } },
+      { "@type": "City", name: "Plainfield", containedInPlace: { "@type": "State", name: "Illinois" } },
+      { "@type": "City", name: "Yorkville", containedInPlace: { "@type": "State", name: "Illinois" } },
+    ],
     hasMap: "https://www.google.com/maps/place/74+W+Washington+St,+Oswego,+IL+60543",
     openingHoursSpecification: [
       {
@@ -819,17 +839,13 @@ export function siteJsonLd() {
       SITE.social.instagram,
       SITE.social.tiktok,
     ],
-    ...(SITE.reviewRating && SITE.reviewCount
-      ? {
-          aggregateRating: {
-            "@type": "AggregateRating" as const,
-            ratingValue: SITE.reviewRating,
-            reviewCount: SITE.reviewCount,
-            bestRating: "5",
-            worstRating: "1",
-          },
-        }
-      : {}),
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: SITE.reviewRating,
+      reviewCount: SITE.reviewCount,
+      bestRating: "5",
+      worstRating: "1",
+    },
     review: [
       {
         "@type": "Review",
@@ -837,12 +853,14 @@ export function siteJsonLd() {
           "@type": "Rating",
           ratingValue: "5",
           bestRating: "5",
+          worstRating: "1",
         },
         author: {
           "@type": "Person",
           name: "Sarah M.",
         },
         reviewBody: "Best Botox experience! Danielle is amazing and made me feel so comfortable. Natural results that everyone compliments.",
+        datePublished: "2025-01-15",
       },
       {
         "@type": "Review",
@@ -850,62 +868,65 @@ export function siteJsonLd() {
           "@type": "Rating",
           ratingValue: "5",
           bestRating: "5",
+          worstRating: "1",
         },
         author: {
           "@type": "Person",
           name: "Jennifer K.",
         },
         reviewBody: "The weight loss program changed my life. Down 30 lbs and feeling incredible. The team is so supportive!",
+        datePublished: "2025-02-01",
       },
     ],
-    medicalSpecialty: [
-      "Aesthetic Medicine",
-      "Medical Aesthetics",
-      "Anti-Aging Medicine",
-      "Hormone Therapy",
+    medicalSpecialty: "Dermatology",
+  };
+}
+
+export function localBusinessJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${SITE.url}/#localbusiness`,
+    name: SITE.name,
+    url: SITE.url,
+    description: SITE.description,
+    telephone: SITE.phone,
+    email: SITE.email,
+    image: `${SITE.url}/images/logo-full.png`,
+    priceRange: SITE.priceRange,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: SITE.address.streetAddress,
+      addressLocality: SITE.address.addressLocality,
+      addressRegion: SITE.address.addressRegion,
+      postalCode: SITE.address.postalCode,
+      addressCountry: "US",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: SITE.geo.latitude,
+      longitude: SITE.geo.longitude,
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "09:00",
+        closes: "17:00",
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: "Saturday",
+        opens: "09:00",
+        closes: "14:00",
+      },
     ],
-    availableService: [
-      { "@type": "MedicalProcedure", name: "Botox", description: "Botox cosmetic injectable for fine lines and wrinkles" },
-      { "@type": "MedicalProcedure", name: "Dysport", description: "Dysport injectable for dynamic wrinkles" },
-      { "@type": "MedicalProcedure", name: "Jeuveau", description: "Jeuveau neuromodulator for aesthetic use" },
-      { "@type": "MedicalProcedure", name: "Lip Filler", description: "Lip augmentation and enhancement" },
-      { "@type": "MedicalProcedure", name: "Revanesse", description: "Revanesse dermal filler" },
-      { "@type": "MedicalProcedure", name: "Juvederm", description: "Juvederm hyaluronic acid fillers" },
-      { "@type": "MedicalProcedure", name: "PRP Facial", description: "Platelet-rich plasma facial rejuvenation" },
-      { "@type": "MedicalProcedure", name: "Vampire Facial", description: "PRP microneedling facial" },
-      { "@type": "MedicalProcedure", name: "Microneedling", description: "RF microneedling for skin rejuvenation" },
-      { "@type": "MedicalProcedure", name: "GLP-1", description: "GLP-1 weight loss therapy" },
-      { "@type": "MedicalProcedure", name: "Hormone Therapy", description: "Biote hormone pellet therapy" },
-      { "@type": "MedicalProcedure", name: "Pellet Therapy", description: "Bioidentical hormone pellets" },
-      { "@type": "MedicalProcedure", name: "Trigger Point", description: "Trigger point injections" },
-      { "@type": "MedicalProcedure", name: "IV Therapy", description: "IV vitamin and hydration therapy" },
-      { "@type": "MedicalProcedure", name: "Vitamin Injections", description: "Vitamin B12 and other injections" },
-      { "@type": "MedicalProcedure", name: "Peptide Therapy", description: "Peptide treatments" },
-      { "@type": "MedicalProcedure", name: "Lab Draw", description: "Laboratory blood draw services" },
-      { "@type": "MedicalProcedure", name: "Telehealth", description: "Virtual consultations" },
-      { "@type": "MedicalProcedure", name: "Laser Hair Removal", description: "Laser hair removal" },
-      { "@type": "MedicalProcedure", name: "IPL", description: "IPL photofacial treatment" },
-      { "@type": "MedicalProcedure", name: "Acne Facial", description: "Acne treatment facial" },
-      { "@type": "MedicalProcedure", name: "Teen Facial", description: "Teen skincare facial" },
-      { "@type": "MedicalProcedure", name: "Detox Facial", description: "Detoxifying facial" },
-      { "@type": "MedicalProcedure", name: "HydraFacial", description: "HydraFacial treatment" },
-      { "@type": "MedicalProcedure", name: "Chemical Peel", description: "Chemical peel treatments" },
-      { "@type": "MedicalProcedure", name: "Brow Lamination", description: "Brow lamination service" },
-      { "@type": "MedicalProcedure", name: "Lash Extensions", description: "Eyelash extensions" },
-    ],
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Medical Spa Services",
-      itemListElement: [
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Book Appointment",
-            url: `${SITE.url}/book`,
-          },
-        },
-      ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: SITE.reviewRating,
+      reviewCount: SITE.reviewCount,
+      bestRating: "5",
+      worstRating: "1",
     },
   };
 }
@@ -915,10 +936,15 @@ export function organizationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": `${SITE.url}/#organization`,
+    "@id": `${SITE.url}/#org`,
     name: SITE.name,
     url: SITE.url,
-    logo: `${SITE.url}/images/logo-full.png`,
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE.url}/images/logo-full.png`,
+      width: 600,
+      height: 600,
+    },
     contactPoint: {
       "@type": "ContactPoint",
       telephone: SITE.phone,
@@ -926,6 +952,20 @@ export function organizationJsonLd() {
       areaServed: "US",
       availableLanguage: "English",
     },
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: SITE.address.streetAddress,
+      addressLocality: SITE.address.addressLocality,
+      addressRegion: SITE.address.addressRegion,
+      postalCode: SITE.address.postalCode,
+      addressCountry: "US",
+    },
+    sameAs: [
+      SITE.googleBusinessUrl,
+      SITE.social.facebook,
+      SITE.social.instagram,
+      SITE.social.tiktok,
+    ],
   };
 }
 
