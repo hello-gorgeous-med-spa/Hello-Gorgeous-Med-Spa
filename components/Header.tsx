@@ -27,6 +27,7 @@ const navigation = {
       {
         title: "Skin & Face",
         links: [
+          { label: "Solaria CO₂ Laser", href: "/services/solaria-co2", icon: "⚡", badge: "NEW" },
           { label: "HydraFacial", href: "/services/hydra-facial", icon: "✨" },
           { label: "RF Microneedling", href: "/services/rf-microneedling", icon: "🎯" },
           { label: "IPL Photofacial", href: "/services/ipl-photofacial", icon: "💡" },
@@ -64,10 +65,10 @@ const navigation = {
       },
     ],
     featured: {
-      title: "Most Popular",
-      description: "Not sure where to start? Take our quick quiz to find your perfect treatment.",
-      cta: { label: "Find My Treatment", href: "/quiz" },
-      image: "✨",
+      title: "🔥 Solaria CO₂ Laser",
+      description: "Our newest advanced treatment! VIP Early Access now open. $100 off for first 25 clients.",
+      cta: { label: "Join VIP Waitlist", href: "/solaria-co2-vip" },
+      image: "⚡",
     },
   },
   about: {
@@ -166,6 +167,11 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
                     >
                       <span className="text-lg group-hover:scale-110 transition-transform">{link.icon}</span>
                       <span className="text-sm font-medium">{link.label}</span>
+                      {'badge' in link && link.badge && (
+                        <span className="px-1.5 py-0.5 text-[9px] font-bold bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full">
+                          {link.badge}
+                        </span>
+                      )}
                     </Link>
                   </li>
                 ))}
