@@ -80,6 +80,13 @@ export default function PortalLayout({
     return pathname.startsWith(href);
   };
 
+  // Login page gets minimal layout - no navigation
+  const isLoginPage = pathname === '/portal/login' || pathname?.startsWith('/portal/verify');
+  
+  if (isLoginPage) {
+    return <>{children}</>;
+  }
+
   return (
     <ChatOpenProvider>
     <div data-portal className="min-h-screen bg-gradient-to-br from-white via-white to-white">
