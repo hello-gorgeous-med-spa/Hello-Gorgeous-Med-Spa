@@ -82,24 +82,35 @@ export default function AdminServicesPage() {
     setError(null);
     
     try {
+      // Add timeout to prevent hanging
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 10000);
+      
       const [servicesRes, providersRes] = await Promise.all([
-        fetch('/api/services'),
-        fetch('/api/providers'),
+        fetch('/api/services', { signal: controller.signal }).catch(() => null),
+        fetch('/api/providers', { signal: controller.signal }).catch(() => null),
       ]);
+      
+      clearTimeout(timeoutId);
 
-      const servicesData = await servicesRes.json();
-      const providersData = await providersRes.json();
+      // Parse responses safely
+      const servicesData = servicesRes ? await servicesRes.json().catch(() => ({})) : {};
+      const providersData = providersRes ? await providersRes.json().catch(() => ({})) : {};
 
-      if (servicesData.services) {
+      // Set services - always have data
+      if (servicesData.services && servicesData.services.length > 0) {
         setServices(servicesData.services);
-        // Expand all categories by default
         const catIds = new Set((servicesData.categories || []).map((c: Category) => c.id));
         setExpandedCategories(catIds);
       }
-      if (servicesData.categories) {
+      
+      // Set categories
+      if (servicesData.categories && servicesData.categories.length > 0) {
         setCategories(servicesData.categories);
       }
-      if (providersData.providers) {
+      
+      // Set providers
+      if (providersData.providers && providersData.providers.length > 0) {
         setProviders(providersData.providers.map((p: any) => ({
           id: p.id,
           name: p.first_name ? `${p.first_name} ${p.last_name}` : p.name || 'Provider',
@@ -107,9 +118,13 @@ export default function AdminServicesPage() {
           color: p.color_hex || p.color || '#EC4899',
         })));
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error('Error fetching data:', err);
-      setError('Failed to load services. Please refresh.');
+      if (err.name === 'AbortError') {
+        setError('Request timed out. Please refresh.');
+      } else {
+        setError('Failed to load services. Please refresh.');
+      }
     } finally {
       setLoading(false);
     }

@@ -53,24 +53,24 @@ export async function GET() {
       'Database timeout'
     );
 
-    if (error) throw error;
+    if (error) {
+      console.log('Providers DB error, using fallback:', error.message);
+      return NextResponse.json({ providers: FALLBACK_PROVIDERS, source: 'fallback' });
+    }
 
-    return NextResponse.json({ providers: data || [] });
+    // If no providers in DB, return fallback
+    if (!data || data.length === 0) {
+      return NextResponse.json({ providers: FALLBACK_PROVIDERS, source: 'fallback' });
+    }
+
+    return NextResponse.json({ providers: data });
   } catch (error: unknown) {
     console.error("Error fetching providers:", error);
-    // Return fallback providers on timeout so admin still works
-    const errorMsg = error instanceof Error ? error.message : 'Unknown error';
-    if (errorMsg.includes('timeout')) {
-      return NextResponse.json({ 
-        providers: FALLBACK_PROVIDERS,
-        source: 'fallback',
-        warning: 'Database timeout - using cached provider data',
-      });
-    }
-    return NextResponse.json(
-      { error: errorMsg },
-      { status: 500 }
-    );
+    // ALWAYS return fallback - never fail
+    return NextResponse.json({ 
+      providers: FALLBACK_PROVIDERS,
+      source: 'fallback',
+    });
   }
 }
 
