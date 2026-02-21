@@ -53,17 +53,24 @@ export default function AdminSettingsPage() {
     sunday: { open: '', close: '', enabled: false },
   });
 
-  // Load settings from API
+  // Load settings from API with timeout
   useEffect(() => {
     async function loadSettings() {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8000);
+      
       try {
-        const res = await fetch('/api/settings');
-        const data = await res.json();
-        if (data.settings) {
-          setSettings(prev => ({ ...prev, ...data.settings }));
-        }
-        if (data.businessHours) {
-          setBusinessHours(prev => ({ ...prev, ...data.businessHours }));
+        const res = await fetch('/api/settings', { signal: controller.signal }).catch(() => null);
+        clearTimeout(timeout);
+        
+        if (res?.ok) {
+          const data = await res.json().catch(() => ({}));
+          if (data.settings) {
+            setSettings(prev => ({ ...prev, ...data.settings }));
+          }
+          if (data.businessHours) {
+            setBusinessHours(prev => ({ ...prev, ...data.businessHours }));
+          }
         }
       } catch (err) {
         console.error('Failed to load settings:', err);
@@ -107,8 +114,9 @@ export default function AdminSettingsPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-12">
+      <div className="flex flex-col items-center justify-center py-12 gap-4">
         <div className="animate-spin h-8 w-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full" />
+        <p className="text-gray-500 text-sm">Loading settings...</p>
       </div>
     );
   }

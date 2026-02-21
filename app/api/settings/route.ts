@@ -9,6 +9,7 @@ import { SITE } from '@/lib/seo';
 
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
+export const maxDuration = 10;
 
 // Default settings
 const DEFAULT_SETTINGS = {
@@ -34,20 +35,36 @@ const DEFAULT_HOURS = {
   sunday: { open: '', close: '', enabled: false },
 };
 
+// Helper with timeout
+async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T | null> {
+  const timeout = new Promise<null>((resolve) => setTimeout(() => resolve(null), ms));
+  return Promise.race([promise, timeout]);
+}
+
 // GET /api/settings - Get business settings
 export async function GET() {
   try {
     const supabase = createServerSupabaseClient();
+    
+    if (!supabase) {
+      return NextResponse.json({ 
+        settings: DEFAULT_SETTINGS, 
+        businessHours: DEFAULT_HOURS 
+      });
+    }
 
-    // Try business_settings table first (new table from migration)
-    const { data: settingsData, error } = await supabase
-      .from('business_settings')
-      .select('*')
-      .limit(1)
-      .single();
+    // Try business_settings table with timeout
+    const result = await withTimeout(
+      supabase
+        .from('business_settings')
+        .select('*')
+        .limit(1)
+        .single(),
+      5000
+    );
 
-    // If table doesn't exist or no data, return defaults silently
-    if (error) {
+    // If timeout or error, return defaults
+    if (!result || result.error) {
       return NextResponse.json({ 
         settings: DEFAULT_SETTINGS, 
         businessHours: DEFAULT_HOURS 
@@ -55,8 +72,8 @@ export async function GET() {
     }
 
     // Return settings or defaults
-    const settings = settingsData?.settings || DEFAULT_SETTINGS;
-    const businessHours = settingsData?.business_hours || DEFAULT_HOURS;
+    const settings = result.data?.settings || DEFAULT_SETTINGS;
+    const businessHours = result.data?.business_hours || DEFAULT_HOURS;
 
     return NextResponse.json({ settings, businessHours });
   } catch (error) {
