@@ -201,11 +201,11 @@ const NAV_SECTIONS = [
     title: 'Content',
     icon: '📰',
     items: [
+      { href: '/admin/content/providers', label: 'Provider Media', icon: '👩‍⚕️' },
       { href: '/admin/content/site', label: 'Site Content (CMS)', icon: '📝' },
-      { href: '/admin/content/providers', label: 'Providers', icon: '👩‍⚕️' },
       { href: '/admin/media', label: 'Media Library', icon: '🎬' },
       { href: '/admin/content/site-videos', label: 'Site Videos', icon: '📹' },
-      { href: '/admin/content/banners', label: 'Banners & Promos', icon: '🎯' },
+      { href: '/admin/seo', label: 'SEO Dashboard', icon: '🔍' },
     ],
   },
   {
@@ -230,13 +230,14 @@ const NAV_SECTIONS = [
     title: 'Settings',
     icon: '⚙️',
     items: [
-      { href: '/admin/staff', label: 'Staff', icon: '👤' },
-      { href: '/admin/users', label: 'Users & Access', icon: '🔐' },
-      { href: '/admin/vendors', label: 'Vendors', icon: '🏢' },
       { href: '/admin/settings', label: 'Business Settings', icon: '⚙️' },
+      { href: '/admin/users', label: 'Users & Access', icon: '🔐' },
+      { href: '/admin/staff', label: 'Staff', icon: '👤' },
+      { href: '/admin/vendors', label: 'Vendors', icon: '🏢' },
       { href: '/admin/settings/payments', label: 'Square Terminal', icon: '💳' },
       { href: '/admin/settings/pretreatment', label: 'Pre-treatment', icon: '📋' },
       { href: '/admin/settings/aftercare', label: 'Aftercare', icon: '📄' },
+      { href: '/admin/owner/manual', label: 'Owner\'s Manual', icon: '📖' },
     ],
   },
 ];
@@ -265,35 +266,46 @@ export default function AdminLayout({
             {/* Sidebar - Clinical Aesthetic Record style */}
             <aside className="w-64 bg-white min-h-[calc(100vh-56px)] sticky top-14 hidden lg:block overflow-y-auto shadow-sm border-r border-black">
               {/* Quick links */}
-              <div className="p-3 border-b border-black bg-white0">
-                <Link
-                  href="/admin/owner/live-state"
-                  className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all ${
-                    pathname === '/admin/owner/live-state'
-                      ? 'bg-emerald-600 text-white font-medium'
-                      : 'text-black hover:bg-white'
-                  }`}
-                >
-                  <span className="text-lg">📡</span>
-                  <span className="font-medium text-sm">Live State</span>
-                </Link>
+              <div className="p-3 border-b border-black bg-white">
                 <Link
                   href="/admin"
-                  className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all mt-1 ${
+                  className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all ${
                     pathname === '/admin'
                       ? 'bg-[#2D63A4] text-white font-medium'
-                      : 'text-black hover:bg-white'
+                      : 'text-black hover:bg-gray-50'
                   }`}
                 >
                   <span className="text-lg">📊</span>
                   <span className="font-medium text-sm">Dashboard</span>
                 </Link>
                 <Link
+                  href="/admin/owner"
+                  className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all mt-1 ${
+                    pathname === '/admin/owner'
+                      ? 'bg-black text-white font-medium'
+                      : 'text-black hover:bg-gray-50'
+                  }`}
+                >
+                  <span className="text-lg">👑</span>
+                  <span className="font-medium text-sm">Founder Control</span>
+                </Link>
+                <Link
+                  href="/admin/owner/manual"
+                  className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all mt-1 ${
+                    pathname === '/admin/owner/manual'
+                      ? 'bg-purple-600 text-white font-medium'
+                      : 'text-black hover:bg-gray-50'
+                  }`}
+                >
+                  <span className="text-lg">📖</span>
+                  <span className="font-medium text-sm">Owner's Manual</span>
+                </Link>
+                <Link
                   href="/pos"
                   className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-all mt-1 ${
                     pathname.startsWith('/pos')
                       ? 'bg-[#FF2D8E] text-white font-medium'
-                      : 'text-black hover:bg-white'
+                      : 'text-black hover:bg-gray-50'
                   }`}
                 >
                   <span className="text-lg">💳</span>
