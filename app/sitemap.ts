@@ -135,6 +135,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.85,
     },
+    {
+      url: `${baseUrl}/aftercare/solaria-co2`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
+  ];
+
+  // Aftercare / Patient Resources pages
+  const aftercarePages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/aftercare/solaria-co2`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.75,
+    },
   ];
 
   // Location-based service pages (HIGH PRIORITY for "near me" searches)
@@ -187,6 +203,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...corePages,
     ...servicePages,
     ...solariaPages,
+    ...aftercarePages,
     ...locationServicePages,
     ...weightLossPages,
     ...hormonePages,

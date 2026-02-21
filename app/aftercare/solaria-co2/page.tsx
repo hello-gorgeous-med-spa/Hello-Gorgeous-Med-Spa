@@ -162,8 +162,133 @@ const PRODUCTS_NEEDED = [
 ];
 
 export default function SolariaCO2AftercarePage() {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "Solaria CO₂ Laser Pre & Post Treatment Instructions",
+    "description": "Complete pre-treatment and post-treatment care instructions for Solaria CO₂ fractional laser at Hello Gorgeous Med Spa.",
+    "url": "https://www.hellogorgeousmedspa.com/aftercare/solaria-co2",
+    "lastReviewed": new Date().toISOString().split('T')[0],
+    "reviewedBy": {
+      "@type": "Person",
+      "name": "Danielle Glazier-Alcala",
+      "jobTitle": "FNP-BC, Owner",
+      "worksFor": {
+        "@type": "MedicalBusiness",
+        "name": "Hello Gorgeous Med Spa"
+      }
+    },
+    "about": {
+      "@type": "MedicalProcedure",
+      "name": "Solaria CO₂ Fractional Laser Treatment",
+      "procedureType": "Cosmetic",
+      "bodyLocation": "Face"
+    },
+    "mainEntity": {
+      "@type": "HowTo",
+      "name": "Solaria CO₂ Laser Recovery Guide",
+      "description": "Step-by-step guide for pre-treatment preparation and post-treatment recovery from CO₂ laser resurfacing.",
+      "totalTime": "P6M",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "name": "Pre-Treatment (2 Weeks Before)",
+          "text": "Stop retinoids, avoid sun exposure, discontinue AHAs/BHAs"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Pre-Treatment (1 Week Before)",
+          "text": "Stop blood thinners if approved, begin antivirals if prescribed"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Days 1-3: Immediate Recovery",
+          "text": "Apply cool compresses, keep skin moist with Aquaphor, sleep elevated"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Days 4-7: Active Peeling",
+          "text": "Continue keeping skin moist, do NOT pick peeling skin"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Week 2: New Skin Emerges",
+          "text": "Begin gentle moisturizer, start SPF 50+ daily"
+        },
+        {
+          "@type": "HowToStep",
+          "name": "Months 1-6: Collagen Remodeling",
+          "text": "Continue SPF protection, results improve as collagen rebuilds"
+        }
+      ]
+    },
+    "provider": {
+      "@type": "MedicalBusiness",
+      "name": "Hello Gorgeous Med Spa",
+      "url": "https://www.hellogorgeousmedspa.com",
+      "telephone": "+1-630-636-6193",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "74 W. Washington St",
+        "addressLocality": "Oswego",
+        "addressRegion": "IL",
+        "postalCode": "60543",
+        "addressCountry": "US"
+      }
+    }
+  };
+
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How long is the recovery time for CO2 laser?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Expect 5-7 days of social downtime with redness, swelling, and peeling. Full healing takes 2-4 weeks, with continued improvement over 3-6 months as collagen rebuilds."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What should I avoid before CO2 laser treatment?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Avoid sun exposure and retinoids for 2 weeks before treatment. Stop blood thinners, AHAs, and BHAs 1 week before. Arrive with clean, makeup-free skin."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What products do I need for CO2 laser aftercare?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Essential products include Aquaphor healing ointment (Days 1-7), gentle cleanser like Cetaphil or CeraVe, SPF 50+ mineral sunscreen, and clean pillowcases."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When can I wear makeup after CO2 laser?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Avoid makeup until skin is fully healed, usually 7-10 days. Once peeling is complete, you may resume light mineral makeup."
+        }
+      }
+    ]
+  };
+
   return (
     <main className="min-h-screen bg-white">
+      {/* Schema Markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+
       {/* Hero */}
       <section className="bg-gradient-to-b from-gray-900 to-black text-white py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
