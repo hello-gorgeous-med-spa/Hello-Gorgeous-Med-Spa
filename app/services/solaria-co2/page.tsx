@@ -471,6 +471,14 @@ export default function SolariaCO2Page() {
                 </div>
               ))}
             </div>
+            <div className="mt-6 text-center">
+              <Link
+                href="/aftercare/solaria-co2"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-pink-500 text-white font-semibold rounded-lg hover:bg-pink-600 transition-colors"
+              >
+                📋 View Complete Pre & Post Care Instructions
+              </Link>
+            </div>
           </div>
         </FadeUp>
       </Section>
