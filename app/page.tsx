@@ -16,6 +16,7 @@ import {
   HomepageLetsChat,
   FinalCTA,
 } from "@/components/homepage-v3";
+import { GlowUpEventBanner } from "@/components/GlowUpEventBanner";
 import {
   SITE,
   pageMetadata,
@@ -111,6 +112,7 @@ export default function HomePage() {
       />
 
       <main className="bg-white">
+        <GlowUpEventBanner />
         <HeroV3 />
         <TrustStrip />
         <PartnerBadges />
