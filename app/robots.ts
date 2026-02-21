@@ -11,19 +11,26 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: '*',
-        allow: '/',
+        allow: [
+          '/',
+          '/_next/static/',
+          '/_next/image/',
+        ],
         disallow: [
           '/admin/',
           '/portal/',
           '/api/',
           '/pos/',
-          '/_next/',
           '/private/',
         ],
       },
       {
         userAgent: 'Googlebot',
-        allow: '/',
+        allow: [
+          '/',
+          '/_next/static/',
+          '/_next/image/',
+        ],
         disallow: [
           '/admin/',
           '/portal/',
