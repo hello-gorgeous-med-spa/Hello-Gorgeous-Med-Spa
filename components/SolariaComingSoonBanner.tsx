@@ -17,24 +17,26 @@ export function SolariaComingSoonBanner() {
           
           {/* Content */}
           <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-            <p className="text-white font-medium text-sm sm:text-base">
+            <Link href="/solaria" className="text-white font-medium text-sm sm:text-base hover:text-teal-300 transition-colors">
               <span className="text-teal-400 font-bold">COMING SOON:</span>
               <span className="mx-2">|</span>
               <span className="hidden sm:inline">InMode</span>{" "}
               <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-300">
                 Solaria CO₂ Fractional Laser
               </span>
-            </p>
+            </Link>
             
-            <Link
-              href="/solaria"
+            <a
+              href="https://squareup.com/customer-programs/enroll/hg4NM8qZXwGm?utm_medium=solaria-banner&utm_source=website"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-1.5 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white text-sm font-bold rounded-full transition-all hover:scale-105 shadow-lg shadow-teal-500/25"
             >
               Join Waitlist
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
-            </Link>
+            </a>
           </div>
           
           {/* Sparkle icon */}

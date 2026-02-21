@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
 import { SITE } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -114,15 +113,17 @@ export default function SolariaPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="#waitlist"
+            <a
+              href="https://squareup.com/customer-programs/enroll/hg4NM8qZXwGm?utm_medium=solaria&utm_source=website"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold rounded-full transition-all transform hover:scale-105 shadow-lg shadow-pink-500/25"
             >
               Join the Waitlist
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
-            </Link>
+            </a>
             <a
               href="https://www.instagram.com/reel/DOWwR-rD6WZ/"
               target="_blank"
@@ -234,48 +235,21 @@ export default function SolariaPage() {
           </div>
 
           <div className="p-8 rounded-3xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50">
-            <form className="space-y-4" action="/api/subscribe" method="POST">
-              <input type="hidden" name="source" value="solaria-waitlist" />
-              
-              <div>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Your Name"
-                  required
-                  className="w-full px-5 py-4 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors"
-                />
-              </div>
-              
-              <div>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Email Address"
-                  required
-                  className="w-full px-5 py-4 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors"
-                />
-              </div>
-              
-              <div>
-                <input
-                  type="tel"
-                  name="phone"
-                  placeholder="Phone Number (for SMS updates)"
-                  className="w-full px-5 py-4 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-pink-500 transition-colors"
-                />
-              </div>
-
-              <button
-                type="submit"
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold text-lg transition-all transform hover:scale-[1.02] shadow-lg shadow-pink-500/25"
-              >
-                Join the VIP Waitlist
-              </button>
-            </form>
+            <p className="text-gray-300 mb-6">
+              Sign up to receive exclusive updates, early access, and special launch pricing for the Solaria CO₂ Laser.
+            </p>
+            
+            <a
+              href="https://squareup.com/customer-programs/enroll/hg4NM8qZXwGm?utm_medium=solaria&utm_source=website"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full py-4 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:from-pink-600 hover:to-rose-600 text-white font-bold text-lg text-center transition-all transform hover:scale-[1.02] shadow-lg shadow-pink-500/25"
+            >
+              Join the VIP Waitlist →
+            </a>
 
             <p className="text-gray-500 text-sm mt-4">
-              We&apos;ll notify you when Solaria launches. No spam, unsubscribe anytime.
+              Get 10% off your next purchase when you sign up! We&apos;ll notify you when Solaria launches.
             </p>
           </div>
 
