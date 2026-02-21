@@ -1,13 +1,7 @@
-import type { Metadata } from "next";
-import Link from "next/link";
-import { SITE, pageMetadata } from "@/lib/seo";
+'use client';
 
-export const metadata: Metadata = pageMetadata({
-  title: "Solaria CO₂ Laser Pre & Post Treatment Instructions | Hello Gorgeous Med Spa",
-  description:
-    "Complete pre-treatment and post-treatment care instructions for Solaria CO₂ fractional laser at Hello Gorgeous Med Spa. Ensure optimal healing and results.",
-  path: "/aftercare/solaria-co2",
-});
+import Link from "next/link";
+import { SITE } from "@/lib/seo";
 
 const PRE_TREATMENT = [
   {
