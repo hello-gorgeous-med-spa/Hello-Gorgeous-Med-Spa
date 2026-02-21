@@ -7,12 +7,56 @@ import { CTA } from "@/components/CTA";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE, pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Solaria CO₂ Fractional Laser | Advanced Skin Resurfacing",
+export const metadata: Metadata = {
+  title: "Solaria CO₂ Fractional Laser | Advanced Skin Resurfacing | Oswego IL",
   description:
     "Transform your skin with InMode Solaria CO₂ fractional laser at Hello Gorgeous Med Spa, Oswego IL. Treats acne scars, deep wrinkles, sun damage, skin laxity. VIP Early Access now open. Serving Naperville, Aurora, Plainfield.",
-  path: "/services/solaria-co2",
-});
+  keywords: [
+    "CO2 laser Oswego IL",
+    "Solaria CO2 fractional laser",
+    "CO2 laser near me",
+    "skin resurfacing Naperville",
+    "acne scar treatment Aurora",
+    "fractional laser Oswego",
+    "InMode Solaria",
+    "CO2 laser skin resurfacing",
+    "deep wrinkle treatment",
+    "sun damage treatment",
+    "laser skin tightening",
+    "ablative laser treatment",
+    "Hello Gorgeous Med Spa",
+    "med spa Oswego IL",
+    "skin rejuvenation Plainfield",
+  ],
+  alternates: {
+    canonical: "https://www.hellogorgeousmedspa.com/services/solaria-co2",
+  },
+  openGraph: {
+    type: "website",
+    url: "https://www.hellogorgeousmedspa.com/services/solaria-co2",
+    title: "Solaria CO₂ Fractional Laser | Hello Gorgeous Med Spa",
+    description: "Transform your skin with InMode Solaria CO₂ fractional laser. Treats acne scars, deep wrinkles, sun damage. VIP Early Access now open in Oswego IL.",
+    siteName: "Hello Gorgeous Med Spa",
+    locale: "en_US",
+    images: [
+      {
+        url: "https://www.hellogorgeousmedspa.com/images/solaria/solaria-og.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Solaria CO2 Fractional Laser at Hello Gorgeous Med Spa Oswego IL",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Solaria CO₂ Fractional Laser | Hello Gorgeous Med Spa",
+    description: "Transform your skin with InMode Solaria CO₂ fractional laser. Acne scars, wrinkles, sun damage. VIP access now open.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
 
 const SOLARIA_FAQS = [
   {
