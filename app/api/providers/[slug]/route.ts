@@ -1,96 +1,58 @@
-import { NextRequest, NextResponse } from "next/server";
-import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { NextRequest, NextResponse } from 'next/server';
+import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 
 export async function GET(
-  req: NextRequest,
+  request: NextRequest,
   { params }: { params: Promise<{ slug: string }> }
 ) {
+  const { slug } = await params;
+  
   try {
-    const { slug } = await params;
-    const supabase = await createServerSupabaseClient();
+    const supabase = createServerSupabaseClient();
     
-    const { data: provider, error } = await supabase
-      .from("providers")
-      .select("*")
-      .eq("slug", slug)
-      .eq("active", true)
+    if (!supabase) {
+      return NextResponse.json(
+        { error: 'Database not configured' },
+        { status: 503 }
+      );
+    }
+
+    // Get provider by slug
+    const { data: provider, error: providerError } = await supabase
+      .from('providers')
+      .select('*')
+      .eq('slug', slug)
+      .eq('is_active', true)
       .single();
 
-    if (error || !provider) {
-      return NextResponse.json({ error: "Provider not found" }, { status: 404 });
+    if (providerError || !provider) {
+      return NextResponse.json(
+        { error: 'Provider not found' },
+        { status: 404 }
+      );
     }
 
     // Get provider media
-    const { data: media } = await supabase
-      .from("provider_media")
-      .select("*")
-      .eq("provider_id", provider.id)
-      .eq("status", "published")
-      .eq("consent_confirmed", true)
-      .order("featured", { ascending: false })
-      .order("display_order", { ascending: true });
+    const { data: media, error: mediaError } = await supabase
+      .from('provider_media')
+      .select('*')
+      .eq('provider_id', provider.id)
+      .eq('is_active', true)
+      .order('is_featured', { ascending: false })
+      .order('display_order');
 
-    return NextResponse.json({ 
+    if (mediaError) {
+      console.error('Error fetching provider media:', mediaError);
+    }
+
+    return NextResponse.json({
       provider,
-      media: media || []
+      media: media || [],
     });
-  } catch (error: unknown) {
-    console.error("Error fetching provider:", error);
+  } catch (error) {
+    console.error('Error in provider API:', error);
     return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Failed to fetch provider" },
-      { status: 500 }
-    );
-  }
-}
-
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: Promise<{ slug: string }> }
-) {
-  try {
-    const { slug } = await params;
-    const supabase = createServerSupabaseClient();
-    const body = await req.json();
-    
-    const { data, error } = await supabase
-      .from("providers")
-      .update(body)
-      .eq("slug", slug)
-      .select()
-      .single();
-
-    if (error) throw error;
-
-    return NextResponse.json({ provider: data });
-  } catch (error: unknown) {
-    console.error("Error updating provider:", error);
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Failed to update provider" },
-      { status: 500 }
-    );
-  }
-}
-
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: Promise<{ slug: string }> }
-) {
-  try {
-    const { slug } = await params;
-    const supabase = createServerSupabaseClient();
-    
-    const { error } = await supabase
-      .from("providers")
-      .delete()
-      .eq("slug", slug);
-
-    if (error) throw error;
-
-    return NextResponse.json({ success: true });
-  } catch (error: unknown) {
-    console.error("Error deleting provider:", error);
-    return NextResponse.json(
-      { error: error instanceof Error ? error.message : "Failed to delete provider" },
+      { error: 'Internal server error' },
       { status: 500 }
     );
   }

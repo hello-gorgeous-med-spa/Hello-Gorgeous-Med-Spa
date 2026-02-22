@@ -22,9 +22,34 @@ const CATEGORY_ICONS: Record<string, string> = {
   'consultations': '🩺',
 };
 
+// Fallback services when database is unavailable
+const FALLBACK_CATEGORIES = [
+  { id: '1', name: 'Injectables', slug: 'botox', description: 'Botox, Dysport, Fillers', display_order: 1 },
+  { id: '2', name: 'Weight Loss', slug: 'weight-loss', description: 'Semaglutide & Tirzepatide', display_order: 2 },
+  { id: '3', name: 'Hormone Therapy', slug: 'bhrt', description: 'BioTE Hormone Optimization', display_order: 3 },
+  { id: '4', name: 'Skin Treatments', slug: 'facials', description: 'Facials, Peels, Microneedling', display_order: 4 },
+];
+
+const FALLBACK_SERVICES = [
+  { id: '1', name: 'Botox', slug: 'botox', category_id: '1', duration_minutes: 30, price_display: '$10/unit', short_description: 'Smooth fine lines and wrinkles', is_featured: true },
+  { id: '2', name: 'Lip Filler', slug: 'lip-filler', category_id: '1', duration_minutes: 45, price_display: 'From $550', short_description: 'Natural lip enhancement', is_featured: true },
+  { id: '3', name: 'Semaglutide Weight Loss', slug: 'semaglutide', category_id: '2', duration_minutes: 15, price_display: 'From $250/mo', short_description: 'Medical weight loss program', is_featured: true, requires_consult: true },
+  { id: '4', name: 'Tirzepatide Weight Loss', slug: 'tirzepatide', category_id: '2', duration_minutes: 15, price_display: 'From $350/mo', short_description: 'Dual GIP/GLP-1 therapy', requires_consult: true },
+  { id: '5', name: 'BioTE Hormone Therapy', slug: 'biote', category_id: '3', duration_minutes: 30, price_display: 'Varies', short_description: 'Bioidentical hormone pellets', requires_consult: true },
+  { id: '6', name: 'Consultation', slug: 'consultation', category_id: '1', duration_minutes: 30, price_display: 'FREE', short_description: 'Discuss your goals with our team', is_featured: true },
+  { id: '7', name: 'HydraFacial', slug: 'hydrafacial', category_id: '4', duration_minutes: 60, price_display: 'From $175', short_description: 'Deep cleansing facial' },
+  { id: '8', name: 'RF Microneedling', slug: 'rf-microneedling', category_id: '4', duration_minutes: 60, price_display: 'From $400', short_description: 'Skin tightening & texture' },
+];
+
 async function getServicesData() {
   try {
     const supabase = createServerSupabaseClient();
+    
+    // If Supabase isn't configured, return fallback data
+    if (!supabase) {
+      console.warn('Supabase not configured, using fallback services');
+      return { categories: FALLBACK_CATEGORIES, services: FALLBACK_SERVICES };
+    }
     
     // Get categories
     const { data: categories, error: catError } = await supabase
@@ -35,7 +60,7 @@ async function getServicesData() {
     
     if (catError) {
       console.error('Error fetching categories:', catError);
-      return { categories: [], services: [] };
+      return { categories: FALLBACK_CATEGORIES, services: FALLBACK_SERVICES };
     }
 
     // Get services
@@ -48,13 +73,19 @@ async function getServicesData() {
     
     if (svcError) {
       console.error('Error fetching services:', svcError);
-      return { categories: categories || [], services: [] };
+      return { categories: categories || FALLBACK_CATEGORIES, services: FALLBACK_SERVICES };
+    }
+
+    // If no services found in database, use fallback
+    if (!services || services.length === 0) {
+      console.warn('No services in database, using fallback');
+      return { categories: categories || FALLBACK_CATEGORIES, services: FALLBACK_SERVICES };
     }
 
     return { categories: categories || [], services: services || [] };
   } catch (error) {
     console.error('Error loading services:', error);
-    return { categories: [], services: [] };
+    return { categories: FALLBACK_CATEGORIES, services: FALLBACK_SERVICES };
   }
 }
 
@@ -221,6 +252,21 @@ export default async function BookingPage() {
             Free Consultation
           </Link>
         </div>
+      </section>
+
+      {/* External Booking Option */}
+      <section className="bg-white rounded-2xl border border-black p-6 text-center">
+        <p className="text-black mb-4">
+          You can also book directly through our booking system:
+        </p>
+        <a
+          href="https://hellogorgeousmedspa.janeapp.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 bg-[#FF2D8E] text-white px-6 py-3 rounded-full font-semibold hover:bg-[#FF2D8E]/90 transition-colors"
+        >
+          Book on Jane App →
+        </a>
       </section>
     </div>
   );

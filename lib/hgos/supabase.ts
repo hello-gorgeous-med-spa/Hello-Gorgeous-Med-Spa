@@ -197,12 +197,52 @@ export interface Database {
           title: string | null;
           bio: string | null;
           avatar_url: string | null;
+          slug: string | null;
+          credentials: string | null;
+          philosophy: string | null;
+          headshot_url: string | null;
+          display_order: number;
+          booking_url: string | null;
           is_active: boolean;
           created_at: string;
           updated_at: string;
         };
         Insert: Omit<Database['public']['Tables']['providers']['Row'], 'id' | 'created_at' | 'updated_at'>;
         Update: Partial<Database['public']['Tables']['providers']['Insert']>;
+      };
+      provider_media: {
+        Row: {
+          id: string;
+          provider_id: string;
+          type: 'video' | 'before_after';
+          video_url: string | null;
+          thumbnail_url: string | null;
+          video_orientation: 'horizontal' | 'vertical' | null;
+          before_image_url: string | null;
+          after_image_url: string | null;
+          title: string | null;
+          description: string | null;
+          service_tag: string | null;
+          caption: string | null;
+          is_featured: boolean;
+          consent_confirmed: boolean;
+          watermarked: boolean;
+          is_active: boolean;
+          display_order: number;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: Omit<Database['public']['Tables']['provider_media']['Row'], 'id' | 'created_at' | 'updated_at'>;
+        Update: Partial<Database['public']['Tables']['provider_media']['Insert']>;
+      };
+      service_tags: {
+        Row: {
+          id: string;
+          name: string;
+          display_order: number;
+        };
+        Insert: Database['public']['Tables']['service_tags']['Row'];
+        Update: Partial<Database['public']['Tables']['service_tags']['Insert']>;
       };
       user_profiles: {
         Row: {
