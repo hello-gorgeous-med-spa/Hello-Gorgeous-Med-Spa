@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 import { FAQAccordion } from "@/components/FAQAccordion";
@@ -145,25 +146,53 @@ export default function StretchMarkTreatmentPage() {
           </div>
         </section>
 
-        {/* Before/After placeholder carousel */}
+        {/* Before/After gallery */}
         <section className="bg-gray-50 py-12">
-          <div className="max-w-4xl mx-auto px-4">
+          <div className="max-w-5xl mx-auto px-4">
             <h2 className="text-2xl font-bold text-black mb-4">Visual Results</h2>
             <p className="text-gray-600 mb-6">
               Before &amp; after results from Solaria CO₂ body resurfacing. Results vary by individual.
             </p>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-              {[1, 2, 3].map((i) => (
-                <div
-                  key={i}
-                  className="aspect-[3/4] rounded-lg bg-gray-200 flex items-center justify-center text-gray-500 text-sm"
-                >
-                  Before / After {i}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="rounded-xl overflow-hidden border border-gray-200 bg-white shadow-sm">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src="/images/solaria-before-after/stretch-marks-acne-scars.png"
+                    alt="Before and after: abdomen stretch marks and facial acne scars improved with Solaria CO₂ fractional laser at Hello Gorgeous Med Spa"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
                 </div>
-              ))}
+                <p className="p-3 text-sm font-medium text-black">Stretch marks &amp; acne scars</p>
+              </div>
+              <div className="rounded-xl overflow-hidden border border-gray-200 bg-white shadow-sm">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src="/images/solaria-before-after/stretch-mark-comparison.png"
+                    alt="Stretch mark treatment progress: untreated vs treated abdomen with Solaria CO₂ at Hello Gorgeous Med Spa Oswego IL"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+                <p className="p-3 text-sm font-medium text-black">Stretch mark refinement</p>
+              </div>
+              <div className="rounded-xl overflow-hidden border border-gray-200 bg-white shadow-sm">
+                <div className="relative aspect-[4/3]">
+                  <Image
+                    src="/images/solaria-before-after/skin-tightening-jawline.png"
+                    alt="Before and after skin tightening: jawline and neck rejuvenation with Solaria CO₂ at Hello Gorgeous Med Spa"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                  />
+                </div>
+                <p className="p-3 text-sm font-medium text-black">Skin tightening &amp; texture</p>
+              </div>
             </div>
-            <p className="mt-4 text-xs text-gray-500">
-              Results vary by individual. Client consent on file. Add your own before/after images when available.
+            <p className="mt-6 text-xs text-gray-500">
+              Results vary by individual. All treatments performed by licensed medical professionals. Client consent on file.
             </p>
           </div>
         </section>
