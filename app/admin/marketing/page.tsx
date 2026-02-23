@@ -113,6 +113,40 @@ export default function MarketingHubPage() {
           </div>
         </div>
 
+        {/* Square Marketing — temporary access until Telenyx is connected */}
+        <div className="mb-8 rounded-xl border-2 border-amber-200 bg-amber-50 p-6">
+          <h2 className="text-lg font-semibold text-amber-900 mb-2">Square Marketing (temporary access)</h2>
+          <p className="text-amber-800 text-sm mb-4">
+            Your <strong>~2,700 contacts</strong> live in Square Marketing. Use the links below to access your customer list and send campaigns until Telenyx is connected. You also have a <strong>toll-free number</strong> in Square — add it in <code className="bg-amber-100 px-1 rounded">lib/seo.ts</code> as <code className="bg-amber-100 px-1 rounded">SITE.tollFree</code> to show it on the site.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="https://squareup.com/dashboard"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg text-sm"
+            >
+              Square Dashboard
+            </a>
+            <a
+              href="https://squareup.com/dashboard/customers"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white border-2 border-amber-600 text-amber-800 hover:bg-amber-100 font-medium rounded-lg text-sm"
+            >
+              Customers (~2,700)
+            </a>
+            <a
+              href="https://squareup.com/dashboard/marketing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-white border-2 border-amber-600 text-amber-800 hover:bg-amber-100 font-medium rounded-lg text-sm"
+            >
+              Marketing &amp; Loyalty
+            </a>
+          </div>
+        </div>
+
         {/* Quick actions */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <Link

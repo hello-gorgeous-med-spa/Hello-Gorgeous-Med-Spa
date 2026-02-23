@@ -19,6 +19,8 @@ export const SITE = {
   description:
     "Luxury medical aesthetics in Oswego, IL. Botox/Dysport, dermal fillers, weight loss (GLP‑1), hormone therapy, PRF/PRP, and more.",
   phone: "630-636-6193",
+  /** Toll-free via Square - replace with your number when ready */
+  tollFree: "",
   email: "hellogorgeousskin@yahoo.com",
   address: {
     streetAddress: "74 W. Washington Street",
@@ -39,7 +41,7 @@ export const SITE = {
   /** Social — update here when you change handles; footer and other components use these. */
   social: {
     instagram: "https://www.instagram.com/hello.gorgeous2026/",
-    facebook: "https://www.facebook.com/profile.php?id=61572963239427",
+    facebook: "https://www.facebook.com/HelloGorgeousOswego",
     tiktok: "https://www.tiktok.com/@daniellealcala12",
   },
 } as const;
