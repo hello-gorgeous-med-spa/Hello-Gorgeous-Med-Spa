@@ -74,6 +74,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${baseUrl}/fullscript`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.75,
+    },
+    {
       url: `${baseUrl}/financing`,
       lastModified: currentDate,
       changeFrequency: 'monthly',

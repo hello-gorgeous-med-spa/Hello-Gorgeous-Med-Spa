@@ -32,6 +32,7 @@ import {
   HOME_TESTIMONIALS,
   testimonialsJsonLd,
 } from "@/lib/seo";
+import { CHERRY_PAY_URL } from "@/lib/flows";
 
 export const metadata: Metadata = pageMetadata({
   title: "Botox, Fillers & Weight Loss Med Spa",
@@ -141,7 +142,18 @@ export default function HomePage() {
         <section id="financing" className="bg-white py-12 md:py-16 border-t border-gray-100">
           <div className="max-w-4xl mx-auto px-4">
             <h2 className="text-2xl md:text-3xl font-bold text-black text-center mb-2">Flexible Payment Options</h2>
-            <p className="text-gray-600 text-center mb-8">Pay over time with Cherry. No surprises — apply in seconds.</p>
+            <p className="text-gray-600 text-center mb-6">Pay over time with Cherry. No surprises — apply in seconds.</p>
+            <div className="flex justify-center mb-8">
+              <a
+                href={CHERRY_PAY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-xl bg-[#E6007E] text-white font-semibold px-8 py-4 hover:bg-[#c9006e] transition-colors"
+              >
+                Apply with Cherry
+                <span aria-hidden>→</span>
+              </a>
+            </div>
             <CherryWidget />
           </div>
         </section>

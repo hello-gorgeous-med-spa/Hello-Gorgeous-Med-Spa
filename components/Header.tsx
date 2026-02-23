@@ -6,7 +6,7 @@ import React, { useState, useRef, useEffect } from "react";
 
 import { CTA } from "./CTA";
 import { SITE } from "@/lib/seo";
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, CHERRY_PAY_URL } from "@/lib/flows";
 
 // Navigation structure with dropdowns
 const navigation = {
@@ -96,6 +96,7 @@ const navigation = {
       { label: "Lip Enhancement Studio", href: "/lip-studio", description: "Visualize your perfect look", icon: "✨" },
       { label: "HG Face Blueprint™", href: "/face-blueprint", description: "AI-assisted aesthetic simulation", icon: "✨" },
       { label: "Botox Calculator", href: "/botox-calculator", description: "Estimate units for your areas", icon: "💉" },
+      { label: "Supplement Dispensary", href: "/fullscript", description: "Professional-grade supplements & Fullscript", icon: "💊" },
     ],
   },
   providers: {
@@ -470,6 +471,16 @@ export function Header() {
               Patient Care
             </Link>
 
+            {/* Pay with Cherry - client financing */}
+            <a
+              href={CHERRY_PAY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 rounded-lg text-sm font-medium transition-all text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 border border-[#FF2D8E]/30"
+            >
+              Pay with Cherry
+            </a>
+
             {/* Specials Dropdown - Highlighted */}
             <div 
               className="relative"
@@ -786,6 +797,18 @@ export function Header() {
               <span className="text-xl">📋</span>
               Patient Care
             </Link>
+
+            {/* Pay with Cherry */}
+            <a
+              href={CHERRY_PAY_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 text-lg font-semibold text-[#FF2D8E] border border-[#FF2D8E]/30 rounded-xl"
+            >
+              <span className="text-xl">💳</span>
+              Pay with Cherry
+            </a>
 
             {/* Contact */}
             <Link
