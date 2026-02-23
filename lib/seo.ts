@@ -20,7 +20,7 @@ export const SITE = {
     "Luxury medical aesthetics in Oswego, IL. Botox/Dysport, dermal fillers, weight loss (GLP‑1), hormone therapy, PRF/PRP, and more.",
   phone: "630-636-6193",
   /** Toll-free via Square - replace with your number when ready */
-  tollFree: "",
+  tollFree: "833-474-3998",
   email: "hellogorgeousskin@yahoo.com",
   address: {
     streetAddress: "74 W. Washington Street",
