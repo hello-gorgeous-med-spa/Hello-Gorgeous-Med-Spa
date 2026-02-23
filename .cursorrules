@@ -1,3 +1,5 @@
 # Cursor workspace – work from main only
 
-Work from the **main git clone** of this repo (e.g. `~/Hello-Gorgeous-Med-Spa/hello-gorgeous-med-spa`). Do not use a worktree or mirror path for editing; commit and push only from the main clone.
+Work from the **main git clone** of this repo. Do not use a worktree or mirror path for editing; commit and push only from the main clone.
+
+**Canonical path to open in Cursor:** `/Users/danid/Hello-Gorgeous-Med-Spa/hello-gorgeous-med-spa` (same folder name `hello-gorgeous-med-spa`, but the one that has `.git`).

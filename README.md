@@ -7,10 +7,10 @@ This repo is the **HelloGorgeousMedSpa.com** rebuild on **Next.js 14 (App Router
 **Always open and edit the main git clone.** Do not use a worktree or mirror folder for development—those are read-only copies and have no `.git`, so you can't commit or push from them.
 
 - **Open this folder in Cursor:**  
-  `File → Open Folder` → choose the **main** repo path, e.g.  
-  `~/Hello-Gorgeous-Med-Spa/hello-gorgeous-med-spa`  
-  (or wherever your main clone lives.)
-- All edits, commits, and pushes should happen in that folder. If you currently have a worktree path open (e.g. under `.cursor/worktrees/`), switch to the main clone so Cursor uses the real repo.
+  `File → Open Folder` → choose the **main** repo path. Your Cursor workspace should be this `hello-gorgeous-med-spa` folder **from the main clone**, e.g.  
+  **`/Users/danid/Hello-Gorgeous-Med-Spa/hello-gorgeous-med-spa`**
+- If your Cursor is currently opened on a path under `.cursor/worktrees/` or `gzh/`, close it and open the path above instead—same folder name (`hello-gorgeous-med-spa`), but the one that contains `.git`.
+- All edits, commits, and pushes should happen in that folder.
 
 ## Design Parity Requirement
 
