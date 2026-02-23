@@ -510,7 +510,7 @@ export default function CalendarPage() {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-120px)]">
+    <div className="flex flex-col h-[calc(100vh-120px)] max-h-[calc(100vh-80px)] min-h-0">
       {/* Top nav bar — Fresha-style: calendar controls + notifications + Add */}
       <CalendarNavBar
         selectedDate={selectedDate}
@@ -524,7 +524,7 @@ export default function CalendarPage() {
           <div className="relative">
             <button
               onClick={() => setShowFilters(!showFilters)}
-              className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-black bg-black hover:bg-black rounded-lg transition-colors"
+              className="flex items-center gap-2 px-3 py-1.5 text-sm font-medium text-white hover:bg-white/20 rounded-lg transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
@@ -571,22 +571,19 @@ export default function CalendarPage() {
         </div>
       )}
 
-      <div className="flex flex-1 min-h-0 bg-white rounded-b-xl overflow-hidden shadow-sm border border-black border-t-0">
-        {/* Main Calendar Area */}
-        <div className="flex-1 flex flex-col overflow-hidden min-w-0">
+      <div className="flex flex-1 min-h-0 flex-col lg:flex-row bg-white rounded-b-xl overflow-hidden shadow-sm border border-black border-t-0">
+        {/* Main Calendar Area - scroll horizontally on mobile */}
+        <div className="flex-1 flex flex-col overflow-hidden min-w-0 min-h-0">
         {/* Provider Headers */}
-        <div className="flex border-b border-black bg-white">
-          {/* Time column spacer */}
-          <div className="w-16 flex-shrink-0" />
-          
-          {/* Provider columns */}
+        <div className="flex border-b border-black bg-white min-w-0">
+          <div className="w-14 sm:w-16 flex-shrink-0" />
           {displayProviders.map((provider, idx) => {
             const color = PROVIDER_COLORS[providers.findIndex(p => p.id === provider.id) % PROVIDER_COLORS.length];
             const offToday = isProviderOffDay(provider.id, selectedDate);
             return (
               <div
                 key={provider.id}
-                className={`flex-1 px-3 py-3 border-l border-black min-w-[180px] ${offToday ? 'bg-white' : ''}`}
+                className={`flex-1 px-2 sm:px-3 py-2 sm:py-3 border-l border-black min-w-[120px] sm:min-w-[160px] lg:min-w-[180px] flex-shrink-0 ${offToday ? 'bg-white' : ''}`}
               >
                 <div className="flex items-center gap-3">
                   {/* Avatar */}
@@ -609,15 +606,14 @@ export default function CalendarPage() {
           </div>
 
         {/* Calendar Grid */}
-        <div className="flex-1 overflow-auto">
+        <div className="flex-1 overflow-auto min-h-0">
           {loading ? (
-            <div className="flex items-center justify-center h-full">
+            <div className="flex items-center justify-center h-48">
               <div className="animate-spin w-8 h-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full" />
             </div>
           ) : (
-            <div className="flex min-h-full">
-              {/* Time labels */}
-              <div className="w-16 flex-shrink-0 border-r border-black">
+            <div className="flex min-h-full min-w-max lg:min-w-0">
+              <div className="w-14 sm:w-16 flex-shrink-0 border-r border-black">
                 {HOUR_LABELS.map((hour) => (
                   <div key={hour} className="h-24 relative">
                     <span className="absolute -top-2.5 right-3 text-xs text-black font-medium">
@@ -637,7 +633,7 @@ export default function CalendarPage() {
                 return (
                   <div
                     key={provider.id}
-                    className={`flex-1 border-l border-black relative min-w-[180px] ${offToday ? 'bg-white' : ''}`}
+                    className={`flex-1 border-l border-black relative min-w-[120px] sm:min-w-[160px] lg:min-w-[180px] flex-shrink-0 ${offToday ? 'bg-white' : ''}`}
                   >
                     {/* Clickable hour slots — grayed out when provider is off or outside working hours */}
                     {HOUR_LABELS.map((hour) => {
@@ -710,8 +706,8 @@ export default function CalendarPage() {
         </div>
       </div>
 
-      {/* Right Panel - Appointment Detail */}
-      <div className="w-80 border-l border-black bg-white flex flex-col">
+      {/* Right Panel - Appointment Detail; full width below calendar on mobile */}
+      <div className="w-full lg:w-80 border-t lg:border-t-0 lg:border-l border-black bg-white flex flex-col flex-shrink-0 max-h-[50vh] lg:max-h-none overflow-y-auto">
         {selectedAppointment ? (
           <>
             {/* Panel Header */}
