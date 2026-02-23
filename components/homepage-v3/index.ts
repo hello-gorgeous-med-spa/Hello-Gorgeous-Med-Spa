@@ -6,6 +6,7 @@ export { ServicesSection } from "./ServicesSection";
 export { ExperienceSection } from "./ExperienceSection";
 export { RxShowcaseSection } from "./RxShowcaseSection";
 export { InnovationSection } from "./InnovationSection";
+export { FaceBlueprintSection } from "./FaceBlueprintSection";
 export { AIAssistantsSection } from "./AIAssistantsSection";
 export { PhilosophySection } from "./PhilosophySection";
 export { HomepageOurStory } from "./HomepageOurStory";

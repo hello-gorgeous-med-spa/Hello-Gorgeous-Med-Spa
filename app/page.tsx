@@ -5,6 +5,7 @@ import {
   PartnerBadges,
   InjectablesConversion,
   ServicesSection,
+  FaceBlueprintSection,
   ExperienceSection,
   RxShowcaseSection,
   InnovationSection,
@@ -128,6 +129,7 @@ export default function HomePage() {
         <PartnerBadges />
         <InjectablesConversion />
         <ServicesSection />
+        <FaceBlueprintSection />
         <RxShowcaseSection />
         <ExperienceSection />
         <InnovationSection />

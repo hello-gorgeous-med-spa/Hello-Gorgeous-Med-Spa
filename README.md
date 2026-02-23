@@ -2,6 +2,16 @@
 
 This repo is the **HelloGorgeousMedSpa.com** rebuild on **Next.js 14 (App Router)** + **Tailwind CSS**.
 
+## Where to work (Cursor / IDE)
+
+**Always open and edit the main git clone.** Do not use a worktree or mirror folder for development—those are read-only copies and have no `.git`, so you can't commit or push from them.
+
+- **Open this folder in Cursor:**  
+  `File → Open Folder` → choose the **main** repo path, e.g.  
+  `~/Hello-Gorgeous-Med-Spa/hello-gorgeous-med-spa`  
+  (or wherever your main clone lives.)
+- All edits, commits, and pushes should happen in that folder. If you currently have a worktree path open (e.g. under `.cursor/worktrees/`), switch to the main clone so Cursor uses the real repo.
+
 ## Design Parity Requirement
 
 This site is a **layout clone + content swap** based on `NoPriorAuthorization.com`.
