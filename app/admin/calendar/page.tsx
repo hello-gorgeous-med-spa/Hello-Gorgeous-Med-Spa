@@ -389,13 +389,19 @@ export default function CalendarPage() {
     return PROVIDER_COLORS[index % PROVIDER_COLORS.length];
   };
 
-  // Format date display
+  // Format date display — show full date; calendar passes selectedDate so we show the correct day
   const formatDate = (date: Date) => {
     return date.toLocaleDateString('en-US', {
       weekday: 'long',
       month: 'long',
       day: 'numeric',
+      year: 'numeric',
     });
+  };
+
+  const isToday = (date: Date) => {
+    const t = new Date();
+    return date.getDate() === t.getDate() && date.getMonth() === t.getMonth() && date.getFullYear() === t.getFullYear();
   };
 
   // Navigate dates
@@ -510,6 +516,7 @@ export default function CalendarPage() {
         selectedDate={selectedDate}
         onNavigateDate={navigateDate}
         formatDate={formatDate}
+        isToday={isToday(selectedDate)}
         viewMode={viewMode}
         onViewModeChange={setViewMode}
         onRefresh={handleRefresh}

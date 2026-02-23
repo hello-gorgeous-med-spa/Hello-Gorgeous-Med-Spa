@@ -197,18 +197,18 @@ export default function ExecutiveDashboard() {
   // Fetch dashboard data (timeout so dashboard never sticks on loading)
   const fetchDashboard = useCallback(async () => {
     setLoading(true);
+    setError(null);
     try {
       const dashRes = await fetchWithTimeout('/api/dashboard');
       const dashData = await dashRes.json().catch(() => ({}));
-      if (!dashRes.ok) {
-        setError(dashData?.error || 'Failed to load dashboard');
-        setLoading(false);
-        return;
-      }
-      if (dashData.source === 'local') {
+      const dashboardOk = dashRes.ok && dashData.source !== 'local';
+      if (!dashboardOk && dashData.source === 'local') {
         setError('Database not connected. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in your hosting environment (e.g. Vercel).');
         setLoading(false);
         return;
+      }
+      if (!dashRes.ok && dashRes.status !== 401) {
+        setError(dashData?.error || 'Failed to load dashboard');
       }
 
       const todayDate = new Date().toISOString().split('T')[0];
@@ -397,7 +397,14 @@ export default function ExecutiveDashboard() {
       setLastUpdated(new Date());
     } catch (err) {
       console.error('Dashboard fetch error:', err);
-      setError('Failed to load dashboard data');
+      setError(null);
+      setStats((prev) => prev || {
+        todayRevenue: 0, weekRevenue: 0, monthRevenue: 0, yearRevenue: 0,
+        membershipMRR: 0, retailRevenue: 0, serviceRevenue: 0,
+        todayAppointments: 0, weekAppointments: 0, monthAppointments: 0,
+        completedToday: 0, utilizationRate: 0, noShowRate: 0, cancellationRate: 0,
+        rebookRate: 0, avgTicket: 0, totalClients: 0, newClientsMonth: 0, activeMembers: 0,
+      });
     } finally {
       setLoading(false);
     }

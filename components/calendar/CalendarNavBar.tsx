@@ -56,6 +56,7 @@ interface CalendarNavBarProps {
   selectedDate: Date;
   onNavigateDate: (dir: 'prev' | 'next' | 'today') => void;
   formatDate: (date: Date) => string;
+  isToday?: boolean;
   viewMode: 'day' | 'week';
   onViewModeChange: (mode: 'day' | 'week') => void;
   onRefresh?: () => void;
@@ -67,6 +68,7 @@ export function CalendarNavBar({
   selectedDate,
   onNavigateDate,
   formatDate,
+  isToday: selectedIsToday = false,
   viewMode,
   onViewModeChange,
   onRefresh,
@@ -112,12 +114,6 @@ export function CalendarNavBar({
       {/* Left: Calendar controls */}
       <div className="flex items-center gap-3 flex-wrap">
         <span className="text-white font-medium text-sm hidden sm:inline">Calendar</span>
-        <button
-          onClick={() => onNavigateDate('today')}
-          className="px-3 py-1.5 text-sm font-medium text-white bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
-        >
-          Today
-        </button>
         <div className="flex items-center gap-0.5">
           <button
             onClick={() => onNavigateDate('prev')}
@@ -128,8 +124,11 @@ export function CalendarNavBar({
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <span className="min-w-[140px] text-center text-sm font-semibold text-white px-2">
+          <span className="min-w-[200px] text-center text-sm font-semibold text-white px-3 py-1.5">
             {formatDate(selectedDate)}
+            {selectedIsToday && (
+              <span className="ml-2 text-xs font-normal text-white/90">(Today)</span>
+            )}
           </span>
           <button
             onClick={() => onNavigateDate('next')}
@@ -141,6 +140,16 @@ export function CalendarNavBar({
             </svg>
           </button>
         </div>
+        <button
+          onClick={() => onNavigateDate('today')}
+          className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
+            selectedIsToday
+              ? 'text-white bg-white/10'
+              : 'text-white bg-white/10 hover:bg-white/20'
+          }`}
+        >
+          Go to Today
+        </button>
         <span className="text-white/90 text-sm hidden md:inline">{locationName}</span>
         {filtersButton}
       </div>
