@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, CHERRY_PAY_URL } from "@/lib/flows";
 import { pageMetadata, siteJsonLd } from "@/lib/seo";
 import { CherryWidget } from "@/components/CherryWidget";
 
@@ -24,7 +24,7 @@ const financingOptions = [
       "Use for any treatment",
     ],
     cta: "Apply with Cherry",
-    url: "https://withcherry.com/",
+    url: CHERRY_PAY_URL,
     highlight: true,
     icon: "🍒",
   },

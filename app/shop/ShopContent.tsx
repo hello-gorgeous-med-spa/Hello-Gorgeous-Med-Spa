@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { FadeUp, Section } from "@/components/Section";
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, CHERRY_PAY_URL } from "@/lib/flows";
 import { SMSDisclosure } from "@/components/SMSDisclosure";
 
 type Category = "all" | "skincare" | "supplements" | "injectables" | "wellness";
@@ -368,7 +368,7 @@ export function ShopContent() {
                 <span className="text-white text-sm">Free Shipping $75+</span>
               </div>
               <a
-                href="https://pay.withcherry.com/hellogorgeous"
+                href={CHERRY_PAY_URL}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/30 hover:bg-[#FF2D8E]/20 transition"
@@ -395,7 +395,7 @@ export function ShopContent() {
             <span className="text-[#FF2D8E] text-xs block">Supplements</span>
           </a>
           <a
-            href="https://pay.withcherry.com/hellogorgeous"
+            href={CHERRY_PAY_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="p-4 rounded-xl bg-[#FF2D8E]/10 border border-[#FF2D8E]/30 text-center hover:bg-[#FF2D8E]/20 transition"
@@ -549,7 +549,7 @@ export function ShopContent() {
               Available for products and treatments.
             </p>
             <a
-              href="https://pay.withcherry.com/hellogorgeous"
+              href={CHERRY_PAY_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block px-8 py-4 rounded-xl bg-gradient-to-r from-pink-500 to-pink-600 text-white font-bold hover:opacity-90 transition"

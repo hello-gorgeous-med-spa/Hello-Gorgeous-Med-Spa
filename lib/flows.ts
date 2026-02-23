@@ -8,6 +8,9 @@ import type { PersonaId } from "@/lib/personas/types";
 export const BOOKING_URL =
   (typeof process !== "undefined" && process.env.NEXT_PUBLIC_BOOKING_URL) || "/book";
 
+/** Cherry financing — apply / pay link with UTM. */
+export const CHERRY_PAY_URL = "https://pay.withcherry.com/hellogorgeous?utm_source=practice&utm_medium=website&m=466";
+
 /** Reviews page URL — "See our reviews" / "Leave a review" links and QR. Default: first-party /reviews. Set NEXT_PUBLIC_REVIEWS_URL for absolute URL (e.g. for QR codes). */
 export const REVIEWS_URL =
   (typeof process !== "undefined" && process.env.NEXT_PUBLIC_REVIEWS_URL) || "/reviews";
