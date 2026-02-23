@@ -146,7 +146,7 @@ export function SolariaCO2VIPContent() {
               </li>
               <li className="flex items-start gap-3">
                 <span className="text-pink-500 font-bold">3.</span>
-                <span>Your $50 VIP credit will be applied to your first treatment</span>
+                <span>Your $100 VIP credit will be applied to your first treatment</span>
               </li>
             </ul>
           </div>
@@ -188,7 +188,7 @@ export function SolariaCO2VIPContent() {
             VIP Early Access
           </p>
           <p className="text-lg text-pink-500 font-medium">
-            Limited Launch Access | Priority Booking | $50 VIP Credit
+            Limited Launch Access | Priority Booking | $100 Off
           </p>
         </div>
       </section>
@@ -485,7 +485,7 @@ export function SolariaCO2VIPContent() {
               },
               {
                 icon: "💰",
-                title: "$50 VIP Credit",
+                title: "$100 Off",
                 description: "Applied to your first treatment",
               },
               {
