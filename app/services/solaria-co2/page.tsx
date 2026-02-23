@@ -224,6 +224,11 @@ export default function SolariaCO2Page() {
                 CO₂ laser requires 5–7 days of social downtime. A consultation is required to determine if you're a good candidate. Not suitable for those with active acne, pregnancy, history of keloids, or very dark skin tones.
               </p>
             </div>
+            <p className="mt-6 text-sm">
+              <Link href="/stretch-mark-treatment-oswego-il" className="text-[#E6007E] font-semibold hover:underline">
+                Stretch marks? Body resurfacing &amp; postpartum confidence →
+              </Link>
+            </p>
           </div>
         </section>
 

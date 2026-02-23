@@ -136,6 +136,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
+      url: `${baseUrl}/stretch-mark-treatment-oswego-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/aftercare/solaria-co2`,
       lastModified: currentDate,
       changeFrequency: 'monthly',
