@@ -204,8 +204,8 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
     setLoadingAvailability(true);
     setAvailabilitySlots([]);
     setSelectedTime('');
-    fetch(`/api/availability?provider_id=${encodeURIComponent(selectedProvider.id)}&date=${dateStr}&duration=${service.duration_minutes || 30}`)
-      .then((res) => res.json())
+    fetchWithTimeout(`/api/availability?provider_id=${encodeURIComponent(selectedProvider.id)}&date=${dateStr}&duration=${service.duration_minutes || 30}`)
+      .then((res) => res.json().catch(() => ({})))
       .then((data) => {
         const slots = (data.slots || []).map((s: { time: string; available: boolean }) => ({
           time: s.time,
@@ -256,6 +256,8 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
       }
 
       setStep('confirm');
+      // If user came from journey with roadmap session cookie, mark conversion_status = 'booked'
+      fetch('/api/journey/confirm-booking', { method: 'POST', credentials: 'include' }).catch(() => {});
     } catch (error) {
       console.error('Booking error:', error);
       const msg = error instanceof Error ? error.message : 'Failed to book appointment. Please try again or call us.';

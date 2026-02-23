@@ -1,379 +1,469 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
-import React from "react";
-
-import { CTA } from "@/components/CTA";
-import { FadeUp } from "@/components/Section";
+import React, { useCallback, useEffect, useState } from "react";
 import { BOOKING_URL } from "@/lib/flows";
-import {
-  CONFIDENCE_CHECK_QUESTIONS,
-  buildConfidenceSummary,
-  type ConfidenceCheckAnswer,
-} from "@/lib/care-modules";
-import { complianceFooter } from "@/lib/guardrails";
+import { trackJourneyEvent } from "@/lib/journey-analytics";
+import type { RoadmapAIOutput } from "@/lib/journey-types";
 
-const JOURNEY_LINKS = [
-  { href: "/fix-what-bothers-me", label: "Fix What Bothers Me", icon: "💗" },
-  { href: "/virtual-consultation", label: "Virtual Consultation", icon: "🖥️", badge: "FREE" },
-  { href: "/conditions", label: "Conditions We Treat", icon: "✨" },
-  { href: "/explore-care", label: "Explore Care Options", icon: "🔍" },
-  { href: "/understand-your-body", label: "Understand Your Body", icon: "📚" },
-  { href: "/telehealth", label: "Telehealth", icon: "🖥️" },
-  { href: "/lip-studio", label: "Lip Enhancement Studio", icon: "✨" },
-  { href: "/botox-calculator", label: "Botox Calculator", icon: "💉" },
-];
+const CONFIDENCE_LABELS = {
+  primary_concern: "What brings you in today?",
+  desired_change_level: "How much change are you looking for?",
+  experience_level: "Is this your first time with aesthetic treatments?",
+  timeline_preference: "When are you hoping to see results?",
+  downtime_preference: "How do you feel about downtime?",
+  decision_style: "How do you like to make decisions?",
+};
 
-function useSessionState<T>(key: string, initial: T) {
-  const [value, setValue] = React.useState<T>(() => {
+type FormState = {
+  primary_concern: string;
+  desired_change_level: "subtle" | "balanced" | "dramatic";
+  experience_level: "first_time" | "experienced";
+  timeline_preference: "immediate" | "flexible";
+  downtime_preference: "minimal" | "okay_with_downtime";
+  decision_style: "cautious" | "ready_now";
+};
+
+const INITIAL_FORM: FormState = {
+  primary_concern: "",
+  desired_change_level: "balanced",
+  experience_level: "first_time",
+  timeline_preference: "flexible",
+  downtime_preference: "minimal",
+  decision_style: "cautious",
+};
+
+function useSessionState<T>(key: string, initial: T): [T, React.Dispatch<React.SetStateAction<T>>] {
+  const [value, setValue] = useState<T>(() => {
     if (typeof window === "undefined") return initial;
-    const raw = window.sessionStorage.getItem(key);
-    if (!raw) return initial;
     try {
+      const raw = window.sessionStorage.getItem(key);
+      if (!raw) return initial;
       return JSON.parse(raw) as T;
     } catch {
       return initial;
     }
   });
-
-  React.useEffect(() => {
+  useEffect(() => {
     try {
       window.sessionStorage.setItem(key, JSON.stringify(value));
     } catch {
       // ignore
     }
   }, [key, value]);
-
-  return [value, setValue] as const;
+  return [value, setValue];
 }
 
 export function HumanJourney() {
-  const [answers, setAnswers] = useSessionState<ConfidenceCheckAnswer>("hg.journey.answers", {
-    bother: "",
-    changeStyle: "unsure",
-    firstTime: "unsure",
-    timeframe: "just-researching",
-    downtimeComfort: "unsure",
-    decisionStyle: "i-need-guidance",
-  });
-  const [summary, setSummary] = useSessionState<string | null>("hg.journey.summary", null);
+  const [form, setForm] = useSessionState<FormState>("hg.journey.form", INITIAL_FORM);
+  const [roadmap, setRoadmap] = useState<RoadmapAIOutput | null>(null);
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [emailForSend, setEmailForSend] = useState("");
+  const [emailStatus, setEmailStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+
+  useEffect(() => {
+    trackJourneyEvent("journey_started", {});
+  }, []);
+
+  const generateRoadmap = useCallback(async () => {
+    setStatus("loading");
+    setErrorMessage("");
+    try {
+      const res = await fetch("/api/journey/roadmap", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          primary_concern: form.primary_concern.trim(),
+          desired_change_level: form.desired_change_level,
+          experience_level: form.experience_level,
+          timeline_preference: form.timeline_preference,
+          downtime_preference: form.downtime_preference,
+          decision_style: form.decision_style,
+        }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setStatus("error");
+        setErrorMessage(data?.error || "Something went wrong");
+        return;
+      }
+      setRoadmap(data.roadmap);
+      setSessionId(data.session_id ?? null);
+      setStatus("success");
+      trackJourneyEvent("roadmap_generated", { session_id: data.session_id ?? undefined });
+    } catch (e) {
+      setStatus("error");
+      setErrorMessage("Network error. Please try again.");
+    }
+  }, [form]);
+
+  const sendEmail = useCallback(async () => {
+    const email = emailForSend.trim().toLowerCase();
+    if (!email) return;
+    setEmailStatus("sending");
+    try {
+      const res = await fetch("/api/journey/email-roadmap", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ session_id: sessionId, email }),
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        setEmailStatus("error");
+        return;
+      }
+      setEmailStatus("sent");
+      trackJourneyEvent("roadmap_emailed", { session_id: sessionId });
+    } catch {
+      setEmailStatus("error");
+    }
+  }, [sessionId, emailForSend]);
+
+  const handleBookClick = useCallback(() => {
+    trackJourneyEvent("roadmap_booked", { session_id: sessionId ?? undefined });
+  }, [sessionId]);
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <div className="bg-black py-16 md:py-24">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <FadeUp>
-              <p className="text-[#E6007E] text-lg md:text-xl font-semibold mb-4 tracking-wide uppercase">
-                Your Journey
-              </p>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight text-white">
-                Feel clear before you{" "}
-                <span className="text-[#E6007E]">commit</span>
-              </h1>
-              <p className="mt-6 text-lg md:text-xl text-white/80 max-w-xl leading-relaxed">
-                A short, human-first flow to help you feel confident. No medical advice. No pressure. Just clarity.
-              </p>
-            </FadeUp>
-            <FadeUp delayMs={100}>
-              <div className="relative">
-                <Image
-                  src="/images/services/hg-consultation-setup.png"
-                  alt="Hello Gorgeous consultation experience"
-                  width={600}
-                  height={400}
-                  className="rounded-2xl shadow-2xl"
-                  priority
-                />
-              </div>
-            </FadeUp>
-          </div>
+      {/* Hero */}
+      <div className="bg-white py-12 md:py-16">
+        <div className="max-w-4xl mx-auto px-6 md:px-12">
+          <p className="text-[#FF2D8E] text-lg font-semibold mb-3 tracking-wide uppercase">
+            Your Journey
+          </p>
+          <h1 className="text-4xl md:text-5xl font-bold leading-tight text-black">
+            Feel clear before you <span className="text-[#FF2D8E]">commit</span>
+          </h1>
+          <p className="mt-4 text-lg text-black/80 max-w-xl">
+            A short flow to help you feel confident. No medical advice. No pressure. Just clarity.
+          </p>
         </div>
       </div>
 
-      {/* Journey Links Grid */}
-      <div className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <FadeUp>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl md:text-4xl font-bold text-black">
-                Explore Your <span className="text-[#E6007E]">Journey</span>
-              </h2>
-              <p className="mt-4 text-black/70 max-w-2xl mx-auto">
-                Choose how you want to start. Every path leads to clarity.
-              </p>
-            </div>
-          </FadeUp>
-          
-          <FadeUp delayMs={50}>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-              {JOURNEY_LINKS.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="relative flex flex-col items-center gap-3 p-6 rounded-2xl border-2 border-black/10 bg-white hover:border-[#E6007E] hover:shadow-lg transition-all duration-300 group"
-                >
-                  <span className="text-3xl group-hover:scale-110 transition-transform">{link.icon}</span>
-                  <span className="text-sm font-semibold text-black text-center group-hover:text-[#E6007E]">{link.label}</span>
-                  {link.badge && (
-                    <span className="absolute top-2 right-2 px-2 py-0.5 text-[10px] font-bold bg-[#E6007E] text-white rounded-full">
-                      {link.badge}
-                    </span>
-                  )}
-                </Link>
-              ))}
-            </div>
-          </FadeUp>
-        </div>
-      </div>
-
-      {/* Confidence Check Section */}
-      <div className="bg-gradient-to-b from-white to-pink-50/50 py-16">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
+      {/* Confidence Check form */}
+      <div className="bg-gradient-to-b from-white to-pink-50/30 py-12">
+        <div className="max-w-4xl mx-auto px-6 md:px-12">
           <div className="grid lg:grid-cols-12 gap-10">
-            {/* Form */}
             <div className="lg:col-span-7">
-              <FadeUp>
-                <div className="rounded-2xl border-2 border-black bg-white p-6 md:p-8 shadow-lg">
-                  <div className="flex items-center gap-3 mb-6">
-                    <span className="text-2xl">✨</span>
-                    <div>
-                      <h3 className="text-xl font-bold text-black">Confidence Check™</h3>
-                      <p className="text-sm text-black/60">5-7 quick questions</p>
-                    </div>
+              <div className="rounded-2xl border-2 border-black/10 bg-white p-6 md:p-8 shadow-sm">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="text-2xl">✨</span>
+                  <div>
+                    <h2 className="text-xl font-bold text-black">Confidence Check™</h2>
+                    <p className="text-sm text-black/60">Quick questions to personalize your roadmap</p>
+                  </div>
+                </div>
+
+                <div className="space-y-5">
+                  <div>
+                    <label className="block text-sm font-semibold text-black mb-1">
+                      {CONFIDENCE_LABELS.primary_concern}
+                    </label>
+                    <textarea
+                      value={form.primary_concern}
+                      onChange={(e) =>
+                        setForm((p) => ({ ...p, primary_concern: e.target.value }))
+                      }
+                      className="w-full min-h-[100px] rounded-xl border-2 border-black/20 px-4 py-3 text-black placeholder:text-black/40 focus:outline-none focus:border-[#FF2D8E] transition-colors resize-none"
+                      placeholder="e.g. forehead lines, wanting to feel like myself again, dull skin…"
+                    />
                   </div>
 
-                  <div className="space-y-6">
-                    {/* Question 1 - Free text */}
+                  <div>
+                    <label className="block text-sm font-semibold text-black mb-1">
+                      {CONFIDENCE_LABELS.desired_change_level}
+                    </label>
+                    <select
+                      value={form.desired_change_level}
+                      onChange={(e) =>
+                        setForm((p) => ({
+                          ...p,
+                          desired_change_level: e.target.value as FormState["desired_change_level"],
+                        }))
+                      }
+                      className="w-full rounded-xl border-2 border-black/20 px-4 py-3 text-black focus:outline-none focus:border-[#FF2D8E] transition-colors"
+                    >
+                      <option value="subtle">Subtle</option>
+                      <option value="balanced">Balanced</option>
+                      <option value="dramatic">Dramatic</option>
+                    </select>
+                  </div>
+
+                  <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-semibold text-black mb-2">
-                        {CONFIDENCE_CHECK_QUESTIONS[0].label}
-                      </label>
-                      <p className="text-xs text-black/60 mb-2">{CONFIDENCE_CHECK_QUESTIONS[0].helper}</p>
-                      <textarea
-                        value={answers.bother}
-                        onChange={(e) => setAnswers((p) => ({ ...p, bother: e.target.value }))}
-                        className="w-full min-h-[100px] rounded-xl bg-white border-2 border-black/20 px-4 py-3 text-black placeholder:text-black/40 focus:outline-none focus:border-[#E6007E] transition-colors resize-none"
-                        placeholder="Example: my forehead lines, feeling less like myself, dull skin…"
-                      />
-                    </div>
-
-                    {/* Questions 2 & 3 */}
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-semibold text-black mb-2">
-                          {CONFIDENCE_CHECK_QUESTIONS[1].label}
-                        </label>
-                        <select
-                          value={answers.changeStyle}
-                          onChange={(e) =>
-                            setAnswers((p) => ({
-                              ...p,
-                              changeStyle: e.target.value as ConfidenceCheckAnswer["changeStyle"],
-                            }))
-                          }
-                          className="w-full rounded-xl bg-white border-2 border-black/20 px-4 py-3 text-black focus:outline-none focus:border-[#E6007E] transition-colors"
-                        >
-                          <option value="subtle">Subtle</option>
-                          <option value="noticeable">Noticeable</option>
-                          <option value="unsure">Unsure</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-semibold text-black mb-2">
-                          {CONFIDENCE_CHECK_QUESTIONS[2].label}
-                        </label>
-                        <select
-                          value={answers.firstTime}
-                          onChange={(e) =>
-                            setAnswers((p) => ({ ...p, firstTime: e.target.value as ConfidenceCheckAnswer["firstTime"] }))
-                          }
-                          className="w-full rounded-xl bg-white border-2 border-black/20 px-4 py-3 text-black focus:outline-none focus:border-[#E6007E] transition-colors"
-                        >
-                          <option value="yes">Yes</option>
-                          <option value="no">No</option>
-                          <option value="unsure">Unsure</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    {/* Questions 4 & 5 */}
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-sm font-semibold text-black mb-2">
-                          {CONFIDENCE_CHECK_QUESTIONS[3].label}
-                        </label>
-                        <select
-                          value={answers.timeframe}
-                          onChange={(e) =>
-                            setAnswers((p) => ({ ...p, timeframe: e.target.value as ConfidenceCheckAnswer["timeframe"] }))
-                          }
-                          className="w-full rounded-xl bg-white border-2 border-black/20 px-4 py-3 text-black focus:outline-none focus:border-[#E6007E] transition-colors"
-                        >
-                          <option value="asap">ASAP</option>
-                          <option value="2-4weeks">2–4 weeks</option>
-                          <option value="1-3months">1–3 months</option>
-                          <option value="just-researching">Just researching</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-semibold text-black mb-2">
-                          {CONFIDENCE_CHECK_QUESTIONS[4].label}
-                        </label>
-                        <select
-                          value={answers.downtimeComfort}
-                          onChange={(e) =>
-                            setAnswers((p) => ({
-                              ...p,
-                              downtimeComfort: e.target.value as ConfidenceCheckAnswer["downtimeComfort"],
-                            }))
-                          }
-                          className="w-full rounded-xl bg-white border-2 border-black/20 px-4 py-3 text-black focus:outline-none focus:border-[#E6007E] transition-colors"
-                        >
-                          <option value="low">Low</option>
-                          <option value="medium">Medium</option>
-                          <option value="high">High</option>
-                          <option value="unsure">Unsure</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    {/* Question 6 */}
-                    <div>
-                      <label className="block text-sm font-semibold text-black mb-2">
-                        {CONFIDENCE_CHECK_QUESTIONS[5].label}
+                      <label className="block text-sm font-semibold text-black mb-1">
+                        {CONFIDENCE_LABELS.experience_level}
                       </label>
                       <select
-                        value={answers.decisionStyle}
+                        value={form.experience_level}
                         onChange={(e) =>
-                          setAnswers((p) => ({
+                          setForm((p) => ({
                             ...p,
-                            decisionStyle: e.target.value as ConfidenceCheckAnswer["decisionStyle"],
+                            experience_level: e.target.value as FormState["experience_level"],
                           }))
                         }
-                        className="w-full rounded-xl bg-white border-2 border-black/20 px-4 py-3 text-black focus:outline-none focus:border-[#E6007E] transition-colors"
+                        className="w-full rounded-xl border-2 border-black/20 px-4 py-3 text-black focus:outline-none focus:border-[#FF2D8E] transition-colors"
                       >
-                        <option value="i-need-guidance">I need guidance</option>
-                        <option value="i-just-want-options">I want options</option>
-                        <option value="i-know-what-i-want">I know what I want</option>
+                        <option value="first_time">First time</option>
+                        <option value="experienced">Experienced</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-black mb-1">
+                        {CONFIDENCE_LABELS.timeline_preference}
+                      </label>
+                      <select
+                        value={form.timeline_preference}
+                        onChange={(e) =>
+                          setForm((p) => ({
+                            ...p,
+                            timeline_preference: e.target.value as FormState["timeline_preference"],
+                          }))
+                        }
+                        className="w-full rounded-xl border-2 border-black/20 px-4 py-3 text-black focus:outline-none focus:border-[#FF2D8E] transition-colors"
+                      >
+                        <option value="immediate">Immediate</option>
+                        <option value="flexible">Flexible</option>
                       </select>
                     </div>
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="mt-8 flex flex-wrap gap-3">
-                    <button
-                      type="button"
-                      className="px-8 py-4 rounded-xl bg-[#E6007E] hover:bg-pink-600 text-white font-semibold transition-all"
-                      onClick={() => setSummary(buildConfidenceSummary(answers))}
-                    >
-                      Generate Summary
-                    </button>
-                    <CTA href={BOOKING_URL} variant="outline">
-                      Book Consultation
-                    </CTA>
-                    <button
-                      type="button"
-                      className="px-6 py-4 rounded-xl border-2 border-black/20 text-black/70 hover:border-black hover:text-black font-semibold transition-all"
-                      onClick={() => {
-                        setSummary(null);
-                        setAnswers({
-                          bother: "",
-                          changeStyle: "unsure",
-                          firstTime: "unsure",
-                          timeframe: "just-researching",
-                          downtimeComfort: "unsure",
-                          decisionStyle: "i-need-guidance",
-                        });
-                      }}
-                    >
-                      Reset
-                    </button>
-                  </div>
-                </div>
-              </FadeUp>
-            </div>
-
-            {/* Summary Panel */}
-            <div className="lg:col-span-5">
-              <FadeUp delayMs={100}>
-                <div className="rounded-2xl border-2 border-black bg-white overflow-hidden shadow-lg sticky top-24">
-                  <div className="p-5 bg-black text-white">
-                    <h3 className="text-lg font-bold">Your Summary</h3>
-                    <p className="mt-1 text-xs text-white/70">{complianceFooter()}</p>
-                  </div>
-                  
-                  <div className="p-6 min-h-[200px]">
-                    {summary ? (
-                      <p className="text-black/80 whitespace-pre-wrap leading-relaxed">{summary}</p>
-                    ) : (
-                      <p className="text-black/50 italic">
-                        Answer the questions and tap &quot;Generate Summary&quot; to see a calm, plain-language recap.
-                      </p>
-                    )}
-                  </div>
-                  
-                  <div className="p-5 border-t border-black/10 bg-pink-50/50">
-                    <div className="flex flex-col gap-3">
-                      <CTA href={BOOKING_URL} variant="gradient" className="w-full">
-                        Book Online
-                      </CTA>
-                      <CTA href="/care-engine" variant="outline" className="w-full">
-                        Explore Care Engine™
-                      </CTA>
-                      <CTA href="/contact" variant="outline" className="w-full">
-                        Talk to Us First
-                      </CTA>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-semibold text-black mb-1">
+                        {CONFIDENCE_LABELS.downtime_preference}
+                      </label>
+                      <select
+                        value={form.downtime_preference}
+                        onChange={(e) =>
+                          setForm((p) => ({
+                            ...p,
+                            downtime_preference: e.target
+                              .value as FormState["downtime_preference"],
+                          }))
+                        }
+                        className="w-full rounded-xl border-2 border-black/20 px-4 py-3 text-black focus:outline-none focus:border-[#FF2D8E] transition-colors"
+                      >
+                        <option value="minimal">Minimal</option>
+                        <option value="okay_with_downtime">Okay with some downtime</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label className="block text-sm font-semibold text-black mb-1">
+                        {CONFIDENCE_LABELS.decision_style}
+                      </label>
+                      <select
+                        value={form.decision_style}
+                        onChange={(e) =>
+                          setForm((p) => ({
+                            ...p,
+                            decision_style: e.target.value as FormState["decision_style"],
+                          }))
+                        }
+                        className="w-full rounded-xl border-2 border-black/20 px-4 py-3 text-black focus:outline-none focus:border-[#FF2D8E] transition-colors"
+                      >
+                        <option value="cautious">I like to take my time</option>
+                        <option value="ready_now">I'm ready to move</option>
+                      </select>
                     </div>
                   </div>
+
+                  <div className="pt-2">
+                    <button
+                      type="button"
+                      onClick={generateRoadmap}
+                      disabled={status === "loading"}
+                      className="w-full py-4 px-6 rounded-xl bg-[#FF2D8E] text-white font-bold text-lg hover:bg-[#FF2D8E]/90 disabled:opacity-60 transition-all shadow-lg shadow-[#FF2D8E]/20"
+                    >
+                      {status === "loading" ? "Generating your roadmap…" : "Generate My Roadmap"}
+                    </button>
+                    {status === "error" && (
+                      <p className="mt-3 text-sm text-red-600">{errorMessage}</p>
+                    )}
+                  </div>
                 </div>
-              </FadeUp>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5">
+              <div className="rounded-2xl border-2 border-black/10 bg-pink-50/50 p-6">
+                <h3 className="font-bold text-black mb-2">What you'll get</h3>
+                <ul className="space-y-2 text-black/80 text-sm">
+                  <li>• Personalized service suggestions</li>
+                  <li>• Suggested order & timeline</li>
+                  <li>• Estimated investment range</li>
+                  <li>• Maintenance plan</li>
+                  <li>• Option to email or book</li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom CTA with VIP Card */}
-      <div className="bg-black py-16">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <FadeUp>
-              <div className="text-white">
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                  Ready to Start Your{" "}
-                  <span className="text-[#E6007E]">Transformation?</span>
-                </h2>
-                <p className="text-lg text-white/80 mb-8">
-                  Book your consultation today and experience the Hello Gorgeous difference. 
-                  No pressure, just personalized care designed around you.
+      {/* HG Roadmap™ result */}
+      {status === "success" && roadmap && (
+        <div
+          className="py-12 animate-in fade-in duration-500"
+          style={{ animation: "fadeIn 0.5s ease-out" }}
+        >
+          <style>{`@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
+          <div className="max-w-4xl mx-auto px-6 md:px-12 space-y-10">
+            {/* Section 1: Roadmap header */}
+            <div className="text-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
+                Your HG Roadmap™
+              </h2>
+              <p className="mt-3 text-lg text-black/80 max-w-2xl mx-auto">
+                {roadmap.confidence_message}
+              </p>
+            </div>
+
+            {/* Section 2: Treatment plan cards */}
+            <div>
+              <h3 className="text-xl font-bold text-black mb-4">Your treatment plan</h3>
+              <div className="grid gap-4">
+                {roadmap.recommended_services
+                  .slice()
+                  .sort((a, b) => a.priority_order - b.priority_order)
+                  .map((item, idx) => (
+                    <div
+                      key={idx}
+                      className="flex flex-wrap items-start gap-3 p-5 rounded-2xl border-2 border-black/10 bg-white hover:border-[#FF2D8E]/30 transition-colors"
+                    >
+                      <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[#FF2D8E] text-white flex items-center justify-center text-sm font-bold">
+                        {item.priority_order}
+                      </span>
+                      <div>
+                        <p className="font-bold text-black">{item.service}</p>
+                        <p className="text-black/70 text-sm mt-0.5">{item.reason}</p>
+                      </div>
+                    </div>
+                  ))}
+            </div>
+
+            {/* Section 3 & 4: Timeline + Investment */}
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div className="p-6 rounded-2xl border-2 border-black/10 bg-white">
+                <h3 className="text-sm font-semibold text-black/60 uppercase tracking-wide mb-1">
+                  Timeline
+                </h3>
+                <p className="text-xl font-bold text-[#FF2D8E]">
+                  {roadmap.estimated_sessions} · {roadmap.timeline_estimate}
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Link
-                    href={BOOKING_URL}
-                    className="inline-flex items-center justify-center bg-[#E6007E] text-white px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition-all"
-                  >
-                    Book Consultation
-                  </Link>
-                  <a
-                    href="tel:630-636-6193"
-                    className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-black transition-all"
-                  >
-                    Call (630) 636-6193
-                  </a>
-                </div>
               </div>
-            </FadeUp>
-            <FadeUp delayMs={100}>
-              <Image
-                src="/images/services/hg-vip-membership-card.png"
-                alt="Hello Gorgeous VIP Membership"
-                width={500}
-                height={350}
-                className="rounded-2xl shadow-2xl"
-              />
-            </FadeUp>
+              <div className="p-6 rounded-2xl border-2 border-black/10 bg-white">
+                <h3 className="text-sm font-semibold text-black/60 uppercase tracking-wide mb-1">
+                  Estimated investment
+                </h3>
+                <p className="text-xl font-bold text-[#FF2D8E]">{roadmap.estimated_cost_range}</p>
+              </div>
+            </div>
+
+            {/* Section 5: Maintenance */}
+            {roadmap.maintenance_plan && (
+              <div className="p-6 rounded-2xl border-2 border-black/10 bg-pink-50/50">
+                <h3 className="text-sm font-semibold text-black/60 uppercase tracking-wide mb-1">
+                  Maintenance
+                </h3>
+                <p className="text-black">{roadmap.maintenance_plan}</p>
+              </div>
+            )}
+
+            {/* Disclaimer */}
+            <p className="text-sm text-black/60 text-center max-w-2xl mx-auto">
+              This plan is educational and must be reviewed by a licensed provider at Hello
+              Gorgeous.
+            </p>
+
+            {/* CTAs: when sessionId exists, go via redirect so we can set cookie and later set conversion_status = booked */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a
+                href={sessionId ? `/api/journey/redirect-to-booking?session_id=${sessionId}` : BOOKING_URL}
+                target={sessionId ? undefined : "_blank"}
+                rel={sessionId ? undefined : "noopener noreferrer"}
+                onClick={handleBookClick}
+                className="inline-flex justify-center py-4 px-8 rounded-xl bg-[#FF2D8E] text-white font-bold hover:bg-[#FF2D8E]/90 transition shadow-lg shadow-[#FF2D8E]/20"
+              >
+                Book My Consultation
+              </a>
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.print();
+                }}
+                className="inline-flex justify-center py-4 px-8 rounded-xl border-2 border-black text-black font-semibold hover:bg-black/5 transition"
+              >
+                Download My Plan
+              </a>
+            </div>
+
+            {/* Email my results */}
+            <div className="max-w-md mx-auto p-6 rounded-2xl border-2 border-black/10 bg-white">
+              <h3 className="font-bold text-black mb-2">Email my results</h3>
+              {emailStatus === "sent" ? (
+                <p className="text-[#FF2D8E] font-medium">✓ Sent to your email.</p>
+              ) : (
+                <div className="flex gap-2">
+                  <input
+                    type="email"
+                    placeholder="your@email.com"
+                    value={emailForSend}
+                    onChange={(e) => setEmailForSend(e.target.value)}
+                    className="flex-1 rounded-xl border-2 border-black/20 px-4 py-3 text-black focus:outline-none focus:border-[#FF2D8E]"
+                  />
+                  <button
+                    type="button"
+                    onClick={sendEmail}
+                    disabled={emailStatus === "sending"}
+                    className="py-3 px-5 rounded-xl bg-black text-white font-semibold hover:bg-black/80 disabled:opacity-60"
+                  >
+                    {emailStatus === "sending" ? "Sending…" : "Send"}
+                  </button>
+                </div>
+              )}
+              {emailStatus === "error" && (
+                <p className="mt-2 text-sm text-red-600">Could not send. Try again.</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Journey links */}
+      <div className="bg-white py-12 border-t border-black/10">
+        <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
+          <h2 className="text-2xl font-bold text-black mb-6">Explore more</h2>
+          <div className="flex flex-wrap justify-center gap-4">
+            <Link
+              href="/fix-what-bothers-me"
+              className="px-5 py-2.5 rounded-xl border-2 border-black/20 text-black font-medium hover:border-[#FF2D8E] hover:text-[#FF2D8E] transition"
+            >
+              Fix What Bothers Me
+            </Link>
+            <Link
+              href="/conditions"
+              className="px-5 py-2.5 rounded-xl border-2 border-black/20 text-black font-medium hover:border-[#FF2D8E] hover:text-[#FF2D8E] transition"
+            >
+              Conditions We Treat
+            </Link>
+            <Link
+              href="/botox-calculator"
+              className="px-5 py-2.5 rounded-xl border-2 border-black/20 text-black font-medium hover:border-[#FF2D8E] hover:text-[#FF2D8E] transition"
+            >
+              Botox Calculator
+            </Link>
+            <Link
+              href={BOOKING_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-2.5 rounded-xl bg-[#FF2D8E] text-white font-medium hover:bg-[#FF2D8E]/90 transition"
+            >
+              Book Now
+            </Link>
           </div>
         </div>
       </div>
