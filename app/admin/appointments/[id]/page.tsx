@@ -38,76 +38,66 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
   const [sendingConsent, setSendingConsent] = useState(false);
 
   // Fetch appointment from API - using specific endpoint
-  useEffect(() => {
-    const fetchAppointment = async () => {
+  const fetchAppointment = useCallback(async (isRefetch = false) => {
+    if (!isRefetch) setLoading(true);
+    try {
+      let apt = null;
       try {
-        // Try specific appointment endpoint first
-        let apt = null;
-        
-        try {
-          const specificRes = await fetch(`/api/appointments/${params.id}`);
-          if (specificRes.ok) {
-            const specificData = await specificRes.json();
-            apt = specificData.appointment || specificData;
-          }
-        } catch {
-          // Fall back to list endpoint
+        const specificRes = await fetch(`/api/appointments/${params.id}`, { cache: 'no-store' });
+        if (specificRes.ok) {
+          const specificData = await specificRes.json();
+          apt = specificData.appointment || specificData;
         }
-        
-        // Fallback: fetch from list if specific endpoint fails
-        if (!apt) {
-          const res = await fetch('/api/appointments?limit=500');
-          const data = await res.json();
-          apt = data.appointments?.find((a: any) => a.id === params.id);
-        }
-        
-        if (apt) {
-          // Transform to expected format
-          setAppointment({
-            ...apt,
-            scheduled_at: apt.starts_at,
-            client: apt.client || {
-              id: apt.client_id,
-              first_name: apt.client_name?.split(' ')[0] || apt.client?.first_name || '',
-              last_name: apt.client_name?.split(' ').slice(1).join(' ') || apt.client?.last_name || '',
-              email: apt.client_email || apt.client?.email,
-              phone: apt.client_phone || apt.client?.phone,
-            },
-            service: apt.service || {
-              id: apt.service_id,
-              name: apt.service_name,
-              duration_minutes: apt.duration_minutes || apt.duration,
-              price: apt.service_price,
-            },
-            provider: apt.provider || {
-              id: apt.provider_id,
-              first_name: apt.provider_name?.split(' ')[0] || apt.provider?.first_name || '',
-              last_name: apt.provider_name?.split(' ').slice(1).join(' ') || apt.provider?.last_name || '',
-            },
-          });
-          
-          // Fetch consent status for this client
-          const clientId = apt.client_id || apt.client?.id;
-          if (clientId) {
-            fetch(`/api/consents/verify?clientId=${clientId}`)
-              .then(res => res.json())
-              .then(data => {
-                if (!data.error) {
-                  setConsentStatus(data);
-                }
-              })
-              .catch(err => console.error('Error fetching consent status:', err));
-          }
-        }
-      } catch (err) {
-        console.error('Error fetching appointment:', err);
-      } finally {
-        setLoading(false);
+      } catch {
+        // Fall back to list endpoint
       }
-    };
-
-    fetchAppointment();
+      if (!apt) {
+        const res = await fetch('/api/appointments?limit=500');
+        const data = await res.json();
+        apt = data.appointments?.find((a: any) => a.id === params.id);
+      }
+      if (apt) {
+        setAppointment({
+          ...apt,
+          scheduled_at: apt.starts_at ?? apt.scheduled_at,
+          client: apt.client || {
+            id: apt.client_id,
+            first_name: apt.client_name?.split(' ')[0] || apt.client?.first_name || '',
+            last_name: apt.client_name?.split(' ').slice(1).join(' ') || apt.client?.last_name || '',
+            email: apt.client_email ?? apt.client?.email,
+            phone: apt.client_phone ?? apt.client?.phone,
+          },
+          service: apt.service || {
+            id: apt.service_id,
+            name: apt.service_name ?? apt.service?.name,
+            duration_minutes: apt.duration_minutes ?? apt.duration,
+            price: apt.service_price ?? apt.service?.price,
+          },
+          provider: apt.provider || {
+            id: apt.provider_id,
+            first_name: apt.provider_name?.split(' ')[0] || apt.provider?.first_name || '',
+            last_name: apt.provider_name?.split(' ').slice(1).join(' ') || apt.provider?.last_name || '',
+          },
+        });
+        const clientId = apt.client_id || apt.client?.id;
+        if (clientId) {
+          fetch(`/api/consents/verify?clientId=${clientId}`)
+            .then(res => res.json())
+            .then(data => { if (!data.error) setConsentStatus(data); })
+            .catch(err => console.error('Error fetching consent status:', err));
+        }
+      }
+    } catch (err) {
+      console.error('Error fetching appointment:', err);
+    } finally {
+      setLoading(false);
+    }
   }, [params.id]);
+
+  useEffect(() => {
+    setLoading(true);
+    fetchAppointment();
+  }, [fetchAppointment]);
 
   // Send consent forms to client
   const sendConsentForms = async () => {
@@ -145,16 +135,14 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
   const handleStatusChange = async (newStatus: string) => {
     if (!appointment) return;
     setSaving(true);
-
     try {
-      const res = await fetch('/api/appointments', {
+      const res = await fetch(`/api/appointments/${appointment.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: appointment.id, status: newStatus }),
+        body: JSON.stringify({ status: newStatus }),
       });
-
       if (res.ok) {
-        setAppointment({ ...appointment, status: newStatus });
+        await fetchAppointment(true);
       }
     } catch (err) {
       console.error('Error updating status:', err);
@@ -166,20 +154,17 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
   const handleCancel = async () => {
     if (!appointment) return;
     setSaving(true);
-
     try {
-      const res = await fetch('/api/appointments', {
+      const res = await fetch(`/api/appointments/${appointment.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          id: appointment.id, 
           status: 'cancelled', 
-          cancel_reason: cancelReason 
+          cancellation_reason: cancelReason 
         }),
       });
-
       if (res.ok) {
-        setAppointment({ ...appointment, status: 'cancelled' });
+        await fetchAppointment(true);
         setShowCancelModal(false);
       }
     } catch (err) {
@@ -226,8 +211,12 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
   }
 
   const { date, time } = formatDateTime(appointment.scheduled_at);
-  const clientName = `${appointment.client?.first_name || ''} ${appointment.client?.last_name || ''}`.trim() || 'Unknown Client';
-  const providerName = `${appointment.provider?.first_name || ''} ${appointment.provider?.last_name || ''}`.trim() || 'Unknown Provider';
+  const clientName = `${appointment.client?.first_name || ''} ${appointment.client?.last_name || ''}`.trim() 
+    || (appointment as any).client_name 
+    || 'Unknown Client';
+  const providerName = `${appointment.provider?.first_name || ''} ${appointment.provider?.last_name || ''}`.trim() 
+    || (appointment as any).provider_name 
+    || 'Unknown Provider';
 
   return (
     <div className="max-w-4xl mx-auto">

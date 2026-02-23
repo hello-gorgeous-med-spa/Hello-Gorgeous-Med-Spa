@@ -83,7 +83,20 @@ const VENDORS: Vendor[] = [
   },
   // ===== COMPOUNDING PHARMACIES =====
   {
-    id: 'olympia',
+    id: 'fullscript',
+    name: 'Fullscript',
+    category: 'Supplements',
+    portalUrl: 'https://us.fullscript.com/o/home',
+    description: 'Practitioner-grade supplement dispensary for patients',
+    orderUrl: 'https://us.fullscript.com/o/home',
+    repName: '',
+    repEmail: '',
+    repPhone: '',
+    accountNumber: '',
+    notes: 'Supplement dispensary — manage catalog, orders, and patient access',
+    isFavorite: true,
+  },
+  {
     name: 'Olympia Pharmacy',
     category: 'Compounding',
     portalUrl: 'https://olympiapharmacy.drscriptportal.com/dashboard',
@@ -268,7 +281,7 @@ const VENDORS: Vendor[] = [
   },
 ];
 
-const CATEGORIES = ['All', 'Injectables', 'Compounding', 'Medical Supplies', 'General Supplies', 'Skincare', 'Software', 'Patient Financing', 'Loyalty Program', 'Hormone Therapy'];
+const CATEGORIES = ['All', 'Injectables', 'Compounding', 'Supplements', 'Medical Supplies', 'General Supplies', 'Skincare', 'Software', 'Patient Financing', 'Loyalty Program', 'Hormone Therapy'];
 
 export default function AdminVendorsPage() {
   const [vendors, setVendors] = useState(VENDORS);

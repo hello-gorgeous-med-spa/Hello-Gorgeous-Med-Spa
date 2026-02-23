@@ -108,20 +108,20 @@ export function CalendarNavBar({
   }, []);
 
   return (
-    <header className="flex items-center justify-between w-full px-4 py-3 bg-black border-b border-black text-white rounded-t-xl">
+    <header className="flex items-center justify-between w-full px-4 py-3 bg-black border-b border-white/20 text-white rounded-t-xl">
       {/* Left: Calendar controls */}
       <div className="flex items-center gap-3 flex-wrap">
-        <span className="text-black font-medium text-sm hidden sm:inline">Calendar</span>
+        <span className="text-white font-medium text-sm hidden sm:inline">Calendar</span>
         <button
           onClick={() => onNavigateDate('today')}
-          className="px-3 py-1.5 text-sm font-medium bg-black hover:bg-black rounded-lg transition-colors"
+          className="px-3 py-1.5 text-sm font-medium text-white bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
         >
           Today
         </button>
         <div className="flex items-center gap-0.5">
           <button
             onClick={() => onNavigateDate('prev')}
-            className="p-2 hover:bg-black rounded-lg text-black transition-colors"
+            className="p-2 hover:bg-white/10 rounded-lg text-white transition-colors"
             aria-label="Previous day"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -133,7 +133,7 @@ export function CalendarNavBar({
           </span>
           <button
             onClick={() => onNavigateDate('next')}
-            className="p-2 hover:bg-black rounded-lg text-black transition-colors"
+            className="p-2 hover:bg-white/10 rounded-lg text-white transition-colors"
             aria-label="Next day"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -141,7 +141,7 @@ export function CalendarNavBar({
             </svg>
           </button>
         </div>
-        <span className="text-black text-sm hidden md:inline">{locationName}</span>
+        <span className="text-white/90 text-sm hidden md:inline">{locationName}</span>
         {filtersButton}
       </div>
 
@@ -154,10 +154,10 @@ export function CalendarNavBar({
               setShowNotifications((v) => !v);
               if (!showNotifications) fetchNotifications();
             }}
-            className="relative p-2.5 hover:bg-black rounded-lg transition-colors"
+            className="relative p-2.5 hover:bg-white/10 rounded-lg transition-colors text-white"
             aria-label="Notifications"
           >
-            <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 6H7" />
             </svg>
             {unreadCount > 0 && (
@@ -228,21 +228,21 @@ export function CalendarNavBar({
         {onRefresh && (
           <button
             onClick={onRefresh}
-            className="p-2.5 hover:bg-black rounded-lg transition-colors"
+            className="p-2.5 hover:bg-white/10 rounded-lg transition-colors text-white"
             aria-label="Refresh"
           >
-            <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
           </button>
         )}
 
         {/* View: Day / Week */}
-        <div className="flex bg-black rounded-lg p-0.5">
+        <div className="flex bg-white/10 rounded-lg p-0.5">
           <button
             onClick={() => onViewModeChange('day')}
             className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${
-              viewMode === 'day' ? 'bg-black text-white' : 'text-black hover:text-white'
+              viewMode === 'day' ? 'bg-[#FF2D8E] text-white' : 'text-white/80 hover:text-white'
             }`}
           >
             Day
@@ -250,7 +250,7 @@ export function CalendarNavBar({
           <button
             onClick={() => onViewModeChange('week')}
             className={`px-3 py-1.5 text-sm font-medium rounded-md transition-all ${
-              viewMode === 'week' ? 'bg-black text-white' : 'text-black hover:text-white'
+              viewMode === 'week' ? 'bg-[#FF2D8E] text-white' : 'text-white/80 hover:text-white'
             }`}
           >
             Week

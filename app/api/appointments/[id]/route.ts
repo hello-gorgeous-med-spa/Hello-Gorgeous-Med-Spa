@@ -19,13 +19,21 @@ export async function GET(
   const { id } = await params;
 
   try {
-    const { data, error } = await supabase
+    const { data: raw, error } = await supabase
       .from('appointments')
       .select(`
         *,
-        client:clients(*),
-        provider:providers(*),
-        service:services(*)
+        client:clients(
+          id,
+          user_id,
+          first_name,
+          last_name,
+          email,
+          phone,
+          users(first_name, last_name, email, phone)
+        ),
+        provider:providers(id, first_name, last_name, credentials, color_hex, user_id, users(first_name, last_name)),
+        service:services(id, name, slug, price_cents, price, duration_minutes)
       `)
       .eq('id', id)
       .single();
@@ -37,7 +45,34 @@ export async function GET(
       throw error;
     }
 
-    return NextResponse.json({ appointment: data });
+    // Normalize client name from clients or users (so detail page never shows "Unknown Client")
+    const c = raw?.client;
+    let clientFirstName = c?.first_name ?? c?.users?.first_name ?? '';
+    let clientLastName = c?.last_name ?? c?.users?.last_name ?? '';
+    if (!clientFirstName && !clientLastName && (c?.email || c?.users?.email)) {
+      const email = c?.email || c?.users?.email || '';
+      const part = email.split('@')[0].replace(/[._]/g, ' ');
+      clientFirstName = part.split(' ').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+    }
+    const clientName = `${clientFirstName} ${clientLastName}`.trim() || 'Client';
+
+    const appointment = {
+      ...raw,
+      client_name: clientName,
+      client: raw?.client ? {
+        ...raw.client,
+        first_name: clientFirstName || raw.client.first_name,
+        last_name: clientLastName || raw.client.last_name,
+        email: raw.client.email ?? raw.client.users?.email,
+        phone: raw.client.phone ?? raw.client.users?.phone,
+      } : null,
+      provider_name: raw?.provider
+        ? `${raw.provider.first_name ?? raw.provider.users?.first_name ?? ''} ${raw.provider.last_name ?? raw.provider.users?.last_name ?? ''}`.trim()
+        : 'Provider',
+      service_name: raw?.service?.name ?? 'Service',
+    };
+
+    return NextResponse.json({ appointment });
   } catch (error) {
     console.error('Error fetching appointment:', error);
     return NextResponse.json(
