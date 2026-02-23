@@ -307,6 +307,22 @@ export async function POST(request: NextRequest) {
               createPaymentReceiptFromSale(supabase, terminalCheckout.sale_id).then((r) => {
                 if (r.created) console.log('[Webhook] Portal receipt created for terminal payment');
               }).catch((e) => console.warn('[Webhook] Portal receipt sync failed:', e));
+
+              // Client Intelligence Engine: update LTV and visits
+              if (terminalCheckout.sale_id) {
+                const { data: sale } = await supabase.from('sales').select('client_id').eq('id', terminalCheckout.sale_id).single();
+                if (sale?.client_id) {
+                  const { data: client } = await supabase.from('clients').select('total_lifetime_value_cents, total_visits').eq('id', sale.client_id).single();
+                  if (client) {
+                    await supabase.from('clients').update({
+                      total_lifetime_value_cents: (Number(client.total_lifetime_value_cents) || 0) + totalCollected,
+                      total_visits: (Number(client.total_visits) || 0) + 1,
+                      last_visit_date: new Date().toISOString(),
+                      updated_at: new Date().toISOString(),
+                    }).eq('id', sale.client_id);
+                  }
+                }
+              }
             }
           }
         } else if (status === 'CANCELED') {
@@ -383,7 +399,7 @@ export async function POST(request: NextRequest) {
       if (payment.status === 'COMPLETED' && payment.terminal_checkout_id) {
         const { data: existingPayment } = await supabase
           .from('sale_payments')
-          .select('id, status')
+          .select('id, status, sale_id')
           .eq('square_terminal_checkout_id', payment.terminal_checkout_id)
           .single();
         
@@ -406,6 +422,33 @@ export async function POST(request: NextRequest) {
               processed_at: new Date().toISOString(),
             })
             .eq('id', existingPayment.id);
+          
+          // Client Intelligence Engine: update LTV and visits when payment completes
+          if (existingPayment.sale_id) {
+            const { data: sale } = await supabase
+              .from('sales')
+              .select('client_id')
+              .eq('id', existingPayment.sale_id)
+              .single();
+            if (sale?.client_id) {
+              const { data: client } = await supabase
+                .from('clients')
+                .select('total_lifetime_value_cents, total_visits')
+                .eq('id', sale.client_id)
+                .single();
+              if (client) {
+                await supabase
+                  .from('clients')
+                  .update({
+                    total_lifetime_value_cents: (Number(client.total_lifetime_value_cents) || 0) + totalAmount,
+                    total_visits: (Number(client.total_visits) || 0) + 1,
+                    last_visit_date: new Date().toISOString(),
+                    updated_at: new Date().toISOString(),
+                  })
+                  .eq('id', sale.client_id);
+              }
+            }
+          }
           
           console.log('Payment updated from payment.updated webhook');
         }

@@ -263,7 +263,7 @@ export default function SolariaCO2Page() {
               </div>
             </div>
             <p className="mt-6">
-              <Link href="/aftercare/solaria-co2" className="text-[#E6007E] font-semibold hover:underline">
+              <Link href="/solaria" className="text-[#E6007E] font-semibold hover:underline">
                 View Complete Pre & Post Care Instructions
               </Link>
             </p>

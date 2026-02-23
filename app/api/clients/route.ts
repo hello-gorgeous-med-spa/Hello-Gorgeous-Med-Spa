@@ -109,7 +109,9 @@ export async function GET(request: NextRequest) {
         userData = user;
       }
 
-      // Flatten the data
+      // Flatten the data (include Client Intelligence fields)
+      const ltvCents = client.total_lifetime_value_cents ?? client.lifetime_value_cents ?? 0;
+      const visits = client.total_visits ?? client.visit_count ?? 0;
       const flatClient = {
         id: client.id,
         user_id: client.user_id,
@@ -127,28 +129,37 @@ export async function GET(request: NextRequest) {
         emergency_contact_name: client.emergency_contact_name,
         emergency_contact_phone: client.emergency_contact_phone,
         referral_source: client.referral_source,
+        source: client.source || client.referral_source,
         internal_notes: client.internal_notes,
         allergies_summary: client.allergies_summary,
         medications_summary: client.medications_summary,
         medical_conditions_summary: client.medical_conditions_summary,
         created_at: client.created_at,
-        last_visit_at: client.last_visit_at,
-        total_spent: client.lifetime_value_cents ? client.lifetime_value_cents / 100 : 0,
-        total_visits: client.visit_count || 0,
-        visit_count: client.visit_count || 0,
+        last_visit_at: client.last_visit_date || client.last_visit_at,
+        total_spent: ltvCents ? ltvCents / 100 : 0,
+        total_visits: visits,
+        visit_count: visits,
         is_vip: client.is_vip || false,
         tags: client.tags || [],
+        square_customer_id: client.square_customer_id || null,
       };
 
       return NextResponse.json({ client: flatClient });
     }
 
-    // Get all clients - simple query without joins
-    const { data: clientsData, error: clientsError, count } = await supabase
+    // Get all clients - simple query without joins (include Client Intelligence fields)
+    let query = supabase
       .from('clients')
       .select('*', { count: 'exact' })
       .order('created_at', { ascending: false })
       .range(offset, offset + limit - 1);
+
+    const sourceFilter = searchParams.get('source');
+    if (sourceFilter && sourceFilter.trim()) {
+      query = query.eq('source', sourceFilter.trim());
+    }
+
+    const { data: clientsData, error: clientsError, count } = await query;
 
     if (clientsError) {
       console.error('Error fetching clients:', clientsError);
@@ -175,9 +186,11 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Combine client and user data
+    // Combine client and user data (include Client Intelligence: source, LTV, visits)
     const clients = (clientsData || []).map((c: any) => {
       const user = usersMap[c.user_id] || {};
+      const ltvCents = c.total_lifetime_value_cents ?? c.lifetime_value_cents ?? 0;
+      const visits = c.total_visits ?? c.visit_count ?? 0;
       return {
         id: c.id,
         user_id: c.user_id,
@@ -187,10 +200,11 @@ export async function GET(request: NextRequest) {
         phone: user.phone || c.phone,
         date_of_birth: c.date_of_birth,
         created_at: c.created_at,
-        last_visit: c.last_visit_at,
-        total_spent: c.lifetime_value_cents ? c.lifetime_value_cents / 100 : 0,
-        visit_count: c.visit_count || 0,
+        last_visit: c.last_visit_date || c.last_visit_at,
+        total_spent: ltvCents ? ltvCents / 100 : 0,
+        visit_count: visits,
         is_vip: c.is_vip || false,
+        source: c.source || c.referral_source || null,
       };
     });
 

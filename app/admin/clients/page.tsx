@@ -26,6 +26,7 @@ interface Client {
   last_visit?: string;
   total_spent: number;
   visit_count: number;
+  source?: string | null;
 }
 
 export default function AdminClientsPage() {
@@ -35,6 +36,7 @@ export default function AdminClientsPage() {
   const [total, setTotal] = useState(0);
   const [searchQuery, setSearchQuery] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
+  const [sourceFilter, setSourceFilter] = useState<string>('');
   
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -56,6 +58,7 @@ export default function AdminClientsPage() {
     try {
       const params = new URLSearchParams();
       if (search) params.set('search', search);
+      if (sourceFilter) params.set('source', sourceFilter);
       params.set('limit', limit.toString());
       params.set('offset', ((page - 1) * limit).toString());
       
@@ -78,7 +81,7 @@ export default function AdminClientsPage() {
 
   useEffect(() => {
     fetchClients(debouncedSearch, currentPage, pageSize);
-  }, [debouncedSearch, currentPage, pageSize]);
+  }, [debouncedSearch, currentPage, pageSize, sourceFilter]);
 
   const totalPages = Math.ceil(total / pageSize);
 
@@ -88,6 +91,7 @@ export default function AdminClientsPage() {
     { key: 'last_name', label: 'Last Name' },
     { key: 'email', label: 'Email' },
     { key: 'phone', label: 'Phone' },
+    { key: 'source', label: 'Source' },
     { key: 'visit_count', label: 'Visits' },
     { key: 'total_spent', label: 'Total Spent', format: (v: number) => `$${v || 0}` },
     { key: 'created_at', label: 'Joined', format: (v: string) => new Date(v).toLocaleDateString() },
@@ -134,6 +138,22 @@ export default function AdminClientsPage() {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
           </div>
+          <div className="w-full sm:w-48">
+            <select
+              value={sourceFilter}
+              onChange={(e) => { setSourceFilter(e.target.value); setCurrentPage(1); }}
+              className="w-full px-4 py-2 border border-black rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E] bg-white text-black"
+            >
+              <option value="">All sources</option>
+              <option value="website">Website</option>
+              <option value="booking">Booking</option>
+              <option value="square">Square</option>
+              <option value="pos">POS</option>
+              <option value="face-blueprint">Face Blueprint</option>
+              <option value="hormone-AI">Hormone AI</option>
+              <option value="AI-roadmap">AI Roadmap</option>
+            </select>
+          </div>
         </div>
       </div>
 
@@ -153,8 +173,9 @@ export default function AdminClientsPage() {
               <tr>
                 <th className="text-left px-5 py-3 text-sm font-semibold text-black">Client</th>
                 <th className="text-left px-5 py-3 text-sm font-semibold text-black">Contact</th>
+                <th className="text-left px-5 py-3 text-sm font-semibold text-black">Source</th>
                 <th className="text-left px-5 py-3 text-sm font-semibold text-black">Visits</th>
-                <th className="text-left px-5 py-3 text-sm font-semibold text-black">Total Spent</th>
+                <th className="text-left px-5 py-3 text-sm font-semibold text-black">LTV</th>
                 <th className="text-left px-5 py-3 text-sm font-semibold text-black">Joined</th>
                 <th className="px-5 py-3"></th>
               </tr>
@@ -165,6 +186,7 @@ export default function AdminClientsPage() {
                   <tr key={i}>
                     <td className="px-5 py-4"><Skeleton className="w-32 h-4" /></td>
                     <td className="px-5 py-4"><Skeleton className="w-40 h-4" /></td>
+                    <td className="px-5 py-4"><Skeleton className="w-20 h-4" /></td>
                     <td className="px-5 py-4"><Skeleton className="w-12 h-4" /></td>
                     <td className="px-5 py-4"><Skeleton className="w-20 h-4" /></td>
                     <td className="px-5 py-4"><Skeleton className="w-24 h-4" /></td>
@@ -173,7 +195,7 @@ export default function AdminClientsPage() {
                 ))
               ) : clients.length === 0 ? (
                 <tr>
-                  <td colSpan={6} className="px-5 py-12">
+                  <td colSpan={7} className="px-5 py-12">
                     {searchQuery ? (
                       <div className="text-center text-black">
                         No clients match your search
@@ -211,6 +233,9 @@ export default function AdminClientsPage() {
                     <td className="px-5 py-4">
                       <p className="text-sm text-black">{client.email}</p>
                       <p className="text-sm text-black">{client.phone}</p>
+                    </td>
+                    <td className="px-5 py-4">
+                      <span className="text-sm text-black">{client.source || '—'}</span>
                     </td>
                     <td className="px-5 py-4">
                       <span className="text-black">{client.visit_count || 0}</span>

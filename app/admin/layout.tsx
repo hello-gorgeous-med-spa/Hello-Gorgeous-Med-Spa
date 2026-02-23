@@ -193,6 +193,8 @@ const NAV_SECTIONS = [
     items: [
       { href: '/admin/concerns', label: 'Fix What Bothers Me', icon: '💗' },
       { href: '/admin/marketing', label: 'Marketing Hub', icon: '📊' },
+      { href: '/admin/marketing/contacts', label: 'Contact Collection', icon: '📇' },
+      { href: '/admin/marketing/feature-leads', label: 'Feature Leads', icon: '🎯' },
       { href: '/admin/marketing/automation', label: 'Campaigns & Automation', icon: '⚡' },
       { href: '/admin/reports', label: 'Reports', icon: '📋' },
     ],

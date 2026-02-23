@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { LeadGate } from "@/components/LeadGate";
 import { FaceBlueprintCanvas } from "@/components/face/FaceBlueprintCanvas";
 import { trackFaceEvent } from "@/lib/face-analytics";
 import { BOOKING_URL } from "@/lib/flows";
@@ -149,6 +150,7 @@ export function FaceBlueprintContent() {
   }, [sessionId]);
 
   return (
+    <LeadGate source="face_blueprint" featureName="HG Face Blueprint™" onUnlock={() => {}}>
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <section className="bg-white py-10 md:py-14">
@@ -362,5 +364,6 @@ export function FaceBlueprintContent() {
         </div>
       </section>
     </div>
+    </LeadGate>
   );
 }

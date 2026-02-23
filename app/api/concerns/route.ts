@@ -6,6 +6,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 import { suggestServicesFromConcern, suggestedSlugsFromConcern } from "@/lib/concerns";
+import { recordLead, getUTMFromRequest } from "@/lib/leads";
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,7 +35,21 @@ export async function POST(request: NextRequest) {
         source: "web",
       });
       if (error) console.error("Concern submission insert error:", error);
-      // Still return success + suggestions so client sees thank-you and can book (e.g. if table not yet migrated)
+
+      // Unified lead capture (Client Intelligence Engine) — require email
+      if (email?.trim() && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+        const url = request.url || "";
+        const utm = getUTMFromRequest(url, request.headers.get("referer"));
+        await recordLead(supabase, {
+          email: email.trim().toLowerCase(),
+          phone: phone?.trim() || undefined,
+          full_name: name?.trim() || undefined,
+          source: "website",
+          lead_type: "concern",
+          metadata: { suggested_slugs: slugs },
+          ...utm,
+        });
+      }
     }
 
     return NextResponse.json({

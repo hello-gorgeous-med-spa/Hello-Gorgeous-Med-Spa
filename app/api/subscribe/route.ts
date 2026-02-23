@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
+import { recordLead, getUTMFromRequest } from "@/lib/leads";
 
 // Simple email validation
 function isValidEmail(email: string): boolean {
@@ -173,6 +175,23 @@ export async function POST(req: Request) {
       referredBy: referredBy || null,
     };
     console.log(`[EMAIL SIGNUP] ${JSON.stringify(logData)}`);
+
+    // Unified lead capture (Client Intelligence Engine)
+    const supabase = createAdminSupabaseClient();
+    if (supabase) {
+      const reqUrl = req.url || "";
+      const utm = getUTMFromRequest(reqUrl, req.headers.get("referer"));
+      const leadType = source === "treatment-quiz" ? "quiz" : source === "free-vitamin" ? "subscribe" : "subscribe";
+      await recordLead(supabase, {
+        email: normalizedEmail,
+        phone: phone || undefined,
+        full_name: name || undefined,
+        source: source || "website",
+        lead_type: leadType,
+        metadata: { selectedVitamin: selectedVitamin || undefined, concern: concern || undefined },
+        ...utm,
+      });
+    }
 
     // Send notification email to you (optional - requires email service)
     // You can set up a simple email notification via your email provider

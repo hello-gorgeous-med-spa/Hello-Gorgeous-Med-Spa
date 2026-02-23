@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import React, { useCallback, useEffect, useState } from "react";
+import { LeadGate } from "@/components/LeadGate";
 import { BOOKING_URL } from "@/lib/flows";
 import { trackJourneyEvent } from "@/lib/journey-analytics";
 import type { RoadmapAIOutput } from "@/lib/journey-types";
@@ -129,6 +130,7 @@ export function HumanJourney() {
   }, [sessionId]);
 
   return (
+    <LeadGate source="journey" featureName="Your Journey" onUnlock={() => {}}>
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <div className="bg-white py-12 md:py-16">
@@ -473,5 +475,6 @@ export function HumanJourney() {
         </div>
       </div>
     </div>
+    </LeadGate>
   );
 }

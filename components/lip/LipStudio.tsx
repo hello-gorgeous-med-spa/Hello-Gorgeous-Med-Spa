@@ -3,6 +3,7 @@
 import { useState, useCallback, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
+import { LeadGate } from "@/components/LeadGate";
 import { UploadArea } from "./UploadArea";
 import { Controls } from "./Controls";
 import {
@@ -70,6 +71,7 @@ export function LipStudio() {
   }, []);
 
   return (
+    <LeadGate source="lip_studio" featureName="Lip Enhancement Studio™" onUnlock={() => {}}>
     <div className="max-w-4xl mx-auto space-y-8">
       {/* Disclaimer before upload */}
       <div className="rounded-xl bg-[#FFFFFF] border border-[#FF2D8E]/20 p-4">
@@ -165,5 +167,6 @@ export function LipStudio() {
         )}
       </div>
     </div>
+    </LeadGate>
   );
 }

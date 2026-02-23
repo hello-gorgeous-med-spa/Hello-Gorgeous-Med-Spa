@@ -116,6 +116,8 @@ const nextConfig = {
     { source: "/kybella", destination: "/services/kybella", permanent: true },
     { source: "/salmon-dna-glass-facial", destination: "/services/salmon-dna-glass-facial", permanent: true },
     { source: "/alle-botox-rewards", destination: "/services/alle-botox-rewards", permanent: true },
+    // Solaria: aftercare content now lives on main /solaria page
+    { source: "/aftercare/solaria-co2", destination: "/solaria", permanent: true },
     { source: "/ez-prf-gel", destination: "/services/ez-prf-gel", permanent: true },
     { source: "/prp", destination: "/services/prp", permanent: true },
     { source: "/prp-facial", destination: "/services/prp-facial", permanent: true },

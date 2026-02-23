@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import React, { useCallback, useEffect, useState } from "react";
+import { LeadGate } from "@/components/LeadGate";
 import { BOOKING_URL } from "@/lib/flows";
 import { trackHarmonyEvent } from "@/lib/hormone-analytics";
 import type { HormoneBlueprintOutput } from "@/lib/hormone-types";
@@ -132,6 +133,7 @@ export function HarmonyAI() {
   const progressPct = (step / TOTAL_STEPS) * 100;
 
   return (
+    <LeadGate source="hormone" featureName="Harmony AI™" onUnlock={() => {}}>
     <div className="rounded-2xl border-2 border-black/10 bg-white overflow-hidden">
       <div className="h-2 bg-pink-100">
         <div
@@ -436,5 +438,6 @@ export function HarmonyAI() {
         </div>
       ) : null}
     </div>
+    </LeadGate>
   );
 }

@@ -8,6 +8,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 import { businessDateTimeToUTC, formatInBusinessTZ } from '@/lib/business-timezone';
 import { sendAppointmentConfirmationSms, sendSmsOptInConfirmation } from '@/lib/notifications/telnyx';
+import { markLeadsConverted } from '@/lib/leads';
 
 export async function POST(request: NextRequest) {
   try {
@@ -82,6 +83,7 @@ export async function POST(request: NextRequest) {
             phone: phone,
             date_of_birth: dateOfBirth || null,
             accepts_sms_marketing: agreeToSMS,
+            source: 'booking',
           })
           .select('id')
           .single();
@@ -130,6 +132,7 @@ export async function POST(request: NextRequest) {
           phone: phone,
           date_of_birth: dateOfBirth || null,
           accepts_sms_marketing: agreeToSMS,
+          source: 'booking',
         })
         .select('id')
         .single();
@@ -143,6 +146,9 @@ export async function POST(request: NextRequest) {
       }
       clientId = newClient.id;
     }
+
+    // Client Intelligence Engine: mark any leads with this email as converted
+    await markLeadsConverted(supabase, email, clientId);
 
     // 2. Get service details
     const { data: service, error: serviceError } = await supabase

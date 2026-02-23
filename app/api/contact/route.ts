@@ -5,6 +5,8 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { SITE } from '@/lib/seo';
+import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
+import { recordLead, getUTMFromRequest } from '@/lib/leads';
 
 export async function POST(request: NextRequest) {
   try {
@@ -43,6 +45,24 @@ export async function POST(request: NextRequest) {
           { error: 'Failed to send message. Please try again or call us.' },
           { status: 502 }
         );
+      }
+    }
+
+    // Unified lead capture: if contact looks like email, record in leads
+    const emailMatch = contact.trim().match(/^[^\s@]+@[^\s@]+\.[^\s@]+$/);
+    if (emailMatch) {
+      const supabase = createAdminSupabaseClient();
+      if (supabase) {
+        const url = request.url || '';
+        const utm = getUTMFromRequest(url, request.headers.get('referer'));
+        await recordLead(supabase, {
+          email: contact.trim().toLowerCase(),
+          phone: contact.includes('@') ? undefined : contact.trim(),
+          full_name: name.trim(),
+          source: 'website',
+          lead_type: 'contact_form',
+          ...utm,
+        });
       }
     }
 

@@ -89,8 +89,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  // Solaria CO2 special pages
+  // Solaria CO2 special pages (aftercare content lives on /solaria)
   const solariaPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/solaria`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
     {
       url: `${baseUrl}/services/solaria-co2`,
       lastModified: currentDate,
@@ -109,23 +115,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'weekly',
       priority: 0.85,
     },
-    {
-      url: `${baseUrl}/aftercare/solaria-co2`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.75,
-    },
   ];
 
-  // Aftercare / Patient Resources pages
-  const aftercarePages: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/aftercare/solaria-co2`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.75,
-    },
-  ];
+  // Aftercare / Patient Resources (solaria content on /solaria; no separate aftercare URL)
+  const aftercarePages: MetadataRoute.Sitemap = [];
 
   // Location-based service pages (only slugs that exist via [localSlug] / gbp-urls)
   const locationServicePages: MetadataRoute.Sitemap = GBP_SERVICE_SLUGS.map((slug) => ({
