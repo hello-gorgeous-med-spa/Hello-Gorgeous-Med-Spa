@@ -96,6 +96,12 @@ export default function SolariaCO2Page() {
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
+                href="/stretch-mark-treatment-oswego-il"
+                className="inline-flex items-center justify-center rounded-lg border-2 border-white px-6 py-3 font-semibold text-white hover:bg-white hover:text-black transition"
+              >
+                Body Resurfacing & Stretch Marks →
+              </Link>
+              <Link
                 href="/solaria-co2-vip"
                 className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition"
               >

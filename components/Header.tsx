@@ -27,7 +27,7 @@ const navigation = {
       {
         title: "Skin & Face",
         links: [
-          { label: "Solaria CO₂ Laser", href: "/services/solaria-co2", icon: "⚡", badge: "NEW" },
+          { label: "Solaria CO₂ Laser", href: "/stretch-mark-treatment-oswego-il", icon: "⚡", badge: "NEW" },
           { label: "HydraFacial", href: "/services/hydra-facial", icon: "✨" },
           { label: "RF Microneedling", href: "/services/rf-microneedling", icon: "🎯" },
           { label: "IPL Photofacial", href: "/services/ipl-photofacial", icon: "💡" },
