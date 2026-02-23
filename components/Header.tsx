@@ -22,6 +22,7 @@ const navigation = {
           { label: "Lip Filler", href: "/services/lip-filler", icon: "👄" },
           { label: "Lip Enhancement Studio", href: "/lip-studio", icon: "✨" },
           { label: "Kybella", href: "/services/kybella", icon: "✨" },
+          { label: "Allē Rewards", href: "/alle-botox-rewards", icon: "💎" },
         ],
       },
       {
@@ -114,6 +115,7 @@ const navigation = {
     highlight: true,
     links: [
       { label: "FREE Vitamin Shot", href: "/free-vitamin", description: "New clients only - $0", icon: "💉", badge: "FREE" },
+      { label: "Allē Rewards", href: "/alle-botox-rewards", description: "Earn points on Botox, Juvederm & more", icon: "💎" },
       { label: "Annual Membership", href: "/subscribe", description: "Save 10% on everything", icon: "🎁", badge: "SAVE" },
       { label: "Give $25, Get $25", href: "/referral", description: "Refer a friend", icon: "💝" },
       { label: "Current Promotions", href: "/book", description: "This month's deals", icon: "🔥" },
