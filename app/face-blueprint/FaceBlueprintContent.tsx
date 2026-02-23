@@ -26,6 +26,14 @@ const INTENSITY_OPTIONS: { value: FaceIntensityLevel; label: string }[] = [
   { value: "dramatic", label: "Dramatic" },
 ];
 
+const FACE_BLUEPRINT_FEATURES = [
+  "Upload a selfie (front-facing, good lighting)",
+  "Select treatments: Botox, lips, chin, jawline, under-eye, CO₂",
+  "Choose intensity: subtle, balanced, or dramatic",
+  "Get a personalized blueprint with suggested order & estimated investment",
+  "Email your results or book a consultation",
+];
+
 export function FaceBlueprintContent() {
   const searchParams = useSearchParams();
   const roadmapSessionId = searchParams.get("roadmap_session_id") || undefined;
@@ -150,7 +158,14 @@ export function FaceBlueprintContent() {
   }, [sessionId]);
 
   return (
-    <LeadGate source="face_blueprint" featureName="HG Face Blueprint™" onUnlock={() => {}}>
+    <LeadGate
+      source="face_blueprint"
+      featureName="HG Face Blueprint™"
+      onUnlock={() => {}}
+      features={FACE_BLUEPRINT_FEATURES}
+      heroTitle="See your aesthetic potential"
+      heroSubtitle="Upload a selfie, select treatments, and get a personalized blueprint. No pressure—just clarity before your consultation."
+    >
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <section className="bg-white py-10 md:py-14">

@@ -37,6 +37,14 @@ const INITIAL_FORM: FormState = {
 const FADE_IN_KEYFRAMES =
   "@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }";
 
+const JOURNEY_FEATURES = [
+  "Answer a few quick questions (concerns, experience, timeline)",
+  "Get your personalized HG Roadmap™",
+  "See suggested services, order & timeline",
+  "Estimated investment range & maintenance plan",
+  "Email your results or book a consultation",
+];
+
 function useSessionState<T>(key: string, initial: T): [T, React.Dispatch<React.SetStateAction<T>>] {
   const [value, setValue] = useState<T>(() => {
     if (typeof window === "undefined") return initial;
@@ -130,7 +138,14 @@ export function HumanJourney() {
   }, [sessionId]);
 
   return (
-    <LeadGate source="journey" featureName="Your Journey" onUnlock={() => {}}>
+    <LeadGate
+      source="journey"
+      featureName="Your Journey"
+      onUnlock={() => {}}
+      features={JOURNEY_FEATURES}
+      heroTitle="Feel clear before you commit"
+      heroSubtitle="A short flow to help you feel confident. No medical advice. No pressure. Just clarity—then your personalized HG Roadmap™."
+    >
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <div className="bg-white py-12 md:py-16">

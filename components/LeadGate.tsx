@@ -30,6 +30,12 @@ export interface LeadGateProps {
   children?: React.ReactNode;
   /** If true, gate is skipped (e.g. already unlocked from storage) */
   unlocked?: boolean;
+  /** Shown above the form when gated so visitors see what they get before entering email */
+  features?: string[];
+  /** Optional hero line shown above the gate card when gated (e.g. "See your aesthetic potential") */
+  heroTitle?: string;
+  /** Optional subline under heroTitle */
+  heroSubtitle?: string;
 }
 
 const FEATURE_HEADLINES: Record<LeadGateSource, string> = {
@@ -39,7 +45,7 @@ const FEATURE_HEADLINES: Record<LeadGateSource, string> = {
   lip_studio: "Try our Lip Enhancement Studio™",
 };
 
-export function LeadGate({ source, featureName, onUnlock, children, unlocked }: LeadGateProps) {
+export function LeadGate({ source, featureName, onUnlock, children, unlocked, features, heroTitle, heroSubtitle }: LeadGateProps) {
   const [stored] = useState(() => getStoredUnlock(source));
   const [unlockedLocal, setUnlockedLocal] = useState(false);
   const [email, setEmail] = useState("");
@@ -94,7 +100,24 @@ export function LeadGate({ source, featureName, onUnlock, children, unlocked }: 
   const headline = FEATURE_HEADLINES[source] || featureName;
 
   return (
-    <div className="min-h-[40vh] flex items-center justify-center px-6 py-12">
+    <div className="min-h-screen bg-white">
+      {(heroTitle || heroSubtitle) && (
+        <section className="bg-white py-10 md:py-14 border-b border-black/5">
+          <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
+            {heroTitle && (
+              <h1 className="text-3xl md:text-4xl font-bold text-black leading-tight">
+                {heroTitle}
+              </h1>
+            )}
+            {heroSubtitle && (
+              <p className="mt-3 text-black/80 text-lg max-w-xl mx-auto">
+                {heroSubtitle}
+              </p>
+            )}
+          </div>
+        </section>
+      )}
+      <div className="min-h-[30vh] flex flex-col items-center justify-center px-6 py-12">
       <div className="max-w-md w-full">
         <div className="rounded-2xl border border-[#FF2D8D]/20 bg-white p-8 shadow-sm">
           <p className="text-[#FF2D8D] text-sm font-semibold uppercase tracking-wider mb-2">
@@ -106,6 +129,19 @@ export function LeadGate({ source, featureName, onUnlock, children, unlocked }: 
           <p className="text-black/70 text-sm mb-6">
             Enter your email and phone and opt in below to continue. We&apos;ll send you tips, updates, and special offers—no spam.
           </p>
+          {features && features.length > 0 && (
+            <div className="mb-6 rounded-xl bg-pink-50/50 border border-[#FF2D8D]/10 p-4">
+              <h3 className="text-sm font-semibold text-black mb-2">What you&apos;ll get</h3>
+              <ul className="space-y-1.5 text-sm text-black/80">
+                {features.map((f, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="text-[#FF2D8D] mt-0.5 shrink-0">•</span>
+                    <span>{f}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label htmlFor="lead-email" className="block text-sm font-medium text-black mb-1">
@@ -159,6 +195,7 @@ export function LeadGate({ source, featureName, onUnlock, children, unlocked }: 
             </button>
           </form>
         </div>
+      </div>
       </div>
     </div>
   );
