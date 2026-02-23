@@ -6,9 +6,17 @@ import { PERSONA_UI } from "@/lib/personas/ui";
 import { routePersonaId } from "@/lib/personas/router";
 import { BOOKING_URL, FULLSCRIPT_DISPENSARY_URL } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
+import { getSupabase } from "@/lib/supabase-server";
 import { looksLikeEmergency, postTreatmentRedFlags, ryanSafetyOverrideReply } from "@/lib/guardrails";
 import { retrieveKnowledge, shouldEscalateToSafety } from "@/lib/knowledge/engine";
 import { getActiveCollections, getCollectionById } from "@/lib/fullscript/collections";
+import {
+  parseBodyWithLimit,
+  invalidInputResponse,
+  MAX_BODY_SIZE_CHAT,
+  chatBodySchema,
+} from "@/lib/api-validation";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 
 type ChatMessage = { role: "user" | "assistant" | "system"; content: string };
 
@@ -21,6 +29,20 @@ type ChatContext = {
 };
 
 const FULLSCRIPT_COLLECTION_TAG = /\[FULLSCRIPT_COLLECTION:([a-z0-9-]+)\]/gi;
+
+const CHAT_RATE_LIMIT_MAX = 10;
+const CHAT_RATE_LIMIT_429 = "Too many chat requests. Please try again later.";
+
+function getClientIp(req: Request): string {
+  const forwarded = req.headers.get("x-forwarded-for");
+  const realIp = req.headers.get("x-real-ip");
+  const raw = forwarded?.split(",")[0]?.trim() || realIp || "unknown";
+  return raw || "unknown";
+}
+
+function getHourTs(): string {
+  return new Date().toISOString().slice(0, 13);
+}
 
 const SUPPLEMENT_DISCLAIMER =
   "This information is educational and not medical advice. Always consult your provider before starting new supplements.";
@@ -264,23 +286,38 @@ function localKnowledgeReply({
 }
 
 export async function POST(req: Request) {
-  const body = (await req.json().catch(() => null)) as
-    | {
-        personaId: PersonaId;
-        module?: "education" | "preconsult" | "postcare";
-        messages: ChatMessage[];
-        context?: ChatContext;
-      }
-    | null;
-
-  if (!body?.personaId || !Array.isArray(body.messages)) {
-    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  const supabase = getSupabase();
+  if (supabase) {
+    const ip = getClientIp(req);
+    const hourTs = getHourTs();
+    const { data: count, error: rpcError } = await supabase.rpc("api_rate_limit_inc", {
+      p_bucket_key: `chat:${ip}`,
+      p_hour_ts: hourTs,
+    });
+    if (rpcError) {
+      console.error("Chat rate limit rpc error", rpcError);
+    } else if (typeof count === "number" && count > CHAT_RATE_LIMIT_MAX) {
+      console.warn("[rate-limit] Chat exceeded", { ip: ip.slice(0, 8) + "…", hourTs, count });
+      return NextResponse.json({ error: CHAT_RATE_LIMIT_429 }, { status: 429 });
+    }
   }
 
-  const personaIdRequested = body.personaId;
-  const moduleId = body.module ?? "education";
-  const chatContext = body.context ?? null;
-  const messages = body.messages.filter((m) => m.role !== "system");
+  const bodyResult = await parseBodyWithLimit(req, MAX_BODY_SIZE_CHAT);
+  if (!bodyResult.success) return bodyResult.response;
+  const parsed = chatBodySchema.safeParse(bodyResult.data);
+  if (!parsed.success) {
+    return invalidInputResponse(parsed.error.message, parsed.error.issues);
+  }
+
+  const turnstile = await verifyTurnstileToken(parsed.data.turnstile_token);
+  if (!turnstile.success) {
+    return NextResponse.json({ error: turnstile.error ?? "Bot check failed" }, { status: 400 });
+  }
+
+  const personaIdRequested = parsed.data.personaId;
+  const moduleId = parsed.data.module ?? "education";
+  const chatContext = parsed.data.context ?? null;
+  const messages = parsed.data.messages.filter((m) => m.role !== "system");
   const userLast = [...messages].reverse().find((m) => m.role === "user")?.content ?? "";
 
   // Always-on safety override: emergencies or post-treatment red flags use Ryan voice.

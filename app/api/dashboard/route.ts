@@ -1,9 +1,11 @@
 // ============================================================
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 // API: DASHBOARD STATS - Aggregated data with service role
+// OWNER-ONLY: Requires valid hgos_session with role === 'owner'
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
+import { getOwnerSession } from '@/lib/get-owner-session';
 
 // Increase max duration for this function
 export const maxDuration = 30;
@@ -55,11 +57,43 @@ const EMPTY_STATS = {
   upcomingAppointments: [],
 };
 
+const DASHBOARD_RATE_LIMIT_MAX = 20;
+const DASHBOARD_RATE_LIMIT_429 = 'Too many dashboard requests. Try again later.';
+
+function getClientIp(request: NextRequest): string {
+  const forwarded = request.headers.get('x-forwarded-for');
+  const realIp = request.headers.get('x-real-ip');
+  const raw = forwarded?.split(',')[0]?.trim() || realIp || 'unknown';
+  return raw || 'unknown';
+}
+
+function getHourTs(): string {
+  return new Date().toISOString().slice(0, 13);
+}
+
 export async function GET(request: NextRequest) {
+  const session = await getOwnerSession();
+  if (!session || session.role !== 'owner') {
+    return new NextResponse('Unauthorized', { status: 401 });
+  }
+
   const supabase = getSupabase();
   if (!supabase) {
     console.log('Dashboard: Supabase not configured, returning empty stats');
     return NextResponse.json({ ...EMPTY_STATS, source: 'local' });
+  }
+
+  const ip = getClientIp(request);
+  const hourTs = getHourTs();
+  const { data: count, error: rpcError } = await supabase.rpc('api_rate_limit_inc', {
+    p_bucket_key: `dashboard:${ip}`,
+    p_hour_ts: hourTs,
+  });
+  if (rpcError) {
+    console.error('Dashboard rate limit rpc error', rpcError);
+  } else if (typeof count === 'number' && count > DASHBOARD_RATE_LIMIT_MAX) {
+    console.warn('[rate-limit] Dashboard exceeded', { ip: ip.slice(0, 8) + '…', hourTs, count });
+    return NextResponse.json({ error: DASHBOARD_RATE_LIMIT_429 }, { status: 429 });
   }
 
   try {

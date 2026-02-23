@@ -2,10 +2,17 @@
  * POST /api/journey/roadmap
  * Accepts journey intake, calls AI for structured roadmap, stores in Supabase, returns roadmap.
  * Rate limited: 5 requests per IP per hour (Supabase-backed).
- * Cost range can be overridden by service_pricing table (Phase 6).
+ * Validated with Zod; no AI call before validation passes.
  */
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabase } from "@/lib/supabase-server";
+import {
+  parseBodyWithLimit,
+  invalidInputResponse,
+  MAX_BODY_SIZE_AI,
+  journeyIntakeSchema,
+} from "@/lib/api-validation";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 import type {
   JourneyIntake,
   RoadmapAIOutput,
@@ -77,6 +84,27 @@ function computeCostRangeFromPricing(rows: ServicePricingRow[]): string {
 
 export async function POST(request: NextRequest) {
   try {
+    const bodyResult = await parseBodyWithLimit(request, MAX_BODY_SIZE_AI);
+    if (!bodyResult.success) return bodyResult.response;
+    const parsed = journeyIntakeSchema.safeParse(bodyResult.data);
+    if (!parsed.success) {
+      return invalidInputResponse(parsed.error.message, parsed.error.issues);
+    }
+
+    const turnstile = await verifyTurnstileToken(parsed.data.turnstile_token);
+    if (!turnstile.success) {
+      return NextResponse.json({ error: turnstile.error ?? "Bot check failed" }, { status: 400 });
+    }
+
+    const intake: JourneyIntake = {
+      primary_concern: parsed.data.primary_concern,
+      desired_change_level: parsed.data.desired_change_level,
+      experience_level: parsed.data.experience_level,
+      timeline_preference: parsed.data.timeline_preference,
+      downtime_preference: parsed.data.downtime_preference,
+      decision_style: parsed.data.decision_style,
+    };
+
     const supabase = getSupabase();
 
     // Rate limit: 5 per IP per hour (persisted in Supabase)
@@ -98,16 +126,6 @@ export async function POST(request: NextRequest) {
         );
       }
     }
-
-    const body = await request.json();
-    const intake: JourneyIntake = {
-      primary_concern: String(body.primary_concern ?? "").trim(),
-      desired_change_level: body.desired_change_level ?? "balanced",
-      experience_level: body.experience_level ?? "first_time",
-      timeline_preference: body.timeline_preference ?? "flexible",
-      downtime_preference: body.downtime_preference ?? "minimal",
-      decision_style: body.decision_style ?? "cautious",
-    };
 
     const apiKey = process.env.OPENAI_API_KEY;
     let roadmap: RoadmapAIOutput;
@@ -193,7 +211,7 @@ export async function POST(request: NextRequest) {
           timeline_preference: intake.timeline_preference,
           downtime_preference: intake.downtime_preference,
           decision_style: intake.decision_style,
-          uploaded_image_url: body.uploaded_image_url ?? null,
+          uploaded_image_url: parsed.data.uploaded_image_url ?? null,
           ai_summary: roadmap,
           recommended_services: recommended_services,
           estimated_cost_range: roadmap.estimated_cost_range,

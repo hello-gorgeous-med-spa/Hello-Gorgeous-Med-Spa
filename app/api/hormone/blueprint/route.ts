@@ -1,9 +1,17 @@
 /**
  * POST /api/hormone/blueprint
  * Harmony AI™ – hormone assessment intake → AI blueprint. Rate limited 5/IP/hour.
+ * Validated with Zod; no AI call before validation passes.
  */
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabase } from "@/lib/supabase-server";
+import {
+  parseBodyWithLimit,
+  invalidInputResponse,
+  MAX_BODY_SIZE_AI,
+  hormoneIntakeSchema,
+} from "@/lib/api-validation";
+import { verifyTurnstileToken } from "@/lib/turnstile";
 import type {
   HormoneIntake,
   HormoneBlueprintOutput,
@@ -50,6 +58,30 @@ function parseAIJson(body: string): HormoneBlueprintOutput | null {
 
 export async function POST(request: NextRequest) {
   try {
+    const bodyResult = await parseBodyWithLimit(request, MAX_BODY_SIZE_AI);
+    if (!bodyResult.success) return bodyResult.response;
+    const parsed = hormoneIntakeSchema.safeParse(bodyResult.data);
+    if (!parsed.success) {
+      return invalidInputResponse(parsed.error.message, parsed.error.issues);
+    }
+
+    const turnstile = await verifyTurnstileToken(parsed.data.turnstile_token);
+    if (!turnstile.success) {
+      return NextResponse.json({ error: turnstile.error ?? "Bot check failed" }, { status: 400 });
+    }
+
+    const intake: HormoneIntake = {
+      age_range: parsed.data.age_range,
+      biological_sex: parsed.data.biological_sex,
+      menopause_status: parsed.data.menopause_status,
+      top_symptoms: parsed.data.top_symptoms,
+      sleep_quality: parsed.data.sleep_quality,
+      energy_level: parsed.data.energy_level,
+      weight_change: parsed.data.weight_change,
+      stress_level: parsed.data.stress_level,
+      prior_hormone_therapy: parsed.data.prior_hormone_therapy,
+    };
+
     const supabase = getSupabase();
 
     if (supabase) {
@@ -69,19 +101,6 @@ export async function POST(request: NextRequest) {
         );
       }
     }
-
-    const body = await request.json();
-    const intake: HormoneIntake = {
-      age_range: String(body.age_range ?? "").trim(),
-      biological_sex: String(body.biological_sex ?? "").trim(),
-      menopause_status: String(body.menopause_status ?? "").trim(),
-      top_symptoms: Array.isArray(body.top_symptoms) ? body.top_symptoms : [],
-      sleep_quality: String(body.sleep_quality ?? "").trim(),
-      energy_level: String(body.energy_level ?? "").trim(),
-      weight_change: String(body.weight_change ?? "").trim(),
-      stress_level: String(body.stress_level ?? "").trim(),
-      prior_hormone_therapy: Boolean(body.prior_hormone_therapy),
-    };
 
     const apiKey = process.env.OPENAI_API_KEY;
     const model = process.env.OPENAI_MODEL || "gpt-4o-mini";
@@ -178,7 +197,7 @@ export async function POST(request: NextRequest) {
           weight_change: intake.weight_change || null,
           stress_level: intake.stress_level || null,
           prior_hormone_therapy: intake.prior_hormone_therapy,
-          uploaded_labs_url: body.uploaded_labs_url ?? null,
+          uploaded_labs_url: parsed.data.uploaded_labs_url ?? null,
           ai_summary: blueprint,
           recommended_labs: recommended_labs,
           recommended_protocol: recommended_protocol,

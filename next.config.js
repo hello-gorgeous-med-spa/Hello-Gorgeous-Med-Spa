@@ -15,8 +15,34 @@ const nextConfig = {
       { protocol: "https", hostname: "*.supabase.co" },
     ],
   },
-  // CDN caching headers for static media
+  // CDN caching headers for static media + global security headers
   headers: async () => [
+    // Global security headers (all routes)
+    {
+      source: "/(.*)",
+      headers: [
+        { key: "X-Frame-Options", value: "DENY" },
+        { key: "X-Content-Type-Options", value: "nosniff" },
+        { key: "Referrer-Policy", value: "strict-origin" },
+        { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+        // CSP: allow self, inline scripts (Next.js), Supabase, Stripe, common CDNs; avoid blocking legitimate scripts
+        {
+          key: "Content-Security-Policy",
+          value: [
+            "default-src 'self'",
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://js.stripe.com https://challenges.cloudflare.com",
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+            "img-src 'self' data: blob: https:",
+            "font-src 'self' https://fonts.gstatic.com",
+            "connect-src 'self' https://*.supabase.co https://api.openai.com https://api.stripe.com wss://*.supabase.co",
+            "frame-src 'self' https://js.stripe.com https://challenges.cloudflare.com",
+            "frame-ancestors 'none'",
+            "base-uri 'self'",
+            "form-action 'self'",
+          ].join("; "),
+        },
+      ],
+    },
     {
       source: "/.well-known/apple-developer-merchantid-domain-association",
       headers: [
@@ -47,6 +73,24 @@ const nextConfig = {
     { source: "/your-care-team", destination: "/providers", permanent: true },
     { source: "/meet-the-team", destination: "/providers", permanent: true },
     { source: "/care-and-support", destination: "/pre-post-care", permanent: true },
+    // Sitemap/legacy URLs that have no page - redirect to avoid 404
+    { source: "/pricing", destination: "/book", permanent: true },
+    { source: "/gallery", destination: "/results", permanent: true },
+    { source: "/faq", destination: "/contact", permanent: true },
+    // Semaglutide/hormone-therapy/prp location URLs (no page) -> main service page
+    { source: "/semaglutide-oswego-il", destination: "/services/weight-loss-therapy", permanent: true },
+    { source: "/semaglutide-naperville-il", destination: "/services/weight-loss-therapy", permanent: true },
+    { source: "/semaglutide-aurora-il", destination: "/services/weight-loss-therapy", permanent: true },
+    { source: "/semaglutide-plainfield-il", destination: "/services/weight-loss-therapy", permanent: true },
+    { source: "/semaglutide-yorkville-il", destination: "/services/weight-loss-therapy", permanent: true },
+    { source: "/semaglutide-montgomery-il", destination: "/services/weight-loss-therapy", permanent: true },
+    { source: "/hormone-therapy-naperville-il", destination: "/services/biote-hormone-therapy", permanent: true },
+    { source: "/hormone-therapy-aurora-il", destination: "/services/biote-hormone-therapy", permanent: true },
+    { source: "/prp-oswego-il", destination: "/services/prp", permanent: true },
+    { source: "/prp-naperville-il", destination: "/services/prp", permanent: true },
+    { source: "/prp-aurora-il", destination: "/services/prp", permanent: true },
+    // med-spa-montgomery-il has no page (only 5 med-spa slugs in gbp-urls)
+    { source: "/med-spa-montgomery-il", destination: "/montgomery-il", permanent: true },
     // GoDaddy legacy URLs (hellogorgeousmedspa.com)
     { source: "/home", destination: "/", permanent: true },
     { source: "/about-1", destination: "/about", permanent: true },

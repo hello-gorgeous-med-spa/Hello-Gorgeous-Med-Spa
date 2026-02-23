@@ -94,6 +94,7 @@ const navigation = {
       { label: "Understand Your Body", href: "/understand-your-body", description: "Learn about aging & skin", icon: "📚" },
       { label: "Telehealth", href: "/telehealth", description: "Virtual consultations", icon: "🖥️" },
       { label: "Lip Enhancement Studio", href: "/lip-studio", description: "Visualize your perfect look", icon: "✨" },
+      { label: "HG Face Blueprint™", href: "/face-blueprint", description: "AI-assisted aesthetic simulation", icon: "✨" },
       { label: "Botox Calculator", href: "/botox-calculator", description: "Estimate units for your areas", icon: "💉" },
     ],
   },
@@ -419,6 +420,19 @@ export function Header() {
               </Link>
               <SimpleDropdown data={navigation.journey} isOpen={activeDropdown === 'journey'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('journey')} />
             </div>
+
+            {/* Face Blueprint - Top-level tab */}
+            <Link
+              href="/face-blueprint"
+              className={cx(
+                "px-4 py-2 rounded-lg text-sm font-medium transition-all",
+                pathname?.startsWith('/face-blueprint')
+                  ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
+                  : "text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5"
+              )}
+            >
+              Face Blueprint
+            </Link>
 
             {/* RX Dropdown */}
             <div 

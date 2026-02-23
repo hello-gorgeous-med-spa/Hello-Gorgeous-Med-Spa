@@ -1,31 +1,11 @@
 import { MetadataRoute } from 'next';
 import { SERVICES, SITE } from '@/lib/seo';
+import { GBP_SERVICE_SLUGS, MED_SPA_LOCATION_SLUGS } from '@/lib/gbp-urls';
 
 // ============================================================
 // DYNAMIC SITEMAP - Auto-generates for Google indexing
-// This helps Google discover all your pages
+// Only includes URLs that have corresponding pages (no 404s).
 // ============================================================
-
-const SERVICE_AREAS = [
-  'oswego',
-  'naperville',
-  'aurora',
-  'plainfield',
-  'yorkville',
-  'montgomery',
-];
-
-// Top services with dedicated location pages
-const TOP_SERVICE_SLUGS = [
-  'botox',
-  'dermal-fillers',
-  'lip-filler',
-  'weight-loss',
-  'microneedling',
-  'laser-hair-removal',
-  'ipl-photofacial',
-  'co2-laser',
-];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = SITE.url;
@@ -82,28 +62,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/pricing`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    },
-    {
       url: `${baseUrl}/specials`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/gallery`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.6,
-    },
-    {
-      url: `${baseUrl}/faq`,
-      lastModified: currentDate,
-      changeFrequency: 'monthly',
-      priority: 0.6,
     },
     {
       url: `${baseUrl}/shop`,
@@ -165,47 +127,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Location-based service pages (HIGH PRIORITY for "near me" searches)
-  const locationServicePages: MetadataRoute.Sitemap = [];
-  
-  for (const service of TOP_SERVICE_SLUGS) {
-    for (const area of SERVICE_AREAS) {
-      locationServicePages.push({
-        url: `${baseUrl}/${service}-${area}-il`,
-        lastModified: currentDate,
-        changeFrequency: 'monthly' as const,
-        priority: service === 'botox' ? 0.95 : 0.9, // Botox pages highest priority
-      });
-    }
-  }
-
-  // Semaglutide/Weight Loss specific pages
-  const weightLossPages: MetadataRoute.Sitemap = SERVICE_AREAS.map((area) => ({
-    url: `${baseUrl}/semaglutide-${area}-il`,
+  // Location-based service pages (only slugs that exist via [localSlug] / gbp-urls)
+  const locationServicePages: MetadataRoute.Sitemap = GBP_SERVICE_SLUGS.map((slug) => ({
+    url: `${baseUrl}/${slug}`,
     lastModified: currentDate,
     changeFrequency: 'monthly' as const,
-    priority: 0.85,
+    priority: slug.startsWith('botox-') ? 0.95 : 0.9,
   }));
 
-  // Hormone therapy pages
-  const hormonePages: MetadataRoute.Sitemap = SERVICE_AREAS.slice(0, 3).map((area) => ({
-    url: `${baseUrl}/hormone-therapy-${area}-il`,
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }));
-
-  // PRP pages
-  const prpPages: MetadataRoute.Sitemap = SERVICE_AREAS.slice(0, 3).map((area) => ({
-    url: `${baseUrl}/prp-${area}-il`,
-    lastModified: currentDate,
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }));
-
-  // City "med spa" landing pages
-  const cityPages: MetadataRoute.Sitemap = SERVICE_AREAS.map((area) => ({
-    url: `${baseUrl}/med-spa-${area}-il`,
+  // City "med spa" landing pages (only slugs that exist via [localSlug] / gbp-urls)
+  const cityPages: MetadataRoute.Sitemap = MED_SPA_LOCATION_SLUGS.map((slug) => ({
+    url: `${baseUrl}/${slug}`,
     lastModified: currentDate,
     changeFrequency: 'monthly' as const,
     priority: 0.75,
@@ -217,9 +149,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...solariaPages,
     ...aftercarePages,
     ...locationServicePages,
-    ...weightLossPages,
-    ...hormonePages,
-    ...prpPages,
     ...cityPages,
   ];
 }
