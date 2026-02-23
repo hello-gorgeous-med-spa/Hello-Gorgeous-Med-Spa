@@ -48,6 +48,8 @@ export default function CalendarPage() {
   const [selectedAppointment, setSelectedAppointment] = useState<any | null>(null);
   const [showFilters, setShowFilters] = useState(false);
   const [selectedProviderFilter, setSelectedProviderFilter] = useState<string[]>([]);
+  // Mobile: Fresha-style full-day view — "All" (agenda list) or single provider (one-column timeline)
+  const [mobileProviderTab, setMobileProviderTab] = useState<string>('all');
   
   // Quick book modal state
   const [showQuickBook, setShowQuickBook] = useState(false);
@@ -350,6 +352,13 @@ export default function CalendarPage() {
     return providers.filter(p => selectedProviderFilter.includes(p.id));
   }, [providers, selectedProviderFilter]);
 
+  // Sorted appointments for the day (for mobile agenda list)
+  const sortedDayAppointments = useMemo(() => {
+    return [...appointments]
+      .filter(a => a.status !== 'cancelled')
+      .sort((a, b) => new Date(a.starts_at).getTime() - new Date(b.starts_at).getTime());
+  }, [appointments]);
+
   // Check if a time slot is within provider's working schedule for the given date (grays out off-days/hours)
   const isSlotInSchedule = useCallback(
     (providerId: string, date: Date, timeStr: string): boolean => {
@@ -572,11 +581,154 @@ export default function CalendarPage() {
       )}
 
       <div className="flex flex-1 min-h-0 flex-col lg:flex-row bg-white rounded-b-xl overflow-hidden shadow-sm border border-black border-t-0">
-        {/* Main Calendar Area - scroll horizontally on mobile */}
-        <div className="flex-1 flex flex-col overflow-hidden min-w-0 min-h-0">
+        {/* ========== MOBILE: Fresha-style full-day view (no horizontal scroll) ========== */}
+        <div className="lg:hidden flex flex-col flex-1 min-w-0 min-h-0 overflow-hidden">
+          {/* Provider chips */}
+          <div className="flex gap-2 p-3 border-b border-black bg-white overflow-x-auto shrink-0">
+            <button
+              onClick={() => setMobileProviderTab('all')}
+              className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                mobileProviderTab === 'all' ? 'bg-black text-white' : 'bg-white border border-black text-black'
+              }`}
+            >
+              All
+            </button>
+            {displayProviders.map((provider) => {
+              const isActive = mobileProviderTab === provider.id;
+              const color = PROVIDER_COLORS[providers.findIndex(p => p.id === provider.id) % PROVIDER_COLORS.length];
+              return (
+                <button
+                  key={provider.id}
+                  onClick={() => setMobileProviderTab(provider.id)}
+                  className={`shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                    isActive ? `${color.accent} text-white` : 'bg-white border border-black text-black'
+                  }`}
+                >
+                  {provider.first_name}
+                </button>
+              );
+            })}
+          </div>
+          {loading ? (
+            <div className="flex items-center justify-center flex-1">
+              <div className="animate-spin w-8 h-8 border-4 border-[#FF2D8E] border-t-transparent rounded-full" />
+            </div>
+          ) : mobileProviderTab === 'all' ? (
+            /* Agenda list: all appointments for the day in order */
+            <div className="flex-1 overflow-y-auto p-3">
+              {sortedDayAppointments.length === 0 ? (
+                <p className="text-sm text-black text-center py-8">No appointments this day. Tap + in nav to book.</p>
+              ) : (
+                <ul className="space-y-2">
+                  {sortedDayAppointments.map((appt) => {
+                    const color = getProviderColor(appt.provider_id);
+                    const isSelected = selectedAppointment?.id === appt.id;
+                    return (
+                      <li key={appt.id}>
+                        <button
+                          onClick={() => setSelectedAppointment(appt)}
+                          className={`w-full text-left rounded-xl border-l-4 p-3 transition-all ${color.bg} ${color.border} ${color.text} ${
+                            isSelected ? 'ring-2 ring-black shadow-lg' : 'hover:shadow-md'
+                          }`}
+                        >
+                          <p className="font-semibold text-xs uppercase tracking-wide truncate">
+                            {appt.service_name || 'Appointment'}
+                          </p>
+                          <p className="font-medium text-sm mt-0.5 truncate">
+                            {appt.client_name || 'Client'}
+                          </p>
+                          <p className="text-xs opacity-75 mt-0.5">
+                            {formatApptTime(appt.starts_at)} – {getEndTime(appt.starts_at, appt.duration_minutes || appt.duration || 60)}
+                            {appt.provider_first_name && ` · ${appt.provider_first_name}`}
+                          </p>
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </div>
+          ) : (
+            /* Single-provider timeline: full day in one column, compact rows (no horizontal scroll) */
+            (() => {
+              const provider = displayProviders.find(p => p.id === mobileProviderTab);
+              if (!provider) return null;
+              const providerAppts = getProviderAppointments(provider.id, provider.first_name);
+              const color = getProviderColor(provider.id);
+              const providerName = `${provider.first_name} ${provider.last_name}`;
+              // Compact: ~24px per 30 min so 9–6 fits on one screen (18 slots × 48px = 432px)
+              const slotHeightPx = 24;
+              const rowHeight = slotHeightPx * 2;
+              const scale = rowHeight / 96;
+              return (
+                <div className="flex-1 flex min-h-0 overflow-auto">
+                  <div className="w-12 flex-shrink-0 border-r border-black flex flex-col text-xs font-medium text-black">
+                    {HOUR_LABELS.map((hour) => (
+                      <div key={hour} className="flex items-center justify-end pr-1 shrink-0" style={{ height: rowHeight }}>
+                        {formatTimeDisplay(hour)}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="flex-1 min-w-0 relative shrink-0" style={{ height: HOUR_LABELS.length * rowHeight }}>
+                    {/* Slot hit targets */}
+                    {HOUR_LABELS.map((hour) => {
+                      const slot00 = `${hour.toString().padStart(2, '0')}:00`;
+                      const slot30 = `${hour.toString().padStart(2, '0')}:30`;
+                      const inSchedule00 = isSlotInSchedule(provider.id, selectedDate, slot00);
+                      const inSchedule30 = isSlotInSchedule(provider.id, selectedDate, slot30);
+                      return (
+                        <div key={hour} className="border-b border-black/20 flex flex-col" style={{ height: rowHeight }}>
+                          <div
+                            className={`flex-1 border-b border-black/10 ${inSchedule00 ? 'cursor-pointer hover:bg-pink-100 active:bg-pink-200' : 'bg-white'}`}
+                            onClick={() => inSchedule00 && handleSlotClick(slot00, provider.id, providerName)}
+                          />
+                          <div
+                            className={`flex-1 ${inSchedule30 ? 'cursor-pointer hover:bg-pink-100 active:bg-pink-200' : 'bg-white'}`}
+                            onClick={() => inSchedule30 && handleSlotClick(slot30, provider.id, providerName)}
+                          />
+                        </div>
+                      );
+                    })}
+                    {/* Appointments overlaid */}
+                    <div className="absolute inset-0 pointer-events-none">
+                      <div className="relative w-full h-full">
+                        {providerAppts.map((appt) => {
+                          const style = getAppointmentStyle(appt);
+                          const isSelected = selectedAppointment?.id === appt.id;
+                          const topNum = parseInt(String(style.top).replace('px', ''), 10) || 0;
+                          const heightNum = parseInt(String(style.height).replace('px', ''), 10) || 24;
+                          return (
+                            <button
+                              key={appt.id}
+                              onClick={(e) => { e.stopPropagation(); setSelectedAppointment(appt); }}
+                              className={`absolute left-1 right-1 rounded border-l-4 p-1.5 text-left overflow-hidden pointer-events-auto ${color.bg} ${color.border} ${color.text} ${
+                                isSelected ? 'ring-2 ring-black z-20' : 'z-10'
+                              }`}
+                              style={{
+                                top: `${topNum * scale}px`,
+                                height: `${Math.max(16, heightNum * scale)}px`,
+                                fontSize: 10,
+                              }}
+                            >
+                              <span className="font-semibold truncate block">{appt.service_name || '—'}</span>
+                              <span className="truncate block opacity-90">{appt.client_name || '—'}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })()
+          )}
+        </div>
+
+        {/* DESKTOP: Multi-column grid (hidden on mobile) */}
+        <div className="hidden lg:flex flex-1 flex-col overflow-hidden min-w-0 min-h-0">
         {/* Provider Headers */}
-        <div className="flex border-b border-black bg-white min-w-0">
-          <div className="w-14 sm:w-16 flex-shrink-0" />
+        <div className="flex border-b border-black bg-white">
+          <div className="w-16 flex-shrink-0" />
           {displayProviders.map((provider, idx) => {
             const color = PROVIDER_COLORS[providers.findIndex(p => p.id === provider.id) % PROVIDER_COLORS.length];
             const offToday = isProviderOffDay(provider.id, selectedDate);
