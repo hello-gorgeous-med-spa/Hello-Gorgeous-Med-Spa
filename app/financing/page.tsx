@@ -4,6 +4,7 @@ import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import { pageMetadata, siteJsonLd } from "@/lib/seo";
+import { CherryWidget } from "@/components/CherryWidget";
 
 export const metadata: Metadata = pageMetadata({
   title: "Financing Options | Hello Gorgeous Med Spa",
@@ -110,6 +111,19 @@ export default function FinancingPage() {
               options so you can get the treatments you want now and pay at your own pace.
             </p>
           </FadeUp>
+        </div>
+      </Section>
+
+      {/* Cherry financing widget */}
+      <Section className="bg-gray-50" id="cherry-widget">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl md:text-3xl font-bold text-black">
+              Apply with <span className="text-[#E6007E]">Cherry</span>
+            </h2>
+            <p className="text-gray-600 mt-2">Check your rate in seconds. No impact on your credit score.</p>
+          </div>
+          <CherryWidget />
         </div>
       </Section>
 

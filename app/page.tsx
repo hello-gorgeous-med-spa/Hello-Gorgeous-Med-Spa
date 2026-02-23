@@ -17,6 +17,7 @@ import {
   FinalCTA,
 } from "@/components/homepage-v3";
 import { GlowUpEventBanner } from "@/components/GlowUpEventBanner";
+import { CherryWidget } from "@/components/CherryWidget";
 import { SolariaComingSoonBanner } from "@/components/SolariaComingSoonBanner";
 import {
   SITE,
@@ -135,6 +136,13 @@ export default function HomePage() {
         <HomepageOurStory />
         <HomepageTestimonials />
         <HomepageFAQ />
+        <section id="financing" className="bg-white py-12 md:py-16 border-t border-gray-100">
+          <div className="max-w-4xl mx-auto px-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-black text-center mb-2">Flexible Payment Options</h2>
+            <p className="text-gray-600 text-center mb-8">Pay over time with Cherry. No surprises — apply in seconds.</p>
+            <CherryWidget />
+          </div>
+        </section>
         <HomepageLetsChat />
         <FinalCTA />
       </main>

@@ -125,6 +125,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         {/* Preconnect to Google Maps for faster embed load */}
         <link rel="preconnect" href="https://www.google.com" />
         <link rel="preconnect" href="https://maps.googleapis.com" crossOrigin="anonymous" />
+        {/* Cherry financing widget font */}
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200..900&display=swap" />
         {/* PWA Support */}
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
