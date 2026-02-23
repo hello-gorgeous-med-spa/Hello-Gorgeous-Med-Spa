@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
+import { HarmonyAI } from "@/components/HarmonyAI";
 import { BotoxCalculator } from "@/components/BotoxCalculator";
 import { BOOKING_URL } from "@/lib/flows";
 import { SERVICES, faqJsonLd, pageMetadata, siteJsonLd, type Service } from "@/lib/seo";
@@ -444,6 +445,23 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         </div>
 
       </Section>
+
+      {/* Harmony AI™ – BioTE only: hormone assessment + blueprint */}
+      {s.slug === "biote-hormone-therapy" && (
+        <Section className="py-10 bg-pink-50/30">
+          <div className="max-w-3xl mx-auto px-6 md:px-12">
+            <FadeUp>
+              <h2 className="text-2xl md:text-3xl font-bold text-[#FF2D8E] mb-2">
+                Get your personalized hormone blueprint
+              </h2>
+              <p className="text-black/80 mb-6">
+                Answer a few questions to receive an AI-generated educational blueprint: likely patterns, recommended labs, and optimization pathway. Not a diagnosis—a starting point for your consultation.
+              </p>
+            </FadeUp>
+            <HarmonyAI />
+          </div>
+        </Section>
+      )}
 
       {/* Botox Calculator - only on Botox/Dysport/Jeuveau page */}
       {serviceSlug === "botox-dysport-jeuveau" && (
