@@ -133,6 +133,16 @@ const navigation = {
       { label: "Pay with Cherry", href: CHERRY_PAY_URL, description: "Financing for your care", icon: "💳", external: true },
     ],
   },
+  more: {
+    label: "More",
+    href: "/contact",
+    links: [
+      { label: "Shop", href: "/shop", description: "Skincare, supplements & more", icon: "🧴" },
+      { label: "Supplement Dispensary", href: "/fullscript", description: "Fullscript supplements", icon: "💊" },
+      { label: "Patient Care", href: "/pre-post-care", description: "Pre & post treatment care", icon: "📋" },
+      { label: "Contact", href: "/contact", description: "Location, hours & get in touch", icon: "📍" },
+    ],
+  },
   rx: {
     label: "RX",
     href: "/rx",
@@ -183,7 +193,7 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
                       <span className="text-lg group-hover:scale-110 transition-transform">{link.icon}</span>
                       <span className="text-sm font-medium">{link.label}</span>
                       {'badge' in link && link.badge && (
-                        <span className="px-1.5 py-0.5 text-[9px] font-bold bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full">
+                        <span className="px-1.5 py-0.5 text-[9px] font-bold bg-[#FF2D8E] text-white rounded-full">
                           {link.badge}
                         </span>
                       )}
@@ -194,15 +204,15 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
             </div>
           ))}
           
-          {/* Featured section */}
-          <div className="bg-gradient-to-br from-pink-50 to-purple-50 rounded-2xl p-6">
+          {/* Featured section - brand colors only */}
+          <div className="bg-white border-2 border-black rounded-2xl p-6">
             <div className="text-4xl mb-3">{data.featured.image}</div>
             <h3 className="font-bold text-black mb-2">{data.featured.title}</h3>
             <p className="text-sm text-black mb-4">{data.featured.description}</p>
             <Link
               href={data.featured.cta.href}
               onClick={onClose}
-              className="inline-flex items-center gap-2 text-sm font-semibold text-[#FF2D8E] hover:text-pink-700"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-[#FF2D8E] hover:text-[#E6007E]"
             >
               {data.featured.cta.label}
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -282,12 +292,12 @@ function SimpleDropdown({
                       {link.label}
                     </span>
                     {'badge' in link && link.badge && (
-                      <span className="px-2 py-0.5 text-[10px] font-bold bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full">
+                      <span className="px-2 py-0.5 text-[10px] font-bold bg-[#FF2D8E] text-white rounded-full">
                         {link.badge}
                       </span>
                     )}
                     {isExternal && (
-                      <span className="text-black/40" aria-hidden>
+                      <span className="text-black/60" aria-hidden>
                         <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
@@ -343,22 +353,22 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-xl border-b border-black">
-      <div className="mx-auto max-w-7xl px-4 min-w-0 overflow-x-hidden">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 flex-shrink-0">
-            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 text-white text-sm font-bold shadow-lg shadow-[#FF2D8E]/25">
+    <header className="sticky top-0 z-50 bg-white border-b-2 border-black">
+      <div className="mx-auto max-w-7xl px-3 sm:px-4 overflow-visible">
+        <div className="flex items-center justify-between gap-2 h-16 min-h-16">
+          {/* Logo - never shrink */}
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+            <span className="inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg bg-[#FF2D8E] text-white text-xs sm:text-sm font-bold shadow-md">
               HG
             </span>
             <div className="hidden sm:block">
-              <span className="text-lg font-bold text-[#FF2D8E]">{SITE.name}</span>
-              <span className="block text-[10px] text-[#FF2D8E]/80 font-medium tracking-wider">MEDICAL AESTHETICS</span>
+              <span className="text-base sm:text-lg font-bold text-[#FF2D8E]">{SITE.name}</span>
+              <span className="block text-[10px] text-black font-medium tracking-wider">MEDICAL AESTHETICS</span>
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1">
+          {/* Desktop Navigation - flex-wrap so dropdowns and Book Now are never cut off */}
+          <nav className="hidden lg:flex flex-1 items-center justify-center flex-wrap gap-x-1 gap-y-1 min-w-0 overflow-visible">
             {/* Services Dropdown */}
             <div 
               className="relative"
@@ -370,12 +380,12 @@ export function Header() {
                 className={cx(
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/services')
-                    ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
-                    : "text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5"
+                    ? "text-white bg-[#FF2D8E]"
+                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
                 )}
               >
                 Services
-                <svg className={cx("w-4 h-4 transition-transform", activeDropdown === 'services' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={cx("w-3.5 h-3.5 transition-transform", activeDropdown === 'services' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
@@ -393,12 +403,12 @@ export function Header() {
                 className={cx(
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/about') || pathname?.startsWith('/providers') || pathname?.startsWith('/locations')
-                    ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
-                    : "text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5"
+                    ? "text-white bg-[#FF2D8E]"
+                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
                 )}
               >
                 About
-                <svg className={cx("w-4 h-4 transition-transform", activeDropdown === 'about' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={cx("w-3.5 h-3.5 transition-transform", activeDropdown === 'about' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
@@ -416,12 +426,12 @@ export function Header() {
                 className={cx(
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/your-journey')
-                    ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
-                    : "text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5"
+                    ? "text-white bg-[#FF2D8E]"
+                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
                 )}
               >
                 Your Journey
-                <svg className={cx("w-4 h-4 transition-transform", activeDropdown === 'journey' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={cx("w-3.5 h-3.5 transition-transform", activeDropdown === 'journey' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
@@ -439,52 +449,40 @@ export function Header() {
                 className={cx(
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/rx')
-                    ? "text-[#E6007E] bg-[#E6007E]/10 border border-[#E6007E]/30"
-                    : "text-[#E6007E] hover:text-[#E6007E] hover:bg-[#E6007E]/10 border border-transparent hover:border-[#E6007E]/30"
+                    ? "text-white bg-[#FF2D8E] border border-[#FF2D8E]"
+                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E] border border-black hover:border-[#FF2D8E]"
                 )}
               >
                 RX
-                <svg className={cx("w-4 h-4 transition-transform", activeDropdown === 'rx' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={cx("w-3.5 h-3.5 transition-transform", activeDropdown === 'rx' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
               <SimpleDropdown data={navigation.rx} isOpen={activeDropdown === 'rx'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('rx')} />
             </div>
 
-            {/* Patient Care */}
-            <Link
-              href="/pre-post-care"
-              className={cx(
-                "px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                pathname?.startsWith('/pre-post-care')
-                  ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
-                  : "text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5"
-              )}
-            >
-              Patient Care
-            </Link>
-
-            {/* Shop Dropdown (Fullscript, Shop, Pay with Cherry) */}
+            {/* More (Shop, Patient Care, Contact) */}
             <div 
               className="relative"
-              onMouseEnter={() => handleMouseEnter('shop')}
+              onMouseEnter={() => handleMouseEnter('more')}
               onMouseLeave={handleMouseLeave}
             >
-              <Link
-                href="/shop"
+              <button
+                type="button"
+                onClick={() => setActiveDropdown(activeDropdown === 'more' ? null : 'more')}
                 className={cx(
                   "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                  pathname?.startsWith('/shop') || pathname?.startsWith('/fullscript')
-                    ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
-                    : "text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5"
+                  activeDropdown === 'more'
+                    ? "text-white bg-[#FF2D8E]"
+                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
                 )}
               >
-                Shop
-                <svg className={cx("w-4 h-4 transition-transform", activeDropdown === 'shop' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                More
+                <svg className={cx("w-3.5 h-3.5 transition-transform", activeDropdown === 'more' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
-              </Link>
-              <SimpleDropdown data={navigation.shop} isOpen={activeDropdown === 'shop'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('shop')} align="right" />
+              </button>
+              <SimpleDropdown data={navigation.more} isOpen={activeDropdown === 'more'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('more')} align="right" />
             </div>
 
             {/* Specials Dropdown - Highlighted */}
@@ -495,42 +493,29 @@ export function Header() {
             >
               <Link
                 href={navigation.specials.href}
-                className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all text-[#FF2D8E] hover:text-pink-300 hover:bg-[#FF2D8E]/10 border border-[#FF2D8E]/30"
+                className="flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all text-black hover:text-[#FF2D8E] hover:bg-[#FF2D8E]/10 border border-black hover:border-[#FF2D8E]"
               >
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF2D8E] opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF2D8E]"></span>
                 </span>
                 Specials
-                <svg className={cx("w-4 h-4 transition-transform", activeDropdown === 'specials' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={cx("w-3.5 h-3.5 transition-transform", activeDropdown === 'specials' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </Link>
               <SimpleDropdown data={navigation.specials} isOpen={activeDropdown === 'specials'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('specials')} align="right" />
             </div>
-
-            {/* Contact */}
-            <Link
-              href="/contact"
-              className={cx(
-                "px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                pathname === '/contact'
-                  ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
-                  : "text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5"
-              )}
-            >
-              Contact
-            </Link>
           </nav>
 
-          {/* Right side actions */}
-          <div className="flex items-center gap-3">
+          {/* Right side actions - never shrink so Book Now is always visible */}
+          <div className="flex items-center gap-2 flex-shrink-0">
             {/* TikTok - Desktop */}
             <a
               href="https://www.tiktok.com/@daniellealcala12"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden md:flex w-9 h-9 rounded-full bg-black/5 hover:bg-[#FF2D8E]/20 items-center justify-center text-black hover:text-[#FF2D8E] transition-all"
+              className="hidden md:flex w-9 h-9 rounded-full border border-black bg-white hover:bg-[#FF2D8E]/10 items-center justify-center text-black hover:text-[#FF2D8E] transition-all"
               aria-label="Follow us on TikTok"
             >
               <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -555,7 +540,7 @@ export function Header() {
 
             {/* Mobile Menu Button */}
             <button
-              className="lg:hidden tap-target p-2 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 rounded-lg transition-all duration-200"
+              className="lg:hidden tap-target p-2 text-[#FF2D8E] hover:text-[#E6007E] hover:bg-[#FF2D8E]/10 rounded-lg transition-all duration-200"
               type="button"
               aria-label="Open menu"
               aria-expanded={mobileMenuOpen}
@@ -571,17 +556,17 @@ export function Header() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-white/98 backdrop-blur-xl lg:hidden overflow-y-auto">
+        <div className="fixed inset-0 z-50 bg-white lg:hidden overflow-y-auto border-t-2 border-black">
           {/* Header */}
-          <div className="sticky top-0 bg-white/95 border-b border-black px-4 py-4 flex items-center justify-between">
+          <div className="sticky top-0 bg-white border-b-2 border-black px-4 py-4 flex items-center justify-between">
             <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 text-white text-sm font-bold">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#FF2D8E] text-white text-sm font-bold border-2 border-black">
                 HG
               </span>
               <span className="text-lg font-bold text-[#FF2D8E]">{SITE.name}</span>
             </Link>
             <button
-              className="p-2 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 rounded-lg"
+              className="p-2 text-[#FF2D8E] hover:text-[#E6007E] hover:bg-[#FF2D8E]/10 rounded-lg"
               onClick={() => setMobileMenuOpen(false)}
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -700,33 +685,28 @@ export function Header() {
               )}
             </div>
 
-            {/* Shop Section (Fullscript, Shop, Pay with Cherry) */}
+            {/* More (Shop, Supplement Dispensary, Patient Care, Contact) */}
             <div className="border-b border-black pb-4">
               <button
-                onClick={() => setMobileSubmenu(mobileSubmenu === 'shop' ? null : 'shop')}
+                onClick={() => setMobileSubmenu(mobileSubmenu === 'more' ? null : 'more')}
                 className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
               >
                 <span className="flex items-center gap-3">
-                  <span className="text-xl">💊</span>
-                  Shop
+                  <span className="text-xl">📌</span>
+                  More
                 </span>
-                <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'shop' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'more' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
-              {mobileSubmenu === 'shop' && (
+              {mobileSubmenu === 'more' && (
                 <div className="mt-2 ml-4">
-                  {navigation.shop.links.map((link) => {
+                  {navigation.more.links.map((link) => {
                     const isExternal = 'external' in link && link.external;
                     const item = (
                       <>
                         <span>{link.icon}</span>
                         <span>{link.label}</span>
-                        {'badge' in link && link.badge && (
-                          <span className="px-2 py-0.5 text-[10px] font-bold bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full">
-                            {link.badge}
-                          </span>
-                        )}
                       </>
                     );
                     return isExternal ? (
@@ -736,7 +716,7 @@ export function Header() {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 rounded-lg"
+                        className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#FF2D8E]/10 rounded-lg"
                       >
                         {item}
                       </a>
@@ -745,7 +725,7 @@ export function Header() {
                         key={link.href}
                         href={link.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 rounded-lg"
+                        className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#FF2D8E]/10 rounded-lg"
                       >
                         {item}
                       </Link>
@@ -782,7 +762,7 @@ export function Header() {
                       <span>{link.icon}</span>
                       <span>{link.label}</span>
                       {'badge' in link && link.badge && (
-                        <span className="px-2 py-0.5 text-[10px] font-bold bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full">
+                        <span className="px-2 py-0.5 text-[10px] font-bold bg-[#FF2D8E] text-white rounded-full">
                           {link.badge}
                         </span>
                       )}
@@ -796,12 +776,12 @@ export function Header() {
             <div className="border-b border-black pb-4">
               <button
                 onClick={() => setMobileSubmenu(mobileSubmenu === 'rx' ? null : 'rx')}
-                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#E6007E]"
+                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
               >
                 <span className="flex items-center gap-3">
                   <span className="text-xl">💊</span>
                   RX
-                  <span className="px-2 py-0.5 text-[10px] font-bold bg-[#E6007E] text-white rounded-full">MEDICAL</span>
+                  <span className="px-2 py-0.5 text-[10px] font-bold bg-[#FF2D8E] text-white rounded-full">MEDICAL</span>
                 </span>
                 <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'rx' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -814,7 +794,7 @@ export function Header() {
                       key={link.href}
                       href={link.href}
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-3 px-4 py-2.5 text-[#E6007E] hover:text-[#E6007E] hover:bg-[#E6007E]/5 rounded-lg"
+                      className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#FF2D8E]/10 rounded-lg"
                     >
                       <span>{link.icon}</span>
                       <span>{link.label}</span>
@@ -823,26 +803,6 @@ export function Header() {
                 </div>
               )}
             </div>
-
-            {/* Patient Care */}
-            <Link
-              href="/pre-post-care"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
-            >
-              <span className="text-xl">📋</span>
-              Patient Care
-            </Link>
-
-            {/* Contact */}
-            <Link
-              href="/contact"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
-            >
-              <span className="text-xl">📍</span>
-              Contact Us
-            </Link>
 
             {/* Phone */}
             <a

@@ -37,9 +37,9 @@ export function AlleEmbedSection() {
     <Section className="bg-white">
       <FadeUp>
         <div className="rounded-2xl border-2 border-black overflow-hidden bg-white">
-          <div className="p-4 border-b border-black/10 bg-pink-50/30">
+          <div className="p-4 border-b-2 border-black bg-white">
             <h2 className="text-xl font-bold text-[#FF2D8E]">Allē Rewards</h2>
-            <p className="mt-1 text-black/80 text-sm">
+            <p className="mt-1 text-black text-sm">
               Use the tool below to check your rewards, enroll, or learn more.
             </p>
           </div>
@@ -61,21 +61,21 @@ export function AlleEmbedSection() {
               />
             )}
             {showFallback && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center p-8 bg-pink-50/20">
-                <p className="text-black/80 text-center max-w-md mb-6">
+              <div className="absolute inset-0 flex flex-col items-center justify-center p-8 bg-white">
+                <p className="text-black text-center max-w-md mb-6">
                   Earn points on Botox®, Juvederm®, Kybella®, Latisse®, SkinMedica® and more. Enroll or check your balance on Allē.
                 </p>
                 <a
                   href={ALLE_LEARN_MORE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#FF2D8E] text-white font-semibold px-8 py-4 hover:bg-[#E6007E] transition-colors"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl border-2 border-black bg-[#FF2D8E] text-white font-semibold px-8 py-4 hover:bg-[#E6007E] transition-colors"
                 >
                   Go to Allē Rewards
                   <span aria-hidden>→</span>
                 </a>
-                <p className="mt-8 text-xs text-black/50 text-center max-w-lg">
-                  To show the embed you built here, set <code className="bg-black/5 px-1 rounded">NEXT_PUBLIC_ALLE_EMBED_URL</code> or <code className="bg-black/5 px-1 rounded">NEXT_PUBLIC_ALLE_EMBED_HTML</code> in .env, or paste your embed code in <code className="bg-black/5 px-1 rounded">components/AlleEmbedSection.tsx</code>.
+                <p className="mt-8 text-xs text-black text-center max-w-lg">
+                  To show the embed you built here, set <code className="bg-white border border-black px-1 rounded">NEXT_PUBLIC_ALLE_EMBED_URL</code> or <code className="bg-white border border-black px-1 rounded">NEXT_PUBLIC_ALLE_EMBED_HTML</code> in .env, or paste your embed code in <code className="bg-white border border-black px-1 rounded">components/AlleEmbedSection.tsx</code>.
                 </p>
               </div>
             )}
