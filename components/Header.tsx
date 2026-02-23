@@ -88,14 +88,15 @@ const navigation = {
     href: "/your-journey",
     links: [
       { label: "Fix What Bothers Me", href: "/fix-what-bothers-me", description: "Share what's on your mind—we match you with options", icon: "💗" },
+      { label: "Explore Care", href: "/explore-care", description: "Discover treatments for you", icon: "🔍" },
+      { label: "HG Face Blueprint™", href: "/face-blueprint", description: "AI-assisted aesthetic simulation", icon: "✨" },
       { label: "Virtual Consultation", href: "/virtual-consultation", description: "Get personalized treatment recommendations", icon: "🖥️", badge: "FREE" },
       { label: "Conditions We Treat", href: "/conditions", description: "Acne, wrinkles, hyperpigmentation & more", icon: "✨" },
-      { label: "Explore Care Options", href: "/explore-care", description: "Discover treatments for you", icon: "🔍" },
       { label: "Your Treatment Journey", href: "/your-journey", description: "What to expect", icon: "🗺️" },
       { label: "Understand Your Body", href: "/understand-your-body", description: "Learn about aging & skin", icon: "📚" },
+      { label: "Allē Rewards", href: "/alle-botox-rewards", description: "Earn points on Botox, Juvederm & more", icon: "💎" },
       { label: "Telehealth", href: "/telehealth", description: "Virtual consultations", icon: "🖥️" },
       { label: "Lip Enhancement Studio", href: "/lip-studio", description: "Visualize your perfect look", icon: "✨" },
-      { label: "HG Face Blueprint™", href: "/face-blueprint", description: "AI-assisted aesthetic simulation", icon: "✨" },
       { label: "Botox Calculator", href: "/botox-calculator", description: "Estimate units for your areas", icon: "💉" },
       { label: "Supplement Dispensary", href: "/fullscript", description: "Professional-grade supplements & Fullscript", icon: "💊" },
     ],
@@ -116,10 +117,20 @@ const navigation = {
     links: [
       { label: "FREE Vitamin Shot", href: "/free-vitamin", description: "New clients only - $0", icon: "💉", badge: "FREE" },
       { label: "Allē Rewards", href: "/alle-botox-rewards", description: "Earn points on Botox, Juvederm & more", icon: "💎" },
+      { label: "Memberships", href: "/memberships", description: "Save with a membership plan", icon: "🎁" },
       { label: "Annual Membership", href: "/subscribe", description: "Save 10% on everything", icon: "🎁", badge: "SAVE" },
       { label: "Give $25, Get $25", href: "/referral", description: "Refer a friend", icon: "💝" },
       { label: "Current Promotions", href: "/book", description: "This month's deals", icon: "🔥" },
       { label: "Financing Options", href: "/financing", description: "Cherry, Affirm & CareCredit", icon: "💳" },
+    ],
+  },
+  shop: {
+    label: "Shop",
+    href: "/shop",
+    links: [
+      { label: "Supplement Dispensary", href: "/fullscript", description: "Professional-grade supplements (Fullscript)", icon: "💊" },
+      { label: "Shop Skincare & More", href: "/shop", description: "Skinscript RX, in-office products", icon: "🧴" },
+      { label: "Pay with Cherry", href: CHERRY_PAY_URL, description: "Financing for your care", icon: "💳", external: true },
     ],
   },
   rx: {
@@ -253,31 +264,50 @@ function SimpleDropdown({
     >
       <div className="bg-white rounded-2xl shadow-2xl border border-black overflow-hidden min-w-[320px]">
         <div className="p-2">
-          {data.links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={onClose}
-              className="flex items-start gap-4 p-3 rounded-xl hover:bg-white transition-colors group"
-            >
-              <span className="text-2xl mt-0.5 group-hover:scale-110 transition-transform">
-                {link.icon}
-              </span>
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="font-semibold text-black group-hover:text-[#FF2D8E] transition-colors">
-                    {link.label}
-                  </span>
-                  {'badge' in link && link.badge && (
-                    <span className="px-2 py-0.5 text-[10px] font-bold bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full">
-                      {link.badge}
+          {data.links.map((link) => {
+            const isExternal = 'external' in link && link.external;
+            const linkProps = {
+              key: link.href,
+              onClick: onClose,
+              className: "flex items-start gap-4 p-3 rounded-xl hover:bg-white transition-colors group",
+            };
+            const content = (
+              <>
+                <span className="text-2xl mt-0.5 group-hover:scale-110 transition-transform">
+                  {link.icon}
+                </span>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-black group-hover:text-[#FF2D8E] transition-colors">
+                      {link.label}
                     </span>
-                  )}
+                    {'badge' in link && link.badge && (
+                      <span className="px-2 py-0.5 text-[10px] font-bold bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full">
+                        {link.badge}
+                      </span>
+                    )}
+                    {isExternal && (
+                      <span className="text-black/40" aria-hidden>
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </span>
+                    )}
+                  </div>
+                  <p className="text-sm text-black mt-0.5">{link.description}</p>
                 </div>
-                <p className="text-sm text-black mt-0.5">{link.description}</p>
-              </div>
-            </Link>
-          ))}
+              </>
+            );
+            return isExternal ? (
+              <a href={link.href} target="_blank" rel="noopener noreferrer" {...linkProps}>
+                {content}
+              </a>
+            ) : (
+              <Link href={link.href} {...linkProps}>
+                {content}
+              </Link>
+            );
+          })}
         </div>
       </div>
     </div>
@@ -375,32 +405,6 @@ export function Header() {
               <SimpleDropdown data={navigation.about} isOpen={activeDropdown === 'about'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('about')} />
             </div>
 
-            {/* Memberships */}
-            <Link
-              href="/memberships"
-              className={cx(
-                "px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                pathname?.startsWith('/memberships')
-                  ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
-                  : "text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5"
-              )}
-            >
-              Memberships
-            </Link>
-
-            {/* Explore Care - direct link */}
-            <Link
-              href="/explore-care"
-              className={cx(
-                "px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                pathname === "/explore-care"
-                  ? "text-[#E6007E] bg-[#E6007E]/10"
-                  : "text-[#FF2D8E] hover:text-[#E6007E] hover:bg-[#000000]/5"
-              )}
-            >
-              Explore Care
-            </Link>
-
             {/* Your Journey Dropdown */}
             <div 
               className="relative"
@@ -423,19 +427,6 @@ export function Header() {
               </Link>
               <SimpleDropdown data={navigation.journey} isOpen={activeDropdown === 'journey'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('journey')} />
             </div>
-
-            {/* Face Blueprint - Top-level tab */}
-            <Link
-              href="/face-blueprint"
-              className={cx(
-                "px-4 py-2 rounded-lg text-sm font-medium transition-all",
-                pathname?.startsWith('/face-blueprint')
-                  ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
-                  : "text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5"
-              )}
-            >
-              Face Blueprint
-            </Link>
 
             {/* RX Dropdown */}
             <div 
@@ -473,15 +464,28 @@ export function Header() {
               Patient Care
             </Link>
 
-            {/* Pay with Cherry - client financing */}
-            <a
-              href={CHERRY_PAY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-4 py-2 rounded-lg text-sm font-medium transition-all text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 border border-[#FF2D8E]/30"
+            {/* Shop Dropdown (Fullscript, Shop, Pay with Cherry) */}
+            <div 
+              className="relative"
+              onMouseEnter={() => handleMouseEnter('shop')}
+              onMouseLeave={handleMouseLeave}
             >
-              Pay with Cherry
-            </a>
+              <Link
+                href="/shop"
+                className={cx(
+                  "flex items-center gap-1.5 px-4 py-2 rounded-lg text-sm font-medium transition-all",
+                  pathname?.startsWith('/shop') || pathname?.startsWith('/fullscript')
+                    ? "text-[#FF2D8E] bg-[#FF2D8E]/10"
+                    : "text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5"
+                )}
+              >
+                Shop
+                <svg className={cx("w-4 h-4 transition-transform", activeDropdown === 'shop' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              <SimpleDropdown data={navigation.shop} isOpen={activeDropdown === 'shop'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('shop')} align="right" />
+            </div>
 
             {/* Specials Dropdown - Highlighted */}
             <div 
@@ -665,31 +669,6 @@ export function Header() {
               )}
             </div>
 
-            {/* Memberships */}
-            <Link
-              href="/memberships"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
-            >
-              <span className="text-xl">💎</span>
-              Memberships
-            </Link>
-
-            {/* Explore Care - direct link */}
-            <Link
-              href="/explore-care"
-              onClick={() => setMobileMenuOpen(false)}
-              className={cx(
-                "flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl font-semibold",
-                pathname === "/explore-care"
-                  ? "bg-[#E6007E]/10 border border-[#E6007E]/20 text-[#E6007E]"
-                  : "text-[#FF2D8E] hover:bg-[#000000]/5"
-              )}
-            >
-              <span className="text-xl">🔍</span>
-              Explore Care
-            </Link>
-
             {/* Your Journey Section */}
             <div className="border-b border-black pb-4">
               <button
@@ -717,6 +696,61 @@ export function Header() {
                       <span>{link.label}</span>
                     </Link>
                   ))}
+                </div>
+              )}
+            </div>
+
+            {/* Shop Section (Fullscript, Shop, Pay with Cherry) */}
+            <div className="border-b border-black pb-4">
+              <button
+                onClick={() => setMobileSubmenu(mobileSubmenu === 'shop' ? null : 'shop')}
+                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
+              >
+                <span className="flex items-center gap-3">
+                  <span className="text-xl">💊</span>
+                  Shop
+                </span>
+                <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'shop' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {mobileSubmenu === 'shop' && (
+                <div className="mt-2 ml-4">
+                  {navigation.shop.links.map((link) => {
+                    const isExternal = 'external' in link && link.external;
+                    const item = (
+                      <>
+                        <span>{link.icon}</span>
+                        <span>{link.label}</span>
+                        {'badge' in link && link.badge && (
+                          <span className="px-2 py-0.5 text-[10px] font-bold bg-gradient-to-r from-pink-500 to-rose-500 text-white rounded-full">
+                            {link.badge}
+                          </span>
+                        )}
+                      </>
+                    );
+                    return isExternal ? (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 rounded-lg"
+                      >
+                        {item}
+                      </a>
+                    ) : (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 rounded-lg"
+                      >
+                        {item}
+                      </Link>
+                    );
+                  })}
                 </div>
               )}
             </div>
@@ -799,18 +833,6 @@ export function Header() {
               <span className="text-xl">📋</span>
               Patient Care
             </Link>
-
-            {/* Pay with Cherry */}
-            <a
-              href={CHERRY_PAY_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 text-lg font-semibold text-[#FF2D8E] border border-[#FF2D8E]/30 rounded-xl"
-            >
-              <span className="text-xl">💳</span>
-              Pay with Cherry
-            </a>
 
             {/* Contact */}
             <Link

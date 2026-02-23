@@ -8,6 +8,7 @@ import { CTA } from "@/components/CTA";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { HarmonyAI } from "@/components/HarmonyAI";
 import { BotoxCalculator } from "@/components/BotoxCalculator";
+import { AlleEmbedSection } from "@/components/AlleEmbedSection";
 import { BOOKING_URL } from "@/lib/flows";
 import { SERVICES, faqJsonLd, pageMetadata, siteJsonLd, type Service } from "@/lib/seo";
 import {
@@ -416,6 +417,9 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
           </FadeUp>
         </div>
       </Section>
+
+      {/* Allē Rewards embed (iframe or custom code) – only on this page */}
+      {serviceSlug === "alle-botox-rewards" && <AlleEmbedSection />}
 
       {/* Benefits Section */}
       <Section>
