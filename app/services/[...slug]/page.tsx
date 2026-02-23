@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
+import { BotoxCalculator } from "@/components/BotoxCalculator";
 import { BOOKING_URL } from "@/lib/flows";
 import { SERVICES, faqJsonLd, pageMetadata, siteJsonLd, type Service } from "@/lib/seo";
 import {
@@ -443,6 +444,28 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         </div>
 
       </Section>
+
+      {/* Botox Calculator - only on Botox/Dysport/Jeuveau page */}
+      {serviceSlug === "botox-dysport-jeuveau" && (
+        <Section className="bg-gradient-to-b from-pink-50/50 to-white">
+          <FadeUp>
+            <div className="text-center mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
+                Estimate Your Treatment Cost
+              </h2>
+              <p className="mt-3 text-xl text-black/80 max-w-2xl mx-auto">
+                Select your areas below to see a personalized unit range and price estimate. We charge $10/unit at Hello Gorgeous.
+              </p>
+            </div>
+            <BotoxCalculator embedded={true} />
+            <p className="mt-6 text-center">
+              <Link href="/botox-calculator" className="text-[#FF2D8E] font-semibold hover:underline">
+                Open full calculator page →
+              </Link>
+            </p>
+          </FadeUp>
+        </Section>
+      )}
 
       {/* What It Is / Who It's For / What to Expect */}
       <Section className="bg-gradient-to-b from-white/50 via-white to-pink-50/50">
