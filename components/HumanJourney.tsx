@@ -33,6 +33,9 @@ const INITIAL_FORM: FormState = {
   decision_style: "cautious",
 };
 
+const FADE_IN_KEYFRAMES =
+  "@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }";
+
 function useSessionState<T>(key: string, initial: T): [T, React.Dispatch<React.SetStateAction<T>>] {
   const [value, setValue] = useState<T>(() => {
     if (typeof window === "undefined") return initial;
@@ -304,12 +307,12 @@ export function HumanJourney() {
       </div>
 
       {/* HG Roadmap™ result */}
-      {status === "success" && roadmap && (
+      {status === "success" && roadmap ? (
         <div
           className="py-12 animate-in fade-in duration-500"
           style={{ animation: "fadeIn 0.5s ease-out" }}
         >
-          <style>{`@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
+          <style dangerouslySetInnerHTML={{ __html: FADE_IN_KEYFRAMES }} />
           <div className="max-w-4xl mx-auto px-6 md:px-12 space-y-10">
             {/* Section 1: Roadmap header */}
             <div className="text-center">
@@ -342,6 +345,7 @@ export function HumanJourney() {
                       </div>
                     </div>
                   ))}
+            </div>
             </div>
 
             {/* Section 3 & 4: Timeline + Investment */}
@@ -431,9 +435,10 @@ export function HumanJourney() {
             </div>
           </div>
         </div>
-      )}
+      ) : null}
 
       {/* Journey links */}
+
       <div className="bg-white py-12 border-t border-black/10">
         <div className="max-w-4xl mx-auto px-6 md:px-12 text-center">
           <h2 className="text-2xl font-bold text-black mb-6">Explore more</h2>
