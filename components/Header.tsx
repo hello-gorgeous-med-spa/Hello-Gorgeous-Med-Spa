@@ -118,7 +118,6 @@ const navigation = {
       { label: "FREE Vitamin Shot", href: "/free-vitamin", description: "New clients only - $0", icon: "💉", badge: "FREE" },
       { label: "Allē Rewards", href: "/alle-botox-rewards", description: "Earn points on Botox, Juvederm & more", icon: "💎" },
       { label: "Memberships", href: "/memberships", description: "Save with a membership plan", icon: "🎁" },
-      { label: "Annual Membership", href: "/subscribe", description: "Save 10% on everything", icon: "🎁", badge: "SAVE" },
       { label: "Give $25, Get $25", href: "/referral", description: "Refer a friend", icon: "💝" },
       { label: "Current Promotions", href: "/book", description: "This month's deals", icon: "🔥" },
       { label: "Financing Options", href: "/financing", description: "Cherry, Affirm & CareCredit", icon: "💳" },

@@ -933,8 +933,10 @@ export default function CalendarPage() {
         </div>
       </div>
 
-      {/* Right Panel - Appointment Detail; full width below calendar on mobile */}
-      <div className="w-full lg:w-80 border-t lg:border-t-0 lg:border-l border-black bg-white flex flex-col flex-shrink-0 max-h-[50vh] lg:max-h-none overflow-y-auto">
+      {/* Right Panel - Appointment Detail; full width below calendar on mobile. On mobile: only show when an appointment is selected (full-screen calendar otherwise). */}
+      <div className={`w-full lg:w-80 border-t lg:border-t-0 lg:border-l border-black bg-white flex flex-col flex-shrink-0 overflow-y-auto
+        ${selectedAppointment ? 'max-h-[55vh] lg:max-h-none' : 'hidden lg:flex'}
+      `}>
         {selectedAppointment ? (
           <>
             {/* Panel Header */}
