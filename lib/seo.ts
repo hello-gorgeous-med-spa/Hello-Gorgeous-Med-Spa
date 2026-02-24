@@ -1208,6 +1208,33 @@ export function faqJsonLd(faqs: ReadonlyArray<FAQ>) {
   };
 }
 
+/** Service schema with booking action — helps Google show "Book" in search/local results */
+export function bookingServiceJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${SITE.url}/#booking`,
+    name: "Consultation & Appointment Booking",
+    description: "Book a free consultation or appointment for Botox, fillers, weight loss, hormone therapy, and more at Hello Gorgeous Med Spa in Oswego, IL.",
+    provider: { "@id": `${SITE.url}/#organization` },
+    areaServed: SITE.serviceAreas.map((area) => ({ "@type": "Place", name: area })),
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Med Spa Services",
+      itemListElement: [
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Botox & Injectables" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Weight Loss & GLP-1" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Hormone Therapy" } },
+      ],
+    },
+    potentialAction: {
+      "@type": "ReserveAction",
+      target: { "@type": "EntryPoint", url: `${SITE.url}/book` },
+      result: { "@type": "Reservation", name: "Appointment at Hello Gorgeous Med Spa" },
+    },
+  };
+}
+
 /** Review schema for testimonials displayed on page. Only inject when testimonials exist. */
 export function testimonialsJsonLd(
   testimonials: Array<{ name: string; rating: number; text: string }>

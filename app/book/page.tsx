@@ -8,10 +8,17 @@ import Link from 'next/link';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 import { DEFAULT_ONLINE_BOOKING_CONFIG, DEFAULT_BOOKING_POLICY, DEFAULT_CANCELLATION_POLICY } from '@/lib/hgos/policies';
 import type { Metadata } from 'next';
+import { SITE } from '@/lib/seo';
 
 export const metadata: Metadata = {
-  title: 'Book Online | Hello Gorgeous Med Spa',
-  description: 'Book your appointment online in seconds. Botox, fillers, facials, IV therapy, and more in Oswego, IL.',
+  title: 'Book Online | Free Consultation | Hello Gorgeous Med Spa',
+  description: 'Book your free consultation or appointment online. Botox, fillers, weight loss, hormone therapy, IV therapy & more in Oswego, IL. Serving Naperville, Aurora, Plainfield.',
+  openGraph: {
+    title: 'Book Online | Hello Gorgeous Med Spa — Oswego, IL',
+    description: 'Book your free consultation or appointment. Botox, fillers, weight loss & more. 5-star rated med spa.',
+    url: `${SITE.url}/book`,
+  },
+  alternates: { canonical: `${SITE.url}/book` },
 };
 
 // Service category icons

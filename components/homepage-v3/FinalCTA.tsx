@@ -13,9 +13,11 @@ export function FinalCTA() {
         <p className="mt-6 text-lg text-white/80 max-w-xl mx-auto">
           Book your consultation today and discover the Hello Gorgeous difference.
         </p>
-        <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+        <p className="mt-2 text-sm text-white/70">Free consultation · No obligation</p>
+        <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
           <Link
             href={BOOKING_URL}
+            data-book-now
             className="inline-flex items-center justify-center bg-[#E6007E] text-white px-10 py-4 rounded-lg font-semibold uppercase tracking-wide hover:opacity-90 transition-all duration-300 hover:scale-[1.03]"
           >
             Book Consultation

@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { BOOKING_URL } from "@/lib/flows";
+import { SITE } from "@/lib/seo";
 
 export function HeroV3() {
   const [mounted, setMounted] = useState(false);
@@ -31,12 +32,16 @@ export function HeroV3() {
             Advanced injectables, skin treatments, and wellness — designed with
             precision and delivered with intention.
           </p>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4">
+          <p className="mt-4 text-sm text-black/70">
+            Free consultation · {SITE.reviewRating}★ ({SITE.reviewCount} reviews) · Oswego, IL
+          </p>
+          <div className="mt-6 flex flex-col sm:flex-row gap-4">
             <Link
               href={BOOKING_URL}
+              data-book-now
               className="inline-flex items-center justify-center bg-[#E6007E] text-white px-6 py-3 md:px-8 md:py-4 rounded-lg font-semibold uppercase tracking-wide hover:opacity-90 transition-all duration-300 hover:scale-[1.03]"
             >
-              Book Consultation
+              Book Free Consultation
             </Link>
             <Link
               href="/services"

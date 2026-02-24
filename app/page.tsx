@@ -29,8 +29,11 @@ import {
   imageGalleryJsonLd,
   getImagesByCategory,
   webPageJsonLd,
+  HOME_FAQS,
   HOME_TESTIMONIALS,
+  faqJsonLd,
   testimonialsJsonLd,
+  bookingServiceJsonLd,
 } from "@/lib/seo";
 import { CHERRY_PAY_URL } from "@/lib/flows";
 
@@ -111,6 +114,22 @@ export default function HomePage() {
           __html: JSON.stringify(
             imageGalleryJsonLd(aestheticsImages, "Skin Rejuvenation Treatments")
           ),
+        }}
+      />
+
+      {/* FAQPage Schema — can trigger FAQ rich results in search */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd(HOME_FAQS)),
+        }}
+      />
+
+      {/* Service + ReserveAction — supports "Book" in local/search */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(bookingServiceJsonLd()),
         }}
       />
 
