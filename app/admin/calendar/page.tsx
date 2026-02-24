@@ -933,9 +933,20 @@ export default function CalendarPage() {
         </div>
       </div>
 
-      {/* Right Panel - Appointment Detail; full width below calendar on mobile. On mobile: only show when an appointment is selected (full-screen calendar otherwise). */}
+      {/* Mobile only: backdrop when appointment detail sheet is open (tap to close) */}
+      {selectedAppointment && (
+        <div
+          className="lg:hidden fixed inset-0 bg-black/40 z-40"
+          onClick={() => setSelectedAppointment(null)}
+          aria-hidden
+        />
+      )}
+
+      {/* Right Panel - Appointment Detail. Desktop: sidebar. Mobile: hidden until appointment selected, then shown as bottom sheet overlay (calendar stays full screen). */}
       <div className={`w-full lg:w-80 border-t lg:border-t-0 lg:border-l border-black bg-white flex flex-col flex-shrink-0 overflow-y-auto
-        ${selectedAppointment ? 'max-h-[55vh] lg:max-h-none' : 'hidden lg:flex'}
+        ${selectedAppointment
+          ? 'fixed inset-x-0 bottom-0 top-auto max-h-[85vh] z-50 rounded-t-2xl shadow-2xl border-t-2 border-black safe-area-pb lg:static lg:inset-auto lg:rounded-none lg:shadow-none lg:max-h-none lg:border-t-0'
+          : 'hidden lg:flex'}
       `}>
         {selectedAppointment ? (
           <>
