@@ -84,7 +84,7 @@ export function TrifectaSection() {
               <div style={{ position: "relative", paddingTop: "56.25%", width: "100%" }}>
                 <iframe
                   style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
-                  src="https://www.youtube.com/embed/skWe-Z-5m_k"
+                  src="https://www.youtube-nocookie.com/embed/skWe-Z-5m_k?rel=0&modestbranding=1"
                   title="InMode Morpheus8 & QuantumRF Technology"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
