@@ -41,7 +41,7 @@ export function TrifectaSection() {
       <div className="relative max-w-7xl mx-auto px-4 md:px-8">
         {/* Header */}
         <div 
-          className={`text-center mb-16 transition-all duration-1000 ${
+          className={`text-center mb-12 transition-all duration-1000 ${
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
@@ -70,6 +70,35 @@ export function TrifectaSection() {
             We invested in the most advanced body and skin contouring technologies. 
             From surface to subdermal—every layer, every concern, every transformation.
           </p>
+        </div>
+
+        {/* Featured Video */}
+        <div 
+          className={`mb-16 transition-all duration-1000 ${
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+          }`}
+          style={{ transitionDelay: "100ms" }}
+        >
+          <div className="max-w-4xl mx-auto">
+            <div 
+              className="relative rounded-2xl overflow-hidden shadow-2xl"
+              style={{ border: "1px solid rgba(255,255,255,0.1)" }}
+            >
+              <div className="aspect-video">
+                <iframe
+                  className="absolute inset-0 w-full h-full"
+                  src="https://www.youtube.com/embed/skWe-Z-5m_k?si=HiL-3BRzaFfDBcjC"
+                  title="InMode Morpheus8 & QuantumRF Technology"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
+              </div>
+            </div>
+            <p className="text-center mt-4 text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
+              See how InMode&apos;s revolutionary RF technology transforms skin from the inside out
+            </p>
+          </div>
         </div>
 
         {/* Cards Grid */}
