@@ -379,6 +379,160 @@ export default function Morpheus8Page() {
           </div>
         </section>
 
+        {/* Before & After Results Gallery */}
+        <section className="py-16 md:py-20 bg-black text-white">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Real Results
+              </h2>
+              <p className="text-white/70 max-w-2xl mx-auto">
+                See the transformative power of Morpheus8 and Quantum RF technology. Results from actual InMode patients.
+              </p>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {/* Face - Jawline */}
+              <div className="group relative rounded-xl overflow-hidden bg-zinc-900">
+                <Image
+                  src="/images/morpheus8/quantumrf-10-jawline.png"
+                  alt="QuantumRF 10 before and after - jawline tightening and contouring"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
+                  <p className="text-white font-medium">Jawline Contouring</p>
+                  <p className="text-white/60 text-sm">QuantumRF 10 Pin</p>
+                </div>
+              </div>
+
+              {/* Face - Front */}
+              <div className="group relative rounded-xl overflow-hidden bg-zinc-900">
+                <Image
+                  src="/images/morpheus8/morpheus8-face-front.png"
+                  alt="Morpheus8 before and after - face tightening and wrinkle reduction"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
+                  <p className="text-white font-medium">Face & Neck Tightening</p>
+                  <p className="text-white/60 text-sm">Morpheus8 - 4 Treatments</p>
+                </div>
+              </div>
+
+              {/* Eyes */}
+              <div className="group relative rounded-xl overflow-hidden bg-zinc-900">
+                <Image
+                  src="/images/morpheus8/accutite-eyes.png"
+                  alt="AccuTite before and after - eyelid and under eye tightening"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
+                  <p className="text-white font-medium">Under Eye & Eyelids</p>
+                  <p className="text-white/60 text-sm">AccuTite + Morpheus8</p>
+                </div>
+              </div>
+
+              {/* Double Chin */}
+              <div className="group relative rounded-xl overflow-hidden bg-zinc-900">
+                <Image
+                  src="/images/morpheus8/facetite-chin.png"
+                  alt="FaceTite before and after - double chin reduction"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
+                  <p className="text-white font-medium">Double Chin Reduction</p>
+                  <p className="text-white/60 text-sm">FaceTite</p>
+                </div>
+              </div>
+
+              {/* Abdomen */}
+              <div className="group relative rounded-xl overflow-hidden bg-zinc-900">
+                <Image
+                  src="/images/morpheus8/quantumrf-25-abdomen-skin.png"
+                  alt="QuantumRF 25 before and after - abdomen skin tightening"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
+                  <p className="text-white font-medium">Abdomen Skin Tightening</p>
+                  <p className="text-white/60 text-sm">QuantumRF 25 + Morpheus8 Burst</p>
+                </div>
+              </div>
+
+              {/* Arms */}
+              <div className="group relative rounded-xl overflow-hidden bg-zinc-900">
+                <Image
+                  src="/images/morpheus8/bodytite-arm.png"
+                  alt="BodyTite before and after - arm skin tightening"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
+                  <p className="text-white font-medium">Arm Tightening</p>
+                  <p className="text-white/60 text-sm">BodyTite</p>
+                </div>
+              </div>
+
+              {/* Buttocks */}
+              <div className="group relative rounded-xl overflow-hidden bg-zinc-900">
+                <Image
+                  src="/images/morpheus8/morpheus8-burst-buttocks.png"
+                  alt="Morpheus8 Burst Deep before and after - buttocks cellulite reduction"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
+                  <p className="text-white font-medium">Cellulite Reduction</p>
+                  <p className="text-white/60 text-sm">Morpheus8 Burst Deep</p>
+                </div>
+              </div>
+
+              {/* Body Contouring */}
+              <div className="group relative rounded-xl overflow-hidden bg-zinc-900">
+                <Image
+                  src="/images/morpheus8/quantumrf-25-abdomen.png"
+                  alt="QuantumRF 25 before and after - body contouring"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
+                  <p className="text-white font-medium">Body Contouring</p>
+                  <p className="text-white/60 text-sm">QuantumRF 25 Pin</p>
+                </div>
+              </div>
+
+              {/* Face Side */}
+              <div className="group relative rounded-xl overflow-hidden bg-zinc-900">
+                <Image
+                  src="/images/morpheus8/quantumrf-10-face.png"
+                  alt="QuantumRF 10 before and after - face contouring side view"
+                  width={600}
+                  height={400}
+                  className="w-full h-auto"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-4">
+                  <p className="text-white font-medium">Facial Contouring</p>
+                  <p className="text-white/60 text-sm">QuantumRF 10 Pin</p>
+                </div>
+              </div>
+            </div>
+            <p className="text-center text-white/50 text-sm mt-8">
+              Results may vary. Images courtesy of InMode. Individual results depend on treatment area, skin type, and number of sessions.
+            </p>
+          </div>
+        </section>
+
+
         {/* Treatment Areas */}
         <section id="treatment-areas" className="py-16 md:py-20 bg-zinc-50">
           <div className="max-w-6xl mx-auto px-4">
