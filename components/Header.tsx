@@ -29,10 +29,10 @@ const navigation = {
         title: "Skin & Face",
         links: [
           { label: "Morpheus8 RF", href: "/services/morpheus8", icon: "⚡", badge: "NEW" },
+          { label: "Quantum RF", href: "/services/quantum-rf", icon: "🎯", badge: "NEW" },
           { label: "Solaria CO₂ Laser", href: "/stretch-mark-treatment-oswego-il", icon: "✨" },
           { label: "HydraFacial", href: "/services/hydra-facial", icon: "💧" },
           { label: "IPL Photofacial", href: "/services/ipl-photofacial", icon: "💡" },
-          { label: "Chemical Peels", href: "/services/chemical-peels", icon: "🧴" },
         ],
       },
       {

@@ -123,6 +123,46 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  // Morpheus8 & Quantum RF pages - high priority new services
+  const morpheus8Pages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/services/morpheus8`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/services/quantum-rf`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/morpheus8-oswego-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/morpheus8-naperville-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/morpheus8-aurora-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/morpheus8-plainfield-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+  ];
+
   // Aftercare / Patient Resources (solaria content on /solaria; no separate aftercare URL)
   const aftercarePages: MetadataRoute.Sitemap = [];
 
@@ -146,6 +186,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...corePages,
     ...servicePages,
     ...solariaPages,
+    ...morpheus8Pages,
     ...aftercarePages,
     ...locationServicePages,
     ...cityPages,
