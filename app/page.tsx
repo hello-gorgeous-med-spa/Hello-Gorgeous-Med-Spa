@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import {
   HeroV3,
   TrustStrip,
+  TrifectaSection,
   PartnerBadges,
   InjectablesConversion,
   ServicesSection,
@@ -146,6 +147,7 @@ export default function HomePage() {
         <SolariaComingSoonBanner />
         <HeroV3 />
         <TrustStrip />
+        <TrifectaSection />
         <PartnerBadges />
         <InjectablesConversion />
         <ServicesSection />
