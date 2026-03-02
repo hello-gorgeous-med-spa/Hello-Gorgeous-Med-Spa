@@ -367,7 +367,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation - single row, aligned; dropdowns and Book Now visible */}
-          <nav className="hidden lg:flex flex-1 items-center justify-center gap-x-0 min-w-0 overflow-visible">
+          <nav className="hidden lg:flex flex-1 items-center justify-center gap-x-1 xl:gap-x-2 min-w-0 overflow-visible">
             {/* Services Dropdown */}
             <div 
               className="relative flex items-center"
@@ -377,7 +377,7 @@ export function Header() {
               <Link
                 href="/services"
                 className={cx(
-                  "flex items-center justify-center gap-1.5 h-10 px-3 rounded-lg text-sm font-medium transition-all",
+                  "flex items-center justify-center gap-1.5 h-10 px-4 rounded-lg text-sm font-medium whitespace-nowrap transition-all",
                   pathname?.startsWith('/services')
                     ? "text-white bg-[#FF2D8E]"
                     : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
@@ -400,7 +400,7 @@ export function Header() {
               <Link
                 href="/about"
                 className={cx(
-"flex items-center justify-center gap-1.5 h-10 px-3 rounded-lg text-sm font-medium transition-all",
+"flex items-center justify-center gap-1.5 h-10 px-4 rounded-lg text-sm font-medium whitespace-nowrap transition-all",
                   pathname?.startsWith('/about') || pathname?.startsWith('/providers') || pathname?.startsWith('/locations')
                     ? "text-white bg-[#FF2D8E]"
                     : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
@@ -423,7 +423,7 @@ export function Header() {
               <Link
                 href="/your-journey"
                 className={cx(
-"flex items-center justify-center gap-1.5 h-10 px-3 rounded-lg text-sm font-medium transition-all",
+"flex items-center justify-center gap-1.5 h-10 px-4 rounded-lg text-sm font-medium whitespace-nowrap transition-all",
                   pathname?.startsWith('/your-journey')
                     ? "text-white bg-[#FF2D8E]"
                     : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
@@ -446,7 +446,7 @@ export function Header() {
               <Link
                 href="/rx"
                 className={cx(
-"flex items-center justify-center gap-1.5 h-10 px-3 rounded-lg text-sm font-medium transition-all",
+"flex items-center justify-center gap-1.5 h-10 px-4 rounded-lg text-sm font-medium whitespace-nowrap transition-all",
                   pathname?.startsWith('/rx')
                     ? "text-white bg-[#FF2D8E] border border-[#FF2D8E]"
                     : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E] border border-black hover:border-[#FF2D8E]"
@@ -470,7 +470,7 @@ export function Header() {
                 type="button"
                 onClick={() => setActiveDropdown(activeDropdown === 'more' ? null : 'more')}
                 className={cx(
-"flex items-center justify-center gap-1.5 h-10 px-3 rounded-lg text-sm font-medium transition-all",
+"flex items-center justify-center gap-1.5 h-10 px-4 rounded-lg text-sm font-medium whitespace-nowrap transition-all",
                   activeDropdown === 'more'
                     ? "text-white bg-[#FF2D8E]"
                     : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
