@@ -254,11 +254,12 @@ export default function Morpheus8Page() {
                   Results continue improving for <strong>up to 6 months</strong> as your body produces new collagen—delivering medical-grade skin tightening without surgery.
                 </p>
               </div>
-              <div className="relative aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl">
+              <div className="relative w-full rounded-2xl overflow-hidden bg-black shadow-2xl" style={{ paddingBottom: "56.25%" }}>
                 <iframe
-                  className="absolute inset-0 w-full h-full"
+                  className="absolute top-0 left-0 w-full h-full"
                   src="https://www.youtube.com/embed/skWe-Z-5m_k?si=HiL-3BRzaFfDBcjC"
                   title="Morpheus8 RF Microneedling - How It Works"
+                  frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   referrerPolicy="strict-origin-when-cross-origin"
                   allowFullScreen
