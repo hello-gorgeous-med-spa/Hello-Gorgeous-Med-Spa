@@ -254,15 +254,85 @@ export default function Morpheus8Page() {
                   Results continue improving for <strong>up to 6 months</strong> as your body produces new collagen—delivering medical-grade skin tightening without surgery.
                 </p>
               </div>
-              <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-black shadow-2xl">
-                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-zinc-900 to-black">
-                  <div className="text-center text-white/60 p-8">
-                    <div className="text-6xl mb-4">⚡</div>
-                    <p className="text-lg font-medium">Morpheus8 Device</p>
-                    <p className="text-sm">InMode Technology</p>
-                  </div>
-                </div>
+              <div className="relative aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl">
+                <iframe
+                  className="absolute inset-0 w-full h-full"
+                  src="https://www.youtube.com/embed/skWe-Z-5m_k?si=HiL-3BRzaFfDBcjC"
+                  title="Morpheus8 RF Microneedling - How It Works"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Common Concerns We Treat */}
+        <section className="py-16 md:py-20">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl md:text-4xl font-bold text-black mb-4">
+                Common Concerns We Treat
+              </h2>
+              <p className="text-black/70 max-w-2xl mx-auto">
+                Morpheus8 and QuantumRF are ideal solutions for these common aesthetic concerns.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+              <div className="relative rounded-xl overflow-hidden group">
+                <Image
+                  src="/images/morpheus8/concern-ozempic-butt.png"
+                  alt="Ozempic butt and breasts - skin laxity after weight loss"
+                  width={300}
+                  height={350}
+                  className="w-full h-auto"
+                />
+              </div>
+              <div className="relative rounded-xl overflow-hidden group">
+                <Image
+                  src="/images/morpheus8/concern-loose-belly.png"
+                  alt="Loose belly skin treatment"
+                  width={300}
+                  height={350}
+                  className="w-full h-auto"
+                />
+              </div>
+              <div className="relative rounded-xl overflow-hidden group">
+                <Image
+                  src="/images/morpheus8/concern-tech-neck.png"
+                  alt="Tech neck treatment"
+                  width={300}
+                  height={350}
+                  className="w-full h-auto"
+                />
+              </div>
+              <div className="relative rounded-xl overflow-hidden group">
+                <Image
+                  src="/images/morpheus8/concern-jowls-cheeks.png"
+                  alt="Sagging jowls and hollow cheeks treatment"
+                  width={300}
+                  height={350}
+                  className="w-full h-auto"
+                />
+              </div>
+              <div className="relative rounded-xl overflow-hidden group">
+                <Image
+                  src="/images/morpheus8/concern-bat-wings.png"
+                  alt="Bat wings arm skin tightening"
+                  width={300}
+                  height={350}
+                  className="w-full h-auto"
+                />
+              </div>
+            </div>
+            <div className="text-center mt-8">
+              <Link
+                href="/book"
+                className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition"
+              >
+                Book Your Consultation
+              </Link>
             </div>
           </div>
         </section>
