@@ -27,14 +27,14 @@ export function TrifectaSection() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-20 md:py-28 bg-black overflow-hidden"
+      style={{ backgroundColor: "#000000" }}
+      className="relative py-20 md:py-28 overflow-hidden"
     >
       {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-zinc-900 via-black to-black" />
-        <div className="absolute top-0 left-1/4 w-96 h-96 bg-pink-500/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[100px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-500/5 rounded-full blur-[120px]" />
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full blur-[100px]" style={{ backgroundColor: "rgba(236, 72, 153, 0.1)" }} />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full blur-[100px]" style={{ backgroundColor: "rgba(59, 130, 246, 0.1)" }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full blur-[120px]" style={{ backgroundColor: "rgba(245, 158, 11, 0.05)" }} />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 md:px-8">
@@ -44,22 +44,28 @@ export function TrifectaSection() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <div className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-sm border border-white/10 text-white text-sm font-semibold px-4 py-2 rounded-full mb-6">
+          <div 
+            className="inline-flex items-center gap-2 backdrop-blur-sm text-sm font-semibold px-4 py-2 rounded-full mb-6"
+            style={{ backgroundColor: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", color: "#ffffff" }}
+          >
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-500 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-pink-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ backgroundColor: "#ec4899" }}></span>
+              <span className="relative inline-flex rounded-full h-2 w-2" style={{ backgroundColor: "#ec4899" }}></span>
             </span>
             <span className="uppercase tracking-wider text-xs">The InMode Trifecta</span>
           </div>
 
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4" style={{ color: "#ffffff" }}>
             Three Technologies.{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-blue-400 to-amber-400">
+            <span 
+              className="text-transparent bg-clip-text"
+              style={{ backgroundImage: "linear-gradient(to right, #ec4899, #60a5fa, #f59e0b)" }}
+            >
               Infinite Possibilities.
             </span>
           </h2>
 
-          <p className="text-lg text-white/60 max-w-2xl mx-auto">
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: "rgba(255,255,255,0.6)" }}>
             We invested in the most advanced body and skin contouring technologies. 
             From surface to subdermal—every layer, every concern, every transformation.
           </p>
@@ -75,21 +81,39 @@ export function TrifectaSection() {
             }`}
             style={{ transitionDelay: "200ms" }}
           >
-            <div className="relative h-full bg-zinc-900/50 backdrop-blur-sm rounded-2xl border border-pink-500/30 hover:border-pink-400/60 overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-pink-500/20">
+            <div 
+              className="relative h-full backdrop-blur-sm rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl"
+              style={{ backgroundColor: "rgba(24, 24, 27, 0.8)", border: "1px solid rgba(236, 72, 153, 0.3)" }}
+            >
               
-              <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-pink-500/20 via-pink-500/10 to-transparent" />
+              <div 
+                className="absolute top-0 left-0 right-0 h-40"
+                style={{ background: "linear-gradient(to bottom, rgba(236, 72, 153, 0.2), rgba(236, 72, 153, 0.1), transparent)" }}
+              />
 
               <div className="absolute top-4 right-4 z-10">
-                <span className="bg-pink-500 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
+                <span 
+                  className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg"
+                  style={{ backgroundColor: "#ec4899", color: "#ffffff" }}
+                >
                   NEW
                 </span>
               </div>
 
               <div className="relative pt-10 pb-6 flex justify-center">
                 <div className="relative">
-                  <div className="absolute inset-0 w-28 h-28 rounded-full bg-gradient-to-br from-pink-500 to-pink-600 opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-500" />
-                  <div className="absolute inset-2 w-24 h-24 rounded-full bg-gradient-to-br from-pink-500 to-pink-600 opacity-30 group-hover:opacity-50 group-hover:scale-105 transition-all duration-500" />
-                  <div className="absolute inset-4 w-20 h-20 rounded-full bg-gradient-to-br from-pink-500 to-pink-600 opacity-40 group-hover:opacity-60 transition-all duration-500" />
+                  <div 
+                    className="absolute inset-0 w-28 h-28 rounded-full opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-500"
+                    style={{ background: "linear-gradient(to bottom right, #ec4899, #db2777)" }}
+                  />
+                  <div 
+                    className="absolute inset-2 w-24 h-24 rounded-full opacity-30 group-hover:opacity-50 group-hover:scale-105 transition-all duration-500"
+                    style={{ background: "linear-gradient(to bottom right, #ec4899, #db2777)" }}
+                  />
+                  <div 
+                    className="absolute inset-4 w-20 h-20 rounded-full opacity-40 group-hover:opacity-60 transition-all duration-500"
+                    style={{ background: "linear-gradient(to bottom right, #ec4899, #db2777)" }}
+                  />
                   <div className="relative w-28 h-28 flex items-center justify-center">
                     <span className="text-5xl group-hover:scale-110 transition-transform duration-300">⚡</span>
                   </div>
@@ -98,32 +122,33 @@ export function TrifectaSection() {
 
               <div className="relative px-6 pb-6">
                 <div className="mb-4">
-                  <h3 className="text-2xl font-bold text-white mb-1">Morpheus8</h3>
-                  <p className="text-sm font-semibold text-pink-400">RF Microneedling</p>
+                  <h3 className="text-2xl font-bold mb-1" style={{ color: "#ffffff" }}>Morpheus8</h3>
+                  <p className="text-sm font-semibold" style={{ color: "#f472b6" }}>RF Microneedling</p>
                 </div>
 
-                <p className="text-white/60 text-sm leading-relaxed mb-5">
+                <p className="text-sm leading-relaxed mb-5" style={{ color: "rgba(255,255,255,0.6)" }}>
                   The deepest RF microneedling available. Penetrates up to 8mm for dramatic skin tightening, fat reduction, and collagen remodeling.
                 </p>
 
                 <ul className="space-y-2 mb-6">
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-pink-500" />
+                  <li className="flex items-center gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#ec4899" }} />
                     Up to 8mm depth
                   </li>
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-pink-500" />
+                  <li className="flex items-center gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#ec4899" }} />
                     Burst Technology
                   </li>
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-pink-500" />
+                  <li className="flex items-center gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#ec4899" }} />
                     10, 17, 25 Probes
                   </li>
                 </ul>
 
                 <Link
                   href="/services/morpheus8"
-                  className="block w-full py-3 px-6 rounded-xl font-semibold text-white text-center bg-gradient-to-r from-pink-500 to-pink-600 hover:from-pink-600 hover:to-pink-700 transition-all duration-300 hover:shadow-lg hover:shadow-pink-500/25"
+                  className="block w-full py-3 px-6 rounded-xl font-semibold text-center transition-all duration-300 hover:shadow-lg"
+                  style={{ background: "linear-gradient(to right, #ec4899, #db2777)", color: "#ffffff" }}
                 >
                   <span className="flex items-center justify-center gap-2">
                     Learn More
@@ -143,21 +168,39 @@ export function TrifectaSection() {
             }`}
             style={{ transitionDelay: "350ms" }}
           >
-            <div className="relative h-full bg-zinc-900/50 backdrop-blur-sm rounded-2xl border border-blue-500/30 hover:border-blue-400/60 overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-blue-500/20">
+            <div 
+              className="relative h-full backdrop-blur-sm rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl"
+              style={{ backgroundColor: "rgba(24, 24, 27, 0.8)", border: "1px solid rgba(59, 130, 246, 0.3)" }}
+            >
               
-              <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-blue-500/20 via-blue-500/10 to-transparent" />
+              <div 
+                className="absolute top-0 left-0 right-0 h-40"
+                style={{ background: "linear-gradient(to bottom, rgba(59, 130, 246, 0.2), rgba(59, 130, 246, 0.1), transparent)" }}
+              />
 
               <div className="absolute top-4 right-4 z-10">
-                <span className="bg-blue-500 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
+                <span 
+                  className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg"
+                  style={{ backgroundColor: "#3b82f6", color: "#ffffff" }}
+                >
                   NEW
                 </span>
               </div>
 
               <div className="relative pt-10 pb-6 flex justify-center">
                 <div className="relative">
-                  <div className="absolute inset-0 w-28 h-28 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-500" />
-                  <div className="absolute inset-2 w-24 h-24 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 opacity-30 group-hover:opacity-50 group-hover:scale-105 transition-all duration-500" />
-                  <div className="absolute inset-4 w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 opacity-40 group-hover:opacity-60 transition-all duration-500" />
+                  <div 
+                    className="absolute inset-0 w-28 h-28 rounded-full opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-500"
+                    style={{ background: "linear-gradient(to bottom right, #3b82f6, #6366f1)" }}
+                  />
+                  <div 
+                    className="absolute inset-2 w-24 h-24 rounded-full opacity-30 group-hover:opacity-50 group-hover:scale-105 transition-all duration-500"
+                    style={{ background: "linear-gradient(to bottom right, #3b82f6, #6366f1)" }}
+                  />
+                  <div 
+                    className="absolute inset-4 w-20 h-20 rounded-full opacity-40 group-hover:opacity-60 transition-all duration-500"
+                    style={{ background: "linear-gradient(to bottom right, #3b82f6, #6366f1)" }}
+                  />
                   <div className="relative w-28 h-28 flex items-center justify-center">
                     <span className="text-5xl group-hover:scale-110 transition-transform duration-300">🎯</span>
                   </div>
@@ -166,32 +209,33 @@ export function TrifectaSection() {
 
               <div className="relative px-6 pb-6">
                 <div className="mb-4">
-                  <h3 className="text-2xl font-bold text-white mb-1">QuantumRF</h3>
-                  <p className="text-sm font-semibold text-blue-400">Subdermal Contouring</p>
+                  <h3 className="text-2xl font-bold mb-1" style={{ color: "#ffffff" }}>QuantumRF</h3>
+                  <p className="text-sm font-semibold" style={{ color: "#60a5fa" }}>Subdermal Contouring</p>
                 </div>
 
-                <p className="text-white/60 text-sm leading-relaxed mb-5">
+                <p className="text-sm leading-relaxed mb-5" style={{ color: "rgba(255,255,255,0.6)" }}>
                   Minimally invasive RF delivered beneath the skin. Surgical-level results for skin tightening and fat reduction—without surgery.
                 </p>
 
                 <ul className="space-y-2 mb-6">
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                  <li className="flex items-center gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#3b82f6" }} />
                     Subdermal delivery
                   </li>
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                  <li className="flex items-center gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#3b82f6" }} />
                     Single treatment
                   </li>
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+                  <li className="flex items-center gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#3b82f6" }} />
                     Face & body
                   </li>
                 </ul>
 
                 <Link
                   href="/services/quantum-rf"
-                  className="block w-full py-3 px-6 rounded-xl font-semibold text-white text-center bg-gradient-to-r from-blue-500 to-indigo-600 hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/25"
+                  className="block w-full py-3 px-6 rounded-xl font-semibold text-center transition-all duration-300 hover:shadow-lg"
+                  style={{ background: "linear-gradient(to right, #3b82f6, #6366f1)", color: "#ffffff" }}
                 >
                   <span className="flex items-center justify-center gap-2">
                     Learn More
@@ -211,21 +255,39 @@ export function TrifectaSection() {
             }`}
             style={{ transitionDelay: "500ms" }}
           >
-            <div className="relative h-full bg-zinc-900/50 backdrop-blur-sm rounded-2xl border border-amber-500/30 hover:border-amber-400/60 overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl hover:shadow-amber-500/20">
+            <div 
+              className="relative h-full backdrop-blur-sm rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl"
+              style={{ backgroundColor: "rgba(24, 24, 27, 0.8)", border: "1px solid rgba(245, 158, 11, 0.3)" }}
+            >
               
-              <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-amber-500/20 via-amber-500/10 to-transparent" />
+              <div 
+                className="absolute top-0 left-0 right-0 h-40"
+                style={{ background: "linear-gradient(to bottom, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.1), transparent)" }}
+              />
 
               <div className="absolute top-4 right-4 z-10">
-                <span className="bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg">
+                <span 
+                  className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-lg"
+                  style={{ background: "linear-gradient(to right, #f59e0b, #f97316)", color: "#ffffff" }}
+                >
                   VIP ACCESS
                 </span>
               </div>
 
               <div className="relative pt-10 pb-6 flex justify-center">
                 <div className="relative">
-                  <div className="absolute inset-0 w-28 h-28 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-500" />
-                  <div className="absolute inset-2 w-24 h-24 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 opacity-30 group-hover:opacity-50 group-hover:scale-105 transition-all duration-500" />
-                  <div className="absolute inset-4 w-20 h-20 rounded-full bg-gradient-to-br from-amber-500 to-orange-500 opacity-40 group-hover:opacity-60 transition-all duration-500" />
+                  <div 
+                    className="absolute inset-0 w-28 h-28 rounded-full opacity-20 group-hover:opacity-40 group-hover:scale-110 transition-all duration-500"
+                    style={{ background: "linear-gradient(to bottom right, #f59e0b, #f97316)" }}
+                  />
+                  <div 
+                    className="absolute inset-2 w-24 h-24 rounded-full opacity-30 group-hover:opacity-50 group-hover:scale-105 transition-all duration-500"
+                    style={{ background: "linear-gradient(to bottom right, #f59e0b, #f97316)" }}
+                  />
+                  <div 
+                    className="absolute inset-4 w-20 h-20 rounded-full opacity-40 group-hover:opacity-60 transition-all duration-500"
+                    style={{ background: "linear-gradient(to bottom right, #f59e0b, #f97316)" }}
+                  />
                   <div className="relative w-28 h-28 flex items-center justify-center">
                     <span className="text-5xl group-hover:scale-110 transition-transform duration-300">✨</span>
                   </div>
@@ -234,32 +296,33 @@ export function TrifectaSection() {
 
               <div className="relative px-6 pb-6">
                 <div className="mb-4">
-                  <h3 className="text-2xl font-bold text-white mb-1">Solaria CO₂</h3>
-                  <p className="text-sm font-semibold text-amber-400">Fractional Laser</p>
+                  <h3 className="text-2xl font-bold mb-1" style={{ color: "#ffffff" }}>Solaria CO₂</h3>
+                  <p className="text-sm font-semibold" style={{ color: "#fbbf24" }}>Fractional Laser</p>
                 </div>
 
-                <p className="text-white/60 text-sm leading-relaxed mb-5">
+                <p className="text-sm leading-relaxed mb-5" style={{ color: "rgba(255,255,255,0.6)" }}>
                   Gold standard fractional CO₂ resurfacing. Maximum transformation for wrinkles, scars, sun damage, and overall skin renewal.
                 </p>
 
                 <ul className="space-y-2 mb-6">
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                  <li className="flex items-center gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#f59e0b" }} />
                     Deep resurfacing
                   </li>
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                  <li className="flex items-center gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#f59e0b" }} />
                     Scar revision
                   </li>
-                  <li className="flex items-center gap-2 text-white/70 text-sm">
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                  <li className="flex items-center gap-2 text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
+                    <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: "#f59e0b" }} />
                     Skin renewal
                   </li>
                 </ul>
 
                 <Link
                   href="/stretch-mark-treatment-oswego-il"
-                  className="block w-full py-3 px-6 rounded-xl font-semibold text-white text-center bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/25"
+                  className="block w-full py-3 px-6 rounded-xl font-semibold text-center transition-all duration-300 hover:shadow-lg"
+                  style={{ background: "linear-gradient(to right, #f59e0b, #f97316)", color: "#ffffff" }}
                 >
                   <span className="flex items-center justify-center gap-2">
                     Learn More
@@ -281,17 +344,18 @@ export function TrifectaSection() {
           }`}
           style={{ transitionDelay: "800ms" }}
         >
-          <p className="text-white/50 text-sm mb-5">
+          <p className="text-sm mb-5" style={{ color: "rgba(255,255,255,0.5)" }}>
             Not sure which technology is right for you?
           </p>
           <Link
             href="/book"
-            className="inline-flex items-center justify-center gap-2 bg-white text-black px-8 py-4 rounded-xl font-bold hover:bg-pink-500 hover:text-white transition-all duration-300 hover:scale-105"
+            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-bold transition-all duration-300 hover:scale-105"
+            style={{ backgroundColor: "#ffffff", color: "#000000" }}
           >
             Book Your Free Consultation
             <span>→</span>
           </Link>
-          <p className="mt-4 text-white/40 text-xs">
+          <p className="mt-4 text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
             We&apos;ll create a customized treatment plan combining all three technologies
           </p>
         </div>
@@ -299,4 +363,3 @@ export function TrifectaSection() {
     </section>
   );
 }
-// Force rebuild Mon Mar  2 09:59:44 CST 2026
