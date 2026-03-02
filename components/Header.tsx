@@ -28,9 +28,9 @@ const navigation = {
       {
         title: "Skin & Face",
         links: [
-          { label: "Solaria CO₂ Laser", href: "/stretch-mark-treatment-oswego-il", icon: "⚡", badge: "NEW" },
-          { label: "HydraFacial", href: "/services/hydra-facial", icon: "✨" },
-          { label: "RF Microneedling", href: "/services/rf-microneedling", icon: "🎯" },
+          { label: "Morpheus8 RF", href: "/services/morpheus8", icon: "⚡", badge: "NEW" },
+          { label: "Solaria CO₂ Laser", href: "/stretch-mark-treatment-oswego-il", icon: "✨" },
+          { label: "HydraFacial", href: "/services/hydra-facial", icon: "💧" },
           { label: "IPL Photofacial", href: "/services/ipl-photofacial", icon: "💡" },
           { label: "Chemical Peels", href: "/services/chemical-peels", icon: "🧴" },
         ],
@@ -66,9 +66,9 @@ const navigation = {
       },
     ],
     featured: {
-      title: "🔥 Solaria CO₂ Laser",
-      description: "Our newest advanced treatment! VIP Early Access now open. $100 off for first 25 clients.",
-      cta: { label: "Join VIP Waitlist", href: "/solaria-co2-vip" },
+      title: "🔥 Morpheus8 RF Microneedling",
+      description: "NEW from InMode! Burst + Quantum technology for face & body contouring. The deepest RF microneedling available.",
+      cta: { label: "Learn More", href: "/services/morpheus8" },
       image: "⚡",
     },
   },
