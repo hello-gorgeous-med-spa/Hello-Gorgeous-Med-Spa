@@ -215,6 +215,17 @@ export default function Morpheus8Page() {
               <span>✓ All Skin Types</span>
               <span>✓ Face + Body</span>
             </div>
+
+            {/* Aftercare Link */}
+            <div className="mt-6">
+              <Link
+                href="/aftercare/morpheus8"
+                className="inline-flex items-center gap-2 text-pink-300 hover:text-pink-200 transition text-sm"
+              >
+                <span>📋</span>
+                <span>View Pre & Post Treatment Instructions →</span>
+              </Link>
+            </div>
           </div>
         </section>
 
@@ -707,6 +718,29 @@ export default function Morpheus8Page() {
                   </div>
                 </details>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Aftercare Instructions Callout */}
+        <section className="py-12 bg-gradient-to-r from-pink-50 to-rose-50 border-y border-pink-100">
+          <div className="max-w-4xl mx-auto px-4">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+              <div className="flex items-center gap-4">
+                <div className="w-14 h-14 rounded-xl bg-pink-500 flex items-center justify-center text-white text-2xl">
+                  📋
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold text-black">Pre & Post Treatment Care</h3>
+                  <p className="text-black/70 text-sm">Everything you need to know before and after your Morpheus8 treatment</p>
+                </div>
+              </div>
+              <Link
+                href="/aftercare/morpheus8"
+                className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition whitespace-nowrap"
+              >
+                View Aftercare Instructions →
+              </Link>
             </div>
           </div>
         </section>
