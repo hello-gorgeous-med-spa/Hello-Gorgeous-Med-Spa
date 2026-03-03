@@ -3,6 +3,7 @@ import {
   HeroV3,
   TrustStrip,
   TrifectaSection,
+  VIPPromoSection,
   PartnerBadges,
   InjectablesConversion,
   ServicesSection,
@@ -157,6 +158,7 @@ export default function HomePage() {
         <HeroV3 />
         <TrustStrip />
         <TrifectaSection />
+        <VIPPromoSection />
         <PartnerBadges />
         <InjectablesConversion />
         <ServicesSection />

@@ -1,5 +1,6 @@
 export { HeroV3 } from "./HeroV3";
 export { TrifectaSection } from "./TrifectaSection";
+export { VIPPromoSection } from "./VIPPromoSection";
 export { TrustStrip } from "./TrustStrip";
 export { PartnerBadges } from "./PartnerBadges";
 export { InjectablesConversion } from "./InjectablesConversion";
