@@ -164,16 +164,34 @@ export function VIPSkinTighteningContent() {
         )}
 
         <section className="mb-20">
-          <div className="flex items-center gap-3 mb-2">
-            <Image src="/images/trifecta/quantum-rf.png" alt="" width={80} height={48} className="object-contain rounded-lg" />
-            <span className="text-[#FF2D8E] font-semibold uppercase tracking-wider text-sm">VIP Launch</span>
+          {/* Hero Image */}
+          <div className="relative rounded-2xl overflow-hidden mb-8">
+            <div className="grid md:grid-cols-2 gap-6 items-center">
+              <div>
+                <div className="flex items-center gap-3 mb-4">
+                  <Image src="/images/trifecta/quantum-rf.png" alt="Quantum RF device" width={100} height={60} className="object-contain rounded-lg" />
+                  <span className="text-[#FF2D8E] font-semibold uppercase tracking-wider text-sm">VIP Launch</span>
+                </div>
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                  Quantum RF Minimally Invasive Skin Tightening – VIP Launch Access
+                </h1>
+                <p className="text-lg text-white/80 mb-4">
+                  Secure introductory pricing before public launch. Limited priority placements available.
+                </p>
+              </div>
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
+                <Image 
+                  src="/images/morpheus8/facetite-chin.png" 
+                  alt="Quantum RF chin and neck treatment results" 
+                  fill 
+                  className="object-cover"
+                  priority
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <p className="absolute bottom-4 left-4 text-white/90 text-sm font-medium">Chin & Neck Tightening Results</p>
+              </div>
+            </div>
           </div>
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-            Quantum RF Minimally Invasive Skin Tightening – VIP Launch Access
-          </h1>
-          <p className="text-lg text-white/80 mb-8 max-w-2xl">
-            Secure introductory pricing before public launch. Limited priority placements available.
-          </p>
 
           <div className="rounded-xl border-2 border-[#FF2D8E] bg-[#FF2D8E]/10 p-4 md:p-6 mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <p className="text-lg font-semibold text-white">
@@ -220,16 +238,95 @@ export function VIPSkinTighteningContent() {
           </div>
         </section>
 
-        <div className="rounded-2xl border border-white/10 bg-white/5 aspect-video flex items-center justify-center mb-20 text-white/40">
-          <span className="text-sm">Before / After slider – placeholder</span>
+        {/* Treatment Areas Gallery */}
+        <div className="mb-20">
+          <h3 className="text-xl font-bold text-white mb-6 text-center">Treatment Areas We Target</h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10">
+              <div className="relative aspect-square">
+                <Image src="/images/morpheus8/concern-jowls-cheeks.png" alt="Jowls and cheeks skin tightening" fill className="object-cover" />
+              </div>
+              <p className="text-center text-sm text-white/80 py-2">Jowls & Cheeks</p>
+            </div>
+            <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10">
+              <div className="relative aspect-square">
+                <Image src="/images/morpheus8/concern-tech-neck.png" alt="Tech neck skin tightening" fill className="object-cover" />
+              </div>
+              <p className="text-center text-sm text-white/80 py-2">Neck & Chin</p>
+            </div>
+            <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10">
+              <div className="relative aspect-square">
+                <Image src="/images/morpheus8/concern-bat-wings.png" alt="Arm skin tightening for bat wings" fill className="object-cover" />
+              </div>
+              <p className="text-center text-sm text-white/80 py-2">Sagging Arms</p>
+            </div>
+            <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10">
+              <div className="relative aspect-square">
+                <Image src="/images/morpheus8/concern-loose-belly.png" alt="Abdomen skin tightening" fill className="object-cover" />
+              </div>
+              <p className="text-center text-sm text-white/80 py-2">Abdomen</p>
+            </div>
+            <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10">
+              <div className="relative aspect-square">
+                <Image src="/images/morpheus8/concern-ozempic-butt.png" alt="Butt skin tightening" fill className="object-cover" />
+              </div>
+              <p className="text-center text-sm text-white/80 py-2">Butt Tightening</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Quantum RF Device Gallery */}
+        <div className="mb-20">
+          <h3 className="text-xl font-bold text-white mb-6 text-center">Quantum RF Technology</h3>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10">
+              <div className="relative aspect-[4/3]">
+                <Image src="/images/morpheus8/quantumrf-10-face.png" alt="Quantum RF face treatment" fill className="object-cover" />
+              </div>
+              <div className="p-4">
+                <p className="text-white font-semibold">Quantum RF 10</p>
+                <p className="text-white/60 text-sm">Precision facial contouring</p>
+              </div>
+            </div>
+            <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10">
+              <div className="relative aspect-[4/3]">
+                <Image src="/images/morpheus8/quantumrf-10-jawline.png" alt="Quantum RF jawline treatment" fill className="object-cover" />
+              </div>
+              <div className="p-4">
+                <p className="text-white font-semibold">Jawline Definition</p>
+                <p className="text-white/60 text-sm">Chin & neck tightening</p>
+              </div>
+            </div>
+            <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10">
+              <div className="relative aspect-[4/3]">
+                <Image src="/images/morpheus8/quantumrf-25-abdomen.png" alt="Quantum RF abdomen treatment" fill className="object-cover" />
+              </div>
+              <div className="p-4">
+                <p className="text-white font-semibold">Quantum RF 25</p>
+                <p className="text-white/60 text-sm">Body contouring & skin tightening</p>
+              </div>
+            </div>
+          </div>
         </div>
 
         <section className="mb-20">
-          <div className="flex items-center gap-3 mb-2">
-            <Image src="/images/trifecta/morpheus8.png" alt="" width={80} height={48} className="object-contain rounded-lg" />
-            <span className="text-[#FF2D8E] font-semibold uppercase tracking-wider text-sm">Priority Access</span>
+          <div className="grid md:grid-cols-2 gap-8 items-center mb-8">
+            <div>
+              <div className="flex items-center gap-3 mb-4">
+                <Image src="/images/trifecta/morpheus8.png" alt="Morpheus8 device" width={100} height={60} className="object-contain rounded-lg" />
+                <span className="text-[#FF2D8E] font-semibold uppercase tracking-wider text-sm">Priority Access</span>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold mb-4">Morpheus8 Priority Skin Tightening Access</h2>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <div className="relative aspect-square rounded-xl overflow-hidden">
+                <Image src="/images/morpheus8/morpheus8-face-front.png" alt="Morpheus8 facial treatment" fill className="object-cover" />
+              </div>
+              <div className="relative aspect-square rounded-xl overflow-hidden">
+                <Image src="/images/morpheus8/morpheus8-burst-buttocks.png" alt="Morpheus8 body treatment" fill className="object-cover" />
+              </div>
+            </div>
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold mb-4">Morpheus8 Priority Skin Tightening Access</h2>
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
             <div className="rounded-xl border-2 border-[#FF2D8E] bg-[#FF2D8E]/10 p-6 inline-flex flex-col max-w-sm">
               <p className="text-white font-bold text-2xl">Package of 3 – $2,100</p>
