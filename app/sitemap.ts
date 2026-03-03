@@ -173,6 +173,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  // VIP Skin Tightening launch waitlist
+  const vipSkinTighteningPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/vip-skin-tightening`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+  ];
+
   // Aftercare / Patient Resources (solaria content on /solaria; no separate aftercare URL)
   const aftercarePages: MetadataRoute.Sitemap = [];
 
@@ -198,6 +208,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...solariaPages,
     ...morpheus8Pages,
     ...trifectaVIPPages,
+    ...vipSkinTighteningPages,
     ...aftercarePages,
     ...locationServicePages,
     ...cityPages,

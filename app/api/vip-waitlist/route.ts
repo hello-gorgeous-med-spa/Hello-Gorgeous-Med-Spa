@@ -42,7 +42,7 @@ async function sendConfirmationEmail(data: VIPWaitlistSubmission) {
   }
 
   try {
-    const campaignName = data.campaign === 'co2_solaria' ? 'Solaria CO₂' : data.campaign;
+    const campaignName = data.campaign === 'co2_solaria' ? 'Solaria CO₂' : data.campaign === '2026' ? 'VIP Waitlist 2026' : data.campaign;
     
     const emailHtml = `
       <!DOCTYPE html>
