@@ -356,23 +356,22 @@ export function Header() {
     <header className="sticky top-0 z-50 bg-white border-b border-black/10 shadow-sm h-[65px] md:h-20 flex items-center py-0">
       <div className="mx-auto w-full max-w-7xl h-full px-4 sm:px-6 lg:px-10 overflow-visible py-0">
         <div className="flex items-center justify-between h-full py-0">
-          {/* Logo container - constrained height, vertical center */}
-          <div className="flex h-[45px] md:h-[60px] flex-shrink-0 items-center">
-            <Link href="/" className="flex h-full items-center focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/30 rounded-lg">
+          {/* Logo container - fixed width, no clipping */}
+          <div className="flex-shrink-0 flex items-center mr-6">
+            <Link href="/" className="flex items-center focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/30 rounded-lg">
               <Image
                 src="/images/hello-gorgeous-logo.png"
                 alt={SITE.name}
-                width={220}
-                height={60}
-                className="max-h-[45px] w-auto object-contain object-left md:max-h-[60px] block"
-                style={{ maxHeight: "100%" }}
+                width={160}
+                height={50}
+                className="h-[40px] md:h-[50px] w-auto object-contain"
                 priority
               />
             </Link>
           </div>
 
           {/* Desktop Navigation - centered, professional spacing */}
-          <nav className="hidden lg:flex flex-1 items-center justify-center gap-x-4 xl:gap-x-5 min-w-0 overflow-visible py-0" aria-label="Main navigation">
+          <nav className="hidden lg:flex items-center justify-center gap-x-2 xl:gap-x-3 overflow-visible" aria-label="Main navigation">
             {/* Services Dropdown */}
             <div 
               className="relative flex items-center"
@@ -382,7 +381,7 @@ export function Header() {
               <Link
                 href="/services"
                 className={cx(
-                  "flex items-center justify-center gap-1.5 h-10 px-4 rounded-md text-sm font-medium tracking-wide whitespace-nowrap transition-colors duration-200 border",
+                  "flex items-center justify-center gap-1 h-9 px-3 rounded-md text-[13px] font-medium whitespace-nowrap transition-colors duration-200 border",
                   pathname?.startsWith('/services')
                     ? "text-white bg-[#FF2D8E] border-[#FF2D8E]"
                     : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E] border-black hover:border-[#FF2D8E]"
@@ -405,7 +404,7 @@ export function Header() {
               <Link
                 href="/about"
                 className={cx(
-                  "flex items-center justify-center gap-1.5 h-10 px-4 rounded-md text-sm font-medium tracking-wide whitespace-nowrap transition-colors duration-200 border",
+                  "flex items-center justify-center gap-1 h-9 px-3 rounded-md text-[13px] font-medium whitespace-nowrap transition-colors duration-200 border",
                   pathname?.startsWith('/about') || pathname?.startsWith('/providers') || pathname?.startsWith('/locations')
                     ? "text-white bg-[#FF2D8E] border-[#FF2D8E]"
                     : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E] border-black hover:border-[#FF2D8E]"
@@ -428,7 +427,7 @@ export function Header() {
               <Link
                 href="/your-journey"
                 className={cx(
-                  "flex items-center justify-center gap-1.5 h-10 px-4 rounded-md text-sm font-medium tracking-wide whitespace-nowrap transition-colors duration-200 border",
+                  "flex items-center justify-center gap-1 h-9 px-3 rounded-md text-[13px] font-medium whitespace-nowrap transition-colors duration-200 border",
                   pathname?.startsWith('/your-journey')
                     ? "text-white bg-[#FF2D8E] border-[#FF2D8E]"
                     : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E] border-black hover:border-[#FF2D8E]"
@@ -451,7 +450,7 @@ export function Header() {
               <Link
                 href="/rx"
                 className={cx(
-"flex items-center justify-center gap-1.5 h-10 px-4 rounded-md text-sm font-medium tracking-wide whitespace-nowrap transition-colors duration-200",
+"flex items-center justify-center gap-1 h-9 px-3 rounded-md text-[13px] font-medium whitespace-nowrap transition-colors duration-200",
                   pathname?.startsWith('/rx')
                     ? "text-white bg-[#FF2D8E] border border-[#FF2D8E]"
                     : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E] border border-black hover:border-[#FF2D8E]"
@@ -475,7 +474,7 @@ export function Header() {
                 type="button"
                 onClick={() => setActiveDropdown(activeDropdown === 'more' ? null : 'more')}
                 className={cx(
-                  "flex items-center justify-center gap-1.5 h-10 px-4 rounded-md text-sm font-medium tracking-wide whitespace-nowrap transition-colors duration-200 border",
+                  "flex items-center justify-center gap-1 h-9 px-3 rounded-md text-[13px] font-medium whitespace-nowrap transition-colors duration-200 border",
                   activeDropdown === 'more'
                     ? "text-white bg-[#FF2D8E] border-[#FF2D8E]"
                     : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E] border-black hover:border-[#FF2D8E]"
