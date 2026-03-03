@@ -163,6 +163,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  // Trifecta VIP landing (Google / paid)
+  const trifectaVIPPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/trifecta-vip`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+  ];
+
   // Aftercare / Patient Resources (solaria content on /solaria; no separate aftercare URL)
   const aftercarePages: MetadataRoute.Sitemap = [];
 
@@ -187,6 +197,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...servicePages,
     ...solariaPages,
     ...morpheus8Pages,
+    ...trifectaVIPPages,
     ...aftercarePages,
     ...locationServicePages,
     ...cityPages,
