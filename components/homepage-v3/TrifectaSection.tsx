@@ -72,31 +72,6 @@ export function TrifectaSection() {
           </p>
         </div>
 
-        {/* Featured Video */}
-        <div 
-          className={`mb-16 transition-all duration-1000 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-          }`}
-          style={{ transitionDelay: "100ms" }}
-        >
-          <div className="max-w-4xl mx-auto">
-            <div className="relative overflow-hidden rounded-2xl shadow-2xl" style={{ border: "1px solid rgba(255,255,255,0.1)" }}>
-              <div style={{ position: "relative", paddingTop: "56.25%", width: "100%" }}>
-                <iframe
-                  style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
-                  src="https://www.youtube-nocookie.com/embed/mMEcRys96ng?rel=0&modestbranding=1"
-                  title="InMode Morpheus8 & QuantumRF Technology"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                ></iframe>
-              </div>
-            </div>
-            <p className="text-center mt-4 text-sm" style={{ color: "rgba(255,255,255,0.5)" }}>
-              See how InMode&apos;s revolutionary RF technology transforms skin from the inside out
-            </p>
-          </div>
-        </div>
-
         {/* Cards Grid */}
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           

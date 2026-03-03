@@ -252,17 +252,6 @@ export default function QuantumRFPage() {
                   Results develop over <strong>3-6 months</strong> as collagen rebuilds and skin continues to tighten—with many patients achieving their goals in just <strong>one treatment</strong>.
                 </p>
               </div>
-              <div className="relative w-full rounded-2xl overflow-hidden bg-black shadow-2xl">
-                <div style={{ position: "relative", paddingTop: "56.25%", width: "100%" }}>
-                  <iframe
-                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: "none" }}
-                    src="https://www.youtube-nocookie.com/embed/mMEcRys96ng?rel=0&modestbranding=1"
-                    title="InMode QuantumRF - Subdermal RF Technology"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                  ></iframe>
-                </div>
-              </div>
             </div>
           </div>
         </section>
