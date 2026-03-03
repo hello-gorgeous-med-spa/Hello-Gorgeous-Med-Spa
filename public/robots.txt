@@ -1,3 +1,7 @@
+# Hello Gorgeous Med Spa - robots.txt
+# https://www.hellogorgeousmedspa.com
+
+# Default: Allow all crawlers
 User-agent: *
 Allow: /
 Disallow: /api/
@@ -7,5 +11,61 @@ Disallow: /provider/
 Disallow: /portal/
 Disallow: /private/
 
+# ============================================
+# AI CRAWLER ACCESS - Explicitly Allowed
+# These AI bots index content for AI assistants
+# ============================================
+
+# OpenAI / ChatGPT
+User-agent: GPTBot
+Allow: /
+
+# OpenAI browsing
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic / Claude
+User-agent: ClaudeBot
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+
+# Google AI / Gemini / Bard
+User-agent: Google-Extended
+Allow: /
+
+# Perplexity AI
+User-agent: PerplexityBot
+Allow: /
+
+# Microsoft Copilot / Bing Chat
+User-agent: Bingbot
+Allow: /
+
+# Cohere AI
+User-agent: cohere-ai
+Allow: /
+
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# Common Crawl (used to train many AI models)
+User-agent: CCBot
+Allow: /
+
+# Apple (Siri, Spotlight)
+User-agent: Applebot
+Allow: /
+
+# ============================================
+# SITEMAPS
+# ============================================
 Sitemap: https://www.hellogorgeousmedspa.com/sitemap.xml
 Sitemap: https://www.hellogorgeousmedspa.com/image-sitemap.xml
+
+# ============================================
+# AI DISCOVERABILITY
+# ============================================
+# LLMs.txt file for AI model context
+# See: https://llmstxt.org

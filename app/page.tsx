@@ -35,6 +35,7 @@ import {
   faqJsonLd,
   testimonialsJsonLd,
   bookingServiceJsonLd,
+  aiOptimizedOrganizationJsonLd,
 } from "@/lib/seo";
 import { CHERRY_PAY_URL } from "@/lib/flows";
 
@@ -139,6 +140,14 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(testimonialsJsonLd(HOME_TESTIMONIALS)),
+        }}
+      />
+
+      {/* AI-Optimized Organization Schema - for ChatGPT, Perplexity, Gemini */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(aiOptimizedOrganizationJsonLd()),
         }}
       />
 

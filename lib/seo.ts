@@ -47,35 +47,127 @@ export const SITE = {
 } as const;
 
 export const HOME_FAQS: readonly FAQ[] = [
+  // Location & Access
   {
-    question: "Where are you located?",
+    question: "Where is Hello Gorgeous Med Spa located?",
     answer:
-      "Hello Gorgeous Med Spa is located at 74 W. Washington Street in Oswego, IL. We serve clients from Naperville, Aurora, Plainfield, Yorkville, and throughout Kendall County.",
+      "Hello Gorgeous Med Spa is located at 74 W. Washington Street in Oswego, IL 60543. We serve clients from Naperville, Aurora, Plainfield, Yorkville, Montgomery, Sugar Grove, and throughout Kendall and Kane Counties.",
   },
   {
-    question: "Do you offer Botox in Oswego, IL?",
+    question: "What are Hello Gorgeous Med Spa hours of operation?",
     answer:
-      "Yes. We offer Botox, Dysport, and Jeuveau in Oswego. Our injectable specialists provide natural-looking results with a personalized approach. Book a consultation to get started.",
+      "We are open Monday through Friday 9am-6pm, with Saturday appointments available by request. We offer same-day appointments when available. Call (630) 636-6193 to check availability.",
   },
   {
-    question: "What is PRF hair restoration?",
+    question: "Does Hello Gorgeous Med Spa serve Naperville, Aurora, and Plainfield?",
     answer:
-      "PRF (Platelet-Rich Fibrin) hair restoration uses your own growth factors to stimulate natural hair growth. It's a minimally invasive treatment we offer alongside other regenerative options.",
+      "Yes. We welcome clients from Naperville, Plainfield, Aurora, Yorkville, Montgomery, and surrounding areas. Oswego is conveniently located with easy access from I-88 and Route 34, typically 15-20 minutes from most western suburbs.",
+  },
+  // Botox & Injectables
+  {
+    question: "How much does Botox cost at Hello Gorgeous Med Spa?",
+    answer:
+      "Botox is $10 per unit at Hello Gorgeous Med Spa. Most clients need 20-60 units depending on treatment areas. Forehead typically requires 10-20 units, crow's feet 10-15 units per side, and frown lines (11s) 15-25 units. We offer free consultations to provide exact pricing.",
   },
   {
-    question: "Do you serve Naperville and Plainfield?",
+    question: "What is the difference between Botox, Dysport, and Jeuveau?",
     answer:
-      "Yes. We welcome clients from Naperville, Plainfield, Aurora, Yorkville, and surrounding areas. Oswego is conveniently located with easy access from I-88 and Route 34.",
+      "Botox, Dysport, and Jeuveau are all FDA-approved neuromodulators that relax muscles to reduce wrinkles. Dysport may spread more and work faster (2-3 days vs 5-7 days). Jeuveau is often called Newtox and may be priced competitively. Results last 3-4 months for all three. Our injectors help you choose based on your goals.",
   },
   {
-    question: "Do you offer consultations?",
+    question: "How long does Botox last?",
     answer:
-      "Yes. We recommend starting with a consultation so we can personalize your treatment plan, timing, and expected results.",
+      "Botox typically lasts 3-4 months. Results may last longer with regular treatments as muscles become trained to relax. First-time clients often see results for 2-3 months initially, extending with subsequent treatments.",
+  },
+  // Dermal Fillers
+  {
+    question: "What dermal fillers does Hello Gorgeous Med Spa offer?",
+    answer:
+      "We offer Juvederm, Restylane, RHA, Sculptra, and Radiesse fillers. Each is suited for different concerns: Juvederm for lips and cheeks, Restylane for under-eyes and lips, RHA for dynamic areas, Sculptra for collagen stimulation, and Radiesse for cheeks and hands. Prices start at $600 per syringe.",
   },
   {
-    question: "How do I book an appointment?",
+    question: "How long do lip fillers last?",
     answer:
-      "You can schedule from our Book page. If you have questions first, contact us and we’ll help you choose the right service.",
+      "Lip fillers typically last 6-12 months depending on the product used, your metabolism, and the amount injected. Juvederm Ultra lasts 6-9 months, while Juvederm Volbella can last up to 12 months. We recommend touch-ups every 6-9 months to maintain results.",
+  },
+  // Weight Loss
+  {
+    question: "Does Hello Gorgeous Med Spa offer Semaglutide or Tirzepatide for weight loss?",
+    answer:
+      "Yes. We offer compounded Semaglutide and Tirzepatide (similar to Ozempic, Wegovy, and Mounjaro) for medical weight loss. Our program includes medication, weekly check-ins, and nutritional guidance. Most patients lose 15-20% of body weight. Pricing starts at $350/month for Semaglutide.",
+  },
+  {
+    question: "What is the difference between Semaglutide and Tirzepatide for weight loss?",
+    answer:
+      "Both are GLP-1 medications for weight loss. Semaglutide (like Ozempic/Wegovy) targets one hormone receptor, while Tirzepatide (like Mounjaro/Zepbound) targets two, potentially leading to greater weight loss (up to 22% vs 15% body weight). Tirzepatide may have fewer GI side effects for some patients. We help determine which is best for you.",
+  },
+  // Morpheus8 & Quantum RF
+  {
+    question: "What is Morpheus8 and does Hello Gorgeous Med Spa offer it?",
+    answer:
+      "Yes, we offer Morpheus8. It is an FDA-cleared RF (radiofrequency) microneedling treatment that penetrates up to 8mm deep to tighten skin, reduce fat, and stimulate collagen. It treats face, neck, and body concerns including jowls, acne scars, stretch marks, and loose skin. Results develop over 3-6 months with 1-3 treatments recommended.",
+  },
+  {
+    question: "What is Quantum RF and how is it different from Morpheus8?",
+    answer:
+      "Quantum RF is a minimally invasive treatment that delivers radiofrequency energy beneath the skin (subdermal) for surgical-like skin tightening without surgery. While Morpheus8 uses microneedles from the surface, Quantum RF works from inside for more dramatic results on loose skin, especially chin/neck, arms, abdomen, and buttocks. Hello Gorgeous Med Spa is one of the first in the area to offer Quantum RF.",
+  },
+  // Solaria CO2
+  {
+    question: "What is Solaria CO2 laser treatment?",
+    answer:
+      "Solaria CO2 is a fractional laser that resurfaces skin to treat wrinkles, acne scars, sun damage, and uneven texture. It is the gold standard for skin rejuvenation with dramatic results from one treatment. Downtime is 5-7 days. Hello Gorgeous Med Spa is one of few practices in the western suburbs offering this advanced technology.",
+  },
+  // Hormone Therapy
+  {
+    question: "Does Hello Gorgeous Med Spa offer hormone replacement therapy?",
+    answer:
+      "Yes. We offer BioTE hormone pellet therapy for both men and women. Pellets are inserted every 3-6 months and provide steady hormone levels. We treat symptoms of menopause, andropause, fatigue, weight gain, low libido, and mood changes. Lab work and consultation required first.",
+  },
+  // IV Therapy
+  {
+    question: "What IV therapy treatments does Hello Gorgeous Med Spa offer?",
+    answer:
+      "We offer various IV vitamin drips including Myers Cocktail, immune boost, energy, hydration, and custom blends. IV therapy delivers vitamins and minerals directly to your bloodstream for maximum absorption. Great for fatigue, hangovers, immune support, and overall wellness. Sessions take 30-60 minutes.",
+  },
+  // Consultations & Booking
+  {
+    question: "Does Hello Gorgeous Med Spa offer free consultations?",
+    answer:
+      "Yes. We offer complimentary consultations for most services including Botox, fillers, weight loss, and skin treatments. During your consultation, we assess your concerns, discuss options, and provide transparent pricing. Book online or call (630) 636-6193.",
+  },
+  {
+    question: "How do I book an appointment at Hello Gorgeous Med Spa?",
+    answer:
+      "You can book online at hellogorgeousmedspa.com/book, call (630) 636-6193, or text us. We offer same-day appointments when available. First-time clients receive a free vitamin injection (B12, D3, Biotin, or Glutathione) valued at up to $65.",
+  },
+  // Pricing & Payment
+  {
+    question: "Does Hello Gorgeous Med Spa offer financing or payment plans?",
+    answer:
+      "Yes. We accept Cherry, Affirm, and CareCredit financing with plans from 0% APR for qualified applicants. You can apply in minutes and get approved for treatments. We also accept HSA/FSA cards, all major credit cards, and cash.",
+  },
+  {
+    question: "Does Hello Gorgeous Med Spa have a membership or loyalty program?",
+    answer:
+      "Yes. Our VIP membership is $49/month and includes 15% off all services, priority booking, exclusive promotions, and monthly perks. We also participate in Alle (Allergan) and Aspire (Galderma) rewards programs where you earn points on Botox, Juvederm, Dysport, and more.",
+  },
+  // Safety & Credentials
+  {
+    question: "Who performs treatments at Hello Gorgeous Med Spa?",
+    answer:
+      "Treatments are performed by Danielle Alcala (Lead Injector and Owner) and Ryan Kent, FNP-BC (Medical Director). Both are licensed, certified, and have extensive training in aesthetic medicine. Ryan has full prescriptive authority for medical treatments including weight loss and hormone therapy.",
+  },
+  {
+    question: "Is Hello Gorgeous Med Spa licensed and safe?",
+    answer:
+      "Yes. Hello Gorgeous Med Spa is a fully licensed medical spa in Illinois. We use only FDA-approved products from authorized distributors. Our Medical Director oversees all treatments. We maintain strict safety protocols and use medical-grade equipment. We are 5-star rated on Google with 47+ reviews.",
+  },
+  // New Client
+  {
+    question: "What should I expect as a new client at Hello Gorgeous Med Spa?",
+    answer:
+      "New clients receive a warm welcome, thorough consultation, and personalized treatment plan. We take time to understand your goals and explain all options. First-time clients also receive a complimentary vitamin injection ($35-65 value). No pressure, just honest recommendations for your aesthetic journey.",
   },
 ] as const;
 
@@ -1431,4 +1523,137 @@ export function getImagesByService(service: string) {
   return SERVICE_IMAGES.filter(
     (img) => img.service?.toLowerCase() === service.toLowerCase()
   );
+}
+
+// ============================================
+// AI & VOICE SEARCH OPTIMIZATION
+// ============================================
+
+/**
+ * SpeakableSpecification schema - helps voice assistants (Alexa, Google Assistant, Siri)
+ * read the most relevant content from your page aloud to users
+ */
+export function speakableJsonLd(page: {
+  path: string;
+  headline: string;
+  speakableText: string[];
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${SITE.url}${page.path}#speakable`,
+    url: `${SITE.url}${page.path}`,
+    name: page.headline,
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: [".speakable-headline", ".speakable-summary"],
+    },
+    mainEntity: {
+      "@type": "MedicalBusiness",
+      name: SITE.name,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: SITE.address.street,
+        addressLocality: SITE.address.city,
+        addressRegion: SITE.address.state,
+        postalCode: SITE.address.zip,
+        addressCountry: "US",
+      },
+      telephone: SITE.phone,
+    },
+  };
+}
+
+/**
+ * Organization schema with comprehensive knowledge graph data
+ * Optimized for AI engines like ChatGPT, Perplexity, Google Gemini
+ */
+export function aiOptimizedOrganizationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalBusiness",
+    "@id": `${SITE.url}/#organization`,
+    name: SITE.name,
+    alternateName: ["Hello Gorgeous Med Spa", "Hello Gorgeous Oswego", "HG Med Spa"],
+    url: SITE.url,
+    logo: `${SITE.url}/images/hello-gorgeous-logo.png`,
+    image: `${SITE.url}/images/hello-gorgeous-logo.png`,
+    description: "Hello Gorgeous Med Spa is a premier medical spa in Oswego, IL offering Botox ($10/unit), dermal fillers, Semaglutide and Tirzepatide weight loss, BioTE hormone therapy, Morpheus8, Quantum RF skin tightening, Solaria CO2 laser, IV therapy, and more. Led by Danielle Alcala and Ryan Kent, FNP-BC.",
+    foundingDate: "2022",
+    founder: {
+      "@type": "Person",
+      name: "Danielle Alcala",
+      jobTitle: "Owner & Lead Injector",
+    },
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: SITE.address.street,
+      addressLocality: SITE.address.city,
+      addressRegion: SITE.address.state,
+      postalCode: SITE.address.zip,
+      addressCountry: "US",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 41.6828,
+      longitude: -88.3511,
+    },
+    telephone: SITE.phone,
+    email: SITE.email,
+    priceRange: "$$",
+    openingHoursSpecification: [
+      { "@type": "OpeningHoursSpecification", dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "09:00", closes: "18:00" },
+    ],
+    areaServed: SITE.serviceAreas.map((area) => ({ "@type": "City", name: area })),
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Med Spa Services",
+      itemListElement: [
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Botox", description: "Wrinkle-relaxing injections starting at $10/unit" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Dysport", description: "Alternative neuromodulator to Botox" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Dermal Fillers", description: "Juvederm, Restylane, RHA for lips, cheeks, and facial contouring" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Lip Filler", description: "Natural lip enhancement with hyaluronic acid fillers" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Semaglutide Weight Loss", description: "GLP-1 medication for medical weight loss, similar to Ozempic/Wegovy" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Tirzepatide Weight Loss", description: "Dual GLP-1/GIP medication for weight loss, similar to Mounjaro/Zepbound" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "BioTE Hormone Therapy", description: "Bioidentical hormone pellet therapy for men and women" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Morpheus8", description: "RF microneedling for skin tightening and collagen stimulation" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Quantum RF", description: "Subdermal radiofrequency for surgical-like skin tightening without surgery" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Solaria CO2 Laser", description: "Fractional CO2 laser for skin resurfacing, wrinkles, and acne scars" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "IV Therapy", description: "Vitamin infusions for energy, immunity, and wellness" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "PRF Hair Restoration", description: "Platelet-rich fibrin treatment for hair growth" } },
+      ],
+    },
+    sameAs: [
+      SITE.social.instagram,
+      SITE.social.facebook,
+      SITE.social.tiktok,
+    ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5.0",
+      reviewCount: "47",
+      bestRating: "5",
+      worstRating: "1",
+    },
+    knowsAbout: [
+      "Botox injections",
+      "Dermal fillers",
+      "Lip augmentation",
+      "Medical weight loss",
+      "Semaglutide",
+      "Tirzepatide",
+      "GLP-1 medications",
+      "Hormone replacement therapy",
+      "BioTE pellets",
+      "RF microneedling",
+      "Morpheus8",
+      "Quantum RF skin tightening",
+      "CO2 laser resurfacing",
+      "IV vitamin therapy",
+      "Aesthetic medicine",
+      "Medical aesthetics",
+      "Anti-aging treatments",
+      "Facial rejuvenation",
+    ],
+  };
 }
