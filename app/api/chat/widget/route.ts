@@ -89,6 +89,71 @@ function getSpecificIntentReply(message: string, bookingUrl: string, phone: stri
     return `Pricing depends on the service and sometimes the area or product. When you book or call us at ${phone}, we can give you exact pricing for what you’re interested in.`;
   }
 
+  // ============================================
+  // MORPHEUS8 INTENTS
+  // ============================================
+  if (has("morpheus8", "morpheus 8", "morpheus-8") || (has("rf") && has("microneedling"))) {
+    if (has("aftercare", "after care", "post", "recovery", "downtime", "heal")) {
+      return `Great question! Morpheus8 typically has 3-5 days of social downtime with redness, mild swelling, and peeling. We have detailed pre and post-care instructions at hellogorgeousmedspa.com/aftercare/morpheus8 — I highly recommend reviewing them before your treatment. Want me to help you book a consultation?`;
+    }
+    if (has("price", "cost", "how much")) {
+      return `We offer Morpheus8 packages starting at $2,100 for a package of 3 treatments. Single treatments and custom plans are also available. Want to book a free consultation to discuss your goals and get exact pricing?`;
+    }
+    if (has("what is", "tell me about", "explain", "how does")) {
+      return `Morpheus8 is an FDA-cleared RF (radiofrequency) microneedling treatment that penetrates up to 8mm deep to tighten skin, reduce fat, and stimulate collagen. It's amazing for jowls, acne scars, stretch marks, and loose skin on face, neck, and body. Results develop over 3-6 months. We're excited to offer this — want to book a consultation?`;
+    }
+    return `Morpheus8 is one of our most exciting treatments! It combines microneedling with radiofrequency to tighten skin, stimulate collagen, and treat concerns like jowls, acne scars, and loose skin. Downtime is about 3-5 days. Check out our aftercare guide at hellogorgeousmedspa.com/aftercare/morpheus8 or book a consultation to learn more!`;
+  }
+
+  // ============================================
+  // QUANTUM RF INTENTS
+  // ============================================
+  if (has("quantum") || (has("subdermal") && has("rf"))) {
+    if (has("aftercare", "after care", "post", "recovery", "downtime", "heal")) {
+      return `Quantum RF is minimally invasive, so recovery is a bit more involved than surface treatments. Expect 1-3 weeks depending on the area treated. We have comprehensive pre and post-care instructions at hellogorgeousmedspa.com/aftercare/quantum-rf — essential reading before your procedure. Questions? Book a consultation!`;
+    }
+    if (has("price", "cost", "how much")) {
+      return `Quantum RF pricing varies by treatment area: Chin & Neck is $2,800, Lower Abdomen $3,900, Full Abdomen $4,250, Sagging Arms $2,950, and Butt Tightening $3,900. We have a VIP launch with special offers — check out hellogorgeousmedspa.com/vip-skin-tightening or book a consultation!`;
+    }
+    if (has("what is", "tell me about", "explain", "how does", "difference", "vs morpheus")) {
+      return `Quantum RF is a minimally invasive treatment that delivers radiofrequency energy BENEATH the skin (subdermal) for surgical-like skin tightening without surgery. Unlike Morpheus8 which works from the surface, Quantum RF goes deeper for more dramatic results on significant skin laxity — great for double chin, arms, abdomen, and post-weight-loss loose skin. Want details? Book a consultation!`;
+    }
+    return `Quantum RF is our newest advanced skin tightening treatment! It's minimally invasive and delivers dramatic results for loose skin on chin/neck, arms, abdomen, and more — even "Ozempic butt." We're one of the first in the area to offer it. Check our VIP launch at hellogorgeousmedspa.com/vip-skin-tightening or book a consultation to learn more!`;
+  }
+
+  // ============================================
+  // SOLARIA CO2 INTENTS
+  // ============================================
+  if (has("solaria", "co2", "laser resurfacing", "fractional laser")) {
+    if (has("aftercare", "after care", "post", "recovery", "downtime", "heal")) {
+      return `Solaria CO2 has about 5-7 days of social downtime with redness, swelling, and peeling — but the results are amazing! We have detailed instructions at hellogorgeousmedspa.com/aftercare/solaria-co2. Keeping skin moist with Aquaphor is key. Book a consultation to see if it's right for you!`;
+    }
+    if (has("price", "cost", "how much")) {
+      return `Solaria CO2 pricing depends on the treatment area and depth. It's a premium treatment with dramatic results. For exact pricing, book a free consultation and we'll assess your skin and goals.`;
+    }
+    if (has("what is", "tell me about", "explain", "how does")) {
+      return `Solaria CO2 is a fractional CO2 laser — the gold standard for skin resurfacing. It treats wrinkles, acne scars, sun damage, and uneven texture with dramatic results from just one treatment. Downtime is 5-7 days. We're one of few practices in the western suburbs offering this technology. Interested? Book a consultation!`;
+    }
+    return `Solaria CO2 is our premium laser resurfacing treatment — the gold standard for dramatic skin rejuvenation! It treats wrinkles, acne scars, sun damage, and texture issues. Expect 5-7 days downtime but incredible results. Check out aftercare at hellogorgeousmedspa.com/aftercare/solaria-co2 or book a consultation!`;
+  }
+
+  // ============================================
+  // SKIN TIGHTENING GENERAL
+  // ============================================
+  if (has("skin tightening", "loose skin", "sagging", "laxity", "tighten")) {
+    if (has("weight loss", "ozempic", "wegovy", "mounjaro", "glp-1", "lost weight")) {
+      return `After weight loss, loose skin is common — we have great options! Quantum RF is our most advanced for significant laxity (chin, arms, abdomen, butt). Morpheus8 is perfect for moderate concerns on face and body. Both stimulate collagen for natural tightening. Book a consultation to see which is right for you!`;
+    }
+    return `We offer several skin tightening treatments! Quantum RF is our newest — minimally invasive with surgical-like results for chin, arms, abdomen, butt. Morpheus8 combines RF with microneedling for face and body. Solaria CO2 laser is the gold standard for facial resurfacing. Book a consultation and we'll recommend the best option for your goals!`;
+  }
+
+  // ============================================
+  // AFTERCARE GENERAL
+  // ============================================
+  if (has("aftercare", "after care", "pre care", "instructions", "before treatment", "after treatment")) {
+    return `We have detailed pre and post-care instructions for our treatments! Morpheus8: hellogorgeousmedspa.com/aftercare/morpheus8 • Quantum RF: hellogorgeousmedspa.com/aftercare/quantum-rf • Solaria CO2: hellogorgeousmedspa.com/aftercare/solaria-co2. Following these is essential for the best results. Which treatment are you asking about?`;
+  }
+
   return null;
 }
 
@@ -170,6 +235,40 @@ function getStaticKnowledge(): KnowledgeEntry[] {
   entries.push({
     title: "book appointment schedule how to book live booking cancel reschedule first visit pricing",
     content: bookingFaq,
+  });
+
+  // ============================================
+  // ADVANCED SKIN TIGHTENING SERVICES
+  // ============================================
+  
+  // Morpheus8 Knowledge
+  entries.push({
+    title: "morpheus8 rf microneedling skin tightening collagen face body",
+    content: "Morpheus8 is an FDA-cleared RF (radiofrequency) microneedling treatment that penetrates up to 8mm deep to tighten skin, reduce fat, and stimulate collagen. Treats jowls, acne scars, stretch marks, loose skin on face, neck, and body. 3-5 days downtime with redness and peeling. Results develop over 3-6 months. Package of 3 for $2,100. Aftercare instructions at hellogorgeousmedspa.com/aftercare/morpheus8",
+  });
+  
+  // Quantum RF Knowledge
+  entries.push({
+    title: "quantum rf subdermal skin tightening minimally invasive chin neck abdomen arms butt",
+    content: "Quantum RF is a minimally invasive treatment delivering radiofrequency energy beneath the skin (subdermal) for surgical-like skin tightening without surgery. More dramatic than surface treatments. Ideal for double chin, neck, arms (bat wings), abdomen, butt (Ozempic butt). Pricing: Chin/Neck $2,800, Lower Abdomen $3,900, Full Abdomen $4,250, Arms $2,950, Butt $3,900. Recovery 1-3 weeks. Aftercare at hellogorgeousmedspa.com/aftercare/quantum-rf. VIP launch at hellogorgeousmedspa.com/vip-skin-tightening",
+  });
+  
+  // Solaria CO2 Knowledge
+  entries.push({
+    title: "solaria co2 laser resurfacing fractional laser wrinkles acne scars",
+    content: "Solaria CO2 is a fractional CO2 laser - the gold standard for skin resurfacing. Treats wrinkles, acne scars, sun damage, uneven texture. Dramatic results from one treatment. 5-7 days downtime with redness, swelling, peeling. Keep skin moist with Aquaphor. One of few western suburb practices offering this technology. Aftercare at hellogorgeousmedspa.com/aftercare/solaria-co2",
+  });
+  
+  // Skin Tightening Comparison
+  entries.push({
+    title: "skin tightening comparison morpheus8 vs quantum rf loose skin weight loss ozempic",
+    content: "For loose skin after weight loss: Quantum RF is best for significant laxity (chin, arms, abdomen, butt) - minimally invasive with surgical-like results. Morpheus8 is best for moderate concerns and can treat face and body. Solaria CO2 is the gold standard for facial resurfacing. All stimulate collagen for natural tightening. Book consultation to determine best option.",
+  });
+  
+  // Aftercare Links
+  entries.push({
+    title: "aftercare instructions pre care post care treatment preparation recovery",
+    content: "Pre and post-care instructions for advanced treatments: Morpheus8 aftercare at hellogorgeousmedspa.com/aftercare/morpheus8 (3-5 days downtime). Quantum RF aftercare at hellogorgeousmedspa.com/aftercare/quantum-rf (1-3 weeks recovery, compression required). Solaria CO2 aftercare at hellogorgeousmedspa.com/aftercare/solaria-co2 (5-7 days downtime, keep moist with Aquaphor). Following instructions is essential for best results.",
   });
 
   return entries;
