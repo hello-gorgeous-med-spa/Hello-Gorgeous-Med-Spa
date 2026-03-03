@@ -16,6 +16,9 @@ export type ConsentFormType =
   | 'weight_loss_consent'
   | 'chemical_peel_consent'
   | 'microneedling_consent'
+  | 'morpheus8_consent'
+  | 'quantum_rf_consent'
+  | 'solaria_co2_consent'
   | 'sms_consent';
 
 export type ConsentStatus = 'pending' | 'signed' | 'declined' | 'expired';
@@ -637,6 +640,81 @@ export const CONSENT_FORMS: ConsentForm[] = [
   },
 
   {
+    id: 'morpheus8_consent',
+    name: 'Morpheus8 RF Microneedling Consent',
+    shortName: 'Morpheus8 Consent',
+    description: 'Consent for Morpheus8 face & body RF microneedling',
+    version: '1.0',
+    lastUpdated: '2026-03-01',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 14,
+    requiredForServices: ['morpheus8', 'morpheus8-rf'],
+    content: `
+      <h2>INFORMED CONSENT FOR MORPHEUS8 RF MICRONEEDLING</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      <h3>TREATMENT</h3>
+      <p>I understand that I am receiving Morpheus8 treatment, which combines fractional RF energy with microneedling to improve skin texture, tone, laxity, and contour on the face and/or body.</p>
+      <h3>RISKS</h3>
+      <p>Redness, swelling, tenderness (2–5 days); bruising, dryness; rare: hyperpigmentation, scarring, infection, nerve injury.</p>
+      <h3>CONTRAINDICATIONS</h3>
+      <p>I confirm I am NOT pregnant or breastfeeding; have no active infection or pacemaker in treatment area; I have disclosed medications. I will follow pre/post instructions and consent to before/after photos.</p>
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO MORPHEUS8 TREATMENT.</strong></p>
+    `,
+  },
+
+  {
+    id: 'quantum_rf_consent',
+    name: 'Quantum RF Skin Tightening Consent',
+    shortName: 'Quantum RF Consent',
+    description: 'Consent for Quantum RF subdermal skin tightening',
+    version: '1.0',
+    lastUpdated: '2026-03-01',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 15,
+    requiredForServices: ['quantum-rf', 'quantum-rf-tightening'],
+    content: `
+      <h2>INFORMED CONSENT FOR QUANTUM RF SKIN TIGHTENING</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      <h3>TREATMENT</h3>
+      <p>I understand that I am receiving Quantum RF treatment, a minimally invasive procedure using subdermal RF energy to tighten loose skin (e.g. chin/neck, abdomen, arms, buttocks).</p>
+      <h3>RISKS</h3>
+      <p>Swelling, bruising, tenderness; temporary numbness; rare: infection, scarring, asymmetry, nerve injury. I will follow compression and aftercare instructions.</p>
+      <h3>CONTRAINDICATIONS</h3>
+      <p>I confirm I am NOT pregnant or breastfeeding; have no pacemaker or active infection; I have disclosed medical history. I understand this is elective.</p>
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO QUANTUM RF TREATMENT.</strong></p>
+    `,
+  },
+
+  {
+    id: 'solaria_co2_consent',
+    name: 'Solaria CO₂ Laser Consent',
+    shortName: 'Solaria CO₂ Consent',
+    description: 'Consent for Solaria fractional CO₂ laser resurfacing',
+    version: '1.0',
+    lastUpdated: '2026-03-01',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 16,
+    requiredForServices: ['solaria-co2', 'solaria', 'co2-laser', 'stretch-mark'],
+    content: `
+      <h2>INFORMED CONSENT FOR SOLARIA CO₂ LASER TREATMENT</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      <h3>TREATMENT</h3>
+      <p>I understand that I am receiving fractional CO₂ laser treatment (Solaria) for skin resurfacing (e.g. wrinkles, scars, stretch marks, texture, tone).</p>
+      <h3>RISKS</h3>
+      <p>Redness, swelling, oozing, crusting; itching, dryness; possible hyper/hypopigmentation; rare: scarring, infection, cold sore flare. Eye protection will be used.</p>
+      <h3>CONTRAINDICATIONS</h3>
+      <p>I confirm I am NOT pregnant or breastfeeding; have no active infection or cold sores; I have disclosed Accutane use and medications. I will avoid sun and use sunscreen as directed. I consent to before/after photos.</p>
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO SOLARIA CO₂ LASER TREATMENT.</strong></p>
+    `,
+  },
+
+  {
     id: 'weight_loss_consent',
     name: 'Medical Weight Loss Consent',
     shortName: 'Weight Loss Consent',
@@ -646,7 +724,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
     isRequired: true,
     requiresWitness: false,
     expiresAfterDays: 180, // 6 month renewal for ongoing treatment
-    order: 14,
+    order: 17,
     requiredForServices: ['weight-loss', 'semaglutide', 'tirzepatide', 'glp-1'],
     content: `
       <h2>INFORMED CONSENT FOR MEDICAL WEIGHT LOSS TREATMENT</h2>
@@ -736,7 +814,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
     isRequired: false, // Optional but needed for marketing
     requiresWitness: false,
     expiresAfterDays: null, // Never expires, but can be revoked
-    order: 15,
+    order: 18,
     content: `
       <h2>SMS/TEXT MESSAGE CONSENT FORM</h2>
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
