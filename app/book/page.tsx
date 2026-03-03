@@ -6,6 +6,7 @@
 
 import Link from 'next/link';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { SMSDisclosureStatic } from '@/components/SMSDisclosureStatic';
 import { DEFAULT_ONLINE_BOOKING_CONFIG, DEFAULT_BOOKING_POLICY, DEFAULT_CANCELLATION_POLICY } from '@/lib/hgos/policies';
 import type { Metadata } from 'next';
 import { SITE } from '@/lib/seo';
@@ -351,6 +352,23 @@ export default async function PublicBookingPage({
               </a>
             </p>
           )}
+        </section>
+
+        {/* SMS Opt-In Disclosure - Required for 10DLC/MNO Compliance */}
+        <section id="sms-opt-in" className="bg-white border-2 border-black rounded-2xl p-6 mb-12">
+          <h3 className="font-bold text-black text-lg mb-3 flex items-center gap-2">
+            📱 Text Message Updates
+          </h3>
+          <p className="text-black text-sm mb-4">
+            When you book an appointment at <strong>https://www.hellogorgeousmedspa.com/book</strong>, 
+            you may opt in to receive text message updates.
+          </p>
+          <SMSDisclosureStatic />
+          <p className="text-black/70 text-xs mt-4">
+            The checkbox is not pre-checked and requires affirmative consent. 
+            You can also opt in at <Link href="/contact" className="text-[#E6007E] underline">hellogorgeousmedspa.com/contact</Link> or 
+            <Link href="/sms-opt-in" className="text-[#E6007E] underline ml-1">hellogorgeousmedspa.com/sms-opt-in</Link>.
+          </p>
         </section>
 
         {/* Contact Info */}
