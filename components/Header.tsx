@@ -353,23 +353,26 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-black/10 shadow-sm">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 overflow-visible">
-        <div className="flex items-center justify-between h-18 min-h-[4.5rem]">
-          {/* Logo - left corner */}
-          <Link href="/" className="flex items-center flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/30 rounded-lg">
-            <Image
-              src="/images/hello-gorgeous-logo.png"
-              alt={SITE.name}
-              width={220}
-              height={56}
-              className="h-12 w-auto object-contain object-left sm:h-14"
-              priority
-            />
-          </Link>
+    <header className="sticky top-0 z-50 bg-white border-b border-black/10 shadow-sm h-[65px] md:h-20 flex items-center py-0">
+      <div className="mx-auto w-full max-w-7xl h-full px-4 sm:px-6 lg:px-10 overflow-visible py-0">
+        <div className="flex items-center justify-between h-full py-0">
+          {/* Logo container - constrained height, vertical center */}
+          <div className="flex h-[45px] md:h-[60px] flex-shrink-0 items-center">
+            <Link href="/" className="flex h-full items-center focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/30 rounded-lg">
+              <Image
+                src="/images/hello-gorgeous-logo.png"
+                alt={SITE.name}
+                width={220}
+                height={60}
+                className="max-h-[45px] w-auto object-contain object-left md:max-h-[60px] block"
+                style={{ maxHeight: "100%" }}
+                priority
+              />
+            </Link>
+          </div>
 
           {/* Desktop Navigation - centered, professional spacing */}
-          <nav className="hidden lg:flex flex-1 items-center justify-center gap-x-4 xl:gap-x-5 min-w-0 overflow-visible" aria-label="Main navigation">
+          <nav className="hidden lg:flex flex-1 items-center justify-center gap-x-4 xl:gap-x-5 min-w-0 overflow-visible py-0" aria-label="Main navigation">
             {/* Services Dropdown */}
             <div 
               className="relative flex items-center"
@@ -510,7 +513,7 @@ export function Header() {
           </nav>
 
           {/* Right side actions - never shrink so Book Now is always visible */}
-          <div className="flex items-center gap-4 xl:gap-5 flex-shrink-0">
+          <div className="flex items-center gap-4 xl:gap-5 flex-shrink-0 py-0">
             {/* Social - Desktop: Instagram, Facebook, TikTok */}
             <a
               href={SITE.social.instagram}
