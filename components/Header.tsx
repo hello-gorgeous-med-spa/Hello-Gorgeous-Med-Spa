@@ -354,7 +354,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-black/10 shadow-sm">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 overflow-visible">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 overflow-visible">
         <div className="flex items-center justify-between h-18 min-h-[4.5rem]">
           {/* Logo - left corner */}
           <Link href="/" className="flex items-center flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/30 rounded-lg">
@@ -369,7 +369,7 @@ export function Header() {
           </Link>
 
           {/* Desktop Navigation - centered, professional spacing */}
-          <nav className="hidden lg:flex flex-1 items-center justify-center gap-x-3 xl:gap-x-4 min-w-0 overflow-visible" aria-label="Main navigation">
+          <nav className="hidden lg:flex flex-1 items-center justify-center gap-x-4 xl:gap-x-5 min-w-0 overflow-visible" aria-label="Main navigation">
             {/* Services Dropdown */}
             <div 
               className="relative flex items-center"
@@ -379,10 +379,10 @@ export function Header() {
               <Link
                 href="/services"
                 className={cx(
-                  "flex items-center justify-center gap-1.5 h-10 px-4 rounded-md text-sm font-medium tracking-wide whitespace-nowrap transition-colors duration-200",
+                  "flex items-center justify-center gap-1.5 h-10 px-4 rounded-md text-sm font-medium tracking-wide whitespace-nowrap transition-colors duration-200 border",
                   pathname?.startsWith('/services')
-                    ? "text-white bg-[#FF2D8E]"
-                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
+                    ? "text-white bg-[#FF2D8E] border-[#FF2D8E]"
+                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E] border-black hover:border-[#FF2D8E]"
                 )}
               >
                 Services
@@ -402,10 +402,10 @@ export function Header() {
               <Link
                 href="/about"
                 className={cx(
-"flex items-center justify-center gap-1.5 h-10 px-4 rounded-md text-sm font-medium tracking-wide whitespace-nowrap transition-colors duration-200",
+                  "flex items-center justify-center gap-1.5 h-10 px-4 rounded-md text-sm font-medium tracking-wide whitespace-nowrap transition-colors duration-200 border",
                   pathname?.startsWith('/about') || pathname?.startsWith('/providers') || pathname?.startsWith('/locations')
-                    ? "text-white bg-[#FF2D8E]"
-                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
+                    ? "text-white bg-[#FF2D8E] border-[#FF2D8E]"
+                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E] border-black hover:border-[#FF2D8E]"
                 )}
               >
                 About
@@ -425,10 +425,10 @@ export function Header() {
               <Link
                 href="/your-journey"
                 className={cx(
-"flex items-center justify-center gap-1.5 h-10 px-4 rounded-md text-sm font-medium tracking-wide whitespace-nowrap transition-colors duration-200",
+                  "flex items-center justify-center gap-1.5 h-10 px-4 rounded-md text-sm font-medium tracking-wide whitespace-nowrap transition-colors duration-200 border",
                   pathname?.startsWith('/your-journey')
-                    ? "text-white bg-[#FF2D8E]"
-                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
+                    ? "text-white bg-[#FF2D8E] border-[#FF2D8E]"
+                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E] border-black hover:border-[#FF2D8E]"
                 )}
               >
                 Your Journey
@@ -472,10 +472,10 @@ export function Header() {
                 type="button"
                 onClick={() => setActiveDropdown(activeDropdown === 'more' ? null : 'more')}
                 className={cx(
-"flex items-center justify-center gap-1.5 h-10 px-4 rounded-md text-sm font-medium tracking-wide whitespace-nowrap transition-colors duration-200",
+                  "flex items-center justify-center gap-1.5 h-10 px-4 rounded-md text-sm font-medium tracking-wide whitespace-nowrap transition-colors duration-200 border",
                   activeDropdown === 'more'
-                    ? "text-white bg-[#FF2D8E]"
-                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
+                    ? "text-white bg-[#FF2D8E] border-[#FF2D8E]"
+                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E] border-black hover:border-[#FF2D8E]"
                 )}
               >
                 More
@@ -510,7 +510,7 @@ export function Header() {
           </nav>
 
           {/* Right side actions - never shrink so Book Now is always visible */}
-          <div className="flex items-center gap-3 xl:gap-4 flex-shrink-0">
+          <div className="flex items-center gap-4 xl:gap-5 flex-shrink-0">
             {/* Social - Desktop: Instagram, Facebook, TikTok */}
             <a
               href={SITE.social.instagram}
