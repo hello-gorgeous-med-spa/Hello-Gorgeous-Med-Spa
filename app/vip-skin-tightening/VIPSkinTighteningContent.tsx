@@ -5,6 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { CHERRY_PAY_URL } from "@/lib/flows";
 
+// Square payment link for the VIP $500 deposit (from your Square event)
+const SQUARE_DEPOSIT_LINK = process.env.NEXT_PUBLIC_VIP_SQUARE_DEPOSIT_LINK || "https://square.link/u/k5rX264z";
+
 const QUANTUM_OPTIONS = [
   { id: "chin_neck", name: "Chin & Neck", price: 2800 },
   { id: "lower_abdomen", name: "Lower Abdomen", price: 3900 },
@@ -81,27 +84,8 @@ export function VIPSkinTighteningContent() {
     }
   };
 
-  const handlePayDeposit = async () => {
-    setDepositLinkError(null);
-    setDepositLinkLoading(true);
-    try {
-      const res = await fetch("/api/vip-waitlist-deposit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, name }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Could not create payment link.");
-      if (data.url) {
-        window.location.href = data.url;
-        return;
-      }
-      throw new Error("No payment link returned.");
-    } catch (err) {
-      setDepositLinkError(err instanceof Error ? err.message : "Something went wrong.");
-    } finally {
-      setDepositLinkLoading(false);
-    }
+  const handlePayDeposit = () => {
+    window.location.href = SQUARE_DEPOSIT_LINK;
   };
 
   if (done) {
@@ -114,21 +98,19 @@ export function VIPSkinTighteningContent() {
             We'll send a confirmation email shortly. Pay your $500 refundable deposit below to secure your spot—or we can contact you to complete it.
           </p>
           <div className="space-y-3">
-            <button
-              type="button"
-              onClick={handlePayDeposit}
-              disabled={depositLinkLoading}
-              className="w-full py-4 rounded-xl font-bold text-lg bg-[#FF2D8E] text-white hover:bg-[#E6007E] disabled:opacity-50 transition-colors"
+            <a
+              href={SQUARE_DEPOSIT_LINK}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full py-4 rounded-xl font-bold text-lg bg-[#FF2D8E] text-white hover:bg-[#E6007E] transition-colors text-center"
             >
-              {depositLinkLoading ? "Creating payment link…" : "Pay $500 deposit now (Square)"}
-            </button>
+              Pay $500 deposit now (Square)
+            </a>
             <Link href="/" className="block text-white/70 hover:text-white text-sm">
               I'll pay later — return home
             </Link>
           </div>
-          {depositLinkError && (
-            <p className="mt-4 text-red-400 text-sm">{depositLinkError}</p>
-          )}
+
           <p className="mt-8 text-sm text-white/60">Tag: VIP Waitlist 2026</p>
         </div>
       </div>
@@ -193,16 +175,15 @@ export function VIPSkinTighteningContent() {
             </div>
           </div>
 
-          <div className="rounded-xl border-2 border-[#FF2D8E] bg-[#FF2D8E]/10 p-4 md:p-6 mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="rounded-xl border-2 border-[#FF2D8E] bg-[#FF2D8E]/10 p-4 md:p-6 mb-6">
             <p className="text-lg font-semibold text-white">
-              First 10 Quantum RF Clients Receive <span className="text-[#FF2D8E]">FREE Full Face CO₂</span> ($1,800 Value)
+              All VIP list members receive <span className="text-[#FF2D8E]">FREE Full Face CO₂</span> ($1,800 value).
             </p>
-            <span className="inline-flex items-center px-4 py-2 rounded-full bg-[#FF2D8E] text-white text-sm font-bold whitespace-nowrap">
-              Limited Spots Available
-            </span>
+            <p className="text-white/90 text-sm mt-2">VIP list closes March 31st.</p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-10">
+          <h3 className="text-xl font-bold text-white mb-4">Select the service you&apos;re interested in</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-6">
             {QUANTUM_OPTIONS.map((opt) => (
               <button
                 key={opt.id}
@@ -226,6 +207,23 @@ export function VIPSkinTighteningContent() {
                 </ul>
               </button>
             ))}
+            <button
+              type="button"
+              onClick={() => { setSection("morpheus8"); setTreatment("morpheus8_package_3"); }}
+              className={`text-left rounded-xl border-2 p-5 transition-all ${
+                section === "morpheus8"
+                  ? "border-[#FF2D8E] bg-[#FF2D8E]/10"
+                  : "border-white/20 bg-white/5 hover:border-white/40"
+              }`}
+            >
+              <p className="font-bold text-white text-lg">Morpheus8 – Package of 3</p>
+              <p className="text-[#FF2D8E] text-xl font-bold mt-1">$2,100</p>
+              <ul className="mt-3 text-sm text-white/70 space-y-1">
+                <li>• RF microneedling face & body</li>
+                <li>• 3 treatment sessions</li>
+                <li>• $500 deposit applied toward package</li>
+              </ul>
+            </button>
           </div>
 
           <div className="rounded-xl bg-white/5 border border-white/10 p-6 mb-10 max-w-2xl">
@@ -235,6 +233,7 @@ export function VIPSkinTighteningContent() {
               <li>• Refundable within 14 days</li>
               <li>• Non-refundable after procedure date is confirmed</li>
             </ul>
+            <p className="text-[#FF2D8E] font-semibold text-sm mt-3">VIP list closes March 31st.</p>
           </div>
         </section>
 
@@ -333,8 +332,7 @@ export function VIPSkinTighteningContent() {
               <p className="text-white/80 text-sm mt-2">$500 refundable deposit applied toward package</p>
             </div>
             <div className="rounded-xl border border-[#FF2D8E] bg-[#FF2D8E]/5 p-4">
-              <p className="text-white font-semibold">First 20 clients who leave deposit receive:</p>
-              <p className="text-[#FF2D8E] font-bold mt-1">FREE Full Face CO₂ ($1,800 value)</p>
+              <p className="text-white font-semibold">All VIP list members receive FREE Full Face CO₂ ($1,800 value).</p>
             </div>
           </div>
           <button
@@ -366,6 +364,9 @@ export function VIPSkinTighteningContent() {
 
         <form onSubmit={handleSubmit} className="max-w-xl space-y-6">
           <h3 className="text-2xl font-bold text-white">Secure My VIP Spot</h3>
+          <p className="text-white/80 text-sm">
+            {section === "morpheus8" ? "Morpheus8 Package of 3 — $2,100" : `${QUANTUM_OPTIONS.find((o) => o.id === treatment)?.name ?? treatment} — $${QUANTUM_OPTIONS.find((o) => o.id === treatment)?.price.toLocaleString() ?? ""}`}
+          </p>
           <div>
             <label className="block text-sm font-medium text-white/90 mb-1">Full Name *</label>
             <input
