@@ -148,7 +148,7 @@ export default function MarketingHubPage() {
         </div>
 
         {/* Quick actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
           <Link
             href="/admin/marketing/campaigns/new"
             className="bg-white rounded-xl p-6 border-2 border-dashed border-pink-300 hover:border-[#FF2D8E] hover:bg-pink-50 transition-colors text-center group"
@@ -180,6 +180,14 @@ export default function MarketingHubPage() {
             <span className="text-3xl block mb-2">📍</span>
             <h3 className="font-semibold text-black group-hover:text-amber-600">Google Post Campaigns</h3>
             <p className="text-sm text-black mt-1">Ready-to-use copy for Google Business</p>
+          </Link>
+          <Link
+            href="/admin/marketing/agents"
+            className="bg-white rounded-xl p-6 border-2 border-dashed border-violet-300 hover:border-violet-500 hover:bg-violet-50 transition-colors text-center group"
+          >
+            <span className="text-3xl block mb-2">🤖</span>
+            <h3 className="font-semibold text-black group-hover:text-violet-600">5 Agents Runbook</h3>
+            <p className="text-sm text-black mt-1">Weekly checklist — social, inbox, reviews, email, promo</p>
           </Link>
         </div>
 
