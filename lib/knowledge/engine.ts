@@ -115,6 +115,9 @@ const CATEGORY_BOOST: Record<string, string[]> = {
   safety: ["safe", "contraind", "urgent", "emergency", "red flag", "vision", "breathing"],
   "iv-therapy": ["iv", "hydration", "vitamin injection"],
   comparisons: ["vs", "compare", "difference"],
+  membership: ["membership", "member", "no prior authorization", "prior auth", "10% off", "free service", "annual", "monthly", "cancel membership"],
+  vip: ["vip", "trifecta", "morpheus", "solaria", "quantum rf", "skin tightening", "co2 laser", "waitlist"],
+  site: ["location", "hours", "address", "oswego", "book", "appointment", "first visit", "price", "cost", "insurance", "provider", "ryan", "danielle", "pre care", "post care", "before", "after treatment"],
 };
 
 function categoryHints(text: string) {

@@ -12,6 +12,7 @@ import { AFTERCARE } from "./aftercare";
 import { SAFETY } from "./safety";
 import { EXPECTATIONS } from "./expectations";
 import { COMPARISONS } from "./comparisons";
+import { SITE_CONTENT } from "./site-content";
 
 export type { KnowledgeEntry, KnowledgeDomain } from "./types";
 
@@ -28,6 +29,7 @@ export const LOCAL_KNOWLEDGE_LIBRARY: readonly KnowledgeEntry[] = [
   ...SAFETY,
   ...EXPECTATIONS,
   ...COMPARISONS,
+  ...SITE_CONTENT,
 ] as const;
 
 export const KNOWLEDGE_LIBRARY_VERSION = 1;

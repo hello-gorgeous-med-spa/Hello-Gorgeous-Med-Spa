@@ -108,13 +108,14 @@ export function HelloGorgeousAssistant() {
         body: JSON.stringify({ message: trimmed }),
       });
       const data = await res.json();
-      const reply = typeof data?.reply === "string" ? data.reply : "I’m here to help. You can book online or call us anytime.";
+      const reply = typeof data?.reply === "string" ? data.reply : "I'm here to help. You can book online or call us anytime.";
       setMessages((prev) => [
         ...prev,
         { id: (Date.now() + 1).toString(), role: "assistant", content: reply },
       ]);
       if (speakReply) speak(reply);
       if (data?.needsFeedback) setPendingFeedback({ message: trimmed });
+      if (data?.showInlineBooking) setShowBookingFlow(true);
     } catch {
       const errMsg = "Something went wrong. You can book at the link below or call us — we're here to help!";
       setMessages((prev) => [

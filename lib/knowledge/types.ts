@@ -26,5 +26,8 @@ export type KnowledgeDomain =
   | "aftercare"
   | "safety"
   | "comparisons"
-  | "expectations";
+  | "expectations"
+  | "membership"
+  | "vip"
+  | "site";
 

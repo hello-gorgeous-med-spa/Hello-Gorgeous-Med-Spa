@@ -29,6 +29,17 @@ const BOOKING_KEYWORDS = [
 ];
 const CALL_KEYWORDS = ["call", "phone", "number", "speak", "talk to someone", "reach"];
 
+/** User clearly wants to book now (not just "how do I book") → open inline booking flow. */
+function wantsToBookNow(message: string): boolean {
+  const lower = message.toLowerCase().trim();
+  if (lower.length < 3) return false;
+  const has = (...words: string[]) => words.some((w) => lower.includes(w));
+  if (has("how do i", "how to", "how can i", "how does") && has("book", "schedule")) return false;
+  if (has("book me", "schedule me", "i want to book", "i'd like to book", "i would like to book", "can you book me", "book an appointment", "schedule an appointment", "i need to book", "i need an appointment", "set up an appointment", "make an appointment", "get an appointment")) return true;
+  if ((has("book", "schedule", "appointment") && (has("please", "now", "today", "tomorrow", "next week")))) return true;
+  return false;
+}
+
 function matchesIntent(message: string, keywords: string[]): boolean {
   const lower = message.toLowerCase().trim();
   return keywords.some((k) => lower.includes(k));
@@ -87,71 +98,6 @@ function getSpecificIntentReply(message: string, bookingUrl: string, phone: stri
   // Pricing / cost / how much
   if (has("how much", "price", "cost", "pricing", "rate", "fee") && !has("supplement")) {
     return `Pricing depends on the service and sometimes the area or product. When you book or call us at ${phone}, we can give you exact pricing for what you’re interested in.`;
-  }
-
-  // ============================================
-  // MORPHEUS8 INTENTS
-  // ============================================
-  if (has("morpheus8", "morpheus 8", "morpheus-8") || (has("rf") && has("microneedling"))) {
-    if (has("aftercare", "after care", "post", "recovery", "downtime", "heal")) {
-      return `Great question! Morpheus8 typically has 3-5 days of social downtime with redness, mild swelling, and peeling. We have detailed pre and post-care instructions at hellogorgeousmedspa.com/aftercare/morpheus8 — I highly recommend reviewing them before your treatment. Want me to help you book a consultation?`;
-    }
-    if (has("price", "cost", "how much")) {
-      return `We offer Morpheus8 packages starting at $2,100 for a package of 3 treatments. Single treatments and custom plans are also available. Want to book a free consultation to discuss your goals and get exact pricing?`;
-    }
-    if (has("what is", "tell me about", "explain", "how does")) {
-      return `Morpheus8 is an FDA-cleared RF (radiofrequency) microneedling treatment that penetrates up to 8mm deep to tighten skin, reduce fat, and stimulate collagen. It's amazing for jowls, acne scars, stretch marks, and loose skin on face, neck, and body. Results develop over 3-6 months. We're excited to offer this — want to book a consultation?`;
-    }
-    return `Morpheus8 is one of our most exciting treatments! It combines microneedling with radiofrequency to tighten skin, stimulate collagen, and treat concerns like jowls, acne scars, and loose skin. Downtime is about 3-5 days. Check out our aftercare guide at hellogorgeousmedspa.com/aftercare/morpheus8 or book a consultation to learn more!`;
-  }
-
-  // ============================================
-  // QUANTUM RF INTENTS
-  // ============================================
-  if (has("quantum") || (has("subdermal") && has("rf"))) {
-    if (has("aftercare", "after care", "post", "recovery", "downtime", "heal")) {
-      return `Quantum RF is minimally invasive, so recovery is a bit more involved than surface treatments. Expect 1-3 weeks depending on the area treated. We have comprehensive pre and post-care instructions at hellogorgeousmedspa.com/aftercare/quantum-rf — essential reading before your procedure. Questions? Book a consultation!`;
-    }
-    if (has("price", "cost", "how much")) {
-      return `Quantum RF pricing varies by treatment area: Chin & Neck is $2,800, Lower Abdomen $3,900, Full Abdomen $4,250, Sagging Arms $2,950, and Butt Tightening $3,900. We have a VIP launch with special offers — check out hellogorgeousmedspa.com/vip-skin-tightening or book a consultation!`;
-    }
-    if (has("what is", "tell me about", "explain", "how does", "difference", "vs morpheus")) {
-      return `Quantum RF is a minimally invasive treatment that delivers radiofrequency energy BENEATH the skin (subdermal) for surgical-like skin tightening without surgery. Unlike Morpheus8 which works from the surface, Quantum RF goes deeper for more dramatic results on significant skin laxity — great for double chin, arms, abdomen, and post-weight-loss loose skin. Want details? Book a consultation!`;
-    }
-    return `Quantum RF is our newest advanced skin tightening treatment! It's minimally invasive and delivers dramatic results for loose skin on chin/neck, arms, abdomen, and more — even "Ozempic butt." We're one of the first in the area to offer it. Check our VIP launch at hellogorgeousmedspa.com/vip-skin-tightening or book a consultation to learn more!`;
-  }
-
-  // ============================================
-  // SOLARIA CO2 INTENTS
-  // ============================================
-  if (has("solaria", "co2", "laser resurfacing", "fractional laser")) {
-    if (has("aftercare", "after care", "post", "recovery", "downtime", "heal")) {
-      return `Solaria CO2 has about 5-7 days of social downtime with redness, swelling, and peeling — but the results are amazing! We have detailed instructions at hellogorgeousmedspa.com/aftercare/solaria-co2. Keeping skin moist with Aquaphor is key. Book a consultation to see if it's right for you!`;
-    }
-    if (has("price", "cost", "how much")) {
-      return `Solaria CO2 pricing depends on the treatment area and depth. It's a premium treatment with dramatic results. For exact pricing, book a free consultation and we'll assess your skin and goals.`;
-    }
-    if (has("what is", "tell me about", "explain", "how does")) {
-      return `Solaria CO2 is a fractional CO2 laser — the gold standard for skin resurfacing. It treats wrinkles, acne scars, sun damage, and uneven texture with dramatic results from just one treatment. Downtime is 5-7 days. We're one of few practices in the western suburbs offering this technology. Interested? Book a consultation!`;
-    }
-    return `Solaria CO2 is our premium laser resurfacing treatment — the gold standard for dramatic skin rejuvenation! It treats wrinkles, acne scars, sun damage, and texture issues. Expect 5-7 days downtime but incredible results. Check out aftercare at hellogorgeousmedspa.com/aftercare/solaria-co2 or book a consultation!`;
-  }
-
-  // ============================================
-  // SKIN TIGHTENING GENERAL
-  // ============================================
-  if (has("skin tightening", "loose skin", "sagging", "laxity", "tighten")) {
-    if (has("weight loss", "ozempic", "wegovy", "mounjaro", "glp-1", "lost weight")) {
-      return `After weight loss, loose skin is common — we have great options! Quantum RF is our most advanced for significant laxity (chin, arms, abdomen, butt). Morpheus8 is perfect for moderate concerns on face and body. Both stimulate collagen for natural tightening. Book a consultation to see which is right for you!`;
-    }
-    return `We offer several skin tightening treatments! Quantum RF is our newest — minimally invasive with surgical-like results for chin, arms, abdomen, butt. Morpheus8 combines RF with microneedling for face and body. Solaria CO2 laser is the gold standard for facial resurfacing. Book a consultation and we'll recommend the best option for your goals!`;
-  }
-
-  // ============================================
-  // AFTERCARE GENERAL
-  // ============================================
-  if (has("aftercare", "after care", "pre care", "instructions", "before treatment", "after treatment")) {
-    return `We have detailed pre and post-care instructions for our treatments! Morpheus8: hellogorgeousmedspa.com/aftercare/morpheus8 • Quantum RF: hellogorgeousmedspa.com/aftercare/quantum-rf • Solaria CO2: hellogorgeousmedspa.com/aftercare/solaria-co2. Following these is essential for the best results. Which treatment are you asking about?`;
   }
 
   return null;
@@ -237,47 +183,50 @@ function getStaticKnowledge(): KnowledgeEntry[] {
     content: bookingFaq,
   });
 
-  // ============================================
-  // ADVANCED SKIN TIGHTENING SERVICES
-  // ============================================
-  
-  // Morpheus8 Knowledge
+  // Membership (No Prior Authorization)
   entries.push({
-    title: "morpheus8 rf microneedling skin tightening collagen face body",
-    content: "Morpheus8 is an FDA-cleared RF (radiofrequency) microneedling treatment that penetrates up to 8mm deep to tighten skin, reduce fat, and stimulate collagen. Treats jowls, acne scars, stretch marks, loose skin on face, neck, and body. 3-5 days downtime with redness and peeling. Results develop over 3-6 months. Package of 3 for $2,100. Aftercare instructions at hellogorgeousmedspa.com/aftercare/morpheus8",
+    title: "No Prior Authorization membership what is it benefits",
+    content: "No Prior Authorization is a membership program that gives you direct access to healthcare without insurance hassles, referrals, or waiting periods. Benefits: 10% off all services, priority booking, exclusive events, early access to new treatments, birthday bonus, referral rewards, monthly newsletter, free annual skin consultation. Annual plan saves $189/year and includes a FREE service up to $75. You can cancel anytime; annual cancel has no prorated refund. Membership is independent of insurance — transparent upfront prices.",
   });
-  
-  // Quantum RF Knowledge
   entries.push({
-    title: "quantum rf subdermal skin tightening minimally invasive chin neck abdomen arms butt",
-    content: "Quantum RF is a minimally invasive treatment delivering radiofrequency energy beneath the skin (subdermal) for surgical-like skin tightening without surgery. More dramatic than surface treatments. Ideal for double chin, neck, arms (bat wings), abdomen, butt (Ozempic butt). Pricing: Chin/Neck $2,800, Lower Abdomen $3,900, Full Abdomen $4,250, Arms $2,950, Butt $3,900. Recovery 1-3 weeks. Aftercare at hellogorgeousmedspa.com/aftercare/quantum-rf. VIP launch at hellogorgeousmedspa.com/vip-skin-tightening",
+    title: "membership free service annual monthly switch cancel",
+    content: "The free $75 service is for annual members as a welcome bonus; you get a member code in your welcome email. Monthly vs annual: both give 10% off and priority booking; annual saves $189/year plus the $75 service ($264 total savings). You can upgrade from monthly to annual anytime; contact us. Cancel anytime; monthly cancel before next billing; annual cancel no prorated refund.",
   });
-  
-  // Solaria CO2 Knowledge
+
+  // VIP / Trifecta / Morpheus8 / Solaria / Quantum RF
   entries.push({
-    title: "solaria co2 laser resurfacing fractional laser wrinkles acne scars",
-    content: "Solaria CO2 is a fractional CO2 laser - the gold standard for skin resurfacing. Treats wrinkles, acne scars, sun damage, uneven texture. Dramatic results from one treatment. 5-7 days downtime with redness, swelling, peeling. Keep skin moist with Aquaphor. One of few western suburb practices offering this technology. Aftercare at hellogorgeousmedspa.com/aftercare/solaria-co2",
+    title: "VIP Trifecta Morpheus8 Solaria Quantum RF skin tightening",
+    content: "VIP skin tightening includes Quantum RF (body: chin/neck, abdomen, arms, butt), Morpheus8 (face and body RF microneedling), and Solaria CO₂ laser. The Trifecta combines Solaria + Morpheus8 + Quantum. Scheduling opens April 1st; before that join the VIP waitlist for priority access and launch pricing. Morpheus8: single from $800, 3-pack $2,100. Solaria: single from $1,500, 3-pack from $4,000. Quantum: Chin & Neck $2,800; Lower Abdomen $3,900; Full Abdomen $4,250; Arms $2,950; Butt $3,900. Book from April 1 on the main booking page or join waitlist on VIP Skin Tightening or Solaria CO₂ VIP page.",
   });
-  
-  // Skin Tightening Comparison
+
+  // Pre & post care (summaries)
   entries.push({
-    title: "skin tightening comparison morpheus8 vs quantum rf loose skin weight loss ozempic",
-    content: "For loose skin after weight loss: Quantum RF is best for significant laxity (chin, arms, abdomen, butt) - minimally invasive with surgical-like results. Morpheus8 is best for moderate concerns and can treat face and body. Solaria CO2 is the gold standard for facial resurfacing. All stimulate collagen for natural tightening. Book consultation to determine best option.",
+    title: "Botox before after pre care post care what to do",
+    content: "Before Botox: avoid alcohol 24h; avoid aspirin, ibuprofen, fish oil, vitamin E 5–7 days; stop retinol 3 days; no facials/peels/laser 1 week; clean skin, no makeup in area. Tell us if pregnant, breastfeeding, neuromuscular disorder, or muscle relaxants. After: may have mild redness, marks, swelling, tenderness. Don't rub 24h; stay upright a few hours; no intense exercise or alcohol 24h. Results start 3–5 days, full effect ~10–14 days. Vision changes or severe headache: seek urgent care.",
   });
-  
-  // Aftercare Links
   entries.push({
-    title: "aftercare instructions pre care post care treatment preparation recovery",
-    content: "Pre and post-care instructions for advanced treatments: Morpheus8 aftercare at hellogorgeousmedspa.com/aftercare/morpheus8 (3-5 days downtime). Quantum RF aftercare at hellogorgeousmedspa.com/aftercare/quantum-rf (1-3 weeks recovery, compression required). Solaria CO2 aftercare at hellogorgeousmedspa.com/aftercare/solaria-co2 (5-7 days downtime, keep moist with Aquaphor). Following instructions is essential for best results.",
+    title: "filler before after pre care post care swelling bruising",
+    content: "Before filler: avoid alcohol 24–48h; avoid blood thinners 5–7 days; clean skin; tell us about cold sores, allergies, pregnancy. After filler: swelling and bruising often worst 24–72h, settle over 1–2 weeks. Don't rub; avoid intense exercise and alcohol 24–48h; sleep elevated if possible. Early asymmetry is often swelling. Red flags: vision changes, severe pain, skin color changes (blanching, dusky) — seek urgent care and contact provider.",
+  });
+  entries.push({
+    title: "first visit what to expect bring forms intake",
+    content: "First visit: we'll have you fill out a short intake; we may send forms before your appointment. Arrive a few minutes early. We'll go over your goals and the treatment. Not sure what to book? Ask for a consultation and we'll schedule a conversation first. Have medical history and current medications handy.",
+  });
+
+  // Precision Hormone & Metabolic Reset (tirzepatide)
+  entries.push({
+    title: "Precision Hormone Metabolic Reset tirzepatide weight loss program",
+    content: "Precision Hormone Program: hormone optimization, prescriptions, IV therapy, vitamin injections, HRT, blood work, same-day visits, next-day labs, AI insights. Metabolic Reset: medical weight loss with tirzepatide — up to 5mg $450/mo or 7.5mg $499/mo; same-day visits, next-day labs, quarterly check-ins. We only offer tirzepatide for weight loss, not semaglutide. Both include secure messaging and Fullscript supplement support.",
   });
 
   return entries;
 }
 
+/** Strong “I want to book” intent → we’ll open the inline booking flow in the widget. */
 /** Log to AI Watchdog and return JSON response (initiative: every receptionist action logged). */
 async function respondWithLog(
   message: string,
-  payload: { reply: string; bookingUrl?: string; phone?: string; needsFeedback?: boolean },
+  payload: { reply: string; bookingUrl?: string; phone?: string; needsFeedback?: boolean; showInlineBooking?: boolean },
   action?: ReceptionistAction
 ): Promise<NextResponse> {
   const supabase = isAdminConfigured() ? createAdminSupabaseClient() : null;
@@ -315,11 +264,29 @@ export async function POST(request: NextRequest) {
       return await respondWithLog(message, { reply: specificReply, bookingUrl, phone }, "info");
     }
 
+    // Strong “book for me” intent → open inline booking flow in the widget
+    if (wantsToBookNow(message)) {
+      return await respondWithLog(
+        message,
+        {
+          reply: "I'll open our booking right here so you can pick your service, provider (Ryan or Danielle), date, and time. We'll confirm and send reminders.",
+          bookingUrl,
+          phone,
+          showInlineBooking: true,
+        },
+        "booking"
+      );
+    }
+
     if (matchesIntent(message, BOOKING_KEYWORDS)) {
+      const openBookingFlow = wantsToBookNow(message);
       return await respondWithLog(message, {
-        reply: "You can book a live appointment right here — tap \"Book now\" above to pick your service, provider (Ryan or Danielle), date, and time. Or use the full booking page link below, or call us if you'd rather talk first.",
+        reply: openBookingFlow
+          ? "I'll open our booking for you — pick your service, provider (Ryan or Danielle), date, and time below. We'll confirm and send reminders."
+          : "You can book a live appointment right here — tap \"Book now\" above to pick your service, provider (Ryan or Danielle), date, and time. Or use the full booking page link below, or call us if you'd rather talk first.",
         bookingUrl,
         phone,
+        showInlineBooking: openBookingFlow,
       }, "booking");
     }
 
