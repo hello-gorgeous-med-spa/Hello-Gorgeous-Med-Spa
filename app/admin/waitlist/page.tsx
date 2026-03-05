@@ -78,6 +78,7 @@ interface VIPWaitlistEntry {
 const VIP_CAMPAIGN_LABELS: Record<string, string> = {
   co2_solaria: 'Solaria CO₂ VIP',
   vip_skin_tightening: 'VIP Skin Tightening / Trifecta',
+  popup_vip: 'VIP / Trifecta (popup)',
 };
 
 const VIP_STATUS_OPTIONS = [

@@ -42,7 +42,12 @@ async function sendConfirmationEmail(data: VIPWaitlistSubmission) {
   }
 
   try {
-    const campaignName = data.campaign === 'co2_solaria' ? 'Solaria CO₂' : data.campaign;
+    const campaignNames: Record<string, string> = {
+  co2_solaria: 'Solaria CO₂',
+  vip_skin_tightening: 'VIP Skin Tightening / Trifecta',
+  popup_vip: 'VIP / Trifecta',
+};
+const campaignName = campaignNames[data.campaign] || data.campaign;
     
     const emailHtml = `
       <!DOCTYPE html>
