@@ -28,7 +28,7 @@ const PROVIDER_METADATA = [
     name: 'Danielle Alcala',
     title: DANIELLE_CREDENTIALS,
     color: '#ec4899',
-    serviceKeywords: ['lash', 'brow', 'facial', 'dermaplanning', 'hydra', 'peel', 'lamination', 'wax', 'extension', 'lift', 'tint', 'glow', 'geneo', 'frequency', 'botox', 'filler', 'lip', 'consult'],
+    serviceKeywords: ['lash', 'brow', 'facial', 'dermaplanning', 'hydra', 'peel', 'lamination', 'wax', 'extension', 'lift', 'tint', 'glow', 'geneo', 'frequency', 'botox', 'filler', 'lip', 'consult', 'laser', 'hair', 'body', 'brazilian', 'anteage', 'skin', 'spa', 'micro', 'vampire'],
   },
 ];
 

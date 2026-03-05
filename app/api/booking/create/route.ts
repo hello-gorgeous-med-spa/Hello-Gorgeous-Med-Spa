@@ -39,10 +39,11 @@ export async function POST(request: NextRequest) {
     }
 
     const supabase = createAdminSupabaseClient();
-    
+
     if (!supabase) {
+      console.error('[booking/create] Cannot create admin Supabase client. Is SUPABASE_SERVICE_ROLE_KEY set?');
       return NextResponse.json(
-        { error: 'Database not configured' },
+        { error: 'Booking is temporarily unavailable. Please call us at (630) 636-6193 to book.' },
         { status: 503 }
       );
     }
@@ -171,25 +172,26 @@ export async function POST(request: NextRequest) {
     const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(providerId);
     
     if (!isUUID) {
-      // Map fallback IDs to real provider names for lookup
-      const providerNameMap: Record<string, string> = {
-        'ryan-kent': 'Ryan',
-        'danielle-alcala': 'Danielle',
+      // Resolve slug to UUID by first name (Ryan Kent / Danielle Alcala or Glazier-Alcala)
+      const slugToFirst: Record<string, string> = {
+        'ryan-kent': 'ryan',
+        'danielle-alcala': 'danielle',
       };
-      
-      const searchName = providerNameMap[providerId] || providerId;
-      
-      // Look up provider by name
-      const { data: providerLookup } = await supabase
-        .from('providers')
-        .select('id, users!inner(first_name)')
-        .ilike('users.first_name', `%${searchName}%`)
-        .limit(1)
-        .single();
-      
-      if (providerLookup) {
-        resolvedProviderId = providerLookup.id;
-      } else {
+      const wantFirst = slugToFirst[providerId.toLowerCase()];
+      if (wantFirst) {
+        const { data: allProviders } = await supabase
+          .from('providers')
+          .select('id, users!inner(first_name, last_name)');
+        const match = (allProviders as any[])?.find((p: any) => {
+          const first = String(p?.users?.first_name ?? '').trim().toLowerCase();
+          const last = String(p?.users?.last_name ?? '').trim().toLowerCase();
+          if (wantFirst === 'ryan') return first === 'ryan' && last.includes('kent');
+          if (wantFirst === 'danielle') return first === 'danielle' && (last.includes('alcala') || last.includes('glazier'));
+          return first === wantFirst;
+        });
+        if (match) resolvedProviderId = match.id;
+      }
+      if (resolvedProviderId === providerId) {
         // Try to get ANY active provider as fallback
         const { data: anyProvider } = await supabase
           .from('providers')
@@ -334,7 +336,7 @@ export async function POST(request: NextRequest) {
     const endsAtISO = endDateTime.toISOString();
     console.log('[booking/create] Success', { appointmentId: appointment.id, providerId: resolvedProviderId, starts_at: startsAtISO, source: 'online_booking' });
 
-    // 5.5. Client confirmation (MANDATORY) — same date/time as calendar (business timezone)
+    // 5.5. Client confirmation — SMS (Telnyx) + Email (Resend). Email ensures clients get confirmation even if Telnyx isn't configured or phone format fails.
     const confirmationDateStr = formatInBusinessTZ(startsAtISO);
     const clientName = `${firstName} ${lastName}`.trim() || 'there';
     const serviceName = service.name || 'your appointment';
@@ -365,6 +367,55 @@ export async function POST(request: NextRequest) {
       }
     } catch (smsErr) {
       console.error('[booking/create] Client confirmation SMS error', smsErr);
+    }
+
+    // 5.5a. Client confirmation EMAIL (so clients always get confirmation even if SMS fails or isn't configured)
+    const resendApiKey = process.env.RESEND_API_KEY;
+    if (resendApiKey && email) {
+      try {
+        const fromEmail = process.env.RESEND_FROM_EMAIL || 'Hello Gorgeous <onboarding@resend.dev>';
+        const portalUrl = `${process.env.NEXT_PUBLIC_APP_URL || 'https://www.hellogorgeousmedspa.com'}/portal/appointments`;
+        const businessPhone = process.env.NEXT_PUBLIC_BUSINESS_PHONE || '(630) 636-6193';
+        const clientEmailBody = `Hi ${clientName},
+
+Your appointment is confirmed at Hello Gorgeous Med Spa!
+
+APPOINTMENT DETAILS
+───────────────────
+Date & time: ${confirmationDateStr}
+Service: ${serviceName}
+Provider: ${providerName}
+Location: ${locationStr}
+
+You may also receive an SMS confirmation at the number you provided.
+
+Need to reschedule or have questions? Visit your client portal or call us at ${businessPhone}.
+Portal: ${portalUrl}
+
+We look forward to seeing you!
+
+Hello Gorgeous Med Spa`;
+        const clientRes = await fetch('https://api.resend.com/emails', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${resendApiKey}` },
+          body: JSON.stringify({
+            from: fromEmail,
+            to: [email.trim().toLowerCase()],
+            subject: `Your appointment is confirmed – ${serviceName} – Hello Gorgeous Med Spa`,
+            text: clientEmailBody,
+          }),
+        });
+        if (clientRes.ok) {
+          console.log('[booking/create] Client confirmation email sent to', email);
+        } else {
+          const errBody = await clientRes.json().catch(() => ({}));
+          console.warn('[booking/create] Client confirmation email failed', clientRes.status, errBody);
+        }
+      } catch (clientEmailErr) {
+        console.error('[booking/create] Client confirmation email error', clientEmailErr);
+      }
+    } else if (!resendApiKey) {
+      console.warn('[booking/create] RESEND_API_KEY not set - client confirmation email not sent');
     }
 
     // 5.5b. Opt-in confirmation SMS (10DLC compliance - when user consented to marketing)

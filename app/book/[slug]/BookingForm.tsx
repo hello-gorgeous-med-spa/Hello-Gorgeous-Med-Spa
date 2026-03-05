@@ -10,6 +10,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { SMSDisclosure } from '@/components/SMSDisclosure';
+import { fetchWithTimeout } from '@/lib/fetchWithTimeout';
 
 interface Service {
   id: string;
@@ -92,7 +93,7 @@ function getAvailableDates(provider: Provider | null) {
     if (date.getDay() === 0 || date.getDay() === 6) continue;
     
     // If provider selected, check their schedule
-    if (provider) {
+    if (provider?.schedule) {
       const dayOfWeek = date.getDay();
       if (!provider.schedule[dayOfWeek]) continue; // Provider doesn't work this day
     }
@@ -156,16 +157,21 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
   const timeSlotsFromSchedule = selectedProvider && selectedDate
     ? getTimeSlotsForProvider(selectedProvider, selectedDate, service.duration_minutes)
     : [];
-  const hasAvailability = availabilitySlots.length > 0;
-  const timeSlots = hasAvailability
+  const hasAvailabilityFromApi = availabilitySlots.length > 0;
+  const timeSlots = hasAvailabilityFromApi
     ? availabilitySlots.map((s) => s.time)
     : timeSlotsFromSchedule;
+  // When API returns slots: only allow slots marked available (gray out booked/past). When API fails or returns nothing: allow all schedule-based slots so clients can still book (create API will check for conflicts).
   const slotAvailable = (time: string) => {
-    if (!hasAvailability) return false;
-    const s = availabilitySlots.find((x) => x.time === time);
-    return s ? s.available : false;
+    if (hasAvailabilityFromApi) {
+      const s = availabilitySlots.find((x) => x.time === time);
+      return s ? s.available : false;
+    }
+    return timeSlotsFromSchedule.includes(time);
   };
-  const anySlotAvailable = hasAvailability && availabilitySlots.some((s) => s.available);
+  const anySlotAvailable = hasAvailabilityFromApi
+    ? availabilitySlots.some((s) => s.available)
+    : timeSlotsFromSchedule.length > 0;
 
   // Auto-select provider: (1) URL ?provider=danielle/ryan matches, or (2) only one provider
   useEffect(() => {
@@ -247,10 +253,21 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
         }),
       });
 
-      const data = await response.json();
+      let data: { error?: string } = {};
+      try {
+        data = await response.json();
+      } catch {
+        // Non-JSON response (e.g. 500 HTML or network)
+      }
 
       if (!response.ok) {
-        const msg = data.error || 'Failed to book appointment';
+        const msg =
+          data.error ||
+          (response.status === 503
+            ? 'Booking is temporarily unavailable. Please call us at (630) 636-6193 to book.'
+            : response.status === 409
+              ? 'This time slot was just taken. Please pick another time or call us.'
+              : 'Failed to book appointment. Please try again or call us at (630) 636-6193.');
         setSubmitError(msg);
         throw new Error(msg);
       }
@@ -260,7 +277,10 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
       fetch('/api/journey/confirm-booking', { method: 'POST', credentials: 'include' }).catch(() => {});
     } catch (error) {
       console.error('Booking error:', error);
-      const msg = error instanceof Error ? error.message : 'Failed to book appointment. Please try again or call us.';
+      const msg =
+        error instanceof Error
+          ? error.message
+          : 'Failed to book appointment. Please try again or call us at (630) 636-6193.';
       setSubmitError(msg);
       alert(msg);
     } finally {
@@ -380,17 +400,17 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                         {/* Provider Avatar */}
                         <div 
                           className="w-16 h-16 rounded-full flex items-center justify-center text-white text-2xl font-bold flex-shrink-0"
-                          style={{ backgroundColor: provider.color }}
+                          style={{ backgroundColor: provider.color || '#EC4899' }}
                         >
-                          {provider.name.split(' ').map(n => n[0]).join('')}
+                          {(provider.name || 'P').split(' ').map((n) => n[0]).join('') || 'P'}
                         </div>
                         
                         <div className="flex-1">
-                          <h4 className="font-semibold text-black">{provider.name}</h4>
-                          <p className="text-sm text-black">{provider.title}</p>
+                          <h4 className="font-semibold text-black">{provider.name || 'Provider'}</h4>
+                          <p className="text-sm text-black">{provider.title || ''}</p>
                           <div className="flex items-center gap-2 mt-2 text-xs text-black">
                             <span className="inline-flex items-center gap-1 bg-white px-2 py-1 rounded-full">
-                              📅 {Object.entries(provider.schedule).filter(([_, v]) => v !== null).length} days/week
+                              📅 {Object.entries(provider.schedule || {}).filter(([_, v]) => v !== null).length} days/week
                             </span>
                           </div>
                         </div>
@@ -437,13 +457,13 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
               <div className="flex items-center gap-3">
                 <div 
                   className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold"
-                  style={{ backgroundColor: selectedProvider.color }}
+                  style={{ backgroundColor: selectedProvider.color || '#EC4899' }}
                 >
-                  {selectedProvider.name.split(' ').map(n => n[0]).join('')}
+                  {(selectedProvider.name || 'P').split(' ').map((n) => n[0]).join('') || 'P'}
                 </div>
                 <div>
-                  <p className="font-medium text-black">{selectedProvider.name}</p>
-                  <p className="text-xs text-black">{selectedProvider.title}</p>
+                  <p className="font-medium text-black">{selectedProvider.name || 'Provider'}</p>
+                  <p className="text-xs text-black">{selectedProvider.title || ''}</p>
                 </div>
               </div>
               <button
@@ -504,14 +524,14 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                   </div>
                 ) : timeSlots.length > 0 ? (
                   <>
-                    {hasAvailability && !anySlotAvailable && (
+                    {hasAvailabilityFromApi && !anySlotAvailable && (
                       <p className="text-sm text-amber-700 bg-amber-50 rounded-lg px-3 py-2 mb-3">
                         No available times left on this day. Please pick another date.
                       </p>
                     )}
-                    {!hasAvailability && !loadingAvailability && (
-                      <p className="text-sm text-black mb-3">
-                        Couldn&apos;t load availability. Please refresh or call (630) 636-6193.
+                    {!hasAvailabilityFromApi && !loadingAvailability && timeSlotsFromSchedule.length > 0 && (
+                      <p className="text-sm text-black/80 mb-3">
+                        Showing times from schedule. We&apos;ll confirm your slot when you complete booking.
                       </p>
                     )}
                     <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
@@ -597,7 +617,7 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
                     className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold"
                     style={{ backgroundColor: selectedProvider.color }}
                   >
-                    {selectedProvider.name.split(' ').map(n => n[0]).join('')}
+                    {(selectedProvider?.name || 'P').split(' ').map(n => n[0]).join('') || 'P'}
                   </div>
                 )}
                 <div>
