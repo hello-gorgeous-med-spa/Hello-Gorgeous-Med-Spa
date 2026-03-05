@@ -12,9 +12,21 @@ export const ADDRESS_FULL = `${SITE.address.streetAddress}, ${SITE.address.addre
 export const MAPS_DIRECTIONS_URL =
   `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS_FULL)}&utm_source=website&utm_medium=local&utm_campaign=maps_click`;
 
-/** Google Maps embed - address-based (Place ID needs API key). Geo from SITE. */
-export const MAPS_EMBED_URL =
-  `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2978.803!2d${SITE.geo.longitude}!3d${SITE.geo.latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880ef9a8f7c00001%3A0x0!2s74%20W%20Washington%20St%2C%20Oswego%2C%20IL%20${SITE.address.postalCode}!5e0!3m2!1sen!2sus`;
+/**
+ * Google Maps embed URL for iframe.
+ * - Set NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL to the full iframe src from Google Maps (Share → Embed a map).
+ * - Or set NEXT_PUBLIC_GOOGLE_MAPS_EMBED_API_KEY and we build the Place embed URL.
+ * The legacy ?q=...&output=embed URL no longer works in iframes.
+ */
+export function getMapsEmbedUrl(): string | null {
+  const customUrl = process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL;
+  if (typeof customUrl === "string" && customUrl.trim().length > 0) return customUrl.trim();
+  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_API_KEY;
+  if (typeof apiKey === "string" && apiKey.trim().length > 0) {
+    return `https://www.google.com/maps/embed/v1/place?key=${encodeURIComponent(apiKey.trim())}&q=${encodeURIComponent(ADDRESS_FULL)}`;
+  }
+  return null;
+}
 
 /** Google review link - uses Place ID when set for one-click review + UTM. */
 const PLACE_ID = process.env.NEXT_PUBLIC_GOOGLE_PLACE_ID;

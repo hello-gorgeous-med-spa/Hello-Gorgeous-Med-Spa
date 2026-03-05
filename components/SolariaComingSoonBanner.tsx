@@ -16,18 +16,29 @@ export function SolariaComingSoonBanner() {
           <span className="text-xl sm:text-2xl">🔬</span>
           
           {/* Content */}
-          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-4 flex-wrap justify-center">
+            <span className="text-teal-400 font-bold text-sm sm:text-base">COMING SOON:</span>
+            <span className="hidden sm:inline text-white/60">|</span>
             <Link href="/stretch-mark-treatment-oswego-il" className="text-white font-medium text-sm sm:text-base hover:text-teal-300 transition-colors">
-              <span className="text-teal-400 font-bold">COMING SOON:</span>
-              <span className="mx-2">|</span>
-              <span className="hidden sm:inline">InMode</span>{" "}
+              <span className="hidden sm:inline">InMode </span>
               <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-300">
-                Solaria CO₂ Fractional Laser
+                Solaria CO₂
               </span>
             </Link>
-            
+            <span className="text-white/60">·</span>
+            <Link href="/services/morpheus8" className="text-white font-medium text-sm sm:text-base hover:text-teal-300 transition-colors">
+              <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-300">
+                Morpheus8
+              </span>
+            </Link>
+            <span className="text-white/60">·</span>
+            <Link href="/services/quantum-rf" className="text-white font-medium text-sm sm:text-base hover:text-teal-300 transition-colors">
+              <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-cyan-300">
+                Quantum RF
+              </span>
+            </Link>
             <Link
-              href="/stretch-mark-treatment-oswego-il"
+              href="/vip-skin-tightening"
               className="inline-flex items-center gap-2 px-4 py-1.5 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white text-sm font-bold rounded-full transition-all hover:scale-105 shadow-lg shadow-teal-500/25"
             >
               Join Waitlist

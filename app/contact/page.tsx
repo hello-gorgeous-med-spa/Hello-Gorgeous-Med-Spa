@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { CTA } from "@/components/CTA";
 import { ContactForm } from "@/components/ContactForm";
 import { ContactSMSOptIn } from "@/components/ContactSMSOptIn";
+import { GoogleMapEmbed } from "@/components/GoogleMapEmbed";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE, pageMetadata, siteJsonLd } from "@/lib/seo";
@@ -91,18 +92,8 @@ export default async function ContactPage() {
               <p className="mt-3 text-gray-600">
                 We're at 74 W. Washington St., Oswego, IL. Get directions or call us to confirm your visit.
               </p>
-              <div className="mt-6 rounded-xl overflow-hidden border border-gray-200 h-64">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2978.8!2d-88.3516!3d41.6828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880ef9a8f7c00001%3A0x1234567890abcdef!2s74%20W%20Washington%20St%2C%20Oswego%2C%20IL%2060543!5e0!3m2!1sen!2sus!4v1706000000000!5m2!1sen!2sus"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0, minHeight: "256px" }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Hello Gorgeous Med Spa - Oswego, IL"
-                  className="w-full h-full"
-                />
+              <div className="mt-6">
+                <GoogleMapEmbed height={256} loading="lazy" showDirectionsButton={true} />
               </div>
             </div>
           </FadeUp>
