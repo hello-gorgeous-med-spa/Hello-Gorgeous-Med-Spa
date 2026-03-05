@@ -64,11 +64,38 @@ const TIME_PREFERENCES = [
   { id: 'evening', label: 'Evening (4pm-7pm)' },
 ];
 
+interface VIPWaitlistEntry {
+  id: string;
+  campaign: string;
+  name: string;
+  email: string;
+  phone?: string;
+  status: string;
+  qualification_data?: { section?: string; treatmentId?: string };
+  created_at: string;
+}
+
+const VIP_CAMPAIGN_LABELS: Record<string, string> = {
+  co2_solaria: 'Solaria CO₂ VIP',
+  vip_skin_tightening: 'VIP Skin Tightening / Trifecta',
+};
+
+const VIP_STATUS_OPTIONS = [
+  { value: 'pending', label: 'Pending', color: 'bg-yellow-100 text-yellow-800' },
+  { value: 'contacted', label: 'Contacted', color: 'bg-blue-100 text-blue-800' },
+  { value: 'scheduled', label: 'Scheduled', color: 'bg-purple-100 text-purple-800' },
+  { value: 'booked', label: 'Booked', color: 'bg-green-100 text-green-800' },
+  { value: 'declined', label: 'Declined', color: 'bg-gray-100 text-gray-800' },
+];
+
 export default function WaitlistPage() {
   const [entries, setEntries] = useState<WaitlistEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<'all' | 'waiting' | 'contacted' | 'booked'>('waiting');
   const [stats, setStats] = useState({ total: 0, waiting: 0, contacted: 0, booked: 0 });
+  const [activeTab, setActiveTab] = useState<'slots' | 'vip'>('slots');
+  const [vipEntries, setVipEntries] = useState<VIPWaitlistEntry[]>([]);
+  const [vipLoading, setVipLoading] = useState(false);
 
   // Add to waitlist modal
   const [showAddModal, setShowAddModal] = useState(false);
@@ -108,6 +135,36 @@ export default function WaitlistPage() {
   useEffect(() => {
     fetchWaitlist();
   }, [fetchWaitlist]);
+
+  const fetchVipEntries = useCallback(async () => {
+    setVipLoading(true);
+    try {
+      const res = await fetch('/api/vip-waitlist?campaign=all');
+      const data = await res.json();
+      setVipEntries(data.entries || []);
+    } catch (err) {
+      console.error('Failed to fetch VIP waitlist:', err);
+    } finally {
+      setVipLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (activeTab === 'vip') fetchVipEntries();
+  }, [activeTab, fetchVipEntries]);
+
+  const updateVipStatus = async (id: string, status: string) => {
+    try {
+      const res = await fetch('/api/vip-waitlist', {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id, status }),
+      });
+      if (res.ok) fetchVipEntries();
+    } catch (err) {
+      console.error('Failed to update VIP status:', err);
+    }
+  };
 
   // Fetch clients for modal
   const fetchClients = async (search: string) => {
@@ -249,22 +306,129 @@ export default function WaitlistPage() {
   return (
     <div className="p-6 max-w-7xl mx-auto">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-bold text-black flex items-center gap-3">
             <span className="text-3xl">📋</span>
             Waitlist Management
           </h1>
-          <p className="text-black mt-1">Turn cancellations into conversions with smart waitlist</p>
+          <p className="text-black mt-1">Turn cancellations into conversions · VIP & Trifecta signups</p>
         </div>
+        {activeTab === 'slots' && (
+          <button
+            onClick={() => setShowAddModal(true)}
+            className="px-5 py-2.5 bg-[#FF2D8E] text-white rounded-xl hover:bg-black transition-colors font-medium flex items-center gap-2"
+          >
+            <span>+</span> Add to Waitlist
+          </button>
+        )}
+      </div>
+
+      {/* Tabs: Slot waitlist | VIP & Trifecta */}
+      <div className="flex items-center gap-2 mb-6 border-b border-black pb-2">
         <button
-          onClick={() => setShowAddModal(true)}
-          className="px-5 py-2.5 bg-[#FF2D8E] text-white rounded-xl hover:bg-black transition-colors font-medium flex items-center gap-2"
+          onClick={() => setActiveTab('slots')}
+          className={`px-4 py-2 rounded-t-lg text-sm font-medium transition-colors ${
+            activeTab === 'slots' ? 'bg-[#FF2D8E] text-white' : 'bg-white text-black hover:bg-white'
+          }`}
         >
-          <span>+</span> Add to Waitlist
+          Slot waitlist
+        </button>
+        <button
+          onClick={() => setActiveTab('vip')}
+          className={`px-4 py-2 rounded-t-lg text-sm font-medium transition-colors ${
+            activeTab === 'vip' ? 'bg-[#FF2D8E] text-white' : 'bg-white text-black hover:bg-white'
+          }`}
+        >
+          VIP & Trifecta signups
         </button>
       </div>
 
+      {activeTab === 'vip' ? (
+        /* VIP & Trifecta signups (from vip-skin-tightening, solaria-co2-vip, etc.) */
+        <div className="space-y-4">
+          <p className="text-black text-sm">People who signed up for VIP Skin Tightening (Quantum/Morpheus8) or Solaria CO₂ VIP. Manage status and follow up here.</p>
+          {vipLoading ? (
+            <div className="bg-white rounded-xl border border-black p-8">
+              <div className="animate-pulse space-y-4">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="h-14 bg-white rounded-lg" />
+                ))}
+              </div>
+            </div>
+          ) : vipEntries.length === 0 ? (
+            <div className="bg-white rounded-xl border border-black p-12 text-center">
+              <span className="text-5xl">💎</span>
+              <h3 className="text-lg font-semibold text-black mt-4">No VIP / Trifecta signups yet</h3>
+              <p className="text-black mt-2 text-sm">Signups from the VIP Skin Tightening and Solaria CO₂ VIP pages will appear here.</p>
+            </div>
+          ) : (
+            <div className="bg-white rounded-xl border border-black overflow-hidden">
+              <table className="w-full">
+                <thead className="bg-white border-b border-black">
+                  <tr>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-black uppercase">Name</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-black uppercase">Contact</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-black uppercase">Campaign</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-black uppercase">Added</th>
+                    <th className="text-left px-4 py-3 text-xs font-semibold text-black uppercase">Status</th>
+                    <th className="text-right px-4 py-3 text-xs font-semibold text-black uppercase">Actions</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-black">
+                  {vipEntries.map((entry) => (
+                    <tr key={entry.id} className="hover:bg-white">
+                      <td className="px-4 py-3">
+                        <p className="font-medium text-black">{entry.name}</p>
+                        {entry.qualification_data?.section && (
+                          <p className="text-xs text-black capitalize">{entry.qualification_data.section}</p>
+                        )}
+                      </td>
+                      <td className="px-4 py-3">
+                        <p className="text-black text-sm">{entry.email}</p>
+                        {entry.phone && <p className="text-black text-sm">{entry.phone}</p>}
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className="text-sm text-black">
+                          {VIP_CAMPAIGN_LABELS[entry.campaign] || entry.campaign}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-black">
+                        {formatDate(entry.created_at)}
+                      </td>
+                      <td className="px-4 py-3">
+                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                          VIP_STATUS_OPTIONS.find((s) => s.value === entry.status)?.color || 'bg-gray-100 text-gray-800'
+                        }`}>
+                          {VIP_STATUS_OPTIONS.find((s) => s.value === entry.status)?.label || entry.status}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-right">
+                        <select
+                          value={entry.status}
+                          onChange={(e) => updateVipStatus(entry.id, e.target.value)}
+                          className="text-sm border border-black rounded-lg px-2 py-1 bg-white text-black"
+                        >
+                          {VIP_STATUS_OPTIONS.map((o) => (
+                            <option key={o.value} value={o.value}>{o.label}</option>
+                          ))}
+                        </select>
+                        <Link
+                          href={`/admin/appointments/new?email=${encodeURIComponent(entry.email)}`}
+                          className="ml-2 inline-block text-sm text-[#FF2D8E] hover:underline"
+                        >
+                          Book
+                        </Link>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      ) : (
+        <>
       {/* Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
         <div className="bg-white rounded-xl border border-black p-5 shadow-sm">
@@ -452,6 +616,9 @@ export default function WaitlistPage() {
             </tbody>
           </table>
         </div>
+      )}
+
+        </>
       )}
 
       {/* Add to Waitlist Modal */}

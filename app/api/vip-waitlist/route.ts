@@ -42,7 +42,7 @@ async function sendConfirmationEmail(data: VIPWaitlistSubmission) {
   }
 
   try {
-    const campaignName = data.campaign === 'co2_solaria' ? 'Solaria CO₂' : data.campaign === '2026' ? 'VIP Waitlist 2026' : data.campaign;
+    const campaignName = data.campaign === 'co2_solaria' ? 'Solaria CO₂' : data.campaign;
     
     const emailHtml = `
       <!DOCTYPE html>
@@ -233,11 +233,11 @@ export async function POST(request: NextRequest) {
   }
 }
 
-// GET - Fetch waitlist entries (admin only, for dashboard)
+// GET - Fetch waitlist entries (admin only, for dashboard). Use campaign=all to get every VIP/Trifecta campaign.
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const campaign = searchParams.get('campaign') || 'co2_solaria';
+    const campaign = searchParams.get('campaign') ?? 'co2_solaria';
     const qualified_only = searchParams.get('qualified') === 'true';
     const status = searchParams.get('status');
 
@@ -250,8 +250,11 @@ export async function GET(request: NextRequest) {
     let query = supabase
       .from('vip_waitlist')
       .select('*')
-      .eq('campaign', campaign)
       .order('created_at', { ascending: false });
+
+    if (campaign && campaign !== 'all') {
+      query = query.eq('campaign', campaign);
+    }
 
     if (qualified_only) {
       query = query.eq('investment_ready', true).eq('downtime_ok', true);

@@ -1,96 +1,63 @@
-// ============================================================
-// VIP WAITLIST $500 DEPOSIT – CREATE SQUARE PAYMENT LINK
-// ============================================================
+import { NextResponse } from "next/server";
+import { createClient } from "@supabase/supabase-js";
 
-import { NextRequest, NextResponse } from "next/server";
-import { getAccessToken, getActiveConnection } from "@/lib/square/oauth";
+export const runtime = "nodejs";
 
-const DEPOSIT_AMOUNT_CENTS = 50000; // $500
-const SQUARE_API_VERSION = "2024-01-18";
+type Body = {
+  section: "quantum" | "morpheus8";
+  treatmentId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  crmTag?: string;
+};
 
-export async function POST(request: NextRequest) {
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) return null;
+  return createClient(url, key, { auth: { persistSession: false } });
+}
+
+export async function POST(request: Request) {
   try {
-    const body = await request.json().catch(() => ({}));
-    const email = typeof body.email === "string" ? body.email.trim() : undefined;
-    const name = typeof body.name === "string" ? body.name.trim() : undefined;
+    const body = (await request.json()) as Body;
+    const { section, treatmentId, firstName, lastName, email, phone, crmTag } = body;
 
-    const accessToken = await getAccessToken();
-    const connection = await getActiveConnection();
-
-    if (!accessToken || !connection?.location_id) {
+    if (!email || !firstName || !lastName || !phone) {
       return NextResponse.json(
-        { error: "Payment link is not available. We'll contact you to complete your deposit." },
-        { status: 503 }
+        { error: "Missing required fields: firstName, lastName, email, phone" },
+        { status: 400 }
       );
     }
 
-    const baseUrl =
-      connection.environment === "production"
-        ? "https://connect.squareup.com"
-        : "https://connect.squareupsandbox.com";
-
-    const idempotencyKey = `vip-deposit-${Date.now()}-${Math.random().toString(36).slice(2, 12)}`;
-
-    const payload: Record<string, unknown> = {
-      idempotency_key: idempotencyKey,
-      quick_pay: {
-        name: "VIP Waitlist 2026 – Refundable Deposit",
-        price_money: {
-          amount: DEPOSIT_AMOUNT_CENTS,
-          currency: "USD",
-        },
-        location_id: connection.location_id,
-      },
-      description: "Refundable deposit for VIP Skin Tightening waitlist. Applied toward treatment.",
-      payment_note: [
-        "VIP Waitlist 2026 deposit",
-        email ? `Email: ${email}` : null,
-        name ? `Name: ${name}` : null,
-      ]
-        .filter(Boolean)
-        .join(" | "),
-    };
-
-    if (email) {
-      payload.pre_populated_data = {
-        buyer_email: email,
-      };
+    const supabase = getSupabase();
+    if (supabase) {
+      const name = `${firstName} ${lastName}`.trim();
+      const { error } = await supabase.from("vip_waitlist").insert({
+        campaign: "vip_skin_tightening",
+        name,
+        email: email.toLowerCase(),
+        phone,
+        qualification_data: { section, treatmentId },
+        crm_tag: crmTag ?? "VIP Waitlist 2026",
+        status: "pending",
+      });
+      if (error) {
+        console.error("vip-waitlist-deposit DB error:", error);
+        return NextResponse.json(
+          { error: "Failed to save. Please try again or call us." },
+          { status: 500 }
+        );
+      }
     }
 
-    const res = await fetch(`${baseUrl}/v2/online-checkout/payment-links`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-        "Square-Version": SQUARE_API_VERSION,
-      },
-      body: JSON.stringify(payload),
-    });
-
-    const data = await res.json();
-
-    if (!res.ok) {
-      console.error("[vip-waitlist-deposit] Square API error:", data);
-      return NextResponse.json(
-        { error: "Could not create payment link. We'll contact you to complete your deposit." },
-        { status: 502 }
-      );
-    }
-
-    const url = data.payment_link?.url ?? data.payment_link?.long_url;
-    if (!url) {
-      return NextResponse.json(
-        { error: "Invalid response from payment provider." },
-        { status: 502 }
-      );
-    }
-
-    return NextResponse.json({ url });
-  } catch (err) {
-    console.error("[vip-waitlist-deposit]", err);
-    return NextResponse.json(
-      { error: "Something went wrong. We'll contact you to complete your deposit." },
-      { status: 500 }
-    );
+    // TODO: Charge $500 deposit via Stripe/Square when ready
+    // TODO: Send automatic confirmation email (Resend) if desired
+    return NextResponse.json({ success: true, message: "You're on the list." });
+  } catch (e) {
+    console.error("vip-waitlist-deposit error:", e);
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
