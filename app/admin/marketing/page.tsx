@@ -77,12 +77,20 @@ export default function MarketingHubPage() {
             <h1 className="text-2xl font-bold text-black">Marketing Campaigns</h1>
             <p className="text-black mt-1">Email & SMS campaigns — just like Fresha, but free.</p>
           </div>
-          <Link
-            href="/admin/marketing/campaigns/new"
-            className="px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-xl hover:from-pink-600 hover:to-rose-600 shadow-lg shadow-[#FF2D8E]/25 transition-all"
-          >
-            + Create Campaign
-          </Link>
+          <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href="/admin/marketing/post-social"
+              className="px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white font-medium rounded-xl transition-colors"
+            >
+              📤 Post to social
+            </Link>
+            <Link
+              href="/admin/marketing/campaigns/new"
+              className="px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-xl hover:from-pink-600 hover:to-rose-600 shadow-lg shadow-[#FF2D8E]/25 transition-all"
+            >
+              + Create Campaign
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -188,6 +196,14 @@ export default function MarketingHubPage() {
             <span className="text-3xl block mb-2">🤖</span>
             <h3 className="font-semibold text-black group-hover:text-violet-600">5 Agents Runbook</h3>
             <p className="text-sm text-black mt-1">Weekly checklist — social, inbox, reviews, email, promo</p>
+          </Link>
+          <Link
+            href="/admin/marketing/post-social"
+            className="bg-white rounded-xl p-6 border-2 border-dashed border-sky-300 hover:border-sky-500 hover:bg-sky-50 transition-colors text-center group"
+          >
+            <span className="text-3xl block mb-2">📤</span>
+            <h3 className="font-semibold text-black group-hover:text-sky-600">Post to social</h3>
+            <p className="text-sm text-black mt-1">Tell the agent what to post → FB, IG, Google</p>
           </Link>
         </div>
 
