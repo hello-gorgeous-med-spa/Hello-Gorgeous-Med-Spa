@@ -158,6 +158,37 @@ export default function SolariaCO2Page() {
           </div>
         </section>
 
+        {/* Solaria CO₂ Pricing — single, package of 3, trifecta */}
+        <section className="py-16 md:py-20 bg-zinc-50">
+          <div className="max-w-6xl mx-auto px-4">
+            <h2 className="text-3xl font-bold text-black mb-2 text-center">Solaria CO₂ Pricing</h2>
+            <p className="text-gray-600 text-center mb-10 max-w-xl mx-auto">
+              Gold standard skin resurfacing. Single session, package of 3, or the full Trifecta (Solaria + Morpheus8 + Quantum).
+            </p>
+            <div className="grid sm:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              <div className="rounded-2xl border-2 border-zinc-200 bg-white p-6 text-center">
+                <h3 className="text-lg font-bold text-black mb-1">Single Session</h3>
+                <p className="text-2xl font-bold text-[#E6007E] mb-3">From $1,500</p>
+                <p className="text-sm text-gray-600 mb-6">One Solaria CO₂ treatment. Price by area (full face, neck, eyes, etc.).</p>
+                <Link href="/book" className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-4 py-2.5 font-semibold text-white hover:bg-[#c9006e] transition text-sm">Book consultation</Link>
+              </div>
+              <div className="rounded-2xl border-2 border-[#E6007E]/40 bg-pink-50/50 p-6 text-center">
+                <h3 className="text-lg font-bold text-black mb-1">Package of 3</h3>
+                <p className="text-2xl font-bold text-[#E6007E] mb-3">From $4,000</p>
+                <p className="text-sm text-gray-600 mb-6">Three sessions for maximum results. Best value.</p>
+                <Link href="/book" className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-4 py-2.5 font-semibold text-white hover:bg-[#c9006e] transition text-sm">Book consultation</Link>
+              </div>
+              <div className="rounded-2xl border-2 border-[#E6007E] bg-white p-6 text-center">
+                <h3 className="text-lg font-bold text-black mb-1">Trifecta</h3>
+                <p className="text-2xl font-bold text-[#E6007E] mb-3">Solaria + Morpheus8 + Quantum</p>
+                <p className="text-sm text-gray-600 mb-6">Complete resurfacing & tightening bundle. Custom pricing.</p>
+                <Link href="/book" className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-4 py-2.5 font-semibold text-white hover:bg-[#c9006e] transition text-sm">Book consultation</Link>
+              </div>
+            </div>
+            <p className="text-center text-sm text-gray-500 mt-6">Consultation required. Financing available.</p>
+          </div>
+        </section>
+
         {/* What it treats */}
         <section className="py-16 md:py-20 bg-white">
           <div className="max-w-6xl mx-auto px-4">

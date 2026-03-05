@@ -6,7 +6,6 @@
 
 import Link from 'next/link';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
-import { SMSDisclosureStatic } from '@/components/SMSDisclosureStatic';
 import { DEFAULT_ONLINE_BOOKING_CONFIG, DEFAULT_BOOKING_POLICY, DEFAULT_CANCELLATION_POLICY } from '@/lib/hgos/policies';
 import type { Metadata } from 'next';
 import { SITE } from '@/lib/seo';
@@ -303,6 +302,38 @@ export default async function PublicBookingPage({
           </section>
         )}
 
+        {/* VIP & exclusive launches — prebook / secure your spot */}
+        <section className="mb-10">
+          <h2 className="text-base font-semibold text-black mb-3">VIP & exclusive launches</h2>
+          <p className="text-sm text-black mb-4">Secure your spot for new treatments and priority access.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <Link
+              href="/vip-skin-tightening"
+              className="flex items-center justify-between gap-4 p-4 sm:p-5 rounded-xl border-2 border-pink-200 bg-pink-50/50 hover:border-pink-400 hover:bg-pink-100/50 transition-all group min-h-[72px] active:scale-[0.99]"
+            >
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold text-black group-hover:text-pink-600 transition-colors line-clamp-2">
+                  VIP Skin Tightening — Quantum RF & Morpheus8
+                </h3>
+                <p className="text-xs text-black mt-0.5">Launch waitlist · introductory pricing</p>
+              </div>
+              <span className="text-[#FF2D8E] shrink-0" aria-hidden>→</span>
+            </Link>
+            <Link
+              href="/solaria-co2-vip"
+              className="flex items-center justify-between gap-4 p-4 sm:p-5 rounded-xl border-2 border-pink-200 bg-pink-50/50 hover:border-pink-400 hover:bg-pink-100/50 transition-all group min-h-[72px] active:scale-[0.99]"
+            >
+              <div className="flex-1 min-w-0">
+                <h3 className="font-semibold text-black group-hover:text-pink-600 transition-colors line-clamp-2">
+                  Solaria CO₂ VIP waitlist
+                </h3>
+                <p className="text-xs text-black mt-0.5">Priority booking · $100 credit</p>
+              </div>
+              <span className="text-[#FF2D8E] shrink-0" aria-hidden>→</span>
+            </Link>
+          </div>
+        </section>
+
         {/* Not Sure Section */}
         <section className="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 text-center mb-12">
           <div className="text-4xl mb-4">🤔</div>
@@ -352,23 +383,6 @@ export default async function PublicBookingPage({
               </a>
             </p>
           )}
-        </section>
-
-        {/* SMS Opt-In Disclosure - Required for 10DLC/MNO Compliance */}
-        <section id="sms-opt-in" className="bg-white border-2 border-black rounded-2xl p-6 mb-12">
-          <h3 className="font-bold text-black text-lg mb-3 flex items-center gap-2">
-            📱 Text Message Updates
-          </h3>
-          <p className="text-black text-sm mb-4">
-            When you book an appointment at <strong>https://www.hellogorgeousmedspa.com/book</strong>, 
-            you may opt in to receive text message updates.
-          </p>
-          <SMSDisclosureStatic />
-          <p className="text-black/70 text-xs mt-4">
-            The checkbox is not pre-checked and requires affirmative consent. 
-            You can also opt in at <Link href="/contact" className="text-[#E6007E] underline">hellogorgeousmedspa.com/contact</Link> or 
-            <Link href="/sms-opt-in" className="text-[#E6007E] underline ml-1">hellogorgeousmedspa.com/sms-opt-in</Link>.
-          </p>
         </section>
 
         {/* Contact Info */}

@@ -1,429 +1,363 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import { CHERRY_PAY_URL } from "@/lib/flows";
+import Image from "next/image";
 
-// Square payment link for the VIP $500 deposit (from your Square event)
-const SQUARE_DEPOSIT_LINK = process.env.NEXT_PUBLIC_VIP_SQUARE_DEPOSIT_LINK || "https://square.link/u/k5rX264z";
+// Countdown target – launch through March 31; scheduling opens April 1
+const COUNTDOWN_TARGET = new Date("2026-04-01T00:00:00");
+const SCHEDULING_AVAILABLE_FROM = new Date("2026-04-01T00:00:00");
 
-const QUANTUM_OPTIONS = [
-  { id: "chin_neck", name: "Chin & Neck", price: 2800 },
-  { id: "lower_abdomen", name: "Lower Abdomen", price: 3900 },
-  { id: "full_abdomen", name: "Full Abdomen", price: 4250 },
-  { id: "sagging_arms", name: "Sagging Arms", price: 2950 },
-  { id: "butt_tightening", name: "Butt Tightening", price: 3900 },
-] as const;
+const QUANTUM_TREATMENTS = [
+  { id: "chin-neck", name: "Chin & Neck", price: 2800 },
+  { id: "lower-abdomen", name: "Lower Abdomen", price: 3900 },
+  { id: "full-abdomen", name: "Full Abdomen", price: 4250 },
+  { id: "sagging-arms", name: "Sagging Arms", price: 2950 },
+  { id: "butt-tightening", name: "Butt Tightening", price: 3900 },
+];
 
-const COUNTDOWN_END = process.env.NEXT_PUBLIC_VIP_LAUNCH_END || "2026-04-30";
+const CARD_BULLETS = [
+  "Minimally invasive subdermal RF tightening",
+  "Local anesthesia",
+  "Post-procedure care protocol",
+];
 
 export function VIPSkinTighteningContent() {
   const [section, setSection] = useState<"quantum" | "morpheus8">("quantum");
-  const [treatment, setTreatment] = useState<string>(QUANTUM_OPTIONS[0].id);
-  const [name, setName] = useState("");
+  const [treatmentId, setTreatmentId] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [depositAgree, setDepositAgree] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [done, setDone] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [countdown, setCountdown] = useState<{ days: number; hours: number; minutes: number } | null>(null);
-  const [depositLinkLoading, setDepositLinkLoading] = useState(false);
-  const [depositLinkError, setDepositLinkError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const [countdown, setCountdown] = useState({ days: 0, hours: 0, mins: 0, secs: 0 });
+  const [schedulingOpen, setSchedulingOpen] = useState(false);
 
   useEffect(() => {
-    const end = new Date(COUNTDOWN_END).getTime();
+    setSchedulingOpen(Date.now() >= SCHEDULING_AVAILABLE_FROM.getTime());
+  }, []);
+
+  useEffect(() => {
     const tick = () => {
-      const now = Date.now();
-      if (now >= end) {
-        setCountdown({ days: 0, hours: 0, minutes: 0 });
-        return;
-      }
-      const d = Math.floor((end - now) / (24 * 60 * 60 * 1000));
-      const h = Math.floor(((end - now) % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
-      const m = Math.floor(((end - now) % (60 * 60 * 1000)) / (60 * 1000));
-      setCountdown({ days: d, hours: h, minutes: m });
+      const d = Math.max(0, COUNTDOWN_TARGET.getTime() - Date.now());
+      setCountdown({
+        days: Math.floor(d / 86400000),
+        hours: Math.floor((d % 86400000) / 3600000),
+        mins: Math.floor((d % 3600000) / 60000),
+        secs: Math.floor((d % 60000) / 1000),
+      });
     };
     tick();
-    const id = setInterval(tick, 60000);
+    const id = setInterval(tick, 1000);
     return () => clearInterval(id);
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
-    if (!depositAgree) {
-      setError("Please confirm the $500 deposit requirement.");
-      return;
-    }
-    setSubmitting(true);
+    setIsSubmitting(true);
     try {
-      const res = await fetch("/api/vip-waitlist", {
+      const res = await fetch("/api/vip-waitlist-deposit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          campaign: "2026",
-          name,
+          section,
+          treatmentId: section === "quantum" ? treatmentId : "morpheus8-package",
+          firstName,
+          lastName,
           email,
           phone,
-          qualification_data: {
-            section,
-            treatment_option: section === "quantum" ? treatment : "morpheus8_package_3",
-            deposit_ready: true,
-          },
+          crmTag: "VIP Waitlist 2026",
         }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || "Something went wrong.");
-      setDone(true);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to submit. Please try again.");
+      if (res.ok) setSubmitted(true);
+      else throw new Error("Submit failed");
+    } catch {
+      alert("Something went wrong. Please call us to secure your spot.");
     } finally {
-      setSubmitting(false);
+      setIsSubmitting(false);
     }
   };
 
-  const handlePayDeposit = () => {
-    window.location.href = SQUARE_DEPOSIT_LINK;
-  };
-
-  if (done) {
-    return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center px-4 py-20">
-        <div className="max-w-md w-full text-center">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-[#FF2D8E] text-white text-2xl mb-6">✓</div>
-          <h1 className="text-3xl font-bold mb-4">You're on the VIP List</h1>
-          <p className="text-white/80 mb-6">
-            We'll send a confirmation email shortly. Pay your $500 refundable deposit below to secure your spot—or we can contact you to complete it.
-          </p>
-          <div className="space-y-3">
-            <a
-              href={SQUARE_DEPOSIT_LINK}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="block w-full py-4 rounded-xl font-bold text-lg bg-[#FF2D8E] text-white hover:bg-[#E6007E] transition-colors text-center"
-            >
-              Pay $500 deposit now (Square)
-            </a>
-            <Link href="/" className="block text-white/70 hover:text-white text-sm">
-              I'll pay later — return home
-            </Link>
-          </div>
-
-          <p className="mt-8 text-sm text-white/60">Tag: VIP Waitlist 2026</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-black text-white">
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full blur-[120px] bg-[#FF2D8E]/10" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-[100px] bg-[#FF2D8E]/5" />
-      </div>
+      {/* After March 31: scheduling is open; before: show countdown */}
+      {schedulingOpen ? (
+        <section className="border-b border-green-500/40 bg-green-950/30 py-4">
+          <div className="max-w-4xl mx-auto px-4 flex flex-wrap items-center justify-center gap-4 text-sm">
+            <span className="text-green-400 font-semibold uppercase tracking-wider">Booking now open</span>
+            <a
+              href="/book"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl font-bold bg-pink-500 text-white hover:bg-pink-600 transition-colors"
+            >
+              Schedule your appointment →
+            </a>
+          </div>
+        </section>
+      ) : (
+        <section className="border-b border-pink-500/30 bg-zinc-900/50 py-3">
+          <div className="max-w-4xl mx-auto px-4 flex flex-wrap items-center justify-center gap-4 text-sm">
+            <span className="text-pink-400 font-semibold uppercase tracking-wider">Launch countdown — scheduling from April 1st</span>
+            <div className="flex gap-4">
+              <span className="bg-black/50 px-3 py-1 rounded font-mono">{countdown.days}d</span>
+              <span className="bg-black/50 px-3 py-1 rounded font-mono">{countdown.hours}h</span>
+              <span className="bg-black/50 px-3 py-1 rounded font-mono">{countdown.mins}m</span>
+              <span className="bg-black/50 px-3 py-1 rounded font-mono">{countdown.secs}s</span>
+            </div>
+          </div>
+        </section>
+      )}
 
-      <div className="relative max-w-6xl mx-auto px-4 py-12 md:py-16">
-        {countdown && (
+      {/* Section 1: Quantum RF VIP Waitlist */}
+      <section className="px-4 py-12 md:py-20">
+        <div className="max-w-6xl mx-auto">
+          <div className="relative rounded-2xl overflow-hidden border border-pink-500/30 bg-zinc-900/50 mb-10 h-48 md:h-64">
+            <Image src="/images/trifecta/quantum-rf.png" alt="Quantum RF" fill className="object-cover opacity-80" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
+          </div>
           <div className="text-center mb-10">
-            <p className="text-[#FF2D8E] font-semibold uppercase tracking-wider text-sm mb-2">Launch countdown</p>
-            <div className="flex justify-center gap-6 md:gap-10">
-              <div>
-                <span className="block text-3xl md:text-4xl font-bold text-white">{countdown.days}</span>
-                <span className="text-xs text-white/60 uppercase">Days</span>
-              </div>
-              <div>
-                <span className="block text-3xl md:text-4xl font-bold text-white">{countdown.hours}</span>
-                <span className="text-xs text-white/60 uppercase">Hours</span>
-              </div>
-              <div>
-                <span className="block text-3xl md:text-4xl font-bold text-white">{countdown.minutes}</span>
-                <span className="text-xs text-white/60 uppercase">Min</span>
-              </div>
-            </div>
-          </div>
-        )}
-
-        <section className="mb-20">
-          {/* Hero Image */}
-          <div className="relative rounded-2xl overflow-hidden mb-8">
-            <div className="grid md:grid-cols-2 gap-6 items-center">
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <Image src="/images/trifecta/quantum-rf.png" alt="Quantum RF device" width={100} height={60} className="object-contain rounded-lg" />
-                  <span className="text-[#FF2D8E] font-semibold uppercase tracking-wider text-sm">VIP Launch</span>
-                </div>
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                  Quantum RF Minimally Invasive Skin Tightening – VIP Launch Access
-                </h1>
-                <p className="text-lg text-white/80 mb-4">
-                  Secure introductory pricing before public launch. Limited priority placements available.
-                </p>
-              </div>
-              <div className="relative aspect-[4/3] rounded-xl overflow-hidden">
-                <Image 
-                  src="/images/morpheus8/facetite-chin.png" 
-                  alt="Quantum RF chin and neck treatment results" 
-                  fill 
-                  className="object-cover"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <p className="absolute bottom-4 left-4 text-white/90 text-sm font-medium">Chin & Neck Tightening Results</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-xl border-2 border-[#FF2D8E] bg-[#FF2D8E]/10 p-4 md:p-6 mb-6">
-            <p className="text-lg font-semibold text-white">
-              All VIP list members receive <span className="text-[#FF2D8E]">FREE Full Face CO₂</span> ($1,800 value).
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+              Quantum RF Minimally Invasive Skin Tightening
+              <span className="block mt-2 text-pink-400">VIP Launch Access</span>
+            </h1>
+            <p className="text-white/80 text-lg max-w-2xl mx-auto">
+              Secure introductory pricing before public launch. Limited priority placements available.
             </p>
-            <p className="text-white/90 text-sm mt-2">VIP list closes March 31st.</p>
           </div>
 
-          <h3 className="text-xl font-bold text-white mb-4">Select the service you&apos;re interested in</h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-6">
-            {QUANTUM_OPTIONS.map((opt) => (
-              <button
-                key={opt.id}
-                type="button"
-                onClick={() => {
-                  setSection("quantum");
-                  setTreatment(opt.id);
-                }}
-                className={`text-left rounded-xl border-2 p-5 transition-all ${
-                  section === "quantum" && treatment === opt.id
-                    ? "border-[#FF2D8E] bg-[#FF2D8E]/10"
-                    : "border-white/20 bg-white/5 hover:border-white/40"
-                }`}
+          {/* Urgency banner */}
+          <div className="relative rounded-2xl bg-gradient-to-r from-pink-600/30 to-pink-500/20 border-2 border-pink-500 p-6 mb-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-xl font-bold text-white text-center sm:text-left">
+              First 10 Quantum RF Clients Receive FREE Full Face CO₂ ($1,800 Value)
+            </p>
+            <span className="flex-shrink-0 px-4 py-2 bg-pink-500 text-white text-sm font-bold rounded-full uppercase tracking-wider">
+              Limited Spots Available
+            </span>
+          </div>
+
+          {/* Treatment pricing cards */}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-10">
+            {QUANTUM_TREATMENTS.map((t) => (
+              <div
+                key={t.id}
+                className="rounded-2xl border border-pink-500/40 bg-zinc-900/80 p-6 flex flex-col"
               >
-                <p className="font-bold text-white text-lg">{opt.name}</p>
-                <p className="text-[#FF2D8E] text-xl font-bold mt-1">${opt.price.toLocaleString()}</p>
-                <ul className="mt-3 text-sm text-white/70 space-y-1">
-                  <li>• Minimally invasive subdermal RF</li>
-                  <li>• Local anesthesia</li>
-                  <li>• Post-procedure care protocol</li>
+                <h3 className="text-lg font-bold text-white mb-1">{t.name}</h3>
+                <p className="text-2xl font-bold text-pink-400 mb-4">${t.price.toLocaleString()}</p>
+                <ul className="space-y-2 text-sm text-white/70 mb-6 flex-1">
+                  {CARD_BULLETS.map((b) => (
+                    <li key={b} className="flex items-start gap-2">
+                      <span className="text-pink-400 mt-0.5">•</span>
+                      {b}
+                    </li>
+                  ))}
                 </ul>
-              </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setSection("quantum");
+                    setTreatmentId(t.id);
+                    document.getElementById("secure-spot")?.scrollIntoView({ behavior: "smooth" });
+                  }}
+                  className="w-full py-2.5 rounded-xl font-semibold bg-pink-500 text-white hover:bg-pink-600 transition-colors"
+                >
+                  Select
+                </button>
+              </div>
             ))}
+          </div>
+
+          {/* Deposit requirement */}
+          <div className="rounded-2xl border border-white/10 bg-zinc-900/50 p-6 mb-10">
+            <h3 className="text-lg font-bold text-white mb-3">Deposit requirement</h3>
+            <p className="text-white/80 mb-2">$500 refundable deposit required to join waitlist.</p>
+            <ul className="text-sm text-white/70 space-y-1">
+              <li>• Applied toward treatment</li>
+              <li>• Refundable within 14 days</li>
+              <li>• Non-refundable after procedure date confirmed</li>
+            </ul>
+          </div>
+          <div className="text-center">
             <button
               type="button"
-              onClick={() => { setSection("morpheus8"); setTreatment("morpheus8_package_3"); }}
-              className={`text-left rounded-xl border-2 p-5 transition-all ${
-                section === "morpheus8"
-                  ? "border-[#FF2D8E] bg-[#FF2D8E]/10"
-                  : "border-white/20 bg-white/5 hover:border-white/40"
-              }`}
+              onClick={() => document.getElementById("secure-spot")?.scrollIntoView({ behavior: "smooth" })}
+              className="px-8 py-4 rounded-xl font-bold bg-pink-500 text-white hover:bg-pink-600 transition-colors"
             >
-              <p className="font-bold text-white text-lg">Morpheus8 – Package of 3</p>
-              <p className="text-[#FF2D8E] text-xl font-bold mt-1">$2,100</p>
-              <ul className="mt-3 text-sm text-white/70 space-y-1">
-                <li>• RF microneedling face & body</li>
-                <li>• 3 treatment sessions</li>
-                <li>• $500 deposit applied toward package</li>
-              </ul>
+              Secure My VIP Spot
             </button>
           </div>
+        </div>
+      </section>
 
-          <div className="rounded-xl bg-white/5 border border-white/10 p-6 mb-10 max-w-2xl">
-            <h3 className="font-bold text-white mb-3">$500 Refundable Deposit Required</h3>
-            <ul className="text-white/80 text-sm space-y-1">
-              <li>• Applied toward your treatment</li>
-              <li>• Refundable within 14 days</li>
-              <li>• Non-refundable after procedure date is confirmed</li>
-            </ul>
-            <p className="text-[#FF2D8E] font-semibold text-sm mt-3">VIP list closes March 31st.</p>
+      {/* Section 2: Morpheus8 Priority Waitlist */}
+      <section className="px-4 py-12 md:py-20 border-t border-white/10">
+        <div className="max-w-4xl mx-auto">
+          <div className="relative rounded-2xl overflow-hidden border border-pink-500/30 bg-zinc-900/50 mb-8 h-48 md:h-56">
+            <Image src="/images/trifecta/morpheus8.png" alt="Morpheus8" fill className="object-cover opacity-80" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
           </div>
-        </section>
-
-        {/* Treatment Areas Gallery */}
-        <div className="mb-20">
-          <h3 className="text-xl font-bold text-white mb-6 text-center">Treatment Areas We Target</h3>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10">
-              <div className="relative aspect-square">
-                <Image src="/images/morpheus8/concern-jowls-cheeks.png" alt="Jowls and cheeks skin tightening" fill className="object-cover" />
-              </div>
-              <p className="text-center text-sm text-white/80 py-2">Jowls & Cheeks</p>
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+              Morpheus8 Priority Skin Tightening Access
+            </h2>
+            <div className="inline-block rounded-2xl border-2 border-pink-500/50 bg-zinc-900/80 p-8 mb-6">
+              <p className="text-2xl md:text-3xl font-bold text-pink-400 mb-2">Package of 3 – $2,100</p>
+              <p className="text-white/80">First 20 clients who leave deposit receive:</p>
+              <p className="text-xl font-bold text-white mt-2">FREE Full Face CO₂ ($1,800 Value)</p>
             </div>
-            <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10">
-              <div className="relative aspect-square">
-                <Image src="/images/morpheus8/concern-tech-neck.png" alt="Tech neck skin tightening" fill className="object-cover" />
-              </div>
-              <p className="text-center text-sm text-white/80 py-2">Neck & Chin</p>
-            </div>
-            <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10">
-              <div className="relative aspect-square">
-                <Image src="/images/morpheus8/concern-bat-wings.png" alt="Arm skin tightening for bat wings" fill className="object-cover" />
-              </div>
-              <p className="text-center text-sm text-white/80 py-2">Sagging Arms</p>
-            </div>
-            <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10">
-              <div className="relative aspect-square">
-                <Image src="/images/morpheus8/concern-loose-belly.png" alt="Abdomen skin tightening" fill className="object-cover" />
-              </div>
-              <p className="text-center text-sm text-white/80 py-2">Abdomen</p>
-            </div>
-            <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10">
-              <div className="relative aspect-square">
-                <Image src="/images/morpheus8/concern-ozempic-butt.png" alt="Butt skin tightening" fill className="object-cover" />
-              </div>
-              <p className="text-center text-sm text-white/80 py-2">Butt Tightening</p>
-            </div>
+            <p className="text-white/70">$500 refundable deposit (applied toward package)</p>
+          </div>
+          <div className="text-center">
+            <button
+              type="button"
+              onClick={() => {
+                setSection("morpheus8");
+                document.getElementById("secure-spot")?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="px-8 py-4 rounded-xl font-bold bg-pink-500 text-white hover:bg-pink-600 transition-colors"
+            >
+              Secure My VIP Spot – Morpheus8
+            </button>
           </div>
         </div>
+      </section>
 
-        {/* Quantum RF Device Gallery */}
-        <div className="mb-20">
-          <h3 className="text-xl font-bold text-white mb-6 text-center">Quantum RF Technology</h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10">
-              <div className="relative aspect-[4/3]">
-                <Image src="/images/morpheus8/quantumrf-10-face.png" alt="Quantum RF face treatment" fill className="object-cover" />
-              </div>
-              <div className="p-4">
-                <p className="text-white font-semibold">Quantum RF 10</p>
-                <p className="text-white/60 text-sm">Precision facial contouring</p>
-              </div>
-            </div>
-            <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10">
-              <div className="relative aspect-[4/3]">
-                <Image src="/images/morpheus8/quantumrf-10-jawline.png" alt="Quantum RF jawline treatment" fill className="object-cover" />
-              </div>
-              <div className="p-4">
-                <p className="text-white font-semibold">Jawline Definition</p>
-                <p className="text-white/60 text-sm">Chin & neck tightening</p>
-              </div>
-            </div>
-            <div className="rounded-xl overflow-hidden bg-white/5 border border-white/10">
-              <div className="relative aspect-[4/3]">
-                <Image src="/images/morpheus8/quantumrf-25-abdomen.png" alt="Quantum RF abdomen treatment" fill className="object-cover" />
-              </div>
-              <div className="p-4">
-                <p className="text-white font-semibold">Quantum RF 25</p>
-                <p className="text-white/60 text-sm">Body contouring & skin tightening</p>
-              </div>
-            </div>
+      {/* Before/After placeholder */}
+      <section className="px-4 py-12 border-t border-white/10">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl font-bold mb-6">Results</h2>
+          <div className="aspect-video rounded-2xl bg-zinc-800 border border-white/10 flex items-center justify-center text-white/50">
+            Before / After slider placeholder
           </div>
         </div>
+      </section>
 
-        <section className="mb-20">
-          <div className="grid md:grid-cols-2 gap-8 items-center mb-8">
-            <div>
-              <div className="flex items-center gap-3 mb-4">
-                <Image src="/images/trifecta/morpheus8.png" alt="Morpheus8 device" width={100} height={60} className="object-contain rounded-lg" />
-                <span className="text-[#FF2D8E] font-semibold uppercase tracking-wider text-sm">Priority Access</span>
-              </div>
-              <h2 className="text-2xl md:text-3xl font-bold mb-4">Morpheus8 Priority Skin Tightening Access</h2>
-            </div>
-            <div className="grid grid-cols-2 gap-3">
-              <div className="relative aspect-square rounded-xl overflow-hidden">
-                <Image src="/images/morpheus8/morpheus8-face-front.png" alt="Morpheus8 facial treatment" fill className="object-cover" />
-              </div>
-              <div className="relative aspect-square rounded-xl overflow-hidden">
-                <Image src="/images/morpheus8/morpheus8-burst-buttocks.png" alt="Morpheus8 body treatment" fill className="object-cover" />
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
-            <div className="rounded-xl border-2 border-[#FF2D8E] bg-[#FF2D8E]/10 p-6 inline-flex flex-col max-w-sm">
-              <p className="text-white font-bold text-2xl">Package of 3 – $2,100</p>
-              <p className="text-white/80 text-sm mt-2">$500 refundable deposit applied toward package</p>
-            </div>
-            <div className="rounded-xl border border-[#FF2D8E] bg-[#FF2D8E]/5 p-4">
-              <p className="text-white font-semibold">All VIP list members receive FREE Full Face CO₂ ($1,800 value).</p>
-            </div>
-          </div>
-          <button
-            type="button"
-            onClick={() => setSection("morpheus8")}
-            className={`rounded-xl border-2 px-6 py-3 font-semibold transition-all ${
-              section === "morpheus8"
-                ? "border-[#FF2D8E] bg-[#FF2D8E] text-white"
-                : "border-white/30 text-white hover:border-[#FF2D8E]"
-            }`}
-          >
-            I want Morpheus8 Package of 3
-          </button>
-        </section>
-
-        <div className="rounded-xl bg-white/5 border border-white/10 p-6 mb-12 max-w-xl">
-          <p className="text-white font-semibold mb-2">Financing available</p>
-          <p className="text-white/70 text-sm mb-4">Pay over time with Cherry. No interest if paid in full within the promotional period.</p>
-          <Link
+      {/* Financing */}
+      <section className="px-4 py-8 border-t border-white/10">
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-white/70 mb-2">Financing available</p>
+          <a
             href={CHERRY_PAY_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 text-[#FF2D8E] font-semibold hover:underline"
+            className="text-pink-400 font-semibold hover:text-pink-300 underline"
           >
-            Check eligibility with Cherry
-            <span aria-hidden>→</span>
-          </Link>
+            Pay over time with Cherry →
+          </a>
         </div>
+      </section>
 
-        <form onSubmit={handleSubmit} className="max-w-xl space-y-6">
-          <h3 className="text-2xl font-bold text-white">Secure My VIP Spot</h3>
-          <p className="text-white/80 text-sm">
-            {section === "morpheus8" ? "Morpheus8 Package of 3 — $2,100" : `${QUANTUM_OPTIONS.find((o) => o.id === treatment)?.name ?? treatment} — $${QUANTUM_OPTIONS.find((o) => o.id === treatment)?.price.toLocaleString() ?? ""}`}
+      {/* CTA form */}
+      <section id="secure-spot" className="px-4 py-16 md:py-20 border-t border-pink-500/30">
+        <div className="max-w-lg mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-2">Secure My VIP Spot</h2>
+          {schedulingOpen && (
+            <div className="mb-6 rounded-xl bg-green-900/40 border border-green-500/40 p-4 text-center">
+              <p className="text-green-300 font-semibold mb-2">Scheduling is now open.</p>
+              <a href="/book" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg font-bold bg-pink-500 text-white hover:bg-pink-600 transition-colors">
+                Book your appointment →
+              </a>
+            </div>
+          )}
+          <p className="text-white/70 text-center mb-8">
+            Submit your details. We&apos;ll contact you to complete your $500 deposit and confirm your placement.
           </p>
-          <div>
-            <label className="block text-sm font-medium text-white/90 mb-1">Full Name *</label>
-            <input
-              type="text"
-              required
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 focus:border-[#FF2D8E] focus:ring-1 focus:ring-[#FF2D8E]"
-              placeholder="Jane Smith"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-white/90 mb-1">Email *</label>
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 focus:border-[#FF2D8E] focus:ring-1 focus:ring-[#FF2D8E]"
-              placeholder="jane@example.com"
-            />
-          </div>
-          <div>
-            <label className="block text-sm font-medium text-white/90 mb-1">Phone *</label>
-            <input
-              type="tel"
-              required
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 focus:border-[#FF2D8E] focus:ring-1 focus:ring-[#FF2D8E]"
-              placeholder="(630) 555-1234"
-            />
-          </div>
-          <label className="flex items-start gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={depositAgree}
-              onChange={(e) => setDepositAgree(e.target.checked)}
-              className="mt-1 rounded border-white/30 text-[#FF2D8E] focus:ring-[#FF2D8E]"
-            />
-            <span className="text-sm text-white/80">
-              I understand a $500 refundable deposit is required to join the waitlist. It will be applied toward my treatment, refundable within 14 days, and non-refundable after my procedure date is confirmed.
-            </span>
-          </label>
-          {error && <p className="text-red-400 text-sm">{error}</p>}
-          <button
-            type="submit"
-            disabled={submitting}
-            className="w-full py-4 rounded-xl font-bold text-lg bg-[#FF2D8E] text-white hover:bg-[#E6007E] disabled:opacity-50 transition-colors"
-          >
-            {submitting ? "Submitting…" : "Secure My VIP Spot"}
-          </button>
-          <p className="text-xs text-white/50">
-            By submitting, you'll be added to our VIP Waitlist 2026. We'll send a confirmation email and contact you to complete your deposit.
-          </p>
-        </form>
-      </div>
+
+          {submitted ? (
+            <div className="rounded-2xl bg-zinc-900 border border-pink-500/30 p-8 text-center">
+              <p className="text-xl font-bold text-pink-400 mb-2">You&apos;re on the list.</p>
+              <p className="text-white/80">
+                Check your email for confirmation. We&apos;ll reach out shortly to complete your deposit.
+              </p>
+            </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="flex gap-4">
+                <input
+                  type="text"
+                  placeholder="First name"
+                  required
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="flex-1 px-4 py-3 rounded-xl bg-zinc-900 border border-white/20 text-white placeholder-white/50 focus:border-pink-500 outline-none"
+                />
+                <input
+                  type="text"
+                  placeholder="Last name"
+                  required
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="flex-1 px-4 py-3 rounded-xl bg-zinc-900 border border-white/20 text-white placeholder-white/50 focus:border-pink-500 outline-none"
+                />
+              </div>
+              <input
+                type="email"
+                placeholder="Email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-white/20 text-white placeholder-white/50 focus:border-pink-500 outline-none"
+              />
+              <input
+                type="tel"
+                placeholder="Phone"
+                required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-white/20 text-white placeholder-white/50 focus:border-pink-500 outline-none"
+              />
+              <div>
+                <label className="block text-sm text-white/70 mb-2">I&apos;m interested in</label>
+                <div className="flex flex-wrap gap-3">
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="section"
+                      checked={section === "quantum"}
+                      onChange={() => setSection("quantum")}
+                      className="text-pink-500"
+                    />
+                    <span>Quantum RF</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="radio"
+                      name="section"
+                      checked={section === "morpheus8"}
+                      onChange={() => setSection("morpheus8")}
+                      className="text-pink-500"
+                    />
+                    <span>Morpheus8 Package</span>
+                  </label>
+                </div>
+              </div>
+              {section === "quantum" && (
+                <div>
+                  <label className="block text-sm text-white/70 mb-2">Treatment area</label>
+                  <select
+                    value={treatmentId}
+                    onChange={(e) => setTreatmentId(e.target.value)}
+                    required
+                    className="w-full px-4 py-3 rounded-xl bg-zinc-900 border border-white/20 text-white focus:border-pink-500 outline-none"
+                  >
+                    <option value="">Select area...</option>
+                    {QUANTUM_TREATMENTS.map((t) => (
+                      <option key={t.id} value={t.id}>{t.name} – ${t.price.toLocaleString()}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full py-4 rounded-xl font-bold bg-pink-500 text-white hover:bg-pink-600 disabled:opacity-50 transition-colors"
+              >
+                {isSubmitting ? "Submitting..." : "Secure My VIP Spot"}
+              </button>
+            </form>
+          )}
+        </div>
+      </section>
     </div>
   );
 }

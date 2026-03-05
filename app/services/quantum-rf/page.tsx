@@ -173,6 +173,9 @@ export default function QuantumRFPage() {
             <p className="text-white/70 mb-6 max-w-xl">
               Featuring <strong>QuantumRF 10</strong> for precise facial contouring and <strong>QuantumRF 25</strong> for efficient body treatments.
             </p>
+            <p className="text-blue-200/90 text-sm mb-8">
+              Part of our <strong>Body Contouring &amp; Lipo</strong> category — minimally invasive skin tightening and fat reduction.
+            </p>
             
             <div className="flex flex-wrap gap-3 mb-8">
               {BADGES.map((badge) => (
@@ -216,6 +219,36 @@ export default function QuantumRFPage() {
           </div>
         </section>
 
+        {/* Quantum RF Pricing — Body Contouring / Lipo category */}
+        <section className="py-16 md:py-20 bg-white">
+          <div className="max-w-6xl mx-auto px-4">
+            <h2 className="text-3xl font-bold text-black mb-2 text-center">Quantum RF Pricing</h2>
+            <p className="text-black/70 text-center mb-8 max-w-xl mx-auto">
+              Body Contouring &amp; Lipo category. Minimally invasive subdermal RF by treatment area.
+            </p>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 max-w-5xl mx-auto">
+              {[
+                { name: "Chin & Neck", price: 2800 },
+                { name: "Lower Abdomen", price: 3900 },
+                { name: "Full Abdomen", price: 4250 },
+                { name: "Sagging Arms", price: 2950 },
+                { name: "Butt Tightening", price: 3900 },
+              ].map((area) => (
+                <div key={area.name} className="rounded-xl border-2 border-zinc-200 bg-zinc-50 p-5 text-center">
+                  <h3 className="font-bold text-black mb-1">{area.name}</h3>
+                  <p className="text-xl font-bold text-[#E6007E]">${area.price.toLocaleString()}</p>
+                </div>
+              ))}
+            </div>
+            <p className="text-center text-sm text-black/60 mt-6">Financing available. Consultation required.</p>
+            <div className="text-center mt-6">
+              <Link href="/book" className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-6 py-3 font-semibold text-white hover:bg-[#c9006e] transition">
+                Book consultation
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* What is QuantumRF */}
         <section className="py-16 md:py-20 bg-zinc-50">
           <div className="max-w-6xl mx-auto px-4">
@@ -251,6 +284,16 @@ export default function QuantumRFPage() {
                 <p className="text-black/70">
                   Results develop over <strong>3-6 months</strong> as collagen rebuilds and skin continues to tighten—with many patients achieving their goals in just <strong>one treatment</strong>.
                 </p>
+              </div>
+              <div className="relative aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl">
+                <iframe
+                  className="absolute inset-0 w-full h-full"
+                  src="https://www.youtube.com/embed/skWe-Z-5m_k?si=HiL-3BRzaFfDBcjC"
+                  title="InMode QuantumRF - Subdermal RF Technology"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  referrerPolicy="strict-origin-when-cross-origin"
+                  allowFullScreen
+                />
               </div>
             </div>
           </div>
