@@ -256,3 +256,214 @@ export function centsToDollars(cents: number | bigint): number {
 export function dollarsToCents(dollars: number): number {
   return Math.round(dollars * 100);
 }
+
+// ============================================================
+// GIFT CARD HELPERS (wrap Square API for gift-cards routes)
+// ============================================================
+
+function newIdempotencyKey(): string {
+  return `hg-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`;
+}
+
+/** Retrieve a gift card by ID. Returns the card or null. */
+export async function getSquareGiftCard(giftCardId: string): Promise<{ id: string; gan?: string | null; balanceMoney?: { amount: number } } | null> {
+  const api = await getGiftCardsApiAsync();
+  if (!api?.retrieveGiftCard) return null;
+  try {
+    const res = await api.retrieveGiftCard(giftCardId);
+    const card = (res as any)?.result?.giftCard ?? (res as any)?.giftCard;
+    return card ? { id: card.id, gan: card.gan, balanceMoney: card.balanceMoney } : null;
+  } catch (e) {
+    console.warn('[Square] getSquareGiftCard error', e);
+    return null;
+  }
+}
+
+/** Retrieve a gift card by GAN. Returns the card or null. */
+export async function getSquareGiftCardByGan(gan: string): Promise<{ id: string; gan?: string | null; balanceMoney?: { amount: number } } | null> {
+  const api = await getGiftCardsApiAsync();
+  if (!api?.retrieveGiftCardFromGAN) return null;
+  try {
+    const res = await api.retrieveGiftCardFromGAN({ gan });
+    const card = (res as any)?.result?.giftCard ?? (res as any)?.giftCard;
+    return card ? { id: card.id, gan: card.gan, balanceMoney: card.balanceMoney } : null;
+  } catch (e) {
+    console.warn('[Square] getSquareGiftCardByGan error', e);
+    return null;
+  }
+}
+
+/** Create a new gift card in Square (PENDING). Returns created card or null. */
+export async function createSquareGiftCard(
+  locationId: string,
+  type: 'PHYSICAL' | 'DIGITAL'
+): Promise<{ id: string; gan?: string | null } | null> {
+  const api = await getGiftCardsApiAsync();
+  if (!api?.createGiftCard) return null;
+  try {
+    const res = await api.createGiftCard({
+      idempotencyKey: newIdempotencyKey(),
+      locationId,
+      giftCard: { type },
+    });
+    const card = (res as any)?.result?.giftCard ?? (res as any)?.giftCard;
+    return card ? { id: card.id, gan: card.gan ?? null } : null;
+  } catch (e) {
+    console.warn('[Square] createSquareGiftCard error', e);
+    return null;
+  }
+}
+
+/** Activate a gift card with initial balance. Returns activity or null. */
+export async function activateSquareGiftCard(
+  giftCardId: string,
+  amountMoneyCents: number,
+  locationId: string,
+  orderId?: string | null
+): Promise<{ id: string } | null> {
+  const activitiesApi = await getGiftCardActivitiesApiAsync();
+  if (!activitiesApi?.createGiftCardActivity) return null;
+  try {
+    const res = await activitiesApi.createGiftCardActivity({
+      idempotencyKey: newIdempotencyKey(),
+      giftCardActivity: {
+        type: 'ACTIVATE',
+        locationId,
+        giftCardId,
+        activateActivityDetails: {
+          amountMoney: { amount: amountMoneyCents, currency: 'USD' },
+          orderId: orderId ?? undefined,
+        },
+      },
+    });
+    const activity = (res as any)?.result?.giftCardActivity ?? (res as any)?.giftCardActivity;
+    return activity ? { id: activity.id } : null;
+  } catch (e) {
+    console.warn('[Square] activateSquareGiftCard error', e);
+    return null;
+  }
+}
+
+/** Redeem (decrement) balance. Returns activity or null. */
+export async function redeemSquareGiftCard(
+  giftCardId: string,
+  amountMoneyCents: number,
+  locationId: string,
+  paymentId?: string | null,
+  referenceId?: string | null
+): Promise<{ id: string } | null> {
+  const activitiesApi = await getGiftCardActivitiesApiAsync();
+  if (!activitiesApi?.createGiftCardActivity) return null;
+  try {
+    const res = await activitiesApi.createGiftCardActivity({
+      idempotencyKey: newIdempotencyKey(),
+      giftCardActivity: {
+        type: 'REDEEM',
+        locationId,
+        giftCardId,
+        redeemActivityDetails: {
+          amountMoney: { amount: amountMoneyCents, currency: 'USD' },
+          paymentId: paymentId ?? undefined,
+          referenceId: referenceId ?? undefined,
+        },
+      },
+    });
+    const activity = (res as any)?.result?.giftCardActivity ?? (res as any)?.giftCardActivity;
+    return activity ? { id: activity.id } : null;
+  } catch (e) {
+    console.warn('[Square] redeemSquareGiftCard error', e);
+    return null;
+  }
+}
+
+/** Deactivate a gift card. Returns activity or null. */
+export async function deactivateSquareGiftCard(
+  giftCardId: string,
+  locationId: string,
+  reason: string
+): Promise<{ id: string } | null> {
+  const activitiesApi = await getGiftCardActivitiesApiAsync();
+  if (!activitiesApi?.createGiftCardActivity) return null;
+  try {
+    const res = await activitiesApi.createGiftCardActivity({
+      idempotencyKey: newIdempotencyKey(),
+      giftCardActivity: {
+        type: 'DEACTIVATE',
+        locationId,
+        giftCardId,
+        deactivateActivityDetails: { reason },
+      },
+    });
+    const activity = (res as any)?.result?.giftCardActivity ?? (res as any)?.giftCardActivity;
+    return activity ? { id: activity.id } : null;
+  } catch (e) {
+    console.warn('[Square] deactivateSquareGiftCard error', e);
+    return null;
+  }
+}
+
+/** Adjust balance (increment or decrement). Returns activity or null. */
+export async function adjustSquareGiftCardBalance(
+  giftCardId: string,
+  amountMoneyCents: number,
+  locationId: string,
+  reason: string,
+  isIncrement: boolean
+): Promise<{ id: string } | null> {
+  const activitiesApi = await getGiftCardActivitiesApiAsync();
+  if (!activitiesApi?.createGiftCardActivity) return null;
+  const type = isIncrement ? 'ADJUST_INCREMENT' : 'ADJUST_DECREMENT';
+  const amountMoney = { amount: amountMoneyCents, currency: 'USD' as const };
+  const base = { type, locationId, giftCardId };
+  const activityPayload = isIncrement
+    ? { ...base, adjustIncrementActivityDetails: { amountMoney, reason } }
+    : { ...base, adjustDecrementActivityDetails: { amountMoney, reason } };
+  try {
+    const res = await activitiesApi.createGiftCardActivity({
+      idempotencyKey: newIdempotencyKey(),
+      giftCardActivity: activityPayload,
+    });
+    const activity = (res as any)?.result?.giftCardActivity ?? (res as any)?.giftCardActivity;
+    return activity ? { id: activity.id } : null;
+  } catch (e) {
+    console.warn('[Square] adjustSquareGiftCardBalance error', e);
+    return null;
+  }
+}
+
+/** Link a customer to a gift card. */
+export async function linkGiftCardToCustomer(giftCardId: string, customerId: string): Promise<boolean> {
+  const api = await getGiftCardsApiAsync();
+  if (!api?.linkCustomerToGiftCard) return false;
+  try {
+    await api.linkCustomerToGiftCard(giftCardId, { customerId });
+    return true;
+  } catch (e) {
+    console.warn('[Square] linkGiftCardToCustomer error', e);
+    return false;
+  }
+}
+
+/** List activities for a gift card. Returns array of activities. */
+export async function listGiftCardActivities(
+  giftCardId: string,
+  options?: { type?: string; locationId?: string; limit?: number }
+): Promise<Array<{ id: string; type: string; createdAt?: string }>> {
+  const api = await getGiftCardActivitiesApiAsync();
+  if (!api?.listGiftCardActivities) return [];
+  try {
+    const res = await api.listGiftCardActivities(
+      giftCardId,
+      options?.type,
+      options?.locationId,
+      undefined,
+      undefined,
+      options?.limit ?? 50
+    );
+    const list = (res as any)?.result?.activities ?? (res as any)?.activities ?? [];
+    return Array.isArray(list) ? list : [];
+  } catch (e) {
+    console.warn('[Square] listGiftCardActivities error', e);
+    return [];
+  }
+}

@@ -34,23 +34,26 @@ function getSupabase() {
 // If schedule not found in database, provider is NOT available
 
 const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-const SLUG_TO_NAME: Record<string, string> = {
-  'ryan-kent': 'Ryan Kent',
-  'danielle-alcala': 'Danielle Alcala',
+const SLUG_TO_FIRST: Record<string, string> = {
+  'ryan-kent': 'ryan',
+  'danielle-alcala': 'danielle',
 };
 
-/** If provider_id is a slug (e.g. from booking widget), resolve to real provider UUID. */
+/** If provider_id is a slug (e.g. from booking widget), resolve to real provider UUID. Matches "Danielle Glazier-Alcala" for danielle-alcala. */
 async function resolveProviderId(supabase: NonNullable<ReturnType<typeof getSupabase>>, providerId: string): Promise<string> {
   if (UUID_REGEX.test(providerId)) return providerId;
-  const name = SLUG_TO_NAME[providerId.toLowerCase()];
-  if (!name) return providerId;
+  const wantFirst = SLUG_TO_FIRST[providerId.toLowerCase()];
+  if (!wantFirst) return providerId;
   const { data: providers } = await supabase
     .from('providers')
     .select('id, users!inner(first_name, last_name)');
   const match = (providers as any[])?.find((p: any) => {
     if (!p?.users) return false;
-    const full = `${String(p.users.first_name).trim()} ${String(p.users.last_name).trim()}`;
-    return full.toLowerCase() === name.toLowerCase();
+    const first = String(p.users.first_name ?? '').trim().toLowerCase();
+    const last = String(p.users.last_name ?? '').trim().toLowerCase();
+    if (wantFirst === 'ryan') return first === 'ryan' && last.includes('kent');
+    if (wantFirst === 'danielle') return first === 'danielle' && (last.includes('alcala') || last.includes('glazier'));
+    return first === wantFirst;
   });
   return match?.id ?? providerId;
 }
