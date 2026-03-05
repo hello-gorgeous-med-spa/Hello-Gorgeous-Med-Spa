@@ -77,22 +77,31 @@ export async function POST(request: NextRequest) {
 
     const results: { channel: string; success: boolean; error?: string }[] = [];
 
-    // Send email
-    if (channels.includes('email') && appointment.client?.email) {
+    // Send email (Resend)
+    const clientEmail = appointment.client?.email ?? (appointment as any).client?.email;
+    if (channels.includes('email') && clientEmail) {
       const emailTemplate = EMAIL_TEMPLATES[template as keyof typeof EMAIL_TEMPLATES];
       if (emailTemplate) {
         const subject = renderTemplate(emailTemplate.subject, variables);
-        const body = renderTemplate(emailTemplate.body, variables);
-        
-        // TODO: Integrate with Brevo/SendGrid/etc
-        // For now, log the email
-        console.log('Would send email:', {
-          to: appointment.client.email,
-          subject,
-          body,
-        });
-        
-        results.push({ channel: 'email', success: true });
+        const bodyText = renderTemplate(emailTemplate.body, variables);
+        const apiKey = process.env.RESEND_API_KEY;
+        if (apiKey) {
+          const fromEmail = process.env.RESEND_FROM_EMAIL || 'Hello Gorgeous <onboarding@resend.dev>';
+          const res = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
+            body: JSON.stringify({
+              from: fromEmail,
+              to: [clientEmail.trim().toLowerCase()],
+              subject,
+              text: bodyText,
+            }),
+          });
+          results.push({ channel: 'email', success: res.ok });
+        } else {
+          console.log('[reminders/send] Resend not configured, skipping email');
+          results.push({ channel: 'email', success: false, error: 'Resend not configured' });
+        }
       }
     }
 
