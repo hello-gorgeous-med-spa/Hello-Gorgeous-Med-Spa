@@ -148,7 +148,7 @@ export default function MarketingHubPage() {
         </div>
 
         {/* Quick actions */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
           <Link
             href="/admin/marketing/campaigns/new"
             className="bg-white rounded-xl p-6 border-2 border-dashed border-pink-300 hover:border-[#FF2D8E] hover:bg-pink-50 transition-colors text-center group"
@@ -172,6 +172,14 @@ export default function MarketingHubPage() {
             <span className="text-3xl block mb-2">📋</span>
             <h3 className="font-semibold text-black group-hover:text-blue-600">Manage Contacts</h3>
             <p className="text-sm text-black mt-1">Import, export, preferences</p>
+          </Link>
+          <Link
+            href="/admin/marketing/google-posts"
+            className="bg-white rounded-xl p-6 border hover:border-amber-400 hover:bg-amber-50 transition-colors text-center group"
+          >
+            <span className="text-3xl block mb-2">📍</span>
+            <h3 className="font-semibold text-black group-hover:text-amber-600">Google Post Campaigns</h3>
+            <p className="text-sm text-black mt-1">Ready-to-use copy for Google Business</p>
           </Link>
         </div>
 
