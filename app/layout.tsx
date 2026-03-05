@@ -8,6 +8,7 @@ import { AuthWrapper } from "@/components/AuthWrapper";
 import { ConditionalLayout } from "@/components/ConditionalLayout";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { ConsultationRequestPopup } from "@/components/ConsultationRequestPopup";
+import { ClientErrorBoundary } from "@/components/ClientErrorBoundary";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -148,6 +149,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         />
       </head>
       <body className="min-h-screen antialiased font-sans">
+        <ClientErrorBoundary>
         <GoogleAnalytics />
         <ConsultationRequestPopup />
         <AuthWrapper>
@@ -155,6 +157,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             {children}
           </ConditionalLayout>
         </AuthWrapper>
+        </ClientErrorBoundary>
       </body>
     </html>
   );
