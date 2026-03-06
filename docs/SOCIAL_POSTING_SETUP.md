@@ -1,12 +1,12 @@
-# Social posting setup — Facebook, Instagram, Google
+# Marketing setup — Facebook, Square, Google My Business
 
-This guide walks you through the steps to connect **Post to social** (Admin → Marketing → Post to social) so you can publish to Facebook, Instagram, and Google Business from one place.
+This guide covers the three main channels you use: **Facebook**, **Square** (email marketing), and **Google My Business**. **Instagram** is optional and can be connected later. The **Post to social** page (Admin → Marketing → Post to social) lets you publish one post to Facebook, Google, and/or Instagram from one place; Square is used separately for email campaigns.
 
 ---
 
-## Part 1: Facebook (and optionally Instagram)
+## Part 1: Facebook
 
-You need a **Meta for Developers** app, a **Page access token**, and (for Instagram) your **Instagram Business Account ID**.
+You need a **Meta for Developers** app and a **Page access token** so the app can post to your Facebook Page.
 
 ### Step 1: Create a Meta app
 
@@ -15,157 +15,154 @@ You need a **Meta for Developers** app, a **Page access token**, and (for Instag
 3. Choose **Business** (or **Other** if you prefer).
 4. Name it (e.g. “Hello Gorgeous Social”) and create the app.
 
-### Step 2: Add permissions to the app
+### Step 2: Add permissions
 
-1. In your app dashboard, go to **App Review** → **Permissions and Features** (or **Use cases** in newer UI).
-2. Request these permissions (you may need to add them under “Add permission” or in your use case):
-   - **pages_show_list** — so you can see your Page
-   - **pages_manage_posts** — required to create posts
-   - **pages_read_engagement** — often required with manage_posts
+1. In your app dashboard, go to **App Review** → **Permissions and Features** (or **Use cases**).
+2. Add these permissions:
+   - **pages_show_list**
+   - **pages_manage_posts**
+   - **pages_read_engagement**
 
-   For **Instagram** posting you may also need (if your app uses “Instagram Content Publishing”):
-   - **instagram_basic**
-   - **instagram_content_publish**
-
-   In development/test mode, these work for your own accounts without full App Review. For production (other people’s Pages), Meta may require App Review.
+(For Instagram later: **instagram_basic** and **instagram_content_publish**.)
 
 ### Step 3: Get a Page access token
 
 1. Open **[Graph API Explorer](https://developers.facebook.com/tools/explorer)**.
-2. In the top dropdown, **select your app** (the one you just created).
-3. Under “User or Page”, make sure you’re logged in as a user who **admins** your Hello Gorgeous Facebook Page.
-4. Click **Add a permission** and add:
-   - `pages_show_list`
-   - `pages_manage_posts`
-   - `pages_read_engagement`
-5. Click **Generate Access Token** and approve the prompts.
-6. You now have a **User** token. To get a **Page** token:
-   - In the “User or Page” dropdown (next to the token), switch to **your Page name** (Hello Gorgeous).  
-   - Or call: `GET /me/accounts` in the Explorer; in the response, find your Page and copy its `access_token`.
-7. Copy that **Page access token** — this is what you’ll put in `META_PAGE_ACCESS_TOKEN`.
-
-**Tip:** Page tokens can be long‑lived. If you need a long‑lived token, use the “Exchange” step in the docs or a tool that exchanges short‑lived for long‑lived tokens.
+2. Select your app in the top dropdown.
+3. Add permissions: `pages_show_list`, `pages_manage_posts`, `pages_read_engagement`.
+4. Click **Generate Access Token** and approve.
+5. In the **“User or Page”** dropdown, switch to **your Page name** (Hello Gorgeous). The token shown is your **Page** token. Copy it → `META_PAGE_ACCESS_TOKEN`.
+   - Or run **GET** `me/accounts` and copy the `access_token` for your Page.
 
 ### Step 4: Get your Facebook Page ID
 
-1. In Graph API Explorer, with your **Page** token selected, run:  
-   **GET** `me`  
-   or **GET** `me?fields=id,name`.
-2. The `id` in the response is your **Page ID** → use it for `META_PAGE_ID`.
+In Graph API Explorer, with the **Page** token selected, run **GET** `me`. The `id` in the response is `META_PAGE_ID`.
 
-(You can also find it in Page Settings → About on Facebook, or in the Page URL.)
+### Step 5: Env vars for Facebook
 
-### Step 5: (Optional) Get Instagram Business Account ID
-
-Only needed if you want to **post to Instagram** from the app.
-
-1. Your Instagram account must be a **Business** or **Creator** account linked to your **Facebook Page** (done in Meta Business Suite or Facebook Page settings → Instagram).
-2. In Graph API Explorer, with your **Page** token, run:  
-   **GET** `me?fields=instagram_business_account`.
-3. In the response, use `instagram_business_account.id` → that’s `META_INSTAGRAM_BUSINESS_ACCOUNT_ID`.
-
-If the field is empty, link your IG account to the Page first in Meta Business Suite.
-
-### Step 6: Add env vars (Facebook + Instagram)
-
-In Vercel (or your host) or `.env.local`, add:
+In Vercel (or your host) add:
 
 ```bash
-META_PAGE_ID=your_page_id_here
-META_PAGE_ACCESS_TOKEN=your_page_access_token_here
-# Only for Instagram posting:
-META_INSTAGRAM_BUSINESS_ACCOUNT_ID=your_ig_business_account_id_here
+META_PAGE_ID=your_page_id
+META_PAGE_ACCESS_TOKEN=your_page_access_token
 ```
 
-Redeploy if you use Vercel. Then try **Post to social** with “Post to Facebook” (and optionally “Post to Instagram” with an image URL).
+Redeploy. Then use **Post to social** and check **Facebook** to post.
+
+**Instagram (optional):** When you’re ready, link your Instagram Business account to your Facebook Page in Meta Business Suite, then in Graph API Explorer run **GET** `me?fields=instagram_business_account` with the Page token. Use that `id` as `META_INSTAGRAM_BUSINESS_ACCOUNT_ID`. Leave it unset until then.
 
 ---
 
-## Part 2: Google Business Profile (Google)
+## Part 2: Square (email marketing)
 
-Posting to Google Business requires the **Google Business Profile API** (formerly My Business), OAuth, and your **account** and **location** IDs. The app’s Google path is still a stub: we have the wiring for “which channels to post to,” but actually calling Google’s API needs OAuth and IDs in place.
+**Square** is where your **~2,700 contacts** live and where you send **email campaigns**. The app does **not** post to Square from the “Post to social” page; Square is used for email, not social posts.
+
+**What to do:**
+
+1. Use **Admin → Marketing** for quick links:
+   - **Square Dashboard** — [squareup.com/dashboard](https://squareup.com/dashboard)
+   - **Customers (~2,700)** — [squareup.com/dashboard/customers](https://squareup.com/dashboard/customers)
+   - **Marketing & Loyalty** — [squareup.com/dashboard/marketing](https://squareup.com/dashboard/marketing)
+2. Create and send **email campaigns** from the Square Marketing dashboard (one campaign per week is a good target).
+3. Use the same **message and offers** you post on Facebook and Google (e.g. Glow Event, book link) so your email and social stay aligned.
+
+No env vars are required in the app for Square; you log in to Square in the browser. The 5 Agents Runbook (Admin → Marketing → 5 Agents Runbook) ties together Facebook, Square email, and Google posts into a weekly checklist.
+
+---
+
+## Part 3: Google My Business
+
+The app **posts to your Google Business Profile** (Search & Maps) using the [Google My Business API v4](https://developers.google.com/my-business/content/posts-data). You need a **Google Cloud project**, **OAuth credentials**, a **refresh token**, and your **account** and **location** IDs.
 
 ### Step 1: Google Cloud project and API
 
 1. Go to **[console.cloud.google.com](https://console.cloud.google.com)**.
-2. Create a project (or pick one) and open it.
-3. Go to **APIs & Services** → **Library**.
-4. Search for **“Google My Business API”** or **“Business Profile API”** and **enable** it.  
-   (You may see **My Business Business Information API** and **My Business Account Management API** — enable the ones required for “local posts” or “posts” in the docs.)
-5. Stay in **APIs & Services** → **Credentials**.
+2. Create a project (e.g. “Hello Gorgeous Social”) and open it.
+3. **APIs & Services** → **Library** → enable **Google My Business API** (the one that supports local posts).
+4. If you see **My Business Account Management** or **My Business Business Information**, enable those too (needed to list accounts and locations).
 
 ### Step 2: OAuth consent screen
 
-1. Go to **OAuth consent screen**.
-2. Choose **External** (unless you use a Workspace).
-3. Fill in App name (e.g. “Hello Gorgeous”), support email, developer contact.
-4. Add the scope:  
-   `https://www.googleapis.com/auth/business.manage`  
-   (Scopes → Add → paste that scope.)
-5. Save. Add test users if the app is in “Testing” (your Google account that owns the Business Profile).
+1. **APIs & Services** → **OAuth consent screen**.
+2. Choose **External**. App name (e.g. “Hello Gorgeous”), support email, developer contact.
+3. **Scopes** → Add: `https://www.googleapis.com/auth/business.manage` → Save.
+4. If the app is in **Testing**, add your Google account (the one that owns the Business Profile) as a test user.
 
-### Step 3: OAuth client ID
+### Step 3: OAuth client and refresh token
 
-1. **Credentials** → **Create credentials** → **OAuth client ID**.
-2. Application type: **Web application** (or **Desktop** for local testing).
-3. If Web: add **Authorized redirect URIs** (e.g. your app’s callback URL for OAuth).
-4. Create and copy the **Client ID** and **Client Secret** — you’ll need these to implement the OAuth flow that gets a refresh token for “post on behalf of the business.”
+1. **APIs & Services** → **Credentials** → **Create credentials** → **OAuth client ID**.
+2. Application type: **Web application** (or **Desktop app** for a one-off token).
+3. If Web: add **Authorized redirect URI** — you can use `https://developers.google.com/oauthplayground` for the next step.
+4. Create and copy **Client ID** and **Client Secret** → these are `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`.
+
+**Get a refresh token (one-time):**
+
+1. Go to **[OAuth 2.0 Playground](https://developers.google.com/oauthplayground)**.
+2. Click the gear icon — check **“Use your own OAuth credentials”** and enter your Client ID and Client Secret.
+3. In Step 1, add the scope: `https://www.googleapis.com/auth/business.manage` → **Authorize APIs** → sign in with the Google account that **owns** your Business Profile.
+4. In Step 2 click **Exchange authorization code for tokens**. Copy the **Refresh token** → `GOOGLE_REFRESH_TOKEN`.
 
 ### Step 4: Get account ID and location ID
 
-Google’s APIs use:
+Use an access token (from the Playground or any OAuth tool) with the same account:
 
-- **Account ID** — the top-level “account” that owns the location(s).
-- **Location ID** — the specific location (e.g. Hello Gorgeous’s GBP listing).
+1. **List accounts:**  
+   `GET https://mybusinessaccountmanagement.googleapis.com/v1/accounts`  
+   Header: `Authorization: Bearer YOUR_ACCESS_TOKEN`  
+   From the response, take the **name** (e.g. `accounts/1234567890`) → the numeric part is `GOOGLE_BUSINESS_ACCOUNT_ID`.
 
-Ways to get them:
+2. **List locations:**  
+   `GET https://mybusinessbusinessinformation.googleapis.com/v1/accounts/{accountId}/locations`  
+   Use the account ID from step 1. Find your Hello Gorgeous location; **name** is like `accounts/123/locations/456` → the location part (e.g. `456`) is `GOOGLE_BUSINESS_LOCATION_ID`.
 
-- **Account Management API:** list accounts for the authenticated user → you get account IDs.
-- **Business Information API:** list locations for an account → you get location IDs.
+### Step 5: Env vars for Google
 
-Format is usually: `accounts/{accountId}/locations/{locationId}`.
+In Vercel (or your host) add:
 
-Until we add the full OAuth flow and API calls in the app, you can:
+```bash
+GOOGLE_CLIENT_ID=your_client_id.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=your_client_secret
+GOOGLE_REFRESH_TOKEN=your_refresh_token
+GOOGLE_BUSINESS_ACCOUNT_ID=your_account_id
+GOOGLE_BUSINESS_LOCATION_ID=your_location_id
+```
 
-1. Use the [Google Business Profile API docs](https://developers.google.com/my-business/content/posts-data) to see the exact endpoints for creating posts.
-2. Store in env (for when we wire it):  
-   `GOOGLE_BUSINESS_ACCOUNT_ID` and `GOOGLE_BUSINESS_LOCATION_ID`.
-
-### Step 5: What’s implemented in the app today
-
-- **Post to social** UI and scheduling work for **Facebook** and **Instagram** once the Meta env vars are set.
-- **Google** is stubbed: the UI lets you choose “Google Business,” but the backend returns “not configured” until we add:
-  - An OAuth flow (or service account) that can act on behalf of the business.
-  - Calls to the Business Profile (or My Business) API to create a local post using your account and location IDs.
-
-So for **Google**, the “steps you need to do” are: create the Cloud project, enable the API, set up OAuth and get account/location IDs. After that, we can wire the app to actually create posts (next phase).
+Redeploy. In **Post to social**, check **Google Business** and post. The app will create a local post (summary + optional link as BOOK button + optional image).
 
 ---
 
 ## Quick reference: env vars
 
-| Variable | Where it comes from |
-|----------|----------------------|
-| `META_PAGE_ID` | Graph API Explorer: **GET** `me` with Page token → `id` |
-| `META_PAGE_ACCESS_TOKEN` | Graph API Explorer: Page token (from User token → **GET** `me/accounts` or “User or Page” dropdown) |
-| `META_INSTAGRAM_BUSINESS_ACCOUNT_ID` | Graph API Explorer: **GET** `me?fields=instagram_business_account` with Page token → `instagram_business_account.id` |
-| `GOOGLE_BUSINESS_ACCOUNT_ID` | From Google Business Profile / Account Management API (for future use) |
-| `GOOGLE_BUSINESS_LOCATION_ID` | From Google Business Profile / Business Information API (for future use) |
+| Channel | Variable | Where it comes from |
+|---------|----------|---------------------|
+| **Facebook** | `META_PAGE_ID` | Graph API Explorer: **GET** `me` with Page token → `id` |
+| **Facebook** | `META_PAGE_ACCESS_TOKEN` | Graph API Explorer: Page token (from “User or Page” dropdown or **GET** `me/accounts`) |
+| **Instagram** (optional) | `META_INSTAGRAM_BUSINESS_ACCOUNT_ID` | **GET** `me?fields=instagram_business_account` with Page token; set when you connect IG |
+| **Square** | — | No env vars; use Square dashboard links from Admin → Marketing |
+| **Google** | `GOOGLE_CLIENT_ID` | Google Cloud Console → OAuth client |
+| **Google** | `GOOGLE_CLIENT_SECRET` | Google Cloud Console → OAuth client |
+| **Google** | `GOOGLE_REFRESH_TOKEN` | OAuth 2.0 Playground (scope `business.manage`) |
+| **Google** | `GOOGLE_BUSINESS_ACCOUNT_ID` | Account Management API → list accounts |
+| **Google** | `GOOGLE_BUSINESS_LOCATION_ID` | Business Information API → list locations |
 
 ---
 
 ## Troubleshooting
 
-- **“META_PAGE_ID and META_PAGE_ACCESS_TOKEN required”**  
-  Add both env vars and redeploy. The token must be a **Page** access token, not a User token.
+- **Facebook: “META_PAGE_ID and META_PAGE_ACCESS_TOKEN required”**  
+  Add both env vars and redeploy. Use a **Page** access token, not a User token.
 
-- **Facebook post works but Instagram doesn’t**  
-  Instagram requires an **image URL** for each post. Also confirm `META_INSTAGRAM_BUSINESS_ACCOUNT_ID` is set and that the Page is linked to an Instagram Business/Creator account.
+- **Facebook: Token expired**  
+  In Graph API Explorer, select your Page and copy a new token; update `META_PAGE_ACCESS_TOKEN`.
 
-- **Token expired**  
-  Page tokens can be long‑lived; if yours expires, generate a new one in Graph API Explorer (with Page selected) and update `META_PAGE_ACCESS_TOKEN`.
+- **Instagram**  
+  Not connected yet is fine. When you connect, add `META_INSTAGRAM_BUSINESS_ACCOUNT_ID` and use an **image URL** for each Instagram post.
 
-- **Google: “not configured” or “OAuth not yet wired”**  
-  Expected until we add the OAuth flow and post-creation calls. Use the steps above to prepare the Cloud project and IDs for when that’s built.
+- **Square**  
+  No setup in the app; use the Square Marketing dashboard. Links are on Admin → Marketing.
 
-If you want, we can next add a small “Test connection” button on the Post to social page that checks Meta env vars and maybe calls `me` to confirm the token works.
+- **Google: “not configured”**  
+  Set all five env vars. Get the refresh token from [OAuth 2.0 Playground](https://developers.google.com/oauthplayground) with scope `https://www.googleapis.com/auth/business.manage`.
+
+- **Google: 403 or invalid_grant**  
+  Refresh token may be expired or revoked. In the Playground, authorize again (with consent) and exchange for a new refresh token; update `GOOGLE_REFRESH_TOKEN`.

@@ -1,12 +1,13 @@
 // ============================================================
 // SOCIAL POSTING — Facebook, Instagram, Google Business
 // Tell the agent what to post → posts to selected channels.
-// Env: META_PAGE_ID, META_PAGE_ACCESS_TOKEN, META_INSTAGRAM_BUSINESS_ACCOUNT_ID (optional for IG).
-// Google: GOOGLE_BUSINESS_ACCOUNT_ID, GOOGLE_BUSINESS_LOCATION_ID + OAuth (stub until configured).
+// Env: META_* for FB/IG. Google: GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET,
+// GOOGLE_REFRESH_TOKEN, GOOGLE_BUSINESS_ACCOUNT_ID, GOOGLE_BUSINESS_LOCATION_ID.
 // ============================================================
 
 const META_GRAPH = "https://graph.facebook.com/v21.0";
 const META_IG_GRAPH = "https://graph.facebook.com/v21.0";
+const GOOGLE_MYBUSINESS = "https://mybusiness.googleapis.com/v4";
 
 export type SocialChannel = "facebook" | "instagram" | "google";
 
@@ -104,17 +105,70 @@ export async function postToInstagram(
   }
 }
 
-/** Google Business Profile local post — stub until OAuth + account/location IDs are configured. */
+/** Get Google OAuth2 access token from refresh token. */
+async function getGoogleAccessToken(): Promise<string | null> {
+  const clientId = process.env.GOOGLE_CLIENT_ID;
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+  const refreshToken = process.env.GOOGLE_REFRESH_TOKEN;
+  if (!clientId || !clientSecret || !refreshToken) return null;
+  const res = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      client_id: clientId,
+      client_secret: clientSecret,
+      refresh_token: refreshToken,
+      grant_type: "refresh_token",
+    }),
+  });
+  const data = (await res.json()) as { access_token?: string; error?: string };
+  return data.access_token ?? null;
+}
+
+/** Google Business Profile local post (Call-to-Action or summary). */
 export async function postToGoogle(
-  _accountId: string,
-  _locationId: string,
-  _input: SocialPostInput
+  accountId: string,
+  locationId: string,
+  input: SocialPostInput,
+  accessToken: string
 ): Promise<ChannelResult> {
-  return {
-    ok: false,
-    error:
-      "Google Business posting not configured. Add GOOGLE_APPLICATION_CREDENTIALS or OAuth client and account/location IDs.",
-  };
+  const { message, link, imageUrl } = input;
+  try {
+    const body: Record<string, unknown> = {
+      languageCode: "en-US",
+      summary: message,
+      topicType: link ? "OFFER" : "STANDARD",
+    };
+    if (link) {
+      body.callToAction = {
+        actionType: "BOOK",
+        url: link.startsWith("http") ? link : `https://${link}`,
+      };
+    }
+    if (imageUrl) {
+      body.media = [{ mediaFormat: "PHOTO", sourceUrl: imageUrl }];
+    }
+    const res = await fetch(
+      `${GOOGLE_MYBUSINESS}/accounts/${accountId}/locations/${locationId}/localPosts`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify(body),
+      }
+    );
+    if (!res.ok) {
+      const err = (await res.json()) as { error?: { message?: string } };
+      return { ok: false, error: err.error?.message ?? res.statusText };
+    }
+    const data = (await res.json()) as { name?: string };
+    return { ok: true, id: data.name ?? undefined };
+  } catch (e) {
+    const err = e instanceof Error ? e.message : String(e);
+    return { ok: false, error: err };
+  }
 }
 
 /** Post to selected channels. Uses env vars for credentials. */
@@ -148,11 +202,20 @@ export async function postToChannels(
   }
   if (channels.includes("google")) {
     if (googleAccountId && googleLocationId) {
-      results.google = await postToGoogle(googleAccountId, googleLocationId, input);
+      const accessToken = await getGoogleAccessToken();
+      if (!accessToken) {
+        results.google = {
+          ok: false,
+          error:
+            "Google OAuth required. Set GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, and GOOGLE_REFRESH_TOKEN.",
+        };
+      } else {
+        results.google = await postToGoogle(googleAccountId, googleLocationId, input, accessToken);
+      }
     } else {
       results.google = {
         ok: false,
-        error: "GOOGLE_BUSINESS_ACCOUNT_ID and GOOGLE_BUSINESS_LOCATION_ID required (OAuth not yet wired).",
+        error: "GOOGLE_BUSINESS_ACCOUNT_ID and GOOGLE_BUSINESS_LOCATION_ID required.",
       };
     }
   }

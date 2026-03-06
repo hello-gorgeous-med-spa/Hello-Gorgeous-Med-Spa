@@ -113,7 +113,7 @@ export default function PostSocialPage() {
         </div>
         <h1 className="text-2xl font-bold text-black mb-2">Post to social</h1>
         <p className="text-black mb-6">
-          Write your post once and publish to Facebook, Instagram, and/or Google Business. Connect your accounts with the env vars below.
+          Write once, publish to <strong>Facebook</strong>, <strong>Google Business</strong>, and/or Instagram. Use <strong>Square</strong> for email campaigns (links on the main Marketing page). Instagram is optional — connect when ready. Set env vars below per channel.
         </p>
 
         <form onSubmit={handleSubmit} className="bg-white rounded-xl border p-6 space-y-5">
@@ -245,7 +245,7 @@ export default function PostSocialPage() {
             <li><code className="bg-amber-100 px-1 rounded">META_PAGE_ID</code> — Your Facebook Page ID</li>
             <li><code className="bg-amber-100 px-1 rounded">META_PAGE_ACCESS_TOKEN</code> — Page access token (with pages_manage_posts)</li>
             <li><code className="bg-amber-100 px-1 rounded">META_INSTAGRAM_BUSINESS_ACCOUNT_ID</code> — IG Business Account ID (Page must be linked to IG)</li>
-            <li>Google: <code className="bg-amber-100 px-1 rounded">GOOGLE_BUSINESS_ACCOUNT_ID</code> + <code className="bg-amber-100 px-1 rounded">GOOGLE_BUSINESS_LOCATION_ID</code> (OAuth not yet wired)</li>
+            <li>Google: <code className="bg-amber-100 px-1 rounded">GOOGLE_CLIENT_ID</code>, <code className="bg-amber-100 px-1 rounded">GOOGLE_CLIENT_SECRET</code>, <code className="bg-amber-100 px-1 rounded">GOOGLE_REFRESH_TOKEN</code> (get via OAuth 2.0 Playground), <code className="bg-amber-100 px-1 rounded">GOOGLE_BUSINESS_ACCOUNT_ID</code>, <code className="bg-amber-100 px-1 rounded">GOOGLE_BUSINESS_LOCATION_ID</code> — full steps in docs/SOCIAL_POSTING_SETUP.md</li>
           </ul>
           <p className="mt-2 text-amber-800">
             Get tokens from{' '}
