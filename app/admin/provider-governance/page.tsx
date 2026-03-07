@@ -101,6 +101,24 @@ export default function ProviderGovernancePage() {
           >
             Asset registry
           </Link>
+          <Link
+            href="/admin/provider-governance/inspection-readiness"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 text-black text-sm font-medium hover:bg-gray-50"
+          >
+            Inspection readiness
+          </Link>
+          <Link
+            href="/admin/provider-governance/chart-audits"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 text-black text-sm font-medium hover:bg-gray-50"
+          >
+            Chart audits
+          </Link>
+          <Link
+            href="/admin/provider-governance/emergency-log"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 text-black text-sm font-medium hover:bg-gray-50"
+          >
+            Emergency log
+          </Link>
         </div>
       </div>
 

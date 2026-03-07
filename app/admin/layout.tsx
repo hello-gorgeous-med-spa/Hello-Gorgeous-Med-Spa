@@ -134,6 +134,7 @@ const NAV_SECTIONS = [
       { href: '/charting', label: 'Charting Hub', icon: '📋' },
       { href: '/admin/consents', label: 'Consent Forms', icon: '📝' },
       { href: '/admin/compliance/binder', label: 'Compliance Binder', icon: '📑' },
+      { href: '/admin/provider-governance/inspection-readiness', label: 'Inspection Readiness', icon: '✅' },
       { href: '/admin/provider-governance', label: 'Provider Governance', icon: '🩺' },
       { href: '/admin/exports/requests', label: 'Export Requests', icon: '📤' },
       { href: '/admin/settings/asset-registry', label: 'Asset Registry', icon: '📋' },
