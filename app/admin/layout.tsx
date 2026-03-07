@@ -133,6 +133,7 @@ const NAV_SECTIONS = [
       { href: '/admin/charting/injection-map', label: 'Injection Mapping', icon: '💉' },
       { href: '/charting', label: 'Charting Hub', icon: '📋' },
       { href: '/admin/consents', label: 'Consent Forms', icon: '📝' },
+      { href: '/admin/compliance/binder', label: 'Compliance Binder', icon: '📑' },
       { href: '/admin/medications', label: 'Medications', icon: '💊' },
       { href: '/admin/inventory', label: 'Inventory', icon: '📦' },
     ],
@@ -337,13 +338,12 @@ export default function AdminLayout({
               </div>
             </aside>
 
-            {/* Mobile Bottom Nav */}
-            <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-black z-50 safe-area-pb shadow-[0_-1px_0_rgba(0,0,0,.06)]">
-              <div className="flex justify-around items-center h-16 px-2">
-                <MobileNav />
+            {/* Mobile Bottom Nav - quick links only (menu is in header) */}
+            <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-black z-40 safe-area-pb shadow-[0_-1px_0_rgba(0,0,0,.06)]">
+              <div className="flex justify-around items-center h-14 min-h-[56px] px-2">
                 {[
                   { href: '/admin', icon: '📊', label: 'Home' },
-                  { href: '/admin/calendar', icon: '📅', label: 'Today' },
+                  { href: '/admin/calendar', icon: '📅', label: 'Calendar' },
                   { href: '/admin/appointments/new', icon: '➕', label: 'Book' },
                   { href: '/pos', icon: '💳', label: 'POS' },
                 ].map((item) => (
@@ -363,8 +363,8 @@ export default function AdminLayout({
               </div>
             </nav>
 
-            {/* Main Content */}
-            <main className="flex-1 p-6 pb-24 lg:pb-6 min-h-[calc(100vh-56px)] bg-[#F3F7F8]">
+            {/* Main Content - mobile: full width, safe area, padding for bottom nav */}
+            <main className="flex-1 w-full min-w-0 p-4 sm:p-6 pb-20 sm:pb-6 lg:pb-6 min-h-[calc(100vh-56px)] bg-[#F3F7F8] safe-area-pb">
               {children}
             </main>
           </div>
