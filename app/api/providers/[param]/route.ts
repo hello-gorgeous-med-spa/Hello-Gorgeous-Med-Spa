@@ -142,3 +142,44 @@ export async function GET(
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }
+
+// PATCH: governance fields (emergency_activation_flag, is_backup_candidate)
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ param: string }> }
+) {
+  const { param: id } = await params;
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ error: 'Not configured' }, { status: 503 });
+  }
+
+  let body: { emergency_activation_flag?: boolean; is_backup_candidate?: boolean } = {};
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
+
+  const updates: Record<string, unknown> = { updated_at: new Date().toISOString() };
+  if (typeof body.emergency_activation_flag === 'boolean') updates.emergency_activation_flag = body.emergency_activation_flag;
+  if (typeof body.is_backup_candidate === 'boolean') updates.is_backup_candidate = body.is_backup_candidate;
+
+  if (Object.keys(updates).length === 1) {
+    return NextResponse.json({ error: 'Provide at least one of emergency_activation_flag or is_backup_candidate' }, { status: 400 });
+  }
+
+  const { data, error } = await supabase
+    .from('providers')
+    .update(updates)
+    .eq('id', id)
+    .select()
+    .single();
+
+  if (error) {
+    console.error('[providers PATCH]', error);
+    return NextResponse.json({ error: 'Failed to update provider' }, { status: 500 });
+  }
+
+  return NextResponse.json({ provider: data });
+}
