@@ -70,7 +70,12 @@ export default function InspectionReadinessPage() {
   }
 
   const { governance, protocols, binder_docs, recent_chart_audits, recent_emergency_logs } = data;
-  const hasGaps = (governance.expiring_licenses_count + governance.expiring_malpractice_count + governance.unsigned_protocols_count) > 0;
+  const gov = governance ?? {};
+  const hasGaps = ((gov.expiring_licenses_count ?? 0) + (gov.expiring_malpractice_count ?? 0) + (gov.unsigned_protocols_count ?? 0)) > 0;
+  const protocolsList = Array.isArray(protocols) ? protocols : [];
+  const binderList = Array.isArray(binder_docs) ? binder_docs : [];
+  const auditsList = Array.isArray(recent_chart_audits) ? recent_chart_audits : [];
+  const logsList = Array.isArray(recent_emergency_logs) ? recent_emergency_logs : [];
 
   return (
     <div className="max-w-4xl mx-auto p-6">
@@ -94,23 +99,23 @@ export default function InspectionReadinessPage() {
         <div className="grid gap-3 sm:grid-cols-2">
           <p className="text-sm">
             <span className="text-gray-600">Medical director: </span>
-            {governance.medical_director ? (
-              <span className="font-medium text-black">{governance.medical_director.name}</span>
+            {gov.medical_director ? (
+              <span className="font-medium text-black">{gov.medical_director.name}</span>
             ) : (
               <span className="text-amber-700">Not assigned</span>
             )}
           </p>
           <p className="text-sm">
             <span className="text-gray-600">Expiring licenses (30d): </span>
-            <span className={governance.expiring_licenses_count > 0 ? 'text-amber-700 font-medium' : 'text-black'}>{governance.expiring_licenses_count}</span>
+            <span className={(gov.expiring_licenses_count ?? 0) > 0 ? 'text-amber-700 font-medium' : 'text-black'}>{gov.expiring_licenses_count ?? 0}</span>
           </p>
           <p className="text-sm">
             <span className="text-gray-600">Expiring malpractice (30d): </span>
-            <span className={governance.expiring_malpractice_count > 0 ? 'text-amber-700 font-medium' : 'text-black'}>{governance.expiring_malpractice_count}</span>
+            <span className={(gov.expiring_malpractice_count ?? 0) > 0 ? 'text-amber-700 font-medium' : 'text-black'}>{gov.expiring_malpractice_count ?? 0}</span>
           </p>
           <p className="text-sm">
             <span className="text-gray-600">Unsigned protocols: </span>
-            <span className={governance.unsigned_protocols_count > 0 ? 'text-amber-700 font-medium' : 'text-black'}>{governance.unsigned_protocols_count}</span>
+            <span className={(gov.unsigned_protocols_count ?? 0) > 0 ? 'text-amber-700 font-medium' : 'text-black'}>{gov.unsigned_protocols_count ?? 0}</span>
           </p>
         </div>
         {hasGaps && (
@@ -122,7 +127,7 @@ export default function InspectionReadinessPage() {
         <h2 className="text-lg font-semibold text-black mb-2">Compliance binder</h2>
         <p className="text-sm text-gray-600 mb-3">View and print each document as needed.</p>
         <ul className="space-y-2">
-          {binder_docs.map((d) => (
+          {binderList.map((d) => (
             <li key={d.slug}>
               <Link href={d.view_url} className="text-[#2D63A4] hover:underline font-medium">
                 {d.title}
@@ -134,11 +139,11 @@ export default function InspectionReadinessPage() {
 
       <section className="mb-8 p-4 rounded-xl border border-gray-200 bg-white">
         <h2 className="text-lg font-semibold text-black mb-2">Active protocols</h2>
-        {protocols.length === 0 ? (
+        {protocolsList.length === 0 ? (
           <p className="text-gray-600 text-sm">No active protocols on file.</p>
         ) : (
           <ul className="space-y-1 text-sm">
-            {protocols.map((p) => (
+            {protocolsList.map((p) => (
               <li key={p.protocol_id}>
                 <span className="font-medium text-black">{p.title}</span>
                 <span className="text-gray-500"> v{p.version}</span>
@@ -153,11 +158,11 @@ export default function InspectionReadinessPage() {
         <section className="p-4 rounded-xl border border-gray-200 bg-white">
           <h2 className="text-lg font-semibold text-black mb-2">Recent chart audits</h2>
           <Link href="/admin/provider-governance/chart-audits" className="text-sm text-[#2D63A4] hover:underline mb-2 inline-block">View all / New audit</Link>
-          {recent_chart_audits.length === 0 ? (
+          {auditsList.length === 0 ? (
             <p className="text-gray-500 text-sm">None yet.</p>
           ) : (
             <ul className="space-y-1 text-sm">
-              {recent_chart_audits.map((a) => (
+              {auditsList.map((a) => (
                 <li key={a.id}>{a.audit_date} — {a.status}</li>
               ))}
             </ul>
@@ -166,11 +171,11 @@ export default function InspectionReadinessPage() {
         <section className="p-4 rounded-xl border border-gray-200 bg-white">
           <h2 className="text-lg font-semibold text-black mb-2">Emergency response log</h2>
           <Link href="/admin/provider-governance/emergency-log" className="text-sm text-[#2D63A4] hover:underline mb-2 inline-block">View all / Log incident</Link>
-          {recent_emergency_logs.length === 0 ? (
+          {logsList.length === 0 ? (
             <p className="text-gray-500 text-sm">No entries.</p>
           ) : (
             <ul className="space-y-1 text-sm">
-              {recent_emergency_logs.map((l) => (
+              {logsList.map((l) => (
                 <li key={l.id}>
                   {new Date(l.used_at).toLocaleString()} — {l.protocol_slug || 'protocol'} {l.outcome ? `(${l.outcome})` : ''}
                 </li>

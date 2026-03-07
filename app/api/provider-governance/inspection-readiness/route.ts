@@ -27,19 +27,18 @@ export async function GET() {
   }
 
   try {
-    const [
-      { data: providers },
-      { data: docs },
-      { data: protocols },
-      { data: recentAudits },
-      { data: emergencyLogs },
-    ] = await Promise.all([
+    const results = await Promise.allSettled([
       supabase.from('providers').select('id, first_name, last_name, name, classification').is('offboarded_at', null),
       supabase.from('provider_documents').select('provider_id, doc_type, expiration_date'),
       supabase.from('protocols').select('protocol_id, title, version, status, review_due_date, approved_by_provider_id').eq('status', 'active').order('review_due_date'),
       supabase.from('chart_audits').select('id, audit_date, audited_by_provider_id, status').order('audit_date', { ascending: false }).limit(5),
       supabase.from('emergency_response_log').select('id, used_at, protocol_slug, outcome').order('used_at', { ascending: false }).limit(5),
     ]);
+    const providers = results[0].status === 'fulfilled' ? results[0].value.data : null;
+    const docs = results[1].status === 'fulfilled' ? results[1].value.data : null;
+    const protocols = results[2].status === 'fulfilled' ? results[2].value.data : null;
+    const recentAudits = results[3].status === 'fulfilled' ? results[3].value.data : null;
+    const emergencyLogs = results[4].status === 'fulfilled' ? results[4].value.data : null;
 
     const medicalDirector = (providers || []).find((p: { classification?: string }) => p.classification === 'medical_director');
     const today = new Date().toISOString().slice(0, 10);

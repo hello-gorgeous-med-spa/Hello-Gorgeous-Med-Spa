@@ -29,17 +29,16 @@ export async function GET() {
   const thirtyDaysFromNow = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
 
   try {
-    const [
-      { data: providers },
-      { data: docs },
-      { data: protocols },
-      { data: standingOrders },
-    ] = await Promise.all([
+    const results = await Promise.allSettled([
       supabase.from('providers').select('id, first_name, last_name, name, status, classification, ownership_status, end_date, is_backup_candidate, emergency_activation_flag, offboarded_at'),
       supabase.from('provider_documents').select('id, provider_id, doc_type, expiration_date, verified, upload_date'),
       supabase.from('protocols').select('protocol_id, title, version, approved_by_provider_id, approval_date, review_due_date, status'),
       supabase.from('standing_orders').select('standing_order_id, provider_id, service_type, review_due_date, status'),
     ]);
+    const providers = results[0].status === 'fulfilled' ? results[0].value.data : null;
+    const docs = results[1].status === 'fulfilled' ? results[1].value.data : null;
+    const protocols = results[2].status === 'fulfilled' ? results[2].value.data : null;
+    const standingOrders = results[3].status === 'fulfilled' ? results[3].value.data : null;
 
     const providersList = (providers || []).filter(
       (p: { offboarded_at?: string; status?: string }) =>

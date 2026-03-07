@@ -42,7 +42,17 @@ export default function ProviderGovernancePage() {
           setError(json.error);
           return;
         }
-        setData(json);
+        setData({
+          active_medical_director: json.active_medical_director ?? null,
+          backup_providers: Array.isArray(json.backup_providers) ? json.backup_providers : [],
+          expiring_licenses: Array.isArray(json.expiring_licenses) ? json.expiring_licenses : [],
+          expiring_malpractice: Array.isArray(json.expiring_malpractice) ? json.expiring_malpractice : [],
+          missing_documents: Array.isArray(json.missing_documents) ? json.missing_documents : [],
+          unsigned_protocols: Array.isArray(json.unsigned_protocols) ? json.unsigned_protocols : [],
+          protocols_review_due: Array.isArray(json.protocols_review_due) ? json.protocols_review_due : [],
+          standing_orders_review_due: Array.isArray(json.standing_orders_review_due) ? json.standing_orders_review_due : [],
+          expiring_agreements: Array.isArray(json.expiring_agreements) ? json.expiring_agreements : [],
+        });
       })
       .catch((e) => {
         if (!cancelled) setError(e.message || 'Failed to load');
@@ -163,7 +173,7 @@ export default function ProviderGovernancePage() {
             ) : (
               <ul className="text-sm text-black">
                 {data.expiring_licenses.map((x, i) => (
-                  <li key={i}>Provider {x.provider_id.slice(0, 8)}… — {x.expiration_date}</li>
+                  <li key={i}>Provider {(x.provider_id || '').slice(0, 8)}… — {x.expiration_date}</li>
                 ))}
               </ul>
             )}
@@ -175,7 +185,7 @@ export default function ProviderGovernancePage() {
             ) : (
               <ul className="text-sm text-black">
                 {data.expiring_malpractice.map((x, i) => (
-                  <li key={i}>Provider {x.provider_id.slice(0, 8)}… — {x.expiration_date}</li>
+                  <li key={i}>Provider {(x.provider_id || '').slice(0, 8)}… — {x.expiration_date}</li>
                 ))}
               </ul>
             )}
