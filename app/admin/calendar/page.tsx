@@ -1038,16 +1038,26 @@ export default function CalendarPage() {
         </div>
       </div>
 
-            {/* Status & Checkout */}
-            <div className="p-4 border-b border-black flex items-center justify-between">
-              {getStatusBadge(selectedAppointment.status)}
-          <Link
-                href={`/pos?appointment=${selectedAppointment.id}&client=${selectedAppointment.client_id}`}
-                className="px-4 py-2 bg-[#FF2D8E] text-white text-sm font-medium rounded-lg hover:bg-black transition-colors"
-          >
-                CHECKOUT
-          </Link>
-        </div>
+            {/* Primary actions: Checkout + Chart (daily flow) */}
+            <div className="p-4 border-b border-black space-y-3">
+              <div className="flex items-center justify-between">
+                {getStatusBadge(selectedAppointment.status)}
+              </div>
+              <div className="grid grid-cols-2 gap-3">
+                <Link
+                  href={`/pos?appointment=${selectedAppointment.id}&client=${selectedAppointment.client_id}`}
+                  className="flex items-center justify-center gap-2 px-4 py-3 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-black transition-colors"
+                >
+                  <span>💳</span> Checkout (Square)
+                </Link>
+                <Link
+                  href={`/admin/charting?client=${selectedAppointment.client_id}&appointment=${selectedAppointment.id}`}
+                  className="flex items-center justify-center gap-2 px-4 py-3 bg-purple-600 text-white font-semibold rounded-xl hover:bg-purple-700 transition-colors"
+                >
+                  <span>📋</span> Chart / Notes
+                </Link>
+              </div>
+            </div>
 
             {/* Date/Time */}
             <div className="p-4 border-b border-black">
@@ -1173,29 +1183,29 @@ export default function CalendarPage() {
                               </div>
             </div>
 
-            {/* Quick Actions */}
+            {/* More actions */}
             <div className="p-4 border-t border-black space-y-2">
               <div className="grid grid-cols-2 gap-2">
-                <Link
-                  href={`/admin/charting?client=${selectedAppointment.client_id}&appointment=${selectedAppointment.id}`}
-                  className="flex items-center justify-center gap-2 px-3 py-2 bg-purple-50 text-purple-700 text-sm font-medium rounded-lg hover:bg-purple-100 transition-colors"
-                >
-                  <span>📋</span> Chart
-                            </Link>
                 <Link
                   href={`/admin/consents?client=${selectedAppointment.client_id}`}
                   className="flex items-center justify-center gap-2 px-3 py-2 bg-blue-50 text-blue-700 text-sm font-medium rounded-lg hover:bg-blue-100 transition-colors"
                 >
                   <span>📝</span> Consents
                 </Link>
-                        </div>
+                <Link
+                  href={`/admin/appointments/${selectedAppointment.id}/edit`}
+                  className="flex items-center justify-center gap-2 px-3 py-2 bg-gray-100 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-200 transition-colors"
+                >
+                  <span>✏️</span> Edit
+                </Link>
+              </div>
               <Link
                 href={`/admin/clients/${selectedAppointment.client_id}/photos`}
                 className="flex items-center justify-center gap-2 w-full px-3 py-2 bg-pink-50 text-pink-700 text-sm font-medium rounded-lg hover:bg-pink-100 transition-colors"
               >
                 <span>📸</span> Before/After Photos
               </Link>
-                        </div>
+            </div>
           </>
         ) : (
           <div className="flex-1 flex items-center justify-center p-8 text-center">

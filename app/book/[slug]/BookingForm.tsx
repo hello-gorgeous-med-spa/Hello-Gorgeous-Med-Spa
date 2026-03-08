@@ -823,9 +823,12 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
             <h2 className="text-2xl font-bold text-black mb-2">
               You're All Set!
             </h2>
-            <p className="text-black mb-6">
+            <p className="text-black mb-4">
               Your appointment has been booked. We've sent a confirmation to{' '}
-              <strong>{formData.email}</strong>
+              <strong>{formData.email}</strong>.
+            </p>
+            <p className="text-sm text-black/80 mb-6">
+              Check your email for your confirmation and details. You may also receive an SMS if we have that on file.
             </p>
 
             <div className="bg-white rounded-xl p-6 max-w-sm mx-auto text-left mb-8">
