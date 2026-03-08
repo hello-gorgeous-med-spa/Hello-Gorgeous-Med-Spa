@@ -4,7 +4,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
+import { createServerSupabaseClient, createAdminSupabaseClient } from '@/lib/hgos/supabase';
 import { sendSmsTelnyx } from '@/lib/notifications/telnyx';
 
 // Force dynamic rendering
@@ -33,22 +33,32 @@ export async function POST(request: NextRequest) {
         const isOptOut = optOutKeywords.some(keyword => text === keyword || text?.startsWith(keyword + ' '));
 
         if (isOptOut && from) {
-          // Record opt-out
-          await supabase.from('sms_opt_outs').upsert({
-            phone: from,
+          const admin = createAdminSupabaseClient();
+          const phoneNorm = from.startsWith('+') ? from : `+1${from.replace(/\D/g, '')}`;
+
+          // Automation: unsubscribes + consent_sms (queue processor checks these)
+          if (admin) {
+            const { data: clientRow } = await admin.from('clients').select('id').eq('phone', phoneNorm).limit(1).maybeSingle();
+            const clientId = clientRow?.id ?? null;
+            await admin.from('unsubscribes').insert({
+              client_id: clientId,
+              phone: phoneNorm,
+              channel: 'sms',
+              source: 'telnyx_stop',
+              unsubscribed_at: new Date().toISOString(),
+            }).then(() => {}).catch(() => {}); // ignore duplicate
+            await admin.from('clients').update({ consent_sms: false, accepts_sms_marketing: false }).eq('phone', phoneNorm);
+          }
+
+          // Legacy: sms_opt_outs + sms_messages
+          await supabase?.from('sms_opt_outs').upsert({
+            phone: phoneNorm,
             opt_out_method: 'STOP',
             opted_out_at: new Date().toISOString(),
           }, { onConflict: 'phone' });
-
-          // Update client record if exists
-          await supabase
-            .from('clients')
-            .update({ accepts_sms_marketing: false })
-            .eq('phone', from);
-
-          // Log the opt-out message
-          await supabase.from('sms_messages').insert({
-            recipient_phone: from,
+          await supabase?.from('clients').update({ accepts_sms_marketing: false }).eq('phone', phoneNorm);
+          await supabase?.from('sms_messages').insert({
+            recipient_phone: phoneNorm,
             message_type: 'opt_out',
             message_content: text,
             sender_phone: payload?.to?.phone_number,
@@ -57,7 +67,7 @@ export async function POST(request: NextRequest) {
             sent_via: 'inbound',
           });
 
-          console.log(`Opt-out recorded for: ${from}`);
+          console.log(`Opt-out recorded for: ${phoneNorm}`);
         }
 
         // Check for opt-in (resubscribe) keywords

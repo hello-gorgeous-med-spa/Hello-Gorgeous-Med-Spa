@@ -362,6 +362,15 @@ export async function POST(request: NextRequest) {
       );
       if (smsResult.success) {
         console.log('[booking/create] Client confirmation SMS sent successfully to', phone);
+        await supabase.from('message_logs').insert({
+          client_id: clientId,
+          appointment_id: appointment.id,
+          channel: 'sms',
+          provider: 'telnyx',
+          external_message_id: (smsResult as { providerMessageId?: string })?.providerMessageId ?? null,
+          status: 'sent',
+          sent_at: new Date().toISOString(),
+        }).then(() => {}).catch((e) => console.warn('[booking/create] message_logs insert', e));
       } else {
         console.warn('[booking/create] Client confirmation SMS failed', smsResult.error);
       }
@@ -407,6 +416,16 @@ Hello Gorgeous Med Spa`;
         });
         if (clientRes.ok) {
           console.log('[booking/create] Client confirmation email sent to', email);
+          const resData = await clientRes.json().catch(() => ({}));
+          await supabase.from('message_logs').insert({
+            client_id: clientId,
+            appointment_id: appointment.id,
+            channel: 'email',
+            provider: 'resend',
+            external_message_id: resData?.id ?? null,
+            status: 'sent',
+            sent_at: new Date().toISOString(),
+          }).then(() => {}).catch((e) => console.warn('[booking/create] message_logs insert', e));
         } else {
           const errBody = await clientRes.json().catch(() => ({}));
           console.warn('[booking/create] Client confirmation email failed', clientRes.status, errBody);

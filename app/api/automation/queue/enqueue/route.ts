@@ -157,6 +157,48 @@ export async function POST(request: NextRequest) {
   }
   if (apptsReview?.length) enqueued.push({ trigger: 'review_request', count: apptsReview.length });
 
+  // Rebooking reminder: starts_at 89–91 days ago, completed
+  const low90 = new Date(now.getTime() - 91 * 24 * 60 * 60 * 1000);
+  const high90 = new Date(now.getTime() - 89 * 24 * 60 * 60 * 1000);
+  const { data: appts90 } = await supabase
+    .from('appointments')
+    .select('id, client_id, starts_at')
+    .eq('status', 'completed')
+    .gte('starts_at', toIso(low90))
+    .lte('starts_at', toIso(high90));
+
+  const rebookingRuleIds = (rules || []).filter((r) => r.trigger_event === 'rebooking_reminder').map((r) => r.id);
+  const { data: alreadyRebook } = rebookingRuleIds.length
+    ? await supabase.from('message_queue').select('appointment_id').in('automation_rule_id', rebookingRuleIds)
+    : { data: [] };
+  const rebookSentSet = new Set((alreadyRebook || []).map((r: { appointment_id: string }) => r.appointment_id));
+
+  for (const apt of appts90 || []) {
+    if (rebookSentSet.has(apt.id)) continue;
+    const clientId = (apt as any).client_id;
+    if (!clientId) continue;
+    const { data: client } = await supabase.from('clients').select('first_name, phone').eq('id', clientId).single();
+    if (!client?.phone) continue;
+    const vars = { first_name: (client.first_name || '').trim() || 'there', appointment_time: '', service_name: '', provider_name: '', review_link: '' };
+    for (const rule of rules!.filter((r) => r.trigger_event === 'rebooking_reminder')) {
+      const t = templateMap.get(`${rule.trigger_event}:${rule.channel}`);
+      if (!t?.body) continue;
+      const scheduledFor = new Date(now.getTime() + (rule.delay_minutes || 0) * 60 * 1000);
+      await supabase.from('message_queue').insert({
+        client_id: clientId,
+        appointment_id: apt.id,
+        automation_rule_id: rule.id,
+        channel: rule.channel,
+        scheduled_for: toIso(scheduledFor),
+        status: 'pending',
+        payload_json: { subject: null, body: replaceVars(t.body, vars), ...vars },
+      });
+      rebookSentSet.add(apt.id);
+      break;
+    }
+  }
+  if (appts90?.length) enqueued.push({ trigger: 'rebooking_reminder', count: appts90.length });
+
   return NextResponse.json({ enqueued: enqueued.reduce((s, e) => s + e.count, 0), detail: enqueued });
 }
 
