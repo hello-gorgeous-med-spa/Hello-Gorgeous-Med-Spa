@@ -80,17 +80,17 @@ function LoginForm() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-black via-black to-black">
+      <div className="min-h-screen min-h-[100dvh] flex items-center justify-center bg-gradient-to-br from-black via-black to-black">
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-[#FF2D8E] border-t-transparent rounded-full animate-spin mx-auto mb-4" />
-          <p className="text-black">Loading...</p>
+          <p className="text-white">Loading...</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-black via-black to-black">
+    <div className="min-h-screen min-h-[100dvh] flex items-center justify-center p-4 pb-[max(1rem,env(safe-area-inset-bottom))] bg-gradient-to-br from-black via-black to-black">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <span className="text-5xl">💗</span>
@@ -100,19 +100,19 @@ function LoginForm() {
           </p>
         </div>
 
-        <div className="bg-white backdrop-blur-xl rounded-2xl border border-black p-8">
+        <div className="bg-white/95 backdrop-blur-xl rounded-2xl border border-gray-200 shadow-xl p-6 sm:p-8">
           {magicSent ? (
             <div className="text-center space-y-4">
-              <p className="text-white/90">
-                Check your email. We sent a secure, one-time login link to <strong className="text-white">{email}</strong>.
+              <p className="text-gray-700">
+                Check your email. We sent a secure, one-time login link to <strong className="text-gray-900">{email}</strong>.
               </p>
-              <p className="text-sm text-pink-200/80">
+              <p className="text-sm text-gray-600">
                 The link expires in 15 minutes. If you don’t see it, check spam.
               </p>
               <button
                 type="button"
                 onClick={() => { setMagicSent(false); setError(''); }}
-                className="text-pink-300 hover:text-pink-200 text-sm underline"
+                className="text-[#FF2D8E] hover:text-black text-sm font-medium underline"
               >
                 Use a different email
               </button>
@@ -120,23 +120,23 @@ function LoginForm() {
           ) : mode === 'magic' ? (
             <form onSubmit={handleMagicLink} className="space-y-6">
               {error && (
-                <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-xl text-red-200 text-sm">
+                <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
                   {error}
                 </div>
               )}
               <div>
-                <label className="block text-sm font-medium text-pink-100 mb-2">Email</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-white border border-black rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-pink-500 min-h-[44px]"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E] focus:border-transparent min-h-[44px]"
                   placeholder="you@example.com"
                   autoComplete="email"
                 />
               </div>
-              <p className="text-xs text-pink-200/70">
+              <p className="text-xs text-gray-600">
                 No password required. We’ll email you a secure, one-time link.
               </p>
               <button
@@ -150,29 +150,29 @@ function LoginForm() {
           ) : (
             <form onSubmit={handleStaffSubmit} className="space-y-6">
               {error && (
-                <div className="p-4 bg-red-500/20 border border-red-500/50 rounded-xl text-red-200 text-sm">
+                <div className="p-4 bg-red-50 border border-red-200 rounded-xl text-red-700 text-sm">
                   {error}
                 </div>
               )}
               <div>
-                <label className="block text-sm font-medium text-pink-100 mb-2">Email</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
                 <input
                   type="email"
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-4 py-3 bg-white border border-black rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-pink-500 min-h-[44px]"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E] focus:border-transparent min-h-[44px]"
                   placeholder="you@example.com"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-pink-100 mb-2">Password</label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
                 <input
                   type="password"
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 bg-white border border-black rounded-xl text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-pink-500 min-h-[44px]"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF2D8E] focus:border-transparent min-h-[44px]"
                   placeholder="••••••••"
                 />
               </div>
@@ -187,11 +187,11 @@ function LoginForm() {
           )}
 
           {!magicSent && (
-            <div className="mt-6 pt-6 border-t border-black text-center">
+            <div className="mt-6 pt-6 border-t border-gray-200 text-center">
               <button
                 type="button"
                 onClick={() => { setMode(mode === 'magic' ? 'staff' : 'magic'); setError(''); setPassword(''); }}
-                className="text-sm text-pink-300 hover:text-pink-200"
+                className="text-sm text-[#FF2D8E] hover:text-black font-medium"
               >
                 {mode === 'magic' ? 'Staff sign in with password' : 'Back to login link'}
               </button>
@@ -200,7 +200,7 @@ function LoginForm() {
         </div>
 
         <div className="mt-8 text-center">
-          <Link href="/" className="text-pink-300 hover:text-pink-200 text-sm">
+          <Link href="/" className="text-white/90 hover:text-white text-sm font-medium">
             ← Back to Home
           </Link>
         </div>

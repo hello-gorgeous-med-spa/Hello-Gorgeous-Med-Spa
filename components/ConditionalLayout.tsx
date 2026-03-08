@@ -19,13 +19,15 @@ import { ImmediateCareStrip } from "@/components/ImmediateCareBanner";
 import BookingTransitionBanner from "@/components/BookingTransitionBanner";
 import type { SiteSettings } from "@/lib/cms-readers";
 
-// Routes that should NOT show website navigation
+// Routes that should NOT show website navigation (minimal layout: no header/footer/chat/CTA)
 const ADMIN_ROUTES = [
   '/admin',
   '/pos',
   '/charting',
   '/kiosk',
   '/portal',
+  '/login',
+  '/auth',
   '/consents/wizard',
   '/consents/kiosk',
 ];
@@ -42,10 +44,10 @@ export function ConditionalLayout({
   // Check if current path is an admin/internal route
   const isAdminRoute = ADMIN_ROUTES.some(route => pathname?.startsWith(route));
   
-  // Admin routes - no website chrome, just the content
+  // Admin/auth routes - no website chrome, just the content (clean for mobile/PWA)
   if (isAdminRoute) {
     return (
-      <div className="bg-gradient-to-br from-pink-50 via-white to-pink-50 text-[#000000] min-h-screen">
+      <div className="bg-gradient-to-br from-pink-50 via-white to-pink-50 text-[#000000] min-h-screen min-h-[100dvh]">
         {children}
       </div>
     );
