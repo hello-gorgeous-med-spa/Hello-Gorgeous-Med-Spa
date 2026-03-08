@@ -178,6 +178,7 @@ const NAV_SECTIONS = [
     title: 'Communications',
     icon: '💬',
     items: [
+      { href: '/admin/communications/automation', label: 'Automation', icon: '⚡' },
       { href: '/admin/messages', label: '2-Way Messages', icon: '📱' },
       { href: '/admin/sms', label: 'SMS Campaigns', icon: '📣' },
       { href: '/admin/communications/templates', label: 'Message Templates', icon: '📝' },
