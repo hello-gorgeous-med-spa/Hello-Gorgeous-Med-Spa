@@ -5,13 +5,10 @@
 // Public page for clients to join waitlist
 // ============================================================
 
-import { useState, Suspense } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
 
-function WaitlistContent() {
-  const searchParams = useSearchParams();
-  const isTrifectaVIP = searchParams.get('source') === 'trifecta-vip';
+export default function WaitlistPage() {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -65,11 +62,8 @@ function WaitlistContent() {
           <span className="text-5xl mb-4 block">🎉</span>
           <h1 className="text-2xl font-bold text-black mb-2">You're on the Waitlist!</h1>
           <p className="text-black mb-6">
-            We'll notify you as soon as a spot opens up for your preferred service.
+            We'll notify you as soon as a spot opens up for your preferred service. 
             You'll have 30 minutes to confirm your booking once notified.
-            {isTrifectaVIP && (
-              <span className="block mt-3 font-semibold text-[#FF2D8E]">Remember: You&apos;ve got $100 off any service when you book!</span>
-            )}
           </p>
           <div className="space-y-3">
             <Link
@@ -93,12 +87,6 @@ function WaitlistContent() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white py-12 px-4">
       <div className="max-w-lg mx-auto">
-        {isTrifectaVIP && (
-          <div className="mb-6 rounded-xl bg-black text-white p-4 text-center border-2 border-[#FF2D8E]">
-            <p className="font-bold text-lg">Trifecta VIP — $100 Off Any Service</p>
-            <p className="text-sm text-white/90 mt-1">You&apos;re on the right page. Complete the form below; when we contact you, you&apos;ll get $100 off any service—Morpheus8, QuantumRF, Solaria CO₂, or any treatment.</p>
-          </div>
-        )}
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-black mb-2">Join the Waitlist</h1>
           <p className="text-black">
@@ -251,17 +239,5 @@ function WaitlistContent() {
         </div>
       </div>
     </div>
-  );
-}
-
-export default function WaitlistPage() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white py-12 px-4 flex items-center justify-center">
-        <p className="text-black">Loading...</p>
-      </div>
-    }>
-      <WaitlistContent />
-    </Suspense>
   );
 }

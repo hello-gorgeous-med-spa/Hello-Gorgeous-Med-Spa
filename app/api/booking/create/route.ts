@@ -350,7 +350,7 @@ export async function POST(request: NextRequest) {
     } catch (_) {}
     const locationStr = process.env.NEXT_PUBLIC_BUSINESS_LOCATION || 'Oswego, IL';
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://hellogorgeousmedspa.com';
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.hellogorgeousmedspa.com';
       const getAppUrl = `${baseUrl}/get-app`;
       const smsResult = await sendAppointmentConfirmationSms(
         phone,
@@ -496,7 +496,7 @@ Hello Gorgeous Med Spa`;
 
     // 7. Send portal magic link so client can access their space (HIPAA: no PHI in email)
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://hellogorgeousmedspa.com';
+      const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://www.hellogorgeousmedspa.com';
       const inviteRes = await fetch(`${baseUrl}/api/auth/send-portal-invite`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

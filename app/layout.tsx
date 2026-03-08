@@ -150,13 +150,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </head>
       <body className="min-h-screen antialiased font-sans">
         <ClientErrorBoundary>
-        <GoogleAnalytics />
-        <ConsultationRequestPopup />
-        <AuthWrapper>
-          <ConditionalLayout siteSettings={siteSettings ?? undefined}>
-            {children}
-          </ConditionalLayout>
-        </AuthWrapper>
+          <GoogleAnalytics />
+          <ConsultationRequestPopup />
+          <AuthWrapper>
+            <ConditionalLayout siteSettings={siteSettings ?? undefined}>
+              {children}
+            </ConditionalLayout>
+          </AuthWrapper>
         </ClientErrorBoundary>
       </body>
     </html>

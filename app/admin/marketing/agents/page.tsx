@@ -155,6 +155,20 @@ export default function AgentsRunbookPage() {
           </ul>
         </div>
 
+        {/* Automation (what runs on its own) */}
+        <div className="mt-8 p-6 bg-emerald-50/50 border border-emerald-200 rounded-xl">
+          <h3 className="font-semibold text-black mb-2">⏱ Automation (runs on its own)</h3>
+          <p className="text-sm text-black mb-4">These run hourly via Vercel Cron. Email uses Resend when <code className="bg-white/80 px-1 rounded text-xs">RESEND_API_KEY</code> is set.</p>
+          <ul className="space-y-3 text-sm text-black">
+            <li>
+              <strong>Review request</strong> — 24 hours after an appointment is marked completed: client gets an email (and SMS if Telnyx is on). Turn off: <code className="bg-white/80 px-1 rounded text-xs">REVIEW_REQUESTS_ENABLED=false</code>
+            </li>
+            <li>
+              <strong>Appointment reminders</strong> — 24 hours and 2 hours before appointment: client gets an email reminder. Turn off: <code className="bg-white/80 px-1 rounded text-xs">REMINDERS_CRON_ENABLED=false</code>
+            </li>
+          </ul>
+        </div>
+
         {/* DM reply templates */}
         <div className="mt-8 p-6 bg-pink-50/50 border border-pink-100 rounded-xl">
           <h3 className="font-semibold text-black mb-2">DM / contact form reply templates</h3>

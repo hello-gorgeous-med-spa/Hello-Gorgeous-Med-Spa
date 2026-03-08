@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import React, { useState, useRef, useEffect } from "react";
 
@@ -353,25 +352,22 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-black/10 shadow-sm h-[65px] md:h-20 flex items-center py-0">
-      <div className="mx-auto w-full max-w-7xl h-full px-4 sm:px-6 lg:px-10 overflow-visible py-0">
-        <div className="flex items-center justify-between h-full py-0">
-          {/* Logo container - fixed width, no clipping */}
-          <div className="flex-shrink-0 flex items-center mr-6">
-            <Link href="/" className="flex items-center focus:outline-none focus:ring-2 focus:ring-[#FF2D8E]/30 rounded-lg">
-              <Image
-                src="/images/hello-gorgeous-logo.png"
-                alt={SITE.name}
-                width={160}
-                height={50}
-                className="h-[40px] md:h-[50px] w-auto object-contain"
-                priority
-              />
-            </Link>
-          </div>
+    <header className="sticky top-0 z-50 bg-white border-b-2 border-black">
+      <div className="mx-auto max-w-7xl px-3 sm:px-4 overflow-visible">
+        <div className="flex items-center justify-between gap-2 h-16 min-h-16">
+          {/* Logo - never shrink */}
+          <Link href="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
+            <span className="inline-flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-lg bg-[#FF2D8E] text-white text-xs sm:text-sm font-bold shadow-md">
+              HG
+            </span>
+            <div className="hidden sm:block">
+              <span className="text-base sm:text-lg font-bold text-[#FF2D8E]">{SITE.name}</span>
+              <span className="block text-[10px] text-black font-medium tracking-wider">MEDICAL AESTHETICS</span>
+            </div>
+          </Link>
 
-          {/* Desktop Navigation - centered, professional spacing */}
-          <nav className="hidden lg:flex items-center justify-center gap-x-2 xl:gap-x-3 overflow-visible" aria-label="Main navigation">
+          {/* Desktop Navigation - single row, aligned; dropdowns and Book Now visible */}
+          <nav className="hidden lg:flex flex-1 items-center justify-center gap-x-0 min-w-0 overflow-visible">
             {/* Services Dropdown */}
             <div 
               className="relative flex items-center"
@@ -381,10 +377,10 @@ export function Header() {
               <Link
                 href="/services"
                 className={cx(
-                  "flex items-center justify-center gap-1 h-9 px-3 rounded-md text-[13px] font-medium whitespace-nowrap transition-colors duration-200 border",
+                  "flex items-center justify-center gap-1.5 h-10 px-3 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/services')
-                    ? "text-white bg-[#FF2D8E] border-[#FF2D8E]"
-                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E] border-black hover:border-[#FF2D8E]"
+                    ? "text-white bg-[#FF2D8E]"
+                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
                 )}
               >
                 Services
@@ -404,10 +400,10 @@ export function Header() {
               <Link
                 href="/about"
                 className={cx(
-                  "flex items-center justify-center gap-1 h-9 px-3 rounded-md text-[13px] font-medium whitespace-nowrap transition-colors duration-200 border",
+"flex items-center justify-center gap-1.5 h-10 px-3 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/about') || pathname?.startsWith('/providers') || pathname?.startsWith('/locations')
-                    ? "text-white bg-[#FF2D8E] border-[#FF2D8E]"
-                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E] border-black hover:border-[#FF2D8E]"
+                    ? "text-white bg-[#FF2D8E]"
+                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
                 )}
               >
                 About
@@ -427,10 +423,10 @@ export function Header() {
               <Link
                 href="/your-journey"
                 className={cx(
-                  "flex items-center justify-center gap-1 h-9 px-3 rounded-md text-[13px] font-medium whitespace-nowrap transition-colors duration-200 border",
+"flex items-center justify-center gap-1.5 h-10 px-3 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/your-journey')
-                    ? "text-white bg-[#FF2D8E] border-[#FF2D8E]"
-                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E] border-black hover:border-[#FF2D8E]"
+                    ? "text-white bg-[#FF2D8E]"
+                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
                 )}
               >
                 Your Journey
@@ -450,7 +446,7 @@ export function Header() {
               <Link
                 href="/rx"
                 className={cx(
-"flex items-center justify-center gap-1 h-9 px-3 rounded-md text-[13px] font-medium whitespace-nowrap transition-colors duration-200",
+"flex items-center justify-center gap-1.5 h-10 px-3 rounded-lg text-sm font-medium transition-all",
                   pathname?.startsWith('/rx')
                     ? "text-white bg-[#FF2D8E] border border-[#FF2D8E]"
                     : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E] border border-black hover:border-[#FF2D8E]"
@@ -474,10 +470,10 @@ export function Header() {
                 type="button"
                 onClick={() => setActiveDropdown(activeDropdown === 'more' ? null : 'more')}
                 className={cx(
-                  "flex items-center justify-center gap-1 h-9 px-3 rounded-md text-[13px] font-medium whitespace-nowrap transition-colors duration-200 border",
+"flex items-center justify-center gap-1.5 h-10 px-3 rounded-lg text-sm font-medium transition-all",
                   activeDropdown === 'more'
-                    ? "text-white bg-[#FF2D8E] border-[#FF2D8E]"
-                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E] border-black hover:border-[#FF2D8E]"
+                    ? "text-white bg-[#FF2D8E]"
+                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
                 )}
               >
                 More
@@ -496,7 +492,7 @@ export function Header() {
             >
               <Link
                 href={navigation.specials.href}
-                className="flex items-center justify-center gap-1.5 h-10 px-4 rounded-md text-sm font-medium tracking-wide whitespace-nowrap transition-colors duration-200 text-black hover:text-[#FF2D8E] hover:bg-[#FF2D8E]/10 border border-black hover:border-[#FF2D8E]"
+                className="flex items-center justify-center gap-1.5 h-10 px-3 rounded-lg text-sm font-medium transition-all text-black hover:text-[#FF2D8E] hover:bg-[#FF2D8E]/10 border border-black hover:border-[#FF2D8E]"
               >
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF2D8E] opacity-75"></span>
@@ -512,7 +508,7 @@ export function Header() {
           </nav>
 
           {/* Right side actions - never shrink so Book Now is always visible */}
-          <div className="flex items-center gap-4 xl:gap-5 flex-shrink-0 py-0">
+          <div className="flex items-center gap-2 flex-shrink-0">
             {/* Social - Desktop: Instagram, Facebook, TikTok */}
             <a
               href={SITE.social.instagram}
@@ -583,15 +579,12 @@ export function Header() {
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-50 bg-white lg:hidden overflow-y-auto border-t-2 border-black">
           {/* Header */}
-          <div className="sticky top-0 bg-white border-b border-black/10 px-4 py-4 flex items-center justify-between">
-            <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center">
-              <Image
-                src="/images/hello-gorgeous-logo.png"
-                alt={SITE.name}
-                width={180}
-                height={46}
-                className="h-10 w-auto object-contain object-left"
-              />
+          <div className="sticky top-0 bg-white border-b-2 border-black px-4 py-4 flex items-center justify-between">
+            <Link href="/" onClick={() => setMobileMenuOpen(false)} className="flex items-center gap-3">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#FF2D8E] text-white text-sm font-bold border-2 border-black">
+                HG
+              </span>
+              <span className="text-lg font-bold text-[#FF2D8E]">{SITE.name}</span>
             </Link>
             <button
               className="p-2 text-[#FF2D8E] hover:text-[#E6007E] hover:bg-[#FF2D8E]/10 rounded-lg"

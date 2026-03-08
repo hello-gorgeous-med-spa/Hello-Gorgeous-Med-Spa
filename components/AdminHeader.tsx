@@ -9,6 +9,7 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { UserMenu } from './UserMenu';
+import { MobileNav } from '@/components/ui/MobileNav';
 import { useAuth } from '@/lib/hgos/AuthContext';
 
 // Dashboard view tabs
@@ -69,7 +70,11 @@ export function AdminHeader() {
   return (
     <header className="bg-gradient-to-r from-black via-black to-black text-white sticky top-0 z-50 border-b border-black/30 shadow-lg">
       <div className="flex items-center justify-between px-4 h-14 max-w-[1920px] mx-auto">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
+          {/* Mobile: hamburger menu (full nav drawer) */}
+          <div className="lg:hidden flex-shrink-0">
+            <MobileNav variant="dark" />
+          </div>
           <Link href="/admin" className="flex items-center gap-2 hover:opacity-90 transition-opacity group">
             <span className="text-xl group-hover:scale-110 transition-transform" aria-hidden>💗</span>
             <span className="font-bold hidden sm:inline bg-gradient-to-r from-pink-400 to-rose-300 bg-clip-text text-transparent">Hello Gorgeous</span>

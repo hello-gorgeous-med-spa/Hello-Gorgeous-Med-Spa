@@ -245,8 +245,17 @@ export default function PostSocialPage() {
             <li><code className="bg-amber-100 px-1 rounded">META_PAGE_ID</code> — Your Facebook Page ID</li>
             <li><code className="bg-amber-100 px-1 rounded">META_PAGE_ACCESS_TOKEN</code> — Page access token (with pages_manage_posts)</li>
             <li><code className="bg-amber-100 px-1 rounded">META_INSTAGRAM_BUSINESS_ACCOUNT_ID</code> — IG Business Account ID (Page must be linked to IG)</li>
-            <li>Google: <code className="bg-amber-100 px-1 rounded">GOOGLE_CLIENT_ID</code>, <code className="bg-amber-100 px-1 rounded">GOOGLE_CLIENT_SECRET</code>, <code className="bg-amber-100 px-1 rounded">GOOGLE_REFRESH_TOKEN</code> (get via OAuth 2.0 Playground), <code className="bg-amber-100 px-1 rounded">GOOGLE_BUSINESS_ACCOUNT_ID</code>, <code className="bg-amber-100 px-1 rounded">GOOGLE_BUSINESS_LOCATION_ID</code> — full steps in docs/SOCIAL_POSTING_SETUP.md</li>
+            <li>Google: add <code className="bg-amber-100 px-1 rounded">GOOGLE_CLIENT_ID</code> and <code className="bg-amber-100 px-1 rounded">GOOGLE_CLIENT_SECRET</code> from Google Cloud, then use <strong>Connect Google</strong> below to get the rest.</li>
           </ul>
+          <p className="mt-3 text-amber-800">
+            <strong>Google:</strong> Add <code className="bg-amber-100 px-1 rounded">GOOGLE_CLIENT_ID</code> and <code className="bg-amber-100 px-1 rounded">GOOGLE_CLIENT_SECRET</code> in Vercel first. In Google Cloud OAuth client, add this redirect URI: <code className="bg-amber-100 px-1 rounded text-xs break-all">https://www.hellogorgeousmedspa.com/api/social/google-callback</code> (or your site domain). Then click:
+          </p>
+          <a
+            href="/api/social/google-connect"
+            className="inline-flex items-center gap-2 mt-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg text-sm"
+          >
+            Connect Google (get refresh token + Account/Location IDs)
+          </a>
           <p className="mt-2 text-amber-800">
             Get tokens from{' '}
             <a href="https://developers.facebook.com" target="_blank" rel="noopener noreferrer" className="underline">

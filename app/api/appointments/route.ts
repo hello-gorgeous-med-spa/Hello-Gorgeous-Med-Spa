@@ -6,7 +6,6 @@ import { createClient, SupabaseClient } from '@supabase/supabase-js';
 
 import { NextRequest, NextResponse } from 'next/server';
 import { businessDayToISOBounds } from '@/lib/business-timezone';
-import { getConsentFormsForService } from '@/lib/hgos/consent-forms';
 
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
@@ -67,12 +66,7 @@ async function checkConsentRequirements(
     injectable: ['injectable_consent'],
     botox: ['injectable_consent'],
     filler: ['injectable_consent', 'filler_consent'],
-    // Morpheus8, Quantum RF, Solaria CO2 (new devices)
-    morpheus8: ['morpheus8_consent'],
-    quantum: ['quantum_rf_consent'],
-    solaria: ['solaria_co2_consent'],
-    'co2': ['solaria_co2_consent'],
-    'co₂': ['solaria_co2_consent'],
+    // Add more service types as needed
   };
   
   try {
@@ -584,46 +578,6 @@ export async function POST(request: NextRequest) {
         });
       } catch (pretreatmentError) {
         console.error('Pre-treatment trigger error:', pretreatmentError);
-      }
-    }
-
-    // TRIGGER CONSENT REQUEST for Morpheus8, Quantum RF, Solaria CO2 (and other service-specific consents)
-    if (data && body.client_id && body.service_id && supabase) {
-      try {
-        const { data: service } = await supabase
-          .from('services')
-          .select('name, category')
-          .eq('id', body.service_id)
-          .single();
-        if (service) {
-          const name = (service.name || '').toLowerCase();
-          const category = (service.category || '').toLowerCase();
-          let serviceSlug: string | null = null;
-          if (name.includes('morpheus8') || category.includes('morpheus8')) serviceSlug = 'morpheus8';
-          else if (name.includes('quantum') || category.includes('quantum')) serviceSlug = 'quantum-rf';
-          else if (name.includes('solaria') || name.includes('co2') || name.includes('co₂') || category.includes('solaria') || category.includes('co2')) serviceSlug = 'solaria-co2';
-          if (serviceSlug) {
-            const forms = getConsentFormsForService(serviceSlug);
-            const serviceSpecificTypes = forms.filter(f => f.requiredForServices?.includes(serviceSlug)).map(f => f.id);
-            if (serviceSpecificTypes.length > 0) {
-              const baseUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.NEXTAUTH_URL || 'https://www.hellogorgeousmedspa.com';
-              fetch(`${baseUrl}/api/consents/request`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                  clientId: body.client_id,
-                  formTypes: serviceSpecificTypes,
-                  appointmentId: data.id,
-                  sendVia: 'email',
-                }),
-              }).catch(err => {
-                console.error('Consent request trigger error (non-blocking):', err);
-              });
-            }
-          }
-        }
-      } catch (consentTriggerError) {
-        console.error('Consent trigger error:', consentTriggerError);
       }
     }
 

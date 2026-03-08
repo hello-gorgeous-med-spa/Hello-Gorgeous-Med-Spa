@@ -83,7 +83,12 @@ const NAV_SECTIONS: NavSection[] = [
   },
 ];
 
-export function MobileNav() {
+interface MobileNavProps {
+  /** Use "dark" when the menu button is on a dark background (e.g. admin header) */
+  variant?: 'light' | 'dark';
+}
+
+export function MobileNav({ variant = 'light' }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
@@ -114,7 +119,9 @@ export function MobileNav() {
       {/* Hamburger Button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="lg:hidden p-2 text-black hover:bg-white rounded-lg transition-colors"
+        className={`lg:hidden p-2.5 rounded-lg transition-colors ${
+          variant === 'dark' ? 'text-white hover:bg-white/20' : 'text-black hover:bg-black/10'
+        }`}
         aria-label="Open menu"
       >
         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

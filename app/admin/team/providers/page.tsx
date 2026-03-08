@@ -37,7 +37,9 @@ export default function ProviderManagementPage() {
   const [saving, setSaving] = useState(false);
   const [showAddModal, setShowAddModal] = useState(false);
   const [editingProvider, setEditingProvider] = useState<Provider | null>(null);
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string; checklistUrl?: string } | null>(null);
+  const [offboardConfirm, setOffboardConfirm] = useState<Provider | null>(null);
+  const [offboarding, setOffboarding] = useState(false);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -222,6 +224,31 @@ export default function ProviderManagementPage() {
     });
   };
 
+  // Offboard provider (governance: revoke access, set offboarded_at, log)
+  const handleOffboard = async (provider: Provider) => {
+    setOffboarding(true);
+    try {
+      const res = await fetch(`/api/providers/${provider.id}/offboard`, { method: 'POST' });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok) {
+        setOffboardConfirm(null);
+        setProviders(prev => prev.map(p => p.id === provider.id ? { ...p, is_active: false } : p));
+        setMessage({
+          type: 'success',
+          text: `${provider.name} offboarded.`,
+          checklistUrl: `/admin/provider-governance/offboarding-checklist/${provider.id}`,
+        });
+      } else {
+        setMessage({ type: 'error', text: data.error || 'Offboard failed' });
+      }
+    } catch {
+      setMessage({ type: 'error', text: 'Offboard failed' });
+    } finally {
+      setOffboarding(false);
+    }
+    setTimeout(() => setMessage(null), 5000);
+  };
+
   // Open edit modal
   const openEditModal = (provider: Provider) => {
     setEditingProvider(provider);
@@ -268,6 +295,13 @@ export default function ProviderManagementPage() {
           message.type === 'success' ? 'bg-green-50 text-green-800 border border-green-200' : 'bg-red-50 text-red-800 border border-red-200'
         }`}>
           {message.text}
+          {message.type === 'success' && message.checklistUrl && (
+            <span className="ml-2">
+              <a href={message.checklistUrl} target="_blank" rel="noopener noreferrer" className="underline font-medium">
+                View checklist
+              </a>
+            </span>
+          )}
         </div>
       )}
 
@@ -309,6 +343,12 @@ export default function ProviderManagementPage() {
                     className="px-3 py-1.5 text-sm font-medium text-pink-600 hover:bg-pink-50 rounded-lg transition-colors"
                   >
                     Edit
+                  </button>
+                  <button
+                    onClick={() => setOffboardConfirm(provider)}
+                    className="px-3 py-1.5 text-sm font-medium text-amber-700 hover:bg-amber-50 rounded-lg transition-colors"
+                  >
+                    Offboard
                   </button>
                   <button
                     onClick={() => removeProvider(provider)}

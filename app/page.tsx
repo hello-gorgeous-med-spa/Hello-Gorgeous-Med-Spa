@@ -2,8 +2,6 @@ import { Metadata } from "next";
 import {
   HeroV3,
   TrustStrip,
-  TrifectaSection,
-  VIPPromoSection,
   PartnerBadges,
   InjectablesConversion,
   ServicesSection,
@@ -21,6 +19,7 @@ import {
 } from "@/components/homepage-v3";
 import { GlowUpEventBanner } from "@/components/GlowUpEventBanner";
 import { CherryWidget } from "@/components/CherryWidget";
+import { Morpheus8Banner } from "@/components/Morpheus8Banner";
 import { SolariaComingSoonBanner } from "@/components/SolariaComingSoonBanner";
 import {
   SITE,
@@ -36,7 +35,6 @@ import {
   faqJsonLd,
   testimonialsJsonLd,
   bookingServiceJsonLd,
-  aiOptimizedOrganizationJsonLd,
 } from "@/lib/seo";
 import { CHERRY_PAY_URL } from "@/lib/flows";
 
@@ -144,21 +142,12 @@ export default function HomePage() {
         }}
       />
 
-      {/* AI-Optimized Organization Schema - for ChatGPT, Perplexity, Gemini */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(aiOptimizedOrganizationJsonLd()),
-        }}
-      />
-
       <main className="bg-white">
+        <Morpheus8Banner />
         <GlowUpEventBanner />
         <SolariaComingSoonBanner />
         <HeroV3 />
         <TrustStrip />
-        <TrifectaSection />
-        <VIPPromoSection />
         <PartnerBadges />
         <InjectablesConversion />
         <ServicesSection />

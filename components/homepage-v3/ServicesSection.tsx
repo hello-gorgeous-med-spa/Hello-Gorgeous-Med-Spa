@@ -5,20 +5,21 @@ import Image from "next/image";
 
 const services = [
   {
+    title: "Morpheus8 RF",
+    description:
+      "The deepest RF microneedling available. Face & body contouring, skin tightening, and fat reduction with Burst + Quantum technology.",
+    link: "/services/morpheus8",
+    items: ["Face Tightening", "Body Contouring", "Acne Scars", "Fat Reduction"],
+    image: "/images/services/hg-prp-gold-tubes.png",
+    badge: "NEW",
+  },
+  {
     title: "Injectables",
     description:
       "Precision Botox®, dermal fillers, and lip enhancement delivered with medical expertise and artistic vision.",
     link: "/services/botox-dysport-jeuveau",
     items: ["Botox & Dysport", "Dermal Fillers", "Lip Enhancement", "Kybella"],
     image: "/images/services/hg-botox-flatlay.png",
-  },
-  {
-    title: "Skin Rejuvenation",
-    description:
-      "Advanced treatments that restore, resurface, and revitalize your skin from the cellular level.",
-    link: "/services/microneedling",
-    items: ["Microneedling", "Chemical Peels", "Laser Treatments", "PRP Facials"],
-    image: "/images/services/hg-prp-gold-tubes.png",
   },
   {
     title: "Medical Weight Loss",

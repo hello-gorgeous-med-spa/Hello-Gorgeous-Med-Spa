@@ -22,7 +22,8 @@ export async function GET(request: NextRequest) {
       .from('inventory_lots')
       .select(`
         *,
-        item:inventory_items(id, name, brand)
+        item:inventory_items(id, name, brand),
+        protocol:protocols(protocol_id, title)
       `)
       .order('expiration_date', { ascending: true });
 
