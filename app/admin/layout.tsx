@@ -130,6 +130,8 @@ const NAV_SECTIONS = [
     title: 'Clinical',
     icon: '💉',
     items: [
+      { href: '/admin/clinical/guidance', label: 'Guidance', icon: '📖' },
+      { href: '/admin/clinical/protocols', label: 'Protocol Center', icon: '📋' },
       { href: '/admin/charting/injection-map', label: 'Injection Mapping', icon: '💉' },
       { href: '/charting', label: 'Charting Hub', icon: '📋' },
       { href: '/admin/consents', label: 'Consent Forms', icon: '📝' },
