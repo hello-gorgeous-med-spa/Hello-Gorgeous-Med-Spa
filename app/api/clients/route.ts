@@ -163,7 +163,13 @@ export async function GET(request: NextRequest) {
 
     if (clientsError) {
       console.error('Error fetching clients:', clientsError);
-      return NextResponse.json({ error: clientsError.message }, { status: 500 });
+      // Return 200 with empty list so the UI still loads instead of breaking
+      return NextResponse.json({
+        clients: [],
+        total: 0,
+        error: clientsError.message,
+        warning: 'Database error loading clients. Check connection and tables.',
+      });
     }
 
     // Get user IDs from clients
@@ -226,7 +232,13 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Clients API error:', error);
-    return NextResponse.json({ error: 'Failed to fetch clients' }, { status: 500 });
+    // Return 200 with empty list so the app keeps working
+    return NextResponse.json({
+      clients: [],
+      total: 0,
+      error: error instanceof Error ? error.message : 'Failed to fetch clients',
+      warning: 'Unable to load clients. You can still use the rest of the app.',
+    });
   }
 }
 

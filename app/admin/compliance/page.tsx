@@ -82,27 +82,37 @@ export default function ComplianceDashboard() {
 
     try {
       // Fetch clients for consent checking
-      const clientsRes = await fetch('/api/clients?limit=1000');
-      const clientsData = await clientsRes.json();
-      const clients = clientsData.clients || [];
+      let clients: any[] = [];
+      try {
+        const clientsRes = await fetch('/api/clients?limit=1000');
+        const clientsData = await clientsRes.json();
+        clients = Array.isArray(clientsData?.clients) ? clientsData.clients : [];
+      } catch {
+        // ignore
+      }
 
-      // Fetch consents
+      // Fetch consents — /api/consents returns { templates, stats: { totalSigned, ... } }
       let totalHipaa = 0;
       let totalTreatment = 0;
       let totalPhoto = 0;
-      
-      // Check consents (simplified - would need actual consent API)
-      const consentsRes = await fetch('/api/consents?limit=1000');
-      const consentsData = await consentsRes.json();
-      const consents = consentsData.consents || [];
-      
-      consents.forEach((c: any) => {
-        if (c.consent_type === 'hipaa_authorization') totalHipaa++;
-        if (c.consent_type === 'general_treatment') totalTreatment++;
-        if (c.consent_type === 'photo_release') totalPhoto++;
-      });
+      let totalSigned = 0;
+      try {
+        const consentsRes = await fetch('/api/consents');
+        const consentsData = await consentsRes.json();
+        const templates = Array.isArray(consentsData?.templates) ? consentsData.templates : [];
+        totalSigned = consentsData?.stats?.totalSigned ?? 0;
+        templates.forEach((t: any) => {
+          const slug = (t.slug || t.name || '').toLowerCase();
+          if (slug.includes('hipaa')) totalHipaa++;
+          else if (slug.includes('treatment') || slug.includes('general')) totalTreatment++;
+          else if (slug.includes('photo') || slug.includes('release')) totalPhoto++;
+        });
+        if (totalHipaa === 0 && totalSigned > 0) totalHipaa = totalSigned;
+      } catch {
+        // ignore
+      }
 
-      const missingConsents = Math.max(0, clients.length - totalHipaa);
+      const missingConsents = Math.max(0, clients.length - (totalHipaa || totalSigned));
       setConsentStats({
         totalClients: clients.length,
         hipaaConsent: totalHipaa,
@@ -125,9 +135,14 @@ export default function ComplianceDashboard() {
       }
 
       // Fetch providers for credential checking
-      const provRes = await fetch('/api/providers');
-      const provData = await provRes.json();
-      const providers = provData.providers || [];
+      let providers: any[] = [];
+      try {
+        const provRes = await fetch('/api/providers');
+        const provData = await provRes.json();
+        providers = Array.isArray(provData?.providers) ? provData.providers : [];
+      } catch {
+        // ignore
+      }
 
       const credentialsList: ProviderCredential[] = [];
       const now = new Date();
@@ -182,10 +197,17 @@ export default function ComplianceDashboard() {
         });
       }
 
-      // Fetch audit logs
-      const auditRes = await fetch('/api/audit?limit=500');
-      const auditData = await auditRes.json();
-      const logs = auditData.logs || [];
+      // Fetch audit logs — /api/audit may not exist; use empty array if missing/fails
+      let logs: any[] = [];
+      try {
+        const auditRes = await fetch('/api/audit?limit=500');
+        if (auditRes.ok) {
+          const auditData = await auditRes.json();
+          logs = Array.isArray(auditData?.logs) ? auditData.logs : [];
+        }
+      } catch {
+        // no audit API or network error
+      }
 
       const today = new Date();
       today.setHours(0, 0, 0, 0);
@@ -215,22 +237,32 @@ export default function ComplianceDashboard() {
         });
       }
 
-      // Fetch inventory for compliance
-      const invRes = await fetch('/api/inventory?limit=1000');
-      const invData = await invRes.json();
-      const inventory = invData.items || invData.inventory || [];
+      // Fetch inventory for compliance — API returns { inventory } with items that have .lots[]
+      let inventoryLots: { expiration_date?: string; lot_number?: string }[] = [];
+      try {
+        const invRes = await fetch('/api/inventory?limit=1000');
+        if (invRes.ok) {
+          const invData = await invRes.json();
+          const inventory = invData.inventory || invData.items || [];
+          inventoryLots = (inventory as any[])
+            .flatMap((i: any) => i.lots || (i.inventory_lots || []))
+            .filter(Boolean);
+        }
+      } catch {
+        // ignore
+      }
 
       const expiryThreshold = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
-      const expiredItems = inventory.filter((i: any) => i.expiration_date && new Date(i.expiration_date) < now);
-      const expiringItems = inventory.filter((i: any) => 
-        i.expiration_date && 
-        new Date(i.expiration_date) >= now && 
+      const expiredItems = inventoryLots.filter((i: any) => i.expiration_date && new Date(i.expiration_date) < now);
+      const expiringItems = inventoryLots.filter((i: any) =>
+        i.expiration_date &&
+        new Date(i.expiration_date) >= now &&
         new Date(i.expiration_date) < expiryThreshold
       );
-      const missingLots = inventory.filter((i: any) => !i.lot_number);
+      const missingLots = inventoryLots.filter((i: any) => !i.lot_number);
 
       setInventoryCompliance({
-        totalLots: inventory.length,
+        totalLots: inventoryLots.length,
         expiringSoon: expiringItems.length,
         expired: expiredItems.length,
         missingLotNumbers: missingLots.length,

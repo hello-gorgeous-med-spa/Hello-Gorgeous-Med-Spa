@@ -51,7 +51,7 @@ export default function AdminClientsPage() {
     return () => clearTimeout(timer);
   }, [searchQuery]);
 
-  // Fetch clients via API with pagination
+  // Fetch clients via API with pagination — always show UI even when API fails
   const fetchClients = async (search?: string, page = 1, limit = 25) => {
     setLoading(true);
     setError(null);
@@ -61,19 +61,34 @@ export default function AdminClientsPage() {
       if (sourceFilter) params.set('source', sourceFilter);
       params.set('limit', limit.toString());
       params.set('offset', ((page - 1) * limit).toString());
-      
-      const response = await fetch(`/api/clients?${params}`);
-      const data = await response.json();
 
-      if (!response.ok) {
-        throw new Error(data.error || 'Failed to fetch clients');
+      const response = await fetch(`/api/clients?${params}`);
+      let data: { clients?: Client[]; total?: number; error?: string; warning?: string } = {};
+      try {
+        data = await response.json();
+      } catch {
+        data = {};
       }
 
-      setClients(data.clients || []);
-      setTotal(data.total || 0);
+      const list = Array.isArray(data.clients) ? data.clients : [];
+      const totalCount = typeof data.total === 'number' ? data.total : 0;
+      setClients(list);
+      setTotal(totalCount);
+
+      if (!response.ok) {
+        setError(data.error || 'Failed to fetch clients');
+        return;
+      }
+      if (data.error || data.warning) {
+        setError(data.error || data.warning);
+      } else {
+        setError(null);
+      }
     } catch (err) {
       console.error('Error fetching clients:', err);
       setError(err instanceof Error ? err.message : 'Failed to load clients');
+      setClients([]);
+      setTotal(0);
     } finally {
       setLoading(false);
     }
