@@ -83,6 +83,33 @@ export default function CalendarPage() {
   const dateString = selectedDate.toISOString().split('T')[0];
   const BUSINESS_TZ = 'America/Chicago';
 
+  // Data fetchers first (so handlers below can reference them without TDZ)
+  const fetchAppointments = useCallback(async () => {
+    try {
+      setLoading(true);
+      setDataError(null);
+      const res = await fetchWithTimeout(`/api/appointments?date=${dateString}`, { cache: 'no-store' });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setDataError(data?.error || 'Failed to load appointments');
+        setAppointments([]);
+        return;
+      }
+      if (data.source === 'local') {
+        setDataError('Database not connected. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in your hosting environment.');
+        setAppointments([]);
+        return;
+      }
+      setAppointments(data.appointments ?? []);
+    } catch (err) {
+      setDataError(err instanceof Error ? err.message : 'Failed to load appointments');
+      setAppointments([]);
+      console.error('Failed to load appointments:', err);
+    } finally {
+      setLoading(false);
+    }
+  }, [dateString]);
+
   // Convert slot (e.g. "10:00") on selected date to ISO in business timezone
   const slotToStartsAt = useCallback((timeStr: string) => {
     const [h, m] = timeStr.split(':').map(Number);
@@ -144,32 +171,6 @@ export default function CalendarPage() {
     setDraggingApptId(null);
     setDropTarget(null);
   }, []);
-
-  const fetchAppointments = useCallback(async () => {
-    try {
-      setLoading(true);
-      setDataError(null);
-      const res = await fetchWithTimeout(`/api/appointments?date=${dateString}`, { cache: 'no-store' });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        setDataError(data?.error || 'Failed to load appointments');
-        setAppointments([]);
-        return;
-      }
-      if (data.source === 'local') {
-        setDataError('Database not connected. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in your hosting environment.');
-        setAppointments([]);
-        return;
-      }
-      setAppointments(data.appointments ?? []);
-    } catch (err) {
-      setDataError(err instanceof Error ? err.message : 'Failed to load appointments');
-      setAppointments([]);
-      console.error('Failed to load appointments:', err);
-    } finally {
-      setLoading(false);
-    }
-  }, [dateString]);
 
   const fetchProviders = useCallback(async () => {
     try {
