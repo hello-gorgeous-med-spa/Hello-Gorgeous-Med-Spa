@@ -1192,18 +1192,24 @@ export default function CalendarPage() {
                   </div>
                 )}
               </div>
-              <div className="grid grid-cols-2 gap-3">
-                <Link
-                  href={`/pos?appointment=${selectedAppointment.id}&client=${selectedAppointment.client_id}`}
-                  className="flex items-center justify-center gap-2 px-4 py-3 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-black transition-colors"
-                >
-                  <span>💳</span> Checkout
-                </Link>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                 <Link
                   href={`/admin/charting?client=${selectedAppointment.client_id}&appointment=${selectedAppointment.id}`}
                   className="flex items-center justify-center gap-2 px-4 py-3 bg-purple-600 text-white font-semibold rounded-xl hover:bg-purple-700 transition-colors"
                 >
                   <span>📋</span> Chart / Notes
+                </Link>
+                <Link
+                  href={`/admin/chart-to-cart/new?client=${selectedAppointment.client_id}&appointment=${selectedAppointment.id}`}
+                  className="flex items-center justify-center gap-2 px-4 py-3 bg-pink-500 text-white font-semibold rounded-xl hover:bg-pink-600 transition-colors"
+                >
+                  <span>🛒</span> Chart-to-Cart
+                </Link>
+                <Link
+                  href={`/pos?appointment=${selectedAppointment.id}&client=${selectedAppointment.client_id}`}
+                  className="flex items-center justify-center gap-2 px-4 py-3 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-black transition-colors"
+                >
+                  <span>💳</span> Checkout
                 </Link>
               </div>
             </div>

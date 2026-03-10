@@ -214,7 +214,7 @@ function TreatmentSessionsSection({ clientId }: { clientId: string }) {
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-black">Chart-to-Cart Sessions</h3>
         <Link
-          href="/admin/chart-to-cart/new"
+          href={`/admin/chart-to-cart/new?client=${clientId}`}
           className="text-sm text-pink-600 hover:text-pink-700 font-medium"
         >
           + New Session
@@ -228,7 +228,7 @@ function TreatmentSessionsSection({ clientId }: { clientId: string }) {
           <span className="text-3xl mb-2 block">🛒</span>
           <p className="text-black text-sm">No Chart-to-Cart sessions yet</p>
           <Link
-            href="/admin/chart-to-cart/new"
+            href={`/admin/chart-to-cart/new?client=${clientId}`}
             className="inline-block mt-2 text-pink-600 hover:text-pink-700 text-sm font-medium"
           >
             Start a treatment session →
@@ -719,7 +719,7 @@ function UnifiedChartTabContent({
       {chartSubTab === 'chart-to-cart' && (
         <div className="space-y-4">
           <TreatmentSessionsSection clientId={clientId} />
-          <Link href="/admin/chart-to-cart/new" className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FF2D8E] text-white font-medium rounded-lg">
+          <Link href={`/admin/chart-to-cart/new?client=${clientId}`} className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#FF2D8E] text-white font-medium rounded-lg">
             <span>🛒</span> New Chart-to-Cart Session
           </Link>
         </div>
