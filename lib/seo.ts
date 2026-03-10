@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BOOKING_URL } from "@/lib/flows";
 
 export type FAQ = { question: string; answer: string };
 
@@ -1229,7 +1230,7 @@ export function bookingServiceJsonLd() {
     },
     potentialAction: {
       "@type": "ReserveAction",
-      target: { "@type": "EntryPoint", url: `${SITE.url}/book` },
+      target: { "@type": "EntryPoint", url: BOOKING_URL },
       result: { "@type": "Reservation", name: "Appointment at Hello Gorgeous Med Spa" },
     },
   };

@@ -1,7 +1,10 @@
-/** Booking and conversion URLs */
-export const BOOKING_URL =
+/** Booking and conversion URLs — public site links to Fresha (not the internal /book OS until ready). */
+export const FRESHA_BOOKING_URL =
+  process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL ||
   process.env.NEXT_PUBLIC_BOOKING_URL ||
-  "https://www.hellogorgeousmedspa.com/book";
+  "https://www.fresha.com/book-now/hello-gorgeous-med-spa-oswego-l02y7y2r";
+/** Primary booking CTA: Fresha (internal /book removed from site until OS is ready). */
+export const BOOKING_URL = FRESHA_BOOKING_URL;
 
 /** Fullscript dispensary (practitioner-grade supplements) */
 export const FULLSCRIPT_DISPENSARY_URL =
