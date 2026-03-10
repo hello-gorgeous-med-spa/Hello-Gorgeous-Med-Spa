@@ -138,7 +138,8 @@ export default function AdminOwnerPage() {
         </div>
         <div className="flex items-center gap-2">
           <Link href="/admin" className="px-4 py-2 border border-black text-black font-medium rounded-lg hover:bg-gray-50">Dashboard</Link>
-          <Link href="/admin/owner/manual" className="px-4 py-2 bg-black text-white font-medium rounded-lg hover:bg-gray-800">Owner&apos;s Manual</Link>
+          <Link href="/admin/owner/live-state" className="px-4 py-2 bg-emerald-600 text-white font-medium rounded-lg hover:bg-emerald-700">Live System</Link>
+        <Link href="/admin/owner/manual" className="px-4 py-2 bg-black text-white font-medium rounded-lg hover:bg-gray-800">Owner&apos;s Manual</Link>
         </div>
       </div>
 

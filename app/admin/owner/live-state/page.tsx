@@ -1,162 +1,196 @@
 'use client';
 
-/**
- * Live System State – Owner view
- * Shows connectivity and status of Dashboard, Appointments, Providers APIs and DB.
- */
+// ============================================================
+// LIVE SYSTEM — Real-time visibility: DB, APIs, counts
+// "See exactly what your system is doing"
+// ============================================================
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { Breadcrumb } from '@/components/ui';
-import { fetchWithTimeout } from '@/lib/fetchWithTimeout';
 
-type CheckStatus = 'pending' | 'ok' | 'fail' | 'timeout';
-
-interface CheckResult {
-  label: string;
-  status: CheckStatus;
-  message?: string;
-}
+type LiveState = {
+  lastChecked: string;
+  database: 'connected' | 'disconnected';
+  databaseDetail?: string;
+  clientsCount: number;
+  servicesCount: number;
+  appointmentsTodayCount: number;
+  env: { hasSupabaseUrl: boolean; hasSupabaseKey: boolean };
+};
 
 export default function LiveStatePage() {
-  const [checks, setChecks] = useState<CheckResult[]>([
-    { label: 'Dashboard API', status: 'pending' },
-    { label: 'Appointments API', status: 'pending' },
-    { label: 'Providers API', status: 'pending' },
-  ]);
+  const [state, setState] = useState<LiveState | null>(null);
   const [loading, setLoading] = useState(true);
+  const [apiStatus, setApiStatus] = useState<Record<string, string>>({});
+  const [refreshing, setRefreshing] = useState(false);
 
-  const runChecks = useCallback(async () => {
-    setLoading(true);
-    setChecks([
-      { label: 'Dashboard API', status: 'pending' },
-      { label: 'Appointments API', status: 'pending' },
-      { label: 'Providers API', status: 'pending' },
-    ]);
-
-    const results: CheckResult[] = [];
-
+  const fetchLiveState = useCallback(async () => {
     try {
-      const dashRes = await fetchWithTimeout('/api/dashboard');
-      const dashData = await dashRes.json().catch(() => ({}));
-      if (!dashRes.ok) {
-        results.push({ label: 'Dashboard API', status: 'fail', message: dashData?.error || `HTTP ${dashRes.status}` });
-      } else if (dashData.source === 'local') {
-        results.push({ label: 'Dashboard API', status: 'ok', message: 'Responding (DB not connected – check env)' });
-      } else {
-        results.push({ label: 'Dashboard API', status: 'ok', message: 'Connected' });
-      }
-    } catch (e) {
-      results.push({
-        label: 'Dashboard API',
-        status: e instanceof Error && e.message.includes('timed out') ? 'timeout' : 'fail',
-        message: e instanceof Error ? e.message : 'Request failed',
-      });
+      const res = await fetch('/api/live-state');
+      const data = await res.json();
+      setState(data);
+    } catch {
+      setState(null);
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
     }
+  }, []);
 
+  const checkApis = useCallback(async () => {
+    const apis: Record<string, string> = {};
     try {
-      const aptRes = await fetchWithTimeout('/api/appointments?date=' + new Date().toISOString().split('T')[0]);
-      const aptData = await aptRes.json().catch(() => ({}));
-      if (!aptRes.ok) {
-        results.push({ label: 'Appointments API', status: 'fail', message: aptData?.error || `HTTP ${aptRes.status}` });
-      } else if (aptData.source === 'local') {
-        results.push({ label: 'Appointments API', status: 'ok', message: 'Responding (DB not connected)' });
-      } else {
-        results.push({ label: 'Appointments API', status: 'ok', message: `Connected (${aptData.appointments?.length ?? 0} today)` });
-      }
-    } catch (e) {
-      results.push({
-        label: 'Appointments API',
-        status: e instanceof Error && e.message.includes('timed out') ? 'timeout' : 'fail',
-        message: e instanceof Error ? e.message : 'Request failed',
-      });
+      const r = await fetch('/api/auth/session');
+      apis['Auth session'] = r.ok ? 'OK' : `${r.status}`;
+    } catch {
+      apis['Auth session'] = 'Error';
     }
-
     try {
-      const provRes = await fetchWithTimeout('/api/providers');
-      const provData = await provRes.json().catch(() => ({}));
-      if (!provRes.ok) {
-        results.push({ label: 'Providers API', status: 'fail', message: provData?.error || `HTTP ${provRes.status}` });
-      } else {
-        const count = provData.providers?.length ?? 0;
-        results.push({ label: 'Providers API', status: 'ok', message: `Connected (${count} providers)` });
-      }
-    } catch (e) {
-      results.push({
-        label: 'Providers API',
-        status: e instanceof Error && e.message.includes('timed out') ? 'timeout' : 'fail',
-        message: e instanceof Error ? e.message : 'Request failed',
-      });
+      const r = await fetch('/api/clients?limit=1');
+      const d = await r.json().catch(() => ({}));
+      apis['Clients API'] = r.ok ? (d.source === 'local' ? 'OK (local)' : 'OK') : `${r.status}`;
+    } catch {
+      apis['Clients API'] = 'Error';
     }
-
-    setChecks(results);
-    setLoading(false);
+    try {
+      const r = await fetch('/api/services');
+      apis['Services API'] = r.ok ? 'OK' : `${r.status}`;
+    } catch {
+      apis['Services API'] = 'Error';
+    }
+    try {
+      const r = await fetch('/api/chart-notes?client_id=00000000-0000-0000-0000-000000000000&limit=1');
+      apis['Chart notes API'] = r.ok ? 'OK' : `${r.status}`;
+    } catch {
+      apis['Chart notes API'] = 'Error';
+    }
+    setApiStatus(apis);
   }, []);
 
   useEffect(() => {
-    runChecks();
-  }, [runChecks]);
+    fetchLiveState();
+    checkApis();
+  }, [fetchLiveState, checkApis]);
 
-  const statusColor = (s: CheckStatus) => {
-    if (s === 'ok') return 'bg-emerald-100 text-emerald-800 border-emerald-300';
-    if (s === 'timeout') return 'bg-amber-100 text-amber-800 border-amber-300';
-    return 'bg-red-100 text-red-800 border-red-300';
+  useEffect(() => {
+    const t = setInterval(() => {
+      setRefreshing(true);
+      fetchLiveState();
+      checkApis();
+    }, 30000);
+    return () => clearInterval(t);
+  }, [fetchLiveState, checkApis]);
+
+  const handleRefresh = () => {
+    setRefreshing(true);
+    fetchLiveState();
+    checkApis();
   };
 
-  const statusIcon = (s: CheckStatus) => {
-    if (s === 'ok') return '✓';
-    if (s === 'timeout') return '⏱';
-    if (s === 'pending') return '…';
-    return '✗';
-  };
+  if (loading && !state) {
+    return (
+      <div className="p-6">
+        <div className="animate-pulse h-8 w-24 bg-gray-200 rounded mb-4" />
+        <div className="space-y-3">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="h-20 bg-gray-100 rounded-xl" />
+          ))}
+        </div>
+      </div>
+    );
+  }
 
   return (
-    <div className="space-y-6">
-      <Breadcrumb />
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="p-6 max-w-2xl mx-auto space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-black">Live System State</h1>
-          <p className="text-black mt-0.5">See exactly what your system is doing – no hidden logic.</p>
+          <Link href="/admin/owner" className="text-[#2D63A4] font-medium hover:underline">← Owner</Link>
+          <h1 className="text-2xl font-bold text-black mt-2">Live System</h1>
+          <p className="text-black mt-1">See exactly what your system is doing — no hidden logic.</p>
         </div>
-        <div className="flex items-center gap-3">
-          <Link
-            href="/admin"
-            className="px-4 py-2 border-2 border-black text-black font-medium rounded-lg hover:bg-black hover:text-white transition-colors"
-          >
-            ← Dashboard
-          </Link>
+        <div className="flex items-center gap-2">
+          {state?.lastChecked && (
+            <span className="text-sm text-black/70">
+              Updated {new Date(state.lastChecked).toLocaleTimeString()}
+            </span>
+          )}
           <button
-            onClick={runChecks}
-            disabled={loading}
-            className="px-4 py-2 bg-[#E6007E] text-white font-medium rounded-lg hover:opacity-90 disabled:opacity-60 transition-opacity"
+            type="button"
+            onClick={handleRefresh}
+            disabled={refreshing}
+            className="px-4 py-2 bg-[#2D63A4] text-white font-medium rounded-lg hover:bg-[#234a7a] disabled:opacity-50 text-sm"
           >
-            {loading ? 'Checking…' : 'Refresh'}
+            {refreshing ? 'Refreshing…' : 'Refresh'}
           </button>
         </div>
       </div>
 
-      <div className="bg-white rounded-xl border-2 border-black shadow-sm overflow-hidden">
-        <div className="p-4 border-b border-black bg-black/5">
-          <h2 className="font-semibold text-black">System checks</h2>
-          <p className="text-sm text-black mt-0.5">APIs and database connectivity (last run just now).</p>
+      {/* Database */}
+      <div className="bg-white rounded-xl border border-black overflow-hidden">
+        <div className="px-5 py-4 border-b border-black flex items-center justify-between">
+          <h2 className="font-semibold text-black">Database</h2>
+          {state && (
+            <span
+              className={`px-3 py-1 rounded-full text-sm font-medium ${
+                state.database === 'connected'
+                  ? 'bg-green-100 text-green-800'
+                  : 'bg-red-100 text-red-800'
+              }`}
+            >
+              {state.database === 'connected' ? 'Connected' : 'Disconnected'}
+            </span>
+          )}
         </div>
-        <ul className="divide-y divide-black/10">
-          {checks.map((c, i) => (
-            <li key={i} className="p-4 flex items-center justify-between gap-4">
-              <div>
-                <p className="font-medium text-black">{c.label}</p>
-                {c.message && <p className="text-sm text-black/70 mt-0.5">{c.message}</p>}
-              </div>
+        <div className="p-5 text-black text-sm space-y-1">
+          {state && (
+            <>
+              <p>Env: URL {state.env.hasSupabaseUrl ? '✓' : '✗'} · Key {state.env.hasSupabaseKey ? '✓' : '✗'}</p>
+              {state.databaseDetail && <p className="text-red-600">{state.databaseDetail}</p>}
+            </>
+          )}
+        </div>
+      </div>
+
+      {/* Counts */}
+      {state && state.database === 'connected' && (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="bg-white rounded-xl border border-black p-5">
+            <p className="text-sm font-medium text-black/70">Clients</p>
+            <p className="text-2xl font-bold text-black mt-1">{state.clientsCount.toLocaleString()}</p>
+          </div>
+          <div className="bg-white rounded-xl border border-black p-5">
+            <p className="text-sm font-medium text-black/70">Services</p>
+            <p className="text-2xl font-bold text-black mt-1">{state.servicesCount.toLocaleString()}</p>
+          </div>
+          <div className="bg-white rounded-xl border border-black p-5">
+            <p className="text-sm font-medium text-black/70">Appointments today</p>
+            <p className="text-2xl font-bold text-black mt-1">{state.appointmentsTodayCount.toLocaleString()}</p>
+          </div>
+        </div>
+      )}
+
+      {/* API status */}
+      <div className="bg-white rounded-xl border border-black overflow-hidden">
+        <div className="px-5 py-4 border-b border-black">
+          <h2 className="font-semibold text-black">API status</h2>
+        </div>
+        <ul className="divide-y divide-black">
+          {Object.entries(apiStatus).map(([name, status]) => (
+            <li key={name} className="px-5 py-3 flex justify-between items-center">
+              <span className="text-black font-medium">{name}</span>
               <span
-                className={`shrink-0 px-3 py-1 rounded-lg border text-sm font-medium ${statusColor(c.status)}`}
-                title={c.status === 'pending' ? 'Checking…' : c.message}
+                className={`text-sm font-medium ${
+                  status.startsWith('OK') ? 'text-green-600' : status === 'Error' ? 'text-red-600' : 'text-amber-600'
+                }`}
               >
-                {statusIcon(c.status)} {c.status === 'pending' ? 'Checking…' : c.status.toUpperCase()}
+                {status}
               </span>
             </li>
           ))}
         </ul>
       </div>
+
+      <p className="text-sm text-black/70">Auto-refreshes every 30 seconds.</p>
     </div>
   );
 }
