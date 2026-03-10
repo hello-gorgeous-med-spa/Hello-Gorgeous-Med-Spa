@@ -1,569 +1,270 @@
 'use client';
 
 // ============================================================
-// FOUNDER CONTROL DASHBOARD - OVERVIEW
-// ALL DATA FROM DATABASE - NO STATIC VALUES
+// OWNER PORTAL — Phase 6: Business cockpit
+// PRD: Revenue snapshot, pending issues, leads, marketing/membership
+//      health, low stock, staff productivity, quick edits
 // ============================================================
 
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useState } from 'react';
-import { 
-  useOwnerMetrics, 
-  CardSkeleton, 
-  EmptyState, 
-  ErrorState,
-  DatabaseNotConnected,
-  formatCurrency,
-  formatPercent,
-  formatRelativeTime,
-  type DateRange,
-} from '@/lib/hooks/useOwnerMetrics';
 
-const OWNER_NAV = [
-  { href: '/admin/owner', label: 'Overview', icon: '🏠' },
-  { href: '/admin/owner/live-state', label: 'Live System State', icon: '📡' },
-  { href: '/admin/owner/rules', label: 'Rules & Precedence', icon: '⚖️' },
-  { href: '/admin/owner/features', label: 'Modules & Features', icon: '🎚️' },
-  { href: '/admin/owner/clinical', label: 'Clinical Governance', icon: '🩺' },
-  { href: '/admin/owner/economics', label: 'Revenue & Economics', icon: '💰' },
-  { href: '/admin/owner/data-model', label: 'Data Model Control', icon: '🗃️' },
-  { href: '/admin/owner/changes', label: 'Change Management', icon: '📝' },
-  { href: '/admin/owner/risk', label: 'Risk & Compliance', icon: '⚠️' },
-  { href: '/admin/owner/authority', label: 'Access & Authority', icon: '🔐' },
-  { href: '/admin/owner/exports', label: 'Exports & Exit', icon: '📤' },
-  { href: '/admin/owner/audit', label: 'Audit & Forensics', icon: '🔍' },
-];
+type OwnerStats = {
+  todayRevenue: number;
+  weekRevenue: number;
+  monthRevenue: number;
+  noShowRate: number;
+  conversionPlaceholder: string;
+  topProviders: { id: string; name: string; revenue: number; appointments: number; utilization: number }[];
+  topServices: { id: string; name: string; revenue: number; bookings: number }[];
+};
 
-export default function FounderOverviewPage() {
-  const pathname = usePathname();
-  const [dateRange, setDateRange] = useState<DateRange>('month');
-  const [emergencyMode, setEmergencyMode] = useState<'normal' | 'readonly' | 'booking_disabled'>('normal');
-  const [showEmergencyConfirm, setShowEmergencyConfirm] = useState<string | null>(null);
-  const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+export default function AdminOwnerPage() {
+  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState<OwnerStats | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  // REAL DATA - fetched from database
-  const { data, isLoading, error, refetch } = useOwnerMetrics(dateRange);
+  const fetchOwnerStats = useCallback(async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const now = new Date();
+      const todayStr = now.toISOString().split('T')[0];
+      const monthStart = new Date(now.getFullYear(), now.getMonth(), 1);
+      const monthStartStr = monthStart.toISOString().split('T')[0];
+      const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
 
-  const executeEmergencyAction = (action: string) => {
-    switch (action) {
-      case 'readonly':
-        setEmergencyMode('readonly');
-        setMessage({ type: 'success', text: '🔴 SYSTEM NOW IN READ-ONLY MODE - All write operations disabled' });
-        break;
-      case 'disable_booking':
-        setEmergencyMode('booking_disabled');
-        setMessage({ type: 'success', text: '🟠 BOOKING DISABLED - Clients cannot book new appointments' });
-        break;
-      case 'restore':
-        setEmergencyMode('normal');
-        setMessage({ type: 'success', text: '✅ System restored to normal operation' });
-        break;
+      // Try dashboard API first
+      const dashRes = await fetch('/api/dashboard').catch(() => null);
+      const dashData = dashRes?.ok ? await dashRes.json().catch(() => ({})) : {};
+
+      // Appointments for month (fallback for revenue / no-show / top lists)
+      const aptsRes = await fetch(`/api/appointments?start_date=${monthStartStr}&end_date=${todayStr}&include_cancelled=true&limit=500`).catch(() => null);
+      const aptsData = aptsRes?.ok ? await aptsRes.json().catch(() => ({})) : {};
+      const appointments = aptsData.appointments || [];
+
+      const completed = appointments.filter((a: any) => a.status === 'completed');
+      const noShows = appointments.filter((a: any) => a.status === 'no_show');
+      const totalScheduled = appointments.filter((a: any) => a.status !== 'cancelled').length;
+      const noShowRate = totalScheduled > 0 ? Math.round((noShows.length / totalScheduled) * 100) : 0;
+
+      const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const todayRevenue = completed
+        .filter((a: any) => new Date(a.starts_at) >= todayStart)
+        .reduce((s: number, a: any) => s + (a.service_price || 0), 0);
+      const weekRevenue = completed
+        .filter((a: any) => new Date(a.starts_at) >= weekAgo)
+        .reduce((s: number, a: any) => s + (a.service_price || 0), 0);
+      const monthRevenue = completed.reduce((s: number, a: any) => s + (a.service_price || 0), 0);
+
+      // Prefer dashboard API revenue if present
+      const todayRevenueFinal = (dashData.stats?.todayRevenue ?? todayRevenue) || todayRevenue;
+      const weekRevenueFinal = (dashData.stats?.weekRevenue ?? weekRevenue) || weekRevenue;
+      const monthRevenueFinal = (dashData.stats?.monthRevenue ?? monthRevenue) || monthRevenue;
+
+      const providerMap = new Map<string, { name: string; revenue: number; appointments: number; completed: number }>();
+      completed.forEach((a: any) => {
+        const id = a.provider_id || 'unknown';
+        const name = a.provider_name || 'Provider';
+        if (!providerMap.has(id)) providerMap.set(id, { name, revenue: 0, appointments: 0, completed: 0 });
+        const p = providerMap.get(id)!;
+        p.revenue += a.service_price || 0;
+        p.completed += 1;
+      });
+      appointments.forEach((a: any) => {
+        const id = a.provider_id || 'unknown';
+        if (providerMap.has(id)) providerMap.get(id)!.appointments += 1;
+      });
+      const topProviders = Array.from(providerMap.entries())
+        .map(([id, p]) => ({
+          id,
+          name: p.name,
+          revenue: p.revenue,
+          appointments: p.appointments,
+          utilization: p.appointments > 0 ? Math.round((p.completed / p.appointments) * 100) : 0,
+        }))
+        .sort((a, b) => b.revenue - a.revenue)
+        .slice(0, 5);
+
+      const serviceMap = new Map<string, { name: string; revenue: number; bookings: number }>();
+      completed.forEach((a: any) => {
+        const id = a.service_id || 'unknown';
+        const name = a.service_name || 'Service';
+        if (!serviceMap.has(id)) serviceMap.set(id, { name, revenue: 0, bookings: 0 });
+        const s = serviceMap.get(id)!;
+        s.revenue += a.service_price || 0;
+        s.bookings += 1;
+      });
+      const topServices = Array.from(serviceMap.entries())
+        .map(([id, s]) => ({ id, name: s.name, revenue: s.revenue, bookings: s.bookings }))
+        .sort((a, b) => b.revenue - a.revenue)
+        .slice(0, 5);
+
+      setStats({
+        todayRevenue: todayRevenueFinal,
+        weekRevenue: weekRevenueFinal,
+        monthRevenue: monthRevenueFinal,
+        noShowRate,
+        conversionPlaceholder: dashData.stats?.conversion != null ? `${dashData.stats.conversion}%` : '—',
+        topProviders,
+        topServices,
+      });
+    } catch (e) {
+      setError('Could not load owner stats');
+      setStats({
+        todayRevenue: 0,
+        weekRevenue: 0,
+        monthRevenue: 0,
+        noShowRate: 0,
+        conversionPlaceholder: '—',
+        topProviders: [],
+        topServices: [],
+      });
+    } finally {
+      setLoading(false);
     }
-    setShowEmergencyConfirm(null);
-    setTimeout(() => setMessage(null), 5000);
-  };
+  }, []);
 
-  // Determine system status based on real data
-  const getSystemStatus = () => {
-    if (!data) return { status: 'unknown', color: 'text-black bg-white', icon: '⚪' };
-    
-    const hasIssues = 
-      data.inventory.expired > 0 || 
-      data.compliance.pendingConsents > 5 ||
-      data.appointments.noShowRate > 0.1;
-    
-    const hasCritical = data.inventory.expired > 0;
-    
-    if (hasCritical) return { status: 'critical', color: 'text-red-600 bg-red-100', icon: '🔴' };
-    if (hasIssues) return { status: 'warning', color: 'text-amber-600 bg-amber-100', icon: '🟡' };
-    return { status: 'stable', color: 'text-green-600 bg-green-100', icon: '🟢' };
-  };
-
-  const systemStatus = getSystemStatus();
+  useEffect(() => {
+    fetchOwnerStats();
+  }, [fetchOwnerStats]);
 
   return (
-    <div className="flex min-h-[calc(100vh-56px)]">
-      {/* Founder Control Sidebar */}
-      <aside className="w-64 bg-gradient-to-b from-black to-gray-900 text-white flex-shrink-0">
-        <div className="p-4 border-b border-gray-700">
-          <div className="flex items-center gap-2">
-            <span className="text-2xl">👑</span>
-            <div>
-              <h1 className="font-bold text-lg text-pink-400">FOUNDER CONTROL</h1>
-              <p className="text-xs text-gray-400">Governance Layer</p>
-            </div>
-          </div>
+    <div className="p-6 max-w-5xl mx-auto space-y-6">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <h1 className="text-2xl font-bold text-black">Owner</h1>
+          <p className="text-black mt-1">Business cockpit — revenue, productivity, quick edits.</p>
         </div>
-        
-        <nav className="p-2 space-y-0.5 overflow-y-auto max-h-[calc(100vh-180px)]">
-          {OWNER_NAV.map(item => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
-                pathname === item.href
-                  ? 'bg-white/20 text-white'
-                  : 'text-gray-300 hover:bg-white/10 hover:text-white'
-              }`}
-            >
-              <span className="text-base">{item.icon}</span>
-              <span>{item.label}</span>
-            </Link>
-          ))}
-        </nav>
-
-        <div className="p-4 border-t border-gray-700">
-          <div className={`p-2 rounded-lg text-center text-xs ${
-            emergencyMode === 'readonly' ? 'bg-red-500/20 text-red-300' :
-            emergencyMode === 'booking_disabled' ? 'bg-amber-500/20 text-amber-300' :
-            'bg-green-500/20 text-green-300'
-          }`}>
-            {emergencyMode === 'readonly' ? '🔴 READ-ONLY MODE' :
-             emergencyMode === 'booking_disabled' ? '🟠 BOOKING DISABLED' :
-             '🟢 NORMAL OPERATION'}
-          </div>
+        <div className="flex items-center gap-2">
+          <Link href="/admin" className="px-4 py-2 border border-black text-black font-medium rounded-lg hover:bg-gray-50">Dashboard</Link>
+          <Link href="/admin/owner/manual" className="px-4 py-2 bg-black text-white font-medium rounded-lg hover:bg-gray-800">Owner&apos;s Manual</Link>
         </div>
-      </aside>
+      </div>
 
-      {/* Main Content */}
-      <main className="flex-1 p-6 bg-white overflow-y-auto">
-        {/* Emergency Mode Banner */}
-        {emergencyMode !== 'normal' && (
-          <div className={`mb-6 p-4 rounded-xl flex items-center justify-between ${
-            emergencyMode === 'readonly' ? 'bg-red-100 border-2 border-red-300' : 'bg-amber-100 border-2 border-amber-300'
-          }`}>
-            <div className="flex items-center gap-3">
-              <span className="text-2xl">{emergencyMode === 'readonly' ? '🔴' : '🟠'}</span>
-              <div>
-                <h3 className={`font-bold ${emergencyMode === 'readonly' ? 'text-red-800' : 'text-amber-800'}`}>
-                  {emergencyMode === 'readonly' ? 'EMERGENCY READ-ONLY MODE ACTIVE' : 'BOOKING SYSTEM DISABLED'}
-                </h3>
-                <p className={`text-sm ${emergencyMode === 'readonly' ? 'text-red-600' : 'text-amber-600'}`}>
-                  {emergencyMode === 'readonly' ? 'All write operations are blocked. Data is safe.' : 'Clients cannot book new appointments.'}
-                </p>
-              </div>
-            </div>
-            <button
-              onClick={() => executeEmergencyAction('restore')}
-              className="px-4 py-2 bg-white rounded-lg text-sm font-medium hover:bg-white"
-            >
-              Restore Normal Operation
-            </button>
-          </div>
-        )}
+      {error && <div className="p-3 bg-amber-50 border border-amber-200 rounded-lg text-amber-800 text-sm">{error}</div>}
 
-        {message && (
-          <div className={`mb-6 p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
-            {message.text}
-          </div>
-        )}
-
-        {/* Header with Date Range Filter */}
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-2xl font-bold text-black">Founder Overview</h1>
-            <p className="text-black">Real-time system governance and control</p>
-          </div>
-          <div className="flex gap-2">
-            {(['today', 'week', 'month', 'year'] as DateRange[]).map(range => (
-              <button
-                key={range}
-                onClick={() => setDateRange(range)}
-                className={`px-4 py-2 rounded-lg text-sm capitalize ${
-                  dateRange === range 
-                    ? 'bg-[#FF2D8E] text-white shadow-lg shadow-[#FF2D8E]/30' 
-                    : 'bg-pink-100 text-pink-700 hover:bg-pink-200 border border-pink-200'
-                }`}
-              >
-                {range}
-              </button>
-            ))}
-          </div>
+      {loading ? (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {[1, 2, 3].map((i) => <div key={i} className="h-24 bg-gray-100 rounded-xl animate-pulse" />)}
         </div>
-
-        {/* Error State */}
-        {error && !isLoading && (
-          <ErrorState error={error} onRetry={refetch} />
-        )}
-
-        {/* Loading State */}
-        {isLoading && (
-          <div className="grid grid-cols-6 gap-4 mb-6">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <CardSkeleton key={i} />
-            ))}
+      ) : stats && (
+        <>
+          {/* Revenue snapshot */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white rounded-xl border border-black p-5">
+              <p className="text-sm font-medium text-black">Today</p>
+              <p className="text-2xl font-bold text-black mt-1">${stats.todayRevenue.toLocaleString()}</p>
+            </div>
+            <div className="bg-white rounded-xl border border-black p-5">
+              <p className="text-sm font-medium text-black">This week</p>
+              <p className="text-2xl font-bold text-black mt-1">${stats.weekRevenue.toLocaleString()}</p>
+            </div>
+            <div className="bg-white rounded-xl border border-black p-5">
+              <p className="text-sm font-medium text-black">This month</p>
+              <p className="text-2xl font-bold text-black mt-1">${stats.monthRevenue.toLocaleString()}</p>
+            </div>
           </div>
-        )}
 
-        {/* Data Not Connected */}
-        {!isLoading && !error && !data?.connected && (
-          <DatabaseNotConnected />
-        )}
-
-        {/* REAL DATA DISPLAY */}
-        {!isLoading && data?.connected && (
-          <>
-            {/* System Status Row - ALL REAL DATA */}
-            <div className="grid grid-cols-6 gap-4 mb-6">
-              <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-black">System Status</span>
-                <div className={`mt-1 px-3 py-1 rounded-lg inline-flex items-center gap-2 ${systemStatus.color}`}>
-                  <span>{systemStatus.icon}</span>
-                  <span className="font-bold capitalize">{systemStatus.status}</span>
-                </div>
-              </div>
-              <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-black">{dateRange.charAt(0).toUpperCase() + dateRange.slice(1)} Revenue</span>
-                <p className="text-lg font-bold text-black mt-1">
-                  {data.revenue.total > 0 ? formatCurrency(data.revenue.total) : '$0'}
-                </p>
-                {data.revenue.total === 0 && (
-                  <p className="text-xs text-black">No transactions yet</p>
-                )}
-              </div>
-              <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-black">Appointments</span>
-                <p className="text-lg font-bold text-black mt-1">{data.appointments.total}</p>
-                {data.appointments.total === 0 && (
-                  <p className="text-xs text-black">None this period</p>
-                )}
-              </div>
-              <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-black">Active Rules</span>
-                <p className="text-lg font-bold text-pink-600 mt-1">{data.system.activeRules}</p>
-              </div>
-              <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-black">Features Enabled</span>
-                <p className="text-lg font-bold text-blue-600 mt-1">
-                  {data.system.enabledFeatures}/{data.system.totalFeatures}
-                </p>
-              </div>
-              <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-black">Data Updated</span>
-                <p className="text-sm font-medium text-green-600 mt-1">
-                  {formatRelativeTime(data.timestamp)}
-                </p>
-              </div>
+          {/* No-show & conversion */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="bg-white rounded-xl border border-black p-5">
+              <p className="text-sm font-medium text-black">No-show rate</p>
+              <p className="text-xl font-bold text-black mt-1">{stats.noShowRate}%</p>
             </div>
-
-            {/* Key Metrics Grid - ALL REAL DATA */}
-            <div className="grid grid-cols-4 gap-4 mb-6">
-              <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-black">Total Clients</span>
-                <p className="text-2xl font-bold text-black">{data.clients.total.toLocaleString()}</p>
-                <p className="text-xs text-green-600 mt-1">+{data.clients.new} new this {dateRange}</p>
-              </div>
-              <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-black">Avg Ticket</span>
-                <p className="text-2xl font-bold text-black">
-                  {data.revenue.avgTicket > 0 ? formatCurrency(data.revenue.avgTicket) : '—'}
-                </p>
-                <p className="text-xs text-black">{data.revenue.transactions} transactions</p>
-              </div>
-              <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-black">No-Show Rate</span>
-                <p className={`text-2xl font-bold ${data.appointments.noShowRate > 0.05 ? 'text-red-600' : 'text-green-600'}`}>
-                  {formatPercent(data.appointments.noShowRate)}
-                </p>
-                <p className="text-xs text-black">{data.appointments.noShows} no-shows</p>
-              </div>
-              <div className="bg-white rounded-xl border p-4">
-                <span className="text-xs text-black">Active Memberships</span>
-                <p className="text-2xl font-bold text-pink-600">{data.memberships.active}</p>
-              </div>
+            <div className="bg-white rounded-xl border border-black p-5">
+              <p className="text-sm font-medium text-black">Conversion (leads → bookings)</p>
+              <p className="text-xl font-bold text-black mt-1">{stats.conversionPlaceholder}</p>
+              <Link href="/admin/marketing" className="text-sm text-[#2D63A4] mt-1 inline-block">Marketing →</Link>
             </div>
+          </div>
 
-            {/* Two Column Layout */}
-            <div className="grid grid-cols-2 gap-6 mb-6">
-              {/* Alerts Panel - REAL DATA */}
-              <div className="bg-white rounded-xl border">
-                <div className="p-4 border-b">
-                  <h2 className="font-semibold text-black">⚠️ Alerts Panel</h2>
-                </div>
-                <div className="divide-y">
-                  {data.compliance.pendingConsents > 0 && (
-                    <Link href="/admin/consents" className="flex items-center gap-3 p-4 hover:bg-white">
-                      <span className="w-2 h-2 rounded-full bg-amber-500" />
-                      <span className="text-amber-700">{data.compliance.pendingConsents} pending consent request{data.compliance.pendingConsents > 1 ? 's' : ''}</span>
-                      <span className="ml-auto text-black">→</span>
-                    </Link>
-                  )}
-                  {data.inventory.expired > 0 && (
-                    <Link href="/admin/owner/inventory" className="flex items-center gap-3 p-4 hover:bg-white">
-                      <span className="w-2 h-2 rounded-full bg-red-500" />
-                      <span className="text-red-700">{data.inventory.expired} expired product{data.inventory.expired > 1 ? 's' : ''} in inventory</span>
-                      <span className="ml-auto text-black">→</span>
-                    </Link>
-                  )}
-                  {data.inventory.expiringSoon > 0 && (
-                    <Link href="/admin/owner/inventory" className="flex items-center gap-3 p-4 hover:bg-white">
-                      <span className="w-2 h-2 rounded-full bg-amber-500" />
-                      <span className="text-amber-700">{data.inventory.expiringSoon} product{data.inventory.expiringSoon > 1 ? 's' : ''} expiring within 30 days</span>
-                      <span className="ml-auto text-black">→</span>
-                    </Link>
-                  )}
-                  {data.inventory.lowStock > 0 && (
-                    <Link href="/admin/owner/inventory" className="flex items-center gap-3 p-4 hover:bg-white">
-                      <span className="w-2 h-2 rounded-full bg-blue-500" />
-                      <span className="text-blue-700">{data.inventory.lowStock} product{data.inventory.lowStock > 1 ? 's' : ''} low on stock</span>
-                      <span className="ml-auto text-black">→</span>
-                    </Link>
-                  )}
-                  {data.compliance.pendingConsents === 0 && 
-                   data.inventory.expired === 0 && 
-                   data.inventory.expiringSoon === 0 && 
-                   data.inventory.lowStock === 0 && (
-                    <div className="p-4 text-center text-black">
-                      <span className="text-green-500">✓</span> No active alerts
-                    </div>
-                  )}
-                </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Top providers */}
+            <div className="bg-white rounded-xl border border-black overflow-hidden">
+              <div className="px-5 py-4 border-b border-black">
+                <h2 className="font-semibold text-black">Top providers (month)</h2>
               </div>
-
-              {/* Emergency Actions */}
-              <div className="bg-white rounded-xl border">
-                <div className="p-4 border-b bg-red-50">
-                  <h2 className="font-semibold text-red-800">🚨 Emergency Actions</h2>
-                  <p className="text-xs text-red-600">Execute immediately without code or deploy</p>
-                </div>
-                <div className="p-4 space-y-3">
-                  <button
-                    onClick={() => setShowEmergencyConfirm('readonly')}
-                    disabled={emergencyMode === 'readonly'}
-                    className={`w-full p-4 rounded-lg text-left flex items-center gap-4 ${
-                      emergencyMode === 'readonly' ? 'bg-white opacity-50' : 'bg-red-50 hover:bg-red-100 border border-red-200'
-                    }`}
-                  >
-                    <span className="text-2xl">🔴</span>
-                    <div>
-                      <h3 className="font-semibold text-red-800">Emergency Read-Only Mode</h3>
-                      <p className="text-xs text-red-600">Block ALL write operations immediately</p>
-                    </div>
-                  </button>
-
-                  <button
-                    onClick={() => setShowEmergencyConfirm('disable_booking')}
-                    disabled={emergencyMode !== 'normal'}
-                    className={`w-full p-4 rounded-lg text-left flex items-center gap-4 ${
-                      emergencyMode !== 'normal' ? 'bg-white opacity-50' : 'bg-amber-50 hover:bg-amber-100 border border-amber-200'
-                    }`}
-                  >
-                    <span className="text-2xl">🟠</span>
-                    <div>
-                      <h3 className="font-semibold text-amber-800">Disable Booking</h3>
-                      <p className="text-xs text-amber-600">Prevent new appointments</p>
-                    </div>
-                  </button>
-
-                  <Link
-                    href="/admin/owner/changes"
-                    className="w-full p-4 rounded-lg text-left flex items-center gap-4 bg-blue-50 hover:bg-blue-100 border border-blue-200 block"
-                  >
-                    <span className="text-2xl">🔵</span>
-                    <div>
-                      <h3 className="font-semibold text-blue-800">Roll Back Last Change</h3>
-                      <p className="text-xs text-blue-600">Undo the most recent configuration change</p>
-                    </div>
-                  </Link>
-                </div>
-              </div>
-            </div>
-
-            {/* Marketing & SMS — one place to get set up */}
-            <div className="bg-white rounded-xl border mb-6">
-              <div className="p-4 border-b bg-gradient-to-r from-pink-50 to-purple-50">
-                <h2 className="font-semibold text-black">📣 Marketing & SMS</h2>
-                <p className="text-sm text-black">Contacts, email, and text messaging — set up in one place</p>
-              </div>
-              <div className="p-4 grid md:grid-cols-2 gap-6">
-                <div>
-                  <h3 className="font-medium text-black mb-3">Quick links</h3>
-                  <ul className="space-y-2">
-                    <li>
-                      <Link href="/admin/marketing/contacts" className="text-pink-600 hover:text-pink-700 font-medium flex items-center gap-2">
-                        📋 Contact Collection — view list, sign-up link, QR code
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/admin/marketing/contacts#import" className="text-pink-600 hover:text-pink-700 font-medium flex items-center gap-2">
-                        📤 Import contact list (CSV) — upload emails for marketing
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/admin/marketing" className="text-pink-600 hover:text-pink-700 font-medium flex items-center gap-2">
-                        📊 Marketing Hub — campaigns, templates, analytics
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/admin/sms" className="text-pink-600 hover:text-pink-700 font-medium flex items-center gap-2">
-                        💬 SMS Campaigns — send text blasts
-                      </Link>
-                    </li>
-                    <li>
-                      <Link href="/admin/settings" className="text-black hover:text-black flex items-center gap-2">
-                        ⚙️ Business Settings — integrations (Telnyx, Resend)
-                      </Link>
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="font-medium text-black mb-3">Get started checklist</h3>
-                  <ul className="space-y-2 text-sm text-black">
-                    <li className="flex items-center gap-2">
-                      <span className="text-black">1.</span> Add <code className="bg-white px-1 rounded">TELNYX_API_KEY</code> and <code className="bg-white px-1 rounded">TELNYX_PHONE_NUMBER</code> in your hosting env (Vercel/host).
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-black">2.</span> Add <code className="bg-white px-1 rounded">RESEND_API_KEY</code> and <code className="bg-white px-1 rounded">RESEND_FROM_EMAIL</code> for marketing emails. Verify your domain in Resend (add DNS records in your DNS provider).
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-black">3.</span> Upload your contact list: Marketing → Contact Collection → Import from CSV (or share the sign-up link to grow the list).
-                    </li>
-                    <li className="flex items-center gap-2">
-                      <span className="text-black">4.</span> Share the sign-up link from Contact Collection (or QR code) to collect new leads.
-                    </li>
-                  </ul>
-                  <p className="mt-3 text-xs text-black">
-                    Full setup guide: <code className="bg-white px-1 rounded">docs/MARKETING_SMS_SETUP.md</code>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Recent Changes - REAL DATA */}
-            <div className="bg-white rounded-xl border mb-6">
-              <div className="p-4 border-b">
-                <h2 className="font-semibold">📋 Recent System Changes</h2>
-              </div>
-              {data.recentChanges.length > 0 ? (
-                <div className="divide-y">
-                  {data.recentChanges.slice(0, 5).map(change => (
-                    <div key={change.id} className="p-4 hover:bg-white">
-                      <div className="flex items-start justify-between">
-                        <div>
-                          <p className="font-medium text-sm">{change.action} {change.target}</p>
-                          <p className="text-xs text-black">{change.user} • {formatRelativeTime(change.timestamp)}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <EmptyState 
-                  icon="📋"
-                  title="No recent changes"
-                  description="Configuration changes will appear here"
-                />
-              )}
-              {data.recentChanges.length > 0 && (
-                <div className="p-4 border-t">
-                  <Link href="/admin/owner/audit" className="text-sm text-pink-600 hover:text-pink-700">
-                    View full audit log →
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            {/* Upcoming Appointments - REAL DATA */}
-            <div className="bg-white rounded-xl border mb-6">
-              <div className="p-4 border-b">
-                <h2 className="font-semibold">📅 Upcoming Appointments</h2>
-              </div>
-              {data.appointments.upcoming.length > 0 ? (
-                <div className="divide-y">
-                  {data.appointments.upcoming.map(apt => (
-                    <div key={apt.id} className="p-4 flex items-center justify-between">
+              <div className="divide-y divide-black">
+                {stats.topProviders.length === 0 ? (
+                  <div className="px-5 py-6 text-center text-black text-sm">No data yet</div>
+                ) : (
+                  stats.topProviders.map((p) => (
+                    <div key={p.id} className="px-5 py-3 flex justify-between items-center">
                       <div>
-                        <p className="font-medium text-sm">{apt.clientName}</p>
-                        <p className="text-xs text-black">{apt.service} with {apt.provider}</p>
+                        <p className="font-medium text-black">{p.name}</p>
+                        <p className="text-xs text-black">{p.appointments} appts • {p.utilization}% util</p>
                       </div>
-                      <div className="text-right">
-                        <p className="text-sm font-medium">{new Date(apt.time).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}</p>
-                        <p className="text-xs text-black">{new Date(apt.time).toLocaleDateString()}</p>
-                      </div>
+                      <p className="font-semibold text-black">${p.revenue.toLocaleString()}</p>
                     </div>
-                  ))}
-                </div>
-              ) : (
-                <EmptyState 
-                  icon="📅"
-                  title="No upcoming appointments"
-                  description="Scheduled appointments will appear here"
-                />
-              )}
-            </div>
-
-            {/* Provider Stats - REAL DATA */}
-            {data.providers.active > 0 && (
-              <div className="bg-white rounded-xl border mb-6">
-                <div className="p-4 border-b">
-                  <h2 className="font-semibold">👥 Provider Activity ({dateRange})</h2>
-                </div>
-                <div className="p-4 grid grid-cols-2 gap-4">
-                  {data.providers.stats.map(provider => (
-                    <div key={provider.id} className="p-4 bg-white rounded-lg">
-                      <p className="font-medium">{provider.name}</p>
-                      <p className="text-2xl font-bold text-pink-600">{provider.appointments}</p>
-                      <p className="text-xs text-black">appointments</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Governance Principle */}
-            <div className="bg-black text-white rounded-xl p-6">
-              <h3 className="font-bold text-lg mb-2">🧠 Core Principle</h3>
-              <p className="text-black">
-                If the Founder cannot control it from this dashboard, the system is not complete.
-              </p>
-              <div className="mt-4 grid grid-cols-5 gap-3">
-                {['See everything', 'Change anything', 'Undo anything', 'Disable anything', 'Export everything'].map((item, idx) => (
-                  <div key={idx} className="bg-white rounded-lg p-3 text-center">
-                    <span className="text-green-400 block mb-1">✓</span>
-                    <span className="text-sm">{item}</span>
-                  </div>
-                ))}
+                  ))
+                )}
               </div>
             </div>
-          </>
-        )}
-      </main>
 
-      {/* Emergency Confirmation Modal */}
-      {showEmergencyConfirm && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 max-w-md w-full mx-4">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl">{showEmergencyConfirm === 'readonly' ? '🔴' : '🟠'}</span>
-              <h3 className="text-xl font-bold">
-                {showEmergencyConfirm === 'readonly' ? 'Enable Read-Only Mode?' : 'Disable Booking?'}
-              </h3>
-            </div>
-            <p className="text-black mb-4">
-              {showEmergencyConfirm === 'readonly'
-                ? 'This will immediately block ALL write operations. Users will be unable to save any changes, book appointments, or process payments. This action is logged.'
-                : 'This will prevent clients from booking new appointments. Existing appointments will not be affected. This action is logged.'}
-            </p>
-            <div className="flex gap-3 justify-end">
-              <button
-                onClick={() => setShowEmergencyConfirm(null)}
-                className="px-4 py-2 text-black hover:text-black"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={() => executeEmergencyAction(showEmergencyConfirm)}
-                className={`px-6 py-2 text-white rounded-lg ${
-                  showEmergencyConfirm === 'readonly' ? 'bg-red-600 hover:bg-red-700' : 'bg-amber-600 hover:bg-amber-700'
-                }`}
-              >
-                Confirm
-              </button>
+            {/* Top services */}
+            <div className="bg-white rounded-xl border border-black overflow-hidden">
+              <div className="px-5 py-4 border-b border-black">
+                <h2 className="font-semibold text-black">Top services (month)</h2>
+              </div>
+              <div className="divide-y divide-black">
+                {stats.topServices.length === 0 ? (
+                  <div className="px-5 py-6 text-center text-black text-sm">No data yet</div>
+                ) : (
+                  stats.topServices.map((s) => (
+                    <div key={s.id} className="px-5 py-3 flex justify-between items-center">
+                      <div>
+                        <p className="font-medium text-black">{s.name}</p>
+                        <p className="text-xs text-black">{s.bookings} bookings</p>
+                      </div>
+                      <p className="font-semibold text-black">${s.revenue.toLocaleString()}</p>
+                    </div>
+                  ))
+                )}
+              </div>
             </div>
           </div>
-        </div>
+
+          {/* Pending issues / health */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Link href="/admin/clients" className="bg-white rounded-xl border border-black p-4 hover:bg-gray-50 transition-colors">
+              <span className="text-2xl block mb-2">📋</span>
+              <p className="font-medium text-black">Pending issues</p>
+              <p className="text-sm text-black mt-0.5">Consents, forms, follow-ups</p>
+            </Link>
+            <Link href="/admin/marketing" className="bg-white rounded-xl border border-black p-4 hover:bg-gray-50 transition-colors">
+              <span className="text-2xl block mb-2">📈</span>
+              <p className="font-medium text-black">Leads</p>
+              <p className="text-sm text-black mt-0.5">Marketing & leads</p>
+            </Link>
+            <Link href="/admin/memberships" className="bg-white rounded-xl border border-black p-4 hover:bg-gray-50 transition-colors">
+              <span className="text-2xl block mb-2">💎</span>
+              <p className="font-medium text-black">Membership health</p>
+              <p className="text-sm text-black mt-0.5">Active, overdue, usage</p>
+            </Link>
+            <Link href="/admin/inventory" className="bg-white rounded-xl border border-black p-4 hover:bg-gray-50 transition-colors">
+              <span className="text-2xl block mb-2">📦</span>
+              <p className="font-medium text-black">Low stock</p>
+              <p className="text-sm text-black mt-0.5">Inventory alerts</p>
+            </Link>
+          </div>
+
+          {/* Quick edits */}
+          <div className="bg-white rounded-xl border border-black p-5">
+            <h2 className="font-semibold text-black mb-3">Quick edits</h2>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/admin/services" className="px-4 py-2 bg-[#2D63A4] text-white font-medium rounded-lg hover:bg-[#234a7a]">Services & pricing</Link>
+              <Link href="/admin/marketing" className="px-4 py-2 bg-white border border-black text-black font-medium rounded-lg hover:bg-gray-50">Promos & campaigns</Link>
+              <Link href="/admin/content/site" className="px-4 py-2 bg-white border border-black text-black font-medium rounded-lg hover:bg-gray-50">Website / Content</Link>
+              <Link href="/admin/reports" className="px-4 py-2 bg-white border border-black text-black font-medium rounded-lg hover:bg-gray-50">Reports</Link>
+            </div>
+          </div>
+        </>
       )}
+
+      <div className="pt-4">
+        <Link href="/admin" className="text-[#2D63A4] font-medium hover:underline">← Dashboard</Link>
+      </div>
     </div>
   );
 }
