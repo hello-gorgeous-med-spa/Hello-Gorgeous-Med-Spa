@@ -4,6 +4,7 @@
 // URL: /book/consultation
 // ============================================================
 
+import { Suspense } from 'react';
 import Link from 'next/link';
 import { SITE } from '@/lib/seo';
 import type { Metadata } from 'next';
@@ -68,7 +69,9 @@ export default function ConsultationBookingPage() {
           </div>
         </section>
 
-        <BookingForm service={CONSULTATION_SERVICE} />
+        <Suspense fallback={<div className="animate-pulse rounded-xl h-64 bg-gray-100" />}>
+          <BookingForm service={CONSULTATION_SERVICE} />
+        </Suspense>
 
         <section className="mt-8 text-center">
           <p className="text-black text-sm mb-2">Questions? We&apos;re here to help!</p>

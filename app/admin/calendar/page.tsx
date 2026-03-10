@@ -81,6 +81,7 @@ export default function CalendarPage() {
   const [dropTarget, setDropTarget] = useState<{ providerId: string; time: string } | null>(null);
 
   const dateString = selectedDate.toISOString().split('T')[0];
+  const BUSINESS_TZ = 'America/Chicago';
 
   // Convert slot (e.g. "10:00") on selected date to ISO in business timezone
   const slotToStartsAt = useCallback((timeStr: string) => {
@@ -543,7 +544,6 @@ export default function CalendarPage() {
   };
 
   // Format time in business timezone (America/Chicago) — matches booking and confirmations
-  const BUSINESS_TZ = 'America/Chicago';
   const formatApptTime = (isoString: string) => {
     if (!isoString) return '—';
     return new Date(isoString).toLocaleTimeString('en-US', {

@@ -12,3 +12,31 @@ export const FULLSCRIPT_DISPENSARY_URL =
 export const CHERRY_PAY_URL =
   process.env.NEXT_PUBLIC_CHERRY_PAY_URL ||
   "https://pay.withcherry.com/hellogorgeous?utm_source=practice&utm_medium=website&m=466";
+
+/** Care module IDs (for CareEngine) */
+export type CareModuleId =
+  | "education"
+  | "preconsult"
+  | "booking"
+  | "postcare"
+  | "confidence-check"
+  | "ask-before-book"
+  | "normal-checker"
+  | "timeline-simulator"
+  | "beauty-roadmap";
+
+/** Pre-consult answer shape (for CareEngine) */
+export type PreConsultAnswer = Record<string, string | number | boolean>;
+
+/** Default pre-consult state */
+export const PRECONSULT_DEFAULTS: PreConsultAnswer = {};
+
+/** Suggest service slugs from pre-consult answers (stub for CareEngine) */
+export function suggestServiceSlugsFromPreConsult(_answers: PreConsultAnswer): string[] {
+  return [];
+}
+
+/** Suggest persona for a service slug (stub for CareEngine) */
+export function suggestPersonaForServiceSlug(_slug: string): string | null {
+  return null;
+}
