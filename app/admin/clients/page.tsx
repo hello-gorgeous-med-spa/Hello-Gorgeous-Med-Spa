@@ -63,7 +63,7 @@ export default function AdminClientsPage() {
         params.set('limit', limit.toString());
         params.set('offset', ((page - 1) * limit).toString());
         const response = await fetch(`/api/clients?${params}`);
-        const data: { clients?: Client[]; total?: number; error?: string; warning?: string; source?: string } = await response.json().catch(() => ({}));
+        const data: { clients?: Client[]; total?: number; error?: string; warning?: string; source?: string; square_configured?: boolean } = await response.json().catch(() => ({}));
         const list = Array.isArray(data.clients) ? data.clients : [];
         const totalCount = typeof data.total === 'number' ? data.total : 0;
         setClients(list);
@@ -76,6 +76,10 @@ export default function AdminClientsPage() {
           setError('Database not connected. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in your hosting environment (e.g. Vercel).');
         } else if (data.error || data.warning) {
           setError(data.error || data.warning);
+        } else if (totalCount === 0 && data.square_configured === false) {
+          setError('No clients yet. To import from Square, add SQUARE_ACCESS_TOKEN and optionally SQUARE_ENVIRONMENT (sandbox | production) in Vercel → Project → Settings → Environment Variables, then redeploy.');
+        } else if (totalCount === 0 && data.square_configured === true) {
+          setError('Square is connected but returned 0 customers. Check SQUARE_ENVIRONMENT (sandbox vs production) and that your Square account has customers.');
         } else {
           setError(null);
         }

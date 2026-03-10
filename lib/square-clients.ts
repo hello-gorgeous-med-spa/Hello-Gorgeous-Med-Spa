@@ -19,6 +19,11 @@ function getSquareEnvironment(): string {
   return env === 'sandbox' ? SquareEnvironment.Sandbox : SquareEnvironment.Production;
 }
 
+/** Returns whether Square env vars are set (so API can hint when list is empty). */
+export function isSquareConfigured(): boolean {
+  return getSquareAccessToken() != null;
+}
+
 /** Returns a Square client when credentials are configured, else null. */
 export function getSquareClient(): SquareClient | null {
   const token = getSquareAccessToken();

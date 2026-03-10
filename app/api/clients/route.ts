@@ -5,7 +5,7 @@
 
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
-import { fetchAllSquareCustomers } from '@/lib/square-clients';
+import { fetchAllSquareCustomers, isSquareConfigured } from '@/lib/square-clients';
 
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
@@ -192,7 +192,30 @@ export async function GET(request: NextRequest) {
 
     if (clientsError) {
       console.error('Error fetching clients:', clientsError);
-      // Return 200 with empty list so the UI still loads instead of breaking
+      // Try Square so the list isn't empty when DB fails
+      const squareClients = await fetchAllSquareCustomers();
+      if (squareClients.length > 0) {
+        let squareList = squareClients;
+        if (search && search.trim()) {
+          const q = search.trim().toLowerCase();
+          squareList = squareList.filter(
+            (c: any) =>
+              c.first_name?.toLowerCase().includes(q) ||
+              c.last_name?.toLowerCase().includes(q) ||
+              c.email?.toLowerCase().includes(q)
+          );
+        }
+        const total = squareList.length;
+        const limitNum = parseInt(searchParams.get('limit') || '100');
+        const offsetNum = parseInt(searchParams.get('offset') || '0');
+        const list = squareList.slice(offsetNum, offsetNum + limitNum);
+        return NextResponse.json({
+          clients: list,
+          total,
+          source: 'square',
+          warning: 'Database error; showing Square customers.',
+        });
+      }
       return NextResponse.json({
         clients: [],
         total: 0,
@@ -259,9 +282,9 @@ export async function GET(request: NextRequest) {
           );
         }
         const total = squareList.length;
-        const limit = parseInt(searchParams.get('limit') || '100');
-        const offset = parseInt(searchParams.get('offset') || '0');
-        clients = squareList.slice(offset, offset + limit);
+        const limitNum = parseInt(searchParams.get('limit') || '100');
+        const offsetNum = parseInt(searchParams.get('offset') || '0');
+        clients = squareList.slice(offsetNum, offsetNum + limitNum);
         return NextResponse.json({
           clients,
           total,
@@ -270,10 +293,14 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    return NextResponse.json({
+    const res: { clients: any[]; total: number; square_configured?: boolean } = {
       clients,
       total: dbTotal,
-    });
+    };
+    if (clients.length === 0 && dbTotal === 0) {
+      res.square_configured = isSquareConfigured();
+    }
+    return NextResponse.json(res);
   } catch (error) {
     console.error('Clients API error:', error);
     // Return 200 with empty list so the app keeps working
