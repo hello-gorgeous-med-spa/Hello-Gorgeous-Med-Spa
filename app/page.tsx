@@ -9,6 +9,7 @@ import {
   ExperienceSection,
   RxShowcaseSection,
   InnovationSection,
+  TrifectaSection,
   AIAssistantsSection,
   PhilosophySection,
   HomepageOurStory,
@@ -155,6 +156,7 @@ export default function HomePage() {
         <RxShowcaseSection />
         <ExperienceSection />
         <InnovationSection />
+        <TrifectaSection />
         <AIAssistantsSection />
         <PhilosophySection />
         <HomepageOurStory />
