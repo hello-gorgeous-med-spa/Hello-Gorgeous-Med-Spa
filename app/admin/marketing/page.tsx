@@ -1,290 +1,201 @@
 'use client';
 
 // ============================================================
-// MARKETING HUB — Email & SMS Campaigns
-// Just like Fresha: pick channel, write message, hit send
+// MARKETING CENTER — Phase 5
+// PRD: SMS/email campaigns, segments, promos, lead capture,
+//      referral, review requests, reactivation. Audience filters.
 // ============================================================
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
-interface CampaignRow {
-  id: string;
-  name: string;
-  channel: string;
-  status: string;
-  total_recipients: number;
-  email_sent: number;
-  sms_sent: number;
-  sms_failed: number;
-  created_at: string;
-  completed_at: string | null;
-}
+const AUDIENCE_FILTERS = [
+  { id: 'never_booked', label: 'Never booked' },
+  { id: 'no_visit_90d', label: 'No visit 90 days' },
+  { id: 'botox_filler', label: 'Botox / Filler interest' },
+  { id: 'weight_loss', label: 'Weight loss' },
+  { id: 'hormone', label: 'Hormone' },
+  { id: 'birthday_month', label: 'Birthday month' },
+  { id: 'vip', label: 'VIP' },
+  { id: 'abandoned_booking', label: 'Abandoned booking' },
+  { id: 'high_value', label: 'High value' },
+];
 
-export default function MarketingHubPage() {
-  const [stats, setStats] = useState<{
-    smsOptInCount: number;
-    totalWithPhone: number;
-    totalClients: number;
-    optInRate: string;
-  } | null>(null);
-  const [audience, setAudience] = useState<{ email: number; sms: number; total: number } | null>(null);
-  const [campaigns, setCampaigns] = useState<CampaignRow[]>([]);
-  const [loadingCampaigns, setLoadingCampaigns] = useState(true);
+type Campaign = { id: string; name: string; channel: string; status: string; created_at: string };
+type Segment = { id: string; name: string; filter_id: string; count_estimate?: number };
+
+function MarketingContent() {
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get('tab') as 'overview' | 'campaigns' | 'segments' | 'promos' | null;
+  const [tab, setTab] = useState<'overview' | 'campaigns' | 'segments' | 'promos'>(tabParam && ['overview', 'campaigns', 'segments', 'promos'].includes(tabParam) ? tabParam : 'overview');
+  const [campaigns, setCampaigns] = useState<Campaign[]>([]);
+  const [segments, setSegments] = useState<Segment[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch all stats in parallel
-    Promise.allSettled([
-      fetch('/api/sms/stats').then(r => r.ok ? r.json() : null),
-      fetch('/api/campaigns/audience').then(r => r.ok ? r.json() : null),
-      fetch('/api/campaigns').then(r => r.ok ? r.json() : null),
-    ]).then(([smsResult, audienceResult, campaignsResult]) => {
-      if (smsResult.status === 'fulfilled' && smsResult.value) setStats(smsResult.value);
-      if (audienceResult.status === 'fulfilled' && audienceResult.value) setAudience(audienceResult.value);
-      if (campaignsResult.status === 'fulfilled' && campaignsResult.value) {
-        setCampaigns(campaignsResult.value.campaigns || []);
-      }
-      setLoadingCampaigns(false);
-    });
+    if (tabParam && ['overview', 'campaigns', 'segments', 'promos'].includes(tabParam)) setTab(tabParam);
+  }, [tabParam]);
+
+  const fetchData = useCallback(async () => {
+    try {
+      const [cRes, sRes] = await Promise.all([
+        fetch('/api/marketing/campaigns').then((r) => r.json()),
+        fetch('/api/marketing/segments').then((r) => r.json()),
+      ]);
+      setCampaigns(cRes.campaigns || []);
+      setSegments(sRes.segments || []);
+    } catch {
+      setCampaigns([]);
+      setSegments([]);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
-  const statusColor = (s: string) => {
-    switch (s) {
-      case 'sent': return 'bg-green-100 text-green-700';
-      case 'sending': return 'bg-blue-100 text-blue-700';
-      case 'scheduled': return 'bg-purple-100 text-purple-700';
-      case 'draft': return 'bg-white text-black';
-      case 'failed': return 'bg-red-100 text-red-700';
-      default: return 'bg-white text-black';
-    }
-  };
-
-  const channelIcon = (ch: string) => {
-    switch (ch) {
-      case 'email': return '📧';
-      case 'sms': return '💬';
-      case 'multichannel': return '📣';
-      default: return '📨';
-    }
-  };
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
 
   return (
-    <div className="min-h-[calc(100vh-56px)] bg-white">
-      {/* Header */}
-      <div className="bg-white border-b">
-        <div className="max-w-6xl mx-auto px-4 py-6 flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold text-black">Marketing Campaigns</h1>
-            <p className="text-black mt-1">Email & SMS campaigns — just like Fresha, but free.</p>
-          </div>
-          <div className="flex flex-wrap items-center gap-3">
-            <Link
-              href="/admin/marketing/post-social"
-              className="px-4 py-2.5 bg-sky-500 hover:bg-sky-600 text-white font-medium rounded-xl transition-colors"
-            >
-              📤 Post to social
-            </Link>
-            <Link
-              href="/admin/marketing/campaigns/new"
-              className="px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-semibold rounded-xl hover:from-pink-600 hover:to-rose-600 shadow-lg shadow-[#FF2D8E]/25 transition-all"
-            >
-              + Create Campaign
-            </Link>
-          </div>
-        </div>
+    <div className="p-6 max-w-5xl mx-auto space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-black">Marketing</h1>
+        <p className="text-black mt-1">Campaigns, segments, promos, lead capture, referral, reviews, reactivation.</p>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 py-8">
-        {/* Stats cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
-          <div className="bg-white rounded-xl p-4 border">
-            <p className="text-sm text-black">Email Reach</p>
-            <p className="text-2xl font-bold text-black">{audience?.email?.toLocaleString() || '—'}</p>
-            <p className="text-xs text-black">opted-in clients</p>
-          </div>
-          <div className="bg-white rounded-xl p-4 border">
-            <p className="text-sm text-black">SMS Reach</p>
-            <p className="text-2xl font-bold text-black">{audience?.sms?.toLocaleString() || '—'}</p>
-            <p className="text-xs text-black">opted-in clients</p>
-          </div>
-          <div className="bg-white rounded-xl p-4 border">
-            <p className="text-sm text-black">Total Clients</p>
-            <p className="text-2xl font-bold text-black">{stats?.totalClients?.toLocaleString() || '—'}</p>
-          </div>
-          <div className="bg-white rounded-xl p-4 border">
-            <p className="text-sm text-black">SMS Opt-in Rate</p>
-            <p className="text-2xl font-bold text-black">{stats ? `${stats.optInRate}%` : '—'}</p>
-          </div>
-          <div className="bg-white rounded-xl p-4 border">
-            <p className="text-sm text-black">Campaigns Sent</p>
-            <p className="text-2xl font-bold text-black">{campaigns.filter(c => c.status === 'sent' || c.status === 'sending').length}</p>
-          </div>
-        </div>
+      <div className="flex gap-2 border-b border-black pb-2">
+        {[
+          { id: 'overview', label: 'Overview' },
+          { id: 'campaigns', label: 'Campaigns' },
+          { id: 'segments', label: 'Segments' },
+          { id: 'promos', label: 'Promos' },
+        ].map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            onClick={() => setTab(t.id as any)}
+            className={`px-4 py-2 rounded-lg text-sm font-medium ${tab === t.id ? 'bg-[#2D63A4] text-white' : 'bg-white text-black border border-black hover:bg-gray-50'}`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
 
-        {/* Square Marketing — temporary access until Telenyx is connected */}
-        <div className="mb-8 rounded-xl border-2 border-amber-200 bg-amber-50 p-6">
-          <h2 className="text-lg font-semibold text-amber-900 mb-2">Square Marketing (temporary access)</h2>
-          <p className="text-amber-800 text-sm mb-4">
-            Your <strong>~2,700 contacts</strong> live in Square Marketing. Use the links below to access your customer list and send campaigns until Telenyx is connected. You also have a <strong>toll-free number</strong> in Square — add it in <code className="bg-amber-100 px-1 rounded">lib/seo.ts</code> as <code className="bg-amber-100 px-1 rounded">SITE.tollFree</code> to show it on the site.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <a
-              href="https://squareup.com/dashboard"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg text-sm"
+      {tab === 'overview' && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            { href: '#', onClick: () => setTab('campaigns'), icon: '📧', title: 'SMS / Email campaigns', desc: 'Create and send campaigns to segments' },
+            { href: '#', onClick: () => setTab('segments'), icon: '👥', title: 'Audience segments', desc: 'Never booked, no visit 90d, VIP, birthday, and more' },
+            { href: '#', onClick: () => setTab('promos'), icon: '🏷️', title: 'Promos & offers', desc: 'Banners, landing promos, seasonal offers' },
+            { icon: '📥', title: 'Lead capture', desc: 'Forms, waitlist, feature leads' },
+            { icon: '🤝', title: 'Referral', desc: 'Refer-a-friend programs' },
+            { icon: '⭐', title: 'Review requests', desc: 'Post-visit review prompts' },
+            { icon: '🔄', title: 'Reactivation', desc: 'Re-engage lapsed clients' },
+            { icon: '📞', title: 'Missed-call text-back', desc: 'Auto reply to missed calls' },
+          ].map((card) => (
+            <button
+              key={card.title}
+              type="button"
+              onClick={card.onClick}
+              className="text-left rounded-xl border-2 border-black p-4 bg-white hover:bg-[#2D63A4] hover:text-white hover:border-[#2D63A4] transition-colors"
             >
-              Square Dashboard
-            </a>
-            <a
-              href="https://squareup.com/dashboard/customers"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white border-2 border-amber-600 text-amber-800 hover:bg-amber-100 font-medium rounded-lg text-sm"
-            >
-              Customers (~2,700)
-            </a>
-            <a
-              href="https://squareup.com/dashboard/marketing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white border-2 border-amber-600 text-amber-800 hover:bg-amber-100 font-medium rounded-lg text-sm"
-            >
-              Marketing &amp; Loyalty
-            </a>
-          </div>
+              <span className="text-2xl block mb-2">{card.icon}</span>
+              <div className="font-semibold text-black">{card.title}</div>
+              <div className="text-sm mt-1 opacity-90">{card.desc}</div>
+            </button>
+          ))}
         </div>
+      )}
 
-        {/* Quick actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
-          <Link
-            href="/admin/marketing/campaigns/new"
-            className="bg-white rounded-xl p-6 border-2 border-dashed border-pink-300 hover:border-[#FF2D8E] hover:bg-pink-50 transition-colors text-center group"
-          >
-            <span className="text-3xl block mb-2">📣</span>
-            <h3 className="font-semibold text-black group-hover:text-pink-600">Create New Campaign</h3>
-            <p className="text-sm text-black mt-1">Email, SMS, or both</p>
-          </Link>
-          <Link
-            href="/admin/sms"
-            className="bg-white rounded-xl p-6 border hover:border-green-400 hover:bg-green-50 transition-colors text-center group"
-          >
-            <span className="text-3xl block mb-2">💬</span>
-            <h3 className="font-semibold text-black group-hover:text-green-600">SMS Inbox</h3>
-            <p className="text-sm text-black mt-1">View conversations & quick send</p>
-          </Link>
-          <Link
-            href="/admin/marketing/contacts"
-            className="bg-white rounded-xl p-6 border hover:border-blue-400 hover:bg-blue-50 transition-colors text-center group"
-          >
-            <span className="text-3xl block mb-2">📋</span>
-            <h3 className="font-semibold text-black group-hover:text-blue-600">Manage Contacts</h3>
-            <p className="text-sm text-black mt-1">Import, export, preferences</p>
-          </Link>
-          <Link
-            href="/admin/marketing/google-posts"
-            className="bg-white rounded-xl p-6 border hover:border-amber-400 hover:bg-amber-50 transition-colors text-center group"
-          >
-            <span className="text-3xl block mb-2">📍</span>
-            <h3 className="font-semibold text-black group-hover:text-amber-600">Google Post Campaigns</h3>
-            <p className="text-sm text-black mt-1">Ready-to-use copy for Google Business</p>
-          </Link>
-          <Link
-            href="/admin/marketing/agents"
-            className="bg-white rounded-xl p-6 border-2 border-dashed border-violet-300 hover:border-violet-500 hover:bg-violet-50 transition-colors text-center group"
-          >
-            <span className="text-3xl block mb-2">🤖</span>
-            <h3 className="font-semibold text-black group-hover:text-violet-600">5 Agents Runbook</h3>
-            <p className="text-sm text-black mt-1">Weekly checklist — social, inbox, reviews, email, promo</p>
-          </Link>
-          <Link
-            href="/admin/marketing/post-social"
-            className="bg-white rounded-xl p-6 border-2 border-dashed border-sky-300 hover:border-sky-500 hover:bg-sky-50 transition-colors text-center group"
-          >
-            <span className="text-3xl block mb-2">📤</span>
-            <h3 className="font-semibold text-black group-hover:text-sky-600">Post to social</h3>
-            <p className="text-sm text-black mt-1">Tell the agent what to post → FB, IG, Google</p>
-          </Link>
-        </div>
-
-        {/* Campaign History */}
-        <div className="bg-white rounded-xl border">
-          <div className="p-4 border-b flex items-center justify-between">
-            <h2 className="font-semibold text-black">Campaign History</h2>
-            <span className="text-sm text-black">{campaigns.length} campaign{campaigns.length !== 1 ? 's' : ''}</span>
+      {tab === 'campaigns' && (
+        <div className="space-y-4">
+          <div className="flex justify-between items-center">
+            <h2 className="text-lg font-semibold text-black">Campaigns</h2>
+            <Link href="/admin/marketing/campaigns/new" className="px-4 py-2 bg-[#2D63A4] text-white font-medium rounded-lg hover:bg-[#234a7a]">+ New campaign</Link>
           </div>
-
-          {loadingCampaigns ? (
-            <div className="p-8 text-center text-black">Loading campaigns...</div>
+          {loading ? (
+            <div className="h-32 bg-gray-100 rounded-xl animate-pulse" />
           ) : campaigns.length === 0 ? (
-            <div className="p-12 text-center">
-              <span className="text-5xl block mb-4">📬</span>
-              <h3 className="text-lg font-semibold text-black mb-2">No campaigns yet</h3>
-              <p className="text-black mb-6">Create your first campaign to start reaching your clients.</p>
-              <Link
-                href="/admin/marketing/campaigns/new"
-                className="inline-block px-6 py-3 bg-gradient-to-r from-pink-500 to-rose-500 text-white font-medium rounded-lg hover:from-pink-600 hover:to-rose-600"
-              >
-                Create Your First Campaign
-              </Link>
+            <div className="bg-white rounded-xl border border-black p-8 text-center text-black">
+              <p>No campaigns yet. Create one to send SMS or email to a segment.</p>
+              <Link href="/admin/marketing/campaigns/new" className="inline-block mt-3 text-[#2D63A4] font-medium">+ New campaign</Link>
             </div>
           ) : (
-            <div className="divide-y">
-              {campaigns.map((c) => (
-                <div key={c.id} className="p-4 flex items-center gap-4 hover:bg-white">
-                  <span className="text-2xl">{channelIcon(c.channel)}</span>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-medium text-black truncate">{c.name}</p>
-                    <p className="text-sm text-black">
-                      {new Date(c.created_at).toLocaleDateString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric',
-                        hour: 'numeric',
-                        minute: '2-digit',
-                      })}
-                    </p>
-                  </div>
-                  <span className={`px-2.5 py-1 rounded-full text-xs font-medium capitalize ${statusColor(c.status)}`}>
-                    {c.status}
-                  </span>
-                  <div className="text-right text-sm">
-                    <p className="text-black font-medium">{c.total_recipients.toLocaleString()} recipients</p>
-                    <p className="text-black">
-                      {c.email_sent > 0 && `${c.email_sent} emails`}
-                      {c.email_sent > 0 && c.sms_sent > 0 && ' + '}
-                      {c.sms_sent > 0 && `${c.sms_sent} SMS`}
-                      {c.sms_failed > 0 && ` (${c.sms_failed} failed)`}
-                    </p>
-                  </div>
-                </div>
-              ))}
+            <div className="bg-white rounded-xl border border-black overflow-hidden">
+              <table className="w-full">
+                <thead className="bg-gray-50 border-b border-black">
+                  <tr>
+                    <th className="text-left px-4 py-3 text-sm font-semibold text-black">Name</th>
+                    <th className="text-left px-4 py-3 text-sm font-semibold text-black">Channel</th>
+                    <th className="text-left px-4 py-3 text-sm font-semibold text-black">Status</th>
+                    <th className="text-left px-4 py-3 text-sm font-semibold text-black">Created</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-black">
+                  {campaigns.map((c) => (
+                    <tr key={c.id} className="hover:bg-gray-50">
+                      <td className="px-4 py-3 font-medium text-black">{c.name}</td>
+                      <td className="px-4 py-3 text-black text-sm">{c.channel}</td>
+                      <td className="px-4 py-3"><span className="text-xs px-2 py-0.5 rounded bg-gray-100 text-black">{c.status}</span></td>
+                      <td className="px-4 py-3 text-black text-sm">{new Date(c.created_at).toLocaleDateString()}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           )}
         </div>
+      )}
 
-        {/* Cost comparison */}
-        <div className="mt-8 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl p-6 border border-green-200">
-          <h3 className="font-semibold text-green-800 mb-2">Your Savings vs Fresha</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-            <div>
-              <p className="text-green-600 font-medium">Email Campaigns</p>
-              <p className="text-green-800">Resend: First 3,000/month FREE</p>
-              <p className="text-green-500">Then $0.001/email</p>
-            </div>
-            <div>
-              <p className="text-green-600 font-medium">SMS Campaigns</p>
-              <p className="text-green-800">Telnyx: $0.004/text</p>
-              <p className="text-green-500">~${audience?.sms ? (audience.sms * 0.004).toFixed(2) : '7'} per campaign</p>
-            </div>
-            <div>
-              <p className="text-green-600 font-medium">Fresha Equivalent</p>
-              <p className="text-green-800 line-through">$50-100+ per campaign</p>
-              <p className="text-green-700 font-bold">You save ~$50-90/campaign</p>
-            </div>
+      {tab === 'segments' && (
+        <div className="space-y-4">
+          <div className="flex justify-between items-center">
+            <h2 className="text-lg font-semibold text-black">Audience segments</h2>
+            <Link href="/admin/marketing/segments/new" className="px-4 py-2 bg-[#2D63A4] text-white font-medium rounded-lg hover:bg-[#234a7a]">+ New segment</Link>
           </div>
+          <p className="text-black text-sm">Audience filters: never booked, no visit 90d, Botox/filler/weight/hormone, birthday, VIP, abandoned booking, high-value.</p>
+          {loading ? (
+            <div className="h-32 bg-gray-100 rounded-xl animate-pulse" />
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {AUDIENCE_FILTERS.map((f) => {
+                const seg = segments.find((s) => s.filter_id === f.id);
+                return (
+                  <div key={f.id} className="bg-white rounded-xl border border-black p-4 flex items-center justify-between">
+                    <div>
+                      <div className="font-medium text-black">{f.label}</div>
+                      {seg && <div className="text-sm text-black">Segment: {seg.name}</div>}
+                    </div>
+                    {seg ? <span className="text-xs text-gray-600">Saved</span> : <Link href={`/admin/marketing/segments/new?filter=${f.id}`} className="text-sm text-[#2D63A4] font-medium">Create segment →</Link>}
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
+      )}
+
+      {tab === 'promos' && (
+        <div className="bg-white rounded-xl border border-black p-8 text-center text-black">
+          <span className="text-4xl block mb-2">🏷️</span>
+          <h2 className="font-semibold">Promos & offers</h2>
+          <p className="text-sm mt-1">Banners, landing promos, seasonal pricing. Configure in Website/Content or a future Promos builder.</p>
+          <Link href="/admin/content/site" className="inline-block mt-4 text-[#2D63A4] font-medium">Website / Content →</Link>
+        </div>
+      )}
+
+      <div className="pt-4">
+        <Link href="/admin" className="text-[#2D63A4] font-medium hover:underline">← Dashboard</Link>
       </div>
     </div>
+  );
+}
+
+export default function AdminMarketingPage() {
+  return (
+    <Suspense fallback={<div className="p-6">Loading…</div>}>
+      <MarketingContent />
+    </Suspense>
   );
 }
