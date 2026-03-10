@@ -178,6 +178,7 @@ export default function ExecutiveDashboard() {
   const [dateRange, setDateRange] = useState<'today' | 'week' | 'month' | 'year'>('month');
   const [selectedProvider, setSelectedProvider] = useState<string>('all');
   const [providers, setProviders] = useState<{id: string; name: string}[]>([]);
+  const [businessName, setBusinessName] = useState<string>('Your Med Spa');
 
   const today = new Date().toLocaleDateString('en-US', {
     weekday: 'long',
@@ -185,6 +186,16 @@ export default function ExecutiveDashboard() {
     day: 'numeric',
     year: 'numeric',
   });
+
+  useEffect(() => {
+    fetch('/api/settings')
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        const name = data?.settings?.business_name;
+        if (name && typeof name === 'string') setBusinessName(name.trim() || 'Your Med Spa');
+      })
+      .catch(() => {});
+  }, []);
 
   const formatTime = (isoString: string) => {
     return new Date(isoString).toLocaleTimeString('en-US', {
@@ -456,7 +467,7 @@ export default function ExecutiveDashboard() {
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 print:hidden bg-white rounded-lg p-5 shadow-sm border border-black">
         <div>
           <h1 className="text-2xl font-bold text-black">
-            Executive Dashboard
+            {businessName} — Dashboard
           </h1>
           <p className="text-black mt-0.5">{today}</p>
         {lastUpdated && (
@@ -533,7 +544,7 @@ export default function ExecutiveDashboard() {
 
       {/* Print Header */}
       <div className="hidden print:block">
-        <h1 className="text-xl font-bold">Hello Gorgeous Med Spa - Executive Dashboard</h1>
+        <h1 className="text-xl font-bold">{businessName} — Executive Dashboard</h1>
         <p className="text-black">{today}</p>
       </div>
 

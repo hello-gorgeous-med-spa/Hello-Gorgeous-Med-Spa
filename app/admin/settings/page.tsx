@@ -32,10 +32,10 @@ export default function AdminSettingsPage() {
   const [loading, setLoading] = useState(true);
   
   const [settings, setSettings] = useState<BusinessSettings>({
-    business_name: 'Hello Gorgeous Med Spa',
-    phone: '(630) 636-6193',
-    email: SITE.email,
-    address: '74 W. Washington St, Oswego, IL 60543',
+    business_name: 'Your Med Spa',
+    phone: '',
+    email: SITE?.email ?? '',
+    address: '',
     timezone: 'America/Chicago',
     online_booking_enabled: true,
     require_deposit: false,
@@ -136,7 +136,7 @@ export default function AdminSettingsPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-black">Settings</h1>
-          <p className="text-black">Configure your Hello Gorgeous OS</p>
+          <p className="text-black">Configure your business — name, hours, booking, payments. You have full control.</p>
         </div>
         {saved && (
           <span className="px-4 py-2 bg-green-100 text-green-700 rounded-lg font-medium">

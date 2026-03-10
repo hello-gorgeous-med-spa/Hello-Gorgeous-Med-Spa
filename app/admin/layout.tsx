@@ -88,6 +88,7 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname();
   const [role, setRole] = useState<AdminRole>(null);
+  const [businessName, setBusinessName] = useState<string>('Your Med Spa');
 
   useAdminManifest();
 
@@ -96,6 +97,16 @@ export default function AdminLayout({
       .then((r) => r.json())
       .then((data) => setRole(data?.role ?? null))
       .catch(() => setRole(null));
+  }, []);
+
+  useEffect(() => {
+    fetch('/api/settings')
+      .then((r) => r.ok ? r.json() : null)
+      .then((data) => {
+        const name = data?.settings?.business_name;
+        if (name && typeof name === 'string') setBusinessName(name.trim() || 'Your Med Spa');
+      })
+      .catch(() => {});
   }, []);
 
   const isActive = (href: string) => {
@@ -170,7 +181,7 @@ export default function AdminLayout({
               </div>
               <div className="p-3 border-t border-black/10 flex items-center justify-center gap-2">
                 <span className="text-[#FF2D8E] text-sm">💗</span>
-                <span className="text-xs text-black/70 font-medium">Hello Gorgeous</span>
+                <span className="text-xs text-black/70 font-medium truncate" title={businessName}>{businessName}</span>
               </div>
             </aside>
 

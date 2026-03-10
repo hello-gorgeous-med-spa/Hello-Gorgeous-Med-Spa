@@ -1,137 +1,59 @@
 // ============================================================
-// API: BUSINESS SETTINGS
-// Get and update business configuration
+// GET/PUT /api/settings — Business settings (single source of truth)
+// No-code control: business name, contact, booking, hours
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/hgos/supabase';
-import { SITE } from '@/lib/seo';
 
-// Force dynamic rendering
 export const dynamic = 'force-dynamic';
-export const maxDuration = 10;
 
-// Default settings
-const DEFAULT_SETTINGS = {
-  business_name: 'Hello Gorgeous Med Spa',
-  phone: '(630) 636-6193',
-  email: SITE.email,
-  address: '74 W. Washington St, Oswego, IL 60543',
-  timezone: 'America/Chicago',
-  online_booking_enabled: true,
-  require_deposit: false,
-  send_reminders: true,
-  cancellation_hours: 24,
-  cancellation_fee_percent: 50,
+const defaults = {
+  settings: {
+    business_name: process.env.NEXT_PUBLIC_BUSINESS_NAME || 'Your Med Spa',
+    phone: process.env.NEXT_PUBLIC_BUSINESS_PHONE || '',
+    email: process.env.NEXT_PUBLIC_BUSINESS_EMAIL || '',
+    address: process.env.NEXT_PUBLIC_BUSINESS_ADDRESS || '',
+    timezone: process.env.NEXT_PUBLIC_TIMEZONE || 'America/Chicago',
+    online_booking_enabled: true,
+    require_deposit: false,
+    send_reminders: true,
+    cancellation_hours: 24,
+    cancellation_fee_percent: 50,
+  },
+  businessHours: {
+    monday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
+    tuesday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
+    wednesday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
+    thursday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
+    friday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
+    saturday: { open: '', close: '', enabled: false },
+    sunday: { open: '', close: '', enabled: false },
+  },
 };
 
-const DEFAULT_HOURS = {
-  monday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
-  tuesday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
-  wednesday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
-  thursday: { open: '9:00 AM', close: '5:00 PM', enabled: true },
-  friday: { open: '9:00 AM', close: '3:00 PM', enabled: true },
-  saturday: { open: '10:00 AM', close: '2:00 PM', enabled: false },
-  sunday: { open: '', close: '', enabled: false },
-};
+let memory: { settings: Record<string, unknown>; businessHours: Record<string, unknown> } = { ...defaults };
 
-// Helper with timeout
-async function withTimeout<T>(promise: Promise<T>, ms: number): Promise<T | null> {
-  const timeout = new Promise<null>((resolve) => setTimeout(() => resolve(null), ms));
-  return Promise.race([promise, timeout]);
-}
-
-// GET /api/settings - Get business settings
 export async function GET() {
-  try {
-    const supabase = createServerSupabaseClient();
-    
-    if (!supabase) {
-      return NextResponse.json({ 
-        settings: DEFAULT_SETTINGS, 
-        businessHours: DEFAULT_HOURS 
-      });
-    }
-
-    // Try business_settings table with timeout
-    const result = await withTimeout(
-      supabase
-        .from('business_settings')
-        .select('*')
-        .limit(1)
-        .single(),
-      5000
-    );
-
-    // If timeout or error, return defaults
-    if (!result || result.error) {
-      return NextResponse.json({ 
-        settings: DEFAULT_SETTINGS, 
-        businessHours: DEFAULT_HOURS 
-      });
-    }
-
-    // Return settings or defaults
-    const settings = result.data?.settings || DEFAULT_SETTINGS;
-    const businessHours = result.data?.business_hours || DEFAULT_HOURS;
-
-    return NextResponse.json({ settings, businessHours });
-  } catch (error) {
-    // Return defaults silently if anything fails
-    return NextResponse.json({
-      settings: DEFAULT_SETTINGS,
-      businessHours: DEFAULT_HOURS,
-    });
-  }
+  return NextResponse.json({
+    settings: memory.settings,
+    businessHours: memory.businessHours,
+  });
 }
 
-// PUT /api/settings - Update business settings
 export async function PUT(request: NextRequest) {
   try {
-    const supabase = createServerSupabaseClient();
-    const { settings, businessHours } = await request.json();
-
-    // Check if settings row exists
-    const { data: existing } = await supabase
-      .from('business_settings')
-      .select('id')
-      .single();
-
-    let result;
-    if (existing) {
-      // Update existing
-      result = await supabase
-        .from('business_settings')
-        .update({
-          settings,
-          business_hours: businessHours,
-          updated_at: new Date().toISOString(),
-        })
-        .eq('id', existing.id);
-    } else {
-      // Insert new
-      result = await supabase
-        .from('business_settings')
-        .insert({
-          settings,
-          business_hours: businessHours,
-        });
+    const body = await request.json();
+    if (body.settings && typeof body.settings === 'object') {
+      memory.settings = { ...memory.settings, ...body.settings };
     }
-
-    if (result.error) {
-      // If table doesn't exist, just return success (settings stored in browser)
-      console.error('Settings save error:', result.error);
-      // Still return success - settings work locally
-      return NextResponse.json({ 
-        success: true, 
-        message: 'Settings saved locally (database table may not exist yet)',
-        note: 'Run the business_settings migration to persist settings'
-      });
+    if (body.businessHours && typeof body.businessHours === 'object') {
+      memory.businessHours = { ...memory.businessHours, ...body.businessHours };
     }
-
-    return NextResponse.json({ success: true, message: 'Settings saved successfully' });
-  } catch (error) {
-    console.error('Settings PUT error:', error);
-    return NextResponse.json({ error: 'Failed to save settings' }, { status: 500 });
+    return NextResponse.json({
+      settings: memory.settings,
+      businessHours: memory.businessHours,
+    });
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
   }
 }

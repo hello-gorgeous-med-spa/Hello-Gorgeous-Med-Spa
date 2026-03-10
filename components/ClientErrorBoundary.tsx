@@ -34,30 +34,27 @@ export class ClientErrorBoundary extends React.Component<Props, State> {
       return (
         <div className="min-h-screen bg-white flex flex-col items-center justify-center p-6 text-black">
           <div className="max-w-md w-full text-center space-y-6">
-            <h1 className="text-xl font-semibold">Something went wrong</h1>
+            <h1 className="text-2xl font-bold font-serif">Something went wrong</h1>
             <p className="text-sm text-black/80">
-              We&apos;re sorry — the page couldn&apos;t load properly. Please try again or call us.
+              We&apos;re sorry — the page couldn&apos;t load properly. This has been logged. Please try again.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button
                 type="button"
-                onClick={() => this.setState({ hasError: false, error: null })}
-                className="px-4 py-2 bg-black text-white rounded-lg font-medium hover:bg-black/90 transition-colors"
+                onClick={() => window.location.reload()}
+                className="px-5 py-2.5 bg-black text-white rounded-lg font-medium hover:bg-black/90 transition-colors"
               >
                 Try again
               </button>
               <a
                 href="/"
-                className="px-4 py-2 border-2 border-black text-black rounded-lg font-medium hover:bg-black hover:text-white transition-colors text-center"
+                className="px-5 py-2.5 border-2 border-black text-black rounded-lg font-medium hover:bg-white hover:border-black transition-colors text-center"
               >
                 Go home
               </a>
             </div>
-            <p className="text-xs text-black/60">
-              Need help? Call us at{' '}
-              <a href="tel:6306366193" className="text-[#E6007E] font-semibold underline">
-                (630) 636-6193
-              </a>
+            <p className="text-xs text-black/50">
+              If this keeps happening, try a hard refresh or clear your browser cache.
             </p>
           </div>
         </div>
