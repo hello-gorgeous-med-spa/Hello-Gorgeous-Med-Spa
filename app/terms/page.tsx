@@ -169,8 +169,8 @@ export default function TermsOfServicePage() {
           <ul>
             <li><strong>Consent:</strong> You consent to receive promotional and transactional text messages at the phone number you provided.</li>
             <li><strong>Frequency:</strong> Message frequency varies. You may receive appointment reminders, treatment updates, and occasional promotional offers.</li>
-            <li><strong>Opt-out:</strong> Reply STOP to any message to unsubscribe at any time. Message and data rates may apply.</li>
-            <li><strong>Support:</strong> Reply HELP for assistance. For questions, contact us at (630) 636-6193 or hello.gorgeous@hellogorgeousmedspa.com.</li>
+            <li><strong>Opt-out:</strong> Reply <strong>STOP</strong> to any message to unsubscribe at any time. Message and data rates may apply.</li>
+            <li><strong>Support:</strong> Reply <strong>HELP</strong> for assistance. For questions, contact us at (630) 636-6193 or hello.gorgeous@hellogorgeousmedspa.com.</li>
             <li><strong>Carriers:</strong> Supported carriers include AT&amp;T, T-Mobile, Verizon, and others. Delivery is not guaranteed.</li>
           </ul>
           <p className="mb-0">

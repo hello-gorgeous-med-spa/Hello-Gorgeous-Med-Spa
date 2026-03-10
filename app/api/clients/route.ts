@@ -151,14 +151,23 @@ export async function GET(request: NextRequest) {
     let query = supabase
       .from('clients')
       .select('*', { count: 'exact' })
-      .order('created_at', { ascending: false })
-      .range(offset, offset + limit - 1);
+      .order('created_at', { ascending: false });
 
     const sourceFilter = searchParams.get('source');
     if (sourceFilter && sourceFilter.trim()) {
       query = query.eq('source', sourceFilter.trim());
     }
 
+    // Server-side search: filter in DB so pagination and total are correct
+    if (search && search.trim()) {
+      const term = search.trim().replace(/'/g, "''");
+      const pattern = `%${term}%`;
+      query = query.or(
+        `first_name.ilike.'${pattern}',last_name.ilike.'${pattern}',email.ilike.'${pattern}',phone.ilike.'${pattern}'`
+      );
+    }
+
+    query = query.range(offset, offset + limit - 1);
     const { data: clientsData, error: clientsError, count } = await query;
 
     if (clientsError) {
@@ -214,21 +223,10 @@ export async function GET(request: NextRequest) {
       };
     });
 
-    // Filter by search if provided (client-side since we're not using joins)
-    let filteredClients = clients;
-    if (search) {
-      const searchLower = search.toLowerCase();
-      filteredClients = clients.filter((c: any) =>
-        c.first_name?.toLowerCase().includes(searchLower) ||
-        c.last_name?.toLowerCase().includes(searchLower) ||
-        c.email?.toLowerCase().includes(searchLower) ||
-        c.phone?.includes(search)
-      );
-    }
-
+    // Search is applied in DB; no client-side filter needed
     return NextResponse.json({
-      clients: filteredClients,
-      total: search ? filteredClients.length : (count || 0),
+      clients,
+      total: count ?? 0,
     });
   } catch (error) {
     console.error('Clients API error:', error);

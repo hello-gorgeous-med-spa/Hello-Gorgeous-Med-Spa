@@ -98,6 +98,7 @@ export async function PUT(
     const body = await request.json();
     const {
       scheduled_at,
+      starts_at: startsAtBody,
       provider_id,
       service_id,
       duration_minutes,
@@ -111,17 +112,29 @@ export async function PUT(
       no_show_reason,
     } = body;
 
-    // Get current appointment to check status change
+    // Resolve start time: prefer starts_at (calendar drag-drop), fallback to scheduled_at
+    const newStartISO = startsAtBody ?? scheduled_at;
+
+    // Get current appointment (for status change and duration)
     const { data: currentAppointment } = await supabase
       .from('appointments')
-      .select('status, client_id, service_id')
+      .select('status, client_id, service_id, duration_minutes')
       .eq('id', id)
       .single();
 
     // Build update object
     const updates: Record<string, any> = { updated_at: new Date().toISOString() };
-    
-    if (scheduled_at !== undefined) updates.scheduled_at = scheduled_at;
+
+    if (newStartISO !== undefined) {
+      updates.starts_at = newStartISO;
+      updates.scheduled_at = newStartISO;
+      const duration = duration_minutes ?? currentAppointment?.duration_minutes ?? 30;
+      const start = new Date(newStartISO);
+      const end = new Date(start.getTime() + duration * 60 * 1000);
+      updates.ends_at = end.toISOString();
+    } else if (scheduled_at !== undefined) {
+      updates.scheduled_at = scheduled_at;
+    }
     if (provider_id !== undefined) updates.provider_id = provider_id;
     if (service_id !== undefined) updates.service_id = service_id;
     if (duration_minutes !== undefined) updates.duration_minutes = duration_minutes;

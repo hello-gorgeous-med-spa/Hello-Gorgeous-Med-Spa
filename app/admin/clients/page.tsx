@@ -63,7 +63,7 @@ export default function AdminClientsPage() {
       params.set('offset', ((page - 1) * limit).toString());
 
       const response = await fetch(`/api/clients?${params}`);
-      let data: { clients?: Client[]; total?: number; error?: string; warning?: string } = {};
+      let data: { clients?: Client[]; total?: number; error?: string; warning?: string; source?: string } = {};
       try {
         data = await response.json();
       } catch {
@@ -79,7 +79,10 @@ export default function AdminClientsPage() {
         setError(data.error || 'Failed to fetch clients');
         return;
       }
-      if (data.error || data.warning) {
+      // When DB is not configured, API returns source: 'local' and empty list — show clear message
+      if (data.source === 'local') {
+        setError('Database not connected. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in your hosting environment (e.g. Vercel).');
+      } else if (data.error || data.warning) {
         setError(data.error || data.warning);
       } else {
         setError(null);

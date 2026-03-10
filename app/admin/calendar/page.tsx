@@ -76,7 +76,73 @@ export default function CalendarPage() {
   const [loading, setLoading] = useState(true);
   const [dataError, setDataError] = useState<string | null>(null);
 
+  // Drag-and-drop: reschedule appointment to new time/provider
+  const [draggingApptId, setDraggingApptId] = useState<string | null>(null);
+  const [dropTarget, setDropTarget] = useState<{ providerId: string; time: string } | null>(null);
+
   const dateString = selectedDate.toISOString().split('T')[0];
+
+  // Convert slot (e.g. "10:00") on selected date to ISO in business timezone
+  const slotToStartsAt = useCallback((timeStr: string) => {
+    const [h, m] = timeStr.split(':').map(Number);
+    return businessDateTimeToUTC(dateString, h || 0, m || 0).toISOString();
+  }, [dateString]);
+
+  const handleApptDragStart = useCallback((e: React.DragEvent, appt: any) => {
+    if (['cancelled', 'no_show', 'completed'].includes(appt.status)) return;
+    setDraggingApptId(appt.id);
+    e.dataTransfer.setData('application/json', JSON.stringify({ id: appt.id, provider_id: appt.provider_id }));
+    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData('text/plain', appt.id);
+  }, []);
+
+  const handleSlotDragOver = useCallback((e: React.DragEvent, providerId: string, timeStr: string) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    setDropTarget({ providerId, time: timeStr });
+  }, []);
+
+  const handleSlotDragLeave = useCallback(() => {
+    setDropTarget(null);
+  }, []);
+
+  const handleSlotDrop = useCallback(async (e: React.DragEvent, providerId: string, timeStr: string) => {
+    e.preventDefault();
+    setDropTarget(null);
+    setDraggingApptId(null);
+    let payload: { id: string; provider_id?: string };
+    try {
+      payload = JSON.parse(e.dataTransfer.getData('application/json'));
+    } catch {
+      const id = e.dataTransfer.getData('text/plain');
+      if (!id) return;
+      payload = { id };
+    }
+    const apptId = payload.id;
+    const newStartsAt = slotToStartsAt(timeStr);
+    try {
+      const res = await fetch(`/api/appointments/${apptId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ starts_at: newStartsAt, provider_id: providerId }),
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        toast.error(data.error || 'Could not reschedule');
+        return;
+      }
+      toast.success('Appointment moved');
+      fetchAppointments();
+      setSelectedAppointment(null);
+    } catch (err) {
+      toast.error('Failed to move appointment');
+    }
+  }, [slotToStartsAt, fetchAppointments, toast]);
+
+  const handleDragEnd = useCallback(() => {
+    setDraggingApptId(null);
+    setDropTarget(null);
+  }, []);
 
   const fetchAppointments = useCallback(async () => {
     try {
@@ -870,24 +936,34 @@ export default function CalendarPage() {
                       const inSchedule30 = isSlotInSchedule(provider.id, selectedDate, slot30);
                       return (
                         <div key={hour} className="h-24 border-b border-black relative">
-                          {/* First 30 min */}
+                          {/* First 30 min — drop target */}
                           <div
-                            className={`absolute inset-x-0 top-0 h-12 transition-colors group ${inSchedule00 ? 'cursor-pointer hover:bg-pink-50/50' : 'bg-white cursor-not-allowed'}`}
+                            className={`absolute inset-x-0 top-0 h-12 transition-colors group ${inSchedule00 ? 'cursor-pointer hover:bg-pink-50/50' : 'bg-white cursor-not-allowed'} ${
+                              dropTarget?.providerId === provider.id && dropTarget?.time === slot00 ? 'ring-2 ring-[#FF2D8E] bg-pink-100/80' : ''
+                            }`}
                             onClick={() => inSchedule00 && handleSlotClick(slot00, provider.id, providerName)}
+                            onDragOver={(e) => inSchedule00 && handleSlotDragOver(e, provider.id, slot00)}
+                            onDragLeave={handleSlotDragLeave}
+                            onDrop={(e) => inSchedule00 && handleSlotDrop(e, provider.id, slot00)}
                           >
                             {inSchedule00 && (
-                              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                                 <span className="text-xs text-[#FF2D8E] font-medium bg-white/80 px-2 py-1 rounded">+ Book</span>
-            </div>
+                            </div>
                             )}
                           </div>
-                          {/* Second 30 min */}
+                          {/* Second 30 min — drop target */}
                           <div
-                            className={`absolute inset-x-0 bottom-0 h-12 transition-colors group ${inSchedule30 ? 'cursor-pointer hover:bg-pink-50/50' : 'bg-white cursor-not-allowed'}`}
+                            className={`absolute inset-x-0 bottom-0 h-12 transition-colors group ${inSchedule30 ? 'cursor-pointer hover:bg-pink-50/50' : 'bg-white cursor-not-allowed'} ${
+                              dropTarget?.providerId === provider.id && dropTarget?.time === slot30 ? 'ring-2 ring-[#FF2D8E] bg-pink-100/80' : ''
+                            }`}
                             onClick={() => inSchedule30 && handleSlotClick(slot30, provider.id, providerName)}
+                            onDragOver={(e) => inSchedule30 && handleSlotDragOver(e, provider.id, slot30)}
+                            onDragLeave={handleSlotDragLeave}
+                            onDrop={(e) => inSchedule30 && handleSlotDrop(e, provider.id, slot30)}
                           >
                             {inSchedule30 && (
-                              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                              <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                                 <span className="text-xs text-[#FF2D8E] font-medium bg-white/80 px-2 py-1 rounded">+ Book</span>
                               </div>
                             )}
@@ -896,21 +972,27 @@ export default function CalendarPage() {
                       );
                     })}
 
-                    {/* Appointments - positioned above slots */}
+                    {/* Appointments - positioned above slots, draggable */}
                     {providerAppts.map((appt) => {
                       const style = getAppointmentStyle(appt);
                       const isSelected = selectedAppointment?.id === appt.id;
-                      
+                      const canDrag = !['cancelled', 'no_show', 'completed'].includes(appt.status);
+                      const isDragging = draggingApptId === appt.id;
+
                       return (
-            <button
+                        <button
                           key={appt.id}
+                          type="button"
+                          draggable={canDrag}
+                          onDragStart={(e) => canDrag && handleApptDragStart(e, appt)}
+                          onDragEnd={handleDragEnd}
                           onClick={(e) => {
                             e.stopPropagation();
                             setSelectedAppointment(appt);
                           }}
-                          className={`absolute left-1 right-1 rounded-lg border-l-4 p-2 text-left transition-all overflow-hidden ${color.bg} ${color.border} ${color.text} ${
+                          className={`absolute left-1 right-1 rounded-lg border-l-4 p-2 text-left transition-all overflow-hidden cursor-grab active:cursor-grabbing ${color.bg} ${color.border} ${color.text} ${
                             isSelected ? 'ring-2 ring-black shadow-lg z-20' : 'hover:shadow-md z-10'
-                          }`}
+                          } ${isDragging ? 'opacity-60' : ''} ${!canDrag ? 'cursor-pointer' : ''}`}
                           style={style}
                         >
                           <p className="font-semibold text-xs uppercase tracking-wide truncate">
@@ -922,7 +1004,7 @@ export default function CalendarPage() {
                           <p className="text-xs opacity-75 mt-0.5">
                             {formatApptTime(appt.starts_at)} - {getEndTime(appt.starts_at, appt.duration_minutes || appt.duration || 60)}
                           </p>
-            </button>
+                        </button>
                       );
                     })}
           </div>
@@ -1038,17 +1120,84 @@ export default function CalendarPage() {
         </div>
       </div>
 
-            {/* Primary actions: Checkout + Chart (daily flow) */}
+            {/* Status flow: booked → confirmed → arrived → in service → checked out | no-show | cancelled */}
             <div className="p-4 border-b border-black space-y-3">
-              <div className="flex items-center justify-between">
+              <p className="text-xs font-semibold text-black uppercase tracking-wider">Status</p>
+              <div className="flex items-center justify-between gap-2 flex-wrap">
                 {getStatusBadge(selectedAppointment.status)}
+                {!['cancelled', 'no_show', 'completed'].includes(selectedAppointment.status) && (
+                  <div className="flex flex-wrap gap-1.5">
+                    {selectedAppointment.status !== 'confirmed' && selectedAppointment.status !== 'checked_in' && selectedAppointment.status !== 'in_progress' && (
+                      <button
+                        onClick={() => {
+                          fetch(`/api/appointments/${selectedAppointment.id}`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ status: 'confirmed' }),
+                          }).then((res) => {
+                            if (res.ok) {
+                              toast.success('Confirmed');
+                              fetchAppointments();
+                              setSelectedAppointment((a: any) => (a ? { ...a, status: 'confirmed' } : null));
+                            }
+                          });
+                        }}
+                        className="px-2.5 py-1.5 text-xs font-medium bg-emerald-100 text-emerald-700 rounded-lg hover:bg-emerald-200"
+                      >
+                        Confirm
+                      </button>
+                    )}
+                    {selectedAppointment.status === 'confirmed' && (
+                      <button
+                        onClick={() => {
+                          fetch(`/api/appointments/${selectedAppointment.id}`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ status: 'checked_in' }),
+                          }).then((res) => {
+                            if (res.ok) {
+                              toast.success('Arrived');
+                              fetchAppointments();
+                              setSelectedAppointment((a: any) => (a ? { ...a, status: 'checked_in' } : null));
+                            }
+                          });
+                        }}
+                        className="px-2.5 py-1.5 text-xs font-medium bg-amber-100 text-amber-700 rounded-lg hover:bg-amber-200"
+                      >
+                        Arrived
+                      </button>
+                    )}
+                    {(selectedAppointment.status === 'checked_in' || selectedAppointment.status === 'in_progress') && (
+                      <button
+                        onClick={() => {
+                          fetch(`/api/appointments/${selectedAppointment.id}`, {
+                            method: 'PUT',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ status: selectedAppointment.status === 'checked_in' ? 'in_progress' : 'completed' }),
+                          }).then((res) => {
+                            if (res.ok) {
+                              toast.success(selectedAppointment.status === 'checked_in' ? 'In service' : 'Checked out');
+                              fetchAppointments();
+                              setSelectedAppointment((a: any) =>
+                                a ? { ...a, status: a.status === 'checked_in' ? 'in_progress' : 'completed' } : null
+                              );
+                            }
+                          });
+                        }}
+                        className="px-2.5 py-1.5 text-xs font-medium bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200"
+                      >
+                        {selectedAppointment.status === 'checked_in' ? 'In service' : 'Check out'}
+                      </button>
+                    )}
+                  </div>
+                )}
               </div>
               <div className="grid grid-cols-2 gap-3">
                 <Link
                   href={`/pos?appointment=${selectedAppointment.id}&client=${selectedAppointment.client_id}`}
                   className="flex items-center justify-center gap-2 px-4 py-3 bg-[#FF2D8E] text-white font-semibold rounded-xl hover:bg-black transition-colors"
                 >
-                  <span>💳</span> Checkout (Square)
+                  <span>💳</span> Checkout
                 </Link>
                 <Link
                   href={`/admin/charting?client=${selectedAppointment.client_id}&appointment=${selectedAppointment.id}`}
@@ -1216,8 +1365,9 @@ export default function CalendarPage() {
                 </svg>
                     </div>
               <p className="text-black font-medium">Select an appointment</p>
-              <p className="text-sm text-black mt-1">Click on any appointment to view details</p>
-              <p className="text-sm text-black mt-1">or click empty time slot to book</p>
+              <p className="text-sm text-black mt-1">Click any appointment to view details</p>
+              <p className="text-sm text-black mt-1">Drag an appointment to a new time or provider to reschedule</p>
+              <p className="text-sm text-black mt-1">Click empty slot to book</p>
                   </div>
             </div>
           )}

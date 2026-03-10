@@ -6,6 +6,7 @@
 // ============================================================
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { SITE } from '@/lib/seo';
 
 interface BusinessSettings {
@@ -121,6 +122,15 @@ export default function AdminSettingsPage() {
     );
   }
 
+  const settingsLinks = [
+    { href: '/admin/users', label: 'Users & Access', icon: '🔐' },
+    { href: '/admin/staff', label: 'Staff', icon: '👤' },
+    { href: '/admin/settings/payments', label: 'Payments / Square', icon: '💳' },
+    { href: '/admin/settings/consent-forms', label: 'Consent Forms', icon: '📝' },
+    { href: '/admin/settings/notifications', label: 'Notifications', icon: '🔔' },
+    { href: '/admin/audit-logs', label: 'Audit Log', icon: '📜' },
+  ];
+
   return (
     <div className="space-y-6 max-w-4xl">
       <div className="flex items-center justify-between">
@@ -133,6 +143,23 @@ export default function AdminSettingsPage() {
             ✓ Settings Saved!
           </span>
         )}
+      </div>
+
+      {/* Quick links to other settings */}
+      <div className="bg-white rounded-xl border border-black shadow-sm p-4">
+        <h2 className="font-semibold text-black mb-3 text-sm">More settings</h2>
+        <div className="flex flex-wrap gap-2">
+          {settingsLinks.map(({ href, label, icon }) => (
+            <Link
+              key={href}
+              href={href}
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-lg border border-black/20 text-sm text-black hover:bg-black/5 hover:border-[#FF2D8E]"
+            >
+              <span>{icon}</span>
+              <span>{label}</span>
+            </Link>
+          ))}
+        </div>
       </div>
 
       {/* Business Info */}

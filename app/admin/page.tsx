@@ -509,7 +509,19 @@ export default function ExecutiveDashboard() {
             📄 Print/PDF
           </button>
 
-          {/* Quick Actions */}
+          {/* Quick Actions — one click to daily ops */}
+          <Link
+            href="/admin/calendar"
+            className="px-4 py-2.5 bg-white border border-black text-black font-medium rounded-lg hover:bg-black/5 text-sm transition-colors"
+          >
+            🗓 Calendar
+          </Link>
+          <Link
+            href="/admin/clients/new"
+            className="px-4 py-2.5 bg-white border border-black text-black font-medium rounded-lg hover:bg-black/5 text-sm transition-colors"
+          >
+            + Add Client
+          </Link>
           <Link
             href="/admin/appointments/new"
             className="px-5 py-2.5 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-[#c90a68] text-sm transition-colors"

@@ -820,8 +820,25 @@ function ClientChartNotes({ clientId }: { clientId: string }) {
   );
 }
 
+// Tab IDs for client hub (PRD Phase 2)
+type ClientTabId = 'overview' | 'appointments' | 'charting' | 'consents' | 'photos' | 'purchases' | 'memberships' | 'wallet' | 'messages' | 'files' | 'alerts';
+
+const CLIENT_TABS: { id: ClientTabId; label: string; count?: number }[] = [
+  { id: 'overview', label: 'Overview' },
+  { id: 'appointments', label: 'Appointments', count: 0 },
+  { id: 'charting', label: 'Charting' },
+  { id: 'consents', label: 'Consents', count: 0 },
+  { id: 'photos', label: 'Photos' },
+  { id: 'purchases', label: 'Purchases', count: 0 },
+  { id: 'memberships', label: 'Memberships' },
+  { id: 'wallet', label: 'Wallet', count: 0 },
+  { id: 'messages', label: 'Messages' },
+  { id: 'files', label: 'Files', count: 0 },
+  { id: 'alerts', label: 'Alerts' },
+];
+
 export default function AdminClientDetailPage({ params }: { params: { id: string } }) {
-  const [activeTab, setActiveTab] = useState<'overview' | 'appointments' | 'payments' | 'chart' | 'documents'>('overview');
+  const [activeTab, setActiveTab] = useState<ClientTabId>('overview');
   
   // State for API data
   const [client, setClient] = useState<any>(null);
@@ -1134,28 +1151,26 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="border-b border-black">
-        <nav className="flex gap-4">
-          {[
-            { id: 'overview', label: 'Overview' },
-            { id: 'appointments', label: `Appointments (${appointments.length})` },
-            { id: 'payments', label: `Payments (${payments.length})` },
-            { id: 'chart', label: 'Chart' },
-            { id: 'documents', label: `Documents (${consents.length})` },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
-                activeTab === tab.id
-                  ? 'border-[#FF2D8E] text-pink-600'
-                  : 'border-transparent text-black hover:text-black'
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+      {/* Tabs — PRD client hub */}
+      <div className="border-b border-black overflow-x-auto">
+        <nav className="flex gap-1 min-w-max pb-px">
+          {CLIENT_TABS.map((tab) => {
+            const count = tab.id === 'appointments' ? appointments.length : tab.id === 'consents' || tab.id === 'files' ? consents.length : tab.id === 'wallet' ? giftCards.length : tab.id === 'purchases' ? payments.length : undefined;
+            const label = count !== undefined ? `${tab.label} (${count})` : tab.label;
+            return (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-3 py-2.5 text-sm font-medium border-b-2 whitespace-nowrap transition-colors ${
+                  activeTab === tab.id
+                    ? 'border-[#FF2D8E] text-pink-600'
+                    : 'border-transparent text-black hover:text-black'
+                }`}
+              >
+                {label}
+              </button>
+            );
+          })}
         </nav>
       </div>
 
@@ -1208,7 +1223,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-semibold text-black">Recent Appointments</h3>
               <button
-                onClick={() => setActiveTab('appointments')}
+                onClick={() => setActiveTab('appointments' as ClientTabId)}
                 className="text-sm text-pink-600 hover:text-pink-700"
               >
                 View All →
@@ -1328,7 +1343,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
         </div>
       )}
 
-      {activeTab === 'payments' && (
+      {activeTab === 'purchases' && (
         <div className="space-y-6">
           {/* Gift Cards Section */}
           <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-100 shadow-sm overflow-hidden">
@@ -1440,7 +1455,7 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
         </div>
       )}
 
-      {activeTab === 'chart' && (
+      {activeTab === 'charting' && (
         <UnifiedChartTabContent
           clientId={client.id}
           clientName={`${client.first_name} ${client.last_name}`}
@@ -1451,13 +1466,127 @@ export default function AdminClientDetailPage({ params }: { params: { id: string
         />
       )}
 
-      {activeTab === 'documents' && (
+      {activeTab === 'consents' && (
+        <div className="bg-white rounded-xl border border-black shadow-sm p-6">
+          <h3 className="font-semibold text-black mb-4">Consents</h3>
+          {loadingExtra ? (
+            <div className="space-y-2">
+              {[1, 2, 3].map((i) => <Skeleton key={i} className="h-10" />)}
+            </div>
+          ) : consents.length === 0 ? (
+            <p className="text-black text-sm">No consents on file.</p>
+          ) : (
+            <div className="space-y-2">
+              {consents.map((c) => (
+                <div key={c.id} className="flex items-center justify-between py-2 border-b border-black last:border-0">
+                  <p className="text-sm text-black">{c.consent_form?.name || c.form_type || 'Consent'}</p>
+                  <span className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Signed {formatDate(c.signed_at)}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          <Link href={`/admin/consents?client=${client.id}`} className="inline-block mt-4 text-sm text-pink-600 hover:text-pink-700 font-medium">
+            Manage consents →
+          </Link>
+        </div>
+      )}
+
+      {activeTab === 'photos' && (
+        <div className="bg-white rounded-xl border border-black shadow-sm p-6">
+          <h3 className="font-semibold text-black mb-4">Photos</h3>
+          <p className="text-black text-sm mb-4">Before/after and treatment photos.</p>
+          <Link
+            href={`/admin/clients/${client.id}/photos`}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#FF2D8E] text-white font-medium rounded-lg hover:bg-black transition-colors"
+          >
+            View photo gallery →
+          </Link>
+        </div>
+      )}
+
+      {activeTab === 'memberships' && (
+        <div className="bg-white rounded-xl border border-black shadow-sm p-6">
+          <h3 className="font-semibold text-black mb-4">Memberships</h3>
+          <p className="text-black text-sm">Active plans and usage. (Connect membership data in a later phase.)</p>
+          <Link href="/admin/memberships" className="inline-block mt-4 text-sm text-pink-600 hover:text-pink-700 font-medium">
+            Manage memberships →
+          </Link>
+        </div>
+      )}
+
+      {activeTab === 'wallet' && (
+        <div className="bg-white rounded-xl border border-black shadow-sm p-6">
+          <h3 className="font-semibold text-black mb-4">Wallet &amp; Gift Cards</h3>
+          {loadingExtra ? (
+            <Skeleton className="h-20" />
+          ) : giftCards.length === 0 ? (
+            <p className="text-black text-sm">No gift card balance on file.</p>
+          ) : (
+            <div className="space-y-3">
+              {giftCards.map((gc: any) => (
+                <div key={gc.id} className="flex items-center justify-between p-3 border border-black rounded-lg">
+                  <span className="text-sm text-black">Gift card</span>
+                  <span className="font-medium text-black">${Number(gc.balance_cents || 0) / 100}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          <Link href="/admin/gift-cards" className="inline-block mt-4 text-sm text-pink-600 hover:text-pink-700 font-medium">
+            Gift cards →
+          </Link>
+        </div>
+      )}
+
+      {activeTab === 'messages' && (
+        <div className="bg-white rounded-xl border border-black shadow-sm p-6">
+          <h3 className="font-semibold text-black mb-4">Messages</h3>
+          <p className="text-black text-sm mb-4">SMS and 2-way messaging with this client.</p>
+          <Link
+            href={`/admin/inbox?client=${client.id}`}
+            className="inline-flex items-center gap-2 px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors"
+          >
+            Open Inbox →
+          </Link>
+        </div>
+      )}
+
+      {activeTab === 'files' && (
         <DocumentsTabContent
           clientId={client.id}
           formatDate={formatDate}
           consents={consents}
           loadingExtra={loadingExtra}
         />
+      )}
+
+      {activeTab === 'alerts' && (
+        <div className="bg-white rounded-xl border border-black shadow-sm p-6">
+          <h3 className="font-semibold text-black mb-4">Alerts &amp; Flags</h3>
+          <p className="text-black text-sm mb-4">Internal flags and notes for this client.</p>
+          <ul className="space-y-2">
+            {client.allergies_summary && (
+              <li className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <span>⚠️</span>
+                <span className="text-sm text-black"><strong>Allergies:</strong> {client.allergies_summary}</span>
+              </li>
+            )}
+            {client.is_vip && (
+              <li className="flex items-center gap-2 p-3 bg-purple-50 border border-purple-200 rounded-lg">
+                <span>💎</span>
+                <span className="text-sm text-black">VIP</span>
+              </li>
+            )}
+            {client.internal_notes && (
+              <li className="flex items-center gap-2 p-3 bg-amber-50 border border-amber-200 rounded-lg">
+                <span>📌</span>
+                <span className="text-sm text-black"><strong>Notes:</strong> {client.internal_notes}</span>
+              </li>
+            )}
+            {!client.allergies_summary && !client.is_vip && !client.internal_notes && (
+              <li className="text-sm text-black">No alerts or flags set.</li>
+            )}
+          </ul>
+        </div>
       )}
 
       {/* 2-Way Inbox Modal */}
