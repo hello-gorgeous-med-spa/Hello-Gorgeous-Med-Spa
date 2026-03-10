@@ -2,12 +2,11 @@
 
 // ============================================================
 // ADMIN SETTINGS PAGE
-// Fully functional - saves to database
+// Fully functional - saves to API (in-memory or DB when available)
 // ============================================================
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { SITE } from '@/lib/seo';
 
 interface BusinessSettings {
   business_name: string;
@@ -30,11 +29,12 @@ export default function AdminSettingsPage() {
   const [saving, setSaving] = useState(false);
   const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState<string | null>(null);
   
   const [settings, setSettings] = useState<BusinessSettings>({
     business_name: 'Your Med Spa',
     phone: '',
-    email: (typeof SITE !== 'undefined' && SITE?.email) ? SITE.email : '',
+    email: '',
     address: '',
     timezone: 'America/Chicago',
     online_booking_enabled: true,
@@ -72,9 +72,13 @@ export default function AdminSettingsPage() {
           if (data.businessHours) {
             setBusinessHours(prev => ({ ...prev, ...data.businessHours }));
           }
+          setLoadError(null);
+        } else {
+          setLoadError(res ? 'Could not load saved settings.' : 'Settings server unavailable. You can still edit and save.');
         }
       } catch (err) {
         console.error('Failed to load settings:', err);
+        setLoadError('Could not load settings. You can still edit and save.');
       } finally {
         setLoading(false);
       }
@@ -144,6 +148,12 @@ export default function AdminSettingsPage() {
           </span>
         )}
       </div>
+
+      {loadError && (
+        <div className="bg-amber-50 border border-amber-200 text-amber-800 px-4 py-3 rounded-lg text-sm">
+          {loadError}
+        </div>
+      )}
 
       {/* Quick links to other settings */}
       <div className="bg-white rounded-xl border border-black shadow-sm p-4">

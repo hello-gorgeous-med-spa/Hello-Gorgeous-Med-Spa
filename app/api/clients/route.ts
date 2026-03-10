@@ -75,11 +75,13 @@ export async function GET(request: NextRequest) {
     // Paginate
     const total = allClients.length;
     const clients = allClients.slice(offset, offset + limit);
-    return NextResponse.json({
+    const res: { clients: any[]; total: number; source: string; square_configured?: boolean } = {
       clients,
       total,
       source: squareClients.length ? 'square' : 'local',
-    });
+    };
+    if (total === 0) res.square_configured = isSquareConfigured();
+    return NextResponse.json(res);
   }
 
   try {

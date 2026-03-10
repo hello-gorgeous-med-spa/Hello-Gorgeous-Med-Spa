@@ -173,11 +173,11 @@ export default function AdminClientsPage() {
         </div>
       </div>
 
-      {/* Error State */}
+      {/* Error State — show at top and in empty table */}
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
+        <div className="bg-amber-50 border border-amber-300 text-amber-900 px-4 py-3 rounded-lg font-medium">
           {error}
-          <button onClick={() => fetchClients(debouncedSearch, currentPage, pageSize)} className="ml-4 underline">Retry</button>
+          <button onClick={() => fetchClients(debouncedSearch, currentPage, pageSize)} className="ml-4 underline font-semibold">Retry</button>
         </div>
       )}
 
@@ -221,6 +221,16 @@ export default function AdminClientsPage() {
                           className="text-pink-600 hover:text-pink-700 mt-2"
                         >
                           Clear search
+                        </button>
+                      </div>
+                    ) : error ? (
+                      <div className="text-center max-w-lg mx-auto">
+                        <p className="font-medium text-amber-800">{error}</p>
+                        <button
+                          onClick={() => fetchClients(debouncedSearch, currentPage, pageSize)}
+                          className="mt-4 px-4 py-2 bg-[#FF2D8E] text-white rounded-lg font-medium hover:bg-black"
+                        >
+                          Retry
                         </button>
                       </div>
                     ) : (
