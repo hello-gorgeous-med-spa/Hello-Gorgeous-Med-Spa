@@ -222,7 +222,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Combine client and user data (include Client Intelligence: source, LTV, visits)
-    const clients = (clientsData || []).map((c: any) => {
+    let clients = (clientsData || []).map((c: any) => {
       const user = usersMap[c.user_id] || {};
       const ltvCents = c.total_lifetime_value_cents ?? c.lifetime_value_cents ?? 0;
       const visits = c.total_visits ?? c.visit_count ?? 0;
@@ -243,10 +243,36 @@ export async function GET(request: NextRequest) {
       };
     });
 
-    // Search is applied in DB; no client-side filter needed
+    // When DB has no clients, load from Square so the list isn't empty
+    const dbTotal = count ?? 0;
+    if (dbTotal === 0 && clients.length === 0) {
+      const squareClients = await fetchAllSquareCustomers();
+      if (squareClients.length > 0) {
+        let squareList = squareClients;
+        if (search && search.trim()) {
+          const q = search.trim().toLowerCase();
+          squareList = squareList.filter(
+            (c: any) =>
+              c.first_name?.toLowerCase().includes(q) ||
+              c.last_name?.toLowerCase().includes(q) ||
+              c.email?.toLowerCase().includes(q)
+          );
+        }
+        const total = squareList.length;
+        const limit = parseInt(searchParams.get('limit') || '100');
+        const offset = parseInt(searchParams.get('offset') || '0');
+        clients = squareList.slice(offset, offset + limit);
+        return NextResponse.json({
+          clients,
+          total,
+          source: 'square',
+        });
+      }
+    }
+
     return NextResponse.json({
       clients,
-      total: count ?? 0,
+      total: dbTotal,
     });
   } catch (error) {
     console.error('Clients API error:', error);

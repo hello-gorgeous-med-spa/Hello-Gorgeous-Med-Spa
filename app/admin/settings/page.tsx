@@ -34,7 +34,7 @@ export default function AdminSettingsPage() {
   const [settings, setSettings] = useState<BusinessSettings>({
     business_name: 'Your Med Spa',
     phone: '',
-    email: SITE?.email ?? '',
+    email: (typeof SITE !== 'undefined' && SITE?.email) ? SITE.email : '',
     address: '',
     timezone: 'America/Chicago',
     online_booking_enabled: true,
@@ -271,9 +271,9 @@ export default function AdminSettingsPage() {
             <button 
               type="button"
               onClick={() => setSettings({...settings, online_booking_enabled: !settings.online_booking_enabled})}
-              className={`w-12 h-6 rounded-full relative transition-colors ${settings.online_booking_enabled ? 'bg-green-500' : 'bg-white'}`}
+              className={`w-12 h-6 rounded-full relative transition-colors border border-black/20 ${settings.online_booking_enabled ? 'bg-green-500' : 'bg-gray-100'}`}
             >
-              <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${settings.online_booking_enabled ? 'right-1' : 'left-1'}`} />
+              <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all border border-black/10 ${settings.online_booking_enabled ? 'right-1' : 'left-1'}`} />
             </button>
           </div>
           <div className="flex items-center justify-between">
@@ -284,9 +284,9 @@ export default function AdminSettingsPage() {
             <button 
               type="button"
               onClick={() => setSettings({...settings, require_deposit: !settings.require_deposit})}
-              className={`w-12 h-6 rounded-full relative transition-colors ${settings.require_deposit ? 'bg-green-500' : 'bg-white'}`}
+              className={`w-12 h-6 rounded-full relative transition-colors border border-black/20 ${settings.require_deposit ? 'bg-green-500' : 'bg-gray-100'}`}
             >
-              <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${settings.require_deposit ? 'right-1' : 'left-1'}`} />
+              <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all border border-black/10 ${settings.require_deposit ? 'right-1' : 'left-1'}`} />
             </button>
           </div>
           <div className="flex items-center justify-between">
@@ -297,9 +297,9 @@ export default function AdminSettingsPage() {
             <button 
               type="button"
               onClick={() => setSettings({...settings, send_reminders: !settings.send_reminders})}
-              className={`w-12 h-6 rounded-full relative transition-colors ${settings.send_reminders ? 'bg-green-500' : 'bg-white'}`}
+              className={`w-12 h-6 rounded-full relative transition-colors border border-black/20 ${settings.send_reminders ? 'bg-green-500' : 'bg-gray-100'}`}
             >
-              <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${settings.send_reminders ? 'right-1' : 'left-1'}`} />
+              <span className={`absolute top-1 w-4 h-4 bg-white rounded-full shadow transition-all border border-black/10 ${settings.send_reminders ? 'right-1' : 'left-1'}`} />
             </button>
           </div>
         </div>
