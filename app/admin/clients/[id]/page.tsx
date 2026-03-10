@@ -680,7 +680,7 @@ function UnifiedChartTabContent({
         <div className="space-y-4">
           <ClientChartNotes clientId={clientId} />
           <div className="flex gap-2">
-            <Link href={`/charting?client_id=${clientId}`} className="px-4 py-2 bg-[#2D63A4] text-white text-sm font-medium rounded-lg">New Chart Note</Link>
+            <Link href={`/admin/charting?client=${clientId}`} className="px-4 py-2 bg-[#2D63A4] text-white text-sm font-medium rounded-lg">New Chart Note</Link>
             <Link href={`/admin/charting/injection-map?client=${clientId}`} className="px-4 py-2 bg-white text-black text-sm font-medium rounded-lg">Injection Map</Link>
           </div>
         </div>
@@ -773,7 +773,7 @@ function ClientChartNotes({ clientId }: { clientId: string }) {
       <div className="flex items-center justify-between mb-4">
         <h3 className="font-semibold text-black">Chart Notes</h3>
         <Link
-          href={`/charting?client_id=${clientId}`}
+          href={`/admin/charting?client=${clientId}`}
           className="text-sm text-pink-600 hover:text-pink-700"
         >
           View All →
@@ -784,7 +784,7 @@ function ClientChartNotes({ clientId }: { clientId: string }) {
           <span className="text-3xl mb-2 block">📋</span>
           <p className="text-black text-sm">No chart notes yet</p>
           <Link
-            href={`/charting?client=${clientId}`}
+            href={`/admin/charting?client=${clientId}`}
             className="text-pink-600 text-sm hover:text-pink-700 mt-1 inline-block"
           >
             Create first note →
@@ -795,7 +795,7 @@ function ClientChartNotes({ clientId }: { clientId: string }) {
           {notes.map((note) => (
             <Link
               key={note.id}
-              href={note.status === 'draft' ? `/charting/${note.id}/edit` : `/charting?note=${note.id}`}
+              href={`/admin/charting/${note.id}`}
               className="block border-b border-black pb-3 last:border-0 hover:bg-white -mx-2 px-2 py-1 rounded transition-colors"
             >
               <div className="flex items-center justify-between">

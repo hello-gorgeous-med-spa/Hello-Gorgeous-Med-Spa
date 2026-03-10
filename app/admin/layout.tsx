@@ -19,7 +19,7 @@ const MAIN_NAV: { href: string; label: string; icon: string }[] = [
   { href: '/admin', label: 'Dashboard', icon: '📊' },
   { href: '/admin/calendar', label: 'Calendar', icon: '🗓' },
   { href: '/admin/clients', label: 'Clients', icon: '👥' },
-  { href: '/charting', label: 'Charting', icon: '📋' },
+  { href: '/admin/charting', label: 'Charting', icon: '📋' },
   { href: '/admin/services', label: 'Services', icon: '✨' },
   { href: '/admin/memberships', label: 'Memberships', icon: '💎' },
   { href: '/admin/inventory', label: 'Inventory', icon: '📦' },
@@ -40,7 +40,7 @@ function visibleHrefs(role: AdminRole): Set<string> {
       return all;
     case 'staff':
       // Front desk: no Charting, Inventory, Staff, Reports, Website/Content
-      all.delete('/charting');
+      all.delete('/admin/charting');
       all.delete('/admin/inventory');
       all.delete('/admin/staff');
       all.delete('/admin/reports');
