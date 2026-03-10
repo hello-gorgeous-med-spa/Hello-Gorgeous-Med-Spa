@@ -1,10 +1,11 @@
 // ============================================================
-import { createClient } from '@supabase/supabase-js';
 // API: CLIENTS - Full CRUD with service role (bypasses RLS)
-// Fixed: No foreign key joins - uses separate queries
+// Integrated with Square: when no DB or as merge, load customers from Square
 // ============================================================
 
+import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
+import { fetchAllSquareCustomers } from '@/lib/square-clients';
 
 // Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
@@ -37,29 +38,48 @@ export async function GET(request: NextRequest) {
   const id = searchParams.get('id');
   const search = searchParams.get('search');
 
-  // If no DB, return local clients
+  // If no DB: try Square first, then in-memory store
   if (!supabase) {
-    const allClients = Array.from(clientStore.values());
-    
+    const limit = Math.min(100, Math.max(1, parseInt(searchParams.get('limit') || '100')));
+    const offset = parseInt(searchParams.get('offset') || '0');
+
+    // Load all from Square when configured (SQUARE_ACCESS_TOKEN or SQUARE_TOKEN)
+    const squareClients = await fetchAllSquareCustomers();
+    let allClients: any[] = [...squareClients];
+
+    // Merge in-memory store (any clients added via POST when no DB)
+    const localClients = Array.from(clientStore.values());
+    for (const c of localClients) {
+      if (!allClients.some((s: any) => s.id === c.id)) allClients.push(c);
+    }
+
+    // Search filter (first name, last name, email)
+    if (search && search.trim()) {
+      const q = search.trim().toLowerCase();
+      allClients = allClients.filter(
+        (c: any) =>
+          c.first_name?.toLowerCase().includes(q) ||
+          c.last_name?.toLowerCase().includes(q) ||
+          c.email?.toLowerCase().includes(q)
+      );
+    }
+
     if (id) {
-      const client = clientStore.get(id);
+      const client = allClients.find((c: any) => c.id === id) ?? clientStore.get(id);
       if (client) {
         return NextResponse.json({ client });
       }
       return NextResponse.json({ error: 'Client not found' }, { status: 404 });
     }
-    
-    let filtered = allClients;
-    if (search) {
-      const searchLower = search.toLowerCase();
-      filtered = allClients.filter((c: any) =>
-        c.first_name?.toLowerCase().includes(searchLower) ||
-        c.last_name?.toLowerCase().includes(searchLower) ||
-        c.email?.toLowerCase().includes(searchLower)
-      );
-    }
-    
-    return NextResponse.json({ clients: filtered, total: filtered.length, source: 'local' });
+
+    // Paginate
+    const total = allClients.length;
+    const clients = allClients.slice(offset, offset + limit);
+    return NextResponse.json({
+      clients,
+      total,
+      source: squareClients.length ? 'square' : 'local',
+    });
   }
 
   try {
