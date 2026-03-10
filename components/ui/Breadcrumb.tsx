@@ -59,6 +59,7 @@ export function Breadcrumb({ items, showHome = true }: BreadcrumbProps) {
 
   // Auto-generate breadcrumbs if not provided
   const breadcrumbs: BreadcrumbItem[] = items || (() => {
+    if (!pathname || typeof pathname !== 'string') return [];
     const segments = pathname.split('/').filter(Boolean);
     const crumbs: BreadcrumbItem[] = [];
     let currentPath = '';

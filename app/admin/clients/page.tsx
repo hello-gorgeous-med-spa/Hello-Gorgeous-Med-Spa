@@ -5,7 +5,7 @@
 // Full client management - Uses API to bypass RLS
 // ============================================================
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { Breadcrumb, Pagination, ExportButton, NoClientsEmptyState } from '@/components/ui';
 
@@ -52,54 +52,48 @@ export default function AdminClientsPage() {
   }, [searchQuery]);
 
   // Fetch clients via API with pagination — always show UI even when API fails
-  const fetchClients = async (search?: string, page = 1, limit = 25) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const params = new URLSearchParams();
-      if (search) params.set('search', search);
-      if (sourceFilter) params.set('source', sourceFilter);
-      params.set('limit', limit.toString());
-      params.set('offset', ((page - 1) * limit).toString());
-
-      const response = await fetch(`/api/clients?${params}`);
-      let data: { clients?: Client[]; total?: number; error?: string; warning?: string; source?: string } = {};
+  const fetchClients = useCallback(
+    async (search?: string, page = 1, limit = 25) => {
+      setLoading(true);
+      setError(null);
       try {
-        data = await response.json();
-      } catch {
-        data = {};
+        const params = new URLSearchParams();
+        if (search) params.set('search', search);
+        if (sourceFilter) params.set('source', sourceFilter);
+        params.set('limit', limit.toString());
+        params.set('offset', ((page - 1) * limit).toString());
+        const response = await fetch(`/api/clients?${params}`);
+        const data: { clients?: Client[]; total?: number; error?: string; warning?: string; source?: string } = await response.json().catch(() => ({}));
+        const list = Array.isArray(data.clients) ? data.clients : [];
+        const totalCount = typeof data.total === 'number' ? data.total : 0;
+        setClients(list);
+        setTotal(totalCount);
+        if (!response.ok) {
+          setError(data.error || 'Failed to fetch clients');
+          return;
+        }
+        if (data.source === 'local') {
+          setError('Database not connected. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in your hosting environment (e.g. Vercel).');
+        } else if (data.error || data.warning) {
+          setError(data.error || data.warning);
+        } else {
+          setError(null);
+        }
+      } catch (err) {
+        console.error('Error fetching clients:', err);
+        setError(err instanceof Error ? err.message : 'Failed to load clients');
+        setClients([]);
+        setTotal(0);
+      } finally {
+        setLoading(false);
       }
-
-      const list = Array.isArray(data.clients) ? data.clients : [];
-      const totalCount = typeof data.total === 'number' ? data.total : 0;
-      setClients(list);
-      setTotal(totalCount);
-
-      if (!response.ok) {
-        setError(data.error || 'Failed to fetch clients');
-        return;
-      }
-      // When DB is not configured, API returns source: 'local' and empty list — show clear message
-      if (data.source === 'local') {
-        setError('Database not connected. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in your hosting environment (e.g. Vercel).');
-      } else if (data.error || data.warning) {
-        setError(data.error || data.warning);
-      } else {
-        setError(null);
-      }
-    } catch (err) {
-      console.error('Error fetching clients:', err);
-      setError(err instanceof Error ? err.message : 'Failed to load clients');
-      setClients([]);
-      setTotal(0);
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [sourceFilter]
+  );
 
   useEffect(() => {
     fetchClients(debouncedSearch, currentPage, pageSize);
-  }, [debouncedSearch, currentPage, pageSize, sourceFilter]);
+  }, [debouncedSearch, currentPage, pageSize, fetchClients]);
 
   const totalPages = Math.ceil(total / pageSize);
 
@@ -179,7 +173,7 @@ export default function AdminClientsPage() {
       {error && (
         <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
           {error}
-          <button onClick={() => fetchClients()} className="ml-4 underline">Retry</button>
+          <button onClick={() => fetchClients(debouncedSearch, currentPage, pageSize)} className="ml-4 underline">Retry</button>
         </div>
       )}
 
@@ -269,12 +263,19 @@ export default function AdminClientsPage() {
                       </span>
                     </td>
                     <td className="px-5 py-4">
-                      <div className="flex items-center justify-end gap-2">
+                      <div className="flex items-center justify-end gap-2 flex-wrap">
                         <Link
                           href={`/admin/clients/${client.id}`}
                           className="px-3 py-1.5 text-sm font-medium text-black hover:bg-white rounded-lg"
                         >
                           View
+                        </Link>
+                        <Link
+                          href={`/admin/chart-to-cart/new?client=${client.id}`}
+                          className="px-3 py-1.5 text-sm font-medium text-[#2D63A4] hover:bg-blue-50 rounded-lg"
+                          title="Start Chart-to-Cart session"
+                        >
+                          Chart-to-Cart
                         </Link>
                         <Link
                           href={`/admin/appointments/new?client=${client.id}`}
