@@ -2,7 +2,7 @@
 export const FRESHA_BOOKING_URL =
   process.env.NEXT_PUBLIC_FRESHA_BOOKING_URL ||
   process.env.NEXT_PUBLIC_BOOKING_URL ||
-  "https://www.fresha.com/book-now/hello-gorgeous-med-spa-oswego-l02y7y2r";
+  "https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245";
 /** Primary booking CTA: Fresha (internal /book removed from site until OS is ready). */
 export const BOOKING_URL = FRESHA_BOOKING_URL;
 
