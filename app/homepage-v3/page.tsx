@@ -6,6 +6,7 @@ import {
   ServicesSection,
   ExperienceSection,
   InnovationSection,
+  TrifectaSection,
   PhilosophySection,
   FinalCTA,
 } from "@/components/homepage-v3";
@@ -31,6 +32,7 @@ export default function HomepageV3() {
       <ServicesSection />
       <ExperienceSection />
       <InnovationSection />
+      <TrifectaSection />
       <PhilosophySection />
       <FinalCTA />
     </main>
