@@ -1,214 +1,133 @@
 // ============================================================
-// MEMBERSHIPS API - Package & Membership Management
-// Track units, expiration, and usage
+// API: MEMBERSHIPS — Membership Builder (Phase 4)
+// GET: list, POST: create
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { createClient } from '@supabase/supabase-js';
 
-// GET /api/memberships - Get client memberships
+export const dynamic = 'force-dynamic';
+
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) return null;
+  try {
+    return createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
+  } catch {
+    return null;
+  }
+}
+
+import { membershipStore, nextMembershipId } from './store';
+
+function toRow(raw: any): Record<string, unknown> {
+  const cents = raw.monthly_price_cents != null ? Number(raw.monthly_price_cents) : Math.round((Number(raw.monthly_price) || 0) * 100);
+  return {
+    id: raw.id,
+    name: raw.name,
+    slug: raw.slug ?? (raw.name ? String(raw.name).toLowerCase().replace(/\s+/g, '-') : ''),
+    monthly_price_cents: cents,
+    monthly_price: cents / 100,
+    initiation_fee_cents: raw.initiation_fee_cents ?? null,
+    benefits: raw.benefits ?? null,
+    monthly_credits: raw.monthly_credits ?? null,
+    rollover: raw.rollover ?? false,
+    discounts: raw.discounts ?? null,
+    eligible_services: raw.eligible_services ?? null,
+    pause_cancel_rules: raw.pause_cancel_rules ?? null,
+    contract: raw.contract ?? null,
+    auto_billing: raw.auto_billing === true,
+    active: raw.active !== false,
+    created_at: raw.created_at,
+    updated_at: raw.updated_at,
+  };
+}
+
 export async function GET(request: NextRequest) {
-  const supabase = createServerSupabaseClient();
-  
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get('id');
+  const activeOnly = searchParams.get('active') === 'true';
+
+  const supabase = getSupabase();
+
   if (!supabase) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
+    const all = Array.from(membershipStore.values()).map(toRow);
+    if (id) {
+      const one = membershipStore.get(id);
+      if (!one) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+      return NextResponse.json({ membership: toRow(one) });
+    }
+    let list = all.sort((a: any, b: any) => String(a.name).localeCompare(String(b.name)));
+    if (activeOnly) list = list.filter((m: any) => m.active);
+    return NextResponse.json({ memberships: list, total: list.length, source: 'local' });
   }
 
-  const searchParams = request.nextUrl.searchParams;
-  const clientId = searchParams.get('clientId');
-  const membershipId = searchParams.get('id');
-
   try {
-    // Try to fetch from memberships table
-    let query = supabase
-      .from('client_memberships')
-      .select(`
-        *,
-        membership:memberships(id, name, description, type, price_cents)
-      `)
-      .eq('status', 'active');
-
-    if (clientId) {
-      query = query.eq('client_id', clientId);
+    if (id) {
+      const { data, error } = await supabase.from('memberships').select('*').eq('id', id).single();
+      if (error && error.code !== 'PGRST116') throw error;
+      if (!data) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+      return NextResponse.json({ membership: toRow(data) });
     }
-
-    if (membershipId) {
-      query = query.eq('id', membershipId);
-    }
-
+    let query = supabase.from('memberships').select('*').order('name');
+    if (activeOnly) query = query.eq('active', true);
     const { data, error } = await query;
-
-    if (error) {
-      // Table might not exist - return empty
-      console.log('Memberships query error (table may not exist):', error.message);
-      return NextResponse.json({ memberships: [], membership: null });
-    }
-
-    // Transform data
-    const memberships = (data || []).map((m: any) => ({
-      id: m.id,
-      client_id: m.client_id,
-      name: m.membership?.name || m.name || 'Membership',
-      type: m.membership?.type || m.type || 'package',
-      status: m.status,
-      units_total: m.units_total || 0,
-      units_remaining: m.units_remaining || 0,
-      units_used: (m.units_total || 0) - (m.units_remaining || 0),
-      started_at: m.started_at || m.created_at,
-      expires_at: m.expires_at,
-      auto_renew: m.auto_renew || false,
-      price_cents: m.membership?.price_cents || m.price_cents,
-    }));
-
-    return NextResponse.json({ 
-      memberships,
-      membership: memberships[0] || null,
-    });
-  } catch (error) {
-    console.error('Error fetching memberships:', error);
-    return NextResponse.json({ memberships: [], membership: null });
+    if (error) throw error;
+    const list = (data || []).map(toRow);
+    return NextResponse.json({ memberships: list, total: list.length });
+  } catch (err) {
+    console.error('Memberships GET error:', err);
+    return NextResponse.json({ error: 'Failed to fetch memberships' }, { status: 500 });
   }
 }
 
-// POST /api/memberships - Create or assign membership
 export async function POST(request: NextRequest) {
-  const supabase = createServerSupabaseClient();
-  
+  let body: Record<string, unknown>;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
+
+  const name = String(body.name || '').trim();
+  if (!name) return NextResponse.json({ error: 'name is required' }, { status: 400 });
+
+  const now = new Date().toISOString();
+  const slug = body.slug ? String(body.slug).trim() : name.toLowerCase().replace(/\s+/g, '-');
+  const monthlyPriceCents = body.monthly_price_cents != null ? Number(body.monthly_price_cents) : Math.round((Number(body.monthly_price) || 0) * 100);
+  const row = {
+    name,
+    slug,
+    monthly_price_cents: monthlyPriceCents,
+    initiation_fee_cents: body.initiation_fee_cents ?? null,
+    benefits: body.benefits ?? null,
+    monthly_credits: body.monthly_credits ?? null,
+    rollover: body.rollover === true,
+    discounts: body.discounts ?? null,
+    eligible_services: body.eligible_services ?? null,
+    pause_cancel_rules: body.pause_cancel_rules ?? null,
+    contract: body.contract ?? null,
+    auto_billing: body.auto_billing === true,
+    active: body.active !== false,
+    created_at: now,
+    updated_at: now,
+  };
+
+  const supabase = getSupabase();
   if (!supabase) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
+    const id = nextMembershipId();
+    const record = { id, ...row };
+    membershipStore.set(id, record as Record<string, unknown>);
+    return NextResponse.json({ membership: toRow(record) }, { status: 201 });
   }
 
   try {
-    const body = await request.json();
-    const {
-      client_id,
-      membership_id,
-      units_total,
-      expires_at,
-      auto_renew,
-      created_by,
-    } = body;
-
-    if (!client_id) {
-      return NextResponse.json({ error: 'client_id required' }, { status: 400 });
-    }
-
-    const { data, error } = await supabase
-      .from('client_memberships')
-      .insert({
-        client_id,
-        membership_id: membership_id || null,
-        units_total: units_total || 0,
-        units_remaining: units_total || 0,
-        status: 'active',
-        started_at: new Date().toISOString(),
-        expires_at: expires_at || null,
-        auto_renew: auto_renew || false,
-        created_by,
-      })
-      .select()
-      .single();
-
+    const { data, error } = await supabase.from('memberships').insert(row as Record<string, unknown>).select('*').single();
     if (error) throw error;
-
-    return NextResponse.json({ membership: data }, { status: 201 });
-  } catch (error) {
-    console.error('Error creating membership:', error);
+    return NextResponse.json({ membership: toRow(data) }, { status: 201 });
+  } catch (err) {
+    console.error('Memberships POST error:', err);
     return NextResponse.json({ error: 'Failed to create membership' }, { status: 500 });
-  }
-}
-
-// PUT /api/memberships - Use units from membership
-export async function PUT(request: NextRequest) {
-  const supabase = createServerSupabaseClient();
-  
-  if (!supabase) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
-  }
-
-  try {
-    const body = await request.json();
-    const {
-      id,
-      action, // 'use_units', 'add_units', 'cancel'
-      units,
-      appointment_id,
-      used_by,
-    } = body;
-
-    if (!id || !action) {
-      return NextResponse.json({ error: 'id and action required' }, { status: 400 });
-    }
-
-    // Get current membership
-    const { data: membership, error: fetchError } = await supabase
-      .from('client_memberships')
-      .select('*')
-      .eq('id', id)
-      .single();
-
-    if (fetchError || !membership) {
-      return NextResponse.json({ error: 'Membership not found' }, { status: 404 });
-    }
-
-    let updateData: any = {};
-
-    switch (action) {
-      case 'use_units':
-        if (membership.units_remaining < units) {
-          return NextResponse.json({ 
-            error: 'Insufficient units',
-            available: membership.units_remaining,
-            requested: units,
-          }, { status: 400 });
-        }
-        updateData.units_remaining = membership.units_remaining - units;
-        
-        // Log usage
-        await supabase
-          .from('membership_usage_log')
-          .insert({
-            client_membership_id: id,
-            units_used: units,
-            appointment_id: appointment_id || null,
-            used_by,
-            used_at: new Date().toISOString(),
-          });
-        break;
-
-      case 'add_units':
-        updateData.units_remaining = membership.units_remaining + units;
-        updateData.units_total = membership.units_total + units;
-        break;
-
-      case 'cancel':
-        updateData.status = 'cancelled';
-        updateData.cancelled_at = new Date().toISOString();
-        break;
-
-      default:
-        return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
-    }
-
-    const { data, error } = await supabase
-      .from('client_memberships')
-      .update(updateData)
-      .eq('id', id)
-      .select()
-      .single();
-
-    if (error) throw error;
-
-    return NextResponse.json({ 
-      membership: data,
-      message: action === 'use_units' 
-        ? `Used ${units} units. ${data.units_remaining} remaining.`
-        : action === 'add_units'
-        ? `Added ${units} units.`
-        : 'Membership updated.',
-    });
-  } catch (error) {
-    console.error('Error updating membership:', error);
-    return NextResponse.json({ error: 'Failed to update membership' }, { status: 500 });
   }
 }

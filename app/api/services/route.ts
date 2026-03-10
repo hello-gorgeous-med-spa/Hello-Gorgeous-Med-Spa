@@ -1,761 +1,150 @@
 // ============================================================
-import { createClient } from '@supabase/supabase-js';
-// API: SERVICES - Full CRUD with default data
+// API: SERVICES — Service Builder (Phase 4)
+// GET: list (optional ?active=true), POST: create
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@supabase/supabase-js';
 
-// Force dynamic rendering - this route uses request.url
 export const dynamic = 'force-dynamic';
 
-// Helper to safely create supabase client
 function getSupabase() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  
-  if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) {
-    return null;
-  }
-  
+  if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) return null;
   try {
-    // createClient imported at top
-    return createClient(url, key, {
-      auth: { autoRefreshToken: false, persistSession: false },
-    });
+    return createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
   } catch {
     return null;
   }
 }
 
-// Default categories for Hello Gorgeous Med Spa (using consistent UUIDs)
-const DEFAULT_CATEGORIES = [
-  { id: '11111111-1111-1111-1111-111111111001', name: 'Injectables', slug: 'injectables', display_order: 1 },
-  { id: '11111111-1111-1111-1111-111111111002', name: 'Dermal Fillers', slug: 'dermal-fillers', display_order: 2 },
-  { id: '11111111-1111-1111-1111-111111111003', name: 'Weight Loss', slug: 'weight-loss', display_order: 3 },
-  { id: '11111111-1111-1111-1111-111111111004', name: 'Skin Treatments', slug: 'skin-treatments', display_order: 4 },
-  { id: '11111111-1111-1111-1111-111111111005', name: 'IV Therapy', slug: 'iv-therapy', display_order: 5 },
-  { id: '11111111-1111-1111-1111-111111111006', name: 'Laser Treatments', slug: 'laser-treatments', display_order: 6 },
-  { id: '11111111-1111-1111-1111-111111111007', name: 'Wellness', slug: 'wellness', display_order: 7 },
-  { id: '11111111-1111-1111-1111-111111111008', name: 'Consultations', slug: 'consultations', display_order: 8 },
-];
+import { serviceStore, nextServiceId } from './store';
 
-// Default services for Hello Gorgeous Med Spa (using consistent UUIDs)
-const CAT_INJECTABLES = '11111111-1111-1111-1111-111111111001';
-const CAT_FILLERS = '11111111-1111-1111-1111-111111111002';
-const CAT_WEIGHT_LOSS = '11111111-1111-1111-1111-111111111003';
-const CAT_SKIN = '11111111-1111-1111-1111-111111111004';
-const CAT_IV = '11111111-1111-1111-1111-111111111005';
-const CAT_LASER = '11111111-1111-1111-1111-111111111006';
-const CAT_WELLNESS = '11111111-1111-1111-1111-111111111007';
-const CAT_CONSULTS = '11111111-1111-1111-1111-111111111008';
-
-const DEFAULT_SERVICES = [
-  // INJECTABLES
-  {
-    id: '22222222-2222-2222-2222-222222222001',
-    name: 'Botox',
-    slug: 'botox',
-    short_description: 'Smooth wrinkles & fine lines',
-    description: 'FDA-approved treatment to reduce the appearance of facial wrinkles and fine lines. Results typically last 3-4 months.',
-    category_id: CAT_INJECTABLES,
-    price_cents: 1200,
-    price_display: '$12/unit',
-    duration_minutes: 30,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222002',
-    name: 'Dysport',
-    slug: 'dysport',
-    short_description: 'Natural-looking wrinkle reduction',
-    description: 'A botulinum toxin treatment that smooths moderate to severe frown lines. Known for its natural-looking results.',
-    category_id: CAT_INJECTABLES,
-    price_cents: 400,
-    price_display: '$4/unit',
-    duration_minutes: 30,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222003',
-    name: 'Jeuveau',
-    slug: 'jeuveau',
-    short_description: 'Modern wrinkle treatment',
-    description: 'The newest FDA-approved neurotoxin, sometimes called "Newtox". Great for frown lines and forehead wrinkles.',
-    category_id: CAT_INJECTABLES,
-    price_cents: 1000,
-    price_display: '$10/unit',
-    duration_minutes: 30,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  // DERMAL FILLERS
-  {
-    id: '22222222-2222-2222-2222-222222222004',
-    name: 'Lip Filler',
-    slug: 'lip-filler',
-    short_description: 'Fuller, more defined lips',
-    description: 'Enhance lip volume and shape with hyaluronic acid fillers. Natural-looking results that last 6-12 months.',
-    category_id: CAT_FILLERS,
-    price_cents: 65000,
-    price_display: '$650',
-    duration_minutes: 45,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222005',
-    name: 'Cheek Filler',
-    slug: 'cheek-filler',
-    short_description: 'Restore volume & contour',
-    description: 'Add volume to cheeks for a lifted, youthful appearance. Uses premium hyaluronic acid fillers.',
-    category_id: CAT_FILLERS,
-    price_cents: 75000,
-    price_display: '$750',
-    duration_minutes: 45,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222006',
-    name: 'Jawline Contouring',
-    slug: 'jawline-contouring',
-    short_description: 'Define & sculpt your jawline',
-    description: 'Create a more defined jawline and chin profile with dermal fillers.',
-    category_id: CAT_FILLERS,
-    price_cents: 80000,
-    price_display: '$800',
-    duration_minutes: 60,
-    is_active: true,
-    requires_consult: true,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222007',
-    name: 'Under Eye Filler',
-    slug: 'under-eye-filler',
-    short_description: 'Reduce dark circles & hollows',
-    description: 'Treat under-eye hollows and dark circles with specialized tear trough filler treatment.',
-    category_id: CAT_FILLERS,
-    price_cents: 70000,
-    price_display: '$700',
-    duration_minutes: 45,
-    is_active: true,
-    requires_consult: true,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  // WEIGHT LOSS
-  {
-    id: '22222222-2222-2222-2222-222222222008',
-    name: 'Semaglutide Weight Loss',
-    slug: 'semaglutide-weight-loss',
-    short_description: 'Medical weight loss program',
-    description: 'FDA-approved GLP-1 medication for weight management. Includes weekly injections and provider support.',
-    category_id: CAT_WEIGHT_LOSS,
-    price_cents: 35000,
-    price_display: '$350/month',
-    duration_minutes: 30,
-    is_active: true,
-    requires_consult: true,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222009',
-    name: 'Tirzepatide Weight Loss',
-    slug: 'tirzepatide-weight-loss',
-    short_description: 'Advanced weight loss program',
-    description: 'Dual-action GLP-1/GIP medication for significant weight loss. Includes weekly injections and monitoring.',
-    category_id: CAT_WEIGHT_LOSS,
-    price_cents: 45000,
-    price_display: '$450/month',
-    duration_minutes: 30,
-    is_active: true,
-    requires_consult: true,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222010',
-    name: 'Lipo-B Injection',
-    slug: 'lipo-b-injection',
-    short_description: 'Fat-burning vitamin shot',
-    description: 'MIC + B12 injection to boost metabolism and support weight loss efforts.',
-    category_id: CAT_WEIGHT_LOSS,
-    price_cents: 3500,
-    price_display: '$35',
-    duration_minutes: 15,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  // IV THERAPY
-  {
-    id: '22222222-2222-2222-2222-222222222011',
-    name: "Myers' Cocktail IV",
-    slug: 'myers-cocktail-iv',
-    short_description: 'Ultimate wellness drip',
-    description: 'Classic IV therapy with vitamins B & C, magnesium, and calcium for energy and immune support.',
-    category_id: CAT_IV,
-    price_cents: 17500,
-    price_display: '$175',
-    duration_minutes: 45,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222012',
-    name: 'Immunity Boost IV',
-    slug: 'immunity-boost-iv',
-    short_description: 'High-dose vitamin C & zinc',
-    description: 'Strengthen your immune system with high-dose Vitamin C, zinc, and B vitamins.',
-    category_id: CAT_IV,
-    price_cents: 15000,
-    price_display: '$150',
-    duration_minutes: 45,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222013',
-    name: 'Beauty Glow IV',
-    slug: 'beauty-glow-iv',
-    short_description: 'Biotin & glutathione drip',
-    description: 'Promote healthy skin, hair, and nails with biotin, glutathione, and vitamin C.',
-    category_id: CAT_IV,
-    price_cents: 20000,
-    price_display: '$200',
-    duration_minutes: 60,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222014',
-    name: 'Hydration IV',
-    slug: 'hydration-iv',
-    short_description: 'Quick rehydration',
-    description: 'Fast hydration with electrolytes. Perfect for recovery, hangovers, or general wellness.',
-    category_id: CAT_IV,
-    price_cents: 12500,
-    price_display: '$125',
-    duration_minutes: 30,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  // SKIN TREATMENTS
-  {
-    id: '22222222-2222-2222-2222-222222222015',
-    name: 'Chemical Peel',
-    slug: 'chemical-peel',
-    short_description: 'Reveal fresh, glowing skin',
-    description: 'Professional chemical exfoliation to improve skin texture, tone, and clarity.',
-    category_id: CAT_SKIN,
-    price_cents: 15000,
-    price_display: '$150',
-    duration_minutes: 45,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222016',
-    name: 'Microneedling',
-    slug: 'microneedling',
-    short_description: 'Collagen-boosting treatment',
-    description: 'Stimulate collagen production for smoother, firmer skin. Great for scars, wrinkles, and pores.',
-    category_id: CAT_SKIN,
-    price_cents: 30000,
-    price_display: '$300',
-    duration_minutes: 60,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222017',
-    name: 'PRP Facial (Vampire Facial)',
-    slug: 'prp-facial',
-    short_description: 'Natural rejuvenation',
-    description: 'Combine microneedling with your own platelet-rich plasma for enhanced skin rejuvenation.',
-    category_id: CAT_SKIN,
-    price_cents: 50000,
-    price_display: '$500',
-    duration_minutes: 75,
-    is_active: true,
-    requires_consult: true,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  // WELLNESS
-  {
-    id: '22222222-2222-2222-2222-222222222018',
-    name: 'B12 Injection',
-    slug: 'b12-injection',
-    short_description: 'Energy boost',
-    description: 'Quick vitamin B12 injection for energy, metabolism, and mood support.',
-    category_id: CAT_WELLNESS,
-    price_cents: 2500,
-    price_display: '$25',
-    duration_minutes: 10,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222019',
-    name: 'Glutathione Injection',
-    slug: 'glutathione-injection',
-    short_description: 'Master antioxidant',
-    description: 'Powerful antioxidant injection for detox, skin brightening, and immune support.',
-    category_id: CAT_WELLNESS,
-    price_cents: 3500,
-    price_display: '$35',
-    duration_minutes: 15,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  // LASER TREATMENTS
-  {
-    id: '22222222-2222-2222-2222-222222222022',
-    name: 'Solaria CO₂ Fractional Laser - Full Face',
-    slug: 'solaria-co2-full-face',
-    short_description: 'Gold standard skin resurfacing',
-    description: 'Advanced fractional CO₂ laser treatment for deep wrinkles, acne scars, sun damage, and skin tightening. Dramatic results with one treatment.',
-    category_id: CAT_LASER,
-    price_cents: 150000,
-    price_display: 'From $1,500',
-    duration_minutes: 90,
-    is_active: true,
-    requires_consult: true,
-    requires_consent: true,
-    allow_online_booking: false,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222023',
-    name: 'Solaria CO₂ Fractional Laser - Neck',
-    slug: 'solaria-co2-neck',
-    short_description: 'Neck rejuvenation & tightening',
-    description: 'Fractional CO₂ laser treatment for neck lines, crepey skin, and tightening.',
-    category_id: CAT_LASER,
-    price_cents: 80000,
-    price_display: 'From $800',
-    duration_minutes: 60,
-    is_active: true,
-    requires_consult: true,
-    requires_consent: true,
-    allow_online_booking: false,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222024',
-    name: 'Solaria CO₂ Fractional Laser - Eyes/Periorbital',
-    slug: 'solaria-co2-eyes',
-    short_description: 'Crow\'s feet & eyelid rejuvenation',
-    description: 'Precision CO₂ treatment for crow\'s feet, eyelid laxity, and periorbital wrinkles.',
-    category_id: CAT_LASER,
-    price_cents: 60000,
-    price_display: 'From $600',
-    duration_minutes: 45,
-    is_active: true,
-    requires_consult: true,
-    requires_consent: true,
-    allow_online_booking: false,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222025',
-    name: 'Solaria CO₂ Fractional Laser - Full Face + Neck',
-    slug: 'solaria-co2-face-neck',
-    short_description: 'Complete facial & neck resurfacing',
-    description: 'Comprehensive CO₂ laser treatment for face and neck. Maximum transformation.',
-    category_id: CAT_LASER,
-    price_cents: 200000,
-    price_display: 'From $2,000',
-    duration_minutes: 120,
-    is_active: true,
-    requires_consult: true,
-    requires_consent: true,
-    allow_online_booking: false,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222026',
-    name: 'Laser Hair Removal - Small Area',
-    slug: 'laser-hair-removal-small',
-    short_description: 'Chin, upper lip, underarms',
-    description: 'Permanent hair reduction for small areas. Package pricing available.',
-    category_id: CAT_LASER,
-    price_cents: 7500,
-    price_display: 'From $75',
-    duration_minutes: 15,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222027',
-    name: 'Laser Hair Removal - Medium Area',
-    slug: 'laser-hair-removal-medium',
-    short_description: 'Bikini, Brazilian, half legs',
-    description: 'Permanent hair reduction for medium areas. Package pricing available.',
-    category_id: CAT_LASER,
-    price_cents: 15000,
-    price_display: 'From $150',
-    duration_minutes: 30,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222028',
-    name: 'Laser Hair Removal - Large Area',
-    slug: 'laser-hair-removal-large',
-    short_description: 'Full legs, back, chest',
-    description: 'Permanent hair reduction for large areas. Package pricing available.',
-    category_id: CAT_LASER,
-    price_cents: 25000,
-    price_display: 'From $250',
-    duration_minutes: 60,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: true,
-    allow_online_booking: true,
-  },
-  // CONSULTATIONS
-  {
-    id: '22222222-2222-2222-2222-222222222020',
-    name: 'New Client Consultation',
-    slug: 'new-client-consultation',
-    short_description: 'Personalized treatment planning',
-    description: 'Meet with our provider to discuss your goals and create a customized treatment plan.',
-    category_id: CAT_CONSULTS,
-    price_cents: 0,
-    price_display: 'Free',
-    duration_minutes: 30,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: false,
-    allow_online_booking: true,
-  },
-  {
-    id: '22222222-2222-2222-2222-222222222021',
-    name: 'Follow-Up Consultation',
-    slug: 'follow-up-consultation',
-    short_description: 'Check your progress',
-    description: 'Review your treatment results and adjust your plan as needed.',
-    category_id: CAT_CONSULTS,
-    price_cents: 0,
-    price_display: 'Free',
-    duration_minutes: 15,
-    is_active: true,
-    requires_consult: false,
-    requires_consent: false,
-    allow_online_booking: true,
-  },
-];
-
-export async function GET(request: NextRequest) {
-  // Helper function to format defaults for response - ALWAYS works
-  const getDefaultResponse = () => ({
-    services: DEFAULT_SERVICES.map(s => ({
-      ...s,
-      category: DEFAULT_CATEGORIES.find(c => c.id === s.category_id) || null,
-      price: s.price_cents / 100,
-    })),
-    categories: DEFAULT_CATEGORIES,
-  });
-
-  // Check if Supabase is configured
-  const supabase = getSupabase();
-  if (!supabase) {
-    console.log('Supabase not configured - returning default services');
-    return NextResponse.json(getDefaultResponse());
-  }
-
-  try {
-    const { searchParams } = new URL(request.url);
-    const activeOnly = searchParams.get('active') === 'true';
-    
-    // Try to fetch services from database
-    let servicesQuery = supabase
-      .from('services')
-      .select(`
-        *,
-        category:service_categories(id, name, slug)
-      `)
-      .order('name');
-
-    if (activeOnly) {
-      servicesQuery = servicesQuery.eq('is_active', true);
-    }
-
-    const { data: services, error: servicesError } = await servicesQuery;
-
-    // Fetch categories
-    const { data: categories, error: categoriesError } = await supabase
-      .from('service_categories')
-      .select('id, name, slug, display_order')
-      .order('display_order');
-
-    // If database has services, return them with computed price
-    if (!servicesError && services && services.length > 0) {
-      return NextResponse.json({
-        services: services.map(s => ({
-          ...s,
-          // Ensure price is always computed from price_cents for consistency
-          price: s.price_cents ? s.price_cents / 100 : (s.price || 0),
-        })),
-        categories: (!categoriesError && categories && categories.length > 0) ? categories : DEFAULT_CATEGORIES,
-      });
-    }
-
-    // Database is empty or errored - return defaults immediately
-    // This ensures the page always has data to display
-    console.log('Using default services (DB empty or unavailable)');
-    return NextResponse.json(getDefaultResponse());
-    
-  } catch (error) {
-    console.error('Services API error:', error);
-    // Return defaults on any error - never fail
-    return NextResponse.json(getDefaultResponse());
-  }
+function slugify(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '') || 'service';
 }
 
-// Auto-initialize tables if they don't exist
-async function ensureTablesExist(supabase: any) {
+function toServiceRow(raw: any): Record<string, unknown> {
+  const priceCents = raw.price_cents != null ? Number(raw.price_cents) : Math.round((Number(raw.price) || 0) * 100);
+  return {
+    id: raw.id,
+    name: raw.name,
+    slug: raw.slug || slugify(String(raw.name || '')),
+    category: raw.category ?? null,
+    description: raw.description ?? null,
+    duration_minutes: raw.duration_minutes != null ? Number(raw.duration_minutes) : 60,
+    cleanup_minutes: raw.cleanup_minutes != null ? Number(raw.cleanup_minutes) : 0,
+    price_cents: priceCents,
+    price: priceCents / 100,
+    deposit_cents: raw.deposit_cents != null ? Number(raw.deposit_cents) : null,
+    online_booking: raw.online_booking !== false,
+    membership_eligible: raw.membership_eligible === true,
+    package_eligible: raw.package_eligible === true,
+    consent_required: raw.consent_required === true,
+    intake_form_id: raw.intake_form_id ?? null,
+    aftercare_id: raw.aftercare_id ?? null,
+    active: raw.active !== false,
+    archived: raw.archived === true,
+    sort_order: raw.sort_order != null ? Number(raw.sort_order) : 0,
+    upsells: raw.upsells ?? null,
+    created_at: raw.created_at,
+    updated_at: raw.updated_at,
+  };
+}
+
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url);
+  const id = searchParams.get('id');
+  const activeOnly = searchParams.get('active') === 'true';
+
+  const supabase = getSupabase();
+
+  if (!supabase) {
+    const all = Array.from(serviceStore.values()).map((r) => toServiceRow(r));
+    if (id) {
+      const one = serviceStore.get(id);
+      if (!one) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+      return NextResponse.json({ service: toServiceRow(one) });
+    }
+    let list = all.sort((a: any, b: any) => (a.sort_order ?? 0) - (b.sort_order ?? 0) || String(a.name).localeCompare(String(b.name)));
+    if (activeOnly) list = list.filter((s: any) => s.active && !s.archived);
+    return NextResponse.json({ services: list, total: list.length, source: 'local' });
+  }
+
   try {
-    // Check if service_categories table exists by trying to query it
-    const { error: catError } = await supabase.from('service_categories').select('id').limit(1);
-    
-    if (catError && catError.code === '42P01') {
-      // Table doesn't exist - create it
-      console.log('Creating service_categories table...');
-      await supabase.rpc('exec_sql', {
-        sql: `
-          CREATE TABLE IF NOT EXISTS service_categories (
-            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-            name TEXT NOT NULL,
-            slug TEXT UNIQUE NOT NULL,
-            description TEXT,
-            display_order INT DEFAULT 0,
-            is_active BOOLEAN DEFAULT true,
-            created_at TIMESTAMPTZ DEFAULT NOW(),
-            updated_at TIMESTAMPTZ DEFAULT NOW()
-          );
-          ALTER TABLE service_categories ENABLE ROW LEVEL SECURITY;
-          DROP POLICY IF EXISTS service_categories_all ON service_categories;
-          CREATE POLICY service_categories_all ON service_categories FOR ALL USING (true) WITH CHECK (true);
-        `
-      }).catch(() => {
-        // If RPC doesn't work, we'll handle it differently
-        console.log('RPC not available for table creation');
-      });
-      
-      // Insert default categories
-      for (const cat of DEFAULT_CATEGORIES) {
-        await supabase.from('service_categories').upsert(cat, { onConflict: 'id' }).catch(() => {});
-      }
+    if (id) {
+      const { data, error } = await supabase.from('services').select('*').eq('id', id).single();
+      if (error && error.code !== 'PGRST116') throw error;
+      if (!data) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+      return NextResponse.json({ service: toServiceRow(data) });
     }
-    
-    // Check if services table exists
-    const { error: svcError } = await supabase.from('services').select('id').limit(1);
-    
-    if (svcError && svcError.code === '42P01') {
-      console.log('Creating services table...');
-      await supabase.rpc('exec_sql', {
-        sql: `
-          CREATE TABLE IF NOT EXISTS services (
-            id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-            name TEXT NOT NULL,
-            slug TEXT UNIQUE NOT NULL,
-            description TEXT,
-            short_description TEXT,
-            category_id UUID REFERENCES service_categories(id) ON DELETE SET NULL,
-            price_cents INT DEFAULT 0,
-            price_display TEXT,
-            duration_minutes INT DEFAULT 30,
-            is_active BOOLEAN DEFAULT true,
-            requires_consult BOOLEAN DEFAULT false,
-            requires_consent BOOLEAN DEFAULT true,
-            allow_online_booking BOOLEAN DEFAULT true,
-            provider_ids UUID[],
-            image_url TEXT,
-            sort_order INT DEFAULT 0,
-            created_at TIMESTAMPTZ DEFAULT NOW(),
-            updated_at TIMESTAMPTZ DEFAULT NOW()
-          );
-          ALTER TABLE services ENABLE ROW LEVEL SECURITY;
-          DROP POLICY IF EXISTS services_all ON services;
-          CREATE POLICY services_all ON services FOR ALL USING (true) WITH CHECK (true);
-        `
-      }).catch(() => {
-        console.log('RPC not available for table creation');
-      });
-    }
-    
-    return true;
+
+    let query = supabase.from('services').select('*').order('sort_order', { ascending: true }).order('name');
+    if (activeOnly) query = query.eq('active', true);
+    const { data, error } = await query;
+    if (error) throw error;
+    const list = (data || []).map(toServiceRow);
+    return NextResponse.json({ services: list, total: list.length });
   } catch (err) {
-    console.log('Table check error:', err);
-    return false;
+    console.error('Services GET error:', err);
+    return NextResponse.json({ error: 'Failed to fetch services' }, { status: 500 });
   }
 }
 
 export async function POST(request: NextRequest) {
+  let body: Record<string, unknown>;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 });
+  }
+
+  const name = String(body.name || '').trim();
+  if (!name) return NextResponse.json({ error: 'name is required' }, { status: 400 });
+
+  const now = new Date().toISOString();
+  const row = {
+    name,
+    slug: body.slug ? String(body.slug).trim() : slugify(name),
+    category: body.category ?? null,
+    description: body.description ?? null,
+    duration_minutes: body.duration_minutes != null ? Number(body.duration_minutes) : 60,
+    cleanup_minutes: body.cleanup_minutes != null ? Number(body.cleanup_minutes) : 0,
+    price_cents: body.price_cents != null ? Number(body.price_cents) : Math.round((Number(body.price) || 0) * 100),
+    deposit_cents: body.deposit_cents ?? null,
+    online_booking: body.online_booking !== false,
+    membership_eligible: body.membership_eligible === true,
+    package_eligible: body.package_eligible === true,
+    consent_required: body.consent_required === true,
+    intake_form_id: body.intake_form_id ?? null,
+    aftercare_id: body.aftercare_id ?? null,
+    active: body.active !== false,
+    archived: body.archived === true,
+    sort_order: body.sort_order != null ? Number(body.sort_order) : 0,
+    upsells: body.upsells ?? null,
+    created_at: now,
+    updated_at: now,
+  };
+
   const supabase = getSupabase();
   if (!supabase) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
+    const id = nextServiceId();
+    const record = { id, ...row };
+    serviceStore.set(id, record as Record<string, unknown>);
+    return NextResponse.json({ service: toServiceRow(record) }, { status: 201 });
   }
 
   try {
-    // Ensure tables exist before inserting
-    await ensureTablesExist(supabase);
-    
-    const body = await request.json();
-
-    // Generate UUID if not provided
-    if (!body.id) {
-      body.id = crypto.randomUUID();
-    }
-
-    // First, ensure category exists if specified
-    if (body.category_id) {
-      const cat = DEFAULT_CATEGORIES.find(c => c.id === body.category_id);
-      if (cat) {
-        await supabase.from('service_categories').upsert(cat, { onConflict: 'id' }).catch(() => {});
-      }
-    }
-
-    const { data, error } = await supabase
-      .from('services')
-      .insert(body)
-      .select()
-      .single();
-
-    if (error) {
-      console.error('Service create error:', error);
-      // If table doesn't exist error, provide helpful message
-      if (error.code === '42P01') {
-        return NextResponse.json({ 
-          error: 'Services table not set up. Please contact support or run the database setup.',
-          details: error.message 
-        }, { status: 500 });
-      }
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-
-    return NextResponse.json({ success: true, service: data });
-  } catch (error) {
-    console.error('Service POST error:', error);
+    const insertRow = { ...row } as Record<string, unknown>;
+    const { data, error } = await supabase.from('services').insert(insertRow).select('*').single();
+    if (error) throw error;
+    return NextResponse.json({ service: toServiceRow(data) }, { status: 201 });
+  } catch (err) {
+    console.error('Services POST error:', err);
     return NextResponse.json({ error: 'Failed to create service' }, { status: 500 });
-  }
-}
-
-export async function PUT(request: NextRequest) {
-  const supabase = getSupabase();
-  if (!supabase) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
-  }
-
-  try {
-    await ensureTablesExist(supabase);
-    
-    const body = await request.json();
-    const { id, ...updateData } = body;
-
-    if (!id) {
-      return NextResponse.json({ error: 'Service ID required' }, { status: 400 });
-    }
-
-    // Check if this is a default service that doesn't exist in DB yet
-    const defaultService = DEFAULT_SERVICES.find(s => s.id === id);
-    
-    // Try to update first
-    let { data, error } = await supabase
-      .from('services')
-      .update(updateData)
-      .eq('id', id)
-      .select()
-      .single();
-
-    // If no rows updated and it's a default service, insert it first then update
-    if (error && error.code === 'PGRST116' && defaultService) {
-      // Insert the default service first
-      const insertData = { ...defaultService, ...updateData };
-      const insertResult = await supabase
-        .from('services')
-        .upsert(insertData, { onConflict: 'id' })
-        .select()
-        .single();
-      
-      data = insertResult.data;
-      error = insertResult.error;
-    }
-
-    if (error) {
-      console.error('Service update error:', error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-
-    return NextResponse.json({ success: true, service: data });
-  } catch (error) {
-    console.error('Service PUT error:', error);
-    return NextResponse.json({ error: 'Failed to update service' }, { status: 500 });
-  }
-}
-
-export async function DELETE(request: NextRequest) {
-  const supabase = getSupabase();
-  if (!supabase) {
-    return NextResponse.json({ error: 'Database not configured' }, { status: 503 });
-  }
-
-  try {
-    const { searchParams } = new URL(request.url);
-    const id = searchParams.get('id');
-
-    if (!id) {
-      return NextResponse.json({ error: 'Service ID required' }, { status: 400 });
-    }
-
-    const { error } = await supabase
-      .from('services')
-      .delete()
-      .eq('id', id);
-
-    if (error) {
-      console.error('Service delete error:', error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
-    }
-
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('Service DELETE error:', error);
-    return NextResponse.json({ error: 'Failed to delete service' }, { status: 500 });
   }
 }
