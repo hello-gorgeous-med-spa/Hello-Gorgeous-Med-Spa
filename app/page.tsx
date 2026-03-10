@@ -156,8 +156,8 @@ export default function HomePage() {
         <RxShowcaseSection />
         <ExperienceSection />
         <InnovationSection />
-        <TrifectaSection />
         <AIAssistantsSection />
+        <TrifectaSection />
         <PhilosophySection />
         <HomepageOurStory />
         <HomepageTestimonials />
