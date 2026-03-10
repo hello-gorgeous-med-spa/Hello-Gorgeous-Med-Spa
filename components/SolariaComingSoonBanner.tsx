@@ -38,10 +38,10 @@ export function SolariaComingSoonBanner() {
               </span>
             </Link>
             <Link
-              href="/vip-skin-tightening"
+              href="/solaria-packages"
               className="inline-flex items-center gap-2 px-4 py-1.5 bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-600 hover:to-cyan-600 text-white text-sm font-bold rounded-full transition-all hover:scale-105 shadow-lg shadow-teal-500/25"
             >
-              Join Waitlist
+              View Packages
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
