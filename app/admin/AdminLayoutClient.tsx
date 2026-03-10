@@ -57,6 +57,22 @@ function showOwnerLink(role: AdminRole): boolean {
   return role === 'owner' || role === 'admin';
 }
 
+function AdminBuildId() {
+  const [buildId, setBuildId] = useState<string | null>(null);
+  useEffect(() => {
+    fetch('/api/build-id')
+      .then((r) => r.ok ? r.json() : null)
+      .then((d) => d?.commit && setBuildId(d.commit))
+      .catch(() => {});
+  }, []);
+  if (!buildId) return null;
+  return (
+    <footer className="text-center py-2 text-xs text-black/50">
+      Build: {buildId.slice(0, 7)}
+    </footer>
+  );
+}
+
 function useAdminManifest() {
   useEffect(() => {
     const manifestLink = document.querySelector('link[rel="manifest"]') as HTMLLinkElement;
@@ -156,6 +172,7 @@ export default function AdminLayoutClient({ children }: { children: React.ReactN
               {children}
             </main>
           </div>
+          <AdminBuildId />
         </div>
       </KeyboardShortcutsProvider>
     </ToastProvider>
