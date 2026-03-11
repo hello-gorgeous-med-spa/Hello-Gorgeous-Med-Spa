@@ -192,6 +192,26 @@ export async function GET(request: NextRequest) {
     query = query.range(offset, offset + limit - 1);
     const { data: clientsData, error: clientsError, count } = await query;
 
+    // Some Supabase setups don't return count when using range() + filters; fetch total separately if missing
+    let totalCount: number | null = typeof count === 'number' ? count : null;
+    if (totalCount === null && !clientsError) {
+      let countQuery = supabase.from('clients').select('*', { count: 'exact', head: true });
+      if (sourceFilter && sourceFilter.trim()) {
+        countQuery = countQuery.eq('source', sourceFilter.trim());
+      }
+      if (search && search.trim()) {
+        const term = search.trim().replace(/'/g, "''");
+        const pattern = `%${term}%`;
+        countQuery = countQuery.or(
+          `first_name.ilike.'${pattern}',last_name.ilike.'${pattern}',email.ilike.'${pattern}',phone.ilike.'${pattern}'`
+        );
+      }
+      const { count: fallbackCount } = await countQuery;
+      totalCount = typeof fallbackCount === 'number' ? fallbackCount : (clientsData?.length ?? 0);
+    } else if (totalCount === null) {
+      totalCount = 0;
+    }
+
     if (clientsError) {
       console.error('Error fetching clients:', clientsError);
       // Try Square so the list isn't empty when DB fails
@@ -269,7 +289,7 @@ export async function GET(request: NextRequest) {
     });
 
     // When DB has no clients, load from Square so the list isn't empty
-    const dbTotal = count ?? 0;
+    const dbTotal = totalCount ?? 0;
     if (dbTotal === 0 && clients.length === 0) {
       const squareClients = await fetchAllSquareCustomers();
       if (squareClients.length > 0) {
