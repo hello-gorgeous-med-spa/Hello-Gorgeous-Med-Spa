@@ -42,6 +42,10 @@ export default function NewCampaignPage() {
         <span className="font-semibold text-black">New campaign</span>
       </div>
       <h1 className="text-xl font-bold text-black mb-4">New campaign</h1>
+      <p className="text-black text-sm mb-4">
+        This creates a draft campaign. To <strong>send SMS live via Twilio</strong>, use{' '}
+        <Link href="/admin/sms" className="text-[#2D63A4] font-medium underline">SMS Campaigns</Link>.
+      </p>
       <form onSubmit={handleSubmit} className="space-y-4">
         {error && <div className="p-2 bg-red-50 border border-red-200 rounded text-red-800 text-sm">{error}</div>}
         <div>

@@ -1,87 +1,44 @@
+// ============================================================
+// API: Send single SMS (test or one-off) via Twilio
+// POST body: { to: string, message: string, mediaUrl?: string }
+// ============================================================
+
 import { NextRequest, NextResponse } from 'next/server';
+import { sendSMS } from '@/lib/hgos/sms-marketing';
+import { getTwilioSmsConfig, isTwilioConfigured } from '@/lib/hgos/twilio-config';
 
-// Telnyx Configuration
-const TELNYX_API_KEY = process.env.TELNYX_API_KEY;
-const TELNYX_PHONE_NUMBER = process.env.TELNYX_PHONE_NUMBER || '+13317177545';
-const TELNYX_MESSAGING_PROFILE_ID = process.env.TELNYX_MESSAGING_PROFILE_ID || '40019c14-a962-41a6-8d90-976426c9299f';
+export const dynamic = 'force-dynamic';
 
-/**
- * Send a single SMS message
- */
 export async function POST(request: NextRequest) {
+  if (!isTwilioConfigured()) {
+    return NextResponse.json(
+      { success: false, error: 'Twilio not configured. Set TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER.' },
+      { status: 503 }
+    );
+  }
+
   try {
     const body = await request.json();
-    const { to, message, mediaUrl } = body;
+    const to = body?.to?.trim();
+    const message = body?.message?.trim();
+    const mediaUrl = body?.mediaUrl?.trim() || undefined;
 
     if (!to || !message) {
-      return NextResponse.json(
-        { error: 'Missing required fields: to, message' },
-        { status: 400 }
-      );
+      return NextResponse.json({ success: false, error: 'Missing "to" or "message".' }, { status: 400 });
     }
 
-    if (!TELNYX_API_KEY) {
-      return NextResponse.json(
-        { error: 'Telnyx API key not configured' },
-        { status: 500 }
-      );
-    }
-
-    // Format phone number
-    let formattedPhone = to.replace(/\D/g, '');
-    if (formattedPhone.length === 10) {
-      formattedPhone = `+1${formattedPhone}`;
-    } else if (formattedPhone.length === 11 && formattedPhone.startsWith('1')) {
-      formattedPhone = `+${formattedPhone}`;
-    } else if (!formattedPhone.startsWith('+')) {
-      formattedPhone = `+${formattedPhone}`;
-    }
-
-    // Ensure message has opt-out language
-    let finalMessage = message;
-    const optOutPhrases = ['reply stop', 'text stop', 'opt out', 'unsubscribe', 'stop to'];
-    const hasOptOut = optOutPhrases.some(phrase => message.toLowerCase().includes(phrase));
-    if (!hasOptOut) {
-      finalMessage = message + '\n\nReply STOP to unsubscribe.';
-    }
-
-    // Send via Telnyx
-    const telnyxResponse = await fetch('https://api.telnyx.com/v2/messages', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${TELNYX_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: TELNYX_PHONE_NUMBER,
-        to: formattedPhone,
-        text: finalMessage,
-        messaging_profile_id: TELNYX_MESSAGING_PROFILE_ID,
-        ...(mediaUrl && { media_urls: [mediaUrl] }),
-      }),
-    });
-
-    const data = await telnyxResponse.json();
-
-    if (!telnyxResponse.ok) {
-      console.error('Telnyx error:', data);
-      return NextResponse.json(
-        { error: data.errors?.[0]?.detail || 'Failed to send SMS' },
-        { status: 400 }
-      );
-    }
-
-    return NextResponse.json({
-      success: true,
-      messageId: data.data?.id,
-      to: formattedPhone,
-    });
-
-  } catch (error) {
-    console.error('SMS send error:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
+    const config = getTwilioSmsConfig();
+    const result = await sendSMS(
+      { to, body: message, mediaUrl },
+      config
     );
+
+    if (result.success) {
+      return NextResponse.json({ success: true, messageId: result.messageId });
+    }
+    return NextResponse.json({ success: false, error: result.error }, { status: 502 });
+  } catch (e) {
+    console.error('[sms/send]', e);
+    return NextResponse.json({ success: false, error: 'Failed to send SMS' }, { status: 500 });
   }
 }

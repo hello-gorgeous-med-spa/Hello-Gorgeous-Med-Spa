@@ -15,21 +15,23 @@ export default function SMSCampaignPage() {
   const [charCount, setCharCount] = useState(0);
   const [estimatedCost, setEstimatedCost] = useState<any>(null);
   const [clientCount, setClientCount] = useState(0);
+  const [twilioConfigured, setTwilioConfigured] = useState(false);
 
-  // Fetch actual client count with SMS opt-in
+  // Fetch SMS stats (Twilio marketing audience size)
   useEffect(() => {
-    async function fetchClientCount() {
+    async function fetchStats() {
       try {
         const res = await fetch('/api/sms/stats');
         if (res.ok) {
           const data = await res.json();
           setClientCount(data.smsOptInCount || 0);
+          setTwilioConfigured(!!data.twilioConfigured);
         }
       } catch (err) {
         console.error('Error fetching SMS stats:', err);
       }
     }
-    fetchClientCount();
+    fetchStats();
   }, []);
 
   // Update character count
@@ -42,13 +44,14 @@ export default function SMSCampaignPage() {
     setCharCount(finalLength);
   }, [message]);
 
-  // Get cost estimate
+  // Get cost estimate (Twilio US SMS ~$0.0079/segment)
   useEffect(() => {
     const count = recipients === 'all' ? clientCount : customNumbers.split('\n').filter(n => n.trim()).length;
     if (count > 0) {
+      const costPerMsg = 0.0079;
       setEstimatedCost({
         recipients: count,
-        smsCost: `$${(count * 0.004).toFixed(2)}`,
+        smsCost: `$${(count * costPerMsg).toFixed(2)}`,
         estimatedMinutes: Math.ceil(count / 2),
         estimatedHours: (count / 2 / 60).toFixed(1),
       });
@@ -140,8 +143,20 @@ export default function SMSCampaignPage() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-black">SMS Campaigns</h1>
-        <p className="text-black mt-1">Send text message campaigns to your clients</p>
+        <p className="text-black mt-1">Send text message campaigns to your clients via Twilio</p>
       </div>
+
+      {!twilioConfigured && (
+        <div className="mb-6 p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-800">
+          <p className="font-medium">Twilio is not configured</p>
+          <p className="text-sm mt-1">
+            Set <code className="bg-amber-100 px-1 rounded">TWILIO_ACCOUNT_SID</code>,{' '}
+            <code className="bg-amber-100 px-1 rounded">TWILIO_AUTH_TOKEN</code>, and{' '}
+            <code className="bg-amber-100 px-1 rounded">TWILIO_PHONE_NUMBER</code> in your environment to send campaigns.
+            See <code className="bg-amber-100 px-1 rounded">docs/TWILIO_MARKETING.md</code> for setup.
+          </p>
+        </div>
+      )}
 
       {/* Cost Savings Banner */}
       <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl p-6 mb-8">
@@ -219,7 +234,7 @@ export default function SMSCampaignPage() {
                 className="w-full px-4 py-2 border border-black rounded-lg"
               />
               <p className="text-xs text-black mt-1">
-                MMS costs $0.015/msg vs $0.004 for SMS
+                MMS costs more than SMS. Twilio pricing applies.
               </p>
             </div>
           </div>

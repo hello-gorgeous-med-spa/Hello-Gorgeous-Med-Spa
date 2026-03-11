@@ -112,6 +112,7 @@ function MarketingContent() {
         <div className="space-y-4">
           <div className="flex justify-between items-center">
             <h2 className="text-lg font-semibold text-black">Campaigns</h2>
+            <Link href="/admin/sms" className="px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700">Send SMS (Twilio)</Link>
             <Link href="/admin/marketing/campaigns/new" className="px-4 py-2 bg-[#2D63A4] text-white font-medium rounded-lg hover:bg-[#234a7a]">+ New campaign</Link>
           </div>
           {loading ? (

@@ -1,66 +1,54 @@
 // ============================================================
-// SMS STATS API
-// Get count of clients opted in for SMS marketing (live from DB)
+// API: SMS Stats – count of clients eligible for SMS marketing (Twilio)
+// Used by Admin → SMS campaign page for "Send to all" audience size
 // ============================================================
 
 import { NextResponse } from 'next/server';
-import { createAdminSupabaseClient, createServerSupabaseClient, isAdminConfigured } from '@/lib/hgos/supabase';
+import { createClient } from '@supabase/supabase-js';
+
+export const dynamic = 'force-dynamic';
+
+function getSupabase() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) return null;
+  return createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
+}
 
 export async function GET() {
+  const supabase = getSupabase();
+  if (!supabase) {
+    return NextResponse.json({ smsOptInCount: 0, provider: 'twilio', note: 'Database not configured' });
+  }
+
   try {
-    // Use admin client so RLS doesn't block the count (same as campaign send)
-    const supabase = isAdminConfigured() ? createAdminSupabaseClient() : createServerSupabaseClient();
-    if (!supabase) {
-      return NextResponse.json({
-        smsOptInCount: 0,
-        totalWithPhone: 0,
-        totalClients: 0,
-        message: 'Database not configured',
-      });
+    // Count clients with a non-empty phone (SMS-reachable).
+    // When you add sms_opt_in to clients, filter: .eq('sms_opt_in', true)
+    const { count, error } = await supabase
+      .from('clients')
+      .select('*', { count: 'exact', head: true })
+      .not('phone', 'is', null)
+      .neq('phone', '');
+
+    if (error) {
+      console.error('[sms/stats]', error);
+      return NextResponse.json({ smsOptInCount: 0, provider: 'twilio', error: error.message });
     }
 
-    // Count clients who have opted IN to SMS and have a phone (join users for phone)
-    const { data: smsClients, error: smsError } = await supabase
-      .from('clients')
-      .select('id, user_id, users(phone)')
-      .eq('accepts_sms_marketing', true);
-
-    const smsOptInCount = (smsClients || []).filter((c: any) => c.users?.phone && String(c.users.phone).replace(/\D/g, '').length >= 10).length;
-
-    // Total clients with phone (any opt-in)
-    const { data: allClients } = await supabase
-      .from('clients')
-      .select('id, user_id, users(phone)');
-    const totalWithPhone = (allClients || []).filter((c: any) => c.users?.phone && String(c.users.phone).replace(/\D/g, '').length >= 10).length;
-
-    // Total clients
-    const { count: totalClients, error: totalError } = await supabase
-      .from('clients')
-      .select('id', { count: 'exact', head: true });
-
-    if (smsError || totalError) {
-      console.log('SMS stats query error:', smsError?.message || totalError?.message);
-      return NextResponse.json({
-        smsOptInCount: 0,
-        totalWithPhone: 0,
-        totalClients: 0,
-        message: 'No client data available',
-      });
-    }
+    const smsOptInCount = typeof count === 'number' ? count : 0;
+    const twilioConfigured = !!(
+      process.env.TWILIO_ACCOUNT_SID &&
+      process.env.TWILIO_AUTH_TOKEN &&
+      process.env.TWILIO_PHONE_NUMBER
+    );
 
     return NextResponse.json({
       smsOptInCount,
-      totalWithPhone,
-      totalClients: totalClients || 0,
-      optInRate: totalWithPhone ? ((smsOptInCount / totalWithPhone) * 100).toFixed(1) : '0',
+      provider: 'twilio',
+      twilioConfigured,
     });
-  } catch (error) {
-    console.error('SMS stats error:', error);
-    return NextResponse.json({
-      smsOptInCount: 0,
-      totalWithPhone: 0,
-      totalClients: 0,
-      error: 'Failed to fetch stats',
-    });
+  } catch (e) {
+    console.error('[sms/stats]', e);
+    return NextResponse.json({ smsOptInCount: 0, provider: 'twilio', error: 'Server error' });
   }
 }
