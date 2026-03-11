@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 import crypto from 'crypto';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
 
 function generateSessionToken(): string {
   return crypto.randomBytes(48).toString('hex');
@@ -13,6 +8,14 @@ function generateSessionToken(): string {
 
 export async function POST(request: NextRequest) {
   try {
+    const supabase = createAdminSupabaseClient();
+    if (!supabase) {
+      return NextResponse.json(
+        { error: 'Portal is temporarily unavailable. Please try again later.' },
+        { status: 503 }
+      );
+    }
+
     const { token } = await request.json();
     if (!token) {
       return NextResponse.json({ error: 'Token is required' }, { status: 400 });

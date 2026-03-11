@@ -1,11 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
+import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 import crypto from 'crypto';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
 
 function generateToken(): string {
   return crypto.randomBytes(32).toString('hex');
@@ -17,18 +12,49 @@ function hashToken(token: string): string {
 
 export async function POST(request: NextRequest) {
   try {
+    const supabase = createAdminSupabaseClient();
+    if (!supabase) {
+      return NextResponse.json(
+        { error: 'Portal login is temporarily unavailable. Please try again later or call (630) 636-6193.' },
+        { status: 503 }
+      );
+    }
+
     const { email } = await request.json();
     if (!email) {
       return NextResponse.json({ error: 'Email is required' }, { status: 400 });
     }
 
-    const { data: client } = await supabase
+    const emailNorm = email.toLowerCase().trim();
+
+    // Find client: first by clients.email, then by users.email (email is often on users table)
+    let client: { id: string; email: string | null; first_name: string | null; last_name: string | null; status?: string } | null = null;
+
+    const { data: byClientEmail } = await supabase
       .from('clients')
       .select('id, email, first_name, last_name, status')
-      .eq('email', email.toLowerCase().trim())
-      .single();
+      .eq('email', emailNorm)
+      .maybeSingle();
+    if (byClientEmail) client = byClientEmail as typeof client;
 
-    if (!client || client.status === 'inactive' || client.status === 'blocked') {
+    if (!client) {
+      const { data: user } = await supabase
+        .from('users')
+        .select('id')
+        .eq('email', emailNorm)
+        .maybeSingle();
+      if (user?.id) {
+        const { data: byUserId } = await supabase
+          .from('clients')
+          .select('id, email, first_name, last_name, status')
+          .eq('user_id', user.id)
+          .maybeSingle();
+        if (byUserId) client = byUserId as typeof client;
+      }
+    }
+
+    const status = (client as { status?: string } | null)?.status;
+    if (!client || status === 'inactive' || status === 'blocked') {
       return NextResponse.json({
         success: true,
         message: 'If an account exists with this email, a login link will be sent.'
@@ -72,13 +98,14 @@ export async function POST(request: NextRequest) {
     if (apiKey) {
       try {
         const fromEmail = process.env.RESEND_FROM_EMAIL || 'Hello Gorgeous <onboarding@resend.dev>';
-        const firstName = (client as { first_name?: string }).first_name || 'there';
+        const toEmail = (client as { email?: string | null }).email || emailNorm;
+        const firstName = (client as { first_name?: string | null }).first_name || 'there';
         const res = await fetch('https://api.resend.com/emails', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${apiKey}` },
           body: JSON.stringify({
             from: fromEmail,
-            to: [(client as { email: string }).email],
+            to: [toEmail],
             subject: 'Your Hello Gorgeous Portal Login Link',
             html: `
               <div style="font-family: sans-serif; max-width: 480px; margin: 0 auto;">

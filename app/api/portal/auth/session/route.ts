@@ -1,14 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@supabase/supabase-js';
-
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 
 // GET - Check current session
 export async function GET(request: NextRequest) {
   try {
+    const supabase = createAdminSupabaseClient();
+    if (!supabase) {
+      return NextResponse.json(
+        { authenticated: false, error: 'Portal temporarily unavailable' },
+        { status: 503 }
+      );
+    }
+
     const sessionToken = request.cookies.get('portal_session')?.value;
     
     if (!sessionToken) {
@@ -55,9 +58,10 @@ export async function GET(request: NextRequest) {
 // DELETE - Logout
 export async function DELETE(request: NextRequest) {
   try {
+    const supabase = createAdminSupabaseClient();
     const sessionToken = request.cookies.get('portal_session')?.value;
 
-    if (sessionToken) {
+    if (sessionToken && supabase) {
       const { data: session } = await supabase
         .from('client_sessions')
         .select('id, client_id')
