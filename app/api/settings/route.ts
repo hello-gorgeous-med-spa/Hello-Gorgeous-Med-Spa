@@ -1,6 +1,7 @@
 // ============================================================
 // GET/PUT /api/settings — Business settings (single source of truth)
 // No-code control: business name, contact, booking, hours
+// Updated: 2026-03-11
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
