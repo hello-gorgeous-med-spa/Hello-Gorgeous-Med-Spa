@@ -53,20 +53,41 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Appointment not found" }, { status: 404 });
     }
 
-    // Get client contact info from user_profiles (same pattern as aftercare)
+    // Get client then user (two queries to avoid PostgREST "different slug names" on join)
     const { data: client } = await supabase
       .from("clients")
-      .select(`
-        id,
-        user_profiles:user_id(first_name, last_name, email, phone)
-      `)
+      .select("id, user_id, first_name, last_name, email, phone")
       .eq("id", apt.client_id)
       .single();
 
-    const profile = client?.user_profiles
-      ? (Array.isArray(client.user_profiles) ? client.user_profiles[0] : client.user_profiles)
-      : null;
-    if (!profile) {
+    if (!client) {
+      return NextResponse.json({ error: "Client not found" }, { status: 404 });
+    }
+
+    let profile: { first_name: string; last_name: string | null; email: string | null; phone: string | null } = {
+      first_name: client.first_name || "there",
+      last_name: client.last_name ?? null,
+      email: client.email ?? null,
+      phone: client.phone ?? null,
+    };
+
+    if (client.user_id) {
+      const { data: user } = await supabase
+        .from("users")
+        .select("first_name, last_name, email, phone")
+        .eq("id", client.user_id)
+        .maybeSingle();
+      if (user) {
+        profile = {
+          first_name: user.first_name || profile.first_name,
+          last_name: user.last_name ?? profile.last_name,
+          email: user.email ?? profile.email,
+          phone: user.phone ?? profile.phone,
+        };
+      }
+    }
+
+    if (!profile.email && !profile.phone) {
       return NextResponse.json({ error: "Client contact info not found" }, { status: 404 });
     }
 

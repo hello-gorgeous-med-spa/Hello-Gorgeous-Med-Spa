@@ -1,6 +1,7 @@
 // ============================================================
 // CRON: Process pending review requests (24h delay)
 // Vercel Cron runs hourly. Processes pending where scheduled_for <= NOW().
+// Limit batch size to avoid 60s timeout; remainder processed on next run.
 // ============================================================
 
 import { NextRequest, NextResponse } from "next/server";
@@ -8,6 +9,8 @@ import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
 
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
+
+const MAX_BATCH = 15;
 
 export async function GET(request: NextRequest) {
   // Vercel Cron sends Authorization: Bearer <CRON_SECRET>
@@ -30,7 +33,9 @@ export async function GET(request: NextRequest) {
   const { data: pending, error } = await supabase
     .from("review_requests_pending")
     .select("id, appointment_id")
-    .lte("scheduled_for", new Date().toISOString());
+    .lte("scheduled_for", new Date().toISOString())
+    .limit(MAX_BATCH)
+    .order("scheduled_for", { ascending: true });
 
   if (error || !pending?.length) {
     return NextResponse.json({ processed: 0, pending: pending?.length ?? 0 });
