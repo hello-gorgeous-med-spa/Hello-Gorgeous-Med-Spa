@@ -8,6 +8,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import OwnerLayout from './layout-wrapper';
 
 type OwnerStats = {
   todayRevenue: number;
@@ -130,16 +131,13 @@ export default function AdminOwnerPage() {
   }, [fetchOwnerStats]);
 
   return (
-    <div className="p-6 max-w-5xl mx-auto space-y-6">
+    <OwnerLayout title="Overview" description="Business cockpit — revenue, productivity, quick edits.">
+    <div className="max-w-5xl space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-bold text-black">Owner</h1>
-          <p className="text-black mt-1">Business cockpit — revenue, productivity, quick edits.</p>
-        </div>
         <div className="flex items-center gap-2">
           <Link href="/admin" className="px-4 py-2 border border-black text-black font-medium rounded-lg hover:bg-gray-50">Dashboard</Link>
           <Link href="/admin/owner/live-state" className="px-4 py-2 bg-emerald-600 text-white font-medium rounded-lg hover:bg-emerald-700">Live System</Link>
-        <Link href="/admin/owner/manual" className="px-4 py-2 bg-black text-white font-medium rounded-lg hover:bg-gray-800">Owner&apos;s Manual</Link>
+          <Link href="/admin/owner/manual" className="px-4 py-2 bg-black text-white font-medium rounded-lg hover:bg-gray-800">Owner&apos;s Manual</Link>
         </div>
       </div>
 
@@ -267,5 +265,6 @@ export default function AdminOwnerPage() {
         <Link href="/admin" className="text-[#2D63A4] font-medium hover:underline">← Dashboard</Link>
       </div>
     </div>
+    </OwnerLayout>
   );
 }

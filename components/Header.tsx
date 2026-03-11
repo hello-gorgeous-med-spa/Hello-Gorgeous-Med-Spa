@@ -31,6 +31,7 @@ const navigation = {
           { label: "Morpheus8 RF", href: "/services/morpheus8", icon: "⚡", badge: "NEW" },
           { label: "Quantum RF", href: "/services/quantum-rf", icon: "🎯", badge: "NEW" },
           { label: "Solaria CO₂ Laser", href: "/stretch-mark-treatment-oswego-il", icon: "✨" },
+          { label: "Solaria Packages", href: "/solaria-packages", icon: "✨", badge: "PACKAGES" },
           { label: "HydraFacial", href: "/services/hydra-facial", icon: "💧" },
           { label: "IPL Photofacial", href: "/services/ipl-photofacial", icon: "💡" },
         ],
@@ -460,6 +461,19 @@ export function Header() {
               <SimpleDropdown data={navigation.rx} isOpen={activeDropdown === 'rx'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('rx')} />
             </div>
 
+            {/* Solaria Packages - direct link */}
+            <Link
+              href="/solaria-packages"
+              className={cx(
+                "flex items-center justify-center gap-1.5 h-10 px-3 rounded-lg text-sm font-medium transition-all",
+                pathname === '/solaria-packages'
+                  ? "text-white bg-[#FF2D8E]"
+                  : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
+              )}
+            >
+              Solaria
+            </Link>
+
             {/* More (Shop, Patient Care, Contact) */}
             <div 
               className="relative flex items-center"
@@ -606,6 +620,16 @@ export function Header() {
             >
               <span className="text-xl">💗</span>
               Fix what bothers me
+            </Link>
+
+            {/* Solaria Packages - prominent in mobile */}
+            <Link
+              href="/solaria-packages"
+              onClick={() => setMobileMenuOpen(false)}
+              className="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl bg-teal-500/10 border border-teal-500/30 text-teal-700 font-semibold"
+            >
+              <span className="text-xl">✨</span>
+              Solaria Packages
             </Link>
 
             {/* Services Section */}

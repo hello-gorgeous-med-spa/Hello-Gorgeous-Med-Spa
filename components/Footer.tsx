@@ -102,6 +102,14 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
               ))}
               <li>
                 <Link
+                  className="text-white hover:text-[#FF2D8E] transition-colors"
+                  href="/solaria-packages"
+                >
+                  Solaria Packages
+                </Link>
+              </li>
+              <li>
+                <Link
                   className="text-[#FF2D8E] hover:text-[#FF2D8E] transition-colors font-medium"
                   href="/services"
                 >
