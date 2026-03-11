@@ -42,6 +42,38 @@ export default function AdminClientsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
 
+  // Import from Square
+  const [importing, setImporting] = useState(false);
+  const [importResult, setImportResult] = useState<{ imported: number; skipped: number; message?: string; error?: string } | null>(null);
+
+  const runSquareImport = useCallback(async () => {
+    setImporting(true);
+    setImportResult(null);
+    setError(null);
+    try {
+      const res = await fetch('/api/clients/import', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ source: 'square' }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setImportResult({ imported: 0, skipped: 0, error: data.error || 'Import failed' });
+        return;
+      }
+      setImportResult({
+        imported: data.imported ?? 0,
+        skipped: data.skipped ?? 0,
+        message: data.message || `Imported ${data.imported ?? 0} clients.`,
+      });
+      fetchClients(debouncedSearch, currentPage, pageSize);
+    } catch (err) {
+      setImportResult({ imported: 0, skipped: 0, error: err instanceof Error ? err.message : 'Import failed' });
+    } finally {
+      setImporting(false);
+    }
+  }, [debouncedSearch, currentPage, pageSize, fetchClients]);
+
   // Debounce search
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -124,7 +156,15 @@ export default function AdminClientsPage() {
           <h1 className="text-2xl font-bold text-black">Clients</h1>
           <p className="text-black">{total.toLocaleString()} total clients</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <button
+            type="button"
+            onClick={runSquareImport}
+            disabled={importing}
+            className="px-4 py-2 bg-black text-white font-medium rounded-lg hover:bg-black/80 disabled:opacity-60 disabled:cursor-not-allowed"
+          >
+            {importing ? 'Importing…' : 'Import from Square'}
+          </button>
           <ExportButton
             data={clients}
             filename="clients"
@@ -138,6 +178,29 @@ export default function AdminClientsPage() {
           </Link>
         </div>
       </div>
+
+      {/* Import result */}
+      {importResult && (
+        <div className={`rounded-xl border p-4 ${importResult.error ? 'bg-red-50 border-red-200 text-red-800' : 'bg-green-50 border-green-200 text-green-800'}`}>
+          {importResult.error ? (
+            <p className="font-medium">{importResult.error}</p>
+          ) : (
+            <>
+              <p className="font-medium">{importResult.message}</p>
+              {importResult.skipped > 0 && (
+                <p className="text-sm mt-1">{importResult.skipped} already in database (skipped).</p>
+              )}
+            </>
+          )}
+          <button
+            type="button"
+            onClick={() => setImportResult(null)}
+            className="mt-2 text-sm underline"
+          >
+            Dismiss
+          </button>
+        </div>
+      )}
 
       {/* Search */}
       <div className="bg-white rounded-xl border border-black shadow-sm p-4">

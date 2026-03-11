@@ -41,15 +41,17 @@ export default function NewClientPage() {
     setError(null);
 
     try {
-      // Use API endpoint to create client (bypasses RLS issues)
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 20000); // 20s timeout
+
       const response = await fetch('/api/clients', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           first_name: formData.firstName,
           last_name: formData.lastName,
-          email: formData.email.toLowerCase(),
-          phone: formData.phone,
+          email: formData.email.trim().toLowerCase(),
+          phone: formData.phone?.trim() || '',
           date_of_birth: formData.dateOfBirth || null,
           gender: formData.gender || null,
           address_line1: formData.address || null,
@@ -61,18 +63,35 @@ export default function NewClientPage() {
           referral_source: formData.referralSource || null,
           internal_notes: formData.notes || null,
         }),
+        signal: controller.signal,
       });
 
-      const data = await response.json();
+      clearTimeout(timeoutId);
+
+      let data: { error?: string } = {};
+      try {
+        data = await response.json();
+      } catch {
+        setError(response.ok ? 'Client created but the response was invalid. Check the clients list.' : 'Server error. Please try again or call (630) 636-6193.');
+        return;
+      }
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to create client');
+        throw new Error(data.error || `Failed to create client (${response.status})`);
       }
 
       router.push('/admin/clients');
     } catch (err) {
       console.error('Error creating client:', err);
-      setError(err instanceof Error ? err.message : 'Failed to create client');
+      if (err instanceof Error) {
+        if (err.name === 'AbortError') {
+          setError('Request timed out. Check your connection and try again, or add the client from the front desk.');
+        } else {
+          setError(err.message);
+        }
+      } else {
+        setError('Failed to create client. Please try again or call (630) 636-6193.');
+      }
     } finally {
       setIsSubmitting(false);
     }
