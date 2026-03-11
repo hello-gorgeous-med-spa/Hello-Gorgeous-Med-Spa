@@ -45,34 +45,7 @@ export default function AdminClientsPage() {
   // Import from Square
   const [importing, setImporting] = useState(false);
   const [importResult, setImportResult] = useState<{ imported: number; skipped: number; message?: string; error?: string } | null>(null);
-
-  const runSquareImport = useCallback(async () => {
-    setImporting(true);
-    setImportResult(null);
-    setError(null);
-    try {
-      const res = await fetch('/api/clients/import', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ source: 'square' }),
-      });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        setImportResult({ imported: 0, skipped: 0, error: data.error || 'Import failed' });
-        return;
-      }
-      setImportResult({
-        imported: data.imported ?? 0,
-        skipped: data.skipped ?? 0,
-        message: data.message || `Imported ${data.imported ?? 0} clients.`,
-      });
-      fetchClients(debouncedSearch, currentPage, pageSize);
-    } catch (err) {
-      setImportResult({ imported: 0, skipped: 0, error: err instanceof Error ? err.message : 'Import failed' });
-    } finally {
-      setImporting(false);
-    }
-  }, [debouncedSearch, currentPage, pageSize, fetchClients]);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   // Debounce search
   useEffect(() => {
@@ -129,7 +102,37 @@ export default function AdminClientsPage() {
 
   useEffect(() => {
     fetchClients(debouncedSearch, currentPage, pageSize);
-  }, [debouncedSearch, currentPage, pageSize, fetchClients]);
+  }, [debouncedSearch, currentPage, pageSize, fetchClients, refreshKey]);
+
+  // Import from Square (defined after fetchClients so it can call it)
+  const runSquareImport = useCallback(async () => {
+    setImporting(true);
+    setImportResult(null);
+    setError(null);
+    try {
+      const res = await fetch('/api/clients/import', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ source: 'square' }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setImportResult({ imported: 0, skipped: 0, error: data.error || 'Import failed' });
+        return;
+      }
+      setImportResult({
+        imported: data.imported ?? 0,
+        skipped: data.skipped ?? 0,
+        message: data.message || `Imported ${data.imported ?? 0} clients.`,
+      });
+      // Trigger refresh
+      setRefreshKey((k) => k + 1);
+    } catch (err) {
+      setImportResult({ imported: 0, skipped: 0, error: err instanceof Error ? err.message : 'Import failed' });
+    } finally {
+      setImporting(false);
+    }
+  }, []);
 
   const totalPages = Math.ceil(total / pageSize);
 
@@ -157,6 +160,12 @@ export default function AdminClientsPage() {
           <p className="text-black">{total.toLocaleString()} total clients</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
+          <Link
+            href="/admin/sms"
+            className="px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700"
+          >
+            📱 SMS Campaign
+          </Link>
           <button
             type="button"
             onClick={runSquareImport}
