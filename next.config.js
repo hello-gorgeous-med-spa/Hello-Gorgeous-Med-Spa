@@ -24,18 +24,18 @@ const nextConfig = {
         { key: "X-Frame-Options", value: "DENY" },
         { key: "X-Content-Type-Options", value: "nosniff" },
         { key: "Referrer-Policy", value: "strict-origin" },
-        { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-        // CSP: allow self, inline scripts (Next.js), Supabase, Stripe, common CDNs; avoid blocking legitimate scripts
+        { key: "Permissions-Policy", value: "camera=(), microphone=(self), geolocation=()" },
+        // CSP: allow self, inline scripts (Next.js), Supabase, Stripe, WithCherry, common CDNs; avoid blocking legitimate scripts
         {
           key: "Content-Security-Policy",
           value: [
             "default-src 'self'",
-            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://js.stripe.com https://challenges.cloudflare.com",
+            "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://*.supabase.co https://js.stripe.com https://challenges.cloudflare.com https://*.withcherry.com https://files.withcherry.com",
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
             "img-src 'self' data: blob: https:",
             "font-src 'self' https://fonts.gstatic.com",
-            "connect-src 'self' https://*.supabase.co https://api.openai.com https://api.stripe.com wss://*.supabase.co",
-            "frame-src 'self' https://js.stripe.com https://challenges.cloudflare.com https://www.alle.com https://*.alle.com",
+            "connect-src 'self' https://*.supabase.co https://api.openai.com https://api.stripe.com wss://*.supabase.co https://*.withcherry.com",
+            "frame-src 'self' https://js.stripe.com https://challenges.cloudflare.com https://www.alle.com https://*.alle.com https://*.withcherry.com https://pay.withcherry.com",
             "frame-ancestors 'none'",
             "base-uri 'self'",
             "form-action 'self'",
