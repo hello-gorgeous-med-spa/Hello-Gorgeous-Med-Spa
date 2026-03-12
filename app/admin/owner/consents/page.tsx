@@ -2,34 +2,48 @@
 
 // ============================================================
 // CONSENTS & LEGAL - OWNER CONTROLLED
-// Consent forms, versioning, enforcement
+// Consent forms, versioning, enforcement, print, download, send
 // ============================================================
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import OwnerLayout from '../layout-wrapper';
+import { CONSENT_FORMS, type ConsentForm as ConsentFormType } from '@/lib/hgos/consent-forms';
 
-interface ConsentForm {
-  id: string;
-  name: string;
-  category: string;
-  version: number;
-  expires_days: number;
-  requires_signature: boolean;
-  is_active: boolean;
-  services_required: string[];
+// Category colors for visual organization
+const CATEGORY_COLORS: Record<string, { bg: string; text: string }> = {
+  'Compliance': { bg: 'bg-blue-100', text: 'text-blue-800' },
+  'Treatment': { bg: 'bg-pink-100', text: 'text-pink-800' },
+  'Marketing': { bg: 'bg-purple-100', text: 'text-purple-800' },
+  'Injectable': { bg: 'bg-rose-100', text: 'text-rose-800' },
+  'Laser': { bg: 'bg-amber-100', text: 'text-amber-800' },
+  'Skin': { bg: 'bg-emerald-100', text: 'text-emerald-800' },
+  'Body': { bg: 'bg-cyan-100', text: 'text-cyan-800' },
+  'Wellness': { bg: 'bg-teal-100', text: 'text-teal-800' },
+};
+
+function getCategoryFromForm(form: ConsentFormType): string {
+  if (form.id.includes('hipaa') || form.id.includes('arbitration') || form.id.includes('liability') || form.id.includes('cancellation')) return 'Compliance';
+  if (form.id.includes('injectable') || form.id.includes('botox') || form.id.includes('filler') || form.id.includes('kybella') || form.id.includes('pdo')) return 'Injectable';
+  if (form.id.includes('laser') || form.id.includes('ipl') || form.id.includes('hair_removal')) return 'Laser';
+  if (form.id.includes('morpheus') || form.id.includes('rf_') || form.id.includes('microneedling') || form.id.includes('chemical') || form.id.includes('hydra') || form.id.includes('derma')) return 'Skin';
+  if (form.id.includes('body') || form.id.includes('contouring')) return 'Body';
+  if (form.id.includes('iv_') || form.id.includes('bhrt') || form.id.includes('weight') || form.id.includes('prp')) return 'Wellness';
+  if (form.id.includes('photo') || form.id.includes('sms')) return 'Marketing';
+  if (form.id.includes('lash') || form.id.includes('brow')) return 'Treatment';
+  return 'Treatment';
 }
 
 export default function ConsentsPage() {
-  const [forms, setForms] = useState<ConsentForm[]>([
-    { id: '1', name: 'HIPAA Acknowledgment', category: 'Compliance', version: 3, expires_days: 365, requires_signature: true, is_active: true, services_required: ['all'] },
-    { id: '2', name: 'Financial Policy', category: 'Compliance', version: 2, expires_days: 365, requires_signature: true, is_active: true, services_required: ['all'] },
-    { id: '3', name: 'Neurotoxin Consent', category: 'Treatment', version: 4, expires_days: 365, requires_signature: true, is_active: true, services_required: ['Injectables'] },
-    { id: '4', name: 'Dermal Filler Consent', category: 'Treatment', version: 3, expires_days: 365, requires_signature: true, is_active: true, services_required: ['Dermal Fillers'] },
-    { id: '5', name: 'Photo Release', category: 'Marketing', version: 1, expires_days: 0, requires_signature: true, is_active: true, services_required: [] },
-  ]);
-
-  const [editingForm, setEditingForm] = useState<ConsentForm | null>(null);
+  const [selectedForm, setSelectedForm] = useState<ConsentFormType | null>(null);
+  const [showPreview, setShowPreview] = useState(false);
+  const [showSendModal, setShowSendModal] = useState(false);
+  const [sendEmail, setSendEmail] = useState('');
+  const [sendPhone, setSendPhone] = useState('');
+  const [sending, setSending] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState<string>('all');
+  const printRef = useRef<HTMLDivElement>(null);
 
   const [enforcementRules, setEnforcementRules] = useState({
     block_booking_without_consent: true,
@@ -38,8 +52,165 @@ export default function ConsentsPage() {
     allow_override_with_note: false,
   });
 
-  const toggleActive = (id: string) => {
-    setForms(prev => prev.map(f => f.id === id ? { ...f, is_active: !f.is_active } : f));
+  // Group forms by category
+  const groupedForms = CONSENT_FORMS.reduce((acc, form) => {
+    const category = getCategoryFromForm(form);
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(form);
+    return acc;
+  }, {} as Record<string, ConsentFormType[]>);
+
+  // Filter forms
+  const filteredForms = CONSENT_FORMS.filter(form => {
+    const matchesSearch = searchQuery === '' || 
+      form.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      form.description.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = categoryFilter === 'all' || getCategoryFromForm(form) === categoryFilter;
+    return matchesSearch && matchesCategory;
+  });
+
+  // Print function
+  const handlePrint = (form: ConsentFormType) => {
+    const printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      alert('Please allow popups to print');
+      return;
+    }
+
+    const printContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>${form.name} - Hello Gorgeous Med Spa</title>
+        <style>
+          body { 
+            font-family: 'Times New Roman', serif; 
+            font-size: 12pt; 
+            line-height: 1.6; 
+            max-width: 8.5in;
+            margin: 0.75in auto;
+            padding: 0 0.5in;
+          }
+          h2 { text-align: center; margin-bottom: 20px; font-size: 16pt; }
+          h3 { margin-top: 20px; margin-bottom: 10px; font-size: 13pt; }
+          .clinic-name { text-align: center; margin-bottom: 30px; }
+          .important-notice { background: #fff3cd; padding: 15px; border: 1px solid #ffc107; margin: 20px 0; }
+          .warning-box { background: #f8d7da; padding: 15px; border: 1px solid #f5c6cb; margin: 20px 0; }
+          .signature-block { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ccc; }
+          ul { margin-left: 20px; }
+          li { margin-bottom: 5px; }
+          .footer { margin-top: 60px; }
+          .signature-line { border-bottom: 1px solid #000; width: 300px; display: inline-block; margin: 5px 0; }
+          .date-line { border-bottom: 1px solid #000; width: 150px; display: inline-block; margin: 5px 0; }
+          @media print {
+            body { margin: 0.5in; }
+          }
+        </style>
+      </head>
+      <body>
+        ${form.content}
+        <div class="footer">
+          <p><strong>Patient Signature:</strong> <span class="signature-line"></span></p>
+          <p><strong>Printed Name:</strong> <span class="signature-line"></span></p>
+          <p><strong>Date:</strong> <span class="date-line"></span></p>
+          <br>
+          <p style="font-size: 10pt; color: #666;">Form Version: ${form.version} | Last Updated: ${form.lastUpdated}</p>
+        </div>
+      </body>
+      </html>
+    `;
+
+    printWindow.document.write(printContent);
+    printWindow.document.close();
+    printWindow.onload = () => {
+      printWindow.print();
+    };
+  };
+
+  // Download PDF function
+  const handleDownloadPDF = async (form: ConsentFormType) => {
+    // Create a blob with HTML content that can be converted to PDF
+    const htmlContent = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>${form.name}</title>
+        <style>
+          body { font-family: 'Times New Roman', serif; font-size: 12pt; line-height: 1.6; padding: 40px; }
+          h2 { text-align: center; margin-bottom: 20px; }
+          h3 { margin-top: 20px; margin-bottom: 10px; }
+          .clinic-name { text-align: center; margin-bottom: 30px; }
+          .important-notice { background: #fff3cd; padding: 15px; border: 1px solid #ffc107; margin: 20px 0; }
+          .warning-box { background: #f8d7da; padding: 15px; border: 1px solid #f5c6cb; margin: 20px 0; }
+          .signature-block { margin-top: 40px; padding-top: 20px; border-top: 1px solid #ccc; }
+          ul { margin-left: 20px; }
+          li { margin-bottom: 5px; }
+          .signature-line { border-bottom: 1px solid #000; width: 300px; display: inline-block; }
+        </style>
+      </head>
+      <body>
+        ${form.content}
+        <div style="margin-top: 60px;">
+          <p><strong>Patient Signature:</strong> <span class="signature-line"></span></p>
+          <p><strong>Printed Name:</strong> <span class="signature-line"></span></p>
+          <p><strong>Date:</strong> _______________</p>
+          <p style="margin-top: 20px; font-size: 10pt; color: #666;">Form Version: ${form.version} | Last Updated: ${form.lastUpdated}</p>
+        </div>
+      </body>
+      </html>
+    `;
+
+    // Create blob and download
+    const blob = new Blob([htmlContent], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${form.id}-consent-form-v${form.version}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    setMessage({ type: 'success', text: `Downloaded ${form.shortName} consent form. Open in browser and print to PDF for best results.` });
+    setTimeout(() => setMessage(null), 5000);
+  };
+
+  // Send consent form to client
+  const handleSendToClient = async () => {
+    if (!selectedForm) return;
+    if (!sendEmail && !sendPhone) {
+      setMessage({ type: 'error', text: 'Please enter an email or phone number' });
+      return;
+    }
+
+    setSending(true);
+    try {
+      const response = await fetch('/api/consents/request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: selectedForm.id,
+          email: sendEmail || undefined,
+          phone: sendPhone || undefined,
+          formName: selectedForm.name,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage({ type: 'success', text: `Consent form sent to ${sendEmail || sendPhone}!` });
+        setShowSendModal(false);
+        setSendEmail('');
+        setSendPhone('');
+      } else {
+        setMessage({ type: 'error', text: data.error || 'Failed to send consent form' });
+      }
+    } catch (error) {
+      setMessage({ type: 'error', text: 'Failed to send consent form' });
+    } finally {
+      setSending(false);
+    }
   };
 
   const saveSettings = () => {
@@ -47,50 +218,151 @@ export default function ConsentsPage() {
     setTimeout(() => setMessage(null), 3000);
   };
 
+  const categories = ['all', ...Object.keys(groupedForms)];
+
   return (
-    <OwnerLayout title="Consents & Legal" description="Manage consent forms and enforcement rules">
+    <OwnerLayout title="Consents & Legal" description="Manage consent forms - print, download, and send to clients">
       {message && (
-        <div className={`mb-6 p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+        <div className={`mb-6 p-4 rounded-lg ${message.type === 'success' ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-red-50 text-red-700 border border-red-200'}`}>
           {message.text}
         </div>
       )}
 
       <div className="space-y-6">
-        {/* Consent Forms */}
-        <div className="bg-white rounded-xl border">
-          <div className="p-4 border-b flex items-center justify-between">
-            <h2 className="text-lg font-semibold">Consent Forms</h2>
-            <button className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg text-sm hover:bg-black">
-              + Create Form
-            </button>
+        {/* Search and Filter */}
+        <div className="bg-white rounded-xl border p-4">
+          <div className="flex flex-col md:flex-row gap-4">
+            <div className="flex-1">
+              <input
+                type="text"
+                placeholder="Search consent forms..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+              />
+            </div>
+            <div className="flex gap-2 flex-wrap">
+              {categories.map(cat => (
+                <button
+                  key={cat}
+                  onClick={() => setCategoryFilter(cat)}
+                  className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                    categoryFilter === cat
+                      ? 'bg-[#FF2D8E] text-white'
+                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                  }`}
+                >
+                  {cat === 'all' ? 'All' : cat} 
+                  {cat === 'all' ? ` (${CONSENT_FORMS.length})` : ` (${groupedForms[cat]?.length || 0})`}
+                </button>
+              ))}
+            </div>
           </div>
-          <div className="divide-y">
-            {forms.map(form => (
-              <div key={form.id} className={`p-4 ${!form.is_active ? 'bg-white opacity-75' : ''}`}>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <h3 className="font-medium">{form.name}</h3>
-                      <span className="text-xs bg-white px-2 py-0.5 rounded">v{form.version}</span>
-                      <span className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">{form.category}</span>
+        </div>
+
+        {/* Quick Stats */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="bg-white rounded-xl border p-4 text-center">
+            <div className="text-3xl font-bold text-[#FF2D8E]">{CONSENT_FORMS.length}</div>
+            <div className="text-sm text-gray-600">Total Forms</div>
+          </div>
+          <div className="bg-white rounded-xl border p-4 text-center">
+            <div className="text-3xl font-bold text-green-600">{CONSENT_FORMS.filter(f => f.isRequired).length}</div>
+            <div className="text-sm text-gray-600">Required Forms</div>
+          </div>
+          <div className="bg-white rounded-xl border p-4 text-center">
+            <div className="text-3xl font-bold text-blue-600">{Object.keys(groupedForms).length}</div>
+            <div className="text-sm text-gray-600">Categories</div>
+          </div>
+          <div className="bg-white rounded-xl border p-4 text-center">
+            <div className="text-3xl font-bold text-purple-600">{CONSENT_FORMS.filter(f => f.expiresAfterDays).length}</div>
+            <div className="text-sm text-gray-600">With Expiration</div>
+          </div>
+        </div>
+
+        {/* Consent Forms List */}
+        <div className="bg-white rounded-xl border">
+          <div className="p-4 border-b">
+            <h2 className="text-lg font-semibold">Consent Forms Library</h2>
+            <p className="text-sm text-gray-600 mt-1">Click on any form to preview, print, download, or send to clients</p>
+          </div>
+          <div className="divide-y max-h-[600px] overflow-y-auto">
+            {filteredForms.map(form => {
+              const category = getCategoryFromForm(form);
+              const colors = CATEGORY_COLORS[category] || { bg: 'bg-gray-100', text: 'text-gray-800' };
+              
+              return (
+                <div key={form.id} className="p-4 hover:bg-gray-50 transition-colors">
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-center gap-2 flex-wrap">
+                        <h3 className="font-medium text-gray-900">{form.name}</h3>
+                        <span className="text-xs bg-gray-100 px-2 py-0.5 rounded">v{form.version}</span>
+                        <span className={`text-xs px-2 py-0.5 rounded ${colors.bg} ${colors.text}`}>{category}</span>
+                        {form.isRequired && (
+                          <span className="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded">Required</span>
+                        )}
+                      </div>
+                      <p className="text-sm text-gray-600 mt-1">{form.description}</p>
+                      <div className="flex items-center gap-4 mt-2 text-xs text-gray-500">
+                        {form.expiresAfterDays ? (
+                          <span>Expires: {form.expiresAfterDays} days</span>
+                        ) : (
+                          <span>No expiration</span>
+                        )}
+                        <span>•</span>
+                        <span>Updated: {form.lastUpdated}</span>
+                        {form.requiredForServices && form.requiredForServices.length > 0 && (
+                          <>
+                            <span>•</span>
+                            <span>For: {form.requiredForServices.slice(0, 3).join(', ')}{form.requiredForServices.length > 3 ? '...' : ''}</span>
+                          </>
+                        )}
+                      </div>
                     </div>
-                    <p className="text-sm text-black mt-1">
-                      {form.expires_days > 0 ? `Expires: ${form.expires_days} days` : 'No expiration'}
-                      {form.requires_signature && ' • Signature required'}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <button className="text-sm text-black hover:text-black">Edit</button>
-                    <button
-                      onClick={() => toggleActive(form.id)}
-                      className={`w-12 h-6 rounded-full transition-colors relative ${form.is_active ? 'bg-green-500' : 'bg-white'}`}
-                    >
-                      <span className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-transform ${form.is_active ? 'right-1' : 'left-1'}`} />
-                    </button>
+                    <div className="flex items-center gap-2 flex-shrink-0">
+                      <button
+                        onClick={() => { setSelectedForm(form); setShowPreview(true); }}
+                        className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+                        title="Preview"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                        </svg>
+                      </button>
+                      <button
+                        onClick={() => handlePrint(form)}
+                        className="p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition-colors"
+                        title="Print"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                        </svg>
+                      </button>
+                      <button
+                        onClick={() => handleDownloadPDF(form)}
+                        className="p-2 text-green-600 hover:text-green-800 hover:bg-green-50 rounded-lg transition-colors"
+                        title="Download"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                        </svg>
+                      </button>
+                      <button
+                        onClick={() => { setSelectedForm(form); setShowSendModal(true); }}
+                        className="p-2 text-purple-600 hover:text-purple-800 hover:bg-purple-50 rounded-lg transition-colors"
+                        title="Send to Client"
+                      >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -103,18 +375,18 @@ export default function ConsentsPage() {
               { key: 'block_checkout_without_consent', label: 'Block checkout if required consent is missing/expired' },
               { key: 'allow_override_with_note', label: 'Allow staff to override with documented reason' },
             ].map(item => (
-              <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-white">
+              <label key={item.key} className="flex items-center gap-3 p-3 border rounded-lg cursor-pointer hover:bg-gray-50">
                 <input
                   type="checkbox"
                   checked={enforcementRules[item.key as keyof typeof enforcementRules] as boolean}
                   onChange={(e) => setEnforcementRules(prev => ({ ...prev, [item.key]: e.target.checked }))}
-                  className="w-5 h-5 text-pink-600"
+                  className="w-5 h-5 text-pink-600 rounded"
                 />
                 <span>{item.label}</span>
               </label>
             ))}
             <div>
-              <label className="block text-sm font-medium text-black mb-1">Send Reminder Before Expiry (days)</label>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Send Reminder Before Expiry (days)</label>
               <input
                 type="number"
                 value={enforcementRules.send_reminder_days_before_expiry}
@@ -126,22 +398,141 @@ export default function ConsentsPage() {
           </div>
         </div>
 
-        {/* Versioning Info */}
+        {/* Info Box */}
         <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
-          <h3 className="font-medium text-blue-800">Version Control</h3>
-          <p className="text-sm text-blue-600 mt-1">
-            All consent form changes create a new version. Previous versions are preserved for legal compliance.
-            Clients who signed an older version can be prompted to re-sign when booking.
-          </p>
+          <h3 className="font-medium text-blue-800">📋 Consent Form Management</h3>
+          <ul className="text-sm text-blue-700 mt-2 space-y-1">
+            <li>• <strong>Print:</strong> Opens form in new window for printing</li>
+            <li>• <strong>Download:</strong> Downloads HTML file - open in browser and use "Print to PDF"</li>
+            <li>• <strong>Send:</strong> Emails or texts consent link to client for digital signature</li>
+            <li>• All forms are HIPAA-compliant with arbitration and liability clauses</li>
+            <li>• Version control ensures legal compliance - previous versions are preserved</li>
+          </ul>
         </div>
 
         {/* Save */}
         <div className="flex justify-end">
-          <button onClick={saveSettings} className="px-6 py-3 bg-[#FF2D8E] text-white rounded-lg hover:bg-black font-medium">
+          <button onClick={saveSettings} className="px-6 py-3 bg-[#FF2D8E] text-white rounded-lg hover:bg-black font-medium transition-colors">
             Save Consent Settings
           </button>
         </div>
       </div>
+
+      {/* Preview Modal */}
+      {showPreview && selectedForm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" onClick={() => setShowPreview(false)}>
+          <div className="bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden" onClick={e => e.stopPropagation()}>
+            <div className="p-4 border-b flex items-center justify-between bg-gray-50">
+              <div>
+                <h2 className="font-semibold text-lg">{selectedForm.name}</h2>
+                <p className="text-sm text-gray-600">Version {selectedForm.version} • {selectedForm.lastUpdated}</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => handlePrint(selectedForm)}
+                  className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center gap-2"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                  </svg>
+                  Print
+                </button>
+                <button
+                  onClick={() => handleDownloadPDF(selectedForm)}
+                  className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 flex items-center gap-2"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  </svg>
+                  Download
+                </button>
+                <button
+                  onClick={() => { setShowPreview(false); setShowSendModal(true); }}
+                  className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 flex items-center gap-2"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  Send
+                </button>
+                <button onClick={() => setShowPreview(false)} className="p-2 hover:bg-gray-200 rounded-lg">
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div 
+              className="p-6 overflow-y-auto max-h-[calc(90vh-80px)] prose prose-sm max-w-none"
+              ref={printRef}
+              dangerouslySetInnerHTML={{ __html: selectedForm.content }}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Send Modal */}
+      {showSendModal && selectedForm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" onClick={() => setShowSendModal(false)}>
+          <div className="bg-white rounded-xl shadow-xl max-w-md w-full" onClick={e => e.stopPropagation()}>
+            <div className="p-4 border-b">
+              <h2 className="font-semibold text-lg">Send Consent Form</h2>
+              <p className="text-sm text-gray-600">{selectedForm.name}</p>
+            </div>
+            <div className="p-4 space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Client Email</label>
+                <input
+                  type="email"
+                  value={sendEmail}
+                  onChange={(e) => setSendEmail(e.target.value)}
+                  placeholder="client@email.com"
+                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                />
+              </div>
+              <div className="text-center text-gray-500 text-sm">— or —</div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Client Phone (SMS)</label>
+                <input
+                  type="tel"
+                  value={sendPhone}
+                  onChange={(e) => setSendPhone(e.target.value)}
+                  placeholder="(630) 555-1234"
+                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                />
+              </div>
+              <div className="bg-gray-50 rounded-lg p-3 text-sm text-gray-600">
+                <p>Client will receive a link to view and digitally sign the consent form.</p>
+              </div>
+            </div>
+            <div className="p-4 border-t flex justify-end gap-2">
+              <button
+                onClick={() => setShowSendModal(false)}
+                className="px-4 py-2 border rounded-lg hover:bg-gray-50"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSendToClient}
+                disabled={sending || (!sendEmail && !sendPhone)}
+                className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              >
+                {sending ? (
+                  <>
+                    <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    Sending...
+                  </>
+                ) : (
+                  'Send Consent Form'
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </OwnerLayout>
   );
 }
