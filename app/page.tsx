@@ -149,6 +149,7 @@ export default function HomePage() {
         <SolariaComingSoonBanner />
         <HeroV3 />
         <TrustStrip />
+        <TrifectaSection />
         <PartnerBadges />
         <InjectablesConversion />
         <ServicesSection />
@@ -157,7 +158,6 @@ export default function HomePage() {
         <ExperienceSection />
         <InnovationSection />
         <AIAssistantsSection />
-        <TrifectaSection />
         <PhilosophySection />
         <HomepageOurStory />
         <HomepageTestimonials />
