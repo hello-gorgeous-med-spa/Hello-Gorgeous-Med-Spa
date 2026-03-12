@@ -63,29 +63,48 @@ export async function POST(request: NextRequest) {
       const supabase = getSupabaseServiceRole();
       let dbPhones: string[] = [];
       
-      // Try database first (with service role key to bypass RLS)
+      // Phone numbers can be in 'clients' table OR 'users' table
+      // Most phones are in the users table (linked via clients.user_id)
       if (supabase) {
-        console.log('[sms/campaign] Fetching clients from DB with service role...');
-        const { data: rows, error, count } = await supabase
+        console.log('[sms/campaign] Fetching phones from DB with service role...');
+        
+        // 1. Get phones from clients table
+        const { data: clientRows, error: clientsError } = await supabase
           .from('clients')
-          .select('id, phone, user_id', { count: 'exact' })
+          .select('phone')
           .not('phone', 'is', null)
           .neq('phone', '');
 
-        console.log(`[sms/campaign] DB query result: ${count} clients, error: ${error?.message || 'none'}`);
+        const clientPhones = (clientRows || [])
+          .map((r: { phone?: string | null }) => (r.phone || '').trim())
+          .filter(Boolean);
+        console.log(`[sms/campaign] Found ${clientPhones.length} phones from clients table`);
 
-        if (!error && rows && rows.length > 0) {
-          dbPhones = rows.map((r: { phone?: string | null }) => (r.phone || '').trim()).filter(Boolean);
-          source = 'database';
-          console.log(`[sms/campaign] Found ${dbPhones.length} phones from DB`);
-        } else if (error) {
-          console.error('[sms/campaign] fetch clients from DB:', error);
-        }
+        // 2. Get phones from users table (this is where most phones are stored!)
+        const { data: userRows, error: usersError } = await supabase
+          .from('users')
+          .select('phone')
+          .not('phone', 'is', null)
+          .neq('phone', '');
+
+        const userPhones = (userRows || [])
+          .map((r: { phone?: string | null }) => (r.phone || '').trim())
+          .filter(Boolean);
+        console.log(`[sms/campaign] Found ${userPhones.length} phones from users table`);
+
+        // Combine both sources
+        const allPhones = [...clientPhones, ...userPhones];
+        dbPhones = allPhones;
+        source = userPhones.length > clientPhones.length ? 'users_table' : 'clients_table';
+        console.log(`[sms/campaign] Combined ${allPhones.length} phones (before dedup), source: ${source}`);
+
+        if (clientsError) console.error('[sms/campaign] clients query error:', clientsError);
+        if (usersError) console.error('[sms/campaign] users query error:', usersError);
       } else {
         console.log('[sms/campaign] No service role key available');
       }
 
-      // If few phones from DB (<10), also try Square to compare
+      // If still low, try Square
       if (dbPhones.length < 10 && isSquareConfigured()) {
         try {
           console.log('[sms/campaign] Checking Square for more clients...');

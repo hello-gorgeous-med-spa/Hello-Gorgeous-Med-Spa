@@ -48,15 +48,26 @@ export async function GET() {
   }
 
   try {
-    // Count clients with a non-empty phone (SMS-reachable).
-    const { count, error } = await supabase
+    // Phone numbers can be in either the 'clients' table OR the 'users' table
+    // The /api/clients endpoint joins these: phone: user.phone || client.phone
+    // We need to count BOTH sources
+    
+    // 1. Count clients with phone directly in clients table
+    const { count: clientsWithPhone, error: clientsError } = await supabase
       .from('clients')
       .select('*', { count: 'exact', head: true })
       .not('phone', 'is', null)
       .neq('phone', '');
 
-    if (error) {
-      console.error('[sms/stats] DB error:', error);
+    // 2. Count users with phone (these are linked to clients via user_id)
+    const { count: usersWithPhone, error: usersError } = await supabase
+      .from('users')
+      .select('*', { count: 'exact', head: true })
+      .not('phone', 'is', null)
+      .neq('phone', '');
+
+    if (clientsError && usersError) {
+      console.error('[sms/stats] DB errors:', { clientsError, usersError });
       // Try Square as fallback
       if (isSquareConfigured()) {
         const squareClients = await fetchAllSquareCustomers(5000);
@@ -66,18 +77,23 @@ export async function GET() {
           provider: 'twilio',
           twilioConfigured,
           source: 'square',
-          dbError: error.message,
+          dbError: clientsError?.message || usersError?.message,
         });
       }
-      return NextResponse.json({ smsOptInCount: 0, provider: 'twilio', twilioConfigured, error: error.message });
+      return NextResponse.json({ smsOptInCount: 0, provider: 'twilio', twilioConfigured, error: 'Database query failed' });
     }
 
-    let smsOptInCount = typeof count === 'number' ? count : 0;
-    let source = 'database';
+    // Use the larger count (users table typically has the phone data)
+    const clientCount = typeof clientsWithPhone === 'number' ? clientsWithPhone : 0;
+    const userCount = typeof usersWithPhone === 'number' ? usersWithPhone : 0;
+    let smsOptInCount = Math.max(clientCount, userCount);
+    let source = userCount > clientCount ? 'users_table' : 'clients_table';
     
-    console.log('[sms/stats] DB count:', smsOptInCount);
+    console.log('[sms/stats] clients.phone count:', clientCount);
+    console.log('[sms/stats] users.phone count:', userCount);
+    console.log('[sms/stats] Using:', source, 'with count:', smsOptInCount);
 
-    // If DB has few clients with phones (<10), also check Square
+    // If still low, check Square
     if (smsOptInCount < 10 && isSquareConfigured()) {
       try {
         const squareClients = await fetchAllSquareCustomers(5000);
