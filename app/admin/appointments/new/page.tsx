@@ -84,20 +84,27 @@ function NewAppointmentContent() {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [servicesRes, providersRes, clientsRes] = await Promise.all([
+        const [servicesRes, providersRes, clientsRes, categoriesRes] = await Promise.all([
           fetch('/api/services'),
           fetch('/api/providers'),
           fetch('/api/clients?limit=50'), // Load initial 50 clients
+          fetch('/api/service-categories'), // Fetch categories separately
         ]);
 
-        const [servicesData, providersData, clientsData] = await Promise.all([
+        const [servicesData, providersData, clientsData, categoriesData] = await Promise.all([
           servicesRes.json(),
           providersRes.json(),
           clientsRes.json(),
+          categoriesRes.json(),
         ]);
 
         if (servicesData.services) setServices(servicesData.services);
-        if (servicesData.categories) setCategories(servicesData.categories);
+        // Use categories from the dedicated endpoint
+        if (categoriesData.categories && categoriesData.categories.length > 0) {
+          setCategories(categoriesData.categories);
+        } else if (servicesData.categories) {
+          setCategories(servicesData.categories);
+        }
         if (providersData.providers) {
           setProviders(providersData.providers);
           if (providersData.providers.length > 0) {
@@ -229,10 +236,37 @@ function NewAppointmentContent() {
   }, [formData.date, formData.providerId, formData.serviceId, services]);
 
   // Group services by category
-  const groupedServices = categories.map(cat => ({
-    ...cat,
-    services: services.filter(s => s.category_id === cat.id),
-  })).filter(cat => cat.services.length > 0);
+  const groupedServices = (() => {
+    // If we have categories, group services by them
+    if (categories.length > 0) {
+      const grouped = categories.map(cat => ({
+        ...cat,
+        services: services.filter(s => s.category_id === cat.id || s.category === cat.id),
+      })).filter(cat => cat.services.length > 0);
+      
+      // Add uncategorized services
+      const categorizedIds = new Set(grouped.flatMap(g => g.services.map((s: any) => s.id)));
+      const uncategorized = services.filter(s => !categorizedIds.has(s.id));
+      if (uncategorized.length > 0) {
+        grouped.push({
+          id: 'uncategorized',
+          name: 'Other Services',
+          services: uncategorized,
+        });
+      }
+      return grouped;
+    }
+    
+    // No categories - show all services in one group
+    if (services.length > 0) {
+      return [{
+        id: 'all',
+        name: 'All Services',
+        services: services,
+      }];
+    }
+    return [];
+  })();
 
   // Filter services by search
   const filteredGroupedServices = serviceSearch
@@ -245,12 +279,15 @@ function NewAppointmentContent() {
       })).filter(cat => cat.services.length > 0)
     : groupedServices;
 
-  // Expand all categories when searching
+  // Expand all categories when searching, or auto-expand if only one group
   useEffect(() => {
     if (serviceSearch) {
       setExpandedCategories(new Set(filteredGroupedServices.map(c => c.id)));
+    } else if (filteredGroupedServices.length === 1 || filteredGroupedServices.some(c => c.id === 'all')) {
+      // Auto-expand if there's only one category or if it's the "All Services" fallback
+      setExpandedCategories(new Set(filteredGroupedServices.map(c => c.id)));
     }
-  }, [serviceSearch, filteredGroupedServices.length]);
+  }, [serviceSearch, filteredGroupedServices.length, filteredGroupedServices]);
 
   const toggleCategory = (catId: string) => {
     const newExpanded = new Set(expandedCategories);
