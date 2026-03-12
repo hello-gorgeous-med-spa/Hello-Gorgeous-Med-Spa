@@ -14,9 +14,10 @@ import { fetchAllSquareCustomers, isSquareConfigured } from '@/lib/square-client
 export const dynamic = 'force-dynamic';
 export const maxDuration = 120;
 
-function getSupabase() {
+function getSupabaseServiceRole() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  // Use service role key to bypass RLS
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) return null;
   return createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
 }
@@ -59,37 +60,43 @@ export async function POST(request: NextRequest) {
     let source = 'custom';
 
     if (sendToAll) {
-      const supabase = getSupabase();
+      const supabase = getSupabaseServiceRole();
       let dbPhones: string[] = [];
       
-      // Try database first
+      // Try database first (with service role key to bypass RLS)
       if (supabase) {
-        const { data: rows, error } = await supabase
+        console.log('[sms/campaign] Fetching clients from DB with service role...');
+        const { data: rows, error, count } = await supabase
           .from('clients')
-          .select('id, phone, user_id')
+          .select('id, phone, user_id', { count: 'exact' })
           .not('phone', 'is', null)
           .neq('phone', '');
+
+        console.log(`[sms/campaign] DB query result: ${count} clients, error: ${error?.message || 'none'}`);
 
         if (!error && rows && rows.length > 0) {
           dbPhones = rows.map((r: { phone?: string | null }) => (r.phone || '').trim()).filter(Boolean);
           source = 'database';
+          console.log(`[sms/campaign] Found ${dbPhones.length} phones from DB`);
         } else if (error) {
           console.error('[sms/campaign] fetch clients from DB:', error);
         }
+      } else {
+        console.log('[sms/campaign] No service role key available');
       }
 
-      // If no phones from DB, try Square
-      if (dbPhones.length === 0 && isSquareConfigured()) {
+      // If few phones from DB (<10), also try Square to compare
+      if (dbPhones.length < 10 && isSquareConfigured()) {
         try {
-          console.log('[sms/campaign] No DB clients, fetching from Square...');
+          console.log('[sms/campaign] Checking Square for more clients...');
           const squareClients = await fetchAllSquareCustomers(5000);
           const squarePhones = squareClients
             .map(c => (c.phone || '').trim())
             .filter(Boolean);
-          if (squarePhones.length > 0) {
+          console.log(`[sms/campaign] Found ${squarePhones.length} phones from Square`);
+          if (squarePhones.length > dbPhones.length) {
             dbPhones = squarePhones;
             source = 'square';
-            console.log(`[sms/campaign] Found ${squarePhones.length} phones from Square`);
           }
         } catch (e) {
           console.error('[sms/campaign] Square fetch error:', e);

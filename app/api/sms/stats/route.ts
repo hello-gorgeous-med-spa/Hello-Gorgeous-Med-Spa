@@ -10,9 +10,10 @@ import { fetchAllSquareCustomers, isSquareConfigured } from '@/lib/square-client
 
 export const dynamic = 'force-dynamic';
 
-function getSupabase() {
+function getSupabaseServiceRole() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  // Prefer service role key to bypass RLS
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key || url.includes('placeholder') || key.includes('placeholder')) return null;
   return createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } });
 }
@@ -24,10 +25,11 @@ export async function GET() {
     process.env.TWILIO_PHONE_NUMBER
   );
 
-  const supabase = getSupabase();
+  const supabase = getSupabaseServiceRole();
   
-  // If no database, try Square directly
+  // If no database with service role key, try Square directly
   if (!supabase) {
+    console.log('[sms/stats] No service role key, trying Square...');
     if (isSquareConfigured()) {
       try {
         const squareClients = await fetchAllSquareCustomers(5000);
@@ -42,7 +44,7 @@ export async function GET() {
         console.error('[sms/stats] Square fetch error:', e);
       }
     }
-    return NextResponse.json({ smsOptInCount: 0, provider: 'twilio', twilioConfigured, note: 'Database not configured' });
+    return NextResponse.json({ smsOptInCount: 0, provider: 'twilio', twilioConfigured, note: 'Service role key not configured' });
   }
 
   try {
@@ -54,7 +56,7 @@ export async function GET() {
       .neq('phone', '');
 
     if (error) {
-      console.error('[sms/stats]', error);
+      console.error('[sms/stats] DB error:', error);
       // Try Square as fallback
       if (isSquareConfigured()) {
         const squareClients = await fetchAllSquareCustomers(5000);
@@ -72,13 +74,16 @@ export async function GET() {
 
     let smsOptInCount = typeof count === 'number' ? count : 0;
     let source = 'database';
+    
+    console.log('[sms/stats] DB count:', smsOptInCount);
 
-    // If DB has no clients with phones, try Square
-    if (smsOptInCount === 0 && isSquareConfigured()) {
+    // If DB has few clients with phones (<10), also check Square
+    if (smsOptInCount < 10 && isSquareConfigured()) {
       try {
         const squareClients = await fetchAllSquareCustomers(5000);
         const withPhone = squareClients.filter(c => c.phone && c.phone.trim());
-        if (withPhone.length > 0) {
+        console.log('[sms/stats] Square count:', withPhone.length);
+        if (withPhone.length > smsOptInCount) {
           smsOptInCount = withPhone.length;
           source = 'square';
         }
