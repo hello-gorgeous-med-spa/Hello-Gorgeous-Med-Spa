@@ -1,5 +1,5 @@
 // ============================================================
-// GET /api/providers/[id]/offboarding-checklist
+// GET /api/providers/[param]/offboarding-checklist
 // Returns checklist data for offboarded provider (for print/PDF)
 // ============================================================
 
@@ -10,9 +10,9 @@ export const dynamic = 'force-dynamic';
 
 export async function GET(
   _request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ param: string }> }
 ) {
-  const { id: providerId } = await params;
+  const { param: providerId } = await params;
   if (!providerId) {
     return NextResponse.json({ error: 'Provider ID required' }, { status: 400 });
   }

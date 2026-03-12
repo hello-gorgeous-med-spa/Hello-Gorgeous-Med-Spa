@@ -24,11 +24,10 @@ const SQUARE_API_BASE = {
 };
 
 // ============================================================
-// LEAST PRIVILEGE: Minimum required OAuth scopes
-// Only request scopes needed for Terminal integration
+// LEAST PRIVILEGE: Required OAuth scopes
 // 
 // DEV NOTE: Verify exact scope constants from Square SDK/docs
-// These cover: Terminal/Devices, Orders, Payments, Merchant profile
+// These cover: Terminal/Devices, Orders, Payments, Merchant profile, Customers
 // ============================================================
 const REQUIRED_SCOPES = [
   'MERCHANT_PROFILE_READ',
@@ -38,6 +37,8 @@ const REQUIRED_SCOPES = [
   'ORDERS_READ',
   'DEVICES_READ',
   'DEVICE_CREDENTIAL_MANAGEMENT',
+  'CUSTOMERS_READ',
+  'CUSTOMERS_WRITE',
 ].join(' ');
 
 export interface SquareOAuthConfig {

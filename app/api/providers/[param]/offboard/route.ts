@@ -1,5 +1,5 @@
 // ============================================================
-// POST /api/providers/[id]/offboard
+// POST /api/providers/[param]/offboard
 // Revoke access, set offboarded_at, revoke financial permissions, log
 // ============================================================
 
@@ -10,9 +10,9 @@ export const dynamic = 'force-dynamic';
 
 export async function POST(
   _request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: Promise<{ param: string }> }
 ) {
-  const { id: providerId } = await params;
+  const { param: providerId } = await params;
   if (!providerId) {
     return NextResponse.json({ error: 'Provider ID required' }, { status: 400 });
   }

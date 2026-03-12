@@ -554,6 +554,74 @@ export async function POST(request: NextRequest) {
     }
 
     // ============================================================
+    // CUSTOMER EVENTS - Auto-sync new customers to clients table
+    // ============================================================
+
+    else if (event.type === 'customer.created' || event.type === 'customer.updated') {
+      const customer = event.data.object.customer;
+      console.log('Customer event:', event.type, customer.id);
+
+      // Check if client already exists with this square_customer_id
+      const { data: existingClient } = await supabase
+        .from('clients')
+        .select('id')
+        .eq('square_customer_id', customer.id)
+        .single();
+
+      const clientData = {
+        square_customer_id: customer.id,
+        first_name: customer.given_name || '',
+        last_name: customer.family_name || '',
+        email: customer.email_address || null,
+        phone: customer.phone_number?.replace(/\D/g, '') || null,
+        source: 'square',
+        updated_at: new Date().toISOString(),
+      };
+
+      if (existingClient) {
+        // Update existing client
+        await supabase
+          .from('clients')
+          .update(clientData)
+          .eq('id', existingClient.id);
+        console.log('Client updated from Square webhook:', customer.id);
+      } else {
+        // Create new client
+        const { error: insertError } = await supabase
+          .from('clients')
+          .insert({
+            ...clientData,
+            created_at: new Date().toISOString(),
+          });
+
+        if (insertError) {
+          console.error('Failed to create client from webhook:', insertError);
+        } else {
+          console.log('New client created from Square webhook:', customer.id, customer.given_name, customer.family_name);
+        }
+      }
+
+      await updateWebhookEventStatus(eventId, 'processed');
+    }
+
+    else if (event.type === 'customer.deleted') {
+      const customer = event.data.object.customer;
+      console.log('Customer deleted:', customer.id);
+
+      // Soft delete - mark as inactive rather than removing
+      await supabase
+        .from('clients')
+        .update({
+          is_active: false,
+          deleted_at: new Date().toISOString(),
+          internal_notes: supabase.sql`COALESCE(internal_notes, '') || '\n[Deleted in Square: ' || ${new Date().toISOString()} || ']'`,
+        })
+        .eq('square_customer_id', customer.id);
+
+      await updateWebhookEventStatus(eventId, 'processed');
+    }
+
+    // ============================================================
     // UNSUPPORTED EVENT TYPES
     // ============================================================
     

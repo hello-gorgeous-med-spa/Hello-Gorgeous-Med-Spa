@@ -1,11 +1,12 @@
 // ============================================================
 // SQUARE CUSTOMERS — Fetch customers from Square for clients list
-// Env: SQUARE_ACCESS_TOKEN or SQUARE_TOKEN, optional SQUARE_ENVIRONMENT (production | sandbox)
+// Uses OAuth token from database OR static SQUARE_ACCESS_TOKEN env var
 // ============================================================
 
 import { SquareClient, SquareEnvironment } from 'square';
+import { getAccessToken } from './square/oauth';
 
-function getSquareAccessToken(): string | null {
+function getSquareAccessTokenSync(): string | null {
   const token =
     process.env.SQUARE_ACCESS_TOKEN ||
     process.env.SQUARE_TOKEN ||
@@ -19,14 +20,39 @@ function getSquareEnvironment(): string {
   return env === 'sandbox' ? SquareEnvironment.Sandbox : SquareEnvironment.Production;
 }
 
-/** Returns whether Square env vars are set (so API can hint when list is empty). */
+/** Returns whether Square is configured (checks OAuth connection or env var). */
 export function isSquareConfigured(): boolean {
-  return getSquareAccessToken() != null;
+  // Sync check for env var; async check happens at fetch time
+  return getSquareAccessTokenSync() != null || !!process.env.SQUARE_OAUTH_CLIENT_ID;
+}
+
+/** Get Square access token - prefer OAuth from DB, fall back to env var. */
+async function getSquareAccessTokenAsync(): Promise<string | null> {
+  // First try OAuth token from database
+  const oauthToken = await getAccessToken();
+  if (oauthToken) return oauthToken;
+  
+  // Fall back to static env var
+  return getSquareAccessTokenSync();
 }
 
 /** Returns a Square client when credentials are configured, else null. */
 export function getSquareClient(): SquareClient | null {
-  const token = getSquareAccessToken();
+  const token = getSquareAccessTokenSync();
+  if (!token) return null;
+  try {
+    return new SquareClient({
+      token,
+      environment: getSquareEnvironment(),
+    });
+  } catch {
+    return null;
+  }
+}
+
+/** Returns a Square client using OAuth token from database. */
+export async function getSquareClientAsync(): Promise<SquareClient | null> {
+  const token = await getSquareAccessTokenAsync();
   if (!token) return null;
   try {
     return new SquareClient({
@@ -57,13 +83,14 @@ export interface ClientRow {
 /**
  * Fetch customers from Square and map to our client shape.
  * Paginates with cursor; pass limit (max 100).
+ * Uses OAuth token from database, falls back to env var.
  */
 export async function fetchSquareCustomers(options: {
   limit?: number;
   cursor?: string;
   search?: string;
 }): Promise<{ clients: ClientRow[]; cursor?: string; total?: number }> {
-  const client = getSquareClient();
+  const client = await getSquareClientAsync();
   if (!client) return { clients: [] };
 
   const limit = Math.min(100, Math.max(1, options.limit ?? 100));
