@@ -22,6 +22,17 @@ import {
   getWebhookUrl,
   type SquareWebhookEvent,
 } from '@/lib/square/webhook';
+import { getAccessToken } from '@/lib/square/oauth';
+
+// Helper to get access token for webhook processing
+async function getAccessTokenForWebhook(): Promise<string | null> {
+  try {
+    return await getAccessToken();
+  } catch (error) {
+    console.error('Failed to get access token for webhook:', error);
+    return null;
+  }
+}
 
 export const runtime = 'nodejs';
 
@@ -614,9 +625,76 @@ export async function POST(request: NextRequest) {
         .update({
           is_active: false,
           deleted_at: new Date().toISOString(),
-          internal_notes: supabase.sql`COALESCE(internal_notes, '') || '\n[Deleted in Square: ' || ${new Date().toISOString()} || ']'`,
         })
         .eq('square_customer_id', customer.id);
+
+      await updateWebhookEventStatus(eventId, 'processed');
+    }
+
+    // ============================================================
+    // ORDER EVENTS - Sync customers from completed orders
+    // ============================================================
+
+    else if (event.type === 'order.created' || event.type === 'order.updated') {
+      const order = event.data.object.order;
+      console.log('Order event:', event.type, order.id, 'State:', order.state);
+
+      // Only process if order has a customer_id and is completed
+      if (order.customer_id && order.state === 'COMPLETED') {
+        // Check if we already have this customer
+        const { data: existingClient } = await supabase
+          .from('clients')
+          .select('id, square_customer_id')
+          .eq('square_customer_id', order.customer_id)
+          .single();
+
+        if (!existingClient) {
+          // Fetch customer details from Square
+          try {
+            const accessToken = await getAccessTokenForWebhook();
+            if (accessToken) {
+              const customerRes = await fetch(
+                `https://connect.squareup.com/v2/customers/${order.customer_id}`,
+                {
+                  headers: {
+                    'Authorization': `Bearer ${accessToken}`,
+                    'Square-Version': '2024-01-18',
+                    'Content-Type': 'application/json',
+                  },
+                }
+              );
+
+              if (customerRes.ok) {
+                const customerData = await customerRes.json();
+                const customer = customerData.customer;
+
+                await supabase.from('clients').insert({
+                  square_customer_id: customer.id,
+                  first_name: customer.given_name || '',
+                  last_name: customer.family_name || '',
+                  email: customer.email_address || null,
+                  phone: customer.phone_number?.replace(/\D/g, '') || null,
+                  source: 'square_order',
+                  created_at: new Date().toISOString(),
+                });
+
+                console.log('New client created from order:', customer.id, customer.given_name);
+              }
+            }
+          } catch (fetchError) {
+            console.error('Failed to fetch customer for order:', fetchError);
+          }
+        } else {
+          // Update last visit date
+          await supabase
+            .from('clients')
+            .update({
+              last_visit_date: new Date().toISOString(),
+              updated_at: new Date().toISOString(),
+            })
+            .eq('id', existingClient.id);
+        }
+      }
 
       await updateWebhookEventStatus(eventId, 'processed');
     }

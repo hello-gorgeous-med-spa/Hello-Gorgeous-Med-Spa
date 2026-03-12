@@ -39,6 +39,9 @@ const REQUIRED_SCOPES = [
   'DEVICE_CREDENTIAL_MANAGEMENT',
   'CUSTOMERS_READ',
   'CUSTOMERS_WRITE',
+  'GIFTCARDS_READ',
+  'GIFTCARDS_WRITE',
+  'INVOICES_READ',
 ].join(' ');
 
 export interface SquareOAuthConfig {

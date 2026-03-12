@@ -1,190 +1,134 @@
 // ============================================================
-// GIFT CARD SYNC API
-// Nightly reconciliation with Square
+// API: GIFT CARD SYNC FROM SQUARE
+// Imports gift cards from Square into local database
 // ============================================================
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
-import {
-  getSquareGiftCard,
-  isSquareConfigured,
-  centsToDollars,
-} from '@/lib/square/client';
+import { getAccessToken } from '@/lib/square/oauth';
 
-// ============================================================
-// POST - Run sync job
-// ============================================================
-export async function POST(request: NextRequest) {
+export const dynamic = 'force-dynamic';
+
+const SQUARE_API_BASE = 'https://connect.squareup.com';
+
+export async function POST() {
   try {
     const supabase = createServerSupabaseClient();
-    const body = await request.json().catch(() => ({}));
-    const { full = false } = body;
+    if (!supabase) {
+      return NextResponse.json({ error: 'Database not configured' }, { status: 500 });
+    }
 
-    if (!isSquareConfigured()) {
+    // Get Square access token
+    const accessToken = await getAccessToken();
+    if (!accessToken) {
       return NextResponse.json({ 
-        error: 'Square not configured',
-        synced: 0,
-        errors: 0,
+        error: 'Square not connected. Please connect Square in Settings > Payments.' 
+      }, { status: 400 });
+    }
+
+    // Fetch gift cards from Square
+    let cursor: string | undefined;
+    let allGiftCards: any[] = [];
+    
+    do {
+      const url = new URL(`${SQUARE_API_BASE}/v2/gift-cards`);
+      if (cursor) url.searchParams.set('cursor', cursor);
+      url.searchParams.set('limit', '100');
+
+      const response = await fetch(url.toString(), {
+        headers: {
+          'Authorization': `Bearer ${accessToken}`,
+          'Square-Version': '2024-01-18',
+          'Content-Type': 'application/json',
+        },
       });
-    }
 
-    // Get cards that need sync
-    let query = supabase
-      .from('gift_cards')
-      .select('*')
-      .not('square_gift_card_id', 'is', null);
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('Square gift cards API error:', errorData);
+        return NextResponse.json({ 
+          error: 'Failed to fetch gift cards from Square',
+          details: errorData.errors?.[0]?.detail || 'Unknown error'
+        }, { status: 500 });
+      }
 
-    if (!full) {
-      // Only sync cards that are flagged or haven't been synced recently
-      const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-      query = query.or(`needs_sync.eq.true,last_synced_at.lt.${oneDayAgo},last_synced_at.is.null`);
-    }
+      const data = await response.json();
+      allGiftCards = allGiftCards.concat(data.gift_cards || []);
+      cursor = data.cursor;
+    } while (cursor);
 
-    const { data: cardsToSync, error } = await query.in('status', ['active', 'pending']);
+    console.log(`Fetched ${allGiftCards.length} gift cards from Square`);
 
-    if (error) {
-      console.error('Sync query error:', error);
-      return NextResponse.json({ error: 'Failed to query cards' }, { status: 500 });
-    }
+    let syncedCount = 0;
+    let updatedCount = 0;
 
-    const results = {
-      total: cardsToSync?.length || 0,
-      synced: 0,
-      errors: 0,
-      mismatches: [] as any[],
-    };
+    // Sync each gift card
+    for (const giftCard of allGiftCards) {
+      // Check if already exists
+      const { data: existing } = await supabase
+        .from('gift_cards')
+        .select('id, current_balance')
+        .eq('square_gift_card_id', giftCard.id)
+        .single();
 
-    // Sync each card
-    for (const card of cardsToSync || []) {
-      try {
-        const squareCard = await getSquareGiftCard(card.square_gift_card_id);
-        
-        if (!squareCard) {
-          // Card not found in Square - mark for review
+      const giftCardData = {
+        square_gift_card_id: giftCard.id,
+        square_gan: giftCard.gan,
+        gan_last_4: giftCard.gan?.slice(-4),
+        code: giftCard.gan ? `GC-${giftCard.gan.slice(-8)}` : `SQ-${giftCard.id.slice(-8)}`,
+        initial_value: Number(giftCard.balance_money?.amount || 0) / 100,
+        current_balance: Number(giftCard.balance_money?.amount || 0) / 100,
+        status: mapSquareState(giftCard.state),
+        card_type: giftCard.type?.toLowerCase() || 'digital',
+        source: 'square',
+        last_synced_at: new Date().toISOString(),
+        needs_sync: false,
+      };
+
+      if (existing) {
+        // Update if balance changed
+        if (existing.current_balance !== giftCardData.current_balance) {
           await supabase
             .from('gift_cards')
-            .update({
-              sync_error: 'Card not found in Square',
-              needs_sync: true,
-            })
-            .eq('id', card.id);
-          
-          results.errors++;
-          continue;
+            .update(giftCardData)
+            .eq('id', existing.id);
+          updatedCount++;
         }
-
-        const squareBalance = centsToDollars(squareCard.balanceMoney.amount);
-        const localBalance = card.current_balance;
-
-        // Check for mismatch
-        if (Math.abs(squareBalance - localBalance) > 0.01) {
-          results.mismatches.push({
-            id: card.id,
-            code: card.code,
-            squareBalance,
-            localBalance,
-            difference: squareBalance - localBalance,
-          });
-
-          // Log the discrepancy
-          await supabase.from('gift_card_transactions').insert({
-            gift_card_id: card.id,
-            transaction_type: squareBalance > localBalance ? 'adjustment_up' : 'adjustment_down',
-            amount: squareBalance - localBalance,
-            balance_before: localBalance,
-            balance_after: squareBalance,
-            notes: `Sync reconciliation: Square balance (${squareBalance}) differs from local (${localBalance})`,
-          });
-        }
-
-        // Map Square status
-        let status = card.status;
-        if (squareCard.state === 'DEACTIVATED') status = 'voided';
-        else if (squareCard.state === 'BLOCKED') status = 'blocked';
-        else if (squareBalance <= 0) status = 'redeemed';
-        else status = 'active';
-
-        // Update local record
-        await supabase
+      } else {
+        // Insert new
+        const { error: insertError } = await supabase
           .from('gift_cards')
-          .update({
-            current_balance: squareBalance,
-            status,
-            square_gan: squareCard.gan,
-            gan_last_4: squareCard.gan.slice(-4),
-            last_synced_at: new Date().toISOString(),
-            sync_error: null,
-            needs_sync: false,
-          })
-          .eq('id', card.id);
-
-        results.synced++;
-      } catch (err) {
-        console.error(`Sync error for card ${card.id}:`, err);
+          .insert({
+            ...giftCardData,
+            created_at: giftCard.created_at || new Date().toISOString(),
+          });
         
-        await supabase
-          .from('gift_cards')
-          .update({
-            sync_error: err instanceof Error ? err.message : 'Unknown error',
-            needs_sync: true,
-          })
-          .eq('id', card.id);
-        
-        results.errors++;
+        if (!insertError) syncedCount++;
       }
     }
 
-    // Log sync job completion
-    console.log('Gift card sync completed:', results);
-
     return NextResponse.json({
       success: true,
-      ...results,
+      synced: syncedCount,
+      updated: updatedCount,
+      total: allGiftCards.length,
+      message: `Synced ${syncedCount} new, updated ${updatedCount} existing gift cards`,
     });
+
   } catch (error) {
-    console.error('Sync job error:', error);
-    return NextResponse.json({ error: 'Sync job failed' }, { status: 500 });
+    console.error('Gift card sync error:', error);
+    return NextResponse.json({ 
+      error: 'Failed to sync gift cards' 
+    }, { status: 500 });
   }
 }
 
-// ============================================================
-// GET - Check sync status
-// ============================================================
-export async function GET(request: NextRequest) {
-  try {
-    const supabase = createServerSupabaseClient();
-
-    // Get sync stats
-    const { data: stats } = await supabase
-      .from('gift_cards')
-      .select('status, needs_sync, sync_error, last_synced_at')
-      .not('square_gift_card_id', 'is', null);
-
-    const now = new Date();
-    const oneDayAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
-
-    const syncStats = {
-      total: stats?.length || 0,
-      needsSync: stats?.filter(s => s.needs_sync).length || 0,
-      hasErrors: stats?.filter(s => s.sync_error).length || 0,
-      stale: stats?.filter(s => !s.last_synced_at || new Date(s.last_synced_at) < oneDayAgo).length || 0,
-      recentlySynced: stats?.filter(s => s.last_synced_at && new Date(s.last_synced_at) > oneDayAgo).length || 0,
-    };
-
-    // Get any cards with sync errors
-    const { data: errorCards } = await supabase
-      .from('gift_cards')
-      .select('id, code, sync_error, last_synced_at')
-      .not('sync_error', 'is', null)
-      .limit(10);
-
-    return NextResponse.json({
-      syncStats,
-      errorCards: errorCards || [],
-      squareConfigured: isSquareConfigured(),
-    });
-  } catch (error) {
-    console.error('Sync status error:', error);
-    return NextResponse.json({ error: 'Failed to get sync status' }, { status: 500 });
+function mapSquareState(state: string): string {
+  switch (state) {
+    case 'ACTIVE': return 'active';
+    case 'DEACTIVATED': return 'voided';
+    case 'BLOCKED': return 'blocked';
+    case 'PENDING': return 'pending';
+    default: return 'active';
   }
 }

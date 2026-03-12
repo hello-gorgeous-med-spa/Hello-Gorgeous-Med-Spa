@@ -172,6 +172,27 @@ export default function GiftCardsPage() {
     setTimeout(() => setMessage(null), 5000);
   };
 
+  // Sync gift cards from Square
+  const handleSyncFromSquare = async () => {
+    try {
+      setMessage({ type: 'success', text: 'Syncing gift cards from Square...' });
+      const res = await fetch('/api/gift-cards/sync', { method: 'POST' });
+      const data = await res.json();
+      if (res.ok) {
+        setMessage({ type: 'success', text: `Synced ${data.synced || 0} gift cards from Square!` });
+        // Refresh the list
+        const refreshRes = await fetch('/api/gift-cards');
+        const refreshData = await refreshRes.json();
+        setGiftCards(refreshData.giftCards || []);
+      } else {
+        setMessage({ type: 'error', text: data.error || 'Failed to sync from Square' });
+      }
+    } catch (err) {
+      setMessage({ type: 'error', text: 'Failed to sync from Square' });
+    }
+    setTimeout(() => setMessage(null), 5000);
+  };
+
   // Void gift card
   const handleVoidCard = async (card: any) => {
     if (!window.confirm(`Void gift card ${card.code}? This will set the balance to $0 and cannot be undone.`)) return;
@@ -230,6 +251,46 @@ export default function GiftCardsPage() {
           >
             + Sell Gift Card
           </button>
+        </div>
+      </div>
+
+      {/* Square Integration Banner */}
+      <div className="bg-gradient-to-r from-blue-600 to-blue-500 rounded-xl p-6 text-white">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h3 className="text-lg font-bold flex items-center gap-2">
+              <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M3 3h18v18H3V3zm16.5 16.5v-15h-15v15h15zM8.25 8.25h3v3h-3v-3zm4.5 0h3v3h-3v-3zm-4.5 4.5h3v3h-3v-3zm4.5 0h3v3h-3v-3z"/>
+              </svg>
+              Square eGift Cards
+            </h3>
+            <p className="text-blue-100 mt-1">
+              Sell digital gift cards online through Square. Customers can purchase and recipients redeem at checkout.
+            </p>
+          </div>
+          <div className="flex gap-3">
+            <a
+              href="https://squareup.com/dashboard/gift-cards"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-4 py-2 bg-white text-blue-600 font-medium rounded-lg hover:bg-blue-50 transition-colors flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              Manage in Square
+            </a>
+            <button
+              onClick={() => handleSyncFromSquare()}
+              className="px-4 py-2 bg-blue-700 text-white font-medium rounded-lg hover:bg-blue-800 transition-colors flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              Sync from Square
+            </button>
+          </div>
         </div>
       </div>
 
