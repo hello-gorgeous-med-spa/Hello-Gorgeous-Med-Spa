@@ -16,7 +16,21 @@ export type ConsentFormType =
   | 'weight_loss_consent'
   | 'chemical_peel_consent'
   | 'microneedling_consent'
-  | 'sms_consent';
+  | 'sms_consent'
+  | 'morpheus8_consent'
+  | 'rf_microneedling_consent'
+  | 'ipl_photofacial_consent'
+  | 'laser_hair_removal_consent'
+  | 'laser_skin_resurfacing_consent'
+  | 'prp_prf_consent'
+  | 'iv_therapy_consent'
+  | 'bhrt_consent'
+  | 'hydrafacial_consent'
+  | 'dermaplaning_consent'
+  | 'lash_brow_consent'
+  | 'body_contouring_consent'
+  | 'kybella_consent'
+  | 'pdo_threads_consent';
 
 export type ConsentStatus = 'pending' | 'signed' | 'declined' | 'expired';
 
@@ -813,6 +827,1082 @@ export const CONSENT_FORMS: ConsentForm[] = [
         <em>Note: If you do not sign this form, you may still receive essential appointment-related communications via phone call or email. Text messaging is optional but helps us serve you better.</em>
       </p>
     `,
+  },
+
+  // ========================
+  // ADVANCED TREATMENT CONSENT FORMS
+  // ========================
+
+  {
+    id: 'morpheus8_consent',
+    name: 'Morpheus8 RF Microneedling Consent',
+    shortName: 'Morpheus8 Consent',
+    description: 'Consent for Morpheus8 radiofrequency microneedling treatments',
+    version: '1.0',
+    lastUpdated: '2026-03-11',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 20,
+    requiredForServices: ['morpheus8', 'rf-microneedling', 'skin-tightening'],
+    content: \`
+      <h2>INFORMED CONSENT FOR MORPHEUS8 RF MICRONEEDLING</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      
+      <h3>1. DESCRIPTION OF PROCEDURE</h3>
+      <p>Morpheus8 is a minimally invasive treatment that combines microneedling with radiofrequency (RF) energy to remodel and contour the face and body. The device uses gold-plated needles that penetrate the skin to deliver RF energy to the deeper layers of tissue, stimulating collagen production and promoting skin tightening.</p>
+      
+      <h3>2. TREATMENT AREAS</h3>
+      <p>Morpheus8 can be used on various areas including:</p>
+      <ul>
+        <li>Face (forehead, cheeks, jawline, periorbital area)</li>
+        <li>Neck and décolletage</li>
+        <li>Abdomen and flanks</li>
+        <li>Arms, thighs, and knees</li>
+        <li>Buttocks</li>
+        <li>Areas with acne scarring or stretch marks</li>
+      </ul>
+      
+      <h3>3. EXPECTED BENEFITS</h3>
+      <p>Potential benefits include:</p>
+      <ul>
+        <li>Skin tightening and lifting</li>
+        <li>Reduction of fine lines and wrinkles</li>
+        <li>Improvement in skin texture and tone</li>
+        <li>Reduction of acne scars and other scarring</li>
+        <li>Fat remodeling (with deeper settings)</li>
+        <li>Reduction of stretch marks</li>
+        <li>Overall skin rejuvenation</li>
+      </ul>
+      
+      <h3>4. RISKS AND SIDE EFFECTS</h3>
+      <p>I understand the following risks may occur:</p>
+      <ul>
+        <li><strong>Common (Expected):</strong> Redness, swelling, warmth, pinpoint bleeding, crusting, mild bruising lasting 3-7 days</li>
+        <li><strong>Less Common:</strong> Prolonged redness or swelling, hyperpigmentation (especially in darker skin tones), hypopigmentation, infection</li>
+        <li><strong>Rare but Serious:</strong> Burns, blistering, scarring (including hypertrophic or keloid scars), nerve damage, fat atrophy (loss), skin texture irregularities, permanent skin color changes</li>
+        <li><strong>Procedural:</strong> Discomfort during treatment despite numbing, herpes simplex reactivation (cold sores)</li>
+      </ul>
+      
+      <h3>5. CONTRAINDICATIONS</h3>
+      <p>I confirm that I do NOT have any of the following:</p>
+      <ul>
+        <li>Active skin infections, wounds, or inflammatory conditions in treatment area</li>
+        <li>History of keloid or hypertrophic scarring</li>
+        <li>Pacemaker, defibrillator, or other implanted electronic device</li>
+        <li>Metal implants in the treatment area</li>
+        <li>Pregnancy or breastfeeding</li>
+        <li>Use of Accutane (isotretinoin) within the past 6 months</li>
+        <li>Active cold sores or history of frequent herpes outbreaks (without prophylaxis)</li>
+        <li>Blood clotting disorders or current use of blood thinners</li>
+        <li>Autoimmune diseases affecting the skin</li>
+        <li>History of poor wound healing</li>
+        <li>Current cancer treatment</li>
+      </ul>
+      
+      <h3>6. PRE-TREATMENT INSTRUCTIONS</h3>
+      <p>I confirm I have followed all pre-treatment instructions, including:</p>
+      <ul>
+        <li>Discontinuing retinoids and exfoliating products 5-7 days prior</li>
+        <li>Avoiding sun exposure and tanning for 2 weeks prior</li>
+        <li>Arriving with clean skin free of makeup and skincare products</li>
+        <li>Taking prescribed antiviral medication if I have a history of cold sores</li>
+        <li>Avoiding alcohol, aspirin, and NSAIDs for 24-48 hours prior</li>
+      </ul>
+      
+      <h3>7. POST-TREATMENT CARE</h3>
+      <p>I agree to follow all post-treatment instructions, including:</p>
+      <ul>
+        <li>Using only approved healing products for the first 72 hours</li>
+        <li>Avoiding direct sun exposure and wearing SPF 30+ sunscreen daily</li>
+        <li>Not picking at crusts or scabs</li>
+        <li>Avoiding makeup for 24-48 hours</li>
+        <li>Avoiding strenuous exercise, saunas, and hot tubs for 48-72 hours</li>
+        <li>Sleeping elevated for the first 1-2 nights if face was treated</li>
+        <li>Keeping the treatment area clean and hydrated</li>
+      </ul>
+      
+      <h3>8. TREATMENT SERIES</h3>
+      <p>I understand that optimal results typically require 1-3 treatment sessions spaced 4-6 weeks apart, depending on the condition being treated. Results develop gradually over 3-6 months as collagen remodeling occurs.</p>
+      
+      <h3>9. NO GUARANTEE OF RESULTS</h3>
+      <p>I understand that individual results vary significantly and no specific outcome can be guaranteed. Some patients may see dramatic improvement while others may see modest results or no improvement.</p>
+      
+      <h3>10. ALTERNATIVE TREATMENTS</h3>
+      <p>I have been informed of alternative treatments including surgical facelift, traditional microneedling, other RF devices, laser resurfacing, and topical skincare. I have chosen to proceed with Morpheus8.</p>
+      
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM, ALL MY QUESTIONS HAVE BEEN ANSWERED, AND I VOLUNTARILY CONSENT TO MORPHEUS8 TREATMENT.</strong></p>
+    \`,
+  },
+
+  {
+    id: 'rf_microneedling_consent',
+    name: 'RF Microneedling Consent (General)',
+    shortName: 'RF Microneedling',
+    description: 'Consent for radiofrequency microneedling devices',
+    version: '1.0',
+    lastUpdated: '2026-03-11',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 21,
+    requiredForServices: ['rf-microneedling', 'skin-tightening', 'scarless'],
+    content: \`
+      <h2>INFORMED CONSENT FOR RADIOFREQUENCY MICRONEEDLING</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      
+      <h3>1. DESCRIPTION OF PROCEDURE</h3>
+      <p>Radiofrequency (RF) microneedling is an advanced skin rejuvenation treatment that combines traditional microneedling with radiofrequency energy. Insulated or non-insulated needles penetrate the skin while delivering controlled RF energy to heat the deeper layers of tissue. This dual-action treatment stimulates natural collagen and elastin production while tightening existing collagen fibers.</p>
+      
+      <h3>2. DEVICES</h3>
+      <p>This consent covers RF microneedling devices which may include but are not limited to: Morpheus8, Vivace, Potenza, Genius, Virtue RF, Secret RF, or similar devices. The specific device used will be discussed prior to treatment.</p>
+      
+      <h3>3. EXPECTED BENEFITS</h3>
+      <ul>
+        <li>Skin tightening and firming</li>
+        <li>Wrinkle and fine line reduction</li>
+        <li>Improved skin texture and pore size</li>
+        <li>Acne scar improvement</li>
+        <li>Stretch mark reduction</li>
+        <li>Surgical scar improvement</li>
+        <li>Overall skin rejuvenation</li>
+      </ul>
+      
+      <h3>4. RISKS AND COMPLICATIONS</h3>
+      <ul>
+        <li><strong>Expected:</strong> Redness, swelling, pinpoint bleeding, warmth, tightness (3-7 days)</li>
+        <li><strong>Possible:</strong> Bruising, prolonged redness, temporary or permanent hyperpigmentation/hypopigmentation, infection, acne flare</li>
+        <li><strong>Rare:</strong> Burns, blistering, scarring, nerve damage, fat loss, skin texture changes</li>
+      </ul>
+      
+      <h3>5. CONTRAINDICATIONS</h3>
+      <p>Treatment should NOT be performed if you have:</p>
+      <ul>
+        <li>Pacemaker or implanted defibrillator</li>
+        <li>Metal implants in treatment area</li>
+        <li>Pregnancy or nursing</li>
+        <li>Active skin infection or inflammation</li>
+        <li>History of keloid scarring</li>
+        <li>Accutane use within 6 months</li>
+        <li>Bleeding disorders or anticoagulant therapy</li>
+        <li>Autoimmune skin conditions</li>
+      </ul>
+      
+      <h3>6. TREATMENT PROTOCOL</h3>
+      <p>Multiple treatments (typically 3-4) spaced 4-6 weeks apart are recommended for optimal results. Results continue to improve for 3-6 months post-treatment as collagen remodeling occurs.</p>
+      
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO RF MICRONEEDLING TREATMENT.</strong></p>
+    \`,
+  },
+
+  {
+    id: 'ipl_photofacial_consent',
+    name: 'IPL/Photofacial Consent',
+    shortName: 'IPL Consent',
+    description: 'Consent for Intense Pulsed Light (IPL) treatments',
+    version: '1.0',
+    lastUpdated: '2026-03-11',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 22,
+    requiredForServices: ['ipl', 'photofacial', 'bbl', 'photorejuvenation'],
+    content: \`
+      <h2>INFORMED CONSENT FOR IPL/PHOTOFACIAL TREATMENT</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      
+      <h3>1. DESCRIPTION OF TREATMENT</h3>
+      <p>Intense Pulsed Light (IPL), also known as photofacial or photorejuvenation, uses broad-spectrum light pulses to target and treat various skin concerns. The light energy is absorbed by pigmented lesions (brown spots) and blood vessels (redness), causing them to break down and be naturally eliminated by the body.</p>
+      
+      <h3>2. INDICATIONS (CONDITIONS TREATED)</h3>
+      <ul>
+        <li>Sun damage and age spots (hyperpigmentation)</li>
+        <li>Freckles and sun freckles</li>
+        <li>Rosacea and facial redness</li>
+        <li>Broken capillaries and spider veins</li>
+        <li>Uneven skin tone</li>
+        <li>Mild acne and acne redness</li>
+        <li>Fine lines (mild improvement)</li>
+      </ul>
+      
+      <h3>3. RISKS AND SIDE EFFECTS</h3>
+      <ul>
+        <li><strong>Common:</strong> Redness, warmth, mild swelling (sunburn-like sensation), darkening of pigmented spots before they flake off</li>
+        <li><strong>Less Common:</strong> Blistering, crusting, bruising, prolonged redness</li>
+        <li><strong>Rare:</strong> Burns, scarring, permanent hyperpigmentation or hypopigmentation, eye injury (if protective eyewear not used properly)</li>
+      </ul>
+      
+      <h3>4. CRITICAL PRE-TREATMENT REQUIREMENTS</h3>
+      <div class="important-notice">
+        <p><strong>SUN EXPOSURE WARNING:</strong> You MUST avoid sun exposure, tanning beds, and self-tanners for a minimum of 2-4 weeks before AND after treatment. Treatment CANNOT be performed on tanned skin due to increased risk of burns and pigmentation changes.</p>
+      </div>
+      <ul>
+        <li>No active tan or recent sun exposure</li>
+        <li>Discontinue retinoids 5-7 days prior</li>
+        <li>Discontinue photosensitizing medications as advised</li>
+        <li>Inform provider of any herpes simplex history</li>
+        <li>Arrive with clean skin, no makeup</li>
+      </ul>
+      
+      <h3>5. CONTRAINDICATIONS</h3>
+      <ul>
+        <li>Pregnancy</li>
+        <li>Recent tan or sun exposure</li>
+        <li>Use of photosensitizing medications (certain antibiotics, Accutane)</li>
+        <li>Active herpes outbreak in treatment area</li>
+        <li>History of keloid scarring</li>
+        <li>Seizure disorders triggered by light</li>
+        <li>Skin cancer in treatment area</li>
+        <li>Very dark skin types (higher risk of pigmentation changes)</li>
+      </ul>
+      
+      <h3>6. TREATMENT SERIES</h3>
+      <p>Most conditions require 3-6 treatment sessions spaced 3-4 weeks apart for optimal results. Maintenance treatments may be needed 1-2 times per year.</p>
+      
+      <h3>7. EYE PROTECTION</h3>
+      <p>I understand that proper eye protection is MANDATORY during IPL treatment. I agree to keep my eyes closed and wear the protective eyewear provided at all times.</p>
+      
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO IPL/PHOTOFACIAL TREATMENT.</strong></p>
+    \`,
+  },
+
+  {
+    id: 'laser_hair_removal_consent',
+    name: 'Laser Hair Removal Consent',
+    shortName: 'Laser Hair Removal',
+    description: 'Consent for laser hair removal treatments',
+    version: '1.0',
+    lastUpdated: '2026-03-11',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 23,
+    requiredForServices: ['laser-hair-removal', 'hair-removal', 'laser-hair'],
+    content: \`
+      <h2>INFORMED CONSENT FOR LASER HAIR REMOVAL</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      
+      <h3>1. DESCRIPTION OF PROCEDURE</h3>
+      <p>Laser hair removal uses concentrated light energy to target and destroy hair follicles. The laser is attracted to melanin (pigment) in the hair, which heats and damages the follicle to prevent or reduce future hair growth. Multiple treatments are required as hair grows in cycles, and the laser can only effectively treat hair in the active growth (anagen) phase.</p>
+      
+      <h3>2. REALISTIC EXPECTATIONS</h3>
+      <ul>
+        <li>Laser hair removal provides <strong>permanent hair REDUCTION</strong>, not complete permanent removal</li>
+        <li>Most patients achieve 70-90% reduction after completing a full series</li>
+        <li>6-8+ treatments are typically required, spaced 4-8 weeks apart depending on body area</li>
+        <li>Annual maintenance treatments may be needed</li>
+        <li>Results vary based on hair color, skin type, hormones, and treatment area</li>
+        <li>Light-colored (blonde, gray, white, red) hair does NOT respond well to laser treatment</li>
+      </ul>
+      
+      <h3>3. RISKS AND SIDE EFFECTS</h3>
+      <ul>
+        <li><strong>Common:</strong> Redness, swelling, warmth (like mild sunburn), temporary skin sensitivity</li>
+        <li><strong>Less Common:</strong> Blistering, crusting, temporary hyperpigmentation (darkening) or hypopigmentation (lightening)</li>
+        <li><strong>Rare:</strong> Burns, permanent pigment changes, scarring, paradoxical hair growth (more hair growth)</li>
+        <li><strong>Area-specific:</strong> Eye injury if treating near eyes without proper protection</li>
+      </ul>
+      
+      <h3>4. PRE-TREATMENT REQUIREMENTS</h3>
+      <ul>
+        <li><strong>SHAVE</strong> the treatment area 24 hours before appointment</li>
+        <li><strong>NO WAXING, PLUCKING, OR THREADING</strong> for 4-6 weeks before treatment (the hair root must be present)</li>
+        <li><strong>NO SUN EXPOSURE OR TANNING</strong> for 2-4 weeks before and after treatment</li>
+        <li>Discontinue retinoids and exfoliating products 5-7 days prior</li>
+        <li>Arrive with clean skin, no lotions, deodorant, or makeup on treatment area</li>
+      </ul>
+      
+      <h3>5. CONTRAINDICATIONS</h3>
+      <ul>
+        <li>Active tan or recent sun exposure</li>
+        <li>Pregnancy</li>
+        <li>Use of photosensitizing medications</li>
+        <li>Accutane use within 6 months</li>
+        <li>Active skin infection in treatment area</li>
+        <li>History of keloid scarring</li>
+        <li>Seizure disorders triggered by light</li>
+        <li>Tattoos in treatment area (laser will damage tattoo)</li>
+      </ul>
+      
+      <h3>6. HORMONAL CONSIDERATIONS</h3>
+      <p>Hormonal conditions (PCOS, menopause, certain medications) may affect treatment results and may cause new hair growth in treated areas. Additional maintenance treatments may be needed.</p>
+      
+      <h3>7. POST-TREATMENT CARE</h3>
+      <ul>
+        <li>Apply cool compresses if needed for comfort</li>
+        <li>Use SPF 30+ sunscreen daily on treated areas</li>
+        <li>Avoid sun exposure, hot baths, saunas, and exercise for 24-48 hours</li>
+        <li>Shedding of treated hairs will occur 1-3 weeks post-treatment (this is normal)</li>
+        <li>Do not wax, pluck, or tweeze between sessions—shaving only</li>
+      </ul>
+      
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO LASER HAIR REMOVAL TREATMENT.</strong></p>
+    \`,
+  },
+
+  {
+    id: 'laser_skin_resurfacing_consent',
+    name: 'Laser Skin Resurfacing Consent',
+    shortName: 'Laser Resurfacing',
+    description: 'Consent for ablative and non-ablative laser skin resurfacing',
+    version: '1.0',
+    lastUpdated: '2026-03-11',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 24,
+    requiredForServices: ['laser-resurfacing', 'co2-laser', 'erbium-laser', 'fraxel', 'halo'],
+    content: \`
+      <h2>INFORMED CONSENT FOR LASER SKIN RESURFACING</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      
+      <h3>1. DESCRIPTION OF PROCEDURE</h3>
+      <p>Laser skin resurfacing uses laser energy to remove damaged outer skin layers and stimulate new collagen formation in the deeper layers. This treatment can range from mild (non-ablative) to aggressive (ablative) depending on your skin concerns and desired downtime.</p>
+      
+      <h3>2. TYPES OF LASER RESURFACING</h3>
+      <ul>
+        <li><strong>Non-ablative (gentler):</strong> Heats tissue without removing skin layers; minimal downtime</li>
+        <li><strong>Fractional:</strong> Creates microscopic treatment zones; moderate downtime</li>
+        <li><strong>Ablative (more aggressive):</strong> Removes outer skin layers; significant downtime but more dramatic results</li>
+      </ul>
+      
+      <h3>3. INDICATIONS</h3>
+      <ul>
+        <li>Fine lines and wrinkles</li>
+        <li>Sun damage and age spots</li>
+        <li>Acne scars and surgical scars</li>
+        <li>Uneven skin texture and tone</li>
+        <li>Enlarged pores</li>
+        <li>Skin laxity</li>
+      </ul>
+      
+      <h3>4. RISKS AND SIDE EFFECTS</h3>
+      <ul>
+        <li><strong>Expected:</strong> Redness, swelling, peeling, warmth, tightness (duration depends on treatment intensity)</li>
+        <li><strong>Possible:</strong> Prolonged redness (weeks to months), hyperpigmentation, hypopigmentation, infection, acne flare, milia (small white bumps)</li>
+        <li><strong>Rare but Serious:</strong> Scarring, permanent pigment changes, ectropion (eyelid pulling), delayed wound healing, herpes reactivation</li>
+      </ul>
+      
+      <h3>5. RECOVERY AND DOWNTIME</h3>
+      <p>Recovery varies significantly based on treatment type:</p>
+      <ul>
+        <li><strong>Non-ablative:</strong> 1-3 days of redness</li>
+        <li><strong>Fractional:</strong> 3-7 days of redness, peeling</li>
+        <li><strong>Ablative:</strong> 7-14+ days; skin will weep, crust, and peel; significant redness may persist weeks to months</li>
+      </ul>
+      
+      <h3>6. CRITICAL POST-TREATMENT CARE</h3>
+      <ul>
+        <li>Keep treated area clean and moisturized</li>
+        <li>Use only approved products as directed</li>
+        <li>STRICT sun avoidance for 2-4 weeks minimum; SPF 30+ required daily for months</li>
+        <li>Do not pick or peel flaking skin</li>
+        <li>Take prescribed antiviral medication if provided</li>
+        <li>Report any signs of infection immediately</li>
+      </ul>
+      
+      <h3>7. CONTRAINDICATIONS</h3>
+      <ul>
+        <li>Active tan or recent sun exposure</li>
+        <li>Pregnancy or nursing</li>
+        <li>Accutane use within 6-12 months</li>
+        <li>Active skin infection</li>
+        <li>History of keloid scarring</li>
+        <li>Immunocompromised state</li>
+        <li>Unrealistic expectations regarding results or downtime</li>
+      </ul>
+      
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM, INCLUDING THE RISKS AND EXPECTED DOWNTIME, AND I VOLUNTARILY CONSENT TO LASER SKIN RESURFACING.</strong></p>
+    \`,
+  },
+
+  {
+    id: 'prp_prf_consent',
+    name: 'PRP/PRF Treatment Consent',
+    shortName: 'PRP/PRF Consent',
+    description: 'Consent for Platelet-Rich Plasma and Platelet-Rich Fibrin treatments',
+    version: '1.0',
+    lastUpdated: '2026-03-11',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 25,
+    requiredForServices: ['prp', 'prf', 'vampire-facial', 'hair-restoration', 'prp-injections'],
+    content: \`
+      <h2>INFORMED CONSENT FOR PRP/PRF TREATMENTS</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      
+      <h3>1. DESCRIPTION OF TREATMENT</h3>
+      <p>Platelet-Rich Plasma (PRP) and Platelet-Rich Fibrin (PRF) treatments use your own blood components to stimulate healing and rejuvenation. A small amount of blood is drawn, processed to concentrate platelets and growth factors, and then applied to the treatment area via injection, topically with microneedling, or both.</p>
+      
+      <h3>2. APPLICATIONS</h3>
+      <ul>
+        <li><strong>Facial Rejuvenation (Vampire Facial):</strong> PRP/PRF applied with microneedling for skin texture, tone, and collagen stimulation</li>
+        <li><strong>Hair Restoration:</strong> PRP/PRF injected into scalp to stimulate hair follicles</li>
+        <li><strong>Under-Eye Rejuvenation:</strong> PRF injected to improve dark circles and hollowing</li>
+        <li><strong>Scar Treatment:</strong> PRP/PRF to improve acne scars and other scarring</li>
+        <li><strong>Joint/Muscle Therapy:</strong> PRP for pain and healing (if offered)</li>
+      </ul>
+      
+      <h3>3. EXPECTED BENEFITS</h3>
+      <ul>
+        <li>Natural rejuvenation using your own growth factors</li>
+        <li>Improved skin texture and tone</li>
+        <li>Reduced appearance of fine lines</li>
+        <li>Hair growth stimulation (for hair restoration)</li>
+        <li>Minimal risk of allergic reaction (uses your own blood)</li>
+      </ul>
+      
+      <h3>4. RISKS AND SIDE EFFECTS</h3>
+      <ul>
+        <li><strong>From Blood Draw:</strong> Bruising, soreness, lightheadedness, fainting, infection at draw site</li>
+        <li><strong>From Treatment:</strong> Redness, swelling, bruising, tenderness, headache (for scalp), temporary lumpiness</li>
+        <li><strong>Less Common:</strong> Infection, scarring, prolonged swelling, nerve damage, unsatisfactory results</li>
+        <li><strong>Note:</strong> PRP/PRF relies on your body's own healing response; results vary significantly between individuals</li>
+      </ul>
+      
+      <h3>5. CONTRAINDICATIONS</h3>
+      <ul>
+        <li>Blood disorders or platelet dysfunction</li>
+        <li>Current anticoagulant therapy (blood thinners)</li>
+        <li>Active infections or illness</li>
+        <li>Cancer, especially blood-related cancers</li>
+        <li>Pregnancy or nursing</li>
+        <li>Chronic liver disease</li>
+        <li>Low platelet count</li>
+        <li>HIV, Hepatitis B or C</li>
+        <li>Use of NSAIDs or aspirin within 48-72 hours (may affect platelet function)</li>
+      </ul>
+      
+      <h3>6. TREATMENT SERIES</h3>
+      <p>Most patients require a series of 3-4 treatments spaced 4-6 weeks apart for optimal results. Maintenance treatments every 6-12 months may be recommended.</p>
+      
+      <h3>7. HYDRATION</h3>
+      <p>I understand the importance of being well-hydrated before my blood draw. I will drink plenty of water in the 24 hours before my appointment.</p>
+      
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO PRP/PRF TREATMENT.</strong></p>
+    \`,
+  },
+
+  {
+    id: 'iv_therapy_consent',
+    name: 'IV Vitamin Therapy Consent',
+    shortName: 'IV Therapy Consent',
+    description: 'Consent for IV vitamin drips and infusions',
+    version: '1.0',
+    lastUpdated: '2026-03-11',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 26,
+    requiredForServices: ['iv-therapy', 'iv-drip', 'vitamin-drip', 'myers-cocktail', 'nad'],
+    content: \`
+      <h2>INFORMED CONSENT FOR IV VITAMIN THERAPY</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      
+      <h3>1. DESCRIPTION OF TREATMENT</h3>
+      <p>IV (Intravenous) Vitamin Therapy delivers vitamins, minerals, antioxidants, and other nutrients directly into the bloodstream through an IV catheter. This bypasses the digestive system, allowing for higher absorption rates than oral supplements.</p>
+      
+      <h3>2. COMMON IV FORMULATIONS</h3>
+      <ul>
+        <li><strong>Myers' Cocktail:</strong> B vitamins, Vitamin C, Magnesium, Calcium</li>
+        <li><strong>Hydration Drip:</strong> Electrolytes and fluids</li>
+        <li><strong>Immune Boost:</strong> High-dose Vitamin C, Zinc, B vitamins</li>
+        <li><strong>Beauty/Glow:</strong> Biotin, Glutathione, Vitamin C</li>
+        <li><strong>NAD+:</strong> Nicotinamide Adenine Dinucleotide for cellular energy</li>
+        <li><strong>Athletic Recovery:</strong> Amino acids, B vitamins, minerals</li>
+      </ul>
+      
+      <h3>3. POTENTIAL BENEFITS</h3>
+      <ul>
+        <li>Rapid rehydration</li>
+        <li>Increased energy</li>
+        <li>Immune system support</li>
+        <li>Improved skin appearance</li>
+        <li>Hangover relief</li>
+        <li>Athletic recovery</li>
+      </ul>
+      <p><strong>Note:</strong> These benefits are based on general nutrition science. IV therapy is not intended to diagnose, treat, cure, or prevent any disease. Results vary by individual.</p>
+      
+      <h3>4. RISKS AND SIDE EFFECTS</h3>
+      <ul>
+        <li><strong>Common:</strong> Mild discomfort during IV insertion, bruising at IV site, cool sensation during infusion, temporary flushing</li>
+        <li><strong>Less Common:</strong> Vein inflammation (phlebitis), infection at IV site, allergic reaction, nausea, headache, dizziness</li>
+        <li><strong>Rare but Serious:</strong> Air embolism, electrolyte imbalance, fluid overload, severe allergic reaction (anaphylaxis), cardiac arrhythmia (with certain minerals)</li>
+        <li><strong>NAD+ Specific:</strong> Chest tightness, nausea, cramping during infusion (rate-dependent)</li>
+      </ul>
+      
+      <h3>5. CONTRAINDICATIONS</h3>
+      <ul>
+        <li>Congestive heart failure or kidney disease (risk of fluid overload)</li>
+        <li>Allergy to any components of the IV formulation</li>
+        <li>G6PD deficiency (for high-dose Vitamin C)</li>
+        <li>Hemochromatosis (iron overload disorders)</li>
+        <li>Active infection at potential IV sites</li>
+        <li>Pregnancy (certain formulations only)</li>
+        <li>Currently on certain medications that may interact (e.g., chemotherapy)</li>
+      </ul>
+      
+      <h3>6. MEDICAL HISTORY DISCLOSURE</h3>
+      <p>I confirm I have disclosed all relevant medical conditions, medications, supplements, and allergies. I understand that incomplete information could affect my safety.</p>
+      
+      <h3>7. POST-TREATMENT</h3>
+      <ul>
+        <li>Keep IV site bandaged for 1 hour; monitor for signs of infection</li>
+        <li>Stay hydrated after treatment</li>
+        <li>Report any unusual symptoms immediately</li>
+      </ul>
+      
+      <h3>8. NOT A SUBSTITUTE FOR MEDICAL CARE</h3>
+      <p>I understand that IV vitamin therapy is a wellness service and is NOT a substitute for evaluation and treatment by a physician. I should consult my primary care provider for any concerning symptoms or medical conditions.</p>
+      
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO IV VITAMIN THERAPY.</strong></p>
+    \`,
+  },
+
+  {
+    id: 'bhrt_consent',
+    name: 'Bioidentical Hormone Therapy Consent',
+    shortName: 'BHRT Consent',
+    description: 'Consent for BioTE and other bioidentical hormone replacement therapy',
+    version: '1.0',
+    lastUpdated: '2026-03-11',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 180,
+    order: 27,
+    requiredForServices: ['bhrt', 'biote', 'hormone-therapy', 'pellet-therapy', 'testosterone'],
+    content: \`
+      <h2>INFORMED CONSENT FOR BIOIDENTICAL HORMONE REPLACEMENT THERAPY (BHRT)</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      
+      <h3>1. DESCRIPTION OF TREATMENT</h3>
+      <p>Bioidentical Hormone Replacement Therapy (BHRT) uses hormones that are chemically identical to those produced by the human body. Hormones may be delivered via subcutaneous pellets (such as BioTE), injections, creams, or other methods. The goal is to restore hormone levels to optimal ranges to address symptoms of hormonal imbalance.</p>
+      
+      <h3>2. HORMONES THAT MAY BE PRESCRIBED</h3>
+      <ul>
+        <li><strong>Testosterone:</strong> For energy, libido, muscle mass, mood (men and women)</li>
+        <li><strong>Estrogen:</strong> For hot flashes, vaginal dryness, bone health (women)</li>
+        <li><strong>Progesterone:</strong> For sleep, mood, uterine protection (women)</li>
+        <li><strong>DHEA:</strong> For energy and hormone precursor support</li>
+        <li><strong>Thyroid hormones:</strong> For metabolism support (if indicated)</li>
+      </ul>
+      
+      <h3>3. PELLET INSERTION PROCEDURE</h3>
+      <p>For pellet therapy, small hormone pellets are inserted under the skin (typically in the hip/buttock area) through a small incision under local anesthesia. Pellets dissolve over 3-6 months, providing steady hormone release.</p>
+      
+      <h3>4. POTENTIAL BENEFITS</h3>
+      <ul>
+        <li>Increased energy and reduced fatigue</li>
+        <li>Improved mood and mental clarity</li>
+        <li>Enhanced libido and sexual function</li>
+        <li>Better sleep quality</li>
+        <li>Increased muscle mass and strength</li>
+        <li>Improved bone density</li>
+        <li>Reduced hot flashes and night sweats</li>
+        <li>Weight management support</li>
+      </ul>
+      
+      <h3>5. RISKS AND SIDE EFFECTS</h3>
+      <ul>
+        <li><strong>Pellet Insertion Site:</strong> Bruising, swelling, infection, pellet extrusion, scarring</li>
+        <li><strong>Testosterone (Women):</strong> Acne, facial hair growth, deepening voice (usually dose-dependent and reversible), hair thinning on scalp, clitoral enlargement</li>
+        <li><strong>Testosterone (Men):</strong> Acne, testicular shrinkage, increased red blood cell count, potential prostate effects, mood changes, hair loss</li>
+        <li><strong>Estrogen:</strong> Breast tenderness, bloating, mood changes, increased clotting risk, potential breast/uterine concerns</li>
+        <li><strong>General:</strong> Hormone levels may fluctuate; dosing adjustments may be needed</li>
+      </ul>
+      
+      <h3>6. SERIOUS RISKS (RARE)</h3>
+      <div class="warning-box">
+        <ul>
+          <li>Blood clots (deep vein thrombosis, pulmonary embolism)</li>
+          <li>Stroke or heart attack (particularly with certain risk factors)</li>
+          <li>Potential increased risk of certain cancers (breast, prostate, uterine) - research is ongoing</li>
+          <li>Liver issues (rare with pellets)</li>
+          <li>Polycythemia (elevated red blood cells) with testosterone</li>
+        </ul>
+      </div>
+      
+      <h3>7. REQUIRED MONITORING</h3>
+      <p>I understand that regular blood work and follow-up appointments are REQUIRED to monitor hormone levels and ensure safety. I commit to:</p>
+      <ul>
+        <li>Pre-treatment lab work</li>
+        <li>Follow-up labs approximately 4-6 weeks after pellet insertion</li>
+        <li>Regular monitoring labs every 3-6 months</li>
+        <li>Annual comprehensive lab panel</li>
+        <li>Reporting any concerning symptoms immediately</li>
+      </ul>
+      
+      <h3>8. CONTRAINDICATIONS</h3>
+      <ul>
+        <li>Personal history of hormone-sensitive cancers (breast, prostate, uterine)</li>
+        <li>Active or history of blood clots</li>
+        <li>Active liver disease</li>
+        <li>Undiagnosed vaginal bleeding</li>
+        <li>Pregnancy or nursing</li>
+        <li>Allergy to any component of the hormone preparation</li>
+      </ul>
+      
+      <h3>9. POST-PELLET INSERTION INSTRUCTIONS</h3>
+      <ul>
+        <li>Keep insertion site dry for 24-48 hours</li>
+        <li>No strenuous lower body exercise for 72 hours</li>
+        <li>No swimming, baths, or hot tubs for 5-7 days</li>
+        <li>Monitor for signs of infection (increasing redness, warmth, drainage, fever)</li>
+      </ul>
+      
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM, INCLUDING THE REQUIREMENT FOR ONGOING MONITORING, AND I VOLUNTARILY CONSENT TO BHRT.</strong></p>
+    \`,
+  },
+
+  {
+    id: 'hydrafacial_consent',
+    name: 'HydraFacial Consent',
+    shortName: 'HydraFacial',
+    description: 'Consent for HydraFacial treatments',
+    version: '1.0',
+    lastUpdated: '2026-03-11',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 28,
+    requiredForServices: ['hydrafacial', 'hydra-facial', 'aqua-facial'],
+    content: \`
+      <h2>INFORMED CONSENT FOR HYDRAFACIAL TREATMENT</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      
+      <h3>1. DESCRIPTION OF TREATMENT</h3>
+      <p>HydraFacial is a multi-step facial treatment that uses patented technology to cleanse, extract, and hydrate the skin. The treatment combines exfoliation, deep cleansing, extraction, and infusion of serums using a specialized device with vortex technology.</p>
+      
+      <h3>2. TREATMENT STEPS</h3>
+      <ul>
+        <li><strong>Cleanse + Peel:</strong> Gentle exfoliation to resurface the skin</li>
+        <li><strong>Extract + Hydrate:</strong> Painless suction to remove debris from pores while infusing hydrating serums</li>
+        <li><strong>Fuse + Protect:</strong> Antioxidants and peptides to maximize glow</li>
+        <li><strong>Optional Boosters:</strong> Targeted serums for specific concerns (pigmentation, aging, etc.)</li>
+      </ul>
+      
+      <h3>3. EXPECTED BENEFITS</h3>
+      <ul>
+        <li>Improved skin texture and tone</li>
+        <li>Reduced appearance of fine lines</li>
+        <li>Clearer, less congested pores</li>
+        <li>Improved hydration</li>
+        <li>Brighter, more radiant skin</li>
+        <li>No downtime—immediate glow</li>
+      </ul>
+      
+      <h3>4. RISKS AND SIDE EFFECTS</h3>
+      <ul>
+        <li><strong>Common:</strong> Mild redness (usually resolves within hours), temporary tightness, slight sensitivity</li>
+        <li><strong>Uncommon:</strong> Breakouts (purging), allergic reaction to serums, prolonged redness</li>
+        <li><strong>Rare:</strong> Infection, scarring, hyperpigmentation</li>
+      </ul>
+      
+      <h3>5. CONTRAINDICATIONS</h3>
+      <ul>
+        <li>Active rashes, sunburn, or open wounds on face</li>
+        <li>Active cold sores or herpes outbreak</li>
+        <li>Recent facial procedures (consult provider)</li>
+        <li>Allergy to any ingredients in the serums used</li>
+        <li>Rosacea (certain steps may be modified or avoided)</li>
+        <li>Pregnancy (certain serums may be avoided)</li>
+      </ul>
+      
+      <h3>6. POST-TREATMENT CARE</h3>
+      <ul>
+        <li>Avoid direct sun exposure and wear SPF for 48 hours</li>
+        <li>Avoid harsh products, retinoids, and exfoliants for 24-48 hours</li>
+        <li>Stay hydrated</li>
+        <li>Makeup can typically be applied immediately</li>
+      </ul>
+      
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO HYDRAFACIAL TREATMENT.</strong></p>
+    \`,
+  },
+
+  {
+    id: 'dermaplaning_consent',
+    name: 'Dermaplaning Consent',
+    shortName: 'Dermaplaning',
+    description: 'Consent for dermaplaning treatments',
+    version: '1.0',
+    lastUpdated: '2026-03-11',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 29,
+    requiredForServices: ['dermaplaning', 'dermaplane'],
+    content: \`
+      <h2>INFORMED CONSENT FOR DERMAPLANING</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      
+      <h3>1. DESCRIPTION OF TREATMENT</h3>
+      <p>Dermaplaning is a manual exfoliation treatment that uses a sterile surgical scalpel to gently scrape the surface of the skin. This removes dead skin cells and fine vellus hair (peach fuzz), revealing smoother, brighter skin underneath and allowing for better product penetration.</p>
+      
+      <h3>2. EXPECTED BENEFITS</h3>
+      <ul>
+        <li>Smoother skin texture</li>
+        <li>Removal of peach fuzz for smoother makeup application</li>
+        <li>Brighter, more radiant complexion</li>
+        <li>Enhanced product absorption</li>
+        <li>Reduced appearance of superficial acne scars</li>
+        <li>No downtime</li>
+      </ul>
+      
+      <h3>3. COMMON MYTH ADDRESSED</h3>
+      <p><strong>Hair will NOT grow back thicker or darker.</strong> Vellus hair (peach fuzz) is cut at the surface and will grow back the same as before. This is scientifically proven and dermaplaning does not change the hair follicle.</p>
+      
+      <h3>4. RISKS AND SIDE EFFECTS</h3>
+      <ul>
+        <li><strong>Common:</strong> Mild redness (usually resolves within hours), slight skin sensitivity</li>
+        <li><strong>Uncommon:</strong> Small nicks or cuts (rare with trained provider), breakouts, irritation</li>
+        <li><strong>Rare:</strong> Infection, scarring, hyperpigmentation</li>
+      </ul>
+      
+      <h3>5. CONTRAINDICATIONS</h3>
+      <ul>
+        <li>Active acne (inflamed pustules or cysts)</li>
+        <li>Active rosacea flare</li>
+        <li>Active eczema or psoriasis on face</li>
+        <li>Open wounds, cuts, or sunburn</li>
+        <li>Active cold sores</li>
+        <li>Recent chemical peel or laser treatment (wait period required)</li>
+        <li>Use of blood thinners (increased bleeding risk)</li>
+        <li>Accutane use within 6 months</li>
+      </ul>
+      
+      <h3>6. POST-TREATMENT CARE</h3>
+      <ul>
+        <li>Avoid direct sun exposure and wear SPF 30+</li>
+        <li>Avoid harsh products, retinoids, and acids for 3-5 days</li>
+        <li>Keep skin hydrated</li>
+        <li>Avoid touching face unnecessarily</li>
+        <li>Makeup can typically be applied after treatment</li>
+      </ul>
+      
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO DERMAPLANING TREATMENT.</strong></p>
+    \`,
+  },
+
+  {
+    id: 'lash_brow_consent',
+    name: 'Lash & Brow Services Consent',
+    shortName: 'Lash/Brow Consent',
+    description: 'Consent for lash extensions, lifts, brow lamination, and tinting',
+    version: '1.0',
+    lastUpdated: '2026-03-11',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 30,
+    requiredForServices: ['lash', 'lash-extensions', 'lash-lift', 'brow', 'brow-lamination', 'lash-spa', 'brow-spa'],
+    content: \`
+      <h2>INFORMED CONSENT FOR LASH & BROW SERVICES</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      
+      <h3>SERVICES COVERED</h3>
+      <ul>
+        <li>Eyelash Extensions (Classic, Volume, Hybrid)</li>
+        <li>Lash Lift and Tint</li>
+        <li>Brow Lamination</li>
+        <li>Brow Tinting</li>
+        <li>Brow Shaping/Waxing</li>
+        <li>Lash & Brow Fills</li>
+      </ul>
+      
+      <h3>1. EYELASH EXTENSIONS</h3>
+      <p><strong>Description:</strong> Individual synthetic or mink lash fibers are adhered to natural lashes using professional-grade adhesive.</p>
+      <p><strong>Risks:</strong></p>
+      <ul>
+        <li>Allergic reaction to adhesive (itching, redness, swelling)</li>
+        <li>Eye irritation or sensitivity</li>
+        <li>Natural lash damage if improperly applied or removed</li>
+        <li>Infection (rare, from poor aftercare)</li>
+        <li>Temporary lash loss</li>
+      </ul>
+      <p><strong>Aftercare Requirements:</strong></p>
+      <ul>
+        <li>Avoid water/steam for 24-48 hours</li>
+        <li>No oil-based products near eyes</li>
+        <li>Avoid rubbing eyes</li>
+        <li>Brush lashes daily</li>
+        <li>Fill appointments every 2-3 weeks</li>
+      </ul>
+      
+      <h3>2. LASH LIFT</h3>
+      <p><strong>Description:</strong> Chemical solution lifts and curls natural lashes from the root.</p>
+      <p><strong>Risks:</strong></p>
+      <ul>
+        <li>Allergic reaction to lifting solution</li>
+        <li>Over-processing (frizzy or damaged lashes)</li>
+        <li>Eye irritation</li>
+        <li>Uneven curl</li>
+      </ul>
+      
+      <h3>3. BROW LAMINATION</h3>
+      <p><strong>Description:</strong> Chemical solution restructures brow hairs for a fuller, brushed-up look.</p>
+      <p><strong>Risks:</strong></p>
+      <ul>
+        <li>Allergic reaction to solution</li>
+        <li>Skin irritation or sensitivity</li>
+        <li>Over-processing (brittle brow hairs)</li>
+      </ul>
+      
+      <h3>4. TINTING</h3>
+      <p><strong>Description:</strong> Semi-permanent dye applied to lashes or brows.</p>
+      <p><strong>Risks:</strong></p>
+      <ul>
+        <li>Allergic reaction to dye</li>
+        <li>Eye/skin irritation</li>
+        <li>Color may not match expectations</li>
+      </ul>
+      
+      <h3>5. PATCH TEST RECOMMENDATION</h3>
+      <p>For first-time clients, a patch test 24-48 hours before service is recommended to check for allergic reactions. I understand that declining a patch test increases my risk of allergic reaction.</p>
+      
+      <h3>6. CONTRAINDICATIONS</h3>
+      <ul>
+        <li>Active eye infection or stye</li>
+        <li>Recent eye surgery (consult surgeon)</li>
+        <li>Chemotherapy (may affect lash retention)</li>
+        <li>Trichotillomania (hair-pulling disorder)</li>
+        <li>Known allergy to adhesive, latex, or dye components</li>
+        <li>Blepharitis or severe dry eye</li>
+      </ul>
+      
+      <h3>7. CONSENT FOR EYE AREA WORK</h3>
+      <p>I understand that services performed around the eye area carry inherent risks. I will keep my eyes closed during treatment and follow all provider instructions.</p>
+      
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO LASH AND/OR BROW SERVICES.</strong></p>
+    \`,
+  },
+
+  {
+    id: 'body_contouring_consent',
+    name: 'Body Contouring Consent',
+    shortName: 'Body Contouring',
+    description: 'Consent for non-surgical body contouring treatments',
+    version: '1.0',
+    lastUpdated: '2026-03-11',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 31,
+    requiredForServices: ['body-contouring', 'coolsculpting', 'emsculpt', 'cavitation', 'body-spa'],
+    content: \`
+      <h2>INFORMED CONSENT FOR NON-SURGICAL BODY CONTOURING</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      
+      <h3>1. DESCRIPTION OF TREATMENTS</h3>
+      <p>Non-surgical body contouring uses various technologies to reduce fat, tighten skin, and/or build muscle without surgery. Specific treatments may include:</p>
+      <ul>
+        <li><strong>Cryolipolysis (e.g., CoolSculpting):</strong> Freezes and destroys fat cells</li>
+        <li><strong>RF Body Tightening:</strong> Heats tissue to stimulate collagen and tighten skin</li>
+        <li><strong>Ultrasonic Cavitation:</strong> Uses ultrasound to break down fat cells</li>
+        <li><strong>Muscle Stimulation (e.g., Emsculpt):</strong> Electromagnetic energy to contract muscles</li>
+        <li><strong>Laser Lipolysis:</strong> Laser energy to target fat</li>
+      </ul>
+      
+      <h3>2. REALISTIC EXPECTATIONS</h3>
+      <ul>
+        <li>Body contouring is NOT weight loss—it targets specific areas of stubborn fat</li>
+        <li>Best results in patients at or near their goal weight</li>
+        <li>Multiple treatments typically required</li>
+        <li>Results develop gradually over weeks to months</li>
+        <li>Maintaining results requires healthy lifestyle</li>
+      </ul>
+      
+      <h3>3. RISKS AND SIDE EFFECTS</h3>
+      <ul>
+        <li><strong>Common:</strong> Redness, swelling, tenderness, bruising, numbness, tingling (temporary)</li>
+        <li><strong>Less Common:</strong> Prolonged numbness or pain, skin irregularities, blistering</li>
+        <li><strong>Rare:</strong> Burns, nerve damage, paradoxical adipose hyperplasia (fat growth instead of reduction with cryolipolysis), hernia (with muscle stimulation if pre-existing weakness)</li>
+      </ul>
+      
+      <h3>4. CONTRAINDICATIONS</h3>
+      <ul>
+        <li>Pregnancy or nursing</li>
+        <li>Pacemaker or electronic implant (for RF/electromagnetic treatments)</li>
+        <li>Metal implants in treatment area</li>
+        <li>Cryoglobulinemia or cold urticaria (for cryolipolysis)</li>
+        <li>Hernia in treatment area (for muscle stimulation)</li>
+        <li>Recent surgery in treatment area</li>
+        <li>Active skin infection or inflammation</li>
+        <li>Bleeding disorders</li>
+      </ul>
+      
+      <h3>5. POST-TREATMENT</h3>
+      <ul>
+        <li>Stay hydrated to help body process eliminated fat</li>
+        <li>Mild massage of treated area may be recommended</li>
+        <li>Maintain healthy diet and exercise for optimal results</li>
+        <li>Avoid extreme temperatures on treated area for 24-48 hours</li>
+      </ul>
+      
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO BODY CONTOURING TREATMENT.</strong></p>
+    \`,
+  },
+
+  {
+    id: 'kybella_consent',
+    name: 'Kybella Consent',
+    shortName: 'Kybella',
+    description: 'Consent for Kybella (deoxycholic acid) injection for submental fat',
+    version: '1.0',
+    lastUpdated: '2026-03-11',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 32,
+    requiredForServices: ['kybella', 'double-chin', 'submental-fat'],
+    content: \`
+      <h2>INFORMED CONSENT FOR KYBELLA® (DEOXYCHOLIC ACID) INJECTION</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      
+      <h3>1. DESCRIPTION OF TREATMENT</h3>
+      <p>Kybella® is an FDA-approved injectable treatment for reduction of moderate to severe submental fat (double chin). The active ingredient, synthetic deoxycholic acid, destroys fat cells when injected into the fat beneath the chin. Once destroyed, these cells can no longer store or accumulate fat.</p>
+      
+      <h3>2. TREATMENT PROTOCOL</h3>
+      <ul>
+        <li>Multiple small injections are administered in a grid pattern under the chin</li>
+        <li>Most patients require 2-4 treatment sessions</li>
+        <li>Sessions are spaced at least 1 month apart</li>
+        <li>Maximum of 6 treatment sessions</li>
+      </ul>
+      
+      <h3>3. EXPECTED BENEFITS</h3>
+      <ul>
+        <li>Permanent reduction of submental fat</li>
+        <li>Improved chin profile</li>
+        <li>Non-surgical alternative to liposuction</li>
+        <li>Fat cells destroyed do not return</li>
+      </ul>
+      
+      <h3>4. EXPECTED SIDE EFFECTS</h3>
+      <p>The following side effects are common and expected:</p>
+      <ul>
+        <li><strong>Swelling:</strong> Significant swelling under the chin lasting 1-2 weeks (may be substantial—"bullfrog" appearance)</li>
+        <li><strong>Bruising:</strong> Common, may last 1-2 weeks</li>
+        <li><strong>Pain/Tenderness:</strong> At injection site, lasting days to weeks</li>
+        <li><strong>Numbness:</strong> Temporary numbness in treatment area</li>
+        <li><strong>Redness and Hardness:</strong> In treatment area</li>
+      </ul>
+      
+      <h3>5. SERIOUS RISKS (RARE)</h3>
+      <div class="warning-box">
+        <ul>
+          <li><strong>Nerve injury:</strong> Can cause facial muscle weakness, asymmetric smile, or difficulty swallowing (usually temporary but may be permanent)</li>
+          <li><strong>Injection site problems:</strong> Ulceration, necrosis (tissue death), scarring</li>
+          <li><strong>Dysphagia:</strong> Trouble swallowing</li>
+          <li><strong>Severe allergic reaction</strong></li>
+        </ul>
+      </div>
+      
+      <h3>6. CONTRAINDICATIONS</h3>
+      <ul>
+        <li>Infection at treatment site</li>
+        <li>Pregnancy or nursing</li>
+        <li>Previous surgical or aesthetic procedures in treatment area that may have altered anatomy</li>
+        <li>Difficulty swallowing</li>
+        <li>Excessive skin laxity (may need surgical approach)</li>
+        <li>Bleeding disorders or anticoagulant therapy</li>
+      </ul>
+      
+      <h3>7. IMPORTANT TIMING CONSIDERATIONS</h3>
+      <p>Due to significant swelling lasting 1-2 weeks, I should NOT schedule Kybella treatment before important events, photos, or travel within 2-3 weeks.</p>
+      
+      <h3>8. POST-TREATMENT CARE</h3>
+      <ul>
+        <li>Apply ice to reduce swelling (20 minutes on/20 minutes off)</li>
+        <li>Sleep elevated to reduce swelling</li>
+        <li>Avoid strenuous activity for 24-48 hours</li>
+        <li>Report any difficulty swallowing, facial weakness, or unusual symptoms immediately</li>
+      </ul>
+      
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM, INCLUDING THE EXPECTED SIGNIFICANT SWELLING AND POTENTIAL SERIOUS RISKS, AND I VOLUNTARILY CONSENT TO KYBELLA TREATMENT.</strong></p>
+    \`,
+  },
+
+  {
+    id: 'pdo_threads_consent',
+    name: 'PDO Threads Consent',
+    shortName: 'PDO Threads',
+    description: 'Consent for PDO thread lift treatments',
+    version: '1.0',
+    lastUpdated: '2026-03-11',
+    isRequired: true,
+    requiresWitness: false,
+    expiresAfterDays: 365,
+    order: 33,
+    requiredForServices: ['pdo-threads', 'thread-lift', 'threads'],
+    content: \`
+      <h2>INFORMED CONSENT FOR PDO THREAD LIFT</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+      
+      <h3>1. DESCRIPTION OF PROCEDURE</h3>
+      <p>PDO (Polydioxanone) thread lift is a minimally invasive procedure that uses dissolvable sutures to lift and tighten sagging skin. The threads are inserted under the skin using needles or cannulas. Over time, the threads dissolve while stimulating collagen production for continued improvement.</p>
+      
+      <h3>2. TYPES OF PDO THREADS</h3>
+      <ul>
+        <li><strong>Smooth/Mono Threads:</strong> Stimulate collagen; used for skin rejuvenation</li>
+        <li><strong>Barbed/Cog Threads:</strong> Have tiny barbs to grip and lift tissue</li>
+        <li><strong>Screw/Twist Threads:</strong> Intertwined for volume and support</li>
+      </ul>
+      
+      <h3>3. TREATMENT AREAS</h3>
+      <ul>
+        <li>Mid-face and cheeks</li>
+        <li>Jawline and jowls</li>
+        <li>Neck</li>
+        <li>Brow</li>
+        <li>Nasolabial folds</li>
+        <li>Body areas (arms, abdomen, knees)</li>
+      </ul>
+      
+      <h3>4. EXPECTED BENEFITS</h3>
+      <ul>
+        <li>Immediate lifting effect (with barbed threads)</li>
+        <li>Continued improvement over 2-6 months as collagen builds</li>
+        <li>Results typically last 12-18 months</li>
+        <li>Minimal downtime compared to surgical facelift</li>
+        <li>Natural-looking results</li>
+      </ul>
+      
+      <h3>5. RISKS AND SIDE EFFECTS</h3>
+      <ul>
+        <li><strong>Common:</strong> Bruising, swelling, tenderness, tightness, mild asymmetry (usually resolves)</li>
+        <li><strong>Less Common:</strong> Thread visibility or palpability under skin, dimpling, puckering, migration of threads</li>
+        <li><strong>Rare but Serious:</strong> Infection, thread extrusion (poking through skin), nerve damage, hematoma, prolonged pain, scarring, granuloma formation</li>
+      </ul>
+      
+      <h3>6. CONTRAINDICATIONS</h3>
+      <ul>
+        <li>Active skin infection in treatment area</li>
+        <li>Bleeding disorders or anticoagulant therapy</li>
+        <li>Autoimmune conditions</li>
+        <li>History of keloid or hypertrophic scarring</li>
+        <li>Pregnancy or nursing</li>
+        <li>Allergy to PDO or similar materials</li>
+        <li>Previous permanent threads in treatment area</li>
+        <li>Severe skin laxity (may require surgical approach)</li>
+      </ul>
+      
+      <h3>7. POST-PROCEDURE INSTRUCTIONS</h3>
+      <ul>
+        <li>Sleep on back with head elevated for 1 week</li>
+        <li>Avoid extreme facial movements, chewing hard foods for 2 weeks</li>
+        <li>No facials, massage, or manipulation of treatment area for 3-4 weeks</li>
+        <li>Avoid dental procedures for 2 weeks</li>
+        <li>No strenuous exercise for 1-2 weeks</li>
+        <li>Report any signs of infection, thread extrusion, or severe pain immediately</li>
+      </ul>
+      
+      <h3>8. ADDITIONAL TREATMENTS</h3>
+      <p>Threads may be combined with fillers, Botox, or other treatments for enhanced results. Additional touch-up threads may be needed for optimal outcomes.</p>
+      
+      <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO PDO THREAD TREATMENT.</strong></p>
+    \`,
   },
 ];
 

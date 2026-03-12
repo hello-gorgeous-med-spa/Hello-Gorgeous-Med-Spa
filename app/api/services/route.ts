@@ -34,23 +34,26 @@ function toServiceRow(raw: any): Record<string, unknown> {
     id: raw.id,
     name: raw.name,
     slug: raw.slug || slugify(String(raw.name || '')),
-    category: raw.category ?? null,
+    category: raw.category ?? raw.category_id ?? null,
+    category_id: raw.category_id ?? null,
     description: raw.description ?? null,
+    short_description: raw.short_description ?? null,
     duration_minutes: raw.duration_minutes != null ? Number(raw.duration_minutes) : 60,
-    cleanup_minutes: raw.cleanup_minutes != null ? Number(raw.cleanup_minutes) : 0,
+    buffer_before_minutes: raw.buffer_before_minutes ?? 0,
+    buffer_after_minutes: raw.buffer_after_minutes ?? 0,
     price_cents: priceCents,
-    price: priceCents / 100,
-    deposit_cents: raw.deposit_cents != null ? Number(raw.deposit_cents) : null,
-    online_booking: raw.online_booking !== false,
-    membership_eligible: raw.membership_eligible === true,
-    package_eligible: raw.package_eligible === true,
-    consent_required: raw.consent_required === true,
-    intake_form_id: raw.intake_form_id ?? null,
-    aftercare_id: raw.aftercare_id ?? null,
-    active: raw.active !== false,
-    archived: raw.archived === true,
-    sort_order: raw.sort_order != null ? Number(raw.sort_order) : 0,
-    upsells: raw.upsells ?? null,
+    price: raw.price ?? (priceCents / 100),
+    price_display: raw.price_display ?? null,
+    deposit_required: raw.deposit_required === true,
+    deposit_amount_cents: raw.deposit_amount_cents ?? null,
+    allow_online_booking: raw.allow_online_booking !== false,
+    requires_consult: raw.requires_consult === true,
+    requires_consent: raw.requires_consent === true,
+    requires_intake: raw.requires_intake === true,
+    is_active: raw.is_active !== false,
+    is_featured: raw.is_featured === true,
+    display_order: raw.display_order != null ? Number(raw.display_order) : 0,
+    image_url: raw.image_url ?? null,
     created_at: raw.created_at,
     updated_at: raw.updated_at,
   };
@@ -70,8 +73,8 @@ export async function GET(request: NextRequest) {
       if (!one) return NextResponse.json({ error: 'Not found' }, { status: 404 });
       return NextResponse.json({ service: toServiceRow(one) });
     }
-    let list = all.sort((a: any, b: any) => (a.sort_order ?? 0) - (b.sort_order ?? 0) || String(a.name).localeCompare(String(b.name)));
-    if (activeOnly) list = list.filter((s: any) => s.active && !s.archived);
+    let list = all.sort((a: any, b: any) => (a.display_order ?? 0) - (b.display_order ?? 0) || String(a.name).localeCompare(String(b.name)));
+    if (activeOnly) list = list.filter((s: any) => s.is_active && !s.archived);
     return NextResponse.json({ services: list, total: list.length, source: 'local' });
   }
 
@@ -83,8 +86,8 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ service: toServiceRow(data) });
     }
 
-    let query = supabase.from('services').select('*').order('sort_order', { ascending: true }).order('name');
-    if (activeOnly) query = query.eq('active', true);
+    let query = supabase.from('services').select('*').order('display_order', { ascending: true }).order('name');
+    if (activeOnly) query = query.eq('is_active', true);
     const { data, error } = await query;
     if (error) throw error;
     const list = (data || []).map(toServiceRow);

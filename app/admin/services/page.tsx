@@ -9,25 +9,75 @@
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 
+type ServiceCategory = {
+  id: string;
+  name: string;
+  slug: string;
+  icon?: string | null;
+};
+
 type Service = {
   id: string;
   name: string;
   slug?: string;
   category?: string | null;
+  category_id?: string | null;
   description?: string | null;
   duration_minutes: number;
   cleanup_minutes?: number;
   price_cents: number;
   price: number;
   deposit_cents?: number | null;
-  online_booking: boolean;
-  membership_eligible: boolean;
-  package_eligible: boolean;
-  consent_required: boolean;
-  active: boolean;
+  online_booking?: boolean;
+  allow_online_booking?: boolean;
+  membership_eligible?: boolean;
+  package_eligible?: boolean;
+  consent_required?: boolean;
+  requires_consent?: boolean;
+  active?: boolean;
+  is_active?: boolean;
   archived?: boolean;
   sort_order?: number;
+  display_order?: number;
 };
+
+// Colorful category colors
+const CATEGORY_COLORS: Record<string, { bg: string; text: string; border: string }> = {
+  'botox': { bg: 'bg-pink-100', text: 'text-pink-800', border: 'border-pink-200' },
+  'fillers': { bg: 'bg-rose-100', text: 'text-rose-800', border: 'border-rose-200' },
+  'dermal-fillers': { bg: 'bg-rose-100', text: 'text-rose-800', border: 'border-rose-200' },
+  'weight-loss': { bg: 'bg-emerald-100', text: 'text-emerald-800', border: 'border-emerald-200' },
+  'weight-loss-injections': { bg: 'bg-emerald-100', text: 'text-emerald-800', border: 'border-emerald-200' },
+  'bhrt': { bg: 'bg-purple-100', text: 'text-purple-800', border: 'border-purple-200' },
+  'bioidentical-hormone-therapy-bhrt': { bg: 'bg-purple-100', text: 'text-purple-800', border: 'border-purple-200' },
+  'anteage': { bg: 'bg-blue-100', text: 'text-blue-800', border: 'border-blue-200' },
+  'anteage-the-future-of-skin-regeneration-is-here': { bg: 'bg-blue-100', text: 'text-blue-800', border: 'border-blue-200' },
+  'facials': { bg: 'bg-amber-100', text: 'text-amber-800', border: 'border-amber-200' },
+  'skin-spa': { bg: 'bg-amber-100', text: 'text-amber-800', border: 'border-amber-200' },
+  'glowtox-facial-our-signature': { bg: 'bg-yellow-100', text: 'text-yellow-800', border: 'border-yellow-200' },
+  'prp': { bg: 'bg-red-100', text: 'text-red-800', border: 'border-red-200' },
+  'prp-injections': { bg: 'bg-red-100', text: 'text-red-800', border: 'border-red-200' },
+  'iv-therapy': { bg: 'bg-cyan-100', text: 'text-cyan-800', border: 'border-cyan-200' },
+  'iv-drip-package-deals': { bg: 'bg-cyan-100', text: 'text-cyan-800', border: 'border-cyan-200' },
+  'vitamin-injections': { bg: 'bg-teal-100', text: 'text-teal-800', border: 'border-teal-200' },
+  'lash': { bg: 'bg-violet-100', text: 'text-violet-800', border: 'border-violet-200' },
+  'lash-spa': { bg: 'bg-violet-100', text: 'text-violet-800', border: 'border-violet-200' },
+  'brow': { bg: 'bg-fuchsia-100', text: 'text-fuchsia-800', border: 'border-fuchsia-200' },
+  'brow-spa': { bg: 'bg-fuchsia-100', text: 'text-fuchsia-800', border: 'border-fuchsia-200' },
+  'trigger-point': { bg: 'bg-orange-100', text: 'text-orange-800', border: 'border-orange-200' },
+  'trigger-point-injections': { bg: 'bg-orange-100', text: 'text-orange-800', border: 'border-orange-200' },
+  'body-spa': { bg: 'bg-lime-100', text: 'text-lime-800', border: 'border-lime-200' },
+  'consultations': { bg: 'bg-slate-100', text: 'text-slate-800', border: 'border-slate-200' },
+  'medical-visit-with-ryan-kent-aprn-fnp-bc-fpa': { bg: 'bg-slate-100', text: 'text-slate-800', border: 'border-slate-200' },
+  'laser-hair': { bg: 'bg-indigo-100', text: 'text-indigo-800', border: 'border-indigo-200' },
+};
+
+const DEFAULT_COLOR = { bg: 'bg-gray-100', text: 'text-gray-800', border: 'border-gray-200' };
+
+function getCategoryColor(slug: string | null | undefined) {
+  if (!slug) return DEFAULT_COLOR;
+  return CATEGORY_COLORS[slug.toLowerCase()] || DEFAULT_COLOR;
+}
 
 const defaultForm: Record<string, string | number | boolean> = {
   name: '',
@@ -48,13 +98,30 @@ const defaultForm: Record<string, string | number | boolean> = {
 
 export default function AdminServicesPage() {
   const [services, setServices] = useState<Service[]>([]);
+  const [categories, setCategories] = useState<ServiceCategory[]>([]);
+  const [categoryMap, setCategoryMap] = useState<Record<string, ServiceCategory>>({});
   const [loading, setLoading] = useState(true);
   const [showArchived, setShowArchived] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [modal, setModal] = useState<'closed' | 'new' | 'edit'>('closed');
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState<Record<string, string | number | boolean>>(defaultForm);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  const fetchCategories = useCallback(async () => {
+    try {
+      const res = await fetch('/api/service-categories');
+      const data = await res.json();
+      const cats = data.categories || [];
+      setCategories(cats);
+      const map: Record<string, ServiceCategory> = {};
+      cats.forEach((c: ServiceCategory) => { map[c.id] = c; });
+      setCategoryMap(map);
+    } catch {
+      setCategories([]);
+    }
+  }, []);
 
   const fetchServices = useCallback(async () => {
     try {
@@ -69,8 +136,9 @@ export default function AdminServicesPage() {
   }, []);
 
   useEffect(() => {
+    fetchCategories();
     fetchServices();
-  }, [fetchServices]);
+  }, [fetchCategories, fetchServices]);
 
   const openNew = () => {
     setForm({ ...defaultForm });
@@ -164,7 +232,17 @@ export default function AdminServicesPage() {
     }
   };
 
-  const displayList = showArchived ? services : services.filter((s) => !s.archived);
+  const filteredByArchive = showArchived ? services : services.filter((s) => !s.archived);
+  const displayList = selectedCategory === 'all' 
+    ? filteredByArchive 
+    : filteredByArchive.filter((s) => s.category_id === selectedCategory || s.category === selectedCategory);
+  
+  // Get category info for a service
+  const getCategoryInfo = (s: Service) => {
+    const catId = s.category_id || s.category;
+    if (!catId) return null;
+    return categoryMap[catId] || null;
+  };
 
   return (
     <div className="p-6 max-w-5xl mx-auto space-y-6">
@@ -187,6 +265,44 @@ export default function AdminServicesPage() {
           </button>
         </div>
       </div>
+
+      {/* Category Filter Pills */}
+      {categories.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          <button
+            onClick={() => setSelectedCategory('all')}
+            className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+              selectedCategory === 'all'
+                ? 'bg-[#2D63A4] text-white'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+            }`}
+          >
+            All ({services.filter(s => !s.archived || showArchived).length})
+          </button>
+          {categories.map((cat) => {
+            const count = services.filter(s => 
+              (s.category_id === cat.id || s.category === cat.id) && 
+              (!s.archived || showArchived)
+            ).length;
+            if (count === 0) return null;
+            const colors = getCategoryColor(cat.slug);
+            return (
+              <button
+                key={cat.id}
+                onClick={() => setSelectedCategory(cat.id)}
+                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors border ${
+                  selectedCategory === cat.id
+                    ? `${colors.bg} ${colors.text} ${colors.border} ring-2 ring-offset-1 ring-current`
+                    : `${colors.bg} ${colors.text} ${colors.border} hover:opacity-80`
+                }`}
+              >
+                {cat.icon && <span className="mr-1">{cat.icon}</span>}
+                {cat.name} ({count})
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {loading ? (
         <div className="h-48 rounded-xl bg-gray-100 animate-pulse" />
@@ -213,24 +329,49 @@ export default function AdminServicesPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-black">
-              {displayList.map((s) => (
-                <tr key={s.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 font-medium text-black">{s.name}</td>
-                  <td className="px-4 py-3 text-black text-sm">{s.category || '—'}</td>
-                  <td className="px-4 py-3 text-black text-sm">{s.duration_minutes} min</td>
-                  <td className="px-4 py-3 text-black text-sm">${(s.price ?? s.price_cents / 100).toFixed(2)}</td>
-                  <td className="px-4 py-3">
-                    {s.online_booking ? <span className="text-xs px-2 py-0.5 rounded bg-green-100 text-green-800">Online</span> : <span className="text-xs text-black">—</span>}
-                  </td>
-                  <td className="px-4 py-3">
-                    {s.archived ? <span className="text-xs px-2 py-0.5 rounded bg-gray-200 text-gray-700">Archived</span> : s.active ? <span className="text-xs px-2 py-0.5 rounded bg-green-100 text-green-800">Active</span> : <span className="text-xs px-2 py-0.5 rounded bg-amber-100 text-amber-800">Inactive</span>}
-                  </td>
-                  <td className="px-4 py-3 text-right">
-                    <button type="button" onClick={() => openEdit(s)} className="text-[#2D63A4] font-medium text-sm hover:underline mr-2">Edit</button>
-                    {!s.archived && <button type="button" onClick={() => archive(s.id)} className="text-black text-sm hover:underline">Archive</button>}
-                  </td>
-                </tr>
-              ))}
+              {displayList.map((s) => {
+                const catInfo = getCategoryInfo(s);
+                const catColors = catInfo ? getCategoryColor(catInfo.slug) : DEFAULT_COLOR;
+                const isActive = s.is_active !== false && s.active !== false;
+                const canBook = s.allow_online_booking !== false && s.online_booking !== false;
+                return (
+                  <tr key={s.id} className="hover:bg-gray-50">
+                    <td className="px-4 py-3 font-medium text-black">{s.name}</td>
+                    <td className="px-4 py-3">
+                      {catInfo ? (
+                        <span className={`inline-flex items-center gap-1 text-xs px-2.5 py-1 rounded-full font-medium ${catColors.bg} ${catColors.text} border ${catColors.border}`}>
+                          {catInfo.icon && <span>{catInfo.icon}</span>}
+                          {catInfo.name}
+                        </span>
+                      ) : (
+                        <span className="text-sm text-gray-400">—</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3 text-black text-sm">{s.duration_minutes} min</td>
+                    <td className="px-4 py-3 text-black text-sm font-medium">${(s.price ?? s.price_cents / 100).toFixed(2)}</td>
+                    <td className="px-4 py-3">
+                      {canBook ? (
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-800 font-medium">Online</span>
+                      ) : (
+                        <span className="text-xs text-gray-400">—</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3">
+                      {s.archived ? (
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-gray-200 text-gray-700">Archived</span>
+                      ) : isActive ? (
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-green-100 text-green-800 font-medium">Active</span>
+                      ) : (
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">Inactive</span>
+                      )}
+                    </td>
+                    <td className="px-4 py-3 text-right">
+                      <button type="button" onClick={() => openEdit(s)} className="text-[#2D63A4] font-medium text-sm hover:underline mr-2">Edit</button>
+                      {!s.archived && <button type="button" onClick={() => archive(s.id)} className="text-gray-500 text-sm hover:underline">Archive</button>}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
