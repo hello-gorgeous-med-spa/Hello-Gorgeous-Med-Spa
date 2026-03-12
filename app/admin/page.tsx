@@ -173,6 +173,7 @@ export default function ExecutiveDashboard() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
+  const [unsignedConsentAppts, setUnsignedConsentAppts] = useState<{id: string; client_name: string; time: string}[]>([]);
   
   // Filters
   const [dateRange, setDateRange] = useState<'today' | 'week' | 'month' | 'year'>('month');
@@ -404,6 +405,35 @@ export default function ExecutiveDashboard() {
         }));
 
       setUpcomingAppointments(upcoming);
+      
+      // Check consent status for today's appointments
+      const pendingApptIds = appointments
+        .filter((a: any) => ['pending', 'confirmed', 'checked_in'].includes(a.status))
+        .map((a: any) => a.id)
+        .filter(Boolean);
+      
+      if (pendingApptIds.length > 0) {
+        try {
+          const consentRes = await fetchWithTimeout(`/api/appointments/consent-status?ids=${pendingApptIds.join(',')}`);
+          const consentData = await consentRes.json().catch(() => ({}));
+          if (consentData.statuses) {
+            const unsigned = appointments
+              .filter((a: any) => {
+                const cs = consentData.statuses[a.id];
+                return cs && cs.total > 0 && cs.status !== 'complete';
+              })
+              .map((a: any) => ({
+                id: a.id,
+                client_name: a.client_name || 'Unknown',
+                time: formatTime(a.starts_at),
+              }));
+            setUnsignedConsentAppts(unsigned);
+          }
+        } catch (err) {
+          console.error('Failed to check consent status:', err);
+        }
+      }
+      
       setError(null);
       setLastUpdated(new Date());
     } catch (err) {
@@ -552,6 +582,47 @@ export default function ExecutiveDashboard() {
       {error && (
         <div className="bg-amber-50 border border-amber-200 text-amber-700 px-4 py-3 rounded-lg">
           {error}
+        </div>
+      )}
+
+      {/* Unsigned Consent Alert */}
+      {unsignedConsentAppts.length > 0 && (
+        <div className="bg-red-50 border border-red-200 rounded-xl p-4 print:hidden">
+          <div className="flex items-start gap-3">
+            <span className="text-2xl">⚠️</span>
+            <div className="flex-1">
+              <h3 className="font-semibold text-red-800">Unsigned Consent Forms</h3>
+              <p className="text-sm text-red-700 mt-1">
+                {unsignedConsentAppts.length} appointment{unsignedConsentAppts.length > 1 ? 's' : ''} today with pending consent forms:
+              </p>
+              <div className="flex flex-wrap gap-2 mt-2">
+                {unsignedConsentAppts.slice(0, 5).map((apt) => (
+                  <Link
+                    key={apt.id}
+                    href={`/admin/appointments/${apt.id}`}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white border border-red-200 rounded-lg text-sm text-red-800 hover:bg-red-100 transition-colors"
+                  >
+                    <span className="font-medium">{apt.client_name}</span>
+                    <span className="text-red-500">@ {apt.time}</span>
+                  </Link>
+                ))}
+                {unsignedConsentAppts.length > 5 && (
+                  <Link
+                    href="/admin/appointments"
+                    className="inline-flex items-center px-3 py-1.5 text-sm text-red-600 hover:underline"
+                  >
+                    +{unsignedConsentAppts.length - 5} more
+                  </Link>
+                )}
+              </div>
+            </div>
+            <Link
+              href="/admin/appointments"
+              className="px-4 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 text-sm whitespace-nowrap"
+            >
+              View All
+            </Link>
+          </div>
         </div>
       )}
 

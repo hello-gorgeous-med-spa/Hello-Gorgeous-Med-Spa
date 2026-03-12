@@ -33,7 +33,30 @@ interface Service {
 }
 
 const CATEGORIES = ['Injectables', 'Fillers', 'Facials', 'Laser', 'Body', 'Wellness', 'Skincare'];
-const CONSENTS = ['HIPAA', 'Financial Policy', 'Neurotoxin Consent', 'Filler Consent', 'Laser Consent', 'Photo Release'];
+const CONSENTS = [
+  'HIPAA Authorization',
+  'General Treatment Consent',
+  'Photo/Media Release',
+  'Financial Policy',
+  'Injectable (Neurotoxin) Consent',
+  'Dermal Filler Consent',
+  'Laser Treatment Consent',
+  'Laser Hair Removal Consent',
+  'Chemical Peel Consent',
+  'Microneedling Consent',
+  'RF Microneedling Consent',
+  'Morpheus8 Consent',
+  'PRP/PRF Consent',
+  'IV Therapy Consent',
+  'Weight Loss Consent',
+  'BHRT Consent',
+  'HydraFacial Consent',
+  'Dermaplaning Consent',
+  'Lash & Brow Consent',
+  'Body Contouring Consent',
+  'Kybella Consent',
+  'PDO Threads Consent',
+];
 const CHART_SECTIONS = ['Subjective', 'Objective', 'Assessment', 'Plan', 'Injection Map', 'Before Photo', 'After Photo', 'Products Used'];
 const PROVIDERS = [
   { id: 'p1', name: 'Ryan Kent' },

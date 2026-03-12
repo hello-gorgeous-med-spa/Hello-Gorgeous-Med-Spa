@@ -47,6 +47,12 @@ export default function AdminAppointmentsPage() {
   const [providers, setProviders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [consentStatuses, setConsentStatuses] = useState<Record<string, {
+    total: number;
+    signed: number;
+    pending: number;
+    status: 'complete' | 'partial' | 'pending' | 'none';
+  }>>({});
 
   // Fetch appointments (timeout so page never sticks on loading)
   const fetchAppointments = useCallback(async () => {
@@ -95,6 +101,20 @@ export default function AdminAppointmentsPage() {
     }
   }, []);
 
+  // Fetch consent statuses for appointments
+  const fetchConsentStatuses = useCallback(async (apptIds: string[]) => {
+    if (apptIds.length === 0) return;
+    try {
+      const res = await fetchWithTimeout(`/api/appointments/consent-status?ids=${apptIds.join(',')}`);
+      const data = await res.json().catch(() => ({}));
+      if (data.statuses) {
+        setConsentStatuses(data.statuses);
+      }
+    } catch (err) {
+      console.error('Failed to load consent statuses:', err);
+    }
+  }, []);
+
   useEffect(() => {
     fetchAppointments();
   }, [fetchAppointments]);
@@ -102,6 +122,14 @@ export default function AdminAppointmentsPage() {
   useEffect(() => {
     fetchProviders();
   }, [fetchProviders]);
+
+  // Fetch consent statuses when appointments load
+  useEffect(() => {
+    if (appointments.length > 0) {
+      const ids = appointments.map(a => a.id).filter(Boolean);
+      fetchConsentStatuses(ids);
+    }
+  }, [appointments, fetchConsentStatuses]);
 
   const refetch = fetchAppointments;
 
@@ -343,6 +371,7 @@ export default function AdminAppointmentsPage() {
                 <th className="text-left px-4 py-3 text-sm font-semibold text-black">Service</th>
                 <th className="text-left px-4 py-3 text-sm font-semibold text-black">Provider</th>
                 <th className="text-left px-4 py-3 text-sm font-semibold text-black">Status</th>
+                <th className="text-left px-4 py-3 text-sm font-semibold text-black">Consents</th>
                 <th className="text-left px-4 py-3 text-sm font-semibold text-black">Price</th>
                 <th className="px-4 py-3"></th>
               </tr>
@@ -357,12 +386,13 @@ export default function AdminAppointmentsPage() {
                     <td className="px-4 py-3"><Skeleton className="w-28 h-4" /></td>
                     <td className="px-4 py-3"><Skeleton className="w-24 h-6 rounded-full" /></td>
                     <td className="px-4 py-3"><Skeleton className="w-16 h-4" /></td>
+                    <td className="px-4 py-3"><Skeleton className="w-16 h-4" /></td>
                     <td className="px-4 py-3"><Skeleton className="w-20 h-8" /></td>
                   </tr>
                 ))
               ) : filteredAppointments.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-4 py-4">
+                  <td colSpan={8} className="px-4 py-4">
                     <NoAppointmentsEmptyState date={selectedDate} />
                   </td>
                 </tr>
@@ -400,6 +430,36 @@ export default function AdminAppointmentsPage() {
                         <span className={`px-2 py-1 text-xs font-medium rounded-full ${statusConfig.bg} ${statusConfig.color}`}>
                           {statusConfig.label}
                         </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        {(() => {
+                          const cs = consentStatuses[apt.id];
+                          if (!cs || cs.status === 'none') {
+                            return <span className="text-gray-400 text-sm">—</span>;
+                          }
+                          if (cs.status === 'complete') {
+                            return (
+                              <span className="inline-flex items-center gap-1 text-green-600 text-sm" title={`${cs.signed}/${cs.total} signed`}>
+                                <span>✅</span>
+                                <span className="font-medium">{cs.signed}/{cs.total}</span>
+                              </span>
+                            );
+                          }
+                          if (cs.status === 'partial') {
+                            return (
+                              <span className="inline-flex items-center gap-1 text-amber-600 text-sm" title={`${cs.signed}/${cs.total} signed`}>
+                                <span>⚠️</span>
+                                <span className="font-medium">{cs.signed}/{cs.total}</span>
+                              </span>
+                            );
+                          }
+                          return (
+                            <span className="inline-flex items-center gap-1 text-red-600 text-sm" title={`${cs.pending} pending`}>
+                              <span>⏳</span>
+                              <span className="font-medium">0/{cs.total}</span>
+                            </span>
+                          );
+                        })()}
                       </td>
                       <td className="px-4 py-3">
                         <span className="font-medium text-black">

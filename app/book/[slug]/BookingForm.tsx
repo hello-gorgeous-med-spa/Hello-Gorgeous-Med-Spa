@@ -859,10 +859,23 @@ export default function BookingForm({ service, providerPref: propProviderPref }:
               </div>
             </div>
 
-            <div className="bg-pink-50 rounded-xl p-4 mb-6">
+            <div className="bg-pink-50 rounded-xl p-4 mb-4">
               <p className="text-sm text-pink-800">
                 📍 <strong>Location:</strong> 74 W. Washington St, Oswego, IL 60543
               </p>
+            </div>
+
+            {/* Consent Forms Notice */}
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
+              <div className="flex items-start gap-3">
+                <span className="text-xl">📋</span>
+                <div className="text-left">
+                  <p className="text-sm font-medium text-blue-800">Consent Forms Sent</p>
+                  <p className="text-xs text-blue-700 mt-1">
+                    We've sent required consent forms to your phone via SMS. Please complete and sign them before your appointment.
+                  </p>
+                </div>
+              </div>
             </div>
 
             <div className="space-y-3">
