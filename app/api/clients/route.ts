@@ -170,10 +170,21 @@ export async function GET(request: NextRequest) {
     }
 
     // Get all clients - simple query without joins (include Client Intelligence fields)
+    // Support sorting by name or created_at
+    const sortBy = searchParams.get('sort') || 'created_at';
+    const sortOrder = searchParams.get('order') || 'desc';
+    
     let query = supabase
       .from('clients')
-      .select('*', { count: 'exact' })
-      .order('created_at', { ascending: false });
+      .select('*', { count: 'exact' });
+    
+    // Apply sorting - support 'name' for alphabetical, 'created_at' for newest first
+    if (sortBy === 'name') {
+      query = query.order('first_name', { ascending: sortOrder !== 'desc' })
+                   .order('last_name', { ascending: sortOrder !== 'desc' });
+    } else {
+      query = query.order(sortBy, { ascending: sortOrder !== 'desc' });
+    }
 
     const sourceFilter = searchParams.get('source');
     if (sourceFilter && sourceFilter.trim()) {

@@ -87,7 +87,7 @@ function NewAppointmentContent() {
         const [servicesRes, providersRes, clientsRes] = await Promise.all([
           fetch('/api/services'),
           fetch('/api/providers'),
-          fetch('/api/clients?limit=100'),
+          fetch('/api/clients?limit=5000&sort=name&order=asc'), // Load all clients sorted alphabetically
         ]);
 
         const [servicesData, providersData, clientsData] = await Promise.all([
@@ -107,7 +107,10 @@ function NewAppointmentContent() {
             }));
           }
         }
-        if (clientsData.clients) setAllClients(clientsData.clients);
+        // Clients already sorted alphabetically from API
+        if (clientsData.clients) {
+          setAllClients(clientsData.clients);
+        }
 
         // Try to fetch consent forms
         try {
@@ -155,10 +158,11 @@ function NewAppointmentContent() {
     }
   }, [preselectedClientId]);
 
-  // Search clients
+  // Search clients - already sorted alphabetically from fetch
   useEffect(() => {
     if (clientSearch.length < 1) {
-      setClientResults(allClients.slice(0, 20));
+      // Show first 50 clients alphabetically when no search
+      setClientResults(allClients.slice(0, 50));
       return;
     }
 
@@ -168,7 +172,7 @@ function NewAppointmentContent() {
       c.last_name?.toLowerCase().includes(searchLower) ||
       c.email?.toLowerCase().includes(searchLower) ||
       c.phone?.includes(clientSearch)
-    ).slice(0, 20);
+    ).slice(0, 50); // Show up to 50 matching results
 
     setClientResults(filtered);
   }, [clientSearch, allClients]);

@@ -30,13 +30,12 @@ function InboxContent() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Fetch clients with recent messages
+  // Fetch clients sorted alphabetically
   const fetchClients = useCallback(async () => {
     try {
-      const res = await fetch('/api/clients?limit=50');
+      const res = await fetch('/api/clients?limit=500&sort=name&order=asc');
       const data = await res.json();
       if (data.clients) {
-        // Sort by most recent interaction (placeholder - would need message data)
         setClients(data.clients);
       }
     } catch (err) {
