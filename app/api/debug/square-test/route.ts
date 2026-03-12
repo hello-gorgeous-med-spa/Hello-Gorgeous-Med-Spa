@@ -26,8 +26,8 @@ export async function GET() {
       return NextResponse.json(results);
     }
 
-    // Test fetching customers directly
-    const url = `${SQUARE_API_BASE}/v2/customers?limit=10`;
+    // Test fetching customers directly - get 100 to see phone distribution
+    const url = `${SQUARE_API_BASE}/v2/customers?limit=100`;
     console.log('[debug/square-test] Fetching:', url);
     
     const response = await fetch(url, {
@@ -49,8 +49,18 @@ export async function GET() {
     }
 
     const customers = data.customers || [];
+    const withPhone = customers.filter((c: any) => c.phone_number);
+    const withEmail = customers.filter((c: any) => c.email_address);
+    
     results.customerCount = customers.length;
+    results.withPhoneCount = withPhone.length;
+    results.withEmailCount = withEmail.length;
     results.hasCursor = !!data.cursor;
+    results.sampleWithPhone = withPhone.slice(0, 3).map((c: any) => ({
+      id: c.id?.slice(0, 10) + '...',
+      name: `${c.given_name || ''} ${c.family_name || ''}`.trim() || 'No name',
+      phone: c.phone_number?.slice(0, 6) + '...',
+    }));
     results.sampleCustomers = customers.slice(0, 3).map((c: any) => ({
       id: c.id?.slice(0, 10) + '...',
       name: `${c.given_name || ''} ${c.family_name || ''}`.trim() || 'No name',
