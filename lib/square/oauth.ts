@@ -261,8 +261,9 @@ export async function storeConnection(
     .single();
   
   if (existing) {
-    // Update existing connection
+    // Update existing connection - IMPORTANT: Also update scopes for re-authorization
     console.log('[Square OAuth] Updating existing connection:', existing.id);
+    console.log('[Square OAuth] New scopes:', REQUIRED_SCOPES);
     const { error } = await supabase
       .from('square_connections')
       .update({
@@ -275,6 +276,8 @@ export async function storeConnection(
         location_name: locationName || null,
         status: 'active',
         environment: config.environment,
+        scopes: REQUIRED_SCOPES.split(' '), // Update scopes on re-auth!
+        connected_at: new Date().toISOString(), // Update timestamp on re-auth
         last_token_refresh_at: new Date().toISOString(),
         disconnected_at: null,
       })
