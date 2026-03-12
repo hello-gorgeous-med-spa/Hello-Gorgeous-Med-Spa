@@ -44,22 +44,11 @@ export default function AdminSettingsPaymentsPage() {
     setLoading(false);
   };
 
-  const handleConnect = async () => {
+  const handleConnect = () => {
     setConnecting(true);
     setError(null);
-    try {
-      const res = await fetch('/api/square/oauth/start');
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        setError(data.error || 'Failed to start OAuth flow');
-        setConnecting(false);
-      }
-    } catch (err) {
-      setError('Failed to connect to Square');
-      setConnecting(false);
-    }
+    // Navigate directly to the OAuth start endpoint - it will redirect to Square
+    window.location.href = '/api/square/oauth/start';
   };
 
   const handleDisconnect = async () => {
@@ -83,21 +72,10 @@ export default function AdminSettingsPaymentsPage() {
     setTimeout(() => setMessage(null), 5000);
   };
 
-  const handleReauthorize = async () => {
+  const handleReauthorize = () => {
     setConnecting(true);
-    try {
-      const res = await fetch('/api/square/oauth/start');
-      const data = await res.json();
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        setError(data.error || 'Failed to start re-authorization');
-        setConnecting(false);
-      }
-    } catch (err) {
-      setError('Failed to re-authorize');
-      setConnecting(false);
-    }
+    // Navigate directly to the OAuth start endpoint - it will redirect to Square
+    window.location.href = '/api/square/oauth/start';
   };
 
   return (
