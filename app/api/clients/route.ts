@@ -285,8 +285,8 @@ export async function GET(request: NextRequest) {
       return {
         id: c.id,
         user_id: c.user_id,
-        first_name: user.first_name || c.first_name,
-        last_name: user.last_name || c.last_name,
+        first_name: user.first_name || c.first_name || '',
+        last_name: user.last_name || c.last_name || '',
         email: user.email || c.email,
         phone: user.phone || c.phone,
         date_of_birth: c.date_of_birth,
@@ -298,6 +298,19 @@ export async function GET(request: NextRequest) {
         source: c.source || c.referral_source || null,
       };
     });
+
+    // Re-sort after joining with users data if sorting by name
+    // (DB sort won't work properly since names come from users table)
+    if (sortBy === 'name') {
+      clients.sort((a: any, b: any) => {
+        const nameA = `${a.first_name} ${a.last_name}`.toLowerCase().trim();
+        const nameB = `${b.first_name} ${b.last_name}`.toLowerCase().trim();
+        // Put empty names at the end
+        if (!nameA && nameB) return 1;
+        if (nameA && !nameB) return -1;
+        return sortOrder === 'desc' ? nameB.localeCompare(nameA) : nameA.localeCompare(nameB);
+      });
+    }
 
     // When DB has no clients, load from Square so the list isn't empty
     const dbTotal = totalCount ?? 0;

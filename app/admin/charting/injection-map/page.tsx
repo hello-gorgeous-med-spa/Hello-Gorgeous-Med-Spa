@@ -104,7 +104,7 @@ function InjectionMapContent() {
 
   // Fetch clients - sorted alphabetically by API
   useEffect(() => {
-    fetch('/api/clients?limit=5000&sort=name&order=asc')
+    fetch('/api/clients?limit=200&sort=name&order=asc')
       .then(res => res.json())
       .then(data => {
         setClients(data.clients || []);

@@ -87,7 +87,7 @@ function NewAppointmentContent() {
         const [servicesRes, providersRes, clientsRes] = await Promise.all([
           fetch('/api/services'),
           fetch('/api/providers'),
-          fetch('/api/clients?limit=5000&sort=name&order=asc'), // Load all clients sorted alphabetically
+          fetch('/api/clients?limit=100&sort=name&order=asc'), // Load initial 100 clients alphabetically
         ]);
 
         const [servicesData, providersData, clientsData] = await Promise.all([
@@ -158,23 +158,33 @@ function NewAppointmentContent() {
     }
   }, [preselectedClientId]);
 
-  // Search clients - already sorted alphabetically from fetch
+  // Search clients - use server-side search for better results
   useEffect(() => {
     if (clientSearch.length < 1) {
-      // Show first 50 clients alphabetically when no search
+      // Show initial clients alphabetically when no search
       setClientResults(allClients.slice(0, 50));
       return;
     }
 
-    const searchLower = clientSearch.toLowerCase();
-    const filtered = allClients.filter((c: any) =>
-      c.first_name?.toLowerCase().includes(searchLower) ||
-      c.last_name?.toLowerCase().includes(searchLower) ||
-      c.email?.toLowerCase().includes(searchLower) ||
-      c.phone?.includes(clientSearch)
-    ).slice(0, 50); // Show up to 50 matching results
-
-    setClientResults(filtered);
+    // Use server-side search for 2+ characters
+    if (clientSearch.length >= 2) {
+      setSearchLoading(true);
+      fetch(`/api/clients?search=${encodeURIComponent(clientSearch)}&limit=50&sort=name&order=asc`)
+        .then(res => res.json())
+        .then(data => {
+          setClientResults(data.clients || []);
+        })
+        .catch(console.error)
+        .finally(() => setSearchLoading(false));
+    } else {
+      // For 1 character, filter locally
+      const searchLower = clientSearch.toLowerCase();
+      const filtered = allClients.filter((c: any) =>
+        c.first_name?.toLowerCase().startsWith(searchLower) ||
+        c.last_name?.toLowerCase().startsWith(searchLower)
+      ).slice(0, 50);
+      setClientResults(filtered);
+    }
   }, [clientSearch, allClients]);
 
   // Fetch DYNAMIC availability from provider schedules

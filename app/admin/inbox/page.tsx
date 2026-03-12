@@ -33,7 +33,7 @@ function InboxContent() {
   // Fetch clients sorted alphabetically
   const fetchClients = useCallback(async () => {
     try {
-      const res = await fetch('/api/clients?limit=500&sort=name&order=asc');
+      const res = await fetch('/api/clients?limit=100&sort=name&order=asc');
       const data = await res.json();
       if (data.clients) {
         setClients(data.clients);
