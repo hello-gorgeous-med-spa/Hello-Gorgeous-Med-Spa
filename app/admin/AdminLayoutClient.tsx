@@ -12,6 +12,7 @@ type AdminRole = 'owner' | 'admin' | 'staff' | 'provider' | 'readonly' | null;
 const MAIN_NAV: { href: string; label: string; icon: string }[] = [
   { href: '/admin', label: 'Dashboard', icon: '📊' },
   { href: '/admin/calendar', label: 'Calendar', icon: '🗓' },
+  { href: '/admin/appointments', label: 'Appointments', icon: '📅' },
   { href: '/admin/clients', label: 'Clients', icon: '👥' },
   { href: '/admin/charting', label: 'Charting', icon: '📋' },
   { href: '/admin/services', label: 'Services', icon: '✨' },
