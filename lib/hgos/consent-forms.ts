@@ -845,7 +845,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
     expiresAfterDays: 365,
     order: 20,
     requiredForServices: ['morpheus8', 'rf-microneedling', 'skin-tightening'],
-    content: \`
+    content: `
       <h2>INFORMED CONSENT FOR MORPHEUS8 RF MICRONEEDLING</h2>
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
       
@@ -932,7 +932,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       <p>I have been informed of alternative treatments including surgical facelift, traditional microneedling, other RF devices, laser resurfacing, and topical skincare. I have chosen to proceed with Morpheus8.</p>
       
       <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM, ALL MY QUESTIONS HAVE BEEN ANSWERED, AND I VOLUNTARILY CONSENT TO MORPHEUS8 TREATMENT.</strong></p>
-    \`,
+    `,
   },
 
   {
@@ -947,7 +947,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
     expiresAfterDays: 365,
     order: 21,
     requiredForServices: ['rf-microneedling', 'skin-tightening', 'scarless'],
-    content: \`
+    content: `
       <h2>INFORMED CONSENT FOR RADIOFREQUENCY MICRONEEDLING</h2>
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
       
@@ -992,7 +992,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       <p>Multiple treatments (typically 3-4) spaced 4-6 weeks apart are recommended for optimal results. Results continue to improve for 3-6 months post-treatment as collagen remodeling occurs.</p>
       
       <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO RF MICRONEEDLING TREATMENT.</strong></p>
-    \`,
+    `,
   },
 
   {
@@ -1007,7 +1007,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
     expiresAfterDays: 365,
     order: 22,
     requiredForServices: ['ipl', 'photofacial', 'bbl', 'photorejuvenation'],
-    content: \`
+    content: `
       <h2>INFORMED CONSENT FOR IPL/PHOTOFACIAL TREATMENT</h2>
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
       
@@ -1063,7 +1063,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       <p>I understand that proper eye protection is MANDATORY during IPL treatment. I agree to keep my eyes closed and wear the protective eyewear provided at all times.</p>
       
       <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO IPL/PHOTOFACIAL TREATMENT.</strong></p>
-    \`,
+    `,
   },
 
   {
@@ -1078,7 +1078,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
     expiresAfterDays: 365,
     order: 23,
     requiredForServices: ['laser-hair-removal', 'hair-removal', 'laser-hair'],
-    content: \`
+    content: `
       <h2>INFORMED CONSENT FOR LASER HAIR REMOVAL</h2>
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
       
@@ -1137,7 +1137,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       </ul>
       
       <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO LASER HAIR REMOVAL TREATMENT.</strong></p>
-    \`,
+    `,
   },
 
   {
@@ -1152,7 +1152,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
     expiresAfterDays: 365,
     order: 24,
     requiredForServices: ['laser-resurfacing', 'co2-laser', 'erbium-laser', 'fraxel', 'halo'],
-    content: \`
+    content: `
       <h2>INFORMED CONSENT FOR LASER SKIN RESURFACING</h2>
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
       
@@ -1213,7 +1213,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       </ul>
       
       <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM, INCLUDING THE RISKS AND EXPECTED DOWNTIME, AND I VOLUNTARILY CONSENT TO LASER SKIN RESURFACING.</strong></p>
-    \`,
+    `,
   },
 
   {
@@ -1228,7 +1228,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
     expiresAfterDays: 365,
     order: 25,
     requiredForServices: ['prp', 'prf', 'vampire-facial', 'hair-restoration', 'prp-injections'],
-    content: \`
+    content: `
       <h2>INFORMED CONSENT FOR PRP/PRF TREATMENTS</h2>
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
       
@@ -1281,7 +1281,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       <p>I understand the importance of being well-hydrated before my blood draw. I will drink plenty of water in the 24 hours before my appointment.</p>
       
       <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO PRP/PRF TREATMENT.</strong></p>
-    \`,
+    `,
   },
 
   {
@@ -1296,7 +1296,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
     expiresAfterDays: 365,
     order: 26,
     requiredForServices: ['iv-therapy', 'iv-drip', 'vitamin-drip', 'myers-cocktail', 'nad'],
-    content: \`
+    content: `
       <h2>INFORMED CONSENT FOR IV VITAMIN THERAPY</h2>
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
       
@@ -1357,7 +1357,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       <p>I understand that IV vitamin therapy is a wellness service and is NOT a substitute for evaluation and treatment by a physician. I should consult my primary care provider for any concerning symptoms or medical conditions.</p>
       
       <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO IV VITAMIN THERAPY.</strong></p>
-    \`,
+    `,
   },
 
   {
@@ -1372,7 +1372,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
     expiresAfterDays: 180,
     order: 27,
     requiredForServices: ['bhrt', 'biote', 'hormone-therapy', 'pellet-therapy', 'testosterone'],
-    content: \`
+    content: `
       <h2>INFORMED CONSENT FOR BIOIDENTICAL HORMONE REPLACEMENT THERAPY (BHRT)</h2>
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
       
@@ -1452,7 +1452,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       </ul>
       
       <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM, INCLUDING THE REQUIREMENT FOR ONGOING MONITORING, AND I VOLUNTARILY CONSENT TO BHRT.</strong></p>
-    \`,
+    `,
   },
 
   {
@@ -1467,7 +1467,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
     expiresAfterDays: 365,
     order: 28,
     requiredForServices: ['hydrafacial', 'hydra-facial', 'aqua-facial'],
-    content: \`
+    content: `
       <h2>INFORMED CONSENT FOR HYDRAFACIAL TREATMENT</h2>
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
       
@@ -1518,7 +1518,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       </ul>
       
       <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO HYDRAFACIAL TREATMENT.</strong></p>
-    \`,
+    `,
   },
 
   {
@@ -1533,7 +1533,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
     expiresAfterDays: 365,
     order: 29,
     requiredForServices: ['dermaplaning', 'dermaplane'],
-    content: \`
+    content: `
       <h2>INFORMED CONSENT FOR DERMAPLANING</h2>
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
       
@@ -1582,7 +1582,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       </ul>
       
       <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO DERMAPLANING TREATMENT.</strong></p>
-    \`,
+    `,
   },
 
   {
@@ -1597,7 +1597,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
     expiresAfterDays: 365,
     order: 30,
     requiredForServices: ['lash', 'lash-extensions', 'lash-lift', 'brow', 'brow-lamination', 'lash-spa', 'brow-spa'],
-    content: \`
+    content: `
       <h2>INFORMED CONSENT FOR LASH & BROW SERVICES</h2>
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
       
@@ -1675,7 +1675,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       <p>I understand that services performed around the eye area carry inherent risks. I will keep my eyes closed during treatment and follow all provider instructions.</p>
       
       <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO LASH AND/OR BROW SERVICES.</strong></p>
-    \`,
+    `,
   },
 
   {
@@ -1690,7 +1690,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
     expiresAfterDays: 365,
     order: 31,
     requiredForServices: ['body-contouring', 'coolsculpting', 'emsculpt', 'cavitation', 'body-spa'],
-    content: \`
+    content: `
       <h2>INFORMED CONSENT FOR NON-SURGICAL BODY CONTOURING</h2>
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
       
@@ -1741,7 +1741,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       </ul>
       
       <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO BODY CONTOURING TREATMENT.</strong></p>
-    \`,
+    `,
   },
 
   {
@@ -1756,7 +1756,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
     expiresAfterDays: 365,
     order: 32,
     requiredForServices: ['kybella', 'double-chin', 'submental-fat'],
-    content: \`
+    content: `
       <h2>INFORMED CONSENT FOR KYBELLA® (DEOXYCHOLIC ACID) INJECTION</h2>
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
       
@@ -1821,7 +1821,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       </ul>
       
       <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM, INCLUDING THE EXPECTED SIGNIFICANT SWELLING AND POTENTIAL SERIOUS RISKS, AND I VOLUNTARILY CONSENT TO KYBELLA TREATMENT.</strong></p>
-    \`,
+    `,
   },
 
   {
@@ -1836,7 +1836,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
     expiresAfterDays: 365,
     order: 33,
     requiredForServices: ['pdo-threads', 'thread-lift', 'threads'],
-    content: \`
+    content: `
       <h2>INFORMED CONSENT FOR PDO THREAD LIFT</h2>
       <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
       
@@ -1902,7 +1902,7 @@ export const CONSENT_FORMS: ConsentForm[] = [
       <p>Threads may be combined with fillers, Botox, or other treatments for enhanced results. Additional touch-up threads may be needed for optimal outcomes.</p>
       
       <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO PDO THREAD TREATMENT.</strong></p>
-    \`,
+    `,
   },
 ];
 
