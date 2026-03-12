@@ -155,6 +155,16 @@ function POSContent() {
   const [clientResults, setClientResults] = useState<Client[]>([]);
   const [loadedAppointmentId, setLoadedAppointmentId] = useState<string | null>(null);
   const [isWalkIn, setIsWalkIn] = useState(false);
+  
+  // Gift card payment
+  const [showGiftCardModal, setShowGiftCardModal] = useState(false);
+  const [giftCardCode, setGiftCardCode] = useState('');
+  const [giftCardLoading, setGiftCardLoading] = useState(false);
+  const [giftCardInfo, setGiftCardInfo] = useState<{ code: string; balance: number } | null>(null);
+  
+  // Receipt sending
+  const [sendingReceipt, setSendingReceipt] = useState(false);
+  const [receiptSent, setReceiptSent] = useState<'email' | 'sms' | null>(null);
 
   // Tax rate (can be made configurable)
   const TAX_RATE = 0; // 0% for services in IL
@@ -543,6 +553,188 @@ function POSContent() {
     fetchReadyAppointments();
   };
 
+  // Look up gift card balance
+  const lookupGiftCard = async () => {
+    if (!giftCardCode.trim()) return;
+    
+    setGiftCardLoading(true);
+    setGiftCardInfo(null);
+    try {
+      const res = await fetch(`/api/gift-cards?code=${encodeURIComponent(giftCardCode.trim())}`);
+      const data = await res.json();
+      
+      if (data.giftCard && data.giftCard.current_balance > 0) {
+        setGiftCardInfo({
+          code: data.giftCard.code,
+          balance: data.giftCard.current_balance,
+        });
+      } else if (data.giftCard && data.giftCard.current_balance === 0) {
+        alert('This gift card has no remaining balance');
+      } else {
+        alert('Gift card not found');
+      }
+    } catch (err) {
+      alert('Failed to look up gift card');
+    }
+    setGiftCardLoading(false);
+  };
+
+  // Process gift card payment
+  const processGiftCardPayment = async () => {
+    if (!giftCardInfo || invoice.items.length === 0) return;
+    
+    const amountToCharge = Math.min(giftCardInfo.balance, invoice.balance_due);
+    
+    setProcessing(true);
+    try {
+      // Create invoice if not exists
+      let currentSaleId = saleId;
+      if (!currentSaleId) {
+        const invoiceRes = await fetch('/api/pos/invoices', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            client_id: invoice.client?.id || null,
+            appointment_id: invoice.appointment_id,
+            items: invoice.items.map(item => ({
+              type: item.type,
+              item_id: item.reference_id,
+              name: item.name,
+              quantity: item.quantity,
+              unit_price: item.unit_price,
+              discount_amount: item.discount,
+            })),
+          }),
+        });
+        const invoiceData = await invoiceRes.json();
+        if (!invoiceRes.ok) throw new Error(invoiceData.error);
+        currentSaleId = invoiceData.sale_id;
+        setSaleId(currentSaleId);
+      }
+
+      // Redeem gift card
+      const redeemRes = await fetch('/api/gift-cards', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          code: giftCardInfo.code,
+          action: 'redeem',
+          amount: amountToCharge,
+          sale_id: currentSaleId,
+        }),
+      });
+
+      const redeemData = await redeemRes.json();
+      if (!redeemRes.ok) throw new Error(redeemData.error);
+
+      // Record gift card payment
+      await fetch('/api/pos/payment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sale_id: currentSaleId,
+          payment_method: 'gift_card',
+          amount: Math.round(amountToCharge * 100),
+          reference: giftCardInfo.code,
+        }),
+      });
+
+      // Check if fully paid
+      const newBalance = invoice.balance_due - amountToCharge;
+      if (newBalance <= 0) {
+        setPaymentSuccess(true);
+        if (invoice.appointment_id) {
+          await fetch(`/api/appointments/${invoice.appointment_id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ payment_status: 'paid' }),
+          });
+        }
+      } else {
+        // Partial payment - update invoice
+        setInvoice(prev => ({ ...prev, balance_due: newBalance }));
+        alert(`$${amountToCharge.toFixed(2)} applied from gift card. Remaining balance: $${newBalance.toFixed(2)}`);
+      }
+
+      setShowGiftCardModal(false);
+      setGiftCardCode('');
+      setGiftCardInfo(null);
+    } catch (err) {
+      console.error('Gift card payment error:', err);
+      alert('Failed to process gift card payment');
+    } finally {
+      setProcessing(false);
+    }
+  };
+
+  // Send receipt via email
+  const sendEmailReceipt = async () => {
+    if (!invoice.client?.email) {
+      alert('No email address on file for this client');
+      return;
+    }
+    
+    setSendingReceipt(true);
+    try {
+      const res = await fetch('/api/pos/receipt', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sale_id: saleId,
+          client_id: invoice.client.id,
+          type: 'email',
+          email: invoice.client.email,
+          items: invoice.items,
+          total: invoice.total,
+        }),
+      });
+      
+      if (res.ok) {
+        setReceiptSent('email');
+        setTimeout(() => setReceiptSent(null), 3000);
+      } else {
+        throw new Error('Failed to send');
+      }
+    } catch (err) {
+      alert('Failed to send email receipt');
+    }
+    setSendingReceipt(false);
+  };
+
+  // Send receipt via SMS
+  const sendSmsReceipt = async () => {
+    if (!invoice.client?.phone) {
+      alert('No phone number on file for this client');
+      return;
+    }
+    
+    setSendingReceipt(true);
+    try {
+      const res = await fetch('/api/pos/receipt', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sale_id: saleId,
+          client_id: invoice.client.id,
+          type: 'sms',
+          phone: invoice.client.phone,
+          items: invoice.items,
+          total: invoice.total,
+        }),
+      });
+      
+      if (res.ok) {
+        setReceiptSent('sms');
+        setTimeout(() => setReceiptSent(null), 3000);
+      } else {
+        throw new Error('Failed to send');
+      }
+    } catch (err) {
+      alert('Failed to send text receipt');
+    }
+    setSendingReceipt(false);
+  };
+
   // Reset for new transaction
   const resetInvoice = () => {
     setIsWalkIn(false);
@@ -589,12 +781,30 @@ function POSContent() {
           </div>
           <h1 className="text-3xl font-bold text-black mb-2">Payment Complete!</h1>
           <p className="text-black mb-8">${invoice.total.toFixed(2)} collected</p>
+          
+          {/* Receipt Sent Confirmation */}
+          {receiptSent && (
+            <div className="mb-4 p-3 bg-green-50 text-green-700 rounded-lg">
+              ✓ Receipt sent via {receiptSent === 'email' ? 'email' : 'text'}!
+            </div>
+          )}
+          
           <div className="space-y-3">
-            <button className="w-full py-3 px-6 border border-black text-black rounded-lg hover:bg-black hover:text-white transition-colors font-medium">
-              📧 Email Receipt
+            <button 
+              onClick={sendEmailReceipt}
+              disabled={sendingReceipt || !invoice.client?.email}
+              className="w-full py-3 px-6 border border-black text-black rounded-lg hover:bg-black hover:text-white transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {sendingReceipt ? '⏳ Sending...' : '📧 Email Receipt'}
+              {!invoice.client?.email && <span className="block text-xs text-gray-500">No email on file</span>}
             </button>
-            <button className="w-full py-3 px-6 border border-black text-black rounded-lg hover:bg-black hover:text-white transition-colors font-medium">
-              📱 Text Receipt
+            <button 
+              onClick={sendSmsReceipt}
+              disabled={sendingReceipt || !invoice.client?.phone}
+              className="w-full py-3 px-6 border border-black text-black rounded-lg hover:bg-black hover:text-white transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {sendingReceipt ? '⏳ Sending...' : '📱 Text Receipt'}
+              {!invoice.client?.phone && <span className="block text-xs text-gray-500">No phone on file</span>}
             </button>
             <button
               onClick={resetInvoice}
@@ -881,6 +1091,99 @@ function POSContent() {
                   </div>
                 </div>
               )}
+
+              {/* Gift Card Payment Modal */}
+              {showGiftCardModal && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                  <div className="bg-white rounded-xl max-w-md w-full p-6">
+                    <div className="flex items-center justify-between mb-4">
+                      <h3 className="text-xl font-bold text-black">Pay with Gift Card</h3>
+                      <button 
+                        onClick={() => {
+                          setShowGiftCardModal(false);
+                          setGiftCardCode('');
+                          setGiftCardInfo(null);
+                        }} 
+                        className="text-black/60 hover:text-black text-xl"
+                      >
+                        ✕
+                      </button>
+                    </div>
+
+                    {!giftCardInfo ? (
+                      <>
+                        <div className="mb-4">
+                          <label className="block text-sm font-medium text-gray-700 mb-1">
+                            Gift Card Code
+                          </label>
+                          <input
+                            type="text"
+                            value={giftCardCode}
+                            onChange={(e) => setGiftCardCode(e.target.value.toUpperCase())}
+                            placeholder="HG-XXXXXXXX"
+                            className="w-full px-4 py-3 border border-black rounded-lg font-mono text-lg focus:ring-2 focus:ring-[#E6007E]"
+                            autoFocus
+                          />
+                        </div>
+                        <button
+                          onClick={lookupGiftCard}
+                          disabled={giftCardLoading || !giftCardCode.trim()}
+                          className="w-full py-3 bg-[#E6007E] text-white rounded-lg font-bold hover:bg-black transition-colors disabled:opacity-50"
+                        >
+                          {giftCardLoading ? 'Looking up...' : 'Look Up Gift Card'}
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-green-800 font-medium">Gift Card Found</span>
+                            <span className="font-mono text-green-700">{giftCardInfo.code}</span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-green-700">Available Balance:</span>
+                            <span className="text-2xl font-bold text-green-600">${giftCardInfo.balance.toFixed(2)}</span>
+                          </div>
+                        </div>
+
+                        <div className="bg-gray-50 rounded-lg p-4 mb-4">
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-gray-600">Amount Due:</span>
+                            <span className="font-medium">${invoice.balance_due.toFixed(2)}</span>
+                          </div>
+                          <div className="flex items-center justify-between text-lg font-bold">
+                            <span className="text-[#E6007E]">Will Charge:</span>
+                            <span className="text-[#E6007E]">
+                              ${Math.min(giftCardInfo.balance, invoice.balance_due).toFixed(2)}
+                            </span>
+                          </div>
+                          {giftCardInfo.balance < invoice.balance_due && (
+                            <p className="text-sm text-amber-600 mt-2">
+                              Remaining balance of ${(invoice.balance_due - giftCardInfo.balance).toFixed(2)} will need another payment method
+                            </p>
+                          )}
+                        </div>
+
+                        <div className="flex gap-3">
+                          <button
+                            onClick={() => setGiftCardInfo(null)}
+                            className="flex-1 py-3 border border-black text-black rounded-lg font-medium hover:bg-gray-100"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            onClick={processGiftCardPayment}
+                            disabled={processing}
+                            className="flex-1 py-3 bg-green-600 text-white rounded-lg font-bold hover:bg-green-700 disabled:opacity-50"
+                          >
+                            {processing ? 'Processing...' : 'Apply Gift Card'}
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Totals & Payment */}
@@ -940,6 +1243,7 @@ function POSContent() {
                   💵 Cash
                 </button>
                 <button
+                  onClick={() => setShowGiftCardModal(true)}
                   disabled={processing || invoice.items.length === 0}
                   className="py-3 border border-black text-black rounded-lg font-medium hover:bg-black hover:text-white transition-colors disabled:opacity-50"
                 >
