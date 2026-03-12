@@ -29,6 +29,7 @@ const WEBSITE_NAV = [
 // Governance Navigation
 const GOVERNANCE_NAV = [
   { href: '/admin/owner/data-model', label: 'Data Model Control', icon: '🗃️' },
+  { href: '/admin/owner/consents', label: 'Consents & Legal', icon: '📋' },
   { href: '/admin/owner/changes', label: 'Change Management', icon: '📝' },
   { href: '/admin/owner/risk', label: 'Risk & Compliance', icon: '⚠️' },
   { href: '/admin/owner/authority', label: 'Access & Authority', icon: '🔐' },

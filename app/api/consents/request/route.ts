@@ -34,7 +34,7 @@ function getTwilioClient() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { formType, email, phone, formName, clientId, appointmentId } = body;
+    const { formType, email, phone, formName, clientId, appointmentId, generateLinkOnly } = body;
 
     // Validate form type
     const form = CONSENT_FORMS.find(f => f.id === formType);
@@ -42,7 +42,8 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid form type' }, { status: 400 });
     }
 
-    if (!email && !phone) {
+    // For link generation, we don't need email or phone
+    if (!generateLinkOnly && !email && !phone) {
       return NextResponse.json({ error: 'Email or phone required' }, { status: 400 });
     }
 
@@ -75,6 +76,17 @@ export async function POST(request: NextRequest) {
     // Build consent form URL
     const consentUrl = `${BASE_URL}/consent/${token}?form=${formType}`;
     const shortFormName = form.shortName || formName || form.name;
+
+    // If only generating link, return immediately
+    if (generateLinkOnly) {
+      return NextResponse.json({
+        success: true,
+        message: 'Consent form link generated',
+        token,
+        url: consentUrl,
+        expiresAt: expiresAt.toISOString(),
+      });
+    }
 
     // Send via email if provided
     if (email) {

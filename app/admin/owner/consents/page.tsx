@@ -5,9 +5,17 @@
 // Consent forms, versioning, enforcement, print, download, send
 // ============================================================
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import OwnerLayout from '../layout-wrapper';
 import { CONSENT_FORMS, type ConsentForm as ConsentFormType } from '@/lib/hgos/consent-forms';
+
+interface Client {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string | null;
+  phone: string | null;
+}
 
 // Category colors for visual organization
 const CATEGORY_COLORS: Record<string, { bg: string; text: string }> = {
@@ -37,6 +45,7 @@ export default function ConsentsPage() {
   const [selectedForm, setSelectedForm] = useState<ConsentFormType | null>(null);
   const [showPreview, setShowPreview] = useState(false);
   const [showSendModal, setShowSendModal] = useState(false);
+  const [sendMethod, setSendMethod] = useState<'client' | 'email' | 'sms' | 'link'>('client');
   const [sendEmail, setSendEmail] = useState('');
   const [sendPhone, setSendPhone] = useState('');
   const [sending, setSending] = useState(false);
@@ -44,6 +53,14 @@ export default function ConsentsPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<string>('all');
   const printRef = useRef<HTMLDivElement>(null);
+  
+  // Client search state
+  const [clientSearch, setClientSearch] = useState('');
+  const [clients, setClients] = useState<Client[]>([]);
+  const [selectedClient, setSelectedClient] = useState<Client | null>(null);
+  const [loadingClients, setLoadingClients] = useState(false);
+  const [generatedLink, setGeneratedLink] = useState<string | null>(null);
+  const [linkCopied, setLinkCopied] = useState(false);
 
   const [enforcementRules, setEnforcementRules] = useState({
     block_booking_without_consent: true,
@@ -51,6 +68,77 @@ export default function ConsentsPage() {
     send_reminder_days_before_expiry: 14,
     allow_override_with_note: false,
   });
+
+  // Search clients
+  const searchClients = useCallback(async (query: string) => {
+    if (query.length < 2) {
+      setClients([]);
+      return;
+    }
+    setLoadingClients(true);
+    try {
+      const res = await fetch(`/api/clients?search=${encodeURIComponent(query)}&limit=10`);
+      const data = await res.json();
+      setClients(data.clients || []);
+    } catch (error) {
+      console.error('Failed to search clients:', error);
+    } finally {
+      setLoadingClients(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (clientSearch) {
+        searchClients(clientSearch);
+      }
+    }, 300);
+    return () => clearTimeout(timer);
+  }, [clientSearch, searchClients]);
+
+  // Generate shareable link
+  const generateLink = async () => {
+    if (!selectedForm) return;
+    try {
+      const response = await fetch('/api/consents/request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          formType: selectedForm.id,
+          formName: selectedForm.name,
+          generateLinkOnly: true,
+        }),
+      });
+      const data = await response.json();
+      if (data.url) {
+        setGeneratedLink(data.url);
+      }
+    } catch (error) {
+      setMessage({ type: 'error', text: 'Failed to generate link' });
+    }
+  };
+
+  // Copy link to clipboard
+  const copyLink = async () => {
+    if (generatedLink) {
+      await navigator.clipboard.writeText(generatedLink);
+      setLinkCopied(true);
+      setTimeout(() => setLinkCopied(false), 2000);
+    }
+  };
+
+  // Reset send modal state
+  const resetSendModal = () => {
+    setShowSendModal(false);
+    setSendEmail('');
+    setSendPhone('');
+    setClientSearch('');
+    setClients([]);
+    setSelectedClient(null);
+    setGeneratedLink(null);
+    setLinkCopied(false);
+    setSendMethod('client');
+  };
 
   // Group forms by category
   const groupedForms = CONSENT_FORMS.reduce((acc, form) => {
@@ -178,31 +266,52 @@ export default function ConsentsPage() {
   // Send consent form to client
   const handleSendToClient = async () => {
     if (!selectedForm) return;
-    if (!sendEmail && !sendPhone) {
-      setMessage({ type: 'error', text: 'Please enter an email or phone number' });
+
+    // Validate based on send method
+    if (sendMethod === 'client' && !selectedClient) {
+      setMessage({ type: 'error', text: 'Please select a client' });
+      return;
+    }
+    if (sendMethod === 'email' && !sendEmail) {
+      setMessage({ type: 'error', text: 'Please enter an email address' });
+      return;
+    }
+    if (sendMethod === 'sms' && !sendPhone) {
+      setMessage({ type: 'error', text: 'Please enter a phone number' });
       return;
     }
 
     setSending(true);
     try {
+      const payload: Record<string, unknown> = {
+        formType: selectedForm.id,
+        formName: selectedForm.name,
+      };
+
+      if (sendMethod === 'client' && selectedClient) {
+        payload.clientId = selectedClient.id;
+        payload.email = selectedClient.email || undefined;
+        payload.phone = selectedClient.phone || undefined;
+      } else if (sendMethod === 'email') {
+        payload.email = sendEmail;
+      } else if (sendMethod === 'sms') {
+        payload.phone = sendPhone;
+      }
+
       const response = await fetch('/api/consents/request', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          formType: selectedForm.id,
-          email: sendEmail || undefined,
-          phone: sendPhone || undefined,
-          formName: selectedForm.name,
-        }),
+        body: JSON.stringify(payload),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setMessage({ type: 'success', text: `Consent form sent to ${sendEmail || sendPhone}!` });
-        setShowSendModal(false);
-        setSendEmail('');
-        setSendPhone('');
+        const recipient = sendMethod === 'client' && selectedClient 
+          ? `${selectedClient.first_name} ${selectedClient.last_name}`
+          : sendEmail || sendPhone;
+        setMessage({ type: 'success', text: `Consent form sent to ${recipient}!` });
+        resetSendModal();
       } else {
         setMessage({ type: 'error', text: data.error || 'Failed to send consent form' });
       }
@@ -471,64 +580,223 @@ export default function ConsentsPage() {
         </div>
       )}
 
-      {/* Send Modal */}
+      {/* Send Modal - Enhanced */}
       {showSendModal && selectedForm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" onClick={() => setShowSendModal(false)}>
-          <div className="bg-white rounded-xl shadow-xl max-w-md w-full" onClick={e => e.stopPropagation()}>
-            <div className="p-4 border-b">
-              <h2 className="font-semibold text-lg">Send Consent Form</h2>
-              <p className="text-sm text-gray-600">{selectedForm.name}</p>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50" onClick={resetSendModal}>
+          <div className="bg-white rounded-xl shadow-xl max-w-lg w-full max-h-[90vh] overflow-hidden" onClick={e => e.stopPropagation()}>
+            <div className="p-4 border-b bg-gradient-to-r from-pink-600 to-pink-500">
+              <h2 className="font-semibold text-lg text-white">Send Consent Form</h2>
+              <p className="text-sm text-pink-100">{selectedForm.name}</p>
             </div>
-            <div className="p-4 space-y-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Client Email</label>
-                <input
-                  type="email"
-                  value={sendEmail}
-                  onChange={(e) => setSendEmail(e.target.value)}
-                  placeholder="client@email.com"
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                />
-              </div>
-              <div className="text-center text-gray-500 text-sm">— or —</div>
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Client Phone (SMS)</label>
-                <input
-                  type="tel"
-                  value={sendPhone}
-                  onChange={(e) => setSendPhone(e.target.value)}
-                  placeholder="(630) 555-1234"
-                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                />
-              </div>
-              <div className="bg-gray-50 rounded-lg p-3 text-sm text-gray-600">
-                <p>Client will receive a link to view and digitally sign the consent form.</p>
-              </div>
+            
+            {/* Send Method Tabs */}
+            <div className="flex border-b">
+              {[
+                { id: 'client', label: 'Client Account', icon: '👤' },
+                { id: 'email', label: 'Email', icon: '📧' },
+                { id: 'sms', label: 'SMS', icon: '📱' },
+                { id: 'link', label: 'Copy Link', icon: '🔗' },
+              ].map(method => (
+                <button
+                  key={method.id}
+                  onClick={() => setSendMethod(method.id as typeof sendMethod)}
+                  className={`flex-1 py-3 text-sm font-medium transition-colors ${
+                    sendMethod === method.id
+                      ? 'bg-pink-50 text-pink-700 border-b-2 border-pink-600'
+                      : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+                >
+                  <span className="mr-1">{method.icon}</span>
+                  {method.label}
+                </button>
+              ))}
             </div>
-            <div className="p-4 border-t flex justify-end gap-2">
+
+            <div className="p-4 space-y-4 max-h-[50vh] overflow-y-auto">
+              {/* Client Search */}
+              {sendMethod === 'client' && (
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Search Client</label>
+                    <input
+                      type="text"
+                      value={clientSearch}
+                      onChange={(e) => { setClientSearch(e.target.value); setSelectedClient(null); }}
+                      placeholder="Search by name, email, or phone..."
+                      className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                    />
+                  </div>
+                  
+                  {loadingClients && (
+                    <div className="text-center py-4 text-gray-500">
+                      <svg className="w-5 h-5 animate-spin mx-auto" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                      </svg>
+                    </div>
+                  )}
+
+                  {clients.length > 0 && !selectedClient && (
+                    <div className="border rounded-lg divide-y max-h-48 overflow-y-auto">
+                      {clients.map(client => (
+                        <button
+                          key={client.id}
+                          onClick={() => { setSelectedClient(client); setClients([]); }}
+                          className="w-full p-3 text-left hover:bg-gray-50 transition-colors"
+                        >
+                          <p className="font-medium">{client.first_name} {client.last_name}</p>
+                          <p className="text-sm text-gray-500">
+                            {client.email && <span>{client.email}</span>}
+                            {client.email && client.phone && <span> • </span>}
+                            {client.phone && <span>{client.phone}</span>}
+                          </p>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+
+                  {selectedClient && (
+                    <div className="bg-green-50 border border-green-200 rounded-lg p-3">
+                      <div className="flex items-center justify-between">
+                        <div>
+                          <p className="font-medium text-green-800">
+                            {selectedClient.first_name} {selectedClient.last_name}
+                          </p>
+                          <p className="text-sm text-green-600">
+                            {selectedClient.email || selectedClient.phone || 'No contact info'}
+                          </p>
+                        </div>
+                        <button
+                          onClick={() => { setSelectedClient(null); setClientSearch(''); }}
+                          className="text-green-600 hover:text-green-800"
+                        >
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-sm text-blue-700">
+                    Form will be sent to the client&apos;s email/phone and linked to their account for secure access in their portal.
+                  </div>
+                </div>
+              )}
+
+              {/* Email */}
+              {sendMethod === 'email' && (
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                    <input
+                      type="email"
+                      value={sendEmail}
+                      onChange={(e) => setSendEmail(e.target.value)}
+                      placeholder="client@email.com"
+                      className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-3 text-sm text-gray-600">
+                    Client will receive an email with a link to view and digitally sign the consent form.
+                  </div>
+                </div>
+              )}
+
+              {/* SMS */}
+              {sendMethod === 'sms' && (
+                <div className="space-y-3">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+                    <input
+                      type="tel"
+                      value={sendPhone}
+                      onChange={(e) => setSendPhone(e.target.value)}
+                      placeholder="(630) 555-1234"
+                      className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div className="bg-gray-50 rounded-lg p-3 text-sm text-gray-600">
+                    Client will receive an SMS with a link to view and digitally sign the consent form.
+                  </div>
+                </div>
+              )}
+
+              {/* Copy Link */}
+              {sendMethod === 'link' && (
+                <div className="space-y-3">
+                  {!generatedLink ? (
+                    <button
+                      onClick={generateLink}
+                      className="w-full py-3 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-pink-500 hover:text-pink-600 transition-colors"
+                    >
+                      Click to generate shareable link
+                    </button>
+                  ) : (
+                    <div className="space-y-2">
+                      <div className="flex gap-2">
+                        <input
+                          type="text"
+                          value={generatedLink}
+                          readOnly
+                          className="flex-1 px-3 py-2 border rounded-lg bg-gray-50 text-sm"
+                        />
+                        <button
+                          onClick={copyLink}
+                          className={`px-4 py-2 rounded-lg font-medium transition-colors ${
+                            linkCopied
+                              ? 'bg-green-600 text-white'
+                              : 'bg-[#FF2D8E] text-white hover:bg-black'
+                          }`}
+                        >
+                          {linkCopied ? '✓ Copied!' : 'Copy'}
+                        </button>
+                      </div>
+                      <p className="text-xs text-gray-500">Link expires in 7 days</p>
+                    </div>
+                  )}
+                  <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-sm text-amber-700">
+                    <strong>Note:</strong> This link is not tied to a specific client account. Use Client Account method for secure, tracked consents.
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div className="p-4 border-t flex justify-end gap-2 bg-gray-50">
               <button
-                onClick={() => setShowSendModal(false)}
-                className="px-4 py-2 border rounded-lg hover:bg-gray-50"
+                onClick={resetSendModal}
+                className="px-4 py-2 border rounded-lg hover:bg-white transition-colors"
               >
                 Cancel
               </button>
-              <button
-                onClick={handleSendToClient}
-                disabled={sending || (!sendEmail && !sendPhone)}
-                className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-              >
-                {sending ? (
-                  <>
-                    <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                    </svg>
-                    Sending...
-                  </>
-                ) : (
-                  'Send Consent Form'
-                )}
-              </button>
+              {sendMethod !== 'link' && (
+                <button
+                  onClick={handleSendToClient}
+                  disabled={sending || 
+                    (sendMethod === 'client' && !selectedClient) ||
+                    (sendMethod === 'email' && !sendEmail) ||
+                    (sendMethod === 'sms' && !sendPhone)
+                  }
+                  className="px-4 py-2 bg-[#FF2D8E] text-white rounded-lg hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 transition-colors"
+                >
+                  {sending ? (
+                    <>
+                      <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                      </svg>
+                      Send Consent Form
+                    </>
+                  )}
+                </button>
+              )}
             </div>
           </div>
         </div>
