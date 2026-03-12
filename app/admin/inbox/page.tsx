@@ -30,13 +30,19 @@ function InboxContent() {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Fetch clients sorted alphabetically
+  // Fetch clients and sort alphabetically
   const fetchClients = useCallback(async () => {
     try {
-      const res = await fetch('/api/clients?limit=100&sort=name&order=asc');
+      const res = await fetch('/api/clients?limit=100');
       const data = await res.json();
       if (data.clients) {
-        setClients(data.clients);
+        // Sort alphabetically on frontend
+        const sorted = [...data.clients].sort((a: Client, b: Client) => {
+          const nameA = `${a.first_name || ''} ${a.last_name || ''}`.toLowerCase();
+          const nameB = `${b.first_name || ''} ${b.last_name || ''}`.toLowerCase();
+          return nameA.localeCompare(nameB);
+        });
+        setClients(sorted);
       }
     } catch (err) {
       console.error('Failed to fetch clients:', err);

@@ -102,12 +102,18 @@ function InjectionMapContent() {
   const [showPointEditor, setShowPointEditor] = useState(false);
   const [editingPoint, setEditingPoint] = useState<InjectionPoint | null>(null);
 
-  // Fetch clients - sorted alphabetically by API
+  // Fetch clients and sort alphabetically
   useEffect(() => {
-    fetch('/api/clients?limit=200&sort=name&order=asc')
+    fetch('/api/clients?limit=100')
       .then(res => res.json())
       .then(data => {
-        setClients(data.clients || []);
+        // Sort alphabetically on frontend
+        const sorted = [...(data.clients || [])].sort((a: Client, b: Client) => {
+          const nameA = `${a.first_name || ''} ${a.last_name || ''}`.toLowerCase();
+          const nameB = `${b.first_name || ''} ${b.last_name || ''}`.toLowerCase();
+          return nameA.localeCompare(nameB);
+        });
+        setClients(sorted);
       })
       .catch(console.error);
   }, []);

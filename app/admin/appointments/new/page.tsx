@@ -87,7 +87,7 @@ function NewAppointmentContent() {
         const [servicesRes, providersRes, clientsRes] = await Promise.all([
           fetch('/api/services'),
           fetch('/api/providers'),
-          fetch('/api/clients?limit=100&sort=name&order=asc'), // Load initial 100 clients alphabetically
+          fetch('/api/clients?limit=50'), // Load initial 50 clients
         ]);
 
         const [servicesData, providersData, clientsData] = await Promise.all([
@@ -107,9 +107,16 @@ function NewAppointmentContent() {
             }));
           }
         }
-        // Clients already sorted alphabetically from API
+        // Sort clients alphabetically on frontend
         if (clientsData.clients) {
-          setAllClients(clientsData.clients);
+          const sorted = [...clientsData.clients].sort((a: any, b: any) => {
+            const nameA = `${a.first_name || ''} ${a.last_name || ''}`.toLowerCase().trim();
+            const nameB = `${b.first_name || ''} ${b.last_name || ''}`.toLowerCase().trim();
+            if (!nameA && nameB) return 1;
+            if (nameA && !nameB) return -1;
+            return nameA.localeCompare(nameB);
+          });
+          setAllClients(sorted);
         }
 
         // Try to fetch consent forms
@@ -160,31 +167,27 @@ function NewAppointmentContent() {
 
   // Search clients - use server-side search for better results
   useEffect(() => {
-    if (clientSearch.length < 1) {
-      // Show initial clients alphabetically when no search
-      setClientResults(allClients.slice(0, 50));
+    if (clientSearch.length < 2) {
+      // Show initial clients alphabetically when no/short search
+      setClientResults(allClients);
       return;
     }
 
     // Use server-side search for 2+ characters
-    if (clientSearch.length >= 2) {
-      setSearchLoading(true);
-      fetch(`/api/clients?search=${encodeURIComponent(clientSearch)}&limit=50&sort=name&order=asc`)
-        .then(res => res.json())
-        .then(data => {
-          setClientResults(data.clients || []);
-        })
-        .catch(console.error)
-        .finally(() => setSearchLoading(false));
-    } else {
-      // For 1 character, filter locally
-      const searchLower = clientSearch.toLowerCase();
-      const filtered = allClients.filter((c: any) =>
-        c.first_name?.toLowerCase().startsWith(searchLower) ||
-        c.last_name?.toLowerCase().startsWith(searchLower)
-      ).slice(0, 50);
-      setClientResults(filtered);
-    }
+    setSearchLoading(true);
+    fetch(`/api/clients?search=${encodeURIComponent(clientSearch)}&limit=50`)
+      .then(res => res.json())
+      .then(data => {
+        // Sort results alphabetically
+        const sorted = [...(data.clients || [])].sort((a: any, b: any) => {
+          const nameA = `${a.first_name || ''} ${a.last_name || ''}`.toLowerCase().trim();
+          const nameB = `${b.first_name || ''} ${b.last_name || ''}`.toLowerCase().trim();
+          return nameA.localeCompare(nameB);
+        });
+        setClientResults(sorted);
+      })
+      .catch(console.error)
+      .finally(() => setSearchLoading(false));
   }, [clientSearch, allClients]);
 
   // Fetch DYNAMIC availability from provider schedules
