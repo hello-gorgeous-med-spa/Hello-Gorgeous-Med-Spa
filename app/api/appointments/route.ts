@@ -524,9 +524,32 @@ export async function POST(request: NextRequest) {
       if (!conflictError && existingAppointments && existingAppointments.length > 0) {
         return NextResponse.json(
           { 
-            error: 'This provider already has an appointment at this time. Please select a different time slot.',
-            conflictType: 'double_booking',
+            error: 'PROVIDER_CONFLICT: This provider already has an appointment at this time. Please select a different time slot.',
+            conflictType: 'PROVIDER_CONFLICT',
             conflictingAppointment: existingAppointments[0].id
+          },
+          { status: 409 }
+        );
+      }
+    }
+
+    // CHECK FOR ROOM/RESOURCE DOUBLE BOOKING
+    const resourceId = body.resource_id;
+    if (resourceId) {
+      const { data: existingResourceBookings, error: resourceConflictError } = await supabase
+        .from('appointments')
+        .select('id, starts_at, ends_at')
+        .eq('resource_id', resourceId)
+        .neq('status', 'cancelled')
+        .neq('status', 'no_show')
+        .or(`and(starts_at.lt.${endsAt.toISOString()},ends_at.gt.${startsAt.toISOString()})`);
+
+      if (!resourceConflictError && existingResourceBookings && existingResourceBookings.length > 0) {
+        return NextResponse.json(
+          { 
+            error: 'ROOM_CONFLICT: This room/device is already booked at this time. Please select a different time or resource.',
+            conflictType: 'ROOM_CONFLICT',
+            conflictingAppointment: existingResourceBookings[0].id
           },
           { status: 409 }
         );
@@ -539,6 +562,7 @@ export async function POST(request: NextRequest) {
       client_id: body.client_id || null,
       provider_id: providerId,
       service_id: body.service_id,
+      resource_id: body.resource_id || null, // Room/device assignment
       starts_at: body.starts_at,
       ends_at: endsAt.toISOString(),
       status: 'confirmed',
