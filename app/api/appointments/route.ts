@@ -522,6 +522,21 @@ export async function POST(request: NextRequest) {
         .or(`and(starts_at.lt.${endsAt.toISOString()},ends_at.gt.${startsAt.toISOString()})`);
 
       if (!conflictError && existingAppointments && existingAppointments.length > 0) {
+        // Log booking error for monitoring
+        try {
+          await supabase.from('booking_errors').insert({
+            error_code: 'PROVIDER_CONFLICT',
+            error_message: 'Provider already has an appointment at this time',
+            client_id: body.client_id,
+            service_id: body.service_id,
+            provider_id: providerId,
+            requested_time: body.starts_at,
+            context: { conflicting_appointment_id: existingAppointments[0].id },
+          });
+        } catch (logErr) {
+          console.log('Could not log booking error (table may not exist):', logErr);
+        }
+        
         return NextResponse.json(
           { 
             error: 'PROVIDER_CONFLICT: This provider already has an appointment at this time. Please select a different time slot.',
@@ -547,6 +562,22 @@ export async function POST(request: NextRequest) {
 
         // Only check conflict if query succeeded (column exists)
         if (!resourceConflictError && existingResourceBookings && existingResourceBookings.length > 0) {
+          // Log booking error for monitoring
+          try {
+            await supabase.from('booking_errors').insert({
+              error_code: 'ROOM_CONFLICT',
+              error_message: 'Room/device is already booked at this time',
+              client_id: body.client_id,
+              service_id: body.service_id,
+              provider_id: providerId,
+              resource_id: resourceId,
+              requested_time: body.starts_at,
+              context: { conflicting_appointment_id: existingResourceBookings[0].id },
+            });
+          } catch (logErr) {
+            console.log('Could not log booking error:', logErr);
+          }
+          
           return NextResponse.json(
             { 
               error: 'ROOM_CONFLICT: This room/device is already booked at this time. Please select a different time or resource.',

@@ -4,9 +4,10 @@
 // BOULEVARD-STYLE CALENDAR
 // Multi-provider schedule view with appointment detail panel
 // Interactive - click to book appointments
+// INCLUDES: Realtime updates, resize support, error monitoring
 // ============================================================
 
-import { useState, useMemo, useEffect, useCallback } from 'react';
+import { useState, useMemo, useEffect, useCallback, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/components/ui/Toast';
@@ -14,6 +15,7 @@ import { CalendarNavBar } from '@/components/calendar/CalendarNavBar';
 import { DANIELLE_CREDENTIALS, RYAN_CREDENTIALS } from '@/lib/provider-credentials';
 import { businessDateTimeToUTC } from '@/lib/business-timezone';
 import { fetchWithTimeout } from '@/lib/fetchWithTimeout';
+import { createClient } from '@supabase/supabase-js';
 
 // Provider colors - soft pastels like Boulevard
 const PROVIDER_COLORS = [
@@ -79,6 +81,17 @@ export default function CalendarPage() {
   // Drag-and-drop: reschedule appointment to new time/provider
   const [draggingApptId, setDraggingApptId] = useState<string | null>(null);
   const [dropTarget, setDropTarget] = useState<{ providerId: string; time: string } | null>(null);
+
+  // Resize state
+  const [resizingApptId, setResizingApptId] = useState<string | null>(null);
+  const [resizeStartY, setResizeStartY] = useState<number>(0);
+  const [resizeStartHeight, setResizeStartHeight] = useState<number>(0);
+
+  // Error monitoring stats
+  const [errorStats, setErrorStats] = useState({ bookingErrors: 0, messagingErrors: 0 });
+
+  // Supabase realtime subscription ref
+  const realtimeChannelRef = useRef<any>(null);
 
   const dateString = selectedDate.toISOString().split('T')[0];
   const BUSINESS_TZ = 'America/Chicago';
@@ -190,6 +203,92 @@ export default function CalendarPage() {
     setDropTarget(null);
   }, []);
 
+  // ============================================================
+  // RESIZE HANDLERS - Drag bottom edge to change duration
+  // ============================================================
+  const handleResizeStart = useCallback((e: React.MouseEvent, appt: any, currentHeight: number) => {
+    e.stopPropagation();
+    e.preventDefault();
+    if (['cancelled', 'no_show', 'completed'].includes(appt.status)) return;
+    
+    setResizingApptId(appt.id);
+    setResizeStartY(e.clientY);
+    setResizeStartHeight(currentHeight);
+  }, []);
+
+  const handleResizeMove = useCallback((e: MouseEvent) => {
+    if (!resizingApptId) return;
+    // Preview resize handled by CSS cursor
+  }, [resizingApptId]);
+
+  const handleResizeEnd = useCallback(async (e: MouseEvent) => {
+    if (!resizingApptId) return;
+    
+    const deltaY = e.clientY - resizeStartY;
+    // 96px = 1 hour, so 1.6px = 1 minute
+    const deltaMinutes = Math.round(deltaY / 1.6);
+    // Snap to 15-minute increments
+    const snappedDelta = Math.round(deltaMinutes / 15) * 15;
+    
+    if (snappedDelta === 0) {
+      setResizingApptId(null);
+      return;
+    }
+
+    const appt = appointments.find(a => a.id === resizingApptId);
+    if (!appt) {
+      setResizingApptId(null);
+      return;
+    }
+
+    const currentDuration = appt.duration_minutes || appt.duration || 30;
+    const newDuration = Math.max(15, currentDuration + snappedDelta); // Minimum 15 minutes
+
+    // Calculate new end time
+    const startsAt = new Date(appt.starts_at);
+    const newEndsAt = new Date(startsAt.getTime() + newDuration * 60000);
+
+    try {
+      const res = await fetch(`/api/appointments/${resizingApptId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          ends_at: newEndsAt.toISOString(),
+          duration_minutes: newDuration,
+        }),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        toast.error(data.error || 'Could not resize appointment');
+      } else {
+        toast.success(`Duration changed to ${newDuration} minutes`);
+        fetchAppointments();
+      }
+    } catch (err) {
+      toast.error('Failed to resize appointment');
+    }
+
+    setResizingApptId(null);
+  }, [resizingApptId, resizeStartY, appointments, toast, fetchAppointments]);
+
+  // Add global mouse listeners for resize
+  useEffect(() => {
+    if (resizingApptId) {
+      window.addEventListener('mousemove', handleResizeMove);
+      window.addEventListener('mouseup', handleResizeEnd);
+      document.body.style.cursor = 'ns-resize';
+      document.body.style.userSelect = 'none';
+    }
+    
+    return () => {
+      window.removeEventListener('mousemove', handleResizeMove);
+      window.removeEventListener('mouseup', handleResizeEnd);
+      document.body.style.cursor = '';
+      document.body.style.userSelect = '';
+    };
+  }, [resizingApptId, handleResizeMove, handleResizeEnd]);
+
   const fetchProviders = useCallback(async () => {
     try {
       const res = await fetchWithTimeout('/api/providers');
@@ -221,6 +320,63 @@ export default function CalendarPage() {
 
   useEffect(() => {
     fetchAppointments();
+  }, [fetchAppointments]);
+
+  // Fetch error stats for KPI tiles
+  const fetchErrorStats = useCallback(async () => {
+    try {
+      const res = await fetch(`/api/calendar-stats?date=${dateString}`);
+      const data = await res.json();
+      setErrorStats({
+        bookingErrors: data.bookingErrors || 0,
+        messagingErrors: data.messagingErrors || 0,
+      });
+    } catch (err) {
+      console.error('Failed to fetch error stats:', err);
+    }
+  }, [dateString]);
+
+  useEffect(() => {
+    fetchErrorStats();
+  }, [fetchErrorStats]);
+
+  // Supabase Realtime subscription for instant calendar updates
+  useEffect(() => {
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    
+    if (!supabaseUrl || !supabaseKey) return;
+
+    const supabase = createClient(supabaseUrl, supabaseKey);
+    
+    // Subscribe to appointments table changes
+    const channel = supabase
+      .channel('appointments-realtime')
+      .on(
+        'postgres_changes',
+        {
+          event: '*', // INSERT, UPDATE, DELETE
+          schema: 'public',
+          table: 'appointments',
+        },
+        (payload) => {
+          console.log('[Realtime] Appointment changed:', payload.eventType);
+          // Refresh appointments when any change occurs
+          fetchAppointments();
+        }
+      )
+      .subscribe((status) => {
+        console.log('[Realtime] Subscription status:', status);
+      });
+
+    realtimeChannelRef.current = channel;
+
+    return () => {
+      // Cleanup subscription on unmount
+      if (realtimeChannelRef.current) {
+        supabase.removeChannel(realtimeChannelRef.current);
+      }
+    };
   }, [fetchAppointments]);
 
   // Fetch provider schedules (staff working days/hours) so we can gray out off-schedule slots
@@ -722,36 +878,36 @@ export default function CalendarPage() {
       />
 
       {/* Owner Command Center KPIs */}
-      <div className="hidden lg:flex gap-2 px-4 py-2 bg-gradient-to-r from-slate-50 to-white border-b border-black/10">
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-black/10 shadow-sm">
+      <div className="hidden lg:flex gap-2 px-4 py-2 bg-gradient-to-r from-slate-50 to-white border-b border-black/10 overflow-x-auto">
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-black/10 shadow-sm shrink-0">
           <span className="text-lg">📅</span>
           <div>
             <p className="text-xs text-gray-500">Today</p>
             <p className="text-sm font-bold text-black">{kpiMetrics.total}</p>
           </div>
         </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-black/10 shadow-sm">
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-black/10 shadow-sm shrink-0">
           <span className="text-lg">✅</span>
           <div>
             <p className="text-xs text-gray-500">Confirmed</p>
             <p className="text-sm font-bold text-emerald-600">{kpiMetrics.confirmed}</p>
           </div>
         </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-black/10 shadow-sm">
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-black/10 shadow-sm shrink-0">
           <span className="text-lg">🚪</span>
           <div>
             <p className="text-xs text-gray-500">Checked In</p>
             <p className="text-sm font-bold text-amber-600">{kpiMetrics.checkedIn}</p>
           </div>
         </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-black/10 shadow-sm">
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-black/10 shadow-sm shrink-0">
           <span className="text-lg">💉</span>
           <div>
             <p className="text-xs text-gray-500">In Service</p>
             <p className="text-sm font-bold text-purple-600">{kpiMetrics.inService}</p>
           </div>
         </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-black/10 shadow-sm">
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-black/10 shadow-sm shrink-0">
           <span className="text-lg">🎉</span>
           <div>
             <p className="text-xs text-gray-500">Completed</p>
@@ -759,7 +915,7 @@ export default function CalendarPage() {
           </div>
         </div>
         {kpiMetrics.noShow > 0 && (
-          <div className="flex items-center gap-2 px-3 py-1.5 bg-red-50 rounded-lg border border-red-200 shadow-sm">
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-red-50 rounded-lg border border-red-200 shadow-sm shrink-0">
             <span className="text-lg">⚠️</span>
             <div>
               <p className="text-xs text-red-500">No-Shows</p>
@@ -767,7 +923,26 @@ export default function CalendarPage() {
             </div>
           </div>
         )}
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-pink-50 to-rose-50 rounded-lg border border-pink-200 shadow-sm ml-auto">
+        {/* Error Monitoring Indicators */}
+        {errorStats.bookingErrors > 0 && (
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-orange-50 rounded-lg border border-orange-200 shadow-sm shrink-0 cursor-pointer hover:bg-orange-100" title="Booking errors today - click to view">
+            <span className="text-lg">🚫</span>
+            <div>
+              <p className="text-xs text-orange-500">Booking Errors</p>
+              <p className="text-sm font-bold text-orange-600">{errorStats.bookingErrors}</p>
+            </div>
+          </div>
+        )}
+        {errorStats.messagingErrors > 0 && (
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-yellow-50 rounded-lg border border-yellow-200 shadow-sm shrink-0 cursor-pointer hover:bg-yellow-100" title="SMS/Email failures today">
+            <span className="text-lg">📱</span>
+            <div>
+              <p className="text-xs text-yellow-600">SMS Failures</p>
+              <p className="text-sm font-bold text-yellow-700">{errorStats.messagingErrors}</p>
+            </div>
+          </div>
+        )}
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-pink-50 to-rose-50 rounded-lg border border-pink-200 shadow-sm ml-auto shrink-0">
           <span className="text-lg">💰</span>
           <div>
             <p className="text-xs text-pink-500">Revenue</p>
@@ -1109,39 +1284,101 @@ export default function CalendarPage() {
                       );
                     })}
 
-                    {/* Appointments - positioned above slots, draggable */}
+                    {/* Appointments - positioned above slots, draggable + resizable */}
                     {providerAppts.map((appt) => {
                       const style = getAppointmentStyle(appt);
                       const isSelected = selectedAppointment?.id === appt.id;
                       const canDrag = !['cancelled', 'no_show', 'completed'].includes(appt.status);
+                      const canResize = canDrag;
                       const isDragging = draggingApptId === appt.id;
+                      const isResizing = resizingApptId === appt.id;
+                      
+                      // Check if charting is required for this service
+                      const serviceName = (appt.service_name || '').toLowerCase();
+                      const requiresCharting = 
+                        serviceName.includes('botox') ||
+                        serviceName.includes('filler') ||
+                        serviceName.includes('injectable') ||
+                        serviceName.includes('laser') ||
+                        serviceName.includes('morpheus') ||
+                        serviceName.includes('solaria') ||
+                        serviceName.includes('iv ') ||
+                        serviceName.includes('prp') ||
+                        serviceName.includes('semaglutide') ||
+                        serviceName.includes('tirzepatide');
+                      
+                      // Charting status (from appointment or default)
+                      const chartingStatus = appt.charting_status || (requiresCharting ? 'required' : 'not_required');
+                      const heightNum = parseInt(String(style.height).replace('px', ''), 10) || 48;
 
                       return (
-                        <button
+                        <div
                           key={appt.id}
-                          type="button"
-                          draggable={canDrag}
-                          onDragStart={(e) => canDrag && handleApptDragStart(e, appt)}
-                          onDragEnd={handleDragEnd}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setSelectedAppointment(appt);
-                          }}
-                          className={`absolute left-1 right-1 rounded-lg border-l-4 p-2 text-left transition-all overflow-hidden cursor-grab active:cursor-grabbing ${color.bg} ${color.border} ${color.text} ${
+                          className={`absolute left-1 right-1 rounded-lg border-l-4 text-left transition-all overflow-hidden ${color.bg} ${color.border} ${color.text} ${
                             isSelected ? 'ring-2 ring-black shadow-lg z-20' : 'hover:shadow-md z-10'
-                          } ${isDragging ? 'opacity-60' : ''} ${!canDrag ? 'cursor-pointer' : ''}`}
+                          } ${isDragging ? 'opacity-60' : ''} ${isResizing ? 'opacity-80 ring-2 ring-blue-500' : ''}`}
                           style={style}
                         >
-                          <p className="font-semibold text-xs uppercase tracking-wide truncate">
-                            {appt.service_name || 'Appointment'}
-                          </p>
-                          <p className="font-medium text-sm mt-0.5 truncate">
-                            {appt.client_name || 'Client'}
-                          </p>
-                          <p className="text-xs opacity-75 mt-0.5">
-                            {formatApptTime(appt.starts_at)} - {getEndTime(appt.starts_at, appt.duration_minutes || appt.duration || 60)}
-                          </p>
-                        </button>
+                          {/* Main content area - draggable */}
+                          <button
+                            type="button"
+                            draggable={canDrag}
+                            onDragStart={(e) => canDrag && handleApptDragStart(e, appt)}
+                            onDragEnd={handleDragEnd}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedAppointment(appt);
+                            }}
+                            className={`w-full h-full p-2 text-left ${canDrag ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer'}`}
+                            style={{ paddingBottom: canResize ? '12px' : '8px' }}
+                          >
+                            <div className="flex items-start justify-between gap-1">
+                              <p className="font-semibold text-xs uppercase tracking-wide truncate flex-1">
+                                {appt.service_name || 'Appointment'}
+                              </p>
+                              {/* Status/Charting badges */}
+                              <div className="flex gap-0.5 shrink-0">
+                                {chartingStatus === 'required' && (
+                                  <span className="w-4 h-4 rounded-full bg-amber-500 text-white text-[8px] flex items-center justify-center" title="Charting Required">
+                                    📝
+                                  </span>
+                                )}
+                                {chartingStatus === 'started' && (
+                                  <span className="w-4 h-4 rounded-full bg-blue-500 text-white text-[8px] flex items-center justify-center" title="Charting Started">
+                                    ✏️
+                                  </span>
+                                )}
+                                {chartingStatus === 'complete' && (
+                                  <span className="w-4 h-4 rounded-full bg-emerald-500 text-white text-[8px] flex items-center justify-center" title="Charting Complete">
+                                    ✓
+                                  </span>
+                                )}
+                                {appt.resource_id && (
+                                  <span className="w-4 h-4 rounded-full bg-purple-500 text-white text-[8px] flex items-center justify-center" title="Room/Device Assigned">
+                                    📍
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                            <p className="font-medium text-sm mt-0.5 truncate">
+                              {appt.client_name || 'Client'}
+                            </p>
+                            <p className="text-xs opacity-75 mt-0.5">
+                              {formatApptTime(appt.starts_at)} - {getEndTime(appt.starts_at, appt.duration_minutes || appt.duration || 60)}
+                            </p>
+                          </button>
+                          
+                          {/* Resize handle at bottom */}
+                          {canResize && (
+                            <div
+                              className="absolute bottom-0 left-0 right-0 h-3 cursor-ns-resize bg-gradient-to-t from-black/10 to-transparent hover:from-black/20 flex items-center justify-center"
+                              onMouseDown={(e) => handleResizeStart(e, appt, heightNum)}
+                              title="Drag to resize duration"
+                            >
+                              <div className="w-8 h-1 rounded-full bg-black/30" />
+                            </div>
+                          )}
+                        </div>
                       );
                     })}
           </div>

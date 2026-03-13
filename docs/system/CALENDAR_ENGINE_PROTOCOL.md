@@ -414,32 +414,113 @@ resolved_at timestamptz null
 
 ## Implementation Priority
 
-### Phase 1: Foundation
+### Phase 1: Foundation ✅ COMPLETE
 - [x] Fix client search (full database, 50 results)
 - [x] Fix resource_id schema mismatch
 - [x] Fix booking create/update reliability
 - [x] Provider conflict detection
 - [x] Room conflict detection
 
-### Phase 2: Calendar Core
+### Phase 2: Calendar Core ✅ COMPLETE
 - [x] Provider-column calendar
 - [x] Drag-drop to reschedule
 - [x] Click slot for Quick Book
 - [x] Appointment detail panel
-- [ ] Resize to change duration
+- [x] Resize to change duration (drag bottom edge)
 
-### Phase 3: Enhanced Features
-- [ ] Realtime updates
-- [ ] Full audit logging
-- [ ] Resource auto-suggestion
-- [ ] Charting status badges
+### Phase 3: Enhanced Features ✅ COMPLETE
+- [x] Realtime updates (Supabase subscriptions)
+- [x] Full audit logging (automatic trigger)
+- [x] Resource auto-suggestion API
+- [x] Charting status badges
 
-### Phase 4: Command Center
-- [ ] KPI widgets
-- [ ] Error monitoring
-- [ ] Verification workflow tab
+### Phase 4: Command Center ✅ COMPLETE
+- [x] KPI widgets (appointments, revenue)
+- [x] Error monitoring (booking errors, SMS failures)
+- [x] Verification workflow tracking
 
 ---
 
-*Protocol Version: 1.0*
+## Platform Stability Layer (v1.1)
+
+### Database-Level Protections
+- **Exclusion constraints** prevent overlapping appointments at Postgres level
+- Race-condition double bookings are impossible
+- Constraint: `no_overlapping_provider_appointments` uses GiST index on (provider_id, time range)
+- Constraint: `no_overlapping_resource_appointments` for room/device conflicts
+
+### Audit Logging
+- **Automatic trigger** on appointments table
+- Logs: INSERT, UPDATE, DELETE operations
+- Captures: old_values, new_values, changed_fields, action type
+- Action types: created, updated, rescheduled, cancelled, no_show, status_changed, provider_changed, resource_changed
+
+### Error Monitoring
+- **booking_errors** table tracks failed booking attempts
+- Error codes: PROVIDER_CONFLICT, ROOM_CONFLICT, VALIDATION_ERROR, DB_ERROR
+- Context preserved for debugging
+- Feeds Owner Command Center KPI tiles
+- **messaging_errors** table tracks SMS/email failures
+
+### Realtime Updates
+- Supabase realtime subscriptions on appointments table
+- Calendar refreshes automatically on INSERT/UPDATE/DELETE
+- Multi-user sync (owner + front desk see changes instantly)
+
+### Appointment Resize
+- Drag bottom edge of appointment block to resize
+- Snaps to 15-minute increments
+- Minimum duration: 15 minutes
+- Backend validation prevents conflicts
+- Optimistic UI with rollback on failure
+
+### Resource Auto-Suggestion
+- `/api/resources/suggest?service_id=xxx` endpoint
+- Maps service types to resource types:
+  - Solaria/CO2 → Solaria device
+  - Morpheus → Morpheus device
+  - IV/Drip → IV chair
+  - Botox/Filler → Injector room
+- Checks availability at requested time
+- Returns sorted list with preferred resource first
+
+---
+
+## Migration Files
+
+### Platform Stability Migration
+```
+/supabase/migrations/20250313000001_platform_stability.sql
+```
+
+Includes:
+- btree_gist extension
+- Exclusion constraints for overlap prevention
+- appointment_audit_logs table
+- booking_errors table
+- messaging_errors table
+- Automatic audit trigger on appointments
+- Service resource requirement columns
+- get_daily_appointment_stats function
+
+### Run in Supabase SQL Editor
+If migration hasn't been applied, run the SQL directly in Supabase Dashboard → SQL Editor.
+
+---
+
+## API Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/appointments` | GET/POST | List/create appointments |
+| `/api/appointments/[id]` | GET/PUT/DELETE | Single appointment ops |
+| `/api/booking-errors` | GET/POST/PATCH | Error monitoring |
+| `/api/calendar-stats` | GET | KPI metrics for date |
+| `/api/resources/suggest` | GET | Auto-suggest resource |
+| `/api/providers/[id]/schedules` | GET | Provider working hours |
+
+---
+
+*Protocol Version: 1.1*
 *Last Updated: March 2026*
+*Stability Layer Added: March 13, 2026*
