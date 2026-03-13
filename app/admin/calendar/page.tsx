@@ -59,6 +59,13 @@ export default function CalendarPage() {
   const [quickBookClient, setQuickBookClient] = useState('');
   const [quickBookService, setQuickBookService] = useState('');
   const [clientSearchResults, setClientSearchResults] = useState<any[]>([]);
+  const [clientSearchQuery, setClientSearchQuery] = useState('');
+  const [clientOffset, setClientOffset] = useState(0);
+  const [hasMoreClients, setHasMoreClients] = useState(true);
+  const [loadingMoreClients, setLoadingMoreClients] = useState(false);
+  const [totalClients, setTotalClients] = useState(0);
+  const [searchingClients, setSearchingClients] = useState(false);
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const [services, setServices] = useState<any[]>([]);
   const [saving, setSaving] = useState(false);
   
@@ -148,17 +155,27 @@ export default function CalendarPage() {
   }, [dateString]);
 
   const handleApptDragStart = useCallback((e: React.DragEvent, appt: any) => {
-    if (['cancelled', 'no_show', 'completed'].includes(appt.status)) return;
+    console.log('[Drag] Starting drag for appointment:', appt.id, 'status:', appt.status);
+    if (['cancelled', 'no_show', 'completed'].includes(appt.status)) {
+      console.log('[Drag] Blocked - appointment status prevents drag');
+      e.preventDefault();
+      return;
+    }
     setDraggingApptId(appt.id);
     e.dataTransfer.setData('application/json', JSON.stringify({ id: appt.id, provider_id: appt.provider_id }));
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/plain', appt.id);
+    console.log('[Drag] Drag started successfully');
   }, []);
 
-  const handleSlotDragOver = useCallback((e: React.DragEvent, providerId: string, timeStr: string) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-    setDropTarget({ providerId, time: timeStr });
+  const handleSlotDragOver = useCallback((e: React.DragEvent, providerId: string, timeStr: string, allowed: boolean = true) => {
+    e.preventDefault(); // Must always prevent default to allow drop
+    if (allowed) {
+      e.dataTransfer.dropEffect = 'move';
+      setDropTarget({ providerId, time: timeStr });
+    } else {
+      e.dataTransfer.dropEffect = 'none';
+    }
   }, []);
 
   const handleSlotDragLeave = useCallback(() => {
@@ -167,18 +184,25 @@ export default function CalendarPage() {
 
   const handleSlotDrop = useCallback(async (e: React.DragEvent, providerId: string, timeStr: string) => {
     e.preventDefault();
+    console.log('[Drop] Dropped on slot:', timeStr, 'provider:', providerId);
     setDropTarget(null);
     setDraggingApptId(null);
     let payload: { id: string; provider_id?: string };
     try {
       payload = JSON.parse(e.dataTransfer.getData('application/json'));
+      console.log('[Drop] Payload from drag:', payload);
     } catch {
       const id = e.dataTransfer.getData('text/plain');
-      if (!id) return;
+      console.log('[Drop] Fallback to text/plain id:', id);
+      if (!id) {
+        console.log('[Drop] No appointment ID found');
+        return;
+      }
       payload = { id };
     }
     const apptId = payload.id;
     const newStartsAt = slotToStartsAt(timeStr);
+    console.log('[Drop] Moving appointment', apptId, 'to', newStartsAt);
     try {
       const res = await fetch(`/api/appointments/${apptId}`, {
         method: 'PUT',
@@ -187,13 +211,16 @@ export default function CalendarPage() {
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
+        console.log('[Drop] Failed:', data);
         toast.error(data.error || 'Could not reschedule');
         return;
       }
+      console.log('[Drop] Success!');
       toast.success('Appointment moved');
       fetchAppointments();
       setSelectedAppointment(null);
     } catch (err) {
+      console.error('[Drop] Error:', err);
       toast.error('Failed to move appointment');
     }
   }, [slotToStartsAt, fetchAppointments, toast]);
@@ -429,52 +456,48 @@ export default function CalendarPage() {
     }
   }, [fetchAppointments, fetchProviderSchedules, providers]);
 
-  // Search clients - queries entire database, returns up to 50 results
-  const searchClients = useCallback(async (query: string) => {
-    if (query.length < 2) {
-      // When search is cleared, reload recent clients (sorted by most recent activity)
-      try {
-        const res = await fetch('/api/clients?limit=50&sort=updated_at&order=desc');
-        const data = await res.json();
-        console.log('[Quick Book] Loaded recent clients:', data.clients?.length || 0, 'total in DB:', data.total);
-        if (data.clients && data.clients.length > 0) {
-          // Sort alphabetically for display
-          const sorted = [...data.clients].sort((a: any, b: any) => {
-            const nameA = `${a.first_name || ''} ${a.last_name || ''}`.toLowerCase().trim();
-            const nameB = `${b.first_name || ''} ${b.last_name || ''}`.toLowerCase().trim();
-            if (!nameA && nameB) return 1;
-            if (nameA && !nameB) return -1;
-            return nameA.localeCompare(nameB);
-          });
-          setClientSearchResults(sorted);
-        } else {
-          setClientSearchResults([]);
-        }
-      } catch (err) {
-        console.error('Failed to load clients:', err);
-        setClientSearchResults([]);
-      }
-      return;
-    }
+  // Search clients - queries entire database with pagination
+  const searchClients = useCallback(async (query: string, offset: number = 0, append: boolean = false) => {
+    const limit = 100; // Load 100 at a time
+    
     try {
-      // Search by first_name, last_name, email, phone - server handles the OR query
-      const res = await fetch(`/api/clients?search=${encodeURIComponent(query)}&limit=50`);
+      let url = `/api/clients?limit=${limit}&offset=${offset}`;
+      
+      if (query.length >= 2) {
+        url += `&search=${encodeURIComponent(query)}`;
+      } else {
+        url += '&sort=first_name&order=asc'; // Alphabetical when browsing
+      }
+      
+      const res = await fetch(url);
       const data = await res.json();
-      console.log('[Quick Book] Search results for "' + query + '":', data.clients?.length || 0);
-      // Sort search results alphabetically
-      const sorted = [...(data.clients || [])].sort((a: any, b: any) => {
-        const nameA = `${a.first_name || ''} ${a.last_name || ''}`.toLowerCase().trim();
-        const nameB = `${b.first_name || ''} ${b.last_name || ''}`.toLowerCase().trim();
-        if (!nameA && nameB) return 1;
-        if (nameA && !nameB) return -1;
-        return nameA.localeCompare(nameB);
-      });
-      setClientSearchResults(sorted);
+      
+      console.log('[Quick Book] Loaded clients:', data.clients?.length || 0, 'offset:', offset, 'total:', data.total);
+      
+      const clients = data.clients || [];
+      setTotalClients(data.total || 0);
+      setHasMoreClients(offset + clients.length < (data.total || 0));
+      
+      if (append) {
+        setClientSearchResults(prev => [...prev, ...clients]);
+      } else {
+        setClientSearchResults(clients);
+      }
+      setClientOffset(offset + clients.length);
+      
     } catch (err) {
-      console.error('Failed to search clients:', err);
-      setClientSearchResults([]);
+      console.error('Failed to load clients:', err);
+      if (!append) setClientSearchResults([]);
     }
   }, []);
+
+  // Load more clients (pagination)
+  const loadMoreClients = useCallback(async () => {
+    if (loadingMoreClients || !hasMoreClients) return;
+    setLoadingMoreClients(true);
+    await searchClients(clientSearchQuery, clientOffset, true);
+    setLoadingMoreClients(false);
+  }, [loadingMoreClients, hasMoreClients, clientSearchQuery, clientOffset, searchClients]);
 
   // Handle slot click - open quick book modal
   const handleSlotClick = async (time: string, providerId: string, providerName: string) => {
@@ -482,27 +505,13 @@ export default function CalendarPage() {
     setQuickBookClient('');
     setQuickBookService('');
     setClientSearchResults([]);
+    setClientSearchQuery('');
+    setClientOffset(0);
+    setHasMoreClients(true);
     setShowQuickBook(true);
     
-    // Pre-load recent clients for quick selection (Fresha-style UX)
-    try {
-      const res = await fetch('/api/clients?limit=50&sort=updated_at&order=desc');
-      const data = await res.json();
-      console.log('[Quick Book] Pre-loaded clients:', data.clients?.length || 0, 'total in DB:', data.total);
-      if (data.clients && data.clients.length > 0) {
-        // Sort alphabetically by name for display
-        const sorted = [...data.clients].sort((a: any, b: any) => {
-          const nameA = `${a.first_name || ''} ${a.last_name || ''}`.toLowerCase().trim();
-          const nameB = `${b.first_name || ''} ${b.last_name || ''}`.toLowerCase().trim();
-          if (!nameA && nameB) return 1;
-          if (nameA && !nameB) return -1;
-          return nameA.localeCompare(nameB);
-        });
-        setClientSearchResults(sorted);
-      }
-    } catch (err) {
-      console.error('Failed to load clients:', err);
-    }
+    // Pre-load first batch of clients alphabetically
+    await searchClients('', 0, false);
   };
 
   // Resolve provider ID - convert string IDs to real UUIDs via lookup
@@ -1254,7 +1263,7 @@ export default function CalendarPage() {
                               dropTarget?.providerId === provider.id && dropTarget?.time === slot00 ? 'ring-2 ring-[#FF2D8E] bg-pink-100/80' : ''
                             }`}
                             onClick={() => inSchedule00 && handleSlotClick(slot00, provider.id, providerName)}
-                            onDragOver={(e) => inSchedule00 && handleSlotDragOver(e, provider.id, slot00)}
+                            onDragOver={(e) => handleSlotDragOver(e, provider.id, slot00, inSchedule00)}
                             onDragLeave={handleSlotDragLeave}
                             onDrop={(e) => inSchedule00 && handleSlotDrop(e, provider.id, slot00)}
                           >
@@ -1270,7 +1279,7 @@ export default function CalendarPage() {
                               dropTarget?.providerId === provider.id && dropTarget?.time === slot30 ? 'ring-2 ring-[#FF2D8E] bg-pink-100/80' : ''
                             }`}
                             onClick={() => inSchedule30 && handleSlotClick(slot30, provider.id, providerName)}
-                            onDragOver={(e) => inSchedule30 && handleSlotDragOver(e, provider.id, slot30)}
+                            onDragOver={(e) => handleSlotDragOver(e, provider.id, slot30, inSchedule30)}
                             onDragLeave={handleSlotDragLeave}
                             onDrop={(e) => inSchedule30 && handleSlotDrop(e, provider.id, slot30)}
                           >
@@ -1314,22 +1323,34 @@ export default function CalendarPage() {
                       return (
                         <div
                           key={appt.id}
+                          draggable={canDrag ? "true" : "false"}
+                          onMouseDown={(e) => {
+                            if (canDrag) {
+                              console.log('[MouseDown] on appointment', appt.id);
+                            }
+                          }}
+                          onDragStart={(e) => {
+                            console.log('[DragStart] fired for', appt.id);
+                            if (canDrag) {
+                              handleApptDragStart(e, appt);
+                            }
+                          }}
+                          onDrag={(e) => {
+                            console.log('[Drag] dragging...');
+                          }}
+                          onDragEnd={handleDragEnd}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setSelectedAppointment(appt);
+                          }}
                           className={`absolute left-1 right-1 rounded-lg border-l-4 text-left transition-all overflow-hidden ${color.bg} ${color.border} ${color.text} ${
                             isSelected ? 'ring-2 ring-black shadow-lg z-20' : 'hover:shadow-md z-10'
-                          } ${isDragging ? 'opacity-60' : ''} ${isResizing ? 'opacity-80 ring-2 ring-blue-500' : ''}`}
-                          style={style}
+                          } ${isDragging ? 'opacity-60' : ''} ${isResizing ? 'opacity-80 ring-2 ring-blue-500' : ''} ${canDrag ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer'}`}
+                          style={{...style, userSelect: 'none', WebkitUserSelect: 'none'}}
                         >
-                          {/* Main content area - draggable */}
-                          <button
-                            type="button"
-                            draggable={canDrag}
-                            onDragStart={(e) => canDrag && handleApptDragStart(e, appt)}
-                            onDragEnd={handleDragEnd}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setSelectedAppointment(appt);
-                            }}
-                            className={`w-full h-full p-2 text-left ${canDrag ? 'cursor-grab active:cursor-grabbing' : 'cursor-pointer'}`}
+                          {/* Main content area */}
+                          <div
+                            className="w-full h-full p-2 text-left pointer-events-none"
                             style={{ paddingBottom: canResize ? '12px' : '8px' }}
                           >
                             <div className="flex items-start justify-between gap-1">
@@ -1366,7 +1387,7 @@ export default function CalendarPage() {
                             <p className="text-xs opacity-75 mt-0.5">
                               {formatApptTime(appt.starts_at)} - {getEndTime(appt.starts_at, appt.duration_minutes || appt.duration || 60)}
                             </p>
-                          </button>
+                          </div>
                           
                           {/* Resize handle at bottom */}
                           {canResize && (
@@ -1817,55 +1838,111 @@ export default function CalendarPage() {
               {/* Existing Client Search */}
               {!isNewClient && (
               <div>
-                  <label className="block text-sm font-medium text-black mb-2">Select Client *</label>
+                  <label className="block text-sm font-medium text-black mb-2">
+                    Select Client * <span className="text-gray-400 font-normal">({totalClients.toLocaleString()} total)</span>
+                  </label>
                 <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="Type to search or scroll to browse..."
-                      className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
-                      onChange={(e) => searchClients(e.target.value)}
-                  />
-                  {/* Always show client list when not selected and results exist */}
-                  {!quickBookClient && clientSearchResults.length > 0 && (
-                      <div className="mt-2 bg-white border border-black rounded-xl shadow-xl max-h-48 overflow-y-auto">
-                      {clientSearchResults.map((client) => (
-                        <button
-                          key={client.id}
-                          type="button"
-                          onClick={() => {
-                            setQuickBookClient(client.id);
-                          }}
-                            className="w-full text-left px-4 py-3 hover:bg-pink-50 flex items-center gap-3 border-b border-gray-100 last:border-0"
-                        >
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-medium text-sm">
-                            {client.first_name?.[0] || '?'}{client.last_name?.[0] || ''}
-                          </div>
-                          <div>
-                              <p className="font-medium text-black">{client.first_name || 'Unknown'} {client.last_name || ''}</p>
-                              <p className="text-sm text-gray-500">{client.email || client.phone || 'No contact info'}</p>
-                          </div>
-                        </button>
-                      ))}
+                  <div className="relative">
+                    <input
+                      type="text"
+                      placeholder="Start typing to search (name, phone, email)..."
+                      value={clientSearchQuery}
+                      className="w-full px-4 py-3 pr-10 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
+                      onChange={(e) => {
+                        const query = e.target.value;
+                        setClientSearchQuery(query);
+                        setSearchingClients(true);
+                        
+                        // Debounce search - wait 300ms after typing stops
+                        if (searchTimeoutRef.current) {
+                          clearTimeout(searchTimeoutRef.current);
+                        }
+                        searchTimeoutRef.current = setTimeout(() => {
+                          setClientOffset(0);
+                          searchClients(query, 0, false).then(() => setSearchingClients(false));
+                        }, 300);
+                      }}
+                    />
+                    {/* Search indicator */}
+                    {searchingClients && (
+                      <div className="absolute right-3 top-1/2 -translate-y-1/2">
+                        <div className="w-5 h-5 border-2 border-pink-500 border-t-transparent rounded-full animate-spin"></div>
+                      </div>
+                    )}
+                  </div>
+                  {/* Client list with infinite scroll */}
+                  {!quickBookClient && (
+                    <div className="mt-2 bg-white border border-black rounded-xl shadow-xl max-h-64 overflow-y-auto">
+                      {clientSearchResults.length > 0 ? (
+                        <>
+                          {clientSearchResults.map((client) => (
+                            <button
+                              key={client.id}
+                              type="button"
+                              onClick={() => {
+                                setQuickBookClient(client.id);
+                              }}
+                              className="w-full text-left px-4 py-3 hover:bg-pink-50 flex items-center gap-3 border-b border-gray-100 last:border-0"
+                            >
+                              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-medium text-sm shrink-0">
+                                {client.first_name?.[0] || '?'}{client.last_name?.[0] || ''}
+                              </div>
+                              <div className="min-w-0 flex-1">
+                                <p className="font-medium text-black truncate">{client.first_name || 'Unknown'} {client.last_name || ''}</p>
+                                <p className="text-sm text-gray-500 truncate">{client.phone || client.email || 'No contact info'}</p>
+                              </div>
+                            </button>
+                          ))}
+                          {/* Load More button */}
+                          {hasMoreClients && (
+                            <button
+                              type="button"
+                              onClick={loadMoreClients}
+                              disabled={loadingMoreClients}
+                              className="w-full px-4 py-3 text-center text-pink-600 hover:bg-pink-50 font-medium border-t border-gray-200"
+                            >
+                              {loadingMoreClients ? (
+                                <span className="flex items-center justify-center gap-2">
+                                  <span className="w-4 h-4 border-2 border-pink-500 border-t-transparent rounded-full animate-spin"></span>
+                                  Loading...
+                                </span>
+                              ) : (
+                                `Load More (${clientSearchResults.length} of ${totalClients.toLocaleString()})`
+                              )}
+                            </button>
+                          )}
+                        </>
+                      ) : (
+                        <p className="text-sm text-gray-500 p-4 text-center">
+                          {searchingClients ? (
+                            <span className="flex items-center justify-center gap-2">
+                              <span className="w-4 h-4 border-2 border-pink-500 border-t-transparent rounded-full animate-spin"></span>
+                              Searching...
+                            </span>
+                          ) : clientSearchQuery ? (
+                            `No clients found matching "${clientSearchQuery}"`
+                          ) : (
+                            'Loading clients...'
+                          )}
+                        </p>
+                      )}
                     </div>
-                  )}
-                  {!quickBookClient && clientSearchResults.length === 0 && (
-                    <p className="text-sm text-gray-500 mt-2">Loading clients...</p>
                   )}
                 </div>
                 {quickBookClient && (
                   <div className="mt-2 p-3 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center justify-between">
-                    <p className="text-sm text-emerald-700 flex items-center gap-2">
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="flex items-center gap-2">
+                      <svg className="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      Client selected
-                    </p>
+                      <p className="text-sm text-emerald-700 font-medium">
+                        {clientSearchResults.find(c => c.id === quickBookClient)?.first_name || 'Client'} {clientSearchResults.find(c => c.id === quickBookClient)?.last_name || 'selected'}
+                      </p>
+                    </div>
                     <button
                       type="button"
                       onClick={() => {
                         setQuickBookClient('');
-                        // Reload clients list
-                        searchClients('');
                       }}
                       className="text-sm text-emerald-600 hover:text-emerald-800 font-medium"
                     >

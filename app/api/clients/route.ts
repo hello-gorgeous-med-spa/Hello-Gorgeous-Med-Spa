@@ -193,10 +193,9 @@ export async function GET(request: NextRequest) {
 
     // Server-side search: filter in DB so pagination and total are correct
     if (search && search.trim()) {
-      const term = search.trim().replace(/'/g, "''");
-      const pattern = `%${term}%`;
+      const term = search.trim();
       query = query.or(
-        `first_name.ilike.'${pattern}',last_name.ilike.'${pattern}',email.ilike.'${pattern}',phone.ilike.'${pattern}'`
+        `first_name.ilike.%${term}%,last_name.ilike.%${term}%,email.ilike.%${term}%,phone.ilike.%${term}%`
       );
     }
 
@@ -211,10 +210,9 @@ export async function GET(request: NextRequest) {
         countQuery = countQuery.eq('source', sourceFilter.trim());
       }
       if (search && search.trim()) {
-        const term = search.trim().replace(/'/g, "''");
-        const pattern = `%${term}%`;
+        const term = search.trim();
         countQuery = countQuery.or(
-          `first_name.ilike.'${pattern}',last_name.ilike.'${pattern}',email.ilike.'${pattern}',phone.ilike.'${pattern}'`
+          `first_name.ilike.%${term}%,last_name.ilike.%${term}%,email.ilike.%${term}%,phone.ilike.%${term}%`
         );
       }
       const { count: fallbackCount } = await countQuery;
