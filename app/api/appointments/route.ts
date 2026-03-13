@@ -533,26 +533,32 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // CHECK FOR ROOM/RESOURCE DOUBLE BOOKING
+    // CHECK FOR ROOM/RESOURCE DOUBLE BOOKING (only if resource_id provided and column exists)
     const resourceId = body.resource_id;
     if (resourceId) {
-      const { data: existingResourceBookings, error: resourceConflictError } = await supabase
-        .from('appointments')
-        .select('id, starts_at, ends_at')
-        .eq('resource_id', resourceId)
-        .neq('status', 'cancelled')
-        .neq('status', 'no_show')
-        .or(`and(starts_at.lt.${endsAt.toISOString()},ends_at.gt.${startsAt.toISOString()})`);
+      try {
+        const { data: existingResourceBookings, error: resourceConflictError } = await supabase
+          .from('appointments')
+          .select('id, starts_at, ends_at')
+          .eq('resource_id', resourceId)
+          .neq('status', 'cancelled')
+          .neq('status', 'no_show')
+          .or(`and(starts_at.lt.${endsAt.toISOString()},ends_at.gt.${startsAt.toISOString()})`);
 
-      if (!resourceConflictError && existingResourceBookings && existingResourceBookings.length > 0) {
-        return NextResponse.json(
-          { 
-            error: 'ROOM_CONFLICT: This room/device is already booked at this time. Please select a different time or resource.',
-            conflictType: 'ROOM_CONFLICT',
-            conflictingAppointment: existingResourceBookings[0].id
-          },
-          { status: 409 }
-        );
+        // Only check conflict if query succeeded (column exists)
+        if (!resourceConflictError && existingResourceBookings && existingResourceBookings.length > 0) {
+          return NextResponse.json(
+            { 
+              error: 'ROOM_CONFLICT: This room/device is already booked at this time. Please select a different time or resource.',
+              conflictType: 'ROOM_CONFLICT',
+              conflictingAppointment: existingResourceBookings[0].id
+            },
+            { status: 409 }
+          );
+        }
+      } catch (resourceCheckError) {
+        // Column might not exist yet - log and continue
+        console.log('Resource check skipped (column may not exist):', resourceCheckError);
       }
     }
 
@@ -562,7 +568,6 @@ export async function POST(request: NextRequest) {
       client_id: body.client_id || null,
       provider_id: providerId,
       service_id: body.service_id,
-      resource_id: body.resource_id || null, // Room/device assignment
       starts_at: body.starts_at,
       ends_at: endsAt.toISOString(),
       status: 'confirmed',
@@ -572,6 +577,11 @@ export async function POST(request: NextRequest) {
       booking_source: 'admin_calendar',
       source: 'admin_calendar',
     };
+    
+    // Only add resource_id if provided (column may not exist in all deployments)
+    if (body.resource_id) {
+      insertData.resource_id = body.resource_id;
+    }
 
     const { data, error } = await supabase
       .from('appointments')

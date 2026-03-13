@@ -255,38 +255,50 @@ export default function CalendarPage() {
     }
   }, [fetchAppointments, fetchProviderSchedules, providers]);
 
-  // Search clients
+  // Search clients - queries entire database, returns up to 50 results
   const searchClients = useCallback(async (query: string) => {
     if (query.length < 2) {
-      // When search is cleared, reload recent clients
+      // When search is cleared, reload recent clients (sorted by most recent activity)
       try {
-        const res = await fetch('/api/clients?limit=20&sort=updated_at&order=desc');
+        const res = await fetch('/api/clients?limit=50&sort=updated_at&order=desc');
         const data = await res.json();
+        console.log('[Quick Book] Loaded recent clients:', data.clients?.length || 0, 'total in DB:', data.total);
         if (data.clients && data.clients.length > 0) {
+          // Sort alphabetically for display
           const sorted = [...data.clients].sort((a: any, b: any) => {
             const nameA = `${a.first_name || ''} ${a.last_name || ''}`.toLowerCase().trim();
             const nameB = `${b.first_name || ''} ${b.last_name || ''}`.toLowerCase().trim();
+            if (!nameA && nameB) return 1;
+            if (nameA && !nameB) return -1;
             return nameA.localeCompare(nameB);
           });
           setClientSearchResults(sorted);
+        } else {
+          setClientSearchResults([]);
         }
       } catch (err) {
         console.error('Failed to load clients:', err);
+        setClientSearchResults([]);
       }
       return;
     }
     try {
-      const res = await fetch(`/api/clients?search=${encodeURIComponent(query)}&limit=20`);
+      // Search by first_name, last_name, email, phone - server handles the OR query
+      const res = await fetch(`/api/clients?search=${encodeURIComponent(query)}&limit=50`);
       const data = await res.json();
-      // Sort search results alphabetically too
+      console.log('[Quick Book] Search results for "' + query + '":', data.clients?.length || 0);
+      // Sort search results alphabetically
       const sorted = [...(data.clients || [])].sort((a: any, b: any) => {
         const nameA = `${a.first_name || ''} ${a.last_name || ''}`.toLowerCase().trim();
         const nameB = `${b.first_name || ''} ${b.last_name || ''}`.toLowerCase().trim();
+        if (!nameA && nameB) return 1;
+        if (nameA && !nameB) return -1;
         return nameA.localeCompare(nameB);
       });
       setClientSearchResults(sorted);
     } catch (err) {
       console.error('Failed to search clients:', err);
+      setClientSearchResults([]);
     }
   }, []);
 
@@ -298,15 +310,18 @@ export default function CalendarPage() {
     setClientSearchResults([]);
     setShowQuickBook(true);
     
-    // Pre-load recent clients for quick selection
+    // Pre-load recent clients for quick selection (Fresha-style UX)
     try {
-      const res = await fetch('/api/clients?limit=20&sort=updated_at&order=desc');
+      const res = await fetch('/api/clients?limit=50&sort=updated_at&order=desc');
       const data = await res.json();
+      console.log('[Quick Book] Pre-loaded clients:', data.clients?.length || 0, 'total in DB:', data.total);
       if (data.clients && data.clients.length > 0) {
         // Sort alphabetically by name for display
         const sorted = [...data.clients].sort((a: any, b: any) => {
           const nameA = `${a.first_name || ''} ${a.last_name || ''}`.toLowerCase().trim();
           const nameB = `${b.first_name || ''} ${b.last_name || ''}`.toLowerCase().trim();
+          if (!nameA && nameB) return 1;
+          if (nameA && !nameB) return -1;
           return nameA.localeCompare(nameB);
         });
         setClientSearchResults(sorted);
@@ -356,20 +371,31 @@ export default function CalendarPage() {
 
   // Create appointment (with optional new client creation)
   const handleQuickBook = async () => {
+    // Debug logging for booking flow
+    console.log('[Quick Book] Starting booking...');
+    console.log('[Quick Book] Client selected:', quickBookClient || '(new client)');
+    console.log('[Quick Book] Service selected:', quickBookService);
+    console.log('[Quick Book] Provider:', quickBookSlot?.providerId);
+    console.log('[Quick Book] Time:', quickBookSlot?.time);
+    console.log('[Quick Book] Is new client:', isNewClient);
+    
     // Validate: need either existing client OR new client form filled
     if (isNewClient) {
       if (!newClientForm.first_name || !newClientForm.last_name || !newClientForm.phone) {
+        console.log('[Quick Book] Validation failed: missing new client info');
         toast.error('Please fill in client name and phone');
       return;
       }
     } else {
       if (!quickBookClient) {
+        console.log('[Quick Book] Validation failed: no client selected');
         toast.error('Please select a client');
         return;
       }
     }
     
     if (!quickBookService || !quickBookSlot) {
+      console.log('[Quick Book] Validation failed: missing service or time slot');
       toast.error('Please select a service');
       return;
     }
