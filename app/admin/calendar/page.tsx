@@ -258,25 +258,62 @@ export default function CalendarPage() {
   // Search clients
   const searchClients = useCallback(async (query: string) => {
     if (query.length < 2) {
-      setClientSearchResults([]);
+      // When search is cleared, reload recent clients
+      try {
+        const res = await fetch('/api/clients?limit=20&sort=updated_at&order=desc');
+        const data = await res.json();
+        if (data.clients && data.clients.length > 0) {
+          const sorted = [...data.clients].sort((a: any, b: any) => {
+            const nameA = `${a.first_name || ''} ${a.last_name || ''}`.toLowerCase().trim();
+            const nameB = `${b.first_name || ''} ${b.last_name || ''}`.toLowerCase().trim();
+            return nameA.localeCompare(nameB);
+          });
+          setClientSearchResults(sorted);
+        }
+      } catch (err) {
+        console.error('Failed to load clients:', err);
+      }
       return;
     }
     try {
-      const res = await fetch(`/api/clients?search=${encodeURIComponent(query)}&limit=5`);
+      const res = await fetch(`/api/clients?search=${encodeURIComponent(query)}&limit=20`);
       const data = await res.json();
-      setClientSearchResults(data.clients || []);
+      // Sort search results alphabetically too
+      const sorted = [...(data.clients || [])].sort((a: any, b: any) => {
+        const nameA = `${a.first_name || ''} ${a.last_name || ''}`.toLowerCase().trim();
+        const nameB = `${b.first_name || ''} ${b.last_name || ''}`.toLowerCase().trim();
+        return nameA.localeCompare(nameB);
+      });
+      setClientSearchResults(sorted);
     } catch (err) {
       console.error('Failed to search clients:', err);
     }
   }, []);
 
   // Handle slot click - open quick book modal
-  const handleSlotClick = (time: string, providerId: string, providerName: string) => {
+  const handleSlotClick = async (time: string, providerId: string, providerName: string) => {
     setQuickBookSlot({ time, providerId, providerName });
     setQuickBookClient('');
     setQuickBookService('');
     setClientSearchResults([]);
     setShowQuickBook(true);
+    
+    // Pre-load recent clients for quick selection
+    try {
+      const res = await fetch('/api/clients?limit=20&sort=updated_at&order=desc');
+      const data = await res.json();
+      if (data.clients && data.clients.length > 0) {
+        // Sort alphabetically by name for display
+        const sorted = [...data.clients].sort((a: any, b: any) => {
+          const nameA = `${a.first_name || ''} ${a.last_name || ''}`.toLowerCase().trim();
+          const nameB = `${b.first_name || ''} ${b.last_name || ''}`.toLowerCase().trim();
+          return nameA.localeCompare(nameB);
+        });
+        setClientSearchResults(sorted);
+      }
+    } catch (err) {
+      console.error('Failed to load clients:', err);
+    }
   };
 
   // Resolve provider ID - convert string IDs to real UUIDs via lookup
@@ -1444,45 +1481,61 @@ export default function CalendarPage() {
               {/* Existing Client Search */}
               {!isNewClient && (
               <div>
-                  <label className="block text-sm font-medium text-black mb-2">Search Client *</label>
+                  <label className="block text-sm font-medium text-black mb-2">Select Client *</label>
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="Search client by name..."
+                    placeholder="Type to search or scroll to browse..."
                       className="w-full px-4 py-3 border border-black rounded-xl focus:ring-2 focus:ring-pink-500 focus:border-[#FF2D8E]"
                       onChange={(e) => searchClients(e.target.value)}
                   />
-                  {clientSearchResults.length > 0 && (
-                      <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-black rounded-xl shadow-xl z-10 max-h-48 overflow-y-auto">
+                  {/* Always show client list when not selected and results exist */}
+                  {!quickBookClient && clientSearchResults.length > 0 && (
+                      <div className="mt-2 bg-white border border-black rounded-xl shadow-xl max-h-48 overflow-y-auto">
                       {clientSearchResults.map((client) => (
                         <button
                           key={client.id}
                           type="button"
                           onClick={() => {
                             setQuickBookClient(client.id);
-                            setClientSearchResults([]);
                           }}
-                            className="w-full text-left px-4 py-3 hover:bg-white flex items-center gap-3 border-b border-black last:border-0"
+                            className="w-full text-left px-4 py-3 hover:bg-pink-50 flex items-center gap-3 border-b border-gray-100 last:border-0"
                         >
-                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-medium">
-                            {client.first_name?.[0]}{client.last_name?.[0]}
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white font-medium text-sm">
+                            {client.first_name?.[0] || '?'}{client.last_name?.[0] || ''}
                           </div>
                           <div>
-                              <p className="font-medium text-black">{client.first_name} {client.last_name}</p>
-                              <p className="text-sm text-black">{client.email || client.phone}</p>
+                              <p className="font-medium text-black">{client.first_name || 'Unknown'} {client.last_name || ''}</p>
+                              <p className="text-sm text-gray-500">{client.email || client.phone || 'No contact info'}</p>
                           </div>
                         </button>
                       ))}
                     </div>
                   )}
+                  {!quickBookClient && clientSearchResults.length === 0 && (
+                    <p className="text-sm text-gray-500 mt-2">Loading clients...</p>
+                  )}
                 </div>
                 {quickBookClient && (
-                    <p className="text-sm text-emerald-600 mt-2 flex items-center gap-1">
+                  <div className="mt-2 p-3 bg-emerald-50 border border-emerald-200 rounded-xl flex items-center justify-between">
+                    <p className="text-sm text-emerald-700 flex items-center gap-2">
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
                       Client selected
                     </p>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setQuickBookClient('');
+                        // Reload clients list
+                        searchClients('');
+                      }}
+                      className="text-sm text-emerald-600 hover:text-emerald-800 font-medium"
+                    >
+                      Change
+                    </button>
+                  </div>
                 )}
               </div>
               )}
