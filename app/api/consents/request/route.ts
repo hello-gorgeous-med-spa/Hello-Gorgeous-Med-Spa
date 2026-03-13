@@ -24,7 +24,10 @@ function getTwilioClient() {
   const authToken = process.env.TWILIO_AUTH_TOKEN;
   const phoneNumber = process.env.TWILIO_PHONE_NUMBER;
   
+  console.log('[Twilio] Checking config - SID exists:', !!accountSid, 'Token exists:', !!authToken, 'Phone:', phoneNumber?.substring(0, 5) + '...');
+  
   if (!accountSid || !authToken || !phoneNumber || accountSid.startsWith('your_')) {
+    console.log('[Twilio] Not configured properly');
     return null;
   }
   

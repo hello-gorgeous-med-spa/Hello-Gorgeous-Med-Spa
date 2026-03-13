@@ -103,24 +103,51 @@ export default function AppointmentDetailPage({ params }: { params: { id: string
   const sendConsentForms = async () => {
     if (!appointment?.client?.id) return;
     
+    const clientPhone = appointment.client.phone || appointment.client_phone;
+    const clientEmail = appointment.client.email || appointment.client_email;
+    
+    if (!clientPhone && !clientEmail) {
+      alert('No phone or email on file for this client');
+      return;
+    }
+    
     setSendingConsent(true);
     try {
-      const res = await fetch('/api/consents/request', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          clientId: appointment.client.id,
-          formTypes: ['hipaa', 'treatment_consent', 'financial_policy'],
-          appointmentId: params.id,
-          sendVia: 'sms',
-        }),
-      });
+      // Send required consent forms one at a time
+      const formsToSend = ['hipaa_authorization', 'general_consent'];
+      const results = [];
       
-      const data = await res.json();
-      if (data.success) {
-        alert(`Consent forms sent to ${appointment.client.phone || appointment.client.email}!`);
-      } else {
-        alert('Failed to send consent forms: ' + (data.error || 'Unknown error'));
+      for (const formType of formsToSend) {
+        const res = await fetch('/api/consents/request', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            formType,
+            clientId: appointment.client.id,
+            appointmentId: params.id,
+            phone: clientPhone,
+            email: clientEmail,
+          }),
+        });
+        
+        const data = await res.json();
+        results.push({ formType, success: data.success, error: data.error });
+      }
+      
+      const successful = results.filter(r => r.success).length;
+      const failed = results.filter(r => !r.success);
+      
+      if (successful > 0) {
+        alert(`${successful} consent form(s) sent to ${clientPhone || clientEmail}!`);
+        // Refresh to update consent status
+        fetchAppointment(true);
+      }
+      
+      if (failed.length > 0) {
+        console.error('Failed forms:', failed);
+        if (successful === 0) {
+          alert('Failed to send consent forms: ' + (failed[0]?.error || 'Unknown error'));
+        }
       }
     } catch (err) {
       console.error('Error sending consent:', err);
