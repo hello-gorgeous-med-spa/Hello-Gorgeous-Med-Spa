@@ -18,7 +18,23 @@ interface GeneratedVideo {
   status: "pending" | "rendering" | "completed" | "failed";
   url?: string;
   caption?: string;
+  voiceoverUrl?: string;
 }
+
+interface VoicePreset {
+  id: string;
+  name: string;
+  description: string;
+}
+
+const VOICE_PRESETS: VoicePreset[] = [
+  { id: "rachel", name: "Rachel", description: "Calm, professional female" },
+  { id: "bella", name: "Bella", description: "Warm, friendly female" },
+  { id: "charlotte", name: "Charlotte", description: "Elegant, sophisticated female" },
+  { id: "elli", name: "Elli", description: "Young, energetic female" },
+  { id: "josh", name: "Josh", description: "Deep, authoritative male" },
+  { id: "adam", name: "Adam", description: "Professional male" },
+];
 
 const SERVICE_TEMPLATES: VideoTemplate[] = [
   { id: "solaria", name: "Solaria CO2 Laser", description: "Fractional laser resurfacing promo" },
@@ -96,7 +112,11 @@ export default function VideoGeneratorPage() {
     promoLabel: "Limited Launch Offer",
     benefits: DEFAULT_BENEFITS.solaria,
     format: "vertical" as "vertical" | "square" | "horizontal",
+    includeVoiceover: false,
+    voicePreset: "rachel",
+    customVoiceScript: "",
   });
+  const [isGeneratingVoiceover, setIsGeneratingVoiceover] = useState(false);
 
   useEffect(() => {
     const template = SERVICE_TEMPLATES.find((t) => t.id === selectedTemplate);
@@ -118,8 +138,57 @@ export default function VideoGeneratorPage() {
     }
   }, [selectedTemplate]);
 
+  const handleGenerateVoiceover = async () => {
+    setIsGeneratingVoiceover(true);
+    try {
+      const response = await fetch("/api/generate-voiceover", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          service: selectedTemplate,
+          voicePreset: formData.voicePreset,
+          customText: formData.customVoiceScript || undefined,
+        }),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        alert(`Voiceover generated! File: ${result.filename}\nVoice: ${result.voice}`);
+      } else {
+        const error = await response.json();
+        alert(`Failed to generate voiceover: ${error.error}\n${error.hint || ""}`);
+      }
+    } catch (error) {
+      console.error("Error generating voiceover:", error);
+      alert("Failed to generate voiceover. Check console for details.");
+    }
+    setIsGeneratingVoiceover(false);
+  };
+
   const handleGenerate = async () => {
     setIsGenerating(true);
+    
+    let voiceoverUrl: string | undefined;
+    
+    if (formData.includeVoiceover) {
+      try {
+        const voiceResponse = await fetch("/api/generate-voiceover", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            service: selectedTemplate,
+            voicePreset: formData.voicePreset,
+            customText: formData.customVoiceScript || undefined,
+          }),
+        });
+        if (voiceResponse.ok) {
+          const voiceResult = await voiceResponse.json();
+          voiceoverUrl = voiceResult.audioUrl;
+        }
+      } catch (e) {
+        console.error("Voiceover generation failed:", e);
+      }
+    }
     
     const newVideo: GeneratedVideo = {
       id: `video-${Date.now()}`,
@@ -129,6 +198,7 @@ export default function VideoGeneratorPage() {
       createdAt: new Date().toISOString(),
       status: "rendering",
       caption: generateCaption(),
+      voiceoverUrl,
     };
     
     setGeneratedVideos((prev) => [newVideo, ...prev]);
@@ -154,6 +224,7 @@ export default function VideoGeneratorPage() {
             phone: "630-636-6193",
             website: "hellogorgeousmedspa.com",
             brandColor: "#E91E8C",
+            voiceoverUrl,
           },
         }),
       });
@@ -457,6 +528,76 @@ Hydration • Energy • Immunity • Recovery
                   </button>
                 ))}
               </div>
+            </div>
+
+            {/* AI Voiceover */}
+            <div className="bg-gray-800 rounded-xl p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold">4. AI Voiceover</h2>
+                <span className="text-xs bg-purple-500/20 text-purple-400 px-2 py-1 rounded">
+                  ElevenLabs
+                </span>
+              </div>
+              
+              <div className="flex items-center gap-3 mb-4">
+                <button
+                  onClick={() => setFormData({ ...formData, includeVoiceover: !formData.includeVoiceover })}
+                  className={`relative w-12 h-6 rounded-full transition-colors ${
+                    formData.includeVoiceover ? "bg-pink-500" : "bg-gray-600"
+                  }`}
+                >
+                  <div
+                    className={`absolute top-0.5 w-5 h-5 rounded-full bg-white transition-transform ${
+                      formData.includeVoiceover ? "translate-x-6" : "translate-x-0.5"
+                    }`}
+                  />
+                </button>
+                <span className="text-sm">Include AI voiceover narration</span>
+              </div>
+
+              {formData.includeVoiceover && (
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-2">Voice</label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {VOICE_PRESETS.map((voice) => (
+                        <button
+                          key={voice.id}
+                          onClick={() => setFormData({ ...formData, voicePreset: voice.id })}
+                          className={`p-3 rounded-lg border text-left transition-all ${
+                            formData.voicePreset === voice.id
+                              ? "border-purple-500 bg-purple-500/20"
+                              : "border-gray-700 hover:border-gray-600"
+                          }`}
+                        >
+                          <div className="font-medium text-sm">{voice.name}</div>
+                          <div className="text-xs text-gray-400">{voice.description}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm text-gray-400 mb-1">
+                      Custom Script (optional)
+                    </label>
+                    <textarea
+                      value={formData.customVoiceScript}
+                      onChange={(e) => setFormData({ ...formData, customVoiceScript: e.target.value })}
+                      placeholder="Leave empty to use auto-generated script based on service..."
+                      className="w-full bg-gray-700 border border-gray-600 rounded-lg px-4 py-2 focus:border-purple-500 focus:outline-none h-24 resize-none text-sm"
+                    />
+                  </div>
+
+                  <button
+                    onClick={handleGenerateVoiceover}
+                    disabled={isGeneratingVoiceover}
+                    className="w-full py-2 rounded-lg bg-purple-600 hover:bg-purple-700 text-sm font-medium transition-colors disabled:opacity-50"
+                  >
+                    {isGeneratingVoiceover ? "Generating..." : "🎙️ Generate Voiceover Only"}
+                  </button>
+                </div>
+              )}
             </div>
 
             {/* Generate Button */}
