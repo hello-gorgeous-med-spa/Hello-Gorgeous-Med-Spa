@@ -83,6 +83,24 @@ export default function CalendarPage() {
   const dateString = selectedDate.toISOString().split('T')[0];
   const BUSINESS_TZ = 'America/Chicago';
 
+  // Calculate KPI metrics from appointments
+  const kpiMetrics = useMemo(() => {
+    const total = appointments.length;
+    const checkedIn = appointments.filter(a => a.status === 'checked_in').length;
+    const inService = appointments.filter(a => a.status === 'in_progress').length;
+    const completed = appointments.filter(a => a.status === 'completed').length;
+    const confirmed = appointments.filter(a => a.status === 'confirmed').length;
+    const cancelled = appointments.filter(a => a.status === 'cancelled').length;
+    const noShow = appointments.filter(a => a.status === 'no_show').length;
+    
+    // Calculate revenue from completed appointments
+    const revenue = appointments
+      .filter(a => a.status === 'completed')
+      .reduce((sum, a) => sum + (a.service_price || a.service?.price || 0), 0);
+    
+    return { total, checkedIn, inService, completed, confirmed, cancelled, noShow, revenue };
+  }, [appointments]);
+
   // Data fetchers first (so handlers below can reference them without TDZ)
   const fetchAppointments = useCallback(async () => {
     try {
@@ -702,6 +720,61 @@ export default function CalendarPage() {
           </div>
         }
       />
+
+      {/* Owner Command Center KPIs */}
+      <div className="hidden lg:flex gap-2 px-4 py-2 bg-gradient-to-r from-slate-50 to-white border-b border-black/10">
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-black/10 shadow-sm">
+          <span className="text-lg">📅</span>
+          <div>
+            <p className="text-xs text-gray-500">Today</p>
+            <p className="text-sm font-bold text-black">{kpiMetrics.total}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-black/10 shadow-sm">
+          <span className="text-lg">✅</span>
+          <div>
+            <p className="text-xs text-gray-500">Confirmed</p>
+            <p className="text-sm font-bold text-emerald-600">{kpiMetrics.confirmed}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-black/10 shadow-sm">
+          <span className="text-lg">🚪</span>
+          <div>
+            <p className="text-xs text-gray-500">Checked In</p>
+            <p className="text-sm font-bold text-amber-600">{kpiMetrics.checkedIn}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-black/10 shadow-sm">
+          <span className="text-lg">💉</span>
+          <div>
+            <p className="text-xs text-gray-500">In Service</p>
+            <p className="text-sm font-bold text-purple-600">{kpiMetrics.inService}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-white rounded-lg border border-black/10 shadow-sm">
+          <span className="text-lg">🎉</span>
+          <div>
+            <p className="text-xs text-gray-500">Completed</p>
+            <p className="text-sm font-bold text-black">{kpiMetrics.completed}</p>
+          </div>
+        </div>
+        {kpiMetrics.noShow > 0 && (
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-red-50 rounded-lg border border-red-200 shadow-sm">
+            <span className="text-lg">⚠️</span>
+            <div>
+              <p className="text-xs text-red-500">No-Shows</p>
+              <p className="text-sm font-bold text-red-600">{kpiMetrics.noShow}</p>
+            </div>
+          </div>
+        )}
+        <div className="flex items-center gap-2 px-3 py-1.5 bg-gradient-to-r from-pink-50 to-rose-50 rounded-lg border border-pink-200 shadow-sm ml-auto">
+          <span className="text-lg">💰</span>
+          <div>
+            <p className="text-xs text-pink-500">Revenue</p>
+            <p className="text-sm font-bold text-pink-600">${kpiMetrics.revenue.toLocaleString()}</p>
+          </div>
+        </div>
+      </div>
 
       {dataError && (
         <div className="mx-4 mt-2 p-4 bg-amber-50 border-2 border-amber-400 rounded-lg text-amber-900">
