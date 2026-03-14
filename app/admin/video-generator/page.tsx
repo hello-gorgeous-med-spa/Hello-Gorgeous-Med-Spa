@@ -57,6 +57,89 @@ const DEFAULT_BENEFITS: Record<string, string[]> = {
   custom: ["Benefit One", "Benefit Two", "Benefit Three", "Benefit Four"],
 };
 
+interface VideoScene {
+  id: string;
+  name: string;
+  duration: string;
+  textOnScreen: string;
+  voiceoverScript: string;
+}
+
+const DEFAULT_SCENES: Record<string, VideoScene[]> = {
+  solaria: [
+    { id: "intro", name: "Intro", duration: "0-3s", textOnScreen: "HELLO GORGEOUS MED SPA", voiceoverScript: "Introducing the future of skin rejuvenation." },
+    { id: "problem", name: "The Problem", duration: "3-7s", textOnScreen: "Sun damage? Fine lines? Uneven texture?", voiceoverScript: "Tired of sun damage, fine lines, and uneven skin texture?" },
+    { id: "solution", name: "The Solution", duration: "7-12s", textOnScreen: "SOLARIA CO2 LASER", voiceoverScript: "The Solaria CO2 Fractional Laser delivers dramatic results with minimal downtime." },
+    { id: "benefits", name: "Benefits", duration: "12-17s", textOnScreen: "Benefits appear one by one", voiceoverScript: "Stimulate collagen. Resurface skin. Reduce wrinkles. Improve texture." },
+    { id: "results", name: "Before/After", duration: "17-22s", textOnScreen: "REAL RESULTS", voiceoverScript: "See the transformation for yourself." },
+    { id: "offer", name: "Special Offer", duration: "22-26s", textOnScreen: "VIP LAUNCH SPECIAL $1,895", voiceoverScript: "Book now at our exclusive launch price of eighteen ninety-five." },
+    { id: "cta", name: "Call to Action", duration: "26-30s", textOnScreen: "BOOK NOW | 630-636-6193", voiceoverScript: "Hello Gorgeous Med Spa, Oswego Illinois. Call today." },
+  ],
+  botox: [
+    { id: "intro", name: "Intro", duration: "0-3s", textOnScreen: "HELLO GORGEOUS MED SPA", voiceoverScript: "Smooth away the years." },
+    { id: "problem", name: "The Problem", duration: "3-7s", textOnScreen: "Wrinkles? Crow's feet? Frown lines?", voiceoverScript: "Don't let wrinkles define your look." },
+    { id: "solution", name: "The Solution", duration: "7-12s", textOnScreen: "BOTOX", voiceoverScript: "Botox delivers natural-looking results in just fifteen minutes." },
+    { id: "benefits", name: "Benefits", duration: "12-17s", textOnScreen: "Quick • No Downtime • Natural", voiceoverScript: "Quick treatment. No downtime. Natural-looking results that last." },
+    { id: "results", name: "Before/After", duration: "17-22s", textOnScreen: "REAL RESULTS", voiceoverScript: "Join thousands of satisfied clients." },
+    { id: "offer", name: "Special Offer", duration: "22-26s", textOnScreen: "SPECIAL: $10/unit", voiceoverScript: "Now just ten dollars per unit." },
+    { id: "cta", name: "Call to Action", duration: "26-30s", textOnScreen: "BOOK NOW | 630-636-6193", voiceoverScript: "Hello Gorgeous Med Spa. Book your appointment today." },
+  ],
+  morpheus8: [
+    { id: "intro", name: "Intro", duration: "0-3s", textOnScreen: "HELLO GORGEOUS MED SPA", voiceoverScript: "Tighten. Contour. Transform." },
+    { id: "problem", name: "The Problem", duration: "3-7s", textOnScreen: "Loose skin? Loss of definition?", voiceoverScript: "Is loose skin making you look older than you feel?" },
+    { id: "solution", name: "The Solution", duration: "7-12s", textOnScreen: "MORPHEUS8", voiceoverScript: "Morpheus8 combines microneedling with radiofrequency for unmatched skin tightening." },
+    { id: "benefits", name: "Benefits", duration: "12-17s", textOnScreen: "Tightens • Contours • Rejuvenates", voiceoverScript: "Tighten loose skin. Reduce fat. Stimulate collagen naturally." },
+    { id: "results", name: "Before/After", duration: "17-22s", textOnScreen: "REAL RESULTS", voiceoverScript: "See the dramatic transformation." },
+    { id: "offer", name: "Special Offer", duration: "22-26s", textOnScreen: "VIP PRICING AVAILABLE", voiceoverScript: "Ask about our VIP pricing." },
+    { id: "cta", name: "Call to Action", duration: "26-30s", textOnScreen: "BOOK NOW | 630-636-6193", voiceoverScript: "Hello Gorgeous Med Spa. Call now." },
+  ],
+  weightloss: [
+    { id: "intro", name: "Intro", duration: "0-3s", textOnScreen: "HELLO GORGEOUS MED SPA", voiceoverScript: "Transform your body. Transform your life." },
+    { id: "problem", name: "The Problem", duration: "3-7s", textOnScreen: "Struggling to lose weight?", voiceoverScript: "Tired of diets that don't work?" },
+    { id: "solution", name: "The Solution", duration: "7-12s", textOnScreen: "MEDICAL WEIGHT LOSS", voiceoverScript: "Our physician-supervised weight loss program uses FDA-approved medication." },
+    { id: "benefits", name: "Benefits", duration: "12-17s", textOnScreen: "15-20% Weight Loss Average", voiceoverScript: "Clients see an average of fifteen to twenty percent weight loss." },
+    { id: "results", name: "Before/After", duration: "17-22s", textOnScreen: "REAL TRANSFORMATIONS", voiceoverScript: "Real people. Real results." },
+    { id: "offer", name: "Special Offer", duration: "22-26s", textOnScreen: "NEW PATIENT SPECIAL", voiceoverScript: "Start your transformation today with our new patient special." },
+    { id: "cta", name: "Call to Action", duration: "26-30s", textOnScreen: "BOOK NOW | 630-636-6193", voiceoverScript: "Hello Gorgeous Med Spa. Your journey starts now." },
+  ],
+  fillers: [
+    { id: "intro", name: "Intro", duration: "0-3s", textOnScreen: "HELLO GORGEOUS MED SPA", voiceoverScript: "Restore. Enhance. Define." },
+    { id: "problem", name: "The Problem", duration: "3-7s", textOnScreen: "Lost volume? Thin lips?", voiceoverScript: "Missing that youthful fullness?" },
+    { id: "solution", name: "The Solution", duration: "7-12s", textOnScreen: "DERMAL FILLERS", voiceoverScript: "Premium dermal fillers restore volume and enhance your natural beauty." },
+    { id: "benefits", name: "Benefits", duration: "12-17s", textOnScreen: "Lips • Cheeks • Jawline", voiceoverScript: "Enhance lips. Define cheeks. Sculpt your jawline." },
+    { id: "results", name: "Before/After", duration: "17-22s", textOnScreen: "STUNNING RESULTS", voiceoverScript: "See the difference expert injection makes." },
+    { id: "offer", name: "Special Offer", duration: "22-26s", textOnScreen: "SPRING SPECIAL", voiceoverScript: "Ask about our current special offers." },
+    { id: "cta", name: "Call to Action", duration: "26-30s", textOnScreen: "BOOK NOW | 630-636-6193", voiceoverScript: "Hello Gorgeous Med Spa. Book your consultation." },
+  ],
+  prf: [
+    { id: "intro", name: "Intro", duration: "0-3s", textOnScreen: "HELLO GORGEOUS MED SPA", voiceoverScript: "Regrow your confidence." },
+    { id: "problem", name: "The Problem", duration: "3-7s", textOnScreen: "Thinning hair? Receding hairline?", voiceoverScript: "Hair loss affecting your confidence?" },
+    { id: "solution", name: "The Solution", duration: "7-12s", textOnScreen: "PRF HAIR RESTORATION", voiceoverScript: "PRF uses your own growth factors to stimulate natural hair regrowth." },
+    { id: "benefits", name: "Benefits", duration: "12-17s", textOnScreen: "Natural • Non-Surgical • Effective", voiceoverScript: "No surgery. No synthetic ingredients. Just your body's natural healing power." },
+    { id: "results", name: "Before/After", duration: "17-22s", textOnScreen: "REAL REGROWTH", voiceoverScript: "See thicker, healthier hair." },
+    { id: "offer", name: "Special Offer", duration: "22-26s", textOnScreen: "LIMITED TIME OFFER", voiceoverScript: "Book your treatment package today." },
+    { id: "cta", name: "Call to Action", duration: "26-30s", textOnScreen: "BOOK NOW | 630-636-6193", voiceoverScript: "Hello Gorgeous Med Spa. Restore your hair." },
+  ],
+  iv: [
+    { id: "intro", name: "Intro", duration: "0-3s", textOnScreen: "HELLO GORGEOUS MED SPA", voiceoverScript: "Feel amazing from the inside out." },
+    { id: "problem", name: "The Problem", duration: "3-7s", textOnScreen: "Tired? Dehydrated? Run down?", voiceoverScript: "Feeling exhausted and run down?" },
+    { id: "solution", name: "The Solution", duration: "7-12s", textOnScreen: "IV THERAPY", voiceoverScript: "IV Therapy delivers vitamins and hydration directly to your bloodstream." },
+    { id: "benefits", name: "Benefits", duration: "12-17s", textOnScreen: "Energy • Immunity • Recovery", voiceoverScript: "Boost energy. Strengthen immunity. Speed recovery." },
+    { id: "results", name: "Before/After", duration: "17-22s", textOnScreen: "FEEL THE DIFFERENCE", voiceoverScript: "Feel revitalized in just thirty minutes." },
+    { id: "offer", name: "Special Offer", duration: "22-26s", textOnScreen: "WELLNESS SPECIAL", voiceoverScript: "Try our most popular IV cocktail." },
+    { id: "cta", name: "Call to Action", duration: "26-30s", textOnScreen: "BOOK NOW | 630-636-6193", voiceoverScript: "Hello Gorgeous Med Spa. Recharge today." },
+  ],
+  custom: [
+    { id: "intro", name: "Intro", duration: "0-3s", textOnScreen: "HELLO GORGEOUS MED SPA", voiceoverScript: "Your intro voiceover here." },
+    { id: "problem", name: "The Problem", duration: "3-7s", textOnScreen: "Problem statement here", voiceoverScript: "Describe the problem your service solves." },
+    { id: "solution", name: "The Solution", duration: "7-12s", textOnScreen: "YOUR SERVICE NAME", voiceoverScript: "Introduce your solution." },
+    { id: "benefits", name: "Benefits", duration: "12-17s", textOnScreen: "Key benefits listed", voiceoverScript: "List the key benefits." },
+    { id: "results", name: "Before/After", duration: "17-22s", textOnScreen: "REAL RESULTS", voiceoverScript: "Show the results." },
+    { id: "offer", name: "Special Offer", duration: "22-26s", textOnScreen: "SPECIAL OFFER", voiceoverScript: "Present your offer." },
+    { id: "cta", name: "Call to Action", duration: "26-30s", textOnScreen: "BOOK NOW | 630-636-6193", voiceoverScript: "Call to action here." },
+  ],
+};
+
 export default function VideoGeneratorPage() {
   const [selectedTemplate, setSelectedTemplate] = useState<string>("solaria");
   const [isGenerating, setIsGenerating] = useState(false);
@@ -80,6 +163,9 @@ export default function VideoGeneratorPage() {
     customVoiceScript: "",
   });
   const [isGeneratingVoiceover, setIsGeneratingVoiceover] = useState(false);
+  const [showScriptEditor, setShowScriptEditor] = useState(false);
+  const [videoScenes, setVideoScenes] = useState<VideoScene[]>(DEFAULT_SCENES.solaria);
+  const [isGeneratingScript, setIsGeneratingScript] = useState(false);
 
   useEffect(() => {
     const template = SERVICE_TEMPLATES.find((t) => t.id === selectedTemplate);
@@ -98,8 +184,51 @@ export default function VideoGeneratorPage() {
         serviceName: serviceNames[selectedTemplate] || template.name,
         benefits: DEFAULT_BENEFITS[selectedTemplate] || DEFAULT_BENEFITS.custom,
       }));
+      setVideoScenes(DEFAULT_SCENES[selectedTemplate] || DEFAULT_SCENES.custom);
     }
   }, [selectedTemplate]);
+
+  const updateScene = (sceneId: string, field: "textOnScreen" | "voiceoverScript", value: string) => {
+    setVideoScenes((prev) =>
+      prev.map((scene) =>
+        scene.id === sceneId ? { ...scene, [field]: value } : scene
+      )
+    );
+  };
+
+  const generateFullScript = () => {
+    return videoScenes.map((scene) => scene.voiceoverScript).join(" ");
+  };
+
+  const handleGenerateAIScript = async () => {
+    setIsGeneratingScript(true);
+    try {
+      const response = await fetch("/api/generate-script", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          serviceName: formData.serviceName,
+          headline: formData.headline,
+          price: formData.price,
+          benefits: formData.benefits,
+          promoLabel: formData.promoLabel,
+        }),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        if (result.scenes) {
+          setVideoScenes(result.scenes);
+        }
+      } else {
+        alert("Failed to generate script. Using default template.");
+      }
+    } catch (error) {
+      console.error("Error generating script:", error);
+      alert("Failed to generate script. Using default template.");
+    }
+    setIsGeneratingScript(false);
+  };
 
   const handleImageUpload = (type: "before" | "after", file: File) => {
     const reader = new FileReader();
@@ -147,13 +276,14 @@ export default function VideoGeneratorPage() {
     
     if (formData.includeVoiceover) {
       try {
+        const scriptToUse = formData.customVoiceScript || generateFullScript();
         const voiceResponse = await fetch("/api/generate-voiceover", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             service: selectedTemplate,
             voicePreset: formData.voicePreset,
-            customText: formData.customVoiceScript || undefined,
+            customText: scriptToUse,
           }),
         });
         if (voiceResponse.ok) {
@@ -637,10 +767,140 @@ Hydration • Energy • Immunity • Recovery
               </div>
             </div>
 
+            {/* Video Script Editor */}
+            <div className="bg-white rounded-2xl p-6 border border-blue-200 shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-blue-600 flex items-center gap-2">
+                  <span className="bg-blue-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">4</span>
+                  Video Script Editor
+                </h2>
+                <div className="flex items-center gap-2">
+                  <span className="text-xs bg-blue-100 text-blue-600 px-3 py-1 rounded-full font-medium">
+                    Scene-by-Scene Control
+                  </span>
+                  <button
+                    onClick={() => setShowScriptEditor(!showScriptEditor)}
+                    className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                  >
+                    {showScriptEditor ? "▼ Hide" : "▶ Show"}
+                  </button>
+                </div>
+              </div>
+
+              <p className="text-sm text-gray-500 mb-4">
+                Control exactly what appears on screen and what the AI voiceover says in each scene.
+              </p>
+
+              {showScriptEditor && (
+                <div className="space-y-4">
+                  {/* Quick Actions */}
+                  <div className="flex gap-2 mb-4">
+                    <button
+                      onClick={handleGenerateAIScript}
+                      disabled={isGeneratingScript}
+                      className="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white rounded-xl text-sm font-medium transition-colors disabled:opacity-50 flex items-center gap-2"
+                    >
+                      {isGeneratingScript ? (
+                        <>
+                          <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                          </svg>
+                          Generating...
+                        </>
+                      ) : (
+                        <>✨ AI Generate Script</>
+                      )}
+                    </button>
+                    <button
+                      onClick={() => setVideoScenes(DEFAULT_SCENES[selectedTemplate] || DEFAULT_SCENES.custom)}
+                      className="px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-xl text-sm font-medium transition-colors"
+                    >
+                      🔄 Reset to Default
+                    </button>
+                  </div>
+
+                  {/* Scene Editor */}
+                  <div className="space-y-3">
+                    {videoScenes.map((scene, index) => (
+                      <div key={scene.id} className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center gap-2">
+                            <span className="bg-blue-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold">
+                              {index + 1}
+                            </span>
+                            <span className="font-medium text-gray-800">{scene.name}</span>
+                            <span className="text-xs bg-gray-200 text-gray-600 px-2 py-0.5 rounded-full">
+                              {scene.duration}
+                            </span>
+                          </div>
+                        </div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                          <div>
+                            <label className="block text-xs text-gray-600 mb-1 font-medium">
+                              📺 Text on Screen
+                            </label>
+                            <input
+                              type="text"
+                              value={scene.textOnScreen}
+                              onChange={(e) => updateScene(scene.id, "textOnScreen", e.target.value)}
+                              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm focus:border-blue-500 focus:outline-none text-gray-900"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-xs text-gray-600 mb-1 font-medium">
+                              🎙️ Voiceover Script
+                            </label>
+                            <input
+                              type="text"
+                              value={scene.voiceoverScript}
+                              onChange={(e) => updateScene(scene.id, "voiceoverScript", e.target.value)}
+                              className="w-full bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm focus:border-blue-500 focus:outline-none text-gray-900"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Full Script Preview */}
+                  <div className="mt-4 p-4 bg-blue-50 rounded-xl border border-blue-200">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-medium text-blue-700">📝 Full Voiceover Script Preview</span>
+                      <button
+                        onClick={() => {
+                          navigator.clipboard.writeText(generateFullScript());
+                          alert("Script copied to clipboard!");
+                        }}
+                        className="text-xs bg-blue-600 hover:bg-blue-500 text-white px-3 py-1 rounded-lg"
+                      >
+                        Copy
+                      </button>
+                    </div>
+                    <p className="text-sm text-gray-700 italic">
+                      "{generateFullScript()}"
+                    </p>
+                    <p className="text-xs text-gray-500 mt-2">
+                      Est. duration: ~{Math.ceil(generateFullScript().split(" ").length / 2.5)} seconds
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {!showScriptEditor && (
+                <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                  <p className="text-sm text-gray-600">
+                    <strong>{videoScenes.length} scenes</strong> configured • Click "Show" to customize each scene's text and voiceover
+                  </p>
+                </div>
+              )}
+            </div>
+
             {/* Format Selection */}
             <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
               <h2 className="text-xl font-semibold text-pink-600 mb-4 flex items-center gap-2">
-                <span className="bg-pink-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">4</span>
+                <span className="bg-pink-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">5</span>
                 Select Format
               </h2>
               <div className="grid grid-cols-3 gap-4">
@@ -670,7 +930,7 @@ Hydration • Energy • Immunity • Recovery
             <div className="bg-white rounded-2xl p-6 border border-purple-200 shadow-lg">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-semibold text-purple-600 flex items-center gap-2">
-                  <span className="bg-purple-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">5</span>
+                  <span className="bg-purple-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">6</span>
                   AI Voiceover
                 </h2>
                 <span className="text-xs bg-purple-100 text-purple-600 px-3 py-1 rounded-full font-medium">
