@@ -19,6 +19,20 @@ interface GeneratedVideo {
   caption?: string;
 }
 
+interface LibraryVideo {
+  id: string;
+  name: string;
+  service: string;
+  format: string;
+  url: string;
+  caption?: string;
+  thumbnail_url?: string;
+  duration?: number;
+  file_size?: number;
+  status: string;
+  created_at: string;
+}
+
 interface VoicePreset {
   id: string;
   name: string;
@@ -67,6 +81,11 @@ export default function VideoGeneratorPage() {
   const beforeInputRef = useRef<HTMLInputElement>(null);
   const afterInputRef = useRef<HTMLInputElement>(null);
   
+  const [activeTab, setActiveTab] = useState<"create" | "library">("create");
+  const [libraryVideos, setLibraryVideos] = useState<LibraryVideo[]>([]);
+  const [isLoadingLibrary, setIsLoadingLibrary] = useState(false);
+  const [libraryFilter, setLibraryFilter] = useState<string>("all");
+  
   const [formData, setFormData] = useState({
     serviceName: "Solaria CO2 Laser",
     headline: "VIP Launch Special",
@@ -86,6 +105,53 @@ export default function VideoGeneratorPage() {
 
   const [voiceoverUrl, setVoiceoverUrl] = useState<string | null>(null);
   const [isGeneratingVoiceover, setIsGeneratingVoiceover] = useState(false);
+
+  const loadLibraryVideos = async () => {
+    setIsLoadingLibrary(true);
+    try {
+      const response = await fetch("/api/video-library");
+      if (response.ok) {
+        const data = await response.json();
+        setLibraryVideos(data.videos || []);
+      }
+    } catch (error) {
+      console.error("Failed to load video library:", error);
+    }
+    setIsLoadingLibrary(false);
+  };
+
+  const saveToLibrary = async (video: GeneratedVideo) => {
+    try {
+      await fetch("/api/video-library", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: video.name,
+          service: video.service,
+          format: video.format,
+          url: video.url,
+          caption: video.caption,
+        }),
+      });
+      loadLibraryVideos();
+    } catch (error) {
+      console.error("Failed to save to library:", error);
+    }
+  };
+
+  const deleteFromLibrary = async (id: string) => {
+    if (!confirm("Delete this video from library?")) return;
+    try {
+      await fetch(`/api/video-library?id=${id}`, { method: "DELETE" });
+      setLibraryVideos((prev) => prev.filter((v) => v.id !== id));
+    } catch (error) {
+      console.error("Failed to delete video:", error);
+    }
+  };
+
+  useEffect(() => {
+    loadLibraryVideos();
+  }, []);
 
   useEffect(() => {
     const template = SERVICE_TEMPLATES.find((t) => t.id === selectedTemplate);
@@ -265,11 +331,15 @@ export default function VideoGeneratorPage() {
     setIsGenerating(false);
   };
 
+  const filteredLibraryVideos = libraryFilter === "all" 
+    ? libraryVideos 
+    : libraryVideos.filter((v) => v.service === libraryFilter);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-100 via-pink-50 to-gray-100 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="mb-8">
+        <div className="mb-6">
           <h1 className="text-3xl font-bold text-gray-800">
             🎬 Video Generator
           </h1>
@@ -278,6 +348,146 @@ export default function VideoGeneratorPage() {
           </p>
         </div>
 
+        {/* Tabs */}
+        <div className="flex gap-2 mb-6">
+          <button
+            onClick={() => setActiveTab("create")}
+            className={`px-6 py-3 rounded-xl font-medium transition-all ${
+              activeTab === "create"
+                ? "bg-pink-500 text-white shadow-lg"
+                : "bg-white text-gray-600 hover:bg-pink-50 border border-gray-200"
+            }`}
+          >
+            ✨ Create Video
+          </button>
+          <button
+            onClick={() => setActiveTab("library")}
+            className={`px-6 py-3 rounded-xl font-medium transition-all flex items-center gap-2 ${
+              activeTab === "library"
+                ? "bg-pink-500 text-white shadow-lg"
+                : "bg-white text-gray-600 hover:bg-pink-50 border border-gray-200"
+            }`}
+          >
+            📚 Video Library
+            {libraryVideos.length > 0 && (
+              <span className={`text-xs px-2 py-0.5 rounded-full ${
+                activeTab === "library" ? "bg-white/20" : "bg-pink-100 text-pink-600"
+              }`}>
+                {libraryVideos.length}
+              </span>
+            )}
+          </button>
+        </div>
+
+        {activeTab === "library" ? (
+          /* Video Library View */
+          <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-semibold text-gray-800">Your Video Library</h2>
+              <div className="flex gap-2">
+                <select
+                  value={libraryFilter}
+                  onChange={(e) => setLibraryFilter(e.target.value)}
+                  className="px-4 py-2 border border-gray-200 rounded-xl text-sm focus:border-pink-500 focus:outline-none"
+                >
+                  <option value="all">All Services</option>
+                  {SERVICE_TEMPLATES.map((t) => (
+                    <option key={t.id} value={t.id}>{t.name}</option>
+                  ))}
+                </select>
+                <button
+                  onClick={loadLibraryVideos}
+                  disabled={isLoadingLibrary}
+                  className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl text-sm transition-colors"
+                >
+                  {isLoadingLibrary ? "Loading..." : "🔄 Refresh"}
+                </button>
+              </div>
+            </div>
+
+            {filteredLibraryVideos.length === 0 ? (
+              <div className="text-center py-16">
+                <div className="text-6xl mb-4">📹</div>
+                <p className="text-gray-500 text-lg">No videos in your library yet</p>
+                <p className="text-sm text-gray-400 mt-2">Videos you generate will appear here</p>
+                <button
+                  onClick={() => setActiveTab("create")}
+                  className="mt-4 px-6 py-2 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors"
+                >
+                  Create Your First Video
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredLibraryVideos.map((video) => (
+                  <div
+                    key={video.id}
+                    className="bg-gray-50 rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow"
+                  >
+                    <div className="aspect-video bg-gradient-to-br from-pink-100 to-purple-100 relative flex items-center justify-center">
+                      {video.url ? (
+                        <video
+                          src={video.url}
+                          className="w-full h-full object-cover"
+                          muted
+                          onMouseEnter={(e) => (e.target as HTMLVideoElement).play()}
+                          onMouseLeave={(e) => {
+                            const vid = e.target as HTMLVideoElement;
+                            vid.pause();
+                            vid.currentTime = 0;
+                          }}
+                        />
+                      ) : (
+                        <span className="text-4xl">🎬</span>
+                      )}
+                      <div className="absolute top-2 right-2">
+                        <span className="px-2 py-1 bg-black/50 text-white text-xs rounded-lg">
+                          {video.format === "vertical" ? "9:16" : video.format === "square" ? "1:1" : "16:9"}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="p-4">
+                      <h3 className="font-medium text-gray-800 truncate">{video.name}</h3>
+                      <p className="text-xs text-gray-500 mt-1">
+                        {new Date(video.created_at).toLocaleDateString()} • {video.service}
+                      </p>
+                      <div className="flex gap-2 mt-3">
+                        {video.url && (
+                          <a
+                            href={video.url}
+                            download
+                            className="flex-1 py-2 bg-pink-500 hover:bg-pink-600 text-white text-center rounded-lg text-sm font-medium transition-colors"
+                          >
+                            📥 Download
+                          </a>
+                        )}
+                        {video.caption && (
+                          <button
+                            onClick={() => {
+                              navigator.clipboard.writeText(video.caption || "");
+                              alert("Caption copied!");
+                            }}
+                            className="px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg text-sm transition-colors"
+                            title="Copy caption"
+                          >
+                            📋
+                          </button>
+                        )}
+                        <button
+                          onClick={() => deleteFromLibrary(video.id)}
+                          className="px-3 py-2 bg-red-100 hover:bg-red-200 text-red-600 rounded-lg text-sm transition-colors"
+                          title="Delete"
+                        >
+                          🗑️
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ) : (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left: Form */}
           <div className="lg:col-span-2 space-y-6">
@@ -656,6 +866,12 @@ export default function VideoGeneratorPage() {
                           >
                             📥 Download Video
                           </a>
+                          <button
+                            onClick={() => saveToLibrary(video)}
+                            className="w-full py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg text-sm font-medium transition-colors"
+                          >
+                            📚 Save to Library
+                          </button>
                           {video.caption && (
                             <button
                               onClick={() => {
@@ -686,6 +902,7 @@ export default function VideoGeneratorPage() {
             </div>
           </div>
         </div>
+        )}
       </div>
     </div>
   );
