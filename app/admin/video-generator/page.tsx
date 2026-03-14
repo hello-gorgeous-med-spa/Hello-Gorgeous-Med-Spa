@@ -772,7 +772,7 @@ export default function VideoGeneratorPage() {
                               setBeforeImage(image.url);
                               setActiveTab("create");
                             }}
-                            className="px-3 py-1.5 bg-white text-gray-800 rounded-lg text-xs font-medium hover:bg-gray-100"
+                            className="px-3 py-1.5 bg-white text-black rounded-lg text-xs font-medium hover:bg-pink-100"
                           >
                             Use as Before
                           </button>
@@ -800,13 +800,13 @@ export default function VideoGeneratorPage() {
                         <div className="flex gap-1">
                           <button
                             onClick={() => toggleFavorite(image)}
-                            className="text-gray-400 hover:text-yellow-500"
+                            className="text-white/70 hover:text-yellow-400"
                           >
                             {image.is_favorite ? "⭐" : "☆"}
                           </button>
                           <button
                             onClick={() => deleteImage(image.id)}
-                            className="text-gray-400 hover:text-red-500"
+                            className="text-white/70 hover:text-red-400"
                           >
                             🗑️
                           </button>
@@ -1179,7 +1179,7 @@ export default function VideoGeneratorPage() {
                             ? "bg-yellow-500/20 text-yellow-400"
                             : video.status === "failed"
                             ? "bg-red-500/20 text-red-400"
-                            : "bg-white/10 text-gray-400"
+                            : "bg-white/10 text-white/70"
                         }`}>
                           {video.status}
                         </span>
