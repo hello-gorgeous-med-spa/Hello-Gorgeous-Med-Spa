@@ -1843,9 +1843,9 @@ Hydration • Energy • Immunity • Recovery
                         key={preset.id}
                         onClick={() => {
                           setSelectedFormat(preset.settings.format);
-                          setQualityPreset(preset.settings.quality as "standard" | "high" | "ultra");
-                          setVideoStyle(preset.settings.style as "clean" | "luxury" | "energetic" | "minimal");
-                          setIncludeCaptions(preset.settings.includeCaptions);
+                          setFormData(prev => ({ ...prev, qualityPreset: preset.settings.quality as "standard" | "high" | "ultra" }));
+                          setFormData(prev => ({ ...prev, videoStyle: preset.settings.style as "clean" | "luxury" | "energetic" | "minimal" }));
+                          setFormData(prev => ({ ...prev, includeCaptions: preset.settings.includeCaptions }));
                           setFormData({
                             ...formData,
                             voicePreset: preset.settings.voicePreset,
@@ -1895,9 +1895,9 @@ Hydration • Energy • Immunity • Recovery
                               description: "Custom saved preset",
                               settings: {
                                 format: selectedFormat,
-                                quality: qualityPreset,
-                                style: videoStyle,
-                                includeCaptions,
+                                quality: formData.qualityPreset,
+                                style: formData.videoStyle,
+                                includeCaptions: formData.includeCaptions,
                                 includeMusic: !!selectedMusic,
                                 voicePreset: formData.voicePreset,
                               },
@@ -2078,7 +2078,7 @@ Hydration • Energy • Immunity • Recovery
                         <button
                           onClick={() => {
                             setSelectedTemplate(suggestion.service);
-                            setHeadline(suggestion.title);
+                            setFormData({ ...formData, headline: suggestion.title });
                             setShowSuggestions(false);
                           }}
                           className="text-xs bg-violet-600 text-white px-3 py-1.5 rounded-lg hover:bg-violet-700 transition-colors"
@@ -2423,8 +2423,8 @@ Hydration • Energy • Immunity • Recovery
                           <button
                             onClick={() => {
                               setSelectedTemplate(template.service);
-                              setVideoStyle(template.style as "clean" | "luxury" | "energetic" | "minimal");
-                              setHeadline(template.name);
+                              setFormData(prev => ({ ...prev, videoStyle: template.style as "clean" | "luxury" | "energetic" | "minimal" }));
+                              setFormData({ ...formData, headline: template.name });
                               setShowGallery(false);
                             }}
                             className="w-full py-2 bg-fuchsia-500 text-white rounded-lg text-sm font-medium hover:bg-fuchsia-600 transition-colors"
@@ -2963,7 +2963,7 @@ Hydration • Energy • Immunity • Recovery
                         className="text-xl font-bold"
                         style={{ color: brandKit.primaryColor }}
                       >
-                        {headline}
+                        {formData.headline}
                       </div>
                       <div 
                         className="text-sm mt-2 opacity-70"
@@ -3005,19 +3005,19 @@ Hydration • Energy • Immunity • Recovery
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-gray-500">Style:</span>
-                    <span className="font-medium text-gray-700">{selectedVariant ? TEMPLATE_VARIANTS[selectedTemplate]?.find(v => v.id === selectedVariant)?.name : videoStyle}</span>
+                    <span className="font-medium text-gray-700">{selectedVariant ? TEMPLATE_VARIANTS[selectedTemplate]?.find(v => v.id === selectedVariant)?.name : formData.videoStyle}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-gray-500">Quality:</span>
-                    <span className="font-medium text-gray-700">{qualityPreset}</span>
+                    <span className="font-medium text-gray-700">{formData.qualityPreset}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-gray-500">Voiceover:</span>
-                    <span className="font-medium text-gray-700">{useVoiceover ? (voiceoverUrl ? "Ready ✓" : "Will generate") : "None"}</span>
+                    <span className="font-medium text-gray-700">{formData.includeVoiceover ? (voiceoverUrl ? "Ready ✓" : "Will generate") : "None"}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-gray-500">Captions:</span>
-                    <span className="font-medium text-gray-700">{includeCaptions ? "Yes ✓" : "No"}</span>
+                    <span className="font-medium text-gray-700">{formData.includeCaptions ? "Yes ✓" : "No"}</span>
                   </div>
                 </div>
               </div>
