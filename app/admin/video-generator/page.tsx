@@ -33,6 +33,32 @@ interface LibraryVideo {
   created_at: string;
 }
 
+interface LibraryImage {
+  id: string;
+  name: string;
+  url: string;
+  category: string;
+  tags: string[];
+  source: string;
+  width?: number;
+  height?: number;
+  file_size?: number;
+  is_favorite: boolean;
+  use_count: number;
+  created_at: string;
+}
+
+const IMAGE_CATEGORIES = [
+  { id: "all", name: "All Images", icon: "🖼️" },
+  { id: "before-after", name: "Before/After", icon: "✨" },
+  { id: "hero", name: "Hero Images", icon: "🌟" },
+  { id: "branding", name: "Branding", icon: "💎" },
+  { id: "treatments", name: "Treatments", icon: "💉" },
+  { id: "equipment", name: "Equipment", icon: "🔧" },
+  { id: "lifestyle", name: "Lifestyle", icon: "🌸" },
+  { id: "uploads", name: "My Uploads", icon: "📤" },
+];
+
 interface VoicePreset {
   id: string;
   name: string;
@@ -81,10 +107,22 @@ export default function VideoGeneratorPage() {
   const beforeInputRef = useRef<HTMLInputElement>(null);
   const afterInputRef = useRef<HTMLInputElement>(null);
   
-  const [activeTab, setActiveTab] = useState<"create" | "library">("create");
+  const [activeTab, setActiveTab] = useState<"create" | "videos" | "images">("create");
   const [libraryVideos, setLibraryVideos] = useState<LibraryVideo[]>([]);
   const [isLoadingLibrary, setIsLoadingLibrary] = useState(false);
   const [libraryFilter, setLibraryFilter] = useState<string>("all");
+  
+  // Image Library State
+  const [libraryImages, setLibraryImages] = useState<LibraryImage[]>([]);
+  const [isLoadingImages, setIsLoadingImages] = useState(false);
+  const [imageCategory, setImageCategory] = useState<string>("all");
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [uploadName, setUploadName] = useState("");
+  const [uploadCategory, setUploadCategory] = useState("uploads");
+  const [uploadTags, setUploadTags] = useState("");
+  const [selectedImage, setSelectedImage] = useState<LibraryImage | null>(null);
+  const imageUploadRef = useRef<HTMLInputElement>(null);
   
   const [formData, setFormData] = useState({
     serviceName: "Solaria CO2 Laser",
@@ -120,6 +158,89 @@ export default function VideoGeneratorPage() {
     setIsLoadingLibrary(false);
   };
 
+  const loadLibraryImages = async () => {
+    setIsLoadingImages(true);
+    try {
+      const response = await fetch(`/api/image-library?category=${imageCategory}`);
+      if (response.ok) {
+        const data = await response.json();
+        setLibraryImages(data.images || []);
+      }
+    } catch (error) {
+      console.error("Failed to load image library:", error);
+    }
+    setIsLoadingImages(false);
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setIsUploadingImage(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("name", uploadName || file.name);
+      formData.append("category", uploadCategory);
+      formData.append("tags", uploadTags);
+
+      const response = await fetch("/api/image-library/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (response.ok) {
+        setShowUploadModal(false);
+        setUploadName("");
+        setUploadTags("");
+        loadLibraryImages();
+      } else {
+        const error = await response.json();
+        alert(`Upload failed: ${error.error}`);
+      }
+    } catch (error) {
+      console.error("Image upload failed:", error);
+      alert("Failed to upload image");
+    }
+    setIsUploadingImage(false);
+  };
+
+  const toggleFavorite = async (image: LibraryImage) => {
+    try {
+      await fetch("/api/image-library", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: image.id, is_favorite: !image.is_favorite }),
+      });
+      setLibraryImages((prev) =>
+        prev.map((img) =>
+          img.id === image.id ? { ...img, is_favorite: !img.is_favorite } : img
+        )
+      );
+    } catch (error) {
+      console.error("Failed to toggle favorite:", error);
+    }
+  };
+
+  const deleteImage = async (id: string) => {
+    if (!confirm("Delete this image from library?")) return;
+    try {
+      await fetch(`/api/image-library?id=${id}`, { method: "DELETE" });
+      setLibraryImages((prev) => prev.filter((img) => img.id !== id));
+    } catch (error) {
+      console.error("Failed to delete image:", error);
+    }
+  };
+
+  const useImageInVideo = (image: LibraryImage, type: "before" | "after") => {
+    if (type === "before") {
+      setBeforeImage(image.url);
+    } else {
+      setAfterImage(image.url);
+    }
+    setActiveTab("create");
+  };
+
   const saveToLibrary = async (video: GeneratedVideo) => {
     try {
       await fetch("/api/video-library", {
@@ -151,7 +272,12 @@ export default function VideoGeneratorPage() {
 
   useEffect(() => {
     loadLibraryVideos();
+    loadLibraryImages();
   }, []);
+
+  useEffect(() => {
+    loadLibraryImages();
+  }, [imageCategory]);
 
   useEffect(() => {
     const template = SERVICE_TEMPLATES.find((t) => t.id === selectedTemplate);
@@ -361,19 +487,36 @@ export default function VideoGeneratorPage() {
             ✨ Create Video
           </button>
           <button
-            onClick={() => setActiveTab("library")}
+            onClick={() => setActiveTab("videos")}
             className={`px-6 py-3 rounded-xl font-medium transition-all flex items-center gap-2 ${
-              activeTab === "library"
+              activeTab === "videos"
                 ? "bg-pink-500 text-white shadow-lg"
                 : "bg-white text-gray-600 hover:bg-pink-50 border border-gray-200"
             }`}
           >
-            📚 Video Library
+            📹 Video Library
             {libraryVideos.length > 0 && (
               <span className={`text-xs px-2 py-0.5 rounded-full ${
-                activeTab === "library" ? "bg-white/20" : "bg-pink-100 text-pink-600"
+                activeTab === "videos" ? "bg-white/20" : "bg-pink-100 text-pink-600"
               }`}>
                 {libraryVideos.length}
+              </span>
+            )}
+          </button>
+          <button
+            onClick={() => setActiveTab("images")}
+            className={`px-6 py-3 rounded-xl font-medium transition-all flex items-center gap-2 ${
+              activeTab === "images"
+                ? "bg-purple-500 text-white shadow-lg"
+                : "bg-white text-gray-600 hover:bg-purple-50 border border-gray-200"
+            }`}
+          >
+            🖼️ Image Library
+            {libraryImages.length > 0 && (
+              <span className={`text-xs px-2 py-0.5 rounded-full ${
+                activeTab === "images" ? "bg-white/20" : "bg-purple-100 text-purple-600"
+              }`}>
+                {libraryImages.length}
               </span>
             )}
           </button>

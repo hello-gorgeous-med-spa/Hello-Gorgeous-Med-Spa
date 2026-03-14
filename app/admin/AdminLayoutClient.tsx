@@ -19,6 +19,7 @@ const MAIN_NAV: { href: string; label: string; icon: string }[] = [
   { href: '/admin/memberships', label: 'Memberships', icon: '💎' },
   { href: '/admin/inventory', label: 'Inventory', icon: '📦' },
   { href: '/admin/marketing', label: 'Marketing', icon: '📈' },
+  { href: '/admin/campaign-studio', label: 'AI Campaign Studio', icon: '🤖' },
   { href: '/admin/email-campaigns', label: 'Email Campaigns', icon: '📧' },
   { href: '/admin/video-generator', label: 'Video Generator', icon: '🎬' },
   { href: '/admin/staff', label: 'Staff', icon: '👤' },
