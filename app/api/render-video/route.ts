@@ -79,6 +79,11 @@ const COMPOSITION_MAP: Record<string, Record<string, string>> = {
     square: "SolariaPromoSquare",
     horizontal: "SolariaPromoHorizontal",
   },
+  stretchmarks: {
+    vertical: "StretchMarkVertical",
+    square: "StretchMarkSquare",
+    horizontal: "StretchMarkHorizontal",
+  },
   botox: {
     vertical: "BotoxPromoVertical",
     square: "ServicePromoSquare",

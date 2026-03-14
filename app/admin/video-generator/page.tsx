@@ -36,6 +36,7 @@ const VOICE_PRESETS: VoicePreset[] = [
 
 const SERVICE_TEMPLATES: VideoTemplate[] = [
   { id: "solaria", name: "Solaria CO2 Laser", description: "Fractional laser resurfacing promo" },
+  { id: "stretchmarks", name: "Stretch Mark Treatment", description: "Body resurfacing & collagen promo" },
   { id: "botox", name: "Botox", description: "Anti-wrinkle treatment promo" },
   { id: "morpheus8", name: "Morpheus8", description: "RF microneedling promo" },
   { id: "weightloss", name: "Weight Loss", description: "Semaglutide/Tirzepatide promo" },
@@ -47,6 +48,7 @@ const SERVICE_TEMPLATES: VideoTemplate[] = [
 
 const DEFAULT_BENEFITS: Record<string, string[]> = {
   solaria: ["Stimulates collagen production", "Reduces fine lines & wrinkles", "Improves skin texture", "Minimal downtime"],
+  stretchmarks: ["Penetrates deep into dermis", "Stimulates collagen remodeling", "40-70% visible improvement", "Works where creams fail"],
   botox: ["Reduces fine lines & wrinkles", "Quick 15-minute treatment", "No downtime required", "Results last 3-4 months"],
   morpheus8: ["Tightens loose skin", "Reduces fat & cellulite", "Stimulates collagen", "Minimal downtime"],
   weightloss: ["FDA-approved medication", "Average 15-20% weight loss", "Reduces appetite naturally", "Physician supervised"],
@@ -90,6 +92,7 @@ export default function VideoGeneratorPage() {
     if (template && selectedTemplate !== "custom") {
       const serviceNames: Record<string, string> = {
         solaria: "Solaria CO2 Laser",
+        stretchmarks: "Stretch Mark Treatment",
         botox: "Botox",
         morpheus8: "Morpheus8",
         weightloss: "Semaglutide",
