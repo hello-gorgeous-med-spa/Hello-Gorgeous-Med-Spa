@@ -406,14 +406,14 @@ Hydration • Energy • Immunity • Recovery
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-8">
+    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-pink-50 to-gray-100 text-gray-900 p-8">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-4xl font-bold bg-gradient-to-r from-pink-400 to-pink-600 bg-clip-text text-transparent mb-2">
             🎬 Video Generator
           </h1>
-          <p className="text-pink-300/80 text-lg">
+          <p className="text-pink-600/80 text-lg">
             Create professional marketing videos for your services in seconds
           </p>
         </div>
@@ -422,8 +422,8 @@ Hydration • Energy • Immunity • Recovery
           {/* Left: Form */}
           <div className="lg:col-span-2 space-y-6">
             {/* Template Selection */}
-            <div className="bg-gray-800/50 backdrop-blur rounded-2xl p-6 border border-pink-500/20">
-              <h2 className="text-xl font-semibold text-pink-400 mb-4 flex items-center gap-2">
+            <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
+              <h2 className="text-xl font-semibold text-pink-600 mb-4 flex items-center gap-2">
                 <span className="bg-pink-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">1</span>
                 Select Service
               </h2>
@@ -434,12 +434,12 @@ Hydration • Energy • Immunity • Recovery
                     onClick={() => setSelectedTemplate(template.id)}
                     className={`p-4 rounded-xl border-2 transition-all text-left hover:scale-[1.02] ${
                       selectedTemplate === template.id
-                        ? "border-pink-500 bg-pink-500/20 shadow-lg shadow-pink-500/20"
-                        : "border-gray-600 hover:border-pink-400/50 bg-gray-700/30"
+                        ? "border-pink-500 bg-pink-100 shadow-lg shadow-pink-500/20"
+                        : "border-gray-200 hover:border-pink-400/50 bg-gray-50"
                     }`}
                   >
-                    <div className="font-medium text-white">{template.name}</div>
-                    <div className="text-xs text-pink-300/60 mt-1">
+                    <div className="font-medium text-gray-800">{template.name}</div>
+                    <div className="text-xs text-gray-500 mt-1">
                       {template.description}
                     </div>
                   </button>
@@ -448,87 +448,87 @@ Hydration • Energy • Immunity • Recovery
             </div>
 
             {/* Customize Content */}
-            <div className="bg-gray-800/50 backdrop-blur rounded-2xl p-6 border border-pink-500/20">
-              <h2 className="text-xl font-semibold text-pink-400 mb-4 flex items-center gap-2">
+            <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
+              <h2 className="text-xl font-semibold text-pink-600 mb-4 flex items-center gap-2">
                 <span className="bg-pink-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">2</span>
                 Customize Content
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm text-pink-300 mb-1 font-medium">
+                  <label className="block text-sm text-gray-700 mb-1 font-medium">
                     Service Name
                   </label>
                   <input
                     type="text"
                     value={formData.serviceName}
                     onChange={(e) => setFormData({ ...formData, serviceName: e.target.value })}
-                    className="w-full bg-gray-700/50 border border-pink-500/30 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 text-white placeholder-gray-400"
+                    className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 text-gray-900 placeholder-gray-400"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-pink-300 mb-1 font-medium">
+                  <label className="block text-sm text-gray-700 mb-1 font-medium">
                     Headline
                   </label>
                   <input
                     type="text"
                     value={formData.headline}
                     onChange={(e) => setFormData({ ...formData, headline: e.target.value })}
-                    className="w-full bg-gray-700/50 border border-pink-500/30 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 text-white placeholder-gray-400"
+                    className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 text-gray-900 placeholder-gray-400"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-pink-300 mb-1 font-medium">
+                  <label className="block text-sm text-gray-700 mb-1 font-medium">
                     Subheadline (optional)
                   </label>
                   <input
                     type="text"
                     value={formData.subheadline}
                     onChange={(e) => setFormData({ ...formData, subheadline: e.target.value })}
-                    className="w-full bg-gray-700/50 border border-pink-500/30 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 text-white placeholder-gray-400"
+                    className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 text-gray-900 placeholder-gray-400"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-pink-300 mb-1 font-medium">
+                  <label className="block text-sm text-gray-700 mb-1 font-medium">
                     Promo Label
                   </label>
                   <input
                     type="text"
                     value={formData.promoLabel}
                     onChange={(e) => setFormData({ ...formData, promoLabel: e.target.value })}
-                    className="w-full bg-gray-700/50 border border-pink-500/30 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 text-white placeholder-gray-400"
+                    className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 text-gray-900 placeholder-gray-400"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-pink-300 mb-1 font-medium">
+                  <label className="block text-sm text-gray-700 mb-1 font-medium">
                     💰 Price
                   </label>
                   <input
                     type="text"
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                    className="w-full bg-gray-700/50 border border-pink-500/30 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 text-white placeholder-gray-400 text-lg font-semibold"
+                    className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 text-gray-900 placeholder-gray-400 text-lg font-semibold"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm text-pink-300 mb-1 font-medium">
+                  <label className="block text-sm text-gray-700 mb-1 font-medium">
                     Original Price (strikethrough)
                   </label>
                   <input
                     type="text"
                     value={formData.originalPrice}
                     onChange={(e) => setFormData({ ...formData, originalPrice: e.target.value })}
-                    className="w-full bg-gray-700/50 border border-pink-500/30 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 text-white placeholder-gray-400"
+                    className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 text-gray-900 placeholder-gray-400"
                   />
                 </div>
               </div>
 
               <div className="mt-4">
-                <label className="block text-sm text-pink-300 mb-2 font-medium">
+                <label className="block text-sm text-gray-700 mb-2 font-medium">
                   ✨ Benefits (4 bullet points)
                 </label>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -542,7 +542,7 @@ Hydration • Energy • Immunity • Recovery
                         newBenefits[index] = e.target.value;
                         setFormData({ ...formData, benefits: newBenefits });
                       }}
-                      className="w-full bg-gray-700/50 border border-pink-500/30 rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 text-white placeholder-gray-400"
+                      className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500/20 text-gray-900 placeholder-gray-400"
                       placeholder={`Benefit ${index + 1}`}
                     />
                   ))}
@@ -551,14 +551,14 @@ Hydration • Energy • Immunity • Recovery
             </div>
 
             {/* Before/After Photos */}
-            <div className="bg-gray-800/50 backdrop-blur rounded-2xl p-6 border border-pink-500/20">
-              <h2 className="text-xl font-semibold text-pink-400 mb-4 flex items-center gap-2">
+            <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
+              <h2 className="text-xl font-semibold text-pink-600 mb-4 flex items-center gap-2">
                 <span className="bg-pink-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">3</span>
                 Before/After Photos (Optional)
               </h2>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm text-pink-300 mb-2 font-medium">📸 Before Photo</label>
+                  <label className="block text-sm text-gray-700 mb-2 font-medium">📸 Before Photo</label>
                   <input
                     ref={beforeInputRef}
                     type="file"
@@ -570,26 +570,26 @@ Hydration • Energy • Immunity • Recovery
                     onClick={() => beforeInputRef.current?.click()}
                     className={`w-full h-32 rounded-xl border-2 border-dashed transition-all flex flex-col items-center justify-center gap-2 ${
                       beforeImage
-                        ? "border-green-500 bg-green-500/10"
-                        : "border-pink-500/40 hover:border-pink-500 bg-gray-700/30"
+                        ? "border-green-500 bg-green-50"
+                        : "border-pink-300 hover:border-pink-500 bg-pink-50/50"
                     }`}
                   >
                     {beforeImage ? (
                       <>
-                        <span className="text-green-400 text-2xl">✓</span>
-                        <span className="text-green-400 text-sm">Photo uploaded</span>
+                        <span className="text-green-600 text-2xl">✓</span>
+                        <span className="text-green-600 text-sm">Photo uploaded</span>
                       </>
                     ) : (
                       <>
-                        <span className="text-pink-400 text-3xl">+</span>
-                        <span className="text-pink-300/70 text-sm">Click to upload</span>
+                        <span className="text-pink-500 text-3xl">+</span>
+                        <span className="text-gray-500 text-sm">Click to upload</span>
                       </>
                     )}
                   </button>
                   {beforeImage && (
                     <button
                       onClick={() => setBeforeImage(null)}
-                      className="mt-2 text-xs text-red-400 hover:text-red-300"
+                      className="mt-2 text-xs text-red-500 hover:text-red-600"
                     >
                       Remove
                     </button>
@@ -597,7 +597,7 @@ Hydration • Energy • Immunity • Recovery
                 </div>
 
                 <div>
-                  <label className="block text-sm text-pink-300 mb-2 font-medium">📸 After Photo</label>
+                  <label className="block text-sm text-gray-700 mb-2 font-medium">📸 After Photo</label>
                   <input
                     ref={afterInputRef}
                     type="file"
@@ -609,26 +609,26 @@ Hydration • Energy • Immunity • Recovery
                     onClick={() => afterInputRef.current?.click()}
                     className={`w-full h-32 rounded-xl border-2 border-dashed transition-all flex flex-col items-center justify-center gap-2 ${
                       afterImage
-                        ? "border-green-500 bg-green-500/10"
-                        : "border-pink-500/40 hover:border-pink-500 bg-gray-700/30"
+                        ? "border-green-500 bg-green-50"
+                        : "border-pink-300 hover:border-pink-500 bg-pink-50/50"
                     }`}
                   >
                     {afterImage ? (
                       <>
-                        <span className="text-green-400 text-2xl">✓</span>
-                        <span className="text-green-400 text-sm">Photo uploaded</span>
+                        <span className="text-green-600 text-2xl">✓</span>
+                        <span className="text-green-600 text-sm">Photo uploaded</span>
                       </>
                     ) : (
                       <>
-                        <span className="text-pink-400 text-3xl">+</span>
-                        <span className="text-pink-300/70 text-sm">Click to upload</span>
+                        <span className="text-pink-500 text-3xl">+</span>
+                        <span className="text-gray-500 text-sm">Click to upload</span>
                       </>
                     )}
                   </button>
                   {afterImage && (
                     <button
                       onClick={() => setAfterImage(null)}
-                      className="mt-2 text-xs text-red-400 hover:text-red-300"
+                      className="mt-2 text-xs text-red-500 hover:text-red-600"
                     >
                       Remove
                     </button>
@@ -638,8 +638,8 @@ Hydration • Energy • Immunity • Recovery
             </div>
 
             {/* Format Selection */}
-            <div className="bg-gray-800/50 backdrop-blur rounded-2xl p-6 border border-pink-500/20">
-              <h2 className="text-xl font-semibold text-pink-400 mb-4 flex items-center gap-2">
+            <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
+              <h2 className="text-xl font-semibold text-pink-600 mb-4 flex items-center gap-2">
                 <span className="bg-pink-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">4</span>
                 Select Format
               </h2>
@@ -654,26 +654,26 @@ Hydration • Energy • Immunity • Recovery
                     onClick={() => setFormData({ ...formData, format: format.id as "vertical" | "square" | "horizontal" })}
                     className={`p-4 rounded-xl border-2 transition-all text-center hover:scale-[1.02] ${
                       formData.format === format.id
-                        ? "border-pink-500 bg-pink-500/20 shadow-lg shadow-pink-500/20"
-                        : "border-gray-600 hover:border-pink-400/50 bg-gray-700/30"
+                        ? "border-pink-500 bg-pink-100 shadow-lg shadow-pink-500/20"
+                        : "border-gray-200 hover:border-pink-400/50 bg-gray-50"
                     }`}
                   >
                     <div className="text-3xl mb-2">{format.icon}</div>
-                    <div className="font-medium text-white">{format.label}</div>
-                    <div className="text-xs text-pink-300/60">{format.desc}</div>
+                    <div className="font-medium text-gray-800">{format.label}</div>
+                    <div className="text-xs text-gray-500">{format.desc}</div>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* AI Voiceover */}
-            <div className="bg-gray-800/50 backdrop-blur rounded-2xl p-6 border border-purple-500/20">
+            <div className="bg-white rounded-2xl p-6 border border-purple-200 shadow-lg">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-xl font-semibold text-purple-400 flex items-center gap-2">
+                <h2 className="text-xl font-semibold text-purple-600 flex items-center gap-2">
                   <span className="bg-purple-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">5</span>
                   AI Voiceover
                 </h2>
-                <span className="text-xs bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full">
+                <span className="text-xs bg-purple-100 text-purple-600 px-3 py-1 rounded-full font-medium">
                   ElevenLabs
                 </span>
               </div>
@@ -682,7 +682,7 @@ Hydration • Energy • Immunity • Recovery
                 <button
                   onClick={() => setFormData({ ...formData, includeVoiceover: !formData.includeVoiceover })}
                   className={`relative w-14 h-7 rounded-full transition-colors ${
-                    formData.includeVoiceover ? "bg-purple-500" : "bg-gray-600"
+                    formData.includeVoiceover ? "bg-purple-500" : "bg-gray-300"
                   }`}
                 >
                   <div
@@ -691,13 +691,13 @@ Hydration • Energy • Immunity • Recovery
                     }`}
                   />
                 </button>
-                <span className="text-sm text-purple-300">Include AI voiceover narration</span>
+                <span className="text-sm text-gray-700">Include AI voiceover narration</span>
               </div>
 
               {formData.includeVoiceover && (
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm text-purple-300 mb-2 font-medium">🎙️ Voice</label>
+                    <label className="block text-sm text-gray-700 mb-2 font-medium">🎙️ Voice</label>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                       {VOICE_PRESETS.map((voice) => (
                         <button
@@ -705,33 +705,33 @@ Hydration • Energy • Immunity • Recovery
                           onClick={() => setFormData({ ...formData, voicePreset: voice.id })}
                           className={`p-3 rounded-xl border text-left transition-all ${
                             formData.voicePreset === voice.id
-                              ? "border-purple-500 bg-purple-500/20"
-                              : "border-gray-600 hover:border-purple-400/50"
+                              ? "border-purple-500 bg-purple-100"
+                              : "border-gray-200 hover:border-purple-400/50 bg-gray-50"
                           }`}
                         >
-                          <div className="font-medium text-sm text-white">{voice.name}</div>
-                          <div className="text-xs text-purple-300/60">{voice.description}</div>
+                          <div className="font-medium text-sm text-gray-800">{voice.name}</div>
+                          <div className="text-xs text-gray-500">{voice.description}</div>
                         </button>
                       ))}
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm text-purple-300 mb-1 font-medium">
+                    <label className="block text-sm text-gray-700 mb-1 font-medium">
                       Custom Script (optional)
                     </label>
                     <textarea
                       value={formData.customVoiceScript}
                       onChange={(e) => setFormData({ ...formData, customVoiceScript: e.target.value })}
                       placeholder="Leave empty to use auto-generated script..."
-                      className="w-full bg-gray-700/50 border border-purple-500/30 rounded-xl px-4 py-3 focus:border-purple-500 focus:outline-none h-24 resize-none text-sm text-white placeholder-gray-400"
+                      className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 focus:border-purple-500 focus:outline-none h-24 resize-none text-sm text-gray-900 placeholder-gray-400"
                     />
                   </div>
 
                   <button
                     onClick={handleGenerateVoiceover}
                     disabled={isGeneratingVoiceover}
-                    className="w-full py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-sm font-medium transition-colors disabled:opacity-50"
+                    className="w-full py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-sm font-medium transition-colors disabled:opacity-50"
                   >
                     {isGeneratingVoiceover ? "Generating..." : "🎙️ Generate Voiceover Only"}
                   </button>
@@ -765,36 +765,36 @@ Hydration • Energy • Immunity • Recovery
 
           {/* Right: Generated Videos */}
           <div className="lg:col-span-1">
-            <div className="bg-gray-800/50 backdrop-blur rounded-2xl p-6 sticky top-8 border border-pink-500/20">
-              <h2 className="text-xl font-semibold text-pink-400 mb-4">Generated Videos</h2>
+            <div className="bg-white rounded-2xl p-6 sticky top-8 border border-pink-200 shadow-lg">
+              <h2 className="text-xl font-semibold text-pink-600 mb-4">Generated Videos</h2>
 
               {generatedVideos.length === 0 ? (
                 <div className="text-center py-12">
                   <div className="text-6xl mb-4">🎬</div>
-                  <p className="text-pink-300/60">No videos generated yet</p>
-                  <p className="text-sm text-pink-300/40 mt-1">Create your first video above!</p>
+                  <p className="text-gray-500">No videos generated yet</p>
+                  <p className="text-sm text-gray-400 mt-1">Create your first video above!</p>
                 </div>
               ) : (
                 <div className="space-y-4">
                   {generatedVideos.map((video) => (
-                    <div key={video.id} className="bg-gray-700/50 rounded-xl p-4 border border-pink-500/10">
+                    <div key={video.id} className="bg-gray-50 rounded-xl p-4 border border-gray-200">
                       <div className="flex items-center justify-between mb-2">
-                        <div className="font-medium text-white">{video.name}</div>
+                        <div className="font-medium text-gray-800">{video.name}</div>
                         <span
                           className={`text-xs px-3 py-1 rounded-full font-medium ${
                             video.status === "completed"
-                              ? "bg-green-500/20 text-green-400"
+                              ? "bg-green-100 text-green-600"
                               : video.status === "rendering"
-                              ? "bg-yellow-500/20 text-yellow-400"
+                              ? "bg-yellow-100 text-yellow-600"
                               : video.status === "failed"
-                              ? "bg-red-500/20 text-red-400"
-                              : "bg-gray-600 text-gray-400"
+                              ? "bg-red-100 text-red-600"
+                              : "bg-gray-200 text-gray-500"
                           }`}
                         >
                           {video.status === "rendering" ? "⏳ Rendering..." : video.status}
                         </span>
                       </div>
-                      <div className="text-sm text-pink-300/60 mb-3">
+                      <div className="text-sm text-gray-500 mb-3">
                         {video.format} • {new Date(video.createdAt).toLocaleTimeString()}
                       </div>
 
@@ -808,14 +808,14 @@ Hydration • Energy • Immunity • Recovery
                           </button>
                           <button
                             onClick={() => video.caption && copyCaption(video.caption)}
-                            className="w-full bg-gray-600 hover:bg-gray-500 py-2 rounded-xl text-sm font-medium transition-colors"
+                            className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 py-2 rounded-xl text-sm font-medium transition-colors"
                           >
                             📋 Copy Caption
                           </button>
 
                           {/* Social Media Post Buttons */}
-                          <div className="pt-2 border-t border-gray-600 mt-2">
-                            <p className="text-xs text-pink-300/60 mb-2 text-center">Post to Social Media</p>
+                          <div className="pt-2 border-t border-gray-200 mt-2">
+                            <p className="text-xs text-gray-500 mb-2 text-center">Post to Social Media</p>
                             <div className="grid grid-cols-3 gap-2">
                               <button
                                 onClick={() => handlePostToSocial(video.id, "instagram")}
@@ -844,7 +844,7 @@ Hydration • Energy • Immunity • Recovery
                       )}
 
                       {video.status === "rendering" && (
-                        <div className="bg-gray-600 rounded-full h-2 overflow-hidden">
+                        <div className="bg-gray-200 rounded-full h-2 overflow-hidden">
                           <div className="bg-gradient-to-r from-pink-500 to-purple-500 h-full w-1/2 animate-pulse" />
                         </div>
                       )}
