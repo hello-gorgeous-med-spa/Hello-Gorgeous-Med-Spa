@@ -462,14 +462,14 @@ export default function VideoGeneratorPage() {
     : libraryVideos.filter((v) => v.service === libraryFilter);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-100 via-pink-50 to-gray-100 p-6">
+    <div className="min-h-screen bg-black p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-800">
+          <h1 className="text-3xl font-bold text-white">
             🎬 Video Generator
           </h1>
-          <p className="text-gray-600 mt-2">
+          <p className="text-gray-400 mt-2">
             Create professional marketing videos for Hello Gorgeous Med Spa
           </p>
         </div>
@@ -480,8 +480,8 @@ export default function VideoGeneratorPage() {
             onClick={() => setActiveTab("create")}
             className={`px-6 py-3 rounded-xl font-medium transition-all ${
               activeTab === "create"
-                ? "bg-pink-500 text-white shadow-lg"
-                : "bg-white text-gray-600 hover:bg-pink-50 border border-gray-200"
+                ? "bg-pink-500 text-white shadow-lg shadow-pink-500/30"
+                : "bg-white/10 text-white hover:bg-white/20 border border-white/20"
             }`}
           >
             ✨ Create Video
@@ -490,14 +490,14 @@ export default function VideoGeneratorPage() {
             onClick={() => setActiveTab("videos")}
             className={`px-6 py-3 rounded-xl font-medium transition-all flex items-center gap-2 ${
               activeTab === "videos"
-                ? "bg-pink-500 text-white shadow-lg"
-                : "bg-white text-gray-600 hover:bg-pink-50 border border-gray-200"
+                ? "bg-pink-500 text-white shadow-lg shadow-pink-500/30"
+                : "bg-white/10 text-white hover:bg-white/20 border border-white/20"
             }`}
           >
             📹 Video Library
             {libraryVideos.length > 0 && (
               <span className={`text-xs px-2 py-0.5 rounded-full ${
-                activeTab === "videos" ? "bg-white/20" : "bg-pink-100 text-pink-600"
+                activeTab === "videos" ? "bg-white/20" : "bg-pink-500/20 text-pink-400"
               }`}>
                 {libraryVideos.length}
               </span>
@@ -507,14 +507,14 @@ export default function VideoGeneratorPage() {
             onClick={() => setActiveTab("images")}
             className={`px-6 py-3 rounded-xl font-medium transition-all flex items-center gap-2 ${
               activeTab === "images"
-                ? "bg-purple-500 text-white shadow-lg"
-                : "bg-white text-gray-600 hover:bg-purple-50 border border-gray-200"
+                ? "bg-pink-500 text-white shadow-lg shadow-pink-500/30"
+                : "bg-white/10 text-white hover:bg-white/20 border border-white/20"
             }`}
           >
             🖼️ Image Library
             {libraryImages.length > 0 && (
               <span className={`text-xs px-2 py-0.5 rounded-full ${
-                activeTab === "images" ? "bg-white/20" : "bg-purple-100 text-purple-600"
+                activeTab === "images" ? "bg-white/20" : "bg-pink-500/20 text-pink-400"
               }`}>
                 {libraryImages.length}
               </span>
@@ -524,24 +524,24 @@ export default function VideoGeneratorPage() {
 
         {activeTab === "videos" ? (
           /* Video Library View */
-          <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
+          <div className="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-800">Your Video Library</h2>
+              <h2 className="text-xl font-semibold text-white">Your Video Library</h2>
               <div className="flex gap-2">
                 <select
                   value={libraryFilter}
                   onChange={(e) => setLibraryFilter(e.target.value)}
-                  className="px-4 py-2 border border-gray-200 rounded-xl text-sm focus:border-pink-500 focus:outline-none"
+                  className="px-4 py-2 bg-white/10 border border-white/20 text-white rounded-xl text-sm focus:border-pink-500 focus:outline-none"
                 >
-                  <option value="all">All Services</option>
+                  <option value="all" className="bg-gray-900">All Services</option>
                   {SERVICE_TEMPLATES.map((t) => (
-                    <option key={t.id} value={t.id}>{t.name}</option>
+                    <option key={t.id} value={t.id} className="bg-gray-900">{t.name}</option>
                   ))}
                 </select>
                 <button
                   onClick={loadLibraryVideos}
                   disabled={isLoadingLibrary}
-                  className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl text-sm transition-colors"
+                  className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-sm transition-colors"
                 >
                   {isLoadingLibrary ? "Loading..." : "🔄 Refresh"}
                 </button>
@@ -551,7 +551,7 @@ export default function VideoGeneratorPage() {
             {filteredLibraryVideos.length === 0 ? (
               <div className="text-center py-16">
                 <div className="text-6xl mb-4">📹</div>
-                <p className="text-gray-500 text-lg">No videos in your library yet</p>
+                <p className="text-white text-lg">No videos in your library yet</p>
                 <p className="text-sm text-gray-400 mt-2">Videos you generate will appear here</p>
                 <button
                   onClick={() => setActiveTab("create")}
@@ -565,9 +565,9 @@ export default function VideoGeneratorPage() {
                 {filteredLibraryVideos.map((video) => (
                   <div
                     key={video.id}
-                    className="bg-gray-50 rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition-shadow"
+                    className="bg-white/5 rounded-xl overflow-hidden border border-white/10 hover:border-pink-500/50 transition-all"
                   >
-                    <div className="aspect-video bg-gradient-to-br from-pink-100 to-purple-100 relative flex items-center justify-center">
+                    <div className="aspect-video bg-gradient-to-br from-gray-800 to-black relative flex items-center justify-center">
                       {video.url ? (
                         <video
                           src={video.url}
@@ -590,8 +590,8 @@ export default function VideoGeneratorPage() {
                       </div>
                     </div>
                     <div className="p-4">
-                      <h3 className="font-medium text-gray-800 truncate">{video.name}</h3>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <h3 className="font-medium text-white truncate">{video.name}</h3>
+                      <p className="text-xs text-gray-400 mt-1">
                         {new Date(video.created_at).toLocaleDateString()} • {video.service}
                       </p>
                       <div className="flex gap-2 mt-3">
@@ -610,7 +610,7 @@ export default function VideoGeneratorPage() {
                               navigator.clipboard.writeText(video.caption || "");
                               alert("Caption copied!");
                             }}
-                            className="px-3 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg text-sm transition-colors"
+                            className="px-3 py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm transition-colors"
                             title="Copy caption"
                           >
                             📋
@@ -618,7 +618,7 @@ export default function VideoGeneratorPage() {
                         )}
                         <button
                           onClick={() => deleteFromLibrary(video.id)}
-                          className="px-3 py-2 bg-red-100 hover:bg-red-200 text-red-600 rounded-lg text-sm transition-colors"
+                          className="px-3 py-2 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-lg text-sm transition-colors"
                           title="Delete"
                         >
                           🗑️
@@ -632,29 +632,29 @@ export default function VideoGeneratorPage() {
           </div>
         ) : activeTab === "images" ? (
           /* Image Library View */
-          <div className="bg-white rounded-2xl p-6 border border-purple-200 shadow-lg">
+          <div className="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-semibold text-gray-800">Your Image Library</h2>
+              <h2 className="text-xl font-semibold text-white">Your Image Library</h2>
               <div className="flex gap-2">
                 <select
                   value={imageCategory}
                   onChange={(e) => setImageCategory(e.target.value)}
-                  className="px-4 py-2 border border-gray-200 rounded-xl text-sm focus:border-purple-500 focus:outline-none"
+                  className="px-4 py-2 bg-white/10 border border-white/20 text-white rounded-xl text-sm focus:border-pink-500 focus:outline-none"
                 >
                   {IMAGE_CATEGORIES.map((cat) => (
-                    <option key={cat.id} value={cat.id}>{cat.icon} {cat.name}</option>
+                    <option key={cat.id} value={cat.id} className="bg-gray-900">{cat.icon} {cat.name}</option>
                   ))}
                 </select>
                 <button
                   onClick={() => setShowUploadModal(true)}
-                  className="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-xl text-sm transition-colors"
+                  className="px-4 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded-xl text-sm transition-colors"
                 >
                   📤 Upload Image
                 </button>
                 <button
                   onClick={loadLibraryImages}
                   disabled={isLoadingImages}
-                  className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl text-sm transition-colors"
+                  className="px-4 py-2 bg-white/10 hover:bg-white/20 text-white rounded-xl text-sm transition-colors"
                 >
                   {isLoadingImages ? "Loading..." : "🔄 Refresh"}
                 </button>
@@ -663,54 +663,54 @@ export default function VideoGeneratorPage() {
 
             {/* Upload Modal */}
             {showUploadModal && (
-              <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                <div className="bg-white rounded-2xl p-6 w-full max-w-md mx-4">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Upload Image</h3>
+              <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
+                <div className="bg-gray-900 border border-white/20 rounded-2xl p-6 w-full max-w-md mx-4">
+                  <h3 className="text-lg font-semibold text-white mb-4">Upload Image</h3>
                   
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm text-gray-600 mb-1">Image Name</label>
+                      <label className="block text-sm text-gray-400 mb-1">Image Name</label>
                       <input
                         type="text"
                         value={uploadName}
                         onChange={(e) => setUploadName(e.target.value)}
                         placeholder="e.g., Botox Before After"
-                        className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:border-purple-500 focus:outline-none"
+                        className="w-full bg-white/10 border border-white/20 text-white rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none placeholder-gray-500"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm text-gray-600 mb-1">Category</label>
+                      <label className="block text-sm text-gray-400 mb-1">Category</label>
                       <select
                         value={uploadCategory}
                         onChange={(e) => setUploadCategory(e.target.value)}
-                        className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:border-purple-500 focus:outline-none"
+                        className="w-full bg-white/10 border border-white/20 text-white rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none"
                       >
                         {IMAGE_CATEGORIES.filter(c => c.id !== "all").map((cat) => (
-                          <option key={cat.id} value={cat.id}>{cat.icon} {cat.name}</option>
+                          <option key={cat.id} value={cat.id} className="bg-gray-900">{cat.icon} {cat.name}</option>
                         ))}
                       </select>
                     </div>
                     
                     <div>
-                      <label className="block text-sm text-gray-600 mb-1">Tags (comma separated)</label>
+                      <label className="block text-sm text-gray-400 mb-1">Tags (comma separated)</label>
                       <input
                         type="text"
                         value={uploadTags}
                         onChange={(e) => setUploadTags(e.target.value)}
                         placeholder="e.g., botox, before-after, face"
-                        className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:border-purple-500 focus:outline-none"
+                        className="w-full bg-white/10 border border-white/20 text-white rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none placeholder-gray-500"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm text-gray-600 mb-1">Select Image</label>
+                      <label className="block text-sm text-gray-400 mb-1">Select Image</label>
                       <input
                         ref={imageUploadRef}
                         type="file"
                         accept="image/*"
                         onChange={handleLibraryImageUpload}
-                        className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:border-purple-500 focus:outline-none file:mr-4 file:py-1 file:px-4 file:rounded-lg file:border-0 file:bg-purple-100 file:text-purple-700 hover:file:bg-purple-200"
+                        className="w-full bg-white/10 border border-white/20 text-white rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none file:mr-4 file:py-1 file:px-4 file:rounded-lg file:border-0 file:bg-pink-500 file:text-white hover:file:bg-pink-600"
                       />
                     </div>
                   </div>
@@ -722,14 +722,14 @@ export default function VideoGeneratorPage() {
                         setUploadName("");
                         setUploadTags("");
                       }}
-                      className="flex-1 py-2 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
+                      className="flex-1 py-2 border border-white/20 text-white rounded-xl hover:bg-white/10 transition-colors"
                     >
                       Cancel
                     </button>
                     <button
                       onClick={() => imageUploadRef.current?.click()}
                       disabled={isUploadingImage}
-                      className="flex-1 py-2 bg-purple-500 text-white rounded-xl hover:bg-purple-600 transition-colors disabled:opacity-50"
+                      className="flex-1 py-2 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors disabled:opacity-50"
                     >
                       {isUploadingImage ? "Uploading..." : "Upload"}
                     </button>
@@ -741,11 +741,11 @@ export default function VideoGeneratorPage() {
             {libraryImages.length === 0 ? (
               <div className="text-center py-16">
                 <div className="text-6xl mb-4">🖼️</div>
-                <p className="text-gray-500 text-lg">No images in your library yet</p>
+                <p className="text-white text-lg">No images in your library yet</p>
                 <p className="text-sm text-gray-400 mt-2">Click "Upload Image" to add your first image</p>
                 <button
                   onClick={() => setShowUploadModal(true)}
-                  className="mt-4 px-6 py-2 bg-purple-500 text-white rounded-xl hover:bg-purple-600 transition-colors"
+                  className="mt-4 px-6 py-2 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors"
                 >
                   📤 Upload Your First Image
                 </button>
@@ -757,7 +757,7 @@ export default function VideoGeneratorPage() {
                   .map((image) => (
                   <div
                     key={image.id}
-                    className="group relative bg-gray-50 rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition-all"
+                    className="group relative bg-white/5 rounded-xl overflow-hidden border border-white/10 hover:border-pink-500/50 transition-all"
                   >
                     <div className="aspect-square relative">
                       <img
@@ -794,9 +794,9 @@ export default function VideoGeneratorPage() {
                       )}
                     </div>
                     <div className="p-3">
-                      <h3 className="font-medium text-gray-800 text-sm truncate">{image.name}</h3>
+                      <h3 className="font-medium text-white text-sm truncate">{image.name}</h3>
                       <div className="flex items-center justify-between mt-1">
-                        <span className="text-xs text-gray-500">{image.category}</span>
+                        <span className="text-xs text-gray-400">{image.category}</span>
                         <div className="flex gap-1">
                           <button
                             onClick={() => toggleFavorite(image)}
@@ -823,8 +823,8 @@ export default function VideoGeneratorPage() {
           {/* Left: Form */}
           <div className="lg:col-span-2 space-y-6">
             {/* Select Service */}
-            <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
-              <h2 className="text-xl font-semibold text-pink-600 mb-4 flex items-center gap-2">
+            <div className="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10">
+              <h2 className="text-xl font-semibold text-pink-500 mb-4 flex items-center gap-2">
                 <span className="bg-pink-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">1</span>
                 Select Service
               </h2>
@@ -835,61 +835,61 @@ export default function VideoGeneratorPage() {
                     onClick={() => setSelectedTemplate(template.id)}
                     className={`p-4 rounded-xl border-2 transition-all text-left hover:scale-[1.02] ${
                       selectedTemplate === template.id
-                        ? "border-pink-500 bg-pink-100 shadow-lg shadow-pink-500/20"
-                        : "border-gray-200 hover:border-pink-400/50 bg-gray-50"
+                        ? "border-pink-500 bg-pink-500/20 shadow-lg shadow-pink-500/20"
+                        : "border-white/20 hover:border-pink-400/50 bg-white/5"
                     }`}
                   >
-                    <div className="font-medium text-gray-800">{template.name}</div>
-                    <div className="text-xs text-gray-500 mt-1">{template.description}</div>
+                    <div className="font-medium text-white">{template.name}</div>
+                    <div className="text-xs text-gray-400 mt-1">{template.description}</div>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Customize Content */}
-            <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
-              <h2 className="text-xl font-semibold text-pink-600 mb-4 flex items-center gap-2">
+            <div className="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10">
+              <h2 className="text-xl font-semibold text-pink-500 mb-4 flex items-center gap-2">
                 <span className="bg-pink-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">2</span>
                 Customize Content
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm text-gray-700 mb-1 font-medium">Headline</label>
+                  <label className="block text-sm text-gray-300 mb-1 font-medium">Headline</label>
                   <input
                     type="text"
                     value={formData.headline}
                     onChange={(e) => setFormData({ ...formData, headline: e.target.value })}
-                    className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-gray-900"
+                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder-gray-500"
                     placeholder="VIP Launch Special"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-700 mb-1 font-medium">Price</label>
+                  <label className="block text-sm text-gray-300 mb-1 font-medium">Price</label>
                   <input
                     type="text"
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                    className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-gray-900"
+                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder-gray-500"
                     placeholder="$1,895"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-700 mb-1 font-medium">Original Price</label>
+                  <label className="block text-sm text-gray-300 mb-1 font-medium">Original Price</label>
                   <input
                     type="text"
                     value={formData.originalPrice}
                     onChange={(e) => setFormData({ ...formData, originalPrice: e.target.value })}
-                    className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-gray-900"
+                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder-gray-500"
                     placeholder="$2,500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-700 mb-1 font-medium">Promo Label</label>
+                  <label className="block text-sm text-gray-300 mb-1 font-medium">Promo Label</label>
                   <input
                     type="text"
                     value={formData.promoLabel}
                     onChange={(e) => setFormData({ ...formData, promoLabel: e.target.value })}
-                    className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-gray-900"
+                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder-gray-500"
                     placeholder="Limited Launch Offer"
                   />
                 </div>
@@ -897,7 +897,7 @@ export default function VideoGeneratorPage() {
 
               {/* Benefits */}
               <div className="mt-4">
-                <label className="block text-sm text-gray-700 mb-2 font-medium">Benefits</label>
+                <label className="block text-sm text-gray-300 mb-2 font-medium">Benefits</label>
                 <div className="space-y-2">
                   {formData.benefits.map((benefit, index) => (
                     <input
@@ -909,7 +909,7 @@ export default function VideoGeneratorPage() {
                         newBenefits[index] = e.target.value;
                         setFormData({ ...formData, benefits: newBenefits });
                       }}
-                      className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none text-gray-900 text-sm"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none text-white text-sm placeholder-gray-500"
                     />
                   ))}
                 </div>
@@ -917,8 +917,8 @@ export default function VideoGeneratorPage() {
             </div>
 
             {/* Before/After Images */}
-            <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
-              <h2 className="text-xl font-semibold text-pink-600 mb-4 flex items-center gap-2">
+            <div className="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10">
+              <h2 className="text-xl font-semibold text-pink-500 mb-4 flex items-center gap-2">
                 <span className="bg-pink-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">3</span>
                 Before/After Photos (Optional)
               </h2>
@@ -933,14 +933,14 @@ export default function VideoGeneratorPage() {
                   />
                   <button
                     onClick={() => beforeInputRef.current?.click()}
-                    className="w-full h-32 border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center hover:border-pink-400 transition-colors"
+                    className="w-full h-32 border-2 border-dashed border-white/30 rounded-xl flex flex-col items-center justify-center hover:border-pink-400 transition-colors bg-white/5"
                   >
                     {beforeImage ? (
                       <img src={beforeImage} alt="Before" className="h-full w-full object-cover rounded-lg" />
                     ) : (
                       <>
                         <span className="text-2xl mb-1">📷</span>
-                        <span className="text-sm text-gray-500">Before Photo</span>
+                        <span className="text-sm text-gray-400">Before Photo</span>
                       </>
                     )}
                   </button>
@@ -955,14 +955,14 @@ export default function VideoGeneratorPage() {
                   />
                   <button
                     onClick={() => afterInputRef.current?.click()}
-                    className="w-full h-32 border-2 border-dashed border-gray-300 rounded-xl flex flex-col items-center justify-center hover:border-pink-400 transition-colors"
+                    className="w-full h-32 border-2 border-dashed border-white/30 rounded-xl flex flex-col items-center justify-center hover:border-pink-400 transition-colors bg-white/5"
                   >
                     {afterImage ? (
                       <img src={afterImage} alt="After" className="h-full w-full object-cover rounded-lg" />
                     ) : (
                       <>
                         <span className="text-2xl mb-1">✨</span>
-                        <span className="text-sm text-gray-500">After Photo</span>
+                        <span className="text-sm text-gray-400">After Photo</span>
                       </>
                     )}
                   </button>
@@ -971,8 +971,8 @@ export default function VideoGeneratorPage() {
             </div>
 
             {/* Format Selection */}
-            <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
-              <h2 className="text-xl font-semibold text-pink-600 mb-4 flex items-center gap-2">
+            <div className="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10">
+              <h2 className="text-xl font-semibold text-pink-500 mb-4 flex items-center gap-2">
                 <span className="bg-pink-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">4</span>
                 Select Format
               </h2>
@@ -987,27 +987,27 @@ export default function VideoGeneratorPage() {
                     onClick={() => setFormData({ ...formData, format: format.id as "vertical" | "square" | "horizontal" })}
                     className={`p-4 rounded-xl border-2 text-center transition-all ${
                       formData.format === format.id
-                        ? "border-pink-500 bg-pink-100"
-                        : "border-gray-200 hover:border-pink-400/50 bg-gray-50"
+                        ? "border-pink-500 bg-pink-500/20"
+                        : "border-white/20 hover:border-pink-400/50 bg-white/5"
                     }`}
                   >
                     <div className="text-2xl mb-1">{format.icon}</div>
-                    <div className="font-medium text-gray-800 text-sm">{format.name}</div>
-                    <div className="text-xs text-gray-500">{format.ratio}</div>
+                    <div className="font-medium text-white text-sm">{format.name}</div>
+                    <div className="text-xs text-gray-400">{format.ratio}</div>
                   </button>
                 ))}
               </div>
             </div>
 
             {/* Video Style */}
-            <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
-              <h2 className="text-xl font-semibold text-pink-600 mb-4 flex items-center gap-2">
+            <div className="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10">
+              <h2 className="text-xl font-semibold text-pink-500 mb-4 flex items-center gap-2">
                 <span className="bg-pink-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">5</span>
                 Video Style & Quality
               </h2>
               
               <div className="mb-4">
-                <label className="block text-sm text-gray-700 mb-2 font-medium">Style</label>
+                <label className="block text-sm text-gray-300 mb-2 font-medium">Style</label>
                 <div className="grid grid-cols-4 gap-2">
                   {[
                     { id: "clean", name: "Clean Clinic", icon: "🏥" },
@@ -1020,19 +1020,19 @@ export default function VideoGeneratorPage() {
                       onClick={() => setFormData({ ...formData, videoStyle: style.id as "clean" | "luxury" | "energetic" | "minimal" })}
                       className={`p-3 rounded-xl border text-center transition-all ${
                         formData.videoStyle === style.id
-                          ? "border-pink-500 bg-pink-100"
-                          : "border-gray-200 bg-gray-50"
+                          ? "border-pink-500 bg-pink-500/20"
+                          : "border-white/20 bg-white/5"
                       }`}
                     >
                       <span className="text-xl">{style.icon}</span>
-                      <div className="text-xs text-gray-700 mt-1">{style.name}</div>
+                      <div className="text-xs text-white mt-1">{style.name}</div>
                     </button>
                   ))}
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm text-gray-700 mb-2 font-medium">Render Quality</label>
+                <label className="block text-sm text-gray-300 mb-2 font-medium">Render Quality</label>
                 <div className="grid grid-cols-3 gap-2">
                   {[
                     { id: "standard", name: "Standard", crf: "18" },
@@ -1044,12 +1044,12 @@ export default function VideoGeneratorPage() {
                       onClick={() => setFormData({ ...formData, qualityPreset: quality.id as "standard" | "high" | "ultra" })}
                       className={`p-3 rounded-xl border text-center transition-all ${
                         formData.qualityPreset === quality.id
-                          ? "border-pink-500 bg-pink-100"
-                          : "border-gray-200 bg-gray-50"
+                          ? "border-pink-500 bg-pink-500/20"
+                          : "border-white/20 bg-white/5"
                       }`}
                     >
-                      <div className="text-sm font-medium text-gray-800">{quality.name}</div>
-                      <div className="text-xs text-gray-500">CRF {quality.crf}</div>
+                      <div className="text-sm font-medium text-white">{quality.name}</div>
+                      <div className="text-xs text-gray-400">CRF {quality.crf}</div>
                     </button>
                   ))}
                 </div>
@@ -1057,31 +1057,31 @@ export default function VideoGeneratorPage() {
             </div>
 
             {/* AI Voiceover */}
-            <div className="bg-white rounded-2xl p-6 border border-purple-200 shadow-lg">
-              <h2 className="text-xl font-semibold text-purple-600 mb-4 flex items-center gap-2">
-                <span className="bg-purple-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">6</span>
+            <div className="bg-white/5 backdrop-blur rounded-2xl p-6 border border-white/10">
+              <h2 className="text-xl font-semibold text-pink-500 mb-4 flex items-center gap-2">
+                <span className="bg-pink-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">6</span>
                 AI Voiceover
-                <span className="ml-2 text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded-full">ElevenLabs</span>
+                <span className="ml-2 text-xs bg-pink-500/20 text-pink-400 px-2 py-1 rounded-full">ElevenLabs</span>
               </h2>
               
               <div className="flex items-center gap-3 mb-4">
                 <button
                   onClick={() => setFormData({ ...formData, includeVoiceover: !formData.includeVoiceover })}
                   className={`relative w-14 h-7 rounded-full transition-colors ${
-                    formData.includeVoiceover ? "bg-purple-500" : "bg-gray-300"
+                    formData.includeVoiceover ? "bg-pink-500" : "bg-gray-600"
                   }`}
                 >
                   <div className={`absolute top-0.5 w-6 h-6 rounded-full bg-white shadow-md transition-transform ${
                     formData.includeVoiceover ? "translate-x-7" : "translate-x-0.5"
                   }`} />
                 </button>
-                <span className="text-sm text-gray-700">Include AI voiceover</span>
+                <span className="text-sm text-gray-300">Include AI voiceover</span>
               </div>
 
               {formData.includeVoiceover && (
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm text-gray-700 mb-2 font-medium">Voice</label>
+                    <label className="block text-sm text-gray-300 mb-2 font-medium">Voice</label>
                     <div className="grid grid-cols-3 gap-2">
                       {VOICE_PRESETS.map((voice) => (
                         <button
@@ -1089,39 +1089,39 @@ export default function VideoGeneratorPage() {
                           onClick={() => setFormData({ ...formData, voicePreset: voice.id })}
                           className={`p-3 rounded-xl border text-left transition-all ${
                             formData.voicePreset === voice.id
-                              ? "border-purple-500 bg-purple-100"
-                              : "border-gray-200 bg-gray-50"
+                              ? "border-pink-500 bg-pink-500/20"
+                              : "border-white/20 bg-white/5"
                           }`}
                         >
-                          <div className="font-medium text-gray-800 text-sm">{voice.name}</div>
-                          <div className="text-xs text-gray-500">{voice.description}</div>
+                          <div className="font-medium text-white text-sm">{voice.name}</div>
+                          <div className="text-xs text-gray-400">{voice.description}</div>
                         </button>
                       ))}
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm text-gray-700 mb-1 font-medium">Custom Script (Optional)</label>
+                    <label className="block text-sm text-gray-300 mb-1 font-medium">Custom Script (Optional)</label>
                     <textarea
                       value={formData.customVoiceScript}
                       onChange={(e) => setFormData({ ...formData, customVoiceScript: e.target.value })}
                       placeholder={generateDefaultScript()}
                       rows={3}
-                      className="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-3 focus:border-purple-500 focus:outline-none text-gray-900 text-sm resize-none"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white text-sm resize-none placeholder-gray-500"
                     />
                   </div>
 
                   <button
                     onClick={handleGenerateVoiceover}
                     disabled={isGeneratingVoiceover}
-                    className="w-full py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-sm font-medium transition-colors disabled:opacity-50"
+                    className="w-full py-2 rounded-xl bg-pink-500 hover:bg-pink-600 text-white text-sm font-medium transition-colors disabled:opacity-50"
                   >
                     {isGeneratingVoiceover ? "Generating..." : "🎙️ Generate Voiceover"}
                   </button>
 
                   {voiceoverUrl && (
-                    <div className="p-3 bg-green-50 rounded-xl border border-green-200">
-                      <div className="flex items-center gap-2 text-green-700 text-sm">
+                    <div className="p-3 bg-green-500/20 rounded-xl border border-green-500/30">
+                      <div className="flex items-center gap-2 text-green-400 text-sm">
                         <span>✓</span>
                         <span>Voiceover ready!</span>
                       </div>
@@ -1137,8 +1137,8 @@ export default function VideoGeneratorPage() {
               disabled={isGenerating}
               className={`w-full py-5 rounded-2xl font-bold text-xl transition-all shadow-xl text-white ${
                 isGenerating
-                  ? "bg-gray-600 cursor-not-allowed"
-                  : "bg-gradient-to-r from-pink-500 via-pink-600 to-purple-600 hover:from-pink-400 hover:via-pink-500 hover:to-purple-500"
+                  ? "bg-gray-700 cursor-not-allowed"
+                  : "bg-pink-500 hover:bg-pink-600 shadow-pink-500/30"
               }`}
             >
               {isGenerating ? (
@@ -1157,34 +1157,34 @@ export default function VideoGeneratorPage() {
 
           {/* Right: Generated Videos */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-2xl p-6 sticky top-8 border border-pink-200 shadow-lg">
-              <h2 className="text-xl font-semibold text-pink-600 mb-4">Generated Videos</h2>
+            <div className="bg-white/5 backdrop-blur rounded-2xl p-6 sticky top-8 border border-white/10">
+              <h2 className="text-xl font-semibold text-pink-500 mb-4">Generated Videos</h2>
 
               {generatedVideos.length === 0 ? (
                 <div className="text-center py-12">
                   <div className="text-6xl mb-4">🎬</div>
-                  <p className="text-gray-500">No videos generated yet</p>
+                  <p className="text-white">No videos generated yet</p>
                   <p className="text-sm text-gray-400 mt-1">Create your first video above!</p>
                 </div>
               ) : (
                 <div className="space-y-4">
                   {generatedVideos.map((video) => (
-                    <div key={video.id} className="bg-gray-50 rounded-xl p-4 border border-gray-200">
+                    <div key={video.id} className="bg-white/5 rounded-xl p-4 border border-white/10">
                       <div className="flex items-center justify-between mb-2">
-                        <div className="font-medium text-gray-800">{video.name}</div>
+                        <div className="font-medium text-white">{video.name}</div>
                         <span className={`text-xs px-3 py-1 rounded-full font-medium ${
                           video.status === "completed"
-                            ? "bg-green-100 text-green-600"
+                            ? "bg-green-500/20 text-green-400"
                             : video.status === "rendering"
-                            ? "bg-yellow-100 text-yellow-600"
+                            ? "bg-yellow-500/20 text-yellow-400"
                             : video.status === "failed"
-                            ? "bg-red-100 text-red-600"
-                            : "bg-gray-100 text-gray-600"
+                            ? "bg-red-500/20 text-red-400"
+                            : "bg-white/10 text-gray-400"
                         }`}>
                           {video.status}
                         </span>
                       </div>
-                      <div className="text-xs text-gray-500 mb-3">
+                      <div className="text-xs text-gray-400 mb-3">
                         {video.format} • {new Date(video.createdAt).toLocaleString()}
                       </div>
                       
@@ -1199,7 +1199,7 @@ export default function VideoGeneratorPage() {
                           </a>
                           <button
                             onClick={() => saveToLibrary(video)}
-                            className="w-full py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-lg text-sm font-medium transition-colors"
+                            className="w-full py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm font-medium transition-colors"
                           >
                             📚 Save to Library
                           </button>
@@ -1209,7 +1209,7 @@ export default function VideoGeneratorPage() {
                                 navigator.clipboard.writeText(video.caption || "");
                                 alert("Caption copied!");
                               }}
-                              className="w-full py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg text-sm font-medium transition-colors"
+                              className="w-full py-2 bg-white/10 hover:bg-white/20 text-white rounded-lg text-sm font-medium transition-colors"
                             >
                               📋 Copy Caption
                             </button>
@@ -1218,7 +1218,7 @@ export default function VideoGeneratorPage() {
                       )}
 
                       {video.status === "rendering" && (
-                        <div className="flex items-center gap-2 text-yellow-600 text-sm">
+                        <div className="flex items-center gap-2 text-yellow-400 text-sm">
                           <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
