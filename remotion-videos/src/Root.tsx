@@ -1,5 +1,6 @@
 import { Composition } from "remotion";
 import { SolariaCO2Laser } from "./compositions/SolariaCO2Laser";
+import { StretchMarkTreatment } from "./compositions/StretchMarkTreatment";
 import { ServicePromo, ServicePromoProps } from "./templates/ServicePromo";
 
 const sharedProps = {
@@ -260,6 +261,44 @@ export const RemotionRoot: React.FC = () => {
           website: "hellogorgeousmedspa.com",
           brandColor: "#E91E8C",
           format: "vertical" as const,
+        }}
+      />
+
+      {/* ========== STRETCH MARK TREATMENT PROMO ========== */}
+      <Composition
+        id="StretchMarkVertical"
+        component={StretchMarkTreatment}
+        durationInFrames={780}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{
+          brandColor: "#E91E8C",
+          format: "vertical" as const,
+        }}
+      />
+      <Composition
+        id="StretchMarkSquare"
+        component={StretchMarkTreatment}
+        durationInFrames={780}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{
+          brandColor: "#E91E8C",
+          format: "square" as const,
+        }}
+      />
+      <Composition
+        id="StretchMarkHorizontal"
+        component={StretchMarkTreatment}
+        durationInFrames={780}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{
+          brandColor: "#E91E8C",
+          format: "horizontal" as const,
         }}
       />
     </>
