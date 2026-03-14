@@ -161,11 +161,25 @@ export default function VideoGeneratorPage() {
     includeVoiceover: false,
     voicePreset: "rachel",
     customVoiceScript: "",
+    // Phase 1: New settings
+    qualityPreset: "standard" as "standard" | "high" | "ultra",
+    includeCaptions: true,
+    videoStyle: "clean" as "clean" | "luxury" | "energetic" | "minimal",
   });
   const [isGeneratingVoiceover, setIsGeneratingVoiceover] = useState(false);
   const [showScriptEditor, setShowScriptEditor] = useState(false);
   const [videoScenes, setVideoScenes] = useState<VideoScene[]>(DEFAULT_SCENES.solaria);
   const [isGeneratingScript, setIsGeneratingScript] = useState(false);
+  const [showSafeZones, setShowSafeZones] = useState(true);
+  const [showBrandKit, setShowBrandKit] = useState(false);
+  const [brandKit, setBrandKit] = useState({
+    primaryColor: "#E91E8C",
+    secondaryColor: "#FF69B4",
+    backgroundColor: "#000000",
+    textColor: "#FFFFFF",
+    logoUrl: "",
+    fontFamily: "system-ui",
+  });
 
   useEffect(() => {
     const template = SERVICE_TEMPLATES.find((t) => t.id === selectedTemplate);
@@ -328,10 +342,22 @@ export default function VideoGeneratorPage() {
             city: "Oswego, IL",
             phone: "630-636-6193",
             website: "hellogorgeousmedspa.com",
-            brandColor: "#E91E8C",
+            // Brand Kit colors
+            brandColor: brandKit.primaryColor,
+            secondaryColor: brandKit.secondaryColor,
+            backgroundColor: brandKit.backgroundColor,
+            textColor: brandKit.textColor,
+            logoUrl: brandKit.logoUrl,
+            // Phase 1 settings
+            qualityPreset: formData.qualityPreset,
+            videoStyle: formData.videoStyle,
+            includeCaptions: formData.includeCaptions,
+            // Media
             voiceoverUrl,
             beforeImage,
             afterImage,
+            // Script for captions
+            captionScript: formData.includeCaptions ? generateFullScript() : undefined,
           },
         }),
       });
@@ -897,13 +923,13 @@ Hydration • Energy • Immunity • Recovery
               )}
             </div>
 
-            {/* Format Selection */}
+            {/* Format Selection with Safe Zone Preview */}
             <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
               <h2 className="text-xl font-semibold text-pink-600 mb-4 flex items-center gap-2">
                 <span className="bg-pink-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">5</span>
                 Select Format
               </h2>
-              <div className="grid grid-cols-3 gap-4">
+              <div className="grid grid-cols-3 gap-4 mb-4">
                 {[
                   { id: "vertical", label: "Vertical", desc: "9:16 Reels/TikTok", icon: "📱" },
                   { id: "square", label: "Square", desc: "1:1 Feed Posts", icon: "⬜" },
@@ -924,13 +950,262 @@ Hydration • Energy • Immunity • Recovery
                   </button>
                 ))}
               </div>
+
+              {/* Safe Zone Preview */}
+              <div className="bg-gray-100 rounded-xl p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-sm font-medium text-gray-700">📐 Safe Zone Preview</span>
+                  <button
+                    onClick={() => setShowSafeZones(!showSafeZones)}
+                    className={`text-xs px-3 py-1 rounded-full ${showSafeZones ? "bg-green-100 text-green-700" : "bg-gray-200 text-gray-600"}`}
+                  >
+                    {showSafeZones ? "✓ Enabled" : "Disabled"}
+                  </button>
+                </div>
+                <div className="flex justify-center">
+                  <div 
+                    className="relative bg-black rounded-lg overflow-hidden"
+                    style={{ 
+                      width: formData.format === "horizontal" ? "200px" : formData.format === "square" ? "120px" : "80px",
+                      height: formData.format === "horizontal" ? "112px" : formData.format === "square" ? "120px" : "142px"
+                    }}
+                  >
+                    {/* Content area */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <span className="text-white text-xs">Your Video</span>
+                    </div>
+                    {/* Safe zones */}
+                    {showSafeZones && formData.format === "vertical" && (
+                      <>
+                        <div className="absolute top-0 left-0 right-0 h-[18%] bg-red-500/30 border-b border-red-500 border-dashed flex items-center justify-center">
+                          <span className="text-[8px] text-red-200">IG/TikTok UI</span>
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 h-[25%] bg-red-500/30 border-t border-red-500 border-dashed flex items-center justify-center">
+                          <span className="text-[8px] text-red-200">Buttons/Caption</span>
+                        </div>
+                      </>
+                    )}
+                    {showSafeZones && formData.format === "square" && (
+                      <>
+                        <div className="absolute bottom-0 left-0 right-0 h-[15%] bg-red-500/30 border-t border-red-500 border-dashed flex items-center justify-center">
+                          <span className="text-[6px] text-red-200">Caption</span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 text-center mt-2">
+                  {formData.format === "vertical" 
+                    ? "Keep important text in the center 60% of the video" 
+                    : formData.format === "square"
+                    ? "Avoid text at bottom where captions appear"
+                    : "Full frame available for website use"}
+                </p>
+              </div>
+            </div>
+
+            {/* Video Style & Quality */}
+            <div className="bg-white rounded-2xl p-6 border border-orange-200 shadow-lg">
+              <h2 className="text-xl font-semibold text-orange-600 mb-4 flex items-center gap-2">
+                <span className="bg-orange-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">6</span>
+                Video Style & Quality
+              </h2>
+              
+              {/* Video Style */}
+              <div className="mb-6">
+                <label className="block text-sm text-gray-700 mb-2 font-medium">🎨 Video Style</label>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+                  {[
+                    { id: "clean", label: "Clean Clinic", desc: "Professional & minimal", color: "bg-blue-50 border-blue-300" },
+                    { id: "luxury", label: "Luxury", desc: "Elegant & premium", color: "bg-purple-50 border-purple-300" },
+                    { id: "energetic", label: "High Energy", desc: "Bold & dynamic", color: "bg-pink-50 border-pink-300" },
+                    { id: "minimal", label: "Minimal", desc: "Simple & modern", color: "bg-gray-50 border-gray-300" },
+                  ].map((style) => (
+                    <button
+                      key={style.id}
+                      onClick={() => setFormData({ ...formData, videoStyle: style.id as "clean" | "luxury" | "energetic" | "minimal" })}
+                      className={`p-3 rounded-xl border-2 text-left transition-all ${
+                        formData.videoStyle === style.id
+                          ? "border-orange-500 bg-orange-50 ring-2 ring-orange-200"
+                          : `${style.color} hover:border-orange-300`
+                      }`}
+                    >
+                      <div className="font-medium text-sm text-gray-800">{style.label}</div>
+                      <div className="text-xs text-gray-500">{style.desc}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Quality Preset */}
+              <div className="mb-6">
+                <label className="block text-sm text-gray-700 mb-2 font-medium">⚡ Render Quality</label>
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { id: "standard", label: "Standard", desc: "Fast render • Good quality", crf: "CRF 18" },
+                    { id: "high", label: "High", desc: "Sharper text • Slower", crf: "CRF 16" },
+                    { id: "ultra", label: "Ultra", desc: "Archive quality • Slowest", crf: "CRF 14" },
+                  ].map((quality) => (
+                    <button
+                      key={quality.id}
+                      onClick={() => setFormData({ ...formData, qualityPreset: quality.id as "standard" | "high" | "ultra" })}
+                      className={`p-3 rounded-xl border-2 text-left transition-all ${
+                        formData.qualityPreset === quality.id
+                          ? "border-orange-500 bg-orange-50"
+                          : "border-gray-200 hover:border-orange-300 bg-gray-50"
+                      }`}
+                    >
+                      <div className="font-medium text-sm text-gray-800">{quality.label}</div>
+                      <div className="text-xs text-gray-500">{quality.desc}</div>
+                      <div className="text-xs text-orange-600 mt-1">{quality.crf}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Auto-Captions Toggle */}
+              <div className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
+                <div>
+                  <div className="font-medium text-sm text-gray-800">📝 Auto-Captions</div>
+                  <div className="text-xs text-gray-500">Burn captions into video (improves engagement)</div>
+                </div>
+                <button
+                  onClick={() => setFormData({ ...formData, includeCaptions: !formData.includeCaptions })}
+                  className={`relative w-14 h-7 rounded-full transition-colors ${
+                    formData.includeCaptions ? "bg-orange-500" : "bg-gray-300"
+                  }`}
+                >
+                  <div
+                    className={`absolute top-0.5 w-6 h-6 rounded-full bg-white shadow-md transition-transform ${
+                      formData.includeCaptions ? "translate-x-7" : "translate-x-0.5"
+                    }`}
+                  />
+                </button>
+              </div>
+            </div>
+
+            {/* Brand Kit */}
+            <div className="bg-white rounded-2xl p-6 border border-cyan-200 shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-cyan-600 flex items-center gap-2">
+                  <span className="bg-cyan-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">7</span>
+                  Brand Kit
+                </h2>
+                <button
+                  onClick={() => setShowBrandKit(!showBrandKit)}
+                  className="text-sm text-cyan-600 hover:text-cyan-800 font-medium"
+                >
+                  {showBrandKit ? "▼ Hide" : "▶ Customize"}
+                </button>
+              </div>
+              
+              {!showBrandKit && (
+                <div className="flex items-center gap-4 p-3 bg-gray-50 rounded-xl">
+                  <div className="flex gap-2">
+                    <div className="w-8 h-8 rounded-full border-2 border-white shadow" style={{ backgroundColor: brandKit.primaryColor }} />
+                    <div className="w-8 h-8 rounded-full border-2 border-white shadow" style={{ backgroundColor: brandKit.secondaryColor }} />
+                    <div className="w-8 h-8 rounded-full border-2 border-white shadow" style={{ backgroundColor: brandKit.backgroundColor }} />
+                  </div>
+                  <span className="text-sm text-gray-600">Hello Gorgeous Brand Colors</span>
+                </div>
+              )}
+
+              {showBrandKit && (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm text-gray-700 mb-1">Primary Color</label>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="color"
+                          value={brandKit.primaryColor}
+                          onChange={(e) => setBrandKit({ ...brandKit, primaryColor: e.target.value })}
+                          className="w-10 h-10 rounded-lg cursor-pointer"
+                        />
+                        <input
+                          type="text"
+                          value={brandKit.primaryColor}
+                          onChange={(e) => setBrandKit({ ...brandKit, primaryColor: e.target.value })}
+                          className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm text-gray-700 mb-1">Secondary Color</label>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="color"
+                          value={brandKit.secondaryColor}
+                          onChange={(e) => setBrandKit({ ...brandKit, secondaryColor: e.target.value })}
+                          className="w-10 h-10 rounded-lg cursor-pointer"
+                        />
+                        <input
+                          type="text"
+                          value={brandKit.secondaryColor}
+                          onChange={(e) => setBrandKit({ ...brandKit, secondaryColor: e.target.value })}
+                          className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm text-gray-700 mb-1">Background</label>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="color"
+                          value={brandKit.backgroundColor}
+                          onChange={(e) => setBrandKit({ ...brandKit, backgroundColor: e.target.value })}
+                          className="w-10 h-10 rounded-lg cursor-pointer"
+                        />
+                        <input
+                          type="text"
+                          value={brandKit.backgroundColor}
+                          onChange={(e) => setBrandKit({ ...brandKit, backgroundColor: e.target.value })}
+                          className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="block text-sm text-gray-700 mb-1">Text Color</label>
+                      <div className="flex items-center gap-2">
+                        <input
+                          type="color"
+                          value={brandKit.textColor}
+                          onChange={(e) => setBrandKit({ ...brandKit, textColor: e.target.value })}
+                          className="w-10 h-10 rounded-lg cursor-pointer"
+                        />
+                        <input
+                          type="text"
+                          value={brandKit.textColor}
+                          onChange={(e) => setBrandKit({ ...brandKit, textColor: e.target.value })}
+                          className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <label className="block text-sm text-gray-700 mb-1">Logo URL (optional)</label>
+                    <input
+                      type="text"
+                      value={brandKit.logoUrl}
+                      onChange={(e) => setBrandKit({ ...brandKit, logoUrl: e.target.value })}
+                      placeholder="https://your-logo-url.png"
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm"
+                    />
+                  </div>
+                  <div className="p-3 bg-cyan-50 rounded-xl">
+                    <p className="text-xs text-cyan-700">
+                      💡 Brand Kit colors will be applied to your video templates for consistent branding across all content.
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* AI Voiceover */}
             <div className="bg-white rounded-2xl p-6 border border-purple-200 shadow-lg">
               <div className="flex items-center justify-between mb-4">
                 <h2 className="text-xl font-semibold text-purple-600 flex items-center gap-2">
-                  <span className="bg-purple-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">6</span>
+                  <span className="bg-purple-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">8</span>
                   AI Voiceover
                 </h2>
                 <span className="text-xs bg-purple-100 text-purple-600 px-3 py-1 rounded-full font-medium">

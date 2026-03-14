@@ -19,11 +19,29 @@ interface RenderRequest {
     city: string;
     phone: string;
     website: string;
+    // Brand Kit
     brandColor: string;
+    secondaryColor?: string;
+    backgroundColor?: string;
+    textColor?: string;
+    logoUrl?: string;
+    // Phase 1 settings
+    qualityPreset?: "standard" | "high" | "ultra";
+    videoStyle?: "clean" | "luxury" | "energetic" | "minimal";
+    includeCaptions?: boolean;
+    captionScript?: string;
+    // Media
     beforeImage?: string;
     afterImage?: string;
+    voiceoverUrl?: string;
   };
 }
+
+const QUALITY_CRF: Record<string, number> = {
+  standard: 18,
+  high: 16,
+  ultra: 14,
+};
 
 interface RenderJob {
   id: string;
@@ -87,7 +105,8 @@ function startBackgroundRender(
   composition: string,
   outputPath: string,
   outputFilename: string,
-  remotionDir: string
+  remotionDir: string,
+  qualityPreset: string = "standard"
 ) {
   const job = renderJobs.get(jobId);
   if (!job) return;
@@ -95,9 +114,11 @@ function startBackgroundRender(
   job.status = "rendering";
   renderJobs.set(jobId, job);
 
+  const crf = QUALITY_CRF[qualityPreset] || 18;
+
   const renderProcess = spawn(
     "npx",
-    ["remotion", "render", "src/index.tsx", composition, outputPath],
+    ["remotion", "render", "src/index.tsx", composition, outputPath, `--crf=${crf}`],
     {
       cwd: remotionDir,
       shell: true,
@@ -107,6 +128,8 @@ function startBackgroundRender(
   );
 
   renderProcess.unref();
+  
+  console.log(`[Render Video] Using quality preset: ${qualityPreset} (CRF ${crf})`);
 
   const checkInterval = setInterval(() => {
     if (fs.existsSync(outputPath)) {
@@ -174,8 +197,18 @@ export async function POST(request: Request) {
     console.log("[Render Video] Starting background render...");
     console.log("[Render Video] Job ID:", jobId);
     console.log("[Render Video] Composition:", composition);
+    console.log("[Render Video] Quality:", props.qualityPreset || "standard");
+    console.log("[Render Video] Style:", props.videoStyle || "clean");
+    console.log("[Render Video] Captions:", props.includeCaptions ? "Yes" : "No");
 
-    startBackgroundRender(jobId, composition, outputPath, outputFilename, remotionDir);
+    startBackgroundRender(
+      jobId, 
+      composition, 
+      outputPath, 
+      outputFilename, 
+      remotionDir,
+      props.qualityPreset || "standard"
+    );
 
     return NextResponse.json({
       success: true,
