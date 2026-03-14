@@ -268,7 +268,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="StretchMarkVertical"
         component={StretchMarkTreatment}
-        durationInFrames={780}
+        durationInFrames={900}
         fps={30}
         width={1080}
         height={1920}
@@ -280,7 +280,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="StretchMarkSquare"
         component={StretchMarkTreatment}
-        durationInFrames={780}
+        durationInFrames={900}
         fps={30}
         width={1080}
         height={1080}
@@ -292,7 +292,7 @@ export const RemotionRoot: React.FC = () => {
       <Composition
         id="StretchMarkHorizontal"
         component={StretchMarkTreatment}
-        durationInFrames={780}
+        durationInFrames={900}
         fps={30}
         width={1920}
         height={1080}

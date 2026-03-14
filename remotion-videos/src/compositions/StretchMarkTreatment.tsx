@@ -5,6 +5,8 @@ import {
   Sequence,
   spring,
   useVideoConfig,
+  Img,
+  staticFile,
 } from "remotion";
 
 type VideoFormat = "vertical" | "square" | "horizontal";
@@ -526,6 +528,95 @@ const IdealForScene: React.FC<{ brandColor: string; format: VideoFormat }> = ({
 };
 
 // Scene 6: Results
+// Scene: Before/After with Real Images
+const BeforeAfterScene: React.FC<{ 
+  brandColor: string; 
+  format: VideoFormat;
+  imageFile: string;
+  caption: string;
+}> = ({
+  brandColor,
+  format,
+  imageFile,
+  caption,
+}) => {
+  const frame = useCurrentFrame();
+  const { fps, width, height } = useVideoConfig();
+  const titleSize = format === "horizontal" ? 36 : format === "square" ? 40 : 44;
+
+  const imageScale = spring({
+    frame: frame - 15,
+    fps,
+    from: 0.9,
+    to: 1,
+    config: { damping: 12 },
+  });
+
+  const imageOpacity = interpolate(frame, [0, 20], [0, 1], {
+    extrapolateRight: "clamp",
+  });
+
+  return (
+    <AbsoluteFill
+      style={{
+        background: "linear-gradient(180deg, #000000 0%, #0a0a0a 100%)",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: format === "horizontal" ? 40 : 30,
+      }}
+    >
+      <GlowingOrb color={brandColor} size={300} x={width * 0.1} y={height * 0.2} />
+      
+      <div style={{ textAlign: "center", zIndex: 10, width: "100%" }}>
+        <AnimatedText delay={0}>
+          <div
+            style={{
+              fontSize: titleSize,
+              fontWeight: 700,
+              color: "white",
+              marginBottom: 20,
+            }}
+          >
+            <span style={{ color: brandColor }}>REAL</span> RESULTS
+          </div>
+        </AnimatedText>
+
+        <div
+          style={{
+            opacity: imageOpacity,
+            transform: `scale(${imageScale})`,
+            margin: "0 auto",
+            maxWidth: format === "horizontal" ? "70%" : "90%",
+          }}
+        >
+          <Img
+            src={staticFile(imageFile)}
+            style={{
+              width: "100%",
+              height: "auto",
+              borderRadius: 16,
+              boxShadow: `0 10px 40px ${brandColor}40`,
+            }}
+          />
+        </div>
+
+        <AnimatedText delay={40}>
+          <div
+            style={{
+              fontSize: titleSize * 0.5,
+              color: "#ffffff90",
+              marginTop: 20,
+              fontWeight: 500,
+            }}
+          >
+            {caption}
+          </div>
+        </AnimatedText>
+      </div>
+    </AbsoluteFill>
+  );
+};
+
 const ResultsScene: React.FC<{ brandColor: string; format: VideoFormat }> = ({
   brandColor,
   format,
@@ -765,18 +856,38 @@ export const StretchMarkTreatment: React.FC<StretchMarkTreatmentProps> = ({
         <HowItWorksScene brandColor={brandColor} format={format} />
       </Sequence>
 
-      {/* Scene 5: Ideal For - 13s to 17s (frames 390-510) */}
-      <Sequence from={390} durationInFrames={120}>
+      {/* Scene 5: Ideal For - 13s to 16s (frames 390-480) */}
+      <Sequence from={390} durationInFrames={90}>
         <IdealForScene brandColor={brandColor} format={format} />
       </Sequence>
 
-      {/* Scene 6: Results - 17s to 21s (frames 510-630) */}
-      <Sequence from={510} durationInFrames={120}>
+      {/* Scene 6a: Before/After - Stretch Marks (frames 480-570) */}
+      <Sequence from={480} durationInFrames={90}>
+        <BeforeAfterScene 
+          brandColor={brandColor} 
+          format={format}
+          imageFile="stretch-marks-acne-scars.png"
+          caption="Stretch marks & acne scars"
+        />
+      </Sequence>
+
+      {/* Scene 6b: Before/After - Stretch Mark Comparison (frames 570-660) */}
+      <Sequence from={570} durationInFrames={90}>
+        <BeforeAfterScene 
+          brandColor={brandColor} 
+          format={format}
+          imageFile="stretch-mark-comparison.png"
+          caption="Stretch mark refinement"
+        />
+      </Sequence>
+
+      {/* Scene 7: Results Stats - 22s to 25s (frames 660-750) */}
+      <Sequence from={660} durationInFrames={90}>
         <ResultsScene brandColor={brandColor} format={format} />
       </Sequence>
 
-      {/* Scene 7: CTA - 21s to 26s (frames 630-780) */}
-      <Sequence from={630} durationInFrames={150}>
+      {/* Scene 8: CTA - 25s to 30s (frames 750-900) */}
+      <Sequence from={750} durationInFrames={150}>
         <CTAScene brandColor={brandColor} format={format} />
       </Sequence>
     </AbsoluteFill>
