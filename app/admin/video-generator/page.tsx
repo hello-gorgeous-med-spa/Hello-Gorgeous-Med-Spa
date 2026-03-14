@@ -646,6 +646,12 @@ export default function VideoGeneratorPage() {
                   ))}
                 </select>
                 <button
+                  onClick={() => setShowUploadModal(true)}
+                  className="px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white rounded-xl text-sm transition-colors"
+                >
+                  📤 Upload Image
+                </button>
+                <button
                   onClick={loadLibraryImages}
                   disabled={isLoadingImages}
                   className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl text-sm transition-colors"
@@ -655,11 +661,94 @@ export default function VideoGeneratorPage() {
               </div>
             </div>
 
+            {/* Upload Modal */}
+            {showUploadModal && (
+              <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                <div className="bg-white rounded-2xl p-6 w-full max-w-md mx-4">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Upload Image</h3>
+                  
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm text-gray-600 mb-1">Image Name</label>
+                      <input
+                        type="text"
+                        value={uploadName}
+                        onChange={(e) => setUploadName(e.target.value)}
+                        placeholder="e.g., Botox Before After"
+                        className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:border-purple-500 focus:outline-none"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm text-gray-600 mb-1">Category</label>
+                      <select
+                        value={uploadCategory}
+                        onChange={(e) => setUploadCategory(e.target.value)}
+                        className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:border-purple-500 focus:outline-none"
+                      >
+                        {IMAGE_CATEGORIES.filter(c => c.id !== "all").map((cat) => (
+                          <option key={cat.id} value={cat.id}>{cat.icon} {cat.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm text-gray-600 mb-1">Tags (comma separated)</label>
+                      <input
+                        type="text"
+                        value={uploadTags}
+                        onChange={(e) => setUploadTags(e.target.value)}
+                        placeholder="e.g., botox, before-after, face"
+                        className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:border-purple-500 focus:outline-none"
+                      />
+                    </div>
+                    
+                    <div>
+                      <label className="block text-sm text-gray-600 mb-1">Select Image</label>
+                      <input
+                        ref={imageUploadRef}
+                        type="file"
+                        accept="image/*"
+                        onChange={handleLibraryImageUpload}
+                        className="w-full border border-gray-300 rounded-xl px-4 py-2 focus:border-purple-500 focus:outline-none file:mr-4 file:py-1 file:px-4 file:rounded-lg file:border-0 file:bg-purple-100 file:text-purple-700 hover:file:bg-purple-200"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="flex gap-3 mt-6">
+                    <button
+                      onClick={() => {
+                        setShowUploadModal(false);
+                        setUploadName("");
+                        setUploadTags("");
+                      }}
+                      className="flex-1 py-2 border border-gray-300 text-gray-700 rounded-xl hover:bg-gray-50 transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={() => imageUploadRef.current?.click()}
+                      disabled={isUploadingImage}
+                      className="flex-1 py-2 bg-purple-500 text-white rounded-xl hover:bg-purple-600 transition-colors disabled:opacity-50"
+                    >
+                      {isUploadingImage ? "Uploading..." : "Upload"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {libraryImages.length === 0 ? (
               <div className="text-center py-16">
                 <div className="text-6xl mb-4">🖼️</div>
                 <p className="text-gray-500 text-lg">No images in your library yet</p>
-                <p className="text-sm text-gray-400 mt-2">Upload images or generate them with AI</p>
+                <p className="text-sm text-gray-400 mt-2">Click "Upload Image" to add your first image</p>
+                <button
+                  onClick={() => setShowUploadModal(true)}
+                  className="mt-4 px-6 py-2 bg-purple-500 text-white rounded-xl hover:bg-purple-600 transition-colors"
+                >
+                  📤 Upload Your First Image
+                </button>
               </div>
             ) : (
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -708,12 +797,20 @@ export default function VideoGeneratorPage() {
                       <h3 className="font-medium text-gray-800 text-sm truncate">{image.name}</h3>
                       <div className="flex items-center justify-between mt-1">
                         <span className="text-xs text-gray-500">{image.category}</span>
-                        <button
-                          onClick={() => toggleFavorite(image)}
-                          className="text-gray-400 hover:text-yellow-500"
-                        >
-                          {image.is_favorite ? "⭐" : "☆"}
-                        </button>
+                        <div className="flex gap-1">
+                          <button
+                            onClick={() => toggleFavorite(image)}
+                            className="text-gray-400 hover:text-yellow-500"
+                          >
+                            {image.is_favorite ? "⭐" : "☆"}
+                          </button>
+                          <button
+                            onClick={() => deleteImage(image.id)}
+                            className="text-gray-400 hover:text-red-500"
+                          >
+                            🗑️
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
