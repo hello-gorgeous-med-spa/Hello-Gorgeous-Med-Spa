@@ -163,6 +163,71 @@ const DEFAULT_PRESETS: ExportPreset[] = [
   },
 ];
 
+// Phase 4: Analytics & Scheduling
+interface VideoAnalytics {
+  videoId: string;
+  views: number;
+  likes: number;
+  shares: number;
+  comments: number;
+  engagement: number;
+  platform: string;
+  postedAt: string;
+}
+
+interface ScheduledPost {
+  id: string;
+  videoId: string;
+  videoName: string;
+  platform: "instagram" | "facebook" | "tiktok" | "google";
+  scheduledFor: string;
+  status: "scheduled" | "posted" | "failed";
+  caption?: string;
+}
+
+interface ContentSuggestion {
+  id: string;
+  title: string;
+  description: string;
+  service: string;
+  reason: string;
+  trending: boolean;
+  seasonality?: string;
+}
+
+const MOCK_ANALYTICS: VideoAnalytics[] = [
+  { videoId: "vid-1", views: 2450, likes: 187, shares: 23, comments: 45, engagement: 10.4, platform: "instagram", postedAt: "2026-03-08" },
+  { videoId: "vid-2", views: 1820, likes: 134, shares: 18, comments: 28, engagement: 9.9, platform: "facebook", postedAt: "2026-03-05" },
+  { videoId: "vid-3", views: 3200, likes: 298, shares: 56, comments: 72, engagement: 13.3, platform: "tiktok", postedAt: "2026-03-01" },
+];
+
+const AI_CONTENT_SUGGESTIONS: ContentSuggestion[] = [
+  { id: "sug-1", title: "Spring Skin Refresh", description: "Highlight how Solaria CO2 preps skin for spring/summer", service: "solaria", reason: "Spring is peak season for skin renewal treatments", trending: true, seasonality: "Spring" },
+  { id: "sug-2", title: "Wedding Season Botox", description: "Target brides and bridal parties with pre-wedding packages", service: "botox", reason: "Wedding season starting in April - high search volume", trending: true, seasonality: "Spring/Summer" },
+  { id: "sug-3", title: "Summer Body Ready", description: "Weight loss journey before summer vacation season", service: "weightloss", reason: "New Year resolution follow-ups + summer prep", trending: false, seasonality: "Spring" },
+  { id: "sug-4", title: "Lip Filler Myths Busted", description: "Educational content addressing common filler concerns", service: "fillers", reason: "Myth-busting content gets high engagement", trending: true },
+  { id: "sug-5", title: "IV Hangover Cure", description: "Quick recovery IV therapy for party season", service: "iv", reason: "High search volume on weekends", trending: false },
+  { id: "sug-6", title: "Morpheus8 vs Competitors", description: "Why Morpheus8 is the gold standard for skin tightening", service: "morpheus8", reason: "Comparison content drives decision-making", trending: true },
+];
+
+const OPTIMAL_POST_TIMES: Record<string, { day: string; time: string; engagement: string }[]> = {
+  instagram: [
+    { day: "Tuesday", time: "11:00 AM", engagement: "High" },
+    { day: "Wednesday", time: "7:00 PM", engagement: "Very High" },
+    { day: "Friday", time: "2:00 PM", engagement: "High" },
+  ],
+  facebook: [
+    { day: "Wednesday", time: "1:00 PM", engagement: "Very High" },
+    { day: "Thursday", time: "3:00 PM", engagement: "High" },
+    { day: "Friday", time: "11:00 AM", engagement: "High" },
+  ],
+  tiktok: [
+    { day: "Tuesday", time: "9:00 PM", engagement: "Very High" },
+    { day: "Thursday", time: "7:00 PM", engagement: "Very High" },
+    { day: "Saturday", time: "8:00 PM", engagement: "High" },
+  ],
+};
+
 const SERVICE_TEMPLATES: VideoTemplate[] = [
   { id: "solaria", name: "Solaria CO2 Laser", description: "Fractional laser resurfacing promo" },
   { id: "botox", name: "Botox", description: "Anti-wrinkle treatment promo" },
@@ -315,6 +380,15 @@ export default function VideoGeneratorPage() {
   const [batchFormats, setBatchFormats] = useState<string[]>([]);
   const [isBatchRendering, setIsBatchRendering] = useState(false);
   const [batchProgress, setBatchProgress] = useState<{format: string; status: string}[]>([]);
+  // Phase 4: Analytics & Scheduling
+  const [showAnalytics, setShowAnalytics] = useState(false);
+  const [showScheduler, setShowScheduler] = useState(false);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [scheduledPosts, setScheduledPosts] = useState<ScheduledPost[]>([]);
+  const [selectedPlatformForSchedule, setSelectedPlatformForSchedule] = useState<"instagram" | "facebook" | "tiktok" | "google">("instagram");
+  const [scheduleDate, setScheduleDate] = useState("");
+  const [scheduleTime, setScheduleTime] = useState("");
+  const [scheduleCaption, setScheduleCaption] = useState("");
   const [brandKit, setBrandKit] = useState({
     primaryColor: "#E91E8C",
     secondaryColor: "#FF69B4",
@@ -1851,6 +1925,320 @@ Hydration • Energy • Immunity • Recovery
                       `🚀 Render ${batchFormats.length} Format${batchFormats.length > 1 ? "s" : ""}`
                     )}
                   </button>
+                </div>
+              )}
+            </div>
+
+            {/* Phase 4: AI Content Suggestions */}
+            <div className="bg-white rounded-2xl p-6 border border-violet-200 shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-violet-600 flex items-center gap-2">
+                  <span className="bg-violet-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">7.9</span>
+                  AI Content Ideas
+                  <span className="ml-2 text-xs bg-violet-100 text-violet-600 px-2 py-1 rounded-full">Phase 4</span>
+                </h2>
+                <button
+                  onClick={() => setShowSuggestions(!showSuggestions)}
+                  className="text-sm text-violet-600 hover:text-violet-800 font-medium"
+                >
+                  {showSuggestions ? "Hide" : "Show"} Ideas
+                </button>
+              </div>
+
+              {showSuggestions && (
+                <div className="space-y-4">
+                  <p className="text-sm text-gray-600">
+                    AI-powered content suggestions based on seasonality, trends, and your service offerings.
+                  </p>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {AI_CONTENT_SUGGESTIONS.map((suggestion) => (
+                      <div
+                        key={suggestion.id}
+                        className="p-4 rounded-xl border border-violet-200 bg-violet-50 hover:border-violet-400 transition-colors"
+                      >
+                        <div className="flex items-start justify-between mb-2">
+                          <div className="flex items-center gap-2">
+                            {suggestion.trending && (
+                              <span className="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">🔥 Trending</span>
+                            )}
+                            {suggestion.seasonality && (
+                              <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">🌸 {suggestion.seasonality}</span>
+                            )}
+                          </div>
+                        </div>
+                        <h3 className="font-semibold text-gray-800 mb-1">{suggestion.title}</h3>
+                        <p className="text-sm text-gray-600 mb-2">{suggestion.description}</p>
+                        <p className="text-xs text-violet-600 italic mb-3">💡 {suggestion.reason}</p>
+                        <button
+                          onClick={() => {
+                            setSelectedTemplate(suggestion.service);
+                            setHeadline(suggestion.title);
+                            setShowSuggestions(false);
+                          }}
+                          className="text-xs bg-violet-600 text-white px-3 py-1.5 rounded-lg hover:bg-violet-700 transition-colors"
+                        >
+                          Use This Idea →
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Phase 4: Schedule Posts */}
+            <div className="bg-white rounded-2xl p-6 border border-sky-200 shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-sky-600 flex items-center gap-2">
+                  <span className="bg-sky-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">7.10</span>
+                  Schedule Posts
+                  <span className="ml-2 text-xs bg-sky-100 text-sky-600 px-2 py-1 rounded-full">Phase 4</span>
+                </h2>
+                <button
+                  onClick={() => setShowScheduler(!showScheduler)}
+                  className="text-sm text-sky-600 hover:text-sky-800 font-medium"
+                >
+                  {showScheduler ? "Hide" : "Show"} Scheduler
+                </button>
+              </div>
+
+              {showScheduler && (
+                <div className="space-y-4">
+                  {/* Platform Selection */}
+                  <div>
+                    <label className="block text-sm text-gray-700 mb-2 font-medium">Platform</label>
+                    <div className="flex gap-2">
+                      {(["instagram", "facebook", "tiktok", "google"] as const).map((platform) => (
+                        <button
+                          key={platform}
+                          onClick={() => setSelectedPlatformForSchedule(platform)}
+                          className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                            selectedPlatformForSchedule === platform
+                              ? "bg-sky-500 text-white"
+                              : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                          }`}
+                        >
+                          {platform === "instagram" ? "📸" : platform === "facebook" ? "👍" : platform === "tiktok" ? "🎵" : "🏢"}{" "}
+                          {platform.charAt(0).toUpperCase() + platform.slice(1)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Optimal Post Times */}
+                  <div className="p-3 bg-sky-50 rounded-xl border border-sky-200">
+                    <h4 className="text-sm font-medium text-sky-800 mb-2">📊 Best Times to Post on {selectedPlatformForSchedule.charAt(0).toUpperCase() + selectedPlatformForSchedule.slice(1)}</h4>
+                    <div className="flex gap-3 flex-wrap">
+                      {OPTIMAL_POST_TIMES[selectedPlatformForSchedule]?.map((slot, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => {
+                            const nextDate = new Date();
+                            const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                            const targetDay = daysOfWeek.indexOf(slot.day);
+                            const currentDay = nextDate.getDay();
+                            const daysUntilTarget = (targetDay - currentDay + 7) % 7 || 7;
+                            nextDate.setDate(nextDate.getDate() + daysUntilTarget);
+                            setScheduleDate(nextDate.toISOString().split("T")[0]);
+                            setScheduleTime(slot.time.replace(" AM", ":00").replace(" PM", ":00"));
+                          }}
+                          className="px-3 py-2 bg-white rounded-lg border border-sky-200 hover:border-sky-400 transition-colors text-sm"
+                        >
+                          <div className="font-medium text-gray-800">{slot.day}</div>
+                          <div className="text-xs text-gray-500">{slot.time}</div>
+                          <div className={`text-xs mt-1 ${slot.engagement === "Very High" ? "text-green-600" : "text-sky-600"}`}>
+                            {slot.engagement === "Very High" ? "⭐" : "✓"} {slot.engagement}
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Date & Time Picker */}
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm text-gray-700 mb-1 font-medium">Date</label>
+                      <input
+                        type="date"
+                        value={scheduleDate}
+                        onChange={(e) => setScheduleDate(e.target.value)}
+                        className="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-sky-400 focus:outline-none text-gray-800 bg-gray-50"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm text-gray-700 mb-1 font-medium">Time</label>
+                      <input
+                        type="time"
+                        value={scheduleTime}
+                        onChange={(e) => setScheduleTime(e.target.value)}
+                        className="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-sky-400 focus:outline-none text-gray-800 bg-gray-50"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Caption */}
+                  <div>
+                    <label className="block text-sm text-gray-700 mb-1 font-medium">Caption</label>
+                    <textarea
+                      value={scheduleCaption}
+                      onChange={(e) => setScheduleCaption(e.target.value)}
+                      placeholder="Write your post caption..."
+                      rows={3}
+                      className="w-full px-3 py-2 rounded-lg border border-gray-200 focus:border-sky-400 focus:outline-none text-gray-800 bg-gray-50 resize-none"
+                    />
+                  </div>
+
+                  {/* Schedule Button */}
+                  <button
+                    onClick={() => {
+                      if (!scheduleDate || !scheduleTime) {
+                        alert("Please select a date and time");
+                        return;
+                      }
+                      const newPost: ScheduledPost = {
+                        id: `sched-${Date.now()}`,
+                        videoId: generatedVideos[0]?.id || "",
+                        videoName: generatedVideos[0]?.name || "New Video",
+                        platform: selectedPlatformForSchedule,
+                        scheduledFor: `${scheduleDate}T${scheduleTime}`,
+                        status: "scheduled",
+                        caption: scheduleCaption,
+                      };
+                      setScheduledPosts([...scheduledPosts, newPost]);
+                      setScheduleDate("");
+                      setScheduleTime("");
+                      setScheduleCaption("");
+                    }}
+                    className="w-full py-3 bg-sky-500 text-white rounded-xl font-medium hover:bg-sky-600 transition-colors"
+                  >
+                    📅 Schedule Post
+                  </button>
+
+                  {/* Scheduled Posts List */}
+                  {scheduledPosts.length > 0 && (
+                    <div className="mt-4 space-y-2">
+                      <h4 className="font-medium text-gray-800">Scheduled Posts</h4>
+                      {scheduledPosts.map((post) => (
+                        <div key={post.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                          <div>
+                            <div className="font-medium text-gray-800 text-sm">{post.videoName}</div>
+                            <div className="text-xs text-gray-500">
+                              {post.platform} • {new Date(post.scheduledFor).toLocaleString()}
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <span className={`text-xs px-2 py-1 rounded-full ${
+                              post.status === "scheduled" ? "bg-sky-100 text-sky-700" :
+                              post.status === "posted" ? "bg-green-100 text-green-700" :
+                              "bg-red-100 text-red-700"
+                            }`}>
+                              {post.status}
+                            </span>
+                            <button
+                              onClick={() => setScheduledPosts(scheduledPosts.filter(p => p.id !== post.id))}
+                              className="text-red-500 hover:text-red-700 text-sm"
+                            >
+                              ✕
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Phase 4: Video Analytics */}
+            <div className="bg-white rounded-2xl p-6 border border-teal-200 shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-teal-600 flex items-center gap-2">
+                  <span className="bg-teal-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">7.11</span>
+                  Video Analytics
+                  <span className="ml-2 text-xs bg-teal-100 text-teal-600 px-2 py-1 rounded-full">Phase 4</span>
+                </h2>
+                <button
+                  onClick={() => setShowAnalytics(!showAnalytics)}
+                  className="text-sm text-teal-600 hover:text-teal-800 font-medium"
+                >
+                  {showAnalytics ? "Hide" : "Show"} Analytics
+                </button>
+              </div>
+
+              {showAnalytics && (
+                <div className="space-y-4">
+                  {/* Summary Stats */}
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <div className="p-4 bg-teal-50 rounded-xl text-center">
+                      <div className="text-2xl font-bold text-teal-700">
+                        {MOCK_ANALYTICS.reduce((sum, a) => sum + a.views, 0).toLocaleString()}
+                      </div>
+                      <div className="text-xs text-teal-600">Total Views</div>
+                    </div>
+                    <div className="p-4 bg-pink-50 rounded-xl text-center">
+                      <div className="text-2xl font-bold text-pink-700">
+                        {MOCK_ANALYTICS.reduce((sum, a) => sum + a.likes, 0).toLocaleString()}
+                      </div>
+                      <div className="text-xs text-pink-600">Total Likes</div>
+                    </div>
+                    <div className="p-4 bg-blue-50 rounded-xl text-center">
+                      <div className="text-2xl font-bold text-blue-700">
+                        {MOCK_ANALYTICS.reduce((sum, a) => sum + a.shares, 0)}
+                      </div>
+                      <div className="text-xs text-blue-600">Total Shares</div>
+                    </div>
+                    <div className="p-4 bg-purple-50 rounded-xl text-center">
+                      <div className="text-2xl font-bold text-purple-700">
+                        {(MOCK_ANALYTICS.reduce((sum, a) => sum + a.engagement, 0) / MOCK_ANALYTICS.length).toFixed(1)}%
+                      </div>
+                      <div className="text-xs text-purple-600">Avg Engagement</div>
+                    </div>
+                  </div>
+
+                  {/* Video Performance Table */}
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b border-gray-200">
+                          <th className="text-left py-2 px-3 text-gray-600 font-medium">Video</th>
+                          <th className="text-left py-2 px-3 text-gray-600 font-medium">Platform</th>
+                          <th className="text-right py-2 px-3 text-gray-600 font-medium">Views</th>
+                          <th className="text-right py-2 px-3 text-gray-600 font-medium">Likes</th>
+                          <th className="text-right py-2 px-3 text-gray-600 font-medium">Engagement</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {MOCK_ANALYTICS.map((video, idx) => (
+                          <tr key={video.videoId} className="border-b border-gray-100 hover:bg-gray-50">
+                            <td className="py-2 px-3 text-gray-800">Video #{idx + 1}</td>
+                            <td className="py-2 px-3">
+                              <span className={`text-xs px-2 py-1 rounded-full ${
+                                video.platform === "instagram" ? "bg-pink-100 text-pink-700" :
+                                video.platform === "facebook" ? "bg-blue-100 text-blue-700" :
+                                "bg-purple-100 text-purple-700"
+                              }`}>
+                                {video.platform}
+                              </span>
+                            </td>
+                            <td className="py-2 px-3 text-right text-gray-800">{video.views.toLocaleString()}</td>
+                            <td className="py-2 px-3 text-right text-gray-800">{video.likes.toLocaleString()}</td>
+                            <td className="py-2 px-3 text-right">
+                              <span className={`font-medium ${
+                                video.engagement > 10 ? "text-green-600" : "text-gray-600"
+                              }`}>
+                                {video.engagement}%
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <p className="text-xs text-gray-500 text-center">
+                    📊 Analytics update automatically when connected to social media APIs
+                  </p>
                 </div>
               )}
             </div>
