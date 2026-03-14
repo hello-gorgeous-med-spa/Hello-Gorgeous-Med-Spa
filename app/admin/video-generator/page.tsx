@@ -231,6 +231,47 @@ export default function VideoGeneratorPage() {
 
       if (response.ok) {
         const result = await response.json();
+        
+        if (result.jobId) {
+          const pollForCompletion = async () => {
+            const maxAttempts = 40;
+            let attempts = 0;
+            
+            const poll = setInterval(async () => {
+              attempts++;
+              try {
+                const statusRes = await fetch(`/api/render-video?jobId=${result.jobId}`);
+                const statusData = await statusRes.json();
+                
+                if (statusData.job?.status === "completed") {
+                  clearInterval(poll);
+                  setGeneratedVideos((prev) =>
+                    prev.map((v) =>
+                      v.id === newVideo.id
+                        ? { ...v, status: "completed", url: statusData.job.videoUrl }
+                        : v
+                    )
+                  );
+                  setIsGenerating(false);
+                } else if (statusData.job?.status === "failed" || attempts >= maxAttempts) {
+                  clearInterval(poll);
+                  setGeneratedVideos((prev) =>
+                    prev.map((v) =>
+                      v.id === newVideo.id ? { ...v, status: "failed" } : v
+                    )
+                  );
+                  setIsGenerating(false);
+                }
+              } catch (e) {
+                console.error("Polling error:", e);
+              }
+            }, 3000);
+          };
+          
+          pollForCompletion();
+          return;
+        }
+        
         setGeneratedVideos((prev) =>
           prev.map((v) =>
             v.id === newVideo.id

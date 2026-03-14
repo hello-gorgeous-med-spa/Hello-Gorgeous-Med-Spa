@@ -1,10 +1,7 @@
 import { NextResponse } from "next/server";
-import { exec } from "child_process";
-import { promisify } from "util";
+import { spawn } from "child_process";
 import path from "path";
 import fs from "fs";
-
-const execAsync = promisify(exec);
 
 interface RenderRequest {
   template: string;
@@ -27,6 +24,20 @@ interface RenderRequest {
     afterImage?: string;
   };
 }
+
+interface RenderJob {
+  id: string;
+  status: "pending" | "rendering" | "completed" | "failed";
+  composition: string;
+  format: string;
+  outputFilename: string;
+  videoUrl?: string;
+  error?: string;
+  startedAt: string;
+  completedAt?: string;
+}
+
+const renderJobs: Map<string, RenderJob> = new Map();
 
 const COMPOSITION_MAP: Record<string, Record<string, string>> = {
   solaria: {
@@ -71,6 +82,65 @@ const COMPOSITION_MAP: Record<string, Record<string, string>> = {
   },
 };
 
+function startBackgroundRender(
+  jobId: string,
+  composition: string,
+  outputPath: string,
+  outputFilename: string,
+  remotionDir: string
+) {
+  const job = renderJobs.get(jobId);
+  if (!job) return;
+
+  job.status = "rendering";
+  renderJobs.set(jobId, job);
+
+  const renderProcess = spawn(
+    "npx",
+    ["remotion", "render", "src/index.tsx", composition, outputPath],
+    {
+      cwd: remotionDir,
+      shell: true,
+      detached: true,
+      stdio: "ignore",
+    }
+  );
+
+  renderProcess.unref();
+
+  const checkInterval = setInterval(() => {
+    if (fs.existsSync(outputPath)) {
+      const stats = fs.statSync(outputPath);
+      if (stats.size > 1000000) {
+        clearInterval(checkInterval);
+        const updatedJob = renderJobs.get(jobId);
+        if (updatedJob) {
+          updatedJob.status = "completed";
+          updatedJob.videoUrl = `/videos/${outputFilename}`;
+          updatedJob.completedAt = new Date().toISOString();
+          renderJobs.set(jobId, updatedJob);
+        }
+      }
+    }
+  }, 3000);
+
+  setTimeout(() => {
+    clearInterval(checkInterval);
+    const updatedJob = renderJobs.get(jobId);
+    if (updatedJob && updatedJob.status === "rendering") {
+      if (fs.existsSync(outputPath)) {
+        updatedJob.status = "completed";
+        updatedJob.videoUrl = `/videos/${outputFilename}`;
+      } else {
+        updatedJob.status = "failed";
+        updatedJob.error = "Render timed out";
+      }
+      updatedJob.completedAt = new Date().toISOString();
+      renderJobs.set(jobId, updatedJob);
+    }
+  }, 180000);
+}
+
 export async function POST(request: Request) {
   try {
     const body: RenderRequest = await request.json();
@@ -79,6 +149,7 @@ export async function POST(request: Request) {
     const composition = COMPOSITION_MAP[template]?.[format] || "ServicePromoVertical";
     
     const timestamp = Date.now();
+    const jobId = `job-${timestamp}`;
     const sanitizedName = props.serviceName.toLowerCase().replace(/[^a-z0-9]/g, "-");
     const outputFilename = `${sanitizedName}-${format}-${timestamp}.mp4`;
     const outputPath = path.join(process.cwd(), "public", "videos", outputFilename);
@@ -89,49 +160,31 @@ export async function POST(request: Request) {
     }
 
     const remotionDir = path.join(process.cwd(), "remotion-videos");
-    
-    const inputProps = JSON.stringify({
-      ...props,
+
+    const job: RenderJob = {
+      id: jobId,
+      status: "pending",
+      composition,
       format,
+      outputFilename,
+      startedAt: new Date().toISOString(),
+    };
+    renderJobs.set(jobId, job);
+
+    console.log("[Render Video] Starting background render...");
+    console.log("[Render Video] Job ID:", jobId);
+    console.log("[Render Video] Composition:", composition);
+
+    startBackgroundRender(jobId, composition, outputPath, outputFilename, remotionDir);
+
+    return NextResponse.json({
+      success: true,
+      jobId,
+      status: "rendering",
+      message: "Video render started in background. Poll /api/render-video?jobId=" + jobId + " to check status.",
+      estimatedTime: "60-90 seconds",
     });
 
-    const command = `cd "${remotionDir}" && npx remotion render src/index.tsx ${composition} "${outputPath}" --props='${inputProps.replace(/'/g, "\\'")}'`;
-
-    console.log("[Render Video] Starting render...");
-    console.log("[Render Video] Composition:", composition);
-    console.log("[Render Video] Output:", outputPath);
-
-    try {
-      const { stdout, stderr } = await execAsync(command, {
-        timeout: 300000,
-        maxBuffer: 50 * 1024 * 1024,
-      });
-
-      console.log("[Render Video] Render complete");
-      if (stderr) console.log("[Render Video] stderr:", stderr);
-
-      const videoUrl = `/videos/${outputFilename}`;
-
-      return NextResponse.json({
-        success: true,
-        videoUrl,
-        filename: outputFilename,
-        composition,
-        format,
-      });
-    } catch (renderError: any) {
-      console.error("[Render Video] Render failed:", renderError.message);
-      
-      return NextResponse.json(
-        {
-          success: false,
-          error: "Video rendering failed",
-          details: renderError.message,
-          hint: "Make sure Remotion is properly set up in /remotion-videos",
-        },
-        { status: 500 }
-      );
-    }
   } catch (error: any) {
     console.error("[Render Video] Error:", error);
     return NextResponse.json(
@@ -141,12 +194,23 @@ export async function POST(request: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url);
+    const jobId = searchParams.get("jobId");
+
+    if (jobId) {
+      const job = renderJobs.get(jobId);
+      if (!job) {
+        return NextResponse.json({ error: "Job not found" }, { status: 404 });
+      }
+      return NextResponse.json({ job });
+    }
+
     const videosDir = path.join(process.cwd(), "public", "videos");
     
     if (!fs.existsSync(videosDir)) {
-      return NextResponse.json({ videos: [] });
+      return NextResponse.json({ videos: [], jobs: Array.from(renderJobs.values()) });
     }
 
     const files = fs.readdirSync(videosDir);
@@ -163,7 +227,10 @@ export async function GET() {
       })
       .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
 
-    return NextResponse.json({ videos });
+    return NextResponse.json({ 
+      videos,
+      jobs: Array.from(renderJobs.values()).slice(-10),
+    });
   } catch (error: any) {
     console.error("[Render Video] Error listing videos:", error);
     return NextResponse.json(
