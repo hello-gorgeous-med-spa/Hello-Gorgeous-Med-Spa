@@ -367,6 +367,44 @@ Hydration • Energy • Immunity • Recovery
     alert("Caption copied to clipboard!");
   };
 
+  const [postingTo, setPostingTo] = useState<string | null>(null);
+
+  const handlePostToSocial = async (videoId: string, platform: "instagram" | "facebook" | "google") => {
+    const video = generatedVideos.find((v) => v.id === videoId);
+    if (!video || !video.url) {
+      alert("Video not ready for posting");
+      return;
+    }
+
+    setPostingTo(`${videoId}-${platform}`);
+
+    try {
+      const response = await fetch("/api/social/post", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          platform,
+          videoUrl: video.url,
+          caption: video.caption || "",
+          serviceName: video.service,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        alert(`✅ Successfully posted to ${platform.charAt(0).toUpperCase() + platform.slice(1)}!`);
+      } else {
+        alert(`❌ Failed to post to ${platform}: ${result.error || "Unknown error"}`);
+      }
+    } catch (error) {
+      console.error(`Error posting to ${platform}:`, error);
+      alert(`❌ Failed to post to ${platform}. Check console for details.`);
+    }
+
+    setPostingTo(null);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-8">
       <div className="max-w-7xl mx-auto">
@@ -774,6 +812,34 @@ Hydration • Energy • Immunity • Recovery
                           >
                             📋 Copy Caption
                           </button>
+
+                          {/* Social Media Post Buttons */}
+                          <div className="pt-2 border-t border-gray-600 mt-2">
+                            <p className="text-xs text-pink-300/60 mb-2 text-center">Post to Social Media</p>
+                            <div className="grid grid-cols-3 gap-2">
+                              <button
+                                onClick={() => handlePostToSocial(video.id, "instagram")}
+                                disabled={postingTo === `${video.id}-instagram`}
+                                className="bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 hover:from-purple-400 hover:via-pink-400 hover:to-orange-400 py-2 rounded-lg text-xs font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                              >
+                                {postingTo === `${video.id}-instagram` ? "..." : "📸 IG"}
+                              </button>
+                              <button
+                                onClick={() => handlePostToSocial(video.id, "facebook")}
+                                disabled={postingTo === `${video.id}-facebook`}
+                                className="bg-blue-600 hover:bg-blue-500 py-2 rounded-lg text-xs font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                              >
+                                {postingTo === `${video.id}-facebook` ? "..." : "📘 FB"}
+                              </button>
+                              <button
+                                onClick={() => handlePostToSocial(video.id, "google")}
+                                disabled={postingTo === `${video.id}-google`}
+                                className="bg-gradient-to-r from-blue-500 via-green-500 to-yellow-500 hover:from-blue-400 hover:via-green-400 hover:to-yellow-400 py-2 rounded-lg text-xs font-medium transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                              >
+                                {postingTo === `${video.id}-google` ? "..." : "🔍 Google"}
+                              </button>
+                            </div>
+                          </div>
                         </div>
                       )}
 

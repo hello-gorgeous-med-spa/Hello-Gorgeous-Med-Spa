@@ -1,95 +1,278 @@
-// ============================================================
-// POST /api/social/post — Publish now or schedule for later
-// Body: { message, link?, imageUrl?, channels, scheduledAt? (ISO) }
-// ============================================================
+import { NextResponse } from "next/server";
 
-import { NextRequest, NextResponse } from "next/server";
-import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
-import { postToChannels, type SocialChannel } from "@/lib/hgos/social-posting";
+interface PostRequest {
+  platform: "instagram" | "facebook" | "google";
+  videoUrl: string;
+  caption: string;
+  serviceName: string;
+}
 
-const ALLOWED_CHANNELS: SocialChannel[] = ["facebook", "instagram", "google"];
-const MIN_SCHEDULE_MINUTES = 1;
-const MAX_SCHEDULE_DAYS = 30;
+async function postToInstagram(videoUrl: string, caption: string): Promise<{ success: boolean; postId?: string; error?: string }> {
+  const accessToken = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
+  const igAccountId = process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID;
 
-export async function POST(request: NextRequest) {
+  if (!accessToken || !igAccountId) {
+    return { success: false, error: "Instagram credentials not configured" };
+  }
+
   try {
-    const body = await request.json();
-    const { message, link, imageUrl, channels: rawChannels, scheduledAt: rawScheduledAt } = body;
+    const fullVideoUrl = videoUrl.startsWith("http") 
+      ? videoUrl 
+      : `${process.env.NEXT_PUBLIC_SITE_URL || process.env.BASE_URL}${videoUrl}`;
 
-    if (!message || typeof message !== "string" || !message.trim()) {
-      return NextResponse.json({ error: "message is required" }, { status: 400 });
+    const createResponse = await fetch(
+      `https://graph.facebook.com/v18.0/${igAccountId}/media`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          media_type: "REELS",
+          video_url: fullVideoUrl,
+          caption: caption,
+          access_token: accessToken,
+        }),
+      }
+    );
+
+    const createResult = await createResponse.json();
+
+    if (createResult.error) {
+      return { success: false, error: createResult.error.message };
     }
 
-    const channels = Array.isArray(rawChannels)
-      ? (rawChannels as string[]).filter((c): c is SocialChannel => ALLOWED_CHANNELS.includes(c as SocialChannel))
-      : [];
+    const containerId = createResult.id;
 
-    if (channels.length === 0) {
+    let status = "IN_PROGRESS";
+    let attempts = 0;
+    const maxAttempts = 30;
+
+    while (status === "IN_PROGRESS" && attempts < maxAttempts) {
+      await new Promise((resolve) => setTimeout(resolve, 5000));
+      
+      const statusResponse = await fetch(
+        `https://graph.facebook.com/v18.0/${containerId}?fields=status_code&access_token=${accessToken}`
+      );
+      const statusResult = await statusResponse.json();
+      status = statusResult.status_code;
+      attempts++;
+    }
+
+    if (status !== "FINISHED") {
+      return { success: false, error: `Video processing failed: ${status}` };
+    }
+
+    const publishResponse = await fetch(
+      `https://graph.facebook.com/v18.0/${igAccountId}/media_publish`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          creation_id: containerId,
+          access_token: accessToken,
+        }),
+      }
+    );
+
+    const publishResult = await publishResponse.json();
+
+    if (publishResult.error) {
+      return { success: false, error: publishResult.error.message };
+    }
+
+    return { success: true, postId: publishResult.id };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+async function postToFacebook(videoUrl: string, caption: string): Promise<{ success: boolean; postId?: string; error?: string }> {
+  const accessToken = process.env.FACEBOOK_PAGE_ACCESS_TOKEN;
+  const pageId = process.env.FACEBOOK_PAGE_ID;
+
+  if (!accessToken || !pageId) {
+    return { success: false, error: "Facebook credentials not configured" };
+  }
+
+  try {
+    const fullVideoUrl = videoUrl.startsWith("http") 
+      ? videoUrl 
+      : `${process.env.NEXT_PUBLIC_SITE_URL || process.env.BASE_URL}${videoUrl}`;
+
+    const response = await fetch(
+      `https://graph.facebook.com/v18.0/${pageId}/videos`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          file_url: fullVideoUrl,
+          description: caption,
+          access_token: accessToken,
+        }),
+      }
+    );
+
+    const result = await response.json();
+
+    if (result.error) {
+      return { success: false, error: result.error.message };
+    }
+
+    return { success: true, postId: result.id };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+async function postToGoogleBusiness(videoUrl: string, caption: string): Promise<{ success: boolean; postId?: string; error?: string }> {
+  const refreshToken = process.env.GOOGLE_REFRESH_TOKEN;
+  const clientId = process.env.GOOGLE_CLIENT_ID;
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+  const accountId = process.env.GOOGLE_BUSINESS_ACCOUNT_ID;
+  const locationId = process.env.GOOGLE_BUSINESS_LOCATION_ID;
+
+  if (!refreshToken || !clientId || !clientSecret || !accountId) {
+    return { success: false, error: "Google Business credentials not configured" };
+  }
+
+  try {
+    const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        client_id: clientId,
+        client_secret: clientSecret,
+        refresh_token: refreshToken,
+        grant_type: "refresh_token",
+      }),
+    });
+
+    const tokenResult = await tokenResponse.json();
+
+    if (!tokenResult.access_token) {
+      return { success: false, error: "Failed to refresh Google access token" };
+    }
+
+    const accessToken = tokenResult.access_token;
+
+    const fullVideoUrl = videoUrl.startsWith("http") 
+      ? videoUrl 
+      : `${process.env.NEXT_PUBLIC_SITE_URL || process.env.BASE_URL}${videoUrl}`;
+
+    const postResponse = await fetch(
+      `https://mybusiness.googleapis.com/v4/accounts/${accountId}/locations/${locationId}/localPosts`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+        body: JSON.stringify({
+          languageCode: "en-US",
+          summary: caption.substring(0, 1500),
+          topicType: "STANDARD",
+          media: [
+            {
+              mediaFormat: "VIDEO",
+              sourceUrl: fullVideoUrl,
+            },
+          ],
+          callToAction: {
+            actionType: "BOOK",
+            url: "https://hellogorgeousmedspa.com/book",
+          },
+        }),
+      }
+    );
+
+    const postResult = await postResponse.json();
+
+    if (postResult.error) {
+      return { success: false, error: postResult.error.message };
+    }
+
+    return { success: true, postId: postResult.name };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
+
+export async function POST(request: Request) {
+  try {
+    const body: PostRequest = await request.json();
+    const { platform, videoUrl, caption, serviceName } = body;
+
+    if (!videoUrl) {
       return NextResponse.json(
-        { error: "At least one channel required: facebook, instagram, or google" },
+        { success: false, error: "Video URL is required" },
         { status: 400 }
       );
     }
 
-    const input = {
-      message: message.trim(),
-      link: link?.trim() || undefined,
-      imageUrl: imageUrl?.trim() || undefined,
-    };
+    console.log(`[Social Post] Posting ${serviceName} video to ${platform}`);
+    console.log(`[Social Post] Video URL: ${videoUrl}`);
 
-    const scheduledAt = typeof rawScheduledAt === "string" && rawScheduledAt.trim() ? rawScheduledAt.trim() : null;
-    if (scheduledAt) {
-      const at = new Date(scheduledAt);
-      if (Number.isNaN(at.getTime())) {
-        return NextResponse.json({ error: "scheduledAt must be a valid ISO date/time" }, { status: 400 });
-      }
-      const now = new Date();
-      const minTime = new Date(now.getTime() + MIN_SCHEDULE_MINUTES * 60 * 1000);
-      const maxTime = new Date(now.getTime() + MAX_SCHEDULE_DAYS * 24 * 60 * 60 * 1000);
-      if (at < minTime) {
+    let result: { success: boolean; postId?: string; error?: string };
+
+    switch (platform) {
+      case "instagram":
+        result = await postToInstagram(videoUrl, caption);
+        break;
+      case "facebook":
+        result = await postToFacebook(videoUrl, caption);
+        break;
+      case "google":
+        result = await postToGoogleBusiness(videoUrl, caption);
+        break;
+      default:
         return NextResponse.json(
-          { error: `Schedule time must be at least ${MIN_SCHEDULE_MINUTES} minute(s) from now` },
+          { success: false, error: "Invalid platform" },
           { status: 400 }
         );
-      }
-      if (at > maxTime) {
-        return NextResponse.json(
-          { error: `Schedule time must be within ${MAX_SCHEDULE_DAYS} days` },
-          { status: 400 }
-        );
-      }
-      const supabase = createAdminSupabaseClient();
-      if (!supabase) {
-        return NextResponse.json({ error: "Database not configured" }, { status: 503 });
-      }
-      const { data: row, error } = await supabase
-        .from("scheduled_social_posts")
-        .insert({
-          message: input.message,
-          link: input.link ?? null,
-          image_url: input.imageUrl ?? null,
-          channels,
-          scheduled_at: at.toISOString(),
-          status: "pending",
-        })
-        .select("id, scheduled_at")
-        .single();
-      if (error) {
-        console.error("[social/post] schedule insert", error);
-        return NextResponse.json({ error: "Failed to schedule post" }, { status: 500 });
-      }
-      return NextResponse.json({
-        success: true,
-        scheduled: true,
-        id: row.id,
-        scheduledAt: row.scheduled_at,
-      });
     }
 
-    const results = await postToChannels(input, channels);
-    return NextResponse.json({ success: true, results });
-  } catch (e) {
-    console.error("[social/post]", e);
-    return NextResponse.json({ error: "Failed to post" }, { status: 500 });
+    if (result.success) {
+      console.log(`[Social Post] Success! Post ID: ${result.postId}`);
+      return NextResponse.json({
+        success: true,
+        platform,
+        postId: result.postId,
+        message: `Video posted to ${platform} successfully`,
+      });
+    } else {
+      console.error(`[Social Post] Failed: ${result.error}`);
+      return NextResponse.json(
+        { success: false, error: result.error },
+        { status: 500 }
+      );
+    }
+  } catch (error: any) {
+    console.error("[Social Post] Error:", error);
+    return NextResponse.json(
+      { success: false, error: error.message },
+      { status: 500 }
+    );
   }
+}
+
+export async function GET() {
+  const hasInstagram = !!(process.env.FACEBOOK_PAGE_ACCESS_TOKEN && process.env.INSTAGRAM_BUSINESS_ACCOUNT_ID);
+  const hasFacebook = !!(process.env.FACEBOOK_PAGE_ACCESS_TOKEN && process.env.FACEBOOK_PAGE_ID);
+  const hasGoogle = !!(process.env.GOOGLE_REFRESH_TOKEN && process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_BUSINESS_ACCOUNT_ID);
+
+  return NextResponse.json({
+    platforms: {
+      instagram: { configured: hasInstagram, name: "Instagram" },
+      facebook: { configured: hasFacebook, name: "Facebook" },
+      google: { configured: hasGoogle, name: "Google Business" },
+    },
+    usage: {
+      endpoint: "POST /api/social/post",
+      body: {
+        platform: "instagram | facebook | google",
+        videoUrl: "/videos/your-video.mp4",
+        caption: "Your post caption...",
+        serviceName: "Service name for logging",
+      },
+    },
+  });
 }
