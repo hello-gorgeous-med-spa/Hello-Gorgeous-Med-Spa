@@ -95,22 +95,52 @@ export default function CampaignStudioPage() {
   const [batchDays, setBatchDays] = useState(30);
   const [includeCaptions, setIncludeCaptions] = useState(true);
   const [captionStyle, setCaptionStyle] = useState<"highlight" | "bold" | "bounce">("highlight");
+  
+  // AI Recommendations state
+  const [aiRecommendations, setAiRecommendations] = useState<{
+    recommended_hooks?: string[];
+    recommended_hashtags?: string[];
+    best_posting_times?: string[];
+    best_visual_style?: string;
+  } | null>(null);
+  
+  // Load AI recommendations when service changes
+  const loadRecommendations = async (service: string) => {
+    try {
+      const res = await fetch(`/api/ai/analyze-campaigns?service=${service}`);
+      const data = await res.json();
+      if (data.recommendations) {
+        setAiRecommendations(data.recommendations);
+      }
+    } catch (error) {
+      console.error("Failed to load recommendations:", error);
+    }
+  };
 
-  const selectTemplate = (template: CampaignTemplate) => {
+  const selectTemplate = async (template: CampaignTemplate) => {
     setSelectedTemplate(template);
     setSelectedService(template.service);
     setPrompt(template.defaultPrompt);
-    setHooks(template.hooks);
+    
+    // Load AI recommendations for this service
+    await loadRecommendations(template.service);
+    
+    // Use AI recommendations if available, otherwise use template defaults
+    const useHooks = aiRecommendations?.recommended_hooks?.length 
+      ? aiRecommendations.recommended_hooks 
+      : template.hooks;
+    
+    setHooks(useHooks);
     setCampaign({
       headline: template.name,
       subheadline: "",
-      hooks: template.hooks,
+      hooks: useHooks,
       benefits: template.benefits,
       cta: template.cta,
       instagramCaption: "",
       tiktokCaption: "",
       facebookCaption: "",
-      hashtags: [],
+      hashtags: aiRecommendations?.recommended_hashtags || [],
       targetAudience: "",
       tone: template.style,
     });
