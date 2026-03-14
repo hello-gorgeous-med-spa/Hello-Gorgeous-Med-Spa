@@ -1842,7 +1842,7 @@ Hydration • Energy • Immunity • Recovery
                       <button
                         key={preset.id}
                         onClick={() => {
-                          setSelectedFormat(preset.settings.format);
+                          setFormData(prev => ({ ...prev, format: preset.settings.format }));
                           setFormData(prev => ({ ...prev, qualityPreset: preset.settings.quality as "standard" | "high" | "ultra" }));
                           setFormData(prev => ({ ...prev, videoStyle: preset.settings.style as "clean" | "luxury" | "energetic" | "minimal" }));
                           setFormData(prev => ({ ...prev, includeCaptions: preset.settings.includeCaptions }));
@@ -1894,7 +1894,7 @@ Hydration • Energy • Immunity • Recovery
                               name: presetName,
                               description: "Custom saved preset",
                               settings: {
-                                format: selectedFormat,
+                                format: formData.format,
                                 quality: formData.qualityPreset,
                                 style: formData.videoStyle,
                                 includeCaptions: formData.includeCaptions,
@@ -2858,7 +2858,7 @@ Hydration • Energy • Immunity • Recovery
                   <div 
                     className="relative rounded-xl overflow-hidden"
                     style={{
-                      aspectRatio: selectedFormat === "reel" ? "9/16" : selectedFormat === "story" ? "9/16" : "1/1",
+                      aspectRatio: formData.format === "reel" ? "9/16" : formData.format === "story" ? "9/16" : "1/1",
                       maxHeight: "400px",
                       margin: "0 auto",
                       background: brandKit.backgroundColor,
@@ -2951,7 +2951,7 @@ Hydration • Energy • Immunity • Recovery
                   <div 
                     className="relative rounded-xl overflow-hidden mx-auto"
                     style={{
-                      aspectRatio: selectedFormat === "reel" ? "9/16" : selectedFormat === "story" ? "9/16" : "1/1",
+                      aspectRatio: formData.format === "reel" ? "9/16" : formData.format === "story" ? "9/16" : "1/1",
                       maxHeight: "400px",
                       background: brandKit.backgroundColor,
                     }}
@@ -2969,7 +2969,7 @@ Hydration • Energy • Immunity • Recovery
                         className="text-sm mt-2 opacity-70"
                         style={{ color: brandKit.textColor }}
                       >
-                        {videoScenes.length} scenes • {selectedFormat} format
+                        {videoScenes.length} scenes • {formData.format} format
                       </div>
                     </div>
 
@@ -3001,7 +3001,7 @@ Hydration • Energy • Immunity • Recovery
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-gray-500">Format:</span>
-                    <span className="font-medium text-gray-700">{selectedFormat === "reel" ? "Reel (9:16)" : selectedFormat === "story" ? "Story (9:16)" : selectedFormat === "square" ? "Square (1:1)" : "Landscape (16:9)"}</span>
+                    <span className="font-medium text-gray-700">{formData.format === "reel" ? "Reel (9:16)" : formData.format === "story" ? "Story (9:16)" : formData.format === "square" ? "Square (1:1)" : "Landscape (16:9)"}</span>
                   </div>
                   <div className="flex items-center gap-2">
                     <span className="text-gray-500">Style:</span>
