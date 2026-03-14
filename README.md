@@ -1,88 +1,192 @@
 # Hello Gorgeous Med Spa (HelloGorgeousMedSpa.com)
 
-This repo is the **HelloGorgeousMedSpa.com** rebuild on **Next.js 14 (App Router)** + **Tailwind CSS**.
+Full-stack medical spa platform built on **Next.js 14 (App Router)** + **Tailwind CSS** + **Supabase** + **Remotion**.
 
-## Where to work (Cursor / IDE)
+## 🚀 Features
 
-**Always open and edit the main git clone.** Do not use a worktree or mirror folder for development—those are read-only copies and have no `.git`, so you can't commit or push from them.
+### Admin Dashboard (`/admin`)
+- **Dashboard** - Overview and KPIs
+- **Calendar** - Fresha-style drag-and-drop appointment scheduling
+- **Clients** - Client management with Square integration
+- **Charting** - HIPAA-compliant medical charting
+- **Services** - Service catalog management
+- **Memberships** - VIP membership programs
 
-- **Open this folder in Cursor:**  
-  `File → Open Folder` → choose the **main** repo path. Your Cursor workspace should be this `hello-gorgeous-med-spa` folder **from the main clone**, e.g.  
-  **`/Users/danid/Hello-Gorgeous-Med-Spa/hello-gorgeous-med-spa`**
-- If your Cursor is currently opened on a path under `.cursor/worktrees/` or `gzh/`, close it and open the path above instead—same folder name (`hello-gorgeous-med-spa`), but the one that contains `.git`.
-- All edits, commits, and pushes should happen in that folder.
+### 🤖 AI Campaign Studio (`/admin/campaign-studio`)
+Complete marketing automation like Canva + CapCut + Hootsuite:
+- **AI Prompt Box** - Describe campaign, AI generates everything
+- **Hook Generator** - Viral 3-second hooks with scoring (0-100)
+- **Image Generator** - DALL-E powered campaign images
+- **Caption Generator** - Platform-specific captions (Instagram, TikTok, Facebook)
+- **30-Day Batch Generator** - Generate a month of content in 2 minutes
+- **8 Campaign Templates** - Weight Loss, Botox, Laser, Fillers, etc.
+- **Stock Media Library** - Pexels integration for stock photos/videos
+- **One-Click Social Posting** - Publish to Instagram, Facebook, TikTok, YouTube
 
-## Design Parity Requirement
+### 📊 Campaign Analytics (`/admin/campaign-analytics`)
+Self-learning AI optimization engine:
+- **Performance Tracking** - Views, engagement, bookings per campaign
+- **AI Analysis** - Weekly analysis of what converts to bookings
+- **Auto-Recommendations** - Best hooks, hashtags, posting times
+- **Conversion Funnel** - Views → Engagement → Clicks → Bookings
+- **Booking Attribution** - Track which campaigns generate bookings
 
-This site is a **layout clone + content swap** based on `NoPriorAuthorization.com`.
+### 🎬 Video Generator (`/admin/video-generator`)
+Remotion-powered video creation:
+- **Service Templates** - Solaria, Botox, Morpheus8, Weight Loss, etc.
+- **Multiple Formats** - Vertical (9:16), Square (1:1), Horizontal (16:9)
+- **AI Voiceover** - ElevenLabs integration
+- **Auto Captions** - Whisper transcription with animated text
+- **Before/After Images** - Pull from landing pages
+- **Video Library** - Save and manage generated videos
 
-- **Must match**: layout structure, spacing system, typography scale, button/card styles, animations, responsiveness, header/footer logic.
-- **Must differ**: branding (copy/images), and medical-spa-specific SEO schema.
+### 📧 Email Campaigns (`/admin/email-campaigns`)
+- **Visual Email Builder** - Block-based drag-and-drop editor
+- **Client Import** - Pull clients from Square
+- **Templates** - Promotional, newsletter, appointment reminders
+- **Resend Integration** - Reliable email delivery
 
-If an implementation choice isn’t specified, default to whatever `NoPriorAuthorization.com` does.
+### Additional Features
+- **Consent Forms** - HIPAA-compliant digital consent
+- **SMS Notifications** - Twilio integration (A2P 10DLC pending)
+- **Gift Cards** - Square gift card integration
+- **Inventory Management** - Track products and supplies
+- **Staff Management** - Provider schedules and permissions
+- **Reports** - Revenue, appointments, marketing ROI
 
-## Tech Stack
+## 🛠 Tech Stack
 
-- Next.js 14 (App Router)
-- Tailwind CSS
-- Vercel hosting
-- GitHub PR workflow
+| Layer | Technology |
+|-------|------------|
+| Frontend | Next.js 14 (App Router), React, Tailwind CSS |
+| Backend | Next.js API Routes, Server Actions |
+| Database | Supabase (PostgreSQL) |
+| Auth | NextAuth.js |
+| Payments | Square, Stripe |
+| Video | Remotion |
+| AI | OpenAI (GPT-4, DALL-E, Whisper), ElevenLabs |
+| Email | Resend |
+| SMS | Twilio |
+| Storage | Supabase Storage |
+| Hosting | Vercel |
 
-## Project Structure (high level)
+## 📁 Project Structure
 
 ```
-src/
-  app/                  # App Router pages (SEO-first)
-    page.tsx            # Home
-    about/page.tsx
-    services/page.tsx
-    services/[slug]/page.tsx
-    contact/page.tsx
-    book/page.tsx
-    privacy/page.tsx
-    terms/page.tsx
-    robots.ts           # robots.txt
-    sitemap.ts          # sitemap.xml
-  components/
-    site/               # Header/Footer (NPA layout system)
-    ui/                 # Shared primitives (Button, Section, FadeUp)
-    seo/                # JSON-LD helpers
-  content/              # Service and FAQ content
-  styles/globals.css    # Tailwind + global animation utility classes
+app/
+├── admin/                    # Admin dashboard pages
+│   ├── campaign-studio/      # AI Campaign Generator
+│   ├── campaign-analytics/   # Performance Analytics
+│   ├── video-generator/      # Remotion Video Creator
+│   ├── email-campaigns/      # Email Marketing
+│   ├── calendar/             # Appointment Calendar
+│   ├── clients/              # Client Management
+│   └── ...
+├── api/
+│   ├── ai/                   # AI endpoints
+│   │   ├── campaign/         # Generate campaigns
+│   │   ├── hooks/            # Viral hook generator
+│   │   ├── images/           # DALL-E image generation
+│   │   ├── optimize/         # Social optimization
+│   │   ├── batch-content/    # 30-day content generator
+│   │   ├── analyze-campaigns/# AI performance analysis
+│   │   └── transcribe/       # Whisper transcription
+│   ├── analytics/            # Campaign analytics
+│   ├── render-video/         # Remotion video rendering
+│   ├── social/               # Social media posting
+│   └── ...
+├── (public pages)/           # Marketing website
+│   ├── services/
+│   ├── about/
+│   └── ...
+lib/
+├── brand-config.ts           # Hello Gorgeous branding
+├── supabase/                 # Database client
+└── ...
+remotion-videos/
+├── src/
+│   ├── compositions/         # Video templates
+│   │   ├── SolariaCO2Laser.tsx
+│   │   ├── StretchMarkTreatment.tsx
+│   │   └── ...
+│   ├── components/           # Reusable video components
+│   │   └── AnimatedCaptions.tsx
+│   └── Root.tsx              # Composition registry
+└── public/                   # Video assets
+supabase/
+└── migrations/               # Database schema
 ```
 
-## Development
+## 🗄 Database Tables
 
-Install dependencies:
+### Core Tables
+- `appointments` - Booking data with campaign attribution
+- `clients` - Client profiles synced from Square
+- `services` - Service catalog
+- `providers` - Staff and provider info
+
+### Marketing Tables
+- `campaigns_library` - Saved AI campaigns
+- `video_library` - Generated videos
+- `image_library` - Stock and uploaded images
+- `social_posts` - Published social media posts
+- `campaign_metrics` - Performance analytics
+- `campaign_recommendations` - AI optimization insights
+
+## 🔧 Environment Variables
 
 ```bash
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+
+# OpenAI
+OPEN_API_KEY=
+
+# ElevenLabs
+ELEVENLABS_API_KEY=
+
+# Square
+SQUARE_APPLICATION_ID=
+SQUARE_OAUTH_CLIENT_SECRET=
+
+# Twilio
+TWILIO_ACCOUNT_SID=
+TWILIO_AUTH_TOKEN=
+TWILIO_PHONE_NUMBER=
+
+# Resend
+RESEND_API_KEY=
+
+# Stock Media (optional)
+PEXELS_API_KEY=
+```
+
+## 🚀 Development
+
+```bash
+# Install dependencies
 npm install
-```
 
-Run locally:
-
-```bash
+# Run locally
 npm run dev
-```
 
-Quality gates (CI uses these):
-
-```bash
-npm test   # runs lint
+# Build
 npm run build
+
+# Remotion studio (video preview)
+cd remotion-videos && npm run studio
 ```
 
-## SEO Notes
+## 📍 Location
 
-- **Per-page metadata** via App Router metadata exports (`src/lib/metadata.ts`)
-- **JSON-LD**:
-  - `MedicalBusiness` + `LocalBusiness` site schema
-  - `FAQPage` schema per service
-- **Indexing**: `robots.ts` + `sitemap.ts` are enabled and crawlable.
+**Hello Gorgeous Med Spa**  
+74 W Washington Street  
+Oswego, IL 60543  
+📞 630-636-6193  
+🌐 [hellogorgeousmedspa.com](https://hellogorgeousmedspa.com)
 
-## Configuration TODOs (replace placeholders)
+---
 
-Update `src/content/site.ts` with real:
-- phone/email/address
-- geo coordinates
-- canonical site URL (production)
+Built with ❤️ for Hello Gorgeous Med Spa
