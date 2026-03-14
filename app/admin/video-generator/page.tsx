@@ -522,7 +522,7 @@ export default function VideoGeneratorPage() {
           </button>
         </div>
 
-        {activeTab === "library" ? (
+        {activeTab === "videos" ? (
           /* Video Library View */
           <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
             <div className="flex items-center justify-between mb-6">
@@ -622,6 +622,97 @@ export default function VideoGeneratorPage() {
                           title="Delete"
                         >
                           🗑️
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ) : activeTab === "images" ? (
+          /* Image Library View */
+          <div className="bg-white rounded-2xl p-6 border border-purple-200 shadow-lg">
+            <div className="flex items-center justify-between mb-6">
+              <h2 className="text-xl font-semibold text-gray-800">Your Image Library</h2>
+              <div className="flex gap-2">
+                <select
+                  value={imageCategory}
+                  onChange={(e) => setImageCategory(e.target.value)}
+                  className="px-4 py-2 border border-gray-200 rounded-xl text-sm focus:border-purple-500 focus:outline-none"
+                >
+                  {IMAGE_CATEGORIES.map((cat) => (
+                    <option key={cat.id} value={cat.id}>{cat.icon} {cat.name}</option>
+                  ))}
+                </select>
+                <button
+                  onClick={loadLibraryImages}
+                  disabled={isLoadingImages}
+                  className="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-xl text-sm transition-colors"
+                >
+                  {isLoadingImages ? "Loading..." : "🔄 Refresh"}
+                </button>
+              </div>
+            </div>
+
+            {libraryImages.length === 0 ? (
+              <div className="text-center py-16">
+                <div className="text-6xl mb-4">🖼️</div>
+                <p className="text-gray-500 text-lg">No images in your library yet</p>
+                <p className="text-sm text-gray-400 mt-2">Upload images or generate them with AI</p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                {libraryImages
+                  .filter(img => imageCategory === "all" || img.category === imageCategory)
+                  .map((image) => (
+                  <div
+                    key={image.id}
+                    className="group relative bg-gray-50 rounded-xl overflow-hidden border border-gray-200 hover:shadow-lg transition-all"
+                  >
+                    <div className="aspect-square relative">
+                      <img
+                        src={image.url}
+                        alt={image.name}
+                        className="w-full h-full object-cover"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all flex items-center justify-center opacity-0 group-hover:opacity-100">
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => {
+                              setBeforeImage(image.url);
+                              setActiveTab("create");
+                            }}
+                            className="px-3 py-1.5 bg-white text-gray-800 rounded-lg text-xs font-medium hover:bg-gray-100"
+                          >
+                            Use as Before
+                          </button>
+                          <button
+                            onClick={() => {
+                              setAfterImage(image.url);
+                              setActiveTab("create");
+                            }}
+                            className="px-3 py-1.5 bg-pink-500 text-white rounded-lg text-xs font-medium hover:bg-pink-600"
+                          >
+                            Use as After
+                          </button>
+                        </div>
+                      </div>
+                      {image.is_favorite && (
+                        <div className="absolute top-2 right-2">
+                          <span className="text-yellow-400">⭐</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-3">
+                      <h3 className="font-medium text-gray-800 text-sm truncate">{image.name}</h3>
+                      <div className="flex items-center justify-between mt-1">
+                        <span className="text-xs text-gray-500">{image.category}</span>
+                        <button
+                          onClick={() => toggleFavorite(image)}
+                          className="text-gray-400 hover:text-yellow-500"
+                        >
+                          {image.is_favorite ? "⭐" : "☆"}
                         </button>
                       </div>
                     </div>
