@@ -350,14 +350,14 @@ export default function CampaignStudioPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 p-6">
+    <div className="min-h-screen bg-black p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6 text-center">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-pink-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+          <h1 className="text-4xl font-bold text-white">
             ✨ AI Campaign Studio
           </h1>
-          <p className="text-gray-400 mt-2">
+          <p className="text-pink-300 mt-2">
             Generate complete social media campaigns in under 60 seconds
           </p>
         </div>
@@ -365,10 +365,10 @@ export default function CampaignStudioPage() {
         {/* Feature Tabs */}
         <div className="flex gap-2 mb-6 justify-center flex-wrap">
           {[
-            { id: "create", label: "✨ Create Campaign", color: "pink" },
-            { id: "hooks", label: "🎯 Hook Engine", color: "purple" },
-            { id: "media", label: "📸 Stock Media", color: "blue" },
-            { id: "batch", label: "📅 30-Day Generator", color: "green" },
+            { id: "create", label: "✨ Create Campaign" },
+            { id: "hooks", label: "🎯 Hook Engine" },
+            { id: "media", label: "📸 Stock Media" },
+            { id: "batch", label: "📅 30-Day Generator" },
           ].map((tab) => (
             <button
               key={tab.id}
@@ -378,8 +378,8 @@ export default function CampaignStudioPage() {
               }}
               className={`px-5 py-2.5 rounded-xl font-medium transition-all ${
                 activeTab === tab.id
-                  ? `bg-${tab.color}-500 text-white shadow-lg`
-                  : "bg-white/10 text-gray-300 hover:bg-white/20"
+                  ? "bg-pink-500 text-white shadow-lg shadow-pink-500/30"
+                  : "bg-gray-800 text-white hover:bg-gray-700 border border-pink-500/40"
               }`}
             >
               {tab.label}
@@ -389,7 +389,7 @@ export default function CampaignStudioPage() {
 
         {/* HOOK ENGINE TAB */}
         {activeTab === "hooks" && (
-          <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 mb-8 border border-white/20">
+          <div className="bg-gray-900/80 backdrop-blur rounded-3xl p-8 mb-8 border border-pink-500/40">
             <h2 className="text-2xl font-bold text-white mb-6 text-center">🎯 Viral Hook Intelligence Engine</h2>
             
             <div className="mb-6">
@@ -397,13 +397,13 @@ export default function CampaignStudioPage() {
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="Describe your campaign to generate scored hooks..."
-                className="w-full bg-white/5 border border-white/20 rounded-2xl px-6 py-4 text-white placeholder-gray-400 focus:border-pink-500 focus:outline-none resize-none"
+                className="w-full bg-gray-800 border border-pink-500/40 rounded-2xl px-6 py-4 text-white placeholder-pink-200/50 focus:border-pink-500 focus:outline-none resize-none"
                 rows={2}
               />
               <button
                 onClick={generateHooks}
                 disabled={!prompt || isGeneratingHooks}
-                className="mt-4 w-full py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-medium disabled:opacity-50"
+                className="mt-4 w-full py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-xl font-medium disabled:opacity-50"
               >
                 {isGeneratingHooks ? "Analyzing..." : "🧠 Generate & Score Hooks"}
               </button>
@@ -411,7 +411,7 @@ export default function CampaignStudioPage() {
 
             {scoredHooks.length > 0 && (
               <div className="space-y-3">
-                <p className="text-gray-400 text-sm">Hooks ranked by virality score (AI auto-selects the best)</p>
+                <p className="text-pink-300 text-sm">Hooks ranked by virality score (AI auto-selects the best)</p>
                 {scoredHooks.map((h, i) => (
                   <button
                     key={i}
@@ -419,7 +419,7 @@ export default function CampaignStudioPage() {
                     className={`w-full p-4 rounded-xl text-left transition-all ${
                       selectedHook === h.hook
                         ? "bg-pink-500/30 border-pink-500"
-                        : "bg-white/5 border-white/10 hover:bg-white/10"
+                        : "bg-gray-800 border-pink-500/40 hover:border-pink-500"
                     } border`}
                   >
                     <div className="flex items-center justify-between mb-2">
@@ -433,8 +433,8 @@ export default function CampaignStudioPage() {
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-xs">
-                      <span className="px-2 py-0.5 bg-purple-500/20 text-purple-300 rounded">{h.type}</span>
-                      <span className="text-gray-500">{h.reasoning}</span>
+                      <span className="px-2 py-0.5 bg-pink-500/20 text-pink-300 rounded">{h.type}</span>
+                      <span className="text-pink-200/60">{h.reasoning}</span>
                     </div>
                   </button>
                 ))}
@@ -445,7 +445,7 @@ export default function CampaignStudioPage() {
 
         {/* STOCK MEDIA TAB */}
         {activeTab === "media" && (
-          <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 mb-8 border border-white/20">
+          <div className="bg-gray-900/80 backdrop-blur rounded-3xl p-8 mb-8 border border-pink-500/40">
             <h2 className="text-2xl font-bold text-white mb-6 text-center">📸 Stock Media Library</h2>
             
             <div className="flex gap-2 mb-6 flex-wrap justify-center">
@@ -465,8 +465,8 @@ export default function CampaignStudioPage() {
                   }}
                   className={`px-4 py-2 rounded-lg text-sm transition-all ${
                     mediaCategory === cat.id
-                      ? "bg-blue-500 text-white"
-                      : "bg-white/10 text-gray-300 hover:bg-white/20"
+                      ? "bg-pink-500 text-white"
+                      : "bg-gray-800 text-white hover:bg-gray-700 border border-pink-500/40"
                   }`}
                 >
                   {cat.label}
@@ -477,7 +477,7 @@ export default function CampaignStudioPage() {
             {isLoadingMedia ? (
               <div className="text-center py-12">
                 <div className="animate-spin h-8 w-8 border-2 border-pink-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-                <p className="text-gray-400">Loading stock media...</p>
+                <p className="text-pink-300">Loading stock media...</p>
               </div>
             ) : (
               <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -486,7 +486,7 @@ export default function CampaignStudioPage() {
                     key={item.id}
                     onClick={() => setSelectedImage(item.url)}
                     className={`relative aspect-[9/16] rounded-xl overflow-hidden border-2 transition-all ${
-                      selectedImage === item.url ? "border-pink-500" : "border-transparent"
+                      selectedImage === item.url ? "border-pink-500" : "border-pink-500/30"
                     }`}
                   >
                     <img
@@ -507,7 +507,7 @@ export default function CampaignStudioPage() {
               </div>
             )}
             
-            <p className="text-center text-gray-500 text-xs mt-4">
+            <p className="text-center text-pink-300/60 text-xs mt-4">
               Add PEXELS_API_KEY to .env for real stock photos • Current: Demo images
             </p>
           </div>
@@ -515,12 +515,12 @@ export default function CampaignStudioPage() {
 
         {/* BATCH GENERATOR TAB */}
         {activeTab === "batch" && (
-          <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 mb-8 border border-white/20">
+          <div className="bg-gray-900/80 backdrop-blur rounded-3xl p-8 mb-8 border border-pink-500/40">
             <h2 className="text-2xl font-bold text-white mb-2 text-center">📅 30-Day Content Generator</h2>
-            <p className="text-gray-400 text-center mb-6">Generate a month of social media content in 2 minutes</p>
+            <p className="text-pink-300 text-center mb-6">Generate a month of social media content in 2 minutes</p>
             
             <div className="max-w-md mx-auto mb-6">
-              <label className="text-sm text-gray-400 mb-2 block">Content Duration</label>
+              <label className="text-sm text-pink-400 mb-2 block">Content Duration</label>
               <div className="flex gap-2">
                 {[7, 14, 30].map((days) => (
                   <button
@@ -528,8 +528,8 @@ export default function CampaignStudioPage() {
                     onClick={() => setBatchDays(days)}
                     className={`flex-1 py-3 rounded-xl font-medium transition-all ${
                       batchDays === days
-                        ? "bg-green-500 text-white"
-                        : "bg-white/10 text-gray-300 hover:bg-white/20"
+                        ? "bg-pink-500 text-white"
+                        : "bg-gray-800 text-white hover:bg-gray-700 border border-pink-500/40"
                     }`}
                   >
                     {days} Days
@@ -541,7 +541,7 @@ export default function CampaignStudioPage() {
             <button
               onClick={generateBatchContent}
               disabled={isGeneratingBatch}
-              className="w-full max-w-md mx-auto block py-4 bg-gradient-to-r from-green-500 to-teal-500 text-white rounded-xl font-bold text-lg disabled:opacity-50"
+              className="w-full max-w-md mx-auto block py-4 bg-pink-500 hover:bg-pink-600 text-white rounded-xl font-bold text-lg disabled:opacity-50"
             >
               {isGeneratingBatch ? (
                 <span className="flex items-center justify-center gap-2">
@@ -560,31 +560,23 @@ export default function CampaignStudioPage() {
               <div className="mt-8">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold text-white">Content Calendar</h3>
-                  <span className="text-sm text-gray-400">{batchContent.length} pieces generated</span>
+                  <span className="text-sm text-pink-300">{batchContent.length} pieces generated</span>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[600px] overflow-y-auto">
                   {batchContent.map((piece) => (
                     <div
                       key={piece.id}
-                      className={`p-4 rounded-xl border ${
-                        piece.type === "reel" ? "bg-pink-500/10 border-pink-500/30" :
-                        piece.type === "image" ? "bg-blue-500/10 border-blue-500/30" :
-                        "bg-green-500/10 border-green-500/30"
-                      }`}
+                      className="p-4 rounded-xl border bg-gray-800 border-pink-500/40"
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs text-gray-400">{piece.scheduledDate}</span>
-                        <span className={`text-xs px-2 py-0.5 rounded ${
-                          piece.type === "reel" ? "bg-pink-500/20 text-pink-300" :
-                          piece.type === "image" ? "bg-blue-500/20 text-blue-300" :
-                          "bg-green-500/20 text-green-300"
-                        }`}>
+                        <span className="text-xs text-pink-300">{piece.scheduledDate}</span>
+                        <span className="text-xs px-2 py-0.5 rounded bg-pink-500/20 text-pink-300">
                           {piece.type}
                         </span>
                       </div>
                       <p className="text-white font-medium text-sm mb-1">"{piece.hook}"</p>
-                      <p className="text-gray-400 text-xs">{piece.service}</p>
+                      <p className="text-pink-200/60 text-xs">{piece.service}</p>
                       <button
                         onClick={() => {
                           setPrompt(piece.hook);
@@ -607,7 +599,7 @@ export default function CampaignStudioPage() {
         {activeTab === "create" && (
         <>
         {/* Main Prompt Box - Like Canva */}
-        <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 mb-8 border border-white/20">
+        <div className="bg-gray-900/80 backdrop-blur rounded-3xl p-8 mb-8 border border-pink-500/40">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-semibold text-white mb-2">
               What will you create today?
@@ -619,7 +611,7 @@ export default function CampaignStudioPage() {
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Describe your campaign idea... (e.g., 'Tirzepatide weight loss VIP launch with special pricing')"
-              className="w-full bg-white/5 border border-white/20 rounded-2xl px-6 py-4 text-white placeholder-gray-400 focus:border-pink-500 focus:outline-none resize-none text-lg"
+              className="w-full bg-gray-800 border border-pink-500/40 rounded-2xl px-6 py-4 text-white placeholder-pink-200/50 focus:border-pink-500 focus:outline-none resize-none text-lg"
               rows={3}
             />
           </div>
@@ -629,7 +621,7 @@ export default function CampaignStudioPage() {
             <button
               onClick={generateFullCampaign}
               disabled={!prompt || isGeneratingCampaign}
-              className="px-6 py-3 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-xl font-medium hover:from-pink-400 hover:to-purple-400 transition-all disabled:opacity-50 flex items-center gap-2"
+              className="px-6 py-3 bg-pink-500 hover:bg-pink-600 text-white rounded-xl font-medium transition-all disabled:opacity-50 flex items-center gap-2"
             >
               {isGeneratingCampaign ? (
                 <>
@@ -646,21 +638,21 @@ export default function CampaignStudioPage() {
             <button
               onClick={generateHooks}
               disabled={!prompt || isGeneratingHooks}
-              className="px-6 py-3 bg-white/10 border border-white/20 text-white rounded-xl font-medium hover:bg-white/20 transition-all disabled:opacity-50"
+              className="px-6 py-3 bg-gray-800 border border-pink-500/40 text-white rounded-xl font-medium hover:bg-gray-700 transition-all disabled:opacity-50"
             >
               {isGeneratingHooks ? "..." : "🎯 Generate Hooks"}
             </button>
             <button
               onClick={generateImages}
               disabled={!campaign || isGeneratingImages}
-              className="px-6 py-3 bg-white/10 border border-white/20 text-white rounded-xl font-medium hover:bg-white/20 transition-all disabled:opacity-50"
+              className="px-6 py-3 bg-gray-800 border border-pink-500/40 text-white rounded-xl font-medium hover:bg-gray-700 transition-all disabled:opacity-50"
             >
               {isGeneratingImages ? "..." : "🖼️ Generate Images"}
             </button>
             <button
               onClick={generateVideo}
               disabled={!campaign || isGeneratingVideo}
-              className="px-6 py-3 bg-white/10 border border-white/20 text-white rounded-xl font-medium hover:bg-white/20 transition-all disabled:opacity-50"
+              className="px-6 py-3 bg-gray-800 border border-pink-500/40 text-white rounded-xl font-medium hover:bg-gray-700 transition-all disabled:opacity-50"
             >
               {isGeneratingVideo ? "..." : "🎬 Generate Video"}
             </button>
@@ -671,7 +663,7 @@ export default function CampaignStudioPage() {
           {/* Left Column - Templates & Settings */}
           <div className="space-y-6">
             {/* Campaign Templates */}
-            <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20">
+            <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
               <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                 📋 Quick Templates
               </h3>
@@ -683,7 +675,7 @@ export default function CampaignStudioPage() {
                     className={`p-3 rounded-xl text-left transition-all ${
                       selectedTemplate?.id === template.id
                         ? "bg-pink-500/30 border-pink-500"
-                        : "bg-white/5 border-white/10 hover:bg-white/10"
+                        : "bg-gray-800 border-pink-500/40 hover:border-pink-500"
                     } border`}
                   >
                     <span className="text-xl">{template.icon}</span>
@@ -694,7 +686,7 @@ export default function CampaignStudioPage() {
             </div>
 
             {/* Video Format */}
-            <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20">
+            <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
               <h3 className="text-lg font-semibold text-white mb-4">📐 Video Format</h3>
               <div className="grid grid-cols-3 gap-2">
                 {[
@@ -708,12 +700,12 @@ export default function CampaignStudioPage() {
                     className={`p-3 rounded-xl text-center transition-all ${
                       videoFormat === format.id
                         ? "bg-pink-500/30 border-pink-500"
-                        : "bg-white/5 border-white/10 hover:bg-white/10"
+                        : "bg-gray-800 border-pink-500/40 hover:border-pink-500"
                     } border`}
                   >
                     <span className="text-xl">{format.icon}</span>
                     <div className="text-xs text-white mt-1">{format.name}</div>
-                    <div className="text-xs text-gray-400">{format.ratio}</div>
+                    <div className="text-xs text-pink-300">{format.ratio}</div>
                   </button>
                 ))}
               </div>
@@ -721,7 +713,7 @@ export default function CampaignStudioPage() {
 
             {/* Generated Hooks */}
             {hooks.length > 0 && (
-              <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20">
+              <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
                 <h3 className="text-lg font-semibold text-white mb-4">🎯 Viral Hooks</h3>
                 <div className="space-y-2">
                   {hooks.map((hook, i) => (
@@ -731,7 +723,7 @@ export default function CampaignStudioPage() {
                       className={`w-full p-3 rounded-xl text-left transition-all text-sm ${
                         selectedHook === hook
                           ? "bg-pink-500/30 border-pink-500 text-white"
-                          : "bg-white/5 border-white/10 text-gray-300 hover:bg-white/10"
+                          : "bg-gray-800 border-pink-500/40 text-white hover:border-pink-500"
                       } border`}
                     >
                       "{hook}"
@@ -746,7 +738,7 @@ export default function CampaignStudioPage() {
           <div className="space-y-6">
             {/* Campaign Preview */}
             {campaign && (
-              <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20">
+              <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
                 <h3 className="text-lg font-semibold text-white mb-4">📝 Campaign Content</h3>
                 
                 <div className="space-y-4">
@@ -758,7 +750,7 @@ export default function CampaignStudioPage() {
                   {campaign.subheadline && (
                     <div>
                       <label className="text-xs text-pink-400 uppercase tracking-wide">Subheadline</label>
-                      <div className="text-gray-300 mt-1">{campaign.subheadline}</div>
+                      <div className="text-pink-200 mt-1">{campaign.subheadline}</div>
                     </div>
                   )}
 
@@ -766,7 +758,7 @@ export default function CampaignStudioPage() {
                     <label className="text-xs text-pink-400 uppercase tracking-wide">Benefits</label>
                     <ul className="mt-1 space-y-1">
                       {campaign.benefits.map((benefit, i) => (
-                        <li key={i} className="text-gray-300 text-sm flex items-center gap-2">
+                        <li key={i} className="text-white text-sm flex items-center gap-2">
                           <span className="text-pink-400">✓</span> {benefit}
                         </li>
                       ))}
@@ -785,7 +777,7 @@ export default function CampaignStudioPage() {
 
             {/* Generated Images */}
             {images.length > 0 && (
-              <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20">
+              <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
                 <h3 className="text-lg font-semibold text-white mb-4">🖼️ AI Images</h3>
                 <div className="grid grid-cols-2 gap-3">
                   {images.map((img, i) => (
@@ -793,7 +785,7 @@ export default function CampaignStudioPage() {
                       key={i}
                       onClick={() => setSelectedImage(img)}
                       className={`relative aspect-[9/16] rounded-xl overflow-hidden border-2 transition-all ${
-                        selectedImage === img ? "border-pink-500" : "border-transparent"
+                        selectedImage === img ? "border-pink-500" : "border-pink-500/30"
                       }`}
                     >
                       <img src={img} alt={`Generated ${i + 1}`} className="w-full h-full object-cover" />
@@ -810,7 +802,7 @@ export default function CampaignStudioPage() {
 
             {/* Social Captions */}
             {campaign?.instagramCaption && (
-              <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20">
+              <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
                 <h3 className="text-lg font-semibold text-white mb-4">📱 Social Captions</h3>
                 <div className="space-y-4">
                   {[
@@ -818,9 +810,9 @@ export default function CampaignStudioPage() {
                     { platform: "TikTok", caption: campaign.tiktokCaption, icon: "🎵" },
                     { platform: "Facebook", caption: campaign.facebookCaption, icon: "👥" },
                   ].map((item) => (
-                    <div key={item.platform} className="bg-white/5 rounded-xl p-4">
+                    <div key={item.platform} className="bg-gray-800 rounded-xl p-4 border border-pink-500/30">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm text-gray-400">{item.icon} {item.platform}</span>
+                        <span className="text-sm text-pink-300">{item.icon} {item.platform}</span>
                         <button
                           onClick={() => copyToClipboard(item.caption)}
                           className="text-xs text-pink-400 hover:text-pink-300"
@@ -828,7 +820,7 @@ export default function CampaignStudioPage() {
                           Copy
                         </button>
                       </div>
-                      <p className="text-gray-300 text-sm whitespace-pre-wrap">{item.caption}</p>
+                      <p className="text-white text-sm whitespace-pre-wrap">{item.caption}</p>
                     </div>
                   ))}
                   
@@ -849,17 +841,17 @@ export default function CampaignStudioPage() {
           {/* Right Column - Preview & Publish */}
           <div className="space-y-6">
             {/* Video Preview */}
-            <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20">
+            <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
               <h3 className="text-lg font-semibold text-white mb-4">🎬 Video Preview</h3>
               
               {isGeneratingVideo ? (
-                <div className="aspect-[9/16] bg-black/50 rounded-xl flex flex-col items-center justify-center">
+                <div className="aspect-[9/16] bg-gray-800 rounded-xl flex flex-col items-center justify-center border border-pink-500/30">
                   <svg className="animate-spin h-12 w-12 text-pink-500 mb-4" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
-                  <p className="text-gray-400">Generating video...</p>
-                  <p className="text-gray-500 text-sm">This takes ~60 seconds</p>
+                  <p className="text-white">Generating video...</p>
+                  <p className="text-pink-300 text-sm">This takes ~60 seconds</p>
                 </div>
               ) : generatedVideoUrl ? (
                 <div className="space-y-4">
@@ -877,15 +869,15 @@ export default function CampaignStudioPage() {
                   </a>
                 </div>
               ) : (
-                <div className="aspect-[9/16] bg-gradient-to-br from-pink-900/30 to-purple-900/30 rounded-xl flex flex-col items-center justify-center border border-dashed border-white/20">
+                <div className="aspect-[9/16] bg-gray-800 rounded-xl flex flex-col items-center justify-center border border-dashed border-pink-500/40">
                   <span className="text-4xl mb-2">🎬</span>
-                  <p className="text-gray-400 text-sm">Video preview will appear here</p>
+                  <p className="text-pink-300 text-sm">Video preview will appear here</p>
                 </div>
               )}
             </div>
 
             {/* Publish Panel */}
-            <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20">
+            <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
               <h3 className="text-lg font-semibold text-white mb-4">📤 Publish Campaign</h3>
               
               <div className="space-y-3 mb-4">
@@ -897,7 +889,7 @@ export default function CampaignStudioPage() {
                 ].map((platform) => (
                   <label
                     key={platform.id}
-                    className="flex items-center gap-3 p-3 bg-white/5 rounded-xl cursor-pointer hover:bg-white/10 transition-colors"
+                    className="flex items-center gap-3 p-3 bg-gray-800 rounded-xl cursor-pointer hover:bg-gray-700 transition-colors border border-pink-500/30"
                   >
                     <input
                       type="checkbox"
@@ -919,37 +911,37 @@ export default function CampaignStudioPage() {
               <button
                 onClick={publishToSocial}
                 disabled={!generatedVideoUrl || isPublishing || !Object.values(publishPlatforms).some(Boolean)}
-                className="w-full py-4 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-xl font-bold text-lg hover:from-pink-400 hover:to-purple-400 transition-all disabled:opacity-50"
+                className="w-full py-4 bg-pink-500 hover:bg-pink-600 text-white rounded-xl font-bold text-lg transition-all disabled:opacity-50"
               >
                 {isPublishing ? "Publishing..." : "🚀 Publish Campaign"}
               </button>
             </div>
 
             {/* Quick Stats */}
-            <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20">
+            <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
               <h3 className="text-lg font-semibold text-white mb-4">📊 Campaign Stats</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-pink-400">{scoredHooks.length || hooks.length}</div>
-                  <div className="text-xs text-gray-400">Hooks</div>
+                  <div className="text-xs text-pink-300">Hooks</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-400">{images.length}</div>
-                  <div className="text-xs text-gray-400">Images</div>
+                  <div className="text-2xl font-bold text-pink-400">{images.length}</div>
+                  <div className="text-xs text-pink-300">Images</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-pink-400">{campaign?.benefits.length || 0}</div>
-                  <div className="text-xs text-gray-400">Benefits</div>
+                  <div className="text-xs text-pink-300">Benefits</div>
                 </div>
                 <div className="text-center">
-                  <div className="text-2xl font-bold text-purple-400">{generatedVideoUrl ? 1 : 0}</div>
-                  <div className="text-xs text-gray-400">Videos</div>
+                  <div className="text-2xl font-bold text-pink-400">{generatedVideoUrl ? 1 : 0}</div>
+                  <div className="text-xs text-pink-300">Videos</div>
                 </div>
               </div>
             </div>
 
             {/* Caption Settings */}
-            <div className="bg-white/10 backdrop-blur-xl rounded-2xl p-6 border border-white/20">
+            <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
               <h3 className="text-lg font-semibold text-white mb-4">📝 Auto Captions</h3>
               <label className="flex items-center gap-3 mb-4">
                 <input
@@ -973,11 +965,11 @@ export default function CampaignStudioPage() {
                       className={`p-2 rounded-lg text-center transition-all ${
                         captionStyle === style.id
                           ? "bg-pink-500/30 border-pink-500"
-                          : "bg-white/5 border-white/10"
+                          : "bg-gray-800 border-pink-500/40"
                       } border`}
                     >
                       <div className="text-sm text-white">{style.name}</div>
-                      <div className="text-xs text-gray-400">{style.desc}</div>
+                      <div className="text-xs text-pink-300">{style.desc}</div>
                     </button>
                   ))}
                 </div>
