@@ -8,6 +8,58 @@ interface VideoTemplate {
   description: string;
 }
 
+interface TemplateVariant {
+  id: string;
+  name: string;
+  style: string;
+  thumbnail: string;
+  description: string;
+  hook: string;
+  pacing: "slow" | "medium" | "fast";
+  mood: string;
+}
+
+const TEMPLATE_VARIANTS: Record<string, TemplateVariant[]> = {
+  solaria: [
+    { id: "solaria-a", name: "Elegant Reveal", style: "luxury", thumbnail: "🌟", description: "Dramatic reveal with luxury aesthetics", hook: "Premium transformation", pacing: "slow", mood: "Sophisticated" },
+    { id: "solaria-b", name: "Before/After Focus", style: "clean", thumbnail: "📸", description: "Emphasizes real results", hook: "See the difference", pacing: "medium", mood: "Trustworthy" },
+    { id: "solaria-c", name: "Tech Forward", style: "energetic", thumbnail: "⚡", description: "Highlights technology & innovation", hook: "Cutting-edge treatment", pacing: "fast", mood: "Exciting" },
+  ],
+  botox: [
+    { id: "botox-a", name: "Quick & Easy", style: "minimal", thumbnail: "✨", description: "Emphasizes convenience", hook: "15 minutes to gorgeous", pacing: "fast", mood: "Effortless" },
+    { id: "botox-b", name: "Natural Beauty", style: "clean", thumbnail: "🌸", description: "Natural-looking results", hook: "Enhance your natural beauty", pacing: "medium", mood: "Authentic" },
+    { id: "botox-c", name: "VIP Experience", style: "luxury", thumbnail: "💎", description: "Premium service feel", hook: "The VIP treatment", pacing: "slow", mood: "Exclusive" },
+  ],
+  morpheus8: [
+    { id: "morpheus8-a", name: "Science Focus", style: "clean", thumbnail: "🔬", description: "RF technology explained", hook: "Science meets beauty", pacing: "medium", mood: "Educational" },
+    { id: "morpheus8-b", name: "Transformation", style: "energetic", thumbnail: "🔥", description: "Dramatic before/after", hook: "Total transformation", pacing: "fast", mood: "Powerful" },
+    { id: "morpheus8-c", name: "Luxe Clinic", style: "luxury", thumbnail: "✨", description: "High-end spa experience", hook: "Luxury skin treatment", pacing: "slow", mood: "Premium" },
+  ],
+  weightloss: [
+    { id: "weightloss-a", name: "Journey Story", style: "clean", thumbnail: "🏃", description: "Personal transformation narrative", hook: "Start your journey", pacing: "medium", mood: "Inspiring" },
+    { id: "weightloss-b", name: "Medical Authority", style: "minimal", thumbnail: "👩‍⚕️", description: "Physician-supervised emphasis", hook: "Doctor-approved", pacing: "slow", mood: "Trustworthy" },
+    { id: "weightloss-c", name: "Results Driven", style: "energetic", thumbnail: "📊", description: "Stats and success stories", hook: "Real results, real fast", pacing: "fast", mood: "Motivating" },
+  ],
+  fillers: [
+    { id: "fillers-a", name: "Subtle Enhancement", style: "clean", thumbnail: "💋", description: "Natural-looking results", hook: "Enhance, don't change", pacing: "medium", mood: "Natural" },
+    { id: "fillers-b", name: "Glam Up", style: "luxury", thumbnail: "💄", description: "Bold, glamorous results", hook: "Red carpet ready", pacing: "fast", mood: "Glamorous" },
+    { id: "fillers-c", name: "Expert Hands", style: "minimal", thumbnail: "👐", description: "Focus on expert injection", hook: "Precision artistry", pacing: "slow", mood: "Professional" },
+  ],
+  prf: [
+    { id: "prf-a", name: "Natural Regrowth", style: "clean", thumbnail: "🌱", description: "Natural healing process", hook: "Your body's own power", pacing: "medium", mood: "Organic" },
+    { id: "prf-b", name: "Confidence Boost", style: "energetic", thumbnail: "💪", description: "Confidence transformation", hook: "Confidence restored", pacing: "fast", mood: "Empowering" },
+  ],
+  iv: [
+    { id: "iv-a", name: "Wellness Focus", style: "clean", thumbnail: "💧", description: "Health and hydration", hook: "Feel amazing inside", pacing: "medium", mood: "Refreshing" },
+    { id: "iv-b", name: "Energy Boost", style: "energetic", thumbnail: "⚡", description: "Energy and vitality", hook: "Instant energy", pacing: "fast", mood: "Energizing" },
+  ],
+  custom: [
+    { id: "custom-a", name: "Professional", style: "clean", thumbnail: "📋", description: "Clean professional look", hook: "Custom hook", pacing: "medium", mood: "Professional" },
+    { id: "custom-b", name: "Bold", style: "energetic", thumbnail: "🎯", description: "High energy appeal", hook: "Custom hook", pacing: "fast", mood: "Bold" },
+    { id: "custom-c", name: "Elegant", style: "luxury", thumbnail: "✨", description: "Luxury feel", hook: "Custom hook", pacing: "slow", mood: "Elegant" },
+  ],
+};
+
 interface GeneratedVideo {
   id: string;
   name: string;
@@ -172,6 +224,10 @@ export default function VideoGeneratorPage() {
   const [isGeneratingScript, setIsGeneratingScript] = useState(false);
   const [showSafeZones, setShowSafeZones] = useState(true);
   const [showBrandKit, setShowBrandKit] = useState(false);
+  const [selectedVariant, setSelectedVariant] = useState<string | null>(null);
+  const [showPreview, setShowPreview] = useState(false);
+  const [previewMode, setPreviewMode] = useState<"storyboard" | "animated">("storyboard");
+  const [currentPreviewScene, setCurrentPreviewScene] = useState(0);
   const [brandKit, setBrandKit] = useState({
     primaryColor: "#E91E8C",
     secondaryColor: "#FF69B4",
@@ -323,6 +379,11 @@ export default function VideoGeneratorPage() {
     setGeneratedVideos((prev) => [newVideo, ...prev]);
 
     try {
+      // Get template variant details if selected
+      const variantDetails = selectedVariant 
+        ? TEMPLATE_VARIANTS[selectedTemplate]?.find(v => v.id === selectedVariant)
+        : null;
+
       const response = await fetch("/api/render-video", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -352,6 +413,13 @@ export default function VideoGeneratorPage() {
             qualityPreset: formData.qualityPreset,
             videoStyle: formData.videoStyle,
             includeCaptions: formData.includeCaptions,
+            // Phase 2: Template Variant
+            templateVariant: selectedVariant,
+            variantStyle: variantDetails?.style,
+            variantPacing: variantDetails?.pacing,
+            variantMood: variantDetails?.mood,
+            // Video scenes for preview/rendering
+            scenes: videoScenes,
             // Media
             voiceoverUrl,
             beforeImage,
@@ -602,6 +670,77 @@ Hydration • Energy • Immunity • Recovery
                 ))}
               </div>
             </div>
+
+            {/* Template Variant Selection - NEW PHASE 2 */}
+            {selectedTemplate && TEMPLATE_VARIANTS[selectedTemplate] && (
+              <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
+                <h2 className="text-xl font-semibold text-pink-600 mb-4 flex items-center gap-2">
+                  <span className="bg-pink-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">1.5</span>
+                  Choose Template Style
+                  <span className="ml-2 text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">A/B Testing</span>
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  {TEMPLATE_VARIANTS[selectedTemplate].map((variant) => (
+                    <button
+                      key={variant.id}
+                      onClick={() => setSelectedVariant(variant.id)}
+                      className={`p-4 rounded-xl border-2 transition-all text-left hover:scale-[1.02] relative ${
+                        selectedVariant === variant.id
+                          ? "border-pink-500 bg-pink-50 shadow-lg shadow-pink-500/20"
+                          : "border-gray-200 hover:border-pink-400/50 bg-gray-50"
+                      }`}
+                    >
+                      {/* Thumbnail Icon */}
+                      <div className="text-4xl mb-3">{variant.thumbnail}</div>
+                      
+                      {/* Variant Name */}
+                      <div className="font-semibold text-gray-800">{variant.name}</div>
+                      
+                      {/* Description */}
+                      <div className="text-xs text-gray-500 mt-1">{variant.description}</div>
+                      
+                      {/* Tags */}
+                      <div className="flex gap-1 mt-3 flex-wrap">
+                        <span className={`text-xs px-2 py-0.5 rounded-full ${
+                          variant.pacing === "slow" ? "bg-blue-100 text-blue-700" :
+                          variant.pacing === "medium" ? "bg-yellow-100 text-yellow-700" :
+                          "bg-red-100 text-red-700"
+                        }`}>
+                          {variant.pacing === "slow" ? "🐢" : variant.pacing === "medium" ? "🚶" : "🚀"} {variant.pacing}
+                        </span>
+                        <span className="text-xs px-2 py-0.5 rounded-full bg-purple-100 text-purple-700">
+                          {variant.mood}
+                        </span>
+                      </div>
+                      
+                      {/* Hook Preview */}
+                      <div className="mt-3 text-xs italic text-gray-600 border-t border-gray-100 pt-2">
+                        &ldquo;{variant.hook}&rdquo;
+                      </div>
+                      
+                      {/* Selected indicator */}
+                      {selectedVariant === variant.id && (
+                        <div className="absolute top-2 right-2 text-pink-500">
+                          <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                      )}
+                    </button>
+                  ))}
+                </div>
+                
+                {/* Template Preview Hint */}
+                {selectedVariant && (
+                  <div className="mt-4 p-3 bg-pink-50 rounded-lg border border-pink-200">
+                    <div className="flex items-center gap-2 text-sm text-pink-700">
+                      <span>💡</span>
+                      <span>This style will be applied to your video. You can preview it before rendering!</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
 
             {/* Customize Content */}
             <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
@@ -1272,6 +1411,228 @@ Hydration • Energy • Immunity • Recovery
                   </button>
                 </div>
               )}
+            </div>
+
+            {/* Preview Player - PHASE 2 */}
+            <div className="bg-white rounded-2xl p-6 border border-pink-200 shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-pink-600 flex items-center gap-2">
+                  <span className="bg-pink-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">8</span>
+                  Preview Your Video
+                </h2>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => setPreviewMode("storyboard")}
+                    className={`px-3 py-1 rounded-lg text-sm transition-colors ${
+                      previewMode === "storyboard"
+                        ? "bg-pink-500 text-white"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    }`}
+                  >
+                    📋 Storyboard
+                  </button>
+                  <button
+                    onClick={() => setPreviewMode("animated")}
+                    className={`px-3 py-1 rounded-lg text-sm transition-colors ${
+                      previewMode === "animated"
+                        ? "bg-pink-500 text-white"
+                        : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                    }`}
+                  >
+                    ▶️ Animated
+                  </button>
+                </div>
+              </div>
+
+              {/* Storyboard Preview */}
+              {previewMode === "storyboard" && (
+                <div className="space-y-4">
+                  {/* Scene Timeline */}
+                  <div className="flex gap-2 overflow-x-auto pb-2">
+                    {videoScenes.map((scene, index) => (
+                      <button
+                        key={scene.id}
+                        onClick={() => setCurrentPreviewScene(index)}
+                        className={`flex-shrink-0 p-2 rounded-lg border-2 transition-all ${
+                          currentPreviewScene === index
+                            ? "border-pink-500 bg-pink-50"
+                            : "border-gray-200 bg-gray-50 hover:border-pink-300"
+                        }`}
+                        style={{ width: "100px" }}
+                      >
+                        <div className="text-xs text-gray-500 mb-1">Scene {index + 1}</div>
+                        <div className="text-xs font-medium text-gray-700 truncate">{scene.title}</div>
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Current Scene Preview */}
+                  <div 
+                    className="relative rounded-xl overflow-hidden"
+                    style={{
+                      aspectRatio: selectedFormat === "reel" ? "9/16" : selectedFormat === "story" ? "9/16" : "1/1",
+                      maxHeight: "400px",
+                      margin: "0 auto",
+                      background: brandKit.backgroundColor,
+                    }}
+                  >
+                    {/* Background */}
+                    <div 
+                      className="absolute inset-0"
+                      style={{
+                        background: `linear-gradient(135deg, ${brandKit.primaryColor}20 0%, ${brandKit.secondaryColor}20 100%)`,
+                      }}
+                    />
+                    
+                    {/* Content */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
+                      {/* Scene Icon/Type */}
+                      <div className="text-4xl mb-4">
+                        {videoScenes[currentPreviewScene]?.id === "hook" && "🎬"}
+                        {videoScenes[currentPreviewScene]?.id === "problem" && "🤔"}
+                        {videoScenes[currentPreviewScene]?.id === "solution" && "💡"}
+                        {videoScenes[currentPreviewScene]?.id === "benefits" && "✨"}
+                        {videoScenes[currentPreviewScene]?.id === "social_proof" && "⭐"}
+                        {videoScenes[currentPreviewScene]?.id === "cta" && "📞"}
+                        {videoScenes[currentPreviewScene]?.id === "closing" && "🏁"}
+                      </div>
+                      
+                      {/* Scene Title */}
+                      <div 
+                        className="text-xl font-bold mb-2"
+                        style={{ color: brandKit.primaryColor }}
+                      >
+                        {videoScenes[currentPreviewScene]?.title}
+                      </div>
+                      
+                      {/* Text on Screen */}
+                      <div 
+                        className="text-lg font-semibold mb-4 max-w-[80%]"
+                        style={{ color: brandKit.textColor }}
+                      >
+                        {videoScenes[currentPreviewScene]?.textOnScreen}
+                      </div>
+                      
+                      {/* Voiceover Preview */}
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <div className="bg-black/60 rounded-lg p-3 text-white text-sm italic">
+                          &ldquo;{videoScenes[currentPreviewScene]?.voiceover}&rdquo;
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Safe Zones Overlay */}
+                    {showSafeZones && (
+                      <>
+                        <div className="absolute bottom-0 left-0 right-0 h-[15%] bg-red-500/20 border-t-2 border-red-400 border-dashed flex items-center justify-center">
+                          <span className="text-red-600 text-xs font-medium bg-white/80 px-2 py-0.5 rounded">Caption Zone</span>
+                        </div>
+                        <div className="absolute top-0 left-0 right-0 h-[8%] bg-red-500/20 border-b-2 border-red-400 border-dashed flex items-center justify-center">
+                          <span className="text-red-600 text-xs font-medium bg-white/80 px-2 py-0.5 rounded">UI Zone</span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Scene Navigation */}
+                  <div className="flex items-center justify-center gap-4">
+                    <button
+                      onClick={() => setCurrentPreviewScene(Math.max(0, currentPreviewScene - 1))}
+                      disabled={currentPreviewScene === 0}
+                      className="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 disabled:opacity-50 hover:bg-gray-200 transition-colors"
+                    >
+                      ← Previous
+                    </button>
+                    <span className="text-gray-500">
+                      Scene {currentPreviewScene + 1} of {videoScenes.length}
+                    </span>
+                    <button
+                      onClick={() => setCurrentPreviewScene(Math.min(videoScenes.length - 1, currentPreviewScene + 1))}
+                      disabled={currentPreviewScene === videoScenes.length - 1}
+                      className="px-4 py-2 rounded-lg bg-gray-100 text-gray-600 disabled:opacity-50 hover:bg-gray-200 transition-colors"
+                    >
+                      Next →
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Animated Preview */}
+              {previewMode === "animated" && (
+                <div className="space-y-4">
+                  <div 
+                    className="relative rounded-xl overflow-hidden mx-auto"
+                    style={{
+                      aspectRatio: selectedFormat === "reel" ? "9/16" : selectedFormat === "story" ? "9/16" : "1/1",
+                      maxHeight: "400px",
+                      background: brandKit.backgroundColor,
+                    }}
+                  >
+                    {/* Animated Scene Slideshow */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center animate-pulse">
+                      <div className="text-5xl mb-4">🎬</div>
+                      <div 
+                        className="text-xl font-bold"
+                        style={{ color: brandKit.primaryColor }}
+                      >
+                        {headline}
+                      </div>
+                      <div 
+                        className="text-sm mt-2 opacity-70"
+                        style={{ color: brandKit.textColor }}
+                      >
+                        {videoScenes.length} scenes • {selectedFormat} format
+                      </div>
+                    </div>
+
+                    {/* Play Button Overlay */}
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 transition-colors cursor-pointer group">
+                      <div className="w-20 h-20 rounded-full bg-white/90 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                        <svg className="w-8 h-8 text-pink-600 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M8 5v14l11-7z"/>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className="text-center text-gray-500 text-sm">
+                    Full animated preview will play in the Remotion Studio.
+                    <br />
+                    <span className="text-pink-600">Generate the video to see the final result!</span>
+                  </p>
+                </div>
+              )}
+
+              {/* Preview Summary */}
+              <div className="mt-4 p-4 bg-gray-50 rounded-xl border border-gray-200">
+                <h3 className="font-medium text-gray-800 mb-2">Video Summary</h3>
+                <div className="grid grid-cols-2 gap-2 text-sm">
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-500">Service:</span>
+                    <span className="font-medium text-gray-700">{SERVICE_TEMPLATES.find(t => t.id === selectedTemplate)?.name || "Not selected"}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-500">Format:</span>
+                    <span className="font-medium text-gray-700">{selectedFormat === "reel" ? "Reel (9:16)" : selectedFormat === "story" ? "Story (9:16)" : selectedFormat === "square" ? "Square (1:1)" : "Landscape (16:9)"}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-500">Style:</span>
+                    <span className="font-medium text-gray-700">{selectedVariant ? TEMPLATE_VARIANTS[selectedTemplate]?.find(v => v.id === selectedVariant)?.name : videoStyle}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-500">Quality:</span>
+                    <span className="font-medium text-gray-700">{qualityPreset}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-500">Voiceover:</span>
+                    <span className="font-medium text-gray-700">{useVoiceover ? (voiceoverUrl ? "Ready ✓" : "Will generate") : "None"}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-500">Captions:</span>
+                    <span className="font-medium text-gray-700">{includeCaptions ? "Yes ✓" : "No"}</span>
+                  </div>
+                </div>
+              </div>
             </div>
 
             {/* Generate Button */}

@@ -3,6 +3,13 @@ import { spawn } from "child_process";
 import path from "path";
 import fs from "fs";
 
+interface VideoScene {
+  id: string;
+  title: string;
+  textOnScreen: string;
+  voiceover: string;
+}
+
 interface RenderRequest {
   template: string;
   format: "vertical" | "square" | "horizontal";
@@ -30,6 +37,12 @@ interface RenderRequest {
     videoStyle?: "clean" | "luxury" | "energetic" | "minimal";
     includeCaptions?: boolean;
     captionScript?: string;
+    // Phase 2: Template Variant
+    templateVariant?: string;
+    variantStyle?: string;
+    variantPacing?: "slow" | "medium" | "fast";
+    variantMood?: string;
+    scenes?: VideoScene[];
     // Media
     beforeImage?: string;
     afterImage?: string;
@@ -200,6 +213,10 @@ export async function POST(request: Request) {
     console.log("[Render Video] Quality:", props.qualityPreset || "standard");
     console.log("[Render Video] Style:", props.videoStyle || "clean");
     console.log("[Render Video] Captions:", props.includeCaptions ? "Yes" : "No");
+    console.log("[Render Video] Template Variant:", props.templateVariant || "default");
+    console.log("[Render Video] Variant Style:", props.variantStyle || "none");
+    console.log("[Render Video] Variant Pacing:", props.variantPacing || "medium");
+    console.log("[Render Video] Scenes:", props.scenes?.length || 0);
 
     startBackgroundRender(
       jobId, 
