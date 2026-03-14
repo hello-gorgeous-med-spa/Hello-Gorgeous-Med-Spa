@@ -469,7 +469,7 @@ export default function VideoGeneratorPage() {
           <h1 className="text-3xl font-bold text-white">
             🎬 Video Generator
           </h1>
-          <p className="text-gray-400 mt-2">
+          <p className="text-pink-300 mt-2">
             Create professional marketing videos for Hello Gorgeous Med Spa
           </p>
         </div>
@@ -552,7 +552,7 @@ export default function VideoGeneratorPage() {
               <div className="text-center py-16">
                 <div className="text-6xl mb-4">📹</div>
                 <p className="text-white text-lg">No videos in your library yet</p>
-                <p className="text-sm text-gray-400 mt-2">Videos you generate will appear here</p>
+                <p className="text-sm text-pink-300 mt-2">Videos you generate will appear here</p>
                 <button
                   onClick={() => setActiveTab("create")}
                   className="mt-4 px-6 py-2 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors"
@@ -591,7 +591,7 @@ export default function VideoGeneratorPage() {
                     </div>
                     <div className="p-4">
                       <h3 className="font-medium text-white truncate">{video.name}</h3>
-                      <p className="text-xs text-gray-400 mt-1">
+                      <p className="text-xs text-pink-300 mt-1">
                         {new Date(video.created_at).toLocaleDateString()} • {video.service}
                       </p>
                       <div className="flex gap-2 mt-3">
@@ -669,18 +669,18 @@ export default function VideoGeneratorPage() {
                   
                   <div className="space-y-4">
                     <div>
-                      <label className="block text-sm text-gray-400 mb-1">Image Name</label>
+                      <label className="block text-sm text-pink-400 mb-1">Image Name</label>
                       <input
                         type="text"
                         value={uploadName}
                         onChange={(e) => setUploadName(e.target.value)}
                         placeholder="e.g., Botox Before After"
-                        className="w-full bg-white/10 border border-white/20 text-white rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none placeholder-gray-500"
+                        className="w-full bg-white/10 border border-white/20 text-white rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none placeholder-white/50"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm text-gray-400 mb-1">Category</label>
+                      <label className="block text-sm text-pink-400 mb-1">Category</label>
                       <select
                         value={uploadCategory}
                         onChange={(e) => setUploadCategory(e.target.value)}
@@ -693,18 +693,18 @@ export default function VideoGeneratorPage() {
                     </div>
                     
                     <div>
-                      <label className="block text-sm text-gray-400 mb-1">Tags (comma separated)</label>
+                      <label className="block text-sm text-pink-400 mb-1">Tags (comma separated)</label>
                       <input
                         type="text"
                         value={uploadTags}
                         onChange={(e) => setUploadTags(e.target.value)}
                         placeholder="e.g., botox, before-after, face"
-                        className="w-full bg-white/10 border border-white/20 text-white rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none placeholder-gray-500"
+                        className="w-full bg-white/10 border border-white/20 text-white rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none placeholder-white/50"
                       />
                     </div>
                     
                     <div>
-                      <label className="block text-sm text-gray-400 mb-1">Select Image</label>
+                      <label className="block text-sm text-pink-400 mb-1">Select Image</label>
                       <input
                         ref={imageUploadRef}
                         type="file"
@@ -742,7 +742,7 @@ export default function VideoGeneratorPage() {
               <div className="text-center py-16">
                 <div className="text-6xl mb-4">🖼️</div>
                 <p className="text-white text-lg">No images in your library yet</p>
-                <p className="text-sm text-gray-400 mt-2">Click "Upload Image" to add your first image</p>
+                <p className="text-sm text-pink-300 mt-2">Click "Upload Image" to add your first image</p>
                 <button
                   onClick={() => setShowUploadModal(true)}
                   className="mt-4 px-6 py-2 bg-pink-500 text-white rounded-xl hover:bg-pink-600 transition-colors"
@@ -796,7 +796,7 @@ export default function VideoGeneratorPage() {
                     <div className="p-3">
                       <h3 className="font-medium text-white text-sm truncate">{image.name}</h3>
                       <div className="flex items-center justify-between mt-1">
-                        <span className="text-xs text-gray-400">{image.category}</span>
+                        <span className="text-xs text-pink-300">{image.category}</span>
                         <div className="flex gap-1">
                           <button
                             onClick={() => toggleFavorite(image)}
@@ -840,7 +840,7 @@ export default function VideoGeneratorPage() {
                     }`}
                   >
                     <div className="font-medium text-white">{template.name}</div>
-                    <div className="text-xs text-gray-400 mt-1">{template.description}</div>
+                    <div className="text-xs text-pink-300 mt-1">{template.description}</div>
                   </button>
                 ))}
               </div>
@@ -854,42 +854,42 @@ export default function VideoGeneratorPage() {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm text-gray-300 mb-1 font-medium">Headline</label>
+                  <label className="block text-sm text-pink-400 mb-1 font-medium">Headline</label>
                   <input
                     type="text"
                     value={formData.headline}
                     onChange={(e) => setFormData({ ...formData, headline: e.target.value })}
-                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder-gray-500"
+                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder-white/50"
                     placeholder="VIP Launch Special"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-300 mb-1 font-medium">Price</label>
+                  <label className="block text-sm text-pink-400 mb-1 font-medium">Price</label>
                   <input
                     type="text"
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder-gray-500"
+                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder-white/50"
                     placeholder="$1,895"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-300 mb-1 font-medium">Original Price</label>
+                  <label className="block text-sm text-pink-400 mb-1 font-medium">Original Price</label>
                   <input
                     type="text"
                     value={formData.originalPrice}
                     onChange={(e) => setFormData({ ...formData, originalPrice: e.target.value })}
-                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder-gray-500"
+                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder-white/50"
                     placeholder="$2,500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-gray-300 mb-1 font-medium">Promo Label</label>
+                  <label className="block text-sm text-pink-400 mb-1 font-medium">Promo Label</label>
                   <input
                     type="text"
                     value={formData.promoLabel}
                     onChange={(e) => setFormData({ ...formData, promoLabel: e.target.value })}
-                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder-gray-500"
+                    className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder-white/50"
                     placeholder="Limited Launch Offer"
                   />
                 </div>
@@ -897,7 +897,7 @@ export default function VideoGeneratorPage() {
 
               {/* Benefits */}
               <div className="mt-4">
-                <label className="block text-sm text-gray-300 mb-2 font-medium">Benefits</label>
+                <label className="block text-sm text-pink-400 mb-2 font-medium">Benefits</label>
                 <div className="space-y-2">
                   {formData.benefits.map((benefit, index) => (
                     <input
@@ -909,7 +909,7 @@ export default function VideoGeneratorPage() {
                         newBenefits[index] = e.target.value;
                         setFormData({ ...formData, benefits: newBenefits });
                       }}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none text-white text-sm placeholder-gray-500"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none text-white text-sm placeholder-white/50"
                     />
                   ))}
                 </div>
@@ -940,7 +940,7 @@ export default function VideoGeneratorPage() {
                     ) : (
                       <>
                         <span className="text-2xl mb-1">📷</span>
-                        <span className="text-sm text-gray-400">Before Photo</span>
+                        <span className="text-sm text-white">Before Photo</span>
                       </>
                     )}
                   </button>
@@ -962,7 +962,7 @@ export default function VideoGeneratorPage() {
                     ) : (
                       <>
                         <span className="text-2xl mb-1">✨</span>
-                        <span className="text-sm text-gray-400">After Photo</span>
+                        <span className="text-sm text-white">After Photo</span>
                       </>
                     )}
                   </button>
@@ -993,7 +993,7 @@ export default function VideoGeneratorPage() {
                   >
                     <div className="text-2xl mb-1">{format.icon}</div>
                     <div className="font-medium text-white text-sm">{format.name}</div>
-                    <div className="text-xs text-gray-400">{format.ratio}</div>
+                    <div className="text-xs text-pink-300">{format.ratio}</div>
                   </button>
                 ))}
               </div>
@@ -1007,7 +1007,7 @@ export default function VideoGeneratorPage() {
               </h2>
               
               <div className="mb-4">
-                <label className="block text-sm text-gray-300 mb-2 font-medium">Style</label>
+                <label className="block text-sm text-pink-400 mb-2 font-medium">Style</label>
                 <div className="grid grid-cols-4 gap-2">
                   {[
                     { id: "clean", name: "Clean Clinic", icon: "🏥" },
@@ -1032,7 +1032,7 @@ export default function VideoGeneratorPage() {
               </div>
 
               <div>
-                <label className="block text-sm text-gray-300 mb-2 font-medium">Render Quality</label>
+                <label className="block text-sm text-pink-400 mb-2 font-medium">Render Quality</label>
                 <div className="grid grid-cols-3 gap-2">
                   {[
                     { id: "standard", name: "Standard", crf: "18" },
@@ -1049,7 +1049,7 @@ export default function VideoGeneratorPage() {
                       }`}
                     >
                       <div className="text-sm font-medium text-white">{quality.name}</div>
-                      <div className="text-xs text-gray-400">CRF {quality.crf}</div>
+                      <div className="text-xs text-pink-300">CRF {quality.crf}</div>
                     </button>
                   ))}
                 </div>
@@ -1075,13 +1075,13 @@ export default function VideoGeneratorPage() {
                     formData.includeVoiceover ? "translate-x-7" : "translate-x-0.5"
                   }`} />
                 </button>
-                <span className="text-sm text-gray-300">Include AI voiceover</span>
+                <span className="text-sm text-white">Include AI voiceover</span>
               </div>
 
               {formData.includeVoiceover && (
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm text-gray-300 mb-2 font-medium">Voice</label>
+                    <label className="block text-sm text-pink-400 mb-2 font-medium">Voice</label>
                     <div className="grid grid-cols-3 gap-2">
                       {VOICE_PRESETS.map((voice) => (
                         <button
@@ -1094,20 +1094,20 @@ export default function VideoGeneratorPage() {
                           }`}
                         >
                           <div className="font-medium text-white text-sm">{voice.name}</div>
-                          <div className="text-xs text-gray-400">{voice.description}</div>
+                          <div className="text-xs text-pink-300">{voice.description}</div>
                         </button>
                       ))}
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm text-gray-300 mb-1 font-medium">Custom Script (Optional)</label>
+                    <label className="block text-sm text-pink-400 mb-1 font-medium">Custom Script (Optional)</label>
                     <textarea
                       value={formData.customVoiceScript}
                       onChange={(e) => setFormData({ ...formData, customVoiceScript: e.target.value })}
                       placeholder={generateDefaultScript()}
                       rows={3}
-                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white text-sm resize-none placeholder-gray-500"
+                      className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white text-sm resize-none placeholder-white/50"
                     />
                   </div>
 
@@ -1164,7 +1164,7 @@ export default function VideoGeneratorPage() {
                 <div className="text-center py-12">
                   <div className="text-6xl mb-4">🎬</div>
                   <p className="text-white">No videos generated yet</p>
-                  <p className="text-sm text-gray-400 mt-1">Create your first video above!</p>
+                  <p className="text-sm text-pink-300 mt-1">Create your first video above!</p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -1184,7 +1184,7 @@ export default function VideoGeneratorPage() {
                           {video.status}
                         </span>
                       </div>
-                      <div className="text-xs text-gray-400 mb-3">
+                      <div className="text-xs text-pink-300 mb-3">
                         {video.format} • {new Date(video.createdAt).toLocaleString()}
                       </div>
                       
