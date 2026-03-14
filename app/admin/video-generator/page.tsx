@@ -228,6 +228,101 @@ const OPTIMAL_POST_TIMES: Record<string, { day: string; time: string; engagement
   ],
 };
 
+// Phase 5: Templates Gallery, Collaboration, A/B Testing, Hashtags
+interface VideoTemplateGallery {
+  id: string;
+  name: string;
+  thumbnail: string;
+  service: string;
+  style: string;
+  views: number;
+  engagement: number;
+  likes: number;
+  createdBy: string;
+  createdAt: string;
+  tags: string[];
+}
+
+interface CollaborationComment {
+  id: string;
+  author: string;
+  avatar: string;
+  message: string;
+  timestamp: string;
+  type: "comment" | "approval" | "revision";
+}
+
+interface ABTestResult {
+  id: string;
+  variantA: { name: string; views: number; engagement: number; conversions: number };
+  variantB: { name: string; views: number; engagement: number; conversions: number };
+  winner: "A" | "B" | "tie" | "ongoing";
+  startDate: string;
+  endDate?: string;
+}
+
+const TEMPLATE_GALLERY: VideoTemplateGallery[] = [
+  { id: "gal-1", name: "Spring Botox Special", thumbnail: "💉", service: "botox", style: "clean", views: 12500, engagement: 8.7, likes: 890, createdBy: "Hello Gorgeous", createdAt: "2026-02-15", tags: ["spring", "special", "botox"] },
+  { id: "gal-2", name: "Morpheus8 Transformation", thumbnail: "🔥", service: "morpheus8", style: "energetic", views: 18200, engagement: 12.3, likes: 1420, createdBy: "Hello Gorgeous", createdAt: "2026-01-20", tags: ["transformation", "skin", "trending"] },
+  { id: "gal-3", name: "Weight Loss Journey", thumbnail: "🏃", service: "weightloss", style: "clean", views: 9800, engagement: 7.2, likes: 620, createdBy: "Hello Gorgeous", createdAt: "2026-02-28", tags: ["journey", "health", "semaglutide"] },
+  { id: "gal-4", name: "Lip Filler Perfection", thumbnail: "💋", service: "fillers", style: "luxury", views: 22100, engagement: 15.1, likes: 2100, createdBy: "Hello Gorgeous", createdAt: "2026-01-05", tags: ["lips", "filler", "viral"] },
+  { id: "gal-5", name: "Solaria CO2 Results", thumbnail: "✨", service: "solaria", style: "luxury", views: 8400, engagement: 9.8, likes: 710, createdBy: "Hello Gorgeous", createdAt: "2026-03-01", tags: ["laser", "results", "skincare"] },
+  { id: "gal-6", name: "IV Therapy Energy", thumbnail: "⚡", service: "iv", style: "energetic", views: 5200, engagement: 6.4, likes: 340, createdBy: "Hello Gorgeous", createdAt: "2026-02-10", tags: ["energy", "wellness", "hydration"] },
+];
+
+const MOCK_COMMENTS: CollaborationComment[] = [
+  { id: "c1", author: "Sarah", avatar: "👩‍⚕️", message: "Love this! Can we add the new pricing?", timestamp: "2 hours ago", type: "comment" },
+  { id: "c2", author: "Manager", avatar: "👔", message: "Approved for posting", timestamp: "1 hour ago", type: "approval" },
+];
+
+const MOCK_AB_TESTS: ABTestResult[] = [
+  { 
+    id: "ab-1", 
+    variantA: { name: "Quick & Easy Botox", views: 4500, engagement: 8.2, conversions: 12 },
+    variantB: { name: "VIP Botox Experience", views: 4200, engagement: 11.5, conversions: 18 },
+    winner: "B",
+    startDate: "2026-02-20",
+    endDate: "2026-03-06"
+  },
+  { 
+    id: "ab-2", 
+    variantA: { name: "Before/After Focus", views: 2100, engagement: 9.1, conversions: 5 },
+    variantB: { name: "Tech Forward Style", views: 2300, engagement: 7.8, conversions: 4 },
+    winner: "ongoing",
+    startDate: "2026-03-08"
+  },
+];
+
+const HASHTAG_SETS: Record<string, Record<string, string[]>> = {
+  instagram: {
+    botox: ["#botox", "#botoxlife", "#antiaging", "#wrinklefree", "#medspa", "#beautytips", "#skincare", "#botoxbabe", "#aesthetics", "#illinoismedspa"],
+    fillers: ["#lipfiller", "#dermalfiller", "#fillers", "#lipinjections", "#juvederm", "#restylane", "#beautylips", "#medspalife", "#aestheticnurse", "#chicagomedspa"],
+    morpheus8: ["#morpheus8", "#skinrejuvenation", "#microneedling", "#radiofrequency", "#skintreatment", "#antiagingskin", "#skintightening", "#glowingskin", "#medspatreatment"],
+    weightloss: ["#weightloss", "#semaglutide", "#ozempic", "#weightlossjourney", "#healthylifestyle", "#bodytransformation", "#medicalweightloss", "#tirzepatide"],
+    solaria: ["#co2laser", "#lasertreatment", "#skinresurfacing", "#laserskincare", "#fractional", "#skintexture", "#laserfacial", "#inmode"],
+    iv: ["#ivtherapy", "#ivdrip", "#hydration", "#wellness", "#vitamins", "#immuneboost", "#energyboost", "#selfcare"],
+    prf: ["#prf", "#hairrestoration", "#prfhair", "#naturalbeauty", "#hairgrowth", "#plateletrich", "#regrowth"],
+  },
+  tiktok: {
+    botox: ["#botox", "#botoxcheck", "#medspatiktok", "#beautytok", "#antiaging", "#fyp", "#viral", "#beforeandafter"],
+    fillers: ["#lipfiller", "#fillertok", "#lipscheck", "#beautytok", "#fyp", "#viral", "#medspa", "#glow"],
+    morpheus8: ["#morpheus8", "#skintok", "#glow", "#skincare", "#fyp", "#trending", "#beforeafter"],
+    weightloss: ["#weightlosstiktok", "#semaglutide", "#ozempic", "#transformationtok", "#fyp", "#viral"],
+    solaria: ["#lasertreatment", "#skintok", "#skincare", "#fyp", "#trending", "#beforeafter"],
+    iv: ["#ivtherapy", "#wellnesstok", "#selfcare", "#fyp", "#trending"],
+    prf: ["#hairgrowth", "#prf", "#naturalbeauty", "#fyp"],
+  },
+  facebook: {
+    botox: ["#Botox", "#AntiAging", "#MedSpa", "#OswegoIL", "#HelloGorgeous", "#BeautyTreatment"],
+    fillers: ["#DermalFillers", "#LipFiller", "#MedSpa", "#OswegoIL", "#HelloGorgeous", "#Aesthetics"],
+    morpheus8: ["#Morpheus8", "#SkinTightening", "#MedSpa", "#OswegoIL", "#HelloGorgeous"],
+    weightloss: ["#WeightLoss", "#Semaglutide", "#HealthyLifestyle", "#OswegoIL", "#HelloGorgeous"],
+    solaria: ["#LaserTreatment", "#Skincare", "#MedSpa", "#OswegoIL", "#HelloGorgeous"],
+    iv: ["#IVTherapy", "#Wellness", "#OswegoIL", "#HelloGorgeous"],
+    prf: ["#PRF", "#HairRestoration", "#OswegoIL", "#HelloGorgeous"],
+  },
+};
+
 const SERVICE_TEMPLATES: VideoTemplate[] = [
   { id: "solaria", name: "Solaria CO2 Laser", description: "Fractional laser resurfacing promo" },
   { id: "botox", name: "Botox", description: "Anti-wrinkle treatment promo" },
@@ -389,6 +484,16 @@ export default function VideoGeneratorPage() {
   const [scheduleDate, setScheduleDate] = useState("");
   const [scheduleTime, setScheduleTime] = useState("");
   const [scheduleCaption, setScheduleCaption] = useState("");
+  // Phase 5: Gallery, Collaboration, A/B Testing, Hashtags
+  const [showGallery, setShowGallery] = useState(false);
+  const [galleryFilter, setGalleryFilter] = useState<string>("all");
+  const [showCollaboration, setShowCollaboration] = useState(false);
+  const [collaborationComments, setCollaborationComments] = useState<CollaborationComment[]>(MOCK_COMMENTS);
+  const [newComment, setNewComment] = useState("");
+  const [showABTesting, setShowABTesting] = useState(false);
+  const [showHashtags, setShowHashtags] = useState(false);
+  const [generatedHashtags, setGeneratedHashtags] = useState<string[]>([]);
+  const [hashtagPlatform, setHashtagPlatform] = useState<"instagram" | "tiktok" | "facebook">("instagram");
   const [brandKit, setBrandKit] = useState({
     primaryColor: "#E91E8C",
     secondaryColor: "#FF69B4",
@@ -2239,6 +2344,386 @@ Hydration • Energy • Immunity • Recovery
                   <p className="text-xs text-gray-500 text-center">
                     📊 Analytics update automatically when connected to social media APIs
                   </p>
+                </div>
+              )}
+            </div>
+
+            {/* Phase 5: Templates Gallery */}
+            <div className="bg-white rounded-2xl p-6 border border-fuchsia-200 shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-fuchsia-600 flex items-center gap-2">
+                  <span className="bg-fuchsia-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">7.12</span>
+                  Templates Gallery
+                  <span className="ml-2 text-xs bg-fuchsia-100 text-fuchsia-600 px-2 py-1 rounded-full">Phase 5</span>
+                </h2>
+                <button
+                  onClick={() => setShowGallery(!showGallery)}
+                  className="text-sm text-fuchsia-600 hover:text-fuchsia-800 font-medium"
+                >
+                  {showGallery ? "Hide" : "Browse"} Gallery
+                </button>
+              </div>
+
+              {showGallery && (
+                <div className="space-y-4">
+                  {/* Filter Tabs */}
+                  <div className="flex gap-2 flex-wrap">
+                    {["all", "botox", "fillers", "morpheus8", "weightloss", "solaria", "iv"].map((filter) => (
+                      <button
+                        key={filter}
+                        onClick={() => setGalleryFilter(filter)}
+                        className={`px-3 py-1 rounded-full text-sm transition-colors ${
+                          galleryFilter === filter
+                            ? "bg-fuchsia-500 text-white"
+                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                        }`}
+                      >
+                        {filter === "all" ? "All" : filter.charAt(0).toUpperCase() + filter.slice(1)}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Gallery Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {TEMPLATE_GALLERY
+                      .filter(t => galleryFilter === "all" || t.service === galleryFilter)
+                      .map((template) => (
+                      <div
+                        key={template.id}
+                        className="rounded-xl border border-fuchsia-200 overflow-hidden hover:border-fuchsia-400 transition-colors bg-gradient-to-br from-fuchsia-50 to-pink-50"
+                      >
+                        {/* Thumbnail */}
+                        <div className="h-32 bg-gradient-to-br from-fuchsia-400 to-pink-500 flex items-center justify-center">
+                          <span className="text-5xl">{template.thumbnail}</span>
+                        </div>
+                        
+                        {/* Info */}
+                        <div className="p-4">
+                          <h3 className="font-semibold text-gray-800 mb-1">{template.name}</h3>
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-xs bg-fuchsia-100 text-fuchsia-700 px-2 py-0.5 rounded-full">{template.style}</span>
+                            <span className="text-xs text-gray-500">{template.createdAt}</span>
+                          </div>
+                          
+                          {/* Stats */}
+                          <div className="flex items-center gap-3 text-xs text-gray-600 mb-3">
+                            <span>👁️ {template.views.toLocaleString()}</span>
+                            <span>❤️ {template.likes}</span>
+                            <span>📈 {template.engagement}%</span>
+                          </div>
+                          
+                          {/* Tags */}
+                          <div className="flex flex-wrap gap-1 mb-3">
+                            {template.tags.slice(0, 3).map((tag) => (
+                              <span key={tag} className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">#{tag}</span>
+                            ))}
+                          </div>
+                          
+                          {/* Clone Button */}
+                          <button
+                            onClick={() => {
+                              setSelectedTemplate(template.service);
+                              setVideoStyle(template.style as "clean" | "luxury" | "energetic" | "minimal");
+                              setHeadline(template.name);
+                              setShowGallery(false);
+                            }}
+                            className="w-full py-2 bg-fuchsia-500 text-white rounded-lg text-sm font-medium hover:bg-fuchsia-600 transition-colors"
+                          >
+                            📋 Clone Template
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Phase 5: Auto-Hashtag Generator */}
+            <div className="bg-white rounded-2xl p-6 border border-orange-200 shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-orange-600 flex items-center gap-2">
+                  <span className="bg-orange-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">7.13</span>
+                  Auto-Hashtags
+                  <span className="ml-2 text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded-full">Phase 5</span>
+                </h2>
+                <button
+                  onClick={() => setShowHashtags(!showHashtags)}
+                  className="text-sm text-orange-600 hover:text-orange-800 font-medium"
+                >
+                  {showHashtags ? "Hide" : "Generate"} Hashtags
+                </button>
+              </div>
+
+              {showHashtags && (
+                <div className="space-y-4">
+                  {/* Platform Selection */}
+                  <div className="flex gap-2">
+                    {(["instagram", "tiktok", "facebook"] as const).map((platform) => (
+                      <button
+                        key={platform}
+                        onClick={() => setHashtagPlatform(platform)}
+                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                          hashtagPlatform === platform
+                            ? "bg-orange-500 text-white"
+                            : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                        }`}
+                      >
+                        {platform === "instagram" ? "📸" : platform === "tiktok" ? "🎵" : "👍"}{" "}
+                        {platform.charAt(0).toUpperCase() + platform.slice(1)}
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Generate Button */}
+                  <button
+                    onClick={() => {
+                      const serviceHashtags = HASHTAG_SETS[hashtagPlatform]?.[selectedTemplate] || [];
+                      const genericHashtags = ["#hellogorgeousmedspa", "#oswegoil", "#medspa", "#beauty"];
+                      setGeneratedHashtags([...serviceHashtags, ...genericHashtags]);
+                    }}
+                    className="w-full py-3 bg-orange-500 text-white rounded-xl font-medium hover:bg-orange-600 transition-colors"
+                  >
+                    🏷️ Generate Hashtags for {SERVICE_TEMPLATES.find(s => s.id === selectedTemplate)?.name || "Service"}
+                  </button>
+
+                  {/* Generated Hashtags */}
+                  {generatedHashtags.length > 0 && (
+                    <div className="space-y-3">
+                      <div className="p-4 bg-orange-50 rounded-xl border border-orange-200">
+                        <div className="flex flex-wrap gap-2 mb-3">
+                          {generatedHashtags.map((tag, idx) => (
+                            <span
+                              key={idx}
+                              className="text-sm bg-white text-orange-700 px-3 py-1 rounded-full border border-orange-200 hover:bg-orange-100 cursor-pointer transition-colors"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-gray-500">{generatedHashtags.length} hashtags</span>
+                          <button
+                            onClick={() => {
+                              navigator.clipboard.writeText(generatedHashtags.join(" "));
+                              alert("Hashtags copied!");
+                            }}
+                            className="text-sm text-orange-600 hover:text-orange-800 font-medium"
+                          >
+                            📋 Copy All
+                          </button>
+                        </div>
+                      </div>
+
+                      <p className="text-xs text-gray-500">
+                        💡 Tip: {hashtagPlatform === "instagram" ? "Use 20-30 hashtags" : hashtagPlatform === "tiktok" ? "Use 3-5 trending hashtags" : "Use 3-5 relevant hashtags"} for best reach on {hashtagPlatform}.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Phase 5: A/B Testing Dashboard */}
+            <div className="bg-white rounded-2xl p-6 border border-lime-200 shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-lime-600 flex items-center gap-2">
+                  <span className="bg-lime-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">7.14</span>
+                  A/B Testing
+                  <span className="ml-2 text-xs bg-lime-100 text-lime-600 px-2 py-1 rounded-full">Phase 5</span>
+                </h2>
+                <button
+                  onClick={() => setShowABTesting(!showABTesting)}
+                  className="text-sm text-lime-600 hover:text-lime-800 font-medium"
+                >
+                  {showABTesting ? "Hide" : "View"} Tests
+                </button>
+              </div>
+
+              {showABTesting && (
+                <div className="space-y-4">
+                  <p className="text-sm text-gray-600">
+                    Compare video performance to find what works best for your audience.
+                  </p>
+
+                  {MOCK_AB_TESTS.map((test) => (
+                    <div key={test.id} className="p-4 rounded-xl border border-lime-200 bg-lime-50">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="text-xs text-gray-500">
+                          {test.startDate} {test.endDate ? `→ ${test.endDate}` : "→ Ongoing"}
+                        </span>
+                        <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                          test.winner === "ongoing" ? "bg-yellow-100 text-yellow-700" :
+                          "bg-green-100 text-green-700"
+                        }`}>
+                          {test.winner === "ongoing" ? "🔄 Running" : `🏆 Winner: Variant ${test.winner}`}
+                        </span>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-4">
+                        {/* Variant A */}
+                        <div className={`p-3 rounded-lg border-2 ${
+                          test.winner === "A" ? "border-green-400 bg-green-50" : "border-gray-200 bg-white"
+                        }`}>
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-lg font-bold text-gray-800">A</span>
+                            <span className="text-sm text-gray-600">{test.variantA.name}</span>
+                          </div>
+                          <div className="space-y-1 text-xs">
+                            <div className="flex justify-between">
+                              <span className="text-gray-500">Views:</span>
+                              <span className="font-medium">{test.variantA.views.toLocaleString()}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-500">Engagement:</span>
+                              <span className="font-medium">{test.variantA.engagement}%</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-500">Conversions:</span>
+                              <span className="font-medium text-green-600">{test.variantA.conversions}</span>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Variant B */}
+                        <div className={`p-3 rounded-lg border-2 ${
+                          test.winner === "B" ? "border-green-400 bg-green-50" : "border-gray-200 bg-white"
+                        }`}>
+                          <div className="flex items-center gap-2 mb-2">
+                            <span className="text-lg font-bold text-gray-800">B</span>
+                            <span className="text-sm text-gray-600">{test.variantB.name}</span>
+                          </div>
+                          <div className="space-y-1 text-xs">
+                            <div className="flex justify-between">
+                              <span className="text-gray-500">Views:</span>
+                              <span className="font-medium">{test.variantB.views.toLocaleString()}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-500">Engagement:</span>
+                              <span className="font-medium">{test.variantB.engagement}%</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-500">Conversions:</span>
+                              <span className="font-medium text-green-600">{test.variantB.conversions}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  <button className="w-full py-3 border-2 border-dashed border-lime-300 rounded-xl text-lime-600 font-medium hover:border-lime-400 hover:bg-lime-50 transition-colors">
+                    + Create New A/B Test
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Phase 5: Collaboration */}
+            <div className="bg-white rounded-2xl p-6 border border-blue-200 shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-blue-600 flex items-center gap-2">
+                  <span className="bg-blue-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">7.15</span>
+                  Collaboration
+                  <span className="ml-2 text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded-full">Phase 5</span>
+                </h2>
+                <button
+                  onClick={() => setShowCollaboration(!showCollaboration)}
+                  className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                >
+                  {showCollaboration ? "Hide" : "Show"} Comments
+                </button>
+              </div>
+
+              {showCollaboration && (
+                <div className="space-y-4">
+                  {/* Comments List */}
+                  <div className="space-y-3 max-h-64 overflow-y-auto">
+                    {collaborationComments.map((comment) => (
+                      <div key={comment.id} className="flex gap-3 p-3 bg-gray-50 rounded-xl">
+                        <div className="text-2xl">{comment.avatar}</div>
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <span className="font-medium text-gray-800 text-sm">{comment.author}</span>
+                            <span className="text-xs text-gray-400">{comment.timestamp}</span>
+                            {comment.type === "approval" && (
+                              <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">✓ Approved</span>
+                            )}
+                            {comment.type === "revision" && (
+                              <span className="text-xs bg-orange-100 text-orange-700 px-2 py-0.5 rounded-full">⟳ Revision</span>
+                            )}
+                          </div>
+                          <p className="text-sm text-gray-600">{comment.message}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Add Comment */}
+                  <div className="flex gap-2">
+                    <input
+                      type="text"
+                      value={newComment}
+                      onChange={(e) => setNewComment(e.target.value)}
+                      placeholder="Add a comment or request..."
+                      className="flex-1 px-4 py-2 rounded-xl border border-gray-200 focus:border-blue-400 focus:outline-none text-gray-800 bg-gray-50"
+                    />
+                    <button
+                      onClick={() => {
+                        if (newComment.trim()) {
+                          const comment: CollaborationComment = {
+                            id: `c-${Date.now()}`,
+                            author: "You",
+                            avatar: "👤",
+                            message: newComment,
+                            timestamp: "Just now",
+                            type: "comment",
+                          };
+                          setCollaborationComments([...collaborationComments, comment]);
+                          setNewComment("");
+                        }
+                      }}
+                      className="px-4 py-2 bg-blue-500 text-white rounded-xl font-medium hover:bg-blue-600 transition-colors"
+                    >
+                      Send
+                    </button>
+                  </div>
+
+                  {/* Quick Actions */}
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => {
+                        const approval: CollaborationComment = {
+                          id: `c-${Date.now()}`,
+                          author: "You",
+                          avatar: "👤",
+                          message: "Approved for publishing",
+                          timestamp: "Just now",
+                          type: "approval",
+                        };
+                        setCollaborationComments([...collaborationComments, approval]);
+                      }}
+                      className="flex-1 py-2 bg-green-100 text-green-700 rounded-lg text-sm font-medium hover:bg-green-200 transition-colors"
+                    >
+                      ✓ Approve
+                    </button>
+                    <button
+                      onClick={() => {
+                        const revision: CollaborationComment = {
+                          id: `c-${Date.now()}`,
+                          author: "You",
+                          avatar: "👤",
+                          message: "Needs revision before publishing",
+                          timestamp: "Just now",
+                          type: "revision",
+                        };
+                        setCollaborationComments([...collaborationComments, revision]);
+                      }}
+                      className="flex-1 py-2 bg-orange-100 text-orange-700 rounded-lg text-sm font-medium hover:bg-orange-200 transition-colors"
+                    >
+                      ⟳ Request Changes
+                    </button>
+                  </div>
                 </div>
               )}
             </div>
