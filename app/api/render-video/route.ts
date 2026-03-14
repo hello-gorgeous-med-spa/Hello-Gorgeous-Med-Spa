@@ -43,6 +43,9 @@ interface RenderRequest {
     variantPacing?: "slow" | "medium" | "fast";
     variantMood?: string;
     scenes?: VideoScene[];
+    // Phase 3: Music
+    backgroundMusic?: string;
+    musicVolume?: number;
     // Media
     beforeImage?: string;
     afterImage?: string;
@@ -217,6 +220,8 @@ export async function POST(request: Request) {
     console.log("[Render Video] Variant Style:", props.variantStyle || "none");
     console.log("[Render Video] Variant Pacing:", props.variantPacing || "medium");
     console.log("[Render Video] Scenes:", props.scenes?.length || 0);
+    console.log("[Render Video] Background Music:", props.backgroundMusic || "none");
+    console.log("[Render Video] Music Volume:", props.musicVolume || 30);
 
     startBackgroundRender(
       jobId, 

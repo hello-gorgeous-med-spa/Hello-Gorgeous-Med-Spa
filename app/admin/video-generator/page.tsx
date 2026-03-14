@@ -87,6 +87,82 @@ const VOICE_PRESETS: VoicePreset[] = [
   { id: "adam", name: "Adam", description: "Professional male" },
 ];
 
+// Phase 3: Asset Library
+interface Asset {
+  id: string;
+  name: string;
+  type: "logo" | "background" | "overlay" | "photo";
+  url: string;
+  thumbnail?: string;
+}
+
+interface MusicTrack {
+  id: string;
+  name: string;
+  mood: string;
+  duration: string;
+  bpm: number;
+  preview?: string;
+}
+
+interface ExportPreset {
+  id: string;
+  name: string;
+  description: string;
+  settings: {
+    format: string;
+    quality: string;
+    style: string;
+    includeCaptions: boolean;
+    includeMusic: boolean;
+    voicePreset: string;
+  };
+}
+
+const MUSIC_LIBRARY: MusicTrack[] = [
+  { id: "upbeat-corporate", name: "Upbeat Corporate", mood: "Professional", duration: "2:30", bpm: 120 },
+  { id: "gentle-spa", name: "Gentle Spa", mood: "Relaxing", duration: "3:00", bpm: 70 },
+  { id: "modern-luxury", name: "Modern Luxury", mood: "Sophisticated", duration: "2:45", bpm: 90 },
+  { id: "energetic-pop", name: "Energetic Pop", mood: "Exciting", duration: "2:15", bpm: 128 },
+  { id: "calm-ambient", name: "Calm Ambient", mood: "Peaceful", duration: "3:30", bpm: 60 },
+  { id: "inspiring-journey", name: "Inspiring Journey", mood: "Motivating", duration: "2:50", bpm: 100 },
+  { id: "elegant-piano", name: "Elegant Piano", mood: "Elegant", duration: "3:15", bpm: 75 },
+  { id: "trendy-social", name: "Trendy Social", mood: "Trendy", duration: "1:00", bpm: 115 },
+];
+
+const DEFAULT_PRESETS: ExportPreset[] = [
+  {
+    id: "instagram-reel",
+    name: "Instagram Reel",
+    description: "Optimized for Instagram Reels",
+    settings: { format: "reel", quality: "high", style: "energetic", includeCaptions: true, includeMusic: true, voicePreset: "bella" },
+  },
+  {
+    id: "facebook-ad",
+    name: "Facebook Ad",
+    description: "Professional Facebook video ad",
+    settings: { format: "square", quality: "high", style: "clean", includeCaptions: true, includeMusic: true, voicePreset: "rachel" },
+  },
+  {
+    id: "website-hero",
+    name: "Website Hero",
+    description: "Landscape for website headers",
+    settings: { format: "landscape", quality: "ultra", style: "luxury", includeCaptions: false, includeMusic: true, voicePreset: "charlotte" },
+  },
+  {
+    id: "tiktok-viral",
+    name: "TikTok Viral",
+    description: "Fast-paced TikTok style",
+    settings: { format: "reel", quality: "standard", style: "energetic", includeCaptions: true, includeMusic: true, voicePreset: "elli" },
+  },
+  {
+    id: "clinic-tour",
+    name: "Clinic Tour",
+    description: "Professional clinic showcase",
+    settings: { format: "landscape", quality: "high", style: "clean", includeCaptions: false, includeMusic: true, voicePreset: "rachel" },
+  },
+];
+
 const SERVICE_TEMPLATES: VideoTemplate[] = [
   { id: "solaria", name: "Solaria CO2 Laser", description: "Fractional laser resurfacing promo" },
   { id: "botox", name: "Botox", description: "Anti-wrinkle treatment promo" },
@@ -228,6 +304,17 @@ export default function VideoGeneratorPage() {
   const [showPreview, setShowPreview] = useState(false);
   const [previewMode, setPreviewMode] = useState<"storyboard" | "animated">("storyboard");
   const [currentPreviewScene, setCurrentPreviewScene] = useState(0);
+  // Phase 3: Asset Library & Music
+  const [showAssetLibrary, setShowAssetLibrary] = useState(false);
+  const [assets, setAssets] = useState<Asset[]>([]);
+  const [selectedMusic, setSelectedMusic] = useState<string | null>(null);
+  const [musicVolume, setMusicVolume] = useState(30);
+  const [showMusicLibrary, setShowMusicLibrary] = useState(false);
+  const [savedPresets, setSavedPresets] = useState<ExportPreset[]>(DEFAULT_PRESETS);
+  const [showPresetManager, setShowPresetManager] = useState(false);
+  const [batchFormats, setBatchFormats] = useState<string[]>([]);
+  const [isBatchRendering, setIsBatchRendering] = useState(false);
+  const [batchProgress, setBatchProgress] = useState<{format: string; status: string}[]>([]);
   const [brandKit, setBrandKit] = useState({
     primaryColor: "#E91E8C",
     secondaryColor: "#FF69B4",
@@ -420,6 +507,9 @@ export default function VideoGeneratorPage() {
             variantMood: variantDetails?.mood,
             // Video scenes for preview/rendering
             scenes: videoScenes,
+            // Phase 3: Music
+            backgroundMusic: selectedMusic,
+            musicVolume,
             // Media
             voiceoverUrl,
             beforeImage,
@@ -1336,6 +1426,431 @@ Hydration • Energy • Immunity • Recovery
                       💡 Brand Kit colors will be applied to your video templates for consistent branding across all content.
                     </p>
                   </div>
+                </div>
+              )}
+            </div>
+
+            {/* Phase 3: Music Library */}
+            <div className="bg-white rounded-2xl p-6 border border-indigo-200 shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-indigo-600 flex items-center gap-2">
+                  <span className="bg-indigo-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">7.5</span>
+                  Background Music
+                  <span className="ml-2 text-xs bg-indigo-100 text-indigo-600 px-2 py-1 rounded-full">Phase 3</span>
+                </h2>
+                <button
+                  onClick={() => setShowMusicLibrary(!showMusicLibrary)}
+                  className="text-sm text-indigo-600 hover:text-indigo-800 font-medium"
+                >
+                  {showMusicLibrary ? "Hide" : "Show"} Library
+                </button>
+              </div>
+
+              {/* Selected Music Preview */}
+              {selectedMusic && (
+                <div className="mb-4 p-3 bg-indigo-50 rounded-xl border border-indigo-200">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">🎵</span>
+                      <div>
+                        <div className="font-medium text-gray-800">
+                          {MUSIC_LIBRARY.find(m => m.id === selectedMusic)?.name}
+                        </div>
+                        <div className="text-xs text-gray-500">
+                          {MUSIC_LIBRARY.find(m => m.id === selectedMusic)?.mood} • {MUSIC_LIBRARY.find(m => m.id === selectedMusic)?.duration}
+                        </div>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setSelectedMusic(null)}
+                      className="text-red-500 hover:text-red-700 text-sm"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                  
+                  {/* Volume Control */}
+                  <div className="mt-3 flex items-center gap-3">
+                    <span className="text-sm text-gray-600">🔊 Volume:</span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={musicVolume}
+                      onChange={(e) => setMusicVolume(parseInt(e.target.value))}
+                      className="flex-1 h-2 bg-indigo-200 rounded-lg appearance-none cursor-pointer"
+                    />
+                    <span className="text-sm text-gray-600 w-10">{musicVolume}%</span>
+                  </div>
+                </div>
+              )}
+
+              {showMusicLibrary && (
+                <div className="space-y-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {MUSIC_LIBRARY.map((track) => (
+                      <button
+                        key={track.id}
+                        onClick={() => setSelectedMusic(track.id)}
+                        className={`p-3 rounded-xl border-2 text-left transition-all hover:scale-[1.01] ${
+                          selectedMusic === track.id
+                            ? "border-indigo-500 bg-indigo-50"
+                            : "border-gray-200 hover:border-indigo-300 bg-gray-50"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">
+                            {track.mood === "Relaxing" ? "🧘" :
+                             track.mood === "Professional" ? "💼" :
+                             track.mood === "Sophisticated" ? "🎩" :
+                             track.mood === "Exciting" ? "🎉" :
+                             track.mood === "Peaceful" ? "🌿" :
+                             track.mood === "Motivating" ? "🚀" :
+                             track.mood === "Elegant" ? "🎹" :
+                             "🎵"}
+                          </span>
+                          <div className="flex-1">
+                            <div className="font-medium text-gray-800">{track.name}</div>
+                            <div className="text-xs text-gray-500">{track.mood}</div>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-xs text-gray-500">{track.duration}</div>
+                            <div className="text-xs text-gray-400">{track.bpm} BPM</div>
+                          </div>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                  
+                  <div className="p-3 bg-indigo-50 rounded-xl">
+                    <p className="text-xs text-indigo-700">
+                      🎧 Music will play under the voiceover at the selected volume level. Royalty-free tracks included.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {!selectedMusic && !showMusicLibrary && (
+                <div className="text-center py-4">
+                  <button
+                    onClick={() => setShowMusicLibrary(true)}
+                    className="text-indigo-600 hover:text-indigo-800 text-sm font-medium"
+                  >
+                    + Add background music
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Phase 3: Asset Library */}
+            <div className="bg-white rounded-2xl p-6 border border-emerald-200 shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-emerald-600 flex items-center gap-2">
+                  <span className="bg-emerald-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">7.6</span>
+                  Asset Library
+                  <span className="ml-2 text-xs bg-emerald-100 text-emerald-600 px-2 py-1 rounded-full">Phase 3</span>
+                </h2>
+                <button
+                  onClick={() => setShowAssetLibrary(!showAssetLibrary)}
+                  className="text-sm text-emerald-600 hover:text-emerald-800 font-medium"
+                >
+                  {showAssetLibrary ? "Hide" : "Show"} Assets
+                </button>
+              </div>
+
+              {showAssetLibrary && (
+                <div className="space-y-4">
+                  {/* Upload New Asset */}
+                  <div className="border-2 border-dashed border-emerald-300 rounded-xl p-4 text-center hover:border-emerald-500 transition-colors">
+                    <input
+                      type="file"
+                      id="asset-upload"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (file) {
+                          const reader = new FileReader();
+                          reader.onload = (event) => {
+                            const newAsset: Asset = {
+                              id: `asset-${Date.now()}`,
+                              name: file.name.replace(/\.[^/.]+$/, ""),
+                              type: "photo",
+                              url: event.target?.result as string,
+                            };
+                            setAssets([...assets, newAsset]);
+                          };
+                          reader.readAsDataURL(file);
+                        }
+                      }}
+                    />
+                    <label htmlFor="asset-upload" className="cursor-pointer">
+                      <span className="text-3xl mb-2 block">📁</span>
+                      <span className="text-emerald-600 font-medium">Upload New Asset</span>
+                      <p className="text-xs text-gray-500 mt-1">Logos, backgrounds, overlays, photos</p>
+                    </label>
+                  </div>
+
+                  {/* Asset Grid */}
+                  {assets.length > 0 && (
+                    <div className="grid grid-cols-3 md:grid-cols-4 gap-3">
+                      {assets.map((asset) => (
+                        <div
+                          key={asset.id}
+                          className="relative group rounded-xl overflow-hidden border border-gray-200 hover:border-emerald-400 transition-colors"
+                        >
+                          <img
+                            src={asset.url}
+                            alt={asset.name}
+                            className="w-full h-20 object-cover"
+                          />
+                          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                            <button
+                              onClick={() => {
+                                setBrandKit({ ...brandKit, logoUrl: asset.url });
+                              }}
+                              className="text-xs bg-white text-gray-800 px-2 py-1 rounded"
+                            >
+                              Use
+                            </button>
+                            <button
+                              onClick={() => {
+                                setAssets(assets.filter(a => a.id !== asset.id));
+                              }}
+                              className="text-xs bg-red-500 text-white px-2 py-1 rounded"
+                            >
+                              ×
+                            </button>
+                          </div>
+                          <div className="absolute bottom-0 left-0 right-0 bg-black/70 px-2 py-1">
+                            <span className="text-xs text-white truncate block">{asset.name}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {assets.length === 0 && (
+                    <div className="text-center py-4 text-gray-500 text-sm">
+                      No assets uploaded yet. Upload logos, backgrounds, or photos to reuse across videos.
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Phase 3: Export Presets */}
+            <div className="bg-white rounded-2xl p-6 border border-amber-200 shadow-lg">
+              <div className="flex items-center justify-between mb-4">
+                <h2 className="text-xl font-semibold text-amber-600 flex items-center gap-2">
+                  <span className="bg-amber-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">7.7</span>
+                  Export Presets
+                  <span className="ml-2 text-xs bg-amber-100 text-amber-600 px-2 py-1 rounded-full">Phase 3</span>
+                </h2>
+                <button
+                  onClick={() => setShowPresetManager(!showPresetManager)}
+                  className="text-sm text-amber-600 hover:text-amber-800 font-medium"
+                >
+                  {showPresetManager ? "Hide" : "Show"} Presets
+                </button>
+              </div>
+
+              {showPresetManager && (
+                <div className="space-y-4">
+                  {/* Quick Apply Presets */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                    {savedPresets.map((preset) => (
+                      <button
+                        key={preset.id}
+                        onClick={() => {
+                          setSelectedFormat(preset.settings.format);
+                          setQualityPreset(preset.settings.quality as "standard" | "high" | "ultra");
+                          setVideoStyle(preset.settings.style as "clean" | "luxury" | "energetic" | "minimal");
+                          setIncludeCaptions(preset.settings.includeCaptions);
+                          setFormData({
+                            ...formData,
+                            voicePreset: preset.settings.voicePreset,
+                            includeVoiceover: true,
+                          });
+                        }}
+                        className="p-4 rounded-xl border-2 border-amber-200 hover:border-amber-400 bg-amber-50 text-left transition-all hover:scale-[1.01]"
+                      >
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-xl">
+                            {preset.id.includes("instagram") ? "📸" :
+                             preset.id.includes("facebook") ? "👍" :
+                             preset.id.includes("tiktok") ? "🎵" :
+                             preset.id.includes("website") ? "🌐" :
+                             "🎬"}
+                          </span>
+                          <span className="font-medium text-gray-800">{preset.name}</span>
+                        </div>
+                        <p className="text-xs text-gray-600">{preset.description}</p>
+                        <div className="mt-2 flex flex-wrap gap-1">
+                          <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">
+                            {preset.settings.format}
+                          </span>
+                          <span className="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">
+                            {preset.settings.quality}
+                          </span>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+
+                  {/* Save Current as Preset */}
+                  <div className="p-4 bg-amber-50 rounded-xl border border-amber-200">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">💾</span>
+                      <div className="flex-1">
+                        <p className="text-sm font-medium text-gray-800">Save Current Settings</p>
+                        <p className="text-xs text-gray-500">Save your current configuration as a reusable preset</p>
+                      </div>
+                      <button
+                        onClick={() => {
+                          const presetName = prompt("Enter preset name:");
+                          if (presetName) {
+                            const newPreset: ExportPreset = {
+                              id: `custom-${Date.now()}`,
+                              name: presetName,
+                              description: "Custom saved preset",
+                              settings: {
+                                format: selectedFormat,
+                                quality: qualityPreset,
+                                style: videoStyle,
+                                includeCaptions,
+                                includeMusic: !!selectedMusic,
+                                voicePreset: formData.voicePreset,
+                              },
+                            };
+                            setSavedPresets([...savedPresets, newPreset]);
+                          }
+                        }}
+                        className="px-4 py-2 bg-amber-500 text-white rounded-lg text-sm font-medium hover:bg-amber-600 transition-colors"
+                      >
+                        Save Preset
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* Phase 3: Batch Rendering */}
+            <div className="bg-white rounded-2xl p-6 border border-rose-200 shadow-lg">
+              <h2 className="text-xl font-semibold text-rose-600 mb-4 flex items-center gap-2">
+                <span className="bg-rose-500 text-white w-7 h-7 rounded-full flex items-center justify-center text-sm">7.8</span>
+                Batch Render
+                <span className="ml-2 text-xs bg-rose-100 text-rose-600 px-2 py-1 rounded-full">Phase 3</span>
+              </h2>
+              
+              <p className="text-sm text-gray-600 mb-4">
+                Generate multiple format versions at once for different platforms.
+              </p>
+
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
+                {[
+                  { id: "reel", name: "Reel/TikTok", icon: "📱", ratio: "9:16" },
+                  { id: "square", name: "Square", icon: "⬜", ratio: "1:1" },
+                  { id: "story", name: "Story", icon: "📖", ratio: "9:16" },
+                  { id: "landscape", name: "Landscape", icon: "🖥️", ratio: "16:9" },
+                ].map((format) => (
+                  <button
+                    key={format.id}
+                    onClick={() => {
+                      if (batchFormats.includes(format.id)) {
+                        setBatchFormats(batchFormats.filter(f => f !== format.id));
+                      } else {
+                        setBatchFormats([...batchFormats, format.id]);
+                      }
+                    }}
+                    className={`p-3 rounded-xl border-2 text-center transition-all ${
+                      batchFormats.includes(format.id)
+                        ? "border-rose-500 bg-rose-50"
+                        : "border-gray-200 hover:border-rose-300 bg-gray-50"
+                    }`}
+                  >
+                    <div className="text-2xl mb-1">{format.icon}</div>
+                    <div className="text-sm font-medium text-gray-800">{format.name}</div>
+                    <div className="text-xs text-gray-500">{format.ratio}</div>
+                  </button>
+                ))}
+              </div>
+
+              {batchFormats.length > 0 && (
+                <div className="space-y-3">
+                  <div className="p-3 bg-rose-50 rounded-xl border border-rose-200">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm text-rose-700">
+                        {batchFormats.length} format{batchFormats.length > 1 ? "s" : ""} selected
+                      </span>
+                      <button
+                        onClick={() => setBatchFormats([])}
+                        className="text-xs text-rose-600 hover:text-rose-800"
+                      >
+                        Clear all
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Batch Progress */}
+                  {batchProgress.length > 0 && (
+                    <div className="space-y-2">
+                      {batchProgress.map((item, idx) => (
+                        <div key={idx} className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
+                          <span className="text-sm text-gray-700">{item.format}</span>
+                          <span className={`text-xs px-2 py-1 rounded-full ${
+                            item.status === "completed" ? "bg-green-100 text-green-700" :
+                            item.status === "rendering" ? "bg-yellow-100 text-yellow-700" :
+                            item.status === "failed" ? "bg-red-100 text-red-700" :
+                            "bg-gray-100 text-gray-600"
+                          }`}>
+                            {item.status}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  <button
+                    onClick={async () => {
+                      setIsBatchRendering(true);
+                      setBatchProgress(batchFormats.map(f => ({ format: f, status: "pending" })));
+                      
+                      for (const format of batchFormats) {
+                        setBatchProgress(prev => 
+                          prev.map(p => p.format === format ? { ...p, status: "rendering" } : p)
+                        );
+                        
+                        // Simulate rendering (in real implementation, call the API)
+                        await new Promise(resolve => setTimeout(resolve, 2000));
+                        
+                        setBatchProgress(prev => 
+                          prev.map(p => p.format === format ? { ...p, status: "completed" } : p)
+                        );
+                      }
+                      
+                      setIsBatchRendering(false);
+                    }}
+                    disabled={isBatchRendering}
+                    className={`w-full py-3 rounded-xl font-medium transition-all ${
+                      isBatchRendering
+                        ? "bg-gray-400 cursor-not-allowed text-white"
+                        : "bg-rose-500 hover:bg-rose-600 text-white"
+                    }`}
+                  >
+                    {isBatchRendering ? (
+                      <span className="flex items-center justify-center gap-2">
+                        <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                        </svg>
+                        Batch Rendering...
+                      </span>
+                    ) : (
+                      `🚀 Render ${batchFormats.length} Format${batchFormats.length > 1 ? "s" : ""}`
+                    )}
+                  </button>
                 </div>
               )}
             </div>
