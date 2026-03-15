@@ -394,49 +394,21 @@ export default function VideoGeneratorPage() {
         }),
       });
 
-      if (response.ok) {
-        const result = await response.json();
-        
-        if (result.jobId) {
-          const pollForCompletion = () => {
-            const maxAttempts = 60;
-            let attempts = 0;
+      const result = await response.json();
 
-            const poll = setInterval(async () => {
-              attempts++;
-              try {
-                const statusRes = await fetch(`/api/render-video?jobId=${result.jobId}`);
-                const statusData = await statusRes.json();
+      if (!response.ok) {
+        const errorMsg = result.error || "Video rendering failed";
+        setGeneratedVideos((prev) =>
+          prev.map((v) =>
+            v.id === newVideo.id ? { ...v, status: "failed", caption: errorMsg } : v
+          )
+        );
+        setIsGenerating(false);
+        return;
+      }
 
-                if (statusData.job?.status === "completed") {
-                  clearInterval(poll);
-                  setGeneratedVideos((prev) =>
-                    prev.map((v) =>
-                      v.id === newVideo.id
-                        ? { ...v, status: "completed", url: statusData.job.videoUrl }
-                        : v
-                    )
-                  );
-                  setIsGenerating(false);
-                } else if (statusData.job?.status === "failed" || attempts >= maxAttempts) {
-                  clearInterval(poll);
-                  setGeneratedVideos((prev) =>
-                    prev.map((v) =>
-                      v.id === newVideo.id ? { ...v, status: "failed" } : v
-                    )
-                  );
-                  setIsGenerating(false);
-                }
-              } catch (e) {
-                console.error("Polling error:", e);
-              }
-            }, 3000);
-          };
-
-          pollForCompletion();
-          return;
-        }
-
+      // If already completed instantly
+      if (result.status === "completed" && result.videoUrl) {
         setGeneratedVideos((prev) =>
           prev.map((v) =>
             v.id === newVideo.id
@@ -444,12 +416,54 @@ export default function VideoGeneratorPage() {
               : v
           )
         );
-      } else {
+        setIsGenerating(false);
+        return;
+      }
+
+      // Poll for completion
+      if (result.jobId) {
         setGeneratedVideos((prev) =>
           prev.map((v) =>
-            v.id === newVideo.id ? { ...v, status: "failed" } : v
+            v.id === newVideo.id ? { ...v, status: "rendering" } : v
           )
         );
+
+        const maxAttempts = 60;
+        let attempts = 0;
+
+        const poll = setInterval(async () => {
+          attempts++;
+          try {
+            const statusRes = await fetch(`/api/render-video?jobId=${result.jobId}`);
+            const statusData = await statusRes.json();
+
+            if (statusData.job?.status === "completed") {
+              clearInterval(poll);
+              setGeneratedVideos((prev) =>
+                prev.map((v) =>
+                  v.id === newVideo.id
+                    ? { ...v, status: "completed", url: statusData.job.videoUrl }
+                    : v
+                )
+              );
+              setIsGenerating(false);
+            } else if (statusData.job?.status === "failed" || attempts >= maxAttempts) {
+              clearInterval(poll);
+              setGeneratedVideos((prev) =>
+                prev.map((v) =>
+                  v.id === newVideo.id
+                    ? { ...v, status: "failed", caption: statusData.job?.error || "Render timed out" }
+                    : v
+                )
+              );
+              setIsGenerating(false);
+            }
+          } catch (e) {
+            console.error("Polling error:", e);
+          }
+        }, 3000);
+
+        return;
       }
     } catch (error) {
       console.error("Video generation error:", error);
@@ -1153,7 +1167,7 @@ export default function VideoGeneratorPage() {
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
-                  Generating Video (~60 seconds)...
+                  Rendering in Cloud (~30-60s)...
                 </span>
               ) : (
                 "🎬 Generate Video"
@@ -1223,13 +1237,19 @@ export default function VideoGeneratorPage() {
                         </div>
                       )}
 
-                      {video.status === "rendering" && (
+                      {(video.status === "rendering" || video.status === "pending") && (
                         <div className="flex items-center gap-2 text-yellow-400 text-sm">
                           <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                             <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                           </svg>
-                          <span>Rendering in progress...</span>
+                          <span>Rendering in cloud...</span>
+                        </div>
+                      )}
+
+                      {video.status === "failed" && (
+                        <div className="text-red-400 text-sm">
+                          Render failed. Check your Creatomate template configuration.
                         </div>
                       )}
                     </div>
