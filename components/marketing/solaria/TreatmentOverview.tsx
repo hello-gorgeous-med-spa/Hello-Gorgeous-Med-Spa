@@ -22,6 +22,20 @@ export function TreatmentOverview() {
           </p>
         </div>
 
+        <div className="mt-12 mb-12">
+          <div className="relative aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl border border-black/10">
+            <iframe
+              className="absolute inset-0 w-full h-full"
+              src="https://www.youtube.com/embed/IsSHTfKhOA4?si=1"
+              title="Solaria CO₂ Fractional Laser — Hello Gorgeous Med Spa"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+              loading="lazy"
+            />
+          </div>
+        </div>
+
         <div className="mt-12 grid md:grid-cols-3 gap-6">
           {[
             { stat: "30–60", label: "Minute Treatment", icon: "⏱️" },
