@@ -469,7 +469,7 @@ export default function VideoGeneratorPage() {
           <h1 className="text-3xl font-bold text-white">
             🎬 Video Generator
           </h1>
-          <p className="text-white/60 mt-2">
+          <p className="text-[#E91E8C] mt-2">
             Create professional marketing videos for Hello Gorgeous Med Spa
           </p>
         </div>
@@ -552,7 +552,7 @@ export default function VideoGeneratorPage() {
               <div className="text-center py-16">
                 <div className="text-6xl mb-4">📹</div>
                 <p className="text-white text-lg">No videos in your library yet</p>
-                <p className="text-sm text-white/60 mt-2">Videos you generate will appear here</p>
+                <p className="text-sm text-[#E91E8C] mt-2">Videos you generate will appear here</p>
                 <button
                   onClick={() => setActiveTab("create")}
                   className="mt-4 px-6 py-2 bg-[#E91E8C] text-white rounded-xl hover:bg-[#E91E8C] transition-colors"
@@ -591,7 +591,7 @@ export default function VideoGeneratorPage() {
                     </div>
                     <div className="p-4">
                       <h3 className="font-medium text-white truncate">{video.name}</h3>
-                      <p className="text-xs text-white/60 mt-1">
+                      <p className="text-xs text-[#E91E8C] mt-1">
                         {new Date(video.created_at).toLocaleDateString()} • {video.service}
                       </p>
                       <div className="flex gap-2 mt-3">
@@ -675,7 +675,7 @@ export default function VideoGeneratorPage() {
                         value={uploadName}
                         onChange={(e) => setUploadName(e.target.value)}
                         placeholder="e.g., Botox Before After"
-                        className="w-full bg-black border-2 border-[#E91E8C] text-white rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-[#E91E8C] placeholder:text-white/60"
+                        className="w-full bg-black border-2 border-[#E91E8C] text-white rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-[#E91E8C] placeholder:text-[#E91E8C]/60"
                       />
                     </div>
                     
@@ -699,7 +699,7 @@ export default function VideoGeneratorPage() {
                         value={uploadTags}
                         onChange={(e) => setUploadTags(e.target.value)}
                         placeholder="e.g., botox, before-after, face"
-                        className="w-full bg-black border-2 border-[#E91E8C] text-white rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-[#E91E8C] placeholder:text-white/60"
+                        className="w-full bg-black border-2 border-[#E91E8C] text-white rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-[#E91E8C] placeholder:text-[#E91E8C]/60"
                       />
                     </div>
                     
@@ -742,7 +742,7 @@ export default function VideoGeneratorPage() {
               <div className="text-center py-16">
                 <div className="text-6xl mb-4">🖼️</div>
                 <p className="text-white text-lg">No images in your library yet</p>
-                <p className="text-sm text-white/60 mt-2">Click "Upload Image" to add your first image</p>
+                <p className="text-sm text-[#E91E8C] mt-2">Click "Upload Image" to add your first image</p>
                 <button
                   onClick={() => setShowUploadModal(true)}
                   className="mt-4 px-6 py-2 bg-[#E91E8C] text-white rounded-xl hover:bg-[#E91E8C] transition-colors"
@@ -796,17 +796,17 @@ export default function VideoGeneratorPage() {
                     <div className="p-3">
                       <h3 className="font-medium text-white text-sm truncate">{image.name}</h3>
                       <div className="flex items-center justify-between mt-1">
-                        <span className="text-xs text-white/60">{image.category}</span>
+                        <span className="text-xs text-[#E91E8C]">{image.category}</span>
                         <div className="flex gap-1">
                           <button
                             onClick={() => toggleFavorite(image)}
-                            className="text-white/60 hover:text-yellow-400"
+                            className="text-[#E91E8C] hover:text-yellow-400"
                           >
                             {image.is_favorite ? "⭐" : "☆"}
                           </button>
                           <button
                             onClick={() => deleteImage(image.id)}
-                            className="text-white/60 hover:text-red-400"
+                            className="text-[#E91E8C] hover:text-red-400"
                           >
                             🗑️
                           </button>
@@ -840,7 +840,7 @@ export default function VideoGeneratorPage() {
                     }`}
                   >
                     <div className="font-medium text-white">{template.name}</div>
-                    <div className="text-xs text-white/60 mt-1">{template.description}</div>
+                    <div className="text-xs text-[#E91E8C] mt-1">{template.description}</div>
                   </button>
                 ))}
               </div>
@@ -854,42 +854,42 @@ export default function VideoGeneratorPage() {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm text-[#E91E8C] mb-1 font-medium">Headline</label>
+                  <label className="block text-sm text-white mb-2 font-medium">Headline</label>
                   <input
                     type="text"
                     value={formData.headline}
                     onChange={(e) => setFormData({ ...formData, headline: e.target.value })}
-                    className="w-full bg-black border-2 border-[#E91E8C] rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#E91E8C] text-white placeholder:text-white/60"
+                    className="w-full bg-black border-2 border-[#E91E8C] rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#E91E8C] text-white placeholder:text-[#E91E8C]/60"
                     placeholder="VIP Launch Special"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-[#E91E8C] mb-1 font-medium">Price</label>
+                  <label className="block text-sm text-white mb-2 font-medium">Price</label>
                   <input
                     type="text"
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                    className="w-full bg-black border-2 border-[#E91E8C] rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#E91E8C] text-white placeholder:text-white/60"
+                    className="w-full bg-black border-2 border-[#E91E8C] rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#E91E8C] text-white placeholder:text-[#E91E8C]/60"
                     placeholder="$1,895"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-[#E91E8C] mb-1 font-medium">Original Price</label>
+                  <label className="block text-sm text-white mb-2 font-medium">Original Price</label>
                   <input
                     type="text"
                     value={formData.originalPrice}
                     onChange={(e) => setFormData({ ...formData, originalPrice: e.target.value })}
-                    className="w-full bg-black border-2 border-[#E91E8C] rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#E91E8C] text-white placeholder:text-white/60"
+                    className="w-full bg-black border-2 border-[#E91E8C] rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#E91E8C] text-white placeholder:text-[#E91E8C]/60"
                     placeholder="$2,500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm text-[#E91E8C] mb-1 font-medium">Promo Label</label>
+                  <label className="block text-sm text-white mb-2 font-medium">Promo Label</label>
                   <input
                     type="text"
                     value={formData.promoLabel}
                     onChange={(e) => setFormData({ ...formData, promoLabel: e.target.value })}
-                    className="w-full bg-black border-2 border-[#E91E8C] rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#E91E8C] text-white placeholder:text-white/60"
+                    className="w-full bg-black border-2 border-[#E91E8C] rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#E91E8C] text-white placeholder:text-[#E91E8C]/60"
                     placeholder="Limited Launch Offer"
                   />
                 </div>
@@ -897,7 +897,7 @@ export default function VideoGeneratorPage() {
 
               {/* Benefits */}
               <div className="mt-4">
-                <label className="block text-sm text-[#E91E8C] mb-2 font-medium">Benefits</label>
+                <label className="block text-sm text-white mb-2 font-medium">Benefits</label>
                 <div className="space-y-2">
                   {formData.benefits.map((benefit, index) => (
                     <input
@@ -909,7 +909,7 @@ export default function VideoGeneratorPage() {
                         newBenefits[index] = e.target.value;
                         setFormData({ ...formData, benefits: newBenefits });
                       }}
-                      className="w-full bg-black border-2 border-[#E91E8C] rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-[#E91E8C] text-white text-sm placeholder:text-white/60"
+                      className="w-full bg-black border-2 border-[#E91E8C] rounded-xl px-4 py-2 outline-none focus:ring-2 focus:ring-[#E91E8C] text-white text-sm placeholder:text-[#E91E8C]/60"
                     />
                   ))}
                 </div>
@@ -993,7 +993,7 @@ export default function VideoGeneratorPage() {
                   >
                     <div className="text-2xl mb-1">{format.icon}</div>
                     <div className="font-medium text-white text-sm">{format.name}</div>
-                    <div className="text-xs text-white/60">{format.ratio}</div>
+                    <div className="text-xs text-[#E91E8C]">{format.ratio}</div>
                   </button>
                 ))}
               </div>
@@ -1007,7 +1007,7 @@ export default function VideoGeneratorPage() {
               </h2>
               
               <div className="mb-4">
-                <label className="block text-sm text-[#E91E8C] mb-2 font-medium">Style</label>
+                <label className="block text-sm text-white mb-2 font-medium">Style</label>
                 <div className="grid grid-cols-4 gap-2">
                   {[
                     { id: "clean", name: "Clean Clinic", icon: "🏥" },
@@ -1032,7 +1032,7 @@ export default function VideoGeneratorPage() {
               </div>
 
               <div>
-                <label className="block text-sm text-[#E91E8C] mb-2 font-medium">Render Quality</label>
+                <label className="block text-sm text-white mb-2 font-medium">Render Quality</label>
                 <div className="grid grid-cols-3 gap-2">
                   {[
                     { id: "standard", name: "Standard", crf: "18" },
@@ -1049,7 +1049,7 @@ export default function VideoGeneratorPage() {
                       }`}
                     >
                       <div className="text-sm font-medium text-white">{quality.name}</div>
-                      <div className="text-xs text-white/60">CRF {quality.crf}</div>
+                      <div className="text-xs text-[#E91E8C]">CRF {quality.crf}</div>
                     </button>
                   ))}
                 </div>
@@ -1081,7 +1081,7 @@ export default function VideoGeneratorPage() {
               {formData.includeVoiceover && (
                 <div className="space-y-4">
                   <div>
-                    <label className="block text-sm text-[#E91E8C] mb-2 font-medium">Voice</label>
+                    <label className="block text-sm text-white mb-2 font-medium">Voice</label>
                     <div className="grid grid-cols-3 gap-2">
                       {VOICE_PRESETS.map((voice) => (
                         <button
@@ -1094,20 +1094,20 @@ export default function VideoGeneratorPage() {
                           }`}
                         >
                           <div className="font-medium text-white text-sm">{voice.name}</div>
-                          <div className="text-xs text-white/60">{voice.description}</div>
+                          <div className="text-xs text-[#E91E8C]">{voice.description}</div>
                         </button>
                       ))}
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm text-[#E91E8C] mb-1 font-medium">Custom Script (Optional)</label>
+                    <label className="block text-sm text-white mb-2 font-medium">Custom Script (Optional)</label>
                     <textarea
                       value={formData.customVoiceScript}
                       onChange={(e) => setFormData({ ...formData, customVoiceScript: e.target.value })}
                       placeholder={generateDefaultScript()}
                       rows={3}
-                      className="w-full bg-black border-2 border-[#E91E8C] rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#E91E8C] text-white text-sm resize-none placeholder:text-white/60"
+                      className="w-full bg-black border-2 border-[#E91E8C] rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-[#E91E8C] text-white text-sm resize-none placeholder:text-[#E91E8C]/60"
                     />
                   </div>
 
@@ -1164,7 +1164,7 @@ export default function VideoGeneratorPage() {
                 <div className="text-center py-12">
                   <div className="text-6xl mb-4">🎬</div>
                   <p className="text-white">No videos generated yet</p>
-                  <p className="text-sm text-white/60 mt-1">Create your first video above!</p>
+                  <p className="text-sm text-[#E91E8C] mt-1">Create your first video above!</p>
                 </div>
               ) : (
                 <div className="space-y-4">
@@ -1179,12 +1179,12 @@ export default function VideoGeneratorPage() {
                             ? "bg-yellow-500/20 text-yellow-400"
                             : video.status === "failed"
                             ? "bg-red-500/20 text-red-400"
-                            : "bg-white/10 text-white/60"
+                            : "bg-black text-[#E91E8C]"
                         }`}>
                           {video.status}
                         </span>
                       </div>
-                      <div className="text-xs text-white/60 mb-3">
+                      <div className="text-xs text-[#E91E8C] mb-3">
                         {video.format} • {new Date(video.createdAt).toLocaleString()}
                       </div>
                       

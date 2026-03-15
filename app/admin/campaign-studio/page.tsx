@@ -357,7 +357,7 @@ export default function CampaignStudioPage() {
           <h1 className="text-4xl font-bold text-white">
             ✨ AI Campaign Studio
           </h1>
-          <p className="text-white/60 mt-2">
+          <p className="text-[#E91E8C] mt-2">
             Generate complete social media campaigns in under 60 seconds
           </p>
         </div>
@@ -397,7 +397,7 @@ export default function CampaignStudioPage() {
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="Describe your campaign to generate scored hooks..."
-                className="w-full bg-black border-2 border-[#E91E8C] rounded-2xl px-6 py-4 text-white placeholder:text-white/60 outline-none focus:ring-2 focus:ring-[#E91E8C] resize-none"
+                className="w-full bg-black border-2 border-[#E91E8C] rounded-2xl px-6 py-4 text-white placeholder:text-[#E91E8C]/60 outline-none focus:ring-2 focus:ring-[#E91E8C] resize-none"
                 rows={2}
               />
               <button
@@ -411,7 +411,7 @@ export default function CampaignStudioPage() {
 
             {scoredHooks.length > 0 && (
               <div className="space-y-3">
-                <p className="text-white/60 text-sm">Hooks ranked by virality score (AI auto-selects the best)</p>
+                <p className="text-[#E91E8C] text-sm">Hooks ranked by virality score (AI auto-selects the best)</p>
                 {scoredHooks.map((h, i) => (
                   <button
                     key={i}
@@ -427,14 +427,14 @@ export default function CampaignStudioPage() {
                       <span className={`px-3 py-1 rounded-full text-sm font-bold ${
                         h.score >= 90 ? "bg-green-500/20 text-green-400" :
                         h.score >= 80 ? "bg-yellow-500/20 text-yellow-400" :
-                        "bg-[#E91E8C]/10 text-white/60"
+                        "bg-[#E91E8C]/10 text-[#E91E8C]"
                       }`}>
                         {h.score}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-xs">
-                      <span className="px-2 py-0.5 bg-[#E91E8C]/20 text-white/60 rounded">{h.type}</span>
-                      <span className="text-white/60">{h.reasoning}</span>
+                      <span className="px-2 py-0.5 bg-[#E91E8C]/20 text-[#E91E8C] rounded">{h.type}</span>
+                      <span className="text-[#E91E8C]">{h.reasoning}</span>
                     </div>
                   </button>
                 ))}
@@ -477,7 +477,7 @@ export default function CampaignStudioPage() {
             {isLoadingMedia ? (
               <div className="text-center py-12">
                 <div className="animate-spin h-8 w-8 border-2 border-[#E91E8C] border-t-transparent rounded-full mx-auto mb-4"></div>
-                <p className="text-white/60">Loading stock media...</p>
+                <p className="text-[#E91E8C]">Loading stock media...</p>
               </div>
             ) : (
               <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -507,7 +507,7 @@ export default function CampaignStudioPage() {
               </div>
             )}
             
-            <p className="text-center text-white/60/60 text-xs mt-4">
+            <p className="text-center text-[#E91E8C]/60 text-xs mt-4">
               Add PEXELS_API_KEY to .env for real stock photos • Current: Demo images
             </p>
           </div>
@@ -517,10 +517,10 @@ export default function CampaignStudioPage() {
         {activeTab === "batch" && (
           <div className="bg-black rounded-3xl p-8 mb-8 border-2 border-[#E91E8C]">
             <h2 className="text-2xl font-bold text-white mb-2 text-center">📅 30-Day Content Generator</h2>
-            <p className="text-white/60 text-center mb-6">Generate a month of social media content in 2 minutes</p>
+            <p className="text-[#E91E8C] text-center mb-6">Generate a month of social media content in 2 minutes</p>
             
             <div className="max-w-md mx-auto mb-6">
-              <label className="text-sm text-[#E91E8C] mb-2 block">Content Duration</label>
+              <label className="text-sm text-white mb-2 block">Content Duration</label>
               <div className="flex gap-2">
                 {[7, 14, 30].map((days) => (
                   <button
@@ -560,7 +560,7 @@ export default function CampaignStudioPage() {
               <div className="mt-8">
                 <div className="flex items-center justify-between mb-4">
                   <h3 className="text-lg font-semibold text-white">Content Calendar</h3>
-                  <span className="text-sm text-white/60">{batchContent.length} pieces generated</span>
+                  <span className="text-sm text-[#E91E8C]">{batchContent.length} pieces generated</span>
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[600px] overflow-y-auto">
@@ -570,20 +570,20 @@ export default function CampaignStudioPage() {
                       className="p-4 rounded-xl border bg-black border-[#E91E8C]"
                     >
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-xs text-white/60">{piece.scheduledDate}</span>
-                        <span className="text-xs px-2 py-0.5 rounded bg-[#E91E8C]/20 text-white/60">
+                        <span className="text-xs text-[#E91E8C]">{piece.scheduledDate}</span>
+                        <span className="text-xs px-2 py-0.5 rounded bg-[#E91E8C]/20 text-[#E91E8C]">
                           {piece.type}
                         </span>
                       </div>
                       <p className="text-white font-medium text-sm mb-1">"{piece.hook}"</p>
-                      <p className="text-white/60 text-xs">{piece.service}</p>
+                      <p className="text-[#E91E8C] text-xs">{piece.service}</p>
                       <button
                         onClick={() => {
                           setPrompt(piece.hook);
                           setSelectedHook(piece.hook);
                           setActiveTab("create");
                         }}
-                        className="mt-2 text-xs text-[#E91E8C] hover:text-white/60"
+                        className="mt-2 text-xs text-[#E91E8C] hover:text-[#E91E8C]"
                       >
                         Use this content →
                       </button>
@@ -611,7 +611,7 @@ export default function CampaignStudioPage() {
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Describe your campaign idea... (e.g., 'Tirzepatide weight loss VIP launch with special pricing')"
-              className="w-full bg-black border-2 border-[#E91E8C] rounded-2xl px-6 py-4 text-white placeholder:text-white/60 outline-none focus:ring-2 focus:ring-[#E91E8C] resize-none text-lg"
+              className="w-full bg-black border-2 border-[#E91E8C] rounded-2xl px-6 py-4 text-white placeholder:text-[#E91E8C]/60 outline-none focus:ring-2 focus:ring-[#E91E8C] resize-none text-lg"
               rows={3}
             />
           </div>
@@ -705,7 +705,7 @@ export default function CampaignStudioPage() {
                   >
                     <span className="text-xl">{format.icon}</span>
                     <div className="text-xs text-white mt-1">{format.name}</div>
-                    <div className="text-xs text-white/60">{format.ratio}</div>
+                    <div className="text-xs text-[#E91E8C]">{format.ratio}</div>
                   </button>
                 ))}
               </div>
@@ -812,10 +812,10 @@ export default function CampaignStudioPage() {
                   ].map((item) => (
                     <div key={item.platform} className="bg-black rounded-xl p-4 border-2 border-[#E91E8C]">
                       <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm text-white/60">{item.icon} {item.platform}</span>
+                        <span className="text-sm text-[#E91E8C]">{item.icon} {item.platform}</span>
                         <button
                           onClick={() => copyToClipboard(item.caption)}
-                          className="text-xs text-[#E91E8C] hover:text-white/60"
+                          className="text-xs text-[#E91E8C] hover:text-[#E91E8C]"
                         >
                           Copy
                         </button>
@@ -827,7 +827,7 @@ export default function CampaignStudioPage() {
                   {campaign.hashtags.length > 0 && (
                     <div className="flex flex-wrap gap-2">
                       {campaign.hashtags.map((tag, i) => (
-                        <span key={i} className="text-xs bg-[#E91E8C]/20 text-white/60 px-2 py-1 rounded-full">
+                        <span key={i} className="text-xs bg-[#E91E8C]/20 text-[#E91E8C] px-2 py-1 rounded-full">
                           #{tag}
                         </span>
                       ))}
@@ -851,7 +851,7 @@ export default function CampaignStudioPage() {
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                   </svg>
                   <p className="text-white">Generating video...</p>
-                  <p className="text-white/60 text-sm">This takes ~60 seconds</p>
+                  <p className="text-[#E91E8C] text-sm">This takes ~60 seconds</p>
                 </div>
               ) : generatedVideoUrl ? (
                 <div className="space-y-4">
@@ -871,7 +871,7 @@ export default function CampaignStudioPage() {
               ) : (
                 <div className="aspect-[9/16] bg-black rounded-xl flex flex-col items-center justify-center border border-dashed border-[#E91E8C]">
                   <span className="text-4xl mb-2">🎬</span>
-                  <p className="text-white/60 text-sm">Video preview will appear here</p>
+                  <p className="text-[#E91E8C] text-sm">Video preview will appear here</p>
                 </div>
               )}
             </div>
@@ -923,19 +923,19 @@ export default function CampaignStudioPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center">
                   <div className="text-2xl font-bold text-[#E91E8C]">{scoredHooks.length || hooks.length}</div>
-                  <div className="text-xs text-white/60">Hooks</div>
+                  <div className="text-xs text-[#E91E8C]">Hooks</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-[#E91E8C]">{images.length}</div>
-                  <div className="text-xs text-white/60">Images</div>
+                  <div className="text-xs text-[#E91E8C]">Images</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-[#E91E8C]">{campaign?.benefits.length || 0}</div>
-                  <div className="text-xs text-white/60">Benefits</div>
+                  <div className="text-xs text-[#E91E8C]">Benefits</div>
                 </div>
                 <div className="text-center">
                   <div className="text-2xl font-bold text-[#E91E8C]">{generatedVideoUrl ? 1 : 0}</div>
-                  <div className="text-xs text-white/60">Videos</div>
+                  <div className="text-xs text-[#E91E8C]">Videos</div>
                 </div>
               </div>
             </div>
@@ -969,7 +969,7 @@ export default function CampaignStudioPage() {
                       } border`}
                     >
                       <div className="text-sm text-white">{style.name}</div>
-                      <div className="text-xs text-white/60">{style.desc}</div>
+                      <div className="text-xs text-[#E91E8C]">{style.desc}</div>
                     </button>
                   ))}
                 </div>
