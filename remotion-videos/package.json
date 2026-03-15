@@ -4,11 +4,15 @@
   "description": "Hello Gorgeous Med Spa promotional videos",
   "scripts": {
     "start": "remotion studio",
-    "build:vertical": "remotion render src/index.tsx SolariaPromoVertical out/solaria-launch-reel.mp4",
-    "build:square": "remotion render src/index.tsx SolariaPromoSquare out/solaria-launch-square.mp4",
-    "build:horizontal": "remotion render src/index.tsx SolariaPromoHorizontal out/solaria-launch-website.mp4",
-    "build:all": "npm run build:vertical && npm run build:square && npm run build:horizontal",
-    "render": "remotion render"
+    "render": "remotion render",
+    "render:single": "remotion render src/index.tsx",
+    "batch": "node scripts/batch-render.mjs",
+    "list": "remotion compositions src/index.tsx",
+    "trifecta:reel": "remotion render src/index.tsx TrifectaRevealVertical out/trifecta-reel.mp4",
+    "trifecta:all": "remotion render src/index.tsx TrifectaRevealVertical out/trifecta-reel.mp4 && remotion render src/index.tsx TrifectaRevealSquare out/trifecta-feed.mp4 && remotion render src/index.tsx TrifectaRevealHorizontal out/trifecta-landscape.mp4",
+    "glp1:reel": "remotion render src/index.tsx GLP1SolutionVertical out/glp1-reel.mp4",
+    "burst:reel": "remotion render src/index.tsx StandardVsBurstVertical out/burst-vs-standard-reel.mp4",
+    "geo:all": "node -e \"const c=['Oswego','Naperville','Aurora','Plainfield','Montgomery','Yorkville'];const{execSync}=require('child_process');c.forEach(x=>execSync('npx remotion render src/index.tsx GeoAd'+x+'Square out/geo-'+x.toLowerCase()+'-feed.mp4',{stdio:'inherit'}))\""
   },
   "dependencies": {
     "@remotion/bundler": "^4.0.0",

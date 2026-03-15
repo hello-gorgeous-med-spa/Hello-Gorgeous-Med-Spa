@@ -1,0 +1,49 @@
+{
+  "_readme": "Batch render config. Run: npm run batch",
+  "renders": [
+    {
+      "template": "TrifectaRevealVertical",
+      "outputFilename": "HG-trifecta-reveal-reel"
+    },
+    {
+      "template": "TrifectaRevealSquare",
+      "outputFilename": "HG-trifecta-reveal-feed"
+    },
+    {
+      "template": "TrifectaRevealHorizontal",
+      "outputFilename": "HG-trifecta-reveal-landscape"
+    },
+    {
+      "template": "GLP1SolutionVertical",
+      "outputFilename": "HG-glp1-solution-reel"
+    },
+    {
+      "template": "StandardVsBurstVertical",
+      "outputFilename": "HG-standard-vs-burst-reel"
+    },
+    {
+      "template": "GeoAdOswegoSquare",
+      "outputFilename": "HG-geo-oswego-feed"
+    },
+    {
+      "template": "GeoAdNapervilleSquare",
+      "outputFilename": "HG-geo-naperville-feed"
+    },
+    {
+      "template": "GeoAdAuroraSquare",
+      "outputFilename": "HG-geo-aurora-feed"
+    },
+    {
+      "template": "GeoAdPlainfieldSquare",
+      "outputFilename": "HG-geo-plainfield-feed"
+    },
+    {
+      "template": "GeoAdMontgomerySquare",
+      "outputFilename": "HG-geo-montgomery-feed"
+    },
+    {
+      "template": "GeoAdYorkvilleSquare",
+      "outputFilename": "HG-geo-yorkville-feed"
+    }
+  ]
+}

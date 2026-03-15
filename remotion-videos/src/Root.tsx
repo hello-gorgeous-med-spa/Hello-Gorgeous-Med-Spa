@@ -4,6 +4,11 @@ import { StretchMarkTreatment } from "./compositions/StretchMarkTreatment";
 import { InModeTrifecta } from "./compositions/InModeTrifecta";
 import { GLP1SkinSolution } from "./compositions/GLP1SkinSolution";
 import { StandardVsBurst } from "./compositions/StandardVsBurst";
+import { BeforeAfterShowcase } from "./compositions/BeforeAfterShowcase";
+import { TreatmentPOV } from "./compositions/TreatmentPOV";
+import { TestimonialCard } from "./compositions/TestimonialCard";
+import { ServiceHighlight } from "./compositions/ServiceHighlight";
+import { GeoTargetedAd } from "./compositions/GeoTargetedAd";
 import { ServicePromo, ServicePromoProps } from "./templates/ServicePromo";
 
 const sharedProps = {
@@ -92,6 +97,173 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         defaultProps={{ brandColor: "#E91E8C", format: "horizontal" as const }}
+      />
+
+      {/* ========== BEFORE/AFTER SHOWCASE ========== */}
+      <Composition
+        id="BeforeAfterVertical"
+        component={BeforeAfterShowcase}
+        durationInFrames={600}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{
+          beforeImage: "solaria-ba1.png",
+          afterImage: "solaria-ba2.png",
+          treatmentName: "Morpheus8 Burst",
+          sessions: "2 sessions",
+          timeframe: "6 weeks",
+          clientName: "Client",
+          format: "vertical" as const,
+        }}
+      />
+      <Composition
+        id="BeforeAfterSquare"
+        component={BeforeAfterShowcase}
+        durationInFrames={600}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{
+          beforeImage: "solaria-ba1.png",
+          afterImage: "solaria-ba2.png",
+          treatmentName: "Morpheus8 Burst",
+          sessions: "2 sessions",
+          timeframe: "6 weeks",
+          format: "square" as const,
+        }}
+      />
+
+      {/* ========== TREATMENT POV ========== */}
+      <Composition
+        id="TreatmentPOVVertical"
+        component={TreatmentPOV}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{
+          videoSrc: "treatment-footage.mp4",
+          treatmentName: "Morpheus8 Burst",
+          providerName: "Danielle",
+          providerTitle: "FNP-BC",
+          hookText: "Getting the deepest RF microneedling available",
+          overlays: [
+            { text: "Numbing applied — 20 min wait", startFrame: 30, endFrame: 120 },
+            { text: "8mm depth — 3 simultaneous levels", startFrame: 150, endFrame: 270 },
+            { text: "Collagen stimulation begins immediately", startFrame: 300, endFrame: 420 },
+          ],
+          format: "vertical" as const,
+        }}
+      />
+
+      {/* ========== TESTIMONIAL QUOTE CARDS ========== */}
+      <Composition
+        id="TestimonialVertical"
+        component={TestimonialCard}
+        durationInFrames={450}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{
+          quoteText: "I cannot believe the difference after just one treatment. My skin looks ten years younger.",
+          clientName: "Sarah M.",
+          treatmentType: "Morpheus8 Burst",
+          starRating: 5,
+          format: "vertical" as const,
+        }}
+      />
+      <Composition
+        id="TestimonialSquare"
+        component={TestimonialCard}
+        durationInFrames={450}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{
+          quoteText: "I cannot believe the difference after just one treatment. My skin looks ten years younger.",
+          clientName: "Sarah M.",
+          treatmentType: "Morpheus8 Burst",
+          starRating: 5,
+          format: "square" as const,
+        }}
+      />
+
+      {/* ========== SERVICE HIGHLIGHT ========== */}
+      <Composition
+        id="ServiceHighlightVertical"
+        component={ServiceHighlight}
+        durationInFrames={720}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{
+          serviceName: "Morpheus8 Burst",
+          tagline: "The Deepest RF Microneedling Available",
+          howItWorks: [
+            "RF energy delivered at 3 depths simultaneously",
+            "Penetrates up to 8mm — double the standard",
+            "Stimulates collagen and tightens tissue from within",
+          ],
+          idealFor: ["Loose skin", "Fine lines", "Acne scars", "Body contouring", "Jowls", "Neck laxity"],
+          format: "vertical" as const,
+        }}
+      />
+
+      {/* ========== GEO-TARGETED ADS (6 Cities) ========== */}
+      <Composition
+        id="GeoAdOswegoSquare"
+        component={GeoTargetedAd}
+        durationInFrames={600}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ cityName: "Oswego", driveTime: "right here in town", format: "square" as const }}
+      />
+      <Composition
+        id="GeoAdNapervilleSquare"
+        component={GeoTargetedAd}
+        durationInFrames={600}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ cityName: "Naperville", driveTime: "15 minutes", format: "square" as const }}
+      />
+      <Composition
+        id="GeoAdAuroraSquare"
+        component={GeoTargetedAd}
+        durationInFrames={600}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ cityName: "Aurora", driveTime: "20 minutes", format: "square" as const }}
+      />
+      <Composition
+        id="GeoAdPlainfieldSquare"
+        component={GeoTargetedAd}
+        durationInFrames={600}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ cityName: "Plainfield", driveTime: "15 minutes", format: "square" as const }}
+      />
+      <Composition
+        id="GeoAdMontgomerySquare"
+        component={GeoTargetedAd}
+        durationInFrames={600}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ cityName: "Montgomery", driveTime: "10 minutes", format: "square" as const }}
+      />
+      <Composition
+        id="GeoAdYorkvilleSquare"
+        component={GeoTargetedAd}
+        durationInFrames={600}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ cityName: "Yorkville", driveTime: "10 minutes", format: "square" as const }}
       />
 
       {/* ========== STANDARD VS BURST ========== */}
