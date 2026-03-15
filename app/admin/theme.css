@@ -1,0 +1,83 @@
+/* Hello Gorgeous Med Spa - Admin Theme */
+/* Brand Color System: Black + White + Hot Pink */
+
+:root {
+  --hg-black: #000000;
+  --hg-white: #ffffff;
+  --hg-pink: #E91E8C;
+}
+
+/* Base Admin Styles */
+.admin-page {
+  background-color: var(--hg-black);
+  min-height: 100vh;
+  color: var(--hg-white);
+}
+
+/* Input Fields */
+.admin-input {
+  background-color: var(--hg-black);
+  color: var(--hg-white);
+  border: 2px solid var(--hg-pink);
+  border-radius: 0.75rem;
+  padding: 0.75rem 1rem;
+  outline: none;
+}
+
+.admin-input:focus {
+  box-shadow: 0 0 0 2px var(--hg-pink);
+}
+
+.admin-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Cards/Containers */
+.admin-card {
+  background-color: var(--hg-black);
+  border: 2px solid var(--hg-pink);
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+/* Buttons */
+.admin-btn-primary {
+  background-color: var(--hg-pink);
+  color: var(--hg-white);
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: transform 0.2s;
+}
+
+.admin-btn-primary:hover {
+  transform: scale(1.05);
+}
+
+/* Labels */
+.admin-label {
+  color: var(--hg-white);
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+/* Section Headers */
+.admin-section-title {
+  color: var(--hg-white);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+/* Number Badge */
+.admin-badge {
+  background-color: var(--hg-pink);
+  color: var(--hg-white);
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-weight: 700;
+}
