@@ -531,7 +531,7 @@ export default function VideoGeneratorPage() {
                 <select
                   value={libraryFilter}
                   onChange={(e) => setLibraryFilter(e.target.value)}
-                  className="px-4 py-2 bg-black border border-pink-500 text-white rounded-xl text-sm focus:border-pink-500 focus:outline-none"
+                  className="px-4 py-2 bg-black border-2 border-pink-500 text-white rounded-xl text-sm focus:border-pink-500 focus:outline-none"
                 >
                   <option value="all" className="bg-black">All Services</option>
                   {SERVICE_TEMPLATES.map((t) => (
@@ -541,7 +541,7 @@ export default function VideoGeneratorPage() {
                 <button
                   onClick={loadLibraryVideos}
                   disabled={isLoadingLibrary}
-                  className="px-4 py-2 bg-black hover:bg-pink-500/20 border border-pink-500 text-white rounded-xl text-sm transition-colors"
+                  className="px-4 py-2 bg-black hover:bg-pink-500/20 border-2 border-pink-500 text-white rounded-xl text-sm transition-colors"
                 >
                   {isLoadingLibrary ? "Loading..." : "🔄 Refresh"}
                 </button>
@@ -565,7 +565,7 @@ export default function VideoGeneratorPage() {
                 {filteredLibraryVideos.map((video) => (
                   <div
                     key={video.id}
-                    className="bg-black rounded-xl overflow-hidden border border-pink-500 hover:border-pink-500 transition-all"
+                    className="bg-black rounded-xl overflow-hidden border-2 border-pink-500 hover:border-pink-500 transition-all"
                   >
                     <div className="aspect-video bg-gradient-to-br from-gray-800 to-black relative flex items-center justify-center">
                       {video.url ? (
@@ -610,7 +610,7 @@ export default function VideoGeneratorPage() {
                               navigator.clipboard.writeText(video.caption || "");
                               alert("Caption copied!");
                             }}
-                            className="px-3 py-2 bg-black hover:bg-pink-500/20 border border-pink-500 text-white rounded-lg text-sm transition-colors"
+                            className="px-3 py-2 bg-black hover:bg-pink-500/20 border-2 border-pink-500 text-white rounded-lg text-sm transition-colors"
                             title="Copy caption"
                           >
                             📋
@@ -639,7 +639,7 @@ export default function VideoGeneratorPage() {
                 <select
                   value={imageCategory}
                   onChange={(e) => setImageCategory(e.target.value)}
-                  className="px-4 py-2 bg-black border border-pink-500 text-white rounded-xl text-sm focus:border-pink-500 focus:outline-none"
+                  className="px-4 py-2 bg-black border-2 border-pink-500 text-white rounded-xl text-sm focus:border-pink-500 focus:outline-none"
                 >
                   {IMAGE_CATEGORIES.map((cat) => (
                     <option key={cat.id} value={cat.id} className="bg-black">{cat.icon} {cat.name}</option>
@@ -654,7 +654,7 @@ export default function VideoGeneratorPage() {
                 <button
                   onClick={loadLibraryImages}
                   disabled={isLoadingImages}
-                  className="px-4 py-2 bg-black hover:bg-pink-500/20 border border-pink-500 text-white rounded-xl text-sm transition-colors"
+                  className="px-4 py-2 bg-black hover:bg-pink-500/20 border-2 border-pink-500 text-white rounded-xl text-sm transition-colors"
                 >
                   {isLoadingImages ? "Loading..." : "🔄 Refresh"}
                 </button>
@@ -664,7 +664,7 @@ export default function VideoGeneratorPage() {
             {/* Upload Modal */}
             {showUploadModal && (
               <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
-                <div className="bg-black border border-pink-500 rounded-2xl p-6 w-full max-w-md mx-4">
+                <div className="bg-black border-2 border-pink-500 rounded-2xl p-6 w-full max-w-md mx-4">
                   <h3 className="text-lg font-semibold text-white mb-4">Upload Image</h3>
                   
                   <div className="space-y-4">
@@ -675,7 +675,7 @@ export default function VideoGeneratorPage() {
                         value={uploadName}
                         onChange={(e) => setUploadName(e.target.value)}
                         placeholder="e.g., Botox Before After"
-                        className="w-full bg-black border border-pink-500 text-white rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none placeholder-pink-300"
+                        className="w-full bg-black border-2 border-pink-500 text-white rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none placeholder:text-pink-300"
                       />
                     </div>
                     
@@ -684,7 +684,7 @@ export default function VideoGeneratorPage() {
                       <select
                         value={uploadCategory}
                         onChange={(e) => setUploadCategory(e.target.value)}
-                        className="w-full bg-black border border-pink-500 text-white rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none"
+                        className="w-full bg-black border-2 border-pink-500 text-white rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none"
                       >
                         {IMAGE_CATEGORIES.filter(c => c.id !== "all").map((cat) => (
                           <option key={cat.id} value={cat.id} className="bg-black">{cat.icon} {cat.name}</option>
@@ -699,7 +699,7 @@ export default function VideoGeneratorPage() {
                         value={uploadTags}
                         onChange={(e) => setUploadTags(e.target.value)}
                         placeholder="e.g., botox, before-after, face"
-                        className="w-full bg-black border border-pink-500 text-white rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none placeholder-pink-300"
+                        className="w-full bg-black border-2 border-pink-500 text-white rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none placeholder:text-pink-300"
                       />
                     </div>
                     
@@ -710,7 +710,7 @@ export default function VideoGeneratorPage() {
                         type="file"
                         accept="image/*"
                         onChange={handleLibraryImageUpload}
-                        className="w-full bg-black border border-pink-500 text-white rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none file:mr-4 file:py-1 file:px-4 file:rounded-lg file:border-0 file:bg-pink-500 file:text-white hover:file:bg-pink-600"
+                        className="w-full bg-black border-2 border-pink-500 text-white rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none file:mr-4 file:py-1 file:px-4 file:rounded-lg file:border-0 file:bg-pink-500 file:text-white hover:file:bg-pink-600"
                       />
                     </div>
                   </div>
@@ -722,7 +722,7 @@ export default function VideoGeneratorPage() {
                         setUploadName("");
                         setUploadTags("");
                       }}
-                      className="flex-1 py-2 border border-pink-500 text-white rounded-xl hover:bg-pink-500/20 transition-colors"
+                      className="flex-1 py-2 border-2 border-pink-500 text-white rounded-xl hover:bg-pink-500/20 transition-colors"
                     >
                       Cancel
                     </button>
@@ -757,7 +757,7 @@ export default function VideoGeneratorPage() {
                   .map((image) => (
                   <div
                     key={image.id}
-                    className="group relative bg-black rounded-xl overflow-hidden border border-pink-500 hover:border-pink-500 transition-all"
+                    className="group relative bg-black rounded-xl overflow-hidden border-2 border-pink-500 hover:border-pink-500 transition-all"
                   >
                     <div className="aspect-square relative">
                       <img
@@ -859,7 +859,7 @@ export default function VideoGeneratorPage() {
                     type="text"
                     value={formData.headline}
                     onChange={(e) => setFormData({ ...formData, headline: e.target.value })}
-                    className="w-full bg-black border border-pink-500 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder-pink-300"
+                    className="w-full bg-black border-2 border-pink-500 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder:text-pink-300"
                     placeholder="VIP Launch Special"
                   />
                 </div>
@@ -869,7 +869,7 @@ export default function VideoGeneratorPage() {
                     type="text"
                     value={formData.price}
                     onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                    className="w-full bg-black border border-pink-500 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder-pink-300"
+                    className="w-full bg-black border-2 border-pink-500 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder:text-pink-300"
                     placeholder="$1,895"
                   />
                 </div>
@@ -879,7 +879,7 @@ export default function VideoGeneratorPage() {
                     type="text"
                     value={formData.originalPrice}
                     onChange={(e) => setFormData({ ...formData, originalPrice: e.target.value })}
-                    className="w-full bg-black border border-pink-500 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder-pink-300"
+                    className="w-full bg-black border-2 border-pink-500 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder:text-pink-300"
                     placeholder="$2,500"
                   />
                 </div>
@@ -889,7 +889,7 @@ export default function VideoGeneratorPage() {
                     type="text"
                     value={formData.promoLabel}
                     onChange={(e) => setFormData({ ...formData, promoLabel: e.target.value })}
-                    className="w-full bg-black border border-pink-500 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder-pink-300"
+                    className="w-full bg-black border-2 border-pink-500 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white placeholder:text-pink-300"
                     placeholder="Limited Launch Offer"
                   />
                 </div>
@@ -909,7 +909,7 @@ export default function VideoGeneratorPage() {
                         newBenefits[index] = e.target.value;
                         setFormData({ ...formData, benefits: newBenefits });
                       }}
-                      className="w-full bg-black border border-pink-500 rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none text-white text-sm placeholder-pink-300"
+                      className="w-full bg-black border-2 border-pink-500 rounded-xl px-4 py-2 focus:border-pink-500 focus:outline-none text-white text-sm placeholder:text-pink-300"
                     />
                   ))}
                 </div>
@@ -1107,7 +1107,7 @@ export default function VideoGeneratorPage() {
                       onChange={(e) => setFormData({ ...formData, customVoiceScript: e.target.value })}
                       placeholder={generateDefaultScript()}
                       rows={3}
-                      className="w-full bg-black border border-pink-500 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white text-sm resize-none placeholder-pink-300"
+                      className="w-full bg-black border-2 border-pink-500 rounded-xl px-4 py-3 focus:border-pink-500 focus:outline-none text-white text-sm resize-none placeholder:text-pink-300"
                     />
                   </div>
 
@@ -1157,7 +1157,7 @@ export default function VideoGeneratorPage() {
 
           {/* Right: Generated Videos */}
           <div className="lg:col-span-1">
-            <div className="bg-black/80 backdrop-blur rounded-2xl p-6 sticky top-8 border border-pink-500">
+            <div className="bg-black/80 backdrop-blur rounded-2xl p-6 sticky top-8 border-2 border-pink-500">
               <h2 className="text-xl font-semibold text-pink-500 mb-4">Generated Videos</h2>
 
               {generatedVideos.length === 0 ? (
@@ -1169,7 +1169,7 @@ export default function VideoGeneratorPage() {
               ) : (
                 <div className="space-y-4">
                   {generatedVideos.map((video) => (
-                    <div key={video.id} className="bg-black rounded-xl p-4 border border-pink-500">
+                    <div key={video.id} className="bg-black rounded-xl p-4 border-2 border-pink-500">
                       <div className="flex items-center justify-between mb-2">
                         <div className="font-medium text-white">{video.name}</div>
                         <span className={`text-xs px-3 py-1 rounded-full font-medium ${
@@ -1199,7 +1199,7 @@ export default function VideoGeneratorPage() {
                           </a>
                           <button
                             onClick={() => saveToLibrary(video)}
-                            className="w-full py-2 bg-black hover:bg-pink-500/20 border border-pink-500 text-white rounded-lg text-sm font-medium transition-colors"
+                            className="w-full py-2 bg-black hover:bg-pink-500/20 border-2 border-pink-500 text-white rounded-lg text-sm font-medium transition-colors"
                           >
                             📚 Save to Library
                           </button>
@@ -1209,7 +1209,7 @@ export default function VideoGeneratorPage() {
                                 navigator.clipboard.writeText(video.caption || "");
                                 alert("Caption copied!");
                               }}
-                              className="w-full py-2 bg-black hover:bg-pink-500/20 border border-pink-500 text-white rounded-lg text-sm font-medium transition-colors"
+                              className="w-full py-2 bg-black hover:bg-pink-500/20 border-2 border-pink-500 text-white rounded-lg text-sm font-medium transition-colors"
                             >
                               📋 Copy Caption
                             </button>
