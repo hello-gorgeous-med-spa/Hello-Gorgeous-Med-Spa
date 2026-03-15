@@ -99,6 +99,7 @@ const DEFAULT_BENEFITS: Record<string, string[]> = {
 };
 
 export default function VideoGeneratorPage() {
+  const [mounted, setMounted] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState<string>("solaria");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedVideos, setGeneratedVideos] = useState<GeneratedVideo[]>([]);
@@ -108,6 +109,11 @@ export default function VideoGeneratorPage() {
   const afterInputRef = useRef<HTMLInputElement>(null);
   
   const [activeTab, setActiveTab] = useState<"create" | "videos" | "images">("create");
+  
+  // Fix hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const [libraryVideos, setLibraryVideos] = useState<LibraryVideo[]>([]);
   const [isLoadingLibrary, setIsLoadingLibrary] = useState(false);
   const [libraryFilter, setLibraryFilter] = useState<string>("all");
@@ -592,7 +598,7 @@ export default function VideoGeneratorPage() {
                     <div className="p-4">
                       <h3 className="font-medium text-white truncate">{video.name}</h3>
                       <p className="text-xs text-[#E91E8C] mt-1">
-                        {new Date(video.created_at).toLocaleDateString()} • {video.service}
+                        {mounted ? new Date(video.created_at).toLocaleDateString() : "..."} • {video.service}
                       </p>
                       <div className="flex gap-2 mt-3">
                         {video.url && (
@@ -1185,7 +1191,7 @@ export default function VideoGeneratorPage() {
                         </span>
                       </div>
                       <div className="text-xs text-[#E91E8C] mb-3">
-                        {video.format} • {new Date(video.createdAt).toLocaleString()}
+                        {video.format} • {mounted ? new Date(video.createdAt).toLocaleString() : "..."}
                       </div>
                       
                       {video.status === "completed" && video.url && (
