@@ -1,0 +1,41 @@
+{
+  "_readme": "Asset manifest for Hello Gorgeous Remotion videos. Map friendly names to file paths. Add new assets by placing files in the correct folder and adding an entry here.",
+  
+  "logos": {
+    "watermark": "assets/logos/hello-gorgeous-watermark.png",
+    "full": "assets/logos/hello-gorgeous-full.png",
+    "icon": "assets/logos/hello-gorgeous-icon.png"
+  },
+
+  "devices": {
+    "morpheus8-burst": "assets/devices/morpheus8-burst.png",
+    "solaria-co2": "assets/devices/solaria-co2.png",
+    "quantumrf": "assets/devices/quantumrf.png",
+    "inmode-workstation": "assets/devices/inmode-workstation.png"
+  },
+
+  "treatments": {
+    "morpheus8-process": "assets/treatments/morpheus8-process.jpg",
+    "solaria-process": "assets/treatments/solaria-process.jpg",
+    "quantumrf-process": "assets/treatments/quantumrf-process.jpg"
+  },
+
+  "clients": {
+    "ba-morpheus8-1": "assets/clients/ba-morpheus8-1.jpg",
+    "ba-morpheus8-2": "assets/clients/ba-morpheus8-2.jpg",
+    "ba-solaria-1": "assets/clients/ba-solaria-1.jpg",
+    "ba-solaria-2": "assets/clients/ba-solaria-2.jpg"
+  },
+
+  "backgrounds": {
+    "dark-texture": "assets/backgrounds/dark-texture.jpg",
+    "gold-gradient": "assets/backgrounds/gold-gradient.jpg",
+    "clinic-interior": "assets/backgrounds/clinic-interior.jpg"
+  },
+
+  "audio": {
+    "luxury-ambient": "assets/audio/luxury-ambient.mp3",
+    "cinematic-reveal": "assets/audio/cinematic-reveal.mp3",
+    "soft-pulse": "assets/audio/soft-pulse.mp3"
+  }
+}
