@@ -1,17 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 export async function GET() {
   try {
-    const supabase = await createClient();
-    
+    const supabase = await createServerSupabaseClient();
+    if (!supabase) {
+      return NextResponse.json({ videos: [] });
+    }
+
     const { data, error } = await supabase
       .from("video_library")
       .select("*")
       .order("created_at", { ascending: false });
 
     if (error) {
-      // If table doesn't exist or any DB error, return empty array gracefully
       console.log("video_library query error (returning empty):", error.code, error.message);
       return NextResponse.json({ videos: [] });
     }
@@ -19,7 +21,7 @@ export async function GET() {
     return NextResponse.json({ videos: data || [] });
   } catch (error) {
     console.error("Video library GET error:", error);
-    return NextResponse.json({ error: "Failed to fetch videos" }, { status: 500 });
+    return NextResponse.json({ videos: [] });
   }
 }
 
@@ -28,7 +30,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { name, service, format, url, caption, thumbnail_url, duration, file_size } = body;
 
-    const supabase = await createClient();
+    const supabase = await createServerSupabaseClient();
+    if (!supabase) {
+      return NextResponse.json({ error: "Database not configured" }, { status: 500 });
+    }
 
     const { data, error } = await supabase
       .from("video_library")
@@ -67,7 +72,10 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Video ID required" }, { status: 400 });
     }
 
-    const supabase = await createClient();
+    const supabase = await createServerSupabaseClient();
+    if (!supabase) {
+      return NextResponse.json({ error: "Database not configured" }, { status: 500 });
+    }
 
     const { error } = await supabase
       .from("video_library")

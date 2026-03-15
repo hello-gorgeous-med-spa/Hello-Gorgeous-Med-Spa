@@ -121,7 +121,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   }
 
   return (
-    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`} suppressHydrationWarning>
       <head>
         {/* Preconnect to Google Maps for faster embed load */}
         <link rel="preconnect" href="https://www.google.com" />
@@ -148,7 +148,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
         />
       </head>
-      <body className="min-h-screen antialiased font-sans">
+      <body className="min-h-screen antialiased font-sans" suppressHydrationWarning>
         <ClientErrorBoundary>
           <GoogleAnalytics />
           <ConsultationRequestPopup />

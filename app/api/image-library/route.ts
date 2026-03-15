@@ -1,13 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const category = searchParams.get("category");
-    
-    const supabase = await createClient();
-    
+
+    const supabase = await createServerSupabaseClient();
+    if (!supabase) {
+      return NextResponse.json({ images: [] });
+    }
+
     let query = supabase
       .from("image_library")
       .select("*")
@@ -20,7 +23,6 @@ export async function GET(request: NextRequest) {
     const { data, error } = await query;
 
     if (error) {
-      // If table doesn't exist or any DB error, return empty array gracefully
       console.log("image_library query error (returning empty):", error.code, error.message);
       return NextResponse.json({ images: [] });
     }
@@ -28,7 +30,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ images: data || [] });
   } catch (error) {
     console.error("Image library GET error:", error);
-    return NextResponse.json({ error: "Failed to fetch images" }, { status: 500 });
+    return NextResponse.json({ images: [] });
   }
 }
 
@@ -37,7 +39,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { name, url, category, tags, source, width, height, file_size } = body;
 
-    const supabase = await createClient();
+    const supabase = await createServerSupabaseClient();
+    if (!supabase) {
+      return NextResponse.json({ error: "Database not configured" }, { status: 500 });
+    }
 
     const { data, error } = await supabase
       .from("image_library")
@@ -75,7 +80,10 @@ export async function DELETE(request: NextRequest) {
       return NextResponse.json({ error: "Image ID required" }, { status: 400 });
     }
 
-    const supabase = await createClient();
+    const supabase = await createServerSupabaseClient();
+    if (!supabase) {
+      return NextResponse.json({ error: "Database not configured" }, { status: 500 });
+    }
 
     const { error } = await supabase
       .from("image_library")
@@ -103,7 +111,10 @@ export async function PATCH(request: NextRequest) {
       return NextResponse.json({ error: "Image ID required" }, { status: 400 });
     }
 
-    const supabase = await createClient();
+    const supabase = await createServerSupabaseClient();
+    if (!supabase) {
+      return NextResponse.json({ error: "Database not configured" }, { status: 500 });
+    }
 
     const updateData: Record<string, unknown> = {};
     if (name !== undefined) updateData.name = name;
