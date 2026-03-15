@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 interface MetricsInput {
   campaignId?: string;
@@ -23,7 +23,7 @@ export async function POST(request: NextRequest) {
   try {
     const body: MetricsInput = await request.json();
     
-    const supabase = await createClient();
+    const supabase = await createServerSupabaseClient();
 
     const { data, error } = await supabase
       .from("campaign_metrics")
@@ -67,7 +67,7 @@ export async function GET(request: NextRequest) {
     const platform = searchParams.get("platform");
     const days = parseInt(searchParams.get("days") || "30");
 
-    const supabase = await createClient();
+    const supabase = await createServerSupabaseClient();
 
     const startDate = new Date();
     startDate.setDate(startDate.getDate() - days);

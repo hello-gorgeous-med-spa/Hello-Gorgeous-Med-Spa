@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
 
 interface TrackPostRequest {
   campaignId?: string;
@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "Platform is required" }, { status: 400 });
     }
 
-    const supabase = await createClient();
+    const supabase = await createServerSupabaseClient();
 
     const { data, error } = await supabase
       .from("social_posts")
@@ -60,7 +60,7 @@ export async function GET(request: NextRequest) {
     const platform = searchParams.get("platform");
     const limit = parseInt(searchParams.get("limit") || "50");
 
-    const supabase = await createClient();
+    const supabase = await createServerSupabaseClient();
 
     let query = supabase
       .from("social_posts")

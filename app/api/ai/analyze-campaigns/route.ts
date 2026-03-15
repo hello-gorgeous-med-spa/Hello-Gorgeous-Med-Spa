@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
 import OpenAI from "openai";
 
 const openai = new OpenAI({
@@ -23,7 +23,11 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { service, forceRefresh = false } = body;
 
-    const supabase = await createClient();
+    const supabase = await createServerSupabaseClient();
+    if (!supabase) {
+      const defaults = await generateDefaultRecommendations(service || undefined);
+      return NextResponse.json({ success: true, recommendations: defaults, fromDefaults: true });
+    }
 
     // Check for existing recent recommendations (unless force refresh)
     if (!forceRefresh) {
@@ -306,7 +310,11 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const service = searchParams.get("service");
 
-    const supabase = await createClient();
+    const supabase = await createServerSupabaseClient();
+    if (!supabase) {
+      const defaults = await generateDefaultRecommendations(service || undefined);
+      return NextResponse.json({ recommendations: defaults, fromDefaults: true });
+    }
 
     let query = supabase
       .from("campaign_recommendations")
