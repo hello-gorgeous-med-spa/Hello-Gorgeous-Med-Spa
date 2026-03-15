@@ -156,6 +156,18 @@ const navigation = {
       { label: "RX Membership", href: "/rx/membership", description: "Medical optimization programs", icon: "💎" },
     ],
   },
+  trifecta: {
+    label: "Advanced Treatments",
+    href: "/trifecta-vip",
+    links: [
+      { label: "The InMode Trifecta", href: "/trifecta-vip", description: "3 technologies. 1 spa. 0 surgery.", icon: "👑", badge: "EXCLUSIVE" },
+      { label: "Morpheus8 Burst", href: "/morpheus8-burst-oswego-il", description: "Deepest RF microneedling at 8mm", icon: "⚡", badge: "NEW" },
+      { label: "Solaria CO₂ Laser", href: "/solaria-co2-laser-oswego-il", description: "Gold standard fractional resurfacing", icon: "✨", badge: "NEW" },
+      { label: "QuantumRF", href: "/quantum-rf-oswego-il", description: "Subdermal contouring without surgery", icon: "🎯", badge: "NEW" },
+      { label: "Solaria vs Morpheus8", href: "/solaria-vs-morpheus8-burst", description: "Compare technologies side by side", icon: "⚖️" },
+      { label: "Solaria Packages", href: "/solaria-packages", description: "Treatment bundles & VIP pricing", icon: "💎" },
+    ],
+  },
 };
 
 function cx(...classes: Array<string | undefined | null | false>) {
@@ -461,18 +473,28 @@ export function Header() {
               <SimpleDropdown data={navigation.rx} isOpen={activeDropdown === 'rx'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('rx')} />
             </div>
 
-            {/* Solaria Packages - direct link */}
-            <Link
-              href="/solaria-packages"
-              className={cx(
-                "flex items-center justify-center h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
-                pathname === '/solaria-packages'
-                  ? "text-white bg-[#FF2D8E]"
-                  : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
-              )}
+            {/* Advanced Treatments (Trifecta) Dropdown */}
+            <div 
+              className="relative flex items-center"
+              onMouseEnter={() => handleMouseEnter('trifecta')}
+              onMouseLeave={handleMouseLeave}
             >
-              Solaria
-            </Link>
+              <Link
+                href="/trifecta-vip"
+                className={cx(
+                  "flex items-center justify-center gap-1 h-9 px-2.5 rounded-lg text-sm font-medium transition-all whitespace-nowrap",
+                  pathname?.startsWith('/morpheus8-burst') || pathname?.startsWith('/quantum-rf') || pathname?.startsWith('/solaria-co2-laser') || pathname?.startsWith('/solaria-vs') || pathname?.startsWith('/trifecta') || pathname === '/solaria-packages'
+                    ? "text-white bg-[#FF2D8E]"
+                    : "text-black hover:bg-[#FF2D8E]/10 hover:text-[#FF2D8E]"
+                )}
+              >
+                Trifecta
+                <svg className={cx("w-3 h-3 transition-transform", activeDropdown === 'trifecta' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </Link>
+              <SimpleDropdown data={navigation.trifecta} isOpen={activeDropdown === 'trifecta'} onClose={() => setActiveDropdown(null)} onMouseEnter={() => handleMouseEnter('trifecta')} />
+            </div>
 
             {/* More (Shop, Patient Care, Contact) */}
             <div 
@@ -622,15 +644,39 @@ export function Header() {
               Fix what bothers me
             </Link>
 
-            {/* Solaria Packages - prominent in mobile */}
-            <Link
-              href="/solaria-packages"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-3 px-4 py-3 min-h-[44px] rounded-xl bg-teal-500/10 border border-teal-500/30 text-teal-700 font-semibold"
-            >
-              <span className="text-xl">✨</span>
-              Solaria Packages
-            </Link>
+            {/* Advanced Treatments / Trifecta Section */}
+            <div className="border-b border-black pb-4">
+              <button
+                onClick={() => setMobileSubmenu(mobileSubmenu === 'trifecta' ? null : 'trifecta')}
+                className="w-full flex items-center justify-between px-4 py-3 text-lg font-semibold text-[#FF2D8E]"
+              >
+                <span className="flex items-center gap-3">
+                  <span className="text-xl">👑</span>
+                  Advanced Treatments
+                </span>
+                <svg className={cx("w-5 h-5 transition-transform", mobileSubmenu === 'trifecta' && "rotate-180")} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              {mobileSubmenu === 'trifecta' && (
+                <div className="mt-2 ml-4">
+                  {navigation.trifecta.links.map((link) => (
+                    <Link
+                      key={link.href}
+                      href={link.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 rounded-lg"
+                    >
+                      <span>{link.icon}</span>
+                      <div>
+                        <span>{link.label}</span>
+                        {link.description && <span className="block text-xs text-black/50">{link.description}</span>}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
 
             {/* Services Section */}
             <div className="border-b border-black pb-4">
