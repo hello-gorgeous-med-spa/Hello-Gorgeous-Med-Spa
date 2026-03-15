@@ -1,6 +1,9 @@
 import { Composition } from "remotion";
 import { SolariaCO2Laser } from "./compositions/SolariaCO2Laser";
 import { StretchMarkTreatment } from "./compositions/StretchMarkTreatment";
+import { InModeTrifecta } from "./compositions/InModeTrifecta";
+import { GLP1SkinSolution } from "./compositions/GLP1SkinSolution";
+import { StandardVsBurst } from "./compositions/StandardVsBurst";
 import { ServicePromo, ServicePromoProps } from "./templates/ServicePromo";
 
 const sharedProps = {
@@ -33,6 +36,93 @@ const defaultServiceProps: Omit<ServicePromoProps, "format"> = {
 export const RemotionRoot: React.FC = () => {
   return (
     <>
+      {/* ========== INMODE TRIFECTA — HERO LAUNCH ========== */}
+      <Composition
+        id="TrifectaRevealVertical"
+        component={InModeTrifecta}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ brandColor: "#E91E8C", format: "vertical" as const }}
+      />
+      <Composition
+        id="TrifectaRevealSquare"
+        component={InModeTrifecta}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ brandColor: "#E91E8C", format: "square" as const }}
+      />
+      <Composition
+        id="TrifectaRevealHorizontal"
+        component={InModeTrifecta}
+        durationInFrames={900}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{ brandColor: "#E91E8C", format: "horizontal" as const }}
+      />
+
+      {/* ========== GLP-1 SKIN SOLUTION ========== */}
+      <Composition
+        id="GLP1SolutionVertical"
+        component={GLP1SkinSolution}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ brandColor: "#E91E8C", format: "vertical" as const }}
+      />
+      <Composition
+        id="GLP1SolutionSquare"
+        component={GLP1SkinSolution}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ brandColor: "#E91E8C", format: "square" as const }}
+      />
+      <Composition
+        id="GLP1SolutionHorizontal"
+        component={GLP1SkinSolution}
+        durationInFrames={900}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{ brandColor: "#E91E8C", format: "horizontal" as const }}
+      />
+
+      {/* ========== STANDARD VS BURST ========== */}
+      <Composition
+        id="StandardVsBurstVertical"
+        component={StandardVsBurst}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ brandColor: "#E91E8C", format: "vertical" as const }}
+      />
+      <Composition
+        id="StandardVsBurstSquare"
+        component={StandardVsBurst}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ brandColor: "#E91E8C", format: "square" as const }}
+      />
+      <Composition
+        id="StandardVsBurstHorizontal"
+        component={StandardVsBurst}
+        durationInFrames={900}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{ brandColor: "#E91E8C", format: "horizontal" as const }}
+      />
+
       {/* ========== SOLARIA CO2 LASER PROMOS ========== */}
       <Composition
         id="SolariaPromoVertical"
