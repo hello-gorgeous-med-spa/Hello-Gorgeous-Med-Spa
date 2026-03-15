@@ -11,13 +11,9 @@ export async function GET() {
       .order("created_at", { ascending: false });
 
     if (error) {
-      // If table doesn't exist yet, return empty array
-      if (error.code === "42P01") {
-        console.log("video_library table not found, returning empty array");
-        return NextResponse.json({ videos: [] });
-      }
-      console.error("Error fetching video library:", error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      // If table doesn't exist or any DB error, return empty array gracefully
+      console.log("video_library query error (returning empty):", error.code, error.message);
+      return NextResponse.json({ videos: [] });
     }
 
     return NextResponse.json({ videos: data || [] });

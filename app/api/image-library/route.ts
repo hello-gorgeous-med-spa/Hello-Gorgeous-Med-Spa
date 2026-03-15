@@ -20,12 +20,9 @@ export async function GET(request: NextRequest) {
     const { data, error } = await query;
 
     if (error) {
-      if (error.code === "42P01") {
-        console.log("image_library table not found, returning empty array");
-        return NextResponse.json({ images: [] });
-      }
-      console.error("Error fetching image library:", error);
-      return NextResponse.json({ error: error.message }, { status: 500 });
+      // If table doesn't exist or any DB error, return empty array gracefully
+      console.log("image_library query error (returning empty):", error.code, error.message);
+      return NextResponse.json({ images: [] });
     }
 
     return NextResponse.json({ images: data || [] });
