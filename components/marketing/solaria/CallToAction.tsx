@@ -32,7 +32,22 @@ export function CallToAction() {
           </a>
         </div>
 
-        <div className="text-white/50 space-y-1 text-sm">
+        <div className="mt-10 pt-8 border-t border-white/10">
+          <p className="text-white/40 text-sm mb-4">Explore our other advanced treatments:</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link href="/morpheus8-burst-oswego-il" className="px-4 py-2 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/50 text-sm transition-colors">
+              Morpheus8 Burst
+            </Link>
+            <Link href="/quantum-rf-oswego-il" className="px-4 py-2 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/50 text-sm transition-colors">
+              QuantumRF Skin Tightening
+            </Link>
+            <Link href="/solaria-vs-morpheus8-burst" className="px-4 py-2 rounded-full border border-white/20 text-white/70 hover:text-white hover:border-white/50 text-sm transition-colors">
+              Solaria vs Morpheus8
+            </Link>
+          </div>
+        </div>
+
+        <div className="text-white/50 space-y-1 text-sm mt-8">
           <p className="font-semibold text-white/70">Hello Gorgeous Med Spa</p>
           <p>74 W Washington Street, Oswego, Illinois 60543</p>
           <p>

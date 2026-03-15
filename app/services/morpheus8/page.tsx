@@ -675,6 +675,20 @@ export default function Morpheus8Page() {
                 </p>
               </Link>
             </div>
+            <div className="text-center mt-8">
+              <p className="text-black/50 text-sm mb-3">Learn more about our advanced technologies:</p>
+              <div className="flex flex-wrap justify-center gap-3">
+                <Link href="/morpheus8-burst-oswego-il" className="px-4 py-2 rounded-full border border-[#E91E8C]/30 text-[#E91E8C] text-sm hover:bg-[#E91E8C]/10 transition-colors font-medium">
+                  Morpheus8 Burst Details
+                </Link>
+                <Link href="/quantum-rf-oswego-il" className="px-4 py-2 rounded-full border border-black/20 text-black/70 text-sm hover:bg-black/5 transition-colors font-medium">
+                  QuantumRF Details
+                </Link>
+                <Link href="/solaria-vs-morpheus8-burst" className="px-4 py-2 rounded-full border border-black/20 text-black/70 text-sm hover:bg-black/5 transition-colors font-medium">
+                  Solaria vs Morpheus8
+                </Link>
+              </div>
+            </div>
           </div>
         </section>
       </main>
