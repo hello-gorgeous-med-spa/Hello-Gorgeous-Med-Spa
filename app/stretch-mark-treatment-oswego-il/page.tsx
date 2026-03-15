@@ -212,6 +212,13 @@ export default function StretchMarkTreatmentPage() {
             <p className="text-white/90 mb-6">
               Ask about bundle options: CO₂ + PRF package, CO₂ + microneedling combo, or a 3-treatment stretch mark series.
             </p>
+            <p className="text-white/70 mb-6 text-sm">
+              Learn more about our{" "}
+              <Link href="/solaria-co2-laser-oswego-il" className="text-[#E91E8C] hover:underline font-semibold">
+                Solaria CO₂ Fractional Laser Resurfacing
+              </Link>{" "}
+              — now available with a VIP launch special.
+            </p>
             <Link
               href="/book"
               className="inline-flex items-center justify-center rounded-lg bg-[#E6007E] px-8 py-4 font-semibold text-white hover:bg-[#c9006e] transition"

@@ -345,8 +345,15 @@ export default function SolariaCO2Page() {
         <section className="py-16 bg-zinc-100">
           <div className="max-w-2xl mx-auto px-4 text-center">
             <h2 className="text-2xl font-bold text-black mb-4">Ready to Transform Your Skin?</h2>
-            <p className="text-gray-600 mb-8">
+            <p className="text-gray-600 mb-4">
               Schedule your consultation today and discover if Solaria CO₂ is right for you.
+            </p>
+            <p className="text-sm text-gray-500 mb-8">
+              See our detailed{" "}
+              <Link href="/solaria-co2-laser-oswego-il" className="text-[#E6007E] hover:underline font-semibold">
+                Solaria CO₂ Laser Resurfacing
+              </Link>{" "}
+              page for full treatment details and VIP launch pricing.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <Link
