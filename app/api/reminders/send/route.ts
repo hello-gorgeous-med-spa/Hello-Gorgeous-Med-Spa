@@ -4,7 +4,7 @@
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
-import { createServerSupabaseClient } from '@/lib/supabase/server';
+import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 import { 
   EMAIL_TEMPLATES, 
   SMS_TEMPLATES, 
@@ -105,20 +105,38 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Send SMS
+    // Send SMS via Telnyx
     if (channels.includes('sms') && appointment.client?.phone) {
       const smsTemplate = SMS_TEMPLATES[template as keyof typeof SMS_TEMPLATES];
       if (smsTemplate) {
         const message = renderTemplate(smsTemplate, variables);
-        
-        // TODO: Integrate with Twilio
-        // For now, log the SMS
-        console.log('Would send SMS:', {
-          to: appointment.client.phone,
-          message,
-        });
-        
-        results.push({ channel: 'sms', success: true });
+        const telnyxKey = process.env.TELNYX_API_KEY;
+        const telnyxPhone = process.env.TELNYX_PHONE_NUMBER;
+
+        if (telnyxKey && telnyxPhone) {
+          try {
+            const smsRes = await fetch('https://api.telnyx.com/v2/messages', {
+              method: 'POST',
+              headers: {
+                Authorization: `Bearer ${telnyxKey}`,
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                from: telnyxPhone,
+                to: appointment.client.phone,
+                text: message,
+                messaging_profile_id: process.env.TELNYX_MESSAGING_PROFILE_ID || undefined,
+              }),
+            });
+            results.push({ channel: 'sms', success: smsRes.ok, error: smsRes.ok ? undefined : 'Telnyx send failed' });
+          } catch (e) {
+            console.error('[reminders/send] SMS error:', e);
+            results.push({ channel: 'sms', success: false, error: 'SMS send failed' });
+          }
+        } else {
+          console.log('[reminders/send] Telnyx not configured, skipping SMS');
+          results.push({ channel: 'sms', success: false, error: 'Telnyx not configured' });
+        }
       }
     }
 

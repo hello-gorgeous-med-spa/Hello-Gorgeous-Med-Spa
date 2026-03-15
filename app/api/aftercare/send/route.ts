@@ -134,35 +134,76 @@ export async function POST(request: NextRequest) {
     // Send based on template settings
     const results: { email?: boolean; sms?: boolean } = {};
 
-    // SEND EMAIL
+    // SEND EMAIL via Resend
     if ((template.send_via === 'email' || template.send_via === 'both') && clientEmail) {
-      // In a real implementation, integrate with email provider (SendGrid, Postmark, etc.)
-      // For now, we'll log and mark as sent
-      console.log(`[AFTERCARE] Would send email to ${clientEmail}`);
-      console.log(`[AFTERCARE] Subject: Aftercare Instructions - ${serviceName}`);
-      
-      // TODO: Integrate with actual email service
-      // await sendEmail({ to: clientEmail, subject: ..., body: processedContent });
-      
-      results.email = true;
+      const resendKey = process.env.RESEND_API_KEY;
+      if (resendKey) {
+        try {
+          const fromEmail = process.env.RESEND_FROM_EMAIL || 'Hello Gorgeous <onboarding@resend.dev>';
+          const emailRes = await fetch('https://api.resend.com/emails', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${resendKey}`,
+            },
+            body: JSON.stringify({
+              from: fromEmail,
+              to: [clientEmail.trim().toLowerCase()],
+              subject: `Aftercare Instructions - ${serviceName}`,
+              html: processedContent.replace(/\n/g, '<br>'),
+            }),
+          });
+          results.email = emailRes.ok;
+          if (!emailRes.ok) {
+            console.error('[AFTERCARE] Email send failed:', await emailRes.text());
+          }
+        } catch (e) {
+          console.error('[AFTERCARE] Email error:', e);
+          results.email = false;
+        }
+      } else {
+        console.log('[AFTERCARE] Resend not configured, skipping email');
+        results.email = false;
+      }
     }
 
-    // SEND SMS
+    // SEND SMS via Telnyx
     if ((template.send_via === 'sms' || template.send_via === 'both') && clientPhone) {
-      // Create SMS-friendly version (shorter, no markdown)
       const smsContent = processedContent
-        .replace(/^#+ /gm, '') // Remove markdown headers
-        .replace(/\*\*/g, '')   // Remove bold
-        .replace(/\n\n+/g, '\n') // Collapse multiple newlines
-        .substring(0, 320);     // SMS length limit
+        .replace(/^#+ /gm, '')
+        .replace(/\*\*/g, '')
+        .replace(/\n\n+/g, '\n')
+        .substring(0, 320);
 
-      console.log(`[AFTERCARE] Would send SMS to ${clientPhone}`);
-      console.log(`[AFTERCARE] Content: ${smsContent.substring(0, 100)}...`);
-      
-      // TODO: Integrate with Telnyx
-      // await sendSMS({ to: clientPhone, body: smsContent });
-      
-      results.sms = true;
+      const telnyxKey = process.env.TELNYX_API_KEY;
+      const telnyxPhone = process.env.TELNYX_PHONE_NUMBER;
+      if (telnyxKey && telnyxPhone) {
+        try {
+          const smsRes = await fetch('https://api.telnyx.com/v2/messages', {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${telnyxKey}`,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              from: telnyxPhone,
+              to: clientPhone,
+              text: smsContent,
+              messaging_profile_id: process.env.TELNYX_MESSAGING_PROFILE_ID || undefined,
+            }),
+          });
+          results.sms = smsRes.ok;
+          if (!smsRes.ok) {
+            console.error('[AFTERCARE] SMS send failed:', await smsRes.text());
+          }
+        } catch (e) {
+          console.error('[AFTERCARE] SMS error:', e);
+          results.sms = false;
+        }
+      } else {
+        console.log('[AFTERCARE] Telnyx not configured, skipping SMS');
+        results.sms = false;
+      }
     }
 
     // Record the sent aftercare
