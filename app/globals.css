@@ -465,27 +465,53 @@
 
 /* ============================================================
    ADMIN PANEL — Separate styles (not affected by brand rules)
+   Scoped to light-theme admin pages only (not dark-themed pages)
    ============================================================ */
-.admin-panel input,
-.admin-panel textarea,
-.admin-panel select {
+.admin-panel:not(:has(.admin-dark)) input,
+.admin-panel:not(:has(.admin-dark)) textarea,
+.admin-panel:not(:has(.admin-dark)) select {
   color: #111827 !important;
 }
 
-.admin-panel input::placeholder,
-.admin-panel textarea::placeholder {
+.admin-panel:not(:has(.admin-dark)) input::placeholder,
+.admin-panel:not(:has(.admin-dark)) textarea::placeholder {
   color: #6b7280 !important;
 }
 
-.admin-panel h1, .admin-panel h2, .admin-panel h3,
-.admin-panel h4, .admin-panel h5, .admin-panel h6 {
+.admin-panel:not(:has(.admin-dark)) h1,
+.admin-panel:not(:has(.admin-dark)) h2,
+.admin-panel:not(:has(.admin-dark)) h3,
+.admin-panel:not(:has(.admin-dark)) h4,
+.admin-panel:not(:has(.admin-dark)) h5,
+.admin-panel:not(:has(.admin-dark)) h6 {
   color: #111827;
 }
 
-.admin-panel label {
+.admin-panel:not(:has(.admin-dark)) label {
   color: #374151 !important;
 }
 
-.admin-panel table td, .admin-panel table th {
+.admin-panel:not(:has(.admin-dark)) table td,
+.admin-panel:not(:has(.admin-dark)) table th {
   color: #374151 !important;
+}
+
+/* Dark-themed admin pages - force white text */
+.admin-dark input,
+.admin-dark textarea,
+.admin-dark select {
+  color: #ffffff !important;
+}
+
+.admin-dark input::placeholder,
+.admin-dark textarea::placeholder {
+  color: rgba(233, 30, 140, 0.6) !important;
+}
+
+.admin-dark label {
+  color: #ffffff !important;
+}
+
+.admin-dark h1, .admin-dark h2, .admin-dark h3 {
+  color: #ffffff !important;
 }

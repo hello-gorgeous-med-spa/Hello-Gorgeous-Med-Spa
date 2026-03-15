@@ -350,7 +350,7 @@ export default function CampaignStudioPage() {
   };
 
   return (
-    <div className="min-h-screen bg-black p-6">
+    <div className="admin-dark min-h-screen bg-black p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6 text-center">

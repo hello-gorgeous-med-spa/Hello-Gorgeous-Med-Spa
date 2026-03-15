@@ -468,7 +468,7 @@ export default function VideoGeneratorPage() {
     : libraryVideos.filter((v) => v.service === libraryFilter);
 
   return (
-    <div className="min-h-screen bg-black p-6">
+    <div className="admin-dark min-h-screen bg-black p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-6">
