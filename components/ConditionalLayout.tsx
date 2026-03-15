@@ -47,7 +47,7 @@ export function ConditionalLayout({
   // Admin/auth routes - no website chrome, just the content (clean for mobile/PWA)
   if (isAdminRoute) {
     return (
-      <div className="bg-gradient-to-br from-pink-50 via-white to-pink-50 text-[#000000] min-h-screen min-h-[100dvh]">
+      <div className="min-h-screen min-h-[100dvh]">
         {children}
       </div>
     );
