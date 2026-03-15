@@ -379,7 +379,7 @@ export default function CampaignStudioPage() {
               className={`px-5 py-2.5 rounded-xl font-medium transition-all ${
                 activeTab === tab.id
                   ? "bg-pink-500 text-white shadow-lg shadow-pink-500/30"
-                  : "bg-gray-800 text-white hover:bg-gray-700 border border-pink-500/40"
+                  : "bg-black text-white hover:bg-pink-500/20 border border-pink-500"
               }`}
             >
               {tab.label}
@@ -389,7 +389,7 @@ export default function CampaignStudioPage() {
 
         {/* HOOK ENGINE TAB */}
         {activeTab === "hooks" && (
-          <div className="bg-gray-900/80 backdrop-blur rounded-3xl p-8 mb-8 border border-pink-500/40">
+          <div className="bg-black rounded-3xl p-8 mb-8 border-2 border-pink-500">
             <h2 className="text-2xl font-bold text-white mb-6 text-center">🎯 Viral Hook Intelligence Engine</h2>
             
             <div className="mb-6">
@@ -397,7 +397,7 @@ export default function CampaignStudioPage() {
                 value={prompt}
                 onChange={(e) => setPrompt(e.target.value)}
                 placeholder="Describe your campaign to generate scored hooks..."
-                className="w-full bg-gray-800 border border-pink-500/40 rounded-2xl px-6 py-4 text-white placeholder-pink-200/50 focus:border-pink-500 focus:outline-none resize-none"
+                className="w-full bg-black border border-pink-500 rounded-2xl px-6 py-4 text-white placeholder-pink-300 focus:border-pink-500 focus:outline-none resize-none"
                 rows={2}
               />
               <button
@@ -419,7 +419,7 @@ export default function CampaignStudioPage() {
                     className={`w-full p-4 rounded-xl text-left transition-all ${
                       selectedHook === h.hook
                         ? "bg-pink-500/30 border-pink-500"
-                        : "bg-gray-800 border-pink-500/40 hover:border-pink-500"
+                        : "bg-black border-pink-500 hover:border-pink-500"
                     } border`}
                   >
                     <div className="flex items-center justify-between mb-2">
@@ -427,14 +427,14 @@ export default function CampaignStudioPage() {
                       <span className={`px-3 py-1 rounded-full text-sm font-bold ${
                         h.score >= 90 ? "bg-green-500/20 text-green-400" :
                         h.score >= 80 ? "bg-yellow-500/20 text-yellow-400" :
-                        "bg-gray-500/20 text-gray-400"
+                        "bg-pink-500/10 text-pink-300"
                       }`}>
                         {h.score}
                       </span>
                     </div>
                     <div className="flex items-center gap-2 text-xs">
                       <span className="px-2 py-0.5 bg-pink-500/20 text-pink-300 rounded">{h.type}</span>
-                      <span className="text-pink-200/60">{h.reasoning}</span>
+                      <span className="text-pink-300">{h.reasoning}</span>
                     </div>
                   </button>
                 ))}
@@ -445,7 +445,7 @@ export default function CampaignStudioPage() {
 
         {/* STOCK MEDIA TAB */}
         {activeTab === "media" && (
-          <div className="bg-gray-900/80 backdrop-blur rounded-3xl p-8 mb-8 border border-pink-500/40">
+          <div className="bg-black rounded-3xl p-8 mb-8 border-2 border-pink-500">
             <h2 className="text-2xl font-bold text-white mb-6 text-center">📸 Stock Media Library</h2>
             
             <div className="flex gap-2 mb-6 flex-wrap justify-center">
@@ -466,7 +466,7 @@ export default function CampaignStudioPage() {
                   className={`px-4 py-2 rounded-lg text-sm transition-all ${
                     mediaCategory === cat.id
                       ? "bg-pink-500 text-white"
-                      : "bg-gray-800 text-white hover:bg-gray-700 border border-pink-500/40"
+                      : "bg-black text-white hover:bg-pink-500/20 border border-pink-500"
                   }`}
                 >
                   {cat.label}
@@ -486,7 +486,7 @@ export default function CampaignStudioPage() {
                     key={item.id}
                     onClick={() => setSelectedImage(item.url)}
                     className={`relative aspect-[9/16] rounded-xl overflow-hidden border-2 transition-all ${
-                      selectedImage === item.url ? "border-pink-500" : "border-pink-500/30"
+                      selectedImage === item.url ? "border-pink-500" : "border-pink-500"
                     }`}
                   >
                     <img
@@ -515,7 +515,7 @@ export default function CampaignStudioPage() {
 
         {/* BATCH GENERATOR TAB */}
         {activeTab === "batch" && (
-          <div className="bg-gray-900/80 backdrop-blur rounded-3xl p-8 mb-8 border border-pink-500/40">
+          <div className="bg-black rounded-3xl p-8 mb-8 border-2 border-pink-500">
             <h2 className="text-2xl font-bold text-white mb-2 text-center">📅 30-Day Content Generator</h2>
             <p className="text-pink-300 text-center mb-6">Generate a month of social media content in 2 minutes</p>
             
@@ -529,7 +529,7 @@ export default function CampaignStudioPage() {
                     className={`flex-1 py-3 rounded-xl font-medium transition-all ${
                       batchDays === days
                         ? "bg-pink-500 text-white"
-                        : "bg-gray-800 text-white hover:bg-gray-700 border border-pink-500/40"
+                        : "bg-black text-white hover:bg-pink-500/20 border border-pink-500"
                     }`}
                   >
                     {days} Days
@@ -567,7 +567,7 @@ export default function CampaignStudioPage() {
                   {batchContent.map((piece) => (
                     <div
                       key={piece.id}
-                      className="p-4 rounded-xl border bg-gray-800 border-pink-500/40"
+                      className="p-4 rounded-xl border bg-black border-pink-500"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-xs text-pink-300">{piece.scheduledDate}</span>
@@ -576,7 +576,7 @@ export default function CampaignStudioPage() {
                         </span>
                       </div>
                       <p className="text-white font-medium text-sm mb-1">"{piece.hook}"</p>
-                      <p className="text-pink-200/60 text-xs">{piece.service}</p>
+                      <p className="text-pink-300 text-xs">{piece.service}</p>
                       <button
                         onClick={() => {
                           setPrompt(piece.hook);
@@ -599,7 +599,7 @@ export default function CampaignStudioPage() {
         {activeTab === "create" && (
         <>
         {/* Main Prompt Box - Like Canva */}
-        <div className="bg-gray-900/80 backdrop-blur rounded-3xl p-8 mb-8 border border-pink-500/40">
+        <div className="bg-black rounded-3xl p-8 mb-8 border-2 border-pink-500">
           <div className="text-center mb-6">
             <h2 className="text-2xl font-semibold text-white mb-2">
               What will you create today?
@@ -611,7 +611,7 @@ export default function CampaignStudioPage() {
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Describe your campaign idea... (e.g., 'Tirzepatide weight loss VIP launch with special pricing')"
-              className="w-full bg-gray-800 border border-pink-500/40 rounded-2xl px-6 py-4 text-white placeholder-pink-200/50 focus:border-pink-500 focus:outline-none resize-none text-lg"
+              className="w-full bg-black border border-pink-500 rounded-2xl px-6 py-4 text-white placeholder-pink-300 focus:border-pink-500 focus:outline-none resize-none text-lg"
               rows={3}
             />
           </div>
@@ -638,21 +638,21 @@ export default function CampaignStudioPage() {
             <button
               onClick={generateHooks}
               disabled={!prompt || isGeneratingHooks}
-              className="px-6 py-3 bg-gray-800 border border-pink-500/40 text-white rounded-xl font-medium hover:bg-gray-700 transition-all disabled:opacity-50"
+              className="px-6 py-3 bg-black border border-pink-500 text-white rounded-xl font-medium hover:bg-pink-500/20 transition-all disabled:opacity-50"
             >
               {isGeneratingHooks ? "..." : "🎯 Generate Hooks"}
             </button>
             <button
               onClick={generateImages}
               disabled={!campaign || isGeneratingImages}
-              className="px-6 py-3 bg-gray-800 border border-pink-500/40 text-white rounded-xl font-medium hover:bg-gray-700 transition-all disabled:opacity-50"
+              className="px-6 py-3 bg-black border border-pink-500 text-white rounded-xl font-medium hover:bg-pink-500/20 transition-all disabled:opacity-50"
             >
               {isGeneratingImages ? "..." : "🖼️ Generate Images"}
             </button>
             <button
               onClick={generateVideo}
               disabled={!campaign || isGeneratingVideo}
-              className="px-6 py-3 bg-gray-800 border border-pink-500/40 text-white rounded-xl font-medium hover:bg-gray-700 transition-all disabled:opacity-50"
+              className="px-6 py-3 bg-black border border-pink-500 text-white rounded-xl font-medium hover:bg-pink-500/20 transition-all disabled:opacity-50"
             >
               {isGeneratingVideo ? "..." : "🎬 Generate Video"}
             </button>
@@ -663,7 +663,7 @@ export default function CampaignStudioPage() {
           {/* Left Column - Templates & Settings */}
           <div className="space-y-6">
             {/* Campaign Templates */}
-            <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
+            <div className="bg-black rounded-2xl p-6 border-2 border-pink-500">
               <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                 📋 Quick Templates
               </h3>
@@ -675,7 +675,7 @@ export default function CampaignStudioPage() {
                     className={`p-3 rounded-xl text-left transition-all ${
                       selectedTemplate?.id === template.id
                         ? "bg-pink-500/30 border-pink-500"
-                        : "bg-gray-800 border-pink-500/40 hover:border-pink-500"
+                        : "bg-black border-pink-500 hover:border-pink-500"
                     } border`}
                   >
                     <span className="text-xl">{template.icon}</span>
@@ -686,7 +686,7 @@ export default function CampaignStudioPage() {
             </div>
 
             {/* Video Format */}
-            <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
+            <div className="bg-black rounded-2xl p-6 border-2 border-pink-500">
               <h3 className="text-lg font-semibold text-white mb-4">📐 Video Format</h3>
               <div className="grid grid-cols-3 gap-2">
                 {[
@@ -700,7 +700,7 @@ export default function CampaignStudioPage() {
                     className={`p-3 rounded-xl text-center transition-all ${
                       videoFormat === format.id
                         ? "bg-pink-500/30 border-pink-500"
-                        : "bg-gray-800 border-pink-500/40 hover:border-pink-500"
+                        : "bg-black border-pink-500 hover:border-pink-500"
                     } border`}
                   >
                     <span className="text-xl">{format.icon}</span>
@@ -713,7 +713,7 @@ export default function CampaignStudioPage() {
 
             {/* Generated Hooks */}
             {hooks.length > 0 && (
-              <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
+              <div className="bg-black rounded-2xl p-6 border-2 border-pink-500">
                 <h3 className="text-lg font-semibold text-white mb-4">🎯 Viral Hooks</h3>
                 <div className="space-y-2">
                   {hooks.map((hook, i) => (
@@ -723,7 +723,7 @@ export default function CampaignStudioPage() {
                       className={`w-full p-3 rounded-xl text-left transition-all text-sm ${
                         selectedHook === hook
                           ? "bg-pink-500/30 border-pink-500 text-white"
-                          : "bg-gray-800 border-pink-500/40 text-white hover:border-pink-500"
+                          : "bg-black border-pink-500 text-white hover:border-pink-500"
                       } border`}
                     >
                       "{hook}"
@@ -738,7 +738,7 @@ export default function CampaignStudioPage() {
           <div className="space-y-6">
             {/* Campaign Preview */}
             {campaign && (
-              <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
+              <div className="bg-black rounded-2xl p-6 border-2 border-pink-500">
                 <h3 className="text-lg font-semibold text-white mb-4">📝 Campaign Content</h3>
                 
                 <div className="space-y-4">
@@ -777,7 +777,7 @@ export default function CampaignStudioPage() {
 
             {/* Generated Images */}
             {images.length > 0 && (
-              <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
+              <div className="bg-black rounded-2xl p-6 border-2 border-pink-500">
                 <h3 className="text-lg font-semibold text-white mb-4">🖼️ AI Images</h3>
                 <div className="grid grid-cols-2 gap-3">
                   {images.map((img, i) => (
@@ -785,7 +785,7 @@ export default function CampaignStudioPage() {
                       key={i}
                       onClick={() => setSelectedImage(img)}
                       className={`relative aspect-[9/16] rounded-xl overflow-hidden border-2 transition-all ${
-                        selectedImage === img ? "border-pink-500" : "border-pink-500/30"
+                        selectedImage === img ? "border-pink-500" : "border-pink-500"
                       }`}
                     >
                       <img src={img} alt={`Generated ${i + 1}`} className="w-full h-full object-cover" />
@@ -802,7 +802,7 @@ export default function CampaignStudioPage() {
 
             {/* Social Captions */}
             {campaign?.instagramCaption && (
-              <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
+              <div className="bg-black rounded-2xl p-6 border-2 border-pink-500">
                 <h3 className="text-lg font-semibold text-white mb-4">📱 Social Captions</h3>
                 <div className="space-y-4">
                   {[
@@ -810,7 +810,7 @@ export default function CampaignStudioPage() {
                     { platform: "TikTok", caption: campaign.tiktokCaption, icon: "🎵" },
                     { platform: "Facebook", caption: campaign.facebookCaption, icon: "👥" },
                   ].map((item) => (
-                    <div key={item.platform} className="bg-gray-800 rounded-xl p-4 border border-pink-500/30">
+                    <div key={item.platform} className="bg-black rounded-xl p-4 border border-pink-500">
                       <div className="flex items-center justify-between mb-2">
                         <span className="text-sm text-pink-300">{item.icon} {item.platform}</span>
                         <button
@@ -841,11 +841,11 @@ export default function CampaignStudioPage() {
           {/* Right Column - Preview & Publish */}
           <div className="space-y-6">
             {/* Video Preview */}
-            <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
+            <div className="bg-black rounded-2xl p-6 border-2 border-pink-500">
               <h3 className="text-lg font-semibold text-white mb-4">🎬 Video Preview</h3>
               
               {isGeneratingVideo ? (
-                <div className="aspect-[9/16] bg-gray-800 rounded-xl flex flex-col items-center justify-center border border-pink-500/30">
+                <div className="aspect-[9/16] bg-black rounded-xl flex flex-col items-center justify-center border border-pink-500">
                   <svg className="animate-spin h-12 w-12 text-pink-500 mb-4" viewBox="0 0 24 24">
                     <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
                     <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -869,7 +869,7 @@ export default function CampaignStudioPage() {
                   </a>
                 </div>
               ) : (
-                <div className="aspect-[9/16] bg-gray-800 rounded-xl flex flex-col items-center justify-center border border-dashed border-pink-500/40">
+                <div className="aspect-[9/16] bg-black rounded-xl flex flex-col items-center justify-center border border-dashed border-pink-500">
                   <span className="text-4xl mb-2">🎬</span>
                   <p className="text-pink-300 text-sm">Video preview will appear here</p>
                 </div>
@@ -877,7 +877,7 @@ export default function CampaignStudioPage() {
             </div>
 
             {/* Publish Panel */}
-            <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
+            <div className="bg-black rounded-2xl p-6 border-2 border-pink-500">
               <h3 className="text-lg font-semibold text-white mb-4">📤 Publish Campaign</h3>
               
               <div className="space-y-3 mb-4">
@@ -889,7 +889,7 @@ export default function CampaignStudioPage() {
                 ].map((platform) => (
                   <label
                     key={platform.id}
-                    className="flex items-center gap-3 p-3 bg-gray-800 rounded-xl cursor-pointer hover:bg-gray-700 transition-colors border border-pink-500/30"
+                    className="flex items-center gap-3 p-3 bg-black rounded-xl cursor-pointer hover:bg-pink-500/20 transition-colors border border-pink-500"
                   >
                     <input
                       type="checkbox"
@@ -918,7 +918,7 @@ export default function CampaignStudioPage() {
             </div>
 
             {/* Quick Stats */}
-            <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
+            <div className="bg-black rounded-2xl p-6 border-2 border-pink-500">
               <h3 className="text-lg font-semibold text-white mb-4">📊 Campaign Stats</h3>
               <div className="grid grid-cols-2 gap-4">
                 <div className="text-center">
@@ -941,7 +941,7 @@ export default function CampaignStudioPage() {
             </div>
 
             {/* Caption Settings */}
-            <div className="bg-gray-900/80 backdrop-blur rounded-2xl p-6 border border-pink-500/40">
+            <div className="bg-black rounded-2xl p-6 border-2 border-pink-500">
               <h3 className="text-lg font-semibold text-white mb-4">📝 Auto Captions</h3>
               <label className="flex items-center gap-3 mb-4">
                 <input
@@ -965,7 +965,7 @@ export default function CampaignStudioPage() {
                       className={`p-2 rounded-lg text-center transition-all ${
                         captionStyle === style.id
                           ? "bg-pink-500/30 border-pink-500"
-                          : "bg-gray-800 border-pink-500/40"
+                          : "bg-black border-pink-500"
                       } border`}
                     >
                       <div className="text-sm text-white">{style.name}</div>
