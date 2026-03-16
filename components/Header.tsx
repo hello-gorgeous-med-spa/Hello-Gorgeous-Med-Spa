@@ -137,6 +137,7 @@ const navigation = {
     label: "More",
     href: "/contact",
     links: [
+      { label: "Blog & Resources", href: "/blog", description: "Expert articles & treatment guides", icon: "📚" },
       { label: "Shop", href: "/shop", description: "Skincare, supplements & more", icon: "🧴" },
       { label: "Supplement Dispensary", href: "/fullscript", description: "Fullscript supplements", icon: "💊" },
       { label: "Patient Care", href: "/pre-post-care", description: "Pre & post treatment care", icon: "📋" },
