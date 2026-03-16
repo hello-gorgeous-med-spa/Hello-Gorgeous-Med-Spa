@@ -41,7 +41,7 @@ const TREATMENTS: { id: string; name: string; description: string; href: string;
   { id: "fillers", name: "Dermal Fillers", description: "Volume, contour, natural enhancement", href: "/services/dermal-fillers", icon: "💎", tags: ["filler", "volume", "contour", "cheeks", "nasolabial"] },
   { id: "lip-filler", name: "Lip Enhancement", description: "Fuller, defined lips", href: "/services/lip-filler", icon: "💋", tags: ["filler", "lip", "volume"] },
   { id: "kybella", name: "Kybella", description: "Reduce submental fat", href: "/services/kybella", icon: "✨", tags: ["kybella", "chin", "contour"] },
-  { id: "weight", name: "Medical Weight Loss", description: "GLP-1 support", href: "/services/weight-loss-therapy", icon: "⚡", tags: ["weight-loss", "glp-1", "body"] },
+  { id: "weight", name: "☀️ Semaglutide $299 Spring Break", description: "Oversight, screening & medicine", href: "/semaglutide-spring-break-special", icon: "⚡", tags: ["weight-loss", "glp-1", "body"] },
   { id: "hydrafacial", name: "HydraFacial", description: "Deep cleanse, glow", href: "/services/hydra-facial", icon: "💆", tags: ["facial", "skin", "texture"] },
   { id: "microneedling", name: "RF Microneedling", description: "Texture, scars, firmness", href: "/services/rf-microneedling", icon: "🎯", tags: ["microneedling", "skin", "texture", "peel"] },
   { id: "peels", name: "Chemical Peels", description: "Tone, clarity, radiance", href: "/services/chemical-peels", icon: "🧴", tags: ["peel", "skin", "texture"] },

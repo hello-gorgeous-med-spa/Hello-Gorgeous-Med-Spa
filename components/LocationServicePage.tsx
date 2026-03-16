@@ -31,6 +31,23 @@ export function LocationServicePage({ service, area, nearbyAreas }: LocationServ
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd(`${area.city}, IL`)) }} />
 
       <main className="bg-white">
+        {/* Spring Break Special — Weight Loss only */}
+        {service.slug === 'weight-loss' && (
+          <section className="bg-gradient-to-r from-[#E91E8C] to-[#FF69B4] py-3 px-4">
+            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3 text-center sm:text-left">
+              <p className="text-white font-bold text-sm md:text-base">
+                ☀️ Spring Break: $299/month — Oversight, Screening & Medicine Included
+              </p>
+              <Link
+                href={`/semaglutide-spring-break/${area.slug}-il`}
+                className="shrink-0 px-4 py-2 bg-white text-[#E91E8C] font-semibold rounded-lg hover:bg-white/90 transition text-sm"
+              >
+                View Special →
+              </Link>
+            </div>
+          </section>
+        )}
+
         {/* Hero Section */}
         <section className="relative bg-black text-white py-20 lg:py-24">
           <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black opacity-90" />
@@ -63,6 +80,7 @@ export function LocationServicePage({ service, area, nearbyAreas }: LocationServ
                 </div>
 
                 <div className="flex flex-wrap gap-4 text-sm">
+                  <span className="flex items-center gap-2 bg-[#FFD700]/20 border border-[#FFD700]/50 px-4 py-2 rounded-full text-[#FFD700] font-semibold">🏆 Best of Oswego</span>
                   <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">⭐ 4.9 Stars</span>
                   <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Licensed NPs</span>
                   <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Free Consultations</span>

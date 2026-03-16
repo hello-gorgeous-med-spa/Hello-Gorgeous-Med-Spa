@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 import { GoogleMapEmbed } from "@/components/GoogleMapEmbed";
+import { BestOfOswegoBadge } from "@/components/BestOfOswegoBadge";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE, SERVICES } from "@/lib/seo";
 import type { SiteSettings } from "@/lib/cms-readers";
@@ -31,6 +32,9 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
             <p className="text-white text-sm leading-relaxed max-w-sm">
               {tagline}
             </p>
+            <div className="mt-3">
+              <BestOfOswegoBadge variant="compact" className="!bg-[#FFD700]/10 !border-[#FFD700]/40" />
+            </div>
             <a
               href={SITE.googleReviewUrl}
               target="_blank"

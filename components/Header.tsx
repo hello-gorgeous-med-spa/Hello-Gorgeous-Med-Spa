@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import React, { useState, useRef, useEffect } from "react";
 
 import { CTA } from "./CTA";
+import { BestOfOswegoBadge } from "./BestOfOswegoBadge";
 import { SITE } from "@/lib/seo";
 import { BOOKING_URL, CHERRY_PAY_URL } from "@/lib/flows";
 
@@ -367,6 +368,13 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b-2 border-black">
+      {/* Best of Oswego bar */}
+      <div className="bg-black py-1.5 px-3">
+        <div className="max-w-7xl mx-auto flex items-center justify-center gap-2">
+          <BestOfOswegoBadge variant="compact" className="!bg-transparent !border-[#FFD700]/50 !text-[#FFD700]" />
+          <span className="text-white/70 text-xs hidden sm:inline">#1 Best Med Spa · Best Skincare · Best Weight Loss</span>
+        </div>
+      </div>
       <div className="mx-auto max-w-7xl px-3 sm:px-4 overflow-visible">
         <div className="flex items-center justify-between gap-2 h-16 min-h-16">
           {/* Logo - never shrink */}

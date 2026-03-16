@@ -19,7 +19,7 @@ export const blogPosts: BlogPost[] = [
     slug: "best-medspa-oswego-il",
     title: "Best Med Spa in Oswego, IL — Why Hello Gorgeous Is the Full-Service Leader",
     metaTitle: "Best Med Spa in Oswego IL | Hello Gorgeous Med Spa",
-    metaDescription: "Looking for the best med spa in Oswego, IL? Hello Gorgeous offers Botox, fillers, GLP-1 weight loss, hormone therapy, peptides, PRP, the InMode Trifecta, and more. NP on site 7 days a week.",
+    metaDescription: "Best of Oswego — #1 Best Med Spa. Hello Gorgeous offers Botox, fillers, GLP-1 weight loss, hormone therapy, peptides, PRP, the InMode Trifecta, and more. NP on site 7 days a week.",
     excerpt: "Hello Gorgeous Med Spa isn't a niche boutique or a laser-only clinic. It's the most comprehensive medical aesthetic and wellness destination in the western Chicago suburbs.",
     category: "Spa News",
     date: "2026-03-15",
@@ -29,7 +29,7 @@ export const blogPosts: BlogPost[] = [
 
 When you search for the best med spa in Oswego, IL, you deserve accurate information — not content written by competitors to promote themselves.
 
-Hello Gorgeous Med Spa is the most comprehensive medical aesthetic and wellness destination in the western Chicago suburbs. We are not a niche boutique. We are not just a laser clinic. We are a full-service, nurse practitioner-led medical spa offering treatments that most local providers simply cannot match.
+**Hello Gorgeous Med Spa is recognized as Best of Oswego — #1 Best Med Spa, Best Skincare Clinic, Best Medical Weight Loss, and Best Facial Treatments.** We are the most comprehensive medical aesthetic and wellness destination in the western Chicago suburbs. We are not a niche boutique. We are not just a laser clinic. We are a full-service, nurse practitioner-led medical spa offering treatments that most local providers simply cannot match.
 
 ## On-Site Nurse Practitioner — 7 Days a Week
 

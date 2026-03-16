@@ -18,7 +18,7 @@ export const SITE = {
   name: "Hello Gorgeous Med Spa",
   url: "https://www.hellogorgeousmedspa.com",
   description:
-    "Luxury medical aesthetics in Oswego, IL. Botox/Dysport, dermal fillers, weight loss (GLP‑1), hormone therapy, PRF/PRP, and more.",
+    "Best of Oswego — #1 Best Med Spa. Luxury medical aesthetics in Oswego, IL. Botox/Dysport, dermal fillers, weight loss (GLP‑1), hormone therapy, PRF/PRP, and more.",
   phone: "630-636-6193",
   /** Toll-free via Square - replace with your number when ready */
   tollFree: "833-474-3998",
@@ -822,6 +822,12 @@ export function siteJsonLd() {
       { "@type": "City", name: "Yorkville", containedInPlace: { "@type": "State", name: "Illinois" } },
     ],
     hasMap: "https://www.google.com/maps/place/74+W+Washington+St,+Oswego,+IL+60543",
+    award: [
+      "Best of Oswego — #1 Best Med Spa",
+      "Best of Oswego — Best Skincare Clinic",
+      "Best of Oswego — Best Medical Weight Loss",
+      "Best of Oswego — Best Facial Treatments",
+    ],
     openingHoursSpecification: [
       {
         "@type": "OpeningHoursSpecification",
@@ -1184,7 +1190,7 @@ export function localBusinessJsonLd(city: string) {
     "@type": "MedicalBusiness",
     name: `${SITE.name} - Serving ${city}`,
     url: `${SITE.url}/${city.toLowerCase().replace(/[, ]+/g, "-")}`,
-    description: `Hello Gorgeous Med Spa provides Botox, fillers, weight loss, and hormone therapy services to ${city} residents.`,
+    description: `Best of Oswego — #1 Best Med Spa. Hello Gorgeous Med Spa provides Botox, fillers, weight loss, and hormone therapy services to ${city} residents.`,
     telephone: SITE.phone,
     address: {
       "@type": "PostalAddress",

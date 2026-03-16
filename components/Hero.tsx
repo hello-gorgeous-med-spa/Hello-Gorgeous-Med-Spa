@@ -67,6 +67,14 @@ export function Hero({
             >
               {DEFAULT_SUBTEXT}
             </p>
+            <p
+              className={`mt-2 text-sm text-[#FFD700] font-semibold transition-all duration-500 ease-out ${
+                mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
+              }`}
+              style={{ transitionDelay: "180ms" }}
+            >
+              🏆 Best of Oswego — #1 Best Med Spa
+            </p>
             <div
               className={`mt-10 flex flex-col gap-4 sm:flex-row transition-all duration-500 ease-out ${
                 mounted ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"

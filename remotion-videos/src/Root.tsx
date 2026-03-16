@@ -1,4 +1,5 @@
 import { Composition } from "remotion";
+import { SemaglutideSpringBreak } from "./compositions/SemaglutideSpringBreak";
 import { SolariaCO2Laser } from "./compositions/SolariaCO2Laser";
 import { StretchMarkTreatment } from "./compositions/StretchMarkTreatment";
 import { InModeTrifecta } from "./compositions/InModeTrifecta";
@@ -524,6 +525,35 @@ export const RemotionRoot: React.FC = () => {
           brandColor: "#E91E8C",
           format: "vertical" as const,
         }}
+      />
+
+      {/* ========== SEMAGLUTIDE SPRING BREAK SPECIAL (GMB) ========== */}
+      <Composition
+        id="SemaglutideSpringBreakVertical"
+        component={SemaglutideSpringBreak}
+        durationInFrames={450}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ brandColor: "#E91E8C", format: "vertical" as const }}
+      />
+      <Composition
+        id="SemaglutideSpringBreakSquare"
+        component={SemaglutideSpringBreak}
+        durationInFrames={450}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ brandColor: "#E91E8C", format: "square" as const }}
+      />
+      <Composition
+        id="SemaglutideSpringBreakHorizontal"
+        component={SemaglutideSpringBreak}
+        durationInFrames={450}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{ brandColor: "#E91E8C", format: "horizontal" as const }}
       />
 
       {/* ========== STRETCH MARK TREATMENT PROMO ========== */}

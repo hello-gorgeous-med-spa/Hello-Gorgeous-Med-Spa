@@ -182,6 +182,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
+  // Semaglutide Spring Break Special — $299/month promo
+  const springBreakPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/semaglutide-spring-break-special`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    ...['oswego-il', 'naperville-il', 'aurora-il', 'plainfield-il', 'montgomery-il', 'yorkville-il'].map((city) => ({
+      url: `${baseUrl}/semaglutide-spring-break/${city}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
+    })),
+  ];
+
   return [
     ...corePages,
     ...servicePages,
@@ -190,5 +206,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...aftercarePages,
     ...locationServicePages,
     ...cityPages,
+    ...springBreakPages,
   ];
 }

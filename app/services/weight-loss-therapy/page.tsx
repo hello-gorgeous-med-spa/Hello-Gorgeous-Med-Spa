@@ -205,11 +205,32 @@ export default function WeightLossTherapyPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(WEIGHT_LOSS_FAQS)) }}
       />
 
+      {/* Spring Break Special Banner */}
+      <Section className="bg-gradient-to-r from-[#E91E8C] to-[#FF69B4] py-4">
+        <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <p className="text-white font-bold text-lg md:text-xl">
+              ☀️ Spring Break Special: $299/month — Oversight, Screening & Medicine Included
+            </p>
+            <p className="text-white/90 text-sm mt-1">Semaglutide / Ozempic • Limited Time</p>
+          </div>
+          <Link
+            href="/semaglutide-spring-break-special"
+            className="shrink-0 px-6 py-3 bg-white text-[#E91E8C] font-bold rounded-xl hover:bg-white/90 transition"
+          >
+            View Special →
+          </Link>
+        </div>
+      </Section>
+
       {/* Hero Section */}
       <Section className="relative overflow-hidden bg-gradient-to-b from-emerald-900 via-emerald-950 to-black min-h-[80vh] flex items-center">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-emerald-500/20 via-transparent to-transparent" />
         <div className="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
           <FadeUp>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FFD700]/20 border border-[#FFD700]/50 text-[#FFD700] font-semibold mb-4">
+              🏆 Best of Oswego — #1 Best Med Spa & Best Medical Weight Loss
+            </div>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/20 border border-emerald-500/30 mb-6">
               <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -558,6 +579,9 @@ export default function WeightLossTherapyPage() {
               Looking for medical weight loss in <strong>Oswego, Aurora, Naperville, or Plainfield</strong>? Hello Gorgeous Med Spa offers Semaglutide and Tirzepatide GLP-1 weight loss programs supervised by licensed nurse practitioners. We're conveniently located in downtown Oswego, serving all of Kendall County and the western suburbs.
             </p>
             <div className="flex flex-wrap justify-center gap-3 text-sm">
+              <Link href="/semaglutide-spring-break-special" className="px-4 py-2 bg-[#E91E8C] text-white rounded-full hover:bg-[#d0187a] transition font-semibold">
+                ☀️ Spring Break $299 Special
+              </Link>
               <Link href="/weight-loss-oswego-il" className="px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full hover:bg-emerald-200 transition">
                 Weight Loss Oswego
               </Link>
@@ -566,6 +590,9 @@ export default function WeightLossTherapyPage() {
               </Link>
               <Link href="/weight-loss-aurora-il" className="px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full hover:bg-emerald-200 transition">
                 Weight Loss Aurora
+              </Link>
+              <Link href="/semaglutide-spring-break/plainfield-il" className="px-4 py-2 bg-emerald-100 text-emerald-700 rounded-full hover:bg-emerald-200 transition">
+                Spring Break Plainfield
               </Link>
             </div>
           </div>

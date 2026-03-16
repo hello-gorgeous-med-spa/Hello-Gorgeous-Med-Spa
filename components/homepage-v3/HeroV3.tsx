@@ -33,7 +33,7 @@ export function HeroV3() {
             precision and delivered with intention.
           </p>
           <p className="mt-4 text-sm text-black/70">
-            Free consultation · {SITE.reviewRating}★ ({SITE.reviewCount} reviews) · Oswego, IL
+            🏆 Best of Oswego · Free consultation · {SITE.reviewRating}★ ({SITE.reviewCount} reviews) · Oswego, IL
           </p>
           <div className="mt-6 flex flex-col sm:flex-row gap-4">
             <Link

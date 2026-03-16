@@ -12,7 +12,9 @@
     "trifecta:all": "remotion render src/index.tsx TrifectaRevealVertical out/trifecta-reel.mp4 && remotion render src/index.tsx TrifectaRevealSquare out/trifecta-feed.mp4 && remotion render src/index.tsx TrifectaRevealHorizontal out/trifecta-landscape.mp4",
     "glp1:reel": "remotion render src/index.tsx GLP1SolutionVertical out/glp1-reel.mp4",
     "burst:reel": "remotion render src/index.tsx StandardVsBurstVertical out/burst-vs-standard-reel.mp4",
-    "geo:all": "node -e \"const c=['Oswego','Naperville','Aurora','Plainfield','Montgomery','Yorkville'];const{execSync}=require('child_process');c.forEach(x=>execSync('npx remotion render src/index.tsx GeoAd'+x+'Square out/geo-'+x.toLowerCase()+'-feed.mp4',{stdio:'inherit'}))\""
+    "geo:all": "node -e \"const c=['Oswego','Naperville','Aurora','Plainfield','Montgomery','Yorkville'];const{execSync}=require('child_process');c.forEach(x=>execSync('npx remotion render src/index.tsx GeoAd'+x+'Square out/geo-'+x.toLowerCase()+'-feed.mp4',{stdio:'inherit'}))\"",
+    "semaglutide:gmb": "remotion render src/index.tsx SemaglutideSpringBreakSquare out/semaglutide-spring-break-gmb.mp4",
+    "semaglutide:all": "remotion render src/index.tsx SemaglutideSpringBreakSquare out/semaglutide-spring-break-gmb.mp4 && remotion render src/index.tsx SemaglutideSpringBreakVertical out/semaglutide-spring-break-reel.mp4 && remotion render src/index.tsx SemaglutideSpringBreakHorizontal out/semaglutide-spring-break-landscape.mp4"
   },
   "dependencies": {
     "@remotion/bundler": "^4.0.0",

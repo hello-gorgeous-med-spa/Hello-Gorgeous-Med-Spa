@@ -12,6 +12,10 @@ export function HomepageGeoLinks() {
             Botox in Oswego
           </Link>
           ,{" "}
+          <Link href="/semaglutide-spring-break-special" className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium underline underline-offset-2">
+            Semaglutide $299 Spring Break Special
+          </Link>
+          ,{" "}
           <Link href="/weight-loss-oswego-il" className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium underline underline-offset-2">
             Weight Loss Injections in Oswego
           </Link>

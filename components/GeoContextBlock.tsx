@@ -10,6 +10,7 @@ export function GeoContextBlock({
 }) {
   const links: Record<string, { href: string; label: string }[]> = {
     oswego: [
+      { href: "/semaglutide-spring-break-special", label: "☀️ Semaglutide $299 Spring Break" },
       { href: "/botox-oswego-il", label: "Botox in Oswego" },
       { href: "/med-spa-oswego-il", label: "Medical Spa in Oswego" },
       { href: "/weight-loss-oswego-il", label: "Weight Loss Injections near Oswego" },
@@ -17,6 +18,7 @@ export function GeoContextBlock({
       { href: "/hormone-therapy-oswego-il", label: "Hormone Therapy in Oswego" },
     ],
     naperville: [
+      { href: "/semaglutide-spring-break/naperville-il", label: "☀️ Semaglutide $299 Spring Break" },
       { href: "/botox-naperville-il", label: "Botox in Naperville" },
       { href: "/med-spa-naperville-il", label: "Medical Spa near Naperville" },
       { href: "/weight-loss-naperville-il", label: "Weight Loss in Naperville" },
@@ -24,6 +26,7 @@ export function GeoContextBlock({
       { href: "/hormone-therapy-oswego-il", label: "Hormone Therapy in Oswego" },
     ],
     plainfield: [
+      { href: "/semaglutide-spring-break/plainfield-il", label: "☀️ Semaglutide $299 Spring Break" },
       { href: "/botox-plainfield-il", label: "Botox in Plainfield" },
       { href: "/med-spa-plainfield-il", label: "Medical Spa near Plainfield" },
       { href: "/weight-loss-plainfield-il", label: "Weight Loss in Plainfield" },
@@ -31,6 +34,7 @@ export function GeoContextBlock({
       { href: "/hormone-therapy-oswego-il", label: "Hormone Therapy in Oswego" },
     ],
     aurora: [
+      { href: "/semaglutide-spring-break/aurora-il", label: "☀️ Semaglutide $299 Spring Break" },
       { href: "/botox-aurora-il", label: "Botox in Aurora" },
       { href: "/med-spa-aurora-il", label: "Medical Spa near Aurora" },
       { href: "/weight-loss-aurora-il", label: "Weight Loss in Aurora" },

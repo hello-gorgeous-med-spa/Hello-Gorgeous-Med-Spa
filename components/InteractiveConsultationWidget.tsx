@@ -42,7 +42,10 @@ const CONCERN_TO_TREATMENT: Record<string, { name: string; href: string; icon: s
   texture: [{ name: "RF Microneedling", href: "/services/rf-microneedling", icon: "🎯" }],
   acne: [{ name: "Chemical Peels / PRP Facial", href: "/services/rf-microneedling", icon: "🎯" }],
   dull: [{ name: "HydraFacial / Chemical Peel", href: "/services/hydra-facial", icon: "💆" }],
-  weight: [{ name: "Medical Weight Loss", href: "/services/weight-loss-therapy", icon: "⚡" }],
+  weight: [
+    { name: "☀️ Spring Break $299 Special", href: "/semaglutide-spring-break-special", icon: "⚡" },
+    { name: "Medical Weight Loss", href: "/services/weight-loss-therapy", icon: "⚡" },
+  ],
   energy: [{ name: "IV Therapy / Hormones", href: "/services/iv-therapy", icon: "💧" }],
 };
 
