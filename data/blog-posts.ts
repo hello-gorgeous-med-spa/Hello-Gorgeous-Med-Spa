@@ -778,6 +778,295 @@ Our NP performs every QuantumRF treatment with clinical precision and patient sa
 
 *The only QuantumRF provider in the western Chicago suburbs.*`,
   },
+  // ====================================================================
+  // ARTICLE 9: Body Contouring (from Trifecta Playbook)
+  // ====================================================================
+  {
+    slug: "body-contouring-oswego-il",
+    title: "Body Contouring in Oswego, IL — Non-Surgical Options at Hello Gorgeous",
+    metaTitle: "Body Contouring Oswego IL | Non-Surgical | Hello Gorgeous Med Spa",
+    metaDescription: "Non-surgical body contouring in Oswego IL. QuantumRF subdermal tightening + Morpheus8 Burst for face and body. No surgery, no downtime. Hello Gorgeous Med Spa.",
+    excerpt: "Non-surgical body contouring is now available in Oswego. QuantumRF and Morpheus8 Burst target stubborn fat and loose skin without surgery or extended downtime.",
+    category: "Technology",
+    date: "2026-03-16",
+    readTime: "7 min",
+    keywords: ["body contouring Oswego IL", "non surgical body contouring near me", "body sculpting Naperville", "RF body contouring", "skin tightening after weight loss"],
+    content: `# Body Contouring in Oswego, IL — Non-Surgical Options at Hello Gorgeous
+
+The body contouring market is projected to reach $3.86 billion by 2030 — and for good reason. More people than ever want to shape their bodies without going under the knife. And with the explosion of GLP-1 weight loss medications (Semaglutide, Tirzepatide), there's a massive new need: **tightening the loose skin that comes after losing 40, 60, or 100+ pounds.**
+
+Until now, Oswego residents had to drive to Chicago for advanced body contouring. Not anymore.
+
+## Your Non-Surgical Body Contouring Options
+
+### QuantumRF — Subdermal Contouring
+QuantumRF is the most advanced non-surgical body contouring device available. It works **beneath the skin surface**, delivering radiofrequency energy directly to the subdermal fat and connective tissue layer.
+
+**What it does:**
+- Contracts and tightens loose tissue from the inside
+- Contours body areas (abdomen, arms, thighs, chin)
+- Stimulates long-term collagen production
+- Results rival early-stage surgical lifting
+
+**Best for:** Abdomen, flanks, arms, thighs, double chin, post-weight loss loose skin
+
+**Nobody in Oswego, Naperville, Aurora, or Plainfield has QuantumRF.** It's exclusive to Hello Gorgeous.
+
+### Morpheus8 Burst — Deep RF Microneedling
+Morpheus8 Burst penetrates up to 8mm — double the standard — delivering RF energy at three depths simultaneously. While primarily known for facial tightening, it's equally effective on the body.
+
+**Best for:** Arms, abdomen, knees, neck, jowls, anywhere skin is loose or crepey
+
+### The Combined Approach
+For maximum body transformation, our NP can create a protocol using both technologies:
+1. **QuantumRF** for internal tissue contraction and contouring
+2. **Morpheus8 Burst** for surface-level tightening and texture improvement
+3. **Solaria CO₂** for skin resurfacing where needed
+
+This layered approach treats every level — from subdermal tissue up to the skin surface.
+
+## The GLP-1 Weight Loss Connection
+
+If you've lost weight on Semaglutide or Tirzepatide, you know the bittersweet reality: the scale looks great, but the mirror tells a different story. Loose skin on the abdomen, arms, thighs, and neck is the #1 complaint among GLP-1 patients.
+
+**At Hello Gorgeous, your weight loss AND your body contouring happen under one roof:**
+- Our NP prescribes your GLP-1 medication
+- The same medical team monitors your progress
+- When you're ready, they transition you to body contouring
+- No referrals, no new patient intake, no starting over with someone who doesn't know you
+
+## Who Is a Candidate?
+
+Non-surgical body contouring may be right for you if:
+- You have stubborn fat pockets that resist diet and exercise
+- You've lost significant weight and have loose, sagging skin
+- You want to improve body contour without surgery
+- You're looking for minimal downtime (days, not weeks)
+- You want a medical provider supervising your treatment
+
+## Schedule Your Body Assessment
+
+Every body contouring plan starts with a free consultation. Our NP will assess your concerns, discuss your goals, and recommend the right technology for your body.
+
+📞 **630-636-6193**
+🌐 **hellogorgeousmedspa.com/book**
+📍 74 W Washington Street, Oswego, IL 60543
+
+*The only non-surgical body contouring provider in Oswego with QuantumRF technology.*`,
+  },
+
+  // ====================================================================
+  // ARTICLE 10: Weight Loss Skin (from Trifecta Playbook)
+  // ====================================================================
+  {
+    slug: "loose-skin-after-weight-loss-treatment",
+    title: "What Happens to Your Skin After Weight Loss? (And How to Fix It)",
+    metaTitle: "Loose Skin After Weight Loss Treatment | GLP-1 Skin Tightening | Oswego IL",
+    metaDescription: "Lost weight on Semaglutide or Tirzepatide? Here's why loose skin happens and how Morpheus8 Burst, QuantumRF, and Solaria CO₂ can tighten it without surgery.",
+    excerpt: "The scale says you hit your goal weight. But the mirror shows loose skin on your arms, stomach, and neck. Here's why it happens and the only non-surgical solution in the area.",
+    category: "Education",
+    date: "2026-03-16",
+    readTime: "8 min",
+    keywords: ["loose skin after weight loss", "skin tightening after Semaglutide", "GLP-1 loose skin treatment", "skin tightening after Tirzepatide", "weight loss skin Oswego"],
+    content: `# What Happens to Your Skin After Weight Loss? (And How to Fix It)
+
+You did it. You lost 40, 60, maybe 100 pounds. GLP-1 medications like Semaglutide and Tirzepatide have been life-changing. Your health markers improved. Your energy is up. Your clothes fit differently.
+
+But then you look in the mirror and see something nobody warned you about: **loose, sagging skin.**
+
+You're not alone. This is the #1 concern among GLP-1 weight loss patients — and most weight loss providers have no solution for it.
+
+## Why Does Skin Get Loose After Weight Loss?
+
+Your skin is an organ. When you carry extra weight for months or years, your skin stretches to accommodate the volume. The collagen and elastin fibers — the structural proteins that keep skin tight and elastic — get damaged and weakened from sustained stretching.
+
+When the fat is gone, those damaged fibers can't snap back. The result:
+- **Sagging abdomen** — the most common complaint
+- **Loose arms** — "bat wings" that won't go away with exercise
+- **Neck laxity** — loose skin and jowls
+- **Inner thigh sagging** — especially after major weight loss
+- **Facial volume loss** — can make you look older despite being healthier
+
+## What Doesn't Work
+
+Let's be honest about what won't fix structural skin laxity:
+- **Creams and serums** — they can't reach the structural layer where the damage is
+- **Exercise** — builds muscle underneath but doesn't tighten the skin draped over it
+- **Time** — some mild laxity may improve over 1–2 years, but significant loose skin won't resolve on its own
+- **Collagen supplements** — no scientific evidence they tighten loose skin
+
+## What Actually Works (Without Surgery)
+
+At Hello Gorgeous Med Spa, we invested over $500,000 in three InMode technologies specifically to solve this problem:
+
+### Layer 1: QuantumRF — Subdermal Contraction
+Works beneath the skin surface to physically contract loose tissue. This is the closest thing to a surgical lift without surgery. Treats abdomen, arms, thighs, neck, and face.
+
+### Layer 2: Morpheus8 Burst — Deep Collagen Stimulation
+Delivers RF energy at 8mm depth across three simultaneous levels. Stimulates new collagen production throughout the tissue for progressive tightening over 3–6 months.
+
+### Layer 3: Solaria CO₂ — Surface Resurfacing
+The gold standard in skin resurfacing. Removes damaged outer layers and triggers collagen remodeling for smoother, tighter surface texture.
+
+### The Trifecta Protocol
+For post-weight loss patients, our NP can create a comprehensive plan:
+1. Start with QuantumRF for internal contraction
+2. Follow with Morpheus8 Burst for mid-layer collagen stimulation
+3. Finish with Solaria CO₂ for surface-level resurfacing
+
+**No other provider in Oswego, Naperville, Aurora, or Plainfield can offer all three layers.** Most can't offer even one.
+
+## Why Hello Gorgeous for Post-Weight Loss Skin
+
+If you're already on a GLP-1 weight loss program elsewhere, we welcome you for skin tightening. If you want to consolidate everything under one roof, our NP can manage your weight loss AND your skin restoration.
+
+**The advantage of one medical team:**
+- Your NP knows your complete medical history
+- Weight loss and skin tightening are coordinated for optimal timing
+- Same-day appointments, 7 days a week
+- No referral needed — walk in, get assessed, start treatment
+
+## When to Start Skin Tightening
+
+The best time to start discussing body contouring is when you've lost approximately 50–75% of your target weight and your weight has stabilized for at least 4–6 weeks. Our NP can advise on timing during a free consultation.
+
+## Book Your Post-Weight Loss Consultation
+
+📞 **630-636-6193**
+🌐 **hellogorgeousmedspa.com/book**
+📍 74 W Washington Street, Oswego, IL 60543
+
+*NP on site 7 days a week. Same-day consultations available. We see the whole picture — not just the number on the scale.*`,
+  },
+
+  // ====================================================================
+  // ARTICLE 11: CO2 Recovery Guide (from Trifecta Playbook)
+  // ====================================================================
+  {
+    slug: "co2-laser-recovery-day-by-day-guide",
+    title: "What to Expect During CO₂ Laser Recovery: A Day-by-Day Guide",
+    metaTitle: "CO₂ Laser Recovery Guide Day by Day | Solaria | Hello Gorgeous Med Spa",
+    metaDescription: "Day-by-day CO₂ laser recovery guide. What to expect after Solaria fractional laser resurfacing. Healing timeline, aftercare tips, and when results appear.",
+    excerpt: "Considering CO₂ laser but worried about recovery? Here's exactly what to expect — day by day — from your Solaria treatment at Hello Gorgeous.",
+    category: "Education",
+    date: "2026-03-16",
+    readTime: "6 min",
+    keywords: ["CO2 laser recovery", "CO2 laser healing time", "Solaria recovery", "fractional laser downtime", "CO2 laser day by day"],
+    content: `# What to Expect During CO₂ Laser Recovery: A Day-by-Day Guide
+
+The Solaria CO₂ fractional laser is the most powerful skin resurfacing treatment available. It produces dramatic results — but it does require real downtime. Knowing exactly what to expect eliminates the anxiety and helps you plan.
+
+Here's your day-by-day recovery guide based on what our patients experience at Hello Gorgeous Med Spa.
+
+## Day 0: Treatment Day
+
+**During treatment:**
+- Numbing cream applied for 30–45 minutes
+- Treatment takes 30–60 minutes depending on area
+- You'll feel warmth and some stinging (manageable with numbing)
+
+**Immediately after:**
+- Skin is bright red and feels very warm
+- Mild swelling begins
+- Ointment (Aquaphor) is applied immediately
+- You may feel like you have a severe sunburn
+
+**What to do:** Have someone drive you home. Apply ointment. Start your antiviral medication if prescribed. Sleep elevated on 2 pillows.
+
+## Day 1: The Hardest Day
+
+- Significant redness, swelling, and heat
+- Skin may ooze clear/yellowish fluid — this is NORMAL
+- Face may feel tight and swollen (especially around eyes)
+- Some discomfort — take prescribed pain medication as directed
+
+**What to do:** Soak skin with cool water or prescribed solution every 2–4 hours. Reapply Aquaphor constantly. Keep skin MOIST — do NOT let it dry out. No makeup. No touching with dirty hands.
+
+## Day 2: Still Intense
+
+- Swelling peaks (this is the worst it will look)
+- Oozing continues
+- Skin feels very tight
+- You won't want to be seen in public — this is expected
+
+**What to do:** Continue the soak-and-ointment routine. Cool compresses for comfort. Stay hydrated. This is the day to binge your favorite show.
+
+## Day 3: The Turn
+
+- Swelling starts to decrease
+- Oozing slows down
+- Skin begins to darken/bronze — this is the formation of a protective layer
+- You may feel itchy — DO NOT scratch or pick
+
+**What to do:** Continue gentle cleansing and ointment. You may switch from Aquaphor to a lighter moisturizer if your provider approves. Still no makeup.
+
+## Day 4–5: Peeling Begins
+
+- Dead skin starts to flake and peel
+- Underneath is new, pink, sensitive skin
+- Peeling may be dramatic — sheets of skin coming off
+- Resist every urge to pull or pick (this causes scarring)
+
+**What to do:** Let dead skin shed naturally. Gentle cleanser, moisturizer, and SPF if you must go outside. The new pink skin is extremely sun-sensitive.
+
+## Day 6–7: Emerging
+
+- Most peeling is complete
+- New pink skin is visible everywhere
+- Skin feels smoother but very sensitive
+- You may be able to wear mineral makeup (ask your provider)
+
+**What to do:** Continue gentle skincare only. SPF 30+ is CRITICAL from this point forward. No retinol, acids, or active ingredients.
+
+## Week 2: The Pink Phase
+
+- Skin is uniformly pink/red
+- Texture is visibly smoother than before
+- Sensitivity is decreasing
+- You can resume most normal activities
+
+**What to do:** SPF every day. Gentle moisturizer. Mineral makeup is fine. Avoid direct sun exposure. No active skincare products yet.
+
+## Week 3–4: Fading
+
+- Pink color gradually fades
+- Skin tone begins normalizing
+- You start seeing the real results — smoother, tighter, more even
+- Most people say this is when they fall in love with their skin
+
+**What to do:** Your provider may clear you to resume retinol and vitamin C. Continue SPF religiously.
+
+## Month 1–3: The Collagen Phase
+
+This is where the magic really happens. Even though your skin looks healed on the surface, underneath your body is producing brand new collagen. You'll notice:
+- Progressive tightening
+- Continued texture improvement
+- Pores appearing smaller
+- Fine lines continuing to soften
+
+## Month 3–6: Peak Results
+
+Maximum collagen production. This is when before/after photos show the most dramatic difference. The investment of 5–7 days of downtime has paid off with results that last years.
+
+## Tips for the Best Recovery
+
+1. **Keep skin moist** — the #1 rule of CO₂ recovery
+2. **Don't pick** — let everything shed naturally
+3. **SPF is non-negotiable** — your new skin burns in minutes
+4. **Take your antivirals** — cold sore outbreaks on healing skin are serious
+5. **Stay hydrated** — drink more water than usual
+6. **Be patient** — peak results take months, not days
+
+## Questions About Recovery?
+
+Our NP is available 7 days a week for questions during your recovery. Text us at 630-636-6193 anytime.
+
+📞 **630-636-6193**
+🌐 **hellogorgeousmedspa.com**
+📍 74 W Washington Street, Oswego, IL 60543
+
+*Your provider. Your recovery. Your results. All at Hello Gorgeous.*`,
+  },
 ];
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
