@@ -104,7 +104,7 @@ export function LaserHairMembershipsContent({ city }: { city: LaserHairMembershi
                     BEST VALUE
                   </div>
                 )}
-                <div className="aspect-square relative bg-gradient-to-br from-[#FF2D8E]/10 to-black/5 overflow-hidden">
+                <div className="aspect-video relative overflow-hidden rounded-t-2xl">
                   <Image
                     src={tier.image}
                     alt={`Laser hair removal ${tier.name} membership - ${tier.areas.slice(0, 2).join(", ")}`}
