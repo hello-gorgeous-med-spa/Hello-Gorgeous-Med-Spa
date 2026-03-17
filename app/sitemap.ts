@@ -145,6 +145,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Morpheus8 & Quantum RF pages - high priority new services
   const morpheus8Pages: MetadataRoute.Sitemap = [
     {
+      url: `${baseUrl}/morpheus8-burst-oswego-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
       url: `${baseUrl}/services/morpheus8`,
       lastModified: currentDate,
       changeFrequency: 'weekly',

@@ -6,13 +6,15 @@ import { TreatmentPageTemplate } from "@/components/marketing/TreatmentPageTempl
 const t = treatments.morpheus8Burst;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Morpheus8 Burst RF Microneedling | Hello Gorgeous Med Spa Oswego IL",
+  title: "Morpheus8 Burst Near Me | Oswego, Naperville, Aurora IL | Hello Gorgeous",
   description:
-    "Morpheus8 Burst RF microneedling in Oswego IL — the deepest RF at 8mm, 3 simultaneous depths. Tighten skin, reduce wrinkles, improve texture. VIP launch pricing available.",
+    "Morpheus8 Burst near me — the deepest RF microneedling at 8mm. Only Oswego-area med spa with Burst. 15 min from Naperville, Aurora, Plainfield. Tighten skin, reduce wrinkles. Book free consultation.",
   path: "/morpheus8-burst-oswego-il",
   keywords: [
+    "morpheus8 burst near me",
     "Morpheus8 Burst Oswego",
     "Morpheus8 Burst Naperville",
+    "Morpheus8 Burst Aurora",
     "RF microneedling Oswego IL",
     "RF microneedling near me",
     "skin tightening Oswego",

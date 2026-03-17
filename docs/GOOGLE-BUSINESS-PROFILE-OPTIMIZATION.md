@@ -33,6 +33,7 @@ Ensure these are listed in your GBP Services section:
 
 ### Advanced Skin & Body
 - Morpheus8 (RF microneedling)
+- Morpheus8 Burst (deep RF microneedling at 8mm)
 - Quantum RF (body contouring)
 - Solaria CO2 laser (skin resurfacing)
 - Laser hair removal
