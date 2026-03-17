@@ -4,6 +4,7 @@ import Image from "next/image";
 
 import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
+import { WeightLossBlogPromo } from "@/components/WeightLossBlogPromo";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE, faqJsonLd } from "@/lib/seo";
@@ -598,6 +599,11 @@ export default function WeightLossTherapyPage() {
           </div>
         </FadeUp>
       </Section>
+
+      <WeightLossBlogPromo
+        title="Ozempic vs Tirzepatide vs Zepbound — Expert Guides"
+        subtitle="Read our blog articles on GLP-1 comparison, Retatrutide, and weight loss programs. Serving Oswego, Naperville, Aurora, Plainfield & the Fox Valley."
+      />
 
       {/* Final CTA */}
       <Section className="bg-gradient-to-b from-emerald-900 to-black text-white">

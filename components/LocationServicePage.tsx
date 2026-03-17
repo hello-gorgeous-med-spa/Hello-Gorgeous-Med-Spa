@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { SITE, siteJsonLd, localBusinessJsonLd, faqJsonLd, breadcrumbJsonLd } from '@/lib/seo';
 import { ServiceConfig, ServiceArea, generateServiceSchema } from '@/lib/location-seo';
+import { WeightLossBlogPromo } from '@/components/WeightLossBlogPromo';
 
 // ============================================================
 // REUSABLE LOCATION SERVICE PAGE COMPONENT
@@ -240,6 +241,14 @@ export function LocationServicePage({ service, area, nearbyAreas }: LocationServ
             </div>
           </div>
         </section>
+
+        {/* Weight Loss Blog Promo — Weight Loss only */}
+        {service.slug === 'weight-loss' && (
+          <WeightLossBlogPromo
+            title="Ozempic vs Tirzepatide vs Zepbound — Expert Guides"
+            subtitle="Read our blog articles on GLP-1 comparison, Retatrutide, and weight loss programs. Serving Oswego, Naperville, Aurora, Plainfield & the Fox Valley."
+          />
+        )}
 
         {/* Nearby Pages */}
         {nearbyAreas.length > 0 && (

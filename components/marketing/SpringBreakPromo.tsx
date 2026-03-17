@@ -5,6 +5,7 @@ import Image from "next/image";
 import { SPRING_BREAK_SPECIAL, SpringBreakCity } from "@/data/spring-break-special";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
+import { WeightLossBlogPromo } from "@/components/WeightLossBlogPromo";
 
 interface SpringBreakPromoProps {
   city?: SpringBreakCity | null;
@@ -157,6 +158,11 @@ export function SpringBreakPromo({ city }: SpringBreakPromoProps) {
           </div>
         </div>
       </section>
+
+      <WeightLossBlogPromo
+        title="Ozempic vs Tirzepatide vs Zepbound — Expert Guides"
+        subtitle="Read our blog articles on GLP-1 comparison, Retatrutide, and weight loss programs. Serving Oswego, Naperville, Aurora, Plainfield & the Fox Valley."
+      />
 
       {/* Final CTA */}
       <section className="py-16 bg-gradient-to-t from-[#1a0a14] to-black">

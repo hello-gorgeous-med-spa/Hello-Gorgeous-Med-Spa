@@ -1159,6 +1159,179 @@ Hello Gorgeous is at 74 W Washington Street in downtown Oswego — convenient fo
   },
 
   // ====================================================================
+  // ARTICLE: Ozempic vs Tirzepatide vs Zepbound — GLP-1 Comparison
+  // ====================================================================
+  {
+    slug: "ozempic-vs-tirzepatide-vs-zepbound-oswego",
+    title: "Ozempic vs Tirzepatide vs Zepbound: Which GLP-1 Is Right for You?",
+    metaTitle: "Ozempic vs Tirzepatide vs Zepbound Oswego IL | GLP-1 Comparison | Hello Gorgeous",
+    metaDescription: "Semaglutide (Ozempic/Wegovy) vs Tirzepatide (Mounjaro/Zepbound) — GLP-1 weight loss comparison. Which is right for you? Hello Gorgeous offers both in Oswego. Naperville, Aurora, Plainfield.",
+    excerpt: "Ozempic, Wegovy, Mounjaro, Zepbound — the names are everywhere. Here's what each medication actually is, how they compare, and how to choose the right one for your weight loss journey.",
+    category: "Wellness",
+    date: "2026-03-18",
+    readTime: "8 min",
+    keywords: ["Ozempic vs Tirzepatide", "Ozempic vs Zepbound", "Semaglutide vs Tirzepatide", "Ozempic Oswego", "Zepbound Oswego IL", "GLP-1 weight loss Naperville", "Mounjaro vs Wegovy"],
+    content: `# Ozempic vs Tirzepatide vs Zepbound: Which GLP-1 Is Right for You?
+
+Ozempic vs Tirzepatide vs Zepbound — if you're researching weight loss medications, you've seen these names. But what do they actually mean? And how do you choose the right one?
+
+Here's a clear breakdown of the available GLP-1 medications and how Hello Gorgeous can help you find the right fit in Oswego, Naperville, Aurora, Plainfield, and the Fox Valley.
+
+## The Names: What's What?
+
+| Brand Name | Generic Name | FDA Indication |
+|------------|--------------|----------------|
+| **Ozempic** | Semaglutide | Type 2 diabetes (also used off-label for weight loss) |
+| **Wegovy** | Semaglutide | Weight loss (FDA-approved) |
+| **Mounjaro** | Tirzepatide | Type 2 diabetes (also used off-label for weight loss) |
+| **Zepbound** | Tirzepatide | Weight loss (FDA-approved) |
+
+**Key point:** Ozempic and Wegovy are the same medication (Semaglutide) — different brand names for different indications. Mounjaro and Zepbound are the same medication (Tirzepatide). So the real comparison is **Semaglutide vs Tirzepatide**.
+
+## Semaglutide (Ozempic / Wegovy)
+
+**How it works:** GLP-1 receptor agonist — mimics one hormone (glucagon-like peptide-1) to reduce appetite, slow gastric emptying, and improve blood sugar.
+
+**Clinical results:** Average **15% body weight loss** over 68 weeks in trials.
+
+**Administration:** Weekly injections (subcutaneous).
+
+**Best for:** First-line weight loss, diabetes management, those who prefer a single-hormone approach.
+
+**Pros:** Well-studied, proven track record, often more affordable (especially compounded).
+**Cons:** May plateau for some; Tirzepatide typically produces greater weight loss.
+
+## Tirzepatide (Mounjaro / Zepbound)
+
+**How it works:** Dual GIP/GLP-1 agonist — targets two hormone receptors (glucose-dependent insulinotropic polypeptide + GLP-1) for potentially greater appetite suppression and metabolic effects.
+
+**Clinical results:** Average **20–22% body weight loss** over 72 weeks in trials — higher than Semaglutide.
+
+**Administration:** Weekly injections (subcutaneous).
+
+**Best for:** Those seeking maximum weight loss, those who haven't reached goals on Semaglutide.
+
+**Pros:** More potent weight loss in trials; dual mechanism may improve outcomes.
+**Cons:** Can be more expensive; side effects (nausea, etc.) may be slightly more pronounced for some.
+
+## Side-by-Side Comparison
+
+| Factor | Semaglutide (Ozempic/Wegovy) | Tirzepatide (Mounjaro/Zepbound) |
+|--------|------------------------------|----------------------------------|
+| Hormone targets | GLP-1 only | GLP-1 + GIP |
+| Avg. weight loss | ~15% | ~20–22% |
+| Weekly injection | Yes | Yes |
+| FDA approval (weight loss) | Wegovy (2021) | Zepbound (2023) |
+| Cost | Often lower (compounded) | Often higher |
+
+## How to Choose
+
+**Choose Semaglutide if:**
+- You're starting your first GLP-1 journey
+- You prefer a well-established option with years of data
+- Cost is a concern (compounded Semaglutide is often more affordable)
+
+**Choose Tirzepatide if:**
+- You want the highest potential weight loss
+- You've tried Semaglutide and plateaued
+- Your provider recommends it based on your health profile
+
+**Your NP will decide:** At Hello Gorgeous, our Nurse Practitioner evaluates your health history, goals, and preferences to recommend the right medication. We offer both Semaglutide and Tirzepatide — compounded and branded when appropriate.
+
+## Why Hello Gorgeous for GLP-1 Weight Loss?
+
+- **Same-day prescriptions** — NP on site with full prescriptive authority
+- **Medical supervision** — Weekly check-ins, dose adjustments, lab monitoring
+- **Loose skin solution** — We're the only weight loss provider in the area with Morpheus8 Burst, Quantum RF, and Solaria CO₂ to address skin after weight loss
+- **Serving Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery** — 74 W Washington Street, Oswego, IL
+
+## Book Your GLP-1 Consultation
+
+📞 **630-636-6193**
+🌐 **hellogorgeousmedspa.com/book**
+📍 74 W Washington Street, Oswego, IL 60543
+
+*Free consultation. NP on site. Semaglutide and Tirzepatide available.*`,
+  },
+
+  // ====================================================================
+  // ARTICLE: Retatrutide — The Next Generation
+  // ====================================================================
+  {
+    slug: "retatrutide-weight-loss-next-generation",
+    title: "Retatrutide: The Next Generation of Weight Loss Medication — What to Know",
+    metaTitle: "Retatrutide Weight Loss Medication | Triple GLP-1 Agonist | Coming Soon",
+    metaDescription: "Retatrutide is a triple agonist (GLP-1, GIP, glucagon) in development. Phase 3 trials show up to 28% weight loss. What to know about the next generation of weight loss. Hello Gorgeous Oswego.",
+    excerpt: "Retatrutide targets three hormones — GLP-1, GIP, and glucagon—for potentially greater weight loss than Ozempic or Zepbound. Phase 3 trials show up to 28% body weight loss. Here's what we know.",
+    category: "Wellness",
+    date: "2026-03-18",
+    readTime: "6 min",
+    keywords: ["Retatrutide", "Retatrutide weight loss", "triple GLP-1 agonist", "Retatrutide vs Ozempic", "Retatrutide vs Zepbound", "next generation weight loss", "GLP-1 weight loss Oswego"],
+    content: `# Retatrutide: The Next Generation of Weight Loss Medication — What to Know
+
+Ozempic and Zepbound have transformed weight loss. But what comes next? **Retatrutide** — a "triple agonist" that targets three hunger-regulating hormones — is in late-stage clinical trials and could be the next generation of weight loss medication.
+
+Here's what we know about Retatrutide and what it means for your weight loss journey.
+
+## What Is Retatrutide?
+
+Retatrutide is an investigational medication by Eli Lilly that mimics **three hormones**:
+
+1. **GLP-1** (glucagon-like peptide-1) — reduces appetite, slows gastric emptying
+2. **GIP** (glucose-dependent insulinotropic polypeptide) — metabolic effects, appetite regulation
+3. **Glucagon** — energy expenditure, fat metabolism
+
+**Semaglutide** (Ozempic/Wegovy) targets one. **Tirzepatide** (Mounjaro/Zepbound) targets two. **Retatrutide** targets three — hence "triple agonist."
+
+## Clinical Results So Far
+
+**Phase 2 trials:** Up to **24.2% body weight loss** at the highest dose — the highest ever recorded for a GLP-1 class medication in clinical trials.
+
+**Phase 3 (TRIUMPH-4, Dec 2025):** Participants with obesity and knee osteoarthritis achieved up to **28.7% body weight loss** (average 71.2 lbs) and **75.8% reduction in knee pain** at 68 weeks.
+
+These results suggest Retatrutide could produce even greater weight loss than Tirzepatide or Semaglutide — when it becomes available.
+
+## Current Status: Not Yet FDA Approved
+
+As of 2026, Retatrutide is **not yet FDA-approved**. It remains in Phase 3 clinical trials. Expected timeline:
+
+- **NDA submission:** Late 2025 – Q1 2026
+- **FDA approval:** Projected 2026–2027
+
+Retatrutide is **not available** through pharmacies or prescriptions outside of clinical trials at this time.
+
+## Retatrutide vs Ozempic vs Zepbound
+
+| Medication | Hormone Targets | Avg. Weight Loss (Trials) | FDA Status |
+|------------|-----------------|---------------------------|------------|
+| Semaglutide (Ozempic/Wegovy) | GLP-1 | ~15% | Approved |
+| Tirzepatide (Mounjaro/Zepbound) | GLP-1 + GIP | ~20–22% | Approved |
+| Retatrutide | GLP-1 + GIP + Glucagon | ~24–28% (trials) | In development |
+
+## What to Do Now
+
+If you're ready to start weight loss today, **Semaglutide and Tirzepatide are available now** at Hello Gorgeous. Our NP can prescribe and supervise your GLP-1 program with same-day consultations.
+
+When Retatrutide receives FDA approval, we'll evaluate adding it to our weight loss program — as we do with all new medications — based on safety, efficacy, and availability.
+
+**Don't wait:** The best time to start is now. You can always switch or add medications later if Retatrutide becomes available and is right for you.
+
+## Why Hello Gorgeous for Weight Loss?
+
+- **Semaglutide and Tirzepatide available today** — Same-day prescriptions, NP supervision
+- **Loose skin solution** — Morpheus8 Burst, Quantum RF, Solaria CO₂ for post-weight loss tightening
+- **Serving Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery**
+
+## Book Your Weight Loss Consultation
+
+📞 **630-636-6193**
+🌐 **hellogorgeousmedspa.com/book**
+📍 74 W Washington Street, Oswego, IL 60543
+
+*Start your weight loss journey today. We'll keep you informed about new options as they become available.*`,
+  },
+
+  // ====================================================================
   // ARTICLE 11: CO2 Recovery Guide (from Trifecta Playbook)
   // ====================================================================
   {
