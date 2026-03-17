@@ -8,9 +8,9 @@ const area = SERVICE_AREAS.find(a => a.slug === 'oswego')!;
 const nearbyAreas = SERVICE_AREAS.filter(a => a.slug !== 'oswego');
 
 export const metadata: Metadata = {
-  title: `CO₂ Fractional Laser Oswego IL | InMode Solaria | Hello Gorgeous Med Spa`,
-  description: `CO₂ Fractional Laser in Oswego, IL. InMode Solaria for wrinkles, acne scars, skin resurfacing. Gold standard skin rejuvenation. Book consultation!`,
-  keywords: [...generateLocationKeywords(service, 'Oswego'), 'solaria laser oswego', 'fractional laser oswego', 'skin resurfacing oswego'],
+  title: `CO₂ Laser Near Me | Oswego, Naperville, Aurora IL | Hello Gorgeous Med Spa`,
+  description: `CO₂ laser near me — InMode Solaria fractional laser in Oswego, IL. Wrinkles, acne scars, skin resurfacing. 15 min from Naperville, Aurora. Book consultation!`,
+  keywords: [...generateLocationKeywords(service, 'Oswego'), 'solaria laser oswego', 'fractional laser oswego', 'skin resurfacing oswego', 'CO2 laser near me'],
   alternates: { canonical: `${SITE.url}/co2-laser-oswego-il` },
   openGraph: {
     type: 'website',

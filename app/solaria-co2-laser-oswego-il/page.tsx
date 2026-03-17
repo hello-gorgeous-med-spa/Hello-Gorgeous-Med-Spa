@@ -12,13 +12,16 @@ import {
 } from "@/components/marketing/solaria";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Solaria CO₂ Laser Resurfacing | Hello Gorgeous Med Spa Oswego IL",
+  title: "CO2 Laser Near Me | Solaria Oswego, Naperville, Aurora IL | Hello Gorgeous",
   description:
-    "Advanced CO₂ laser resurfacing in Oswego IL. Improve wrinkles, acne scars and skin texture with Solaria fractional laser at Hello Gorgeous Med Spa. VIP launch special $1,895.",
+    "CO2 laser near me — Solaria fractional laser resurfacing. Only Oswego-area med spa with Solaria. 15 min from Naperville, Aurora, Plainfield. Wrinkles, acne scars, skin texture. Book free consultation.",
   path: "/solaria-co2-laser-oswego-il",
   keywords: [
+    "CO2 laser near me",
+    "Solaria CO2 near me",
     "CO2 laser Oswego",
     "CO2 laser Naperville",
+    "CO2 laser Aurora",
     "fractional CO2 laser Illinois",
     "acne scar laser treatment",
     "skin resurfacing Oswego",

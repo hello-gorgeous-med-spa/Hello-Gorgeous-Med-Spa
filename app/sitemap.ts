@@ -117,6 +117,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Solaria CO2 special pages (aftercare content lives on /solaria)
   const solariaPages: MetadataRoute.Sitemap = [
     {
+      url: `${baseUrl}/solaria-co2-laser-oswego-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/co2-laser-oswego-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/co2-laser-naperville-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
+      url: `${baseUrl}/co2-laser-aurora-il`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.85,
+    },
+    {
       url: `${baseUrl}/solaria`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
@@ -152,6 +176,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/services/morpheus8`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.95,
+    },
+    {
+      url: `${baseUrl}/quantum-rf-oswego-il`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
       priority: 0.95,

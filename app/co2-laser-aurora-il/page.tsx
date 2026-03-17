@@ -10,7 +10,7 @@ const nearbyAreas = SERVICE_AREAS.filter(a => a.slug !== 'aurora');
 export const metadata: Metadata = {
   title: `CO₂ Fractional Laser Aurora IL | InMode Solaria | Hello Gorgeous`,
   description: `CO₂ Fractional Laser near Aurora, IL. 10 min away. InMode Solaria for wrinkles, acne scars, skin resurfacing. Book consultation!`,
-  keywords: [...generateLocationKeywords(service, 'Aurora'), 'solaria laser aurora', 'fractional laser aurora'],
+  keywords: [...generateLocationKeywords(service, 'Aurora'), 'solaria laser aurora', 'fractional laser aurora', 'CO2 laser near me'],
   alternates: { canonical: `${SITE.url}/co2-laser-aurora-il` },
   openGraph: {
     type: 'website',

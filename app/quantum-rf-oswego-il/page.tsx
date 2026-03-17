@@ -6,12 +6,15 @@ import { TreatmentPageTemplate } from "@/components/marketing/TreatmentPageTempl
 const t = treatments.quantumRF;
 
 export const metadata: Metadata = pageMetadata({
-  title: "QuantumRF Skin Tightening | Hello Gorgeous Med Spa Oswego IL",
+  title: "QuantumRF Near Me | Oswego, Naperville, Aurora IL | Hello Gorgeous",
   description:
-    "QuantumRF subdermal radiofrequency skin tightening in Oswego IL. Surgical-level results without surgery. Tighten loose skin, contour body. VIP launch pricing.",
+    "QuantumRF near me — subdermal skin tightening without surgery. Only Oswego-area med spa with QuantumRF. 15 min from Naperville, Aurora, Plainfield. Tighten loose skin, contour body. Book free consultation.",
   path: "/quantum-rf-oswego-il",
   keywords: [
+    "QuantumRF near me",
     "QuantumRF Oswego",
+    "QuantumRF Naperville",
+    "QuantumRF Aurora",
     "QuantumRF skin tightening",
     "subdermal RF tightening",
     "non surgical skin tightening Oswego",
@@ -20,7 +23,6 @@ export const metadata: Metadata = pageMetadata({
     "loose skin treatment after weight loss",
     "skin tightening without surgery",
     "radiofrequency skin tightening Illinois",
-    "QuantumRF near me",
   ],
 });
 

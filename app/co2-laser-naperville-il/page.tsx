@@ -10,7 +10,7 @@ const nearbyAreas = SERVICE_AREAS.filter(a => a.slug !== 'naperville');
 export const metadata: Metadata = {
   title: `CO₂ Fractional Laser Naperville IL | InMode Solaria | Hello Gorgeous`,
   description: `CO₂ Fractional Laser near Naperville, IL. 15 min away. InMode Solaria for wrinkles, acne scars, skin resurfacing. Book consultation!`,
-  keywords: [...generateLocationKeywords(service, 'Naperville'), 'solaria laser naperville', 'fractional laser naperville'],
+  keywords: [...generateLocationKeywords(service, 'Naperville'), 'solaria laser naperville', 'fractional laser naperville', 'CO2 laser near me'],
   alternates: { canonical: `${SITE.url}/co2-laser-naperville-il` },
   openGraph: {
     type: 'website',
