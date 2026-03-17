@@ -94,6 +94,319 @@ See for yourself. Meet our team, tour the facility, and get a personalized treat
   },
 
   // ====================================================================
+  // TIER 1 GUIDE: Oswego Laser Resurfacing — Technology That Actually Works
+  // ====================================================================
+  {
+    slug: "oswego-laser-resurfacing-technology",
+    title: "Oswego Laser Resurfacing: Technology That Actually Works",
+    metaTitle: "Laser Resurfacing in Oswego IL | Morpheus8, CO2, Quantum RF | Hello Gorgeous",
+    metaDescription: "Laser resurfacing in Oswego: Morpheus8 Burst (8mm), Solaria CO2, QuantumRF. Medical-grade technology that delivers real results. NP on site. Free consultation.",
+    excerpt: "Not all laser resurfacing is equal. Learn what technology actually works — Morpheus8 Burst, Solaria CO2, QuantumRF — and why medical-grade devices matter.",
+    category: "Education",
+    date: "2026-03-12",
+    readTime: "5 min",
+    keywords: ["laser resurfacing Oswego IL", "Morpheus8 Oswego", "CO2 laser Oswego", "skin resurfacing near me"],
+    content: `# Oswego Laser Resurfacing: Technology That Actually Works
+
+Laser resurfacing in Oswego can mean many things. Some places use basic IPL or light-based devices. Others offer fractional lasers that barely penetrate. How do you know you're getting technology that actually delivers results?
+
+Here's what matters — and what Hello Gorgeous offers that most local providers don't.
+
+## Three Technologies That Actually Work
+
+### 1. Morpheus8 Burst — The Deepest RF Microneedling
+
+Standard Morpheus8 reaches 4mm. **Morpheus8 Burst reaches 8mm** — double the depth. That means collagen stimulation in the deeper layers where skin laxity actually lives.
+
+**Best for:** Loose skin, jowls, acne scars, wrinkles, post-weight loss skin tightening
+
+**Hello Gorgeous:** We have Burst. Most Oswego-area med spas only have standard Morpheus8.
+
+### 2. Solaria CO₂ Fractional Laser — Gold Standard Resurfacing
+
+CO₂ fractional lasers remove damaged outer skin and stimulate deep collagen. Solaria is the medical-grade standard. No other med spa in Oswego, Naperville, Aurora, or Plainfield offers it.
+
+**Best for:** Deep wrinkles, acne scarring, sun damage, age spots, texture
+
+**Hello Gorgeous:** Exclusive to us in the western suburbs.
+
+### 3. QuantumRF — Subdermal Contouring Without Surgery
+
+Radiofrequency delivered beneath the skin surface. Creates tissue contraction that rivals surgical tightening — without incisions or downtime.
+
+**Best for:** Facial sagging, neck laxity, double chin, body contouring
+
+**Hello Gorgeous:** Exclusive to us in the area.
+
+## The InMode Trifecta — All Three Under One Roof
+
+Hello Gorgeous invested over $500,000 in these three Class 4 InMode devices. No other med spa in the western suburbs carries all three. That means you get the right technology for your goals — not whatever device they happen to have.
+
+## What to Expect
+
+- **Consultation:** NP on site 7 days a week. Same-day consultations available.
+- **Treatment:** Medical-grade devices, trained staff, proper numbing
+- **Recovery:** Varies by treatment — we'll give you a clear timeline
+- **Results:** Collagen remodeling continues for months
+
+## Book Your Free Consultation
+
+See which technology is right for you.
+
+📞 **630-636-6193**
+🌐 **hellogorgeousmedspa.com/book**
+📍 **74 W Washington Street, Oswego, IL 60543**
+
+*Hello Gorgeous Med Spa — where clinical expertise meets luxury care.*`,
+  },
+
+  // ====================================================================
+  // TIER 1 GUIDE: CO2 Laser Resurfacing in Oswego — Complete Guide
+  // ====================================================================
+  {
+    slug: "co2-laser-resurfacing-oswego-il-guide",
+    title: "CO2 Laser Resurfacing in Oswego, IL — A Complete Guide",
+    metaTitle: "CO2 Laser Resurfacing Oswego IL | Solaria Fractional | Hello Gorgeous",
+    metaDescription: "CO2 laser resurfacing in Oswego: Solaria fractional laser for wrinkles, scars, sun damage. Medical-grade. NP on site. Free consultation at Hello Gorgeous.",
+    excerpt: "Everything you need to know about CO2 laser resurfacing in Oswego — how it works, what to expect, and why Solaria is the gold standard.",
+    category: "Education",
+    date: "2026-03-12",
+    readTime: "6 min",
+    keywords: ["CO2 laser resurfacing Oswego IL", "CO2 laser near me", "fractional laser Oswego", "skin resurfacing Oswego"],
+    content: `# CO2 Laser Resurfacing in Oswego, IL — A Complete Guide
+
+CO2 fractional laser resurfacing is the gold standard for treating deep wrinkles, acne scars, sun damage, and skin texture. If you're considering it in Oswego, here's what you need to know.
+
+## What Is CO2 Laser Resurfacing?
+
+A CO₂ fractional laser creates microscopic columns of treated tissue while leaving surrounding skin intact. This "fractional" approach means faster healing than old-school full-face resurfacing, with dramatic results. The laser removes damaged outer layers and stimulates collagen production deep in the dermis.
+
+## What It Treats
+
+- **Wrinkles** — Forehead, crow's feet, smile lines
+- **Acne scarring** — Ice pick, boxcar, rolling scars
+- **Sun damage** — Age spots, pigmentation, texture
+- **Skin laxity** — Mild to moderate tightening
+
+## Solaria CO₂ — What Hello Gorgeous Offers
+
+Hello Gorgeous uses the **Solaria CO₂ fractional laser** — a medical-grade InMode device. No other med spa in Oswego, Naperville, Aurora, or Plainfield offers Solaria. That matters because device quality affects both results and safety.
+
+## What to Expect
+
+**Consultation:** Our NP evaluates your skin, goals, and medical history. We'll recommend settings and explain downtime.
+
+**Treatment:** Numbing cream is applied. The laser is passed over the treatment area. Most treatments take 30–60 minutes.
+
+**Recovery:** Redness, swelling, and peeling for 5–10 days. We provide detailed aftercare instructions.
+
+**Results:** Initial results at 2–4 weeks. Collagen remodeling continues for 3–6 months. Results are long-lasting with proper sun protection.
+
+## Who Is a Good Candidate?
+
+- Fitzpatrick skin types I–IV (we'll assess)
+- Realistic expectations
+- Willing to follow aftercare
+- No active infection or certain medications
+
+## Book Your Free Consultation
+
+See if CO2 laser resurfacing is right for you.
+
+📞 **630-636-6193**
+🌐 **hellogorgeousmedspa.com/book**
+📍 **74 W Washington Street, Oswego, IL 60543**
+
+*Hello Gorgeous Med Spa — where clinical expertise meets luxury care.*`,
+  },
+
+  // ====================================================================
+  // TIER 1 GUIDE: Best Facial Treatments in Oswego
+  // ====================================================================
+  {
+    slug: "best-facial-treatments-oswego",
+    title: "Best Facial Treatments in Oswego: What's Actually Available",
+    metaTitle: "Best Facial Treatments Oswego IL | HydraFacial, Morpheus8, Peels | Hello Gorgeous",
+    metaDescription: "Best facial treatments in Oswego: HydraFacial, Morpheus8, chemical peels, IPL, CO2 laser. Medical-grade options from an NP-led med spa. Free consultation.",
+    excerpt: "From HydraFacial to Morpheus8 to CO2 laser — here's what facial treatments are actually available in Oswego and how to choose.",
+    category: "Education",
+    date: "2026-03-12",
+    readTime: "5 min",
+    keywords: ["best facial treatments Oswego", "HydraFacial Oswego", "facial Oswego IL", "med spa facial near me"],
+    content: `# Best Facial Treatments in Oswego: What's Actually Available
+
+When you search for facial treatments in Oswego, you'll find everything from basic facials to medical-grade resurfacing. Here's what's actually available — and how to choose.
+
+## The Spectrum of Facial Treatments
+
+### HydraFacial — Cleanse, Extract, Hydrate
+
+A medical-grade facial that deep cleanses, extracts impurities, and infuses serums. No downtime. Great for maintenance and pre-event glow.
+
+**Best for:** Congested skin, dullness, fine lines, anyone wanting instant radiance
+
+### Chemical Peels
+
+Controlled exfoliation to improve texture, pigmentation, and fine lines. We offer multiple depths based on your goals and skin type.
+
+**Best for:** Sun damage, acne, uneven tone, texture
+
+### Morpheus8 Burst — RF Microneedling
+
+The deepest RF microneedling available (8mm). Stimulates collagen for tightening, scar improvement, and wrinkle reduction. More aggressive than a facial — this is a medical treatment.
+
+**Best for:** Loose skin, acne scars, wrinkles, skin tightening
+
+### IPL Photofacial
+
+Light-based treatment for sun damage, redness, and pigmentation. Complements other treatments.
+
+**Best for:** Sun spots, redness, uneven tone
+
+### Solaria CO₂ Laser — Gold Standard Resurfacing
+
+Fractional CO2 laser for deep wrinkles, scars, and sun damage. The most powerful facial resurfacing option we offer.
+
+**Best for:** Significant sun damage, acne scarring, deep wrinkles
+
+## How to Choose
+
+- **Quick glow, no downtime** → HydraFacial
+- **Texture, pigmentation** → Chemical peel or IPL
+- **Tightening, scars, wrinkles** → Morpheus8 or CO2 laser
+
+Our NP will recommend the right treatment during your free consultation.
+
+## Hello Gorgeous — Full Range Under One Roof
+
+We offer the full spectrum — from HydraFacial to CO2 laser. NP on site 7 days a week. No pressure, just honest recommendations.
+
+## Book Your Free Consultation
+
+📞 **630-636-6193**
+🌐 **hellogorgeousmedspa.com/book**
+📍 **74 W Washington Street, Oswego, IL 60543**
+
+*Hello Gorgeous Med Spa — where clinical expertise meets luxury care.*`,
+  },
+
+  // ====================================================================
+  // TIER 1 GUIDE: Medical Weight Loss in Oswego — GLP-1 and Beyond
+  // ====================================================================
+  {
+    slug: "medical-weight-loss-oswego-glp1",
+    title: "Medical Weight Loss in Oswego: GLP-1 and Beyond",
+    metaTitle: "Medical Weight Loss Oswego IL | Semaglutide, Tirzepatide | Hello Gorgeous",
+    metaDescription: "Medical weight loss in Oswego: Semaglutide and Tirzepatide (GLP-1) with same-day prescriptions. NP-supervised. Hello Gorgeous — Best of Oswego for Medical Weight Loss.",
+    excerpt: "GLP-1 weight loss in Oswego: how it works, what to expect, and why medical supervision matters. Same-day prescriptions at Hello Gorgeous.",
+    category: "Education",
+    date: "2026-03-12",
+    readTime: "5 min",
+    keywords: ["medical weight loss Oswego IL", "Semaglutide Oswego", "Tirzepatide Oswego", "GLP-1 weight loss near me"],
+    content: `# Medical Weight Loss in Oswego: GLP-1 and Beyond
+
+GLP-1 medications (Semaglutide, Tirzepatide) have changed medical weight loss. If you're considering them in Oswego, here's what you need to know.
+
+## What Are GLP-1 Medications?
+
+GLP-1 agonists mimic a hormone that reduces appetite, slows digestion, and helps regulate blood sugar. The same class of medications used in Ozempic, Wegovy, Mounjaro, and Zepbound — we offer compounded versions with physician oversight.
+
+**Semaglutide** — Single GLP-1. Average 15–20% body weight loss.
+**Tirzepatide** — Dual GIP/GLP-1. Often greater weight loss, different side effect profile.
+
+## Why Medical Supervision Matters
+
+Weight loss medications require:
+- Prescription from a licensed provider
+- Ongoing monitoring (dose adjustments, side effects)
+- Screening for contraindications
+- Support when you hit plateaus
+
+Hello Gorgeous has a **board-certified NP on site 7 days a week**. Same-day prescriptions. Weekly check-ins. We adjust your dose based on your response.
+
+## What to Expect
+
+**Consultation:** Medical history, goals, screening. We'll recommend Semaglutide or Tirzepatide based on your profile.
+
+**Prescription:** Same-day or next-day when appropriate.
+
+**Ongoing:** Weekly injections (you can learn to self-inject or come in). We monitor progress and adjust as needed.
+
+**Results:** Most people see noticeable changes in 4–8 weeks. Average 15–20% body weight loss over 6–12 months.
+
+## Loose Skin After Weight Loss?
+
+We can help with that too. Our InMode Trifecta — Morpheus8 Burst, QuantumRF, Solaria CO2 — treats the skin tightening that often follows significant weight loss.
+
+## Hello Gorgeous — Best of Oswego for Medical Weight Loss
+
+We're recognized as Best of Oswego for Medical Weight Loss. NP-led. Same-day prescriptions. Full support.
+
+## Book Your Free Consultation
+
+📞 **630-636-6193**
+🌐 **hellogorgeousmedspa.com/book**
+📍 **74 W Washington Street, Oswego, IL 60543**
+
+*Hello Gorgeous Med Spa — where clinical expertise meets luxury care.*`,
+  },
+
+  // ====================================================================
+  // TIER 1 GUIDE: Laser Hair Removal in Oswego — What to Expect
+  // ====================================================================
+  {
+    slug: "laser-hair-removal-oswego-what-to-expect",
+    title: "Laser Hair Removal in Oswego — What to Expect",
+    metaTitle: "Laser Hair Removal Oswego IL | What to Expect | Hello Gorgeous",
+    metaDescription: "Laser hair removal in Oswego: what to expect, how many sessions, prep and aftercare. Medical-grade laser. NP on site. Free consultation at Hello Gorgeous.",
+    excerpt: "Considering laser hair removal in Oswego? Here's what to expect — sessions, prep, results, and why medical oversight matters.",
+    category: "Education",
+    date: "2026-03-12",
+    readTime: "5 min",
+    keywords: ["laser hair removal Oswego IL", "laser hair removal near me", "permanent hair reduction Oswego"],
+    content: `# Laser Hair Removal in Oswego — What to Expect
+
+Laser hair removal is one of the most popular med spa treatments. If you're considering it in Oswego, here's what to expect.
+
+## How It Works
+
+A medical-grade laser targets pigment in the hair follicle. The heat damages the follicle, reducing or eliminating future growth. It works best on dark hair and light skin — we'll assess your candidacy during consultation.
+
+## What to Expect — Sessions
+
+Most people need **6–8 sessions** for significant reduction. Hair grows in cycles; the laser only affects follicles in the active growth phase. Spacing sessions 4–6 weeks apart catches each cycle.
+
+**First session:** We'll assess your skin, explain the process, and do a test patch if needed.
+**Ongoing:** Each session treats the area. Treatment time depends on size (underarms: ~15 min; legs: longer).
+
+## Prep and Aftercare
+
+**Before:** Shave the area 24 hours prior. No tanning. Avoid certain medications (we'll review).
+**After:** Avoid sun, heat, and irritants for 24–48 hours. Hair will shed over 1–2 weeks — that's normal.
+
+## Why Medical Oversight Matters
+
+Laser hair removal uses medical-grade devices. An NP on site means:
+- Proper screening (some skin types need different settings)
+- Prescriptions for antivirals when indicated (e.g., facial hair with history of cold sores)
+- Emergency protocols if needed
+
+Hello Gorgeous has an NP on site 7 days a week.
+
+## Membership Options
+
+We offer laser hair removal memberships for predictable pricing. Ask about packages during your consultation.
+
+## Book Your Free Consultation
+
+📞 **630-636-6193**
+🌐 **hellogorgeousmedspa.com/book**
+📍 **74 W Washington Street, Oswego, IL 60543**
+
+*Hello Gorgeous Med Spa — where clinical expertise meets luxury care.*`,
+  },
+
+  // ====================================================================
   // ARTICLE 1: Best Med Spa in Oswego — COUNTER THEIR #1 ARTICLE
   // ====================================================================
   {
