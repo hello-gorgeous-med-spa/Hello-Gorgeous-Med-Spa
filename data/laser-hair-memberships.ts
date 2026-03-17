@@ -1,7 +1,6 @@
 /**
  * Laser Hair Removal Membership Tiers
- * Beats Smooth Skin Studio pricing by 30% monthly
- * https://www.smoothskinstudio.com/membership/laser-hair-removal-memberships/
+ * Competitive value pricing — up to 30% savings vs typical market rates
  */
 
 export const LASER_HAIR_MEMBERSHIPS_CITIES = [
@@ -17,7 +16,7 @@ export type LaserHairMembershipsCity = (typeof LASER_HAIR_MEMBERSHIPS_CITIES)[nu
 
 export const LASER_HAIR_MEMBERSHIPS = {
   headline: "Laser Hair Removal Memberships",
-  subheadline: "Smooth, hair-free skin for less — we beat competitor prices by 30%.",
+  subheadline: "Smooth, hair-free skin for less — up to 30% savings with our membership pricing.",
   guarantee: "Guaranteed permanent results after 24-month membership.",
   touchupPrice: 50,
   touchupNote: "Lifetime touch-ups for just $50 per area after completing your membership.",
@@ -26,7 +25,7 @@ export const LASER_HAIR_MEMBERSHIPS = {
       id: "small",
       name: "Small",
       price: 69,
-      competitorPrice: 99,
+      compareAtPrice: 99,
       savings: "Save $30/month",
       popular: true,
       description: "Perfect for those focused on smaller areas like full face, underarms or bikini line.",
@@ -51,7 +50,7 @@ export const LASER_HAIR_MEMBERSHIPS = {
       id: "medium",
       name: "Medium",
       price: 174,
-      competitorPrice: 249,
+      compareAtPrice: 249,
       savings: "Save $75/month",
       popular: false,
       description: "Ideal for those wanting to address both facial and body hair concerns.",
@@ -78,7 +77,7 @@ export const LASER_HAIR_MEMBERSHIPS = {
       id: "large",
       name: "Large",
       price: 244,
-      competitorPrice: 349,
+      compareAtPrice: 349,
       savings: "Save $105/month",
       popular: false,
       description: "For those seeking more extensive hair removal, head-to-toe smoothness.",
@@ -102,7 +101,7 @@ export const LASER_HAIR_MEMBERSHIPS = {
       id: "full-body",
       name: "Full Body",
       price: 314,
-      competitorPrice: 449,
+      compareAtPrice: 449,
       savings: "Save $135/month",
       popular: false,
       description: "Our most comprehensive solution — unlimited areas every two months.",

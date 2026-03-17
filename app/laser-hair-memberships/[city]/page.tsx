@@ -21,8 +21,8 @@ export async function generateMetadata({
 
   const cityName = cityConfig.name;
   return {
-    title: `Laser Hair Removal Memberships Near ${cityName} IL | 30% Less | Hello Gorgeous`,
-    description: `Laser hair removal memberships from $69/month near ${cityName}, IL. We beat competitor prices by 30%. Excellent results after 2 visits! Small, Medium, Large & Full Body plans. ${cityConfig.driveTime} from ${cityName}.`,
+    title: `Laser Hair Removal Memberships Near ${cityName} IL | From $69/month | Hello Gorgeous`,
+    description: `Laser hair removal memberships from $69/month near ${cityName}, IL. Up to 30% savings. Excellent results after 2 visits! Small, Medium, Large & Full Body plans. ${cityConfig.driveTime} from ${cityName}.`,
     keywords: [
       `laser hair removal ${cityName}`,
       `laser hair membership ${cityName}`,
@@ -34,7 +34,7 @@ export async function generateMetadata({
     alternates: { canonical: `${SITE.url}/laser-hair-memberships/${city}` },
     openGraph: {
       url: `${SITE.url}/laser-hair-memberships/${city}`,
-      title: `Laser Hair Memberships Near ${cityName} | 30% Less | Hello Gorgeous`,
+      title: `Laser Hair Memberships Near ${cityName} | From $69/month | Hello Gorgeous`,
       description: `From $69/month. Excellent results after 2 visits. ${cityConfig.driveTime} from ${cityName}.`,
     },
   };
@@ -53,7 +53,7 @@ export default async function LaserHairMembershipsCityPage({
     "@context": "https://schema.org",
     "@type": "MedicalProcedure",
     name: "Laser Hair Removal Membership",
-    description: `Laser hair removal membership program near ${cityConfig.name}, IL. From $69/month. 30% less than competitors. Excellent results after 2 visits. Guaranteed permanent results.`,
+    description: `Laser hair removal membership program near ${cityConfig.name}, IL. From $69/month. Up to 30% savings. Excellent results after 2 visits. Guaranteed permanent results.`,
     procedureType: "Cosmetic",
     provider: {
       "@type": "MedicalBusiness",
@@ -76,7 +76,7 @@ export default async function LaserHairMembershipsCityPage({
     "@type": "MedicalBusiness",
     name: `${SITE.name} - Laser Hair Removal Near ${cityConfig.name}`,
     url: `${SITE.url}/laser-hair-memberships/${city}`,
-    description: `Laser hair removal memberships from $69/month. 30% less than competitors. Serving ${cityConfig.name}, IL and surrounding areas.`,
+    description: `Laser hair removal memberships from $69/month. Up to 30% savings. Serving ${cityConfig.name}, IL and surrounding areas.`,
     telephone: SITE.phone,
     address: { "@type": "PostalAddress", ...SITE.address },
     areaServed: SITE.serviceAreas.map((area) => ({ "@type": "Place", name: area })),

@@ -13,6 +13,87 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   // ====================================================================
+  // ARTICLE: What to Look for in an Oswego Med Spa — BUYER'S CHECKLIST
+  // ====================================================================
+  {
+    slug: "what-to-look-for-in-oswego-med-spa",
+    title: "What to Look for in an Oswego Med Spa: A Buyer's Checklist",
+    metaTitle: "What to Look for in an Oswego Med Spa | Hello Gorgeous",
+    metaDescription: "Choosing a med spa in Oswego? Look for: NP on site, full injectables, advanced laser tech, weight loss options. Here's the checklist that separates real med spas from beauty salons.",
+    excerpt: "Not all med spas are created equal. Use this checklist to find a true medical spa in Oswego — one with an on-site NP, full injectables, advanced laser technology, and medical weight loss.",
+    category: "Education",
+    date: "2026-03-11",
+    readTime: "6 min",
+    keywords: ["what to look for in med spa", "how to choose med spa Oswego", "best med spa Oswego IL", "med spa checklist"],
+    content: `# What to Look for in an Oswego Med Spa: A Buyer's Checklist
+
+When you're searching for a med spa in Oswego, Illinois, the results can be confusing. Some places call themselves "med spas" but only offer facials and lash extensions. Others have a medical director who signs off remotely but is never on site. How do you know you're choosing a real medical spa — one that can actually deliver the treatments you want?
+
+Use this checklist. It separates full-service medical spas from beauty salons and laser-only clinics.
+
+## 1. Is There a Nurse Practitioner or Physician On Site?
+
+**Why it matters:** A med spa that offers injectables, weight loss medications, or laser treatments needs prescriptive authority. If the medical director is never there, you're waiting for sign-offs. Same-day prescriptions? Forget it.
+
+**What to look for:** A board-certified NP or physician on site during business hours. Ask: "Who performs my consultation? Can they prescribe same-day?"
+
+## 2. Do They Offer Full Injectables?
+
+**Why it matters:** Botox, Dysport, Jeuveau, and dermal fillers are the backbone of medical aesthetics. If a place only does facials and lashes, they're a beauty salon — not a med spa.
+
+**What to look for:** Neuromodulators (Botox, Dysport, Jeuveau) and dermal fillers (Juvederm, Restylane, etc.). Performed by licensed injectors with medical oversight.
+
+## 3. Do They Have Advanced Laser Technology?
+
+**Why it matters:** Skin resurfacing, body contouring, and laser hair removal require medical-grade devices. Class 4 lasers (like Morpheus8, Solaria CO₂, Quantum RF) deliver results that basic devices can't match.
+
+**What to look for:** RF microneedling (Morpheus8 or similar), CO₂ fractional laser for resurfacing, body contouring technology. Ask what devices they use — and whether they're medical-grade.
+
+## 4. Do They Offer Medical Weight Loss?
+
+**Why it matters:** GLP-1 weight loss (Semaglutide, Tirzepatide) requires a prescription and ongoing medical supervision. Not every med spa can offer it. If they do, it means they have real medical infrastructure.
+
+**What to look for:** Physician- or NP-supervised weight loss programs. Same-day or next-day prescriptions. Weekly check-ins and dose adjustments.
+
+## 5. Is the Facility Licensed and Compliant?
+
+**Why it matters:** Med spas are regulated. You want a place that takes safety seriously — emergency protocols, proper consent, sterile technique.
+
+**What to look for:** Licensed facility. Clear consent process. Staff trained in complications (e.g., vascular occlusion for fillers). You can ask about their emergency protocols.
+
+## 6. Do They Serve Your Area?
+
+**Why it matters:** Convenience matters. Oswego, Naperville, Aurora, Plainfield — you want somewhere accessible for consultations and follow-ups.
+
+**What to look for:** Location in or near Oswego. Flexible scheduling. Free consultations so you can meet the team before committing.
+
+---
+
+## The Hello Gorgeous Checklist
+
+At Hello Gorgeous Med Spa in Oswego, we meet every item on this list:
+
+- **NP on site 7 days a week** — Board-certified FNP with full prescriptive authority
+- **Full injectables** — Botox, Dysport, Jeuveau, dermal fillers, Kybella
+- **Advanced laser tech** — Morpheus8 Burst (8mm), Solaria CO₂, Quantum RF (the InMode Trifecta — exclusive to us in the area)
+- **Medical weight loss** — Semaglutide and Tirzepatide, same-day prescriptions, ongoing supervision
+- **Licensed & compliant** — Full medical oversight, emergency protocols, consent process
+- **Serving Oswego + western suburbs** — 74 W Washington St, Oswego. Free consultations.
+
+We're also recognized as **Best of Oswego** for Best Med Spa, Best Skincare Clinic, Best Medical Weight Loss, and Best Facial Treatments.
+
+## Book Your Free Consultation
+
+See for yourself. Meet our team, tour the facility, and get a personalized treatment plan.
+
+📞 **630-636-6193**
+🌐 **hellogorgeousmedspa.com/book**
+📍 **74 W Washington Street, Oswego, IL 60543**
+
+*Hello Gorgeous Med Spa — where clinical expertise meets luxury care.*`,
+  },
+
+  // ====================================================================
   // ARTICLE 1: Best Med Spa in Oswego — COUNTER THEIR #1 ARTICLE
   // ====================================================================
   {
@@ -27,7 +108,7 @@ export const blogPosts: BlogPost[] = [
     keywords: ["best med spa Oswego IL", "best medspa Oswego", "med spa Oswego Illinois", "best aesthetics clinic Oswego"],
     content: `# Best Med Spa in Oswego, IL — Why Hello Gorgeous Is the Full-Service Leader
 
-When you search for the best med spa in Oswego, IL, you deserve accurate information — not content written by competitors to promote themselves.
+When you search for the best med spa in Oswego, IL, you deserve accurate information backed by facts.
 
 **Hello Gorgeous Med Spa is recognized as Best of Oswego — #1 Best Med Spa, Best Skincare Clinic, Best Medical Weight Loss, and Best Facial Treatments.** We are the most comprehensive medical aesthetic and wellness destination in the western Chicago suburbs. We are not a niche boutique. We are not just a laser clinic. We are a full-service, nurse practitioner-led medical spa offering treatments that most local providers simply cannot match.
 
@@ -61,7 +142,7 @@ This level of medical access is something chain med spas and laser-only clinics 
 ### The InMode Trifecta — EXCLUSIVE
 Hello Gorgeous invested over **$500,000** in three Class 4 InMode medical devices. No other med spa in Oswego, Naperville, Aurora, Plainfield, Montgomery, or Yorkville carries all three:
 
-1. **Morpheus8 Burst** — 8mm deep RF microneedling (competitors have standard 4mm at best)
+1. **Morpheus8 Burst** — 8mm deep RF microneedling (standard Morpheus8 reaches 4mm)
 2. **Solaria CO₂** — fractional laser resurfacing (no one locally has this)
 3. **QuantumRF** — subdermal body contouring (no one locally has this)
 
@@ -436,21 +517,21 @@ That's double the depth and triple the coverage. The result: more comprehensive 
 
 **Best for:** Loose skin, wrinkles, acne scars, jowls, neck laxity, post-weight loss skin
 
-**What competitors have:** Standard Morpheus8 (4mm maximum). Some don't have Morpheus8 at all.
+**Industry standard:** Standard Morpheus8 reaches 4mm maximum.
 
 ### 2. Solaria CO₂ Fractional Laser — The Gold Standard
 Solaria is a fractional CO₂ laser — the most powerful skin resurfacing technology available. It removes damaged outer layers of skin while stimulating collagen production deep in the dermis.
 
 **Best for:** Deep wrinkles, severe acne scarring, sun damage, age spots, skin texture, stretch marks
 
-**What competitors have:** Nobody in Oswego, Naperville, Aurora, or Plainfield has Solaria CO₂.
+**Exclusive to Hello Gorgeous:** No other med spa in Oswego, Naperville, Aurora, or Plainfield has Solaria CO₂.
 
 ### 3. QuantumRF — Surgical Results Without Surgery
 QuantumRF works beneath the skin surface, delivering radiofrequency energy to the subdermal layer. This internal approach creates tissue contraction that rivals surgical lifting.
 
 **Best for:** Facial sagging, neck laxity, double chin, body contouring, arm and thigh tightening
 
-**What competitors have:** Nobody in the western suburbs has QuantumRF.
+**Exclusive to Hello Gorgeous:** No other provider in the western suburbs has QuantumRF.
 
 ## Why All Three Matter Together
 
@@ -462,7 +543,7 @@ The power of the Trifecta isn't just having three devices. It's the ability to c
 | Mid-dermis | Morpheus8 Burst | Tightens tissue, stimulates collagen at 3 depths |
 | Subdermal | QuantumRF | Contracts deep tissue, contours body |
 
-No other provider in the area can offer this layered approach. They can do one thing. We can do all three.
+No other provider in the area can offer this layered approach. Most offer one technology. We offer all three.
 
 ## The GLP-1 Connection
 
@@ -480,7 +561,7 @@ The InMode Trifecta was specifically chosen to solve this problem:
 
 ## The Investment in Your Community
 
-We didn't buy these devices to compete with other med spas. We bought them because our patients needed solutions that didn't exist locally. Instead of referring patients to Chicago for advanced treatments, we brought Chicago-level technology to Oswego.
+We bought these devices because our patients needed solutions that didn't exist locally. Instead of referring patients to Chicago for advanced treatments, we brought Chicago-level technology to Oswego.
 
 74 W Washington Street. Your neighborhood. **$500K in your skin.**
 
@@ -514,7 +595,7 @@ Peptides are short chains of amino acids that act as signaling molecules in your
 
 Medical-grade peptide therapy uses specific peptides, prescribed by a qualified provider, to target specific health goals. At Hello Gorgeous Med Spa, our Nurse Practitioner prescribes and manages peptide therapy protocols 7 days a week.
 
-**No other med spa in Oswego offers peptide therapy.** This is an area where we have zero local competition.
+**No other med spa in Oswego offers peptide therapy.**
 
 ## Popular Peptides We Prescribe
 
@@ -1465,17 +1546,17 @@ Our NP is available 7 days a week for questions during your recovery. Text us at
   // ====================================================================
   {
     slug: "laser-hair-removal-memberships-oswego-il",
-    title: "Laser Hair Removal Memberships at Hello Gorgeous — 30% Less Than Competitors",
+    title: "Laser Hair Removal Memberships at Hello Gorgeous — From $69/month",
     metaTitle: "Laser Hair Removal Memberships Oswego IL | From $69/month | Hello Gorgeous",
-    metaDescription: "Laser hair removal memberships from $69/month at Hello Gorgeous Med Spa. Small, Medium, Large & Full Body plans. 30% less than competitors. Guaranteed results. Oswego, Naperville, Aurora.",
-    excerpt: "Say goodbye to razor burn and ingrown hairs. Hello Gorgeous offers laser hair removal memberships from $69/month — we beat competitor prices by 30%. Choose Small, Medium, Large, or Full Body.",
+    metaDescription: "Laser hair removal memberships from $69/month at Hello Gorgeous Med Spa. Small, Medium, Large & Full Body plans. Up to 30% savings. Guaranteed results. Oswego, Naperville, Aurora.",
+    excerpt: "Say goodbye to razor burn and ingrown hairs. Hello Gorgeous offers laser hair removal memberships from $69/month — up to 30% savings. Choose Small, Medium, Large, or Full Body.",
     category: "Spa News",
     date: "2026-03-16",
     readTime: "5 min",
     keywords: ["laser hair removal membership", "laser hair Oswego", "permanent hair removal Oswego IL", "bikini laser membership", "underarm laser", "full body laser"],
-    content: `# Laser Hair Removal Memberships at Hello Gorgeous — 30% Less Than Competitors
+    content: `# Laser Hair Removal Memberships at Hello Gorgeous — From $69/month
 
-Imagine waking up every day with smooth, hair-free skin. No more painful waxing, daily shaving, or uncomfortable stubble. Hello Gorgeous Med Spa now offers **laser hair removal memberships** that beat competitor pricing by 30% — and we see excellent results after just 2 visits.
+Imagine waking up every day with smooth, hair-free skin. No more painful waxing, daily shaving, or uncomfortable stubble. Hello Gorgeous Med Spa now offers **laser hair removal memberships** with up to 30% savings — and we see excellent results after just 2 visits.
 
 ## Why Choose a Membership?
 
@@ -1489,22 +1570,22 @@ Pay-as-you-go laser hair removal adds up fast. A membership gives you:
 
 ## Our Membership Tiers
 
-### Small — $69/month (was $99)
+### Small — $69/month (save $30/month)
 Perfect for smaller areas: full face, underarms, or bikini line. Includes 2 small areas over 24 months with guaranteed permanent results and lifetime touch-ups for $50/area.
 
 **Areas:** Underarms, bikini line, full face (or section), neck, navel, hairline shaping, ears
 
-### Medium — $174/month (was $249)
+### Medium — $174/month (save $75/month)
 Ideal for facial and body hair. Includes 1 medium area + 1 small area over 24 months.
 
 **Areas:** Full Brazilian & bikini, forearms, lower/upper legs, abdomen, chest, shoulders & upper back, lower back, glutes
 
-### Large — $244/month (was $349)
+### Large — $244/month (save $105/month)
 For extensive hair removal. Includes 2 large areas + 2 small areas over 24 months.
 
 **Areas:** Full legs, full arms, full Brazilian + bikini + buttocks, full back & shoulders, chest & abdomen
 
-### Full Body — $314/month (was $449)
+### Full Body — $314/month (save $135/month)
 Our most comprehensive plan. Unlimited areas every 2 months over 24 months. Complete flexibility for head-to-toe smoothness.
 
 **Areas:** Underarms, Brazilian & bikini, face/neck/ears, back & shoulders, lower back, glutes, chest, abdomen, hairline, full legs, full arms

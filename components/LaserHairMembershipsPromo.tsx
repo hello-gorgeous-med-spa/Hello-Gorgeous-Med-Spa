@@ -5,7 +5,7 @@ import Link from "next/link";
 /** Promo section linking to laser hair removal memberships. Blast across Oswego and surrounding areas. */
 export function LaserHairMembershipsPromo({
   city,
-  title = "Laser Hair Memberships — 30% Less Than Competitors",
+  title = "Laser Hair Memberships — From $69/month",
   subtitle = "From $69/month. We see excellent results after 2 visits! Guaranteed permanent results. Small, Medium, Large & Full Body plans.",
 }: {
   city?: string;

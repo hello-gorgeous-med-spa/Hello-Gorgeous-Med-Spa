@@ -27,7 +27,7 @@ export function LaserHairMembershipsContent({ city }: { city: LaserHairMembershi
             </span>
           </h1>
           <p className="text-[#FF2D8E] text-2xl md:text-3xl font-bold mb-2">
-            We Beat Competitor Prices by 30%
+            Up to 30% Savings
           </p>
           <p className="text-white/80 text-lg mb-4 max-w-2xl mx-auto">
             Imagine waking up every day with smooth, hair-free skin. No more painful waxing,
@@ -86,7 +86,7 @@ export function LaserHairMembershipsContent({ city }: { city: LaserHairMembershi
             Choose Your Membership
           </h2>
           <p className="text-center text-black/70 mb-12 max-w-2xl mx-auto">
-            Save up to 30% vs competitor pricing. Guaranteed results. Lifetime touch-ups.
+            Save up to 30% with membership pricing. Guaranteed results. Lifetime touch-ups.
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -118,7 +118,7 @@ export function LaserHairMembershipsContent({ city }: { city: LaserHairMembershi
                   <div className="mt-2 flex items-baseline gap-2">
                     <span className="text-3xl font-bold text-[#FF2D8E]">${tier.price}</span>
                     <span className="text-black/60">/month</span>
-                    <span className="text-sm text-black/50 line-through">${tier.competitorPrice}</span>
+                    <span className="text-sm text-black/50 line-through">${tier.compareAtPrice}</span>
                   </div>
                   <p className="text-sm text-[#FF2D8E] font-semibold mt-1">{tier.savings}</p>
                   <p className="text-sm text-black/70 mt-3">{tier.description}</p>

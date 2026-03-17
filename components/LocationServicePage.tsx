@@ -255,7 +255,7 @@ export function LocationServicePage({ service, area, nearbyAreas }: LocationServ
         {service.slug === 'laser-hair-removal' && (
           <LaserHairMembershipsPromo
             city={area.slug}
-            title="Laser Hair Memberships — 30% Less Than Competitors"
+            title="Laser Hair Memberships — From $69/month"
             subtitle="From $69/month. We see excellent results after 2 visits! Guaranteed permanent results. Small, Medium, Large & Full Body plans."
           />
         )}

@@ -13,7 +13,7 @@ import type { PersonaConfig } from "./types";
  *    - Nasolabial folds (smile lines)
  *    - High patient satisfaction
  *    - Smooth, natural results
- *    - Less swelling than some competitors
+ *    - Minimal swelling profile
  *    - Duration: 12+ months
  *    - Proprietary Thixofix technology
  * 

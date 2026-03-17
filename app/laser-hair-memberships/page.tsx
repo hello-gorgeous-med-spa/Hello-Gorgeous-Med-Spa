@@ -9,7 +9,7 @@ const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "MedicalProcedure",
   name: "Laser Hair Removal Membership",
-  description: "Laser hair removal membership program. From $69/month. 30% less than competitors. Excellent results after 2 visits. Guaranteed permanent results. Serving Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery.",
+  description: "Laser hair removal membership program. From $69/month. Up to 30% savings. Excellent results after 2 visits. Guaranteed permanent results. Serving Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery.",
   procedureType: "Cosmetic",
   provider: {
     "@type": "MedicalBusiness",
@@ -32,7 +32,7 @@ const localBusinessSchema = {
   "@type": "MedicalBusiness",
   name: `${SITE.name} - Laser Hair Removal Memberships`,
   url: `${SITE.url}/laser-hair-memberships`,
-  description: "Laser hair removal memberships from $69/month. 30% less than competitors. Excellent results after 2 visits. Serving Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery.",
+  description: "Laser hair removal memberships from $69/month. Up to 30% savings. Excellent results after 2 visits. Serving Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery.",
   telephone: SITE.phone,
   address: { "@type": "PostalAddress", ...SITE.address },
   areaServed: SITE.serviceAreas.map((area) => ({ "@type": "Place", name: area })),
@@ -49,9 +49,9 @@ const faqSchema = {
 };
 
 export const metadata: Metadata = {
-  title: "Laser Hair Removal Memberships | 30% Less Than Competitors | Hello Gorgeous",
+  title: "Laser Hair Removal Memberships | From $69/month | Hello Gorgeous",
   description:
-    "Laser hair removal memberships from $69/month. We beat competitor prices by 30%. Excellent results after 2 visits! Small, Medium, Large & Full Body plans. Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery.",
+    "Laser hair removal memberships from $69/month. Up to 30% savings. Excellent results after 2 visits! Small, Medium, Large & Full Body plans. Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery.",
   keywords: [
     "laser hair removal membership",
     "laser hair removal Oswego",
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
     type: "website",
     url: `${SITE.url}/laser-hair-memberships`,
     title: "Laser Hair Memberships — 30% Less | Hello Gorgeous Med Spa",
-    description: "From $69/month. Guaranteed permanent results. Beat competitor pricing.",
+    description: "From $69/month. Guaranteed permanent results. Up to 30% savings.",
   },
 };
 
@@ -104,7 +104,7 @@ export default function LaserHairMembershipsPage() {
             </span>
           </h1>
           <p className="text-[#FF2D8E] text-2xl md:text-3xl font-bold mb-2">
-            We Beat Competitor Prices by 30%
+            Up to 30% Savings
           </p>
           <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
             Imagine waking up every day with smooth, hair-free skin. No more painful waxing,
@@ -163,7 +163,7 @@ export default function LaserHairMembershipsPage() {
             Choose Your Membership
           </h2>
           <p className="text-center text-black/70 mb-12 max-w-2xl mx-auto">
-            Save up to 30% vs competitor pricing. Guaranteed results. Lifetime touch-ups.
+            Save up to 30% with membership pricing. Guaranteed results. Lifetime touch-ups.
           </p>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -195,7 +195,7 @@ export default function LaserHairMembershipsPage() {
                   <div className="mt-2 flex items-baseline gap-2">
                     <span className="text-3xl font-bold text-[#FF2D8E]">${tier.price}</span>
                     <span className="text-black/60">/month</span>
-                    <span className="text-sm text-black/50 line-through">${tier.competitorPrice}</span>
+                    <span className="text-sm text-black/50 line-through">${tier.compareAtPrice}</span>
                   </div>
                   <p className="text-sm text-[#FF2D8E] font-semibold mt-1">{tier.savings}</p>
                   <p className="text-sm text-black/70 mt-3">{tier.description}</p>

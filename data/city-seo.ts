@@ -56,7 +56,7 @@ export const DEVICES: DeviceConfig[] = [
       "Crepey skin and enlarged pores",
     ],
     uniqueAdvantage: "Hello Gorgeous has Morpheus8 Burst — most local providers only have standard Morpheus8 (4mm). That's double the depth and triple the coverage.",
-    competitorNote: "No other med spa in the area has Burst technology. Competitors offer standard Morpheus8 at best.",
+    competitorNote: "No other med spa in the area has Burst technology. Standard Morpheus8 reaches 4mm maximum.",
   },
   {
     slug: "solaria-co2",
@@ -84,7 +84,7 @@ export const DEVICES: DeviceConfig[] = [
       "Stretch marks and surgical scars",
     ],
     uniqueAdvantage: "No other med spa in Oswego, Naperville, Aurora, or Plainfield has Solaria CO₂. We are the only fractional CO₂ laser provider in the western suburbs.",
-    competitorNote: "Competitors have written that you need to go to Naperville or Chicago for 'intensive resurfacing.' That's no longer true.",
+    competitorNote: "Solaria CO₂ brings gold-standard resurfacing to Oswego — no need to travel to Chicago.",
   },
   {
     slug: "quantum-rf",
@@ -112,7 +112,7 @@ export const DEVICES: DeviceConfig[] = [
       "Body contouring",
     ],
     uniqueAdvantage: "QuantumRF is exclusive to Hello Gorgeous in the entire western Chicago suburbs. No other provider from Naperville to Yorkville offers subdermal RF contouring.",
-    competitorNote: "Nobody in the area has QuantumRF. Competitors offer external RF at best, which cannot reach subdermal tissue.",
+    competitorNote: "Nobody in the area has QuantumRF. External RF cannot reach subdermal tissue; we can.",
   },
 ];
 
