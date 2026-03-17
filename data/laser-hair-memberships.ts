@@ -4,6 +4,17 @@
  * https://www.smoothskinstudio.com/membership/laser-hair-removal-memberships/
  */
 
+export const LASER_HAIR_MEMBERSHIPS_CITIES = [
+  { slug: "oswego", name: "Oswego", driveTime: "right here", note: "Located in downtown Oswego" },
+  { slug: "naperville", name: "Naperville", driveTime: "15 min", note: "Just 15 minutes south on Route 59" },
+  { slug: "aurora", name: "Aurora", driveTime: "10 min", note: "Quick drive east on Route 30" },
+  { slug: "plainfield", name: "Plainfield", driveTime: "12 min", note: "15 minutes south on Route 126" },
+  { slug: "yorkville", name: "Yorkville", driveTime: "8 min", note: "10 minutes west on Route 34" },
+  { slug: "montgomery", name: "Montgomery", driveTime: "10 min", note: "Right next door" },
+] as const;
+
+export type LaserHairMembershipsCity = (typeof LASER_HAIR_MEMBERSHIPS_CITIES)[number];
+
 export const LASER_HAIR_MEMBERSHIPS = {
   headline: "Laser Hair Removal Memberships",
   subheadline: "Smooth, hair-free skin for less — we beat competitor prices by 30%.",

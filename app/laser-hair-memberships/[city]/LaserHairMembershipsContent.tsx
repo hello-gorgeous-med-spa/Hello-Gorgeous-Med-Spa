@@ -1,104 +1,27 @@
-import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { LASER_HAIR_MEMBERSHIPS } from "@/data/laser-hair-memberships";
+import type { LaserHairMembershipsCity } from "@/data/laser-hair-memberships";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE } from "@/lib/seo";
 
-const serviceSchema = {
-  "@context": "https://schema.org",
-  "@type": "MedicalProcedure",
-  name: "Laser Hair Removal Membership",
-  description: "Laser hair removal membership program. From $69/month. 30% less than competitors. Excellent results after 2 visits. Guaranteed permanent results. Serving Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery.",
-  procedureType: "Cosmetic",
-  provider: {
-    "@type": "MedicalBusiness",
-    name: SITE.name,
-    url: SITE.url,
-    telephone: SITE.phone,
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: SITE.address.streetAddress,
-      addressLocality: SITE.address.addressLocality,
-      addressRegion: SITE.address.addressRegion,
-      postalCode: SITE.address.postalCode,
-    },
-  },
-  areaServed: SITE.serviceAreas.map((area) => ({ "@type": "Place", name: area })),
-};
+export function LaserHairMembershipsContent({ city }: { city: LaserHairMembershipsCity }) {
+  const heroBadge =
+    city.slug === "oswego"
+      ? "🔥 BEST PRICES IN OSWEGO"
+      : `🔥 LASER HAIR MEMBERSHIPS NEAR ${city.name.toUpperCase()}`;
 
-const localBusinessSchema = {
-  "@context": "https://schema.org",
-  "@type": "MedicalBusiness",
-  name: `${SITE.name} - Laser Hair Removal Memberships`,
-  url: `${SITE.url}/laser-hair-memberships`,
-  description: "Laser hair removal memberships from $69/month. 30% less than competitors. Excellent results after 2 visits. Serving Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery.",
-  telephone: SITE.phone,
-  address: { "@type": "PostalAddress", ...SITE.address },
-  areaServed: SITE.serviceAreas.map((area) => ({ "@type": "Place", name: area })),
-};
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: LASER_HAIR_MEMBERSHIPS.faqs.map((f) => ({
-    "@type": "Question",
-    name: f.q,
-    acceptedAnswer: { "@type": "Answer", text: f.a },
-  })),
-};
-
-export const metadata: Metadata = {
-  title: "Laser Hair Removal Memberships | 30% Less Than Competitors | Hello Gorgeous",
-  description:
-    "Laser hair removal memberships from $69/month. We beat competitor prices by 30%. Excellent results after 2 visits! Small, Medium, Large & Full Body plans. Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery.",
-  keywords: [
-    "laser hair removal membership",
-    "laser hair removal Oswego",
-    "laser hair removal Naperville",
-    "laser hair removal Aurora",
-    "laser hair removal Plainfield",
-    "laser hair removal Yorkville",
-    "laser hair removal Montgomery",
-    "permanent hair removal",
-    "bikini laser",
-    "underarm laser",
-    "full body laser",
-  ],
-  alternates: { canonical: `${SITE.url}/laser-hair-memberships` },
-  openGraph: {
-    type: "website",
-    url: `${SITE.url}/laser-hair-memberships`,
-    title: "Laser Hair Memberships — 30% Less | Hello Gorgeous Med Spa",
-    description: "From $69/month. Guaranteed permanent results. Beat competitor pricing.",
-  },
-};
-
-export default function LaserHairMembershipsPage() {
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
     <main className="bg-white">
-      {/* Aggressive Hero Banner */}
+      {/* Hero */}
       <section className="relative bg-black text-white py-12 md:py-16 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-[#E6007E]/20 via-transparent to-[#E6007E]/20" />
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-[#FF2D8E] font-bold text-sm md:text-base tracking-[0.3em] uppercase mb-4">
-            🔥 BEST PRICES IN OSWEGO
+            {heroBadge}
           </p>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold mb-4">
-            Laser Hair Removal {""}
+            Laser Hair Removal{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FF2D8E] to-[#FF69B4]">
               Memberships
             </span>
@@ -106,10 +29,10 @@ export default function LaserHairMembershipsPage() {
           <p className="text-[#FF2D8E] text-2xl md:text-3xl font-bold mb-2">
             We Beat Competitor Prices by 30%
           </p>
-          <p className="text-white/80 text-lg mb-8 max-w-2xl mx-auto">
+          <p className="text-white/80 text-lg mb-4 max-w-2xl mx-auto">
             Imagine waking up every day with smooth, hair-free skin. No more painful waxing,
             daily shaving, or uncomfortable stubble. From $69/month — guaranteed permanent
-            results.
+            results. {city.note}.
           </p>
           <p className="text-[#FFD700] font-bold text-xl md:text-2xl mb-6">
             We see excellent results after 2 visits!!!!
@@ -271,8 +194,8 @@ export default function LaserHairMembershipsPage() {
             Ready for Smooth, Carefree Skin?
           </h2>
           <p className="text-white/80 mb-8">
-            $69/month and up. No hidden fees. Guaranteed results. Serving Oswego, Naperville,
-            Aurora, Plainfield & the Fox Valley.
+            $69/month and up. No hidden fees. Guaranteed results. Serving {city.name}, Oswego,
+            Naperville, Aurora, Plainfield, Yorkville, Montgomery & the Fox Valley.
           </p>
           <Link
             href={BOOKING_URL}
@@ -286,6 +209,5 @@ export default function LaserHairMembershipsPage() {
         </div>
       </section>
     </main>
-    </>
   );
 }

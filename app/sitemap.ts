@@ -104,12 +104,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: 'monthly',
       priority: 0.75,
     },
-    {
-      url: `${baseUrl}/laser-hair-memberships`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
   ];
 
   // Service pages from SERVICES array
@@ -215,6 +209,32 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  // Laser hair removal — location pages (Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery)
+  const laserHairRemovalPages: MetadataRoute.Sitemap = [
+    'oswego-il', 'naperville-il', 'aurora-il', 'plainfield-il', 'yorkville-il', 'montgomery-il',
+  ].map((city) => ({
+    url: `${baseUrl}/laser-hair-removal-${city}`,
+    lastModified: currentDate,
+    changeFrequency: 'monthly' as const,
+    priority: 0.85,
+  }));
+
+  // Laser hair memberships — location pages for SEO domination
+  const laserHairMembershipPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/laser-hair-memberships`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    ...['oswego-il', 'naperville-il', 'aurora-il', 'plainfield-il', 'yorkville-il', 'montgomery-il'].map((city) => ({
+      url: `${baseUrl}/laser-hair-memberships/${city}`,
+      lastModified: currentDate,
+      changeFrequency: 'weekly' as const,
+      priority: 0.85,
+    })),
+  ];
+
   // Semaglutide Spring Break Special — $299/month promo
   const springBreakPages: MetadataRoute.Sitemap = [
     {
@@ -240,6 +260,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...aftercarePages,
     ...locationServicePages,
     ...cityPages,
+    ...laserHairRemovalPages,
+    ...laserHairMembershipPages,
     ...springBreakPages,
   ];
 }

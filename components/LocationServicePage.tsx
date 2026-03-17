@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { SITE, siteJsonLd, localBusinessJsonLd, faqJsonLd, breadcrumbJsonLd } from '@/lib/seo';
 import { ServiceConfig, ServiceArea, generateServiceSchema } from '@/lib/location-seo';
 import { WeightLossBlogPromo } from '@/components/WeightLossBlogPromo';
+import { LaserHairMembershipsPromo } from '@/components/LaserHairMembershipsPromo';
 
 // ============================================================
 // REUSABLE LOCATION SERVICE PAGE COMPONENT
@@ -247,6 +248,15 @@ export function LocationServicePage({ service, area, nearbyAreas }: LocationServ
           <WeightLossBlogPromo
             title="Ozempic vs Tirzepatide vs Zepbound — Expert Guides"
             subtitle="Read our blog articles on GLP-1 comparison, Retatrutide, and weight loss programs. Serving Oswego, Naperville, Aurora, Plainfield & the Fox Valley."
+          />
+        )}
+
+        {/* Laser Hair Memberships Promo — Laser Hair only */}
+        {service.slug === 'laser-hair-removal' && (
+          <LaserHairMembershipsPromo
+            city={area.slug}
+            title="Laser Hair Memberships — 30% Less Than Competitors"
+            subtitle="From $69/month. We see excellent results after 2 visits! Guaranteed permanent results. Small, Medium, Large & Full Body plans."
           />
         )}
 

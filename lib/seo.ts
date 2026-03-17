@@ -491,19 +491,44 @@ export const SERVICES: readonly Service[] = [
       "A modern, series-based plan designed for smoother skin and reduced regrowth.",
     faqs: [
       {
-        question: "How many sessions do I need?",
+        question: "How many sessions do I need for permanent hair reduction?",
         answer:
-          "Hair grows in cycles; most people need multiple sessions for best reduction.",
+          "Most areas require 6–8 sessions spaced 4–6 weeks apart. Hair grows in cycles (anagen, catagen, telogen), and the laser only effectively targets hair in the active growth phase. Multiple sessions ensure we treat follicles as they enter that phase. Some clients see visible reduction after just 2 sessions.",
       },
       {
-        question: "Is it painful?",
+        question: "Does laser hair removal hurt?",
         answer:
-          "Sensation varies. Many describe it as a quick snap. We’ll review comfort strategies.",
+          "Most clients describe the sensation as a quick rubber-band snap or warm pinch. Our Zemits Duocratis has built-in cooling technology that minimizes discomfort. Sensitive areas (upper lip, bikini) may feel slightly more intense, but we can adjust settings. Treatments become more comfortable as hair thins.",
       },
       {
-        question: "Can I do it on all skin tones?",
+        question: "Can all skin tones and hair colors be treated?",
         answer:
-          "Candidacy depends on skin tone, hair color, and device settings. We’ll evaluate during consult.",
+          "Our Zemits Duocratis uses dual-wavelength technology (755nm + 808nm + 1064nm) that is safe for light to dark skin tones. Best results are seen with dark hair (melanin absorbs the laser). Light blonde, red, or gray hair may not respond as well. We evaluate your skin and hair type during your free consultation.",
+      },
+      {
+        question: "Is laser hair removal permanent?",
+        answer:
+          "Laser hair removal provides permanent hair REDUCTION—not 100% removal. Most clients achieve 80–95% reduction after completing their series. Any regrowth is typically finer and lighter. Occasional maintenance touch-ups may be needed years later, especially for hormonal areas.",
+      },
+      {
+        question: "What should I do before my laser hair removal appointment?",
+        answer:
+          "Shave the treatment area 24 hours before (do NOT wax or pluck—we need the follicle intact). Avoid sun exposure, tanning beds, and spray tans for 2 weeks. Skip photosensitizing medications if possible. Arrive with clean, product-free skin. Laser cannot be performed on tanned skin.",
+      },
+      {
+        question: "What should I expect after each treatment?",
+        answer:
+          "Mild redness and warmth (like a mild sunburn) for a few hours. Slight swelling around follicles is normal. Hair will shed over 1–2 weeks—this is expected. Avoid sun, hot showers, saunas, and strenuous exercise for 24–48 hours. Apply SPF 30+ daily. Do not wax or pluck between sessions.",
+      },
+      {
+        question: "How long does each session take?",
+        answer:
+          "Small areas (upper lip, underarms) take 10–15 minutes. Medium areas (bikini, lower legs) take 20–30 minutes. Large areas (full legs, back) take 45–60 minutes. Most clients return to normal activities immediately after.",
+      },
+      {
+        question: "Why choose Hello Gorgeous for laser hair removal?",
+        answer:
+          "We use the professional-grade Zemits Duocratis laser with triple-wavelength technology for safe, effective treatment across skin types. Our certified technicians personalize settings for your skin and hair. We're Best of Oswego for med spa services, with a full-authority nurse practitioner on site. Free consultations, transparent pricing, and a focus on your comfort.",
       },
     ],
   },

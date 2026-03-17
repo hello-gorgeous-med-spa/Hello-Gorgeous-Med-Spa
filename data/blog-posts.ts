@@ -1459,6 +1459,79 @@ Our NP is available 7 days a week for questions during your recovery. Text us at
 
 *Your provider. Your recovery. Your results. All at Hello Gorgeous.*`,
   },
+
+  // ====================================================================
+  // ARTICLE 12: Laser Hair Removal Memberships
+  // ====================================================================
+  {
+    slug: "laser-hair-removal-memberships-oswego-il",
+    title: "Laser Hair Removal Memberships at Hello Gorgeous — 30% Less Than Competitors",
+    metaTitle: "Laser Hair Removal Memberships Oswego IL | From $69/month | Hello Gorgeous",
+    metaDescription: "Laser hair removal memberships from $69/month at Hello Gorgeous Med Spa. Small, Medium, Large & Full Body plans. 30% less than competitors. Guaranteed results. Oswego, Naperville, Aurora.",
+    excerpt: "Say goodbye to razor burn and ingrown hairs. Hello Gorgeous offers laser hair removal memberships from $69/month — we beat competitor prices by 30%. Choose Small, Medium, Large, or Full Body.",
+    category: "Spa News",
+    date: "2026-03-16",
+    readTime: "5 min",
+    keywords: ["laser hair removal membership", "laser hair Oswego", "permanent hair removal Oswego IL", "bikini laser membership", "underarm laser", "full body laser"],
+    content: `# Laser Hair Removal Memberships at Hello Gorgeous — 30% Less Than Competitors
+
+Imagine waking up every day with smooth, hair-free skin. No more painful waxing, daily shaving, or uncomfortable stubble. Hello Gorgeous Med Spa now offers **laser hair removal memberships** that beat competitor pricing by 30% — and we see excellent results after just 2 visits.
+
+## Why Choose a Membership?
+
+Pay-as-you-go laser hair removal adds up fast. A membership gives you:
+
+- **Predictable monthly investment** — no large upfront costs
+- **Guaranteed permanent results** after your 24-month treatment plan
+- **Lifetime touch-ups** for just $50 per area after completing your membership
+- **Customized treatment schedule** based on your hair growth cycle
+- **Excellent results after 2 visits** — most clients see visible reduction quickly
+
+## Our Membership Tiers
+
+### Small — $69/month (was $99)
+Perfect for smaller areas: full face, underarms, or bikini line. Includes 2 small areas over 24 months with guaranteed permanent results and lifetime touch-ups for $50/area.
+
+**Areas:** Underarms, bikini line, full face (or section), neck, navel, hairline shaping, ears
+
+### Medium — $174/month (was $249)
+Ideal for facial and body hair. Includes 1 medium area + 1 small area over 24 months.
+
+**Areas:** Full Brazilian & bikini, forearms, lower/upper legs, abdomen, chest, shoulders & upper back, lower back, glutes
+
+### Large — $244/month (was $349)
+For extensive hair removal. Includes 2 large areas + 2 small areas over 24 months.
+
+**Areas:** Full legs, full arms, full Brazilian + bikini + buttocks, full back & shoulders, chest & abdomen
+
+### Full Body — $314/month (was $449)
+Our most comprehensive plan. Unlimited areas every 2 months over 24 months. Complete flexibility for head-to-toe smoothness.
+
+**Areas:** Underarms, Brazilian & bikini, face/neck/ears, back & shoulders, lower back, glutes, chest, abdomen, hairline, full legs, full arms
+
+## The Hello Gorgeous Difference
+
+- **Best of Oswego** — #1 Best Med Spa, Best Medical Weight Loss
+- **Professional-grade Zemits Duocratis** — triple-wavelength technology for all skin types
+- **NP on site** — full-authority nurse practitioner 7 days a week
+- **Free consultation** — personalized plan, no obligation
+- **Serving Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery & the Fox Valley**
+
+## How It Works
+
+1. **Book your free consultation** — we assess your skin tone, hair color, and goals
+2. **Choose your membership tier** — Small, Medium, Large, or Full Body
+3. **Start treatments** — sessions every 4–8 weeks depending on area
+4. **See results** — visible reduction after 2 visits; 80–95% permanent reduction after your series
+
+## Ready for Smooth, Carefree Skin?
+
+📞 **630-636-6193**
+🌐 **hellogorgeousmedspa.com/laser-hair-memberships**
+📍 74 W Washington Street, Oswego, IL 60543
+
+*No hidden fees. No down payment. Guaranteed results. Book your free consultation today.*`,
+  },
 ];
 
 export function getPostBySlug(slug: string): BlogPost | undefined {

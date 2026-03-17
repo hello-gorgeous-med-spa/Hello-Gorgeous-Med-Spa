@@ -1601,13 +1601,16 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
           <FadeUp>
             <div className="text-center mb-12">
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-4">
-                <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Advanced Technology</span>
+                <span className="text-[#FF2D8E] text-sm font-semibold uppercase tracking-wider">Permanent Hair Reduction</span>
               </span>
               <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
                 Permanent Confidence Starts Here
               </h2>
-              <p className="mt-4 text-black/80 max-w-2xl mx-auto">
-                Say goodbye to razor burn, ingrown hairs, and constant shaving. Our Zemits Duocratis Professional Laser delivers powerful, precise, and safe hair reduction for all skin types.
+              <p className="mt-4 text-black/80 max-w-2xl mx-auto text-base md:text-lg">
+                Say goodbye to razor burn, ingrown hairs, and constant shaving. Laser hair removal targets hair follicles at the root for lasting smoothness. Our Zemits Duocratis Professional Laser delivers powerful, precise, and safe treatment for all skin types—with built-in cooling for your comfort.
+              </p>
+              <p className="mt-3 text-black/70 max-w-xl mx-auto text-sm">
+                Most clients see visible reduction after just 2 sessions. A full series (6–8 treatments) typically achieves 80–95% permanent hair reduction.
               </p>
             </div>
           </FadeUp>
@@ -1726,33 +1729,108 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               </div>
               <div className="p-6 rounded-2xl border-2 border-black bg-white">
                 <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
-                  <span>📋</span> What to Expect
+                  <span>⏱️</span> Session Length
+                </h3>
+                <p className="text-black/80 text-sm leading-relaxed">
+                  Small areas (upper lip, underarms) 10–15 min. Medium (bikini, legs) 20–30 min. Large (full legs, back) 45–60 min. Most clients return to normal activities immediately.
+                </p>
+              </div>
+              <div className="p-6 rounded-2xl border-2 border-black bg-white">
+                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
+                  <span>📋</span> Quick Prep
                 </h3>
                 <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
-                  <li>Shave treatment area 24 hours before</li>
-                  <li>Avoid sun, tanning 2 weeks before/after</li>
-                  <li>Mild redness possible; resolves quickly</li>
+                  <li>Shave 24 hours before (no waxing/plucking)</li>
+                  <li>Avoid sun 2 weeks before/after</li>
+                  <li>Clean, product-free skin at appointment</li>
                   <li>No waxing or plucking between sessions</li>
                 </ul>
               </div>
             </div>
           </FadeUp>
 
-          {/* Laser Hair Memberships Promo */}
+          {/* Pre & Post Care — Prominent */}
           <FadeUp delayMs={300}>
-            <div className="mt-12 p-6 md:p-8 rounded-2xl bg-gradient-to-r from-[#FF2D8E]/10 to-black/5 border-2 border-[#FF2D8E]/30 text-center">
-              <h3 className="text-xl md:text-2xl font-bold text-[#FF2D8E] mb-2">
-                🔥 Laser Hair Memberships — 30% Less Than Competitors
+            <div className="mt-16 max-w-5xl mx-auto">
+              <h3 className="text-2xl md:text-3xl font-bold text-[#FF2D8E] text-center mb-8">
+                Pre & Post Care — Set Yourself Up for Success
               </h3>
-              <p className="text-black/80 text-sm md:text-base mb-4 max-w-2xl mx-auto">
-                From $69/month. Guaranteed permanent results. Small, Medium, Large & Full Body plans. Lifetime touch-ups included.
-              </p>
-              <Link
-                href="/laser-hair-memberships"
-                className="inline-flex items-center justify-center px-8 py-4 bg-[#FF2D8E] text-white font-bold rounded-xl hover:bg-black transition-all"
-              >
-                View Membership Plans →
-              </Link>
+              <div className="grid md:grid-cols-2 gap-8">
+                <div className="p-6 rounded-2xl border-2 border-[#FF2D8E]/30 bg-white">
+                  <h4 className="text-lg font-bold text-black mb-4 flex items-center gap-2">
+                    <span className="text-[#FF2D8E]">📋</span> Before Your Appointment
+                  </h4>
+                  <ul className="space-y-2 text-black/80 text-sm">
+                    <li className="flex items-start gap-2"><span className="text-[#FF2D8E] mt-0.5">•</span> Shave treatment area 24 hours prior (do NOT wax or pluck)</li>
+                    <li className="flex items-start gap-2"><span className="text-[#FF2D8E] mt-0.5">•</span> Avoid sun, tanning beds, spray tans for 2 weeks</li>
+                    <li className="flex items-start gap-2"><span className="text-[#FF2D8E] mt-0.5">•</span> Skip photosensitizing medications if possible</li>
+                    <li className="flex items-start gap-2"><span className="text-[#FF2D8E] mt-0.5">•</span> Arrive with clean, product-free skin</li>
+                  </ul>
+                  <p className="mt-4 p-3 bg-amber-50 rounded-lg border border-amber-200 text-amber-800 text-sm font-medium">
+                    ⚠️ Laser cannot be performed on tanned skin.
+                  </p>
+                </div>
+                <div className="p-6 rounded-2xl border-2 border-[#FF2D8E]/30 bg-white">
+                  <h4 className="text-lg font-bold text-black mb-4 flex items-center gap-2">
+                    <span className="text-[#FF2D8E]">✨</span> After Each Treatment
+                  </h4>
+                  <ul className="space-y-2 text-black/80 text-sm">
+                    <li className="flex items-start gap-2"><span className="text-[#FF2D8E] mt-0.5">•</span> Mild redness & warmth (like sunburn) — resolves in hours</li>
+                    <li className="flex items-start gap-2"><span className="text-[#FF2D8E] mt-0.5">•</span> Hair sheds over 1–2 weeks — this is expected</li>
+                    <li className="flex items-start gap-2"><span className="text-[#FF2D8E] mt-0.5">•</span> Avoid sun, hot showers, saunas 24–48 hours</li>
+                    <li className="flex items-start gap-2"><span className="text-[#FF2D8E] mt-0.5">•</span> Apply SPF 30+ daily; no waxing/plucking between sessions</li>
+                  </ul>
+                  <Link
+                    href="/pre-post-care/laser"
+                    className="mt-4 inline-flex items-center gap-2 text-[#FF2D8E] font-semibold text-sm hover:underline"
+                  >
+                    View full Pre & Post Care guide →
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </FadeUp>
+
+          {/* Understanding Laser Hair Removal */}
+          <FadeUp delayMs={340}>
+            <div className="mt-16 p-8 rounded-2xl bg-gradient-to-br from-black to-gray-900 text-white">
+              <h3 className="text-2xl md:text-3xl font-bold text-center mb-6">
+                Understanding Permanent Hair Reduction
+              </h3>
+              <div className="max-w-3xl mx-auto space-y-4 text-white/90 text-sm md:text-base leading-relaxed">
+                <p>
+                  Laser hair removal targets the <strong>melanin (pigment)</strong> in your hair follicles. The laser emits concentrated light that is absorbed by the pigment, converting to heat and disabling the follicle&apos;s ability to regrow hair. Because hair grows in cycles—<em>anagen</em> (active), <em>catagen</em> (transition), <em>telogen</em> (resting)—the laser only effectively treats hair in the active growth phase. That&apos;s why <strong>multiple sessions</strong> (typically 6–8) spaced 4–6 weeks apart are needed to catch each follicle as it enters that phase.
+                </p>
+                <p>
+                  Our <strong>Zemits Duocratis</strong> uses triple-wavelength diode technology (755nm + 808nm + 1064nm), allowing us to safely treat a wide range of skin tones and hair types. Built-in cooling protects your skin while delivering effective energy to the follicle. Most clients describe the sensation as a quick snap or warm pinch—and treatments become more comfortable as hair thins.
+                </p>
+                <p>
+                  <strong>Results are progressive.</strong> You&apos;ll notice reduction after each session. Many clients see visible improvement after just 2 visits. Full results typically appear after completing your series, with 80–95% permanent reduction in most areas.
+                </p>
+              </div>
+            </div>
+          </FadeUp>
+
+          {/* Why Hello Gorgeous */}
+          <FadeUp delayMs={360}>
+            <div className="mt-16 text-center">
+              <h3 className="text-2xl font-bold text-[#FF2D8E] mb-6">
+                Why Choose Hello Gorgeous for Laser Hair Removal
+              </h3>
+              <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                {[
+                  { icon: "🏆", title: "Best of Oswego", desc: "#1 Best Med Spa" },
+                  { icon: "🔬", title: "Professional-Grade", desc: "Zemits Duocratis triple-wavelength" },
+                  { icon: "👩‍⚕️", title: "NP on Site", desc: "Full-authority medical oversight" },
+                  { icon: "💝", title: "Free Consultation", desc: "Personalized plan, no obligation" },
+                ].map((item) => (
+                  <div key={item.title} className="p-4 rounded-xl bg-white border-2 border-black/10">
+                    <span className="text-2xl block mb-2">{item.icon}</span>
+                    <p className="font-bold text-black text-sm">{item.title}</p>
+                    <p className="text-black/60 text-xs mt-1">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </FadeUp>
 
