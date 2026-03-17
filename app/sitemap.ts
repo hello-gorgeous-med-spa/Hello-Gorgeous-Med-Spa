@@ -4,8 +4,8 @@ import { getAllSlugs } from '@/data/blog-posts';
 import { GBP_SERVICE_SLUGS, MED_SPA_LOCATION_SLUGS } from '@/lib/gbp-urls';
 
 // ============================================================
-// DYNAMIC SITEMAP - Auto-generates for Google indexing
-// Only includes URLs that have corresponding pages (no 404s).
+// SITEMAP - Auto-generates for Google indexing
+// Excluded from middleware matcher so Googlebot can fetch reliably.
 // ============================================================
 
 export default function sitemap(): MetadataRoute.Sitemap {

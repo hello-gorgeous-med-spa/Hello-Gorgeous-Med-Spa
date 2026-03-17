@@ -168,7 +168,7 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
-// Only run middleware on specific paths — .well-known excluded so Apple Pay verification is never touched
+// Only run middleware on specific paths — exclude .well-known, sitemap, robots (Google crawlers need these)
 export const config = {
-  matcher: ['/((?!\\.well-known).*)'],
+  matcher: ['/((?!\\.well-known|sitemap\\.xml|robots\\.txt|googlee41c6e52f410edc4\\.html).*)'],
 };
