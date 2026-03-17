@@ -23,6 +23,17 @@
 | /pituitary-imbalance-help | /rx/hormones |
 | /skin-tightening | /services/morpheus8 |
 | /hello-gorgeous-signature | /services/hydra-facial |
+| /facials | /services/hydra-facial |
+| /peptides | /rx/peptides |
+| /weight-loss | /services/weight-loss-therapy |
+| /womens-health-1 | /rx/hormones |
+| /waxing | /services/lash-spa |
+| /3-in-1-elite-trio-1 | /solaria-packages |
+| /menopause-therapy | /rx/hormones |
+| /o-shot-rejuvenation | /rx |
+| /botox-fillers | /services/botox-dysport-jeuveau |
+
+**Note:** `/terms` and `/peptides` exist as pages — if they 404'd, it may have been temporary. No redirect added.
 
 ---
 
