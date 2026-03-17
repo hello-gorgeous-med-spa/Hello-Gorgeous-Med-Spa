@@ -124,6 +124,26 @@ const nextConfig = {
     { source: "/prp-joint-injections", destination: "/services/prp-joint-injections", permanent: true },
     // Hide GoDaddy member/login routes
     { source: "/m/:path*", destination: "/", permanent: true },
+    // Legacy URLs from old site (404 in Search Console) — redirect to current equivalents
+    { source: "/shop-1", destination: "/shop", permanent: true },
+    { source: "/shop-1/:path*", destination: "/shop", permanent: true },
+    { source: "/skinscript-rx", destination: "/shop", permanent: true },
+    { source: "/anteage", destination: "/shop", permanent: true },
+    { source: "/migrane-%26-trigger-points", destination: "/pre-post-care/trigger-point", permanent: true },
+    { source: "/migraine-%26-trigger-points", destination: "/pre-post-care/trigger-point", permanent: true },
+    { source: "/dermaplanning", destination: "/services/lash-spa", permanent: true },
+    { source: "/womens-health", destination: "/rx/hormones", permanent: true },
+    { source: "/womens-health-2", destination: "/rx/hormones", permanent: true },
+    { source: "/f/:path*", destination: "/blog", permanent: true },
+    // Additional legacy 404s (batch 2)
+    { source: "/privacy-policy-1", destination: "/privacy", permanent: true },
+    { source: "/privacy-policy-2", destination: "/privacy", permanent: true },
+    { source: "/dermal-fillers-oswego-il", destination: "/services/dermal-fillers", permanent: true },
+    { source: "/cryo-frotox-facial", destination: "/services/geneo-facial", permanent: true },
+    { source: "/perimenopause-therapy", destination: "/rx/hormones", permanent: true },
+    { source: "/pituitary-imbalance-help", destination: "/rx/hormones", permanent: true },
+    { source: "/skin-tightening", destination: "/services/morpheus8", permanent: true },
+    { source: "/hello-gorgeous-signature", destination: "/services/hydra-facial", permanent: true },
   ],
 };
 
