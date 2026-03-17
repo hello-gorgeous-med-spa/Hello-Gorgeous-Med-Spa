@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { TechBlogPromo } from "@/components/TechBlogPromo";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -374,6 +375,11 @@ export default function SolariaCO2Page() {
             </p>
           </div>
         </section>
+
+        <TechBlogPromo
+          title="Solaria CO₂, Morpheus8 Burst & Quantum RF — Expert Guides"
+          subtitle="Read our blog articles on InMode Solaria CO₂ laser, Morpheus8 Burst vs regular, and Quantum RF skin tightening. Serving Oswego, Naperville, Aurora, Plainfield & the Fox Valley."
+        />
       </main>
     </>
   );

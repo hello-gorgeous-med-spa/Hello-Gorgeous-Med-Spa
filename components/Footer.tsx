@@ -32,6 +32,9 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
             <p className="text-white text-sm leading-relaxed max-w-sm">
               {tagline}
             </p>
+            <p className="mt-2 text-xs text-white/70">
+              #1 Best Med Spa · Full-authority NP on site · Quantum RF · Burst · Solaria CO2
+            </p>
             <div className="mt-3">
               <BestOfOswegoBadge variant="compact" className="!bg-[#FFD700]/10 !border-[#FFD700]/40" />
             </div>
@@ -128,6 +131,11 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
             <h4 className="font-bold text-[#FF2D8E] mb-5 text-sm uppercase tracking-wider">Explore</h4>
             <ul className="space-y-3 text-sm text-white">
               <li>
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/why-choose-us">
+                  Why Choose Us
+                </Link>
+              </li>
+              <li>
                 <Link className="hover:text-[#FF2D8E] transition-colors" href="/fix-what-bothers-me">
                   Fix What Bothers Me
                 </Link>
@@ -169,6 +177,11 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
           <div>
             <h4 className="font-bold text-[#FF2D8E] mb-5 text-sm uppercase tracking-wider">Company</h4>
             <ul className="space-y-3 text-sm text-white">
+              <li>
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/why-choose-us">
+                  Why Choose Us
+                </Link>
+              </li>
               <li>
                 <Link className="hover:text-[#FF2D8E] transition-colors" href="/about">
                   About Us

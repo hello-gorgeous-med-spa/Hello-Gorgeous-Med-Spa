@@ -18,7 +18,7 @@ export const SITE = {
   name: "Hello Gorgeous Med Spa",
   url: "https://www.hellogorgeousmedspa.com",
   description:
-    "Best of Oswego — #1 Best Med Spa. Luxury medical aesthetics in Oswego, IL. Botox/Dysport, dermal fillers, weight loss (GLP‑1), hormone therapy, PRF/PRP, and more.",
+    "Best of Oswego — #1 Best Med Spa. Full-authority nurse practitioner on site as owner. Only Oswego-area med spa with Quantum RF, Morpheus8 Burst, and Solaria CO2. Class 4 lasers. Botox, fillers, weight loss, hormone therapy. Oswego, IL.",
   phone: "630-636-6193",
   /** Toll-free via Square - replace with your number when ready */
   tollFree: "833-474-3998",
@@ -800,7 +800,7 @@ export function siteJsonLd() {
     },
     priceRange: SITE.priceRange,
     currenciesAccepted: "USD",
-    paymentAccepted: "Cash, Credit Card, Cherry Financing",
+    paymentAccepted: "Cash, Credit Card, Cherry Financing, CareCredit",
     address: {
       "@type": "PostalAddress",
       streetAddress: SITE.address.streetAddress,
@@ -827,6 +827,9 @@ export function siteJsonLd() {
       "Best of Oswego — Best Skincare Clinic",
       "Best of Oswego — Best Medical Weight Loss",
       "Best of Oswego — Best Facial Treatments",
+      "Full-authority nurse practitioner on site as owner",
+      "Only Oswego-area med spa with Quantum RF, Morpheus8 Burst, and Solaria CO2",
+      "Class 4 medical lasers",
     ],
     openingHoursSpecification: [
       {

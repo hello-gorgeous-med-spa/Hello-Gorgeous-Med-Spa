@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { TechBlogPromo } from "@/components/TechBlogPromo";
 
 const WAITLIST_URL = "/waitlist?source=trifecta-vip";
 
@@ -89,6 +90,11 @@ export function TrifectaVIPContent() {
           </div>
         </div>
       </section>
+
+      <TechBlogPromo
+        title="Learn More: Morpheus8 Burst, Quantum RF & Solaria"
+        subtitle="Expert blog guides on our InMode technology. Serving Oswego, Naperville, Aurora, Plainfield, Yorkville & Montgomery."
+      />
 
       {/* CTA */}
       <section className="px-4 py-16 md:py-20 border-t border-white/10">

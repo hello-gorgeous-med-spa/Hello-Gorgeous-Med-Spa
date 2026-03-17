@@ -72,6 +72,10 @@ npm test   # runs lint
 npm run build
 ```
 
+## Content Guidelines (Blog, Marketing, AI-Generated Copy)
+
+**Never disparage competitors.** Disparaging or making false/misleading claims about other businesses in blog articles or marketing content can lead to legal liability (defamation, deceptive trade practices, Lanham Act). Focus on Hello Gorgeous’s strengths—our services, expertise, and outcomes—without putting others down. Do not publish ranking or comparison content that negatively characterizes competitors.
+
 ## SEO Notes
 
 - **Per-page metadata** via App Router metadata exports (`src/lib/metadata.ts`)

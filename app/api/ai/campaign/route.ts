@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
         systemPrompt = `You are a viral social media marketing expert for a luxury med spa called "Hello Gorgeous Med Spa" in Oswego, IL.
 Generate 6 attention-grabbing hooks (first 3 seconds of a video) that would stop someone from scrolling.
 Each hook should be under 10 words, punchy, and create curiosity or emotion.
+Never disparage or compare unfavorably to competitors. Focus only on Hello Gorgeous's strengths.
 Return ONLY a JSON array of strings, no other text.`;
         userPrompt = `Generate 6 viral hooks for: ${prompt}${service ? ` (Service: ${service})` : ""}`;
         break;
@@ -35,6 +36,7 @@ Return ONLY a JSON array of strings, no other text.`;
       case "captions":
         systemPrompt = `You are a social media copywriter for "Hello Gorgeous Med Spa" - a luxury med spa in Oswego, IL.
 Generate platform-specific captions that drive bookings.
+Never disparage or compare unfavorably to competitors. Focus only on Hello Gorgeous's strengths.
 Return ONLY valid JSON with this exact structure:
 {
   "instagram": "caption with emojis and line breaks",
@@ -49,6 +51,7 @@ Return ONLY valid JSON with this exact structure:
         systemPrompt = `You are a medical spa marketing expert for "Hello Gorgeous Med Spa".
 Generate 4-5 compelling benefits that highlight the value of the treatment.
 Each benefit should be concise (under 8 words) and focus on transformation/results.
+Never disparage or compare unfavorably to competitors. Focus only on Hello Gorgeous's strengths.
 Return ONLY a JSON array of strings.`;
         userPrompt = `Generate treatment benefits for: ${prompt}${service ? ` (Service: ${service})` : ""}`;
         break;
@@ -57,6 +60,7 @@ Return ONLY a JSON array of strings.`;
       default:
         systemPrompt = `You are a complete campaign generator for "Hello Gorgeous Med Spa" - a luxury med spa in Oswego, IL.
 Generate a complete marketing campaign based on the user's prompt.
+Never disparage or compare unfavorably to competitors. Focus only on Hello Gorgeous's strengths.
 Return ONLY valid JSON with this exact structure:
 {
   "headline": "Main headline (5-7 words)",

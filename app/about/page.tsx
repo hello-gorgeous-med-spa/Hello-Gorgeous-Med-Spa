@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 
+import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { MeetProviders } from "@/components/MeetProviders";
@@ -49,8 +50,44 @@ export default function AboutPage() {
         </div>
       </Section>
 
-      {/* Values Section */}
+      {/* What Sets Us Apart */}
       <Section className="bg-gray-50">
+        <div className="max-w-5xl mx-auto">
+          <FadeUp>
+            <h2 className="text-2xl font-bold text-black text-center mb-8">
+              What Sets Us Apart
+            </h2>
+          </FadeUp>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-12">
+            {[
+              { title: "Best of Oswego", body: "#1 Best Med Spa, Best Skincare Clinic, Best Medical Weight Loss, Best Facial Treatments." },
+              { title: "Full-Authority NP On Site", body: "Ryan Kent, FNP-BC provides full prescriptive authority for weight loss, hormone therapy, and medical treatments." },
+              { title: "Exclusive Technology", body: "Only Oswego-area med spa with Quantum RF, Morpheus8 Burst, and Solaria CO2 — Class 4 medical lasers." },
+              { title: "Full-Service Care", body: "Injectables, weight loss, hormones, lasers, facials, IV therapy — all under one roof with medical oversight." },
+            ].map((c, idx) => (
+              <FadeUp key={c.title} delayMs={60 * idx}>
+                <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm h-full">
+                  <h3 className="text-lg font-bold text-[#E6007E]">{c.title}</h3>
+                  <p className="mt-3 text-gray-600 text-sm">{c.body}</p>
+                </div>
+              </FadeUp>
+            ))}
+          </div>
+          <FadeUp>
+            <div className="text-center">
+              <Link
+                href="/why-choose-us"
+                className="inline-flex items-center gap-2 text-[#E6007E] font-semibold hover:underline"
+              >
+                Learn more about why we're different →
+              </Link>
+            </div>
+          </FadeUp>
+        </div>
+      </Section>
+
+      {/* Values Section */}
+      <Section>
         <div className="max-w-5xl mx-auto">
           <div className="grid gap-6 md:grid-cols-3">
             {[

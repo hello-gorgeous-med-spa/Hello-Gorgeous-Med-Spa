@@ -42,7 +42,7 @@ import { CHERRY_PAY_URL } from "@/lib/flows";
 export const metadata: Metadata = pageMetadata({
   title: "Botox, Fillers & Weight Loss Med Spa",
   description:
-    "Hello Gorgeous Med Spa in Oswego, IL offers Botox ($10/unit), dermal fillers, Semaglutide weight loss, Biote hormone therapy, IV therapy & more. 5-Star Rated. Serving Naperville, Aurora, Plainfield. Book free consultation!",
+    "#1 Best Med Spa in Oswego. Full-authority nurse practitioner on site. Only Oswego-area med spa with Quantum RF, Morpheus8 Burst & Solaria CO2. Botox $10/unit, fillers, Semaglutide, Biote. 5-Star. Book free consultation!",
   path: "/",
 });
 

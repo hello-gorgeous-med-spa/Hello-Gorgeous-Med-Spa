@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { SERVICES, SITE } from '@/lib/seo';
+import { getAllSlugs } from '@/data/blog-posts';
 import { GBP_SERVICE_SLUGS, MED_SPA_LOCATION_SLUGS } from '@/lib/gbp-urls';
 
 // ============================================================
@@ -60,6 +61,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: currentDate,
       changeFrequency: 'monthly',
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/why-choose-us`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/best-med-spa-oswego-il`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/nurse-practitioner-med-spa-oswego`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.85,
     },
     {
       url: `${baseUrl}/specials`,
@@ -182,6 +201,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.75,
   }));
 
+  // Blog articles — SEO for Morpheus8, Quantum RF, Solaria, etc.
+  const blogPages: MetadataRoute.Sitemap = getAllSlugs().map((slug) => ({
+    url: `${baseUrl}/blog/${slug}`,
+    lastModified: currentDate,
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }));
+
   // Semaglutide Spring Break Special — $299/month promo
   const springBreakPages: MetadataRoute.Sitemap = [
     {
@@ -203,6 +230,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...servicePages,
     ...solariaPages,
     ...morpheus8Pages,
+    ...blogPages,
     ...aftercarePages,
     ...locationServicePages,
     ...cityPages,

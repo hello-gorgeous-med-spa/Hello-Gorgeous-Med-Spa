@@ -2,15 +2,18 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
-import { BOOKING_URL, CHERRY_PAY_URL } from "@/lib/flows";
-import { pageMetadata, siteJsonLd } from "@/lib/seo";
+import { BOOKING_URL, CHERRY_PAY_URL, CARECREDIT_URL } from "@/lib/flows";
+import { pageMetadata, siteJsonLd, SITE } from "@/lib/seo";
 import { CherryWidget } from "@/components/CherryWidget";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Financing Options | Hello Gorgeous Med Spa",
-  description: "Flexible payment plans for Botox, fillers, weight loss, and more. Cherry financing, Affirm, and other options available. Get the treatments you want today.",
-  path: "/financing",
-});
+export const metadata: Metadata = {
+  ...pageMetadata({
+    title: "Financing & CareCredit | Hello Gorgeous Med Spa Oswego IL",
+    description: "CareCredit, Cherry, and Affirm financing available at Hello Gorgeous Med Spa. 0% APR on qualified purchases. Pay over time for Botox, fillers, weight loss, hormone therapy, and more.",
+    path: "/financing",
+  }),
+  keywords: ["CareCredit Oswego IL", "med spa financing", "Botox financing", "CareCredit medical spa", "payment plans aesthetic treatments"],
+};
 
 const financingOptions = [
   {
@@ -45,16 +48,16 @@ const financingOptions = [
   },
   {
     name: "CareCredit",
-    description: "Healthcare credit card",
+    description: "Healthcare credit card — 0% APR available",
     features: [
-      "Special financing options",
-      "Use for multiple treatments",
-      "Accepted at thousands of providers",
+      "0% APR for 6–24 months on qualified purchases",
+      "Use for multiple treatments at Hello Gorgeous",
+      "Accepted at thousands of healthcare providers",
       "Easy monthly payments",
       "Reusable credit line",
     ],
     cta: "Apply for CareCredit",
-    url: "https://www.carecredit.com/",
+    url: CARECREDIT_URL,
     highlight: false,
     icon: "💳",
   },
@@ -87,12 +90,74 @@ const popularPackages = [
   },
 ];
 
+const careCreditSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  name: "CareCredit Financing",
+  description: "CareCredit healthcare credit card accepted at Hello Gorgeous Med Spa in Oswego, IL. 0% APR for 6-24 months on qualified purchases. Use for Botox, fillers, weight loss, hormone therapy, and all aesthetic treatments.",
+  provider: {
+    "@type": "MedicalBusiness",
+    "@id": `${SITE.url}/#organization`,
+    name: SITE.name,
+    url: SITE.url,
+    telephone: SITE.phone,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: SITE.address.streetAddress,
+      addressLocality: SITE.address.addressLocality,
+      addressRegion: SITE.address.addressRegion,
+      postalCode: SITE.address.postalCode,
+    },
+  },
+  areaServed: [
+    { "@type": "City", name: "Oswego", containedInPlace: { "@type": "State", name: "Illinois" } },
+    { "@type": "City", name: "Naperville", containedInPlace: { "@type": "State", name: "Illinois" } },
+    { "@type": "City", name: "Aurora", containedInPlace: { "@type": "State", name: "Illinois" } },
+  ],
+  url: CARECREDIT_URL,
+  offers: {
+    "@type": "Offer",
+    description: "0% APR financing for 6-24 months on qualified purchases",
+  },
+};
+
+const financingFaqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Does Hello Gorgeous accept CareCredit?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. Hello Gorgeous Med Spa accepts CareCredit for all treatments including Botox, fillers, weight loss programs, hormone therapy, and more. Apply at carecredit.com and use our provider link to apply through our clinic. 0% APR available for 6-24 months on qualified purchases.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Can I use financing for any treatment?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes! You can use CareCredit, Cherry, or Affirm financing for any service we offer including Botox, fillers, weight loss programs, hormone therapy, and more.",
+      },
+    },
+  ],
+};
+
 export default function FinancingPage() {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(careCreditSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(financingFaqSchema) }}
       />
 
       {/* Hero */}

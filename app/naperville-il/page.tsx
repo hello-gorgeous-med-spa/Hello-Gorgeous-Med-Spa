@@ -3,6 +3,7 @@ import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
+import { TechBlogPromo } from "@/components/TechBlogPromo";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { BOOKING_URL } from "@/lib/flows";
 import { SERVICES, faqJsonLd, pageMetadata, siteJsonLd } from "@/lib/seo";
@@ -152,6 +153,11 @@ export default function NapervilleHubPage() {
           </div>
         </div>
       </Section>
+
+      <TechBlogPromo
+        title="Morpheus8 Burst, Quantum RF & Solaria — Expert Guides"
+        subtitle="Read our blog articles on our exclusive InMode technology. Serving Naperville, Oswego, Aurora, Plainfield & the Fox Valley."
+      />
     </>
   );
 }

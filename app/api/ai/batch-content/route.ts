@@ -60,6 +60,7 @@ export async function POST(request: NextRequest) {
     const educational = days - reels - images;
 
     const systemPrompt = `You are a social media content strategist for "Hello Gorgeous Med Spa" in Oswego, IL.
+Never disparage or compare unfavorably to competitors. Focus only on Hello Gorgeous's strengths.
 
 Create a ${days}-day content calendar with:
 - ${reels} Reels/Videos (engaging, hook-driven)

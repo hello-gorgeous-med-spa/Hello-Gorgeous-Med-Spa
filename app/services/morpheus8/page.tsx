@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { TechBlogPromo } from "@/components/TechBlogPromo";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -691,6 +692,11 @@ export default function Morpheus8Page() {
             </div>
           </div>
         </section>
+
+        <TechBlogPromo
+          title="Morpheus8 Burst, Quantum RF & Solaria — Expert Guides"
+          subtitle="Read our blog articles on Burst vs regular Morpheus8, Quantum RF skin tightening, and InMode Solaria CO₂. Serving Oswego, Naperville, Aurora, Plainfield & the Fox Valley."
+        />
       </main>
     </>
   );

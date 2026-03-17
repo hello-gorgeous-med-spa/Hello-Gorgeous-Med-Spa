@@ -7,7 +7,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { CTA } from "./CTA";
 import { BestOfOswegoBadge } from "./BestOfOswegoBadge";
 import { SITE } from "@/lib/seo";
-import { BOOKING_URL, CHERRY_PAY_URL } from "@/lib/flows";
+import { BOOKING_URL, CARECREDIT_URL, CHERRY_PAY_URL } from "@/lib/flows";
 
 // Navigation structure with dropdowns
 const navigation = {
@@ -89,6 +89,7 @@ const navigation = {
     label: "Your Journey",
     href: "/your-journey",
     links: [
+      { label: "Why Choose Us", href: "/why-choose-us", description: "#1 Best Med Spa · NP on site · Quantum RF · Burst · Solaria CO2", icon: "🏆" },
       { label: "Fix What Bothers Me", href: "/fix-what-bothers-me", description: "Share what's on your mind—we match you with options", icon: "💗" },
       { label: "Explore Care", href: "/explore-care", description: "Discover treatments for you", icon: "🔍" },
       { label: "HG Face Blueprint™", href: "/face-blueprint", description: "AI-assisted aesthetic simulation", icon: "✨" },
@@ -122,7 +123,8 @@ const navigation = {
       { label: "Memberships", href: "/memberships", description: "Save with a membership plan", icon: "🎁" },
       { label: "Give $25, Get $25", href: "/referral", description: "Refer a friend", icon: "💝" },
       { label: "Current Promotions", href: "/book", description: "This month's deals", icon: "🔥" },
-      { label: "Financing Options", href: "/financing", description: "Cherry, Affirm & CareCredit", icon: "💳" },
+      { label: "Financing Options", href: "/financing", description: "CareCredit, Cherry & Affirm — apply through our clinic", icon: "💳" },
+      { label: "Apply for CareCredit", href: CARECREDIT_URL, description: "0% APR financing — apply now", icon: "💳", external: true },
     ],
   },
   shop: {

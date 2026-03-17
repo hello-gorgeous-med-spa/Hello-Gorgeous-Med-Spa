@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { TechBlogPromo } from "@/components/TechBlogPromo";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -768,6 +769,11 @@ export default function QuantumRFPage() {
             </div>
           </div>
         </section>
+
+        <TechBlogPromo
+          title="Quantum RF, Morpheus8 Burst & Solaria — Expert Guides"
+          subtitle="Read our blog articles on Quantum RF skin tightening, Morpheus8 Burst vs regular, and InMode Solaria CO₂. Serving Oswego, Naperville, Aurora, Plainfield & the Fox Valley."
+        />
       </main>
     </>
   );

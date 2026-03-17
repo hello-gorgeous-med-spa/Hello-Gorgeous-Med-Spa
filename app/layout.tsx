@@ -39,6 +39,13 @@ export async function generateMetadata(): Promise<Metadata> {
     description,
     keywords: [
     "med spa oswego il",
+    "best med spa oswego",
+    "nurse practitioner med spa oswego",
+    "NP owned med spa oswego",
+    "class 4 laser oswego",
+    "Quantum RF oswego",
+    "Morpheus8 Burst oswego",
+    "Solaria CO2 laser oswego",
     "botox oswego",
     "botox naperville",
     "dermal fillers oswego",

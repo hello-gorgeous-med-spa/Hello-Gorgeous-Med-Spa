@@ -163,6 +163,17 @@ RESEND_API_KEY=
 PEXELS_API_KEY=
 ```
 
+## ✍️ Content Guidelines (Blog & Marketing)
+
+**Never disparage competitors.** When writing blog articles, social posts, or landing page copy:
+
+- **Do not** compare competitors unfavorably or make negative claims about other businesses
+- **Do not** publish false or misleading statements about other providers
+- **Focus on our strengths** — what we offer, our expertise, and our outcomes — without putting others down
+- **Ranking or comparison content** should be factual and neutral; avoid disparaging competitors to avoid legal liability (defamation, deceptive trade practices, Lanham Act claims)
+
+Disparaging competitors in blog content can lead to legal action. We build trust by showcasing our own excellence.
+
 ## 🚀 Development
 
 ```bash

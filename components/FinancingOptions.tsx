@@ -6,6 +6,7 @@
 // ============================================================
 
 import { useState } from 'react';
+import { CARECREDIT_URL } from '@/lib/flows';
 
 interface FinancingOptionsProps {
   amount: number;
@@ -43,8 +44,8 @@ const FINANCING_PROVIDERS: FinancingProvider[] = [
     logo: '💳',
     color: 'text-teal-600',
     bgColor: 'bg-teal-50 hover:bg-teal-100 border-teal-200',
-    description: 'Healthcare credit card, use anywhere',
-    applyUrl: 'https://www.carecredit.com/apply',
+    description: 'Healthcare credit card — 0% APR at Hello Gorgeous',
+    applyUrl: CARECREDIT_URL,
     monthlyEstimate: (amount) => `$${Math.round(amount / 24)}/mo`,
     terms: '0% APR for 6-24 months',
   },

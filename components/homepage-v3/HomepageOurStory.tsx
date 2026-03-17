@@ -18,15 +18,26 @@ export function HomepageOurStory() {
           Founded by providers who care as much about your experience as your outcome,
           we serve Oswego, Naperville, Aurora, and Plainfield with premium, natural-looking care.
         </p>
-        <Link
-          href="/about"
-          className="inline-flex items-center font-semibold text-[#E6007E] hover:underline focus:outline-none focus:ring-2 focus:ring-[#E6007E] focus:ring-offset-2 rounded"
-        >
-          Read our story
-          <svg className="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </Link>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          <Link
+            href="/about"
+            className="inline-flex items-center font-semibold text-[#E6007E] hover:underline focus:outline-none focus:ring-2 focus:ring-[#E6007E] focus:ring-offset-2 rounded"
+          >
+            Read our story
+            <svg className="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
+          <Link
+            href="/why-choose-us"
+            className="inline-flex items-center font-semibold text-[#E6007E] hover:underline focus:outline-none focus:ring-2 focus:ring-[#E6007E] focus:ring-offset-2 rounded"
+          >
+            Why choose us
+            <svg className="w-4 h-4 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
+        </div>
       </div>
     </section>
   );

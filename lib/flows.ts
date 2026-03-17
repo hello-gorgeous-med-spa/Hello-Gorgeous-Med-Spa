@@ -16,6 +16,11 @@ export const CHERRY_PAY_URL =
   process.env.NEXT_PUBLIC_CHERRY_PAY_URL ||
   "https://pay.withcherry.com/hellogorgeous?utm_source=practice&utm_medium=website&m=466";
 
+/** CareCredit — Hello Gorgeous provider link (apply through our clinic) */
+export const CARECREDIT_URL =
+  process.env.NEXT_PUBLIC_CARECREDIT_URL ||
+  "https://www.carecredit.com/go/TQR425";
+
 /** Care module IDs (for CareEngine) */
 export type CareModuleId =
   | "education"
