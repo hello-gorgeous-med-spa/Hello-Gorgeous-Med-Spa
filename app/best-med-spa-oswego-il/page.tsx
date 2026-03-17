@@ -24,9 +24,9 @@ const BEST_MED_SPA_FAQS = [
 ];
 
 export const metadata: Metadata = pageMetadata({
-  title: "Best Med Spa in Oswego IL | #1 Hello Gorgeous Med Spa",
+  title: "Hello Gorgeous Med Spa Oswego IL | #1 Best Med Spa",
   description:
-    "Best of Oswego #1 Best Med Spa. Full-authority NP on site. Only Oswego med spa with Quantum RF, Morpheus8 Burst & Solaria CO2. Botox, fillers, weight loss. Book free consultation!",
+    "Hello Gorgeous Med Spa — Best of Oswego #1 Best Med Spa in Oswego, IL. Full-authority NP on site. Quantum RF, Morpheus8 Burst & Solaria CO2. Botox, fillers, weight loss. Book free consultation!",
   path: "/best-med-spa-oswego-il",
 });
 

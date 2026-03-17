@@ -22,7 +22,7 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-const DEFAULT_TITLE = `${SITE.name} | Botox, Fillers & Weight Loss in Oswego, IL`;
+const DEFAULT_TITLE = `Hello Gorgeous Med Spa | Botox, Fillers & Weight Loss in Oswego, IL`;
 const DEFAULT_DESCRIPTION = `${SITE.description} Serving Naperville, Aurora, Plainfield. Book your free consultation today!`;
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -38,10 +38,11 @@ export async function generateMetadata(): Promise<Metadata> {
     },
     description,
     keywords: [
+    "hello gorgeous med spa",
+    "hello gorgeous oswego il",
+    "hello gorgeous oswego",
     "med spa oswego il",
     "best med spa oswego",
-    "nurse practitioner med spa oswego",
-    "NP owned med spa oswego",
     "class 4 laser oswego",
     "Quantum RF oswego",
     "Morpheus8 Burst oswego",
@@ -62,7 +63,6 @@ export async function generateMetadata(): Promise<Metadata> {
     "botox near me",
     "fillers near me",
     "weight loss near me",
-    "hello gorgeous med spa",
   ],
   authors: [{ name: "Hello Gorgeous Med Spa", url: SITE.url }],
   creator: "Hello Gorgeous Med Spa",

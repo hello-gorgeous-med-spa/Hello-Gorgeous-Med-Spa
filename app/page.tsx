@@ -40,9 +40,9 @@ import {
 import { CHERRY_PAY_URL } from "@/lib/flows";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Botox, Fillers & Weight Loss Med Spa",
+  title: "Hello Gorgeous Med Spa | Botox, Fillers & Weight Loss in Oswego, IL",
   description:
-    "#1 Best Med Spa in Oswego. Full-authority nurse practitioner on site. Only Oswego-area med spa with Quantum RF, Morpheus8 Burst & Solaria CO2. Botox $10/unit, fillers, Semaglutide, Biote. 5-Star. Book free consultation!",
+    "Hello Gorgeous Med Spa — #1 Best Med Spa in Oswego, IL. Full-authority nurse practitioner on site. Quantum RF, Morpheus8 Burst & Solaria CO2. Botox $10/unit, fillers, Semaglutide, Biote. Book free consultation!",
   path: "/",
 });
 

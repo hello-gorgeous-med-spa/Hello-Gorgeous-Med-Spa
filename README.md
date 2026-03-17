@@ -163,6 +163,37 @@ RESEND_API_KEY=
 PEXELS_API_KEY=
 ```
 
+## 🔍 SEO & Search Performance
+
+### Top Queries We Optimize For
+
+| Query | Target | Status |
+|-------|--------|--------|
+| hello gorgeous med spa | Position 6.9 → top 3 | Homepage title leads with "Hello Gorgeous Med Spa" |
+| hello gorgeous oswego il | Position 8.2 → top 3 | Best-med-spa page title, site keywords |
+| hello gorgeous oswego | #1 | ✓ |
+| botox oswego il | #1 | ✓ |
+| botox specials near me | #1 | ✓ |
+| dermaplaning near me | #1 | ✓ |
+
+### SEO Changes Made
+
+- **Homepage:** Title "Hello Gorgeous Med Spa" first; description leads with brand
+- **Best Med Spa page:** "Hello Gorgeous Med Spa Oswego IL" in title
+- **Site keywords:** "hello gorgeous med spa", "hello gorgeous oswego il" prioritized
+- **Sitemap:** Fixed middleware; Google can discover all pages
+- **404 redirects:** Legacy URLs (shop-1, skinscript, anteage, etc.) redirect to current pages
+- **GBP:** See `docs/GOOGLE-MAPS-ACTION-PLAN.md` for Maps visibility
+
+### Docs
+
+- `docs/INDEXING-ACTION-PLAN.md` — Indexing fixes
+- `docs/404-REDIRECTS.md` — Legacy URL redirects
+- `docs/GOOGLE-MAPS-ACTION-PLAN.md` — Google Maps / GBP
+- `docs/GBP-VISIBILITY-FIXES.md` — Why not showing for "near me"
+
+---
+
 ## ✍️ Content Guidelines (Blog & Marketing)
 
 **Never disparage competitors.** When writing blog articles, social posts, or landing page copy:
