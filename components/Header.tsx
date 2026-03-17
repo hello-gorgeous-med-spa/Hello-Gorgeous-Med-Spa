@@ -45,6 +45,7 @@ const navigation = {
           { label: "Peptide Therapy", href: "/peptides", icon: "🧬" },
           { label: "IV Therapy", href: "/services/iv-therapy", icon: "💧" },
           { label: "Laser Hair Removal", href: "/services/laser-hair-removal", icon: "✨" },
+          { label: "Laser Hair Memberships", href: "/laser-hair-memberships", icon: "🔥", badge: "30% OFF" },
         ],
       },
       {
@@ -121,6 +122,7 @@ const navigation = {
       { label: "FREE Vitamin Shot", href: "/free-vitamin", description: "New clients only - $0", icon: "💉", badge: "FREE" },
       { label: "Allē Rewards", href: "/alle-botox-rewards", description: "Earn points on Botox, Juvederm & more", icon: "💎" },
       { label: "Memberships", href: "/memberships", description: "Save with a membership plan", icon: "🎁" },
+      { label: "Laser Hair Memberships", href: "/laser-hair-memberships", description: "30% less — from $69/month", icon: "🔥", badge: "30% OFF" },
       { label: "Give $25, Get $25", href: "/referral", description: "Refer a friend", icon: "💝" },
       { label: "Current Promotions", href: "/book", description: "This month's deals", icon: "🔥" },
       { label: "Financing Options", href: "/financing", description: "CareCredit, Cherry & Affirm — apply through our clinic", icon: "💳" },

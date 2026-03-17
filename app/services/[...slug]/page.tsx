@@ -1738,6 +1738,24 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             </div>
           </FadeUp>
 
+          {/* Laser Hair Memberships Promo */}
+          <FadeUp delayMs={300}>
+            <div className="mt-12 p-6 md:p-8 rounded-2xl bg-gradient-to-r from-[#FF2D8E]/10 to-black/5 border-2 border-[#FF2D8E]/30 text-center">
+              <h3 className="text-xl md:text-2xl font-bold text-[#FF2D8E] mb-2">
+                🔥 Laser Hair Memberships — 30% Less Than Competitors
+              </h3>
+              <p className="text-black/80 text-sm md:text-base mb-4 max-w-2xl mx-auto">
+                From $69/month. Guaranteed permanent results. Small, Medium, Large & Full Body plans. Lifetime touch-ups included.
+              </p>
+              <Link
+                href="/laser-hair-memberships"
+                className="inline-flex items-center justify-center px-8 py-4 bg-[#FF2D8E] text-white font-bold rounded-xl hover:bg-black transition-all"
+              >
+                View Membership Plans →
+              </Link>
+            </div>
+          </FadeUp>
+
           {/* Disclaimer */}
           <FadeUp delayMs={320}>
             <p className="text-center text-black/60 text-xs mt-10 max-w-2xl mx-auto">
