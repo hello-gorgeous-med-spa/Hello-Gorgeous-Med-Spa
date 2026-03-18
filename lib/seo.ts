@@ -126,6 +126,11 @@ export const SERVICES: readonly Service[] = [
       "Strategic volume where you need it—cheeks, lips, jawline, and beyond.",
     faqs: [
       {
+        question: "Where can I get dermal fillers in Oswego, IL?",
+        answer:
+          "Hello Gorgeous Med Spa offers dermal fillers at 74 W. Washington St in Oswego. We serve clients from Naperville, Aurora, Plainfield, Yorkville, and throughout Kendall County. Book a free consultation.",
+      },
+      {
         question: "How long do fillers last?",
         answer: "Longevity varies by product and area, commonly 6–18 months.",
       },
@@ -150,6 +155,11 @@ export const SERVICES: readonly Service[] = [
     heroSubtitle:
       "A tailored approach to shape, hydration, and proportion—subtle and refined.",
     faqs: [
+      {
+        question: "Where can I get lip filler in Oswego or Naperville?",
+        answer:
+          "Hello Gorgeous Med Spa in Oswego, IL offers lip filler with Juvederm and Restylane. We're conveniently located for clients from Naperville, Aurora, Plainfield, and Yorkville. Free consultation.",
+      },
       {
         question: "How long does lip filler last?",
         answer: "Longevity varies by product and metabolism, often 6–12+ months.",
@@ -1240,6 +1250,135 @@ export function faqJsonLd(faqs: ReadonlyArray<FAQ>) {
       name: f.question,
       acceptedAnswer: { "@type": "Answer", text: f.answer },
     })),
+  };
+}
+
+/** Geo-specific metadata for dermal fillers & lip filler — Oswego, Naperville, Aurora, Plainfield */
+export function dermalFillersPageMetadata(slug: "dermal-fillers" | "lip-filler"): Metadata {
+  const isLip = slug === "lip-filler";
+  const serviceName = isLip ? "Lip Filler" : "Dermal Fillers";
+  const title = `${serviceName} in Oswego, IL`;
+  const description = isLip
+    ? `Natural lip filler in Oswego, IL. Juvederm & Restylane for fuller, balanced lips. Best of Oswego med spa. Free consultation. Serving Naperville, Aurora, Plainfield, Yorkville. 630-636-6193.`
+    : `Dermal fillers in Oswego, IL. Restore volume in cheeks, lips & jawline. Juvederm, Restylane, Revanesse. Best of Oswego med spa. Free consultation. Naperville, Aurora, Plainfield. 630-636-6193.`;
+  const keywords = [
+    `${serviceName.toLowerCase()} Oswego IL`,
+    `${serviceName.toLowerCase()} Naperville`,
+    `${serviceName.toLowerCase()} Aurora`,
+    `${serviceName.toLowerCase()} Plainfield`,
+    `${serviceName.toLowerCase()} Yorkville`,
+    "med spa Oswego",
+    "injectables Kendall County",
+    "lip filler near me",
+    "dermal filler near me",
+    "Hello Gorgeous Med Spa",
+  ];
+  const url = `${SITE.url}/services/${slug}`;
+  const fullTitle = `${serviceName} in Oswego, IL | Naperville, Aurora, Plainfield | ${SITE.name}`;
+  return {
+    ...pageMetadata({ title, description, path: `/services/${slug}` }),
+    keywords: keywords.join(", "),
+    openGraph: {
+      type: "website" as const,
+      url,
+      title: fullTitle,
+      description,
+      siteName: SITE.name,
+      locale: "en_US",
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title: fullTitle,
+      description,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+      "max-image-preview": "large" as const,
+      "max-video-preview": -1,
+    },
+  };
+}
+
+/** MedicalProcedure + Service schema for dermal fillers — helps Google understand & rank for local searches */
+export function dermalFillersJsonLd(slug: "dermal-fillers" | "lip-filler") {
+  const isLip = slug === "lip-filler";
+  const name = isLip ? "Lip Filler" : "Dermal Fillers";
+  const description = isLip
+    ? "Hyaluronic acid lip filler treatment for natural lip enhancement. Juvederm, Restylane, Revanesse. FDA-approved. Administered by certified injectors at Hello Gorgeous Med Spa in Oswego, IL."
+    : "Dermal filler treatment for volume restoration in cheeks, lips, nasolabial folds, and jawline. Juvederm, Restylane, Revanesse. FDA-approved. Administered by certified injectors at Hello Gorgeous Med Spa in Oswego, IL.";
+  return {
+    "@context": "https://schema.org",
+    "@type": "MedicalProcedure",
+    "@id": `${SITE.url}/services/${slug}#procedure`,
+    name: `${name} in Oswego, IL`,
+    alternateName: [
+      isLip ? "Lip augmentation Oswego" : "Facial fillers Oswego",
+      isLip ? "Lip filler Naperville" : "Dermal filler Naperville",
+      isLip ? "Lip filler Aurora" : "Dermal filler Aurora",
+      isLip ? "Lip filler Plainfield" : "Dermal filler Plainfield",
+      "Juvederm",
+      "Restylane",
+      "Revanesse",
+    ],
+    description,
+    procedureType: "NoninvasiveProcedure",
+    bodyLocation: isLip ? ["Lips"] : ["Cheeks", "Lips", "Nasolabial Folds", "Marionette Lines", "Jawline", "Under-Eye"],
+    howPerformed: isLip
+      ? "Hyaluronic acid gel is injected into the lips using a fine needle or cannula. Numbing cream is applied beforehand. Treatment takes 15-30 minutes."
+      : "Hyaluronic acid gel is injected into targeted areas to restore volume and smooth lines. Numbing cream or nerve blocks may be used. Treatment typically 30-60 minutes.",
+    preparation: "Avoid blood thinners, alcohol, and NSAIDs 24-48 hours before. Arrive with clean face. Numbing cream applied 15-20 minutes before treatment.",
+    followup: "Mild swelling and bruising for 24-72 hours. Ice and elevation help. Avoid strenuous exercise 24-48 hours. Final results visible at 2 weeks.",
+    status: "EventScheduled",
+    image: `${SITE.url}/images/results/revanesse-1.png`,
+    provider: { "@id": `${SITE.url}/#organization` },
+    areaServed: SITE.serviceAreas.map((area) => ({ "@type": "Place", name: area })),
+    potentialAction: {
+      "@type": "ReserveAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${BOOKING_URL}?service=${slug}`,
+        actionPlatform: ["http://schema.org/DesktopWebPlatform", "http://schema.org/MobileWebPlatform"],
+      },
+      result: { "@type": "Reservation", name: `${name} Consultation` },
+    },
+  };
+}
+
+/** VideoObject schema for lip filler showcase video — enables video rich results in search */
+export function lipFillerVideoJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "VideoObject",
+    "@id": `${SITE.url}/services/dermal-fillers#lip-filler-video`,
+    name: "Lip Filler Before & After Results | Hello Gorgeous Med Spa Oswego, IL",
+    description: "Real lip filler transformation at Hello Gorgeous Med Spa. Before, recovery, and after results. Natural-looking lip enhancement with Juvederm and Restylane. Serving Oswego, Naperville, Aurora, Plainfield.",
+    thumbnailUrl: `${SITE.url}/images/results/revanesse-1.png`,
+    uploadDate: "2025-03-18",
+    contentUrl: `${SITE.url}/videos/lip-filler-showcase.mp4`,
+    embedUrl: `${SITE.url}/services/dermal-fillers`,
+    publisher: {
+      "@type": "MedicalBusiness",
+      "@id": `${SITE.url}/#organization`,
+      name: SITE.name,
+      logo: { "@type": "ImageObject", url: `${SITE.url}/images/logo-full.png` },
+    },
+  };
+}
+
+/** BreadcrumbList for dermal fillers — improves SERP display */
+export function dermalFillersBreadcrumbJsonLd(slug: "dermal-fillers" | "lip-filler") {
+  const name = slug === "lip-filler" ? "Lip Filler" : "Dermal Fillers";
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: SITE.url },
+      { "@type": "ListItem", position: 2, name: "Services", item: `${SITE.url}/services` },
+      { "@type": "ListItem", position: 3, name: "Injectables", item: `${SITE.url}/services/injectables` },
+      { "@type": "ListItem", position: 4, name, item: `${SITE.url}/services/${slug}` },
+    ],
   };
 }
 

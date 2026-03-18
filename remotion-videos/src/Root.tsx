@@ -6,6 +6,7 @@ import { InModeTrifecta } from "./compositions/InModeTrifecta";
 import { GLP1SkinSolution } from "./compositions/GLP1SkinSolution";
 import { StandardVsBurst } from "./compositions/StandardVsBurst";
 import { BeforeAfterShowcase } from "./compositions/BeforeAfterShowcase";
+import { LipFillerShowcase } from "./compositions/LipFillerShowcase";
 import { TreatmentPOV } from "./compositions/TreatmentPOV";
 import { TestimonialCard } from "./compositions/TestimonialCard";
 import { ServiceHighlight } from "./compositions/ServiceHighlight";
@@ -131,6 +132,41 @@ export const RemotionRoot: React.FC = () => {
           treatmentName: "Morpheus8 Burst",
           sessions: "2 sessions",
           timeframe: "6 weeks",
+          format: "square" as const,
+        }}
+      />
+
+      {/* ========== LIP FILLER SHOWCASE ========== */}
+      {/* Image-only version (works without video; MOV may need conversion to MP4) */}
+      <Composition
+        id="LipFillerShowcaseVertical"
+        component={LipFillerShowcase}
+        durationInFrames={540}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{
+          beforeImage: "jenbefore.png",
+          afterImage: "jenlipsafter.png",
+          recoveryImage: "jen-recovery.png",
+          treatmentName: "Dermal Lip Fillers",
+          brandColor: "#E91E8C",
+          format: "vertical" as const,
+        }}
+      />
+      <Composition
+        id="LipFillerShowcaseSquare"
+        component={LipFillerShowcase}
+        durationInFrames={540}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{
+          beforeImage: "jenbefore.png",
+          afterImage: "jenlipsafter.png",
+          recoveryImage: "jen-recovery.png",
+          treatmentName: "Dermal Lip Fillers",
+          brandColor: "#E91E8C",
           format: "square" as const,
         }}
       />

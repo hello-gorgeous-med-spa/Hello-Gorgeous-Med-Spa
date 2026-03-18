@@ -10,7 +10,17 @@ import { HarmonyAI } from "@/components/HarmonyAI";
 import { BotoxCalculator } from "@/components/BotoxCalculator";
 import { AlleEmbedSection } from "@/components/AlleEmbedSection";
 import { BOOKING_URL } from "@/lib/flows";
-import { SERVICES, faqJsonLd, pageMetadata, siteJsonLd, type Service } from "@/lib/seo";
+import {
+  SERVICES,
+  faqJsonLd,
+  pageMetadata,
+  siteJsonLd,
+  dermalFillersPageMetadata,
+  dermalFillersJsonLd,
+  lipFillerVideoJsonLd,
+  dermalFillersBreadcrumbJsonLd,
+  type Service,
+} from "@/lib/seo";
 import {
   ATLAS_CLUSTERS,
   maybeCategorySlug,
@@ -50,6 +60,13 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
       path: "/services",
     });
 
+  return getServiceMetadata(s, one);
+}
+
+function getServiceMetadata(s: Service, one: string): Metadata {
+  if (one === "dermal-fillers" || one === "lip-filler") {
+    return dermalFillersPageMetadata(one as "dermal-fillers" | "lip-filler");
+  }
   return pageMetadata({
     title: s.name,
     description: `${s.heroTitle} — ${s.short} Serving Oswego, Naperville, Aurora, and Plainfield.`,
@@ -315,6 +332,8 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               { icon: "🔄", k: "Maintenance", v: "Optional" },
             ];
 
+  const isDermalFillers = serviceSlug === "dermal-fillers" || serviceSlug === "lip-filler";
+
   return (
     <>
       <script
@@ -325,6 +344,26 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(s.faqs)) }}
       />
+      {isDermalFillers && (
+        <>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(dermalFillersJsonLd(serviceSlug as "dermal-fillers" | "lip-filler")),
+            }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify(dermalFillersBreadcrumbJsonLd(serviceSlug as "dermal-fillers" | "lip-filler")),
+            }}
+          />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(lipFillerVideoJsonLd()) }}
+          />
+        </>
+      )}
 
       {/* Hero Section */}
       <Section className="relative overflow-hidden">
@@ -613,6 +652,27 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               <p className="mt-4 text-black/80 max-w-2xl mx-auto">
                 See the beautiful, natural-looking transformations our clients achieve
               </p>
+            </div>
+          </FadeUp>
+
+          {/* Lip Filler Showcase Video */}
+          <FadeUp delayMs={30}>
+            <div className="max-w-lg mx-auto mb-10">
+              <div className="rounded-2xl overflow-hidden border-2 border-black bg-black shadow-xl">
+                <video
+                  src="/videos/lip-filler-showcase.mp4"
+                  poster="/images/results/revanesse-1.png"
+                  controls
+                  playsInline
+                  className="w-full aspect-square object-cover"
+                  aria-label="Dermal lip filler before and after results at Hello Gorgeous Med Spa"
+                >
+                  Your browser does not support the video tag.
+                </video>
+                <p className="p-4 text-center text-sm text-black/70 bg-white">
+                  Real lip filler results — before, recovery & after at Hello Gorgeous
+                </p>
+              </div>
             </div>
           </FadeUp>
 
