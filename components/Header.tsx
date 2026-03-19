@@ -7,7 +7,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { CTA } from "./CTA";
 import { BestOfOswegoBadge } from "./BestOfOswegoBadge";
 import { SITE } from "@/lib/seo";
-import { BOOKING_URL, CARECREDIT_URL, CHERRY_PAY_URL } from "@/lib/flows";
+import { BOOKING_URL, CARECREDIT_URL, CHERRY_PAY_URL, VIP_MODEL_SQUARE_URL } from "@/lib/flows";
 
 // Navigation structure with dropdowns
 const navigation = {
@@ -116,9 +116,11 @@ const navigation = {
   },
   specials: {
     label: "Specials",
-    href: "/free-vitamin",
+    href: "/vip-model",
     highlight: true,
     links: [
+      { label: "VIP Model Program", href: "/vip-model", description: "Up to 50% off Morpheus8, Solaria, Trifecta — 20 spots only", icon: "🔥", badge: "50% OFF", external: false },
+      { label: "Buy Now (Square)", href: VIP_MODEL_SQUARE_URL, description: "Secure your VIP Model spot — direct checkout", icon: "💳", badge: "BUY NOW", external: true },
       { label: "FREE Vitamin Shot", href: "/free-vitamin", description: "New clients only - $0", icon: "💉", badge: "FREE" },
       { label: "Allē Rewards", href: "/alle-botox-rewards", description: "Earn points on Botox, Juvederm & more", icon: "💎" },
       { label: "Memberships", href: "/memberships", description: "Save with a membership plan", icon: "🎁" },

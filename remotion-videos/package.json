@@ -17,7 +17,10 @@
     "semaglutide:all": "remotion render src/index.tsx SemaglutideSpringBreakSquare out/semaglutide-spring-break-gmb.mp4 && remotion render src/index.tsx SemaglutideSpringBreakVertical out/semaglutide-spring-break-reel.mp4 && remotion render src/index.tsx SemaglutideSpringBreakHorizontal out/semaglutide-spring-break-landscape.mp4",
     "lipfiller:reel": "remotion render src/index.tsx LipFillerShowcaseVertical out/lip-filler-reel.mp4",
     "lipfiller:feed": "remotion render src/index.tsx LipFillerShowcaseSquare out/lip-filler-feed.mp4",
-    "lipfiller:all": "remotion render src/index.tsx LipFillerShowcaseVertical out/lip-filler-reel.mp4 && remotion render src/index.tsx LipFillerShowcaseSquare out/lip-filler-feed.mp4"
+    "lipfiller:all": "remotion render src/index.tsx LipFillerShowcaseVertical out/lip-filler-reel.mp4 && remotion render src/index.tsx LipFillerShowcaseSquare out/lip-filler-feed.mp4",
+    "vipmodel:reel": "remotion render src/index.tsx VIPModelVertical out/vip-model-reel.mp4",
+    "vipmodel:feed": "remotion render src/index.tsx VIPModelSquare out/vip-model-feed.mp4",
+    "vipmodel:all": "remotion render src/index.tsx VIPModelVertical out/vip-model-reel.mp4 && remotion render src/index.tsx VIPModelSquare out/vip-model-feed.mp4 && remotion render src/index.tsx VIPModelHorizontal out/vip-model-landscape.mp4"
   },
   "dependencies": {
     "@remotion/bundler": "^4.0.0",

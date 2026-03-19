@@ -6,6 +6,10 @@ export const FRESHA_BOOKING_URL =
 /** Primary booking CTA: Fresha (internal /book removed from site until OS is ready). */
 export const BOOKING_URL = FRESHA_BOOKING_URL;
 
+/** VIP Model Program — Buy Now (Square checkout). Set NEXT_PUBLIC_VIP_MODEL_SQUARE_URL to your Square payment link. */
+export const VIP_MODEL_SQUARE_URL =
+  process.env.NEXT_PUBLIC_VIP_MODEL_SQUARE_URL || BOOKING_URL;
+
 /** Fullscript dispensary (practitioner-grade supplements) */
 export const FULLSCRIPT_DISPENSARY_URL =
   process.env.NEXT_PUBLIC_FULLSCRIPT_URL ||

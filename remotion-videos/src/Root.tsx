@@ -11,6 +11,7 @@ import { TreatmentPOV } from "./compositions/TreatmentPOV";
 import { TestimonialCard } from "./compositions/TestimonialCard";
 import { ServiceHighlight } from "./compositions/ServiceHighlight";
 import { GeoTargetedAd } from "./compositions/GeoTargetedAd";
+import { VIPModelProgram } from "./compositions/VIPModelProgram";
 import { ServicePromo, ServicePromoProps } from "./templates/ServicePromo";
 
 const sharedProps = {
@@ -137,15 +138,15 @@ export const RemotionRoot: React.FC = () => {
       />
 
       {/* ========== LIP FILLER SHOWCASE ========== */}
-      {/* Image-only version (works without video; MOV may need conversion to MP4) */}
       <Composition
         id="LipFillerShowcaseVertical"
         component={LipFillerShowcase}
-        durationInFrames={540}
+        durationInFrames={990}
         fps={30}
         width={1080}
         height={1920}
         defaultProps={{
+          videoSrc: "jenlips.mp4",
           beforeImage: "jenbefore.png",
           afterImage: "jenlipsafter.png",
           recoveryImage: "jen-recovery.png",
@@ -156,6 +157,24 @@ export const RemotionRoot: React.FC = () => {
       />
       <Composition
         id="LipFillerShowcaseSquare"
+        component={LipFillerShowcase}
+        durationInFrames={990}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{
+          videoSrc: "jenlips.mp4",
+          beforeImage: "jenbefore.png",
+          afterImage: "jenlipsafter.png",
+          recoveryImage: "jen-recovery.png",
+          treatmentName: "Dermal Lip Fillers",
+          brandColor: "#E91E8C",
+          format: "square" as const,
+        }}
+      />
+      {/* Image-only, no video — use for silent render when source video has load issues */}
+      <Composition
+        id="LipFillerShowcaseSquareNoVideo"
         component={LipFillerShowcase}
         durationInFrames={540}
         fps={30}
@@ -590,6 +609,35 @@ export const RemotionRoot: React.FC = () => {
         width={1920}
         height={1080}
         defaultProps={{ brandColor: "#E91E8C", format: "horizontal" as const }}
+      />
+
+      {/* ========== VIP MODEL PROGRAM ========== */}
+      <Composition
+        id="VIPModelVertical"
+        component={VIPModelProgram}
+        durationInFrames={780}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ format: "vertical" as const }}
+      />
+      <Composition
+        id="VIPModelSquare"
+        component={VIPModelProgram}
+        durationInFrames={780}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ format: "square" as const }}
+      />
+      <Composition
+        id="VIPModelHorizontal"
+        component={VIPModelProgram}
+        durationInFrames={780}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{ format: "horizontal" as const }}
       />
 
       {/* ========== STRETCH MARK TREATMENT PROMO ========== */}
