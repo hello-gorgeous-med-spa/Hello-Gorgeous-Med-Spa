@@ -280,6 +280,11 @@ export default function VIPModelPage() {
                 All care guides
               </Link>
             </div>
+            <p className="mt-4 text-sm text-white/60">
+              <Link href="/vip-model/terms" className="text-[#FF2D8E] hover:underline">
+                Full terms and conditions (deposit, schedule, policies)
+              </Link>
+            </p>
           </div>
         </div>
       </section>
@@ -311,6 +316,12 @@ export default function VIPModelPage() {
           <p className="mt-8 text-sm text-white/50">
             Hello Gorgeous Med Spa · 74 W Washington St · Oswego, IL · (630) 636-6193
           </p>
+          <Link
+            href="/vip-model/terms"
+            className="mt-4 inline-block text-sm text-white/60 hover:text-[#FF2D8E] hover:underline"
+          >
+            View full terms and conditions
+          </Link>
         </div>
       </section>
     </div>
