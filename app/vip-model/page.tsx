@@ -305,6 +305,30 @@ export default function VIPModelPage() {
         </div>
       </section>
 
+      {/* Leave Deposit Section */}
+      <section className="px-4 py-16 md:py-20 bg-[#FF2D8E]/10 border-y-2 border-[#FF2D8E]/40">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-2xl md:text-3xl font-bold mb-4">
+            Leave Deposit to Secure Your Appointment
+          </h2>
+          <p className="text-white/90 mb-6">
+            Pay a <strong className="text-[#FF2D8E]">$250 non-refundable deposit</strong> to lock in your VIP Model spot. The deposit is applied to your service at checkout. Limited to 20 clients—once filled, pricing returns to full retail.
+          </p>
+          <CTA
+            href={VIP_MODEL_SQUARE_URL}
+            variant="gradient"
+            className="px-12 py-4 text-lg font-bold"
+          >
+            Leave $250 Deposit — Secure Spot
+          </CTA>
+          <p className="mt-6 text-sm text-white/70">
+            <Link href="/vip-model/terms" className="text-[#FF2D8E] font-semibold hover:underline">
+              Terms and Conditions →
+            </Link>
+          </p>
+        </div>
+      </section>
+
       {/* Urgency + CTA */}
       <section className="px-4 py-16 md:py-24 border-t border-white/10">
         <div className="max-w-2xl mx-auto text-center">
