@@ -137,20 +137,29 @@ export default function VIPModelPage() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <CTA
-              href={VIP_MODEL_SQUARE_URL}
+              href={BOOKING_URL}
               variant="gradient"
               className="px-10 py-4 text-lg font-bold animate-pulse shadow-lg shadow-[#FF2D8E]/30"
             >
-              Buy Now — Secure Your Spot
+              Book Now
             </CTA>
-            <CTA href={BOOKING_URL} variant="outline" className="px-10 py-4 text-lg font-semibold border-white text-white hover:bg-white hover:text-black">
-              Book Free Consultation
+            <CTA
+              href={VIP_MODEL_SQUARE_URL}
+              variant="outline"
+              className="px-10 py-4 text-lg font-semibold border-white text-white hover:bg-white hover:text-black"
+            >
+              Leave Deposit to Secure Appointment
             </CTA>
           </div>
           <p className="mt-6 text-sm text-white/60">
             Once filled, pricing returns to full retail.
-
           </p>
+          <Link
+            href="/vip-model/terms"
+            className="mt-4 inline-block text-[#FF2D8E] font-semibold hover:underline underline-offset-2"
+          >
+            Terms and Conditions →
+          </Link>
         </div>
       </section>
 
@@ -181,13 +190,12 @@ export default function VIPModelPage() {
               </div>
             ))}
           </div>
-          <div className="mt-12 text-center">
-            <CTA
-              href={VIP_MODEL_SQUARE_URL}
-              variant="gradient"
-              className="px-12 py-4 text-lg font-bold"
-            >
-              Apply for VIP Model — Get 50% Off
+          <div className="mt-12 flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <CTA href={BOOKING_URL} variant="gradient" className="px-12 py-4 text-lg font-bold">
+              Book Now
+            </CTA>
+            <CTA href={VIP_MODEL_SQUARE_URL} variant="outline" className="px-12 py-4 text-lg font-semibold border-[#FF2D8E] text-[#FF2D8E] hover:bg-[#FF2D8E] hover:text-white">
+              Leave Deposit to Secure Appointment
             </CTA>
           </div>
         </div>
@@ -251,13 +259,18 @@ export default function VIPModelPage() {
                     {tier.description}
                   </p>
                 </details>
-                <CTA
-                  href={VIP_MODEL_SQUARE_URL}
-                  variant="gradient"
-                  className="w-full justify-center py-4 font-bold"
-                >
-                  Buy Now — ${tier.vip}
-                </CTA>
+                <div className="flex flex-col gap-3">
+                  <CTA href={BOOKING_URL} variant="gradient" className="w-full justify-center py-4 font-bold">
+                    Book Now
+                  </CTA>
+                  <CTA
+                    href={VIP_MODEL_SQUARE_URL}
+                    variant="outline"
+                    className="w-full justify-center py-3 font-semibold border-[#FF2D8E] text-[#FF2D8E] hover:bg-[#FF2D8E] hover:text-white"
+                  >
+                    Leave Deposit — Secure Spot
+                  </CTA>
+                </div>
               </div>
             ))}
           </div>
@@ -280,9 +293,12 @@ export default function VIPModelPage() {
                 All care guides
               </Link>
             </div>
-            <p className="mt-4 text-sm text-white/60">
-              <Link href="/vip-model/terms" className="text-[#FF2D8E] hover:underline">
-                Full terms and conditions (deposit, schedule, policies)
+            <p className="mt-4 text-sm">
+              <Link
+                href="/vip-model/terms"
+                className="text-[#FF2D8E] font-semibold hover:underline underline-offset-2"
+              >
+                Terms and Conditions (deposit, schedule, policies) →
               </Link>
             </p>
           </div>
@@ -302,15 +318,15 @@ export default function VIPModelPage() {
             DM &quot;MODEL&quot; on Instagram to secure your spot, or apply below.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <CTA href={BOOKING_URL} variant="gradient" className="px-12 py-4 text-lg font-bold">
+              Book Now
+            </CTA>
             <CTA
               href={VIP_MODEL_SQUARE_URL}
-              variant="gradient"
-              className="px-12 py-4 text-lg font-bold"
+              variant="outline"
+              className="px-12 py-4 text-lg font-semibold border-white text-white hover:bg-white hover:text-black"
             >
-              Apply for VIP Model Program
-            </CTA>
-            <CTA href={BOOKING_URL} variant="outline" className="px-12 py-4 text-lg font-semibold border-white text-white hover:bg-white hover:text-black">
-              Book Free Consultation
+              Leave Deposit to Secure Appointment
             </CTA>
           </div>
           <p className="mt-8 text-sm text-white/50">
@@ -318,9 +334,9 @@ export default function VIPModelPage() {
           </p>
           <Link
             href="/vip-model/terms"
-            className="mt-4 inline-block text-sm text-white/60 hover:text-[#FF2D8E] hover:underline"
+            className="mt-4 inline-block text-[#FF2D8E] font-semibold hover:underline underline-offset-2"
           >
-            View full terms and conditions
+            Terms and Conditions →
           </Link>
         </div>
       </section>
