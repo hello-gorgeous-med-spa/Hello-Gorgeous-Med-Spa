@@ -2,7 +2,6 @@
 const nextConfig = {
   reactStrictMode: true,
   eslint: {
-    // Allow production builds to complete even with ESLint errors
     ignoreDuringBuilds: true,
   },
   typescript: {
@@ -14,6 +13,10 @@ const nextConfig = {
       { protocol: "https", hostname: "images.unsplash.com" },
       { protocol: "https", hostname: "*.supabase.co" },
     ],
+    // Mitigate GHSA-3x4c-7xq6-9pq8 (unbounded image cache): reduce variant cardinality
+    formats: ["image/webp"],
+    deviceSizes: [640, 1080, 1920],
+    imageSizes: [64, 128, 256],
   },
   // CDN caching headers for static media + global security headers
   headers: async () => [
