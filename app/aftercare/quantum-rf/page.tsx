@@ -343,6 +343,16 @@ export default function QuantumRFAftercarePage() {
           <p className="text-xl text-white/80 max-w-2xl mx-auto">
             Quantum RF is a minimally invasive procedure. Following these instructions is essential for proper healing, minimizing complications, and achieving optimal skin tightening results.
           </p>
+          <p className="mt-4 text-sm">
+            <a
+              href="https://www.inmodemd.com/workstation/luxora/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-pink-300 hover:text-pink-200 underline"
+            >
+              Learn more about the Luxora / QuantumRF technology →
+            </a>
+          </p>
           <div className="mt-8 flex justify-center gap-4 text-sm flex-wrap">
             <a href="#pre-treatment" className="px-6 py-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
               Pre-Treatment →

@@ -172,7 +172,16 @@ export default function QuantumRFPage() {
               Minimally invasive radiofrequency that works beneath the skin for dramatic skin tightening and fat reduction—without surgery.
             </p>
             <p className="text-white/70 mb-6 max-w-xl">
-              Featuring <strong>QuantumRF 10</strong> for precise facial contouring and <strong>QuantumRF 25</strong> for efficient body treatments.
+              Featuring <strong>QuantumRF 10</strong> for precise facial contouring and <strong>QuantumRF 25</strong> for efficient body treatments.{" "}
+              <a
+                href="https://www.inmodemd.com/workstation/luxora/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-blue-300 hover:text-blue-200 underline underline-offset-2"
+              >
+                InMode Luxora
+              </a>{" "}
+              technology.
             </p>
             <p className="text-blue-200/90 text-sm mb-8">
               Part of our <strong>Body Contouring &amp; Lipo</strong> category — minimally invasive skin tightening and fat reduction.
@@ -297,6 +306,16 @@ export default function QuantumRFPage() {
                 />
               </div>
             </div>
+            <p className="mt-6 text-center">
+              <a
+                href="https://www.inmodemd.com/workstation/luxora/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#E6007E] font-semibold hover:underline"
+              >
+                Learn more about the Luxora / QuantumRF technology →
+              </a>
+            </p>
           </div>
         </section>
 

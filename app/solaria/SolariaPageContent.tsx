@@ -61,6 +61,16 @@ export function SolariaPageContent() {
           <p className="text-xl text-white/80 max-w-2xl mx-auto">
             Follow these instructions carefully to ensure optimal healing and the best possible results from your treatment.
           </p>
+          <p className="mt-4 text-sm">
+            <a
+              href="https://www.inmodemd.com/workstation/solaria/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-pink-300 hover:text-pink-200 underline"
+            >
+              Learn more about the Solaria CO₂ technology →
+            </a>
+          </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm">
             <a href="#pre-treatment" className="px-6 py-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
               Pre-Treatment →

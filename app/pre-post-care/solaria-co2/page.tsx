@@ -25,6 +25,16 @@ export default function SolariaCO2CareGuidePage() {
         <p className="text-sm text-black/80 leading-relaxed mb-3">
           Solaria CO₂ is a <strong>fractional ablative laser</strong> — the gold standard in skin resurfacing. It removes damaged outer skin layers while stimulating deep collagen production. This is a more intensive treatment than RF microneedling, with more dramatic results and a longer recovery.
         </p>
+        <p className="text-sm text-black/80 mb-2">
+          <a
+            href="https://www.inmodemd.com/workstation/solaria/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#E6007E] font-semibold hover:underline"
+          >
+            Learn more about the Solaria technology →
+          </a>
+        </p>
         <p className="text-sm text-black/80 mb-2">Solaria treats:</p>
         <ul className="text-sm text-black/80 grid grid-cols-2 gap-1 ml-4">
           <li>• Deep wrinkles</li>

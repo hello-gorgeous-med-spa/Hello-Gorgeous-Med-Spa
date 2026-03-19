@@ -93,7 +93,16 @@ export default function SolariaCO2Page() {
               The gold standard in skin resurfacing. One treatment. Dramatic transformation.
             </p>
             <p className="text-white/80 mb-10">
-              Advanced ablative laser technology by <strong>InMode</strong> for deep wrinkles, acne scars, sun damage, and skin tightening.
+              Advanced ablative laser technology by{" "}
+              <a
+                href="https://www.inmodemd.com/workstation/solaria/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-pink-300 hover:text-pink-200 underline underline-offset-2"
+              >
+                InMode Solaria
+              </a>{" "}
+              for deep wrinkles, acne scars, sun damage, and skin tightening.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link
@@ -156,6 +165,16 @@ export default function SolariaCO2Page() {
                 </span>
               ))}
             </div>
+            <p className="mt-6 text-center">
+              <a
+                href="https://www.inmodemd.com/workstation/solaria/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#E6007E] font-semibold hover:underline"
+              >
+                Learn more about the Solaria technology →
+              </a>
+            </p>
           </div>
         </section>
 

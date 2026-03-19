@@ -25,6 +25,16 @@ export default function QuantumRFCareGuidePage() {
         <p className="text-sm text-black/80 leading-relaxed mb-3">
           QuantumRF delivers radiofrequency energy <strong>beneath the skin surface</strong> (subdermal) to tighten tissue and stimulate collagen production. This internal approach creates tissue contraction that mimics surgical lifting — without incisions or general anesthesia.
         </p>
+        <p className="text-sm text-black/80 mb-2">
+          <a
+            href="https://www.inmodemd.com/workstation/luxora/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#E6007E] font-semibold hover:underline"
+          >
+            Learn more about the Luxora / QuantumRF technology →
+          </a>
+        </p>
         <p className="text-sm text-black/80 mb-2">QuantumRF treats:</p>
         <ul className="text-sm text-black/80 grid grid-cols-2 gap-1 ml-4">
           <li>• Loose facial skin</li>
