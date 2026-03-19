@@ -44,6 +44,9 @@ const tiers = [
       "Numbing + post-care",
     ],
     icon: "🧬",
+    careGuide: "/pre-post-care/morpheus8-burst",
+    description:
+      "Morpheus8 Burst is the deepest RF microneedling available—delivering radiofrequency energy at three depths simultaneously, including up to 8mm (double the depth of standard Morpheus8). That deeper penetration targets collagen and elastin where they're produced, so you get tightening and remodeling from the inside out, not just surface-level improvement. The device uses ultrafine needles to create controlled micro-channels while delivering RF energy at multiple depths in a single pass. The heat triggers your body's natural healing response, ramping up collagen and elastin production. Over the following weeks and months, skin becomes firmer, smoother, and more lifted. The 'Burst' technology means more coverage and more consistent results in fewer sessions than older RF microneedling devices. Ideal for loose skin, fine lines, acne scars, jowls, jawline laxity, crepey skin, enlarged pores, and post-weight-loss laxity. Most clients see improvement within weeks, with results continuing to refine for 3–6 months. Hello Gorgeous has Morpheus8 Burst—most local providers only have standard Morpheus8. An NP is on site seven days a week for same-day consultations.",
   },
   {
     id: "tier2",
@@ -58,6 +61,9 @@ const tiers = [
       "Recovery protocol included",
     ],
     icon: "☀️",
+    careGuide: "/pre-post-care/solaria-co2",
+    description:
+      "Solaria is a medical-grade fractional CO₂ laser—the gold standard in skin resurfacing. It removes damaged outer layers of skin while stimulating collagen and elastin production deep in the dermis. The laser creates microscopic treatment zones, and your body heals them by replacing damaged tissue with smoother, healthier skin. Fractional technology leaves healthy skin between treated areas, which speeds healing and reduces downtime compared to older fully ablative lasers. Solaria improves texture, pores, pigmentation, sun damage, age spots, fine lines, wrinkles, acne scars, and skin laxity. It can be used on the full face or targeted areas like around the eyes, mouth, or forehead. Many clients see dramatic improvement after just one treatment. Downtime is typically 5–7 days of redness and peeling. Results continue to improve for 3–6 months as collagen remodels. Hello Gorgeous is one of the only med spas in the western Chicago suburbs with Solaria CO₂—no other provider in Oswego, Naperville, Aurora, or Plainfield offers this technology. An NP is on site seven days a week.",
   },
   {
     id: "tier3",
@@ -73,6 +79,9 @@ const tiers = [
       "Customized treatment plan",
     ],
     icon: "🔥",
+    careGuide: "/pre-post-care/solaria-co2", // Combo: follow both Morpheus8 + Solaria (Solaria is stricter)
+    description:
+      "The Total Skin Rebuild combines Morpheus8 Burst and Solaria CO₂ in one comprehensive plan. Morpheus8 works at depth to tighten and remodel collagen; Solaria works at the surface to resurface and refine texture. Together they address both the deep and superficial layers of your skin for a complete transformation. Morpheus8 Burst delivers RF energy at multiple depths to stimulate collagen and tighten tissue from within. Solaria CO₂ resurfaces the outer layers to improve texture, pores, and tone. The combination produces a dual-layer effect: tightening and remodeling from below, resurfacing from above. Ideal for loose skin, fine lines, wrinkles, acne scars, sun damage, pigmentation, uneven texture, enlarged pores, jowls, and skin laxity. Most clients see dramatic improvement after one combo cycle, with results continuing to refine for 3–6 months. Hello Gorgeous offers both technologies and designs customized protocols. An NP is on site seven days a week for consultations and oversight.",
   },
   {
     id: "tier4",
@@ -87,6 +96,9 @@ const tiers = [
       "Full face + neck + sculpting protocol",
     ],
     icon: "⚡",
+    careGuide: "/pre-post-care/quantum-rf", // Trifecta: see all three guides
+    description:
+      "The Trifecta combines three InMode technologies in one luxury transformation package: Morpheus8 Burst, Solaria CO₂, and Quantum RF. Morpheus8 tightens and remodels collagen at depth. Solaria resurfaces and improves tone at the surface. Quantum RF delivers RF energy beneath the skin to heat fat and tighten tissue for contouring—surgical-level results without surgery. Together they address face, neck, and body for a complete transformation. The Trifecta treats loose facial skin, jowls, neck laxity, double chin, post-weight-loss laxity, abdominal looseness, arm and thigh laxity, and body contouring—plus texture, pores, pigmentation, and fine lines. Quantum RF is exclusive to Hello Gorgeous in the entire western Chicago suburbs; no other provider from Naperville to Yorkville offers subdermal RF contouring. An NP is on site seven days a week for same-day consultations and prescriptions. This is the most comprehensive package we offer.",
   },
 ];
 
@@ -224,6 +236,21 @@ export default function VIPModelPage() {
                     </li>
                   ))}
                 </ul>
+                <Link
+                  href={tier.careGuide}
+                  className="inline-flex items-center gap-2 text-[#FF2D8E] text-sm font-semibold hover:underline mb-4"
+                >
+                  📋 Pre & Post Care Protocol →
+                </Link>
+                <details className="group mb-6">
+                  <summary className="cursor-pointer list-none flex items-center gap-2 text-[#FF2D8E] text-sm font-semibold hover:text-[#FF2D8E]/90 transition-colors">
+                    <span className="group-open:rotate-90 transition-transform">▶</span>
+                    Read full description
+                  </summary>
+                  <p className="mt-4 text-white/80 text-sm leading-relaxed">
+                    {tier.description}
+                  </p>
+                </details>
                 <CTA
                   href={VIP_MODEL_SQUARE_URL}
                   variant="gradient"
@@ -233,6 +260,26 @@ export default function VIPModelPage() {
                 </CTA>
               </div>
             ))}
+          </div>
+          <div className="mt-12 p-6 rounded-2xl border-2 border-[#FF2D8E]/40 bg-black/50">
+            <h3 className="text-lg font-bold text-[#FF2D8E] mb-4">📋 Pre & Post Treatment Protocols</h3>
+            <p className="text-white/80 text-sm mb-4">
+              Each treatment has detailed preparation and aftercare instructions. Review before your appointment.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link href="/pre-post-care/morpheus8-burst" className="text-[#FF2D8E] hover:underline text-sm font-semibold">
+                Morpheus8 Burst Protocol →
+              </Link>
+              <Link href="/pre-post-care/solaria-co2" className="text-[#FF2D8E] hover:underline text-sm font-semibold">
+                Solaria CO₂ Protocol →
+              </Link>
+              <Link href="/pre-post-care/quantum-rf" className="text-[#FF2D8E] hover:underline text-sm font-semibold">
+                Quantum RF Protocol →
+              </Link>
+              <Link href="/pre-post-care" className="text-white/70 hover:text-white text-sm">
+                All care guides
+              </Link>
+            </div>
           </div>
         </div>
       </section>
