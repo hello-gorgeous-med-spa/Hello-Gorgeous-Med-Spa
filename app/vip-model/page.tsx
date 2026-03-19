@@ -183,54 +183,54 @@ export default function VIPModelPage() {
 
       {/* Packages */}
       <section className="px-4 py-16 md:py-24">
-        <div className="max-w-5xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
             Choose Your Transformation
           </h2>
           <p className="text-white/70 text-center max-w-2xl mx-auto mb-12">
             We are selecting 20 clients to experience our newest technology at exclusive model pricing before full launch.
           </p>
-          <div className="grid md:grid-cols-2 gap-6 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {tiers.map((tier) => (
               <div
                 key={tier.id}
-                className={`rounded-2xl overflow-hidden border-2 ${
-                  tier.popular ? "border-[#FF2D8E] bg-[#FF2D8E]/5 shadow-2xl shadow-[#FF2D8E]/20" : "border-white/20 bg-zinc-900/80"
+                className={`rounded-2xl overflow-hidden border-2 border-[#FF2D8E] bg-black p-6 md:p-8 ${
+                  tier.popular ? "shadow-2xl shadow-[#FF2D8E]/20" : ""
                 }`}
               >
-                <div className="p-6 md:p-8">
-                  {tier.popular && (
-                    <span className="inline-block px-3 py-1 text-xs font-bold bg-[#FF2D8E] text-white rounded-full mb-4">
-                      MOST POPULAR
-                    </span>
-                  )}
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className="text-2xl">{tier.icon}</span>
-                    <span className="text-[#FF2D8E] font-semibold uppercase tracking-wider text-sm">
-                      {tier.tag}
-                    </span>
-                  </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-white mb-4">{tier.name}</h3>
-                  <div className="flex items-baseline gap-3 mb-6">
-                    <span className="text-white/50 line-through text-lg">${tier.retail}</span>
-                    <span className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">${tier.vip}</span>
-                  </div>
-                  <ul className="space-y-2 mb-6">
-                    {tier.includes.map((item) => (
-                      <li key={item} className="flex items-center gap-2 text-white/90 text-sm">
-                        <span className="text-[#FF2D8E]">✔</span>
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                  <CTA
-                    href={VIP_MODEL_SQUARE_URL}
-                    variant={tier.popular ? "gradient" : "outline"}
-                    className="w-full justify-center py-4 font-bold"
-                  >
-                    Buy Now — ${tier.vip}
-                  </CTA>
+                {tier.popular && (
+                  <span className="inline-block px-3 py-1 text-xs font-bold bg-[#FF2D8E] text-white rounded-full mb-4">
+                    MOST POPULAR
+                  </span>
+                )}
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-2xl">{tier.icon}</span>
+                  <span className="text-[#FF2D8E] font-semibold uppercase tracking-wider text-sm">
+                    {tier.tag}
+                  </span>
                 </div>
+                <h3 className="text-xl md:text-2xl font-bold text-white mb-4 font-serif">
+                  {tier.name}
+                </h3>
+                <div className="flex items-baseline gap-3 mb-6">
+                  <span className="text-white/50 line-through text-lg">${tier.retail}</span>
+                  <span className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">${tier.vip}</span>
+                </div>
+                <ul className="space-y-2 mb-6">
+                  {tier.includes.map((item) => (
+                    <li key={item} className="flex items-center gap-2 text-white/90 text-sm">
+                      <span className="text-[#FF2D8E] flex-shrink-0">✔</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+                <CTA
+                  href={VIP_MODEL_SQUARE_URL}
+                  variant="gradient"
+                  className="w-full justify-center py-4 font-bold"
+                >
+                  Buy Now — ${tier.vip}
+                </CTA>
               </div>
             ))}
           </div>
