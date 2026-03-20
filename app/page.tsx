@@ -21,6 +21,7 @@ import {
 import { GlowUpEventBanner } from "@/components/GlowUpEventBanner";
 import { CherryWidget } from "@/components/CherryWidget";
 import { Morpheus8Banner } from "@/components/Morpheus8Banner";
+import { Morpheus8ModelCallBanner } from "@/components/Morpheus8ModelCallBanner";
 import { SolariaComingSoonBanner } from "@/components/SolariaComingSoonBanner";
 import {
   SITE,
@@ -144,6 +145,7 @@ export default function HomePage() {
       />
 
       <main className="bg-white">
+        <Morpheus8ModelCallBanner />
         <Morpheus8Banner />
         <GlowUpEventBanner />
         <SolariaComingSoonBanner />

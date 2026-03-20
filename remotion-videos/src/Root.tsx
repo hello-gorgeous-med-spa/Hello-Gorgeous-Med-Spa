@@ -12,6 +12,7 @@ import { TestimonialCard } from "./compositions/TestimonialCard";
 import { ServiceHighlight } from "./compositions/ServiceHighlight";
 import { GeoTargetedAd } from "./compositions/GeoTargetedAd";
 import { VIPModelProgram } from "./compositions/VIPModelProgram";
+import { Morpheus8BurstModelCall } from "./compositions/Morpheus8BurstModelCall";
 import { ServicePromo, ServicePromoProps } from "./templates/ServicePromo";
 
 const sharedProps = {
@@ -634,6 +635,35 @@ export const RemotionRoot: React.FC = () => {
         id="VIPModelHorizontal"
         component={VIPModelProgram}
         durationInFrames={780}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{ format: "horizontal" as const }}
+      />
+
+      {/* ========== MORPHEUS8 BURST MODEL CALL ========== */}
+      <Composition
+        id="Morpheus8BurstVertical"
+        component={Morpheus8BurstModelCall}
+        durationInFrames={1260}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ format: "vertical" as const }}
+      />
+      <Composition
+        id="Morpheus8BurstSquare"
+        component={Morpheus8BurstModelCall}
+        durationInFrames={1260}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ format: "square" as const }}
+      />
+      <Composition
+        id="Morpheus8BurstHorizontal"
+        component={Morpheus8BurstModelCall}
+        durationInFrames={1260}
         fps={30}
         width={1920}
         height={1080}

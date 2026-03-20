@@ -20,7 +20,10 @@
     "lipfiller:all": "remotion render src/index.tsx LipFillerShowcaseVertical out/lip-filler-reel.mp4 && remotion render src/index.tsx LipFillerShowcaseSquare out/lip-filler-feed.mp4",
     "vipmodel:reel": "remotion render src/index.tsx VIPModelVertical out/vip-model-reel.mp4",
     "vipmodel:feed": "remotion render src/index.tsx VIPModelSquare out/vip-model-feed.mp4",
-    "vipmodel:all": "remotion render src/index.tsx VIPModelVertical out/vip-model-reel.mp4 && remotion render src/index.tsx VIPModelSquare out/vip-model-feed.mp4 && remotion render src/index.tsx VIPModelHorizontal out/vip-model-landscape.mp4"
+    "vipmodel:all": "remotion render src/index.tsx VIPModelVertical out/vip-model-reel.mp4 && remotion render src/index.tsx VIPModelSquare out/vip-model-feed.mp4 && remotion render src/index.tsx VIPModelHorizontal out/vip-model-landscape.mp4",
+    "morpheus8burst:reel": "remotion render src/index.tsx Morpheus8BurstVertical out/morpheus8-burst-reel.mp4",
+    "morpheus8burst:feed": "remotion render src/index.tsx Morpheus8BurstSquare out/morpheus8-burst-feed.mp4",
+    "morpheus8burst:all": "remotion render src/index.tsx Morpheus8BurstVertical out/morpheus8-burst-reel.mp4 && remotion render src/index.tsx Morpheus8BurstSquare out/morpheus8-burst-feed.mp4 && remotion render src/index.tsx Morpheus8BurstHorizontal out/morpheus8-burst-landscape.mp4"
   },
   "dependencies": {
     "@remotion/bundler": "^4.0.0",
