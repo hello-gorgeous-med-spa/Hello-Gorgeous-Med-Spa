@@ -23,7 +23,7 @@ This program is limited to **20 clients**. Once all spots are filled, pricing re
 
 To secure your spot in the VIP Model Program and lock in your promotional pricing, a **non-refundable deposit of $250** is required at the time of enrollment. This deposit will be **applied in full** toward your selected treatment or package at the time of service. The deposit does not constitute a separate fee; it is a prepayment that reduces your balance due at treatment.
 
-**Deposit application:** The $250 deposit is applied to the final balance of your chosen tier. For example, if you select Tier 1 (Morpheus8 Burst at $799), your deposit reduces your balance to $549 due at or before treatment. If you select Tier 4 (The Trifecta at $1,999), your deposit reduces your balance to $1,749.
+**Deposit application:** The $250 deposit is applied to the final balance of your chosen tier. For example, if you select Tier 1 (Morpheus8 Burst at $799), your deposit reduces your balance to $549 due at or before treatment. If you select Tier 1B (Morpheus8 Package of 3 at $1,999), your deposit reduces your balance to $1,749. If you select Tier 4 (The Trifecta at $1,999), your deposit reduces your balance to $1,749.
 
 **Deposit is non-refundable** except as expressly stated in the Cancellation and Refund section below. By submitting your deposit, you confirm your intent to receive treatment and your acceptance of these terms.
 
@@ -47,6 +47,24 @@ All pricing below is VIP Model promotional pricing. Retail pricing is provided f
 **Retail:** $1,400 | **VIP Model:** $799
 
 Includes: Full-face Morpheus8 Burst, advanced RF microneedling with deep collagen remodeling, custom depth mapping, medical-grade protocol, numbing, and post-care instructions. Morpheus8 Burst delivers RF energy at three depths simultaneously, up to 8mm—double the depth of standard Morpheus8. Ideal for loose skin, fine lines, acne scars, jowls, jawline laxity, crepey skin, and enlarged pores.
+
+**Available for scheduling:** On or after April 5, 2025.
+
+---
+
+### Tier 1B — Morpheus8 Burst Package of 3
+**Retail:** $4,200 | **VIP Model:** $1,999
+
+Includes: Three full Morpheus8 Burst treatments, spaced 4–6 weeks apart for optimal results. Apply to face, neck, or body areas. Custom depth mapping, medical-grade protocol, numbing, and post-care included. Our most popular Morpheus8 package for comprehensive collagen remodeling.
+
+**Available for scheduling:** On or after April 5, 2025.
+
+---
+
+### Tier 1C — Morpheus8 Burst: Buy One Area, Get One 50% Off
+**Retail:** $2,400 | **VIP Model:** $1,200 (2 areas total)
+
+Includes: Two treatment areas for $1,200 total—full-price first area plus second area at half price. Choose any combination: face + neck, décolletage + arms, abdomen + thighs, or any two areas. Same Morpheus8 Burst technology with numbing and post-care included.
 
 **Available for scheduling:** On or after April 5, 2025.
 

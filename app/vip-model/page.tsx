@@ -11,7 +11,7 @@ const PAGE_URL = `${BASE_URL}/vip-model`;
 export const metadata: Metadata = {
   title: "VIP Model Program — Up to 50% Off Morpheus8, Solaria CO₂, Trifecta | Hello Gorgeous",
   description:
-    "Only 20 spots. Morpheus8 Burst $799, Solaria CO₂ $899, Combo $1,499, Trifecta $1,999. Medical-grade skin transformation at VIP model pricing. Oswego, IL.",
+    "Only 20 spots. Morpheus8 $799 single, 3-pack $1,999, 2 areas $1,200. Solaria $899, Combo $1,499, Trifecta $1,999. Medical-grade skin transformation at VIP model pricing. Oswego, IL.",
   keywords: [
     "VIP Model Program",
     "Morpheus8 Burst",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "VIP Model — Up to 50% Off | Morpheus8, Solaria, Trifecta",
-    description: "20 spots. Morpheus8 $799, Solaria $899, Combo $1,499, Trifecta $1,999.",
+    description: "20 spots. Morpheus8 $799 / 3-pack $1,999 / 2 areas $1,200. Solaria $899, Combo $1,499, Trifecta $1,999.",
     type: "website",
     url: PAGE_URL,
   },
@@ -47,6 +47,40 @@ const tiers = [
     careGuide: "/pre-post-care/morpheus8-burst",
     description:
       "Morpheus8 Burst is the deepest RF microneedling available—delivering radiofrequency energy at three depths simultaneously, including up to 8mm (double the depth of standard Morpheus8). That deeper penetration targets collagen and elastin where they're produced, so you get tightening and remodeling from the inside out, not just surface-level improvement. The device uses ultrafine needles to create controlled micro-channels while delivering RF energy at multiple depths in a single pass. The heat triggers your body's natural healing response, ramping up collagen and elastin production. Over the following weeks and months, skin becomes firmer, smoother, and more lifted. The 'Burst' technology means more coverage and more consistent results in fewer sessions than older RF microneedling devices. Ideal for loose skin, fine lines, acne scars, jowls, jawline laxity, crepey skin, enlarged pores, and post-weight-loss laxity. Most clients see improvement within weeks, with results continuing to refine for 3–6 months. Hello Gorgeous has Morpheus8 Burst—most local providers only have standard Morpheus8. An NP is on site seven days a week for same-day consultations.",
+  },
+  {
+    id: "tier1b",
+    tag: "Morpheus8 Package",
+    name: "Morpheus8 Burst × 3",
+    retail: 4200,
+    vip: 1999,
+    includes: [
+      "3 full Morpheus8 Burst treatments",
+      "Optimal results—spaced 4–6 weeks apart",
+      "Face, neck, or body areas",
+      "Custom depth mapping + medical-grade protocol",
+    ],
+    icon: "🧬",
+    careGuide: "/pre-post-care/morpheus8-burst",
+    description:
+      "Our most popular Morpheus8 package. Three sessions deliver comprehensive collagen remodeling for maximum tightening, scar improvement, and skin rejuvenation. Results continue improving for 3–6 months. Ideal for clients committed to optimal outcomes.",
+  },
+  {
+    id: "tier1c",
+    tag: "Morpheus8 Special",
+    name: "Buy One Area, Get One 50% Off",
+    retail: 2400,
+    vip: 1200,
+    includes: [
+      "2 treatment areas for $1,200 total",
+      "Full-price area + second area at half price",
+      "Face, neck, décolletage, arms, abdomen, thighs",
+      "Numbing + post-care included",
+    ],
+    icon: "✨",
+    careGuide: "/pre-post-care/morpheus8-burst",
+    description:
+      "Treat two areas at one great price. Choose any combination: face + neck, décolletage + arms, abdomen + thighs, or any two areas that matter to you. Same Morpheus8 Burst technology—deep RF microneedling at up to 8mm.",
   },
   {
     id: "tier2",
@@ -210,7 +244,7 @@ export default function VIPModelPage() {
           <p className="text-white/70 text-center max-w-2xl mx-auto mb-12">
             We are selecting 20 clients to experience our newest technology at exclusive model pricing before full launch.
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
             {tiers.map((tier) => (
               <div
                 key={tier.id}
