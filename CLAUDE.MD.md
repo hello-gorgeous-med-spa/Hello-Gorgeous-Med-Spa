@@ -84,6 +84,20 @@ npm run build
   - `FAQPage` schema per service
 - **Indexing**: `robots.ts` + `sitemap.ts` are enabled and crawlable.
 
+## Morpheus8 Clinical Video Vision (stored)
+
+**Source:** Morpheus8 Burst Clinical PPT June 2024 (87 slides).  
+**Goal:** Engaging web video that highlights key clinical content with Hello Gorgeous branding.
+
+**Vision:**
+- Curated highlight reel from the clinical deck—not all 87 slides
+- Pick apart the best: FDA clearance, penetration depths, mechanism of action, multi-depth Burst, 3D tech, before/after proof
+- Hello Gorgeous branding throughout (hotPink #E91E8C, pink #FF69B4, gold accents)
+- ~60–90 seconds for website placement
+- Rendered to Desktop for review, then deployed to site
+
+**Composition:** `Morpheus8ClinicalHighlight` in remotion-videos.
+
 ## Configuration TODOs (replace placeholders)
 
 Update `src/content/site.ts` with real:

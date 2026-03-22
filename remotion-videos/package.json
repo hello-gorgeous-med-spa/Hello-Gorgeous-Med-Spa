@@ -28,6 +28,9 @@
     "freddies:feed": "remotion render src/index.tsx FreddiesSquare out/freddies-feed.mp4",
     "freddies:all": "remotion render src/index.tsx FreddiesVertical out/freddies-reel.mp4 && remotion render src/index.tsx FreddiesSquare out/freddies-feed.mp4 && remotion render src/index.tsx FreddiesHorizontal out/freddies-landscape.mp4",
     "m8clinical:slides": "node scripts/pdf-to-slides.mjs",
+    "m8highlight:reel": "remotion render src/index.tsx Morpheus8HighlightVertical out/morpheus8-highlight-reel.mp4",
+    "m8highlight:feed": "remotion render src/index.tsx Morpheus8HighlightSquare out/morpheus8-highlight-feed.mp4",
+    "m8highlight:web": "remotion render src/index.tsx Morpheus8HighlightHorizontal out/morpheus8-highlight-web.mp4",
     "m8clinical:reel": "remotion render src/index.tsx Morpheus8ClinicalVertical out/morpheus8-clinical-reel.mp4",
     "m8clinical:feed": "remotion render src/index.tsx Morpheus8ClinicalSquare out/morpheus8-clinical-feed.mp4",
     "m8clinical:all": "remotion render src/index.tsx Morpheus8ClinicalVertical out/morpheus8-clinical-reel.mp4 && remotion render src/index.tsx Morpheus8ClinicalSquare out/morpheus8-clinical-feed.mp4 && remotion render src/index.tsx Morpheus8ClinicalHorizontal out/morpheus8-clinical-landscape.mp4"

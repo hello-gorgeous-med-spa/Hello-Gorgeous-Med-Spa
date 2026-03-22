@@ -293,7 +293,7 @@ export default function Morpheus8Page() {
               <div className="relative aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl">
                 <video
                   className="w-full h-full object-cover"
-                  src="/videos/morpheus8-what-is.mp4"
+                  src="/videos/morpheus8-clinical-highlight.mp4"
                   controls
                   playsInline
                   preload="metadata"

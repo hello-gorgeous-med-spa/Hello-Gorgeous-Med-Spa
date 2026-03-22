@@ -18,6 +18,10 @@ import {
   Morpheus8BurstClinical,
   TOTAL_FRAMES as Morpheus8ClinicalFrames,
 } from "./compositions/Morpheus8BurstClinical";
+import {
+  Morpheus8ClinicalHighlight,
+  Morpheus8HighlightFrames,
+} from "./compositions/Morpheus8ClinicalHighlight";
 import { ServicePromo, ServicePromoProps } from "./templates/ServicePromo";
 
 const sharedProps = {
@@ -675,7 +679,36 @@ export const RemotionRoot: React.FC = () => {
         defaultProps={{ format: "horizontal" as const }}
       />
 
-      {/* ========== MORPHEUS8 BURST CLINICAL (PDF PRESENTATION) ========== */}
+      {/* ========== MORPHEUS8 CLINICAL HIGHLIGHT (curated, web) ========== */}
+      <Composition
+        id="Morpheus8HighlightVertical"
+        component={Morpheus8ClinicalHighlight}
+        durationInFrames={Morpheus8HighlightFrames}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ format: "vertical" as const }}
+      />
+      <Composition
+        id="Morpheus8HighlightSquare"
+        component={Morpheus8ClinicalHighlight}
+        durationInFrames={Morpheus8HighlightFrames}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ format: "square" as const }}
+      />
+      <Composition
+        id="Morpheus8HighlightHorizontal"
+        component={Morpheus8ClinicalHighlight}
+        durationInFrames={Morpheus8HighlightFrames}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{ format: "horizontal" as const }}
+      />
+
+      {/* ========== MORPHEUS8 BURST CLINICAL (FULL 87-SLIDE PDF) ========== */}
       <Composition
         id="Morpheus8ClinicalVertical"
         component={Morpheus8BurstClinical}
