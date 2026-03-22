@@ -13,6 +13,11 @@ import { ServiceHighlight } from "./compositions/ServiceHighlight";
 import { GeoTargetedAd } from "./compositions/GeoTargetedAd";
 import { VIPModelProgram } from "./compositions/VIPModelProgram";
 import { Morpheus8BurstModelCall } from "./compositions/Morpheus8BurstModelCall";
+import { FreddieOffTheChain } from "./compositions/FreddieOffTheChain";
+import {
+  Morpheus8BurstClinical,
+  TOTAL_FRAMES as Morpheus8ClinicalFrames,
+} from "./compositions/Morpheus8BurstClinical";
 import { ServicePromo, ServicePromoProps } from "./templates/ServicePromo";
 
 const sharedProps = {
@@ -664,6 +669,64 @@ export const RemotionRoot: React.FC = () => {
         id="Morpheus8BurstHorizontal"
         component={Morpheus8BurstModelCall}
         durationInFrames={1260}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{ format: "horizontal" as const }}
+      />
+
+      {/* ========== MORPHEUS8 BURST CLINICAL (PDF PRESENTATION) ========== */}
+      <Composition
+        id="Morpheus8ClinicalVertical"
+        component={Morpheus8BurstClinical}
+        durationInFrames={Morpheus8ClinicalFrames}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ format: "vertical" as const }}
+      />
+      <Composition
+        id="Morpheus8ClinicalSquare"
+        component={Morpheus8BurstClinical}
+        durationInFrames={Morpheus8ClinicalFrames}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ format: "square" as const }}
+      />
+      <Composition
+        id="Morpheus8ClinicalHorizontal"
+        component={Morpheus8BurstClinical}
+        durationInFrames={Morpheus8ClinicalFrames}
+        fps={30}
+        width={1920}
+        height={1080}
+        defaultProps={{ format: "horizontal" as const }}
+      />
+
+      {/* ========== FREDDIE'S OFF THE CHAIN ========== */}
+      <Composition
+        id="FreddiesVertical"
+        component={FreddieOffTheChain}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
+        defaultProps={{ format: "vertical" as const }}
+      />
+      <Composition
+        id="FreddiesSquare"
+        component={FreddieOffTheChain}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1080}
+        defaultProps={{ format: "square" as const }}
+      />
+      <Composition
+        id="FreddiesHorizontal"
+        component={FreddieOffTheChain}
+        durationInFrames={900}
         fps={30}
         width={1920}
         height={1080}

@@ -23,7 +23,14 @@
     "vipmodel:all": "remotion render src/index.tsx VIPModelVertical out/vip-model-reel.mp4 && remotion render src/index.tsx VIPModelSquare out/vip-model-feed.mp4 && remotion render src/index.tsx VIPModelHorizontal out/vip-model-landscape.mp4",
     "morpheus8burst:reel": "remotion render src/index.tsx Morpheus8BurstVertical out/morpheus8-burst-reel.mp4",
     "morpheus8burst:feed": "remotion render src/index.tsx Morpheus8BurstSquare out/morpheus8-burst-feed.mp4",
-    "morpheus8burst:all": "remotion render src/index.tsx Morpheus8BurstVertical out/morpheus8-burst-reel.mp4 && remotion render src/index.tsx Morpheus8BurstSquare out/morpheus8-burst-feed.mp4 && remotion render src/index.tsx Morpheus8BurstHorizontal out/morpheus8-burst-landscape.mp4"
+    "morpheus8burst:all": "remotion render src/index.tsx Morpheus8BurstVertical out/morpheus8-burst-reel.mp4 && remotion render src/index.tsx Morpheus8BurstSquare out/morpheus8-burst-feed.mp4 && remotion render src/index.tsx Morpheus8BurstHorizontal out/morpheus8-burst-landscape.mp4",
+    "freddies:reel": "remotion render src/index.tsx FreddiesVertical out/freddies-reel.mp4",
+    "freddies:feed": "remotion render src/index.tsx FreddiesSquare out/freddies-feed.mp4",
+    "freddies:all": "remotion render src/index.tsx FreddiesVertical out/freddies-reel.mp4 && remotion render src/index.tsx FreddiesSquare out/freddies-feed.mp4 && remotion render src/index.tsx FreddiesHorizontal out/freddies-landscape.mp4",
+    "m8clinical:slides": "node scripts/pdf-to-slides.mjs",
+    "m8clinical:reel": "remotion render src/index.tsx Morpheus8ClinicalVertical out/morpheus8-clinical-reel.mp4",
+    "m8clinical:feed": "remotion render src/index.tsx Morpheus8ClinicalSquare out/morpheus8-clinical-feed.mp4",
+    "m8clinical:all": "remotion render src/index.tsx Morpheus8ClinicalVertical out/morpheus8-clinical-reel.mp4 && remotion render src/index.tsx Morpheus8ClinicalSquare out/morpheus8-clinical-feed.mp4 && remotion render src/index.tsx Morpheus8ClinicalHorizontal out/morpheus8-clinical-landscape.mp4"
   },
   "dependencies": {
     "@remotion/bundler": "^4.0.0",

@@ -291,14 +291,16 @@ export default function Morpheus8Page() {
                 </p>
               </div>
               <div className="relative aspect-video rounded-2xl overflow-hidden bg-black shadow-2xl">
-                <iframe
-                  className="absolute inset-0 w-full h-full"
-                  src="https://www.youtube.com/embed/skWe-Z-5m_k?si=HiL-3BRzaFfDBcjC"
-                  title="Morpheus8 RF Microneedling - How It Works"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                />
+                <video
+                  className="w-full h-full object-cover"
+                  src="/videos/morpheus8-what-is.mp4"
+                  controls
+                  playsInline
+                  preload="metadata"
+                >
+                  <track kind="captions" />
+                  Your browser does not support the video tag.
+                </video>
               </div>
             </div>
           </div>
