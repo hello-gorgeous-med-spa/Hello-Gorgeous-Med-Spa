@@ -21,6 +21,7 @@ import {
 import { GlowUpEventBanner } from "@/components/GlowUpEventBanner";
 import { CherryWidget } from "@/components/CherryWidget";
 import { Morpheus8Banner } from "@/components/Morpheus8Banner";
+import { Morpheus8SkinRebuildSection } from "@/components/Morpheus8SkinRebuildSection";
 import { Morpheus8ModelCallBanner } from "@/components/Morpheus8ModelCallBanner";
 import { SolariaComingSoonBanner } from "@/components/SolariaComingSoonBanner";
 import {
@@ -151,6 +152,7 @@ export default function HomePage() {
         <SolariaComingSoonBanner />
         <HeroV3 />
         <TrustStrip />
+        <Morpheus8SkinRebuildSection />
         <TrifectaSection />
         <PartnerBadges />
         <InjectablesConversion />
