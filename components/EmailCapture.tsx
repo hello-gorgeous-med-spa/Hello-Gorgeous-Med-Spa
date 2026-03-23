@@ -126,7 +126,7 @@ export function EmailCapture() {
                   Be first. Get priority access.
                 </h3>
                 <p className="text-black/80 text-sm">
-                  Quantum RF, Morpheus8 &amp; Solaria CO₂ — join the list for launch pricing and early booking.
+                  Morpheus8 Burst, Solaria CO₂ now booking. Quantum RF coming soon — join for priority access.
                 </p>
               </div>
 

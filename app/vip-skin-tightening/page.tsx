@@ -6,9 +6,9 @@ const BASE_URL = SITE.url;
 const PAGE_URL = `${BASE_URL}/vip-skin-tightening`;
 
 export const metadata: Metadata = {
-  title: "VIP Skin Tightening Launch Waitlist | Quantum RF & Morpheus8 | Hello Gorgeous Med Spa",
+  title: "VIP Skin Tightening | Quantum RF Waitlist | Morpheus8 & Solaria Now Booking | Hello Gorgeous",
   description:
-    "Secure introductory pricing on Quantum RF and Morpheus8. $500 refundable deposit. First clients receive FREE Full Face CO₂. Limited priority placements.",
+    "Morpheus8 Burst & Solaria CO₂ now booking. Quantum RF coming soon — join the waitlist for priority access. $500 refundable deposit. First Quantum clients receive FREE Full Face CO₂.",
   keywords: [
     "Quantum RF",
     "Morpheus8",
@@ -19,8 +19,8 @@ export const metadata: Metadata = {
     "Oswego IL",
   ],
   openGraph: {
-    title: "VIP Skin Tightening Launch — Quantum RF & Morpheus8",
-    description: "Introductory pricing. $500 deposit. First clients get FREE Full Face CO₂ ($1,800 value).",
+    title: "VIP Skin Tightening — Morpheus8 & Solaria Now Booking | Quantum RF Coming Soon",
+    description: "Morpheus8 Burst & Solaria CO₂ now taking clients. Quantum RF waitlist open. $500 deposit. First Quantum clients get FREE Full Face CO₂.",
     type: "website",
     url: PAGE_URL,
   },
@@ -31,7 +31,7 @@ const MEDICAL_PROCEDURE_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "MedicalProcedure",
   name: "Quantum RF and Morpheus8 VIP Skin Tightening",
-  description: "Minimally invasive subdermal RF skin tightening (Quantum RF) and RF microneedling (Morpheus8). VIP launch waitlist with introductory pricing.",
+  description: "Morpheus8 Burst & Solaria CO₂ now booking. Quantum RF subdermal contouring coming soon — VIP waitlist with introductory pricing.",
   procedureType: "Cosmetic",
   howPerformed: "Minimally invasive radiofrequency treatment with local anesthesia",
   preparation: "Consultation and pre-procedure care protocol",

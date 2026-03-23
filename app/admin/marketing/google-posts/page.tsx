@@ -68,12 +68,12 @@ Mention "Glow Event" when you book. Oswego, IL — serving Naperville, Aurora, P
   },
   {
     id: 'vip',
-    title: 'VIP Skin Tightening (Coming Soon)',
+    title: 'VIP Skin Tightening — Morpheus8 & Solaria Now Booking',
     type: 'Update',
-    headline: 'Coming Soon: Morpheus8, Solaria CO₂ & Quantum RF',
-    description: 'VIP skin tightening is landing at Hello Gorgeous. Morpheus8, Solaria CO₂ laser, and Quantum RF body contouring. Join the waitlist for priority booking and launch pricing.',
-    ctaText: 'Join waitlist',
-    ctaUrl: VIP_URL,
+    headline: 'Now Booking: Morpheus8 Burst & Solaria CO₂ — Quantum RF Coming Soon',
+    description: 'We are officially taking clients for Morpheus8 Burst (face & body) and Solaria CO₂ laser. Quantum RF subdermal contouring coming soon — join the waitlist for priority access.',
+    ctaText: 'Book now',
+    ctaUrl: BOOKING_URL,
   },
   {
     id: 'hormone',

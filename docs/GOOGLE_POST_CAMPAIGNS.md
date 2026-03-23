@@ -77,15 +77,15 @@ Or: Book now → `https://www.hellogorgeousmedspa.com/book`
 
 ---
 
-## Campaign 5 — VIP Skin Tightening / Coming Soon (Update)
+## Campaign 5 — VIP Skin Tightening — Morpheus8 & Solaria Now Booking (Update)
 
 **Headline:**  
-Coming Soon: Morpheus8, Solaria CO₂ & Quantum RF
+Now Booking: Morpheus8 Burst & Solaria CO₂ — Quantum RF Coming Soon
 
 **Description:**  
-VIP skin tightening is landing at Hello Gorgeous. Morpheus8, Solaria CO₂ laser, and Quantum RF body contouring. Join the waitlist for priority booking and launch pricing.
+We are officially taking clients for Morpheus8 Burst (face & body) and Solaria CO₂ laser. Quantum RF subdermal contouring coming soon — join the waitlist for priority access.
 
-**Button:** Join waitlist → `https://www.hellogorgeousmedspa.com/vip-skin-tightening`
+**Button:** Book now → `https://www.hellogorgeousmedspa.com/book`
 
 ---
 

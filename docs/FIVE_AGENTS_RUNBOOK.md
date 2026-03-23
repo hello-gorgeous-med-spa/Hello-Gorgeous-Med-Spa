@@ -25,7 +25,7 @@
 **Job:** Keep Hello Gorgeous visible on FB, IG, and Google.
 
 - **Google:** 1–2 posts per week. Use **Admin → Marketing → Google Post Campaigns** (copy-paste from the list). Rotate: Glow Event, Botox $10/unit, Lip Filler, Weight Loss, VIP waitlist.
-- **Facebook:** 2–4 posts per week. Same offers + behind-the-scenes, client love, "coming soon" (Morpheus8, Quantum). Use Square or Meta Business Suite to schedule if you like.
+- **Facebook:** 2–4 posts per week. Same offers + behind-the-scenes, client love, Morpheus8 & Solaria now booking (Quantum RF coming soon). Use Square or Meta Business Suite to schedule if you like.
 - **Instagram:** Match FB when it fits; add stories (quick tips, "book now," Glow Event flyer).
 
 **Weekly (15 min):** Pick 2 Google post campaigns, 2–3 FB/IG ideas from the list below. Paste or schedule. Done.
@@ -63,7 +63,7 @@
   - Week 1: Glow Event (Botox $10/unit, lip filler $499, free vitamin, weight loss).
   - Week 2: "We have openings this week" + book link.
   - Week 3: First-time client offer (free vitamin injection when you book).
-  - Week 4: VIP / Morpheus8 & Quantum coming soon — join waitlist.
+  - Week 4: Morpheus8 & Solaria now booking — Quantum RF coming soon.
   - Repeat or mix.
 - **Subject lines:** Keep them short. "Your Glow Event invite 💉" "Openings this week at Hello Gorgeous" "Free vitamin injection when you book"
 - **CTA:** One button: Book now → `https://www.hellogorgeousmedspa.com/book`

@@ -6,7 +6,78 @@ import { BOOKING_URL, VIP_MODEL_SQUARE_URL } from "@/lib/flows";
 
 const PINK = "#FF2D8E";
 
-const cards = [
+type Variant = "skinRebuild" | "bestSkin";
+
+const skinRebuildCards = [
+  {
+    tag: "Collagen Rebuild",
+    icon: "🧬",
+    name: "Morpheus8 Burst",
+    retail: 1400,
+    vip: 799,
+    features: [
+      "Full-face RF microneedling treatment",
+      "Deep collagen + elastin stimulation",
+      "Custom depth mapping (medical-grade protocol)",
+      "Numbing + post-care included",
+    ],
+    description:
+      "Your foundation treatment for tighter, smoother, younger-looking skin.",
+    primaryCta: "Book Now",
+    secondaryCta: "Secure Your Spot",
+    bestValue: false,
+    mostPopular: false,
+    limitedOffer: false,
+  },
+  {
+    tag: "Morpheus8 Package",
+    icon: "🧬",
+    name: "Morpheus8 Burst × 3",
+    retail: 4200,
+    vip: 1999,
+    features: [
+      "3 full Morpheus8 Burst sessions",
+      "Optimal collagen remodeling cycle (4–6 weeks apart)",
+      "Treat face, neck, or body areas",
+      "Fully customized treatment protocol",
+    ],
+    description: "Recommended for best results. This is where real transformation happens.",
+    primaryCta: "Book Package",
+    secondaryCta: "Secure Your Spot",
+    bestValue: true,
+    mostPopular: false,
+    limitedOffer: false,
+  },
+  {
+    tag: "Morpheus8 Special",
+    icon: "✨",
+    name: "Buy One Area, Get One 50% Off",
+    retail: 2400,
+    vip: 1200,
+    features: [
+      "Treat 2 areas in one session",
+      "Second area at 50% off",
+      "Face, neck, décolletage, arms, abdomen, thighs",
+      "Numbing + post-care included",
+    ],
+    description:
+      "Perfect for treating multiple areas in one session and maximizing results.",
+    primaryCta: "Book Now",
+    secondaryCta: "Secure Your Spot",
+    bestValue: false,
+    mostPopular: false,
+    limitedOffer: true,
+  },
+];
+
+const skinRebuildWhyChoose = [
+  "Medical-grade depth customization (not one-size-fits-all)",
+  "Advanced RF technology for deeper collagen remodeling",
+  "Designed for real tightening—not just surface results",
+  "Luxury experience + clinical precision",
+];
+
+const bestSkinCards = [
   {
     tag: "Collagen Rebuild",
     icon: "🔗",
@@ -66,14 +137,17 @@ const cards = [
   },
 ];
 
-const whyChoose = [
+const bestSkinWhyChoose = [
   "Breakthrough dual-layer treatment",
   "Medical-grade depth customization",
   "RF + CO₂ Laser for total skin transformation",
   "Clinical precision + luxury experience",
 ];
 
-export function Morpheus8SkinRebuildSection() {
+export function Morpheus8SkinRebuildSection({ variant = "bestSkin" }: { variant?: Variant }) {
+  const cards = variant === "skinRebuild" ? skinRebuildCards : bestSkinCards;
+  const whyChoose = variant === "skinRebuild" ? skinRebuildWhyChoose : bestSkinWhyChoose;
+  const isSkinRebuild = variant === "skinRebuild";
   return (
     <section className="relative bg-black overflow-hidden">
       {/* Subtle pink nebula at bottom */}
@@ -115,8 +189,13 @@ export function Morpheus8SkinRebuildSection() {
         {/* Header */}
         <div className="text-center mb-12">
           <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white">
-            Get Your Best Skin Ever with Morpheus8
+            {isSkinRebuild ? "Morpheus8 Skin Rebuild System" : "Get Your Best Skin Ever with Morpheus8"}
           </h2>
+          {isSkinRebuild && (
+            <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto mt-4">
+              Deep collagen remodeling. Visible tightening. Clinical-level results—customized for your skin.
+            </p>
+          )}
         </div>
 
         {/* Three cards */}
@@ -132,7 +211,7 @@ export function Morpheus8SkinRebuildSection() {
                 border: `1px solid ${card.bestValue ? PINK : "rgba(255,45,142,0.4)"}`,
               }}
             >
-              {(card.bestValue || card.mostPopular) && (
+              {(card.bestValue || card.mostPopular || (card as { limitedOffer?: boolean }).limitedOffer) && (
                 <div className="absolute top-4 right-4 flex flex-wrap gap-2 justify-end">
                   {card.mostPopular && (
                     <span
@@ -148,6 +227,14 @@ export function Morpheus8SkinRebuildSection() {
                       style={{ backgroundColor: PINK, color: "white" }}
                     >
                       🔥 BEST VALUE
+                    </span>
+                  )}
+                  {(card as { limitedOffer?: boolean }).limitedOffer && (
+                    <span
+                      className="px-3 py-1 text-xs font-bold"
+                      style={{ color: PINK }}
+                    >
+                      LIMITED OFFER
                     </span>
                   )}
                 </div>
@@ -192,7 +279,7 @@ export function Morpheus8SkinRebuildSection() {
                 ))}
               </ul>
               <p className="text-white/80 text-sm mb-6 flex-grow">{card.description}</p>
-              {card.bestValue && (
+              {card.bestValue && !card.mostPopular && (
                 <p className="text-white font-semibold text-sm mb-2">BEST VALUE</p>
               )}
               <div className="flex flex-col gap-3">

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { TechBlogPromo } from "@/components/TechBlogPromo";
+import { Morpheus8SkinRebuildSection } from "@/components/Morpheus8SkinRebuildSection";
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
@@ -218,6 +219,8 @@ export default function Morpheus8Page() {
             </div>
           </div>
         </section>
+
+        <Morpheus8SkinRebuildSection variant="skinRebuild" />
 
         {/* Morpheus8 Pricing — own category */}
         <section className="py-16 md:py-20 bg-zinc-50">
