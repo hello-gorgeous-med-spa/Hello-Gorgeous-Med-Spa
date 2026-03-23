@@ -9,67 +9,68 @@ const PINK = "#FF2D8E";
 const cards = [
   {
     tag: "Collagen Rebuild",
-    icon: "🧬",
+    icon: "🔗",
     name: "Morpheus8 Burst",
     retail: 1400,
     vip: 799,
     features: [
       "Full-face RF microneedling treatment",
-      "Deep collagen + elastin stimulation",
-      "Custom depth mapping (medical-grade protocol)",
+      "Advanced RF microneedling (deep collagen remodeling)",
+      "Custom depth mapping + medical-grade protocol",
       "Numbing + post-care included",
     ],
     description:
-      "Your foundation treatment for tighter, smoother, younger-looking skin.",
+      "Deeply remodels collagen and tightens for firmer, youthful skin.",
     primaryCta: "Book Now",
     secondaryCta: "Secure Your Spot",
     bestValue: false,
-    limitedOffer: false,
+    mostPopular: false,
   },
   {
-    tag: "Morpheus8 Package",
-    icon: "🧬",
-    name: "Morpheus8 Burst × 3",
-    retail: 4200,
-    vip: 1999,
+    tag: "Total Skin Rebuild",
+    icon: "🔥",
+    name: "Morpheus8 + CO₂ Combo",
+    retail: 3000,
+    vip: 1499,
     features: [
-      "3 full Morpheus8 Burst sessions",
-      "Optimal collagen remodeling cycle (4–6 weeks apart)",
-      "Treat face, neck, or body areas",
-      "Fully customized treatment protocol",
+      "Morpheus8 Burst (deep remodeling)",
+      "CO₂ Laser (surface correction)",
+      "Dual-layer skin transformation",
+      "Customized treatment plan",
     ],
-    description: "Recommended for best results. This is where real transformation happens.",
+    description:
+      "The ultimate skin-rejuvenation package for full tightening + resurfacing.",
     primaryCta: "Book Package",
     secondaryCta: "Secure Your Spot",
     bestValue: true,
-    limitedOffer: false,
+    mostPopular: true,
   },
   {
-    tag: "Morpheus8 Special",
-    icon: "✨",
-    name: "Buy One Area, Get One 50% Off",
-    retail: 2400,
-    vip: 1200,
+    tag: "The Trifecta",
+    icon: "⚡",
+    name: "Morpheus8 + CO₂ + Quantum RF",
+    retail: 4500,
+    vip: 1999,
     features: [
-      "Treat 2 areas in one session",
-      "Second area at 50% off",
-      "Face, neck, décolletage, arms, abdomen, thighs",
-      "Numbing + post-care included",
+      "Morpheus8 (tightening + collagen)",
+      "CO₂ Laser (resurfacing + tone)",
+      "Quantum RF (fat reduction + contouring)",
+      "Full face + neck sculpting protocol",
     ],
     description:
-      "Perfect for treating multiple areas in one session and maximizing results.",
+      "Triple-action treatment for tightening, resurfacing, shaping, and contouring.",
     primaryCta: "Book Now",
     secondaryCta: "Secure Your Spot",
     bestValue: false,
-    limitedOffer: true,
+    mostPopular: false,
   },
 ];
 
 const whyChoose = [
-  "Medical-grade depth customization (not one-size-fits-all)",
-  "Advanced RF technology for deeper collagen remodeling",
-  "Designed for real tightening—not just surface results",
-  "Luxury experience + clinical precision",
+  "Breakthrough dual-layer treatment",
+  "Medical-grade depth customization",
+  "RF + CO₂ Laser for total skin transformation",
+  "Clinical precision + luxury experience",
 ];
 
 export function Morpheus8SkinRebuildSection() {
@@ -113,13 +114,9 @@ export function Morpheus8SkinRebuildSection() {
 
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4">
-            Morpheus8 Skin Rebuild System
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl font-bold text-white">
+            Get Your Best Skin Ever with Morpheus8
           </h2>
-          <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto">
-            Deep collagen remodeling. Visible tightening. Clinical-level
-            results—customized for your skin.
-          </p>
         </div>
 
         {/* Three cards */}
@@ -135,21 +132,25 @@ export function Morpheus8SkinRebuildSection() {
                 border: `1px solid ${card.bestValue ? PINK : "rgba(255,45,142,0.4)"}`,
               }}
             >
-              {card.bestValue && (
-                <span
-                  className="absolute top-4 right-4 px-3 py-1 text-xs font-bold rounded-full"
-                  style={{ backgroundColor: PINK, color: "white" }}
-                >
-                  BEST VALUE
-                </span>
-              )}
-              {card.limitedOffer && (
-                <span
-                  className="absolute top-4 right-4 text-xs font-bold"
-                  style={{ color: PINK }}
-                >
-                  LIMITED OFFER
-                </span>
+              {(card.bestValue || card.mostPopular) && (
+                <div className="absolute top-4 right-4 flex flex-wrap gap-2 justify-end">
+                  {card.mostPopular && (
+                    <span
+                      className="px-3 py-1 text-xs font-bold rounded-full flex items-center gap-1"
+                      style={{ backgroundColor: PINK, color: "white" }}
+                    >
+                      🔥 MOST POPULAR
+                    </span>
+                  )}
+                  {card.bestValue && (
+                    <span
+                      className="px-3 py-1 text-xs font-bold rounded-full flex items-center gap-1"
+                      style={{ backgroundColor: PINK, color: "white" }}
+                    >
+                      🔥 BEST VALUE
+                    </span>
+                  )}
+                </div>
               )}
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-2xl">{card.icon}</span>
@@ -191,6 +192,9 @@ export function Morpheus8SkinRebuildSection() {
                 ))}
               </ul>
               <p className="text-white/80 text-sm mb-6 flex-grow">{card.description}</p>
+              {card.bestValue && (
+                <p className="text-white font-semibold text-sm mb-2">BEST VALUE</p>
+              )}
               <div className="flex flex-col gap-3">
                 <CTA
                   href={BOOKING_URL}
