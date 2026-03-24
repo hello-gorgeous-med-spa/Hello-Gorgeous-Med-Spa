@@ -6,7 +6,11 @@
  * - FAQ section at bottom
  * - Link to related service page
  * - Client review quote(s)
+ *
+ * Hello Gorgeous RX catalog articles are appended from `blog-rx-product-posts.ts` (one post per product card).
  */
+import { rxProductBlogPosts } from "./blog-rx-product-posts";
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -20,7 +24,7 @@ export interface BlogPost {
   content: string;
 }
 
-export const blogPosts: BlogPost[] = [
+const coreBlogPosts: BlogPost[] = [
   // ====================================================================
   // ARTICLE: The Story Behind Hello Gorgeous — Oswego, IL
   // ====================================================================
@@ -2285,6 +2289,8 @@ Our most comprehensive plan. Unlimited areas every 2 months over 24 months. Comp
 *No hidden fees. No down payment. Guaranteed results. Book your free consultation today.*`,
   },
 ];
+
+export const blogPosts: BlogPost[] = [...coreBlogPosts, ...rxProductBlogPosts];
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
   return blogPosts.find((p) => p.slug === slug);

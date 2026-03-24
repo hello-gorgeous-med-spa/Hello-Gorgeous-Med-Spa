@@ -6,7 +6,7 @@ import { blogPosts } from "@/data/blog-posts";
 export const metadata: Metadata = pageMetadata({
   title: "Blog & Resources | Hello Gorgeous Med Spa",
   description:
-    "Expert articles on Botox, fillers, weight loss, hormone therapy, peptides, Morpheus8 Burst, Solaria CO₂, QuantumRF, and men's health from Hello Gorgeous Med Spa in Oswego, IL.",
+    "Expert articles on Botox, fillers, weight loss, hormone therapy, peptides, Morpheus8 Burst, Solaria CO₂, QuantumRF, men's health, and Hello Gorgeous RX™ compounded prescription guides (Oswego, IL).",
   path: "/blog",
 });
 
