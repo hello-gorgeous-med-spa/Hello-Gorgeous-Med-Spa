@@ -50,10 +50,10 @@ export const SITE_CONTENT: readonly KnowledgeEntry[] = [
   // ——— VIP / Trifecta / Morpheus8 / Solaria / Quantum ———
   {
     id: "site.vip-trifecta",
-    topic: "VIP Skin Tightening: Quantum RF, Morpheus8, Solaria CO₂, Trifecta",
+    topic: "VIP Skin Tightening: Quantum RF, Morpheus8 Burst, Solaria CO₂, Trifecta",
     category: "vip",
     explanation:
-      "Hello Gorgeous offers VIP skin tightening with Quantum RF (subdermal RF for body contouring), Morpheus8 (microneedling RF for face and body), and Solaria CO₂ (fractional CO₂ laser). The Trifecta combines Solaria + Morpheus8 + Quantum for comprehensive treatment. Scheduling opens April 1st. Quantum RF pricing: Chin & Neck $2,800, Lower Abdomen $3,900, Full Abdomen $4,250, Sagging Arms $2,950, Butt Tightening $3,900. Morpheus8: single from $800, package of 3 $2,100. Solaria CO₂: single from $1,500, package of 3 from $4,000. You can join the VIP waitlist for priority access and launch pricing.",
+      "Hello Gorgeous has the NEWEST Morpheus8 Burst — deepest RF at 8mm for face AND body. Only med spa in Oswego, Naperville, Aurora, Plainfield with Morpheus8 Burst. We offer VIP skin tightening with Quantum RF (subdermal body contouring), Morpheus8 Burst (RF microneedling for face and body), and Solaria CO₂ (fractional laser). The Trifecta combines all three. Morpheus8 Burst: single from $800, package of 3 $2,100. Solaria CO₂: single from $1,500. Quantum RF pricing varies by area. You can join the VIP waitlist for priority access.",
     whatItHelpsWith: ["Understanding VIP options", "Pricing and packages", "When scheduling opens"],
     whoItsFor: ["Anyone interested in skin tightening, body contouring, or laser treatments"],
     whoItsNotFor: [],

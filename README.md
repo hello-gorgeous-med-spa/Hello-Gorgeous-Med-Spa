@@ -188,6 +188,7 @@ PEXELS_API_KEY=
 ### Docs
 
 - `docs/LOCAL-SEO-OSWEGO.md` — **Oswego, IL & surrounding areas (location keywords)**
+- `docs/MORPHEUS8-MARKETING.md` — **Newest Morpheus8 Burst face & body — use everywhere**
 - `docs/INDEXING-ACTION-PLAN.md` — Indexing fixes
 - `docs/404-REDIRECTS.md` — Legacy URL redirects
 - `docs/GOOGLE-MAPS-ACTION-PLAN.md` — Google Maps / GBP

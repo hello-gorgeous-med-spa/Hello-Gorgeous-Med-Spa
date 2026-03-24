@@ -6,9 +6,9 @@ import { Morpheus8SkinRebuildSection } from "@/components/Morpheus8SkinRebuildSe
 import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Morpheus8 RF Microneedling | Face & Body Contouring | Oswego IL",
+  title: "Morpheus8 Burst | Newest RF Microneedling Face & Body | Oswego IL",
   description:
-    "Morpheus8 with Burst & Quantum technology at Hello Gorgeous Med Spa Oswego IL. Deep RF microneedling for skin tightening, fat reduction, acne scars, wrinkles. Face & body treatments. Book consultation.",
+    "Newest Morpheus8 Burst at Hello Gorgeous Oswego IL — deepest RF at 8mm for face AND body. Only med spa with Morpheus8 Burst. Skin tightening, fat reduction, acne scars. Book consultation.",
   path: "/services/morpheus8",
 });
 
@@ -163,7 +163,7 @@ export default function Morpheus8Page() {
           <div className="relative max-w-6xl mx-auto px-4 py-16 md:py-24">
             <div className="inline-flex items-center gap-2 bg-pink-500/20 text-pink-300 text-sm font-semibold px-4 py-2 rounded-full mb-6">
               <span className="animate-pulse">🔥</span>
-              <span>NOW AVAILABLE — Just Added from InMode Convention!</span>
+              <span>NEWEST TECHNOLOGY — Morpheus8 Burst for Face & Body. Only med spa in the area.</span>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6">
               Morpheus8
@@ -171,10 +171,10 @@ export default function Morpheus8Page() {
               <span className="text-pink-400">RF Microneedling</span>
             </h1>
             <p className="text-xl text-white/90 max-w-2xl mb-4">
-              The deepest RF microneedling technology available. Face and body contouring, skin tightening, and fat reduction in one powerful treatment.
+              The newest Morpheus8 Burst — deepest RF at 8mm for face AND body. Only med spa in Oswego, Naperville, Aurora, Plainfield with this technology.
             </p>
             <p className="text-white/70 mb-6 max-w-xl">
-              Featuring <strong>Burst</strong> multi-depth technology and <strong>Quantum</strong> precision probes (10, 17, 25 pins) for customized treatment of any area.
+              <strong>Burst</strong> multi-depth + <strong>Quantum</strong> probes (10, 17, 25 pins). Face, arms, abdomen, thighs, neck — skin tightening, fat reduction, acne scars.
             </p>
             
             {/* Trust badges */}

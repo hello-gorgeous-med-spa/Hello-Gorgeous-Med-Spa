@@ -25,7 +25,7 @@ const trustItems = [
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
     ),
-    title: "Quantum RF · Burst · Solaria CO2",
+    title: "Newest Morpheus8 Burst · Face & Body · Quantum RF · Solaria CO2",
   },
   {
     icon: (

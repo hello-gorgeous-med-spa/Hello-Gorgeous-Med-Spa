@@ -14,19 +14,19 @@ const BEST_MED_SPA_FAQS = [
   {
     question: "Who is the best med spa in Oswego, IL?",
     answer:
-      "Hello Gorgeous Med Spa is recognized as Best of Oswego — #1 Best Med Spa, Best Skincare Clinic, Best Medical Weight Loss, and Best Facial Treatments. We offer a full-authority nurse practitioner on site and are the only Oswego-area med spa with Quantum RF, Morpheus8 Burst, and Solaria CO2.",
+      "Hello Gorgeous Med Spa is recognized as Best of Oswego — #1 Best Med Spa. We have the newest Morpheus8 Burst technology — deepest RF at 8mm for face AND body — and are the only Oswego-area med spa with Morpheus8 Burst, Quantum RF, and Solaria CO2. Full-authority NP on site.",
   },
   {
     question: "What makes Hello Gorgeous different from other med spas in Oswego?",
     answer:
-      "We are the only Oswego-area med spa with a full-authority nurse practitioner on site as owner, plus Quantum RF, Morpheus8 Burst, and Solaria CO2 fractional laser. We use Class 4 medical lasers and offer the full spectrum of medical aesthetics — injectables, weight loss, hormone therapy, and advanced skin treatments — all under one roof.",
+      "We have the newest Morpheus8 Burst for face and body — deepest RF at 8mm. No other med spa in Oswego, Naperville, Aurora, or Plainfield offers Morpheus8 Burst. Plus full-authority NP on site, Quantum RF, Solaria CO2, and Class 4 medical lasers. We offer injectables, weight loss, hormone therapy, and advanced skin treatments — all under one roof.",
   },
 ];
 
 export const metadata: Metadata = pageMetadata({
-  title: "Hello Gorgeous Med Spa Oswego IL | #1 Best Med Spa",
+  title: "Best Med Spa Oswego IL | Newest Morpheus8 Burst Face & Body | Hello Gorgeous",
   description:
-    "Hello Gorgeous Med Spa — Best of Oswego #1 Best Med Spa in Oswego, IL. Full-authority NP on site. Quantum RF, Morpheus8 Burst & Solaria CO2. Botox, fillers, weight loss. Book free consultation!",
+    "#1 Best Med Spa in Oswego, IL. Newest Morpheus8 Burst — deepest RF at 8mm for face AND body. Only med spa with Morpheus8 Burst, Quantum RF, Solaria CO2. Book free consultation!",
   path: "/best-med-spa-oswego-il",
 });
 
@@ -63,12 +63,12 @@ export default function BestMedSpaOswegoPage() {
                 <span className="text-[#E6007E]">Oswego, IL</span>
               </h1>
               <p className="text-xl text-gray-300 max-w-2xl mx-auto leading-relaxed mb-6">
-                Full-authority nurse practitioner on site. Only Oswego-area med spa with Quantum RF, Morpheus8 Burst, and Solaria CO2. Class 4 medical lasers.
+                Newest Morpheus8 Burst — deepest RF at 8mm for face AND body. Only Oswego-area med spa with this technology. Full-authority NP on site. Quantum RF, Solaria CO2. Class 4 medical lasers.
               </p>
               <div className="flex flex-wrap justify-center gap-4 text-sm mb-10">
-                <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ NP On Site</span>
+                <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Newest Morpheus8 Burst</span>
+                <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Face & Body</span>
                 <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Quantum RF</span>
-                <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Morpheus8 Burst</span>
                 <span className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-full">✓ Solaria CO2</span>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -8,9 +8,9 @@ import { BOOKING_URL } from "@/lib/flows";
 import { pageMetadata, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "About",
+  title: "About Hello Gorgeous | Newest Morpheus8 Burst Face & Body | Oswego IL",
   description:
-    "Meet Hello Gorgeous Med Spa — luxury medical aesthetics in Oswego, IL serving Naperville, Aurora, and Plainfield.",
+    "Hello Gorgeous Med Spa — #1 Best Med Spa in Oswego. Newest Morpheus8 Burst for face & body. Only med spa with Morpheus8 Burst, Quantum RF, Solaria CO2. Serving Naperville, Aurora, Plainfield.",
   path: "/about",
 });
 
@@ -62,7 +62,7 @@ export default function AboutPage() {
             {[
               { title: "Best of Oswego", body: "#1 Best Med Spa, Best Skincare Clinic, Best Medical Weight Loss, Best Facial Treatments." },
               { title: "Full-Authority NP On Site", body: "Ryan Kent, FNP-BC provides full prescriptive authority for weight loss, hormone therapy, and medical treatments." },
-              { title: "Exclusive Technology", body: "Only Oswego-area med spa with Quantum RF, Morpheus8 Burst, and Solaria CO2 — Class 4 medical lasers." },
+              { title: "Newest Morpheus8 Burst", body: "Deepest RF at 8mm for face AND body. Only med spa in Oswego, Naperville, Aurora, Plainfield with Morpheus8 Burst. Plus Quantum RF, Solaria CO2." },
               { title: "Full-Service Care", body: "Injectables, weight loss, hormones, lasers, facials, IV therapy — all under one roof with medical oversight." },
             ].map((c, idx) => (
               <FadeUp key={c.title} delayMs={60 * idx}>

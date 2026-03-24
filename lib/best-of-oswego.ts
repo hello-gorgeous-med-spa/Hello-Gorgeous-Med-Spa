@@ -30,6 +30,9 @@ export const DIFFERENTIATORS = {
   /** Only Oswego-area med spa with this tech stack */
   exclusiveTech:
     "Only Oswego-area med spa with Quantum RF, Morpheus8 Burst, and Solaria CO2",
+  /** NEWEST Morpheus8 — critical for being picked first. Use everywhere. */
+  morpheus8Newest:
+    "Newest Morpheus8 Burst — deepest RF at 8mm for face AND body. Only med spa in Oswego, Naperville, Aurora, Plainfield with this technology.",
   /** Short tagline for trust strips */
-  tagline: "#1 Med Spa · NP-Owned · Quantum RF · Burst · Solaria CO2",
+  tagline: "#1 Med Spa · Morpheus8 Burst Face & Body · Quantum RF · Solaria CO2",
 } as const;

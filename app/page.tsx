@@ -42,9 +42,9 @@ import {
 import { CHERRY_PAY_URL } from "@/lib/flows";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Hello Gorgeous Med Spa | Botox, Fillers & Weight Loss in Oswego, IL",
+  title: "Hello Gorgeous Med Spa | Newest Morpheus8 Burst Face & Body | Oswego, IL",
   description:
-    "Hello Gorgeous Med Spa — #1 Best Med Spa in Oswego, IL. Full-authority nurse practitioner on site. Quantum RF, Morpheus8 Burst & Solaria CO2. Botox $10/unit, fillers, Semaglutide, Biote. Book free consultation!",
+    "#1 Best Med Spa in Oswego, IL. Newest Morpheus8 Burst — deepest RF at 8mm for face AND body. Only med spa with Morpheus8 Burst, Quantum RF, Solaria CO2. Botox $10/unit, fillers, Semaglutide. Book free consultation!",
   path: "/",
 });
 
@@ -84,8 +84,8 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(
             webPageJsonLd({
-              title: "Hello Gorgeous Med Spa - Botox, Fillers & Weight Loss",
-              description: "Premium medical aesthetics in Oswego, IL. Botox, dermal fillers, weight loss, hormone therapy. Serving Naperville, Aurora, Plainfield.",
+              title: "Hello Gorgeous Med Spa - Newest Morpheus8 Burst Face & Body",
+              description: "#1 Best Med Spa in Oswego, IL. Newest Morpheus8 Burst — deepest RF at 8mm for face AND body. Botox, fillers, weight loss. Serving Naperville, Aurora, Plainfield.",
               path: "/",
               image: "/images/hero-banner.png",
               datePublished: "2023-01-01",

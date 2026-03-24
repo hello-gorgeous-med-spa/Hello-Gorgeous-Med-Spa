@@ -33,7 +33,7 @@ export function HeroV3() {
             precision and delivered with intention.
           </p>
           <p className="mt-4 text-sm text-black/70">
-            🏆 #1 Best Med Spa · Full-authority NP on site · Quantum RF · Burst · Solaria CO2 · Free consultation · {SITE.reviewRating}★ ({SITE.reviewCount} reviews) · Oswego, IL
+            🏆 #1 Best Med Spa · Newest Morpheus8 Burst (face & body) · Quantum RF · Solaria CO2 · Full-authority NP · Free consultation · {SITE.reviewRating}★ ({SITE.reviewCount} reviews) · Oswego, IL
           </p>
           <div className="mt-6 flex flex-col sm:flex-row gap-4">
             <Link

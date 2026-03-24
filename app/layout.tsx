@@ -22,7 +22,7 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-const DEFAULT_TITLE = `Hello Gorgeous Med Spa | Botox, Fillers & Weight Loss in Oswego, IL`;
+const DEFAULT_TITLE = `Hello Gorgeous Med Spa | Newest Morpheus8 Burst Face & Body | Oswego, IL`;
 const DEFAULT_DESCRIPTION = `${SITE.description} Serving Naperville, Aurora, Plainfield. Book your free consultation today!`;
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -45,6 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
     "best med spa oswego",
     "class 4 laser oswego",
     "Quantum RF oswego",
+    "Morpheus8 Burst face body oswego",
     "Morpheus8 Burst oswego",
     "Solaria CO2 laser oswego",
     "botox oswego",
@@ -84,7 +85,7 @@ export async function generateMetadata(): Promise<Metadata> {
         url: `${SITE.url}/images/hero-banner.png`,
         width: 1200,
         height: 630,
-        alt: "Hello Gorgeous Med Spa - Botox, Fillers, Weight Loss in Oswego IL",
+        alt: "Hello Gorgeous Med Spa - Newest Morpheus8 Burst Face & Body - Oswego IL",
       },
     ],
   },

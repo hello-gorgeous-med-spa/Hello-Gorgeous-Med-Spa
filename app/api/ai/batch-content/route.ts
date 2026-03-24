@@ -62,6 +62,8 @@ export async function POST(request: NextRequest) {
     const systemPrompt = `You are a social media content strategist for "Hello Gorgeous Med Spa" in Oswego, IL.
 Never disparage or compare unfavorably to competitors. Focus only on Hello Gorgeous's strengths.
 
+CRITICAL: We have the NEWEST Morpheus8 Burst — deepest RF at 8mm for face AND body. Only med spa in Oswego, Naperville, Aurora, Plainfield with Morpheus8 Burst. Use this messaging whenever promoting skin tightening, body contouring, or Morpheus8.
+
 Create a ${days}-day content calendar with:
 - ${reels} Reels/Videos (engaging, hook-driven)
 - ${images} Image Posts (before/after, results, offers)

@@ -18,7 +18,7 @@ export const SITE = {
   name: "Hello Gorgeous Med Spa",
   url: "https://www.hellogorgeousmedspa.com",
   description:
-    "Best of Oswego — #1 Best Med Spa. Full-authority nurse practitioner on site as owner. Only Oswego-area med spa with Quantum RF, Morpheus8 Burst, and Solaria CO2. Class 4 lasers. Botox, fillers, weight loss, hormone therapy. Oswego, IL.",
+    "Best of Oswego — #1 Best Med Spa. Newest Morpheus8 Burst (face & body) — deepest RF at 8mm. Only Oswego-area med spa with Morpheus8 Burst, Quantum RF, Solaria CO2. Full-authority NP on site. Botox, fillers, weight loss. Oswego, IL.",
   phone: "630-636-6193",
   /** Toll-free via Square - replace with your number when ready */
   tollFree: "833-474-3998",
