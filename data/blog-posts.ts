@@ -1,3 +1,12 @@
+/**
+ * Blog posts — Hello Gorgeous Med Spa
+ *
+ * ⚠️ BEFORE ADDING A NEW POST: See docs/BLOG-SEO-GUIDELINES.md
+ * - City in title + first 100 words
+ * - FAQ section at bottom
+ * - Link to related service page
+ * - Client review quote(s)
+ */
 export interface BlogPost {
   slug: string;
   title: string;
@@ -17,17 +26,17 @@ export const blogPosts: BlogPost[] = [
   // ====================================================================
   {
     slug: "should-i-start-medical-weight-loss-morpheus8-body",
-    title: "How Do I Know If I Should Start Medical Weight Loss? (And Why Morpheus8 Burst Body Belongs in Your Plan)",
-    metaTitle: "Should I Start Medical Weight Loss? | GLP-1 + Morpheus8 Body | Oswego IL",
+    title: "How Do I Know If I Should Start Medical Weight Loss in Oswego, IL? (And Why Morpheus8 Burst Body Belongs in Your Plan)",
+    metaTitle: "Should I Start Medical Weight Loss in Oswego IL? | GLP-1 + Morpheus8 Body | Hello Gorgeous",
     metaDescription: "Signs you may benefit from medical weight loss. Plus: why Morpheus8 Burst for face & body helps with loose skin after GLP-1. One medical team for weight loss and skin tightening in Oswego.",
     excerpt: "Wondering if medical weight loss is right for you? Here are the signs — plus why Morpheus8 Burst for body (arms, abdomen, thighs) should be part of your transformation plan from the start.",
     category: "Education",
     date: "2026-03-23",
     readTime: "7 min",
     keywords: ["should I start medical weight loss", "signs you need weight loss", "GLP-1 candidate", "Morpheus8 body contouring", "loose skin after weight loss", "Semaglutide Tirzepatide Oswego", "weight loss and skin tightening"],
-    content: `# How Do I Know If I Should Start Medical Weight Loss?
+    content: `# How Do I Know If I Should Start Medical Weight Loss in Oswego, IL?
 
-You've tried diets. Maybe they worked for a few weeks, then the weight came back. Or you're carrying extra pounds that won't budge no matter what you do. You've heard about GLP-1 medications like Semaglutide and Tirzepatide — but how do you know if medical weight loss is right for you?
+You've tried diets. Maybe they worked for a few weeks, then the weight came back. Or you're carrying extra pounds that won't budge no matter what you do. At Hello Gorgeous Med Spa in Oswego, IL — serving Naperville, Aurora, Plainfield, and the Fox Valley — we hear this all the time. You've heard about GLP-1 medications like Semaglutide and Tirzepatide — but how do you know if medical weight loss is right for you?
 
 Here are the signs it might be time to consider it — and why planning for your skin (with Morpheus8 Burst body treatments) from the beginning can set you up for a complete transformation.
 
@@ -81,11 +90,127 @@ When you lose significant weight, collagen and elastin fibers in your skin have 
 
 If you're wondering whether medical weight loss is right for you, the answer is: **let's talk.** A free consultation costs you nothing. We'll review your health history, goals, and whether GLP-1 medication makes sense. We'll also discuss skin tightening so you know exactly what's available when you're ready.
 
+**Related:** [Medical Weight Loss at Hello Gorgeous](/services/weight-loss-therapy) · [Morpheus8 Burst for Face & Body](/services/morpheus8)
+
 📞 **630-636-6193**
 🌐 **hellogorgeousmedspa.com/book**
 📍 **74 W Washington Street, Oswego, IL 60543**
 
-*Hello Gorgeous Med Spa — medical weight loss and Morpheus8 Burst body contouring. One transformation. One team.*`,
+> *"I lost 50 pounds on Semaglutide at Hello Gorgeous, and the loose skin on my arms and belly was really bothering me. We did Morpheus8 on my arms and stomach — my skin tightened so much. I finally feel like myself again."* — Client, Oswego, IL
+
+---
+
+## Frequently Asked Questions
+
+### Does medical weight loss hurt?
+
+The GLP-1 medication is a weekly subcutaneous injection — similar to insulin. Most people find it virtually painless. We teach you how to self-inject at home. Side effects like nausea are common when starting but typically decrease over time as we titrate your dose.
+
+### How long is recovery after Morpheus8 body treatment?
+
+Morpheus8 for body has 2–5 days of redness and pinpoint marks. Most clients return to normal activities within 3–4 days. We apply numbing cream before treatment to maximize comfort. Results continue improving for 3–6 months as collagen remodels.
+
+### How much does Morpheus8 body cost in Oswego?
+
+At Hello Gorgeous, VIP Model pricing applies: Morpheus8 Burst single from $799, 3-pack $1,999, or 2 areas for $1,200. Pricing varies by area. [See our VIP Model Program](/vip-model) or [Morpheus8 service page](/services/morpheus8) for full details.
+
+  // ====================================================================
+  // ARTICLE: VIP Model Program — What's Included & How to Get VIP Pricing
+  // ====================================================================
+  {
+    slug: "vip-model-program-complete-guide",
+    title: "VIP Model Program at Hello Gorgeous: What's Included & How to Get VIP Pricing",
+    metaTitle: "VIP Model Program | Morpheus8 & Solaria Pricing | Up to 50% Off | Hello Gorgeous",
+    metaDescription: "Only 20 spots. VIP Model Program: Morpheus8 $799, 3-pack $1,999, 2 areas $1,200. Solaria $899, Combo $1,499, Trifecta $1,999. $250 deposit secures your spot. Oswego, IL.",
+    excerpt: "Limited to 20 clients. Up to 50% off Morpheus8 Burst, Solaria CO₂, and the Trifecta. Here's what's included, the pricing for each tier, and exactly how to secure your VIP spot.",
+    category: "Education",
+    date: "2026-03-23",
+    readTime: "6 min",
+    keywords: ["VIP Model Program", "Morpheus8 pricing", "Solaria CO2 discount", "med spa Oswego", "50% off Morpheus8", "VIP med spa pricing", "Morpheus8 Burst Oswego"],
+    content: `# VIP Model Program at Hello Gorgeous: What's Included & How to Get VIP Pricing
+
+The VIP Model Program at Hello Gorgeous Med Spa is a limited-time promotional offering that gives you access to medical-grade skin transformation at up to 50% off retail pricing. But with only **20 spots** available, how does it work? What's included? And how do you secure your spot before pricing returns to full retail?
+
+Here's the complete guide.
+
+## What Is the VIP Model Program?
+
+We invested over $500,000 in Class 4 medical devices — Morpheus8 Burst, Solaria CO₂ Laser, and Quantum RF — so that Oswego, Naperville, Aurora, Plainfield, and the Fox Valley don't have to travel to Chicago for the best technology. The VIP Model Program is our way of introducing these treatments to our community at promotional pricing before full launch.
+
+**The catch:** Only 20 clients get these prices. Once filled, pricing returns to full retail. No other med spa in the area offers all three technologies under one roof — and no one else is offering this discount.
+
+## What's Included: All 6 Tiers
+
+### Tier 1 — Morpheus8 Burst (Collagen Rebuild)
+**Retail:** $1,400 → **VIP:** $799
+
+Full-face Morpheus8 Burst. Advanced RF microneedling at up to 8mm depth. Custom depth mapping, medical-grade protocol, numbing, and post-care included. Ideal for loose skin, fine lines, acne scars, jowls, and enlarged pores. Face or body.
+
+### Tier 1B — Morpheus8 Burst × 3 (Best Value)
+**Retail:** $4,200 → **VIP:** $1,999
+
+Three full Morpheus8 Burst treatments, spaced 4–6 weeks apart. Our most popular package. Apply to face, neck, or body areas. Optimal collagen remodeling for maximum results.
+
+### Tier 1C — Buy One Area, Get One 50% Off
+**Retail:** $2,400 → **VIP:** $1,200 (2 areas total)
+
+Two treatment areas for $1,200. Face + neck, décolletage + arms, abdomen + thighs — any combination. Same Morpheus8 Burst technology.
+
+### Tier 2 — Solaria CO₂ Laser (Skin Resurfacing)
+**Retail:** $1,600 → **VIP:** $899
+
+Fractional CO₂ laser resurfacing. Gold standard for texture, pores, pigmentation, wrinkles, and acne scars. Full face or targeted area. Recovery protocol included. No other med spa in Oswego, Naperville, Aurora, or Plainfield offers Solaria.
+
+### Tier 3 — Morpheus8 + CO₂ Combo (Total Skin Rebuild)
+**Retail:** $3,000 → **VIP:** $1,499
+
+Dual-layer transformation. Morpheus8 at depth for tightening and collagen stimulation. Solaria at the surface for resurfacing and tone. Most popular for clients who want the full package.
+
+### Tier 4 — The Trifecta
+**Retail:** $4,500 → **VIP:** $1,999
+
+Morpheus8 + Solaria CO₂ + Quantum RF. Face, neck, and body. Tightening, resurfacing, and subdermal contouring in one protocol. The most comprehensive package we offer. Quantum RF is exclusive to Hello Gorgeous in the entire western Chicago suburbs.
+
+## How to Get VIP Pricing: The $250 Deposit
+
+To lock in your promotional price and secure your spot, a **non-refundable deposit of $250** is required. The deposit is **applied in full** toward your treatment at checkout — it's not an extra fee.
+
+**Example:** If you select Morpheus8 Burst at $799, your deposit reduces your balance to $549 due at treatment. If you select the Trifecta at $1,999, your balance becomes $1,749.
+
+**How to secure your spot:**
+- Leave deposit online: [Fresha paid plans](https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/paid-plans?id=3246933&share=true&pId=95245)
+- Or book a consultation: hellogorgeousmedspa.com/book
+- Or call: (630) 636-6193
+
+## Who Is the VIP Model Program For?
+
+- Anyone considering Morpheus8, Solaria CO₂, or the Trifecta
+- Clients who want to plan ahead — deposit now, schedule when ready
+- People who've lost weight and want to address loose skin (Morpheus8 for body)
+- Anyone tired of driving to Naperville or Chicago for advanced treatments
+
+## What Happens After You Deposit?
+
+1. **Consultation** — Our NP evaluates your goals and skin. We'll recommend the right tier.
+2. **Schedule** — Morpheus8 and Solaria are now booking. Quantum RF coming soon.
+3. **Treatment** — Your deposit is applied. You pay the remaining balance at or before your appointment.
+4. **Results** — Collagen remodeling continues for 3–6 months. Most clients see improvement within weeks.
+
+## Terms to Know
+
+- **Limited to 20 clients** — Once filled, promotional pricing ends.
+- **Deposit is non-refundable** — It's applied to your service. See full terms at /vip-model/terms.
+- **Financing available** — Cherry and CareCredit for those who qualify.
+
+## Book Your Free Consultation or Leave Deposit
+
+See which tier is right for you. Meet our team. Lock in your VIP pricing.
+
+📞 **630-636-6193**
+🌐 **hellogorgeousmedspa.com/vip-model**
+📍 **74 W Washington Street, Oswego, IL 60543**
+
+*Hello Gorgeous Med Spa — the only Oswego-area med spa with Morpheus8 Burst, Solaria CO₂, and Quantum RF. VIP pricing ends when 20 spots are filled.*`,
   },
 
   // ====================================================================

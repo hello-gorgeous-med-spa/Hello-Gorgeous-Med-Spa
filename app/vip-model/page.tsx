@@ -359,6 +359,10 @@ export default function VIPModelPage() {
             <Link href="/vip-model/terms" className="text-[#FF2D8E] font-semibold hover:underline">
               Terms and Conditions →
             </Link>
+            {" · "}
+            <Link href="/blog/vip-model-program-complete-guide" className="text-[#FF2D8E] font-semibold hover:underline">
+              Read: Complete VIP Program Guide →
+            </Link>
           </p>
         </div>
       </section>

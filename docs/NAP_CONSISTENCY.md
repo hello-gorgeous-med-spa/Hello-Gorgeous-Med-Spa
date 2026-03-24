@@ -31,6 +31,16 @@
 
 ---
 
+## Service Areas (Local SEO)
+
+All content must use **Oswego, IL** and surrounding areas only. See [`docs/LOCAL-SEO-OSWEGO.md`](LOCAL-SEO-OSWEGO.md).
+
+- **Primary:** Oswego, IL · Oswego · 60543
+- **Surrounding:** Naperville, Aurora, Plainfield, Yorkville, Montgomery, Sugar Grove
+- **Regional:** Fox Valley, Kendall County, Kane County
+
+---
+
 ## Recommendations
 
 1. Keep all public NAP in `lib/seo.ts` SITE. Do not hardcode elsewhere.

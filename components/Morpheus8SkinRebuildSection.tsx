@@ -330,7 +330,7 @@ export function Morpheus8SkinRebuildSection({ variant = "bestSkin" }: { variant?
             &ldquo;My skin tightened, pores shrank, and I finally feel confident
             without makeup.&rdquo; — Client Review
           </blockquote>
-          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center items-center flex-wrap">
             <CTA href={BOOKING_URL} variant="gradient" className="justify-center">
               Book Now
             </CTA>
@@ -340,6 +340,13 @@ export function Morpheus8SkinRebuildSection({ variant = "bestSkin" }: { variant?
               style={{ borderColor: PINK, color: PINK }}
             >
               View All VIP Packages
+            </Link>
+            <Link
+              href="/blog/vip-model-program-complete-guide"
+              className="inline-flex items-center justify-center gap-2 py-4 px-8 border font-semibold rounded-md text-sm transition-all hover:-translate-y-[2px]"
+              style={{ borderColor: "rgba(255,255,255,0.4)", color: "rgba(255,255,255,0.9)" }}
+            >
+              Read: VIP Program Guide →
             </Link>
           </div>
         </div>

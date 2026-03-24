@@ -187,6 +187,7 @@ PEXELS_API_KEY=
 
 ### Docs
 
+- `docs/LOCAL-SEO-OSWEGO.md` — **Oswego, IL & surrounding areas (location keywords)**
 - `docs/INDEXING-ACTION-PLAN.md` — Indexing fixes
 - `docs/404-REDIRECTS.md` — Legacy URL redirects
 - `docs/GOOGLE-MAPS-ACTION-PLAN.md` — Google Maps / GBP
@@ -195,6 +196,25 @@ PEXELS_API_KEY=
 ---
 
 ## ✍️ Content Guidelines (Blog & Marketing)
+
+### Local SEO — Oswego, IL & Surrounding Areas (CRITICAL)
+
+**EVERYTHING is Oswego, IL and surrounding areas.** This is huge for SEO and being recognized locally.
+
+- **Canonical locations:** Oswego, Naperville, Aurora, Plainfield, Fox Valley, Yorkville, Montgomery
+- **Never use:** Phoenix, Phoenix Valley, or any non-local city
+- See [`docs/LOCAL-SEO-OSWEGO.md`](docs/LOCAL-SEO-OSWEGO.md) for the full rule set
+
+### Blog SEO — When Creating New Blog Posts
+
+**Before publishing any blog article, follow:** [`docs/BLOG-SEO-GUIDELINES.md`](docs/BLOG-SEO-GUIDELINES.md)
+
+- Include **city/neighborhood** (Oswego, IL) in the title and first 100 words
+- Add an **FAQ section** at the bottom with exact questions people ask
+- **Link to the related service page** (e.g., /services/morpheus8)
+- Use **client reviews as quotes** — keyword-rich testimonials help SEO
+
+---
 
 **Never disparage competitors.** When writing blog articles, social posts, or landing page copy:
 

@@ -67,6 +67,15 @@ Mention "Glow Event" when you book. Oswego, IL — serving Naperville, Aurora, P
     ctaUrl: WEIGHT_LOSS_URL,
   },
   {
+    id: 'vip-model-article',
+    title: 'VIP Model Program — Complete Guide (Blog)',
+    type: 'Update',
+    headline: 'VIP Model Program: What\'s Included & How to Get Up to 50% Off',
+    description: 'Only 20 spots. Morpheus8 $799, 3-pack $1,999. Solaria $899, Combo $1,499, Trifecta $1,999. $250 deposit secures your spot. Read the full guide to all 6 tiers.',
+    ctaText: 'Read guide',
+    ctaUrl: 'https://www.hellogorgeousmedspa.com/blog/vip-model-program-complete-guide',
+  },
+  {
     id: 'weight-loss-article',
     title: 'Should I Start Medical Weight Loss? (Blog)',
     type: 'Update',

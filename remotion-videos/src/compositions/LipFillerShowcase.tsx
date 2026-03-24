@@ -171,6 +171,7 @@ const VideoScene: React.FC<{
         src={resolveSrc(videoSrc)}
         style={{ width: "100%", height: "100%", objectFit: "cover" }}
         delayRenderTimeoutInMilliseconds={60000}
+        muted
       />
       <div
         style={{
