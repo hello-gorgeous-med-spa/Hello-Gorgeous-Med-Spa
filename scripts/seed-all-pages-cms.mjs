@@ -61,7 +61,7 @@ const ALL_PAGES = [
   { slug: 'reviews', title: 'Reviews', description: 'Client testimonials', category: 'trust' },
   { slug: 'meet-the-team', title: 'Meet the Team', description: 'Our team members', category: 'trust' },
   { slug: 'clinical-partners', title: 'Clinical Partners', description: 'Our clinical partners', category: 'trust' },
-  { slug: 'pharmacy-partner', title: 'Pharmacy Partner', description: 'Our pharmacy partners', category: 'trust' },
+  { slug: 'products-we-offer', title: 'Products We Offer', description: 'Compounded Rx overview', category: 'trust' },
   { slug: 'care-engine', title: 'Care Engine', description: 'Our care approach', category: 'trust' },
   { slug: 'community', title: 'Community', description: 'Community involvement', category: 'trust' },
   

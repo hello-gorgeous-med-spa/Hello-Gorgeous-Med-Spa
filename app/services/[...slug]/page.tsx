@@ -1853,8 +1853,8 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
                   </svg>
                 </a>
               </div>
-              <Link href="/pharmacy-partner" className="mt-4 inline-block text-sm text-violet-400/80 hover:text-violet-400">
-                Learn more about our pharmacy partner →
+              <Link href="/products-we-offer" className="mt-4 inline-block text-sm text-violet-400/80 hover:text-violet-400">
+                Products we offer (compounded Rx) →
               </Link>
             </div>
           </FadeUp>

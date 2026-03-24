@@ -163,7 +163,7 @@ export default function ClinicalPartnersPage() {
                   ],
                   links: [
                     { href: "https://www.olympiapharmacy.com/medication-directory/", label: "Browse Olympia Medication Directory" },
-                    { href: "/pharmacy-partner", label: "Our Pharmacy Partner" },
+                    { href: "/products-we-offer", label: "Products we offer (Rx)" },
                     { href: "/services/iv-therapy", label: "IV therapy education" },
                     { href: "/peptides", label: "Peptide education" },
                     { href: "/pre-post-care", label: "Pre- & post-care" },

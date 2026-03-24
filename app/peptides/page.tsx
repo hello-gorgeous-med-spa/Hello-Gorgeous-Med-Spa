@@ -297,8 +297,8 @@ export default function PeptidesPage() {
                 </svg>
               </a>
             </div>
-            <Link href="/pharmacy-partner" className="mt-4 inline-block text-sm text-violet-600/80 hover:text-violet-600">
-              Learn more about our pharmacy partner →
+            <Link href="/products-we-offer" className="mt-4 inline-block text-sm text-violet-600/80 hover:text-violet-600">
+              Products we offer (compounded Rx) →
             </Link>
           </div>
         </FadeUp>

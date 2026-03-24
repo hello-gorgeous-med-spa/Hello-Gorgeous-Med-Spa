@@ -80,6 +80,7 @@ const nextConfig = {
     { source: "/pricing", destination: "/book", permanent: true },
     { source: "/gallery", destination: "/results", permanent: true },
     { source: "/faq", destination: "/contact", permanent: true },
+    { source: "/pharmacy-partner", destination: "/products-we-offer", permanent: true },
     // Semaglutide/hormone-therapy/prp location URLs (no page) -> main service page
     { source: "/semaglutide-oswego-il", destination: "/glp1-weight-loss", permanent: true },
     { source: "/semaglutide-naperville-il", destination: "/glp1-weight-loss", permanent: true },

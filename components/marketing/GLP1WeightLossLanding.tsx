@@ -265,11 +265,11 @@ export function GLP1WeightLossLanding() {
               >
                 Browse their medication directory
               </a>{" "}
-              or read more on our{" "}
-              <Link href="/pharmacy-partner" className="text-[#E6007E] font-semibold underline hover:no-underline">
-                pharmacy partner page
-              </Link>
-              .
+              or see{" "}
+              <Link href="/products-we-offer" className="text-[#E6007E] font-semibold underline hover:no-underline">
+                products we offer
+              </Link>{" "}
+              at Hello Gorgeous.
             </p>
           </div>
         </div>

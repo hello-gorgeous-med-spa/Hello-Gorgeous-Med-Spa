@@ -218,4 +218,4 @@ export const PRODUCT_CATEGORIES: ProductCategoryBlock[] = [
 ];
 
 export const PRODUCTS_OFFER_FOOTNOTE =
-  "Categories reflect common pharmacy partner formulary families. Availability, shipping (including cold-chain / next-day), and controlled-substance rules change — your provider and pharmacy confirm what applies to you. For research-only browsing of molecules, see our pharmacy partner’s public directory.";
+  "Categories reflect common formulary families from our compounding partners. Availability, shipping (including cold-chain / next-day), and controlled-substance rules change — your provider and pharmacy confirm what applies to you. For research-only browsing of molecules, see Olympia Pharmacy’s public medication directory.";

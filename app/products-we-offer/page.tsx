@@ -42,12 +42,14 @@ export default function ProductsWeOfferPage() {
             </ul>
             <div className="mt-8 flex flex-col sm:flex-row gap-4">
               <CTA href={BOOKING_URL}>Book a consultation</CTA>
-              <Link
-                href="/pharmacy-partner"
+              <a
+                href={OLYMPIA_DIRECTORY_URL}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center justify-center min-h-[48px] px-8 py-4 rounded-full border-2 border-[#E6007E]/50 text-black font-semibold hover:bg-[#E6007E]/10 hover:border-[#E6007E] transition font-sans text-sm uppercase tracking-wide"
               >
-                Our pharmacy partner
-              </Link>
+                Olympia medication directory
+              </a>
             </div>
           </FadeUp>
 
