@@ -41,6 +41,7 @@ const navigation = {
         title: "Body & Wellness",
         links: [
           { label: "Weight Loss (GLP-1)", href: "/services/weight-loss-therapy", icon: "⚡" },
+          { label: "GLP-1 program overview", href: "/glp1-weight-loss", icon: "📋", description: "Process, FAQs & disclaimer" },
           { label: "Hormone Therapy", href: "/services/biote-hormone-therapy", icon: "⚖️" },
           { label: "Peptide Therapy", href: "/peptides", icon: "🧬" },
           { label: "IV Therapy", href: "/services/iv-therapy", icon: "💧" },
@@ -210,15 +211,20 @@ function ServicesDropdown({ isOpen, onClose, onMouseEnter }: { isOpen: boolean; 
                     <Link
                       href={link.href}
                       onClick={onClose}
-                      className="flex items-center gap-2 text-black hover:text-[#FF2D8E] transition-colors group"
+                      className="flex items-start gap-2 text-black hover:text-[#FF2D8E] transition-colors group"
                     >
-                      <span className="text-lg group-hover:scale-110 transition-transform">{link.icon}</span>
-                      <span className="text-sm font-medium">{link.label}</span>
-                      {'badge' in link && link.badge && (
-                        <span className="px-1.5 py-0.5 text-[9px] font-bold bg-[#FF2D8E] text-white rounded-full">
-                          {link.badge}
-                        </span>
-                      )}
+                      <span className="text-lg group-hover:scale-110 transition-transform shrink-0">{link.icon}</span>
+                      <span className="min-w-0 flex flex-wrap items-center gap-x-2 gap-y-0.5">
+                        <span className="text-sm font-medium">{link.label}</span>
+                        {'badge' in link && link.badge && (
+                          <span className="px-1.5 py-0.5 text-[9px] font-bold bg-[#FF2D8E] text-white rounded-full">
+                            {link.badge}
+                          </span>
+                        )}
+                        {'description' in link && link.description ? (
+                          <span className="w-full text-xs text-black/55 leading-snug">{link.description}</span>
+                        ) : null}
+                      </span>
                     </Link>
                   </li>
                 ))}
@@ -719,10 +725,15 @@ export function Header() {
                           key={link.href}
                           href={link.href}
                           onClick={() => setMobileMenuOpen(false)}
-                          className="flex items-center gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 rounded-lg"
+                          className="flex items-start gap-3 px-4 py-2.5 text-[#FF2D8E] hover:text-[#FF2D8E] hover:bg-[#000000]/5 rounded-lg"
                         >
-                          <span>{link.icon}</span>
-                          <span>{link.label}</span>
+                          <span className="shrink-0">{link.icon}</span>
+                          <span className="min-w-0">
+                            <span className="block font-medium">{link.label}</span>
+                            {'description' in link && link.description ? (
+                              <span className="block text-xs text-black/50 mt-0.5">{link.description}</span>
+                            ) : null}
+                          </span>
                         </Link>
                       ))}
                     </div>

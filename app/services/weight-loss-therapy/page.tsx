@@ -264,6 +264,15 @@ export default function WeightLossTherapyPage() {
                 Call Us: 630-636-6193
               </CTA>
             </div>
+            <p className="mt-6">
+              <Link
+                href="/glp1-weight-loss"
+                className="inline-flex items-center gap-2 text-emerald-300 font-medium underline decoration-emerald-500/50 underline-offset-4 hover:text-white hover:decoration-white transition-colors"
+              >
+                GLP-1 program overview — what&apos;s included, FAQs &amp; medical disclaimer
+                <span aria-hidden>→</span>
+              </Link>
+            </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-4 text-sm text-white/60">
               <span className="flex items-center gap-2">
