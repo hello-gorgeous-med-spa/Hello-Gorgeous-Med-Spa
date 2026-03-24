@@ -65,7 +65,7 @@ export const PROVIDER_FALLBACKS: Record<string, ProviderFallback> = {
     color_hex: "#ec4899",
     credentials: DANIELLE_CREDENTIALS,
     tagline: "Practice and protect with heart",
-    short_bio: "I've owned and operated my med spa since 2017. It all stemmed from Steel Magnolias—family and friends making a difference. It was never about how much money I could make.",
+    short_bio: "I've owned and operated my med spa since 2017. You can't break me—I'm here for the long haul. I live for being the person that made the difference.",
     philosophy: "If you get to know me as much as I can get to know you, you will find a practitioner for life. I don't believe in clients breaking the bank for self-care.",
     headshot_url: "/images/team/danielle.png",
     hero_image_url: "https://hellogorgeousmedspa.com/images/gallery/treatment-1.png",
