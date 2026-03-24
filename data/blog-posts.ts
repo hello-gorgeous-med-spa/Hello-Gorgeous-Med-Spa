@@ -113,7 +113,8 @@ Morpheus8 for body has 2–5 days of redness and pinpoint marks. Most clients re
 ### How much does Morpheus8 body cost in Oswego?
 
 At Hello Gorgeous, VIP Model pricing applies: Morpheus8 Burst single from $799, 3-pack $1,999, or 2 areas for $1,200. Pricing varies by area. [See our VIP Model Program](/vip-model) or [Morpheus8 service page](/services/morpheus8) for full details.
-
+`,
+  },
   // ====================================================================
   // ARTICLE: VIP Model Program — What's Included & How to Get VIP Pricing
   // ====================================================================
