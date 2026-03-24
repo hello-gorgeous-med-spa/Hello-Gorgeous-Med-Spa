@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import Image from 'next/image';
 import { SITE, siteJsonLd, localBusinessJsonLd, faqJsonLd, breadcrumbJsonLd } from '@/lib/seo';
+import { InjectablesBlogPromo } from '@/components/InjectablesBlogPromo';
 
 // ============================================================
 // BOTOX AURORA IL - Location SEO Landing Page
@@ -151,6 +152,11 @@ export default function BotoxAuroraPage() {
             </div>
           </div>
         </section>
+
+        <InjectablesBlogPromo
+          title="Botox vs Dysport vs Jeuveau — Which One Is Right for You?"
+          subtitle="We offer all three. Read our FAQ to compare onset, longevity, spread & cost. Your provider helps you decide."
+        />
 
         {/* CTA */}
         <section className="py-16 bg-black text-white">
