@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
-import { BOOKING_URL } from "@/lib/flows";
+import { BOOKING_URL, GLP1_INTAKE_PATH } from "@/lib/flows";
 import { GLP1_WEIGHT_LOSS_FAQS } from "@/lib/glp1-weight-loss-faqs";
 import { SITE } from "@/lib/seo";
 
@@ -19,48 +20,74 @@ export function GLP1WeightLossLanding() {
             <span className="text-[#E6007E]">Hello Gorgeous</span>
             <span className="text-black/80 text-sm font-sans font-medium tracking-wide">MED SPA</span>
           </Link>
-          <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
+          <Link
+            href={GLP1_INTAKE_PATH}
             className="text-sm font-bold uppercase tracking-wider bg-[#E6007E] text-white px-5 py-2 rounded-lg hover:bg-black transition-colors"
           >
-            Book GLP-1 Consult
-          </a>
+            Start GLP-1 intake
+          </Link>
         </div>
       </div>
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-pink-50 via-white to-rose-50/80 py-16 md:py-24 px-4 text-center">
+      <section className="relative overflow-hidden bg-gradient-to-br from-pink-50 via-white to-rose-50/80 py-16 md:py-24 px-4">
         <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-[#E6007E]/10 blur-3xl -translate-y-1/2 translate-x-1/4" aria-hidden />
         <div className="absolute bottom-0 left-0 w-56 h-56 rounded-full bg-black/5 blur-2xl translate-y-1/2 -translate-x-1/4" aria-hidden />
-        <div className="relative max-w-3xl mx-auto">
-          <span className="inline-block bg-black text-white text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
-            GLP-1 Weight Loss Program
-          </span>
-          <h1 className="font-serif text-4xl md:text-6xl font-normal text-black leading-tight mb-4">
-            Lose the weight.
-            <br />
-            <em className="text-[#E6007E] not-italic font-serif">Keep your life.</em>
-          </h1>
-          <p className="text-lg text-black/70 max-w-xl mx-auto mb-10 font-light">
-            Medically supervised GLP-1 therapy, personalized to you — right here in Oswego, IL. Serving Naperville, Aurora, Plainfield & the Fox Valley. No insurance hassle. Just real, in-person care.
-          </p>
-          <div className="flex flex-wrap gap-4 justify-center">
-            <a
-              href={BOOKING_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center bg-[#E6007E] text-white px-8 py-4 font-semibold rounded-xl hover:bg-black transition-colors"
-            >
-              Book Your Consultation
-            </a>
-            <a
-              href="#how-it-works"
-              className="inline-flex items-center justify-center border-2 border-black text-black px-8 py-4 font-semibold rounded-xl hover:bg-black hover:text-white transition-colors"
-            >
-              See How It Works
-            </a>
+        <div className="relative max-w-5xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+          <div className="text-center lg:text-left order-2 lg:order-1">
+            <span className="inline-block bg-black text-white text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-full mb-6">
+              GLP-1 Weight Loss Program
+            </span>
+            <h1 className="font-serif text-4xl md:text-5xl xl:text-6xl font-normal text-black leading-tight mb-4">
+              Lose the weight.
+              <br />
+              <em className="text-[#E6007E] not-italic font-serif">Keep your life.</em>
+            </h1>
+            <p className="text-lg text-black/70 max-w-xl mx-auto lg:mx-0 mb-8 font-light">
+              Medically supervised GLP-1 therapy, personalized to you — right here in Oswego, IL. Serving Naperville, Aurora,
+              Plainfield & the Fox Valley. No insurance hassle. Just real, in-person care.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
+              <Link
+                href={GLP1_INTAKE_PATH}
+                className="inline-flex items-center justify-center bg-[#E6007E] text-white px-8 py-4 font-semibold rounded-xl hover:bg-black transition-colors"
+              >
+                Start secure intake
+              </Link>
+              <a
+                href={BOOKING_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center border-2 border-black text-black px-8 py-4 font-semibold rounded-xl hover:bg-black hover:text-white transition-colors"
+              >
+                Book directly
+              </a>
+              <a
+                href="#how-it-works"
+                className="inline-flex items-center justify-center text-[#E6007E] font-semibold px-4 py-4 underline decoration-[#E6007E]/40 underline-offset-4 hover:no-underline"
+              >
+                How it works
+              </a>
+            </div>
+            <p className="mt-4 text-xs text-black/45 max-w-md mx-auto lg:mx-0">
+              HIPAA-compliant screening first; eligible patients schedule on Fresha after submission.
+            </p>
+          </div>
+          <div className="flex justify-center lg:justify-end gap-6 order-1 lg:order-2" aria-hidden>
+            <Image
+              src="/images/marketing/glp1-vial-hello-gorgeous.svg"
+              alt=""
+              width={140}
+              height={210}
+              className="drop-shadow-xl w-[min(140px,38vw)] h-auto"
+            />
+            <Image
+              src="/images/marketing/glp1-tablets-hello-gorgeous.svg"
+              alt=""
+              width={140}
+              height={240}
+              className="drop-shadow-xl w-[min(140px,38vw)] h-auto translate-y-4"
+            />
           </div>
         </div>
       </section>
@@ -304,15 +331,25 @@ export function GLP1WeightLossLanding() {
           <br />
           in your own skin?
         </h2>
-        <p className="text-black/65 mb-8 max-w-md mx-auto">Book your GLP-1 consultation today. Same-week appointments often available.</p>
-        <a
-          href={BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-center bg-[#E6007E] text-white px-10 py-4 font-bold rounded-xl hover:bg-black transition-colors"
-        >
-          Book My Consultation →
-        </a>
+        <p className="text-black/65 mb-8 max-w-md mx-auto">
+          Start with secure intake, or book your consultation directly. Same-week appointments often available.
+        </p>
+        <div className="flex flex-wrap gap-4 justify-center">
+          <Link
+            href={GLP1_INTAKE_PATH}
+            className="inline-flex items-center justify-center bg-[#E6007E] text-white px-10 py-4 font-bold rounded-xl hover:bg-black transition-colors"
+          >
+            Start secure intake →
+          </Link>
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center border-2 border-black text-black px-10 py-4 font-bold rounded-xl hover:bg-black hover:text-white transition-colors"
+          >
+            Book on Fresha
+          </a>
+        </div>
         <p className="mt-10 text-sm text-black/50">
           <strong className="text-black">{SITE.name}</strong>
           <br />

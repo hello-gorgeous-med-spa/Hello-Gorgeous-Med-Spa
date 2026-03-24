@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 480" fill="none" aria-labelledby="title desc" role="img">
+  <title id="title">GLP oral dissolving tablets bottle  Hello Gorgeous Med Spa</title>
+  <desc id="desc">Stylized medication bottle with Hello Gorgeous pink branding. Decorative graphic.</desc>
+  <defs>
+    <linearGradient id="bottle" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff4da6"/>
+      <stop offset="50%" stop-color="#E6007E"/>
+      <stop offset="100%" stop-color="#a30055"/>
+    </linearGradient>
+    <linearGradient id="capG" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e8e8e8"/>
+    </linearGradient>
+  </defs>
+  <!-- Cap -->
+  <rect x="95" y="36" width="90" height="36" rx="6" fill="url(#capG)" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="88" y="68" width="104" height="14" rx="3" fill="#d0d0d0" stroke="#1a1a1a" stroke-width="2"/>
+  <!-- Bottle -->
+  <path d="M100 82h80c8 0 14 6 14 14v8c36 8 62 40 62 80v240c0 44-36 80-80 80H104c-44 0-80-36-80-80V184c0-40 26-72 62-80v-8c0-8 6-14 14-14z" fill="url(#bottle)" stroke="#1a1a1a" stroke-width="2.5"/>
+  <!-- Tablets inside (simplified) -->
+  <g fill="#ffffff" fill-opacity="0.9">
+    <ellipse cx="120" cy="200" rx="14" ry="6"/>
+    <ellipse cx="160" cy="210" rx="14" ry="6"/>
+    <ellipse cx="140" cy="235" rx="14" ry="6"/>
+    <ellipse cx="115" cy="255" rx="14" ry="6"/>
+    <ellipse cx="165" cy="265" rx="14" ry="6"/>
+    <ellipse cx="140" cy="290" rx="14" ry="6"/>
+    <ellipse cx="125" cy="315" rx="14" ry="6"/>
+    <ellipse cx="155" cy="325" rx="14" ry="6"/>
+  </g>
+  <!-- Label area lines -->
+  <line x1="108" y1="155" x2="172" y2="155" stroke="#ffffff" stroke-width="1.2" opacity="0.85"/>
+  <line x1="108" y1="248" x2="172" y2="248" stroke="#ffffff" stroke-width="1.2" opacity="0.85"/>
+  <text x="140" y="138" text-anchor="middle" fill="#ffffff" font-family="system-ui, Inter, sans-serif" font-size="8" font-weight="600" letter-spacing="0.18em">PRESCRIPTION</text>
+  <text x="140" y="188" text-anchor="middle" fill="#ffffff" font-family="Georgia, 'Playfair Display', serif" font-size="44" font-weight="700">GLP</text>
+  <text x="140" y="208" text-anchor="middle" fill="#ffffff" font-family="system-ui, Inter, sans-serif" font-size="10" font-weight="600" letter-spacing="0.12em">MEDICATION</text>
+  <text x="140" y="228" text-anchor="middle" fill="#ffffff" font-family="system-ui, Inter, sans-serif" font-size="9" font-weight="700">Oral Dissolving Tablets</text>
+  <text x="140" y="244" text-anchor="middle" fill="#ffffff" font-family="system-ui, Inter, sans-serif" font-size="7.5" font-weight="500">Compounded medication</text>
+  <text x="140" y="258" text-anchor="middle" fill="#ffffff" font-family="system-ui, Inter, sans-serif" font-size="7.5" font-weight="500">Medical weight management</text>
+  <text x="140" y="380" text-anchor="middle" fill="#ffffff" font-family="system-ui, Inter, sans-serif" font-size="7" font-weight="700" letter-spacing="0.12em">HELLO GORGEOUS MED SPA</text>
+  <text x="140" y="400" text-anchor="middle" fill="#ffffff" font-family="system-ui, Inter, sans-serif" font-size="7" font-weight="600" letter-spacing="0.1em">RX ONLY</text>
+  <text x="140" y="414" text-anchor="middle" fill="#ffffff" font-family="system-ui, Inter, sans-serif" font-size="6.5" opacity="0.95">Dose varies</text>
+</svg>

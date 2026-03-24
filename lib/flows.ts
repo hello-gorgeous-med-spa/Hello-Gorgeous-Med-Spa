@@ -6,6 +6,9 @@ export const FRESHA_BOOKING_URL =
 /** Primary booking CTA: Fresha (internal /book removed from site until OS is ready). */
 export const BOOKING_URL = FRESHA_BOOKING_URL;
 
+/** GLP-1 HIPAA screening form (IntakeQ embed on `/glp1-intake`). Booking follows after qualification. */
+export const GLP1_INTAKE_PATH = "/glp1-intake";
+
 /** VIP Model Program — $250 deposit / Reserve (Fresha paid plans). Override with NEXT_PUBLIC_VIP_MODEL_SQUARE_URL if using Square. */
 export const VIP_MODEL_SQUARE_URL =
   process.env.NEXT_PUBLIC_VIP_MODEL_SQUARE_URL ||
