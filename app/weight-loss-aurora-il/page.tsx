@@ -8,9 +8,9 @@ const area = SERVICE_AREAS.find(a => a.slug === 'aurora')!;
 const nearbyAreas = SERVICE_AREAS.filter(a => a.slug !== 'aurora');
 
 export const metadata: Metadata = {
-  title: `Medical Weight Loss Aurora IL | Semaglutide & Tirzepatide | Hello Gorgeous`,
-  description: `Medical weight loss near Aurora, IL. Semaglutide (Ozempic/Wegovy) & Tirzepatide (Mounjaro) available. 10 min from Aurora. Book consultation!`,
-  keywords: [...generateLocationKeywords(service, 'Aurora'), 'ozempic aurora', 'wegovy aurora', 'mounjaro aurora'],
+  title: `Weight Loss Near Me | Aurora IL | Semaglutide & Tirzepatide — Hello Gorgeous`,
+  description: `Weight loss near me in Aurora, IL? Hello Gorgeous is 10 min away. Semaglutide, Tirzepatide, Ozempic, Mounjaro. Free consultation. Serving Aurora, North Aurora, Montgomery.`,
+  keywords: [...generateLocationKeywords(service, 'Aurora'), 'weight loss near me aurora', 'ozempic aurora', 'wegovy aurora', 'mounjaro aurora'],
   alternates: { canonical: `${SITE.url}/weight-loss-aurora-il` },
   openGraph: {
     type: 'website',

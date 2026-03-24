@@ -9,6 +9,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 
 const BOOKING_URL = 'https://www.hellogorgeousmedspa.com/book';
+const SPRING_SPECIAL_LASER_URL = 'https://www.hellogorgeousmedspa.com/spring-special-laser-hair';
 const GLOW_EVENT_URL = 'https://www.hellogorgeousmedspa.com/glow-event';
 const VIP_URL = 'https://www.hellogorgeousmedspa.com/vip-skin-tightening';
 const WEIGHT_LOSS_URL = 'https://www.hellogorgeousmedspa.com/services/weight-loss-therapy';
@@ -26,6 +27,15 @@ type Campaign = {
 
 const CAMPAIGNS: Campaign[] = [
   {
+    id: 'spring-special-laser',
+    title: 'Spring Special — Laser Hair Removal',
+    type: 'Offer',
+    headline: 'Spring Special: Underarms $79 • Lip & Chin $59 • Bikini $129',
+    description: 'Stop wasting money on packages. Pay per session. Most clients see results in 2–3 sessions. No commitment. Oswego, Aurora, Naperville, Plainfield. Book now.',
+    ctaText: 'Claim Offer',
+    ctaUrl: SPRING_SPECIAL_LASER_URL,
+  },
+  {
     id: 'glow-up',
     title: 'Glow-Up Event',
     type: 'Offer',
@@ -36,6 +46,15 @@ const CAMPAIGNS: Campaign[] = [
 ✨ Medical weight loss from $600 for 10 weeks
 
 Mention "Glow Event" when you book. Oswego, IL — serving Naperville, Aurora, Plainfield.`,
+    ctaText: 'Book now',
+    ctaUrl: BOOKING_URL,
+  },
+  {
+    id: 'aurora-serve',
+    title: 'Serving Aurora, IL — 10 Min Away',
+    type: 'Update',
+    headline: 'Med Spa Near Me? Hello Gorgeous Serves Aurora — 10 Min Away',
+    description: 'Botox $10/unit. Fillers, weight loss, Morpheus8 Burst, laser. Free consultation. 74 W Washington St, Oswego. Easy drive from Aurora, North Aurora, Montgomery. Book now.',
     ctaText: 'Book now',
     ctaUrl: BOOKING_URL,
   },

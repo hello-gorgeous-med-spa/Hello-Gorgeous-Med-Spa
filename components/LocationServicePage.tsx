@@ -50,6 +50,23 @@ export function LocationServicePage({ service, area, nearbyAreas }: LocationServ
           </section>
         )}
 
+        {/* Spring Special — Laser Hair Removal */}
+        {service.slug === 'laser-hair-removal' && (
+          <section className="bg-gradient-to-r from-[#FF2D8E] to-[#E91E8C] py-3 px-4">
+            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-3 text-center sm:text-left">
+              <p className="text-white font-bold text-sm md:text-base">
+                🌸 Spring Special: Underarms $79 • Lip & Chin $59 • Bikini $129 — No packages. Results in 2–3 sessions.
+              </p>
+              <Link
+                href="/spring-special-laser-hair"
+                className="shrink-0 px-4 py-2 bg-white text-[#FF2D8E] font-semibold rounded-lg hover:bg-white/90 transition text-sm"
+              >
+                Claim Offer →
+              </Link>
+            </div>
+          </section>
+        )}
+
         {/* Hero Section */}
         <section className="relative bg-black text-white py-20 lg:py-24">
           <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black opacity-90" />

@@ -2,36 +2,21 @@
 
 import { FadeUp } from "./Section";
 import { BOOKING_URL } from "@/lib/flows";
+import Link from "next/link";
 
-const promoPackages = [
-  {
-    id: "bikini-underarm",
-    name: "Bikini + Underarm",
-    price: "$79",
-    originalPrice: "$150",
-    savings: "Save $71!",
-    icon: "✨",
-    popular: true,
-    areas: ["Bikini Line", "Both Underarms"],
-  },
-  {
-    id: "brazilian-legs",
-    name: "Brazilian + Legs",
-    price: "$129",
-    originalPrice: "$250",
-    savings: "Save $121!",
-    icon: "💎",
-    popular: false,
-    areas: ["Full Brazilian", "Full Legs"],
-  },
+/** Spring Special — pay per session, no packages. Results in 2–3 sessions for most clients. */
+const springSpecialAreas = [
+  { name: "Underarms", price: "$79", popular: true },
+  { name: "Lip & Chin", price: "$59", popular: false },
+  { name: "Bikini", price: "$129", popular: false },
 ];
 
 const allAreas = [
   { name: "Upper Lip", price: "$35" },
   { name: "Chin", price: "$35" },
   { name: "Full Face", price: "$99" },
-  { name: "Underarms", price: "$49" },
-  { name: "Bikini Line", price: "$69" },
+  { name: "Underarms", price: "$79" },
+  { name: "Bikini Line", price: "$129" },
   { name: "Brazilian", price: "$99" },
   { name: "Half Legs", price: "$99" },
   { name: "Full Legs", price: "$149" },
@@ -42,8 +27,8 @@ const allAreas = [
 ];
 
 const benefits = [
-  { icon: "⚡", title: "Fast Sessions", desc: "Most areas done in 15-30 min" },
-  { icon: "💫", title: "Long-Lasting", desc: "Up to 90% permanent reduction" },
+  { icon: "⚡", title: "2–3 Sessions", desc: "Most clients see results quickly" },
+  { icon: "💰", title: "No Packages", desc: "Pay per session — no waste" },
   { icon: "🎯", title: "Precision", desc: "Targets hair, not skin" },
   { icon: "😌", title: "Comfortable", desc: "Built-in cooling technology" },
 ];
@@ -55,66 +40,49 @@ export function LaserHairSection() {
         <FadeUp>
           <div className="text-center mb-12">
             <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 text-[#FF2D8E] text-sm font-bold mb-4">
-              🔥 Limited Time Offer
+              🌸 Spring Special — Limited Time
             </span>
             <h2 className="text-3xl md:text-5xl font-bold text-black mb-4">
               Laser Hair <span className="text-[#FF2D8E]">Removal</span>
             </h2>
-            <p className="text-black text-lg max-w-2xl mx-auto">
-              Say goodbye to shaving, waxing, and ingrown hairs forever. 
-              Smooth, hair-free skin is just a few sessions away.
+            <p className="text-black text-lg max-w-2xl mx-auto mb-2">
+              Stop wasting money on packages. Results in <strong className="text-[#FF2D8E]">2–3 sessions</strong> for most clients. Pay per session.
             </p>
+            <Link
+              href="/spring-special-laser-hair"
+              className="text-[#FF2D8E] font-semibold hover:underline"
+            >
+              Spring Special Details →
+            </Link>
           </div>
         </FadeUp>
 
-        {/* Promo Packages */}
+        {/* Spring Special — Pay Per Session */}
         <FadeUp delayMs={60}>
-          <div className="grid md:grid-cols-2 gap-8 max-w-3xl mx-auto mb-16">
-            {promoPackages.map((pkg) => (
+          <div className="grid sm:grid-cols-3 gap-6 max-w-3xl mx-auto mb-16">
+            {springSpecialAreas.map((item) => (
               <div
-                key={pkg.id}
-                className={`relative p-8 rounded-2xl border-2 transition-all hover:-translate-y-1 hover:shadow-xl ${
-                  pkg.popular
+                key={item.name}
+                className={`relative p-8 rounded-2xl border-2 transition-all hover:-translate-y-1 hover:shadow-xl text-center ${
+                  item.popular
                     ? "bg-white border-[#FF2D8E] shadow-lg"
                     : "bg-white border-black hover:border-[#FF2D8E]"
                 }`}
               >
-                {pkg.popular && (
+                {item.popular && (
                   <span className="absolute -top-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[#FF2D8E] text-white text-xs font-bold">
-                    BEST VALUE
+                    POPULAR
                   </span>
                 )}
-                
-                <div className="text-center mb-6">
-                  <span className="text-4xl mb-2 block">{pkg.icon}</span>
-                  <h3 className="text-xl font-bold text-black">{pkg.name}</h3>
-                </div>
-                
-                <div className="text-center mb-6">
-                  <div className="flex items-center justify-center gap-3">
-                    <span className="text-4xl font-bold text-[#FF2D8E]">{pkg.price}</span>
-                    <span className="text-black/50 line-through text-lg">{pkg.originalPrice}</span>
-                  </div>
-                  <span className="inline-block mt-2 px-3 py-1 rounded-full bg-[#FF2D8E]/10 text-[#FF2D8E] text-sm font-semibold">
-                    {pkg.savings}
-                  </span>
-                </div>
-                
-                <div className="space-y-2 mb-6">
-                  {pkg.areas.map((area) => (
-                    <div key={area} className="flex items-center gap-2 justify-center">
-                      <span className="text-[#FF2D8E]">✓</span>
-                      <span className="text-black">{area}</span>
-                    </div>
-                  ))}
-                </div>
-                
+                <h3 className="text-xl font-bold text-black mb-2">{item.name}</h3>
+                <p className="text-4xl font-bold text-[#FF2D8E] mb-1">{item.price}</p>
+                <p className="text-black/60 text-sm mb-6">per session</p>
                 <a
                   href={BOOKING_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={`block w-full py-4 rounded-lg font-bold text-center transition ${
-                    pkg.popular
+                    item.popular
                       ? "bg-[#FF2D8E] text-white hover:bg-black"
                       : "bg-black text-white hover:bg-[#FF2D8E]"
                   }`}
@@ -160,7 +128,7 @@ export function LaserHairSection() {
               ))}
             </div>
             <p className="text-center text-black text-sm mt-6">
-              * Prices are per session. Package deals available for 6+ sessions.
+              * Pay per session. No packages required. Most clients need 2–3 sessions. Spring Special: Underarms $79, Lip & Chin $59, Bikini $129.
             </p>
           </div>
         </FadeUp>
@@ -173,8 +141,8 @@ export function LaserHairSection() {
               {[
                 { step: "1", title: "Consultation", desc: "We assess your skin & hair type" },
                 { step: "2", title: "Treatment", desc: "Quick, comfortable laser session" },
-                { step: "3", title: "Recovery", desc: "Return to activities immediately" },
-                { step: "4", title: "Results", desc: "See reduction after each session" },
+                { step: "3", title: "2–3 Sessions", desc: "Most clients see smooth results" },
+                { step: "4", title: "Done", desc: "No packages. Pay per session." },
               ].map((item) => (
                 <div key={item.step} className="text-center">
                   <div className="w-14 h-14 rounded-full bg-[#FF2D8E] text-white font-bold text-xl flex items-center justify-center mx-auto mb-4">
@@ -192,7 +160,7 @@ export function LaserHairSection() {
         <FadeUp delayMs={300}>
           <div className="mt-16 text-center">
             <p className="text-black mb-6 text-lg">
-              Ready to ditch the razor? Book your laser hair removal today!
+              Stop wasting money on packages. Underarms $79 • Lip & Chin $59 • Bikini $129. Results in 2–3 sessions.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -201,7 +169,7 @@ export function LaserHairSection() {
                 rel="noopener noreferrer"
                 className="px-10 py-4 rounded-lg bg-[#FF2D8E] text-white font-bold hover:bg-black transition"
               >
-                🔥 Book Special Offer →
+                🌸 Claim Spring Special →
               </a>
               <a
                 href="tel:630-636-6193"
@@ -211,7 +179,10 @@ export function LaserHairSection() {
               </a>
             </div>
             <p className="mt-6 text-black text-sm">
-              Limited time pricing. Most clients need 6-8 sessions for best results.
+              <Link href="/spring-special-laser-hair" className="text-[#FF2D8E] font-medium hover:underline">
+                Spring Special Details
+              </Link>
+              {' • '}Oswego, Aurora, Naperville, Plainfield
             </p>
           </div>
         </FadeUp>

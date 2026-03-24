@@ -10,11 +10,12 @@ import { InjectablesBlogPromo } from '@/components/InjectablesBlogPromo';
 // ============================================================
 
 export const metadata: Metadata = {
-  title: 'Botox Aurora IL | $10/Unit Near You | Hello Gorgeous Med Spa',
-  description: 'Looking for Botox in Aurora, IL? Hello Gorgeous Med Spa offers Botox at $10/unit just 10 minutes from Aurora. Licensed nurse practitioners. Book your free consultation!',
+  title: 'Botox Near Me | Aurora IL | $10/Unit — 10 Min Away | Hello Gorgeous Med Spa',
+  description: 'Botox near me in Aurora, IL? Hello Gorgeous is 10 minutes away — $10/unit, free consultation. Botox, Dysport, Jeuveau. Serving Aurora, Montgomery, Naperville. Book now!',
   keywords: [
-    'botox aurora',
+    'botox near me',
     'botox aurora il',
+    'botox aurora',
     'botox near aurora',
     'aurora botox',
     'botox injections aurora',

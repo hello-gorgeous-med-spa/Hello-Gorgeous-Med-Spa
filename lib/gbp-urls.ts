@@ -17,6 +17,8 @@ export const GBP_SERVICE_SLUGS = [
   "weight-loss-naperville-il",
   "botox-aurora-il",
   "weight-loss-aurora-il",
+  "dermal-fillers-aurora-il",
+  "lip-filler-aurora-il",
   "botox-plainfield-il",
   "weight-loss-plainfield-il",
 ] as const;
@@ -40,6 +42,8 @@ export const GBP_SLUG_TO_SERVICE: Record<
   "weight-loss-naperville-il": { serviceSlug: "weight-loss-therapy", cityLabel: "Naperville, IL" },
   "botox-aurora-il": { serviceSlug: "botox-dysport-jeuveau", cityLabel: "Aurora, IL" },
   "weight-loss-aurora-il": { serviceSlug: "weight-loss-therapy", cityLabel: "Aurora, IL" },
+  "dermal-fillers-aurora-il": { serviceSlug: "dermal-fillers", cityLabel: "Aurora, IL" },
+  "lip-filler-aurora-il": { serviceSlug: "lip-filler", cityLabel: "Aurora, IL" },
   "botox-plainfield-il": { serviceSlug: "botox-dysport-jeuveau", cityLabel: "Plainfield, IL" },
   "weight-loss-plainfield-il": { serviceSlug: "weight-loss-therapy", cityLabel: "Plainfield, IL" },
 };

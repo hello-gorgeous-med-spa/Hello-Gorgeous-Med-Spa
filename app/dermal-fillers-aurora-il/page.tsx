@@ -8,9 +8,9 @@ const area = SERVICE_AREAS.find(a => a.slug === 'aurora')!;
 const nearbyAreas = SERVICE_AREAS.filter(a => a.slug !== 'aurora');
 
 export const metadata: Metadata = {
-  title: `Dermal Fillers Aurora IL | ${service.priceDisplay} | Hello Gorgeous Med Spa`,
-  description: `Looking for dermal fillers near Aurora, IL? Hello Gorgeous Med Spa is 10 min away. Juvederm, Restylane, cheek & jawline fillers. Licensed NPs. Free consultation!`,
-  keywords: generateLocationKeywords(service, 'Aurora'),
+  title: `Dermal Fillers Near Me | Aurora IL | ${service.priceDisplay} — Hello Gorgeous Med Spa`,
+  description: `Fillers near me in Aurora, IL? Hello Gorgeous is 10 min away. Juvederm, Restylane, cheek, lip, jawline. Free consultation. Serving Aurora, North Aurora, Montgomery.`,
+  keywords: [...generateLocationKeywords(service, 'Aurora'), 'fillers near me aurora'],
   alternates: { canonical: `${SITE.url}/dermal-fillers-aurora-il` },
   openGraph: {
     type: 'website',

@@ -18,9 +18,9 @@ const topAuroraSlugs = [
 ] as const;
 
 export const metadata: Metadata = pageMetadata({
-  title: "Med Spa Near Aurora, IL",
+  title: "Med Spa Near Me | Aurora IL — Botox, Fillers, Weight Loss | Hello Gorgeous",
   description:
-    "Hello Gorgeous Med Spa — luxury clinical aesthetics near Aurora, IL. Botox/Dysport/Jeuveau, dermal fillers, weight loss prescriptions, hormone therapy, microneedling, IV therapy, and more.",
+    "Med spa near me in Aurora, IL? Hello Gorgeous is 10 min away. Botox $10/unit, fillers, Semaglutide, Morpheus8 Burst, laser. Free consultation. Serving Aurora, Montgomery, North Aurora.",
   path: "/aurora-il",
 });
 

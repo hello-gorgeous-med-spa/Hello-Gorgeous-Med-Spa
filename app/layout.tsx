@@ -60,6 +60,7 @@ export async function generateMetadata(): Promise<Metadata> {
     "iv therapy oswego",
     "med spa naperville",
     "med spa aurora il",
+    "botox near me aurora",
     "med spa plainfield",
     "botox near me",
     "fillers near me",
