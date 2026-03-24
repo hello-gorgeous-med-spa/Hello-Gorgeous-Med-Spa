@@ -1,6 +1,8 @@
 /**
  * Card grid data for /products-we-offer (tabbed showcase).
  * Badge maps to HG-styled pills — no pricing.
+ *
+ * Keep copy in sync with `docs/hello-gorgeous-products.html` (standalone reference for designers / drop-in demos).
  */
 
 export type ProductOfferBadge = "rx" | "popular" | "controlled" | "cold";

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>What we offer — Hello Gorgeous Med Spa (reference)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <!--
+    HELLO GORGEOUS — PRODUCTS WE OFFER (standalone reference)
+    Live site: https://www.hellogorgeousmedspa.com/products-we-offer
+    Next.js source of truth: lib/products-we-offer-cards.ts — edit that file for the app; keep this HTML in sync when you change copy or cards.
+  -->
+  <style>
+    body { margin: 0; font-family: 'DM Sans', system-ui, sans-serif; background: #fff; color: #000; }
+    .prod-section { padding: 4.5rem 2rem; background: #fff; }
+    .prod-section .section-inner { max-width: 1060px; margin: 0 auto; }
+    .prod-section .section-label {
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: #E6007E; font-weight: 500; margin-bottom: 0.5rem; font-family: 'DM Sans', sans-serif;
+    }
+    .prod-section .section-title {
+      font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300; color: #000; line-height: 1.2; margin-bottom: 1.75rem;
+    }
+    .prod-section .section-title em { font-style: italic; color: #E6007E; }
+    .prod-cat-nav { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem; }
+    .prod-cat-btn {
+      padding: 0.5rem 1rem; background: #fff; border: 1px solid rgba(230, 0, 126, 0.35);
+      border-radius: 20px; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 400;
+      color: #000; cursor: pointer; transition: all 0.15s; white-space: nowrap;
+    }
+    .prod-cat-btn:hover { border-color: #E6007E; color: #E6007E; }
+    .prod-cat-btn.active { background: #E6007E; border-color: #E6007E; color: #fff; font-weight: 500; }
+    .prod-cat-panel { display: none; }
+    .prod-cat-panel.active { display: block; }
+    .prod-cat-header { margin-bottom: 1.5rem; }
+    .prod-cat-label {
+      font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: #E6007E;
+      font-weight: 500; margin-bottom: 0.3rem; font-family: 'DM Sans', sans-serif;
+    }
+    .prod-cat-title {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 300;
+      color: #000; line-height: 1.2;
+    }
+    .prod-cat-title em { font-style: italic; color: #E6007E; }
+    .prod-cat-desc {
+      font-family: 'DM Sans', sans-serif; font-size: 0.85rem; color: rgba(0,0,0,0.75);
+      font-weight: 300; line-height: 1.7; margin-top: 0.4rem; max-width: 560px;
+    }
+    .prod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1rem; }
+    .prod-card {
+      background: #fff; border: 1px solid rgba(230, 0, 126, 0.25); border-radius: 6px;
+      padding: 1.25rem 1.1rem; display: flex; flex-direction: column; transition: transform 0.15s;
+    }
+    .prod-card:hover { transform: translateY(-2px); }
+    .prod-badge {
+      display: inline-block; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.2rem 0.6rem; border-radius: 20px; margin-bottom: 0.65rem;
+    }
+    .prod-badge-rx { background: #FFF0F7; color: #E6007E; border: 1px solid rgba(230,0,126,0.3); }
+    .prod-badge-popular { background: #FFF8E8; color: #000; border: 1px solid rgba(0,0,0,0.12); }
+    .prod-badge-controlled { background: #fff; color: #C90A68; border: 2px solid #000; }
+    .prod-badge-cold { background: #EEF6FF; color: #000; border: 1px solid rgba(0,0,0,0.1); }
+    .prod-name {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 400;
+      color: #000; margin-bottom: 0.3rem; line-height: 1.3;
+    }
+    .prod-form { font-size: 0.75rem; color: rgba(0,0,0,0.65); font-weight: 300; margin-bottom: 0.65rem; }
+    .prod-desc {
+      font-size: 0.8rem; color: rgba(0,0,0,0.72); font-weight: 300; line-height: 1.6;
+      margin-bottom: 0.9rem; flex: 1;
+    }
+    .prod-footer {
+      display: flex; align-items: center; justify-content: flex-end;
+      border-top: 1px solid rgba(230, 0, 126, 0.2); padding-top: 0.75rem;
+    }
+    .prod-cta-btn {
+      background: #E6007E; color: #fff; border: none; padding: 0.4rem 0.9rem; border-radius: 3px;
+      font-size: 0.75rem; font-weight: 500; cursor: pointer; text-decoration: none;
+      letter-spacing: 0.03em; transition: background 0.15s;
+    }
+    .prod-cta-btn:hover { background: #C90A68; }
+    .prod-consult-bar {
+      background: #FFF5F9; border: 1px solid rgba(230, 0, 126, 0.25); border-radius: 6px;
+      padding: 1.25rem 1.4rem; margin-top: 1.5rem; display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;
+    }
+    .prod-consult-text { font-size: 0.85rem; color: rgba(0,0,0,0.75); font-weight: 300; }
+    .prod-consult-text strong { color: #000; font-weight: 500; }
+    .prod-consult-cta {
+      background: #E6007E; color: #fff; border: none; padding: 0.6rem 1.3rem; border-radius: 3px;
+      font-size: 0.82rem; font-weight: 500; cursor: pointer; text-decoration: none; transition: background 0.15s;
+    }
+    .prod-consult-cta:hover { background: #C90A68; }
+    @media (max-width: 600px) {
+      .prod-section { padding: 3rem 1.25rem; }
+      .prod-grid { grid-template-columns: 1fr; }
+      .prod-consult-bar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+<section class="prod-section">
+  <div class="section-inner">
+    <div class="section-label">Services &amp; treatments</div>
+    <div class="section-title">What we <em>offer</em></div>
+    <div class="prod-cat-nav">
+      <button type="button" class="prod-cat-btn active" onclick="prodShowCat('weight', this)">Weight loss</button>
+      <button type="button" class="prod-cat-btn" onclick="prodShowCat('peptides', this)">Peptides</button>
+      <button type="button" class="prod-cat-btn" onclick="prodShowCat('hormone', this)">Hormone therapy</button>
+      <button type="button" class="prod-cat-btn" onclick="prodShowCat('antiaging', this)">Anti-aging</button>
+      <button type="button" class="prod-cat-btn" onclick="prodShowCat('hair', this)">Hair loss</button>
+      <button type="button" class="prod-cat-btn" onclick="prodShowCat('sexual', this)">Sexual health</button>
+      <button type="button" class="prod-cat-btn" onclick="prodShowCat('wellness', this)">Wellness &amp; vitamins</button>
+    </div>
+
+    <div class="prod-cat-panel active" id="prod-cat-weight">
+      <div class="prod-cat-header">
+        <div class="prod-cat-label">Weight management</div>
+        <div class="prod-cat-title">GLP-1 &amp; <em>weight loss</em> therapies</div>
+        <div class="prod-cat-desc">Clinically proven GLP-1 medications prescribed and managed in-house. No insurance required — personalized dosing, ongoing support, and real results.</div>
+      </div>
+      <div class="prod-grid" id="prod-grid-weight"></div>
+      <div class="prod-consult-bar">
+        <span class="prod-consult-text"><strong>All medications are prescribed by our clinical team.</strong> Book a consultation to find the right program for you.</span>
+        <a class="prod-consult-cta" href="https://www.hellogorgeousmedspa.com/book">Book a consultation</a>
+      </div>
+    </div>
+
+    <div class="prod-cat-panel" id="prod-cat-peptides">
+      <div class="prod-cat-header">
+        <div class="prod-cat-label">Peptide therapy</div>
+        <div class="prod-cat-title">Targeted <em>peptide</em> programs</div>
+        <div class="prod-cat-desc">Peptides are short chains of amino acids that signal your body to repair, grow, and optimize. From growth hormone support to healing and libido — peptides work at the cellular level.</div>
+      </div>
+      <div class="prod-grid" id="prod-grid-peptides"></div>
+      <div class="prod-consult-bar">
+        <span class="prod-consult-text"><strong>Not sure which peptide is right for you?</strong> Our team will guide you to the best option for your goals.</span>
+        <a class="prod-consult-cta" href="https://www.hellogorgeousmedspa.com/book">Book a consultation</a>
+      </div>
+    </div>
+
+    <div class="prod-cat-panel" id="prod-cat-hormone">
+      <div class="prod-cat-header">
+        <div class="prod-cat-label">Hormone therapy</div>
+        <div class="prod-cat-title">Bioidentical <em>hormone</em> optimization</div>
+        <div class="prod-cat-desc">Restore balance with bioidentical hormone therapy tailored to your labs and symptoms. Testosterone, estrogen, progesterone, and thyroid support — all managed in-house.</div>
+      </div>
+      <div class="prod-grid" id="prod-grid-hormone"></div>
+      <div class="prod-consult-bar">
+        <span class="prod-consult-text"><strong>Hormone therapy starts with labs.</strong> Book a consultation and we'll review your bloodwork together.</span>
+        <a class="prod-consult-cta" href="https://www.hellogorgeousmedspa.com/book">Book a consultation</a>
+      </div>
+    </div>
+
+    <div class="prod-cat-panel" id="prod-cat-antiaging">
+      <div class="prod-cat-header">
+        <div class="prod-cat-label">Anti-aging</div>
+        <div class="prod-cat-title">Longevity &amp; <em>cellular health</em></div>
+        <div class="prod-cat-desc">NAD+, peptides, methylene blue, rapamycin — the science of aging has advanced rapidly. We offer the most clinically supported longevity protocols available.</div>
+      </div>
+      <div class="prod-grid" id="prod-grid-antiaging"></div>
+      <div class="prod-consult-bar">
+        <span class="prod-consult-text"><strong>Longevity starts with a conversation.</strong> Let's talk about what your body needs.</span>
+        <a class="prod-consult-cta" href="https://www.hellogorgeousmedspa.com/book">Book a consultation</a>
+      </div>
+    </div>
+
+    <div class="prod-cat-panel" id="prod-cat-hair">
+      <div class="prod-cat-header">
+        <div class="prod-cat-label">Hair loss</div>
+        <div class="prod-cat-title">Hair restoration <em>that works</em></div>
+        <div class="prod-cat-desc">From oral minoxidil and finasteride to GHK-Cu peptide topicals and intradermal injections — we offer comprehensive, compounded hair loss protocols for men and women.</div>
+      </div>
+      <div class="prod-grid" id="prod-grid-hair"></div>
+      <div class="prod-consult-bar">
+        <span class="prod-consult-text"><strong>Hair loss is treatable.</strong> Our team will recommend the right protocol based on your pattern and goals.</span>
+        <a class="prod-consult-cta" href="https://www.hellogorgeousmedspa.com/book">Book a consultation</a>
+      </div>
+    </div>
+
+    <div class="prod-cat-panel" id="prod-cat-sexual">
+      <div class="prod-cat-header">
+        <div class="prod-cat-label">Sexual health</div>
+        <div class="prod-cat-title">Confidence &amp; <em>intimacy</em> restored</div>
+        <div class="prod-cat-desc">Discreet, clinician-managed sexual health programs for men and women. From ED treatments to female arousal therapy — we offer compassionate, effective care.</div>
+      </div>
+      <div class="prod-grid" id="prod-grid-sexual"></div>
+      <div class="prod-consult-bar">
+        <span class="prod-consult-text"><strong>Private. Judgment-free. Effective.</strong> Start with a confidential consultation.</span>
+        <a class="prod-consult-cta" href="https://www.hellogorgeousmedspa.com/book">Book a consultation</a>
+      </div>
+    </div>
+
+    <div class="prod-cat-panel" id="prod-cat-wellness">
+      <div class="prod-cat-header">
+        <div class="prod-cat-label">Wellness &amp; vitamins</div>
+        <div class="prod-cat-title">IV nutrients &amp; <em>foundational health</em></div>
+        <div class="prod-cat-desc">Glutathione, Myers' Cocktail, B12, lipotropic injections and more — support your immune system, energy, and detox pathways with medical-grade injectable nutrients.</div>
+      </div>
+      <div class="prod-grid" id="prod-grid-wellness"></div>
+      <div class="prod-consult-bar">
+        <span class="prod-consult-text"><strong>Feel better from the inside out.</strong> Ask about our vitamin injection add-ons at your next visit.</span>
+        <a class="prod-consult-cta" href="https://www.hellogorgeousmedspa.com/book">Book a consultation</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  var BOOK = 'https://www.hellogorgeousmedspa.com/book';
+  var products = {
+    weight: [
+      {name:'Semaglutide injection',form:'Injectable · Weekly',desc:'The active ingredient in Ozempic and Wegovy. Reduces appetite and promotes sustained fat loss.',badge:'popular',label:'Most popular'},
+      {name:'Tirzepatide injection',form:'Injectable · Weekly',desc:'Dual GIP/GLP-1 agonist. Shown to produce greater weight loss than semaglutide alone in clinical trials.',badge:'rx',label:'Rx'},
+      {name:'Retatrutide injection',form:'Injectable · Weekly',desc:'Triple hormone agonist — the newest generation of GLP-1 therapy with exceptional early results.',badge:'rx',label:'Rx'},
+      {name:'Semaglutide sublingual tablets',form:'Tablet · Daily',desc:'Dissolving tablets for those who prefer to avoid injections. Convenient and discreet.',badge:'rx',label:'Rx'},
+      {name:'Low dose naltrexone (LDN)',form:'Capsule · Daily',desc:'LDN supports weight loss by reducing inflammation and improving metabolic response. Often combined with GLP-1.',badge:'rx',label:'Rx'},
+      {name:'Bupropion / naltrexone SR',form:'Capsule · Daily',desc:'Combined appetite suppressant and reward pathway modulator. Pharmaceutical-grade combo for metabolic support.',badge:'rx',label:'Rx'}
+    ],
+    peptides: [
+      {name:'Sermorelin injection',form:'Injectable · Nightly',desc:'Stimulates natural growth hormone release. Improves sleep, recovery, body composition, and skin quality.',badge:'cold',label:'Cold ship'},
+      {name:'Sermorelin sublingual tablet',form:'Tablet · Daily',desc:'Non-injectable option for growth hormone support. Convenient for travel and daily compliance.',badge:'cold',label:'Cold ship'},
+      {name:'Tesamorelin injection',form:'Injectable · Daily',desc:'FDA-approved growth hormone releasing factor. Clinically proven to reduce visceral fat.',badge:'cold',label:'Cold ship'},
+      {name:'Pentadeca arginate (PDA)',form:'Injectable or Capsule',desc:'Next-generation tissue healing peptide. Supports gut health, injury recovery, and inflammation reduction.',badge:'cold',label:'Cold ship'},
+      {name:'PT-141 (Bremelanotide)',form:'Injectable',desc:'Centrally acting peptide for sexual arousal in both men and women. Works through the nervous system.',badge:'cold',label:'Cold ship'},
+      {name:'Thymosin Beta-4',form:'Injectable',desc:'Powerful healing and anti-inflammatory peptide. Used for injury recovery, chronic inflammation, and tissue repair.',badge:'cold',label:'Cold ship'}
+    ],
+    hormone: [
+      {name:'Testosterone cypionate',form:'Injectable · Weekly',desc:'The gold standard for testosterone replacement therapy. Restores energy, libido, muscle mass, and mood.',badge:'controlled',label:'Controlled'},
+      {name:'Testosterone cream',form:'Topical · Daily',desc:'Transdermal testosterone for men and women who prefer non-injectable delivery.',badge:'controlled',label:'Controlled'},
+      {name:'Progesterone capsules',form:'Capsule · Daily',desc:'Bioidentical progesterone for hormone balance, sleep, anxiety, and perimenopause support.',badge:'rx',label:'Rx'},
+      {name:'Bi-Est estrogen cream',form:'Topical · Daily',desc:'80/20 or 50/50 blend of estradiol and estriol. Supports bone density, skin, cognition, and symptom relief.',badge:'rx',label:'Rx'},
+      {name:'Enclomiphene citrate',form:'Capsule · Daily',desc:'Increases natural testosterone production without suppressing fertility. Ideal for younger men.',badge:'rx',label:'Rx'},
+      {name:'Thyroid (T3/T4) capsules',form:'Capsule · Daily',desc:'Compounded thyroid with both T3 and T4. Addresses symptoms standard Synthroid may miss.',badge:'rx',label:'Rx'}
+    ],
+    antiaging: [
+      {name:'NAD+ injection',form:'Injectable',desc:'Nicotinamide adenine dinucleotide — critical for cellular energy, DNA repair, and longevity pathways.',badge:'cold',label:'Cold ship'},
+      {name:'NAD+ nasal spray',form:'Nasal spray · Daily',desc:'Fast-absorbing intranasal NAD+ for brain energy, focus, and cognitive longevity.',badge:'cold',label:'Cold ship'},
+      {name:'Methylene blue capsules',form:'Capsule · Daily',desc:'Mitochondrial enhancer with neuroprotective and anti-aging properties. Supports memory and energy.',badge:'rx',label:'Rx'},
+      {name:'Rapamycin capsules',form:'Capsule · Weekly',desc:'mTOR inhibitor with growing evidence as a longevity drug. Used in low-dose weekly protocols.',badge:'rx',label:'Rx'},
+      {name:'GHK-Cu sublingual tablet',form:'Tablet · Daily',desc:'Copper peptide with powerful regenerative, anti-inflammatory, and collagen-stimulating effects.',badge:'cold',label:'Cold ship'},
+      {name:'5-Amino 1MQ capsules',form:'Capsule · Daily',desc:'Inhibits NNMT to promote fat burning, NAD+ production, and metabolic anti-aging benefits.',badge:'rx',label:'Rx'}
+    ],
+    hair: [
+      {name:'Minoxidil capsules',form:'Capsule · Daily',desc:'Oral minoxidil for systemic hair regrowth support. More consistent blood levels than topical alone.',badge:'rx',label:'Rx'},
+      {name:'Minoxidil / finasteride topical',form:'Solution · Daily',desc:'Compounded dual-action topical targeting both follicle miniaturization and DHT.',badge:'rx',label:'Rx'},
+      {name:'Dutasteride capsules',form:'Capsule · Daily',desc:'Stronger DHT inhibitor than finasteride. Used for aggressive male pattern hair loss.',badge:'rx',label:'Rx'},
+      {name:'GHK-Cu topical solution',form:'Topical · Daily',desc:'Copper peptide to stimulate hair follicle activity and reduce scalp inflammation.',badge:'rx',label:'Rx'},
+      {name:'Intradermal minoxidil injection',form:'Injectable · In-office',desc:'Direct scalp injection for targeted follicle stimulation — more potent than topical delivery.',badge:'cold',label:'Cold ship'},
+      {name:'GHK-Cu / biotin foam',form:'Topical foam · Daily',desc:'Copper peptide plus biotin in a lightweight foam for daily scalp application.',badge:'rx',label:'Rx'}
+    ],
+    sexual: [
+      {name:'Tadalafil capsules',form:'Capsule · Daily or as-needed',desc:'Long-acting PDE5 inhibitor. Daily low-dose (5mg) supports vascular health and continuous readiness.',badge:'rx',label:'Rx'},
+      {name:'Sildenafil capsules',form:'Capsule · As-needed',desc:'Fast-acting ED treatment. Compounded in precise doses without the brand-name markup.',badge:'rx',label:'Rx'},
+      {name:'PT-141 / oxytocin nasal spray',form:'Nasal spray',desc:'Central arousal peptide combined with oxytocin for enhanced intimacy and connection.',badge:'cold',label:'Cold ship'},
+      {name:'Scream cream',form:'Topical · As-needed',desc:'Topical cream for female arousal. Sildenafil, arginine, and papaverine applied for enhanced sensation.',badge:'rx',label:'Rx'},
+      {name:'Oxytocin sublingual tablets',form:'Tablet · As-needed',desc:'The bonding hormone. Supports intimacy, trust, and arousal when taken sublingually.',badge:'rx',label:'Rx'},
+      {name:'Tadalafil / oxytocin / PT-141 troche',form:'Troche · As-needed',desc:'Triple-action formula combining vascular, hormonal, and neural pathways for men.',badge:'cold',label:'Cold ship'}
+    ],
+    wellness: [
+      {name:'Myers cocktail injection',form:'Injectable · In-office',desc:'The gold standard IV vitamin protocol — magnesium, B vitamins, vitamin C, and calcium for energy and immunity.',badge:'cold',label:'Cold ship'},
+      {name:'Glutathione injection',form:'Injectable',desc:'Master antioxidant for detox, skin brightening, immune support, and cellular protection.',badge:'cold',label:'Cold ship'},
+      {name:'Methylcobalamin (B12) injection',form:'Injectable',desc:'Active form of B12 for energy, mood, nerve health, and methylation support.',badge:'rx',label:'Rx'},
+      {name:'Lipotropic B injection (MIC + B12)',form:'Injectable',desc:'Methionine, inositol, choline, and B12 — the classic fat-burning injection stack.',badge:'rx',label:'Rx'},
+      {name:'Lipotropic Super B',form:'Injectable',desc:'Full-spectrum lipotropic with L-carnitine, B vitamins, niacin, and methylcobalamin.',badge:'cold',label:'Cold ship'},
+      {name:'Low dose naltrexone (LDN)',form:'Capsule · Nightly',desc:'Immune modulator and anti-inflammatory. Used for autoimmune conditions, mood, and overall wellness.',badge:'rx',label:'Rx'}
+    ]
+  };
+  function badgeClass(b) {
+    if (b === 'popular') return 'prod-badge-popular';
+    if (b === 'controlled') return 'prod-badge-controlled';
+    if (b === 'cold') return 'prod-badge-cold';
+    return 'prod-badge-rx';
+  }
+  function buildGrid(cat) {
+    var el = document.getElementById('prod-grid-' + cat);
+    if (!el || el.children.length > 0) return;
+    var list = products[cat];
+    if (!list) return;
+    list.forEach(function(p) {
+      var card = document.createElement('div');
+      card.className = 'prod-card';
+      card.innerHTML =
+        '<span class="prod-badge ' + badgeClass(p.badge) + '">' + p.label + '</span>' +
+        '<div class="prod-name">' + p.name + '</div>' +
+        '<div class="prod-form">' + p.form + '</div>' +
+        '<div class="prod-desc">' + p.desc + '</div>' +
+        '<div class="prod-footer"><a class="prod-cta-btn" href="' + BOOK + '">Book now</a></div>';
+      el.appendChild(card);
+    });
+  }
+  window.prodShowCat = function(id, btn) {
+    document.querySelectorAll('.prod-cat-panel').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('.prod-cat-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.getElementById('prod-cat-' + id).classList.add('active');
+    btn.classList.add('active');
+    buildGrid(id);
+  };
+  buildGrid('weight');
+})();
+</script>
+</body>
+</html>
