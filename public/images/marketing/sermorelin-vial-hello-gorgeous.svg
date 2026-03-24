@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 420" fill="none" aria-labelledby="title desc" role="img">
+  <title id="title">Sermorelin injection vial  Hello Gorgeous Med Spa</title>
+  <desc id="desc">Stylized peptide vial with Hello Gorgeous branding. Decorative graphic.</desc>
+  <defs>
+    <linearGradient id="smGlass" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f8f8f8"/>
+      <stop offset="45%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#ececec"/>
+    </linearGradient>
+    <linearGradient id="smLabelTop" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E6007E"/>
+      <stop offset="100%" stop-color="#b80062"/>
+    </linearGradient>
+    <linearGradient id="smLabelBot" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fff5f9"/>
+      <stop offset="100%" stop-color="#ffffff"/>
+    </linearGradient>
+    <filter id="smSoft" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <path d="M118 52h44l8 28c28 4 48 28 48 58v210c0 36-29 65-65 65h-18c-36 0-65-29-65-65V138c0-30 20-54 48-58l8-28z" fill="url(#smGlass)" stroke="#1a1a1a" stroke-width="2.5"/>
+  <ellipse cx="140" cy="138" rx="52" ry="14" fill="#ffffff" fill-opacity="0.35" stroke="#c0c0c0" stroke-width="1"/>
+  <path d="M118 52h44v20h-44z" fill="#d4d4d4" stroke="#1a1a1a" stroke-width="2"/>
+  <rect x="112" y="28" width="56" height="28" rx="4" fill="#1a1a1a"/>
+  <rect x="116" y="20" width="48" height="12" rx="3" fill="#E6007E"/>
+  <rect x="108" y="52" width="64" height="10" rx="2" fill="url(#smGlass)" stroke="#1a1a1a" stroke-width="1.5"/>
+  <path d="M92 165 L188 148 L196 290 L100 307 Z" fill="url(#smLabelTop)" stroke="#1a1a1a" stroke-width="2"/>
+  <path d="M100 307 L196 290 L204 332 C204 352 188 368 168 368 L112 368 C92 368 76 352 76 332 L92 165 Z" fill="url(#smLabelBot)" stroke="#1a1a1a" stroke-width="2"/>
+  <text x="140" y="178" text-anchor="middle" fill="#ffffff" font-family="system-ui, Inter, sans-serif" font-size="8" font-weight="600" letter-spacing="0.18em">PRESCRIPTION</text>
+  <text x="140" y="208" text-anchor="middle" fill="#ffffff" font-family="system-ui, Inter, sans-serif" font-size="9" font-weight="600" letter-spacing="0.12em">PEPTIDE</text>
+  <text x="140" y="248" text-anchor="middle" fill="#ffffff" font-family="Georgia, 'Playfair Display', serif" font-size="26" font-weight="700">SERMORELIN</text>
+  <text x="140" y="268" text-anchor="middle" fill="#ffffff" font-family="system-ui, Inter, sans-serif" font-size="8" font-weight="500" letter-spacing="0.08em">INJECTION</text>
+  <text x="140" y="318" text-anchor="middle" fill="#E6007E" font-family="system-ui, Inter, sans-serif" font-size="8" font-weight="700" letter-spacing="0.12em">HELLO GORGEOUS</text>
+  <text x="140" y="332" text-anchor="middle" fill="#E6007E" font-family="system-ui, Inter, sans-serif" font-size="7" font-weight="500" letter-spacing="0.08em">MED SPA · OSWEGO, IL</text>
+  <text x="140" y="352" text-anchor="middle" fill="#333333" font-family="system-ui, Inter, sans-serif" font-size="7" font-weight="600" letter-spacing="0.1em">RX ONLY</text>
+  <text x="140" y="362" text-anchor="middle" fill="#666666" font-family="system-ui, Inter, sans-serif" font-size="6.5">Provider-directed · Dose varies</text>
+  <path d="M88 320 Q140 335 192 320 L192 338 Q140 355 88 338 Z" fill="#E6007E" fill-opacity="0.08" filter="url(#smSoft)"/>
+</svg>
