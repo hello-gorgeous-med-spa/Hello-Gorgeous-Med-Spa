@@ -39,8 +39,19 @@ const BADGE_CLASS: Record<ProductOfferBadge, string> = {
   cold: "bg-[#EEF6FF] text-black border border-black/15",
 };
 
-export function ProductsWeOfferShowcase() {
-  const [activeId, setActiveId] = useState(PRODUCT_OFFER_CATEGORIES[0]?.id ?? "weight");
+type ProductsWeOfferShowcaseProps = {
+  /** When set (e.g. from `/products-we-offer?cat=peptides`), that category tab opens first. */
+  initialCategoryId?: string;
+};
+
+export function ProductsWeOfferShowcase(props: ProductsWeOfferShowcaseProps = {}) {
+  const { initialCategoryId } = props;
+  const defaultId = PRODUCT_OFFER_CATEGORIES[0]?.id ?? "weight";
+  const resolvedInitial =
+    initialCategoryId && PRODUCT_OFFER_CATEGORIES.some((c) => c.id === initialCategoryId)
+      ? initialCategoryId
+      : defaultId;
+  const [activeId, setActiveId] = useState(resolvedInitial);
   const [modal, setModal] = useState<{
     card: ProductOfferCard;
     learn: LearnBlock;

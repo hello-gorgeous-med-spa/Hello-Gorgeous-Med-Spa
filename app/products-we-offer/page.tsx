@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { CTA } from "@/components/CTA";
-import { ProductsWeOfferShowcase } from "@/components/ProductsWeOfferShowcase";
+import { ProductsWeOfferShowcaseGate } from "@/components/ProductsWeOfferShowcaseGate";
+import { PRODUCT_OFFER_CATEGORIES } from "@/lib/products-we-offer-cards";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import { PRODUCTS_OFFER_FOOTNOTE, PRODUCTS_OFFER_INTRO } from "@/lib/products-we-offer-catalog";
@@ -54,7 +55,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ProductsWeOfferPage() {
+export default async function ProductsWeOfferPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ cat?: string }>;
+}) {
+  const { cat } = await searchParams;
+  const initialCategoryId =
+    cat && PRODUCT_OFFER_CATEGORIES.some((c) => c.id === cat) ? cat : undefined;
+
   const breadcrumbs = [
     { name: "Home", url: SITE.url },
     { name: "Hello Gorgeous RX — Products we offer", url: productsOfferCanonical },
@@ -127,7 +136,7 @@ export default function ProductsWeOfferPage() {
           </FadeUp>
 
           <div className="mt-14 md:mt-16 pt-12 md:pt-14 border-t border-[#E6007E]/20">
-            <ProductsWeOfferShowcase />
+            <ProductsWeOfferShowcaseGate initialCategoryId={initialCategoryId} />
           </div>
         </div>
       </Section>

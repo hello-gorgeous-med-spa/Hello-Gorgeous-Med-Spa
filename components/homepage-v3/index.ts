@@ -5,6 +5,7 @@ export { InjectablesConversion } from "./InjectablesConversion";
 export { ServicesSection } from "./ServicesSection";
 export { ExperienceSection } from "./ExperienceSection";
 export { RxShowcaseSection } from "./RxShowcaseSection";
+export { ProductsCatalogHomeSection } from "./ProductsCatalogHomeSection";
 export { InnovationSection } from "./InnovationSection";
 export { TrifectaSection } from "./TrifectaSection";
 export { FaceBlueprintSection } from "./FaceBlueprintSection";

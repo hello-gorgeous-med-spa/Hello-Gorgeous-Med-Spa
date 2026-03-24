@@ -8,6 +8,7 @@ import {
   FaceBlueprintSection,
   ExperienceSection,
   RxShowcaseSection,
+  ProductsCatalogHomeSection,
   InnovationSection,
   TrifectaSection,
   AIAssistantsSection,
@@ -159,6 +160,7 @@ export default function HomePage() {
         <ServicesSection />
         <FaceBlueprintSection />
         <RxShowcaseSection />
+        <ProductsCatalogHomeSection />
         <ExperienceSection />
         <InnovationSection />
         <AIAssistantsSection />

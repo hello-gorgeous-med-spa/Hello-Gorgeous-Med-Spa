@@ -16,7 +16,9 @@ export function RxShowcaseSection() {
               alt="Ryan Kent, FNP-BC - Full Practice Authority prescriptions at Hello Gorgeous Med Spa"
               width={600}
               height={400}
-              className="rounded-2xl shadow-2xl"
+              priority
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="rounded-2xl shadow-2xl w-full h-auto"
             />
             <div className="absolute -bottom-4 -right-4 bg-[#E6007E] text-white px-6 py-3 rounded-xl font-bold text-sm">
               Full Prescriptive Authority
@@ -57,7 +59,7 @@ export function RxShowcaseSection() {
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row flex-wrap gap-4">
               <Link
                 href="/rx"
                 className="inline-flex items-center justify-center bg-[#E6007E] text-white px-8 py-4 rounded-lg font-semibold hover:opacity-90 transition-all"
@@ -69,6 +71,12 @@ export function RxShowcaseSection() {
                 className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-black transition-all"
               >
                 Medical Weight Loss
+              </Link>
+              <Link
+                href="/products-we-offer"
+                className="inline-flex items-center justify-center border-2 border-[#E6007E] text-[#E6007E] px-8 py-4 rounded-lg font-semibold hover:bg-[#E6007E] hover:text-white transition-all"
+              >
+                Compounded Rx catalog
               </Link>
             </div>
           </div>
@@ -133,7 +141,8 @@ export function RxShowcaseSection() {
               alt="Regenerative Medicine Authority - BPC-157, Sermorelin, CJC-1295, Ipamorelin peptide therapy"
               width={600}
               height={400}
-              className="rounded-2xl shadow-2xl"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="rounded-2xl shadow-2xl w-full h-auto"
             />
             <div className="absolute -bottom-4 -left-4 bg-[#E6007E] text-white px-6 py-3 rounded-xl font-bold text-sm">
               Regenerative Medicine Authority
