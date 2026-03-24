@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { FacebookPostEmbed, HELLO_GORGEOUS_FACEBOOK_POST_URL } from "@/components/FacebookPostEmbed";
 import { Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import { SITE, pageMetadata, siteJsonLd } from "@/lib/seo";
@@ -33,6 +34,33 @@ export default function CommunityPage() {
               <h2 className="text-2xl font-bold text-white mb-4">Serving the Fox Valley</h2>
               <p>
                 Located at {SITE.address.streetAddress} in downtown Oswego, we welcome clients from Oswego, Naperville, Aurora, Plainfield, Yorkville, Montgomery, and throughout Kendall County. Our medical spa offers Botox, dermal fillers, weight loss therapy, hormone therapy, PRF/PRP treatments, and more—all in a welcoming, clinical environment.
+              </p>
+            </section>
+
+            <section>
+              <h2 className="text-2xl font-bold text-white mb-4">From our Facebook</h2>
+              <p className="mb-6 text-black/90">
+                Follow{" "}
+                <a
+                  href={SITE.social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#FF2D8E] font-semibold hover:underline"
+                >
+                  Hello Gorgeous on Facebook
+                </a>{" "}
+                for updates, specials, and community highlights.
+              </p>
+              <FacebookPostEmbed />
+              <p className="mt-4 text-sm text-black/70">
+                <a
+                  href={HELLO_GORGEOUS_FACEBOOK_POST_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[#FF2D8E] hover:underline"
+                >
+                  Open this post on Facebook →
+                </a>
               </p>
             </section>
 

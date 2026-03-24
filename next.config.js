@@ -38,7 +38,7 @@ const nextConfig = {
             "img-src 'self' data: blob: https:",
             "font-src 'self' https://fonts.gstatic.com",
             "connect-src 'self' https://*.supabase.co https://api.openai.com https://api.stripe.com wss://*.supabase.co https://*.withcherry.com",
-            "frame-src 'self' https://js.stripe.com https://challenges.cloudflare.com https://www.alle.com https://*.alle.com https://*.withcherry.com https://pay.withcherry.com",
+            "frame-src 'self' https://js.stripe.com https://challenges.cloudflare.com https://www.alle.com https://*.alle.com https://*.withcherry.com https://pay.withcherry.com https://www.facebook.com",
             "frame-ancestors 'none'",
             "base-uri 'self'",
             "form-action 'self'",
