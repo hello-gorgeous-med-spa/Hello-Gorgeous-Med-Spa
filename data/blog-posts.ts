@@ -22,6 +22,78 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   // ====================================================================
+  // ARTICLE: The Story Behind Hello Gorgeous — Oswego, IL
+  // ====================================================================
+  {
+    slug: "the-story-behind-hello-gorgeous-oswego-il",
+    title: "The Story Behind Hello Gorgeous Med Spa in Oswego, IL: From Acne at 12 to Half a Million in Care",
+    metaTitle: "Our Story | Hello Gorgeous Med Spa Oswego IL | Danielle Alcala's Journey",
+    metaDescription: "The real story behind Hello Gorgeous in Oswego, IL. Danielle's passion for skin since age 12, Accutane, esthetic school, and the aunt who said 'hello gorgeous.' 10 years later, half a million in equipment.",
+    excerpt: "I had a passion for esthetics since I was 12. Awful acne, Accutane at 18, obsessed with skincare. After my two boys, I went to esthetic school. My aunt funded my business and said go for it, honey. Here I am 10 years later.",
+    category: "Our Story",
+    date: "2026-03-24",
+    readTime: "5 min",
+    keywords: ["Hello Gorgeous story", "med spa Oswego IL", "Danielle Alcala", "best med spa Oswego", "family owned med spa", "esthetician Oswego", "acne treatment Oswego"],
+    content: `# The Story Behind Hello Gorgeous Med Spa in Oswego, IL
+
+At Hello Gorgeous Med Spa in Oswego, IL — serving Naperville, Aurora, Plainfield, and the Fox Valley — we're not your average med spa. We're family-owned, built from a 12-year-old's struggle with acne and a beautiful aunt who believed in "go for it, honey." Here's the real story.
+
+## A Passion for Skin Since I Was 12
+
+I had awful acne. I tried everything over the counter. I mean, what else can you do at 12 years old? At 18, I went on Accutane. It did its purpose. But in between those years, I became obsessed — learning everything about skincare, conditions, diseases, and ingredients. That obsession never left.
+
+## After My Two Boys: A Career Change
+
+After I gave birth to my two little boys, I decided to make a career change. I went to esthetic school. Because of my background in business, I didn't just want to work somewhere — I wanted to build something. I decided to open my own med spa.
+
+## Where the Name Came From
+
+**Hello Gorgeous** comes from my beautiful aunt who raised me. Every time she passed me, she would say, "Hello gorgeous." She believed in me when I needed it most. As a stay-at-home mom herself, she funded my business and said, **"Go for it, honey."**
+
+I took that leap.
+
+## Here I Am 10 Years Later
+
+Here I am — 10 years later. An RN student. I've invested over half a million dollars in equipment. Morpheus8 Burst, Solaria CO₂, Quantum RF, laser hair removal, injectables, weight loss, hormone therapy — all under one roof in Oswego.
+
+But none of it matters if we don't take care of the people who trust us. I want nothing more than to take care of my clients and make them feel **even more beautiful than they already are**.
+
+## Built Different
+
+We're not a chain. We're not a revolving door. We're a family-owned med spa where the person who started it — who lived the acne, who studied the ingredients, who went to school, who took the risk — is still here. Still learning. Still investing. Still showing up.
+
+That's Hello Gorgeous.
+
+**Related:** [Meet Danielle](/providers/danielle) · [Why Choose Us](/why-choose-us) · [Our Services](/services)
+
+📞 **630-636-6193**
+🌐 **hellogorgeousmedspa.com/book**
+📍 **74 W Washington Street, Oswego, IL 60543**
+
+> *"I've been going to Hello Gorgeous for years. You can tell it's not just a business — Danielle genuinely cares. She remembers my skin, what works, what doesn't. I trust her completely."* — Client, Oswego, IL
+
+---
+
+## Frequently Asked Questions
+
+### Where is Hello Gorgeous located?
+
+We're at 74 W Washington Street in downtown Oswego, IL 60543. We're easy to find — right in the heart of Oswego, with plenty of parking. We serve clients from Naperville, Aurora, Plainfield, Yorkville, Montgomery, and throughout the Fox Valley.
+
+### Who runs Hello Gorgeous?
+
+Hello Gorgeous is owned and operated by Danielle Alcala, with Medical Director Ryan Kent, FNP-BC. Danielle is a licensed esthetician, RN student, phlebotomist, CMAA, and CNA. Ryan brings full prescriptive authority for weight loss, hormones, and medical treatments. We're a family-owned practice — not a chain.
+
+### What services do you offer?
+
+Injectables (Botox, Dysport, Jeuveau, dermal fillers, lip filler), medical weight loss (Semaglutide, Tirzepatide), hormone therapy, Morpheus8 Burst, Solaria CO₂ laser, Quantum RF, laser hair removal, facials, IV therapy, PRP/PRF, and more. [See all our services](/services).
+
+### Do you offer free consultations?
+
+Yes. We recommend starting with a free consultation so we can get to know you, understand your goals, and create a personalized plan. [Book your consultation](/book) or call (630) 636-6193.
+`,
+  },
+  // ====================================================================
   // ARTICLE: Should I Start Medical Weight Loss? + Morpheus8 Body
   // ====================================================================
   {
