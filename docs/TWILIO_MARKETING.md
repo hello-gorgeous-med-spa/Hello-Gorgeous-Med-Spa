@@ -28,6 +28,39 @@ Full steps: see [TWILIO_A2P_CAMPAIGN_FIX.md](./TWILIO_A2P_CAMPAIGN_FIX.md).
 - **Admin → SMS**: campaign “Send to all” and “Custom list”, plus “Send test”.
 - Other flows (e.g. review requests, reminders) may still use Telnyx; marketing is Twilio.
 
+---
+
+## How to run SMS campaigns (production)
+
+You **do not** need separate files like `app/api/send-sms/route.ts` or `/sms-campaigns` from external prototypes. This repo already ships:
+
+| What | Where |
+|------|--------|
+| **Campaign UI** | **`/admin/sms`** (sign in with your admin auth) |
+| **Single test SMS** | Same page → **Send test** → calls **`POST /api/sms/send`** |
+| **Bulk campaign** | Same page → compose message → **Send to all** or **Custom list** → **`POST /api/sms/campaign`** |
+
+**Env var name:** use **`TWILIO_PHONE_NUMBER`** (E.164). Some external snippets use `TWILIO_FROM_NUMBER` — that is **not** read by this app; align with the table above.
+
+### Steps
+
+1. **Deploy / local:** Ensure `TWILIO_ACCOUNT_SID`, `TWILIO_AUTH_TOKEN`, and `TWILIO_PHONE_NUMBER` are set (Vercel + redeploy, or `.env.local` for dev).
+2. Open **`https://www.hellogorgeousmedspa.com/admin/sms`** (or `/admin/sms` on your preview URL).
+3. **Send test** — enter your cell; confirm delivery before a blast.
+4. **Message** — type copy or pick a template from `SMS_TEMPLATES` in the UI.
+5. **Audience**
+   - **Send to all** — pulls phone numbers from Supabase **`clients`** and **`users`** (deduped). Requires `SUPABASE_SERVICE_ROLE_KEY` on the server for the campaign route.
+   - **Custom list** — paste one phone per line (any common US format). You can copy a column from a Fresha CSV export and paste here (same idea as a CSV upload, without a separate uploader).
+6. **Send** — confirm cost estimate, then run the campaign. Opt-out text is appended automatically if missing.
+
+### Prototype / Downloads folder vs this repo
+
+If you have a **`send-sms_route.ts`** + **`sms-campaigns_page.tsx`** kit that uses **`/api/send-sms`** and **`TWILIO_FROM_NUMBER`**, treat it as a **reference only**. Merging it would duplicate logic and wrong env names. Prefer **`/admin/sms`** + **`/api/sms/send`** + **`/api/sms/campaign`** above.
+
+If you later want a **CSV file upload** on `/admin/sms` (like that prototype), that would be a new feature on top of the existing page—not a second parallel route.
+
+---
+
 ## Opt-out
 
 Messages sent through the SMS campaign API automatically get “Reply STOP to unsubscribe” appended if not already present (see `lib/hgos/sms-marketing.ts`). Ensure your Twilio number is set up to handle STOP/HELP keywords (Twilio does this when you use Messaging Services).
