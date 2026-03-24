@@ -318,7 +318,12 @@ export async function sendViaTwilio(
     if (response.ok) {
       return { success: true, messageId: data.sid };
     } else {
-      return { success: false, error: data.message || 'Failed to send' };
+      const code = data.code != null ? ` [${data.code}]` : "";
+      const more = data.more_info ? ` — ${data.more_info}` : "";
+      return {
+        success: false,
+        error: `${data.message || "Twilio request failed"}${code}${more}`.trim(),
+      };
     }
   } catch (error) {
     return { success: false, error: String(error) };
