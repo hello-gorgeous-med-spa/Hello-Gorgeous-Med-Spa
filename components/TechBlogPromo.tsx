@@ -12,6 +12,12 @@ export function TechBlogPromo({
 }) {
   const articles = [
     {
+      slug: "the-story-behind-hello-gorgeous-oswego-il",
+      title: "The Story Behind Hello Gorgeous",
+      excerpt: "From acne at 12 to med spa owner — Danielle's journey",
+      icon: "💗",
+    },
+    {
       slug: "morpheus8-burst-vs-regular-oswego",
       title: "Morpheus8 Burst vs Regular",
       excerpt: "8mm vs 4mm — why depth matters",
@@ -40,7 +46,7 @@ export function TechBlogPromo({
         <p className="text-black/70 text-center mb-8 max-w-2xl mx-auto">
           {subtitle}
         </p>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {articles.map((article) => (
             <Link
               key={article.slug}

@@ -332,6 +332,15 @@ export default function ProviderProfilePage() {
                 </blockquote>
               )}
 
+              {provider.slug === 'danielle' && (
+                <Link
+                  href="/blog/the-story-behind-hello-gorgeous-oswego-il"
+                  className="inline-block mb-8 text-[#FF2D8E] font-semibold hover:underline"
+                >
+                  Read my full story: From acne at 12 to med spa owner →
+                </Link>
+              )}
+
               <a
                 href={provider.booking_url || 'https://hellogorgeousmedspa.janeapp.com'}
                 target="_blank"

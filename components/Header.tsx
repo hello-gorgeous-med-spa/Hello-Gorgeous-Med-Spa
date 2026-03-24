@@ -80,6 +80,7 @@ const navigation = {
     href: "/about",
     links: [
       { label: "About Hello Gorgeous", href: "/about", description: "Our story, mission & team", icon: "💗" },
+      { label: "The Story Behind Hello Gorgeous", href: "/blog/the-story-behind-hello-gorgeous-oswego-il", description: "Danielle's journey from acne at 12 to med spa owner", icon: "💗", badge: "STORY" },
       { label: "Meet Our Team", href: "/providers", description: "Danielle, Ryan & our experts", icon: "👩‍⚕️" },
       { label: "Our Location", href: "/locations", description: "Visit us in Oswego, IL", icon: "📍" },
       { label: "Clinical Standards", href: "/clinical-partners", description: "Safety & quality commitment", icon: "🏥" },

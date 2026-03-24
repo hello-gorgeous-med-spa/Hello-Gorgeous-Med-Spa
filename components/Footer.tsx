@@ -136,6 +136,11 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 </Link>
               </li>
               <li>
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/blog/the-story-behind-hello-gorgeous-oswego-il">
+                  Our Story
+                </Link>
+              </li>
+              <li>
                 <Link className="hover:text-[#FF2D8E] transition-colors" href="/why-choose-us">
                   Why Choose Us
                 </Link>

@@ -12,6 +12,12 @@ export function InjectablesBlogPromo({
 }) {
   const articles = [
     {
+      slug: "the-story-behind-hello-gorgeous-oswego-il",
+      title: "The Story Behind Hello Gorgeous",
+      excerpt: "From acne at 12 to med spa owner — Danielle's journey",
+      icon: "💗",
+    },
+    {
       slug: "botox-vs-dysport-vs-jeuveau-faq-oswego",
       title: "Botox vs Dysport vs Jeuveau",
       excerpt: "Which one is right for you? Compare onset, longevity & cost",
@@ -40,7 +46,7 @@ export function InjectablesBlogPromo({
         <p className="text-black/70 text-center mb-8 max-w-2xl mx-auto">
           {subtitle}
         </p>
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {articles.map((article) => (
             <Link
               key={article.slug}

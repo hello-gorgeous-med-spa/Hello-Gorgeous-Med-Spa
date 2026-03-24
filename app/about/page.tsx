@@ -38,13 +38,19 @@ export default function AboutPage() {
               A modern med spa experience built around trust, natural-looking results, and a
               premium standard of care.
             </p>
-            <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
               <CTA href={BOOKING_URL} variant="gradient">
                 Book a Consultation
               </CTA>
               <CTA href="/services" variant="outline">
                 Explore Services
               </CTA>
+              <Link
+                href="/blog/the-story-behind-hello-gorgeous-oswego-il"
+                className="inline-flex items-center justify-center px-8 py-4 border-2 border-[#E6007E] text-[#E6007E] font-semibold rounded-xl hover:bg-[#E6007E] hover:text-white transition-all"
+              >
+                Read Our Story →
+              </Link>
             </div>
           </FadeUp>
         </div>
@@ -112,6 +118,24 @@ export default function AboutPage() {
               </FadeUp>
             ))}
           </div>
+        </div>
+      </Section>
+
+      {/* Our Story */}
+      <Section className="bg-gray-50">
+        <div className="max-w-3xl mx-auto text-center">
+          <FadeUp>
+            <h2 className="text-2xl font-bold text-black mb-4">The Story Behind Hello Gorgeous</h2>
+            <p className="text-gray-600 mb-6">
+              From acne at 12 to med spa owner in Oswego — Danielle&apos;s journey, the aunt who said &quot;hello gorgeous,&quot; and 10 years of building something real. Get to know the person behind the name.
+            </p>
+            <Link
+              href="/blog/the-story-behind-hello-gorgeous-oswego-il"
+              className="inline-flex items-center gap-2 text-[#E6007E] font-semibold hover:underline"
+            >
+              Read the full story →
+            </Link>
+          </FadeUp>
         </div>
       </Section>
 

@@ -9,6 +9,7 @@ import { BOOKING_URL } from "@/lib/flows";
 import { pageMetadata, siteJsonLd, faqJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 import { BEST_OF_OSWEGO, DIFFERENTIATORS } from "@/lib/best-of-oswego";
 import { SITE } from "@/lib/seo";
+import { TechBlogPromo } from "@/components/TechBlogPromo";
 
 const BEST_MED_SPA_FAQS = [
   {
@@ -109,6 +110,12 @@ export default function BestMedSpaOswegoPage() {
           </div>
         </Section>
 
+        {/* Blog / Our Story */}
+        <TechBlogPromo
+          title="Get to Know Hello Gorgeous"
+          subtitle="The story behind the name, plus expert guides on our technology. Family-owned in Oswego since 2017."
+        />
+
         {/* FAQ */}
         <Section>
           <div className="max-w-3xl mx-auto">
@@ -148,6 +155,12 @@ export default function BestMedSpaOswegoPage() {
                 className="inline-flex items-center justify-center border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#E6007E] transition"
               >
                 View All Services
+              </Link>
+              <Link
+                href="/blog/the-story-behind-hello-gorgeous-oswego-il"
+                className="inline-flex items-center justify-center border-2 border-white/50 text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-[#E6007E] transition"
+              >
+                Read Our Story
               </Link>
             </div>
           </div>

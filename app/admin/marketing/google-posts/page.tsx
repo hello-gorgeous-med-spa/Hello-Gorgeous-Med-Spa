@@ -27,6 +27,15 @@ type Campaign = {
 
 const CAMPAIGNS: Campaign[] = [
   {
+    id: 'our-story-blog',
+    title: 'The Story Behind Hello Gorgeous',
+    type: 'Update',
+    headline: 'From Acne at 12 to Med Spa Owner — Danielle\'s Story',
+    description: 'Passion for skin since age 12. Aunt who said "hello gorgeous." 10 years later, half a million in equipment. Get to know the person behind Hello Gorgeous in Oswego. Read the full story.',
+    ctaText: 'Read Our Story',
+    ctaUrl: 'https://www.hellogorgeousmedspa.com/blog/the-story-behind-hello-gorgeous-oswego-il',
+  },
+  {
     id: 'spring-special-laser',
     title: 'Spring Special — Laser Hair Removal',
     type: 'Offer',
