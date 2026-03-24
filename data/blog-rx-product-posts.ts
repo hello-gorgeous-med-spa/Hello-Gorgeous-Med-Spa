@@ -3,6 +3,9 @@ import { PRODUCT_OFFER_CATEGORIES } from "@/lib/products-we-offer-cards";
 import LEARN from "@/lib/products-we-offer-learn.json";
 import { productOfferItemUrl } from "@/lib/products-we-offer-seo";
 
+/** Blog category label for compounded Rx catalog articles (used for /blog?filter=rx). */
+export const BLOG_CATEGORY_HELLO_GORGEOUS_RX = "Hello Gorgeous RX" as const;
+
 type LearnEntry = {
   what: string;
   how: string;
@@ -158,7 +161,7 @@ function buildPost(
     metaTitle,
     metaDescription,
     excerpt,
-    category: "Hello Gorgeous RX",
+    category: BLOG_CATEGORY_HELLO_GORGEOUS_RX,
     date: dateStr,
     readTime: estimateReadMinutes(content),
     keywords: [
