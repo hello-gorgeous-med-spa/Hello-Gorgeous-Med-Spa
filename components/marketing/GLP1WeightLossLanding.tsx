@@ -164,7 +164,7 @@ export function GLP1WeightLossLanding() {
           </div>
           <p className="mt-8 text-center">
             <Link href="#clinical-info" className="text-[#E6007E] font-semibold hover:underline">
-              Clinical details, safety &amp; pharmacy partner →
+              Clinical details, safety &amp; compounding →
             </Link>
           </p>
         </div>
