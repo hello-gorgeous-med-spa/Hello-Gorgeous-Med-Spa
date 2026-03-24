@@ -18,18 +18,26 @@ export function GlowUpEventBanner() {
             <p className="text-white font-bold text-sm sm:text-base">
               <span className="text-yellow-200">GLOW-UP EVENT</span>
               <span className="hidden sm:inline mx-2">|</span>
-              <span className="block sm:inline">$10 Botox • $499 Lip Filler • FREE Vitamin Shot</span>
+              <span className="block sm:inline">$10 Botox • $499 Lip Filler • Laser Hair $79 • FREE Vitamin Shot</span>
             </p>
             
-            <Link
-              href="/glow-event"
-              className="inline-flex items-center gap-2 px-4 py-1.5 bg-white hover:bg-gray-100 text-pink-600 text-sm font-bold rounded-full transition-all hover:scale-105 shadow-lg"
-            >
-              View Specials
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <Link
+                href="/glow-event"
+                className="inline-flex items-center gap-2 px-4 py-1.5 bg-white hover:bg-gray-100 text-pink-600 text-sm font-bold rounded-full transition-all hover:scale-105 shadow-lg"
+              >
+                View Specials
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+              <Link
+                href="/spring-special-laser-hair"
+                className="inline-flex items-center gap-2 px-4 py-1.5 bg-yellow-200 hover:bg-yellow-100 text-pink-700 text-sm font-bold rounded-full transition-all hover:scale-105 shadow-lg"
+              >
+                🌸 Laser Spring Special
+              </Link>
+            </div>
           </div>
           
           {/* Sparkle icon */}

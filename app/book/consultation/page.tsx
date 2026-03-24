@@ -23,7 +23,7 @@ const CONSULTATION_SERVICE = {
 
 export const metadata: Metadata = {
   title: 'Book Free Consultation | Hello Gorgeous Med Spa',
-  description: 'Book a free consultation with Ryan Kent, FNP-BC or Danielle Alcala, RN-S. Personalized treatment plan. Oswego, IL. Serving Naperville, Aurora, Plainfield.',
+  description: 'Book a free consultation with Ryan Kent, FNP-BC or Danielle Alcala. Personalized treatment plan. Oswego, IL. Serving Naperville, Aurora, Plainfield.',
   openGraph: {
     title: 'Book Free Consultation | Hello Gorgeous Med Spa',
     description: 'Choose Ryan NP or Danielle — free consultation to create your personalized plan.',
@@ -64,7 +64,7 @@ export default function ConsultationBookingPage() {
             <p className="text-sm font-medium text-black mb-1">Choose your provider</p>
             <p className="text-sm text-black">
               <strong>Ryan Kent, FNP-BC</strong> — Medical aesthetics, injectables, weight loss, hormone therapy, IV therapy.<br />
-              <strong>Danielle Alcala, RN-S</strong> — Lashes, brows, facials, skin treatments, injectables, laser.
+              <strong>Danielle Alcala</strong> — Lashes, brows, facials, skin treatments, injectables, laser.
             </p>
           </div>
         </section>

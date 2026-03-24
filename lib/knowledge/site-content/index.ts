@@ -119,7 +119,7 @@ export const SITE_CONTENT: readonly KnowledgeEntry[] = [
     topic: "First visit, new client, what to expect, intake",
     category: "site",
     explanation:
-      "For your first visit we'll have you fill out a short intake; we may send forms before your appointment. Plan to arrive a few minutes early. We'll go over your goals and the treatment. If you're not sure which service to book, a consultation is available so we can get you scheduled for a conversation first. You'll see either Ryan Kent (FNP-BC) or Danielle Alcala (RN-S, Licensed CNA, CMAA, Phlebotomist, Licensed Esthetician, Business Owner) depending on the service and who you choose when you book.",
+      "For your first visit we'll have you fill out a short intake; we may send forms before your appointment. Plan to arrive a few minutes early. We'll go over your goals and the treatment. If you're not sure which service to book, a consultation is available so we can get you scheduled for a conversation first. You'll see either Ryan Kent (FNP-BC) or Danielle Alcala (Business Owner, Licensed Esthetician, RN Student, Phlebotomist, CMAA, CNA) depending on the service and who you choose when you book.",
     whatItHelpsWith: ["Preparing for first visit", "Knowing what to expect"],
     whoItsFor: ["New clients"],
     whoItsNotFor: [],

@@ -1667,6 +1667,19 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
       {/* Laser Hair Removal - Zemits Duocratis */}
       {s.slug === "laser-hair-removal" && (
         <Section className="bg-gradient-to-b from-[#F8E6ED] via-white to-[#F8E6ED]/30">
+          {/* Spring Special Banner */}
+          <FadeUp>
+            <div className="mb-10 p-6 rounded-2xl bg-gradient-to-r from-[#FF2D8E] to-[#E91E8C] text-white text-center">
+              <p className="font-bold text-lg mb-2">🌸 Spring Special — No Packages</p>
+              <p className="text-white/90 text-sm mb-4">Underarms $79 • Lip & Chin $59 • Bikini $129. Results in 2–3 sessions.</p>
+              <Link
+                href="/spring-special-laser-hair"
+                className="inline-flex items-center gap-2 px-6 py-2.5 bg-white text-[#FF2D8E] font-bold rounded-lg hover:bg-gray-100 transition"
+              >
+                Claim Offer →
+              </Link>
+            </div>
+          </FadeUp>
           <FadeUp>
             <div className="text-center mb-12">
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#FF2D8E]/10 border border-[#FF2D8E]/20 mb-4">

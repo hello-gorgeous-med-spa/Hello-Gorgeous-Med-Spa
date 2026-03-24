@@ -77,7 +77,7 @@ function getSpecificIntentReply(message: string, bookingUrl: string, phone: stri
 
   // Who will I see / who does the treatment / provider
   if (has("who will", "who do i see", "who does", "which provider", "who is", "see ryan", "see danielle") || (has("provider") && (has("who") || has("choose")))) {
-    return `You’ll see either Ryan Kent (FNP-BC) or Danielle Alcala (RN-S, Licensed CNA, CMAA, Phlebotomist, Licensed Esthetician, Business Owner), depending on the service and who you choose when you book. Use "Book now" to pick your provider and see their availability.`;
+    return `You’ll see either Ryan Kent (FNP-BC) or Danielle Alcala (Business Owner, Licensed Esthetician, RN Student, Phlebotomist, CMAA, CNA), depending on the service and who you choose when you book. Use "Book now" to pick your provider and see their availability.`;
   }
 
   // Bring anything / forms / paperwork

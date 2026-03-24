@@ -44,7 +44,7 @@ const navigation = {
           { label: "Hormone Therapy", href: "/services/biote-hormone-therapy", icon: "⚖️" },
           { label: "Peptide Therapy", href: "/peptides", icon: "🧬" },
           { label: "IV Therapy", href: "/services/iv-therapy", icon: "💧" },
-          { label: "Laser Hair Removal", href: "/services/laser-hair-removal", icon: "✨" },
+          { label: "Laser Hair Removal", href: "/services/laser-hair-removal", icon: "✨", badge: "SPRING" },
           { label: "Laser Hair Memberships", href: "/laser-hair-memberships", icon: "🔥", badge: "30% OFF" },
         ],
       },
@@ -119,6 +119,7 @@ const navigation = {
     href: "/vip-model",
     highlight: true,
     links: [
+      { label: "Spring Special: Laser Hair", href: "/spring-special-laser-hair", description: "Underarms $79 • Lip & Chin $59 • Bikini $129 — No packages, 2–3 sessions", icon: "🌸", badge: "SPRING", external: false },
       { label: "VIP Model Program", href: "/vip-model", description: "Up to 50% off Morpheus8, Solaria, Trifecta — 20 spots only", icon: "🔥", badge: "50% OFF", external: false },
       { label: "Buy Now (Square)", href: VIP_MODEL_SQUARE_URL, description: "Secure your VIP Model spot — direct checkout", icon: "💳", badge: "BUY NOW", external: true },
       { label: "FREE Vitamin Shot", href: "/free-vitamin", description: "New clients only - $0", icon: "💉", badge: "FREE" },
