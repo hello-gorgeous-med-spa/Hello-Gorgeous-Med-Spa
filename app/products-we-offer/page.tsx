@@ -6,24 +6,96 @@ import { ProductsWeOfferShowcase } from "@/components/ProductsWeOfferShowcase";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
 import { PRODUCTS_OFFER_FOOTNOTE, PRODUCTS_OFFER_INTRO } from "@/lib/products-we-offer-catalog";
-import { pageMetadata, siteJsonLd } from "@/lib/seo";
+import {
+  PRODUCTS_OFFER_PAGE_PATH,
+  productsOfferItemListJsonLd,
+  productsOfferMetaKeywords,
+  productsOfferPageFaqs,
+} from "@/lib/products-we-offer-seo";
+import {
+  breadcrumbJsonLd,
+  faqJsonLd,
+  pageMetadata,
+  siteJsonLd,
+  SITE,
+  webPageJsonLd,
+} from "@/lib/seo";
 
 const OLYMPIA_DIRECTORY_URL = "https://www.olympiapharmacy.com/medication-directory/";
 
-export const metadata: Metadata = pageMetadata({
-  title: "Products We Offer | Compounded Rx (No Pricing)",
-  description:
-    "See compounded medication families Hello Gorgeous may prescribe—organized by category. Prescription only; no prices on this page. Oswego, IL.",
-  path: "/products-we-offer",
-});
+const PRODUCTS_OFFER_ABSOLUTE_TITLE =
+  "Hello Gorgeous RX™ | Compounded Rx — Semaglutide, Tirzepatide, Peptides, Hormones | Oswego, IL";
+
+const PRODUCTS_OFFER_DESCRIPTION =
+  "Hello Gorgeous RX™ in Oswego, IL: compounded prescriptions we may offer after consultation — GLP-1 weight loss (semaglutide, tirzepatide, retatrutide), peptides (sermorelin, tesamorelin, PT-141), bioidentical hormones, NAD+, hair loss, sexual wellness, and vitamin injections. Prescription-only catalog; book a consult.";
+
+const productsOfferCanonical = new URL(PRODUCTS_OFFER_PAGE_PATH, SITE.url).toString();
+
+export const metadata: Metadata = {
+  ...pageMetadata({
+    title: PRODUCTS_OFFER_ABSOLUTE_TITLE,
+    description: PRODUCTS_OFFER_DESCRIPTION,
+    path: PRODUCTS_OFFER_PAGE_PATH,
+  }),
+  title: { absolute: PRODUCTS_OFFER_ABSOLUTE_TITLE },
+  description: PRODUCTS_OFFER_DESCRIPTION,
+  keywords: [...productsOfferMetaKeywords()],
+  openGraph: {
+    type: "website",
+    url: productsOfferCanonical,
+    title: PRODUCTS_OFFER_ABSOLUTE_TITLE,
+    description: PRODUCTS_OFFER_DESCRIPTION,
+    siteName: SITE.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: PRODUCTS_OFFER_ABSOLUTE_TITLE,
+    description: PRODUCTS_OFFER_DESCRIPTION,
+  },
+};
 
 export default function ProductsWeOfferPage() {
+  const breadcrumbs = [
+    { name: "Home", url: SITE.url },
+    { name: "Hello Gorgeous RX — Products we offer", url: productsOfferCanonical },
+  ];
+
   return (
     <>
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            webPageJsonLd({
+              title: PRODUCTS_OFFER_ABSOLUTE_TITLE,
+              description: PRODUCTS_OFFER_DESCRIPTION,
+              path: PRODUCTS_OFFER_PAGE_PATH,
+            })
+          ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(productsOfferItemListJsonLd()),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(productsOfferPageFaqs())) }}
+      />
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbs)) }}
       />
 
       <Section className="relative bg-white py-14 md:py-20">
@@ -33,7 +105,8 @@ export default function ProductsWeOfferPage() {
               Rx &amp; compounding
             </p>
             <p className="font-sans text-base md:text-lg text-black/85 leading-relaxed max-w-3xl">
-              {PRODUCTS_OFFER_INTRO.sub}
+              <span className="font-medium text-[#E6007E]">Hello Gorgeous RX™</span> is our clinician-managed compounded
+              prescription program (Oswego, IL). {PRODUCTS_OFFER_INTRO.sub}
             </p>
             <ul className="mt-6 space-y-2 text-black/80 text-sm md:text-base max-w-3xl list-disc pl-5 marker:text-[#E6007E] font-sans font-light">
               {PRODUCTS_OFFER_INTRO.bullets.map((b) => (

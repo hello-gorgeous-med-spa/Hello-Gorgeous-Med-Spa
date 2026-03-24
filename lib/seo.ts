@@ -834,7 +834,7 @@ export function siteJsonLd() {
     "@type": "MedicalBusiness",
     "@id": `${SITE.url}/#organization`,
     name: SITE.name,
-    alternateName: "Hello Gorgeous Medspa",
+    alternateName: ["Hello Gorgeous Medspa", "Hello Gorgeous RX", "Hello Gorgeous RX™"],
     url: SITE.url,
     description: SITE.description,
     telephone: SITE.phone,

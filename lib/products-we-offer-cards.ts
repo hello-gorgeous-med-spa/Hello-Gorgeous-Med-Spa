@@ -4,6 +4,7 @@
  *
  * Keep copy in sync with `docs/hello-gorgeous-products.html` (standalone reference for designers / drop-in demos).
  * Long-form “Learn more” copy: `lib/products-we-offer-learn.json` (same category order and card order as below).
+ * SEO (ItemList, FAQs, keywords): `lib/products-we-offer-seo.ts` — keep card order in sync when adding rows.
  */
 
 export type ProductOfferBadge = "rx" | "popular" | "controlled" | "cold";

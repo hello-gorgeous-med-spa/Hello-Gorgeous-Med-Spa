@@ -10,6 +10,7 @@ import {
   type ProductOfferBadge,
   type ProductOfferCard,
 } from "@/lib/products-we-offer-cards";
+import { productOfferAnchorId } from "@/lib/products-we-offer-seo";
 
 type LearnBlock = {
   what: string;
@@ -126,8 +127,9 @@ export function ProductsWeOfferShowcase() {
                 const learn = LEARN[cat.id]?.[idx];
                 return (
                   <article
+                    id={productOfferAnchorId(cat.id, idx)}
                     key={p.name}
-                    className="bg-white border border-[#E6007E]/25 rounded-md px-[1.1rem] py-5 flex flex-col transition-transform duration-150 hover:-translate-y-0.5 shadow-sm"
+                    className="bg-white border border-[#E6007E]/25 rounded-md px-[1.1rem] py-5 flex flex-col transition-transform duration-150 hover:-translate-y-0.5 shadow-sm scroll-mt-24"
                   >
                     <span
                       className={`inline-block self-start text-[0.65rem] font-medium tracking-[0.08em] uppercase px-2.5 py-0.5 rounded-full mb-2.5 ${BADGE_CLASS[p.badge]}`}
