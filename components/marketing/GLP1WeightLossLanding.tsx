@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { GLP1EducationTabs } from "@/components/marketing/GLP1EducationTabs";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { BOOKING_URL, GLP1_INTAKE_PATH } from "@/lib/flows";
 import { GLP1_WEIGHT_LOSS_FAQS } from "@/lib/glp1-weight-loss-faqs";
@@ -169,6 +170,8 @@ export function GLP1WeightLossLanding() {
           </p>
         </div>
       </section>
+
+      <GLP1EducationTabs />
 
       {/* Testimonials */}
       <section className="py-16 md:py-20 px-4 bg-black text-white">
