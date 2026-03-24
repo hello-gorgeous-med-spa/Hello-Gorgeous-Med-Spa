@@ -119,7 +119,7 @@ export default function NursePractitionerMedSpaPage() {
                 With full prescriptive authority and NP oversight:
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <Link href="/services/weight-loss-therapy" className="px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg font-semibold hover:bg-[#E6007E] hover:text-white hover:border-[#E6007E] transition">
+                <Link href="/glp1-weight-loss" className="px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg font-semibold hover:bg-[#E6007E] hover:text-white hover:border-[#E6007E] transition">
                   Weight Loss (GLP-1)
                 </Link>
                 <Link href="/services/biote-hormone-therapy" className="px-4 py-2 bg-gray-100 border border-gray-200 rounded-lg font-semibold hover:bg-[#E6007E] hover:text-white hover:border-[#E6007E] transition">

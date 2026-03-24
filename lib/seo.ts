@@ -5,6 +5,8 @@ export type FAQ = { question: string; answer: string };
 
 export type Service = {
   slug: string;
+  /** When set, the canonical page is not at /services/[slug] (e.g. GLP-1 hub). */
+  publicPath?: string;
   name: string;
   category: string;
   short: string;
@@ -87,6 +89,21 @@ export const HOME_TESTIMONIALS = [
   { name: "Michelle R.", location: "Aurora, IL", rating: 5, text: "I hosted a Botox party with Hello Gorgeous and it was SO much fun! Great prices, professional service, and my friends are already asking when we're doing it again.", service: "Botox Party" },
   { name: "Amanda T.", location: "Plainfield, IL", rating: 5, text: "The weight loss program has been life-changing. Down 30 lbs and feeling better than I have in years. Ryan and Danielle genuinely care about your health journey.", service: "Weight Loss" },
 ] as const;
+
+/** Public URL path for a service (supports hubs outside /services). */
+export function servicePublicPath(s: Pick<Service, "slug" | "publicPath">): string {
+  return s.publicPath ?? `/services/${s.slug}`;
+}
+
+/** Resolve href for a service slug; falls back to /services/[slug] if unknown. */
+export function serviceHrefBySlug(slug: string): string {
+  const s = SERVICES.find((x) => x.slug === slug);
+  return s ? servicePublicPath(s) : `/services/${slug}`;
+}
+
+export function serviceAbsoluteUrl(s: Pick<Service, "slug" | "publicPath">): string {
+  return new URL(servicePublicPath(s), SITE.url).toString();
+}
 
 export const SERVICES: readonly Service[] = [
   {
@@ -178,6 +195,7 @@ export const SERVICES: readonly Service[] = [
   },
   {
     slug: "weight-loss-therapy",
+    publicPath: "/glp1-weight-loss",
     name: "Weight Loss Therapy",
     category: "Wellness",
     short:
@@ -1108,7 +1126,7 @@ export function serviceJsonLd(service: Service) {
     "@type": "MedicalProcedure",
     name: service.name,
     description: service.short,
-    url: `${SITE.url}/services/${service.slug}`,
+    url: serviceAbsoluteUrl(service),
     provider: {
       "@type": "MedicalBusiness",
       name: SITE.name,

@@ -93,12 +93,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.85,
     },
     {
-      url: `${baseUrl}/glp1-weight-loss`,
-      lastModified: currentDate,
-      changeFrequency: 'weekly',
-      priority: 0.85,
-    },
-    {
       url: `${baseUrl}/shop`,
       lastModified: currentDate,
       changeFrequency: 'weekly',
@@ -120,10 +114,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Service pages from SERVICES array
   const servicePages: MetadataRoute.Sitemap = SERVICES.map((service) => ({
-    url: `${baseUrl}/services/${service.slug}`,
+    url: `${baseUrl}${service.publicPath ?? `/services/${service.slug}`}`,
     lastModified: currentDate,
     changeFrequency: 'monthly' as const,
-    priority: 0.8,
+    priority: service.publicPath ? 0.9 : 0.8,
   }));
 
   // Solaria CO2 special pages (aftercare content lives on /solaria)

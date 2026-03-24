@@ -21,6 +21,7 @@ import {
   type DiscoveryOptionId,
   type ServiceAtlasClusterId,
 } from "@/lib/services-atlas";
+import { serviceHrefBySlug } from "@/lib/seo";
 import { useExperienceMemory } from "@/lib/memory/hooks";
 
 type Msg = { role: "user" | "assistant"; content: string };
@@ -266,7 +267,7 @@ function ServiceCard({
 
       <div className="mt-6 flex flex-col sm:flex-row gap-3">
         <Link
-          href={`/services/${slug}`}
+          href={serviceHrefBySlug(slug)}
           onClick={() => onViewed(slug)}
           className="inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-semibold border border-black text-white hover:bg-white transition"
         >
@@ -714,7 +715,7 @@ export function ServicesAtlas() {
           <div className="mt-4 space-y-2 text-sm text-white/80">
             {ATLAS_SERVICES.slice(0, 10).map((s) => (
               <div key={s.slug}>
-                <Link className="underline" href={`/services/${s.slug}`}>
+                <Link className="underline" href={serviceHrefBySlug(s.slug)}>
                   {s.name}
                 </Link>
               </div>

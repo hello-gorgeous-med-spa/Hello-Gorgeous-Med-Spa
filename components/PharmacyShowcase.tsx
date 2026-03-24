@@ -30,7 +30,7 @@ const slides: Slide[] = [
     benefits: ["Reduces appetite naturally", "Avg 15-20% body weight loss", "Weekly injection", "FDA-approved molecule"],
     icon: "⚖️",
     gradient: "from-pink-600 to-rose-500",
-    serviceLink: "/services/weight-loss-therapy",
+    serviceLink: "/glp1-weight-loss",
   },
   {
     id: "tirzepatide",
@@ -40,7 +40,7 @@ const slides: Slide[] = [
     benefits: ["Up to 25% weight loss", "Blood sugar control", "Weekly injection", "Newest generation"],
     icon: "🎯",
     gradient: "from-purple-600 to-pink-500",
-    serviceLink: "/services/weight-loss-therapy",
+    serviceLink: "/glp1-weight-loss",
   },
   // Peptides
   {

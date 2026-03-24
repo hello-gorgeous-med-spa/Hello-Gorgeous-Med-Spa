@@ -39,7 +39,7 @@ const TREATMENTS: { id: string; name: string; description: string; href: string;
   { id: "fillers", name: "Dermal Fillers", description: "Volume, contour", href: "/services/dermal-fillers", bookSlug: "dermal-fillers", providerSlug: "danielle", icon: "💎", tags: ["filler", "volume", "contour"] },
   { id: "lip-filler", name: "Lip Enhancement", description: "Fuller lips", href: "/services/lip-filler", bookSlug: "lip-filler", providerSlug: "danielle", icon: "💋", tags: ["filler", "lip"] },
   { id: "kybella", name: "Kybella", description: "Reduce submental fat", href: "/services/kybella", bookSlug: "kybella", providerSlug: "danielle", icon: "✨", tags: ["kybella", "chin", "contour"] },
-  { id: "weight", name: "Medical Weight Loss", description: "GLP-1 support", href: "/services/weight-loss-therapy", bookSlug: "weight-loss-therapy", providerSlug: "ryan", icon: "⚡", tags: ["weight-loss", "glp-1", "body"] },
+  { id: "weight", name: "Medical Weight Loss", description: "GLP-1 support", href: "/glp1-weight-loss", bookSlug: "weight-loss-therapy", providerSlug: "ryan", icon: "⚡", tags: ["weight-loss", "glp-1", "body"] },
   { id: "microneedling", name: "RF Microneedling", description: "Texture, firmness", href: "/services/rf-microneedling", bookSlug: "rf-microneedling", providerSlug: "danielle", icon: "🎯", tags: ["skin"] },
   { id: "iv", name: "IV Therapy", description: "Energy, wellness", href: "/services/iv-therapy", bookSlug: "iv-therapy", providerSlug: "ryan", icon: "💧", tags: ["body"] },
   { id: "hormones", name: "Hormone Therapy", description: "Energy, vitality", href: "/services/biote-hormone-therapy", bookSlug: "biote-hormone-therapy", providerSlug: "ryan", icon: "⚖️", tags: ["body"] },

@@ -147,7 +147,7 @@ const treatments: Treatment[] = [
     price: "1st Month FREE",
     icon: "⚖️",
     tags: ["weight-loss", "weight", "wellness", "long-term", "budget", "moderate", "financing", "beginner", "experienced"],
-    link: "/services/weight-loss-therapy",
+    link: "/glp1-weight-loss",
     priority: 10,
   },
   {

@@ -40,8 +40,7 @@ const navigation = {
       {
         title: "Body & Wellness",
         links: [
-          { label: "Weight Loss (GLP-1)", href: "/services/weight-loss-therapy", icon: "⚡" },
-          { label: "GLP-1 program overview", href: "/glp1-weight-loss", icon: "📋", description: "Process, FAQs & disclaimer" },
+          { label: "Weight Loss (GLP-1)", href: "/glp1-weight-loss", icon: "⚡", description: "Semaglutide & tirzepatide · Oswego" },
           { label: "Hormone Therapy", href: "/services/biote-hormone-therapy", icon: "⚖️" },
           { label: "Peptide Therapy", href: "/peptides", icon: "🧬" },
           { label: "IV Therapy", href: "/services/iv-therapy", icon: "💧" },

@@ -100,7 +100,7 @@ export default function ClinicalPartnersPage() {
                   ],
                   links: [
                     { href: "/services/biote-hormone-therapy", label: "Hormone therapy education" },
-                    { href: "/services/weight-loss-therapy", label: "Weight loss therapy education" },
+                    { href: "/glp1-weight-loss", label: "GLP-1 weight loss education" },
                     { href: "/services/trt-replacement-therapy", label: "TRT education" },
                   ],
                 },

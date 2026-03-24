@@ -12,7 +12,7 @@ const BOOKING_URL = 'https://www.hellogorgeousmedspa.com/book';
 const SPRING_SPECIAL_LASER_URL = 'https://www.hellogorgeousmedspa.com/spring-special-laser-hair';
 const GLOW_EVENT_URL = 'https://www.hellogorgeousmedspa.com/glow-event';
 const VIP_URL = 'https://www.hellogorgeousmedspa.com/vip-skin-tightening';
-const WEIGHT_LOSS_URL = 'https://www.hellogorgeousmedspa.com/services/weight-loss-therapy';
+const WEIGHT_LOSS_URL = 'https://www.hellogorgeousmedspa.com/glp1-weight-loss';
 const REVIEW_URL = 'https://g.page/r/CYQOWmT_HcwQEBM/review';
 
 type Campaign = {

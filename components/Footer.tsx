@@ -3,7 +3,7 @@ import Link from "next/link";
 import { GoogleMapEmbed } from "@/components/GoogleMapEmbed";
 import { BestOfOswegoBadge } from "@/components/BestOfOswegoBadge";
 import { BOOKING_URL } from "@/lib/flows";
-import { SITE, SERVICES } from "@/lib/seo";
+import { SITE, SERVICES, servicePublicPath } from "@/lib/seo";
 import type { SiteSettings } from "@/lib/cms-readers";
 
 const DEFAULT_TAGLINE = "Luxury, clinical-meets-beauty aesthetics with results you can trust. Experience personalized care that makes you feel confident and gorgeous.";
@@ -101,7 +101,7 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 <li key={s.slug}>
                   <Link
                     className="text-white hover:text-[#FF2D8E] transition-colors"
-                    href={`/services/${s.slug}`}
+                    href={servicePublicPath(s)}
                   >
                     {s.name}
                   </Link>

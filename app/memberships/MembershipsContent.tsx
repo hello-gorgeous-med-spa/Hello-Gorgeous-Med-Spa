@@ -74,7 +74,7 @@ const PROGRAMS = [
         "Quarterly check-ins and AI-powered lab insights",
         "Prescriptions, IV therapy, vitamin injections as needed",
       ],
-      ctaLink: "/services/weight-loss-therapy",
+      ctaLink: "/glp1-weight-loss",
       ctaText: "Learn about weight loss therapy",
     },
     priceDisplay: "From $450",

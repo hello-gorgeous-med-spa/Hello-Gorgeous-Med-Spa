@@ -106,7 +106,7 @@ const careGuides = [
     title: "Weight Loss Therapy",
     description: "GLP-1 medication guidelines and lifestyle recommendations.",
     viewOnline: "/pre-post-care/weight-loss",
-    serviceLink: "/services/weight-loss-therapy",
+    serviceLink: "/glp1-weight-loss",
     icon: "📉",
   },
   {

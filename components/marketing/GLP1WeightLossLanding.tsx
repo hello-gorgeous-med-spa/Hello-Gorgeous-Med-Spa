@@ -2,31 +2,10 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { BOOKING_URL } from "@/lib/flows";
+import { GLP1_WEIGHT_LOSS_FAQS } from "@/lib/glp1-weight-loss-faqs";
 import { SITE } from "@/lib/seo";
-
-const FAQS = [
-  {
-    q: "Am I a good candidate for GLP-1 therapy?",
-    a: "GLP-1 therapy is typically recommended for adults with a BMI of 27+ (with weight-related conditions) or BMI 30+. Our team will assess your full health history during your consultation to determine if this program is right for you.",
-  },
-  {
-    q: "Do I need insurance for this program?",
-    a: "No insurance required. Our GLP-1 program is offered as a self-pay service so you can start right away without dealing with prior authorizations or coverage headaches. HSA and FSA cards are accepted.",
-  },
-  {
-    q: "What medications are used?",
-    a: "We work with clinically proven GLP-1 medications including semaglutide and tirzepatide. Your provider will recommend the best option based on your health profile and goals.",
-  },
-  {
-    q: "How quickly will I see results?",
-    a: "Many patients begin to see weight loss within the first 4–8 weeks. Results vary by individual. Our team monitors your progress closely and adjusts your plan to keep you moving toward your goals.",
-  },
-  {
-    q: "Is this different from online GLP-1 telehealth services?",
-    a: "Yes — we're local, in-person, and relationship-based. You see the same team in our Oswego office. Real clinical care from people who know your name.",
-  },
-];
 
 export function GLP1WeightLossLanding() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -157,8 +136,8 @@ export function GLP1WeightLossLanding() {
             ))}
           </div>
           <p className="mt-8 text-center">
-            <Link href="/services/weight-loss-therapy" className="text-[#E6007E] font-semibold hover:underline">
-              Full weight loss program details →
+            <Link href="#clinical-info" className="text-[#E6007E] font-semibold hover:underline">
+              Clinical details, safety &amp; pharmacy partner →
             </Link>
           </p>
         </div>
@@ -192,6 +171,85 @@ export function GLP1WeightLossLanding() {
         </div>
       </section>
 
+      {/* Clinical & safety (migrated from legacy service page for E-E-A-T) */}
+      <section id="clinical-info" className="py-16 md:py-20 px-4 bg-neutral-50 border-t border-black/10 scroll-mt-24">
+        <div className="max-w-5xl mx-auto">
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#E6007E] mb-2">Clinical information</p>
+          <h2 className="font-serif text-3xl md:text-4xl text-black mb-3">GLP-1 medications &amp; safety</h2>
+          <p className="text-black/65 max-w-2xl mb-10 font-light text-sm">
+            What we prescribe, how we titrate, and when we may need to pause or adjust your plan. This is general education only—not a substitute for an in-person evaluation.
+          </p>
+          <div className="grid md:grid-cols-2 gap-5">
+            <div className="bg-white border-2 border-black/10 rounded-2xl p-6">
+              <h3 className="font-serif text-lg font-semibold text-black mb-2 flex items-center gap-2">
+                <span>💊</span> Medications
+              </h3>
+              <p className="text-sm text-black/70 leading-relaxed">
+                We work with <strong className="text-black">semaglutide</strong> (similar to Wegovy®/Ozempic®) and{" "}
+                <strong className="text-black">tirzepatide</strong> (similar to Zepbound®/Mounjaro®). Medications are compounded by a{" "}
+                <strong className="text-black">licensed pharmacy</strong> and titrated gradually to improve tolerance.
+              </p>
+            </div>
+            <div className="bg-white border-2 border-black/10 rounded-2xl p-6">
+              <h3 className="font-serif text-lg font-semibold text-black mb-2 flex items-center gap-2">
+                <span>📋</span> Prescribing approach
+              </h3>
+              <ul className="text-sm text-black/70 space-y-2 list-disc list-inside">
+                <li>Weekly injections for most GLP-1 protocols</li>
+                <li>Start low, titrate based on response and side effects</li>
+                <li>Ongoing monitoring with our clinical team in Oswego</li>
+              </ul>
+            </div>
+            <div className="bg-white border-2 border-black/10 rounded-2xl p-6">
+              <h3 className="font-serif text-lg font-semibold text-black mb-2 flex items-center gap-2">
+                <span>⚠️</span> Contraindications (examples)
+              </h3>
+              <p className="text-sm text-black/70 mb-2">We do not initiate GLP-1 therapy if you have, for example:</p>
+              <ul className="text-sm text-black/70 space-y-1 list-disc list-inside">
+                <li>Personal or family history of medullary thyroid cancer</li>
+                <li>MEN 2 (Multiple Endocrine Neoplasia type 2)</li>
+                <li>Pregnancy or plans to become pregnant</li>
+                <li>History of pancreatitis or severe gastroparesis</li>
+              </ul>
+              <p className="text-xs text-black/50 mt-3">Full screening happens at consultation.</p>
+            </div>
+            <div className="bg-white border-2 border-black/10 rounded-2xl p-6">
+              <h3 className="font-serif text-lg font-semibold text-black mb-2 flex items-center gap-2">
+                <span>🔬</span> Labs &amp; monitoring
+              </h3>
+              <ul className="text-sm text-black/70 space-y-1 list-disc list-inside">
+                <li>Baseline metabolic labs and A1C when indicated</li>
+                <li>Check-ins for appetite, tolerance, and progress</li>
+                <li>Dose adjustments based on your clinical picture</li>
+              </ul>
+            </div>
+          </div>
+          <div className="mt-10 rounded-2xl border-2 border-black/15 bg-white p-6 md:p-8">
+            <h3 className="font-semibold text-black mb-2">💊 Compounding partner</h3>
+            <p className="text-sm text-black/70 leading-relaxed mb-4">
+              We source compounded medications from <strong>Olympia Pharmacy</strong>—a licensed 503A/503B facility.{" "}
+              <a
+                href="https://www.olympiapharmacy.com/medication-directory/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#E6007E] font-semibold underline hover:no-underline"
+              >
+                Browse their medication directory
+              </a>{" "}
+              or read more on our{" "}
+              <Link href="/pharmacy-partner" className="text-[#E6007E] font-semibold underline hover:no-underline">
+                pharmacy partner page
+              </Link>
+              .
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="px-4 py-12 max-w-4xl mx-auto border-t border-black/10">
+        <ServiceExpertWidget serviceName="Weight Loss Therapy" slug="weight-loss-therapy" category="Wellness" />
+      </section>
+
       {/* FAQ */}
       <section className="py-16 md:py-20 px-4">
         <div className="max-w-2xl mx-auto">
@@ -200,19 +258,19 @@ export function GLP1WeightLossLanding() {
             We&apos;ve got <em className="text-[#E6007E] not-italic">answers.</em>
           </h2>
           <div className="divide-y divide-black/10">
-            {FAQS.map((item, i) => (
-              <div key={item.q} className="py-1">
+            {GLP1_WEIGHT_LOSS_FAQS.map((item, i) => (
+              <div key={item.question} className="py-1">
                 <button
                   type="button"
                   onClick={() => setOpenFaq(openFaq === i ? null : i)}
                   className="w-full flex items-center justify-between gap-4 py-4 text-left font-serif text-lg text-black hover:text-[#E6007E] transition-colors"
                 >
-                  {item.q}
+                  {item.question}
                   <span className={`text-2xl text-[#E6007E] shrink-0 transition-transform ${openFaq === i ? "rotate-45" : ""}`}>
                     +
                   </span>
                 </button>
-                {openFaq === i && <p className="pb-4 text-black/65 text-sm leading-relaxed font-light">{item.a}</p>}
+                {openFaq === i && <p className="pb-4 text-black/65 text-sm leading-relaxed font-light">{item.answer}</p>}
               </div>
             ))}
           </div>
@@ -269,8 +327,8 @@ export function GLP1WeightLossLanding() {
           <Link href="/" className="text-[#E6007E] hover:underline">
             Home
           </Link>
-          <Link href="/services/weight-loss-therapy" className="text-[#E6007E] hover:underline">
-            Weight loss services
+          <Link href="/services/body-wellness" className="text-[#E6007E] hover:underline">
+            Body &amp; wellness services
           </Link>
           <Link href="/blog/should-i-start-medical-weight-loss-morpheus8-body" className="text-[#E6007E] hover:underline">
             GLP-1 + skin tightening blog

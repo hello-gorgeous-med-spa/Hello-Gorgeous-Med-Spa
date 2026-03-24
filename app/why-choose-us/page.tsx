@@ -145,7 +145,7 @@ export default function WhyChooseUsPage() {
                 <Link href="/services/botox-dysport-jeuveau" className="px-4 py-2 bg-white border-2 border-black rounded-lg font-semibold hover:bg-black hover:text-white transition">
                   Botox & Fillers
                 </Link>
-                <Link href="/services/weight-loss-therapy" className="px-4 py-2 bg-white border-2 border-black rounded-lg font-semibold hover:bg-black hover:text-white transition">
+                <Link href="/glp1-weight-loss" className="px-4 py-2 bg-white border-2 border-black rounded-lg font-semibold hover:bg-black hover:text-white transition">
                   Weight Loss
                 </Link>
                 <Link href="/services/biote-hormone-therapy" className="px-4 py-2 bg-white border-2 border-black rounded-lg font-semibold hover:bg-black hover:text-white transition">

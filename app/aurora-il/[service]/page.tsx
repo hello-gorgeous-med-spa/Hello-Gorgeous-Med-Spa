@@ -6,7 +6,7 @@ import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { BOOKING_URL } from "@/lib/flows";
-import { SERVICES, SITE, faqJsonLd, pageMetadata, serviceJsonLd, siteJsonLd, breadcrumbJsonLd } from "@/lib/seo";
+import { SERVICES, SITE, faqJsonLd, pageMetadata, serviceJsonLd, servicePublicPath, siteJsonLd, breadcrumbJsonLd } from "@/lib/seo";
 
 const auroraServiceSlugs = [
   "botox-dysport-jeuveau",
@@ -115,7 +115,7 @@ export default function AuroraServicePage({ params }: { params: { service: strin
               <CTA href={BOOKING_URL} variant="gradient">
                 Book a Consultation
               </CTA>
-              <CTA href={`/services/${s.slug}`} variant="outline">
+              <CTA href={servicePublicPath(s)} variant="outline">
                 View main service page
               </CTA>
               <CTA href="/aurora-il" variant="outline">
@@ -173,7 +173,7 @@ export default function AuroraServicePage({ params }: { params: { service: strin
                   Read the complete service overview and FAQs on the main service page.
                 </p>
                 <div className="mt-6 flex flex-col sm:flex-row gap-4">
-                  <CTA href={`/services/${s.slug}`} variant="white">
+                  <CTA href={servicePublicPath(s)} variant="white">
                     Main service page
                   </CTA>
                   <CTA href="/providers" variant="outline">

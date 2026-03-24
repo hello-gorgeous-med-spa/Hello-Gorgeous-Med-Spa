@@ -88,7 +88,7 @@ export async function GET() {
     "/services/lip-filler": allImages.filter(img => 
       img.src.includes("lip")
     ),
-    "/services/weight-loss-therapy": allImages.filter(img => 
+    "/glp1-weight-loss": allImages.filter(img => 
       img.src.includes("weight") || 
       img.src.includes("semaglutide") ||
       img.src.includes("glp1")

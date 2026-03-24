@@ -7,6 +7,7 @@ import type { PersonaId } from "@/lib/personas/types";
 import { DEFAULT_PERSONA_ID, PERSONA_CONFIGS } from "@/lib/personas/index";
 import { PERSONA_UI } from "@/lib/personas/ui";
 import { BOOKING_URL, PRECONSULT_DEFAULTS, type CareModuleId, type PreConsultAnswer, suggestPersonaForServiceSlug, suggestServiceSlugsFromPreConsult } from "@/lib/flows";
+import { serviceHrefBySlug } from "@/lib/seo";
 import { complianceFooter, postTreatmentRedFlags, ryanSafetyOverrideReply } from "@/lib/guardrails";
 import {
   CARE_EXPERIENCE_ENABLED,
@@ -495,8 +496,8 @@ export function CareEngine() {
                   <ul className="mt-4 space-y-2 text-gray-700 text-sm">
                     {preSuggested.map((slug) => (
                       <li key={slug}>
-                        <a className="underline" href={`/services/${slug}`}>
-                          /services/{slug}
+                        <a className="underline" href={serviceHrefBySlug(slug)}>
+                          {serviceHrefBySlug(slug)}
                         </a>
                       </li>
                     ))}

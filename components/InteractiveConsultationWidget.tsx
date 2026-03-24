@@ -44,7 +44,7 @@ const CONCERN_TO_TREATMENT: Record<string, { name: string; href: string; icon: s
   dull: [{ name: "HydraFacial / Chemical Peel", href: "/services/hydra-facial", icon: "💆" }],
   weight: [
     { name: "☀️ Spring Break $299 Special", href: "/semaglutide-spring-break-special", icon: "⚡" },
-    { name: "Medical Weight Loss", href: "/services/weight-loss-therapy", icon: "⚡" },
+    { name: "Medical Weight Loss", href: "/glp1-weight-loss", icon: "⚡" },
   ],
   energy: [{ name: "IV Therapy / Hormones", href: "/services/iv-therapy", icon: "💧" }],
 };

@@ -15,7 +15,17 @@ import {
   MED_SPA_SLUG_TO_CITY,
 } from "@/lib/gbp-urls";
 import { LOCATION_PAGE_CONTENT } from "@/lib/local-seo-content";
-import { SERVICES, breadcrumbJsonLd, faqJsonLd, pageMetadata, siteJsonLd, serviceJsonLd, serviceLocationJsonLd } from "@/lib/seo";
+import {
+  SERVICES,
+  breadcrumbJsonLd,
+  faqJsonLd,
+  pageMetadata,
+  serviceHrefBySlug,
+  serviceJsonLd,
+  serviceLocationJsonLd,
+  servicePublicPath,
+  siteJsonLd,
+} from "@/lib/seo";
 import { CITIES, DEVICES, getCityDeviceSlug } from "@/data/city-seo";
 
 const ALL_LOCAL_SLUGS = [...GBP_SERVICE_SLUGS, ...MED_SPA_LOCATION_SLUGS];
@@ -302,7 +312,7 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
               <p className="mt-6 text-xl text-black max-w-3xl leading-relaxed">{LOCATION_PAGE_CONTENT[slug]?.intro ?? s.heroSubtitle}</p>
               <div className="mt-10 flex flex-col sm:flex-row gap-4">
                 <CTA href={BOOKING_URL} variant="gradient">Book a Consultation</CTA>
-                <CTA href={`/services/${s.slug}`} variant="outline">Full service details</CTA>
+                <CTA href={servicePublicPath(s)} variant="outline">Full service details</CTA>
                 <CTA href="/contact" variant="outline">Contact Us</CTA>
               </div>
               <p className="mt-6 text-sm text-black/70">{SITE.address.streetAddress}, {SITE.address.addressLocality}, {SITE.address.addressRegion} {SITE.address.postalCode} · {SITE.phone}</p>
@@ -325,7 +335,7 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
                   <FadeUp delayMs={200}>
                     <div className="mt-10 rounded-2xl border-2 border-black bg-white p-6">
                       <p className="text-black leading-relaxed"><ContentWithLinks content={LOCATION_PAGE_CONTENT[slug]!.callToAction} links={CONTEXTUAL_LINKS} /></p>
-                      <div className="mt-6 flex flex-col sm:flex-row gap-4"><CTA href={BOOKING_URL} variant="white">Book a Consultation</CTA><CTA href={`/services/${s.slug}`} variant="outline">View full {s.name} page</CTA><CTA href="/providers" variant="outline">Meet the Experts</CTA></div>
+                      <div className="mt-6 flex flex-col sm:flex-row gap-4"><CTA href={BOOKING_URL} variant="white">Book a Consultation</CTA><CTA href={servicePublicPath(s)} variant="outline">View full {s.name} page</CTA><CTA href="/providers" variant="outline">Meet the Experts</CTA></div>
                     </div>
                   </FadeUp>
                 </>
@@ -341,7 +351,7 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
                     <div className="mt-10 rounded-2xl border-2 border-black bg-white p-6">
                       <h3 className="text-xl font-bold text-[#FF2D8E]">More about {s.name}</h3>
                       <p className="mt-3 text-black">{LOCATION_PAGE_CONTENT[slug]?.communityContext ?? LOCATION_PAGE_CONTENT[slug]?.community ?? "Read the full service overview, FAQs, and what to expect on our main service page."}</p>
-                      <div className="mt-6 flex flex-col sm:flex-row gap-4"><CTA href={`/services/${s.slug}`} variant="white">View full {s.name} page</CTA><CTA href="/providers" variant="outline">Meet the Experts</CTA></div>
+                      <div className="mt-6 flex flex-col sm:flex-row gap-4"><CTA href={servicePublicPath(s)} variant="white">View full {s.name} page</CTA><CTA href="/providers" variant="outline">Meet the Experts</CTA></div>
                     </div>
                   </FadeUp>
                 </>
@@ -409,7 +419,7 @@ export default async function SlugPage({ params }: { params: Promise<{ slug: str
           <h2 className="mt-12 text-2xl md:text-3xl font-bold text-[#FF2D8E]">Popular treatments for {cityShort} clients</h2>
           <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[{ name: "Botox, Dysport & Jeuveau", slug: "botox-dysport-jeuveau" }, { name: "Dermal Fillers", slug: "dermal-fillers" }, { name: "Lip Filler", slug: "lip-filler" }, { name: "Weight Loss Therapy", slug: "weight-loss-therapy" }, { name: "Hormone Therapy", slug: "biote-hormone-therapy" }, { name: "RF Microneedling", slug: "rf-microneedling" }, { name: "IV Therapy", slug: "iv-therapy" }].map((svc) => (
-              <Link key={svc.slug} href={hubPath === "/locations" ? `/services/${svc.slug}` : `${hubPath}/${svc.slug}`} className="block rounded-2xl border-2 border-black bg-white p-6 hover:border-[#FF2D8E] transition-colors"><h3 className="text-lg font-bold text-black">{svc.name}</h3><p className="mt-2 text-sm text-[#FF2D8E]">Learn more →</p></Link>
+              <Link key={svc.slug} href={hubPath === "/locations" ? serviceHrefBySlug(svc.slug) : `${hubPath}/${svc.slug}`} className="block rounded-2xl border-2 border-black bg-white p-6 hover:border-[#FF2D8E] transition-colors"><h3 className="text-lg font-bold text-black">{svc.name}</h3><p className="mt-2 text-sm text-[#FF2D8E]">Learn more →</p></Link>
             ))}
           </div>
           <div className="mt-12 text-center">

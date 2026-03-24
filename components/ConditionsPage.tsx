@@ -92,7 +92,7 @@ const CONDITIONS: Condition[] = [
     ],
     description:
       "Our medical weight loss program offers GLP-1 options, clinical guidance, and real support. You'll move forward with clarity and control.",
-    learnMoreHref: "/services/weight-loss-therapy",
+    learnMoreHref: "/glp1-weight-loss",
   },
   {
     id: "hyperpigmentation",

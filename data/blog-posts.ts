@@ -162,7 +162,7 @@ When you lose significant weight, collagen and elastin fibers in your skin have 
 
 If you're wondering whether medical weight loss is right for you, the answer is: **let's talk.** A free consultation costs you nothing. We'll review your health history, goals, and whether GLP-1 medication makes sense. We'll also discuss skin tightening so you know exactly what's available when you're ready.
 
-**Related:** [Medical Weight Loss at Hello Gorgeous](/services/weight-loss-therapy) · [Morpheus8 Burst for Face & Body](/services/morpheus8)
+**Related:** [Medical Weight Loss at Hello Gorgeous](/glp1-weight-loss) · [Morpheus8 Burst for Face & Body](/services/morpheus8)
 
 📞 **630-636-6193**
 🌐 **hellogorgeousmedspa.com/book**

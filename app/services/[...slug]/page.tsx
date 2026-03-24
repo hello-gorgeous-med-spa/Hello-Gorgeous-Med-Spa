@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 
 import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
@@ -15,6 +15,7 @@ import {
   SERVICES,
   faqJsonLd,
   pageMetadata,
+  serviceHrefBySlug,
   siteJsonLd,
   dermalFillersPageMetadata,
   dermalFillersJsonLd,
@@ -34,7 +35,7 @@ type Params = { slug: string[] };
 
 export function generateStaticParams() {
   const categoryParams = ATLAS_CLUSTERS.map((c) => ({ slug: [c.id] }));
-  const serviceParams = SERVICES.map((s) => ({ slug: [s.slug] }));
+  const serviceParams = SERVICES.filter((s) => !s.publicPath).map((s) => ({ slug: [s.slug] }));
   return [...categoryParams, ...serviceParams];
 }
 
@@ -67,6 +68,13 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
 function getServiceMetadata(s: Service, one: string): Metadata {
   if (one === "dermal-fillers" || one === "lip-filler") {
     return dermalFillersPageMetadata(one as "dermal-fillers" | "lip-filler");
+  }
+  if (s.publicPath) {
+    return pageMetadata({
+      title: s.name,
+      description: `${s.heroTitle} — ${s.short} Serving Oswego, Naperville, Aurora, and Plainfield.`,
+      path: s.publicPath,
+    });
   }
   return pageMetadata({
     title: s.name,
@@ -130,7 +138,7 @@ function CategoryPage({ categoryId }: { categoryId: ServiceAtlasClusterId }) {
             {cards.map((c, idx) => (
               <FadeUp key={c.slug} delayMs={40 * idx}>
                 <Link
-                  href={`/services/${c.slug}`}
+                  href={serviceHrefBySlug(c.slug)}
                   className="group block rounded-2xl border-2 border-black bg-gradient-to-br from-white to-white p-6 hover:border-[#FF2D8E] hover:shadow-xl transition-all duration-300"
                 >
                   <div className="flex items-center gap-2 text-xs text-black/60 mb-3">
@@ -238,25 +246,6 @@ function getServiceContent(s: Service) {
         { icon: "⏱️", title: "Quick & Comfortable", description: "Numbing cream makes the 15-30 minute treatment comfortable" },
       ],
     },
-    "weight-loss-therapy": {
-      benefits: [
-        { icon: "📉", title: "Medical-Grade Results", description: "GLP-1 medications help reduce appetite and cravings naturally" },
-        { icon: "👩‍⚕️", title: "Provider-Supervised", description: "Regular check-ins ensure safe, effective progress" },
-        { icon: "🎯", title: "Sustainable Approach", description: "Focus on long-term lifestyle changes, not quick fixes" },
-        { icon: "💪", title: "Comprehensive Support", description: "Nutrition guidance and accountability built into your plan" },
-      ],
-      process: [
-        { step: 1, title: "Medical Evaluation", description: "Complete health assessment and lab work to ensure candidacy" },
-        { step: 2, title: "Personalized Protocol", description: "Custom medication dosing and nutrition guidance" },
-        { step: 3, title: "Weekly/Monthly Check-ins", description: "Regular monitoring to track progress and adjust as needed" },
-        { step: 4, title: "Maintenance Plan", description: "Transition to sustainable habits for long-term success" },
-      ],
-      testimonial: {
-        quote: "Down 35 lbs and feeling incredible. The support from the team made all the difference.",
-        author: "Michelle R.",
-        location: "Aurora, IL",
-      },
-    },
     "biote-hormone-therapy": {
       benefits: [
         { icon: "⚡", title: "Restored Energy", description: "Say goodbye to fatigue and feel like yourself again" },
@@ -300,6 +289,7 @@ function getServiceContent(s: Service) {
 function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
   const s = SERVICES.find((x) => x.slug === serviceSlug);
   if (!s) notFound();
+  if (s.publicPath) redirect(s.publicPath);
 
   const content = getServiceContent(s);
   const cluster = getClusterForService(s.slug);
@@ -1171,93 +1161,6 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
         </Section>
       )}
 
-      {/* Weight Loss GLP-1 Clinical Info */}
-      {s.slug === "weight-loss-therapy" && (
-        <Section className="bg-gradient-to-b from-white/50 via-white to-pink-50/50">
-          <FadeUp>
-            <div className="text-center mb-12">
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-500/10 border border-emerald-500/20 mb-4">
-                <span className="text-emerald-400 text-sm font-semibold uppercase tracking-wider">Clinical Info</span>
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-[#FF2D8E]">
-                GLP-1 Medications & Safety
-              </h2>
-              <p className="mt-4 text-black/80 max-w-2xl mx-auto">
-                What we prescribe, how we titrate, and when we may need to pause or adjust your plan.
-              </p>
-            </div>
-          </FadeUp>
-
-          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            <FadeUp delayMs={60}>
-              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-white to-white">
-                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
-                  <span>💊</span> Medications & Formulations
-                </h3>
-                <p className="text-black/80 text-sm leading-relaxed mb-3">
-                  We offer <strong className="text-black">Semaglutide</strong> (similar to Wegovy®/Ozempic®) and <strong className="text-black">Tirzepatide</strong> (similar to Zepbound®/Mounjaro®)—both GLP-1 receptor agonists. Medications are compounded by a licensed pharmacy and titrated gradually to minimize side effects and maximize results.
-                </p>
-                <p className="text-black/60 text-xs">
-                  Your provider selects the best medication and starting dose based on your health history and goals.
-                </p>
-              </div>
-            </FadeUp>
-            <FadeUp delayMs={80}>
-              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-white to-white">
-                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
-                  <span>📋</span> Most Common Prescriptions
-                </h3>
-                <ul className="text-black/80 text-sm space-y-2">
-                  <li><strong className="text-black">Semaglutide:</strong> Weekly injection, gradual dose increase over weeks</li>
-                  <li><strong className="text-black">Tirzepatide:</strong> Weekly injection, dual GIP/GLP-1 agonist</li>
-                </ul>
-                <p className="text-black/60 text-xs mt-3">
-                  Dosing is individualized. We start low and titrate based on tolerance and response.
-                </p>
-              </div>
-            </FadeUp>
-            <FadeUp delayMs={100}>
-              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-white to-white">
-                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
-                  <span>⚠️</span> Contraindications
-                </h3>
-                <p className="text-black/80 text-sm leading-relaxed mb-2">
-                  We do not initiate GLP-1 therapy if you have:
-                </p>
-                <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
-                  <li>Personal or family history of medullary thyroid cancer</li>
-                  <li>Multiple Endocrine Neoplasia syndrome type 2 (MEN 2)</li>
-                  <li>Pregnancy or planning pregnancy</li>
-                  <li>History of pancreatitis</li>
-                  <li>Severe gastroparesis</li>
-                </ul>
-                <p className="text-black/60 text-xs mt-3">
-                  We screen thoroughly before treatment and discuss any concerns with you.
-                </p>
-              </div>
-            </FadeUp>
-            <FadeUp delayMs={120}>
-              <div className="p-6 rounded-2xl border-2 border-black bg-gradient-to-br from-white to-white">
-                <h3 className="text-lg font-bold text-[#FF2D8E] mb-3 flex items-center gap-2">
-                  <span>🔬</span> Lab & Monitoring
-                </h3>
-                <p className="text-black/80 text-sm leading-relaxed mb-2">
-                  We may check or monitor:
-                </p>
-                <ul className="text-black/80 text-sm space-y-1 list-disc list-inside">
-                  <li>Baseline metabolic panel, A1C if diabetic</li>
-                  <li>Regular check-ins for nausea, appetite, and weight</li>
-                  <li>Dose adjustments based on tolerance and goals</li>
-                </ul>
-                <p className="text-black/60 text-xs mt-3">
-                  Medically supervised. We review progress and adjust your plan as needed.
-                </p>
-              </div>
-            </FadeUp>
-          </div>
-        </Section>
-      )}
-
       {/* Botox, Dysport & Jeuveau Clinical Info */}
       {s.slug === "botox-dysport-jeuveau" && (
         <Section className="bg-gradient-to-b from-transparent via-pink-950/10 to-transparent">
@@ -1926,7 +1829,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
       )}
 
       {/* Powered by Olympia - Hormone, Weight Loss */}
-      {(s.slug === "biote-hormone-therapy" || s.slug === "weight-loss-therapy") && (
+      {s.slug === "biote-hormone-therapy" && (
         <Section className="bg-gradient-to-b from-transparent via-violet-950/10 to-transparent">
           <FadeUp>
             <div className="max-w-3xl mx-auto rounded-2xl border-2 border-black bg-gradient-to-br from-white to-white p-6 md:p-8">
@@ -2043,7 +1946,7 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
               .map((service, idx) => (
                 <FadeUp key={service.slug} delayMs={60 * idx}>
                   <Link
-                    href={`/services/${service.slug}`}
+                    href={serviceHrefBySlug(service.slug)}
                     className="group block p-6 rounded-2xl bg-gradient-to-br from-white to-white border-2 border-black hover:border-[#FF2D8E] transition-all"
                   >
                     <h3 className="text-xl font-bold text-black group-hover:text-[#FF2D8E] transition-colors">

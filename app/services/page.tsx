@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
-import { SERVICES, pageMetadata, siteJsonLd } from "@/lib/seo";
+import { SERVICES, pageMetadata, servicePublicPath, siteJsonLd } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
   title: "Services",
@@ -60,7 +60,7 @@ export default function ServicesPage() {
           {SERVICES.map((s, idx) => (
             <FadeUp key={s.slug} delayMs={40 * idx}>
               <Link
-                href={`/services/${s.slug}`}
+                href={servicePublicPath(s)}
                 className="group block rounded-2xl border-2 border-black bg-gradient-to-br from-pink-50 to-white p-6 hover:border-[#FF2D8E] transition"
               >
                 <p className="text-[#FF2D8E] text-sm font-semibold tracking-wide">

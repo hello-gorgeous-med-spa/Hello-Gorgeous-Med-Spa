@@ -4,7 +4,7 @@ import Link from "next/link";
 import { CTA } from "@/components/CTA";
 import { FadeUp, Section } from "@/components/Section";
 import { BOOKING_URL } from "@/lib/flows";
-import { pageMetadata, siteJsonLd } from "@/lib/seo";
+import { pageMetadata, serviceHrefBySlug, siteJsonLd } from "@/lib/seo";
 
 const OLYMPIA_DIRECTORY_URL = "https://www.olympiapharmacy.com/medication-directory/";
 
@@ -135,7 +135,7 @@ export default function PharmacyPartnerPage() {
                   </a>
                   {cat.slug && (
                     <Link
-                      href={`/services/${cat.slug}`}
+                      href={serviceHrefBySlug(cat.slug)}
                       className="text-sm font-semibold text-black hover:text-white"
                     >
                       Learn about {cat.title.toLowerCase()} at HG
