@@ -8,6 +8,7 @@ import { CTA } from "@/components/CTA";
 import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { HarmonyAI } from "@/components/HarmonyAI";
 import { BotoxCalculator } from "@/components/BotoxCalculator";
+import { InjectablesBlogPromo } from "@/components/InjectablesBlogPromo";
 import { AlleEmbedSection } from "@/components/AlleEmbedSection";
 import { BOOKING_URL } from "@/lib/flows";
 import {
@@ -1447,6 +1448,14 @@ function ServiceDetailPage({ serviceSlug }: { serviceSlug: string }) {
             </div>
           </FadeUp>
         </Section>
+      )}
+
+      {/* Botox/Dysport/Jeuveau Blog Promo */}
+      {serviceSlug === "botox-dysport-jeuveau" && (
+        <InjectablesBlogPromo
+          title="Botox vs Dysport vs Jeuveau — Which One Is Right for You?"
+          subtitle="We offer all three. Read our FAQ to compare onset, longevity, spread, and cost. Your provider helps you decide at your free consultation."
+        />
       )}
 
       {/* Lip Filler Clinical Info - Revanesse + Salmon DNA */}

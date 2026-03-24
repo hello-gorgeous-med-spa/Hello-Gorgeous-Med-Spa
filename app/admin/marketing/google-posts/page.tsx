@@ -40,6 +40,15 @@ Mention "Glow Event" when you book. Oswego, IL — serving Naperville, Aurora, P
     ctaUrl: BOOKING_URL,
   },
   {
+    id: 'botox-faq-blog',
+    title: 'Botox vs Dysport vs Jeuveau — FAQ Blog',
+    type: 'Update',
+    headline: 'Botox vs Dysport vs Jeuveau: Which One Is Right for You?',
+    description: 'We offer all three in Oswego. Compare onset, longevity, spread & cost. $10/unit Botox. Your provider helps you decide at your free consultation. Read the full FAQ.',
+    ctaText: 'Read FAQ',
+    ctaUrl: 'https://www.hellogorgeousmedspa.com/blog/botox-vs-dysport-vs-jeuveau-faq-oswego',
+  },
+  {
     id: 'botox',
     title: 'Botox $10/unit',
     type: 'Offer',
