@@ -4,7 +4,6 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { GLP1EducationTabs } from "@/components/marketing/GLP1EducationTabs";
-import { ServiceExpertWidget } from "@/components/ServiceExpertWidget";
 import { BOOKING_URL, GLP1_INTAKE_PATH } from "@/lib/flows";
 import { GLP1_WEIGHT_LOSS_FAQS } from "@/lib/glp1-weight-loss-faqs";
 import { SITE } from "@/lib/seo";
@@ -274,10 +273,6 @@ export function GLP1WeightLossLanding() {
             </p>
           </div>
         </div>
-      </section>
-
-      <section className="px-4 py-12 max-w-4xl mx-auto border-t border-black/10">
-        <ServiceExpertWidget serviceName="Weight Loss Therapy" slug="weight-loss-therapy" category="Wellness" />
       </section>
 
       {/* FAQ */}
