@@ -180,6 +180,11 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                   Telehealth
                 </Link>
               </li>
+              <li>
+                <Link className="hover:text-[#FF2D8E] transition-colors" href="/products-we-offer">
+                  Products we offer (Rx)
+                </Link>
+              </li>
             </ul>
           </div>
 

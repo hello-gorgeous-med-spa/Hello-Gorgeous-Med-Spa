@@ -111,6 +111,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.75,
     },
     {
+      url: `${baseUrl}/products-we-offer`,
+      lastModified: currentDate,
+      changeFrequency: 'monthly',
+      priority: 0.72,
+    },
+    {
       url: `${baseUrl}/financing`,
       lastModified: currentDate,
       changeFrequency: 'monthly',

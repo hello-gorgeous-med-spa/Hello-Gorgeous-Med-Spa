@@ -137,6 +137,7 @@ const navigation = {
     label: "Shop",
     href: "/shop",
     links: [
+      { label: "Products we offer (Rx)", href: "/products-we-offer", description: "Compounded families — take-home vs in-clinic", icon: "📋" },
       { label: "Supplement Dispensary", href: "/fullscript", description: "Professional-grade supplements (Fullscript)", icon: "💊" },
       { label: "Shop Skincare & More", href: "/shop", description: "Skinscript RX, in-office products", icon: "🧴" },
       { label: "Pay with Cherry", href: CHERRY_PAY_URL, description: "Financing for your care", icon: "💳", external: true },
@@ -146,6 +147,7 @@ const navigation = {
     label: "More",
     href: "/contact",
     links: [
+      { label: "Products we offer", href: "/products-we-offer", description: "Compounded Rx catalog overview (no pricing)", icon: "💊" },
       { label: "Blog & Resources", href: "/blog", description: "Expert articles & treatment guides", icon: "📚" },
       { label: "Shop", href: "/shop", description: "Skincare, supplements & more", icon: "🧴" },
       { label: "Supplement Dispensary", href: "/fullscript", description: "Fullscript supplements", icon: "💊" },
@@ -157,6 +159,7 @@ const navigation = {
     label: "RX",
     href: "/rx",
     links: [
+      { label: "Products we offer", href: "/products-we-offer", description: "Take-home vs in-clinic compounded meds", icon: "📋" },
       { label: "Hello Gorgeous RX™", href: "/rx", description: "Luxury Longevity Division", icon: "💊" },
       { label: "Hormone Optimization", href: "/rx/hormones", description: "Bio-identical hormone therapy", icon: "🧬" },
       { label: "Metabolic Optimization", href: "/rx/metabolic", description: "Medical weight loss programs", icon: "⚖️" },

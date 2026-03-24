@@ -112,7 +112,12 @@ export default function PharmacyPartnerPage() {
             </h2>
             <p className="mt-4 text-black max-w-2xl mx-auto">
               Olympia&apos;s directory covers the compounded medications we work with at Hello Gorgeous. 
-              Browse by category below—or explore their full directory.
+              Browse by category below—or explore their full directory. For a Hello Gorgeous view of what we may
+              prescribe (take-home vs in-clinic, no pricing), see{" "}
+              <Link href="/products-we-offer" className="text-[#FF2D8E] font-semibold underline hover:text-pink-300">
+                products we offer
+              </Link>
+              .
             </p>
           </div>
         </FadeUp>
