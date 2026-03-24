@@ -12,6 +12,8 @@ SMS campaigns (Admin → **SMS** page) are sent via **Twilio**. Configure these 
 
 Add them in your hosting provider (e.g. Vercel → Project → Settings → Environment Variables).
 
+If the API returns **error 20003** (authentication failed), see **[TWILIO_ERROR_20003_VERCEL.md](./TWILIO_ERROR_20003_VERCEL.md)** — usually wrong/missing Vercel env vars, `SK` vs `AC` mix-up, stale auth token, or no redeploy after changes.
+
 ## A2P 10DLC (US compliance)
 
 For US marketing SMS, Twilio requires an approved A2P 10DLC campaign. If your campaign was rejected for CTA verification:
