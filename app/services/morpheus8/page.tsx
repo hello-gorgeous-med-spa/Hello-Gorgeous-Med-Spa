@@ -374,6 +374,12 @@ export default function Morpheus8Page() {
               >
                 Book Your Consultation
               </Link>
+              <p className="mt-4 text-sm text-black/60">
+                Considering medical weight loss?{" "}
+                <Link href="/blog/should-i-start-medical-weight-loss-morpheus8-body" className="text-[#E6007E] font-semibold hover:underline">
+                  Read: Should I Start? + Morpheus8 body for loose skin →
+                </Link>
+              </p>
             </div>
           </div>
         </section>

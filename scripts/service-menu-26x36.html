@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=3900, height=5400">
+  <title>Hello Gorgeous Med Spa — Service Menu</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #000;
+      color: #fff;
+      width: 3900px;
+      height: 5400px;
+      padding: 100px 120px;
+      overflow: hidden;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 70px;
+      padding-bottom: 50px;
+      border-bottom: 4px solid #FF2D8E;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 140px;
+      font-weight: 700;
+      letter-spacing: -2px;
+      margin-bottom: 20px;
+      line-height: 1.1;
+    }
+    .tagline { font-size: 52px; color: rgba(255,255,255,0.95); font-weight: 600; margin-bottom: 25px; }
+    .contact { font-size: 46px; color: rgba(255,255,255,0.9); margin-bottom: 10px; font-weight: 500; }
+    .book-url { font-size: 40px; color: #FF2D8E; margin-top: 20px; font-weight: 700; }
+
+    .grid { display: flex; gap: 80px; }
+    .col { flex: 1; }
+
+    .category {
+      background: rgba(255,45,142,0.08);
+      border: 3px solid #FF2D8E;
+      border-radius: 16px;
+      padding: 45px 50px;
+      margin-bottom: 55px;
+    }
+    .category-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 64px;
+      font-weight: 700;
+      color: #FF2D8E;
+      margin-bottom: 35px;
+      padding-bottom: 20px;
+      border-bottom: 3px solid rgba(255,45,142,0.5);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+    .service-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 22px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.2);
+      font-size: 44px;
+      gap: 30px;
+    }
+    .service-row:last-child { border-bottom: none; }
+    .service-name { font-weight: 700; font-size: 46px; flex: 1; }
+    .service-desc { color: rgba(255,255,255,0.85); font-size: 38px; font-weight: 500; }
+    .service-price { font-weight: 800; color: #FF2D8E; font-size: 48px; white-space: nowrap; }
+    .service-price.strike { color: rgba(255,255,255,0.5); text-decoration: line-through; font-size: 38px; margin-right: 12px; font-weight: 600; }
+    .vip-badge { background: #FF2D8E; color: white; font-size: 28px; padding: 8px 16px; border-radius: 8px; margin-left: 12px; font-weight: 700; }
+    .category-note { font-size: 36px; color: rgba(255,255,255,0.75); margin-top: 20px; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1 class="logo">Hello Gorgeous</h1>
+    <p class="tagline">Med Spa · Oswego, IL</p>
+    <p class="contact">74 W. Washington Street · Oswego, IL 60543</p>
+    <p class="contact">(630) 636-6193</p>
+    <p class="book-url">Book: fresha.com/book-now/hello-gorgeous-tallrfb5</p>
+  </div>
+
+  <div class="grid">
+    <div class="col">
+      <div class="category">
+        <h2 class="category-title">Injectables</h2>
+        <div class="service-row">
+          <span class="service-name">Botox</span>
+          <span class="service-price">$10/unit</span>
+        </div>
+        <div class="service-row">
+          <span class="service-name">Dysport</span>
+          <span class="service-price">From $4/unit</span>
+        </div>
+        <div class="service-row">
+          <span class="service-name">Jeuveau · Xeomin</span>
+          <span class="service-price">Call</span>
+        </div>
+      </div>
+
+      <div class="category">
+        <h2 class="category-title">Dermal Fillers</h2>
+        <div class="service-row">
+          <span class="service-name">Lip Filler</span>
+          <span class="service-price">From $499</span>
+        </div>
+        <div class="service-row">
+          <span class="service-name">Dermal Fillers</span>
+          <span class="service-price">From $500</span>
+        </div>
+        <div class="service-row">
+          <span class="service-name">Juvederm · Restylane</span>
+          <span class="service-price">Call</span>
+        </div>
+      </div>
+
+      <div class="category">
+        <h2 class="category-title">Morpheus8 &amp; Skin</h2>
+        <div class="service-row">
+          <span class="service-name">Morpheus8 Burst</span>
+          <span><span class="service-price strike">$1,400</span><span class="service-price">$799</span><span class="vip-badge">VIP</span></span>
+        </div>
+        <div class="service-row">
+          <span class="service-name">Morpheus8 × 3</span>
+          <span><span class="service-price strike">$4,200</span><span class="service-price">$1,999</span><span class="vip-badge">BEST</span></span>
+        </div>
+        <div class="service-row">
+          <span class="service-name">2 Areas 50% Off</span>
+          <span><span class="service-price strike">$2,400</span><span class="service-price">$1,200</span></span>
+        </div>
+      </div>
+
+      <div class="category">
+        <h2 class="category-title">Solaria CO₂ Laser</h2>
+        <div class="service-row">
+          <span class="service-name">Solaria CO₂</span>
+          <span><span class="service-price strike">$1,600</span><span class="service-price">$899</span><span class="vip-badge">VIP</span></span>
+        </div>
+        <div class="service-row">
+          <span class="service-name">Morpheus8 + CO₂ Combo</span>
+          <span><span class="service-price strike">$3,000</span><span class="service-price">$1,499</span></span>
+        </div>
+        <div class="service-row">
+          <span class="service-name">The Trifecta</span>
+          <span><span class="service-price strike">$4,500</span><span class="service-price">$1,999</span></span>
+        </div>
+        <p class="category-note">Quantum RF coming soon</p>
+      </div>
+    </div>
+
+    <div class="col">
+      <div class="category">
+        <h2 class="category-title">Facials</h2>
+        <div class="service-row">
+          <span class="service-name">HydraFacial</span>
+          <span class="service-price">$199</span>
+        </div>
+        <div class="service-row">
+          <span class="service-name">Chemical Peel</span>
+          <span class="service-price">$150</span>
+        </div>
+        <div class="service-row">
+          <span class="service-name">Microneedling</span>
+          <span class="service-price">From $350</span>
+        </div>
+        <div class="service-row">
+          <span class="service-name">Custom Facial</span>
+          <span class="service-price">$120</span>
+        </div>
+      </div>
+
+      <div class="category">
+        <h2 class="category-title">Laser &amp; Body</h2>
+        <div class="service-row">
+          <span class="service-name">Laser Hair Removal</span>
+          <span class="service-price">From $75</span>
+        </div>
+        <div class="service-row">
+          <span class="service-name">IPL Photofacial</span>
+          <span class="service-price">$250</span>
+        </div>
+        <div class="service-row">
+          <span class="service-name">Body Contouring</span>
+          <span class="service-price">From $350</span>
+        </div>
+      </div>
+
+      <div class="category">
+        <h2 class="category-title">Wellness</h2>
+        <div class="service-row">
+          <span class="service-name">Weight Loss Consult</span>
+          <span class="service-price">FREE</span>
+        </div>
+        <div class="service-row">
+          <span class="service-name">Medical Weight Loss</span>
+          <span class="service-price">From $350/mo</span>
+        </div>
+        <div class="service-row">
+          <span class="service-name">IV Therapy</span>
+          <span class="service-price">$199</span>
+        </div>
+        <div class="service-row">
+          <span class="service-name">Free Consultation</span>
+          <span class="service-price">FREE</span>
+        </div>
+      </div>
+
+      <div class="category" style="background: rgba(255,45,142,0.12); border-width: 4px;">
+        <h2 class="category-title">#1 Best Med Spa</h2>
+        <p class="category-note" style="font-size: 42px; margin-top: 0;">Full-authority NP on site · Quantum RF · Morpheus8 Burst · Solaria CO₂ · Financing: Cherry &amp; CareCredit</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

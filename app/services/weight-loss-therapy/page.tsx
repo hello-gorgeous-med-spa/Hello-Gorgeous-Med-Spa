@@ -302,6 +302,22 @@ export default function WeightLossTherapyPage() {
         </div>
       </Section>
 
+      {/* Article CTA — Should I Start? */}
+      <Section className="bg-emerald-50/50 py-6 border-b border-emerald-100">
+        <div className="max-w-4xl mx-auto px-4 text-center">
+          <p className="text-black/80 text-base md:text-lg">
+            <strong>Not sure if medical weight loss is right for you?</strong>{" "}
+            <Link
+              href="/blog/should-i-start-medical-weight-loss-morpheus8-body"
+              className="text-[#E6007E] font-semibold hover:underline underline-offset-2"
+            >
+              Read: How Do I Know If I Should Start? →
+            </Link>
+            {" "}Plus why Morpheus8 Burst for body belongs in your transformation plan.
+          </p>
+        </div>
+      </Section>
+
       {/* Trust Badges */}
       <Section className="bg-white py-8 border-y border-gray-200">
         <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16">

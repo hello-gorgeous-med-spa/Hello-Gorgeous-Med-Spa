@@ -67,6 +67,15 @@ Mention "Glow Event" when you book. Oswego, IL — serving Naperville, Aurora, P
     ctaUrl: WEIGHT_LOSS_URL,
   },
   {
+    id: 'weight-loss-article',
+    title: 'Should I Start Medical Weight Loss? (Blog)',
+    type: 'Update',
+    headline: 'How Do I Know If I Should Start Medical Weight Loss?',
+    description: 'Signs you may benefit from GLP-1 weight loss — plus why Morpheus8 Burst for body (arms, belly, thighs) should be part of your plan. One team for weight loss + skin tightening. Read the full article.',
+    ctaText: 'Read article',
+    ctaUrl: 'https://www.hellogorgeousmedspa.com/blog/should-i-start-medical-weight-loss-morpheus8-body',
+  },
+  {
     id: 'vip',
     title: 'VIP Skin Tightening — Morpheus8 & Solaria Now Booking',
     type: 'Update',

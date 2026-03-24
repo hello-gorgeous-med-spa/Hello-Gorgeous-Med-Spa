@@ -12,22 +12,22 @@ export function WeightLossBlogPromo({
 }) {
   const articles = [
     {
+      slug: "should-i-start-medical-weight-loss-morpheus8-body",
+      title: "Should I Start Medical Weight Loss?",
+      excerpt: "Signs + Morpheus8 Burst body for loose skin",
+      icon: "🎯",
+    },
+    {
       slug: "ozempic-vs-tirzepatide-vs-zepbound-oswego",
       title: "Ozempic vs Tirzepatide vs Zepbound",
       excerpt: "Which GLP-1 is right for you?",
       icon: "💉",
     },
     {
-      slug: "retatrutide-weight-loss-next-generation",
-      title: "Retatrutide: The Next Generation",
-      excerpt: "Triple agonist — coming soon",
-      icon: "🔬",
-    },
-    {
-      slug: "weight-loss-programs-oswego-il",
-      title: "GLP-1 Weight Loss Programs",
-      excerpt: "Full program overview",
-      icon: "📋",
+      slug: "loose-skin-after-weight-loss-treatment",
+      title: "Loose Skin After Weight Loss",
+      excerpt: "Morpheus8, QuantumRF & Solaria can fix it",
+      icon: "✨",
     },
   ];
 
