@@ -1,0 +1,310 @@
+{
+  "weight": [
+    {
+      "what": "Semaglutide is a GLP-1 receptor agonist — a synthetic version of a hormone your gut naturally releases after eating. It tells your brain you are full, slows digestion, and reduces cravings at the source.",
+      "how": "One small subcutaneous injection per week, self-administered at home. Our team trains you at your first visit.",
+      "good": "Adults with a BMI of 27+ (with a weight-related condition) or 30+. Not suitable for Type 1 diabetes, pregnancy, or certain thyroid conditions.",
+      "expect": "Most patients notice reduced appetite within 1–2 weeks. Meaningful weight loss typically begins by week 4–8. Average loss is 10–15% of body weight over 6–12 months.",
+      "side": "Mild nausea, especially at the start. This usually improves after the first few weeks as your body adjusts."
+    },
+    {
+      "what": "Tirzepatide (the active ingredient in Mounjaro and Zepbound) works on two hormone pathways simultaneously — GLP-1 and GIP. This dual action produces significantly greater fat loss than GLP-1 alone.",
+      "how": "One weekly subcutaneous injection. Dosing starts low and is gradually increased over several months to minimize side effects.",
+      "good": "Patients who want maximum results, or those who have plateaued on semaglutide. Also excellent for those with Type 2 diabetes.",
+      "expect": "Clinical trials showed average weight loss of 20–22% of body weight over 72 weeks — among the highest ever recorded for a non-surgical weight loss treatment.",
+      "side": "Similar to semaglutide: nausea, reduced appetite, occasional fatigue at dose increases. Typically well-tolerated."
+    },
+    {
+      "what": "Retatrutide activates three hormone receptors — GLP-1, GIP, and glucagon — making it the most comprehensive metabolic therapy available. Still in advanced trials but showing extraordinary results.",
+      "how": "Weekly injection. Dosing protocol is conservative given the potency of this medication.",
+      "good": "Patients who have not reached their goals with semaglutide or tirzepatide, or those seeking cutting-edge metabolic optimization.",
+      "expect": "Early trial data shows 24%+ body weight reduction — the highest of any GLP-1 class medication to date.",
+      "side": "Similar GI side effects to other GLP-1 medications. Your provider monitors closely given the newer profile."
+    },
+    {
+      "what": "The same semaglutide compound delivered via a small tablet that dissolves under the tongue or in the cheek. Absorbed directly into the bloodstream without swallowing.",
+      "how": "One tablet dissolved sublingually each day, typically in the morning. No needles, no refrigeration.",
+      "good": "Patients who are needle-averse, travel frequently, or want a simpler daily routine.",
+      "expect": "Slightly different absorption profile than injectable semaglutide. Results are still meaningful — most patients see consistent appetite reduction and gradual weight loss.",
+      "side": "Generally milder side effects than injectable due to lower peak concentrations. Some mild oral or GI irritation is possible."
+    },
+    {
+      "what": "Naltrexone at standard doses blocks opioid receptors. At very low doses (1.5–4.5mg), it has a different effect — briefly blocking receptors causes the body to upregulate endorphin production, reducing inflammation and improving immune regulation.",
+      "how": "One capsule taken at bedtime. The low dose is key — it works differently than standard naltrexone and is taken nightly.",
+      "good": "Patients with inflammatory conditions, autoimmune issues, mood dysregulation, or those who want metabolic support alongside GLP-1 therapy.",
+      "expect": "Gradual improvement in energy, inflammation markers, and appetite regulation. Many patients notice improved sleep and mood within the first month.",
+      "side": "Very well-tolerated. Some patients experience vivid dreams in the first week. Rare GI upset."
+    },
+    {
+      "what": "This combination works on two separate brain pathways: bupropion activates reward and satiety centers, while naltrexone blocks the feedback loop that normally shuts those signals off — keeping appetite suppression active longer.",
+      "how": "Taken daily as a sustained-release capsule. Dose is typically started low and increased over 4 weeks.",
+      "good": "Patients who struggle with emotional eating, cravings, or food reward behavior. Can be used alongside GLP-1 therapy.",
+      "expect": "Meaningful appetite reduction and mood stabilization. Average weight loss of 5–9% over 6 months in clinical studies.",
+      "side": "May cause increased blood pressure initially, insomnia, or dry mouth. Not appropriate for patients with seizure history or on certain antidepressants."
+    }
+  ],
+  "peptides": [
+    {
+      "what": "Sermorelin is a growth hormone releasing hormone (GHRH) analogue. Rather than injecting growth hormone directly, sermorelin signals your pituitary gland to produce and release its own GH — a more natural and regulated approach.",
+      "how": "Small subcutaneous injection taken at bedtime (when natural GH pulses occur). Typically cycled 5 days on, 2 days off.",
+      "good": "Adults over 30 experiencing fatigue, poor sleep, stubborn body fat, reduced muscle mass, slow recovery, or declining skin quality.",
+      "expect": "Most patients notice deeper sleep and faster recovery within 2–4 weeks. Body composition improvements (more muscle, less fat) are typically visible by months 2–3.",
+      "side": "Very well-tolerated. Some patients experience mild injection site redness or water retention at higher doses."
+    },
+    {
+      "what": "The same sermorelin peptide in a rapidly dissolving sublingual tablet. Absorbed through the mucous membranes under the tongue for convenient, needle-free delivery.",
+      "how": "One tablet dissolved under the tongue daily, typically at bedtime to align with natural GH release.",
+      "good": "Patients who want the benefits of sermorelin therapy without injections, or who travel and need a practical protocol.",
+      "expect": "Slightly lower peak absorption than injectable, but consistent daily use produces meaningful benefits for sleep, energy, and body composition.",
+      "side": "Excellent tolerability. No injection site reactions. Occasional mild headache during the first week."
+    },
+    {
+      "what": "Tesamorelin is an FDA-approved GHRH analogue with a longer half-life than sermorelin. It is the only peptide clinically approved for reducing visceral (deep belly) fat.",
+      "how": "Daily subcutaneous injection. Typically prescribed in 3–6 month cycles with monitoring.",
+      "good": "Patients with significant abdominal fat accumulation, metabolic syndrome, or those who want the strongest GHRH option available.",
+      "expect": "Clinical trials show 15–18% reduction in visceral fat over 26 weeks. Also improves cholesterol, body composition, and cognitive function.",
+      "side": "Generally well-tolerated. May cause mild fluid retention, joint aches, or elevated blood sugar at higher doses. Monitored closely."
+    },
+    {
+      "what": "PDA is a newer, more stable analogue of BPC-157 — a naturally occurring peptide found in gastric juice. It promotes tissue repair, reduces inflammation, and supports gut lining integrity through multiple pathways.",
+      "how": "Available as a subcutaneous injection or oral capsule. Dosing depends on the goal — gut health protocols often use oral; injury recovery often uses injection.",
+      "good": "Patients with leaky gut, IBS, chronic inflammation, joint injuries, or anyone recovering from surgery or overtraining.",
+      "expect": "Many patients notice GI improvements within 2 weeks. Injury recovery acceleration varies but is often striking — faster healing than expected.",
+      "side": "Exceptionally well-tolerated. No significant side effects reported in clinical use."
+    },
+    {
+      "what": "PT-141 works on melanocortin receptors in the brain — specifically the pathways that regulate sexual desire and arousal. Unlike ED medications that work on blood flow, PT-141 works at the neurological level, making it effective for both men and women.",
+      "how": "Subcutaneous injection taken 45 minutes to 2 hours before intimacy. Can be combined with tadalafil or oxytocin for enhanced effect.",
+      "good": "Men or women with reduced libido, arousal difficulties, or those for whom traditional ED medications are insufficient or not applicable.",
+      "expect": "Most patients experience noticeable arousal enhancement within 1–2 hours. Effects last 6–12 hours.",
+      "side": "Mild flushing, nausea, or temporary increase in blood pressure in some patients. Should not be used daily."
+    },
+    {
+      "what": "TB-4 (Thymosin Beta-4) is a naturally occurring peptide found in virtually every cell of the body. It plays a central role in tissue repair, new blood vessel formation, and reducing inflammation after injury.",
+      "how": "Subcutaneous or intramuscular injection. Dosing frequency depends on whether it is being used for acute injury or chronic inflammation.",
+      "good": "Athletes, active patients with tendon or ligament injuries, post-surgical recovery, or anyone with chronic inflammatory conditions.",
+      "expect": "Accelerated healing of soft tissue injuries. Reduced joint inflammation. Improved range of motion. Many patients notice effects within 2–4 weeks.",
+      "side": "Very well-tolerated. Minimal side effects reported. Occasional mild fatigue in the first week."
+    }
+  ],
+  "hormone": [
+    {
+      "what": "Testosterone cypionate is a bioidentical testosterone ester that closely mirrors the body's natural hormone. It is the most widely used and studied form of TRT, providing stable testosterone levels when dosed weekly.",
+      "how": "Intramuscular or subcutaneous injection once weekly. Dose is determined by labs and symptoms, not a one-size protocol.",
+      "good": "Men with clinically low testosterone (hypogonadism) experiencing fatigue, low libido, loss of muscle, depression, poor sleep, or cognitive decline.",
+      "expect": "Improved energy and mood within 3–4 weeks. Libido improvement by week 4–6. Body composition changes (more muscle, less fat) take 3–6 months.",
+      "side": "Requires monitoring of hematocrit, PSA, and estradiol. May require an aromatase inhibitor. Managed carefully by our team."
+    },
+    {
+      "what": "Compounded testosterone cream applied to the skin daily. Absorbed through the skin into the bloodstream. Available for both men and women in very different dose ranges.",
+      "how": "A small amount applied to thin-skinned areas (inner arm, wrist, or for women, inner labia) once daily. Rotate sites to prevent skin thickening.",
+      "good": "Men who prefer to avoid injections, or women needing very low-dose testosterone for libido, energy, or mood support.",
+      "expect": "More gradual onset than injection. Steady daily levels rather than weekly peaks. Women often notice libido and energy improvement within 4–6 weeks.",
+      "side": "Skin irritation at application site is possible. Transfer to partners or children is a safety concern — hands must be washed and area covered."
+    },
+    {
+      "what": "Bioidentical progesterone is molecularly identical to the progesterone your body produces. It is distinct from synthetic progestins (like medroxyprogesterone acetate) and has a much more favorable safety and side effect profile.",
+      "how": "Typically taken orally at bedtime — progesterone has a natural calming effect that supports sleep. Dose varies based on menopausal status and symptoms.",
+      "good": "Women in perimenopause or menopause experiencing irregular cycles, insomnia, anxiety, mood swings, or those using estrogen therapy who need progesterone balance.",
+      "expect": "Many women notice improved sleep within the first week. Mood stabilization and cycle regulation typically follow within 4–6 weeks.",
+      "side": "Drowsiness is common — which is why bedtime dosing is preferred. Some women notice initial breast tenderness that typically resolves."
+    },
+    {
+      "what": "Bi-Est is a compounded blend of two bioidentical estrogens: estradiol (E2) and estriol (E3). The 80/20 formula emphasizes the more potent estradiol; the 50/50 formula provides a gentler, more balanced effect.",
+      "how": "Applied topically to thin-skinned areas (inner arm, inner thigh) daily. Absorbed transdermally, avoiding first-pass liver metabolism.",
+      "good": "Women in menopause experiencing hot flashes, vaginal dryness, cognitive fog, bone loss concerns, or mood changes.",
+      "expect": "Hot flash relief often begins within 2 weeks. Improved sleep, skin, and mood follow over 4–8 weeks. Bone protection is a long-term benefit.",
+      "side": "Requires regular monitoring. Not appropriate for women with certain hormone-sensitive cancers. Always used with progesterone in women with a uterus."
+    },
+    {
+      "what": "Enclomiphene is the active isomer of clomiphene citrate. It blocks estrogen receptors in the hypothalamus, which tricks the brain into producing more LH and FSH — signaling the testes to produce more testosterone naturally.",
+      "how": "Daily oral capsule. Labs are checked at 6–8 weeks to assess response and adjust dosing.",
+      "good": "Younger men (under 40) with low-normal testosterone who want to preserve fertility, or men who want to avoid exogenous testosterone.",
+      "expect": "Testosterone levels typically rise 50–150% from baseline within 4–8 weeks. Energy, libido, and mood improvements follow.",
+      "side": "Generally well-tolerated. Some men notice mild mood fluctuations initially. Does not suppress natural testosterone production."
+    },
+    {
+      "what": "Standard thyroid prescriptions (levothyroxine/Synthroid) provide only T4 — the inactive form. Many patients cannot efficiently convert T4 to active T3, leaving them symptomatic. Compounded T3/T4 combinations address both.",
+      "how": "Daily capsule taken in the morning on an empty stomach. Dosing is guided by labs (free T3, free T4, TSH) and symptoms.",
+      "good": "Patients on standard thyroid medication who still experience fatigue, brain fog, weight gain, cold sensitivity, hair loss, or depression.",
+      "expect": "Improvements in energy and cognition are often noticed within 2–4 weeks of finding the right dose. Weight and mood improvements follow.",
+      "side": "Requires careful monitoring. Too much T3 can cause palpitations or anxiety. Dosing is titrated slowly."
+    }
+  ],
+  "antiaging": [
+    {
+      "what": "NAD+ is a coenzyme found in every cell of the body. It is essential for energy production (ATP), DNA repair, and sirtuins — the proteins most associated with aging and longevity. Levels decline 50% between ages 20 and 50.",
+      "how": "Subcutaneous injection, typically 2–5 times per week at the start, then reducing to a maintenance schedule. Also available as nasal spray or IV.",
+      "good": "Anyone experiencing energy decline, cognitive slowdown, poor workout recovery, or those focused on proactive longevity.",
+      "expect": "Many patients report a noticeable increase in mental clarity and energy within the first 1–2 weeks of consistent use.",
+      "side": "Very well-tolerated at low doses. High-dose IV NAD+ can cause flushing, nausea, and chest tightness — IV sessions are done slowly."
+    },
+    {
+      "what": "Intranasal NAD+ bypasses digestion and delivers the coenzyme directly to the brain via the olfactory pathway — making it one of the most bioavailable non-injectable delivery methods for cognitive benefits.",
+      "how": "A few sprays per nostril once or twice daily. Typically used as a maintenance protocol alongside injectable NAD+, or as a standalone for cognitive support.",
+      "good": "Patients focused on brain longevity, cognitive clarity, memory, and focus. Also popular for anyone recovering from concussion or neurological stress.",
+      "expect": "Many users report improved focus and mental energy within the first week. Neuroprotective benefits are cumulative over months.",
+      "side": "Occasionally causes mild nasal irritation. No significant systemic side effects."
+    },
+    {
+      "what": "Methylene blue is one of the oldest pharmaceutical compounds still in use. At low doses, it acts as an electron donor in the mitochondrial chain, boosting cellular energy production. It also has powerful neuroprotective and antioxidant properties.",
+      "how": "Low-dose capsule taken in the morning. Dose matters greatly — benefits occur in the 0.5–4mg/kg range. Higher doses have different effects.",
+      "good": "Patients interested in cognitive longevity, mitochondrial health, or those with early signs of cognitive decline. Often stacked with NAD+.",
+      "expect": "Improved mental clarity, memory recall, and sustained energy are commonly reported within 2–4 weeks.",
+      "side": "Urine and stool may turn blue-green — this is harmless and expected. Can interact with SSRIs; discuss with your provider."
+    },
+    {
+      "what": "Rapamycin is an mTOR inhibitor originally developed as an immunosuppressant. At very low weekly doses, it activates autophagy — the cellular cleaning process — and is the only drug proven to extend lifespan in multiple animal models.",
+      "how": "Low-dose once-weekly protocol (typically 1–6mg). This intermittent schedule activates longevity pathways without the immunosuppression seen at daily high doses.",
+      "good": "Adults 35+ interested in proactive longevity, cellular health optimization, or those with a family history of age-related disease.",
+      "expect": "Not a medication where you feel immediate effects. Benefits are long-term: slower cellular aging, reduced senescence, and improved metabolic markers over years.",
+      "side": "Mouth sores can occur at higher doses. Minor glucose elevation possible. Regular labs are required."
+    },
+    {
+      "what": "GHK-Cu (copper peptide) is a naturally occurring tripeptide that declines with age. It stimulates collagen and elastin production, promotes wound healing, reduces inflammation, and activates genes associated with tissue regeneration.",
+      "how": "Small sublingual tablet that dissolves under the tongue for direct systemic absorption. Also available as topical cream or solution for local application.",
+      "good": "Patients interested in skin quality, joint health, systemic anti-aging, or combined protocols with sermorelin and NAD+.",
+      "expect": "Skin improvements (firmness, texture) within 4–8 weeks. Systemic anti-inflammatory effects build gradually over months.",
+      "side": "Excellent tolerability. No significant side effects at recommended doses."
+    },
+    {
+      "what": "5-Amino 1MQ is a small molecule that inhibits NNMT (nicotinamide N-methyltransferase) — an enzyme that consumes NAD+ and promotes fat cell expansion. By blocking NNMT, it raises NAD+ levels and shifts metabolism toward fat burning.",
+      "how": "Daily capsule, often taken in the morning. Frequently stacked with NAD+ therapy for synergistic effect.",
+      "good": "Patients focused on metabolic optimization, stubborn fat reduction, or longevity. Works well alongside GLP-1 therapy.",
+      "expect": "Improved energy and gradual metabolic shift within 4–8 weeks. Not a rapid weight loss agent — works best as part of a comprehensive program.",
+      "side": "Generally well-tolerated. A newer compound; long-term human data is still accumulating."
+    }
+  ],
+  "hair": [
+    {
+      "what": "Oral minoxidil works by dilating blood vessels and opening potassium channels in hair follicles — extending the growth phase (anagen) and increasing follicle size. Systemic absorption means it reaches all follicles, not just where you apply it.",
+      "how": "Once daily capsule, typically 2.5–5mg for men, 0.5–2.5mg for women. Lower doses for women dramatically reduce side effect risk.",
+      "good": "Both men and women with any pattern of hair thinning. Especially effective for diffuse thinning in women.",
+      "expect": "Shedding often increases in the first 4–6 weeks as follicles cycle into a new growth phase — this is a good sign. New growth visible by month 3–6.",
+      "side": "Fluid retention and mild facial/body hair growth are possible, especially at higher doses. Blood pressure monitoring recommended."
+    },
+    {
+      "what": "A single compounded solution combining minoxidil (promotes growth) with finasteride (blocks DHT, the hormone that shrinks follicles). Topical delivery of finasteride reduces the systemic side effects seen with oral finasteride.",
+      "how": "Applied to the scalp once daily with a dropper. Allow to dry before styling. Consistent daily use is critical.",
+      "good": "Men with androgenetic alopecia (male pattern baldness) at any stage, or women with androgenetic thinning who are post-menopausal.",
+      "expect": "Stabilization of hair loss within 3 months. New growth often visible by month 4–6. Maximum results at 12 months.",
+      "side": "Topical finasteride has a much lower systemic absorption than oral, significantly reducing sexual side effect risk."
+    },
+    {
+      "what": "Dutasteride inhibits both Type 1 and Type 2 5-alpha reductase enzymes, blocking DHT production more completely than finasteride (which only inhibits Type 2). This makes it more potent for hair loss but also requires more careful management.",
+      "how": "Daily oral capsule, typically 0.5–2.5mg. Some protocols use once-weekly higher doses for reduced systemic exposure.",
+      "good": "Men who have had suboptimal response to finasteride, or those with more aggressive hair loss patterns.",
+      "expect": "Stronger arrest of hair loss than finasteride in clinical studies. New growth reported in a higher percentage of patients.",
+      "side": "Similar to finasteride: possible reduced libido or ejaculate volume. Side effects are reversible on discontinuation. Labs may be monitored."
+    },
+    {
+      "what": "GHK-Cu applied topically to the scalp stimulates follicle proliferation, increases follicle size, and reduces the scalp inflammation that contributes to miniaturization. It works through different pathways than minoxidil and finasteride, making it an excellent addition.",
+      "how": "Applied to the scalp once daily, typically at bedtime. Allow to absorb — no rinsing. Can be combined with any topical hair protocol.",
+      "good": "Anyone experiencing hair thinning, especially with scalp inflammation or redness. Great addition to existing hair loss protocols.",
+      "expect": "Improved scalp health within 4–6 weeks. Gradual follicle stimulation over 3–6 months.",
+      "side": "Excellent tolerability. Rare contact irritation. Safe for long-term use."
+    },
+    {
+      "what": "Minoxidil injected directly into the scalp dermis reaches follicles at concentrations impossible to achieve with topical application. Used in mesotherapy protocols, it provides highly targeted stimulation where it is most needed.",
+      "how": "In-office procedure performed by our clinical team. Tiny injections across the scalp using a fine needle or mesotherapy device. Sessions typically every 2–4 weeks.",
+      "good": "Patients who have not responded adequately to topical minoxidil, those with localized thinning areas, or anyone wanting to amplify their existing protocol.",
+      "expect": "Most patients notice improved scalp coverage and density within 3–4 treatment sessions.",
+      "side": "Mild soreness and redness at injection sites for 24 hours. Bruising is rare."
+    },
+    {
+      "what": "A lightweight foam formulation combining GHK-Cu (copper peptide for follicle stimulation) with biotin (a B vitamin critical for keratin production). The foam vehicle delivers better scalp contact than heavy creams or gels.",
+      "how": "Applied to dry or towel-dried scalp once daily. The foam vehicle absorbs quickly and does not leave residue.",
+      "good": "Patients who want a clean, lightweight daily topical that supports both follicle health and hair shaft strength.",
+      "expect": "Improved hair quality and reduced shedding within 4–6 weeks. Follicle regrowth support over 3–6 months.",
+      "side": "Very well-tolerated. The foam is non-greasy and compatible with most hair types."
+    }
+  ],
+  "sexual": [
+    {
+      "what": "Tadalafil is a PDE5 inhibitor that increases blood flow by relaxing smooth muscle in blood vessels. Its 36-hour half-life makes it uniquely suitable for daily low-dose use — maintaining vascular readiness without planning around a pill.",
+      "how": "Either 5mg daily (continuous low-dose) or 10–20mg as-needed. Daily dosing is preferred for its cardiovascular and vascular health benefits beyond ED.",
+      "good": "Men with erectile dysfunction, reduced sexual confidence, or those who want continuous readiness without timing a pill.",
+      "expect": "As-needed: effects within 30–60 minutes. Daily protocol: consistent improvement in erectile quality within 1–2 weeks.",
+      "side": "Mild headache or flushing are common initially. Do not combine with nitrates."
+    },
+    {
+      "what": "Sildenafil (the active ingredient in Viagra) is the most studied PDE5 inhibitor. Compounded versions offer identical efficacy at a fraction of the brand cost, with precise dosing tailored to you.",
+      "how": "Taken 30–60 minutes before sexual activity. Works best on an empty stomach or with a light meal.",
+      "good": "Men seeking reliable, fast-acting ED support or those who prefer as-needed dosing over daily medication.",
+      "expect": "Effective within 30–60 minutes in most men. Duration is 4–6 hours.",
+      "side": "Flushing, headache, mild visual changes (blue tinge) at higher doses. Do not combine with nitrates or alpha-blockers."
+    },
+    {
+      "what": "PT-141 (bremelanotide) activates brain pathways for sexual desire. Oxytocin — the bonding hormone — amplifies emotional connection and intimacy. Together they address both the desire and relational dimensions of sexual health.",
+      "how": "A few sprays taken 45–90 minutes before intimacy. Effects last 6–12 hours.",
+      "good": "Men or women with reduced libido, difficulty with arousal, or those who want to deepen emotional connection alongside physical response.",
+      "expect": "Noticeable increase in desire and arousal within 1–2 hours. The oxytocin component enhances emotional warmth and connection.",
+      "side": "Mild flushing, nausea, or temporary blood pressure increase in some patients."
+    },
+    {
+      "what": "Scream Cream is a compounded topical applied directly to the clitoral area. The combination of sildenafil (increases blood flow), arginine (NO precursor), and papaverine (smooth muscle relaxant) works together to enhance sensitivity and arousal.",
+      "how": "A small amount applied to the clitoris and labia 20–30 minutes before intimacy. Effects are localized.",
+      "good": "Women experiencing reduced sensitivity, difficulty achieving orgasm, or those who want to enhance arousal without systemic medications.",
+      "expect": "Increased sensitivity and arousal in most women within 20–30 minutes of application.",
+      "side": "Very well-tolerated. Occasionally mild warming or tingling sensation — this is the intended effect."
+    },
+    {
+      "what": "Oxytocin is the hormone released during touch, orgasm, and bonding. Supplemental oxytocin can deepen emotional connection, reduce social anxiety, and enhance arousal — for both men and women.",
+      "how": "A small sublingual tablet dissolved under the tongue 30–60 minutes before intimacy or social situations.",
+      "good": "Couples wanting to deepen emotional intimacy, individuals with performance anxiety, or anyone seeking enhanced connection.",
+      "expect": "Reduced anxiety and increased emotional warmth within 30–60 minutes. Sexual arousal enhancement is more subtle than PT-141 but deeply relational.",
+      "side": "Excellent tolerability. Very rare headache or mild nausea."
+    },
+    {
+      "what": "This three-compound troche combines tadalafil (vascular), PT-141 (neural desire), and oxytocin (emotional bonding) in a single dissolving lozenge — addressing all three dimensions of male sexual function simultaneously.",
+      "how": "Dissolve in the cheek or under the tongue 45–90 minutes before intimacy.",
+      "good": "Men who want comprehensive sexual health support in one convenient dose — addressing both physical and psychological dimensions.",
+      "expect": "Most men experience meaningful improvement in desire, arousal, erectile quality, and emotional connection.",
+      "side": "Combines the profiles of all three compounds. Most patients tolerate well. Mild flushing or nausea possible."
+    }
+  ],
+  "wellness": [
+    {
+      "what": "The Myers Cocktail is a physician-developed IV formulation combining magnesium, B complex vitamins, vitamin B12, vitamin C, and calcium. Delivered intravenously, it achieves tissue concentrations impossible with oral supplementation.",
+      "how": "Administered as a slow IV push or drip in our office. Takes 20–40 minutes. Can be done as a one-time boost or on a regular schedule.",
+      "good": "Patients with fatigue, frequent illness, migraines, fibromyalgia, seasonal allergies, or anyone wanting a systemic nutrient reset.",
+      "expect": "Many patients feel a noticeable energy boost and sense of well-being within hours of treatment. Cumulative benefits build with regular sessions.",
+      "side": "Very well-tolerated. Magnesium may cause temporary warmth or flushing during infusion."
+    },
+    {
+      "what": "Glutathione is the most abundant antioxidant in the human body. It neutralizes free radicals, supports liver detoxification, and plays a central role in immune function. Oral glutathione is poorly absorbed — injection or IV delivery is far more effective.",
+      "how": "Subcutaneous or IV injection. Can be added to any IV session or given as a standalone push. IV push takes only 5–10 minutes.",
+      "good": "Anyone wanting immune support, liver detox, skin brightening, or recovery from illness, toxin exposure, or intense physical stress.",
+      "expect": "Skin brightening effects often noticed within 4–6 sessions. Energy and recovery improvements begin earlier.",
+      "side": "Very well-tolerated. Rare sulfur-taste during IV administration. Some patients notice mild GI effects with high doses."
+    },
+    {
+      "what": "Methylcobalamin is the neurologically active form of B12 — superior to cyanocobalamin for nerve health and methylation support. B12 deficiency is extremely common and often missed by standard blood panels using inadequate reference ranges.",
+      "how": "Intramuscular or subcutaneous injection. Frequency depends on your levels and goals — from weekly to monthly.",
+      "good": "Anyone with fatigue, brain fog, tingling extremities, mood issues, or those with MTHFR mutations, vegetarian diets, or GI absorption issues.",
+      "expect": "Energy and cognitive clarity improvements often noticed within days to 1–2 weeks of first injection.",
+      "side": "Extremely safe. Excess B12 is excreted. Injections may cause mild soreness at site."
+    },
+    {
+      "what": "Lipotropic injections combine compounds that support liver fat metabolism (methionine, inositol, choline) with the energy of methylcobalamin B12. MIC injections are a classic adjunct to weight loss programs.",
+      "how": "Intramuscular injection, typically weekly or twice weekly alongside a weight loss program.",
+      "good": "Patients in weight loss programs who want metabolic support, or anyone wanting to support liver health and fat metabolism.",
+      "expect": "Best results when combined with diet and GLP-1 therapy. Supports energy, reduces liver fat accumulation, and aids overall metabolism.",
+      "side": "Very well-tolerated. Occasional mild injection site soreness."
+    },
+    {
+      "what": "An expanded lipotropic formula adding L-carnitine (fat transport into mitochondria), niacin (cholesterol support), riboflavin, thiamine, and pyridoxal-5-phosphate to the standard MIC base — a comprehensive metabolic injection.",
+      "how": "Intramuscular injection weekly or as part of a structured program. Takes about 2 minutes.",
+      "good": "Patients wanting comprehensive metabolic support, those with fatigue alongside weight loss goals, or anyone wanting a full-spectrum B vitamin + fat metabolism boost.",
+      "expect": "Improved energy often noticed after first injection. Metabolic and body composition benefits build over weeks of consistent use.",
+      "side": "Very well-tolerated. Niacin may cause mild flushing. B vitamins turn urine bright yellow — harmless."
+    },
+    {
+      "what": "At very low doses (0.5–4.5mg), naltrexone temporarily blocks opioid receptors for a few hours at night. The body's compensatory response — upregulating endorphin and enkephalin production — has profound anti-inflammatory and immune-modulating effects.",
+      "how": "Taken at bedtime. Effects are not immediate — the therapeutic benefit builds over weeks as endorphin upregulation becomes consistent.",
+      "good": "Patients with autoimmune conditions (Hashimoto's, MS, Crohn's, fibromyalgia), chronic inflammation, mood disorders, or those wanting immune optimization.",
+      "expect": "Gradual improvement in pain, inflammation, energy, and mood over 4–12 weeks. Some patients notice improved sleep within the first week.",
+      "side": "Vivid dreams in the first week are common. Rare GI upset. Exceptionally safe at low doses."
+    }
+  ]
+}
