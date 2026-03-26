@@ -132,6 +132,19 @@ export default function SolariaCO2Page() {
           </div>
         </section>
 
+        <section className="bg-[#E6007E]/10 border-y border-[#E6007E]/25 py-4">
+          <div className="max-w-6xl mx-auto px-4 text-center sm:text-left">
+            <p className="text-black text-sm md:text-base">
+              <span className="font-semibold text-black">Acne-prone or treating acne with laser?</span>{" "}
+              Follow our{" "}
+              <Link href="/care/laser-acne-protocol" className="text-[#E6007E] font-semibold underline underline-offset-2">
+                Morpheus8 &amp; Solaria acne protocol &amp; aftercare
+              </Link>{" "}
+              — pre-care, post-care, breakout prevention, and prescription options when appropriate.
+            </p>
+          </div>
+        </section>
+
         {/* InMode device images - your provided assets */}
         <section className="bg-zinc-100 py-12 md:py-16">
           <div className="max-w-6xl mx-auto px-4">

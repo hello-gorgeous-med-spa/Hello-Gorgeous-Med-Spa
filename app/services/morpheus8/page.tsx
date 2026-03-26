@@ -220,6 +220,19 @@ export default function Morpheus8Page() {
           </div>
         </section>
 
+        <section className="bg-[#E6007E]/10 border-y border-[#E6007E]/25 py-4">
+          <div className="max-w-6xl mx-auto px-4 text-center sm:text-left">
+            <p className="text-black text-sm md:text-base">
+              <span className="font-semibold text-black">Acne-prone skin or treating acne with RF microneedling?</span>{" "}
+              Read our{" "}
+              <Link href="/care/laser-acne-protocol" className="text-[#E6007E] font-semibold underline underline-offset-2">
+                laser acne protocol &amp; aftercare
+              </Link>{" "}
+              (also for Solaria CO₂) — breakout prevention, hygiene, and prescription support when appropriate.
+            </p>
+          </div>
+        </section>
+
         <Morpheus8SkinRebuildSection variant="skinRebuild" />
 
         {/* Morpheus8 Pricing — own category */}
