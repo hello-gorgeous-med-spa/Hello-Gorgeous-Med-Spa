@@ -27,9 +27,13 @@ const CATEGORY_COLORS: Record<string, { bg: string; text: string }> = {
   'Skin': { bg: 'bg-emerald-100', text: 'text-emerald-800' },
   'Body': { bg: 'bg-cyan-100', text: 'text-cyan-800' },
   'Wellness': { bg: 'bg-teal-100', text: 'text-teal-800' },
+  'Pre-Visit': { bg: 'bg-indigo-100', text: 'text-indigo-800' },
+  'Post-Visit': { bg: 'bg-orange-100', text: 'text-orange-800' },
 };
 
 function getCategoryFromForm(form: ConsentFormType): string {
+  if (form.id === 'same_day_pre_treatment_confirmation' || form.phase === 'pre') return 'Pre-Visit';
+  if (form.id === 'post_treatment_discharge_acknowledgment' || form.phase === 'post') return 'Post-Visit';
   if (form.id.includes('hipaa') || form.id.includes('arbitration') || form.id.includes('liability') || form.id.includes('cancellation')) return 'Compliance';
   if (form.id.includes('injectable') || form.id.includes('botox') || form.id.includes('filler') || form.id.includes('kybella') || form.id.includes('pdo')) return 'Injectable';
   if (form.id.includes('laser') || form.id.includes('ipl') || form.id.includes('hair_removal')) return 'Laser';

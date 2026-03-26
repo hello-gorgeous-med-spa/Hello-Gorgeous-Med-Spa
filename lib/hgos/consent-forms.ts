@@ -30,7 +30,14 @@ export type ConsentFormType =
   | 'lash_brow_consent'
   | 'body_contouring_consent'
   | 'kybella_consent'
-  | 'pdo_threads_consent';
+  | 'pdo_threads_consent'
+  /** Same-day confirmation before procedure (all services); use with modality-specific informed consent. */
+  | 'same_day_pre_treatment_confirmation'
+  /** Post-visit discharge & aftercare acknowledgment (all services). */
+  | 'post_treatment_discharge_acknowledgment';
+
+/** Use in requiredForServices to attach a form to every service category */
+export const CONSENT_ALL_SERVICES = '*' as const;
 
 export type ConsentStatus = 'pending' | 'signed' | 'declined' | 'expired';
 
@@ -45,7 +52,9 @@ export interface ConsentForm {
   requiresWitness: boolean;
   expiresAfterDays: number | null; // null = never expires
   content: string; // HTML content
-  requiredForServices?: string[]; // Service category slugs that require this
+  requiredForServices?: string[]; // Service category slugs; use ['*'] for all services
+  /** pre = informed consent / screening; post = discharge / aftercare acknowledgment */
+  phase?: 'pre' | 'post';
   order: number;
 }
 
@@ -1904,6 +1913,99 @@ export const CONSENT_FORMS: ConsentForm[] = [
       <p class="signature-block"><strong>BY SIGNING BELOW, I ACKNOWLEDGE THAT I HAVE READ AND UNDERSTAND THIS CONSENT FORM AND VOLUNTARILY CONSENT TO PDO THREAD TREATMENT.</strong></p>
     `,
   },
+
+  // ========================
+  // VISIT-LEVEL PRE & POST (all services)
+  // Use: send same-day pre before treatment; post after treatment same visit.
+  // ========================
+  {
+    id: 'same_day_pre_treatment_confirmation',
+    name: 'Same-Day Pre-Treatment Confirmation',
+    shortName: 'Pre-Treatment (Visit)',
+    description: 'Same-day health confirmation and consent to proceed — use before any service',
+    version: '1.0',
+    lastUpdated: '2026-03-24',
+    isRequired: false,
+    requiresWitness: false,
+    expiresAfterDays: null,
+    phase: 'pre',
+    order: 8,
+    requiredForServices: [CONSENT_ALL_SERVICES],
+    content: `
+      <h2>SAME-DAY PRE-TREATMENT CONFIRMATION &amp; CONSENT TO PROCEED</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+
+      <div class="important-notice">
+        <p><strong>Complete before treatment begins.</strong> This form works together with your procedure-specific informed consent(s) and your general consent on file.</p>
+      </div>
+
+      <h3>1. ACCURATE INFORMATION</h3>
+      <p>I confirm that the health information I provided today is complete and accurate to the best of my knowledge. I agree to notify my provider immediately if anything changes before or during my visit.</p>
+
+      <h3>2. MEDICATIONS &amp; SUPPLEMENTS</h3>
+      <p>I confirm I have disclosed all prescription medications, over-the-counter drugs, supplements, and herbal products relevant to today's treatment. I have not started or stopped any medication since my last disclosure without informing the practice when medically relevant.</p>
+
+      <h3>3. ALLERGIES</h3>
+      <p>I have disclosed all known allergies (including to drugs, latex, lidocaine, topical products, metals, and injectable materials). I understand that failure to disclose allergies may increase risk.</p>
+
+      <h3>4. PREGNANCY &amp; NURSING</h3>
+      <p>I confirm I am not pregnant, or if I could be pregnant, I have discussed this with my provider. I understand that certain treatments are contraindicated in pregnancy or while nursing and I have disclosed nursing status when asked.</p>
+
+      <h3>5. ALCOHOL, BLOOD THINNERS &amp; PRE-PROCEDURE RULES</h3>
+      <p>I confirm I have followed pre-procedure instructions given to me (including restrictions on alcohol, NSAIDs, aspirin, fish oil, or other blood thinners when applicable to today's procedure). If I have not followed instructions, I have told my provider.</p>
+
+      <h3>6. TODAY'S PLAN</h3>
+      <p>I understand which procedure(s) or service(s) are planned today, the principal risks and benefits as explained to me, and I have had the opportunity to ask questions. I may refuse or delay treatment.</p>
+
+      <h3>7. CONSENT TO PROCEED</h3>
+      <p>I voluntarily consent to proceed with the treatment(s) discussed today, performed by Hello Gorgeous Med Spa and its licensed providers, subject to the informed consent form(s) applicable to my procedure(s).</p>
+
+      <p class="signature-block"><strong>By signing below, I confirm the statements above are true and I consent to proceed with today's planned care.</strong></p>
+    `,
+  },
+
+  {
+    id: 'post_treatment_discharge_acknowledgment',
+    name: 'Post-Treatment Discharge Acknowledgment',
+    shortName: 'Post-Treatment (Visit)',
+    description: 'Acknowledgment of discharge instructions after any service — sign before leaving',
+    version: '1.0',
+    lastUpdated: '2026-03-24',
+    isRequired: false,
+    requiresWitness: false,
+    expiresAfterDays: null,
+    phase: 'post',
+    order: 9,
+    requiredForServices: [CONSENT_ALL_SERVICES],
+    content: `
+      <h2>POST-TREATMENT DISCHARGE ACKNOWLEDGMENT</h2>
+      <p class="clinic-name"><strong>Hello Gorgeous Med Spa</strong><br>74 W. Washington St, Oswego, IL 60543<br>(630) 636-6193</p>
+
+      <div class="important-notice">
+        <p><strong>Complete after your treatment, before you leave.</strong> Applies to injectables, lasers, skin treatments, body services, IV/wellness visits, and other services performed today.</p>
+      </div>
+
+      <h3>1. INSTRUCTIONS RECEIVED</h3>
+      <p>I acknowledge that I received <strong>verbal</strong> and, when provided, <strong>written</strong> post-treatment instructions appropriate to the service(s) I received today (including activity restrictions, skin care, sun protection, hydration, compression or garment use when applicable, and medication guidance).</p>
+
+      <h3>2. COMMON EFFECTS VS. URGENT SYMPTOMS</h3>
+      <p>I understand that mild redness, swelling, tenderness, bruising, or similar effects may be expected depending on my procedure. I understand which symptoms would be unusual or urgent for my treatment and that I should contact the practice or seek emergency care if I experience severe pain, sudden vision changes, difficulty breathing, signs of infection (fever, spreading redness, pus), or other symptoms as explained to me.</p>
+
+      <h3>3. FOLLOW-UP</h3>
+      <p>I understand whether a follow-up visit or check-in was recommended and how to reach the practice during business hours. I understand that <strong>911</strong> or the nearest emergency department is appropriate for life-threatening emergencies.</p>
+
+      <h3>4. RESULTS &amp; SATISFACTION</h3>
+      <p>I understand that aesthetic and medical results vary by individual, that multiple sessions may be needed, and that no outcome was guaranteed. I had the opportunity to ask questions about my results and aftercare.</p>
+
+      <h3>5. PHOTOGRAPHY (IF APPLICABLE)</h3>
+      <p>If clinical photos were taken today for my medical record, I understand they are part of my chart. Use of images for marketing is governed by my separate photo/media authorization, if any.</p>
+
+      <h3>6. ACKNOWLEDGMENT</h3>
+      <p>I confirm I am not under the influence of alcohol or drugs that would prevent me from understanding these instructions. I accept responsibility to follow aftercare as explained.</p>
+
+      <p class="signature-block"><strong>By signing below, I acknowledge that I received discharge instructions for today's treatment(s) and understand when and how to seek help if needed.</strong></p>
+    `,
+  },
 ];
 
 // ============================================================
@@ -1930,7 +2032,9 @@ export function getConsentForm(id: ConsentFormType): ConsentForm | undefined {
 export function getConsentFormsForService(serviceCategory: string): ConsentForm[] {
   const required = getRequiredConsentForms();
   const serviceSpecific = CONSENT_FORMS.filter(
-    f => f.requiredForServices?.includes(serviceCategory)
+    (f) =>
+      f.requiredForServices?.includes(serviceCategory) ||
+      f.requiredForServices?.includes(CONSENT_ALL_SERVICES)
   );
   
   // Combine and dedupe
@@ -1942,6 +2046,24 @@ export function getConsentFormsForService(serviceCategory: string): ConsentForm[
   });
   
   return allForms.sort((a, b) => a.order - b.order);
+}
+
+/** Same-day pre-treatment confirmation (all services) */
+export function getVisitPreConsentForm(): ConsentForm | undefined {
+  return getConsentForm('same_day_pre_treatment_confirmation');
+}
+
+/** Post-visit discharge acknowledgment (all services) */
+export function getVisitPostConsentForm(): ConsentForm | undefined {
+  return getConsentForm('post_treatment_discharge_acknowledgment');
+}
+
+/** Pre + post visit forms for workflows (e.g. tablet or SMS links in order) */
+export function getVisitPreAndPostForms(): { pre: ConsentForm; post: ConsentForm } | null {
+  const pre = getVisitPreConsentForm();
+  const post = getVisitPostConsentForm();
+  if (!pre || !post) return null;
+  return { pre, post };
 }
 
 /**
