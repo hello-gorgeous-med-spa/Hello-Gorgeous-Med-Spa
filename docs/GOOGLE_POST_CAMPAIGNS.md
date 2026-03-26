@@ -175,6 +175,19 @@ Morpheus8 & Solaria CO₂ at Hello Gorgeous come with **real medical follow-thro
 
 ---
 
+## Campaign 13 — Spring Brazilian laser package (Offer)
+
+**Headline:**  
+Brazilian Laser — 3 Sessions $499 (Spring)
+
+**Description:**  
+Our **best laser hair removal deal of the season** — Brazilian package: **3 sessions** (Apr · May · Jun) for **$499** total. **Book by end of March** and get a **FREE small area** (underarms, lip, chin, or bikini line) at **every** session. Not smooth after 3? **FREE touch-up.** Medical-grade Class 4 laser — **NP on site** every day. Oswego, IL — Naperville, Aurora, Plainfield.
+
+**Button:** Book now → `https://www.fresha.com/book-now/hello-gorgeous-tallrfb5/services?lid=102610&share=true&pId=95245`  
+**Or:** Learn more → `https://www.hellogorgeousmedspa.com/spring-special-laser-hair`
+
+---
+
 ## Suggested posting calendar (2 weeks)
 
 | Day       | Campaign to post                          |
@@ -195,6 +208,7 @@ Then rotate: Lip Filler, First-Time Client, Hormone, Fillers, Reviews. Keep one 
 | Book       | `https://www.hellogorgeousmedspa.com/book` |
 | Financing (CareCredit & Cherry) | `https://www.hellogorgeousmedspa.com/financing` |
 | Laser care blog + protocol | Blog: `https://www.hellogorgeousmedspa.com/blog/complete-medical-care-laser-acne-protocol-oswego-il` · Protocol: `https://www.hellogorgeousmedspa.com/care/laser-acne-protocol` |
+| Spring laser (Brazilian package) | `https://www.hellogorgeousmedspa.com/spring-special-laser-hair` |
 | Glow Event | `https://www.hellogorgeousmedspa.com/glow-event` |
 | VIP Waitlist | `https://www.hellogorgeousmedspa.com/vip-skin-tightening` |
 | Weight Loss | `https://www.hellogorgeousmedspa.com/services/weight-loss-therapy` |
