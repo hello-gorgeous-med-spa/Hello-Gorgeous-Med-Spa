@@ -149,6 +149,19 @@ Limited-time specials: FREE vitamin injection, Botox $10/unit, lip filler $499, 
 
 ---
 
+## Campaign 11 — CareCredit & Cherry financing (Update)
+
+**Headline:**  
+Now Accepting CareCredit & Cherry — Pay Over Time for Treatments
+
+**Description:**  
+Invest in Botox, fillers, weight loss, lasers & more — **CareCredit** and **Cherry** patient financing are both welcome at Hello Gorgeous. Flexible payment plans; 0% APR options may be available on qualified purchases. Apply online, then book your consult in Oswego — serving Naperville, Aurora & Plainfield.
+
+**Button:** Learn more → `https://www.hellogorgeousmedspa.com/financing`  
+**Optional:** Link a second post the same week to the blog article: `https://www.hellogorgeousmedspa.com/blog/carecredit-cherry-financing-med-spa-oswego-il`
+
+---
+
 ## Suggested posting calendar (2 weeks)
 
 | Day       | Campaign to post                          |
@@ -167,6 +180,7 @@ Then rotate: Lip Filler, First-Time Client, Hormone, Fillers, Reviews. Keep one 
 | Link type   | URL |
 |------------|-----|
 | Book       | `https://www.hellogorgeousmedspa.com/book` |
+| Financing (CareCredit & Cherry) | `https://www.hellogorgeousmedspa.com/financing` |
 | Glow Event | `https://www.hellogorgeousmedspa.com/glow-event` |
 | VIP Waitlist | `https://www.hellogorgeousmedspa.com/vip-skin-tightening` |
 | Weight Loss | `https://www.hellogorgeousmedspa.com/services/weight-loss-therapy` |

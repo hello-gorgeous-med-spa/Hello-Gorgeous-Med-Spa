@@ -26,6 +26,98 @@ export interface BlogPost {
 
 const coreBlogPosts: BlogPost[] = [
   // ====================================================================
+  // ARTICLE: CareCredit & Cherry financing — Oswego, IL
+  // ====================================================================
+  {
+    slug: "carecredit-cherry-financing-med-spa-oswego-il",
+    title: "CareCredit & Cherry Financing in Oswego, IL: Pay Over Time for Botox, Fillers & More at Hello Gorgeous",
+    metaTitle: "CareCredit & Cherry Financing | Med Spa Oswego IL | Hello Gorgeous",
+    metaDescription:
+      "Hello Gorgeous Med Spa in Oswego, IL accepts CareCredit and Cherry patient financing. Flexible payment plans for Botox, fillers, weight loss, lasers, and more. Apply online — serving Naperville, Aurora & Plainfield.",
+    excerpt:
+      "Looking for med spa financing near Oswego? We accept CareCredit and Cherry so you can invest in treatments now and pay over time — with options like 0% APR on qualified purchases.",
+    category: "Education",
+    date: "2026-03-24",
+    readTime: "6 min",
+    keywords: [
+      "CareCredit Oswego IL",
+      "Cherry financing med spa",
+      "med spa financing Naperville",
+      "Botox financing Oswego",
+      "aesthetic treatment payment plans",
+      "CareCredit medical spa Illinois",
+      "Cherry patient financing",
+      "pay over time med spa",
+    ],
+    content: `# CareCredit & Cherry Financing in Oswego, IL: Pay Over Time at Hello Gorgeous
+
+If you've been searching for **med spa financing near Oswego**, **CareCredit in Oswego**, or **Cherry financing for Botox and fillers**, you're in the right place. Hello Gorgeous Med Spa in **Oswego, IL** — serving **Naperville, Aurora, Plainfield, Yorkville, Montgomery**, and the **Fox Valley** — accepts **both CareCredit and Cherry** so you can move forward with treatments you want and spread payments over time.
+
+Whether you're interested in injectables, medical weight loss, Morpheus8, laser hair removal, or a full treatment plan, you shouldn't have to choose between your goals and your budget. Here's how financing works with us and how to get started.
+
+## Why Clients Choose CareCredit or Cherry
+
+**CareCredit** is a healthcare credit card accepted at thousands of providers. Many patients use it for **0% APR promotional financing on qualified purchases** (terms depend on approval and promotion details at the time you apply). It's reusable for future visits — a real plus if you maintain Botox, fillers, or skin treatments over time.
+
+**Cherry** is built for patient financing in aesthetics. You can **apply in minutes**, see options without a hard credit hit for pre-qualification in many cases, and choose flexible plans. It's a popular choice for clients who want clear monthly payments for med spa services.
+
+We offer **both** so you can pick the option that fits your credit profile and payment preferences — you're not limited to a single lender.
+
+## What You Can Use Financing For at Hello Gorgeous
+
+Financing can apply to many of our most-requested services, including:
+
+- **Injectables** — Botox, Dysport, Jeuveau, dermal fillers, lip filler
+- **Medical weight loss** — GLP-1 programs and related care (where medically appropriate)
+- **Skin tightening & resurfacing** — e.g. Morpheus8 Burst, laser treatments
+- **Laser hair removal** and other device-based treatments
+- **Packages and treatment plans** your provider recommends
+
+Exact eligibility and promotional terms are set by **CareCredit** and **Cherry** at application — we'll help you understand costs during your consultation so you know what to finance.
+
+## How to Get Started
+
+1. **Book a consultation** at Hello Gorgeous so we can build a personalized plan and quote.
+2. **Review financing options** — visit our [Financing page](/financing) for Cherry and CareCredit links, apply through the partner you prefer, and get a decision.
+3. **Schedule your treatments** once you're approved and ready — our team coordinates with your plan.
+
+**Related:** [Financing & payment options](/financing) · [Book a consultation](/book) · [Our services](/services)
+
+📞 **630-636-6193**  
+📍 **74 W Washington Street, Oswego, IL 60543**
+
+> *"I wasn't sure I could afford everything I wanted in one visit. Cherry made it possible to do my Botox and still stay on a monthly budget I could handle."* — Client, Fox Valley, IL
+
+---
+
+## Frequently Asked Questions
+
+### Does Hello Gorgeous accept CareCredit?
+
+**Yes.** We accept **CareCredit** for qualifying purchases. Apply through CareCredit's site or our [Financing](/financing) page, and bring your approved account to your visit. Terms and APR depend on your application and current promotions.
+
+### Does Hello Gorgeous offer Cherry financing?
+
+**Yes.** We work with **Cherry** for patient financing. You can start an application from our [Financing](/financing) page. Many clients use Cherry for flexible monthly payments on aesthetic treatments.
+
+### Can I use CareCredit or Cherry for Botox and fillers?
+
+In general, **yes** — many patients use these options for injectables and other med spa services, subject to lender approval and program rules. Your consultation is the best time to align treatment cost with your financing limit.
+
+### Is one option better than the other — CareCredit vs Cherry?
+
+It depends on **your credit**, **promotional offers available when you apply**, and **which monthly payment feels right**. We're happy to explain treatment totals; the lenders' sites show your specific rates and terms after you apply.
+
+### Where are you located if I'm searching med spa financing in Oswego or Naperville?
+
+We're at **74 W Washington Street, Oswego, IL 60543**, minutes from Naperville, Aurora, and Plainfield. Search **"CareCredit med spa Oswego"** or **"Cherry financing Naperville"** — we're the same team either way.
+
+### How do I book after I'm approved?
+
+Call **(630) 636-6193** or use our [online booking](/book). Mention that you'll pay with CareCredit or Cherry so we can note it on your appointment.
+`,
+  },
+  // ====================================================================
   // ARTICLE: The Story Behind Hello Gorgeous — Oswego, IL
   // ====================================================================
   {

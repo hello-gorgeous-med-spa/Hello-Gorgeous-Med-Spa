@@ -8,11 +8,19 @@ import { CherryWidget } from "@/components/CherryWidget";
 
 export const metadata: Metadata = {
   ...pageMetadata({
-    title: "Financing & CareCredit | Hello Gorgeous Med Spa Oswego IL",
-    description: "CareCredit, Cherry, and Affirm financing available at Hello Gorgeous Med Spa. 0% APR on qualified purchases. Pay over time for Botox, fillers, weight loss, hormone therapy, and more.",
+    title: "CareCredit & Cherry Financing | Hello Gorgeous Med Spa Oswego IL",
+    description:
+      "CareCredit and Cherry patient financing at Hello Gorgeous Med Spa in Oswego, IL. Affirm also available. 0% APR on qualified purchases. Pay over time for Botox, fillers, weight loss, hormone therapy, and more.",
     path: "/financing",
   }),
-  keywords: ["CareCredit Oswego IL", "med spa financing", "Botox financing", "CareCredit medical spa", "payment plans aesthetic treatments"],
+  keywords: [
+    "CareCredit Oswego IL",
+    "Cherry financing med spa",
+    "med spa financing Naperville",
+    "Botox financing",
+    "CareCredit medical spa",
+    "payment plans aesthetic treatments",
+  ],
 };
 
 const financingOptions = [
