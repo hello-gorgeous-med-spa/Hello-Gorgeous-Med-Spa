@@ -26,6 +26,108 @@ export interface BlogPost {
 
 const coreBlogPosts: BlogPost[] = [
   // ====================================================================
+  // ARTICLE: Medical-led care after Morpheus8 & Solaria — Oswego, IL
+  // ====================================================================
+  {
+    slug: "complete-medical-care-laser-acne-protocol-oswego-il",
+    title: "Complete Medical Care for Morpheus8 & Solaria: Why Hello Gorgeous Doesn't Stop at the Treatment (Oswego, IL)",
+    metaTitle: "Full-Cycle Laser Care & Prescriptions | Morpheus8 Solaria | Oswego IL",
+    metaDescription:
+      "Hello Gorgeous is a medical-led med spa in Oswego, IL: nurse practitioner on site, prescriptions when needed, and a full laser acne protocol after Morpheus8 & Solaria CO₂ — not treat-and-street. Serving Naperville, Aurora & Plainfield.",
+    excerpt:
+      "Some places perform your treatment and leave you to call your own doctor if anything flares. At Hello Gorgeous, your medical team stays with you — from consult through healing, with prescriptions and antibiotics when appropriate.",
+    category: "Education",
+    date: "2026-03-26",
+    readTime: "8 min",
+    keywords: [
+      "med spa with nurse practitioner Oswego",
+      "Morpheus8 aftercare prescription",
+      "Solaria CO2 laser Oswego medical",
+      "laser acne protocol Oswego",
+      "med spa not just treatments",
+      "Hello Gorgeous medical spa",
+      "prescription skincare med spa Illinois",
+    ],
+    content: `# Complete Medical Care for Morpheus8 & Solaria: Why Hello Gorgeous Doesn't Stop at the Treatment
+
+At **Hello Gorgeous Med Spa in Oswego, IL** — serving **Naperville, Aurora, Plainfield, Yorkville, Montgomery**, and the **Fox Valley** — we hear a common question from people who've been elsewhere: *"They did my procedure and sent me home. When I had a reaction, they told me to see my PCP."*
+
+That is **not** how we operate.
+
+## What makes us different: we finish what we start
+
+**Advanced heat-based treatments** like **[Morpheus8 Burst](/services/morpheus8)** (RF microneedling) and **[Solaria CO₂](/services/solaria-co2)** fractional laser create real, controlled injury in the skin so it can renew — **powerful results**, but they come with real responsibility on the provider side.
+
+We are a **medical-led practice** with **licensed medical providers on site** (including **nurse practitioner prescriptive authority** under our medical leadership). That means:
+
+- **We evaluate you** during and after treatment when something doesn't look or feel right  
+- **We prescribe** topical and oral medications **when clinically appropriate** — including antibiotics or short-term acne protocols when needed to protect your healing and reduce complications  
+- **We don't send you away** to "figure it out" with your family doctor unless you need a specialist we don't have — for most post-laser questions, **your care team is already here**
+
+You are not buying a "service only" and getting lost in the system. **We are your continuity of care** for the treatment plan we built with you.
+
+## Why "treat and street" fails acne-prone and laser patients
+
+Heat-based treatments can temporarily **ramp up inflammation and oil activity**. Acne-prone skin may develop **temporary breakouts or congestion** during healing. That is not something to ignore — and it is not something you should have to **self-diagnose** from Reddit at 2 a.m.
+
+Our **[Laser acne protocol & aftercare page](/care/laser-acne-protocol)** spells out **pre-care, post-care, hygiene, and prescription support** — but the point of this article is simpler: **we planned for that before you ever laid on the table.**
+
+## Prescriptions when you need them (not as a gimmick)
+
+When appropriate, your provider may **send prescriptions to your pharmacy** — for example **topical antibiotics** (such as clindamycin), **benzoyl peroxide**, or a **short course of oral medication** for higher-risk or flare-prone situations — **always individualized**, never one-size-fits-all.
+
+That is **medical-grade follow-through**, not a retail upsell. It is how we **protect your results and your safety** after serious devices.
+
+## The same team from consult to clear skin
+
+- **Consultation** — candidacy, expectations, downtime, cost, **[financing](/financing)** if needed  
+- **Treatment day** — technique, settings, education  
+- **Aftercare** — written instructions, **[protocol](/care/laser-acne-protocol)**, and access to real humans  
+- **Healing** — if something needs attention, **we're the ones who answer**
+
+That is the Hello Gorgeous difference: **technology + medical oversight + follow-through** — not a pretty room and a goodbye wave.
+
+## How this fits our mission
+
+From **[Danielle's story](/blog/the-story-behind-hello-gorgeous-oswego-il)** to the way we invest in **[Morpheus8](/services/morpheus8)**, **[Quantum RF](/services/quantum-rf)**, and **[Solaria](/services/solaria-co2)**, we've built Hello Gorgeous for people who want **honest outcomes** — and **honest care** when skin is healing.
+
+**Related:** [Laser acne protocol & aftercare](/care/laser-acne-protocol) · [Morpheus8 Burst](/services/morpheus8) · [Solaria CO₂](/services/solaria-co2) · [Meet our providers](/providers) · [Book](/book)
+
+📞 **630-636-6193**  
+📍 **74 W Washington Street, Oswego, IL 60543**
+
+> *"I've been to other med spas where you never see anyone clinical after the treatment. Here they actually manage my healing — prescriptions when I needed them, and I didn't feel abandoned."* — Client, Fox Valley
+
+---
+
+## Frequently Asked Questions
+
+### Does Hello Gorgeous have medical providers who can prescribe?
+
+**Yes.** We operate with **medical oversight** and **licensed providers with prescriptive authority** appropriate to our scope of practice in Illinois. Not every staff member prescribes — your **evaluation determines who leads your care**.
+
+### Will I get a prescription after every Morpheus8 or Solaria treatment?
+
+**No.** Prescriptions are **when clinically appropriate** — for example acne-prone skin, history of post-procedure breakouts, or signs that warrant medication. Your provider will tell you what applies to **you**.
+
+### What if I have a problem after hours?
+
+Follow the **emergency guidance** on your aftercare instructions. For **life-threatening** symptoms, call **911** or go to the ER. For **urgent** practice-related concerns, use our contact instructions — we provide clear **when to call** language on your visit summary.
+
+### How is this different from a day spa or non-medical studio?
+
+**Medical devices** like RF microneedling at depth and **ablative CO₂** require **medical-grade candidacy, consent, and follow-up**. We combine **advanced technology** with **providers who can manage complications and prescribe** — that is a different category than basic facials or non-medical services.
+
+### Where are you located?
+
+**74 W Washington Street, Oswego, IL 60543** — easy from **Naperville, Aurora, Plainfield**, and the western suburbs.
+
+### Book a consult
+
+[Book online](/book) or call **(630) 636-6193** — we'll match **device, downtime, and medical plan** to your goals.
+`,
+  },
+  // ====================================================================
   // ARTICLE: Why invest in Morpheus8, Quantum RF & Solaria — Oswego, IL
   // ====================================================================
   {

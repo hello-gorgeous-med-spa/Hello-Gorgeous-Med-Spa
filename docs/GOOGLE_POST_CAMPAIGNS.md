@@ -162,6 +162,19 @@ Invest in Botox, fillers, weight loss, lasers & more — **CareCredit** and **Ch
 
 ---
 
+## Campaign 12 — Full medical care after Morpheus8 & Solaria (Update)
+
+**Headline:**  
+Medical-Led Laser Care — We Don’t Stop at the Treatment
+
+**Description:**  
+Morpheus8 & Solaria CO₂ at Hello Gorgeous come with **real medical follow-through** in Oswego: nurse practitioner on site, **prescriptions when appropriate** (topicals, antibiotics when needed), and a full **laser acne protocol** — not treat-and-street. Read why we’re different + aftercare guide. Serving Naperville, Aurora & Plainfield.
+
+**Button:** Read article → `https://www.hellogorgeousmedspa.com/blog/complete-medical-care-laser-acne-protocol-oswego-il`  
+**Second button (optional same week):** Aftercare protocol → `https://www.hellogorgeousmedspa.com/care/laser-acne-protocol`
+
+---
+
 ## Suggested posting calendar (2 weeks)
 
 | Day       | Campaign to post                          |
@@ -181,6 +194,7 @@ Then rotate: Lip Filler, First-Time Client, Hormone, Fillers, Reviews. Keep one 
 |------------|-----|
 | Book       | `https://www.hellogorgeousmedspa.com/book` |
 | Financing (CareCredit & Cherry) | `https://www.hellogorgeousmedspa.com/financing` |
+| Laser care blog + protocol | Blog: `https://www.hellogorgeousmedspa.com/blog/complete-medical-care-laser-acne-protocol-oswego-il` · Protocol: `https://www.hellogorgeousmedspa.com/care/laser-acne-protocol` |
 | Glow Event | `https://www.hellogorgeousmedspa.com/glow-event` |
 | VIP Waitlist | `https://www.hellogorgeousmedspa.com/vip-skin-tightening` |
 | Weight Loss | `https://www.hellogorgeousmedspa.com/services/weight-loss-therapy` |
