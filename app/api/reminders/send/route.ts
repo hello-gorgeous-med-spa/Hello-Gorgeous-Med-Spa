@@ -11,6 +11,7 @@ import {
   renderTemplate,
   generateCalendarLinks,
 } from '@/lib/hgos/reminders';
+import { sendSms } from '@/lib/notifications/sms-outbound';
 
 // POST /api/reminders/send - Send a reminder
 export async function POST(request: NextRequest) {
@@ -105,37 +106,21 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Send SMS via Telnyx
+    // Send SMS via Twilio
     if (channels.includes('sms') && appointment.client?.phone) {
       const smsTemplate = SMS_TEMPLATES[template as keyof typeof SMS_TEMPLATES];
       if (smsTemplate) {
         const message = renderTemplate(smsTemplate, variables);
-        const telnyxKey = process.env.TELNYX_API_KEY;
-        const telnyxPhone = process.env.TELNYX_PHONE_NUMBER;
-
-        if (telnyxKey && telnyxPhone) {
-          try {
-            const smsRes = await fetch('https://api.telnyx.com/v2/messages', {
-              method: 'POST',
-              headers: {
-                Authorization: `Bearer ${telnyxKey}`,
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                from: telnyxPhone,
-                to: appointment.client.phone,
-                text: message,
-                messaging_profile_id: process.env.TELNYX_MESSAGING_PROFILE_ID || undefined,
-              }),
-            });
-            results.push({ channel: 'sms', success: smsRes.ok, error: smsRes.ok ? undefined : 'Telnyx send failed' });
-          } catch (e) {
-            console.error('[reminders/send] SMS error:', e);
-            results.push({ channel: 'sms', success: false, error: 'SMS send failed' });
-          }
-        } else {
-          console.log('[reminders/send] Telnyx not configured, skipping SMS');
-          results.push({ channel: 'sms', success: false, error: 'Telnyx not configured' });
+        try {
+          const smsResult = await sendSms(appointment.client.phone, message);
+          results.push({
+            channel: 'sms',
+            success: smsResult.success,
+            error: smsResult.success ? undefined : smsResult.error || 'SMS send failed',
+          });
+        } catch (e) {
+          console.error('[reminders/send] SMS error:', e);
+          results.push({ channel: 'sms', success: false, error: 'SMS send failed' });
         }
       }
     }

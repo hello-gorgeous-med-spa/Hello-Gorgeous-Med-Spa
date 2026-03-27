@@ -7,7 +7,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
 import { businessDateTimeToUTC, formatInBusinessTZ } from '@/lib/business-timezone';
-import { sendAppointmentConfirmationSms, sendSmsOptInConfirmation } from '@/lib/notifications/telnyx';
+import { sendAppointmentConfirmationSms, sendSmsOptInConfirmation } from '@/lib/notifications/sms-outbound';
 import { markLeadsConverted } from '@/lib/leads';
 
 export async function POST(request: NextRequest) {
@@ -336,7 +336,7 @@ export async function POST(request: NextRequest) {
     const endsAtISO = endDateTime.toISOString();
     console.log('[booking/create] Success', { appointmentId: appointment.id, providerId: resolvedProviderId, starts_at: startsAtISO, source: 'online_booking' });
 
-    // 5.5. Client confirmation — SMS (Telnyx) + Email (Resend). Email ensures clients get confirmation even if Telnyx isn't configured or phone format fails.
+    // 5.5. Client confirmation — SMS (Twilio) + Email (Resend). Email ensures clients get confirmation even if Twilio isn't configured or phone format fails.
     const confirmationDateStr = formatInBusinessTZ(startsAtISO);
     const clientName = `${firstName} ${lastName}`.trim() || 'there';
     const serviceName = service.name || 'your appointment';
@@ -366,8 +366,8 @@ export async function POST(request: NextRequest) {
           client_id: clientId,
           appointment_id: appointment.id,
           channel: 'sms',
-          provider: 'telnyx',
-          external_message_id: (smsResult as { providerMessageId?: string })?.providerMessageId ?? null,
+          provider: 'twilio',
+          external_message_id: smsResult.providerMessageId ?? null,
           status: 'sent',
           sent_at: new Date().toISOString(),
         }).then(() => {}).catch((e) => console.warn('[booking/create] message_logs insert', e));
@@ -481,7 +481,7 @@ Hello Gorgeous Med Spa`;
       }
     }
 
-    // 6. Trigger consent auto-send via Telnyx SMS (for ALL clients, not just new)
+    // 6. Trigger consent auto-send via Twilio SMS (for ALL clients, not just new)
     try {
       const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
       
@@ -501,7 +501,7 @@ Hello Gorgeous Med Spa`;
       if (consentResult.success) {
         console.log(`📋 Consent packets created: ${consentResult.packets_created}`);
         if (consentResult.sms_sent) {
-          console.log(`📱 Consent SMS sent via Telnyx`);
+          console.log(`📱 Consent SMS sent via Twilio`);
         } else if (!consentResult.client_has_phone) {
           console.log(`⚠️ No phone on file - consent SMS not sent`);
         }

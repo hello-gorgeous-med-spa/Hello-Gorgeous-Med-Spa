@@ -26,7 +26,7 @@ Full steps: see [TWILIO_A2P_CAMPAIGN_FIX.md](./TWILIO_A2P_CAMPAIGN_FIX.md).
 ## Where Twilio is used
 
 - **Admin → SMS**: campaign “Send to all” and “Custom list”, plus “Send test”.
-- Other flows (e.g. review requests, reminders) may still use Telnyx; marketing is Twilio.
+- Transactional SMS (review requests, reminders, consents, booking confirmations, etc.) also use Twilio via `lib/notifications/sms-outbound.ts` and `lib/hgos/twilio-config.ts`.
 
 ---
 

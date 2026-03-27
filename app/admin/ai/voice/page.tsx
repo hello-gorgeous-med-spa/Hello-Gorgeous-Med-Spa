@@ -28,7 +28,7 @@ export default function AIVoicePage() {
         <div className="bg-emerald-50 border border-emerald-200 rounded-lg p-4 mb-6">
           <h3 className="font-semibold text-emerald-900 mb-2">Setup</h3>
           <ol className="list-decimal list-inside space-y-2 text-sm text-emerald-800">
-            <li>In <strong>Vercel</strong> (or your host), set <code className="bg-emerald-100 px-1 rounded">TELNYX_API_KEY</code> (same key you use for SMS).</li>
+            <li>In <strong>Vercel</strong> (or your host), set <code className="bg-emerald-100 px-1 rounded">TELNYX_API_KEY</code> for <strong>Telnyx Voice</strong> only (SMS uses Twilio — <code className="bg-emerald-100 px-1 rounded">TWILIO_*</code> — separately).</li>
             <li>Optional but recommended: set <code className="bg-emerald-100 px-1 rounded">TELNYX_WEBHOOK_PUBLIC_KEY</code> to your Telnyx webhook public key (Mission Control → API Keys → Public Key) so we verify that webhooks are from Telnyx. Paste the PEM block as-is; you can use a single line with <code className="bg-emerald-100 px-1 rounded">\n</code> for line breaks.</li>
             <li>Optional: set <code className="bg-emerald-100 px-1 rounded">TELNYX_VOICE_TRANSFER_NUMBER</code> to an E.164 number (e.g. <code className="bg-emerald-100 px-1 rounded">+16306366193</code>) so callers can be transferred to your front desk when booking fails or they need help.</li>
             <li>In <strong>Telnyx Portal</strong> → your phone number → <strong>Voice</strong> settings, set the webhook URL to:

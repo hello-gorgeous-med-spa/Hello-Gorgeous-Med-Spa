@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerSupabaseClient } from "@/lib/hgos/supabase";
+import { sendSms } from "@/lib/notifications/sms-outbound";
 
 /**
  * Lead Nurture Automation — 5-Step Sequence Per Device
@@ -21,7 +22,6 @@ import { createServerSupabaseClient } from "@/lib/hgos/supabase";
  * - Week 14 of GLP-1 → Email: membership offer
  */
 
-const TELNYX_API = "https://api.telnyx.com/v2/messages";
 const RESEND_API = "https://api.resend.com/emails";
 const REVIEW_LINK = "https://g.page/r/CYQOWmT_HcwQEBM/review";
 const SITE_URL = "https://www.hellogorgeousmedspa.com";
@@ -34,26 +34,9 @@ interface NurtureMessage {
   body: string;
 }
 
-async function sendSMS(to: string, body: string): Promise<boolean> {
-  const apiKey = process.env.TELNYX_API_KEY;
-  const from = process.env.TELNYX_PHONE_NUMBER;
-  if (!apiKey || !from) return false;
-
-  try {
-    const res = await fetch(TELNYX_API, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from,
-        to,
-        text: body,
-        messaging_profile_id: process.env.TELNYX_MESSAGING_PROFILE_ID || undefined,
-      }),
-    });
-    return res.ok;
-  } catch {
-    return false;
-  }
+async function sendNurtureSms(to: string, body: string): Promise<boolean> {
+  const result = await sendSms(to, body);
+  return result.success;
 }
 
 async function sendEmail(to: string, subject: string, html: string): Promise<boolean> {
@@ -236,7 +219,7 @@ export async function POST(request: NextRequest) {
     for (const msg of messages) {
       let success = false;
       if (msg.channel === "sms") {
-        success = await sendSMS(msg.to, msg.body);
+        success = await sendNurtureSms(msg.to, msg.body);
       } else {
         success = await sendEmail(msg.to, msg.subject!, msg.body);
       }

@@ -6,6 +6,7 @@ import { createClient } from '@supabase/supabase-js';
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
+import { sendSms } from '@/lib/notifications/sms-outbound';
 
 export const dynamic = 'force-dynamic';
 
@@ -167,7 +168,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // SEND SMS via Telnyx
+    // SEND SMS via Twilio
     if ((template.send_via === 'sms' || template.send_via === 'both') && clientPhone) {
       const smsContent = processedContent
         .replace(/^#+ /gm, '')
@@ -175,33 +176,14 @@ export async function POST(request: NextRequest) {
         .replace(/\n\n+/g, '\n')
         .substring(0, 320);
 
-      const telnyxKey = process.env.TELNYX_API_KEY;
-      const telnyxPhone = process.env.TELNYX_PHONE_NUMBER;
-      if (telnyxKey && telnyxPhone) {
-        try {
-          const smsRes = await fetch('https://api.telnyx.com/v2/messages', {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${telnyxKey}`,
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              from: telnyxPhone,
-              to: clientPhone,
-              text: smsContent,
-              messaging_profile_id: process.env.TELNYX_MESSAGING_PROFILE_ID || undefined,
-            }),
-          });
-          results.sms = smsRes.ok;
-          if (!smsRes.ok) {
-            console.error('[AFTERCARE] SMS send failed:', await smsRes.text());
-          }
-        } catch (e) {
-          console.error('[AFTERCARE] SMS error:', e);
-          results.sms = false;
+      try {
+        const smsResult = await sendSms(clientPhone, smsContent);
+        results.sms = smsResult.success;
+        if (!smsResult.success) {
+          console.error('[AFTERCARE] SMS send failed:', smsResult.error);
         }
-      } else {
-        console.log('[AFTERCARE] Telnyx not configured, skipping SMS');
+      } catch (e) {
+        console.error('[AFTERCARE] SMS error:', e);
         results.sms = false;
       }
     }

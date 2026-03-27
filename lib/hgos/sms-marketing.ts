@@ -1,9 +1,9 @@
 // ============================================================
 // HELLO GORGEOUS OS - SMS MARKETING SYSTEM
-// Supports: SimpleTexting, Twilio, Telnyx
+// Supports: SimpleTexting, Twilio
 // ============================================================
 
-export type SMSProvider = 'simpletexting' | 'twilio' | 'telnyx' | 'none';
+export type SMSProvider = 'simpletexting' | 'twilio' | 'none';
 
 export interface SMSConfig {
   provider: SMSProvider;
@@ -14,10 +14,6 @@ export interface SMSConfig {
   twilioAccountSid?: string;
   twilioAuthToken?: string;
   twilioPhoneNumber?: string;
-  // Telnyx
-  telnyxApiKey?: string;
-  telnyxPhoneNumber?: string;
-  telnyxMessagingProfileId?: string;
 }
 
 export interface SMSMessage {
@@ -331,45 +327,6 @@ export async function sendViaTwilio(
 }
 
 /**
- * Send SMS via Telnyx
- */
-export async function sendViaTelnyx(
-  message: SMSMessage,
-  config: SMSConfig
-): Promise<{ success: boolean; messageId?: string; error?: string }> {
-  if (!config.telnyxApiKey || !config.telnyxPhoneNumber) {
-    return { success: false, error: 'Telnyx credentials not configured' };
-  }
-  
-  try {
-    const response = await fetch('https://api.telnyx.com/v2/messages', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${config.telnyxApiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: config.telnyxPhoneNumber,
-        to: message.to,
-        text: message.body,
-        ...(config.telnyxMessagingProfileId && { messaging_profile_id: config.telnyxMessagingProfileId }),
-        ...(message.mediaUrl && { media_urls: [message.mediaUrl] }),
-      }),
-    });
-    
-    const data = await response.json();
-    
-    if (response.ok) {
-      return { success: true, messageId: data.data?.id };
-    } else {
-      return { success: false, error: data.errors?.[0]?.detail || 'Failed to send' };
-    }
-  } catch (error) {
-    return { success: false, error: String(error) };
-  }
-}
-
-/**
  * Universal send function - routes to configured provider
  */
 export async function sendSMS(
@@ -395,8 +352,6 @@ export async function sendSMS(
       return sendViaSimpleTexting(compliantMessage, config);
     case 'twilio':
       return sendViaTwilio(compliantMessage, config);
-    case 'telnyx':
-      return sendViaTelnyx(compliantMessage, config);
     default:
       return { success: false, error: 'No SMS provider configured' };
   }
@@ -460,7 +415,6 @@ export function estimateSMSCost(
   const pricing: Record<SMSProvider, { perSegment: number; monthlyFee: number }> = {
     simpletexting: { perSegment: 0.05, monthlyFee: 29 }, // Included in plan up to limit
     twilio: { perSegment: 0.0079, monthlyFee: 0 },
-    telnyx: { perSegment: 0.004, monthlyFee: 0 },
     none: { perSegment: 0, monthlyFee: 0 },
   };
   

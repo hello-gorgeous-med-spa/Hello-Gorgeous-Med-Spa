@@ -278,7 +278,7 @@ export default function MessagesPage() {
           ) : filteredConversations.length === 0 ? (
             <div className="p-6 text-center text-black">
               <p className="font-medium text-black">No conversations yet</p>
-              <p className="text-sm mt-1">When clients text your Telnyx number, threads will appear here.</p>
+              <p className="text-sm mt-1">When clients text your Twilio number, threads will appear here.</p>
               <p className="text-xs mt-4"><Link href="/admin/sms" className="text-pink-600 hover:underline">SMS Campaigns</Link> for one-time blasts.</p>
             </div>
           ) : (
@@ -438,7 +438,7 @@ export default function MessagesPage() {
               <span className="inline-block border border-black rounded px-2 py-1">← Click a name</span>
               <span>to open</span>
             </p>
-            <p className="text-black text-xs mt-6">Messages use your Telnyx number. For one-time blasts to many clients, use <Link href="/admin/sms" className="text-pink-600 hover:underline">SMS Campaigns</Link>.</p>
+            <p className="text-black text-xs mt-6">Messages use your Twilio number. For one-time blasts to many clients, use <Link href="/admin/sms" className="text-pink-600 hover:underline">SMS Campaigns</Link>.</p>
           </div>
         </div>
       )}

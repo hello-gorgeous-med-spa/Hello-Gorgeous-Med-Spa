@@ -60,14 +60,21 @@ export async function GET() {
 
   // 3. Confirmations (env only — we don't send)
   const hasResend = !!(process.env.RESEND_API_KEY && process.env.RESEND_FROM_EMAIL);
-  const hasTelnyx = !!(process.env.TELNYX_API_KEY && process.env.TELNYX_MESSAGING_PROFILE_ID && process.env.TELNYX_PHONE_NUMBER);
-  if (!hasResend && !hasTelnyx) {
-    checks.confirmations = { status: 'warn', message: 'No Resend or Telnyx configured. Clients will not get email/SMS confirmations.' };
+  const hasTwilio = !!(
+    process.env.TWILIO_ACCOUNT_SID &&
+    process.env.TWILIO_AUTH_TOKEN &&
+    process.env.TWILIO_PHONE_NUMBER
+  );
+  if (!hasResend && !hasTwilio) {
+    checks.confirmations = {
+      status: 'warn',
+      message: 'No Resend or Twilio configured. Clients will not get email/SMS confirmations.',
+    };
   } else {
     checks.confirmations = {
       status: 'ok',
-      message: [hasResend && 'email', hasTelnyx && 'SMS'].filter(Boolean).join(' + ') + ' confirmations',
-      detail: { resend: hasResend, telnyx: hasTelnyx },
+      message: [hasResend && 'email', hasTwilio && 'SMS'].filter(Boolean).join(' + ') + ' confirmations',
+      detail: { resend: hasResend, twilio: hasTwilio },
     };
   }
 

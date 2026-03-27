@@ -5,6 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
+import { sendSms } from '@/lib/notifications/sms-outbound';
 
 export const dynamic = 'force-dynamic';
 
@@ -113,10 +114,6 @@ Thank you for visiting Hello Gorgeous!
     }
 
     if (type === 'sms') {
-      // Use Telnyx for SMS
-      const telnyxKey = process.env.TELNYX_API_KEY;
-      const telnyxPhone = process.env.TELNYX_PHONE_NUMBER;
-      
       // Format phone
       let formattedPhone = phone.replace(/\D/g, '');
       if (formattedPhone.length === 10) {
@@ -127,27 +124,13 @@ Thank you for visiting Hello Gorgeous!
 
       const smsText = `Hello Gorgeous Receipt\n\nTotal: $${(total || 0).toFixed(2)}\n\nThank you for visiting!\n\nQuestions? (630) 636-6193`;
 
-      if (telnyxKey && telnyxPhone) {
-        const smsRes = await fetch('https://api.telnyx.com/v2/messages', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${telnyxKey}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            from: telnyxPhone,
-            to: formattedPhone,
-            text: smsText,
-          }),
-        });
-
-        if (!smsRes.ok) {
-          console.error('SMS send failed:', await smsRes.text());
-          return NextResponse.json({ error: 'Failed to send SMS' }, { status: 500 });
-        }
-      } else {
-        // Fallback: just log it
-        console.log('Would send SMS receipt to:', formattedPhone);
+      const smsResult = await sendSms(formattedPhone, smsText);
+      if (!smsResult.success) {
+        console.error('SMS receipt send failed:', smsResult.error);
+        return NextResponse.json(
+          { error: smsResult.error || 'Failed to send SMS' },
+          { status: 502 },
+        );
       }
 
       // Log receipt send

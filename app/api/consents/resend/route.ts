@@ -5,7 +5,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createClient } from '@supabase/supabase-js';
-import { sendConsentSms } from '@/lib/notifications/telnyx';
+import { sendConsentSms } from '@/lib/notifications/sms-outbound';
 
 export const dynamic = 'force-dynamic';
 
@@ -116,7 +116,7 @@ export async function POST(request: NextRequest) {
           actor_type: 'staff',
           actor_user_id: staff_user_id || null,
           meta: {
-            provider: 'telnyx',
+            provider: 'twilio',
             message_id: smsResult.providerMessageId,
             to: smsResult.to,
             error: smsResult.error,

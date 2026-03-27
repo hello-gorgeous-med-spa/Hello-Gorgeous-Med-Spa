@@ -676,7 +676,7 @@ export default function MarketingAutomation() {
               <div className="flex items-center justify-between py-3 border-b border-black">
                 <div>
                   <p className="font-medium text-black">Provider</p>
-                  <p className="text-sm text-black">Telnyx 10DLC</p>
+                  <p className="text-sm text-black">Twilio (A2P / 10DLC)</p>
                 </div>
                 <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm">Connected</span>
               </div>

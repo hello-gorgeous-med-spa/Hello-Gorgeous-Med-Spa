@@ -5,6 +5,7 @@ import { createClient } from '@supabase/supabase-js';
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
+import { sendSms } from '@/lib/notifications/sms-outbound';
 
 export const dynamic = 'force-dynamic';
 
@@ -86,48 +87,19 @@ export async function POST(
       conversation = newConversation;
     }
 
-    // Send via Telnyx (if configured)
+    // Send via Twilio (if configured)
     let externalId = null;
     let status = 'sent';
     let errorMessage = null;
 
-    const telnyxApiKey = process.env.TELNYX_API_KEY;
-    const telnyxPhone = process.env.TELNYX_PHONE_NUMBER;
-
-    if (telnyxApiKey && telnyxPhone) {
-      try {
-        const telnyxRes = await fetch('https://api.telnyx.com/v2/messages', {
-          method: 'POST',
-          headers: {
-            'Authorization': `Bearer ${telnyxApiKey}`,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            from: telnyxPhone,
-            to: phone,
-            text: content,
-          }),
-        });
-
-        const telnyxData = await telnyxRes.json();
-
-        if (telnyxRes.ok && telnyxData.data) {
-          externalId = telnyxData.data.id;
-          status = 'sent';
-        } else {
-          console.error('Telnyx error:', telnyxData);
-          status = 'failed';
-          errorMessage = telnyxData.errors?.[0]?.detail || 'Failed to send via Telnyx';
-        }
-      } catch (telnyxError) {
-        console.error('Telnyx API error:', telnyxError);
-        status = 'failed';
-        errorMessage = 'Telnyx API error';
-      }
-    } else {
-      // No Telnyx configured - still save message but mark as sent (for demo)
-      console.log(`[SMS] Would send to ${phone}: ${content}`);
+    const smsResult = await sendSms(phone, content);
+    if (smsResult.success) {
+      externalId = smsResult.providerMessageId;
       status = 'sent';
+    } else {
+      console.error('[SMS] Twilio send failed:', smsResult.error);
+      status = 'failed';
+      errorMessage = smsResult.error || 'Twilio send failed';
     }
 
     // Save message to database

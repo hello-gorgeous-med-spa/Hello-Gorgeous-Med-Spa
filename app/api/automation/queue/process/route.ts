@@ -1,12 +1,12 @@
 // ============================================================
 // POST /api/automation/queue/process
-// Process pending message_queue rows (send via Resend/Telnyx).
+// Process pending message_queue rows (send via Resend/Twilio).
 // Call from Vercel Cron or manually. Respects unsubscribes and consent.
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminSupabaseClient } from '@/lib/hgos/supabase';
-import { sendSmsTelnyx } from '@/lib/notifications/telnyx';
+import { sendSms } from '@/lib/notifications/sms-outbound';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 60;
@@ -65,7 +65,7 @@ export async function POST(request: NextRequest) {
       appointment_time: (payload.appointment_time as string) || '',
       service_name: (payload.service_name as string) || '',
       provider_name: (payload.provider_name as string) || '',
-      review_link,
+      review_link: reviewLink,
       ...Object.fromEntries(Object.entries(payload).map(([k, v]) => [k, String(v ?? '')])),
     };
 
@@ -85,11 +85,11 @@ export async function POST(request: NextRequest) {
       }
       const body = replaceVars((payload.body as string) || 'Hi {{first_name}}, reply STOP to unsubscribe.', vars);
       try {
-        const smsResult = await sendSmsTelnyx(phone, body);
+        const smsResult = await sendSms(phone, body);
         const ok = smsResult.success;
         await supabase.from('message_queue').update({ status: ok ? 'sent' : 'failed', last_error: ok ? null : (smsResult.error || '')?.slice(0, 500), updated_at: now, attempts: (row as any).attempts + 1 }).eq('id', row.id);
         if (ok) {
-          await supabase.from('message_logs').insert({ client_id: clientId, appointment_id: row.appointment_id, channel: 'sms', provider: 'telnyx', external_message_id: smsResult.providerMessageId || undefined, status: 'sent', sent_at: now });
+          await supabase.from('message_logs').insert({ client_id: clientId, appointment_id: row.appointment_id, channel: 'sms', provider: 'twilio', external_message_id: smsResult.providerMessageId || undefined, status: 'sent', sent_at: now });
         }
         results.push({ id: row.id, success: ok });
       } catch (e: unknown) {

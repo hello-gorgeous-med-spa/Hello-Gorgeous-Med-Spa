@@ -1,20 +1,18 @@
 // ============================================================
 // CAMPAIGN SEND API
 // Unified endpoint: saves campaign, fetches audience, sends
-// email via Resend + SMS via Telnyx, updates stats in DB
+// email via Resend + SMS via Twilio, updates stats in DB
 // ============================================================
 
 import { NextRequest, NextResponse } from 'next/server';
 import { createAdminSupabaseClient, isAdminConfigured } from '@/lib/hgos/supabase';
+import { sendSMS } from '@/lib/hgos/sms-marketing';
+import { getTwilioSmsConfig, isTwilioConfigured } from '@/lib/hgos/twilio-config';
 
 export const dynamic = 'force-dynamic';
 export const maxDuration = 300; // Allow up to 5 minutes for large campaigns
 
 // ---- Env vars ----
-const TELNYX_API_KEY = process.env.TELNYX_API_KEY;
-const TELNYX_PHONE_NUMBER = process.env.TELNYX_PHONE_NUMBER || '+13317177545';
-const TELNYX_MESSAGING_PROFILE_ID =
-  process.env.TELNYX_MESSAGING_PROFILE_ID || '40019c14-a962-41a6-8d90-976426c9299f';
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
 const RESEND_FROM =
   process.env.RESEND_FROM_EMAIL || 'Hello Gorgeous Med Spa <onboarding@resend.dev>';
@@ -33,28 +31,10 @@ async function sendOneSms(
   to: string,
   message: string,
 ): Promise<{ ok: boolean; error?: string }> {
-  try {
-    const res = await fetch('https://api.telnyx.com/v2/messages', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${TELNYX_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        from: TELNYX_PHONE_NUMBER,
-        to,
-        text: message,
-        messaging_profile_id: TELNYX_MESSAGING_PROFILE_ID,
-      }),
-    });
-    if (!res.ok) {
-      const d = await res.json().catch(() => ({}));
-      return { ok: false, error: d.errors?.[0]?.detail || 'Telnyx error' };
-    }
-    return { ok: true };
-  } catch (e: any) {
-    return { ok: false, error: e.message };
-  }
+  const config = getTwilioSmsConfig();
+  const result = await sendSMS({ to, body: message }, config);
+  if (result.success) return { ok: true };
+  return { ok: false, error: result.error || 'Twilio send failed' };
 }
 
 async function sendOneEmail(
@@ -136,8 +116,14 @@ export async function POST(request: NextRequest) {
     if ((channel === 'email' || channel === 'multichannel') && !RESEND_API_KEY) {
       return NextResponse.json({ error: 'Resend not configured. Add RESEND_API_KEY env var.' }, { status: 500 });
     }
-    if ((channel === 'sms' || channel === 'multichannel') && !TELNYX_API_KEY) {
-      return NextResponse.json({ error: 'Telnyx not configured. Add TELNYX_API_KEY env var.' }, { status: 500 });
+    if ((channel === 'sms' || channel === 'multichannel') && !isTwilioConfigured()) {
+      return NextResponse.json(
+        {
+          error:
+            'Twilio not configured. Set TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN, TWILIO_PHONE_NUMBER.',
+        },
+        { status: 500 },
+      );
     }
 
     // ---- Fetch audience ----

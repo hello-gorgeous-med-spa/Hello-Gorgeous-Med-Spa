@@ -1,6 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createServerSupabaseClient } from "@/lib/hgos/supabase";
+import { createAdminSupabaseClient, createServerSupabaseClient } from "@/lib/hgos/supabase";
+import { promoteApprovedBlogSocialPostsToQueue } from "@/lib/hgos/blog-social-to-scheduled";
 import { blogPosts, getPostBySlug } from "@/data/blog-posts";
+
+function getDb() {
+  return createAdminSupabaseClient() ?? createServerSupabaseClient();
+}
 
 const SITE_URL = "https://www.hellogorgeousmedspa.com";
 
@@ -35,9 +40,20 @@ function generateGoogleCaption(post: typeof blogPosts[0]): string {
 }
 
 // POST: Generate social posts for a specific blog article (or all)
+// Body: { action: "promote-queue" } — copy approved rows into scheduled_social_posts for cron
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+
+    if (body.action === "promote-queue") {
+      const admin = createAdminSupabaseClient();
+      if (!admin) {
+        return NextResponse.json({ error: "Database not configured (service role required)" }, { status: 503 });
+      }
+      const promote = await promoteApprovedBlogSocialPostsToQueue(admin);
+      return NextResponse.json({ success: true, promote });
+    }
+
     const { slug, generateAll } = body;
 
     const posts = generateAll
@@ -48,7 +64,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "No blog post found" }, { status: 404 });
     }
 
-    const supabase = createServerSupabaseClient();
+    const supabase = getDb();
     const generated: Array<{ slug: string; platforms: string[] }> = [];
 
     for (const post of posts) {
@@ -119,7 +135,7 @@ export async function POST(request: NextRequest) {
 // GET: List all blog social post drafts
 export async function GET() {
   try {
-    const supabase = createServerSupabaseClient();
+    const supabase = getDb();
     if (!supabase) {
       // Fallback: return template-generated data without DB
       const posts = blogPosts.map((post) => ({
@@ -190,7 +206,7 @@ export async function PATCH(request: NextRequest) {
     const body = await request.json();
     const { id, action, message, scheduled_at } = body;
 
-    const supabase = createServerSupabaseClient();
+    const supabase = getDb();
     if (!supabase) {
       return NextResponse.json({ error: "Database not configured" }, { status: 500 });
     }
@@ -214,7 +230,13 @@ export async function PATCH(request: NextRequest) {
         .eq("status", "draft");
     }
 
-    return NextResponse.json({ success: true });
+    let promote: Awaited<ReturnType<typeof promoteApprovedBlogSocialPostsToQueue>> | undefined;
+    const admin = createAdminSupabaseClient();
+    if (admin && (action === "approve" || action === "approve-all")) {
+      promote = await promoteApprovedBlogSocialPostsToQueue(admin);
+    }
+
+    return NextResponse.json({ success: true, promote });
   } catch (error) {
     console.error("[Blog-to-Social] PATCH Error:", error);
     return NextResponse.json({ error: "Update failed" }, { status: 500 });

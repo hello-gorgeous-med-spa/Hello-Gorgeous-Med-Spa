@@ -2,7 +2,7 @@
 
 // ============================================================
 // 5 AGENTS RUNBOOK — Weekly checklist so "agents" run without a full-time admin
-// Use Square + FB + IG + Google; don't wait on Telnyx.
+// Use Square + FB + IG + Google; don't block on tooling.
 // ============================================================
 
 import { useState } from 'react';
@@ -94,7 +94,7 @@ export default function AgentsRunbookPage() {
 
         <h1 className="text-2xl font-bold text-black mb-2">5 Agents Runbook</h1>
         <p className="text-black mb-6">
-          Run these five &quot;agents&quot; every week with what you have: <strong>Square Marketing</strong>, <strong>Facebook</strong>, <strong>Instagram</strong>, and <strong>Google</strong>. Don&apos;t wait on Telnyx — get your name out there now.
+          Run these five &quot;agents&quot; every week with what you have: <strong>Square Marketing</strong>, <strong>Facebook</strong>, <strong>Instagram</strong>, and <strong>Google</strong>. Don&apos;t wait on perfect SMS tooling — get your name out there now.
         </p>
 
         {/* Quick links */}
@@ -161,7 +161,7 @@ export default function AgentsRunbookPage() {
           <p className="text-sm text-black mb-4">These run hourly via Vercel Cron. Email uses Resend when <code className="bg-white/80 px-1 rounded text-xs">RESEND_API_KEY</code> is set.</p>
           <ul className="space-y-3 text-sm text-black">
             <li>
-              <strong>Review request</strong> — 24 hours after an appointment is marked completed: client gets an email (and SMS if Telnyx is on). Turn off: <code className="bg-white/80 px-1 rounded text-xs">REVIEW_REQUESTS_ENABLED=false</code>
+              <strong>Review request</strong> — 24 hours after an appointment is marked completed: client gets an email (and SMS if Twilio is configured). Turn off: <code className="bg-white/80 px-1 rounded text-xs">REVIEW_REQUESTS_ENABLED=false</code>
             </li>
             <li>
               <strong>Appointment reminders</strong> — 24 hours and 2 hours before appointment: client gets an email reminder. Turn off: <code className="bg-white/80 px-1 rounded text-xs">REMINDERS_CRON_ENABLED=false</code>
@@ -210,7 +210,7 @@ export default function AgentsRunbookPage() {
         </div>
 
         <p className="mt-6 text-sm text-black">
-          Full runbook with templates and Telnyx notes: <code className="bg-gray-100 px-1 rounded">docs/FIVE_AGENTS_RUNBOOK.md</code>
+          Full runbook with templates: <code className="bg-gray-100 px-1 rounded">docs/FIVE_AGENTS_RUNBOOK.md</code>
         </p>
       </div>
     </div>

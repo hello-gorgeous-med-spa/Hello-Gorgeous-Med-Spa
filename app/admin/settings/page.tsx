@@ -364,7 +364,7 @@ export default function AdminSettingsPage() {
             <div className="flex items-center gap-3">
               <span className="text-2xl">📱</span>
               <div>
-                <p className="font-medium text-black">Telnyx SMS</p>
+                <p className="font-medium text-black">Twilio SMS</p>
                 <p className="text-sm text-black">Text messaging</p>
               </div>
             </div>

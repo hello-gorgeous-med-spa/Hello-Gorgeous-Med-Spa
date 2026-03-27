@@ -7,7 +7,7 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { createAdminSupabaseClient } from "@/lib/hgos/supabase";
-import { sendSmsTelnyx } from "@/lib/notifications/telnyx";
+import { sendSms } from "@/lib/notifications/sms-outbound";
 import { GOOGLE_REVIEW_URL, REVIEW_UTM } from "@/lib/local-seo";
 
 export const dynamic = "force-dynamic";
@@ -101,7 +101,7 @@ export async function POST(request: NextRequest) {
     // Send SMS
     if (profile.phone) {
       const smsText = `Hello Gorgeous: Hi ${firstName}! We hope you loved your visit. Would you mind leaving us a Google review? It means the world to us: ${reviewUrl}`;
-      const smsResult = await sendSmsTelnyx(profile.phone, smsText);
+      const smsResult = await sendSms(profile.phone, smsText);
       results.sms = smsResult.success;
       if (!smsResult.success) results.error = smsResult.error;
     }

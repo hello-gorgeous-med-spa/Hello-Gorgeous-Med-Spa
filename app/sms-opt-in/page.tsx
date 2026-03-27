@@ -1,7 +1,7 @@
 // ============================================================
 // SMS OPT-IN WORKFLOW
 // 10DLC documentation: links, screenshots, and confirmation scripts
-// For Telnyx campaign Message Flow field
+// For US carrier / A2P campaign Message Flow documentation
 // ============================================================
 
 import { Metadata } from 'next';
@@ -54,7 +54,7 @@ export default function SmsOptInWorkflowPage() {
             </a>
           </div>
           <p className="mt-3 text-sm text-black">
-            <strong>Screenshot for Telnyx:</strong> Navigate to {BASE_URL}/book, select a service, proceed to the details step. The form shows the phone number field and SMS consent checkbox with full opt-in language.
+            <strong>Screenshot for campaign registration:</strong> Navigate to {BASE_URL}/book, select a service, proceed to the details step. The form shows the phone number field and SMS consent checkbox with full opt-in language.
           </p>
         </section>
 
@@ -79,7 +79,7 @@ export default function SmsOptInWorkflowPage() {
             </a>
           </div>
           <p className="mt-3 text-sm text-black">
-            <strong>Screenshot for Telnyx:</strong> Open the link above and capture a screenshot showing the phone number field, complete SMS opt-in language, and signature line.
+            <strong>Screenshot for campaign registration:</strong> Open the link above and capture a screenshot showing the phone number field, complete SMS opt-in language, and signature line.
           </p>
         </section>
 
@@ -96,13 +96,13 @@ export default function SmsOptInWorkflowPage() {
             </p>
           </div>
           <p className="mt-3 text-xs text-black">
-            Reference: <a href="https://support.telnyx.com/en/articles/10562019-guide-to-10dlc-message-flow-field" target="_blank" rel="noopener noreferrer" className="text-pink-600 underline">Telnyx Message Flow Guide</a>
+            Reference: <a href="https://www.twilio.com/docs/messaging/compliance/a2p-10dlc" target="_blank" rel="noopener noreferrer" className="text-pink-600 underline">Twilio A2P / 10DLC overview</a>
           </p>
         </section>
 
-        {/* Quick links for Telnyx submission */}
+        {/* Quick links for carrier campaign submission */}
         <section className="border-t pt-6">
-          <h2 className="text-lg font-semibold text-black mb-3">Links for Telnyx Campaign Resubmission</h2>
+          <h2 className="text-lg font-semibold text-black mb-3">Links for campaign / compliance submission</h2>
           <ul className="space-y-2 text-sm">
             <li>• <strong>Digital opt-in form:</strong> <a href={`${BASE_URL}/book`} className="text-pink-600 underline" target="_blank" rel="noopener noreferrer">{BASE_URL}/book</a></li>
             <li>• <strong>Physical form:</strong> <a href={`${BASE_URL}/forms/sms-consent`} className="text-pink-600 underline" target="_blank" rel="noopener noreferrer">{BASE_URL}/forms/sms-consent</a></li>

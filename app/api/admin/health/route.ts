@@ -151,14 +151,13 @@ export async function GET() {
       details: '⚠️ DEPRECATED - Use Square instead',
     },
     {
-      name: 'Telnyx SMS',
-      configured: !!process.env.TELNYX_API_KEY,
-      details: process.env.TELNYX_PHONE_NUMBER || 'No phone configured',
-    },
-    {
-      name: 'Telnyx Messaging Profile',
-      configured: !!process.env.TELNYX_MESSAGING_PROFILE_ID,
-      details: 'For 10DLC compliance',
+      name: 'Twilio SMS',
+      configured: !!(
+        process.env.TWILIO_ACCOUNT_SID &&
+        process.env.TWILIO_AUTH_TOKEN &&
+        process.env.TWILIO_PHONE_NUMBER
+      ),
+      details: process.env.TWILIO_PHONE_NUMBER || 'No TWILIO_PHONE_NUMBER',
     },
   ];
 
@@ -238,8 +237,8 @@ export async function GET() {
       critical: true,
     },
     {
-      item: 'Telnyx SMS configured',
-      ready: integrations.find(i => i.name === 'Telnyx SMS')?.configured || false,
+      item: 'Twilio SMS configured',
+      ready: integrations.find(i => i.name === 'Twilio SMS')?.configured || false,
       critical: true,
     },
     {
