@@ -9,6 +9,7 @@
 // ============================================================
 
 import crypto from 'crypto';
+import type { NextRequest } from 'next/server';
 import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 
 // ============================================================
@@ -66,6 +67,8 @@ export function verifyWebhookSignature(
   if (!signature) {
     return { valid: false, error: 'Missing signature header' };
   }
+
+  const trimmed = signature.trim();
   
   try {
     // Square computes: HMAC-SHA256(webhookUrl + body, signatureKey)
@@ -76,7 +79,7 @@ export function verifyWebhookSignature(
       .digest('base64');
     
     // Use timing-safe comparison to prevent timing attacks
-    const signatureBuffer = Buffer.from(signature, 'base64');
+    const signatureBuffer = Buffer.from(trimmed, 'base64');
     const expectedBuffer = Buffer.from(expectedSignature, 'base64');
     
     if (signatureBuffer.length !== expectedBuffer.length) {
@@ -363,16 +366,83 @@ export function getEventObjectType(eventType: string): 'checkout' | 'payment' | 
 // ============================================================
 
 /**
- * Get the configured webhook URL for signature verification
- * Uses server BASE_URL (not NEXT_PUBLIC_*) to match Square dashboard config
- * 
+ * Webhook URL derived from the **incoming request** (origin + pathname, no query).
+ * Square signs with the exact notification URL they POST to — this avoids www / host mismatches
+ * when BASE_URL in Vercel differs from the public URL (e.g. hellogorgeousmedspa.com vs www).
+ */
+export function getSquareWebhookNotificationUrlFromRequest(request: NextRequest): string {
+  const u = new URL(request.url);
+  let path = u.pathname;
+  if (path.length > 1 && path.endsWith('/')) {
+    path = path.slice(0, -1);
+  }
+  return `${u.origin}${path}`;
+}
+
+/**
+ * Ordered candidates for HMAC verification. Square includes the **full notification URL**
+ * in the signature; it must match the subscription in Developer Dashboard (including www).
+ */
+export function collectSquareWebhookUrlCandidates(request: NextRequest): string[] {
+  const fromRequest = getSquareWebhookNotificationUrlFromRequest(request);
+  const explicit = process.env.SQUARE_WEBHOOK_NOTIFICATION_URL?.trim().replace(/\/$/, '');
+  const fromEnvBase = getWebhookUrl();
+
+  const raw = [fromRequest, explicit, fromEnvBase].filter((x): x is string => !!x && x.length > 0);
+
+  // If request was http (rare), also try https same host+path (Vercel / proxies)
+  const expanded: string[] = [];
+  for (const url of raw) {
+    expanded.push(url);
+    try {
+      const u = new URL(url);
+      if (u.protocol === 'http:' && u.hostname) {
+        expanded.push(`https://${u.hostname}${u.pathname}`);
+      }
+    } catch {
+      /* ignore */
+    }
+  }
+
+  return [...new Set(expanded)];
+}
+
+/**
+ * Verify webhook using all plausible notification URLs (request URL first).
+ * Prefer fixing SQUARE_WEBHOOK_NOTIFICATION_URL to the exact Dashboard URL if logs show mismatches.
+ */
+export function verifySquareWebhookSignature(
+  request: NextRequest,
+  signature: string | null | undefined,
+  body: string
+): WebhookVerificationResult {
+  if (!process.env.SQUARE_WEBHOOK_SIGNATURE_KEY) {
+    console.error('SQUARE_WEBHOOK_SIGNATURE_KEY not configured');
+    return { valid: false, error: 'Webhook signature key not configured' };
+  }
+  if (!signature) {
+    return { valid: false, error: 'Missing signature header' };
+  }
+
+  const candidates = collectSquareWebhookUrlCandidates(request);
+  for (const url of candidates) {
+    const result = verifyWebhookSignature(signature, body, url);
+    if (result.valid) {
+      return { valid: true };
+    }
+  }
+
+  return {
+    valid: false,
+    error: `Signature mismatch (tried ${candidates.length} URL candidate(s)). Set SQUARE_WEBHOOK_NOTIFICATION_URL to the exact URL in Square Dashboard, or align BASE_URL with that host (www vs non-www).`,
+  };
+}
+
+/**
+ * Get the configured webhook URL for signature verification (env-only).
+ * Prefer {@link getSquareWebhookNotificationUrlFromRequest} or {@link verifySquareWebhookSignature} in production.
+ *
  * CRITICAL: This URL must EXACTLY match what's configured in Square Dashboard.
- * - Same scheme (https)
- * - Same host
- * - Same path
- * - No trailing slash differences
- * 
- * Mismatch = signature verification fails silently.
  */
 export function getWebhookUrl(): string {
   const baseUrl = process.env.BASE_URL || process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';

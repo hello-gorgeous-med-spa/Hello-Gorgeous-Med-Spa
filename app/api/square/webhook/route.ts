@@ -13,13 +13,12 @@ import { createServerSupabaseClient } from '@/lib/hgos/supabase';
 import { createPaymentReceiptFromSale } from '@/lib/portal/sync-receipt';
 import { fetchPaymentDetails } from '@/lib/square/terminal';
 import {
-  verifyWebhookSignature,
+  verifySquareWebhookSignature,
   claimWebhookEvent,
   updateWebhookEventStatus,
   checkTerminalCheckoutProcessed,
   checkPaymentProcessed,
   checkRefundProcessed,
-  getWebhookUrl,
   type SquareWebhookEvent,
 } from '@/lib/square/webhook';
 import { getAccessToken } from '@/lib/square/oauth';
@@ -35,6 +34,8 @@ async function getAccessTokenForWebhook(): Promise<string | null> {
 }
 
 export const runtime = 'nodejs';
+/** Do not statically cache; webhook body must be read raw once. */
+export const dynamic = 'force-dynamic';
 
 export async function POST(request: NextRequest) {
   // ============================================================
@@ -47,13 +48,18 @@ export async function POST(request: NextRequest) {
   
   try {
     // ============================================================
-    // 1. SIGNATURE VERIFICATION (uses raw body + BASE_URL)
+    // 1. SIGNATURE VERIFICATION (raw body + notification URL)
+    // Square signs: HMAC-SHA256(notificationUrl + body, signatureKey)
+    // The notification URL MUST match the subscription in Square Dashboard (www, https, path).
+    // We try the incoming request URL first, then SQUARE_WEBHOOK_NOTIFICATION_URL, then BASE_URL.
     // ============================================================
     const signature = request.headers.get('x-square-hmacsha256-signature');
-    const webhookUrl = getWebhookUrl(); // Uses server BASE_URL, not NEXT_PUBLIC_*
 
-    if (process.env.SQUARE_WEBHOOK_SIGNATURE_KEY && signature) {
-      const verification = verifyWebhookSignature(signature, body, webhookUrl);
+    if (process.env.SQUARE_WEBHOOK_SIGNATURE_KEY) {
+      if (!signature) {
+        return NextResponse.json({ error: 'Missing Square signature header' }, { status: 401 });
+      }
+      const verification = verifySquareWebhookSignature(request, signature, body);
       if (!verification.valid) {
         console.error('Invalid Square webhook signature:', verification.error);
         return NextResponse.json({ error: 'Invalid signature' }, { status: 401 });
