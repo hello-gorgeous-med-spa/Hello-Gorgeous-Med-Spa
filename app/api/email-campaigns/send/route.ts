@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { NextResponse } from "next/server";
 import { Resend } from "resend";
 
@@ -14,6 +15,38 @@ interface SendCampaignRequest {
   replyTo: string;
   htmlContent: string;
   recipients: Recipient[];
+}
+
+const SITE_ORIGIN = "https://www.hellogorgeousmedspa.com";
+
+/** Plain-text fallback for multipart/alternative — improves spam scoring vs HTML-only. */
+function htmlToPlainText(html: string): string {
+  let t = html
+    .replace(/<style[^>]*>[\s\S]*?<\/style>/gi, "")
+    .replace(/<script[^>]*>[\s\S]*?<\/script>/gi, "")
+    .replace(/<\/(p|div|tr|h[1-6]|li)>/gi, "\n")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+  if (t.length > 120_000) {
+    t = `${t.slice(0, 120_000)}\n\n[Truncated]`;
+  }
+  return t;
+}
+
+function personalizeContent(template: string, recipient: Recipient, unsubscribeUrl: string): string {
+  return template
+    .replace(/\{\{first_name\}\}/g, recipient.firstName || "Friend")
+    .replace(/\{\{last_name\}\}/g, recipient.lastName || "")
+    .replace(/\{\{email\}\}/g, recipient.email)
+    .replace(/\{\{unsubscribe_url\}\}/g, unsubscribeUrl);
 }
 
 export async function POST(request: Request) {
@@ -47,18 +80,23 @@ export async function POST(request: Request) {
 
     for (const recipient of recipients) {
       try {
-        const personalizedHtml = htmlContent
-          .replace(/\{\{first_name\}\}/g, recipient.firstName || "Friend")
-          .replace(/\{\{last_name\}\}/g, recipient.lastName || "")
-          .replace(/\{\{email\}\}/g, recipient.email)
-          .replace(/\{\{unsubscribe_url\}\}/g, `https://hellogorgeousmedspa.com/unsubscribe?email=${encodeURIComponent(recipient.email)}`);
+        const unsubscribeUrl = `${SITE_ORIGIN}/unsubscribe?email=${encodeURIComponent(recipient.email)}`;
+        const personalizedHtml = personalizeContent(htmlContent, recipient, unsubscribeUrl);
+        const textBody = htmlToPlainText(personalizedHtml);
+        const entityRefId = randomUUID();
 
         const result = await resend.emails.send({
           from: `${fromName} <${fromEmail}>`,
           to: recipient.email,
-          replyTo: replyTo,
+          replyTo: replyTo || undefined,
           subject: subject,
           html: personalizedHtml,
+          text: textBody,
+          headers: {
+            "List-Unsubscribe": `<${unsubscribeUrl}>`,
+            "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+            "X-Entity-Ref-ID": entityRefId,
+          },
         });
 
         if (result.error) {
@@ -71,10 +109,10 @@ export async function POST(request: Request) {
         }
 
         await new Promise((resolve) => setTimeout(resolve, 100));
-
-      } catch (error: any) {
+      } catch (error: unknown) {
+        const message = error instanceof Error ? error.message : String(error);
         console.error(`[Email Campaign] Error sending to ${recipient.email}:`, error);
-        errors.push(`${recipient.email}: ${error.message}`);
+        errors.push(`${recipient.email}: ${message}`);
         failedCount++;
       }
     }
@@ -88,12 +126,9 @@ export async function POST(request: Request) {
       totalRecipients: recipients.length,
       errors: errors.length > 0 ? errors.slice(0, 10) : undefined,
     });
-
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : String(error);
     console.error("[Email Campaign] Error:", error);
-    return NextResponse.json(
-      { success: false, error: error.message },
-      { status: 500 }
-    );
+    return NextResponse.json({ success: false, error: message }, { status: 500 });
   }
 }

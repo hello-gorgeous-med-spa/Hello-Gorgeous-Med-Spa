@@ -69,7 +69,7 @@ const DEFAULT_BLOCKS: EmailBlock[] = [
     type: "footer",
     content: {
       companyName: "Hello Gorgeous Med Spa",
-      address: "74 W Washington St, Oswego, IL",
+      address: "74 W. Washington St., Oswego, IL 60543",
       phone: "630-636-6193",
       showUnsubscribe: true,
     },
@@ -96,7 +96,7 @@ const TEMPLATE_PRESETS: EmailTemplate[] = [
       { id: "s4", type: "spacer", content: { height: "20px" } },
       { id: "b1", type: "button", content: { text: "BOOK YOUR APPOINTMENT", url: "https://hellogorgeousmedspa.com/book", backgroundColor: "#E91E8C", textColor: "#ffffff" } },
       { id: "s5", type: "spacer", content: { height: "30px" } },
-      { id: "f1", type: "footer", content: { companyName: "Hello Gorgeous Med Spa", address: "74 W Washington St, Oswego, IL", phone: "630-636-6193", showUnsubscribe: true } },
+      { id: "f1", type: "footer", content: { companyName: "Hello Gorgeous Med Spa", address: "74 W. Washington St., Oswego, IL 60543", phone: "630-636-6193", showUnsubscribe: true } },
     ],
   },
   {
@@ -116,7 +116,7 @@ const TEMPLATE_PRESETS: EmailTemplate[] = [
       { id: "t7", type: "text", content: { text: "$1,895", fontSize: "48px", textAlign: "center", fontWeight: "bold", textColor: "#E91E8C" } },
       { id: "t8", type: "text", content: { text: "Regular $2,500", fontSize: "16px", textAlign: "center", textColor: "#999", textDecoration: "line-through" } },
       { id: "b1", type: "button", content: { text: "BOOK CONSULTATION", url: "https://hellogorgeousmedspa.com/book", backgroundColor: "#E91E8C", textColor: "#ffffff" } },
-      { id: "f1", type: "footer", content: { companyName: "Hello Gorgeous Med Spa", address: "74 W Washington St, Oswego, IL", phone: "630-636-6193", showUnsubscribe: true } },
+      { id: "f1", type: "footer", content: { companyName: "Hello Gorgeous Med Spa", address: "74 W. Washington St., Oswego, IL 60543", phone: "630-636-6193", showUnsubscribe: true } },
     ],
   },
   {
@@ -134,7 +134,7 @@ const TEMPLATE_PRESETS: EmailTemplate[] = [
       { id: "t6", type: "text", content: { text: "• Botox & Fillers - Smooth wrinkles, restore volume\n• Morpheus8 - RF microneedling for skin tightening\n• Solaria CO2 Laser - Advanced skin resurfacing\n• Medical Weight Loss - Semaglutide programs", fontSize: "16px", textAlign: "left" } },
       { id: "b1", type: "button", content: { text: "BOOK YOUR FIRST APPOINTMENT", url: "https://hellogorgeousmedspa.com/book", backgroundColor: "#E91E8C", textColor: "#ffffff" } },
       { id: "t7", type: "text", content: { text: "We can't wait to help you look and feel gorgeous!", fontSize: "16px", textAlign: "center", fontStyle: "italic", textColor: "#666" } },
-      { id: "f1", type: "footer", content: { companyName: "Hello Gorgeous Med Spa", address: "74 W Washington St, Oswego, IL", phone: "630-636-6193", showUnsubscribe: true } },
+      { id: "f1", type: "footer", content: { companyName: "Hello Gorgeous Med Spa", address: "74 W. Washington St., Oswego, IL 60543", phone: "630-636-6193", showUnsubscribe: true } },
     ],
   },
   {
@@ -155,7 +155,7 @@ const TEMPLATE_PRESETS: EmailTemplate[] = [
       { id: "t5", type: "text", content: { text: "📰 NEWS & UPDATES", fontSize: "20px", textAlign: "left", fontWeight: "bold", textColor: "#E91E8C" } },
       { id: "t6", type: "text", content: { text: "Share your latest news, new services, staff updates, etc.", fontSize: "16px", textAlign: "left" } },
       { id: "social1", type: "social", content: { facebook: "https://facebook.com/hellogorgeousmedspa", instagram: "https://instagram.com/hellogorgeousmedspa" } },
-      { id: "f1", type: "footer", content: { companyName: "Hello Gorgeous Med Spa", address: "74 W Washington St, Oswego, IL", phone: "630-636-6193", showUnsubscribe: true } },
+      { id: "f1", type: "footer", content: { companyName: "Hello Gorgeous Med Spa", address: "74 W. Washington St., Oswego, IL 60543", phone: "630-636-6193", showUnsubscribe: true } },
     ],
   },
   {
@@ -167,7 +167,7 @@ const TEMPLATE_PRESETS: EmailTemplate[] = [
       { id: "h1", type: "header", content: { title: "HELLO GORGEOUS", subtitle: "MED SPA", backgroundColor: "#E91E8C" } },
       { id: "t1", type: "text", content: { text: "Hi {{first_name}},\n\nYour message here...", fontSize: "16px", textAlign: "left" } },
       { id: "b1", type: "button", content: { text: "BOOK NOW", url: "https://hellogorgeousmedspa.com/book", backgroundColor: "#E91E8C", textColor: "#ffffff" } },
-      { id: "f1", type: "footer", content: { companyName: "Hello Gorgeous Med Spa", address: "74 W Washington St, Oswego, IL", phone: "630-636-6193", showUnsubscribe: true } },
+      { id: "f1", type: "footer", content: { companyName: "Hello Gorgeous Med Spa", address: "74 W. Washington St., Oswego, IL 60543", phone: "630-636-6193", showUnsubscribe: true } },
     ],
   },
 ];
@@ -206,7 +206,7 @@ export default function EmailCampaignsPage() {
     previewText: "",
     fromName: "Hello Gorgeous Med Spa",
     fromEmail: "hello.gorgeous@hellogorgeousmedspa.com",
-    replyTo: "hellogorgeousskin@yahoo.com",
+    replyTo: "hello.gorgeous@hellogorgeousmedspa.com",
   });
 
   useEffect(() => {
@@ -315,7 +315,7 @@ export default function EmailCampaignsPage() {
       case "social":
         return { facebook: "", instagram: "", twitter: "", youtube: "" };
       case "footer":
-        return { companyName: "Hello Gorgeous Med Spa", address: "74 W Washington St, Oswego, IL", phone: "630-636-6193", showUnsubscribe: true };
+        return { companyName: "Hello Gorgeous Med Spa", address: "74 W. Washington St., Oswego, IL 60543", phone: "630-636-6193", showUnsubscribe: true };
       default:
         return {};
     }
@@ -460,7 +460,7 @@ export default function EmailCampaignsPage() {
               <p style="color: #666; margin: 0 0 10px 0; font-size: 14px;">${c.companyName || "Hello Gorgeous Med Spa"}</p>
               <p style="color: #999; margin: 0; font-size: 12px;">${c.address || ""}</p>
               <p style="color: #999; margin: 5px 0; font-size: 12px;">📞 ${c.phone || ""}</p>
-              ${c.showUnsubscribe ? '<p style="color: #999; margin: 15px 0 0 0; font-size: 11px;"><a href="{{unsubscribe_url}}" style="color: #999;">Unsubscribe</a></p>' : ""}
+              ${c.showUnsubscribe ? '<p style="color: #666; margin: 18px 0 0 0; font-size: 12px;"><a href="{{unsubscribe_url}}" style="color: #E91E8C; text-decoration: underline;">Unsubscribe from marketing emails</a></p>' : ""}
             </td>
           </tr>
         `;
