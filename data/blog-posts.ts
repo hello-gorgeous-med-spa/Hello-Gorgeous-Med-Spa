@@ -26,6 +26,101 @@ export interface BlogPost {
 
 const coreBlogPosts: BlogPost[] = [
   // ====================================================================
+  // ARTICLE: Michelle Solaria before/after + new InMode equipment — Oswego, IL
+  // ====================================================================
+  {
+    slug: "michelle-solaria-results-new-inmode-equipment-oswego-il",
+    title:
+      "Michelle’s Solaria Results (1 Treatment) + New InMode Technology at Hello Gorgeous — Oswego, IL",
+    metaTitle: "Solaria Before & After + Luxora, Quantum RF, Morpheus8 Burst | Oswego IL",
+    metaDescription:
+      "Real client before-and-after after one Solaria treatment, plus a look at new InMode equipment at Hello Gorgeous Med Spa in Oswego, IL — Solaria CO₂, Luxora, Quantum RF, and Morpheus8 Burst. Serving Naperville, Aurora & Plainfield.",
+    excerpt:
+      "See Michelle’s skin after one Solaria treatment — then take a tour of the InMode platforms we’ve added to our Oswego treatment suites, from Solaria CO₂ to Luxora, Quantum RF, and Morpheus8 Burst.",
+    category: "Results",
+    date: "2026-03-27",
+    readTime: "4 min",
+    keywords: [
+      "Solaria before and after Oswego",
+      "Solaria CO2 laser Oswego IL",
+      "InMode Luxora Oswego",
+      "Quantum RF Oswego",
+      "Morpheus8 Burst Oswego",
+      "skin resurfacing Oswego IL",
+      "Hello Gorgeous Med Spa results",
+    ],
+    content: `# Michelle’s Solaria Results & New InMode Equipment in Oswego, IL
+
+**Hello Gorgeous Med Spa in Oswego, IL** — serving **Naperville, Aurora, Plainfield, Yorkville**, and the **Fox Valley** — is built around one idea: **visible skin change** with **medical-grade technology** and honest follow-through. Today we’re sharing **Michelle’s** progress after **one Solaria treatment**, plus a look at the **new InMode equipment** you’ll see in our suites.
+
+*Individual results vary. Photos published with consent.*
+
+## Michelle: one Solaria treatment — before & after
+
+Michelle’s photos show **one Solaria session** focused on **skin renewal and tightening**. Many clients notice **smoother texture**, **brighter tone**, and **fine-line softening** as skin heals and collagen responds over the following weeks.
+
+![Michelle before and after one Solaria CO₂ treatment at Hello Gorgeous Med Spa, Oswego IL](/images/blog/michelle-solaria-equipment-2026/michelle-one-treatment-solaria.png)
+
+**Curious if Solaria is right for you?** Learn more about candidacy, downtime, and what to expect on our **[Solaria CO₂ laser page](/services/solaria-co2)** — then **[book a free consultation](/book)** and we’ll map a plan to your goals.
+
+## New InMode technology in our Oswego treatment rooms
+
+We continue to invest in **InMode** platforms so you get **tightening, resurfacing, and contouring** options that match how you want to look — without driving all over Chicagoland. Here’s some of what’s on the floor now:
+
+### Luxora by InMode
+
+![Luxora by InMode aesthetic device at Hello Gorgeous Med Spa, Oswego IL](/images/blog/michelle-solaria-equipment-2026/inmode-luxora.png)
+
+### Quantum RF
+
+![InMode Quantum RF system for face and body contouring, Hello Gorgeous Med Spa Oswego](/images/blog/michelle-solaria-equipment-2026/inmode-quantum-rf.png)
+
+### Solaria by InMode (CO₂ fractional laser)
+
+![Solaria by InMode CO₂ laser platform at Hello Gorgeous Med Spa, Oswego IL](/images/blog/michelle-solaria-equipment-2026/solaria-by-inmode-device.png)
+
+### Morpheus8 Burst
+
+![Morpheus8 Burst by InMode RF microneedling — Hello Gorgeous Med Spa Oswego](/images/blog/michelle-solaria-equipment-2026/morpheus8-burst-inmode.png)
+
+**[Morpheus8 Burst](/services/morpheus8)** pairs **RF energy with microneedling** for collagen remodeling on **face and body**. Ask us how it can complement **Solaria** or **Quantum RF** in a customized plan.
+
+## Why share this now
+
+We know you have choices for med spas from **Oswego** to **Naperville** and **Aurora**. When you walk into Hello Gorgeous, we want you to see **real devices**, **real protocols**, and **real results** — not stock photos and vague promises.
+
+📞 **630-636-6193**  
+🌐 **[Book online](/book)**  
+📍 **74 W Washington Street, Oswego, IL 60543**
+
+> *"I can actually see the difference after my Solaria treatment — my skin looks smoother and more awake. The team explained every step."* — Michelle, Fox Valley *(experience may vary)*
+
+---
+
+## Frequently Asked Questions
+
+### What is Solaria CO₂?
+
+**Solaria** is an **InMode CO₂ fractional laser** used for **resurfacing**, **texture**, **lines**, and **sun damage** — with **real downtime** and **medical-grade aftercare**. Details: **[Solaria CO₂](/services/solaria-co2)**.
+
+### How many Solaria treatments will I need?
+
+Some clients see meaningful change after **one** treatment; others benefit from a **series**. Your provider recommends a plan based on **skin type**, **goals**, and **tolerance for downtime**.
+
+### What is Morpheus8 Burst?
+
+**Morpheus8 Burst** is **RF microneedling** that remodels collagen at **custom depths** — popular for **face, neck, and body** laxity and texture. **[Learn more](/services/morpheus8)**.
+
+### Do you offer Quantum RF and Luxora in Oswego?
+
+**Yes** — these are part of our **InMode** lineup at **Hello Gorgeous** in **Oswego**. Availability and pairing depend on your consultation.
+
+### How do I book?
+
+**[Book a free consultation](/book)** or call **(630) 636-6193**.
+`,
+  },
+  // ====================================================================
   // ARTICLE: Medical-led care after Morpheus8 & Solaria — Oswego, IL
   // ====================================================================
   {

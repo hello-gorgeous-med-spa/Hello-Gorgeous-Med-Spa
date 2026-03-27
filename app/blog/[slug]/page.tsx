@@ -112,6 +112,27 @@ function renderMarkdown(content: string) {
       flushTable();
     }
 
+    // Markdown images: ![alt text](/path/to/image.png)
+    const imgMatch = line.match(/^!\[([^\]]*)\]\(([^)]+)\)\s*$/);
+    if (imgMatch) {
+      flushTable();
+      flushList();
+      const alt = imgMatch[1];
+      const src = imgMatch[2];
+      elements.push(
+        <figure key={`img-${i}`} className="my-10">
+          {/* eslint-disable-next-line @next/next/no-img-element -- blog body uses dynamic CMS markdown paths */}
+          <img
+            src={src}
+            alt={alt}
+            className="w-full max-w-2xl mx-auto rounded-2xl border border-black/10 shadow-md"
+            loading="lazy"
+          />
+        </figure>
+      );
+      continue;
+    }
+
     // List items
     if (line.match(/^[-•*]\s/) || line.match(/^\d+\.\s/)) {
       flushTable();
