@@ -1,14 +1,26 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { pageMetadata, SITE, siteJsonLd } from "@/lib/seo";
+import {
+  pageMetadata,
+  SITE,
+  siteJsonLd,
+  mainLocalBusinessJsonLd,
+  breadcrumbJsonLd,
+  webPageJsonLd,
+  faqJsonLd,
+} from "@/lib/seo";
 import { FAQAccordion } from "@/components/FAQAccordion";
+
+const PAGE_PATH = "/stretch-mark-treatment-oswego-il";
+const PAGE_URL = `${SITE.url}${PAGE_PATH}`;
+const STRETCH_PAGE_DESCRIPTION =
+  "Advanced body resurfacing & postpartum stretch mark treatment in Oswego, IL. Solaria CO₂ fractional laser for fitness, weight loss, and pregnancy skin. 40–70% visible improvement. Book consultation.";
 
 export const metadata: Metadata = pageMetadata({
   title: "Stretch Mark Treatment Oswego IL | Solaria CO₂ Body Resurfacing | Hello Gorgeous",
-  description:
-    "Advanced body resurfacing & postpartum stretch mark treatment in Oswego, IL. Solaria CO₂ fractional laser for fitness, weight loss, and pregnancy skin. 40–70% visible improvement. Book consultation.",
-  path: "/stretch-mark-treatment-oswego-il",
+  description: STRETCH_PAGE_DESCRIPTION,
+  path: PAGE_PATH,
 });
 
 const STRETCH_MARK_FAQS = [
@@ -29,11 +41,63 @@ const STRETCH_MARK_FAQS = [
 ];
 
 export default function StretchMarkTreatmentPage() {
+  const breadcrumbs = [
+    { name: "Home", url: SITE.url },
+    { name: "Stretch Mark Treatment", url: PAGE_URL },
+  ];
+
+  const procedureJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "MedicalProcedure",
+    "@id": `${PAGE_URL}#procedure`,
+    name: "Stretch Mark Treatment — Solaria CO₂ Body Resurfacing in Oswego, IL",
+    description:
+      "Fractional CO₂ laser resurfacing to improve the appearance of stretch marks on body areas. Hello Gorgeous Med Spa.",
+    procedureType: "NoninvasiveProcedure",
+    howPerformed:
+      "Fractional CO₂ laser delivers controlled thermal columns to the dermis to stimulate collagen remodeling and improve striae appearance.",
+    status: "EventScheduled",
+    provider: { "@id": `${SITE.url}/#organization` },
+    areaServed: SITE.serviceAreas.map((area) => ({ "@type": "Place", name: area })),
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(mainLocalBusinessJsonLd()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbs)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            webPageJsonLd({
+              title: "Stretch Mark Treatment Oswego IL | Hello Gorgeous Med Spa",
+              description: STRETCH_PAGE_DESCRIPTION,
+              path: PAGE_PATH,
+              image: "/images/solaria-before-after/stretch-mark-comparison.png",
+              dateModified: new Date().toISOString().split("T")[0],
+            })
+          ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqJsonLd(STRETCH_MARK_FAQS, PAGE_URL)),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(procedureJsonLd) }}
       />
       <main className="bg-white">
         {/* Section 1: Premium Body Resurfacing — black / luxury */}

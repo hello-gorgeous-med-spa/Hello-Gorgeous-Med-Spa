@@ -930,6 +930,9 @@ export function siteJsonLd() {
       "Radiofrequency microneedling",
       "Skin tightening",
       "Face and body contouring",
+      "Trigger point injections",
+      "Cellulite treatment",
+      "Stretch mark treatment",
     ],
     medicalSpecialty: "Dermatology",
   };
@@ -1402,7 +1405,7 @@ export function homepageServicesItemListJsonLd() {
     "@id": `${SITE.url}/#homepage-services`,
     name: "Elevated Aesthetic Care — Med Spa Services",
     description:
-      "Services at Hello Gorgeous Med Spa in Oswego, IL: Morpheus8 RF, injectables, medical weight loss, hormone optimization, Solaria CO₂, IV therapy, Rx prescription care, peptide therapy, AnteAGE MD®, VAMP™, laser hair removal, IPL photofacials, vitamin injections, and lash bar.",
+      "Services at Hello Gorgeous Med Spa in Oswego, IL and surrounding areas: Morpheus8 RF, injectables, medical weight loss, hormones, Solaria CO₂, IV therapy, Rx care, peptides, AnteAGE MD®, VAMP™, laser hair removal, IPL, vitamin injections, lash bar, trigger point injections, cellulite treatment, and stretch mark treatment.",
     numberOfItems: ALL_HOMEPAGE_SERVICES.length,
     itemListElement: ALL_HOMEPAGE_SERVICES.map((s, i) => {
       const url = servicePathToAbsoluteUrl(s.link);
@@ -1655,12 +1658,21 @@ export const SERVICE_IMAGES: ServiceImage[] = [
     alt: "Morpheus8 Burst verified provider RF microneedling skin tightening face InMode Hello Gorgeous Med Spa Oswego IL",
     title: "Morpheus8 Burst Verified Provider",
     service: "Morpheus8 Burst",
+    category: "aesthetics",
   },
   {
     src: "/images/home/morpheus8-body-burst-technology-inmode.png",
-    alt: "Morpheus8 Body Burst technology deep RF microneedling bipolar skin tightening body InMode Oswego IL Hello Gorgeous",
-    title: "Morpheus8 Body Burst Technology",
+    alt: "Morpheus8 Body Burst technology deep RF microneedling bipolar skin tightening body cellulite Oswego IL Hello Gorgeous",
+    title: "Morpheus8 Body — Cellulite & Body RF",
     service: "Morpheus8 Body",
+    category: "aesthetics",
+  },
+  {
+    src: "/images/solaria-before-after/stretch-mark-comparison.png",
+    alt: "Stretch mark treatment before and after Solaria CO2 fractional laser Hello Gorgeous Med Spa Oswego Naperville IL",
+    title: "Stretch Mark Refinement — Solaria CO2",
+    service: "Stretch Mark Treatment",
+    category: "aesthetics",
   },
   { src: "/images/services/hg-chemical-peel.png", alt: "Chemical peel treatment for glowing skin at Hello Gorgeous Med Spa", title: "Chemical Peel", service: "Chemical Peel", category: "aesthetics" },
   { src: "/images/services/hg-hydrafacial.png", alt: "HydraFacial treatment for deep cleansing at Hello Gorgeous Med Spa", title: "HydraFacial", service: "HydraFacial", category: "aesthetics" },

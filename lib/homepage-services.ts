@@ -168,6 +168,38 @@ export const homepageServicesRow2: HomepageServiceCard[] = [
       "Volume, hybrid, and classic eyelash extension styles — Hello Gorgeous Lash Bar Oswego IL",
     imageContain: true,
   },
+  {
+    title: "Trigger Point Injections",
+    description:
+      "Targeted injections for muscle knots and chronic tension — neck, shoulders, back, TMJ-related pain, and headache trigger points. Licensed medical providers in Oswego.",
+    link: "/trigger-point-injections-oswego-il",
+    items: ["Neck & shoulders", "Back & hips", "TMJ tension", "Headache triggers"],
+    image: "/images/services/hg-botox-syringes.png",
+    imageAlt:
+      "Medical syringes for trigger point injections — pain relief and muscle tension treatment Hello Gorgeous Med Spa Oswego IL",
+    imageContain: true,
+  },
+  {
+    title: "Cellulite Treatment",
+    description:
+      "RF and advanced body technologies to smooth dimples and improve skin texture — Morpheus8 Body and Quantum RF protocols tailored to thighs, buttocks, and abdomen.",
+    link: "/cellulite-treatment-oswego-il",
+    items: ["Thighs & buttocks", "RF skin tightening", "Texture & dimpling", "Custom body plan"],
+    image: "/images/home/morpheus8-body-burst-technology-inmode.png",
+    imageAlt:
+      "Morpheus8 Body RF microneedling for cellulite and body contouring — InMode at Hello Gorgeous Med Spa Oswego IL",
+    imageContain: true,
+  },
+  {
+    title: "Stretch Mark Treatment",
+    description:
+      "Fractional CO₂ and collagen-stimulating protocols to refine striae on abdomen, hips, breasts, and thighs — ideal after weight change or pregnancy.",
+    link: "/stretch-mark-treatment-oswego-il",
+    items: ["Abdomen & hips", "Solaria CO₂ body", "Texture blending", "Series plans"],
+    image: "/images/solaria-before-after/stretch-mark-comparison.png",
+    imageAlt:
+      "Stretch mark refinement before and after Solaria CO₂ fractional laser — Hello Gorgeous Med Spa Oswego Naperville IL",
+  },
 ];
 
 export const ALL_HOMEPAGE_SERVICES: HomepageServiceCard[] = [

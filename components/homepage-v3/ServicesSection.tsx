@@ -89,8 +89,8 @@ export function ServicesSection() {
             <h3 className="text-2xl md:text-3xl font-semibold text-black">
               Clinical care &amp; beauty
             </h3>
-            <p className="mt-2 text-black/65 max-w-2xl mx-auto text-sm md:text-base">
-              IV therapy, prescriptions, peptides, AnteAGE MD®, VAMP™, laser hair removal, IPL photofacials, vitamin shots, and our lash bar — all under one roof in Oswego.
+            <p className="mt-2 text-black/65 max-w-3xl mx-auto text-sm md:text-base">
+              IV therapy, prescriptions, peptides, AnteAGE MD®, VAMP™, laser hair removal, IPL, vitamin shots, lash bar, trigger point injections, cellulite treatment, and stretch mark care — Oswego, Naperville, Aurora &amp; Plainfield.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
