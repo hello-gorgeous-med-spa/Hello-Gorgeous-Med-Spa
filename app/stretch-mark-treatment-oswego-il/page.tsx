@@ -151,8 +151,25 @@ export default function StretchMarkTreatmentPage() {
           <div className="max-w-5xl mx-auto px-4">
             <h2 className="text-2xl font-bold text-black mb-4">Visual Results</h2>
             <p className="text-gray-600 mb-6">
-              Before &amp; after results from Solaria CO₂ body resurfacing. Results vary by individual.
+              Before &amp; after results from Solaria CO₂ resurfacing (face and body). Results vary by individual.
             </p>
+            <div className="mb-10 max-w-sm mx-auto">
+              <div className="rounded-xl overflow-hidden border border-gray-200 bg-white shadow-sm">
+                <div className="relative aspect-[472/1024] w-full">
+                  <Image
+                    src="/images/solaria-before-after/michelle-solaria-one-treatment-facial.png"
+                    alt="Before and after one Solaria CO₂ treatment: facial skin tightening, texture, and fine lines — Hello Gorgeous Med Spa Oswego IL"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 384px"
+                    priority
+                  />
+                </div>
+                <p className="p-3 text-sm font-medium text-black text-center">
+                  Face · one Solaria treatment (skin texture &amp; tightening)
+                </p>
+              </div>
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="rounded-xl overflow-hidden border border-gray-200 bg-white shadow-sm">
                 <div className="relative aspect-[4/3]">
