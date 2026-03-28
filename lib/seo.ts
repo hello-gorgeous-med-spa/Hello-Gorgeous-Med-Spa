@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { BOOKING_URL } from "@/lib/flows";
+import { ALL_HOMEPAGE_SERVICES } from "@/lib/homepage-services";
 
 export type FAQ = { question: string; answer: string };
 
@@ -921,6 +922,14 @@ export function siteJsonLd() {
       bestRating: "5",
       worstRating: "1",
     },
+    knowsAbout: [
+      "Morpheus8 Burst",
+      "Morpheus8 Body",
+      "InMode RF microneedling",
+      "Radiofrequency microneedling",
+      "Skin tightening",
+      "Face and body contouring",
+    ],
     review: [
       {
         "@type": "Review",
@@ -1410,24 +1419,68 @@ export function dermalFillersBreadcrumbJsonLd(slug: "dermal-fillers" | "lip-fill
   };
 }
 
+function servicePathToAbsoluteUrl(path: string) {
+  const p = path.startsWith("/") ? path : `/${path}`;
+  return `${SITE.url}${p}`;
+}
+
+/** ItemList matching homepage service cards — aligns visible services with structured data for discovery. */
+export function homepageServicesItemListJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "@id": `${SITE.url}/#homepage-services`,
+    name: "Elevated Aesthetic Care — Med Spa Services",
+    description:
+      "Services at Hello Gorgeous Med Spa in Oswego, IL: Morpheus8 RF, injectables, medical weight loss, hormone optimization, Solaria CO₂, IV therapy, Rx prescription care, peptide therapy, AnteAGE MD®, VAMP™, laser hair removal, IPL photofacials, vitamin injections, and lash bar.",
+    numberOfItems: ALL_HOMEPAGE_SERVICES.length,
+    itemListElement: ALL_HOMEPAGE_SERVICES.map((s, i) => {
+      const url = servicePathToAbsoluteUrl(s.link);
+      return {
+        "@type": "ListItem",
+        position: i + 1,
+        name: s.title,
+        url,
+        item: {
+          "@type": "Service",
+          name: s.title,
+          description: s.description,
+          url,
+          provider: { "@id": `${SITE.url}/#organization` },
+          areaServed: SITE.serviceAreas.map((area) => ({ "@type": "Place", name: area })),
+        },
+      };
+    }),
+  };
+}
+
 /** Service schema with booking action — helps Google show "Book" in search/local results */
 export function bookingServiceJsonLd() {
+  const catalogOffers = ALL_HOMEPAGE_SERVICES.map((s) => {
+    const url = servicePathToAbsoluteUrl(s.link);
+    return {
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: s.title,
+        description: s.description,
+        url,
+      },
+    };
+  });
   return {
     "@context": "https://schema.org",
     "@type": "Service",
     "@id": `${SITE.url}/#booking`,
     name: "Consultation & Appointment Booking",
-    description: "Book a free consultation or appointment for Botox, fillers, weight loss, hormone therapy, and more at Hello Gorgeous Med Spa in Oswego, IL.",
+    description:
+      "Book a free consultation or appointment for Morpheus8, injectables, GLP-1 weight loss, hormone therapy, Solaria CO₂, IV therapy, Rx care, peptides, laser hair removal, IPL, vitamin injections, lash services, and more at Hello Gorgeous Med Spa in Oswego, IL.",
     provider: { "@id": `${SITE.url}/#organization` },
     areaServed: SITE.serviceAreas.map((area) => ({ "@type": "Place", name: area })),
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Med Spa Services",
-      itemListElement: [
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Botox & Injectables" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Weight Loss & GLP-1" } },
-        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Hormone Therapy" } },
-      ],
+      name: "Med Spa Services — Hello Gorgeous",
+      itemListElement: catalogOffers,
     },
     potentialAction: {
       "@type": "ReserveAction",
@@ -1510,6 +1563,21 @@ export function imageGalleryJsonLd(images: ServiceImage[], galleryName: string) 
       description: img.alt,
     })),
   };
+}
+
+/** ImageGallery for every homepage service card image — complements ItemList for image-rich discovery. */
+export function homepageServicesImageGalleryJsonLd() {
+  const images: ServiceImage[] = ALL_HOMEPAGE_SERVICES.map((s) => ({
+    src: s.image.startsWith("/") ? s.image : `/${s.image}`,
+    alt: s.imageAlt,
+    title: s.title,
+    service: s.title,
+    category: "aesthetics",
+  }));
+  return imageGalleryJsonLd(
+    images,
+    "Homepage Med Spa Services — Featured Treatments | Oswego IL"
+  );
 }
 
 /** Before/After image pair schema for treatment results */

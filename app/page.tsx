@@ -40,6 +40,8 @@ import {
   faqJsonLd,
   testimonialsJsonLd,
   bookingServiceJsonLd,
+  homepageServicesItemListJsonLd,
+  homepageServicesImageGalleryJsonLd,
 } from "@/lib/seo";
 import { CHERRY_PAY_URL } from "@/lib/flows";
 
@@ -88,13 +90,22 @@ export default function HomePage() {
           __html: JSON.stringify(
             webPageJsonLd({
               title: "Hello Gorgeous Med Spa - Newest Morpheus8 Burst Face & Body",
-              description: "#1 Best Med Spa in Oswego, IL. Newest Morpheus8 Burst — deepest RF at 8mm for face AND body. Botox, fillers, weight loss. Serving Naperville, Aurora, Plainfield.",
+              description:
+                "#1 Best Med Spa in Oswego, IL. Morpheus8 Burst, injectables, GLP-1 weight loss, hormones, Solaria CO₂, IV therapy, Rx, peptides, laser hair removal, IPL, vitamin injections, lash bar. Serving Naperville, Aurora, Plainfield.",
               path: "/",
               image: "/images/hero-banner.png",
               datePublished: "2023-01-01",
               dateModified: new Date().toISOString().split("T")[0],
             })
           ),
+        }}
+      />
+
+      {/* ItemList — homepage service cards (matches ServicesSection) */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homepageServicesItemListJsonLd()),
         }}
       />
 
@@ -132,6 +143,14 @@ export default function HomePage() {
               "Morpheus8 Burst RF Microneedling — Verified Provider Oswego IL"
             )
           ),
+        }}
+      />
+
+      {/* Homepage service card images — full gallery aligned with ItemList */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(homepageServicesImageGalleryJsonLd()),
         }}
       />
 
