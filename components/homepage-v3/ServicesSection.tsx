@@ -76,11 +76,13 @@ const servicesRow2: ServiceCardData[] = [
   {
     title: "IV Therapy",
     description:
-      "Hydration, NAD+, Myers Cocktail, and custom IV drips for energy, recovery, and glow — administered by licensed providers in Oswego.",
+      "Hydration, NAD+, Myers Cocktail, immunity-support blends, and custom IV drips for energy, recovery, and glow — administered by licensed providers in Oswego.",
     link: "/services/iv-therapy",
-    items: ["Myers Cocktail", "NAD+ Drips", "Hydration", "Recovery Blends"],
-    image: "/images/services/hg-iv-therapy.png",
-    imageAlt: "IV vitamin drip therapy at Hello Gorgeous Med Spa Oswego IL",
+    items: ["Myers Cocktail", "NAD+ Drips", "Immunity IV", "Hydration"],
+    image: "/images/homepage-services/iv-therapy-immunity-infusion.png",
+    imageAlt:
+      "IV immunity infusion therapy — vitamin C, B-complex, zinc — Hello Gorgeous Med Spa Oswego IL",
+    imageContain: true,
   },
   {
     title: "Rx Prescription Care",
@@ -119,8 +121,9 @@ const servicesRow2: ServiceCardData[] = [
       "Intense Pulsed Light for sun spots, redness, rosacea, and overall photorejuvenation — brighter, more even skin in Oswego.",
     link: "/services/ipl-photofacial",
     items: ["Brown spots", "Redness", "Rosacea", "Photo rejuvenation"],
-    image: "/images/services/hg-laser-device.png",
-    imageAlt: "IPL photofacial and light-based skin treatment at Hello Gorgeous Med Spa Oswego IL",
+    image: "/images/homepage-services/ipl-photofacial-zemits-treatment.png",
+    imageAlt:
+      "IPL photofacial treatment with professional light handpiece for skin rejuvenation — Hello Gorgeous Med Spa Oswego IL",
   },
   {
     title: "Vitamin Injections",
