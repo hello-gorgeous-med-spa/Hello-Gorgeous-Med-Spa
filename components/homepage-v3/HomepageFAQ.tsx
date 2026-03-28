@@ -28,6 +28,14 @@ const FAQ_ITEMS = [
     q: "How do I book a consultation?",
     a: "Book online anytime, or call us. New and existing patients can schedule a free consultation to discuss your goals and create a personalized plan.",
   },
+  {
+    q: "What is Morpheus8 Burst — and how is it different from regular microneedling?",
+    a: "Morpheus8 Burst is InMode’s RF microneedling: microneedles deliver bipolar radiofrequency for deeper remodeling and skin tightening than surface microneedling alone. Hello Gorgeous is a verified Morpheus8 Burst provider in Oswego, with face, neck, and Morpheus8 Body options when appropriate.",
+  },
+  {
+    q: "Do you offer RF microneedling for the body?",
+    a: "Yes. We offer Morpheus8 Body protocols for areas like abdomen, thighs, and arms when it fits your goals — combined with Morpheus8 Burst for face and neck. Book a consultation to see whether deep RF microneedling is right for you.",
+  },
 ];
 
 export function HomepageFAQ() {

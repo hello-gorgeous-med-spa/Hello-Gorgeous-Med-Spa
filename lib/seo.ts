@@ -80,6 +80,16 @@ export const HOME_FAQS: readonly FAQ[] = [
     answer:
       "You can schedule from our Book page. If you have questions first, contact us and we’ll help you choose the right service.",
   },
+  {
+    question: "What is Morpheus8 Burst and is it different from basic microneedling?",
+    answer:
+      "Morpheus8 Burst is InMode’s advanced RF microneedling platform: microneedles deliver bipolar radiofrequency for deeper remodeling than surface microneedling alone — used for skin tightening, texture, and (with Morpheus8 Body) larger areas. Hello Gorgeous is a verified Morpheus8 Burst provider in Oswego, IL.",
+  },
+  {
+    question: "Do you offer Morpheus8 for the body and face in Oswego?",
+    answer:
+      "Yes. We offer Morpheus8 Burst for face and neck and Morpheus8 Body protocols where appropriate for skin tightening and contour on areas like abdomen, thighs, and arms — with a personalized plan after consultation.",
+  },
 ] as const;
 
 /** Homepage testimonials - used for Review schema and Testimonials component */
@@ -1595,6 +1605,18 @@ export const SERVICE_IMAGES: ServiceImage[] = [
   // Aesthetics & Skin
   { src: "/images/services/hg-microneedling.png", alt: "RF Microneedling treatment for skin rejuvenation at Hello Gorgeous Med Spa", title: "Microneedling", service: "Microneedling", category: "aesthetics" },
   { src: "/images/services/hg-microneedling-device.png", alt: "Professional microneedling device at Hello Gorgeous Med Spa Oswego", title: "Microneedling Device", service: "Microneedling", category: "aesthetics" },
+  {
+    src: "/images/home/morpheus8-burst-verified-provider-inmode.png",
+    alt: "Morpheus8 Burst verified provider RF microneedling skin tightening face InMode Hello Gorgeous Med Spa Oswego IL",
+    title: "Morpheus8 Burst Verified Provider",
+    service: "Morpheus8 Burst",
+  },
+  {
+    src: "/images/home/morpheus8-body-burst-technology-inmode.png",
+    alt: "Morpheus8 Body Burst technology deep RF microneedling bipolar skin tightening body InMode Oswego IL Hello Gorgeous",
+    title: "Morpheus8 Body Burst Technology",
+    service: "Morpheus8 Body",
+  },
   { src: "/images/services/hg-chemical-peel.png", alt: "Chemical peel treatment for glowing skin at Hello Gorgeous Med Spa", title: "Chemical Peel", service: "Chemical Peel", category: "aesthetics" },
   { src: "/images/services/hg-hydrafacial.png", alt: "HydraFacial treatment for deep cleansing at Hello Gorgeous Med Spa", title: "HydraFacial", service: "HydraFacial", category: "aesthetics" },
   { src: "/images/services/hg-hydrafacial-serums.png", alt: "HydraFacial serums and boosters at Hello Gorgeous Med Spa Oswego", title: "HydraFacial Serums", service: "HydraFacial", category: "aesthetics" },
@@ -1616,6 +1638,15 @@ export const SERVICE_IMAGES: ServiceImage[] = [
 /** Get images by category for targeted schema injection */
 export function getImagesByCategory(category: ServiceImage["category"]) {
   return SERVICE_IMAGES.filter((img) => img.category === category);
+}
+
+/** Homepage Morpheus8 Burst / Body images — ImageGallery JSON-LD */
+export function getMorpheus8HomepageImages(): ServiceImage[] {
+  const paths = new Set([
+    "/images/home/morpheus8-burst-verified-provider-inmode.png",
+    "/images/home/morpheus8-body-burst-technology-inmode.png",
+  ]);
+  return SERVICE_IMAGES.filter((img) => paths.has(img.src));
 }
 
 /** Get images by service name for service page schema */

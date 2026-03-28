@@ -23,6 +23,7 @@ import { GlowUpEventBanner } from "@/components/GlowUpEventBanner";
 import { CherryWidget } from "@/components/CherryWidget";
 import { Morpheus8Banner } from "@/components/Morpheus8Banner";
 import { Morpheus8SkinRebuildSection } from "@/components/Morpheus8SkinRebuildSection";
+import { Morpheus8VerifiedProviderSection } from "@/components/Morpheus8VerifiedProviderSection";
 import { Morpheus8ModelCallBanner } from "@/components/Morpheus8ModelCallBanner";
 import { SolariaComingSoonBanner } from "@/components/SolariaComingSoonBanner";
 import {
@@ -33,6 +34,7 @@ import {
   breadcrumbJsonLd,
   imageGalleryJsonLd,
   getImagesByCategory,
+  getMorpheus8HomepageImages,
   webPageJsonLd,
   HOME_FAQS,
   HOME_TESTIMONIALS,
@@ -56,6 +58,7 @@ export default function HomePage() {
   const injectablesImages = getImagesByCategory("injectables");
   const rxImages = getImagesByCategory("rx");
   const aestheticsImages = getImagesByCategory("aesthetics");
+  const morpheus8BurstHomeImages = getMorpheus8HomepageImages();
 
   return (
     <>
@@ -121,6 +124,17 @@ export default function HomePage() {
           ),
         }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            imageGalleryJsonLd(
+              morpheus8BurstHomeImages,
+              "Morpheus8 Burst RF Microneedling — Verified Provider Oswego IL"
+            )
+          ),
+        }}
+      />
 
       {/* FAQPage Schema — can trigger FAQ rich results in search */}
       <script
@@ -154,6 +168,7 @@ export default function HomePage() {
         <HeroV3 />
         <TrustStrip />
         <Morpheus8SkinRebuildSection />
+        <Morpheus8VerifiedProviderSection />
         <TrifectaSection />
         <PartnerBadges />
         <InjectablesConversion />
