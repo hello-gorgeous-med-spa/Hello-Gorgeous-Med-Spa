@@ -3,7 +3,6 @@ import {
   HeroV3,
   TrustStrip,
   PartnerBadges,
-  InjectablesConversion,
   ServicesSection,
   FaceBlueprintSection,
   ExperienceSection,
@@ -171,7 +170,6 @@ export default function HomePage() {
         <Morpheus8VerifiedProviderSection />
         <TrifectaSection />
         <PartnerBadges />
-        <InjectablesConversion />
         <ServicesSection />
         <FaceBlueprintSection />
         <RxShowcaseSection />

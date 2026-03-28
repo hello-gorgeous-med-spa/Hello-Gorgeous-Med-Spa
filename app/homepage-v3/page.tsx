@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import {
   HeroV3,
   TrustStrip,
-  InjectablesConversion,
   ServicesSection,
   ExperienceSection,
   InnovationSection,
@@ -28,7 +27,6 @@ export default function HomepageV3() {
     <main className="bg-white">
       <HeroV3 />
       <TrustStrip />
-      <InjectablesConversion />
       <ServicesSection />
       <ExperienceSection />
       <InnovationSection />

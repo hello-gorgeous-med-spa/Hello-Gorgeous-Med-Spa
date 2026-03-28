@@ -18,6 +18,7 @@ const navigation = {
       {
         title: "Injectables",
         links: [
+          { label: "Injectables overview", href: "/injectables", icon: "✨" },
           { label: "Botox, Dysport & Jeuveau", href: "/services/botox-dysport-jeuveau", icon: "💉" },
           { label: "Dermal Fillers", href: "/services/dermal-fillers", icon: "💋" },
           { label: "Lip Filler", href: "/services/lip-filler", icon: "👄" },

@@ -30,7 +30,7 @@ const servicesRow1: ServiceCardData[] = [
     title: "Injectables",
     description:
       "Precision Botox®, dermal fillers, and lip enhancement delivered with medical expertise and artistic vision.",
-    link: "/services/botox-dysport-jeuveau",
+    link: "/injectables",
     items: ["Botox & Dysport", "Dermal Fillers", "Lip Enhancement", "Kybella"],
     image: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
     imageAlt:
