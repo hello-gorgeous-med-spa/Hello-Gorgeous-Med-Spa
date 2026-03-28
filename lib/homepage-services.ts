@@ -174,10 +174,9 @@ export const homepageServicesRow2: HomepageServiceCard[] = [
       "Targeted injections for muscle knots and chronic tension — neck, shoulders, back, TMJ-related pain, and headache trigger points. Licensed medical providers in Oswego.",
     link: "/trigger-point-injections-oswego-il",
     items: ["Neck & shoulders", "Back & hips", "TMJ tension", "Headache triggers"],
-    image: "/images/services/hg-botox-syringes.png",
+    image: "/images/homepage-services/trigger-point-injections-body-pain-grid.png",
     imageAlt:
-      "Medical syringes for trigger point injections — pain relief and muscle tension treatment Hello Gorgeous Med Spa Oswego IL",
-    imageContain: true,
+      "Common areas of muscle pain and trigger points — neck, back, shoulders, arms — treated with trigger point injections at Hello Gorgeous Med Spa Oswego Naperville IL",
   },
   {
     title: "Cellulite Treatment",

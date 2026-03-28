@@ -90,7 +90,7 @@ export default function TriggerPointInjectionsOswegoPage() {
               title: "Trigger Point Injections Oswego IL | Hello Gorgeous Med Spa",
               description: PAGE_DESCRIPTION,
               path: PATH,
-              image: "/images/services/hg-botox-syringes.png",
+              image: "/images/homepage-services/trigger-point-injections-body-pain-grid.png",
               dateModified: new Date().toISOString().split("T")[0],
             })
           ),
