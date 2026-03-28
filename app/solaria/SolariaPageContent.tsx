@@ -66,10 +66,11 @@ export function SolariaPageContent() {
               href="https://www.inmodemd.com/workstation/solaria/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-pink-300 hover:text-pink-200 underline"
+              className="text-pink-300 hover:text-pink-200 underline font-semibold"
             >
-              Learn more about the Solaria CO₂ technology →
+              More info
             </a>
+            <span className="text-white/60"> — InMode Solaria workstation (official site) →</span>
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-4 text-sm">
             <a href="#pre-treatment" className="px-6 py-3 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">

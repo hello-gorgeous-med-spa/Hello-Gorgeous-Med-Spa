@@ -20,6 +20,20 @@ export function TreatmentOverview() {
             skin while leaving surrounding tissue intact — promoting faster healing and more
             natural results.
           </p>
+          <p className="not-prose pt-2">
+            <a
+              href="https://www.inmodemd.com/workstation/solaria/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-[#E91E8C] hover:underline"
+            >
+              More info
+            </a>
+            <span className="text-black/70">
+              {" "}
+              — official InMode Solaria workstation details (manufacturer site, opens in a new tab)
+            </span>
+          </p>
         </div>
 
         <div className="mt-12 mb-12">

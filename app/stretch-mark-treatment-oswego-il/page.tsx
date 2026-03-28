@@ -86,6 +86,17 @@ export default function StretchMarkTreatmentPage() {
             >
               Schedule Body Resurfacing Consultation
             </Link>
+            <p className="mt-6 text-sm text-white/70">
+              <a
+                href="https://www.inmodemd.com/workstation/solaria/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-pink-300 hover:text-pink-200 underline underline-offset-2"
+              >
+                More info
+              </a>
+              <span className="text-white/60"> — InMode&apos;s official Solaria workstation page (opens in a new tab)</span>
+            </p>
           </div>
         </section>
 

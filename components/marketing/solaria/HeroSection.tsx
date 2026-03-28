@@ -30,6 +30,17 @@ export function HeroSection() {
             📞 630-636-6193
           </a>
         </div>
+        <p className="mt-6 text-sm text-white/75">
+          <a
+            href="https://www.inmodemd.com/workstation/solaria/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-[#E91E8C] hover:text-pink-300 underline underline-offset-2"
+          >
+            More info
+          </a>
+          <span className="text-white/60"> from InMode (official Solaria workstation)</span>
+        </p>
       </div>
     </section>
   );

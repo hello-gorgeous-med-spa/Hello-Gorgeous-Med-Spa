@@ -178,15 +178,16 @@ export default function SolariaCO2Page() {
                 </span>
               ))}
             </div>
-            <p className="mt-6 text-center">
+            <p className="mt-6 text-center text-sm text-black/70">
               <a
                 href="https://www.inmodemd.com/workstation/solaria/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-[#E6007E] font-semibold hover:underline"
               >
-                Learn more about the Solaria technology →
+                More info
               </a>
+              <span> — official InMode Solaria workstation (opens in a new tab) →</span>
             </p>
           </div>
         </section>
