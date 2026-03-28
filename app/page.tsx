@@ -158,7 +158,7 @@ export default function HomePage() {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqJsonLd(HOME_FAQS)),
+          __html: JSON.stringify(faqJsonLd(HOME_FAQS, `${SITE.url}/`)),
         }}
       />
 

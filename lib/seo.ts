@@ -50,46 +50,47 @@ export const SITE = {
   },
 } as const;
 
+/** Must match visible copy in `components/homepage-v3/HomepageFAQ.tsx` (single source for FAQ rich results). */
 export const HOME_FAQS: readonly FAQ[] = [
   {
-    question: "Where are you located?",
+    question: "Where is Hello Gorgeous Med Spa located?",
     answer:
-      "Hello Gorgeous Med Spa is located at 74 W. Washington Street in Oswego, IL. We serve clients from Naperville, Aurora, Plainfield, Yorkville, and throughout Kendall County.",
+      "We're at 74 W. Washington St., Oswego, IL 60543 — with easy access from Naperville, Aurora, Plainfield, and Kendall County. Free parking available.",
   },
   {
-    question: "Do you offer Botox in Oswego, IL?",
+    question: "Who performs treatments at your med spa?",
     answer:
-      "Yes. We offer Botox, Dysport, and Jeuveau in Oswego. Our injectable specialists provide natural-looking results with a personalized approach. Book a consultation to get started.",
+      "All treatments are performed or overseen by licensed medical professionals with advanced training in medical aesthetics. Our team includes nurse practitioners and clinical experts dedicated to safe, natural-looking results.",
   },
   {
-    question: "What is PRF hair restoration?",
+    question: "What services do you offer?",
     answer:
-      "PRF (Platelet-Rich Fibrin) hair restoration uses your own growth factors to stimulate natural hair growth. It's a minimally invasive treatment we offer alongside other regenerative options.",
+      "We offer Botox, Dysport, and Jeuveau; dermal fillers and lip filler; medical weight loss (GLP-1); Biote hormone therapy; RF microneedling; laser treatments; IV therapy; and more. Explore our services or book a free consultation to find the right option for you.",
   },
   {
-    question: "Do you serve Naperville and Plainfield?",
+    question: "Do you offer virtual or telehealth visits?",
     answer:
-      "Yes. We welcome clients from Naperville, Plainfield, Aurora, Yorkville, and surrounding areas. Oswego is conveniently located with easy access from I-88 and Route 34.",
+      "Yes. Consultations and follow-ups for weight loss and some wellness programs can be done via telehealth. In-person visits are required for injectables and in-office procedures.",
   },
   {
-    question: "Do you offer consultations?",
+    question: "What should I look for in a med spa?",
     answer:
-      "Yes. We recommend starting with a consultation so we can personalize your treatment plan, timing, and expected results.",
+      "Choose a med spa with licensed providers, clear before-and-after expectations, and a focus on natural-looking results. Check reviews, ask who will perform your treatment, and ensure they prioritize your safety and consent.",
   },
   {
-    question: "How do I book an appointment?",
+    question: "How do I book a consultation?",
     answer:
-      "You can schedule from our Book page. If you have questions first, contact us and we’ll help you choose the right service.",
+      "Book online anytime, or call us. New and existing patients can schedule a free consultation to discuss your goals and create a personalized plan.",
   },
   {
-    question: "What is Morpheus8 Burst and is it different from basic microneedling?",
+    question: "What is Morpheus8 Burst — and how is it different from regular microneedling?",
     answer:
-      "Morpheus8 Burst is InMode’s advanced RF microneedling platform: microneedles deliver bipolar radiofrequency for deeper remodeling than surface microneedling alone — used for skin tightening, texture, and (with Morpheus8 Body) larger areas. Hello Gorgeous is a verified Morpheus8 Burst provider in Oswego, IL.",
+      "Morpheus8 Burst is InMode’s RF microneedling: microneedles deliver bipolar radiofrequency for deeper remodeling and skin tightening than surface microneedling alone. Hello Gorgeous is a verified Morpheus8 Burst provider in Oswego, with face, neck, and Morpheus8 Body options when appropriate.",
   },
   {
-    question: "Do you offer Morpheus8 for the body and face in Oswego?",
+    question: "Do you offer RF microneedling for the body?",
     answer:
-      "Yes. We offer Morpheus8 Burst for face and neck and Morpheus8 Body protocols where appropriate for skin tightening and contour on areas like abdomen, thighs, and arms — with a personalized plan after consultation.",
+      "Yes. We offer Morpheus8 Body protocols for areas like abdomen, thighs, and arms when it fits your goals — combined with Morpheus8 Burst for face and neck. Book a consultation to see whether deep RF microneedling is right for you.",
   },
 ] as const;
 
@@ -930,38 +931,6 @@ export function siteJsonLd() {
       "Skin tightening",
       "Face and body contouring",
     ],
-    review: [
-      {
-        "@type": "Review",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: "5",
-          bestRating: "5",
-          worstRating: "1",
-        },
-        author: {
-          "@type": "Person",
-          name: "Sarah M.",
-        },
-        reviewBody: "Best Botox experience! Danielle is amazing and made me feel so comfortable. Natural results that everyone compliments.",
-        datePublished: "2025-01-15",
-      },
-      {
-        "@type": "Review",
-        reviewRating: {
-          "@type": "Rating",
-          ratingValue: "5",
-          bestRating: "5",
-          worstRating: "1",
-        },
-        author: {
-          "@type": "Person",
-          name: "Jennifer K.",
-        },
-        reviewBody: "The weight loss program changed my life. Down 30 lbs and feeling incredible. The team is so supportive!",
-        datePublished: "2025-02-01",
-      },
-    ],
     medicalSpecialty: "Dermatology",
   };
 }
@@ -1278,10 +1247,11 @@ export function localBusinessJsonLd(city: string) {
   };
 }
 
-export function faqJsonLd(faqs: ReadonlyArray<FAQ>) {
+export function faqJsonLd(faqs: ReadonlyArray<FAQ>, pageUrl?: string) {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
+    ...(pageUrl ? { url: pageUrl } : {}),
     mainEntity: faqs.map((f) => ({
       "@type": "Question",
       name: f.question,
@@ -1440,7 +1410,6 @@ export function homepageServicesItemListJsonLd() {
         "@type": "ListItem",
         position: i + 1,
         name: s.title,
-        url,
         item: {
           "@type": "Service",
           name: s.title,
@@ -1490,22 +1459,30 @@ export function bookingServiceJsonLd() {
   };
 }
 
-/** Review schema for testimonials displayed on page. Only inject when testimonials exist. */
+const ORG_ID = `${SITE.url}/#organization`;
+
+/**
+ * Review JSON-LD matching visible testimonials. Must be a single JSON object (not a root array).
+ * Each review references the business via itemReviewed for Google’s review snippets guidelines.
+ */
 export function testimonialsJsonLd(
   testimonials: Array<{ name: string; rating: number; text: string }>
 ) {
-  return testimonials.map((t) => ({
+  return {
     "@context": "https://schema.org",
-    "@type": "Review",
-    author: { "@type": "Person", name: t.name },
-    reviewRating: {
-      "@type": "Rating",
-      ratingValue: String(t.rating),
-      bestRating: "5",
-      worstRating: "1",
-    },
-    reviewBody: t.text,
-  }));
+    "@graph": testimonials.map((t) => ({
+      "@type": "Review",
+      itemReviewed: { "@id": ORG_ID },
+      author: { "@type": "Person", name: t.name },
+      reviewRating: {
+        "@type": "Rating",
+        ratingValue: String(t.rating),
+        bestRating: "5",
+        worstRating: "1",
+      },
+      reviewBody: t.text,
+    })),
+  };
 }
 
 // ============================================

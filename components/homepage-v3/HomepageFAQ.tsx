@@ -2,41 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-
-const FAQ_ITEMS = [
-  {
-    q: "Where is Hello Gorgeous Med Spa located?",
-    a: "We're at 74 W. Washington St., Oswego, IL 60543 — with easy access from Naperville, Aurora, Plainfield, and Kendall County. Free parking available.",
-  },
-  {
-    q: "Who performs treatments at your med spa?",
-    a: "All treatments are performed or overseen by licensed medical professionals with advanced training in medical aesthetics. Our team includes nurse practitioners and clinical experts dedicated to safe, natural-looking results.",
-  },
-  {
-    q: "What services do you offer?",
-    a: "We offer Botox, Dysport, and Jeuveau; dermal fillers and lip filler; medical weight loss (GLP-1); Biote hormone therapy; RF microneedling; laser treatments; IV therapy; and more. Explore our services or book a free consultation to find the right option for you.",
-  },
-  {
-    q: "Do you offer virtual or telehealth visits?",
-    a: "Yes. Consultations and follow-ups for weight loss and some wellness programs can be done via telehealth. In-person visits are required for injectables and in-office procedures.",
-  },
-  {
-    q: "What should I look for in a med spa?",
-    a: "Choose a med spa with licensed providers, clear before-and-after expectations, and a focus on natural-looking results. Check reviews, ask who will perform your treatment, and ensure they prioritize your safety and consent.",
-  },
-  {
-    q: "How do I book a consultation?",
-    a: "Book online anytime, or call us. New and existing patients can schedule a free consultation to discuss your goals and create a personalized plan.",
-  },
-  {
-    q: "What is Morpheus8 Burst — and how is it different from regular microneedling?",
-    a: "Morpheus8 Burst is InMode’s RF microneedling: microneedles deliver bipolar radiofrequency for deeper remodeling and skin tightening than surface microneedling alone. Hello Gorgeous is a verified Morpheus8 Burst provider in Oswego, with face, neck, and Morpheus8 Body options when appropriate.",
-  },
-  {
-    q: "Do you offer RF microneedling for the body?",
-    a: "Yes. We offer Morpheus8 Body protocols for areas like abdomen, thighs, and arms when it fits your goals — combined with Morpheus8 Burst for face and neck. Book a consultation to see whether deep RF microneedling is right for you.",
-  },
-];
+import { HOME_FAQS } from "@/lib/seo";
 
 export function HomepageFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -49,8 +15,8 @@ export function HomepageFAQ() {
         </h2>
 
         <div className="divide-y divide-black/10">
-          {FAQ_ITEMS.map((item, i) => (
-            <div key={item.q}>
+          {HOME_FAQS.map((item, i) => (
+            <div key={item.question}>
               <button
                 type="button"
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
@@ -58,7 +24,7 @@ export function HomepageFAQ() {
                 aria-expanded={openIndex === i}
               >
                 <span className="font-semibold text-black pr-4 group-hover:text-[#E6007E] transition-colors">
-                  {item.q}
+                  {item.question}
                 </span>
                 <span
                   className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-[#E6007E] transition-transform duration-200 ${
@@ -77,20 +43,19 @@ export function HomepageFAQ() {
                 }`}
               >
                 <p className="pb-5 text-black/80 leading-relaxed">
-                  {item.a}
+                  {item.answer}
                 </p>
               </div>
             </div>
           ))}
         </div>
 
-        <p className="mt-10 text-center">
-          <Link
-            href="/contact"
-            className="font-semibold text-[#E6007E] hover:underline focus:outline-none focus:ring-2 focus:ring-[#E6007E] focus:ring-offset-2 rounded"
-          >
-            More questions? Contact us →
-          </Link>
+        <p className="text-center mt-10 text-black/70 text-sm">
+          Still have questions?{" "}
+          <Link href="/book" className="text-[#E6007E] font-semibold hover:underline">
+            Book a free consultation
+          </Link>{" "}
+          or call us — we&apos;re happy to help.
         </p>
       </div>
     </section>
