@@ -96,11 +96,12 @@ export const homepageServicesRow2: HomepageServiceCard[] = [
   {
     title: "Peptide Therapy",
     description:
-      "BPC-157, Sermorelin, and targeted peptide protocols for recovery, sleep, metabolism, and anti-aging — individualized plans.",
+      "Clinician-guided BPC-157, Sermorelin, NAD+, CJC-1295/Ipamorelin, and more — for recovery, metabolism, skin, and vitality. Same-day peptide consults often available; we prioritize timely care for Oswego, Naperville, Aurora & Plainfield.",
     link: "/peptides",
-    items: ["BPC-157", "Sermorelin", "Recovery", "Anti-aging"],
-    image: "/images/services/hg-peptides-rx.png",
-    imageAlt: "Peptide therapy prescriptions BPC-157 Sermorelin at Hello Gorgeous Med Spa Oswego IL",
+    items: ["Weight loss support", "Hair & skin", "Mental clarity", "Body composition"],
+    image: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
+    imageAlt:
+      "Peptide therapy for weight loss, hair and skin, mental function, and body composition — Hello Gorgeous Med Spa Oswego Naperville Aurora IL same-day appointments when available",
     badge: "RX",
     imageContain: true,
   },

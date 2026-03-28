@@ -6,13 +6,24 @@ import { FadeUp, Section } from "@/components/Section";
 import { CTA } from "@/components/CTA";
 import { PeppiHeroSection } from "@/components/PeppiHeroSection";
 import { BOOKING_URL } from "@/lib/flows";
-import { pageMetadata, siteJsonLd } from "@/lib/seo";
+import {
+  SITE,
+  pageMetadata,
+  siteJsonLd,
+  mainLocalBusinessJsonLd,
+  breadcrumbJsonLd,
+  webPageJsonLd,
+} from "@/lib/seo";
+
+const PEPTIDES_PATH = "/peptides";
+const PEPTIDES_URL = `${SITE.url}${PEPTIDES_PATH}`;
+const PEPTIDES_PAGE_DESCRIPTION =
+  "Peptide therapy in Oswego, IL — BPC-157, Sermorelin, NAD+, CJC-1295/Ipamorelin, GHK-Cu, Tesamorelin, GLP-1 options & more. Weight loss, skin, recovery, mental clarity. Same-day consults often available. Naperville, Aurora, Plainfield.";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Peptide Therapy | Bioidentical Peptides for Healing, Energy & Longevity",
-  description:
-    "Explore peptide therapy at Hello Gorgeous Med Spa—BPC-157, GHK-Cu, NAD+, Tesamorelin, CJC-1295, Semaglutide, Tirzepatide, and more. Tissue repair, fat loss, skin rejuvenation, and recovery support. Oswego, IL.",
-  path: "/peptides",
+  title: "Peptide Therapy Oswego IL | Same-Day Consults | BPC-157, Sermorelin, NAD+ | Hello Gorgeous",
+  description: PEPTIDES_PAGE_DESCRIPTION,
+  path: PEPTIDES_PATH,
 });
 
 const PEPTIDE_IMAGES = [
@@ -54,12 +65,59 @@ const PEPTIDE_IMAGES = [
 ];
 
 export default function PeptidesPage() {
+  const breadcrumbs = [
+    { name: "Home", url: SITE.url },
+    { name: "Peptide Therapy", url: PEPTIDES_URL },
+  ];
+
+  const peptideTherapyJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "MedicalTherapy",
+    "@id": `${PEPTIDES_URL}#therapy`,
+    name: "Peptide Therapy — Hello Gorgeous Med Spa Oswego, IL",
+    description:
+      "Clinician-guided peptide protocols including BPC-157, Sermorelin, NAD+, and CJC-1295/Ipamorelin for recovery, weight management, skin and hair support, and vitality. Same-day consultations often available.",
+    alternateName: [
+      "Peptide therapy Naperville IL",
+      "Peptide therapy Aurora IL",
+      "BPC-157 Oswego",
+    ],
+    provider: { "@id": `${SITE.url}/#organization` },
+    areaServed: SITE.serviceAreas.map((area) => ({ "@type": "Place", name: area })),
+  };
+
   return (
     <>
       <script
         type="application/ld+json"
         // eslint-disable-next-line react/no-danger
         dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(mainLocalBusinessJsonLd()) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbs)) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            webPageJsonLd({
+              title: "Peptide Therapy Oswego IL | Hello Gorgeous Med Spa",
+              description: PEPTIDES_PAGE_DESCRIPTION,
+              path: PEPTIDES_PATH,
+              image: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
+              dateModified: new Date().toISOString().split("T")[0],
+            })
+          ),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(peptideTherapyJsonLd) }}
       />
 
       {/* Hero */}
@@ -83,10 +141,13 @@ export default function PeptidesPage() {
                 Peptide Therapy
               </span>
             </h1>
-            <p className="mt-2 text-lg text-black/70">Education & Treatment in Oswego, IL</p>
+            <p className="mt-2 text-lg text-black/70">
+              Education &amp; treatment in Oswego, IL · Same-day peptide consults often available
+            </p>
             <p className="mt-6 text-xl md:text-2xl text-black/80 max-w-3xl leading-relaxed">
-              Support healing, energy, fat loss, skin rejuvenation, and recovery with clinician-guided peptide therapy. 
-              We offer BPC-157, GHK-Cu, NAD+, CJC-1295, Ipamorelin, Tesamorelin, Semaglutide, Tirzepatide, and more—all personalized to your goals.
+              Support weight loss, hair and skin, mental clarity, and body composition with clinician-guided peptide
+              therapy. BPC-157, GHK-Cu, NAD+, CJC-1295/Ipamorelin, Sermorelin, Tesamorelin, Semaglutide, Tirzepatide,
+              and more — personalized for Naperville, Aurora, Plainfield, and the western suburbs.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-4">
               <CTA href={BOOKING_URL} variant="gradient" className="text-lg px-8 py-4 shadow-xl shadow-[#FF2D8E]/20">

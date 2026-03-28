@@ -940,6 +940,7 @@ export function siteJsonLd() {
       "Stretch mark treatment",
       "Same-day med spa appointments",
       "Same-day prescription care",
+      "Peptide therapy",
     ],
     medicalSpecialty: "Dermatology",
   };
@@ -1653,6 +1654,13 @@ export const SERVICE_IMAGES: ServiceImage[] = [
   { src: "/images/services/hg-glp1-weight-loss-rx.png", alt: "GLP-1 weight loss prescription therapy at Hello Gorgeous Med Spa", title: "GLP-1 Weight Loss RX", service: "Weight Loss", category: "rx" },
   { src: "/images/services/hg-hormone-rx-collection.png", alt: "Hormone replacement therapy prescriptions at Hello Gorgeous Med Spa", title: "Hormone RX Collection", service: "Hormone Therapy", category: "rx" },
   { src: "/images/services/hg-peptides-rx.png", alt: "Peptide therapy BPC-157 Sermorelin at Hello Gorgeous Med Spa Oswego", title: "Peptides RX", service: "Peptide Therapy", category: "rx" },
+  {
+    src: "/images/homepage-services/peptide-therapy-active-lifestyle.png",
+    alt: "Peptide therapy benefits weight loss hair skin mental function body composition Hello Gorgeous Oswego IL same-day consults",
+    title: "Peptide Therapy — Active Lifestyle & Wellness",
+    service: "Peptide Therapy",
+    category: "rx",
+  },
   { src: "/images/services/hg-sexual-wellness-rx.png", alt: "Sexual wellness prescriptions for men and women at Hello Gorgeous Med Spa", title: "Sexual Wellness RX", service: "Sexual Wellness", category: "rx" },
   { src: "/images/services/hg-prescription-skincare.png", alt: "Prescription-grade skincare tretinoin hydroquinone at Hello Gorgeous Med Spa", title: "Prescription Skincare", service: "RX Skincare", category: "rx" },
   { src: "/images/services/hg-full-rx-authority.png", alt: "Full prescriptive authority Ryan Kent FNP-BC at Hello Gorgeous Med Spa", title: "Full RX Authority", service: "Telehealth", category: "rx" },
