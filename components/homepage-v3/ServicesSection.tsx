@@ -10,7 +10,9 @@ const services = [
       "The deepest RF microneedling available. Face & body contouring, skin tightening, and fat reduction with Burst + Quantum technology.",
     link: "/services/morpheus8",
     items: ["Face Tightening", "Body Contouring", "Acne Scars", "Fat Reduction"],
-    image: "/images/services/hg-prp-gold-tubes.png",
+    image: "/images/homepage-services/morpheus8-burst-verified-provider.png",
+    imageAlt:
+      "Morpheus8 Burst verified InMode provider performing RF microneedling for skin tightening at Hello Gorgeous Med Spa Oswego IL",
     badge: "NEW",
   },
   {
@@ -19,7 +21,10 @@ const services = [
       "Precision Botox®, dermal fillers, and lip enhancement delivered with medical expertise and artistic vision.",
     link: "/services/botox-dysport-jeuveau",
     items: ["Botox & Dysport", "Dermal Fillers", "Lip Enhancement", "Kybella"],
-    image: "/images/services/hg-botox-flatlay.png",
+    image: "/images/homepage-services/botox-cosmetic-authentic-vial.png",
+    imageAlt:
+      "Authentic Botox Cosmetic onabotulinumtoxinA packaging — FDA-approved neurotoxin at Hello Gorgeous Med Spa Oswego IL",
+    imageContain: true,
   },
   {
     title: "Medical Weight Loss",
@@ -27,7 +32,9 @@ const services = [
       "Physician-supervised GLP-1 therapies including Semaglutide and Tirzepatide for lasting results.",
     link: "/rx/metabolic",
     items: ["Semaglutide", "Tirzepatide", "B12 Injections", "Lipo-C"],
-    image: "/images/services/hg-glp1-weight-loss-rx.png",
+    image: "/images/homepage-services/compounded-tirzepatide-weight-loss.png",
+    imageAlt:
+      "Compounded Tirzepatide for medical weight loss — Hello Gorgeous Med Spa Oswego IL",
     badge: "RX",
   },
   {
@@ -36,8 +43,21 @@ const services = [
       "Bio-identical hormone therapy for men and women. Restore balance, energy, and vitality.",
     link: "/rx/hormones",
     items: ["TRT for Men", "HRT for Women", "BioTE Pellets", "Thyroid Support"],
-    image: "/images/services/hg-hormone-rx-collection.png",
+    image: "/images/homepage-services/biote-certified-provider-seal.png",
+    imageAlt: "Biote Trusted Certified Provider seal — hormone optimization at Hello Gorgeous Med Spa Oswego IL",
     badge: "RX",
+    imageContain: true,
+  },
+  {
+    title: "Solaria CO₂",
+    description:
+      "Fractional CO₂ laser resurfacing for wrinkles, scars, sun damage, and body stretch marks — gold-standard skin renewal.",
+    link: "/services/solaria-co2",
+    items: ["Face & Neck", "Body Resurfacing", "Stretch Marks", "Texture & Tone"],
+    image: "/images/solaria/solaria-workstation.png",
+    imageAlt:
+      "InMode Solaria CO₂ fractional laser workstation for skin resurfacing at Hello Gorgeous Med Spa Oswego IL",
+    badge: "NEW",
   },
 ];
 
@@ -56,19 +76,21 @@ export function ServicesSection() {
         </div>
 
         {/* Service Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {services.map((service) => (
             <div
               key={service.title}
               className="group bg-white border border-black rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300"
             >
               {/* Service Image */}
-              <div className="relative h-44 overflow-hidden">
+              <div
+                className={`relative h-44 overflow-hidden ${service.imageContain ? "bg-neutral-100" : ""}`}
+              >
                 <Image
                   src={service.image}
-                  alt={service.title}
+                  alt={service.imageAlt}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  className={`${service.imageContain ? "object-contain p-2" : "object-cover"} group-hover:scale-105 transition-transform duration-500`}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
                 {service.badge && (
