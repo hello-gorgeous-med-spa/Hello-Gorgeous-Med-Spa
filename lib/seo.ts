@@ -21,7 +21,7 @@ export const SITE = {
   name: "Hello Gorgeous Med Spa",
   url: "https://www.hellogorgeousmedspa.com",
   description:
-    "Best of Oswego — #1 Best Med Spa. Newest Morpheus8 Burst (face & body) — deepest RF at 8mm. Only Oswego-area med spa with Morpheus8 Burst, Quantum RF, Solaria CO2. Full-authority NP on site. Botox, fillers, weight loss. Oswego, IL.",
+    "Best of Oswego — #1 Best Med Spa. Same-day appointments often available for med spa, Rx care, and urgent needs. Morpheus8 Burst, Quantum RF, Solaria CO2. Full-authority NP on site. Botox, fillers, weight loss. Serving Oswego, Naperville, Aurora, Plainfield, IL.",
   phone: "630-636-6193",
   /** Toll-free via Square - replace with your number when ready */
   tollFree: "833-474-3998",
@@ -81,6 +81,11 @@ export const HOME_FAQS: readonly FAQ[] = [
     question: "How do I book a consultation?",
     answer:
       "Book online anytime, or call us. New and existing patients can schedule a free consultation to discuss your goals and create a personalized plan.",
+  },
+  {
+    question: "Do you offer same-day appointments or care right away?",
+    answer:
+      "Whenever our schedule allows, we welcome same-day and next-day visits for med spa treatments, Hello Gorgeous RX™ consults, trigger point relief, and other services. Call for the fastest availability — we prioritize timely access for Oswego, Naperville, Aurora, Plainfield, and nearby communities.",
   },
   {
     question: "What is Morpheus8 Burst — and how is it different from regular microneedling?",
@@ -933,6 +938,8 @@ export function siteJsonLd() {
       "Trigger point injections",
       "Cellulite treatment",
       "Stretch mark treatment",
+      "Same-day med spa appointments",
+      "Same-day prescription care",
     ],
     medicalSpecialty: "Dermatology",
   };
@@ -1405,7 +1412,7 @@ export function homepageServicesItemListJsonLd() {
     "@id": `${SITE.url}/#homepage-services`,
     name: "Elevated Aesthetic Care — Med Spa Services",
     description:
-      "Services at Hello Gorgeous Med Spa in Oswego, IL and surrounding areas: Morpheus8 RF, injectables, medical weight loss, hormones, Solaria CO₂, IV therapy, Rx care, peptides, AnteAGE MD®, VAMP™, laser hair removal, IPL, vitamin injections, lash bar, trigger point injections, cellulite treatment, and stretch mark treatment.",
+      "Services at Hello Gorgeous Med Spa in Oswego, IL and surrounding areas (Naperville, Aurora, Plainfield): Morpheus8 RF, injectables, weight loss, hormones, Solaria CO₂, IV therapy, Hello Gorgeous RX™ prescription care with same-day visits when available, peptides, laser hair removal, IPL, lash bar, trigger point injections, cellulite treatment, and stretch mark treatment.",
     numberOfItems: ALL_HOMEPAGE_SERVICES.length,
     itemListElement: ALL_HOMEPAGE_SERVICES.map((s, i) => {
       const url = servicePathToAbsoluteUrl(s.link);
@@ -1446,7 +1453,7 @@ export function bookingServiceJsonLd() {
     "@id": `${SITE.url}/#booking`,
     name: "Consultation & Appointment Booking",
     description:
-      "Book a free consultation or appointment for Morpheus8, injectables, GLP-1 weight loss, hormone therapy, Solaria CO₂, IV therapy, Rx care, peptides, laser hair removal, IPL, vitamin injections, lash services, and more at Hello Gorgeous Med Spa in Oswego, IL.",
+      "Book a free consultation or appointment — same-day and next-day slots often available. Morpheus8, injectables, GLP-1 weight loss, hormones, Solaria CO₂, IV therapy, Hello Gorgeous RX™, peptides, laser hair removal, IPL, trigger point injections, cellulite, stretch marks, and more. Oswego, IL; Naperville, Aurora, Plainfield.",
     provider: { "@id": `${SITE.url}/#organization` },
     areaServed: SITE.serviceAreas.map((area) => ({ "@type": "Place", name: area })),
     hasOfferCatalog: {
@@ -1649,6 +1656,13 @@ export const SERVICE_IMAGES: ServiceImage[] = [
   { src: "/images/services/hg-sexual-wellness-rx.png", alt: "Sexual wellness prescriptions for men and women at Hello Gorgeous Med Spa", title: "Sexual Wellness RX", service: "Sexual Wellness", category: "rx" },
   { src: "/images/services/hg-prescription-skincare.png", alt: "Prescription-grade skincare tretinoin hydroquinone at Hello Gorgeous Med Spa", title: "Prescription Skincare", service: "RX Skincare", category: "rx" },
   { src: "/images/services/hg-full-rx-authority.png", alt: "Full prescriptive authority Ryan Kent FNP-BC at Hello Gorgeous Med Spa", title: "Full RX Authority", service: "Telehealth", category: "rx" },
+  {
+    src: "/images/homepage-services/rx-prescription-care-pad-bottle.png",
+    alt: "Prescription pad with Rx symbol and medication bottle — Hello Gorgeous RX same-day prescription care Oswego Naperville IL",
+    title: "Rx Prescription Care — Same-Day Appointments",
+    service: "Rx Prescription Care",
+    category: "rx",
+  },
   
   // Aesthetics & Skin
   { src: "/images/services/hg-microneedling.png", alt: "RF Microneedling treatment for skin rejuvenation at Hello Gorgeous Med Spa", title: "Microneedling", service: "Microneedling", category: "aesthetics" },

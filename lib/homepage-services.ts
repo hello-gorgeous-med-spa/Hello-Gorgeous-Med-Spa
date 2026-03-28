@@ -84,11 +84,12 @@ export const homepageServicesRow2: HomepageServiceCard[] = [
   {
     title: "Rx Prescription Care",
     description:
-      "Hello Gorgeous RX™ — hormone, metabolic, dermatology, and longevity prescriptions with NP oversight and telehealth options.",
+      "Hello Gorgeous RX™ — hormones, metabolic care, dermatology, and longevity meds with NP oversight. Same-day appointments often available; we prioritize timely access so you get care when you need it — in-office or telehealth.",
     link: "/rx",
-    items: ["Virtual consults", "Dermatology RX", "Longevity meds", "Ongoing care"],
-    image: "/images/services/hg-full-rx-authority.png",
-    imageAlt: "Prescription care and medical provider authority at Hello Gorgeous Med Spa Oswego IL",
+    items: ["Same-day visits (when open)", "Dermatology & metabolic RX", "Telehealth + in-office", "Naperville & Fox Valley"],
+    image: "/images/homepage-services/rx-prescription-care-pad-bottle.png",
+    imageAlt:
+      "Medical prescription pad with Rx symbol, pill bottle and tablets — Hello Gorgeous RX same-day prescription care Oswego Naperville Aurora IL",
     badge: "RX",
     imageContain: true,
   },
@@ -171,7 +172,7 @@ export const homepageServicesRow2: HomepageServiceCard[] = [
   {
     title: "Trigger Point Injections",
     description:
-      "Targeted injections for muscle knots and chronic tension — neck, shoulders, back, TMJ-related pain, and headache trigger points. Licensed medical providers in Oswego.",
+      "Targeted injections for muscle knots and chronic tension — neck, shoulders, back, TMJ, and headache triggers. Same-day appointments often available for urgent relief. Licensed medical providers in Oswego.",
     link: "/trigger-point-injections-oswego-il",
     items: ["Neck & shoulders", "Back & hips", "TMJ tension", "Headache triggers"],
     image: "/images/homepage-services/trigger-point-injections-body-pain-grid.png",
@@ -181,7 +182,7 @@ export const homepageServicesRow2: HomepageServiceCard[] = [
   {
     title: "Cellulite Treatment",
     description:
-      "RF and advanced body technologies to smooth dimples and improve skin texture — Morpheus8 Body and Quantum RF protocols tailored to thighs, buttocks, and abdomen.",
+      "RF and advanced body technologies to smooth dimples and improve skin texture — Morpheus8 Body and Quantum RF for thighs, buttocks, and abdomen. Book online or call; same-day visits when our schedule allows.",
     link: "/cellulite-treatment-oswego-il",
     items: ["Thighs & buttocks", "RF skin tightening", "Texture & dimpling", "Custom body plan"],
     image: "/images/home/morpheus8-body-burst-technology-inmode.png",
@@ -192,7 +193,7 @@ export const homepageServicesRow2: HomepageServiceCard[] = [
   {
     title: "Stretch Mark Treatment",
     description:
-      "Fractional CO₂ and collagen-stimulating protocols to refine striae on abdomen, hips, breasts, and thighs — ideal after weight change or pregnancy.",
+      "Fractional CO₂ and collagen-stimulating protocols to refine striae on abdomen, hips, breasts, and thighs. Consultations available quickly — ask about same-day or next-day booking.",
     link: "/stretch-mark-treatment-oswego-il",
     items: ["Abdomen & hips", "Solaria CO₂ body", "Texture blending", "Series plans"],
     image: "/images/solaria-before-after/stretch-mark-comparison.png",

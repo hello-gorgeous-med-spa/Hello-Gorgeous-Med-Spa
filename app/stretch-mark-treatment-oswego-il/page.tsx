@@ -15,7 +15,7 @@ import { FAQAccordion } from "@/components/FAQAccordion";
 const PAGE_PATH = "/stretch-mark-treatment-oswego-il";
 const PAGE_URL = `${SITE.url}${PAGE_PATH}`;
 const STRETCH_PAGE_DESCRIPTION =
-  "Advanced body resurfacing & postpartum stretch mark treatment in Oswego, IL. Solaria CO₂ fractional laser for fitness, weight loss, and pregnancy skin. 40–70% visible improvement. Book consultation.";
+  "Advanced body resurfacing & postpartum stretch mark treatment in Oswego, IL. Solaria CO₂ fractional laser. Same-day consults often available. Fitness, weight loss, pregnancy skin. 40–70% visible improvement. Naperville, Aurora, Plainfield. Book consultation.";
 
 export const metadata: Metadata = pageMetadata({
   title: "Stretch Mark Treatment Oswego IL | Solaria CO₂ Body Resurfacing | Hello Gorgeous",

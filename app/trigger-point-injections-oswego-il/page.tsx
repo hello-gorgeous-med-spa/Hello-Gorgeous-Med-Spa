@@ -13,7 +13,7 @@ import { FAQAccordion } from "@/components/FAQAccordion";
 import { BOOKING_URL } from "@/lib/flows";
 
 const PAGE_DESCRIPTION =
-  "Trigger point injections in Oswego, IL for muscle knots, tension headaches, neck and back pain, and TMJ. Medical providers serving Naperville, Aurora, Plainfield & Kendall County. Book consultation.";
+  "Trigger point injections in Oswego, IL for muscle knots, tension headaches, neck and back pain, and TMJ. Same-day appointments often available when you need relief fast. Naperville, Aurora, Plainfield & Kendall County. Book consultation.";
 
 export const metadata: Metadata = pageMetadata({
   title: "Trigger Point Injections Oswego IL | Neck, Back, TMJ Pain Relief | Hello Gorgeous",

@@ -90,7 +90,7 @@ export function ServicesSection() {
               Clinical care &amp; beauty
             </h3>
             <p className="mt-2 text-black/65 max-w-3xl mx-auto text-sm md:text-base">
-              IV therapy, prescriptions, peptides, AnteAGE MD®, VAMP™, laser hair removal, IPL, vitamin shots, lash bar, trigger point injections, cellulite treatment, and stretch mark care — Oswego, Naperville, Aurora &amp; Plainfield.
+              Same-day appointments often available. IV therapy, Hello Gorgeous RX™, peptides, AnteAGE MD®, VAMP™, laser hair removal, IPL, vitamin shots, lash bar, trigger point injections, cellulite, and stretch marks — Oswego, Naperville, Aurora &amp; Plainfield.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">

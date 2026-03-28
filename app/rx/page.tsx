@@ -7,8 +7,9 @@ import { RxContactForm, RxCTASection } from "@/components/RxContactForm";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata: Metadata = pageMetadata({
-  title: "Hello Gorgeous RX™ | Hormone & Longevity Clinic in Illinois",
-  description: "Luxury hormone optimization, medical weight loss, prescription dermatology, and peptide therapy in Illinois. Virtual consultations available.",
+  title: "Hello Gorgeous RX™ | Same-Day Rx Care | Oswego, Naperville, Aurora IL",
+  description:
+    "Prescription hormone, metabolic, dermatology, and peptide care with NP oversight in Oswego, IL. Same-day appointments often available — in-office or telehealth. Serving Naperville, Aurora, Plainfield, and the western suburbs.",
   path: "/rx",
 });
 
@@ -61,7 +62,8 @@ export default function RxPage() {
     "@context": "https://schema.org",
     "@type": "MedicalClinic",
     name: "Hello Gorgeous RX™",
-    description: "Luxury hormone optimization, medical weight loss, prescription dermatology, and peptide therapy clinic in Illinois.",
+    description:
+      "Hello Gorgeous RX™ — hormone, metabolic, dermatology, and peptide prescriptions with NP oversight. Same-day and next-day appointments often available in Oswego, IL; telehealth and in-office. Serves Naperville, Aurora, Plainfield, and surrounding areas.",
     url: "https://www.hellogorgeousmedspa.com/rx",
     address: {
       "@type": "PostalAddress",
@@ -73,11 +75,20 @@ export default function RxPage() {
     },
     telephone: "(630) 636-6193",
     medicalSpecialty: ["Hormone Therapy", "Medical Weight Loss", "Dermatology"],
-    availableService: {
-      "@type": "TelehealthService",
-      name: "Virtual Medical Evaluation",
-      description: "Telehealth consultations for hormone therapy, weight loss, and prescription dermatology"
-    },
+    availableService: [
+      {
+        "@type": "TelehealthService",
+        name: "Virtual Medical Evaluation",
+        description:
+          "Telehealth consultations for hormone therapy, weight loss, and prescription dermatology. Same-day scheduling when available.",
+      },
+      {
+        "@type": "MedicalProcedure",
+        name: "In-office Rx consultation",
+        description:
+          "Same-day and next-day prescription care appointments in Oswego when the schedule allows — hormones, metabolic, dermatology, peptides.",
+      },
+    ],
     physician: {
       "@type": "Physician",
       name: "Ryan Kent, FNP-C",

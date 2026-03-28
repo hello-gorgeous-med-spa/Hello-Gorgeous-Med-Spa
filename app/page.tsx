@@ -41,7 +41,7 @@ import {
 export const metadata: Metadata = pageMetadata({
   title: "Hello Gorgeous Med Spa | Newest Morpheus8 Burst Face & Body | Oswego, IL",
   description:
-    "#1 Best Med Spa in Oswego, IL. Newest Morpheus8 Burst — deepest RF at 8mm for face AND body. Only med spa with Morpheus8 Burst, Quantum RF, Solaria CO2. Botox $10/unit, fillers, Semaglutide. Book free consultation!",
+    "#1 Best Med Spa in Oswego, IL. Same-day appointments often available. Morpheus8 Burst, Quantum RF, Solaria CO2. Hello Gorgeous RX™, trigger point injections, Botox, fillers, Semaglutide. Naperville, Aurora, Plainfield. Book now.",
   path: "/",
 });
 
@@ -84,7 +84,7 @@ export default function HomePage() {
             webPageJsonLd({
               title: "Hello Gorgeous Med Spa - Newest Morpheus8 Burst Face & Body",
               description:
-                "#1 Best Med Spa in Oswego, IL. Morpheus8 Burst, injectables, GLP-1 weight loss, hormones, Solaria CO₂, IV therapy, Rx, peptides, laser hair removal, IPL, vitamin injections, lash bar. Serving Naperville, Aurora, Plainfield.",
+                "#1 Best Med Spa in Oswego, IL. Same-day and next-day visits often available. Morpheus8 Burst, injectables, GLP-1, hormones, Solaria CO₂, IV therapy, Hello Gorgeous RX™, trigger point injections, cellulite, stretch marks, laser, IPL, lash bar. Naperville, Aurora, Plainfield.",
               path: "/",
               image: "/images/hero-banner.png",
               datePublished: "2023-01-01",

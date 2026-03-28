@@ -13,7 +13,7 @@ import { FAQAccordion } from "@/components/FAQAccordion";
 import { BOOKING_URL } from "@/lib/flows";
 
 const PAGE_DESCRIPTION =
-  "Cellulite treatment in Oswego, IL — Morpheus8 Body RF microneedling and Quantum RF for smoother thighs, buttocks & abdomen. Serving Naperville, Aurora, Plainfield. NP-led med spa. Book consultation.";
+  "Cellulite treatment in Oswego, IL — Morpheus8 Body RF microneedling and Quantum RF for smoother thighs, buttocks & abdomen. Same-day consults when schedule allows. Naperville, Aurora, Plainfield. NP-led med spa. Book consultation.";
 
 export const metadata: Metadata = pageMetadata({
   title: "Cellulite Treatment Oswego IL | Morpheus8 Body & Quantum RF | Hello Gorgeous",

@@ -161,7 +161,7 @@ const navigation = {
     href: "/rx",
     links: [
       { label: "Products we offer", href: "/products-we-offer", description: "Take-home vs in-clinic compounded meds", icon: "📋" },
-      { label: "Hello Gorgeous RX™", href: "/rx", description: "Luxury Longevity Division", icon: "💊" },
+      { label: "Hello Gorgeous RX™", href: "/rx", description: "Same-day Rx care · hormones · weight loss", icon: "💊" },
       { label: "Hormone Optimization", href: "/rx/hormones", description: "Bio-identical hormone therapy", icon: "🧬" },
       { label: "Metabolic Optimization", href: "/rx/metabolic", description: "Medical weight loss programs", icon: "⚖️" },
       { label: "Peptides + Longevity", href: "/rx/peptides", description: "Cellular regeneration", icon: "🧪" },
