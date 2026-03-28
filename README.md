@@ -185,6 +185,22 @@ PEXELS_API_KEY=
 - **404 redirects:** Legacy URLs (shop-1, skinscript, anteage, etc.) redirect to current pages
 - **GBP:** See `docs/GOOGLE-MAPS-ACTION-PLAN.md` for Maps visibility
 
+### Structured data (JSON-LD) — critical for Google Rich Results
+
+When you change SEO-related markup, **treat structured data as part of the same change**. Invalid or mismatched schema is a common reason **FAQ snippets, review stars, and Rich Results Test** fail.
+
+**Follow these rules:**
+
+1. **FAQ (`FAQPage`) must match the visible page.** The questions and answers in JSON-LD need to be the **same text** users see on the page. On the homepage, `HOME_FAQS` in `lib/seo.ts` is the single source of truth and `HomepageFAQ` renders from it — do not maintain a separate FAQ list in the component. For other pages, keep `faqJsonLd(...)` in sync with on-page Q&amp;A. When you call `faqJsonLd`, pass the **canonical URL of that page** as the second argument on key landings (see homepage in `app/page.tsx`).
+
+2. **Review markup must be valid JSON-LD.** Each `<script type="application/ld+json">` must be **one JSON object**, not a root-level **array**. Multiple reviews should use `@context` + `@graph`. Each `Review` should include **`itemReviewed`** pointing at the business (`@id` matching `#organization` in `siteJsonLd()`).
+
+3. **Do not duplicate conflicting reviews on the organization.** Avoid embedding a `review` array on `MedicalBusiness` / `LocalBusiness` that quotes the same people as the testimonials section but with **different text** — that conflicts with visible content and hurts trust signals. Use **`aggregateRating`** for summary stats; put full quoted testimonials in the dedicated review `@graph` that matches the UI.
+
+4. **Homepage services:** Service cards and JSON-LD should stay aligned via `lib/homepage-services.ts` (ItemList, booking catalog, galleries).
+
+5. **After meaningful schema changes**, run **[Google Rich Results Test](https://search.google.com/test/rich-results)** on the live URL. Some types (e.g. `ImageGallery`) may show as valid but “not eligible” for a specific rich result — that is normal; fix **errors** on FAQ, `LocalBusiness` / `MedicalBusiness`, and `Review`.
+
 ### Docs
 
 - `docs/LOCAL-SEO-OSWEGO.md` — **Oswego, IL & surrounding areas (location keywords)**
