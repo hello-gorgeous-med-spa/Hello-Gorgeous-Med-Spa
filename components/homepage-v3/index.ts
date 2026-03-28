@@ -17,3 +17,5 @@ export { HomepageFAQ } from "./HomepageFAQ";
 export { HomepageLetsChat } from "./HomepageLetsChat";
 export { FinalCTA } from "./FinalCTA";
 export { HomepageClosingCTARow } from "./HomepageClosingCTARow";
+export { HomepageProfessionalGrid } from "./HomepageProfessionalGrid";
+export { HomepageCherryFaqRow } from "./HomepageCherryFaqRow";

@@ -5,20 +5,15 @@ import {
   PartnerBadges,
   ServicesSection,
   FaceBlueprintSection,
-  ExperienceSection,
   RxShowcaseSection,
   ProductsCatalogHomeSection,
-  InnovationSection,
   TrifectaSection,
-  AIAssistantsSection,
-  PhilosophySection,
-  HomepageOurStory,
   HomepageTestimonials,
-  HomepageFAQ,
+  HomepageProfessionalGrid,
+  HomepageCherryFaqRow,
   HomepageClosingCTARow,
 } from "@/components/homepage-v3";
 import { GlowUpEventBanner } from "@/components/GlowUpEventBanner";
-import { CherryWidget } from "@/components/CherryWidget";
 import { Morpheus8Banner } from "@/components/Morpheus8Banner";
 import { Morpheus8SkinRebuildSection } from "@/components/Morpheus8SkinRebuildSection";
 import { Morpheus8VerifiedProviderSection } from "@/components/Morpheus8VerifiedProviderSection";
@@ -42,7 +37,6 @@ import {
   homepageServicesItemListJsonLd,
   homepageServicesImageGalleryJsonLd,
 } from "@/lib/seo";
-import { CHERRY_PAY_URL } from "@/lib/flows";
 
 export const metadata: Metadata = pageMetadata({
   title: "Hello Gorgeous Med Spa | Newest Morpheus8 Burst Face & Body | Oswego, IL",
@@ -192,31 +186,9 @@ export default function HomePage() {
         <FaceBlueprintSection />
         <RxShowcaseSection />
         <ProductsCatalogHomeSection />
-        <ExperienceSection />
-        <InnovationSection />
-        <AIAssistantsSection />
-        <PhilosophySection />
-        <HomepageOurStory />
+        <HomepageProfessionalGrid />
         <HomepageTestimonials />
-        <HomepageFAQ />
-        <section id="financing" className="bg-white py-12 md:py-16 border-t border-gray-100">
-          <div className="max-w-4xl mx-auto px-4">
-            <h2 className="text-2xl md:text-3xl font-bold text-black text-center mb-2">Flexible Payment Options</h2>
-            <p className="text-gray-600 text-center mb-6">Pay over time with Cherry. No surprises — apply in seconds.</p>
-            <div className="flex justify-center mb-8">
-              <a
-                href={CHERRY_PAY_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-xl bg-[#E6007E] text-white font-semibold px-8 py-4 hover:bg-[#c9006e] transition-colors"
-              >
-                Apply with Cherry
-                <span aria-hidden>→</span>
-              </a>
-            </div>
-            <CherryWidget />
-          </div>
-        </section>
+        <HomepageCherryFaqRow />
         <HomepageClosingCTARow />
       </main>
     </>
