@@ -107,6 +107,29 @@ const servicesRow2: ServiceCardData[] = [
     imageContain: true,
   },
   {
+    title: "AnteAGE MD®",
+    description:
+      "Professional brightening with bone marrow–derived growth factors and tranexamic acid — in-office protocols plus AnteAGE MD® Daily Brightener at home.",
+    link: "/services/morpheus8",
+    items: ["Age spots", "Hyperpigmentation", "Uneven skin tone", "Microneedling pairing"],
+    image: "/images/homepage-services/anteage-md-brightening.png",
+    imageAlt:
+      "AnteAGE MD brightening before and after — microneedling and growth factor skincare at Hello Gorgeous Med Spa Oswego IL",
+    badge: "NEW",
+    imageContain: true,
+  },
+  {
+    title: "VAMP™",
+    description:
+      "Advanced skin revitalization with PDRN and nutrient-rich complexes — hydration, anti-aging support, and barrier care tailored to your plan.",
+    link: "/services/morpheus8",
+    items: ["Hydration", "Skin revitalization", "Anti-aging nutrients", "Barrier support"],
+    image: "/images/homepage-services/vamp-skin-revitalization.png",
+    imageAlt:
+      "VAMP skin revitalization treatment nutrients — Hello Gorgeous Med Spa Oswego IL",
+    imageContain: true,
+  },
+  {
     title: "Laser Hair Removal",
     description:
       "Professional laser hair removal for face and body — safe for more skin types with personalized settings and membership savings.",
@@ -131,8 +154,9 @@ const servicesRow2: ServiceCardData[] = [
       "B12, lipotropic, and wellness injections for energy, metabolism, and immune support — quick in-office visits.",
     link: "/services/vitamin-injections",
     items: ["B12 shots", "Lipo-C", "Energy boost", "Wellness"],
-    image: "/images/services/hg-wellness-vials.png",
-    imageAlt: "Vitamin injections and wellness shots at Hello Gorgeous Med Spa Oswego IL",
+    image: "/images/homepage-services/vitamin-injections-fruit-syringe.png",
+    imageAlt:
+      "Vitamin injections and wellness shots — clinical syringe with fresh fruit wellness imagery at Hello Gorgeous Med Spa Oswego IL",
     imageContain: true,
   },
   {
@@ -141,8 +165,10 @@ const servicesRow2: ServiceCardData[] = [
       "Lash extensions, fills, perm, and tint — premium lash artistry for a wide-eyed, polished look.",
     link: "/services/lash-spa",
     items: ["Full set & fills", "Lash perm & tint", "Hybrid & volume", "Brow options"],
-    image: "/images/services/hg-hydrafacial.png",
-    imageAlt: "Med spa beauty and lash services at Hello Gorgeous Med Spa Oswego IL",
+    image: "/images/homepage-services/lash-bar-volume-hybrid-classic.png",
+    imageAlt:
+      "Volume, hybrid, and classic eyelash extension styles — Hello Gorgeous Lash Bar Oswego IL",
+    imageContain: true,
   },
 ];
 
@@ -228,10 +254,10 @@ export function ServicesSection() {
               Clinical care &amp; beauty
             </h3>
             <p className="mt-2 text-black/65 max-w-2xl mx-auto text-sm md:text-base">
-              IV therapy, prescriptions, peptides, laser hair removal, IPL photofacials, vitamin shots, and our lash bar — all under one roof in Oswego.
+              IV therapy, prescriptions, peptides, AnteAGE MD®, VAMP™, laser hair removal, IPL photofacials, vitamin shots, and our lash bar — all under one roof in Oswego.
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-7 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6">
             {servicesRow2.map((service) => (
               <ServiceCard key={service.title} service={service} />
             ))}
