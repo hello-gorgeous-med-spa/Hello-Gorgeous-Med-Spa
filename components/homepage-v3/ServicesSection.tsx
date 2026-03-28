@@ -135,8 +135,9 @@ const servicesRow2: ServiceCardData[] = [
       "Professional laser hair removal for face and body — safe for more skin types with personalized settings and membership savings.",
     link: "/services/laser-hair-removal",
     items: ["Face & body", "Brazilian", "Packages", "Memberships"],
-    image: "/images/services/hg-laser-hair.png",
-    imageAlt: "Laser hair removal treatment at Hello Gorgeous Med Spa Oswego IL",
+    image: "/images/homepage-services/laser-hair-removal-zemits-quidion-lite.png",
+    imageAlt:
+      "Zemits QuiDion Lite laser hair removal treatment — underarm session at Hello Gorgeous Med Spa Oswego IL",
   },
   {
     title: "IPL Photofacials",
