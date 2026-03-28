@@ -15,8 +15,7 @@ import {
   HomepageOurStory,
   HomepageTestimonials,
   HomepageFAQ,
-  HomepageLetsChat,
-  FinalCTA,
+  HomepageClosingCTARow,
 } from "@/components/homepage-v3";
 import { GlowUpEventBanner } from "@/components/GlowUpEventBanner";
 import { CherryWidget } from "@/components/CherryWidget";
@@ -218,8 +217,7 @@ export default function HomePage() {
             <CherryWidget />
           </div>
         </section>
-        <HomepageLetsChat />
-        <FinalCTA />
+        <HomepageClosingCTARow />
       </main>
     </>
   );
