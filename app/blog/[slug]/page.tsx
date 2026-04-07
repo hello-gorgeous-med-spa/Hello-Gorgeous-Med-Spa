@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { SITE } from "@/lib/seo";
+import { SITE, breadcrumbJsonLd, faqJsonLd } from "@/lib/seo";
 import { blogPosts, getPostBySlug, getAllSlugs } from "@/data/blog-posts";
 
 export async function generateStaticParams() {
@@ -25,6 +25,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       url: `${SITE.url}/blog/${post.slug}`,
       siteName: SITE.name,
       publishedTime: post.date,
+      ...(post.featuredImage && {
+        images: [{ url: `${SITE.url}${post.featuredImage}`, width: 1200, height: 630, alt: post.title }],
+      }),
     },
   };
 }
@@ -174,34 +177,58 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   if (!post) notFound();
 
   const otherPosts = blogPosts.filter((p) => p.slug !== slug).slice(0, 3);
+  const postUrl = `${SITE.url}/blog/${post.slug}`;
+  const breadcrumbItems = [
+    { name: "Home", url: SITE.url },
+    { name: "Blog", url: `${SITE.url}/blog` },
+    { name: post.title, url: postUrl },
+  ];
+
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: post.title,
+    description: post.metaDescription,
+    datePublished: post.date,
+    dateModified: post.date,
+    author: { "@type": "Organization", name: SITE.name, url: SITE.url },
+    publisher: {
+      "@type": "Organization",
+      name: SITE.name,
+      url: SITE.url,
+      logo: { "@type": "ImageObject", url: `${SITE.url}/images/logo-full.png` },
+    },
+    mainEntityOfPage: { "@type": "WebPage", "@id": postUrl },
+    ...(post.featuredImage && {
+      image: [`${SITE.url}${post.featuredImage}`],
+    }),
+  };
 
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: post.title,
-            description: post.metaDescription,
-            datePublished: post.date,
-            author: { "@type": "Organization", name: SITE.name },
-            publisher: {
-              "@type": "Organization",
-              name: SITE.name,
-              url: SITE.url,
-            },
-            mainEntityOfPage: `${SITE.url}/blog/${post.slug}`,
-          }),
-        }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd(breadcrumbItems)) }}
+      />
+      {post.structuredDataFaqs?.length ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(faqJsonLd(post.structuredDataFaqs, postUrl)),
+          }}
+        />
+      ) : null}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "MedicalBusiness",
+            "@id": `${SITE.url}/#organization`,
             name: SITE.name,
             telephone: SITE.phone,
             url: SITE.url,

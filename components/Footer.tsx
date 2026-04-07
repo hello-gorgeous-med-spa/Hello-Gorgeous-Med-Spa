@@ -141,6 +141,11 @@ export function Footer({ siteSettings }: { siteSettings?: SiteSettings | null })
                 </Link>
               </li>
               <li>
+                <Link className="text-[#FF2D8E] hover:text-[#FF2D8E] font-medium transition-colors" href="/the-book">
+                  The Book (clinical guide)
+                </Link>
+              </li>
+              <li>
                 <Link className="hover:text-[#FF2D8E] transition-colors" href="/why-choose-us">
                   Why Choose Us
                 </Link>

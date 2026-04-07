@@ -13,6 +13,7 @@ import {
   HomepageCherryFaqRow,
   HomepageClosingCTARow,
 } from "@/components/homepage-v3";
+import { TheBookHomeSection } from "@/components/the-book";
 import { GlowUpEventBanner } from "@/components/GlowUpEventBanner";
 import { Morpheus8Banner } from "@/components/Morpheus8Banner";
 import { Morpheus8SkinRebuildSection } from "@/components/Morpheus8SkinRebuildSection";
@@ -177,6 +178,7 @@ export default function HomePage() {
         <GlowUpEventBanner />
         <SolariaComingSoonBanner />
         <HeroV3 />
+        <TheBookHomeSection />
         <TrustStrip />
         <Morpheus8SkinRebuildSection />
         <Morpheus8VerifiedProviderSection />

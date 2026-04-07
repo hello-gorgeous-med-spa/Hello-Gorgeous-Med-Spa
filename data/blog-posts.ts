@@ -9,20 +9,11 @@
  *
  * Hello Gorgeous RX catalog articles are appended from `blog-rx-product-posts.ts` (one post per product card).
  */
+import { peptideTherapyBlogPost } from "./blog-post-peptide-therapy-article";
 import { rxProductBlogPosts } from "./blog-rx-product-posts";
+import type { BlogPost } from "./blog-types";
 
-export interface BlogPost {
-  slug: string;
-  title: string;
-  metaTitle: string;
-  metaDescription: string;
-  excerpt: string;
-  category: string;
-  date: string;
-  readTime: string;
-  keywords: string[];
-  content: string;
-}
+export type { BlogPost } from "./blog-types";
 
 const coreBlogPosts: BlogPost[] = [
   // ====================================================================
@@ -2689,6 +2680,7 @@ Our most comprehensive plan. Unlimited areas every 2 months over 24 months. Comp
 
 *No hidden fees. No down payment. Guaranteed results. Book your free consultation today.*`,
   },
+  peptideTherapyBlogPost,
 ];
 
 export const blogPosts: BlogPost[] = [...coreBlogPosts, ...rxProductBlogPosts];
